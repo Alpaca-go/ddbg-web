@@ -54,7 +54,7 @@ export {
   stressOnHeroProvisionUseFromBossThreat,
   skipCurioDrawInCurioRoomsFromBossThreat,
   tavernStressRecoveryDeltaFromBossThreat,
-  blackSheepStressDeltaFromBossThreat,
+  blackSheepDebuffTurnsFromBossThreat,
   creepingSicknessWoundsPerUnvisitedBuildingFromBossThreat,
 } from "./threat-passive";
 export {

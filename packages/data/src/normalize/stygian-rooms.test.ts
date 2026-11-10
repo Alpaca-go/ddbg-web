@@ -39,6 +39,10 @@ it("17张可再生，只替换九张遗迹/八张最暗非Boss房，保留正文
     expect(c.printedLines).toEqual(
       raw.cards.find((r) => r.id === c.id)!.faces.front.lines.map((l) => l.text),
     );
+  expect(built.cards.flatMap((card) => (card.reviewedEffect ? [card.id] : []))).toEqual([
+    "stygian_room:p002",
+    "stygian_room:p010",
+  ]);
   const copy = readStygianRoomReplacement(built, "room:p001")!;
   copy.printedLines.length = 0;
   expect(readStygianRoomReplacement(built, "room:p001")?.printedLines.length).toBeGreaterThan(0);
@@ -54,6 +58,12 @@ it("拒绝缺卡、重复、错来源/双面页码/标题及错替换目标", ()
     if (mutation === "title") bad.cards[0]!.faces.front.lines[0]!.text = "1—Wrong Room";
     expect(() => buildStygianRooms(bad, standard), mutation).toThrow();
   }
+  const printed = structuredClone(raw);
+  const pool = printed.cards[9]!.faces.front.lines.find((line) =>
+    line.text.includes("{icon:10365b3e0f}"),
+  )!;
+  pool.text = pool.text.replace("+2", "+1");
+  expect(() => buildStygianRooms(printed, standard)).toThrow(/R-227/);
   const changed = structuredClone(built);
   changed.cards[9]!.replacesCardId = "room:p010";
   expect(stygianRoomsSchema.safeParse(changed).success).toBe(false);

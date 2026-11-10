@@ -2,6 +2,8 @@
 
 状态：**模式骨架已接**；17 张 Stygian 房间卡效果**未接**（R-036 / Q-10 的后续数据工作）。
 
+p02 Torture Chamber 和 p10 Pool of Rebirth 已按 R-227 保存为逐卡核准效果。其余房间的旧审核表仅供查找历史问题。正式对局仍使用标准房间，待房间卡覆盖机制接通。
+
 ## 已接
 
 1. **模式枚举**：`DungeonState["mode"]` 现在为 `"standard" | "radiant" | "stygian"`；`createCoreDungeonQuest` / `createDungeonSandbox` / 存档 schema（`packages/data/src/quest-save.ts`）都接受 Stygian。

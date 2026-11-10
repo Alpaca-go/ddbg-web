@@ -73,7 +73,7 @@ export function currentHamletEvent(state: GameState): HamletEventCard | undefine
   );
 }
 /** R32/33：首轮洗满16张；后续出征后从hamletMemory续抽。未接通卡保留原入牌，不能改概率或先启用准备天数。 */
-export function drawHamletEvent(state: GameState): ApplyResult {
+export function drawHamletEvent(state: GameState, legacyCardReview = false): ApplyResult {
   const d = state.dungeon;
   if (d?.darkest) return rejectBattleCommand(state, "最暗地牢之后固定准备4天，不抽村庄事件（R36）");
   if (d && requiresRuinsActAdvance(d))
@@ -104,14 +104,14 @@ export function drawHamletEvent(state: GameState): ApplyResult {
     ? memory.deck.filter((id) => !memory.permanentlyRemoved.includes(id))
     : catalog.map((c) => c.id);
   if (!source.length) return rejectBattleCommand(state, "村庄事件牌堆已空，未抽牌（R32/33）");
-  const blackSheep = applyBossThreatBlackSheepBeforeHamletEvent(state);
+  const blackSheep = applyBossThreatBlackSheepBeforeHamletEvent(state, legacyCardReview);
   if (blackSheep.events.some((event) => event.type === "commandRefused")) {
     const refused = blackSheep.events.find((event) => event.type === "commandRefused");
-    return rejectBattleCommand(state, refused?.message ?? "The Black Sheep 压力结算失败");
+    return rejectBattleCommand(state, refused?.message ?? "The Black Sheep 结算失败");
   }
   state = blackSheep.state;
   const blackSheepEvents = blackSheep.events;
-  // R32：Black Sheep 等威胁压力若触发意志检定/替换，先把压力结算交给玩家；
+  // R32：旧档威胁压力若触发意志检定/替换，先把压力结算交给玩家；
   // 在非 inHamlet 相位抽牌会让 Supply Run 等 deferred 事件拒绝结算。
   if (blackSheep.pendingChoice || state.dungeon?.pending || state.dungeon?.phase !== "inHamlet")
     return { ...blackSheep, events: blackSheepEvents };

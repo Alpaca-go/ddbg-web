@@ -155,8 +155,8 @@ export type BossThreatPassiveHamletOk =
   | {
       readonly status: "ok";
       readonly effect: "blackSheepBeforeHamletEvent";
-      /** 揭示村庄事件前 d10 最低者承受的压力（The Black Sheep I 为 +4）。 */
-      readonly stressDelta: number;
+      /** 揭示村庄事件前 d10 最低者获得的减益时长。 */
+      readonly debuffTurns: number;
       readonly sourceAbilityCardId: string;
       readonly rulesRef: readonly string[];
     }

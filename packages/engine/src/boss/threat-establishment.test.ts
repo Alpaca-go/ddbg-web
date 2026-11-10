@@ -141,7 +141,7 @@ describe("定威胁 / Imminent Threat 正式流程", () => {
     ).toMatchObject({
       status: "ok",
       effect: "blackSheepBeforeHamletEvent",
-      stressDelta: 4,
+      debuffTurns: 4,
     });
   });
 

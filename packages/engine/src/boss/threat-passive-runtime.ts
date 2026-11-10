@@ -4,7 +4,7 @@ import { nextBattleRoll } from "../battle-roll";
 import { passiveStress } from "../passive";
 import { resolveHeroHealth } from "../hero-health";
 import { resolveBattlePressure } from "../pressure";
-import { triggerDungeonPassive } from "../dungeon-passive";
+import { applyHamletThreatDebuff, triggerDungeonPassive } from "../dungeon-passive";
 import { resolveDungeonPressure } from "../dungeon-pressure";
 import type { MonsterCardView } from "../monster-skill";
 import { readHeroPassiveDefence } from "../battle-skill-status";
@@ -15,7 +15,7 @@ import { getBossScript } from "./registry";
 import { readEffectiveBossThreatScriptId } from "./threat-campaign";
 import {
   beastMonsterDamageBonusFromBossThreat,
-  blackSheepStressDeltaFromBossThreat,
+  blackSheepDebuffTurnsFromBossThreat,
   creepingSicknessWoundsPerUnvisitedBuildingFromBossThreat,
   eldritchMonsterDamageBonusFromBossThreat,
   guardTurnsOnLargeMonsterSpawnFromBossThreat,
@@ -246,14 +246,17 @@ export function completeCurioRoomWithoutCurioDraw(state: GameState): ApplyResult
   };
 }
 
-/** Fanatic I · The Black Sheep：揭示村庄事件前全体 d10，最低者承受威胁压力。 */
-export function applyBossThreatBlackSheepBeforeHamletEvent(state: GameState): ApplyResult {
+/** R-226：揭示村庄事件前全体掷 d10，最低者（含并列）获得减益。 */
+export function applyBossThreatBlackSheepBeforeHamletEvent(
+  state: GameState,
+  legacyCardReview = false,
+): ApplyResult {
   const d = state.dungeon;
   if (!d || d.heroes.some((hero) => hero.dead)) return { state, events: [] };
   const script = readActiveBossThreatScript(d);
   if (!script) return { state, events: [] };
-  const stressDelta = blackSheepStressDeltaFromBossThreat(script);
-  if (stressDelta <= 0) return { state, events: [] };
+  const debuffTurns = blackSheepDebuffTurnsFromBossThreat(script);
+  if (debuffTurns <= 0) return { state, events: [] };
 
   const order = [...d.heroes].sort(
     (a, b) =>
@@ -269,15 +272,31 @@ export function applyBossThreatBlackSheepBeforeHamletEvent(state: GameState): Ap
   const losers = rolls.filter((entry) => entry.roll === lowest).map((entry) => entry.heroId);
   const rollSummary = rolls.map((entry) => `${entry.heroId}:${entry.roll}`).join("、");
 
-  const stressed = applyStressToHeroes(
-    { ...state, dungeon: { ...d, cursor } },
-    losers,
-    stressDelta,
-    // R32：村庄内压力检定须回 inHamlet；"exploration" 会把 phase 打成 awaitingHazards。
-    "hamletThreat",
-    `迫近威胁 · The Black Sheep：d10 ${rollSummary}，最低 ${lowest} 压力 +${stressDelta}（${script.displayName}）`,
-  );
-  return stressed;
+  const message = `迫近威胁 · The Black Sheep：d10 ${rollSummary}，最低 ${lowest}`;
+  if (legacyCardReview)
+    return applyStressToHeroes(
+      { ...state, dungeon: { ...d, cursor } },
+      losers,
+      4,
+      "hamletThreat",
+      `${message} 压力 +4（${script.displayName}）`,
+    );
+
+  const heroes = [];
+  for (const hero of d.heroes) {
+    if (!losers.includes(hero.id)) {
+      heroes.push(hero);
+      continue;
+    }
+    const applied = applyHamletThreatDebuff(d, hero, debuffTurns);
+    if (applied.status === "refused")
+      return { state, events: [{ type: "commandRefused", message: applied.reason }] };
+    heroes.push(applied.hero);
+  }
+  return {
+    state: { ...state, dungeon: { ...d, cursor, heroes } },
+    events: [{ type: "dungeonUpdated", message: `${message} 获得减益 ${debuffTurns}t（R-226）` }],
+  };
 }
 
 /** Flesh I · Creeping Sickness：每日末未访建筑放伤口；Hamlet 阶段结束清建筑代币。 */

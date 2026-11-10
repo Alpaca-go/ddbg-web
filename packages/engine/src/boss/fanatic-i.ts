@@ -39,9 +39,9 @@ const dungeonThreatPassive = (): BossThreatPassiveDungeonOk => ({
 const hamletThreatPassive = (): BossThreatPassiveHamletOk => ({
   status: "ok",
   effect: "blackSheepBeforeHamletEvent",
-  stressDelta: 4,
+  debuffTurns: 4,
   sourceAbilityCardId: FANATIC_I_COMBAT_ABILITY_CARD_ID,
-  rulesRef: ["R11", "R32", FANATIC_I_COMBAT_ABILITY_CARD_ID],
+  rulesRef: ["R11", "R32", "R-226", FANATIC_I_COMBAT_ABILITY_CARD_ID],
 });
 
 export const fanaticIBossScript: BossScriptDefinition = {

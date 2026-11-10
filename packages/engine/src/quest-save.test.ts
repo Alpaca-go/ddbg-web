@@ -36,6 +36,28 @@ it("版本存档恢复真实起点与待选开局补给，续接不重掷；输�
   expect(game).toEqual(before);
   expect(roundTrip(createQuestSave(start, [], game, coreQuestSources)).commands).toEqual([]);
 }, 20000);
+it("旧存档严格验证历史前缀，续玩及重存保留规则切换点", () => {
+  const command = { type: "rollDungeonProvisions" } as const;
+  const before = applyCommand(initial(), command).state;
+  const legacy = {
+    ...createQuestSave(start, [command], before, coreQuestSources),
+    rulesVersion: "core-quest-2026-10-14",
+  };
+  const loaded = roundTrip(legacy);
+  expect(loaded.game).toEqual(before);
+  expect(loaded.start.legacyCardReviewCommandCount).toBe(1);
+  const pending = loaded.game.dungeon!.pending!;
+  const next = {
+    type: "resolveChoice",
+    choiceId: pending.id,
+    optionId: pending.options[0]!.id,
+  } as const;
+  const after = applyCommand(loaded.game, next);
+  expect(after.events.some((event) => event.type === "commandRefused")).toBe(false);
+  const saved = createQuestSave(loaded.start, [command, next], after.state, coreQuestSources);
+  expect(roundTrip(saved).game).toEqual(after.state);
+  expect(() => roundTrip({ ...legacy, snapshot: { ...before, seed: 0 } })).toThrow();
+}, 20000);
 it("自然任务含真实战斗的日志可恢复到摘要，牌池、金币、XP与RNG全部一致", () => {
   const run = naturalQuest(1, "quest:p001");
   const entry: QuestStart = {

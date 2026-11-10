@@ -18,7 +18,7 @@ import {
 } from "./index";
 import {
   hamletBuildingsBlockedByBossThreat,
-  blackSheepStressDeltaFromBossThreat,
+  blackSheepDebuffTurnsFromBossThreat,
   markTurnsOnBattleStartFromBossThreat,
 } from "./threat-passive";
 import { resolveScriptIdForDescriptionCard } from "./threat-description-catalog";
@@ -61,7 +61,7 @@ describe("Fanatic I Boss 脚本", () => {
     expect(markTurnsOnBattleStartFromBossThreat(script)).toBe(2);
   });
 
-  it("村庄侧威胁：The Black Sheep 声明事件前 d10 最低 +4 压力", () => {
+  it("R-226：The Black Sheep 声明事件前 d10 最低者减益 4t", () => {
     const script = getBossScript(FANATIC_I_SCRIPT_ID)!;
     const passive = runBossHook(script, "threatPassiveHamlet", {
       scriptId: FANATIC_I_SCRIPT_ID,
@@ -70,10 +70,10 @@ describe("Fanatic I Boss 脚本", () => {
     expect(passive).toMatchObject({
       status: "ok",
       effect: "blackSheepBeforeHamletEvent",
-      stressDelta: 4,
+      debuffTurns: 4,
       sourceAbilityCardId: FANATIC_I_COMBAT_ABILITY_CARD_ID,
     });
-    expect(blackSheepStressDeltaFromBossThreat(script)).toBe(4);
+    expect(blackSheepDebuffTurnsFromBossThreat(script)).toBe(4);
     expect(hamletBuildingsBlockedByBossThreat(FANATIC_I_SCRIPT_ID, script)).toEqual([]);
   });
 

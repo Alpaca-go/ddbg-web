@@ -6,9 +6,7 @@ import { higherRuinsThreat } from "./higher-ruins-threat";
 import { nextBattleRoll } from "../battle-roll";
 import { caretakerBuilding } from "../hamlet-event";
 import { graveyardServices, recoveryServices, survivalistServices } from "../hamlet-buildings";
-import { readHeroPassiveDefence } from "../battle-skill-status";
-import { applyPassiveStatus } from "../passive-runtime";
-import { triggerDungeonPassive } from "../dungeon-passive";
+import { applyHamletThreatDebuff, triggerDungeonPassive } from "../dungeon-passive";
 import { resolveDungeonPressure } from "../dungeon-pressure";
 
 function visitedBuilding(state: GameState, command: Command): string | undefined {
@@ -56,33 +54,11 @@ export function applyHigherRuinsHamlet(
     if (!hero || !d.battleCatalog)
       return rejectBattleCommand(before, "Stupid Acts 缺英雄或完整防御（R-048）");
     if (!hero.dead) {
-      const applied = applyPassiveStatus(
-        hero,
-        { kind: "debuff", duration: 4 },
-        "target",
-        readHeroPassiveDefence(d.battleCatalog, hero),
-      );
+      const applied = applyHamletThreatDebuff(d, hero, 4);
       if (applied.status === "refused") return rejectBattleCommand(before, applied.reason);
-      const updated = applied.hero;
       d = {
         ...d,
-        heroes: d.heroes.map((e) =>
-          e.id === hero.id
-            ? {
-                ...updated,
-                ...(updated.combat
-                  ? {
-                      combat: {
-                        ...updated.combat,
-                        statusStacks: updated.statusStacks!,
-                        debuffStacks:
-                          updated.statusStacks?.filter((s) => s.kind === "debuff").length ?? 0,
-                      },
-                    }
-                  : {}),
-              }
-            : e,
-        ),
+        heroes: d.heroes.map((e) => (e.id === hero.id ? applied.hero : e)),
       };
       events.push({
         type: "dungeonUpdated",

@@ -15,6 +15,31 @@ export function stygianRoomIdentity(page: number) {
     replacesCardId: `room:p${String(page <= 9 ? page : page + 4).padStart(3, "0")}`,
   };
 }
+
+const reviewedEffectSchema = z.discriminatedUnion("kind", [
+  z.strictObject({
+    kind: z.literal("unholyAura"),
+    healingForbidden: z.literal(true),
+    endTurnWoundsPerHeroLevel: z.literal(1),
+  }),
+  z.strictObject({
+    kind: z.literal("poolOfRebirth"),
+    endTurnStressPerNegativeQuirk: z.literal(2),
+    endTurnHealPerNegativeQuirk: z.literal(3),
+    reviveStressPerHero: z.literal(4),
+  }),
+]);
+
+/** R-227：只保存已获批的两张房间卡效果。 */
+export const stygianReviewedEffects = {
+  2: { kind: "unholyAura", healingForbidden: true, endTurnWoundsPerHeroLevel: 1 },
+  10: {
+    kind: "poolOfRebirth",
+    endTurnStressPerNegativeQuirk: 2,
+    endTurnHealPerNegativeQuirk: 3,
+    reviveStressPerHero: 4,
+  },
+} as const satisfies Partial<Record<number, z.infer<typeof reviewedEffectSchema>>>;
 export const stygianRoomsSchema = z
   .strictObject({
     schema: z.literal("ddbg-stygian-rooms-v1"),
@@ -28,6 +53,7 @@ export const stygianRoomsSchema = z
           number: z.int().positive(),
           replacesCardId: z.string(),
           printedLines: z.array(z.string()).min(1),
+          reviewedEffect: reviewedEffectSchema.optional(),
           source: z.strictObject({
             front: z.literal(STYGIAN_ROOM_FRONT),
             back: z.literal(STYGIAN_ROOM_BACK),
@@ -42,12 +68,14 @@ export const stygianRoomsSchema = z
       if (i >= 17) continue;
       const page = i + 1,
         identity = stygianRoomIdentity(page);
+      const expectedEffect = page === 2 ? "unholyAura" : page === 10 ? "poolOfRebirth" : undefined;
       if (
         c.id !== `stygian_room:p${String(page).padStart(3, "0")}` ||
         c.source.page !== page ||
         c.location !== identity.location ||
         c.number !== identity.number ||
-        c.replacesCardId !== identity.replacesCardId
+        c.replacesCardId !== identity.replacesCardId ||
+        c.reviewedEffect?.kind !== expectedEffect
       )
         ctx.addIssue({ code: "custom", message: "Stygian房间身份或替换关系不符" });
     }

@@ -11,7 +11,7 @@
 | **Prophet I** 酒馆减压 −1                              | `visitHamletBuilding` · `effect: stress` · `building: tavern`                                    | `hamlet-actions.ts` → `effectiveHamletStressRecoveryAmount`                |
 | **Hag I** 疗养院 heal Life −3                          | `visitHamletBuilding` · `effect: heal` · `building: sanitarium`                                  | `hamlet-actions.ts` → `effectiveHamletSanitariumHealAmount`                |
 | **Hag I** 使用补给 +1 压力                             | 探索 `useDungeonProvision`、危险骰抵消、`drawDungeonCurio` 弃 Torch、战斗 `useProvision`         | `threat-passive-runtime.ts` → `applyBossThreatStressOnProvisionUse`        |
-| **Fanatic I** The Black Sheep +4 压力                  | `drawHamletEvent` 抽事件前全体 d10、最低者（含并列）                                             | `hamlet-event.ts` → `applyBossThreatBlackSheepBeforeHamletEvent`           |
+| **Fanatic I** The Black Sheep 减益 4t（R-226）         | `drawHamletEvent` 抽事件前全体 d10、最低者（含并列）                                             | `hamlet-event.ts` → `applyBossThreatBlackSheepBeforeHamletEvent`           |
 | **Fanatic I** Marked for Death Mark 2t                 | `startBattle` 校验通过后、战利品摆放与第 1 轮先攻洗牌前，全体存活英雄 d10、最低者（含并列）      | `encounter.ts` → `applyBossThreatMarkedForDeathOnBattleStart`              |
 | **Flesh I** Creeping Sickness I 建筑伤口               | 日末 `finishHamletAction` → 未访建筑 +1 伤口；`visitHamletBuilding` 转移；准备结束清建筑代币     | `hamlet-actions.ts` → `applyBossThreatCreepingSicknessEndOfHamletDay` 等   |
 | **Flesh I** Big Troubles Guard 2t                      | `startDungeonBattle` 把遭遇生成的 Large（`stanceSlots === 2`）写入 Guard                         | `dungeon-battle.ts` → `withLargeMonsterSpawnGuard`                         |

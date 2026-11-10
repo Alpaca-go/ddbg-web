@@ -8,6 +8,7 @@ import type { StatusEffect } from "./status";
 
 export type TrinketDecision = { readonly key: string; readonly optionId: string };
 export type TrinketContinuation = {
+  readonly legacyCardReview?: true;
   readonly generation: number;
   readonly original: GameState;
   readonly command: Command;
@@ -16,6 +17,7 @@ export type TrinketContinuation = {
 };
 /** 一条命令重算时独享的临时上下文；从不写入最终状态或存档。 */
 export type TrinketRuntime = {
+  readonly legacyCardReview?: boolean;
   readonly skipChoices?: true;
   readonly epoch: string;
   cursor: number;
@@ -212,9 +214,11 @@ function clean(state: GameState): GameState {
 export function runTrinketCommand(
   state: GameState,
   command: Command,
-  dispatch: (state: GameState, command: Command) => ApplyResult,
+  dispatch: (state: GameState, command: Command, legacyCardReview: boolean) => ApplyResult,
+  replayLegacyCardReview = false,
 ): ApplyResult {
   const p = state.trinketChoice;
+  const legacyCardReview = p?.legacyCardReview === true || replayLegacyCardReview;
   let original = state,
     root = command,
     decisions: readonly TrinketDecision[] = [];
@@ -249,8 +253,9 @@ export function runTrinketCommand(
       (h) => h.cardId === root.cardId && h.heroId === root.actorId && h.face === "inverted",
     );
   if (!root.allTrinkets && root.type !== "useCoreTrinket" && !crystalLegacy)
-    return dispatch(state, command);
+    return dispatch(state, command, legacyCardReview);
   const runtime: TrinketRuntime = {
+    legacyCardReview,
     cursor: 0,
     epoch:
       String(original.battle?.choiceCursor ?? original.dungeon?.decision ?? 0) +
@@ -269,11 +274,12 @@ export function runTrinketCommand(
     ...(original.dungeon ? { dungeon: { ...original.dungeon, trinketRuntime: runtime } } : {}),
   };
   try {
-    const result = dispatch(base, root);
+    const result = dispatch(base, root, legacyCardReview);
     if (result.events.some((e) => e.type === "commandRefused")) {
       const message = result.events.find((e) => e.type === "commandRefused")!.message;
       if (p) {
         const skipped: TrinketRuntime = {
+          legacyCardReview,
           cursor: 0,
           epoch: "validation",
           decisions: [],
@@ -291,6 +297,7 @@ export function runTrinketCommand(
               : {}),
           },
           root,
+          legacyCardReview,
         );
         if (checked.events.some((e) => e.type === "commandRefused"))
           return { state: original, events: [{ type: "commandRefused", message }] };
@@ -349,7 +356,14 @@ export function runTrinketCommand(
         { id: "reset-plan", label: "重新选择饰品方案（原动作与骰面不变）" },
       ],
     };
-    const pending: TrinketContinuation = { original, command: root, decisions, choice, generation };
+    const pending: TrinketContinuation = {
+      original,
+      command: root,
+      decisions,
+      choice,
+      generation,
+      ...(legacyCardReview ? { legacyCardReview: true } : {}),
+    };
     return {
       state: {
         ...original,
@@ -443,9 +457,10 @@ export function crownTrinketReaction(
   )
     return threshold;
   let value = threshold;
+  const legacyLight = b.trinketRuntime?.legacyCardReview;
   const cards = [
-    ["trinket:p028", light >= 3],
-    ["trinket:p035", light <= 3],
+    ["trinket:p028", legacyLight ? light >= 3 : light <= 3],
+    ["trinket:p035", legacyLight ? light <= 3 : light >= 3],
   ] as const;
   while (true) {
     const options = cards
