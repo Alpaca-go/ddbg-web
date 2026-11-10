@@ -1303,26 +1303,63 @@ it.each([1885, 11])("种子 %i 完整四轮走通真实怪物选招 / 定位 / �
   else expect(result.dungeon!.phase).toBe("awaitingReplacement");
 });
 
-it("完整九房牌池自然抽 Torture 时可入场，禁疗只落在 H（R-067）", () => {
-  let entered: ReturnType<typeof applyCommand> | undefined;
-  for (let seed = 1; seed <= 100; seed++) {
-    const s = deploy(seed);
-    if (s.dungeon!.roomCards!.active!.cardId !== "room:p002") continue;
-    const result = applyCommand(s, { type: "startDungeonBattle" });
-    if (result.state.battle) {
-      entered = result;
-      break;
+it.each(["standard", "stygian"] as const)(
+  "%s：九房牌池抽 Torture 时只在 H 使用对应卡面（R-067、R-227）",
+  (mode) => {
+    let entered: ReturnType<typeof applyCommand> | undefined;
+    for (let seed = 1; seed <= 100; seed++) {
+      const s = deploy(seed);
+      if (s.dungeon!.roomCards!.active!.cardId !== "room:p002") continue;
+      const result = applyCommand(
+        {
+          ...s,
+          dungeon: {
+            ...s.dungeon!,
+            mode,
+            ...(mode === "stygian" ? { stygianRoomRules: "r227" } : {}),
+          },
+        },
+        { type: "startDungeonBattle" },
+      );
+      if (result.state.battle) {
+        entered = result;
+        break;
+      }
     }
-  }
-  expect(entered).toBeDefined();
-  expect(entered!.state.battle!.roomName).toBe("Torture Chamber");
-  expect(entered!.state.battle!.areas.filter((a) => a.healingForbidden).map((a) => a.id)).toEqual([
-    "H",
-  ]);
-  expect(
-    entered!.state.battle!.entities.filter((e) => e.side === "hero").map((e) => e.areaId),
-  ).toEqual(["H", "H", "H", "H"]);
-});
+    expect(entered).toBeDefined();
+    expect(entered!.state.battle!.roomName).toBe("Torture Chamber");
+    expect(entered!.state.battle!.areas.filter((a) => a.healingForbidden).map((a) => a.id)).toEqual(
+      ["H"],
+    );
+    expect(
+      entered!.state.battle!.entities.filter((e) => e.side === "hero").map((e) => e.areaId),
+    ).toEqual(["H", "H", "H", "H"]);
+    expect(entered!.state.battle!.areas.filter((area) => area.endTurnWoundsPerHeroLevel)).toEqual(
+      mode === "stygian"
+        ? [expect.objectContaining({ id: "H", endTurnWoundsPerHeroLevel: 1 })]
+        : [],
+    );
+    const started = send(entered!.state, { type: "startBattle" });
+    const hero = started.battle!.entities.find(
+      (e) => e.side === "hero" && e.stance === "aggressive",
+    )!;
+    const ready = {
+      ...started,
+      battle: {
+        ...started.battle!,
+        encounter: {
+          ...started.battle!.encounter!,
+          turn: { type: "hero" as const, actorId: hero.id, actions: 1, usedSkillIds: [] },
+        },
+      },
+    };
+    const ended = send(ready, { type: "changeStance", actorId: hero.id, direction: "backward" });
+    expect(ended.battle!.entities.find((e) => e.id === hero.id)!.wounds).toBe(
+      hero.wounds + Number(mode === "stygian"),
+    );
+    expect(ended.battle!.rngCursor).toBe(ready.battle.rngCursor);
+  },
+);
 
 it("Curio 撤退必须先离房，返回重掷守卫，不复用旧结果（R15、R25）", () => {
   const finished = terminal("retreat");

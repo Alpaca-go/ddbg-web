@@ -6,6 +6,7 @@ import { resolveBattlePressure } from "./pressure";
 import { endAfterCasualties, newlyDefeatedIds, removeCasualties } from "./encounter";
 import { captureFallenHeroes } from "./fallen-heroes";
 import { releaseDeadHeroCards } from "./hero-death-cards";
+import { applyStygianRoomWounds } from "./stygian-room-effects";
 
 /** R-161/171：橙星A的怪物回合结束，先治疗全体怪物，再逐名结算英雄压力。 */
 export function endTurnRiteOfTheChosen(
@@ -15,12 +16,8 @@ export function endTurnRiteOfTheChosen(
 ): ApplyResult | null {
   const b = state.battle!;
   const actor = b.entities.find((e) => e.id === actorId)!;
-  if (
-    actor.dead ||
-    actor.side !== "monster" ||
-    !b.areas.find((a) => a.id === actor.areaId)?.riteOfTheChosen
-  )
-    return null;
+  const area = b.areas.find((a) => a.id === actor.areaId);
+  if (actor.dead || actor.side !== "monster" || !area?.riteOfTheChosen) return null;
   const heroes = b.entities.filter((e) => e.side === "hero");
   if (
     heroes.some((e) => e.quirkIds?.length) &&
@@ -69,9 +66,11 @@ export function endTurnRiteOfTheChosen(
     const negative = (hero.quirkIds ?? []).filter((q) =>
       live.conditions!.quirks.some((c) => c.id === q && c.polarity === "negative"),
     ).length;
+    const stygian = area.riteOfTheChosenStygian;
+    const amount = stygian?.stress ?? 1 + negative;
     const paid = triggerBattlePassive(live, state.seed, [id], {
       type: "stress",
-      amount: 1 + negative,
+      amount,
     });
     if (paid.status === "refused") return rejectBattleCommand(state, paid.reason);
     const pressure = resolveBattlePressure({
@@ -82,12 +81,24 @@ export function endTurnRiteOfTheChosen(
         {
           type: "areaStressResolved",
           actorId: id,
-          message: `Rite of the Chosen：自身负面怪癖${negative}个，单次压力+${1 + negative}（R-171）`,
+          message: stygian
+            ? `Rite of the Chosen：先结算压力+${amount}（R-036）`
+            : `Rite of the Chosen：自身负面怪癖${negative}个，单次压力+${amount}（R-171）`,
         },
       ],
     });
     if (pressure.events.some((e) => e.type === "commandRefused")) return pressure;
-    result = removeCasualties(pressure, newlyDefeatedIds(live, pressure.state.battle!.entities));
+    const wounds = stygian ? stygian.woundsPerNegativeQuirk * negative : 0;
+    const settled = wounds
+      ? applyStygianRoomWounds(
+          pressure,
+          id,
+          wounds,
+          `Rite of the Chosen：${negative} 个负面怪癖，共承受 ${wounds} 个伤口（R-036）`,
+        )
+      : pressure;
+    if (settled.events.some((e) => e.type === "commandRefused")) return settled;
+    result = removeCasualties(settled, newlyDefeatedIds(live, settled.state.battle!.entities));
     // R-091：先归还死者共享卡，再处理下一名英雄可能发生的意志抽牌。
     result = releaseDeadHeroCards(captureFallenHeroes(result));
     if (result.events.some((e) => e.type === "commandRefused")) return result;

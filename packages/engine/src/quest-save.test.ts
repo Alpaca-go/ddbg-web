@@ -18,6 +18,25 @@ const initial = () =>
   createCoreDungeonQuest(start.seed, start.questId, start.mode, start.party, coreQuestSources);
 const roundTrip = (save: unknown) =>
   loadQuestSave(JSON.parse(JSON.stringify(save)), coreQuestSources);
+
+it.each([null, "r227", "r229", "full"] as const)("Stygian 严格存档保留开局房间规则 %s", (rules) => {
+  const stygianStart = { ...start, mode: "stygian" as const, bossEdgeRooms: true };
+  const initial = createCoreDungeonQuest(
+    stygianStart.seed,
+    stygianStart.questId,
+    stygianStart.mode,
+    stygianStart.party,
+    coreQuestSources,
+    true,
+    rules,
+  );
+  const command = { type: "rollDungeonProvisions" } as const;
+  const game = applyCommand(initial, command).state;
+  const save = createQuestSave(stygianStart, [command], game, coreQuestSources);
+  expect(save.start.stygianRoomRules).toBe(rules ?? undefined);
+  expect(roundTrip(save).game).toEqual(game);
+});
+
 it("版本存档恢复真实起点与待选开局补给，续接不重掷；输入不变", () => {
   const game = initial(),
     before = structuredClone(game);

@@ -139,3 +139,52 @@ it("R-156：逐个处置全部饰品后移除Vault临时字段，不能重复处
   expect(result.state.battle?.pending).toBeNull();
   expect(result.events.some((e) => e.type === "commandRefused")).toBe(false);
 });
+
+it.each([false, true])("Stygian 秘库预付压力，装备时使用者阵亡 %s，仍处置四张", (dies) => {
+  const s = vaultFixture();
+  const b = s.battle!;
+  const state = {
+    ...s,
+    battle: {
+      ...b,
+      entities: b.entities.map((e) =>
+        dies && e.id === "hero-0"
+          ? {
+              ...e,
+              stress: 4,
+              resolveTested: true,
+              resolveCardId: coreQuestSources.resolveCards[0]!.id,
+            }
+          : e,
+      ),
+      areas: b.areas.map((a) =>
+        a.eldritchVaultTrinkets ? { ...a, eldritchVaultPayBeforeDraw: true as const } : a,
+      ),
+    },
+  };
+  let result = applyCommand(state, { type: "eldritchVault", actorId: "hero-0" });
+  const actor = () => result.state.battle!.entities.find((e) => e.id === "hero-0")!;
+  expect(actor().stress).toBe(dies ? 8 : 4);
+  expect(result.state.battle!.encounter!.turn).toMatchObject({ actions: 0 });
+  for (let count = 0; count < 4; count++) {
+    const choice = result.state.battle!.pending!.choice;
+    result = applyCommand(result.state, {
+      type: "resolveChoice",
+      choiceId: choice.id,
+      optionId: dies && count === 0 ? "equip:hero-0" : "discard-new",
+    });
+    expect(result.events.find((event) => event.type === "commandRefused")).toBeUndefined();
+    const death = result.state.dungeon!.deathTrinketChoice;
+    if (death) {
+      result = applyCommand(result.state, {
+        type: "resolveChoice",
+        choiceId: death.id,
+        optionId: "discard",
+      });
+      expect(result.events.find((event) => event.type === "commandRefused")).toBeUndefined();
+    }
+  }
+  expect(actor().dead).toBe(dies);
+  if (!dies) expect(actor().stress).toBe(4);
+  expect(result.state.battle!.pending).toBeNull();
+});

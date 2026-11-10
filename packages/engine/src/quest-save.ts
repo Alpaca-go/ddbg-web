@@ -50,6 +50,7 @@ function replay(
     start.party,
     sources,
     start.bossEdgeRooms ?? false,
+    start.stygianRoomRules ?? null,
   );
   // 固定旧入口：p019曾错误沿用目录DL3，且未写战役等级；仅用于严格校验旧档。
   if (legacyFaceSetup && start.questId === "quest:p019" && game.dungeon?.explorationSetup) {
@@ -183,12 +184,13 @@ export function createQuestSave(
   game: GameState,
   sources: CoreQuestSources,
 ): QuestSave {
+  const stygianRoomRules = start.stygianRoomRules ?? game.dungeon?.stygianRoomRules;
   const save = questSaveSchema.parse({
     format: "ddbg-core-quest",
     version: 1,
     rulesVersion: "core-quest-r225-r227",
     campaignLevel: readCampaignLevel(game.dungeon ?? {}),
-    start: questStartSchema.parse(start),
+    start: questStartSchema.parse({ ...start, ...(stygianRoomRules ? { stygianRoomRules } : {}) }),
     commands,
     snapshot: JSON.parse(JSON.stringify(game)),
   });

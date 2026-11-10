@@ -1,6 +1,12 @@
 import { rejectBattleCommand } from "./battle";
 import type { ApplyResult, GameEvent, GameState } from "./command";
-import { gainNegativeQuirk, gainPositiveQuirk, replaceConditionQuirk } from "./conditions";
+import {
+  gainDisease,
+  gainNegativeQuirk,
+  gainPositiveQuirk,
+  replaceConditionQuirk,
+} from "./conditions";
+import { readHeroPassiveDefence } from "./battle-skill-status";
 import { endAfterCasualties, finishTurn, newlyDefeatedIds, removeCasualties } from "./encounter";
 import { triggerBattlePassive } from "./battle-passive";
 import { resolveBattlePressure } from "./pressure";
@@ -16,7 +22,9 @@ export function endTurnEvilEye(
   if (actor.dead || actor.side !== "hero") return null;
   const area = b.areas.find((a) => a.id === actor.areaId);
   if (area?.staringEyes) {
-    const paid = triggerBattlePassive(b, state.seed, [actorId], { type: "stress", amount: 2 });
+    const amount = area.staringEyesStress ?? 2;
+    const ruling = area.staringEyesStress ? "R-229" : "R-160";
+    const paid = triggerBattlePassive(b, state.seed, [actorId], { type: "stress", amount });
     if (paid.status === "refused") return rejectBattleCommand(state, paid.reason);
     const pressure = resolveBattlePressure({
       state: { ...state, battle: paid.battle },
@@ -26,7 +34,7 @@ export function endTurnEvilEye(
         {
           type: "areaStressResolved",
           actorId,
-          message: "Staring Eyes：英雄结束回合压力 +2（R-160）",
+          message: `Staring Eyes：英雄结束回合压力 +${amount}（${ruling}）`,
         },
       ],
     });
@@ -72,33 +80,112 @@ function gainEyeQuirk(
       message: `Evil Eye：获得${destroyed ? "正面" : "负面"}怪癖 ${gained.quirkId}（R26、R-160）`,
     },
   ];
-  if (gained.replaceOptions) {
-    const choice = {
-      id: `evil-eye:${b.choiceCursor}`,
-      prompt: "第四张怪癖：替换正面怪癖或弃掉新正面卡",
-      options: gained.replaceOptions.map((id) => ({
-        id,
-        label: b.conditions!.quirks.find((q) => q.id === id)!.name,
-      })),
-    };
-    return {
-      state: {
-        ...next,
-        battle: {
-          ...next.battle,
-          choiceCursor: b.choiceCursor + 1,
-          pending: { type: "evilEyeQuirk", actorId, choice, events: recorded, destroyed },
-        },
-      },
-      events: recorded,
-      pendingChoice: choice,
-    };
-  }
+  if (gained.replaceOptions)
+    return openEyeQuirkChoice(
+      { state: next, events: recorded },
+      actorId,
+      gained.replaceOptions,
+      destroyed,
+    );
   const result = removeCasualties(
     { state: next, events: recorded },
     newlyDefeatedIds(b, next.battle.entities),
   );
-  return endAfterCasualties(result) ?? (destroyed ? finishDestroyEye(result, actorId) : result);
+  return (
+    endAfterCasualties(result) ??
+    (destroyed ? finishDestroyEye(result, actorId) : gainEyeDisease(result, actorId))
+  );
+}
+
+function openEyeQuirkChoice(
+  result: ApplyResult,
+  actorId: string,
+  options: readonly string[],
+  destroyed: boolean,
+  afterDisease?: true,
+): ApplyResult {
+  const b = result.state.battle!;
+  const choice = {
+    id: `evil-eye:${b.choiceCursor}`,
+    prompt: "第四张怪癖：替换正面怪癖或弃掉新正面卡",
+    options: options.map((id) => ({
+      id,
+      label: b.conditions!.quirks.find((q) => q.id === id)!.name,
+    })),
+  };
+  return {
+    state: {
+      ...result.state,
+      battle: {
+        ...b,
+        choiceCursor: b.choiceCursor + 1,
+        pending: {
+          type: "evilEyeQuirk",
+          actorId,
+          choice,
+          events: result.events,
+          destroyed,
+          ...(afterDisease ? { afterDisease } : {}),
+        },
+      },
+    },
+    events: result.events,
+    pendingChoice: choice,
+  };
+}
+
+/** R-229：先结清 Evil Gaze 的怪癖，随后仅对仍存活的英雄结算疾病。 */
+function gainEyeDisease(result: ApplyResult, actorId: string): ApplyResult {
+  const { state, events } = result;
+  const b = state.battle!;
+  const actor = b.entities.find((e) => e.id === actorId)!;
+  if (actor.dead || !b.areas.find((a) => a.id === actor.areaId)?.evilGazeDisease) return result;
+  const defence = readHeroPassiveDefence(b, actor);
+  if (!b.conditions || !defence)
+    return rejectBattleCommand(state, "Evil Gaze 疾病需要完整牌堆与已核实的英雄免疫（R-229）");
+  if (defence.diseaseImmune)
+    return {
+      ...result,
+      events: [
+        ...events,
+        {
+          type: "passiveTriggered",
+          entityId: actorId,
+          trigger: "diseaseImmunity",
+          message: "Evil Gaze：英雄免疫本次疾病（R-081、R-229）",
+        },
+      ],
+    };
+  const gained = gainDisease(
+    b.conditions,
+    b.entities.filter((e) => e.side === "hero"),
+    actorId,
+    state.seed,
+    b.rngCursor,
+    b,
+  );
+  if (gained.status === "refused") return rejectBattleCommand(state, gained.reason);
+  const entities = b.entities.map((e) => gained.heroes.find((h) => h.id === e.id) ?? e);
+  const acquired: ApplyResult = {
+    state: {
+      ...state,
+      battle: { ...b, entities, conditions: gained.pool, rngCursor: gained.cursor },
+    },
+    events: [
+      ...events,
+      {
+        type: "diseaseAcquired",
+        entityId: actorId,
+        diseaseId: gained.diseaseId,
+        ...(gained.quirkId ? { quirkId: gained.quirkId } : {}),
+        message: "Evil Gaze：已在怪癖结算后抽取疾病（R-229）",
+      },
+    ],
+  };
+  if (gained.replaceOptions)
+    return openEyeQuirkChoice(acquired, actorId, gained.replaceOptions, false, true);
+  const removed = removeCasualties(acquired, newlyDefeatedIds(b, entities));
+  return endAfterCasualties(removed) ?? removed;
 }
 
 export function chooseEvilEyeQuirk(state: GameState, optionId: string): ApplyResult {
@@ -121,9 +208,16 @@ export function chooseEvilEyeQuirk(state: GameState, optionId: string): ApplyRes
       entities: b.entities.map((e) => applied.heroes.find((h) => h.id === e.id) ?? e),
     },
   };
-  return pending.destroyed
-    ? finishDestroyEye({ state: next, events: pending.events }, pending.actorId)
-    : finishTurn(next, pending.actorId, pending.events, true);
+  const result: ApplyResult = { state: next, events: pending.events };
+  if (pending.destroyed) return finishDestroyEye(result, pending.actorId);
+  const continued = pending.afterDisease ? result : gainEyeDisease(result, pending.actorId);
+  if (
+    continued.pendingChoice ||
+    continued.events.some((e) => e.type === "commandRefused") ||
+    ["halted", "finished"].includes(continued.state.battle!.encounter!.turn.type)
+  )
+    return continued;
+  return finishTurn(continued.state, pending.actorId, continued.events, true);
 }
 
 /** R-170：毁眼每场一次，关闭E区负面怪癖，其他凝视区保留。 */

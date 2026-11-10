@@ -13,7 +13,15 @@ export function RoomCardFace({
 }) {
   const entry = lookupRoomCardArt(roomCardId);
   const caption = label ?? entry?.name ?? roomCardId;
-  const [failed, setFailed] = useState(!entry);
+  const stygianPage = /^stygian_room:p(00[1-9]|01[0-7])$/.exec(roomCardId)?.[1];
+  const art =
+    entry ??
+    (stygianPage
+      ? {
+          pngRel: `png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_Stygian_FRONT.pdf_p${stygianPage}.png`,
+        }
+      : undefined);
+  const [failed, setFailed] = useState(!art);
 
   const className = [
     "card-face",
@@ -25,9 +33,9 @@ export function RoomCardFace({
     .join(" ");
 
   const body =
-    entry && !failed ? (
+    art && !failed ? (
       <img
-        src={cachedPrintExplorationUrl(entry)}
+        src={cachedPrintExplorationUrl(art)}
         alt={caption}
         className="card-face__print"
         onError={() => setFailed(true)}

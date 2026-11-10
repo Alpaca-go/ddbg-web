@@ -1,6 +1,15 @@
 import { establishInitialThreatIfShown } from "./initial-threat-setup";
 import { expect, test } from "@playwright/test";
 
+test("正式开局可选完整 Stygian 并以 0 金出征", async ({ page }) => {
+  await page.goto("/");
+  await page.getByTestId("embark-mode-stygian").click();
+  await expect(page.getByTestId("embark-stygian-warning")).toContainText("17 张普通房间");
+  await page.getByRole("button", { name: "前往出征准备", exact: true }).click();
+  await page.getByRole("button", { name: "进入地牢", exact: true }).click();
+  await expect(page.getByTestId("tabletop-gold")).toHaveText("0");
+});
+
 test("首页：四人建队可开始任务，旧沙盒与桌面预览保留入口", async ({ page }) => {
   await page.goto("/");
   for (const width of [1280, 1920]) {

@@ -93,17 +93,52 @@ function continueVaultDraws(state: GameState, actorId: string, events: GameEvent
   }
   const turn = cleared.battle?.encounter?.turn;
   return turn?.type === "hero" && turn.actions === 0
-    ? finishTurn(cleared, actorId, merged)
+    ? finishTurn(cleared, turn.actorId, merged)
     : { state: cleared, events: merged };
+}
+
+/** Stygian 宝箱与秘库先支付两行动及压力。调用方只给存活使用者开启抽牌。 */
+export function payRoomTrinketCost(
+  state: GameState,
+  actorId: string,
+  amount: number,
+  room: string,
+): ApplyResult {
+  const b = state.battle!;
+  const turn = b.encounter!.turn;
+  if (turn.type !== "hero") return rejectBattleCommand(state, "房间饰品需要当前英雄回合");
+  const passive = triggerBattlePassive(b, state.seed, [actorId], { type: "stress", amount });
+  if (passive.status === "refused") return rejectBattleCommand(state, passive.reason);
+  const pressure = resolveBattlePressure({
+    state: {
+      ...state,
+      battle: {
+        ...passive.battle,
+        encounter: { ...b.encounter!, turn: { ...turn, actions: turn.actions - 2 } },
+      },
+    },
+    events: [
+      ...passive.events,
+      {
+        type: "roomInteractionResolved",
+        actorId,
+        message: `${room}：支付2行动和压力 +${amount}（R-036）`,
+      },
+    ],
+  });
+  const refused = pressure.events.find((event) => event.type === "commandRefused");
+  if (refused) return rejectBattleCommand(state, refused.message);
+  return removeCasualties(pressure, pressureCasualties(b, pressure));
 }
 
 /** R26、R-065：T5的两个行动在成功抽牌时只扣一次，每场只允许一次。 */
 export function lootTreasureChest(state: GameState, actorId: string): ApplyResult {
-  const b = state.battle,
-    turn = b?.encounter?.turn,
-    actor = b?.entities.find((entity) => entity.id === actorId);
+  const original = state.battle,
+    turn = original?.encounter?.turn,
+    actor = original?.entities.find((entity) => entity.id === actorId),
+    area = original?.areas.find((a) => a.id === actor?.areaId);
   if (
-    !b ||
+    !original ||
     turn?.type !== "hero" ||
     turn.actorId !== actorId ||
     turn.actions < 2 ||
@@ -111,40 +146,58 @@ export function lootTreasureChest(state: GameState, actorId: string): ApplyResul
     !actor ||
     actor.dead ||
     actor.side !== "hero" ||
-    !b.areas.find((area) => area.id === actor.areaId)?.lootTheChest ||
-    b.lootChestUsed ||
-    b.pending ||
-    b.shuffleIntents.length ||
-    b.shuffleContinuation
+    !area?.lootTheChest ||
+    original.lootChestUsed ||
+    original.pending ||
+    original.shuffleIntents.length ||
+    original.shuffleContinuation
   )
     return rejectBattleCommand(
       state,
       "Loot the Chest需要当前英雄在T5、两个可用行动且本场尚未使用（R-065）",
     );
   if (
-    !b.trinkets ||
-    (state.dungeon && b.trinkets.level !== state.dungeon.explorationSetup?.dungeonLevel)
+    !original.trinkets ||
+    (state.dungeon && original.trinkets.level !== state.dungeon.explorationSetup?.dungeonLevel)
   )
     return rejectBattleCommand(state, "缺少本地牢等级的完整饰品牌池（R26/R35、R-048）");
-  const drawn = drawTrinket(b.trinkets, heroes(b), actorId, state.seed, b.rngCursor);
+  const cost = area.lootTheChestStress;
+  const paid = cost
+    ? payRoomTrinketCost(state, actorId, cost, "Loot the Chest")
+    : { state, events: [] };
+  if (paid.events.some((event) => event.type === "commandRefused")) return paid;
+  const b = paid.state.battle!;
+  if (b.entities.find((e) => e.id === actorId)!.dead) {
+    const spent = {
+      ...paid,
+      state: { ...paid.state, battle: { ...b, lootChestUsed: true as const } },
+    };
+    return endAfterCasualties(spent) ?? finishTurn(spent.state, actorId, spent.events);
+  }
+  const drawn = drawTrinket(b.trinkets!, heroes(b), actorId, state.seed, b.rngCursor);
   if (drawn.status === "refused") return rejectBattleCommand(state, drawn.reason);
   return pendingTrinket(
     {
-      ...state,
+      ...paid.state,
       battle: {
         ...b,
         trinkets: drawn.pool,
         rngCursor: drawn.cursor,
         lootChestUsed: true,
-        encounter: { ...b.encounter!, turn: { ...turn, actions: turn.actions - 2 } },
+        encounter: cost
+          ? b.encounter!
+          : { ...b.encounter!, turn: { ...turn, actions: turn.actions - 2 } },
       },
     },
     actorId,
     [
+      ...paid.events,
       {
         type: "roomInteractionResolved",
         actorId,
-        message: "Loot the Chest：花2行动，从完整饰品牌堆抽1张；本场已使用（R-065）",
+        message: cost
+          ? "Loot the Chest：从完整饰品牌堆抽1张，本场已使用（R-036）"
+          : "Loot the Chest：花2行动，从完整饰品牌堆抽1张；本场已使用（R-065）",
       },
     ],
   );
@@ -155,10 +208,14 @@ export function resolveBattleTrinketChoice(state: GameState, optionId: string): 
     pending = b.pending,
     turn = b.encounter?.turn;
   const vault = b.eldritchVaultReward === true;
+  const delegatedVault =
+    vault &&
+    b.areas.some((area) => area.eldritchVaultPayBeforeDraw) &&
+    b.entities.some((e) => turn?.type === "hero" && e.id === turn.actorId && e.dead);
   if (
     pending?.type !== "trinketReward" ||
     turn?.type !== "hero" ||
-    turn.actorId !== pending.actorId ||
+    (turn.actorId !== pending.actorId && !delegatedVault) ||
     !b.trinkets ||
     (!b.lootChestUsed && !vault) ||
     b.trinkets.incoming?.actorId !== pending.actorId

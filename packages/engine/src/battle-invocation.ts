@@ -211,23 +211,22 @@ export function moveInvokingMonster(
 /** R-065/069：轮末红星有怪物时，每名存活英雄各一次压力事件，不按怪物数倍增。 */
 export function endRoundInvocation(result: ApplyResult): ApplyResult {
   const initial = result.state.battle!;
-  if (
-    !initial.areas.some(
-      (area) =>
-        area.invokingAbyss &&
-        initial.entities.some(
-          (entity) => entity.side === "monster" && !entity.dead && entity.areaId === area.id,
-        ),
-    )
-  )
-    return result;
+  const area = initial.areas.find(
+    (area) =>
+      area.invokingAbyss &&
+      initial.entities.some(
+        (entity) => entity.side === "monster" && !entity.dead && entity.areaId === area.id,
+      ),
+  );
+  if (!area) return result;
+  const amount = area.invokingAbyssStress ?? 2;
   for (const id of initial.entities
     .filter((entity) => entity.side === "hero" && !entity.dead)
     .map((entity) => entity.id)) {
     const before = result.state.battle!;
     const paid = triggerBattlePassive(before, result.state.seed, [id], {
       type: "stress",
-      amount: 2,
+      amount,
     });
     if (paid.status === "refused") return rejectBattleCommand(result.state, paid.reason);
     const pressure = resolveBattlePressure({
@@ -238,7 +237,7 @@ export function endRoundInvocation(result: ApplyResult): ApplyResult {
         {
           type: "areaStressResolved",
           actorId: id,
-          message: "Invoking Abyss：轮末红星有怪物，压力 +2（R-065/069）",
+          message: `Invoking Abyss：轮末红星有怪物，压力 +${amount}（R-065/069）`,
         },
       ],
     });

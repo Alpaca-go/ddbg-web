@@ -12,6 +12,15 @@ import { conditionPoolProblem } from "./conditions";
 import { readRoomTile } from "./room-tile-selection";
 const setup = (quirkIds: readonly string[] = [], areaId = "E") =>
   roomEffectFixture(roomTileBattleAreas(tile), { quirkIds, areaId });
+const stygian = (quirkIds: readonly string[] = [], areaId = "E", diseaseId?: string) =>
+  roomEffectFixture(
+    roomTileBattleAreas(tile).map((area) => ({
+      ...area,
+      ...(area.evilGaze ? { evilGazeDisease: true as const } : {}),
+      ...(area.staringEyes ? { staringEyesStress: 3 as const } : {}),
+    })),
+    { quirkIds, areaId, ...(diseaseId ? { diseaseId } : {}) },
+  );
 const hero = (s: GameState) => s.battle!.entities.find((e) => e.id === "h0")!;
 const destroy = (s: GameState) => applyCommand(s, { type: "destroyEvilEye", actorId: "h0" });
 const end = (s: GameState) => {
@@ -90,6 +99,46 @@ it("三负面再抽发疯死亡，沿用伤亡与持牌回收", () => {
   const result = end(setup(["quirk:p018", "quirk:p019", "quirk:p020"]));
   expect(hero(result.state).dead).toBe(true);
   expect(result.events.some((e) => e.type === "casualtyRemoved" && e.actorId === "h0")).toBe(true);
+});
+
+it("Stygian 先抽怪癖再结算疾病，凝视区压力 +3（R-229）", () => {
+  const s = stygian();
+  const result = end(s);
+  expect(hero(result.state).quirkIds).toHaveLength(1);
+  expect(hero(result.state).diseaseId).toMatch(/^disease:/);
+  expect(
+    result.events.findIndex((e) => e.type === "passiveTriggered" && e.trigger === "evilGaze"),
+  ).toBeLessThan(result.events.findIndex((e) => e.type === "diseaseAcquired"));
+  expect(end(s)).toEqual(result);
+  expect(hero(end(stygian([], "A")).state).stress).toBe(3);
+});
+
+it("Stygian 等怪癖替换结束再感染，重复感染的第二次替换完成后只结算一次（R-229）", () => {
+  const opened = end(stygian(["quirk:p001", "quirk:p002", "quirk:p018"], "E", "disease:p001"));
+  expect(opened.pendingChoice?.options).toHaveLength(2);
+  expect(hero(opened.state).diseaseId).toBe("disease:p001");
+  const choose = (result: typeof opened) =>
+    applyCommand(result.state, {
+      type: "resolveChoice",
+      choiceId: result.pendingChoice!.id,
+      optionId: result.pendingChoice!.options[0]!.id,
+    });
+  const infected = choose(opened);
+  expect(infected.pendingChoice?.options).toHaveLength(1);
+  expect(hero(infected.state).diseaseId).not.toBe("disease:p001");
+  const done = choose(infected);
+  expect(done.pendingChoice).toBeUndefined();
+  expect(hero(done.state).diseaseId).toBe(hero(infected.state).diseaseId);
+  expect(hero(done.state).quirkIds).toHaveLength(3);
+  expect(done.events.filter((e) => e.type === "diseaseAcquired")).toHaveLength(1);
+  expect(done.state.battle!.rngCursor).toBe(infected.state.battle!.rngCursor);
+});
+
+it("Stygian 怪癖导致发疯死亡时不抽疾病（R-229）", () => {
+  const result = end(stygian(["quirk:p018", "quirk:p019", "quirk:p020"]));
+  expect(hero(result.state).dead).toBe(true);
+  expect(result.events.some((e) => e.type === "diseaseAcquired")).toBe(false);
+  expect(result.state.battle!.conditions!.diseaseDeck).toBeNull();
 });
 it("毁眼支付两行动、正面怪癖与全体减压；E关闭，凝视区保留", () => {
   const s = setup();

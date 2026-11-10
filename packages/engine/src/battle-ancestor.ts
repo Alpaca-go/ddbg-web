@@ -21,10 +21,13 @@ export function clearAncestorConditions(
   entities: readonly BattleEntity[],
 ): readonly BattleEntity[] {
   return entities.map((e) => {
-    if (!ancestorGlory(areas, e)) return e;
-    if (e.statusStacks === undefined)
-      return { ...e, bleed: [], blight: [], debuffStacks: 0, markStacks: 0 };
-    const stacks = e.statusStacks.filter((s) => !ANCESTOR_CONDITIONS.includes(s.kind));
-    return { ...e, statusStacks: stacks, ...statusProjection(stacks, e.innateProtection) };
+    return ancestorGlory(areas, e) ? removeAncestorConditions(e) : e;
   });
+}
+
+export function removeAncestorConditions(entity: BattleEntity): BattleEntity {
+  if (entity.statusStacks === undefined)
+    return { ...entity, bleed: [], blight: [], debuffStacks: 0, markStacks: 0 };
+  const stacks = entity.statusStacks.filter((s) => !ANCESTOR_CONDITIONS.includes(s.kind));
+  return { ...entity, statusStacks: stacks, ...statusProjection(stacks, entity.innateProtection) };
 }

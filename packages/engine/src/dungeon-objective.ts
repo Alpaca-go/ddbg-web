@@ -55,6 +55,15 @@ export function objectiveRoomBattleAreas(
   if (aside === undefined || d.roomCards?.active?.cardId !== aside) return areas;
   return areas.map((area) => {
     if (area.endTurnHeal === undefined) return area;
+    if (area.endTurnHealPerHeroLevel) {
+      const { endTurnHeal, endTurnHealPerHeroLevel, endTurnStress, endTurnStressName, ...rest } =
+        area;
+      void endTurnHeal;
+      void endTurnHealPerHeroLevel;
+      void endTurnStress;
+      void endTurnStressName;
+      return rest;
+    }
     const { endTurnHeal: _heal, ...rest } = area;
     void _heal;
     return rest;

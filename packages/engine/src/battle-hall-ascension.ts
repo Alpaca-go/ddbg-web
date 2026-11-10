@@ -9,6 +9,11 @@ import { pressureCasualties, resolveBattlePressure } from "./pressure";
 import { endAfterCasualties, finishTurn, removeCasualties } from "./encounter";
 
 type Hero = DungeonState["heroes"][number];
+function hallPressure(state: GameState, actorId: string) {
+  const b = state.battle!;
+  const actor = b.entities.find((e) => e.id === actorId);
+  return b.areas.find((a) => a.id === actor?.areaId)?.hallOfAscensionStress ?? 3;
+}
 type Upgrade = { id: string; label: string; hero: Hero; gold: number };
 
 function upgrades(state: GameState, actorId: string): Upgrade[] {
@@ -168,7 +173,7 @@ export function beginHallAscension(state: GameState, actorId: string): ApplyResu
   const choice = {
     id: `hall-ascension:${b.choiceCursor}`,
     actorId,
-    prompt: "升华大厅：2行动、压力+3，并支付对应XP/金币；压力结算后存活才升级",
+    prompt: `升华大厅：2行动、压力+${hallPressure(state, actorId)}，并支付对应XP/金币；压力结算后存活才升级`,
     options: [
       ...options.map(({ id, label }) => ({ id, label })),
       { id: "cancel", label: "取消（不支付费用）" },
@@ -199,9 +204,10 @@ export function chooseHallAscension(state: GameState, optionId: string): ApplyRe
   if (!selected) return rejectBattleCommand(state, "升级选项、XP或金币无效，未支付任何费用");
   const t = b.encounter!.turn;
   if (t.type !== "hero") return rejectBattleCommand(state, "不是英雄回合");
+  const amount = hallPressure(state, p.actorId);
   const paid = triggerBattlePassive({ ...b, pending: null }, state.seed, [p.actorId], {
     type: "stress",
-    amount: 3,
+    amount,
   });
   if (paid.status === "refused") return rejectBattleCommand(state, paid.reason);
   const pressure = resolveBattlePressure({
@@ -217,7 +223,7 @@ export function chooseHallAscension(state: GameState, optionId: string): ApplyRe
       {
         type: "roomInteractionResolved",
         actorId: p.actorId,
-        message: "升华大厅：支付2行动，先完整结算压力+3（R-069、R-154）",
+        message: `升华大厅：支付2行动，先完整结算压力+${amount}（R-069、R-154）`,
       },
     ],
   });

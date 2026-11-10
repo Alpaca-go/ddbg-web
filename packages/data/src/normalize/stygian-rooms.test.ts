@@ -39,10 +39,7 @@ it("17张可再生，只替换九张遗迹/八张最暗非Boss房，保留正文
     expect(c.printedLines).toEqual(
       raw.cards.find((r) => r.id === c.id)!.faces.front.lines.map((l) => l.text),
     );
-  expect(built.cards.flatMap((card) => (card.reviewedEffect ? [card.id] : []))).toEqual([
-    "stygian_room:p002",
-    "stygian_room:p010",
-  ]);
+  expect(new Set(built.cards.map((card) => card.reviewedEffect.kind)).size).toBe(17);
   const copy = readStygianRoomReplacement(built, "room:p001")!;
   copy.printedLines.length = 0;
   expect(readStygianRoomReplacement(built, "room:p001")?.printedLines.length).toBeGreaterThan(0);

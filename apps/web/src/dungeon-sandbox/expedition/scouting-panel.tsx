@@ -8,6 +8,7 @@ import {
   canRestDungeon,
   canSetupForwardCamp,
   readRoomTile,
+  readActiveStygianRoom,
   PROVISION_EFFECTS,
   dungeonProvisionWindow,
   warmUpDarkRoomNeedsTorch,
@@ -345,26 +346,30 @@ export function ScoutingPanel({
         (() => {
           const active = d.roomCards.active;
           const roomCard = d.roomCards.cards.find((c) => c.id === active.cardId)!;
+          const stygianCard = readActiveStygianRoom(d);
+          const printedCard = stygianCard ?? roomCard;
+          const label = stygianCard ? `${stygianCard.name} · Stygian` : roomCard.name;
           const selectedTile = readRoomTile(roomCard, active.tileId);
           return (
             <div className="panel" data-testid="dungeon-room-card">
               <div className="dungeon-room-card-row">
-                <RoomCardFace roomCardId={roomCard.id} label={roomCard.name} />
+                <RoomCardFace key={printedCard.id} roomCardId={printedCard.id} label={label} />
                 <div>
                   <h3>
-                    {roomCard.name} · 遗迹 {roomCard.number}
+                    {label} · {roomCard.location === "ruins" ? "遗迹" : "最暗地牢"}{" "}
+                    {roomCard.number}
                   </h3>
                   <p>
                     完整遗迹房间牌池 9 张 · 普通牌堆
                     {d.roomCards.deck === null ? "尚未洗牌" : `余 ${d.roomCards.deck.length} 张`} ·
-                    已抽 1 张 · 印刷页 {roomCard.source.page}
+                    已抽 1 张 · 印刷页 {printedCard.source.page}
                   </p>
-                  <p>地点与 Boss 分堆；效果栏保留原文和图标 ID，尚未执行。</p>
+                  <p>地点与 Boss 分堆。转录保留原文和图标 ID。</p>
                 </div>
               </div>
               <details>
                 <summary>查看卡面转录（含未解释图标）</summary>
-                {roomCard.printedLines.map((line, i) => (
+                {printedCard.printedLines.map((line, i) => (
                   <p key={i}>{line}</p>
                 ))}
               </details>

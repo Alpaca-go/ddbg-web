@@ -102,6 +102,24 @@ const success = (r: ApplyResult) => {
 const open = (s: GameState) => applyCommand(s, { type: "lootTreasureChest", actorId: "hero-0" });
 const choose = (r: ApplyResult, id: string) =>
   applyCommand(r.state, { type: "resolveChoice", choiceId: r.pendingChoice!.id, optionId: id });
+
+it("Stygian 宝箱先支付压力 +1，只扣一次行动", () => {
+  const initial = setup();
+  const b = initial.battle!;
+  const state = {
+    ...initial,
+    battle: {
+      ...b,
+      areas: b.areas.map((a) => (a.lootTheChest ? { ...a, lootTheChestStress: 1 as const } : a)),
+    },
+  };
+  const opened = success(open(state));
+  expect(opened.pendingChoice).toBeDefined();
+  expect(opened.state.battle!.entities.find((e) => e.id === "hero-0")!.stress).toBe(1);
+  expect(opened.state.battle!.encounter!.turn).toMatchObject({ actions: 0 });
+  const chosen = success(choose(opened, "discard-new"));
+  expect(chosen.state.battle!.entities.find((e) => e.id === "hero-0")!.stress).toBe(1);
+});
 const ordered = (first: string, held: TrinketPool["held"] = []): TrinketPool => ({
   ...basePool,
   held,

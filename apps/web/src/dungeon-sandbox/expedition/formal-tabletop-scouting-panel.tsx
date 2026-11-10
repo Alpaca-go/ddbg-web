@@ -8,6 +8,7 @@ import {
   canRestDungeon,
   canSetupForwardCamp,
   readRoomTile,
+  readActiveStygianRoom,
   PROVISION_EFFECTS,
   dungeonProvisionWindow,
   warmUpDarkRoomNeedsTorch,
@@ -232,13 +233,19 @@ export function FormalTabletopScoutingPanel({
           (() => {
             const active = d.roomCards.active;
             const roomCard = d.roomCards.cards.find((c) => c.id === active.cardId)!;
+            const stygianCard = readActiveStygianRoom(d);
+            const label = stygianCard ? `${stygianCard.name} · Stygian` : roomCard.name;
             const selectedTile = readRoomTile(roomCard, active.tileId);
             return (
               <div className="panel" data-testid="dungeon-room-card">
                 <div className="dungeon-room-card-row">
-                  <RoomCardFace roomCardId={roomCard.id} label={roomCard.name} />
+                  <RoomCardFace
+                    key={stygianCard?.id ?? roomCard.id}
+                    roomCardId={stygianCard?.id ?? roomCard.id}
+                    label={label}
+                  />
                   <div>
-                    <h3>{roomCard.name}</h3>
+                    <h3>{label}</h3>
                     {active.tileId && selectedTile.status === "matched" && (
                       <p>
                         已匹配 {selectedTile.tile.name}，{selectedTile.tile.areas.length} 个区域。
@@ -542,14 +549,19 @@ export function FormalTabletopScoutingPanel({
           (() => {
             const active = d.roomCards.active;
             const roomCard = d.roomCards.cards.find((c) => c.id === active.cardId)!;
+            const stygianCard = readActiveStygianRoom(d);
+            const printedCard = stygianCard ?? roomCard;
             const selectedTile = readRoomTile(roomCard, active.tileId);
             return (
               <details>
-                <summary>房间牌池与印刷转录（{roomCard.name}）</summary>
+                <summary>
+                  房间牌池与印刷转录（{roomCard.name}
+                  {stygianCard && " · Stygian"}）
+                </summary>
                 <p>
                   完整遗迹房间牌池 9 张 · 普通牌堆
                   {d.roomCards.deck === null ? "尚未洗牌" : `余 ${d.roomCards.deck.length} 张`} ·
-                  印刷页 {roomCard.source.page}
+                  印刷页 {printedCard.source.page}
                 </p>
                 {active.tileId && selectedTile.status === "matched" && (
                   <p>
@@ -558,7 +570,7 @@ export function FormalTabletopScoutingPanel({
                     {[...new Set(Object.values(selectedTile.deployment.monsters))].join(" / ")}
                   </p>
                 )}
-                {roomCard.printedLines.map((line, i) => (
+                {printedCard.printedLines.map((line, i) => (
                   <p key={i}>{line}</p>
                 ))}
               </details>

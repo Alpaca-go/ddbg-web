@@ -18,6 +18,7 @@ import { isDarkestQuest } from "./darkest-setup";
 import { darkestOrdinaryDeploymentMatches } from "./darkest-ordinary-monster-deploy";
 import { readRoomTile } from "./room-tile-selection";
 import { roomTileBattleAreas } from "./battle-monster-movement";
+import { stygianRoomBattleAreas } from "./stygian-room-effects";
 
 const SKELETON_STANCE_AREAS = {
   hero: {
@@ -230,7 +231,9 @@ export function deployDarkestOrdinaryEncounter(state: GameState): ApplyResult {
       skills: d.battleCatalog.skills,
       monsters,
       areas:
-        selected.status === "matched" ? roomTileBattleAreas(selected.tile) : skeletonBattleAreas(),
+        selected.status === "matched"
+          ? stygianRoomBattleAreas(roomTileBattleAreas(selected.tile), d)
+          : skeletonBattleAreas(),
       ...(selected.status === "matched" ? { lootAreas: selected.deployment.lootAreas } : {}),
       light: d.explorationSetup?.light ?? 4,
       provisions: d.explorationSetup?.provisions ?? [],

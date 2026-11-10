@@ -16,6 +16,9 @@ import { createConditionPool, conditionPoolProblem } from "./conditions";
 import type { ResolveCard } from "./pressure";
 import { endTurnPoolOfRebirth } from "./battle-pool-of-rebirth";
 import { nextBattleRoll } from "./encounter";
+import { stygianRoomBattleAreas } from "./stygian-room-effects";
+import { createCoreDungeonQuest } from "./dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "./test-helpers/core-quest";
 
 const stats = normalizedHeroStatFileSchema
   .parse(statsFile)
@@ -113,6 +116,33 @@ it("生产面开放后仅F区投影重生池区域效果，关闭面时不投影
       .filter((a) => a.poolOfRebirth)
       .map((a) => a.id),
   ).toEqual(["F"]);
+});
+it.each([false, true])("Stygian 重生池先承压，心脏病死亡 %s（R-227）", (dies) => {
+  const { dungeon } = createCoreDungeonQuest(
+    1,
+    "quest:p001",
+    "stygian",
+    coreParty,
+    coreQuestSources,
+  );
+  const active = { roomId: dungeon!.position, cardId: "room:p014", blockedReason: "" };
+  const d = { ...dungeon!, roomCards: { ...dungeon!.roomCards!, active } };
+  const state = setup({
+    quirkIds: [q("Off Guard"), q("Anemic")],
+    ...(dies ? { stress: 7, resolveTested: true, resolveCardId: resolveFile.cards[0]!.id } : {}),
+  });
+  const areas = stygianRoomBattleAreas(state.battle!.areas, d);
+  expect(areas.filter((a) => typeof a.poolOfRebirth === "object").map((a) => a.id)).toEqual(["F"]);
+  const result = end({ ...state, battle: { ...state.battle!, areas } });
+  if (dies) {
+    expect(hero(result.state).dead).toBe(true);
+    expect(healed(result)).toHaveLength(0);
+    return;
+  }
+  expect(hero(result.state)).toMatchObject({ stress: 4, wounds: 6 });
+  expect(result.events.findIndex((e) => e.type === "areaStressResolved")).toBeLessThan(
+    result.events.findIndex((e) => e.type === "heroHealthResolved"),
+  );
 });
 it.each([0, 1, 2, 3])("%i个负面怪癖：单次压力N后单次治疗3N，不计正面怪癖", (count) => {
   const state = setup({

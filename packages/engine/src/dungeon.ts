@@ -248,6 +248,8 @@ export type DungeonState = {
   readonly conditions?: ConditionPool;
   readonly layout: DungeonLayout;
   readonly mode: "standard" | "radiant" | "stygian";
+  /** 固定整条战役的 Stygian 房间效果，旧日志缺省时仍用标准卡。 */
+  readonly stygianRoomRules?: import("../../data/src/quest-save").QuestStart["stygianRoomRules"];
   readonly cursor: number;
   readonly position: string;
   readonly heroes: readonly (PassiveHero & {

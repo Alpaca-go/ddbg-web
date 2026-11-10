@@ -3,7 +3,8 @@ import type { ApplyResult, GameState } from "./command";
 import trinketFile from "../../data/normalized/corebox/trinket.json";
 import { normalizedTrinketFileSchema } from "../../data/src/normalize/schema";
 import { drawTrinketAtLevel } from "./trinket-acquisition";
-import { openBattleTrinketChoice } from "./battle-trinket";
+import { openBattleTrinketChoice, payRoomTrinketCost } from "./battle-trinket";
+import { endAfterCasualties, finishTurn } from "./encounter";
 
 const trinketCatalog = () => normalizedTrinketFileSchema.parse(trinketFile).cards;
 
@@ -45,18 +46,27 @@ export function beginEldritchVault(state: GameState, actorId: string): ApplyResu
       state,
       "Eldritch Vault 需要当前英雄位于 E 区、有 2 行动且无待选或强制移动",
     );
-  const b = state.battle!;
+  const original = state.battle!;
   if (
-    !b.trinkets ||
-    (state.dungeon && b.trinkets.level !== state.dungeon.explorationSetup?.dungeonLevel)
+    !original.trinkets ||
+    (state.dungeon && original.trinkets.level !== state.dungeon.explorationSetup?.dungeonLevel)
   )
     return rejectBattleCommand(state, "缺少本地牢等级的完整饰品牌池（R26/R35、R-048）");
-  const heroCount = b.entities.filter((e) => e.side === "hero" && !e.dead).length;
+  const heroCount = original.entities.filter((e) => e.side === "hero" && !e.dead).length;
   if (!heroCount)
     return rejectBattleCommand(state, "没有在场英雄，无法按人数抽 III 级饰品（R-156）");
+  const actor = original.entities.find((e) => e.id === actorId)!;
+  const prepaid = original.areas.some((a) => a.id === actor.areaId && a.eldritchVaultPayBeforeDraw);
+  const paid = prepaid
+    ? payRoomTrinketCost(state, actorId, heroCount, "Eldritch Vault")
+    : { state, events: [] };
+  if (paid.events.some((event) => event.type === "commandRefused")) return paid;
+  const b = paid.state.battle!;
+  if (b.entities.find((e) => e.id === actorId)!.dead)
+    return endAfterCasualties(paid) ?? finishTurn(paid.state, actorId, paid.events);
   const drawn = drawTrinketAtLevel(
-    b.trinkets,
-    heroesInPlay(state),
+    b.trinkets!,
+    heroesInPlay(paid.state),
     actorId,
     3,
     state.seed,
@@ -64,24 +74,34 @@ export function beginEldritchVault(state: GameState, actorId: string): ApplyResu
     trinketCatalog(),
   );
   if (drawn.status === "refused") return rejectBattleCommand(state, drawn.reason);
+  const deck =
+    drawn.pool.level === 3
+      ? drawn.pool.deck
+      : drawn.pool.inactive?.find((p) => p.level === 3)?.deck;
+  if (prepaid && (deck?.length ?? 0) < heroCount - 1)
+    return rejectBattleCommand(state, "III 级饰品牌堆不足以为在场英雄各抽一张（R32）");
   const turn = b.encounter!.turn;
   if (turn.type !== "hero") return rejectBattleCommand(state, "Vault需要当前英雄回合");
   return openBattleTrinketChoice(
     {
-      ...state,
+      ...paid.state,
       battle: {
         ...b,
         trinkets: drawn.pool,
         rngCursor: drawn.cursor,
         eldritchVaultDrawsRemaining: heroCount - 1,
         eldritchVaultReward: true,
-        eldritchVaultStress: heroCount,
-        encounter: { ...b.encounter!, turn: { ...turn, actions: turn.actions - 2 } },
+        ...(prepaid ? {} : { eldritchVaultStress: heroCount }),
+        encounter: {
+          ...b.encounter!,
+          turn: { ...turn, actions: prepaid ? turn.actions : turn.actions - 2 },
+        },
       },
     },
     actorId,
-    `Eldritch Vault：按 ${heroCount} 名在场英雄各抽 1 张 III 级饰品；使用承受压力 +${heroCount}，装备再 +2`,
+    `Eldritch Vault：按 ${heroCount} 名在场英雄各抽 1 张 III 级饰品；${prepaid ? "已支付" : "使用承受"}压力 +${heroCount}，装备再 +2`,
     [
+      ...paid.events,
       {
         type: "roomInteractionResolved",
         actorId,
@@ -99,6 +119,13 @@ export function drawNextEldritchVaultTrinket(state: GameState, actorId: string):
       state: clearEldritchVaultReward(state),
       events: [],
     };
+  if (
+    b.areas.some((area) => area.eldritchVaultPayBeforeDraw) &&
+    b.entities.find((e) => e.id === actorId)?.dead
+  ) {
+    const survivor = b.entities.find((e) => e.side === "hero" && !e.dead);
+    if (survivor) actorId = survivor.id;
+  }
   const drawn = drawTrinketAtLevel(
     b.trinkets!,
     heroesInPlay(state),
