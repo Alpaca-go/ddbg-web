@@ -103,7 +103,8 @@ export function buildCurios(raw: RawFile, dictionary: IconDictionary) {
         .map((l) => l.text)
         .join(" ")
         .replaceAll("family��s", "family’s")
-        .replaceAll("don��t", "don’t"),
+        .replaceAll("don��t", "don’t")
+        .replace("spring- loaded", "spring-loaded"),
       source: { front: f.file, back: c.faces.back!.file, page: f.page },
       rows: effectRows.map(([iconId, printed, effect]) => {
         if (!f.icons.some((i) => i.iconId === iconId))
