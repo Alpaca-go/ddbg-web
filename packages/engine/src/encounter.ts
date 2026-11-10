@@ -30,6 +30,7 @@ import { applyBattleSkillStatuses, readHeroPassiveDefence } from "./battle-skill
 import { applyPassiveHero } from "./passive-runtime";
 import { endTurnOldAbbey } from "./battle-old-abbey";
 import { endTurnPoolOfRebirth } from "./battle-pool-of-rebirth";
+import { endTurnStygianArea } from "./stygian-room-effects";
 import { endRoundInvocation, isInvokingMonster } from "./battle-invocation";
 import { endTurnSpikedPit } from "./battle-spiked-pit";
 import { clearTemplarsSpikesTurnTracking } from "./battle-templars-spikes";
@@ -240,9 +241,13 @@ export function finishTurn(
   const actor = original.entities.find((entity) => entity.id === actorId)!;
   const area = original.areas.find((area) => area.id === actor.areaId);
   if (!actor.dead && actor.side === "hero" && area?.endTurnHeal === 3) {
+    const perLevel = area.endTurnHealPerHeroLevel;
+    if (perLevel && ![1, 2, 3].includes(actor.heroLevel ?? 0))
+      return rejectBattleCommand(state, "Healing Waters 需要已核实的英雄等级（R-036）");
+    const amount = perLevel ? perLevel * actor.heroLevel! : area.endTurnHeal;
     const effect = {
       type: "heal" as const,
-      amount: passiveHeal(actor, healingTrinketReaction(original, undefined, actor.id, 3)),
+      amount: passiveHeal(actor, healingTrinketReaction(original, undefined, actor.id, amount)),
     };
     const health = resolveHeroHealth(
       { life: actor.life!, wounds: actor.wounds, dead: actor.dead },
@@ -269,15 +274,11 @@ export function finishTurn(
         entityId: actorId,
         effect,
         resolution: health,
-        message: "Healing Waters：英雄在本面获批泉水区结束回合治疗3（R-065）",
+        message: `Healing Waters：英雄在本面获批泉水区结束回合治疗${amount}（R-065）`,
       },
     ];
   }
-  if (
-    !actor.dead &&
-    actor.side === "hero" &&
-    (area?.endTurnStress === 1 || area?.endTurnStress === -1)
-  ) {
+  if (!actor.dead && actor.side === "hero" && area?.endTurnStress !== undefined) {
     const name = area.endTurnStressName ?? "Cornered";
     if (!Number.isSafeInteger(actor.stress) || actor.stress! < 0 || actor.stress! > 10)
       return rejectBattleCommand(state, `${name} 缺少已知压力（R-048）`);
@@ -294,7 +295,7 @@ export function finishTurn(
         {
           type: "areaStressResolved",
           actorId,
-          message: `${name}：英雄结束回合压力 ${area.endTurnStress === 1 ? "+1，低光修正按事件一次" : "−1"}`,
+          message: `${name}：英雄结束回合压力 ${area.endTurnStress > 0 ? `+${area.endTurnStress}，低光修正按事件一次` : "−1"}`,
         },
       ],
     });
@@ -304,6 +305,16 @@ export function finishTurn(
     if (ended) return ended;
     state = removed.state;
     events = removed.events;
+  }
+  const aura = endTurnStygianArea(state, actorId, events);
+  if (aura) {
+    if (
+      aura.events.some((event) => event.type === "commandRefused") ||
+      ["halted", "finished"].includes(aura.state.battle!.encounter!.turn.type)
+    )
+      return aura;
+    state = aura.state;
+    events = aura.events;
   }
   const abbey = endTurnOldAbbey(state, actorId, events);
   if (abbey) {

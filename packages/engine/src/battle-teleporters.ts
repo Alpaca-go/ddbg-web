@@ -44,19 +44,22 @@ export function applyHeroTeleporterMoveStress(
   const actor = battle.entities.find((entry) => entry.id === actorId);
   if (!actor || actor.side !== "hero" || actor.dead) return { state, events: [...priorEvents] };
 
-  const through = path.filter((id) => battle.areas.find((area) => area.id === id)?.teleporter);
+  const through = path.flatMap((id) =>
+    battle.areas.filter((area) => area.id === id && area.teleporter),
+  );
   if (!through.length) return { state, events: [...priorEvents] };
 
   let result: ApplyResult = { state, events: [...priorEvents] };
-  for (const areaId of through) {
+  for (const area of through) {
     const live = result.state.battle!;
     const hero = live.entities.find((entry) => entry.id === actorId)!;
     if (hero.dead) break;
     if (!Number.isSafeInteger(hero.stress) || hero.stress! < 0 || hero.stress! > 10)
       return rejectBattleCommand(result.state, "Teleporters 压力需要已知英雄压力（R-048）");
+    const amount = area.teleporterStress ?? 1;
     const passive = triggerBattlePassive(live, result.state.seed, [actorId], {
       type: "stress",
-      amount: 1,
+      amount,
     });
     if (passive.status === "refused") return rejectBattleCommand(result.state, passive.reason);
     const pressure = resolveBattlePressure({
@@ -67,7 +70,7 @@ export function applyHeroTeleporterMoveStress(
         {
           type: "areaStressResolved",
           actorId,
-          message: `Teleporters：英雄穿过橙星区 ${areaId} 压力 +1（R-159；Q-145）`,
+          message: `Teleporters：英雄穿过橙星区 ${area.id} 压力 +${amount}（R-159；Q-145）`,
         },
       ],
     });

@@ -97,34 +97,57 @@ export type BattleEntity = PassiveHolder &
 
 export type BattleArea = {
   readonly riteOfTheChosen?: true;
+  readonly riteOfTheChosenStygian?: { readonly stress: 2; readonly woundsPerNegativeQuirk: 5 };
   readonly evilGaze?: true;
+  readonly evilGazeDisease?: true;
   readonly staringEyes?: true;
+  readonly staringEyesStress?: 3;
   readonly hallOfAscension?: true;
+  readonly hallOfAscensionStress?: 5;
   readonly hideAndHeal?: true;
+  readonly hideAndHealStress?: 3;
   readonly lootTheChest?: true;
+  readonly lootTheChestStress?: 1;
   readonly invokerGoal?: true;
   readonly invokingAbyss?: true;
+  readonly invokingAbyssStress?: 4;
   /** R-193：Templars Room 橙星尖刺坑（B/E/H/K/N）；仅英雄。 */
   readonly templarsSpikes?: true;
   readonly spikedPit?: true;
+  readonly spikedPitHeroesOnly?: true;
   readonly circleOfPower?: true;
+  readonly circleOfPowerHeal?: number;
   readonly feelingThePresence?: true;
+  readonly feelingThePresenceStressPerNegativeQuirk?: 2;
   /** Pool of Rebirth房间卡限定的F区回合结束效果；不按星标外观推断。 */
-  readonly poolOfRebirth?: true;
+  readonly poolOfRebirth?:
+    | true
+    | {
+        readonly stressPerNegativeQuirk: number;
+        readonly healPerNegativeQuirk: number;
+      };
   readonly ancestorGlory?: true;
+  readonly endTurnAncestorCleanse?: true;
   /** R-157：Toxic Vapors 站立 Acc −3。 */
   readonly toxicVapors?: true;
+  readonly endTurnToxicBlight?: { readonly amount: 1; readonly duration: 3 };
   /** R-156：Eldritch Vault 饰品交互区。 */
   readonly eldritchVaultTrinkets?: true;
+  readonly eldritchVaultPayBeforeDraw?: true;
   /** R-158：Eldritch Power Chamber 橙星区。 */
   readonly eldritchPower?: true;
+  readonly eldritchPowerDamage?: 10;
   /** R-159：Teleporters 橙星区 A/C/F/H。 */
   readonly teleporter?: true;
+  readonly teleporterStress?: 2;
   readonly healingForbidden?: true;
+  readonly endTurnWoundsPerHeroLevel?: number;
   readonly endTurnHeal?: 3;
+  readonly endTurnHealPerHeroLevel?: 3;
   /** 已复核 Cornered；只接明确印刷值，不给未命名特殊标记补值。 */
-  readonly endTurnStress?: 1 | -1;
-  readonly endTurnStressName?: "Cornered" | "Stressful Darkness" | "Beacon of Light";
+  readonly endTurnStress?: 1 | 2 | -1;
+  readonly endTurnStressName?:
+    "Cornered" | "Stressful Darkness" | "Beacon of Light" | "Healing Waters";
   readonly id: string;
   /** 板块已核实的容量；未提供时位移解析器拒绝，不补默认值。 */
   readonly capacity?: number;
@@ -284,6 +307,7 @@ export type BattleState = BattleSetup & {
     | {
         readonly type: "evilEyeQuirk";
         readonly destroyed: boolean;
+        readonly afterDisease?: true;
         readonly actorId: string;
         readonly choice: PendingChoice;
         readonly events: readonly GameEvent[];
@@ -936,4 +960,3 @@ export function resolveSkillStress(
   ].find((hero) => hero.id === entity.id);
   return nearby?.stress ?? stress;
 }
-

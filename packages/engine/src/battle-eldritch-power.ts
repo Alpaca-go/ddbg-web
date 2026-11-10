@@ -64,7 +64,12 @@ export function endTurnEldritchPower(
     if (hero.dead || !Number.isSafeInteger(hero.life) || hero.life! <= 0)
       return rejectBattleCommand(result.state, "Eldritch Power 伤害需要已核实英雄 Life（R-048）");
     const resolution = fixedDamageResolution(hero, "area:eldritchPower");
-    const damage = resolveAttackDamage(hero, 5, false, hero.protection === true).damageDealt;
+    const damage = resolveAttackDamage(
+      hero,
+      area.eldritchPowerDamage ?? 5,
+      false,
+      hero.protection === true,
+    ).damageDealt;
     const health = applySkillHealth(
       liveBattle,
       liveBattle.entities,

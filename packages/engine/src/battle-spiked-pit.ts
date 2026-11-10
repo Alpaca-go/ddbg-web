@@ -49,11 +49,13 @@ export function fixedDamageResolution(
 export function applySpikedPit(state: GameState, entityId: string): ApplyResult | null {
   const battle = state.battle;
   const entity = battle?.entities.find((entry) => entry.id === entityId);
+  const area = battle?.areas.find((a) => a.id === entity?.areaId);
   if (
     !battle ||
     !entity ||
     entity.dead ||
-    !battle.areas.find((area) => area.id === entity.areaId)?.spikedPit
+    !area?.spikedPit ||
+    (area.spikedPitHeroesOnly && entity.side !== "hero")
   )
     return null;
   if (!Number.isSafeInteger(entity.life) || entity.life! <= 0)
@@ -146,13 +148,14 @@ export function endTurnSpikedPit(
   if (actor.dead) return null;
   const area = battle.areas.find((area) => area.id === actor.areaId);
   if (actor.side === "monster" && area?.circleOfPower) {
+    const amount = area.circleOfPowerHeal ?? 4;
     return {
       state: {
         ...state,
         battle: {
           ...battle,
           entities: battle.entities.map((entry) =>
-            entry.id === actorId ? { ...entry, wounds: Math.max(0, entry.wounds - 4) } : entry,
+            entry.id === actorId ? { ...entry, wounds: Math.max(0, entry.wounds - amount) } : entry,
           ),
         },
       },
@@ -162,7 +165,7 @@ export function endTurnSpikedPit(
           type: "passiveTriggered",
           entityId: actorId,
           trigger: "circleOfPower",
-          message: "Circle of Power：怪物在本区结束回合治疗4（R-065/067）",
+          message: `Circle of Power：怪物在本区结束回合治疗${amount}（R-065/067）`,
         },
       ],
     };

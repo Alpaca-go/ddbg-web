@@ -389,6 +389,7 @@ export function chooseNextQuest(
   const next = {
     layout: parsedLayout,
     mode: d.mode,
+    ...(d.stygianRoomRules ? { stygianRoomRules: d.stygianRoomRules } : {}),
     cursor: shuffled.cursor,
     position: "S" as const,
     heroes: applied.heroes,

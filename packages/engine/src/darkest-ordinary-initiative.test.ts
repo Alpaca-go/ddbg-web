@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { createCoreDungeonQuest } from "./dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "./test-helpers/core-quest";
 import { applyCommand, type Command, type GameState } from "./command";
+import stygianRooms from "../../data/normalized/corebox/stygian_rooms.json";
 
 const quests = ["quest:p016", "quest:p017", "quest:p018"] as const;
 
@@ -35,6 +36,38 @@ function started(game: GameState) {
   const result = applyCommand(withBattle, { type: "startBattle" });
   expect(result.events.filter((e) => e.type === "commandRefused")).toEqual([]);
   return result.state;
+}
+
+function deployedStygian(cardId: string, rules: "r227" | "r229" | "full") {
+  const game = createCoreDungeonQuest(
+    7,
+    "quest:p016",
+    "stygian",
+    coreParty,
+    coreQuestSources,
+    true,
+    rules,
+  );
+  const d = game.dungeon!;
+  const roomCards = d.roomCards!;
+  // 固定测试首抽，地图与怪物部署仍走公开命令。
+  const prepared = ok(
+    {
+      ...game,
+      dungeon: {
+        ...d,
+        phase: "awaitingRoom",
+        position: ordinaryGuardedRoom(game).id,
+        roomCards: {
+          ...roomCards,
+          deck: [cardId, ...roomCards.deck!.filter((id) => id !== cardId)],
+        },
+      },
+    },
+    { type: "prepareDungeonBattle" },
+  ).state;
+  expect(prepared.dungeon!.roomCards!.active!.cardId).toBe(cardId);
+  return ok(prepared, { type: "prepareDungeonMonsters" }).state;
 }
 
 describe("最暗普通房 deployDarkestOrdinaryEncounter / startBattle", () => {
@@ -83,6 +116,45 @@ describe("最暗普通房 deployDarkestOrdinaryEncounter / startBattle", () => {
       ),
     ).toBe(true);
   });
+
+  it.each([
+    [
+      "room:p014",
+      "r229",
+      [{ id: "F", poolOfRebirth: { stressPerNegativeQuirk: 2, healPerNegativeQuirk: 3 } }],
+    ],
+    [
+      "room:p020",
+      "r229",
+      [
+        { id: "E", evilGazeDisease: true },
+        ...["A", "D", "H", "I"].map((id) => ({ id, staringEyesStress: 3 })),
+      ],
+    ],
+    ["room:p020", "r227", []],
+  ] as const)("Stygian 最暗普通房真实部署 %s（%s）", (cardId, rules, expected) => {
+    const battle = ok(deployedStygian(cardId, rules), {
+      type: rules === "r229" ? "startDungeonBattle" : "deployDarkestOrdinaryEncounter",
+    }).state.battle!;
+    const changedAreas = battle.areas.filter(
+      (area) => area.poolOfRebirth || area.evilGazeDisease || area.staringEyesStress,
+    );
+    expect(changedAreas).toHaveLength(expected.length);
+    expect(changedAreas).toEqual(
+      expect.arrayContaining(expected.map((area) => expect.objectContaining(area))),
+    );
+  });
+
+  it.each(stygianRooms.cards.filter((card) => card.location === "darkestDungeon"))(
+    "新版 Stygian $name 从网页使用的正式命令进入战斗",
+    (card) => {
+      const entered = ok(deployedStygian(card.replacesCardId, "full"), {
+        type: "startDungeonBattle",
+      }).state;
+      expect(entered.battle?.roomName).toBe(card.name);
+      expect(ok(entered, { type: "startBattle" }).state.battle!.encounter!.round).toBe(1);
+    },
+  );
 
   it("未 prepareDungeonMonsters 不能 deploy / startBattle", () => {
     const game = createCoreDungeonQuest(7, "quest:p016", "radiant", coreParty, coreQuestSources);

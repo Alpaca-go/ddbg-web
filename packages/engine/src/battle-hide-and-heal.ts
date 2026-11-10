@@ -44,7 +44,8 @@ export function hideAndHeal(state: GameState, actorId: string): ApplyResult {
       state,
       health.status === "refused" ? health.reason : "移除伤口不应掷死门",
     );
-  const paid = triggerBattlePassive(battle, state.seed, [actorId], { type: "stress", amount: 2 });
+  const amount = battle.areas.find((a) => a.id === actor.areaId)?.hideAndHealStress ?? 2;
+  const paid = triggerBattlePassive(battle, state.seed, [actorId], { type: "stress", amount });
   if (paid.status === "refused") return rejectBattleCommand(state, paid.reason);
   const pressure = resolveBattlePressure({
     state: {
@@ -59,7 +60,7 @@ export function hideAndHeal(state: GameState, actorId: string): ApplyResult {
       {
         type: "roomInteractionResolved",
         actorId,
-        message: "Hide and Heal：花1行动，先结算压力 +2及追加伤口／死门／意志（R-069）",
+        message: `Hide and Heal：花1行动，先结算压力 +${amount}及追加伤口／死门／意志（R-069）`,
       },
     ],
   });

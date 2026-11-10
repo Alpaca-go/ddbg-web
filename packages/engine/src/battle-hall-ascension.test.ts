@@ -20,6 +20,23 @@ function choose(s: GameState, id: string) {
   });
 }
 const hero = (s: GameState) => s.dungeon!.heroes[0]!;
+it("Stygian 升华先结算压力 +5，再执行升级", () => {
+  const state = setup();
+  const b = state.battle!;
+  const result = choose(
+    {
+      ...state,
+      battle: {
+        ...b,
+        areas: b.areas.map((a) =>
+          a.hallOfAscension ? { ...a, hallOfAscensionStress: 5 as const } : a,
+        ),
+      },
+    },
+    "hero",
+  );
+  expect(actor(result.state)).toMatchObject({ heroLevel: 2, stress: 5 });
+});
 it("R-153：三个宝箱是独立代币，C区两个；升华命令可写入存档命令日志", () => {
   const s = setup(),
     loot = s.battle!.loot!;

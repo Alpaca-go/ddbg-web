@@ -31,6 +31,10 @@
     "{icon:9e1f2c572e} Cornered: Heroes ending",
     "their turn here suffer {icon:60cf8ac696} +2."
    ],
+   "reviewedEffect": {
+    "kind": "cornered",
+    "stress": 2
+   },
    "source": {
     "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_Stygian_FRONT.pdf",
     "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_Stygian_BACK.pdf",
@@ -104,6 +108,11 @@
     "{icon:9e1f2c572e} Healing Waters: Heroes ending their",
     "turn here {icon:1125a4cdad} 3 /Hero Level and suffer {icon:abf095b29d} +1."
    ],
+   "reviewedEffect": {
+    "kind": "healingWaters",
+    "healPerHeroLevel": 3,
+    "stress": 1
+   },
    "source": {
     "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_Stygian_FRONT.pdf",
     "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_Stygian_BACK.pdf",
@@ -147,6 +156,11 @@
     "standing here at the end of their turn take",
     "{icon:0453c84dbc} 3 and suffer 1 {icon:84c99c6920} 3t."
    ],
+   "reviewedEffect": {
+    "kind": "spikedPit",
+    "monsterHealPerDungeonLevel": 4,
+    "heroesOnly": true
+   },
    "source": {
     "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_Stygian_FRONT.pdf",
     "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_Stygian_BACK.pdf",
@@ -184,6 +198,10 @@
     "{icon:9e1f2c572e} Beacon of Light: Heroes ending",
     "their turn here recover 1 {icon:abf095b29d} ."
    ],
+   "reviewedEffect": {
+    "kind": "beaconOfLight",
+    "darknessStress": 2
+   },
    "source": {
     "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_Stygian_FRONT.pdf",
     "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_Stygian_BACK.pdf",
@@ -222,6 +240,11 @@
     "are here, spend 1 action here and",
     "suffer {icon:abf095b29d} +3 to remove all {icon:5c3630560e} ."
    ],
+   "reviewedEffect": {
+    "kind": "treasureChamber",
+    "lootStress": 1,
+    "hideStress": 3
+   },
    "source": {
     "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_Stygian_FRONT.pdf",
     "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_Stygian_BACK.pdf",
@@ -256,6 +279,9 @@
     "{icon:9e1f2c572e} Ancestor’s Glory: Heroes ending their",
     "turn here remove all {icon:a3fd5bfa62} , {icon:38d31e18cc} , {icon:231de2757f} , {icon:1eaa08f9af} and {icon:b45a6c3934} ."
    ],
+   "reviewedEffect": {
+    "kind": "ancestorGlory"
+   },
    "source": {
     "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_Stygian_FRONT.pdf",
     "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_Stygian_BACK.pdf",
@@ -296,6 +322,10 @@
     "{icon:9e1f2c572e} Invoking Abyss: If any Monster is here",
     "at the end of the round : {icon:7616568d52} {icon:7616568d52} {icon:7616568d52} {icon:7616568d52} : {icon:abf095b29d} +4."
    ],
+   "reviewedEffect": {
+    "kind": "invokingAbyss",
+    "stress": 4
+   },
    "source": {
     "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_Stygian_FRONT.pdf",
     "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_Stygian_BACK.pdf",
@@ -333,6 +363,10 @@
     "{icon:60cf8ac696} +2 per Negative Quirk and {icon:731f6665d0} 1 /",
     "Hero Level per Positive Quirk."
    ],
+   "reviewedEffect": {
+    "kind": "feelingThePresence",
+    "stressPerNegativeQuirk": 2
+   },
    "source": {
     "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_Stygian_FRONT.pdf",
     "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_Stygian_BACK.pdf",
@@ -420,6 +454,10 @@
     "and suffer {icon:1e36d5379b} +5to instantly upgrade",
     "themselves or one of their Skills."
    ],
+   "reviewedEffect": {
+    "kind": "hallOfAscension",
+    "stress": 5
+   },
    "source": {
     "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_Stygian_FRONT.pdf",
     "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_Stygian_BACK.pdf",
@@ -457,6 +495,9 @@
     "as much {icon:1e36d5379b} as there are heroes in play.",
     "Equipping one of these Trinkets causes {icon:abf095b29d} +2."
    ],
+   "reviewedEffect": {
+    "kind": "eldritchVault"
+   },
    "source": {
     "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_Stygian_FRONT.pdf",
     "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_Stygian_BACK.pdf",
@@ -493,6 +534,11 @@
     "here suffer -3 Acc. Heroes ending",
     "their turn here suffer 1 {icon:038ffa17fb} 3t."
    ],
+   "reviewedEffect": {
+    "kind": "toxicVapors",
+    "blight": 1,
+    "duration": 3
+   },
    "source": {
     "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_Stygian_FRONT.pdf",
     "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_Stygian_BACK.pdf",
@@ -527,6 +573,10 @@
     "Area {icon:337897984c} . If a Monster ends its turn in",
     "Area {icon:337897984c} , Heroes take {icon:0453c84dbc} 10 each."
    ],
+   "reviewedEffect": {
+    "kind": "eldritchPower",
+    "damage": 10
+   },
    "source": {
     "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_Stygian_FRONT.pdf",
     "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_Stygian_BACK.pdf",
@@ -566,6 +616,10 @@
     "between {icon:337897984c} Areas. Heroes moving",
     "through a {icon:02014aa709} Area suffer {icon:abf095b29d} +2."
    ],
+   "reviewedEffect": {
+    "kind": "teleporters",
+    "stress": 2
+   },
    "source": {
     "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_Stygian_FRONT.pdf",
     "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_Stygian_BACK.pdf",
@@ -602,6 +656,11 @@
     "{icon:337897984c} B Staring Eyes: Heroes ending",
     "their turn here suffer {icon:abf095b29d} +3."
    ],
+   "reviewedEffect": {
+    "kind": "evilEye",
+    "diseaseAfterNegativeQuirk": true,
+    "staringEyesStress": 3
+   },
    "source": {
     "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_Stygian_FRONT.pdf",
     "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_Stygian_BACK.pdf",
@@ -637,6 +696,11 @@
     "Monsters {icon:1125a4cdad} 5 and Heroes {icon:1e36d5379b} +2plus an",
     "additional 5 {icon:d4c2a095b5} / Negative Quirk."
    ],
+   "reviewedEffect": {
+    "kind": "riteOfTheChosen",
+    "stress": 2,
+    "woundsPerNegativeQuirk": 5
+   },
    "source": {
     "front": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_Stygian_FRONT.pdf",
     "back": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_Stygian_BACK.pdf",

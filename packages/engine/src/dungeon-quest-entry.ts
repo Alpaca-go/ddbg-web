@@ -44,6 +44,7 @@ export function createCoreDungeonQuest(
   party: QuestParty,
   sources: CoreQuestSources,
   bossEdgeRooms = true,
+  stygianRoomRules: DungeonState["stygianRoomRules"] | null = "full",
 ) {
   const quest = basicQuests.find((quest) => quest.id === questId);
   const sandboxEmbarkOk = quest && (quest.level === 1 || ("bossQuest" in quest && quest.bossQuest));
@@ -119,7 +120,7 @@ export function createCoreDungeonQuest(
   const problem = trinketPoolProblem(trinkets, heroes);
   if (problem) throw new Error(problem);
   const layout = pickEmbarkQuestMapLayout(asQuestMapPairingQuest(quest), seed, 0);
-  const game = createDungeonSandbox(
+  let game = createDungeonSandbox(
     seed,
     layout,
     quest.distribution,
@@ -138,6 +139,8 @@ export function createCoreDungeonQuest(
     { ...sources.catalog, conditions, trinkets },
     true,
   );
+  if (mode === "stygian" && stygianRoomRules && game.dungeon)
+    game = { ...game, dungeon: { ...game.dungeon, stygianRoomRules } };
   if (isDarkestQuest(questId)) return setupDarkestDungeon(game);
   if (questId !== FACE_THE_THREAT_QUEST_ID) return game;
   const dungeon = game.dungeon;

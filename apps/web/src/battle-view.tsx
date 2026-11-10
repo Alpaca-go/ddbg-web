@@ -82,6 +82,7 @@ export function BattleView({
       : battleStep(battle);
   const actor =
     turn && "actorId" in turn ? battle.entities.find((e) => e.id === turn.actorId) : undefined;
+  const actorArea = battle.areas.find((area) => area.id === actor?.areaId);
   const pending =
     game.dungeon?.deathTrinketChoice ??
     game.dungeon?.replacementPreparation?.choice ??
@@ -349,16 +350,27 @@ export function BattleView({
                     </span>
                   </div>
                   <p className="connections">连接：{area.adjacent.join(" · ") || "无"}</p>
-                  {area.endTurnStress === 1 && (
+                  {(area.endTurnStress === 1 || area.endTurnStress === 2) && (
                     <p className="muted">
-                      {area.endTurnStressName ?? "Cornered"}：英雄结束回合压力 +1
+                      {area.endTurnStressName ?? "Cornered"}：英雄结束回合压力 +{area.endTurnStress}
                     </p>
                   )}
                   {area.endTurnStress === -1 && (
                     <p className="muted">Beacon of Light：英雄结束回合恢复 1 压力</p>
                   )}
                   {area.healingForbidden && (
-                    <p className="muted">Unholy Aura：英雄不能治疗或被治疗</p>
+                    <p className="muted">
+                      Unholy Aura：英雄不能治疗或被治疗
+                      {area.endTurnWoundsPerHeroLevel &&
+                        `，结束回合承受 ${area.endTurnWoundsPerHeroLevel} × 英雄等级个伤口`}
+                    </p>
+                  )}
+                  {area.poolOfRebirth && area.poolOfRebirth !== true && (
+                    <p className="muted">
+                      Pool of Rebirth：英雄结束回合，每个负面怪癖承受压力 +
+                      {area.poolOfRebirth.stressPerNegativeQuirk}，存活后治疗{" "}
+                      {area.poolOfRebirth.healPerNegativeQuirk}。
+                    </p>
                   )}
                   {area.ancestorGlory && (
                     <p>
@@ -366,45 +378,86 @@ export function BattleView({
                       Blight／Bleed／Debuff／Stun／Mark，免疫目标 Shuffle；自身效果遵循 R20。
                     </p>
                   )}
+                  {area.endTurnAncestorCleanse && (
+                    <p>Ancestor’s Glory：英雄结束回合移除枯萎、流血、减益、眩晕与标记。</p>
+                  )}
                   {area.feelingThePresence && (
                     <p>
-                      Feeling the Presence：英雄结束回合先压力 +1 × 负面怪癖数，存活再治疗 HL ×
-                      正面怪癖数。
+                      Feeling the Presence：英雄结束回合先压力 +
+                      {area.feelingThePresenceStressPerNegativeQuirk ?? 1} × 负面怪癖数，存活再治疗
+                      HL × 正面怪癖数。
                     </p>
                   )}
                   {area.spikedPit && (
                     <p>
-                      Spiked Pit：Shuffle实际落点或结束回合站立时，伤害3 → Bleed
-                      1·3t；先坑后Vertigo。
+                      Spiked Pit：{area.spikedPitHeroesOnly ? "仅英雄。" : ""}
+                      Shuffle实际落点或结束回合站立时，伤害3 → Bleed 1·3t；先坑后Vertigo。
                     </p>
                   )}
                   {area.invokerGoal && (
                     <p>The Invokers：本轮最后一只可行动怪物改为向本区移动，替代整个第2步。</p>
                   )}
                   {area.invokingAbyss && (
-                    <p>Invoking Abyss：轮末本区有存活怪物时，全体存活英雄各压力+2。</p>
+                    <p>
+                      Invoking Abyss：轮末本区有存活怪物时，全体存活英雄各压力+
+                      {area.invokingAbyssStress ?? 2}。
+                    </p>
                   )}
-                  {area.lootTheChest && <p>Loot the Chest：花2行动抽1张饰品，每场一次。</p>}
+                  {area.lootTheChest && (
+                    <p>
+                      Loot the Chest：花 2 行动
+                      {area.lootTheChestStress ? `并承受压力 +${area.lootTheChestStress}` : ""}，抽
+                      1 张饰品，每场一次。
+                    </p>
+                  )}
                   {area.hideAndHeal && (
-                    <p>Hide and Heal：本区无怪物时，花1行动、压力+2，存活后移除全部伤口。</p>
+                    <p>
+                      Hide and Heal：本区无怪物时，花 1 行动、压力 +{area.hideAndHealStress ?? 2}
+                      ，存活后移除全部伤口。
+                    </p>
                   )}
                   {area.riteOfTheChosen && (
                     <p>
-                      Rite of the
-                      Chosen：怪物在此结束回合，全体怪物治疗5；各英雄压力+1，并按自身负面怪癖数追加压力。
+                      Rite of the Chosen：怪物在此结束回合，全体怪物治疗 5。
+                      {area.riteOfTheChosenStygian
+                        ? `英雄各承受压力 +${area.riteOfTheChosenStygian.stress}，每个负面怪癖另承受 ${area.riteOfTheChosenStygian.woundsPerNegativeQuirk} 个伤口。`
+                        : "英雄各承受压力 +1，并按自身负面怪癖数追加压力。"}
                     </p>
                   )}
                   {area.evilGaze && (
                     <p>
                       {battle.evilEyeDestroyed
                         ? "Evil Gaze：眼睛已摧毁，本场不再触发。"
-                        : "Evil Gaze：结束回合获得负面怪癖；花2行动摧毁眼睛，获得正面怪癖并全体压力−5。"}
+                        : `Evil Gaze：结束回合获得负面怪癖${area.evilGazeDisease ? "，存活后再结算疾病" : ""}。花 2 行动摧毁眼睛，获得正面怪癖并让全体英雄压力 −5。`}
                     </p>
                   )}
-                  {area.staringEyes && <p>Staring Eyes：英雄结束回合压力+2。</p>}
-                  {area.circleOfPower && <p>Circle of Power：怪物在本区结束回合治疗4。</p>}
+                  {area.staringEyes && (
+                    <p>Staring Eyes：英雄结束回合压力 +{area.staringEyesStress ?? 2}。</p>
+                  )}
+                  {area.circleOfPower && (
+                    <p>Circle of Power：怪物在本区结束回合治疗 {area.circleOfPowerHeal ?? 4}。</p>
+                  )}
                   {area.endTurnHeal === 3 && (
-                    <p className="muted">Healing Waters：英雄结束回合治疗 3</p>
+                    <p className="muted">
+                      Healing Waters：英雄结束回合治疗 3
+                      {area.endTurnHealPerHeroLevel ? " × 英雄等级" : ""}
+                    </p>
+                  )}
+                  {area.toxicVapors && (
+                    <p>
+                      Toxic Vapors：区内英雄 Acc −3。
+                      {area.endTurnToxicBlight &&
+                        `英雄结束回合承受枯萎 ${area.endTurnToxicBlight.amount}，持续 ${area.endTurnToxicBlight.duration} 回合。`}
+                    </p>
+                  )}
+                  {area.eldritchPower && (
+                    <p>
+                      Eldritch Power：怪物在此结束回合时，每名英雄承受{" "}
+                      {area.eldritchPowerDamage ?? 5} 伤害。
+                    </p>
+                  )}
+                  {area.teleporter && (
+                    <p>Teleporters：英雄移动经过本区，压力 +{area.teleporterStress ?? 1}。</p>
                   )}
                   {battle.loot?.placed.some((token) => token.areaId === area.id) && (
                     <p>
@@ -626,13 +679,15 @@ export function BattleView({
                   拾取同区宝箱
                 </button>
               </fieldset>
-              {battle.areas.find((area) => area.id === actor!.areaId)?.lootTheChest && (
+              {actorArea?.lootTheChest && (
                 <button
                   data-action-group="loot"
                   disabled={!heroTurn || turn.mustMove || turn.actions < 2 || battle.lootChestUsed}
                   onClick={() => send({ type: "lootTreasureChest", actorId: actor!.id })}
                 >
-                  Loot the Chest（2行动，本场一次）
+                  Loot the Chest（2行动
+                  {actorArea.lootTheChestStress ? `、压力+${actorArea.lootTheChestStress}` : ""}
+                  ，本场一次）
                 </button>
               )}
               {battle.areas.find((area) => area.id === actor!.areaId)?.evilGaze &&
@@ -645,30 +700,42 @@ export function BattleView({
                     摧毁眼睛（2行动，正面怪癖、全体压力−5）
                   </button>
                 )}
-              {battle.areas.find((area) => area.id === actor!.areaId)?.hallOfAscension && (
+              {actorArea?.eldritchVaultTrinkets && (
+                <button
+                  data-action-group="loot"
+                  disabled={!heroTurn || turn.mustMove || turn.actions < 2}
+                  onClick={() => send({ type: "eldritchVault", actorId: actor!.id })}
+                >
+                  Eldritch Vault（2 行动，按在场英雄数支付压力并抽 III 级饰品）
+                </button>
+              )}
+              {actorArea?.hallOfAscension && (
                 <button
                   data-action-group="loot"
                   disabled={!heroTurn || turn.mustMove || turn.actions < 2}
                   onClick={() => send({ type: "hallAscension", actorId: actor!.id })}
                 >
-                  升华（2行动、压力+3，另付XP/金币）
+                  升华（2行动、压力+
+                  {actorArea.hallOfAscensionStress ?? 3}
+                  ，另付XP/金币）
                 </button>
               )}
-              {battle.areas.find((area) => area.id === actor!.areaId)?.hideAndHeal && (
+              {actorArea?.hideAndHeal && (
                 <button
                   data-action-group="loot"
                   disabled={
                     !heroTurn ||
                     turn.mustMove ||
                     turn.actions < 1 ||
-                    battle.areas.find((a) => a.id === actor!.areaId)?.healingForbidden ||
+                    actorArea.healingForbidden ||
                     battle.entities.some(
                       (e) => e.side === "monster" && !e.dead && e.areaId === actor!.areaId,
                     )
                   }
                   onClick={() => send({ type: "hideAndHeal", actorId: actor!.id })}
                 >
-                  Hide and Heal（1行动，压力+2）
+                  Hide and Heal（1行动，压力+
+                  {actorArea.hideAndHealStress ?? 2}）
                 </button>
               )}
               <fieldset data-action-group="stance" disabled={!heroTurn || turn.mustMove}>

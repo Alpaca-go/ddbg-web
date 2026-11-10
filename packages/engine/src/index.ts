@@ -23,6 +23,7 @@ export type { PlayHeroSkillEmptyAreaCommand } from "./battle-empty-area";
 export type { HeroSkillTargetsResolvedEvent } from "./command";
 export type { MoveHeroCommand, HeroMovedEvent } from "./battle-hero-movement";
 export { roomTileBattleAreas } from "./battle-monster-movement";
+export { readActiveStygianRoom } from "./stygian-room-effects";
 export type { MoveMonsterToRangeCommand, MonsterPositionedEvent } from "./battle-monster-movement";
 export type { EncounterCommand, EncounterEvent, EncounterState } from "./encounter";
 export type { PlayMonsterSkillCommand } from "./battle-monster";

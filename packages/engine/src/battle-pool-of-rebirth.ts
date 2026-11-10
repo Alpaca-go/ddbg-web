@@ -17,12 +17,11 @@ export function endTurnPoolOfRebirth(
 ): ApplyResult | null {
   const battle = state.battle!,
     actor = battle.entities.find((e) => e.id === actorId)!;
-  if (
-    actor.dead ||
-    actor.side !== "hero" ||
-    !battle.areas.find((a) => a.id === actor.areaId)?.poolOfRebirth
-  )
-    return null;
+  const pool = battle.areas.find((a) => a.id === actor.areaId)?.poolOfRebirth;
+  if (actor.dead || actor.side !== "hero" || !pool) return null;
+  const stressPerQuirk = pool === true ? 1 : pool.stressPerNegativeQuirk;
+  const healPerQuirk = pool === true ? 3 : pool.healPerNegativeQuirk;
+  const ruling = pool === true ? "R-146" : "R-227";
   const held = actor.quirkIds ?? [];
   if (
     held.length &&
@@ -38,11 +37,12 @@ export function endTurnPoolOfRebirth(
       battle.conditions!.quirks.some((q) => q.id === id && q.polarity === polarity),
     ).length;
   const negative = held.length ? count("negative") : 0;
+  const stress = stressPerQuirk * negative;
   let result: ApplyResult = { state, events };
   if (negative) {
     const paid = triggerBattlePassive(battle, state.seed, [actorId], {
       type: "stress",
-      amount: negative,
+      amount: stress,
     });
     if (paid.status === "refused") return rejectBattleCommand(state, paid.reason);
     const pressure = resolveBattlePressure({
@@ -53,7 +53,7 @@ export function endTurnPoolOfRebirth(
         {
           type: "areaStressResolved",
           actorId,
-          message: `Pool of Rebirth：负面怪癖${negative}个，单次压力 +${negative}（R-146）`,
+          message: `Pool of Rebirth：负面怪癖${negative}个，单次压力 +${stress}（${ruling}）`,
         },
       ],
     });
@@ -80,7 +80,7 @@ export function endTurnPoolOfRebirth(
       type: "heal" as const,
       amount: passiveHeal(
         live,
-        healingTrinketReaction(result.state.battle!, undefined, live.id, 3 * negative),
+        healingTrinketReaction(result.state.battle!, undefined, live.id, healPerQuirk * negative),
       ),
     };
     const health = resolveHeroHealth(
@@ -109,7 +109,7 @@ export function endTurnPoolOfRebirth(
           entityId: actorId,
           effect,
           resolution: health,
-          message: `Pool of Rebirth：存活英雄按负面怪癖${negative}个 × 3治疗，恢复修正一次（R-146）`,
+          message: `Pool of Rebirth：存活英雄按负面怪癖${negative}个 × ${healPerQuirk}治疗，恢复修正一次（${ruling}）`,
         },
       ],
     };

@@ -17,12 +17,8 @@ export function endTurnOldAbbey(
 ): ApplyResult | null {
   const battle = state.battle!,
     actor = battle.entities.find((e) => e.id === actorId)!;
-  if (
-    actor.dead ||
-    actor.side !== "hero" ||
-    !battle.areas.find((a) => a.id === actor.areaId)?.feelingThePresence
-  )
-    return null;
+  const area = battle.areas.find((a) => a.id === actor.areaId);
+  if (actor.dead || actor.side !== "hero" || !area?.feelingThePresence) return null;
   const held = actor.quirkIds ?? [];
   if (
     held.length &&
@@ -46,9 +42,10 @@ export function endTurnOldAbbey(
     return rejectBattleCommand(state, "Feeling the Presence治疗需要已核实英雄等级（R-048）");
   let result: ApplyResult = { state, events };
   if (negative) {
+    const amount = negative * (area.feelingThePresenceStressPerNegativeQuirk ?? 1);
     const paid = triggerBattlePassive(battle, state.seed, [actorId], {
       type: "stress",
-      amount: negative,
+      amount,
     });
     if (paid.status === "refused") return rejectBattleCommand(state, paid.reason);
     const pressure = resolveBattlePressure({
@@ -59,7 +56,7 @@ export function endTurnOldAbbey(
         {
           type: "areaStressResolved",
           actorId,
-          message: `Feeling the Presence：负面怪癖${negative}个，单次压力 +${negative}（R-069）`,
+          message: `Feeling the Presence：负面怪癖${negative}个，单次压力 +${amount}（R-069）`,
         },
       ],
     });

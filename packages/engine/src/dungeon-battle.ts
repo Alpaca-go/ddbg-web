@@ -44,6 +44,7 @@ import { hasApprovedHigherMonsterFields } from "../../data/src/normalize/verifie
 import { createBattleState, rejectBattleCommand, skillTargetView } from "./battle";
 import type { BattleEntity } from "./battle";
 import { roomTileBattleAreas } from "./battle-monster-movement";
+import { readActiveStygianRoom, stygianRoomBattleAreas } from "./stygian-room-effects";
 import { createLootState } from "./loot";
 import { createRng } from "./rng";
 import type { ApplyResult, GameState } from "./command";
@@ -97,7 +98,7 @@ export function startDungeonBattle(state: GameState): ApplyResult {
     if (
       selected.status === "matched" &&
       d.darkest.ordinaryDeployment &&
-      selected.tile.roomId === "room:p014"
+      (selected.tile.roomId === "room:p014" || readActiveStygianRoom(d))
     )
       return deployDarkestOrdinaryEncounter(state);
     const darkestHold = darkestOrdinaryDeploymentHold(d) ?? darkestMidBossDeploymentHold(d);
@@ -359,7 +360,7 @@ export function startDungeonBattle(state: GameState): ApplyResult {
         const bonus = readQuestMonsterStatBonuses(d, card.id);
         return bonus?.lifeBonus ? { ...card, life: card.life + bonus.lifeBonus } : card;
       }),
-      areas: objectiveRoomBattleAreas(roomTileBattleAreas(tile), d),
+      areas: objectiveRoomBattleAreas(stygianRoomBattleAreas(roomTileBattleAreas(tile), d), d),
       light: d.explorationSetup.light,
       provisions: d.explorationSetup.provisions,
       resolveCards: d.resolveCards,
