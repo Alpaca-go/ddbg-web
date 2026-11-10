@@ -3074,6 +3074,15 @@ function resolveSkill(
   )
     actorStress = changeStress(combat.actor, actorStress, -1);
   let targetStress = target.stress === undefined ? null : target.stress;
+  if (
+    outcome === "miss" &&
+    effect === "damage" &&
+    sourceSide !== target.side &&
+    target.side === "hero" &&
+    targetStress !== null &&
+    hasQuirk(target, "Evasive")
+  )
+    targetStress = changeStress(target, targetStress, -1);
   let besideActorStress = copyHeroes(
     combat.heroesBesideActor === undefined ? null : [...combat.heroesBesideActor],
   );

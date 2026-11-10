@@ -578,7 +578,7 @@ draw(card):
 ### 6.6 伤害、治疗与修正 [R19–R21、R26–R28]
 
 - 伤害来源的数值：技能上的 Acc 伤害或 Crit 伤害（+ 目标效果里的「+X vs 类型」）。
-- 防御方的修正（写在怪癖、疾病、饰品等卡上），例如：Fragile +1、On Guard −1、Hard Skinned「暴击伤害减半（向上取整）」、Infirm「被治疗少 1」、Fast Healer「被治疗时每个英雄等级 +1」。
+- 防御方的修正（写在怪癖、疾病、饰品等卡上），例如：On Guard −1、Hard Skinned「暴击伤害减半（向上取整）」、Infirm「被治疗少 1」、Fast Healer「被治疗时每个英雄等级 +1」。
 - **Protection**：只要有 ≥1 个 Protection 堆叠，受到的**攻击**伤害减半，向上取整（R21）。部分怪物卡上印有内置 Protection，始终生效、不能移除（R21、R24）。内置 Protection 与代币同时存在时也只减半一次（R-019）。
 - **Riposte**：有 ≥1 个 Riposte 堆叠的角色受到敌人伤害时，把伤害的一半（向上取整）反弹给攻击者（R21）（落空不触发；反弹量按 Protection 减半前的伤害计算，R-017）。
 - **Riposte 和 Protection 同时适用时，先 Riposte 后 Protection**（R21）。
@@ -592,7 +592,7 @@ draw(card):
 4. 计算 Riposte 反弹量（⌈D/2⌉，D 为这一步之前的伤害）。
 5. Protection 减半（向上取整）。
 6. 结果 ≥ 1 才算「受到伤害」。
-7. 放伤口代币，同时放追加伤口（Fragile +1、Syphilis +HL）。同一时刻的伤口只掷一次死门骰。
+7. 若实际受到正伤害，Fragile 额外造成 1 Damage（R-222）。同批放置伤害对应的伤口与 Syphilis 追加伤口，只掷一次死门骰。
 
 「伤害（Damage）」只指攻击：英雄 / 怪物技能的命中和暴击、探索陷阱攻击、Riposte 反弹。Bleed / Blight、Hunger、Rubble、Trap Room、Curio，以及怪癖和疾病自己造成的伤口，都是「伤口（Wound）」：不触发「受到伤害时」，不被 Protection 减半。任何来源的伤口都触发死门判定。Riposte 反弹不是攻击：不连锁 Riposte、不被 Protection 减半、不算暴击，但算伤害，会触发「受到伤害时」类怪癖 / 疾病（R-017，其中第 ③ 点为暂定）。
 
@@ -833,7 +833,7 @@ draw(card):
 | 施加 Blight 时 | Thin Blooded（额外施加 Blight 1 3t） | Thick Blooded（Blight −1 回合） |
 | 施加 Stun 时 | — | Hard Noggin（Stun −1 回合） |
 | 地牢中掷出 10 / 1 | Bad Gambler（每个英雄等级 1 个伤口） | Skilled Gambler（压力 −1） |
-| 受到伤害时 | Clumsy（Debuff 1t）、Fragile（+1 伤口）、Off Guard（+1 压力） | On Guard（伤害 −1） |
+| 受到伤害时 | Clumsy（Debuff 1t）、Fragile（额外 1 Damage，R-222）、Off Guard（+1 压力） | On Guard（伤害 −1） |
 | 承受暴击伤害时 | Shocker（Stun 1t）、Weak Grip（+1 压力） | Hard Skinned（暴击伤害减半，向上取整） |
 | 被治疗时 | Infirm（少治疗 1 点） | Fast Healer（每个英雄等级 +1） |
 | 光照上升时 | Light Sensitive（每个英雄等级 2 个伤口）、Nocturnal（+1 压力） | Early Riser（Buff 2t）、Photomania（压力 −1）、Warrior of Light（每个英雄等级治疗 2） |
@@ -845,7 +845,7 @@ draw(card):
 | 探索中结算 Trap 时 | Slow Reflexes（Dodge −2） | Quick Reflexes（Dodge +2） |
 | 消耗 Food 时 | Stress Eater（+1 压力） | Stress Faster（压力 −1） |
 | 被位移时 | — | Balanced（可以选择少移 1） |
-| 成功闪避时 | — | Evasive（压力 −1） |
+| 成功闪避时 | — | Evasive（探索陷阱或敌对伤害技能落空时压力 −1，R-222） |
 
 （数量核对：负面 18 个，正面 17 个，与 R5 部件清单一致。）
 

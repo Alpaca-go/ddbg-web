@@ -66,8 +66,8 @@
 
 ### R-026（Q-25）Damage 与 Wound
 
-- **理由**：① 规则书在机制条文里一直区分两个词：技能「deal Damage」→「apply Wound equal to the Damage」（R19）；Bleed / Blight、Hunger、Rubble、Trap Room 一律写「suffer Wounds」（R14、R15、R21）；Protection 明确只减「Damage … from attacks」（R21）。② 如果把所有伤口都当作伤害，Syphilis（受到伤害时 +HL 伤口）和 Fragile（受到伤害时 +1 伤口）会自我循环，规则无法结算。③ R20 例子里有一句把 Bleed 说成「2 Damage」，判断为例子用语不严谨，不推翻条文。修正顺序按「先加减、后减半」并把 Riposte 夹在 Protection 之前（R21 明文），追加伤口在最后作为伤口放置。
-- **备选（否决）**：B）所有伤口都算伤害（循环问题、与 Protection「from attacks」矛盾）；Fragile 的 +1 并入伤害再减半（Fragile 原文「take 1 additional [伤口]」是伤口不是伤害）。
+- **理由**：① 规则书在机制条文里一直区分两个词：技能「deal Damage」→「apply Wound equal to the Damage」（R19）；Bleed / Blight、Hunger、Rubble、Trap Room 一律写「suffer Wounds」（R14、R15、R21）；Protection 明确只减「Damage … from attacks」（R21）。② 如果把所有伤口都当作伤害，Syphilis（受到伤害时 +HL 伤口）和 Fragile（受到伤害时 +1 Damage，见 R-222）会自我循环，规则无法结算。③ R20 例子里有一句把 Bleed 说成「2 Damage」，判断为例子用语不严谨，不推翻条文。修正顺序按「先加减、后减半」并把 Riposte 夹在 Protection 之前（R21 明文），追加伤口在最后作为伤口放置。
+- **备选（否决）**：B）所有伤口都算伤害（循环问题、与 Protection「from attacks」矛盾）；Fragile 的 +1 并入原攻击再减半。R-222 复核确认该值为正伤害触发后的额外 Damage，与原攻击伤口同批放置。
 - **影响**：直接决定 6 个怪癖 / 疾病（Clumsy、Fragile、Off Guard、On Guard、Spotted Fever、Syphilis）的触发频率和 Protection 对 DoT 是否有效，是战斗数值的关键分支，所以建议做成一个布尔配置项。
 
 ### R-027（Q-26）战斗中补给的时机
@@ -155,7 +155,7 @@
 | R-042 | Q-41 | 「需要看英雄卡全文后再定，暂时推荐 A」 | A，并以印刷卡面为证 | 印刷卡面上没有「Preparation Days -1」。 |
 | R-038 | Q-37 | 封顶 3 | 封顶 3，并补出印刷件核对结果 | 卡面房间构成本来就使上限为 3，实际只有 Fundraiser 会被封顶（最多交 60 金）。Fundraiser 卡面「any amount」与 R29 冲突，按原则 1 以规则书为准。 |
 | R-017 | Q-16 | 反弹不再触发 Riposte；是否触发怪癖未定 | 补充：反弹不被 Protection 减半、不算暴击，但算伤害、会触发怪癖 | 说明书原先留了一个开放子问题。 |
-| R-026 | Q-25 | 顺序：基础 → 类型加成 → 防御方 ±X → 暴击减半 → Protection | 同上，但 Fragile、Syphilis 的追加伤口放在最后，作为伤口而不是伤害 | Fragile / Syphilis 原文是「take … Wound(s)」。 |
+| R-026 | Q-25 | 顺序：基础 → 类型加成 → 防御方 ±X → 暴击减半 → Protection | 同上。Fragile 的额外 Damage 与 Syphilis 的追加 Wound 最后同批放置 | R-222 复核了 Fragile 的红色 Damage 图标。 |
 | R-033 | Q-32 | ③ 图标映射等 Phase 1 | ③ 并入 R-048（Q-47） | 纯数据问题，归到图标字典统一处理。 |
 | R-046 | Q-45 | 给出推荐（槽数 = 房间数、起点不能休息、任何房间可离开） | 状态改为延后，原推荐降为占位假设 | 槽数和走廊结构必须等板块标注；规则部分（灰点必须停留、离开地点）已由 R14 定下。 |
 

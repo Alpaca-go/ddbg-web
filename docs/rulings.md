@@ -287,11 +287,20 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **编号**：R-026
 - **日期**：2026-10-06
 - **问题**：Damage 与 Wound 的区分；伤害修正顺序
-- **裁定**：①「伤害（Damage）」只指**攻击**造成的伤害：英雄 / 怪物技能的命中和暴击、探索陷阱攻击、Riposte 反弹（R-017）。Bleed / Blight、Hunger、Rubble、Trap Room、Curio、怪癖和疾病自己造成的伤口（Light Sensitive、Syphilis、Fragile 的追加伤口等）都是「伤口（Wound）」：不触发「takes Damage」类效果（Clumsy、Fragile、Off Guard、On Guard、Spotted Fever、Syphilis），不被 Protection 减半。任何来源的伤口都触发死门判定。② 一次伤害的结算顺序：基础值（命中值或暴击值）+ 类型加成（+X vs …）+ 攻击方修正 → 防御方加减（On Guard −1 等）→ 暴击减半类（Hard Skinned）→ 计算 Riposte 反弹量 → Protection 减半 → 结果 ≥ 1 才算「受到伤害」→ 放伤口代币，同时放追加伤口（Fragile +1、Syphilis +HL）。所有减半向上取整；同一时刻的伤口只掷一次死门骰。**建议做成可配置项** `damageIncludesAllWounds`（默认 false）。
+- **裁定**：①「伤害（Damage）」只指**攻击**造成的伤害：英雄 / 怪物技能的命中和暴击、探索陷阱攻击、Riposte 反弹（R-017）。Bleed / Blight、Hunger、Rubble、Trap Room、Curio、怪癖和疾病自己造成的伤口（Light Sensitive、Syphilis 的追加伤口等）都是「伤口（Wound）」：不触发「takes Damage」类效果（Clumsy、Fragile、Off Guard、On Guard、Spotted Fever、Syphilis），不被 Protection 减半。任何来源的伤口都触发死门判定。② 一次伤害的结算顺序：基础值（命中值或暴击值）+ 类型加成（+X vs …）+ 攻击方修正 → 防御方加减（On Guard −1 等）→ 暴击减半类（Hard Skinned）→ 计算 Riposte 反弹量 → Protection 减半 → 结果 ≥ 1 才算「受到伤害」→ 结算 Fragile 的额外 1 Damage（R-222）→ 放本次伤害转换出的伤口，并同批放 Syphilis 的追加伤口。所有减半向上取整；同一时刻的伤口只掷一次死门骰。**建议做成可配置项** `damageIncludesAllWounds`（默认 false）。
 - **依据 / 出处**：R19「apply Wound on the Target equal to the Damage」；R21 Protection「half Damage … from attacks」、Riposte、Bleed「suffers Wounds」；R14；R15 Trap Room「Wounds and/or Stress」；R26–R28 怪癖疾病措辞；R29
 - **关联待确认**：Q-25
 - **理由与备选**：见 [docs/rulings-notes.md](rulings-notes.md)
 - **状态**：暂定（规则书未写明）
+
+### R-222
+
+- **编号**：R-222
+- **日期**：2026-11-10
+- **裁定**：Fragile（p31）在实际受到正伤害后额外承受 **1 Damage**。两次红色爆发形图标均为 Damage。修订 R-026 对追加值的命名。额外值由怪癖产生，和本次攻击转换出的伤口同批放置，死门只判一次。该额外值不重新进入攻击减伤、反击或受伤被动。Syphilis 的追加仍为 Wound。
+- **接线**：Evasive（p6）在敌对伤害技能的命中判定落空时恢复 1 压力，沿用探索陷阱的成功闪避触发。技能命中、暴击及无命中判定的效果不触发。
+- **核准范围**：QUIRKS FRONT p1–35，17 正面、18 负面。p16 On Guard、p20 Clumsy、p21 Off Guard、p31 Fragile 的伤害触发均含普通伤害。p12 Hard Skinned、p23 Shocker、p26 Weak Grip 仍为暴击限定。黑底轨道图标在核对稿所列效果位置读作压力，原全局词典记录保留。
+- **依据**：Kyries 确认的《怪癖逐卡核对稿》、核心规则书第 19、21、26–27 页、R-026、R-048、R-063。
 
 ### R-027
 

@@ -107,6 +107,7 @@ export function passiveHeal(holder: PassiveHolder, amount: number) {
       (hasQuirk(holder, "Fast Healer") ? passiveLevel(holder) : 0),
   );
 }
+/** R-026 / R-222：正伤害成立后，Fragile 的额外 1 Damage 与 Syphilis 的伤口合批放置。 */
 export function passiveDamageWounds(holder: PassiveHolder): readonly number[] {
   return [
     ...(hasQuirk(holder, "Fragile") ? [1] : []),
