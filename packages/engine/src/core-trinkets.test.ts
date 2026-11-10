@@ -343,17 +343,19 @@ it("Speed Stone正面允许比原Speed多一格的合法路径", () => {
   expect(paid.state.battle!.entities[0]!.areaId).toBe(path.at(-1));
 });
 it.each([
-  ["trinket:p028", false],
-  ["trinket:p035", false],
-  ["trinket:p028", true],
-  ["trinket:p035", true],
-] as const)("%s反面在公开意志骰后降低美德机会，legacy=%s，不重掷", (id, legacy) => {
+  ["trinket:p028", false, 2, false],
+  ["trinket:p028", false, 3, true],
+  ["trinket:p028", false, 4, true],
+  ["trinket:p035", false, 3, true],
+  ["trinket:p028", true, 3, true],
+  ["trinket:p035", true, 3, true],
+] as const)("%s反面在意志骰窗口检查光照，legacy=%s，光照=%s", (id, legacy, light, eligible) => {
   const initial = battle(["trinket:p027", id], "inverted", seedForRoll(2));
   const state = {
     ...initial,
     battle: {
       ...initial.battle,
-      light: 3,
+      light,
       entities: initial.battle.entities.map((h) => (h.id === "h0" ? { ...h, stress: 9 } : h)),
     },
   };
@@ -367,7 +369,11 @@ it.each([
         }),
       )
     : use(state, "trinket:p027");
-  expect(open.pendingChoice?.options.some((o) => o.id === id)).toBe(true);
+  expect(open.pendingChoice?.options.some((o) => o.id === id) ?? false).toBe(eligible);
+  if (!eligible) {
+    expect(open.events.some((e) => e.type === "resolveTested")).toBe(true);
+    return;
+  }
   const paid = choose(open, id),
     skip = choose(open, "continue");
   expect(paid.events.find((e) => e.type === "resolveTested")!.roll).toBe(
