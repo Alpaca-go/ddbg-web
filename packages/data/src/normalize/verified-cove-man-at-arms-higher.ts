@@ -58,12 +58,7 @@ function segmentOnCard(card: NormalizedHeroSkillCard, iconId: string): IconSegme
   throw new Error(`${card.id} 缺少印刷段 iconId=${iconId}（R-048）`);
 }
 
-function assertMaa(
-  card: NormalizedHeroSkillCard,
-  page: number,
-  name: string,
-  level: number,
-) {
+function assertMaa(card: NormalizedHeroSkillCard, page: number, name: string, level: number) {
   if (
     card.id !== `hero_skill:p${page}` ||
     card.hero !== "MAN-AT-ARMS" ||
@@ -120,14 +115,7 @@ function fixRampart(
   return normalizedHeroSkillCardSchema.parse({
     ...card,
     effect_lines: [
-      [
-        targetEffects,
-        text(" "),
-        stun,
-        text(" 1t, "),
-        shuffle,
-        text(` ${pushDist}`),
-      ],
+      [targetEffects, text(" "), stun, text(" 1t, "), shuffle, text(` ${pushDist}`)],
       [selfEffects, text(" Self "), cloneKey(pullMis, "shuffle"), text(" Pull 1")],
     ],
     verified_status_effects: [
@@ -142,7 +130,13 @@ function fixRampart(
   });
 }
 
-function fixBellow(card: NormalizedHeroSkillCard, page: number, level: number, debuffT: number) {
+function fixBellow(
+  cards: readonly NormalizedHeroSkillCard[],
+  card: NormalizedHeroSkillCard,
+  page: number,
+  level: number,
+  debuffT: number,
+) {
   assertMaa(card, page, "Bellow", level);
   const statsSig = card.stats_line ? lineSignature(card.stats_line).replace(/\s+/g, "") : "";
   const effSig = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
@@ -155,8 +149,12 @@ function fixBellow(card: NormalizedHeroSkillCard, page: number, level: number, d
   if (effSig !== `{target_effects}{debuff}${debuffT}t`)
     throw new Error(`${card.id} Bellow 效果行漂移`);
   const debuff = iconFromCard(card, "debuff");
+  const targetMonster = iconFromPool(cards, "target_monster");
   return normalizedHeroSkillCardSchema.parse({
     ...card,
+    stats_line: card.stats_line!.map((segment) =>
+      segment.type === "icon" && segment.icon.key === "target_hero" ? targetMonster : segment,
+    ),
     verified_status_effects: [
       {
         lineIndex: 0,
@@ -183,8 +181,7 @@ function fixDefender(
   const rawSigs = card.effect_lines.map((line) => lineSignature(line).replace(/\s+/g, ""));
   if (
     rawSigs[0] !== "{range}{buff}Self" ||
-    rawSigs[1] !==
-      `{self_effects}{buff}Self{riposte}${rawRiposteT}t,{shuffle}${rawShuffleT}t`
+    rawSigs[1] !== `{self_effects}{buff}Self{riposte}${rawRiposteT}t,{shuffle}${rawShuffleT}t`
   )
     throw new Error(`${card.id} Defender 效果行漂移（R-048）`);
   const rangeIcon = iconFromCard(card, "range");
@@ -282,6 +279,7 @@ function fixCommand(
   const selfEffects = iconFromCard(card, "self_effects");
   const targetEffects = iconFromCard(card, "target_effects");
   const stun = iconFromCard(card, "stun");
+  const buff = cloneKey(stun, "buff");
   const header: Segment[] = [rangeIcon, text(" 1 ")];
   for (let i = 0; i < targetCount; i += 1) {
     if (i > 0) header.push(text(" "));
@@ -292,8 +290,8 @@ function fixCommand(
     stats_line: null,
     effect_lines: [
       header,
-      [selfEffects, text(" Self "), stun, text(` ${stunT}t`)],
-      [targetEffects, text(" "), stun, text(` ${stunT}t`)],
+      [selfEffects, text(" Self "), buff, text(` ${stunT}t`)],
+      [targetEffects, text(" "), buff, text(` ${stunT}t`)],
     ],
     verified_target_header: { lineIndex: 0, source: "print_front" },
     verified_status_effects: [
@@ -301,14 +299,14 @@ function fixCommand(
         lineIndex: 1,
         segmentIndex: 2,
         scope: "self",
-        kind: "stun",
+        kind: "buff",
         duration: stunT,
       },
       {
         lineIndex: 2,
         segmentIndex: 2,
         scope: "target",
-        kind: "stun",
+        kind: "buff",
         duration: stunT,
       },
     ],
@@ -349,7 +347,7 @@ function fixBolster(
       ],
       unlabeled_numbers: [...card.unlabeled_numbers, ...anchors],
       verified_self_stress: { lineIndex: 0, amount: -1, source: "print_front" },
-      verified_allies_stress: -1,
+      verified_target_stress: { lineIndex: 1, amount: -1, source: "print_front" },
     });
   }
   if (level === 3) {
@@ -370,7 +368,7 @@ function fixBolster(
       ],
       unlabeled_numbers: [...card.unlabeled_numbers, ...anchors],
       verified_self_stress: { lineIndex: 0, amount: -1, source: "print_front" },
-      verified_allies_stress: -1,
+      verified_target_stress: { lineIndex: 1, amount: -1, source: "print_front" },
     });
   }
 
@@ -389,7 +387,7 @@ function fixBolster(
     ],
     unlabeled_numbers: [...card.unlabeled_numbers, ...anchors],
     verified_self_stress: { lineIndex: 0, amount: -1, source: "print_front" },
-    verified_allies_stress: -1,
+    verified_target_stress: { lineIndex: 1, amount: -1, source: "print_front" },
   });
 }
 
@@ -430,13 +428,13 @@ export function attachVerifiedCoveManAtArmsHigher(
           "{self_effects}{buff}Self{buff}Pull1",
         );
       case "hero_skill:p238":
-        return fixBellow(card, 238, 1, 1);
+        return fixBellow(cards, card, 238, 1, 1);
       case "hero_skill:p239":
-        return fixBellow(card, 239, 2, 2);
+        return fixBellow(cards, card, 239, 2, 2);
       case "hero_skill:p240":
-        return fixBellow(card, 240, 3, 3);
+        return fixBellow(cards, card, 240, 3, 3);
       case "hero_skill:p241":
-        return fixDefender(cards, card, 241, 1, 1, 2, 2, 3);
+        return fixDefender(cards, card, 241, 1, 1, 2, 1, 2);
       case "hero_skill:p242":
         return fixDefender(cards, card, 242, 2, 2, 2, 2, 2);
       case "hero_skill:p243":

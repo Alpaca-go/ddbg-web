@@ -28,6 +28,31 @@ export function attachVerifiedHeroLayout(
     ],
   };
   return cards.map((card) => {
+    if (card.id === "hero_skill:p106") {
+      const [move, guard] = card.effect_lines;
+      if (
+        card.name !== "Dirk Stab" ||
+        card.level !== 1 ||
+        card.verification.unverified ||
+        card.effect_lines.length !== 2 ||
+        !move ||
+        !guard ||
+        lineSignature(move) !== "{self_effects} Self {shuffle} Pull 1," ||
+        lineSignature(guard) !== "Ignores {guard}"
+      )
+        throw new Error(`${card.id} 匕首刺卡面行漂移（R-048）`);
+      return {
+        ...card,
+        effect_lines: [
+          move.map((segment) =>
+            segment.type === "text"
+              ? { ...segment, text: segment.text.replace(/,\s*$/, "") }
+              : segment,
+          ),
+          guard,
+        ],
+      };
+    }
     // FRONT p43 / p181：同一目标效果框跨两行，沿用该框实际标记，不改原始转录。
     if (card.id === "hero_skill:p043" || card.id === "hero_skill:p181") {
       const expected =

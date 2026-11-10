@@ -27,10 +27,33 @@ const MAA_II_III_IDS = [
 ] as const;
 
 const data = loadNormalizedCorebox();
+const clean = <T>(v: unknown): T => JSON.parse(JSON.stringify(v));
+
+it.each([250, 268, 346])("R-213：技能 p%i 命中只给选中目标减压", (page) => {
+  const skill = clean<HeroSkillCardView>(
+    data.hero_skill.cards.find((card) => card.id === `hero_skill:p${page}`),
+  );
+  const combat = {
+    actor: { id: "actor", wounds: 0, stress: 4 },
+    target: { id: "selected", side: "hero" as const, wounds: 0, stress: 4, dodge: 0 },
+    allies: [{ id: "other", stress: 4 }],
+    areaDistance: 1,
+    targetsInArea: 1,
+  };
+  expect(resolveHeroSkillEffects(skill, combat, 5).resolution).toMatchObject({
+    outcome: "hit",
+    actorStress: 3,
+    targetStress: 3,
+    besideActorStress: null,
+  });
+  expect(
+    resolveHeroSkillEffects(skill, { ...combat, target: { ...combat.target, dodge: 20 } }, 5)
+      .resolution,
+  ).toMatchObject({ outcome: "miss", actorStress: 3, targetStress: 4 });
+});
 const maaHigherCards = data.hero_skill.cards.filter((card) =>
   (MAA_II_III_IDS as readonly string[]).includes(card.id),
 );
-const clean = <T>(v: unknown): T => JSON.parse(JSON.stringify(v));
 
 it("R-200：Man-at-Arms II/III 审计集合 14 张", () => {
   expect(maaHigherCards.map((c) => c.id).sort()).toEqual([...MAA_II_III_IDS].sort());

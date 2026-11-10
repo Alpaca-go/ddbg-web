@@ -1,3 +1,4 @@
+import { ABOMINATION_DOUBLE_FACED_SKILL_IDS } from "@ddbg/engine";
 import { CardFace } from "../../card-art/card-face";
 import { AssetPlaceholder } from "../asset-placeholder";
 import type { FlowPhaseId } from "../phase/flow-phase";
@@ -75,12 +76,12 @@ export function TabletopActionDock({
                         skillId={skillId}
                         face={
                           activeHero.form === "beast" &&
-                          ["hero_skill:p221", "hero_skill:p222"].includes(skillId)
+                          Object.values(ABOMINATION_DOUBLE_FACED_SKILL_IDS).includes(skillId)
                             ? "back"
                             : "front"
                         }
                         {...(activeHero.form === "beast" &&
-                        ["hero_skill:p221", "hero_skill:p222"].includes(skillId)
+                        Object.values(ABOMINATION_DOUBLE_FACED_SKILL_IDS).includes(skillId)
                           ? { label: "Transform to Human" }
                           : {})}
                         size="sm"

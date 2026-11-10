@@ -51,6 +51,7 @@ import { attachVerifiedHeroRanges } from "./verified-hero-ranges";
 import { attachVerifiedHeroDamage } from "./verified-hero-damage";
 import { attachVerifiedHeroSupport } from "./verified-hero-support";
 import { attachVerifiedHeroLayout } from "./verified-hero-layout";
+import { attachReviewedHeroStances } from "./reviewed-hero-stances";
 import { attachVerifiedWarrensLeperHigher } from "./verified-warrens-leper-higher";
 import { attachVerifiedWarrensAntiquarianHigher } from "./verified-warrens-antiquarian-higher";
 import { attachVerifiedCoveFlagellantHigher } from "./verified-cove-flagellant-higher";
@@ -728,6 +729,7 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
       ];
       const raw = { ...input.heroSkillRaw, cards: rawCards };
       const file = buildHeroSkills(parsed, raw, lookup);
+      const reviewed = attachReviewedHeroStances(file.cards);
       return normalizedHeroSkillFileSchema.parse({
         ...file,
         cards: attachCoreHigherSkills(
@@ -743,7 +745,9 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
                             attachVerifiedCoveManAtArmsHigher(
                               attachVerifiedCoveFlagellantHigher(
                                 attachVerifiedWarrensAntiquarianHigher(
-                                  attachVerifiedWarrensLeperHigher(attachVerifiedHeroLayout(file.cards)),
+                                  attachVerifiedWarrensLeperHigher(
+                                    attachVerifiedHeroLayout(reviewed),
+                                  ),
                                 ),
                               ),
                             ),

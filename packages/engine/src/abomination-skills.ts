@@ -1,21 +1,37 @@
 import type { HeroSkillCardView, SkillSegment } from "./hero-skill";
 
 const signatures: Record<number, string[]> = {
+  211: ["{target_effects} {stun} 1t"],
   212: ["{target_effects} {stun} 1t"],
   213: ["{target_effects} {stun} 1t"],
+  214: ["{target_effects} 2 {blight} 2t"],
   215: ["{target_effects} 2 {blight} 3t"],
   216: ["{target_effects} 3 {blight} 3t"],
+  217: ["{self_effects} Self {stress} -1"],
   218: ["{self_effects} Self {stress} -1"],
   219: ["{self_effects} Self {stress} -1"],
+  223: ["{self_effects} Self {buff} 2t, {stress} +1"],
   224: ["{self_effects} Self {buff} 2t, {stress} +1"],
   225: ["{self_effects} Self {buff} 2t, {stress} +1"],
+  226: ["{self_effects} Self {stress} +1"],
   227: ["{self_effects} Self {stress} +1"],
   228: ["{self_effects} Self {stress} +1"],
+  229: [
+    "{self_effects} Self {shuffle} Pull 1, {stress} +1",
+    "{target_effects} {shuffle} Push 2, {debuff} 1t",
+  ],
   230: [
     "{self_effects} Self {shuffle} Pull 1, {stress} +1 {target_effects} {shuffle} Push 2, {debuff} 2t",
   ],
   231: [
     "{self_effects} Self {shuffle} Pull 1, {stress} +1 {target_effects} {shuffle} Push 2, {debuff} 2t",
+  ],
+  220: [
+    "{range} All Allies",
+    "{self_effects} Self Change: Beast",
+    "{target_effects} {stress} +2",
+    "{buff}",
+    "2t, {heal} 4 , {stress} +2",
   ],
   221: [
     "{range} All Allies",
@@ -31,18 +47,25 @@ const signatures: Record<number, string[]> = {
   ],
 };
 const names: Record<number, string> = {
+  211: "Manacles",
   212: "Manacles",
   213: "Manacles",
+  214: "Beast’s Bile",
   215: "Beast’s Bile",
   216: "Beast’s Bile",
+  217: "Absolution",
   218: "Absolution",
   219: "Absolution",
+  220: "Transform to Beast",
   221: "Transform to Beast",
   222: "Transform to Beast",
+  223: "Rake",
   224: "Rake",
   225: "Rake",
+  226: "Rage",
   227: "Rage",
   228: "Rage",
+  229: "Slam",
   230: "Slam",
   231: "Slam",
 };
@@ -53,7 +76,7 @@ const signature = (line: readonly SkillSegment[]) =>
     .replace(/\s+/g, " ")
     .trim();
 
-/** R19–21/R38, current printed FRONT/BACK p218–231. Projection preserves source transcription. */
+/** R-212，印刷正反面 p211–231。保留来源转录，按选用卡面投影。 */
 export function projectAbominationSkill(
   skill: HeroSkillCardView,
   face: "front" | "back",
@@ -61,11 +84,12 @@ export function projectAbominationSkill(
   const page = Number(skill.id.slice(-3));
   const expected = signatures[page];
   if (!expected || skill.id !== `hero_skill:p${page}`) return null;
-  const transform = page === 221 || page === 222;
+  const level = ((page - 211) % 3) + 1;
+  const transform = page >= 220 && page <= 222;
   const identity = skill as HeroSkillCardView & { name?: string; level?: number };
   if (
     identity.name !== names[page] ||
-    identity.level !== (page % 3 === 0 ? 3 : 2) ||
+    identity.level !== level ||
     skill.hero !== (transform ? null : "ABOMINATION") ||
     skill.verification.unverified ||
     JSON.stringify(skill.effect_lines.map(signature)) !== JSON.stringify(expected)
@@ -88,7 +112,7 @@ export function projectAbominationSkill(
       skill.back_face_skill.level !== identity.level
     )
       throw new Error("Abomination reverse identity changed (R-048)");
-    const duration = page === 221 ? 2 : 1;
+    const duration = 4 - level;
     const tail = [
       "{range} All Allies",
       "{self_effects} Self Change: Human",
@@ -140,7 +164,7 @@ export function projectAbominationSkill(
     selfStress = { lineIndex: lines.length, amount, source: "print_front" };
     lines.push(line(`{self_effects} Self {stress} ${amount > 0 ? "+" : ""}${amount}`));
   };
-  if (page === 218 || page === 219)
+  if (page >= 217 && page <= 219)
     return { ...skill, verified_self_range: true, verified_required_form: "human" };
   if (transform) {
     const human = face === "back";
@@ -148,9 +172,13 @@ export function projectAbominationSkill(
       line("{range} Self"),
       line(`{self_effects} Self Change: ${human ? "Human" : "Beast"}`),
     );
-    status("self", human ? "debuff" : "buff", human ? (page === 221 ? 2 : 1) : 3);
+    const healAmount = 2 + level * 2;
+    status("self", human ? "debuff" : "buff", human ? 4 - level : level === 1 ? 2 : 3);
     if (human) stress(-1);
-    else lines.push(line(`{self_effects} Self {heal} ${page === 221 ? 6 : 8}`));
+    else {
+      lines.push(line(`{self_effects} Self {heal} ${healAmount}`));
+      if (level === 1) stress(2);
+    }
     return {
       ...skill,
       stats_line: null,
@@ -163,21 +191,23 @@ export function projectAbominationSkill(
       verified_self_range: true,
       verified_required_form: human ? "beast" : "human",
       verified_allies_stress: human ? -1 : 2,
-      ...(selfStress
-        ? { verified_self_stress: selfStress }
-        : {
+      ...(selfStress ? { verified_self_stress: selfStress } : {}),
+      ...(!human
+        ? {
             verified_self_heal: {
               lineIndex: 3,
-              amount: page === 221 ? 6 : 8,
+              amount: healAmount,
               source: "print_front" as const,
             },
-          }),
+          }
+        : {}),
     };
   }
-  if (page === 224 || page === 225) status("self", "buff", 2);
-  if (page === 230 || page === 231) lines.push(line("{self_effects} Self {shuffle} Pull 1"));
+  if (page >= 223 && page <= 225) status("self", "buff", 2);
+  const slam = page >= 229;
+  if (slam) lines.push(line("{self_effects} Self {shuffle} Pull 1"));
   stress(1);
-  if (page === 230 || page === 231) status("target", "debuff", 2, ", {shuffle} Push 2");
+  if (slam) status("target", "debuff", level === 1 ? 1 : 2, ", {shuffle} Push 2");
   return {
     ...skill,
     effect_lines: lines,

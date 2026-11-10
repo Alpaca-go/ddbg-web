@@ -13,15 +13,7 @@ type Entry = {
   scopeLine?: { index: number; signature: string };
   effects: {
     kind:
-      | "bleed"
-      | "blight"
-      | "stun"
-      | "buff"
-      | "mark"
-      | "riposte"
-      | "protection"
-      | "guard"
-      | "debuff";
+      "bleed" | "blight" | "stun" | "buff" | "mark" | "riposte" | "protection" | "guard" | "debuff";
     duration: number;
     amount?: number;
   }[];
@@ -29,6 +21,185 @@ type Entry = {
 
 // 完整印刷逐页核对：docs/phase2-four-core-skills-2026-10-11.md。
 const entries: readonly Entry[] = [
+  {
+    id: "hero_skill:p211",
+    name: "Manacles",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} {stun} 1t",
+    effects: [{ kind: "stun", duration: 1 }],
+  },
+  {
+    id: "hero_skill:p214",
+    name: "Beast’s Bile",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} 2 {blight} 2t",
+    effects: [{ kind: "blight", amount: 2, duration: 2 }],
+  },
+  // R-211：卡面文字已确认、一级运行时尚未读取的状态。
+  {
+    id: "hero_skill:p109",
+    name: "Harvest",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} 2 {bleed} 2t",
+    effects: [{ kind: "bleed", amount: 2, duration: 2 }],
+  },
+  {
+    id: "hero_skill:p115",
+    name: "Solo",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} {stun} 1t",
+    effects: [{ kind: "stun", duration: 1 }],
+  },
+  {
+    id: "hero_skill:p115",
+    name: "Solo",
+    level: 1,
+    lineIndex: 1,
+    scope: "self",
+    signature: "{self_effects} Self {buff} 2t, {shuffle} Pull 2",
+    effects: [{ kind: "buff", duration: 2 }],
+  },
+  {
+    id: "hero_skill:p118",
+    name: "Battle Ballad",
+    level: 1,
+    lineIndex: 1,
+    scope: "self",
+    signature: "{self_effects} Self {buff} 2t",
+    effects: [{ kind: "buff", duration: 2 }],
+  },
+  {
+    id: "hero_skill:p118",
+    name: "Battle Ballad",
+    level: 1,
+    lineIndex: 2,
+    scope: "target",
+    headerSignature: "{range} 1 {target_hero} {target_hero}",
+    signature: "{target_effects} {buff} 2t",
+    effects: [{ kind: "buff", duration: 2 }],
+  },
+  {
+    id: "hero_skill:p124",
+    name: "Slice Off",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} 3 {bleed} 1t",
+    effects: [{ kind: "bleed", amount: 3, duration: 1 }],
+  },
+  {
+    id: "hero_skill:p151",
+    name: "Suppressive Fire",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} {debuff} 1t",
+    effects: [{ kind: "debuff", duration: 1 }],
+  },
+  {
+    id: "hero_skill:p154",
+    name: "Sniper’s Mark",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} {mark} 2t",
+    effects: [{ kind: "mark", duration: 2 }],
+  },
+  {
+    id: "hero_skill:p163",
+    name: "Battlefield Bandage",
+    level: 1,
+    lineIndex: 0,
+    scope: "self",
+    signature: "{self_effects} Self {buff} 2t",
+    effects: [{ kind: "buff", duration: 2 }],
+  },
+  {
+    id: "hero_skill:musketeer:p004",
+    name: "Smokescreen",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} {debuff} 1t",
+    effects: [{ kind: "debuff", duration: 1 }],
+  },
+  {
+    id: "hero_skill:musketeer:p007",
+    name: "Call the Shot",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} {mark} 2t",
+    effects: [{ kind: "mark", duration: 2 }],
+  },
+  {
+    id: "hero_skill:musketeer:p016",
+    name: "Patch Up",
+    level: 1,
+    lineIndex: 0,
+    scope: "self",
+    signature: "{self_effects} Self {buff} 2t",
+    effects: [{ kind: "buff", duration: 2 }],
+  },
+  {
+    id: "hero_skill:p280",
+    name: "Purge",
+    level: 1,
+    lineIndex: 0,
+    scope: "self",
+    signature: "{self_effects} Self {buff} 2t",
+    effects: [{ kind: "buff", duration: 2 }],
+  },
+  {
+    id: "hero_skill:p283",
+    name: "Revenge",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} {mark} 2t, {debuff} 1t",
+    effects: [
+      { kind: "mark", duration: 2 },
+      { kind: "debuff", duration: 1 },
+    ],
+  },
+  {
+    id: "hero_skill:p286",
+    name: "Withstand",
+    level: 1,
+    lineIndex: 1,
+    scope: "self",
+    signature: "{self_effects} Self {protection} 2t, {mark} 2t",
+    effects: [
+      { kind: "protection", duration: 2 },
+      { kind: "mark", duration: 2 },
+    ],
+  },
+  {
+    id: "hero_skill:p292",
+    name: "Intimidate",
+    level: 1,
+    lineIndex: 0,
+    scope: "self",
+    signature: "{self_effects} Self {mark} 2t",
+    effects: [{ kind: "mark", duration: 2 }],
+  },
+  {
+    id: "hero_skill:p292",
+    name: "Intimidate",
+    level: 1,
+    lineIndex: 3,
+    scope: "target",
+    signature: "{target_effects} {debuff} 1t",
+    effects: [{ kind: "debuff", duration: 1 }],
+  },
   // 完整FRONT p184：目标 Blight 2·3t；仅 I 级。
   {
     id: "hero_skill:p184",
@@ -965,10 +1136,10 @@ const entries: readonly Entry[] = [
     level: 1,
     lineIndex: 0,
     scope: "target",
-    signature: "{target_effects} 1 {bleed} 3t, {debuff} 2t",
+    signature: "{target_effects} 2 {blight} 2t, {debuff} 1t",
     effects: [
-      { kind: "bleed", amount: 1, duration: 3 },
-      { kind: "debuff", duration: 2 },
+      { kind: "blight", amount: 2, duration: 2 },
+      { kind: "debuff", duration: 1 },
     ],
   },
   {
@@ -996,7 +1167,33 @@ const entries: readonly Entry[] = [
   },
   {
     id: "hero_skill:p307",
-    hero: "ANTIQUARIAN",
+    name: "Fortifying Vapours",
+    level: 1,
+    lineIndex: 2,
+    scope: "target",
+    signature: "{target_effects} {buff} 2t",
+    effects: [{ kind: "buff", duration: 2 }],
+  },
+  {
+    id: "hero_skill:p308",
+    name: "Fortifying Vapours",
+    level: 2,
+    lineIndex: 2,
+    scope: "target",
+    signature: "{target_effects} {buff} 3t",
+    effects: [{ kind: "buff", duration: 3 }],
+  },
+  {
+    id: "hero_skill:p309",
+    name: "Fortifying Vapours",
+    level: 3,
+    lineIndex: 2,
+    scope: "target",
+    signature: "{target_effects} {buff} 3t",
+    effects: [{ kind: "buff", duration: 3 }],
+  },
+  {
+    id: "hero_skill:p307",
     name: "Fortifying Vapours",
     level: 1,
     lineIndex: 1,
@@ -1006,7 +1203,33 @@ const entries: readonly Entry[] = [
   },
   {
     id: "hero_skill:p310",
-    hero: "ANTIQUARIAN",
+    name: "Invigorating Vapours",
+    level: 1,
+    lineIndex: 2,
+    scope: "self",
+    signature: "{self_effects} Self {buff} 2t",
+    effects: [{ kind: "buff", duration: 2 }],
+  },
+  {
+    id: "hero_skill:p311",
+    name: "Invigorating Vapours",
+    level: 2,
+    lineIndex: 2,
+    scope: "self",
+    signature: "{self_effects} Self {buff} 2t",
+    effects: [{ kind: "buff", duration: 2 }],
+  },
+  {
+    id: "hero_skill:p312",
+    name: "Invigorating Vapours",
+    level: 3,
+    lineIndex: 2,
+    scope: "self",
+    signature: "{self_effects} Self {buff} 3t",
+    effects: [{ kind: "buff", duration: 3 }],
+  },
+  {
+    id: "hero_skill:p310",
     name: "Invigorating Vapours",
     level: 1,
     lineIndex: 1,
@@ -1036,9 +1259,9 @@ const entries: readonly Entry[] = [
     level: 2,
     lineIndex: 0,
     scope: "target",
-    signature: "{target_effects} 2 {bleed} 3t, {debuff} 2t",
+    signature: "{target_effects} 2 {blight} 3t, {debuff} 2t",
     effects: [
-      { kind: "bleed", amount: 2, duration: 3 },
+      { kind: "blight", amount: 2, duration: 3 },
       { kind: "debuff", duration: 2 },
     ],
   },
@@ -1048,9 +1271,9 @@ const entries: readonly Entry[] = [
     level: 3,
     lineIndex: 0,
     scope: "target",
-    signature: "{target_effects} 3 {bleed} 3t, {debuff} 2t",
+    signature: "{target_effects} 3 {blight} 3t, {debuff} 2t",
     effects: [
-      { kind: "bleed", amount: 3, duration: 3 },
+      { kind: "blight", amount: 3, duration: 3 },
       { kind: "debuff", duration: 2 },
     ],
   },
@@ -1286,8 +1509,8 @@ const entries: readonly Entry[] = [
     level: 1,
     lineIndex: 0,
     scope: "self",
-    signature: "{self_effects} Self {protection} 3t",
-    effects: [{ kind: "protection", duration: 3 }],
+    signature: "{self_effects} Self 1 {bleed} 3t",
+    effects: [{ kind: "bleed", amount: 1, duration: 3 }],
   },
   {
     id: "hero_skill:p263",
@@ -1295,8 +1518,8 @@ const entries: readonly Entry[] = [
     level: 2,
     lineIndex: 0,
     scope: "self",
-    signature: "{self_effects} Self {protection} 3t",
-    effects: [{ kind: "protection", duration: 3 }],
+    signature: "{self_effects} Self 1 {bleed} 3t",
+    effects: [{ kind: "bleed", amount: 1, duration: 3 }],
   },
   {
     id: "hero_skill:p264",
@@ -1314,7 +1537,7 @@ const entries: readonly Entry[] = [
     lineIndex: 3,
     scope: "self",
     headerSignature: "{range} 1 {target_hero}",
-    signature: "{self_effects} Self {buff} 2t, {mark} 2t",
+    signature: "{self_effects} Self {mark} 2t, {buff} 2t",
     effects: [
       { kind: "buff", duration: 2 },
       { kind: "mark", duration: 2 },
@@ -1327,10 +1550,10 @@ const entries: readonly Entry[] = [
     lineIndex: 3,
     scope: "self",
     headerSignature: "{range} 1 {target_hero}",
-    signature: "{self_effects} Self {buff} 2t, {mark} 3t",
+    signature: "{self_effects} Self {mark} 2t, {buff} 3t",
     effects: [
-      { kind: "buff", duration: 2 },
-      { kind: "mark", duration: 3 },
+      { kind: "mark", duration: 2 },
+      { kind: "buff", duration: 3 },
     ],
   },
   {
@@ -1340,10 +1563,10 @@ const entries: readonly Entry[] = [
     lineIndex: 3,
     scope: "self",
     headerSignature: "{range} 1 {target_hero}",
-    signature: "{self_effects} Self {buff} 1t, 1 {bleed} 4t",
+    signature: "{self_effects} Self {mark} 1t, {buff} 4t",
     effects: [
-      { kind: "buff", duration: 1 },
-      { kind: "bleed", amount: 1, duration: 4 },
+      { kind: "mark", duration: 1 },
+      { kind: "buff", duration: 4 },
     ],
   },
 ];

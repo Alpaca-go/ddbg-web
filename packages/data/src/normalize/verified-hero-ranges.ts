@@ -210,6 +210,16 @@ export function attachVerifiedHeroRanges(
       "hero_skill:p264": { name: "Reclaim", level: 3, min: 0, max: 1 },
       "hero_skill:p269": { name: "Endure", level: 2, min: 1, max: 2 },
       "hero_skill:p270": { name: "Endure", level: 3, min: 1, max: 2 },
+      // R-207，已逐卡核对的 I 级区间。火枪手与弩手按 Q-185 对齐。
+      "hero_skill:p214": { name: "Beast’s Bile", level: 1, min: 1, max: 2 },
+      "hero_skill:p151": { name: "Suppressive Fire", level: 1, min: 1, max: 2 },
+      "hero_skill:p154": { name: "Sniper’s Mark", level: 1, min: 1, max: 2 },
+      "hero_skill:p160": { name: "Blindfire", level: 1, min: 0, max: 2 },
+      "hero_skill:p163": { name: "Battlefield Bandage", level: 1, min: 0, max: 1 },
+      "hero_skill:musketeer:p004": { name: "Smokescreen", level: 1, min: 1, max: 2 },
+      "hero_skill:musketeer:p007": { name: "Call the Shot", level: 1, min: 1, max: 2 },
+      "hero_skill:musketeer:p013": { name: "Sidearm", level: 1, min: 0, max: 2 },
+      "hero_skill:musketeer:p016": { name: "Patch Up", level: 1, min: 0, max: 1 },
     };
     const range = reviewed[card.id];
     if (!range) return card;

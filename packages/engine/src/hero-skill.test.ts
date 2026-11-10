@@ -221,7 +221,16 @@ function target(
 }
 
 function use(id: string, combat: SkillCombatState, roll: number): HeroSkillResolution {
-  return resolveHeroSkill(card(id), combat, roll);
+  const skill = card(id);
+  // 这些用例特意输入未附注解的旧转录。真实堕落者卡的投影由 abomination-skills.test.ts 验证。
+  if (
+    ["p211", "p214", "p217", "p220", "p223", "p226", "p229"].some(
+      (page) => id === `hero_skill:${page}`,
+    )
+  ) {
+    return { ...resolveHeroSkill({ ...skill, id: `${id}:legacy` }, combat, roll), skillId: id };
+  }
+  return resolveHeroSkill(skill, combat, roll);
 }
 
 /** 明确破损的输入夹具；真实 Zealous 已修复，仍要保证不能从技能名猜伤害。 */
@@ -477,7 +486,7 @@ describe("resolveHeroSkill", () => {
     });
   });
 
-  it("未验证、读不出 Acc、Self 没有使用者、阵营不符、Musketeer 都不改伤口", () => {
+  it("未验证、读不出 Acc、Self 没有使用者或阵营不符时不改伤口", () => {
     const bleed = card("hero_skill:p040");
     expect(bleed.name).toBe("Bleed Out");
     expect(bleed.verification.unverified).toBe(false);
@@ -538,18 +547,6 @@ describe("resolveHeroSkill", () => {
       status: "refused",
       reason: "目标阵营与技能的目标图标不一致",
       wounds: 6,
-    });
-
-    const musketeer = resolveHeroSkill(
-      { ...card("hero_skill:p022"), hero: "MUSKETEER" },
-      target("monster", 2, 0),
-      1,
-    );
-    expect(musketeer).toMatchObject({
-      status: "refused",
-      reason: "Musketeer 不在首版（R-008）",
-      wounds: 2,
-      outcome: null,
     });
   });
 
@@ -2999,9 +2996,8 @@ describe("resolveHeroSkill", () => {
         1,
       ),
     ).toMatchObject({
-      status: "refused",
-      reason: "这张技能的该姿态没有标明点亮或未点亮，不能当作可用（R-048）",
-      actorForm: null,
+      status: "resolved",
+      actorForm: "beast",
       actorBleedCleared: false,
       actorBlightCleared: false,
       actorWounds: 5,
@@ -3859,13 +3855,13 @@ describe("resolveHeroSkill", () => {
     expect(manacles.top_row_icons?.map((icon) => icon.key)).toEqual([
       "text_plate",
       "stance_support_unlit",
-      "stance_ranged_abomination_row",
+      "stance_ranged_lit",
       "stance_defensive_lit",
       "stance_aggressive_unlit",
     ]);
-    expect(
-      manacles.top_row_icons?.find((icon) => icon.key === "stance_ranged_abomination_row")?.naming,
-    ).toBe("confirmed");
+    expect(manacles.top_row_icons?.find((icon) => icon.key === "stance_ranged_lit")?.naming).toBe(
+      "confirmed",
+    );
     expect(manacles.unlabeled_numbers.filter((item) => item.numeric === null)).toEqual([
       {
         text: "1t",
@@ -3904,12 +3900,11 @@ describe("resolveHeroSkill", () => {
         1,
       ),
     ).toMatchObject({
-      status: "refused",
-      reason: "这张技能的该姿态没有标明点亮或未点亮，不能当作可用（R-048）",
-      outcome: null,
-      printedAmount: null,
-      damageDealt: null,
-      wounds: 0,
+      status: "resolved",
+      outcome: "hit",
+      printedAmount: 4,
+      damageDealt: 4,
+      wounds: 4,
       actorWounds: 1,
       actorStress: 3,
       actorForm: null,
