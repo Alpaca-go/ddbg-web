@@ -276,6 +276,24 @@ it.each([
   );
   expect(paid.state.battle!.entities[0]!.wounds).toBe(0);
 });
+it("R-222：Evasive 在怪物攻击落空时恢复 1 压力，命中时不触发", () => {
+  const initial = monsterTurn("trinket:p019", "upright");
+  const state = {
+    ...initial,
+    seed: seedForRoll(9 - initial.battle.entities[0]!.dodge),
+    battle: {
+      ...initial.battle,
+      entities: initial.battle.entities.map((entity) =>
+        entity.id === "h0" ? { ...entity, stress: 4, quirkIds: ["quirk:p006"] } : entity,
+      ),
+    },
+  };
+  const open = ok(applyCommand(state, monsterAttack));
+  const hit = choose(open, "continue");
+  const dodge = choose(open, "trinket:p019");
+  expect(hit.state.battle!.entities[0]!.stress).toBe(4);
+  expect(dodge.state.battle!.entities[0]!.stress).toBe(3);
+});
 it.each(["trinket:p010", "trinket:p018"] as const)("%s反面Dodge减少使原本落空变为命中", (id) => {
   const initial = monsterTurn(id, "inverted"),
     threshold = 9 - initial.battle.entities[0]!.dodge;
