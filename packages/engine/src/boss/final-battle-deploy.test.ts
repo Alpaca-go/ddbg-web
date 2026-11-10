@@ -135,10 +135,16 @@ it("最终战接受可恢复原卡的铁匠临时升级，拒绝伪造拥有的�
 it("Ancestor 1 登记 Reflections 支援实体", () => {
   const game = prepared("quest:p016").state;
   const ids = game.battle!.entities.filter((e) => e.side === "monster").map((e) => e.monsterCardId);
-  expect(ids).toEqual(["monster_medium:p105", "monster_medium:p106", "monster_medium:p109"]);
+  expect(ids).toEqual([
+    "monster_medium:p105",
+    "monster_medium:p106",
+    "monster_medium:p109",
+    "monster_medium:p106",
+  ]);
   const reflections = game.battle!.entities.filter(
     (e) => e.monsterCardId === "monster_medium:p106" || e.monsterCardId === "monster_medium:p109",
   );
+  expect(reflections.map((e) => e.stance).sort()).toEqual(["defensive", "ranged", "support"]);
   expect(reflections.every((e) => e.guard)).toBe(true);
   expect(game.battle!.entities.find((e) => e.monsterCardId === "monster_medium:p105")!.guard).toBe(
     false,

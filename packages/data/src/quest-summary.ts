@@ -46,6 +46,10 @@ export const wipeQuestSummarySchema = z
     )
       ctx.addIssue({ code: "custom", message: "Wipe ‘Em Out巢穴记录 / 待发XP不一致" });
   });
+/** R-038、R-216：限制任务 XP，捐献可以超过换取 3 XP 所需的金币。 */
+export function fundraiserDonationXp(gold: number): number {
+  return Math.min(3, Math.floor(gold / 20));
+}
 export const fundraiserQuestSummarySchema = z
   .strictObject({
     questId: z.literal("quest:p003"),
@@ -54,7 +58,7 @@ export const fundraiserQuestSummarySchema = z
     earlyLeave: z.boolean(),
     objectiveMet: z.boolean(),
     lairClearedCount: z.int().min(0).max(2),
-    donatedGold: z.int().min(0).max(60),
+    donatedGold: z.int().nonnegative(),
     xpPerHero: z.int().min(0).max(3),
     stagecoachXp: z.int().min(0).max(3),
     awarded: z.boolean(),
@@ -66,7 +70,7 @@ export const fundraiserQuestSummarySchema = z
       s.objectiveMet !== s.lairClearedCount >= 1 ||
       s.earlyLeave === s.objectiveMet ||
       (!s.objectiveMet && s.donatedGold !== 0) ||
-      s.xpPerHero !== Math.floor(s.donatedGold / 20) ||
+      s.xpPerHero !== fundraiserDonationXp(s.donatedGold) ||
       s.stagecoachXp !== s.xpPerHero
     )
       ctx.addIssue({ code: "custom", message: "Fundraiser捐献 / 巢穴 / 待发XP不一致" });

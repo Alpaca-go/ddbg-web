@@ -4,6 +4,7 @@ import {
   dungeonQuestSummarySchema,
   forwardCampsQuestSummarySchema,
   fundraiserQuestSummarySchema,
+  fundraiserDonationXp,
   bossFlatQuestSummarySchema,
 } from "../../data/src/quest-summary";
 import {
@@ -13,6 +14,9 @@ import {
 } from "../../data/src/basic-quests";
 import type { ApplyResult, GameState } from "./command";
 import type { DungeonState } from "./dungeon";
+
+export const FUNDRAISER_PROMPT =
+  "Fundraiser：可捐献任意不超过余额的整数金币。每 20 金币得 1 XP，最多 3 XP。0 金币表示不捐献（R-216）。";
 
 /** 已核对QUEST：按初始任务身份核构成与目标，不从地图或房间名猜测。 */
 export function readDungeonQuestProgress(d: DungeonState) {
@@ -125,8 +129,8 @@ export function summarizeDungeonQuest(state: GameState): ApplyResult {
 
     const pending = {
       id: `dungeon-fundraiser:${d.decision}`,
-      prompt:
-        "Fundraiser：选择给继承人的金币；每20金币1XP，最多捐60金币，超出不再加XP（R-038）。0金币表示不捐献。",
+      prompt: FUNDRAISER_PROMPT,
+      // 保留常用金额的快捷选项。更高金额由客户端数字输入，结算仍校验余额。
       options: [
         ...Array.from({ length: Math.min(60, d.gold) + 1 }, (_, gold) => ({
           id: `give:${gold}`,
@@ -220,7 +224,7 @@ export function summarizeDungeonQuest(state: GameState): ApplyResult {
     events: [
       {
         type: "dungeonUpdated",
-        message: `${quest.name}：${xpUnit}清理 ${clearedRoomIds.length} 间，每名英雄与驿站待发 ${xpPerHero} XP；于兑换剩余补给并完成回村时发放（R29、R-038）`,
+        message: `${quest.name}：${xpUnit}清理 ${clearedRoomIds.length} 间，每名英雄与驿站待发 ${xpPerHero} XP；于兑换剩余补给并完成回村时发放（R29、R-216）`,
       },
     ],
   };
@@ -241,8 +245,7 @@ export function resolveFundraiserGold(
     d.phase !== "exited" ||
     d.questSummary ||
     !d.pending?.id.startsWith("dungeon-fundraiser:") ||
-    command.choiceId !== d.pending.id ||
-    !d.pending.options.some((o) => o.id === command.optionId)
+    command.choiceId !== d.pending.id
   )
     return refuse("捐献选择无效或已过期");
   if (command.optionId === "cancel")
@@ -260,11 +263,11 @@ export function resolveFundraiserGold(
     !Number.isSafeInteger(d.gold) ||
     d.gold < 0 ||
     !Number.isSafeInteger(gold) ||
-    gold > Math.min(60, d.gold) ||
+    gold > d.gold ||
     (d.lootPool && d.lootPool.gold !== d.gold)
   )
     return refuse("任务 / 最低目标 / 捐献金额 / 共享金币无效，未提交");
-  const xp = Math.floor(gold / 20);
+  const xp = fundraiserDonationXp(gold);
   const questSummary = fundraiserQuestSummarySchema.parse({
     questId: "quest:p003",
     name: "Fundraiser I",

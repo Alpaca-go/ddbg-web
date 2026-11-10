@@ -2,7 +2,6 @@ import { distance, rejectBattleCommand, type BattleEntity, type BattleState } fr
 import { readHeroPassiveDefence } from "../battle-skill-status";
 import type { ApplyResult, GameState } from "../command";
 import { finishTurn } from "../encounter";
-import { insertReflectionInitiative } from "./reflection-initiative";
 import type { SkillStance } from "../hero-skill";
 import type { MonsterCardView } from "../monster-skill";
 import { selectMonsterTarget, type MonsterTargetHero } from "../monster-target";
@@ -257,7 +256,7 @@ export function applyAncestor1ImperfectReproduction(
     ],
   });
   if (pressure.events.some((event) => event.type === "commandRefused")) return pressure;
-  return finishTurn(insertReflectionInitiative(pressure.state), actorId, pressure.events);
+  return finishTurn(pressure.state, actorId, pressure.events);
 }
 
 export type ApplyAncestor1ImperfectReproductionCommand = {

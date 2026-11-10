@@ -84,7 +84,7 @@ it("gestatingHeart 形态 combatReady 已批准为 true", () => {
   expect(sequence.current!.combatReady).toBe(true);
 });
 
-it("空槽随机召唤最暗怪物并 finishTurn", () => {
+it("空槽随机召唤后立即洗入先攻，最后一张怪物牌仍可在当轮行动", () => {
   const before = onHeartTurn(gestatingHeartFighting(), 0);
   const result = applyGestatingHeartSummon(before, heart(before).id);
   expect(result.events.some((event) => event.type === "commandRefused")).toBe(false);
@@ -99,7 +99,17 @@ it("空槽随机召唤最暗怪物并 finishTurn", () => {
   expect(summoned[0]!.dodge).toBeGreaterThanOrEqual(0);
   expect(summoned[0]!.areaId).toMatch(/^[A-K]$/);
   expect(result.state.battle!.encounter!.turn.type).not.toBe("monster");
-  expect(result.state.battle!.rngCursor).toBeGreaterThan(before.battle!.rngCursor);
+  expect(result.state.battle!.rngCursor).toBe(before.battle!.rngCursor + 2);
+  expect(result.state.battle!.encounter).toMatchObject({
+    round: 1,
+    deck: ["monster"],
+    turn: { type: "awaitingInitiative" },
+  });
+  const next = applyCommand(result.state, { type: "drawInitiative" });
+  expect(next.state.battle!.encounter!.turn).toMatchObject({
+    type: "monster",
+    actorId: summoned[0]!.id,
+  });
 });
 
 it("怪物姿态轨无空槽则拒绝", () => {

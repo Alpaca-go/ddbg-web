@@ -13,7 +13,7 @@ test("Phase 3：任务入口、侦察、补给与结算停点", async ({ page },
     await page.getByTestId("embark-mode-radiant").click();
     await page.getByRole("button", { name: "前往出征准备", exact: true }).click();
     await page.getByLabel("任务卡", { exact: true }).selectOption(id!);
-    if (id === "quest:p003") await expect(page.getByText(/最多捐献60金币、获得3XP/)).toBeVisible();
+    if (id === "quest:p003") await expect(page.getByText(/每20金币获得1XP，最多3XP/)).toBeVisible();
     await page.getByRole("button", { name: "进入地牢", exact: true }).click();
     await expect(
       page.getByTestId("quest-card-readonly-name").filter({ hasText: name! }),

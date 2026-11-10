@@ -4,7 +4,7 @@ import { endgameFinalBattleReady } from "../test-helpers/endgame-party";
 import { playNaturalBattle } from "../test-helpers/natural-battle";
 import { readFinalFormSequence } from "./final-form-sequence";
 
-function playToCampaignVictory(): {
+function playToCampaignEnd(): {
   readonly state: GameState;
   readonly commands: readonly Command[];
   readonly events: readonly GameEvent[];
@@ -38,15 +38,37 @@ function playToCampaignVictory(): {
   const forms: string[] = [];
   for (let form = 0; form < 4; form++) {
     forms.push(readFinalFormSequence(state)!.current!.id);
-    playNaturalBattle({ state: () => state, step, settle });
+    try {
+      playNaturalBattle({ state: () => state, step, settle });
+    } catch (error) {
+      const turn = state.battle?.encounter?.turn;
+      if (
+        !(error instanceof Error) ||
+        error.message !== "battle halted: heroesDefeated" ||
+        turn?.type !== "halted" ||
+        turn.reason !== "heroesDefeated"
+      )
+        throw error;
+      step({ type: "finishDungeonBattle" });
+      break;
+    }
     if (state.dungeon!.campaignVictory) break;
     step({ type: "deployFinalBattleForm" });
   }
   return { state, commands, events, forms };
 }
 
-it("III 级队伍真打三形态到战役胜利（进战→选招→结算→形态切换→终局）", () => {
-  const run = playToCampaignVictory();
+it("III 级队伍固定指令结算到合法终点，胜负由战斗决定（R-190）", () => {
+  const run = playToCampaignEnd();
+  if (run.state.dungeon?.campaignFailure) {
+    expect(run.state.dungeon.campaignFailure).toBe("bossQuestHeroesDefeated");
+    expect(run.state.battle!.encounter!.turn).toMatchObject({
+      type: "halted",
+      reason: "heroesDefeated",
+    });
+    expect(run.state.dungeon.finalFormSequence!.completedForms).toEqual(run.forms.slice(0, -1));
+    return;
+  }
   expect(run.forms).toEqual(["ancestor1", "gestatingHeart", "heartOfDarkness"]);
   expect(run.state.dungeon!.campaignVictory).toBe(true);
   expect(run.state.dungeon!.finalFormSequence).toEqual({

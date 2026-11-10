@@ -1,4 +1,5 @@
 import { expect, it } from "vitest";
+import { finishTurn } from "../encounter";
 import { applyCommand, type GameState } from "../command";
 import { readFinalFormSequence } from "./final-form-sequence";
 import { finalPreparationFixture } from "../test-helpers/final-preparation";
@@ -63,7 +64,7 @@ it("部署后 startBattle 重洗先攻并进入第 1 轮 awaitingInitiative", ()
     actedIds: [],
     turn: { type: "awaitingInitiative" },
   });
-  expect(battle.encounter!.deck).toHaveLength(7);
+  expect(battle.encounter!.deck).toHaveLength(8);
   expect(battle.rngCursor).toBeGreaterThan(game.battle!.rngCursor);
   expect(applyCommand(afterStart, { type: "startBattle" }).state).toBe(afterStart);
 });
@@ -108,4 +109,49 @@ it("drawInitiative 在最终战 fighting 下可续接回合", () => {
   const drawn = applyCommand(game, { type: "drawInitiative" });
   expect(drawn.events.filter((e) => e.type === "commandRefused")).toEqual([]);
   expect(drawn.state.battle!.encounter!.turn.type).not.toBe("awaitingInitiative");
+});
+
+it("R-218：Ancestor 2 两张怪物先攻均给本体，Nothingness 不行动", () => {
+  const game = started(prepared("quest:p017"));
+  const battle = game.battle!;
+  const actor = battle.entities.find((e) => e.monsterCardId === "monster_large:p018")!;
+  const { provisionWindows, ...directBattle } = battle;
+  expect(provisionWindows).toBe(true);
+  expect(battle.encounter!.deck.filter((side) => side === "monster")).toHaveLength(2);
+  let state: GameState = {
+    ...game,
+    battle: {
+      ...directBattle,
+      encounter: { ...battle.encounter!, deck: ["monster", "monster", "hero"] },
+    },
+  };
+  for (let action = 1; action <= 2; action++) {
+    state = applyCommand(state, { type: "drawInitiative" }).state;
+    expect(state.battle!.encounter!.turn).toEqual({ type: "monster", actorId: actor.id });
+    const result = finishTurn(state, actor.id, []);
+    expect(result.events.filter((e) => e.type === "commandRefused")).toEqual([]);
+    state = result.state;
+    expect(state.battle!.encounter!.actedIds.includes(actor.id)).toBe(action === 2);
+  }
+});
+
+it("R-218：Reflection 已行动时，剩余怪物先攻交给 Ancestor", () => {
+  const game = started(prepared());
+  const battle = game.battle!;
+  const actor = battle.entities.find((e) => e.monsterCardId === "monster_medium:p105")!;
+  const { provisionWindows, ...directBattle } = battle;
+  expect(provisionWindows).toBe(true);
+  const before: GameState = {
+    ...game,
+    battle: {
+      ...directBattle,
+      encounter: {
+        ...battle.encounter!,
+        deck: ["monster", "hero"],
+        actedIds: battle.entities.filter((e) => e.side === "monster").map((e) => e.id),
+      },
+    },
+  };
+  const drawn = applyCommand(before, { type: "drawInitiative" });
+  expect(drawn.state.battle!.encounter!.turn).toEqual({ type: "monster", actorId: actor.id });
 });

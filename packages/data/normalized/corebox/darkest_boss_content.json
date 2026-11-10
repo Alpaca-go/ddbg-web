@@ -89,7 +89,8 @@
     },
     "supportCardIds": [
      "monster_medium:p106",
-     "monster_medium:p109"
+     "monster_medium:p109",
+     "monster_medium:p106"
     ],
     "combatReady": true
    },

@@ -1,3 +1,4 @@
+import { readFinalFormSequence } from "./boss/final-form-sequence";
 import { applyAncestor1ImperfectReflectionDeath } from "./boss/ancestor1-reflections-death";
 import { withAncestor1ReflectionsGuardState } from "./boss/ancestor1-reflections-guard";
 import { clearRuinsBossCompanions } from "./boss/ruins-boss-death";
@@ -71,7 +72,11 @@ import {
   expandFanaticIInitiativeDeckSides,
   fanaticShouldEnterActedIdsAfterTurn,
 } from "./boss/fanatic-i-combat-runtime";
-import { expandDarkestMidBossInitiativeDeckSides } from "./boss/darkest-mid-boss-deploy";
+import {
+  darkestMidBossCombatActive,
+  expandDarkestMidBossInitiativeDeckSides,
+} from "./boss/darkest-mid-boss-deploy";
+import { readDarkestBossEncounter } from "./boss/darkest-content";
 
 const STANCES: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 
@@ -80,6 +85,7 @@ export type EncounterState = {
   readonly round: number;
   readonly deck: readonly SkillTargetSide[];
   readonly actedIds: readonly string[];
+  readonly darkestBossActions?: Readonly<Record<string, number>>;
   readonly turn:
     | { readonly type: "awaitingInitiative" }
     | {
@@ -132,6 +138,12 @@ export type EncounterEvent = {
 
 export { nextBattleRoll } from "./battle-roll";
 
+function currentFinalActor(state: GameState) {
+  return state.dungeon?.finalFormSequence?.status === "fighting"
+    ? readFinalFormSequence(state)?.current?.actor
+    : undefined;
+}
+
 function startRound(
   seed: number,
   battle: BattleState,
@@ -139,12 +151,18 @@ function startRound(
   gameState?: GameState,
 ): BattleState {
   let deck: SkillTargetSide[] = battle.entities
-    .filter((entity) => !entity.dead)
+    .filter((entity) => !entity.dead && !isAbsoluteNothingnessEntity(entity))
     .map((entity) => entity.side);
   if (gameState) {
     deck = expandProphetIInitiativeDeckSides(deck, battle, gameState);
     deck = expandFanaticIInitiativeDeckSides(deck, battle, gameState);
     deck = expandDarkestMidBossInitiativeDeckSides(deck, battle, gameState);
+    const final = currentFinalActor(gameState);
+    if (final && battle.entities.some((e) => !e.dead && e.monsterCardId === final.cardId)) {
+      if (final.actionsPerRound === "special") deck = deck.filter((side) => side === "hero");
+      const additional = final.initiativeCards - Number(final.actionsPerRound !== "special");
+      for (let i = 0; i < additional; i++) deck.push("monster");
+    }
   }
   const rng = createRng(seed);
   for (let index = 0; index < battle.rngCursor; index += 1) rng.next();
@@ -359,18 +377,50 @@ export function finishTurn(
   state = bumpAncestor2SwiftTeleportationAfterAction(state, actorId);
   const battle = state.battle!;
   const encounter = battle.encounter!;
+  const final = currentFinalActor(state);
+  const midBoss =
+    actor.side === "monster" && state.dungeon?.darkest && darkestMidBossCombatActive(state)
+      ? readDarkestBossEncounter(state.dungeon.questDistribution?.questId)
+      : undefined;
+  const boss =
+    final?.cardId === actor.monsterCardId
+      ? final
+      : midBoss?.actors.find((entry) => entry.cardId === actor.monsterCardId);
+  const quota = boss?.actionsPerRound;
+  let darkestBossActions = encounter.darkestBossActions;
+  let reachedQuota = true;
+  if (typeof quota === "number" && quota > 1) {
+    const used = (darkestBossActions?.[actorId] ?? 0) + 1;
+    darkestBossActions = { ...darkestBossActions, [actorId]: used };
+    reachedQuota = used >= quota;
+  }
   const actedIds =
+    reachedQuota &&
+    !encounter.actedIds.includes(actorId) &&
     prophetShouldEnterActedIdsAfterTurn(state, actorId) &&
     fanaticShouldEnterActedIdsAfterTurn(state, actorId)
       ? [...encounter.actedIds, actorId]
-      : [...encounter.actedIds];
+      : encounter.actedIds;
+  const updatedEncounter = {
+    ...encounter,
+    actedIds,
+    ...(darkestBossActions ? { darkestBossActions } : {}),
+  };
+  const spareAncestorInitiative =
+    final?.actionsPerRound === "special" &&
+    encounter.deck.includes("monster") &&
+    battle.entities.some((e) => !e.dead && e.monsterCardId === final.cardId);
   const ended = [...events, { ...event(battle, "turnEnded", "回合结束"), actorId }];
   if (
     encounter.deck.length === 0 ||
-    battle.entities.every((entity) => entity.dead || actedIds.includes(entity.id))
+    (!spareAncestorInitiative &&
+      battle.entities.every(
+        (entity) =>
+          entity.dead || actedIds.includes(entity.id) || isAbsoluteNothingnessEntity(entity),
+      ))
   ) {
     const abyss = endRoundInvocation({
-      state: { ...state, battle: { ...battle, encounter: { ...encounter, actedIds } } },
+      state: { ...state, battle: { ...battle, encounter: updatedEncounter } },
       events: ended,
     });
     if (
@@ -391,7 +441,7 @@ export function finishTurn(
       ...state,
       battle: {
         ...battle,
-        encounter: { ...encounter, actedIds, turn: { type: "awaitingInitiative" } },
+        encounter: { ...updatedEncounter, turn: { type: "awaitingInitiative" } },
       },
     },
     events: ended,
@@ -1014,14 +1064,23 @@ export function applyEncounterCommand(state: GameState, command: EncounterComman
       return rejectBattleCommand(state, "当前回合尚未结束");
     const events: GameEvent[] = [];
     const deck = [...encounter.deck];
+    const final = currentFinalActor(state);
     while (deck.length > 0) {
       const side = deck.shift()!;
-      const actor = battle.entities
+      const eligible = battle.entities
         .filter(
           (entity) =>
-            !entity.dead && entity.side === side && !encounter.actedIds.includes(entity.id),
+            !entity.dead &&
+            entity.side === side &&
+            !encounter.actedIds.includes(entity.id) &&
+            !isAbsoluteNothingnessEntity(entity),
         )
-        .sort((left, right) => STANCES.indexOf(left.stance!) - STANCES.indexOf(right.stance!))[0];
+        .sort((left, right) => STANCES.indexOf(left.stance!) - STANCES.indexOf(right.stance!));
+      const actor =
+        eligible[0] ??
+        (side === "monster" && final?.actionsPerRound === "special"
+          ? battle.entities.find((e) => !e.dead && e.monsterCardId === final.cardId)
+          : undefined);
       if (!actor) {
         events.push({
           ...event(battle, "initiativeDiscarded", "对应阵营没有可行动角色，弃掉先攻卡"),

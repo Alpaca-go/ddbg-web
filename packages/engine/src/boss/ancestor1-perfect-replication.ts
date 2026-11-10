@@ -1,7 +1,6 @@
 import { rejectBattleCommand, type BattleEntity, type BattleState } from "../battle";
 import type { ApplyResult, GameState } from "../command";
 import { finishTurn } from "../encounter";
-import { insertReflectionInitiative } from "./reflection-initiative";
 import type { SkillStance } from "../hero-skill";
 import type { MonsterCardView } from "../monster-skill";
 import {
@@ -171,7 +170,7 @@ export function applyAncestor1PerfectReplication(state: GameState, actorId: stri
     monsterAction: null,
   };
   const guarded = withAncestor1ReflectionsGuardState({ ...state, battle: nextBattle });
-  return finishTurn(insertReflectionInitiative(guarded), actorId, [
+  return finishTurn(guarded, actorId, [
     {
       type: "dungeonUpdated",
       message: `Ancestor 1 · Perfect Replication：Torch ${PERFECT_REPLICATION_LIGHT_DELTA}（${light}）；召唤 ${cardId} → ${stance}（Guard；boss_ability:p034；当前牌堆洗入1张先攻，R31）`,

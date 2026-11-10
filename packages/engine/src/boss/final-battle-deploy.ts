@@ -7,6 +7,7 @@ import {
 } from "../battle";
 import { roomTileBattleAreas } from "../battle-monster-movement";
 import { createLootState } from "../loot";
+import { createRng } from "../rng";
 import type { SkillStance } from "../hero-skill";
 import type { MonsterCardView } from "../monster-skill";
 import { skillBelongsToFormalHero } from "../formal-roster-catalog";
@@ -58,6 +59,7 @@ function stanceSlots(card: MonsterCardView): 1 | 2 {
 function spawnFormMonsters(
   form: NonNullable<ReturnType<typeof readFinalFormSequence>>["current"],
   monsters: readonly MonsterCardView[],
+  reflectionStances: readonly SkillStance[],
   refuse: (message: string) => ApplyResult,
 ): BattleEntity[] | ApplyResult {
   if (!form) return refuse("当前最终战形态缺失（R36）");
@@ -99,13 +101,9 @@ function spawnFormMonsters(
   const actor = spawnOne(form.actor.cardId, form.actor.stance, `final-${form.id}-actor`);
   if ("events" in actor) return actor;
   spawned.push(actor);
-  const usedStances = new Set<SkillStance>([form.actor.stance]);
-  const fallbackStances: SkillStance[] = ["defensive", "ranged", "support", "aggressive"];
   for (const [index, cardId] of form.supportCardIds.entries()) {
-    const stance =
-      fallbackStances.find((entry) => !usedStances.has(entry)) ??
-      fallbackStances[index % fallbackStances.length]!;
-    usedStances.add(stance);
+    const stance = reflectionStances[index];
+    if (!stance) return refuse("最终战支援配置缺少已核实的姿态（R-217）");
     const support = spawnOne(cardId, stance, `final-${form.id}-support-${index}`);
     if ("events" in support) return support;
     spawned.push(support);
@@ -233,7 +231,21 @@ export function deployFinalBattleForm(state: GameState): ApplyResult {
   const geometryNote =
     "Ancestor Room 已按 R-186 部署：十一区 R-165，英雄 K/I/K/C、怪物 E/B/A/J；tile usable 仍 false、无 ancestorGlory 运行时";
   let monsters: readonly MonsterCardView[] = d.battleCatalog.monsters;
-  const spawnedResult = spawnFormMonsters(sequence.current, monsters, refuse);
+  const rngCursor = state.battle?.rngCursor ?? d.cursor;
+  const reflectionStances: SkillStance[] = ["defensive", "ranged", "support"];
+  const randomizeReflections = sequence.current.id === "ancestor1";
+  if (randomizeReflections) {
+    const rng = createRng(state.seed);
+    for (let i = 0; i < rngCursor; i++) rng.next();
+    // 两只 Perfect 相同，一次等概率选 Imperfect 的姿态就能随机出三种配置。
+    const imperfect = Math.floor(rng.next() * reflectionStances.length);
+    [reflectionStances[1], reflectionStances[imperfect]] = [
+      reflectionStances[imperfect]!,
+      reflectionStances[1]!,
+    ];
+  }
+  const nextCursor = rngCursor + Number(randomizeReflections);
+  const spawnedResult = spawnFormMonsters(sequence.current, monsters, reflectionStances, refuse);
   if (!Array.isArray(spawnedResult)) return spawnedResult;
   let spawnedMonsters: BattleEntity[] = [...spawnedResult];
   let nothingnessDeployMessage = "";
@@ -290,7 +302,7 @@ export function deployFinalBattleForm(state: GameState): ApplyResult {
           },
           battle: {
             ...battle,
-            rngCursor: d.cursor,
+            rngCursor: nextCursor,
             choiceCursor: d.decision,
             resolveDecks: d.resolveDecks,
           },
@@ -332,6 +344,7 @@ export function deployFinalBattleForm(state: GameState): ApplyResult {
       },
       battle: {
         ...battleBase,
+        rngCursor: nextCursor,
         monsters,
         areas,
         monsterStanceAreas: deployment.monsters,

@@ -3,6 +3,7 @@ import { darkestMonsterPoolFileSchema } from "../../../data/src/darkest-monster-
 import { rejectBattleCommand, type BattleEntity, type BattleState } from "../battle";
 import type { ApplyResult, GameState } from "../command";
 import { finishTurn } from "../encounter";
+import { insertMonsterInitiative } from "./monster-initiative";
 import type { SkillStance } from "../hero-skill";
 import type { MonsterCardView } from "../monster-skill";
 import { createRng } from "../rng";
@@ -182,10 +183,10 @@ export function applyGestatingHeartSummon(state: GameState, actorId: string): Ap
     choiceCursor: battle.choiceCursor + 1,
     monsterAction: null,
   };
-  return finishTurn({ ...state, battle: nextBattle }, actorId, [
+  return finishTurn(insertMonsterInitiative({ ...state, battle: nextBattle }), actorId, [
     {
       type: "dungeonUpdated",
-      message: `Gestating Heart · Summon：随机召唤 ${picked.cardId} → ${stance}（boss_ability:p036；darkest_monster_pool + rngCursor；先攻洗入 hold）`,
+      message: `Gestating Heart · Summon：随机召唤 ${picked.cardId} → ${stance}（boss_ability:p036；darkest_monster_pool + rngCursor；洗入 1 张怪物先攻）`,
     },
   ]);
 }

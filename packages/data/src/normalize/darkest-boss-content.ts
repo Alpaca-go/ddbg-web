@@ -116,7 +116,7 @@ export function buildDarkestBossContent(
         {
           id: "ancestor1",
           actor: actor("monster_medium:p105", 34, "Ancestor 1st Form", "aggressive", 4, "special"),
-          supportCardIds: ["monster_medium:p106", "monster_medium:p109"],
+          supportCardIds: ["monster_medium:p106", "monster_medium:p109", "monster_medium:p106"],
           combatReady: true,
         },
         {

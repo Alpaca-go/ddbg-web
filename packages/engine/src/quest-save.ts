@@ -9,6 +9,7 @@ import { createCoreDungeonQuest } from "./dungeon-quest-entry";
 import type { CoreQuestSources } from "./dungeon-quest-entry";
 import { readCampaignLevel } from "./hamlet-campaign";
 import { applyCommand } from "./command";
+import { FUNDRAISER_PROMPT } from "./dungeon-quest";
 import type { Command, GameEvent, GameState } from "./command";
 
 /** 忽略JSON键顺序及不可序列化的undefined；保留数组/牌堆顺序。 */
@@ -66,8 +67,14 @@ function replay(
 function replayCommands(commands: QuestSave["commands"]): Command[] {
   return commands.map((command): Command => {
     if (command.type === "playHeroSkill") {
-      const { face, shuffleChoice, shufflePushDistance, trinketWindow, damageStoneWindow, ...base } =
-        command;
+      const {
+        face,
+        shuffleChoice,
+        shufflePushDistance,
+        trinketWindow,
+        damageStoneWindow,
+        ...base
+      } = command;
       return {
         ...base,
         ...(damageStoneWindow === undefined ? {} : { damageStoneWindow }),
@@ -146,6 +153,20 @@ function upgradeNomadPrompt(snapshot: unknown, restored: GameState): unknown {
     },
   };
 }
+/** R-216：旧捐献待选只更新提示，快捷金额、ID 和其它快照字段仍严格比较。 */
+function upgradeFundraiserPrompt(snapshot: unknown): unknown {
+  const state = snapshot as GameState | null;
+  const dungeon = state?.dungeon;
+  const pending = dungeon?.pending;
+  if (
+    !pending?.id.startsWith("dungeon-fundraiser:") ||
+    pending.prompt !==
+      "Fundraiser：选择给继承人的金币；每20金币1XP，最多捐60金币，超出不再加XP（R-038）。0金币表示不捐献。"
+  )
+    return snapshot;
+  return { ...state, dungeon: { ...dungeon, pending: { ...pending, prompt: FUNDRAISER_PROMPT } } };
+}
+
 /** 大纲§3.3 / Phase4：种子+日志+版本快照；纯函数，不依赖浏览器存储。 */
 export function createQuestSave(
   start: QuestStart,
@@ -185,13 +206,14 @@ export function loadQuestSave(
   )
     throw new Error("存档声明的战役等级与回放不一致；未替换当前进度");
   const restoredKey = canonical(restored.game);
+  const snapshot = upgradeFundraiserPrompt(save.snapshot);
   let snapshotKey = canonical(
-    upgradeFallenHeroSnapshot(upgradeNomadPrompt(save.snapshot, restored.game), restored.game),
+    upgradeFallenHeroSnapshot(upgradeNomadPrompt(snapshot, restored.game), restored.game),
   );
   if (restoredKey !== snapshotKey)
     snapshotKey = canonical(
       upgradeFallenHeroSnapshot(
-        upgradeNomadPrompt(upgradeTrinketR127Metadata(save.snapshot), restored.game),
+        upgradeNomadPrompt(upgradeTrinketR127Metadata(snapshot), restored.game),
         restored.game,
       ),
     );

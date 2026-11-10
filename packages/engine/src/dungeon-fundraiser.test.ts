@@ -28,13 +28,13 @@ function pending(gold = 80) {
   return applyCommand(s, { type: "summarizeDungeonQuest" }).state;
 }
 describe("Fundraiser捐献（QUEST p3、R29、R-038、R-068）", () => {
-  it.each([0, 1, 19, 20, 39, 40, 59, 60])(
+  it.each([0, 1, 19, 20, 39, 40, 59, 60, 61, 80])(
     "明确捐献%i金币才扣除，整20得XP，英雄 / 驿站同额待发",
     (gold) => {
       const s = pending(),
         before = structuredClone(s);
       const result = pick(s, `give:${gold}`);
-      const xp = Math.floor(gold / 20);
+      const xp = Math.min(3, Math.floor(gold / 20));
       expect(result.state.dungeon!.gold).toBe(80 - gold);
       expect(result.state.dungeon!.questSummary).toMatchObject({
         questId: "quest:p003",
@@ -84,7 +84,7 @@ describe("Fundraiser捐献（QUEST p3、R29、R-038、R-068）", () => {
     ] as Command[])
       expect(applyCommand(next, command).state).toBe(next);
   });
-  it("可用金币限制、60上限与非法 / 伪造金额不绕过，支持非整20金额", () => {
+  it("可用金币限制与非法 / 伪造金额不绕过，支持非整20金额", () => {
     const s = pending(25);
     expect(s.dungeon!.pending!.options).toHaveLength(27);
     for (const value of ["give:-1", "give:1.5", "give:26", "give:61", "give:NaN", "give:020"])
@@ -100,7 +100,13 @@ describe("Fundraiser捐献（QUEST p3、R29、R-038、R-068）", () => {
       },
     };
     expect(pick(forged, "give:61").state).toBe(forged);
-    expect(pending().dungeon!.pending!.options.some((o) => o.id === "give:61")).toBe(false);
+    const highBalance = pending(1_000);
+    expect(highBalance.dungeon!.pending!.options).toHaveLength(62);
+    expect(pick(highBalance, "give:999").state.dungeon!.questSummary).toMatchObject({
+      donatedGold: 999,
+      xpPerHero: 3,
+      stagecoachXp: 3,
+    });
   });
 
   it("最低巢穴目标未达仍可全员提前退出，摘要跳过捐献、不扣金币（R-068）", () => {
