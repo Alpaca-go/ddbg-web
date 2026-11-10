@@ -189,7 +189,7 @@ function higherHero(state: GameState, name: string, level: number): GameState {
     },
   };
 }
-it("R-081八张高等级卡：目标状态仅缩短Nt、自身忽略防御，已有堆保留", () => {
+it("R-081、R-215：目标状态仅缩短Nt、自身忽略防御，已有堆保留", () => {
   const cases = [
     ["CRUSADER", 2, ["stun"]],
     ["CRUSADER", 3, ["stun", "debuff"]],
@@ -199,6 +199,9 @@ it("R-081八张高等级卡：目标状态仅缩短Nt、自身忽略防御，已
     ["HIGHWAYMAN", 3, ["stun", "bleed", "blight"]],
     ["VESTAL", 2, ["stun", "bleed"]],
     ["VESTAL", 3, ["stun", "bleed"]],
+    ["FLAGELLANT", 1, ["bleed"]],
+    ["LEPER", 1, ["debuff"]],
+    ["JESTER", 3, ["debuff", "bleed", "blight"]],
   ] as const;
   for (const [name, level, resisted] of cases) {
     const state = higherHero(
@@ -251,6 +254,19 @@ it("R-081八张高等级卡：目标状态仅缩短Nt、自身忽略防御，已
     }
     expect(state).toEqual(before);
     expect([...readHeroPassiveDefence(b, h)!.resistances].sort()).toEqual([...resisted].sort());
+  }
+});
+it("R-215：按逐卡批注读取 I 级位移抗性与 III 级位移免疫", () => {
+  for (const [name, level, shuffleResistant, shuffleImmune] of [
+    ["ARBALEST", 1, true, false],
+    ["MUSKETEER", 3, false, true],
+    ["SHIELDBREAKER", 3, false, true],
+  ] as const) {
+    const state = higherHero(setup(), name, level);
+    expect(readHeroPassiveDefence(state.battle!, hero(state))).toMatchObject({
+      shuffleResistant,
+      shuffleImmune,
+    });
   }
 });
 it("Vestal III真实Maggot免疫新感染：不抽牌/怪癖、不重洗，已有病保留", () => {

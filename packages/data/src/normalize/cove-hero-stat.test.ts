@@ -21,12 +21,12 @@ it("Cove：六面获批 STAT 与 raw 一致", () => {
   const built = buildCoveHeroStats(raw, dictionary);
   expect(built).toHaveLength(approvedCoveHeroStats.length);
   const cases: [string, number, number, number, number][] = [
-    ["hero_stat:cove:flagellant:p001:front", 1, 12, 2, 0],
-    ["hero_stat:cove:flagellant:p001:back", 2, 16, 3, 0],
-    ["hero_stat:cove:flagellant:p002:front", 3, 22, 3, 0],
+    ["hero_stat:cove:flagellant:p001:front", 1, 12, 2, 2],
+    ["hero_stat:cove:flagellant:p001:back", 2, 16, 3, 3],
+    ["hero_stat:cove:flagellant:p002:front", 3, 22, 3, 3],
     ["hero_stat:cove:man-at-arms:p001:front", 1, 16, 1, 1],
     ["hero_stat:cove:man-at-arms:p001:back", 2, 22, 2, 1],
-    ["hero_stat:cove:man-at-arms:p002:front", 3, 28, 3, 1],
+    ["hero_stat:cove:man-at-arms:p002:front", 3, 28, 3, 2],
   ];
   for (const [id, level, life, dodge, speed] of cases) {
     const card = built.find((c) => c.id === id)!;

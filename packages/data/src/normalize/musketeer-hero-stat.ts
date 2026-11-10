@@ -4,6 +4,11 @@ import { levelSchema } from "../extract/common";
 import type { IconDictionary } from "../dictionary/schema";
 import { createIconLookup, finishVerification, noteIcon, resolveLines } from "./icons";
 import { normalizedIconSchema, verificationSchema } from "./schema";
+import {
+  buildHigherHeroDefence,
+  higherHeroDefenceSchema,
+  readHigherHeroDefence,
+} from "./hero-higher-defence";
 
 const STAT_FRONT =
   "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_100x180_Hero_STAT_FRONT.pdf";
@@ -32,18 +37,24 @@ export const approvedMusketeerHeroStats = [
   musketeerAttributesSchema.parse({ rawId, face, name, level, life, dodge, speed }),
 );
 
-export const musketeerHeroStatCardSchema = musketeerAttributesSchema.extend({
-  id: z.string().regex(/^hero_stat:musketeer:musketeer:p00[12]:(front|back)$/),
-  source: z.strictObject({
-    file: z.enum([STAT_FRONT, STAT_BACK]),
-    page: z.int().positive(),
-  }),
-  attributesVerified: z.literal(true),
-  approval: z.literal("kyries_review_2026-10-24"),
-  lines: z.array(z.string()),
-  icons: z.array(normalizedIconSchema),
-  verification: verificationSchema,
-});
+export const musketeerHeroStatCardSchema = musketeerAttributesSchema
+  .extend({
+    id: z.string().regex(/^hero_stat:musketeer:musketeer:p00[12]:(front|back)$/),
+    source: z.strictObject({
+      file: z.enum([STAT_FRONT, STAT_BACK]),
+      page: z.int().positive(),
+    }),
+    attributesVerified: z.literal(true),
+    approval: z.literal("kyries_review_2026-10-24"),
+    verified_higher_condition_defence: higherHeroDefenceSchema.optional(),
+    lines: z.array(z.string()),
+    icons: z.array(normalizedIconSchema),
+    verification: verificationSchema,
+  })
+  .superRefine((card, ctx) => {
+    if (card.verified_higher_condition_defence && !readHigherHeroDefence(card))
+      ctx.addIssue({ code: "custom", message: "英雄防御超出逐卡核准（R-215）" });
+  });
 
 export type MusketeerHeroStatCard = z.infer<typeof musketeerHeroStatCardSchema>;
 
@@ -127,12 +138,14 @@ export function buildMusketeerHeroStats(
       )
         throw new Error("Musketeer 获批 Speed 缺少已确认图标（R-048）");
     }
+    const higherDefence = buildHigherHeroDefence(`${attributes.rawId}:${attributes.face}`, face);
     return musketeerHeroStatCardSchema.parse({
       ...attributes,
       id: `${attributes.rawId}:${attributes.face}`,
       source: { file: face.file, page: face.page },
       attributesVerified: true,
       approval: "kyries_review_2026-10-24",
+      ...(higherDefence ? { verified_higher_condition_defence: higherDefence } : {}),
       lines: face.lines.map((line) => line.text),
       icons: icons.map((entry) => {
         const { bbox, ...icon } = entry;

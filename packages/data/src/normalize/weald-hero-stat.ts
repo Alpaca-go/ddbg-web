@@ -4,6 +4,11 @@ import { levelSchema } from "../extract/common";
 import type { IconDictionary } from "../dictionary/schema";
 import { createIconLookup, finishVerification, noteIcon, resolveLines } from "./icons";
 import { normalizedIconSchema, verificationSchema } from "./schema";
+import {
+  buildHigherHeroDefence,
+  higherHeroDefenceSchema,
+  readHigherHeroDefence,
+} from "./hero-higher-defence";
 
 const STAT_FRONT =
   "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_100x180_Hero_STAT_FRONT.pdf";
@@ -67,11 +72,14 @@ export const wealdHeroStatCardSchema = wealdAttributesSchema
     attributesVerified: z.literal(true),
     approval: z.literal("kyries_review_2026-10-24"),
     verified_condition_defence: wealdConditionDefenceSchema.optional(),
+    verified_higher_condition_defence: higherHeroDefenceSchema.optional(),
     lines: z.array(z.string()),
     icons: z.array(normalizedIconSchema),
     verification: verificationSchema,
   })
   .superRefine((card, ctx) => {
+    if (card.verified_higher_condition_defence && !readHigherHeroDefence(card))
+      ctx.addIssue({ code: "custom", message: "英雄防御超出逐卡核准（R-215）" });
     const defence = approvedWealdConditionDefences[card.id];
     if (defence) {
       if (
@@ -173,6 +181,7 @@ export function buildWealdHeroStats(
       if (!joined.includes(`{icon:${defence.iconId}}`))
         throw new Error("Weald 条件防御图标漂移（R-048）");
     }
+    const higherDefence = buildHigherHeroDefence(`${attributes.rawId}:${attributes.face}`, face);
     return wealdHeroStatCardSchema.parse({
       ...attributes,
       id: `${attributes.rawId}:${attributes.face}`,
@@ -189,6 +198,7 @@ export function buildWealdHeroStats(
             },
           }
         : {}),
+      ...(higherDefence ? { verified_higher_condition_defence: higherDefence } : {}),
       lines: face.lines.map((line) => line.text),
       icons: icons.map((entry) => {
         const { bbox, ...icon } = entry;

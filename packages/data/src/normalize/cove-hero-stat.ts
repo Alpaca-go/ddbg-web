@@ -4,6 +4,11 @@ import { levelSchema } from "../extract/common";
 import type { IconDictionary } from "../dictionary/schema";
 import { createIconLookup, finishVerification, noteIcon, resolveLines } from "./icons";
 import { normalizedIconSchema, verificationSchema } from "./schema";
+import {
+  buildHigherHeroDefence,
+  higherHeroDefenceSchema,
+  readHigherHeroDefence,
+} from "./hero-higher-defence";
 
 const STAT_FRONT =
   "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_100x180_Hero_STAT_FRONT.pdf";
@@ -23,14 +28,14 @@ const coveAttributesSchema = z.strictObject({
   speed: z.int().nonnegative(),
 });
 
-/** R-105：Cove 六面 STAT（Cove 包 p1–4；Speed 缺印为 0，MAA 用移动栏核实为 1）。 */
+/** R-105、R-215：Cove 六面 STAT 的速度按移动栏鞋印计数。 */
 export const approvedCoveHeroStats = [
-  ["hero_stat:cove:flagellant:p001", "front", "FLAGELLANT", 1, 12, 2, 0],
-  ["hero_stat:cove:flagellant:p001", "back", "FLAGELLANT", 2, 16, 3, 0],
-  ["hero_stat:cove:flagellant:p002", "front", "FLAGELLANT", 3, 22, 3, 0],
+  ["hero_stat:cove:flagellant:p001", "front", "FLAGELLANT", 1, 12, 2, 2],
+  ["hero_stat:cove:flagellant:p001", "back", "FLAGELLANT", 2, 16, 3, 3],
+  ["hero_stat:cove:flagellant:p002", "front", "FLAGELLANT", 3, 22, 3, 3],
   ["hero_stat:cove:man-at-arms:p001", "front", "MAN-AT-ARMS", 1, 16, 1, 1],
   ["hero_stat:cove:man-at-arms:p001", "back", "MAN-AT-ARMS", 2, 22, 2, 1],
-  ["hero_stat:cove:man-at-arms:p002", "front", "MAN-AT-ARMS", 3, 28, 3, 1],
+  ["hero_stat:cove:man-at-arms:p002", "front", "MAN-AT-ARMS", 3, 28, 3, 2],
 ].map(([rawId, face, name, level, life, dodge, speed]) =>
   coveAttributesSchema.parse({ rawId, face, name, level, life, dodge, speed }),
 );
@@ -44,11 +49,16 @@ export const coveHeroStatCardSchema = coveAttributesSchema
     }),
     attributesVerified: z.literal(true),
     approval: z.literal("kyries_review_2026-10-24"),
+    verified_higher_condition_defence: higherHeroDefenceSchema.optional(),
     lines: z.array(z.string()),
     icons: z.array(normalizedIconSchema),
     verification: verificationSchema,
   })
-  .strict();
+  .strict()
+  .superRefine((card, ctx) => {
+    if (card.verified_higher_condition_defence && !readHigherHeroDefence(card))
+      ctx.addIssue({ code: "custom", message: "英雄防御超出逐卡核准（R-215）" });
+  });
 
 export type CoveHeroStatCard = z.infer<typeof coveHeroStatCardSchema>;
 
@@ -106,16 +116,13 @@ export function buildCoveHeroStats(
         if (placement.iconId !== STAT_IMMUNITIES_HEADER_ICON) noteIcon(icon, reasons);
         return { ...icon, bbox: placement.bbox };
       });
-    if (attributes.name === "MAN-AT-ARMS" && attributes.level === 1 && attributes.speed > 0) {
-      const speedCount = face.icons.filter((placement) => {
-        if (placement.decor || placement.iconId !== "4648c9e5ec") return false;
-        const y = (placement.bbox[1] + placement.bbox[3]) / 2;
-        return placement.bbox[0] >= lifeBox[2] && y >= lifeBox[1] && y <= lifeBox[3];
-      }).length;
-      if (speedCount !== attributes.speed) throw new Error("Cove MAA I Speed 与移动栏图标数量冲突");
-    } else if (attributes.name === "FLAGELLANT" && attributes.speed !== 0) {
-      throw new Error("Cove Flagellant Speed 与获批不一致");
-    }
+    const speedCount = face.icons.filter((placement) => {
+      if (placement.decor || placement.iconId !== "4648c9e5ec") return false;
+      const y = (placement.bbox[1] + placement.bbox[3]) / 2;
+      return placement.bbox[0] >= lifeBox[2] && y >= lifeBox[1] && y <= lifeBox[3];
+    }).length;
+    if (speedCount !== attributes.speed)
+      throw new Error("Cove Speed 与移动栏图标数量冲突（R-215）");
     for (const [iconId, key] of [
       ["9534ad5184", "life"],
       ["7a472f5d6f", "dodge"],
@@ -124,21 +131,23 @@ export function buildCoveHeroStats(
       if (!icon || icon.key !== key || !["confirmed", "confirmed_rulebook"].includes(icon.naming))
         throw new Error("Cove 获批属性缺少已确认图标（R-048）");
     }
-    if (attributes.name === "MAN-AT-ARMS" && attributes.speed > 0) {
+    if (attributes.speed > 0) {
       const speedIcon = icons.find((i) => i.iconId === "4648c9e5ec");
       if (
         !speedIcon ||
         speedIcon.key !== "speed" ||
         !["confirmed", "confirmed_rulebook"].includes(speedIcon.naming)
       )
-        throw new Error("Cove MAA Speed 缺少已确认图标（R-048）");
+        throw new Error("Cove Speed 缺少已确认图标（R-048）");
     }
+    const higherDefence = buildHigherHeroDefence(`${attributes.rawId}:${attributes.face}`, face);
     return coveHeroStatCardSchema.parse({
       ...attributes,
       id: `${attributes.rawId}:${attributes.face}`,
       source: { file: face.file, page: face.page },
       attributesVerified: true,
       approval: "kyries_review_2026-10-24",
+      ...(higherDefence ? { verified_higher_condition_defence: higherDefence } : {}),
       lines: face.lines.map((line) => line.text),
       icons: icons.map((entry) => {
         const { bbox, ...icon } = entry;

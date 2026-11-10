@@ -17,6 +17,7 @@ it("R-081八卡独立黄金表：完整左右栏，不把Shuffle/Disease当作�
       .filter(
         (c) =>
           c.verified_higher_condition_defence &&
+          c.verified_higher_condition_defence.approval !== "kyries_review_2026-11-10" &&
           !["BOUNTY HUNTER", "PLAGUE DOCTOR", "GRAVE ROBBER", "OCCULTIST"].includes(c.name),
       )
       .map((c) => [
@@ -39,8 +40,10 @@ it("R-081八卡独立黄金表：完整左右栏，不把Shuffle/Disease当作�
     ["hero_stat:p023:front", ["stun"], ["blight"]],
   ]);
   expect(
-    cards.filter((c) => c.level === 1).every((c) => !c.verified_higher_condition_defence),
-  ).toBe(true);
+    cards
+      .filter((c) => c.level === 1 && c.verified_higher_condition_defence)
+      .map((c) => [c.id, readHigherHeroDefence(c)?.resistances]),
+  ).toEqual([["hero_stat:p015:front", ["shuffle"]]]);
   expect(
     cards.filter(
       (c) =>

@@ -13,6 +13,7 @@ export const higherHeroDefenceSchema = z.strictObject({
     "kyries_review_2026-10-18",
     "kyries_review_2026-10-24",
     "kyries_review_2026-11-08",
+    "kyries_review_2026-11-10",
   ]),
 });
 export type HigherHeroDefence = z.infer<typeof higherHeroDefenceSchema>;
@@ -226,7 +227,45 @@ export const higherHeroDefenceApprovals = [
     ],
   },
 ] as const;
-export function approvedHigherDefence(id: string): HigherHeroDefence | undefined {
+// R-215：按核对稿的印刷正背面逐卡记录。部分旧提取的图标与当前印刷版不同。
+const reviewedHeroDefenceRows: readonly (readonly [
+  id: string,
+  name: string,
+  level: number,
+  resistances: HigherHeroDefence["resistances"],
+  immunities: HigherHeroDefence["immunities"],
+])[] = [
+  ["hero_stat:warrens:antiquarian:p001:front", "ANTIQUARIAN", 1, ["shuffle"], []],
+  ["hero_stat:warrens:antiquarian:p001:back", "ANTIQUARIAN", 2, ["stun", "shuffle"], []],
+  ["hero_stat:warrens:antiquarian:p002:front", "ANTIQUARIAN", 3, ["stun"], ["shuffle", "disease"]],
+  ["hero_stat:p015:front", "ARBALEST", 1, ["shuffle"], []],
+  ["hero_stat:cove:flagellant:p001:front", "FLAGELLANT", 1, ["bleed"], []],
+  ["hero_stat:cove:flagellant:p001:back", "FLAGELLANT", 2, ["shuffle", "bleed"], []],
+  ["hero_stat:cove:flagellant:p002:front", "FLAGELLANT", 3, ["stun", "shuffle", "bleed"], []],
+  ["hero_stat:weald:houndmaster:p001:back", "HOUNDMASTER", 2, ["stun", "bleed"], []],
+  ["hero_stat:weald:houndmaster:p002:front", "HOUNDMASTER", 3, ["stun", "bleed", "blight"], []],
+  ["hero_stat:p011:back", "JESTER", 2, ["debuff", "bleed"], []],
+  ["hero_stat:p012:front", "JESTER", 3, ["debuff", "bleed", "blight"], []],
+  ["hero_stat:warrens:leper:p001:front", "LEPER", 1, ["debuff"], []],
+  ["hero_stat:warrens:leper:p001:back", "LEPER", 2, ["shuffle", "debuff"], []],
+  ["hero_stat:warrens:leper:p002:front", "LEPER", 3, ["stun", "shuffle", "debuff"], []],
+  ["hero_stat:cove:man-at-arms:p001:front", "MAN-AT-ARMS", 1, ["shuffle"], []],
+  ["hero_stat:cove:man-at-arms:p001:back", "MAN-AT-ARMS", 2, ["shuffle", "bleed"], []],
+  ["hero_stat:cove:man-at-arms:p002:front", "MAN-AT-ARMS", 3, ["stun", "shuffle", "bleed"], []],
+  ["hero_stat:musketeer:musketeer:p001:front", "MUSKETEER", 1, ["shuffle"], []],
+  ["hero_stat:musketeer:musketeer:p001:back", "MUSKETEER", 2, ["stun", "shuffle"], []],
+  ["hero_stat:musketeer:musketeer:p002:front", "MUSKETEER", 3, ["stun"], ["shuffle"]],
+  ["hero_stat:weald:shieldbreaker:p001:back", "SHIELDBREAKER", 2, ["stun", "shuffle"], []],
+  ["hero_stat:weald:shieldbreaker:p002:front", "SHIELDBREAKER", 3, ["stun"], ["shuffle"]],
+];
+const reviewedHeroDefences = new Map(
+  reviewedHeroDefenceRows.map(([id, name, level, resistances, immunities]) => [
+    id,
+    { name, level, resistances, immunities },
+  ]),
+);
+
+function originalHigherDefence(id: string): HigherHeroDefence | undefined {
   const row = higherHeroDefenceApprovals.find((r) => r.id === id);
   return row
     ? {
@@ -248,6 +287,18 @@ export function approvedHigherDefence(id: string): HigherHeroDefence | undefined
       }
     : undefined;
 }
+export function approvedHigherDefence(id: string): HigherHeroDefence | undefined {
+  const row = reviewedHeroDefences.get(id);
+  return row
+    ? {
+        resistances: [...row.resistances],
+        immunities: [...row.immunities],
+        source: id.endsWith(":back") ? "print_back" : "print_front",
+        approval: "kyries_review_2026-11-10",
+      }
+    : originalHigherDefence(id);
+}
+
 export function readHigherHeroDefence(
   card:
     | {
@@ -259,18 +310,18 @@ export function readHigherHeroDefence(
       }
     | undefined,
 ) {
-  const row = higherHeroDefenceApprovals.find((r) => r.id === card?.id);
   if (
-    !card ||
-    !row ||
-    !card.attributesVerified ||
-    card.name !== row.name ||
-    card.level !== row.level ||
+    !card?.attributesVerified ||
     !higherHeroDefenceSchema.safeParse(card.verified_higher_condition_defence).success
   )
     return undefined;
-  const expected = approvedHigherDefence(card.id)!;
   const got = card.verified_higher_condition_defence!;
+  const reviewed = got.approval === "kyries_review_2026-11-10";
+  const row = reviewed
+    ? reviewedHeroDefences.get(card.id)
+    : higherHeroDefenceApprovals.find((entry) => entry.id === card.id);
+  if (!row || card.name !== row.name || card.level !== row.level) return undefined;
+  const expected = (reviewed ? approvedHigherDefence(card.id) : originalHigherDefence(card.id))!;
   return got.source === expected.source &&
     got.approval === expected.approval &&
     JSON.stringify(got.resistances) === JSON.stringify(expected.resistances) &&
@@ -282,8 +333,9 @@ export function buildHigherHeroDefence(
   id: string,
   face: NonNullable<RawFile["cards"][number]["faces"]["front"]>,
 ) {
-  const row = higherHeroDefenceApprovals.find((r) => r.id === id);
-  if (!row) return undefined;
+  const approved = approvedHigherDefence(id);
+  if (!approved || approved.approval === "kyries_review_2026-11-10") return approved;
+  const row = higherHeroDefenceApprovals.find((r) => r.id === id)!;
   const labels = face.spans.filter((s) => s.t === "Resistances        Immunities"),
     hamlet = face.spans.filter((s) => s.t === "Hamlet Skill:");
   if (labels.length !== 1 || hamlet.length !== 1)
@@ -309,5 +361,5 @@ export function buildHigherHeroDefence(
     if (JSON.stringify(actual) !== JSON.stringify(row[side].map((r) => r[0])))
       throw new Error("高等级防御图标/左右栏漂移（R-081）");
   }
-  return approvedHigherDefence(id);
+  return approved;
 }

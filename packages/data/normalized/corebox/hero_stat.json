@@ -4911,6 +4911,15 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
+   "verified_higher_condition_defence": {
+    "resistances": [
+     "debuff",
+     "bleed"
+    ],
+    "immunities": [],
+    "source": "print_back",
+    "approval": "kyries_review_2026-11-10"
+   },
    "lines": [
     "{icon:5e10f3c627}",
     "II",
@@ -5111,6 +5120,16 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
+   "verified_higher_condition_defence": {
+    "resistances": [
+     "debuff",
+     "bleed",
+     "blight"
+    ],
+    "immunities": [],
+    "source": "print_front",
+    "approval": "kyries_review_2026-11-10"
+   },
    "lines": [
     "{icon:5e10f3c627}",
     "III",
@@ -5338,6 +5357,14 @@
     "resistant": false,
     "immune": false,
     "source": "print_front"
+   },
+   "verified_higher_condition_defence": {
+    "resistances": [
+     "shuffle"
+    ],
+    "immunities": [],
+    "source": "print_front",
+    "approval": "kyries_review_2026-11-10"
    },
    "lines": [
     "{icon:1a3164a34f}",
@@ -6898,13 +6925,13 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
-   "verified_condition_defence": {
+   "verified_higher_condition_defence": {
     "resistances": [
-     "stun"
+     "debuff"
     ],
     "immunities": [],
     "source": "print_front",
-    "approval": "kyries_review_2026-10-24"
+    "approval": "kyries_review_2026-11-10"
    },
    "lines": [
     "{icon:bb21119dee}",
@@ -7116,6 +7143,15 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
+   "verified_higher_condition_defence": {
+    "resistances": [
+     "shuffle",
+     "debuff"
+    ],
+    "immunities": [],
+    "source": "print_back",
+    "approval": "kyries_review_2026-11-10"
+   },
    "lines": [
     "{icon:bb21119dee}",
     "{icon:8466c441ea} II",
@@ -7350,6 +7386,16 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
+   "verified_higher_condition_defence": {
+    "resistances": [
+     "stun",
+     "shuffle",
+     "debuff"
+    ],
+    "immunities": [],
+    "source": "print_front",
+    "approval": "kyries_review_2026-11-10"
+   },
    "lines": [
     "{icon:bb21119dee}",
     "{icon:8466c441ea} III",
@@ -7597,7 +7643,7 @@
    "level": 1,
    "life": 9,
    "dodge": 1,
-   "speed": 0,
+   "speed": 2,
    "id": "hero_stat:warrens:antiquarian:p001:front",
    "source": {
     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_100x180_Hero_STAT_FRONT.pdf",
@@ -7605,6 +7651,14 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
+   "verified_higher_condition_defence": {
+    "resistances": [
+     "shuffle"
+    ],
+    "immunities": [],
+    "source": "print_front",
+    "approval": "kyries_review_2026-11-10"
+   },
    "lines": [
     "{icon:bb21119dee}",
     "{icon:8466c441ea} I",
@@ -7767,7 +7821,7 @@
    "level": 2,
    "life": 12,
    "dodge": 2,
-   "speed": 0,
+   "speed": 2,
    "id": "hero_stat:warrens:antiquarian:p001:back",
    "source": {
     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_100x180_Hero_STAT_BACK.pdf",
@@ -7775,6 +7829,15 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
+   "verified_higher_condition_defence": {
+    "resistances": [
+     "stun",
+     "shuffle"
+    ],
+    "immunities": [],
+    "source": "print_back",
+    "approval": "kyries_review_2026-11-10"
+   },
    "lines": [
     "{icon:bb21119dee}",
     "{icon:8466c441ea} II",
@@ -7962,7 +8025,7 @@
    "level": 3,
    "life": 15,
    "dodge": 3,
-   "speed": 0,
+   "speed": 2,
    "id": "hero_stat:warrens:antiquarian:p002:front",
    "source": {
     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_100x180_Hero_STAT_FRONT.pdf",
@@ -7972,14 +8035,14 @@
    "approval": "kyries_review_2026-11-08",
    "verified_higher_condition_defence": {
     "resistances": [
-     "blight"
+     "stun"
     ],
     "immunities": [
      "shuffle",
      "disease"
     ],
     "source": "print_front",
-    "approval": "kyries_review_2026-11-08"
+    "approval": "kyries_review_2026-11-10"
    },
    "lines": [
     "{icon:bb21119dee}",
@@ -8194,7 +8257,7 @@
    "level": 1,
    "life": 12,
    "dodge": 2,
-   "speed": 0,
+   "speed": 2,
    "id": "hero_stat:cove:flagellant:p001:front",
    "source": {
     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_100x180_Hero_STAT_FRONT.pdf",
@@ -8202,6 +8265,14 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
+   "verified_higher_condition_defence": {
+    "resistances": [
+     "bleed"
+    ],
+    "immunities": [],
+    "source": "print_front",
+    "approval": "kyries_review_2026-11-10"
+   },
    "lines": [
     "{icon:bb21119dee}",
     "{icon:8466c441ea} I",
@@ -8381,7 +8452,7 @@
    "level": 2,
    "life": 16,
    "dodge": 3,
-   "speed": 0,
+   "speed": 3,
    "id": "hero_stat:cove:flagellant:p001:back",
    "source": {
     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_100x180_Hero_STAT_BACK.pdf",
@@ -8389,6 +8460,15 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
+   "verified_higher_condition_defence": {
+    "resistances": [
+     "shuffle",
+     "bleed"
+    ],
+    "immunities": [],
+    "source": "print_back",
+    "approval": "kyries_review_2026-11-10"
+   },
    "lines": [
     "{icon:bb21119dee}",
     "{icon:8466c441ea} II",
@@ -8604,7 +8684,7 @@
    "level": 3,
    "life": 22,
    "dodge": 3,
-   "speed": 0,
+   "speed": 3,
    "id": "hero_stat:cove:flagellant:p002:front",
    "source": {
     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_100x180_Hero_STAT_FRONT.pdf",
@@ -8612,6 +8692,16 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
+   "verified_higher_condition_defence": {
+    "resistances": [
+     "stun",
+     "shuffle",
+     "bleed"
+    ],
+    "immunities": [],
+    "source": "print_front",
+    "approval": "kyries_review_2026-11-10"
+   },
    "lines": [
     "{icon:bb21119dee}",
     "{icon:8466c441ea} III",
@@ -8855,6 +8945,14 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
+   "verified_higher_condition_defence": {
+    "resistances": [
+     "shuffle"
+    ],
+    "immunities": [],
+    "source": "print_front",
+    "approval": "kyries_review_2026-11-10"
+   },
    "lines": [
     "{icon:bb21119dee}",
     "{icon:8466c441ea} I",
@@ -9056,6 +9154,15 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
+   "verified_higher_condition_defence": {
+    "resistances": [
+     "shuffle",
+     "bleed"
+    ],
+    "immunities": [],
+    "source": "print_back",
+    "approval": "kyries_review_2026-11-10"
+   },
    "lines": [
     "{icon:bb21119dee}",
     "{icon:8466c441ea} II",
@@ -9274,7 +9381,7 @@
    "level": 3,
    "life": 28,
    "dodge": 3,
-   "speed": 1,
+   "speed": 2,
    "id": "hero_stat:cove:man-at-arms:p002:front",
    "source": {
     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_100x180_Hero_STAT_FRONT.pdf",
@@ -9282,6 +9389,16 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
+   "verified_higher_condition_defence": {
+    "resistances": [
+     "stun",
+     "shuffle",
+     "bleed"
+    ],
+    "immunities": [],
+    "source": "print_front",
+    "approval": "kyries_review_2026-11-10"
+   },
    "lines": [
     "{icon:bb21119dee}",
     "{icon:8466c441ea} III",
@@ -9694,6 +9811,15 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
+   "verified_higher_condition_defence": {
+    "resistances": [
+     "stun",
+     "bleed"
+    ],
+    "immunities": [],
+    "source": "print_back",
+    "approval": "kyries_review_2026-11-10"
+   },
    "lines": [
     "{icon:bb21119dee}",
     "{icon:8466c441ea} II",
@@ -9864,6 +9990,16 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
+   "verified_higher_condition_defence": {
+    "resistances": [
+     "stun",
+     "bleed",
+     "blight"
+    ],
+    "immunities": [],
+    "source": "print_front",
+    "approval": "kyries_review_2026-11-10"
+   },
    "lines": [
     "{icon:bb21119dee}",
     "{icon:8466c441ea} III",
@@ -10288,6 +10424,15 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
+   "verified_higher_condition_defence": {
+    "resistances": [
+     "stun",
+     "shuffle"
+    ],
+    "immunities": [],
+    "source": "print_back",
+    "approval": "kyries_review_2026-11-10"
+   },
    "lines": [
     "{icon:bb21119dee}",
     "{icon:8466c441ea} II",
@@ -10534,6 +10679,16 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
+   "verified_higher_condition_defence": {
+    "resistances": [
+     "stun"
+    ],
+    "immunities": [
+     "shuffle"
+    ],
+    "source": "print_front",
+    "approval": "kyries_review_2026-11-10"
+   },
    "lines": [
     "{icon:bb21119dee}",
     "{icon:8466c441ea} III",
@@ -10804,6 +10959,14 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
+   "verified_higher_condition_defence": {
+    "resistances": [
+     "shuffle"
+    ],
+    "immunities": [],
+    "source": "print_front",
+    "approval": "kyries_review_2026-11-10"
+   },
    "lines": [
     "{icon:bb21119dee}",
     "{icon:8466c441ea} I",
@@ -11015,6 +11178,15 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
+   "verified_higher_condition_defence": {
+    "resistances": [
+     "stun",
+     "shuffle"
+    ],
+    "immunities": [],
+    "source": "print_back",
+    "approval": "kyries_review_2026-11-10"
+   },
    "lines": [
     "{icon:bb21119dee}",
     "{icon:8466c441ea} II",
@@ -11251,6 +11423,16 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
+   "verified_higher_condition_defence": {
+    "resistances": [
+     "stun"
+    ],
+    "immunities": [
+     "shuffle"
+    ],
+    "source": "print_front",
+    "approval": "kyries_review_2026-11-10"
+   },
    "lines": [
     "{icon:bb21119dee}",
     "{icon:8466c441ea} III",

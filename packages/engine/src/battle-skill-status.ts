@@ -26,7 +26,7 @@ export function readHeroPassiveDefence(
   entity: Pick<BattleEntity, "heroStatId"> & Partial<Pick<BattleEntity, "side" | "areaId">>,
 ): HeroRuntimeDefence | undefined {
   const hero = battle.heroStats?.find((h) => h.id === entity.heroStatId);
-  if (hero && hero.level !== 1) {
+  if (hero && (hero.verified_higher_condition_defence || hero.level !== 1)) {
     const higher = readHigherHeroDefence(hero);
     if (!higher) return undefined;
     const persistent = (kinds: readonly string[]) =>
@@ -134,7 +134,7 @@ export function applyBattleSkillStatuses(
       const buff = hero?.verified_buff_defence;
       if (entity.side === "hero") {
         const defence = hero?.verified_condition_defence;
-        if (defence || (hero && hero.level !== 1)) {
+        if (defence || (hero && (hero.verified_higher_condition_defence || hero.level !== 1))) {
           const approved = readHeroPassiveDefence(battle, entity);
           if (!approved) return "英雄条件防御不符合限定审批（R-048）";
           resistances = [...approved.resistances];

@@ -14,7 +14,7 @@ const raw = rawFileSchema.parse(json("extract/extension/warrens/raw/hero_stat.js
 const dictionary = iconDictionarySchema.parse(json("dictionary/icon-dictionary-v1.8.json"));
 const built = buildWarrensHeroStats(raw, dictionary);
 
-it("R-104 + Q-104：Leper / Antiquarian I–III 黄金值；Antiquarian III 免疫 = 位移 + 疾病", () => {
+it("R-215 + Q-104：Leper / Antiquarian I–III 黄金值；Antiquarian III 免疫 = 位移 + 疾病", () => {
   expect(approvedWarrensHeroStats).toHaveLength(6);
   expect(
     built.map((c) => [
@@ -24,15 +24,19 @@ it("R-104 + Q-104：Leper / Antiquarian I–III 黄金值；Antiquarian III 免�
       c.dodge,
       c.speed,
       c.verification.unverified,
-      c.verified_condition_defence?.resistances ?? null,
+      c.verified_higher_condition_defence?.resistances,
     ]),
   ).toEqual([
-    ["hero_stat:warrens:leper:p001:front", 1, 18, 0, 1, false, ["stun"]],
-    ["hero_stat:warrens:leper:p001:back", 2, 25, 1, 1, false, null],
-    ["hero_stat:warrens:leper:p002:front", 3, 33, 2, 1, false, null],
-    ["hero_stat:warrens:antiquarian:p001:front", 1, 9, 1, 0, false, null],
-    ["hero_stat:warrens:antiquarian:p001:back", 2, 12, 2, 0, true, null],
-    ["hero_stat:warrens:antiquarian:p002:front", 3, 15, 3, 0, true, null],
+    ["hero_stat:warrens:leper:p001:front", 1, 18, 0, 1, false, ["debuff"]],
+    ["hero_stat:warrens:leper:p001:back", 2, 25, 1, 1, false, ["shuffle", "debuff"]],
+    ["hero_stat:warrens:leper:p002:front", 3, 33, 2, 1, false, ["stun", "shuffle", "debuff"]],
+    ["hero_stat:warrens:antiquarian:p001:front", 1, 9, 1, 2, false, ["shuffle"]],
+    ["hero_stat:warrens:antiquarian:p001:back", 2, 12, 2, 2, true, ["stun", "shuffle"]],
+    ["hero_stat:warrens:antiquarian:p002:front", 3, 15, 3, 2, true, ["stun"]],
+  ]);
+  expect(built.at(-1)?.verified_higher_condition_defence?.immunities).toEqual([
+    "shuffle",
+    "disease",
   ]);
   for (const card of built) expect(warrensHeroStatCardSchema.safeParse(card).success).toBe(true);
 });

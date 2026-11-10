@@ -4,7 +4,11 @@ import { levelSchema } from "../extract/common";
 import type { IconDictionary } from "../dictionary/schema";
 import { createIconLookup, finishVerification, noteIcon, resolveLines } from "./icons";
 import { normalizedIconSchema, verificationSchema } from "./schema";
-import { buildHigherHeroDefence, higherHeroDefenceSchema } from "./hero-higher-defence";
+import {
+  buildHigherHeroDefence,
+  higherHeroDefenceSchema,
+  readHigherHeroDefence,
+} from "./hero-higher-defence";
 
 const STAT_FRONT =
   "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_100x180_Hero_STAT_FRONT.pdf";
@@ -29,9 +33,9 @@ export const approvedWarrensHeroStats = [
   ["hero_stat:warrens:leper:p001", "front", "LEPER", 1, 18, 0, 1],
   ["hero_stat:warrens:leper:p001", "back", "LEPER", 2, 25, 1, 1],
   ["hero_stat:warrens:leper:p002", "front", "LEPER", 3, 33, 2, 1],
-  ["hero_stat:warrens:antiquarian:p001", "front", "ANTIQUARIAN", 1, 9, 1, 0],
-  ["hero_stat:warrens:antiquarian:p001", "back", "ANTIQUARIAN", 2, 12, 2, 0],
-  ["hero_stat:warrens:antiquarian:p002", "front", "ANTIQUARIAN", 3, 15, 3, 0],
+  ["hero_stat:warrens:antiquarian:p001", "front", "ANTIQUARIAN", 1, 9, 1, 2],
+  ["hero_stat:warrens:antiquarian:p001", "back", "ANTIQUARIAN", 2, 12, 2, 2],
+  ["hero_stat:warrens:antiquarian:p002", "front", "ANTIQUARIAN", 3, 15, 3, 2],
 ].map(([rawId, face, name, level, life, dodge, speed]) =>
   warrensAttributesSchema.parse({ rawId, face, name, level, life, dodge, speed }),
 );
@@ -69,8 +73,10 @@ export const warrensHeroStatCardSchema = warrensAttributesSchema
     verification: verificationSchema,
   })
   .superRefine((card, ctx) => {
+    if (card.verified_higher_condition_defence && !readHigherHeroDefence(card))
+      ctx.addIssue({ code: "custom", message: "英雄防御超出逐卡核准（R-215）" });
     const defence = approvedWarrensConditionDefences[card.id];
-    if (defence) {
+    if (defence && !card.verified_higher_condition_defence) {
       if (
         card.face !== "front" ||
         card.level !== 1 ||
@@ -139,17 +145,13 @@ export function buildWarrensHeroStats(
         if (placement.iconId !== STAT_IMMUNITIES_HEADER_ICON) noteIcon(icon, reasons);
         return { ...icon, bbox: placement.bbox };
       });
-    if (attributes.name === "LEPER") {
-      const speedCount = icons.filter((icon) => {
-        const y = (icon.bbox[1] + icon.bbox[3]) / 2;
-        return (
-          icon.key === "speed" && icon.bbox[0] >= lifeBox[2] && y >= lifeBox[1] && y <= lifeBox[3]
-        );
-      }).length;
-      if (speedCount !== attributes.speed) throw new Error("Warrens Speed 与移动栏图标数量冲突");
-    } else if (attributes.speed !== 0) {
-      throw new Error("Warrens Antiquarian Speed 与获批不一致");
-    }
+    const speedCount = face.icons.filter((placement) => {
+      if (placement.decor || placement.iconId !== "4648c9e5ec") return false;
+      const y = (placement.bbox[1] + placement.bbox[3]) / 2;
+      return placement.bbox[0] >= lifeBox[2] && y >= lifeBox[1] && y <= lifeBox[3];
+    }).length;
+    if (speedCount !== attributes.speed)
+      throw new Error("Warrens Speed 与移动栏图标数量冲突（R-215）");
     for (const [iconId, key] of [
       ["9534ad5184", "life"],
       ["7a472f5d6f", "dodge"],
@@ -167,20 +169,23 @@ export function buildWarrensHeroStats(
       )
         throw new Error("Warrens 获批 Speed 缺少已确认图标（R-048）");
     }
+    const higherDefence = buildHigherHeroDefence(`${attributes.rawId}:${attributes.face}`, face);
     const defence = approvedWarrensConditionDefences[`${attributes.rawId}:${attributes.face}`];
-    if (defence) {
+    if (defence && !higherDefence) {
       const joined = face.lines.map((line) => line.text).join("\n");
       if (!joined.includes(`{icon:${defence.iconId}}`))
         throw new Error("Warrens 条件防御图标漂移（R-048）");
     }
-    const higherDefence = buildHigherHeroDefence(`${attributes.rawId}:${attributes.face}`, face);
     return warrensHeroStatCardSchema.parse({
       ...attributes,
       id: `${attributes.rawId}:${attributes.face}`,
       source: { file: face.file, page: face.page },
       attributesVerified: true,
-      approval: higherDefence ? "kyries_review_2026-11-08" : "kyries_review_2026-10-24",
-      ...(defence
+      approval:
+        attributes.name === "ANTIQUARIAN" && attributes.level === 3
+          ? "kyries_review_2026-11-08"
+          : "kyries_review_2026-10-24",
+      ...(defence && !higherDefence
         ? {
             verified_condition_defence: {
               resistances: [defence.kind],

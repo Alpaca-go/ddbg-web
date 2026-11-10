@@ -981,7 +981,7 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 
 - **编号**：R-101
 - **日期**：2026-10-24
-- **问题**：核心盒 Jester / Arbalest / Abomination 九面 Hero STAT（`p011`–`p012`、`p015`–`p016`、`p021`–`p023`）Life/Dodge/Speed 与可核实防御栏未入库；建队仍用占位 life=1。
+- **问题**：核心盒 Jester / Arbalest / Abomination 九面 Hero STAT（`p011`–`p012`、`p015`–`p016`、`p021`–`p023`）Life/Dodge/Speed 与可核实防御栏未入库；建队仍用占位 life=1。 Jester II／III 和 Arbalest I 的状态防御补录见 R-215。
 - **裁定**（Kyries 批准转录；不改全局词典）：
   - 九面三行属性按印刷 raw 入库，`attributesVerified: true`，批准标记 `kyries_review_2026-10-24`。
   - I 级条件防御：`hero_stat:p011:front` 左栏 `8cbe7d6703`→Debuff（与 R-095 Occ I 分卡批准）；`hero_stat:p021:front` 左栏 `40bb356305`→Blight；Arbalest I 仅 `df4eb1ac47`（Shuffle）在左栏，不写入 I 级 `verified_condition_defence`（schema 不含 shuffle）。
@@ -1023,7 +1023,7 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **日期**：2026-10-24
 - **问题**：Warrens 扩展包 Antiquarian / Leper Hero STAT（TDH 印刷 `DD_EN_THE_DARKEST_HEROES_CARDS_100x180_Hero_STAT` p28–31；与 Warrens 英雄包 p1–4 同序）与七张 I 级战斗技能（TDH 技能页 **p274–315**，见 Q-103）待核实入库与接线。
 - **裁定**（Kyries 批准转录；不改全局词典除非另开 Q）：
-  - **STAT 入库**（`attributesVerified: true`，`kyries_review_2026-10-24`）：Leper I/II/III 与 Antiquarian I/II 共五面——Life/Dodge/Speed：Leper 18/0/1、25/1/1、33/2/1；Antiquarian 9/1/0、12/2/0。Leper I 左栏 `8db71542d2`→Stun 写入 `verified_condition_defence`。Antiquarian I 无已确认左栏抗性（Shuffle `df4eb1ac47` 在 Speed 行误 remap，不写入 shuffle 抗性）。
+  - **STAT 入库**（`attributesVerified: true`，`kyries_review_2026-10-24`）：Leper I/II/III 与 Antiquarian I/II 共五面——Life/Dodge/Speed：Leper 18/0/1、25/1/1、33/2/1；Antiquarian 9/1/0、12/2/0。Leper I 左栏 `8db71542d2`→Stun 写入 `verified_condition_defence`。Antiquarian I 无已确认左栏抗性（Shuffle `df4eb1ac47` 在 Speed 行误 remap，不写入 shuffle 抗性）。 Leper 与 Antiquarian 的速度及状态防御以 R-215 为准。
   - **Antiquarian III**（`hero_stat:warrens:antiquarian:p002:front`）免疫栏含未确认 `8510428636`，**不**批准 `attributesVerified`（Q-104）。
   - **Antiquarian II 背面**村庄技能行含未确认图标时，属性仍批准，整卡可保留 `verification.unverified`（R-048，同 R-101 村庄栏）。
   - TDH 免疫栏标题装饰 `55a3fded25` 不入词典、不参与 STAT 核实（Q-104）。
@@ -1053,7 +1053,7 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **日期**：2026-10-24
 - **问题**：Cove 扩展包 Man-at-Arms / Flagellant Hero STAT（Cove 印刷 `DD_EN_COVE_CARDS_100x180_Hero_STAT` p1–4；与 TDH 同序 p24–27 几何）与七张 I 级战斗技能（TDH 技能页 **p232–273**，见 Q-105）待核实入库与接线。
 - **裁定**（Kyries 批准转录；不改全局词典除非另开 Q）：
-  - **STAT 入库**（`attributesVerified: true`，`kyries_review_2026-10-24`）：Flagellant I/II/III 与 MAA I/II/III 共六面——Life/Dodge/Speed：Flagellant 12/2/0、16/3/0、22/3/0；MAA 16/1/1、22/2/1、28/3/1。CE `speed` 缺印时 Speed 记 **0**；MAA Speed 以移动栏图标数量核实为 1（Flagellant I 亦 Speed 0，III 虽有 movement boot 3 仍 Speed 0）。
+  - **STAT 入库**（`attributesVerified: true`，`kyries_review_2026-10-24`）：Flagellant I/II/III 与 MAA I/II/III 共六面——Life/Dodge/Speed：Flagellant 12/2/0、16/3/0、22/3/0；MAA 16/1/1、22/2/1、28/3/1。CE `speed` 缺印时 Speed 记 **0**；MAA Speed 以移动栏图标数量核实为 1（Flagellant I 亦 Speed 0，III 虽有 movement boot 3 仍 Speed 0）。 速度及状态防御以 R-215 为准。
   - TDH 免疫栏标题装饰 `55a3fded25` 不入词典、不参与 STAT 核实（同 Q-104 / Q-105）。
   - **战斗**：各七张 I 级技能 id `hero_skill:p232`–`p250`（MAA）、`p253`–`p271`（Flagellant）规范化核实后接线；移出 `FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS`，纳入正式替补白名单。
 - **依据 / 边界**：Cove/TDH 印刷 PDF、CE OFFICIAL_PRINTED_COMPONENT 字面、`extract/extension/cove`、R-048/R-104 路径。不使用 FAQ。
@@ -1074,7 +1074,7 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **问题**：Weald 扩展包 Houndmaster / Shieldbreaker Hero STAT（Weald 印刷 `DD_EN_WEALD_CARDS_100x180_Hero_STAT` p1–4；几何自 TDH 同序 p32–35）与七张 I 级战斗技能（TDH 技能页 **p316–357**，见 Q-106）待核实入库与接线。
 - **裁定**（Kyries 批准转录；不改全局词典除非另开 Q）：
   - **STAT 入库**（`attributesVerified: true`，`kyries_review_2026-10-24`）：Houndmaster I/II/III 与 Shieldbreaker I/II/III 共六面——Life/Dodge/Speed：HM 11/1/2、15/2/2、19/3/2；SB 11/1/2、15/2/2、19/3/3。CE `speed` 缺印时以移动栏图标数量核实 Speed；Shieldbreaker I/II 印刷两枚靴记 Speed **2**（CE movement.literal 仍为 3，见 Q-106）。
-  - I 级条件防御：两名英雄 I 级正面 `{icon:8db71542d2}` 记 **Stun** 抗性（与核心盒路径一致）。
+  - I 级条件防御：两名英雄 I 级正面 `{icon:8db71542d2}` 记 **Stun** 抗性（与核心盒路径一致）。 两名英雄 II／III 的状态防御见 R-215。
   - TDH 免疫栏标题装饰 `55a3fded25` 不入词典、不参与 STAT 核实（同 Q-104 / Q-105 / Q-106）。
   - **战斗**：各七张 I 级技能 id `hero_skill:p316`–`p334`（Shieldbreaker）、`p337`–`p355`（Houndmaster）规范化核实后接线；移出 `FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS`，纳入正式替补白名单。
 - **依据 / 边界**：Weald/TDH 印刷 PDF、CE OFFICIAL_PRINTED_COMPONENT 字面、`extract/extension/weald`、R-048/R-104/R-105 路径。不使用 FAQ。
@@ -1095,7 +1095,7 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **问题**：Musketeer 扩展包 Hero STAT（`MG_DD_08_EN_MUSKETEER` 印刷 `DD_EN_MUSKETEER_CARDS_100x180_Hero_STAT` p1–2）与七张 I 级战斗技能（同包 `DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT` p1–21，见 Q-107）待核实入库与接线。
 - **裁定**（Kyries 批准转录；不改全局词典除非另开 Q）：
   - **STAT 入库**（`attributesVerified: true`，`kyries_review_2026-10-24`）：Musketeer I/II/III 三面——Life/Dodge/Speed：14/0/1、19/1/1、24/2/2（STAT_FRONT p1、STAT_BACK p1、STAT_FRONT p2）。
-  - I 级条件防御：Shuffle 抗性 `{icon:df4eb1ac47}` 仅记印刷存在，本 PR 不写入 `verified_condition_defence`（schema 仅 stun/bleed/blight/debuff）。
+  - I 级条件防御：Shuffle 抗性 `{icon:df4eb1ac47}` 仅记印刷存在，本 PR 不写入 `verified_condition_defence`（schema 仅 stun/bleed/blight/debuff）。 Musketeer I／II／III 的位移与眩晕防御已按 R-215 入库。
   - 免疫栏标题装饰 `55a3fded25` / `f9c2c60dad` 不入词典、不参与 STAT 核实（同 R-104–R-106）。
   - **战斗**：七张 I 级技能 id `hero_skill:musketeer:p001`、`p004`、`p007`、`p010`、`p013`、`p016`、`p019`（Aimed Shot、Smokescreen、Call the Shot、Buckshot、Sidearm、Patch Up、Skeet Shot）规范化核实后接线；移出 `FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS`（名单清空），纳入正式替补白名单。
 - **依据 / 边界**：Musketeer 包印刷 PDF、CE OFFICIAL_PRINTED_COMPONENT 字面、`extract/extension/musketeer`、R-048/R-103。不打开 PvP / 专属扩展机制。不使用 FAQ。
@@ -2642,7 +2642,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **问题**：Kyries 决定 18 名正式英雄都按核心内容对待；Musketeer 纳入；Antiquarian III STAT 与英雄技能图标语义待确认。
 - **裁定**（Kyries 2026-11-08）：
   1. **18 名英雄一律按核心内容**（含 Leper / Antiquarian / Flagellant / Man-at-Arms / Houndmaster / Shieldbreaker / Musketeer）；**Musketeer 纳入，覆盖 R-008「首版不纳入」**。
-  2. **Antiquarian III STAT 入库**：Life 15 / Dodge 3 / Speed 0；左栏 Blight 抗性；免疫栏 = **位移 + 疾病**（`8510428636` → Shuffle，`28b10f3fb7` → Disease）。`8510428636` 仍不写入全局词典，只在本卡 `verified_higher_condition_defence` 注解（沿用 R-105 / Plague Doctor III 模式）。**Q-104 关闭**。
+  2. **Antiquarian III STAT 入库**：Life 15 / Dodge 3 / Speed 0；左栏 Blight 抗性；免疫栏 = **位移 + 疾病**（`8510428636` → Shuffle，`28b10f3fb7` → Disease）。`8510428636` 仍不写入全局词典，只在本卡 `verified_higher_condition_defence` 注解（沿用 R-105 / Plague Doctor III 模式）。**Q-104 关闭**。 速度及抗性以 R-215 为准，免疫裁定继续有效。
   3. **英雄技能图标语义**：直角箭头**指向左 = 作用给自己**、**指向右 = 作用给选中目标**（规则书 p20）；**弧形箭头 + 数字 = 射程**（1 = 相邻地块，2 = 隔一个地块，无数字 = 0，只能当前地块）；**红色爪痕上的数字 = 伤害**；Protection / Guard 见 p21。
   4. **扩展英雄 II/III 级技能（98 张）** 仍须逐卡核实范围/目标/状态注解；核实完成前不进入战斗目录（沿用 Q-158 / Phase 7 流程），不按图标顺序猜效果。
 - **依据 / 出处**：Kyries 2026-11-08 口述 + `DD_EN_COREBOX_RULES.pdf` p20–21；R-048（不猜规则/数值/图标）；R-008（被覆盖）。
@@ -2967,3 +2967,20 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **依据**：交回的怪物技能选招与目标数量核对稿、上述印刷页、R-001、R-015、R-048。
 - **逐卡复核**：核对稿的单目标 ×1、复数目标、Self、Special 和 Heart of Darkness 三招 0–10 射程与既有数据一致。Ascended Witch 的 Fate’s Pull 按 R-140 结算，Adder 的 Molt 按 R-198／Q-163 结算。
 - **边界**：仅修正印刷选招字段。Boss 特殊行动继续走对应专用入口（R-190、R-201）。
+
+### R-215
+
+- **编号**：R-215
+- **日期**：2026-11-10
+- **裁定**：按 Kyries 交回的英雄属性卡抗性、免疫与速度核对稿逐面同步。速度等于卡面移动栏的蓝底鞋印数量。Antiquarian I／II／III 为 **2／2／2**，Flagellant 为 **2／3／3**，Man-at-Arms 为 **1／1／2**。取代 R-104、R-105、R-200 对这些速度的旧值。
+- **抗性／免疫**（未单列免疫即该面无免疫）：
+  - Antiquarian I 位移，II 眩晕、位移，III 眩晕。III 免疫位移、疾病，沿用 Q-104。
+  - Arbalest I 位移。Jester II 减益、流血，III 减益、流血、腐蚀。
+  - Flagellant I 流血，II 位移、流血，III 眩晕、位移、流血。
+  - Man-at-Arms I 位移，II 位移、流血，III 眩晕、位移、流血。
+  - Houndmaster II 眩晕、流血，III 眩晕、流血、腐蚀。
+  - Leper I **减益**（Kyries 明确更正 R-104 的眩晕），II 位移、减益，III 眩晕、位移、减益。
+  - Musketeer I 位移，II 眩晕、位移，III 眩晕且免疫位移。
+  - Shieldbreaker II 眩晕、位移，III 眩晕且免疫位移。
+- **依据**：交回的属性卡核对稿及 Leper I 人工更正。COREBOX Hero STAT 正 p12／p15、背 p11。The Darkest Heroes 正 p28–31、背 p28／p30。Cove 正 p1–4、背 p1／p3。Weald 正 p2／p4、背 p1／p3。Musketeer 正 p1／p2、背 p1。R-001、R-048。
+- **实现**：按卡号、等级、正背面与核准日期写入逐卡字段。旧提取图标与印刷版不一致的行采用人工核准的防御值。战斗沿用状态抗性、位移抗性、位移免疫和疾病免疫的既有结算。
