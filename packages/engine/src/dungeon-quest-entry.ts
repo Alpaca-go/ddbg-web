@@ -19,6 +19,8 @@ import { placeFaceTheThreatRooms } from "./boss/edge-room-placement";
 
 import { setupDarkestDungeon, isDarkestQuest } from "./darkest-setup";
 import type { GameState } from "./command";
+import { sourcesForContentPacks } from "./content-packs";
+import { normalizeContentPacks, type ContentPackId } from "../../data/src/content-packs";
 
 export type CoreQuestSources = {
   readonly catalog: DungeonBattleCatalog;
@@ -46,7 +48,12 @@ export function createCoreDungeonQuest(
   sources: CoreQuestSources,
   bossEdgeRooms = true,
   stygianRoomRules: DungeonState["stygianRoomRules"] | null = "full",
+  contentPacks?: readonly ContentPackId[],
 ) {
+  if (contentPacks !== undefined) {
+    contentPacks = normalizeContentPacks(contentPacks);
+    sources = sourcesForContentPacks(sources, contentPacks);
+  }
   const quest = basicQuests.find((quest) => quest.id === questId);
   const sandboxEmbarkOk = quest && (quest.level === 1 || ("bossQuest" in quest && quest.bossQuest));
   if (
@@ -141,6 +148,7 @@ export function createCoreDungeonQuest(
     true,
   );
   let game: GameState = { ...initial, skillLightBeforeCrit: true };
+  if (contentPacks && game.dungeon) game = { ...game, dungeon: { ...game.dungeon, contentPacks } };
   if (mode === "stygian" && stygianRoomRules && game.dungeon)
     game = { ...game, dungeon: { ...game.dungeon, stygianRoomRules } };
   if (isDarkestQuest(questId)) return setupDarkestDungeon(game);

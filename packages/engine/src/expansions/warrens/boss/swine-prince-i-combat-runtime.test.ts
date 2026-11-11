@@ -1,13 +1,13 @@
 import { describe, expect, it, beforeEach } from "vitest";
 import { readFileSync } from "node:fs";
-import { createBattleState, type BattleEntity, type BattleSetup } from "../battle";
-import { applyCommand } from "../command";
-import type { GameState } from "../command";
-import type { HeroSkillCardView } from "../hero-skill";
-import { applyEncounterCommand } from "../encounter";
-import type { MonsterCardView } from "../monster-skill";
-import type { SkillStance } from "../hero-skill";
-import { createLootState } from "../loot";
+import { createBattleState, type BattleEntity, type BattleSetup } from "../../../battle";
+import { applyCommand } from "../../../command";
+import type { GameState } from "../../../command";
+import type { HeroSkillCardView } from "../../../hero-skill";
+import { applyEncounterCommand } from "../../../encounter";
+import type { MonsterCardView } from "../../../monster-skill";
+import type { SkillStance } from "../../../hero-skill";
+import { createLootState } from "../../../loot";
 import {
   SWINE_PRINCE_I_COMBAT_MONSTER_CARD_ID,
   SWINE_PRINCE_I_ENRAGED_DESTRUCTION_SKILL_SLOT,
@@ -28,7 +28,7 @@ import {
   swinePrinceIWilburBattleStartStance,
   swinePrinceIWilburMarkShouldForceSkill,
   FACE_THE_THREAT_QUEST_ID,
-} from "./index";
+} from "../../../boss/index";
 
 const stances: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 
@@ -36,7 +36,7 @@ function cards<T>(file: string): T[] {
   return (
     JSON.parse(
       readFileSync(
-        new URL(`../../../data/normalized/corebox/${file}.json`, import.meta.url),
+        new URL(`../../../../../data/normalized/corebox/${file}.json`, import.meta.url),
         "utf8",
       ),
     ) as { cards: T[] }

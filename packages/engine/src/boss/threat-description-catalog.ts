@@ -1,17 +1,24 @@
 import type { CampaignLevel } from "../../../data/src/basic-quests";
+import { bossEnabledForPacks, type ContentPackId } from "../../../data/src/content-packs";
 import { ensureCoreBossScriptsRegistered } from "./necromancer-i";
 import {
   NECROMANCER_I_DESCRIPTION_ABILITY_CARD_ID,
   NECROMANCER_I_SCRIPT_ID,
 } from "./necromancer-i";
 import { PROPHET_I_DESCRIPTION_ABILITY_CARD_ID, PROPHET_I_SCRIPT_ID } from "./prophet-i";
-import { HAG_I_DESCRIPTION_ABILITY_CARD_ID, HAG_I_SCRIPT_ID } from "./hag-i";
+import { HAG_I_DESCRIPTION_ABILITY_CARD_ID, HAG_I_SCRIPT_ID } from "../expansions/weald/boss/hag-i";
 import {
   SWINE_PRINCE_I_DESCRIPTION_ABILITY_CARD_ID,
   SWINE_PRINCE_I_SCRIPT_ID,
-} from "./swine-prince-i";
-import { FLESH_I_DESCRIPTION_ABILITY_CARD_ID, FLESH_I_SCRIPT_ID } from "./flesh-i";
-import { SIREN_I_DESCRIPTION_ABILITY_CARD_ID, SIREN_I_SCRIPT_ID } from "./siren-i";
+} from "../expansions/warrens/boss/swine-prince-i";
+import {
+  FLESH_I_DESCRIPTION_ABILITY_CARD_ID,
+  FLESH_I_SCRIPT_ID,
+} from "../expansions/warrens/boss/flesh-i";
+import {
+  SIREN_I_DESCRIPTION_ABILITY_CARD_ID,
+  SIREN_I_SCRIPT_ID,
+} from "../expansions/cove/boss/siren-i";
 import { COLLECTOR_I_DESCRIPTION_ABILITY_CARD_ID, COLLECTOR_I_SCRIPT_ID } from "./collector-i";
 import { FANATIC_I_DESCRIPTION_ABILITY_CARD_ID, FANATIC_I_SCRIPT_ID } from "./fanatic-i";
 import { getBossScript, listBossScripts } from "./registry";
@@ -54,95 +61,27 @@ export const RUINS_BOSS_IDENTITIES: readonly RuinsBossIdentity[] = [
   "fanatic",
 ];
 
-/** 核心盒 Weald 三 Boss（spec 扩展 §2.3；迫近威胁池接线仍 hold）。 */
-export type WealdBossIdentity = "hag" | "brigandPounder" | "shrieker";
-
-export const WEALD_BOSS_DESCRIPTION_CARD_ID: Record<
-  WealdBossIdentity,
-  Record<CampaignLevel, string | undefined>
-> = {
-  hag: {
-    1: HAG_I_DESCRIPTION_ABILITY_CARD_ID,
-    2: undefined,
-    3: undefined,
-  },
-  brigandPounder: {
-    1: undefined,
-    2: undefined,
-    3: undefined,
-  },
-  shrieker: {
-    1: undefined,
-    2: undefined,
-    3: undefined,
-  },
-};
-
-export const WEALD_BOSS_IDENTITIES: readonly WealdBossIdentity[] = [
-  "hag",
-  "brigandPounder",
-  "shrieker",
-];
-
-/** Warrens 三 Boss（spec 扩展 §2.3；迫近威胁池接线仍 hold）。 */
-export type WarrensBossIdentity = "swinePrince" | "flesh" | "brigandVvulf";
-
-export const WARRENS_BOSS_DESCRIPTION_CARD_ID: Record<
-  WarrensBossIdentity,
-  Record<CampaignLevel, string | undefined>
-> = {
-  swinePrince: {
-    1: SWINE_PRINCE_I_DESCRIPTION_ABILITY_CARD_ID,
-    2: undefined,
-    3: undefined,
-  },
-  flesh: {
-    1: FLESH_I_DESCRIPTION_ABILITY_CARD_ID,
-    2: undefined,
-    3: undefined,
-  },
-  brigandVvulf: {
-    1: undefined,
-    2: undefined,
-    3: undefined,
-  },
-};
-
-export const WARRENS_BOSS_IDENTITIES: readonly WarrensBossIdentity[] = [
-  "swinePrince",
-  "flesh",
-  "brigandVvulf",
-];
-
-/** Cove 三 Boss（spec 扩展 §2.3；迫近威胁池接线仍 hold）。 */
-export type CoveBossIdentity = "siren" | "shambler" | "drownedCrew";
-
-export const COVE_BOSS_DESCRIPTION_CARD_ID: Record<
-  CoveBossIdentity,
-  Record<CampaignLevel, string | undefined>
-> = {
-  siren: {
-    1: SIREN_I_DESCRIPTION_ABILITY_CARD_ID,
-    2: undefined,
-    3: undefined,
-  },
-  shambler: {
-    1: undefined,
-    2: undefined,
-    3: undefined,
-  },
-  drownedCrew: {
-    1: undefined,
-    2: undefined,
-    3: undefined,
-  },
-};
-
-export const COVE_BOSS_IDENTITIES: readonly CoveBossIdentity[] = [
-  "siren",
-  "shambler",
-  "drownedCrew",
-];
+import {
+  WEALD_BOSS_IDENTITIES,
+  WEALD_BOSS_DESCRIPTION_CARD_ID,
+  type WealdBossIdentity,
+} from "../expansions/weald/catalog";
+export { WEALD_BOSS_IDENTITIES, WEALD_BOSS_DESCRIPTION_CARD_ID };
+export type { WealdBossIdentity };
+import {
+  WARRENS_BOSS_IDENTITIES,
+  WARRENS_BOSS_DESCRIPTION_CARD_ID,
+  type WarrensBossIdentity,
+} from "../expansions/warrens/catalog";
+export { WARRENS_BOSS_IDENTITIES, WARRENS_BOSS_DESCRIPTION_CARD_ID };
+export type { WarrensBossIdentity };
+import {
+  COVE_BOSS_IDENTITIES,
+  COVE_BOSS_DESCRIPTION_CARD_ID,
+  type CoveBossIdentity,
+} from "../expansions/cove/catalog";
+export { COVE_BOSS_IDENTITIES, COVE_BOSS_DESCRIPTION_CARD_ID };
+export type { CoveBossIdentity };
 
 const coveDescriptionToIdentity = new Map<string, CoveBossIdentity>();
 for (const identity of COVE_BOSS_IDENTITIES) {
@@ -210,9 +149,7 @@ export function ruinsBossIdentityForScriptId(
 }
 
 /** 静态映射 + 已注册脚本 `combatEntry.descriptionAbilityCardId`。 */
-export function resolveScriptIdForDescriptionCard(
-  descriptionCardId: string,
-): BossScriptId | undefined {
+function resolveAnyScriptIdForDescriptionCard(descriptionCardId: string): BossScriptId | undefined {
   if (descriptionCardId === NECROMANCER_I_DESCRIPTION_ABILITY_CARD_ID) {
     return NECROMANCER_I_SCRIPT_ID;
   }
@@ -242,6 +179,15 @@ export function resolveScriptIdForDescriptionCard(
     if (script.combatEntry?.descriptionAbilityCardId === descriptionCardId) return script.id;
   }
   return undefined;
+}
+
+/** 包权限来自战役配置，不能由全局注册表是否曾加载过推断。 */
+export function resolveScriptIdForDescriptionCard(
+  descriptionCardId: string,
+  packs?: readonly ContentPackId[],
+): BossScriptId | undefined {
+  const id = resolveAnyScriptIdForDescriptionCard(descriptionCardId);
+  return id && bossEnabledForPacks(packs, id) ? id : undefined;
 }
 
 export function imminentThreatPoolForCampaign(

@@ -1,8 +1,8 @@
-import type { BattleEntity, BattleState } from "../battle";
-import type { ApplyResult, GameState, MonsterSkillResolvedEvent } from "../command";
-import type { MonsterCardView } from "../monster-skill";
-import { runBossHook } from "./hooks";
-import { resolveEncounterBossScriptId } from "./encounter-rules";
+import type { BattleEntity, BattleState } from "../../../battle";
+import type { ApplyResult, GameState, MonsterSkillResolvedEvent } from "../../../command";
+import type { MonsterCardView } from "../../../monster-skill";
+import { runBossHook } from "../../../boss/hooks";
+import { resolveEncounterBossScriptId } from "../../../boss/encounter-rules";
 import {
   HAG_I_CAULDRON_EMPTY_MONSTER_CARD_ID,
   HAG_I_CAULDRON_FULL_MONSTER_CARD_ID,
@@ -12,8 +12,8 @@ import {
   HAG_I_SCRIPT_ID,
   hagICauldronBattleStartStance,
 } from "./hag-i";
-import { getBossScript } from "./registry";
-import type { BossScriptDefinition, BossSummonOk } from "./types";
+import { getBossScript } from "../../../boss/registry";
+import type { BossScriptDefinition, BossSummonOk } from "../../../boss/types";
 
 const STANCES = ["aggressive", "defensive", "ranged", "support"] as const;
 

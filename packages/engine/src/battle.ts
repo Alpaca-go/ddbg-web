@@ -48,8 +48,8 @@ import type { LootState, LootToken } from "./loot";
 import type { ConditionPool } from "./conditions";
 import type { PassiveHolder } from "./passive";
 import { cancelSkillAfterRoll } from "./battle-passive";
-import { withFleshOneBodyPoolState } from "./boss/flesh-i-combat-runtime";
-import { chainSwinePrinceIEnragedDestructionAfterHeroSkill } from "./boss/swine-prince-i-combat-runtime";
+import { withFleshOneBodyPoolState } from "./expansions/warrens/boss/flesh-i-combat-runtime";
+import { chainSwinePrinceIEnragedDestructionAfterHeroSkill } from "./expansions/warrens/boss/swine-prince-i-combat-runtime";
 import { chainGestatingHeartIchorAfterHeroSkill } from "./boss/gestating-heart-ichor";
 import { withAncestor1ReflectionsGuardEntities } from "./boss/ancestor1-reflections-guard";
 import {

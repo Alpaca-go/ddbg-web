@@ -22,7 +22,7 @@ import { readPrintedTargets } from "./hero-skill";
 import type { ApplyResult, GameState, MonsterSkillResolvedEvent, PendingChoice } from "./command";
 import { nextBattleRoll, newlyDefeatedIds, recordMonsterSkill } from "./encounter";
 import { monsterCombatThreatDamageBonus } from "./boss/threat-passive-runtime";
-import { chainSirenIHighTidePelagicAfterMonsterSkill } from "./boss/siren-i-combat-runtime";
+import { chainSirenIHighTidePelagicAfterMonsterSkill } from "./expansions/cove/boss/siren-i-combat-runtime";
 import {
   TEMPLAR_BODY_SLAM_SKILL_SLOT,
   TEMPLAR_IMPALER_MONSTER_CARD_ID,

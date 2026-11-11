@@ -10,7 +10,7 @@ import type { MonsterCardView } from "../monster-skill";
 import { readHeroPassiveDefence } from "../battle-skill-status";
 import { addStatusStack, STATUS_KINDS, statusProjection } from "../status";
 import type { StatusKind, StatusStack } from "../status";
-import { ensureCoreBossScriptsRegistered } from "./ensure-core-boss-scripts";
+import { ensureCampaignBossScriptsRegistered } from "../expansions/register";
 import { getBossScript } from "./registry";
 import { readEffectiveBossThreatScriptId } from "./threat-campaign";
 import {
@@ -45,7 +45,7 @@ export const CREEPING_SICKNESS_HAMLET_BUILDINGS = [
 export function readActiveBossThreatScript(d: DungeonState): BossScriptDefinition | undefined {
   const scriptId = readEffectiveBossThreatScriptId(d);
   if (!scriptId) return undefined;
-  ensureCoreBossScriptsRegistered();
+  ensureCampaignBossScriptsRegistered(d.contentPacks);
   const script = getBossScript(scriptId);
   return script?.id === scriptId ? script : undefined;
 }

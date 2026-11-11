@@ -1,10 +1,11 @@
 import { useEffect, useState, type ReactNode } from "react";
 import {
-  createCoreDungeonQuest,
+  createCampaignQuest,
+  CONTENT_PACKS,
   FORMAL_HERO_NAMES,
   heroHasUnwiredCombatSkills,
 } from "@ddbg/engine";
-import type { QuestParty, DungeonState, FormalHeroName } from "@ddbg/engine";
+import type { QuestParty, DungeonState, FormalHeroName, ContentPackId } from "@ddbg/engine";
 import { battleData as questBattleData } from "virtual:quest-battle-data";
 import {
   asQuestMapPairingQuest,
@@ -62,6 +63,7 @@ export function DungeonQuest() {
     [questId, setQuestId] = useState<BasicQuestId>("quest:p001"),
     [mode, setMode] = useState<DungeonState["mode"]>("standard"),
     [error, setError] = useState("");
+  const [contentPacks, setContentPacks] = useState<ContentPackId[]>(["core"]);
   const [party, setParty] = useState<QuestParty>(() =>
     defaultPartyNames.map((name, index) => formalPartySlot(name, index)),
   );
@@ -109,9 +111,17 @@ export function DungeonQuest() {
     setError("");
     const seed = resolveQuestSeed();
     try {
-      const game = createCoreDungeonQuest(seed, selectedQuest.id, mode, party, taskSources);
+      const game = createCampaignQuest(
+        seed,
+        selectedQuest.id,
+        mode,
+        party,
+        taskSources,
+        contentPacks,
+      );
       beginTask(game, {
         seed,
+        contentPacks,
         questId: selectedQuest.id,
         bossEdgeRooms: true,
         mode,
@@ -205,6 +215,28 @@ export function DungeonQuest() {
         )}
       </header>
       <section className="panel">
+        <fieldset aria-label="战役内容包" data-testid="campaign-content-packs">
+          <legend>战役内容包（可多选）</legend>
+          <p>英雄及英雄技能始终全部开放。未选包的其他内容不会加入本次战役；开始后不可更改。</p>
+          {CONTENT_PACKS.map((pack) => (
+            <label key={pack.id} style={{ display: "block" }}>
+              <input
+                type="checkbox"
+                data-testid={`content-pack-${pack.id}`}
+                checked={contentPacks.includes(pack.id)}
+                disabled={pack.id === "core"}
+                onChange={(event) =>
+                  setContentPacks((previous) =>
+                    event.target.checked
+                      ? [...previous, pack.id]
+                      : previous.filter((id) => id !== pack.id),
+                  )
+                }
+              />
+              {pack.name} · {pack.description}
+            </label>
+          ))}
+        </fieldset>
         <form
           onSubmit={(e) => {
             e.preventDefault();

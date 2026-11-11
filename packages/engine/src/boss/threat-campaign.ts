@@ -3,7 +3,8 @@ import type { DungeonState } from "../dungeon";
 import type { HamletEventState } from "../hamlet-event";
 import { combatCardIdForPoolInstance } from "../monster-pool-runtime";
 import { readBossCombatEntry } from "./combat-entry";
-import { ensureCoreBossScriptsRegistered } from "./necromancer-i";
+import { ensureCampaignBossScriptsRegistered } from "../expansions/register";
+import { bossEnabledForPacks } from "../../../data/src/content-packs";
 import { getBossScript } from "./registry";
 import {
   cardIdsPermanentlyRemovedAfterBattle,
@@ -19,18 +20,19 @@ const KNOWN_BOSS_THREAT_BLOCKED_BUILDINGS = [
 ] as const;
 
 export function readActiveBossThreatScriptId(d: DungeonState): BossScriptId | undefined {
-  return d.activeBossThreatScriptId;
+  const id = d.activeBossThreatScriptId;
+  return id && bossEnabledForPacks(d.contentPacks, id) ? id : undefined;
 }
 
 /** R30：威胁面生效身份；与保留作胜利清场的 Boss 身份分开。 */
 export function readEffectiveBossThreatScriptId(d: DungeonState): BossScriptId | undefined {
   return d.activeBossThreatScriptId === d.bossCombatThreatCeased
     ? undefined
-    : d.activeBossThreatScriptId;
+    : readActiveBossThreatScriptId(d);
 }
 
 export function bossThreatHamletBlockedBuildings(d: DungeonState): readonly string[] {
-  ensureCoreBossScriptsRegistered();
+  ensureCampaignBossScriptsRegistered(d.contentPacks);
   const scriptId = readEffectiveBossThreatScriptId(d);
   if (!scriptId) return [];
   return hamletBuildingsBlockedByBossThreat(scriptId, getBossScript(scriptId));
@@ -89,7 +91,7 @@ export function applyBossThreatAfterBattleToPool(
   if (!scriptId || !d.battleCatalog) {
     return { pool, instanceIds: instanceIdsToShuffle, removedCombatCardIds: [] };
   }
-  ensureCoreBossScriptsRegistered();
+  ensureCampaignBossScriptsRegistered(d.contentPacks);
   const script = getBossScript(scriptId);
   if (!script) return { pool, instanceIds: instanceIdsToShuffle, removedCombatCardIds: [] };
 
@@ -126,10 +128,10 @@ export function applyBossThreatAfterBattleToPool(
  */
 export function clearedBossThreatScriptIdAfterVictory(state: GameState): BossScriptId | undefined {
   const d = state.dungeon;
-  const scriptId = d?.activeBossThreatScriptId;
+  const scriptId = d ? readActiveBossThreatScriptId(d) : undefined;
   const battle = state.battle;
   if (!d || !scriptId || !battle) return undefined;
-  ensureCoreBossScriptsRegistered();
+  ensureCampaignBossScriptsRegistered(d.contentPacks);
   const bossCardId = readBossCombatEntry(getBossScript(scriptId))?.combatMonsterCardId;
   if (!bossCardId) return undefined;
   const turn = battle.encounter?.turn;

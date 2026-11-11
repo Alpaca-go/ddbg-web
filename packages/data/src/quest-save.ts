@@ -2,6 +2,7 @@ import { CORE_TRINKET_IDS } from "./core-trinket-bindings";
 import { z } from "zod";
 import { basicQuests, type BasicQuestId } from "./basic-quests";
 import { HERO_SKILL_TRINKET_IDS } from "./hero-skill-trinkets";
+import { contentPacksSchema } from "./content-packs";
 
 const commandObject = <S extends z.ZodRawShape>(shape: S) =>
   z.strictObject({ ...shape, allTrinkets: z.literal(true).optional() });
@@ -243,6 +244,7 @@ const phase3QuestIds = basicQuests
   .map((q) => q.id) as [BasicQuestId, ...BasicQuestId[]];
 
 export const questStartSchema = z.strictObject({
+  contentPacks: contentPacksSchema.optional(),
   bossEdgeRooms: z.boolean().optional(),
   stygianRoomRules: z.enum(["r227", "r229", "full"]).optional(),
   skillLightBeforeCrit: z.literal(true).optional(),

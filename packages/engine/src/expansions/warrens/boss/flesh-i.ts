@@ -1,6 +1,9 @@
-import { getBossScript, registerBossScript } from "./registry";
-import { DEFAULT_BOSS_BATTLE_RULES } from "./rules";
-import { defaultBossSlotPlacementHook, defaultFaceTheThreatEmbarkHook } from "./default-boss-hooks";
+import { getBossScript, registerBossScript } from "../../../boss/registry";
+import { DEFAULT_BOSS_BATTLE_RULES } from "../../../boss/rules";
+import {
+  defaultBossSlotPlacementHook,
+  defaultFaceTheThreatEmbarkHook,
+} from "../../../boss/default-boss-hooks";
 import type {
   BossOneBodyMorphOk,
   BossScriptDefinition,
@@ -8,7 +11,7 @@ import type {
   BossThreatPassiveDungeonOk,
   BossThreatPassiveHamletOk,
   FleshOneBodyPart,
-} from "./types";
+} from "../../../boss/types";
 
 /** 引擎脚本 id；与印刷卡 id 分离。 */
 export const FLESH_I_SCRIPT_ID = "boss:warrens:flesh:1" as const;

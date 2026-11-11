@@ -11,6 +11,7 @@ import { readCampaignLevel } from "./hamlet-campaign";
 import { applyCommand } from "./command";
 import { FUNDRAISER_PROMPT } from "./dungeon-quest";
 import type { Command, GameEvent, GameState } from "./command";
+import { normalizeContentPacks } from "../../data/src/content-packs";
 
 /** 忽略JSON键顺序及不可序列化的undefined；保留数组/牌堆顺序。 */
 function canonical(value: unknown): string {
@@ -51,6 +52,7 @@ function replay(
     sources,
     start.bossEdgeRooms ?? false,
     start.stygianRoomRules ?? null,
+    start.contentPacks,
   );
   if (!start.skillLightBeforeCrit) {
     const { skillLightBeforeCrit, ...legacy } = game;
@@ -189,6 +191,11 @@ export function createQuestSave(
   game: GameState,
   sources: CoreQuestSources,
 ): QuestSave {
+  if (
+    start.contentPacks &&
+    canonical(normalizeContentPacks(start.contentPacks)) !== canonical(game.dungeon?.contentPacks)
+  )
+    throw new Error("开局内容包与当前战役不一致，未保存");
   const stygianRoomRules = start.stygianRoomRules ?? game.dungeon?.stygianRoomRules;
   const save = questSaveSchema.parse({
     format: "ddbg-core-quest",
@@ -197,6 +204,7 @@ export function createQuestSave(
     campaignLevel: readCampaignLevel(game.dungeon ?? {}),
     start: questStartSchema.parse({
       ...start,
+      ...(game.dungeon?.contentPacks ? { contentPacks: game.dungeon.contentPacks } : {}),
       ...(stygianRoomRules ? { stygianRoomRules } : {}),
       ...(game.skillLightBeforeCrit ? { skillLightBeforeCrit: true } : {}),
     }),

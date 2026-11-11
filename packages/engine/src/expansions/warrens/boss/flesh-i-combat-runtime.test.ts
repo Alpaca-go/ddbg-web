@@ -1,10 +1,10 @@
 import { describe, expect, it, beforeEach } from "vitest";
-import { createBattleState, type BattleEntity } from "../battle";
-import type { GameState } from "../command";
-import { applyEncounterCommand } from "../encounter";
-import type { MonsterCardView } from "../monster-skill";
-import type { SkillStance } from "../hero-skill";
-import { createLootState } from "../loot";
+import { createBattleState, type BattleEntity } from "../../../battle";
+import type { GameState } from "../../../command";
+import { applyEncounterCommand } from "../../../encounter";
+import type { MonsterCardView } from "../../../monster-skill";
+import type { SkillStance } from "../../../hero-skill";
+import { createLootState } from "../../../loot";
 import {
   FLESH_I_HEAD_MONSTER_CARD_ID,
   FLESH_I_ONE_BODY_POOL_ID,
@@ -18,7 +18,7 @@ import {
   readFleshIOneBodyPartBattleStartPlan,
   reconcileFleshOneBodyPools,
   FACE_THE_THREAT_QUEST_ID,
-} from "./index";
+} from "../../../boss/index";
 
 const stances: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 

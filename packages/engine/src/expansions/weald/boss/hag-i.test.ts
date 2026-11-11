@@ -17,13 +17,13 @@ import {
   getBossScript,
   readBossCombatEntry,
   runBossHook,
-} from "./index";
+} from "../../../boss/index";
 import {
   hamletBuildingsBlockedByBossThreat,
   sanitariumHealLifeDeltaFromBossThreat,
   stressOnHeroProvisionUseFromBossThreat,
-} from "./threat-passive";
-import { resolveScriptIdForDescriptionCard } from "./threat-description-catalog";
+} from "../../../boss/threat-passive";
+import { resolveScriptIdForDescriptionCard } from "../../../boss/threat-description-catalog";
 
 describe("Hag I Boss 脚本", () => {
   beforeEach(() => {

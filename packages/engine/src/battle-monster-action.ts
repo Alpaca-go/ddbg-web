@@ -34,11 +34,11 @@ import {
 import {
   readSwinePrinceIWilburMarkSkillSlot,
   swinePrinceIWilburMarkShouldForceSkill,
-} from "./boss/swine-prince-i-combat-runtime";
+} from "./expansions/warrens/boss/swine-prince-i-combat-runtime";
 import {
   hagIntoThePotShouldForceSkill,
   readHagIIntoThePotSkillSlot,
-} from "./boss/hag-i-combat-runtime";
+} from "./expansions/weald/boss/hag-i-combat-runtime";
 import {
   applyHeartOfDarknessImpendingDoomFromEncounter,
   heartOfDarknessImpendingDoomShouldReplaceSkill,

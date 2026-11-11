@@ -1,8 +1,8 @@
-import type { BattleEntity, BattleState, OneBodyLifePool } from "../battle";
-import type { ApplyResult, GameState } from "../command";
-import type { MonsterCardView } from "../monster-skill";
-import { runBossHook } from "./hooks";
-import { resolveEncounterBossScriptId } from "./encounter-rules";
+import type { BattleEntity, BattleState, OneBodyLifePool } from "../../../battle";
+import type { ApplyResult, GameState } from "../../../command";
+import type { MonsterCardView } from "../../../monster-skill";
+import { runBossHook } from "../../../boss/hooks";
+import { resolveEncounterBossScriptId } from "../../../boss/encounter-rules";
 import {
   FLESH_I_COMBAT_MONSTER_CARD_ID,
   FLESH_I_HEAD_MONSTER_CARD_ID,
@@ -12,8 +12,8 @@ import {
   fleshOneBodyPartCardId,
   fleshOneBodyPartStance,
 } from "./flesh-i";
-import { getBossScript } from "./registry";
-import type { BossScriptDefinition, BossSummonOk, FleshOneBodyPart } from "./types";
+import { getBossScript } from "../../../boss/registry";
+import type { BossScriptDefinition, BossSummonOk, FleshOneBodyPart } from "../../../boss/types";
 
 const STANCES = ["aggressive", "defensive", "ranged", "support"] as const;
 

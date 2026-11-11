@@ -1,8 +1,8 @@
-import type { BattleEntity, BattleState } from "../battle";
-import type { ApplyResult, GameState } from "../command";
-import type { MonsterCardView } from "../monster-skill";
-import { runBossHook } from "./hooks";
-import { resolveEncounterBossScriptId } from "./encounter-rules";
+import type { BattleEntity, BattleState } from "../../../battle";
+import type { ApplyResult, GameState } from "../../../command";
+import type { MonsterCardView } from "../../../monster-skill";
+import { runBossHook } from "../../../boss/hooks";
+import { resolveEncounterBossScriptId } from "../../../boss/encounter-rules";
 import {
   SIREN_I_COMBAT_MONSTER_CARD_ID,
   SIREN_I_HIGH_TIDE_SKILL_SLOT,
@@ -10,8 +10,8 @@ import {
   SIREN_I_SCRIPT_ID,
   sirenIPelagicHighTideStance,
 } from "./siren-i";
-import { getBossScript } from "./registry";
-import type { BossScriptDefinition, BossSummonOk } from "./types";
+import { getBossScript } from "../../../boss/registry";
+import type { BossScriptDefinition, BossSummonOk } from "../../../boss/types";
 
 const STANCES = ["aggressive", "defensive", "ranged", "support"] as const;
 

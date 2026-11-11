@@ -1,3 +1,4 @@
+import { bossEnabledForPacks } from "../../data/src/content-packs";
 import type { MonsterSupportResolvedEvent } from "./battle-monster-support";
 import { stagecoachHoldingsProblem } from "./stagecoach-holdings";
 import { continuePoolRebirth, choosePoolRebirth } from "./pool-rebirth-flow";
@@ -951,6 +952,12 @@ export function applyCommand(
   replayLegacyCardReview = false,
 ): ApplyResult {
   const d = state.dungeon;
+  if (
+    d?.contentPacks &&
+    d.activeBossThreatScriptId &&
+    !bossEnabledForPacks(d.contentPacks, d.activeBossThreatScriptId)
+  )
+    return rejectBattleCommand(state, "当前 Boss 所属扩展包未启用");
   if (d && (d.stagecoachHeroes || d.conditions?.reservedHeroes || d.trinkets?.reservedHeroes)) {
     const problem =
       stagecoachHoldingsProblem(d) ??

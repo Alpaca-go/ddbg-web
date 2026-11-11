@@ -388,6 +388,7 @@ export function chooseNextQuest(
   void _last;
   const next = {
     layout: parsedLayout,
+    ...(d.contentPacks ? { contentPacks: d.contentPacks } : {}),
     mode: d.mode,
     ...(d.stygianRoomRules ? { stygianRoomRules: d.stygianRoomRules } : {}),
     cursor: shuffled.cursor,

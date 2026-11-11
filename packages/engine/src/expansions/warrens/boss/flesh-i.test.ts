@@ -14,12 +14,12 @@ import {
   getBossScript,
   readBossCombatEntry,
   runBossHook,
-} from "./index";
+} from "../../../boss/index";
 import {
   guardTurnsOnLargeMonsterSpawnFromBossThreat,
   creepingSicknessWoundsPerUnvisitedBuildingFromBossThreat,
-} from "./threat-passive";
-import { resolveScriptIdForDescriptionCard } from "./threat-description-catalog";
+} from "../../../boss/threat-passive";
+import { resolveScriptIdForDescriptionCard } from "../../../boss/threat-description-catalog";
 
 describe("The Flesh I Boss 脚本", () => {
   beforeEach(() => {

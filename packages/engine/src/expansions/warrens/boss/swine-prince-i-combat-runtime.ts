@@ -1,17 +1,17 @@
-import type { BattleEntity, BattleState } from "../battle";
-import { stygianBossCritApplies } from "./stygian-boss-crit";
-import type { ApplyResult, GameState, MonsterSkillResolvedEvent } from "../command";
-import { skillTargetView, writeResolution, distance } from "../battle";
-import { applySkillHealth } from "../battle-health";
-import { nextBattleRoll } from "../encounter";
-import type { MonsterCardView } from "../monster-skill";
+import type { BattleEntity, BattleState } from "../../../battle";
+import { stygianBossCritApplies } from "../../../boss/stygian-boss-crit";
+import type { ApplyResult, GameState, MonsterSkillResolvedEvent } from "../../../command";
+import { skillTargetView, writeResolution, distance } from "../../../battle";
+import { applySkillHealth } from "../../../battle-health";
+import { nextBattleRoll } from "../../../encounter";
+import type { MonsterCardView } from "../../../monster-skill";
 import {
   readMonsterAttackView,
   resolveMonsterSkill,
   resolveMonsterSkillEffects,
-} from "../monster-skill";
-import { runBossHook } from "./hooks";
-import { resolveEncounterBossScriptId } from "./encounter-rules";
+} from "../../../monster-skill";
+import { runBossHook } from "../../../boss/hooks";
+import { resolveEncounterBossScriptId } from "../../../boss/encounter-rules";
 import {
   SWINE_PRINCE_I_COMBAT_MONSTER_CARD_ID,
   SWINE_PRINCE_I_ENRAGED_DESTRUCTION_SKILL_SLOT,
@@ -20,9 +20,9 @@ import {
   SWINE_PRINCE_I_WILBUR_MONSTER_CARD_ID,
   swinePrinceIWilburBattleStartStance,
 } from "./swine-prince-i";
-import { getBossScript } from "./registry";
-import type { BossScriptDefinition, BossSummonOk } from "./types";
-import { monsterCombatThreatDamageBonus } from "./threat-passive-runtime";
+import { getBossScript } from "../../../boss/registry";
+import type { BossScriptDefinition, BossSummonOk } from "../../../boss/types";
+import { monsterCombatThreatDamageBonus } from "../../../boss/threat-passive-runtime";
 
 const STANCES = ["aggressive", "defensive", "ranged", "support"] as const;
 

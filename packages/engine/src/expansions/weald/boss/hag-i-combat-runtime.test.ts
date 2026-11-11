@@ -1,12 +1,12 @@
 import { describe, expect, it, beforeEach } from "vitest";
 import { readFileSync } from "node:fs";
-import { createBattleState, type BattleEntity } from "../battle";
-import { applyCommand } from "../command";
-import { applyEncounterCommand } from "../encounter";
-import type { GameState } from "../command";
-import type { MonsterCardView } from "../monster-skill";
-import type { SkillStance } from "../hero-skill";
-import { createLootState } from "../loot";
+import { createBattleState, type BattleEntity } from "../../../battle";
+import { applyCommand } from "../../../command";
+import { applyEncounterCommand } from "../../../encounter";
+import type { GameState } from "../../../command";
+import type { MonsterCardView } from "../../../monster-skill";
+import type { SkillStance } from "../../../hero-skill";
+import { createLootState } from "../../../loot";
 import {
   HAG_I_CAULDRON_EMPTY_MONSTER_CARD_ID,
   HAG_I_CAULDRON_FULL_MONSTER_CARD_ID,
@@ -27,7 +27,7 @@ import {
   readHagIIntoThePotSkillSlot,
   runBossHook,
   FACE_THE_THREAT_QUEST_ID,
-} from "./index";
+} from "../../../boss/index";
 
 const stances: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 
@@ -35,14 +35,14 @@ function cards<T>(file: string): T[] {
   return (
     JSON.parse(
       readFileSync(
-        new URL(`../../../data/normalized/corebox/${file}.json`, import.meta.url),
+        new URL(`../../../../../data/normalized/corebox/${file}.json`, import.meta.url),
         "utf8",
       ),
     ) as { cards: T[] }
   ).cards;
 }
 
-const heroProfiles = cards<NonNullable<import("../battle").BattleSetup["heroStats"]>[number]>(
+const heroProfiles = cards<NonNullable<import("../../../battle").BattleSetup["heroStats"]>[number]>(
   "hero_stat",
 ).filter((card) => card.attributesVerified && card.level === 1);
 

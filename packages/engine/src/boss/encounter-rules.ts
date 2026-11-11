@@ -2,7 +2,8 @@ import type { GameState } from "../command";
 import { readBossCombatEntry } from "./combat-entry";
 import { readDarkestMidBossDeployedCardIds } from "./darkest-mid-boss-runtime";
 import { readDarkestMidBossRequiredCombatCardIds } from "./darkest-mid-boss-scripts";
-import { ensureCoreBossScriptsRegistered } from "./necromancer-i";
+import { ensureCampaignBossScriptsRegistered } from "../expansions/register";
+import { bossEnabledForPacks } from "../../../data/src/content-packs";
 import { getBossScript } from "./registry";
 import { encounterRoundRetreatLimit } from "./rules";
 import { isBossQuestId, resolveBossScriptIdForQuest } from "./quest-bridge";
@@ -41,11 +42,12 @@ function deployedIncludesBossActors(state: GameState, scriptId: BossScriptId): b
  * Boss 任务但未映射脚本 / 非 Boss 怪物遭遇：仍走普通第 4 轮撤退（quest→Boss 映射待 Kyries）。
  */
 export function resolveEncounterBossScriptId(state: GameState): BossScriptId | undefined {
-  ensureCoreBossScriptsRegistered();
+  ensureCampaignBossScriptsRegistered(state.dungeon?.contentPacks);
   const questId = state.dungeon?.questDistribution?.questId;
   if (!questId || !isBossQuestId(questId)) return undefined;
   const scriptId = resolveBossScriptIdForQuest(questId, state.dungeon);
   if (!scriptId) return undefined;
+  if (!bossEnabledForPacks(state.dungeon?.contentPacks, scriptId)) return undefined;
   const script = getBossScript(scriptId);
   if (!script?.combatEntry) return undefined;
   if (!deployedIncludesBossActors(state, scriptId)) return undefined;

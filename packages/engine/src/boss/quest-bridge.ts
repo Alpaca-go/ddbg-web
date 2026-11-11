@@ -1,3 +1,4 @@
+import { bossEnabledForPacks } from "../../../data/src/content-packs";
 import { RUINS_COMBAT_LEVELS } from "./ruins-combat-levels";
 import { basicQuests, type BasicQuestId, type CampaignLevel } from "../../../data/src/basic-quests";
 import { readCampaignLevel } from "../hamlet-campaign";
@@ -58,6 +59,7 @@ export function isFaceTheThreatQuestId(
 }
 
 export type BossQuestScriptContext = {
+  readonly contentPacks?: readonly import("../../../data/src/content-packs").ContentPackId[];
   readonly campaignLevel?: CampaignLevel;
   readonly activeBossThreatScriptId?: BossScriptId;
   readonly imminentThreatDescriptionCardId?: string;
@@ -67,6 +69,11 @@ export function resolveBossScriptIdForQuest(
   questId: string,
   context?: BossQuestScriptContext | null,
 ): BossScriptId | undefined {
+  if (
+    context?.activeBossThreatScriptId &&
+    !bossEnabledForPacks(context.contentPacks, context.activeBossThreatScriptId)
+  )
+    return undefined;
   if (!isBossQuestId(questId)) return undefined;
   const level = readCampaignLevel(context ?? {});
   if (questId === FACE_THE_THREAT_QUEST_ID && level > 1) {

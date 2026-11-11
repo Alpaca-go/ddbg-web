@@ -48,14 +48,14 @@ import {
 import { bumpAncestor2SwiftTeleportationAfterAction } from "./boss/ancestor2-swift-teleportation";
 import { isAbsoluteNothingnessEntity } from "./boss/ancestor2-absolute-nothingness";
 import { applyFanaticIPyreBattleStart } from "./boss/fanatic-i-combat-runtime";
-import { applyFleshIOneBodyBattleStart } from "./boss/flesh-i-combat-runtime";
-import { applySwinePrinceIWilburBattleStart } from "./boss/swine-prince-i-combat-runtime";
+import { applyFleshIOneBodyBattleStart } from "./expansions/warrens/boss/flesh-i-combat-runtime";
+import { applySwinePrinceIWilburBattleStart } from "./expansions/warrens/boss/swine-prince-i-combat-runtime";
 import { applyNecromancerIIArmyBattleStart } from "./boss/necromancer-ii-army";
 import {
   applyHagICauldronBattleStart,
   bumpHagIActionRoundCount,
   chainHagICauldronFullAfterIntoThePot,
-} from "./boss/hag-i-combat-runtime";
+} from "./expansions/weald/boss/hag-i-combat-runtime";
 import {
   bumpProphetIActionRoundCount,
   expandProphetIInitiativeDeckSides,

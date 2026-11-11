@@ -88,7 +88,7 @@ function applyImminentThreatDraw(
   for (let i = 0; i < d.cursor; i++) rng.next();
   const { cardId, rngDraws } = drawOne(pool, rng);
   const cursor = d.cursor + rngDraws;
-  const scriptId = resolveScriptIdForDescriptionCard(cardId);
+  const scriptId = resolveScriptIdForDescriptionCard(cardId, d.contentPacks);
   ensureCoreBossScriptsRegistered();
   const registered = scriptId && getBossScript(scriptId);
   let dungeon: DungeonState = {

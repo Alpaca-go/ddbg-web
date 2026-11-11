@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createQuestSave, loadQuestSave } from "@ddbg/engine";
+import { CONTENT_PACKS, createQuestSave, loadQuestSave } from "@ddbg/engine";
 import { useDungeonStore } from "./store";
 import { questSaveKey, writeLocalQuestSave, decodeLocalQuestSave } from "./quest-save-storage";
 import {
@@ -34,6 +34,18 @@ export function QuestSaveControls({ onLoad }: { onLoad?: () => void }) {
   };
   return (
     <section className="panel" aria-label="任务存档">
+      {questStart && (
+        <p data-testid="campaign-active-packs">
+          {game.dungeon?.contentPacks
+            ? `本战役内容包：${CONTENT_PACKS.filter((p) =>
+                game.dungeon!.contentPacks!.includes(p.id),
+              )
+                .map((p) => p.name)
+                .join(" + ")}`
+            : "旧存档：沿用原内容目录"}
+          {" · 英雄与英雄技能全部开放"}
+        </p>
+      )}
       <div className="button-row">
         {questStart && (
           <button

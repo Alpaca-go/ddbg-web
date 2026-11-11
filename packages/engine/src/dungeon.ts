@@ -91,6 +91,8 @@ export type DungeonBattleCatalog = {
 };
 
 export type DungeonState = {
+  /** 开局固定的包选择；缺省仅用于旧档/历史沙盒，英雄不受限。 */
+  readonly contentPacks?: readonly import("../../data/src/content-packs").ContentPackId[];
   readonly darkest?: {
     readonly monsterPool: import("../../data/src/darkest-monster-pool").DarkestMonsterPoolFile;
     readonly monsterDeck: readonly string[];

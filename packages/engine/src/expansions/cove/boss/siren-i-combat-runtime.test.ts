@@ -1,10 +1,10 @@
 import { describe, expect, it, beforeEach } from "vitest";
 import { readFileSync } from "node:fs";
-import { createBattleState, type BattleEntity } from "../battle";
-import type { GameState } from "../command";
-import type { HeroSkillCardView } from "../hero-skill";
-import type { MonsterCardView } from "../monster-skill";
-import { createLootState } from "../loot";
+import { createBattleState, type BattleEntity } from "../../../battle";
+import type { GameState } from "../../../command";
+import type { HeroSkillCardView } from "../../../hero-skill";
+import type { MonsterCardView } from "../../../monster-skill";
+import { createLootState } from "../../../loot";
 import {
   SIREN_I_COMBAT_MONSTER_CARD_ID,
   SIREN_I_HIGH_TIDE_SKILL_SLOT,
@@ -20,13 +20,13 @@ import {
   sirenIPelagicHighTideStance,
   sirenIHighTideShouldSummonPelagic,
   FACE_THE_THREAT_QUEST_ID,
-} from "./index";
+} from "../../../boss/index";
 
 function cards<T>(file: string): T[] {
   return (
     JSON.parse(
       readFileSync(
-        new URL(`../../../data/normalized/corebox/${file}.json`, import.meta.url),
+        new URL(`../../../../../data/normalized/corebox/${file}.json`, import.meta.url),
         "utf8",
       ),
     ) as { cards: T[] }
@@ -52,7 +52,7 @@ const soldier = cards<MonsterCardView>("monster_medium").find(
   (card) => card.id === "monster_medium:p001",
 )!;
 const smite = cards<HeroSkillCardView>("hero_skill").find((card) => card.id === "hero_skill:p001")!;
-const heroProfiles = cards<NonNullable<import("../battle").BattleSetup["heroStats"]>[number]>(
+const heroProfiles = cards<NonNullable<import("../../../battle").BattleSetup["heroStats"]>[number]>(
   "hero_stat",
 ).filter((card) => card.attributesVerified && card.level === 1);
 const crusader = heroProfiles.find((card) => card.name === "CRUSADER")!;
