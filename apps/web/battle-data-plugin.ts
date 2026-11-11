@@ -13,6 +13,7 @@ import {
 } from "../../packages/engine/src/index";
 import { diseaseFileSchema } from "../../packages/data/src/disease";
 import { normalizedHeroStatFileSchema } from "../../packages/data/src/normalize/hero-stat";
+import { shareBattleCatalogs } from "./battle-data-shared";
 import { roomTileGeometryFileSchema } from "../../packages/data/src/normalize/room-tile";
 import {
   normalizedHeroSkillFileSchema,
@@ -24,6 +25,10 @@ import {
 
 /** 构建时校验并只打包沙盒所需卡牌；不复制数据、不打包整盒或美术。 */
 export function battleDataPlugin(): Plugin {
+  const ids = ["battle-data", "quest-battle-data", "quest-battle-data-v1", "quest-battle-data-v2"];
+  const sharedId = "\0virtual:battle-shared-data";
+  let building = false;
+  let shared: ReturnType<typeof shareBattleCatalogs> | undefined;
   const read = (name: string) =>
     JSON.parse(
       readFileSync(
@@ -31,18 +36,44 @@ export function battleDataPlugin(): Plugin {
         "utf8",
       ),
     );
-  return {
+  const plugin: Plugin = {
     name: "battle-sandbox-data",
+    configResolved(config) {
+      building = config.command === "build";
+      shared = undefined;
+    },
+    transform(code, id) {
+      void code;
+      if (!building || !ids.some((name) => id === `\0virtual:${name}`)) return null;
+      if (!shared) {
+        const load = plugin.load as (id: string) => string;
+        shared = shareBattleCatalogs(
+          Object.fromEntries(
+            ids.map((name) => [
+              name,
+              JSON.parse(load(`\0virtual:${name}`).slice("export const battleData = ".length, -1)),
+            ]),
+          ),
+        );
+      }
+      return `import { entries } from "virtual:battle-shared-data"; export const battleData = ${shared.modules[id.slice("\0virtual:".length)]};`;
+    },
     resolveId: (id) =>
-      [
-        "virtual:battle-data",
-        "virtual:quest-battle-data",
-        "virtual:quest-battle-data-v1",
-        "virtual:quest-battle-data-v2",
-      ].includes(id)
-        ? `\0${id}`
-        : null,
+      id === "virtual:battle-shared-data"
+        ? sharedId
+        : [
+              "virtual:battle-data",
+              "virtual:quest-battle-data",
+              "virtual:quest-battle-data-v1",
+              "virtual:quest-battle-data-v2",
+            ].includes(id)
+          ? `\0${id}`
+          : null,
     load(id) {
+      if (id === sharedId) {
+        if (!shared) throw new Error("共享战斗目录尚未生成");
+        return `export const entries = ${JSON.stringify(shared.entries)};`;
+      }
       if (
         ![
           "\0virtual:battle-data",
@@ -251,4 +282,5 @@ export function battleDataPlugin(): Plugin {
       return `export const battleData = ${JSON.stringify({ conditions, heroStats, skills, monsters, ...(currentQuest ? { bossMonsters } : {}), resolveCards, deployment: tile.deployment, areas: roomTileBattleAreas(tile), tileName: tile.name })};`;
     },
   };
+  return plugin;
 }

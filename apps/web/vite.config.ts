@@ -13,6 +13,19 @@ export const DEV_SERVER_PORT = 8080;
 
 export default defineConfig({
   plugins: [battleDataPlugin(), cardArtCachePlugin(repoRoot), react(), tailwindcss()],
+  build: {
+    rolldownOptions: {
+      output: {
+        codeSplitting: {
+          includeDependenciesRecursively: false,
+          groups: [
+            { name: "battle-catalogs", test: /virtual:battle-shared-data/ },
+            { name: "vendor", test: /node_modules/ },
+          ],
+        },
+      },
+    },
+  },
   server: {
     port: DEV_SERVER_PORT,
     strictPort: true,
