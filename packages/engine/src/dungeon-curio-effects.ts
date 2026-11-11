@@ -1,5 +1,5 @@
 import { curioRewardTheft } from "./boss/higher-ruins-threat";
-import { curioCatalogSchema, isNegativeCurioEffect } from "../../data/src/curio";
+import { curioCatalogSchema, planCurioEffects } from "../../data/src/curio";
 import type { ApplyResult, GameEvent, GameState } from "./command";
 import type { DungeonState } from "./dungeon";
 import { continueDungeonExploration } from "./dungeon-exploration";
@@ -115,14 +115,12 @@ export function resolveCurioRows(state: GameState): ApplyResult {
   )
     return block("Curio与英雄 / 未完成骰面不一致，保持停点");
   if (hero.dead) return complete(state, d, events);
-  const unknown = card.rows.filter((r) => r.effect === null);
-  if (unknown.length)
+  const plan = planCurioEffects(card, active.protected);
+  if (plan.status === "pending")
     return block(
-      `${card.id} p${card.source.page} 待确认（R-048 / Q-60 停点模板）：${unknown.map((r) => `${r.printed}（${r.reason}）`).join("；")}；未结算任何效果，不把未知行判作负面或装饰`,
+      `${card.id} p${card.source.page} 待确认（R-048 / Q-60 停点模板）：${plan.rows.map((r) => `${r.printed}（${r.reason}）`).join("；")}；未结算任何效果，不把未知行判作负面或装饰`,
     );
-  const effects = card.rows.flatMap((r) =>
-    r.effect && (!active.protected || !isNegativeCurioEffect(r.effect)) ? [r.effect] : [],
-  );
+  const effects = plan.effects;
   const index = active.effectIndex ?? 0;
   if (
     !Number.isInteger(index) ||

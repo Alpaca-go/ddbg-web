@@ -4,10 +4,24 @@ import { fileURLToPath } from "node:url";
 import { iconDictionarySchema } from "../dictionary/schema";
 import { rawFileSchema } from "../extract/raw";
 import { buildWealdLevelOneMonsters } from "./weald-monsters";
+import { buildWealdCurios } from "./weald-curios";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const read = (file: string): unknown =>
   JSON.parse(readFileSync(path.join(ROOT, file), "utf8")) as unknown;
+
+export function loadNormalizedWealdCurios() {
+  return buildWealdCurios(rawFileSchema.parse(read("extract/extension/weald/raw/curio.json")));
+}
+
+export function writeNormalizedWealdCurios(
+  outputDir = path.join(ROOT, "normalized/extension/weald"),
+) {
+  const built = loadNormalizedWealdCurios();
+  mkdirSync(outputDir, { recursive: true });
+  writeFileSync(path.join(outputDir, "curio.json"), `${JSON.stringify(built, null, 1)}\n`);
+  return built;
+}
 
 export function loadNormalizedWealdLevelOneMonsters() {
   const source = "extract/extension/weald";

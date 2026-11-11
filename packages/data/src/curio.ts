@@ -2,6 +2,10 @@ import { z } from "zod";
 
 export const CURIO_FRONT = "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_FRONT_V2.pdf";
 export const CURIO_BACK = "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_CURIO_BACK.pdf";
+export const WEALD_CURIO_FRONT =
+  "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_CURIO_FRONT.pdf";
+export const WEALD_CURIO_BACK =
+  "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_CURIO_BACK.pdf";
 export const curioEffectSchema = z.discriminatedUnion("type", [
   z.strictObject({ type: z.literal("stress"), amount: z.literal(1) }),
   z.strictObject({ type: z.literal("gold"), amount: z.union([z.literal(5), z.literal(10)]) }),
@@ -35,15 +39,22 @@ export const curioEffectSchema = z.discriminatedUnion("type", [
 ]);
 export const curioCardSchema = z
   .strictObject({
-    id: z.string().regex(/^curio:p\d{3}$/),
+    id: z.string().regex(/^curio:(?:weald:)?p\d{3}$/),
     name: z.string().min(1),
     text: z.string().min(1),
     copies: z.literal(1),
-    source: z.strictObject({
-      front: z.literal(CURIO_FRONT),
-      back: z.literal(CURIO_BACK),
-      page: z.int().min(1).max(24),
-    }),
+    source: z.union([
+      z.strictObject({
+        front: z.literal(CURIO_FRONT),
+        back: z.literal(CURIO_BACK),
+        page: z.int().min(1).max(24),
+      }),
+      z.strictObject({
+        front: z.literal(WEALD_CURIO_FRONT),
+        back: z.literal(WEALD_CURIO_BACK),
+        page: z.int().min(1).max(16),
+      }),
+    ]),
     rows: z
       .array(
         z.strictObject({
@@ -56,7 +67,8 @@ export const curioCardSchema = z
       .min(1),
   })
   .superRefine((c, ctx) => {
-    if (c.id !== `curio:p${String(c.source.page).padStart(3, "0")}`)
+    const namespace = c.source.front === WEALD_CURIO_FRONT ? "weald:" : "";
+    if (c.id !== `curio:${namespace}p${String(c.source.page).padStart(3, "0")}`)
       ctx.addIssue({ code: "custom", message: "卡 ID / 印刷页不一致" });
     if (c.rows.some((r) => (r.effect === null) !== (r.reason !== null)))
       ctx.addIssue({ code: "custom", message: "未确认行必须给出停点原因" });
@@ -64,7 +76,21 @@ export const curioCardSchema = z
 export const curioCatalogSchema = z
   .array(curioCardSchema)
   .length(24)
-  .refine((cards) => new Set(cards.map((c) => c.id)).size === 24, "完整 24 张，不可重复或缩减牌堆");
+  .refine(
+    (cards) =>
+      new Set(cards.map((c) => c.id)).size === 24 &&
+      cards.every((card) => card.source.front === CURIO_FRONT),
+    "完整核心 24 张，不可混包、重复或缩减牌堆",
+  );
+export const wealdCurioCatalogSchema = z
+  .array(curioCardSchema)
+  .length(16)
+  .refine(
+    (cards) =>
+      new Set(cards.map((card) => card.id)).size === 16 &&
+      cards.every((card) => card.source.front === WEALD_CURIO_FRONT),
+    "完整 Weald 16 张，不可混包、重复或缩减目录",
+  );
 export const curioFileSchema = z.strictObject({
   schema: z.literal("ddbg-curio-v1"),
   dictionaryVersion: z.literal("1.8"),
@@ -72,6 +98,22 @@ export const curioFileSchema = z.strictObject({
 });
 export type CurioCard = z.infer<typeof curioCardSchema>;
 export type CurioEffect = z.infer<typeof curioEffectSchema>;
+export const wealdCurioFileSchema = curioFileSchema.extend({ cards: wealdCurioCatalogSchema });
+
+/** R14、R-048：先检查整卡，未知行不能被 Torch 当作负面跳过；保持印刷顺序。 */
+export function planCurioEffects(
+  card: CurioCard,
+  protectedByTorch: boolean,
+): { status: "pending"; rows: CurioCard["rows"] } | { status: "ready"; effects: CurioEffect[] } {
+  const unknown = card.rows.filter((row) => row.effect === null);
+  if (unknown.length) return { status: "pending", rows: unknown };
+  return {
+    status: "ready",
+    effects: card.rows.flatMap((row) =>
+      row.effect && (!protectedByTorch || !isNegativeCurioEffect(row.effect)) ? [row.effect] : [],
+    ),
+  };
+}
 
 /** R14：Torch 只抑制负面效果，Buff、正面怪癖与奖励仍结算。 */
 export function isNegativeCurioEffect(effect: CurioEffect): boolean {

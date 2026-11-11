@@ -1,0 +1,838 @@
+{
+ "schema": "ddbg-curio-v1",
+ "dictionaryVersion": "1.8",
+ "cards": [
+  {
+   "id": "curio:weald:p001",
+   "name": "Ancient Coffin",
+   "text": "An old coffin. It is slightly ajar. Yet something shines from its bottom. You reach in and find a stash of coins which you pocket gladly. The stale air in the coffin that you inhale fills up your lungs with toxins.",
+   "copies": 1,
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_CURIO_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_CURIO_BACK.pdf",
+    "page": 1
+   },
+   "rows": [
+    {
+     "printed": "{icon:12438e9a49} +1",
+     "iconId": "12438e9a49",
+     "effect": {
+      "type": "stress",
+      "amount": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:f8686db45a}",
+     "iconId": "f8686db45a",
+     "effect": {
+      "type": "drawQuirk",
+      "polarity": "negative",
+      "count": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "1 {icon:a637867634} 3t",
+     "iconId": "a637867634",
+     "effect": {
+      "type": "status",
+      "kind": "blight",
+      "amount": 1,
+      "duration": 3
+     },
+     "reason": null
+    },
+    {
+     "printed": "10 {icon:c870a39e26}",
+     "iconId": "c870a39e26",
+     "effect": {
+      "type": "gold",
+      "amount": 10
+     },
+     "reason": null
+    }
+   ]
+  },
+  {
+   "id": "curio:weald:p002",
+   "name": "Ancient Coffin",
+   "text": "An old coffin. It is slightly ajar. A small amount of gold has been stashed as offerings to the departed, along with some rusted weapons and broken bottles. You cut yourself on one of the rusted blades and you feel your wound twitch from its toxin...",
+   "copies": 1,
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_CURIO_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_CURIO_BACK.pdf",
+    "page": 2
+   },
+   "rows": [
+    {
+     "printed": "{icon:74fa6b5e99}",
+     "iconId": "74fa6b5e99",
+     "effect": {
+      "type": "drawQuirk",
+      "polarity": "negative",
+      "count": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "1 {icon:aea2713cb8} 3t",
+     "iconId": "aea2713cb8",
+     "effect": {
+      "type": "status",
+      "kind": "bleed",
+      "amount": 1,
+      "duration": 3
+     },
+     "reason": null
+    },
+    {
+     "printed": "1 {icon:a637867634} 3t",
+     "iconId": "a637867634",
+     "effect": {
+      "type": "status",
+      "kind": "blight",
+      "amount": 1,
+      "duration": 3
+     },
+     "reason": null
+    },
+    {
+     "printed": "5 {icon:c870a39e26}",
+     "iconId": "c870a39e26",
+     "effect": {
+      "type": "gold",
+      "amount": 5
+     },
+     "reason": null
+    }
+   ]
+  },
+  {
+   "id": "curio:weald:p003",
+   "name": "Beast Carcass",
+   "text": "creature... You don’t wait to find out what, but as you notice a bulbous postule filled with pus protruding from its fur, it explodes, violently scattering infectious liquid all around. You try to cover your hand and mouth but alas... you’re too late.",
+   "copies": 1,
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_CURIO_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_CURIO_BACK.pdf",
+    "page": 3
+   },
+   "rows": [
+    {
+     "printed": "{icon:12438e9a49} +1",
+     "iconId": "12438e9a49",
+     "effect": {
+      "type": "stress",
+      "amount": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:f8686db45a}",
+     "iconId": "f8686db45a",
+     "effect": {
+      "type": "drawQuirk",
+      "polarity": "negative",
+      "count": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "1 {icon:a637867634} 3t",
+     "iconId": "a637867634",
+     "effect": {
+      "type": "status",
+      "kind": "blight",
+      "amount": 1,
+      "duration": 3
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:6a83eb27d3}",
+     "iconId": "6a83eb27d3",
+     "effect": {
+      "type": "drawDisease",
+      "count": 1
+     },
+     "reason": null
+    }
+   ]
+  },
+  {
+   "id": "curio:weald:p004",
+   "name": "Eerie Spiderweb",
+   "text": "A spiderweb with a strange glow to it. There might be something behind it, a dusty trinket! When your hand brushes against its silken strands, a maelstrom of emotions washes over you.",
+   "copies": 1,
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_CURIO_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_CURIO_BACK.pdf",
+    "page": 4
+   },
+   "rows": [
+    {
+     "printed": "{icon:12438e9a49} +1",
+     "iconId": "12438e9a49",
+     "effect": {
+      "type": "stress",
+      "amount": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:1ed8fca157}",
+     "iconId": "1ed8fca157",
+     "effect": {
+      "type": "drawQuirk",
+      "polarity": "negative",
+      "count": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:ca20d29507}",
+     "iconId": "ca20d29507",
+     "effect": {
+      "type": "drawQuirk",
+      "polarity": "positive",
+      "count": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:85e094f269}",
+     "iconId": "85e094f269",
+     "effect": {
+      "type": "drawTrinket",
+      "count": 1
+     },
+     "reason": null
+    }
+   ]
+  },
+  {
+   "id": "curio:weald:p005",
+   "name": "Left Luggage",
+   "text": "Someone dropped this recently. Probably on the run. It has a lock on it. Opening it you find a small fortune with a small adder hiding underneath it. It springs at your side and injects you with its caustic venom.",
+   "copies": 1,
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_CURIO_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_CURIO_BACK.pdf",
+    "page": 5
+   },
+   "rows": [
+    {
+     "printed": "{icon:12438e9a49} +1",
+     "iconId": "12438e9a49",
+     "effect": {
+      "type": "stress",
+      "amount": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:f8686db45a}",
+     "iconId": "f8686db45a",
+     "effect": {
+      "type": "drawQuirk",
+      "polarity": "negative",
+      "count": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "1 {icon:a637867634} 3t",
+     "iconId": "a637867634",
+     "effect": {
+      "type": "status",
+      "kind": "blight",
+      "amount": 1,
+      "duration": 3
+     },
+     "reason": null
+    },
+    {
+     "printed": "10 {icon:7317463edc}",
+     "iconId": "7317463edc",
+     "effect": {
+      "type": "gold",
+      "amount": 10
+     },
+     "reason": null
+    }
+   ]
+  },
+  {
+   "id": "curio:weald:p006",
+   "name": "Left Luggage",
+   "text": "Someone dropped this recently. Probably on the run. It has a lock on it. You smash the lock and manage to find some gold and a trinket. A springblade is flung into your side, lodging between your ribs. Pain washes over you as you start to bleed.",
+   "copies": 1,
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_CURIO_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_CURIO_BACK.pdf",
+    "page": 6
+   },
+   "rows": [
+    {
+     "printed": "1 {icon:aea2713cb8} 3t",
+     "iconId": "aea2713cb8",
+     "effect": {
+      "type": "status",
+      "kind": "bleed",
+      "amount": 1,
+      "duration": 3
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:b5c225c14d}",
+     "iconId": "b5c225c14d",
+     "effect": {
+      "type": "drawQuirk",
+      "polarity": "positive",
+      "count": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "5 {icon:7317463edc}",
+     "iconId": "7317463edc",
+     "effect": {
+      "type": "gold",
+      "amount": 5
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:85e094f269}",
+     "iconId": "85e094f269",
+     "effect": {
+      "type": "drawTrinket",
+      "count": 1
+     },
+     "reason": null
+    }
+   ]
+  },
+  {
+   "id": "curio:weald:p007",
+   "name": "Mummified Remains",
+   "text": "Ancient remains. The body looks well preserved. Its innards are not, however, for as you approach it a puff of caustic bile is sprayed over your face. Covered in the bodily humors of a rotten corpse, you feel your face burning and itching...",
+   "copies": 1,
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_CURIO_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_CURIO_BACK.pdf",
+    "page": 7
+   },
+   "rows": [
+    {
+     "printed": "{icon:12438e9a49} +1",
+     "iconId": "12438e9a49",
+     "effect": {
+      "type": "stress",
+      "amount": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:f8686db45a}",
+     "iconId": "f8686db45a",
+     "effect": {
+      "type": "drawQuirk",
+      "polarity": "negative",
+      "count": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "1 {icon:a637867634} 3t",
+     "iconId": "a637867634",
+     "effect": {
+      "type": "status",
+      "kind": "blight",
+      "amount": 1,
+      "duration": 3
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:6a83eb27d3}",
+     "iconId": "6a83eb27d3",
+     "effect": {
+      "type": "drawDisease",
+      "count": 1
+     },
+     "reason": null
+    }
+   ]
+  },
+  {
+   "id": "curio:weald:p008",
+   "name": "Old Tree",
+   "text": "Perhaps there’s something inside... In it you find a trinket, but the bark’s corossive properties damage your skin. You draw back your hand in agony only to realize that the damage is minimal. Yet you have to treat the wound, gently.",
+   "copies": 1,
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_CURIO_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_CURIO_BACK.pdf",
+    "page": 8
+   },
+   "rows": [
+    {
+     "printed": "{icon:12438e9a49} +1",
+     "iconId": "12438e9a49",
+     "effect": {
+      "type": "stress",
+      "amount": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "1 {icon:a637867634} 3t",
+     "iconId": "a637867634",
+     "effect": {
+      "type": "status",
+      "kind": "blight",
+      "amount": 1,
+      "duration": 3
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:ca20d29507}",
+     "iconId": "ca20d29507",
+     "effect": {
+      "type": "drawQuirk",
+      "polarity": "positive",
+      "count": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:85e094f269}",
+     "iconId": "85e094f269",
+     "effect": {
+      "type": "drawTrinket",
+      "count": 1
+     },
+     "reason": null
+    }
+   ]
+  },
+  {
+   "id": "curio:weald:p009",
+   "name": "Old Tree",
+   "text": "Perhaps there’s something inside... In it you find a trinket and some gold. As you pocket your findings, a small poisonous spider sneaks through the coins and bites you sharply. You cough hard as you feel its poison slowly creeping through your body...",
+   "copies": 1,
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_CURIO_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_CURIO_BACK.pdf",
+    "page": 9
+   },
+   "rows": [
+    {
+     "printed": "{icon:f8686db45a}",
+     "iconId": "f8686db45a",
+     "effect": {
+      "type": "drawQuirk",
+      "polarity": "negative",
+      "count": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "1 {icon:a637867634} 3t",
+     "iconId": "a637867634",
+     "effect": {
+      "type": "status",
+      "kind": "blight",
+      "amount": 1,
+      "duration": 3
+     },
+     "reason": null
+    },
+    {
+     "printed": "5 {icon:7317463edc}",
+     "iconId": "7317463edc",
+     "effect": {
+      "type": "gold",
+      "amount": 5
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:85e094f269}",
+     "iconId": "85e094f269",
+     "effect": {
+      "type": "drawTrinket",
+      "count": 1
+     },
+     "reason": null
+    }
+   ]
+  },
+  {
+   "id": "curio:weald:p010",
+   "name": "Pristine Fountain",
+   "text": "A beautiful fountain. It looks unaffected by the surrounding chaos, its basin filled with gold. As you pocket the money, a gooey liquid starts running from the fountain’s openings. You manage to avoid most of it but some wets your gloves. Your fingers begin to itch and you feel a burning pain as you unglove your hand, only to realize that its veins have turned black...",
+   "copies": 1,
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_CURIO_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_CURIO_BACK.pdf",
+    "page": 10
+   },
+   "rows": [
+    {
+     "printed": "{icon:12438e9a49} +1",
+     "iconId": "12438e9a49",
+     "effect": {
+      "type": "stress",
+      "amount": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:f8686db45a}",
+     "iconId": "f8686db45a",
+     "effect": {
+      "type": "drawQuirk",
+      "polarity": "negative",
+      "count": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "1 {icon:a637867634} 3t",
+     "iconId": "a637867634",
+     "effect": {
+      "type": "status",
+      "kind": "blight",
+      "amount": 1,
+      "duration": 3
+     },
+     "reason": null
+    },
+    {
+     "printed": "10 {icon:c870a39e26}",
+     "iconId": "c870a39e26",
+     "effect": {
+      "type": "gold",
+      "amount": 10
+     },
+     "reason": null
+    }
+   ]
+  },
+  {
+   "id": "curio:weald:p011",
+   "name": "Pristine Fountain",
+   "text": "the surrounding chaos. As you dislodge a valuable stone from the statue’s grasp, feelings of remorse and greed wash over you. Deep in thought, you fail to realize that the stone has been covered by a touch poison to deter thieves from looting...",
+   "copies": 1,
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_CURIO_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_CURIO_BACK.pdf",
+    "page": 11
+   },
+   "rows": [
+    {
+     "printed": "{icon:f8686db45a}",
+     "iconId": "f8686db45a",
+     "effect": {
+      "type": "drawQuirk",
+      "polarity": "negative",
+      "count": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "1 {icon:a637867634} 3t",
+     "iconId": "a637867634",
+     "effect": {
+      "type": "status",
+      "kind": "blight",
+      "amount": 1,
+      "duration": 3
+     },
+     "reason": null
+    },
+    {
+     "printed": "5 {icon:7317463edc}",
+     "iconId": "7317463edc",
+     "effect": {
+      "type": "gold",
+      "amount": 5
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:ce7303bafb}",
+     "iconId": "ce7303bafb",
+     "effect": {
+      "type": "drawQuirk",
+      "polarity": "positive",
+      "count": 1
+     },
+     "reason": null
+    }
+   ]
+  },
+  {
+   "id": "curio:weald:p012",
+   "name": "Shallow Grave",
+   "text": "A grave, dug in haste. As you dig deeper with your hands, you uncover a sack of gold. You gradually become aware that your nails have started to itch and burn, whilst a yellow hue turns the flesh soft and malleable...",
+   "copies": 1,
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_CURIO_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_CURIO_BACK.pdf",
+    "page": 12
+   },
+   "rows": [
+    {
+     "printed": "{icon:12438e9a49} +1",
+     "iconId": "12438e9a49",
+     "effect": {
+      "type": "stress",
+      "amount": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "1 {icon:aea2713cb8} 3t",
+     "iconId": "aea2713cb8",
+     "effect": {
+      "type": "status",
+      "kind": "bleed",
+      "amount": 1,
+      "duration": 3
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:6a83eb27d3}",
+     "iconId": "6a83eb27d3",
+     "effect": {
+      "type": "drawDisease",
+      "count": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "10 {icon:c870a39e26}",
+     "iconId": "c870a39e26",
+     "effect": {
+      "type": "gold",
+      "amount": 10
+     },
+     "reason": null
+    }
+   ]
+  },
+  {
+   "id": "curio:weald:p013",
+   "name": "Shallow Grave",
+   "text": "A grave, dug in haste. Near it a small bundle of provisions. You selfishly pocket them only to discover a small viper hiding underneath. With a rapid movement it bites you on the hand, injecting you with much unwanted venom.",
+   "copies": 1,
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_CURIO_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_CURIO_BACK.pdf",
+    "page": 13
+   },
+   "rows": [
+    {
+     "printed": "{icon:12438e9a49} +1",
+     "iconId": "12438e9a49",
+     "effect": {
+      "type": "stress",
+      "amount": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:f8686db45a}",
+     "iconId": "f8686db45a",
+     "effect": {
+      "type": "drawQuirk",
+      "polarity": "negative",
+      "count": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "1 {icon:a637867634} 3t",
+     "iconId": "a637867634",
+     "effect": {
+      "type": "status",
+      "kind": "blight",
+      "amount": 1,
+      "duration": 3
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:ae45f5bcb3}",
+     "iconId": "ae45f5bcb3",
+     "effect": {
+      "type": "rollProvision",
+      "count": 1
+     },
+     "reason": null
+    }
+   ]
+  },
+  {
+   "id": "curio:weald:p014",
+   "name": "Traveler’s Tent",
+   "text": "won’t return for sure. For as you enter the tent, you find their abandoned backpack and near it a rotten pig’s carcass. Its vile fumes penetrate your nostrils as you try to keep your balance. You exit the tent and gasp for air, but the damage has already been done.",
+   "copies": 1,
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_CURIO_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_CURIO_BACK.pdf",
+    "page": 14
+   },
+   "rows": [
+    {
+     "printed": "{icon:12438e9a49} +1",
+     "iconId": "12438e9a49",
+     "effect": {
+      "type": "stress",
+      "amount": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:74fa6b5e99}",
+     "iconId": "74fa6b5e99",
+     "effect": {
+      "type": "drawQuirk",
+      "polarity": "negative",
+      "count": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:6a83eb27d3}",
+     "iconId": "6a83eb27d3",
+     "effect": {
+      "type": "drawDisease",
+      "count": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:ae45f5bcb3}",
+     "iconId": "ae45f5bcb3",
+     "effect": {
+      "type": "rollProvision",
+      "count": 1
+     },
+     "reason": null
+    }
+   ]
+  },
+  {
+   "id": "curio:weald:p015",
+   "name": "Troubling Effigy",
+   "text": "An unsettling effigy erected in service to a mysterious god. On its base, a burlap sack filled with no ghosts but some provisions. You grab it by the rope, and realize that all the excretions and fluids from the rotting body parts lodged on this effigy are trickling down your skin. You feel the blight slowly creeping into you as you reach out for an antidote.",
+   "copies": 1,
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_CURIO_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_CURIO_BACK.pdf",
+    "page": 15
+   },
+   "rows": [
+    {
+     "printed": "{icon:12438e9a49} +1",
+     "iconId": "12438e9a49",
+     "effect": {
+      "type": "stress",
+      "amount": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:f8686db45a}",
+     "iconId": "f8686db45a",
+     "effect": {
+      "type": "drawQuirk",
+      "polarity": "negative",
+      "count": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "1 {icon:a637867634} 3t",
+     "iconId": "a637867634",
+     "effect": {
+      "type": "status",
+      "kind": "blight",
+      "amount": 1,
+      "duration": 3
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:ae45f5bcb3}",
+     "iconId": "ae45f5bcb3",
+     "effect": {
+      "type": "rollProvision",
+      "count": 1
+     },
+     "reason": null
+    }
+   ]
+  },
+  {
+   "id": "curio:weald:p016",
+   "name": "Troubling Effigy",
+   "text": "An unsettling effigy erected in service to a mysterious god. On its base, a burlap sack filled with no ghosts but some provisions. As you reach for the sack, the effigy falls onto you, puncturing your shoulder with its hard horns and splinters. You feel half your body going numb, as your blood mixes with rotten bile from the effigy in your open wound.",
+   "copies": 1,
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_CURIO_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_CURIO_BACK.pdf",
+    "page": 16
+   },
+   "rows": [
+    {
+     "printed": "{icon:12438e9a49} +1",
+     "iconId": "12438e9a49",
+     "effect": {
+      "type": "stress",
+      "amount": 1
+     },
+     "reason": null
+    },
+    {
+     "printed": "1 {icon:aea2713cb8} 3t",
+     "iconId": "aea2713cb8",
+     "effect": {
+      "type": "status",
+      "kind": "bleed",
+      "amount": 1,
+      "duration": 3
+     },
+     "reason": null
+    },
+    {
+     "printed": "1 {icon:a637867634} 3t",
+     "iconId": "a637867634",
+     "effect": {
+      "type": "status",
+      "kind": "blight",
+      "amount": 1,
+      "duration": 3
+     },
+     "reason": null
+    },
+    {
+     "printed": "{icon:ae45f5bcb3}",
+     "iconId": "ae45f5bcb3",
+     "effect": {
+      "type": "rollProvision",
+      "count": 1
+     },
+     "reason": null
+    }
+   ]
+  }
+ ]
+}

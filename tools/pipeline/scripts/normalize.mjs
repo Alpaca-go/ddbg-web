@@ -9,6 +9,7 @@ const result = spawnSync(
     "run",
     "packages/data/src/normalize/normalize.test.ts",
     "packages/data/src/normalize/weald-monsters.test.ts",
+    "packages/data/src/normalize/weald-curios.test.ts",
   ],
   {
     cwd: fileURLToPath(root),

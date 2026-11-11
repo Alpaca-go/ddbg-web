@@ -11,7 +11,14 @@ export {
   darkestDungeonMonsterInstances,
 } from "./darkest-monster-pool";
 export type { DarkestMonsterPoolFile } from "./darkest-monster-pool";
-export { curioCardSchema, curioCatalogSchema, curioFileSchema } from "./curio";
+export {
+  curioCardSchema,
+  curioCatalogSchema,
+  curioFileSchema,
+  wealdCurioCatalogSchema,
+  wealdCurioFileSchema,
+  planCurioEffects,
+} from "./curio";
 export type { CurioCard, CurioEffect } from "./curio";
 export { diseaseCardSchema, diseaseFileSchema, diseaseRuleSchema } from "./disease";
 export type { DiseaseCard, DiseaseFile, DiseaseRule } from "./disease";
