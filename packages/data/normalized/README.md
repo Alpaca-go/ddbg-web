@@ -13,7 +13,7 @@ pnpm --filter @ddbg/pipeline normalize
 ## Weald 首批普通怪物
 
 同一 normalize 命令也生成 `extension/weald/monster_medium.json` 与 `monster_large.json`：I 级五种普通怪物，14 张牌堆实体卡，另有两张大型战斗卡，不混入 Boss、高等级卡或 Brigand Matchman。
-复用核心结构转换，来源指向 Weald；核心逐卡核准表只应用于核心。新卡全部保留未核实标记，不填 Speed、姿态、伤害、射程或效果计划，不登记正式牌堆。核对进度见 [首批审阅稿](../../../docs/weald-level-one-monster-review-2026-11-11.md)。
+复用核心结构转换，来源指向 Weald；核心逐卡核准表只应用于核心。R-230、R-232 已确认的属性、抗性/免疫、姿态与 13 项技能记录已附加；原始图标命名状态继续保留。`buildWealdMonsterCatalog` 严格核对核准记录与源字段后构造纯战斗目录，不自动登记正式牌堆；三个召唤技能的部署继续停点。核对进度见 [首批审阅记录](../../../docs/weald-level-one-monster-review-2026-11-11.md)。Blight 中文统一为腐蚀（R-231）。
 
 ## 和 parsed 的差别
 

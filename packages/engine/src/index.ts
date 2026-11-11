@@ -1,4 +1,6 @@
 export { applyCommand, createInitialState } from "./command";
+export { buildWealdMonsterCatalog } from "./expansions/weald/monster-catalog";
+export type { WealdBattleMonster } from "./expansions/weald/monster-catalog";
 export { canSetDungeonStances, DUNGEON_HERO_STANCES } from "./dungeon-stances";
 export { canSetHamletStances } from "./hamlet-stances";
 export { readRoomTile } from "./room-tile-selection";

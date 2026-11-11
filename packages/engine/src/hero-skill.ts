@@ -237,6 +237,7 @@ import { resolveAttackDamage } from "./attack-damage";
  */
 
 export type SkillIconRef = {
+  readonly iconId?: string;
   readonly key: string | null;
   readonly naming: string;
 };

@@ -2,6 +2,8 @@ import { needsHeroSkillShuffleChoice, resolveMonsterAttackEffects } from "./hero
 import type { MonsterStanceGroup } from "./monster-stance";
 import type { MonsterEffectPlan } from "../../data/src/monster-effects";
 import { compileMonsterEffectPlan } from "./monster-effect-plan";
+import { readWealdMonsterAttack } from "./weald-monster-attack";
+import type { WealdMonsterAttack } from "../../data/src/weald-monster-rulings";
 import { readNecromancerISkillEffects } from "./boss/necromancer-i-skill";
 import type {
   HeroSkillCardView,
@@ -26,6 +28,7 @@ export type MonsterSkillView = Pick<
   readonly slot: number;
   readonly name?: string;
   readonly verified_monster_effects?: MonsterEffectPlan;
+  readonly verified_weald_attack?: WealdMonsterAttack;
   /** 规范化目标优先级文字；缺失时自动目标选择拒绝。 */
   readonly target?: string | null;
   readonly lines: readonly (readonly SkillSegment[])[];
@@ -42,6 +45,7 @@ export type MonsterCardView = {
   readonly stanceGroups?: readonly MonsterStanceGroup[];
   /** 只读获批 Speed；缺失不补默认值（R-048）。 */
   readonly speed?: number;
+  readonly dodge?: number;
   readonly innateProtection?: boolean;
   readonly resistances?: readonly { readonly key: string | null; readonly naming: string }[];
   readonly immunities?: readonly { readonly key: string | null; readonly naming: string }[];
@@ -85,6 +89,10 @@ export type MonsterSkillResolution = {
 /** 与技能结算共享已命名的位移行解析器，不从 null 数字创建选择。 */
 export function needsMonsterSkillShuffleChoice(monster: MonsterCardView, slot: number): boolean {
   const skill = monster.skills.find((entry) => entry.slot === slot);
+  if (skill?.verified_weald_attack) {
+    const attack = readWealdMonsterAttack(monster, skill);
+    return attack.status === "ready" && needsHeroSkillShuffleChoice(attack.view);
+  }
   return (
     skill !== undefined &&
     needsHeroSkillShuffleChoice({
@@ -123,6 +131,7 @@ export function readMonsterAttackView(
   const matches = monster.skills.filter((skill) => skill.slot === skillSlot);
   if (matches.length !== 1) return { status: "refused", reason: "怪物卡没有唯一对应的技能编号" };
   const skill = matches[0]!;
+  if (skill.verified_weald_attack !== undefined) return readWealdMonsterAttack(monster, skill);
   const excluded = new Set<number>();
   for (const effectLine of skill.effect_lines) {
     const key = lineKey(effectLine);
