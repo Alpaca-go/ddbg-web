@@ -41,6 +41,8 @@ parsed 的 `issues` 和 `failures` 显式保留失败；成功解析也只表示
 
 ## 解析停点
 
+后续 I 级普通怪物的规范化范围和 Life 定位修正见[首批审阅稿](weald-level-one-monster-review-2026-11-11.md)。
+
 - medium p1–3 Ectoplasm 的重复 slot 1 已修复：Weald 使用 14pt 的技能徽章定位下限，区别 17.46pt 徽章与 11pt 召唤数量。核心提取器保留原有默认参数。只修版面定位，不改变印刷效果。
 - medium p20–22 Brigand Pounder：未取得类型/位置行。不得自填标签。
 - large p7–9 Shrieker’s Nest：无普通技能块，需专属卡面结构。

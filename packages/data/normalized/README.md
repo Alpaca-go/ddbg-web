@@ -10,6 +10,11 @@ pnpm --filter @ddbg/pipeline normalize
 
 印刷 PDF 和图标切图不在这里。Musketeer 不在这批数据里（R-008）。
 
+## Weald 首批普通怪物
+
+同一 normalize 命令也生成 `extension/weald/monster_medium.json` 与 `monster_large.json`：I 级五种普通怪物，14 张牌堆实体卡，另有两张大型战斗卡，不混入 Boss、高等级卡或 Brigand Matchman。
+复用核心结构转换，来源指向 Weald；核心逐卡核准表只应用于核心。新卡全部保留未核实标记，不填 Speed、姿态、伤害、射程或效果计划，不登记正式牌堆。核对进度见 [首批审阅稿](../../../docs/weald-level-one-monster-review-2026-11-11.md)。
+
 ## 和 parsed 的差别
 
 - 图标解析成 `naming`。只有 `confirmed` 和 `confirmed_rulebook` 可以当名字用。`needs_review`（`pending_` key）、`unsure`、`unreviewed`，以及词典没有的 iconId，都是 `unverified`。卡上有这种图标时，`verification.unverified` 为 true（R-048）。提取器标成 `decor` 的放置（面板、细条、文字底板）不是游戏图标，不放进这层，也不因此把卡标成未验证。

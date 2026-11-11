@@ -180,7 +180,7 @@ def parse_hero_skill(card):
 
 
 # ------------------------------------------------------------------ monsters
-def parse_monster(card, large=False, skill_badge_min_size=10):
+def parse_monster(card, large=False, skill_badge_min_size=10, life_max_y_ratio=1):
     F = card["faces"]["front"]
     fs, fi = F["spans"], F["icons"]
     W, H = F["trim_mm"]
@@ -216,6 +216,7 @@ def parse_monster(card, large=False, skill_badge_min_size=10):
         return r
     # Life (HP): number printed inside the heart icon at the right edge (rulebook p.24 anatomy: 'Life').
     hp = [s for s in fs if re.match(r"^\d+$", s["t"]) and is_dwarf(s) and s["bbox"][0] > 0.78 * W and s["size"] >= 12
+          and s["bbox"][1] < H * life_max_y_ratio
           and any(inside(s["bbox"], i["bbox"]) for i in fi)]
     if hp:
         h = max(hp, key=lambda s: s["size"])

@@ -139,7 +139,9 @@ def main():
             # Weald skill badges are 17.46pt; summon quantities are 11pt.
             # Scope this layout threshold to Weald; retain the core default.
             rows = [parse.parse_monster(card, large=cat == "monster_large",
-                                        skill_badge_min_size=14)
+                                        skill_badge_min_size=14,
+                                        life_max_y_ratio=(0.4 if cat == "monster_medium"
+                                                          and card["pages"][0] <= 14 else 1))
                     for card in obj["cards"]]
             # A missing printed identity line is a parser stop, never a guessed tag.
             for row in rows:

@@ -23,6 +23,7 @@ packages/data/dictionary/icon-dictionary-v1.8.csv
 packages/data/dictionary/icon-dictionary-v1.8-CHANGELOG.md
 packages/data/dictionary/start_locations_by_placement.csv
 packages/data/normalized/corebox
+packages/data/normalized/extension/weald
 tools/pipeline/extract-print/UPSTREAM.md
 tools/pipeline/extract-print/REPORT.md
 tools/pipeline/extract-print/scripts

@@ -1,0 +1,8671 @@
+{
+ "schema": "ddbg-normalized-v0",
+ "dictionary_version": "1.8",
+ "category": "monster_medium",
+ "sources": {
+  "parsed": "extract/extension/weald/parsed/monster_medium.json",
+  "raw": "extract/extension/weald/raw/monster_medium.json",
+  "dictionary": "dictionary/icon-dictionary-v1.8.json"
+ },
+ "stats": {
+  "cards": 6,
+  "verified": 0,
+  "unverified": 6
+ },
+ "cards": [
+  {
+   "id": "monster_medium:weald:p001",
+   "pages": [
+    1,
+    2,
+    3
+   ],
+   "copies": 3,
+   "name": "Ectoplasm",
+   "level": 1,
+   "type_position_raw": "Eldritch - Front",
+   "type_position_tags": [
+    "Eldritch",
+    "Front"
+   ],
+   "copy_variants": [
+    {
+     "page": 1,
+     "face": "front",
+     "icon": {
+      "iconId": "c76546916d",
+      "in_dictionary": false,
+      "status": null,
+      "key": null,
+      "kind": null,
+      "meaning_en": null,
+      "meaning_zh": null,
+      "value": null,
+      "naming": "unverified"
+     }
+    },
+    {
+     "page": 2,
+     "face": "front",
+     "icon": {
+      "iconId": "bda23296e7",
+      "in_dictionary": false,
+      "status": null,
+      "key": null,
+      "kind": null,
+      "meaning_en": null,
+      "meaning_zh": null,
+      "value": null,
+      "naming": "unverified"
+     }
+    },
+    {
+     "page": 3,
+     "face": "front",
+     "icon": {
+      "iconId": "4b08ecf53b",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "token_colour",
+      "kind": "other",
+      "meaning_en": "Monster token colour marker (per copy)",
+      "meaning_zh": "怪物标记颜色（每份副本不同）",
+      "value": null,
+      "naming": "confirmed"
+     }
+    }
+   ],
+   "front_icons": [
+    {
+     "iconId": "904b2f5950",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "c76546916d",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "1f5d70530d",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "56ea9289ab",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "c62d8b02b3",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "ed3571b02c",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "f7c80430e4",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "8e690fc7b2",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "4879ef90c3",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "73863d0313",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "513f0c5b35",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "8d4bbe5e11",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "damage",
+     "kind": "damage_type",
+     "meaning_en": "Damage (value printed inside)",
+     "meaning_zh": "伤害（图标内数字为伤害值）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "8d4bbe5e11",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "damage",
+     "kind": "damage_type",
+     "meaning_en": "Damage (value printed inside)",
+     "meaning_zh": "伤害（图标内数字为伤害值）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4879ef90c3",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "73863d0313",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "513f0c5b35",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "8d4bbe5e11",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "damage",
+     "kind": "damage_type",
+     "meaning_en": "Damage (value printed inside)",
+     "meaning_zh": "伤害（图标内数字为伤害值）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "8d4bbe5e11",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "damage",
+     "kind": "damage_type",
+     "meaning_en": "Damage (value printed inside)",
+     "meaning_zh": "伤害（图标内数字为伤害值）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "1bcf831fea",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "701329b97c",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "4879ef90c3",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "73863d0313",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "513f0c5b35",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "513f0c5b35",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "513f0c5b35",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "513f0c5b35",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "8d4bbe5e11",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "damage",
+     "kind": "damage_type",
+     "meaning_en": "Damage (value printed inside)",
+     "meaning_zh": "伤害（图标内数字为伤害值）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "8d4bbe5e11",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "damage",
+     "kind": "damage_type",
+     "meaning_en": "Damage (value printed inside)",
+     "meaning_zh": "伤害（图标内数字为伤害值）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "1bcf831fea",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "86fb6b3546",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "701329b97c",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "9648bf70d6",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "f4d84068a2",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "be477a0715",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "cb3a891f3d",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "dd08e0e894",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "8b5ce59f3a",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "7f4ed77130",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "bcaf8600be",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "bf56fec65f",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "7c7de22bc1",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "skill_number",
+     "kind": "other",
+     "meaning_en": "Skill ID",
+     "meaning_zh": "技能编号",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "44abb21285",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "e8402e9734",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "a6bb9cc289",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "a6bb9cc289",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "e8402e9734",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "a0333734e7",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "8b5ce59f3a",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "back_icons": [],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:1bcf831fea",
+     "icon:1f5d70530d",
+     "icon:44abb21285",
+     "icon:4879ef90c3",
+     "icon:513f0c5b35",
+     "icon:56ea9289ab",
+     "icon:701329b97c",
+     "icon:73863d0313",
+     "icon:86fb6b3546",
+     "icon:8b5ce59f3a",
+     "icon:8e690fc7b2",
+     "icon:904b2f5950",
+     "icon:9648bf70d6",
+     "icon:a0333734e7",
+     "icon:a6bb9cc289",
+     "icon:bcaf8600be",
+     "icon:bda23296e7",
+     "icon:be477a0715",
+     "icon:bf56fec65f",
+     "icon:c62d8b02b3",
+     "icon:c76546916d",
+     "icon:cb3a891f3d",
+     "icon:dd08e0e894",
+     "icon:e8402e9734",
+     "icon:ed3571b02c",
+     "icon:f4d84068a2",
+     "icon:f7c80430e4"
+    ]
+   },
+   "life": 6,
+   "life_icon": {
+    "iconId": "f7c80430e4",
+    "in_dictionary": false,
+    "status": null,
+    "key": null,
+    "kind": null,
+    "meaning_en": null,
+    "meaning_zh": null,
+    "value": null,
+    "naming": "unverified"
+   },
+   "resistances": [
+    {
+     "iconId": "8e690fc7b2",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "immunities": [],
+   "header_unlabeled_numbers": [
+    {
+     "text": "0",
+     "numeric": 0,
+     "anchor": {
+      "type": "beside_icon",
+      "left_icon": null,
+      "inside_icon": {
+       "iconId": "1f5d70530d",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    }
+   ],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Slime",
+     "target": "Closest",
+     "printed_labels": [
+      {
+       "label": "Crit",
+       "raw": "Crit 1",
+       "value": 1
+      },
+      {
+       "label": "Acc",
+       "raw": "Acc 9",
+       "value": 9
+      }
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "7",
+       "numeric": 7,
+       "anchor": {
+        "type": "printed_label",
+        "label": "Crit"
+       }
+      },
+      {
+       "text": "4",
+       "numeric": 4,
+       "anchor": {
+        "type": "printed_label",
+        "label": "Acc"
+       }
+      },
+      {
+       "text": "1",
+       "numeric": 1,
+       "anchor": {
+        "type": "beside_icon",
+        "left_icon": {
+         "iconId": "73863d0313",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        },
+        "inside_icon": null
+       }
+      }
+     ],
+     "effect_lines": [],
+     "lines": [
+      [
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "4879ef90c3",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 1 Slime "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "73863d0313",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " Closest 1 "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "513f0c5b35",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       }
+      ],
+      [
+       {
+        "type": "text",
+        "text": "Crit 1 "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "8d4bbe5e11",
+         "in_dictionary": true,
+         "status": "confirmed",
+         "key": "damage",
+         "kind": "damage_type",
+         "meaning_en": "Damage (value printed inside)",
+         "meaning_zh": "伤害（图标内数字为伤害值）",
+         "value": null,
+         "naming": "confirmed"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 7 Acc 9 "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "8d4bbe5e11",
+         "in_dictionary": true,
+         "status": "confirmed",
+         "key": "damage",
+         "kind": "damage_type",
+         "meaning_en": "Damage (value printed inside)",
+         "meaning_zh": "伤害（图标内数字为伤害值）",
+         "value": null,
+         "naming": "confirmed"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 4"
+       }
+      ]
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "Cytokinesis",
+     "target": "Closest",
+     "printed_labels": [
+      {
+       "label": "Crit",
+       "raw": "Crit 1",
+       "value": 1
+      },
+      {
+       "label": "Acc",
+       "raw": "Acc 9",
+       "value": 9
+      }
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "numeric": 2,
+       "anchor": {
+        "type": "printed_label",
+        "label": "Crit"
+       }
+      },
+      {
+       "text": "1",
+       "numeric": 1,
+       "anchor": {
+        "type": "printed_label",
+        "label": "Acc"
+       }
+      },
+      {
+       "text": "1",
+       "numeric": 1,
+       "anchor": {
+        "type": "beside_icon",
+        "left_icon": {
+         "iconId": "73863d0313",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        },
+        "inside_icon": null
+       }
+      }
+     ],
+     "effect_lines": [
+      [
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "701329b97c",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "1bcf831fea",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 1 Ectoplasm"
+       }
+      ]
+     ],
+     "lines": [
+      [
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "4879ef90c3",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 2 Cytokinesis "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "73863d0313",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " Closest 1 "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "513f0c5b35",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       }
+      ],
+      [
+       {
+        "type": "text",
+        "text": "Crit 1 "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "8d4bbe5e11",
+         "in_dictionary": true,
+         "status": "confirmed",
+         "key": "damage",
+         "kind": "damage_type",
+         "meaning_en": "Damage (value printed inside)",
+         "meaning_zh": "伤害（图标内数字为伤害值）",
+         "value": null,
+         "naming": "confirmed"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 2 Acc 9 "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "8d4bbe5e11",
+         "in_dictionary": true,
+         "status": "confirmed",
+         "key": "damage",
+         "kind": "damage_type",
+         "meaning_en": "Damage (value printed inside)",
+         "meaning_zh": "伤害（图标内数字为伤害值）",
+         "value": null,
+         "naming": "confirmed"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 1"
+       }
+      ],
+      [
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "701329b97c",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "1bcf831fea",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 1 Ectoplasm"
+       }
+      ]
+     ]
+    },
+    {
+     "slot": 3,
+     "name": "Ectoplasmic Profusion",
+     "target": "Crowded",
+     "printed_labels": [
+      {
+       "label": "Crit",
+       "raw": "Crit 1",
+       "value": 1
+      },
+      {
+       "label": "Acc",
+       "raw": "Acc 9",
+       "value": 9
+      }
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "numeric": 2,
+       "anchor": {
+        "type": "printed_label",
+        "label": "Crit"
+       }
+      },
+      {
+       "text": "1",
+       "numeric": 1,
+       "anchor": {
+        "type": "printed_label",
+        "label": "Acc"
+       }
+      },
+      {
+       "text": "1",
+       "numeric": 1,
+       "anchor": {
+        "type": "beside_icon",
+        "left_icon": {
+         "iconId": "73863d0313",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        },
+        "inside_icon": null
+       }
+      }
+     ],
+     "effect_lines": [
+      [
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "701329b97c",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "1bcf831fea",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 1 Large Ectoplasm , "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "86fb6b3546",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " +1"
+       }
+      ]
+     ],
+     "lines": [
+      [
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "4879ef90c3",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 3 Ectoplasmic Profusion "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "73863d0313",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 1 "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "513f0c5b35",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "513f0c5b35",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " Crowded "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "513f0c5b35",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "513f0c5b35",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       }
+      ],
+      [
+       {
+        "type": "text",
+        "text": "Crit 1 "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "8d4bbe5e11",
+         "in_dictionary": true,
+         "status": "confirmed",
+         "key": "damage",
+         "kind": "damage_type",
+         "meaning_en": "Damage (value printed inside)",
+         "meaning_zh": "伤害（图标内数字为伤害值）",
+         "value": null,
+         "naming": "confirmed"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 2 Acc 9 "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "8d4bbe5e11",
+         "in_dictionary": true,
+         "status": "confirmed",
+         "key": "damage",
+         "kind": "damage_type",
+         "meaning_en": "Damage (value printed inside)",
+         "meaning_zh": "伤害（图标内数字为伤害值）",
+         "value": null,
+         "naming": "confirmed"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 1"
+       }
+      ],
+      [
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "701329b97c",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "1bcf831fea",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 1 Large Ectoplasm , "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "86fb6b3546",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " +1"
+       }
+      ]
+     ]
+    }
+   ],
+   "footer_lines": [
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "7f4ed77130",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "bcaf8600be",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "bf56fec65f",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "a6bb9cc289",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "9648bf70d6",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "a6bb9cc289",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "f4d84068a2",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "e8402e9734",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "be477a0715",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "e8402e9734",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "cb3a891f3d",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "dd08e0e894",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "7c7de22bc1",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "skill_number",
+       "kind": "other",
+       "meaning_en": "Skill ID",
+       "meaning_zh": "技能编号",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "a0333734e7",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 3 2 1 "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "8b5ce59f3a",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "44abb21285",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "8b5ce59f3a",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 9-10 6-8 1-5"
+     }
+    ]
+   ],
+   "back_texts": []
+  },
+  {
+   "id": "monster_medium:weald:p004",
+   "pages": [
+    4
+   ],
+   "copies": 1,
+   "name": "Large Ectoplasm",
+   "level": 1,
+   "type_position_raw": "Eldritch - Front - Large",
+   "type_position_tags": [
+    "Eldritch",
+    "Front",
+    "Large"
+   ],
+   "copy_variants": [],
+   "front_icons": [
+    {
+     "iconId": "904b2f5950",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "c76546916d",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "56ea9289ab",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "a70eda8681",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "45a02507ca",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "5c13d5ae00",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "56e6e729f5",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "55ad4b3bf2",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "f51f682097",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "603424c42d",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "e3fb45c69f",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "1a06507739",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "a672bd7c37",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "fa38a420fc",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "6ddfa51b75",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "fa38a420fc",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "a672bd7c37",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "491e4c8c9e",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "1565238e00",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "b45aa2bdb7",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "fa38a420fc",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "6ddfa51b75",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "a672bd7c37",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "acda3c62b1",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "6529376340",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "1ce8d4834d",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "5bc9dca1c0",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "4c601f23d7",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "41ed16a63b",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "90bfdda8dc",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "6ddfa51b75",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "0d340e0582",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "dff7254dd6",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "fa38a420fc",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "c7ddab34e3",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "55aa94c58f",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "5dd6016b53",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "d0aa070346",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "36d26b76d2",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "d032588bd9",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "68b548eba7",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "008b352b2d",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stance_aggressive_unlit",
+     "kind": "position",
+     "meaning_en": "Stance: Aggressive (sword) – unlit (PvP card top row) / large-monster row",
+     "meaning_zh": "站位：进攻（未点亮，PvP卡顶行/大型怪物行）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "cc43dc238b",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stance_defensive_large_monster",
+     "kind": "position",
+     "meaning_en": "Stance: Defensive (shield) – large monster",
+     "meaning_zh": "站位：防御（大型怪）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "42c2d59e59",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stance_ranged_large_monster",
+     "kind": "position",
+     "meaning_en": "Stance: Ranged (arrows) – large monster",
+     "meaning_zh": "站位：远程（大型怪）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "5a1ae218a7",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "back_icons": [],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:0d340e0582",
+     "icon:1565238e00",
+     "icon:1a06507739",
+     "icon:1ce8d4834d",
+     "icon:36d26b76d2",
+     "icon:41ed16a63b",
+     "icon:45a02507ca",
+     "icon:491e4c8c9e",
+     "icon:4c601f23d7",
+     "icon:55aa94c58f",
+     "icon:55ad4b3bf2",
+     "icon:56e6e729f5",
+     "icon:56ea9289ab",
+     "icon:5a1ae218a7",
+     "icon:5bc9dca1c0",
+     "icon:5c13d5ae00",
+     "icon:5dd6016b53",
+     "icon:603424c42d",
+     "icon:6529376340",
+     "icon:68b548eba7",
+     "icon:6ddfa51b75",
+     "icon:904b2f5950",
+     "icon:90bfdda8dc",
+     "icon:a672bd7c37",
+     "icon:a70eda8681",
+     "icon:acda3c62b1",
+     "icon:b45aa2bdb7",
+     "icon:c76546916d",
+     "icon:c7ddab34e3",
+     "icon:d032588bd9",
+     "icon:d0aa070346",
+     "icon:dff7254dd6",
+     "icon:e3fb45c69f",
+     "icon:f51f682097",
+     "icon:fa38a420fc"
+    ]
+   },
+   "card_kind": "large_monster_reference",
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "Large Ectoplasm "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "c76546916d",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "904b2f5950",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "Eldritch - Front - Large"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "56ea9289ab",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " I"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "Eldritch - Front - LargeLarge Ectoplasm "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "45a02507ca",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "a70eda8681",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "5c13d5ae00",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " I "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "56e6e729f5",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 0"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "55ad4b3bf2",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " Resistances    Immunities "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "e3fb45c69f",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "603424c42d",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "f51f682097",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "1a06507739",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "a672bd7c37",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 1Big Slime"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "Crit 1 "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "fa38a420fc",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 9 Acc 9 "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "fa38a420fc",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 6 "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "6ddfa51b75",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 1Closest"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "a672bd7c37",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 2Slime Smack"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "491e4c8c9e",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "b45aa2bdb7",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "1565238e00",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 22"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "Crit 3 "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "fa38a420fc",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 6 "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "6ddfa51b75",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 1Crowded"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "Acc 9 "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "acda3c62b1",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 3 "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "a672bd7c37",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 3Cytokinesis"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "4c601f23d7",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "6529376340",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "5bc9dca1c0",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "1ce8d4834d",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "90bfdda8dc",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "0d340e0582",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 11-4 1t Crit 1 6 Acc 9 "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "fa38a420fc",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 3 "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "6ddfa51b75",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 1Closest"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "41ed16a63b",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 1 Large Ectoplasm"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "dff7254dd6",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "c7ddab34e3",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 329-105-8 "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "55aa94c58f",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "5dd6016b53",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "d0aa070346",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "36d26b76d2",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "d032588bd9",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "68b548eba7",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "008b352b2d",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "stance_aggressive_unlit",
+       "kind": "position",
+       "meaning_en": "Stance: Aggressive (sword) – unlit (PvP card top row) / large-monster row",
+       "meaning_zh": "站位：进攻（未点亮，PvP卡顶行/大型怪物行）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "cc43dc238b",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "stance_defensive_large_monster",
+       "kind": "position",
+       "meaning_en": "Stance: Defensive (shield) – large monster",
+       "meaning_zh": "站位：防御（大型怪）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "42c2d59e59",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "stance_ranged_large_monster",
+       "kind": "position",
+       "meaning_en": "Stance: Ranged (arrows) – large monster",
+       "meaning_zh": "站位：远程（大型怪）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "5a1ae218a7",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ]
+   ]
+  },
+  {
+   "id": "monster_medium:weald:p005",
+   "pages": [
+    5
+   ],
+   "copies": 1,
+   "name": "Large Ectoplasm",
+   "level": 1,
+   "type_position_raw": "Eldritch - Front - Large",
+   "type_position_tags": [
+    "Eldritch",
+    "Front",
+    "Large"
+   ],
+   "copy_variants": [],
+   "front_icons": [
+    {
+     "iconId": "904b2f5950",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "00a673f25e",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "56ea9289ab",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "a70eda8681",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "9bccf368ce",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "5c13d5ae00",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "56e6e729f5",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "55ad4b3bf2",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "f51f682097",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "603424c42d",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "e3fb45c69f",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "1a06507739",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "a672bd7c37",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "fa38a420fc",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "6ddfa51b75",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "fa38a420fc",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "a672bd7c37",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "491e4c8c9e",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "1565238e00",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "b45aa2bdb7",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "fa38a420fc",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "6ddfa51b75",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "a672bd7c37",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "acda3c62b1",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "6529376340",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "1ce8d4834d",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "5bc9dca1c0",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "4c601f23d7",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "41ed16a63b",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "90bfdda8dc",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "6ddfa51b75",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "0d340e0582",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "dff7254dd6",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "fa38a420fc",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "c7ddab34e3",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "55aa94c58f",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "5dd6016b53",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "d0aa070346",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "36d26b76d2",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "d032588bd9",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "68b548eba7",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "008b352b2d",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stance_aggressive_unlit",
+     "kind": "position",
+     "meaning_en": "Stance: Aggressive (sword) – unlit (PvP card top row) / large-monster row",
+     "meaning_zh": "站位：进攻（未点亮，PvP卡顶行/大型怪物行）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "cc43dc238b",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stance_defensive_large_monster",
+     "kind": "position",
+     "meaning_en": "Stance: Defensive (shield) – large monster",
+     "meaning_zh": "站位：防御（大型怪）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "42c2d59e59",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stance_ranged_large_monster",
+     "kind": "position",
+     "meaning_en": "Stance: Ranged (arrows) – large monster",
+     "meaning_zh": "站位：远程（大型怪）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "5a1ae218a7",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "back_icons": [],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:00a673f25e",
+     "icon:0d340e0582",
+     "icon:1565238e00",
+     "icon:1a06507739",
+     "icon:1ce8d4834d",
+     "icon:36d26b76d2",
+     "icon:41ed16a63b",
+     "icon:491e4c8c9e",
+     "icon:4c601f23d7",
+     "icon:55aa94c58f",
+     "icon:55ad4b3bf2",
+     "icon:56e6e729f5",
+     "icon:56ea9289ab",
+     "icon:5a1ae218a7",
+     "icon:5bc9dca1c0",
+     "icon:5c13d5ae00",
+     "icon:5dd6016b53",
+     "icon:603424c42d",
+     "icon:6529376340",
+     "icon:68b548eba7",
+     "icon:6ddfa51b75",
+     "icon:904b2f5950",
+     "icon:90bfdda8dc",
+     "icon:9bccf368ce",
+     "icon:a672bd7c37",
+     "icon:a70eda8681",
+     "icon:acda3c62b1",
+     "icon:b45aa2bdb7",
+     "icon:c7ddab34e3",
+     "icon:d032588bd9",
+     "icon:d0aa070346",
+     "icon:dff7254dd6",
+     "icon:e3fb45c69f",
+     "icon:f51f682097",
+     "icon:fa38a420fc"
+    ]
+   },
+   "card_kind": "large_monster_reference",
+   "lines": [
+    [
+     {
+      "type": "text",
+      "text": "Large Ectoplasm "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "00a673f25e",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "904b2f5950",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "Eldritch - Front - Large"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "56ea9289ab",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " I"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "Eldritch - Front - LargeLarge Ectoplasm "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "9bccf368ce",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "a70eda8681",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "5c13d5ae00",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " I "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "56e6e729f5",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 0"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "55ad4b3bf2",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " Resistances    Immunities "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "e3fb45c69f",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "603424c42d",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "f51f682097",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "1a06507739",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "a672bd7c37",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 1Big Slime"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "Crit 1 "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "fa38a420fc",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 9 Acc 9 "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "fa38a420fc",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 6 "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "6ddfa51b75",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 1Closest"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "a672bd7c37",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 2Slime Smack"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "491e4c8c9e",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "b45aa2bdb7",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "1565238e00",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 22"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "Crit 3 "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "fa38a420fc",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 6 "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "6ddfa51b75",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 1Crowded"
+     }
+    ],
+    [
+     {
+      "type": "text",
+      "text": "Acc 9 "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "acda3c62b1",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 3 "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "a672bd7c37",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 3Cytokinesis"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "4c601f23d7",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "6529376340",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "5bc9dca1c0",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "1ce8d4834d",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "90bfdda8dc",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "0d340e0582",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 11-4 1t Crit 1 6 Acc 9 "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "fa38a420fc",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 3 "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "6ddfa51b75",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 1Closest"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "41ed16a63b",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 1 Large Ectoplasm"
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "dff7254dd6",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "c7ddab34e3",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 329-105-8 "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "55aa94c58f",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "5dd6016b53",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "d0aa070346",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "36d26b76d2",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "d032588bd9",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "68b548eba7",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ],
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "008b352b2d",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "stance_aggressive_unlit",
+       "kind": "position",
+       "meaning_en": "Stance: Aggressive (sword) – unlit (PvP card top row) / large-monster row",
+       "meaning_zh": "站位：进攻（未点亮，PvP卡顶行/大型怪物行）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "cc43dc238b",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "stance_defensive_large_monster",
+       "kind": "position",
+       "meaning_en": "Stance: Defensive (shield) – large monster",
+       "meaning_zh": "站位：防御（大型怪）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "42c2d59e59",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "stance_ranged_large_monster",
+       "kind": "position",
+       "meaning_en": "Stance: Ranged (arrows) – large monster",
+       "meaning_zh": "站位：远程（大型怪）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "5a1ae218a7",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    ]
+   ]
+  },
+  {
+   "id": "monster_medium:weald:p006",
+   "pages": [
+    6,
+    7,
+    8
+   ],
+   "copies": 3,
+   "name": "Rabid Gnasher",
+   "level": 1,
+   "type_position_raw": "Beast - Front",
+   "type_position_tags": [
+    "Beast",
+    "Front"
+   ],
+   "copy_variants": [
+    {
+     "page": 6,
+     "face": "front",
+     "icon": {
+      "iconId": "c76546916d",
+      "in_dictionary": false,
+      "status": null,
+      "key": null,
+      "kind": null,
+      "meaning_en": null,
+      "meaning_zh": null,
+      "value": null,
+      "naming": "unverified"
+     }
+    },
+    {
+     "page": 7,
+     "face": "front",
+     "icon": {
+      "iconId": "bda23296e7",
+      "in_dictionary": false,
+      "status": null,
+      "key": null,
+      "kind": null,
+      "meaning_en": null,
+      "meaning_zh": null,
+      "value": null,
+      "naming": "unverified"
+     }
+    },
+    {
+     "page": 8,
+     "face": "front",
+     "icon": {
+      "iconId": "4b08ecf53b",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "token_colour",
+      "kind": "other",
+      "meaning_en": "Monster token colour marker (per copy)",
+      "meaning_zh": "怪物标记颜色（每份副本不同）",
+      "value": null,
+      "naming": "confirmed"
+     }
+    }
+   ],
+   "front_icons": [
+    {
+     "iconId": "904b2f5950",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "c76546916d",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "1f5d70530d",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "56ea9289ab",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "c62d8b02b3",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "ed3571b02c",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "f7c80430e4",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "86bf0146dc",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "4879ef90c3",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "73863d0313",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "513f0c5b35",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "8d4bbe5e11",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "damage",
+     "kind": "damage_type",
+     "meaning_en": "Damage (value printed inside)",
+     "meaning_zh": "伤害（图标内数字为伤害值）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "8d4bbe5e11",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "damage",
+     "kind": "damage_type",
+     "meaning_en": "Damage (value printed inside)",
+     "meaning_zh": "伤害（图标内数字为伤害值）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "087d045a66",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "1358872299",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "a7ee47360e",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "b65e69f6e0",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "701329b97c",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "6477bbec5a",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "1f26dc63eb",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "27b98753c0",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "293f170eab",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "stance_support_monster_slot",
+     "kind": "position",
+     "meaning_en": "Monster stance slot: Support (pillars)",
+     "meaning_zh": "怪物站位栏：支援（柱）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "2026b89bfb",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "971c47a7b3",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "aacd060ba5",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "b904edf127",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "back_icons": [],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:087d045a66",
+     "icon:1358872299",
+     "icon:1f26dc63eb",
+     "icon:1f5d70530d",
+     "icon:2026b89bfb",
+     "icon:27b98753c0",
+     "icon:4879ef90c3",
+     "icon:513f0c5b35",
+     "icon:56ea9289ab",
+     "icon:6477bbec5a",
+     "icon:701329b97c",
+     "icon:73863d0313",
+     "icon:86bf0146dc",
+     "icon:904b2f5950",
+     "icon:971c47a7b3",
+     "icon:a7ee47360e",
+     "icon:aacd060ba5",
+     "icon:b65e69f6e0",
+     "icon:b904edf127",
+     "icon:bda23296e7",
+     "icon:c62d8b02b3",
+     "icon:c76546916d",
+     "icon:ed3571b02c",
+     "icon:f7c80430e4"
+    ]
+   },
+   "life": 7,
+   "life_icon": {
+    "iconId": "f7c80430e4",
+    "in_dictionary": false,
+    "status": null,
+    "key": null,
+    "kind": null,
+    "meaning_en": null,
+    "meaning_zh": null,
+    "value": null,
+    "naming": "unverified"
+   },
+   "resistances": [
+    {
+     "iconId": "86bf0146dc",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "immunities": [],
+   "header_unlabeled_numbers": [
+    {
+     "text": "2",
+     "numeric": 2,
+     "anchor": {
+      "type": "beside_icon",
+      "left_icon": null,
+      "inside_icon": {
+       "iconId": "1f5d70530d",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    }
+   ],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Rabid Rush",
+     "target": "Furthest",
+     "printed_labels": [
+      {
+       "label": "Crit",
+       "raw": "Crit 2",
+       "value": 2
+      },
+      {
+       "label": "Acc",
+       "raw": "Acc 9",
+       "value": 9
+      }
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "4",
+       "numeric": 4,
+       "anchor": {
+        "type": "printed_label",
+        "label": "Crit"
+       }
+      },
+      {
+       "text": "2",
+       "numeric": 2,
+       "anchor": {
+        "type": "printed_label",
+        "label": "Acc"
+       }
+      },
+      {
+       "text": "2",
+       "numeric": 2,
+       "anchor": {
+        "type": "beside_icon",
+        "left_icon": {
+         "iconId": "73863d0313",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        },
+        "inside_icon": null
+       }
+      }
+     ],
+     "effect_lines": [
+      [
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "b65e69f6e0",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " Self "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "1358872299",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " Pull 2 "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "701329b97c",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 1 "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "087d045a66",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 3t , "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "a7ee47360e",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       }
+      ]
+     ],
+     "lines": [
+      [
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "4879ef90c3",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 1 Rabid Rush "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "73863d0313",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " Furthest 2 "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "513f0c5b35",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       }
+      ],
+      [
+       {
+        "type": "text",
+        "text": "Crit 2 "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "8d4bbe5e11",
+         "in_dictionary": true,
+         "status": "confirmed",
+         "key": "damage",
+         "kind": "damage_type",
+         "meaning_en": "Damage (value printed inside)",
+         "meaning_zh": "伤害（图标内数字为伤害值）",
+         "value": null,
+         "naming": "confirmed"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 4 Acc 9 "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "8d4bbe5e11",
+         "in_dictionary": true,
+         "status": "confirmed",
+         "key": "damage",
+         "kind": "damage_type",
+         "meaning_en": "Damage (value printed inside)",
+         "meaning_zh": "伤害（图标内数字为伤害值）",
+         "value": null,
+         "naming": "confirmed"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 2"
+       }
+      ],
+      [
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "b65e69f6e0",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " Self "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "1358872299",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " Pull 2 "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "701329b97c",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 1 "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "087d045a66",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 3t , "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "a7ee47360e",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       }
+      ]
+     ]
+    }
+   ],
+   "footer_lines": [
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "6477bbec5a",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "2026b89bfb",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "1f26dc63eb",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "971c47a7b3",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "27b98753c0",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "aacd060ba5",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "293f170eab",
+       "in_dictionary": true,
+       "status": "confirmed",
+       "key": "stance_support_monster_slot",
+       "kind": "position",
+       "meaning_en": "Monster stance slot: Support (pillars)",
+       "meaning_zh": "怪物站位栏：支援（柱）",
+       "value": null,
+       "naming": "confirmed"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "b904edf127",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 1"
+     }
+    ]
+   ],
+   "back_texts": []
+  },
+  {
+   "id": "monster_medium:weald:p009",
+   "pages": [
+    9,
+    10,
+    11
+   ],
+   "copies": 3,
+   "name": "Fungal Scratcher",
+   "level": 1,
+   "type_position_raw": "Human - Eldritch - Front",
+   "type_position_tags": [
+    "Human",
+    "Eldritch",
+    "Front"
+   ],
+   "copy_variants": [
+    {
+     "page": 9,
+     "face": "front",
+     "icon": {
+      "iconId": "c76546916d",
+      "in_dictionary": false,
+      "status": null,
+      "key": null,
+      "kind": null,
+      "meaning_en": null,
+      "meaning_zh": null,
+      "value": null,
+      "naming": "unverified"
+     }
+    },
+    {
+     "page": 10,
+     "face": "front",
+     "icon": {
+      "iconId": "bda23296e7",
+      "in_dictionary": false,
+      "status": null,
+      "key": null,
+      "kind": null,
+      "meaning_en": null,
+      "meaning_zh": null,
+      "value": null,
+      "naming": "unverified"
+     }
+    },
+    {
+     "page": 11,
+     "face": "front",
+     "icon": {
+      "iconId": "4b08ecf53b",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "token_colour",
+      "kind": "other",
+      "meaning_en": "Monster token colour marker (per copy)",
+      "meaning_zh": "怪物标记颜色（每份副本不同）",
+      "value": null,
+      "naming": "confirmed"
+     }
+    }
+   ],
+   "front_icons": [
+    {
+     "iconId": "904b2f5950",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "c76546916d",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "1f5d70530d",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "56ea9289ab",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "c62d8b02b3",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "ed3571b02c",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "f7c80430e4",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "8e690fc7b2",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "4879ef90c3",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "73863d0313",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "513f0c5b35",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "8d4bbe5e11",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "damage",
+     "kind": "damage_type",
+     "meaning_en": "Damage (value printed inside)",
+     "meaning_zh": "伤害（图标内数字为伤害值）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "8d4bbe5e11",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "damage",
+     "kind": "damage_type",
+     "meaning_en": "Damage (value printed inside)",
+     "meaning_zh": "伤害（图标内数字为伤害值）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "4879ef90c3",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "73863d0313",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "513f0c5b35",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "8d4bbe5e11",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "damage",
+     "kind": "damage_type",
+     "meaning_en": "Damage (value printed inside)",
+     "meaning_zh": "伤害（图标内数字为伤害值）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "8d4bbe5e11",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "damage",
+     "kind": "damage_type",
+     "meaning_en": "Damage (value printed inside)",
+     "meaning_zh": "伤害（图标内数字为伤害值）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "93ba3e2dfe",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "8d4bbe5e11",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "damage",
+     "kind": "damage_type",
+     "meaning_en": "Damage (value printed inside)",
+     "meaning_zh": "伤害（图标内数字为伤害值）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "701329b97c",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "4879ef90c3",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "73863d0313",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "513f0c5b35",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "8d4bbe5e11",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "damage",
+     "kind": "damage_type",
+     "meaning_en": "Damage (value printed inside)",
+     "meaning_zh": "伤害（图标内数字为伤害值）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "8d4bbe5e11",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "damage",
+     "kind": "damage_type",
+     "meaning_en": "Damage (value printed inside)",
+     "meaning_zh": "伤害（图标内数字为伤害值）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "1358872299",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "26a74fc48e",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "9648bf70d6",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "547526dc01",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "27b98753c0",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "d40dbdd599",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "f8f441a0ac",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "7f4ed77130",
+     "in_dictionary": true,
+     "status": "decor",
+     "key": "decor",
+     "kind": "decor",
+     "meaning_en": "Decor / not an icon",
+     "meaning_zh": "装饰 / 非图标",
+     "value": null,
+     "naming": "decor"
+    },
+    {
+     "iconId": "aacd060ba5",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "44abb21285",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "b904edf127",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "dd08e0e894",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "a6bb9cc289",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "153e8477d7",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "8b5ce59f3a",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "back_icons": [],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:1358872299",
+     "icon:153e8477d7",
+     "icon:1f5d70530d",
+     "icon:26a74fc48e",
+     "icon:27b98753c0",
+     "icon:44abb21285",
+     "icon:4879ef90c3",
+     "icon:513f0c5b35",
+     "icon:547526dc01",
+     "icon:56ea9289ab",
+     "icon:701329b97c",
+     "icon:73863d0313",
+     "icon:8b5ce59f3a",
+     "icon:8e690fc7b2",
+     "icon:904b2f5950",
+     "icon:93ba3e2dfe",
+     "icon:9648bf70d6",
+     "icon:a6bb9cc289",
+     "icon:aacd060ba5",
+     "icon:b904edf127",
+     "icon:bda23296e7",
+     "icon:c62d8b02b3",
+     "icon:c76546916d",
+     "icon:d40dbdd599",
+     "icon:dd08e0e894",
+     "icon:ed3571b02c",
+     "icon:f7c80430e4",
+     "icon:f8f441a0ac"
+    ]
+   },
+   "life": 14,
+   "life_icon": {
+    "iconId": "f7c80430e4",
+    "in_dictionary": false,
+    "status": null,
+    "key": null,
+    "kind": null,
+    "meaning_en": null,
+    "meaning_zh": null,
+    "value": null,
+    "naming": "unverified"
+   },
+   "resistances": [
+    {
+     "iconId": "8e690fc7b2",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "immunities": [],
+   "header_unlabeled_numbers": [
+    {
+     "text": "0",
+     "numeric": 0,
+     "anchor": {
+      "type": "beside_icon",
+      "left_icon": null,
+      "inside_icon": {
+       "iconId": "1f5d70530d",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    }
+   ],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Groping Swipe",
+     "target": "Closest",
+     "printed_labels": [
+      {
+       "label": "Crit",
+       "raw": "Crit 1",
+       "value": 1
+      },
+      {
+       "label": "Acc",
+       "raw": "Acc 8",
+       "value": 8
+      }
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "7",
+       "numeric": 7,
+       "anchor": {
+        "type": "printed_label",
+        "label": "Crit"
+       }
+      },
+      {
+       "text": "4",
+       "numeric": 4,
+       "anchor": {
+        "type": "printed_label",
+        "label": "Acc"
+       }
+      },
+      {
+       "text": "1",
+       "numeric": 1,
+       "anchor": {
+        "type": "beside_icon",
+        "left_icon": {
+         "iconId": "73863d0313",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        },
+        "inside_icon": null
+       }
+      }
+     ],
+     "effect_lines": [],
+     "lines": [
+      [
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "4879ef90c3",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 1 Groping Swipe "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "73863d0313",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " Closest 1 "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "513f0c5b35",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       }
+      ],
+      [
+       {
+        "type": "text",
+        "text": "Crit 1 "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "8d4bbe5e11",
+         "in_dictionary": true,
+         "status": "confirmed",
+         "key": "damage",
+         "kind": "damage_type",
+         "meaning_en": "Damage (value printed inside)",
+         "meaning_zh": "伤害（图标内数字为伤害值）",
+         "value": null,
+         "naming": "confirmed"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 7 Acc 8 "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "8d4bbe5e11",
+         "in_dictionary": true,
+         "status": "confirmed",
+         "key": "damage",
+         "kind": "damage_type",
+         "meaning_en": "Damage (value printed inside)",
+         "meaning_zh": "伤害（图标内数字为伤害值）",
+         "value": null,
+         "naming": "confirmed"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 4"
+       }
+      ]
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "Rend the Marked",
+     "target": "Marked -> Closest",
+     "printed_labels": [
+      {
+       "label": "Crit",
+       "raw": "Crit 1",
+       "value": 1
+      },
+      {
+       "label": "Acc",
+       "raw": "Acc 9",
+       "value": 9
+      }
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "6",
+       "numeric": 6,
+       "anchor": {
+        "type": "printed_label",
+        "label": "Crit"
+       }
+      },
+      {
+       "text": "4",
+       "numeric": 4,
+       "anchor": {
+        "type": "printed_label",
+        "label": "Acc"
+       }
+      },
+      {
+       "text": "1",
+       "numeric": 1,
+       "anchor": {
+        "type": "beside_icon",
+        "left_icon": {
+         "iconId": "73863d0313",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        },
+        "inside_icon": null
+       }
+      }
+     ],
+     "effect_lines": [
+      [
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "701329b97c",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "8d4bbe5e11",
+         "in_dictionary": true,
+         "status": "confirmed",
+         "key": "damage",
+         "kind": "damage_type",
+         "meaning_en": "Damage (value printed inside)",
+         "meaning_zh": "伤害（图标内数字为伤害值）",
+         "value": null,
+         "naming": "confirmed"
+        }
+       },
+       {
+        "type": "text",
+        "text": " +3 vs "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "93ba3e2dfe",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       }
+      ]
+     ],
+     "lines": [
+      [
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "4879ef90c3",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 2 Rend the Marked Marked -> Closest "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "73863d0313",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 1 "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "513f0c5b35",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       }
+      ],
+      [
+       {
+        "type": "text",
+        "text": "Crit 1 "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "8d4bbe5e11",
+         "in_dictionary": true,
+         "status": "confirmed",
+         "key": "damage",
+         "kind": "damage_type",
+         "meaning_en": "Damage (value printed inside)",
+         "meaning_zh": "伤害（图标内数字为伤害值）",
+         "value": null,
+         "naming": "confirmed"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 6 Acc 9 "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "8d4bbe5e11",
+         "in_dictionary": true,
+         "status": "confirmed",
+         "key": "damage",
+         "kind": "damage_type",
+         "meaning_en": "Damage (value printed inside)",
+         "meaning_zh": "伤害（图标内数字为伤害值）",
+         "value": null,
+         "naming": "confirmed"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 4"
+       }
+      ],
+      [
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "701329b97c",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "8d4bbe5e11",
+         "in_dictionary": true,
+         "status": "confirmed",
+         "key": "damage",
+         "kind": "damage_type",
+         "meaning_en": "Damage (value printed inside)",
+         "meaning_zh": "伤害（图标内数字为伤害值）",
+         "value": null,
+         "naming": "confirmed"
+        }
+       },
+       {
+        "type": "text",
+        "text": " +3 vs "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "93ba3e2dfe",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       }
+      ]
+     ]
+    },
+    {
+     "slot": 3,
+     "name": "Harmless Swipe",
+     "target": "Furthest",
+     "printed_labels": [
+      {
+       "label": "Crit",
+       "raw": "Crit 0",
+       "value": 0
+      },
+      {
+       "label": "Acc",
+       "raw": "Acc 5",
+       "value": 5
+      }
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "6",
+       "numeric": 6,
+       "anchor": {
+        "type": "printed_label",
+        "label": "Crit"
+       }
+      },
+      {
+       "text": "3",
+       "numeric": 3,
+       "anchor": {
+        "type": "printed_label",
+        "label": "Acc"
+       }
+      },
+      {
+       "text": "2",
+       "numeric": 2,
+       "anchor": {
+        "type": "beside_icon",
+        "left_icon": {
+         "iconId": "73863d0313",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        },
+        "inside_icon": null
+       }
+      }
+     ],
+     "effect_lines": [
+      [
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "26a74fc48e",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " Self "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "1358872299",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " Pull 1"
+       }
+      ]
+     ],
+     "lines": [
+      [
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "4879ef90c3",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 3 Harmless Swipe "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "73863d0313",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " Furthest 2 "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "513f0c5b35",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       }
+      ],
+      [
+       {
+        "type": "text",
+        "text": "Crit 0 "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "8d4bbe5e11",
+         "in_dictionary": true,
+         "status": "confirmed",
+         "key": "damage",
+         "kind": "damage_type",
+         "meaning_en": "Damage (value printed inside)",
+         "meaning_zh": "伤害（图标内数字为伤害值）",
+         "value": null,
+         "naming": "confirmed"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 6 Acc 5 "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "8d4bbe5e11",
+         "in_dictionary": true,
+         "status": "confirmed",
+         "key": "damage",
+         "kind": "damage_type",
+         "meaning_en": "Damage (value printed inside)",
+         "meaning_zh": "伤害（图标内数字为伤害值）",
+         "value": null,
+         "naming": "confirmed"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 3"
+       }
+      ],
+      [
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "26a74fc48e",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " Self "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "1358872299",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " Pull 1"
+       }
+      ]
+     ]
+    }
+   ],
+   "footer_lines": [
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "a6bb9cc289",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "9648bf70d6",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "7f4ed77130",
+       "in_dictionary": true,
+       "status": "decor",
+       "key": "decor",
+       "kind": "decor",
+       "meaning_en": "Decor / not an icon",
+       "meaning_zh": "装饰 / 非图标",
+       "value": null,
+       "naming": "decor"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "153e8477d7",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "547526dc01",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "f8f441a0ac",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "dd08e0e894",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 2 1 "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "44abb21285",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "8b5ce59f3a",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 6-10 1-5 "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "27b98753c0",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "aacd060ba5",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "d40dbdd599",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "b904edf127",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 3"
+     }
+    ]
+   ],
+   "back_texts": []
+  },
+  {
+   "id": "monster_medium:weald:p012",
+   "pages": [
+    12,
+    13,
+    14
+   ],
+   "copies": 3,
+   "name": "Fungal Artillery",
+   "level": 1,
+   "type_position_raw": "Human - Eldritch - Back",
+   "type_position_tags": [
+    "Human",
+    "Eldritch",
+    "Back"
+   ],
+   "copy_variants": [
+    {
+     "page": 12,
+     "face": "front",
+     "icon": {
+      "iconId": "c76546916d",
+      "in_dictionary": false,
+      "status": null,
+      "key": null,
+      "kind": null,
+      "meaning_en": null,
+      "meaning_zh": null,
+      "value": null,
+      "naming": "unverified"
+     }
+    },
+    {
+     "page": 13,
+     "face": "front",
+     "icon": {
+      "iconId": "bda23296e7",
+      "in_dictionary": false,
+      "status": null,
+      "key": null,
+      "kind": null,
+      "meaning_en": null,
+      "meaning_zh": null,
+      "value": null,
+      "naming": "unverified"
+     }
+    },
+    {
+     "page": 14,
+     "face": "front",
+     "icon": {
+      "iconId": "4b08ecf53b",
+      "in_dictionary": true,
+      "status": "confirmed",
+      "key": "token_colour",
+      "kind": "other",
+      "meaning_en": "Monster token colour marker (per copy)",
+      "meaning_zh": "怪物标记颜色（每份副本不同）",
+      "value": null,
+      "naming": "confirmed"
+     }
+    }
+   ],
+   "front_icons": [
+    {
+     "iconId": "904b2f5950",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "c76546916d",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "1f5d70530d",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "56ea9289ab",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "4648c9e5ec",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "speed",
+     "kind": "other",
+     "meaning_en": "Speed (movement)",
+     "meaning_zh": "速度（移动）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "c62d8b02b3",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "ed3571b02c",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "f7c80430e4",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "8e690fc7b2",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "4879ef90c3",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "73863d0313",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "513f0c5b35",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "8d4bbe5e11",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "damage",
+     "kind": "damage_type",
+     "meaning_en": "Damage (value printed inside)",
+     "meaning_zh": "伤害（图标内数字为伤害值）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "8d4bbe5e11",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "damage",
+     "kind": "damage_type",
+     "meaning_en": "Damage (value printed inside)",
+     "meaning_zh": "伤害（图标内数字为伤害值）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "3172cef36f",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "63be174a86",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "701329b97c",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "4879ef90c3",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "73863d0313",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "513f0c5b35",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "513f0c5b35",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "8d4bbe5e11",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "damage",
+     "kind": "damage_type",
+     "meaning_en": "Damage (value printed inside)",
+     "meaning_zh": "伤害（图标内数字为伤害值）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "8d4bbe5e11",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "damage",
+     "kind": "damage_type",
+     "meaning_en": "Damage (value printed inside)",
+     "meaning_zh": "伤害（图标内数字为伤害值）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "41c31d63d8",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "a7ee47360e",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "701329b97c",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "4879ef90c3",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "73863d0313",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "513f0c5b35",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "8d4bbe5e11",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "damage",
+     "kind": "damage_type",
+     "meaning_en": "Damage (value printed inside)",
+     "meaning_zh": "伤害（图标内数字为伤害值）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "8d4bbe5e11",
+     "in_dictionary": true,
+     "status": "confirmed",
+     "key": "damage",
+     "kind": "damage_type",
+     "meaning_en": "Damage (value printed inside)",
+     "meaning_zh": "伤害（图标内数字为伤害值）",
+     "value": null,
+     "naming": "confirmed"
+    },
+    {
+     "iconId": "1358872299",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "41c31d63d8",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "26a74fc48e",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "701329b97c",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "6477bbec5a",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "a8c2b7f6b8",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "be477a0715",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "8d95c5f8bd",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "dd08e0e894",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "2026b89bfb",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "bf56fec65f",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "44abb21285",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "ac253b1f31",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "f8f441a0ac",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "e8402e9734",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "8b5ce59f3a",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    },
+    {
+     "iconId": "e8402e9734",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "back_icons": [],
+   "issues": [],
+   "verification": {
+    "unverified": true,
+    "reasons": [
+     "icon:1358872299",
+     "icon:1f5d70530d",
+     "icon:2026b89bfb",
+     "icon:26a74fc48e",
+     "icon:3172cef36f",
+     "icon:41c31d63d8",
+     "icon:44abb21285",
+     "icon:4879ef90c3",
+     "icon:513f0c5b35",
+     "icon:56ea9289ab",
+     "icon:63be174a86",
+     "icon:6477bbec5a",
+     "icon:701329b97c",
+     "icon:73863d0313",
+     "icon:8b5ce59f3a",
+     "icon:8d95c5f8bd",
+     "icon:8e690fc7b2",
+     "icon:904b2f5950",
+     "icon:a7ee47360e",
+     "icon:a8c2b7f6b8",
+     "icon:ac253b1f31",
+     "icon:bda23296e7",
+     "icon:be477a0715",
+     "icon:bf56fec65f",
+     "icon:c62d8b02b3",
+     "icon:c76546916d",
+     "icon:dd08e0e894",
+     "icon:e8402e9734",
+     "icon:ed3571b02c",
+     "icon:f7c80430e4",
+     "icon:f8f441a0ac"
+    ]
+   },
+   "life": 9,
+   "life_icon": {
+    "iconId": "f7c80430e4",
+    "in_dictionary": false,
+    "status": null,
+    "key": null,
+    "kind": null,
+    "meaning_en": null,
+    "meaning_zh": null,
+    "value": null,
+    "naming": "unverified"
+   },
+   "resistances": [
+    {
+     "iconId": "8e690fc7b2",
+     "in_dictionary": false,
+     "status": null,
+     "key": null,
+     "kind": null,
+     "meaning_en": null,
+     "meaning_zh": null,
+     "value": null,
+     "naming": "unverified"
+    }
+   ],
+   "immunities": [],
+   "header_unlabeled_numbers": [
+    {
+     "text": "1",
+     "numeric": 1,
+     "anchor": {
+      "type": "beside_icon",
+      "left_icon": null,
+      "inside_icon": {
+       "iconId": "1f5d70530d",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     }
+    }
+   ],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Mark Prey",
+     "target": "Closest",
+     "printed_labels": [
+      {
+       "label": "Crit",
+       "raw": "Crit 1",
+       "value": 1
+      },
+      {
+       "label": "Acc",
+       "raw": "Acc 10",
+       "value": 10
+      }
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "numeric": 2,
+       "anchor": {
+        "type": "printed_label",
+        "label": "Crit"
+       }
+      },
+      {
+       "text": "1",
+       "numeric": 1,
+       "anchor": {
+        "type": "printed_label",
+        "label": "Acc"
+       }
+      },
+      {
+       "text": "2",
+       "numeric": 2,
+       "anchor": {
+        "type": "beside_icon",
+        "left_icon": {
+         "iconId": "73863d0313",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        },
+        "inside_icon": null
+       }
+      }
+     ],
+     "effect_lines": [
+      [
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "701329b97c",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "3172cef36f",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 2t , "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "63be174a86",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 2t"
+       }
+      ]
+     ],
+     "lines": [
+      [
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "4879ef90c3",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 1 Mark Prey "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "73863d0313",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " Closest 2 "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "513f0c5b35",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       }
+      ],
+      [
+       {
+        "type": "text",
+        "text": "Crit 1 "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "8d4bbe5e11",
+         "in_dictionary": true,
+         "status": "confirmed",
+         "key": "damage",
+         "kind": "damage_type",
+         "meaning_en": "Damage (value printed inside)",
+         "meaning_zh": "伤害（图标内数字为伤害值）",
+         "value": null,
+         "naming": "confirmed"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 2 Acc 10 "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "8d4bbe5e11",
+         "in_dictionary": true,
+         "status": "confirmed",
+         "key": "damage",
+         "kind": "damage_type",
+         "meaning_en": "Damage (value printed inside)",
+         "meaning_zh": "伤害（图标内数字为伤害值）",
+         "value": null,
+         "naming": "confirmed"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 1"
+       }
+      ],
+      [
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "701329b97c",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "3172cef36f",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 2t , "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "63be174a86",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 2t"
+       }
+      ]
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "Rain of Blight",
+     "target": "Crowded",
+     "printed_labels": [
+      {
+       "label": "Crit",
+       "raw": "Crit 1",
+       "value": 1
+      },
+      {
+       "label": "Acc",
+       "raw": "Acc 10",
+       "value": 10
+      }
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "numeric": 2,
+       "anchor": {
+        "type": "printed_label",
+        "label": "Crit"
+       }
+      },
+      {
+       "text": "1",
+       "numeric": 1,
+       "anchor": {
+        "type": "printed_label",
+        "label": "Acc"
+       }
+      },
+      {
+       "text": "2",
+       "numeric": 2,
+       "anchor": {
+        "type": "beside_icon",
+        "left_icon": {
+         "iconId": "73863d0313",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        },
+        "inside_icon": null
+       }
+      }
+     ],
+     "effect_lines": [
+      [
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "701329b97c",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 2 "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "41c31d63d8",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 2t , "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "a7ee47360e",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       }
+      ]
+     ],
+     "lines": [
+      [
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "4879ef90c3",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 2 Rain of Blight "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "73863d0313",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 2 Crowded "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "513f0c5b35",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "513f0c5b35",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       }
+      ],
+      [
+       {
+        "type": "text",
+        "text": "Crit 1 "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "8d4bbe5e11",
+         "in_dictionary": true,
+         "status": "confirmed",
+         "key": "damage",
+         "kind": "damage_type",
+         "meaning_en": "Damage (value printed inside)",
+         "meaning_zh": "伤害（图标内数字为伤害值）",
+         "value": null,
+         "naming": "confirmed"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 2 Acc 10 "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "8d4bbe5e11",
+         "in_dictionary": true,
+         "status": "confirmed",
+         "key": "damage",
+         "kind": "damage_type",
+         "meaning_en": "Damage (value printed inside)",
+         "meaning_zh": "伤害（图标内数字为伤害值）",
+         "value": null,
+         "naming": "confirmed"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 1"
+       }
+      ],
+      [
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "701329b97c",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 2 "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "41c31d63d8",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 2t , "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "a7ee47360e",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       }
+      ]
+     ]
+    },
+    {
+     "slot": 3,
+     "name": "Escape Cloud",
+     "target": "Closest",
+     "printed_labels": [
+      {
+       "label": "Crit",
+       "raw": "Crit 1",
+       "value": 1
+      },
+      {
+       "label": "Acc",
+       "raw": "Acc 10",
+       "value": 10
+      }
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "numeric": 2,
+       "anchor": {
+        "type": "printed_label",
+        "label": "Crit"
+       }
+      },
+      {
+       "text": "1",
+       "numeric": 1,
+       "anchor": {
+        "type": "printed_label",
+        "label": "Acc"
+       }
+      },
+      {
+       "text": "1",
+       "numeric": 1,
+       "anchor": {
+        "type": "beside_icon",
+        "left_icon": {
+         "iconId": "73863d0313",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        },
+        "inside_icon": null
+       }
+      }
+     ],
+     "effect_lines": [
+      [
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "26a74fc48e",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " Self "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "1358872299",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " Push 2 "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "701329b97c",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 1 "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "41c31d63d8",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 3t"
+       }
+      ]
+     ],
+     "lines": [
+      [
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "4879ef90c3",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 3 Escape Cloud "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "73863d0313",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " Closest 1 "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "513f0c5b35",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       }
+      ],
+      [
+       {
+        "type": "text",
+        "text": "Crit 1 "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "8d4bbe5e11",
+         "in_dictionary": true,
+         "status": "confirmed",
+         "key": "damage",
+         "kind": "damage_type",
+         "meaning_en": "Damage (value printed inside)",
+         "meaning_zh": "伤害（图标内数字为伤害值）",
+         "value": null,
+         "naming": "confirmed"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 2 Acc 10 "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "8d4bbe5e11",
+         "in_dictionary": true,
+         "status": "confirmed",
+         "key": "damage",
+         "kind": "damage_type",
+         "meaning_en": "Damage (value printed inside)",
+         "meaning_zh": "伤害（图标内数字为伤害值）",
+         "value": null,
+         "naming": "confirmed"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 1"
+       }
+      ],
+      [
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "26a74fc48e",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " Self "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "1358872299",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " Push 2 "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "701329b97c",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 1 "
+       },
+       {
+        "type": "icon",
+        "icon": {
+         "iconId": "41c31d63d8",
+         "in_dictionary": false,
+         "status": null,
+         "key": null,
+         "kind": null,
+         "meaning_en": null,
+         "meaning_zh": null,
+         "value": null,
+         "naming": "unverified"
+        }
+       },
+       {
+        "type": "text",
+        "text": " 3t"
+       }
+      ]
+     ]
+    }
+   ],
+   "footer_lines": [
+    [
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "6477bbec5a",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "2026b89bfb",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "a8c2b7f6b8",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "ac253b1f31",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 3 "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "e8402e9734",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "be477a0715",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "bf56fec65f",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "e8402e9734",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "8d95c5f8bd",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "dd08e0e894",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "f8f441a0ac",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 2 1 "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "44abb21285",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " "
+     },
+     {
+      "type": "icon",
+      "icon": {
+       "iconId": "8b5ce59f3a",
+       "in_dictionary": false,
+       "status": null,
+       "key": null,
+       "kind": null,
+       "meaning_en": null,
+       "meaning_zh": null,
+       "value": null,
+       "naming": "unverified"
+      }
+     },
+     {
+      "type": "text",
+      "text": " 6-10 1-5"
+     }
+    ]
+   ],
+   "back_texts": []
+  }
+ ]
+}

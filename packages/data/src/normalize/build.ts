@@ -423,10 +423,11 @@ function buildMonsterCard(
   };
 }
 
-function buildMonsterMedium(
+export function buildMonsterMedium(
   parsed: MonsterMediumFile,
   raw: RawFile,
   lookup: IconLookup,
+  sourceRoot: "extract/corebox" | "extract/extension/weald" = "extract/corebox",
 ): NormalizedMonsterMediumFile {
   const rawCards = rawIndex(raw);
   const cards = parsed.cards.map((card) => {
@@ -459,29 +460,33 @@ function buildMonsterMedium(
     dictionary_version: "1.8",
     category: "monster_medium",
     sources: {
-      parsed: "extract/corebox/parsed/monster_medium.json",
-      raw: "extract/corebox/raw/monster_medium.json",
+      parsed: `${sourceRoot}/parsed/monster_medium.json`,
+      raw: `${sourceRoot}/raw/monster_medium.json`,
       dictionary: DICTIONARY_SOURCE,
     },
     stats: cardStats(cards),
-    cards: attachVerifiedMonsterEffects(
-      attachVerifiedMonsterDamage(
-        attachVerifiedMonsterStress(
-          attachVerifiedMonsterProtection(
-            attachVerifiedMonsterSpeeds(
-              attachVerifiedMonsterStances(attachVerifiedCollectedLife(cards)),
+    cards:
+      sourceRoot === "extract/corebox"
+        ? attachVerifiedMonsterEffects(
+            attachVerifiedMonsterDamage(
+              attachVerifiedMonsterStress(
+                attachVerifiedMonsterProtection(
+                  attachVerifiedMonsterSpeeds(
+                    attachVerifiedMonsterStances(attachVerifiedCollectedLife(cards)),
+                  ),
+                ),
+              ),
             ),
-          ),
-        ),
-      ),
-    ),
+          )
+        : cards,
   });
 }
 
-function buildMonsterLarge(
+export function buildMonsterLarge(
   parsed: MonsterLargeFile,
   raw: RawFile,
   lookup: IconLookup,
+  sourceRoot: "extract/corebox" | "extract/extension/weald" = "extract/corebox",
 ): NormalizedMonsterLargeFile {
   const rawCards = rawIndex(raw);
   const cards = parsed.cards.map((card) =>
@@ -492,17 +497,20 @@ function buildMonsterLarge(
     dictionary_version: "1.8",
     category: "monster_large",
     sources: {
-      parsed: "extract/corebox/parsed/monster_large.json",
-      raw: "extract/corebox/raw/monster_large.json",
+      parsed: `${sourceRoot}/parsed/monster_large.json`,
+      raw: `${sourceRoot}/raw/monster_large.json`,
       dictionary: DICTIONARY_SOURCE,
     },
     stats: cardStats(cards),
-    cards: attachVerifiedMonsterEffects(
-      attachVerifiedHeartOfDarknessSkillRanges(
-        attachVerifiedMonsterProtection(attachVerifiedLargeMonsterFields(cards), true),
-      ),
-      true,
-    ),
+    cards:
+      sourceRoot === "extract/corebox"
+        ? attachVerifiedMonsterEffects(
+            attachVerifiedHeartOfDarknessSkillRanges(
+              attachVerifiedMonsterProtection(attachVerifiedLargeMonsterFields(cards), true),
+            ),
+            true,
+          )
+        : cards,
   });
 }
 

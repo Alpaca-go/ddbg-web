@@ -320,8 +320,8 @@
     "Front"
    ],
    "level": 1,
-   "hp": 1,
-   "hp_icon": "b904edf127",
+   "hp": 7,
+   "hp_icon": "f7c80430e4",
    "resistances_icons": [
     "86bf0146dc"
    ],
@@ -364,16 +364,6 @@
     }
    ],
    "header_unlabeled_numbers": [
-    {
-     "text": "7",
-     "bbox": [
-      61.21,
-      32.37,
-      63.14,
-      38.0
-     ],
-     "inside_icon": "f7c80430e4"
-    },
     {
      "text": "2",
      "bbox": [
