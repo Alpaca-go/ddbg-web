@@ -18,3 +18,10 @@ blob-report/
 apps/web/public/tts-card-art/
 artifacts/*.png
 ddbg-print/
+
+# Local handoff notes and geometry exports
+/docs/HANDOFF-2026-11-01-codex-core-pack-remaining.md
+/docs/HANDOFF-2026-11-03-codex-core-pack-remaining.md
+/docs/HANDOFF-2026-11-05-core-pack-next-session.md
+/docs/manual-room-tile-survey.md
+/docs/screenshots/_p001-geom-export.json

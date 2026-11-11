@@ -33,7 +33,8 @@ export const RAW_SHEET_CATEGORIES = [
   "dungeon_tile",
 ] as const;
 
-const rawCategorySchema = z.enum([...RAW_CARD_CATEGORIES, ...RAW_SHEET_CATEGORIES]);
+// 扩展打孔板保留实际 trim_mm，不套用核心盒尺寸类别。
+const rawCategorySchema = z.enum([...RAW_CARD_CATEGORIES, ...RAW_SHEET_CATEGORIES, "punchboard"]);
 
 const spanSchema = z.strictObject({
   t: z.string().min(1),
@@ -91,7 +92,7 @@ const rawCardSchema = z.strictObject({
   }),
 });
 
-const sheetCategories = new Set<string>(RAW_SHEET_CATEGORIES);
+const sheetCategories = new Set<string>([...RAW_SHEET_CATEGORIES, "punchboard"]);
 
 /** `ddbg-raw-v1`：一张印刷页的文字 span、图标放置和阅读顺序。 */
 export const rawFileSchema = z

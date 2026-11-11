@@ -9,6 +9,8 @@ docs/rulings.md
 docs/rulings-notes.md
 docs/spec
 packages/data/extract/corebox
+packages/data/extract/extension/weald/raw
+packages/data/extract/extension/weald/parsed
 packages/data/dictionary/icon-dictionary-v1.1-CHANGELOG.md
 packages/data/dictionary/icon-dictionary-v1.2-CHANGELOG.md
 packages/data/dictionary/icon-dictionary-v1.3-CHANGELOG.md

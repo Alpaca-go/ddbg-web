@@ -1,0 +1,1538 @@
+{
+ "schema": "ddbg-parsed-v0",
+ "extractor_version": "1.0.4",
+ "category": "monster_large",
+ "source": "raw/extension/weald/monster_large.json",
+ "field_notes": "name/type_position/level/skills as printed. hp = number inside the heart icon at the right edge; the rulebook (Core rules p.24 'Anatomy of a Monster Card') labels that element 'Life'. Other header numbers are kept unlabeled. resistances_icons/immunities_icons = icon ids under the printed labels (icon meaning not named). copy_variants = per-copy differing marker icon (Core rules p.17: 'note the color of the Monster Token displayed on each Monster Card').",
+ "icon_token": "{icon:<iconId>} = unannotated icon cluster, see icons/catalog.json",
+ "stats": {
+  "cards": 14,
+  "ok": 8,
+  "failed": 6,
+  "success_rate": 0.5714
+ },
+ "failures": [
+  {
+   "id": "monster_large:weald:p007",
+   "pages": [
+    7
+   ],
+   "issues": [
+    "no skills found"
+   ]
+  },
+  {
+   "id": "monster_large:weald:p008",
+   "pages": [
+    8
+   ],
+   "issues": [
+    "no skills found"
+   ]
+  },
+  {
+   "id": "monster_large:weald:p009",
+   "pages": [
+    9
+   ],
+   "issues": [
+    "no skills found"
+   ]
+  },
+  {
+   "id": "monster_large:weald:p013",
+   "pages": [
+    13
+   ],
+   "issues": [
+    "no skills found"
+   ]
+  },
+  {
+   "id": "monster_large:weald:p014",
+   "pages": [
+    14
+   ],
+   "issues": [
+    "no skills found"
+   ]
+  },
+  {
+   "id": "monster_large:weald:p015",
+   "pages": [
+    15
+   ],
+   "issues": [
+    "no skills found"
+   ]
+  }
+ ],
+ "cards": [
+  {
+   "id": "monster_large:weald:p001",
+   "copies": 2,
+   "pages": [
+    1,
+    2
+   ],
+   "copy_variants": [
+    {
+     "page": 1,
+     "face": "front",
+     "iconId": "efa61fd505"
+    },
+    {
+     "page": 2,
+     "face": "front",
+     "iconId": "bda23296e7"
+    }
+   ],
+   "name": "Large Ectoplasm",
+   "type_position_raw": "Eldritch - Front - Large",
+   "type_position_tags": [
+    "Eldritch",
+    "Front",
+    "Large"
+   ],
+   "level": 1,
+   "hp": 22,
+   "hp_icon": "f7c80430e4",
+   "resistances_icons": [
+    "86bf0146dc"
+   ],
+   "immunities_icons": [],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Big Slime",
+     "block_bbox": [
+      7.54,
+      73.55,
+      140.0,
+      96.28
+     ],
+     "target": "Closest",
+     "crit": 1,
+     "crit_value": 9,
+     "acc": 9,
+     "acc_value": 6,
+     "effect_lines_raw": [],
+     "lines_raw": [
+      "{icon:4879ef90c3} 1 Big Slime {icon:73863d0313} Closest 1 {icon:513f0c5b35}",
+      "Crit 1 {icon:8d4bbe5e11} 9 Acc 9 {icon:8d4bbe5e11} 6"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        62.35,
+        78.7,
+        63.38,
+        82.81
+       ],
+       "left_icon": "73863d0313"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "Slime Smack",
+     "block_bbox": [
+      7.21,
+      96.28,
+      73.25,
+      122.5
+     ],
+     "target": "Crowded",
+     "crit": 3,
+     "crit_value": 6,
+     "acc": 9,
+     "acc_value": 3,
+     "effect_lines_raw": [
+      "{icon:701329b97c} {icon:86bf0146dc} 1t"
+     ],
+     "lines_raw": [
+      "{icon:4879ef90c3} 2 Slime Smack {icon:73863d0313} Crowded 1 {icon:513f0c5b35} {icon:513f0c5b35}",
+      "Crit 3 {icon:8d4bbe5e11} 6 Acc 9 {icon:8d4bbe5e11} 3",
+      "{icon:701329b97c} {icon:86bf0146dc} 1t"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        59.54,
+        101.19,
+        60.58,
+        105.3
+       ],
+       "left_icon": "73863d0313"
+      }
+     ]
+    },
+    {
+     "slot": 3,
+     "name": "Cytokinesis",
+     "block_bbox": [
+      73.25,
+      96.28,
+      140.0,
+      122.5
+     ],
+     "target": "Closest",
+     "crit": 1,
+     "crit_value": 6,
+     "acc": 9,
+     "acc_value": 3,
+     "effect_lines_raw": [
+      "{icon:701329b97c} {icon:1bcf831fea} 1 Large Ectoplasm"
+     ],
+     "lines_raw": [
+      "{icon:4879ef90c3} 3 Cytokinesis {icon:73863d0313} Closest 1 {icon:513f0c5b35}",
+      "Crit 1 {icon:8d4bbe5e11} 6 Acc 9 {icon:8d4bbe5e11} 3",
+      "{icon:701329b97c} {icon:1bcf831fea} 1 Large Ectoplasm"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        127.87,
+        101.19,
+        128.9,
+        105.3
+       ],
+       "left_icon": "73863d0313"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "0",
+     "bbox": [
+      22.95,
+      15.11,
+      25.1,
+      20.68
+     ],
+     "inside_icon": "1f5d70530d"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:a6bb9cc289} {icon:f4d84068a2} {icon:a6bb9cc289} {icon:f4d84068a2} {icon:e8402e9734} {icon:be477a0715} {icon:e8402e9734} {icon:cb3a891f3d} {icon:3b173828d1} {icon:f8f441a0ac} 3 1 {icon:8b5ce59f3a} {icon:8b5ce59f3a} {icon:8b5ce59f3a} 9-10 1-4 {icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:5a1ae218a7}",
+    "{icon:7f4ed77130} {icon:bcaf8600be} {icon:bf56fec65f} {icon:7c7de22bc1} 2 5-8"
+   ],
+   "back_texts": [],
+   "issues": []
+  },
+  {
+   "id": "monster_large:weald:p003",
+   "copies": 1,
+   "pages": [
+    3
+   ],
+   "name": "Unclean Giant",
+   "type_position_raw": "Human - Beast - Front - Large",
+   "type_position_tags": [
+    "Human",
+    "Beast",
+    "Front",
+    "Large"
+   ],
+   "level": 2,
+   "hp": 60,
+   "hp_icon": "f7c80430e4",
+   "resistances_icons": [
+    "86bf0146dc",
+    "e4c65ea683",
+    "6d6ead4551"
+   ],
+   "immunities_icons": [],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Treebranch Smackdown",
+     "block_bbox": [
+      7.54,
+      73.55,
+      140.0,
+      96.28
+     ],
+     "target": "Closest",
+     "crit": 1,
+     "crit_value": 24,
+     "acc": 9,
+     "acc_value": 16,
+     "effect_lines_raw": [
+      "{icon:701329b97c} {icon:cef7dd19d8} Push 1"
+     ],
+     "lines_raw": [
+      "{icon:4879ef90c3} 1 Treebranch Smackdown {icon:73863d0313} Closest 1 {icon:513f0c5b35}",
+      "Crit 1 {icon:8d4bbe5e11} 24 Acc 9 {icon:8d4bbe5e11} 16",
+      "{icon:701329b97c} {icon:cef7dd19d8} Push 1"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        62.59,
+        78.7,
+        63.63,
+        82.81
+       ],
+       "left_icon": "73863d0313"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "Confusion Spores",
+     "block_bbox": [
+      7.21,
+      96.28,
+      73.25,
+      122.5
+     ],
+     "target": "Crowded",
+     "crit": 1,
+     "crit_value": 4,
+     "acc": 9,
+     "acc_value": 2,
+     "effect_lines_raw": [
+      "{icon:701329b97c} {icon:ad4964ee48} 2t"
+     ],
+     "lines_raw": [
+      "{icon:4879ef90c3} 2 Confusion Spores {icon:73863d0313} 2 {icon:513f0c5b35} Crowded {icon:513f0c5b35} {icon:513f0c5b35} {icon:513f0c5b35}",
+      "Crit 1 {icon:8d4bbe5e11} 4 Acc 9 {icon:8d4bbe5e11} 2",
+      "{icon:701329b97c} {icon:ad4964ee48} 2t"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        53.38,
+        101.19,
+        54.81,
+        105.3
+       ],
+       "left_icon": "73863d0313"
+      }
+     ]
+    },
+    {
+     "slot": 3,
+     "name": "Poison Spores",
+     "block_bbox": [
+      73.25,
+      96.28,
+      140.0,
+      122.5
+     ],
+     "target": "Furthest",
+     "crit": 0,
+     "crit_value": 4,
+     "acc": 9,
+     "acc_value": 2,
+     "effect_lines_raw": [
+      "{icon:701329b97c} 2 {icon:fbfae2fcb6} 3t"
+     ],
+     "lines_raw": [
+      "{icon:4879ef90c3} 3 Poison Spores {icon:73863d0313} Furthest 2 {icon:513f0c5b35}",
+      "Crit 0 {icon:8d4bbe5e11} 4 Acc 9 {icon:8d4bbe5e11} 2",
+      "{icon:701329b97c} 2 {icon:fbfae2fcb6} 3t"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        127.87,
+        101.19,
+        129.3,
+        105.3
+       ],
+       "left_icon": "73863d0313"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "1",
+     "bbox": [
+      23.32,
+      15.11,
+      24.73,
+      20.68
+     ],
+     "inside_icon": "1f5d70530d"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:a6bb9cc289} {icon:f4d84068a2} {icon:a6bb9cc289} {icon:f4d84068a2} {icon:e8402e9734} {icon:be477a0715} {icon:e8402e9734} {icon:cb3a891f3d} {icon:3b173828d1} {icon:f8f441a0ac} 3 1 {icon:8b5ce59f3a} {icon:8b5ce59f3a} {icon:8b5ce59f3a} 7-10 1-2 {icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:5a1ae218a7}",
+    "{icon:7f4ed77130} {icon:bcaf8600be} {icon:bf56fec65f} {icon:7c7de22bc1} 2 3-6"
+   ],
+   "back_texts": [],
+   "issues": []
+  },
+  {
+   "id": "monster_large:weald:p004",
+   "copies": 1,
+   "pages": [
+    4
+   ],
+   "name": "Shrieker",
+   "type_position_raw": "Eldritch - Beast - Large",
+   "type_position_tags": [
+    "Eldritch",
+    "Beast",
+    "Large"
+   ],
+   "level": 1,
+   "hp": 49,
+   "hp_icon": "f7c80430e4",
+   "resistances_icons": [
+    "86bf0146dc",
+    "e4c65ea683",
+    "c468474e10"
+   ],
+   "immunities_icons": [
+    "385ed08c58"
+   ],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Peck",
+     "block_bbox": [
+      7.54,
+      73.55,
+      140.0,
+      96.28
+     ],
+     "target": "Closest",
+     "crit": 2,
+     "crit_value": 11,
+     "acc": 9,
+     "acc_value": 8,
+     "effect_lines_raw": [
+      "{icon:b65e69f6e0} Self {icon:1358872299} Pull 1 {icon:701329b97c} 2 {icon:9d03090d05} 2t"
+     ],
+     "lines_raw": [
+      "{icon:4879ef90c3} 1 Peck {icon:73863d0313} Closest 1 {icon:513f0c5b35}",
+      "Crit 2 {icon:8d4bbe5e11} 11 Acc 9 {icon:8d4bbe5e11} 8",
+      "{icon:b65e69f6e0} Self {icon:1358872299} Pull 1 {icon:701329b97c} 2 {icon:9d03090d05} 2t"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        62.84,
+        78.7,
+        63.88,
+        82.81
+       ],
+       "left_icon": "73863d0313"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "Call the Murder",
+     "block_bbox": [
+      7.21,
+      96.28,
+      73.25,
+      122.5
+     ],
+     "target": "Crowded",
+     "crit": 1,
+     "crit_value": 4,
+     "acc": 10,
+     "acc_value": 2,
+     "effect_lines_raw": [
+      "{icon:b65e69f6e0} Self {icon:1358872299} Push 2 {icon:701329b97c} {icon:86fb6b3546} +1"
+     ],
+     "lines_raw": [
+      "{icon:4879ef90c3} 2 Call the Murder {icon:73863d0313} 1 {icon:513f0c5b35} Crowded {icon:513f0c5b35} {icon:513f0c5b35} {icon:513f0c5b35}",
+      "Crit 1 {icon:8d4bbe5e11} 4 Acc 10 {icon:8d4bbe5e11} 2",
+      "{icon:b65e69f6e0} Self {icon:1358872299} Push 2 {icon:701329b97c} {icon:86fb6b3546} +1"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        53.38,
+        101.19,
+        54.42,
+        105.3
+       ],
+       "left_icon": "73863d0313"
+      }
+     ]
+    },
+    {
+     "slot": 3,
+     "name": "Regurgitate",
+     "block_bbox": [
+      73.25,
+      96.28,
+      140.0,
+      122.5
+     ],
+     "target": "Crowded",
+     "crit": 1,
+     "crit_value": 2,
+     "acc": 9,
+     "acc_value": 1,
+     "effect_lines_raw": [
+      "{icon:701329b97c} {icon:ad4964ee48} 2t , {icon:a7ee47360e}"
+     ],
+     "lines_raw": [
+      "{icon:4879ef90c3} 3 Regurgitate {icon:73863d0313} Crowded 2 {icon:513f0c5b35} {icon:513f0c5b35}",
+      "Crit 1 {icon:8d4bbe5e11} 2 Acc 9 {icon:8d4bbe5e11} 1",
+      "{icon:701329b97c} {icon:ad4964ee48} 2t , {icon:a7ee47360e}"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        124.57,
+        101.19,
+        126.01,
+        105.3
+       ],
+       "left_icon": "73863d0313"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "2",
+     "bbox": [
+      23.05,
+      15.11,
+      24.99,
+      20.68
+     ],
+     "inside_icon": "1f5d70530d"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:a6bb9cc289} {icon:f4d84068a2} {icon:a6bb9cc289} {icon:f4d84068a2} {icon:e8402e9734} {icon:be477a0715} {icon:e8402e9734} {icon:cb3a891f3d} {icon:3b173828d1} {icon:f8f441a0ac} {icon:8b5ce59f3a} 3 1 {icon:8b5ce59f3a} {icon:8b5ce59f3a} 1-5 10 {icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:5a1ae218a7}",
+    "{icon:7f4ed77130} {icon:bcaf8600be} {icon:bf56fec65f} {icon:7c7de22bc1} 2 6-9"
+   ],
+   "back_texts": [
+    "I"
+   ],
+   "issues": []
+  },
+  {
+   "id": "monster_large:weald:p005",
+   "copies": 1,
+   "pages": [
+    5
+   ],
+   "name": "Shrieker",
+   "type_position_raw": "Eldritch - Beast - Large",
+   "type_position_tags": [
+    "Eldritch",
+    "Beast",
+    "Large"
+   ],
+   "level": 2,
+   "hp": 60,
+   "hp_icon": "f7c80430e4",
+   "resistances_icons": [
+    "86bf0146dc",
+    "e4c65ea683",
+    "c468474e10"
+   ],
+   "immunities_icons": [
+    "385ed08c58"
+   ],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Peck",
+     "block_bbox": [
+      7.54,
+      73.55,
+      140.0,
+      96.28
+     ],
+     "target": "Closest",
+     "crit": 2,
+     "crit_value": 15,
+     "acc": 10,
+     "acc_value": 11,
+     "effect_lines_raw": [
+      "{icon:b65e69f6e0} Self {icon:1358872299} Pull 1 {icon:701329b97c} 3 {icon:9d03090d05} 2t"
+     ],
+     "lines_raw": [
+      "{icon:4879ef90c3} 1 Peck {icon:73863d0313} Closest 1 {icon:513f0c5b35}",
+      "Crit 2 {icon:8d4bbe5e11} 15 Acc 10 {icon:8d4bbe5e11} 11",
+      "{icon:b65e69f6e0} Self {icon:1358872299} Pull 1 {icon:701329b97c} 3 {icon:9d03090d05} 2t"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        62.84,
+        78.7,
+        63.88,
+        82.81
+       ],
+       "left_icon": "73863d0313"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "Call the Murder",
+     "block_bbox": [
+      7.21,
+      96.28,
+      73.25,
+      122.5
+     ],
+     "target": "Crowded",
+     "crit": 1,
+     "crit_value": 4,
+     "acc": 10,
+     "acc_value": 2,
+     "effect_lines_raw": [
+      "{icon:b65e69f6e0} Self {icon:1358872299} Push 2 {icon:701329b97c} {icon:86fb6b3546} +1"
+     ],
+     "lines_raw": [
+      "{icon:4879ef90c3} 2 Call the Murder {icon:73863d0313} 1 {icon:513f0c5b35} Crowded {icon:513f0c5b35} {icon:513f0c5b35} {icon:513f0c5b35}",
+      "Crit 1 {icon:8d4bbe5e11} 4 Acc 10 {icon:8d4bbe5e11} 2",
+      "{icon:b65e69f6e0} Self {icon:1358872299} Push 2 {icon:701329b97c} {icon:86fb6b3546} +1"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        53.38,
+        101.19,
+        54.42,
+        105.3
+       ],
+       "left_icon": "73863d0313"
+      }
+     ]
+    },
+    {
+     "slot": 3,
+     "name": "Regurgitate",
+     "block_bbox": [
+      73.25,
+      96.28,
+      140.0,
+      122.5
+     ],
+     "target": "Crowded",
+     "crit": 1,
+     "crit_value": 4,
+     "acc": 10,
+     "acc_value": 2,
+     "effect_lines_raw": [
+      "{icon:701329b97c} {icon:ad4964ee48} 2t , {icon:a7ee47360e}"
+     ],
+     "lines_raw": [
+      "{icon:4879ef90c3} 3 Regurgitate {icon:73863d0313} Crowded 2 {icon:513f0c5b35} {icon:513f0c5b35}",
+      "Crit 1 {icon:8d4bbe5e11} 4 Acc 10 {icon:8d4bbe5e11} 2",
+      "{icon:701329b97c} {icon:ad4964ee48} 2t , {icon:a7ee47360e}"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        124.57,
+        101.19,
+        126.01,
+        105.3
+       ],
+       "left_icon": "73863d0313"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "3",
+     "bbox": [
+      23.02,
+      15.11,
+      25.03,
+      20.68
+     ],
+     "inside_icon": "1f5d70530d"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:a6bb9cc289} {icon:f4d84068a2} {icon:a6bb9cc289} {icon:f4d84068a2} {icon:e8402e9734} {icon:be477a0715} {icon:e8402e9734} {icon:cb3a891f3d} {icon:3b173828d1} {icon:f8f441a0ac} {icon:8b5ce59f3a} 3 1 {icon:8b5ce59f3a} {icon:8b5ce59f3a} 1-5 10 {icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:5a1ae218a7}",
+    "{icon:7f4ed77130} {icon:bcaf8600be} {icon:bf56fec65f} {icon:7c7de22bc1} 2 6-9"
+   ],
+   "back_texts": [
+    "II"
+   ],
+   "issues": []
+  },
+  {
+   "id": "monster_large:weald:p006",
+   "copies": 1,
+   "pages": [
+    6
+   ],
+   "name": "Shrieker",
+   "type_position_raw": "Eldritch - Beast - Large",
+   "type_position_tags": [
+    "Eldritch",
+    "Beast",
+    "Large"
+   ],
+   "level": 3,
+   "hp": 72,
+   "hp_icon": "f7c80430e4",
+   "resistances_icons": [
+    "86bf0146dc",
+    "e4c65ea683",
+    "c468474e10"
+   ],
+   "immunities_icons": [
+    "385ed08c58"
+   ],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Peck",
+     "block_bbox": [
+      7.54,
+      73.55,
+      140.0,
+      96.28
+     ],
+     "target": "Closest",
+     "crit": 2,
+     "crit_value": 20,
+     "acc": 11,
+     "acc_value": 15,
+     "effect_lines_raw": [
+      "{icon:b65e69f6e0} Self {icon:1358872299} Pull 1 {icon:701329b97c} 3 {icon:9960683cda} 3t"
+     ],
+     "lines_raw": [
+      "{icon:4879ef90c3} 1 Peck {icon:73863d0313} Closest 1 {icon:513f0c5b35}",
+      "Crit 2 {icon:8d4bbe5e11} 20 Acc 11 {icon:8d4bbe5e11} 15",
+      "{icon:b65e69f6e0} Self {icon:1358872299} Pull 1 {icon:701329b97c} 3 {icon:9960683cda} 3t"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        62.84,
+        78.7,
+        63.88,
+        82.81
+       ],
+       "left_icon": "73863d0313"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "Call the Murder",
+     "block_bbox": [
+      7.21,
+      96.28,
+      73.25,
+      122.5
+     ],
+     "target": "Crowded",
+     "crit": 1,
+     "crit_value": 6,
+     "acc": 11,
+     "acc_value": 3,
+     "effect_lines_raw": [
+      "{icon:b65e69f6e0} Self {icon:1358872299} Push 2 {icon:701329b97c} {icon:86fb6b3546} +1"
+     ],
+     "lines_raw": [
+      "{icon:4879ef90c3} 2 Call the Murder {icon:73863d0313} 1 {icon:513f0c5b35} Crowded {icon:513f0c5b35} {icon:513f0c5b35} {icon:513f0c5b35}",
+      "Crit 1 {icon:8d4bbe5e11} 6 Acc 11 {icon:8d4bbe5e11} 3",
+      "{icon:b65e69f6e0} Self {icon:1358872299} Push 2 {icon:701329b97c} {icon:86fb6b3546} +1"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        53.38,
+        101.19,
+        54.42,
+        105.3
+       ],
+       "left_icon": "73863d0313"
+      }
+     ]
+    },
+    {
+     "slot": 3,
+     "name": "Regurgitate",
+     "block_bbox": [
+      73.25,
+      96.28,
+      140.0,
+      122.5
+     ],
+     "target": "Crowded",
+     "crit": 1,
+     "crit_value": 6,
+     "acc": 11,
+     "acc_value": 3,
+     "effect_lines_raw": [
+      "{icon:701329b97c} {icon:ad4964ee48} 2t , {icon:a7ee47360e}"
+     ],
+     "lines_raw": [
+      "{icon:4879ef90c3} 3 Regurgitate {icon:73863d0313} Crowded 2 {icon:513f0c5b35} {icon:513f0c5b35}",
+      "Crit 1 {icon:8d4bbe5e11} 6 Acc 11 {icon:8d4bbe5e11} 3",
+      "{icon:701329b97c} {icon:ad4964ee48} 2t , {icon:a7ee47360e}"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        124.57,
+        101.19,
+        126.01,
+        105.3
+       ],
+       "left_icon": "73863d0313"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "4",
+     "bbox": [
+      22.98,
+      15.11,
+      25.07,
+      20.68
+     ],
+     "inside_icon": "1f5d70530d"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:a6bb9cc289} {icon:f4d84068a2} {icon:a6bb9cc289} {icon:f4d84068a2} {icon:e8402e9734} {icon:be477a0715} {icon:e8402e9734} {icon:cb3a891f3d} {icon:3b173828d1} {icon:f8f441a0ac} {icon:8b5ce59f3a} 3 1 {icon:8b5ce59f3a} {icon:8b5ce59f3a} 1-5 10 {icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:5a1ae218a7}",
+    "{icon:7f4ed77130} {icon:bcaf8600be} {icon:bf56fec65f} {icon:7c7de22bc1} 2 6-9"
+   ],
+   "back_texts": [
+    "III"
+   ],
+   "issues": []
+  },
+  {
+   "id": "monster_large:weald:p007",
+   "copies": 1,
+   "pages": [
+    7
+   ],
+   "name": "Shrieker’s Nest",
+   "type_position_raw": "Large",
+   "type_position_tags": [
+    "Large"
+   ],
+   "level": 1,
+   "hp": 20,
+   "hp_icon": "f7c80430e4",
+   "resistances_icons": [],
+   "immunities_icons": [
+    "86bf0146dc",
+    "8f58958a51",
+    "0237ad1130"
+   ],
+   "skills": [],
+   "header_unlabeled_numbers": [],
+   "footer_lines_raw": [
+    "{icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:5a1ae218a7} {icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:5a1ae218a7}"
+   ],
+   "back_texts": [
+    "I"
+   ],
+   "issues": [
+    "no skills found"
+   ]
+  },
+  {
+   "id": "monster_large:weald:p008",
+   "copies": 1,
+   "pages": [
+    8
+   ],
+   "name": "Shrieker’s Nest",
+   "type_position_raw": "Large",
+   "type_position_tags": [
+    "Large"
+   ],
+   "level": 2,
+   "hp": 30,
+   "hp_icon": "f7c80430e4",
+   "resistances_icons": [],
+   "immunities_icons": [
+    "86bf0146dc",
+    "8f58958a51",
+    "0237ad1130"
+   ],
+   "skills": [],
+   "header_unlabeled_numbers": [],
+   "footer_lines_raw": [
+    "{icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:5a1ae218a7} {icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:5a1ae218a7}"
+   ],
+   "back_texts": [
+    "II"
+   ],
+   "issues": [
+    "no skills found"
+   ]
+  },
+  {
+   "id": "monster_large:weald:p009",
+   "copies": 1,
+   "pages": [
+    9
+   ],
+   "name": "Shrieker’s Nest",
+   "type_position_raw": "Large",
+   "type_position_tags": [
+    "Large"
+   ],
+   "level": 3,
+   "hp": 40,
+   "hp_icon": "f7c80430e4",
+   "resistances_icons": [],
+   "immunities_icons": [
+    "86bf0146dc",
+    "8f58958a51",
+    "0237ad1130"
+   ],
+   "skills": [],
+   "header_unlabeled_numbers": [],
+   "footer_lines_raw": [
+    "{icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:5a1ae218a7} {icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:5a1ae218a7}"
+   ],
+   "back_texts": [
+    "III"
+   ],
+   "issues": [
+    "no skills found"
+   ]
+  },
+  {
+   "id": "monster_large:weald:p010",
+   "copies": 1,
+   "pages": [
+    10
+   ],
+   "name": "Hag",
+   "type_position_raw": "Human - Large",
+   "type_position_tags": [
+    "Human",
+    "Large"
+   ],
+   "level": 1,
+   "hp": 60,
+   "hp_icon": "f7c80430e4",
+   "resistances_icons": [
+    "385ed08c58"
+   ],
+   "immunities_icons": [
+    "86bf0146dc",
+    "0cdc58648a"
+   ],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Into the Pot",
+     "block_bbox": [
+      7.54,
+      73.55,
+      140.0,
+      96.28
+     ],
+     "target": "Closest",
+     "acc": 10,
+     "acc_value": null,
+     "effect_lines_raw": [
+      "{icon:b65e69f6e0} Self {icon:1358872299} Pull 1 {icon:701329b97c} Put in the Cauldron"
+     ],
+     "lines_raw": [
+      "{icon:4879ef90c3} 1 Into the Pot {icon:73863d0313} Closest 1 {icon:513f0c5b35}",
+      "Acc 10",
+      "{icon:b65e69f6e0} Self {icon:1358872299} Pull 1 {icon:701329b97c} Put in the Cauldron"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        62.74,
+        78.7,
+        63.78,
+        82.81
+       ],
+       "left_icon": "73863d0313"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "Meat Tenderizer",
+     "block_bbox": [
+      7.21,
+      96.28,
+      73.25,
+      122.5
+     ],
+     "target": "Crowded",
+     "crit": 1,
+     "crit_value": 5,
+     "acc": 9,
+     "acc_value": 3,
+     "effect_lines_raw": [],
+     "lines_raw": [
+      "{icon:4879ef90c3} 2 Meat Tenderizer {icon:73863d0313} 1 {icon:513f0c5b35} Crowded {icon:513f0c5b35} {icon:513f0c5b35} {icon:513f0c5b35}",
+      "Crit 1 {icon:8d4bbe5e11} 5 Acc 9 {icon:8d4bbe5e11} 3"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        53.38,
+        101.19,
+        54.42,
+        105.3
+       ],
+       "left_icon": "73863d0313"
+      }
+     ]
+    },
+    {
+     "slot": 3,
+     "name": "Season to Perfection",
+     "block_bbox": [
+      73.25,
+      96.28,
+      140.0,
+      122.5
+     ],
+     "target": "Furthest",
+     "crit": 0,
+     "crit_value": 2,
+     "acc": 10,
+     "acc_value": 1,
+     "effect_lines_raw": [
+      "{icon:701329b97c} {icon:ad4964ee48} 2t , {icon:86fb6b3546} +1"
+     ],
+     "lines_raw": [
+      "{icon:4879ef90c3} 3 Season to Perfection {icon:73863d0313} Furthest 2 {icon:513f0c5b35}",
+      "Crit 0 {icon:8d4bbe5e11} 2 Acc 10 {icon:8d4bbe5e11} 1",
+      "{icon:701329b97c} {icon:ad4964ee48} 2t , {icon:86fb6b3546} +1"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        127.62,
+        101.19,
+        129.05,
+        105.3
+       ],
+       "left_icon": "73863d0313"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "1",
+     "bbox": [
+      23.32,
+      15.11,
+      24.73,
+      20.68
+     ],
+     "inside_icon": "1f5d70530d"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:a6bb9cc289} {icon:f4d84068a2} {icon:7f4ed77130} {icon:a6bb9cc289} {icon:f4d84068a2} {icon:bcaf8600be} {icon:e8402e9734} {icon:be477a0715} {icon:bf56fec65f} {icon:e8402e9734} {icon:8d95c5f8bd} {icon:7c7de22bc1} {icon:8e5bcde8ff} {icon:8b5ce59f3a} 3 2 {icon:8b5ce59f3a} 7-10 1-6 {icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:5a1ae218a7}"
+   ],
+   "back_texts": [
+    "I"
+   ],
+   "issues": []
+  },
+  {
+   "id": "monster_large:weald:p011",
+   "copies": 1,
+   "pages": [
+    11
+   ],
+   "name": "Hag",
+   "type_position_raw": "Human - Large",
+   "type_position_tags": [
+    "Human",
+    "Large"
+   ],
+   "level": 2,
+   "hp": 75,
+   "hp_icon": "f7c80430e4",
+   "resistances_icons": [
+    "385ed08c58"
+   ],
+   "immunities_icons": [
+    "86bf0146dc",
+    "0cdc58648a"
+   ],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Into the Pot",
+     "block_bbox": [
+      7.54,
+      73.55,
+      140.0,
+      96.28
+     ],
+     "target": "Closest",
+     "acc": 11,
+     "acc_value": null,
+     "effect_lines_raw": [
+      "{icon:b65e69f6e0} Self {icon:1358872299} Pull 1 {icon:701329b97c} Put in the Cauldron"
+     ],
+     "lines_raw": [
+      "{icon:4879ef90c3} 1 Into the Pot {icon:73863d0313} Closest 1 {icon:513f0c5b35}",
+      "Acc 11",
+      "{icon:b65e69f6e0} Self {icon:1358872299} Pull 1 {icon:701329b97c} Put in the Cauldron"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        62.74,
+        78.7,
+        63.78,
+        82.81
+       ],
+       "left_icon": "73863d0313"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "Meat Tenderizer",
+     "block_bbox": [
+      7.21,
+      96.28,
+      73.25,
+      122.5
+     ],
+     "target": "Crowded",
+     "crit": 2,
+     "crit_value": 6,
+     "acc": 10,
+     "acc_value": 4,
+     "effect_lines_raw": [],
+     "lines_raw": [
+      "{icon:4879ef90c3} 2 Meat Tenderizer {icon:73863d0313} 1 {icon:513f0c5b35} Crowded {icon:513f0c5b35} {icon:513f0c5b35} {icon:513f0c5b35}",
+      "Crit 2 {icon:8d4bbe5e11} 6 Acc 10 {icon:8d4bbe5e11} 4"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        53.38,
+        101.19,
+        54.42,
+        105.3
+       ],
+       "left_icon": "73863d0313"
+      }
+     ]
+    },
+    {
+     "slot": 3,
+     "name": "Season to Perfection",
+     "block_bbox": [
+      73.25,
+      96.28,
+      140.0,
+      122.5
+     ],
+     "target": "Furthest",
+     "crit": 0,
+     "crit_value": 4,
+     "acc": 11,
+     "acc_value": 2,
+     "effect_lines_raw": [
+      "{icon:701329b97c} {icon:ad4964ee48} 2t , {icon:86fb6b3546} +1"
+     ],
+     "lines_raw": [
+      "{icon:4879ef90c3} 3 Season to Perfection {icon:73863d0313} Furthest 2 {icon:513f0c5b35}",
+      "Crit 0 {icon:8d4bbe5e11} 4 Acc 11 {icon:8d4bbe5e11} 2",
+      "{icon:701329b97c} {icon:ad4964ee48} 2t , {icon:86fb6b3546} +1"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        127.62,
+        101.19,
+        129.05,
+        105.3
+       ],
+       "left_icon": "73863d0313"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "1",
+     "bbox": [
+      23.32,
+      15.11,
+      24.73,
+      20.68
+     ],
+     "inside_icon": "1f5d70530d"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:a6bb9cc289} {icon:f4d84068a2} {icon:7f4ed77130} {icon:a6bb9cc289} {icon:f4d84068a2} {icon:bcaf8600be} {icon:e8402e9734} {icon:be477a0715} {icon:bf56fec65f} {icon:e8402e9734} {icon:8d95c5f8bd} {icon:7c7de22bc1} {icon:8e5bcde8ff} {icon:8b5ce59f3a} 3 2 {icon:8b5ce59f3a} 7-10 1-6 {icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:5a1ae218a7}"
+   ],
+   "back_texts": [
+    "II"
+   ],
+   "issues": []
+  },
+  {
+   "id": "monster_large:weald:p012",
+   "copies": 1,
+   "pages": [
+    12
+   ],
+   "name": "Hag",
+   "type_position_raw": "Human - Large",
+   "type_position_tags": [
+    "Human",
+    "Large"
+   ],
+   "level": 3,
+   "hp": 95,
+   "hp_icon": "f7c80430e4",
+   "resistances_icons": [
+    "385ed08c58"
+   ],
+   "immunities_icons": [
+    "86bf0146dc",
+    "0cdc58648a"
+   ],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Into the Pot",
+     "block_bbox": [
+      7.54,
+      73.55,
+      140.0,
+      96.28
+     ],
+     "target": "Closest",
+     "acc": 12,
+     "acc_value": null,
+     "effect_lines_raw": [
+      "{icon:b65e69f6e0} Self {icon:1358872299} Pull 1 {icon:701329b97c} Put in the Cauldron"
+     ],
+     "lines_raw": [
+      "{icon:4879ef90c3} 1 Into the Pot {icon:73863d0313} Closest 1 {icon:513f0c5b35}",
+      "Acc 12",
+      "{icon:b65e69f6e0} Self {icon:1358872299} Pull 1 {icon:701329b97c} Put in the Cauldron"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        62.74,
+        78.7,
+        63.78,
+        82.81
+       ],
+       "left_icon": "73863d0313"
+      }
+     ]
+    },
+    {
+     "slot": 2,
+     "name": "Meat Tenderizer",
+     "block_bbox": [
+      7.21,
+      96.28,
+      73.25,
+      122.5
+     ],
+     "target": "Crowded",
+     "crit": 2,
+     "crit_value": 9,
+     "acc": 11,
+     "acc_value": 6,
+     "effect_lines_raw": [],
+     "lines_raw": [
+      "{icon:4879ef90c3} 2 Meat Tenderizer {icon:73863d0313} 1 {icon:513f0c5b35} Crowded {icon:513f0c5b35} {icon:513f0c5b35} {icon:513f0c5b35}",
+      "Crit 2 {icon:8d4bbe5e11} 9 Acc 11 {icon:8d4bbe5e11} 6"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "1",
+       "bbox": [
+        53.38,
+        101.19,
+        54.42,
+        105.3
+       ],
+       "left_icon": "73863d0313"
+      }
+     ]
+    },
+    {
+     "slot": 3,
+     "name": "Season to Perfection",
+     "block_bbox": [
+      73.25,
+      96.28,
+      140.0,
+      122.5
+     ],
+     "target": "Furthest",
+     "crit": 0,
+     "crit_value": 6,
+     "acc": 12,
+     "acc_value": 3,
+     "effect_lines_raw": [
+      "{icon:701329b97c} {icon:ad4964ee48} 2t , {icon:86fb6b3546} +1"
+     ],
+     "lines_raw": [
+      "{icon:4879ef90c3} 3 Season to Perfection {icon:73863d0313} Furthest 2 {icon:513f0c5b35}",
+      "Crit 0 {icon:8d4bbe5e11} 6 Acc 12 {icon:8d4bbe5e11} 3",
+      "{icon:701329b97c} {icon:ad4964ee48} 2t , {icon:86fb6b3546} +1"
+     ],
+     "unlabeled_numbers": [
+      {
+       "text": "2",
+       "bbox": [
+        127.62,
+        101.19,
+        129.05,
+        105.3
+       ],
+       "left_icon": "73863d0313"
+      }
+     ]
+    }
+   ],
+   "header_unlabeled_numbers": [
+    {
+     "text": "1",
+     "bbox": [
+      23.32,
+      15.11,
+      24.73,
+      20.68
+     ],
+     "inside_icon": "1f5d70530d"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:a6bb9cc289} {icon:f4d84068a2} {icon:7f4ed77130} {icon:a6bb9cc289} {icon:f4d84068a2} {icon:bcaf8600be} {icon:e8402e9734} {icon:be477a0715} {icon:bf56fec65f} {icon:e8402e9734} {icon:8d95c5f8bd} {icon:7c7de22bc1} {icon:8e5bcde8ff} {icon:8b5ce59f3a} 3 2 {icon:8b5ce59f3a} 7-10 1-6 {icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:5a1ae218a7}"
+   ],
+   "back_texts": [
+    "III"
+   ],
+   "issues": []
+  },
+  {
+   "id": "monster_large:weald:p013",
+   "copies": 1,
+   "pages": [
+    13
+   ],
+   "name": "Cauldron Empty",
+   "type_position_raw": "Large",
+   "type_position_tags": [
+    "Large"
+   ],
+   "level": 1,
+   "hp": 66,
+   "hp_icon": "f7c80430e4",
+   "resistances_icons": [],
+   "immunities_icons": [
+    "86bf0146dc",
+    "1fb7f0d900",
+    "8f58958a51",
+    "0cdc58648a",
+    "0237ad1130"
+   ],
+   "skills": [],
+   "header_unlabeled_numbers": [
+    {
+     "text": "0",
+     "bbox": [
+      22.95,
+      15.11,
+      25.1,
+      20.68
+     ],
+     "inside_icon": "1f5d70530d"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:5a1ae218a7} {icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:5a1ae218a7}"
+   ],
+   "back_texts": [
+    "Cauldron Full",
+    "Large",
+    "Resistances    Immunities",
+    "0",
+    "I",
+    "Boil",
+    "1",
+    "Closest",
+    "9",
+    "0",
+    "Crit 1",
+    "9",
+    "Acc 12",
+    "5",
+    "+1"
+   ],
+   "issues": [
+    "no skills found"
+   ]
+  },
+  {
+   "id": "monster_large:weald:p014",
+   "copies": 1,
+   "pages": [
+    14
+   ],
+   "name": "Cauldron Empty",
+   "type_position_raw": "Large",
+   "type_position_tags": [
+    "Large"
+   ],
+   "level": 2,
+   "hp": 100,
+   "hp_icon": "f7c80430e4",
+   "resistances_icons": [],
+   "immunities_icons": [
+    "86bf0146dc",
+    "1fb7f0d900",
+    "8f58958a51",
+    "0cdc58648a",
+    "0237ad1130"
+   ],
+   "skills": [],
+   "header_unlabeled_numbers": [
+    {
+     "text": "0",
+     "bbox": [
+      22.95,
+      15.11,
+      25.1,
+      20.68
+     ],
+     "inside_icon": "1f5d70530d"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:5a1ae218a7} {icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:5a1ae218a7}"
+   ],
+   "back_texts": [
+    "Cauldron Full",
+    "Large",
+    "Resistances    Immunities",
+    "0",
+    "Boil",
+    "1",
+    "Closest",
+    "14",
+    "0",
+    "Crit 1",
+    "12",
+    "Acc 14",
+    "7",
+    "+1",
+    "II"
+   ],
+   "issues": [
+    "no skills found"
+   ]
+  },
+  {
+   "id": "monster_large:weald:p015",
+   "copies": 1,
+   "pages": [
+    15
+   ],
+   "name": "Cauldron Empty",
+   "type_position_raw": "Large",
+   "type_position_tags": [
+    "Large"
+   ],
+   "level": 3,
+   "hp": 136,
+   "hp_icon": "f7c80430e4",
+   "resistances_icons": [],
+   "immunities_icons": [
+    "86bf0146dc",
+    "1fb7f0d900",
+    "8f58958a51",
+    "0cdc58648a",
+    "0237ad1130"
+   ],
+   "skills": [],
+   "header_unlabeled_numbers": [
+    {
+     "text": "0",
+     "bbox": [
+      22.95,
+      15.11,
+      25.1,
+      20.68
+     ],
+     "inside_icon": "1f5d70530d"
+    }
+   ],
+   "footer_lines_raw": [
+    "{icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:5a1ae218a7} {icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:5a1ae218a7}"
+   ],
+   "back_texts": [
+    "Cauldron Full",
+    "Large",
+    "Resistances    Immunities",
+    "0",
+    "Boil",
+    "1",
+    "Closest",
+    "19",
+    "0",
+    "Crit 1",
+    "16",
+    "Acc 16",
+    "9",
+    "+1",
+    "III"
+   ],
+   "issues": [
+    "no skills found"
+   ]
+  }
+ ]
+}

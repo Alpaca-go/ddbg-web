@@ -180,7 +180,7 @@ def parse_hero_skill(card):
 
 
 # ------------------------------------------------------------------ monsters
-def parse_monster(card, large=False):
+def parse_monster(card, large=False, skill_badge_min_size=10):
     F = card["faces"]["front"]
     fs, fi = F["spans"], F["icons"]
     W, H = F["trim_mm"]
@@ -242,7 +242,7 @@ def parse_monster(card, large=False):
     # skills: header = digit inside a badge + Dwarven name to its right on the same row
     heads = []
     for s in fs:
-        if s["t"] in ("1", "2", "3") and is_dwarf(s) and s["size"] >= 10:
+        if s["t"] in ("1", "2", "3") and is_dwarf(s) and s["size"] >= skill_badge_min_size:
             nm = [o for o in fs if is_dwarf(o) and re.search(r"[A-Za-z]{3}", o["t"]) and vov(o["bbox"], s["bbox"]) >= 0.3
                   and 0 < o["bbox"][0] - s["bbox"][2] < 8 and not re.match(r"^(Crit|Acc)(?:\s+\d+)?$", o["t"])]
             if nm:

@@ -1,0 +1,157 @@
+{
+ "schema": "ddbg-raw-v1",
+ "extractor_version": "1.0.4",
+ "category": "punchboard",
+ "kind": "sheet",
+ "units": {
+  "length": "mm",
+  "origin": "top-left corner of the PDF TrimBox (card face, bleed excluded)",
+  "y_axis": "down",
+  "font_size": "pt"
+ },
+ "sources": [
+  {
+   "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_PUNCHBOARD_FRONT.pdf",
+   "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_PUNCHBOARD_BACK.pdf",
+   "source_set": "extension",
+   "kind": "sheet",
+   "front_pages": 1,
+   "back_pages": 1
+  }
+ ],
+ "n_pages": 1,
+ "n_unique": 1,
+ "n_copies_total": 1,
+ "cards": [
+  {
+   "id": "punchboard:weald:p001",
+   "source_set": "extension",
+   "copies": 1,
+   "pages": [
+    1
+   ],
+   "faces": {
+    "front": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_PUNCHBOARD_FRONT.pdf",
+     "page": 1,
+     "trim_mm": [
+      175.0,
+      95.0
+     ],
+     "face_phash": "9aaaabf3b560c8a4",
+     "spans": [
+      {
+       "t": "HOUND MASTER",
+       "bbox": [
+        11.87,
+        75.41,
+        64.01,
+        88.0
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 32.64,
+       "color": "#231f20",
+       "dup": 2
+      },
+      {
+       "t": "SHIELDBREAKER",
+       "bbox": [
+        111.64,
+        75.41,
+        163.83,
+        88.0
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 32.64,
+       "color": "#231f20",
+       "dup": 2
+      }
+     ],
+     "icons": [],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "HOUND MASTER",
+       "bbox": [
+        11.87,
+        75.41,
+        64.01,
+        88.0
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "SHIELDBREAKER",
+       "bbox": [
+        111.64,
+        75.41,
+        163.83,
+        88.0
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_PUNCHBOARD_BACK.pdf",
+     "page": 1,
+     "trim_mm": [
+      175.0,
+      95.0
+     ],
+     "face_phash": "8afbafa6e1109ce0",
+     "spans": [
+      {
+       "t": "HOUND MASTER",
+       "bbox": [
+        111.5,
+        75.41,
+        163.64,
+        88.0
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 32.64,
+       "color": "#231f20",
+       "dup": 2
+      },
+      {
+       "t": "SHIELDBREAKER",
+       "bbox": [
+        11.68,
+        75.41,
+        63.87,
+        88.0
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 32.64,
+       "color": "#231f20",
+       "dup": 2
+      }
+     ],
+     "icons": [],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "SHIELDBREAKER",
+       "bbox": [
+        11.68,
+        75.41,
+        63.87,
+        88.0
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "HOUND MASTER",
+       "bbox": [
+        111.5,
+        75.41,
+        163.64,
+        88.0
+       ]
+      }
+     ]
+    }
+   }
+  }
+ ]
+}

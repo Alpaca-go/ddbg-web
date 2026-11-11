@@ -1,0 +1,9948 @@
+{
+ "schema": "ddbg-raw-v1",
+ "extractor_version": "1.0.4",
+ "category": "boss_ability",
+ "kind": "card",
+ "units": {
+  "length": "mm",
+  "origin": "top-left corner of the PDF TrimBox (card face, bleed excluded)",
+  "y_axis": "down",
+  "font_size": "pt"
+ },
+ "sources": [
+  {
+   "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+   "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_BACK.pdf",
+   "source_set": "extension",
+   "kind": "card",
+   "front_pages": 21,
+   "back_pages": 21
+  }
+ ],
+ "n_pages": 21,
+ "n_unique": 21,
+ "n_copies_total": 21,
+ "cards": [
+  {
+   "id": "boss_ability:weald:p001",
+   "source_set": "extension",
+   "copies": 1,
+   "pages": [
+    1
+   ],
+   "faces": {
+    "front": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+     "page": 1,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c42e3b9167c02e7e",
+     "spans": [
+      {
+       "t": "I",
+       "bbox": [
+        34.51,
+        5.35,
+        35.97,
+        12.29
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#94c23e"
+      },
+      {
+       "t": "Shrieker",
+       "bbox": [
+        26.09,
+        12.85,
+        43.93,
+        19.79
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#d12529"
+      },
+      {
+       "t": "Hold fast your trinkets and baubles, your",
+       "bbox": [
+        12.06,
+        44.73,
+        57.84,
+        48.39
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "glittering treasures, your sacred heirlooms",
+       "bbox": [
+        10.71,
+        48.43,
+        59.19,
+        52.09
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "- the Shrieker’s rapacious talons will",
+       "bbox": [
+        14.2,
+        52.13,
+        55.7,
+        55.8
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "not be denied. Rancid and contemptible,",
+       "bbox": [
+        13.32,
+        55.83,
+        56.57,
+        59.5
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "this opportunistic corvid swoops from",
+       "bbox": [
+        13.58,
+        59.54,
+        56.32,
+        63.2
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "its perch high above the Weald, claiming",
+       "bbox": [
+        12.74,
+        63.24,
+        57.16,
+        66.9
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "whatever catches its covetous eye. The",
+       "bbox": [
+        13.28,
+        66.94,
+        56.62,
+        70.61
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "Shrieker’s nest is a rancorous tangle of",
+       "bbox": [
+        12.72,
+        70.65,
+        57.18,
+        74.31
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "corpses and collected valuables, making",
+       "bbox": [
+        12.92,
+        74.35,
+        56.98,
+        78.01
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "it a veritable treasure trove for those",
+       "bbox": [
+        13.77,
+        78.06,
+        56.14,
+        81.72
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "with a stomach for risk. As much as the",
+       "bbox": [
+        12.65,
+        81.76,
+        57.26,
+        85.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "thing delights in hoarding its ill-gotten",
+       "bbox": [
+        13.65,
+        85.46,
+        56.26,
+        89.13
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "gains, it will flee its nest if its life is",
+       "bbox": [
+        14.66,
+        89.16,
+        55.24,
+        92.83
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "threatened. We need not kill it, merely",
+       "bbox": [
+        13.91,
+        92.87,
+        56.0,
+        96.53
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "scare it away, and reclaim what is ours.",
+       "bbox": [
+        12.3,
+        96.57,
+        57.6,
+        100.23
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "e541512125",
+       "bbox": [
+        30.64,
+        3.84,
+        39.86,
+        13.37
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:e541512125} I",
+       "bbox": [
+        30.64,
+        3.84,
+        39.86,
+        13.37
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Shrieker",
+       "bbox": [
+        26.09,
+        12.85,
+        43.93,
+        19.79
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Hold fast your trinkets and baubles, your",
+       "bbox": [
+        12.06,
+        44.73,
+        57.84,
+        48.39
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "glittering treasures, your sacred heirlooms",
+       "bbox": [
+        10.71,
+        48.43,
+        59.19,
+        52.09
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "- the Shrieker’s rapacious talons will",
+       "bbox": [
+        14.2,
+        52.13,
+        55.7,
+        55.8
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "not be denied. Rancid and contemptible,",
+       "bbox": [
+        13.32,
+        55.83,
+        56.57,
+        59.5
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "this opportunistic corvid swoops from",
+       "bbox": [
+        13.58,
+        59.54,
+        56.32,
+        63.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "its perch high above the Weald, claiming",
+       "bbox": [
+        12.74,
+        63.24,
+        57.16,
+        66.9
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "whatever catches its covetous eye. The",
+       "bbox": [
+        13.28,
+        66.94,
+        56.62,
+        70.61
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Shrieker’s nest is a rancorous tangle of",
+       "bbox": [
+        12.72,
+        70.65,
+        57.18,
+        74.31
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "corpses and collected valuables, making",
+       "bbox": [
+        12.92,
+        74.35,
+        56.98,
+        78.01
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "it a veritable treasure trove for those",
+       "bbox": [
+        13.77,
+        78.06,
+        56.14,
+        81.72
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "with a stomach for risk. As much as the",
+       "bbox": [
+        12.65,
+        81.76,
+        57.26,
+        85.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "thing delights in hoarding its ill-gotten",
+       "bbox": [
+        13.65,
+        85.46,
+        56.26,
+        89.13
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "gains, it will flee its nest if its life is",
+       "bbox": [
+        14.66,
+        89.16,
+        55.24,
+        92.83
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "threatened. We need not kill it, merely",
+       "bbox": [
+        13.91,
+        92.87,
+        56.0,
+        96.53
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "scare it away, and reclaim what is ours.",
+       "bbox": [
+        12.3,
+        96.57,
+        57.6,
+        100.23
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_BACK.pdf",
+     "page": 1,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "9496c2f36c6239ad",
+     "spans": [
+      {
+       "t": "I",
+       "bbox": [
+        34.1,
+        107.17,
+        35.88,
+        115.62
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 21.91,
+       "color": "#94c23e"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "56ea9289ab",
+       "bbox": [
+        29.39,
+        105.34,
+        40.61,
+        116.94
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:56ea9289ab} I",
+       "bbox": [
+        29.39,
+        105.34,
+        40.61,
+        116.94
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "boss_ability:weald:p002",
+   "source_set": "extension",
+   "copies": 1,
+   "pages": [
+    2
+   ],
+   "faces": {
+    "front": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+     "page": 2,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c42e3b9167c02e7e",
+     "spans": [
+      {
+       "t": "II",
+       "bbox": [
+        33.78,
+        5.35,
+        36.7,
+        12.29
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#c98c3c"
+      },
+      {
+       "t": "Hold fast your trinkets and baubles, your",
+       "bbox": [
+        12.06,
+        44.73,
+        57.84,
+        48.39
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "glittering treasures, your sacred heirlooms",
+       "bbox": [
+        10.71,
+        48.43,
+        59.19,
+        52.09
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "- the Shrieker’s rapacious talons will",
+       "bbox": [
+        14.2,
+        52.13,
+        55.7,
+        55.8
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "not be denied. Rancid and contemptible,",
+       "bbox": [
+        13.32,
+        55.83,
+        56.57,
+        59.5
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "this opportunistic corvid swoops from",
+       "bbox": [
+        13.58,
+        59.54,
+        56.32,
+        63.2
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "its perch high above the Weald, claiming",
+       "bbox": [
+        12.74,
+        63.24,
+        57.16,
+        66.9
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "whatever catches its covetous eye. The",
+       "bbox": [
+        13.28,
+        66.94,
+        56.62,
+        70.61
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "Shrieker’s nest is a rancorous tangle of",
+       "bbox": [
+        12.72,
+        70.65,
+        57.18,
+        74.31
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "corpses and collected valuables, making",
+       "bbox": [
+        12.92,
+        74.35,
+        56.98,
+        78.01
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "it a veritable treasure trove for those",
+       "bbox": [
+        13.77,
+        78.06,
+        56.14,
+        81.72
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "with a stomach for risk. As much as the",
+       "bbox": [
+        12.65,
+        81.76,
+        57.26,
+        85.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "thing delights in hoarding its ill-gotten",
+       "bbox": [
+        13.65,
+        85.46,
+        56.26,
+        89.13
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "gains, it will flee its nest if its life is",
+       "bbox": [
+        14.66,
+        89.16,
+        55.24,
+        92.83
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "threatened. We need not kill it, merely",
+       "bbox": [
+        13.91,
+        92.87,
+        56.0,
+        96.53
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "scare it away, and reclaim what is ours.",
+       "bbox": [
+        12.3,
+        96.57,
+        57.6,
+        100.23
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "Shrieker",
+       "bbox": [
+        26.09,
+        12.85,
+        43.93,
+        19.79
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#d12529"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "e541512125",
+       "bbox": [
+        30.64,
+        3.84,
+        39.86,
+        13.37
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:e541512125} II",
+       "bbox": [
+        30.64,
+        3.84,
+        39.86,
+        13.37
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Shrieker",
+       "bbox": [
+        26.09,
+        12.85,
+        43.93,
+        19.79
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Hold fast your trinkets and baubles, your",
+       "bbox": [
+        12.06,
+        44.73,
+        57.84,
+        48.39
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "glittering treasures, your sacred heirlooms",
+       "bbox": [
+        10.71,
+        48.43,
+        59.19,
+        52.09
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "- the Shrieker’s rapacious talons will",
+       "bbox": [
+        14.2,
+        52.13,
+        55.7,
+        55.8
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "not be denied. Rancid and contemptible,",
+       "bbox": [
+        13.32,
+        55.83,
+        56.57,
+        59.5
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "this opportunistic corvid swoops from",
+       "bbox": [
+        13.58,
+        59.54,
+        56.32,
+        63.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "its perch high above the Weald, claiming",
+       "bbox": [
+        12.74,
+        63.24,
+        57.16,
+        66.9
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "whatever catches its covetous eye. The",
+       "bbox": [
+        13.28,
+        66.94,
+        56.62,
+        70.61
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Shrieker’s nest is a rancorous tangle of",
+       "bbox": [
+        12.72,
+        70.65,
+        57.18,
+        74.31
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "corpses and collected valuables, making",
+       "bbox": [
+        12.92,
+        74.35,
+        56.98,
+        78.01
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "it a veritable treasure trove for those",
+       "bbox": [
+        13.77,
+        78.06,
+        56.14,
+        81.72
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "with a stomach for risk. As much as the",
+       "bbox": [
+        12.65,
+        81.76,
+        57.26,
+        85.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "thing delights in hoarding its ill-gotten",
+       "bbox": [
+        13.65,
+        85.46,
+        56.26,
+        89.13
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "gains, it will flee its nest if its life is",
+       "bbox": [
+        14.66,
+        89.16,
+        55.24,
+        92.83
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "threatened. We need not kill it, merely",
+       "bbox": [
+        13.91,
+        92.87,
+        56.0,
+        96.53
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "scare it away, and reclaim what is ours.",
+       "bbox": [
+        12.3,
+        96.57,
+        57.6,
+        100.23
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_BACK.pdf",
+     "page": 2,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "9496c2f36c6239ad",
+     "spans": [
+      {
+       "t": "II",
+       "bbox": [
+        33.21,
+        107.17,
+        36.77,
+        115.62
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 21.91,
+       "color": "#c98c3c"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "56ea9289ab",
+       "bbox": [
+        29.39,
+        105.34,
+        40.61,
+        116.94
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:56ea9289ab} II",
+       "bbox": [
+        29.39,
+        105.34,
+        40.61,
+        116.94
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "boss_ability:weald:p003",
+   "source_set": "extension",
+   "copies": 1,
+   "pages": [
+    3
+   ],
+   "faces": {
+    "front": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+     "page": 3,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c42e3b916fc02e3e",
+     "spans": [
+      {
+       "t": "III",
+       "bbox": [
+        33.05,
+        5.35,
+        37.43,
+        12.29
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#d12529"
+      },
+      {
+       "t": "Hold fast your trinkets and baubles, your",
+       "bbox": [
+        12.06,
+        44.73,
+        57.84,
+        48.39
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "glittering treasures, your sacred heirlooms",
+       "bbox": [
+        10.71,
+        48.43,
+        59.19,
+        52.09
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "- the Shrieker’s rapacious talons will",
+       "bbox": [
+        14.2,
+        52.13,
+        55.7,
+        55.8
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "not be denied. Rancid and contemptible,",
+       "bbox": [
+        13.32,
+        55.83,
+        56.57,
+        59.5
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "this opportunistic corvid swoops from",
+       "bbox": [
+        13.58,
+        59.54,
+        56.32,
+        63.2
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "its perch high above the Weald, claiming",
+       "bbox": [
+        12.74,
+        63.24,
+        57.16,
+        66.9
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "whatever catches its covetous eye. The",
+       "bbox": [
+        13.28,
+        66.94,
+        56.62,
+        70.61
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "Shrieker’s nest is a rancorous tangle of",
+       "bbox": [
+        12.72,
+        70.65,
+        57.18,
+        74.31
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "corpses and collected valuables, making",
+       "bbox": [
+        12.92,
+        74.35,
+        56.98,
+        78.01
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "it a veritable treasure trove for those",
+       "bbox": [
+        13.77,
+        78.06,
+        56.14,
+        81.72
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "with a stomach for risk. As much as the",
+       "bbox": [
+        12.65,
+        81.76,
+        57.26,
+        85.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "thing delights in hoarding its ill-gotten",
+       "bbox": [
+        13.65,
+        85.46,
+        56.26,
+        89.13
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "gains, it will flee its nest if its life is",
+       "bbox": [
+        14.66,
+        89.16,
+        55.24,
+        92.83
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "threatened. We need not kill it, merely",
+       "bbox": [
+        13.91,
+        92.87,
+        56.0,
+        96.53
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "scare it away, and reclaim what is ours.",
+       "bbox": [
+        12.3,
+        96.57,
+        57.6,
+        100.23
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 9.5,
+       "color": "#231f20"
+      },
+      {
+       "t": "Shrieker",
+       "bbox": [
+        26.09,
+        12.85,
+        43.93,
+        19.79
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#d12529"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "e541512125",
+       "bbox": [
+        30.64,
+        3.84,
+        39.86,
+        13.37
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:e541512125} III",
+       "bbox": [
+        30.64,
+        3.84,
+        39.86,
+        13.37
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Shrieker",
+       "bbox": [
+        26.09,
+        12.85,
+        43.93,
+        19.79
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Hold fast your trinkets and baubles, your",
+       "bbox": [
+        12.06,
+        44.73,
+        57.84,
+        48.39
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "glittering treasures, your sacred heirlooms",
+       "bbox": [
+        10.71,
+        48.43,
+        59.19,
+        52.09
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "- the Shrieker’s rapacious talons will",
+       "bbox": [
+        14.2,
+        52.13,
+        55.7,
+        55.8
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "not be denied. Rancid and contemptible,",
+       "bbox": [
+        13.32,
+        55.83,
+        56.57,
+        59.5
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "this opportunistic corvid swoops from",
+       "bbox": [
+        13.58,
+        59.54,
+        56.32,
+        63.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "its perch high above the Weald, claiming",
+       "bbox": [
+        12.74,
+        63.24,
+        57.16,
+        66.9
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "whatever catches its covetous eye. The",
+       "bbox": [
+        13.28,
+        66.94,
+        56.62,
+        70.61
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Shrieker’s nest is a rancorous tangle of",
+       "bbox": [
+        12.72,
+        70.65,
+        57.18,
+        74.31
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "corpses and collected valuables, making",
+       "bbox": [
+        12.92,
+        74.35,
+        56.98,
+        78.01
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "it a veritable treasure trove for those",
+       "bbox": [
+        13.77,
+        78.06,
+        56.14,
+        81.72
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "with a stomach for risk. As much as the",
+       "bbox": [
+        12.65,
+        81.76,
+        57.26,
+        85.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "thing delights in hoarding its ill-gotten",
+       "bbox": [
+        13.65,
+        85.46,
+        56.26,
+        89.13
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "gains, it will flee its nest if its life is",
+       "bbox": [
+        14.66,
+        89.16,
+        55.24,
+        92.83
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "threatened. We need not kill it, merely",
+       "bbox": [
+        13.91,
+        92.87,
+        56.0,
+        96.53
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "scare it away, and reclaim what is ours.",
+       "bbox": [
+        12.3,
+        96.57,
+        57.6,
+        100.23
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_BACK.pdf",
+     "page": 3,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "9496c2f36c6239ad",
+     "spans": [
+      {
+       "t": "III",
+       "bbox": [
+        32.33,
+        107.17,
+        37.66,
+        115.62
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 21.91,
+       "color": "#d12529"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "56ea9289ab",
+       "bbox": [
+        29.39,
+        105.34,
+        40.61,
+        116.94
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:56ea9289ab} III",
+       "bbox": [
+        29.39,
+        105.34,
+        40.61,
+        116.94
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "boss_ability:weald:p004",
+   "source_set": "extension",
+   "copies": 1,
+   "pages": [
+    4
+   ],
+   "faces": {
+    "front": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+     "page": 4,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "903f2fc16a4e3e94",
+     "spans": [
+      {
+       "t": "I",
+       "bbox": [
+        58.76,
+        5.75,
+        60.22,
+        12.69
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#94c23e"
+      },
+      {
+       "t": "Shrieker",
+       "bbox": [
+        26.03,
+        45.98,
+        43.87,
+        52.92
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#d12529"
+      },
+      {
+       "t": "ACTIONS / Round: 3",
+       "bbox": [
+        19.75,
+        59.52,
+        50.14,
+        64.92
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 14.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Shrieker’s Nest:",
+       "bbox": [
+        16.6,
+        69.2,
+        40.35,
+        72.95
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "As long as",
+       "bbox": [
+        41.08,
+        69.2,
+        55.58,
+        72.85
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "the Shrieker’s Nest is in play,",
+       "bbox": [
+        14.47,
+        73.01,
+        55.42,
+        76.66
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "only the Shrieker may enter",
+       "bbox": [
+        15.16,
+        76.82,
+        54.74,
+        80.47
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "the area where it is located.",
+       "bbox": [
+        15.08,
+        80.63,
+        54.82,
+        84.28
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Call the Murder:",
+       "bbox": [
+        12.97,
+        85.44,
+        38.41,
+        89.2
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "If Shrieker’s",
+       "bbox": [
+        39.27,
+        85.44,
+        56.93,
+        89.09
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Nest is in play, the Shrieker",
+       "bbox": [
+        14.69,
+        89.25,
+        55.21,
+        92.9
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "will fly in its Area instead of",
+       "bbox": [
+        14.18,
+        93.06,
+        55.73,
+        96.71
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Push 2",
+       "bbox": [
+        13.69,
+        96.86,
+        23.68,
+        100.64
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": ". When it does so, it",
+       "bbox": [
+        23.75,
+        96.94,
+        52.99,
+        100.59
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "2",
+       "bbox": [
+        55.79,
+        96.77,
+        57.4,
+        101.4
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 12.0,
+       "color": "#40ad49"
+      },
+      {
+       "t": ".",
+       "bbox": [
+        59.41,
+        96.94,
+        60.19,
+        100.59
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "0c9e989b70",
+       "bbox": [
+        54.89,
+        4.24,
+        64.11,
+        13.78
+       ]
+      },
+      {
+       "iconId": "fbe61b623e",
+       "bbox": [
+        54.18,
+        96.78,
+        56.16,
+        98.69
+       ]
+      },
+      {
+       "iconId": "77a46220cf",
+       "bbox": [
+        9.52,
+        97.37,
+        13.05,
+        100.54
+       ],
+       "bbox_full": [
+        8.94,
+        96.8,
+        13.63,
+        101.25
+       ]
+      },
+      {
+       "iconId": "22adeaeb39",
+       "bbox": [
+        55.6,
+        97.68,
+        59.14,
+        101.09
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:0c9e989b70} I",
+       "bbox": [
+        54.89,
+        4.24,
+        64.11,
+        13.78
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Shrieker",
+       "bbox": [
+        26.03,
+        45.98,
+        43.87,
+        52.92
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "ACTIONS / Round: 3",
+       "bbox": [
+        19.75,
+        59.52,
+        50.14,
+        64.92
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Shrieker’s Nest: As long as",
+       "bbox": [
+        16.6,
+        69.2,
+        55.58,
+        72.95
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "the Shrieker’s Nest is in play,",
+       "bbox": [
+        14.47,
+        73.01,
+        55.42,
+        76.66
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "only the Shrieker may enter",
+       "bbox": [
+        15.16,
+        76.82,
+        54.74,
+        80.47
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "the area where it is located.",
+       "bbox": [
+        15.08,
+        80.63,
+        54.82,
+        84.28
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Call the Murder: If Shrieker’s",
+       "bbox": [
+        12.97,
+        85.44,
+        56.93,
+        89.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Nest is in play, the Shrieker",
+       "bbox": [
+        14.69,
+        89.25,
+        55.21,
+        92.9
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "will fly in its Area instead of",
+       "bbox": [
+        14.18,
+        93.06,
+        55.73,
+        96.71
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:77a46220cf} Push 2. When it does so, it {icon:fbe61b623e} {icon:22adeaeb39} 2 .",
+       "bbox": [
+        9.52,
+        96.77,
+        60.19,
+        101.4
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_BACK.pdf",
+     "page": 4,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c5b36ae13e68954c",
+     "spans": [
+      {
+       "t": "I",
+       "bbox": [
+        59.36,
+        5.75,
+        60.82,
+        12.69
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#94c23e"
+      },
+      {
+       "t": "After you gain a Provision",
+       "bbox": [
+        17.07,
+        34.35,
+        53.93,
+        38.0
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "in the Dungeon, choose and",
+       "bbox": [
+        15.5,
+        38.23,
+        55.5,
+        41.88
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "discard one from your pool.",
+       "bbox": [
+        15.73,
+        42.11,
+        55.27,
+        45.76
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Where Did It Go? I",
+       "bbox": [
+        22.45,
+        15.07,
+        54.12,
+        20.85
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 15.0,
+       "color": "#d12529"
+      },
+      {
+       "t": "After all heroes have rolled the",
+       "bbox": [
+        13.2,
+        81.57,
+        57.8,
+        85.23
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "supply dice, select one from",
+       "bbox": [
+        15.41,
+        77.69,
+        55.59,
+        81.35
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "the reserve and discard it.",
+       "bbox": [
+        16.92,
+        73.82,
+        54.08,
+        77.47
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "Murder of Magpies I",
+       "bbox": [
+        16.89,
+        100.4,
+        53.11,
+        106.18
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 15.0,
+       "color": "#d12529",
+       "rot": 180
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "0c9e989b70",
+       "bbox": [
+        55.49,
+        4.24,
+        64.71,
+        13.78
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:0c9e989b70} I",
+       "bbox": [
+        55.49,
+        4.24,
+        64.71,
+        13.78
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Where Did It Go? I",
+       "bbox": [
+        22.45,
+        15.07,
+        54.12,
+        20.85
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "After you gain a Provision",
+       "bbox": [
+        17.07,
+        34.35,
+        53.93,
+        38.0
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "in the Dungeon, choose and",
+       "bbox": [
+        15.5,
+        38.23,
+        55.5,
+        41.88
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "discard one from your pool.",
+       "bbox": [
+        15.73,
+        42.11,
+        55.27,
+        45.76
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "Murder of Magpies I",
+       "bbox": [
+        16.89,
+        100.4,
+        53.11,
+        106.18
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "After all heroes have rolled the",
+       "bbox": [
+        13.2,
+        81.57,
+        57.8,
+        85.23
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "supply dice, select one from",
+       "bbox": [
+        15.41,
+        77.69,
+        55.59,
+        81.35
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "the reserve and discard it.",
+       "bbox": [
+        16.92,
+        73.82,
+        54.08,
+        77.47
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "boss_ability:weald:p005",
+   "source_set": "extension",
+   "copies": 1,
+   "pages": [
+    5
+   ],
+   "faces": {
+    "front": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+     "page": 5,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "903f2fc16a4e3e94",
+     "spans": [
+      {
+       "t": "II",
+       "bbox": [
+        58.03,
+        5.75,
+        60.95,
+        12.69
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#c98c3c"
+      },
+      {
+       "t": "ACTIONS / Round: 3",
+       "bbox": [
+        19.75,
+        59.52,
+        50.14,
+        64.92
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 14.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Shrieker’s Nest:",
+       "bbox": [
+        16.6,
+        69.2,
+        40.35,
+        72.95
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "As long as",
+       "bbox": [
+        41.08,
+        69.2,
+        55.58,
+        72.85
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "the Shrieker’s Nest is in play,",
+       "bbox": [
+        14.47,
+        73.01,
+        55.42,
+        76.66
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "only the Shrieker may enter",
+       "bbox": [
+        15.16,
+        76.82,
+        54.74,
+        80.47
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "the area where it is located.",
+       "bbox": [
+        15.08,
+        80.63,
+        54.82,
+        84.28
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Call the Murder:",
+       "bbox": [
+        12.97,
+        85.44,
+        38.41,
+        89.2
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "If Shrieker’s",
+       "bbox": [
+        39.27,
+        85.44,
+        56.93,
+        89.09
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Nest is in play, the Shrieker",
+       "bbox": [
+        14.69,
+        89.25,
+        55.21,
+        92.9
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "will fly in its Area instead of",
+       "bbox": [
+        14.18,
+        93.06,
+        55.73,
+        96.71
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Push 2",
+       "bbox": [
+        13.69,
+        96.86,
+        23.68,
+        100.64
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": ". When it does so, it",
+       "bbox": [
+        23.75,
+        96.94,
+        52.99,
+        100.59
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "3",
+       "bbox": [
+        55.76,
+        96.77,
+        57.44,
+        101.4
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 12.0,
+       "color": "#40ad49"
+      },
+      {
+       "t": ".",
+       "bbox": [
+        59.41,
+        96.94,
+        60.19,
+        100.59
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Shrieker",
+       "bbox": [
+        26.03,
+        45.98,
+        43.87,
+        52.92
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#d12529"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "0c9e989b70",
+       "bbox": [
+        54.89,
+        4.24,
+        64.11,
+        13.78
+       ]
+      },
+      {
+       "iconId": "fbe61b623e",
+       "bbox": [
+        54.18,
+        96.78,
+        56.16,
+        98.69
+       ]
+      },
+      {
+       "iconId": "77a46220cf",
+       "bbox": [
+        9.52,
+        97.37,
+        13.05,
+        100.54
+       ],
+       "bbox_full": [
+        8.94,
+        96.8,
+        13.63,
+        101.25
+       ]
+      },
+      {
+       "iconId": "22adeaeb39",
+       "bbox": [
+        55.6,
+        97.68,
+        59.14,
+        101.09
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:0c9e989b70} II",
+       "bbox": [
+        54.89,
+        4.24,
+        64.11,
+        13.78
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Shrieker",
+       "bbox": [
+        26.03,
+        45.98,
+        43.87,
+        52.92
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "ACTIONS / Round: 3",
+       "bbox": [
+        19.75,
+        59.52,
+        50.14,
+        64.92
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Shrieker’s Nest: As long as",
+       "bbox": [
+        16.6,
+        69.2,
+        55.58,
+        72.95
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "the Shrieker’s Nest is in play,",
+       "bbox": [
+        14.47,
+        73.01,
+        55.42,
+        76.66
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "only the Shrieker may enter",
+       "bbox": [
+        15.16,
+        76.82,
+        54.74,
+        80.47
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "the area where it is located.",
+       "bbox": [
+        15.08,
+        80.63,
+        54.82,
+        84.28
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Call the Murder: If Shrieker’s",
+       "bbox": [
+        12.97,
+        85.44,
+        56.93,
+        89.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Nest is in play, the Shrieker",
+       "bbox": [
+        14.69,
+        89.25,
+        55.21,
+        92.9
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "will fly in its Area instead of",
+       "bbox": [
+        14.18,
+        93.06,
+        55.73,
+        96.71
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:77a46220cf} Push 2. When it does so, it {icon:fbe61b623e} {icon:22adeaeb39} 3 .",
+       "bbox": [
+        9.52,
+        96.77,
+        60.19,
+        101.4
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_BACK.pdf",
+     "page": 5,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c5b36ae12e68954e",
+     "spans": [
+      {
+       "t": "When you would gain a Provision",
+       "bbox": [
+        11.88,
+        36.29,
+        59.12,
+        39.94
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "in the Dungeon, ignore it.",
+       "bbox": [
+        17.18,
+        40.17,
+        53.82,
+        43.82
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "II",
+       "bbox": [
+        58.63,
+        5.75,
+        61.55,
+        12.69
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#c98c3c"
+      },
+      {
+       "t": "Where Did It Go? II",
+       "bbox": [
+        21.84,
+        15.07,
+        54.73,
+        20.85
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 15.0,
+       "color": "#d12529"
+      },
+      {
+       "t": "After all heroes have rolled the",
+       "bbox": [
+        13.2,
+        81.57,
+        57.8,
+        85.23
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "supply dice, select three from",
+       "bbox": [
+        14.21,
+        77.69,
+        56.78,
+        81.35
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "the reserve and discard them.",
+       "bbox": [
+        14.17,
+        73.82,
+        56.83,
+        77.47
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "Murder of Magpies II",
+       "bbox": [
+        16.28,
+        100.4,
+        53.72,
+        106.18
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 15.0,
+       "color": "#d12529",
+       "rot": 180
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "0c9e989b70",
+       "bbox": [
+        55.49,
+        4.24,
+        64.71,
+        13.78
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:0c9e989b70} II",
+       "bbox": [
+        55.49,
+        4.24,
+        64.71,
+        13.78
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Where Did It Go? II",
+       "bbox": [
+        21.84,
+        15.07,
+        54.73,
+        20.85
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "When you would gain a Provision",
+       "bbox": [
+        11.88,
+        36.29,
+        59.12,
+        39.94
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "in the Dungeon, ignore it.",
+       "bbox": [
+        17.18,
+        40.17,
+        53.82,
+        43.82
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "Murder of Magpies II",
+       "bbox": [
+        16.28,
+        100.4,
+        53.72,
+        106.18
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "After all heroes have rolled the",
+       "bbox": [
+        13.2,
+        81.57,
+        57.8,
+        85.23
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "supply dice, select three from",
+       "bbox": [
+        14.21,
+        77.69,
+        56.78,
+        81.35
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "the reserve and discard them.",
+       "bbox": [
+        14.17,
+        73.82,
+        56.83,
+        77.47
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "boss_ability:weald:p006",
+   "source_set": "extension",
+   "copies": 1,
+   "pages": [
+    6
+   ],
+   "faces": {
+    "front": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+     "page": 6,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "903f2fc16a4e3e94",
+     "spans": [
+      {
+       "t": "III",
+       "bbox": [
+        57.3,
+        5.75,
+        61.68,
+        12.69
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#d12529"
+      },
+      {
+       "t": "ACTIONS / Round: 3",
+       "bbox": [
+        19.75,
+        59.52,
+        50.14,
+        64.92
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 14.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Shrieker’s Nest:",
+       "bbox": [
+        16.6,
+        69.2,
+        40.35,
+        72.95
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "As long as",
+       "bbox": [
+        41.08,
+        69.2,
+        55.58,
+        72.85
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "the Shrieker’s Nest is in play,",
+       "bbox": [
+        14.47,
+        73.01,
+        55.42,
+        76.66
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "only the Shrieker may enter",
+       "bbox": [
+        15.16,
+        76.82,
+        54.74,
+        80.47
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "the area where it is located.",
+       "bbox": [
+        15.08,
+        80.63,
+        54.82,
+        84.28
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Call the Murder:",
+       "bbox": [
+        12.97,
+        85.44,
+        38.41,
+        89.2
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "If Shrieker’s",
+       "bbox": [
+        39.27,
+        85.44,
+        56.93,
+        89.09
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Nest is in play, the Shrieker",
+       "bbox": [
+        14.69,
+        89.25,
+        55.21,
+        92.9
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "will fly in its Area instead of",
+       "bbox": [
+        14.18,
+        93.06,
+        55.73,
+        96.71
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Push 2",
+       "bbox": [
+        13.69,
+        96.86,
+        23.68,
+        100.64
+       ],
+       "font": "Ubuntu-Medium",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": ". When it does so, it",
+       "bbox": [
+        23.75,
+        96.94,
+        52.99,
+        100.59
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "4",
+       "bbox": [
+        55.73,
+        96.77,
+        57.47,
+        101.4
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 12.0,
+       "color": "#40ad49"
+      },
+      {
+       "t": ".",
+       "bbox": [
+        59.41,
+        96.94,
+        60.19,
+        100.59
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Shrieker",
+       "bbox": [
+        26.03,
+        45.98,
+        43.87,
+        52.92
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#d12529"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "0c9e989b70",
+       "bbox": [
+        54.89,
+        4.24,
+        64.11,
+        13.78
+       ]
+      },
+      {
+       "iconId": "fbe61b623e",
+       "bbox": [
+        54.18,
+        96.78,
+        56.16,
+        98.69
+       ]
+      },
+      {
+       "iconId": "77a46220cf",
+       "bbox": [
+        9.52,
+        97.37,
+        13.05,
+        100.54
+       ],
+       "bbox_full": [
+        8.94,
+        96.8,
+        13.63,
+        101.25
+       ]
+      },
+      {
+       "iconId": "22adeaeb39",
+       "bbox": [
+        55.6,
+        97.68,
+        59.14,
+        101.09
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:0c9e989b70} III",
+       "bbox": [
+        54.89,
+        4.24,
+        64.11,
+        13.78
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Shrieker",
+       "bbox": [
+        26.03,
+        45.98,
+        43.87,
+        52.92
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "ACTIONS / Round: 3",
+       "bbox": [
+        19.75,
+        59.52,
+        50.14,
+        64.92
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Shrieker’s Nest: As long as",
+       "bbox": [
+        16.6,
+        69.2,
+        55.58,
+        72.95
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "the Shrieker’s Nest is in play,",
+       "bbox": [
+        14.47,
+        73.01,
+        55.42,
+        76.66
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "only the Shrieker may enter",
+       "bbox": [
+        15.16,
+        76.82,
+        54.74,
+        80.47
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "the area where it is located.",
+       "bbox": [
+        15.08,
+        80.63,
+        54.82,
+        84.28
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Call the Murder: If Shrieker’s",
+       "bbox": [
+        12.97,
+        85.44,
+        56.93,
+        89.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Nest is in play, the Shrieker",
+       "bbox": [
+        14.69,
+        89.25,
+        55.21,
+        92.9
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "will fly in its Area instead of",
+       "bbox": [
+        14.18,
+        93.06,
+        55.73,
+        96.71
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "{icon:77a46220cf} Push 2. When it does so, it {icon:fbe61b623e} {icon:22adeaeb39} 4 .",
+       "bbox": [
+        9.52,
+        96.77,
+        60.19,
+        101.4
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_BACK.pdf",
+     "page": 6,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c5b36ae12e68954e",
+     "spans": [
+      {
+       "t": "After you gain a Provision",
+       "bbox": [
+        17.07,
+        34.35,
+        53.93,
+        38.0
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "in the Dungeon, choose and",
+       "bbox": [
+        15.5,
+        38.23,
+        55.5,
+        41.88
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "discard two from your pool.",
+       "bbox": [
+        15.67,
+        42.11,
+        55.33,
+        45.76
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "III",
+       "bbox": [
+        57.9,
+        5.75,
+        62.28,
+        12.69
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#d12529"
+      },
+      {
+       "t": "Where Did It Go? III",
+       "bbox": [
+        21.23,
+        15.07,
+        55.34,
+        20.85
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 15.0,
+       "color": "#d12529"
+      },
+      {
+       "t": "Each Hero rolls",
+       "bbox": [
+        34.36,
+        78.84,
+        55.94,
+        82.49
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "-1",
+       "bbox": [
+        31.0,
+        78.33,
+        33.62,
+        82.96
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 12.0,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "before",
+       "bbox": [
+        15.06,
+        78.84,
+        24.8,
+        82.49
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "entering the Dungeon.",
+       "bbox": [
+        19.18,
+        74.96,
+        51.81,
+        78.61
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "Murder of Magpies III",
+       "bbox": [
+        15.67,
+        100.4,
+        54.33,
+        106.18
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 15.0,
+       "color": "#d12529",
+       "rot": 180
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "0c9e989b70",
+       "bbox": [
+        55.49,
+        4.24,
+        64.71,
+        13.78
+       ]
+      },
+      {
+       "iconId": "fe736ca63c",
+       "bbox": [
+        25.53,
+        78.52,
+        30.27,
+        83.14
+       ],
+       "bbox_full": [
+        24.24,
+        77.36,
+        31.6,
+        84.47
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:0c9e989b70} III",
+       "bbox": [
+        55.49,
+        4.24,
+        64.71,
+        13.78
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Where Did It Go? III",
+       "bbox": [
+        21.23,
+        15.07,
+        55.34,
+        20.85
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "After you gain a Provision",
+       "bbox": [
+        17.07,
+        34.35,
+        53.93,
+        38.0
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "in the Dungeon, choose and",
+       "bbox": [
+        15.5,
+        38.23,
+        55.5,
+        41.88
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "discard two from your pool.",
+       "bbox": [
+        15.67,
+        42.11,
+        55.33,
+        45.76
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "Murder of Magpies III",
+       "bbox": [
+        15.67,
+        100.4,
+        54.33,
+        106.18
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "Each Hero rolls -1 {icon:fe736ca63c} before",
+       "bbox": [
+        15.06,
+        78.33,
+        55.94,
+        83.14
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "entering the Dungeon.",
+       "bbox": [
+        19.18,
+        74.96,
+        51.81,
+        78.61
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "boss_ability:weald:p007",
+   "source_set": "extension",
+   "copies": 1,
+   "pages": [
+    7
+   ],
+   "faces": {
+    "front": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+     "page": 7,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c06b3b956f663c90",
+     "spans": [
+      {
+       "t": "I",
+       "bbox": [
+        34.51,
+        5.35,
+        35.97,
+        12.29
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#94c23e"
+      },
+      {
+       "t": "Simple folk are by their nature",
+       "bbox": [
+        15.8,
+        59.41,
+        54.1,
+        63.66
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "loquacious, and the denizens of the",
+       "bbox": [
+        13.0,
+        63.65,
+        56.89,
+        67.89
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Hamlet were no exception. It was not",
+       "bbox": [
+        11.88,
+        67.88,
+        58.01,
+        72.12
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "long before rumors of my morbid",
+       "bbox": [
+        13.73,
+        72.11,
+        56.17,
+        76.36
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "genius and secretive excavations",
+       "bbox": [
+        14.53,
+        76.35,
+        55.37,
+        80.59
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "began to fuel local legend. In the",
+       "bbox": [
+        14.77,
+        80.58,
+        55.13,
+        84.83
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "face of my increasingly egregious",
+       "bbox": [
+        13.93,
+        84.81,
+        55.96,
+        89.06
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "flaunting of public taboos, awe",
+       "bbox": [
+        15.79,
+        89.05,
+        54.11,
+        93.29
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "turned to ire, and demonstrations",
+       "bbox": [
+        13.87,
+        93.29,
+        56.03,
+        97.53
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "were held in the town square.",
+       "bbox": [
+        16.14,
+        97.52,
+        53.75,
+        101.76
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Brigand Pounder",
+       "bbox": [
+        17.99,
+        12.85,
+        52.02,
+        19.79
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#d12529"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "e541512125",
+       "bbox": [
+        30.64,
+        3.84,
+        39.86,
+        13.37
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:e541512125} I",
+       "bbox": [
+        30.64,
+        3.84,
+        39.86,
+        13.37
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Brigand Pounder",
+       "bbox": [
+        17.99,
+        12.85,
+        52.02,
+        19.79
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Simple folk are by their nature",
+       "bbox": [
+        15.8,
+        59.41,
+        54.1,
+        63.66
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "loquacious, and the denizens of the",
+       "bbox": [
+        13.0,
+        63.65,
+        56.89,
+        67.89
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Hamlet were no exception. It was not",
+       "bbox": [
+        11.88,
+        67.88,
+        58.01,
+        72.12
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "long before rumors of my morbid",
+       "bbox": [
+        13.73,
+        72.11,
+        56.17,
+        76.36
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "genius and secretive excavations",
+       "bbox": [
+        14.53,
+        76.35,
+        55.37,
+        80.59
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "began to fuel local legend. In the",
+       "bbox": [
+        14.77,
+        80.58,
+        55.13,
+        84.83
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "face of my increasingly egregious",
+       "bbox": [
+        13.93,
+        84.81,
+        55.96,
+        89.06
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "flaunting of public taboos, awe",
+       "bbox": [
+        15.79,
+        89.05,
+        54.11,
+        93.29
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "turned to ire, and demonstrations",
+       "bbox": [
+        13.87,
+        93.29,
+        56.03,
+        97.53
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "were held in the town square.",
+       "bbox": [
+        16.14,
+        97.52,
+        53.75,
+        101.76
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_BACK.pdf",
+     "page": 7,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "9496c2f36c6239ad",
+     "spans": [
+      {
+       "t": "I",
+       "bbox": [
+        34.1,
+        107.17,
+        35.88,
+        115.62
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 21.91,
+       "color": "#94c23e"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "56ea9289ab",
+       "bbox": [
+        29.39,
+        105.34,
+        40.61,
+        116.94
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:56ea9289ab} I",
+       "bbox": [
+        29.39,
+        105.34,
+        40.61,
+        116.94
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "boss_ability:weald:p008",
+   "source_set": "extension",
+   "copies": 1,
+   "pages": [
+    8
+   ],
+   "faces": {
+    "front": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+     "page": 8,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c06b3b956f663c90",
+     "spans": [
+      {
+       "t": "II",
+       "bbox": [
+        33.78,
+        5.35,
+        36.7,
+        12.29
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#c98c3c"
+      },
+      {
+       "t": "The wild whispers of heresy roused",
+       "bbox": [
+        11.71,
+        58.93,
+        58.19,
+        63.17
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "the rabble to violent action. Such",
+       "bbox": [
+        13.8,
+        63.16,
+        56.09,
+        67.41
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "was the general air of rebellion",
+       "bbox": [
+        14.5,
+        67.4,
+        55.4,
+        71.64
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "that even my generous offer of",
+       "bbox": [
+        14.93,
+        71.63,
+        54.96,
+        75.88
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "gold to the local constabulary was",
+       "bbox": [
+        12.83,
+        75.86,
+        57.06,
+        80.11
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "rebuffed! To reassert my rule,",
+       "bbox": [
+        15.37,
+        80.1,
+        54.53,
+        84.34
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "I sought out unscrupulous men",
+       "bbox": [
+        15.22,
+        84.34,
+        54.68,
+        88.58
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "skilled in the application of force.",
+       "bbox": [
+        13.44,
+        88.57,
+        56.45,
+        92.81
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Tight-lipped and terrifying, these",
+       "bbox": [
+        13.8,
+        92.8,
+        56.09,
+        97.04
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "mercenaries brought with them a",
+       "bbox": [
+        13.5,
+        97.04,
+        56.39,
+        101.28
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "war machine of terrible implication.",
+       "bbox": [
+        11.76,
+        101.27,
+        58.13,
+        105.51
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Brigand Pounder",
+       "bbox": [
+        17.99,
+        12.85,
+        52.02,
+        19.79
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#d12529"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "e541512125",
+       "bbox": [
+        30.64,
+        3.84,
+        39.86,
+        13.37
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:e541512125} II",
+       "bbox": [
+        30.64,
+        3.84,
+        39.86,
+        13.37
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Brigand Pounder",
+       "bbox": [
+        17.99,
+        12.85,
+        52.02,
+        19.79
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "The wild whispers of heresy roused",
+       "bbox": [
+        11.71,
+        58.93,
+        58.19,
+        63.17
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "the rabble to violent action. Such",
+       "bbox": [
+        13.8,
+        63.16,
+        56.09,
+        67.41
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "was the general air of rebellion",
+       "bbox": [
+        14.5,
+        67.4,
+        55.4,
+        71.64
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "that even my generous offer of",
+       "bbox": [
+        14.93,
+        71.63,
+        54.96,
+        75.88
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "gold to the local constabulary was",
+       "bbox": [
+        12.83,
+        75.86,
+        57.06,
+        80.11
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "rebuffed! To reassert my rule,",
+       "bbox": [
+        15.37,
+        80.1,
+        54.53,
+        84.34
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "I sought out unscrupulous men",
+       "bbox": [
+        15.22,
+        84.34,
+        54.68,
+        88.58
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "skilled in the application of force.",
+       "bbox": [
+        13.44,
+        88.57,
+        56.45,
+        92.81
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Tight-lipped and terrifying, these",
+       "bbox": [
+        13.8,
+        92.8,
+        56.09,
+        97.04
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "mercenaries brought with them a",
+       "bbox": [
+        13.5,
+        97.04,
+        56.39,
+        101.28
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "war machine of terrible implication.",
+       "bbox": [
+        11.76,
+        101.27,
+        58.13,
+        105.51
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_BACK.pdf",
+     "page": 8,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "9496c2f36c6239ad",
+     "spans": [
+      {
+       "t": "II",
+       "bbox": [
+        33.21,
+        107.17,
+        36.77,
+        115.62
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 21.91,
+       "color": "#c98c3c"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "56ea9289ab",
+       "bbox": [
+        29.39,
+        105.34,
+        40.61,
+        116.94
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:56ea9289ab} II",
+       "bbox": [
+        29.39,
+        105.34,
+        40.61,
+        116.94
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "boss_ability:weald:p009",
+   "source_set": "extension",
+   "copies": 1,
+   "pages": [
+    9
+   ],
+   "faces": {
+    "front": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+     "page": 9,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c02b3b956f663c98",
+     "spans": [
+      {
+       "t": "III",
+       "bbox": [
+        33.05,
+        5.35,
+        37.43,
+        12.29
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#d12529"
+      },
+      {
+       "t": "Eager to end the tiresome domestic",
+       "bbox": [
+        13.03,
+        59.18,
+        56.87,
+        63.42
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "distraction, I instructed my newly",
+       "bbox": [
+        13.87,
+        63.42,
+        56.03,
+        67.66
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "formed militia of hardened bandits,",
+       "bbox": [
+        13.06,
+        67.65,
+        56.84,
+        71.89
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "brigands and killers to go forth and",
+       "bbox": [
+        12.49,
+        71.88,
+        57.4,
+        76.12
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "do their work. Compliance and order",
+       "bbox": [
+        11.88,
+        76.12,
+        58.01,
+        80.36
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "were restored, and the noisome",
+       "bbox": [
+        15.01,
+        80.35,
+        54.89,
+        84.59
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "population of the Hamlet was culled",
+       "bbox": [
+        13.04,
+        84.58,
+        56.85,
+        88.83
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "to more... manageable numbers.",
+       "bbox": [
+        14.82,
+        88.82,
+        55.07,
+        93.06
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Brigand Pounder",
+       "bbox": [
+        17.99,
+        12.85,
+        52.02,
+        19.79
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#d12529"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "e541512125",
+       "bbox": [
+        30.64,
+        3.84,
+        39.86,
+        13.37
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:e541512125} III",
+       "bbox": [
+        30.64,
+        3.84,
+        39.86,
+        13.37
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Brigand Pounder",
+       "bbox": [
+        17.99,
+        12.85,
+        52.02,
+        19.79
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Eager to end the tiresome domestic",
+       "bbox": [
+        13.03,
+        59.18,
+        56.87,
+        63.42
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "distraction, I instructed my newly",
+       "bbox": [
+        13.87,
+        63.42,
+        56.03,
+        67.66
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "formed militia of hardened bandits,",
+       "bbox": [
+        13.06,
+        67.65,
+        56.84,
+        71.89
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "brigands and killers to go forth and",
+       "bbox": [
+        12.49,
+        71.88,
+        57.4,
+        76.12
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "do their work. Compliance and order",
+       "bbox": [
+        11.88,
+        76.12,
+        58.01,
+        80.36
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "were restored, and the noisome",
+       "bbox": [
+        15.01,
+        80.35,
+        54.89,
+        84.59
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "population of the Hamlet was culled",
+       "bbox": [
+        13.04,
+        84.58,
+        56.85,
+        88.83
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "to more... manageable numbers.",
+       "bbox": [
+        14.82,
+        88.82,
+        55.07,
+        93.06
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_BACK.pdf",
+     "page": 9,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "9496c2f36c6239ad",
+     "spans": [
+      {
+       "t": "III",
+       "bbox": [
+        32.33,
+        107.17,
+        37.66,
+        115.62
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 21.91,
+       "color": "#d12529"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "56ea9289ab",
+       "bbox": [
+        29.39,
+        105.34,
+        40.61,
+        116.94
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:56ea9289ab} III",
+       "bbox": [
+        29.39,
+        105.34,
+        40.61,
+        116.94
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "boss_ability:weald:p010",
+   "source_set": "extension",
+   "copies": 1,
+   "pages": [
+    10
+   ],
+   "faces": {
+    "front": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+     "page": 10,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "d07a2b852f2f3694",
+     "spans": [
+      {
+       "t": "I",
+       "bbox": [
+        58.76,
+        5.75,
+        60.22,
+        12.69
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#94c23e"
+      },
+      {
+       "t": "Brigand Pounder",
+       "bbox": [
+        17.93,
+        45.98,
+        51.97,
+        52.92
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#d12529"
+      },
+      {
+       "t": "ACTIONS / Round: 1",
+       "bbox": [
+        20.05,
+        65.78,
+        49.85,
+        71.17
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 14.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Reinforcements:",
+       "bbox": [
+        15.9,
+        75.45,
+        40.68,
+        79.21
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "When its",
+       "bbox": [
+        41.41,
+        75.45,
+        54.0,
+        79.1
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "turn comes, Brigand Pounder",
+       "bbox": [
+        14.02,
+        79.26,
+        55.88,
+        82.91
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "will summon the Brigand",
+       "bbox": [
+        17.09,
+        83.07,
+        52.81,
+        86.72
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Matchman and 2 Brigand Fusiliers",
+       "bbox": [
+        10.83,
+        86.88,
+        59.07,
+        90.53
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "(if not already in play).",
+       "bbox": [
+        18.97,
+        90.69,
+        50.92,
+        94.34
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "0c9e989b70",
+       "bbox": [
+        54.89,
+        4.24,
+        64.11,
+        13.78
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:0c9e989b70} I",
+       "bbox": [
+        54.89,
+        4.24,
+        64.11,
+        13.78
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Brigand Pounder",
+       "bbox": [
+        17.93,
+        45.98,
+        51.97,
+        52.92
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "ACTIONS / Round: 1",
+       "bbox": [
+        20.05,
+        65.78,
+        49.85,
+        71.17
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Reinforcements: When its",
+       "bbox": [
+        15.9,
+        75.45,
+        54.0,
+        79.21
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "turn comes, Brigand Pounder",
+       "bbox": [
+        14.02,
+        79.26,
+        55.88,
+        82.91
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "will summon the Brigand",
+       "bbox": [
+        17.09,
+        83.07,
+        52.81,
+        86.72
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Matchman and 2 Brigand Fusiliers",
+       "bbox": [
+        10.83,
+        86.88,
+        59.07,
+        90.53
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "(if not already in play).",
+       "bbox": [
+        18.97,
+        90.69,
+        50.92,
+        94.34
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_BACK.pdf",
+     "page": 10,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c5976a313e689578",
+     "spans": [
+      {
+       "t": "I",
+       "bbox": [
+        59.36,
+        5.75,
+        60.82,
+        12.69
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#94c23e"
+      },
+      {
+       "t": "When a Monster enters the",
+       "bbox": [
+        15.9,
+        32.41,
+        55.1,
+        36.06
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Ranged Stance slot on the",
+       "bbox": [
+        16.71,
+        36.29,
+        54.29,
+        39.94
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Monster Stance Tracker,",
+       "bbox": [
+        18.25,
+        40.17,
+        52.74,
+        43.82
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "it gains",
+       "bbox": [
+        20.33,
+        44.05,
+        30.68,
+        47.7
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "2t",
+       "bbox": [
+        34.46,
+        43.58,
+        37.11,
+        48.21
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 12.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "and",
+       "bbox": [
+        37.84,
+        44.05,
+        43.19,
+        47.7
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "1t",
+       "bbox": [
+        47.68,
+        43.58,
+        49.88,
+        48.21
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 12.0,
+       "color": "#231f20"
+      },
+      {
+       "t": ".",
+       "bbox": [
+        49.88,
+        44.05,
+        50.66,
+        47.7
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Bullseye Guillotine I",
+       "bbox": [
+        21.39,
+        15.07,
+        55.19,
+        20.85
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 15.0,
+       "color": "#d12529"
+      },
+      {
+       "t": "At the end of the day, the Pounder",
+       "bbox": [
+        12.99,
+        89.86,
+        58.01,
+        93.31
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "will bombard a building. Before you",
+       "bbox": [
+        12.39,
+        86.15,
+        58.61,
+        89.6
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "remove the Heroes from the board,",
+       "bbox": [
+        12.41,
+        82.45,
+        58.59,
+        85.9
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "roll a ten-sided die",
+       "bbox": [
+        35.65,
+        78.75,
+        59.69,
+        82.2
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "and check the",
+       "bbox": [
+        11.31,
+        78.74,
+        29.37,
+        82.19
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "corresponding building. If there is a",
+       "bbox": [
+        12.59,
+        75.04,
+        58.41,
+        78.49
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "Hero there, they take",
+       "bbox": [
+        31.88,
+        71.34,
+        59.65,
+        74.79
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "5",
+       "bbox": [
+        27.6,
+        70.42,
+        29.13,
+        74.49
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 10.56,
+       "color": "#840b01",
+       "rot": 180
+      },
+      {
+       "t": ". If not, the",
+       "bbox": [
+        11.35,
+        71.34,
+        25.46,
+        74.79
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "building is leveled down if possible. If",
+       "bbox": [
+        11.37,
+        67.63,
+        59.62,
+        71.08
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "the Caretaker is there, nothing happens.",
+       "bbox": [
+        9.38,
+        63.93,
+        61.61,
+        67.38
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "Bombardment I",
+       "bbox": [
+        21.93,
+        100.4,
+        48.08,
+        106.18
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 15.0,
+       "color": "#d12529",
+       "rot": 180
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "0c9e989b70",
+       "bbox": [
+        55.49,
+        4.24,
+        64.71,
+        13.78
+       ]
+      },
+      {
+       "iconId": "bc235da92d",
+       "bbox": [
+        31.4,
+        44.45,
+        34.22,
+        47.62
+       ],
+       "bbox_full": [
+        30.54,
+        43.57,
+        34.99,
+        48.27
+       ]
+      },
+      {
+       "iconId": "b7aed23a3c",
+       "bbox": [
+        44.23,
+        44.29,
+        47.13,
+        47.81
+       ],
+       "bbox_full": [
+        43.73,
+        43.71,
+        47.66,
+        48.28
+       ]
+      },
+      {
+       "iconId": "acd69fc202",
+       "bbox": [
+        25.57,
+        70.25,
+        31.15,
+        74.91
+       ]
+      },
+      {
+       "iconId": "c52055721d",
+       "bbox": [
+        29.94,
+        78.03,
+        35.07,
+        82.89
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:0c9e989b70} I",
+       "bbox": [
+        55.49,
+        4.24,
+        64.71,
+        13.78
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Bullseye Guillotine I",
+       "bbox": [
+        21.39,
+        15.07,
+        55.19,
+        20.85
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "When a Monster enters the",
+       "bbox": [
+        15.9,
+        32.41,
+        55.1,
+        36.06
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Ranged Stance slot on the",
+       "bbox": [
+        16.71,
+        36.29,
+        54.29,
+        39.94
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Monster Stance Tracker,",
+       "bbox": [
+        18.25,
+        40.17,
+        52.74,
+        43.82
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "it gains {icon:bc235da92d} 2t and {icon:b7aed23a3c} 1t.",
+       "bbox": [
+        20.33,
+        43.58,
+        50.66,
+        48.21
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "Bombardment I",
+       "bbox": [
+        21.93,
+        100.4,
+        48.08,
+        106.18
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "At the end of the day, the Pounder",
+       "bbox": [
+        12.99,
+        89.86,
+        58.01,
+        93.31
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "will bombard a building. Before you",
+       "bbox": [
+        12.39,
+        86.15,
+        58.61,
+        89.6
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "remove the Heroes from the board,",
+       "bbox": [
+        12.41,
+        82.45,
+        58.59,
+        85.9
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "roll a ten-sided die {icon:c52055721d} and check the",
+       "bbox": [
+        11.31,
+        78.03,
+        59.69,
+        82.89
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "corresponding building. If there is a",
+       "bbox": [
+        12.59,
+        75.04,
+        58.41,
+        78.49
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "Hero there, they take {icon:acd69fc202} 5 . If not, the",
+       "bbox": [
+        11.35,
+        70.25,
+        59.65,
+        74.91
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "building is leveled down if possible. If",
+       "bbox": [
+        11.37,
+        67.63,
+        59.62,
+        71.08
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "the Caretaker is there, nothing happens.",
+       "bbox": [
+        9.38,
+        63.93,
+        61.61,
+        67.38
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "boss_ability:weald:p011",
+   "source_set": "extension",
+   "copies": 1,
+   "pages": [
+    11
+   ],
+   "faces": {
+    "front": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+     "page": 11,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "d07a2b812f2f3e94",
+     "spans": [
+      {
+       "t": "II",
+       "bbox": [
+        58.03,
+        5.75,
+        60.95,
+        12.69
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#c98c3c"
+      },
+      {
+       "t": "ACTIONS / Round: 1",
+       "bbox": [
+        20.05,
+        65.78,
+        49.85,
+        71.17
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 14.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Reinforcements:",
+       "bbox": [
+        12.46,
+        75.45,
+        37.24,
+        79.21
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "When its turn",
+       "bbox": [
+        37.97,
+        75.45,
+        57.44,
+        79.1
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "comes, Brigand Pounder will",
+       "bbox": [
+        14.59,
+        79.26,
+        55.31,
+        82.91
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "summon the Brigand Matchman",
+       "bbox": [
+        12.01,
+        83.07,
+        57.89,
+        86.72
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "and a Brigand Bloodletter",
+       "bbox": [
+        16.37,
+        86.88,
+        53.52,
+        90.53
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "(if not already in play).",
+       "bbox": [
+        18.97,
+        90.69,
+        50.92,
+        94.34
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Brigand Pounder",
+       "bbox": [
+        17.93,
+        45.98,
+        51.97,
+        52.92
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#d12529"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "0c9e989b70",
+       "bbox": [
+        54.89,
+        4.24,
+        64.11,
+        13.78
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:0c9e989b70} II",
+       "bbox": [
+        54.89,
+        4.24,
+        64.11,
+        13.78
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Brigand Pounder",
+       "bbox": [
+        17.93,
+        45.98,
+        51.97,
+        52.92
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "ACTIONS / Round: 1",
+       "bbox": [
+        20.05,
+        65.78,
+        49.85,
+        71.17
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Reinforcements: When its turn",
+       "bbox": [
+        12.46,
+        75.45,
+        57.44,
+        79.21
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "comes, Brigand Pounder will",
+       "bbox": [
+        14.59,
+        79.26,
+        55.31,
+        82.91
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "summon the Brigand Matchman",
+       "bbox": [
+        12.01,
+        83.07,
+        57.89,
+        86.72
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "and a Brigand Bloodletter",
+       "bbox": [
+        16.37,
+        86.88,
+        53.52,
+        90.53
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "(if not already in play).",
+       "bbox": [
+        18.97,
+        90.69,
+        50.92,
+        94.34
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_BACK.pdf",
+     "page": 11,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c5976a313e689578",
+     "spans": [
+      {
+       "t": "When a Monster enters the",
+       "bbox": [
+        15.9,
+        32.41,
+        55.1,
+        36.06
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Ranged Stance slot on the",
+       "bbox": [
+        16.71,
+        36.29,
+        54.29,
+        39.94
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Monster Stance Tracker,",
+       "bbox": [
+        18.25,
+        40.17,
+        52.74,
+        43.82
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "it gains",
+       "bbox": [
+        20.04,
+        44.05,
+        30.39,
+        47.7
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "2t",
+       "bbox": [
+        34.31,
+        43.58,
+        36.96,
+        48.21
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 12.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "and",
+       "bbox": [
+        37.69,
+        44.05,
+        43.04,
+        47.7
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "2t",
+       "bbox": [
+        47.53,
+        43.58,
+        50.18,
+        48.21
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 12.0,
+       "color": "#231f20"
+      },
+      {
+       "t": ".",
+       "bbox": [
+        50.18,
+        44.05,
+        50.96,
+        47.7
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "II",
+       "bbox": [
+        58.63,
+        5.75,
+        61.55,
+        12.69
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#c98c3c"
+      },
+      {
+       "t": "Bullseye Guillotine II",
+       "bbox": [
+        20.78,
+        15.07,
+        55.8,
+        20.85
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 15.0,
+       "color": "#d12529"
+      },
+      {
+       "t": "At the end of the day, the Pounder",
+       "bbox": [
+        12.99,
+        89.86,
+        58.01,
+        93.31
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "will bombard a building. Before you",
+       "bbox": [
+        12.39,
+        86.15,
+        58.61,
+        89.6
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "remove the Heroes from the board,",
+       "bbox": [
+        12.41,
+        82.45,
+        58.59,
+        85.9
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "roll a ten-sided die",
+       "bbox": [
+        35.65,
+        78.75,
+        59.69,
+        82.2
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "and check the",
+       "bbox": [
+        11.31,
+        78.74,
+        29.37,
+        82.19
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "corresponding building. If there is a",
+       "bbox": [
+        12.59,
+        75.04,
+        58.41,
+        78.49
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "Hero there, they take",
+       "bbox": [
+        31.88,
+        71.34,
+        59.65,
+        74.79
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "7",
+       "bbox": [
+        27.97,
+        70.42,
+        29.26,
+        74.49
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 10.56,
+       "color": "#840b01",
+       "rot": 180
+      },
+      {
+       "t": ". If not, the",
+       "bbox": [
+        11.35,
+        71.34,
+        25.46,
+        74.79
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "building is leveled down if possible. If",
+       "bbox": [
+        11.37,
+        67.63,
+        59.62,
+        71.08
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "the Caretaker is there, nothing happens.",
+       "bbox": [
+        9.38,
+        63.93,
+        61.61,
+        67.38
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "Bombardment II",
+       "bbox": [
+        21.31,
+        100.4,
+        48.68,
+        106.18
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 15.0,
+       "color": "#d12529",
+       "rot": 180
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "0c9e989b70",
+       "bbox": [
+        55.49,
+        4.24,
+        64.71,
+        13.78
+       ]
+      },
+      {
+       "iconId": "bc235da92d",
+       "bbox": [
+        31.04,
+        44.45,
+        34.22,
+        47.62
+       ],
+       "bbox_full": [
+        30.36,
+        43.57,
+        34.81,
+        48.27
+       ]
+      },
+      {
+       "iconId": "b7aed23a3c",
+       "bbox": [
+        44.08,
+        44.29,
+        46.98,
+        47.81
+       ],
+       "bbox_full": [
+        43.58,
+        43.71,
+        47.51,
+        48.28
+       ]
+      },
+      {
+       "iconId": "acd69fc202",
+       "bbox": [
+        25.57,
+        70.25,
+        31.15,
+        74.91
+       ]
+      },
+      {
+       "iconId": "c52055721d",
+       "bbox": [
+        29.94,
+        78.03,
+        35.07,
+        82.89
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:0c9e989b70} II",
+       "bbox": [
+        55.49,
+        4.24,
+        64.71,
+        13.78
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Bullseye Guillotine II",
+       "bbox": [
+        20.78,
+        15.07,
+        55.8,
+        20.85
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "When a Monster enters the",
+       "bbox": [
+        15.9,
+        32.41,
+        55.1,
+        36.06
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Ranged Stance slot on the",
+       "bbox": [
+        16.71,
+        36.29,
+        54.29,
+        39.94
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Monster Stance Tracker,",
+       "bbox": [
+        18.25,
+        40.17,
+        52.74,
+        43.82
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "it gains {icon:bc235da92d} 2t and {icon:b7aed23a3c} 2t.",
+       "bbox": [
+        20.04,
+        43.58,
+        50.96,
+        48.21
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "Bombardment II",
+       "bbox": [
+        21.31,
+        100.4,
+        48.68,
+        106.18
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "At the end of the day, the Pounder",
+       "bbox": [
+        12.99,
+        89.86,
+        58.01,
+        93.31
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "will bombard a building. Before you",
+       "bbox": [
+        12.39,
+        86.15,
+        58.61,
+        89.6
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "remove the Heroes from the board,",
+       "bbox": [
+        12.41,
+        82.45,
+        58.59,
+        85.9
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "roll a ten-sided die {icon:c52055721d} and check the",
+       "bbox": [
+        11.31,
+        78.03,
+        59.69,
+        82.89
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "corresponding building. If there is a",
+       "bbox": [
+        12.59,
+        75.04,
+        58.41,
+        78.49
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "Hero there, they take {icon:acd69fc202} 7 . If not, the",
+       "bbox": [
+        11.35,
+        70.25,
+        59.65,
+        74.91
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "building is leveled down if possible. If",
+       "bbox": [
+        11.37,
+        67.63,
+        59.62,
+        71.08
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "the Caretaker is there, nothing happens.",
+       "bbox": [
+        9.38,
+        63.93,
+        61.61,
+        67.38
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "boss_ability:weald:p012",
+   "source_set": "extension",
+   "copies": 1,
+   "pages": [
+    12
+   ],
+   "faces": {
+    "front": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+     "page": 12,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "d07a2b852f2f3694",
+     "spans": [
+      {
+       "t": "III",
+       "bbox": [
+        57.3,
+        5.75,
+        61.68,
+        12.69
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#d12529"
+      },
+      {
+       "t": "ACTIONS / Round: 1",
+       "bbox": [
+        20.05,
+        65.78,
+        49.85,
+        71.17
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 14.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Reinforcements:",
+       "bbox": [
+        15.9,
+        75.45,
+        40.68,
+        79.21
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "When its",
+       "bbox": [
+        41.41,
+        75.45,
+        54.0,
+        79.1
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "turn comes, Brigand Pounder",
+       "bbox": [
+        14.02,
+        79.26,
+        55.88,
+        82.91
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "will summon the Brigand",
+       "bbox": [
+        17.09,
+        83.07,
+        52.81,
+        86.72
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Matchman and 2 Brigand Raiders",
+       "bbox": [
+        11.33,
+        86.88,
+        58.57,
+        90.53
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "(if not already in play).",
+       "bbox": [
+        18.97,
+        90.69,
+        50.92,
+        94.34
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Brigand Pounder",
+       "bbox": [
+        17.93,
+        45.98,
+        51.97,
+        52.92
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#d12529"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "0c9e989b70",
+       "bbox": [
+        54.89,
+        4.24,
+        64.11,
+        13.78
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:0c9e989b70} III",
+       "bbox": [
+        54.89,
+        4.24,
+        64.11,
+        13.78
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Brigand Pounder",
+       "bbox": [
+        17.93,
+        45.98,
+        51.97,
+        52.92
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "ACTIONS / Round: 1",
+       "bbox": [
+        20.05,
+        65.78,
+        49.85,
+        71.17
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Reinforcements: When its",
+       "bbox": [
+        15.9,
+        75.45,
+        54.0,
+        79.21
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "turn comes, Brigand Pounder",
+       "bbox": [
+        14.02,
+        79.26,
+        55.88,
+        82.91
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "will summon the Brigand",
+       "bbox": [
+        17.09,
+        83.07,
+        52.81,
+        86.72
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Matchman and 2 Brigand Raiders",
+       "bbox": [
+        11.33,
+        86.88,
+        58.57,
+        90.53
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "(if not already in play).",
+       "bbox": [
+        18.97,
+        90.69,
+        50.92,
+        94.34
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_BACK.pdf",
+     "page": 12,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c5976a313e689578",
+     "spans": [
+      {
+       "t": "When a Monster enters the",
+       "bbox": [
+        15.9,
+        32.41,
+        55.1,
+        36.06
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Ranged Stance slot on the",
+       "bbox": [
+        16.71,
+        36.29,
+        54.29,
+        39.94
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Monster Stance Tracker,",
+       "bbox": [
+        18.25,
+        40.17,
+        52.74,
+        43.82
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "it gains",
+       "bbox": [
+        19.98,
+        44.05,
+        30.32,
+        47.7
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "3t",
+       "bbox": [
+        34.24,
+        43.58,
+        36.96,
+        48.21
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 12.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "and",
+       "bbox": [
+        37.69,
+        44.05,
+        43.04,
+        47.7
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "3t",
+       "bbox": [
+        47.53,
+        43.58,
+        50.24,
+        48.21
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 12.0,
+       "color": "#231f20"
+      },
+      {
+       "t": ".",
+       "bbox": [
+        50.24,
+        44.05,
+        51.02,
+        47.7
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "III",
+       "bbox": [
+        57.9,
+        5.75,
+        62.28,
+        12.69
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#d12529"
+      },
+      {
+       "t": "Bullseye Guillotine III",
+       "bbox": [
+        20.17,
+        15.07,
+        56.41,
+        20.85
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 15.0,
+       "color": "#d12529"
+      },
+      {
+       "t": "At the end of the day, the Pounder",
+       "bbox": [
+        12.99,
+        89.86,
+        58.01,
+        93.31
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "will bombard a building. Before you",
+       "bbox": [
+        12.39,
+        86.15,
+        58.61,
+        89.6
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "remove the Heroes from the board,",
+       "bbox": [
+        12.41,
+        82.45,
+        58.59,
+        85.9
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "roll a ten-sided die",
+       "bbox": [
+        35.65,
+        78.75,
+        59.69,
+        82.2
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "and check the",
+       "bbox": [
+        11.31,
+        78.74,
+        29.37,
+        82.19
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "corresponding building. If there is a",
+       "bbox": [
+        12.59,
+        75.04,
+        58.41,
+        78.49
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "Hero there, they take",
+       "bbox": [
+        31.88,
+        71.34,
+        59.65,
+        74.79
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "9",
+       "bbox": [
+        27.57,
+        70.42,
+        29.16,
+        74.49
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 10.56,
+       "color": "#840b01",
+       "rot": 180
+      },
+      {
+       "t": ". If not, the",
+       "bbox": [
+        11.35,
+        71.34,
+        25.46,
+        74.79
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "building is leveled down if possible. If",
+       "bbox": [
+        11.37,
+        67.63,
+        59.62,
+        71.08
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "the Caretaker is there, nothing happens.",
+       "bbox": [
+        9.38,
+        63.93,
+        61.61,
+        67.38
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 8.5,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "Bombardment III",
+       "bbox": [
+        20.71,
+        100.4,
+        49.29,
+        106.18
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 15.0,
+       "color": "#d12529",
+       "rot": 180
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "0c9e989b70",
+       "bbox": [
+        55.49,
+        4.24,
+        64.71,
+        13.78
+       ]
+      },
+      {
+       "iconId": "bc235da92d",
+       "bbox": [
+        31.04,
+        44.45,
+        33.87,
+        47.62
+       ],
+       "bbox_full": [
+        30.3,
+        43.57,
+        34.75,
+        48.27
+       ]
+      },
+      {
+       "iconId": "2d895d2f3b",
+       "bbox": [
+        44.08,
+        44.29,
+        46.98,
+        47.81
+       ]
+      },
+      {
+       "iconId": "acd69fc202",
+       "bbox": [
+        25.57,
+        70.25,
+        31.15,
+        74.91
+       ]
+      },
+      {
+       "iconId": "c52055721d",
+       "bbox": [
+        29.94,
+        78.03,
+        35.07,
+        82.89
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:0c9e989b70} III",
+       "bbox": [
+        55.49,
+        4.24,
+        64.71,
+        13.78
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Bullseye Guillotine III",
+       "bbox": [
+        20.17,
+        15.07,
+        56.41,
+        20.85
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "When a Monster enters the",
+       "bbox": [
+        15.9,
+        32.41,
+        55.1,
+        36.06
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Ranged Stance slot on the",
+       "bbox": [
+        16.71,
+        36.29,
+        54.29,
+        39.94
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Monster Stance Tracker,",
+       "bbox": [
+        18.25,
+        40.17,
+        52.74,
+        43.82
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "it gains {icon:bc235da92d} 3t and {icon:2d895d2f3b} 3t.",
+       "bbox": [
+        19.98,
+        43.58,
+        51.02,
+        48.21
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "Bombardment III",
+       "bbox": [
+        20.71,
+        100.4,
+        49.29,
+        106.18
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "At the end of the day, the Pounder",
+       "bbox": [
+        12.99,
+        89.86,
+        58.01,
+        93.31
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "will bombard a building. Before you",
+       "bbox": [
+        12.39,
+        86.15,
+        58.61,
+        89.6
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "remove the Heroes from the board,",
+       "bbox": [
+        12.41,
+        82.45,
+        58.59,
+        85.9
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "roll a ten-sided die {icon:c52055721d} and check the",
+       "bbox": [
+        11.31,
+        78.03,
+        59.69,
+        82.89
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "corresponding building. If there is a",
+       "bbox": [
+        12.59,
+        75.04,
+        58.41,
+        78.49
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "Hero there, they take {icon:acd69fc202} 9 . If not, the",
+       "bbox": [
+        11.35,
+        70.25,
+        59.65,
+        74.91
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "building is leveled down if possible. If",
+       "bbox": [
+        11.37,
+        67.63,
+        59.62,
+        71.08
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "the Caretaker is there, nothing happens.",
+       "bbox": [
+        9.38,
+        63.93,
+        61.61,
+        67.38
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "boss_ability:weald:p013",
+   "source_set": "extension",
+   "copies": 1,
+   "pages": [
+    13
+   ],
+   "faces": {
+    "front": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+     "page": 13,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c46b2b943e3c6dc1",
+     "spans": [
+      {
+       "t": "I",
+       "bbox": [
+        34.51,
+        5.35,
+        35.97,
+        12.29
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#94c23e"
+      },
+      {
+       "t": "I had collected many rare and",
+       "bbox": [
+        16.34,
+        58.91,
+        53.56,
+        63.15
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "elusive volumes on ancient herbal",
+       "bbox": [
+        13.95,
+        63.15,
+        55.96,
+        67.39
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "properties, and was set to enjoy",
+       "bbox": [
+        14.81,
+        67.38,
+        55.09,
+        71.62
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "several weeks immersed in",
+       "bbox": [
+        17.97,
+        71.61,
+        51.93,
+        75.86
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "comfortable study. My work was",
+       "bbox": [
+        14.11,
+        75.85,
+        55.79,
+        80.09
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "interrupted, however, by a singularly",
+       "bbox": [
+        11.54,
+        80.08,
+        58.36,
+        84.32
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "striking young woman who insisted",
+       "bbox": [
+        12.78,
+        84.32,
+        57.12,
+        88.56
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "on repeated calls to the house.",
+       "bbox": [
+        15.89,
+        88.55,
+        54.01,
+        92.79
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Hag",
+       "bbox": [
+        31.34,
+        12.85,
+        38.67,
+        19.79
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#d12529"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "0c9e989b70",
+       "bbox": [
+        30.64,
+        3.84,
+        39.86,
+        13.37
+       ]
+      },
+      {
+       "iconId": "aad68b551d",
+       "bbox": [
+        28.96,
+        12.19,
+        40.9,
+        22.09
+       ],
+       "decor": true
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:0c9e989b70} I",
+       "bbox": [
+        30.64,
+        3.84,
+        39.86,
+        13.37
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Hag",
+       "bbox": [
+        31.34,
+        12.85,
+        38.67,
+        19.79
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "I had collected many rare and",
+       "bbox": [
+        16.34,
+        58.91,
+        53.56,
+        63.15
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "elusive volumes on ancient herbal",
+       "bbox": [
+        13.95,
+        63.15,
+        55.96,
+        67.39
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "properties, and was set to enjoy",
+       "bbox": [
+        14.81,
+        67.38,
+        55.09,
+        71.62
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "several weeks immersed in",
+       "bbox": [
+        17.97,
+        71.61,
+        51.93,
+        75.86
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "comfortable study. My work was",
+       "bbox": [
+        14.11,
+        75.85,
+        55.79,
+        80.09
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "interrupted, however, by a singularly",
+       "bbox": [
+        11.54,
+        80.08,
+        58.36,
+        84.32
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "striking young woman who insisted",
+       "bbox": [
+        12.78,
+        84.32,
+        57.12,
+        88.56
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "on repeated calls to the house.",
+       "bbox": [
+        15.89,
+        88.55,
+        54.01,
+        92.79
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_BACK.pdf",
+     "page": 13,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "9496c2f36c6239ad",
+     "spans": [
+      {
+       "t": "I",
+       "bbox": [
+        34.1,
+        107.17,
+        35.88,
+        115.62
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 21.91,
+       "color": "#94c23e"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "56ea9289ab",
+       "bbox": [
+        29.39,
+        105.34,
+        40.61,
+        116.94
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:56ea9289ab} I",
+       "bbox": [
+        29.39,
+        105.34,
+        40.61,
+        116.94
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "boss_ability:weald:p014",
+   "source_set": "extension",
+   "copies": 1,
+   "pages": [
+    14
+   ],
+   "faces": {
+    "front": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+     "page": 14,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c46b2b943e3c6dc1",
+     "spans": [
+      {
+       "t": "II",
+       "bbox": [
+        33.78,
+        5.35,
+        36.7,
+        12.29
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#c98c3c"
+      },
+      {
+       "t": "Her knowledge of horticulturalism,",
+       "bbox": [
+        13.25,
+        58.93,
+        56.65,
+        63.17
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "and its role in various arcane",
+       "bbox": [
+        16.31,
+        63.16,
+        53.59,
+        67.41
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "practices impressed me greatly.",
+       "bbox": [
+        15.01,
+        67.4,
+        54.89,
+        71.64
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "My licentious impulse gave",
+       "bbox": [
+        18.27,
+        71.63,
+        51.63,
+        75.88
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "way to a genuine, professional",
+       "bbox": [
+        15.87,
+        75.86,
+        54.02,
+        80.11
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "respect, and together, we began",
+       "bbox": [
+        15.02,
+        80.1,
+        54.87,
+        84.34
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "to plant, harvest, and brew.",
+       "bbox": [
+        17.61,
+        84.34,
+        52.29,
+        88.58
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Hag",
+       "bbox": [
+        31.34,
+        12.85,
+        38.67,
+        19.79
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#d12529"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "0c9e989b70",
+       "bbox": [
+        30.64,
+        3.84,
+        39.86,
+        13.37
+       ]
+      },
+      {
+       "iconId": "aad68b551d",
+       "bbox": [
+        28.96,
+        12.19,
+        40.9,
+        22.09
+       ],
+       "decor": true
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:0c9e989b70} II",
+       "bbox": [
+        30.64,
+        3.84,
+        39.86,
+        13.37
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Hag",
+       "bbox": [
+        31.34,
+        12.85,
+        38.67,
+        19.79
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Her knowledge of horticulturalism,",
+       "bbox": [
+        13.25,
+        58.93,
+        56.65,
+        63.17
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "and its role in various arcane",
+       "bbox": [
+        16.31,
+        63.16,
+        53.59,
+        67.41
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "practices impressed me greatly.",
+       "bbox": [
+        15.01,
+        67.4,
+        54.89,
+        71.64
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "My licentious impulse gave",
+       "bbox": [
+        18.27,
+        71.63,
+        51.63,
+        75.88
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "way to a genuine, professional",
+       "bbox": [
+        15.87,
+        75.86,
+        54.02,
+        80.11
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "respect, and together, we began",
+       "bbox": [
+        15.02,
+        80.1,
+        54.87,
+        84.34
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "to plant, harvest, and brew.",
+       "bbox": [
+        17.61,
+        84.34,
+        52.29,
+        88.58
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_BACK.pdf",
+     "page": 14,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "9496c2f36c6239ad",
+     "spans": [
+      {
+       "t": "II",
+       "bbox": [
+        33.21,
+        107.17,
+        36.77,
+        115.62
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 21.91,
+       "color": "#c98c3c"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "56ea9289ab",
+       "bbox": [
+        29.39,
+        105.34,
+        40.61,
+        116.94
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:56ea9289ab} II",
+       "bbox": [
+        29.39,
+        105.34,
+        40.61,
+        116.94
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "boss_ability:weald:p015",
+   "source_set": "extension",
+   "copies": 1,
+   "pages": [
+    15
+   ],
+   "faces": {
+    "front": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+     "page": 15,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c46b2b943e3c2dc3",
+     "spans": [
+      {
+       "t": "III",
+       "bbox": [
+        33.05,
+        5.35,
+        37.43,
+        12.29
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#d12529"
+      },
+      {
+       "t": "As time wore on, her wild policy of",
+       "bbox": [
+        12.26,
+        58.93,
+        57.64,
+        63.17
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "self-experimentation grew intolerable.",
+       "bbox": [
+        10.4,
+        63.16,
+        59.5,
+        67.41
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "She quaffed all manner of strange",
+       "bbox": [
+        13.17,
+        67.4,
+        56.73,
+        71.64
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "fungi, herbs and concoctions,",
+       "bbox": [
+        16.11,
+        71.63,
+        53.78,
+        75.88
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "intent on gaining some insight into",
+       "bbox": [
+        12.94,
+        75.86,
+        56.96,
+        80.11
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "the horror we both knew to be",
+       "bbox": [
+        14.93,
+        80.1,
+        54.97,
+        84.34
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "growing beneath us. The change",
+       "bbox": [
+        14.32,
+        84.34,
+        55.57,
+        88.58
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "in her was appalling, and, no",
+       "bbox": [
+        16.43,
+        88.57,
+        53.46,
+        92.81
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "longer able to stomach it, I sent",
+       "bbox": [
+        14.5,
+        92.8,
+        55.38,
+        97.04
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "her to live in the Weald, where her",
+       "bbox": [
+        12.52,
+        97.04,
+        57.37,
+        101.28
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "wildness would be welcomed.",
+       "bbox": [
+        16.0,
+        101.27,
+        53.89,
+        105.51
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 11.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Hag",
+       "bbox": [
+        31.34,
+        12.85,
+        38.67,
+        19.79
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#d12529"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "0c9e989b70",
+       "bbox": [
+        30.64,
+        3.84,
+        39.86,
+        13.37
+       ]
+      },
+      {
+       "iconId": "aad68b551d",
+       "bbox": [
+        28.96,
+        12.19,
+        40.9,
+        22.09
+       ],
+       "decor": true
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:0c9e989b70} III",
+       "bbox": [
+        30.64,
+        3.84,
+        39.86,
+        13.37
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Hag",
+       "bbox": [
+        31.34,
+        12.85,
+        38.67,
+        19.79
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "As time wore on, her wild policy of",
+       "bbox": [
+        12.26,
+        58.93,
+        57.64,
+        63.17
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "self-experimentation grew intolerable.",
+       "bbox": [
+        10.4,
+        63.16,
+        59.5,
+        67.41
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "She quaffed all manner of strange",
+       "bbox": [
+        13.17,
+        67.4,
+        56.73,
+        71.64
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "fungi, herbs and concoctions,",
+       "bbox": [
+        16.11,
+        71.63,
+        53.78,
+        75.88
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "intent on gaining some insight into",
+       "bbox": [
+        12.94,
+        75.86,
+        56.96,
+        80.11
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "the horror we both knew to be",
+       "bbox": [
+        14.93,
+        80.1,
+        54.97,
+        84.34
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "growing beneath us. The change",
+       "bbox": [
+        14.32,
+        84.34,
+        55.57,
+        88.58
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "in her was appalling, and, no",
+       "bbox": [
+        16.43,
+        88.57,
+        53.46,
+        92.81
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "longer able to stomach it, I sent",
+       "bbox": [
+        14.5,
+        92.8,
+        55.38,
+        97.04
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "her to live in the Weald, where her",
+       "bbox": [
+        12.52,
+        97.04,
+        57.37,
+        101.28
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "wildness would be welcomed.",
+       "bbox": [
+        16.0,
+        101.27,
+        53.89,
+        105.51
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_BACK.pdf",
+     "page": 15,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "9496c2f36c6239ad",
+     "spans": [
+      {
+       "t": "III",
+       "bbox": [
+        32.33,
+        107.17,
+        37.66,
+        115.62
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 21.91,
+       "color": "#d12529"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "56ea9289ab",
+       "bbox": [
+        29.39,
+        105.34,
+        40.61,
+        116.94
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:56ea9289ab} III",
+       "bbox": [
+        29.39,
+        105.34,
+        40.61,
+        116.94
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "boss_ability:weald:p016",
+   "source_set": "extension",
+   "copies": 1,
+   "pages": [
+    16
+   ],
+   "faces": {
+    "front": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+     "page": 16,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "903a3bc16b0f3f94",
+     "spans": [
+      {
+       "t": "I",
+       "bbox": [
+        58.76,
+        5.75,
+        60.22,
+        12.69
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#94c23e"
+      },
+      {
+       "t": "Hag",
+       "bbox": [
+        31.28,
+        45.98,
+        38.61,
+        52.92
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#d12529"
+      },
+      {
+       "t": "ACTIONS / Round: 2",
+       "bbox": [
+        19.79,
+        67.68,
+        50.11,
+        73.08
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 14.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Into the Pot!:",
+       "bbox": [
+        10.32,
+        77.35,
+        30.14,
+        81.11
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "When the Hag’s turn",
+       "bbox": [
+        30.88,
+        77.35,
+        60.34,
+        81.01
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "comes, if no Hero is in the Cauldron,",
+       "bbox": [
+        9.16,
+        81.16,
+        60.74,
+        84.82
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "she will use the Into the Pot! Skill",
+       "bbox": [
+        11.23,
+        84.97,
+        58.67,
+        88.63
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "and a second one after that.",
+       "bbox": [
+        14.8,
+        88.78,
+        55.1,
+        92.44
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "0c9e989b70",
+       "bbox": [
+        54.89,
+        4.24,
+        64.11,
+        13.78
+       ]
+      },
+      {
+       "iconId": "a3eff6d62c",
+       "bbox": [
+        28.9,
+        45.32,
+        40.84,
+        55.23
+       ],
+       "decor": true
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:0c9e989b70} I",
+       "bbox": [
+        54.89,
+        4.24,
+        64.11,
+        13.78
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Hag",
+       "bbox": [
+        31.28,
+        45.98,
+        38.61,
+        52.92
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "ACTIONS / Round: 2",
+       "bbox": [
+        19.79,
+        67.68,
+        50.11,
+        73.08
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Into the Pot!: When the Hag’s turn",
+       "bbox": [
+        10.32,
+        77.35,
+        60.34,
+        81.11
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "comes, if no Hero is in the Cauldron,",
+       "bbox": [
+        9.16,
+        81.16,
+        60.74,
+        84.82
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "she will use the Into the Pot! Skill",
+       "bbox": [
+        11.23,
+        84.97,
+        58.67,
+        88.63
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "and a second one after that.",
+       "bbox": [
+        14.8,
+        88.78,
+        55.1,
+        92.44
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_BACK.pdf",
+     "page": 16,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c4b37ae13b68954a",
+     "spans": [
+      {
+       "t": "I",
+       "bbox": [
+        59.36,
+        5.75,
+        60.82,
+        12.69
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#94c23e"
+      },
+      {
+       "t": "Whenever a Hero uses a",
+       "bbox": [
+        15.51,
+        36.78,
+        49.99,
+        40.44
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": ",",
+       "bbox": [
+        54.71,
+        36.78,
+        55.49,
+        40.44
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "they suffer",
+       "bbox": [
+        23.61,
+        40.66,
+        39.49,
+        44.32
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "+1",
+       "bbox": [
+        43.98,
+        40.2,
+        46.61,
+        44.82
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 12.0,
+       "color": "#231f20"
+      },
+      {
+       "t": ".",
+       "bbox": [
+        46.61,
+        40.66,
+        47.4,
+        44.32
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Painfully Soothing I",
+       "bbox": [
+        21.94,
+        15.07,
+        54.64,
+        20.85
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 15.0,
+       "color": "#d12529"
+      },
+      {
+       "t": "The Sanitarium heals 3 less Life.",
+       "bbox": [
+        12.72,
+        77.69,
+        58.28,
+        81.35
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "No Rest for the Wicked I",
+       "bbox": [
+        15.33,
+        100.4,
+        54.67,
+        106.18
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 15.0,
+       "color": "#d12529",
+       "rot": 180
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "0c9e989b70",
+       "bbox": [
+        55.49,
+        4.24,
+        64.71,
+        13.78
+       ]
+      },
+      {
+       "iconId": "b4906eb3c1",
+       "bbox": [
+        50.72,
+        36.73,
+        54.71,
+        40.72
+       ],
+       "bbox_full": [
+        49.62,
+        35.63,
+        55.71,
+        41.73
+       ]
+      },
+      {
+       "iconId": "2b92a0a328",
+       "bbox": [
+        40.22,
+        40.57,
+        44.1,
+        44.45
+       ],
+       "bbox_full": [
+        39.27,
+        39.83,
+        44.86,
+        45.04
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:0c9e989b70} I",
+       "bbox": [
+        55.49,
+        4.24,
+        64.71,
+        13.78
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Painfully Soothing I",
+       "bbox": [
+        21.94,
+        15.07,
+        54.64,
+        20.85
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Whenever a Hero uses a {icon:b4906eb3c1} ,",
+       "bbox": [
+        15.51,
+        36.73,
+        55.49,
+        40.72
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "they suffer {icon:2b92a0a328} +1.",
+       "bbox": [
+        23.61,
+        40.2,
+        47.4,
+        44.82
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "No Rest for the Wicked I",
+       "bbox": [
+        15.33,
+        100.4,
+        54.67,
+        106.18
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "The Sanitarium heals 3 less Life.",
+       "bbox": [
+        12.72,
+        77.69,
+        58.28,
+        81.35
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "boss_ability:weald:p017",
+   "source_set": "extension",
+   "copies": 1,
+   "pages": [
+    17
+   ],
+   "faces": {
+    "front": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+     "page": 17,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "903a3bc16b0f3f94",
+     "spans": [
+      {
+       "t": "II",
+       "bbox": [
+        58.03,
+        5.75,
+        60.95,
+        12.69
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#c98c3c"
+      },
+      {
+       "t": "ACTIONS / Round: 2",
+       "bbox": [
+        19.79,
+        67.68,
+        50.11,
+        73.08
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 14.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Into the Pot!:",
+       "bbox": [
+        10.32,
+        77.35,
+        30.14,
+        81.11
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "When the Hag’s turn",
+       "bbox": [
+        30.88,
+        77.35,
+        60.34,
+        81.01
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "comes, if no Hero is in the Cauldron,",
+       "bbox": [
+        9.16,
+        81.16,
+        60.74,
+        84.82
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "she will use the Into the Pot! Skill",
+       "bbox": [
+        11.23,
+        84.97,
+        58.67,
+        88.63
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "and a second one after that.",
+       "bbox": [
+        14.8,
+        88.78,
+        55.1,
+        92.44
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Hag",
+       "bbox": [
+        31.28,
+        45.98,
+        38.61,
+        52.92
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#d12529"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "0c9e989b70",
+       "bbox": [
+        54.89,
+        4.24,
+        64.11,
+        13.78
+       ]
+      },
+      {
+       "iconId": "a3eff6d62c",
+       "bbox": [
+        28.9,
+        45.32,
+        40.84,
+        55.23
+       ],
+       "decor": true
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:0c9e989b70} II",
+       "bbox": [
+        54.89,
+        4.24,
+        64.11,
+        13.78
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Hag",
+       "bbox": [
+        31.28,
+        45.98,
+        38.61,
+        52.92
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "ACTIONS / Round: 2",
+       "bbox": [
+        19.79,
+        67.68,
+        50.11,
+        73.08
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Into the Pot!: When the Hag’s turn",
+       "bbox": [
+        10.32,
+        77.35,
+        60.34,
+        81.11
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "comes, if no Hero is in the Cauldron,",
+       "bbox": [
+        9.16,
+        81.16,
+        60.74,
+        84.82
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "she will use the Into the Pot! Skill",
+       "bbox": [
+        11.23,
+        84.97,
+        58.67,
+        88.63
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "and a second one after that.",
+       "bbox": [
+        14.8,
+        88.78,
+        55.1,
+        92.44
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_BACK.pdf",
+     "page": 17,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c5b17aa13a69954b",
+     "spans": [
+      {
+       "t": "Whenever a Hero uses a",
+       "bbox": [
+        15.9,
+        36.78,
+        50.37,
+        40.44
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "or",
+       "bbox": [
+        18.94,
+        40.66,
+        22.03,
+        44.32
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": ", they suffer",
+       "bbox": [
+        26.76,
+        40.66,
+        44.15,
+        44.32
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "+1",
+       "bbox": [
+        48.66,
+        40.2,
+        51.28,
+        44.82
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 12.0,
+       "color": "#231f20"
+      },
+      {
+       "t": ".",
+       "bbox": [
+        51.28,
+        40.66,
+        52.06,
+        44.32
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "II",
+       "bbox": [
+        58.63,
+        5.75,
+        61.55,
+        12.69
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#c98c3c"
+      },
+      {
+       "t": "Painfully Soothing II",
+       "bbox": [
+        21.33,
+        15.07,
+        55.25,
+        20.85
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 15.0,
+       "color": "#d12529"
+      },
+      {
+       "t": "The Sanitarium heals 6 less Life.",
+       "bbox": [
+        12.72,
+        77.69,
+        58.28,
+        81.35
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "No Rest for the Wicked II",
+       "bbox": [
+        14.77,
+        100.4,
+        55.23,
+        106.18
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 15.0,
+       "color": "#d12529",
+       "rot": 180
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "0c9e989b70",
+       "bbox": [
+        55.49,
+        4.24,
+        64.71,
+        13.78
+       ]
+      },
+      {
+       "iconId": "b4906eb3c1",
+       "bbox": [
+        51.11,
+        36.73,
+        55.1,
+        40.72
+       ],
+       "bbox_full": [
+        50.01,
+        35.63,
+        56.1,
+        41.73
+       ]
+      },
+      {
+       "iconId": "931b4a7925",
+       "bbox": [
+        22.77,
+        40.62,
+        26.76,
+        44.6
+       ],
+       "bbox_full": [
+        21.67,
+        39.51,
+        27.76,
+        45.61
+       ]
+      },
+      {
+       "iconId": "2b92a0a328",
+       "bbox": [
+        44.8,
+        40.57,
+        48.68,
+        44.45
+       ],
+       "bbox_full": [
+        43.94,
+        39.83,
+        49.53,
+        45.04
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:0c9e989b70} II",
+       "bbox": [
+        55.49,
+        4.24,
+        64.71,
+        13.78
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Painfully Soothing II",
+       "bbox": [
+        21.33,
+        15.07,
+        55.25,
+        20.85
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Whenever a Hero uses a {icon:b4906eb3c1}",
+       "bbox": [
+        15.9,
+        36.73,
+        55.1,
+        40.72
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "or {icon:931b4a7925} , they suffer {icon:2b92a0a328} +1.",
+       "bbox": [
+        18.94,
+        40.2,
+        52.06,
+        44.82
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "No Rest for the Wicked II",
+       "bbox": [
+        14.77,
+        100.4,
+        55.23,
+        106.18
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "The Sanitarium heals 6 less Life.",
+       "bbox": [
+        12.72,
+        77.69,
+        58.28,
+        81.35
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "boss_ability:weald:p018",
+   "source_set": "extension",
+   "copies": 1,
+   "pages": [
+    18
+   ],
+   "faces": {
+    "front": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+     "page": 18,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "903a3bc16b0f3f94",
+     "spans": [
+      {
+       "t": "III",
+       "bbox": [
+        57.3,
+        5.75,
+        61.68,
+        12.69
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#d12529"
+      },
+      {
+       "t": "ACTIONS / Round: 2",
+       "bbox": [
+        19.79,
+        67.68,
+        50.11,
+        73.08
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 14.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Into the Pot!:",
+       "bbox": [
+        10.32,
+        77.35,
+        30.14,
+        81.11
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "When the Hag’s turn",
+       "bbox": [
+        30.88,
+        77.35,
+        60.34,
+        81.01
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "comes, if no Hero is in the Cauldron,",
+       "bbox": [
+        9.16,
+        81.16,
+        60.74,
+        84.82
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "she will use the Into the Pot! Skill",
+       "bbox": [
+        11.23,
+        84.97,
+        58.67,
+        88.63
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "and a second one after that.",
+       "bbox": [
+        14.8,
+        88.78,
+        55.1,
+        92.44
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Hag",
+       "bbox": [
+        31.28,
+        45.98,
+        38.61,
+        52.92
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#d12529"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "0c9e989b70",
+       "bbox": [
+        54.89,
+        4.24,
+        64.11,
+        13.78
+       ]
+      },
+      {
+       "iconId": "a3eff6d62c",
+       "bbox": [
+        28.9,
+        45.32,
+        40.84,
+        55.23
+       ],
+       "decor": true
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:0c9e989b70} III",
+       "bbox": [
+        54.89,
+        4.24,
+        64.11,
+        13.78
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Hag",
+       "bbox": [
+        31.28,
+        45.98,
+        38.61,
+        52.92
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "ACTIONS / Round: 2",
+       "bbox": [
+        19.79,
+        67.68,
+        50.11,
+        73.08
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Into the Pot!: When the Hag’s turn",
+       "bbox": [
+        10.32,
+        77.35,
+        60.34,
+        81.11
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "comes, if no Hero is in the Cauldron,",
+       "bbox": [
+        9.16,
+        81.16,
+        60.74,
+        84.82
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "she will use the Into the Pot! Skill",
+       "bbox": [
+        11.23,
+        84.97,
+        58.67,
+        88.63
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "and a second one after that.",
+       "bbox": [
+        14.8,
+        88.78,
+        55.1,
+        92.44
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_BACK.pdf",
+     "page": 18,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c5b17ae13a69954a",
+     "spans": [
+      {
+       "t": "Whenever a Hero uses a",
+       "bbox": [
+        13.15,
+        36.52,
+        47.62,
+        40.17
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": ",",
+       "bbox": [
+        52.35,
+        36.52,
+        53.13,
+        40.17
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "or",
+       "bbox": [
+        18.94,
+        40.93,
+        22.03,
+        44.58
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": ", they suffer",
+       "bbox": [
+        26.76,
+        40.93,
+        44.15,
+        44.58
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "+1",
+       "bbox": [
+        48.66,
+        40.46,
+        51.28,
+        45.09
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 12.0,
+       "color": "#231f20"
+      },
+      {
+       "t": ".",
+       "bbox": [
+        51.28,
+        40.93,
+        52.06,
+        44.58
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "III",
+       "bbox": [
+        57.9,
+        5.75,
+        62.28,
+        12.69
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#d12529"
+      },
+      {
+       "t": "Painfully Soothing III",
+       "bbox": [
+        20.72,
+        15.07,
+        55.86,
+        20.85
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 15.0,
+       "color": "#d12529"
+      },
+      {
+       "t": "The Sanitarium heals 9 less Life.",
+       "bbox": [
+        12.72,
+        77.69,
+        58.28,
+        81.35
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20",
+       "rot": 180
+      },
+      {
+       "t": "No Rest for the Wicked III",
+       "bbox": [
+        14.22,
+        100.4,
+        55.78,
+        106.18
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 15.0,
+       "color": "#d12529",
+       "rot": 180
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "0c9e989b70",
+       "bbox": [
+        55.49,
+        4.24,
+        64.71,
+        13.78
+       ]
+      },
+      {
+       "iconId": "83dda67226",
+       "bbox": [
+        48.36,
+        36.47,
+        52.35,
+        40.45
+       ],
+       "bbox_full": [
+        47.25,
+        35.37,
+        53.35,
+        41.47
+       ]
+      },
+      {
+       "iconId": "931b4a7925",
+       "bbox": [
+        53.86,
+        36.47,
+        57.85,
+        40.45
+       ],
+       "bbox_full": [
+        52.76,
+        35.37,
+        58.86,
+        41.47
+       ]
+      },
+      {
+       "iconId": "294190481f",
+       "bbox": [
+        22.77,
+        40.88,
+        26.76,
+        44.86
+       ],
+       "bbox_full": [
+        21.67,
+        39.78,
+        27.76,
+        45.88
+       ]
+      },
+      {
+       "iconId": "2b92a0a328",
+       "bbox": [
+        44.8,
+        40.92,
+        48.68,
+        44.45
+       ],
+       "bbox_full": [
+        43.94,
+        40.09,
+        49.53,
+        45.3
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:0c9e989b70} III",
+       "bbox": [
+        55.49,
+        4.24,
+        64.71,
+        13.78
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Painfully Soothing III",
+       "bbox": [
+        20.72,
+        15.07,
+        55.86,
+        20.85
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Whenever a Hero uses a {icon:83dda67226} , {icon:931b4a7925}",
+       "bbox": [
+        13.15,
+        36.47,
+        57.85,
+        40.45
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "or {icon:294190481f} , they suffer {icon:2b92a0a328} +1.",
+       "bbox": [
+        18.94,
+        40.46,
+        52.06,
+        45.09
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "No Rest for the Wicked III",
+       "bbox": [
+        14.22,
+        100.4,
+        55.78,
+        106.18
+       ]
+      },
+      {
+       "rot": 180,
+       "text": "The Sanitarium heals 9 less Life.",
+       "bbox": [
+        12.72,
+        77.69,
+        58.28,
+        81.35
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "boss_ability:weald:p019",
+   "source_set": "extension",
+   "copies": 1,
+   "pages": [
+    19
+   ],
+   "faces": {
+    "front": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+     "page": 19,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c06e6fc44e0e2fd4",
+     "spans": [
+      {
+       "t": "I",
+       "bbox": [
+        58.76,
+        5.75,
+        60.22,
+        12.69
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#94c23e"
+      },
+      {
+       "t": "Cauldron",
+       "bbox": [
+        25.75,
+        45.98,
+        44.14,
+        52.92
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#d12529"
+      },
+      {
+       "t": "ACTIONS / Round: 1",
+       "bbox": [
+        20.05,
+        55.06,
+        49.85,
+        60.46
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 14.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Something’s Cooking:",
+       "bbox": [
+        10.2,
+        63.3,
+        41.26,
+        67.06
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "The Cauldron",
+       "bbox": [
+        41.87,
+        63.3,
+        60.39,
+        66.96
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "starts Empty side up. When a Hero is",
+       "bbox": [
+        9.88,
+        67.11,
+        60.02,
+        70.77
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "in the Cauldron, flip it to its Full side",
+       "bbox": [
+        10.32,
+        70.92,
+        59.59,
+        74.58
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "and remove all Wounds from it. A",
+       "bbox": [
+        12.05,
+        74.73,
+        57.85,
+        78.39
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Hero that is in the Cauldron cannot",
+       "bbox": [
+        10.89,
+        78.54,
+        59.01,
+        82.2
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "move or be",
+       "bbox": [
+        11.27,
+        82.35,
+        26.79,
+        86.01
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": ". When the Cauldron",
+       "bbox": [
+        30.46,
+        82.35,
+        58.63,
+        86.01
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "suffers wounds equal to its Life or",
+       "bbox": [
+        11.55,
+        86.16,
+        58.35,
+        89.82
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "the Hero in it reaches Death’s Door,",
+       "bbox": [
+        10.6,
+        89.97,
+        59.29,
+        93.63
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "place that Hero in an adjacent Area",
+       "bbox": [
+        10.84,
+        93.78,
+        59.07,
+        97.44
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "and flip the Cauldron to its Empty",
+       "bbox": [
+        11.78,
+        97.59,
+        58.12,
+        101.25
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "side, removing all Wounds from it.",
+       "bbox": [
+        11.52,
+        101.4,
+        58.38,
+        105.06
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "0c9e989b70",
+       "bbox": [
+        54.89,
+        4.24,
+        64.11,
+        13.78
+       ]
+      },
+      {
+       "iconId": "9563b7345e",
+       "bbox": [
+        27.52,
+        82.9,
+        30.69,
+        86.08
+       ],
+       "bbox_full": [
+        26.63,
+        82.21,
+        31.33,
+        86.66
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:0c9e989b70} I",
+       "bbox": [
+        54.89,
+        4.24,
+        64.11,
+        13.78
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Cauldron",
+       "bbox": [
+        25.75,
+        45.98,
+        44.14,
+        52.92
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "ACTIONS / Round: 1",
+       "bbox": [
+        20.05,
+        55.06,
+        49.85,
+        60.46
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Something’s Cooking: The Cauldron",
+       "bbox": [
+        10.2,
+        63.3,
+        60.39,
+        67.06
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "starts Empty side up. When a Hero is",
+       "bbox": [
+        9.88,
+        67.11,
+        60.02,
+        70.77
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "in the Cauldron, flip it to its Full side",
+       "bbox": [
+        10.32,
+        70.92,
+        59.59,
+        74.58
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "and remove all Wounds from it. A",
+       "bbox": [
+        12.05,
+        74.73,
+        57.85,
+        78.39
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Hero that is in the Cauldron cannot",
+       "bbox": [
+        10.89,
+        78.54,
+        59.01,
+        82.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "move or be {icon:9563b7345e} . When the Cauldron",
+       "bbox": [
+        11.27,
+        82.35,
+        58.63,
+        86.08
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "suffers wounds equal to its Life or",
+       "bbox": [
+        11.55,
+        86.16,
+        58.35,
+        89.82
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "the Hero in it reaches Death’s Door,",
+       "bbox": [
+        10.6,
+        89.97,
+        59.29,
+        93.63
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "place that Hero in an adjacent Area",
+       "bbox": [
+        10.84,
+        93.78,
+        59.07,
+        97.44
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "and flip the Cauldron to its Empty",
+       "bbox": [
+        11.78,
+        97.59,
+        58.12,
+        101.25
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "side, removing all Wounds from it.",
+       "bbox": [
+        11.52,
+        101.4,
+        58.38,
+        105.06
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_BACK.pdf",
+     "page": 19,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "d1958769698d6af0",
+     "spans": [
+      {
+       "t": "I",
+       "bbox": [
+        34.1,
+        107.67,
+        35.88,
+        116.12
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 21.91,
+       "color": "#94c23e"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "56ea9289ab",
+       "bbox": [
+        29.39,
+        105.84,
+        40.61,
+        117.44
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:56ea9289ab} I",
+       "bbox": [
+        29.39,
+        105.84,
+        40.61,
+        117.44
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "boss_ability:weald:p020",
+   "source_set": "extension",
+   "copies": 1,
+   "pages": [
+    20
+   ],
+   "faces": {
+    "front": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+     "page": 20,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c06e6fc40e0e3fd4",
+     "spans": [
+      {
+       "t": "II",
+       "bbox": [
+        58.03,
+        5.75,
+        60.95,
+        12.69
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#c98c3c"
+      },
+      {
+       "t": "ACTIONS / Round: 1",
+       "bbox": [
+        20.05,
+        55.06,
+        49.85,
+        60.46
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 14.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Something’s Cooking:",
+       "bbox": [
+        10.2,
+        63.3,
+        41.26,
+        67.06
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "The Cauldron",
+       "bbox": [
+        41.87,
+        63.3,
+        60.39,
+        66.96
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "starts Empty side up. When a Hero is",
+       "bbox": [
+        9.88,
+        67.11,
+        60.02,
+        70.77
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "in the Cauldron, flip it to its Full side",
+       "bbox": [
+        10.32,
+        70.92,
+        59.59,
+        74.58
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "and remove all Wounds from it. A",
+       "bbox": [
+        12.05,
+        74.73,
+        57.85,
+        78.39
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Hero that is in the Cauldron cannot",
+       "bbox": [
+        10.89,
+        78.54,
+        59.01,
+        82.2
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "move or be",
+       "bbox": [
+        11.2,
+        82.35,
+        26.73,
+        86.01
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": ". When the Cauldron",
+       "bbox": [
+        30.53,
+        82.35,
+        58.7,
+        86.01
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "suffers wounds equal to its Life or",
+       "bbox": [
+        11.55,
+        86.16,
+        58.35,
+        89.82
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "the Hero in it reaches Death’s Door,",
+       "bbox": [
+        10.6,
+        89.97,
+        59.29,
+        93.63
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "place that Hero in an adjacent Area",
+       "bbox": [
+        10.84,
+        93.78,
+        59.07,
+        97.44
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "and flip the Cauldron to its Empty",
+       "bbox": [
+        11.78,
+        97.59,
+        58.12,
+        101.25
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "side, removing all wounds from it.",
+       "bbox": [
+        11.74,
+        101.4,
+        58.16,
+        105.06
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Cauldron",
+       "bbox": [
+        25.75,
+        45.98,
+        44.14,
+        52.92
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#d12529"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "0c9e989b70",
+       "bbox": [
+        54.89,
+        4.24,
+        64.11,
+        13.78
+       ]
+      },
+      {
+       "iconId": "77a46220cf",
+       "bbox": [
+        27.16,
+        82.9,
+        30.34,
+        86.08
+       ],
+       "bbox_full": [
+        26.57,
+        82.21,
+        31.27,
+        86.66
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:0c9e989b70} II",
+       "bbox": [
+        54.89,
+        4.24,
+        64.11,
+        13.78
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Cauldron",
+       "bbox": [
+        25.75,
+        45.98,
+        44.14,
+        52.92
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "ACTIONS / Round: 1",
+       "bbox": [
+        20.05,
+        55.06,
+        49.85,
+        60.46
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Something’s Cooking: The Cauldron",
+       "bbox": [
+        10.2,
+        63.3,
+        60.39,
+        67.06
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "starts Empty side up. When a Hero is",
+       "bbox": [
+        9.88,
+        67.11,
+        60.02,
+        70.77
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "in the Cauldron, flip it to its Full side",
+       "bbox": [
+        10.32,
+        70.92,
+        59.59,
+        74.58
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "and remove all Wounds from it. A",
+       "bbox": [
+        12.05,
+        74.73,
+        57.85,
+        78.39
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Hero that is in the Cauldron cannot",
+       "bbox": [
+        10.89,
+        78.54,
+        59.01,
+        82.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "move or be {icon:77a46220cf} . When the Cauldron",
+       "bbox": [
+        11.2,
+        82.35,
+        58.7,
+        86.08
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "suffers wounds equal to its Life or",
+       "bbox": [
+        11.55,
+        86.16,
+        58.35,
+        89.82
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "the Hero in it reaches Death’s Door,",
+       "bbox": [
+        10.6,
+        89.97,
+        59.29,
+        93.63
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "place that Hero in an adjacent Area",
+       "bbox": [
+        10.84,
+        93.78,
+        59.07,
+        97.44
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "and flip the Cauldron to its Empty",
+       "bbox": [
+        11.78,
+        97.59,
+        58.12,
+        101.25
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "side, removing all wounds from it.",
+       "bbox": [
+        11.74,
+        101.4,
+        58.16,
+        105.06
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_BACK.pdf",
+     "page": 20,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "d1958769698d6af0",
+     "spans": [
+      {
+       "t": "II",
+       "bbox": [
+        33.21,
+        107.67,
+        36.77,
+        116.12
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 21.91,
+       "color": "#c98c3c"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "56ea9289ab",
+       "bbox": [
+        29.39,
+        105.84,
+        40.61,
+        117.44
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:56ea9289ab} II",
+       "bbox": [
+        29.39,
+        105.84,
+        40.61,
+        117.44
+       ]
+      }
+     ]
+    }
+   }
+  },
+  {
+   "id": "boss_ability:weald:p021",
+   "source_set": "extension",
+   "copies": 1,
+   "pages": [
+    21
+   ],
+   "faces": {
+    "front": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+     "page": 21,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "c06e6fc40e0e3fd4",
+     "spans": [
+      {
+       "t": "III",
+       "bbox": [
+        57.3,
+        5.75,
+        61.68,
+        12.69
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#d12529"
+      },
+      {
+       "t": "ACTIONS / Round: 1",
+       "bbox": [
+        20.05,
+        55.06,
+        49.85,
+        60.46
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 14.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Something’s Cooking:",
+       "bbox": [
+        10.2,
+        63.3,
+        41.26,
+        67.06
+       ],
+       "font": "Ubuntu-Bold",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "The Cauldron",
+       "bbox": [
+        41.87,
+        63.3,
+        60.39,
+        66.96
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "starts Empty side up. When a Hero is",
+       "bbox": [
+        9.88,
+        67.11,
+        60.02,
+        70.77
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "in the Cauldron, flip it to its Full side",
+       "bbox": [
+        10.32,
+        70.92,
+        59.59,
+        74.58
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "and remove all Wounds from it. A",
+       "bbox": [
+        12.05,
+        74.73,
+        57.85,
+        78.39
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Hero that is in the Cauldron cannot",
+       "bbox": [
+        10.89,
+        78.54,
+        59.01,
+        82.2
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "move or be",
+       "bbox": [
+        11.2,
+        82.35,
+        26.73,
+        86.01
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": ". When the Cauldron",
+       "bbox": [
+        30.53,
+        82.35,
+        58.7,
+        86.01
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "suffers wounds equal to its Life or",
+       "bbox": [
+        11.55,
+        86.16,
+        58.35,
+        89.82
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "the Hero in it reaches Death’s Door,",
+       "bbox": [
+        10.6,
+        89.97,
+        59.29,
+        93.63
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "place that Hero in an adjacent Area",
+       "bbox": [
+        10.84,
+        93.78,
+        59.07,
+        97.44
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "and flip the Cauldron to its Empty",
+       "bbox": [
+        11.78,
+        97.59,
+        58.12,
+        101.25
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "side, removing all wounds from it.",
+       "bbox": [
+        11.74,
+        101.4,
+        58.16,
+        105.06
+       ],
+       "font": "Ubuntu-Regular",
+       "size": 9.0,
+       "color": "#231f20"
+      },
+      {
+       "t": "Cauldron",
+       "bbox": [
+        25.75,
+        45.98,
+        44.14,
+        52.92
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 18.0,
+       "color": "#d12529"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "0c9e989b70",
+       "bbox": [
+        54.89,
+        4.24,
+        64.11,
+        13.78
+       ]
+      },
+      {
+       "iconId": "77a46220cf",
+       "bbox": [
+        27.16,
+        82.9,
+        30.34,
+        86.08
+       ],
+       "bbox_full": [
+        26.57,
+        82.21,
+        31.27,
+        86.66
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:0c9e989b70} III",
+       "bbox": [
+        54.89,
+        4.24,
+        64.11,
+        13.78
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Cauldron",
+       "bbox": [
+        25.75,
+        45.98,
+        44.14,
+        52.92
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "ACTIONS / Round: 1",
+       "bbox": [
+        20.05,
+        55.06,
+        49.85,
+        60.46
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Something’s Cooking: The Cauldron",
+       "bbox": [
+        10.2,
+        63.3,
+        60.39,
+        67.06
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "starts Empty side up. When a Hero is",
+       "bbox": [
+        9.88,
+        67.11,
+        60.02,
+        70.77
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "in the Cauldron, flip it to its Full side",
+       "bbox": [
+        10.32,
+        70.92,
+        59.59,
+        74.58
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "and remove all Wounds from it. A",
+       "bbox": [
+        12.05,
+        74.73,
+        57.85,
+        78.39
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "Hero that is in the Cauldron cannot",
+       "bbox": [
+        10.89,
+        78.54,
+        59.01,
+        82.2
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "move or be {icon:77a46220cf} . When the Cauldron",
+       "bbox": [
+        11.2,
+        82.35,
+        58.7,
+        86.08
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "suffers wounds equal to its Life or",
+       "bbox": [
+        11.55,
+        86.16,
+        58.35,
+        89.82
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "the Hero in it reaches Death’s Door,",
+       "bbox": [
+        10.6,
+        89.97,
+        59.29,
+        93.63
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "place that Hero in an adjacent Area",
+       "bbox": [
+        10.84,
+        93.78,
+        59.07,
+        97.44
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "and flip the Cauldron to its Empty",
+       "bbox": [
+        11.78,
+        97.59,
+        58.12,
+        101.25
+       ]
+      },
+      {
+       "rot": 0,
+       "text": "side, removing all wounds from it.",
+       "bbox": [
+        11.74,
+        101.4,
+        58.16,
+        105.06
+       ]
+      }
+     ]
+    },
+    "back": {
+     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_BACK.pdf",
+     "page": 21,
+     "trim_mm": [
+      70.0,
+      120.0
+     ],
+     "face_phash": "d1958769698d6af0",
+     "spans": [
+      {
+       "t": "III",
+       "bbox": [
+        32.33,
+        107.67,
+        37.66,
+        116.12
+       ],
+       "font": "DwarvenAxeBB",
+       "size": 21.91,
+       "color": "#d12529"
+      }
+     ],
+     "icons": [
+      {
+       "iconId": "56ea9289ab",
+       "bbox": [
+        29.39,
+        105.84,
+        40.61,
+        117.44
+       ]
+      }
+     ],
+     "lines": [
+      {
+       "rot": 0,
+       "text": "{icon:56ea9289ab} III",
+       "bbox": [
+        29.39,
+        105.84,
+        40.61,
+        117.44
+       ]
+      }
+     ]
+    }
+   }
+  }
+ ]
+}
