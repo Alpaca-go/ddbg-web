@@ -38,9 +38,7 @@ const FLAGELLANT_L1_WASH = [
 const IDS = [...FLAGELLANT_HIGHER_IDS, ...FLAGELLANT_L1_WASH] as const;
 
 const data = loadNormalizedCorebox();
-const cards = data.hero_skill.cards.filter((card) =>
-  (IDS as readonly string[]).includes(card.id),
-);
+const cards = data.hero_skill.cards.filter((card) => (IDS as readonly string[]).includes(card.id));
 const clean = <T>(v: unknown): T => JSON.parse(JSON.stringify(v));
 
 it("R-200：Flagellant 裁定族 21 张纳入 d10 审计集合", () => {

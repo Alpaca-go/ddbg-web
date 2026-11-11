@@ -123,7 +123,8 @@ export function formalRosterArtOnlySkills(): readonly never[] {
   return [];
 }
 
-export function formalRosterLevel1ArtSkillIds(_hero: FormalHeroName): readonly string[] {
+export function formalRosterLevel1ArtSkillIds(hero: FormalHeroName): readonly string[] {
+  void hero;
   return [];
 }
 

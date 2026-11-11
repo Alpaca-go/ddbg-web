@@ -64,17 +64,9 @@ function combatFor(card: MskCard) {
     light: 4,
     shuffleChoice: "push" as const,
     areaDistance:
-      range.kind === "exact"
-        ? range.distance
-        : range.kind === "interval"
-          ? range.min
-          : 0,
+      range.kind === "exact" ? range.distance : range.kind === "interval" ? range.min : 0,
     targetsInArea:
-      targets.kind === "exact"
-        ? targets.max
-        : targets.kind === "hero_or_monster"
-          ? 1
-          : 1,
+      targets.kind === "exact" ? targets.max : targets.kind === "hero_or_monster" ? 1 : 1,
   };
 }
 

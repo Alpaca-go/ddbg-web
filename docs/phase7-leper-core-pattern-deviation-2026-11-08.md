@@ -8,12 +8,12 @@
 
 ## 本 PR 逐卡覆盖摘要（R-200，Q-163～Q-166 已关闭）
 
-| 卡 | 覆盖要点 |
-|----|----------|
-| p281/p282 Purge | Buff 去重；III stats heal→damage |
-| p284/p285 Revenge | `20ffe98e2d` heal→`target_effects` |
-| p287/p288 Withstand | 去误 `{buff}`；`{range} Self` 头行 + Protection/Mark |
-| p290/p291 Solemnity | stats `{range} Self`；Heal+stress 单行；`f18923574c`→stress |
+| 卡                   | 覆盖要点                                                                                             |
+| -------------------- | ---------------------------------------------------------------------------------------------------- |
+| p281/p282 Purge      | Buff 去重；III stats heal→damage                                                                     |
+| p284/p285 Revenge    | `20ffe98e2d` heal→`target_effects`                                                                   |
+| p287/p288 Withstand  | 去误 `{buff}`；`{range} Self` 头行 + Protection/Mark                                                 |
+| p290/p291 Solemnity  | stats `{range} Self`；Heal+stress 单行；`f18923574c`→stress                                          |
 | p293/p294 Intimidate | `d4329c2a97`→mark；Ignores 拆 Protection/Guard；`9ffbd6087a` **不入结算**（非 light）；Debuff 独立行 |
 
 ## Crit 无伤害

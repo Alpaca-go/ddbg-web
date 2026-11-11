@@ -12,9 +12,30 @@ const ENTRIES: readonly {
   readonly acc: number;
   readonly targetIcons: number;
 }[] = [
-  { id: "hero_skill:p166", hero: "ARBALEST", name: "Rallying Flare", level: 1, acc: 10, targetIcons: 2 },
-  { id: "hero_skill:p167", hero: "ARBALEST", name: "Rallying Flare", level: 2, acc: 11, targetIcons: 3 },
-  { id: "hero_skill:p168", hero: "ARBALEST", name: "Rallying Flare", level: 3, acc: 12, targetIcons: 4 },
+  {
+    id: "hero_skill:p166",
+    hero: "ARBALEST",
+    name: "Rallying Flare",
+    level: 1,
+    acc: 10,
+    targetIcons: 2,
+  },
+  {
+    id: "hero_skill:p167",
+    hero: "ARBALEST",
+    name: "Rallying Flare",
+    level: 2,
+    acc: 11,
+    targetIcons: 3,
+  },
+  {
+    id: "hero_skill:p168",
+    hero: "ARBALEST",
+    name: "Rallying Flare",
+    level: 3,
+    acc: 12,
+    targetIcons: 4,
+  },
   {
     id: "hero_skill:musketeer:p019",
     hero: "MUSKETEER",

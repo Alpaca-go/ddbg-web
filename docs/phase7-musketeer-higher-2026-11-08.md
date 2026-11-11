@@ -8,15 +8,15 @@
 
 Musketeer 与 Arbalest **数值与效果完全一致**，仅图标/名称不同。`musketeer-arbalest-parity.test.ts` 逐族 L1–III 对照效果行与 `verified_*`。
 
-| Musketeer | Arbalest |
-| --------- | -------- |
-| Aimed Shot | Sniper Shot |
-| Smokescreen | Suppressive Fire |
-| Call the Shot | Sniper's Mark |
-| Buckshot | Bola |
-| Sidearm | Blindfire |
-| Patch Up | Battlefield Bandage |
-| Skeet Shot | Rallying Flare |
+| Musketeer     | Arbalest            |
+| ------------- | ------------------- |
+| Aimed Shot    | Sniper Shot         |
+| Smokescreen   | Suppressive Fire    |
+| Call the Shot | Sniper's Mark       |
+| Buckshot      | Bola                |
+| Sidearm       | Blindfire           |
+| Patch Up      | Battlefield Bandage |
+| Skeet Shot    | Rallying Flare      |
 
 ## 引擎
 

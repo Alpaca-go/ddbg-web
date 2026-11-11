@@ -13,7 +13,12 @@ const PAIRS: ReadonlyArray<readonly [string, string]> = [
   ["Rallying Flare", "Skeet Shot"],
 ];
 
-function pick(cards: readonly NormalizedHeroSkillCard[], hero: string, name: string, level: number) {
+function pick(
+  cards: readonly NormalizedHeroSkillCard[],
+  hero: string,
+  name: string,
+  level: number,
+) {
   const hit = cards.find((c) => c.hero === hero && c.name === name && c.level === level);
   if (!hit) throw new Error(`缺少 ${hero} ${name} L${level}`);
   return hit;

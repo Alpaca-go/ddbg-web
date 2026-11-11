@@ -73,12 +73,15 @@ function combatFor(card: HeroSkillCardView) {
   };
 }
 
-it.each(antiquarianHigherCards)("$id $name：Antiquarian 高等级卡 d10 全效果行（Q-167～171）", (raw) => {
-  const card = clean<HeroSkillCardView>(raw);
-  const combat = combatFor(card);
-  for (let roll = 1; roll <= 10; roll++) {
-    const r = resolveHeroSkillEffects(card, combat, roll);
-    expect(r.resolution.status, r.resolution.reason ?? raw.id).toBe("resolved");
-    expect(r.resolution.skipped).not.toContainEqual({ code: "effect_lines" });
-  }
-});
+it.each(antiquarianHigherCards)(
+  "$id $name：Antiquarian 高等级卡 d10 全效果行（Q-167～171）",
+  (raw) => {
+    const card = clean<HeroSkillCardView>(raw);
+    const combat = combatFor(card);
+    for (let roll = 1; roll <= 10; roll++) {
+      const r = resolveHeroSkillEffects(card, combat, roll);
+      expect(r.resolution.status, r.resolution.reason ?? raw.id).toBe("resolved");
+      expect(r.resolution.skipped).not.toContainEqual({ code: "effect_lines" });
+    }
+  },
+);

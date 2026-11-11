@@ -61,11 +61,7 @@ function combatFor(card: SbCard) {
     light: 4,
     shuffleChoice: "push" as const,
     areaDistance:
-      range.kind === "exact"
-        ? range.distance
-        : range.kind === "interval"
-          ? range.min
-          : 0,
+      range.kind === "exact" ? range.distance : range.kind === "interval" ? range.min : 0,
     targetsInArea: targets.kind === "exact" ? targets.max : 1,
   };
 }

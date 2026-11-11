@@ -16,10 +16,10 @@ it("R-200：Warrens Leper 高等级逐卡覆盖签名", () => {
     expect(lineSignature(card.effect_lines[line]!)).toBe(sig);
   }
   const intimidate = data.hero_skill.cards.find((c) => c.id === "hero_skill:p293")!;
-  expect(intimidate.stats_line?.some((s) => s.type === "icon" && s.icon.key === "damage")).toBe(true);
-  expect(lineSignature(intimidate.effect_lines[1]!)).toBe(
-    "{target_effects} Ignores {protection}",
+  expect(intimidate.stats_line?.some((s) => s.type === "icon" && s.icon.key === "damage")).toBe(
+    true,
   );
+  expect(lineSignature(intimidate.effect_lines[1]!)).toBe("{target_effects} Ignores {protection}");
   expect(lineSignature(intimidate.effect_lines[2]!)).toBe("Ignores {guard}");
   expect(lineSignature(intimidate.effect_lines[3]!)).toBe("{target_effects} {debuff} 2t");
   const keys = intimidate.effect_lines.flatMap((line) =>

@@ -111,7 +111,7 @@ function fixAimedShot(
     throw new Error(`${card.id} Aimed Shot 效果行漂移（R-048）`);
   const targetEffects = iconFromPool(cards, "target_effects");
   const damageMis = segmentOnCard(card, "f18923574c");
-  const damage = iconFromPool(cards, "damage");
+  iconFromPool(cards, "damage");
   const markMis = segmentOnCard(card, "98edfaca0a");
   const parsed = normalizedHeroSkillCardSchema.parse({
     ...card,
@@ -200,7 +200,7 @@ function fixCallTheShot(
     throw new Error(`${card.id} Call the Shot 效果行漂移（R-048）`);
   const targetEffects = iconFromPool(cards, "target_effects");
   const markMis = segmentOnCard(card, "f70a42e51f");
-  const mark = iconFromPool(cards, "mark");
+  iconFromPool(cards, "mark");
   const parsed = normalizedHeroSkillCardSchema.parse({
     ...card,
     effect_lines: [[targetEffects, text(" "), cloneKey(markMis, "mark"), text(` ${markT}t`)]],
@@ -240,11 +240,14 @@ function fixBuckshot(
     throw new Error(`${card.id} Buckshot stats 漂移（R-048）`);
   const selfSig = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
   const tgtSig = lineSignature(card.effect_lines[1]!).replace(/\s+/g, "");
-  if (selfSig !== expectedSelfRaw.replace(/\s+/g, "") || tgtSig !== expectedTargetRaw.replace(/\s+/g, ""))
+  if (
+    selfSig !== expectedSelfRaw.replace(/\s+/g, "") ||
+    tgtSig !== expectedTargetRaw.replace(/\s+/g, "")
+  )
     throw new Error(`${card.id} Buckshot 效果行漂移（R-048）`);
   const selfEffects = iconFromCard(card, "self_effects");
   const pushMis = segmentOnCard(card, "d4329c2a97");
-  const shuffle = iconFromPool(cards, "shuffle");
+  iconFromPool(cards, "shuffle");
   const targetEffects = iconFromPool(cards, "target_effects");
   const targetShuffle = segmentOnCard(card, "1fd9f6ec6d");
   return normalizedHeroSkillCardSchema.parse({
@@ -275,10 +278,12 @@ function fixSidearm(
     throw new Error(`${card.id} Sidearm 效果行漂移（R-048）`);
   const selfEffects = iconFromCard(card, "self_effects");
   const shuffleMis = segmentOnCard(card, "f18923574c");
-  const shuffle = iconFromPool(cards, "shuffle");
+  iconFromPool(cards, "shuffle");
   const parsed = normalizedHeroSkillCardSchema.parse({
     ...card,
-    effect_lines: [[selfEffects, text(" Self "), cloneKey(shuffleMis, "shuffle"), text(` Push ${push}`)]],
+    effect_lines: [
+      [selfEffects, text(" Self "), cloneKey(shuffleMis, "shuffle"), text(` Push ${push}`)],
+    ],
   });
   if (level > 1) {
     return { ...parsed, verified_range: { min: 0, max: 2, source: "print_front" as const } };
@@ -301,14 +306,20 @@ function fixPatchUp(
     throw new Error(`${card.id} Patch Up 效果行漂移（R-048）`);
   const selfEffects = iconFromCard(card, "self_effects");
   const buffMis = segmentOnCard(card, "d4329c2a97");
-  const buff = iconFromPool(cards, "buff");
+  iconFromPool(cards, "buff");
   const statsLine = fixHealStatsLine(cards, card, expectedStats);
   const higher =
     level > 1
       ? {
           verified_range: { min: 0, max: 1, source: "print_front" as const },
           verified_status_effects: [
-            { lineIndex: 0, segmentIndex: 2, scope: "self" as const, kind: "buff" as const, duration: 2 },
+            {
+              lineIndex: 0,
+              segmentIndex: 2,
+              scope: "self" as const,
+              kind: "buff" as const,
+              duration: 2,
+            },
           ],
         }
       : {};
@@ -335,14 +346,17 @@ function fixSkeetEffectLines(
     throw new Error(`${card.id} Skeet Shot Acc 漂移（R-048）`);
   const selfSig = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
   const monsterSig = lineSignature(card.effect_lines[1]!).replace(/\s+/g, "");
-  if (selfSig !== expectedSelfRaw.replace(/\s+/g, "") || monsterSig !== expectedMonsterRaw.replace(/\s+/g, ""))
+  if (
+    selfSig !== expectedSelfRaw.replace(/\s+/g, "") ||
+    monsterSig !== expectedMonsterRaw.replace(/\s+/g, "")
+  )
     throw new Error(`${card.id} Skeet Shot 效果行漂移（R-048）`);
   const selfEffects = iconFromCard(card, "self_effects");
   const stun = iconFromPool(cards, "stun");
   const mark = iconFromPool(cards, "mark");
   const targetEffects = iconFromPool(cards, "target_effects");
   const targetHero = iconFromPool(cards, "target_hero");
-  const shuffle = iconFromPool(cards, "shuffle");
+  iconFromPool(cards, "shuffle");
   const targetMonster = iconFromPool(cards, "target_monster");
   const debuff = iconFromPool(cards, "debuff");
   return normalizedHeroSkillCardSchema.parse({
@@ -448,38 +462,11 @@ export function attachVerifiedMusketeerHigher(
           3,
         );
       case "hero_skill:musketeer:p007":
-        return fixCallTheShot(
-          cards,
-          card,
-          "p007",
-          1,
-          7,
-          10,
-          "{target_effects}{debuff}2t",
-          2,
-        );
+        return fixCallTheShot(cards, card, "p007", 1, 7, 10, "{target_effects}{debuff}2t", 2);
       case "hero_skill:musketeer:p008":
-        return fixCallTheShot(
-          cards,
-          card,
-          "p008",
-          2,
-          8,
-          11,
-          "{target_effects}{debuff}3t",
-          3,
-        );
+        return fixCallTheShot(cards, card, "p008", 2, 8, 11, "{target_effects}{debuff}3t", 3);
       case "hero_skill:musketeer:p009":
-        return fixCallTheShot(
-          cards,
-          card,
-          "p009",
-          3,
-          9,
-          12,
-          "{target_effects}{debuff}4t",
-          4,
-        );
+        return fixCallTheShot(cards, card, "p009", 3, 9, 12, "{target_effects}{debuff}4t", 4);
       case "hero_skill:musketeer:p010":
         return fixBuckshot(
           cards,

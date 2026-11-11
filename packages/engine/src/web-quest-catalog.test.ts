@@ -138,7 +138,7 @@ describe("五英雄旧目录补员存档迁移", () => {
       const before = structuredClone(save);
       const loaded = loadQuestSave(save, sources, trusted).game;
       expect(save).toEqual(before);
-      expect(loaded.dungeon!.battleCatalog!.heroStats).toHaveLength(53);
+      expect(loaded.dungeon!.battleCatalog!.heroStats).toHaveLength(54);
       expect(loaded.seed).toBe(game.seed);
       expect(loaded.dungeon!.cursor).toBe(game.dungeon!.cursor);
       expect(loaded.dungeon!.heroes).toEqual(game.dungeon!.heroes);
@@ -261,11 +261,11 @@ it("自然再次侦察多人死亡：第二名候选准备、禁止半队入场�
 it("正式十八英雄目录含替补，旧六/五/沙盒目录边界不变", () => {
   expect(previousSources.catalog.heroStats).toHaveLength(4);
   expect(previousSources.catalog.skills).toHaveLength(84);
-  expect(fiveSources.catalog.heroStats).toHaveLength(44);
+  expect(fiveSources.catalog.heroStats).toHaveLength(45);
   expect(fiveSources.catalog.skills).toHaveLength(91);
-  expect(sixHeroSources.catalog.heroStats).toHaveLength(47);
+  expect(sixHeroSources.catalog.heroStats).toHaveLength(48);
   expect(sixHeroSources.catalog.skills).toHaveLength(98);
-  expect(sources.catalog.heroStats).toHaveLength(53);
+  expect(sources.catalog.heroStats).toHaveLength(54);
   expect(sources.catalog.skills.length).toBeGreaterThan(112);
   for (const hero of EXTRA) {
     expect(
@@ -292,7 +292,7 @@ it("旧网页存档先验证原目录再更新；伪造快照、日志及非目�
   const save = createQuestSave(start, [], game, previousSources);
   expect(() => loadQuestSave(save, sources)).toThrow(/不一致/);
   const loaded = loadQuestSave(save, sources, previousSources);
-  expect(loaded.game.dungeon!.battleCatalog!.heroStats).toHaveLength(53);
+  expect(loaded.game.dungeon!.battleCatalog!.heroStats).toHaveLength(54);
   expect(loaded.game).toEqual(
     createCoreDungeonQuest(start.seed, start.questId, start.mode, start.party, sources),
   );
@@ -325,7 +325,7 @@ it("旧目录真实战斗待选存档更新卡目录后，行动、实体、待�
   const entry = { ...start, seed: 1 };
   const save = createQuestSave(entry, run.commands, run.state, previousSources);
   const updated = loadQuestSave(save, sources, previousSources).game;
-  expect(updated.battle!.heroStats).toHaveLength(53);
+  expect(updated.battle!.heroStats).toHaveLength(54);
   expect(updated.battle!.skills.length).toBeGreaterThan(112);
   expect(updated.battle).toEqual({
     ...run.state.battle!,

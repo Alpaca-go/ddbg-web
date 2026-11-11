@@ -143,7 +143,7 @@ function bossRoomEntry(d: DungeonState) {
     d.phase !== "awaitingRoom" ||
     d.roomCards?.active?.tileId !== undefined ||
     d.questDistribution?.questId !== "quest:p019" ||
-    !["standard", "radiant"].includes(d.mode)
+    !["standard", "radiant", "stygian"].includes(d.mode)
   )
     return undefined;
   return entries.find(

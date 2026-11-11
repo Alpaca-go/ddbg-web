@@ -6,12 +6,12 @@
 
 ## 改动
 
-| 层   | 改动                                                                                                                                              |
-| ---- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 数据 | `basic-quests.ts` 的 `quest:p005` 增加 `curioRoomsAlwaysGuarded: true`、`curioRoomGuardMonsterLevel: 2`                                             |
+| 层   | 改动                                                                                                                                                 |
+| ---- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 数据 | `basic-quests.ts` 的 `quest:p005` 增加 `curioRoomsAlwaysGuarded: true`、`curioRoomGuardMonsterLevel: 2`                                              |
 | 房间 | `dungeon-curio-room.ts`：该任务进入 Curio 房**不掷守卫骰、不消耗游标**，直接 `stage: "guarded"`；事件注明 Rising Threat（R-197）                     |
 | 部署 | `curio-room-guard.ts`：先抽 **1 只 II 级怪**，其余位按本层怪物池补满四姿态；II 级怪不在本层 catalog 时记 `curioRoom.guardInstanceId`，按池外实例处理 |
-| 战斗 | `dungeon-battle.ts`：守卫实例允许高于本地牢等级（仅该实例）；池外实例在战前守恒与战后回池中排除；胜利后走既有 `reward → Curio`（先战后 Curio）     |
+| 战斗 | `dungeon-battle.ts`：守卫实例允许高于本地牢等级（仅该实例）；池外实例在战前守恒与战后回池中排除；胜利后走既有 `reward → Curio`（先战后 Curio）       |
 
 ## 验证
 

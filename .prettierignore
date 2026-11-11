@@ -26,3 +26,10 @@ tools/pipeline/extract-print/REPORT.md
 tools/pipeline/extract-print/scripts
 
 .cache
+
+# 保留的本地历史交接与原始几何导出，不作为源码格式化。
+docs/HANDOFF-2026-11-01-codex-core-pack-remaining.md
+docs/HANDOFF-2026-11-03-codex-core-pack-remaining.md
+docs/HANDOFF-2026-11-05-core-pack-next-session.md
+docs/manual-room-tile-survey.md
+docs/screenshots/_p001-geom-export.json

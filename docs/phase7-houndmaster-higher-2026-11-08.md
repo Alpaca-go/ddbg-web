@@ -7,15 +7,15 @@
 
 ## 逐卡覆盖要点
 
-| 技能族 | 覆盖 |
-| --- | --- |
-| Hound's Rush | 自身 `d4329c2a97`→`mark`；目标流血 `verified_status_effects`（L1–III） |
-| Hound's Harry | 目标流血注解（L1–III） |
-| Target Whistle | `20ffe98e2d`→`target_effects`；stats 射程 0 + 清 `0-2` 脏数字（L1–III） |
-| Cry Havoc | 压力行沿 Endure/Bolster：`verified_self_stress`、`verified_allies_stress`、`verified_effect_line_receipts`；L1 补 stats 临近双队友（L1–III） |
-| Guard Dog | `verified_self_range` + 自身 `protection`（L1–III） |
-| Lick Wounds | stats 爪痕 `damage`→`heal` 逐卡；`verified_self_range`（L1–III） |
-| Blackjack | `763ad8e857`→`stun` 1t（L1–III） |
+| 技能族         | 覆盖                                                                                                                                         |
+| -------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| Hound's Rush   | 自身 `d4329c2a97`→`mark`；目标流血 `verified_status_effects`（L1–III）                                                                       |
+| Hound's Harry  | 目标流血注解（L1–III）                                                                                                                       |
+| Target Whistle | `20ffe98e2d`→`target_effects`；stats 射程 0 + 清 `0-2` 脏数字（L1–III）                                                                      |
+| Cry Havoc      | 压力行沿 Endure/Bolster：`verified_self_stress`、`verified_allies_stress`、`verified_effect_line_receipts`；L1 补 stats 临近双队友（L1–III） |
+| Guard Dog      | `verified_self_range` + 自身 `protection`（L1–III）                                                                                          |
+| Lick Wounds    | stats 爪痕 `damage`→`heal` 逐卡；`verified_self_range`（L1–III）                                                                             |
+| Blackjack      | `763ad8e857`→`stun` 1t（L1–III）                                                                                                             |
 
 ## 审计
 

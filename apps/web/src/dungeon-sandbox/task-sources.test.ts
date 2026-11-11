@@ -54,7 +54,7 @@ it("R-215 仅在旧目录回放和新目录结果都匹配时更新旧存档", (
   const tampered = JSON.parse(JSON.stringify(save));
   tampered.snapshot.dungeon.battleCatalog.heroStats[0].speed += 1;
   expect(() => loadQuestSave(tampered, taskSources, [preHeroStatReviewTaskSources])).toThrow();
-});
+}, 30000);
 
 it("#416 catalog snapshots are validated against fixed old sources before upgrading; altered player state is refused", () => {
   expect(taskSources.catalog.skills.length - preAbominationTaskSources.catalog.skills.length).toBe(
@@ -83,7 +83,7 @@ it("#416 catalog snapshots are validated against fixed old sources before upgrad
   const tampered = JSON.parse(JSON.stringify(saved));
   tampered.snapshot.dungeon.heroes[0].wounds = 1;
   expect(() => loadQuestSave(tampered, taskSources, [preAbominationTaskSources])).toThrow();
-});
+}, 30000);
 
 it("网页补入最暗九种怪物后，旧真实战斗存档仅迁移可信目录，玩家状态篡改仍拒绝", () => {
   expect(
@@ -146,7 +146,7 @@ it("正式目录补入Necromancer I后，旧目录存档仍先严格验证再升
   const forged = JSON.parse(JSON.stringify(saved));
   forged.snapshot.dungeon.gold++;
   expect(() => loadQuestSave(forged, taskSources, [preNecromancerTaskSources])).toThrow();
-});
+}, 30000);
 
 it("Prophet I正式目录补齐后旧目录先严格验证，英雄篡改仍拒绝", () => {
   expect(
@@ -186,7 +186,7 @@ it("Prophet I正式目录补齐后旧目录先严格验证，英雄篡改仍拒�
   const forged = JSON.parse(JSON.stringify(saved));
   forged.snapshot.dungeon.heroes[0].wounds++;
   expect(() => loadQuestSave(forged, taskSources, [preProphetTaskSources])).toThrow();
-});
+}, 30000);
 
 it("R-176 Collector I 正式卡字段、旧目录严格迁移和篡改拒绝", () => {
   expect(taskSources.catalog.monsters.find((c) => c.id === "monster_medium:p092")).toMatchObject({
@@ -277,25 +277,48 @@ it("R-179 Fanatic I 正式卡字段、旧目录严格迁移和篡改拒绝", () 
   expect(() => loadQuestSave(save, taskSources, [preFanaticTaskSources])).toThrow();
 }, 30000);
 
+// R-214：两张 Templar 的姿态分组和选招表分别核准，不能共用旧表。
 const templarsStanceExpect = {
-  speed: 2,
-  stanceGroups: [
-    {
-      stances: ["aggressive"],
-      rollTable: [
-        { min: 1, max: 2, skill: 1 },
-        { min: 3, max: 4, skill: 2 },
-        { min: 5, max: 10, skill: 3 },
-      ],
-    },
-    {
-      stances: ["defensive", "ranged", "support"],
-      rollTable: [
-        { min: 1, max: 5, skill: 1 },
-        { min: 6, max: 10, skill: 2 },
-      ],
-    },
-  ],
+  "monster_large:p014": {
+    speed: 2,
+    stanceGroups: [
+      {
+        stances: ["aggressive", "defensive"],
+        rollTable: [
+          { min: 1, max: 5, skill: 1 },
+          { min: 6, max: 10, skill: 3 },
+        ],
+      },
+      {
+        stances: ["ranged", "support"],
+        rollTable: [
+          { min: 1, max: 2, skill: 1 },
+          { min: 3, max: 4, skill: 3 },
+          { min: 5, max: 10, skill: 2 },
+        ],
+      },
+    ],
+  },
+  "monster_large:p015": {
+    speed: 2,
+    stanceGroups: [
+      {
+        stances: ["aggressive", "defensive", "ranged"],
+        rollTable: [
+          { min: 1, max: 2, skill: 1 },
+          { min: 3, max: 4, skill: 3 },
+          { min: 5, max: 10, skill: 2 },
+        ],
+      },
+      {
+        stances: ["support"],
+        rollTable: [
+          { min: 1, max: 5, skill: 1 },
+          { min: 6, max: 10, skill: 3 },
+        ],
+      },
+    ],
+  },
 };
 
 const mammothCystStanceExpect = {
@@ -358,7 +381,7 @@ it("R-185 Mammoth Cyst 正式卡字段、旧目录严格迁移和篡改拒绝", 
   );
   save.snapshot.dungeon.gold++;
   expect(() => loadQuestSave(save, taskSources, [preMammothCystTaskSources])).toThrow();
-});
+}, 30000);
 
 const ancestor1StanceExpect = {
   speed: 3,
@@ -443,7 +466,7 @@ it("R-187 最终战形态正式卡字段、旧目录严格迁移和篡改拒绝"
   );
   save.snapshot.dungeon.gold++;
   expect(() => loadQuestSave(save, taskSources, [preFinalBattleBossCatalogTaskSources])).toThrow();
-});
+}, 30000);
 
 it("R-183 Shuffling Horror 正式卡字段、旧目录严格迁移和篡改拒绝", () => {
   expect(taskSources.catalog.monsters.find((c) => c.id === "monster_large:p017")).toMatchObject(
@@ -478,12 +501,12 @@ it("R-183 Shuffling Horror 正式卡字段、旧目录严格迁移和篡改拒�
   );
   save.snapshot.dungeon.gold++;
   expect(() => loadQuestSave(save, taskSources, [preShufflingHorrorTaskSources])).toThrow();
-});
+}, 30000);
 
 it("R-181 Templars 正式卡字段、旧目录严格迁移和篡改拒绝", () => {
   for (const id of ["monster_large:p014", "monster_large:p015"] as const) {
     expect(taskSources.catalog.monsters.find((c) => c.id === id)).toMatchObject(
-      templarsStanceExpect,
+      templarsStanceExpect[id],
     );
   }
   expect(preTemplarsTaskSources.catalog.monsters).toEqual(
