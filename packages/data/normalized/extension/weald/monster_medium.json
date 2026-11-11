@@ -662,6 +662,52 @@
     "value": null,
     "naming": "unverified"
    },
+   "verified_weald_profile": {
+    "ruling": "R-232",
+    "cardId": "monster_medium:weald:p001",
+    "name": "Ectoplasm",
+    "life": 6,
+    "pages": [
+     1,
+     2,
+     3
+    ],
+    "dodge": 0,
+    "speed": 1,
+    "stanceSlots": 1,
+    "stanceGroups": [
+     {
+      "stances": [
+       "aggressive",
+       "defensive",
+       "ranged",
+       "support"
+      ],
+      "rollTable": [
+       {
+        "min": 1,
+        "max": 5,
+        "skill": 1
+       },
+       {
+        "min": 6,
+        "max": 8,
+        "skill": 2
+       },
+       {
+        "min": 9,
+        "max": 10,
+        "skill": 3
+       }
+      ]
+     }
+    ],
+    "resistance": "blight",
+    "resistanceIcon": "8e690fc7b2",
+    "immunities": []
+   },
+   "dodge": 0,
+   "speed": 1,
    "resistances": [
     {
      "iconId": "8e690fc7b2",
@@ -699,6 +745,20 @@
    ],
    "skills": [
     {
+     "verified_weald_attack": {
+      "ruling": "R-230",
+      "cardId": "monster_medium:weald:p001",
+      "slot": 1,
+      "name": "Slime",
+      "target": "Closest",
+      "crit": 1,
+      "criticalDamage": 7,
+      "acc": 9,
+      "damage": 4,
+      "range": 1,
+      "targets": 1,
+      "effectSignatures": []
+     },
      "slot": 1,
      "name": "Slime",
      "target": "Closest",
@@ -850,6 +910,26 @@
      ]
     },
     {
+     "verified_weald_attack": {
+      "ruling": "R-230",
+      "cardId": "monster_medium:weald:p001",
+      "slot": 2,
+      "name": "Cytokinesis",
+      "target": "Closest",
+      "crit": 1,
+      "criticalDamage": 2,
+      "acc": 9,
+      "damage": 1,
+      "range": 1,
+      "targets": 1,
+      "effectSignatures": [
+       "{701329b97c}{1bcf831fea}1Ectoplasm"
+      ],
+      "summon": {
+       "cardId": "monster_medium:weald:p001",
+       "count": 1
+      }
+     },
      "slot": 2,
      "name": "Cytokinesis",
      "target": "Closest",
@@ -1078,6 +1158,33 @@
      ]
     },
     {
+     "verified_weald_attack": {
+      "ruling": "R-230",
+      "cardId": "monster_medium:weald:p001",
+      "slot": 3,
+      "name": "Ectoplasmic Profusion",
+      "target": "Crowded",
+      "crit": 1,
+      "criticalDamage": 2,
+      "acc": 9,
+      "damage": 1,
+      "range": 1,
+      "targets": 3,
+      "effectSignatures": [
+       "{701329b97c}{1bcf831fea}1LargeEctoplasm,{86fb6b3546}+1"
+      ],
+      "effects": [
+       {
+        "type": "stress",
+        "scope": "target",
+        "amount": 1
+       }
+      ],
+      "summon": {
+       "cardId": "monster_large:weald:p001",
+       "count": 1
+      }
+     },
      "slot": 3,
      "name": "Ectoplasmic Profusion",
      "target": "Crowded",
@@ -1703,6 +1810,33 @@
       "text": " 9-10 6-8 1-5"
      }
     ]
+   ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive",
+      "ranged",
+      "support"
+     ],
+     "rollTable": [
+      {
+       "min": 1,
+       "max": 5,
+       "skill": 1
+      },
+      {
+       "min": 6,
+       "max": 8,
+       "skill": 2
+      },
+      {
+       "min": 9,
+       "max": 10,
+       "skill": 3
+      }
+     ]
+    }
    ],
    "back_texts": []
   },
@@ -4908,6 +5042,36 @@
     "value": null,
     "naming": "unverified"
    },
+   "verified_weald_profile": {
+    "ruling": "R-232",
+    "cardId": "monster_medium:weald:p006",
+    "name": "Rabid Gnasher",
+    "life": 7,
+    "pages": [
+     6,
+     7,
+     8
+    ],
+    "dodge": 2,
+    "speed": 3,
+    "stanceSlots": 1,
+    "stanceGroups": [
+     {
+      "stances": [
+       "aggressive",
+       "defensive",
+       "ranged",
+       "support"
+      ],
+      "skill": 1
+     }
+    ],
+    "resistance": "stun",
+    "resistanceIcon": "86bf0146dc",
+    "immunities": []
+   },
+   "dodge": 2,
+   "speed": 3,
    "resistances": [
     {
      "iconId": "86bf0146dc",
@@ -4945,6 +5109,41 @@
    ],
    "skills": [
     {
+     "verified_weald_attack": {
+      "ruling": "R-230",
+      "cardId": "monster_medium:weald:p006",
+      "slot": 1,
+      "name": "Rabid Rush",
+      "target": "Furthest",
+      "crit": 2,
+      "criticalDamage": 4,
+      "acc": 9,
+      "damage": 2,
+      "range": 2,
+      "targets": 1,
+      "effectSignatures": [
+       "{b65e69f6e0}Self{1358872299}Pull2{701329b97c}1{087d045a66}3t,{a7ee47360e}"
+      ],
+      "effects": [
+       {
+        "type": "shuffle",
+        "scope": "self",
+        "direction": "pull",
+        "distance": 2
+       },
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "bleed",
+        "duration": 3,
+        "amount": 1
+       },
+       {
+        "type": "disease",
+        "scope": "target"
+       }
+      ]
+     },
      "slot": 1,
      "name": "Rabid Rush",
      "target": "Furthest",
@@ -5420,6 +5619,17 @@
       "text": " 1"
      }
     ]
+   ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive",
+      "ranged",
+      "support"
+     ],
+     "skill": 1
+    }
    ],
    "back_texts": []
   },
@@ -5997,6 +6207,52 @@
     "value": null,
     "naming": "unverified"
    },
+   "verified_weald_profile": {
+    "ruling": "R-232",
+    "cardId": "monster_medium:weald:p009",
+    "name": "Fungal Scratcher",
+    "life": 14,
+    "pages": [
+     9,
+     10,
+     11
+    ],
+    "dodge": 0,
+    "speed": 1,
+    "stanceSlots": 1,
+    "stanceGroups": [
+     {
+      "stances": [
+       "aggressive",
+       "defensive"
+      ],
+      "rollTable": [
+       {
+        "min": 1,
+        "max": 5,
+        "skill": 1
+       },
+       {
+        "min": 6,
+        "max": 10,
+        "skill": 2
+       }
+      ]
+     },
+     {
+      "stances": [
+       "ranged",
+       "support"
+      ],
+      "skill": 3
+     }
+    ],
+    "resistance": "blight",
+    "resistanceIcon": "8e690fc7b2",
+    "immunities": []
+   },
+   "dodge": 0,
+   "speed": 1,
    "resistances": [
     {
      "iconId": "8e690fc7b2",
@@ -6034,6 +6290,20 @@
    ],
    "skills": [
     {
+     "verified_weald_attack": {
+      "ruling": "R-230",
+      "cardId": "monster_medium:weald:p009",
+      "slot": 1,
+      "name": "Groping Swipe",
+      "target": "Closest",
+      "crit": 1,
+      "criticalDamage": 7,
+      "acc": 8,
+      "damage": 4,
+      "range": 1,
+      "targets": 1,
+      "effectSignatures": []
+     },
      "slot": 1,
      "name": "Groping Swipe",
      "target": "Closest",
@@ -6185,6 +6455,29 @@
      ]
     },
     {
+     "verified_weald_attack": {
+      "ruling": "R-230",
+      "cardId": "monster_medium:weald:p009",
+      "slot": 2,
+      "name": "Rend the Marked",
+      "target": "Marked -> Closest",
+      "crit": 1,
+      "criticalDamage": 6,
+      "acc": 9,
+      "damage": 4,
+      "range": 1,
+      "targets": 1,
+      "effectSignatures": [
+       "{701329b97c}{8d4bbe5e11}+3vs{93ba3e2dfe}"
+      ],
+      "effects": [
+       {
+        "type": "damageBonus",
+        "condition": "marked",
+        "amount": 3
+       }
+      ]
+     },
      "slot": 2,
      "name": "Rend the Marked",
      "target": "Marked -> Closest",
@@ -6441,6 +6734,30 @@
      ]
     },
     {
+     "verified_weald_attack": {
+      "ruling": "R-230",
+      "cardId": "monster_medium:weald:p009",
+      "slot": 3,
+      "name": "Harmless Swipe",
+      "target": "Furthest",
+      "crit": 0,
+      "criticalDamage": 6,
+      "acc": 5,
+      "damage": 3,
+      "range": 2,
+      "targets": 1,
+      "effectSignatures": [
+       "{26a74fc48e}Self{1358872299}Pull1"
+      ],
+      "effects": [
+       {
+        "type": "shuffle",
+        "scope": "self",
+        "direction": "pull",
+        "distance": 1
+       }
+      ]
+     },
      "slot": 3,
      "name": "Harmless Swipe",
      "target": "Furthest",
@@ -6906,6 +7223,33 @@
       "text": " 3"
      }
     ]
+   ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive"
+     ],
+     "rollTable": [
+      {
+       "min": 1,
+       "max": 5,
+       "skill": 1
+      },
+      {
+       "min": 6,
+       "max": 10,
+       "skill": 2
+      }
+     ]
+    },
+    {
+     "stances": [
+      "ranged",
+      "support"
+     ],
+     "skill": 3
+    }
    ],
    "back_texts": []
   },
@@ -7552,6 +7896,52 @@
     "value": null,
     "naming": "unverified"
    },
+   "verified_weald_profile": {
+    "ruling": "R-232",
+    "cardId": "monster_medium:weald:p012",
+    "name": "Fungal Artillery",
+    "life": 9,
+    "pages": [
+     12,
+     13,
+     14
+    ],
+    "dodge": 1,
+    "speed": 1,
+    "stanceSlots": 1,
+    "stanceGroups": [
+     {
+      "stances": [
+       "aggressive",
+       "defensive"
+      ],
+      "skill": 3
+     },
+     {
+      "stances": [
+       "ranged",
+       "support"
+      ],
+      "rollTable": [
+       {
+        "min": 1,
+        "max": 5,
+        "skill": 1
+       },
+       {
+        "min": 6,
+        "max": 10,
+        "skill": 2
+       }
+      ]
+     }
+    ],
+    "resistance": "blight",
+    "resistanceIcon": "8e690fc7b2",
+    "immunities": []
+   },
+   "dodge": 1,
+   "speed": 1,
    "resistances": [
     {
      "iconId": "8e690fc7b2",
@@ -7589,6 +7979,36 @@
    ],
    "skills": [
     {
+     "verified_weald_attack": {
+      "ruling": "R-230",
+      "cardId": "monster_medium:weald:p012",
+      "slot": 1,
+      "name": "Mark Prey",
+      "target": "Closest",
+      "crit": 1,
+      "criticalDamage": 2,
+      "acc": 10,
+      "damage": 1,
+      "range": 2,
+      "targets": 1,
+      "effectSignatures": [
+       "{701329b97c}{3172cef36f}2t,{63be174a86}2t"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "mark",
+        "duration": 2
+       },
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "debuff",
+        "duration": 2
+       }
+      ]
+     },
      "slot": 1,
      "name": "Mark Prey",
      "target": "Closest",
@@ -7853,6 +8273,35 @@
      ]
     },
     {
+     "verified_weald_attack": {
+      "ruling": "R-230",
+      "cardId": "monster_medium:weald:p012",
+      "slot": 2,
+      "name": "Rain of Blight",
+      "target": "Crowded",
+      "crit": 1,
+      "criticalDamage": 2,
+      "acc": 10,
+      "damage": 1,
+      "range": 2,
+      "targets": 2,
+      "effectSignatures": [
+       "{701329b97c}2{41c31d63d8}2t,{a7ee47360e}"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "blight",
+        "duration": 2,
+        "amount": 2
+       },
+       {
+        "type": "disease",
+        "scope": "target"
+       }
+      ]
+     },
      "slot": 2,
      "name": "Rain of Blight",
      "target": "Crowded",
@@ -8127,6 +8576,37 @@
      ]
     },
     {
+     "verified_weald_attack": {
+      "ruling": "R-230",
+      "cardId": "monster_medium:weald:p012",
+      "slot": 3,
+      "name": "Escape Cloud",
+      "target": "Closest",
+      "crit": 1,
+      "criticalDamage": 2,
+      "acc": 10,
+      "damage": 1,
+      "range": 1,
+      "targets": 1,
+      "effectSignatures": [
+       "{26a74fc48e}Self{1358872299}Push2{701329b97c}1{41c31d63d8}3t"
+      ],
+      "effects": [
+       {
+        "type": "shuffle",
+        "scope": "self",
+        "direction": "push",
+        "distance": 2
+       },
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "blight",
+        "duration": 3,
+        "amount": 1
+       }
+      ]
+     },
      "slot": 3,
      "name": "Escape Cloud",
      "target": "Closest",
@@ -8664,6 +9144,33 @@
       "text": " 6-10 1-5"
      }
     ]
+   ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive"
+     ],
+     "skill": 3
+    },
+    {
+     "stances": [
+      "ranged",
+      "support"
+     ],
+     "rollTable": [
+      {
+       "min": 1,
+       "max": 5,
+       "skill": 1
+      },
+      {
+       "min": 6,
+       "max": 10,
+       "skill": 2
+      }
+     ]
+    }
    ],
    "back_texts": []
   }

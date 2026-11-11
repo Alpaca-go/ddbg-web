@@ -5,6 +5,8 @@ import type { RawFile } from "../extract/raw";
 import { rawFileSchema } from "../extract/raw";
 import { buildMonsterLarge, buildMonsterMedium } from "./build";
 import { createIconLookup } from "./icons";
+import { attachVerifiedWealdMonster } from "./verified-weald-monsters";
+import { normalizedMonsterMediumFileSchema, normalizedMonsterLargeFileSchema } from "./schema";
 
 const SOURCE_ROOT = "extract/extension/weald";
 const PRINT_ROOT = "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/";
@@ -92,7 +94,7 @@ export function buildWealdLevelOneMonsters(input: {
   const medium = selectBatch(input.mediumRaw, input.mediumParsed, "monster_medium");
   const large = selectBatch(input.largeRaw, input.largeParsed, "monster_large");
   const lookup = createIconLookup(input.dictionary);
-  return {
+  const built = {
     monster_medium: buildMonsterMedium(
       monsterMediumFileSchema.parse(medium.parsed),
       medium.raw,
@@ -105,5 +107,15 @@ export function buildWealdLevelOneMonsters(input: {
       lookup,
       SOURCE_ROOT,
     ),
+  };
+  return {
+    monster_medium: normalizedMonsterMediumFileSchema.parse({
+      ...built.monster_medium,
+      cards: built.monster_medium.cards.map(attachVerifiedWealdMonster),
+    }),
+    monster_large: normalizedMonsterLargeFileSchema.parse({
+      ...built.monster_large,
+      cards: built.monster_large.cards.map(attachVerifiedWealdMonster),
+    }),
   };
 }

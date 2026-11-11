@@ -56,7 +56,7 @@ describe("Weald I 级普通怪物规范化（W3 / 核心 R24 / Q-186）", () => 
     for (const reference of references) expect("life" in reference).toBe(false);
   });
 
-  it("只转录 R24 明确标注的 Life，其他待核实字段不填默认值", () => {
+  it("转录 Life 与 R-230 已确认字段，保留抗性/免疫及其他未审图标的停点", () => {
     const cards = [...built.monster_medium.cards, ...built.monster_large.cards];
     expect(cards.filter((card) => "life" in card).map((card) => [card.name, card.life])).toEqual([
       ["Ectoplasm", 6],
@@ -69,15 +69,31 @@ describe("Weald I 级普通怪物规范化（W3 / 核心 R24 / Q-186）", () => 
       expect(card.level).toBe(1);
       expect(card.verification.unverified).toBe(true);
       expect(card.verification.reasons.length).toBeGreaterThan(0);
-      expect(card).not.toHaveProperty("speed");
-      expect(card).not.toHaveProperty("stanceGroups");
       if (!("skills" in card)) continue;
+      expect(card.verified_weald_profile?.ruling).toBe("R-232");
+      expect(card.verified_weald_profile?.immunities).toEqual([]);
+      expect(card.speed).toBeGreaterThan(0);
+      expect(card.stanceGroups).toBeDefined();
       for (const skill of card.skills) {
         expect(skill).not.toHaveProperty("verified_damage");
         expect(skill).not.toHaveProperty("verified_range");
         expect(skill).not.toHaveProperty("verified_monster_effects");
+        expect(skill.verified_weald_attack?.ruling).toBe("R-230");
       }
     }
+  });
+
+  it("保留 Ectoplasm 1–5/6–8/9–10 与 Artillery Dodge 1 的人工更正", () => {
+    const ectoplasm = built.monster_medium.cards[0]!;
+    expect("skills" in ectoplasm && ectoplasm.stanceGroups?.[0]).toMatchObject({
+      rollTable: [
+        { min: 1, max: 5, skill: 1 },
+        { min: 6, max: 8, skill: 2 },
+        { min: 9, max: 10, skill: 3 },
+      ],
+    });
+    const artillery = built.monster_medium.cards.find((card) => card.name === "Fungal Artillery")!;
+    expect("skills" in artillery && artillery.dodge).toBe(1);
   });
 
   it.each(["missing", "duplicate", "level", "name", "pages", "life"])(

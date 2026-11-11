@@ -656,6 +656,51 @@
     "value": null,
     "naming": "unverified"
    },
+   "verified_weald_profile": {
+    "ruling": "R-232",
+    "cardId": "monster_large:weald:p001",
+    "name": "Large Ectoplasm",
+    "life": 22,
+    "pages": [
+     1,
+     2
+    ],
+    "dodge": 0,
+    "speed": 1,
+    "stanceSlots": 2,
+    "stanceGroups": [
+     {
+      "stances": [
+       "aggressive",
+       "defensive",
+       "ranged",
+       "support"
+      ],
+      "rollTable": [
+       {
+        "min": 1,
+        "max": 4,
+        "skill": 1
+       },
+       {
+        "min": 5,
+        "max": 8,
+        "skill": 2
+       },
+       {
+        "min": 9,
+        "max": 10,
+        "skill": 3
+       }
+      ]
+     }
+    ],
+    "resistance": "stun",
+    "resistanceIcon": "86bf0146dc",
+    "immunities": []
+   },
+   "dodge": 0,
+   "speed": 1,
    "resistances": [
     {
      "iconId": "86bf0146dc",
@@ -693,6 +738,20 @@
    ],
    "skills": [
     {
+     "verified_weald_attack": {
+      "ruling": "R-230",
+      "cardId": "monster_large:weald:p001",
+      "slot": 1,
+      "name": "Big Slime",
+      "target": "Closest",
+      "crit": 1,
+      "criticalDamage": 9,
+      "acc": 9,
+      "damage": 6,
+      "range": 1,
+      "targets": 1,
+      "effectSignatures": []
+     },
      "slot": 1,
      "name": "Big Slime",
      "target": "Closest",
@@ -844,6 +903,30 @@
      ]
     },
     {
+     "verified_weald_attack": {
+      "ruling": "R-230",
+      "cardId": "monster_large:weald:p001",
+      "slot": 2,
+      "name": "Slime Smack",
+      "target": "Crowded",
+      "crit": 3,
+      "criticalDamage": 6,
+      "acc": 9,
+      "damage": 3,
+      "range": 1,
+      "targets": 2,
+      "effectSignatures": [
+       "{701329b97c}{86bf0146dc}1t"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "stun",
+        "duration": 1
+       }
+      ]
+     },
      "slot": 2,
      "name": "Slime Smack",
      "target": "Crowded",
@@ -1090,6 +1173,26 @@
      ]
     },
     {
+     "verified_weald_attack": {
+      "ruling": "R-230",
+      "cardId": "monster_large:weald:p001",
+      "slot": 3,
+      "name": "Cytokinesis",
+      "target": "Closest",
+      "crit": 1,
+      "criticalDamage": 6,
+      "acc": 9,
+      "damage": 3,
+      "range": 1,
+      "targets": 1,
+      "effectSignatures": [
+       "{701329b97c}{1bcf831fea}1LargeEctoplasm"
+      ],
+      "summon": {
+       "cardId": "monster_large:weald:p001",
+       "count": 1
+      }
+     },
      "slot": 3,
      "name": "Cytokinesis",
      "target": "Closest",
@@ -1697,6 +1800,33 @@
       "text": " 2 5-8"
      }
     ]
+   ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive",
+      "ranged",
+      "support"
+     ],
+     "rollTable": [
+      {
+       "min": 1,
+       "max": 4,
+       "skill": 1
+      },
+      {
+       "min": 5,
+       "max": 8,
+       "skill": 2
+      },
+      {
+       "min": 9,
+       "max": 10,
+       "skill": 3
+      }
+     ]
+    }
    ],
    "back_texts": []
   }

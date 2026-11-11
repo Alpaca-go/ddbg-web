@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { monsterEffectPlanSchema } from "../monster-effects";
+import { wealdMonsterAttackSchema, wealdMonsterProfileSchema } from "../weald-monster-rulings";
 
 import { iconStatusSchema } from "../dictionary/schema";
 import { iconIdSchema, levelSchema, pageListSchema } from "../extract/common";
@@ -306,6 +307,7 @@ export const normalizedHeroSkillCardSchema = z
   );
 
 const normalizedMonsterSkillSchema = z.strictObject({
+  verified_weald_attack: wealdMonsterAttackSchema.optional(),
   slot: z.int().min(1).max(3),
   name: z.string().min(1),
   target: z.string().min(1).nullable(),
@@ -355,6 +357,9 @@ const monsterCardSchema = z
     ...monsterShared,
     life: z.int().positive(),
     life_icon: normalizedIconSchema,
+    verified_weald_profile: wealdMonsterProfileSchema.optional(),
+    /** R-230：逐卡确认的 Dodge；不覆盖原始图标旁数字。 */
+    dodge: z.int().nonnegative().optional(),
     /** R24：仅接受另行核实的移动区域数；缺失不代表 0，不从图标自动补值。 */
     speed: z.int().nonnegative().optional(),
     /** R24 / R-083：仅具体获批卡的头部常驻Protection，非可消退状态堆。 */
