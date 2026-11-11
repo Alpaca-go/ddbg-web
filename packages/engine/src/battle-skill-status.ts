@@ -291,8 +291,7 @@ export function applyBattleSkillStatuses(
         )
           return {
             status: "refused",
-            reason:
-              "光照被动与暴击压力恢复触及意志 / 死亡先后；该复合事件续接尚未实现（R20、R28），整次未提交",
+            reason: "旧存档的技能结算顺序不支持该光照与暴击压力组合（R20、R28）",
           };
       }
       const applied = applyPassiveHero(

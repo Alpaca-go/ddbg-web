@@ -2,7 +2,7 @@ import { expect, it } from "vitest";
 import { createQuestSave, loadQuestSave } from "./quest-save";
 import { createCoreDungeonQuest } from "./dungeon-quest-entry";
 import { applyCommand } from "./command";
-import type { Command } from "./command";
+import type { Command, GameState } from "./command";
 import type { QuestStart } from "../../data/src/quest-save";
 import { HERO_SKILL_TRINKET_IDS } from "../../data/src/hero-skill-trinkets";
 import { coreParty, coreQuestSources } from "./test-helpers/core-quest";
@@ -18,6 +18,22 @@ const initial = () =>
   createCoreDungeonQuest(start.seed, start.questId, start.mode, start.party, coreQuestSources);
 const roundTrip = (save: unknown) =>
   loadQuestSave(JSON.parse(JSON.stringify(save)), coreQuestSources);
+
+it("技能光照顺序保留新旧起点，旧快照严格回放", () => {
+  const fresh = initial();
+  const { skillLightBeforeCrit: _newOrder, ...old } = fresh;
+  void _newOrder;
+  const variants: readonly GameState[] = [fresh, old];
+  for (const game of variants) {
+    const saved = createQuestSave(start, [], game, coreQuestSources);
+    expect(saved.start.skillLightBeforeCrit).toBe(game.skillLightBeforeCrit);
+    expect(roundTrip(saved).game).toEqual(game);
+    const forged = structuredClone(saved);
+    if (forged.start.skillLightBeforeCrit) delete forged.start.skillLightBeforeCrit;
+    else forged.start.skillLightBeforeCrit = true;
+    expect(() => roundTrip(forged)).toThrow(/不一致/);
+  }
+});
 
 it.each([null, "r227", "r229", "full"] as const)("Stygian 严格存档保留开局房间规则 %s", (rules) => {
   const stygianStart = { ...start, mode: "stygian" as const, bossEdgeRooms: true };

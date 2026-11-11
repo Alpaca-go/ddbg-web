@@ -43,7 +43,7 @@ function replay(
   legacyFaceSetup = false,
   legacyFacePlan = false,
 ) {
-  let game = createCoreDungeonQuest(
+  let game: GameState = createCoreDungeonQuest(
     start.seed,
     start.questId,
     start.mode,
@@ -52,6 +52,11 @@ function replay(
     start.bossEdgeRooms ?? false,
     start.stygianRoomRules ?? null,
   );
+  if (!start.skillLightBeforeCrit) {
+    const { skillLightBeforeCrit, ...legacy } = game;
+    void skillLightBeforeCrit;
+    game = legacy;
+  }
   // 固定旧入口：p019曾错误沿用目录DL3，且未写战役等级；仅用于严格校验旧档。
   if (legacyFaceSetup && start.questId === "quest:p019" && game.dungeon?.explorationSetup) {
     const { campaignLevel: _level, ...d } = game.dungeon;
@@ -190,7 +195,11 @@ export function createQuestSave(
     version: 1,
     rulesVersion: "core-quest-r225-r227",
     campaignLevel: readCampaignLevel(game.dungeon ?? {}),
-    start: questStartSchema.parse({ ...start, ...(stygianRoomRules ? { stygianRoomRules } : {}) }),
+    start: questStartSchema.parse({
+      ...start,
+      ...(stygianRoomRules ? { stygianRoomRules } : {}),
+      ...(game.skillLightBeforeCrit ? { skillLightBeforeCrit: true } : {}),
+    }),
     commands,
     snapshot: JSON.parse(JSON.stringify(game)),
   });

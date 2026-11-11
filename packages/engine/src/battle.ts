@@ -40,6 +40,7 @@ import { healingForbidden } from "./battle-healing";
 import { clearAncestorConditions } from "./battle-ancestor";
 import { applySkillHealth } from "./battle-health";
 import { applyBattleSkillStatuses, readHeroPassiveDefence } from "./battle-skill-status";
+import { finishHeroSkillStatuses } from "./battle-hero-light";
 import { statusProjection, statusStackProblem } from "./status";
 import type { StatusStack } from "./status";
 import type { ResolveCard } from "./pressure";
@@ -744,7 +745,12 @@ export function playHeroSkill(
     if (window) return window;
   }
   const current = resume ? state.battle! : battle;
-  const effectCombat = resume ? afterHeroOwnCombat(combat, current) : combat;
+  const effectCombat = {
+    ...(resume ? afterHeroOwnCombat(combat, current) : combat),
+    ...(state.skillLightBeforeCrit || !state.dungeon
+      ? { deferLightCritRecovery: true as const }
+      : {}),
+  };
   let effects = resolveHeroSkillEffects(skill, effectCombat, roll ?? 1);
   resolution = effects.resolution;
   if (!resume) {
@@ -762,6 +768,7 @@ export function playHeroSkill(
       target.id,
       resolution,
       heroSkillUsesSelfTarget(skill, command.face),
+      effects.critRecoveryDeferred,
     ),
   );
   const damageStoneWindow = beginDamageStoneWindow(
@@ -785,16 +792,17 @@ export function playHeroSkill(
   if (health.cancelled) return cancelSkillAfterRoll(state, actor.id, health);
   const pressure = beforeTargetShuffle(state, current, health, [resolution]);
   if (pressure.events.some((event) => event.type === "commandRefused")) return pressure;
-  const statuses = applyBattleSkillStatuses(
-    pressure.state.battle!,
-    pressure.state.battle!.entities,
+  const settled = finishHeroSkillStatuses(
+    pressure,
     actor.id,
     [resolution],
-    state.seed,
-    pressure.state.battle!.rngCursor,
+    effects.critRecoveryDeferred === true,
   );
-  if (statuses.status === "refused") return rejectBattleCommand(state, statuses.reason);
-  const guardedEntities = withAncestor1ReflectionsGuardEntities(pressure.state, statuses.entities);
+  if (settled.events.some((event) => event.type === "commandRefused")) return settled;
+  const guardedEntities = withAncestor1ReflectionsGuardEntities(
+    settled.state,
+    settled.state.battle!.entities,
+  );
   const casualtyIds = newlyDefeatedIds(battle, guardedEntities);
   const shuffleIntents = [...current.shuffleIntents];
   if (resolution.actorShuffle)
@@ -818,18 +826,16 @@ export function playHeroSkill(
     resolution,
   };
   const syncedBattle = withFleshOneBodyPoolState(
-    { ...pressure.state.battle!, entities: guardedEntities },
+    { ...settled.state.battle!, entities: guardedEntities },
     guardedEntities,
   );
   const result: ApplyResult = {
     state: {
-      ...state,
+      ...settled.state,
       battle: {
         ...syncedBattle,
-        light: statuses.light,
         shuffleIntents,
         pending: null,
-        rngCursor: statuses.rngCursor,
         shuffleContinuation: shuffleIntents.length
           ? {
               ...skillEvent,
@@ -838,7 +844,7 @@ export function playHeroSkill(
           : null,
       },
     },
-    events: [skillEvent, ...pressure.events, ...statuses.events],
+    events: [skillEvent, ...settled.events],
   };
   const chained = chainGestatingHeartIchorAfterHeroSkill(
     chainSwinePrinceIEnragedDestructionAfterHeroSkill(result, battle.entities, actor.id),
@@ -881,6 +887,7 @@ export function writeResolution(
   targetId: string,
   result: HeroSkillResolution,
   selfTarget: boolean,
+  critRecoveryDeferred = false,
 ): BattleEntity {
   let updated = entity;
   if (entity.id === actorId)
@@ -906,7 +913,14 @@ export function writeResolution(
       wounds: Math.max(0, (result.actorWounds ?? entity.wounds) + result.wounds - entity.wounds),
     };
   }
-  const stress = resolveSkillStress(entity, actorId, targetId, result, selfTarget);
+  const stress = resolveSkillStress(
+    entity,
+    actorId,
+    targetId,
+    result,
+    selfTarget,
+    critRecoveryDeferred,
+  );
   if (updated.statusStacks !== undefined) {
     const removeBleed =
       (entity.id === actorId && result.actorBleedCleared) ||
@@ -939,6 +953,7 @@ export function resolveSkillStress(
   targetId: string,
   result: HeroSkillResolution,
   selfTarget: boolean,
+  critRecoveryDeferred = false,
 ): number | undefined {
   let stress = entity.stress;
   if (entity.id === actorId) stress = result.actorStress ?? stress;
@@ -951,7 +966,7 @@ export function resolveSkillStress(
         (result.actorStress ?? entity.stress) +
           (result.targetStress ?? entity.stress) -
           entity.stress +
-          (result.outcome === "crit" ? 1 : 0),
+          (result.outcome === "crit" && !critRecoveryDeferred ? 1 : 0),
       ),
     );
   const nearby = [

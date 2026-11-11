@@ -455,6 +455,7 @@ export type SkillTargetState = PassiveHolder & {
 };
 
 export type SkillCombatState = {
+  readonly deferLightCritRecovery?: true;
   readonly allies?: readonly SkillAreaHero[];
   readonly trinketHealingMetadata?: true;
   readonly trinketScope?: import("./battle").BattleState;
@@ -572,6 +573,7 @@ export type SkillEffectsResolution = {
   readonly resolution: HeroSkillResolution;
   readonly healthEffects: readonly SkillHealthEffect[];
   readonly own?: SkillEffectsResolution;
+  readonly critRecoveryDeferred?: true;
 };
 
 export type HeroSkillResolution = {
@@ -2402,9 +2404,15 @@ export function resolveHeroSkillEffects(
   const {
     healthEffects = [],
     own,
+    critRecoveryDeferred,
     ...resolution
   } = resolveSkill(skill, combat, roll, "hero", true);
-  return { resolution, healthEffects, ...(own ? { own } : {}) };
+  return {
+    resolution,
+    healthEffects,
+    ...(own ? { own } : {}),
+    ...(critRecoveryDeferred ? { critRecoveryDeferred } : {}),
+  };
 }
 
 /** R19–20：空区域没有命中对象；只执行自身效果，不制造命中或暴击。 */
@@ -2479,6 +2487,7 @@ function resolveSkill(
 ): HeroSkillResolution & {
   readonly healthEffects?: readonly SkillHealthEffect[];
   readonly own?: SkillEffectsResolution;
+  readonly critRecoveryDeferred?: true;
 } {
   if (skill.verification.unverified) {
     return refuse(skill, combat, "未验证的技能不结算（R-048）");
@@ -3305,8 +3314,14 @@ function resolveSkill(
   const targetDead =
     target.side === "monster" && target.life !== undefined && wounds >= target.life;
 
-  if (dealtCrit && actorStress !== null) actorStress = changeStress(combat.actor!, actorStress, -1);
-  if (dealtCrit && besideActorStress !== null) {
+  const critRecoveryDeferred =
+    combat.deferLightCritRecovery &&
+    dealtCrit &&
+    pressureLight !== (combat.effectLight ?? combat.light);
+  const recoverCrit = dealtCrit && !critRecoveryDeferred;
+  if (recoverCrit && actorStress !== null)
+    actorStress = changeStress(combat.actor!, actorStress, -1);
+  if (recoverCrit && besideActorStress !== null) {
     besideActorStress = besideActorStress.map((hero) => ({
       ...hero,
       stress: changeStress(hero, hero.stress, -1),
@@ -3314,7 +3329,7 @@ function resolveSkill(
   }
   if (targetStress !== null) {
     let delta = 0;
-    if (dealtCrit && combat.targetInActorArea === true) delta -= 1;
+    if (recoverCrit && combat.targetInActorArea === true) delta -= 1;
     // R-002：承受暴击是已确认的压力事件，低光照额外 +1，不递归触发。
     if (receivedCrit)
       targetStress = changeStress(
@@ -3436,6 +3451,12 @@ function resolveSkill(
             emptyArea || outcome === "miss" ? 0 : statuses.targetLight + (support?.light ?? 0),
         }
       : {}),
-    ...(includeHealthEffects ? { healthEffects, own } : {}),
+    ...(includeHealthEffects
+      ? {
+          healthEffects,
+          own,
+          ...(critRecoveryDeferred ? { critRecoveryDeferred: true as const } : {}),
+        }
+      : {}),
   };
 }

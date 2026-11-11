@@ -245,6 +245,7 @@ const phase3QuestIds = basicQuests
 export const questStartSchema = z.strictObject({
   bossEdgeRooms: z.boolean().optional(),
   stygianRoomRules: z.enum(["r227", "r229", "full"]).optional(),
+  skillLightBeforeCrit: z.literal(true).optional(),
   legacyCardReviewCommandCount: z.int().min(1).max(10000).optional(),
   seed: z.int().min(0).max(0xffffffff),
   questId: z.enum(phase3QuestIds),

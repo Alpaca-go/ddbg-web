@@ -187,6 +187,8 @@ import type {
 } from "./battle-monster-action";
 
 export type GameState = {
+  /** 固定战役的技能光照结算顺序，旧存档缺省沿用原顺序。 */
+  readonly skillLightBeforeCrit?: true;
   readonly trinketChoice?: import("./trinket-reactions").TrinketContinuation;
   readonly seed: number;
   readonly notes: readonly string[];

@@ -4,6 +4,7 @@ import { healingForbidden } from "./battle-healing";
 import { applySkillHealth } from "./battle-health";
 import { cancelSkillAfterRoll } from "./battle-passive";
 import { applyBattleSkillStatuses } from "./battle-skill-status";
+import { finishHeroSkillStatuses } from "./battle-hero-light";
 import { multiTargetHealthEffects, projectActorWounds } from "./skill-actor-health";
 import {
   encounterSkillProblem,
@@ -111,7 +112,13 @@ export function playHeroSkillTargets(
     contexts.map((context) =>
       resolveHeroSkillEffects(
         skill,
-        { ...context, ...(probe && needsChoice ? { shuffleChoice: "push" as const } : {}) },
+        {
+          ...context,
+          ...(state.skillLightBeforeCrit || !state.dungeon
+            ? { deferLightCritRecovery: true as const }
+            : {}),
+          ...(probe && needsChoice ? { shuffleChoice: "push" as const } : {}),
+        },
         roll,
       ),
     );
@@ -206,6 +213,7 @@ export function playHeroSkillTargets(
     effects = resolve(roll ?? 1);
   }
   const resolutions = effects.map((e) => e.resolution);
+  const deferred = effects.some((e) => e.critRecoveryDeferred);
   const actorResult = resolutions.find((r) => r.outcome === "crit") ?? resolutions[0]!;
   const healthEffects = multiTargetHealthEffects(effects);
   // 支持卡可选择使用者自己；writeResolution 会合并目标治疗，不能先计入自身投影再减一次。
@@ -226,6 +234,7 @@ export function playHeroSkillTargets(
           // 其他目标打出暴击，也为与使用者同区的已选友方减压一次。
           targetStress:
             actorResult.outcome === "crit" &&
+            !deferred &&
             targetResult.outcome !== "crit" &&
             entity.id !== actor.id &&
             entity.areaId === actor.areaId &&
@@ -234,7 +243,7 @@ export function playHeroSkillTargets(
               : targetResult.targetStress,
         }
       : { ...actorResult, actorWounds };
-    return writeResolution(entity, actor.id, resolution.targetId, resolution, false);
+    return writeResolution(entity, actor.id, resolution.targetId, resolution, false, deferred);
   });
   const damageStoneWindow = beginDamageStoneWindow(
     state,
@@ -260,15 +269,9 @@ export function playHeroSkillTargets(
   if (health.cancelled) return cancelSkillAfterRoll(state, actor.id, health);
   const pressure = beforeTargetShuffle(state, current, health, resolutions);
   if (pressure.events.some((event) => event.type === "commandRefused")) return pressure;
-  const statuses = applyBattleSkillStatuses(
-    pressure.state.battle!,
-    pressure.state.battle!.entities,
-    actor.id,
-    resolutions,
-    state.seed,
-    pressure.state.battle!.rngCursor,
-  );
-  if (statuses.status === "refused") return rejectBattleCommand(state, statuses.reason);
+  const settled = finishHeroSkillStatuses(pressure, actor.id, resolutions, deferred);
+  if (settled.events.some((e) => e.type === "commandRefused")) return settled;
+  const statuses = settled.state.battle!;
   const event: HeroSkillTargetsResolvedEvent = {
     ...(resume?.announced ? { phase: "afterOwn" as const } : {}),
     type: "heroSkillTargetsResolved",
@@ -299,9 +302,9 @@ export function playHeroSkillTargets(
       intents.push({ entityId: r.targetId, relativeToId: actor.id, move: r.targetShuffle });
   const result: ApplyResult = {
     state: {
-      ...state,
+      ...settled.state,
       battle: {
-        ...pressure.state.battle!,
+        ...statuses,
         pending: null,
         entities: statuses.entities,
         light: statuses.light,
@@ -310,7 +313,7 @@ export function playHeroSkillTargets(
         shuffleContinuation: intents.length ? continuation : null,
       },
     },
-    events: [event, ...pressure.events, ...statuses.events],
+    events: [event, ...settled.events],
   };
   const chained = chainGestatingHeartIchorAfterHeroSkill(
     chainSwinePrinceIEnragedDestructionAfterHeroSkill(result, battle.entities, actor.id),
@@ -328,6 +331,6 @@ export function playHeroSkillTargets(
           roll,
           resolution: success,
         },
-        newlyDefeatedIds(battle, health.entities),
+        newlyDefeatedIds(battle, deferred ? statuses.entities : health.entities),
       );
 }
