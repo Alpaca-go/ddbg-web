@@ -184,3 +184,4 @@ export { readQuestMonsterPlan } from "./quest-monster-plan";
 export type { QuestMonsterPlan } from "./quest-monster-plan";
 export { stygianRoomsSchema, readStygianRoomReplacement } from "./stygian-rooms";
 export type { StygianRooms } from "./stygian-rooms";
+export { curioPoolIdentity, locationCurioPool } from "./curio-pool";
