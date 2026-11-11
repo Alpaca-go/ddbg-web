@@ -379,7 +379,7 @@ export function BattleView({
                     </p>
                   )}
                   {area.endTurnAncestorCleanse && (
-                    <p>Ancestor’s Glory：英雄结束回合移除枯萎、流血、减益、眩晕与标记。</p>
+                    <p>Ancestor’s Glory：英雄结束回合移除腐蚀、流血、减益、眩晕与标记。</p>
                   )}
                   {area.feelingThePresence && (
                     <p>
@@ -447,7 +447,7 @@ export function BattleView({
                     <p>
                       Toxic Vapors：区内英雄 Acc −3。
                       {area.endTurnToxicBlight &&
-                        `英雄结束回合承受枯萎 ${area.endTurnToxicBlight.amount}，持续 ${area.endTurnToxicBlight.duration} 回合。`}
+                        `英雄结束回合承受腐蚀 ${area.endTurnToxicBlight.amount}，持续 ${area.endTurnToxicBlight.duration} 回合。`}
                     </p>
                   )}
                   {area.eldritchPower && (

@@ -166,7 +166,7 @@ describe("Templars Acc 最小结算", () => {
     ).toBe(true);
   });
 
-  it("Warlord Stinger Shot · Furthest 2 内 · 命中 3 枯萎 3t + debuff 2t", () => {
+  it("Warlord Stinger Shot · Furthest 2 内 · 命中 3 腐蚀 3t + debuff 2t", () => {
     const base = fighting();
     const heroes = base.battle!.entities.filter((entity) => entity.side === "hero");
     const warlord = monsterByCard(base, TEMPLAR_WARLORD_MONSTER_CARD_ID);
@@ -225,7 +225,7 @@ describe("Templars Acc 最小结算", () => {
     ).toBe(true);
   });
 
-  it("Warlord Stinger Shot · 落空无枯萎/debuff", () => {
+  it("Warlord Stinger Shot · 落空无腐蚀/debuff", () => {
     const base = fighting();
     const heroes = base.battle!.entities.filter((entity) => entity.side === "hero");
     const warlord = monsterByCard(base, TEMPLAR_WARLORD_MONSTER_CARD_ID);

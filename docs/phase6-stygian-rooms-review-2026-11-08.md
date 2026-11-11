@@ -21,7 +21,7 @@
 | `84c99c6920` | p004 Spiked Pit：`suffer 1 [icon] 3t`                                                     | 流血 1，持续 3t   |
 | `d4c2a095b5` | p002 Unholy Aura：`1 [icon] /Hero Level`；p017 Rite：`5 [icon] /Negative Quirk`           | 黑底红心，伤口    |
 | `f50b9f6892` | p016 Evil Gaze：`take a Negative Quirk and a [icon]`                                      | 疾病              |
-| `038ffa17fb` | p013 Toxic Vapors：`suffer 1 [icon] 3t`                                                   | 枯萎 1，持续 3t   |
+| `038ffa17fb` | p013 Toxic Vapors：`suffer 1 [icon] 3t`                                                   | 腐蚀 1，持续 3t   |
 | `02014aa709` | p015 Teleporters：`through a [icon] Area`                                                 | 红橙星区标记      |
 | `ddc367e513` | p004 Spiked Pit：`Heroes that are [icon] or standing here`                                | 蓝双箭头，位移    |
 | `06c13f0a05` | p006 Loot the Chest：`suffer [icon] +1`                                                   | 压力 +1           |
@@ -67,8 +67,8 @@
 
 ### p007 Tomb of Ancestor（替换 room:p007）
 
-- 标准：区内英雄免疫枯萎、流血、减益、眩晕、标记和位移，移除已施加的相关状态。
-- Stygian：英雄在此结束回合时移除枯萎、流血、减益、眩晕及标记。卡面列的是结束回合移除。
+- 标准：区内英雄免疫腐蚀、流血、减益、眩晕、标记和位移，移除已施加的相关状态。
+- Stygian：英雄在此结束回合时移除腐蚀、流血、减益、眩晕及标记。卡面列的是结束回合移除。
 
 ### p008 Invocation Chamber（替换 room:p008）
 
@@ -99,7 +99,7 @@
 ### p013 Toxic Chamber（替换 room:p017）
 
 - 标准：Toxic Vapors，站立此区英雄 **Acc −3**。
-- Stygian：Acc −3，在此结束回合时额外承受**枯萎 1，持续 3t**。
+- Stygian：Acc −3，在此结束回合时额外承受**腐蚀 1，持续 3t**。
 
 ### p014 Eldritch Power Chamber（替换 room:p018）
 

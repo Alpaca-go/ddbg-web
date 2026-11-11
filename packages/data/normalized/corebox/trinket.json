@@ -417,7 +417,7 @@
         "key": "blight",
         "kind": "status",
         "meaning_en": "Blight (as removed condition)",
-        "meaning_zh": "枯萎（被移除）",
+        "meaning_zh": "腐蚀（被移除）",
         "value": null,
         "naming": "confirmed"
        }
@@ -462,7 +462,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight (as removed condition)",
-     "meaning_zh": "枯萎（被移除）",
+     "meaning_zh": "腐蚀（被移除）",
      "value": null,
      "naming": "confirmed"
     },
@@ -6226,7 +6226,7 @@
         "key": "blight",
         "kind": "status",
         "meaning_en": "Blight",
-        "meaning_zh": "枯萎",
+        "meaning_zh": "腐蚀",
         "value": null,
         "naming": "confirmed"
        }
@@ -6385,7 +6385,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },

@@ -29,7 +29,7 @@ Life **250**；Dodge **3**（卡面 footer）。
 
 ## 仍 hold
 
-- 三招效果线（压力/光照/流血/眩晕/枯萎等）至 `verified_monster_effects` 入库前不结算。
+- 三招效果线（压力/光照/流血/眩晕/腐蚀等）至 `verified_monster_effects` 入库前不结算。
 - 完整姿态选招 AI、Pit Toss、Room Tile 正式几何、Phase 6。
 
 ## 验证

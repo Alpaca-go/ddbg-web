@@ -55,7 +55,7 @@ export function endTurnStygianArea(
           type: "passiveTriggered",
           entityId: actorId,
           trigger: "ancestorGlory",
-          message: "Ancestor’s Glory：英雄结束回合，移除枯萎、流血、减益、眩晕和标记（R-036）",
+          message: "Ancestor’s Glory：英雄结束回合，移除腐蚀、流血、减益、眩晕和标记（R-036）",
         },
       ],
     };

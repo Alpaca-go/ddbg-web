@@ -43,7 +43,7 @@ it("DL3 三怪八招效果计划与印刷整行一致", () => {
   ]);
 });
 
-it("Adder Molt 走纯自身路径：Buff 2t、Heal 9、Remove 流血与枯萎", () => {
+it("Adder Molt 走纯自身路径：Buff 2t、Heal 9、Remove 流血与腐蚀", () => {
   expect(readMonsterSelfStatuses(adder, 3)).toEqual({
     status: "ready",
     effects: [{ kind: "buff", duration: 2 }],

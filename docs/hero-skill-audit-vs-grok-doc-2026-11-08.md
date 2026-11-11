@@ -77,7 +77,7 @@ L2/L3 同一技能可正常结算，L1 失败。
 | 技能                               | 不一致点                                  | 判断              |
 | ---------------------------------- | ----------------------------------------- | ----------------- |
 | ANTIQUARIAN Festering Vapours      | L1 无 Debuff，L2/L3 有                    | 可疑（L1 可能漏） |
-| ANTIQUARIAN Flashpowder            | L1 枯萎、L2 流血、L3 无状态               | 高度可疑          |
+| ANTIQUARIAN Flashpowder            | L1 腐蚀、L2 流血、L3 无状态               | 高度可疑          |
 | ANTIQUARIAN Protect Me             | L1/L2 有标记，L3 变压力                   | 高度可疑          |
 | ANTIQUARIAN Invigorating Vapours   | 目标 1→2→3                                | 可能是有意成长    |
 | CRUSADER Battle Heal               | L3 多自身治疗，L1/L2 无                   | 可能是有意        |

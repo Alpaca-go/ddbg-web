@@ -2729,7 +2729,7 @@ function resolveSkill(
         combat,
         bonus.condition === "stunned"
           ? "眩晕条件伤害缺少合法的当前状态堆（R-048）"
-          : "枯萎条件伤害缺少合法的当前状态堆（R-048）",
+          : "腐蚀条件伤害缺少合法的当前状态堆（R-048）",
       );
   }
   const statusesRead = readVerifiedStatusEffects(

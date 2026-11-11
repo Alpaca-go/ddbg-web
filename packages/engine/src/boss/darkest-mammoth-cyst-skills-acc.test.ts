@@ -193,7 +193,7 @@ describe("Mammoth Cyst Acc 最小结算", () => {
     }
   });
 
-  it("Digestion · Crowded · 命中 3 枯萎 2t", () => {
+  it("Digestion · Crowded · 命中 3 腐蚀 2t", () => {
     const base = fighting();
     const heroes = base.battle!.entities.filter((entity) => entity.side === "hero");
     const card = base.dungeon!.battleCatalog!.monsters.find(
@@ -246,7 +246,7 @@ describe("Mammoth Cyst Acc 最小结算", () => {
     ).toBe(true);
   });
 
-  it("Digestion · 落空无枯萎", () => {
+  it("Digestion · 落空无腐蚀", () => {
     const base = fighting();
     const heroes = base.battle!.entities.filter((entity) => entity.side === "hero");
     let cursor = 0;

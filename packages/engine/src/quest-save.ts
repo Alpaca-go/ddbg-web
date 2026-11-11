@@ -22,7 +22,15 @@ function canonical(value: unknown): string {
         Object.entries(v)
           .filter(([, field]) => field !== undefined)
           .sort(([a], [b]) => a.localeCompare(b))
-          .map(([key, field]) => [key, sort(field)]),
+          .map(([key, field]) => [
+            key,
+            // R-231：仅兼容中文图标说明；规则键、数值、数组顺序和其他字段不变。
+            sort(
+              key === "meaning_zh" && typeof field === "string"
+                ? field.replaceAll("\u67af\u840e", "腐蚀")
+                : field,
+            ),
+          ]),
       );
     return v;
   };

@@ -15713,7 +15713,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       }
@@ -15929,7 +15929,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -16104,7 +16104,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       }
@@ -16178,7 +16178,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       }
@@ -16450,7 +16450,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -16472,7 +16472,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -16669,7 +16669,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       }
@@ -16743,7 +16743,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       }
@@ -17055,7 +17055,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -17099,7 +17099,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight (amount, duration follows)",
-     "meaning_zh": "枯萎（后接数值/回合）",
+     "meaning_zh": "腐蚀（后接数值/回合）",
      "value": null,
      "naming": "confirmed"
     }
@@ -58300,7 +58300,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       },
@@ -58375,7 +58375,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       }
@@ -58694,7 +58694,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -58822,7 +58822,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight (amount, duration follows)",
-       "meaning_zh": "枯萎（后接数值/回合）",
+       "meaning_zh": "腐蚀（后接数值/回合）",
        "value": null,
        "naming": "confirmed"
       },
@@ -58897,7 +58897,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight (amount, duration follows)",
-       "meaning_zh": "枯萎（后接数值/回合）",
+       "meaning_zh": "腐蚀（后接数值/回合）",
        "value": null,
        "naming": "confirmed"
       }
@@ -59216,7 +59216,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight (amount, duration follows)",
-     "meaning_zh": "枯萎（后接数值/回合）",
+     "meaning_zh": "腐蚀（后接数值/回合）",
      "value": null,
      "naming": "confirmed"
     },
@@ -59344,7 +59344,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight (amount, duration follows)",
-       "meaning_zh": "枯萎（后接数值/回合）",
+       "meaning_zh": "腐蚀（后接数值/回合）",
        "value": null,
        "naming": "confirmed"
       },
@@ -59419,7 +59419,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight (amount, duration follows)",
-       "meaning_zh": "枯萎（后接数值/回合）",
+       "meaning_zh": "腐蚀（后接数值/回合）",
        "value": null,
        "naming": "confirmed"
       }
@@ -59738,7 +59738,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight (amount, duration follows)",
-     "meaning_zh": "枯萎（后接数值/回合）",
+     "meaning_zh": "腐蚀（后接数值/回合）",
      "value": null,
      "naming": "confirmed"
     },
@@ -59855,7 +59855,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎（中毒）",
+       "meaning_zh": "腐蚀（中毒）",
        "value": null,
        "naming": "confirmed"
       },
@@ -59911,7 +59911,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎（中毒）",
+       "meaning_zh": "腐蚀（中毒）",
        "value": null,
        "naming": "confirmed"
       }
@@ -60223,7 +60223,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎（中毒）",
+     "meaning_zh": "腐蚀（中毒）",
      "value": null,
      "naming": "confirmed"
     },
@@ -60351,7 +60351,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight (amount, duration follows)",
-       "meaning_zh": "枯萎（后接数值/回合）",
+       "meaning_zh": "腐蚀（后接数值/回合）",
        "value": null,
        "naming": "confirmed"
       },
@@ -60407,7 +60407,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight (amount, duration follows)",
-       "meaning_zh": "枯萎（后接数值/回合）",
+       "meaning_zh": "腐蚀（后接数值/回合）",
        "value": null,
        "naming": "confirmed"
       }
@@ -60719,7 +60719,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight (amount, duration follows)",
-     "meaning_zh": "枯萎（后接数值/回合）",
+     "meaning_zh": "腐蚀（后接数值/回合）",
      "value": null,
      "naming": "confirmed"
     },
@@ -60847,7 +60847,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight (amount, duration follows)",
-       "meaning_zh": "枯萎（后接数值/回合）",
+       "meaning_zh": "腐蚀（后接数值/回合）",
        "value": null,
        "naming": "confirmed"
       },
@@ -60903,7 +60903,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight (amount, duration follows)",
-       "meaning_zh": "枯萎（后接数值/回合）",
+       "meaning_zh": "腐蚀（后接数值/回合）",
        "value": null,
        "naming": "confirmed"
       }
@@ -61215,7 +61215,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight (amount, duration follows)",
-     "meaning_zh": "枯萎（后接数值/回合）",
+     "meaning_zh": "腐蚀（后接数值/回合）",
      "value": null,
      "naming": "confirmed"
     },
@@ -63773,7 +63773,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       }
@@ -64111,7 +64111,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -64350,7 +64350,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       }
@@ -64388,7 +64388,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       }
@@ -64759,7 +64759,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -64792,7 +64792,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     }
@@ -65020,7 +65020,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       }
@@ -65058,7 +65058,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       }
@@ -65429,7 +65429,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -65462,7 +65462,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     }
@@ -79066,7 +79066,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight (amount, duration follows)",
-       "meaning_zh": "枯萎（后接数值/回合）",
+       "meaning_zh": "腐蚀（后接数值/回合）",
        "value": null,
        "naming": "confirmed"
       }
@@ -79352,7 +79352,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight (amount, duration follows)",
-     "meaning_zh": "枯萎（后接数值/回合）",
+     "meaning_zh": "腐蚀（后接数值/回合）",
      "value": null,
      "naming": "confirmed"
     },
@@ -79605,7 +79605,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight (amount, duration follows)",
-       "meaning_zh": "枯萎（后接数值/回合）",
+       "meaning_zh": "腐蚀（后接数值/回合）",
        "value": null,
        "naming": "confirmed"
       }
@@ -79891,7 +79891,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight (amount, duration follows)",
-     "meaning_zh": "枯萎（后接数值/回合）",
+     "meaning_zh": "腐蚀（后接数值/回合）",
      "value": null,
      "naming": "confirmed"
     },
@@ -80144,7 +80144,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight (amount, duration follows)",
-       "meaning_zh": "枯萎（后接数值/回合）",
+       "meaning_zh": "腐蚀（后接数值/回合）",
        "value": null,
        "naming": "confirmed"
       }
@@ -80430,7 +80430,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight (amount, duration follows)",
-     "meaning_zh": "枯萎（后接数值/回合）",
+     "meaning_zh": "腐蚀（后接数值/回合）",
      "value": null,
      "naming": "confirmed"
     },
@@ -83016,7 +83016,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight (amount, duration follows)",
-       "meaning_zh": "枯萎（后接数值/回合）",
+       "meaning_zh": "腐蚀（后接数值/回合）",
        "value": null,
        "naming": "confirmed"
       }
@@ -83353,7 +83353,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight (amount, duration follows)",
-     "meaning_zh": "枯萎（后接数值/回合）",
+     "meaning_zh": "腐蚀（后接数值/回合）",
      "value": null,
      "naming": "confirmed"
     },
@@ -83601,7 +83601,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight (amount, duration follows)",
-       "meaning_zh": "枯萎（后接数值/回合）",
+       "meaning_zh": "腐蚀（后接数值/回合）",
        "value": null,
        "naming": "confirmed"
       }
@@ -83938,7 +83938,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight (amount, duration follows)",
-     "meaning_zh": "枯萎（后接数值/回合）",
+     "meaning_zh": "腐蚀（后接数值/回合）",
      "value": null,
      "naming": "confirmed"
     },
@@ -84186,7 +84186,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight (amount, duration follows)",
-       "meaning_zh": "枯萎（后接数值/回合）",
+       "meaning_zh": "腐蚀（后接数值/回合）",
        "value": null,
        "naming": "confirmed"
       }
@@ -84523,7 +84523,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight (amount, duration follows)",
-     "meaning_zh": "枯萎（后接数值/回合）",
+     "meaning_zh": "腐蚀（后接数值/回合）",
      "value": null,
      "naming": "confirmed"
     },
@@ -84662,7 +84662,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight (amount, duration follows)",
-       "meaning_zh": "枯萎（后接数值/回合）",
+       "meaning_zh": "腐蚀（后接数值/回合）",
        "value": null,
        "naming": "confirmed"
       },
@@ -84718,7 +84718,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight (amount, duration follows)",
-       "meaning_zh": "枯萎（后接数值/回合）",
+       "meaning_zh": "腐蚀（后接数值/回合）",
        "value": null,
        "naming": "confirmed"
       }
@@ -85006,7 +85006,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight (amount, duration follows)",
-     "meaning_zh": "枯萎（后接数值/回合）",
+     "meaning_zh": "腐蚀（后接数值/回合）",
      "value": null,
      "naming": "confirmed"
     },
@@ -85134,7 +85134,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight (amount, duration follows)",
-       "meaning_zh": "枯萎（后接数值/回合）",
+       "meaning_zh": "腐蚀（后接数值/回合）",
        "value": null,
        "naming": "confirmed"
       },
@@ -85190,7 +85190,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight (amount, duration follows)",
-       "meaning_zh": "枯萎（后接数值/回合）",
+       "meaning_zh": "腐蚀（后接数值/回合）",
        "value": null,
        "naming": "confirmed"
       }
@@ -85478,7 +85478,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight (amount, duration follows)",
-     "meaning_zh": "枯萎（后接数值/回合）",
+     "meaning_zh": "腐蚀（后接数值/回合）",
      "value": null,
      "naming": "confirmed"
     },
@@ -85606,7 +85606,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight (amount, duration follows)",
-       "meaning_zh": "枯萎（后接数值/回合）",
+       "meaning_zh": "腐蚀（后接数值/回合）",
        "value": null,
        "naming": "confirmed"
       },
@@ -85662,7 +85662,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight (amount, duration follows)",
-       "meaning_zh": "枯萎（后接数值/回合）",
+       "meaning_zh": "腐蚀（后接数值/回合）",
        "value": null,
        "naming": "confirmed"
       }
@@ -85950,7 +85950,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight (amount, duration follows)",
-     "meaning_zh": "枯萎（后接数值/回合）",
+     "meaning_zh": "腐蚀（后接数值/回合）",
      "value": null,
      "naming": "confirmed"
     },
@@ -86120,7 +86120,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       }
@@ -86325,7 +86325,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     }
@@ -86585,7 +86585,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       }
@@ -86623,7 +86623,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       }
@@ -86883,7 +86883,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -86894,7 +86894,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     }
@@ -87172,7 +87172,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       }
@@ -87210,7 +87210,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       }
@@ -87481,7 +87481,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -87492,7 +87492,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     }
@@ -98710,7 +98710,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎（中毒）",
+       "meaning_zh": "腐蚀（中毒）",
        "value": null,
        "naming": "confirmed"
       },
@@ -98766,7 +98766,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎（中毒）",
+       "meaning_zh": "腐蚀（中毒）",
        "value": null,
        "naming": "confirmed"
       }
@@ -99105,7 +99105,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎（中毒）",
+     "meaning_zh": "腐蚀（中毒）",
      "value": null,
      "naming": "confirmed"
     },
@@ -99233,7 +99233,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight (amount, duration follows)",
-       "meaning_zh": "枯萎（后接数值/回合）",
+       "meaning_zh": "腐蚀（后接数值/回合）",
        "value": null,
        "naming": "confirmed"
       },
@@ -99289,7 +99289,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight (amount, duration follows)",
-       "meaning_zh": "枯萎（后接数值/回合）",
+       "meaning_zh": "腐蚀（后接数值/回合）",
        "value": null,
        "naming": "confirmed"
       }
@@ -99628,7 +99628,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight (amount, duration follows)",
-     "meaning_zh": "枯萎（后接数值/回合）",
+     "meaning_zh": "腐蚀（后接数值/回合）",
      "value": null,
      "naming": "confirmed"
     },
@@ -99756,7 +99756,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight (amount, duration follows)",
-       "meaning_zh": "枯萎（后接数值/回合）",
+       "meaning_zh": "腐蚀（后接数值/回合）",
        "value": null,
        "naming": "confirmed"
       },
@@ -99812,7 +99812,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight (amount, duration follows)",
-       "meaning_zh": "枯萎（后接数值/回合）",
+       "meaning_zh": "腐蚀（后接数值/回合）",
        "value": null,
        "naming": "confirmed"
       }
@@ -100151,7 +100151,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight (amount, duration follows)",
-     "meaning_zh": "枯萎（后接数值/回合）",
+     "meaning_zh": "腐蚀（后接数值/回合）",
      "value": null,
      "naming": "confirmed"
     },
@@ -111807,7 +111807,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -112379,7 +112379,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -112951,7 +112951,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -113390,7 +113390,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -113798,7 +113798,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -114206,7 +114206,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -114643,7 +114643,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -115080,7 +115080,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -115517,7 +115517,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -115965,7 +115965,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -116413,7 +116413,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -116861,7 +116861,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -117515,7 +117515,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -118169,7 +118169,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -118844,7 +118844,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -120182,7 +120182,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       }
@@ -120796,7 +120796,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       }
@@ -121410,7 +121410,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       }
@@ -122233,7 +122233,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -122640,7 +122640,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -123047,7 +123047,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -123185,7 +123185,7 @@
        "key": "stun",
        "kind": "status",
        "meaning_en": "Blight (amount, duration follows)",
-       "meaning_zh": "枯萎（后接数值/回合）",
+       "meaning_zh": "腐蚀（后接数值/回合）",
        "value": null,
        "naming": "confirmed"
       }
@@ -123424,7 +123424,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight (amount, duration follows)",
-     "meaning_zh": "枯萎（后接数值/回合）",
+     "meaning_zh": "腐蚀（后接数值/回合）",
      "value": null,
      "naming": "confirmed"
     },
@@ -130201,7 +130201,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -130581,7 +130581,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -130961,7 +130961,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -131520,7 +131520,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -132079,7 +132079,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -132638,7 +132638,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -133141,7 +133141,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -133644,7 +133644,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -134147,7 +134147,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -134623,7 +134623,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -135099,7 +135099,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -135575,7 +135575,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -137749,7 +137749,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -138302,7 +138302,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -138884,7 +138884,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -139418,7 +139418,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -139963,7 +139963,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -140587,7 +140587,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -140661,7 +140661,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       },
@@ -140792,7 +140792,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       }
@@ -141176,7 +141176,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -141244,7 +141244,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -141318,7 +141318,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       },
@@ -141449,7 +141449,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       }
@@ -141833,7 +141833,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -141901,7 +141901,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -141975,7 +141975,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       },
@@ -142106,7 +142106,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       }
@@ -142490,7 +142490,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -142558,7 +142558,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -142632,7 +142632,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       },
@@ -142744,7 +142744,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       }
@@ -142782,7 +142782,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       }
@@ -143132,7 +143132,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -143263,7 +143263,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       },
@@ -143375,7 +143375,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       }
@@ -143413,7 +143413,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       }
@@ -143763,7 +143763,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -143894,7 +143894,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       },
@@ -144006,7 +144006,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       }
@@ -144044,7 +144044,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       }
@@ -144394,7 +144394,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -147118,7 +147118,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -147712,7 +147712,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -148349,7 +148349,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -148951,7 +148951,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -149553,7 +149553,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -150155,7 +150155,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -150683,7 +150683,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -151216,7 +151216,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -151749,7 +151749,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -151913,7 +151913,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       }
@@ -152213,7 +152213,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight (amount, duration follows)",
-     "meaning_zh": "枯萎（后接数值/回合）",
+     "meaning_zh": "腐蚀（后接数值/回合）",
      "value": null,
      "naming": "confirmed"
     },
@@ -152314,7 +152314,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -152478,7 +152478,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       }
@@ -152778,7 +152778,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight (amount, duration follows)",
-     "meaning_zh": "枯萎（后接数值/回合）",
+     "meaning_zh": "腐蚀（后接数值/回合）",
      "value": null,
      "naming": "confirmed"
     },
@@ -152879,7 +152879,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -153043,7 +153043,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       }
@@ -153343,7 +153343,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight (amount, duration follows)",
-     "meaning_zh": "枯萎（后接数值/回合）",
+     "meaning_zh": "腐蚀（后接数值/回合）",
      "value": null,
      "naming": "confirmed"
     },
@@ -153444,7 +153444,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -153974,7 +153974,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -154504,7 +154504,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -155034,7 +155034,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -155573,7 +155573,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -156117,7 +156117,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -156661,7 +156661,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -156868,7 +156868,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       }
@@ -157459,7 +157459,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       }
@@ -158050,7 +158050,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       }
@@ -159078,7 +159078,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -159722,7 +159722,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -160366,7 +160366,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -160923,7 +160923,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -161480,7 +161480,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -162037,7 +162037,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -162263,7 +162263,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       }
@@ -162631,7 +162631,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -162857,7 +162857,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       }
@@ -163225,7 +163225,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -163451,7 +163451,7 @@
        "key": "blight",
        "kind": "status",
        "meaning_en": "Blight",
-       "meaning_zh": "枯萎",
+       "meaning_zh": "腐蚀",
        "value": null,
        "naming": "confirmed"
       }
@@ -163819,7 +163819,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -170953,7 +170953,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -171543,7 +171543,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -172133,7 +172133,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -174914,7 +174914,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -175394,7 +175394,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -175874,7 +175874,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -176032,7 +176032,7 @@
        "key": "mark",
        "kind": "status",
        "meaning_en": "Blight (amount, duration follows)",
-       "meaning_zh": "枯萎（后接数值/回合）",
+       "meaning_zh": "腐蚀（后接数值/回合）",
        "value": null,
        "naming": "confirmed"
       }
@@ -176329,7 +176329,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight (amount, duration follows)",
-     "meaning_zh": "枯萎（后接数值/回合）",
+     "meaning_zh": "腐蚀（后接数值/回合）",
      "value": null,
      "naming": "confirmed"
     },
@@ -176544,7 +176544,7 @@
        "key": "mark",
        "kind": "status",
        "meaning_en": "Blight (amount, duration follows)",
-       "meaning_zh": "枯萎（后接数值/回合）",
+       "meaning_zh": "腐蚀（后接数值/回合）",
        "value": null,
        "naming": "confirmed"
       }
@@ -176841,7 +176841,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight (amount, duration follows)",
-     "meaning_zh": "枯萎（后接数值/回合）",
+     "meaning_zh": "腐蚀（后接数值/回合）",
      "value": null,
      "naming": "confirmed"
     },
@@ -177056,7 +177056,7 @@
        "key": "mark",
        "kind": "status",
        "meaning_en": "Blight (amount, duration follows)",
-       "meaning_zh": "枯萎（后接数值/回合）",
+       "meaning_zh": "腐蚀（后接数值/回合）",
        "value": null,
        "naming": "confirmed"
       }
@@ -177353,7 +177353,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight (amount, duration follows)",
-     "meaning_zh": "枯萎（后接数值/回合）",
+     "meaning_zh": "腐蚀（后接数值/回合）",
      "value": null,
      "naming": "confirmed"
     },
@@ -180656,7 +180656,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -181208,7 +181208,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -181760,7 +181760,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -182217,7 +182217,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -182674,7 +182674,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -183131,7 +183131,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -183695,7 +183695,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -184259,7 +184259,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -184823,7 +184823,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight",
-     "meaning_zh": "枯萎",
+     "meaning_zh": "腐蚀",
      "value": null,
      "naming": "confirmed"
     },
@@ -185294,7 +185294,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight (amount, duration follows)",
-     "meaning_zh": "枯萎（后接数值/回合）",
+     "meaning_zh": "腐蚀（后接数值/回合）",
      "value": null,
      "naming": "confirmed"
     },
@@ -185316,7 +185316,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight (amount, duration follows)",
-     "meaning_zh": "枯萎（后接数值/回合）",
+     "meaning_zh": "腐蚀（后接数值/回合）",
      "value": null,
      "naming": "confirmed"
     },
@@ -185921,7 +185921,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight (amount, duration follows)",
-     "meaning_zh": "枯萎（后接数值/回合）",
+     "meaning_zh": "腐蚀（后接数值/回合）",
      "value": null,
      "naming": "confirmed"
     },
@@ -186515,7 +186515,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight (amount, duration follows)",
-     "meaning_zh": "枯萎（后接数值/回合）",
+     "meaning_zh": "腐蚀（后接数值/回合）",
      "value": null,
      "naming": "confirmed"
     },
@@ -186537,7 +186537,7 @@
      "key": "blight",
      "kind": "status",
      "meaning_en": "Blight (amount, duration follows)",
-     "meaning_zh": "枯萎（后接数值/回合）",
+     "meaning_zh": "腐蚀（后接数值/回合）",
      "value": null,
      "naming": "confirmed"
     },

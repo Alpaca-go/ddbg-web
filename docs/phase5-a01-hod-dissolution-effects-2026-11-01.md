@@ -18,7 +18,7 @@
 
 - `verified-monster-effects.ts` 增 **`monster_large:p020` slot 3** 计划：`Stun 1t` + `3 Blight 3t` + `{stress}+1`（scope target），签名 `{target_effects}{stun}1t,3{blight}3t,{stress}+1`（对齐 Maggot stun+stress / Prophet blight 等先例）。
 - 规范化层经 `writeNormalizedCorebox` 写入 `monster_large.json` 的 `verified_monster_effects`（`verified_range` 0–10 已由 #470 持久，本刀不改 ranges 文件）。
-- `monster-skill.ts` 对 `p020` slot 3 已有计划时**不再** Acc-only 剥离；经 `applyHeartOfDarknessDissolution` → `playMonsterSkill` → Furthest 单目标命中后眩晕、枯萎与压力。
+- `monster-skill.ts` 对 `p020` slot 3 已有计划时**不再** Acc-only 剥离；经 `applyHeartOfDarknessDissolution` → `playMonsterSkill` → Furthest 单目标命中后眩晕、腐蚀与压力。
 - `heart-of-darkness-skills-acc.ts`：三招均走同一 Acc 路径；`dungeonUpdated` 对 slot 3 标注「含 verified 效果线」（p020 三招效果线齐）。
 
 - `monster-effect-plan.test.ts`：回归计数 +1。

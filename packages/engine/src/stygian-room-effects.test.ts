@@ -173,7 +173,7 @@ it("p09 每个负面怪癖压力 +2，正面怪癖仍按英雄等级治疗", () 
   expect(e(result.state)).toMatchObject({ wounds: 4, stress: 2 });
 });
 
-it("p13 站立时维持 Acc −3，回合结束施加枯萎 1·3t", () => {
+it("p13 站立时维持 Acc −3，回合结束施加腐蚀 1·3t", () => {
   const area = room(13).areas.find((a) => a.toxicVapors)!;
   const state = fixture(area);
   expect(e(state).statusStacks ?? []).toEqual([]);
