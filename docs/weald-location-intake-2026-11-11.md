@@ -49,6 +49,8 @@ parsed 的 `issues` 和 `failures` 显式保留失败；成功解析也只表示
 
 ## 后续顺序与 Q-186
 
+后续执行以 Kyries 已确认的 [Weald 开发计划](weald-development-plan.md) 为准；本记录保留导入批的范围与停点。
+
 沿用核心包 raw → 图标/卡面/几何审阅 → normalized → 引擎 → UI 的顺序。
 
 1. 对照当前印刷正反面核实上述解析停点；核实当地怪物牌堆、等级和大型卡对应。
