@@ -287,10 +287,7 @@ export type DungeonState = {
   readonly lootPool?: LootState;
   readonly battleCatalog?: DungeonBattleCatalog;
   readonly mustLeaveRoomId?: string | undefined;
-  readonly monsterPool?: {
-    readonly cards: readonly MonsterPoolCard[];
-    /** Boss 威胁「永久移出游戏」的战斗怪物卡 id（catalog 仍完整；实例由 runtime 过滤）。 */
-    readonly permanentlyRemovedCombatCardIds?: readonly string[];
+  readonly monsterPool?: import("./monster-pool-runtime").MonsterPoolDeckState & {
     readonly remaining: readonly string[] | null;
     readonly discarded: readonly string[];
     readonly active: {

@@ -340,4 +340,7 @@ export {
 export { sourcesForContentPacks, CONTENT_PACKS, CONTENT_PACK_IDS } from "./content-packs";
 export { createCampaignQuest } from "./campaign-entry";
 export type { ContentPackId } from "./content-packs";
-export { buildWealdLevelOneMonsterPool } from "./expansions/weald/monster-pool";
+export {
+  buildWealdLevelOneMonsterPool,
+  createWealdLevelOneMonsterPoolState,
+} from "./expansions/weald/monster-pool";

@@ -1,3 +1,5 @@
+import { wealdLevelOneMonsterInstancesSchema } from "../../../../data/src/weald-monster-pool";
+import type { DungeonState } from "../../dungeon";
 import { normalizeContentPacks, type ContentPackId } from "../../../../data/src/content-packs";
 import {
   monsterPoolCatalogSchema,
@@ -49,4 +51,21 @@ export function buildWealdLevelOneMonsterPool(input: {
   if (local.length !== 14 || new Set(local.map((card) => card.instanceId)).size !== 14)
     throw new Error("Weald I 级必须保留 14 张实体卡");
   return [...common, ...local];
+}
+
+/** 供地点创建链使用；保留完整来源与当地目录，牌堆延后由种子 RNG 洗牌。 */
+export function createWealdLevelOneMonsterPoolState(
+  input: Parameters<typeof buildWealdLevelOneMonsterPool>[0],
+) {
+  const instances = buildWealdLevelOneMonsterPool(input);
+  return {
+    cards: monsterPoolCatalogSchema.parse(input.core),
+    location: "weald" as const,
+    wealdInstances: wealdLevelOneMonsterInstancesSchema.parse(
+      instances.filter((entry) => entry.instanceId.startsWith("monster-deck:weald:")),
+    ),
+    remaining: null,
+    discarded: [],
+    active: null,
+  } satisfies NonNullable<DungeonState["monsterPool"]>;
 }
