@@ -1,5 +1,6 @@
+import { monsterPoolCatalogValidForLocation } from "./monster-pool-validation";
 import trinketSource from "../../data/normalized/corebox/trinket.json";
-import { monsterPoolCatalogSchema, ruinsMonsterPoolThrough } from "../../data/src/monster-pool";
+import { ruinsMonsterPoolThrough } from "../../data/src/monster-pool";
 import { normalizedTrinketFileSchema } from "../../data/src/normalize/schema";
 import type { DungeonState } from "./dungeon";
 import { dungeonMonsterPoolThrough } from "./monster-pool-runtime";
@@ -25,7 +26,7 @@ export function switchRuinsActPools(
   const blocked = (reason: string): ActPoolSwitch => ({ kind: "blocked", reason });
   if (
     ![1, 2].includes(fromLevel) ||
-    !monsterPoolCatalogSchema.safeParse(monsterPool.cards).success ||
+    !monsterPoolCatalogValidForLocation(monsterPool, "ruins", fromLevel) ||
     monsterPool.active
   )
     return blocked("升幕需要完整怪物目录、有效源等级且无活动遭遇");

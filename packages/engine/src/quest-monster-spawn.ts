@@ -1,3 +1,4 @@
+import { dungeonMonsterPoolCatalogValid } from "./monster-pool-validation";
 import questCards from "../../data/normalized/corebox/quest_cards.json";
 import { readBasicQuest } from "../../data/src/basic-quests";
 import type { MonsterPoolCard } from "../../data/src/monster-pool";
@@ -59,7 +60,8 @@ export function questMonsterOutsidePoolInstanceIds(d: DungeonState): readonly st
   if (!active || active.roomId !== d.position) return [];
   const level = d.explorationSetup?.dungeonLevel;
   const pool = d.monsterPool;
-  if (!level || !pool || ![1, 2, 3].includes(level)) return [];
+  if (!level || !pool || ![1, 2, 3].includes(level) || !dungeonMonsterPoolCatalogValid(d))
+    return [];
   const catalog = dungeonMonsterPoolThrough(pool, level);
   const catalogIds = new Set(catalog.map((entry) => entry.instanceId));
   const guard = d.curioRoom?.guardInstanceId;
@@ -119,6 +121,8 @@ export function prepareQuestMonsterDeployment(
     state,
     events: [{ type: "commandRefused", message }],
   });
+  if (!dungeonMonsterPoolCatalogValid(d))
+    return refuse("怪物目录地点或核准字段无效，未部署（R9、W3、R-048）");
   if (pool.active || pool.discarded.length)
     return refuse("本场怪物已记录或牌堆状态不一致；不能重抽 / 重洗 / 发奖励");
   const poolCard = findQuestMonsterPoolCard(pool.cards, plan);

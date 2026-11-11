@@ -1,4 +1,4 @@
-import { monsterPoolCatalogSchema } from "../../data/src/monster-pool";
+import { dungeonMonsterPoolCatalogValid } from "./monster-pool-validation";
 import { dungeonMonsterPoolThrough } from "./monster-pool-runtime";
 import { roomCatalogSchema } from "../../data/src/room";
 import { readRoomTile } from "./room-tile-selection";
@@ -82,7 +82,7 @@ export function prepareDungeonMonsters(state: GameState): ApplyResult {
     dungeonLevel !== campaignLevel ||
     ![1, 2, 3].includes(dungeonLevel) ||
     !pool ||
-    !monsterPoolCatalogSchema.safeParse(pool.cards).success
+    !dungeonMonsterPoolCatalogValid(d)
   )
     return refuse("本入口需要完整 Common + Ruins 目录，且地牢等级等于战役等级（R35）");
   if (pool.active || pool.discarded.length)

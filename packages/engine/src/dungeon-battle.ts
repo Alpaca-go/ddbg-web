@@ -1,3 +1,4 @@
+import { dungeonMonsterPoolCatalogValid } from "./monster-pool-validation";
 import { ruinsIRealCombatActive, finishRuinsIBattle } from "./boss/ruins-i-finish";
 import {
   necromancerIRealCombatActive,
@@ -697,7 +698,7 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
 function partitionsValid(d: DungeonState): boolean {
   const pool = d.monsterPool,
     rooms = d.roomCards;
-  if (!pool?.active || !rooms?.active) return false;
+  if (!pool?.active || !rooms?.active || !dungeonMonsterPoolCatalogValid(d)) return false;
   const level = d.explorationSetup?.dungeonLevel ?? readCampaignLevel(d);
   if (![1, 2, 3].includes(level)) return false;
   const catalog = dungeonMonsterPoolThrough(pool, level);

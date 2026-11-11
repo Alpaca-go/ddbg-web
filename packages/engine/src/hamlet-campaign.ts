@@ -1,8 +1,9 @@
+import { monsterPoolCatalogValidForLocation } from "./monster-pool-validation";
 import trinketFile from "../../data/normalized/corebox/trinket.json";
 import { basicQuests } from "../../data/src/basic-quests";
 import { questsForCampaignLevel } from "./campaign-quest-pool";
 import type { CampaignLevel } from "../../data/src/basic-quests";
-import { monsterPoolCatalogSchema, ruinsMonsterPool } from "../../data/src/monster-pool";
+import { ruinsMonsterPool } from "../../data/src/monster-pool";
 import { normalizedTrinketFileSchema } from "../../data/src/normalize/schema";
 import type { ApplyResult, GameState } from "./command";
 import { rejectBattleCommand } from "./battle";
@@ -35,7 +36,7 @@ export function advanceCampaignLevel(state: GameState): ApplyResult {
     !d.conditions ||
     !d.trinkets ||
     !d.monsterPool ||
-    !monsterPoolCatalogSchema.safeParse(d.monsterPool.cards).success ||
+    !monsterPoolCatalogValidForLocation(d.monsterPool, "ruins", level) ||
     d.monsterPool.active ||
     !Number.isSafeInteger(d.cursor) ||
     d.cursor < 0

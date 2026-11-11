@@ -1,3 +1,4 @@
+import { restingMonsterPoolValid } from "./monster-pool-validation";
 import type { DungeonState } from "./dungeon";
 import { createRng } from "./rng";
 import { conditionPoolProblem } from "./conditions";
@@ -27,6 +28,7 @@ export function recoverHamletPools(d: DungeonState, seed: number) {
     curio.active ||
     rooms.active ||
     !dungeonCurioCatalogValid(d) ||
+    !restingMonsterPoolValid(d) ||
     !roomCatalogSchema.safeParse(rooms.cards).success
   )
     return refuse("回村需要完整牌池且所有获得/房间效果已完成（R32、R-048）");

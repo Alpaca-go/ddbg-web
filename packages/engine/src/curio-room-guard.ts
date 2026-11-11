@@ -1,4 +1,5 @@
-import { monsterPoolCatalogSchema, ruinsMonsterPool } from "../../data/src/monster-pool";
+import { ruinsMonsterPool } from "../../data/src/monster-pool";
+import { dungeonMonsterPoolCatalogValid } from "./monster-pool-validation";
 import type { ApplyResult, GameState } from "./command";
 import type { SkillStance } from "./hero-skill";
 import { createRng } from "./rng";
@@ -37,7 +38,7 @@ export function prepareCurioRoomGuardMonsters(
     !active ||
     active.roomId !== d.position ||
     !pool ||
-    !monsterPoolCatalogSchema.safeParse(pool.cards).success
+    !dungeonMonsterPoolCatalogValid(d)
   )
     return refuse(state, "需要 Rising Threat 的 Curio 房守卫战与完整怪物池（R-197）");
   const catalog = dungeonMonsterPoolThrough(pool, level);
