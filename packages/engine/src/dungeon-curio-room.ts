@@ -1,4 +1,4 @@
-import { curioCatalogSchema } from "../../data/src/curio";
+import { dungeonCurioCatalogValid } from "./dungeon-curio-catalog";
 import { readBasicQuest } from "../../data/src/basic-quests";
 import type { ApplyResult, GameState } from "./command";
 import type { DungeonState } from "./dungeon";
@@ -46,7 +46,7 @@ export function beginDungeonCurioRoom(state: GameState): ApplyResult {
     room.cleared ||
     d.mustLeaveRoomId === d.position ||
     d.curioRoom?.roomId === d.position ||
-    !curioCatalogSchema.safeParse(d.curio?.cards).success ||
+    !dungeonCurioCatalogValid(d) ||
     !Number.isSafeInteger(d.cursor) ||
     d.cursor < 0 ||
     d.heroes.some((h) => h.dead)

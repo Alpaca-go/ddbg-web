@@ -23,7 +23,7 @@ import { prepareDungeonMonsters } from "./dungeon-monsters";
 import { monsterPoolCatalogSchema } from "../../data/src/monster-pool";
 import type { MonsterPoolCard } from "../../data/src/monster-pool";
 import type { SpawnPlacement } from "./spawn";
-import { curioCatalogSchema } from "../../data/src/curio";
+import { questCurioCatalogSchema } from "./dungeon-curio-catalog";
 import type { CurioCard } from "../../data/src/curio";
 import { resolveDungeonCurio } from "./dungeon-curio";
 import { beginDungeonRoom, chooseDungeonTrap } from "./dungeon-room";
@@ -505,7 +505,7 @@ export function createDungeonSandbox(
       ...(curioCards
         ? {
             curio: {
-              cards: curioCatalogSchema.parse(curioCards),
+              cards: questCurioCatalogSchema(distribution.questId).parse(curioCards),
               deck: null,
               discard: [],
               active: null,

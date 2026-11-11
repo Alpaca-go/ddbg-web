@@ -1,4 +1,4 @@
-import { curioCatalogSchema } from "../../data/src/curio";
+import { dungeonCurioCatalogValid } from "./dungeon-curio-catalog";
 import type { ApplyResult, GameState } from "./command";
 import type { DungeonState } from "./dungeon";
 import { createRng } from "./rng";
@@ -37,7 +37,7 @@ export function drawDungeonCurio(state: GameState, rollId: string, optionId: str
   if (
     (!fromRoom && (!roll || d.phase !== "awaitingHazards")) ||
     !c ||
-    !curioCatalogSchema.safeParse(c.cards).success ||
+    !dungeonCurioCatalogValid(d) ||
     c.active
   )
     return refuse(state, "需要完整 24 张 Curio 与有效探索停点（R-048）；未抽牌、未消费 Torch");

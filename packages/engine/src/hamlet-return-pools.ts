@@ -3,7 +3,7 @@ import { createRng } from "./rng";
 import { conditionPoolProblem } from "./conditions";
 import { trinketPoolProblem } from "./trinket-acquisition";
 import { createLootState } from "./loot";
-import { curioCatalogSchema } from "../../data/src/curio";
+import { dungeonCurioCatalogValid } from "./dungeon-curio-catalog";
 import { roomCatalogSchema } from "../../data/src/room";
 import { basicQuests } from "../../data/src/basic-quests";
 import { readSetAsideRoomCardIds, ruinsRoomDeckWithoutSetAside } from "./dungeon-objective";
@@ -26,7 +26,7 @@ export function recoverHamletPools(d: DungeonState, seed: number) {
     trinkets.incoming ||
     curio.active ||
     rooms.active ||
-    !curioCatalogSchema.safeParse(curio.cards).success ||
+    !dungeonCurioCatalogValid(d) ||
     !roomCatalogSchema.safeParse(rooms.cards).success
   )
     return refuse("回村需要完整牌池且所有获得/房间效果已完成（R32、R-048）");

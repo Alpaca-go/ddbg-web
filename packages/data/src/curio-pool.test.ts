@@ -45,3 +45,17 @@ describe("地点奇物组池（核心 R9–R10、Weald W3）", () => {
     expect(() => locationCurioPool(core, { location: "weald", cards: weald.slice(1) })).toThrow();
   });
 });
+
+it("Weald 出征目录精确要求 8 通用＋16 当地，不能用任意 24 张凑数", async () => {
+  const { curioPoolSchemaForLocation } = await import("./curio-pool");
+  const pool = locationCurioPool(core, { location: "weald", cards: weald });
+  const schema = curioPoolSchemaForLocation("weald");
+  expect(schema.parse(pool)).toEqual(pool);
+  expect(schema.parse([...pool].reverse())).toEqual([...pool].reverse());
+  expect(schema.safeParse(core).success).toBe(false);
+  expect(curioPoolSchemaForLocation("ruins").safeParse(pool).success).toBe(false);
+  expect(schema.safeParse([...pool.slice(1), core[8]!]).success).toBe(false);
+  expect(schema.safeParse([...pool.slice(1), pool[1]!]).success).toBe(false);
+  expect(schema.safeParse([...pool.slice(0, 8), ...weald.slice(1), weald[1]!]).success).toBe(false);
+  expect(() => curioPoolSchemaForLocation("cove")).toThrow();
+});

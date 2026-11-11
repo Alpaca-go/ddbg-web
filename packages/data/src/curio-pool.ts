@@ -1,3 +1,4 @@
+import { z } from "zod";
 import {
   CURIO_FRONT,
   curioCardSchema,
@@ -29,4 +30,23 @@ export function locationCurioPool(
     default:
       throw new Error("尚未支持的奇物地点");
   }
+}
+
+/** 完整出征目录校验：不能用任意 24 张代替当地＋通用卡。 */
+export function curioPoolSchemaForLocation(location: string) {
+  if (location === "ruins") return curioCatalogSchema;
+  if (location !== "weald") throw new Error(`尚未支持的奇物地点：${location}`);
+  return z
+    .array(curioCardSchema)
+    .length(24)
+    .superRefine((cards, ctx) => {
+      const common = cards.filter((card) => curioPoolIdentity(card) === "common");
+      const local = cards.filter((card) => curioPoolIdentity(card) === "weald");
+      if (
+        common.length !== 8 ||
+        new Set(common.map((card) => card.id)).size !== 8 ||
+        !wealdCurioCatalogSchema.safeParse(local).success
+      )
+        ctx.addIssue({ code: "custom", message: "Weald 奇物必须完整包含 8 张通用和 16 张当地卡" });
+    });
 }

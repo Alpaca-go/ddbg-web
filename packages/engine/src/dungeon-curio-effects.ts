@@ -1,5 +1,6 @@
 import { curioRewardTheft } from "./boss/higher-ruins-threat";
-import { curioCatalogSchema, planCurioEffects } from "../../data/src/curio";
+import { planCurioEffects } from "../../data/src/curio";
+import { dungeonCurioCatalogValid } from "./dungeon-curio-catalog";
 import type { ApplyResult, GameEvent, GameState } from "./command";
 import type { DungeonState } from "./dungeon";
 import { continueDungeonExploration } from "./dungeon-exploration";
@@ -93,7 +94,7 @@ export function resolveCurioRows(state: GameState): ApplyResult {
   const hero = d.heroes.find((h) => h.id === active.heroId);
   const held = [...(c.deck ?? []), ...c.discard, active.cardId];
   if (
-    !curioCatalogSchema.safeParse(c.cards).success ||
+    !dungeonCurioCatalogValid(d) ||
     held.length !== 24 ||
     new Set(held).size !== 24 ||
     held.some((id) => !c.cards.some((r) => r.id === id))
