@@ -4,8 +4,8 @@ import { naturalParty, naturalQuest } from "./natural-quest";
 import { coreQuestSources } from "./core-quest";
 import { createQuestSave } from "../quest-save";
 
-/** seed11：Scout四房间真实获得2XP；不注入XP/金币/事件牌序或封锁状态。 */
-export function guildQuest(sources = coreQuestSources, seed = 11) {
+/** 固定路线回村并揭示首日看守人；不要求此刻能访问 Guild，不改种子或策略。 */
+export function naturalHamletStart(sources = coreQuestSources, seed = 11) {
   const run = naturalQuest(seed, "quest:p001", false, sources, 4),
     commands = [...run.commands];
   let game = run.state;
@@ -37,7 +37,13 @@ export function guildQuest(sources = coreQuestSources, seed = 11) {
   step({ type: "drawHamletEvent" });
   settle();
   if (game.dungeon!.hamlet!.phase === "awaitingCaretaker") step({ type: "rollHamletCaretaker" });
-  const d = game.dungeon!;
+  return { game, commands, start, save: createQuestSave(start, commands, game, sources) };
+}
+
+/** 公会服务测试另要求四人存活、2XP 和首行动 Guild 未封锁。 */
+export function guildQuest(sources = coreQuestSources, seed = 11) {
+  const prefix = naturalHamletStart(sources, seed);
+  const d = prefix.game.dungeon!;
   if (
     d.phase !== "inHamlet" ||
     d.hamletReturn?.phase !== "complete" ||
@@ -50,5 +56,5 @@ export function guildQuest(sources = coreQuestSources, seed = 11) {
     d.hamlet!.blockedBuildings.includes("guild")
   )
     throw new Error(`Guild seed${seed} 不满足四英雄存活、自然2XP和首行动公会访问前置`);
-  return { game, commands, start, save: createQuestSave(start, commands, game, sources) };
+  return prefix;
 }

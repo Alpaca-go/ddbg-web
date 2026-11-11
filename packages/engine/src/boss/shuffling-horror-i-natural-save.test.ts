@@ -18,7 +18,7 @@ const preShufflingSources = (): CoreQuestSources => ({
   },
 });
 
-it("Shuffling Horror I从任务起点自然探索、击败与回村；战斗中及回村存档严格回放", () => {
+it("Shuffling Horror I固定自然路线：战斗停止点或胜利回村严格回放", () => {
   const start = {
     seed: 269,
     questId: "quest:p016",
@@ -28,7 +28,7 @@ it("Shuffling Horror I从任务起点自然探索、击败与回村；战斗中�
   } as const;
   const checkpoints: { state: GameState; count: number }[] = [];
   let count = 0;
-  const run = naturalQuest(269, "quest:p016", false, coreQuestSources, 2, {
+  const run = naturalQuest(269, "quest:p016", true, coreQuestSources, 2, {
     handleDeaths: true,
     observe(state, command) {
       count++;
@@ -39,6 +39,30 @@ it("Shuffling Horror I从任务起点自然探索、击败与回村；战斗中�
         checkpoints.push({ state, count });
     },
   });
+  // R-190、R-201、R-218：保留种子与策略；输赢不作为流程验收目标。
+  if (run.stopReason !== null) {
+    expect(run.stopReason).toBe("battle halted: heroesDefeated");
+    expect(run.state.battle?.encounter?.turn).toMatchObject({
+      type: "halted",
+      reason: "heroesDefeated",
+    });
+    expect(checkpoints).toHaveLength(2);
+    for (const checkpoint of [...checkpoints, { state: run.state, count: run.commands.length }]) {
+      const saved = createQuestSave(
+        start,
+        run.commands.slice(0, checkpoint.count),
+        checkpoint.state,
+        coreQuestSources,
+      );
+      expect(loadQuestSave(JSON.parse(JSON.stringify(saved)), coreQuestSources).game).toEqual(
+        checkpoint.state,
+      );
+      const forged = JSON.parse(JSON.stringify(saved));
+      forged.snapshot.dungeon.gold++;
+      expect(() => loadQuestSave(forged, coreQuestSources)).toThrow();
+    }
+    return;
+  }
   expect(run.stopReason).toBeNull();
   expect(run.commands[0]!.type).toBe("rollDungeonProvisions");
   expect(run.commands.filter((c) => c.type === "deployShufflingHorrorI")).toHaveLength(1);

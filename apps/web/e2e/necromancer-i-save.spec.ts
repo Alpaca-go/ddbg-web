@@ -1,6 +1,9 @@
-import { expect, test } from "@playwright/test";
+import { expect } from "@playwright/test";
+import { ssrTest } from "./ssr-test";
 import { createServer } from "vite";
 import { fileURLToPath } from "node:url";
+
+const test = ssrTest(import.meta.url);
 
 test("自然Necromancer I任务存档：页面读取、开战、保存刷新后继续", async ({ page }) => {
   test.setTimeout(120_000);

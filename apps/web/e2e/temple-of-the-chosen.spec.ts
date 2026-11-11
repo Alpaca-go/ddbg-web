@@ -1,7 +1,10 @@
-import { expect, test } from "@playwright/test";
+import { expect } from "@playwright/test";
+import { ssrTest } from "./ssr-test";
 import { createServer } from "vite";
 import { fileURLToPath } from "node:url";
 import type { GameState } from "../../../packages/engine/src/command";
+
+const test = ssrTest(import.meta.url);
 
 test("Temple of the Chosen：怪物技能结束触发治疗及全体压力", async ({ page }) => {
   test.setTimeout(90_000);

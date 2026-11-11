@@ -1,7 +1,10 @@
-import { expect, test } from "@playwright/test";
+import { expect } from "@playwright/test";
+import { ssrTest } from "./ssr-test";
 import { createServer } from "vite";
 import { fileURLToPath } from "node:url";
 import type { GameState } from "../../../packages/engine/src/command";
+
+const test = ssrTest(import.meta.url);
 
 test("Fanatic I 正式页面部署、开战布置 Pyre 及胜利回地图", async ({ page }) => {
   test.setTimeout(90_000);

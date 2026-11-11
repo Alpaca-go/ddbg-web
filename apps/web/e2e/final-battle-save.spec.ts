@@ -1,8 +1,11 @@
-import { expect, test } from "@playwright/test";
+import { expect } from "@playwright/test";
+import { ssrTest } from "./ssr-test";
 import { createServer } from "vite";
 import { fileURLToPath } from "node:url";
 
-test("自然最终战首形态存档：页面读取、开战、保存刷新后继续", async ({ page }) => {
+const test = ssrTest(import.meta.url);
+
+test("自然最暗路线存档：真实停止点或最终战首形态可读取与重存", async ({ page }) => {
   test.setTimeout(180_000);
   const errors: string[] = [];
   page.on("pageerror", (e) => errors.push(e.message));
@@ -13,6 +16,7 @@ test("自然最终战首形态存档：页面读取、开战、保存刷新后�
     server: { middlewareMode: true },
   });
   let save: unknown;
+  let defeated = false;
   try {
     const load = (relative: string) =>
       server.ssrLoadModule(fileURLToPath(new URL(relative, import.meta.url)));
@@ -27,29 +31,55 @@ test("自然最终战首形态存档：页面读取、开战、保存刷新后�
     let deployed: unknown;
     let count = 0,
       prefix = 0;
-    const run = naturalFinalBattle(3279, taskSources, {
-      through: "deployed",
-      observe(state: unknown, command: { type: string }) {
-        count++;
-        if (command.type === "deployFinalBattleForm") {
-          deployed = state;
-          prefix = count;
-        }
-      },
-    });
-    expect(deployed).toBeDefined();
-    save = createQuestSave(
-      {
-        seed: 3279,
-        questId: "quest:p018",
-        mode: "radiant",
-        party: naturalParty,
-        bossEdgeRooms: true,
-      },
-      run.commands.slice(0, prefix),
-      deployed,
-      taskSources,
-    );
+    const observedCommands: { type: string }[] = [];
+    let observed: unknown;
+    let run;
+    try {
+      run = naturalFinalBattle(3279, taskSources, {
+        through: "deployed",
+        observe(state: unknown, command: { type: string }) {
+          observed = state;
+          observedCommands.push(command);
+          count++;
+          if (command.type === "deployFinalBattleForm") {
+            deployed = state;
+            prefix = count;
+          }
+        },
+      });
+    } catch (error) {
+      if (!(error instanceof Error) || error.message !== "battle halted: heroesDefeated")
+        throw error;
+      // R-190 / R-218：固定路线打输时验证真实停点，不能换种子制造最终战胜利。
+      defeated = true;
+      save = createQuestSave(
+        {
+          seed: 3279,
+          questId: "quest:p018",
+          mode: "radiant",
+          party: naturalParty,
+          bossEdgeRooms: true,
+        },
+        observedCommands,
+        observed,
+        taskSources,
+      );
+    }
+    if (!defeated) {
+      expect(deployed).toBeDefined();
+      save = createQuestSave(
+        {
+          seed: 3279,
+          questId: "quest:p018",
+          mode: "radiant",
+          party: naturalParty,
+          bossEdgeRooms: true,
+        },
+        run.commands.slice(0, prefix),
+        deployed,
+        taskSources,
+      );
+    }
   } finally {
     await server.close();
   }
@@ -61,6 +91,30 @@ test("自然最终战首形态存档：页面读取、开战、保存刷新后�
   }, save);
   await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
   await expect(page.getByRole("region", { name: "区域板" })).toBeVisible();
+  if (defeated) {
+    const readStop = () =>
+      page.evaluate(async () => {
+        const path = "/src/dungeon-sandbox/store.ts";
+        const { useDungeonStore } = await import(/* @vite-ignore */ path);
+        const { game, commands } = useDungeonStore.getState();
+        return {
+          turn: game.battle.encounter.turn,
+          commands: commands.length,
+          seed: game.seed,
+          cursor: game.battle.rngCursor,
+        };
+      });
+    const before = await readStop();
+    expect(before.turn).toMatchObject({ type: "halted", reason: "heroesDefeated" });
+    await page.getByRole("button", { name: "保存进度", exact: true }).click();
+    await expect(page.getByText("已保存到本机，可刷新后读取继续。", { exact: true })).toBeVisible();
+    await page.reload();
+    await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+    await expect(page.getByRole("region", { name: "区域板" })).toBeVisible();
+    expect(await readStop()).toEqual(before);
+    expect(errors).toEqual([]);
+    return;
+  }
   await expect(page.getByRole("button", { name: "开始战斗", exact: true })).toBeVisible();
   await page.getByRole("button", { name: "开始战斗", exact: true }).click();
   const result = await page.evaluate(async () => {
@@ -76,7 +130,7 @@ test("自然最终战首形态存档：页面读取、开战、保存刷新后�
   });
   expect(result).toEqual({
     turn: "awaitingInitiative",
-    deckSize: 7,
+    deckSize: 8,
     last: "startBattle",
     refused: [],
   });

@@ -1,7 +1,10 @@
-import { expect, test } from "@playwright/test";
+import { expect } from "@playwright/test";
+import { ssrTest } from "./ssr-test";
 import { createServer } from "vite";
 import { fileURLToPath } from "node:url";
 import type { GameState } from "../../../packages/engine/src/command";
+
+const test = ssrTest(import.meta.url);
 
 test("升幕入口机制夹具：回村后推进II级，再抽村庄事件并记录命令", async ({ page }) => {
   test.setTimeout(90_000);

@@ -1,7 +1,10 @@
-import { expect, test } from "@playwright/test";
+import { expect } from "@playwright/test";
+import { ssrTest } from "./ssr-test";
 import { createServer } from "vite";
 import { fileURLToPath } from "node:url";
 import type { QuestSave } from "../../../packages/data/src/quest-save";
+
+const test = ssrTest(import.meta.url);
 
 test("B12：回村结算后抽取下一任务并进入第二任务开局补给", async ({ page }) => {
   test.setTimeout(180_000);

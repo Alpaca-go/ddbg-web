@@ -1,6 +1,9 @@
-import { expect, test } from "@playwright/test";
+import { expect } from "@playwright/test";
+import { ssrTest } from "./ssr-test";
 import { createServer } from "vite";
 import { fileURLToPath } from "node:url";
+
+const test = ssrTest(import.meta.url);
 
 // Q-162：Templars 接入尖刺/Pit Toss 后自然策略无法取胜，unit 侧已 skip；e2e 同步保持 skip
 // （R-190：不为绿灯调策略或种子）。存档路径由 templars-i-finish / campaign-quest-save 等覆盖。

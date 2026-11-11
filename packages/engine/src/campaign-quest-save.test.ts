@@ -124,7 +124,8 @@ it("跨任务战役存档：起点是战役第一任务，日志覆盖回村/村
   const loaded = loadQuestSave(JSON.parse(JSON.stringify(save)), sources);
   expect(loaded.game).toEqual(prefix.game);
   expect(loaded.commands).toEqual(prefix.commands);
-  expect(loaded.start).toEqual(prefix.start);
+  // 保存会补入新战役的规则版本标记；读取必须保留实际写入的起点。
+  expect(loaded.start).toEqual(save.start);
   // 第二任务已经选出：存档停在开局补给，而不是回到上一任务的结算。
   expect(loaded.game.dungeon!.pending).toBeNull();
   expect(loaded.game.dungeon!.questDistribution!.questId).not.toBe("quest:p001");

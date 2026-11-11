@@ -1,7 +1,10 @@
-import { expect, test } from "@playwright/test";
+import { expect } from "@playwright/test";
+import { ssrTest } from "./ssr-test";
 import { createServer } from "vite";
 import { fileURLToPath } from "node:url";
 import type { GameState } from "../../../packages/engine/src/command";
+
+const test = ssrTest(import.meta.url);
 
 test("升华大厅B区选择英雄升级：扣XP金币、压力结算、空槽保留", async ({ page }) => {
   test.setTimeout(90_000);

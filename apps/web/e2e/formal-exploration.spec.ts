@@ -1,13 +1,9 @@
 import { establishInitialThreatIfShown } from "./initial-threat-setup";
 import { expect, test } from "@playwright/test";
-import { mkdirSync } from "node:fs";
-import { join } from "node:path";
 
 test("UX-02A：正式探索地图优先布局与顶栏资源", async ({ page }, testInfo) => {
   test.setTimeout(90_000);
   page.setDefaultTimeout(10_000);
-  const shotDir = join(process.cwd(), "..", "..", "docs", "screenshots");
-  mkdirSync(shotDir, { recursive: true });
 
   await page.goto("/");
   const click = (name: string) => page.getByRole("button", { name, exact: true }).click();
@@ -42,9 +38,6 @@ test("UX-02A：正式探索地图优先布局与顶栏资源", async ({ page }, 
     { width: 1920, height: 1080, tag: "1920" },
   ]) {
     await page.setViewportSize({ width, height });
-    await page.screenshot({
-      path: join(shotDir, `ux02a-${tag}-exploration.png`),
-    });
     await page.screenshot({
       path: testInfo.outputPath(`ux02a-exploration-${tag}.png`),
     });

@@ -1,6 +1,9 @@
-import { expect, test } from "@playwright/test";
+import { expect } from "@playwright/test";
+import { ssrTest } from "./ssr-test";
 import { createServer } from "vite";
 import { fileURLToPath } from "node:url";
+
+const test = ssrTest(import.meta.url);
 
 test("自然 Shuffling Horror I 任务存档：页面读取、开战、保存刷新后继续", async ({ page }) => {
   test.setTimeout(120_000);
@@ -24,16 +27,18 @@ test("自然 Shuffling Horror I 任务存档：页面读取、开战、保存刷
     let deployed: unknown;
     let count = 0,
       prefix = 0;
-    const run = naturalQuest(269, "quest:p016", false, taskSources, 2, {
+    const run = naturalQuest(269, "quest:p016", true, taskSources, 2, {
       observe(state: unknown, command: { type: string }) {
         count++;
         if (command.type === "deployShufflingHorrorI") {
           deployed = state;
           prefix = count;
+          throw new Error("boss-deployed");
         }
       },
     });
-    expect(run.state.dungeon.bossQuestVictory).toBe(true);
+    // 只需部署前缀，不要求固定策略赢得整场战斗（R-190、R-201）。
+    expect(run.stopReason).toBe("boss-deployed");
     expect(deployed).toBeDefined();
     save = createQuestSave(
       {

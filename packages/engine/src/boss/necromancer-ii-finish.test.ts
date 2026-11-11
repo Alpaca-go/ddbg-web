@@ -47,14 +47,13 @@ function deployed(): GameState {
 
 function victory(): GameState {
   const s = deployed(),
-    b = s.battle!,
-    boss = b.entities.find((e) => e.id === "boss:necromancer:2")!;
+    b = s.battle!;
   return {
     ...s,
     battle: {
       ...b,
       entities: b.entities.map((e) =>
-        e.id === boss.id ? { ...e, dead: true, wounds: e.life ?? 0 } : e,
+        e.side === "monster" ? { ...e, dead: true, wounds: e.life ?? 0 } : e,
       ),
       encounter: {
         ...b.encounter!,

@@ -1,4 +1,5 @@
-import { expect, test } from "@playwright/test";
+import { expect } from "@playwright/test";
+import { ssrTest } from "./ssr-test";
 import { createServer } from "vite";
 import { fileURLToPath } from "node:url";
 import type {
@@ -16,6 +17,8 @@ import type { nomadSaleQuest } from "../../../packages/engine/src/test-helpers/n
 import type { guildQuest } from "../../../packages/engine/src/test-helpers/guild-quest";
 import type { twoQuestGuildPath } from "../../../packages/engine/src/test-helpers/two-quest-guild";
 import type { nomadUpgradeQuest } from "../../../packages/engine/src/test-helpers/nomad-upgrade-quest";
+
+const test = ssrTest(import.meta.url);
 
 // 同文件顺序执行、共享只读自然前置；准备与三条路径各保留原180秒限时。
 test.describe.configure({ mode: "default" });

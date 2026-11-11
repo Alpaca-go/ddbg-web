@@ -8,7 +8,7 @@ import {
   isLevelApprovalAdmissionRefusal,
 } from "./dungeon-battle-admission";
 import { createCampaignQuestSandbox } from "./test-helpers/campaign-quest-sandbox";
-import { guildQuest } from "./test-helpers/guild-quest";
+import { naturalHamletStart } from "./test-helpers/guild-quest";
 import { coreQuestSources, coreParty } from "./test-helpers/core-quest";
 import layout from "../../data/normalized/corebox/dungeon_layout_p001.json";
 import reduceDistribution from "../../data/normalized/corebox/reduce_to_rubble_distribution.json";
@@ -230,8 +230,8 @@ it("DL3 牌堆：八招接入后主怪部署可 admitted，合成缺字段仍拒
   expect.fail("未在 500 个 seed 内抽到 Bone Bearer 部署");
 });
 
-it("guild II 自然前缀：真实 lair 部署不因高等级批准硬拒", { timeout: 120_000 }, () => {
-  const base = guildQuest(coreQuestSources, 6).game;
+it("II 级准入：固定回村前缀与明示等级夹具", { timeout: 120_000 }, () => {
+  const base = naturalHamletStart(coreQuestSources, 6).game;
   const d = base.dungeon!;
   const lair = d.rooms.find((r) => r.kind === "lair")!.id;
   const state: GameState = {

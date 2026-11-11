@@ -71,7 +71,7 @@ it("印刷 raw 九面 Life/Dodge/Speed 与身份交叉核实；入库 attributes
   expect(built.cards).toHaveLength(33);
 });
 
-it("九面限定 I 级 / 高等级防御与印刷一致；Jester II/III 未批准 f912c18659 故无 higher 注解", () => {
+it("九面限定 I 级 / 高等级防御与印刷一致；Jester II/III 按 R-215 补录抗性", () => {
   expect(
     built.cards
       .filter((c) => c.name === "JESTER")
@@ -82,8 +82,8 @@ it("九面限定 I 级 / 高等级防御与印刷一致；Jester II/III 未批�
       ]),
   ).toEqual([
     ["hero_stat:p011:front", ["debuff"], null],
-    ["hero_stat:p011:back", null, null],
-    ["hero_stat:p012:front", null, null],
+    ["hero_stat:p011:back", null, ["debuff", "bleed"]],
+    ["hero_stat:p012:front", null, ["debuff", "bleed", "blight"]],
   ]);
   expect(
     built.cards
@@ -95,7 +95,7 @@ it("九面限定 I 级 / 高等级防御与印刷一致；Jester II/III 未批�
         readHigherHeroDefence(c)?.immunities ?? null,
       ]),
   ).toEqual([
-    ["hero_stat:p015:front", null, null, null],
+    ["hero_stat:p015:front", null, ["shuffle"], []],
     ["hero_stat:p015:back", null, ["stun", "shuffle"], []],
     ["hero_stat:p016:front", null, ["stun"], ["shuffle"]],
   ]);

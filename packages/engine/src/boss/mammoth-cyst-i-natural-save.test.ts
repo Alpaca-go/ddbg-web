@@ -18,7 +18,7 @@ const preMammothSources = (): CoreQuestSources => ({
   },
 });
 
-it("Mammoth Cyst I从任务起点自然探索、击败与回村；战斗中及回村存档严格回放", () => {
+it("Mammoth Cyst I固定自然路线：战斗停止点或胜利回村严格回放", () => {
   const start = {
     seed: 3279,
     questId: "quest:p018",
@@ -28,7 +28,7 @@ it("Mammoth Cyst I从任务起点自然探索、击败与回村；战斗中及�
   } as const;
   const checkpoints: { state: GameState; count: number }[] = [];
   let count = 0;
-  const run = naturalQuest(3279, "quest:p018", false, coreQuestSources, 2, {
+  const run = naturalQuest(3279, "quest:p018", true, coreQuestSources, 2, {
     observe(state, command) {
       count++;
       if (
@@ -38,6 +38,30 @@ it("Mammoth Cyst I从任务起点自然探索、击败与回村；战斗中及�
         checkpoints.push({ state, count });
     },
   });
+  // R-190、R-201、R-218：保留种子与策略；输赢不作为流程验收目标。
+  if (run.stopReason !== null) {
+    expect(run.stopReason).toBe("battle halted: heroesDefeated");
+    expect(run.state.battle?.encounter?.turn).toMatchObject({
+      type: "halted",
+      reason: "heroesDefeated",
+    });
+    expect(checkpoints).toHaveLength(2);
+    for (const checkpoint of [...checkpoints, { state: run.state, count: run.commands.length }]) {
+      const saved = createQuestSave(
+        start,
+        run.commands.slice(0, checkpoint.count),
+        checkpoint.state,
+        coreQuestSources,
+      );
+      expect(loadQuestSave(JSON.parse(JSON.stringify(saved)), coreQuestSources).game).toEqual(
+        checkpoint.state,
+      );
+      const forged = JSON.parse(JSON.stringify(saved));
+      forged.snapshot.dungeon.gold++;
+      expect(() => loadQuestSave(forged, coreQuestSources)).toThrow();
+    }
+    return;
+  }
   expect(run.stopReason).toBeNull();
   expect(run.commands[0]!.type).toBe("rollDungeonProvisions");
   expect(run.commands.filter((c) => c.type === "deployMammothCystI")).toHaveLength(1);

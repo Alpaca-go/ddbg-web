@@ -1,9 +1,12 @@
-import { expect, test } from "@playwright/test";
+import { expect } from "@playwright/test";
+import { ssrTest } from "./ssr-test";
 import { createServer } from "vite";
 import { fileURLToPath } from "node:url";
 import type { QuestSave } from "../../../packages/data/src/quest-save";
 import type { Command, GameState } from "../../../packages/engine/src/command";
 import { decodeLocalQuestSave } from "../src/dungeon-sandbox/quest-save-storage";
+
+const test = ssrTest(import.meta.url);
 
 test("重生池：真实战斗存档返回清场→复活→免费补位入队→刷新回放", async ({ page }, testInfo) => {
   test.setTimeout(180000);

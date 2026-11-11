@@ -8,14 +8,15 @@ import { dungeonQuestSummarySchema } from "../../data/src/quest-summary";
 import { applyCommand } from "./command";
 import type { Command, GameState } from "./command";
 import { naturalAbbeyQuest } from "./test-helpers/abbey-quest";
-import { guildQuest } from "./test-helpers/guild-quest";
+import { naturalHamletStart } from "./test-helpers/guild-quest";
 import { coreQuestSources } from "./test-helpers/core-quest";
 import { loadQuestSave } from "./quest-save";
 
-let baseline: ReturnType<typeof guildQuest>;
+let baseline: ReturnType<typeof naturalHamletStart>;
 beforeAll(() => {
-  // 独立seed6自然四房间回村；完整II级池实际抽到p008/p007，不注入候选或缩减牌池。
-  baseline = guildQuest(coreQuestSources, 6);
+  // 独立seed6自然四房间回村；自然抽牌与指定任务的机制夹具分开核对。
+  // R-224 后首日看守人封锁 Guild；本组只检查回村和出征，不访问 Guild。
+  baseline = naturalHamletStart(coreQuestSources, 6);
 }, 30000);
 
 function ok(game: GameState, command: Command) {
@@ -50,7 +51,24 @@ function preparationReady(game: GameState): GameState {
   };
 }
 
-it("seed6真实I级前缀可保存恢复；完整五张II级池按实际RNG抽到两张目标任务", () => {
+/** 指定任务选择夹具：仅用于 p007/p008 的出征/弃置/奖励机制，不属于自然抽牌或正式存档。 */
+function fixedIIQuestOffers(offered: GameState): GameState {
+  const ids = ["quest:p008", "quest:p007"];
+  const d = offered.dungeon!;
+  return {
+    ...offered,
+    dungeon: {
+      ...d,
+      nextQuestOffers: ids,
+      pending: {
+        ...d.pending!,
+        options: ids.map((id) => ({ id, label: basicQuests.find((q) => q.id === id)!.name })),
+      },
+    },
+  };
+}
+
+it("seed6真实I级前缀可保存恢复；完整五张II级池按实际RNG抽到p010/p006", () => {
   expect(baseline.start.seed).toBe(6);
   expect(baseline.game.dungeon!.gold).toBe(60);
   expect(baseline.game.dungeon!.heroes.map((hero) => [hero.dead ?? false, hero.xp])).toEqual(
@@ -69,7 +87,7 @@ it("seed6真实I级前缀可保存恢复；完整五张II级池按实际RNG抽�
   const pool = questsForCampaignLevel(2).map((quest) => quest.id);
   expect(pool).toEqual(["quest:p006", "quest:p007", "quest:p008", "quest:p009", "quest:p010"]);
   const offered = ok(advanced, { type: "offerNextQuest" });
-  expect(offered.dungeon!.nextQuestOffers).toEqual(["quest:p008", "quest:p007"]);
+  expect(offered.dungeon!.nextQuestOffers).toEqual(["quest:p010", "quest:p006"]);
   expect(offered.dungeon!.pending!.options.map((option) => option.id)).toEqual(
     offered.dungeon!.nextQuestOffers,
   );
@@ -111,7 +129,7 @@ it("Reduce to Rubble II 房间构成与 I 级已核对图标映射一致（R-038
   expect(reduceDistribution.counts.reduce((n, c) => n + c.count, 0)).toBe(8);
 });
 
-it("战役等级 I→II：移出 I 级任务堆、累加 II 级怪物、地牢饰品切 II，并可出征 Reduce to Rubble（§2.2 / R35 / R-037）", () => {
+it("战役等级 I→II 与明示候选夹具：任务堆、怪物、饰品切级并出征 Reduce to Rubble（§2.2 / R35 / R-037）", () => {
   let game = preparationReady(baseline.game);
   const embarkCommands: Command[] = [];
   const step = (c: Command) => {
@@ -135,6 +153,8 @@ it("战役等级 I→II：移出 I 级任务堆、累加 II 级怪物、地牢�
   expect(applyCommand(game, { type: "advanceCampaignLevel" }).state).toBe(game);
 
   step({ type: "offerNextQuest" });
+  game = fixedIIQuestOffers(game);
+  const offeredFixture = game;
   expect(game.dungeon!.nextQuestOffers).toHaveLength(2);
   expect(
     game.dungeon!.nextQuestOffers!.every((id) =>
@@ -160,9 +180,9 @@ it("战役等级 I→II：移出 I 级任务堆、累加 II 级怪物、地牢�
   expect(game.dungeon!.discardedQuests).toContain("quest:p003");
   expect(game.dungeon!.discardedQuests).not.toContain("quest:p008");
 
-  // 准备结束夹具不在命令日志内；同种子从同一夹具状态回放推进/出征命令。
-  let replayed = preparationReady(baseline.game);
-  for (const c of embarkCommands) replayed = ok(replayed, c);
+  // 指定候选是上面的夹具，重放从该选择点起算，不冒称自然抽到了这两张。
+  let replayed = offeredFixture;
+  for (const c of embarkCommands.slice(2)) replayed = ok(replayed, c);
   expect(replayed).toEqual(game);
 });
 
@@ -205,7 +225,7 @@ it("Clear the Path II印刷黄金表：八房含两宝藏，不套用Scout的两
 function embarkII(questId: "quest:p007" | "quest:p008") {
   const ready = preparationReady(baseline.game);
   const advanced = ok(ready, { type: "advanceCampaignLevel" });
-  const offered = ok(advanced, { type: "offerNextQuest" });
+  const offered = fixedIIQuestOffers(ok(advanced, { type: "offerNextQuest" }));
   const choice: Command = {
     type: "resolveChoice",
     choiceId: offered.dungeon!.pending!.id,
@@ -213,8 +233,8 @@ function embarkII(questId: "quest:p007" | "quest:p008") {
   };
   return { ready, offered, choice, embarked: ok(offered, choice) };
 }
-it("II级两张抽选后只出征Clear the Path，另一张永久弃置；过期/越级选择拒绝，原命令回放", () => {
-  const { ready, offered, choice, embarked } = embarkII("quest:p007");
+it("II级候选夹具选择Clear the Path，另一张永久弃置；过期/越级选择拒绝，原命令回放", () => {
+  const { offered, choice, embarked } = embarkII("quest:p007");
   expect(offered.dungeon!.pending!.options).toHaveLength(2);
   expect(embarked.dungeon!.questDistribution).toEqual(clearDistribution);
   expect(embarked.dungeon!.rooms.filter((r) => r.kind === "treasure")).toHaveLength(2);
@@ -224,9 +244,7 @@ it("II级两张抽选后只出征Clear the Path，另一张永久弃置；过期
   expect(embarked.dungeon!.discardedQuests).not.toContain("quest:p007");
   expect(applyCommand(embarked, choice).state).toBe(embarked);
   expect(applyCommand(offered, { ...choice, optionId: "quest:p001" }).state).toBe(offered);
-  expect(
-    ok(ok(ok(ready, { type: "advanceCampaignLevel" }), { type: "offerNextQuest" }), choice),
-  ).toEqual(embarked);
+  expect(ok(offered, choice)).toEqual(embarked);
 });
 it("两张II级任务摘要覆盖0到印刷上限：宝藏计房间XP，暗房/陷阱不能清理，不提前实发XP", () => {
   for (const questId of ["quest:p007", "quest:p008"] as const) {
