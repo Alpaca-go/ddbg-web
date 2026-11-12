@@ -4,7 +4,6 @@ import { monsterPoolFileSchema, ruinsMonsterPool } from "../../data/src/monster-
 import { buildWealdLevelOneMonsterPool } from "./expansions/weald/monster-pool";
 import { buildWealdMonsterCatalog } from "./expansions/weald/monster-catalog";
 import { readMonsterAttackView } from "./monster-skill";
-import { WEALD_SUMMON_PENDING_REASON } from "./weald-monster-attack";
 
 const read = (path: string): unknown =>
   JSON.parse(
@@ -73,14 +72,14 @@ describe("Weald I 级当地＋通用怪物池（R9–R10、W3、R-230/R-232）",
     expect(() => buildWealdLevelOneMonsterPool(core)).toThrow();
   });
 
-  it("大型抽牌卡映射不解除三项召唤整招停点", () => {
+  it("大型抽牌卡映射与三项召唤投影一致", () => {
     const input = source();
     const pool = buildWealdLevelOneMonsterPool(input);
     const battle = buildWealdMonsterCatalog(input.medium, input.large);
-    for (const [id, slot] of [
-      ["monster_medium:weald:p001", 2],
-      ["monster_medium:weald:p001", 3],
-      ["monster_large:weald:p001", 3],
+    for (const [id, slot, summonId] of [
+      ["monster_medium:weald:p001", 2, "monster_medium:weald:p001"],
+      ["monster_medium:weald:p001", 3, "monster_large:weald:p001"],
+      ["monster_large:weald:p001", 3, "monster_large:weald:p001"],
     ] as const) {
       expect(pool.some((card) => card.cardId === id)).toBe(true);
       expect(
@@ -88,7 +87,7 @@ describe("Weald I 级当地＋通用怪物池（R9–R10、W3、R-230/R-232）",
           battle.find((card) => card.id === id)!,
           slot,
         ),
-      ).toMatchObject({ status: "refused", reason: WEALD_SUMMON_PENDING_REASON });
+      ).toMatchObject({ status: "ready", wealdSummon: { cardId: summonId, count: 1 } });
     }
   });
 });

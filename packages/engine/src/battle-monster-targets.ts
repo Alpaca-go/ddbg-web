@@ -243,6 +243,9 @@ export function playMonsterSkillTargets(
     ...(attack.necromancerSummon && resolutions.some((r) => r.outcome !== "miss")
       ? { summonTargetAreaId: primary.areaId }
       : {}),
+    ...(attack.wealdSummon && resolutions.some((r) => r.outcome !== "miss")
+      ? { wealdSummon: attack.wealdSummon }
+      : {}),
     ...(resume?.announced ? { phase: "afterOwn" as const } : {}),
     type: "monsterSkillTargetsResolved",
     message: "怪物多目标攻击已共用一次掷骰结算",

@@ -69,6 +69,7 @@ import {
   clearNecromancerICompanions,
   continueNecromancerISummon,
 } from "./boss/necromancer-i-combat-runtime";
+import { continueWealdMonsterSummon } from "./expansions/weald/monster-summon";
 import {
   bumpFanaticIActionRoundCount,
   clearFanaticIPyre,
@@ -659,6 +660,8 @@ export function recordMonsterSkill(
 ): ApplyResult {
   const summoned = continueNecromancerISummon(result, resolved, casualtyIds);
   if (summoned) return summoned;
+  const wealdSummoned = continueWealdMonsterSummon(result, resolved, casualtyIds);
+  if (wealdSummoned) return wealdSummoned;
   if (!conditionsDone) {
     const initial = result.state.battle!;
     const targets = result.events.flatMap((e) =>

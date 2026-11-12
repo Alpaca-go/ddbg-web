@@ -126,6 +126,7 @@ export function readMonsterAttackView(
       readonly selfLight?: number;
       readonly targetLight?: number;
       readonly necromancerSummon?: true;
+      readonly wealdSummon?: { readonly cardId: string; readonly count: 1 };
     }
   | { readonly status: "refused"; readonly reason: string } {
   const matches = monster.skills.filter((skill) => skill.slot === skillSlot);
