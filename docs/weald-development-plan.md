@@ -216,3 +216,11 @@ Brigand Pounder 类型行、Shrieker’s Nest 和 Cauldron Empty 的专属卡面
 - 引擎侧 `expansions/weald/room-catalog.ts` 只读目录；未选 Weald 包或 `usable=false` 时不开放出征。未接步骤 4 禁疗／零容量回合限制、三项召唤；未新增 Playwright 冒烟。
 - 下一刀：1 号通行与效果绑定、7 号裂隙核准后入库；再接运行时与召唤部署。
 - 本批验证：Node 24.20.0（本机实际版本）、pnpm 12.9.1；typecheck、lint、build 通过；全量 Vitest 496 文件通过，3,768 项通过、1 项跳过（624.90s）；新增 weald-rooms 7 项与 room-catalog 2 项通过。未开放出征，未新增 Playwright 冒烟。
+
+### 步骤 3：剩余 1 号与 7 号几何候选
+
+- R-238 已提交、合入并推送 main（a4774a3a），本批先在本地分支 `codex/weald-remaining-geometry`（14f5ee2c）暂存，再基于当前 main（e70874a1）接入。
+- 重新查看 1／7 号板块及 1 号房间完整图像，补 1 号 11 对最终通路候选、全普通地形及 C／E／F／G 的 Toxic Mushrooms 绑定。
+- 7 号新增 H／I／J 三个零容量区域候选及范围，新增 11 对通路、3 对角点，与已核准 4 通路／1 角点分别记录，不改写旧核准。新候选全部继续 Q-186，未进入运行目录。
+- 2–9 号已核准几何已入库；下一步核实本轮 1 号与 7 号裂隙候选后补入目录。三项召唤和正式任务闭环待运行接入，不将审阅通过视为可玩完成。
+- 本批仅文档候选，继续 Q-186，不进运行目录。两份 Markdown 的 Prettier 检查与 git diff --check 通过，未重跑运行代码质量闸门。
