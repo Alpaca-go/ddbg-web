@@ -1,3 +1,7 @@
+import wealdMedium from "../../../../packages/data/normalized/extension/weald/monster_medium.json";
+import wealdLarge from "../../../../packages/data/normalized/extension/weald/monster_large.json";
+import wealdCurios from "../../../../packages/data/normalized/extension/weald/curio.json";
+import { wealdCurioFileSchema } from "../../../../packages/data/src/curio";
 import { createTrinketPool } from "@ddbg/engine";
 import type { CoreQuestSources } from "@ddbg/engine";
 import { battleData } from "virtual:battle-data";
@@ -38,6 +42,11 @@ export const preBossTaskSources: CoreQuestSources = {
 };
 
 export const taskSources: CoreQuestSources = {
+  weald: {
+    medium: wealdMedium,
+    large: wealdLarge,
+    curios: wealdCurioFileSchema.parse(wealdCurios).cards,
+  },
   ...legacyTaskSources,
   catalog: {
     ...preBossTaskSources.catalog,

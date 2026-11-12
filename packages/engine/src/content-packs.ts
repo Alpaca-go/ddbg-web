@@ -38,6 +38,7 @@ export function sourcesForContentPacks(
         ? { trinkets: { ...catalog.trinkets, cards: catalog.trinkets.cards.filter(allowed) } }
         : {}),
     },
+    ...(selected.includes("weald") && sources.weald ? { weald: sources.weald } : {}),
     resolveCards: sources.resolveCards.filter(allowed),
     curios: sources.curios.filter(allowed),
     rooms: sources.rooms.filter(allowed),

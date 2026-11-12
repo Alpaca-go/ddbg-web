@@ -1,3 +1,4 @@
+import { rebuildCoreQuestDecks } from "./core-quest-decks";
 import { asQuestMapPairingQuest, basicQuests } from "../../data/src/basic-quests";
 import { pickEmbarkQuestMapLayout } from "../../data/src/quest-map-pairing";
 import type { BasicQuestId } from "../../data/src/basic-quests";
@@ -23,6 +24,7 @@ import { sourcesForContentPacks } from "./content-packs";
 import { normalizeContentPacks, type ContentPackId } from "../../data/src/content-packs";
 
 export type CoreQuestSources = {
+  readonly weald?: import("./location-quest-sources").WealdQuestSources;
   readonly catalog: DungeonBattleCatalog;
   readonly resolveCards: readonly ResolveCard[];
   readonly curios: readonly CurioCard[];
@@ -127,6 +129,7 @@ export function createCoreDungeonQuest(
   };
   const problem = trinketPoolProblem(trinkets, heroes);
   if (problem) throw new Error(problem);
+  const decks = rebuildCoreQuestDecks(sources);
   const layout = pickEmbarkQuestMapLayout(asQuestMapPairingQuest(quest), seed, 0);
   const initial = createDungeonSandbox(
     seed,
@@ -141,9 +144,9 @@ export function createCoreDungeonQuest(
       light: 5,
       provisions: [],
     },
-    sources.curios,
+    decks.curios,
     sources.rooms,
-    sources.monsters,
+    decks.monsterPool.cards,
     { ...sources.catalog, conditions, trinkets },
     true,
   );

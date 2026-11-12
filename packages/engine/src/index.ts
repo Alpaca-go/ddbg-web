@@ -344,3 +344,4 @@ export {
   buildWealdLevelOneMonsterPool,
   createWealdLevelOneMonsterPoolState,
 } from "./expansions/weald/monster-pool";
+export { rebuildLocationQuestDecks } from "./location-quest-sources";
