@@ -14,14 +14,11 @@
     "page": 1,
     "face": "front"
    },
-   "ruling": "R-234",
+   "ruling": "R-239",
    "geometryVerified": true,
-   "geometryComplete": false,
+   "geometryComplete": true,
    "usable": false,
-   "pendingReview": [
-    "Q-186:passage-graph",
-    "Q-186:toxic-mushroom-effect-area"
-   ],
+   "pendingReview": [],
    "deployment": {
     "printReview": "verified",
     "heroes": {
@@ -138,13 +135,123 @@
      "elevation": "normal"
     }
    ],
-   "edges": [],
+   "edges": [
+    {
+     "from": "A",
+     "to": "B",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "A",
+     "to": "C",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "A",
+     "to": "E",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "E",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "C",
+     "to": "E",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "G",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "F",
+     "to": "G",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "F",
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "G",
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "C",
+     "to": "D",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "G",
+     "cornerOnly": true,
+     "blocked": false
+    }
+   ],
    "necroticFungusAreas": [],
    "zeroCapacityAreas": [],
-   "specialRegions": [],
-   "wallNotes": [
-    "R-235 共边登记未转为通行图，本目录不写入可通行边"
+   "specialRegions": [
+    {
+     "areaId": "C",
+     "iconId": "ea307609d9",
+     "effect": "toxicMushrooms",
+     "status": "confirmed",
+     "printedText": "Toxic Mushrooms: 怪物攻击该区域英雄未命中时，仅该区域所有英雄 1 腐蚀 2t",
+     "runtimeReady": false
+    },
+    {
+     "areaId": "E",
+     "iconId": "ea307609d9",
+     "effect": "toxicMushrooms",
+     "status": "confirmed",
+     "printedText": "Toxic Mushrooms: 怪物攻击该区域英雄未命中时，仅该区域所有英雄 1 腐蚀 2t",
+     "runtimeReady": false
+    },
+    {
+     "areaId": "F",
+     "iconId": "ea307609d9",
+     "effect": "toxicMushrooms",
+     "status": "confirmed",
+     "printedText": "Toxic Mushrooms: 怪物攻击该区域英雄未命中时，仅该区域所有英雄 1 腐蚀 2t",
+     "runtimeReady": false
+    },
+    {
+     "areaId": "G",
+     "iconId": "ea307609d9",
+     "effect": "toxicMushrooms",
+     "status": "confirmed",
+     "printedText": "Toxic Mushrooms: 怪物攻击该区域英雄未命中时，仅该区域所有英雄 1 腐蚀 2t",
+     "runtimeReady": false
+    }
    ],
+   "wallNotes": [],
    "unresolvedMarkers": []
   },
   {
@@ -1419,14 +1526,11 @@
     "page": 4,
     "face": "front"
    },
-   "ruling": "R-238",
+   "ruling": "R-239",
    "geometryVerified": true,
-   "geometryComplete": false,
+   "geometryComplete": true,
    "usable": false,
-   "pendingReview": [
-    "Q-186:chasm-classification",
-    "Q-186:chasm-connectivity"
-   ],
+   "pendingReview": [],
    "deployment": {
     "printReview": "verified",
     "heroes": {
@@ -1543,6 +1647,24 @@
      "id": "G",
      "capacity": 2,
      "elevation": "normal"
+    },
+    {
+     "id": "H",
+     "capacity": 0,
+     "elevation": "normal",
+     "zeroCapacity": true
+    },
+    {
+     "id": "I",
+     "capacity": 0,
+     "elevation": "normal",
+     "zeroCapacity": true
+    },
+    {
+     "id": "J",
+     "capacity": 0,
+     "elevation": "normal",
+     "zeroCapacity": true
     }
    ],
    "edges": [
@@ -1559,6 +1681,42 @@
      "blocked": false
     },
     {
+     "from": "B",
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "I",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "C",
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "E",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "J",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
      "from": "E",
      "to": "F",
      "cornerOnly": false,
@@ -1571,18 +1729,69 @@
      "blocked": false
     },
     {
+     "from": "E",
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "J",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "F",
+     "to": "I",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "G",
+     "to": "J",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "H",
+     "to": "I",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "A",
+     "to": "H",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
      "from": "C",
      "to": "D",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "I",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "F",
+     "to": "H",
      "cornerOnly": true,
      "blocked": false
     }
    ],
    "necroticFungusAreas": [],
-   "zeroCapacityAreas": [],
+   "zeroCapacityAreas": [
+    "H",
+    "I",
+    "J"
+   ],
    "specialRegions": [],
    "wallNotes": [
-    "A–B 矩形缺口",
-    "裂隙分类与连接待 Q-186"
+    "A–B 矩形缺口"
    ],
    "unresolvedMarkers": []
   },

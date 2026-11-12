@@ -106,10 +106,10 @@ const APPROVED_TILES: readonly WealdRoomTile[] = [
     number: 1,
     name: "Fungal Spores",
     source: { file: WEALD_TILES_FRONT, page: 1, face: "front" },
-    ruling: "R-234",
+    ruling: "R-239",
     geometryVerified: true,
-    geometryComplete: false,
-    pendingReview: ["Q-186:passage-graph", "Q-186:toxic-mushroom-effect-area"],
+    geometryComplete: true,
+    pendingReview: [],
     heroes: { aggressive: "G", defensive: "G", ranged: "G", support: "G" },
     monsters: { aggressive: "F", defensive: "C", ranged: "A", support: "B" },
     lootAreas: ["E"],
@@ -123,11 +123,21 @@ const APPROVED_TILES: readonly WealdRoomTile[] = [
       { id: "G", capacity: 5 },
       { id: "H", capacity: 3 },
     ]),
-    edges: [],
+    edges: edges(
+      ["A-B", "A-C", "A-E", "B-E", "B-F", "C-E", "D-G", "E-F", "F-G", "F-H", "G-H"],
+      ["C-D", "E-G"],
+    ),
     necroticFungusAreas: [],
     zeroCapacityAreas: [],
-    specialRegions: [],
-    wallNotes: ["R-235 共边登记未转为通行图，本目录不写入可通行边"],
+    specialRegions: ["C", "E", "F", "G"].map((areaId) => ({
+      areaId,
+      iconId: ORANGE_STAR,
+      effect: "toxicMushrooms" as const,
+      status: "confirmed" as const,
+      printedText: "Toxic Mushrooms: 怪物攻击该区域英雄未命中时，仅该区域所有英雄 1 腐蚀 2t",
+      runtimeReady: false as const,
+    })),
+    wallNotes: [],
   }),
   tile({
     id: "room_tile:weald:p002:back",
@@ -320,10 +330,10 @@ const APPROVED_TILES: readonly WealdRoomTile[] = [
     number: 7,
     name: "Chasm",
     source: { file: WEALD_TILES_FRONT, page: 4, face: "front" },
-    ruling: "R-238",
+    ruling: "R-239",
     geometryVerified: true,
-    geometryComplete: false,
-    pendingReview: ["Q-186:chasm-classification", "Q-186:chasm-connectivity"],
+    geometryComplete: true,
+    pendingReview: [],
     heroes: { aggressive: "F", defensive: "G", ranged: "F", support: "E" },
     monsters: { aggressive: "D", defensive: "C", ranged: "A", support: "B" },
     lootAreas: ["A", "B"],
@@ -335,12 +345,34 @@ const APPROVED_TILES: readonly WealdRoomTile[] = [
       { id: "E", capacity: 4 },
       { id: "F", capacity: 5 },
       { id: "G", capacity: 2 },
+      { id: "H", capacity: 0 },
+      { id: "I", capacity: 0 },
+      { id: "J", capacity: 0 },
     ]),
-    edges: edges(["A-C", "A-D", "E-F", "E-G"], ["C-D"]),
+    edges: edges(
+      [
+        "A-C",
+        "A-D",
+        "B-H",
+        "B-I",
+        "C-H",
+        "D-E",
+        "D-H",
+        "D-J",
+        "E-F",
+        "E-G",
+        "E-H",
+        "E-J",
+        "F-I",
+        "G-J",
+        "H-I",
+      ],
+      ["A-H", "C-D", "E-I", "F-H"],
+    ),
     necroticFungusAreas: [],
-    zeroCapacityAreas: [],
+    zeroCapacityAreas: ["H", "I", "J"],
     specialRegions: [],
-    wallNotes: ["A–B 矩形缺口", "裂隙分类与连接待 Q-186"],
+    wallNotes: ["A–B 矩形缺口"],
   }),
   tile({
     id: "room_tile:weald:p008:back",
@@ -429,13 +461,13 @@ const EFFECTS: Record<
   {
     summary: string;
     binding: "pending" | "partial" | "confirmed";
-    ruling: "R-234" | "R-237" | "R-238";
+    ruling: "R-234" | "R-237" | "R-238" | "R-239";
   }
 > = {
   1: {
     summary: "Toxic Mushrooms: 攻击未命中时该区域英雄 1 腐蚀 2t",
-    binding: "pending",
-    ruling: "R-234",
+    binding: "confirmed",
+    ruling: "R-239",
   },
   2: {
     summary: "Unprepared!: 战斗开始英雄减益 2t",
@@ -513,7 +545,7 @@ export function buildWealdRooms(raw: RawFile) {
               effectAreaBinding: meta.binding,
             }
           : null,
-        pendingReview: front.page === 7 ? ["Q-186:room-effect"] : [],
+        pendingReview: [],
       };
     })
     .sort((a, b) => a.number - b.number);

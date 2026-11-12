@@ -18,7 +18,7 @@ if (process.env.WRITE_NORMALIZED === "1") writeNormalizedWealdRooms();
 
 const { rooms: builtRooms, tiles: builtTiles } = loadNormalizedWealdRooms();
 
-describe("Weald 普通房间与板块（R-234–R-238、包隔离）", () => {
+describe("Weald 普通房间与板块（R-234–R-239、包隔离）", () => {
   it("重建结果与提交的 normalized 文件一致", () => {
     expect(wealdRoomFileSchema.parse(read("normalized/extension/weald/room.json"))).toEqual(
       builtRooms,
@@ -38,34 +38,49 @@ describe("Weald 普通房间与板块（R-234–R-238、包隔离）", () => {
     expect(roomCatalogSchema.safeParse(builtRooms.cards).success).toBe(false);
   });
 
-  it("2–6、8–9 号通路／角点计数与裁定一致；7 号仅部分通路", () => {
+  it("1–9 号通路／角点计数与裁定一致", () => {
     const expectCounts = (number: number, passages: number, corners: number, complete: boolean) => {
       const tile = builtTiles.tiles.find((t) => t.number === number)!;
       expect(tile.edges.filter((e) => !e.blocked && !e.cornerOnly)).toHaveLength(passages);
       expect(tile.edges.filter((e) => e.cornerOnly)).toHaveLength(corners);
       expect(tile.geometryComplete).toBe(complete);
     };
+    expectCounts(1, 11, 2, true);
     expectCounts(2, 10, 3, true);
     expectCounts(3, 12, 3, true);
     expectCounts(4, 10, 2, true);
     expectCounts(5, 12, 8, true);
     expectCounts(6, 9, 2, true);
-    expectCounts(7, 4, 1, false);
+    expectCounts(7, 15, 4, true);
     expectCounts(8, 11, 4, true);
     expectCounts(9, 6, 4, true);
   });
 
-  it("1 号无通行边、无 Toxic 星标；7 号显式 Q-186", () => {
+  it("1 号 Toxic 绑定 C/E/F/G；7 号零容量 H/I/J 且无 D–G", () => {
     const one = builtTiles.tiles.find((t) => t.number === 1)!;
     const seven = builtTiles.tiles.find((t) => t.number === 7)!;
-    expect(one.edges).toHaveLength(0);
-    expect(one.geometryComplete).toBe(false);
-    expect(one.specialRegions).toHaveLength(0);
-    expect(one.pendingReview).toContain("Q-186:toxic-mushroom-effect-area");
-    expect(seven.pendingReview.join(",")).toMatch(/chasm/);
-    expect(seven.edges.map((e) => `${e.from}-${e.to}`).sort()).toEqual(
-      ["A-C", "A-D", "C-D", "E-F", "E-G"].sort(),
+    expect(one.geometryComplete).toBe(true);
+    expect(one.pendingReview).toHaveLength(0);
+    const toxicAreas = one.specialRegions
+      .filter((r) => r.effect === "toxicMushrooms")
+      .map((r) => r.areaId)
+      .sort();
+    expect(toxicAreas).toEqual(["C", "E", "F", "G"]);
+    expect(seven.zeroCapacityAreas).toEqual(["H", "I", "J"]);
+    for (const id of ["H", "I", "J"]) {
+      expect(seven.areas.find((a) => a.id === id)?.capacity).toBe(0);
+    }
+    expect(seven.pendingReview).toHaveLength(0);
+    const hasDG = seven.edges.some(
+      (e) =>
+        !e.cornerOnly &&
+        !e.blocked &&
+        ((e.from === "D" && e.to === "G") || (e.from === "G" && e.to === "D")),
     );
+    expect(hasDG).toBe(false);
+    const room1 = builtRooms.cards.find((c) => c.number === 1)!;
+    expect(room1.verifiedEffect?.effectAreaBinding).toBe("confirmed");
+    expect(room1.verifiedEffect?.ruling).toBe("R-239");
   });
 
   it("5 号零容量 I 与真菌放置按 R-236", () => {
@@ -86,17 +101,10 @@ describe("Weald 普通房间与板块（R-234–R-238、包隔离）", () => {
     }
   });
 
-  it("篡改 7 号补边或 1 号通行图会被 schema 拒绝", () => {
+  it("7 号完整几何不得写入 D–G 直连", () => {
     const seven = structuredClone(builtTiles.tiles.find((t) => t.number === 7)!);
-    seven.edges.push({ from: "B", to: "C", cornerOnly: false, blocked: false });
-    seven.geometryComplete = true;
-    seven.pendingReview = [];
-    expect(
-      wealdRoomTileGeometryFileSchema.safeParse({ ...builtTiles, tiles: [seven] }).success,
-    ).toBe(false);
-    const one = structuredClone(builtTiles.tiles.find((t) => t.number === 1)!);
-    one.edges.push({ from: "A", to: "B", cornerOnly: false, blocked: false });
-    expect(wealdRoomTileSchema.safeParse(one).success).toBe(false);
+    seven.edges.push({ from: "D", to: "G", cornerOnly: false, blocked: false });
+    expect(wealdRoomTileSchema.safeParse(seven).success).toBe(false);
   });
 });
 

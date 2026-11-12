@@ -11,7 +11,7 @@ export const WEALD_TILES_BACK =
   "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_WEALD_TILES_BACK.pdf";
 
 const verifiedEffectSchema = z.strictObject({
-  ruling: z.enum(["R-234", "R-237", "R-238"]),
+  ruling: z.enum(["R-234", "R-237", "R-238", "R-239"]),
   summary: z.string().min(1),
   runtimeReady: z.literal(false),
   effectAreaBinding: z.enum(["pending", "partial", "confirmed"]),
@@ -104,7 +104,7 @@ export const wealdRoomTileSchema = z
       page: z.int().min(1).max(6),
       face: z.enum(["front", "back"]),
     }),
-    ruling: z.enum(["R-234", "R-235", "R-236", "R-237", "R-238"]),
+    ruling: z.enum(["R-234", "R-235", "R-236", "R-237", "R-238", "R-239"]),
     geometryVerified: z.boolean(),
     geometryComplete: z.boolean(),
     usable: z.literal(false),
@@ -173,15 +173,16 @@ export const wealdRoomTileSchema = z
       ctx.addIssue({ code: "custom", message: "完整几何不能挂待审项" });
     if (!tile.geometryComplete && tile.pendingReview.length === 0)
       ctx.addIssue({ code: "custom", message: "不完整几何必须显式保留待审" });
-    if (tile.number === 1 && tile.edges.some((e) => !e.cornerOnly && !e.blocked))
-      ctx.addIssue({
-        code: "custom",
-        message: "1 号不得写入最终通行边",
-      });
-    if (tile.number === 1 && tile.specialRegions.some((r) => r.effect === "toxicMushrooms"))
-      ctx.addIssue({ code: "custom", message: "1 号不得绑定 Toxic Mushrooms 星标区域" });
-    if (tile.number === 7 && tile.geometryComplete)
-      ctx.addIssue({ code: "custom", message: "7 号裂隙几何必须保持不完整" });
+    if (tile.number === 7 && tile.geometryComplete) {
+      const pair = (a: string, b: string) =>
+        tile.edges.some(
+          (e) =>
+            !e.cornerOnly &&
+            !e.blocked &&
+            ((e.from === a && e.to === b) || (e.from === b && e.to === a)),
+        );
+      if (pair("D", "G")) ctx.addIssue({ code: "custom", message: "7 号 D–G 不得直连，须经 J" });
+    }
   });
 
 export const wealdRoomTileGeometryFileSchema = z
