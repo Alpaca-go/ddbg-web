@@ -35,10 +35,10 @@
     "page": 1
    },
    "verifiedEffect": {
-    "ruling": "R-234",
+    "ruling": "R-239",
     "summary": "Toxic Mushrooms: 攻击未命中时该区域英雄 1 腐蚀 2t",
     "runtimeReady": false,
-    "effectAreaBinding": "pending"
+    "effectAreaBinding": "confirmed"
    },
    "pendingReview": []
   },
@@ -276,9 +276,7 @@
     "page": 7
    },
    "verifiedEffect": null,
-   "pendingReview": [
-    "Q-186:room-effect"
-   ]
+   "pendingReview": []
   },
   {
    "id": "room:weald:p008",
