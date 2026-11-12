@@ -19,6 +19,10 @@ pnpm --filter @ddbg/pipeline normalize
 
 同一 normalize 命令生成 `extension/weald/curio.json`，独立校验 16 张、64 行，R-233 逐卡核准，同名卡不合并。来源、图标和印刷数字漂移会使生成失败，不修改全局图标词典。核心 24 张目录约束保持不变；当地目录与通用卡组合在开发步骤 2 接入。效果按印刷顺序规划，Torch 只抑制负面效果，未知行继续整卡停点。见 [奇物审阅记录](../../../docs/weald-curio-review-2026-11-11.md)。
 
+## Weald 普通房间与板块
+
+`extension/weald/room.json` 与 `room_tile_geometry.json` 使用独立 schema（`ddbg-weald-room-v1` / `ddbg-weald-room-tile-geometry-v0`），写入 R-234–R-238 已核准的九张普通房间与对应板块。2–6、8–9 号含完整通行几何、容量、部署、真菌与星标效果区域；5 号含零容量区 I。1 号仅占位容量／部署（R-234），不写通行边、不绑定 Toxic Mushrooms 星标；7 号仅写入已核准的 4 对通路、1 对角点与 A 高地，裂隙仍挂 Q-186。全部 `usable=false`，不开放出征；由 `pnpm --filter @ddbg/data test` 中 `weald-rooms.test.ts` 校验，可用 `WRITE_NORMALIZED=1` 重写 JSON。见 [房间审阅记录](../../../docs/weald-room-review-2026-11-12.md)。
+
 ## 和 parsed 的差别
 
 - 图标解析成 `naming`。只有 `confirmed` 和 `confirmed_rulebook` 可以当名字用。`needs_review`（`pending_` key）、`unsure`、`unreviewed`，以及词典没有的 iconId，都是 `unverified`。卡上有这种图标时，`verification.unverified` 为 true（R-048）。提取器标成 `decor` 的放置（面板、细条、文字底板）不是游戏图标，不放进这层，也不因此把卡标成未验证。

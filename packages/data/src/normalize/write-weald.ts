@@ -5,6 +5,7 @@ import { iconDictionarySchema } from "../dictionary/schema";
 import { rawFileSchema } from "../extract/raw";
 import { buildWealdLevelOneMonsters } from "./weald-monsters";
 import { buildWealdCurios } from "./weald-curios";
+import { buildWealdRooms, buildWealdRoomTiles } from "./weald-rooms";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const read = (file: string): unknown =>
@@ -42,5 +43,26 @@ export function writeNormalizedWealdLevelOneMonsters(
   for (const [name, file] of Object.entries(built)) {
     writeFileSync(path.join(outputDir, `${name}.json`), `${JSON.stringify(file, null, 1)}\n`);
   }
+  return built;
+}
+
+export function loadNormalizedWealdRooms() {
+  const raw = rawFileSchema.parse(read("extract/extension/weald/raw/room.json"));
+  return {
+    rooms: buildWealdRooms(raw),
+    tiles: buildWealdRoomTiles(),
+  };
+}
+
+export function writeNormalizedWealdRooms(
+  outputDir = path.join(ROOT, "normalized/extension/weald"),
+) {
+  const built = loadNormalizedWealdRooms();
+  mkdirSync(outputDir, { recursive: true });
+  writeFileSync(path.join(outputDir, "room.json"), `${JSON.stringify(built.rooms, null, 1)}\n`);
+  writeFileSync(
+    path.join(outputDir, "room_tile_geometry.json"),
+    `${JSON.stringify(built.tiles, null, 1)}\n`,
+  );
   return built;
 }

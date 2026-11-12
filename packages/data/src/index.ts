@@ -164,6 +164,13 @@ export type {
 
 export * from "./room";
 export { buildRooms } from "./normalize/room";
+export {
+  wealdRoomCardSchema,
+  wealdRoomFileSchema,
+  wealdRoomTileGeometryFileSchema,
+  wealdRoomTileSchema,
+} from "./weald-room";
+export type { WealdRoomCard, WealdRoomTile } from "./weald-room";
 
 export {
   absoluteNothingnessSupportSchema,

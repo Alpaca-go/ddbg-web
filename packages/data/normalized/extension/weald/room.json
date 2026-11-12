@@ -1,0 +1,371 @@
+{
+ "schema": "ddbg-weald-room-v1",
+ "cards": [
+  {
+   "id": "room:weald:p001",
+   "name": "Fungal Spores",
+   "copies": 1,
+   "location": "weald",
+   "number": 1,
+   "boss": false,
+   "printedLines": [
+    "{icon:904b2f5950} 1—Fungal Spores",
+    "{icon:497092fe1f} 1",
+    "{icon:5f22dec3e9}",
+    "{icon:cb6ab57f85}",
+    "{icon:8d20ad9adc}",
+    "{icon:d4bafe101c}",
+    "{icon:5bdb5b7d31}",
+    "{icon:a5067e2cdd}",
+    "{icon:0a628befae}",
+    "{icon:8d20ad9adc}",
+    "{icon:e5e64a39ca} !",
+    "{icon:0a9707f162}",
+    "{icon:adbb06352e}",
+    "{icon:89c8de39bb} {icon:ca41682b1e} {icon:8556221f31} {icon:74f5c46f3d}",
+    "{icon:cb6ab57f85}",
+    "{icon:fd79a9bc06}",
+    "{icon:401040514c} Toxic Mushrooms: When a Monster",
+    "misses against a Hero in this Area, all",
+    "Heroes in this Area suffer 1 {icon:41c31d63d8} 2t."
+   ],
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_rooms_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_rooms_BACK.pdf",
+    "page": 1
+   },
+   "verifiedEffect": {
+    "ruling": "R-234",
+    "summary": "Toxic Mushrooms: 攻击未命中时该区域英雄 1 腐蚀 2t",
+    "runtimeReady": false,
+    "effectAreaBinding": "pending"
+   },
+   "pendingReview": []
+  },
+  {
+   "id": "room:weald:p002",
+   "name": "Ambush",
+   "copies": 1,
+   "location": "weald",
+   "number": 2,
+   "boss": false,
+   "printedLines": [
+    "{icon:07104c1226}",
+    "2—Ambush",
+    "{icon:bc064e04d3}",
+    "{icon:497092fe1f} 2",
+    "{icon:be82898d43} {icon:0848df669e} {icon:80863bf0a8}",
+    "{icon:e5e64a39ca} !",
+    "{icon:312a0149f0}",
+    "{icon:2410f9cb24}",
+    "{icon:b54721bbb2}",
+    "{icon:89c8de39bb} {icon:ca41682b1e} {icon:8556221f31} {icon:74f5c46f3d}",
+    "{icon:027033a816}",
+    "{icon:b03c458c67}",
+    "{icon:baf8047447}",
+    "{icon:baf8047447}",
+    "{icon:10f45ff666} {icon:0a628befae}",
+    "{icon:d4bafe101c}",
+    "Unprepared! At the start of",
+    "Battle, Heroes suffer {icon:210cccb6b9} 2t."
+   ],
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_rooms_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_rooms_BACK.pdf",
+    "page": 2
+   },
+   "verifiedEffect": {
+    "ruling": "R-234",
+    "summary": "Unprepared!: 战斗开始英雄减益 2t",
+    "runtimeReady": false,
+    "effectAreaBinding": "confirmed"
+   },
+   "pendingReview": []
+  },
+  {
+   "id": "room:weald:p003",
+   "name": "Thick Woods",
+   "copies": 1,
+   "location": "weald",
+   "number": 3,
+   "boss": false,
+   "printedLines": [
+    "{icon:904b2f5950} 3—Thick Woods",
+    "{icon:a03fc0c541}",
+    "{icon:c26b698955}",
+    "{icon:312a0149f0}",
+    "{icon:4d9fc5f973}",
+    "{icon:497092fe1f} 3",
+    "{icon:e5e64a39ca} !",
+    "{icon:e5e64a39ca} !",
+    "{icon:933e28ff76} {icon:9e150fddd2}",
+    "{icon:ae5489a2ff}",
+    "{icon:89c8de39bb}",
+    "{icon:baf8047447}",
+    "{icon:47bf390121}",
+    "{icon:9bdab431be}",
+    "{icon:cb6ab57f85}",
+    "{icon:29caa2cafd}",
+    "{icon:d4bafe101c} {icon:e1c4e4bda7}",
+    "{icon:fd79a9bc06}",
+    "{icon:a03fc0c541}",
+    "{icon:4fe9e8c0de}",
+    "{icon:a03fc0c541}",
+    "{icon:e5e64a39ca} !",
+    "{icon:e5e64a39ca} !",
+    "{icon:8556221f31} {icon:74f5c46f3d}"
+   ],
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_rooms_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_rooms_BACK.pdf",
+    "page": 3
+   },
+   "verifiedEffect": null,
+   "pendingReview": []
+  },
+  {
+   "id": "room:weald:p004",
+   "name": "Stash",
+   "copies": 1,
+   "location": "weald",
+   "number": 4,
+   "boss": false,
+   "printedLines": [
+    "{icon:07104c1226}",
+    "4—Stash",
+    "{icon:bc064e04d3}",
+    "{icon:312a0149f0}",
+    "{icon:80863bf0a8}",
+    "{icon:497092fe1f} 4",
+    "{icon:8556221f31}",
+    "{icon:0a628befae}",
+    "{icon:fd79a9bc06}",
+    "{icon:5f22dec3e9}",
+    "{icon:301222a861} {icon:b03c458c67} {icon:b54721bbb2}",
+    "{icon:10f45ff666} {icon:e5e64a39ca} ! {icon:e5e64a39ca} !",
+    "{icon:29caa2cafd}",
+    "{icon:cb6ab57f85}",
+    "{icon:80863bf0a8}",
+    "{icon:312a0149f0}",
+    "{icon:70f3ac05b8}",
+    "{icon:d4bafe101c}",
+    "{icon:9fefbd9077}",
+    "{icon:401040514c} Precious: If a Monster ends its turn",
+    "here, all other Monsters gain {icon:ea307609d9} 2t, {icon:ea307609d9} 2t."
+   ],
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_rooms_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_rooms_BACK.pdf",
+    "page": 4
+   },
+   "verifiedEffect": {
+    "ruling": "R-237",
+    "summary": "Precious: 怪物在 D 结束回合使其他怪物增益 2t ×2",
+    "runtimeReady": false,
+    "effectAreaBinding": "confirmed"
+   },
+   "pendingReview": []
+  },
+  {
+   "id": "room:weald:p005",
+   "name": "Infected Oak",
+   "copies": 1,
+   "location": "weald",
+   "number": 5,
+   "boss": false,
+   "printedLines": [
+    "{icon:904b2f5950}",
+    "5—Infected Oak",
+    "{icon:04839a404a}",
+    "{icon:0a9707f162}",
+    "{icon:9bdab431be}",
+    "{icon:497092fe1f} 5",
+    "{icon:10f45ff666} {icon:0a628befae} {icon:e5e64a39ca} !",
+    "{icon:d4bafe101c}",
+    "{icon:29caa2cafd}",
+    "{icon:0a9707f162}",
+    "{icon:5bdb5b7d31}",
+    "{icon:e5e64a39ca} !",
+    "{icon:fd79a9bc06}",
+    "{icon:80863bf0a8}",
+    "{icon:5bdb5b7d31}",
+    "{icon:4fe9e8c0de}",
+    "{icon:9fefbd9077}",
+    "{icon:89c8de39bb}",
+    "{icon:8556221f31}",
+    "{icon:401040514c} Poisonous Roots: Heroes ending",
+    "their turn here suffer 2 {icon:41c31d63d8} 2t."
+   ],
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_rooms_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_rooms_BACK.pdf",
+    "page": 5
+   },
+   "verifiedEffect": {
+    "ruling": "R-238",
+    "summary": "Poisonous Roots: 英雄在 B/D/E/G 结束回合 2 腐蚀 2t",
+    "runtimeReady": false,
+    "effectAreaBinding": "confirmed"
+   },
+   "pendingReview": []
+  },
+  {
+   "id": "room:weald:p006",
+   "name": "Chase in the Woods",
+   "copies": 1,
+   "location": "weald",
+   "number": 6,
+   "boss": false,
+   "printedLines": [
+    "{icon:904b2f5950} 6—Chase in the Woods",
+    "{icon:497092fe1f} 6",
+    "{icon:baf8047447}",
+    "{icon:8d20ad9adc}",
+    "{icon:adbb06352e}",
+    "{icon:cb6ab57f85}",
+    "{icon:2410f9cb24}",
+    "{icon:29caa2cafd} {icon:e1c4e4bda7}",
+    "{icon:ae5489a2ff}",
+    "{icon:933e28ff76} {icon:9e150fddd2}",
+    "{icon:8d20ad9adc}",
+    "{icon:d4bafe101c}",
+    "{icon:baf8047447}",
+    "{icon:fd79a9bc06}",
+    "{icon:b150ea522a} {icon:9e150fddd2}",
+    "{icon:be68aef5d4}",
+    "{icon:8556221f31} {icon:e5e64a39ca} !",
+    "{icon:89c8de39bb}"
+   ],
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_rooms_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_rooms_BACK.pdf",
+    "page": 6
+   },
+   "verifiedEffect": null,
+   "pendingReview": []
+  },
+  {
+   "id": "room:weald:p007",
+   "name": "Chasm",
+   "copies": 1,
+   "location": "weald",
+   "number": 7,
+   "boss": false,
+   "printedLines": [
+    "{icon:904b2f5950}",
+    "7—Chasm",
+    "{icon:379d5b2d26}",
+    "{icon:9bdab431be}",
+    "{icon:497092fe1f} 7",
+    "{icon:adbb06352e} {icon:e5e64a39ca} !",
+    "{icon:2cca4fd061}",
+    "{icon:535b5e65c8} {icon:e5e64a39ca} !",
+    "{icon:d4bafe101c}",
+    "{icon:be68aef5d4}",
+    "{icon:baf8047447}",
+    "{icon:fd79a9bc06}",
+    "{icon:2410f9cb24}",
+    "{icon:2cca4fd061}",
+    "{icon:29caa2cafd}",
+    "{icon:b150ea522a}",
+    "{icon:f8e4a91e06} {icon:8556221f31}"
+   ],
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_rooms_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_rooms_BACK.pdf",
+    "page": 7
+   },
+   "verifiedEffect": null,
+   "pendingReview": [
+    "Q-186:room-effect"
+   ]
+  },
+  {
+   "id": "room:weald:p008",
+   "name": "Fungal Overgrowth",
+   "copies": 1,
+   "location": "weald",
+   "number": 8,
+   "boss": false,
+   "printedLines": [
+    "{icon:07104c1226} 8—Fungal Overgrowth",
+    "{icon:c371c7b280}",
+    "{icon:9bdab431be}",
+    "{icon:497092fe1f} 8",
+    "{icon:b03c458c67}",
+    "{icon:933e28ff76} {icon:9e150fddd2}",
+    "{icon:63bb8a6b34}",
+    "{icon:e5e64a39ca} !",
+    "{icon:e5e64a39ca} !",
+    "{icon:2410f9cb24}",
+    "{icon:d4bafe101c} {icon:085b8df0e6}",
+    "{icon:ae5489a2ff}",
+    "{icon:b54721bbb2}",
+    "{icon:2449808642}",
+    "{icon:9bdab431be}",
+    "{icon:b03c458c67}",
+    "{icon:076d69def4} {icon:df128243e5}",
+    "{icon:89c8de39bb} {icon:0c58c4cb51}",
+    "{icon:8556221f31}",
+    "Abyssal Puff: When a Necrotic",
+    "Fungus is destroyed in this Room,",
+    "all Monsters gain {icon:ea307609d9} 2t."
+   ],
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_rooms_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_rooms_BACK.pdf",
+    "page": 8
+   },
+   "verifiedEffect": {
+    "ruling": "R-234",
+    "summary": "Abyssal Puff: 本房间真菌被摧毁时所有怪物增益 2t",
+    "runtimeReady": false,
+    "effectAreaBinding": "confirmed"
+   },
+   "pendingReview": []
+  },
+  {
+   "id": "room:weald:p009",
+   "name": "The Clearing",
+   "copies": 1,
+   "location": "weald",
+   "number": 9,
+   "boss": false,
+   "printedLines": [
+    "{icon:07104c1226} 9—The Clearing",
+    "{icon:91bfaec784}",
+    "{icon:a03fc0c541} {icon:68dc58cfb4} 9",
+    "{icon:7a7c1e294c}",
+    "{icon:89c8de39bb} {icon:0c58c4cb51}",
+    "{icon:f8e4a91e06} {icon:8556221f31}",
+    "{icon:312a0149f0}",
+    "{icon:312a0149f0}",
+    "{icon:47bf390121}",
+    "{icon:9958d9f407} ! ! ! !",
+    "{icon:be82898d43} {icon:b03c458c67}",
+    "{icon:dce864ebef}",
+    "{icon:fd79a9bc06}",
+    "{icon:379d5b2d26}",
+    "{icon:535b5e65c8}",
+    "Ours! When a Hero Loots a chest, all",
+    "Monsters gain {icon:e66649ddb5} 1t, {icon:ea307609d9} 2t.",
+    "{icon:ebeedbdcc1} Clearing: Heroes ending their turn",
+    "here recover 1 {icon:800cca21c7} . When a Monster",
+    "ends its turn here, remove a Loot Chest",
+    "at random."
+   ],
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_rooms_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_rooms_BACK.pdf",
+    "page": 9
+   },
+   "verifiedEffect": {
+    "ruling": "R-238",
+    "summary": "Ours! + Clearing（B 绿星绑定）",
+    "runtimeReady": false,
+    "effectAreaBinding": "confirmed"
+   },
+   "pendingReview": []
+  }
+ ]
+}

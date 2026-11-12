@@ -1,0 +1,2056 @@
+{
+ "schema": "ddbg-weald-room-tile-geometry-v0",
+ "category": "weald_room_tile_geometry",
+ "tiles": [
+  {
+   "id": "room_tile:weald:p001:front",
+   "rawId": "dungeon_tile:weald:p001",
+   "roomId": "room:weald:p001",
+   "location": "weald",
+   "number": 1,
+   "name": "Fungal Spores",
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_WEALD_TILES_FRONT.pdf",
+    "page": 1,
+    "face": "front"
+   },
+   "ruling": "R-234",
+   "geometryVerified": true,
+   "geometryComplete": false,
+   "usable": false,
+   "pendingReview": [
+    "Q-186:passage-graph",
+    "Q-186:toxic-mushroom-effect-area"
+   ],
+   "deployment": {
+    "printReview": "verified",
+    "heroes": {
+     "aggressive": "G",
+     "defensive": "G",
+     "ranged": "G",
+     "support": "G"
+    },
+    "monsters": {
+     "aggressive": "F",
+     "defensive": "C",
+     "ranged": "A",
+     "support": "B"
+    },
+    "lootAreas": [
+     "E"
+    ],
+    "markers": [
+     {
+      "areaId": "G",
+      "iconId": "7b8c742c86",
+      "semantic": "hero_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "G",
+      "iconId": "1a71d94723",
+      "semantic": "hero_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "G",
+      "iconId": "7ab26866fc",
+      "semantic": "hero_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "G",
+      "iconId": "39d6ddf024",
+      "semantic": "hero_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "F",
+      "iconId": "8787ebb1b2",
+      "semantic": "monster_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "C",
+      "iconId": "1f26dc63eb",
+      "semantic": "monster_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "A",
+      "iconId": "643d396fef",
+      "semantic": "monster_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "B",
+      "iconId": "293f170eab",
+      "semantic": "monster_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "E",
+      "iconId": "f9f205b9e1",
+      "semantic": "loot_chest",
+      "status": "confirmed"
+     }
+    ]
+   },
+   "areas": [
+    {
+     "id": "A",
+     "capacity": 6,
+     "elevation": "normal"
+    },
+    {
+     "id": "B",
+     "capacity": 6,
+     "elevation": "normal"
+    },
+    {
+     "id": "C",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "D",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "E",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "F",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "G",
+     "capacity": 5,
+     "elevation": "normal"
+    },
+    {
+     "id": "H",
+     "capacity": 3,
+     "elevation": "normal"
+    }
+   ],
+   "edges": [],
+   "necroticFungusAreas": [],
+   "zeroCapacityAreas": [],
+   "specialRegions": [],
+   "wallNotes": [
+    "R-235 共边登记未转为通行图，本目录不写入可通行边"
+   ],
+   "unresolvedMarkers": []
+  },
+  {
+   "id": "room_tile:weald:p002:back",
+   "rawId": "dungeon_tile:weald:p001",
+   "roomId": "room:weald:p002",
+   "location": "weald",
+   "number": 2,
+   "name": "Ambush",
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_WEALD_TILES_BACK.pdf",
+    "page": 1,
+    "face": "back"
+   },
+   "ruling": "R-237",
+   "geometryVerified": true,
+   "geometryComplete": true,
+   "usable": false,
+   "pendingReview": [],
+   "deployment": {
+    "printReview": "verified",
+    "heroes": {
+     "aggressive": "E",
+     "defensive": "E",
+     "ranged": "E",
+     "support": "E"
+    },
+    "monsters": {
+     "aggressive": "G",
+     "defensive": "I",
+     "ranged": "G",
+     "support": "F"
+    },
+    "lootAreas": [
+     "C"
+    ],
+    "markers": [
+     {
+      "areaId": "E",
+      "iconId": "7b8c742c86",
+      "semantic": "hero_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "E",
+      "iconId": "1a71d94723",
+      "semantic": "hero_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "E",
+      "iconId": "7ab26866fc",
+      "semantic": "hero_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "E",
+      "iconId": "39d6ddf024",
+      "semantic": "hero_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "G",
+      "iconId": "8787ebb1b2",
+      "semantic": "monster_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "I",
+      "iconId": "1f26dc63eb",
+      "semantic": "monster_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "G",
+      "iconId": "643d396fef",
+      "semantic": "monster_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "F",
+      "iconId": "293f170eab",
+      "semantic": "monster_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "C",
+      "iconId": "f9f205b9e1",
+      "semantic": "loot_chest",
+      "status": "confirmed"
+     }
+    ]
+   },
+   "areas": [
+    {
+     "id": "A",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "B",
+     "capacity": 2,
+     "elevation": "high"
+    },
+    {
+     "id": "C",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "D",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "E",
+     "capacity": 6,
+     "elevation": "normal"
+    },
+    {
+     "id": "F",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "G",
+     "capacity": 5,
+     "elevation": "normal"
+    },
+    {
+     "id": "H",
+     "capacity": 3,
+     "elevation": "low"
+    },
+    {
+     "id": "I",
+     "capacity": 5,
+     "elevation": "normal"
+    }
+   ],
+   "edges": [
+    {
+     "from": "A",
+     "to": "B",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "A",
+     "to": "D",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "E",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "C",
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "G",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "F",
+     "to": "I",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "G",
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "G",
+     "to": "I",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "H",
+     "to": "I",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "A",
+     "to": "E",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "H",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "F",
+     "to": "H",
+     "cornerOnly": true,
+     "blocked": false
+    }
+   ],
+   "necroticFungusAreas": [],
+   "zeroCapacityAreas": [],
+   "specialRegions": [],
+   "wallNotes": [
+    "B–C 竖缝",
+    "D–E 竖缝",
+    "E–F 竖缝"
+   ],
+   "unresolvedMarkers": []
+  },
+  {
+   "id": "room_tile:weald:p003:front",
+   "rawId": "dungeon_tile:weald:p002",
+   "roomId": "room:weald:p003",
+   "location": "weald",
+   "number": 3,
+   "name": "Thick Woods",
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_WEALD_TILES_FRONT.pdf",
+    "page": 2,
+    "face": "front"
+   },
+   "ruling": "R-237",
+   "geometryVerified": true,
+   "geometryComplete": true,
+   "usable": false,
+   "pendingReview": [],
+   "deployment": {
+    "printReview": "verified",
+    "heroes": {
+     "aggressive": "C",
+     "defensive": "F",
+     "ranged": "J",
+     "support": "J"
+    },
+    "monsters": {
+     "aggressive": "H",
+     "defensive": "G",
+     "ranged": "B",
+     "support": "E"
+    },
+    "lootAreas": [
+     "A",
+     "D",
+     "I",
+     "K"
+    ],
+    "markers": [
+     {
+      "areaId": "C",
+      "iconId": "7b8c742c86",
+      "semantic": "hero_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "F",
+      "iconId": "1a71d94723",
+      "semantic": "hero_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "J",
+      "iconId": "7ab26866fc",
+      "semantic": "hero_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "J",
+      "iconId": "39d6ddf024",
+      "semantic": "hero_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "H",
+      "iconId": "8787ebb1b2",
+      "semantic": "monster_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "G",
+      "iconId": "1f26dc63eb",
+      "semantic": "monster_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "B",
+      "iconId": "643d396fef",
+      "semantic": "monster_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "E",
+      "iconId": "293f170eab",
+      "semantic": "monster_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "A",
+      "iconId": "f9f205b9e1",
+      "semantic": "loot_chest",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "D",
+      "iconId": "f9f205b9e1",
+      "semantic": "loot_chest",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "I",
+      "iconId": "f9f205b9e1",
+      "semantic": "loot_chest",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "K",
+      "iconId": "f9f205b9e1",
+      "semantic": "loot_chest",
+      "status": "confirmed"
+     }
+    ]
+   },
+   "areas": [
+    {
+     "id": "A",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "B",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "C",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "D",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "E",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "F",
+     "capacity": 5,
+     "elevation": "normal"
+    },
+    {
+     "id": "G",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "H",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "I",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "J",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "K",
+     "capacity": 2,
+     "elevation": "normal"
+    }
+   ],
+   "edges": [
+    {
+     "from": "A",
+     "to": "B",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "C",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "E",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "C",
+     "to": "D",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "C",
+     "to": "E",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "C",
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "F",
+     "to": "G",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "F",
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "G",
+     "to": "I",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "H",
+     "to": "K",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "J",
+     "to": "K",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "A",
+     "to": "E",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "G",
+     "to": "J",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "H",
+     "to": "J",
+     "cornerOnly": true,
+     "blocked": false
+    }
+   ],
+   "necroticFungusAreas": [
+    "B",
+    "G"
+   ],
+   "zeroCapacityAreas": [],
+   "specialRegions": [],
+   "wallNotes": [
+    "F–J 横向黑块",
+    "I–J 竖缝",
+    "E 下方／G 上方黑块",
+    "D 下方／H 上方黑块"
+   ],
+   "unresolvedMarkers": []
+  },
+  {
+   "id": "room_tile:weald:p004:back",
+   "rawId": "dungeon_tile:weald:p002",
+   "roomId": "room:weald:p004",
+   "location": "weald",
+   "number": 4,
+   "name": "Stash",
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_WEALD_TILES_BACK.pdf",
+    "page": 2,
+    "face": "back"
+   },
+   "ruling": "R-237",
+   "geometryVerified": true,
+   "geometryComplete": true,
+   "usable": false,
+   "pendingReview": [],
+   "deployment": {
+    "printReview": "verified",
+    "heroes": {
+     "aggressive": "G",
+     "defensive": "F",
+     "ranged": "A",
+     "support": "I"
+    },
+    "monsters": {
+     "aggressive": "C",
+     "defensive": "H",
+     "ranged": "B",
+     "support": "D"
+    },
+    "lootAreas": [
+     "D"
+    ],
+    "markers": [
+     {
+      "areaId": "G",
+      "iconId": "7b8c742c86",
+      "semantic": "hero_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "F",
+      "iconId": "1a71d94723",
+      "semantic": "hero_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "A",
+      "iconId": "7ab26866fc",
+      "semantic": "hero_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "I",
+      "iconId": "39d6ddf024",
+      "semantic": "hero_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "C",
+      "iconId": "8787ebb1b2",
+      "semantic": "monster_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "H",
+      "iconId": "1f26dc63eb",
+      "semantic": "monster_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "B",
+      "iconId": "643d396fef",
+      "semantic": "monster_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "D",
+      "iconId": "293f170eab",
+      "semantic": "monster_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "D",
+      "iconId": "f9f205b9e1",
+      "semantic": "loot_chest",
+      "status": "confirmed"
+     }
+    ]
+   },
+   "areas": [
+    {
+     "id": "A",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "B",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "C",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "D",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "E",
+     "capacity": 2,
+     "elevation": "low"
+    },
+    {
+     "id": "F",
+     "capacity": 6,
+     "elevation": "normal"
+    },
+    {
+     "id": "G",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "H",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "I",
+     "capacity": 3,
+     "elevation": "normal"
+    }
+   ],
+   "edges": [
+    {
+     "from": "A",
+     "to": "B",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "C",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "C",
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "E",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "F",
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "F",
+     "to": "I",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "G",
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "H",
+     "to": "I",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "E",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "H",
+     "cornerOnly": true,
+     "blocked": false
+    }
+   ],
+   "necroticFungusAreas": [],
+   "zeroCapacityAreas": [],
+   "specialRegions": [
+    {
+     "areaId": "D",
+     "iconId": "ea307609d9",
+     "effect": "precious",
+     "status": "confirmed",
+     "printedText": "Precious: 怪物在 D 结束回合时其他怪物增益 2t ×2",
+     "runtimeReady": false
+    }
+   ],
+   "wallNotes": [
+    "A 下方横向黑块",
+    "D／E 下方与 G 上方横向黑块"
+   ],
+   "unresolvedMarkers": []
+  },
+  {
+   "id": "room_tile:weald:p005:front",
+   "rawId": "dungeon_tile:weald:p003",
+   "roomId": "room:weald:p005",
+   "location": "weald",
+   "number": 5,
+   "name": "Infected Oak",
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_WEALD_TILES_FRONT.pdf",
+    "page": 3,
+    "face": "front"
+   },
+   "ruling": "R-238",
+   "geometryVerified": true,
+   "geometryComplete": true,
+   "usable": false,
+   "pendingReview": [],
+   "deployment": {
+    "printReview": "verified",
+    "heroes": {
+     "aggressive": "F",
+     "defensive": "C",
+     "ranged": "H",
+     "support": "G"
+    },
+    "monsters": {
+     "aggressive": "E",
+     "defensive": "A",
+     "ranged": "G",
+     "support": "B"
+    },
+    "lootAreas": [
+     "B",
+     "D"
+    ],
+    "markers": [
+     {
+      "areaId": "F",
+      "iconId": "7b8c742c86",
+      "semantic": "hero_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "C",
+      "iconId": "1a71d94723",
+      "semantic": "hero_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "H",
+      "iconId": "7ab26866fc",
+      "semantic": "hero_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "G",
+      "iconId": "39d6ddf024",
+      "semantic": "hero_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "E",
+      "iconId": "8787ebb1b2",
+      "semantic": "monster_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "A",
+      "iconId": "1f26dc63eb",
+      "semantic": "monster_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "G",
+      "iconId": "643d396fef",
+      "semantic": "monster_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "B",
+      "iconId": "293f170eab",
+      "semantic": "monster_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "B",
+      "iconId": "f9f205b9e1",
+      "semantic": "loot_chest",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "D",
+      "iconId": "f9f205b9e1",
+      "semantic": "loot_chest",
+      "status": "confirmed"
+     }
+    ]
+   },
+   "areas": [
+    {
+     "id": "A",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "B",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "C",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "D",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "E",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "F",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "G",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "H",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "I",
+     "capacity": 0,
+     "elevation": "normal",
+     "zeroCapacity": true
+    }
+   ],
+   "edges": [
+    {
+     "from": "A",
+     "to": "B",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "A",
+     "to": "D",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "C",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "I",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "C",
+     "to": "E",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "I",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "I",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "F",
+     "to": "G",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "G",
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "G",
+     "to": "I",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "A",
+     "to": "I",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "D",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "E",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "C",
+     "to": "I",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "G",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "G",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "F",
+     "to": "I",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "H",
+     "to": "I",
+     "cornerOnly": true,
+     "blocked": false
+    }
+   ],
+   "necroticFungusAreas": [],
+   "zeroCapacityAreas": [
+    "I"
+   ],
+   "specialRegions": [
+    {
+     "areaId": "B",
+     "iconId": "ea307609d9",
+     "effect": "poisonousRoots",
+     "status": "confirmed",
+     "printedText": "Poisonous Roots: 英雄在该区域结束回合受到 2 腐蚀 2t",
+     "runtimeReady": false
+    },
+    {
+     "areaId": "D",
+     "iconId": "ea307609d9",
+     "effect": "poisonousRoots",
+     "status": "confirmed",
+     "printedText": "Poisonous Roots: 英雄在该区域结束回合受到 2 腐蚀 2t",
+     "runtimeReady": false
+    },
+    {
+     "areaId": "E",
+     "iconId": "ea307609d9",
+     "effect": "poisonousRoots",
+     "status": "confirmed",
+     "printedText": "Poisonous Roots: 英雄在该区域结束回合受到 2 腐蚀 2t",
+     "runtimeReady": false
+    },
+    {
+     "areaId": "G",
+     "iconId": "ea307609d9",
+     "effect": "poisonousRoots",
+     "status": "confirmed",
+     "printedText": "Poisonous Roots: 英雄在该区域结束回合受到 2 腐蚀 2t",
+     "runtimeReady": false
+    }
+   ],
+   "wallNotes": [
+    "G 下方黑色矩形缺口"
+   ],
+   "unresolvedMarkers": []
+  },
+  {
+   "id": "room_tile:weald:p006:back",
+   "rawId": "dungeon_tile:weald:p003",
+   "roomId": "room:weald:p006",
+   "location": "weald",
+   "number": 6,
+   "name": "Chase in the Woods",
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_WEALD_TILES_BACK.pdf",
+    "page": 3,
+    "face": "back"
+   },
+   "ruling": "R-238",
+   "geometryVerified": true,
+   "geometryComplete": true,
+   "usable": false,
+   "pendingReview": [],
+   "deployment": {
+    "printReview": "verified",
+    "heroes": {
+     "aggressive": "G",
+     "defensive": "A",
+     "ranged": "H",
+     "support": "D"
+    },
+    "monsters": {
+     "aggressive": "F",
+     "defensive": "E",
+     "ranged": "C",
+     "support": "B"
+    },
+    "lootAreas": [
+     "H"
+    ],
+    "markers": [
+     {
+      "areaId": "G",
+      "iconId": "7b8c742c86",
+      "semantic": "hero_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "A",
+      "iconId": "1a71d94723",
+      "semantic": "hero_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "H",
+      "iconId": "7ab26866fc",
+      "semantic": "hero_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "D",
+      "iconId": "39d6ddf024",
+      "semantic": "hero_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "F",
+      "iconId": "8787ebb1b2",
+      "semantic": "monster_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "E",
+      "iconId": "1f26dc63eb",
+      "semantic": "monster_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "C",
+      "iconId": "643d396fef",
+      "semantic": "monster_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "B",
+      "iconId": "293f170eab",
+      "semantic": "monster_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "H",
+      "iconId": "f9f205b9e1",
+      "semantic": "loot_chest",
+      "status": "confirmed"
+     }
+    ]
+   },
+   "areas": [
+    {
+     "id": "A",
+     "capacity": 5,
+     "elevation": "normal"
+    },
+    {
+     "id": "B",
+     "capacity": 6,
+     "elevation": "normal"
+    },
+    {
+     "id": "C",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "D",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "E",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "F",
+     "capacity": 6,
+     "elevation": "normal"
+    },
+    {
+     "id": "G",
+     "capacity": 5,
+     "elevation": "normal"
+    },
+    {
+     "id": "H",
+     "capacity": 2,
+     "elevation": "normal"
+    }
+   ],
+   "edges": [
+    {
+     "from": "A",
+     "to": "B",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "A",
+     "to": "C",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "A",
+     "to": "E",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "D",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "C",
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "G",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "F",
+     "to": "G",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "C",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "F",
+     "to": "H",
+     "cornerOnly": true,
+     "blocked": false
+    }
+   ],
+   "necroticFungusAreas": [
+    "A",
+    "C",
+    "D"
+   ],
+   "zeroCapacityAreas": [],
+   "specialRegions": [],
+   "wallNotes": [
+    "B 下方／C 上方",
+    "E 与 C／F 间竖块",
+    "C–D 竖块",
+    "F–H 竖块"
+   ],
+   "unresolvedMarkers": []
+  },
+  {
+   "id": "room_tile:weald:p007:front",
+   "rawId": "dungeon_tile:weald:p004",
+   "roomId": "room:weald:p007",
+   "location": "weald",
+   "number": 7,
+   "name": "Chasm",
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_WEALD_TILES_FRONT.pdf",
+    "page": 4,
+    "face": "front"
+   },
+   "ruling": "R-238",
+   "geometryVerified": true,
+   "geometryComplete": false,
+   "usable": false,
+   "pendingReview": [
+    "Q-186:chasm-classification",
+    "Q-186:chasm-connectivity"
+   ],
+   "deployment": {
+    "printReview": "verified",
+    "heroes": {
+     "aggressive": "F",
+     "defensive": "G",
+     "ranged": "F",
+     "support": "E"
+    },
+    "monsters": {
+     "aggressive": "D",
+     "defensive": "C",
+     "ranged": "A",
+     "support": "B"
+    },
+    "lootAreas": [
+     "A",
+     "B"
+    ],
+    "markers": [
+     {
+      "areaId": "F",
+      "iconId": "7b8c742c86",
+      "semantic": "hero_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "G",
+      "iconId": "1a71d94723",
+      "semantic": "hero_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "F",
+      "iconId": "7ab26866fc",
+      "semantic": "hero_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "E",
+      "iconId": "39d6ddf024",
+      "semantic": "hero_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "D",
+      "iconId": "8787ebb1b2",
+      "semantic": "monster_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "C",
+      "iconId": "1f26dc63eb",
+      "semantic": "monster_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "A",
+      "iconId": "643d396fef",
+      "semantic": "monster_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "B",
+      "iconId": "293f170eab",
+      "semantic": "monster_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "A",
+      "iconId": "f9f205b9e1",
+      "semantic": "loot_chest",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "B",
+      "iconId": "f9f205b9e1",
+      "semantic": "loot_chest",
+      "status": "confirmed"
+     }
+    ]
+   },
+   "areas": [
+    {
+     "id": "A",
+     "capacity": 4,
+     "elevation": "high"
+    },
+    {
+     "id": "B",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "C",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "D",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "E",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "F",
+     "capacity": 5,
+     "elevation": "normal"
+    },
+    {
+     "id": "G",
+     "capacity": 2,
+     "elevation": "normal"
+    }
+   ],
+   "edges": [
+    {
+     "from": "A",
+     "to": "C",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "A",
+     "to": "D",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "G",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "C",
+     "to": "D",
+     "cornerOnly": true,
+     "blocked": false
+    }
+   ],
+   "necroticFungusAreas": [],
+   "zeroCapacityAreas": [],
+   "specialRegions": [],
+   "wallNotes": [
+    "A–B 矩形缺口",
+    "裂隙分类与连接待 Q-186"
+   ],
+   "unresolvedMarkers": []
+  },
+  {
+   "id": "room_tile:weald:p008:back",
+   "rawId": "dungeon_tile:weald:p004",
+   "roomId": "room:weald:p008",
+   "location": "weald",
+   "number": 8,
+   "name": "Fungal Overgrowth",
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_WEALD_TILES_BACK.pdf",
+    "page": 4,
+    "face": "back"
+   },
+   "ruling": "R-238",
+   "geometryVerified": true,
+   "geometryComplete": true,
+   "usable": false,
+   "pendingReview": [],
+   "deployment": {
+    "printReview": "verified",
+    "heroes": {
+     "aggressive": "I",
+     "defensive": "I",
+     "ranged": "G",
+     "support": "H"
+    },
+    "monsters": {
+     "aggressive": "H",
+     "defensive": "D",
+     "ranged": "C",
+     "support": "D"
+    },
+    "lootAreas": [
+     "A",
+     "B"
+    ],
+    "markers": [
+     {
+      "areaId": "I",
+      "iconId": "7b8c742c86",
+      "semantic": "hero_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "I",
+      "iconId": "1a71d94723",
+      "semantic": "hero_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "G",
+      "iconId": "7ab26866fc",
+      "semantic": "hero_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "H",
+      "iconId": "39d6ddf024",
+      "semantic": "hero_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "H",
+      "iconId": "8787ebb1b2",
+      "semantic": "monster_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "D",
+      "iconId": "1f26dc63eb",
+      "semantic": "monster_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "C",
+      "iconId": "643d396fef",
+      "semantic": "monster_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "D",
+      "iconId": "293f170eab",
+      "semantic": "monster_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "A",
+      "iconId": "f9f205b9e1",
+      "semantic": "loot_chest",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "B",
+      "iconId": "f9f205b9e1",
+      "semantic": "loot_chest",
+      "status": "confirmed"
+     }
+    ]
+   },
+   "areas": [
+    {
+     "id": "A",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "B",
+     "capacity": 3,
+     "elevation": "low"
+    },
+    {
+     "id": "C",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "D",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "E",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "F",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "G",
+     "capacity": 3,
+     "elevation": "normal"
+    },
+    {
+     "id": "H",
+     "capacity": 3,
+     "elevation": "low"
+    },
+    {
+     "id": "I",
+     "capacity": 6,
+     "elevation": "normal"
+    }
+   ],
+   "edges": [
+    {
+     "from": "A",
+     "to": "B",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "E",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "C",
+     "to": "D",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "E",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "I",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "I",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "F",
+     "to": "G",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "G",
+     "to": "H",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "H",
+     "to": "I",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "A",
+     "to": "E",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "D",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "G",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "F",
+     "to": "H",
+     "cornerOnly": true,
+     "blocked": false
+    }
+   ],
+   "necroticFungusAreas": [
+    "C",
+    "E"
+   ],
+   "zeroCapacityAreas": [],
+   "specialRegions": [],
+   "wallNotes": [
+    "A 下方／F 上方",
+    "B 右至 C 左缺口",
+    "H 下方至 G／I 底间缺口"
+   ],
+   "unresolvedMarkers": []
+  },
+  {
+   "id": "room_tile:weald:p009:front",
+   "rawId": "dungeon_tile:weald:p005",
+   "roomId": "room:weald:p009",
+   "location": "weald",
+   "number": 9,
+   "name": "The Clearing",
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_WEALD_TILES_FRONT.pdf",
+    "page": 5,
+    "face": "front"
+   },
+   "ruling": "R-238",
+   "geometryVerified": true,
+   "geometryComplete": true,
+   "usable": false,
+   "pendingReview": [],
+   "deployment": {
+    "printReview": "verified",
+    "heroes": {
+     "aggressive": "A",
+     "defensive": "A",
+     "ranged": "C",
+     "support": "C"
+    },
+    "monsters": {
+     "aggressive": "E",
+     "defensive": "D",
+     "ranged": "G",
+     "support": "B"
+    },
+    "lootAreas": [
+     "B"
+    ],
+    "markers": [
+     {
+      "areaId": "A",
+      "iconId": "7b8c742c86",
+      "semantic": "hero_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "A",
+      "iconId": "1a71d94723",
+      "semantic": "hero_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "C",
+      "iconId": "7ab26866fc",
+      "semantic": "hero_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "C",
+      "iconId": "39d6ddf024",
+      "semantic": "hero_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "E",
+      "iconId": "8787ebb1b2",
+      "semantic": "monster_aggressive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "D",
+      "iconId": "1f26dc63eb",
+      "semantic": "monster_defensive_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "G",
+      "iconId": "643d396fef",
+      "semantic": "monster_ranged_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "B",
+      "iconId": "293f170eab",
+      "semantic": "monster_support_start",
+      "status": "confirmed"
+     },
+     {
+      "areaId": "B",
+      "iconId": "f9f205b9e1",
+      "semantic": "loot_chest",
+      "status": "confirmed"
+     }
+    ]
+   },
+   "areas": [
+    {
+     "id": "A",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "B",
+     "capacity": 6,
+     "elevation": "normal"
+    },
+    {
+     "id": "C",
+     "capacity": 2,
+     "elevation": "normal"
+    },
+    {
+     "id": "D",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "E",
+     "capacity": 4,
+     "elevation": "normal"
+    },
+    {
+     "id": "F",
+     "capacity": 3,
+     "elevation": "low"
+    },
+    {
+     "id": "G",
+     "capacity": 3,
+     "elevation": "high"
+    }
+   ],
+   "edges": [
+    {
+     "from": "A",
+     "to": "D",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "C",
+     "to": "E",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "F",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "F",
+     "to": "G",
+     "cornerOnly": false,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "D",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "B",
+     "to": "E",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "D",
+     "to": "G",
+     "cornerOnly": true,
+     "blocked": false
+    },
+    {
+     "from": "E",
+     "to": "G",
+     "cornerOnly": true,
+     "blocked": false
+    }
+   ],
+   "necroticFungusAreas": [],
+   "zeroCapacityAreas": [],
+   "specialRegions": [
+    {
+     "areaId": "B",
+     "iconId": "41c31d63d8",
+     "effect": "clearingHere",
+     "status": "confirmed",
+     "printedText": "Clearing: 英雄在 B 结束回合恢复 1 压力；怪物在 B 结束回合随机移除一个宝箱",
+     "runtimeReady": false
+    },
+    {
+     "areaId": "B",
+     "iconId": "41c31d63d8",
+     "effect": "clearingOurs",
+     "status": "confirmed",
+     "printedText": "Ours!: 英雄拾取宝箱时所有怪物减益 1t、增益 2t（范围沿用 R-234，不限于 B）",
+     "runtimeReady": false
+    }
+   ],
+   "wallNotes": [
+    "A–B、B–C 竖缝",
+    "B 左右下角横向凹口"
+   ],
+   "unresolvedMarkers": []
+  }
+ ]
+}
