@@ -3,7 +3,7 @@ import { healingTrinketReaction, damageTrinketReaction } from "./trinket-reactio
 import type { BattleEntity, BattleState } from "./battle";
 import type { GameEvent } from "./command";
 import type { SkillEffectsResolution } from "./hero-skill";
-import { healingForbidden } from "./battle-healing";
+import { healingForbidden, healingForbiddenMessage } from "./battle-healing";
 import { resolveSkillHeroHealth } from "./skill-hero-health";
 import { triggerBattlePassive } from "./battle-passive";
 
@@ -83,7 +83,7 @@ export function applySkillHealth(
   const preventionEvents: GameEvent[] = [...prevented].map((entityId) => ({
     type: "healingPrevented",
     entityId,
-    message: "Unholy Aura：技能附带治疗已阻止（R-067）",
+    message: healingForbiddenMessage(battle),
   }));
   // R-069：有序生命效果先结算，技能收尾再为存活英雄处理压力10。
   // 保留旧无 Life 测试沙盒；它不代表完整的英雄生命规则。

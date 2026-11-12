@@ -1,6 +1,6 @@
 import { beginDamageStoneWindow, damageStoneHealthEffects } from "./battle-damage-stone";
 import { distance, rejectBattleCommand, skillTargetView, writeResolution } from "./battle";
-import { healingForbidden } from "./battle-healing";
+import { healingForbidden, healingForbiddenMessage } from "./battle-healing";
 import { applySkillHealth } from "./battle-health";
 import { cancelSkillAfterRoll } from "./battle-passive";
 import { applyBattleSkillStatuses } from "./battle-skill-status";
@@ -141,7 +141,7 @@ export function playHeroSkillTargets(
     probes.some((p) => p.resolution.effect === "heal") &&
     (healingForbidden(battle, actor.id) || living.some((t) => healingForbidden(battle, t.id)))
   )
-    return rejectBattleCommand(state, "Unholy Aura：此区域英雄不能治疗或被治疗（R-067）");
+    return rejectBattleCommand(state, healingForbiddenMessage(battle));
   const statusProbe = applyBattleSkillStatuses(
     battle,
     battle.entities,

@@ -47,6 +47,8 @@ import {
 } from "./boss/heart-of-darkness-impending-doom";
 import { bumpAncestor2SwiftTeleportationAfterAction } from "./boss/ancestor2-swift-teleportation";
 import { isAbsoluteNothingnessEntity } from "./boss/ancestor2-absolute-nothingness";
+import { isLivingCombatMonster, isNecroticFungusEntity } from "./expansions/weald/necrotic-fungus";
+import { rejectIfWealdZeroCapacityEndTurn } from "./expansions/weald/weald-mechanics";
 import { applyFanaticIPyreBattleStart } from "./boss/fanatic-i-combat-runtime";
 import { applyFleshIOneBodyBattleStart } from "./expansions/warrens/boss/flesh-i-combat-runtime";
 import { applySwinePrinceIWilburBattleStart } from "./expansions/warrens/boss/swine-prince-i-combat-runtime";
@@ -152,7 +154,10 @@ function startRound(
   gameState?: GameState,
 ): BattleState {
   let deck: SkillTargetSide[] = battle.entities
-    .filter((entity) => !entity.dead && !isAbsoluteNothingnessEntity(entity))
+    .filter(
+      (entity) =>
+        !entity.dead && !isAbsoluteNothingnessEntity(entity) && !isNecroticFungusEntity(entity),
+    )
     .map((entity) => entity.side);
   if (gameState) {
     deck = expandProphetIInitiativeDeckSides(deck, battle, gameState);
@@ -237,6 +242,8 @@ export function finishTurn(
     state = small.state;
     events = small.events;
   }
+  const zeroCapacity = rejectIfWealdZeroCapacityEndTurn(state, actorId);
+  if (zeroCapacity) return zeroCapacity;
   const original = state.battle!;
   const actor = original.entities.find((entity) => entity.id === actorId)!;
   const area = original.areas.find((area) => area.id === actor.areaId);
@@ -427,7 +434,10 @@ export function finishTurn(
     (!spareAncestorInitiative &&
       battle.entities.every(
         (entity) =>
-          entity.dead || actedIds.includes(entity.id) || isAbsoluteNothingnessEntity(entity),
+          entity.dead ||
+          actedIds.includes(entity.id) ||
+          isAbsoluteNothingnessEntity(entity) ||
+          isNecroticFungusEntity(entity),
       ))
   ) {
     const abyss = endRoundInvocation({
@@ -543,9 +553,7 @@ export function removeCasualties(result: ApplyResult, ids: readonly string[]): A
 
 export function endAfterCasualties(result: ApplyResult): ApplyResult | null {
   const battle = result.state.battle!;
-  const monstersDefeated = battle.entities.every(
-    (entity) => entity.side !== "monster" || entity.dead,
-  );
+  const monstersDefeated = battle.entities.every((entity) => !isLivingCombatMonster(entity));
   if (battle.entities.every((entity) => entity.side !== "hero" || entity.dead)) {
     return {
       state: {
@@ -954,7 +962,11 @@ export function applyEncounterCommand(state: GameState, command: EncounterComman
     for (const side of ["hero", "monster"] as const) {
       const occupied = new Set<number>();
       for (const entity of living.filter((entry) => entry.side === side)) {
-        if (side === "monster" && isAbsoluteNothingnessEntity(entity)) continue;
+        if (
+          side === "monster" &&
+          (isAbsoluteNothingnessEntity(entity) || isNecroticFungusEntity(entity))
+        )
+          continue;
         const width = side === "hero" ? 1 : entity.stanceSlots;
         const position = STANCES.indexOf(entity.stance!);
         if (position < 0 || (width !== 1 && width !== 2) || position + width > 4)
@@ -965,7 +977,7 @@ export function applyEncounterCommand(state: GameState, command: EncounterComman
         }
       }
     }
-    if (!living.some((entity) => entity.side === "monster")) {
+    if (!living.some(isLivingCombatMonster)) {
       return finishBattle(
         {
           ...state,
@@ -1084,7 +1096,8 @@ export function applyEncounterCommand(state: GameState, command: EncounterComman
             !entity.dead &&
             entity.side === side &&
             !encounter.actedIds.includes(entity.id) &&
-            !isAbsoluteNothingnessEntity(entity),
+            !isAbsoluteNothingnessEntity(entity) &&
+            !isNecroticFungusEntity(entity),
         )
         .sort((left, right) => STANCES.indexOf(left.stance!) - STANCES.indexOf(right.stance!));
       const actor =
