@@ -9,7 +9,6 @@ import {
 } from "../../../../data/src/weald-monster-rulings";
 import type { MonsterCardView, MonsterSkillView } from "../../monster-skill";
 import { readMonsterAttackView } from "../../monster-skill";
-import { WEALD_SUMMON_PENDING_REASON } from "../../weald-monster-attack";
 
 export type WealdBattleMonster = MonsterCardView & {
   readonly skills: readonly (MonsterSkillView & { readonly target: string })[];
@@ -118,8 +117,7 @@ export function buildWealdMonsterCatalog(
     };
     for (const skill of skills) {
       const attack = readMonsterAttackView(card, skill.slot);
-      if (attack.status === "refused" && attack.reason !== WEALD_SUMMON_PENDING_REASON)
-        throw new Error(`Weald 核准技能漂移：${attack.reason}`);
+      if (attack.status === "refused") throw new Error(`Weald 核准技能漂移：${attack.reason}`);
     }
     return card;
   });

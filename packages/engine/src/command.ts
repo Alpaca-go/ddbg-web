@@ -100,6 +100,7 @@ import { startDungeonBattle, finishDungeonBattle } from "./dungeon-battle";
 import { conditionPoolProblem, replaceConditionQuirk } from "./conditions";
 import { recordMonsterSkill } from "./encounter";
 import { chooseNecromancerISummon } from "./boss/necromancer-i-combat-runtime";
+import { chooseWealdMonsterSummon } from "./expansions/weald/monster-summon";
 import { chooseCollectorISummon } from "./boss/collector-i-combat-runtime";
 import {
   applyShufflingHorrorEchoingDisassembly,
@@ -227,6 +228,8 @@ export type HeroSkillTargetsResolvedEvent = {
 export type MonsterSkillResolvedEvent = {
   /** 已核实召唤原语的目标区域；穿过自身位移续接后，只在回合收尾消费一次。 */
   readonly summonTargetAreaId?: string;
+  /** R-230：Weald I 级技能召唤（姿态对应区域；与 necromancer 目标区路径独立）。 */
+  readonly wealdSummon?: { readonly cardId: string; readonly count: 1 };
   readonly phase?: "ownPending" | "afterOwn";
   readonly type: "monsterSkillResolved";
   readonly message: string;
@@ -752,6 +755,7 @@ function dispatchCommand(
     }
     if (pending.type === "necromancerSummon")
       return chooseNecromancerISummon(state, command.optionId);
+    if (pending.type === "wealdSummon") return chooseWealdMonsterSummon(state, command.optionId);
     if (pending.type === "allTrinkets") return rejectBattleCommand(state, "饰品续接上下文缺失");
     if (pending.type === "monsterRetarget")
       return chooseMonsterRetargetAfterFreeTrinket(state, command.optionId);

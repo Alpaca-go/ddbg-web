@@ -346,6 +346,9 @@ export function playMonsterSkill(
     ...(attack.necromancerSummon && result.resolution.outcome !== "miss"
       ? { summonTargetAreaId: target.areaId }
       : {}),
+    ...(attack.wealdSummon && result.resolution.outcome !== "miss"
+      ? { wealdSummon: attack.wealdSummon }
+      : {}),
     ...(resume?.announced ? { phase: "afterOwn" as const } : {}),
     type: "monsterSkillResolved",
     message: "已选怪物攻击已结算",

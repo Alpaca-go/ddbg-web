@@ -5,8 +5,8 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 
 ## 当前进度与下一步
 
-- **当前阶段：步骤 4 已接通 W-03 零容量回合结束限制与 W-04 真菌放置／全场禁疗／技能摧毁运行时（引擎与测试夹具；出征入口仍关闭）。步骤 3 九张房间几何已全部入库；步骤 1 三项召唤部署仍待下一刀；步骤 2 正式 Weald 日志存档闭环待步骤 5 任务登记后回补。**
-- **下一刀：步骤 4 余项——三项召唤部署；步骤 5 前仍不自开 `usable` 出征。**
+- **当前阶段：步骤 4 已接通 W-03／W-04 与 R-230 三项 I 级召唤技能战斗内部署（Ectoplasm Cytokinesis、Ectoplasmic Profusion、Large Ectoplasm Cytokinesis；测试夹具；出征入口仍关闭）。步骤 2 正式 Weald 日志存档闭环待步骤 5 任务登记后回补。**
+- **下一刀：战斗创建接线 `wealdMechanics`／自动真菌、Playwright 冒烟；步骤 5 前仍不自开 `usable` 出征。**
 - 步骤 0 已完成，提交 `e7fd17e1`；地点战役尚未开放。
 - 导入与计划两批已合入并推送 `main`（`3be97c65`）。步骤 1 怪物批次已合入并推送 `main`（`7075f4d8`）。
 - Houndmaster、Shieldbreaker 已接入，沿用现有英雄实现，不重做。
@@ -236,4 +236,10 @@ Brigand Pounder 类型行、Shrieker’s Nest 和 Cauldron Empty 的专属卡面
 
 - 依据 `docs/spec/weald-rules-spec-v0.1.md` W-03、W-04 与核准目录：引擎新增零容量区 `zeroCapacity` 投影、`necroticFungus` 实体、全场禁疗与 `finishTurn` 拒绝；须 `contentPacks` 含 `weald` 且 `BattleSetup.wealdMechanics`。
 - 未做：三项召唤部署、战斗创建接线、`usable` 出征、Playwright 冒烟。
+- 验证见对应 PR。
+
+### 步骤 4 第二刀：R-230 三项召唤部署
+
+- 接通 `readWealdMonsterAttack` 召唤投影、`continueWealdMonsterSummon` 收尾：首空姿态位、姿态对应 `monsterStanceAreas`、容量挤占待选（R-034）、满轨无效（R31）、先攻洗入当前牌堆；须 `contentPacks` 含 `weald`。W-03 零容量区不得作为召唤落点。
+- 未做：战斗创建自动 `wealdMechanics`／真菌、`usable` 出征、Hag／任务／Boss 其余项、Playwright 冒烟、步骤 5 任务闭环。
 - 验证见对应 PR。

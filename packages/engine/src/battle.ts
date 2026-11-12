@@ -313,6 +313,12 @@ export type BattleState = BattleSetup & {
         readonly casualtyIds: readonly string[];
       }
     | {
+        readonly type: "wealdSummon";
+        readonly choice: PendingChoice;
+        readonly resolved: MonsterSkillResolvedEvent;
+        readonly casualtyIds: readonly string[];
+      }
+    | {
         readonly type: "evilEyeQuirk";
         readonly destroyed: boolean;
         readonly afterDisease?: true;

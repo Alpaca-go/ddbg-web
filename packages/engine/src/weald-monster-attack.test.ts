@@ -159,19 +159,25 @@ describe("Weald R-230 已确认技能的独立结算", () => {
     ).toMatchObject({ targetId: "near" });
   });
 
-  it("三项召唤整招停点，不因已确认伤害而丢弃召唤；Profusion 压力保留在裁定中", () => {
-    for (const [id, slot] of [
-      [E, 2],
-      [E, 3],
-      [L, 3],
-    ] as const)
-      expect(readMonsterAttackView(card(id), slot)).toMatchObject({
-        status: "refused",
-        reason: expect.stringContaining("召唤部署"),
+  it("三项召唤技能投影就绪且保留 Profusion 压力原语", () => {
+    for (const [id, slot, summonId] of [
+      [E, 2, E],
+      [E, 3, L],
+      [L, 3, L],
+    ] as const) {
+      const attack = readMonsterAttackView(card(id), slot);
+      expect(attack).toMatchObject({
+        status: "ready",
+        wealdSummon: { cardId: summonId, count: 1 },
       });
-    expect(card(E).skills[2]!.verified_weald_attack?.effects).toEqual([
-      { type: "stress", scope: "target", amount: 1 },
-    ]);
+    }
+    const profusion = readMonsterAttackView(card(E), 3);
+    if (profusion.status !== "ready") throw new Error(profusion.reason);
+    expect(profusion.view.verified_target_stress).toEqual(expect.objectContaining({ amount: 1 }));
+    expect(resolveMonsterSkill(card(E), 2, combat(1), 9)).toMatchObject({
+      status: "resolved",
+      resolution: { damageDealt: 1 },
+    });
   });
 
   it("拒绝篡改核准目标数、原始射程或效果行", () => {

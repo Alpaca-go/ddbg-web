@@ -11,8 +11,7 @@ import { compileMonsterEffectPlan } from "./monster-effect-plan";
 
 const icon = (key: string): SkillSegment => ({ type: "icon", icon: { key, naming: "confirmed" } });
 const text = (text: string): SkillSegment => ({ type: "text", text });
-export const WEALD_SUMMON_PENDING_REASON =
-  "Weald 召唤部署尚未接入，整招停点，不省略召唤效果（R-230）";
+
 function effectLines(effects: MonsterEffectPlan["effects"]): SkillSegment[][] | null {
   const lines: SkillSegment[][] = [];
   let lastScope = "";
@@ -46,19 +45,25 @@ function effectLines(effects: MonsterEffectPlan["effects"]): SkillSegment[][] | 
         line.push(icon("damage"), text(`+${effect.amount}vs`), icon("mark"));
         break;
       default:
-        return null; // 不扩张 R-230 到未确认的其他原语。
+        return null;
     }
   }
   return lines;
 }
 
+export type WealdMonsterAttackReady = {
+  readonly status: "ready";
+  readonly view: HeroSkillCardView;
+  readonly selfLight?: number;
+  readonly targetLight?: number;
+  readonly wealdSummon?: { readonly cardId: string; readonly count: 1 };
+};
+
 /** R-230：卡面签名与逐卡裁定同时匹配才投影到通用结算器；整卡审阅门不变。 */
 export function readWealdMonsterAttack(
   monster: MonsterCardView,
   skill: MonsterSkillView,
-):
-  | { status: "ready"; view: HeroSkillCardView; selfLight?: number; targetLight?: number }
-  | { status: "refused"; reason: string } {
+): WealdMonsterAttackReady | { readonly status: "refused"; readonly reason: string } {
   const refuse = (reason: string) => ({ status: "refused" as const, reason });
   const parsed = wealdMonsterAttackSchema.safeParse(skill.verified_weald_attack);
   const entry = WEALD_MONSTER_ATTACKS.find(
@@ -89,9 +94,7 @@ export function readWealdMonsterAttack(
       JSON.stringify(entry.effectSignatures)
   )
     return refuse("Weald 技能原始卡面与 R-230 不符");
-  if (entry.summon) return refuse(WEALD_SUMMON_PENDING_REASON);
-  const lines = entry.effects ? effectLines(entry.effects) : [];
-  if (!lines) return refuse("Weald 技能包含未接入的效果原语（R-230）");
+
   const rangeIcon = { key: "range", naming: "confirmed" };
   const view: HeroSkillCardView = {
     id: `${monster.id}:skill${skill.slot}`,
@@ -112,17 +115,44 @@ export function readWealdMonsterAttack(
       text(String(entry.range)),
       ...Array.from({ length: entry.targets }, () => icon("target_hero")),
     ],
-    effect_lines: lines,
+    effect_lines: [],
   };
-  if (!entry.effects) return { status: "ready", view };
-  return compileMonsterEffectPlan(view, {
-    source: "print_front",
-    effects: entry.effects,
-    signatures: lines.map((line) =>
-      line
-        .map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
-        .join("")
-        .replace(/\s+/g, ""),
-    ),
-  });
+
+  const wealdSummon = entry.summon
+    ? ({ cardId: entry.summon.cardId, count: 1 as const } as const)
+    : undefined;
+
+  if (!entry.effects) {
+    return {
+      status: "ready",
+      view: { ...view, effect_lines: [] },
+      ...(wealdSummon ? { wealdSummon } : {}),
+    };
+  }
+
+  const lines = effectLines(entry.effects);
+  if (!lines) return refuse("Weald 技能包含未接入的效果原语（R-230）");
+
+  const lineSignatures = lines.map((line) =>
+    line
+      .map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
+      .join("")
+      .replace(/\s+/g, ""),
+  );
+  const compiled = compileMonsterEffectPlan(
+    { ...view, effect_lines: lines },
+    {
+      source: "print_front",
+      effects: entry.effects,
+      signatures: lineSignatures,
+    },
+  );
+  if (compiled.status === "refused") return compiled;
+  return {
+    status: "ready",
+    view: compiled.view,
+    selfLight: compiled.selfLight,
+    targetLight: compiled.targetLight,
+    ...(wealdSummon ? { wealdSummon } : {}),
+  };
 }
