@@ -344,4 +344,17 @@ export {
   buildWealdLevelOneMonsterPool,
   createWealdLevelOneMonsterPoolState,
 } from "./expansions/weald/monster-pool";
+export {
+  NECROTIC_FUNGUS_MONSTER_CARD,
+  NECROTIC_FUNGUS_MONSTER_CARD_ID,
+  isLivingCombatMonster,
+  isNecroticFungusEntity,
+  necroticFungusBlocksHealing,
+  necroticFungusEntitiesForTile,
+} from "./expansions/weald/necrotic-fungus";
+export {
+  wealdMechanicsActive,
+  wealdRoomTileBattleAreas,
+  wealdZeroCapacityEndTurnRefusal,
+} from "./expansions/weald/weald-mechanics";
 export { rebuildLocationQuestDecks } from "./location-quest-sources";

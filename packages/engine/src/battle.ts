@@ -36,7 +36,7 @@ import type { MonsterCardView } from "./monster-skill";
 import type { PlayMonsterSkillCommand } from "./battle-monster";
 import type { PlayHeroSkillTargetsCommand } from "./battle-hero-targets";
 import type { PreparedMonsterAction } from "./battle-monster-action";
-import { healingForbidden } from "./battle-healing";
+import { healingForbidden, healingForbiddenMessage } from "./battle-healing";
 import { clearAncestorConditions } from "./battle-ancestor";
 import { applySkillHealth } from "./battle-health";
 import { applyBattleSkillStatuses, readHeroPassiveDefence } from "./battle-skill-status";
@@ -58,6 +58,7 @@ import {
   absoluteNothingnessTargetRefusal,
   isAbsoluteNothingnessMonsterCardId,
 } from "./boss/ancestor2-absolute-nothingness";
+import { NECROTIC_FUNGUS_MONSTER_CARD_ID } from "./expansions/weald/necrotic-fungus";
 import { beginSkillOwnEffects, afterHeroOwnCombat } from "./battle-own-effects";
 import type { SkillPrefix } from "./battle-own-effects";
 import { beforeTargetShuffle } from "./battle-target-pressure";
@@ -82,6 +83,8 @@ export type BattleEntity = PassiveHolder &
     readonly monsterCardId?: string;
     /** boss_ability:p035 · Absolute Nothingness 等不可被选为技能目标（仍占姿态位）。 */
     readonly untargetable?: true;
+    /** Weald W-04：坏死真菌，非法技能先攻目标。 */
+    readonly necroticFungus?: true;
     /** The Flesh · One Body 共享 Life 池标识；同池实体 wounds / life 由运行时同步。 */
     readonly oneBodyPoolId?: string;
     readonly heroStatId?: string;
@@ -142,6 +145,8 @@ export type BattleArea = {
   readonly teleporter?: true;
   readonly teleporterStress?: 2;
   readonly healingForbidden?: true;
+  /** Weald W-03：已核准零容量区；仅 wealdMechanics 时启用回合结束限制。 */
+  readonly zeroCapacity?: true;
   readonly endTurnWoundsPerHeroLevel?: number;
   readonly endTurnHeal?: 3;
   readonly endTurnHealPerHeroLevel?: 3;
@@ -173,6 +178,8 @@ export type PlayHeroSkillCommand = {
 export type BattleSetup = {
   readonly trinkets?: import("./trinket-acquisition").TrinketPool;
   readonly roomName?: string;
+  /** 启用 W-03／W-04；须与出征 contentPacks 含 weald 一并判定。 */
+  readonly wealdMechanics?: true;
   readonly conditions?: ConditionPool;
   /** 只使用逐面获批属性；整卡其他图标的验证状态不因此改变。 */
   readonly heroStats?: readonly {
@@ -416,6 +423,7 @@ export type BattleState = BattleSetup & {
   readonly templarsSpikesResolvedThisTurn?: ReadonlySet<string>;
   /** Impaler Body Slam 含 shuffle 意图：Pit Toss 延至 shuffle 完结后的 recordMonsterSkill（R-193）。 */
   readonly deferTemplarsPitToss?: true;
+  readonly wealdMechanics?: true;
 };
 
 export function createBattleState(seed: number, setup: BattleSetup): GameState {
@@ -490,6 +498,19 @@ export function createBattleState(seed: number, setup: BattleSetup): GameState {
           throw new Error(
             "Absolute Nothingness 合成实体须 wiki Life/Dodge、untargetable 与 1 格占位（R-048）",
           );
+      } else if (entity.necroticFungus === true) {
+        if (
+          entity.monsterCardId !== NECROTIC_FUNGUS_MONSTER_CARD_ID ||
+          entity.side !== "monster" ||
+          entity.life !== 1 ||
+          entity.dodge !== 0 ||
+          entity.wounds > 1 ||
+          entity.necroticFungus !== true
+        )
+          throw new Error("坏死真菌实体须 Dodge 0、Life 1、无压力（W-04、R-048）");
+        const card = setup.monsters?.find((entry) => entry.id === entity.monsterCardId);
+        if (!card || card.life !== 1)
+          throw new Error("坏死真菌须关联核准目录卡 weald:necrotic-fungus（W-04）");
       } else {
         const card = setup.monsters?.find((entry) => entry.id === entity.monsterCardId);
         if (entity.side !== "monster" || !card || card.life !== entity.life)
@@ -673,7 +694,7 @@ export function playHeroSkill(
     probe.effect === "heal" &&
     (healingForbidden(battle, actor.id) || healingForbidden(battle, target.id))
   )
-    return rejectBattleCommand(state, "Unholy Aura：此区域英雄不能治疗或被治疗（R-067）");
+    return rejectBattleCommand(state, healingForbiddenMessage(battle));
   const statusProbe = applyBattleSkillStatuses(battle, battle.entities, actor.id, [probe]);
   if (statusProbe.status === "refused") return rejectBattleCommand(state, statusProbe.reason);
   if (needsPushDistance && pushDistancePair) {
