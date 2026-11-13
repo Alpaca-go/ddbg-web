@@ -6,7 +6,8 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 ## 当前进度与下一步
 
 - **当前阶段：步骤 4 已接通战斗创建时自动 `wealdMechanics` 与核准目录真菌（`startDungeonBattle` + Weald 板块选择）；W-03／W-04、R-230 三项召唤已在战斗内运行。出征入口仍关闭、`usable` 未自开。步骤 2 正式 Weald 日志存档闭环待步骤 5 任务登记后回补。**
-- **下一刀：步骤 5 I 级任务闭环与出征开放后的 Playwright 冒烟（本刀未加 UI 冒烟，见接续记录）。**
+- **步骤 5（本阶段）：仅完成 I 级普通（非 Boss）五张任务证据审阅与实现缺口盘点，见 [审阅稿](weald-level-one-quest-review-2026-11-13.md)；未写入 normalized、未接线、不开放出征，不声称任务可玩闭环完成。**
+- **下一刀：待 Kyries 核准审阅表与分布图标后，再做 Weald I 级 `quest_cards` 规范化与 `basicQuests` 登记（单任务小 PR）；出征与 Playwright 冒烟仍排在核准与接线之后。**
 - 步骤 0 已完成，提交 `e7fd17e1`；地点战役尚未开放。
 - 导入与计划两批已合入并推送 `main`（`3be97c65`）。步骤 1 怪物批次已合入并推送 `main`（`7075f4d8`）。
 - Houndmaster、Shieldbreaker 已接入，沿用现有英雄实现，不重做。
@@ -26,7 +27,7 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 | 2．地点牌堆             | 进行中 | 按目标地点建立“当地怪物＋通用怪物”“当地奇物＋通用奇物”                        | 包属过滤正确，副本守恒，选包与存档回放一致，无跨地点串池         |
 | 3．普通房间与板块       | 进行中 | 核实 9 张普通房间及对应板块容量、邻接、墙、高低地、标记                       | 已核实房间能够正确部署；未核实几何不提供默认值                   |
 | 4．Weald 专属机制       | 进行中 | 零容量区域通行与回合结束限制；真菌放置、全场禁疗、技能摧毁                    | 引擎与 UI 完成合法操作，拒绝非法操作；遵循 W-03、W-04            |
-| 5．I 级任务闭环         | 待推进 | 核实 I 级任务分布、目标、XP、特殊规则并接线                                   | 村庄选任务 → 出征 → 探索与战斗 → 结算回村，存档可恢复            |
+| 5．I 级任务闭环         | 审阅中 | 核实 I 级任务分布、目标、XP、特殊规则并接线                                   | 村庄选任务 → 出征 → 探索与战斗 → 结算回村，存档可恢复            |
 | 6．三个 Boss I 级       | 待推进 | 顺序为 Hag → Brigand Pounder → Shrieker；补齐房间、部署、能力、附属单位、清场 | 每个 Boss 都能从正式战役入口自然进入并结算，逐个完成再推进下一个 |
 | 7．II／III 级与 Stygian | 待推进 | 先补高等级怪物、任务、Boss，再接 Stygian 房间替换                             | 各等级按实际卡面核实，不从 I 级推算；相应任务和战斗链可用        |
 | 8．完整战役与收尾       | 待推进 | 多地点任务选择、Boss 池、跨幕推进、回村、升级、存档兼容                       | 核心＋Weald 完整战役通过质量闸门和关键路径冒烟                   |
@@ -251,3 +252,11 @@ Brigand Pounder 类型行、Shrieker’s Nest 和 Cauldron Empty 的专属卡面
 - **待确认**：Playwright 冒烟依赖 Weald 出征闭环，本刀未加 UI 冒烟；引擎测试覆盖创建路径。
 - 未做：出征入口、`usable` 自开、步骤 5 任务、Hag／Brigand Pounder／Shrieker Boss 闭环、Stygian、英雄 II/III 战斗技能、PvP。
 - 验证见本 PR。
+
+### 步骤 5 首批：I 级普通任务证据审阅（仅文档）
+
+- 起点 main `8b92693d`（步骤 4 战斗创建批）。本批在 `cursor/weald-l1-quest-review-1478` 接续。
+- 对照 `packages/data/extract/extension/weald/raw/quest.json`（`MG_DD_06_EN_WEALD` 任务 PDF p1–15），列出 **Quest I 背面五张**普通任务候选表：名称、Rest、SPECIAL、XP、卡底分布行（图标 hash 保留）、与 Weald 房间编号交叉引用；**不含** II／III、Boss、Stygian。
+- 盘点村庄选任务、出征、探索／战斗、回村、选包隔离、存档回放依赖；结论见 [I 级任务审阅稿](weald-level-one-quest-review-2026-11-13.md)。**未**写 normalized、**未**改 `usable`、**未**开放出征。
+- 待确认：Q-186 延续（任务分布图标、`p002` Crone LvL 2 部署、`p001` 真菌目标等）；核准前不接 `basicQuests`／`rebuildLocationQuestDecks` 任务侧。
+- 验证：两份 Markdown 的 Prettier 检查与 `git diff --check`；未重跑运行代码质量闸门。
