@@ -172,7 +172,7 @@ export const basicQuests = [
     roomsPerXp: 1,
     maxRooms: 3,
     expeditionRegion: "weald" as const,
-    /** R-248：运行时抽牌待 Purge 接线 PR；数据层标记整场仅用 Weald 当地牌堆。 */
+    /** R-248：出征怪物池 `monsterDrawScope: wealdLocalOnly`（仅 14 张当地实例可抽）。 */
     monsterDrawScope: "wealdLocalOnly" as const,
     verifiedRuleRulings: ["R-241", "R-248", "R-249"] as const,
     distribution: roomDistributionSchema.parse(purgeTheWoods),
@@ -380,7 +380,7 @@ export function basicQuestEnabledForContentPacks(
 }
 
 /** 步骤 5 沙盒第一刀：仅接线 Patrol the Woods；村庄战役池仍排除全部 Weald。 */
-export const SANDBOX_WEALD_EMBARK_QUEST_IDS = ["quest:weald:p005"] as const;
+export const SANDBOX_WEALD_EMBARK_QUEST_IDS = ["quest:weald:p004", "quest:weald:p005"] as const;
 export type SandboxWealdEmbarkQuestId = (typeof SANDBOX_WEALD_EMBARK_QUEST_IDS)[number];
 
 export function isSandboxWealdEmbarkQuest(questId: string): questId is SandboxWealdEmbarkQuestId {

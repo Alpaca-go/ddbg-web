@@ -80,6 +80,7 @@ describe("Patrol the Woods 沙盒出征（步骤 5 第一刀）", () => {
     expect(d.roomCards!.cards).toHaveLength(9);
     expect(d.roomCards!.cards.every((c) => c.id.startsWith("room:weald:"))).toBe(true);
     expect(d.curio!.cards.filter((c) => c.id.startsWith("curio:weald:"))).toHaveLength(16);
+    expect(d.monsterPool?.monsterDrawScope).toBeUndefined();
     expect(dungeonMonsterPoolThrough(d.monsterPool!, 1)).toHaveLength(45);
     expect(d.explorationSetup?.dungeonLevel).toBe(1);
   });

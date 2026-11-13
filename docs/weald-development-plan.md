@@ -5,9 +5,9 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 
 ## 当前进度与下一步
 
-- **当前阶段：步骤 5 沙盒第一刀已接通 `quest:weald:p005` Patrol the Woods（须选 Weald 包）；村庄战役抽选仍关。R-248／p001 brought back／p002–p004 运行时仍未接线。步骤 2 正式 Weald 日志存档闭环待后续。步骤 4 战斗真菌链路不变。**
-- **步骤 5 沙盒刀（本批）：`sandboxEmbarkQuestsForPacks` + `createCoreDungeonQuest` Weald 分支；`recoverHamletPools` 九房守恒；R-242 首轮先攻；QuestMap 按 **R-250** 共用核心 confirmed 八槽图。详见「步骤 5 第六批」。**
-- **下一刀：R-248 Purge 运行时抽牌单独 PR；p001 brought back 计数；其余 I 级任务沙盒；正式战役抽选仍延后；Playwright 冒烟排在出征核准之后。**
+- **当前阶段：步骤 5 沙盒已接通 `quest:weald:p004` Purge the Woods（**R-248** 当地-only 抽怪）与 `quest:weald:p005` Patrol the Woods（须选 Weald 包）；村庄战役抽选仍关。p001 brought back／p002–p003 运行时未接线。步骤 2 正式 Weald 日志存档闭环待后续。步骤 4 战斗真菌链路不变。**
+- **步骤 5 沙盒刀（上批）：`sandboxEmbarkQuestsForPacks` + `createCoreDungeonQuest` Weald 分支；`recoverHamletPools` 九房守恒；R-242 首轮先攻；QuestMap 按 **R-250** 共用核心 confirmed 八槽图。详见「步骤 5 第六批」。**
+- **下一刀：p001 brought back 计数；p002–p003 沙盒／SPECIAL；正式战役抽选仍延后；Playwright 冒烟排在出征核准之后。**
 - 步骤 0 已完成，提交 `e7fd17e1`；地点战役尚未开放。
 - 导入与计划两批已合入并推送 `main`（`3be97c65`）。步骤 1 怪物批次已合入并推送 `main`（`7075f4d8`）。
 - Houndmaster、Shieldbreaker 已接入，沿用现有英雄实现，不重做。
@@ -304,8 +304,18 @@ Brigand Pounder 类型行、Shrieker’s Nest 和 Cauldron Empty 的专属卡面
 - **QuestMap**：**R-250**（Kyries 2026-11-13）— 无 Weald 专属 QuestMap；`questMapLayoutMatchesExpedition` 使 Weald 八代币任务从核心 `dungeon_layouts.json` confirmed 八槽池择图（**R-116**）；已删除占位 `extension/weald/dungeon_layouts.json`。
 - **R-242**：`patrol-the-woods-initiative.ts` 于 `startRound` 第 1 轮掷 d10，严格大于光照则怪物先攻置顶。
 - **回村守恒**：`expedition-room-catalog.ts` 泛化九房目录校验；Weald 怪物／奇物／房间牌池与 `recoverHamletPools` 针对性测试。
-- **未接线**：p001 brought back、R-248 Purge、p002–p004 SPECIAL、村庄抽 2 选 1、Playwright、房间 `usable: true`。
+- **未接线**：p001 brought back、p002–p004 SPECIAL、村庄抽 2 选 1、Playwright、房间 `usable: true`。
 - 验证：typecheck、lint、Prettier；Vitest `weald-p005-sandbox-embark.test.ts`、`patrol-the-woods-initiative.test.ts`、`weald-basic-quests.test.ts`；`git diff --check`。
+
+### 步骤 5 第七批：Purge the Woods 沙盒出征 + R-248 当地牌堆
+
+- 起点 main `99230b4b`（#644 squash）。分支 `cursor/weald-p004-r248-a1e6`。
+- **沙盒 allowlist**：`quest:weald:p004` 与 p005 并列；须勾选 Weald 包；村庄 `questsForCampaignLevel`／`questsForContentPacks` 仍排除 weald。
+- **R-248**：`MonsterPoolDeckState.monsterDrawScope: wealdLocalOnly`；`dungeonMonsterPoolThrough`／`prepareDungeonMonsters` 可抽实例仅 14 张 Weald 当地实体；战斗 catalog 仍含通用引用。p005 混池（45 张）不变。
+- **巢穴 XP**：沿用 `xpKind: lair`；0–3 巢穴清理对应 0–3 XP 测试。
+- **R-251**：**仅 Purge the Woods 本卡**（Dark×3／巢穴×3／Trap×2）叠核心规则书第 15 页后的开战结论；核心同节 Treasure／Objective／Curio 1–5 仍会开战，本卡无那些代币。**禁止**泛化成「所有任务只有巢穴开战」。#645 运行时仍只实现 **R-248** 牌堆范围。
+- **未接线**：p001 brought back、p002–p003 SPECIAL、村庄抽 2 选 1、Playwright、房间 `usable: true`。
+- 验证：typecheck、lint、Prettier；Vitest `weald-p004-sandbox-embark.test.ts`、`weald-p005-sandbox-embark.test.ts`、`weald-basic-quests.test.ts`、`weald-monster-state.test.ts`；`git diff --check`。
 
 ### 步骤 5 勘误补丁：p001 Fungal Research XP 登记
 

@@ -44,7 +44,7 @@
 ### `quest:weald:p004` Purge the Woods（FRONT 第 4 页）— R-241
 
 - 黄底蘑菇（与右上角黄条**同一图形**）= **Weald 地点图标**，**不是**坏死真菌。Kyries **未**口头报 hash；逐图对位右上角黄条可为 raw `{icon:c5334974cf}`，SPECIAL 行 raw 为 `{icon:e933aa63f0}`——语义按 Kyries 对黄底蘑菇的确认，**不**写成 Kyries 本人报了 hash。
-- SPECIAL「Spawn only [蘑菇] Monsters in Lairs」：巢穴开战时只生成带该**地点图标**的 Weald 怪物（**R-241**）。**R-248**：本任务抽怪只用 Weald **当地**牌堆，不含通用怪；运行时接线 Purge the Woods 时再实现。
+- SPECIAL「Spawn only [蘑菇] Monsters in Lairs」：巢穴开战时只生成带该**地点图标**的 Weald 怪物（**R-241**）。**R-248**：本任务抽怪只用 Weald **当地**牌堆，不含通用怪；沙盒已接线 `monsterDrawScope: wealdLocalOnly`。**R-251**：**本卡**分布下仅巢穴开战（核心规则书第 15 页；无 Treasure／Objective／Curio 代币），非 SPECIAL 另加闸门，**不**泛化到其他任务。
 - 地块**圆形**蘑菇 = 坏死真菌标记（W-04／Weald 规则书第 3 页）：放真菌代币；场上仍有真菌时英雄不能被治疗。与黄底地点图标**不是**同一图形；本任务未改 W-04。
 - 分布（印刷转录，kind 对 R-240）：Dark×3；巢穴×3、Trap×2（巢穴格 hash 见上表「仍待确认」）。Rest **4**。
 
@@ -117,17 +117,17 @@
 |   1 | `quest:weald:p001` / p1 | Fungal Research / **8**    | Objective Rooms 为房间 **3、6、8**（`497092fe1f`）；进入后随机选一间，保障后弃掉该张房间。在该处**赢得战斗**且至少保留 **1 个未摧毁的 Necrotic Fungus** 才算完成目标。                                 | 1 Xp / 每带回 1 个 Necrotic Fungus | `{icon:d3a3e38ee9} 3 {icon:6f701b5f5f} 1`<br>`{icon:af3ce426ec} 1 {icon:67dc216fc3} 1 {icon:e7b30e2005} 2`                                       | **R-246** brought back／objective；**R-240**、**R-243** |
 |   2 | `quest:weald:p002` / p2 | Circle of Witches / **12** | Objective Room **恒为房间 9**（The Clearing，`room:weald:p009`，**R-243**／**R-244**／**R-247**）。在该处开战时生成 **Crone (LvL 2)**（II 级中型卡例外，非 I 级 14 实体池）。                          | 1 Xp / Crone killed                | `{icon:d3a3e38ee9} 3 {icon:6f701b5f5f} 1 {icon:adcdfc394a} {icon:a2e7f1dd7b} 1`<br>`{icon:67dc216fc3} 1 {icon:a488fd5ff1} 1 {icon:e7b30e2005} 1` | **R-244**、**R-247** 已登记                             |
 |   3 | `quest:weald:p003` / p3 | Disinfection / **8**       | Objective Room **恒为房间 5**（Infected Oak，**R-243**／**R-245**）。开局额外 **3** 枚 **Potion**（转录曾写 Provision，已更正）。带星区域 **1 行动 + 1 Potion** 消毒（`{icon:401040514c}` 逐图对位）。 | 1 Xp / Oak disinfected             | `{icon:d3a3e38ee9} 3 {icon:6f701b5f5f} 1`<br>`{icon:af3ce426ec} 2 {icon:67dc216fc3} 1 {icon:1154a8a4d4} 1`                                       | **R-245**；巢穴 **R-249** `1154a8a4d4`                  |
-|   4 | `quest:weald:p004` / p4 | Purge the Woods / **4**    | SPECIAL：**仅在 Lair 中生成** `{icon:e933aa63f0} Monsters`（**R-241**／**R-248** 仅 Weald 当地牌堆）。                                                                                                 | 1 Xp / Lair cleared                | `{icon:af3ce426ec} 3`<br>`{icon:1154a8a4d4} 3 {icon:e7b30e2005} 2`                                                                               | **R-248**；巢穴 **R-249**；运行时接线时再实现           |
+|   4 | `quest:weald:p004` / p4 | Purge the Woods / **4**    | SPECIAL：**仅在 Lair 中生成** `{icon:e933aa63f0} Monsters`（**R-241**／**R-248** 仅 Weald 当地牌堆）。                                                                                                 | 1 Xp / Lair cleared                | `{icon:af3ce426ec} 3`<br>`{icon:1154a8a4d4} 3 {icon:e7b30e2005} 2`                                                                               | **R-248**、**R-251**；巢穴 **R-249**；沙盒 R-248 已接线 |
 |   5 | `quest:weald:p005` / p5 | Patrol the Woods / **8**   | 开战时掷 `{icon:bc73e13882}`：若结果 **大于** 英雄 `{icon:806b25ecac} Level`，则首轮将所有怪物先攻卡置于牌堆**顶**（**R-242**）。                                                                      | 1 Xp / 2 Rooms cleared             | `{icon:6f701b5f5f} 1 {icon:509c4a958c} {icon:a2e7f1dd7b} 2`<br>`{icon:a488fd5ff1} 1 {icon:1154a8a4d4} 2 {icon:e7b30e2005} 2`                     | **R-242**；巢穴 **R-249**；灰骰／光照 hash **逐图对位** |
 
 ### 仍待确认（I 级五张普通任务玩法）
 
-**本 PR 范围内，五张 I 级普通任务卡面玩法裁定已全部登记（R-240–R-249）。** 仍不属于「玩法待确认」、但步骤 5 未完成的工作：
+**本 PR 范围内，五张 I 级普通任务卡面玩法裁定已全部登记（R-240–R-251）。** 仍不属于「玩法待确认」、但步骤 5 未完成的工作：
 
-| 项            | 说明                                                                                               |
-| ------------- | -------------------------------------------------------------------------------------------------- |
-| 规范化／接线  | 已写 `quest_cards`／`basicQuests`（步骤 5 数据刀）；**R-248** 运行时 Purge 抽牌待接线 PR；出征仍关 |
-| Q-186（其它） | 本批未点名的其它扩展卡面／SPECIAL 机制图标（若有）仍按 R-048 待审；非本五张 I 级普通任务范围       |
+| 项            | 说明                                                                                          |
+| ------------- | --------------------------------------------------------------------------------------------- |
+| 规范化／接线  | 已写 `quest_cards`／`basicQuests`；**R-248** Purge 沙盒出征已接线；p002–p003／Hamlet 出征仍关 |
+| Q-186（其它） | 本批未点名的其它扩展卡面／SPECIAL 机制图标（若有）仍按 R-048 待审；非本五张 I 级普通任务范围  |
 
 任务奖励行中的金币／战利品图标本稿不解释数值；**`d3a3e38ee9` 是 Objective 分布图标（R-240），不是报酬图标。**
 

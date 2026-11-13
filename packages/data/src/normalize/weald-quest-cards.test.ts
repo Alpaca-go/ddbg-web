@@ -71,7 +71,7 @@ describe("Weald I 级五张任务规范化（R-240–R-249）", () => {
     expect(questsForCampaignLevel(1)).toHaveLength(5);
   });
 
-  it("p004 登记 R-248 数据标志且不含运行时抽牌", () => {
+  it("p004 登记 R-248 monsterDrawScope", () => {
     const purge = basicQuests.find((q) => q.id === "quest:weald:p004")!;
     expect(purge.monsterDrawScope).toBe("wealdLocalOnly");
   });

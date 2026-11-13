@@ -45,12 +45,13 @@ it("p002–p005 印刷 XP 上限与 xpKind 不变", () => {
   }
 });
 
-it("村庄战役闸门仍拒绝全部 Weald；仅 p005 沙盒 allowlist", () => {
+it("村庄战役闸门仍拒绝全部 Weald；p004/p005 沙盒 allowlist", () => {
+  const sandboxOk = new Set(["quest:weald:p004", "quest:weald:p005"]);
   for (const id of WEALD_IDS) {
     const quest = basicQuests.find((q) => q.id === id)!;
     expect(quest.expeditionRegion).toBe("weald");
     expect(expeditionLocationEmbarkBlockReason(quest.expeditionRegion)).toMatch(/尚未开放/);
-    if (id === "quest:weald:p005") {
+    if (sandboxOk.has(id)) {
       expect(sandboxExpeditionEmbarkBlockReason("weald", id, ["core", "weald"])).toBeNull();
     } else {
       expect(sandboxExpeditionEmbarkBlockReason("weald", id, ["core", "weald"])).toMatch(
@@ -58,7 +59,4 @@ it("村庄战役闸门仍拒绝全部 Weald；仅 p005 沙盒 allowlist", () => 
       );
     }
   }
-  expect(sandboxExpeditionEmbarkBlockReason("weald", "quest:weald:p005", ["core", "weald"])).toBe(
-    null,
-  );
 });
