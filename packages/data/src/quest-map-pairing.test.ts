@@ -60,6 +60,22 @@ describe("QuestMap 选图配对（R-116）", () => {
     expect(["quest_map:p011", "quest_map:p012"]).toContain(layout.id);
   });
 
+  it("R-250：Weald 八代币任务共用核心 confirmed 八槽图，不选 p11/p12", () => {
+    const quest = basicQuests.find((q) => q.id === "quest:weald:p005")!;
+    const pairing = asQuestMapPairingQuest(quest);
+    expect(quest.expeditionRegion).toBe("weald");
+    expect(roomDistributionTokenTotal(quest.distribution)).toBe(8);
+    const compatible = compatibleQuestMapLayouts(pairing, layouts);
+    expect(compatible).toHaveLength(12);
+    expect(compatible.every((l) => l.review === "confirmed")).toBe(true);
+    expect(compatible.every((l) => dungeonLayoutRoomSlotCount(l) === 8)).toBe(true);
+    expect(compatible.some((l) => l.id === "quest_map:p011")).toBe(false);
+    const layout = pickEmbarkQuestMapLayout(pairing, 17, 0, layouts);
+    expect(layout.id).toMatch(/^quest_map:p0/);
+    expect(layout.review).toBe("confirmed");
+    expect(isQuestMapPageHardBind(quest.id, layout)).toBe(false);
+  });
+
   it("出征在 confirmed 八槽池中稳定择一（R-123 / R-116）", () => {
     const quest = basicQuests.find((q) => q.id === "quest:p001")!;
     const compatible = compatibleQuestMapLayouts(asQuestMapPairingQuest(quest), layouts);

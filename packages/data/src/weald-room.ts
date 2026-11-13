@@ -56,6 +56,12 @@ export const wealdRoomFileSchema = z
 
 export type WealdRoomCard = z.infer<typeof wealdRoomCardSchema>;
 
+/** 九张核准 Weald 普通房间目录；沙盒出征接线用，不改变 `usable` 战役闸门。 */
+export const wealdRoomCatalogSchema = z
+  .array(wealdRoomCardSchema)
+  .length(9)
+  .refine((cards) => new Set(cards.map((c) => c.id)).size === 9, "九张 Weald 普通房间不可重复");
+
 export const wealdSpecialEffectSchema = z.enum([
   "precious",
   "poisonousRoots",

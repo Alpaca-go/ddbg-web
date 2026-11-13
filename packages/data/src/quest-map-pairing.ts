@@ -5,6 +5,8 @@ import {
   roomDistributionTokenTotal,
   type DungeonLayout,
 } from "./dungeon-layout";
+import { isSandboxWealdEmbarkQuest } from "./basic-quests";
+import type { ContentPackId } from "./content-packs";
 
 /** R-046 / R-116：8 槽遗迹 vs 16 槽最暗地牢（红边 QuestMap p11/p12，VQ-08/09）。 */
 export type QuestExpeditionRegion = "ruins" | "darkestDungeon" | "weald";
@@ -16,6 +18,21 @@ export function expeditionLocationEmbarkBlockReason(
   if (expeditionRegion === "weald")
     return "Weald 地点战役尚未开放（步骤 5 仅登记任务数据，出征入口仍关闭）";
   return null;
+}
+
+/** 村庄战役与 Hamlet 正式出征；沙盒 allowlist 见 `sandboxExpeditionEmbarkBlockReason`。 */
+export function sandboxExpeditionEmbarkBlockReason(
+  expeditionRegion: QuestExpeditionRegion,
+  questId: string,
+  packs?: readonly ContentPackId[],
+): string | null {
+  if (
+    expeditionRegion === "weald" &&
+    isSandboxWealdEmbarkQuest(questId) &&
+    packs?.includes("weald")
+  )
+    return null;
+  return expeditionLocationEmbarkBlockReason(expeditionRegion);
 }
 
 const parsedLayouts = dungeonLayoutFileSchema.parse(layoutsFile).layouts;
@@ -30,6 +47,19 @@ export function dungeonLayoutRoomSlotCount(layout: Pick<DungeonLayout, "nodes">)
 
 export function inferQuestMapRegion(layout: Pick<DungeonLayout, "nodes">): QuestExpeditionRegion {
   return dungeonLayoutRoomSlotCount(layout) === 16 ? "darkestDungeon" : "ruins";
+}
+
+/** R-250：Weald 出征共用核心包八槽 QuestMap；任务 `expeditionRegion` 仍为 weald。 */
+export function questMapLayoutMatchesExpedition(
+  layout: Pick<DungeonLayout, "nodes">,
+  expeditionRegion: QuestExpeditionRegion,
+  tokenTotal: number,
+): boolean {
+  const layoutRegion = inferQuestMapRegion(layout);
+  if (expeditionRegion === "weald") {
+    return tokenTotal === 8 && layoutRegion === "ruins";
+  }
+  return layoutRegion === expeditionRegion;
 }
 
 export function questIdPageNumber(questId: string): number | null {
@@ -75,7 +105,7 @@ export function compatibleQuestMapLayouts(
   const tokenTotal = roomDistributionTokenTotal(quest.distribution);
   return layouts.filter((layout) => {
     if (dungeonLayoutRoomSlotCount(layout) !== tokenTotal) return false;
-    if (inferQuestMapRegion(layout) !== quest.expeditionRegion) return false;
+    if (!questMapLayoutMatchesExpedition(layout, quest.expeditionRegion, tokenTotal)) return false;
     return true;
   });
 }

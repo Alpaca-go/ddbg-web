@@ -3301,3 +3301,13 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
   - 重叠检出 `adcdfc394a`／`509c4a958c` 与灰色角标 `a2e7f1dd7b`：沿用 **R-240** 说明（非独立分布类型；角标不是分布 kind）；本次 Kyries 未另点新机制，**不**写成新 kind。
 - **范围**：不开放出征；不写入 normalized。
 - **依据**：Kyries 2026-11-13；Weald 任务 FRONT；**R-240**、**R-111**（核心 lair hash 边界）；R-048、R-001。
+
+### R-250
+
+- **日期**：2026-11-13
+- **核准**：Kyries 确认 Weald **没有**专属 QuestMap 印刷组件；Weald 出征与沙盒选图**共用核心盒已核准八槽 QuestMap**（`normalized/corebox/dungeon_layouts.json`，**R-046** / **R-116** / **R-123**）。
+- **裁定**：
+  - Weald I 级任务（含八枚代币分布）在 `compatibleQuestMapLayouts` / `pickEmbarkQuestMapLayout` 中从**确认过的核心八槽池**择图；**不**使用十六槽最暗地牢图（p11/p12）；**不**按任务页码与地图页码硬绑（**R-116**）。
+  - 任务登记 `expeditionRegion: "weald"` **不变**：房间牌、板块、怪物与奇物牌堆仍按 Weald 地点接线；仅 QuestMap 拓扑与核心包共享。
+- **边界**：本裁定**不**开放村庄战役 Weald 抽选；不发明 Weald 地图几何（**R-048**）。
+- **依据**：Kyries 2026-11-13；Weald 扩展资料核对；**R-046**、**R-116**、**R-123**；R-001。

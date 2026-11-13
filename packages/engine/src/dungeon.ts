@@ -17,7 +17,10 @@ import type { ExplorationFace } from "../../data/src/exploration";
 import type { SkillStance } from "./hero-skill";
 import type { BuildingLevels } from "./hamlet-buildings";
 import { roomCatalogSchema } from "../../data/src/room";
+import { wealdRoomCatalogSchema } from "../../data/src/weald-room";
+import { expeditionRegionForQuestId, expeditionRoomCatalogParses } from "./expedition-room-catalog";
 import type { RoomCard } from "../../data/src/room";
+import type { WealdRoomCard } from "../../data/src/weald-room";
 import { prepareDungeonBattle } from "./dungeon-battle-preparation";
 import { prepareDungeonMonsters } from "./dungeon-monsters";
 import { monsterPoolCatalogSchema } from "../../data/src/monster-pool";
@@ -298,7 +301,7 @@ export type DungeonState = {
   };
   readonly curio?: DungeonCurioState;
   readonly roomCards?: {
-    readonly cards: readonly RoomCard[];
+    readonly cards: readonly (RoomCard | WealdRoomCard)[];
     readonly deck: readonly string[] | null;
     readonly discard?: readonly string[];
     readonly active: {
@@ -415,7 +418,7 @@ export function createDungeonSandbox(
   resolveCards: readonly ResolveCard[] = [],
   explorationSetup?: DungeonExplorationSetup,
   curioCards?: readonly CurioCard[],
-  roomCards?: readonly RoomCard[],
+  roomCards?: readonly (RoomCard | WealdRoomCard)[],
   monsterCards?: readonly MonsterPoolCard[],
   battleCatalog?: DungeonBattleCatalog,
   startingProvisions = false,
@@ -491,7 +494,13 @@ export function createDungeonSandbox(
         : {}),
       ...(roomCards
         ? (() => {
-            const parsed = roomCatalogSchema.parse(roomCards);
+            const region = expeditionRegionForQuestId(distribution.questId);
+            if (!expeditionRoomCatalogParses(roomCards, region))
+              throw new Error("房间目录与任务出征地点不一致（R-048）");
+            const parsed =
+              region === "weald"
+                ? wealdRoomCatalogSchema.parse(roomCards)
+                : roomCatalogSchema.parse(roomCards);
             const setAsideRoomCardId = embarkSetAsideRoomCardId(distribution.questId);
             return {
               ...(setAsideRoomCardId ? { setAsideRoomCardId } : {}),

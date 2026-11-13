@@ -1,8 +1,9 @@
 import { expect, it } from "vitest";
 import { basicQuests, questPrintedXpCap, questsForContentPacks } from "../../data/src/basic-quests";
-import { expeditionLocationEmbarkBlockReason } from "../../data/src/quest-map-pairing";
-import { createCoreDungeonQuest } from "./dungeon-quest-entry";
-import { coreParty, coreQuestSources } from "./test-helpers/core-quest";
+import {
+  expeditionLocationEmbarkBlockReason,
+  sandboxExpeditionEmbarkBlockReason,
+} from "../../data/src/quest-map-pairing";
 
 const WEALD_IDS = [
   "quest:weald:p001",
@@ -44,16 +45,20 @@ it("p002–p005 印刷 XP 上限与 xpKind 不变", () => {
   }
 });
 
-it("选了 Weald 包可读登记，但出征闸门仍拒绝", () => {
+it("村庄战役闸门仍拒绝全部 Weald；仅 p005 沙盒 allowlist", () => {
   for (const id of WEALD_IDS) {
     const quest = basicQuests.find((q) => q.id === id)!;
     expect(quest.expeditionRegion).toBe("weald");
     expect(expeditionLocationEmbarkBlockReason(quest.expeditionRegion)).toMatch(/尚未开放/);
-    expect(() =>
-      createCoreDungeonQuest(1, id, "radiant", coreParty, coreQuestSources, true, "full", [
-        "core",
-        "weald",
-      ]),
-    ).toThrow(/尚未开放/);
+    if (id === "quest:weald:p005") {
+      expect(sandboxExpeditionEmbarkBlockReason("weald", id, ["core", "weald"])).toBeNull();
+    } else {
+      expect(sandboxExpeditionEmbarkBlockReason("weald", id, ["core", "weald"])).toMatch(
+        /尚未开放/,
+      );
+    }
   }
+  expect(sandboxExpeditionEmbarkBlockReason("weald", "quest:weald:p005", ["core", "weald"])).toBe(
+    null,
+  );
 });
