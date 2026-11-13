@@ -119,7 +119,11 @@ export function DungeonQuest() {
     locationLabel: "—",
     actLabel: "—",
     xpProgress: "—",
-    layoutId: pickQuestMapLayoutId(asQuestMapPairingQuest(selectedQuest), setupSeed, 0),
+    layoutId: pickQuestMapLayoutId(
+      asQuestMapPairingQuest(selectedQuest),
+      setupSeed,
+      initialDraw?.cursor ?? 0,
+    ),
   };
   const preEmbarkPhase = prepStep === "expedition" ? "expeditionPrep" : "questSetup";
 
