@@ -100,9 +100,13 @@ it("新 p019 入口 JSON 存档复原；旧无标记入口保持原布局与 RNG
       expect(result.state.dungeon!.roomCards!.active?.cardId).toBe("room:p010");
       expect(result.events[0]).toMatchObject({ type: "dungeonUpdated" });
     }
+    const roundtrip = JSON.parse(JSON.stringify(save));
     const tampered = {
-      ...save,
-      snapshot: { ...game, dungeon: { ...game.dungeon!, cursor: game.dungeon!.cursor + 1 } },
+      ...roundtrip,
+      snapshot: {
+        ...roundtrip.snapshot,
+        dungeon: { ...roundtrip.snapshot.dungeon, cursor: roundtrip.snapshot.dungeon.cursor + 1 },
+      },
     };
     expect(() => loadQuestSave(tampered, coreQuestSources)).toThrow(/快照/);
   }
