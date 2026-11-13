@@ -14,6 +14,13 @@ const input = () => ({ core, medium, large, contentPacks: ["core", "weald"] as c
 const setup = () => createWealdLevelOneMonsterPoolState(input());
 
 describe("Weald 怪物状态与实例解析（W3、R-230/R-232）", () => {
+  it("R-248 monsterDrawScope 仅返回 14 张当地实例", () => {
+    const state = { ...setup(), monsterDrawScope: "wealdLocalOnly" as const };
+    const pool = dungeonMonsterPoolThrough(state, 1);
+    expect(pool).toHaveLength(14);
+    expect(pool.every((c) => c.instanceId.startsWith("monster-deck:weald:"))).toBe(true);
+  });
+
   it("创建保留来源与14当地实例，45张出征目录可由JSON状态重建", () => {
     const state = setup();
     expect(state.cards).toEqual(core);

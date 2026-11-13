@@ -9,10 +9,14 @@ import {
   type WealdLevelOneMonsterInstance,
 } from "../../data/src/weald-monster-pool";
 
+/** R-248：整场任务抽怪范围；未设时 Weald 仍为 W3 通用+当地混池。 */
+export type MonsterDrawScope = "wealdLocalOnly";
+
 export type MonsterPoolDeckState = {
   readonly cards: readonly MonsterPoolCard[];
   readonly location?: "ruins" | "weald";
   readonly wealdInstances?: readonly WealdLevelOneMonsterInstance[];
+  readonly monsterDrawScope?: MonsterDrawScope;
   readonly permanentlyRemovedCombatCardIds?: readonly string[];
 };
 
@@ -55,6 +59,7 @@ function monsterPoolInstances(pool: MonsterPoolDeckState, maxLevel: number) {
   if (maxLevel !== 1) throw new Error("Weald 仅核准 I 级怪物池");
   const core = monsterPoolCatalogSchema.parse(pool.cards);
   const local = wealdLevelOneMonsterInstancesSchema.parse(pool.wealdInstances);
+  if (pool.monsterDrawScope === "wealdLocalOnly") return [...local];
   const commonIds = new Set(
     core
       .filter((card) => card.location === "common" && card.level === 1)

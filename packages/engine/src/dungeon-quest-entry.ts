@@ -174,8 +174,19 @@ export function createCoreDungeonQuest(
     true,
   );
   let game: GameState = { ...initial, skillLightBeforeCrit: true };
-  if (wealdSandbox && game.dungeon)
-    game = { ...game, dungeon: { ...game.dungeon, monsterPool: { ...decks.monsterPool } } };
+  if (wealdSandbox && game.dungeon) {
+    const drawScope = quest && "monsterDrawScope" in quest ? quest.monsterDrawScope : undefined;
+    game = {
+      ...game,
+      dungeon: {
+        ...game.dungeon,
+        monsterPool: {
+          ...decks.monsterPool,
+          ...(drawScope ? { monsterDrawScope: drawScope } : {}),
+        },
+      },
+    };
+  }
   if (contentPacks && game.dungeon) game = { ...game, dungeon: { ...game.dungeon, contentPacks } };
   if (mode === "stygian" && stygianRoomRules && game.dungeon)
     game = { ...game, dungeon: { ...game.dungeon, stygianRoomRules } };
