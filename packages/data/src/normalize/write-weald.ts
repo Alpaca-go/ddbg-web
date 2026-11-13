@@ -6,6 +6,7 @@ import { rawFileSchema } from "../extract/raw";
 import { buildWealdLevelOneMonsters } from "./weald-monsters";
 import { buildWealdCurios } from "./weald-curios";
 import { buildWealdRooms, buildWealdRoomTiles } from "./weald-rooms";
+import { buildWealdLevelOneQuestCards } from "./weald-quest-cards";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const read = (file: string): unknown =>
@@ -52,6 +53,21 @@ export function loadNormalizedWealdRooms() {
     rooms: buildWealdRooms(raw),
     tiles: buildWealdRoomTiles(),
   };
+}
+
+export function loadNormalizedWealdLevelOneQuestCards() {
+  return buildWealdLevelOneQuestCards(
+    rawFileSchema.parse(read("extract/extension/weald/raw/quest.json")),
+  );
+}
+
+export function writeNormalizedWealdLevelOneQuestCards(
+  outputDir = path.join(ROOT, "normalized/extension/weald"),
+) {
+  const built = loadNormalizedWealdLevelOneQuestCards();
+  mkdirSync(outputDir, { recursive: true });
+  writeFileSync(path.join(outputDir, "quest_cards.json"), `${JSON.stringify(built, null, 1)}\n`);
+  return built;
 }
 
 export function writeNormalizedWealdRooms(

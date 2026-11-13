@@ -17,12 +17,18 @@ import weAreTheFlame from "../normalized/corebox/we_are_the_flame_distribution.j
 import lightTheWay from "../normalized/corebox/light_the_way_distribution.json";
 import bellyOfTheBeast from "../normalized/corebox/belly_of_the_beast_distribution.json";
 import faceTheThreat from "../normalized/corebox/face_the_threat_distribution.json";
+import fungalResearch from "../normalized/extension/weald/fungal_research_distribution.json";
+import circleOfWitches from "../normalized/extension/weald/circle_of_witches_distribution.json";
+import disinfection from "../normalized/extension/weald/disinfection_distribution.json";
+import purgeTheWoods from "../normalized/extension/weald/purge_the_woods_distribution.json";
+import patrolTheWoods from "../normalized/extension/weald/patrol_the_woods_distribution.json";
 import {
   randomNonObjectiveRoomKinds,
   roomDistributionSchema,
   roomDistributionTokenTotal,
   type RoomDistribution,
 } from "./dungeon-layout";
+import { cardContentPack, packEnabled, type ContentPackId } from "./content-packs";
 import type { QuestExpeditionRegion } from "./quest-map-pairing";
 
 export type QuestXpKind =
@@ -103,6 +109,77 @@ export const basicQuests = [
     curioRoomsAlwaysGuarded: true as const,
     curioRoomGuardMonsterLevel: 2 as const,
     distribution: roomDistributionSchema.parse(risingThreat),
+  },
+  {
+    id: "quest:weald:p001",
+    name: "Fungal Research",
+    level: 1 as const,
+    restPoints: 8,
+    xpKind: "all" as const,
+    roomsPerXp: 1,
+    maxRooms: 8,
+    expeditionRegion: "weald" as const,
+    setAsideRoomCardIds: ["room:weald:p003", "room:weald:p006", "room:weald:p008"] as const,
+    verifiedRuleRulings: ["R-246", "R-240", "R-243"] as const,
+    distribution: roomDistributionSchema.parse(fungalResearch),
+  },
+  {
+    id: "quest:weald:p002",
+    name: "Circle of Witches",
+    level: 1 as const,
+    restPoints: 12,
+    xpKind: "objective" as const,
+    roomsPerXp: 1,
+    maxRooms: 3,
+    expeditionRegion: "weald" as const,
+    setAsideRoomCardId: "room:weald:p009" as const,
+    questExceptionSpawn: {
+      combatCardId: "monster_medium:weald:p015" as const,
+      monsterLevel: 2 as const,
+      count: 1 as const,
+    },
+    verifiedRuleRulings: ["R-244", "R-247", "R-240"] as const,
+    distribution: roomDistributionSchema.parse(circleOfWitches),
+  },
+  {
+    id: "quest:weald:p003",
+    name: "Disinfection",
+    level: 1 as const,
+    restPoints: 8,
+    xpKind: "objective" as const,
+    roomsPerXp: 1,
+    maxRooms: 3,
+    expeditionRegion: "weald" as const,
+    setAsideRoomCardId: "room:weald:p005" as const,
+    startingPotions: 3 as const,
+    verifiedRuleRulings: ["R-245", "R-240", "R-249"] as const,
+    distribution: roomDistributionSchema.parse(disinfection),
+  },
+  {
+    id: "quest:weald:p004",
+    name: "Purge the Woods",
+    level: 1 as const,
+    restPoints: 4,
+    xpKind: "lair" as const,
+    roomsPerXp: 1,
+    maxRooms: 3,
+    expeditionRegion: "weald" as const,
+    /** R-248：运行时抽牌待 Purge 接线 PR；数据层标记整场仅用 Weald 当地牌堆。 */
+    monsterDrawScope: "wealdLocalOnly" as const,
+    verifiedRuleRulings: ["R-241", "R-248", "R-249"] as const,
+    distribution: roomDistributionSchema.parse(purgeTheWoods),
+  },
+  {
+    id: "quest:weald:p005",
+    name: "Patrol the Woods",
+    level: 1 as const,
+    restPoints: 8,
+    xpKind: "all" as const,
+    roomsPerXp: 2,
+    maxRooms: 6,
+    expeditionRegion: "weald" as const,
+    verifiedRuleRulings: ["R-242", "R-249"] as const,
+    distribution: roomDistributionSchema.parse(patrolTheWoods),
   },
   {
     id: "quest:p006",
@@ -272,14 +349,33 @@ export const basicQuests = [
 export type BasicQuestId = (typeof basicQuests)[number]["id"];
 export type CampaignLevel = 1 | 2 | 3;
 
-/** 战役「抽 2 选 1」普通出征池（R33、R-030）；不含 Boss 任务卡（R-120）。 */
+/** 战役「抽 2 选 1」普通出征池（R33、R-030）；不含 Boss 任务卡（R-120）与未开放地点战役。 */
 export function questsForCampaignLevel(level: CampaignLevel) {
-  return basicQuests.filter((q) => q.level === level && !("bossQuest" in q && q.bossQuest));
+  return basicQuests.filter(
+    (q) =>
+      q.level === level && !("bossQuest" in q && q.bossQuest) && q.expeditionRegion !== "weald",
+  );
 }
 
-/** 沙盒 / 调试出征：I 级普通任务 + 已接通的 Boss 任务卡（R-120）。 */
+/** 按战役内容包过滤已登记任务（W-02；与 `sourcesForContentPacks` 同一 packEnabled 语义）。 */
+export function questsForContentPacks(level: CampaignLevel, packs?: readonly ContentPackId[]) {
+  return questsForCampaignLevel(level).filter((q) => packEnabled(packs, cardContentPack(q)));
+}
+
+export function basicQuestEnabledForContentPacks(
+  questId: string,
+  packs?: readonly ContentPackId[],
+): boolean {
+  const quest = basicQuests.find((q) => q.id === questId);
+  if (!quest) return false;
+  return packEnabled(packs, cardContentPack(quest));
+}
+
+/** 沙盒 / 调试出征：I 级普通任务 + 已接通的 Boss 任务卡（R-120）；不含未开放 Weald 地点。 */
 export function sandboxEmbarkQuests() {
-  return basicQuests.filter((q) => q.level === 1 || ("bossQuest" in q && q.bossQuest));
+  return basicQuests.filter(
+    (q) => (q.level === 1 && q.expeditionRegion !== "weald") || ("bossQuest" in q && q.bossQuest),
+  );
 }
 
 /** 任务卡印刷 XP 上限（R-038）；Boss 定额见 R-122 `flatXp`。 */

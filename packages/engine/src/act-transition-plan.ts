@@ -37,7 +37,11 @@ export function buildRuinsActTransitionPlan(
   const retiredQuestIds = [
     ...new Set([
       ...removedQuestIds,
-      ...basicQuests.filter((q) => q.level <= fromLevel && q.id !== "quest:p019").map((q) => q.id),
+      ...basicQuests
+        .filter(
+          (q) => q.level <= fromLevel && q.id !== "quest:p019" && q.expeditionRegion !== "weald",
+        )
+        .map((q) => q.id),
     ]),
   ].sort();
   return {

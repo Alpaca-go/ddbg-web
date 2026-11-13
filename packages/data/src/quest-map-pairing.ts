@@ -7,7 +7,16 @@ import {
 } from "./dungeon-layout";
 
 /** R-046 / R-116：8 槽遗迹 vs 16 槽最暗地牢（红边 QuestMap p11/p12，VQ-08/09）。 */
-export type QuestExpeditionRegion = "ruins" | "darkestDungeon";
+export type QuestExpeditionRegion = "ruins" | "darkestDungeon" | "weald";
+
+/** 步骤 5 数据刀：Weald 任务已登记，地点战役与 QuestMap 未开放。 */
+export function expeditionLocationEmbarkBlockReason(
+  expeditionRegion: QuestExpeditionRegion,
+): string | null {
+  if (expeditionRegion === "weald")
+    return "Weald 地点战役尚未开放（步骤 5 仅登记任务数据，出征入口仍关闭）";
+  return null;
+}
 
 const parsedLayouts = dungeonLayoutFileSchema.parse(layoutsFile).layouts;
 

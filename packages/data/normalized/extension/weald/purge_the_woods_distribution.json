@@ -1,0 +1,9 @@
+{
+  "questId": "quest:weald:p004",
+  "source": "DD_EN_WEALD_CARDS_70_120_quests_FRONT.pdf p4; R-240–R-241、R-248; 1154a8a4d4→lair; 无 objective 代币; Kyries 2026-11-13",
+  "counts": [
+    { "kind": "dark", "count": 3 },
+    { "kind": "lair", "count": 3 },
+    { "kind": "trap", "count": 2 }
+  ]
+}
