@@ -322,6 +322,7 @@ export type DungeonState = {
   readonly questExceptionCroneKills?: number;
   /** R-245：`quest:weald:p003` 已消毒橡树计数（回村 XP）。 */
   readonly disinfectionOakCount?: number;
+  readonly disinfectedOakRoomIds?: readonly string[];
   /** R-247：Crone 物理组件是否在任务表可再次部署。 */
   readonly questExceptionComponentAvailable?: boolean;
   readonly rooms: readonly {

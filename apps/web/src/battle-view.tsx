@@ -1,4 +1,5 @@
 import { CoreTrinketActions } from "./core-trinket-actions";
+import { InfectedOakAction } from "./infected-oak-action";
 import { useState } from "react";
 import {
   ABOMINATION_DOUBLE_FACED_SKILL_IDS,
@@ -293,6 +294,9 @@ export function BattleView({
         </p>
       )}
       <section className="statusbar" aria-label="战斗状态">
+        {battle.infectedOakDisinfected && (
+          <span data-testid="infected-oak-completed">本场橡树已消毒</span>
+        )}
         <span>第 {battle.encounter?.round ?? "—"} 轮 / 4</span>
         <span>光照 {battle.light}</span>
         <strong data-testid="turn-status">{turnText}</strong>
@@ -679,6 +683,7 @@ export function BattleView({
                   拾取同区宝箱
                 </button>
               </fieldset>
+              <InfectedOakAction game={game} dispatch={send} frozen={frozen} />
               {actorArea?.lootTheChest && (
                 <button
                   data-action-group="loot"

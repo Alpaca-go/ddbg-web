@@ -13,7 +13,11 @@ import { WEALD_APPROVED_ROOM_TILES } from "./expansions/weald/room-catalog";
 import { wealdRoomTileBattleAreas } from "./expansions/weald/weald-mechanics";
 import { INFECTION_OAK_ROOM_CARD_ID } from "./expansions/weald/disinfection-constants";
 import distribution from "../../data/normalized/extension/weald/disinfection_distribution.json";
-import { disinfectInfectedOak, endTurnPoisonousRoots } from "./battle-infected-oak";
+import {
+  disinfectInfectedOak,
+  endTurnPoisonousRoots,
+  readInfectedOakAction,
+} from "./battle-infected-oak";
 
 const tileFive = WEALD_APPROVED_ROOM_TILES.find((t) => t.number === 5)!;
 const crusaderStat = coreQuestSources.catalog.heroStats.find(
@@ -161,5 +165,67 @@ describe("Infected Oak 消毒与 Poisonous Roots（R-245）", () => {
     };
     const refused = applyCommand(deadMonster, { type: "disinfectInfectedOak", actorId: "h0" });
     expect(refused.state).toBe(deadMonster);
+  });
+
+  it("消毒用尽最后行动时结算毒根并推进回合；重复使用不再消耗资源", () => {
+    const base = disinfectionBattle();
+    const turn = base.battle!.encounter!.turn;
+    if (turn.type !== "hero") throw new Error("缺少英雄回合");
+    const state = {
+      ...base,
+      battle: {
+        ...base.battle!,
+        encounter: { ...base.battle!.encounter!, turn: { ...turn, actions: 1 } },
+      },
+    };
+    expect(readInfectedOakAction(state)?.disabledReason).toBeNull();
+    const result = applyCommand(state, { type: "disinfectInfectedOak", actorId: "h0" });
+    expect(result.events.some((e) => e.type === "commandRefused")).toBe(false);
+    expect(result.state.battle!.encounter!.turn.type).toBe("awaitingInitiative");
+    expect(
+      result.events.some((e) => e.type === "passiveTriggered" && e.trigger === "poisonousRoots"),
+    ).toBe(true);
+    expect(applyCommand(result.state, { type: "disinfectInfectedOak", actorId: "h0" }).state).toBe(
+      result.state,
+    );
+  });
+
+  it("未选包、无行动、强制移动、无 Potion 或非星区均拒绝且状态不变", () => {
+    const base = disinfectionBattle();
+    const turn = base.battle!.encounter!.turn;
+    if (turn.type !== "hero") throw new Error("缺少英雄回合");
+    const variants: GameState[] = [
+      { ...base, dungeon: { ...base.dungeon!, contentPacks: ["core"] } },
+      {
+        ...base,
+        battle: {
+          ...base.battle!,
+          encounter: { ...base.battle!.encounter!, turn: { ...turn, actions: 0 } },
+        },
+      },
+      {
+        ...base,
+        battle: {
+          ...base.battle!,
+          encounter: { ...base.battle!.encounter!, turn: { ...turn, mustMove: true } },
+        },
+      },
+      { ...base, battle: { ...base.battle!, provisions: [] } },
+      {
+        ...base,
+        battle: {
+          ...base.battle!,
+          entities: base.battle!.entities.map((e) => (e.id === "h0" ? { ...e, areaId: "F" } : e)),
+        },
+      },
+    ];
+    expect(readInfectedOakAction(variants[0]!)).toBeNull();
+    for (const state of variants.slice(1))
+      expect(readInfectedOakAction(state)?.disabledReason).toBeTruthy();
+    for (const state of variants) {
+      expect(applyCommand(state, { type: "disinfectInfectedOak", actorId: "h0" }).state).toBe(
+        state,
+      );
+    }
   });
 });
