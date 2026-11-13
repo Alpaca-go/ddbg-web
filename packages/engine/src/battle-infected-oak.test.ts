@@ -1,6 +1,4 @@
 import { describe, expect, it } from "vitest";
-import { normalizedHeroStatFileSchema } from "../../data/src/normalize/hero-stat";
-import statsFile from "../../data/normalized/corebox/hero_stat.json";
 import resolveFile from "../../data/normalized/corebox/virtue_affliction.json";
 import quirkFile from "../../data/normalized/corebox/quirk.json";
 import diseaseFile from "../../data/normalized/corebox/disease.json";
@@ -9,6 +7,7 @@ import { diseaseFileSchema } from "../../data/src/disease";
 import { createConditionPool } from "./conditions";
 import { applyCommand, type GameState } from "./command";
 import { createBattleState, type BattleEntity } from "./battle";
+import { coreQuestSources } from "./test-helpers/core-quest";
 import type { ResolveCard } from "./pressure";
 import { WEALD_APPROVED_ROOM_TILES } from "./expansions/weald/room-catalog";
 import { wealdRoomTileBattleAreas } from "./expansions/weald/weald-mechanics";
@@ -17,9 +16,9 @@ import distribution from "../../data/normalized/extension/weald/disinfection_dis
 import { disinfectInfectedOak, endTurnPoisonousRoots } from "./battle-infected-oak";
 
 const tileFive = WEALD_APPROVED_ROOM_TILES.find((t) => t.number === 5)!;
-const crusaderStat = normalizedHeroStatFileSchema
-  .parse(statsFile)
-  .cards.find((c) => c.name === "CRUSADER" && c.level === 1 && c.face === "front")!;
+const crusaderStat = coreQuestSources.catalog.heroStats.find(
+  (c) => c.name === "CRUSADER" && c.level === 1,
+)!;
 
 function disinfectionBattle(): GameState {
   const areas = wealdRoomTileBattleAreas(tileFive, { wealdMechanics: true });
