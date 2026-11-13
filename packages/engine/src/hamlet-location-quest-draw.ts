@@ -1,11 +1,10 @@
 import {
-  questsForCampaignLevel,
-  questsForContentPacks,
   SANDBOX_WEALD_EMBARK_QUEST_IDS,
   type BasicQuestId,
   type CampaignLevel,
 } from "../../data/src/basic-quests";
 import type { ContentPackId } from "../../data/src/content-packs";
+import { questsForCampaignLevel, questsForContentPacks } from "./campaign-quest-pool";
 
 export type HamletLocationQuestDeck = "ruins" | "weald";
 

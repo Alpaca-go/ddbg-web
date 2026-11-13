@@ -362,4 +362,4 @@ Brigand Pounder 类型行、Shrieker’s Nest 和 Cauldron Empty 的专属卡面
 - **Hamlet 出征**：`chooseNextQuest` 对 p001–p005 + weald 包放行；仅 `expeditionRegion` 的正式闸门仍拒绝全部 Weald。房间卡 `usable` 仍为 false；未开 Boss／Stygian／II–III Weald 任务堆。
 - **I→II 沙盒预览**：已选 weald 包时剩余 Weald I 普通任务写入 `discardedQuests`，避免错误回流。
 - **未做**：正式开局第一趟抽选、Playwright、Boss／Stygian、Warrens／Cove 等地任务堆。
-- 验证：typecheck、lint、Prettier；Vitest `hamlet-weald-location-draw.test.ts`、`content-packs.test.ts`、`weald-basic-quests.test.ts`、`hamlet-embark.test.ts` 与 Face the Threat／最暗地牢相关测；`git diff --check`。
+- 验证：typecheck、lint、Prettier；Vitest `hamlet-weald-location-draw.test.ts`、`content-packs.test.ts`、`weald-basic-quests.test.ts`、`hamlet-embark.test.ts`、`natural-wipeout-save.test.ts` 与 Face the Threat／最暗地牢相关测；`git diff --check`（遗迹堆经 `campaign-quest-pool`，与黄金池夹具一致）。
