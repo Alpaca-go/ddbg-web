@@ -162,6 +162,7 @@ export const savedCommandSchema = z.union([
       "destroyEvilEye",
       "eldritchVault",
       "interactLoot",
+      "disinfectInfectedOak",
       "finishMonsterTurn",
       "prepareMonsterAction",
       "autoMonsterTurn",

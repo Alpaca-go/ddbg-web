@@ -19,7 +19,11 @@ export type NaturalBattleDriver = {
  */
 export function playNaturalBattle(
   driver: NaturalBattleDriver,
-  options: { readonly preferWipeout?: boolean; readonly survival?: boolean } = {},
+  options: {
+    readonly preferWipeout?: boolean;
+    readonly survival?: boolean;
+    readonly heroAction?: (state: GameState) => Command | undefined;
+  } = {},
 ): void {
   const survival = options.survival === true;
   const preview = (s: GameState, command: PlayHeroSkillCommand | PlayHeroSkillTargetsCommand) =>
@@ -135,6 +139,11 @@ export function playNaturalBattle(
           targetId: action.targetId,
           skillSlot: action.skillSlot,
         });
+      continue;
+    }
+    const objectiveAction = options.heroAction?.(state);
+    if (objectiveAction) {
+      driver.step(objectiveAction);
       continue;
     }
     if (options.preferWipeout) {

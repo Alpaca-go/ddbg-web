@@ -16,5 +16,8 @@ export function recordDisinfectionOakOnBattleFinish(
   disinfectedThisBattle: boolean,
 ): Pick<DungeonState, "disinfectionOakCount"> | null {
   if (!isDisinfectionQuest(d) || !disinfectedThisBattle) return null;
+  // R-245：新命令在消毒成功时即计数；战胜及同房再进均不重复计数。
+  if (d.disinfectedOakRoomIds?.includes(d.position))
+    return { disinfectionOakCount: d.disinfectionOakCount ?? 0 };
   return { disinfectionOakCount: (d.disinfectionOakCount ?? 0) + 1 };
 }

@@ -25,6 +25,8 @@ export const naturalParty = coreParty.map((hero, index) => ({
   skillIds: equipped[index]!,
 }));
 export type NaturalQuestOptions = {
+  /** 显式玩家目标操作；不改变既有自然策略的缺省行为。 */
+  readonly heroAction?: (state: GameState) => Command | undefined;
   /** 显式玩家捐款选择；缺省仍优先给20金，仅从实际选项选择。 */
   readonly fundraiserDonation?: number;
   /** Wipe ‘Em Out：至少清理多少间巢穴才离开（默认 1）。 */
@@ -153,7 +155,14 @@ export function naturalQuest(
   const fight = () =>
     playNaturalBattle(
       { state: () => state, step, settle },
-      options.preferWipeout ? { preferWipeout: true } : options.survival ? { survival: true } : {},
+      {
+        ...(options.preferWipeout
+          ? { preferWipeout: true }
+          : options.survival
+            ? { survival: true }
+            : {}),
+        ...(options.heroAction ? { heroAction: options.heroAction } : {}),
+      },
     );
   /** 经闭包读回 phase，避免 step 重赋值后仍被收窄为 ready。 */
   const dungeonPhase = () => state.dungeon!.phase;

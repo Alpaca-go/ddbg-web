@@ -58,7 +58,10 @@ import {
   WEALD_CRONE_EXCEPTION_CARD_ID,
   WEALD_CRONE_EXCEPTION_INSTANCE_ID,
 } from "./expansions/weald/circle-of-witches-spawn";
-import { recordDisinfectionOakOnBattleFinish } from "./expansions/weald/disinfection-quest";
+import {
+  recordDisinfectionOakOnBattleFinish,
+  isDisinfectionQuest,
+} from "./expansions/weald/disinfection-quest";
 import { readDungeonQuestProgress } from "./dungeon-quest";
 import { readCampaignLevel } from "./hamlet-campaign";
 import { hasApprovedHigherMonsterFields } from "../../data/src/normalize/verified-monster-entry";
@@ -460,6 +463,9 @@ export function startDungeonBattle(state: GameState): ApplyResult {
         battle: {
           ...battle,
           rngCursor: d.cursor,
+          ...(isDisinfectionQuest(d) && d.disinfectedOakRoomIds?.includes(d.position)
+            ? { infectedOakDisinfected: true }
+            : {}),
           choiceCursor: d.decision,
           resolveDecks: d.resolveDecks,
         },
