@@ -62,7 +62,7 @@
 
 ### `quest:weald:p001` Fungal Research（FRONT 第 1 页）— R-246
 
-- 不用电子游戏背包／object item；不新做物品 token。用出征进度计数 **brought back**，回村按此数给 XP（核心 Leaving the Dungeon／p29 Gaining XP）。
+- 不用电子游戏背包／object item；不新做物品 token。用出征进度计数 **brought back**，回村按此数给 XP（核心 Leaving the Dungeon／第 29 页 Gaining XP）；**封顶 3** 已按 **R-038**／**R-252** 与规则书第 29 页原文结案（`min(3, broughtBackCount)`）。
 - 清房时：每砸毁 1 个坏死真菌 → brought back **+1**。
 - Objective：至少 1 个**未砸毁**真菌赢下战斗才算 gain objective；须留至少 1 个未砸毁再清房才获得目标；全砸再清房可计 brought back 但**不能**获 objective。
 - 进房仍为卡面（目标房 3／6／8，随机抽一张、secured 后弃掉）。**W-04** 不改。

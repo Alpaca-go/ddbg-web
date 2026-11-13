@@ -3,6 +3,7 @@ import {
   questRoomsSchema,
   dungeonQuestSummarySchema,
   forwardCampsQuestSummarySchema,
+  fungalResearchQuestSummarySchema,
   fundraiserQuestSummarySchema,
   fundraiserDonationXp,
   bossFlatQuestSummarySchema,
@@ -14,6 +15,7 @@ import {
 } from "../../data/src/basic-quests";
 import type { ApplyResult, GameState } from "./command";
 import type { DungeonState } from "./dungeon";
+import { fungalResearchXpFromBroughtBack } from "./expansions/weald/fungal-research-quest";
 
 export const FUNDRAISER_PROMPT =
   "Fundraiser：可捐献任意不超过余额的整数金币。每 20 金币得 1 XP，最多 3 XP。0 金币表示不捐献（R-216）。";
@@ -66,8 +68,15 @@ export function readDungeonQuestProgress(d: DungeonState) {
     .filter((r) => r.cleared)
     .map((r) => r.id)
     .sort();
+  if (
+    quest.xpKind === "broughtBack" &&
+    d.necroticFungusBroughtBackCount !== undefined &&
+    (!Number.isSafeInteger(d.necroticFungusBroughtBackCount) ||
+      d.necroticFungusBroughtBackCount < 0)
+  )
+    return refuse("Fungal Research brought back 计数无效（R-246）");
   const completedRoomIds =
-    quest.xpKind === "camp"
+    quest.xpKind === "camp" || quest.xpKind === "broughtBack"
       ? clearedRoomIds
       : rooms.data
           .filter(
@@ -176,7 +185,29 @@ export function summarizeDungeonQuest(state: GameState): ApplyResult {
     };
   }
   if (quest.xpKind === "broughtBack") {
-    return refuse("回村 XP 按 R-246 Necrotic Fungus brought back 计数，运行时未接线");
+    const broughtBackCount = d.necroticFungusBroughtBackCount ?? 0;
+    if (!Number.isSafeInteger(broughtBackCount) || broughtBackCount < 0)
+      return refuse("Fungal Research brought back 计数无效（R-246）");
+    const xpPerHero = fungalResearchXpFromBroughtBack(broughtBackCount, quest.roomsPerXp);
+    const questSummary = fungalResearchQuestSummarySchema.parse({
+      questId: quest.id,
+      name: quest.name,
+      clearedRoomIds,
+      broughtBackCount,
+      objectiveMet: d.fungalResearchObjectiveMet === true,
+      xpPerHero,
+      stagecoachXp: xpPerHero,
+      awarded: false,
+    });
+    return {
+      state: { ...state, dungeon: { ...d, questSummary } },
+      events: [
+        {
+          type: "dungeonUpdated",
+          message: `${quest.name}：brought back ${broughtBackCount}，每名英雄与驿站待发 ${xpPerHero} XP（R-246、R-038、核心规则书第 29 页）`,
+        },
+      ],
+    };
   }
   if (quest.xpKind === "camp") {
     const forwardCampSetups = d.forwardCampSetups ?? 0;

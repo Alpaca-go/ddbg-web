@@ -3264,7 +3264,8 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
   - 卡面 SPECIAL：带着至少 1 个**未砸毁**的坏死真菌赢下战斗，才算 gain the objective。仍须满足：至少留下 1 个未砸毁再清房，才获得该目标；若全砸再清房，可计 brought back，但达不到 unsmashed，**不能**获得该 objective。
   - 进房流程仍为卡面原文（目标房 3／6／8，进入后随机抽一张，secured 后弃掉）；本条只补 XP／objective 手续，不另发明状态机。
   - **W-04**（放置、禁疗、砸毁只把代币从场上移除）不改。
-- **范围**：不开放出征、不写运行时；不写入 normalized。
+- **后续确认（2026-11-13）**：回村 XP 封顶 3 见 **R-252**（核心规则书第 29 页、**R-038**）。
+- **范围**：运行时见步骤 5 p001 沙盒 PR；不写入 normalized。
 - **依据**：Kyries 2026-11-13；Weald 任务 FRONT p1；核心 R29；**W-04**；R-001、R-048。
 
 ### R-247
@@ -3328,3 +3329,14 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **边界**：不因此开放村庄战役抽选；不改房间 `usable`；**不**把「仅巢穴开战」写成 p004 专属 SPECIAL、运行时任务特判，或推广到其他任务卡。
 - **范围**：本裁定仅登记 Purge the Woods 规则来源；不改 Dark / Trap 核心进房实现。
 - **依据**：Kyries 2026-11-13；「Weald 任务规则」群、DDBG·规则书说明；核心规则书第 15 页 Entering a Room；**R-248**、**R-241**；R-001、R-048。
+
+### R-252
+
+- **日期**：2026-11-13
+- **核准**：`quest:weald:p001` Fungal Research 回村 XP 适用 **R-038** 与核心规则书**第 29 页**「Gaining XP (Experience Points)」原文封顶（「Weald 任务规则」群、DDBG·规则书结案；按项目流程推进，与 Fundraiser 同级处理）。
+- **裁定**：
+  - 核心规则书第 29 页：**All Quests grant between 0 to 3 Xp depending on how many of its objectives the party completes.**
+  - 本卡卡面：**1 Xp / Necrotic Fungus brought back**（**R-246** `roomsPerXp: 1`）；卡面无另行取消封顶。回村按清房时累计 **brought back** 给 XP：`xpPerHero = min(3, broughtBackCount)`；驿站待发与英雄相同。
+  - **Objective** 与回村 XP **分开**：未达成 R-246 objective **不**自动归零 brought back XP。
+- **边界**：交叉引用 **R-038**、**R-246**；不改写 R-038／R-246 正文。
+- **依据**：核心规则书第 29 页；**R-038**、**R-246**；R-001、R-048。

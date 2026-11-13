@@ -25,7 +25,7 @@ pnpm --filter @ddbg/pipeline normalize
 
 ## Weald I 级普通任务
 
-`extension/weald/quest_cards.json`（`ddbg-weald-quest-cards-v1`，仅 I 级五张）与五张 `*_distribution.json` 由 `buildWealdLevelOneQuestCards` 生成，分布 kind 按 **R-240**–**R-249**；与 `basicQuests` 中 `quest:weald:p001`–`p005` 交叉核对。`WRITE_NORMALIZED=1` 可重写；`weald-quest-cards.test.ts` 校验。沙盒出征见 `quest:weald:p004`（**R-248** `monsterDrawScope` 已接线）；其余 Weald 任务出征仍关。
+`extension/weald/quest_cards.json`（`ddbg-weald-quest-cards-v1`，仅 I 级五张）与五张 `*_distribution.json` 由 `buildWealdLevelOneQuestCards` 生成，分布 kind 按 **R-240**–**R-249**；与 `basicQuests` 中 `quest:weald:p001`–`p005` 交叉核对。`WRITE_NORMALIZED=1` 可重写；`weald-quest-cards.test.ts` 校验。沙盒出征见 `quest:weald:p001`（**R-246** brought back + **R-252** 封顶）、`quest:weald:p004`（**R-248** 当地牌堆）、`quest:weald:p005`；村庄战役抽选仍关。
 
 ## 和 parsed 的差别
 

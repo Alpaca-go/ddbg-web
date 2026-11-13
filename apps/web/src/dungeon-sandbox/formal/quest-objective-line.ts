@@ -13,7 +13,10 @@ export function questObjectiveProgressLine(game: GameState): string {
   }
 
   if (quest.xpKind === "broughtBack") {
-    return `${quest.name} · 任务 XP —/— · Necrotic Fungus brought back 计数未接线（R-246）`;
+    const broughtBack = d.necroticFungusBroughtBackCount ?? 0;
+    const xpEarned = Math.min(3, broughtBack);
+    const objective = d.fungalResearchObjectiveMet === true ? "已获得" : "未获得";
+    return `${quest.name} · 任务 XP ${xpEarned}/3 · brought back ${broughtBack} · 任务目标 ${objective}（R-246、R-038）`;
   }
 
   const clearedRooms = d.rooms.filter((r) => r.cleared);

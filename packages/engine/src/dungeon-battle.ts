@@ -48,6 +48,10 @@ import {
   wealdRoomCardFromUnknown,
 } from "./expansions/weald/room-tile-selection";
 import { wealdPackSelected } from "./expansions/weald/weald-mechanics";
+import {
+  fungalResearchProgressFromBattle,
+  isFungalResearchQuest,
+} from "./expansions/weald/fungal-research-quest";
 import { readDungeonQuestProgress } from "./dungeon-quest";
 import { readCampaignLevel } from "./hamlet-campaign";
 import { hasApprovedHigherMonsterFields } from "../../data/src/normalize/verified-monster-entry";
@@ -641,6 +645,10 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
       ? objectiveRoomResolutionAfterVictory(d, d.position)
       : undefined;
   const clearsRoom = victory && objectiveRoomClearsOnVictory(d, kind);
+  const fungalProgress =
+    victory && clearsRoom && isFungalResearchQuest(d)
+      ? fungalResearchProgressFromBattle(d, b, kind)
+      : null;
   const bonus = victory ? (kind === "treasure" ? 20 : fundraiser && kind === "lair" ? 10 : 0) : 0;
   const activeCardId = d.roomCards!.active!.cardId;
   const setAside = readSetAsideRoomCardIds(d);
@@ -698,6 +706,7 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
         },
         ...(objectiveRecovery ? { roomResolution: objectiveRecovery } : {}),
         ...(bossQuestVictory ? { bossQuestVictory } : {}),
+        ...(fungalProgress ?? {}),
         rooms: d.rooms.map((r) =>
           r.id === d.position && clearsRoom ? { ...r, cleared: true } : r,
         ),

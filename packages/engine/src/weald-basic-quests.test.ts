@@ -29,6 +29,8 @@ it("p001 XP 登记为 brought back，不再按清 8 房计 XP", () => {
   expect("maxRooms" in p001).toBe(false);
   expect(() => questPrintedXpCap(p001)).toThrow(/broughtBackCount/);
   expect(questPrintedXpCap(p001, { broughtBackCount: 2 })).toBe(2);
+  expect(questPrintedXpCap(p001, { broughtBackCount: 4 })).toBe(3);
+  expect(p001.verifiedRuleRulings).toEqual(expect.arrayContaining(["R-246", "R-038", "R-252"]));
 });
 
 it("p002–p005 印刷 XP 上限与 xpKind 不变", () => {
@@ -45,8 +47,8 @@ it("p002–p005 印刷 XP 上限与 xpKind 不变", () => {
   }
 });
 
-it("村庄战役闸门仍拒绝全部 Weald；p004/p005 沙盒 allowlist", () => {
-  const sandboxOk = new Set(["quest:weald:p004", "quest:weald:p005"]);
+it("村庄战役闸门仍拒绝全部 Weald；p001/p004/p005 沙盒 allowlist", () => {
+  const sandboxOk = new Set(["quest:weald:p001", "quest:weald:p004", "quest:weald:p005"]);
   for (const id of WEALD_IDS) {
     const quest = basicQuests.find((q) => q.id === id)!;
     expect(quest.expeditionRegion).toBe("weald");

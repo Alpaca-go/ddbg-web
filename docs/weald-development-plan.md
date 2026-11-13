@@ -5,9 +5,9 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 
 ## 当前进度与下一步
 
-- **当前阶段：步骤 5 沙盒已接通 `quest:weald:p004` Purge the Woods（**R-248** 当地-only 抽怪）与 `quest:weald:p005` Patrol the Woods（须选 Weald 包）；村庄战役抽选仍关。p001 brought back／p002–p003 运行时未接线。步骤 2 正式 Weald 日志存档闭环待后续。步骤 4 战斗真菌链路不变。**
-- **步骤 5 沙盒刀（上批）：`sandboxEmbarkQuestsForPacks` + `createCoreDungeonQuest` Weald 分支；`recoverHamletPools` 九房守恒；R-242 首轮先攻；QuestMap 按 **R-250** 共用核心 confirmed 八槽图。详见「步骤 5 第六批」。**
-- **下一刀：p001 brought back 计数；p002–p003 沙盒／SPECIAL；正式战役抽选仍延后；Playwright 冒烟排在出征核准之后。**
+- **当前阶段：步骤 5 沙盒已接通 `quest:weald:p001` Fungal Research（brought back + **R-252** 封顶 3）、`quest:weald:p004` Purge（**R-248** 当地牌堆）、`quest:weald:p005` Patrol the Woods；须选 Weald 包；村庄战役抽选仍关。p002–p003 SPECIAL 未接线。步骤 2 正式 Weald 日志存档闭环待后续。步骤 4 战斗真菌链路不变。**
+- **步骤 5 沙盒刀（本批）**：p001 清房计数、`summarizeDungeonQuest`、`questPrintedXpCap` 封顶；allowlist p001。详见「步骤 5 第八批」。**
+- **下一刀：p002–p003 沙盒／SPECIAL；其余 I 级任务；正式战役抽选仍延后；Playwright 冒烟排在出征核准之后。**
 - 步骤 0 已完成，提交 `e7fd17e1`；地点战役尚未开放。
 - 导入与计划两批已合入并推送 `main`（`3be97c65`）。步骤 1 怪物批次已合入并推送 `main`（`7075f4d8`）。
 - Houndmaster、Shieldbreaker 已接入，沿用现有英雄实现，不重做。
@@ -320,6 +320,17 @@ Brigand Pounder 类型行、Shrieker’s Nest 和 Cauldron Empty 的专属卡面
 ### 步骤 5 勘误补丁：p001 Fungal Research XP 登记
 
 - 起点 main `84569cb5`（#642 squash）。分支 `cursor/weald-p001-xp-fix-8fa3`。
-- `quest:weald:p001`：`xpKind: broughtBack`、`broughtBackSubject: necroticFungus`、`roomsPerXp: 1`；废止 `xpKind: all` + `maxRooms: 8` 冒充清房 XP。**R-246**；`questPrintedXpCap` 对该 kind 需 `broughtBackCount`，不再用 8 间房推算。**R-038** 对本卡是否仍封顶 3：**待确认**（卡面无「最多 3 XP」印刷句）。
+- `quest:weald:p001`：`xpKind: broughtBack`、`broughtBackSubject: necroticFungus`、`roomsPerXp: 1`；废止 `xpKind: all` + `maxRooms: 8` 冒充清房 XP。**R-246**；`questPrintedXpCap` 需 `broughtBackCount`。**R-038** 封顶 3 已由 **R-252**（核心规则书第 29 页）结案。
 - **未**实现砸毁／brought back 运行时；**未**开放出征；p002–p005 XP 计数未改。
 - 验证：typecheck、lint、Vitest（`weald-basic-quests.test.ts`）、`git diff --check`。
+
+### 步骤 5 第八批：Fungal Research 沙盒 + brought back
+
+- 起点 main `eb063770`（#644 squash：Purge 沙盒）。分支 `cursor/weald-p001-brought-back-af2a`。
+- **沙盒 allowlist**：`quest:weald:p001` 与 p004、p005 并列；须勾选 Weald 包；村庄 `questsForCampaignLevel`／`questsForContentPacks` 仍排除 weald。
+- **R-246 运行时**：清房叠加 `necroticFungusBroughtBackCount`；目标房 objective 须至少 1 个未砸毁真菌。
+- **R-252**：回村 `xpPerHero = min(3, broughtBackCount)`；`questPrintedXpCap` 同步封顶。
+- **怪物池**：混池（无 `wealdLocalOnly`）；QuestMap **R-250** 核心八槽。
+- **目标房 3／6／8**：`setAsideRoomCardIds` + `prepareObjectiveRoomBattle` 随机旁置；无新增几何状态机。
+- **未接线**：p002–p003 SPECIAL、村庄抽 2 选 1、Playwright、房间 `usable: true`。
+- 验证：typecheck、lint、Prettier；Vitest `weald-p001-sandbox-embark.test.ts`、`fungal-research-brought-back.test.ts`、`weald-basic-quests.test.ts`；`git diff --check`。
