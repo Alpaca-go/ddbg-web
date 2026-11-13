@@ -294,3 +294,10 @@ Brigand Pounder 类型行、Shrieker’s Nest 和 Cauldron Empty 的专属卡面
 - 包隔离：`questsForContentPacks`（未选 Weald 不进村庄 I 级池）；`basicQuestEnabledForContentPacks` 用于存档；选了包可读登记，但 `expeditionLocationEmbarkBlockReason`／`questsForCampaignLevel` 排除 weald，出征仍关；房间 `usable` 未改。
 - **待确认**：无新增玩法待确认；**R-248** 运行时、任务 SPECIAL 状态机、QuestMap Weald 图待接线 PR。
 - 本批验证：Node 24.21.0、pnpm 12.9.1；typecheck、lint、build；针对性 Vitest（`weald-quest-cards.test.ts`、`weald-basic-quests.test.ts`）；`pnpm exec prettier --check` 触及文件、`git diff --check`。
+
+### 步骤 5 勘误补丁：p001 Fungal Research XP 登记
+
+- 起点 main `84569cb5`（#642 squash）。分支 `cursor/weald-p001-xp-fix-8fa3`。
+- `quest:weald:p001`：`xpKind: broughtBack`、`broughtBackSubject: necroticFungus`、`roomsPerXp: 1`；废止 `xpKind: all` + `maxRooms: 8` 冒充清房 XP。**R-246**；`questPrintedXpCap` 对该 kind 需 `broughtBackCount`，不再用 8 间房推算。**R-038** 对本卡是否仍封顶 3：**待确认**（卡面无「最多 3 XP」印刷句）。
+- **未**实现砸毁／brought back 运行时；**未**开放出征；p002–p005 XP 计数未改。
+- 验证：typecheck、lint、Vitest（`weald-basic-quests.test.ts`）、`git diff --check`。

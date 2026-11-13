@@ -32,7 +32,15 @@ import { cardContentPack, packEnabled, type ContentPackId } from "./content-pack
 import type { QuestExpeditionRegion } from "./quest-map-pairing";
 
 export type QuestXpKind =
-  "all" | "lair" | "gold" | "objective" | "curio" | "dark" | "camp" | "flat";
+  "all" | "lair" | "gold" | "objective" | "curio" | "dark" | "camp" | "flat" | "broughtBack";
+
+/** R-246：卡面「1 XP / Necrotic Fungus brought back」计数对象（非清房）。 */
+export type QuestBroughtBackSubject = "necroticFungus";
+
+export type QuestPrintedXpCapOptions = {
+  /** brought back 数量；`xpKind: broughtBack` 时必填。 */
+  readonly broughtBackCount?: number;
+};
 
 /** 遗迹任务默认出征地点；单任务以 `expeditionRegion` 为准（R-116）。 */
 export const basicQuestExpeditionRegion: QuestExpeditionRegion = "ruins";
@@ -115,9 +123,9 @@ export const basicQuests = [
     name: "Fungal Research",
     level: 1 as const,
     restPoints: 8,
-    xpKind: "all" as const,
+    xpKind: "broughtBack" as const,
     roomsPerXp: 1,
-    maxRooms: 8,
+    broughtBackSubject: "necroticFungus" as const,
     expeditionRegion: "weald" as const,
     setAsideRoomCardIds: ["room:weald:p003", "room:weald:p006", "room:weald:p008"] as const,
     verifiedRuleRulings: ["R-246", "R-240", "R-243"] as const,
@@ -379,10 +387,23 @@ export function sandboxEmbarkQuests() {
 }
 
 /** 任务卡印刷 XP 上限（R-038）；Boss 定额见 R-122 `flatXp`。 */
-export function questPrintedXpCap(quest: (typeof basicQuests)[number]): number {
+export function questPrintedXpCap(
+  quest: (typeof basicQuests)[number],
+  options?: QuestPrintedXpCapOptions,
+): number {
   if (quest.xpKind === "flat") return quest.flatXp;
   if (quest.xpKind === "gold" || quest.xpKind === "camp") return 3;
-  return Math.min(3, quest.maxRooms / quest.roomsPerXp);
+  if (quest.xpKind === "broughtBack") {
+    const count = options?.broughtBackCount;
+    if (count === undefined) {
+      throw new Error(
+        `${quest.id}：questPrintedXpCap 需要 broughtBackCount（R-246；1 XP / Necrotic Fungus brought back）`,
+      );
+    }
+    return count * quest.roomsPerXp;
+  }
+  const roomQuest = quest as Extract<(typeof basicQuests)[number], { maxRooms: number }>;
+  return Math.min(3, roomQuest.maxRooms / roomQuest.roomsPerXp);
 }
 
 export function readBasicQuest(input: unknown) {

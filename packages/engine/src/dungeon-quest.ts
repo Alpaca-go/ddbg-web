@@ -175,6 +175,9 @@ export function summarizeDungeonQuest(state: GameState): ApplyResult {
       ],
     };
   }
+  if (quest.xpKind === "broughtBack") {
+    return refuse("回村 XP 按 R-246 Necrotic Fungus brought back 计数，运行时未接线");
+  }
   if (quest.xpKind === "camp") {
     const forwardCampSetups = d.forwardCampSetups ?? 0;
     const xpPerHero = Math.min(3, forwardCampSetups);
