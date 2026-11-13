@@ -1,8 +1,15 @@
 import { skillBelongsToFormalHero } from "./formal-roster-catalog";
 import { asQuestMapPairingQuest, basicQuests } from "../../data/src/basic-quests";
 import { pickEmbarkQuestMapLayout } from "../../data/src/quest-map-pairing";
-import { questsForCampaignLevel, questsForContentPacks } from "./campaign-quest-pool";
-import { expeditionLocationEmbarkBlockReason } from "../../data/src/quest-map-pairing";
+import { sandboxExpeditionEmbarkBlockReason } from "../../data/src/quest-map-pairing";
+import {
+  HAMLET_QUEST_DRAW_OPTION,
+  hamletWealdLocationDrawEnabled,
+  legalHamletQuestDrawModes,
+  remainingQuestIdsForLocationDeck,
+  remainingQuestIdsSinglePool,
+  type HamletQuestDrawOptionId,
+} from "./hamlet-location-quest-draw";
 import type { BasicQuestId } from "../../data/src/basic-quests";
 import {
   roomDistributionEmbarkBlockReason,
@@ -44,6 +51,100 @@ function shuffleIds(ids: readonly string[], seed: number, cursor: number) {
     nextCursor++;
   }
   return { deck, cursor: nextCursor };
+}
+
+function executeHamletQuestDrawMode(
+  mode: HamletQuestDrawOptionId,
+  seed: number,
+  cursor: number,
+  campaignLevel: ReturnType<typeof readCampaignLevel>,
+  contentPacks: DungeonState["contentPacks"],
+  currentQuestId: string,
+  discarded: readonly string[],
+):
+  | { readonly offers: readonly BasicQuestId[]; readonly cursor: number }
+  | { readonly reason: string } {
+  const ruins = [
+    ...remainingQuestIdsForLocationDeck(
+      "ruins",
+      campaignLevel,
+      contentPacks,
+      currentQuestId,
+      discarded,
+    ),
+  ];
+  const weald = [
+    ...remainingQuestIdsForLocationDeck(
+      "weald",
+      campaignLevel,
+      contentPacks,
+      currentQuestId,
+      discarded,
+    ),
+  ];
+  if (mode === HAMLET_QUEST_DRAW_OPTION.ruinsTwo) {
+    if (ruins.length < 2) return { reason: "遗迹任务堆剩余不足 2 张，无法按所选抽法抽牌（R33）" };
+    const drawn = shuffleIds(ruins, seed, cursor);
+    return { offers: drawn.deck.slice(0, 2) as BasicQuestId[], cursor: drawn.cursor };
+  }
+  if (mode === HAMLET_QUEST_DRAW_OPTION.wealdTwo) {
+    if (weald.length < 2) return { reason: "Weald 任务堆剩余不足 2 张，无法按所选抽法抽牌（R33）" };
+    const drawn = shuffleIds(weald, seed, cursor);
+    return { offers: drawn.deck.slice(0, 2) as BasicQuestId[], cursor: drawn.cursor };
+  }
+  if (mode === HAMLET_QUEST_DRAW_OPTION.splitOneEach) {
+    if (ruins.length < 1 || weald.length < 1)
+      return { reason: "遗迹与 Weald 任务堆须各至少有 1 张，无法各抽 1（R33）" };
+    const ruinsDrawn = shuffleIds(ruins, seed, cursor);
+    const wealdDrawn = shuffleIds(weald, seed, ruinsDrawn.cursor);
+    return {
+      offers: [ruinsDrawn.deck[0]!, wealdDrawn.deck[0]!] as BasicQuestId[],
+      cursor: wealdDrawn.cursor,
+    };
+  }
+  return { reason: "任务抽法无效（R33）" };
+}
+
+function presentHamletNextQuestOffer(
+  state: GameState,
+  d: NonNullable<GameState["dungeon"]>,
+  campaignLevel: ReturnType<typeof readCampaignLevel>,
+  offers: readonly BasicQuestId[],
+  cursor: number,
+): ApplyResult {
+  const pending = {
+    id: `hamlet-next-quest:${d.decision}`,
+    actorId: "party",
+    prompt:
+      offers.length === 1
+        ? `仅剩一张已接通${["", "I", "II", "III"][campaignLevel]}级任务：确认出征（R33、R-037）`
+        : "选择下一任务：抽到的两张中保留一张，另一张永久移出（R33、R-037）",
+    options: offers.map((id) => {
+      const quest = basicQuests.find((q) => q.id === id)!;
+      return { id, label: quest.name };
+    }),
+  };
+  return {
+    state: {
+      ...state,
+      dungeon: {
+        ...d,
+        cursor,
+        pending,
+        decision: d.decision + 1,
+        nextQuestOffers: offers,
+      },
+    },
+    events: [
+      {
+        type: "dungeonUpdated",
+        message: `下一任务候选项：${offers
+          .map((id) => basicQuests.find((q) => q.id === id)!.name)
+          .join(" / ")}`,
+      },
+    ],
+    pendingChoice: pending,
+  };
 }
 
 function shuffleKinds(
@@ -273,53 +374,123 @@ export function offerNextQuest(state: GameState): ApplyResult {
     };
   }
 
-  const levelPool =
-    d.contentPacks !== undefined
-      ? questsForContentPacks(campaignLevel, d.contentPacks)
-      : questsForCampaignLevel(campaignLevel);
-  const remaining = levelPool
-    .map((q) => q.id)
-    .filter((id) => id !== current && !discarded.includes(id));
+  if (hamletWealdLocationDrawEnabled(d.contentPacks)) {
+    const ruinsRemaining = remainingQuestIdsForLocationDeck(
+      "ruins",
+      campaignLevel,
+      d.contentPacks,
+      current,
+      discarded,
+    );
+    const wealdRemaining = remainingQuestIdsForLocationDeck(
+      "weald",
+      campaignLevel,
+      d.contentPacks,
+      current,
+      discarded,
+    );
+    const allRemaining = [...ruinsRemaining, ...wealdRemaining];
+    if (!allRemaining.length)
+      return rejectBattleCommand(
+        state,
+        `已无剩余已接通${["", "I", "II", "III"][campaignLevel]}级任务可出征（R-037）`,
+      );
+    if (allRemaining.length === 1)
+      return presentHamletNextQuestOffer(state, d, campaignLevel, [allRemaining[0]!], d.cursor);
+    const modes = legalHamletQuestDrawModes(campaignLevel, d.contentPacks, current, discarded);
+    if (!modes.length)
+      return rejectBattleCommand(
+        state,
+        `已无剩余已接通${["", "I", "II", "III"][campaignLevel]}级任务可出征（R-037）`,
+      );
+    if (modes.length === 1) {
+      const drawn = executeHamletQuestDrawMode(
+        modes[0]!.optionId,
+        state.seed,
+        d.cursor,
+        campaignLevel,
+        d.contentPacks,
+        current,
+        discarded,
+      );
+      if ("reason" in drawn) return rejectBattleCommand(state, drawn.reason);
+      return presentHamletNextQuestOffer(state, d, campaignLevel, drawn.offers, drawn.cursor);
+    }
+    const pending = {
+      id: `hamlet-quest-draw:${d.decision}`,
+      actorId: "party",
+      prompt: "选择任务抽法：从已选地点的任务堆抽取候选（Weald 规则书 E1；不混洗遗迹与 Weald）",
+      options: modes.map((m) => ({ id: m.optionId, label: m.label })),
+    };
+    return {
+      state: {
+        ...state,
+        dungeon: {
+          ...d,
+          pending,
+          decision: d.decision + 1,
+        },
+      },
+      events: [
+        {
+          type: "dungeonUpdated",
+          message: `待选任务抽法：${modes.map((m) => m.label).join(" / ")}（未消耗 RNG）`,
+        },
+      ],
+      pendingChoice: pending,
+    };
+  }
+
+  const remaining = remainingQuestIdsSinglePool(campaignLevel, d.contentPacks, current, discarded);
   if (!remaining.length)
     return rejectBattleCommand(
       state,
       `已无剩余已接通${["", "I", "II", "III"][campaignLevel]}级任务可出征（R-037）`,
     );
   const drawn = shuffleIds(remaining, state.seed, d.cursor);
-  const offers = drawn.deck.slice(0, Math.min(2, remaining.length));
-  const pending = {
-    id: `hamlet-next-quest:${d.decision}`,
-    actorId: "party",
-    prompt:
-      offers.length === 1
-        ? `仅剩一张已接通${["", "I", "II", "III"][campaignLevel]}级任务：确认出征（R33、R-037）`
-        : "选择下一任务：抽到的两张中保留一张，另一张永久移出（R33、R-037）",
-    options: offers.map((id) => {
-      const quest = basicQuests.find((q) => q.id === id)!;
-      return { id, label: quest.name };
-    }),
-  };
-  return {
-    state: {
-      ...state,
-      dungeon: {
-        ...d,
-        cursor: drawn.cursor,
-        pending,
-        decision: d.decision + 1,
-        nextQuestOffers: offers,
-      },
-    },
-    events: [
-      {
-        type: "dungeonUpdated",
-        message: `下一任务候选项：${offers
-          .map((id) => basicQuests.find((q) => q.id === id)!.name)
-          .join(" / ")}`,
-      },
-    ],
-    pendingChoice: pending,
-  };
+  const offers = drawn.deck.slice(0, Math.min(2, remaining.length)) as BasicQuestId[];
+  return presentHamletNextQuestOffer(state, d, campaignLevel, offers, drawn.cursor);
+}
+
+/** 已选 Weald 包：先选抽法后再洗牌进入 2 选 1（不消耗 RNG 直到本步）。 */
+export function chooseHamletQuestDrawMode(
+  state: GameState,
+  choiceId: string,
+  optionId: string,
+): ApplyResult {
+  const reason = embarkProblem(state, true);
+  const d = state.dungeon!;
+  const pending = d.pending;
+  if (
+    reason ||
+    !hamletWealdLocationDrawEnabled(d.contentPacks) ||
+    !pending?.id.startsWith("hamlet-quest-draw:") ||
+    pending.id !== choiceId ||
+    !pending.options.some((o) => o.id === optionId)
+  )
+    return rejectBattleCommand(state, reason ?? "任务抽法选择无效或已过期");
+  const campaignLevel = readCampaignLevel(d);
+  const current = d.questSummary!.questId;
+  const discarded = d.discardedQuests ?? [];
+  const drawn = executeHamletQuestDrawMode(
+    optionId as HamletQuestDrawOptionId,
+    state.seed,
+    d.cursor,
+    campaignLevel,
+    d.contentPacks,
+    current,
+    discarded,
+  );
+  if ("reason" in drawn) return rejectBattleCommand(state, drawn.reason);
+  const { pending: _pending, ...dungeonBase } = d;
+  void _pending;
+  return presentHamletNextQuestOffer(
+    state,
+    { ...dungeonBase, decision: d.decision } as typeof d,
+    campaignLevel,
+    drawn.offers,
+    drawn.cursor,
+  );
 }
 
 /** 选定任务后布置新地牢：保留战役资源，应用临时技能，游商陈列洗回，进入开局补给（R12/R33/R34）。 */
@@ -347,7 +518,11 @@ export function chooseNextQuest(
   const quest = basicQuests.find((q) => q.id === optionId);
   const campaignLevel = readCampaignLevel(d);
   if (!quest) return rejectBattleCommand(state, "未知任务，未出征");
-  const locationBlock = expeditionLocationEmbarkBlockReason(quest.expeditionRegion);
+  const locationBlock = sandboxExpeditionEmbarkBlockReason(
+    quest.expeditionRegion,
+    quest.id,
+    d.contentPacks,
+  );
   if (locationBlock) return rejectBattleCommand(state, locationBlock);
   const faceEmbark = resolveFaceTheThreatEmbarkForChoose(state, optionId);
   if (faceEmbark.kind === "refused") return faceEmbark.result;

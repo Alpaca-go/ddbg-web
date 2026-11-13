@@ -5,9 +5,9 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 
 ## 当前进度与下一步
 
-- **当前阶段：步骤 5 沙盒已接通 `quest:weald:p001`–`p005`（**R-252**／**R-244**／**R-245**／**R-248**／**R-242**）；须选 Weald 包；村庄战役抽选仍关。步骤 2 正式 Weald 日志存档闭环待后续。步骤 4 战斗真菌链路不变。**
-- **步骤 5 沙盒刀（本批）**：p003 Disinfection 出征 allowlist、开局 +3 公共 Potion、Infected Oak 战斗消毒与 Poisonous Roots；详见「步骤 5 第十批」。**
-- **下一刀：村庄抽 2 选 1；正式战役抽选仍延后；Playwright 排在出征核准之后。**
+- **当前阶段：步骤 5 沙盒已接通 `quest:weald:p001`–`p005`（**R-252**／**R-244**／**R-245**／**R-248**／**R-242**）；须选 Weald 包；已选 Weald 包时村庄按地点堆抽 2 选 1，Hamlet 可出征 p001–p005。步骤 2 正式 Weald 日志存档闭环待后续。步骤 4 战斗真菌链路不变。**
+- **步骤 5 沙盒刀（本批）**：村庄地点任务堆抽选 + Hamlet 出征闸门；详见「步骤 5 第十一批」。**
+- **下一刀：正式战役开局第一趟抽选仍延后；Playwright 排在出征核准之后。**
 - 步骤 0 已完成，提交 `e7fd17e1`；地点战役尚未开放。
 - 导入与计划两批已合入并推送 `main`（`3be97c65`）。步骤 1 怪物批次已合入并推送 `main`（`7075f4d8`）。
 - Houndmaster、Shieldbreaker 已接入，沿用现有英雄实现，不重做。
@@ -353,3 +353,13 @@ Brigand Pounder 类型行、Shrieker’s Nest 和 Cauldron Empty 的专属卡面
 - **R-245 运行时**：`startingPotions: 3` 接入公共补给池（非 **R-197** 任务药水）；`disinfectInfectedOak`（1 行动 + 1 Potion，星区 B/D/E/G）；`disinfectionOakCount` → 回村 XP（**R-038** 封顶 3）；5 号板块 `poisonousRoots` 仅 `specialRegions.runtimeReady`，房间 `usable` 仍为 false。
 - **未做**：村庄抽选、Playwright、Boss／Stygian。
 - 验证：typecheck、lint、Prettier；Vitest `weald-p003-sandbox-embark.test.ts`、`battle-infected-oak.test.ts`、`weald-basic-quests.test.ts` 与既有 p001／p002／p004／p005 沙盒测；`git diff --check`。
+
+### 步骤 5 第十一批：村庄地点任务堆抽 2 选 1
+
+- 起点 main `f5443cae`（#648 p001–p005 沙盒已合）。分支 `cursor/weald-village-draw-b928`。
+- **已选 Weald 包**：`offerNextQuest` 维护遗迹与 Weald 独立 I 级普通任务堆（Weald 仅 p001–p005；II/III Weald 堆为空）；不混洗成单一池。合法时可选「遗迹抽 2」「Weald 抽 2」「两地各 1」；多抽法时先 `hamlet-quest-draw` 待选（不消耗 RNG），再分堆洗牌进入既有 `hamlet-next-quest` 2 选 1。
+- **未选 Weald 包**：行为与改前一致（`questsForCampaignLevel` / `questsForContentPacks` 混合过滤，不含 weald）。
+- **Hamlet 出征**：`chooseNextQuest` 对 p001–p005 + weald 包放行；仅 `expeditionRegion` 的正式闸门仍拒绝全部 Weald。房间卡 `usable` 仍为 false；未开 Boss／Stygian／II–III Weald 任务堆。
+- **I→II 沙盒预览**：已选 weald 包时剩余 Weald I 普通任务写入 `discardedQuests`，避免错误回流。
+- **未做**：正式开局第一趟抽选、Playwright、Boss／Stygian、Warrens／Cove 等地任务堆。
+- 验证：typecheck、lint、Prettier；Vitest `hamlet-weald-location-draw.test.ts`、`content-packs.test.ts`、`weald-basic-quests.test.ts`、`hamlet-embark.test.ts` 与 Face the Threat／最暗地牢相关测；`git diff --check`。

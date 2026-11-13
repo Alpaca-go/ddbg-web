@@ -2,6 +2,7 @@ import { monsterPoolCatalogValidForLocation } from "./monster-pool-validation";
 import trinketFile from "../../data/normalized/corebox/trinket.json";
 import { basicQuests } from "../../data/src/basic-quests";
 import { questsForCampaignLevel } from "./campaign-quest-pool";
+import { remainingWealdQuestIdsForCampaignDiscard } from "./hamlet-location-quest-draw";
 import type { CampaignLevel } from "../../data/src/basic-quests";
 import { ruinsMonsterPool } from "../../data/src/monster-pool";
 import { normalizedTrinketFileSchema } from "../../data/src/normalize/schema";
@@ -65,6 +66,9 @@ export function advanceCampaignLevel(state: GameState): ApplyResult {
     return rejectBattleCommand(state, "任务弃置记录无效，未推进战役等级（R-037）");
   for (const quest of questsForCampaignLevel(1)) {
     if (!discarded.includes(quest.id)) discarded.push(quest.id);
+  }
+  for (const questId of remainingWealdQuestIdsForCampaignDiscard(1, d.contentPacks, discarded)) {
+    if (!discarded.includes(questId)) discarded.push(questId);
   }
   const current = d.questSummary.questId;
   if (basicQuests.some((q) => q.id === current && q.level === 1) && !discarded.includes(current))
