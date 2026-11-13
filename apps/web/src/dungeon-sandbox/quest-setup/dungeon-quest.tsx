@@ -9,7 +9,7 @@ import type { QuestParty, DungeonState, FormalHeroName, ContentPackId } from "@d
 import { battleData as questBattleData } from "virtual:quest-battle-data";
 import {
   asQuestMapPairingQuest,
-  sandboxEmbarkQuests,
+  sandboxEmbarkQuestsForPacks,
 } from "../../../../../packages/data/src/basic-quests";
 import { pickQuestMapLayoutId } from "../../../../../packages/data/src/quest-map-pairing";
 import type { BasicQuestId } from "../../../../../packages/data/src/basic-quests";
@@ -92,7 +92,7 @@ export function DungeonQuest() {
   };
   if (started) return <DungeonSandbox formal />;
 
-  const startQuests = sandboxEmbarkQuests();
+  const startQuests = sandboxEmbarkQuestsForPacks(contentPacks);
   const selectedQuest = startQuests.find((q) => q.id === questId) ?? startQuests[0]!;
   const setupHeroes = projectQuestSetupHeroes(party, partyNames);
   const setupSeed = resolveQuestSeed();

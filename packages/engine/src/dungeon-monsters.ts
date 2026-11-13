@@ -1,6 +1,11 @@
 import { dungeonMonsterPoolCatalogValid } from "./monster-pool-validation";
 import { dungeonMonsterPoolThrough } from "./monster-pool-runtime";
-import { roomCatalogSchema } from "../../data/src/room";
+import {
+  expeditionRoomCatalogParses,
+  ordinaryRoomCardsInCatalog,
+  ORDINARY_EXPEDITION_ROOM_COUNT,
+  readExpeditionRoomRegion,
+} from "./expedition-room-catalog";
 import { readRoomTile } from "./room-tile-selection";
 import type { ApplyResult, GameState } from "./command";
 import { createRng } from "./rng";
@@ -55,7 +60,7 @@ export function prepareDungeonMonsters(state: GameState): ApplyResult {
     active?.roomId !== d.position ||
     !active?.tileId ||
     selected.status !== "matched" ||
-    !roomCatalogSchema.safeParse(d.roomCards?.cards).success
+    !expeditionRoomCatalogParses(d.roomCards?.cards, readExpeditionRoomRegion(d))
   )
     return refuse("需要已抽房间与可用板块的获批部署；不能替换房间或提前抽怪物（R-048）");
   const { deployment } = selected;
@@ -66,12 +71,13 @@ export function prepareDungeonMonsters(state: GameState): ApplyResult {
   if (questSpawn) return questSpawn;
   const questHold = questMonsterDeploymentHold(d);
   if (questHold) return refuse(questHold);
+  const roomRegion = readExpeditionRoomRegion(d);
   const roomIds = allRuinsRoomCardIds(d, active.cardId);
   if (
-    roomIds.length !== 9 ||
-    new Set(roomIds).size !== 9 ||
+    roomIds.length !== ORDINARY_EXPEDITION_ROOM_COUNT ||
+    new Set(roomIds).size !== ORDINARY_EXPEDITION_ROOM_COUNT ||
     roomIds.some(
-      (id) => !d.roomCards!.cards.some((c) => c.id === id && c.location === "ruins" && !c.boss),
+      (id) => !ordinaryRoomCardsInCatalog(d.roomCards!.cards, roomRegion).some((c) => c.id === id),
     )
   )
     return refuse("房间牌堆不守恒，不能推进怪物部署");

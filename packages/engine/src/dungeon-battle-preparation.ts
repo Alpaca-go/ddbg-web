@@ -1,5 +1,10 @@
 import { prepareDarkestRoom } from "./darkest-setup";
-import { roomCatalogSchema } from "../../data/src/room";
+import {
+  expeditionRoomCatalogParses,
+  ordinaryRoomCardsInCatalog,
+  ORDINARY_EXPEDITION_ROOM_COUNT,
+  readExpeditionRoomRegion,
+} from "./expedition-room-catalog";
 import { readRoomTile } from "./room-tile-selection";
 import type { ApplyResult, GameState } from "./command";
 import { createRng } from "./rng";
@@ -7,9 +12,9 @@ import { isGuardedDungeonRoom } from "./dungeon-curio-room";
 import {
   allRuinsRoomCardIds,
   prepareObjectiveRoomBattle,
-  ruinsRoomDeckWithoutSetAside,
   readSetAsideRoomCardIds,
 } from "./dungeon-objective";
+import { expeditionRoomDeckWithoutSetAside } from "./expedition-room-catalog";
 
 /** R10、R15：遗迹普通房间完整洗牌，取顶牌再匹配板块；不替换未获批房间。 */
 export function prepareDungeonBattle(state: GameState): ApplyResult {
@@ -32,15 +37,16 @@ export function prepareDungeonBattle(state: GameState): ApplyResult {
   if (d.darkest) return prepareDarkestRoom(state);
   const objective = prepareObjectiveRoomBattle(state);
   if (objective) return objective;
-  if (!c || !roomCatalogSchema.safeParse(c.cards).success)
-    return refuse("需要完整核心盒房间目录，不能只装入已获批板块对应的牌（R10）");
-  const pool = c.cards.filter((card) => card.location === "ruins" && !card.boss);
+  const roomRegion = readExpeditionRoomRegion(d);
+  if (!c || !expeditionRoomCatalogParses(c.cards, roomRegion))
+    return refuse("需要完整地点普通房间目录，不能只装入已获批板块对应的牌（R10）");
+  const pool = ordinaryRoomCardsInCatalog(c.cards, roomRegion);
   const aside = readSetAsideRoomCardIds(d);
-  const defaultDeck = ruinsRoomDeckWithoutSetAside(c.cards, aside);
+  const defaultDeck = expeditionRoomDeckWithoutSetAside(c.cards, roomRegion, aside);
   const available = allRuinsRoomCardIds(d);
   if (
-    available.length !== 9 ||
-    new Set(available).size !== 9 ||
+    available.length !== ORDINARY_EXPEDITION_ROOM_COUNT ||
+    new Set(available).size !== ORDINARY_EXPEDITION_ROOM_COUNT ||
     available.some((id) => !pool.some((card) => card.id === id)) ||
     (c.deck ?? []).some((id) => aside.includes(id)) ||
     (c.discard ?? []).some((id) => aside.includes(id)) ||

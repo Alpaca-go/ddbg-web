@@ -4,7 +4,14 @@ import type { ApplyResult, GameState } from "./command";
 import type { BattleArea } from "./battle";
 import type { DungeonState } from "./dungeon";
 import { readRoomTile } from "./room-tile-selection";
-import { roomCatalogSchema } from "../../data/src/room";
+import {
+  expeditionRegionForQuestId,
+  expeditionRoomCatalogParses,
+  expeditionRoomDeckWithoutSetAside,
+  ordinaryRoomCardsInCatalog,
+  ORDINARY_EXPEDITION_ROOM_COUNT,
+  readExpeditionRoomRegion,
+} from "./expedition-room-catalog";
 import { createRng } from "./rng";
 import { isQuestProvisionId, readObjectiveRecoveryProvision } from "./quest-provisions";
 
@@ -99,17 +106,7 @@ export function ruinsRoomDeckWithoutSetAside(
   cards: readonly { readonly id: string; readonly location: string; readonly boss?: boolean }[],
   setAsideRoomCardId?: string | readonly string[],
 ) {
-  const pool = cards.filter((c) => c.location === "ruins" && !c.boss);
-  const aside =
-    typeof setAsideRoomCardId === "string" ? [setAsideRoomCardId] : (setAsideRoomCardId ?? []);
-  if (!aside.length) return pool.map((c) => c.id);
-  if (
-    new Set(aside).size !== aside.length ||
-    aside.some((id) => !pool.some((c) => c.id === id)) ||
-    pool.length !== 9
-  )
-    throw new Error("旁置房间牌需要完整九张遗迹普通房间目录（R-048）");
-  return pool.filter((c) => !aside.includes(c.id)).map((c) => c.id);
+  return expeditionRoomDeckWithoutSetAside(cards, "ruins", setAsideRoomCardId);
 }
 
 export function allRuinsRoomCardIds(
@@ -118,9 +115,10 @@ export function allRuinsRoomCardIds(
 ) {
   const c = d.roomCards;
   if (!c) return [];
+  const region = readExpeditionRoomRegion(d);
   const aside = readSetAsideRoomCardIds(d as DungeonState);
   const active = activeCardId ?? c.active?.cardId;
-  const defaultDeck = ruinsRoomDeckWithoutSetAside(c.cards, aside);
+  const defaultDeck = expeditionRoomDeckWithoutSetAside(c.cards, region, aside);
   const inDeck = c.deck ?? defaultDeck;
   const ids = [...inDeck, ...(c.discard ?? [])];
   if (active && !ids.includes(active)) ids.push(active);
@@ -137,23 +135,24 @@ export function prepareObjectiveRoomBattle(state: GameState): ApplyResult | null
     return prepareBossObjectiveRoom(state);
   const aside = readSetAsideRoomCardIds(d);
   const c = d.roomCards;
-  if (!c || !roomCatalogSchema.safeParse(c.cards).success)
-    return refuse(state, "需要完整核心盒房间目录（R-048）");
+  const region = expeditionRegionForQuestId(readBasicQuest(d.questDistribution)?.id);
+  if (!c || !expeditionRoomCatalogParses(c.cards, region))
+    return refuse(state, "需要完整地点普通房间目录（R-048）");
   if (c.active) return refuse(state, "该房间牌已记录；不能重抽（R15）");
   if (aside.length) {
     if (!Number.isSafeInteger(d.cursor) || d.cursor < 0)
       return refuse(state, "随机游标无效，未选择目标房间（R-048）");
     const candidates = aside.map((id) =>
-      c.cards.find((entry) => entry.id === id && entry.location === "ruins" && !entry.boss),
+      ordinaryRoomCardsInCatalog(c.cards, region).find((entry) => entry.id === id),
     );
     if (candidates.some((card) => !card))
-      return refuse(state, "旁置目标房间牌不在遗迹目录中（R-048）");
+      return refuse(state, "旁置目标房间牌不在地点目录中（R-048）");
     const available = allRuinsRoomCardIds(d);
     if (
-      available.length !== 9 ||
-      new Set(available).size !== 9 ||
+      available.length !== ORDINARY_EXPEDITION_ROOM_COUNT ||
+      new Set(available).size !== ORDINARY_EXPEDITION_ROOM_COUNT ||
       available.some(
-        (id) => !c.cards.some((card) => card.id === id && card.location === "ruins" && !card.boss),
+        (id) => !ordinaryRoomCardsInCatalog(c.cards, region).some((card) => card.id === id),
       ) ||
       (c.deck ?? []).some((id) => aside.includes(id)) ||
       (c.discard ?? []).some((id) => aside.includes(id))

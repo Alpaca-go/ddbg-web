@@ -4,7 +4,10 @@ import {
   basicQuestEnabledForContentPacks,
   basicQuests,
 } from "../../data/src/basic-quests";
-import { expeditionLocationEmbarkBlockReason } from "../../data/src/quest-map-pairing";
+import { sandboxExpeditionEmbarkBlockReason } from "../../data/src/quest-map-pairing";
+import { isSandboxWealdEmbarkQuest } from "../../data/src/basic-quests";
+import { rebuildLocationQuestDecks } from "./location-quest-sources";
+import { WEALD_APPROVED_ROOM_CARDS } from "./expansions/weald/room-catalog";
 import { pickEmbarkQuestMapLayout } from "../../data/src/quest-map-pairing";
 import type { BasicQuestId } from "../../data/src/basic-quests";
 import type { CurioCard } from "../../data/src/curio";
@@ -62,8 +65,14 @@ export function createCoreDungeonQuest(
     sources = sourcesForContentPacks(sources, contentPacks);
   }
   const quest = basicQuests.find((quest) => quest.id === questId);
-  const sandboxEmbarkOk = quest && (quest.level === 1 || ("bossQuest" in quest && quest.bossQuest));
-  const locationBlock = quest ? expeditionLocationEmbarkBlockReason(quest.expeditionRegion) : null;
+  const sandboxEmbarkOk =
+    quest &&
+    (quest.level === 1 ||
+      ("bossQuest" in quest && quest.bossQuest) ||
+      isSandboxWealdEmbarkQuest(questId));
+  const locationBlock = quest
+    ? sandboxExpeditionEmbarkBlockReason(quest.expeditionRegion, questId, contentPacks)
+    : null;
   if (locationBlock) throw new Error(locationBlock);
   if (!basicQuestEnabledForContentPacks(questId, contentPacks))
     throw new Error("任务与所选内容包不一致，未创建地牢");
@@ -138,7 +147,12 @@ export function createCoreDungeonQuest(
   };
   const problem = trinketPoolProblem(trinkets, heroes);
   if (problem) throw new Error(problem);
-  const decks = rebuildCoreQuestDecks(sources);
+  const wealdSandbox = quest?.expeditionRegion === "weald";
+  if (wealdSandbox && (!contentPacks?.includes("weald") || !sources.weald))
+    throw new Error("Weald 沙盒出征需要已选内容包与完整核准来源");
+  const decks = wealdSandbox
+    ? rebuildLocationQuestDecks(sources, "weald", 1, contentPacks)
+    : rebuildCoreQuestDecks(sources);
   const layout = pickEmbarkQuestMapLayout(asQuestMapPairingQuest(quest), seed, 0);
   const initial = createDungeonSandbox(
     seed,
@@ -154,12 +168,14 @@ export function createCoreDungeonQuest(
       provisions: [],
     },
     decks.curios,
-    sources.rooms,
+    wealdSandbox ? WEALD_APPROVED_ROOM_CARDS : sources.rooms,
     decks.monsterPool.cards,
     { ...sources.catalog, conditions, trinkets },
     true,
   );
   let game: GameState = { ...initial, skillLightBeforeCrit: true };
+  if (wealdSandbox && game.dungeon)
+    game = { ...game, dungeon: { ...game.dungeon, monsterPool: { ...decks.monsterPool } } };
   if (contentPacks && game.dungeon) game = { ...game, dungeon: { ...game.dungeon, contentPacks } };
   if (mode === "stygian" && stygianRoomRules && game.dungeon)
     game = { ...game, dungeon: { ...game.dungeon, stygianRoomRules } };

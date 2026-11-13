@@ -71,6 +71,11 @@ import {
 } from "./boss/necromancer-i-combat-runtime";
 import { continueWealdMonsterSummon } from "./expansions/weald/monster-summon";
 import {
+  applyPatrolTheWoodsRoundOneInitiative,
+  patrolTheWoodsInitiativeTriggered,
+  rollPatrolTheWoodsBattleStartD10,
+} from "./expansions/weald/patrol-the-woods-initiative";
+import {
   bumpFanaticIActionRoundCount,
   clearFanaticIPyre,
   expandFanaticIInitiativeDeckSides,
@@ -174,10 +179,26 @@ function startRound(
   const rng = createRng(seed);
   for (let index = 0; index < battle.rngCursor; index += 1) rng.next();
   let cursor = battle.rngCursor;
+  let patrolRoll: number | undefined;
+  if (
+    gameState &&
+    round === 1 &&
+    gameState.dungeon?.questDistribution?.questId === "quest:weald:p005"
+  ) {
+    const rolled = rollPatrolTheWoodsBattleStartD10(seed, cursor);
+    patrolRoll = rolled.roll;
+    cursor = rolled.cursor;
+  }
   for (let index = deck.length - 1; index > 0; index -= 1) {
     const other = Math.floor(rng.next() * (index + 1));
     [deck[index], deck[other]] = [deck[other]!, deck[index]!];
     cursor += 1;
+  }
+  if (gameState && round === 1 && patrolRoll !== undefined) {
+    deck = applyPatrolTheWoodsRoundOneInitiative(
+      deck,
+      patrolTheWoodsInitiativeTriggered(gameState, patrolRoll),
+    );
   }
   const {
     prophetCalamitousUsedThisRound: _calamitousRoundFlag,

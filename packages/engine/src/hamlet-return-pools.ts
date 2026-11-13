@@ -5,7 +5,11 @@ import { conditionPoolProblem } from "./conditions";
 import { trinketPoolProblem } from "./trinket-acquisition";
 import { createLootState } from "./loot";
 import { dungeonCurioCatalogValid } from "./dungeon-curio-catalog";
-import { roomCatalogSchema } from "../../data/src/room";
+import {
+  expeditionRegionForQuestId,
+  expeditionRoomCatalogParses,
+  ordinaryRoomCardsInCatalog,
+} from "./expedition-room-catalog";
 import { basicQuests } from "../../data/src/basic-quests";
 import { readSetAsideRoomCardIds, ruinsRoomDeckWithoutSetAside } from "./dungeon-objective";
 
@@ -18,6 +22,7 @@ export function recoverHamletPools(d: DungeonState, seed: number) {
     rooms = d.roomCards,
     // 未发生战斗时宝箱池尚未实例化；沿既有createLootState的十枚规范实例建立。
     loot = d.lootPool ?? { ...createLootState(), gold: d.gold };
+  const questId = d.questDistribution?.questId;
   if (
     !conditions ||
     !trinkets ||
@@ -29,18 +34,15 @@ export function recoverHamletPools(d: DungeonState, seed: number) {
     rooms.active ||
     !dungeonCurioCatalogValid(d) ||
     !restingMonsterPoolValid(d) ||
-    !roomCatalogSchema.safeParse(rooms.cards).success
+    !expeditionRoomCatalogParses(rooms.cards, expeditionRegionForQuestId(questId))
   )
     return refuse("回村需要完整牌池且所有获得/房间效果已完成（R32、R-048）");
   const problem =
     conditionPoolProblem(conditions, d.heroes) ?? trinketPoolProblem(trinkets, d.heroes);
   if (problem) return refuse(problem);
-  const questId = d.questDistribution?.questId;
+  const roomRegion = expeditionRegionForQuestId(questId);
   const region = basicQuests.find((q) => q.id === questId)?.expeditionRegion ?? ("ruins" as const);
-  const roomIds =
-    region === "ruins"
-      ? rooms.cards.filter((c) => c.location === "ruins" && !c.boss).map((c) => c.id)
-      : rooms.cards.filter((c) => c.location === region).map((c) => c.id);
+  const roomIds = ordinaryRoomCardsInCatalog(rooms.cards, roomRegion).map((c) => c.id);
   const conserved = (all: readonly string[], parts: readonly string[]) =>
     parts.length === all.length &&
     new Set(parts).size === all.length &&
@@ -50,12 +52,8 @@ export function recoverHamletPools(d: DungeonState, seed: number) {
   const deck =
     region === "ruins"
       ? (rooms.deck ?? ruinsRoomDeckWithoutSetAside(rooms.cards, asides))
-      : rooms.deck;
-  const pool = [
-    ...(deck ?? (region === "ruins" ? roomIds : [])),
-    ...(rooms.discard ?? []),
-    ...asides,
-  ];
+      : (rooms.deck ?? roomIds);
+  const pool = [...(deck ?? roomIds), ...(rooms.discard ?? []), ...asides];
   const poolConserved =
     pool.length === new Set(pool).size && pool.every((id) => roomIds.includes(id));
   if (
@@ -63,9 +61,11 @@ export function recoverHamletPools(d: DungeonState, seed: number) {
       curio.cards.map((c) => c.id),
       [...(curio.deck ?? curio.cards.map((c) => c.id)), ...curio.discard],
     ) ||
-    (region === "ruins" ? !conserved(roomIds, pool) : !poolConserved)
+    (region === "ruins"
+      ? !conserved(roomIds, pool)
+      : pool.length === roomIds.length && poolConserved)
   )
-    return refuse("Curio或遗迹房间牌池不守恒，未回收（R32）");
+    return refuse("Curio或地点房间牌池不守恒，未回收（R32）");
   const tokens = createLootState().available;
   if (
     loot.placed.length ||

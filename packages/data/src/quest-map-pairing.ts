@@ -1,10 +1,13 @@
 import layoutsFile from "../normalized/corebox/dungeon_layouts.json";
+import wealdLayoutsFile from "../normalized/extension/weald/dungeon_layouts.json";
 import {
   dungeonLayoutFileSchema,
   dungeonLayoutSchema,
   roomDistributionTokenTotal,
   type DungeonLayout,
 } from "./dungeon-layout";
+import { isSandboxWealdEmbarkQuest } from "./basic-quests";
+import type { ContentPackId } from "./content-packs";
 
 /** R-046 / R-116：8 槽遗迹 vs 16 槽最暗地牢（红边 QuestMap p11/p12，VQ-08/09）。 */
 export type QuestExpeditionRegion = "ruins" | "darkestDungeon" | "weald";
@@ -18,7 +21,25 @@ export function expeditionLocationEmbarkBlockReason(
   return null;
 }
 
-const parsedLayouts = dungeonLayoutFileSchema.parse(layoutsFile).layouts;
+/** 村庄战役与 Hamlet 正式出征；沙盒 allowlist 见 `sandboxExpeditionEmbarkBlockReason`。 */
+export function sandboxExpeditionEmbarkBlockReason(
+  expeditionRegion: QuestExpeditionRegion,
+  questId: string,
+  packs?: readonly ContentPackId[],
+): string | null {
+  if (
+    expeditionRegion === "weald" &&
+    isSandboxWealdEmbarkQuest(questId) &&
+    packs?.includes("weald")
+  )
+    return null;
+  return expeditionLocationEmbarkBlockReason(expeditionRegion);
+}
+
+const parsedLayouts = [
+  ...dungeonLayoutFileSchema.parse(layoutsFile).layouts,
+  ...dungeonLayoutFileSchema.parse(wealdLayoutsFile).layouts,
+];
 
 export function coreQuestMapLayouts(): readonly DungeonLayout[] {
   return parsedLayouts;
@@ -28,7 +49,10 @@ export function dungeonLayoutRoomSlotCount(layout: Pick<DungeonLayout, "nodes">)
   return layout.nodes.filter((n) => n.kind === "room").length;
 }
 
-export function inferQuestMapRegion(layout: Pick<DungeonLayout, "nodes">): QuestExpeditionRegion {
+export function inferQuestMapRegion(
+  layout: Pick<DungeonLayout, "id" | "nodes">,
+): QuestExpeditionRegion {
+  if (layout.id.startsWith("quest_map:weald:")) return "weald";
   return dungeonLayoutRoomSlotCount(layout) === 16 ? "darkestDungeon" : "ruins";
 }
 

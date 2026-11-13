@@ -73,6 +73,11 @@ import {
   objectiveRoomResolutionAfterVictory,
   readSetAsideRoomCardIds,
 } from "./dungeon-objective";
+import {
+  ordinaryRoomCardsInCatalog,
+  ORDINARY_EXPEDITION_ROOM_COUNT,
+  readExpeditionRoomRegion,
+} from "./expedition-room-catalog";
 import { heroSkillSlotCount, questHeroSkillCount } from "./hero-loadout";
 import { readMonsterSelfStatuses } from "./monster-self-status";
 import type { StatusEffect } from "./status";
@@ -734,6 +739,7 @@ function partitionsValid(d: DungeonState): boolean {
     ...pool.active.monsters.map((m) => m.instanceId),
   ];
   const expectedCount = catalog.length + outside.length;
+  const roomRegion = readExpeditionRoomRegion(d);
   const roomIds = allRuinsRoomCardIds(d, rooms.active.cardId);
   const aside = readSetAsideRoomCardIds(d);
   return (
@@ -752,8 +758,10 @@ function partitionsValid(d: DungeonState): boolean {
             c.stanceSlots === m.stanceSlots,
         ),
     ) &&
-    roomIds.length === 9 &&
-    new Set(roomIds).size === 9 &&
-    roomIds.every((id) => rooms.cards.some((c) => c.id === id && c.location === "ruins" && !c.boss))
+    roomIds.length === ORDINARY_EXPEDITION_ROOM_COUNT &&
+    new Set(roomIds).size === ORDINARY_EXPEDITION_ROOM_COUNT &&
+    roomIds.every((id) =>
+      ordinaryRoomCardsInCatalog(rooms.cards, roomRegion).some((c) => c.id === id),
+    )
   );
 }

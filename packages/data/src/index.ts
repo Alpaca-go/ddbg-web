@@ -38,11 +38,15 @@ export {
   asQuestMapPairingQuest,
   basicQuestExpeditionRegion,
   sandboxEmbarkQuests,
+  sandboxEmbarkQuestsForPacks,
+  isSandboxWealdEmbarkQuest,
+  SANDBOX_WEALD_EMBARK_QUEST_IDS,
 } from "./basic-quests";
 export {
   compatibleQuestMapLayouts,
   coreQuestMapLayouts,
   dungeonLayoutRoomSlotCount,
+  expeditionLocationEmbarkBlockReason,
   inferQuestMapRegion,
   isQuestMapPageHardBind,
   pickEmbarkQuestMapLayout,
@@ -50,6 +54,7 @@ export {
   pickQuestMapLayoutId,
   questIdPageNumber,
   questMapLayoutPageNumber,
+  sandboxExpeditionEmbarkBlockReason,
 } from "./quest-map-pairing";
 export type { QuestExpeditionRegion, QuestMapPairingInput } from "./quest-map-pairing";
 export {

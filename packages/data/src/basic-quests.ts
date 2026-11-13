@@ -379,11 +379,27 @@ export function basicQuestEnabledForContentPacks(
   return packEnabled(packs, cardContentPack(quest));
 }
 
+/** 步骤 5 沙盒第一刀：仅接线 Patrol the Woods；村庄战役池仍排除全部 Weald。 */
+export const SANDBOX_WEALD_EMBARK_QUEST_IDS = ["quest:weald:p005"] as const;
+export type SandboxWealdEmbarkQuestId = (typeof SANDBOX_WEALD_EMBARK_QUEST_IDS)[number];
+
+export function isSandboxWealdEmbarkQuest(questId: string): questId is SandboxWealdEmbarkQuestId {
+  return (SANDBOX_WEALD_EMBARK_QUEST_IDS as readonly string[]).includes(questId);
+}
+
 /** 沙盒 / 调试出征：I 级普通任务 + 已接通的 Boss 任务卡（R-120）；不含未开放 Weald 地点。 */
 export function sandboxEmbarkQuests() {
   return basicQuests.filter(
     (q) => (q.level === 1 && q.expeditionRegion !== "weald") || ("bossQuest" in q && q.bossQuest),
   );
+}
+
+/** 按内容包追加已接线沙盒 Weald 任务（须含 weald 包）。 */
+export function sandboxEmbarkQuestsForPacks(packs?: readonly ContentPackId[]) {
+  const base = sandboxEmbarkQuests();
+  if (!packs?.includes("weald")) return base;
+  const extra = basicQuests.filter((q) => isSandboxWealdEmbarkQuest(q.id));
+  return [...base, ...extra];
 }
 
 /** 任务卡印刷 XP 上限（R-038）；Boss 定额见 R-122 `flatXp`。 */
