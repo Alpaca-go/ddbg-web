@@ -1,0 +1,20 @@
+{
+  "schema": "ddbg-normalized-v0",
+  "dictionary_version": "1.8",
+  "category": "quest_exception_monster",
+  "source": "R-244；Weald 中型怪物 FRONT p15–16；不并入 I 级 14 实体池",
+  "cards": [
+    {
+      "id": "monster_medium:weald:p015",
+      "name": "Crone",
+      "level": 2,
+      "type_position_tags": ["Human", "Back"],
+      "life": 12,
+      "speed": 3,
+      "verifiedRuleRulings": ["R-244", "R-247"],
+      "combatReady": false,
+      "deploymentOnly": true,
+      "note": "Dodge／技能／抗性／免疫未核准（R-048）；本条目仅供 Circle of Witches 任务例外部署与位序；占格按引擎中型非 Large 默认 1 槽；不进入 Weald I 级随机牌堆"
+    }
+  ]
+}

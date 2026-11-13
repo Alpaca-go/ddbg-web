@@ -7,6 +7,7 @@ import {
   fundraiserQuestSummarySchema,
   fundraiserDonationXp,
   bossFlatQuestSummarySchema,
+  circleOfWitchesQuestSummarySchema,
 } from "../../data/src/quest-summary";
 import {
   matchesQuestCounts,
@@ -205,6 +206,28 @@ export function summarizeDungeonQuest(state: GameState): ApplyResult {
         {
           type: "dungeonUpdated",
           message: `${quest.name}：brought back ${broughtBackCount}，每名英雄与驿站待发 ${xpPerHero} XP（R-246、R-038、核心规则书第 29 页）`,
+        },
+      ],
+    };
+  }
+  if (quest.id === "quest:weald:p002") {
+    const kills = d.questExceptionCroneKills ?? 0;
+    const xpPerHero = Math.min(3, kills * quest.roomsPerXp);
+    const questSummary = circleOfWitchesQuestSummarySchema.parse({
+      questId: quest.id,
+      name: quest.name,
+      clearedRoomIds,
+      croneKills: kills,
+      xpPerHero,
+      stagecoachXp: xpPerHero,
+      awarded: false,
+    });
+    return {
+      state: { ...state, dungeon: { ...d, questSummary } },
+      events: [
+        {
+          type: "dungeonUpdated",
+          message: `${quest.name}：击杀 Crone ${kills} 只，每名英雄与驿站待发 ${xpPerHero} XP（R-244、R-247、R-038）；于兑换剩余补给并完成回村时发放`,
         },
       ],
     };

@@ -52,6 +52,7 @@ import {
   fungalResearchProgressFromBattle,
   isFungalResearchQuest,
 } from "./expansions/weald/fungal-research-quest";
+import { recordWealdCroneKillOnBattleFinish } from "./expansions/weald/circle-of-witches-spawn";
 import { readDungeonQuestProgress } from "./dungeon-quest";
 import { readCampaignLevel } from "./hamlet-campaign";
 import { hasApprovedHigherMonsterFields } from "../../data/src/normalize/verified-monster-entry";
@@ -653,13 +654,21 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
   const activeCardId = d.roomCards!.active!.cardId;
   const setAside = readSetAsideRoomCardIds(d);
   const { curioRoom: previousCurio, ...returnedDungeon } = d;
-  const dungeonBase = clearedThreatId
-    ? (() => {
-        const { activeBossThreatScriptId: _cleared, ...rest } = returnedDungeon;
-        void _cleared;
-        return recordRuinsBossDefeatOnThreatCleared(rest, clearedThreatId);
-      })()
-    : returnedDungeon;
+  const defeatedMonsterCardIds = victory
+    ? b.entities
+        .filter((entity) => entity.side === "monster" && entity.dead && entity.monsterCardId)
+        .map((entity) => entity.monsterCardId!)
+    : [];
+  const dungeonBase = recordWealdCroneKillOnBattleFinish(
+    clearedThreatId
+      ? (() => {
+          const { activeBossThreatScriptId: _cleared, ...rest } = returnedDungeon;
+          void _cleared;
+          return recordRuinsBossDefeatOnThreatCleared(rest, clearedThreatId);
+        })()
+      : returnedDungeon,
+    defeatedMonsterCardIds,
+  );
   const { battle: _finished, ...outside } = state;
   void _finished;
   const threatRemovedNote =

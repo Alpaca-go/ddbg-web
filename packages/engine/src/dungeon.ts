@@ -317,6 +317,10 @@ export type DungeonState = {
   };
   /** QUEST p4 等：旁置房间牌 id，不计入随机遭遇洗牌堆。 */
   readonly setAsideRoomCardId?: string;
+  /** R-247：`quest:weald:p002` 击杀 Crone 计数（回村 XP）。 */
+  readonly questExceptionCroneKills?: number;
+  /** R-247：Crone 物理组件是否在任务表可再次部署。 */
+  readonly questExceptionComponentAvailable?: boolean;
   readonly rooms: readonly {
     readonly id: string;
     readonly kind: RoomDistribution["counts"][number]["kind"];

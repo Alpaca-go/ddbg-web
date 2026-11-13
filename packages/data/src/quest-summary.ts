@@ -192,6 +192,27 @@ export const fungalResearchQuestSummarySchema = z
       });
   });
 
+/** R-244：`quest:weald:p002` 按击杀 Crone 计 XP，不按清目标房数。 */
+export const circleOfWitchesQuestSummarySchema = z
+  .strictObject({
+    questId: z.literal("quest:weald:p002"),
+    name: z.literal("Circle of Witches"),
+    clearedRoomIds: z.array(z.string().min(1)),
+    croneKills: z.int().min(0).max(3),
+    xpPerHero: z.int().min(0).max(3),
+    stagecoachXp: z.int().min(0).max(3),
+    awarded: z.boolean(),
+  })
+  .superRefine((s, ctx) => {
+    if (
+      s.xpPerHero !== Math.min(3, s.croneKills) ||
+      s.stagecoachXp !== s.xpPerHero ||
+      new Set(s.clearedRoomIds).size !== s.clearedRoomIds.length ||
+      s.clearedRoomIds.length > 3
+    )
+      ctx.addIssue({ code: "custom", message: "Circle of Witches 摘要 XP 与击杀不一致" });
+  });
+
 /** Boss / 最暗定额任务（R-122）；击败后固定 3 XP；回村发放走 `finishReturnToHamlet`。 */
 export const bossFlatQuestSummarySchema = z
   .strictObject({
@@ -214,6 +235,7 @@ export const dungeonQuestSummarySchema = z.union([
   fundraiserQuestSummarySchema,
   forwardCampsQuestSummarySchema,
   level2QuestSummarySchema,
+  circleOfWitchesQuestSummarySchema,
   standardBasicQuestSummarySchema,
   fungalResearchQuestSummarySchema,
   bossFlatQuestSummarySchema,

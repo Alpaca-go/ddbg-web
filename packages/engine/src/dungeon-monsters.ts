@@ -6,7 +6,7 @@ import {
   ORDINARY_EXPEDITION_ROOM_COUNT,
   readExpeditionRoomRegion,
 } from "./expedition-room-catalog";
-import { readRoomTile } from "./room-tile-selection";
+import { readExpeditionRoomTile } from "./expedition-room-tile";
 import type { ApplyResult, GameState } from "./command";
 import { createRng } from "./rng";
 import { spawnMonsters } from "./spawn";
@@ -26,14 +26,16 @@ import {
 import { questMonsterDeploymentHold } from "./quest-monster-deployment";
 import { prepareQuestMonsterDeployment } from "./quest-monster-spawn";
 import { threatIsRealNoL1LairSkipSpawn } from "./threat-is-real-no-l1-lair";
+import { prepareWealdQuestExceptionMonsterDeployment } from "./expansions/weald/circle-of-witches-spawn";
 
 /** R10、R16–17：完整 Common + Ruins（1..DL 累加）一次洗牌，真实抽牌后记录部署，不筛掉缺战斗字段的卡。 */
 export function prepareDungeonMonsters(state: GameState): ApplyResult {
   const d = state.dungeon!;
   const pool = d.monsterPool;
   const active = d.roomCards?.active;
-  const selected = readRoomTile(
+  const selected = readExpeditionRoomTile(
     d.roomCards?.cards.find((c) => c.id === active?.cardId),
+    d,
     active?.tileId,
   );
   const room = d.rooms.find((r) => r.id === d.position);
@@ -67,6 +69,8 @@ export function prepareDungeonMonsters(state: GameState): ApplyResult {
   if (curioRoomGuardBattleActive(d)) {
     return prepareCurioRoomGuardMonsters(state, deployment.monsters);
   }
+  const wealdException = prepareWealdQuestExceptionMonsterDeployment(state, deployment.monsters);
+  if (wealdException) return wealdException;
   const questSpawn = prepareQuestMonsterDeployment(state, deployment.monsters);
   if (questSpawn) return questSpawn;
   const questHold = questMonsterDeploymentHold(d);
@@ -121,7 +125,8 @@ export function prepareDungeonMonsters(state: GameState): ApplyResult {
   if (spawned.monsters.reduce((n, m) => n + m.stanceSlots, 0) !== 4)
     return refuse("牌堆未填满四姿态，不提交半场部署");
   const missing = spawned.monsters.flatMap((m) => {
-    const card = pool.cards.find((c) => c.combatCardId === m.cardId)!;
+    const card = pool.cards.find((c) => c.combatCardId === m.cardId);
+    if (!card) return [];
     const labels = { speed: "移动值", stanceGroups: "姿态选招", unverifiedIcons: "未确认图标" };
     return card.missingBattleFields.length
       ? [`${card.name}：${card.missingBattleFields.map((field) => labels[field]).join(" / ")}`]
