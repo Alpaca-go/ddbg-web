@@ -5,6 +5,7 @@ import type { CoreQuestSources } from "./dungeon-quest-entry";
 import type { ContentPackId } from "./content-packs";
 import { sourcesForContentPacks } from "./content-packs";
 import { buildWealdMonsterCatalog } from "./expansions/weald/monster-catalog";
+import { buildWealdCroneCatalog } from "./expansions/weald/crone-catalog";
 import { createWealdLevelOneMonsterPoolState } from "./expansions/weald/monster-pool";
 
 export type WealdQuestSources = {
@@ -45,7 +46,11 @@ export function rebuildLocationQuestDecks(
   return {
     catalog: {
       ...selected.catalog,
-      monsters: [...common, ...buildWealdMonsterCatalog(local.medium, local.large)],
+      monsters: [
+        ...common,
+        ...buildWealdMonsterCatalog(local.medium, local.large),
+        buildWealdCroneCatalog(),
+      ],
     },
     curios: locationCurioPool(selected.curios, { location: "weald", cards: local.curios }),
     monsterPool,

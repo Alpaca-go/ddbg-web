@@ -25,8 +25,16 @@ it("来源按选包保留或剔除，重建Weald只取通用和当地目录，�
   expect(instances).toHaveLength(45);
   expect(new Set(instances.map((card) => card.instanceId)).size).toBe(45);
   expect(new Set(instances.map((card) => card.cardId))).toEqual(
-    new Set(decks.catalog.monsters.map((card) => card.id)),
+    new Set(
+      decks.catalog.monsters
+        .filter((card) => card.id !== "monster_medium:weald:p015")
+        .map((card) => card.id),
+    ),
   );
+  expect(
+    decks.catalog.monsters.find((card) => card.id === "monster_medium:weald:p015"),
+  ).toMatchObject({ level: 2, verification: { unverified: false } });
+  expect(instances.some((card) => card.cardId === "monster_medium:weald:p015")).toBe(false);
   expect(decks).toEqual(rebuildLocationQuestDecks(sources, "weald", 1, ["core", "weald"]));
   expect(sources).toEqual(before);
 });

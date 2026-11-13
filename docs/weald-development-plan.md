@@ -7,7 +7,7 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 
 - **当前阶段：步骤 5 沙盒已接通 `quest:weald:p001`–`p005`（**R-252**／**R-244**／**R-245**／**R-248**／**R-242**）；须选 Weald 包；已选 Weald 包时村庄按地点堆抽 2 选 1，Hamlet 可出征 p001–p005。步骤 2 正式 Weald 日志存档闭环待后续。步骤 4 战斗真菌链路不变。**
 - **步骤 5 沙盒刀（本批）**：村庄地点任务堆抽选 + Hamlet 出征闸门；详见「步骤 5 第十一批」。**
-- **下一刀：正式战役开局第一趟抽选仍延后；Playwright 排在出征核准之后。**
+- **下一刀：地点牌堆与正式日志存档闭环。Crone 战斗已按 R-253 接线，验证见末尾接续记录。Kyries 于 2026-11-13 同意按建议顺序推进：Crone → 地点牌堆与正式存档闭环 → 正式开局第一趟抽选 → I 级普通任务验收 → Hag／Brigand Pounder／Shrieker → II／III 与 Stygian → 完整战役。字段核准仍遵守 R-048，Playwright 在阶段验收时补齐。**
 - 步骤 0 已完成，提交 `e7fd17e1`；地点战役尚未开放。
 - 导入与计划两批已合入并推送 `main`（`3be97c65`）。步骤 1 怪物批次已合入并推送 `main`（`7075f4d8`）。
 - Houndmaster、Shieldbreaker 已接入，沿用现有英雄实现，不重做。
@@ -363,3 +363,22 @@ Brigand Pounder 类型行、Shrieker’s Nest 和 Cauldron Empty 的专属卡面
 - **I→II 沙盒预览**：已选 weald 包时剩余 Weald I 普通任务写入 `discardedQuests`，避免错误回流。
 - **未做**：正式开局第一趟抽选、Playwright、Boss／Stygian、Warrens／Cove 等地任务堆。
 - 验证：typecheck、lint、Prettier；Vitest `hamlet-weald-location-draw.test.ts`、`content-packs.test.ts`、`weald-basic-quests.test.ts`、`hamlet-embark.test.ts`、`natural-wipeout-save.test.ts` 与 Face the Threat／最暗地牢相关测；`git diff --check`（遗迹堆经 `campaign-quest-pool`，与黄金池夹具一致）。
+
+### 步骤 5 第十二批：Crone 战斗字段审阅（Q-186）
+
+- Kyries 同意按接续建议顺序推进；当前先补 Circle of Witches 的 II 级 Crone，不重做已完成的部署。
+- 新增 [Crone 审阅稿](weald-crone-review-2026-11-13.md)，逐页核对印刷 FRONT p15／p16，核对缓存 BACK p15；原始 PDF 只读，图片只存忽略缓存。
+- 已登记属性、防御、三个技能和姿态表的候选值。核心第 19 页无 Acc 直接生效有现有规格书及 R-025 依据；本卡闪避／效果图标语义与技能 3 光照结算仍在 Q-186 待核准。
+- 未改 normalized／运行时，combatReady 仍为 false，未开放 II 级随机池或提前进入 Boss。
+- 下一步：核准 Crone 审阅表，明确技能 3 光照结算后接独立任务例外战斗目录及场景测试；随后继续正式日志存档闭环。
+- 验证：两份 Markdown 的 Prettier 检查、git diff --check 通过；仅文档，未运行 typecheck／单元测试／build。
+
+### 步骤 5 第十三批：II Crone 例外战斗接线（R-253）
+
+- Kyries 回复「三项全部核准」，登记 R-253：Dodge 3、腐蚀与减益抗性、无免疫、姿态表及三个技能；Embrace the Dark 不掷攻击骰，每目标压力 +1，整次光照只减 1。
+- 独立任务例外战斗目录接入 Weald 地点来源；normalized 例外条目标记 combatReady，保持不进入 I 级 14 实体池、不开放 II 级随机池。
+- 修复出征创建仍沿用原始战斗目录的问题，使用重建的地点目录；战斗准入识别已核准 Weald 当地实体，并只对目标房指定 Crone 实例放行 II 级例外。
+- 新增 Crone 13 项技能／选招／多目标光照／RNG 测试，并将 p002 部署场景推进到真实 startDungeonBattle；现有 XP、组件复用与守恒测试保留。
+- 下一步：步骤 2 正式日志存档闭环；随后正式开局第一趟抽选与 I 级阶段验收。Boss／Stygian／房间 usable 未开放。
+- 下一刀重点：`chooseNextQuest` 当前沿用上一趟 `battleCatalog`／房间／怪物／奇物来源，须核实遗迹 → Weald、Weald → 遗迹的地点切换，不能把「Hamlet 可选择任务」当成来源已经切换完成；正式存档兼容尚未验收。
+- 验证：typecheck、lint、build 通过；全量 Vitest 512 文件，511 通过、1 文件旧断言失败（原断言将战斗目录等同随机牌池，未排除 Crone 任务例外），3,874 项通过、1 项失败、1 项沿用跳过，耗时 1,313.67 秒。修正该断言并明确验证 Crone 不进 45 张随机池后，来源／Crone／p002 三文件共 25 项复测全部通过；其余文件未重复运行。最终 Prettier 与 git diff --check 通过。交接文档仅修正 Markdown 格式以通过 lint，未改变内容；本刀未新增 Playwright，待 I 级阶段验收。
