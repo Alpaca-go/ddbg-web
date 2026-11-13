@@ -63,7 +63,7 @@ export function recoverHamletPools(d: DungeonState, seed: number) {
     ) ||
     (region === "ruins"
       ? !conserved(roomIds, pool)
-      : pool.length === roomIds.length && poolConserved)
+      : pool.length !== roomIds.length || !poolConserved)
   )
     return refuse("Curio或地点房间牌池不守恒，未回收（R32）");
   const tokens = createLootState().available;

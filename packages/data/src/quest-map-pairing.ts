@@ -1,5 +1,4 @@
 import layoutsFile from "../normalized/corebox/dungeon_layouts.json";
-import wealdLayoutsFile from "../normalized/extension/weald/dungeon_layouts.json";
 import {
   dungeonLayoutFileSchema,
   dungeonLayoutSchema,
@@ -36,10 +35,7 @@ export function sandboxExpeditionEmbarkBlockReason(
   return expeditionLocationEmbarkBlockReason(expeditionRegion);
 }
 
-const parsedLayouts = [
-  ...dungeonLayoutFileSchema.parse(layoutsFile).layouts,
-  ...dungeonLayoutFileSchema.parse(wealdLayoutsFile).layouts,
-];
+const parsedLayouts = dungeonLayoutFileSchema.parse(layoutsFile).layouts;
 
 export function coreQuestMapLayouts(): readonly DungeonLayout[] {
   return parsedLayouts;
@@ -49,11 +45,21 @@ export function dungeonLayoutRoomSlotCount(layout: Pick<DungeonLayout, "nodes">)
   return layout.nodes.filter((n) => n.kind === "room").length;
 }
 
-export function inferQuestMapRegion(
-  layout: Pick<DungeonLayout, "id" | "nodes">,
-): QuestExpeditionRegion {
-  if (layout.id.startsWith("quest_map:weald:")) return "weald";
+export function inferQuestMapRegion(layout: Pick<DungeonLayout, "nodes">): QuestExpeditionRegion {
   return dungeonLayoutRoomSlotCount(layout) === 16 ? "darkestDungeon" : "ruins";
+}
+
+/** R-250：Weald 出征共用核心包八槽 QuestMap；任务 `expeditionRegion` 仍为 weald。 */
+export function questMapLayoutMatchesExpedition(
+  layout: Pick<DungeonLayout, "nodes">,
+  expeditionRegion: QuestExpeditionRegion,
+  tokenTotal: number,
+): boolean {
+  const layoutRegion = inferQuestMapRegion(layout);
+  if (expeditionRegion === "weald") {
+    return tokenTotal === 8 && layoutRegion === "ruins";
+  }
+  return layoutRegion === expeditionRegion;
 }
 
 export function questIdPageNumber(questId: string): number | null {
@@ -99,7 +105,7 @@ export function compatibleQuestMapLayouts(
   const tokenTotal = roomDistributionTokenTotal(quest.distribution);
   return layouts.filter((layout) => {
     if (dungeonLayoutRoomSlotCount(layout) !== tokenTotal) return false;
-    if (inferQuestMapRegion(layout) !== quest.expeditionRegion) return false;
+    if (!questMapLayoutMatchesExpedition(layout, quest.expeditionRegion, tokenTotal)) return false;
     return true;
   });
 }

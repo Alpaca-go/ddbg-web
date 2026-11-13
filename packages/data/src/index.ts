@@ -53,6 +53,7 @@ export {
   pickQuestMapLayout,
   pickQuestMapLayoutId,
   questIdPageNumber,
+  questMapLayoutMatchesExpedition,
   questMapLayoutPageNumber,
   sandboxExpeditionEmbarkBlockReason,
 } from "./quest-map-pairing";

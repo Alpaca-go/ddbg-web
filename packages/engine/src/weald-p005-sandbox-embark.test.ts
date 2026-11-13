@@ -8,7 +8,11 @@ import {
   questsForContentPacks,
   sandboxEmbarkQuestsForPacks,
 } from "../../data/src/basic-quests";
-import { sandboxExpeditionEmbarkBlockReason } from "../../data/src/quest-map-pairing";
+import {
+  pickEmbarkQuestMapLayout,
+  sandboxExpeditionEmbarkBlockReason,
+} from "../../data/src/quest-map-pairing";
+import { asQuestMapPairingQuest, basicQuests } from "../../data/src/basic-quests";
 import { createCoreDungeonQuest } from "./dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "./test-helpers/core-quest";
 import { applyCommand } from "./command";
@@ -65,7 +69,14 @@ describe("Patrol the Woods 沙盒出征（步骤 5 第一刀）", () => {
     const d = game.dungeon!;
     expect(d.contentPacks).toEqual(["core", "weald"]);
     expect(d.questDistribution?.questId).toBe("quest:weald:p005");
-    expect(d.layout.id).toMatch(/^quest_map:weald:/);
+    const expectedLayout = pickEmbarkQuestMapLayout(
+      asQuestMapPairingQuest(basicQuests.find((q) => q.id === "quest:weald:p005")!),
+      17,
+      0,
+    );
+    expect(d.layout.id).toBe(expectedLayout.id);
+    expect(d.layout.review).toBe("confirmed");
+    expect(d.layout.id).toMatch(/^quest_map:p/);
     expect(d.roomCards!.cards).toHaveLength(9);
     expect(d.roomCards!.cards.every((c) => c.id.startsWith("room:weald:"))).toBe(true);
     expect(d.curio!.cards.filter((c) => c.id.startsWith("curio:weald:"))).toHaveLength(16);
@@ -115,7 +126,7 @@ describe("Patrol the Woods 沙盒出征（步骤 5 第一刀）", () => {
 
   it("回村前房间与怪物牌池守恒（Weald 九房）", () => {
     const game = createCoreDungeonQuest(
-      9,
+      17,
       "quest:weald:p005",
       "radiant",
       coreParty,
@@ -125,20 +136,15 @@ describe("Patrol the Woods 沙盒出征（步骤 5 第一刀）", () => {
       [...packs],
     );
     const d = game.dungeon!;
+    const monsterIds = dungeonMonsterPoolThrough(d.monsterPool!, 1).map((c) => c.instanceId);
     const recovered = recoverHamletPools(
       {
         ...d,
-        roomCards: { ...d.roomCards!, deck: d.roomCards!.cards.map((c) => c.id), discard: [] },
         monsterPool: {
           ...d.monsterPool!,
-          remaining: dungeonMonsterPoolThrough(d.monsterPool!, 1).map((c) => c.instanceId),
+          remaining: monsterIds,
           discarded: [],
           active: null,
-        },
-        curio: {
-          ...d.curio!,
-          deck: d.curio!.cards.map((c) => c.id),
-          discard: [],
         },
       },
       game.seed,
