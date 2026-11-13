@@ -1,5 +1,10 @@
 import { rebuildCoreQuestDecks } from "./core-quest-decks";
-import { asQuestMapPairingQuest, basicQuests } from "../../data/src/basic-quests";
+import {
+  asQuestMapPairingQuest,
+  basicQuestEnabledForContentPacks,
+  basicQuests,
+} from "../../data/src/basic-quests";
+import { expeditionLocationEmbarkBlockReason } from "../../data/src/quest-map-pairing";
 import { pickEmbarkQuestMapLayout } from "../../data/src/quest-map-pairing";
 import type { BasicQuestId } from "../../data/src/basic-quests";
 import type { CurioCard } from "../../data/src/curio";
@@ -58,6 +63,10 @@ export function createCoreDungeonQuest(
   }
   const quest = basicQuests.find((quest) => quest.id === questId);
   const sandboxEmbarkOk = quest && (quest.level === 1 || ("bossQuest" in quest && quest.bossQuest));
+  const locationBlock = quest ? expeditionLocationEmbarkBlockReason(quest.expeditionRegion) : null;
+  if (locationBlock) throw new Error(locationBlock);
+  if (!basicQuestEnabledForContentPacks(questId, contentPacks))
+    throw new Error("任务与所选内容包不一致，未创建地牢");
   if (
     !sandboxEmbarkOk ||
     !Number.isInteger(seed) ||

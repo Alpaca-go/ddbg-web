@@ -1,0 +1,11 @@
+{
+  "questId": "quest:weald:p003",
+  "source": "DD_EN_WEALD_CARDS_70_120_quests_FRONT.pdf p3; R-240–R-245; 1154a8a4d4→lair（R-249，不与核心 5281dfacce 合并）; Kyries 2026-11-13",
+  "counts": [
+    { "kind": "objective", "count": 3 },
+    { "kind": "empty", "count": 1 },
+    { "kind": "dark", "count": 2 },
+    { "kind": "curio", "count": 1 },
+    { "kind": "lair", "count": 1 }
+  ]
+}

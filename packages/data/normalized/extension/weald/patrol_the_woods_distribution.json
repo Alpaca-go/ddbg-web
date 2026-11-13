@@ -1,0 +1,11 @@
+{
+  "questId": "quest:weald:p005",
+  "source": "DD_EN_WEALD_CARDS_70_120_quests_FRONT.pdf p5; R-240–R-242; 509c4a958c 重叠→curio; 1154a8a4d4→lair; Kyries 2026-11-13",
+  "counts": [
+    { "kind": "empty", "count": 1 },
+    { "kind": "curio", "count": 2 },
+    { "kind": "treasure", "count": 1 },
+    { "kind": "lair", "count": 2 },
+    { "kind": "trap", "count": 2 }
+  ]
+}

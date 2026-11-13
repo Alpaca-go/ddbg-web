@@ -1,7 +1,8 @@
 import { skillBelongsToFormalHero } from "./formal-roster-catalog";
 import { asQuestMapPairingQuest, basicQuests } from "../../data/src/basic-quests";
 import { pickEmbarkQuestMapLayout } from "../../data/src/quest-map-pairing";
-import { questsForCampaignLevel } from "./campaign-quest-pool";
+import { questsForCampaignLevel, questsForContentPacks } from "./campaign-quest-pool";
+import { expeditionLocationEmbarkBlockReason } from "../../data/src/quest-map-pairing";
 import type { BasicQuestId } from "../../data/src/basic-quests";
 import {
   roomDistributionEmbarkBlockReason,
@@ -272,7 +273,11 @@ export function offerNextQuest(state: GameState): ApplyResult {
     };
   }
 
-  const remaining = questsForCampaignLevel(campaignLevel)
+  const levelPool =
+    d.contentPacks !== undefined
+      ? questsForContentPacks(campaignLevel, d.contentPacks)
+      : questsForCampaignLevel(campaignLevel);
+  const remaining = levelPool
     .map((q) => q.id)
     .filter((id) => id !== current && !discarded.includes(id));
   if (!remaining.length)
@@ -342,6 +347,8 @@ export function chooseNextQuest(
   const quest = basicQuests.find((q) => q.id === optionId);
   const campaignLevel = readCampaignLevel(d);
   if (!quest) return rejectBattleCommand(state, "未知任务，未出征");
+  const locationBlock = expeditionLocationEmbarkBlockReason(quest.expeditionRegion);
+  if (locationBlock) return rejectBattleCommand(state, locationBlock);
   const faceEmbark = resolveFaceTheThreatEmbarkForChoose(state, optionId);
   if (faceEmbark.kind === "refused") return faceEmbark.result;
   if (!isFaceTheThreatQuestId(quest.id) && quest.level !== campaignLevel)

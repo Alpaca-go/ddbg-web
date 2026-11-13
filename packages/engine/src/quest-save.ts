@@ -12,6 +12,7 @@ import { applyCommand } from "./command";
 import { FUNDRAISER_PROMPT } from "./dungeon-quest";
 import type { Command, GameEvent, GameState } from "./command";
 import { normalizeContentPacks } from "../../data/src/content-packs";
+import { basicQuestEnabledForContentPacks } from "../../data/src/basic-quests";
 
 /** 忽略JSON键顺序及不可序列化的undefined；保留数组/牌堆顺序。 */
 function canonical(value: unknown): string {
@@ -199,6 +200,8 @@ export function createQuestSave(
   game: GameState,
   sources: CoreQuestSources,
 ): QuestSave {
+  if (!basicQuestEnabledForContentPacks(start.questId, start.contentPacks))
+    throw new Error("存档任务与开局内容包不一致，未保存");
   if (
     start.contentPacks &&
     canonical(normalizeContentPacks(start.contentPacks)) !== canonical(game.dungeon?.contentPacks)
@@ -236,6 +239,8 @@ export function loadQuestSave(
   const parsed = questSaveSchema.safeParse(input);
   if (!parsed.success) throw new Error("存档格式、版本或命令参数不受支持");
   const save = parsed.data;
+  if (!basicQuestEnabledForContentPacks(save.start.questId, save.start.contentPacks))
+    throw new Error("存档任务与开局内容包不一致");
   const commands = replayCommands(save.commands);
   const legacySave = save.rulesVersion === "core-quest-2026-10-14";
   if (

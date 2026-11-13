@@ -6,7 +6,7 @@ import { coreParty, coreQuestSources } from "./test-helpers/core-quest";
 import { applyCommand } from "./command";
 import type { Command } from "./command";
 
-it.each(basicQuests.filter((q) => q.level === 1))(
+it.each(basicQuests.filter((q) => q.level === 1 && q.expeditionRegion !== "weald"))(
   "$name：真实完整入口、开局八颗、起点禁侦察与相同命令回放",
   (quest) => {
     for (const mode of ["standard", "radiant"] as const) {

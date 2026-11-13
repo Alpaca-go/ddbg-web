@@ -5,9 +5,9 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 
 ## 当前进度与下一步
 
-- **当前阶段：步骤 4 已接通战斗创建时自动 `wealdMechanics` 与核准目录真菌（`startDungeonBattle` + Weald 板块选择）；W-03／W-04、R-230 三项召唤已在战斗内运行。出征入口仍关闭、`usable` 未自开。步骤 2 正式 Weald 日志存档闭环待步骤 5 任务登记后回补。**
-- **步骤 5（本阶段）：I 级五张普通任务玩法裁定已登记 **R-240**–**R-249**（含群拍板 p001／p002／p004、Q-186 巢穴与正面等级徽），见 [审阅稿](weald-level-one-quest-review-2026-11-13.md)。**未**写 normalized、**未**接线、**不**开放出征；规范化与 **R-248** 运行时抽牌待后续 PR。**
-- **下一刀：待 Kyries 审完步骤 5 剩余待确认项后，再做 Weald I 级 `quest_cards` 规范化与 `basicQuests` 登记（单任务小 PR）；出征与 Playwright 冒烟仍排在核准与接线之后。**
+- **当前阶段：步骤 5 I 级五张普通任务已规范化并登记 `basicQuests`（`expeditionRegion: weald`）；出征仍关、**R-248** 运行时抽牌仍待接线；步骤 2 正式 Weald 日志存档闭环待任务出征接线后回补。步骤 4 战斗真菌链路不变。**
+- **步骤 5 数据刀（本批）：`buildWealdLevelOneQuestCards` → `normalized/extension/weald/quest_cards.json` + 五张分布 JSON；`questsForContentPacks`／`expeditionLocationEmbarkBlockReason` 保持村庄池与创建入口关闭。详见本文件「步骤 5 第五批」。**
+- **下一刀：任务池／沙盒出征接线（单任务）+ 回村守恒；**R-248** Purge 运行时抽牌单独接线 PR；Playwright 冒烟排在出征核准之后。**
 - 步骤 0 已完成，提交 `e7fd17e1`；地点战役尚未开放。
 - 导入与计划两批已合入并推送 `main`（`3be97c65`）。步骤 1 怪物批次已合入并推送 `main`（`7075f4d8`）。
 - Houndmaster、Shieldbreaker 已接入，沿用现有英雄实现，不重做。
@@ -285,3 +285,12 @@ Brigand Pounder 类型行、Shrieker’s Nest 和 Cauldron Empty 的专属卡面
 - I 级五张普通任务卡面玩法待确认项已收窄；步骤 5 规范化仍待后续。
 - **未**写 normalized、出征仍关。
 - 验证：三份 Markdown Prettier + `git diff --check`。
+
+### 步骤 5 第五批：I 级五张任务数据刀（规范化 + basicQuests）
+
+- 起点 main `7da08d29`（#641 squash：R-240–R-249）。本批 `cursor/weald-l1-quest-normalize-eb25`。
+- `buildWealdLevelOneQuestCards`（`packages/data/src/normalize/weald-quest-cards.ts`）：仅 I 级五张（`quest:weald:p001`–`p005`）；分布 kind 按 **R-240**／**R-249**（含 `1154a8a4d4` 巢穴、重叠 hash）；raw 卡底行校验。
+- 产出 `normalized/extension/weald/quest_cards.json` 与五张 `*_distribution.json`；`basicQuests` 登记 **`expeditionRegion: weald`**、SPECIAL 数据字段（含 **R-248** `monsterDrawScope: wealdLocalOnly`）；**未**实现 Purge 运行时抽牌。
+- 包隔离：`questsForContentPacks`（未选 Weald 不进村庄 I 级池）；`basicQuestEnabledForContentPacks` 用于存档；选了包可读登记，但 `expeditionLocationEmbarkBlockReason`／`questsForCampaignLevel` 排除 weald，出征仍关；房间 `usable` 未改。
+- **待确认**：无新增玩法待确认；**R-248** 运行时、任务 SPECIAL 状态机、QuestMap Weald 图待接线 PR。
+- 本批验证：Node 24.21.0、pnpm 12.9.1；typecheck、lint、build；针对性 Vitest（`weald-quest-cards.test.ts`、`weald-basic-quests.test.ts`）；`pnpm exec prettier --check` 触及文件、`git diff --check`。

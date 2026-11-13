@@ -1,0 +1,11 @@
+{
+  "questId": "quest:weald:p001",
+  "source": "DD_EN_WEALD_CARDS_70_120_quests_FRONT.pdf p1; R-240–R-246; d3a3e38ee9→objective, 6f701b5f5f empty, af3ce426ec dark, 67dc216fc3 curio, e7b30e2005 trap; Kyries 2026-11-13",
+  "counts": [
+    { "kind": "objective", "count": 3 },
+    { "kind": "empty", "count": 1 },
+    { "kind": "dark", "count": 1 },
+    { "kind": "curio", "count": 1 },
+    { "kind": "trap", "count": 2 }
+  ]
+}

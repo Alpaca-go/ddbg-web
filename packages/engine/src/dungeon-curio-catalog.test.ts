@@ -29,10 +29,18 @@ const create = (cards = core) =>
   );
 
 it("已登记核心任务和旧沙盒保持原核心目录，不添加快照字段", () => {
-  for (const questId of [undefined, ...basicQuests.map((quest) => quest.id)]) {
+  for (const quest of basicQuests) {
+    const questId = quest.id;
+    if (quest.expeditionRegion === "weald") {
+      expect(questCurioCatalogSchema(questId).safeParse(core).success).toBe(false);
+      expect(questCurioCatalogSchema(questId).parse(weald)).toEqual(weald);
+      continue;
+    }
     expect(questCurioCatalogSchema(questId).parse(core)).toEqual(core);
     expect(questCurioCatalogSchema(questId).safeParse(weald).success).toBe(false);
   }
+  expect(questCurioCatalogSchema(undefined).parse(core)).toEqual(core);
+  expect(questCurioCatalogSchema(undefined).safeParse(weald).success).toBe(false);
   expect(create().dungeon!.curio).toEqual({ cards: core, deck: null, discard: [], active: null });
   expect(dungeonCurioCatalogValid(create().dungeon!)).toBe(true);
 });

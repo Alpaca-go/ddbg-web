@@ -23,6 +23,10 @@ pnpm --filter @ddbg/pipeline normalize
 
 `extension/weald/room.json` 与 `room_tile_geometry.json` 使用独立 schema（`ddbg-weald-room-v1` / `ddbg-weald-room-tile-geometry-v0`），写入 R-234–R-239 已核准的九张普通房间与对应板块。含完整通行几何、容量、部署、真菌与星标效果区域；5 号零容量 I、7 号零容量 H／I／J；1 号 C／E／F／G 绑定 Toxic Mushrooms（R-239）。全部 `usable=false`，不开放出征；由 `pnpm --filter @ddbg/data test` 中 `weald-rooms.test.ts` 校验，可用 `WRITE_NORMALIZED=1` 重写 JSON。见 [房间审阅记录](../../../docs/weald-room-review-2026-11-12.md)。
 
+## Weald I 级普通任务
+
+`extension/weald/quest_cards.json`（`ddbg-weald-quest-cards-v1`，仅 I 级五张）与五张 `*_distribution.json` 由 `buildWealdLevelOneQuestCards` 生成，分布 kind 按 **R-240**–**R-249**；与 `basicQuests` 中 `quest:weald:p001`–`p005` 交叉核对。`WRITE_NORMALIZED=1` 可重写；`weald-quest-cards.test.ts` 校验。不开放出征；**R-248** 运行时抽牌未接线。
+
 ## 和 parsed 的差别
 
 - 图标解析成 `naming`。只有 `confirmed` 和 `confirmed_rulebook` 可以当名字用。`needs_review`（`pending_` key）、`unsure`、`unreviewed`，以及词典没有的 iconId，都是 `unverified`。卡上有这种图标时，`verification.unverified` 为 true（R-048）。提取器标成 `decor` 的放置（面板、细条、文字底板）不是游戏图标，不放进这层，也不因此把卡标成未验证。
@@ -31,7 +35,7 @@ pnpm --filter @ddbg/pipeline normalize
 - Abomination 变身卡用 `back_face_skill`。背面名字可以和正面不同。
 - 怪癖的正负都来自 `Quirks_FRONT.pdf`，对照规则书 R26–R27。美德和折磨都来自 `virtue_afflictions_FRONT.pdf`。两个 BACK 文件只有卡背，没有文字或图标。卡面没有印 Virtue / Affliction。`role` 按 R-053 写成 `virtue` 或 `affliction`（Kyries 称这一边为折磨，字段仍叫 affliction）；对不上名单的留空，原因是 `role_not_printed`。其余未确认图标仍使卡未验证。不使用卡背箭头来分组（rank 108、138、327 仍未决）。
 
-疾病、房间卡、Curio、任务等还没有规范化。parsed 里大型怪物参考卡没有 `life`，数值在 `monster_large`。
+疾病与其它扩展任务等尚未规范化（Weald I 级五张任务除外，见上节）。parsed 里大型怪物参考卡没有 `life`，数值在 `monster_large`。
 
 ## 单张获批战斗板块几何
 

@@ -1,17 +1,17 @@
 # Weald I 级普通（非 Boss）任务证据审阅稿
 
-状态：**步骤 5 证据盘点 + Kyries 2026-11-13 审阅（口头 +「Weald 任务规则」群）。I 级五张普通任务玩法已登记 **R-240**–**R-249**；仍**不**写入 normalized、不接线、不开放出征、不声称可玩。**
+状态：**步骤 5 证据盘点 + Kyries 2026-11-13 审阅（口头 +「Weald 任务规则」群）。I 级五张普通任务玩法已登记 **R-240**–**R-249**；**已**写入 `normalized/extension/weald/quest_cards.json` 与 `basicQuests`（数据刀，出征仍关）；**未**接线、不声称可玩。**
 依据：Weald W-02（任务牌堆与等级）、核心 R15 / 任务卡结构；R-001、R-048；权威印刷为单包 `MG_DD_06_EN_WEALD`，不使用 The Darkest Heroes 合并册，不使用电子游戏数据。
 
 ## 证据来源与仓库现状
 
-| 项目       | 状态                                                                                                     |
-| ---------- | -------------------------------------------------------------------------------------------------------- |
-| Raw 转录   | `packages/data/extract/extension/weald/raw/quest.json`（15 张，schema `ddbg-raw-v1`，extractor `1.0.4`） |
-| Parsed     | **无** `extract/extension/weald/parsed/quest.json`                                                       |
-| Normalized | **无** Weald `quest_cards.json` 或 `basicQuests` 扩展条目                                                |
-| 印刷 PDF   | 路径仅见于 raw `sources`（仓库不提交 PDF）；本机未声称打开不可用的 PDF                                   |
-| 私有审阅图 | 可按 [导入记录](weald-location-intake-2026-11-11.md) `--review` 重建；本刀未新增缓存                     |
+| 项目       | 状态                                                                                                                 |
+| ---------- | -------------------------------------------------------------------------------------------------------------------- |
+| Raw 转录   | `packages/data/extract/extension/weald/raw/quest.json`（15 张，schema `ddbg-raw-v1`，extractor `1.0.4`）             |
+| Parsed     | **无** `extract/extension/weald/parsed/quest.json`                                                                   |
+| Normalized | **有** `normalized/extension/weald/quest_cards.json`（I 级五张）与 `basicQuests` `quest:weald:p001`–`p005`；出征仍关 |
+| 印刷 PDF   | 路径仅见于 raw `sources`（仓库不提交 PDF）；本机未声称打开不可用的 PDF                                               |
+| 私有审阅图 | 可按 [导入记录](weald-location-intake-2026-11-11.md) `--review` 重建；本刀未新增缓存                                 |
 
 任务正面 PDF：`DD_EN_WEALD_CARDS_70_120_quests_FRONT.pdf` p1–15。
 背面 PDF：`DD_EN_WEALD_CARDS_70_120_quests_BACK.pdf` p1–15（背面仅见 `Quest` + 等级罗马数字，无房间分布行）。
@@ -124,10 +124,10 @@
 
 **本 PR 范围内，五张 I 级普通任务卡面玩法裁定已全部登记（R-240–R-249）。** 仍不属于「玩法待确认」、但步骤 5 未完成的工作：
 
-| 项            | 说明                                                                                         |
-| ------------- | -------------------------------------------------------------------------------------------- |
-| 规范化／接线  | 未写 `quest_cards`／`basicQuests`；**R-248** 运行时 Purge 抽牌待任务接线 PR；出征仍关        |
-| Q-186（其它） | 本批未点名的其它扩展卡面／SPECIAL 机制图标（若有）仍按 R-048 待审；非本五张 I 级普通任务范围 |
+| 项            | 说明                                                                                               |
+| ------------- | -------------------------------------------------------------------------------------------------- |
+| 规范化／接线  | 已写 `quest_cards`／`basicQuests`（步骤 5 数据刀）；**R-248** 运行时 Purge 抽牌待接线 PR；出征仍关 |
+| Q-186（其它） | 本批未点名的其它扩展卡面／SPECIAL 机制图标（若有）仍按 R-048 待审；非本五张 I 级普通任务范围       |
 
 任务奖励行中的金币／战利品图标本稿不解释数值；**`d3a3e38ee9` 是 Objective 分布图标（R-240），不是报酬图标。**
 

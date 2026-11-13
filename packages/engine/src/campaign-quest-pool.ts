@@ -1,7 +1,9 @@
 import {
   questsForCampaignLevel as dataQuestsForCampaignLevel,
+  questsForContentPacks as dataQuestsForContentPacks,
   type CampaignLevel,
 } from "../../data/src/basic-quests";
+import type { ContentPackId } from "../../data/src/content-packs";
 
 type BasicQuest = ReturnType<typeof dataQuestsForCampaignLevel>[number];
 
@@ -17,5 +19,10 @@ export function setCampaignQuestPoolTestFilter(
 
 export function questsForCampaignLevel(level: CampaignLevel) {
   const quests = dataQuestsForCampaignLevel(level);
+  return testFilter ? testFilter(level, quests) : quests;
+}
+
+export function questsForContentPacks(level: CampaignLevel, packs?: readonly ContentPackId[]) {
+  const quests = dataQuestsForContentPacks(level, packs);
   return testFilter ? testFilter(level, quests) : quests;
 }

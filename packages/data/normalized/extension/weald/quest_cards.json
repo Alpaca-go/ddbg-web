@@ -1,0 +1,341 @@
+{
+ "schema": "ddbg-weald-quest-cards-v1",
+ "scope": "level_one_normal",
+ "cards": [
+  {
+   "id": "quest:weald:p001",
+   "name": "Fungal Research",
+   "level": 1,
+   "restPoints": 8,
+   "printedLines": [
+    "{icon:56ea9289ab} I",
+    "8 Fungal Research",
+    "The weald is a mysterious place,",
+    "thus we know so little of its",
+    "denizens and plants. Rumor has it that a",
+    "mysterious type of fungus grows in its dark",
+    "crevasses. Thus, you need to collect as many",
+    "samples as you can to be tested. We only",
+    "hope that they give us further insight as to",
+    "what we have to combat.",
+    "SPECIAL RULES",
+    "Objective Rooms are rooms {icon:497092fe1f} 3 ,",
+    "{icon:497092fe1f} 6 & {icon:497092fe1f} 8 . Upon entering, randomly",
+    "choose one and discard it once secured.",
+    "Win Battles there with at least",
+    "one unsmashed Necrotic Fungus",
+    "to gain the objective.",
+    "XP",
+    "1 Xp/ Necrotic Fungus brought back.",
+    "{icon:d3a3e38ee9} 3 {icon:6f701b5f5f} 1",
+    "{icon:af3ce426ec} 1 {icon:67dc216fc3} 1 {icon:e7b30e2005} 2"
+   ],
+   "specialRuleLines": [
+    "Objective Rooms are rooms {icon:497092fe1f} 3 ,",
+    "{icon:497092fe1f} 6 & {icon:497092fe1f} 8 . Upon entering, randomly",
+    "choose one and discard it once secured.",
+    "Win Battles there with at least",
+    "one unsmashed Necrotic Fungus",
+    "to gain the objective."
+   ],
+   "distribution": {
+    "questId": "quest:weald:p001",
+    "source": "DD_EN_WEALD_CARDS_70_120_quests_FRONT.pdf p1; R-240–R-246; d3a3e38ee9→objective, 6f701b5f5f empty, af3ce426ec dark, 67dc216fc3 curio, e7b30e2005 trap; Kyries 2026-11-13",
+    "counts": [
+     {
+      "kind": "objective",
+      "count": 3
+     },
+     {
+      "kind": "empty",
+      "count": 1
+     },
+     {
+      "kind": "dark",
+      "count": 1
+     },
+     {
+      "kind": "curio",
+      "count": 1
+     },
+     {
+      "kind": "trap",
+      "count": 2
+     }
+    ]
+   },
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_quests_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_quests_BACK.pdf",
+    "page": 1
+   },
+   "verifiedRules": [
+    "R-246",
+    "R-240",
+    "R-243"
+   ]
+  },
+  {
+   "id": "quest:weald:p002",
+   "name": "Circle of Witches",
+   "level": 1,
+   "restPoints": 12,
+   "printedLines": [
+    "{icon:56ea9289ab} I",
+    "12 Circle of Witches",
+    "The cackling of these mad",
+    "crones can still be heard",
+    "through the dark woods. People are",
+    "already afraid of them and their",
+    "malevolent rituals. Venture through the",
+    "Weald, and stop their horrific seance.",
+    "SPECIAL RULES",
+    "Objective Room is always room",
+    "{icon:497092fe1f} 9 . Spawn a Crone (LvL 2)",
+    "when Battle starts there.",
+    "XP",
+    "1 Xp/ Crone killed.",
+    "{icon:d3a3e38ee9} 3 {icon:6f701b5f5f} 1 {icon:adcdfc394a} {icon:a2e7f1dd7b} 1",
+    "{icon:67dc216fc3} 1 {icon:a488fd5ff1} 1 {icon:e7b30e2005} 1"
+   ],
+   "specialRuleLines": [
+    "Objective Room is always room",
+    "{icon:497092fe1f} 9 . Spawn a Crone (LvL 2)",
+    "when Battle starts there."
+   ],
+   "distribution": {
+    "questId": "quest:weald:p002",
+    "source": "DD_EN_WEALD_CARDS_70_120_quests_FRONT.pdf p2; R-240–R-247; adcdfc394a 重叠→dark; a2e7 角标; Kyries 2026-11-13",
+    "counts": [
+     {
+      "kind": "objective",
+      "count": 3
+     },
+     {
+      "kind": "empty",
+      "count": 1
+     },
+     {
+      "kind": "dark",
+      "count": 1
+     },
+     {
+      "kind": "curio",
+      "count": 1
+     },
+     {
+      "kind": "treasure",
+      "count": 1
+     },
+     {
+      "kind": "trap",
+      "count": 1
+     }
+    ]
+   },
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_quests_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_quests_BACK.pdf",
+    "page": 2
+   },
+   "verifiedRules": [
+    "R-244",
+    "R-247",
+    "R-240"
+   ]
+  },
+  {
+   "id": "quest:weald:p003",
+   "name": "Disinfection",
+   "level": 1,
+   "restPoints": 8,
+   "printedLines": [
+    "{icon:56ea9289ab} I",
+    "8 Disinfection",
+    "Not even the vegetation of the",
+    "Weald can stand against the",
+    "seeping corruption of the evil that",
+    "lives deep in its groves. Majestic oaks have",
+    "been tainted, but they can still be saved. Take",
+    "potions and pour them onto their roots. Let",
+    "the healing magic undo what the dreadful",
+    "darkness has done to these majestic trees.",
+    "SPECIAL RULES",
+    "Objective Room is always room {icon:497092fe1f} 5 .",
+    "Start this Quest with 3 additional",
+    "{icon:008373e459} Provisions. A Hero must",
+    "spend one action and a {icon:008373e459} when",
+    "in Area {icon:401040514c} of the Objective",
+    "Room to disinfect the oak.",
+    "XP",
+    "1 Xp/ Oak disinfected.",
+    "{icon:d3a3e38ee9} 3 {icon:6f701b5f5f} 1",
+    "{icon:af3ce426ec} 2 {icon:67dc216fc3} 1 {icon:1154a8a4d4} 1"
+   ],
+   "specialRuleLines": [
+    "Objective Room is always room {icon:497092fe1f} 5 .",
+    "Start this Quest with 3 additional",
+    "{icon:008373e459} Provisions. A Hero must",
+    "spend one action and a {icon:008373e459} when",
+    "in Area {icon:401040514c} of the Objective",
+    "Room to disinfect the oak."
+   ],
+   "distribution": {
+    "questId": "quest:weald:p003",
+    "source": "DD_EN_WEALD_CARDS_70_120_quests_FRONT.pdf p3; R-240–R-245; 1154a8a4d4→lair（R-249，不与核心 5281dfacce 合并）; Kyries 2026-11-13",
+    "counts": [
+     {
+      "kind": "objective",
+      "count": 3
+     },
+     {
+      "kind": "empty",
+      "count": 1
+     },
+     {
+      "kind": "dark",
+      "count": 2
+     },
+     {
+      "kind": "curio",
+      "count": 1
+     },
+     {
+      "kind": "lair",
+      "count": 1
+     }
+    ]
+   },
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_quests_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_quests_BACK.pdf",
+    "page": 3
+   },
+   "verifiedRules": [
+    "R-245",
+    "R-240",
+    "R-249"
+   ]
+  },
+  {
+   "id": "quest:weald:p004",
+   "name": "Purge the Woods",
+   "level": 1,
+   "restPoints": 4,
+   "printedLines": [
+    "{icon:56ea9289ab} I",
+    "4 Purge the Woods",
+    "Vicious monsters litter the",
+    "grounds of the Weald, and yet",
+    "we stand helpless against their brutality.",
+    "No more. Head in there, amidst the trees,",
+    "find and eradicate them. Bring an end to",
+    "their madness and hope to our hearts.",
+    "SPECIAL RULES",
+    "Spawn only {icon:e933aa63f0} Monsters in Lairs.",
+    "XP",
+    "1 Xp/ Lair cleared.",
+    "{icon:af3ce426ec} 3",
+    "{icon:1154a8a4d4} 3 {icon:e7b30e2005} 2"
+   ],
+   "specialRuleLines": [
+    "Spawn only {icon:e933aa63f0} Monsters in Lairs."
+   ],
+   "distribution": {
+    "questId": "quest:weald:p004",
+    "source": "DD_EN_WEALD_CARDS_70_120_quests_FRONT.pdf p4; R-240–R-241、R-248; 1154a8a4d4→lair; 无 objective 代币; Kyries 2026-11-13",
+    "counts": [
+     {
+      "kind": "dark",
+      "count": 3
+     },
+     {
+      "kind": "lair",
+      "count": 3
+     },
+     {
+      "kind": "trap",
+      "count": 2
+     }
+    ]
+   },
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_quests_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_quests_BACK.pdf",
+    "page": 4
+   },
+   "verifiedRules": [
+    "R-241",
+    "R-248",
+    "R-249"
+   ]
+  },
+  {
+   "id": "quest:weald:p005",
+   "name": "Patrol the Woods",
+   "level": 1,
+   "restPoints": 8,
+   "printedLines": [
+    "{icon:56ea9289ab} I",
+    "8 Patrol the Woods",
+    "People are afraid of the Weald",
+    "as it stands dark, foreboding",
+    "and unwelcoming. We need light, we need",
+    "you. Traverse the dark groves and look out",
+    "for the danger that lurks within its foliage.",
+    "Eradicate the monsters and ensure that we",
+    "sleep yet one more night…",
+    "SPECIAL RULES",
+    "When Battle starts, roll a {icon:bc73e13882} . If you",
+    "rolled over your {icon:806b25ecac} Level, place all",
+    "Monster Initiative Cards on top of the",
+    "deck for the first round of Battle.",
+    "XP",
+    "1 Xp/ 2 Rooms cleared.",
+    "{icon:6f701b5f5f} 1 {icon:509c4a958c} {icon:a2e7f1dd7b} 2",
+    "{icon:a488fd5ff1} 1 {icon:1154a8a4d4} 2 {icon:e7b30e2005} 2"
+   ],
+   "specialRuleLines": [
+    "When Battle starts, roll a {icon:bc73e13882} . If you",
+    "rolled over your {icon:806b25ecac} Level, place all",
+    "Monster Initiative Cards on top of the",
+    "deck for the first round of Battle."
+   ],
+   "distribution": {
+    "questId": "quest:weald:p005",
+    "source": "DD_EN_WEALD_CARDS_70_120_quests_FRONT.pdf p5; R-240–R-242; 509c4a958c 重叠→curio; 1154a8a4d4→lair; Kyries 2026-11-13",
+    "counts": [
+     {
+      "kind": "empty",
+      "count": 1
+     },
+     {
+      "kind": "curio",
+      "count": 2
+     },
+     {
+      "kind": "treasure",
+      "count": 1
+     },
+     {
+      "kind": "lair",
+      "count": 2
+     },
+     {
+      "kind": "trap",
+      "count": 2
+     }
+    ]
+   },
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_quests_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_quests_BACK.pdf",
+    "page": 5
+   },
+   "verifiedRules": [
+    "R-242",
+    "R-249"
+   ]
+  }
+ ]
+}
