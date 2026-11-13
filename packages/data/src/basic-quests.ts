@@ -128,7 +128,7 @@ export const basicQuests = [
     broughtBackSubject: "necroticFungus" as const,
     expeditionRegion: "weald" as const,
     setAsideRoomCardIds: ["room:weald:p003", "room:weald:p006", "room:weald:p008"] as const,
-    verifiedRuleRulings: ["R-246", "R-240", "R-243"] as const,
+    verifiedRuleRulings: ["R-246", "R-240", "R-243", "R-038", "R-252"] as const,
     distribution: roomDistributionSchema.parse(fungalResearch),
   },
   {
@@ -379,8 +379,12 @@ export function basicQuestEnabledForContentPacks(
   return packEnabled(packs, cardContentPack(quest));
 }
 
-/** 步骤 5 沙盒第一刀：仅接线 Patrol the Woods；村庄战役池仍排除全部 Weald。 */
-export const SANDBOX_WEALD_EMBARK_QUEST_IDS = ["quest:weald:p004", "quest:weald:p005"] as const;
+/** 步骤 5 沙盒：p001 brought back、p004 R-248、p005 混池；村庄战役池仍排除全部 Weald。 */
+export const SANDBOX_WEALD_EMBARK_QUEST_IDS = [
+  "quest:weald:p001",
+  "quest:weald:p004",
+  "quest:weald:p005",
+] as const;
 export type SandboxWealdEmbarkQuestId = (typeof SANDBOX_WEALD_EMBARK_QUEST_IDS)[number];
 
 export function isSandboxWealdEmbarkQuest(questId: string): questId is SandboxWealdEmbarkQuestId {
@@ -416,7 +420,7 @@ export function questPrintedXpCap(
         `${quest.id}：questPrintedXpCap 需要 broughtBackCount（R-246；1 XP / Necrotic Fungus brought back）`,
       );
     }
-    return count * quest.roomsPerXp;
+    return Math.min(3, count * quest.roomsPerXp);
   }
   const roomQuest = quest as Extract<(typeof basicQuests)[number], { maxRooms: number }>;
   return Math.min(3, roomQuest.maxRooms / roomQuest.roomsPerXp);

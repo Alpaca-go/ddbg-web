@@ -148,7 +148,8 @@ export const standardBasicQuestSummarySchema = z
       LEGACY_QUEST_SUMMARY_IDS.has(s.questId) ||
       quest.xpKind === "gold" ||
       quest.xpKind === "camp" ||
-      quest.xpKind === "flat"
+      quest.xpKind === "flat" ||
+      quest.xpKind === "broughtBack"
     ) {
       ctx.addIssue({ code: "custom", message: "非标准任务摘要身份" });
       return;
@@ -165,6 +166,30 @@ export const standardBasicQuestSummarySchema = z
       s.stagecoachXp !== s.xpPerHero
     )
       ctx.addIssue({ code: "custom", message: "任务身份 / 清理记录 / 待发 XP 不一致" });
+  });
+
+/** Fungal Research：brought back 计数，R-038 封顶 3（R-246、R-252）。 */
+export const fungalResearchQuestSummarySchema = z
+  .strictObject({
+    questId: z.literal("quest:weald:p001"),
+    name: z.literal("Fungal Research"),
+    clearedRoomIds: z.array(z.string().min(1)),
+    broughtBackCount: z.int().min(0),
+    objectiveMet: z.boolean(),
+    xpPerHero: z.int().min(0).max(3),
+    stagecoachXp: z.int().min(0).max(3),
+    awarded: z.boolean(),
+  })
+  .superRefine((s, ctx) => {
+    if (
+      new Set(s.clearedRoomIds).size !== s.clearedRoomIds.length ||
+      s.xpPerHero !== Math.min(3, s.broughtBackCount) ||
+      s.stagecoachXp !== s.xpPerHero
+    )
+      ctx.addIssue({
+        code: "custom",
+        message: "Fungal Research brought back / 待发 XP 不一致（R-246、R-038）",
+      });
   });
 
 /** Boss / 最暗定额任务（R-122）；击败后固定 3 XP；回村发放走 `finishReturnToHamlet`。 */
@@ -190,6 +215,7 @@ export const dungeonQuestSummarySchema = z.union([
   forwardCampsQuestSummarySchema,
   level2QuestSummarySchema,
   standardBasicQuestSummarySchema,
+  fungalResearchQuestSummarySchema,
   bossFlatQuestSummarySchema,
 ]);
 export type DungeonQuestSummary = z.infer<typeof dungeonQuestSummarySchema>;

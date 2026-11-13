@@ -248,6 +248,10 @@ export type DungeonState = {
   readonly bossQuestVictory?: true;
   /** Forward Camps III：成功设营次数（R-113）。 */
   readonly forwardCampSetups?: number;
+  /** quest:weald:p001：清房时累计砸毁的坏死真菌（brought back，R-246）。 */
+  readonly necroticFungusBroughtBackCount?: number;
+  /** quest:weald:p001：至少一间目标房按 R-246 获得 objective。 */
+  readonly fungalResearchObjectiveMet?: boolean;
   readonly trinkets?: TrinketPool;
   readonly pendingCurioDraw?: { readonly rollId: string; readonly optionId: string };
   readonly conditions?: ConditionPool;
