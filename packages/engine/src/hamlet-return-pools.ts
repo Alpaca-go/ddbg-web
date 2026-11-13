@@ -9,9 +9,10 @@ import {
   expeditionRegionForQuestId,
   expeditionRoomCatalogParses,
   ordinaryRoomCardsInCatalog,
+  expeditionRoomDeckWithoutSetAside,
 } from "./expedition-room-catalog";
 import { basicQuests } from "../../data/src/basic-quests";
-import { readSetAsideRoomCardIds, ruinsRoomDeckWithoutSetAside } from "./dungeon-objective";
+import { readSetAsideRoomCardIds } from "./dungeon-objective";
 
 /** R32 a：只把弃牌洗回对应堆；保留持牌，不缩减目录或偷偷补缺牌。 */
 export function recoverHamletPools(d: DungeonState, seed: number) {
@@ -48,11 +49,8 @@ export function recoverHamletPools(d: DungeonState, seed: number) {
     new Set(parts).size === all.length &&
     parts.every((id) => all.includes(id));
   // R15 / R32：旁置目标房不进洗牌堆，但仍在九张遗迹目录里；回收时把旁置牌补回守恒等式。
-  const asides = region === "ruins" ? readSetAsideRoomCardIds(d) : [];
-  const deck =
-    region === "ruins"
-      ? (rooms.deck ?? ruinsRoomDeckWithoutSetAside(rooms.cards, asides))
-      : (rooms.deck ?? roomIds);
+  const asides = readSetAsideRoomCardIds(d);
+  const deck = rooms.deck ?? expeditionRoomDeckWithoutSetAside(rooms.cards, roomRegion, asides);
   const pool = [...(deck ?? roomIds), ...(rooms.discard ?? []), ...asides];
   const poolConserved =
     pool.length === new Set(pool).size && pool.every((id) => roomIds.includes(id));

@@ -170,7 +170,19 @@ export function createCoreDungeonQuest(
     decks.curios,
     wealdSandbox ? WEALD_APPROVED_ROOM_CARDS : sources.rooms,
     decks.monsterPool.cards,
-    { ...decks.catalog, conditions, trinkets },
+    {
+      ...decks.catalog,
+      ...(wealdSandbox
+        ? {
+            monsters: [
+              ...sources.catalog.monsters.filter((m) => !m.id.includes(":weald:")),
+              ...decks.catalog.monsters.filter((m) => m.id.includes(":weald:")),
+            ],
+          }
+        : {}),
+      conditions,
+      trinkets,
+    },
     true,
   );
   let game: GameState = { ...initial, skillLightBeforeCrit: true };
