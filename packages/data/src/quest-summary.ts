@@ -192,6 +192,26 @@ export const fungalResearchQuestSummarySchema = z
       });
   });
 
+/** R-245：`quest:weald:p003` 按消毒橡树计 XP，不按清目标房数。 */
+export const disinfectionQuestSummarySchema = z
+  .strictObject({
+    questId: z.literal("quest:weald:p003"),
+    name: z.literal("Disinfection"),
+    clearedRoomIds: z.array(z.string().min(1)),
+    oaksDisinfected: z.int().min(0).max(3),
+    xpPerHero: z.int().min(0).max(3),
+    stagecoachXp: z.int().min(0).max(3),
+    awarded: z.boolean(),
+  })
+  .superRefine((s, ctx) => {
+    if (
+      s.xpPerHero !== Math.min(3, s.oaksDisinfected) ||
+      s.stagecoachXp !== s.xpPerHero ||
+      new Set(s.clearedRoomIds).size !== s.clearedRoomIds.length
+    )
+      ctx.addIssue({ code: "custom", message: "Disinfection 摘要 XP 与消毒计数不一致（R-245）" });
+  });
+
 /** R-244：`quest:weald:p002` 按击杀 Crone 计 XP，不按清目标房数。 */
 export const circleOfWitchesQuestSummarySchema = z
   .strictObject({
@@ -236,6 +256,7 @@ export const dungeonQuestSummarySchema = z.union([
   forwardCampsQuestSummarySchema,
   level2QuestSummarySchema,
   circleOfWitchesQuestSummarySchema,
+  disinfectionQuestSummarySchema,
   standardBasicQuestSummarySchema,
   fungalResearchQuestSummarySchema,
   bossFlatQuestSummarySchema,

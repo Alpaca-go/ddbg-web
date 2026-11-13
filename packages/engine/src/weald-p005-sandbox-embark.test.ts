@@ -49,9 +49,7 @@ describe("Patrol the Woods 沙盒出征（步骤 5 第一刀）", () => {
     expect(sandboxEmbarkQuestsForPacks([...packs]).map((q) => q.id)).toContain("quest:weald:p005");
     expect(questsForContentPacks(1, [...packs]).map((q) => q.id)).not.toContain("quest:weald:p005");
     expect(questsForCampaignLevel(1).map((q) => q.id)).not.toContain("quest:weald:p005");
-    expect(sandboxExpeditionEmbarkBlockReason("weald", "quest:weald:p003", [...packs])).toMatch(
-      /尚未开放/,
-    );
+    expect(sandboxExpeditionEmbarkBlockReason("weald", "quest:weald:p003", [...packs])).toBeNull();
     expect(sandboxExpeditionEmbarkBlockReason("weald", "quest:weald:p005", [...packs])).toBeNull();
   });
 

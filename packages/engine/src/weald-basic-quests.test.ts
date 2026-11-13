@@ -47,13 +47,8 @@ it("p002–p005 印刷 XP 上限与 xpKind 不变", () => {
   }
 });
 
-it("村庄战役闸门仍拒绝全部 Weald；p001/p002/p004/p005 沙盒 allowlist", () => {
-  const sandboxOk = new Set([
-    "quest:weald:p001",
-    "quest:weald:p002",
-    "quest:weald:p004",
-    "quest:weald:p005",
-  ]);
+it("村庄战役闸门仍拒绝全部 Weald；p001–p005 沙盒 allowlist", () => {
+  const sandboxOk = new Set([...WEALD_IDS]);
   for (const id of WEALD_IDS) {
     const quest = basicQuests.find((q) => q.id === id)!;
     expect(quest.expeditionRegion).toBe("weald");

@@ -8,6 +8,7 @@ import {
   fundraiserDonationXp,
   bossFlatQuestSummarySchema,
   circleOfWitchesQuestSummarySchema,
+  disinfectionQuestSummarySchema,
 } from "../../data/src/quest-summary";
 import {
   matchesQuestCounts,
@@ -17,6 +18,7 @@ import {
 import type { ApplyResult, GameState } from "./command";
 import type { DungeonState } from "./dungeon";
 import { fungalResearchXpFromBroughtBack } from "./expansions/weald/fungal-research-quest";
+import { disinfectionXpFromOakCount } from "./expansions/weald/disinfection-quest";
 
 export const FUNDRAISER_PROMPT =
   "Fundraiser：可捐献任意不超过余额的整数金币。每 20 金币得 1 XP，最多 3 XP。0 金币表示不捐献（R-216）。";
@@ -76,6 +78,12 @@ export function readDungeonQuestProgress(d: DungeonState) {
       d.necroticFungusBroughtBackCount < 0)
   )
     return refuse("Fungal Research brought back 计数无效（R-246）");
+  if (
+    quest.id === "quest:weald:p003" &&
+    d.disinfectionOakCount !== undefined &&
+    (!Number.isSafeInteger(d.disinfectionOakCount) || d.disinfectionOakCount < 0)
+  )
+    return refuse("Disinfection 消毒计数无效（R-245）");
   const completedRoomIds =
     quest.xpKind === "camp" || quest.xpKind === "broughtBack"
       ? clearedRoomIds
@@ -228,6 +236,31 @@ export function summarizeDungeonQuest(state: GameState): ApplyResult {
         {
           type: "dungeonUpdated",
           message: `${quest.name}：击杀 Crone ${kills} 只，每名英雄与驿站待发 ${xpPerHero} XP（R-244、R-247、R-038）；于兑换剩余补给并完成回村时发放`,
+        },
+      ],
+    };
+  }
+  if (quest.id === "quest:weald:p003") {
+    const oaks = d.disinfectionOakCount ?? 0;
+    if (!Number.isSafeInteger(oaks) || oaks < 0)
+      return refuse("Disinfection 消毒计数无效（R-245）");
+    const oaksDisinfected = Math.min(3, oaks);
+    const xpPerHero = disinfectionXpFromOakCount(oaks, quest.roomsPerXp);
+    const questSummary = disinfectionQuestSummarySchema.parse({
+      questId: quest.id,
+      name: quest.name,
+      clearedRoomIds,
+      oaksDisinfected,
+      xpPerHero,
+      stagecoachXp: xpPerHero,
+      awarded: false,
+    });
+    return {
+      state: { ...state, dungeon: { ...d, questSummary } },
+      events: [
+        {
+          type: "dungeonUpdated",
+          message: `${quest.name}：消毒橡树 ${oaks} 棵，每名英雄与驿站待发 ${xpPerHero} XP（R-245、R-038）；于兑换剩余补给并完成回村时发放`,
         },
       ],
     };

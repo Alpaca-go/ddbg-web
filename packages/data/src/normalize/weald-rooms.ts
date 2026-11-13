@@ -289,7 +289,7 @@ const APPROVED_TILES: readonly WealdRoomTile[] = [
       effect: "poisonousRoots" as const,
       status: "confirmed" as const,
       printedText: "Poisonous Roots: 英雄在该区域结束回合受到 2 腐蚀 2t",
-      runtimeReady: false as const,
+      runtimeReady: true as const,
     })),
     wallNotes: ["G 下方黑色矩形缺口"],
   }),

@@ -38,6 +38,7 @@ import { chainTemplarImpalerBodySlamPitTossAfterMonsterSkill } from "./boss/temp
 import { chainWhiteCellTeleportAfterMonsterSkill } from "./boss/mammoth-cyst-teleport";
 import { endTurnRiteOfTheChosen } from "./battle-temple-of-the-chosen";
 import { endTurnEvilEye } from "./battle-evil-eye";
+import { endTurnPoisonousRoots } from "./battle-infected-oak";
 import { endTurnEldritchPower } from "./battle-eldritch-power";
 import { ceaseThreatForBossCombat, encounterForcesRetreatAfterRound } from "./boss/encounter-rules";
 import { applyBossThreatMarkedForDeathOnBattleStart } from "./boss/threat-passive-runtime";
@@ -377,6 +378,16 @@ export function finishTurn(
       return spiked;
     state = spiked.state;
     events = spiked.events;
+  }
+  const roots = endTurnPoisonousRoots(state, actorId, events);
+  if (roots) {
+    if (
+      roots.events.some((e) => e.type === "commandRefused") ||
+      ["halted", "finished"].includes(roots.state.battle!.encounter!.turn.type)
+    )
+      return roots;
+    state = roots.state;
+    events = roots.events;
   }
   const eye = evilEyeResolved ? null : endTurnEvilEye(state, actorId, events);
   if (eye) {

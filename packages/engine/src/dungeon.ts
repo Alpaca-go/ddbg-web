@@ -319,6 +319,8 @@ export type DungeonState = {
   readonly setAsideRoomCardId?: string;
   /** R-247：`quest:weald:p002` 击杀 Crone 计数（回村 XP）。 */
   readonly questExceptionCroneKills?: number;
+  /** R-245：`quest:weald:p003` 已消毒橡树计数（回村 XP）。 */
+  readonly disinfectionOakCount?: number;
   /** R-247：Crone 物理组件是否在任务表可再次部署。 */
   readonly questExceptionComponentAvailable?: boolean;
   readonly rooms: readonly {
@@ -376,6 +378,10 @@ export type DungeonState = {
   /** R-205：任务补给超出 16 时，玩家选择丢弃后仍需加入的任务道具。 */
   readonly provisionDiscard?: {
     readonly questItems: readonly {
+      readonly id: string;
+      readonly face: "food" | "bandage" | "potion" | "torch" | "tool";
+    }[];
+    readonly extraItems?: readonly {
       readonly id: string;
       readonly face: "food" | "bandage" | "potion" | "torch" | "tool";
     }[];

@@ -5,9 +5,9 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 
 ## 当前进度与下一步
 
-- **当前阶段：步骤 5 沙盒已接通 `quest:weald:p001` Fungal Research（brought back + **R-252** 封顶 3）、`quest:weald:p002` Circle of Witches（**R-244**／**R-247** II Crone 例外）、`quest:weald:p004` Purge（**R-248** 当地牌堆）、`quest:weald:p005` Patrol the Woods；须选 Weald 包；村庄战役抽选仍关。p003 SPECIAL 未接线。步骤 2 正式 Weald 日志存档闭环待后续。步骤 4 战斗真菌链路不变。**
-- **步骤 5 沙盒刀（本批）**：p002 沙盒出征 + Crone 例外部署、击杀 XP、组件复用；`quest_exception_monsters.json` 不进 I 级 14 池。详见「步骤 5 第九批」。**
-- **下一刀：`quest:weald:p003` Disinfection 沙盒／SPECIAL 单独 PR；村庄抽 2 选 1；正式战役抽选仍延后；Playwright 排在出征核准之后。**
+- **当前阶段：步骤 5 沙盒已接通 `quest:weald:p001`–`p005`（**R-252**／**R-244**／**R-245**／**R-248**／**R-242**）；须选 Weald 包；村庄战役抽选仍关。步骤 2 正式 Weald 日志存档闭环待后续。步骤 4 战斗真菌链路不变。**
+- **步骤 5 沙盒刀（本批）**：p003 Disinfection 出征 allowlist、开局 +3 公共 Potion、Infected Oak 战斗消毒与 Poisonous Roots；详见「步骤 5 第十批」。**
+- **下一刀：村庄抽 2 选 1；正式战役抽选仍延后；Playwright 排在出征核准之后。**
 - 步骤 0 已完成，提交 `e7fd17e1`；地点战役尚未开放。
 - 导入与计划两批已合入并推送 `main`（`3be97c65`）。步骤 1 怪物批次已合入并推送 `main`（`7075f4d8`）。
 - Houndmaster、Shieldbreaker 已接入，沿用现有英雄实现，不重做。
@@ -344,3 +344,12 @@ Brigand Pounder 类型行、Shrieker’s Nest 和 Cauldron Empty 的专属卡面
 - **未核准**：Crone dodge／技能／抗性未发明；`startDungeonBattle` 仍按 **R-048** 拒绝未核实技能；本刀止于半场部署／位序／守恒／摘要 XP。
 - **未做**：p003、村庄抽选、Playwright、房间 `usable: true`。
 - 验证：typecheck、lint、Prettier；Vitest `weald-p002-sandbox-embark.test.ts`、`weald-p001-sandbox-embark.test.ts`、`weald-p004-sandbox-embark.test.ts`、`weald-p005-sandbox-embark.test.ts`、`weald-basic-quests.test.ts`；`git diff --check`。
+
+### 步骤 5 第十批：Disinfection 沙盒 + SPECIAL
+
+- 起点 main `ce1a318a`（#647 p002 已合）。分支 `cursor/weald-p003-disinfection-fed9`。
+- **沙盒 allowlist**：`quest:weald:p003` 与 p001–p005 并列（须 Weald 包）；村庄 `questsForCampaignLevel`／`questsForContentPacks` 仍排除 weald。
+- **目标房**：旁置恒为 `room:weald:p005`（Infected Oak）；混池；QuestMap **R-250** 核心八槽。
+- **R-245 运行时**：`startingPotions: 3` 接入公共补给池（非 **R-197** 任务药水）；`disinfectInfectedOak`（1 行动 + 1 Potion，星区 B/D/E/G）；`disinfectionOakCount` → 回村 XP（**R-038** 封顶 3）；5 号板块 `poisonousRoots` 仅 `specialRegions.runtimeReady`，房间 `usable` 仍为 false。
+- **未做**：村庄抽选、Playwright、Boss／Stygian。
+- 验证：typecheck、lint、Prettier；Vitest `weald-p003-sandbox-embark.test.ts`、`battle-infected-oak.test.ts`、`weald-basic-quests.test.ts` 与既有 p001／p002／p004／p005 沙盒测；`git diff --check`。

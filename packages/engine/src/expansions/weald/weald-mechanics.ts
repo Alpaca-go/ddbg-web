@@ -14,7 +14,10 @@ export function wealdMechanicsActive(state: GameState): boolean {
 
 /** 从核准板块投影战斗区域；仅 wealdMechanics 为 true 时标记 W-03 零容量。 */
 export function wealdRoomTileBattleAreas(
-  tile: Pick<WealdRoomTile, "geometryVerified" | "areas" | "edges" | "zeroCapacityAreas">,
+  tile: Pick<
+    WealdRoomTile,
+    "geometryVerified" | "areas" | "edges" | "zeroCapacityAreas" | "specialRegions"
+  >,
   options: { readonly wealdMechanics: boolean },
 ): readonly BattleArea[] {
   if (tile.geometryVerified !== true) throw new Error("Weald 房间几何尚未核实（R-048）");
@@ -25,6 +28,15 @@ export function wealdRoomTileBattleAreas(
     elevation: area.elevation,
     ...(options.wealdMechanics && (area.zeroCapacity === true || zeroSet.has(area.id))
       ? { zeroCapacity: true as const }
+      : {}),
+    ...(tile.specialRegions?.some(
+      (region) =>
+        region.areaId === area.id &&
+        region.effect === "poisonousRoots" &&
+        region.status === "confirmed" &&
+        region.runtimeReady,
+    )
+      ? { poisonousRoots: true as const }
       : {}),
     adjacent: tile.edges
       .filter(

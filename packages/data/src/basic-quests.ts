@@ -379,10 +379,11 @@ export function basicQuestEnabledForContentPacks(
   return packEnabled(packs, cardContentPack(quest));
 }
 
-/** 步骤 5 沙盒：p001 brought back、p002 Crone 例外、p004 R-248、p005 混池；村庄战役池仍排除全部 Weald。 */
+/** 步骤 5 沙盒：p001–p005（须选 Weald 包）；村庄战役池仍排除全部 Weald。 */
 export const SANDBOX_WEALD_EMBARK_QUEST_IDS = [
   "quest:weald:p001",
   "quest:weald:p002",
+  "quest:weald:p003",
   "quest:weald:p004",
   "quest:weald:p005",
 ] as const;

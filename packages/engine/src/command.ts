@@ -174,6 +174,7 @@ import { chooseMonsterRetargetAfterFreeTrinket } from "./battle-monster-retarget
 import { useTrinket } from "./battle-fortunate-armlet";
 import type { UseTrinketCommand } from "./battle-fortunate-armlet";
 import { chooseEvilEyeQuirk, destroyEvilEye } from "./battle-evil-eye";
+import { disinfectInfectedOak } from "./battle-infected-oak";
 import { beginHallAscension, chooseHallAscension } from "./battle-hall-ascension";
 import { beginEldritchVault } from "./battle-eldritch-vault";
 import { hideAndHeal } from "./battle-hide-and-heal";
@@ -314,6 +315,7 @@ type BaseCommand =
   | UseProvisionCommand
   | { readonly type: "lootTreasureChest"; readonly actorId: string }
   | { readonly type: "destroyEvilEye"; readonly actorId: string }
+  | { readonly type: "disinfectInfectedOak"; readonly actorId: string }
   | { readonly type: "hallAscension"; readonly actorId: string }
   | { readonly type: "eldritchVault"; readonly actorId: string }
   | { readonly type: "hideAndHeal"; readonly actorId: string }
@@ -865,6 +867,7 @@ function dispatchCommand(
   if (command.type === "useTrinket") return useTrinket(state, command);
   if (command.type === "lootTreasureChest") return lootTreasureChest(state, command.actorId);
   if (command.type === "destroyEvilEye") return destroyEvilEye(state, command.actorId);
+  if (command.type === "disinfectInfectedOak") return disinfectInfectedOak(state, command.actorId);
   if (command.type === "hallAscension") return beginHallAscension(state, command.actorId);
   if (command.type === "eldritchVault") return beginEldritchVault(state, command.actorId);
   if (command.type === "hideAndHeal") return hideAndHeal(state, command.actorId);

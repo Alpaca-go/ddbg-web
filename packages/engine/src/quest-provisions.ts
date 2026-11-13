@@ -16,6 +16,39 @@ export function readQuestStartingProvisions(
   return quest && "questStartingProvisions" in quest ? quest.questStartingProvisions : [];
 }
 
+/** R-245：开局额外加入公共池的普通 Potion 数量（非 R-197 任务药水）。 */
+export function readQuestStartingPotions(d: DungeonState): number {
+  const quest = readBasicQuest(d.questDistribution);
+  return quest && "startingPotions" in quest ? quest.startingPotions : 0;
+}
+
+export function questStartingPotionItems(count: number): readonly {
+  readonly id: string;
+  readonly face: ProvisionFace;
+}[] {
+  return Array.from({ length: count }, (_, index) => ({
+    id: `dungeon-quest-starting-potion:${index}`,
+    face: "potion" as const,
+  }));
+}
+
+export function questStartingPotionOverflow(d: DungeonState): {
+  readonly provisions: readonly { readonly id: string; readonly face: ProvisionFace }[];
+  readonly potionItems: readonly { readonly id: string; readonly face: ProvisionFace }[];
+  readonly overflow: number;
+} {
+  const count = readQuestStartingPotions(d);
+  if (!count)
+    return { provisions: d.explorationSetup?.provisions ?? [], potionItems: [], overflow: 0 };
+  const provisions = d.explorationSetup?.provisions ?? [];
+  const potionItems = questStartingPotionItems(count);
+  return {
+    provisions,
+    potionItems,
+    overflow: Math.max(0, provisions.length + potionItems.length - 16),
+  };
+}
+
 export function readObjectiveRecoveryProvision(d: DungeonState): ProvisionFace | null {
   const quest = readBasicQuest(d.questDistribution);
   return quest && "objectiveRecoveryProvision" in quest ? quest.objectiveRecoveryProvision : null;
