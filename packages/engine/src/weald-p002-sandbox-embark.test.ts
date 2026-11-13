@@ -156,6 +156,13 @@ describe("Circle of Witches 沙盒出征（R-244 / R-247）", () => {
     expect(questMonsterOutsidePoolInstanceIds(deployed.state.dungeon!)).toEqual([
       WEALD_CRONE_EXCEPTION_INSTANCE_ID,
     ]);
+    const started = applyCommand(deployed.state, { type: "startDungeonBattle" });
+    expect(started.events.filter((e) => e.type === "commandRefused")).toEqual([]);
+    expect(started.state.battle?.entities.find((e) => e.id === crone.instanceId)).toMatchObject({
+      life: 12,
+      dodge: 3,
+      monsterCardId: WEALD_CRONE_EXCEPTION_CARD_ID,
+    });
   });
 
   it("非目标房不开例外 Crone", () => {

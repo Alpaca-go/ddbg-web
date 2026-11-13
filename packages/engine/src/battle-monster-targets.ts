@@ -157,7 +157,9 @@ export function playMonsterSkillTargets(
     };
   }
   // R19 Note：已核实 Wicked Surge 无 Acc，不消费攻击骰。
-  const noAttackRoll = card.id === "monster_medium:p016" && command.skillSlot === 1;
+  const noAttackRoll =
+    (card.id === "monster_medium:p016" && command.skillSlot === 1) ||
+    (card.id === "monster_medium:weald:p015" && command.skillSlot === 3);
   const roll = noAttackRoll
     ? 1
     : resume

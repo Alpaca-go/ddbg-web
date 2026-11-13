@@ -3343,3 +3343,15 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
   - **Objective** 与回村 XP **分开**：未达成 R-246 objective **不**自动归零 brought back XP。
 - **边界**：交叉引用 **R-038**、**R-246**；不改写 R-038／R-246 正文。
 - **依据**：核心规则书第 29 页；**R-038**、**R-246**；R-001、R-048。
+
+### R-253
+
+- **日期**：2026-11-13
+- **核准**：Kyries 对 [Crone 审阅稿](weald-crone-review-2026-11-13.md) 的三项确认请求回复「三项全部核准」。
+- **属性与防御**：II Crone 闪避 3；腐蚀、减益抗性；无免疫。Human / Back、Life 12、Speed 3 沿用 R-244。
+- **选招**：Aggressive／Defensive：1–2 技能 1，3–8 技能 2，9–10 技能 3；Ranged／Support：1–5 技能 1，6–10 技能 3。
+- **技能 1 Curse of Vulnerability**：Crowded，射程 2／最多 2 目标；Crit 1／伤害 4，Acc 9／伤害 2；命中目标 Mark 2t、减益 2t。
+- **技能 2 Fetid Censer**：Closest，射程 0／1 目标；Crit 1／伤害 6，Acc 9／伤害 3；命中目标腐蚀 3／2t、压力 +1、给予疾病。
+- **技能 3 Embrace the Dark**：Crowded，射程 2／最多 2 目标；无 Crit／Acc／伤害栏，不掷攻击骰、直接生效；每个目标压力 +1，整次技能光照只减 1。
+- **范围**：仅补 Circle of Witches 的任务例外战斗资格；部署、组件复用与 XP 沿用 R-244／R-247，不加入 I 级 14 实体池，不开放 II 级随机池。
+- **依据**：当前印刷 Weald 中型怪物 FRONT 第 15、16 页逐图核对及 Kyries 本次核准；无 Acc 直接生效见核心规则书第 19 页 Note、R-025。原始图标全局命名状态不因本卡核准而扩大。

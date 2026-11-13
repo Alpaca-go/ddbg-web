@@ -276,6 +276,14 @@ function resolveMonsterSkillInternal(
     ) &&
     !(attack.necromancerSummon && skillSlot === 3) &&
     !(
+      // R-253：Crone 的纯效果技能无 Acc／伤害栏。
+      monster.id === "monster_medium:weald:p015" &&
+      skillSlot === 3 &&
+      matches[0]!.verified_monster_effects?.effects.length === 2 &&
+      matches[0]!.verified_monster_effects.effects[0]?.type === "stress" &&
+      matches[0]!.verified_monster_effects.effects[1]?.type === "light"
+    ) &&
+    !(
       monster.id === "monster_medium:p016" &&
       skillSlot === 1 &&
       matches[0]!.verified_monster_effects

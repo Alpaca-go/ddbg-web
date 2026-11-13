@@ -52,7 +52,12 @@ import {
   fungalResearchProgressFromBattle,
   isFungalResearchQuest,
 } from "./expansions/weald/fungal-research-quest";
-import { recordWealdCroneKillOnBattleFinish } from "./expansions/weald/circle-of-witches-spawn";
+import {
+  recordWealdCroneKillOnBattleFinish,
+  wealdCroneExceptionObjectiveActive,
+  WEALD_CRONE_EXCEPTION_CARD_ID,
+  WEALD_CRONE_EXCEPTION_INSTANCE_ID,
+} from "./expansions/weald/circle-of-witches-spawn";
 import { recordDisinfectionOakOnBattleFinish } from "./expansions/weald/disinfection-quest";
 import { readDungeonQuestProgress } from "./dungeon-quest";
 import { readCampaignLevel } from "./hamlet-campaign";
@@ -276,11 +281,28 @@ export function startDungeonBattle(state: GameState): ApplyResult {
       d.curioRoom.roomId === d.position &&
       d.curioRoom.stage === "guarded" &&
       readCurioRoomAlwaysGuarded(d) !== null;
+    // R-253：只放行目标房指定的 II Crone 实例，不授予随机池高等级资格。
+    const croneException =
+      wealdPackSelected(d.contentPacks) &&
+      wealdCroneExceptionObjectiveActive(d) &&
+      spawn.instanceId === WEALD_CRONE_EXCEPTION_INSTANCE_ID &&
+      card.id === WEALD_CRONE_EXCEPTION_CARD_ID &&
+      card.level === 2;
+    const wealdLocal =
+      wealdPackSelected(d.contentPacks) &&
+      d.monsterPool?.location === "weald" &&
+      d.monsterPool.wealdInstances?.some(
+        (entry) =>
+          entry.instanceId === spawn.instanceId &&
+          entry.cardId === card.id &&
+          entry.stanceSlots === spawn.stanceSlots,
+      );
     // C-008 / R-082–083：level>1 须 hasApprovedHigherMonsterFields；DL 累加牌堆内 II 已批五组见 ruins-pool-admission。
     if (
-      card.level !== identity?.level ||
-      (!allowPrintedLevel && !curioGuardSpawn && card.level > d.explorationSetup.dungeonLevel) ||
-      (card.level !== 1 && !hasApprovedHigherMonsterFields(card))
+      !croneException &&
+      (card.level !== (wealdLocal ? 1 : identity?.level) ||
+        (!allowPrintedLevel && !curioGuardSpawn && card.level > d.explorationSetup.dungeonLevel) ||
+        (card.level !== 1 && !hasApprovedHigherMonsterFields(card)))
     )
       return refuse(`${card.name} 的等级 / 高等级限定批准不符，保留部署（R-082、R-083、R-048）`);
     if (!Number.isSafeInteger(card.dodge) || card.dodge < 0)

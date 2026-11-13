@@ -56,7 +56,7 @@ function croneSpawnCard(): SpawnCard | undefined {
     cardId: exceptionCatalog.id,
     edge: "back",
     stanceSlots: CRONE_STANCE_SLOTS,
-    verified: false,
+    verified: true,
   };
 }
 
@@ -165,7 +165,7 @@ export function prepareWealdQuestExceptionMonsterDeployment(
   )
     return refuse("怪物牌堆不守恒，不能推进任务例外生成");
   const blockedReason =
-    "已部署 II 级 Crone（任务例外，不进 I 级 14 实体池）并由 Weald+Common I 级牌堆补满；技能效果未核准，本刀只接部署 / 位序 / 组件复用 / XP（R-244、R-247、R-048）。";
+    "已部署 II 级 Crone（任务例外，不进 I 级 14 实体池）并由 Weald+Common I 级牌堆补满；战斗字段已核准（R-244、R-247、R-253）。";
   return {
     state: {
       ...state,

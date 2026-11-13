@@ -2926,6 +2926,12 @@ function resolveSkill(
     !support &&
     !selfTarget &&
     accThreshold === null &&
+    !(
+      active.id === "monster_medium:weald:p015:skill3" &&
+      active.printed_labels.length === 0 &&
+      extraStress?.amount === 1 &&
+      effect === null
+    ) &&
     !(statuses.target.length && active.printed_labels.length === 0) &&
     !targetHealAnn
   ) {

@@ -11,10 +11,17 @@
       "type_position_tags": ["Human", "Back"],
       "life": 12,
       "speed": 3,
-      "verifiedRuleRulings": ["R-244", "R-247"],
-      "combatReady": false,
-      "deploymentOnly": true,
-      "note": "Dodge／技能／抗性／免疫未核准（R-048）；本条目仅供 Circle of Witches 任务例外部署与位序；占格按引擎中型非 Large 默认 1 槽；不进入 Weald I 级随机牌堆"
+      "dodge": 3,
+      "resistances": ["blight", "debuff"],
+      "immunities": [],
+      "stanceGroups": [
+        { "stances": ["aggressive", "defensive"], "rollTable": [{"min":1,"max":2,"skill":1},{"min":3,"max":8,"skill":2},{"min":9,"max":10,"skill":3}] },
+        { "stances": ["ranged", "support"], "rollTable": [{"min":1,"max":5,"skill":1},{"min":6,"max":10,"skill":3}] }
+      ],
+      "verifiedRuleRulings": ["R-244", "R-247", "R-253"],
+      "combatReady": true,
+      "deploymentOnly": false,
+      "note": "R-253：仅 Circle of Witches 的 II 级例外；不进入 Weald I 级随机牌堆。Embrace the Dark 无命中判定，每目标压力 +1，整次技能光照 -1。"
     }
   ]
 }
