@@ -258,6 +258,11 @@ describe("Weald W-03 / W-04", () => {
     expect(resolved?.resolution?.outcome).not.toBe("miss");
     const token = hit.state.battle!.entities.find((e) => e.id === fungus.id)!;
     expect(token.dead || token.wounds >= 1).toBe(true);
+    // W-04：摧毁真菌不能触发怪物轨补位，也不能挪动另一个真菌的兼容字段。
+    for (const before of moved.battle!.entities.filter((e) => e.id !== fungus.id))
+      expect(hit.state.battle!.entities.find((e) => e.id === before.id)!.stance).toBe(
+        before.stance,
+      );
   });
 
   it("真菌不进入先攻牌堆", () => {

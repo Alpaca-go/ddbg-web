@@ -52,6 +52,37 @@ function resolved(result: ShuffleResolution) {
 }
 
 describe("Push / Pull 位置纯结算（R21/R24、R-020、R-021、Q-19）", () => {
+  it("W-04：在场真菌不参与怪物轨校验或顺移", () => {
+    const fungus = entity("fungus", { necroticFungus: true });
+    const result = resolved(
+      resolveShuffle(
+        {
+          areas: line,
+          entities: [hero(), entity("target"), entity("other", { stance: "defensive" }), fungus],
+        },
+        intent(),
+      ),
+    );
+    expect(result.entities.find((e) => e.id === "target")!.stance).toBe("defensive");
+    expect(result.entities.find((e) => e.id === "other")!.stance).toBe("aggressive");
+    expect(result.entities.find((e) => e.id === "fungus")).toEqual(fungus);
+  });
+  it("W-04：真菌目标的区域位移不挤占怪物姿态轨", () => {
+    const fungus = entity("fungus", { necroticFungus: true });
+    const target = entity("target");
+    const result = resolved(
+      resolveShuffle(
+        { areas: line, entities: [hero(), target, fungus] },
+        {
+          ...intent(),
+          entityId: "fungus",
+        },
+      ),
+    );
+    expect(result.entities.find((e) => e.id === "target")).toEqual(target);
+    expect(result.entities.find((e) => e.id === "fungus")).toEqual({ ...fungus, areaId: "c" });
+    expect(result.stanceSteps).toBe(0);
+  });
   it("区域参照与角色所在区域等价，不需要给空区域创建实体", () => {
     const setup = { areas: line, entities: [hero(), entity("target")] };
     const byArea: ShuffleIntent = {

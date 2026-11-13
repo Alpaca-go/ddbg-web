@@ -561,10 +561,15 @@ export function removeCasualties(result: ApplyResult, ids: readonly string[]): A
       battle: {
         ...battle,
         entities: battle.entities.map((entity) => {
-          if (entity.dead) return entity;
+          if (entity.dead || isNecroticFungusEntity(entity)) return entity;
           const position = STANCES.indexOf(entity.stance!);
           const steps = casualties
-            .filter((dead) => dead.side === entity.side && STANCES.indexOf(dead.stance!) < position)
+            .filter(
+              (dead) =>
+                !isNecroticFungusEntity(dead) &&
+                dead.side === entity.side &&
+                STANCES.indexOf(dead.stance!) < position,
+            )
             .reduce((sum, dead) => sum + (dead.side === "hero" ? 1 : dead.stanceSlots!), 0);
           return steps ? { ...entity, stance: STANCES[position - steps]! } : entity;
         }),
