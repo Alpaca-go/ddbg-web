@@ -60,7 +60,7 @@ import { applyHamletAction, chooseAbbeyQuirk } from "./hamlet-actions";
 import { visitNomadWagon, chooseNomadWagon } from "./hamlet-nomad";
 import { visitBlacksmith } from "./hamlet-blacksmith";
 import { visitGuild, chooseGuild } from "./hamlet-guild";
-import { offerNextQuest, chooseNextQuest } from "./hamlet-embark";
+import { offerNextQuest, chooseNextQuest, chooseHamletQuestDrawMode } from "./hamlet-embark";
 import { advanceCampaignLevel } from "./hamlet-campaign";
 import { advanceRuinsAct } from "./advance-ruins-act";
 import { enterDarkestDungeon } from "./darkest-entry";
@@ -565,6 +565,10 @@ function dispatchCommand(
   if (command.type === "setDungeonStances") return setDungeonStances(state, command);
   if (command.type === "joinPreparedReplacements") return joinPreparedReplacements(state);
   if (command.type === "prepareReplacementHero") return beginReplacementPreparation(state);
+  if (state.dungeon?.pending?.id.startsWith("hamlet-quest-draw:"))
+    return command.type === "resolveChoice"
+      ? chooseHamletQuestDrawMode(state, command.choiceId, command.optionId)
+      : rejectBattleCommand(state, "请先选择任务抽法");
   if (state.dungeon?.pending?.id.startsWith("hamlet-next-quest:"))
     return command.type === "resolveChoice"
       ? chooseNextQuest(state, command.choiceId, command.optionId, command.bossEdgeRooms ?? false)

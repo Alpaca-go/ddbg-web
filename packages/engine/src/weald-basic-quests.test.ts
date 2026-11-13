@@ -4,6 +4,9 @@ import {
   expeditionLocationEmbarkBlockReason,
   sandboxExpeditionEmbarkBlockReason,
 } from "../../data/src/quest-map-pairing";
+import { chooseNextQuest } from "./hamlet-embark";
+import { naturalHamletStart } from "./test-helpers/guild-quest";
+import { coreQuestSources } from "./test-helpers/core-quest";
 
 const WEALD_IDS = [
   "quest:weald:p001",
@@ -45,6 +48,33 @@ it("p002–p005 印刷 XP 上限与 xpKind 不变", () => {
     expect(quest.xpKind).toBe(expected.kind);
     expect(questPrintedXpCap(quest)).toBe(expected.cap);
   }
+});
+
+it("仅 expeditionRegion 仍拒绝 Weald；Hamlet chooseNextQuest + weald 包放行 p001–p005", () => {
+  const prefix = naturalHamletStart(coreQuestSources, 6);
+  const d = prefix.game.dungeon!;
+  const ready = {
+    ...prefix.game,
+    dungeon: {
+      ...d,
+      contentPacks: ["core", "weald"] as const,
+      hamlet: {
+        ...d.hamlet!,
+        phase: "preparationComplete" as const,
+        remainingDays: 0,
+        active: null,
+      },
+      pending: {
+        id: `hamlet-next-quest:${d.decision}`,
+        actorId: "party",
+        prompt: "test",
+        options: [{ id: "quest:weald:p002", label: "Circle of Witches" }],
+      },
+      nextQuestOffers: ["quest:weald:p002"] as const,
+    },
+  };
+  const embarked = chooseNextQuest(ready, ready.dungeon!.pending!.id, "quest:weald:p002", true);
+  expect(embarked.events.some((e) => e.type === "commandRefused")).toBe(false);
 });
 
 it("村庄战役闸门仍拒绝全部 Weald；p001–p005 沙盒 allowlist", () => {

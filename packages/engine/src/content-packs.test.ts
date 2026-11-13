@@ -192,8 +192,18 @@ it("回村再出征保留包选择和共享英雄目录", () => {
       },
     },
   };
-  const offered = applyCommand(state, { type: "offerNextQuest" });
+  let offered = applyCommand(state, { type: "offerNextQuest" });
   expect(offered.events.some((e) => e.type === "commandRefused")).toBe(false);
+  while (offered.state.dungeon!.pending?.id.startsWith("hamlet-quest-draw:")) {
+    const draw = offered.state.dungeon!.pending!;
+    expect(draw.options.every((o) => !o.id.includes("cove"))).toBe(true);
+    offered = applyCommand(offered.state, {
+      type: "resolveChoice",
+      choiceId: draw.id,
+      optionId: draw.options[0]!.id,
+    });
+    expect(offered.events.some((e) => e.type === "commandRefused")).toBe(false);
+  }
   const choice = offered.state.dungeon!.pending!;
   const embarked = applyCommand(offered.state, {
     type: "resolveChoice",
