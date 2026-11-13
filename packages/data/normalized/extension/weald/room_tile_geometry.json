@@ -1266,7 +1266,7 @@
      "effect": "poisonousRoots",
      "status": "confirmed",
      "printedText": "Poisonous Roots: 英雄在该区域结束回合受到 2 腐蚀 2t",
-     "runtimeReady": false
+     "runtimeReady": true
     },
     {
      "areaId": "D",
@@ -1274,7 +1274,7 @@
      "effect": "poisonousRoots",
      "status": "confirmed",
      "printedText": "Poisonous Roots: 英雄在该区域结束回合受到 2 腐蚀 2t",
-     "runtimeReady": false
+     "runtimeReady": true
     },
     {
      "areaId": "E",
@@ -1282,7 +1282,7 @@
      "effect": "poisonousRoots",
      "status": "confirmed",
      "printedText": "Poisonous Roots: 英雄在该区域结束回合受到 2 腐蚀 2t",
-     "runtimeReady": false
+     "runtimeReady": true
     },
     {
      "areaId": "G",
@@ -1290,7 +1290,7 @@
      "effect": "poisonousRoots",
      "status": "confirmed",
      "printedText": "Poisonous Roots: 英雄在该区域结束回合受到 2 腐蚀 2t",
-     "runtimeReady": false
+     "runtimeReady": true
     }
    ],
    "wallNotes": [

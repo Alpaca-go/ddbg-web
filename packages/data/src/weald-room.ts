@@ -143,13 +143,29 @@ export const wealdRoomTileSchema = z
         effect: wealdSpecialEffectSchema,
         status: z.literal("confirmed"),
         printedText: z.string(),
-        runtimeReady: z.literal(false),
+        runtimeReady: z.boolean(),
       }),
     ),
     wallNotes: z.array(z.string()),
     unresolvedMarkers: z.array(z.never()),
   })
   .superRefine((tile, ctx) => {
+    for (const region of tile.specialRegions) {
+      if (region.runtimeReady && region.effect !== "poisonousRoots")
+        ctx.addIssue({
+          code: "custom",
+          message: `特效 ${region.effect} 尚未允许 runtimeReady（R-048）`,
+        });
+      if (
+        region.runtimeReady &&
+        region.effect === "poisonousRoots" &&
+        (tile.roomId !== "room:weald:p005" || tile.number !== 5)
+      )
+        ctx.addIssue({
+          code: "custom",
+          message: "Poisonous Roots 仅 Infected Oak 5 号板块可 runtimeReady",
+        });
+    }
     const ids = new Set(tile.areas.map((a) => a.id));
     if (ids.size !== tile.areas.length) ctx.addIssue({ code: "custom", message: "区域 ID 重复" });
     for (const areaId of [...tile.necroticFungusAreas, ...tile.zeroCapacityAreas])

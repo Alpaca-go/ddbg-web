@@ -7,7 +7,12 @@ import {
   beginWarmUpProvisionTorchChoice,
   finishStartingProvisionsToExploration,
 } from "./warm-up-starting-provisions";
-import { isQuestProvisionId, questStartingProvisionOverflow } from "./quest-provisions";
+import {
+  isQuestProvisionId,
+  questStartingPotionItems,
+  questStartingProvisionOverflow,
+  readQuestStartingPotions,
+} from "./quest-provisions";
 import { scoutAheadPlanProblem } from "./hamlet-scout-ahead";
 import { readFinalBattlePlanAfterDarkestVictory } from "./boss/darkest-content";
 import { rejectBattleCommand } from "./battle";
@@ -102,7 +107,7 @@ export function chooseProvisionDiscard(
       pending: null,
       explorationSetup: {
         ...nextDungeon.explorationSetup!,
-        provisions: [...provisions, ...info.questItems],
+        provisions: [...provisions, ...info.questItems, ...(info.extraItems ?? [])],
       },
     },
   };
@@ -303,7 +308,14 @@ export function setupDungeonProvisions(
         ],
       };
     const questInfo = questStartingProvisionOverflow(completed);
-    if (questInfo.overflow > 0) {
+    const potionCount = readQuestStartingPotions(completed);
+    const potionItems = potionCount > 0 ? questStartingPotionItems(potionCount) : [];
+    const mergedProvisions: readonly { readonly id: string; readonly face: ProvisionFace }[] =
+      questInfo.questItems.length > 0
+        ? [...questInfo.provisions, ...questInfo.questItems]
+        : (completed.explorationSetup?.provisions ?? []);
+    const overflow = Math.max(0, mergedProvisions.length + potionItems.length - 16);
+    if (overflow > 0) {
       return beginProvisionDiscard(
         {
           ...state,
@@ -312,7 +324,8 @@ export function setupDungeonProvisions(
             pending: null,
             provisionDiscard: {
               questItems: questInfo.questItems,
-              remaining: questInfo.overflow,
+              extraItems: potionItems,
+              remaining: overflow,
             },
           },
         },
@@ -320,28 +333,36 @@ export function setupDungeonProvisions(
           ...events,
           {
             type: "dungeonUpdated",
-            message: `任务补给（R-197）：将加入 ${questInfo.questItems.length} 个；补给池将超过 16，需要丢弃 ${questInfo.overflow} 个既有补给（R-205）`,
+            message: `开局补给将超过 16：须丢弃 ${overflow} 个既有补给后再加入任务道具与额外 Potion（R-197、R-245、R-205）`,
           },
         ],
       );
     }
-    const questedDungeon: DungeonState = questInfo.questItems.length
-      ? {
-          ...completed,
-          explorationSetup: {
-            ...completed.explorationSetup!,
-            provisions: [...questInfo.provisions, ...questInfo.questItems],
-          },
-        }
-      : completed;
-    const questEvents: GameEvent[] = questInfo.questItems.length
-      ? [
-          {
-            type: "dungeonUpdated",
-            message: `任务补给（R-197）：加入 ${questInfo.questItems.length} 个（不可丢弃）`,
-          },
-        ]
-      : [];
+    const questedDungeon: DungeonState = {
+      ...completed,
+      explorationSetup: {
+        ...completed.explorationSetup!,
+        provisions: [...mergedProvisions, ...potionItems],
+      },
+    };
+    const questEvents: GameEvent[] = [
+      ...(questInfo.questItems.length
+        ? [
+            {
+              type: "dungeonUpdated" as const,
+              message: `任务补给（R-197）：加入 ${questInfo.questItems.length} 个（不可丢弃）`,
+            },
+          ]
+        : []),
+      ...(potionItems.length
+        ? [
+            {
+              type: "dungeonUpdated" as const,
+              message: `Disinfection（R-245）：开局额外加入 ${potionItems.length} 枚公共池 Potion`,
+            },
+          ]
+        : []),
+    ];
     return finishQuestProvisionFlow({ ...state, dungeon: { ...questedDungeon, pending: null } }, [
       ...events,
       ...questEvents,

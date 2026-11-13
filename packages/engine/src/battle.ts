@@ -135,6 +135,8 @@ export type BattleArea = {
   /** R-157：Toxic Vapors 站立 Acc −3。 */
   readonly toxicVapors?: true;
   readonly endTurnToxicBlight?: { readonly amount: 1; readonly duration: 3 };
+  /** R-245 Infected Oak：Poisonous Roots 星标区。 */
+  readonly poisonousRoots?: true;
   /** R-156：Eldritch Vault 饰品交互区。 */
   readonly eldritchVaultTrinkets?: true;
   readonly eldritchVaultPayBeforeDraw?: true;
@@ -242,6 +244,8 @@ export type BattleState = BattleSetup & {
   readonly oneBodyPools?: Readonly<Record<string, OneBodyLifePool>>;
   readonly lootChestUsed?: true;
   readonly evilEyeDestroyed?: true;
+  /** R-245：本场战斗已在星区完成消毒。 */
+  readonly infectedOakDisinfected?: true;
   /** R-156：Vault 抽牌队列中尚未处理的 III 级饰品 id。 */
   readonly eldritchVaultDrawsRemaining?: number;
   readonly eldritchVaultReward?: true;

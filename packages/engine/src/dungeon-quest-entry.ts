@@ -197,6 +197,8 @@ export function createCoreDungeonQuest(
         questExceptionComponentAvailable: true,
       },
     };
+  if (questId === "quest:weald:p003" && game.dungeon)
+    game = { ...game, dungeon: { ...game.dungeon, disinfectionOakCount: 0 } };
   if (mode === "stygian" && stygianRoomRules && game.dungeon)
     game = { ...game, dungeon: { ...game.dungeon, stygianRoomRules } };
   if (isDarkestQuest(questId)) return setupDarkestDungeon(game);
