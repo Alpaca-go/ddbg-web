@@ -6,9 +6,9 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 ## 当前进度与下一步
 
 - **当前阶段：步骤 5 已接通 `quest:weald:p001`–`p005`（**R-252**／**R-244**／**R-245**／**R-248**／**R-242**）；须选 Weald 包；村庄分地点抽 2 选 1，Hamlet 可出征五任务。步骤 2 地点切换与正式格式日志存档首批已验证；五任务自然通关留待 I 级阶段验收。步骤 4 战斗真菌链路不变。**
-- **当前批次**：已选 Weald 包时的正式开局第一趟分地点抽选、起点存档与浏览器冒烟，详见「步骤 5 第十五批」，正在全量验证。
+- **当前批次**：已选 Weald 包时的正式开局第一趟分地点抽选、起点存档与浏览器冒烟，详见「步骤 5 第十五批」（PR #653）。质量闸门全部通过，待合入。
 - **下一刀：I 级普通任务阶段验收。Crone #651 已合入；地点切换与存档首批 #652 已 squash 合入 main（`14027146`）。Boss、II／III 与 Stygian 随后推进。字段核准遵守 R-048。**
-- 步骤 0 已完成，提交 `e7fd17e1`；地点战役尚未开放。
+- 步骤 0 已完成，提交 `e7fd17e1`；完整地点战役尚未验收。
 - 导入与计划两批已合入并推送 `main`（`3be97c65`）。步骤 1 怪物批次已合入并推送 `main`（`7075f4d8`）。
 - Houndmaster、Shieldbreaker 已接入，沿用现有英雄实现，不重做。
 - Hag I 已有部分运行时；Brigand Pounder、Shrieker 仍有身份占位，不能视为正式 Boss 闭环。
@@ -401,5 +401,5 @@ Brigand Pounder 类型行、Shrieker’s Nest 和 Cauldron Empty 的专属卡面
 - 首趟与村庄复用同一分堆洗牌函数，遗迹继续经过 campaign-quest-pool 黄金池过滤。抽牌 RNG 消耗后再布图、洗房间代币和掷补给；未选卡进入永久弃置。
 - 新增可选 initialQuestDrawMode 起点字段，读取时由种子、包选择与抽法重建候选，拒绝选择候选之外的任务；跨任务保留该标记。缺少新字段的旧日志仍走原入口，不静默追加抽牌。
 - 针对性四文件 23 项通过；两条 Playwright 冒烟通过（多包开局／Weald 首趟抽选锁定与保存刷新恢复），未启用重试。首次默认浏览器启动因缺少当前版本 Chromium 失败，随后使用配置已有的 PLAYWRIGHT_CHROMIUM_EXECUTABLE 指向本机 Chrome，未改仓库浏览器配置；截图已查看，卡图缓存缺失时保留原占位。
-- typecheck、lint、build 已通过，全量 Vitest 运行中。尚未宣称五任务自然通关；Boss／Stygian／II–III／房间 usable 不变。
+- 代码提交 `28b377de`／`6d32db10`，PR #653。typecheck、lint、build 全通过；全量 Vitest **514 文件通过，3,884 项通过、1 项沿用跳过，无失败**，耗时 1,428.27 秒。地图预览对齐后重跑生产构建与两条 Playwright，全部通过（两条 34.9 秒，未启用重试）。最终 Prettier 与 git diff --check 通过。尚未宣称五任务自然通关；Boss／Stygian／II–III／房间 usable 不变。
 - 下一刀：先补 Disinfection 的 UI 消毒入口及存档命令白名单（当前只有引擎命令入口），再逐张验收 I 级五任务的探索、战斗、目标与 XP／回村；之后按 Hag → Brigand Pounder → Shrieker 推进。
