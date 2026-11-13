@@ -1,6 +1,6 @@
 # Weald I 级普通（非 Boss）任务证据审阅稿
 
-状态：**步骤 5 证据盘点 + Kyries 2026-11-13（Asia/Shanghai）口头审阅（部分）。已登记分布六项 hash（**R-240**）、p004／p005 SPECIAL（**R-241**、**R-242**）；仍**不**写入 normalized、不接线、不开放出征、不声称可玩。**
+状态：**步骤 5 证据盘点 + Kyries 2026-11-13（Asia/Shanghai）口头审阅（部分）。已登记 **R-240**–**R-245**（含任务 PDF 黄底蘑菇语义、p002／p003）；仍**不**写入 normalized、不接线、不开放出征、不声称可玩。**
 依据：Weald W-02（任务牌堆与等级）、核心 R15 / 任务卡结构；R-001、R-048；权威印刷为单包 `MG_DD_06_EN_WEALD`，不使用 The Darkest Heroes 合并册，不使用电子游戏数据。
 
 ## 证据来源与仓库现状
@@ -21,9 +21,9 @@
 
 本刀范围：**仅 I 级（背面 Quest I）五张**，均为普通任务文案（无 Hag／Brigand Pounder／Shrieker Boss 出征卡）。**不含** II／III（p006–p015）、Stygian、Boss 房与 Boss 牌堆。
 
-## Kyries 2026-11-13 已确认（口头；顺序与 R-240–R-242 一致）
+## Kyries 2026-11-13 已确认（口头；R-240–R-245）
 
-Kyries 明确说「先审这些，剩下的我还在查」。下列为本次已登记内容；**更正**（56ea9289ab 非地点旗帜、d3a3e38ee9 非报酬图标、重叠检出说明）仅为事实订正，不视为对新词条的批准。
+下列为已登记内容；**更正**（56ea9289ab 非地点旗帜、d3a3e38ee9 非报酬图标、重叠检出、p003「Provisions」→ Potion 等）仅为事实订正，不视为对新词条的批准。p001 真菌目标状态机 Kyries **未**审，仍待确认。
 
 ### 任务卡底分布图标（口头点名 hash）
 
@@ -54,6 +54,33 @@ Kyries 明确说「先审这些，剩下的我还在查」。下列为本次已�
 - 每场战斗开始时掷 1d10：点数**严格大于**当前光照 → 所有怪物先攻卡放到先攻牌堆**顶**，**仅第一轮**；之后怪物先手，同阵营内仍按姿态优先级；第二轮起重按规则书第 25 页洗混重组，本条不再适用；**打平不触发**。光照开局 5 时需 6–10；光照 0 时 1–10 均触发。
 - XP：**每清理 2 间房 1 XP**。构成 Empty×1、Curio×2、Treasure×1、巢穴×2、Trap×2；可清理前四类共 6 间，**最多 3 XP**；Trap 永不清理。Rest **8**（左上柴火旁印刷）。右上黄条蘑菇 = Weald 地点图标（同 p004），**本卡不改**巢穴生成规则。
 
+### 本组任务 PDF 黄底蘑菇与 SPECIAL 编号（第二批）— R-243
+
+- 黄底蘑菇图形（与 **R-241** Weald 地点图标同形）：在本组任务 PDF（`MG_DD_06_EN_WEALD` 任务 FRONT）卡面上表示该 quest **属于 Weald 拓展包**；本 PDF 右上角黄条均为此意。逐图对位可为 `{icon:c5334974cf}`，**不**写成 Kyries 报了 hash。
+- SPECIAL RULES 中「蘑菇图标 + 数字 **N**」= 从 Weald 拓展包选择**编号为 N 的 tile**（例：p002 的 9 号 → `room:weald:p009` The Clearing；p003 的 5 号 → `room:weald:p005` Infected Oak）。是**地点房间编号**，**不是**地块圆形坏死真菌标记（**W-04**）。
+- **不**因此结案 p001 真菌目标／brought back／Objective 3／6／8 状态机（Kyries 仅解释图标语义）。
+
+### `quest:weald:p002` Circle of Witches（FRONT 第 2 页）— R-244
+
+- **Crone (LvL 2)** = Weald **中型怪物** FRONT 第 15、16 页（两页内容相同）那张 **II 级 Crone**，**不是** Boss。组件表：2× Crone，列在 The Weald Monsters，不在 Bosses。卡面：Human、**Back**、速度 3、生命 12。本任务是 **I 级**「Circle of Witches」（FRONT p2）；其它战斗仍用 **I 级**牌堆（Weald 规则书：当地 I 级 + 通用 I 级），她是卡面写明的**例外**，开战时从 **II 级**卡里取出并放进场。
+- 目标房始终为蘑菇 **9** 号 = 官方房间卡「**9—The Clearing**」（FRONT 第 9 页，`room:weald:p009`）。按规则书第 15 页：目标房在任务开始时单独放好，不会在随机战斗牌堆中抽到；目标房始终有守卫，进房即开战。蘑菇 +9 = 地点房间编号，不是坏死真菌标记。
+- 她是 Back：按规则书第 16 页从后方（Support 往 Aggressive）放进第一个空位，并洗入一张怪物先攻卡。
+- **XP**：每击杀 1 只 Crone 得 1 XP。
+- **分布**（R-240 kind）：目标房×3、空房×1、黑暗×1、Curio×1、宝藏×1、陷阱×1。Rest **12**。
+- **待确认**（Kyries 明确保留；规则书与卡面未写清）：（1）开战时是先放 Crone 再按第 16 页用 I 级牌堆补满姿态栏，还是替换其中一张，还是只打她一只；（2）SPECIAL 写单数 always room 9，但卡底印 **3** 枚目标房（同扩 Disinfection 印法），字面 3 间目标房都会用 9 号板块并生成 Crone，盒内仅 2 模型／2 张卡，复用是否允许无原文。
+- **不**暗默将 II 级 Crone 核准进当前 I 级 14 实体池；只登记本卡例外取用。
+
+### `quest:weald:p003` Disinfection（FRONT 第 3 页）— R-245
+
+- **I 级**「Disinfection」（FRONT p3）。目标房始终蘑菇 **5** 号 = 官方房间卡「**5—Infected Oak**」（`room:weald:p005`）。蘑菇 +5 = 地点房间编号。按规则书第 15 页：目标房单独放好、始终有守卫，进房即开战。
+- 开局在正常掷补给之外，往公共补给池再加入 **3 枚 Potion**（细颈塞瓶 = 补给辅助卡／补给骰上的 Potion，**不是**火把或其他补给）。审阅 raw 曾写 `{icon:008373e459} Provisions`：**更正为 Potion**；hash 仅作逐图／转录对位，**不**写成 Kyries 报了 hash。
+- Potion 平常可作免费行动：压力 −1 或移除腐蚀；本任务另需指定消耗：英雄须站在目标房内带**红橙四角星**的区域，花费 **1 个行动并消耗 1 枚 Potion** 消毒。该星与 5 号房间卡 Poisonous Roots 为**同一标记**；官方房间卡上此类星有 4 处（中央树冠四周），卡面未写只准一格，**站在任一处带星区域即可**（与 **R-234** 5 号星 B／D／E／G 交叉引用，不改几何）。SPECIAL raw 可为 `{icon:401040514c}`，逐图／转录对位该红橙四角星。
+- 英雄在这些区域**结束回合**时受到**腐蚀 2、2 回合**（房间卡原文）。
+- 规则书第 18 页：交互只能在**战斗中**进行；最后一只怪物被消灭的瞬间交互机会结束，须在击杀最后一只**之前**完成消毒。
+- **XP**：每消毒一棵橡树得 1 XP（不按清房计）。
+- **分布**：目标房×3、空房×1、黑暗×2、Curio×1、巢穴×1。Rest **8**。
+- **已确认**（Kyries 本批）：SPECIAL 写单数 always room 5，但卡底 **3** 间目标房均使用 5 号板块 Infected Oak；进入任一间均按该 tile 开战，并在带星区域花 1 行动 + 1 Potion 消毒；XP 仍按每消毒一棵计。**不**将 p002「3 房 vs 2 模型／卡复用」待确认套用到本卡。
+
 ## 全部 15 张印刷索引（便于核对 scope）
 
 | 卡 ID              | FRONT 页 | 背面等级 | 名称（正面转录）      | 休息点（正面首行数字） | 本刀纳入 |
@@ -78,22 +105,21 @@ Kyries 明确说「先审这些，剩下的我还在查」。下列为本次已�
 
 说明：**任务分布**指正面卡底若干 `{icon:…} 数字` 行。R-240 已批六项 hash 的 kind；未构造 `roomDistribution`。房间编号 `{icon:497092fe1f} N` 与已核准普通房间 `room:weald:p00N` 的 `number` 字段一致。
 
-|   # | 卡 ID / 页              | 名称 / Rest                | 目标与 SPECIAL（raw 正文，图标保留）                                                                                                                                                                           | XP（印刷）                         | 任务分布行（原文）                                                                                                                               | 2026-11-13 批注                                                                    |
-| --: | ----------------------- | -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------- |
-|   1 | `quest:weald:p001` / p1 | Fungal Research / **8**    | Objective Rooms 为房间 **3、6、8**（`497092fe1f`）；进入后随机选一间，保障后弃掉该张房间。在该处**赢得战斗**且至少保留 **1 个未摧毁的 Necrotic Fungus** 才算完成目标。                                         | 1 Xp / 每带回 1 个 Necrotic Fungus | `{icon:d3a3e38ee9} 3 {icon:6f701b5f5f} 1`<br>`{icon:af3ce426ec} 1 {icon:67dc216fc3} 1 {icon:e7b30e2005} 2`                                       | 分布 kind：**R-240**；目标／带回真菌状态机 **待确认**                              |
-|   2 | `quest:weald:p002` / p2 | Circle of Witches / **12** | Objective Room **恒为房间 9**（The Clearing，见 `room:weald:p009`）。在该处开战时生成 **Crone (LvL 2)**。                                                                                                      | 1 Xp / Crone killed                | `{icon:d3a3e38ee9} 3 {icon:6f701b5f5f} 1 {icon:adcdfc394a} {icon:a2e7f1dd7b} 1`<br>`{icon:67dc216fc3} 1 {icon:a488fd5ff1} 1 {icon:e7b30e2005} 1` | 分布 kind：**R-240**（`adcdfc394a` 重叠检出见上）；Crone 部署 **待确认**           |
-|   3 | `quest:weald:p003` / p3 | Disinfection / **8**       | Objective Room **恒为房间 5**（Infected Oak）。开局额外 **3** 个 `{icon:008373e459} Provisions`（文本如此印刷）。英雄须在 Objective Room 的 `{icon:401040514c}` 区域消耗 **1 行动 + 1 Provision** 给橡树消毒。 | 1 Xp / Oak disinfected             | `{icon:d3a3e38ee9} 3 {icon:6f701b5f5f} 1`<br>`{icon:af3ce426ec} 2 {icon:67dc216fc3} 1 {icon:1154a8a4d4} 1`                                       | 分布 kind：**R-240**；`401040514c`／区域星绑定 **待确认**；`1154a8a4d4` **待确认** |
-|   4 | `quest:weald:p004` / p4 | Purge the Woods / **4**    | SPECIAL：**仅在 Lair 中生成** `{icon:e933aa63f0} Monsters`（语义见 **R-241** 黄底蘑菇＝地点图标）。                                                                                                            | 1 Xp / Lair cleared                | `{icon:af3ce426ec} 3`<br>`{icon:1154a8a4d4} 3 {icon:e7b30e2005} 2`                                                                               | **R-241** 已登记；巢穴抽牌法 **待确认**；`1154a8a4d4` hash **待确认**              |
-|   5 | `quest:weald:p005` / p5 | Patrol the Woods / **8**   | 开战时掷 `{icon:bc73e13882}`：若结果 **大于** 英雄 `{icon:806b25ecac} Level`，则首轮将所有怪物先攻卡置于牌堆**顶**（**R-242**）。                                                                              | 1 Xp / 2 Rooms cleared             | `{icon:6f701b5f5f} 1 {icon:509c4a958c} {icon:a2e7f1dd7b} 2`<br>`{icon:a488fd5ff1} 1 {icon:1154a8a4d4} 2 {icon:e7b30e2005} 2`                     | **R-242** 已登记；机制图标 hash **逐图对位**；`1154a8a4d4` hash **待确认**         |
+|   # | 卡 ID / 页              | 名称 / Rest                | 目标与 SPECIAL（raw 正文，图标保留）                                                                                                                                                                   | XP（印刷）                         | 任务分布行（原文）                                                                                                                               | 2026-11-13 批注                                                                   |
+| --: | ----------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------- |
+|   1 | `quest:weald:p001` / p1 | Fungal Research / **8**    | Objective Rooms 为房间 **3、6、8**（`497092fe1f`）；进入后随机选一间，保障后弃掉该张房间。在该处**赢得战斗**且至少保留 **1 个未摧毁的 Necrotic Fungus** 才算完成目标。                                 | 1 Xp / 每带回 1 个 Necrotic Fungus | `{icon:d3a3e38ee9} 3 {icon:6f701b5f5f} 1`<br>`{icon:af3ce426ec} 1 {icon:67dc216fc3} 1 {icon:e7b30e2005} 2`                                       | **R-240**、**R-243**（蘑菇编号语义）；真菌目标状态机 **待确认**                   |
+|   2 | `quest:weald:p002` / p2 | Circle of Witches / **12** | Objective Room **恒为房间 9**（The Clearing，`room:weald:p009`，**R-243**／**R-244**）。在该处开战时生成 **Crone (LvL 2)**（II 级中型卡例外，非 I 级 14 实体池）。                                     | 1 Xp / Crone killed                | `{icon:d3a3e38ee9} 3 {icon:6f701b5f5f} 1 {icon:adcdfc394a} {icon:a2e7f1dd7b} 1`<br>`{icon:67dc216fc3} 1 {icon:a488fd5ff1} 1 {icon:e7b30e2005} 1` | **R-244** 已登记；姿态栏／3 目标房 vs 2 卡 **待确认**                             |
+|   3 | `quest:weald:p003` / p3 | Disinfection / **8**       | Objective Room **恒为房间 5**（Infected Oak，**R-243**／**R-245**）。开局额外 **3** 枚 **Potion**（转录曾写 Provision，已更正）。带星区域 **1 行动 + 1 Potion** 消毒（`{icon:401040514c}` 逐图对位）。 | 1 Xp / Oak disinfected             | `{icon:d3a3e38ee9} 3 {icon:6f701b5f5f} 1`<br>`{icon:af3ce426ec} 2 {icon:67dc216fc3} 1 {icon:1154a8a4d4} 1`                                       | **R-245** 已登记；3×目标房均用 5 号 tile **已确认**；`1154a8a4d4` hash **待确认** |
+|   4 | `quest:weald:p004` / p4 | Purge the Woods / **4**    | SPECIAL：**仅在 Lair 中生成** `{icon:e933aa63f0} Monsters`（语义见 **R-241** 黄底蘑菇＝地点图标）。                                                                                                    | 1 Xp / Lair cleared                | `{icon:af3ce426ec} 3`<br>`{icon:1154a8a4d4} 3 {icon:e7b30e2005} 2`                                                                               | **R-241** 已登记；巢穴抽牌法 **待确认**；`1154a8a4d4` hash **待确认**             |
+|   5 | `quest:weald:p005` / p5 | Patrol the Woods / **8**   | 开战时掷 `{icon:bc73e13882}`：若结果 **大于** 英雄 `{icon:806b25ecac} Level`，则首轮将所有怪物先攻卡置于牌堆**顶**（**R-242**）。                                                                      | 1 Xp / 2 Rooms cleared             | `{icon:6f701b5f5f} 1 {icon:509c4a958c} {icon:a2e7f1dd7b} 2`<br>`{icon:a488fd5ff1} 1 {icon:1154a8a4d4} 2 {icon:e7b30e2005} 2`                     | **R-242** 已登记；机制图标 hash **逐图对位**；`1154a8a4d4` hash **待确认**        |
 
 ### 仍待确认（不擅自结案）
 
 | 编号          | 内容                                                                                                                                               |
 | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 待确认        | `p001` 真菌目标／brought back 与 Objective 房间 3／6／8 状态机（与 W-04 叠加）                                                                     |
-| 待确认        | `p002` 在 **I 级任务**中生成 **LvL 2 Crone** 的部署来源与牌堆／UI 资格                                                                             |
-| 待确认        | `p003` 中 `401040514c` 与房间 5 板块上星标／效果区的几何绑定                                                                                       |
-| 待确认        | `p004` 巢穴 SPECIAL 抽到通用怪物时跳过继续抽 vs 纯 Weald 子牌堆（Kyries 2026-11-13 明确保留）                                                      |
+| 待确认        | `p001` 真菌目标／brought back 与 Objective 房间 3／6／8 状态机（与 W-04 叠加；**R-243** 不结案此项）                                               |
+| 待确认        | `p002`：（1）先放 Crone 再 I 级牌堆补满姿态栏 vs 替换 vs 只打她；（2）3 枚目标房 vs always room 9 单数、2 模型／2 张卡是否允许复用（无原文）       |
+| 待确认        | `p004` 巢穴 SPECIAL 抽到通用怪物时跳过继续抽 vs 纯 Weald 子牌堆（Kyries 明确保留）                                                                 |
 | Q-186（延续） | 任务分布未点名 hash：`1154a8a4d4`（巢穴格）、`adcdfc394a`、`509c4a958c`（仅重叠说明时已出现）、蜡封、其它 SPECIAL 机制图标；**不**从核心遗迹表类推 |
 | Q-186（延续） | 顶端 `{icon:56ea9289ab}` 等级徽章、右下蜡封等任务卡图标词条（本次未口头点名）                                                                      |
 
@@ -115,7 +141,7 @@ Kyries 明确说「先审这些，剩下的我还在查」。下列为本次已�
 | 任务数据                          | 核心 `normalized/corebox/quest_cards.json` + `basicQuests`（19 张遗迹）                                         | Weald raw 完整；**无** parsed／normalized／`buildQuestCards` 扩展                       |
 | 村庄任务登记与抽选                | `campaign-quest-pool`、`hamlet-embark` 等仅核心任务 ID                                                          | **无** `quest:weald:p001–p005` 池；W-02「按地点等级抽两张」未接 Weald                   |
 | 出征创建                          | `createCampaignQuest` + 内容包过滤；`rebuildLocationQuestDecks` 可重建 **I 级怪物+奇物**（须 `packs` 含 weald） | **无** Weald 任务定义 → 无法合法 `questId`；`createCoreDungeonQuest` 仍找 `basicQuests` |
-| 任务元数据（Rest、分布、SPECIAL） | 核心 `quest_cards` schema、`roomDistributionSchema`                                                             | R-240–242 仅为裁定；**未**写入 `basicQuests.distribution`                               |
+| 任务元数据（Rest、分布、SPECIAL） | 核心 `quest_cards` schema、`roomDistributionSchema`                                                             | R-240–245 仅为裁定；**未**写入 `basicQuests.distribution`                               |
 | 探索地图与房间分布                | 核心 quest-map、任务指定房间逻辑                                                                                | Weald 房间目录只读；**未**按任务卡 SPECIAL 挂接 p001 三选一等                           |
 | 怪物池 / 奇物                     | I 级 Weald+通用池状态与校验（步骤 2）                                                                           | 依赖任务登记的 `expeditionRegion`；任务 SPECIAL（Lair-only、额外生成 Crone）未实现      |
 | 战斗                              | 步骤 4：`startDungeonBattle` 在 Weald 出征上下文可开 `wealdMechanics` + 真菌                                    | 无正式 Weald 出征入口；沙盒未默认 Weald 任务                                            |

@@ -6,7 +6,7 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 ## 当前进度与下一步
 
 - **当前阶段：步骤 4 已接通战斗创建时自动 `wealdMechanics` 与核准目录真菌（`startDungeonBattle` + Weald 板块选择）；W-03／W-04、R-230 三项召唤已在战斗内运行。出征入口仍关闭、`usable` 未自开。步骤 2 正式 Weald 日志存档闭环待步骤 5 任务登记后回补。**
-- **步骤 5（本阶段）：I 级五张任务证据审阅稿已接入 Kyries 2026-11-13 口头确认批——分布六项 hash（**R-240**）、p004／p005 SPECIAL（**R-241**、**R-242**），见 [审阅稿](weald-level-one-quest-review-2026-11-13.md)。p001–p003 目标与未点名图标仍待确认；**未**写入 normalized、**未**接线、**不**开放出征。**
+- **步骤 5（本阶段）：审阅稿已登记 **R-240**–**R-245**（分布 hash、p004／p005、p002／p003、任务 PDF 蘑菇语义），见 [审阅稿](weald-level-one-quest-review-2026-11-13.md)。p001 真菌状态机、p002 两条部署待确认、p004 巢穴抽牌、未点名 hash 仍开；**未**写入 normalized、**未**接线、**不**开放出征。**
 - **下一刀：待 Kyries 审完步骤 5 剩余待确认项后，再做 Weald I 级 `quest_cards` 规范化与 `basicQuests` 登记（单任务小 PR）；出征与 Playwright 冒烟仍排在核准与接线之后。**
 - 步骤 0 已完成，提交 `e7fd17e1`；地点战役尚未开放。
 - 导入与计划两批已合入并推送 `main`（`3be97c65`）。步骤 1 怪物批次已合入并推送 `main`（`7075f4d8`）。
@@ -268,3 +268,11 @@ Brigand Pounder 类型行、Shrieker’s Nest 和 Cauldron Empty 的专属卡面
 - Kyries 明确「先审这些，剩下的我还在查」：p001–p003 目标、`1154a8a4d4` 等未点名 hash、顶端徽章／蜡封、p004 巢穴抽牌法仍 **待确认**。
 - **未**写 normalized、**未**改 `usable`、**未**开放出征；步骤 5 规范化仍待其余项审完后。
 - 验证：三份 Markdown 的 Prettier 与 `git diff --check`；未重跑运行代码质量闸门。
+
+### 步骤 5 第三批：Kyries 第二批口头确认（p002／p003、R-243）
+
+- 在同一分支 `cursor/weald-l1-quest-kyries-2026-11-13-beef`（PR #641）追加提交。
+- 登记 **R-243**（任务 PDF 黄底蘑菇包属与 SPECIAL 房间编号）、**R-244**（Circle of Witches／II Crone 例外）、**R-245**（Disinfection／Potion 与消毒）；p003 Provisions→Potion 更正；p003 三目标房共用 5 号 tile 已确认。
+- 仍待确认：p001 真菌状态机；p002 姿态栏与 3 目标房／2 卡；p004 巢穴抽牌；Q-186 未点名 hash。
+- **未**写 normalized、**未**改 `usable`、**未**开放出征。
+- 验证：三份 Markdown Prettier + `git diff --check`；未重跑运行代码质量闸门。
