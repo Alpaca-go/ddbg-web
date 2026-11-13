@@ -313,7 +313,7 @@ Brigand Pounder 类型行、Shrieker’s Nest 和 Cauldron Empty 的专属卡面
 - **沙盒 allowlist**：`quest:weald:p004` 与 p005 并列；须勾选 Weald 包；村庄 `questsForCampaignLevel`／`questsForContentPacks` 仍排除 weald。
 - **R-248**：`MonsterPoolDeckState.monsterDrawScope: wealdLocalOnly`；`dungeonMonsterPoolThrough`／`prepareDungeonMonsters` 可抽实例仅 14 张 Weald 当地实体；战斗 catalog 仍含通用引用。p005 混池（45 张）不变。
 - **巢穴 XP**：沿用 `xpKind: lair`；0–3 巢穴清理对应 0–3 XP 测试。
-- **R-251**：Kyries 核准 p004 **仅巢穴抽怪开战**；因分布仅 Dark／巢穴／Trap，叠核心规则书第 15 页 Entering a Room，**不必**另加 p004 SPECIAL 开战闸门。#645 运行时仍只实现 **R-248** 牌堆范围。
+- **R-251**：**仅 Purge the Woods 本卡**（Dark×3／巢穴×3／Trap×2）叠核心规则书第 15 页后的开战结论；核心同节 Treasure／Objective／Curio 1–5 仍会开战，本卡无那些代币。**禁止**泛化成「所有任务只有巢穴开战」。#645 运行时仍只实现 **R-248** 牌堆范围。
 - **未接线**：p001 brought back、p002–p003 SPECIAL、村庄抽 2 选 1、Playwright、房间 `usable: true`。
 - 验证：typecheck、lint、Prettier；Vitest `weald-p004-sandbox-embark.test.ts`、`weald-p005-sandbox-embark.test.ts`、`weald-basic-quests.test.ts`、`weald-monster-state.test.ts`；`git diff --check`。
 

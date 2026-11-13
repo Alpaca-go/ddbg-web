@@ -3200,7 +3200,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **关联待确认**：巢穴生成时若抽到通用怪物——跳过继续抽还是改用纯 Weald 子牌堆；Kyries 明确保留，卡面与规则书未写清；**不**在本条裁定。
 - **范围**：不开放出征；未点名的分布 hash（如巢穴格 `1154a8a4d4`）仍待 Q-186。
 - **依据**：Kyries 2026-11-13；核心 R9、Weald W3、W-04；任务 FRONT p4 印刷。
-- **后续确认（2026-11-13，「Weald 任务规则」群）**：见 **R-248**（关闭本条「通用怪抽牌」待确认；Purging 抽怪仅用 Weald 当地牌堆）；见 **R-251**（p004 仅巢穴开战，依核心规则书第 15 页与分布，非 SPECIAL 另加闸门）。
+- **后续确认（2026-11-13，「Weald 任务规则」群）**：见 **R-248**（关闭本条「通用怪抽牌」待确认；Purging 抽怪仅用 Weald 当地牌堆）；见 **R-251**（p004 本卡分布下仅巢穴开战，非 SPECIAL 另加闸门，禁止泛化）。
 
 ### R-242
 
@@ -3316,14 +3316,15 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 ### R-251
 
 - **日期**：2026-11-13
-- **核准**：Kyries，「Weald 任务规则」群（对 DDBG·规则书说明回复「核准」）。
+- **核准**：Kyries，「Weald 任务规则」群（对 DDBG·规则书说明回复「核准」；群内强调本结论仅限 Purge 卡牌面，禁止泛化）。
 - **裁定**：
-  - `quest:weald:p004` Purge the Woods：**只有进入巢穴（Lair）才抽怪开战**。
-  - 这**不是** SPECIAL 另加的开战限制，而是印刷分布仅 **Dark×3、巢穴×3、Trap×2**（无 Treasure / Curio / Empty 等会触发遭遇的房间类型），再套用**核心规则书第 15 页**「Entering a Room」：
+  - 本条**只**描述 `quest:weald:p004` Purge the Woods 这张任务卡：在其印刷分布 **Dark×3、巢穴×3、Trap×2** 下，套用**核心规则书第 15 页**「Entering a Room」后，**只有进入巢穴（Lair）才会抽怪开战**。**禁止**把本条写成「所有任务／所有 Weald 任务只有巢穴开战」或泛用的进房定理。
+  - 核心规则书**同一节**仍规定：**Treasure**、**Objective**，以及 **Curio** 房内掷 d10 得 **1–5** 时，英雄仍须开战（及其他条目照旧）。本条**不是**改写第 15 页；只是本卡分布**没有** Treasure / Objective / Curio（及 Empty 等）代币，故在本卡上不会出现由那些类型触发的开战。
+  - 对本卡**实际出现的**三种代币，套用第 15 页即：
     - **Lair**：「Heroes must initiate Battle immediately.」战胜后移除代币，房间视作已清理。
     - **Dark Room**：Reduce the Light by 1 point（光照 −1）；**不**移除代币；与 Trap 一样永不清理，每次经过须再结算。
     - **Trap**：每名英雄各自承受**总计**等于地牢等级的伤口和/或压力（Wounds and/or Stress equal to the Dungeon Level），在该英雄身上自行分配伤口与压力的数额（原文：Each Hero suffers a total of Wounds and/or Stress equal to the Dungeon Level, dividing the amount between the two as they wish）；**不**移除代币，永不清理，再次经过须再结算。
-  - SPECIAL（**R-241**）只约束巢穴生成带 Weald 地点图标的怪物；本场抽怪牌堆范围见 **R-248**（整场只用 Weald 当地牌堆，不含通用怪）。本任务对 Dark / Trap **没有**另加限制，按上述核心进房规则结算即可。
-- **边界**：不因此开放村庄战役抽选；不改房间 `usable`；**不**把「仅巢穴开战」写成 p004 专属 SPECIAL 或运行时任务特判。
-- **范围**：本裁定仅登记规则来源；不改 Dark / Trap 核心进房实现。
-- **依据**：Kyries 2026-11-13；「Weald 任务规则」群；核心规则书第 15 页 Entering a Room；**R-248**、**R-241**；R-001、R-048。
+  - 这**不是** SPECIAL 另加的开战限制。**R-241** SPECIAL 只约束巢穴生成带 Weald 地点图标的怪物；本场抽怪牌堆范围见 **R-248**。本任务对 Dark / Trap **没有**另加限制，按上述核心进房规则结算即可。
+- **边界**：不因此开放村庄战役抽选；不改房间 `usable`；**不**把「仅巢穴开战」写成 p004 专属 SPECIAL、运行时任务特判，或推广到其他任务卡。
+- **范围**：本裁定仅登记 Purge the Woods 规则来源；不改 Dark / Trap 核心进房实现。
+- **依据**：Kyries 2026-11-13；「Weald 任务规则」群、DDBG·规则书说明；核心规则书第 15 页 Entering a Room；**R-248**、**R-241**；R-001、R-048。

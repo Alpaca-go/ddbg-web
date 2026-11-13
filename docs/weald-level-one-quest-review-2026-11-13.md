@@ -44,7 +44,7 @@
 ### `quest:weald:p004` Purge the Woods（FRONT 第 4 页）— R-241
 
 - 黄底蘑菇（与右上角黄条**同一图形**）= **Weald 地点图标**，**不是**坏死真菌。Kyries **未**口头报 hash；逐图对位右上角黄条可为 raw `{icon:c5334974cf}`，SPECIAL 行 raw 为 `{icon:e933aa63f0}`——语义按 Kyries 对黄底蘑菇的确认，**不**写成 Kyries 本人报了 hash。
-- SPECIAL「Spawn only [蘑菇] Monsters in Lairs」：巢穴开战时只生成带该**地点图标**的 Weald 怪物（**R-241**）。**R-248**：本任务抽怪只用 Weald **当地**牌堆，不含通用怪；沙盒已接线 `monsterDrawScope: wealdLocalOnly`。**R-251**：仅巢穴开战（核心规则书第 15 页 + 分布），非 SPECIAL 另加闸门。
+- SPECIAL「Spawn only [蘑菇] Monsters in Lairs」：巢穴开战时只生成带该**地点图标**的 Weald 怪物（**R-241**）。**R-248**：本任务抽怪只用 Weald **当地**牌堆，不含通用怪；沙盒已接线 `monsterDrawScope: wealdLocalOnly`。**R-251**：**本卡**分布下仅巢穴开战（核心规则书第 15 页；无 Treasure／Objective／Curio 代币），非 SPECIAL 另加闸门，**不**泛化到其他任务。
 - 地块**圆形**蘑菇 = 坏死真菌标记（W-04／Weald 规则书第 3 页）：放真菌代币；场上仍有真菌时英雄不能被治疗。与黄底地点图标**不是**同一图形；本任务未改 W-04。
 - 分布（印刷转录，kind 对 R-240）：Dark×3；巢穴×3、Trap×2（巢穴格 hash 见上表「仍待确认」）。Rest **4**。
 
