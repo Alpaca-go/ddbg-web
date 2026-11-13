@@ -1,4 +1,6 @@
 import { rebuildCoreQuestDecks } from "./core-quest-decks";
+import { drawInitialQuestOffers } from "./initial-quest-draw";
+import type { HamletQuestDrawOptionId } from "./hamlet-location-quest-draw";
 import {
   asQuestMapPairingQuest,
   basicQuestEnabledForContentPacks,
@@ -59,6 +61,7 @@ export function createCoreDungeonQuest(
   bossEdgeRooms = true,
   stygianRoomRules: DungeonState["stygianRoomRules"] | null = "full",
   contentPacks?: readonly ContentPackId[],
+  initialQuestDrawMode?: HamletQuestDrawOptionId,
 ) {
   if (contentPacks !== undefined) {
     contentPacks = normalizeContentPacks(contentPacks);
@@ -153,7 +156,11 @@ export function createCoreDungeonQuest(
   const decks = wealdSandbox
     ? rebuildLocationQuestDecks(sources, "weald", 1, contentPacks)
     : rebuildCoreQuestDecks(sources);
-  const layout = pickEmbarkQuestMapLayout(asQuestMapPairingQuest(quest), seed, 0);
+  const draw = initialQuestDrawMode
+    ? drawInitialQuestOffers(seed, contentPacks, initialQuestDrawMode)
+    : undefined;
+  if (draw && !draw.offers.includes(questId)) throw new Error("所选任务不在首趟抽出的两张候选中");
+  const layout = pickEmbarkQuestMapLayout(asQuestMapPairingQuest(quest), seed, draw?.cursor ?? 0);
   const initial = createDungeonSandbox(
     seed,
     layout,
@@ -184,8 +191,18 @@ export function createCoreDungeonQuest(
       trinkets,
     },
     true,
+    draw?.cursor ?? 0,
   );
   let game: GameState = { ...initial, skillLightBeforeCrit: true };
+  if (draw && game.dungeon)
+    game = {
+      ...game,
+      dungeon: {
+        ...game.dungeon,
+        initialQuestDrawMode,
+        discardedQuests: draw.offers.filter((id) => id !== questId),
+      },
+    };
   if (wealdSandbox && game.dungeon) {
     const drawScope = quest && "monsterDrawScope" in quest ? quest.monsterDrawScope : undefined;
     game = {

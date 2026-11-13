@@ -62,6 +62,7 @@ function replay(
     start.bossEdgeRooms ?? false,
     start.stygianRoomRules ?? null,
     start.contentPacks,
+    start.initialQuestDrawMode,
   );
   if (!start.skillLightBeforeCrit) {
     const { skillLightBeforeCrit, ...legacy } = game;
@@ -215,6 +216,9 @@ export function createQuestSave(
     campaignLevel: readCampaignLevel(game.dungeon ?? {}),
     start: questStartSchema.parse({
       ...start,
+      ...(game.dungeon?.initialQuestDrawMode
+        ? { initialQuestDrawMode: game.dungeon.initialQuestDrawMode }
+        : {}),
       ...(game.dungeon?.contentPacks ? { contentPacks: game.dungeon.contentPacks } : {}),
       ...(stygianRoomRules ? { stygianRoomRules } : {}),
       ...(game.skillLightBeforeCrit ? { skillLightBeforeCrit: true } : {}),

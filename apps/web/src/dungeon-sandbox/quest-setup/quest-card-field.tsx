@@ -16,15 +16,17 @@ export function QuestGoalNotes({ quest }: { readonly quest: QuestCardOption }) {
   return (
     <>
       <p>
-        QuestMap FRONT
-        p1（已批准）。从起点S开始，房间代币按任务随机分布，先领取八颗开局补给。普通遗迹全部九面已接通。
+        从起点 S 开始，房间代币按任务随机分布，先领取八颗开局补给。
+        {quest.id.startsWith("quest:weald:")
+          ? "本趟使用 Weald 房间、板块和地点牌堆。"
+          : "普通遗迹全部九面已接通。"}
       </p>
       <p>
         柴火休息 {quest.restPoints} 点。
         {quest.xpKind === "flat"
           ? `击败 Boss 并回村后每名英雄与驿站各固定 ${quest.flatXp ?? 3} XP（R-122）；摘要于离开地牢后生成，XP 于回村完成时发放。`
           : quest.xpKind === "broughtBack"
-            ? "每带回 1 个 Necrotic Fungus 获得 1 XP（R-246）；brought back 计数与回村摘要运行时未接线。"
+            ? "每带回 1 个坏死真菌获得 1 XP，最多 3 XP。任务目标与带回数量分别结算。"
             : quest.xpKind === "gold"
               ? "清理巢穴奖励10金币。至少清理一间后可捐献任意不超过余额的金币，每20金币获得1XP，最多3XP。"
               : quest.xpKind === "camp"

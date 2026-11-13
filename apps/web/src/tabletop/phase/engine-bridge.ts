@@ -34,7 +34,7 @@ export function resolveFlowStepText(
   effectivePhase: FlowPhaseId,
 ): string {
   if (bridge.preEmbarkPhase === "expeditionPrep" && !demoPhaseOverride) {
-    return "选定任务卡并掷开局补给骰，完成后进入遗迹探索";
+    return "选定任务卡并掷开局补给骰，完成后进入地牢探索";
   }
   if (bridge.questSetupActive && !demoPhaseOverride) {
     return "选择模式与种子，为四名英雄选技能后前往出征准备";

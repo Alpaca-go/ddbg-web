@@ -339,6 +339,8 @@ export {
 } from "./boss/darkest-content";
 export { sourcesForContentPacks, CONTENT_PACKS, CONTENT_PACK_IDS } from "./content-packs";
 export { createCampaignQuest } from "./campaign-entry";
+export { initialQuestDrawModes, drawInitialQuestOffers } from "./initial-quest-draw";
+export type { HamletQuestDrawOptionId } from "./hamlet-location-quest-draw";
 export type { ContentPackId } from "./content-packs";
 export {
   buildWealdLevelOneMonsterPool,
