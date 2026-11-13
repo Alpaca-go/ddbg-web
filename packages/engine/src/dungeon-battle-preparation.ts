@@ -5,7 +5,7 @@ import {
   ORDINARY_EXPEDITION_ROOM_COUNT,
   readExpeditionRoomRegion,
 } from "./expedition-room-catalog";
-import { readRoomTile } from "./room-tile-selection";
+import { readExpeditionRoomTile } from "./expedition-room-tile";
 import type { ApplyResult, GameState } from "./command";
 import { createRng } from "./rng";
 import { isGuardedDungeonRoom } from "./dungeon-curio-room";
@@ -69,7 +69,7 @@ export function prepareDungeonBattle(state: GameState): ApplyResult {
   }
   const cardId = deck.shift()!;
   const card = pool.find((card) => card.id === cardId)!;
-  const selected = readRoomTile(card);
+  const selected = readExpeditionRoomTile(card, d);
   const blockedReason =
     selected.status === "matched"
       ? `${selected.tile.name} 板块已获批；下一步从完整 Common + Ruins 怪物牌堆抽牌，再校验并进入房间战斗（R10、R15–17）。房间未清理，未发奖励。`

@@ -188,6 +188,15 @@ export function createCoreDungeonQuest(
     };
   }
   if (contentPacks && game.dungeon) game = { ...game, dungeon: { ...game.dungeon, contentPacks } };
+  if (questId === "quest:weald:p002" && game.dungeon)
+    game = {
+      ...game,
+      dungeon: {
+        ...game.dungeon,
+        questExceptionCroneKills: 0,
+        questExceptionComponentAvailable: true,
+      },
+    };
   if (mode === "stygian" && stygianRoomRules && game.dungeon)
     game = { ...game, dungeon: { ...game.dungeon, stygianRoomRules } };
   if (isDarkestQuest(questId)) return setupDarkestDungeon(game);

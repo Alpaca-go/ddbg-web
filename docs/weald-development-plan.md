@@ -5,9 +5,9 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 
 ## 当前进度与下一步
 
-- **当前阶段：步骤 5 沙盒已接通 `quest:weald:p001` Fungal Research（brought back + **R-252** 封顶 3）、`quest:weald:p004` Purge（**R-248** 当地牌堆）、`quest:weald:p005` Patrol the Woods；须选 Weald 包；村庄战役抽选仍关。p002–p003 SPECIAL 未接线。步骤 2 正式 Weald 日志存档闭环待后续。步骤 4 战斗真菌链路不变。**
-- **步骤 5 沙盒刀（本批）**：p001 清房计数、`summarizeDungeonQuest`、`questPrintedXpCap` 封顶；allowlist p001。详见「步骤 5 第八批」。**
-- **下一刀：p002–p003 沙盒／SPECIAL；其余 I 级任务；正式战役抽选仍延后；Playwright 冒烟排在出征核准之后。**
+- **当前阶段：步骤 5 沙盒已接通 `quest:weald:p001` Fungal Research（brought back + **R-252** 封顶 3）、`quest:weald:p002` Circle of Witches（**R-244**／**R-247** II Crone 例外）、`quest:weald:p004` Purge（**R-248** 当地牌堆）、`quest:weald:p005` Patrol the Woods；须选 Weald 包；村庄战役抽选仍关。p003 SPECIAL 未接线。步骤 2 正式 Weald 日志存档闭环待后续。步骤 4 战斗真菌链路不变。**
+- **步骤 5 沙盒刀（本批）**：p002 沙盒出征 + Crone 例外部署、击杀 XP、组件复用；`quest_exception_monsters.json` 不进 I 级 14 池。详见「步骤 5 第九批」。**
+- **下一刀：`quest:weald:p003` Disinfection 沙盒／SPECIAL 单独 PR；村庄抽 2 选 1；正式战役抽选仍延后；Playwright 排在出征核准之后。**
 - 步骤 0 已完成，提交 `e7fd17e1`；地点战役尚未开放。
 - 导入与计划两批已合入并推送 `main`（`3be97c65`）。步骤 1 怪物批次已合入并推送 `main`（`7075f4d8`）。
 - Houndmaster、Shieldbreaker 已接入，沿用现有英雄实现，不重做。
@@ -334,3 +334,13 @@ Brigand Pounder 类型行、Shrieker’s Nest 和 Cauldron Empty 的专属卡面
 - **目标房 3／6／8**：`setAsideRoomCardIds` + `prepareObjectiveRoomBattle` 随机旁置；无新增几何状态机。
 - **未接线**：p002–p003 SPECIAL、村庄抽 2 选 1、Playwright、房间 `usable: true`。
 - 验证：typecheck、lint、Prettier；Vitest `weald-p001-sandbox-embark.test.ts`、`fungal-research-brought-back.test.ts`、`weald-basic-quests.test.ts`；`git diff --check`。
+
+### 步骤 5 第九批：Circle of Witches 沙盒 + II Crone 例外部署
+
+- 起点 main `0069ca58`（#646 p001、#645 p004 已合）。分支 `cursor/weald-p002-sandbox-crone-c413`。
+- **沙盒 allowlist**：`quest:weald:p002` 与 p001、p004、p005 并列；村庄战役与 Hamlet 正式出征闸门不变。
+- **目标房**：旁置 `room:weald:p009`（The Clearing）；`readExpeditionRoomTile` 使 Weald 板块在 `prepareDungeonMonsters`／目标房链路可走 `selectWealdRoomTile`（`usable` 未改）。
+- **R-247 运行时**：`circle-of-witches-spawn.ts` — 目标房先部署 `monster_medium:weald:p015`（例外目录 `quest_exception_monsters.json`，**不**并入 I 级 14 实体池），再 I 级混池补满；战斗结束组件可再部署；`questExceptionCroneKills` 驱动回村 XP（**R-244** 1 XP／Crone，**R-038** 封顶 3）。
+- **未核准**：Crone dodge／技能／抗性未发明；`startDungeonBattle` 仍按 **R-048** 拒绝未核实技能；本刀止于半场部署／位序／守恒／摘要 XP。
+- **未做**：p003、村庄抽选、Playwright、房间 `usable: true`。
+- 验证：typecheck、lint、Prettier；Vitest `weald-p002-sandbox-embark.test.ts`、`weald-p001-sandbox-embark.test.ts`、`weald-p004-sandbox-embark.test.ts`、`weald-p005-sandbox-embark.test.ts`、`weald-basic-quests.test.ts`；`git diff --check`。

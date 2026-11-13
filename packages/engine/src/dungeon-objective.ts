@@ -3,7 +3,7 @@ import { basicQuests, readBasicQuest } from "../../data/src/basic-quests";
 import type { ApplyResult, GameState } from "./command";
 import type { BattleArea } from "./battle";
 import type { DungeonState } from "./dungeon";
-import { readRoomTile } from "./room-tile-selection";
+import { readExpeditionRoomTile } from "./expedition-room-tile";
 import {
   expeditionRegionForQuestId,
   expeditionRoomCatalogParses,
@@ -167,7 +167,7 @@ export function prepareObjectiveRoomBattle(state: GameState): ApplyResult | null
       cursor++;
     }
     const card = candidates[index]!;
-    const selected = readRoomTile(card);
+    const selected = readExpeditionRoomTile(card, d);
     const blockedReason =
       selected.status === "matched"
         ? `${selected.tile.name} 为任务旁置房间；下一步从怪物牌堆抽牌并进入守卫战（R15）。房间未清理。`
