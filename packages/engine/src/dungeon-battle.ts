@@ -39,11 +39,21 @@ import { applyTemporarySkillUpgrades, restoreTemporarySkillUpgrades } from "./ha
 import { darkestBossVictoryAfterEncounter } from "./boss/darkest-content";
 import { readCurioRoomAlwaysGuarded } from "./dungeon-curio-room";
 import { readRoomTile } from "./room-tile-selection";
+import {
+  applyWealdBattleSetup,
+  wealdBattleCreationEnabled,
+} from "./expansions/weald/dungeon-battle-setup";
+import {
+  selectWealdRoomTile,
+  wealdRoomCardFromUnknown,
+} from "./expansions/weald/room-tile-selection";
+import { wealdPackSelected } from "./expansions/weald/weald-mechanics";
 import { readDungeonQuestProgress } from "./dungeon-quest";
 import { readCampaignLevel } from "./hamlet-campaign";
 import { hasApprovedHigherMonsterFields } from "../../data/src/normalize/verified-monster-entry";
 import { createBattleState, rejectBattleCommand, skillTargetView } from "./battle";
-import type { BattleEntity } from "./battle";
+import type { BattleEntity, BattleSetup } from "./battle";
+import type { WealdRoomTile } from "../../data/src/weald-room";
 import { roomTileBattleAreas } from "./battle-monster-movement";
 import { readActiveStygianRoom, stygianRoomBattleAreas } from "./stygian-room-effects";
 import { createLootState } from "./loot";
@@ -88,10 +98,12 @@ import { firstBattleThreatEntry } from "./boss/necromancer-ii-army";
 /** R15–18、R-048、R-051、R-055：只接真实部署，缺字段原子拒绝。 */
 export function startDungeonBattle(state: GameState): ApplyResult {
   const d = state.dungeon;
-  const selected = readRoomTile(
-    d?.roomCards?.cards.find((c) => c.id === d.roomCards?.active?.cardId),
-    d?.roomCards?.active?.tileId,
-  );
+  const roomCard = d?.roomCards?.cards.find((c) => c.id === d.roomCards?.active?.cardId);
+  const wealdCard = wealdRoomCardFromUnknown(roomCard);
+  const selected =
+    wealdCard && wealdPackSelected(d?.contentPacks)
+      ? selectWealdRoomTile(wealdCard, d?.roomCards?.active?.tileId)
+      : readRoomTile(roomCard, d?.roomCards?.active?.tileId);
   const active = d?.monsterPool?.active;
   const room = d?.rooms.find((r) => r.id === d.position);
   const refuse = (message: string) => rejectBattleCommand(state, message);
@@ -350,7 +362,10 @@ export function startDungeonBattle(state: GameState): ApplyResult {
     entities.push(guarded.entity);
   }
   try {
-    const battle = createBattleState(state.seed, {
+    const wealdTile: WealdRoomTile | undefined =
+      wealdCard && selected.status === "matched" ? (selected.tile as WealdRoomTile) : undefined;
+    const wealdMechanics = wealdTile && d ? wealdBattleCreationEnabled(d, wealdTile) : false;
+    let battleSetup: BattleSetup = {
       roomName: tile.name,
       ...(d.trinkets ? { trinkets: d.trinkets } : {}),
       ...(d.conditions ? { conditions: d.conditions } : {}),
@@ -361,7 +376,15 @@ export function startDungeonBattle(state: GameState): ApplyResult {
         const bonus = readQuestMonsterStatBonuses(d, card.id);
         return bonus?.lifeBonus ? { ...card, life: card.life + bonus.lifeBonus } : card;
       }),
-      areas: objectiveRoomBattleAreas(stygianRoomBattleAreas(roomTileBattleAreas(tile), d), d),
+      areas: wealdTile
+        ? []
+        : objectiveRoomBattleAreas(
+            stygianRoomBattleAreas(
+              roomTileBattleAreas(tile as Parameters<typeof roomTileBattleAreas>[0]),
+              d,
+            ),
+            d,
+          ),
       light: d.explorationSetup.light,
       provisions: d.explorationSetup.provisions,
       resolveCards: d.resolveCards,
@@ -370,8 +393,10 @@ export function startDungeonBattle(state: GameState): ApplyResult {
         ? { monsterStanceAreas: deployment.monsters }
         : {}),
       lootPool: { ...(d.lootPool ?? createLootState()), gold: d.gold },
-      provisionWindows: true,
-    }).battle!;
+      provisionWindows: true as const,
+    };
+    if (wealdTile) battleSetup = applyWealdBattleSetup(battleSetup, wealdTile, wealdMechanics);
+    const battle = createBattleState(state.seed, battleSetup).battle!;
     for (const probe of selfProbes) {
       const statuses = applyBattleSkillStatuses(
         battle,
