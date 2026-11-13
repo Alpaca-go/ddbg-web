@@ -12,6 +12,10 @@ export function questObjectiveProgressLine(game: GameState): string {
     return `${quest.name} · 任务 XP —/${quest.flatXp} · 击败 Boss 后固定 ${quest.flatXp} XP（R-122）`;
   }
 
+  if (quest.xpKind === "broughtBack") {
+    return `${quest.name} · 任务 XP —/— · Necrotic Fungus brought back 计数未接线（R-246）`;
+  }
+
   const clearedRooms = d.rooms.filter((r) => r.cleared);
   const clearedForXp =
     quest.xpKind === "camp"

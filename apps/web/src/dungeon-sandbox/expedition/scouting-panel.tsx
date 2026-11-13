@@ -95,7 +95,9 @@ export function ScoutingPanel({
         xpKind: quest.xpKind,
         ...(quest.xpKind === "flat"
           ? { flatXp: quest.flatXp }
-          : { roomsPerXp: quest.roomsPerXp, maxRooms: quest.maxRooms }),
+          : quest.xpKind === "broughtBack"
+            ? { roomsPerXp: quest.roomsPerXp }
+            : { roomsPerXp: quest.roomsPerXp, maxRooms: quest.maxRooms }),
       }
     : null;
 
