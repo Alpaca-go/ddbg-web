@@ -244,6 +244,13 @@ const phase3QuestIds = basicQuests
   .map((q) => q.id) as [BasicQuestId, ...BasicQuestId[]];
 
 export const questStartSchema = z.strictObject({
+  initialQuestDrawMode: z
+    .enum([
+      "hamlet-quest-draw:ruins-two",
+      "hamlet-quest-draw:weald-two",
+      "hamlet-quest-draw:split-one-each",
+    ])
+    .optional(),
   contentPacks: contentPacksSchema.optional(),
   bossEdgeRooms: z.boolean().optional(),
   stygianRoomRules: z.enum(["r227", "r229", "full"]).optional(),

@@ -94,6 +94,7 @@ export type DungeonBattleCatalog = {
 };
 
 export type DungeonState = {
+  readonly initialQuestDrawMode?: import("../../data/src/quest-save").QuestStart["initialQuestDrawMode"];
   /** 开局固定的包选择；缺省仅用于旧档/历史沙盒，英雄不受限。 */
   readonly contentPacks?: readonly import("../../data/src/content-packs").ContentPackId[];
   readonly darkest?: {
@@ -436,10 +437,12 @@ export function createDungeonSandbox(
   monsterCards?: readonly MonsterPoolCard[],
   battleCatalog?: DungeonBattleCatalog,
   startingProvisions = false,
+  startCursor = 0,
 ): GameState {
   const layout = dungeonLayoutSchema.parse(layoutInput);
   const template = roomDistributionSchema.parse(distributionInput);
-  const expanded = expandRoomDistributionForEmbark(template, seed, 0);
+  if (!Number.isSafeInteger(startCursor) || startCursor < 0) throw new Error("开局随机游标无效");
+  const expanded = expandRoomDistributionForEmbark(template, seed, startCursor);
   const distribution = expanded.distribution;
   const embarkBlock = roomDistributionEmbarkBlockReason(distribution);
   if (embarkBlock) throw new Error(embarkBlock);

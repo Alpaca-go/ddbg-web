@@ -4,8 +4,11 @@ import {
   CONTENT_PACKS,
   FORMAL_HERO_NAMES,
   heroHasUnwiredCombatSkills,
+  initialQuestDrawModes,
+  drawInitialQuestOffers,
 } from "@ddbg/engine";
 import type { QuestParty, DungeonState, FormalHeroName, ContentPackId } from "@ddbg/engine";
+import type { HamletQuestDrawOptionId } from "@ddbg/engine";
 import { battleData as questBattleData } from "virtual:quest-battle-data";
 import {
   asQuestMapPairingQuest,
@@ -46,7 +49,7 @@ function resolveQuestSeed(): number {
   const raw = new URLSearchParams(window.location.search).get("seed");
   if (raw === null || raw.trim() === "") return DEFAULT_QUEST_SEED;
   const n = Number(raw);
-  if (!Number.isSafeInteger(n) || n < 0) return DEFAULT_QUEST_SEED;
+  if (!Number.isSafeInteger(n) || n < 0 || n > 0xffffffff) return DEFAULT_QUEST_SEED;
   return n;
 }
 
@@ -64,6 +67,8 @@ export function DungeonQuest() {
     [mode, setMode] = useState<DungeonState["mode"]>("standard"),
     [error, setError] = useState("");
   const [contentPacks, setContentPacks] = useState<ContentPackId[]>(["core"]);
+  const [drawMode, setDrawMode] = useState<HamletQuestDrawOptionId>("hamlet-quest-draw:ruins-two");
+  const [drawnMode, setDrawnMode] = useState<HamletQuestDrawOptionId | null>(null);
   const [party, setParty] = useState<QuestParty>(() =>
     defaultPartyNames.map((name, index) => formalPartySlot(name, index)),
   );
@@ -92,7 +97,18 @@ export function DungeonQuest() {
   };
   if (started) return <DungeonSandbox formal />;
 
-  const startQuests = sandboxEmbarkQuestsForPacks(contentPacks);
+  const drawModes = initialQuestDrawModes(contentPacks);
+  const drawEnabled = drawModes.length > 0;
+  const initialDraw =
+    drawEnabled && drawnMode
+      ? drawInitialQuestOffers(resolveQuestSeed(), contentPacks, drawnMode)
+      : null;
+  const availableQuests = sandboxEmbarkQuestsForPacks(contentPacks);
+  const startQuests = initialDraw
+    ? initialDraw.pendingChoice.options.map((option) =>
+        availableQuests.find((q) => q.id === option.id)!,
+      )
+    : availableQuests;
   const selectedQuest = startQuests.find((q) => q.id === questId) ?? startQuests[0]!;
   const setupHeroes = projectQuestSetupHeroes(party, partyNames);
   const setupSeed = resolveQuestSeed();
@@ -109,6 +125,10 @@ export function DungeonQuest() {
 
   const embark = () => {
     setError("");
+    if (drawEnabled && !initialDraw) {
+      setError("请先抽取首趟任务");
+      return;
+    }
     const seed = resolveQuestSeed();
     try {
       const game = createCampaignQuest(
@@ -118,10 +138,12 @@ export function DungeonQuest() {
         party,
         taskSources,
         contentPacks,
+        drawEnabled && drawnMode ? drawnMode : undefined,
       );
       beginTask(game, {
         seed,
         contentPacks,
+        ...(drawEnabled && drawnMode ? { initialQuestDrawMode: drawnMode } : {}),
         questId: selectedQuest.id,
         bossEdgeRooms: true,
         mode,
@@ -141,7 +163,11 @@ export function DungeonQuest() {
       questSetupActive={prepStep === "party"}
       preEmbarkPhase={preEmbarkPhase}
       setupHeroes={setupHeroes}
-      setupQuest={setupQuest}
+      setupQuest={
+        drawEnabled && !initialDraw
+          ? { questLabel: "待抽选首趟任务", questCardId: "", layoutId: "" }
+          : setupQuest
+      }
     >
       {children}
     </TabletopFormalShell>
@@ -152,7 +178,42 @@ export function DungeonQuest() {
       <>
         <ExpeditionPrepSection
           quests={startQuests}
-          questId={questId}
+          questId={selectedQuest.id}
+          awaitingDraw={drawEnabled && !initialDraw}
+          drawControls={
+            drawEnabled ? (
+              <fieldset>
+                <legend>首趟任务抽选</legend>
+                <label>
+                  首趟任务抽法
+                  <select
+                    aria-label="首趟任务抽法"
+                    value={drawMode}
+                    disabled={drawnMode !== null}
+                    onChange={(event) => setDrawMode(event.target.value as HamletQuestDrawOptionId)}
+                  >
+                    {drawModes.map((plan) => (
+                      <option key={plan.optionId} value={plan.optionId}>
+                        {plan.label}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <button
+                  type="button"
+                  disabled={drawnMode !== null}
+                  onClick={() => setDrawnMode(drawMode)}
+                >
+                  抽取首趟任务
+                </button>
+                <p>
+                  {initialDraw
+                    ? "从抽出的两张任务中选择一张，另一张永久弃置。"
+                    : "按地点选择抽法，再抽取两张任务。"}
+                </p>
+              </fieldset>
+            ) : undefined
+          }
           onQuestIdChange={setQuestId}
           onBack={() => {
             setError("");
@@ -173,7 +234,7 @@ export function DungeonQuest() {
         <div>
           <p className="eyebrow">DDBG · PHASE 4</p>
           <h1>开局建队</h1>
-          <p>正式十八英雄开局四人 · I级遗迹 · 单设备1–4人轮流操作</p>
+          <p>正式十八英雄开局四人 · I级任务 · 单设备1–4人轮流操作</p>
           <p className="embark-roster-hint">
             可选身份共 {FORMAL_HERO_NAMES.length} 名（与替补白名单一致）。十八名属性与 I–III
             级战斗技能均已核实接线（R-200）。缺 token/icon 不阻塞建队；未核实效果按 R-048
@@ -225,13 +286,14 @@ export function DungeonQuest() {
                 data-testid={`content-pack-${pack.id}`}
                 checked={contentPacks.includes(pack.id)}
                 disabled={pack.id === "core"}
-                onChange={(event) =>
+                onChange={(event) => {
+                  setDrawnMode(null);
                   setContentPacks((previous) =>
                     event.target.checked
                       ? [...previous, pack.id]
                       : previous.filter((id) => id !== pack.id),
-                  )
-                }
+                  );
+                }}
               />
               {pack.name} · {pack.description}
             </label>

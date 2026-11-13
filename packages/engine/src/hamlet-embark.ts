@@ -3,7 +3,8 @@ import { asQuestMapPairingQuest, basicQuests } from "../../data/src/basic-quests
 import { pickEmbarkQuestMapLayout } from "../../data/src/quest-map-pairing";
 import { sandboxExpeditionEmbarkBlockReason } from "../../data/src/quest-map-pairing";
 import {
-  HAMLET_QUEST_DRAW_OPTION,
+  executeHamletQuestDrawMode,
+  shuffleIds,
   hamletWealdLocationDrawEnabled,
   legalHamletQuestDrawModes,
   remainingQuestIdsForLocationDeck,
@@ -40,71 +41,6 @@ import { placeFaceTheThreatRooms } from "./boss/edge-room-placement";
 import { nextExpeditionLocationDecks } from "./hamlet-location-embark";
 
 type Hero = DungeonState["heroes"][number];
-
-function shuffleIds(ids: readonly string[], seed: number, cursor: number) {
-  const rng = createRng(seed),
-    deck = [...ids];
-  for (let i = 0; i < cursor; i++) rng.next();
-  let nextCursor = cursor;
-  for (let i = deck.length - 1; i > 0; i--) {
-    const j = Math.floor(rng.next() * (i + 1));
-    [deck[i], deck[j]] = [deck[j]!, deck[i]!];
-    nextCursor++;
-  }
-  return { deck, cursor: nextCursor };
-}
-
-function executeHamletQuestDrawMode(
-  mode: HamletQuestDrawOptionId,
-  seed: number,
-  cursor: number,
-  campaignLevel: ReturnType<typeof readCampaignLevel>,
-  contentPacks: DungeonState["contentPacks"],
-  currentQuestId: string,
-  discarded: readonly string[],
-):
-  | { readonly offers: readonly BasicQuestId[]; readonly cursor: number }
-  | { readonly reason: string } {
-  const ruins = [
-    ...remainingQuestIdsForLocationDeck(
-      "ruins",
-      campaignLevel,
-      contentPacks,
-      currentQuestId,
-      discarded,
-    ),
-  ];
-  const weald = [
-    ...remainingQuestIdsForLocationDeck(
-      "weald",
-      campaignLevel,
-      contentPacks,
-      currentQuestId,
-      discarded,
-    ),
-  ];
-  if (mode === HAMLET_QUEST_DRAW_OPTION.ruinsTwo) {
-    if (ruins.length < 2) return { reason: "遗迹任务堆剩余不足 2 张，无法按所选抽法抽牌（R33）" };
-    const drawn = shuffleIds(ruins, seed, cursor);
-    return { offers: drawn.deck.slice(0, 2) as BasicQuestId[], cursor: drawn.cursor };
-  }
-  if (mode === HAMLET_QUEST_DRAW_OPTION.wealdTwo) {
-    if (weald.length < 2) return { reason: "Weald 任务堆剩余不足 2 张，无法按所选抽法抽牌（R33）" };
-    const drawn = shuffleIds(weald, seed, cursor);
-    return { offers: drawn.deck.slice(0, 2) as BasicQuestId[], cursor: drawn.cursor };
-  }
-  if (mode === HAMLET_QUEST_DRAW_OPTION.splitOneEach) {
-    if (ruins.length < 1 || weald.length < 1)
-      return { reason: "遗迹与 Weald 任务堆须各至少有 1 张，无法各抽 1（R33）" };
-    const ruinsDrawn = shuffleIds(ruins, seed, cursor);
-    const wealdDrawn = shuffleIds(weald, seed, ruinsDrawn.cursor);
-    return {
-      offers: [ruinsDrawn.deck[0]!, wealdDrawn.deck[0]!] as BasicQuestId[],
-      cursor: wealdDrawn.cursor,
-    };
-  }
-  return { reason: "任务抽法无效（R33）" };
-}
 
 function presentHamletNextQuestOffer(
   state: GameState,
@@ -577,6 +513,7 @@ export function chooseNextQuest(
   }
   const next = {
     layout: parsedLayout,
+    ...(d.initialQuestDrawMode ? { initialQuestDrawMode: d.initialQuestDrawMode } : {}),
     ...(d.contentPacks ? { contentPacks: d.contentPacks } : {}),
     mode: d.mode,
     ...(d.stygianRoomRules ? { stygianRoomRules: d.stygianRoomRules } : {}),

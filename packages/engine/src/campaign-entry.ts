@@ -6,6 +6,7 @@ import {
 } from "./dungeon-quest-entry";
 import type { BasicQuestId } from "../../data/src/basic-quests";
 import type { DungeonState } from "./dungeon";
+import type { HamletQuestDrawOptionId } from "./hamlet-location-quest-draw";
 
 /** 正式新战役入口。旧的单任务/测试入口保留原目录用于旧档严格重放。 */
 export function createCampaignQuest(
@@ -15,6 +16,7 @@ export function createCampaignQuest(
   party: QuestParty,
   sources: CoreQuestSources,
   packs: readonly ContentPackId[] = ["core"],
+  initialQuestDrawMode?: HamletQuestDrawOptionId,
 ) {
   return createCoreDungeonQuest(
     seed,
@@ -25,5 +27,6 @@ export function createCampaignQuest(
     true,
     "full",
     normalizeContentPacks(packs),
+    initialQuestDrawMode,
   );
 }
