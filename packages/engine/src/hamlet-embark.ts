@@ -37,6 +37,7 @@ import { darkestActEntryPending } from "./darkest-entry";
 import { isDarkestQuest, setupDarkestDungeon } from "./darkest-setup";
 
 import { placeFaceTheThreatRooms } from "./boss/edge-room-placement";
+import { nextExpeditionLocationDecks } from "./hamlet-location-embark";
 
 type Hero = DungeonState["heroes"][number];
 
@@ -568,6 +569,12 @@ export function chooseNextQuest(
     return rejectBattleCommand(state, "任务弃置列表冲突，未出征（R-037）");
   const { last: _last, ...curioBase } = d.curio!;
   void _last;
+  let locationDecks;
+  try {
+    locationDecks = nextExpeditionLocationDecks(d, quest.id);
+  } catch (error) {
+    return rejectBattleCommand(state, error instanceof Error ? error.message : "地点来源无法重建");
+  }
   const next = {
     layout: parsedLayout,
     ...(d.contentPacks ? { contentPacks: d.contentPacks } : {}),
@@ -596,16 +603,23 @@ export function chooseNextQuest(
         return fresh;
       return { ...loot, gold: d.gold, placed: [] };
     })(),
-    battleCatalog: d.battleCatalog!,
+    battleCatalog: locationDecks?.battleCatalog ?? d.battleCatalog!,
     conditions: d.conditions!,
     trinkets: washed.pool,
     // R15：本任务的旁置目标房不进洗牌堆；其余牌序沿用带回的牌堆。
-    roomCards: roomCardsForQuest(d.roomCards!, quest.id),
-    monsterPool: {
+    roomCards: locationDecks?.roomCards ?? roomCardsForQuest(d.roomCards!, quest.id),
+    monsterPool: locationDecks?.monsterPool ?? {
       ...d.monsterPool!,
       active: null,
     },
-    curio: { ...curioBase, active: null },
+    curio: locationDecks?.curio ?? { ...curioBase, active: null },
+    ...(locationDecks?.setAsideRoomCardId
+      ? { setAsideRoomCardId: locationDecks.setAsideRoomCardId }
+      : {}),
+    ...(quest.id === "quest:weald:p002"
+      ? { questExceptionCroneKills: 0, questExceptionComponentAvailable: true }
+      : {}),
+    ...(quest.id === "quest:weald:p003" ? { disinfectionOakCount: 0 } : {}),
     rooms: slots.map((n, i) => ({
       id: n.id,
       kind: shuffled.tokens[i]!,
