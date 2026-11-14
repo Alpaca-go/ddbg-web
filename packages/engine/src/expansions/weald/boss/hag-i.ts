@@ -91,7 +91,7 @@ export const hagIBossScript: BossScriptDefinition = {
   displayName: "Hag I",
   rules: DEFAULT_BOSS_BATTLE_RULES,
   notes:
-    "R38/R39：先攻 2（ACTIONS / Round: 2）；Cauldron Empty 开战 + Into the Pot! / Empty→Full 最小运行时已接；boss_ability:weald:p019 / 先攻洗入 / 锅完整生命周期仍 hold。",
+    "W4／R-254：Hag 自身两张先攻、锅一张；Hag 每轮两次行动，空锅回合自动结束。入锅／释放与锅完整生命周期仍 hold。",
   combatEntry: {
     descriptionAbilityCardId: HAG_I_DESCRIPTION_ABILITY_CARD_ID,
     combatAbilityCardId: HAG_I_COMBAT_ABILITY_CARD_ID,
@@ -130,7 +130,7 @@ export const hagIBossScript: BossScriptDefinition = {
       }
       return {
         status: "stub",
-        message: "Hag I：Cauldron 能力卡 boss_ability:weald:p019 / 技能召唤 / 先攻洗入未接",
+        message: "Hag I：Cauldron 能力卡 boss_ability:weald:p019 / 技能召唤及锅完整生命周期未接",
         hold: "R38–R39 / Hag 锅完整生命周期",
       };
     },

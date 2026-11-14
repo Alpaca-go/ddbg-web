@@ -1,6 +1,7 @@
 import type { BattleEntity, BattleState } from "../../../battle";
 import type { ApplyResult, GameState, MonsterSkillResolvedEvent } from "../../../command";
 import type { MonsterCardView } from "../../../monster-skill";
+import type { SkillTargetSide } from "../../../hero-skill";
 import { runBossHook } from "../../../boss/hooks";
 import { resolveEncounterBossScriptId } from "../../../boss/encounter-rules";
 import {
@@ -16,6 +17,34 @@ import { getBossScript } from "../../../boss/registry";
 import type { BossScriptDefinition, BossSummonOk } from "../../../boss/types";
 
 const STANCES = ["aggressive", "defensive", "ranged", "support"] as const;
+
+/** W4／R-254：Hag 两张，锅一张；已有两个实体各贡献一张，仅补 Hag 的第二张。 */
+export function expandHagIInitiativeDeckSides(
+  deck: readonly SkillTargetSide[],
+  battle: BattleState,
+  state: GameState,
+): SkillTargetSide[] {
+  if (resolveEncounterBossScriptId(state) !== HAG_I_SCRIPT_ID || !hagEntity(battle))
+    return [...deck];
+  return [...deck, "monster"];
+}
+
+/** finishTurn 先累加行动数，第二次结束才从本轮候选中移除 Hag。 */
+export function hagShouldEnterActedIdsAfterTurn(state: GameState, actorId: string): boolean {
+  const battle = state.battle;
+  if (!battle || resolveEncounterBossScriptId(state) !== HAG_I_SCRIPT_ID) return true;
+  if (hagEntity(battle)?.id !== actorId) return true;
+  return (battle.hagActionsThisRound ?? 0) >= 2;
+}
+
+/** W4：空锅仍有先攻与回合，但在回合开始触发／状态结算后不执行动作。 */
+export function hagIEmptyCauldronSkipsAction(state: GameState, actorId: string): boolean {
+  return (
+    !!state.battle &&
+    resolveEncounterBossScriptId(state) === HAG_I_SCRIPT_ID &&
+    emptyCauldronEntity(state.battle!)?.id === actorId
+  );
+}
 
 export function readHagICauldronBattleStartPlan(
   script: BossScriptDefinition,

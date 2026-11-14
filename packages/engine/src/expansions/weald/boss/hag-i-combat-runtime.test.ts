@@ -2,7 +2,7 @@ import { describe, expect, it, beforeEach } from "vitest";
 import { readFileSync } from "node:fs";
 import { createBattleState, type BattleEntity } from "../../../battle";
 import { applyCommand } from "../../../command";
-import { applyEncounterCommand } from "../../../encounter";
+import { applyEncounterCommand, finishTurn } from "../../../encounter";
 import type { GameState } from "../../../command";
 import type { MonsterCardView } from "../../../monster-skill";
 import type { SkillStance } from "../../../hero-skill";
@@ -153,6 +153,131 @@ function hagBattle(extra?: Partial<GameState["battle"]>): GameState {
     dungeon: hagBossDungeon(),
   } as GameState;
 }
+
+describe("W4 受控战斗时序（非正式出征验收）", () => {
+  beforeEach(() => {
+    clearBossScriptsForTest();
+    ensureHagIBossScriptRegistered();
+  });
+
+  it("加载过 Hag 脚本后，非 Boss 遭遇仍每个实体一张先攻", () => {
+    const state = { ...hagBattle(), dungeon: undefined };
+    const started = applyEncounterCommand(state, { type: "startBattle" });
+    expect(started.events.some((e) => e.type === "commandRefused")).toBe(false);
+    expect(started.state.battle!.encounter!.deck.filter((s) => s === "monster")).toHaveLength(1);
+    expect(started.state.battle!.encounter!.deck.filter((s) => s === "hero")).toHaveLength(4);
+  });
+
+  it("空锅经过回合开始补给窗口后才跳过，不消费额外随机数", () => {
+    const started = applyEncounterCommand(hagBattle({ provisionWindows: true }), {
+      type: "startBattle",
+    }).state;
+    const state: GameState = {
+      ...started,
+      battle: {
+        ...started.battle!,
+        encounter: {
+          ...started.battle!.encounter!,
+          deck: ["monster", "hero"],
+          actedIds: ["hag"],
+          turn: { type: "awaitingInitiative" },
+        },
+      },
+    };
+    const drawn = applyCommand(state, { type: "drawInitiative" });
+    expect(drawn.pendingChoice).toBeDefined();
+    expect(drawn.state.battle!.encounter!.turn).toEqual({
+      type: "monster",
+      actorId: "boss:hag:cauldron-empty",
+    });
+    const continued = applyCommand(drawn.state, {
+      type: "resolveChoice",
+      choiceId: drawn.pendingChoice!.id,
+      optionId: "continue",
+    });
+    expect(continued.events.some((e) => e.type === "commandRefused")).toBe(false);
+    expect(continued.state.battle!.encounter!.turn.type).toBe("awaitingInitiative");
+    expect(continued.state.battle!.rngCursor).toBe(state.battle!.rngCursor);
+    expect(continued.state.battle!.encounter!.actedIds).toContain("boss:hag:cauldron-empty");
+  });
+
+  it("startBattle 四英雄／Hag＋锅洗入 4＋3 张，种子与命令重复一致", () => {
+    const base = hagBattle();
+    const before = structuredClone(base);
+    const a = applyEncounterCommand(base, { type: "startBattle" });
+    expect(a).toEqual(applyEncounterCommand(base, { type: "startBattle" }));
+    expect(base).toEqual(before);
+    expect(a.events.some((e) => e.type === "commandRefused")).toBe(false);
+    const battle = a.state.battle!;
+    expect(battle.encounter!.deck.filter((s) => s === "monster")).toHaveLength(3);
+    expect(battle.encounter!.deck.filter((s) => s === "hero")).toHaveLength(4);
+    expect(battle.rngCursor - base.battle!.rngCursor).toBe(6);
+  });
+
+  it("Hag 两次、空锅一次自动结束；下一轮重置配额与完整先攻", () => {
+    let state = applyEncounterCommand(hagBattle(), { type: "startBattle" }).state;
+    const started: string[] = [];
+    let hagTurns = 0;
+    let skippedPot = 0;
+    for (let n = 0; n < 20 && state.battle!.encounter!.round === 1; n++) {
+      const drawn = applyEncounterCommand(state, { type: "drawInitiative" });
+      expect(drawn.events.some((e) => e.type === "commandRefused")).toBe(false);
+      state = drawn.state;
+      const start = drawn.events.find((e) => e.type === "turnStarted");
+      if (start?.type === "turnStarted") started.push(start.actorId!);
+      const turn = state.battle!.encounter!.turn;
+      if (start?.type === "turnStarted" && start.actorId === "boss:hag:cauldron-empty") {
+        skippedPot++;
+        expect(
+          drawn.events.some((e) => e.type === "turnEnded" && e.actorId === start.actorId),
+        ).toBe(true);
+        expect(turn.type).not.toBe("monster");
+      } else if (turn.type === "monster") {
+        expect(turn.actorId).toBe("hag");
+        state = applyEncounterCommand(state, {
+          type: "finishMonsterTurn",
+          actorId: turn.actorId,
+        }).state;
+        hagTurns++;
+        expect(state.battle!.hagActionsThisRound).toBe(hagTurns);
+        expect(state.battle!.encounter!.actedIds.includes("hag")).toBe(hagTurns === 2);
+      } else if (turn.type === "hero") {
+        // 直接结束受控英雄回合，不当作公开命令自然战役。
+        state = finishTurn(state, turn.actorId, []).state;
+      }
+    }
+    expect(hagTurns).toBe(2);
+    expect(skippedPot).toBe(1);
+    expect(started.filter((id) => id.startsWith("h") && id !== "hag")).toHaveLength(4);
+    expect(state.battle!.encounter!.round).toBe(2);
+    expect(state.battle!.hagActionsThisRound).toBeUndefined();
+    expect(state.battle!.encounter!.actedIds).toEqual([]);
+    expect(state.battle!.encounter!.deck).toHaveLength(7);
+  });
+
+  it("Full 保留正常怪物回合，不按 Empty 跳过", () => {
+    const started = applyEncounterCommand(hagBattle(), { type: "startBattle" }).state;
+    const morphed = applyHagICauldronEmptyToFullMorph(started, "hag", 1).state;
+    const state: GameState = {
+      ...morphed,
+      battle: {
+        ...morphed.battle!,
+        encounter: {
+          ...morphed.battle!.encounter!,
+          deck: ["monster"],
+          actedIds: ["hag"],
+          turn: { type: "awaitingInitiative" },
+        },
+      },
+    };
+    const drawn = applyEncounterCommand(state, { type: "drawInitiative" });
+    expect(drawn.state.battle!.encounter!.turn).toEqual({
+      type: "monster",
+      actorId: "boss:hag:cauldron-empty",
+    });
+    expect(drawn.events.some((e) => e.type === "turnEnded")).toBe(false);
+  });
+});
 
 describe("Hag I · Cauldron Empty 最小运行时", () => {
   beforeEach(() => {
