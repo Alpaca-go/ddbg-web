@@ -6,8 +6,8 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 ## 当前进度与下一步
 
 - **当前阶段：步骤 5 已接通 `quest:weald:p001`–`p005`（**R-252**／**R-244**／**R-245**／**R-248**／**R-242**）；须选 Weald 包；村庄分地点抽 2 选 1，Hamlet 可出征五任务。步骤 2 地点切换与正式格式日志存档首批已验证；五任务自然通关留待 I 级阶段验收。步骤 4 战斗真菌链路不变。**
-- **当前批次**：Fungal Research 首目标自然场景、目标／带回／XP 对照与存档回放，修复真菌摧毁错误触发姿态补位，详见「步骤 5 第十七批」。PR #655 验证通过，待合入。Disinfection #654 已 squash 合入 main（`c99bca59`）。
-- **下一刀：先核实自然场景暴露的 Weald 召唤部署映射停点，再接 Circle of Witches 等剩余 I 级任务自然验收及 Disinfection 三目标。Boss、II／III 与 Stygian 随后推进。字段核准遵守 R-048。**
+- **当前批次**：PR #655 已 squash 合入 main（`56a52656`）。召唤部署映射传递遗漏已修复，详见「步骤 5 第十八批」；代码 `553d1c7e`，PR #656，CI 全绿、待合入。
+- **下一刀：Circle of Witches 等剩余 I 级任务自然验收及 Disinfection 三目标。Boss、II／III 与 Stygian 随后推进。字段核准遵守 R-048。**
 - 步骤 0 已完成，提交 `e7fd17e1`；完整地点战役尚未验收。
 - 导入与计划两批已合入并推送 `main`（`3be97c65`）。步骤 1 怪物批次已合入并推送 `main`（`7075f4d8`）。
 - Houndmaster、Shieldbreaker 已接入，沿用现有英雄实现，不重做。
@@ -427,3 +427,12 @@ Brigand Pounder 类型行、Shrieker’s Nest 和 Cauldron Empty 的专属卡面
 - 验证（2026-11-14 汇总）：代码提交 `190b1012`，PR #655。首轮三文件 27 项、最终五文件 51 项通过；本地 typecheck、lint、build 与一条 Playwright 通过。本地全量 Vitest 未留下完成报告，进程已结束，不记为通过；同一代码提交的 [GitHub CI](https://github.com/Alpaca-go/ddbg-web/actions/runs/43433352940) 已成功，逐步核对 typecheck、lint、完整 pnpm test、build 均为 success，完整 Playwright 检查亦成功。CI 详细日志下载返回 401，未据此填写全量测试数量。最终 Prettier 与 git diff --check 通过。
 - 限制：本批仅首个目标房与提前撤离回村，不宣称三个目标、五任务或整条战役完成。探索用 seed 1 曾在战斗召唤处被 `monsterStanceAreas` 未核实闸门拒绝，留作下一刀核实部署数据接线；不绕过 R-048，不把当前固定场景通过当作所有种子都可玩。
 - 待确认：本批无新增规则歧义；Boss／Stygian／II–III／usable 保持原边界。下一刀先核实召唤部署映射，再续其余 I 级任务自然验收。
+
+### 步骤 5 第十八批：召唤部署映射接线与自然日志回放
+
+- 起点 main `56a52656`（#655 已 squash 合入）；分支 `codex/weald-summon-deployment`。旧 PR 远端分支已删除，本地旧分支与未跟踪交接稿保留。
+- 核对 R-230、R31／R-034 与 R-234–R-239 已核准房间目录：`selectWealdRoomTile` 已检查身份、几何、部署审阅和未解析标记，返回可靠的 `deployment.monsters`。停点来自 `startDungeonBattle` 只为 Necromancer III 传递 `monsterStanceAreas`，Weald 漏传；现复用同一已核准部署映射，不补猜测区域、不放宽 R-048，也不改变召唤技能或 RNG。
+- 新增固定 seed 1 的 Fungal Research 公开命令回归：自然首战实际召唤、落点对照房间姿态映射、召唤前后严格日志存档恢复；不注入怪物、伤害、房间或牌序。沿用具名保留真菌策略，首战后合法撤离；不宣称三目标或全任务通关。
+- 验证：代码 `553d1c7e`，PR #656；召唤单测与新自然场景共 2 文件、7 项通过；typecheck、lint、build 通过，既有 Fungal Research Playwright 1 条通过（1.6 分钟，未启用重试，两个摘要截图已查看）。新测试初次类型检查发现只读包数组与存档类型不符，显式使用 QuestStart 后复测通过。[同一代码提交的 CI](https://github.com/Alpaca-go/ddbg-web/actions/runs/43535722469) 全绿：typecheck、lint、完整单测、build、完整 Playwright 均成功；下载日志核实 **518 文件、3,894 项通过、1 项沿用跳过**（648.58 秒）。
+- 本地全量不计为通过：`dungeon-battle-l2-admission.test.ts` 的核心 II 级长用例约 315 秒后报告失败（原预算 240 秒）；尚无最终失败栈，不能据耗时断言仅为超时。CI 完整结果确认后主动停止本地重复运行，未修改该测试的种子、断言或预算。本机 Node 24.20.0 低于约定 24.21.0，pnpm 12.9.1；最终文档格式和 git diff --check 通过。
+- 待确认：无新增规则歧义；Boss／II–III／Stygian／房间 usable 保持原边界。下一刀 Circle of Witches 的自然目标房、Crone 击杀、XP／回村与存档验收，再续其余 I 级任务及 Disinfection 三目标。
