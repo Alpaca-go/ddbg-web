@@ -1,3 +1,4 @@
+import { deployHagI } from "./expansions/weald/boss/hag-i-deploy";
 import { bossEnabledForPacks } from "../../data/src/content-packs";
 import { chooseHagIRelease } from "./expansions/weald/boss/hag-i-release";
 import type { MonsterSupportResolvedEvent } from "./battle-monster-support";
@@ -295,6 +296,7 @@ type BaseCommand =
   | { readonly type: "deployProphetI" }
   | { readonly type: "deployProphetII" }
   | { readonly type: "deployProphetIII" }
+  | { readonly type: "deployHagI" }
   | { readonly type: "deployFanaticI" }
   | { readonly type: "deployFanaticII" }
   | { readonly type: "deployFanaticIII" }
@@ -716,6 +718,7 @@ function dispatchCommand(
   if (command.type === "deployProphetI") return deployProphetI(state);
   if (command.type === "deployProphetII") return deployProphetII(state);
   if (command.type === "deployProphetIII") return deployProphetIII(state);
+  if (command.type === "deployHagI") return deployHagI(state);
   if (command.type === "deployFanaticI") return deployFanaticI(state);
   if (command.type === "deployFanaticII") return deployFanaticII(state);
   if (command.type === "deployFanaticIII") return deployFanaticIII(state);
