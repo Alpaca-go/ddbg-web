@@ -27,6 +27,7 @@ export const naturalParty = coreParty.map((hero, index) => ({
 export type NaturalQuestOptions = {
   /** W3：显式新版本地点 Boss 池；缺省保持历史策略与命令日志。 */
   readonly locationBosses?: true;
+  readonly locationSources?: true;
   /** 测试玩家在指定数量目标房清理后合法撤离，不读取未揭示内容。 */
   readonly exitAfterObjectiveRooms?: number;
   /** Disinfection 测试玩家：消毒指定数量橡树后合法撤离。 */
@@ -390,6 +391,7 @@ export function naturalQuest(
       step({
         type: "establishImminentThreat",
         ...(options.locationBosses ? { locationBosses: true } : {}),
+        ...(options.locationSources ? { locationSources: true } : {}),
       });
     if (options.locationBosses && state.dungeon!.unregisteredImminentThreatHold)
       throw new Error(state.dungeon!.unregisteredImminentThreatHold);

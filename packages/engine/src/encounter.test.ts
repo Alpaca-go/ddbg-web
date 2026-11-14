@@ -1,3 +1,4 @@
+import { removeCasualties } from "./encounter";
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { applyCommand, createBattleState, createRng, rollD10 } from "./index";
@@ -371,4 +372,24 @@ describe("普通遭遇战先攻与回合（R17–19、R25、R-025、R-030、R-03
     expect(moved.state.battle!.entities.find((entity) => entity.id === "m0")!.areaId).toBe("a");
     expect(applyCommand(moved.state, { type: "resolveShuffles" }).state).toBe(moved.state);
   });
+});
+
+it.each([0, 1, 2])("R-030：英雄姿态 %s 阵亡，后方英雄前移一格，棋子区域不动", (at) => {
+  const original = applyCommand(setup(), { type: "startBattle" }).state;
+  const input: GameState = {
+    ...original,
+    battle: {
+      ...original.battle!,
+      entities: original.battle!.entities.map((e) =>
+        e.id === `h${at}` ? { ...e, dead: true } : e,
+      ),
+    },
+  };
+  const result = removeCasualties({ state: input, events: [] }, [`h${at}`]);
+  for (let i = 0; i < 4; i++) {
+    const hero = result.state.battle!.entities.find((e) => e.id === `h${i}`)!;
+    expect(hero.areaId).toBe("a");
+    expect(hero.stance).toBe(stances[i > at ? i - 1 : i]);
+  }
+  expect(input.battle!.entities.find((e) => e.id === "h3")!.stance).toBe("support");
 });

@@ -198,6 +198,9 @@ export type DungeonState = {
   readonly unregisteredImminentThreatHold?: string;
   /** W3：由显式版本化的开局定威胁命令开启，旧日志缺省沿用遗迹池。 */
   readonly locationBossThreats?: true;
+  readonly bossLocationSources?: true;
+  /** W3：本趟 p019 的地点，威胁清除后仍供回村守恒读取。 */
+  readonly bossExpeditionRegion?: "weald";
   readonly defeatedWealdBossIdentities?: readonly import("./expansions/weald/catalog").WealdBossIdentity[];
   /** 本战役已击败的 Ruins Boss（升幕抽下一张威胁时排除，spec §2.2）。 */
   readonly defeatedRuinsBossIdentities?: readonly import("./boss/threat-description-catalog").RuinsBossIdentity[];

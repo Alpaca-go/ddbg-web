@@ -1,3 +1,4 @@
+import { nextExpeditionLocationDecks } from "../hamlet-location-embark";
 import { wealdThreatPool } from "../expansions/weald/boss/threat-pool";
 import { ensureCampaignBossScriptsRegistered } from "../expansions/register";
 import { requireFaceTheThreatEmbarkPlanForSandbox } from "./face-the-threat-embark-runtime";
@@ -23,6 +24,7 @@ import type { BossScriptId } from "./types";
 export type EstablishImminentThreatCommand = {
   readonly type: "establishImminentThreat";
   readonly locationBosses?: true | undefined;
+  readonly locationSources?: true | undefined;
 };
 
 export type DrawImminentThreatAfterActAdvanceCommand = {
@@ -137,7 +139,8 @@ export function establishImminentThreat(
   state: GameState,
   command: EstablishImminentThreatCommand,
 ): ApplyResult {
-  void command;
+  if (command.locationSources && !command.locationBosses)
+    return rejectBattleCommand(state, "地点出征来源须同时启用完整地点威胁池");
   if (state.battle) return rejectBattleCommand(state, "战斗进行中不能定威胁（R-048）");
   const d = state.dungeon;
   if (!d) return rejectBattleCommand(state, "缺少战役状态，不能定威胁");
@@ -157,13 +160,40 @@ export function establishImminentThreat(
     return rejectBattleCommand(state, error instanceof Error ? error.message : "地点威胁来源无效");
   }
   const result = applyImminentThreatDraw(
-    command.locationBosses ? { ...state, dungeon: { ...d, locationBossThreats: true } } : state,
+    command.locationBosses
+      ? {
+          ...state,
+          dungeon: {
+            ...d,
+            locationBossThreats: true,
+            ...(command.locationSources ? { bossLocationSources: true } : {}),
+          },
+        }
+      : state,
     pool,
     command.locationBosses
       ? "Weald W3：混洗启用地点的 I 级 Boss 描述卡"
       : "spec §2.4 洗 4 张 I 级 Ruins Boss 描述卡抽 1 张",
   );
-  const next = result.state.dungeon!;
+  let next = result.state.dungeon!;
+  if (
+    command.locationSources &&
+    next.activeBossThreatScriptId === "boss:weald:hag:1" &&
+    d.questDistribution?.questId === "quest:p019"
+  ) {
+    if (d.phase !== "awaitingProvisions")
+      return rejectBattleCommand(state, "Hag 地点来源只能在 p019 开局补给前重建（W3）");
+    try {
+      const decks = nextExpeditionLocationDecks(next, "quest:p019");
+      if (!decks) return rejectBattleCommand(state, "Hag 缺少地点来源（W3）");
+      next = { ...next, ...decks, bossExpeditionRegion: "weald" };
+    } catch (error) {
+      return rejectBattleCommand(
+        state,
+        error instanceof Error ? error.message : "Hag 地点来源无效",
+      );
+    }
+  }
   if (
     d.phase === "awaitingProvisions" &&
     d.questDistribution?.questId === "quest:p019" &&
@@ -184,7 +214,7 @@ export function establishImminentThreat(
       },
     };
   }
-  return result;
+  return { ...result, state: { ...result.state, dungeon: next } };
 }
 
 export function drawImminentThreatAfterActAdvance(
