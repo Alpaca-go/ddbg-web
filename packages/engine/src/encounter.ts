@@ -58,6 +58,9 @@ import {
   applyHagICauldronBattleStart,
   bumpHagIActionRoundCount,
   chainHagICauldronFullAfterIntoThePot,
+  expandHagIInitiativeDeckSides,
+  hagShouldEnterActedIdsAfterTurn,
+  hagIEmptyCauldronSkipsAction,
 } from "./expansions/weald/boss/hag-i-combat-runtime";
 import {
   bumpProphetIActionRoundCount,
@@ -169,6 +172,7 @@ function startRound(
   if (gameState) {
     deck = expandProphetIInitiativeDeckSides(deck, battle, gameState);
     deck = expandFanaticIInitiativeDeckSides(deck, battle, gameState);
+    deck = expandHagIInitiativeDeckSides(deck, battle, gameState);
     deck = expandDarkestMidBossInitiativeDeckSides(deck, battle, gameState);
     const final = currentFinalActor(gameState);
     if (final && battle.entities.some((e) => !e.dead && e.monsterCardId === final.cardId)) {
@@ -451,6 +455,7 @@ export function finishTurn(
     reachedQuota &&
     !encounter.actedIds.includes(actorId) &&
     prophetShouldEnterActedIdsAfterTurn(state, actorId) &&
+    hagShouldEnterActedIdsAfterTurn(state, actorId) &&
     fanaticShouldEnterActedIdsAfterTurn(state, actorId)
       ? [...encounter.actedIds, actorId]
       : encounter.actedIds;
@@ -970,9 +975,14 @@ export function completeTurnStart(result: ApplyResult, actorId: string): ApplyRe
               "Absolute Nothingness 无战斗行动，自动结束怪物回合（boss_ability:p035；wiki 占位）",
           },
         ])
-      : status.entity.dead || (actor.side === "monster" && status.stunned)
-        ? finishTurn(removed.state, actorId, removed.events)
-        : removed)
+      : hagIEmptyCauldronSkipsAction(removed.state, actorId)
+        ? finishTurn(removed.state, actorId, [
+            ...removed.events,
+            { type: "dungeonUpdated", message: "Weald W4：空锅不执行动作，结束回合" },
+          ])
+        : status.entity.dead || (actor.side === "monster" && status.stunned)
+          ? finishTurn(removed.state, actorId, removed.events)
+          : removed)
   );
 }
 

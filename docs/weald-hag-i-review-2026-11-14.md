@@ -28,20 +28,20 @@ Weald W4 与现有规格书 W-05 一致：
 
 上述不依赖新图标命名。本批将旧 `hagICauldronBattleStartStance()` 的 Aggressive 修正为 Ranged，并移除以同姿态英雄所在区域充当怪物部署区域的回退；现在必须提供显式 `monsterStanceAreas` 且该区域存在，否则原子拒绝（R-048）。
 
-不要把 Hag Abilities 印刷的 `ACTIONS / Round: 2` 与 W4 的整场 3 张怪物先攻混为一谈。旧 `combatEntry.printedInitiativeCards: 2` 是 Hag 自身声明，不能简单改成 3 再另加锅的一张。当前 `startRound` 尚无 Hag 专属补牌适配；完整 Hag 两次＋锅一次、空锅跳过与行动顺序留后续接线，不声称本批已修好整个先攻流程。
+不要把 Hag Abilities 印刷的 `ACTIONS / Round: 2` 与 W4 的整场 3 张怪物先攻混为一谈。旧 `combatEntry.printedInitiativeCards: 2` 是 Hag 自身声明，不能简单改成 3 再另加锅的一张。步骤 6 第五批已接 `startRound` Hag 专属补牌、两次行动配额与空锅跳过，并通过受控时序验证；正式部署、入锅／释放与自然场景仍未完成。
 
 ## 印刷身份映射
 
-以下真实 raw ID 已可追溯，但暂不替换运行时常量；锅的 Full 是同一实体卡背面，不增加一份组件。
+以下保留迁移前别名便于追溯；步骤 6 第四批已将运行时常量对齐真实 ID，旧别名不再识别。锅的 Full 是同一实体卡背面，不增加一份组件。
 
-| 内容              | 当前旧占位                                                                          | 印刷来源与真实 raw ID                                                       |
-| ----------------- | ----------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| Hag I Description | `boss_ability:weald:hag:p001`                                                       | Boss Abilities p13，`boss_ability:weald:p013`                               |
-| Hag I 能力／威胁  | `boss_ability:weald:hag:p002`                                                       | p16，`boss_ability:weald:p016`                                              |
-| Cauldron I 能力   | 未完整接入                                                                          | p19，`boss_ability:weald:p019`                                              |
-| Hag I 战斗卡      | `monster_large:weald:hag:p001`                                                      | large FRONT p10，`monster_large:weald:p010`                                 |
-| Empty／Full I     | `monster_large:weald:cauldron_empty:p001`／`monster_large:weald:cauldron_full:p001` | large p13 正／反面，raw 为 `monster_large:weald:p013`；背面运行身份方案待定 |
-| Hag Boss 房       | 未接正式部署                                                                        | rooms p10，`room:weald:p010`；TILES BACK p5                                 |
+| 内容              | 历史旧占位                                                                          | 印刷来源与真实 raw ID                                                                                 |
+| ----------------- | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| Hag I Description | `boss_ability:weald:hag:p001`                                                       | Boss Abilities p13，`boss_ability:weald:p013`                                                         |
+| Hag I 能力／威胁  | `boss_ability:weald:hag:p002`                                                       | p16，`boss_ability:weald:p016`                                                                        |
+| Cauldron I 能力   | 未完整接入                                                                          | p19，`boss_ability:weald:p019`                                                                        |
+| Hag I 战斗卡      | `monster_large:weald:hag:p001`                                                      | large FRONT p10，`monster_large:weald:p010`                                                           |
+| Empty／Full I     | `monster_large:weald:cauldron_empty:p001`／`monster_large:weald:cauldron_full:p001` | large p13 正／反面，raw 为 `monster_large:weald:p013`；背面运行 ID 为 `monster_large:weald:p013:back` |
+| Hag Boss 房       | 未接正式部署                                                                        | rooms p10，`room:weald:p010`；TILES BACK p5                                                           |
 
 脚本 ID `boss:weald:hag:1` 与卡牌页码身份分开。迁移须覆盖内容包注册、威胁池、Face the Threat、战斗引用、存档与旧别名；不能只改几个常量，也不能将 p10／p13 加入普通 14 实体池。
 
@@ -126,7 +126,7 @@ Abilities BACK p16：Painfully Soothing I 在英雄使用 Potion 时压力 +1；
 
 1. 已按 R-254 将核准的 Hag／锅卡面及 10 号几何写入独立 Boss 数据目录；不加入普通怪物池。
 2. 已对齐真实运行 ID；Full 为 `monster_large:weald:p013:back`，指向同一 raw p13 的背面，不增加实体。旧占位别名不再识别；旧 Hag 试验存档不保证兼容，不静默改写快照。
-3. 接专属部署、整场 3／4 先攻、空锅跳过，再接英雄入锅／释放与锅完整生命周期；未核准部分继续原子拒绝。
+3. 已接整场 3／4 先攻、Hag 两次与空锅跳过；接专用技能投影及正式部署，再接英雄入锅／释放与锅完整生命周期；未核准部分继续原子拒绝。
 4. 接 Hag I 正式战役入口、胜利清场、XP／回村／日志存档，最后做 1–3 条关键路径冒烟；完成后才进入 Brigand Pounder。
 
 本表明确列出的卡面与几何内容经 R-254 结案且已有生产目录；真实 ID 已对齐，完整 Boss 流程仍待实现，不能据核准状态声称 Hag 已可自然通关。其他等级、Boss 与未描述的生命周期细节不按本次核准类推。
