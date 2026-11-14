@@ -33,7 +33,9 @@ export function QuestSummaryPanel({
           {d.questSummary.name} ·{" "}
           {d.questSummary.questId === "quest:weald:p001" && "broughtBackCount" in d.questSummary
             ? `带回 ${d.questSummary.broughtBackCount} 个坏死真菌 · 任务目标${d.questSummary.objectiveMet ? "已取得" : "未取得"}`
-            : `${d.questSummary.questId !== "quest:p001" ? "巢穴清理" : "清理"} ${quest!.xpKind === "flat" ? "Boss 定额" : `${d.questSummary.clearedRoomIds.length} / ${questPrintedXpCap(quest!)} 间`}`}{" "}
+            : d.questSummary.questId === "quest:weald:p002" && "croneKills" in d.questSummary
+              ? `击杀 Crone ${d.questSummary.croneKills} 只`
+              : `${d.questSummary.questId !== "quest:p001" ? "巢穴清理" : "清理"} ${quest!.xpKind === "flat" ? "Boss 定额" : `${d.questSummary.clearedRoomIds.length} / ${questPrintedXpCap(quest!)} 间`}`}{" "}
           · 每名英雄
           {d.questSummary.awarded ? "已发" : "待发"} {d.questSummary.xpPerHero} XP · 驿站
           {d.questSummary.awarded ? "已发" : "待发"} {d.questSummary.stagecoachXp} XP

@@ -25,6 +25,8 @@ export const naturalParty = coreParty.map((hero, index) => ({
   skillIds: equipped[index]!,
 }));
 export type NaturalQuestOptions = {
+  /** Circle of Witches 测试玩家：击杀指定数量 Crone 后合法撤离。 */
+  readonly exitAfterCroneKills?: number;
   readonly fungalResearch?: "retain-one" | "destroy-all";
   /** 显式玩家目标操作；不改变既有自然策略的缺省行为。 */
   readonly heroAction?: (state: GameState) => Command | undefined;
@@ -406,17 +408,19 @@ export function naturalQuest(
         lairs = cleared.filter((r) => r.kind === "lair");
       const done = isBossQuestId(activeQuestId)
         ? d.bossQuestVictory === true
-        : options.exitAfterBattles !== undefined
-          ? events.filter((e) => e.type === "battleFinished").length >= options.exitAfterBattles
-          : activeQuest.xpKind === "all"
-            ? cleared.length >= scoutRooms && won > 0
-            : activeQuest.xpKind === "lair"
-              ? lairs.length >= wipeLairs
-              : activeQuest.xpKind === "objective"
-                ? cleared.filter((r) => r.kind === "objective").length >= 1
-                : activeQuest.xpKind === "curio"
-                  ? cleared.filter((r) => r.kind === "curio").length >= 1
-                  : lairs.length > 0 && d.gold >= 20;
+        : options.exitAfterCroneKills !== undefined
+          ? (d.questExceptionCroneKills ?? 0) >= options.exitAfterCroneKills
+          : options.exitAfterBattles !== undefined
+            ? events.filter((e) => e.type === "battleFinished").length >= options.exitAfterBattles
+            : activeQuest.xpKind === "all"
+              ? cleared.length >= scoutRooms && won > 0
+              : activeQuest.xpKind === "lair"
+                ? lairs.length >= wipeLairs
+                : activeQuest.xpKind === "objective"
+                  ? cleared.filter((r) => r.kind === "objective").length >= 1
+                  : activeQuest.xpKind === "curio"
+                    ? cleared.filter((r) => r.kind === "curio").length >= 1
+                    : lairs.length > 0 && d.gold >= 20;
       if (done) {
         step({ type: "leaveDungeon" });
         choose("agree");
