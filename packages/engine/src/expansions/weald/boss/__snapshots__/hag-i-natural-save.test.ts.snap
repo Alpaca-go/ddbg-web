@@ -1,0 +1,83 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`地点 Boss 固定矩阵 seed 0：真实自然停止状态严格回放 1`] = `
+{
+  "checkpoints": [],
+  "description": "boss_ability:p001",
+  "failure": null,
+  "hagDeployments": 0,
+  "phase": "awaitingReplacement",
+  "stop": "dungeon halted awaitingReplacement",
+}
+`;
+
+exports[`地点 Boss 固定矩阵 seed 1：真实自然停止状态严格回放 1`] = `
+{
+  "checkpoints": [],
+  "description": "boss_ability:weald:p007",
+  "failure": null,
+  "hagDeployments": 0,
+  "phase": "awaitingProvisions",
+  "stop": "brigandPounder 迫近威胁脚本未注册（Weald / spec §2.3）；被动与 Face the Threat 仍 hold",
+}
+`;
+
+exports[`地点 Boss 固定矩阵 seed 2：真实自然停止状态严格回放 1`] = `
+{
+  "checkpoints": [],
+  "description": "boss_ability:p007",
+  "failure": null,
+  "hagDeployments": 0,
+  "phase": "inBattle",
+  "stop": "battle halted: heroesDefeated",
+}
+`;
+
+exports[`地点 Boss 固定矩阵 seed 3：真实自然停止状态严格回放 1`] = `
+{
+  "checkpoints": [],
+  "description": "boss_ability:weald:p007",
+  "failure": null,
+  "hagDeployments": 0,
+  "phase": "awaitingProvisions",
+  "stop": "brigandPounder 迫近威胁脚本未注册（Weald / spec §2.3）；被动与 Face the Threat 仍 hold",
+}
+`;
+
+exports[`地点 Boss 固定矩阵 seed 4：真实自然停止状态严格回放 1`] = `
+{
+  "checkpoints": [],
+  "description": "boss_ability:p019",
+  "failure": null,
+  "hagDeployments": 0,
+  "phase": "awaitingReplacement",
+  "stop": "dungeon halted awaitingReplacement",
+}
+`;
+
+exports[`地点 Boss 固定矩阵 seed 5：真实自然停止状态严格回放 1`] = `
+{
+  "checkpoints": [],
+  "description": "boss_ability:p019",
+  "failure": null,
+  "hagDeployments": 0,
+  "phase": "awaitingReplacement",
+  "stop": "dungeon halted awaitingReplacement",
+}
+`;
+
+exports[`地点 Boss 固定矩阵 seed 6：真实自然停止状态严格回放 1`] = `
+{
+  "checkpoints": [
+    "deployed",
+    "started",
+    "captive",
+    "release",
+  ],
+  "description": "boss_ability:weald:p013",
+  "failure": null,
+  "hagDeployments": 1,
+  "phase": "exited",
+  "stop": null,
+}
+`;

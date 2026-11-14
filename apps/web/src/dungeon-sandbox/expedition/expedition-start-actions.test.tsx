@@ -73,3 +73,26 @@ it("old provision rolls, higher acts, Darkest and returning campaigns do not acq
   ])
     expect(needsInitialThreat({ ...d, ...patch })).toBe(false);
 });
+
+it("核心＋Weald 显示七位 Boss 与未开放提示；未知 Boss 结果暂停补给", () => {
+  const base = initial();
+  const selected = {
+    ...base,
+    dungeon: { ...base.dungeon!, contentPacks: ["core", "weald"] as const },
+  };
+  expect(render(selected)).toContain("七位 Boss");
+  const held = {
+    ...selected,
+    dungeon: {
+      ...selected.dungeon!,
+      bossLocationSources: true as const,
+      imminentThreatDescriptionCardId: "boss_ability:weald:p007",
+      unregisteredImminentThreatHold: "Brigand Pounder",
+    },
+  };
+  expect(render(held)).toContain("抽到的 Boss 尚未开放");
+  expect(render(held)).toMatch(/<button disabled="">掷开局补给骰/);
+  const refused = applyCommand(held, { type: "rollDungeonProvisions" });
+  expect(refused.events.some((e) => e.type === "commandRefused")).toBe(true);
+  expect(refused.state).toBe(held);
+});
