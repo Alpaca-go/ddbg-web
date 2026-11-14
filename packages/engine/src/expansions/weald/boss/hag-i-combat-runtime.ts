@@ -253,10 +253,8 @@ function stanceTrackFree(battle: BattleState, position: number, width: 1 | 2): b
 }
 
 function stanceAreaId(battle: BattleState, stance: (typeof STANCES)[number]): string | null {
-  const hero = battle.entities.find(
-    (entity) => entity.side === "hero" && !entity.dead && entity.stance === stance,
-  );
-  return hero?.areaId ?? null;
+  // W4 / R-048：使用已核实的怪物部署标记，英雄当前位置不能充当部署区域。
+  return battle.monsterStanceAreas?.[stance] ?? null;
 }
 
 /** Hag I · Empty Cauldron：Boss 战 `startBattle` 前写入 Cauldron 实体（姿态轨 + 对应区域）。 */

@@ -48,6 +48,8 @@ Heroes / Monsters 可穿过 capacity 0 的区域，但不能在那里结束其�
 三者均先找到对应 Boss 房间卡与板块，模型放置于印刷指定区域。空锅在其回合不执行动作。
 Boss 技能、威胁能力、附属单位规则以对应卡面单独转录核对，不从本表推断。
 
+Hag I 前置已按 W4 修正空锅 Ranged，并要求显式怪物部署区域，缺映射拒绝；尚未完成正式 Boss 闭环。[Hag I 审阅](../weald-hag-i-review-2026-11-14.md) 的卡面与 10 号板块经 R-254 更正后核准：Hag Speed 2／Dodge 1，Empty／Full Speed 0，Empty 胸甲为内置 Protection（R-019），B–F 仅角点，10 号全部区域为普通地形。生产目录、真实 ID 迁移及完整 Boss 流程仍待接线，不自动提升 `usable`。
+
 ## 待确认 Q-186：地点卡面与几何
 
 本批导入只建立 raw / parsed，不授予图标命名或正式运行资格。
