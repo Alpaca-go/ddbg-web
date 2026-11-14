@@ -425,7 +425,7 @@ export function startDungeonBattle(state: GameState): ApplyResult {
       provisions: d.explorationSetup.provisions,
       resolveCards: d.resolveCards,
       lootAreas: deployment.lootAreas,
-      ...(d.activeBossThreatScriptId === "boss:ruins:necromancer:3"
+      ...(wealdTile || d.activeBossThreatScriptId === "boss:ruins:necromancer:3"
         ? { monsterStanceAreas: deployment.monsters }
         : {}),
       lootPool: { ...(d.lootPool ?? createLootState()), gold: d.gold },
