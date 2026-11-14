@@ -29,6 +29,8 @@ export type MonsterSkillView = Pick<
   readonly name?: string;
   readonly verified_monster_effects?: MonsterEffectPlan;
   readonly verified_weald_attack?: WealdMonsterAttack;
+  /** R-254：未完成入锅生命周期前，不能把专属效果当普通攻击结算。 */
+  readonly verified_hag_into_pot?: true;
   /** 规范化目标优先级文字；缺失时自动目标选择拒绝。 */
   readonly target?: string | null;
   readonly lines: readonly (readonly SkillSegment[])[];
@@ -132,6 +134,8 @@ export function readMonsterAttackView(
   const matches = monster.skills.filter((skill) => skill.slot === skillSlot);
   if (matches.length !== 1) return { status: "refused", reason: "怪物卡没有唯一对应的技能编号" };
   const skill = matches[0]!;
+  if (skill.verified_hag_into_pot)
+    return { status: "refused", reason: "R-254：Into the Pot 入锅／释放尚未接线" };
   if (skill.verified_weald_attack !== undefined) return readWealdMonsterAttack(monster, skill);
   const excluded = new Set<number>();
   for (const effectLine of skill.effect_lines) {
