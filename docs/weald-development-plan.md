@@ -6,7 +6,7 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 ## 当前进度与下一步
 
 - **当前阶段：步骤 5 已接通 `quest:weald:p001`–`p005`（**R-252**／**R-244**／**R-245**／**R-248**／**R-242**）；须选 Weald 包；村庄分地点抽 2 选 1，Hamlet 可出征五任务。步骤 2 地点切换与正式格式日志存档首批已验证；五任务自然通关留待 I 级阶段验收。步骤 4 战斗真菌链路不变。**
-- **当前批次**：PR #656 已 squash 合入 main（`7b588a60`）。Circle of Witches 一／三目标自然击杀、组件复用、XP／回村及日志回放已验证，详见「步骤 5 第十九批」；当前分支 `codex/weald-circle-of-witches-save`，全量 CI 待验证。
+- **当前批次**：PR #656 已 squash 合入 main（`7b588a60`）。Circle of Witches 一／三目标自然击杀、组件复用、XP／回村及日志回放已验证，详见「步骤 5 第十九批」；代码 `cb6b2756`，PR #657，完整 CI 全绿、待合入。
 - **下一刀：其余 I 级任务自然验收及 Disinfection 三目标。Boss、II／III 与 Stygian 随后推进。字段核准遵守 R-048。**
 - 步骤 0 已完成，提交 `e7fd17e1`；完整地点战役尚未验收。
 - 导入与计划两批已合入并推送 `main`（`3be97c65`）。步骤 1 怪物批次已合入并推送 `main`（`7075f4d8`）。
@@ -444,6 +444,6 @@ Brigand Pounder 类型行、Shrieker’s Nest 和 Cauldron Empty 的专属卡面
 - 测试玩家显式采用保守战斗、伤压后休息、公开替补和达到指定击杀数后撤离。三目标途中 Hellion 阵亡，经 prepareReplacementHero／升级待选／joinPreparedReplacements 自然补入 Bounty Hunter；不注入房间、怪物、伤害、牌序或任务计数，不改变既有自然策略默认行为。
 - 战斗创建、Crone 击杀前后、胜利交接、任务摘要及回村均严格公开日志存档回放；伪造击杀计数的快照被拒绝。摘要与回村在队四英雄／驿站分别为 1／3 XP；不重复计击杀或奖励。
 - UI 摘要改为显示 Crone 击杀数，移除该任务误导的巢穴清理分母。新增一条 Playwright 对照 1／3 击杀与 XP、保存刷新恢复，通过（1.2 分钟，未启用重试）；两张截图已查看，未提交图片。
-- 本地针对性四文件 25 项通过（新日志 2、p002 9、召唤自然回归 1、Crone 13）；typecheck、lint、build 通过。全量验证交由 CI，未启动本地重复全量；本机 Node 24.20.0 低于约定 24.21.0，pnpm 12.9.1。
+- 本地针对性四文件 25 项通过（新日志 2、p002 9、召唤自然回归 1、Crone 13）；typecheck、lint、build 通过。代码 `cb6b2756` 的 [PR CI](https://github.com/Alpaca-go/ddbg-web/actions/runs/43539915718) 与 push CI 均成功；typecheck、lint、完整单测、build、完整 Playwright 全通过。下载日志核实 **519 文件、3,896 项通过、1 项沿用跳过**（1,002.89 秒）。PR #657 已转待审，未启动本地重复全量；本机 Node 24.20.0 低于约定 24.21.0，pnpm 12.9.1。
 - #656 最新纯文档 head 的补跑记录：完整单测与 build 通过；push Playwright 成功，PR Playwright 失败于既有 hamlet 游商保存刷新断言中异步「无本地卡图」提示差异（43537610617），不是交易牌或价格变化。按 Kyries 本次指示合入，不改本批无关的浏览器测试。
 - 待确认：本批无新增规则歧义。仅 Circle of Witches 一／三目标与回村获得自然场景验收，不宣称五任务或完整战役完成；Boss／II–III／Stygian／房间 usable 不变。下一刀继续其余 I 级任务自然验收及 Disinfection 三目标。
