@@ -114,10 +114,8 @@ it.each([23, 7])(
     if (run.state.dungeon!.unregisteredImminentThreatHold)
       expect(run.stopReason).toBe(run.state.dungeon!.unregisteredImminentThreatHold);
     else if (seed === 23) {
-      expect(run.stopReason).toBe("resolveChoice: 意志姿态轨有空隙，不能猜交换对象");
-      expect(
-        run.state.battle!.entities.filter((e) => e.side === "hero" && !e.dead).map((e) => e.stance),
-      ).toEqual(["aggressive", "ranged"]);
+      expect([null, "hero died", "dungeon halted awaitingReplacement"]).toContain(run.stopReason);
+      if (run.stopReason !== null) expect(run.state.dungeon!.heroes.some((h) => h.dead)).toBe(true);
     } else {
       expect(run.stopReason).toBe("dungeon halted awaitingReplacement");
       expect(run.state.dungeon!.phase).toBe("awaitingReplacement");

@@ -298,3 +298,30 @@ it("Unholy Aura 阻止 Vigorous 自动治疗，仍掷一次触发骰并完成回
   });
   expect(draw(state)).toEqual(result);
 });
+
+it.each([
+  [1, "ranged", "defensive"],
+  [6, "defensive", "ranged"],
+  [6, "ranged", "support"],
+] as const)("R-257 Irrational 骰 %s：从 %s 直接进入空的 %s，区域不移动", (roll, from, to) => {
+  const base = ready("Irrational", roll);
+  const input: GameState = {
+    ...base,
+    battle: {
+      ...base.battle!,
+      entities: base.battle!.entities.map((e) =>
+        e.id === "h0" ? { ...e, stance: from } : e.side === "hero" ? { ...e, dead: true } : e,
+      ),
+    },
+  };
+  const original = structuredClone(input);
+  const result = draw(input);
+  expect(result.events.filter((e) => e.type === "commandRefused")).toEqual([]);
+  expect(result.state.battle!.entities.find((e) => e.id === "h0")).toMatchObject({
+    stance: to,
+    areaId: "a",
+  });
+  expect(result.state.battle!.rngCursor).toBe(input.battle!.rngCursor + 1);
+  expect(draw(JSON.parse(JSON.stringify(input)) as GameState)).toEqual(result);
+  expect(input).toEqual(original);
+});

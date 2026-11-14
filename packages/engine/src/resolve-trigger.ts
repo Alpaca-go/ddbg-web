@@ -188,17 +188,18 @@ export function beginResolveTurn(result: ApplyResult, actorId: string): ApplyRes
     const heroes = next.entities.filter((entity) => entity.side === "hero" && !entity.dead);
     const stances = ["aggressive", "defensive", "ranged", "support"] as const;
     const position = stances.indexOf(actor.stance!);
+    if (position < 0) return rejectBattleCommand(result.state, "意志姿态位置无效（R-048）");
     const destination = position + (roll <= effect.forwardThrough ? -1 : 1);
-    if (destination < 0 || destination >= heroes.length) return finish(); // R-057：尽头不移动。
+    if (destination < 0 || destination >= stances.length) return finish(); // R-057：尽头不移动。
     const stance = stances[destination]!;
     const other = heroes.find((entity) => entity.stance === stance);
-    if (!other) return rejectBattleCommand(result.state, "意志姿态轨有空隙，不能猜交换对象");
+    // R-257：空位直接进入；有存活英雄时才交换。
     next = {
       ...next,
       entities: next.entities.map((entity) =>
         entity.id === actorId
           ? { ...entity, stance }
-          : entity.id === other.id
+          : entity.id === other?.id
             ? { ...entity, stance: actor.stance! }
             : entity,
       ),
