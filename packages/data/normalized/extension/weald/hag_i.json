@@ -1,0 +1,137 @@
+{
+ "schema": "ddbg-weald-hag-i-v1",
+ "ruling": "R-254",
+ "combatReady": false,
+ "sources": {
+  "combatFront": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_140x140_monster_large_FRONT.pdf",
+  "combatBack": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_140x140_monster_large_BACK.pdf",
+  "abilityFront": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+  "abilityBack": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_BACK.pdf"
+ },
+ "faces": [
+  {
+   "role": "hag", "rawId": "monster_large:weald:p010", "face": "front",
+   "name": "Hag", "level": 1, "types": ["human", "large"], "stanceSlots": 2,
+   "life": 60, "speed": 2, "dodge": 1, "innateProtection": false,
+   "resistances": ["blight"], "immunities": ["stun", "shuffle"],
+   "skills": [
+    {
+     "slot": 1, "name": "Into the Pot", "target": "closest", "range": 1, "maxTargets": 1,
+     "crit": null, "critDamage": null, "accuracy": 10, "damage": null,
+     "effects": [{"kind": "selfPull", "distance": 1}, {"kind": "putInCauldron"}]
+    },
+    {
+     "slot": 2, "name": "Meat Tenderizer", "target": "crowded", "range": 1, "maxTargets": 3,
+     "crit": 1, "critDamage": 5, "accuracy": 9, "damage": 3, "effects": []
+    },
+    {
+     "slot": 3, "name": "Season to Perfection", "target": "furthest", "range": 2, "maxTargets": 1,
+     "crit": 0, "critDamage": 2, "accuracy": 10, "damage": 1,
+     "effects": [{"kind": "debuff", "duration": 2}, {"kind": "stress", "amount": 1}]
+    }
+   ],
+   "allStancesSelection": [{"min": 1, "max": 6, "slot": 2}, {"min": 7, "max": 10, "slot": 3}]
+  },
+  {
+   "role": "empty", "rawId": "monster_large:weald:p013", "face": "front",
+   "name": "Cauldron Empty", "level": 1, "types": ["large"], "stanceSlots": 2,
+   "life": 66, "speed": 0, "dodge": 0, "innateProtection": true,
+   "resistances": [], "immunities": ["stun", "bleed", "blight", "debuff", "shuffle"],
+   "skills": [], "allStancesSelection": []
+  },
+  {
+   "role": "full", "rawId": "monster_large:weald:p013", "face": "back",
+   "name": "Cauldron Full", "level": 1, "types": ["large"], "stanceSlots": 2,
+   "life": 9, "speed": 0, "dodge": 0, "innateProtection": false,
+   "resistances": [], "immunities": ["stun", "bleed", "blight", "debuff", "shuffle"],
+   "skills": [{
+    "slot": 1, "name": "Boil", "target": "closest", "range": 0, "maxTargets": 1,
+    "crit": 1, "critDamage": 9, "accuracy": 12, "damage": 5,
+    "effects": [{"kind": "stress", "amount": 1}]
+   }],
+   "allStancesSelection": [{"min": 1, "max": 10, "slot": 1}]
+  }
+ ],
+ "abilities": {
+  "descriptionCardId": "boss_ability:weald:p013",
+  "hagCardId": "boss_ability:weald:p016",
+  "cauldronCardId": "boss_ability:weald:p019",
+  "hagActionsPerRound": 2,
+  "hagRuleSummaries": ["轮到 Hag 且没有英雄在锅里时，先用 Into the Pot，再用一个技能"],
+  "cauldronRuleSummaries": [
+   "开场 Empty；英雄入锅时翻 Full 并清掉锅的伤口",
+   "锅内英雄不能移动或被 Shuffle",
+   "锅受伤达到本面 Life，或锅内英雄到达 Death's Door：英雄放在邻接区域，锅翻回 Empty 并清伤口"
+  ],
+  "threats": {
+   "dungeon": {"name": "Painfully Soothing I", "potionStress": 1},
+   "hamlet": {"name": "No Rest for the Wicked I", "sanitariumHealingReduction": 3}
+  }
+ },
+ "setup": {
+  "rule": "Weald W4", "hagStance": "aggressive", "cauldronStance": "ranged",
+  "monsterInitiativeCards": 3, "heroInitiativeCards": 4,
+  "emptySkipsAction": true, "removeCauldronOnHagDefeat": true
+ },
+ "tile": {
+  "id": "room_tile:weald:p005:back", "rawId": "dungeon_tile:weald:p005",
+  "roomId": "room:weald:p010", "location": "weald", "number": 10, "name": "Hag",
+  "source": {"file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_WEALD_TILES_BACK.pdf", "page": 5, "face": "back"},
+  "ruling": "R-254", "geometryVerified": true, "geometryComplete": true, "usable": false,
+  "pendingReview": [],
+  "deployment": {
+   "printReview": "verified",
+   "heroes": {"aggressive": "A", "defensive": "I", "ranged": "J", "support": "J"},
+   "monsters": {"aggressive": "B", "defensive": "B", "ranged": "F", "support": "F"},
+   "lootAreas": [],
+   "markers": [
+    {"areaId": "A", "iconId": "7b8c742c86", "semantic": "hero_aggressive_start", "status": "confirmed"},
+    {"areaId": "I", "iconId": "1a71d94723", "semantic": "hero_defensive_start", "status": "confirmed"},
+    {"areaId": "J", "iconId": "7ab26866fc", "semantic": "hero_ranged_start", "status": "confirmed"},
+    {"areaId": "J", "iconId": "39d6ddf024", "semantic": "hero_support_start", "status": "confirmed"},
+    {"areaId": "B", "iconId": "8787ebb1b2", "semantic": "monster_aggressive_start", "status": "confirmed"},
+    {"areaId": "B", "iconId": "1f26dc63eb", "semantic": "monster_defensive_start", "status": "confirmed"},
+    {"areaId": "F", "iconId": "643d396fef", "semantic": "monster_ranged_start", "status": "confirmed"},
+    {"areaId": "F", "iconId": "293f170eab", "semantic": "monster_support_start", "status": "confirmed"}
+   ]
+  },
+  "areas": [
+   {"id": "A", "capacity": 2, "elevation": "normal"},
+   {"id": "B", "capacity": 4, "elevation": "normal"},
+   {"id": "C", "capacity": 3, "elevation": "normal"},
+   {"id": "D", "capacity": 3, "elevation": "normal"},
+   {"id": "E", "capacity": 4, "elevation": "normal"},
+   {"id": "F", "capacity": 3, "elevation": "normal"},
+   {"id": "G", "capacity": 4, "elevation": "normal"},
+   {"id": "H", "capacity": 3, "elevation": "normal"},
+   {"id": "I", "capacity": 3, "elevation": "normal"},
+   {"id": "J", "capacity": 4, "elevation": "normal"},
+   {"id": "K", "capacity": 4, "elevation": "normal"}
+  ],
+  "edges": [
+   {"from": "A", "to": "B", "cornerOnly": false, "blocked": false},
+   {"from": "A", "to": "D", "cornerOnly": false, "blocked": false},
+   {"from": "B", "to": "C", "cornerOnly": false, "blocked": false},
+   {"from": "B", "to": "D", "cornerOnly": false, "blocked": false},
+   {"from": "B", "to": "E", "cornerOnly": false, "blocked": false},
+   {"from": "C", "to": "F", "cornerOnly": false, "blocked": false},
+   {"from": "D", "to": "E", "cornerOnly": false, "blocked": false},
+   {"from": "D", "to": "G", "cornerOnly": false, "blocked": false},
+   {"from": "E", "to": "F", "cornerOnly": false, "blocked": false},
+   {"from": "E", "to": "H", "cornerOnly": false, "blocked": false},
+   {"from": "E", "to": "J", "cornerOnly": false, "blocked": false},
+   {"from": "F", "to": "H", "cornerOnly": false, "blocked": false},
+   {"from": "G", "to": "I", "cornerOnly": false, "blocked": false},
+   {"from": "G", "to": "J", "cornerOnly": false, "blocked": false},
+   {"from": "H", "to": "K", "cornerOnly": false, "blocked": false},
+   {"from": "I", "to": "J", "cornerOnly": false, "blocked": false},
+   {"from": "J", "to": "K", "cornerOnly": false, "blocked": false},
+   {"from": "B", "to": "F", "cornerOnly": true, "blocked": false},
+   {"from": "E", "to": "K", "cornerOnly": true, "blocked": false},
+   {"from": "H", "to": "J", "cornerOnly": true, "blocked": false}
+  ],
+  "necroticFungusAreas": [], "zeroCapacityAreas": [], "specialRegions": [],
+  "wallNotes": ["F 左上黑色凹口为墙体", "G 右上黑色凹口为墙体；E–G 不通行", "B–F 仅角点，不按墙阻隔区域对处理"],
+  "unresolvedMarkers": []
+ }
+}
