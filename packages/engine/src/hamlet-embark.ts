@@ -577,6 +577,10 @@ export function chooseNextQuest(
     ...(d.unregisteredImminentThreatHold
       ? { unregisteredImminentThreatHold: d.unregisteredImminentThreatHold }
       : {}),
+    ...(d.locationBossThreats ? { locationBossThreats: true as const } : {}),
+    ...(d.defeatedWealdBossIdentities
+      ? { defeatedWealdBossIdentities: d.defeatedWealdBossIdentities }
+      : {}),
     ...(d.defeatedRuinsBossIdentities
       ? { defeatedRuinsBossIdentities: d.defeatedRuinsBossIdentities }
       : {}),

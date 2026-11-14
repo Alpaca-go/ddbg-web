@@ -1,3 +1,5 @@
+import { wealdThreatPool } from "../expansions/weald/boss/threat-pool";
+import { ensureCampaignBossScriptsRegistered } from "../expansions/register";
 import { requireFaceTheThreatEmbarkPlanForSandbox } from "./face-the-threat-embark-runtime";
 import type { CampaignLevel } from "../../../data/src/basic-quests";
 import type { ApplyResult, GameState } from "../command";
@@ -20,6 +22,7 @@ import type { BossScriptId } from "./types";
 
 export type EstablishImminentThreatCommand = {
   readonly type: "establishImminentThreat";
+  readonly locationBosses?: true | undefined;
 };
 
 export type DrawImminentThreatAfterActAdvanceCommand = {
@@ -90,6 +93,7 @@ function applyImminentThreatDraw(
   const cursor = d.cursor + rngDraws;
   const scriptId = resolveScriptIdForDescriptionCard(cardId, d.contentPacks);
   ensureCoreBossScriptsRegistered();
+  if (d.locationBossThreats) ensureCampaignBossScriptsRegistered(d.contentPacks);
   const registered = scriptId && getBossScript(scriptId);
   let dungeon: DungeonState = {
     ...d,
@@ -146,11 +150,18 @@ export function establishImminentThreat(
     );
   const level = readCampaignLevel(d);
   if (level !== 1) return rejectBattleCommand(state, "战役开局定威胁须为战役 I 级（spec §2.4）");
-  const pool = imminentThreatPoolForCampaign(1, []);
+  let pool: readonly string[];
+  try {
+    pool = command.locationBosses ? wealdThreatPool(d, 1) : imminentThreatPoolForCampaign(1, []);
+  } catch (error) {
+    return rejectBattleCommand(state, error instanceof Error ? error.message : "地点威胁来源无效");
+  }
   const result = applyImminentThreatDraw(
-    state,
+    command.locationBosses ? { ...state, dungeon: { ...d, locationBossThreats: true } } : state,
     pool,
-    "spec §2.4 洗 4 张 I 级 Ruins Boss 描述卡抽 1 张",
+    command.locationBosses
+      ? "Weald W3：混洗启用地点的 I 级 Boss 描述卡"
+      : "spec §2.4 洗 4 张 I 级 Ruins Boss 描述卡抽 1 张",
   );
   const next = result.state.dungeon!;
   if (
@@ -191,6 +202,11 @@ export function drawImminentThreatAfterActAdvance(
     return rejectBattleCommand(
       state,
       "升幕抽迫近威胁须战役 II 级及以上（spec §2.2 / R35）；完整升幕步骤仍待接",
+    );
+  if (d.locationBossThreats)
+    return rejectBattleCommand(
+      state,
+      "Weald II／III 级 Boss 描述来源及升幕尚未核准接通（W3／R-048）",
     );
   const defeated = d.defeatedRuinsBossIdentities ?? [];
   if (defeated.length !== ((level - 1) as number))

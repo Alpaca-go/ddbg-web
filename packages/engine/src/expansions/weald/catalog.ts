@@ -13,12 +13,12 @@ export const WEALD_BOSS_DESCRIPTION_CARD_ID: Record<
     3: undefined,
   },
   brigandPounder: {
-    1: undefined,
+    1: "boss_ability:weald:p007",
     2: undefined,
     3: undefined,
   },
   shrieker: {
-    1: undefined,
+    1: "boss_ability:weald:p001",
     2: undefined,
     3: undefined,
   },
