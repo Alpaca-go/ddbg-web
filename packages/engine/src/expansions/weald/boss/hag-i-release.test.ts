@@ -1,3 +1,4 @@
+import { applyHagIBoil } from "./hag-i-boil";
 import { readFileSync } from "node:fs";
 import { beforeEach, expect, it } from "vitest";
 import { createBattleState, type BattleSetup, type BattleEntity } from "../../../battle";
@@ -207,7 +208,7 @@ it("Hag 回合开始流血阵亡：释放后清场，不重结算回合开始状
   expect(released.state.battle!.encounter!.turn).toEqual({ type: "finished", outcome: "victory" });
 });
 
-it("Boil 尚未接线时，不误选或攻击锅外英雄，且不消费 RNG", () => {
+it("Boil 拒绝直接攻击锅外英雄，且不消费 RNG", () => {
   const captured = captureHagIHero(fixture(), "h3").state;
   const input: GameState = {
     ...captured,
@@ -221,7 +222,6 @@ it("Boil 尚未接线时，不误选或攻击锅外英雄，且不消费 RNG", (
     },
   };
   for (const command of [
-    { type: "prepareMonsterAction", actorId: "boss:hag:cauldron-empty" },
     { type: "playMonsterSkill", actorId: "boss:hag:cauldron-empty", skillSlot: 1, targetId: "h0" },
   ] as const) {
     const refused = applyCommand(input, command);
@@ -265,4 +265,77 @@ it("命中已在死门的英雄：立即选择释放，仍继续 Hag 同回合�
   expect(released.state.battle!.hagActionsThisRound ?? 0).toBe(0);
   const second = run(released.state, { type: "prepareMonsterAction", actorId: "boss:hag" });
   expect([2, 3]).toContain(second.state.battle!.monsterAction!.skillSlot);
+});
+
+it.each(["normal", "door", "heart"] as const)("Boil 锅内结算：%s", (mode) => {
+  const captured = captureHagIHero(fixture(), "h3").state;
+  const hero = captured.battle!.hagCauldron!.hero;
+  const input: GameState = {
+    ...captured,
+    battle: {
+      ...captured.battle!,
+      hagCauldron: {
+        ...captured.battle!.hagCauldron!,
+        hero: {
+          ...hero,
+          wounds: mode === "door" ? hero.life! - 1 : 0,
+          ...(mode === "heart"
+            ? { stress: 9, resolveTested: true, resolveCardId: "affliction:test" }
+            : {}),
+        },
+      },
+      encounter: {
+        ...captured.battle!.encounter!,
+        turn: { type: "monster", actorId: "boss:hag:cauldron-empty" },
+      },
+    },
+  };
+  const command: Command = { type: "prepareMonsterAction", actorId: "boss:hag:cauldron-empty" };
+  const execute = (state: GameState) =>
+    mode === "heart" ? applyHagIBoil(state, command.actorId) : run(state, command);
+  const result = execute(input);
+  expect(execute(JSON.parse(JSON.stringify(input)) as GameState)).toEqual(result);
+  expect(input.battle!.hagCauldron!.hero.wounds).toBe(mode === "door" ? hero.life! - 1 : 0);
+  expect(result.events.some((e) => e.type === "monsterSkillResolved")).toBe(true);
+  if (mode === "door") {
+    const released = choose(result);
+    expect(released.state.battle!.hagCauldron).toBeUndefined();
+    expect(released.state.battle!.entities.find((e) => e.id === hero.id)?.wounds).toBe(hero.life);
+  } else if (mode === "heart") {
+    expect(result.events.some((e) => e.type === "heartAttack")).toBe(true);
+    expect(result.state.battle!.hagCauldron).toBeUndefined();
+    expect(result.pendingChoice).toBeUndefined();
+    expect(result.state.battle!.entities.some((e) => e.id === hero.id && !e.dead)).toBe(false);
+  } else {
+    expect(result.state.battle!.hagCauldron!.hero.wounds).toBeGreaterThan(0);
+    expect(result.state.battle!.hagCauldron!.hero.stress).toBe(2);
+    expect(result.state.battle!.entities.some((e) => e.id === hero.id)).toBe(false);
+  }
+  expect(
+    result.state
+      .battle!.entities.filter((e) => e.side === "hero" && e.id !== hero.id)
+      .every((e) => e.wounds === 0),
+  ).toBe(true);
+});
+
+it("Boil 拒绝篡改卡面，保持状态与 RNG", () => {
+  const captured = captureHagIHero(fixture(), "h3").state;
+  const input: GameState = {
+    ...captured,
+    battle: {
+      ...captured.battle!,
+      monsters: captured.battle!.monsters!.map((c) =>
+        c.skills[0]?.name === "Boil"
+          ? { ...c, skills: [{ ...c.skills[0]!, name: "tampered" }] }
+          : c,
+      ),
+      encounter: {
+        ...captured.battle!.encounter!,
+        turn: { type: "monster", actorId: "boss:hag:cauldron-empty" },
+      },
+    },
+  };
+  const result = applyHagIBoil(input, "boss:hag:cauldron-empty");
+  expect(result.events.some((e) => e.type === "commandRefused")).toBe(true);
+  expect(result.state).toBe(input);
 });
