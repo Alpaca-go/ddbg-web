@@ -6,7 +6,7 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 ## 当前进度与下一步
 
 - **当前阶段：步骤 5 已接通 `quest:weald:p001`–`p005`（**R-252**／**R-244**／**R-245**／**R-248**／**R-242**）；须选 Weald 包；村庄分地点抽 2 选 1，Hamlet 可出征五任务。步骤 2 地点切换与正式格式日志存档首批已验证；五任务自然通关留待 I 级阶段验收。步骤 4 战斗真菌链路不变。**
-- **当前批次**：PR #657 已 squash 合入 main（`dcf9f758`）。Disinfection 三目标自然消毒与回村存档验收推进中，详见「步骤 5 第二十批」；当前分支 `codex/weald-disinfection-three-targets`。
+- **当前批次**：PR #657 已 squash 合入 main（`dcf9f758`）。Disinfection 三目标自然消毒与回村存档已验证，详见「步骤 5 第二十批」；代码 `bc3e0f75`，PR #658，代码提交完整 CI 全绿、待合入。
 - **下一刀：Fungal Research 三目标、Purge the Woods 与 Patrol the Woods 的剩余自然验收。Boss、II／III 与 Stygian 随后推进。字段核准遵守 R-048。**
 - 步骤 0 已完成，提交 `e7fd17e1`；完整地点战役尚未验收。
 - 导入与计划两批已合入并推送 `main`（`3be97c65`）。步骤 1 怪物批次已合入并推送 `main`（`7075f4d8`）。
@@ -454,5 +454,5 @@ Brigand Pounder 类型行、Shrieker’s Nest 和 Cauldron Empty 的专属卡面
 - seed 7 自然进入三间不同目标房（均 Infected Oak 5 号）、各消毒一次并清理三房；seed 2 消毒三棵但只清理两目标房，仍按实际消毒数计 3 XP。逐次检查 Potion 只扣一枚、计数 1／2／3、地图房间 ID 去重和重复消毒拒绝；不注入房间、牌序、伤害、补给或计数。
 - 测试玩家显式使用保守战斗、伤压后休息、公开替补及第三次消毒后合法撤离。自然流程暴露测试驱动遇双死亡只准备一名就尝试入队；改为全部死者均有替补才 join，不修改引擎替补准入、不放宽校验，默认未启用 handleDeaths 的自然策略不变。seed 2 覆盖双死亡双替补；seed 1 曾合法耗尽等待英雄而战役失败，不作为三目标成功种子。
 - UI 摘要按实际消毒棵数展示，不再将本任务显示为巢穴清理。新增一条 Playwright 对照两个真实日志摘要、3 XP、保存刷新恢复，通过（未启用重试，两张截图已查看）。
-- 本地 typecheck、lint、build 与既有四文件 16 项回归通过。新三目标日志最终两项通过（141.71 秒），加既有回归合计五文件 18 项；消毒前后、战斗交接、双替补前后、任务摘要与最终回村均严格回放，拒绝伪造消毒计数或房间 ID 快照，四名在队英雄与驿站各获 3 XP。首轮 seed 7 在回村意志转换后需替补，直接 finishReturnToHamlet 被正确拒绝；补齐替补与独立准备待选后通过，保留原种子、断言和时限。最终测试改动后引擎 typecheck、ESLint 与 Prettier 再检查通过。全量验证待 CI，不启动本地重复全量；Node 24.20.0 低于约定 24.21.0，pnpm 12.9.1。
+- 本地 typecheck、lint、build 与既有四文件 16 项回归通过。新三目标日志最终两项通过（141.71 秒），加既有回归合计五文件 18 项；消毒前后、战斗交接、双替补前后、任务摘要与最终回村均严格回放，拒绝伪造消毒计数或房间 ID 快照，四名在队英雄与驿站各获 3 XP。首轮 seed 7 在回村意志转换后需替补，直接 finishReturnToHamlet 被正确拒绝；补齐替补与独立准备待选后通过，保留原种子、断言和时限。最终测试改动后引擎 typecheck、ESLint 与 Prettier 再检查通过。代码 `bc3e0f75` 的 [完整 CI](https://github.com/Alpaca-go/ddbg-web/actions/runs/43546308424) 成功：typecheck、lint、完整单测、build、完整 Playwright 全通过；下载日志核实 **520 文件、3,898 项通过、1 项沿用跳过**（716.94 秒），PR #658 已转待审。不启动本地重复全量；Node 24.20.0 低于约定 24.21.0，pnpm 12.9.1。
 - 待确认：本批无新增规则歧义；不宣称五任务或完整战役完成，Boss／II–III／Stygian／房间 usable 不变。下一刀 Fungal Research 三目标、Purge the Woods 与 Patrol the Woods 剩余自然验收。
