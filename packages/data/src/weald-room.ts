@@ -97,20 +97,21 @@ const deploymentSchema = z.strictObject({
   ),
 });
 
-export const wealdRoomTileSchema = z
+/** 普通房间与独立 Hag 目录共用的几何结构及引用校验。 */
+export const wealdRoomTileBaseSchema = z
   .strictObject({
     id: z.string().regex(/^room_tile:weald:p\d{3}:(?:front|back)$/),
     rawId: z.string().regex(/^dungeon_tile:weald:p\d{3}$/),
     roomId: z.string().regex(/^room:weald:p\d{3}$/),
     location: z.literal("weald"),
-    number: z.int().min(1).max(9),
+    number: z.int().min(1).max(10),
     name: z.string().min(1),
     source: z.strictObject({
       file: z.string().min(1),
       page: z.int().min(1).max(6),
       face: z.enum(["front", "back"]),
     }),
-    ruling: z.enum(["R-234", "R-235", "R-236", "R-237", "R-238", "R-239"]),
+    ruling: z.enum(["R-234", "R-235", "R-236", "R-237", "R-238", "R-239", "R-254"]),
     geometryVerified: z.boolean(),
     geometryComplete: z.boolean(),
     usable: z.literal(false),
@@ -206,6 +207,12 @@ export const wealdRoomTileSchema = z
       if (pair("D", "G")) ctx.addIssue({ code: "custom", message: "7 号 D–G 不得直连，须经 J" });
     }
   });
+
+/** 普通目录仍严格限制在 1–9 号及原有核准范围。 */
+export const wealdRoomTileSchema = wealdRoomTileBaseSchema.safeExtend({
+  number: z.int().min(1).max(9),
+  ruling: z.enum(["R-234", "R-235", "R-236", "R-237", "R-238", "R-239"]),
+});
 
 export const wealdRoomTileGeometryFileSchema = z
   .strictObject({
