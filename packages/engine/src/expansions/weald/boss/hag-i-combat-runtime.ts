@@ -18,6 +18,42 @@ import type { BossScriptDefinition, BossSummonOk } from "../../../boss/types";
 
 const STANCES = ["aggressive", "defensive", "ranged", "support"] as const;
 
+/** W4：Hag 被击败时移出空锅；满锅释放仍待 Q-186，不在此猜测英雄落点。 */
+export function clearHagIEmptyCauldron(result: ApplyResult, ids: readonly string[]) {
+  const battle = result.state.battle;
+  if (
+    !battle ||
+    resolveEncounterBossScriptId(result.state) !== HAG_I_SCRIPT_ID ||
+    !battle.entities.some(
+      (e) =>
+        e.side === "monster" &&
+        e.monsterCardId === HAG_I_COMBAT_MONSTER_CARD_ID &&
+        e.dead &&
+        ids.includes(e.id),
+    )
+  )
+    return { result, ids };
+  const empty = emptyCauldronEntity(battle);
+  if (!empty) return { result, ids };
+  return {
+    ids: [...ids, empty.id],
+    result: {
+      ...result,
+      state: {
+        ...result.state,
+        battle: {
+          ...battle,
+          entities: battle.entities.map((e) => (e.id === empty.id ? { ...e, dead: true } : e)),
+        },
+      },
+      events: [
+        ...result.events,
+        { type: "dungeonUpdated" as const, message: "Weald W4：Hag 被击败，移出空锅；不追加伤口" },
+      ],
+    },
+  };
+}
+
 /** W4／R-254：Hag 两张，锅一张；已有两个实体各贡献一张，仅补 Hag 的第二张。 */
 export function expandHagIInitiativeDeckSides(
   deck: readonly SkillTargetSide[],

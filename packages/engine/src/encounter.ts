@@ -56,6 +56,7 @@ import { applySwinePrinceIWilburBattleStart } from "./expansions/warrens/boss/sw
 import { applyNecromancerIIArmyBattleStart } from "./boss/necromancer-ii-army";
 import {
   applyHagICauldronBattleStart,
+  clearHagIEmptyCauldron,
   bumpHagIActionRoundCount,
   chainHagICauldronFullAfterIntoThePot,
   expandHagIInitiativeDeckSides,
@@ -553,6 +554,7 @@ export function encounterSkillProblem(
 export function removeCasualties(result: ApplyResult, ids: readonly string[]): ApplyResult {
   ({ result, ids } = clearNecromancerICompanions(result, ids));
   ({ result, ids } = clearFanaticIPyre(result, ids));
+  ({ result, ids } = clearHagIEmptyCauldron(result, ids));
   ({ result, ids } = clearRuinsBossCompanions(result, ids));
   ({ result, ids } = applyAncestor1ImperfectReflectionDeath(result, ids));
   const battle = result.state.battle!;
