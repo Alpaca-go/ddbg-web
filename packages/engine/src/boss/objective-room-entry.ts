@@ -1,3 +1,4 @@
+import { prepareHagIObjectiveRoom } from "../expansions/weald/boss/hag-i-deploy";
 import { roomCatalogSchema } from "../../../data/src/room";
 import type { ApplyResult, GameState } from "../command";
 import { rejectBattleCommand } from "../battle";
@@ -73,6 +74,7 @@ export function prepareBossObjectiveRoom(state: GameState): ApplyResult {
     plan.roomPlacement !== "edgeRoomsR30"
   )
     return refuse("需要 Face the Threat 未清理目标房和正式出征计划（R30）");
+  if (d.activeBossThreatScriptId === "boss:weald:hag:1") return prepareHagIObjectiveRoom(state);
   const scriptId = resolveBossScriptIdForQuest(FACE_THE_THREAT_QUEST_ID, d);
   const registered = scriptId ? getBossScript(scriptId)?.combatEntry : undefined;
   const family = (Object.keys(rooms) as (keyof typeof rooms)[]).find((key) =>
