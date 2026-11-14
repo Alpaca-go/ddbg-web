@@ -19,7 +19,6 @@ import {
   clearBossScriptsForTest,
   ensureHagIBossScriptRegistered,
   getBossScript,
-  hagICauldronBattleStartStance,
   hagIntoThePotShouldForceSkill,
   readHagICauldronBattleStartPlan,
   readHagICauldronFullMorphPlan,
@@ -104,7 +103,7 @@ function hagBattle(extra?: Partial<GameState["battle"]>): GameState {
     life: hagLife,
     dodge: 0,
     areaId: "a",
-    stance: "ranged",
+    stance: "aggressive",
     stanceSlots: 2,
     wounds: 0,
     skillIds: [],
@@ -139,9 +138,12 @@ function hagBattle(extra?: Partial<GameState["battle"]>): GameState {
       entities: [...heroes, hag],
       monsters: [hagCard, cauldronCard, cauldronFullCard],
       areas: [
-        { id: "a", elevation: "normal", adjacent: ["b"], capacity: 10 },
-        { id: "b", elevation: "normal", adjacent: ["a"], capacity: 10 },
+        { id: "a", elevation: "normal", adjacent: ["b", "m"], capacity: 10 },
+        { id: "b", elevation: "normal", adjacent: ["a", "m"], capacity: 10 },
+        { id: "m", elevation: "normal", adjacent: ["a", "b"], capacity: 10 },
       ],
+      // 受控夹具：怪物部署区域与英雄区域明确不同，不代表 10 号板块已核准。
+      monsterStanceAreas: { aggressive: "a", defensive: "a", ranged: "m", support: "m" },
       light: 5,
       skills: [],
       heroStats: heroProfiles,
@@ -164,7 +166,7 @@ describe("Hag I · Cauldron Empty 最小运行时", () => {
     expect(plan).toMatchObject({
       summonMonsterCardId: HAG_I_CAULDRON_EMPTY_MONSTER_CARD_ID,
       miniaturePlacement: "stanceArea",
-      fixedStance: hagICauldronBattleStartStance(),
+      fixedStance: "ranged",
     });
     const hook = runBossHook(script, "summon", {
       scriptId: HAG_I_SCRIPT_ID,
@@ -180,9 +182,9 @@ describe("Hag I · Cauldron Empty 最小运行时", () => {
       (entity) => entity.monsterCardId === HAG_I_CAULDRON_EMPTY_MONSTER_CARD_ID,
     );
     expect(cauldron).toMatchObject({
-      stance: hagICauldronBattleStartStance(),
+      stance: "ranged",
       stanceSlots: 2,
-      areaId: "a",
+      areaId: "m",
     });
     expect(applied.events.some((event) => event.type === "dungeonUpdated")).toBe(true);
   });
@@ -191,6 +193,24 @@ describe("Hag I · Cauldron Empty 最小运行时", () => {
     const first = applyHagICauldronBattleStart(hagBattle());
     const second = applyHagICauldronBattleStart(first.state);
     expect(second.events).toHaveLength(0);
+  });
+
+  it("W4 / R-048：缺怪物部署标记或落点不存在时拒绝，不从英雄区域猜测", () => {
+    const initial = hagBattle();
+    const { monsterStanceAreas: _areas, ...withoutMapping } = initial.battle!;
+    void _areas;
+    for (const battle of [
+      withoutMapping,
+      {
+        ...initial.battle!,
+        monsterStanceAreas: { aggressive: "a", defensive: "a", ranged: "missing", support: "m" },
+      },
+    ]) {
+      const state = { ...initial, battle };
+      const result = applyHagICauldronBattleStart(state);
+      expect(result.events.some((e) => e.type === "commandRefused")).toBe(true);
+      expect(result.state).toBe(state);
+    }
   });
 
   it("缺 Cauldron 卡面时 startBattle 拒绝", () => {

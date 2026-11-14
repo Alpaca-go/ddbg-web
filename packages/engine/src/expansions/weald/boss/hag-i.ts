@@ -56,9 +56,9 @@ export const HAG_I_INTO_THE_POT_SKILL_SLOT = 1 as const;
 /** 每轮 Hag 首次行动在 `hagActionsThisRound` 上的索引（0-based，行动前）。 */
 export const HAG_I_FIRST_ACTION_INDEX = 0 as const;
 
-/** 开战 Cauldron 姿态（Large 占 2 格）；待 Kyries 对照 54212 / Boss Abilities 42415。 */
-export function hagICauldronBattleStartStance(): "aggressive" {
-  return "aggressive";
+/** Weald 规则书 W4：空锅开战位于 Ranged（Large 占 2 格）。 */
+export function hagICauldronBattleStartStance(): "ranged" {
+  return "ranged";
 }
 
 const dungeonThreatPassive = (): BossThreatPassiveDungeonOk => ({

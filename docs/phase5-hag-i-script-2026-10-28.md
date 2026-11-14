@@ -1,5 +1,7 @@
 # Phase 5：Hag I Boss 脚本（2026-10-28）
 
+> 历史实现记录，不作为当前印刷核准。2026-11-14 已按官方 W4 修正空锅初始姿态与部署区域来源；卡牌真实 ID、卡面字段与后续停点见 [Hag I 印刷接线审阅](weald-hag-i-review-2026-11-14.md)。下文旧占位、TTS 引用及未完成范围保留历史上下文；「先攻 2」不能解释为整场先攻总数。
+
 > 对齐 #331 Necromancer I / #336 Prophet I，落地 `BossScriptDefinition`：`boss:weald:hag:1`。  
 > 规则来源：R-001（规则书 + `docs/rulings.md`）；卡面字面经 TTS crop 目视核对（CE 42412 / 42415 / 54209）；引擎印刷 id 为 Weald extract **占位**（待 `DD_EN_WEALD_CARDS_70_120_Boss_Abilities` 入库后按页序对齐）。
 
