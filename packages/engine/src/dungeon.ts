@@ -253,6 +253,8 @@ export type DungeonState = {
   readonly necroticFungusBroughtBackCount?: number;
   /** quest:weald:p001：至少一间目标房按 R-246 获得 objective。 */
   readonly fungalResearchObjectiveMet?: boolean;
+  /** R-246：已 secured 的旁置目标房牌，不再参加本任务后续抽取。 */
+  readonly fungalResearchSecuredRoomCardIds?: readonly string[];
   readonly trinkets?: TrinketPool;
   readonly pendingCurioDraw?: { readonly rollId: string; readonly optionId: string };
   readonly conditions?: ConditionPool;
