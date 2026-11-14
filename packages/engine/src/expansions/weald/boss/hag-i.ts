@@ -17,39 +17,40 @@ export const HAG_I_SCRIPT_ID = "boss:weald:hag:1" as const;
 
 /**
  * Boss Description I（风味面）。
- * Weald extract 占位 id；TTS/CE 物理卡 42412（待 `extract/extension/weald` Boss PDF 入库后对齐页序）。
+ * R-254：官方 Weald Boss Abilities p13。
  */
-export const HAG_I_DESCRIPTION_ABILITY_CARD_ID = "boss_ability:weald:hag:p001" as const;
+export const HAG_I_DESCRIPTION_ABILITY_CARD_ID = "boss_ability:weald:p013" as const;
 
 /**
  * Boss Abilities 战斗面 + 威胁面背面 I。
- * 地牢侧「Painfully Soothing I」、村庄侧「No Rest for the Wicked I」；TTS/CE 42415。
+ * R-254：官方 Boss Abilities p16；背面为地牢／村庄威胁。
  */
-export const HAG_I_COMBAT_ABILITY_CARD_ID = "boss_ability:weald:hag:p002" as const;
+export const HAG_I_COMBAT_ABILITY_CARD_ID = "boss_ability:weald:p016" as const;
+
+/** R-254：Cauldron 能力正反面，官方 Boss Abilities p19。 */
+export const HAG_I_CAULDRON_ABILITY_CARD_ID = "boss_ability:weald:p019" as const;
 
 /**
  * Hag I 战斗卡（Human · Large · Weald）。
- * Weald `monster_large` PDF p10；TTS/CE 54209。
+ * R-254：官方 Weald monster_large PDF p10 正面。
  */
-export const HAG_I_COMBAT_MONSTER_CARD_ID = "monster_large:weald:hag:p001" as const;
+export const HAG_I_COMBAT_MONSTER_CARD_ID = "monster_large:weald:p010" as const;
 
 /**
  * Cauldron Empty I（Large · 2 格）；Boss 战伴，不进 `combatEntry`。
- * TTS/CE 54212；Weald `monster_large` extract 入库前用占位 id。
+ * R-254：官方 monster_large p13 正面。
  */
-export const HAG_I_CAULDRON_EMPTY_MONSTER_CARD_ID =
-  "monster_large:weald:cauldron_empty:p001" as const;
+export const HAG_I_CAULDRON_EMPTY_MONSTER_CARD_ID = "monster_large:weald:p013" as const;
 
 /**
  * Cauldron Full I（Large · 2 格）；Into the Pot! 后 Empty→Full 切换，不进 `combatEntry`。
- * TTS/CE 54213（待 Weald `monster_large` extract 页序核实）；占位 id。
+ * R-254：同一 p13 组件背面的运行视图，不增加 raw 卡或 BattleEntity。
  */
-export const HAG_I_CAULDRON_FULL_MONSTER_CARD_ID =
-  "monster_large:weald:cauldron_full:p001" as const;
+export const HAG_I_CAULDRON_FULL_MONSTER_CARD_ID = "monster_large:weald:p013:back" as const;
 
 /**
  * Hag I 战斗卡 · Into the Pot! 技能 slot。
- * Weald `monster_large` extract / PDF p10 页序待 Kyries 核实前，运行时与单测均用本常量。
+ * R-254：官方 monster_large p10，技能 slot 1。
  */
 export const HAG_I_INTO_THE_POT_SKILL_SLOT = 1 as const;
 
@@ -90,7 +91,7 @@ export const hagIBossScript: BossScriptDefinition = {
   displayName: "Hag I",
   rules: DEFAULT_BOSS_BATTLE_RULES,
   notes:
-    "R38/R39：先攻 2（ACTIONS / Round: 2）；Cauldron Empty 开战 + Into the Pot! / Empty→Full 最小运行时已接；42418 / 先攻洗入 / 锅完整生命周期仍 hold。",
+    "R38/R39：先攻 2（ACTIONS / Round: 2）；Cauldron Empty 开战 + Into the Pot! / Empty→Full 最小运行时已接；boss_ability:weald:p019 / 先攻洗入 / 锅完整生命周期仍 hold。",
   combatEntry: {
     descriptionAbilityCardId: HAG_I_DESCRIPTION_ABILITY_CARD_ID,
     combatAbilityCardId: HAG_I_COMBAT_ABILITY_CARD_ID,
@@ -129,7 +130,7 @@ export const hagIBossScript: BossScriptDefinition = {
       }
       return {
         status: "stub",
-        message: "Hag I：Cauldron 能力卡 42418 / 技能召唤 / 先攻洗入未接",
+        message: "Hag I：Cauldron 能力卡 boss_ability:weald:p019 / 技能召唤 / 先攻洗入未接",
         hold: "R38–R39 / Hag 锅完整生命周期",
       };
     },

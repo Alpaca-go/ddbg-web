@@ -1,6 +1,6 @@
 # Weald Hag I：印刷映射与接线审阅
 
-状态：**Kyries 已更正并核准本表，登记 R-254**：Hag I Speed 2／Dodge 1，Empty／Full Speed 0，B–F 仅角点，10 号板块无高地低地；其余表列内容核准通过。内置 Protection 按 R-019 常驻、不可移除。字段与几何已录入独立 `normalized/extension/weald/hag_i.json`，尚未开放 Boss 出征；真实 ID 迁移与完整锅生命周期仍须接线。
+状态：**Kyries 已更正并核准本表，登记 R-254**：Hag I Speed 2／Dodge 1，Empty／Full Speed 0，B–F 仅角点，10 号板块无高地低地；其余表列内容核准通过。内置 Protection 按 R-019 常驻、不可移除。字段与几何已录入独立 `normalized/extension/weald/hag_i.json`，尚未开放 Boss 出征；真实 ID 已对齐，完整锅生命周期仍须接线。
 
 ## 来源与实际查看范围
 
@@ -125,8 +125,8 @@ Abilities BACK p16：Painfully Soothing I 在英雄使用 Potion 时压力 +1；
 ## 后续最小接线顺序
 
 1. 已按 R-254 将核准的 Hag／锅卡面及 10 号几何写入独立 Boss 数据目录；不加入普通怪物池。
-2. 决定锅正反面运行身份与旧别名兼容，将已建立的独立目录接入运行身份。
+2. 已对齐真实运行 ID；Full 为 `monster_large:weald:p013:back`，指向同一 raw p13 的背面，不增加实体。旧占位别名不再识别；旧 Hag 试验存档不保证兼容，不静默改写快照。
 3. 接专属部署、整场 3／4 先攻、空锅跳过，再接英雄入锅／释放与锅完整生命周期；未核准部分继续原子拒绝。
 4. 接 Hag I 正式战役入口、胜利清场、XP／回村／日志存档，最后做 1–3 条关键路径冒烟；完成后才进入 Brigand Pounder。
 
-本表明确列出的卡面与几何内容经 R-254 结案且已有生产目录；真实 ID 迁移和完整 Boss 流程仍待实现，不能据核准状态声称 Hag 已可自然通关。其他等级、Boss 与未描述的生命周期细节不按本次核准类推。
+本表明确列出的卡面与几何内容经 R-254 结案且已有生产目录；真实 ID 已对齐，完整 Boss 流程仍待实现，不能据核准状态声称 Hag 已可自然通关。其他等级、Boss 与未描述的生命周期细节不按本次核准类推。

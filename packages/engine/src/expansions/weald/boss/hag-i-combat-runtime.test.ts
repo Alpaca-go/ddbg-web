@@ -299,6 +299,12 @@ describe("Hag I · Into the Pot! / Cauldron Full 最小运行时", () => {
       life: cauldronFullLife,
       wounds: 0,
     });
+    expect(result.state.battle!.entities.map((entity) => entity.id)).toEqual(
+      state.battle!.entities.map((entity) => entity.id),
+    );
+    expect(state.battle!.entities.find((entity) => entity.id === cauldron!.id)?.monsterCardId).toBe(
+      HAG_I_CAULDRON_EMPTY_MONSTER_CARD_ID,
+    );
   });
 
   it("prepareMonsterAction 在 Empty 锅时选 Into the Pot! slot", () => {
