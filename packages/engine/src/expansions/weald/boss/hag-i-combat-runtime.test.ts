@@ -161,7 +161,8 @@ describe("W4 受控战斗时序（非正式出征验收）", () => {
   });
 
   it("加载过 Hag 脚本后，非 Boss 遭遇仍每个实体一张先攻", () => {
-    const state = { ...hagBattle(), dungeon: undefined };
+    const { dungeon: _dungeon, ...state } = hagBattle();
+    void _dungeon;
     const started = applyEncounterCommand(state, { type: "startBattle" });
     expect(started.events.some((e) => e.type === "commandRefused")).toBe(false);
     expect(started.state.battle!.encounter!.deck.filter((s) => s === "monster")).toHaveLength(1);
