@@ -199,6 +199,11 @@ export type DungeonState = {
   /** W3：由显式版本化的开局定威胁命令开启，旧日志缺省沿用遗迹池。 */
   readonly locationBossThreats?: true;
   readonly bossLocationSources?: true;
+  /** 新地点战役：只记录已完成回村 XP 结算的普通任务，未选卡不计。 */
+  readonly completedRegularQuests?: readonly {
+    readonly questId: string;
+    readonly campaignLevel: import("../../data/src/basic-quests").CampaignLevel;
+  }[];
   /** W3：本趟 p019 的地点，威胁清除后仍供回村守恒读取。 */
   readonly bossExpeditionRegion?: "weald";
   readonly defeatedWealdBossIdentities?: readonly import("./expansions/weald/catalog").WealdBossIdentity[];

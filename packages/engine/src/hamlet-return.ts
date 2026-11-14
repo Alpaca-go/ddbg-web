@@ -1,3 +1,4 @@
+import { basicQuests } from "../../data/src/basic-quests";
 import type { ApplyResult, GameState, GameEvent } from "./command";
 import { resolveHolders } from "./stagecoach-holdings";
 import type { DungeonState } from "./dungeon";
@@ -405,6 +406,12 @@ export function finishReturnToHamlet(state: GameState): ApplyResult {
     d.heroes.some((h) => !Number.isSafeInteger((h.xp ?? 0) + summary.xpPerHero))
   )
     return rejectBattleCommand(state, "回村金币/XP超出安全范围，未发放");
+  const completedQuest = basicQuests.find((q) => q.id === summary.questId);
+  const recordCompletion =
+    d.bossLocationSources &&
+    completedQuest &&
+    !("bossQuest" in completedQuest && completedQuest.bossQuest);
+  const previousCompletions = d.completedRegularQuests ?? [];
   return {
     state: {
       ...state,
@@ -414,6 +421,18 @@ export function finishReturnToHamlet(state: GameState): ApplyResult {
         gold,
         stagecoachXp,
         heroes: d.heroes.map((h) => ({ ...h, xp: (h.xp ?? 0) + summary.xpPerHero })),
+        ...(recordCompletion
+          ? {
+              completedRegularQuests: previousCompletions.some(
+                (q) => q.questId === summary.questId && q.campaignLevel === (d.campaignLevel ?? 1),
+              )
+                ? previousCompletions
+                : [
+                    ...previousCompletions,
+                    { questId: summary.questId, campaignLevel: d.campaignLevel ?? 1 },
+                  ],
+            }
+          : {}),
         questSummary: { ...summary, awarded: true },
         lootPool: { ...d.lootPool!, gold },
         explorationSetup: { ...d.explorationSetup, provisions: [] },

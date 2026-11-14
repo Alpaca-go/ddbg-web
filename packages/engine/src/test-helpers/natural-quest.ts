@@ -202,6 +202,7 @@ export function naturalQuest(
         if (state.dungeon!.campaignFailure) return;
         // 公开替补流程：先准备，再选升级，最后入队；等待英雄代币仍由引擎判定。
         for (let guard = 0; guard < 10 && dungeonPhase() === "awaitingReplacement"; guard++) {
+          if (state.dungeon!.campaignFailure) return;
           step(
             (state.dungeon!.preparedReplacements?.length ?? 0) >=
               state.dungeon!.heroes.filter((h) => h.dead).length
