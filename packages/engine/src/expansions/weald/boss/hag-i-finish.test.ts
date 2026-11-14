@@ -71,11 +71,14 @@ function victory(): GameState {
 const finish = { type: "finishDungeonBattle" } as const;
 
 it("Hag 胜利交接清房／威胁，保持普通池与游标，随后回村只发一次 3 XP", () => {
-  const source = victory();
+  const base = victory();
+  const source: GameState = { ...base, dungeon: { ...base.dungeon!, locationBossThreats: true } };
   const after = run(source, finish);
   expect(run(JSON.parse(JSON.stringify(source)) as GameState, finish)).toEqual(after);
   expect(after.battle).toBeUndefined();
   expect(after.dungeon!.bossQuestVictory).toBe(true);
+  if (source.dungeon!.locationBossThreats)
+    expect(after.dungeon!.defeatedWealdBossIdentities).toEqual(["hag"]);
   expect(after.dungeon!.activeBossThreatScriptId).toBeUndefined();
   expect(after.dungeon!.defeatedRuinsBossIdentities).toEqual(
     source.dungeon!.defeatedRuinsBossIdentities,

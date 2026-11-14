@@ -147,7 +147,14 @@ export function finishHagIBattle(state: GameState): ApplyResult {
   });
   const { activeBossThreatScriptId: _threat, ...rest } = d;
   void _threat;
-  const base = rest;
+  const base = d.locationBossThreats
+    ? {
+        ...rest,
+        defeatedWealdBossIdentities: [
+          ...new Set([...(d.defeatedWealdBossIdentities ?? []), "hag" as const]),
+        ],
+      }
+    : rest;
   const { battle: _battle, ...outside } = state;
   void _battle;
   return {

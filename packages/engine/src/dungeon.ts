@@ -196,6 +196,9 @@ export type DungeonState = {
   readonly imminentThreatDescriptionCardId?: string;
   /** 抽到未注册 Boss 时的 hold 文案；脚本落地后由正式抽牌清除。 */
   readonly unregisteredImminentThreatHold?: string;
+  /** W3：由显式版本化的开局定威胁命令开启，旧日志缺省沿用遗迹池。 */
+  readonly locationBossThreats?: true;
+  readonly defeatedWealdBossIdentities?: readonly import("./expansions/weald/catalog").WealdBossIdentity[];
   /** 本战役已击败的 Ruins Boss（升幕抽下一张威胁时排除，spec §2.2）。 */
   readonly defeatedRuinsBossIdentities?: readonly import("./boss/threat-description-catalog").RuinsBossIdentity[];
   /** 准备结束后抽到的下一任务候选项，选定后清除。 */
