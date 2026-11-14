@@ -6,7 +6,7 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 ## 当前进度与下一步
 
 - **当前阶段：步骤 5 已接通 `quest:weald:p001`–`p005`（**R-252**／**R-244**／**R-245**／**R-248**／**R-242**）；须选 Weald 包；村庄分地点抽 2 选 1，Hamlet 可出征五任务。步骤 2 地点切换与正式格式日志存档首批已验证；五任务自然通关留待 I 级阶段验收。步骤 4 战斗真菌链路不变。**
-- **当前批次**：PR #659 已 squash 合入 main（`b1df982d`）。Purge the Woods 三巢穴、当地怪物池与回村存档自然验收推进中，详见「步骤 5 第二十二批」；当前分支 `codex/weald-purge-natural-save`。
+- **当前批次**：PR #659 已 squash 合入 main（`b1df982d`）。Purge the Woods 三巢穴、当地怪物池与回村存档自然验收已通过，详见「步骤 5 第二十二批」；代码 `17bd2a27`，PR #660，代码提交完整 CI 全绿、待合入。
 - **下一刀：Patrol the Woods 自然验收，再核对 I 级阶段收尾。Boss、II／III 与 Stygian 随后推进。字段核准遵守 R-048。**
 - 步骤 0 已完成，提交 `e7fd17e1`；完整地点战役尚未验收。
 - 导入与计划两批已合入并推送 `main`（`3be97c65`）。步骤 1 怪物批次已合入并推送 `main`（`7075f4d8`）。
@@ -473,5 +473,5 @@ Brigand Pounder 类型行、Shrieker’s Nest 和 Cauldron Empty 的专属卡面
 - 本卡实际 Dark×3／Lair×3／Trap×2 分布中，记录的战斗全部来自巢穴，所有部署实例为 Weald 当地实体；各存档停点验证 monsterDrawScope=wealdLocalOnly 与 14 张目录。保留核心战斗目录内通用引用，不把它们误当随机牌池；没有给其他任务加仅巢穴开战的特判（R-251）。
 - 实际进入 Dark 与 Trap；Dark 每次入口光照减 1（不低于 0），Dark／Trap 代币均保留、未清理。保存首战部署、首次 Dark／Trap 入口、每次胜利清理交接和最终摘要／回村；严格公开日志回放，篡改当地池限定快照被拒绝。最终清三巢穴，摘要与四名在队英雄／驿站均 3 XP，回村牌池守恒。
 - 本批只新增测试与夹具，规则引擎和 UI 无改动。新测试首轮将可选 cleared 的 undefined 写作 false 断言，修正为明确布尔投影，并补齐 recoverHamletPools 的 seed 参数与正确 resolved 状态；场景数据和规则未改。新增一条 Playwright 显示三巢穴／3 XP、保存刷新后仍为当地限定池，通过（37.3 秒、未启用重试），截图已查看。
-- 本地 typecheck、lint、build 通过；既有四文件 29 项回归通过（p004／p005、Weald 怪物目录、核心房间），新严格日志最终复跑 1 项通过（45.77 秒），合计五文件 30 项。完整验证交由 CI，不启动本地重复全量；Node 24.20.0 低于约定 24.21.0，pnpm 12.9.1。
+- 本地 typecheck、lint、build 通过；既有四文件 29 项回归通过（p004／p005、Weald 怪物目录、核心房间），新严格日志最终复跑 1 项通过（45.77 秒），合计五文件 30 项。代码 `17bd2a27` 的 [完整 CI](https://github.com/Alpaca-go/ddbg-web/actions/runs/43551996022) 全绿：typecheck、lint、完整单测、build、完整 Playwright 均通过；下载日志核实 **522 文件、3,900 项通过、1 项沿用跳过**（747.46 秒），PR #660 已转待审。不启动本地重复全量；Node 24.20.0 低于约定 24.21.0，pnpm 12.9.1。
 - 无新增规则待确认；不宣称五任务或完整战役完成，Boss／II–III／Stygian／usable 不变。下一刀 Patrol the Woods 的六间可清理房、首轮怪物先攻规则与 XP／回村自然验收，再核对 I 级阶段收尾。
