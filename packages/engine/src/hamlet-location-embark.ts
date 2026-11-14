@@ -1,3 +1,4 @@
+import { readExpeditionRoomRegion, expeditionRegionForQuestId } from "./expedition-room-catalog";
 import coreCurios from "../../data/normalized/corebox/curio.json";
 import coreRooms from "../../data/normalized/corebox/room.json";
 import medium from "../../data/normalized/extension/weald/monster_medium.json";
@@ -13,11 +14,16 @@ import type { DungeonState } from "./dungeon";
 /** W-02 / R9–10：地点来源来自随程序交付的数据；不把上一趟活动堆当新地点来源。 */
 export function nextExpeditionLocationDecks(d: DungeonState, questId: string) {
   const quest = basicQuests.find((q) => q.id === questId)!;
-  const previous = basicQuests.find((q) => q.id === d.questDistribution?.questId);
-  if (quest.expeditionRegion !== "weald" && previous?.expeditionRegion !== "weald") return null;
+  const region =
+    d.bossLocationSources &&
+    d.locationBossThreats &&
+    questId === "quest:p019" &&
+    d.activeBossThreatScriptId === "boss:weald:hag:1"
+      ? "weald"
+      : expeditionRegionForQuestId(questId);
+  if (region !== "weald" && readExpeditionRoomRegion(d) !== "weald") return null;
   if (!d.contentPacks?.includes("weald") || !d.battleCatalog || !d.monsterPool)
     throw new Error("地点切换需要已选 Weald 包与完整目录（W-02）");
-  const region = quest.expeditionRegion === "weald" ? "weald" : "ruins";
   const sources = {
     catalog: {
       ...d.battleCatalog,
@@ -29,7 +35,12 @@ export function nextExpeditionLocationDecks(d: DungeonState, questId: string) {
     resolveCards: d.resolveCards,
     weald: { medium, large, curios: wealdCurioFileSchema.parse(wealdCurios).cards },
   };
-  const decks = rebuildLocationQuestDecks(sources, region, quest.level, d.contentPacks);
+  const decks = rebuildLocationQuestDecks(
+    sources,
+    region,
+    questId === "quest:p019" ? (d.campaignLevel ?? 1) : quest.level,
+    d.contentPacks,
+  );
   const cards = region === "weald" ? WEALD_APPROVED_ROOM_CARDS : sources.rooms;
   return {
     // 保留核心战斗来源供下一次切回；随机抽牌仍严格由地点怪物池限定。

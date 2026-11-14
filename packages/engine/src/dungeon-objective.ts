@@ -5,7 +5,6 @@ import type { BattleArea } from "./battle";
 import type { DungeonState } from "./dungeon";
 import { readExpeditionRoomTile } from "./expedition-room-tile";
 import {
-  expeditionRegionForQuestId,
   expeditionRoomCatalogParses,
   expeditionRoomDeckWithoutSetAside,
   ordinaryRoomCardsInCatalog,
@@ -135,7 +134,7 @@ export function prepareObjectiveRoomBattle(state: GameState): ApplyResult | null
     return prepareBossObjectiveRoom(state);
   const aside = readSetAsideRoomCardIds(d);
   const c = d.roomCards;
-  const region = expeditionRegionForQuestId(readBasicQuest(d.questDistribution)?.id);
+  const region = readExpeditionRoomRegion(d);
   if (!c || !expeditionRoomCatalogParses(c.cards, region))
     return refuse(state, "需要完整地点普通房间目录（R-048）");
   if (c.active) return refuse(state, "该房间牌已记录；不能重抽（R15）");

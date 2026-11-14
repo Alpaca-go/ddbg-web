@@ -540,6 +540,11 @@ export function chooseNextQuest(
         return fresh;
       return { ...loot, gold: d.gold, placed: [] };
     })(),
+    ...(quest.id === "quest:p019" &&
+    d.bossLocationSources &&
+    d.activeBossThreatScriptId === "boss:weald:hag:1"
+      ? { bossExpeditionRegion: "weald" as const }
+      : {}),
     battleCatalog: locationDecks?.battleCatalog ?? d.battleCatalog!,
     conditions: d.conditions!,
     trinkets: washed.pool,
@@ -577,6 +582,7 @@ export function chooseNextQuest(
     ...(d.unregisteredImminentThreatHold
       ? { unregisteredImminentThreatHold: d.unregisteredImminentThreatHold }
       : {}),
+    ...(d.bossLocationSources ? { bossLocationSources: true as const } : {}),
     ...(d.locationBossThreats ? { locationBossThreats: true as const } : {}),
     ...(d.defeatedWealdBossIdentities
       ? { defeatedWealdBossIdentities: d.defeatedWealdBossIdentities }

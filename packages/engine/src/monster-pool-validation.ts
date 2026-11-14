@@ -1,4 +1,4 @@
-import { basicQuests } from "../../data/src/basic-quests";
+import { readExpeditionRoomRegion } from "./expedition-room-catalog";
 import { monsterPoolCatalogSchema } from "../../data/src/monster-pool";
 import type { DungeonState } from "./dungeon";
 import { dungeonMonsterPoolThrough, type MonsterPoolDeckState } from "./monster-pool-runtime";
@@ -26,10 +26,7 @@ export function monsterPoolCatalogValidForLocation(
 }
 
 export function dungeonMonsterPoolCatalogValid(d: DungeonState): boolean {
-  const region = basicQuests.find(
-    (quest) => quest.id === d.questDistribution?.questId,
-  )?.expeditionRegion;
-  const location: string = !region || region === "darkestDungeon" ? "ruins" : region;
+  const location = readExpeditionRoomRegion(d);
   if (location === "weald" && !d.contentPacks?.includes("weald")) return false;
   return monsterPoolCatalogValidForLocation(
     d.monsterPool,

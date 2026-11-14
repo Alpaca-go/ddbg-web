@@ -6,12 +6,11 @@ import { trinketPoolProblem } from "./trinket-acquisition";
 import { createLootState } from "./loot";
 import { dungeonCurioCatalogValid } from "./dungeon-curio-catalog";
 import {
-  expeditionRegionForQuestId,
+  readExpeditionRoomRegion,
   expeditionRoomCatalogParses,
   ordinaryRoomCardsInCatalog,
   expeditionRoomDeckWithoutSetAside,
 } from "./expedition-room-catalog";
-import { basicQuests } from "../../data/src/basic-quests";
 import { readSetAsideRoomCardIds } from "./dungeon-objective";
 
 /** R32 a：只把弃牌洗回对应堆；保留持牌，不缩减目录或偷偷补缺牌。 */
@@ -23,7 +22,6 @@ export function recoverHamletPools(d: DungeonState, seed: number) {
     rooms = d.roomCards,
     // 未发生战斗时宝箱池尚未实例化；沿既有createLootState的十枚规范实例建立。
     loot = d.lootPool ?? { ...createLootState(), gold: d.gold };
-  const questId = d.questDistribution?.questId;
   if (
     !conditions ||
     !trinkets ||
@@ -35,14 +33,14 @@ export function recoverHamletPools(d: DungeonState, seed: number) {
     rooms.active ||
     !dungeonCurioCatalogValid(d) ||
     !restingMonsterPoolValid(d) ||
-    !expeditionRoomCatalogParses(rooms.cards, expeditionRegionForQuestId(questId))
+    !expeditionRoomCatalogParses(rooms.cards, readExpeditionRoomRegion(d))
   )
     return refuse("回村需要完整牌池且所有获得/房间效果已完成（R32、R-048）");
   const problem =
     conditionPoolProblem(conditions, d.heroes) ?? trinketPoolProblem(trinkets, d.heroes);
   if (problem) return refuse(problem);
-  const roomRegion = expeditionRegionForQuestId(questId);
-  const region = basicQuests.find((q) => q.id === questId)?.expeditionRegion ?? ("ruins" as const);
+  const roomRegion = readExpeditionRoomRegion(d);
+  const region = roomRegion;
   const roomIds = ordinaryRoomCardsInCatalog(rooms.cards, roomRegion).map((c) => c.id);
   const conserved = (all: readonly string[], parts: readonly string[]) =>
     parts.length === all.length &&

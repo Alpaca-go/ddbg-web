@@ -13,8 +13,18 @@ export function expeditionRegionForQuestId(questId: string | undefined): Expedit
 }
 
 export function readExpeditionRoomRegion(
-  d: Pick<DungeonState, "questDistribution">,
+  d: Pick<
+    DungeonState,
+    "questDistribution" | "bossExpeditionRegion" | "locationBossThreats" | "bossLocationSources"
+  >,
 ): ExpeditionRoomRegion {
+  if (
+    d.locationBossThreats &&
+    d.bossLocationSources &&
+    d.bossExpeditionRegion === "weald" &&
+    d.questDistribution?.questId === "quest:p019"
+  )
+    return "weald";
   return expeditionRegionForQuestId(readBasicQuest(d.questDistribution)?.id);
 }
 

@@ -1,3 +1,4 @@
+import { readExpeditionRoomRegion } from "./expedition-room-catalog";
 import { basicQuests } from "../../data/src/basic-quests";
 import { curioPoolSchemaForLocation } from "../../data/src/curio-pool";
 import type { DungeonState } from "./dungeon";
@@ -11,6 +12,11 @@ export function questCurioCatalogSchema(questId: string | undefined) {
 
 export function dungeonCurioCatalogValid(d: DungeonState): boolean {
   try {
+    if (readExpeditionRoomRegion(d) === "weald")
+      return (
+        d.contentPacks?.includes("weald") === true &&
+        curioPoolSchemaForLocation("weald").safeParse(d.curio?.cards).success
+      );
     return questCurioCatalogSchema(d.questDistribution?.questId).safeParse(d.curio?.cards).success;
   } catch {
     return false;
