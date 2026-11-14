@@ -84,3 +84,28 @@ it("Stygian 仍保留房间、等级、威胁与待选守卫", () => {
   );
   expect(html).toContain('disabled=""');
 });
+
+it("Hag I 页面入口要求新地点来源、已选 Weald；Stygian 继续拒绝", () => {
+  const d: DungeonState = {
+    ...room("fanatic", "room:p013", 1),
+    mode: "standard",
+    contentPacks: ["core", "weald"],
+    bossLocationSources: true,
+    bossExpeditionRegion: "weald",
+    activeBossThreatScriptId: "boss:weald:hag:1",
+    roomCards: {
+      ...base.roomCards!,
+      active: { roomId: "objective", cardId: "room:weald:p010", blockedReason: "Hag" },
+    },
+    faceTheThreatEmbarkPlan: {
+      ...requireFaceTheThreatEmbarkPlanForSandbox({ campaignLevel: 1 }),
+      resolvedScriptId: "boss:weald:hag:1",
+    },
+  };
+  expect(ruinsBossRoomEntryVisible(d)).toBe(true);
+  expect(renderToStaticMarkup(<RuinsBossRoomActions dungeon={d} dispatch={() => {}} />)).toContain(
+    "部署 Hag I 战斗",
+  );
+  expect(ruinsBossRoomEntryVisible({ ...d, mode: "stygian" })).toBe(false);
+  expect(ruinsBossRoomEntryVisible({ ...d, contentPacks: ["core"] })).toBe(false);
+});

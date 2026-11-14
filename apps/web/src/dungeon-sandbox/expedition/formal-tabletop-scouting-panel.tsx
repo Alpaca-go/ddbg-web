@@ -232,7 +232,20 @@ export function FormalTabletopScoutingPanel({
         {d.roomCards?.active &&
           (() => {
             const active = d.roomCards.active;
-            const roomCard = d.roomCards.cards.find((c) => c.id === active.cardId)!;
+            if (active.cardId === "room:weald:p010")
+              return (
+                <div className="panel" data-testid="dungeon-room-card">
+                  <div className="dungeon-room-card-row">
+                    <RoomCardFace roomCardId={active.cardId} label="Hag" />
+                    <div>
+                      <h3>Hag</h3>
+                      <RuinsBossRoomActions dungeon={d} dispatch={dispatch} />
+                    </div>
+                  </div>
+                </div>
+              );
+            const roomCard = d.roomCards.cards.find((c) => c.id === active.cardId);
+            if (!roomCard) return null;
             const stygianCard = readActiveStygianRoom(d);
             const label = stygianCard ? `${stygianCard.name} · Stygian` : roomCard.name;
             const selectedTile = readRoomTile(roomCard, active.tileId);
@@ -548,7 +561,8 @@ export function FormalTabletopScoutingPanel({
         {d.roomCards?.active &&
           (() => {
             const active = d.roomCards.active;
-            const roomCard = d.roomCards.cards.find((c) => c.id === active.cardId)!;
+            const roomCard = d.roomCards.cards.find((c) => c.id === active.cardId);
+            if (!roomCard) return null;
             const stygianCard = readActiveStygianRoom(d);
             const printedCard = stygianCard ?? roomCard;
             const selectedTile = readRoomTile(roomCard, active.tileId);

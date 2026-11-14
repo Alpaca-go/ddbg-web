@@ -30,6 +30,15 @@ export function RuinsBossRoomActions({
 
 const entries = [
   {
+    id: "hag",
+    level: 1,
+    name: "Hag I",
+    roomName: "Hag",
+    room: "room:weald:p010",
+    script: "boss:weald:hag:1",
+    command: "deployHagI",
+  },
+  {
     id: "necromancer",
     level: 1,
     name: "Necromancer I",
@@ -148,6 +157,11 @@ function bossRoomEntry(d: DungeonState) {
     return undefined;
   return entries.find(
     (e) =>
+      (e.id !== "hag" ||
+        (d.mode !== "stygian" &&
+          d.contentPacks?.includes("weald") &&
+          d.bossLocationSources &&
+          d.bossExpeditionRegion === "weald")) &&
       d.campaignLevel === e.level &&
       d.roomCards?.active?.cardId === e.room &&
       d.activeBossThreatScriptId === e.script &&

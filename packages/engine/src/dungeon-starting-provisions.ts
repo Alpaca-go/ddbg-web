@@ -126,6 +126,20 @@ export function setupDungeonProvisions(
   command: Extract<Command, { type: "rollDungeonProvisions" | "resolveChoice" }>,
 ): ApplyResult {
   const d = state.dungeon;
+  if (
+    d?.bossLocationSources &&
+    d.unregisteredImminentThreatHold &&
+    command.type === "rollDungeonProvisions"
+  )
+    return {
+      state,
+      events: [
+        {
+          type: "commandRefused",
+          message: "抽到的地点 Boss 尚未开放，保留结果等待后续支持（W3／R-048）",
+        },
+      ],
+    };
   const final = d?.finalBattleProvisions === "awaiting";
   const refuse = (): ApplyResult => ({
     state,

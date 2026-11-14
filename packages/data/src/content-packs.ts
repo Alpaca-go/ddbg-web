@@ -12,7 +12,7 @@ export const contentPacksSchema = z
   );
 export const CONTENT_PACKS = [
   { id: "core", name: "核心包", description: "遗迹与最暗地牢" },
-  { id: "weald", name: "Weald", description: "Hag I；地点战役尚未开放" },
+  { id: "weald", name: "Weald", description: "I 级普通任务与 Hag I；其余 Boss 待开放" },
   {
     id: "warrens",
     name: "Warrens",
