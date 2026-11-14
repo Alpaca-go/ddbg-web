@@ -605,7 +605,10 @@ export function removeCasualties(result: ApplyResult, ids: readonly string[]): A
 export function endAfterCasualties(result: ApplyResult): ApplyResult | null {
   const battle = result.state.battle!;
   const monstersDefeated = battle.entities.every((entity) => !isLivingCombatMonster(entity));
-  if (battle.entities.every((entity) => entity.side !== "hero" || entity.dead)) {
+  if (
+    battle.entities.every((entity) => entity.side !== "hero" || entity.dead) &&
+    (!battle.hagCauldron || battle.hagCauldron.hero.dead)
+  ) {
     return {
       state: {
         ...result.state,

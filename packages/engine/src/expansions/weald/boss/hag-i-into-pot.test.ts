@@ -6,6 +6,7 @@ import { hagIInitialDeployment, buildHagICombatCatalog } from "./hag-i-projectio
 import { ensureHagIBossScriptRegistered, HAG_I_SCRIPT_ID } from "./hag-i";
 import { FACE_THE_THREAT_QUEST_ID } from "../../../boss/quest-bridge";
 import { readMonsterAttackView, resolveMonsterSkill } from "../../../monster-skill";
+import { endAfterCasualties } from "../../../encounter";
 
 beforeEach(() => ensureHagIBossScriptRegistered());
 
@@ -172,6 +173,23 @@ it.each([false, true])(
     );
   },
 );
+
+it("锅内英雄仍存活时，不把棋盘英雄全灭误判成队伍全灭", () => {
+  const captured = play(
+    run(fixture(), { type: "prepareMonsterAction", actorId: "boss:hag" }).state,
+  ).state;
+  const fallen = {
+    ...captured,
+    battle: {
+      ...captured.battle!,
+      entities: captured.battle!.entities.map((e) =>
+        e.side === "hero" ? { ...e, dead: true } : e,
+      ),
+    },
+  };
+  expect(fallen.battle.hagCauldron!.hero.dead).toBe(false);
+  expect(endAfterCasualties({ state: fallen, events: [] })).toBeNull();
+});
 
 it("R-254 未印刷伤害不补 0，漂移卡面拒绝；缺 Full 在掷骰／移动前拒绝", () => {
   const hag = buildHagICombatCatalog()[0]!;
