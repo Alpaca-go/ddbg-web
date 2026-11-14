@@ -25,6 +25,7 @@ export const naturalParty = coreParty.map((hero, index) => ({
   skillIds: equipped[index]!,
 }));
 export type NaturalQuestOptions = {
+  readonly fungalResearch?: "retain-one" | "destroy-all";
   /** 显式玩家目标操作；不改变既有自然策略的缺省行为。 */
   readonly heroAction?: (state: GameState) => Command | undefined;
   /** 显式玩家捐款选择；缺省仍优先给20金，仅从实际选项选择。 */
@@ -162,6 +163,7 @@ export function naturalQuest(
             ? { survival: true }
             : {}),
         ...(options.heroAction ? { heroAction: options.heroAction } : {}),
+        ...(options.fungalResearch ? { fungalResearch: options.fungalResearch } : {}),
       },
     );
   /** 经闭包读回 phase，避免 step 重赋值后仍被收窄为 ready。 */

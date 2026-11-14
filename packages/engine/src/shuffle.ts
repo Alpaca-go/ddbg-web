@@ -113,7 +113,8 @@ export function resolveShuffle(
   )
     return refuse("角色区域或占格数未核实（R24、R-048）");
 
-  const peers = living.filter((entity) => entity.side === actor.side);
+  // W-04：真菌是技能目标，不占用英雄／怪物的姿态轨道。
+  const peers = living.filter((entity) => entity.side === actor.side && !entity.necroticFungus);
   const occupied = new Set<number>();
   for (const peer of peers) {
     const start = STANCES.indexOf(peer.stance!);
@@ -151,6 +152,16 @@ export function resolveShuffle(
     path.push(current);
   }
   if (choices.length > path.length) return refuse("位移路径超过距离或截断点");
+  if (actor.necroticFungus)
+    return {
+      status: "resolved",
+      entities: entities.map((entity) =>
+        entity.id === actor.id ? { ...entity, areaId: current } : entity,
+      ),
+      path,
+      areaSteps: path.length,
+      stanceSteps: 0,
+    };
   // R-199（Q-19）：同阵营角色按「插入」顺移；2 格大型怪整块让位并级联。
   // 顶到轨道头尾时这一次姿态位移截断，区域位移按 R-020 ④ 独立照常结算。
   const actorWidth = width(actor)!;

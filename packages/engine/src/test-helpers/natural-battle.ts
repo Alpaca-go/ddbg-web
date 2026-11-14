@@ -5,6 +5,7 @@ import type { PlayHeroSkillCommand } from "../battle";
 import type { PlayHeroSkillTargetsCommand } from "../battle-hero-targets";
 import type { ApplyResult, Command, GameState } from "../command";
 import { templarsProductionCombatActive } from "../boss/templars-i-deploy";
+import { livingNecroticFungus } from "../expansions/weald/necrotic-fungus";
 
 export type NaturalBattleDriver = {
   readonly state: () => GameState;
@@ -23,6 +24,7 @@ export function playNaturalBattle(
     readonly preferWipeout?: boolean;
     readonly survival?: boolean;
     readonly heroAction?: (state: GameState) => Command | undefined;
+    readonly fungalResearch?: "retain-one" | "destroy-all";
   } = {},
 ): void {
   const survival = options.survival === true;
@@ -31,6 +33,13 @@ export function playNaturalBattle(
   const score = (s: GameState, r: ApplyResult) => {
     if (r.events.some((e) => e.type === "commandRefused")) return -Infinity;
     let total = 0;
+    if (options.fungalResearch) {
+      const before = livingNecroticFungus(s.battle!).length;
+      const after = livingNecroticFungus(r.state.battle!).length;
+      if (options.fungalResearch === "retain-one" && before > 0 && after === 0) return -Infinity;
+      // 具名测试玩家偏好：优先砸毁真菌；保留模式始终留下最后一枚。
+      total += (before - after) * 100;
+    }
     for (const before of s.battle!.entities) {
       const after = r.state.battle!.entities.find((e) => e.id === before.id)!;
       total +=
