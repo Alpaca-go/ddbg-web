@@ -282,7 +282,11 @@ export type BattleState = BattleSetup & {
   /** 保存选招骰与目标；方向待选 / 攻击拒绝不能重新选招。 */
   readonly monsterAction: PreparedMonsterAction | null;
   readonly pending:
-    | { readonly type: "hagRelease"; readonly choice: PendingChoice }
+    | {
+        readonly type: "hagRelease";
+        readonly choice: PendingChoice;
+        readonly resume?: import("./expansions/weald/boss/hag-i-release").HagReleaseResume;
+      }
     | { readonly type: "allTrinkets"; readonly choice: PendingChoice }
     | {
         readonly type: "damageStone";

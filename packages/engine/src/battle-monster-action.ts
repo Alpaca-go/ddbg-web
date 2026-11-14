@@ -1,4 +1,5 @@
 import { isDarkestSupportSkill } from "./battle-monster-support";
+import { HAG_I_CAULDRON_FULL_MONSTER_CARD_ID } from "./expansions/weald/boss/hag-i";
 import { isCollectedVestalCard, isBoneBearerRally } from "./boss/collected-vestal";
 import { isInvokingMonster, moveInvokingMonster } from "./battle-invocation";
 import { distance, rejectBattleCommand } from "./battle";
@@ -104,6 +105,8 @@ export function prepareMonsterAction(
   const card = battle.monsters?.find((entry) => entry.id === actor?.monsterCardId);
   if (!actor || actor.side !== "monster" || actor.dead || !card)
     return rejectBattleCommand(state, "怪物或已关联卡牌不可用（R-048）");
+  if (actor.monsterCardId === HAG_I_CAULDRON_FULL_MONSTER_CARD_ID && battle.hagCauldron)
+    return rejectBattleCommand(state, "R-255：Boil 锅内结算尚未接线，不能攻击锅外英雄");
   if (actor.oneBodyPoolId) {
     if (actor.life === undefined)
       return rejectBattleCommand(state, "One Body 部位缺少共享 Life（R-048）");

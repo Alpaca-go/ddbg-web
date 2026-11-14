@@ -1,5 +1,5 @@
 import { bossEnabledForPacks } from "../../data/src/content-packs";
-import { releaseHagIHero } from "./expansions/weald/boss/hag-i-captive";
+import { chooseHagIRelease } from "./expansions/weald/boss/hag-i-release";
 import type { MonsterSupportResolvedEvent } from "./battle-monster-support";
 import { stagecoachHoldingsProblem } from "./stagecoach-holdings";
 import { continuePoolRebirth, choosePoolRebirth } from "./pool-rebirth-flow";
@@ -763,7 +763,7 @@ function dispatchCommand(
     if (pending.type === "necromancerSummon")
       return chooseNecromancerISummon(state, command.optionId);
     if (pending.type === "wealdSummon") return chooseWealdMonsterSummon(state, command.optionId);
-    if (pending.type === "hagRelease") return releaseHagIHero(state, command.optionId);
+    if (pending.type === "hagRelease") return chooseHagIRelease(state, command.optionId);
     if (pending.type === "allTrinkets") return rejectBattleCommand(state, "饰品续接上下文缺失");
     if (pending.type === "monsterRetarget")
       return chooseMonsterRetargetAfterFreeTrinket(state, command.optionId);
