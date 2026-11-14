@@ -8,7 +8,6 @@ import {
   HAG_I_CAULDRON_EMPTY_MONSTER_CARD_ID,
   HAG_I_CAULDRON_FULL_MONSTER_CARD_ID,
   HAG_I_COMBAT_MONSTER_CARD_ID,
-  HAG_I_FIRST_ACTION_INDEX,
   HAG_I_INTO_THE_POT_SKILL_SLOT,
   HAG_I_SCRIPT_ID,
   hagICauldronBattleStartStance,
@@ -17,6 +16,42 @@ import { getBossScript } from "../../../boss/registry";
 import type { BossScriptDefinition, BossSummonOk } from "../../../boss/types";
 
 const STANCES = ["aggressive", "defensive", "ranged", "support"] as const;
+
+/** W4：Hag 被击败时移出空锅；R-255 满锅释放的自动续接另行接线。 */
+export function clearHagIEmptyCauldron(result: ApplyResult, ids: readonly string[]) {
+  const battle = result.state.battle;
+  if (
+    !battle ||
+    resolveEncounterBossScriptId(result.state) !== HAG_I_SCRIPT_ID ||
+    !battle.entities.some(
+      (e) =>
+        e.side === "monster" &&
+        e.monsterCardId === HAG_I_COMBAT_MONSTER_CARD_ID &&
+        e.dead &&
+        ids.includes(e.id),
+    )
+  )
+    return { result, ids };
+  const empty = emptyCauldronEntity(battle);
+  if (!empty) return { result, ids };
+  return {
+    ids: [...ids, empty.id],
+    result: {
+      ...result,
+      state: {
+        ...result.state,
+        battle: {
+          ...battle,
+          entities: battle.entities.map((e) => (e.id === empty.id ? { ...e, dead: true } : e)),
+        },
+      },
+      events: [
+        ...result.events,
+        { type: "dungeonUpdated" as const, message: "Weald W4：Hag 被击败，移出空锅；不追加伤口" },
+      ],
+    },
+  };
+}
 
 /** W4／R-254：Hag 两张，锅一张；已有两个实体各贡献一张，仅补 Hag 的第二张。 */
 export function expandHagIInitiativeDeckSides(
@@ -101,7 +136,7 @@ export function readHagIIntoThePotEnabled(script: BossScriptDefinition): boolean
   const result = runBossHook(script, "intoThePot", { scriptId: script.id });
   return (
     result.status === "ok" &&
-    result.effect === "forceIntoThePotWhileCauldronEmptyOnFirstActionEachRound" &&
+    result.effect === "forceIntoThePotWhileCauldronEmptyEachTurn" &&
     result.skillSlot === HAG_I_INTO_THE_POT_SKILL_SLOT
   );
 }
@@ -134,13 +169,12 @@ export function bumpHagIActionRoundCount(state: GameState, actorId: string): Gam
   return { ...state, battle: { ...battle, hagActionsThisRound: count + 1 } };
 }
 
-/** Cauldron Empty 在场且为本轮 Hag 首次行动 → 强制 Into the Pot! slot。 */
+/** R-255：每次 Hag 回合且空锅在场，均先用 Into the Pot；不是每轮仅首次。 */
 export function hagIntoThePotShouldForceSkill(state: GameState, actorId: string): boolean {
   const battle = state.battle;
   if (!battle?.encounter || battle.monsterAction) return false;
   const turn = battle.encounter.turn;
   if (turn.type !== "monster" || turn.actorId !== actorId) return false;
-  if (hagActionIndexBeforeTurn(battle) !== HAG_I_FIRST_ACTION_INDEX) return false;
   if (!emptyCauldronEntity(battle)) return false;
 
   const scriptId = resolveEncounterBossScriptId(state);

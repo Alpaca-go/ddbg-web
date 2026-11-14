@@ -136,7 +136,7 @@ describe("Hag I Boss 脚本", () => {
     const intoThePot = runBossHook(script, "intoThePot", { scriptId: HAG_I_SCRIPT_ID });
     expect(intoThePot).toMatchObject({
       status: "ok",
-      effect: "forceIntoThePotWhileCauldronEmptyOnFirstActionEachRound",
+      effect: "forceIntoThePotWhileCauldronEmptyEachTurn",
       skillSlot: HAG_I_INTO_THE_POT_SKILL_SLOT,
     });
     const full = runBossHook(script, "summon", {

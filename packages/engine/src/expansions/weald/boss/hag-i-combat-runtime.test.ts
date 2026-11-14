@@ -2,7 +2,12 @@ import { describe, expect, it, beforeEach } from "vitest";
 import { readFileSync } from "node:fs";
 import { createBattleState, type BattleEntity } from "../../../battle";
 import { applyCommand } from "../../../command";
-import { applyEncounterCommand, finishTurn } from "../../../encounter";
+import {
+  applyEncounterCommand,
+  finishTurn,
+  removeCasualties,
+  endAfterCasualties,
+} from "../../../encounter";
 import type { GameState } from "../../../command";
 import type { MonsterCardView } from "../../../monster-skill";
 import type { SkillStance } from "../../../hero-skill";
@@ -158,6 +163,65 @@ describe("W4 受控战斗时序（非正式出征验收）", () => {
   beforeEach(() => {
     clearBossScriptsForTest();
     ensureHagIBossScriptRegistered();
+  });
+
+  it("W4 受控清场：Hag 死亡交接时移出空锅并结束战斗，不追加伤口／RNG／奖励", () => {
+    const started = applyEncounterCommand(hagBattle(), { type: "startBattle" }).state;
+    const dead: GameState = {
+      ...started,
+      battle: {
+        ...started.battle!,
+        entities: started.battle!.entities.map((e) =>
+          e.id === "hag" ? { ...e, dead: true, wounds: e.life! } : e,
+        ),
+      },
+    };
+    const before = structuredClone(dead);
+    const removed = removeCasualties({ state: dead, events: [] }, ["hag"]);
+    const empty = removed.state.battle!.entities.find((e) => e.id === "boss:hag:cauldron-empty")!;
+    expect(empty).toMatchObject({ dead: true, wounds: 0, life: cauldronLife });
+    expect(removed.state.battle!.rngCursor).toBe(dead.battle!.rngCursor);
+    expect(removed.state.battle!.loot).toEqual(dead.battle!.loot);
+    expect(endAfterCasualties(removed)?.state.battle!.encounter!.turn).toEqual({
+      type: "finished",
+      outcome: "victory",
+    });
+    expect(
+      removed.events.flatMap((e) => (e.type === "casualtyRemoved" ? [e.actorId] : [])),
+    ).toEqual(["hag", empty.id]);
+    expect(dead).toEqual(before);
+  });
+
+  it("未发生本次 Hag 死亡、非 Boss 遭遇或满锅时不类推清场", () => {
+    const started = applyEncounterCommand(hagBattle(), { type: "startBattle" }).state;
+    const dead: GameState = {
+      ...started,
+      battle: {
+        ...started.battle!,
+        entities: started.battle!.entities.map((e) => (e.id === "hag" ? { ...e, dead: true } : e)),
+      },
+    };
+    const { dungeon: _d, ...ordinary } = dead;
+    void _d;
+    const full = applyHagICauldronEmptyToFullMorph(started, "hag", 1).state;
+    const fullDead: GameState = {
+      ...full,
+      battle: {
+        ...full.battle!,
+        entities: full.battle!.entities.map((e) => (e.id === "hag" ? { ...e, dead: true } : e)),
+      },
+    };
+    for (const [state, ids] of [
+      [started, ["hag"]],
+      [dead, []],
+      [ordinary, ["hag"]],
+      [fullDead, ["hag"]],
+    ] as const) {
+      const removed = removeCasualties({ state, events: [] }, ids);
+      expect(
+        removed.state.battle!.entities.find((e) => e.id === "boss:hag:cauldron-empty")?.dead,
+      ).toBe(false);
+    }
   });
 
   it("加载过 Hag 脚本后，非 Boss 遭遇仍每个实体一张先攻", () => {
@@ -400,7 +464,7 @@ describe("Hag I · Into the Pot! / Cauldron Full 最小运行时", () => {
     expect(hagIntoThePotShouldForceSkill(state, "hag")).toBe(true);
   });
 
-  it("Cauldron 已为 Full 或 Hag 非首次行动 → 不强制", () => {
+  it("R-255：Full 不强制；下一次 Hag 回合锅仍空则仍强制", () => {
     let state = monsterTurn(hagBattleWithCauldron());
     const morphed = applyHagICauldronEmptyToFullMorph(state, "hag", HAG_I_INTO_THE_POT_SKILL_SLOT);
     state = monsterTurn(morphed.state);
@@ -411,7 +475,7 @@ describe("Hag I · Into the Pot! / Cauldron Full 最小运行时", () => {
       ...state,
       battle: { ...state.battle!, hagActionsThisRound: 1 },
     };
-    expect(hagIntoThePotShouldForceSkill(state, "hag")).toBe(false);
+    expect(hagIntoThePotShouldForceSkill(state, "hag")).toBe(true);
   });
 
   it("applyHagICauldronEmptyToFullMorph 切换卡面", () => {

@@ -259,8 +259,13 @@ export type BattleState = BattleSetup & {
   readonly prophetCalamitousUsedThisRound?: true;
   /** Prophet I：本战斗轮内已完成的先知行动次数（Calamitous=1、Rubble=3 等边界）。 */
   readonly prophetActionsThisRound?: number;
-  /** Hag I：本战斗轮内已完成的 Hag 行动次数（Into the Pot! 首行动边界）。 */
+  /** Hag I：本轮已完成的回合数，用于两次先攻配额；不限制入锅仅在首次。 */
   readonly hagActionsThisRound?: number;
+  /** R-255：棋子在锅卡上，离开战场；不保存原区域／姿态。 */
+  readonly hagCauldron?: {
+    readonly cauldronId: string;
+    readonly hero: Omit<BattleEntity, "areaId" | "stance">;
+  };
   /** Fanatic I：本战斗轮内已完成的 Fanatic 行动次数（G-05 / 先攻 3 张配合）。 */
   readonly fanaticActionsThisRound?: number;
   /** 最终战 Heart of Darkness · Impending Doom 当前落位 d10（1–10；boss_ability:p037）。 */
@@ -275,6 +280,7 @@ export type BattleState = BattleSetup & {
   /** 保存选招骰与目标；方向待选 / 攻击拒绝不能重新选招。 */
   readonly monsterAction: PreparedMonsterAction | null;
   readonly pending:
+    | { readonly type: "hagRelease"; readonly choice: PendingChoice }
     | { readonly type: "allTrinkets"; readonly choice: PendingChoice }
     | {
         readonly type: "damageStone";
