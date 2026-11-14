@@ -749,6 +749,14 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
         ...(objectiveRecovery ? { roomResolution: objectiveRecovery } : {}),
         ...(bossQuestVictory ? { bossQuestVictory } : {}),
         ...(fungalProgress ?? {}),
+        ...(fungalProgress?.fungalResearchObjectiveMet && kind === "objective"
+          ? {
+              fungalResearchSecuredRoomCardIds: [
+                ...(d.fungalResearchSecuredRoomCardIds ?? []),
+                activeCardId,
+              ],
+            }
+          : {}),
         ...(disinfectionProgress ?? {}),
         rooms: d.rooms.map((r) =>
           r.id === d.position && clearsRoom ? { ...r, cleared: true } : r,
