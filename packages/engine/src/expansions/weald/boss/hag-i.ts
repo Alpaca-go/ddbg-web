@@ -80,7 +80,7 @@ const hamletThreatPassive = (): BossThreatPassiveHamletOk => ({
 
 const intoThePotHook = (): BossIntoThePotOk => ({
   status: "ok",
-  effect: "forceIntoThePotWhileCauldronEmptyOnFirstActionEachRound",
+  effect: "forceIntoThePotWhileCauldronEmptyEachTurn",
   skillSlot: HAG_I_INTO_THE_POT_SKILL_SLOT,
   sourceAbilityCardId: HAG_I_COMBAT_ABILITY_CARD_ID,
   rulesRef: ["R39", "spec:§14.5", HAG_I_COMBAT_ABILITY_CARD_ID],

@@ -464,7 +464,7 @@ describe("Hag I · Into the Pot! / Cauldron Full 最小运行时", () => {
     expect(hagIntoThePotShouldForceSkill(state, "hag")).toBe(true);
   });
 
-  it("Cauldron 已为 Full 或 Hag 非首次行动 → 不强制", () => {
+  it("R-255：Full 不强制；下一次 Hag 回合锅仍空则仍强制", () => {
     let state = monsterTurn(hagBattleWithCauldron());
     const morphed = applyHagICauldronEmptyToFullMorph(state, "hag", HAG_I_INTO_THE_POT_SKILL_SLOT);
     state = monsterTurn(morphed.state);
@@ -475,7 +475,7 @@ describe("Hag I · Into the Pot! / Cauldron Full 最小运行时", () => {
       ...state,
       battle: { ...state.battle!, hagActionsThisRound: 1 },
     };
-    expect(hagIntoThePotShouldForceSkill(state, "hag")).toBe(false);
+    expect(hagIntoThePotShouldForceSkill(state, "hag")).toBe(true);
   });
 
   it("applyHagICauldronEmptyToFullMorph 切换卡面", () => {

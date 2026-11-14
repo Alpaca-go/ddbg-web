@@ -6,6 +6,10 @@ const pendingSteps: Record<
   NonNullable<BattleState["pending"]>["type"],
   { readonly label: string; readonly hint: string }
 > = {
+  hagRelease: {
+    label: "等待英雄出锅",
+    hint: "选择邻接合法区域；英雄回到进攻姿态，其余英雄向后顺位。",
+  },
   evilEyeQuirk: { label: "等待怪癖替换", hint: "选择已有正面怪癖；获得新正面时也可弃掉新卡。" },
   hallAscension: {
     label: "等待升华升级选择",

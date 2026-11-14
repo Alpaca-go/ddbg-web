@@ -306,7 +306,7 @@ export type BossWilburMarkContext = {
 export type BossIntoThePotOk = {
   readonly status: "ok";
   /** 锅 Empty 时 Hag 每轮首次行动强制 Into the Pot!（42415 / spec §14.5 R39）。 */
-  readonly effect: "forceIntoThePotWhileCauldronEmptyOnFirstActionEachRound";
+  readonly effect: "forceIntoThePotWhileCauldronEmptyEachTurn";
   /** Hag 战斗卡 slot；Weald extract 入库前由常量 + 测试夹具对齐。 */
   readonly skillSlot: number;
   readonly sourceAbilityCardId: string;
