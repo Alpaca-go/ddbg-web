@@ -193,6 +193,15 @@ it("锅内英雄仍存活时，不把棋盘英雄全灭误判成队伍全灭", (
 
 it("R-254 未印刷伤害不补 0，漂移卡面拒绝；缺 Full 在掷骰／移动前拒绝", () => {
   const hag = buildHagICombatCatalog()[0]!;
+  const reordered = {
+    ...hag,
+    skills: hag.skills.map((s) => ({
+      ...s,
+      printed_labels: s.printed_labels.map((label) => ({ value: label.value, label: label.label })),
+      unlabeled_numbers: s.unlabeled_numbers.map((n) => ({ anchor: n.anchor, numeric: n.numeric })),
+    })),
+  };
+  expect(readMonsterAttackView(reordered, 1).status).toBe("ready");
   expect(
     readMonsterAttackView({ ...hag, skills: [{ ...hag.skills[0]!, name: "changed" }] }, 1).status,
   ).toBe("refused");

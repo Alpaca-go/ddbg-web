@@ -9,17 +9,29 @@ import { resolveEncounterBossScriptId } from "../../../boss/encounter-rules";
 /** R-254／R-255：核对核准卡面，再把 Self Pull 交给共用自身效果流程。 */
 export function readHagIIntoPotAttack(card: MonsterCardView, skill: MonsterSkillView) {
   const expected = buildHagICombatCatalog().find((c) => c.id === HAG_I_COMBAT_MONSTER_CARD_ID)!;
+  const canonical = (value: unknown): unknown => {
+    if (Array.isArray(value)) return value.map(canonical);
+    if (value !== null && typeof value === "object")
+      return Object.fromEntries(
+        Object.keys(value)
+          .sort()
+          .map((key) => [key, canonical((value as Record<string, unknown>)[key])]),
+      );
+    return value;
+  };
   const signature = (s: MonsterSkillView) =>
-    JSON.stringify([
-      s.slot,
-      s.name,
-      s.target,
-      s.printed_labels,
-      s.unlabeled_numbers,
-      s.lines,
-      s.effect_lines,
-      s.verified_hag_into_pot,
-    ]);
+    JSON.stringify(
+      canonical([
+        s.slot,
+        s.name,
+        s.target,
+        s.printed_labels,
+        s.unlabeled_numbers,
+        s.lines,
+        s.effect_lines,
+        s.verified_hag_into_pot,
+      ]),
+    );
   if (
     card.id !== expected.id ||
     card.life !== expected.life ||
