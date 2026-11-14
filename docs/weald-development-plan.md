@@ -6,7 +6,7 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 ## 当前进度与下一步
 
 - **当前阶段：步骤 5 已接通 `quest:weald:p001`–`p005`（**R-252**／**R-244**／**R-245**／**R-248**／**R-242**）；须选 Weald 包；村庄分地点抽 2 选 1，Hamlet 可出征五任务。步骤 2 地点切换与正式格式日志存档首批已验证；五任务自然通关留待 I 级阶段验收。步骤 4 战斗真菌链路不变。**
-- **当前批次**：PR #658 已 squash 合入 main（`e3180908`）。Fungal Research 三目标自然验收及 secured 旁置牌移出后续抽取已接通，详见「步骤 5 第二十一批」；当前分支 `codex/weald-fungal-three-objectives`，完整 CI 待验证。
+- **当前批次**：PR #658 已 squash 合入 main（`e3180908`）。Fungal Research 三目标自然验收及 secured 旁置牌移出后续抽取已接通，详见「步骤 5 第二十一批」；代码 `b9f52a6d`，PR #659，完整 CI 全绿、待合入。
 - **下一刀：Purge the Woods 与 Patrol the Woods 的剩余自然验收。Boss、II／III 与 Stygian 随后推进。字段核准遵守 R-048。**
 - 步骤 0 已完成，提交 `e7fd17e1`；完整地点战役尚未验收。
 - 导入与计划两批已合入并推送 `main`（`3be97c65`）。步骤 1 怪物批次已合入并推送 `main`（`7075f4d8`）。
@@ -463,5 +463,5 @@ Brigand Pounder 类型行、Shrieker’s Nest 和 Cauldron Empty 的专属卡面
 - 修复 R-246「secured 后弃掉」遗漏：过去从完整 3／6／8 号旁置集合重复抽取；现在以任务进度 `fungalResearchSecuredRoomCardIds` 记录已取得牌，后续抽取排除这些牌。只有胜利清理目标房且仍有未砸毁真菌才加入；全砸不会移出。已取得牌以专用列表保留，不混入普通洗牌堆；完整地点九张来源与原守恒检查不放宽。重复／非旁置记录及候选耗尽拒绝；仅 Fungal Research 使用该列表，Circle／Disinfection 单旁置复用不变。换任务走既有显式状态重建，不继承此任务进度。
 - 固定 seed 1，显式保留真菌、保守战斗与休息，经公开命令取得三间不同地图目标房及 3／8／6 三张牌，每场结束均至少留一枚真菌；带回累计 4，但每英雄及驿站 XP 封顶 3。测试核对每场只在胜利交接计带回、真实摧毁量与计数增量一致，并在战斗创建、首次摧毁前后、三次交接、摘要及回村严格存档回放；篡改已取得牌列表被拒绝。
 - 首轮使用 seed 2 的三间清房当作三目标，断言暴露其第一目标已全砸、并未 secured；未将它写作取得三目标。改用确实取得三目标的 seed 1；另修正普通牌堆尚未洗牌时为 null 的测试断言，以及负例夹具删除可选 battle 字段的 TypeScript 写法。不修改伤害、牌序、种子驱动 RNG 或目标条件来迁就测试。既有首目标保留／全砸对照继续通过。
-- 本地 typecheck、lint、build 通过；五文件 21 项通过（新三目标 1、既有四文件 20）。两条 Playwright 通过（1.4 分钟，未启用重试）：首目标保留／全砸对照，三目标带回 4／3 XP 及保存刷新；新三目标截图已查看。完整验证待 CI，未运行本地重复全量；Node 24.20.0 低于约定 24.21.0，pnpm 12.9.1。
-- 存档继续按公开日志严格重建，不静默补齐旧快照中缺失的 secured 记录；受本次修正影响的旧多目标快照不保证兼容。无新增规则待确认；本批不宣称五任务或完整战役完成，Boss／II–III／Stygian／房间 usable 不变。下一刀 Purge the Woods、Patrol the Woods 自然验收。
+- 本地 typecheck、lint、build 通过；五文件 21 项通过（新三目标 1、既有四文件 20）。两条 Playwright 通过（1.4 分钟，未启用重试）：首目标保留／全砸对照，三目标带回 4／3 XP 及保存刷新；新三目标截图已查看。代码 `b9f52a6d` 的 [完整 CI](https://github.com/Alpaca-go/ddbg-web/actions/runs/43549091769) 全绿：typecheck、lint、完整单测、build、完整 Playwright 均通过；下载日志核实 **521 文件、3,899 项通过、1 项沿用跳过**（1,090.37 秒），PR #659 已转待审。未运行本地重复全量；Node 24.20.0 低于约定 24.21.0，pnpm 12.9.1。
+- 存档继续按公开日志严格重建，不静默补齐旧快照中缺失的 secured 记录；受本次修正影响、已经取得目标的旧 Fungal Research 快照不保证兼容。无新增规则待确认；本批不宣称五任务或完整战役完成，Boss／II–III／Stygian／房间 usable 不变。下一刀 Purge the Woods、Patrol the Woods 自然验收。
