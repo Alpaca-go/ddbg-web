@@ -24,7 +24,7 @@ it("R-254 运行卡面保留三面属性、核准选招及 Into the Pot 的空�
   const pot = hag!.skills[0]!;
   expect(pot.printed_labels).toEqual([{ label: "Acc", value: 10 }]);
   expect(pot.unlabeled_numbers.some((n) => n.anchor.type === "printed_label")).toBe(false);
-  expect(readMonsterAttackView(hag!, 1)).toMatchObject({ status: "refused" });
+  expect(readMonsterAttackView(hag!, 1)).toMatchObject({ status: "ready", hagIntoPot: true });
   expect(WEALD_HAG_I_CONTENT).toEqual(before);
 });
 

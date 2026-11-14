@@ -1,4 +1,5 @@
 import { readFinalFormSequence } from "./boss/final-form-sequence";
+import { continueHagIIntoPot, finishHagISkillTurn } from "./expansions/weald/boss/hag-i-into-pot";
 import { applyAncestor1ImperfectReflectionDeath } from "./boss/ancestor1-reflections-death";
 import { withAncestor1ReflectionsGuardState } from "./boss/ancestor1-reflections-guard";
 import { clearRuinsBossCompanions } from "./boss/ruins-boss-death";
@@ -212,12 +213,14 @@ function startRound(
     prophetCalamitousUsedThisRound: _calamitousRoundFlag,
     prophetActionsThisRound: _prophetRoundActions,
     hagActionsThisRound: _hagRoundActions,
+    hagSecondSkillPending: _hagSecond,
     fanaticActionsThisRound: _fanaticRoundActions,
     ...battleRest
   } = battle;
   void _calamitousRoundFlag;
   void _prophetRoundActions;
   void _hagRoundActions;
+  void _hagSecond;
   void _fanaticRoundActions;
   return {
     ...battleRest,
@@ -266,6 +269,7 @@ export function finishTurn(
   events: readonly GameEvent[],
   evilEyeResolved = false,
 ): ApplyResult {
+  state = finishHagISkillTurn(state, actorId);
   const small = displaceSmallForHero(state, actorId, events);
   if (small) {
     if (small.pendingChoice || small.events.some((e) => e.type === "commandRefused")) return small;
@@ -601,7 +605,10 @@ export function removeCasualties(result: ApplyResult, ids: readonly string[]): A
 export function endAfterCasualties(result: ApplyResult): ApplyResult | null {
   const battle = result.state.battle!;
   const monstersDefeated = battle.entities.every((entity) => !isLivingCombatMonster(entity));
-  if (battle.entities.every((entity) => entity.side !== "hero" || entity.dead)) {
+  if (
+    battle.entities.every((entity) => entity.side !== "hero" || entity.dead) &&
+    (!battle.hagCauldron || battle.hagCauldron.hero.dead)
+  ) {
     return {
       state: {
         ...result.state,
@@ -893,6 +900,8 @@ export function recordMonsterSkill(
     ...pressureCasualties(battle, pressure),
     ...(resolved.actorDead ? [resolved.actorId] : []),
   ]);
+  const hagSecond = continueHagIIntoPot(removed, resolved);
+  if (hagSecond) return hagSecond;
   const morphed = chainHagICauldronFullAfterIntoThePot(removed, resolved);
   const ended = endAfterCasualties(morphed);
   if (ended) return ended;

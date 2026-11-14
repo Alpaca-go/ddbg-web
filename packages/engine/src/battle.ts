@@ -261,6 +261,8 @@ export type BattleState = BattleSetup & {
   readonly prophetActionsThisRound?: number;
   /** Hag I：本轮已完成的回合数，用于两次先攻配额；不限制入锅仅在首次。 */
   readonly hagActionsThisRound?: number;
+  /** R-255：同一次 Hag 回合在 Into the Pot 后仍须普通选招一次。 */
+  readonly hagSecondSkillPending?: true;
   /** R-255：棋子在锅卡上，离开战场；不保存原区域／姿态。 */
   readonly hagCauldron?: {
     readonly cauldronId: string;

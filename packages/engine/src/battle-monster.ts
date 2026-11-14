@@ -1,4 +1,6 @@
 import { isDarkestSupportSkill, playDarkestSupportSkill } from "./battle-monster-support";
+import { captureHagIHero } from "./expansions/weald/boss/hag-i-captive";
+import { HAG_I_COMBAT_MONSTER_CARD_ID } from "./expansions/weald/boss/hag-i";
 import { isPyreCard, playPyreSkill } from "./boss/pyre-skill";
 import {
   isCollectedVestalCard,
@@ -190,6 +192,32 @@ export function playMonsterSkill(
     return rejectBattleCommand(state, "怪物 Life 与规范化卡不一致（R-048）");
   const attack = readMonsterAttackView(card, command.skillSlot);
   if (attack.status === "refused") return rejectBattleCommand(state, attack.reason);
+  if (
+    card.id === HAG_I_COMBAT_MONSTER_CARD_ID &&
+    card.skills.some((s) => s.verified_hag_into_pot) &&
+    !prepared
+  )
+    return rejectBattleCommand(state, "R-255：Hag 技能必须先完成正式选招与选目标");
+  if (attack.hagIntoPot) {
+    if (battle.hagSecondSkillPending)
+      return rejectBattleCommand(state, "R-255：第二招不能重复 Into the Pot");
+    const probe = captureHagIHero(state, command.targetId);
+    const refused = probe.events.find((e) => e.type === "commandRefused");
+    if (refused) return rejectBattleCommand(state, refused.message);
+    const full = probe.state.battle!.entities.find(
+      (e) => e.id === probe.state.battle!.hagCauldron!.cauldronId,
+    )!;
+    if (
+      !battle.monsters?.some(
+        (c) =>
+          !c.verification.unverified &&
+          c.id === full.monsterCardId &&
+          c.life === full.life &&
+          c.innateProtection === full.innateProtection,
+      )
+    )
+      return rejectBattleCommand(state, "R-254：Into the Pot 缺少核准 Full 运行卡面");
+  }
   const skillEntry = card.skills.find((entry) => entry.slot === command.skillSlot);
   if (skillEntry?.target === "Self") {
     if (command.targetId !== command.actorId)

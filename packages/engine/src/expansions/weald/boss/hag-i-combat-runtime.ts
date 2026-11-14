@@ -172,7 +172,7 @@ export function bumpHagIActionRoundCount(state: GameState, actorId: string): Gam
 /** R-255：每次 Hag 回合且空锅在场，均先用 Into the Pot；不是每轮仅首次。 */
 export function hagIntoThePotShouldForceSkill(state: GameState, actorId: string): boolean {
   const battle = state.battle;
-  if (!battle?.encounter || battle.monsterAction) return false;
+  if (!battle?.encounter || battle.monsterAction || battle.hagSecondSkillPending) return false;
   const turn = battle.encounter.turn;
   if (turn.type !== "monster" || turn.actorId !== actorId) return false;
   if (!emptyCauldronEntity(battle)) return false;
