@@ -50,7 +50,7 @@ Heroes / Monsters 可穿过 capacity 0 的区域，但不能在那里结束其�
 R-255（Hag I 生命周期补充）：入锅英雄离开板块放到锅卡上，不保留姿态／先攻且不可操作、不可被技能选中；后方英雄前移。每次 Hag 空锅回合先 Into the Pot 再同回合第二招。Full 打翻或 Hag 清场时，英雄释放到邻接合法区域并进入 Aggressive，其余英雄后移。状态原语与正式技能／战役接线的进度分别记录，不能由裁定通过推定正式可玩。
 Boss 技能、威胁能力、附属单位规则以对应卡面单独转录核对，不从本表推断。
 
-Hag I 前置已按 W4 修正空锅 Ranged，并要求显式怪物部署区域，缺映射拒绝；尚未完成正式 Boss 闭环。[Hag I 审阅](../weald-hag-i-review-2026-11-14.md) 的卡面与 10 号板块经 R-254 更正后核准：Hag Speed 2／Dodge 1，Empty／Full Speed 0，Empty 胸甲为内置 Protection（R-019），B–F 仅角点，10 号全部区域为普通地形。独立 `hag_i.json` 生产目录及战斗区域投影已建立；真实 ID 迁移及完整 Boss 流程仍待接线，不自动提升 `usable`。
+Hag I 前置已按 W4 修正空锅 Ranged，并要求显式怪物部署区域，缺映射拒绝；尚未完成正式 Boss 闭环。[Hag I 审阅](../weald-hag-i-review-2026-11-14.md) 的卡面与 10 号板块经 R-254 更正后核准：Hag Speed 2／Dodge 1，Empty／Full Speed 0，Empty 胸甲为内置 Protection（R-019），B–F 仅角点，10 号全部区域为普通地形。独立 `hag_i.json` 生产目录及战斗区域投影已建立，真实 ID 已对齐；PR #667 按 R-255 接入锅／释放状态原语，完整技能与 Boss 战役流程仍待接线，不自动提升 `usable`。
 
 ## 待确认 Q-186：地点卡面与几何
 
