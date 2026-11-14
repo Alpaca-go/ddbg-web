@@ -1,4 +1,5 @@
 import { readFinalFormSequence } from "./boss/final-form-sequence";
+import { beginHagIRelease } from "./expansions/weald/boss/hag-i-release";
 import { continueHagIIntoPot, finishHagISkillTurn } from "./expansions/weald/boss/hag-i-into-pot";
 import { applyAncestor1ImperfectReflectionDeath } from "./boss/ancestor1-reflections-death";
 import { withAncestor1ReflectionsGuardState } from "./boss/ancestor1-reflections-guard";
@@ -669,13 +670,16 @@ export function recordEncounterSkill(
   if (!resolved || battle.encounter.turn.type !== "hero") return result;
   const pressure = resolveBattlePressure(result);
   if (pressure.events.some((event) => event.type === "commandRefused")) return pressure;
-  const removed = removeCasualties(pressure, [
+  const ids = [
     ...casualtyIds,
     ...pressureCasualties(battle, pressure),
     ...(resolved.type === "heroSkillResolved" && resolved.resolution.targetDead
       ? [resolved.resolution.targetId]
       : []),
-  ]);
+  ];
+  const release = beginHagIRelease(pressure, { type: "heroSkill", resolved, casualtyIds: ids });
+  if (release) return release;
+  const removed = removeCasualties(pressure, ids);
   const ended = endAfterCasualties(removed);
   if (ended) return ended;
   const state = removed.state;
@@ -895,11 +899,14 @@ export function recordMonsterSkill(
   if (!battle?.encounter || battle.encounter.turn.type !== "monster") return result;
   const pressure = resolveBattlePressure(result);
   if (pressure.events.some((event) => event.type === "commandRefused")) return pressure;
-  const removed = removeCasualties(pressure, [
+  const ids = [
     ...casualtyIds,
     ...pressureCasualties(battle, pressure),
     ...(resolved.actorDead ? [resolved.actorId] : []),
-  ]);
+  ];
+  const release = beginHagIRelease(pressure, { type: "monsterSkill", resolved, casualtyIds: ids });
+  if (release) return release;
+  const removed = removeCasualties(pressure, ids);
   const hagSecond = continueHagIIntoPot(removed, resolved);
   if (hagSecond) return hagSecond;
   const morphed = chainHagICauldronFullAfterIntoThePot(removed, resolved);
@@ -967,17 +974,40 @@ export function completeTurnStart(result: ApplyResult, actorId: string): ApplyRe
   const triggerDeaths = pressure.events.flatMap((event) =>
     event.type === "heroHealthResolved" && event.resolution.deathblow ? [event.entityId] : [],
   );
-  const removed = removeCasualties(
+  return finishTurnStartAfterStatus(
     started,
+    actorId,
+    status.entity.dead,
+    status.stunned,
     [
       ...pressureCasualties(before, pressure),
       ...triggerDeaths,
       ...(status.entity.dead ? [actorId] : []),
     ].filter((id, index, ids) => ids.indexOf(id) === index),
   );
+}
+
+/** 回合开始状态已结算；释放待选续接只能进入这里，不能重复状态或掷骰。 */
+export function finishTurnStartAfterStatus(
+  result: ApplyResult,
+  actorId: string,
+  dead: boolean,
+  stunned: boolean,
+  ids: readonly string[],
+): ApplyResult {
+  const release = beginHagIRelease(result, {
+    type: "turnStart",
+    actorId,
+    dead,
+    stunned,
+    casualtyIds: ids,
+  });
+  if (release) return release;
+  const actor = result.state.battle!.entities.find((e) => e.id === actorId)!;
+  const removed = removeCasualties(result, ids);
   return (
     endAfterCasualties(removed) ??
-    (isAbsoluteNothingnessEntity(status.entity)
+    (isAbsoluteNothingnessEntity(actor)
       ? finishTurn(removed.state, actorId, [
           ...removed.events,
           {
@@ -991,7 +1021,7 @@ export function completeTurnStart(result: ApplyResult, actorId: string): ApplyRe
             ...removed.events,
             { type: "dungeonUpdated", message: "Weald W4：空锅不执行动作，结束回合" },
           ])
-        : status.entity.dead || (actor.side === "monster" && status.stunned)
+        : dead || (actor.side === "monster" && stunned)
           ? finishTurn(removed.state, actorId, removed.events)
           : removed)
   );

@@ -3,6 +3,7 @@ import type { ApplyResult, GameState, MonsterSkillResolvedEvent } from "../../..
 import { compileMonsterEffectPlan } from "../../../monster-effect-plan";
 import { buildHagICombatCatalog } from "./hag-i-projection";
 import { captureHagIHero } from "./hag-i-captive";
+import { beginHagIRelease } from "./hag-i-release";
 import { HAG_I_COMBAT_MONSTER_CARD_ID, HAG_I_SCRIPT_ID } from "./hag-i";
 import { resolveEncounterBossScriptId } from "../../../boss/encounter-rules";
 
@@ -86,7 +87,7 @@ export function continueHagIIntoPot(
     if (captured.events.some((e) => e.type === "commandRefused")) return captured;
     next = { ...captured, events: [...result.events, ...captured.events] };
   }
-  return {
+  const completed: ApplyResult = {
     ...next,
     state: {
       ...next.state,
@@ -97,6 +98,7 @@ export function continueHagIIntoPot(
       { type: "dungeonUpdated", message: "R-255：Into the Pot 完成，继续本次 Hag 回合的第二招" },
     ],
   };
+  return beginHagIRelease(completed, { type: "hagSecond" }) ?? completed;
 }
 
 export function finishHagISkillTurn(state: GameState, actorId: string): GameState {
