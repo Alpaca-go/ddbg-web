@@ -189,6 +189,8 @@ function startRound(
     const rolled = rollPatrolTheWoodsBattleStartD10(seed, cursor);
     patrolRoll = rolled.roll;
     cursor = rolled.cursor;
+    // R-242：d10 已消耗一个随机数，洗牌须接着取下一个，不能重用该次掷骰。
+    rng.next();
   }
   for (let index = deck.length - 1; index > 0; index -= 1) {
     const other = Math.floor(rng.next() * (index + 1));

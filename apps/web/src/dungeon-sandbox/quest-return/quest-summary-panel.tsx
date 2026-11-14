@@ -37,7 +37,9 @@ export function QuestSummaryPanel({
               ? `击杀 Crone ${d.questSummary.croneKills} 只`
               : d.questSummary.questId === "quest:weald:p003" && "oaksDisinfected" in d.questSummary
                 ? `已消毒 ${d.questSummary.oaksDisinfected} 棵橡树`
-                : `${d.questSummary.questId !== "quest:p001" ? "巢穴清理" : "清理"} ${quest!.xpKind === "flat" ? "Boss 定额" : `${d.questSummary.clearedRoomIds.length} / ${questPrintedXpCap(quest!)} 间`}`}{" "}
+                : d.questSummary.questId === "quest:weald:p005"
+                  ? `已清理 ${d.questSummary.clearedRoomIds.length} 间房（每 2 间 1 XP）`
+                  : `${d.questSummary.questId !== "quest:p001" ? "巢穴清理" : "清理"} ${quest!.xpKind === "flat" ? "Boss 定额" : `${d.questSummary.clearedRoomIds.length} / ${questPrintedXpCap(quest!)} 间`}`}{" "}
           · 每名英雄
           {d.questSummary.awarded ? "已发" : "待发"} {d.questSummary.xpPerHero} XP · 驿站
           {d.questSummary.awarded ? "已发" : "待发"} {d.questSummary.stagecoachXp} XP
