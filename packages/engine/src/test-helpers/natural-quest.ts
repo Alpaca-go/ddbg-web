@@ -25,6 +25,8 @@ export const naturalParty = coreParty.map((hero, index) => ({
   skillIds: equipped[index]!,
 }));
 export type NaturalQuestOptions = {
+  /** Disinfection 测试玩家：消毒指定数量橡树后合法撤离。 */
+  readonly exitAfterDisinfectedOaks?: number;
   /** Circle of Witches 测试玩家：击杀指定数量 Crone 后合法撤离。 */
   readonly exitAfterCroneKills?: number;
   readonly fungalResearch?: "retain-one" | "destroy-all";
@@ -196,7 +198,8 @@ export function naturalQuest(
         // 公开替补流程：先准备，再选升级，最后入队；等待英雄代币仍由引擎判定。
         for (let guard = 0; guard < 10 && dungeonPhase() === "awaitingReplacement"; guard++) {
           step(
-            state.dungeon!.preparedReplacements?.length
+            (state.dungeon!.preparedReplacements?.length ?? 0) >=
+              state.dungeon!.heroes.filter((h) => h.dead).length
               ? { type: "joinPreparedReplacements" }
               : { type: "prepareReplacementHero" },
           );
@@ -408,19 +411,21 @@ export function naturalQuest(
         lairs = cleared.filter((r) => r.kind === "lair");
       const done = isBossQuestId(activeQuestId)
         ? d.bossQuestVictory === true
-        : options.exitAfterCroneKills !== undefined
-          ? (d.questExceptionCroneKills ?? 0) >= options.exitAfterCroneKills
-          : options.exitAfterBattles !== undefined
-            ? events.filter((e) => e.type === "battleFinished").length >= options.exitAfterBattles
-            : activeQuest.xpKind === "all"
-              ? cleared.length >= scoutRooms && won > 0
-              : activeQuest.xpKind === "lair"
-                ? lairs.length >= wipeLairs
-                : activeQuest.xpKind === "objective"
-                  ? cleared.filter((r) => r.kind === "objective").length >= 1
-                  : activeQuest.xpKind === "curio"
-                    ? cleared.filter((r) => r.kind === "curio").length >= 1
-                    : lairs.length > 0 && d.gold >= 20;
+        : options.exitAfterDisinfectedOaks !== undefined
+          ? (d.disinfectionOakCount ?? 0) >= options.exitAfterDisinfectedOaks
+          : options.exitAfterCroneKills !== undefined
+            ? (d.questExceptionCroneKills ?? 0) >= options.exitAfterCroneKills
+            : options.exitAfterBattles !== undefined
+              ? events.filter((e) => e.type === "battleFinished").length >= options.exitAfterBattles
+              : activeQuest.xpKind === "all"
+                ? cleared.length >= scoutRooms && won > 0
+                : activeQuest.xpKind === "lair"
+                  ? lairs.length >= wipeLairs
+                  : activeQuest.xpKind === "objective"
+                    ? cleared.filter((r) => r.kind === "objective").length >= 1
+                    : activeQuest.xpKind === "curio"
+                      ? cleared.filter((r) => r.kind === "curio").length >= 1
+                      : lairs.length > 0 && d.gold >= 20;
       if (done) {
         step({ type: "leaveDungeon" });
         choose("agree");
