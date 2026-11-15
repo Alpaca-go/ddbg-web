@@ -1,3 +1,5 @@
+import { isPounderMatchmanAction } from "./expansions/weald/boss/pounder-i-turn";
+import { applyPounderIFireInTheHole } from "./expansions/weald/boss/pounder-i-fire";
 import { isDarkestSupportSkill, playDarkestSupportSkill } from "./battle-monster-support";
 import { captureHagIHero } from "./expansions/weald/boss/hag-i-captive";
 import {
@@ -180,6 +182,11 @@ export function playMonsterSkill(
       prepared.targetId !== command.targetId)
   )
     return rejectBattleCommand(state, "必须使用本回合已保存的技能与英雄目标");
+  if (prepared?.positioned && isPounderMatchmanAction(state, command.actorId))
+    return applyPounderIFireInTheHole(
+      { ...state, battle: { ...battle, monsterAction: null } },
+      command.actorId,
+    );
   const actor = battle.entities.find((entry) => entry.id === command.actorId);
   if (actor?.monsterCardId === "monster_medium:weald:p020" && !triggered)
     return rejectBattleCommand(state, "R-258：Pounder 仅由同区 Matchman 的专属命令触发炮击");

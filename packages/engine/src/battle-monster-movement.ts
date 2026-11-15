@@ -1,3 +1,4 @@
+import { isPounderMatchmanAction } from "./expansions/weald/boss/pounder-i-turn";
 import { withTeleporterAdjacency } from "./battle-teleporters";
 import { isDarkestSupportSkill } from "./battle-monster-support";
 import { isPyreCard } from "./boss/pyre-skill";
@@ -327,6 +328,7 @@ export function moveMonsterToRange(
   const actor = battle.entities.find((entity) => entity.id === action.actorId);
   const target = battle.entities.find((entity) => entity.id === action.targetId);
   const card = battle.monsters?.find((card) => card.id === actor?.monsterCardId);
+  const matchmanAction = isPounderMatchmanAction(state, command.actorId);
   if (
     !actor ||
     actor.side !== "monster" ||
@@ -337,7 +339,8 @@ export function moveMonsterToRange(
       !(
         (isCollectedVestalCard(card?.id) ||
           isBoneBearerRally(card?.id, action.skillSlot) ||
-          isDarkestSupportSkill(card?.id, action.skillSlot)) &&
+          isDarkestSupportSkill(card?.id, action.skillSlot) ||
+          matchmanAction) &&
         target.side === "monster"
       )) ||
     target.dead ||
@@ -348,13 +351,17 @@ export function moveMonsterToRange(
   const attack = readMonsterAttackView(card, action.skillSlot);
   if (attack.status === "refused") return rejectBattleCommand(state, attack.reason);
   const range = readPrintedRange(attack.view);
-  const targets = readPrintedTargets(attack.view);
+  // R-258：Matchman 的唯一目标是 Pounder，不给历史卡面投影补造英雄／怪物头图标。
+  const targets = matchmanAction
+    ? { kind: "exact" as const, max: 1 }
+    : readPrintedTargets(attack.view);
   if ((range.kind !== "exact" && range.kind !== "interval") || targets.kind !== "exact")
     return rejectBattleCommand(state, "需要已核实射程与目标数量（R-048）");
   const minRange = range.kind === "exact" ? range.distance : range.min;
   const maxRange = range.kind === "exact" ? range.distance : range.max;
   // 复用纯技能校验，不掷骰或写伤害；预设印刷距离只用来排除未知数值 / 不支持效果。
   const probe =
+    matchmanAction ||
     isCollectedVestalCard(card.id) ||
     isDarkestSupportSkill(card.id, action.skillSlot) ||
     isBoneBearerRally(card.id, action.skillSlot) ||

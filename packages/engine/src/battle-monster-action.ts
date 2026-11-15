@@ -1,3 +1,4 @@
+import { preparePounderITurn } from "./expansions/weald/boss/pounder-i-turn";
 import { applyHagIBoil } from "./expansions/weald/boss/hag-i-boil";
 import { isDarkestSupportSkill } from "./battle-monster-support";
 import { HAG_I_CAULDRON_FULL_MONSTER_CARD_ID } from "./expansions/weald/boss/hag-i";
@@ -120,6 +121,8 @@ export function prepareMonsterAction(
   const occupied = stances.slice(position, position + actor.stanceSlots);
   if (occupied.length !== actor.stanceSlots)
     return rejectBattleCommand(state, "怪物姿态占格超出轨道（R17）");
+  const pounderTurn = preparePounderITurn(state, actor.id);
+  if (pounderTurn) return pounderTurn;
   if (isInvokingMonster(battle, actor.id)) return moveInvokingMonster(state, actor.id);
   if (collectorCollectAllShouldReplaceSkill(state, actor.id)) {
     return applyCollectorCollectAll(state, actor.id);

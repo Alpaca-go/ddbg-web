@@ -12,7 +12,7 @@ export const pounderIBossScript: BossScriptDefinition = {
   displayName: "Brigand Pounder I",
   rules: DEFAULT_BOSS_BATTLE_RULES,
   notes:
-    "两段威胁、增援、炮击、显式部署与清场已接；战后交接与显式版本出征已接；怪物回合准入和完整战斗回放仍 hold。",
+    "两段威胁、增援、炮击、显式部署与清场已接；战后交接与显式版本出征已接；怪物回合与失败日志已接；网页、专属待选和自然胜利验收仍 hold。",
   combatEntry: {
     descriptionAbilityCardId: content.abilities.descriptionCardId,
     combatAbilityCardId: content.abilities.combatCardId,
