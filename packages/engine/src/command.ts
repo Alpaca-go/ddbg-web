@@ -107,6 +107,10 @@ import { startDungeonBattle, finishDungeonBattle } from "./dungeon-battle";
 import { conditionPoolProblem, replaceConditionQuirk } from "./conditions";
 import { recordMonsterSkill } from "./encounter";
 import { chooseNecromancerISummon } from "./boss/necromancer-i-combat-runtime";
+import {
+  applyPounderIReinforcements,
+  choosePounderIReinforcements,
+} from "./expansions/weald/boss/pounder-i-reinforcements";
 import { chooseWealdMonsterSummon } from "./expansions/weald/monster-summon";
 import { chooseCollectorISummon } from "./boss/collector-i-combat-runtime";
 import {
@@ -338,6 +342,7 @@ type BaseCommand =
   | { readonly type: "applyShufflingHorrorEchoingDisassembly"; readonly actorId: string }
   | { readonly type: "applyShufflingHorrorLacerate"; readonly actorId: string }
   | { readonly type: "applyMammothCystSummonWhiteCell"; readonly actorId: string }
+  | { readonly type: "applyPounderIReinforcements"; readonly actorId: string }
   | { readonly type: "applyGestatingHeartSummon"; readonly actorId: string }
   | { readonly type: "applyAncestor1TimeHealsAll"; readonly actorId: string }
   | { readonly type: "applyAncestor1PerfectReplication"; readonly actorId: string }
@@ -770,6 +775,8 @@ function dispatchCommand(
     }
     if (pending.type === "necromancerSummon")
       return chooseNecromancerISummon(state, command.optionId);
+    if (pending.type === "pounderReinforcements")
+      return choosePounderIReinforcements(state, command.optionId);
     if (pending.type === "wealdSummon") return chooseWealdMonsterSummon(state, command.optionId);
     if (pending.type === "hagRelease") return chooseHagIRelease(state, command.optionId);
     if (pending.type === "allTrinkets") return rejectBattleCommand(state, "饰品续接上下文缺失");
@@ -896,6 +903,8 @@ function dispatchCommand(
     return applyShufflingHorrorLacerate(state, command.actorId);
   if (command.type === "applyMammothCystSummonWhiteCell")
     return applyMammothCystSummonWhiteCell(state, command.actorId);
+  if (command.type === "applyPounderIReinforcements")
+    return applyPounderIReinforcements(state, command.actorId);
   if (command.type === "applyGestatingHeartSummon")
     return applyGestatingHeartSummon(state, command.actorId);
   if (command.type === "applyAncestor1TimeHealsAll")

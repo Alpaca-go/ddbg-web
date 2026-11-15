@@ -40,6 +40,10 @@ const pendingSteps: Record<
     label: "等待 Weald 召唤挤占选择",
     hint: "选择角色与最近可用区域，完成 R-230 召唤部署。",
   },
+  pounderReinforcements: {
+    label: "等待 Pounder 增援挤占选择",
+    hint: "选择角色与最近可用区域，继续部署剩余增援。",
+  },
   trinketReward: {
     label: "等待饰品获得选择",
     hint: "选择接收者、转交或弃牌，继续原入牌；不会重抽或重复扣行动。",

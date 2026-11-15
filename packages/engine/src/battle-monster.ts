@@ -177,6 +177,11 @@ export function playMonsterSkill(
   )
     return rejectBattleCommand(state, "必须使用本回合已保存的技能与英雄目标");
   const actor = battle.entities.find((entry) => entry.id === command.actorId);
+  if (actor?.monsterCardId === "monster_medium:weald:p020")
+    return rejectBattleCommand(
+      state,
+      "R-258：Pounder 仅由同区 Matchman 触发炮击；专属命令尚未接入",
+    );
   if (actor?.monsterCardId === HAG_I_CAULDRON_FULL_MONSTER_CARD_ID && battle.hagCauldron)
     return rejectBattleCommand(state, "R-255：Boil 只允许从锅回合选招入口结算锅内英雄");
   if (actor?.monsterCardId === "monster_medium:p104" && command.skillSlot === 1)
