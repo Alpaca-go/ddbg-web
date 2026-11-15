@@ -63,6 +63,7 @@ export type NaturalQuestOptions = {
   readonly toxicMushrooms?: true;
   readonly wealdUnprepared?: true;
   readonly wealdPrecious?: true;
+  readonly wealdAbyssalPuff?: true;
   /** 玩家策略：每间房后按这个「伤口 + 压力」阈值决定休息（默认 12，与既有自然策略一致）。 */
   readonly restThreshold?: number;
 };
@@ -89,6 +90,8 @@ export function naturalQuest(
       command = { ...command, wealdUnprepared: true };
     if (options.wealdPrecious && command.type === "startBattle")
       command = { ...command, wealdPrecious: true };
+    if (options.wealdAbyssalPuff && command.type === "startBattle")
+      command = { ...command, wealdAbyssalPuff: true };
     const r = applyCommand(state, command);
     const refused = r.events.find((e) => e.type === "commandRefused");
     if (refused) throw new Error(`${command.type}: ${refused.message}`);
