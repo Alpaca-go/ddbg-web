@@ -118,7 +118,19 @@ it.each([false, true])(
       }),
     ).toBe(true);
     expect(run.state.battle?.roomName).toBe("Pounder");
-    expect(run.stopReason).toBe("prepareMonsterAction: 缺少已核实的姿态选招分组（R-015、R-048）");
+    expect(run.stopReason).toBe("battle halted: heroesDefeated");
+    const finished = applyCommand(run.state, { type: "finishDungeonBattle" });
+    expect(finished.events.filter((e) => e.type === "commandRefused")).toEqual([]);
+    expect(finished.state.dungeon!.campaignFailure).toBe("bossQuestHeroesDefeated");
+    const finalSave = createQuestSave(
+      start,
+      [...commands, { type: "finishDungeonBattle" }],
+      finished.state,
+      coreQuestSources,
+    );
+    expect(loadQuestSave(JSON.parse(JSON.stringify(finalSave)), coreQuestSources).game).toEqual(
+      finished.state,
+    );
   },
 );
 
