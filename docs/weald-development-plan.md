@@ -6,8 +6,9 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 ## 当前进度与下一步
 
 - **当前阶段：步骤 5 的 `quest:weald:p001`–`p005` 已补齐固定种子自然场景（**R-252**／**R-244**／**R-245**／**R-248**／**R-242**）；须选 Weald 包，村庄分地点抽 2 选 1，Hamlet 可出征五任务。地点切换和正式日志存档已验证；I 级阶段待收尾核对，完整战役尚未验收。**
-- **当前批次**：PR #677 按 Kyries「合入，继续」squash 合入 main（`0de65e6d`），合入时 CI 尚在运行。Kyries 随后明确选择保留 Hag 跨任务验收缺口，先准备 Brigand Pounder 审阅资料；[I 级候选审阅稿](weald-pounder-i-review-2026-11-15.md) 已整理。
-- **下一刀：Pounder I／Matchman I、增援及 12 号板块经 R-258 核准，两段威胁经 R-259 续核，本表审阅项结案。下一批建立独立 Boss 数据并核对核心同级 Fusilier 来源；Hag 跨任务验收缺口继续保留。**
+- **当前批次**：PR #679 按 Kyries「合入，继续」squash 合入 main（`f52496ef`），合入时 CI 尚在运行。R-258／R-259 核准内容已写入独立 Pounder I 数据、Zod schema 与几何投影，核心 I 级 Fusilier 来源已核对。
+- **下一刀：接入 Pounder I 注册与威胁运行时，再按核准条件接增援及 Matchman 触发炮击；当前未开放部署、普通池或正式战役。Hag 跨任务验收缺口继续保留。**
+
 - 步骤 0 已完成，提交 `e7fd17e1`；完整地点战役尚未验收。
 - 导入与计划两批已合入并推送 `main`（`3be97c65`）。步骤 1 怪物批次已合入并推送 `main`（`7075f4d8`）。
 - Houndmaster、Shieldbreaker 已接入，沿用现有英雄实现，不重做。
@@ -673,3 +674,12 @@ Brigand Pounder 类型行、Shrieker’s Nest 和 Cauldron Empty 的专属卡面
 - Kyries 在获知 Boss Abilities BACK p10 来源后核准地牢与村庄威胁，登记 R-259：进入怪物姿态轨 Ranged 获得增益 2t＋反击 1t；每日轰炸按卡文结算，Caretaker 同处例外优先。
 - 审阅稿表列项已全部核准；下一步建立独立 I 级 Boss 数据与核心同级 Fusilier 来源核对。生产数据与运行时尚未改，Hag 缺口保留，不扩大其它等级或 Stygian。
 - 验证：仅文档格式、相对链接与 diff 空白检查；未运行无关引擎测试。
+
+### Pounder I 独立数据目录（2026-11-15）
+
+- 起点 main `f52496ef`，#679 按指令 squash 合入并同步，远端分支删除；合入时 CI 尚在运行。分支 `codex/weald-pounder-content`，#678 玩家日志文件入口仍为独立草稿，未混入本批。
+- R-258／R-259、Weald W4：录入 `pounder_i.json`，保留真实卡 ID、Pounder 仅触发技能、Matchman 同区域触发、按组成补足增援、进入姿态槽威胁、村庄轰炸 Caretaker 例外。独立 12 号板块包含十二普通区域、16 对共边、五对仅角点与墙体说明，部署和普通池不变。
+- 共用几何基础 schema 增加 R-258 枚举，普通九房 schema 仍限定原裁定及 1–9 号，Pounder 不进入普通目录；`combatReady`／`usable` 均保持 false。几何投影及来源函数不注册脚本、不掷骰、不抽牌、不创建召唤实体。
+- 核对完整核心来源：I 级通用 Brigand Fusilier 为 `monster_medium:p027`，实体页 p27／28／29，共三份；校验完整目录和至少两份同级来源，缺失拒绝，不修改来源。尚未完成召唤卡实际战斗投影与牌池守恒，不声称增援运行时已交付。
+- 验证：首批 10 项通过；与 Hag 数据、普通房间及 Hag 几何组合 4 文件 24 项通过。最终 typecheck、lint、build 均通过（Node 24.20.0 低于约定 24.21.0，pnpm 12.9.1）；完整 CI 待完成；首次 typecheck 发现共用 schema 裁定枚举缺 R-258，已补入且未放宽普通目录。无新增规则待确认，原未跟踪交接文档保留、不提交。
+- 下一步：接 Boss 注册与两段威胁，再做增援与炮击，之后正式部署、先攻、清场、地点出征、回放与 UI。Hag 缺口和高等级／Stygian 边界继续保留。本批不是阶段末，不新增浏览器路径。

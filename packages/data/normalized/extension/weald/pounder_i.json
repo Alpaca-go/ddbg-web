@@ -1,0 +1,128 @@
+{
+ "schema": "ddbg-weald-pounder-i-v1",
+ "rulings": ["R-258", "R-259"],
+ "combatReady": false,
+ "sources": {
+  "combatFront": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_monsters_medium_FRONT.pdf",
+  "combatBack": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_monsters_medium_BACK.pdf",
+  "abilityFront": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+  "abilityBack": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_BACK.pdf"
+ },
+ "faces": [
+  {
+   "role": "pounder",
+   "rawId": "monster_medium:weald:p020",
+   "face": "front",
+   "name": "Brigand Pounder",
+   "level": 1,
+   "types": [],
+   "life": 55,
+   "speed": 0,
+   "dodge": 0,
+   "innateProtection": true,
+   "resistances": [],
+   "immunities": ["stun", "bleed", "blight", "debuff", "shuffle"],
+   "selection": "triggerOnly",
+   "skill": {"slot": 1, "name": "BOOOOOOM!", "target": "crowded", "range": 5, "maxTargets": 4, "crit": 0, "critDamage": 19, "accuracy": 9, "damage": 9, "onHitStress": 2}
+  },
+  {
+   "role": "matchman",
+   "rawId": "monster_medium:weald:p023",
+   "face": "front",
+   "name": "Brigand Matchman",
+   "level": 1,
+   "types": ["human"],
+   "life": 7,
+   "speed": 1,
+   "dodge": 2,
+   "innateProtection": false,
+   "resistances": ["stun", "shuffle"],
+   "immunities": [],
+   "selection": "skill1AllStances",
+   "skill": {"slot": 1, "name": "Fire in the Hole!", "target": "pounder", "range": 0, "crit": null, "accuracy": null, "damage": null, "triggerSkill": "BOOOOOOM!", "requiresSameArea": true}
+  }
+ ],
+ "abilities": {
+  "descriptionCardId": "boss_ability:weald:p007",
+  "combatCardId": "boss_ability:weald:p010",
+  "actionsPerRound": 1,
+  "reinforcements": {"condition": "matchmanAbsent", "mode": "fillToComposition", "matchmen": 1, "fusiliers": 2, "fusilierCardId": "monster_medium:p027"},
+  "threats": {
+   "dungeon": {"name": "Bullseye Guillotine I", "trigger": "enterMonsterRangedStance", "buffDuration": 2, "riposteDuration": 1},
+   "hamlet": {"name": "Bombardment I", "timing": "dayEndBeforeHeroRemoval", "roll": "d10", "heroDamage": 5, "emptyBuilding": "levelDownIfPossible", "caretaker": "preventsAllEffects"}
+  }
+ },
+ "setup": {"rule": "Weald W4", "pounderStance": "aggressive", "monsterInitiativeCards": 1, "heroInitiativeCards": 4, "removeAllBrigandsOnPounderDefeat": true},
+ "tile": {
+  "id": "room_tile:weald:p006:back",
+  "rawId": "dungeon_tile:weald:p006",
+  "roomId": "room:weald:p012",
+  "location": "weald",
+  "number": 12,
+  "name": "Brigand Pounder",
+  "source": {"file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_WEALD_TILES_BACK.pdf", "page": 6, "face": "back"},
+  "ruling": "R-258",
+  "geometryVerified": true,
+  "geometryComplete": true,
+  "usable": false,
+  "pendingReview": [],
+  "deployment": {
+   "printReview": "verified",
+   "heroes": {"aggressive": "K", "defensive": "J", "ranged": "L", "support": "J"},
+   "monsters": {"aggressive": "B", "defensive": "D", "ranged": "I", "support": "C"},
+   "lootAreas": [],
+   "markers": [
+    {"areaId": "K", "iconId": "7b8c742c86", "semantic": "hero_aggressive_start", "status": "confirmed"},
+    {"areaId": "J", "iconId": "1a71d94723", "semantic": "hero_defensive_start", "status": "confirmed"},
+    {"areaId": "L", "iconId": "7ab26866fc", "semantic": "hero_ranged_start", "status": "confirmed"},
+    {"areaId": "J", "iconId": "39d6ddf024", "semantic": "hero_support_start", "status": "confirmed"},
+    {"areaId": "B", "iconId": "8787ebb1b2", "semantic": "monster_aggressive_start", "status": "confirmed"},
+    {"areaId": "D", "iconId": "1f26dc63eb", "semantic": "monster_defensive_start", "status": "confirmed"},
+    {"areaId": "I", "iconId": "643d396fef", "semantic": "monster_ranged_start", "status": "confirmed"},
+    {"areaId": "C", "iconId": "293f170eab", "semantic": "monster_support_start", "status": "confirmed"}
+   ]
+  },
+  "areas": [
+   {"id": "A", "capacity": 3, "elevation": "normal"},
+   {"id": "B", "capacity": 3, "elevation": "normal"},
+   {"id": "C", "capacity": 3, "elevation": "normal"},
+   {"id": "D", "capacity": 3, "elevation": "normal"},
+   {"id": "E", "capacity": 3, "elevation": "normal"},
+   {"id": "F", "capacity": 3, "elevation": "normal"},
+   {"id": "G", "capacity": 2, "elevation": "normal"},
+   {"id": "H", "capacity": 3, "elevation": "normal"},
+   {"id": "I", "capacity": 2, "elevation": "normal"},
+   {"id": "J", "capacity": 4, "elevation": "normal"},
+   {"id": "K", "capacity": 3, "elevation": "normal"},
+   {"id": "L", "capacity": 3, "elevation": "normal"}
+  ],
+  "edges": [
+   {"to": "B", "cornerOnly": false, "blocked": false, "from": "A"},
+   {"to": "D", "cornerOnly": false, "blocked": false, "from": "A"},
+   {"to": "C", "cornerOnly": false, "blocked": false, "from": "B"},
+   {"to": "E", "cornerOnly": false, "blocked": false, "from": "B"},
+   {"to": "F", "cornerOnly": false, "blocked": false, "from": "C"},
+   {"to": "H", "cornerOnly": false, "blocked": false, "from": "D"},
+   {"to": "F", "cornerOnly": false, "blocked": false, "from": "E"},
+   {"to": "I", "cornerOnly": false, "blocked": false, "from": "E"},
+   {"to": "G", "cornerOnly": false, "blocked": false, "from": "F"},
+   {"to": "L", "cornerOnly": false, "blocked": false, "from": "G"},
+   {"to": "I", "cornerOnly": false, "blocked": false, "from": "H"},
+   {"to": "J", "cornerOnly": false, "blocked": false, "from": "H"},
+   {"to": "J", "cornerOnly": false, "blocked": false, "from": "I"},
+   {"to": "K", "cornerOnly": false, "blocked": false, "from": "I"},
+   {"to": "K", "cornerOnly": false, "blocked": false, "from": "J"},
+   {"to": "L", "cornerOnly": false, "blocked": false, "from": "K"},
+   {"to": "E", "cornerOnly": true, "blocked": false, "from": "A"},
+   {"to": "F", "cornerOnly": true, "blocked": false, "from": "B"},
+   {"to": "E", "cornerOnly": true, "blocked": false, "from": "C"},
+   {"to": "H", "cornerOnly": true, "blocked": false, "from": "E"},
+   {"to": "K", "cornerOnly": true, "blocked": false, "from": "G"}
+  ],
+  "necroticFungusAreas": [],
+  "zeroCapacityAreas": [],
+  "specialRegions": [],
+  "wallNotes": ["D–E 竖长黑凹口为墙体，不通行", "E 右下为反 L 墙体；E–G 不通行"],
+  "unresolvedMarkers": []
+ }
+}
