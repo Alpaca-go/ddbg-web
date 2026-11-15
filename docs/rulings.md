@@ -3398,3 +3398,21 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **裁定**：Irrational 要前移／后移一格而目标姿态为空时，直接移入空姿态，不要求存在交换对象；有存活英雄时沿用原交换，棋盘区域不因此改变。轨道尽头沿 R-057。
 - **阵亡补位**：Kyries 同时重申 R-030：战斗期间前方英雄阵亡，后方英雄自动逐格前移；例如 Aggressive 阵亡，Defensive→Aggressive、Ranged→Defensive、Support→Ranged。棋盘棋子沿 R-030 不移动。
 - **依据**：Kyries 本次明确回复「直接移入」及阵亡补位示例；R-030、R-057。Q-187 结案，不新增技能数值或 Shuffle 规则。
+
+### R-258
+
+- **日期**：2026-11-15。
+- **核准范围**：Kyries 填写并续核 [Brigand Pounder I 审阅稿](weald-pounder-i-review-2026-11-15.md) 的战斗卡字段、触发条件、增援及 12 号板块。地牢／村庄威胁尚待查看原卡后确认，不纳入本条核准。
+- **战斗卡**：Pounder I Life 55、Speed 0、Dodge 0、无类型、内置 Protection；无抗性，免疫眩晕／流血／腐蚀／减益／位移。Matchman I Life 7、Speed 1、Dodge 2、Human；抗性眩晕／位移，无免疫，四姿态均使用技能 1。其它已填技能字段按更正后审阅表采用，不将原候选误读保留为规则。
+- **炮击触发**：Pounder 不自行使用 BOOOOOOM!；Matchman 的 Fire in the Hole! 立即触发该技能，无 Crit／Acc 掷骰行。Matchman 与 Pounder 必须在同一 **Area 区域**，不是仅在同一房间板块；不另加区域内距离或格位限制。炮击命中对象压力 +2。
+- **增援**：仅当场上没有 Matchman 时，Pounder 的 Reinforcements 才发动；Matchman 仍在时，即使 Fusilier 阵亡也不发动。发动时按该等级能力要求补足满员，I 级为 1 名 Matchman＋2 名 Fusiliers；已有 Fusilier 计入数量，不另额外生成两名。其它等级的实际组成仍须单独核对卡面。
+- **12 号板块**：更正后的 A–L 容量、部署标记、16 对可通行共边、墙体核准；I 容量 2，C 怪物 Support，J 英雄 Defensive／Support。仅角点为 A–E、B–F、C–E、E–H、G–K；右下黑凹口为反 L 墙。全部区域无高低地，按 normal；无零容量区域。
+- **依据与边界**：Kyries 本次填写及对五项续问的第 1、2、5 项明确回复；官方 W4、对应印刷卡及审阅表。不因此核准 Bullseye Guillotine I、Bombardment I、其它等级、Stygian 或运行资格；Hag 跨任务验收缺口继续保留。
+
+### R-259
+
+- **日期**：2026-11-15。
+- **核准**：Kyries 在获知两段原文均位于 `DD_EN_WEALD_CARDS_70_120_Boss_Abilities_BACK.pdf` 第 10 页（`boss_ability:weald:p010` 背面）后，明确核准 R-258 尚未包含的两段威胁。
+- **Bullseye Guillotine I**：怪物进入怪物姿态轨的 Ranged 槽位时，获得增益（Buff）2t＋反击（Riposte）1t。触发条件是进入姿态槽，不是进入板块上的 Ranged 部署区域，也不是停留该姿态时每回合自动刷新。
+- **Bombardment I**：每日结束、从村庄板移走英雄之前，掷 d10 对应建筑；有英雄则该英雄受到 5 点伤害，无英雄则建筑在可能时降级。Caretaker 在该处则无事发生；即使英雄与 Caretaker 同处，也由 Caretaker 例外优先。
+- **依据与边界**：Kyries 对第 3 项「核准」及第 4 项「是」的明确回复，结合已标明的原卡与续问。只核准本表 I 级两段威胁；不扩大到其它等级或给予运行资格。Hag 跨任务验收缺口保留。
