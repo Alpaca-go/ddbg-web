@@ -10,6 +10,7 @@ import { destroyedNecroticFungusCount } from "../expansions/weald/fungal-researc
 export function fungalResearchThreeObjectives(
   sources: CoreQuestSources = disinfectionSources,
   currentRooms = false,
+  fungusStrategy: "retain-one" | "retain-all" = "retain-one",
 ) {
   const start: QuestStart = {
     seed: 1,
@@ -48,7 +49,7 @@ export function fungalResearchThreeObjectives(
     handleDeaths: true,
     restThreshold: 0,
     exitAfterObjectiveRooms: 3,
-    fungalResearch: "retain-one",
+    fungalResearch: fungusStrategy,
     observe: (game, command) => {
       const objective =
         previous.dungeon!.rooms.find((r) => r.id === previous.dungeon!.position)?.kind ===

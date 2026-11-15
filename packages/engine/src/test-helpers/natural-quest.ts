@@ -34,7 +34,7 @@ export type NaturalQuestOptions = {
   readonly exitAfterDisinfectedOaks?: number;
   /** Circle of Witches 测试玩家：击杀指定数量 Crone 后合法撤离。 */
   readonly exitAfterCroneKills?: number;
-  readonly fungalResearch?: "retain-one" | "destroy-all";
+  readonly fungalResearch?: "retain-one" | "retain-all" | "destroy-all";
   /** 显式玩家目标操作；不改变既有自然策略的缺省行为。 */
   readonly heroAction?: (state: GameState) => Command | undefined;
   /** 显式玩家捐款选择；缺省仍优先给20金，仅从实际选项选择。 */
