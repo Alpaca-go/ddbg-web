@@ -70,6 +70,40 @@ it.each([
     );
     const commands: Command[] = [];
     const stages: string[] = [];
+    const checkpoints: string[] = [];
+    // 固定原矩阵中跨任务最远的两个输入；恢复后继续同一命令流，不另选策略。
+    const verifyCheckpoints = handleDeaths && (seed === 1 || skillFallback);
+    const checkpoint = (label: string) => {
+      if (!verifyCheckpoints) return;
+      const before = game;
+      const save = createQuestSave(start, commands, game, coreQuestSources);
+      const restored = loadQuestSave(JSON.parse(JSON.stringify(save)), coreQuestSources).game;
+      expect(restored).toEqual(before);
+      const completed = before.dungeon!.completedRegularQuests!;
+      expect(completed.length).toBeGreaterThan(0);
+      // 删除、重复或改幕均不能用快照伪造已经完成的任务。
+      for (const records of [
+        completed.slice(1),
+        [...completed, completed[0]!],
+        completed.map((record) => ({ ...record, campaignLevel: 2 })),
+      ]) {
+        const tampered = {
+          ...save,
+          snapshot: {
+            ...before,
+            dungeon: { ...before.dungeon!, completedRegularQuests: records },
+          },
+        };
+        expect(() => loadQuestSave(JSON.parse(JSON.stringify(tampered)), coreQuestSources)).toThrow(
+          /快照与回放不一致/,
+        );
+      }
+      const repeated = applyCommand(restored, { type: "finishReturnToHamlet" });
+      expect(repeated.events.some((event) => event.type === "commandRefused")).toBe(true);
+      expect(repeated.state).toEqual(restored);
+      game = restored;
+      checkpoints.push(label);
+    };
     let stop: string | null = null;
     const step = (command: Command) => {
       const result = applyCommand(game, command);
@@ -125,6 +159,7 @@ it.each([
         throw new Error(`回村暂停：${game.dungeon!.hamletReturn!.phase}`);
       step({ type: "finishReturnToHamlet" });
       stages.push(`returned:${countCompletedRegularQuestsAtCampaignLevel(game.dungeon!, 1)}`);
+      checkpoint(stages.at(-1)!);
       step({ type: "drawHamletEvent" });
       settle();
       for (let i = 0; i < 100 && game.dungeon!.hamlet!.phase !== "preparationComplete"; i++) {
@@ -184,12 +219,20 @@ it.each([
         if (trip === 0) expect(offers).not.toContain("quest:p019");
         if (trip === 1) expect(offers).toEqual(["quest:p019"]);
         step({ type: "resolveChoice", choiceId: game.dungeon!.pending!.id, optionId: offers[0]! });
+        checkpoint(`embarked:${offers[0]}`);
         if (trip === 1 && game.dungeon!.activeBossThreatScriptId === "boss:weald:hag:1")
           expect(game.dungeon!.bossExpeditionRegion).toBe("weald");
       }
     } catch (error) {
+      if (error instanceof Error && error.name === "AssertionError") throw error;
       stop = error instanceof Error ? error.message : String(error);
     }
+    if (verifyCheckpoints)
+      expect(checkpoints).toEqual(
+        seed === 1
+          ? ["returned:1", "embarked:quest:p002", "returned:2", "embarked:quest:p019"]
+          : ["returned:1", "embarked:quest:p001"],
+      );
     expect({
       description: game.dungeon!.imminentThreatDescriptionCardId,
       stages,
