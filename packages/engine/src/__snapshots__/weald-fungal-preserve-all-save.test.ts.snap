@@ -1,0 +1,45 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`seed1 当前版本独立保全全部真菌策略：真实结果与完整日志 1`] = `
+{
+  "clearedBattles": [
+    {
+      "delta": 0,
+      "destroyed": 0,
+      "living": 2,
+      "objective": true,
+      "roomId": "G",
+    },
+    {
+      "delta": 0,
+      "destroyed": 0,
+      "living": 3,
+      "objective": true,
+      "roomId": "A",
+    },
+    {
+      "delta": 0,
+      "destroyed": 0,
+      "living": 2,
+      "objective": true,
+      "roomId": "B",
+    },
+  ],
+  "phase": "exited",
+  "stop": null,
+  "summary": {
+    "awarded": false,
+    "broughtBackCount": 0,
+    "clearedRoomIds": [
+      "A",
+      "B",
+      "G",
+    ],
+    "name": "Fungal Research",
+    "objectiveMet": true,
+    "questId": "quest:weald:p001",
+    "stagecoachXp": 0,
+    "xpPerHero": 0,
+  },
+}
+`;

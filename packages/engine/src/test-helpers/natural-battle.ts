@@ -24,7 +24,7 @@ export function playNaturalBattle(
     readonly preferWipeout?: boolean;
     readonly survival?: boolean;
     readonly heroAction?: (state: GameState) => Command | undefined;
-    readonly fungalResearch?: "retain-one" | "destroy-all";
+    readonly fungalResearch?: "retain-one" | "retain-all" | "destroy-all";
   } = {},
 ): void {
   const survival = options.survival === true;
@@ -36,6 +36,8 @@ export function playNaturalBattle(
     if (options.fungalResearch) {
       const before = livingNecroticFungus(s.battle!).length;
       const after = livingNecroticFungus(r.state.battle!).length;
+      // 独立保全策略：不选择任何会摧毁真菌的技能，包括范围攻击。
+      if (options.fungalResearch === "retain-all" && after < before) return -Infinity;
       if (options.fungalResearch === "retain-one" && before > 0 && after === 0) return -Infinity;
       // 具名测试玩家偏好：优先砸毁真菌；保留模式始终留下最后一枚。
       total += (before - after) * 100;
@@ -74,6 +76,7 @@ export function playNaturalBattle(
     for (const skillId of actor.skillIds)
       for (const face of ["front", "back"] as const) {
         for (const target of b.entities.filter((e) => !e.dead)) {
+          if (options.fungalResearch === "retain-all" && target.necroticFungus) continue;
           const command: PlayHeroSkillCommand = {
             type: "playHeroSkill",
             actorId: actor.id,
@@ -90,6 +93,11 @@ export function playNaturalBattle(
               .filter((e) => !e.dead && e.areaId === area.id && e.side === side)
               .map((e) => e.id);
             if (ids.length < 2) continue;
+            if (
+              options.fungalResearch === "retain-all" &&
+              b.entities.some((e) => ids.includes(e.id) && e.necroticFungus)
+            )
+              continue;
             const command: PlayHeroSkillTargetsCommand = {
               type: "playHeroSkillTargets",
               actorId: actor.id,
