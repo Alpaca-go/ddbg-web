@@ -572,7 +572,10 @@ export function BattleView({
           </fieldset>
           <CoreTrinketActions game={game} send={send} />
           {!turn && (
-            <button disabled={frozen} onClick={() => send({ type: "startBattle" })}>
+            <button
+              disabled={frozen}
+              onClick={() => send({ type: "startBattle", wealdUnprepared: true })}
+            >
               开始战斗
             </button>
           )}
