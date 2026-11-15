@@ -1039,6 +1039,7 @@ export function BattleView({
                       onClick={() =>
                         send({
                           type: "playMonsterSkill",
+                          toxicMushrooms: true,
                           damageStoneWindow: true,
                           actorId: actor!.id,
                           targetId: action.targetId,

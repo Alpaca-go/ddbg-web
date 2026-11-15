@@ -6,7 +6,7 @@ import { fixedDamageResolution } from "./battle-spiked-pit";
 import { WEALD_APPROVED_ROOM_TILES } from "./expansions/weald/room-catalog";
 import { wealdMechanicsActive } from "./expansions/weald/weald-mechanics";
 
-/** R-234／R-239：独立结算原语；正式接线须先建立新日志版本。
+/** R-234／R-239：房间结算原语；正式攻击由 withToxicMushrooms 按命令版本启用。
  * 输入须为攻击位移前的状态；每次未命中分别影响目标当时所在星区。
  */
 export function resolveToxicMushrooms(
@@ -66,4 +66,19 @@ export function resolveToxicMushrooms(
       },
     ],
   };
+}
+
+/** 命令版本只影响本次攻击；无标记的历史日志保留原结算。 */
+export function withToxicMushrooms(
+  original: GameState,
+  applied: ApplyResult,
+  enabled: true | undefined,
+  actorId: string,
+  resolutions: readonly HeroSkillResolution[],
+): ApplyResult {
+  if (!enabled) return applied;
+  const result = resolveToxicMushrooms(applied.state, actorId, resolutions, applied.events);
+  if (!result) return applied;
+  const refusal = result.events.find((event) => event.type === "commandRefused");
+  return refusal ? rejectBattleCommand(original, refusal.message) : result;
 }

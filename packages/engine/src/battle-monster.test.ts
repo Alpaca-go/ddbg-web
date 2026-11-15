@@ -1,3 +1,4 @@
+import { savedCommandSchema } from "../../data/src/quest-save";
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { applyCommand, createBattleState } from "./index";
@@ -880,5 +881,104 @@ describe("怪物选招与目标命令接线（R-015、R-024）", () => {
       expect(result.events[0]?.type).toBe("commandRefused");
     }
     expect(applyCommand(noGroups, { ...prepare, actorId: "h0" }).state).toBe(noGroups);
+  });
+});
+
+describe("Toxic Mushrooms 正式攻击版本（R-234／R-239）", () => {
+  function fungal(card = soldier): GameState {
+    const base = setup(card);
+    const stat = JSON.parse(
+      readFileSync(
+        new URL("../../data/normalized/corebox/hero_stat.json", import.meta.url),
+        "utf8",
+      ),
+    ).cards.find((s: { name: string; level: number }) => s.name === "CRUSADER" && s.level === 1);
+    return {
+      ...base,
+      dungeon: {
+        phase: "inBattle",
+        heroes: [],
+        contentPacks: ["core", "weald"],
+        roomCards: { active: { roomId: "R1", cardId: "room:weald:p001" } },
+      } as unknown as NonNullable<GameState["dungeon"]>,
+      battle: {
+        ...base.battle!,
+        wealdMechanics: true,
+        heroStats: [stat],
+        areas: base.battle!.areas.map((a) => ({
+          ...a,
+          id: a.id === "a" ? "C" : a.id,
+          adjacent: a.adjacent.map((id) => (id === "a" ? "C" : id)),
+        })),
+        entities: base.battle!.entities.map((e) => ({
+          ...e,
+          areaId: e.side === "hero" ? "C" : "b",
+          ...(e.side === "hero"
+            ? { dodge: 20, heroStatId: stat.id, heroLevel: 1, life: stat.life }
+            : {}),
+        })),
+      },
+    };
+  }
+  it.each([soldier, cards.find((c) => c.id === "monster_medium:p013")!])(
+    "单／多目标未命中启用新版本，旧命令不变：$id",
+    (card) => {
+      const state = fungal(card);
+      const command = { ...play(card === soldier ? 1 : 2), toxicMushrooms: true as const };
+      const result = applyCommand(state, command);
+      const refusal = result.events.find((e) => e.type === "commandRefused");
+      expect(refusal).toBeUndefined();
+      const event = result.events.find(
+        (e) => e.type === "monsterSkillResolved" || e.type === "monsterSkillTargetsResolved",
+      )!;
+      const count =
+        event.type === "monsterSkillTargetsResolved"
+          ? event.resolutions.filter((r) => r.outcome === "miss").length
+          : 1;
+      expect(count).toBeGreaterThan(0);
+      for (const hero of result.state.battle!.entities.filter((e) => e.side === "hero")) {
+        expect(hero.statusStacks).toHaveLength(count);
+        expect(hero.statusStacks?.[0]).toEqual({ kind: "blight", amount: 1, remaining: 2 });
+      }
+      const legacy = applyCommand(state, play(card === soldier ? 1 : 2));
+      expect(
+        legacy.events.some((e) => e.type === "passiveTriggered" && e.trigger === "toxicMushrooms"),
+      ).toBe(false);
+      expect(result.state.battle!.rngCursor).toBe(legacy.state.battle!.rngCursor);
+      expect(applyCommand(JSON.parse(JSON.stringify(state)), command)).toEqual(result);
+    },
+  );
+  it("自身 Pull 先完成既有自身阶段，再结算目标腐蚀且不重复", () => {
+    const state = patch(fungal(defender), "h0", { dodge: 100 });
+    const result = applyCommand(state, { ...play(3), toxicMushrooms: true });
+    expect(result.events.some((e) => e.type === "commandRefused")).toBe(false);
+    expect(entity(result.state, "h0").statusStacks).toBeUndefined();
+    const resumed = applyCommand(JSON.parse(JSON.stringify(result.state)), {
+      type: "resolveShuffles",
+    });
+    expect(resumed.events.some((e) => e.type === "commandRefused")).toBe(false);
+    expect(entity(resumed.state, "monster").areaId).toBe("C");
+    expect(entity(resumed.state, "h0").statusStacks).toEqual([
+      { kind: "blight", amount: 1, remaining: 2 },
+    ]);
+    expect(resumed.state.battle!.rngCursor).toBe(result.state.battle!.rngCursor);
+    const repeated = applyCommand(resumed.state, { type: "resolveShuffles" });
+    expect(entity(repeated.state, "h0").statusStacks).toEqual(
+      entity(resumed.state, "h0").statusStacks,
+    );
+  });
+  it("严格命令 schema 保留新标记和旧命令，拒绝错误版本值", () => {
+    const command = { ...play(), toxicMushrooms: true };
+    expect(savedCommandSchema.parse(JSON.parse(JSON.stringify(command)))).toEqual(command);
+    expect(savedCommandSchema.parse(play())).toEqual(play());
+    expect(savedCommandSchema.safeParse({ ...command, toxicMushrooms: false }).success).toBe(false);
+    expect(savedCommandSchema.safeParse({ ...command, toxicMushrooms: 1 }).success).toBe(false);
+  });
+  it("新版本缺任一同区英雄防御目录时整条攻击原子拒绝", () => {
+    const base = fungal();
+    const state = patch(base, "h1", { heroStatId: "missing" });
+    const result = applyCommand(state, { ...play(), toxicMushrooms: true });
+    expect(result.events[0]!.type).toBe("commandRefused");
+    expect(result.state).toBe(state);
   });
 });

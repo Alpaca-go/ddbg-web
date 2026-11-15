@@ -121,12 +121,13 @@ function replayCommands(commands: QuestSave["commands"]): Command[] {
       };
     }
     if (command.type === "playMonsterSkill") {
-      const { shuffleChoice, shuffleChoices, damageStoneWindow, ...base } = command;
+      const { shuffleChoice, shuffleChoices, damageStoneWindow, toxicMushrooms, ...base } = command;
       return {
         ...base,
         ...(damageStoneWindow === undefined ? {} : { damageStoneWindow }),
         ...(shuffleChoice === undefined ? {} : { shuffleChoice }),
         ...(shuffleChoices === undefined ? {} : { shuffleChoices }),
+        ...(toxicMushrooms === undefined ? {} : { toxicMushrooms }),
       };
     }
     return command;
