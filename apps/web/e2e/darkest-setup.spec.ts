@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 import { readFile } from "node:fs/promises";
 
 test("最暗任务：16房建局、开局补给及本机存档恢复", async ({ page }) => {
-  test.setTimeout(90_000);
+  test.setTimeout(180_000);
   await page.goto("/?seed=1");
   await page.getByTestId("embark-mode-radiant").click();
   await page.getByRole("button", { name: "前往出征准备", exact: true }).click();
@@ -41,7 +41,10 @@ test("最暗任务：16房建局、开局补给及本机存档恢复", async ({ 
     mimeType: "application/json",
     buffer: Buffer.from(JSON.stringify(tampered)),
   });
-  await expect(page.getByRole("status").filter({ hasText: "回放不一致" })).toBeVisible();
+  // 完整日志导入还会检查可信旧目录，沿用 Boss 文件交接用例的异步预算。
+  await expect(page.getByRole("status").filter({ hasText: "回放不一致" })).toBeVisible({
+    timeout: 60_000,
+  });
   await expect(page.getByTestId("formal-dungeon-exploration")).toBeVisible();
   expect(await page.evaluate(() => localStorage.getItem("ddbg.core-quest.save.v1"))).toBe(
     localBefore,

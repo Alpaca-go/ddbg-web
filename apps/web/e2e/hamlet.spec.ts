@@ -671,13 +671,23 @@ test("Phase 4：墓地、自然交易与公会升级、旧替补存档迁移保�
   await page.reload();
   await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
   await page.getByRole("button", { name: "访问游商马车I：陈列与购买饰品", exact: true }).click();
-  const nomadDisplayText = async () =>
-    (await page.getByTestId("nomad-display").innerText()).replace(/\s+/g, " ").trim();
-  const display = await nomadDisplayText();
+  // 比较实际商品身份、名称、等级与价格，图片加载／占位文案不属于陈列状态。
+  const readNomadDisplay = () =>
+    page
+      .getByTestId("nomad-display")
+      .locator("figcaption")
+      .evaluateAll((captions) =>
+        captions.map((caption) => ({
+          id: caption.parentElement!.getAttribute("data-testid"),
+          label: caption.textContent!.trim(),
+        })),
+      );
+  await expect(page.getByTestId("nomad-display").locator("figcaption")).toHaveCount(3);
+  const display = await readNomadDisplay();
   await page.getByRole("button", { name: "保存进度", exact: true }).click();
   await page.reload();
   await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
-  expect(await nomadDisplayText()).toBe(display);
+  expect(await readNomadDisplay()).toEqual(display);
   await page
     .getByRole("button", { name: /^购买 / })
     .first()
@@ -714,13 +724,13 @@ test("Phase 4：墓地、自然交易与公会升级、旧替补存档迁移保�
   await page.reload();
   await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
   await page.getByRole("button", { name: "访问游商马车I：陈列与购买饰品", exact: true }).click();
-  const saleDisplay = await nomadDisplayText();
+  const saleDisplay = await readNomadDisplay();
   await page.getByRole("button", { name: /^出售 / }).click();
   await expect(page.getByTestId("dungeon-gold")).toHaveText(
     `共享金币：${nomadSale.game.dungeon!.gold + 2}`,
   );
   await expect(page.getByRole("button", { name: /^出售 / })).toHaveCount(0);
-  expect(await nomadDisplayText()).toBe(saleDisplay);
+  expect(await readNomadDisplay()).toEqual(saleDisplay);
   await expect(page.getByTestId("hamlet-event")).toContainText(/当前行动英雄：\s*CRUSADER/);
   await page.getByRole("button", { name: "保存进度", exact: true }).click();
   const saleSnapshot = await page.evaluate(
