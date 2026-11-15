@@ -21,6 +21,26 @@ export function QuestSaveControls({ onLoad }: { onLoad?: () => void }) {
   const { game, commands, questStart, restoreTask } = useDungeonStore();
   const [notice, setNotice] = useState("");
   const [busy, setBusy] = useState(false);
+  const restoreJson = (json: string) => {
+    if (useDungeonStore.getState().game !== game)
+      throw new Error("读取期间进度已变化，请再次读取存档");
+    const loaded = loadQuestSave(JSON.parse(json), taskSources, [
+      preHeroStatReviewTaskSources,
+      preFanaticTaskSources,
+      preCollectorTaskSources,
+      preProphetTaskSources,
+      preNecromancerTaskSources,
+      preDarkestTaskSources,
+      preAbominationTaskSources,
+      preBossTaskSources,
+      sixHeroTaskSources,
+      previousTaskSources,
+      legacyTaskSources,
+    ]);
+    restoreTask(loaded);
+    setNotice("已读取进度，可继续当前行动或待选决定。");
+    onLoad?.();
+  };
   const run = async (action: () => Promise<void>) => {
     if (busy) return;
     setBusy(true);
@@ -68,29 +88,46 @@ export function QuestSaveControls({ onLoad }: { onLoad?: () => void }) {
               const raw = localStorage.getItem(questSaveKey);
               if (!raw) throw new Error("本机还没有任务存档");
               const json = await decodeLocalQuestSave(raw);
-              if (useDungeonStore.getState().game !== game)
-                throw new Error("读取期间进度已变化，请再次读取存档");
-              const loaded = loadQuestSave(JSON.parse(json), taskSources, [
-                preHeroStatReviewTaskSources,
-                preFanaticTaskSources,
-                preCollectorTaskSources,
-                preProphetTaskSources,
-                preNecromancerTaskSources,
-                preDarkestTaskSources,
-                preAbominationTaskSources,
-                preBossTaskSources,
-                sixHeroTaskSources,
-                previousTaskSources,
-                legacyTaskSources,
-              ]);
-              restoreTask(loaded);
-              setNotice("已读取进度，可继续当前行动或待选决定。");
-              onLoad?.();
+              restoreJson(json);
             })
           }
         >
           读取本机存档
         </button>
+        {questStart && (
+          <button
+            disabled={busy}
+            onClick={() =>
+              run(async () => {
+                const save = createQuestSave(questStart, commands, game, taskSources);
+                const url = URL.createObjectURL(
+                  new Blob([JSON.stringify(save)], { type: "application/json" }),
+                );
+                const link = document.createElement("a");
+                link.href = url;
+                link.download = `ddbg-quest-${questStart.seed}-${commands.length}.json`;
+                link.click();
+                setTimeout(() => URL.revokeObjectURL(url), 1000);
+                setNotice("已导出存档文件，包含完整命令日志，可交付回放。");
+              })
+            }
+          >
+            导出存档文件
+          </button>
+        )}
+        <label>
+          导入存档文件
+          <input
+            type="file"
+            accept=".json,application/json"
+            disabled={busy}
+            onChange={(event) => {
+              const file = event.currentTarget.files?.[0];
+              event.currentTarget.value = "";
+              if (file) void run(async () => restoreJson(await file.text()));
+            }}
+          />
+        </label>
       </div>
       {notice && <p role="status">{notice}</p>}
     </section>

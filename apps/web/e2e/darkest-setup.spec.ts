@@ -1,5 +1,6 @@
 import { establishInitialThreatIfShown } from "./initial-threat-setup";
 import { expect, test } from "@playwright/test";
+import { readFile } from "node:fs/promises";
 
 test("最暗任务：16房建局、开局补给及本机存档恢复", async ({ page }) => {
   test.setTimeout(90_000);
@@ -24,4 +25,36 @@ test("最暗任务：16房建局、开局补给及本机存档恢复", async ({ 
   await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
   await expect(page.getByTestId("formal-dungeon-exploration")).toBeVisible();
   await expect(page.getByTestId("dungeon-node-P")).toHaveCount(1);
+  const downloadEvent = page.waitForEvent("download");
+  await page.getByRole("button", { name: "导出存档文件", exact: true }).click();
+  const download = await downloadEvent;
+  const exported = await readFile((await download.path())!);
+  const json = JSON.parse(exported.toString("utf8"));
+  expect(json.commands.some((c: { type: string }) => c.type === "rollDungeonProvisions")).toBe(
+    true,
+  );
+  const localBefore = await page.evaluate(() => localStorage.getItem("ddbg.core-quest.save.v1"));
+  const tampered = structuredClone(json);
+  tampered.snapshot.dungeon.gold += 1;
+  await page.getByLabel("导入存档文件", { exact: true }).setInputFiles({
+    name: "tampered.json",
+    mimeType: "application/json",
+    buffer: Buffer.from(JSON.stringify(tampered)),
+  });
+  await expect(page.getByRole("status").filter({ hasText: "回放不一致" })).toBeVisible();
+  await expect(page.getByTestId("formal-dungeon-exploration")).toBeVisible();
+  expect(await page.evaluate(() => localStorage.getItem("ddbg.core-quest.save.v1"))).toBe(
+    localBefore,
+  );
+  await page.reload();
+  await page.getByLabel("导入存档文件", { exact: true }).setInputFiles({
+    name: download.suggestedFilename(),
+    mimeType: "application/json",
+    buffer: exported,
+  });
+  await expect(page.getByTestId("formal-dungeon-exploration")).toBeVisible();
+  await expect(page.getByTestId("dungeon-node-P")).toHaveCount(1);
+  expect(await page.evaluate(() => localStorage.getItem("ddbg.core-quest.save.v1"))).toBe(
+    localBefore,
+  );
 });
