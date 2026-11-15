@@ -50,13 +50,17 @@ export function readStoredFaceTheThreatEmbarkPlan(
 
 /**
  * 当前战役等级下已完成的普通任务数（不含 Boss 卡）。
- * `chooseNextQuest` 每次把上一趟 `questSummary` 与未选 offer 写入 `discardedQuests`；
- * 首趟任务完成前无 choose 循环，靠当前 summary 计 1。
+ * 新地点来源版本只读回村结算记录；旧日志保留 discardedQuests／summary 推算。
  */
 export function countCompletedRegularQuestsAtCampaignLevel(
-  d: Pick<DungeonState, "discardedQuests" | "questSummary">,
+  d: Pick<
+    DungeonState,
+    "discardedQuests" | "questSummary" | "bossLocationSources" | "completedRegularQuests"
+  >,
   campaignLevel: CampaignLevel,
 ): number {
+  if (d.bossLocationSources)
+    return (d.completedRegularQuests ?? []).filter((q) => q.campaignLevel === campaignLevel).length;
   const regularIds = questsForCampaignLevel(campaignLevel).map((q) => q.id);
   const regularSet = new Set<string>(regularIds);
   const discardedRegular = (d.discardedQuests ?? []).filter((id) => regularSet.has(id));

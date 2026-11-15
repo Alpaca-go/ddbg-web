@@ -583,6 +583,7 @@ export function chooseNextQuest(
       ? { unregisteredImminentThreatHold: d.unregisteredImminentThreatHold }
       : {}),
     ...(d.bossLocationSources ? { bossLocationSources: true as const } : {}),
+    ...(d.completedRegularQuests ? { completedRegularQuests: d.completedRegularQuests } : {}),
     ...(d.locationBossThreats ? { locationBossThreats: true as const } : {}),
     ...(d.defeatedWealdBossIdentities
       ? { defeatedWealdBossIdentities: d.defeatedWealdBossIdentities }
