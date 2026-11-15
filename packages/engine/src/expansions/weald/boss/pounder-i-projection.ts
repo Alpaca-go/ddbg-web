@@ -26,6 +26,15 @@ export function buildPounderICombatCatalog(): MonsterCardView[] {
       slot: skill.slot,
       name: skill.name,
       target: pounder ? "Crowded" : "Pounder",
+      ...(pounder
+        ? {
+            verified_range: {
+              min: cannon.minRange,
+              max: cannon.range,
+              source: "print_front" as const,
+            },
+          }
+        : {}),
       printed_labels: pounder
         ? [
             { label: "Crit", value: cannon.crit },
@@ -46,7 +55,8 @@ export function buildPounderICombatCatalog(): MonsterCardView[] {
             ]
           : []),
         {
-          numeric: skill.range,
+          numeric: pounder ? null : skill.range,
+          ...(pounder ? { text: `${cannon.minRange}-${cannon.range}` } : {}),
           anchor: {
             type: "beside_icon",
             left_icon: { key: "range", naming: "confirmed" },
@@ -58,7 +68,7 @@ export function buildPounderICombatCatalog(): MonsterCardView[] {
         [
           ...(pounder ? [icon("damage")] : []),
           icon("range"),
-          text(String(skill.range)),
+          text(pounder ? `${cannon.minRange}-${cannon.range}` : String(skill.range)),
           ...(pounder ? Array.from({ length: cannon.maxTargets }, () => icon("target_hero")) : []),
         ],
         ...effects,

@@ -23,7 +23,7 @@
    "resistances": [],
    "immunities": ["stun", "bleed", "blight", "debuff", "shuffle"],
    "selection": "triggerOnly",
-   "skill": {"slot": 1, "name": "BOOOOOOM!", "target": "crowded", "range": 5, "maxTargets": 4, "crit": 0, "critDamage": 19, "accuracy": 9, "damage": 9, "onHitStress": 2}
+   "skill": {"slot": 1, "name": "BOOOOOOM!", "target": "crowded", "range": 5, "minRange": 0, "maxTargets": 4, "crit": 0, "critDamage": 19, "accuracy": 9, "damage": 9, "onHitStress": 2}
   },
   {
    "role": "matchman",

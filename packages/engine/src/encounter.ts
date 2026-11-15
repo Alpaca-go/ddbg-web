@@ -270,6 +270,13 @@ export function finishTurn(
   events: readonly GameEvent[],
   evilEyeResolved = false,
 ): ApplyResult {
+  const fire = state.battle?.pounderFire;
+  if (fire && actorId === fire.pounderId) {
+    actorId = fire.matchmanId;
+    const { pounderFire: _fire, ...battle } = state.battle!;
+    void _fire;
+    state = { ...state, battle };
+  }
   state = finishHagISkillTurn(state, actorId);
   const small = displaceSmallForHero(state, actorId, events);
   if (small) {

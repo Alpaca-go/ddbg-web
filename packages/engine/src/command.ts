@@ -111,6 +111,10 @@ import {
   applyPounderIReinforcements,
   choosePounderIReinforcements,
 } from "./expansions/weald/boss/pounder-i-reinforcements";
+import {
+  applyPounderIFireInTheHole,
+  settlePounderIFireContext,
+} from "./expansions/weald/boss/pounder-i-fire";
 import { chooseWealdMonsterSummon } from "./expansions/weald/monster-summon";
 import { chooseCollectorISummon } from "./boss/collector-i-combat-runtime";
 import {
@@ -342,6 +346,7 @@ type BaseCommand =
   | { readonly type: "applyShufflingHorrorEchoingDisassembly"; readonly actorId: string }
   | { readonly type: "applyShufflingHorrorLacerate"; readonly actorId: string }
   | { readonly type: "applyMammothCystSummonWhiteCell"; readonly actorId: string }
+  | { readonly type: "applyPounderIFireInTheHole"; readonly actorId: string }
   | { readonly type: "applyPounderIReinforcements"; readonly actorId: string }
   | { readonly type: "applyGestatingHeartSummon"; readonly actorId: string }
   | { readonly type: "applyAncestor1TimeHealsAll"; readonly actorId: string }
@@ -903,6 +908,8 @@ function dispatchCommand(
     return applyShufflingHorrorLacerate(state, command.actorId);
   if (command.type === "applyMammothCystSummonWhiteCell")
     return applyMammothCystSummonWhiteCell(state, command.actorId);
+  if (command.type === "applyPounderIFireInTheHole")
+    return applyPounderIFireInTheHole(state, command.actorId);
   if (command.type === "applyPounderIReinforcements")
     return applyPounderIReinforcements(state, command.actorId);
   if (command.type === "applyGestatingHeartSummon")
@@ -1125,5 +1132,5 @@ function applyCommandCore(
     ? dispatched
     : continuePoolRebirth(continueDeathEstates(dispatched));
   const refused = result.events.find((event) => event.type === "commandRefused");
-  return refused ? rejectBattleCommand(state, refused.message) : result;
+  return refused ? rejectBattleCommand(state, refused.message) : settlePounderIFireContext(result);
 }

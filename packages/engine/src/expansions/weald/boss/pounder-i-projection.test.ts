@@ -86,9 +86,13 @@ it("炮击共用解析器读取 Crowded、射程5、四目标与命中压力2", 
   const attack = readMonsterAttackView(pounder!, 1);
   expect(attack.status).toBe("ready");
   if (attack.status !== "ready") throw new Error(attack.reason);
-  expect(readPrintedRange(attack.view)).toEqual({ kind: "exact", distance: 5 });
+  expect(readPrintedRange(attack.view)).toEqual({ kind: "interval", min: 0, max: 5 });
   expect(readPrintedTargets(attack.view)).toMatchObject({ kind: "exact", max: 4 });
   expect(pounder!.skills[0]!.target).toBe("Crowded");
+  for (const areaDistance of [0, 1, 4, 5])
+    expect(resolveMonsterSkill(pounder!, 1, { ...combat, areaDistance }, 5).status).toBe(
+      "resolved",
+    );
   const hit = resolveMonsterSkill(pounder!, 1, combat, 5);
   expect(hit).toMatchObject({
     status: "resolved",
