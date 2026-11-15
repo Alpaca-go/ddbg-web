@@ -1,11 +1,14 @@
 import type { QuestStart } from "../../../data/src/quest-save";
 import { createCoreDungeonQuest, type CoreQuestSources } from "../dungeon-quest-entry";
 import type { Command, GameState } from "../command";
-import { naturalParty, naturalQuest } from "./natural-quest";
+import { naturalParty, naturalQuest, CURRENT_WEALD_ROOM_VERSIONS } from "./natural-quest";
 import { disinfectionSources } from "./disinfection-quest";
 
 /** R-242：seed 3，经公开探索、战斗、奇物及替补流程清理六房。 */
-export function patrolTheWoodsJourney(sources: CoreQuestSources = disinfectionSources) {
+export function patrolTheWoodsJourney(
+  sources: CoreQuestSources = disinfectionSources,
+  currentRooms = false,
+) {
   const start: QuestStart = {
     seed: 3,
     questId: "quest:weald:p005",
@@ -34,6 +37,7 @@ export function patrolTheWoodsJourney(sources: CoreQuestSources = disinfectionSo
     recordedSecond = false;
   const run = naturalQuest(start.seed, start.questId, true, sources, 6, {
     continueFrom: initial,
+    ...(currentRooms ? CURRENT_WEALD_ROOM_VERSIONS : {}),
     survival: true,
     handleDeaths: true,
     restThreshold: 0,
@@ -61,6 +65,7 @@ export function patrolTheWoodsJourney(sources: CoreQuestSources = disinfectionSo
       previous = game;
     },
   });
-  if (run.stopReason) throw new Error(`Patrol the Woods 自然流程中断：${run.stopReason}`);
+  if (run.stopReason && !currentRooms)
+    throw new Error(`Patrol the Woods 自然流程中断：${run.stopReason}`);
   return { start, run, points, rounds, deployments };
 }

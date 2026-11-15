@@ -1,13 +1,14 @@
 import type { QuestStart } from "../../../data/src/quest-save";
 import { createCoreDungeonQuest, type CoreQuestSources } from "../dungeon-quest-entry";
 import type { Command, GameState } from "../command";
-import { naturalParty, naturalQuest } from "./natural-quest";
+import { naturalParty, naturalQuest, CURRENT_WEALD_ROOM_VERSIONS } from "./natural-quest";
 import { disinfectionSources, disinfectionHeroAction } from "./disinfection-quest";
 
 /** R-245：固定种子，经公开消毒、战斗和替补流程完成三棵橡树。 */
 export function disinfectionThreeTargets(
   seed: 2 | 7,
   sources: CoreQuestSources = disinfectionSources,
+  currentRooms = false,
 ) {
   const start: QuestStart = {
     seed,
@@ -33,6 +34,7 @@ export function disinfectionThreeTargets(
   const points: { game: GameState; commands: Command[] }[] = [];
   const run = naturalQuest(seed, start.questId, true, sources, 4, {
     continueFrom: initial,
+    ...(currentRooms ? CURRENT_WEALD_ROOM_VERSIONS : {}),
     survival: true,
     handleDeaths: true,
     restThreshold: 0,
@@ -50,6 +52,7 @@ export function disinfectionThreeTargets(
       previous = game;
     },
   });
-  if (run.stopReason) throw new Error(`Disinfection 三目标中断：${run.stopReason}`);
+  if (run.stopReason && !currentRooms)
+    throw new Error(`Disinfection 三目标中断：${run.stopReason}`);
   return { start, points, run };
 }

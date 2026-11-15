@@ -1,13 +1,16 @@
 import type { QuestStart } from "../../../data/src/quest-save";
 import { createCoreDungeonQuest, type CoreQuestSources } from "../dungeon-quest-entry";
 import type { Command, GameState } from "../command";
-import { naturalParty, naturalQuest } from "./natural-quest";
+import { naturalParty, naturalQuest, CURRENT_WEALD_ROOM_VERSIONS } from "./natural-quest";
 import { disinfectionSources } from "./disinfection-quest";
 import { livingNecroticFungus } from "../expansions/weald/necrotic-fungus";
 import { destroyedNecroticFungusCount } from "../expansions/weald/fungal-research-quest";
 
 /** R-246/R-252：seed 1，保留真菌取得三目标；只执行公开命令。 */
-export function fungalResearchThreeObjectives(sources: CoreQuestSources = disinfectionSources) {
+export function fungalResearchThreeObjectives(
+  sources: CoreQuestSources = disinfectionSources,
+  currentRooms = false,
+) {
   const start: QuestStart = {
     seed: 1,
     questId: "quest:weald:p001",
@@ -40,6 +43,7 @@ export function fungalResearchThreeObjectives(sources: CoreQuestSources = disinf
   let recordedDestruction = false;
   const run = naturalQuest(start.seed, start.questId, true, sources, 4, {
     continueFrom: initial,
+    ...(currentRooms ? CURRENT_WEALD_ROOM_VERSIONS : {}),
     survival: true,
     handleDeaths: true,
     restThreshold: 0,
@@ -79,6 +83,7 @@ export function fungalResearchThreeObjectives(sources: CoreQuestSources = disinf
       previous = game;
     },
   });
-  if (run.stopReason) throw new Error(`Fungal Research 三目标中断：${run.stopReason}`);
+  if (run.stopReason && !currentRooms)
+    throw new Error(`Fungal Research 三目标中断：${run.stopReason}`);
   return { start, run, points, clearedBattles };
 }

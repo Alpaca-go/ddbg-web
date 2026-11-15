@@ -66,9 +66,24 @@ export type NaturalQuestOptions = {
   readonly wealdAbyssalPuff?: true;
   readonly wealdOurs?: true;
   readonly wealdClearing?: true;
+  /** 显式当前页面命令版本；缺省保持旧日志。 */
+  readonly allTrinkets?: true;
+  readonly bossEdgeRooms?: true;
   /** 玩家策略：每间房后按这个「伤口 + 压力」阈值决定休息（默认 12，与既有自然策略一致）。 */
   readonly restThreshold?: number;
 };
+
+/** 与正式页面 startBattle／playMonsterSkill 及 store.dispatch 的显式版本一致。 */
+export const CURRENT_WEALD_ROOM_VERSIONS = {
+  toxicMushrooms: true,
+  wealdUnprepared: true,
+  wealdPrecious: true,
+  wealdAbyssalPuff: true,
+  wealdOurs: true,
+  wealdClearing: true,
+  allTrinkets: true,
+  bossEdgeRooms: true,
+} as const satisfies NaturalQuestOptions;
 
 /** 测试用固定决策驱动，不进入产品；只执行公开命令，不修改任何游戏状态／牌序。 */
 export function naturalQuest(
@@ -98,6 +113,9 @@ export function naturalQuest(
       command = { ...command, wealdClearingHeroes: true, wealdClearingMonsters: true };
     if (options.wealdOurs && command.type === "startBattle")
       command = { ...command, wealdOurs: true };
+    if (options.bossEdgeRooms && command.type === "resolveChoice")
+      command = { ...command, bossEdgeRooms: true };
+    if (options.allTrinkets) command = { ...command, allTrinkets: true };
     const r = applyCommand(state, command);
     const refused = r.events.find((e) => e.type === "commandRefused");
     if (refused) throw new Error(`${command.type}: ${refused.message}`);
