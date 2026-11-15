@@ -1,0 +1,110 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Fungal Research seed1：首处分歧为真实 Abyssal Puff，控制前缀与死亡路径可恢复 1`] = `
+{
+  "affected": [
+    {
+      "area": "H",
+      "card": "monster_medium:p046",
+      "id": "monster-deck:p046",
+    },
+    {
+      "area": "D",
+      "card": "monster_medium:p037",
+      "id": "monster-deck:p038",
+    },
+    {
+      "area": "D",
+      "card": "monster_medium:p018",
+      "id": "monster-deck:p018",
+    },
+    {
+      "area": "C",
+      "card": "monster_medium:p034",
+      "id": "monster-deck:p036",
+    },
+  ],
+  "card": "room:weald:p008",
+  "command": {
+    "actorId": "hero-0",
+    "face": "front",
+    "skillId": "hero_skill:p004",
+    "targetId": "necrotic-fungus:room_tile:weald:p008:back:E:1",
+    "type": "playHeroSkill",
+  },
+  "currentCursorEvents": [
+    {
+      "message": "每堆移除一枚状态代币，Bleed / Blight 同时结算",
+      "type": "statusTurnStarted",
+    },
+    {
+      "message": "回合开始同时伤口只判定一次死门",
+      "type": "heroHealthResolved",
+    },
+  ],
+  "currentDeaths": [
+    {
+      "card": "room:weald:p006",
+      "command": "resolveChoice",
+      "commandNumber": 240,
+      "hero": "hero-1",
+      "room": "B",
+      "round": 1,
+    },
+    {
+      "card": "room:weald:p006",
+      "command": "playMonsterSkill",
+      "commandNumber": 254,
+      "hero": "hero-0",
+      "room": "B",
+      "round": 1,
+    },
+    {
+      "card": "room:weald:p006",
+      "command": "resolveChoice",
+      "commandNumber": 284,
+      "hero": "hero-3",
+      "room": "B",
+      "round": 3,
+    },
+    {
+      "card": "room:weald:p006",
+      "command": "resolveChoice",
+      "commandNumber": 311,
+      "hero": "hero-2",
+      "room": "B",
+      "round": 4,
+    },
+  ],
+  "cursorCommand": {
+    "choiceId": "turn-start:85",
+    "optionId": "continue",
+    "type": "resolveChoice",
+  },
+  "firstCommandDifference": 218,
+  "firstCommandNumber": 184,
+  "firstCursorDifference": 210,
+  "legacyDeaths": [],
+  "newCommand": {
+    "choiceId": "dungeon-hazard:89:hero-1:1",
+    "optionId": "suffer",
+    "type": "resolveChoice",
+  },
+  "oldCommand": {
+    "choiceId": "dungeon-die:89",
+    "optionId": "hero-2:1",
+    "type": "resolveChoice",
+  },
+  "oldCursorEvents": [
+    {
+      "message": "每堆移除一枚状态代币，Bleed / Blight 同时结算",
+      "type": "statusTurnStarted",
+    },
+    {
+      "message": "回合开始同时伤口只判定一次死门",
+      "type": "heroHealthResolved",
+    },
+  ],
+  "room": "A",
+}
+`;
