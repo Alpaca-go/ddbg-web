@@ -1,4 +1,8 @@
 import { deployHagI } from "./expansions/weald/boss/hag-i-deploy";
+import {
+  applyPounderIRangedEntry,
+  pounderDungeonThreatActive,
+} from "./expansions/weald/boss/pounder-i-dungeon-threat";
 import { bossEnabledForPacks } from "../../data/src/content-packs";
 import { chooseHagIRelease } from "./expansions/weald/boss/hag-i-release";
 import type { MonsterSupportResolvedEvent } from "./battle-monster-support";
@@ -1040,6 +1044,8 @@ function applyCommandCore(
   command: Command,
   legacyCardReview: boolean,
 ): ApplyResult {
+  if (pounderDungeonThreatActive(state) && state.dungeon?.phase === "inHamlet")
+    return rejectBattleCommand(state, "Pounder 村庄轰炸与日末续接尚未开放，保留回村进度");
   const heroes = state.battle
     ? state.battle.entities.filter((e) => e.side === "hero")
     : (state.dungeon?.heroes ?? []);
@@ -1087,11 +1093,14 @@ function applyCommandCore(
     return command.type === "resolveChoice"
       ? chooseReplacementPreparation(state, command.choiceId, command.optionId)
       : rejectBattleCommand(state, "请先完成替补英雄准备（R31）");
-  const dispatched = applyCreepingDarknessUnholySpawnStress(
+  const dispatched = applyPounderIRangedEntry(
     state,
-    applyHigherRuinsBattleSpawn(
+    applyCreepingDarknessUnholySpawnStress(
       state,
-      applyHigherRuinsHamlet(state, command, dispatchCommand(state, command, legacyCardReview)),
+      applyHigherRuinsBattleSpawn(
+        state,
+        applyHigherRuinsHamlet(state, command, dispatchCommand(state, command, legacyCardReview)),
+      ),
     ),
   );
   const result = dispatched.events.some((e) => e.type === "commandRefused")
