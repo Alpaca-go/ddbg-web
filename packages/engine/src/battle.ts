@@ -155,7 +155,7 @@ export type BattleArea = {
   /** 已复核 Cornered；只接明确印刷值，不给未命名特殊标记补值。 */
   readonly endTurnStress?: 1 | 2 | -1;
   readonly endTurnStressName?:
-    "Cornered" | "Stressful Darkness" | "Beacon of Light" | "Healing Waters";
+    "Cornered" | "Stressful Darkness" | "Beacon of Light" | "Healing Waters" | "Clearing";
   readonly id: string;
   /** 板块已核实的容量；未提供时位移解析器拒绝，不补默认值。 */
   readonly capacity?: number;
@@ -184,6 +184,7 @@ export type BattleSetup = {
   readonly wealdMechanics?: true;
   readonly wealdPrecious?: true;
   readonly wealdOurs?: true;
+  readonly wealdClearingMonsters?: true;
   readonly wealdAbyssalPuff?: true;
   readonly conditions?: ConditionPool;
   /** 只使用逐面获批属性；整卡其他图标的验证状态不因此改变。 */
@@ -459,6 +460,7 @@ export type BattleState = BattleSetup & {
   readonly wealdMechanics?: true;
   readonly wealdPrecious?: true;
   readonly wealdOurs?: true;
+  readonly wealdClearingMonsters?: true;
   readonly wealdAbyssalPuff?: true;
 };
 

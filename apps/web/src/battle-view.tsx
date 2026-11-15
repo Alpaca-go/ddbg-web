@@ -360,7 +360,9 @@ export function BattleView({
                     </p>
                   )}
                   {area.endTurnStress === -1 && (
-                    <p className="muted">Beacon of Light：英雄结束回合恢复 1 压力</p>
+                    <p className="muted">
+                      {area.endTurnStressName ?? "Beacon of Light"}：英雄结束回合恢复 1 压力
+                    </p>
                   )}
                   {area.healingForbidden && (
                     <p className="muted">
@@ -581,6 +583,8 @@ export function BattleView({
                   wealdPrecious: true,
                   wealdAbyssalPuff: true,
                   wealdOurs: true,
+                  wealdClearingHeroes: true,
+                  wealdClearingMonsters: true,
                 })
               }
             >
