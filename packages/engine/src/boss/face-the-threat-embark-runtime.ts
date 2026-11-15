@@ -116,12 +116,16 @@ export function faceTheThreatEmbarkLevelMismatchReason(
 function faceTheThreatQuestContext(
   d: Pick<
     DungeonState,
-    "campaignLevel" | "activeBossThreatScriptId" | "imminentThreatDescriptionCardId"
+    | "campaignLevel"
+    | "activeBossThreatScriptId"
+    | "imminentThreatDescriptionCardId"
+    | "pounderBossBattles"
   >,
 ): import("./types").FaceTheThreatQuestContext {
   const base = {
     questId: FACE_THE_THREAT_QUEST_ID,
     campaignLevel: readCampaignLevel(d),
+    ...(d.pounderBossBattles ? { pounderBossBattles: true as const } : {}),
   };
   if (d.activeBossThreatScriptId) {
     return {
@@ -171,7 +175,10 @@ export function resolveFaceTheThreatEmbarkForChoose(
 export function requireFaceTheThreatEmbarkPlanForSandbox(
   d: Pick<
     DungeonState,
-    "campaignLevel" | "activeBossThreatScriptId" | "imminentThreatDescriptionCardId"
+    | "campaignLevel"
+    | "activeBossThreatScriptId"
+    | "imminentThreatDescriptionCardId"
+    | "pounderBossBattles"
   >,
 ): StoredFaceTheThreatEmbarkPlan {
   const hook = runFaceTheThreatEmbarkForQuest(faceTheThreatQuestContext(d));

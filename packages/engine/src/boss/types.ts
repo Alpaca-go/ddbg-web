@@ -453,6 +453,7 @@ export type BossSlotPlacementPlan = {
 export type BossSlotPlacementResult = BossHookOk<BossSlotPlacementPlan> | BossHookStubResult;
 
 export type BossFaceTheThreatContext = {
+  readonly pounderBossBattles?: true;
   readonly scriptId: BossScriptId;
   readonly questId: BasicQuestId;
   readonly campaignLevel?: CampaignLevel;
@@ -469,6 +470,7 @@ export type BossSlotPlacementContext = {
 
 /** 引擎层 Face the Threat 解析输入（不绑定单一脚本钩子）。 */
 export type FaceTheThreatQuestContext = {
+  readonly pounderBossBattles?: true;
   readonly questId: BasicQuestId;
   readonly campaignLevel?: CampaignLevel;
   readonly activeBossThreatScriptId?: BossScriptId;
