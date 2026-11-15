@@ -82,6 +82,7 @@ export const savedCommandSchema = z.union([
     locationSources: z.literal(true).optional(),
     pounderDungeonThreats: z.literal(true).optional(),
     pounderHamletThreats: z.literal(true).optional(),
+    pounderBossBattles: z.literal(true).optional(),
   }),
   commandObject({ type: z.literal("advanceRuinsAct") }),
   commandObject({ type: z.literal("enterDarkestDungeon") }),
