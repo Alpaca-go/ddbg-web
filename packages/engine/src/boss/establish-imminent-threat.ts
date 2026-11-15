@@ -1,4 +1,5 @@
 import { nextExpeditionLocationDecks } from "../hamlet-location-embark";
+import { ensurePounderIBossScriptRegistered } from "../expansions/weald/boss/pounder-i";
 import { wealdThreatPool } from "../expansions/weald/boss/threat-pool";
 import { ensureCampaignBossScriptsRegistered } from "../expansions/register";
 import { requireFaceTheThreatEmbarkPlanForSandbox } from "./face-the-threat-embark-runtime";
@@ -25,6 +26,7 @@ export type EstablishImminentThreatCommand = {
   readonly type: "establishImminentThreat";
   readonly locationBosses?: true | undefined;
   readonly locationSources?: true | undefined;
+  readonly pounderDungeonThreats?: true | undefined;
 };
 
 export type DrawImminentThreatAfterActAdvanceCommand = {
@@ -93,7 +95,12 @@ function applyImminentThreatDraw(
   for (let i = 0; i < d.cursor; i++) rng.next();
   const { cardId, rngDraws } = drawOne(pool, rng);
   const cursor = d.cursor + rngDraws;
-  const scriptId = resolveScriptIdForDescriptionCard(cardId, d.contentPacks);
+  if (d.pounderDungeonThreats) ensurePounderIBossScriptRegistered();
+  const scriptId = resolveScriptIdForDescriptionCard(
+    cardId,
+    d.contentPacks,
+    d.pounderDungeonThreats,
+  );
   ensureCoreBossScriptsRegistered();
   if (d.locationBossThreats) ensureCampaignBossScriptsRegistered(d.contentPacks);
   const registered = scriptId && getBossScript(scriptId);
@@ -144,6 +151,17 @@ export function establishImminentThreat(
   if (state.battle) return rejectBattleCommand(state, "战斗进行中不能定威胁（R-048）");
   const d = state.dungeon;
   if (!d) return rejectBattleCommand(state, "缺少战役状态，不能定威胁");
+  if (
+    command.pounderDungeonThreats &&
+    (!command.locationSources ||
+      !command.locationBosses ||
+      d.mode === "stygian" ||
+      d.questDistribution?.questId === "quest:p019")
+  )
+    return rejectBattleCommand(
+      state,
+      "Pounder 地牢威胁试验须启用完整地点来源，暂不支持 Stygian 或 Boss 出征",
+    );
   if (readActiveBossThreatScriptId(d))
     return rejectBattleCommand(state, "已有激活迫近威胁；请先击败 Boss 或清除后再定威胁");
   if (d.imminentThreatDescriptionCardId)
@@ -167,6 +185,7 @@ export function establishImminentThreat(
             ...d,
             locationBossThreats: true,
             ...(command.locationSources ? { bossLocationSources: true } : {}),
+            ...(command.pounderDungeonThreats ? { pounderDungeonThreats: true } : {}),
           },
         }
       : state,
