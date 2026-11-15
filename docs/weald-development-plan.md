@@ -875,4 +875,4 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 - R-234、rooms FRONT p2：新增 startBattle.wealdUnprepared:true，只在已启用 Weald 机制且实际绑定普通 2 号房时施加；所有活英雄跨区域减益 2t，不给怪物施加。沿用已核准状态防御，缺目录时整条开始命令原子拒绝；旧 startBattle 不补标记。Stygian 保留未开放，不类推普通卡。
 - 通过原战斗开始准入后、建先攻前接入；重复开始由既有 encounter 检查拒绝。页面开始按钮派发新标记，严格 schema／读取器保留标记。真实 Jester 减益抗性缩短至 1t；普通英雄状态沿用回合开始消耗机制。
 - 自然测试固定此前普通房间采样已观察到 2 号房的 seed2 Patrol，使用原 survival／公开补员策略，只开启命令版本；首次 Unprepared 触发前后完整命令日志 JSON 严格恢复，删最后开始命令标记时拒绝。不改牌序、站位、伤口、骰序或 Boss 策略，不称任务／战役通关。
-- 最终组合 4 文件 21 项通过（28.90 秒）；首轮 typecheck、lint、build 通过，新增抗性测试后的最终 typecheck／lint 仍在执行。Node 24.20.0 低于约定 24.21.0，pnpm 12.9.1，完整 CI 待完成。下一刀先补 Ambush 页面冒烟，再补 4 号 Precious；2 号全房间效果不伪装成区域特效，房间卡级历史 runtimeReady=false 元数据保留兼容。其他房间效果与 Boss 跨任务自然胜利缺口继续保留；无新增裁定，旧未跟踪交接文件保留、不提交。本批非阶段末，未新增按钮或浏览器冒烟。
+- 最终组合 4 文件 21 项通过（28.90 秒）；typecheck、lint、build 通过，新增抗性测试后的最终 typecheck／lint 通过，diff 空白检查通过。Node 24.20.0 低于约定 24.21.0，pnpm 12.9.1，完整 CI 待完成。下一刀先补 Ambush 页面冒烟，再补 4 号 Precious；2 号全房间效果不伪装成区域特效，房间卡级历史 runtimeReady=false 元数据保留兼容。其他房间效果与 Boss 跨任务自然胜利缺口继续保留；无新增裁定，旧未跟踪交接文件保留、不提交。本批非阶段末，未新增按钮或浏览器冒烟。
