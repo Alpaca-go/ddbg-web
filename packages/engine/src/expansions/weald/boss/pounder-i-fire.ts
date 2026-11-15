@@ -18,7 +18,11 @@ export function settlePounderIFireContext(result: ApplyResult): ApplyResult {
 }
 
 /** R-258：Matchman 不掷命中骰；Pounder 炮击走既有多目标、生命和压力续接。 */
-export function applyPounderIFireInTheHole(state: GameState, actorId: string): ApplyResult {
+export function applyPounderIFireInTheHole(
+  state: GameState,
+  actorId: string,
+  damageStoneWindow?: true,
+): ApplyResult {
   const b = state.battle;
   const d = state.dungeon;
   if (
@@ -92,6 +96,7 @@ export function applyPounderIFireInTheHole(state: GameState, actorId: string): A
       actorId: pounder.id,
       targetId: target.targetId,
       skillSlot: plan.slot,
+      ...(damageStoneWindow ? { damageStoneWindow } : {}),
     },
   );
 }

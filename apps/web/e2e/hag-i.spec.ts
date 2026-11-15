@@ -62,7 +62,7 @@ test("Hag 真实自然检查点：页面部署、3 张怪物先攻与释放选�
   await install(fixture.initial);
   await expect(page.getByText(/遗迹与 Weald 的七位 Boss/)).toBeVisible();
   await page.getByRole("button", { name: "抽取迫近威胁", exact: true }).click();
-  await expect(page.getByText("抽到的 Boss 尚未开放，已保留抽取结果，可保存战役。")).toBeVisible();
-  await expect(page.getByRole("button", { name: "掷开局补给骰", exact: true })).toBeDisabled();
+  await expect(page.getByTestId("initial-threat-result")).toContainText("Brigand Pounder I");
+  await expect(page.getByRole("button", { name: "掷开局补给骰", exact: true })).toBeEnabled();
   expect(errors).toEqual([]);
 });

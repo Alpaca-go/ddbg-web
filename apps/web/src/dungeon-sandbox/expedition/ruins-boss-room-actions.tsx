@@ -30,6 +30,15 @@ export function RuinsBossRoomActions({
 
 const entries = [
   {
+    id: "pounder",
+    level: 1,
+    name: "Brigand Pounder I",
+    roomName: "Brigand Pounder",
+    room: "room:weald:p012",
+    script: "boss:weald:brigandPounder:1",
+    command: "deployPounderI",
+  },
+  {
     id: "hag",
     level: 1,
     name: "Hag I",
@@ -157,7 +166,9 @@ function bossRoomEntry(d: DungeonState) {
     return undefined;
   return entries.find(
     (e) =>
-      (e.id !== "hag" ||
+      (e.id !== "pounder" ||
+        (d.pounderBossBattles && d.pounderDungeonThreats && d.pounderHamletThreats)) &&
+      (!["hag", "pounder"].includes(e.id) ||
         (d.mode !== "stygian" &&
           d.contentPacks?.includes("weald") &&
           d.bossLocationSources &&
