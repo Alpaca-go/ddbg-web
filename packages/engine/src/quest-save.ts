@@ -120,6 +120,13 @@ function replayCommands(commands: QuestSave["commands"]): Command[] {
         ...(trinketWindow === undefined ? {} : { trinketWindow }),
       };
     }
+    if (command.type === "startBattle") {
+      return {
+        type: "startBattle",
+        ...(command.wealdUnprepared ? { wealdUnprepared: true as const } : {}),
+        ...(command.allTrinkets ? { allTrinkets: true as const } : {}),
+      };
+    }
     if (command.type === "playMonsterSkill") {
       const { shuffleChoice, shuffleChoices, damageStoneWindow, toxicMushrooms, ...base } = command;
       return {

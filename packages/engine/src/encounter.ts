@@ -1,3 +1,4 @@
+import { applyUnprepared } from "./battle-unprepared";
 import { clearPounderIBrigands } from "./expansions/weald/boss/pounder-i-cleanup";
 import { readFinalFormSequence } from "./boss/final-form-sequence";
 import { beginHagIRelease } from "./expansions/weald/boss/hag-i-release";
@@ -124,7 +125,7 @@ export type EncounterState = {
 };
 
 export type EncounterCommand =
-  | { readonly type: "startBattle" }
+  | { readonly type: "startBattle"; readonly wealdUnprepared?: true }
   | { readonly type: "drawInitiative" }
   | {
       readonly type: "changeStance";
@@ -1097,7 +1098,10 @@ export function applyEncounterCommand(state: GameState, command: EncounterComman
     const prophetBinding = readProphetIRoomD10Binding(state);
     if (prophetBinding.status === "refused")
       return rejectBattleCommand(state, prophetBinding.message);
-    const marked = applyBossThreatMarkedForDeathOnBattleStart(ceaseThreatForBossCombat(state));
+    const room = command.wealdUnprepared ? applyUnprepared(state) : { state, events: [] };
+    if (room.events.some((e) => e.type === "commandRefused")) return room;
+    const threat = applyBossThreatMarkedForDeathOnBattleStart(ceaseThreatForBossCombat(room.state));
+    const marked = { ...threat, events: [...room.events, ...threat.events] };
     if (marked.events.some((entry) => entry.type === "commandRefused"))
       return { state, events: marked.events };
     const pyre = applyFanaticIPyreBattleStart(marked.state);
