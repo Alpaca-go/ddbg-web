@@ -36,6 +36,14 @@ export type BossThreatPassiveDungeonOk =
   | HigherRuinsThreat
   | {
       readonly status: "ok";
+      readonly effect: "buffRiposteOnMonsterRangedEntry";
+      readonly buffTurns: number;
+      readonly riposteTurns: number;
+      readonly sourceAbilityCardId: string;
+      readonly rulesRef: readonly string[];
+    }
+  | {
+      readonly status: "ok";
       readonly effect: "firstBattleBoneCaptain";
       readonly monsterCardId: "monster_large:p001";
       readonly sourceAbilityCardId: string;
@@ -102,6 +110,14 @@ export type BossThreatPassiveDungeonOk =
 
 export type BossThreatPassiveHamletOk =
   | HigherRuinsThreat
+  | {
+      readonly status: "ok";
+      readonly effect: "bombardmentAtHamletDayEnd";
+      readonly damage: number;
+      readonly caretakerPreventsAll: true;
+      readonly sourceAbilityCardId: string;
+      readonly rulesRef: readonly string[];
+    }
   | {
       readonly status: "ok";
       readonly effect: "firstDayGraveyardGuard";
