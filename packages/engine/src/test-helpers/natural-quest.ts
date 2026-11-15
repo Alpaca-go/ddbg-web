@@ -44,7 +44,7 @@ export type NaturalQuestOptions = {
   /** 从已出征状态续跑（awaitingProvisions / ready），不新建任务入口。 */
   readonly continueFrom?: GameState;
   /** 仅记录公开命令的观测点；用于在自然战斗待选/结算处验证日志重放。 */
-  readonly observe?: (state: GameState, command: Command) => void;
+  readonly observe?: (state: GameState, command: Command, events?: readonly GameEvent[]) => void;
   /** 自然完成指定场数后按R14提前离开；不伪造任务目标已完成。 */
   readonly exitAfterBattles?: number;
   /**
@@ -59,6 +59,8 @@ export type NaturalQuestOptions = {
   readonly handleDeaths?: boolean;
   /** 遗物偏好：保守打法（击杀优先、避免英雄掉血），只给玩家策略链用，不改自然默认。 */
   readonly survival?: boolean;
+  /** 显式跟随页面的新攻击命令版本，不改变玩家策略。 */
+  readonly toxicMushrooms?: true;
   /** 玩家策略：每间房后按这个「伤口 + 压力」阈值决定休息（默认 12，与既有自然策略一致）。 */
   readonly restThreshold?: number;
 };
@@ -79,13 +81,15 @@ export function naturalQuest(
   const commands: Command[] = [],
     events: GameEvent[] = [];
   const step = (command: Command) => {
+    if (options.toxicMushrooms && command.type === "playMonsterSkill")
+      command = { ...command, toxicMushrooms: true };
     const r = applyCommand(state, command);
     const refused = r.events.find((e) => e.type === "commandRefused");
     if (refused) throw new Error(`${command.type}: ${refused.message}`);
     commands.push(command);
     events.push(...r.events);
     state = r.state;
-    options.observe?.(state, command);
+    options.observe?.(state, command, r.events);
     return r;
   };
   const choice = () => state.battle?.pending?.choice ?? state.dungeon?.pending;

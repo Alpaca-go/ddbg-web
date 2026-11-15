@@ -66,6 +66,16 @@ describe("Weald 普通房间与板块（R-234–R-239、包隔离）", () => {
       .map((r) => r.areaId)
       .sort();
     expect(toxicAreas).toEqual(["C", "E", "F", "G"]);
+    expect(one.specialRegions.every((r) => r.runtimeReady)).toBe(true);
+    expect(
+      wealdRoomTileSchema.safeParse({ ...one, roomId: "room:weald:p002", number: 2 }).success,
+    ).toBe(false);
+    expect(
+      wealdRoomTileSchema.safeParse({
+        ...one,
+        specialRegions: one.specialRegions.map((r) => ({ ...r, effect: "precious" })),
+      }).success,
+    ).toBe(false);
     expect(seven.zeroCapacityAreas).toEqual(["H", "I", "J"]);
     for (const id of ["H", "I", "J"]) {
       expect(seven.areas.find((a) => a.id === id)?.capacity).toBe(0);

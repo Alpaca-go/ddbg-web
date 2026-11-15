@@ -6,8 +6,8 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 ## 当前进度与下一步
 
 - **当前阶段：I 级五任务已有逐任务固定种子自然场景、XP／回村与严格日志验证；收尾核对发现普通房间剩余五类已核准效果未接运行时，Toxic Mushrooms 已接新版本攻击命令，因此步骤 3／5 未结案，完整战役尚未验收。**
-- **当前批次**：PR #695 已按指令 squash 合入 main（`ceff1b62`）；Toxic Mushrooms 接入带显式标记的单／多目标怪物攻击与页面命令，旧命令保持原行为。合入时 CI 运行中，不记全绿。
-- **下一刀：补 Toxic Mushrooms 自然 Weald 严格日志与页面验收，同步房间目录运行元数据，再补 2 号 Unprepared! 等其余已核准效果；旧日志兼容须显式处理。Boss 的实际养成跨任务抵达与自然胜利继续等待真实玩家输入，机制夹具和 seed17 败局不替代自然胜利，也不据此越过 Pounder 实现 Shrieker。**
+- **当前批次**：PR #696 按指令 squash 合入 main（`68f8361b`）。本批以 seed4 Patrol 自然检查点完成 Toxic Mushrooms 触发前后严格日志、删版本拒绝及页面技能／位移续接冒烟，并同步 1 号板块区域 runtimeReady。合入时 CI 运行中，不记全绿。
+- **下一刀：补 2 号 Unprepared! 等其余五类已核准效果及对应版本／日志／页面验收；旧日志兼容须显式处理。Boss 的实际养成跨任务抵达与自然胜利继续等待真实玩家输入，机制夹具和 seed17 败局不替代自然胜利，也不据此越过 Pounder 实现 Shrieker。**
 
 - 步骤 0 已完成，提交 `e7fd17e1`；完整地点战役尚未验收。
 - 导入与计划两批已合入并推送 `main`（`3be97c65`）。步骤 1 怪物批次已合入并推送 `main`（`7075f4d8`）。
@@ -59,11 +59,11 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 
 ### 普通房间效果的实际接线状态
 
-卡面语义沿用 [R-234–R-239](rulings.md)及[房间审阅稿](weald-room-review-2026-11-12.md)，不新增规则。核对 [房间生成器](../packages/data/src/normalize/weald-rooms.ts)、[区域投影](../packages/engine/src/expansions/weald/weald-mechanics.ts)与[数据 schema](../packages/data/src/weald-room.ts)：目前区域投影只接 `poisonousRoots`；schema 也只允许这一类区域效果开启 `runtimeReady`。2／8 号是全房间触发，不能因 `specialRegions` 为空误记为没有效果。
+卡面语义沿用 [R-234–R-239](rulings.md)及[房间审阅稿](weald-room-review-2026-11-12.md)，不新增规则。核对 [房间生成器](../packages/data/src/normalize/weald-rooms.ts)、[区域投影](../packages/engine/src/expansions/weald/weald-mechanics.ts)与[数据 schema](../packages/data/src/weald-room.ts)：区域投影仍只接 `poisonousRoots`；Toxic Mushrooms 按核准房间身份与星区独立结算，schema 已允许 1 号该区域效果开启 `runtimeReady`。2／8 号是全房间触发，不能因 `specialRegions` 为空误记为没有效果。
 
 | 房间                 | 已核准效果       | 当前状态／后续触发位置                                                                                                                                                               |
 | -------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 1．Fungal Spores     | Toxic Mushrooms  | 新标记命令已接；怪物攻击未命中后，仅目标所在 C／E／F／G 星区活英雄腐蚀 1·2t；旧命令不触发，自然严格日志与页面验收待补                                                                |
+| 1．Fungal Spores     | Toxic Mushrooms  | 新标记命令已接；怪物攻击未命中后，仅目标所在 C／E／F／G 星区活英雄腐蚀 1·2t；旧命令不触发；seed4 自然触发／严格日志及页面位移续接已验收                                              |
 | 2．Ambush            | Unprepared!      | 未接；战斗开始时作用于英雄，不限单个区域                                                                                                                                             |
 | 3／6／7              | 无独立卡面效果段 | 不新增特效；几何、部署及 7 号零容量规则仍适用                                                                                                                                        |
 | 4．Stash             | Precious         | 未接；怪物在 D 结束回合时作用于其他怪物，两项增益不得去重                                                                                                                            |
@@ -859,3 +859,12 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 - 效果位于目标攻击结算后、后续位移前；自身 Pull 沿用既有自身阶段先行，在目标阶段续接才施加。JSON 状态往返后位移续接不重放腐蚀、也不额外耗骰。该机制夹具不是自然任务存档。
 - 验证：3 文件 50 项通过（46.08 秒），typecheck、lint、build 通过；命令 schema 新旧及错误版本值校验通过。首轮夹具遗漏地牢 phase／heroes、怪物距离不合卡面，修正夹具后通过；自身 Pull 初始断言错把自身阶段当成目标结算，按现有流程修正。第一次并行检查下历史自然日志测试超过既有 20 秒时限，最终组合复跑通过，无时限或业务规则放宽。Node 24.20.0 低于约定 24.21.0，pnpm 12.9.1；完整 CI 待完成。
 - 下一步：补新标记的自然 Weald 完整严格日志与页面冒烟，同步数据目录 runtimeReady；当前 schema／目录的区域投影仍只标记 Poisonous Roots，Toxic Mushrooms 读取核准房间身份与星区独立结算。随后补 2 号 Unprepared!，其余效果、Boss 自然胜利与跨任务养成缺口继续保留。不新增规则裁定，本批非阶段末；旧未跟踪交接文件保留、不提交。
+
+### Toxic Mushrooms 自然检查点、严格日志与页面验收（2026-11-15）
+
+- #696 转 ready 后 squash 合入 `68f8361b`；分支 `codex/weald-toxic-acceptance`。合入时 CI 运行中，不记全绿。
+- R-234／R-239：1 号板块四个 Toxic 星区标记 runtimeReady，schema 只允许核准 1 号身份，不开放其他效果；生成目录一致性及错房间／错效果拒绝已验证。房间卡 verifiedEffect 的历史 false 元数据未改，避免改变存档中的卡目录；该字段不能单独判断是否已实现。
+- 自然驱动新增显式 toxicMushrooms 选项，缺省旧策略／旧命令不变；观测器提供实际事件。seed1 原 Fungal Research、Purge、Patrol 均未进入 1 号房；随后对 Patrol seed2–5 做一次有界普通房间采样，仅 seed4 满足触发。最终固定 seed4、原 survival 与公开补员策略，不修改站位、伤口、牌序或 RNG；不搜索 Boss 胜利。
+- seed4 首次真实触发发生在自身位移后的目标攻击续接。保存 resolveShuffles 前后的完整命令日志，JSON 后严格恢复相同状态；删掉原 playMonsterSkill 的版本标记则快照不一致而拒绝。这里只验收到首次触发，不称整个任务或战役通关。
+- 页面使用同一自然路径的攻击前检查点，经真实按钮“结算怪物技能 → 结算位移”，核对命令新标记、Toxic 事件及所有实际实体状态等于自然结果。冒烟无重试通过（单用例 23.0 秒，整次 32.9 秒）；浏览器沿用配置支持的本机 Chrome。首轮旧夹具错误地要求触发命令必须是 playMonsterSkill，实际为 resolveShuffles；已改成真实时点。首轮浏览器等待旧检查点按钮时终止，修正后独立无重试运行通过。生成修改首次误改卡级 false 被 schema 拒绝，已恢复，仅改四处区域字段。
+- 最终组合 4 文件 49 项通过（28.59 秒）；页面冒烟如上通过；typecheck、lint、build 最终检查通过，diff 空白检查通过。Node 24.20.0 低于约定 24.21.0，pnpm 12.9.1，完整 CI 待完成。下一刀：2 号 Unprepared!，随后其余已核准效果；Boss 跨任务养成与自然胜利、其他机制 UI 验收继续保留。无新增规则裁定，旧未跟踪交接文件保留、不提交。
