@@ -580,6 +580,7 @@ export function BattleView({
                   wealdUnprepared: true,
                   wealdPrecious: true,
                   wealdAbyssalPuff: true,
+                  wealdOurs: true,
                 })
               }
             >
