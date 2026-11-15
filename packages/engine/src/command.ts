@@ -1,3 +1,4 @@
+import { withAbyssalPuff } from "./battle-abyssal-puff";
 import { deployPounderI } from "./expansions/weald/boss/pounder-i-deploy";
 import { deployHagI } from "./expansions/weald/boss/hag-i-deploy";
 import { applyPounderIHamletThreat } from "./expansions/weald/boss/pounder-i-hamlet-threat";
@@ -1134,6 +1135,7 @@ function applyCommandCore(
   const result = dispatched.events.some((e) => e.type === "commandRefused")
     ? dispatched
     : continuePoolRebirth(continueDeathEstates(dispatched));
-  const refused = result.events.find((event) => event.type === "commandRefused");
-  return refused ? rejectBattleCommand(state, refused.message) : settlePounderIFireContext(result);
+  const puff = withAbyssalPuff(state, result);
+  const refused = puff.events.find((event) => event.type === "commandRefused");
+  return refused ? rejectBattleCommand(state, refused.message) : settlePounderIFireContext(puff);
 }
