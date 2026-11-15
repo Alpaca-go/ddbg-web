@@ -124,6 +124,7 @@ function replayCommands(commands: QuestSave["commands"]): Command[] {
       return {
         type: "startBattle",
         ...(command.wealdUnprepared ? { wealdUnprepared: true as const } : {}),
+        ...(command.wealdPrecious ? { wealdPrecious: true as const } : {}),
         ...(command.allTrinkets ? { allTrinkets: true as const } : {}),
       };
     }

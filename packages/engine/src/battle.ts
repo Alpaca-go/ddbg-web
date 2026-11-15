@@ -182,6 +182,7 @@ export type BattleSetup = {
   readonly roomName?: string;
   /** 启用 W-03／W-04；须与出征 contentPacks 含 weald 一并判定。 */
   readonly wealdMechanics?: true;
+  readonly wealdPrecious?: true;
   readonly conditions?: ConditionPool;
   /** 只使用逐面获批属性；整卡其他图标的验证状态不因此改变。 */
   readonly heroStats?: readonly {
@@ -454,6 +455,7 @@ export type BattleState = BattleSetup & {
   /** Impaler Body Slam 含 shuffle 意图：Pit Toss 延至 shuffle 完结后的 recordMonsterSkill（R-193）。 */
   readonly deferTemplarsPitToss?: true;
   readonly wealdMechanics?: true;
+  readonly wealdPrecious?: true;
 };
 
 export function createBattleState(seed: number, setup: BattleSetup): GameState {
