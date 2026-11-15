@@ -54,6 +54,7 @@ export const savedCommandSchema = z.union([
     wealdUnprepared: z.literal(true).optional(),
     wealdPrecious: z.literal(true).optional(),
     wealdAbyssalPuff: z.literal(true).optional(),
+    wealdOurs: z.literal(true).optional(),
   }),
   commandObject({ type: z.literal("prepareFinalBattleForms") }),
   commandObject({

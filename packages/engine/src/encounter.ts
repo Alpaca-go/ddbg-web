@@ -1,3 +1,4 @@
+import { enableOurs } from "./battle-ours";
 import { enableAbyssalPuff } from "./battle-abyssal-puff";
 import { enablePrecious, endTurnPrecious } from "./battle-precious";
 import { applyUnprepared } from "./battle-unprepared";
@@ -132,6 +133,7 @@ export type EncounterCommand =
       readonly wealdUnprepared?: true;
       readonly wealdPrecious?: true;
       readonly wealdAbyssalPuff?: true;
+      readonly wealdOurs?: true;
     }
   | { readonly type: "drawInitiative" }
   | {
@@ -1111,7 +1113,8 @@ export function applyEncounterCommand(state: GameState, command: EncounterComman
     const prophetBinding = readProphetIRoomD10Binding(state);
     if (prophetBinding.status === "refused")
       return rejectBattleCommand(state, prophetBinding.message);
-    const puffState = command.wealdAbyssalPuff ? enableAbyssalPuff(state) : state;
+    const oursState = command.wealdOurs ? enableOurs(state) : state;
+    const puffState = command.wealdAbyssalPuff ? enableAbyssalPuff(oursState) : oursState;
     const roomState = command.wealdPrecious ? enablePrecious(puffState) : puffState;
     const room = command.wealdUnprepared
       ? applyUnprepared(roomState)

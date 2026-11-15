@@ -126,6 +126,7 @@ function replayCommands(commands: QuestSave["commands"]): Command[] {
         ...(command.wealdUnprepared ? { wealdUnprepared: true as const } : {}),
         ...(command.wealdPrecious ? { wealdPrecious: true as const } : {}),
         ...(command.wealdAbyssalPuff ? { wealdAbyssalPuff: true as const } : {}),
+        ...(command.wealdOurs ? { wealdOurs: true as const } : {}),
         ...(command.allTrinkets ? { allTrinkets: true as const } : {}),
       };
     }

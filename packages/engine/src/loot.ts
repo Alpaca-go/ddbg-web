@@ -1,3 +1,4 @@
+import { resolveOurs } from "./battle-ours";
 import { rejectBattleCommand } from "./battle";
 import type { BattleState } from "./battle";
 import type { ApplyResult, GameEvent, GameState } from "./command";
@@ -154,9 +155,13 @@ function finishLoot(
       message: "拾取战利品，奖励已结算，移除宝箱并消耗一个行动",
     },
   ];
-  return turn.actions === 1
-    ? finishTurn(next, actorId, resolved)
-    : { state: next, events: resolved };
+  const ours = resolveOurs(next, actorId, resolved);
+  if (ours.events.some((e) => e.type === "commandRefused"))
+    return rejectBattleCommand(
+      state,
+      ours.events.find((e) => e.type === "commandRefused")!.message,
+    );
+  return turn.actions === 1 ? finishTurn(ours.state, actorId, ours.events) : ours;
 }
 function rewardChoice(
   state: GameState,
