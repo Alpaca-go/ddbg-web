@@ -1,3 +1,6 @@
+import { createQuestSave } from "../../../../packages/engine/src/quest-save";
+import type { CoreQuestSources } from "../../../../packages/engine/src/dungeon-quest-entry";
+import type { Command } from "../../../../packages/engine/src/command";
 import { createCoreDungeonQuest } from "../../../../packages/engine/src/dungeon-quest-entry";
 import {
   coreParty,
@@ -7,44 +10,57 @@ import { naturalQuest } from "../../../../packages/engine/src/test-helpers/natur
 import type { GameState } from "../../../../packages/engine/src/command";
 
 /** 真实 seed 6 公开命令的 UI 检查点，不注入伤口、战斗结局或 RNG。 */
-export function hagUiFixture() {
+export function hagUiFixture(sources: CoreQuestSources = coreQuestSources) {
   const initial = createCoreDungeonQuest(
     6,
     "quest:p019",
     "standard",
     coreParty,
-    coreQuestSources,
+    sources,
     true,
     null,
     ["core", "weald"],
   );
   let bound: GameState | undefined, release: GameState | undefined;
-  const run = naturalQuest(6, "quest:p019", true, coreQuestSources, 2, {
+  const commands: Command[] = [];
+  let releaseCount = 0;
+  const run = naturalQuest(6, "quest:p019", true, sources, 2, {
     continueFrom: initial,
     locationBosses: true,
     locationSources: true,
     observe(state, command) {
+      commands.push(command);
       if (
         command.type === "prepareDungeonBattle" &&
         state.dungeon?.roomCards?.active?.cardId === "room:weald:p010"
       )
         bound = state;
-      if (!release && state.battle?.pending?.type === "hagRelease") release = state;
+      if (!release && state.battle?.pending?.type === "hagRelease") {
+        release = state;
+        releaseCount = commands.length;
+      }
     },
   });
   if (run.stopReason || !bound || !release) throw new Error("Hag 自然 UI 检查点不完整");
   return {
     bound,
     release,
-    initial: createCoreDungeonQuest(
-      1,
-      "quest:p019",
-      "standard",
-      coreParty,
-      coreQuestSources,
-      true,
-      null,
-      ["core", "weald"],
+    save: createQuestSave(
+      {
+        seed: 6,
+        questId: "quest:p019",
+        mode: "standard",
+        party: coreParty.map((h) => ({ ...h, skillIds: [...h.skillIds] })),
+        contentPacks: ["core", "weald"],
+        bossEdgeRooms: true,
+      },
+      commands.slice(0, releaseCount),
+      release,
+      sources,
     ),
+    initial: createCoreDungeonQuest(1, "quest:p019", "standard", coreParty, sources, true, null, [
+      "core",
+      "weald",
+    ]),
   };
 }
