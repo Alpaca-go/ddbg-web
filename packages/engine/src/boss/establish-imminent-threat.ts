@@ -27,6 +27,7 @@ export type EstablishImminentThreatCommand = {
   readonly locationBosses?: true | undefined;
   readonly locationSources?: true | undefined;
   readonly pounderDungeonThreats?: true | undefined;
+  readonly pounderHamletThreats?: true | undefined;
 };
 
 export type DrawImminentThreatAfterActAdvanceCommand = {
@@ -151,6 +152,8 @@ export function establishImminentThreat(
   if (state.battle) return rejectBattleCommand(state, "战斗进行中不能定威胁（R-048）");
   const d = state.dungeon;
   if (!d) return rejectBattleCommand(state, "缺少战役状态，不能定威胁");
+  if (command.pounderHamletThreats && !command.pounderDungeonThreats)
+    return rejectBattleCommand(state, "Pounder 村庄威胁版本须同时启用地牢威胁版本");
   if (
     command.pounderDungeonThreats &&
     (!command.locationSources ||
@@ -186,6 +189,7 @@ export function establishImminentThreat(
             locationBossThreats: true,
             ...(command.locationSources ? { bossLocationSources: true } : {}),
             ...(command.pounderDungeonThreats ? { pounderDungeonThreats: true } : {}),
+            ...(command.pounderHamletThreats ? { pounderHamletThreats: true } : {}),
           },
         }
       : state,
