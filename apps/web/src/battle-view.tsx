@@ -574,7 +574,9 @@ export function BattleView({
           {!turn && (
             <button
               disabled={frozen}
-              onClick={() => send({ type: "startBattle", wealdUnprepared: true })}
+              onClick={() =>
+                send({ type: "startBattle", wealdUnprepared: true, wealdPrecious: true })
+              }
             >
               开始战斗
             </button>

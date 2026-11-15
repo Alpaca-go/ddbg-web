@@ -1,3 +1,4 @@
+import { enablePrecious, endTurnPrecious } from "./battle-precious";
 import { applyUnprepared } from "./battle-unprepared";
 import { clearPounderIBrigands } from "./expansions/weald/boss/pounder-i-cleanup";
 import { readFinalFormSequence } from "./boss/final-form-sequence";
@@ -125,7 +126,7 @@ export type EncounterState = {
 };
 
 export type EncounterCommand =
-  | { readonly type: "startBattle"; readonly wealdUnprepared?: true }
+  | { readonly type: "startBattle"; readonly wealdUnprepared?: true; readonly wealdPrecious?: true }
   | { readonly type: "drawInitiative" }
   | {
       readonly type: "changeStance";
@@ -441,6 +442,12 @@ export function finishTurn(
       return eldritch;
     state = eldritch.state;
     events = eldritch.events;
+  }
+  const precious = endTurnPrecious(state, actorId, events);
+  if (precious) {
+    if (precious.events.some((e) => e.type === "commandRefused")) return precious;
+    state = precious.state;
+    events = precious.events;
   }
   state = bumpProphetIActionRoundCount(state, actorId);
   state = bumpHagIActionRoundCount(state, actorId);
@@ -1098,7 +1105,10 @@ export function applyEncounterCommand(state: GameState, command: EncounterComman
     const prophetBinding = readProphetIRoomD10Binding(state);
     if (prophetBinding.status === "refused")
       return rejectBattleCommand(state, prophetBinding.message);
-    const room = command.wealdUnprepared ? applyUnprepared(state) : { state, events: [] };
+    const roomState = command.wealdPrecious ? enablePrecious(state) : state;
+    const room = command.wealdUnprepared
+      ? applyUnprepared(roomState)
+      : { state: roomState, events: [] };
     if (room.events.some((e) => e.type === "commandRefused")) return room;
     const threat = applyBossThreatMarkedForDeathOnBattleStart(ceaseThreatForBossCombat(room.state));
     const marked = { ...threat, events: [...room.events, ...threat.events] };
