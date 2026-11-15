@@ -18,7 +18,10 @@ export function nextExpeditionLocationDecks(d: DungeonState, questId: string) {
     d.bossLocationSources &&
     d.locationBossThreats &&
     questId === "quest:p019" &&
-    d.activeBossThreatScriptId === "boss:weald:hag:1"
+    (d.activeBossThreatScriptId === "boss:weald:hag:1" ||
+      (d.activeBossThreatScriptId === "boss:weald:brigandPounder:1" &&
+        d.pounderDungeonThreats &&
+        d.pounderHamletThreats))
       ? "weald"
       : expeditionRegionForQuestId(questId);
   if (region !== "weald" && readExpeditionRoomRegion(d) !== "weald") return null;
