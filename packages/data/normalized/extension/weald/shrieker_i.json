@@ -1,0 +1,157 @@
+{
+ "schema": "ddbg-weald-shrieker-i-v1",
+ "rulings": ["R-261"],
+ "combatReady": false,
+ "sources": {
+  "combatFront": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_140x140_monster_large_FRONT.pdf",
+  "combatBack": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_140x140_monster_large_BACK.pdf",
+  "abilityFront": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+  "abilityBack": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_BACK.pdf"
+ },
+ "faces": [
+  {
+   "role": "shrieker",
+   "rawId": "monster_large:weald:p004",
+   "face": "front",
+   "name": "Shrieker",
+   "level": 1,
+   "types": ["eldritch","beast","large"],
+   "stanceSlots": 2,
+   "life": 49,
+   "speed": 3,
+   "dodge": 2,
+   "resistances": ["stun","bleed","shuffle"],
+   "immunities": ["blight"],
+   "selection": [{"min":1,"max":5,"slot":1},{"min":6,"max":9,"slot":2},{"min":10,"max":10,"slot":3}],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Peck",
+     "target": "closest",
+     "range": 1,
+     "maxTargets": 1,
+     "crit": 2,
+     "critDamage": 11,
+     "accuracy": 9,
+     "damage": 8,
+     "effects": [{"kind":"selfPull","distance":1},{"kind":"bleed","amount":2,"duration":2}]
+    },
+    {
+     "slot": 2,
+     "name": "Call the Murder",
+     "target": "crowded",
+     "range": 1,
+     "maxTargets": 4,
+     "crit": 1,
+     "critDamage": 4,
+     "accuracy": 10,
+     "damage": 2,
+     "effects": [{"kind":"selfPush","distance":2},{"kind":"stress","amount":1}]
+    },
+    {
+     "slot": 3,
+     "name": "Regurgitate",
+     "target": "crowded",
+     "range": 2,
+     "maxTargets": 2,
+     "crit": 1,
+     "critDamage": 2,
+     "accuracy": 9,
+     "damage": 1,
+     "effects": [{"kind":"debuff","duration":2},{"kind":"disease"}]
+    }
+   ]
+  },
+  {
+   "role": "nest",
+   "rawId": "monster_large:weald:p007",
+   "face": "front",
+   "name": "Shrieker’s Nest",
+   "level": 1,
+   "types": ["large"],
+   "stanceSlots": 2,
+   "life": 20,
+   "speed": 0,
+   "dodge": 0,
+   "resistances": [],
+   "immunities": ["stun","bleed","blight","debuff","shuffle"],
+   "selection": [],
+   "skills": []
+  }
+ ],
+ "abilities": {
+  "descriptionCardId": "boss_ability:weald:p001",
+  "combatCardId": "boss_ability:weald:p004",
+  "actionsPerRound": 3,
+  "nestAreaExclusiveToShrieker": true,
+  "callTheMurder": {"condition":"nestInPlay","replaces":"selfPush2","destination":"nestArea","printedHeal":2},
+  "threats": {
+   "dungeon": {"name":"Where Did It Go? I","trigger":"afterGainProvision","discardCount":1,"choice":"player"},
+   "hamlet": {"name":"Murder of Magpies I","trigger":"afterAllHeroesRollSupplyDice","discardCount":1,"choice":"player"}
+  }
+ },
+ "pendingRuleDetails": ["callTheMurderHealingTimingAndRecipient","flightMovementConstraints","multipleProvisionGainsAndFullPoolOrdering"],
+ "setup": {
+  "rule": "Weald W3",
+  "shriekerStance": "aggressive",
+  "nestStance": "ranged",
+  "monsterInitiativeCards": 3,
+  "heroInitiativeCards": 4,
+  "removeNestOnShriekerDefeat": true
+ },
+ "tile": {
+  "id": "room_tile:weald:p006:front",
+  "rawId": "dungeon_tile:weald:p006",
+  "roomId": "room:weald:p011",
+  "location": "weald",
+  "number": 11,
+  "name": "Shrieker",
+  "source": {"file":"DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_WEALD_TILES_FRONT.pdf","page":6,"face":"front"},
+  "ruling": "R-261",
+  "geometryVerified": true,
+  "geometryComplete": true,
+  "usable": false,
+  "pendingReview": [],
+  "deployment": {
+   "printReview": "verified",
+   "heroes": {"aggressive":"J","defensive":"J","ranged":"C","support":"C"},
+   "monsters": {"aggressive":"E","defensive":"E","ranged":"E","support":"E"},
+   "lootAreas": ["A","E","I"],
+   "markers": []
+  },
+  "areas": [
+   {"id":"A","capacity":4,"elevation":"normal"},
+   {"id":"B","capacity":4,"elevation":"normal"},
+   {"id":"C","capacity":4,"elevation":"normal"},
+   {"id":"D","capacity":3,"elevation":"normal"},
+   {"id":"E","capacity":5,"elevation":"normal"},
+   {"id":"F","capacity":3,"elevation":"normal"},
+   {"id":"G","capacity":3,"elevation":"normal"},
+   {"id":"H","capacity":4,"elevation":"normal"},
+   {"id":"I","capacity":4,"elevation":"normal"},
+   {"id":"J","capacity":2,"elevation":"normal"}
+  ],
+  "edges": [
+   {"from":"A","to":"B","cornerOnly":false,"blocked":false},
+   {"from":"A","to":"D","cornerOnly":false,"blocked":false},
+   {"from":"B","to":"C","cornerOnly":false,"blocked":false},
+   {"from":"B","to":"E","cornerOnly":false,"blocked":false},
+   {"from":"C","to":"F","cornerOnly":false,"blocked":false},
+   {"from":"D","to":"E","cornerOnly":false,"blocked":false},
+   {"from":"D","to":"G","cornerOnly":false,"blocked":false},
+   {"from":"E","to":"F","cornerOnly":false,"blocked":false},
+   {"from":"E","to":"H","cornerOnly":false,"blocked":false},
+   {"from":"F","to":"I","cornerOnly":false,"blocked":false},
+   {"from":"G","to":"H","cornerOnly":false,"blocked":false},
+   {"from":"G","to":"J","cornerOnly":false,"blocked":false},
+   {"from":"H","to":"I","cornerOnly":false,"blocked":false},
+   {"from":"H","to":"J","cornerOnly":false,"blocked":false}
+  ],
+  "necroticFungusAreas": [],
+  "zeroCapacityAreas": [],
+  "specialRegions": [],
+  "wallNotes": ["C／F 左下及 G 右上黑凹口不是区域，不补 E–G 连接"],
+  "unresolvedMarkers": []
+ },
+ "nestArea": "E"
+}

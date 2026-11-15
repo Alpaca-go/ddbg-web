@@ -3423,3 +3423,13 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **核准**：Kyries 明确确认 9 号 The Clearing 的 Clearing 效果随机移走未拾取宝箱后，代币归还本次地牢可用随机池，可在后续房间再出现；不视为已拾取，不按 R-047 弃出到回村才洗回。
 - **范围**：只补此房间效果移除宝箱的去向；不改变 R-047 的已拾取代币处置，也不改变 R-059 对战斗结束时仍留在场上未拾取宝箱的处置。
 - **依据**：Kyries 本次对官方房间文字“怪物在这里结束回合，随机移除一个宝箱”的限定裁定；R-234／R-238，Weald rooms FRONT p9。
+
+### R-261
+
+- **日期**：2026-11-15。
+- **核准范围**：Kyries 已编辑 [Shrieker I 审阅稿](weald-shrieker-i-review-2026-11-15.md)，并明确“没改的地方都核准通过”。按更正后的具体卡面字段与几何采用，不沿用初稿抗性误读，不推及 II／III 级。
+- **Shrieker I**：Life 49、Speed 3、Dodge 2；Eldritch／Beast／Large，占两格；抗性眩晕、流血、位移，免疫腐蚀。Nest I：Life 20、Speed 0、Dodge 0，Large，占两格；无抗性，免疫眩晕、流血、腐蚀、减益、位移；无普通技能与选招，不伪造主动攻击。
+- **技能与行动**：Shrieker 每轮 3 行动；左选招 1–5／6–9／10 对应技能 1／2／3，右侧灰栏不作第二组选招。Peck：射程 1、Closest 1，Crit 2／伤害 11，Acc 9／伤害 8，Self Pull 1、目标流血 2·2t。Call the Murder：射程 1、Crowded 4，Crit 1／伤害 4，Acc 10／伤害 2，Self Push 2、目标压力 +1。Regurgitate：射程 2、Crowded 2，Crit 1／伤害 2，Acc 9／伤害 1，目标减益 2t、疾病。
+- **能力与威胁文字**：Nest 在场时只有 Shrieker 可进入其所在区域；Call the Murder 替代 Self Push 2，飞往 Nest 区并有印刷治疗 2。地牢获得 Provision 后由玩家选择弃一枚公共补给；村庄所有英雄掷完 supply dice 后从 reserve 选一枚弃置。原稿明确标为待核对、且尚未给出具体规则答案的治疗归属／时点、飞行移动限制和多枚／满池顺序仍须依据规则核对，不凭“核准”补造不存在的细则。
+- **11 号板块**：审阅 A–J 的容量依次 4／4／4／3／5／3／3／4／4／2；全部 normal，无零容量或真菌。14 对通行共边按审阅表；黑色凹口不作区域。英雄 Aggressive／Defensive=J、Ranged／Support=C；怪物四姿态=E，Shrieker／Nest 均按 W3 落 E；宝箱 A／E／I，Nest 星区 E。初始 3 怪物／4 英雄先攻，击败 Shrieker 后移除 Nest，沿 W3。
+- **边界**：只核准本表 I 级内容与实际板块 FRONT p6；不赋予注册／combatReady，不从描述叙事新增逃跑胜利条件，不改全局图标词典。人工实机后置按用户最新优先级执行，自动质量闸门保留。
