@@ -1,0 +1,22 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`W-03 seed3 怪物公开移动必经零容量区，完整日志恢复 1`] = `
+{
+  "action": {
+    "actorId": "monster-deck:p022",
+    "allTrinkets": true,
+    "type": "moveMonsterToRange",
+  },
+  "moved": {
+    "actorId": "monster-deck:p022",
+    "from": "B",
+    "message": "已按射程完成 Speed 定位",
+    "skipped": false,
+    "steps": 2,
+    "targetId": "hero-0",
+    "to": "E",
+    "type": "monsterPositioned",
+  },
+  "pending": null,
+}
+`;
