@@ -232,18 +232,20 @@ export function FormalTabletopScoutingPanel({
         {d.roomCards?.active &&
           (() => {
             const active = d.roomCards.active;
-            if (active.cardId === "room:weald:p010")
+            if (["room:weald:p010", "room:weald:p012"].includes(active.cardId)) {
+              const label = active.cardId === "room:weald:p010" ? "Hag" : "Brigand Pounder";
               return (
                 <div className="panel" data-testid="dungeon-room-card">
                   <div className="dungeon-room-card-row">
-                    <RoomCardFace roomCardId={active.cardId} label="Hag" />
+                    <RoomCardFace roomCardId={active.cardId} label={label} />
                     <div>
-                      <h3>Hag</h3>
+                      <h3>{label}</h3>
                       <RuinsBossRoomActions dungeon={d} dispatch={dispatch} />
                     </div>
                   </div>
                 </div>
               );
+            }
             const roomCard = d.roomCards.cards.find((c) => c.id === active.cardId);
             if (!roomCard) return null;
             const stygianCard = readActiveStygianRoom(d);

@@ -1,4 +1,5 @@
 import { expect, it } from "vitest";
+import { coreQuestSources } from "../../../test-helpers/core-quest";
 import heroStats from "../../../../../data/normalized/corebox/hero_stat.json";
 import coreMedium from "../../../../../data/normalized/corebox/monster_medium.json";
 import type { MonsterCardView } from "../../../monster-skill";
@@ -78,6 +79,54 @@ function run(state: GameState, command: Parameters<typeof applyCommand>[1]): Gam
 }
 const prepare = { type: "prepareMonsterAction", actorId: "m" } as const;
 const move = { type: "moveMonsterToRange", actorId: "m" } as const;
+
+it("页面炮击保留Damage Stone响应窗口；JSON选择续接只结算一次伤害和骰序", () => {
+  const base = fixture();
+  const state = {
+    ...base,
+    battle: {
+      ...base.battle!,
+      entities: base.battle!.entities.map((e) => (e.side === "hero" ? { ...e, heroLevel: 1 } : e)),
+      trinkets: {
+        ...coreQuestSources.catalog.trinkets!,
+        held: [{ cardId: "trinket:p007", heroId: "h", face: "inverted" as const }],
+      },
+    },
+  };
+  const positioned = run(run(state, prepare), move);
+  const command = {
+    type: "playMonsterSkill",
+    actorId: "m",
+    targetId: "boss:pounder",
+    skillSlot: 1,
+    damageStoneWindow: true,
+  } as const;
+  const opened = applyCommand(positioned, command);
+  expect(opened.events.filter((e) => e.type === "commandRefused")).toEqual([]);
+  expect(opened.state.battle!.pending?.type).toBe("damageStone");
+  expect(opened.state.battle!.entities.find((e) => e.id === "h")!.wounds).toBe(0);
+  expect(opened.state.battle!.rngCursor).toBe(positioned.battle!.rngCursor);
+  const choice = opened.pendingChoice!;
+  const skip = run(opened.state, {
+    type: "resolveChoice",
+    choiceId: choice.id,
+    optionId: "continue",
+  });
+  const use = run(JSON.parse(JSON.stringify(opened.state)) as GameState, {
+    type: "resolveChoice",
+    choiceId: choice.id,
+    optionId: "trinket:p007",
+  });
+  expect(use.battle!.entities.find((e) => e.id === "h")!.wounds).toBe(
+    skip.battle!.entities.find((e) => e.id === "h")!.wounds + 2,
+  );
+  expect(use.battle!.entities.find((e) => e.id === "h2")!.wounds).toBe(
+    skip.battle!.entities.find((e) => e.id === "h2")!.wounds,
+  );
+  expect(use.battle!.rngCursor).toBe(skip.battle!.rngCursor);
+  expect(use.battle!.pounderFire).toBeUndefined();
+  expect(use.battle!.encounter!.actedIds).toEqual(["m"]);
+});
 
 it("新版本本体回合无Matchman则增援，有Matchman则结束且不自行炮击", () => {
   const base = fixture();

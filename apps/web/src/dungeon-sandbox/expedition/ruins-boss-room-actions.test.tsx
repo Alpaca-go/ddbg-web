@@ -109,3 +109,37 @@ it("Hag I 页面入口要求新地点来源、已选 Weald；Stygian 继续拒�
   expect(ruinsBossRoomEntryVisible({ ...d, mode: "stygian" })).toBe(false);
   expect(ruinsBossRoomEntryVisible({ ...d, contentPacks: ["core"] })).toBe(false);
 });
+
+it("Pounder I部署入口要求三段版本与Weald来源，旧档和Stygian不显示", () => {
+  const d: DungeonState = {
+    ...room("fanatic", "room:p013", 1),
+    mode: "standard",
+    contentPacks: ["core", "weald"],
+    bossLocationSources: true,
+    bossExpeditionRegion: "weald",
+    pounderDungeonThreats: true,
+    pounderHamletThreats: true,
+    pounderBossBattles: true,
+    activeBossThreatScriptId: "boss:weald:brigandPounder:1",
+    roomCards: {
+      ...base.roomCards!,
+      active: { roomId: "objective", cardId: "room:weald:p012", blockedReason: "Pounder" },
+    },
+    faceTheThreatEmbarkPlan: {
+      ...requireFaceTheThreatEmbarkPlanForSandbox({ campaignLevel: 1 }),
+      resolvedScriptId: "boss:weald:brigandPounder:1",
+    },
+  };
+  expect(ruinsBossRoomEntryVisible(d)).toBe(true);
+  expect(renderToStaticMarkup(<RuinsBossRoomActions dungeon={d} dispatch={() => {}} />)).toContain(
+    "部署 Brigand Pounder I 战斗",
+  );
+  const { pounderBossBattles: _version, ...legacy } = d;
+  void _version;
+  for (const state of [
+    legacy,
+    { ...d, mode: "stygian" as const },
+    { ...d, contentPacks: ["core" as const] },
+  ])
+    expect(ruinsBossRoomEntryVisible(state)).toBe(false);
+});

@@ -186,6 +186,7 @@ export function playMonsterSkill(
     return applyPounderIFireInTheHole(
       { ...state, battle: { ...battle, monsterAction: null } },
       command.actorId,
+      command.damageStoneWindow,
     );
   const actor = battle.entities.find((entry) => entry.id === command.actorId);
   if (actor?.monsterCardId === "monster_medium:weald:p020" && !triggered)
