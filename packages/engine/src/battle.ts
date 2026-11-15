@@ -183,6 +183,7 @@ export type BattleSetup = {
   /** 启用 W-03／W-04；须与出征 contentPacks 含 weald 一并判定。 */
   readonly wealdMechanics?: true;
   readonly wealdPrecious?: true;
+  readonly wealdAbyssalPuff?: true;
   readonly conditions?: ConditionPool;
   /** 只使用逐面获批属性；整卡其他图标的验证状态不因此改变。 */
   readonly heroStats?: readonly {
@@ -456,6 +457,7 @@ export type BattleState = BattleSetup & {
   readonly deferTemplarsPitToss?: true;
   readonly wealdMechanics?: true;
   readonly wealdPrecious?: true;
+  readonly wealdAbyssalPuff?: true;
 };
 
 export function createBattleState(seed: number, setup: BattleSetup): GameState {

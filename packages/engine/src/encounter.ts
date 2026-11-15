@@ -1,3 +1,4 @@
+import { enableAbyssalPuff } from "./battle-abyssal-puff";
 import { enablePrecious, endTurnPrecious } from "./battle-precious";
 import { applyUnprepared } from "./battle-unprepared";
 import { clearPounderIBrigands } from "./expansions/weald/boss/pounder-i-cleanup";
@@ -126,7 +127,12 @@ export type EncounterState = {
 };
 
 export type EncounterCommand =
-  | { readonly type: "startBattle"; readonly wealdUnprepared?: true; readonly wealdPrecious?: true }
+  | {
+      readonly type: "startBattle";
+      readonly wealdUnprepared?: true;
+      readonly wealdPrecious?: true;
+      readonly wealdAbyssalPuff?: true;
+    }
   | { readonly type: "drawInitiative" }
   | {
       readonly type: "changeStance";
@@ -1105,7 +1111,8 @@ export function applyEncounterCommand(state: GameState, command: EncounterComman
     const prophetBinding = readProphetIRoomD10Binding(state);
     if (prophetBinding.status === "refused")
       return rejectBattleCommand(state, prophetBinding.message);
-    const roomState = command.wealdPrecious ? enablePrecious(state) : state;
+    const puffState = command.wealdAbyssalPuff ? enableAbyssalPuff(state) : state;
+    const roomState = command.wealdPrecious ? enablePrecious(puffState) : puffState;
     const room = command.wealdUnprepared
       ? applyUnprepared(roomState)
       : { state: roomState, events: [] };
