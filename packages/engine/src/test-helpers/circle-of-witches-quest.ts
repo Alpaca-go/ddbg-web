@@ -2,13 +2,14 @@ import type { QuestStart } from "../../../data/src/quest-save";
 import type { Command, GameState } from "../command";
 import { createCoreDungeonQuest, type CoreQuestSources } from "../dungeon-quest-entry";
 import { disinfectionSources } from "./disinfection-quest";
-import { naturalParty, naturalQuest } from "./natural-quest";
+import { naturalParty, naturalQuest, CURRENT_WEALD_ROOM_VERSIONS } from "./natural-quest";
 import { WEALD_CRONE_EXCEPTION_INSTANCE_ID } from "../expansions/weald/circle-of-witches-spawn";
 
 /** R-244/R-247：固定 seed 2，按公开命令完成一／三目标，不注入房间或伤害。 */
 export function circleOfWitchesJourney(
   kills: 1 | 3,
   sources: CoreQuestSources = disinfectionSources,
+  currentRooms = false,
 ) {
   const start: QuestStart = {
     seed: 2,
@@ -34,6 +35,7 @@ export function circleOfWitchesJourney(
   const points: { game: GameState; commands: Command[] }[] = [];
   const run = naturalQuest(2, start.questId, true, sources, 4, {
     continueFrom: initial,
+    ...(currentRooms ? CURRENT_WEALD_ROOM_VERSIONS : {}),
     survival: true,
     handleDeaths: true,
     restThreshold: 0,
@@ -52,6 +54,7 @@ export function circleOfWitchesJourney(
       previous = game;
     },
   });
-  if (run.stopReason) throw new Error(`Circle of Witches 自然流程中断：${run.stopReason}`);
+  if (run.stopReason && !currentRooms)
+    throw new Error(`Circle of Witches 自然流程中断：${run.stopReason}`);
   return { start, run, points };
 }

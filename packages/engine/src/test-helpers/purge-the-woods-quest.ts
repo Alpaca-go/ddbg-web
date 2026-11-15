@@ -1,11 +1,14 @@
 import type { QuestStart } from "../../../data/src/quest-save";
 import { createCoreDungeonQuest, type CoreQuestSources } from "../dungeon-quest-entry";
 import type { Command, GameState } from "../command";
-import { naturalParty, naturalQuest } from "./natural-quest";
+import { naturalParty, naturalQuest, CURRENT_WEALD_ROOM_VERSIONS } from "./natural-quest";
 import { disinfectionSources } from "./disinfection-quest";
 
 /** R-248/R-251：seed 4，公开命令清理三巢穴；不改怪物牌序或伤害。 */
-export function purgeTheWoodsJourney(sources: CoreQuestSources = disinfectionSources) {
+export function purgeTheWoodsJourney(
+  sources: CoreQuestSources = disinfectionSources,
+  currentRooms = false,
+) {
   const start: QuestStart = {
     seed: 4,
     questId: "quest:weald:p004",
@@ -33,6 +36,7 @@ export function purgeTheWoodsJourney(sources: CoreQuestSources = disinfectionSou
   let recordedTrap = false;
   const run = naturalQuest(start.seed, start.questId, true, sources, 4, {
     continueFrom: initial,
+    ...(currentRooms ? CURRENT_WEALD_ROOM_VERSIONS : {}),
     survival: true,
     handleDeaths: true,
     restThreshold: 0,
@@ -70,6 +74,7 @@ export function purgeTheWoodsJourney(sources: CoreQuestSources = disinfectionSou
       previous = game;
     },
   });
-  if (run.stopReason) throw new Error(`Purge the Woods 自然流程中断：${run.stopReason}`);
+  if (run.stopReason && !currentRooms)
+    throw new Error(`Purge the Woods 自然流程中断：${run.stopReason}`);
   return { start, run, points, battles, darkVisits };
 }

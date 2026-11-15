@@ -1,0 +1,99 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`当前页面房间版本 p001 seed1 严格回放 1`] = `
+{
+  "cleared": 2,
+  "phase": "inBattle",
+  "stop": "battle halted: heroesDefeated",
+  "summary": null,
+  "turn": "halted",
+}
+`;
+
+exports[`当前页面房间版本 p002 seed2 严格回放 1`] = `
+{
+  "cleared": 4,
+  "phase": "exited",
+  "stop": null,
+  "summary": {
+    "awarded": false,
+    "clearedRoomIds": [
+      "B",
+      "F",
+      "G",
+    ],
+    "croneKills": 3,
+    "name": "Circle of Witches",
+    "questId": "quest:weald:p002",
+    "stagecoachXp": 3,
+    "xpPerHero": 3,
+  },
+  "turn": null,
+}
+`;
+
+exports[`当前页面房间版本 p003 seed2 严格回放 1`] = `
+{
+  "cleared": 4,
+  "phase": "exited",
+  "stop": null,
+  "summary": {
+    "awarded": false,
+    "clearedRoomIds": [
+      "B",
+      "F",
+    ],
+    "name": "Disinfection",
+    "oaksDisinfected": 3,
+    "questId": "quest:weald:p003",
+    "stagecoachXp": 3,
+    "xpPerHero": 3,
+  },
+  "turn": null,
+}
+`;
+
+exports[`当前页面房间版本 p004 seed4 严格回放 1`] = `
+{
+  "cleared": 3,
+  "phase": "exited",
+  "stop": null,
+  "summary": {
+    "awarded": false,
+    "clearedRoomIds": [
+      "B",
+      "C",
+      "D",
+    ],
+    "name": "Purge the Woods",
+    "questId": "quest:weald:p004",
+    "stagecoachXp": 3,
+    "xpPerHero": 3,
+  },
+  "turn": null,
+}
+`;
+
+exports[`当前页面房间版本 p005 seed3 严格回放 1`] = `
+{
+  "cleared": 6,
+  "phase": "exited",
+  "stop": null,
+  "summary": {
+    "awarded": false,
+    "clearedRoomIds": [
+      "B",
+      "C",
+      "D",
+      "F",
+      "G",
+      "H",
+    ],
+    "name": "Patrol the Woods",
+    "questId": "quest:weald:p005",
+    "stagecoachXp": 3,
+    "xpPerHero": 3,
+  },
+  "turn": null,
+}
+`;
