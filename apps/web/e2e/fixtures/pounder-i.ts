@@ -4,33 +4,42 @@ import {
   coreQuestSources,
 } from "../../../../packages/engine/src/test-helpers/core-quest";
 import { naturalQuest } from "../../../../packages/engine/src/test-helpers/natural-quest";
-import { applyCommand, type GameState } from "../../../../packages/engine/src/command";
+import {
+  applyCommand,
+  type Command,
+  type GameState,
+} from "../../../../packages/engine/src/command";
+import type { CoreQuestSources } from "../../../../packages/engine/src/dungeon-quest-entry";
+import { createQuestSave } from "../../../../packages/engine/src/quest-save";
 
 /** 固定seed17原补员路径的真实页面检查点，不改伤口、站位或骰序。 */
-export function pounderUiFixture() {
+export function pounderUiFixture(sources: CoreQuestSources = coreQuestSources) {
   const initial = createCoreDungeonQuest(
     17,
     "quest:p019",
     "standard",
     coreParty,
-    coreQuestSources,
+    sources,
     true,
     null,
     ["core", "weald"],
   );
-  const established = applyCommand(initial, {
+  const threat = {
     type: "establishImminentThreat",
     locationBosses: true,
     locationSources: true,
     pounderDungeonThreats: true,
     pounderHamletThreats: true,
     pounderBossBattles: true,
-  });
+  } as const;
+  const established = applyCommand(initial, threat);
+  const commands: Command[] = [threat];
   let bound: GameState | undefined, turn: GameState | undefined;
-  naturalQuest(17, "quest:p019", true, coreQuestSources, 2, {
+  naturalQuest(17, "quest:p019", true, sources, 2, {
     continueFrom: established.state,
     handleDeaths: true,
     observe(state, command) {
+      commands.push(command);
       if (
         command.type === "prepareDungeonBattle" &&
         state.dungeon?.roomCards?.active?.cardId === "room:weald:p012"
@@ -49,5 +58,18 @@ export function pounderUiFixture() {
     },
   });
   if (!bound || !turn) throw new Error("Pounder自然页面检查点未抵达");
-  return { initial, bound, turn };
+  const save = createQuestSave(
+    {
+      seed: 17,
+      questId: "quest:p019",
+      mode: "standard",
+      party: coreParty.map((h) => ({ ...h, skillIds: [...h.skillIds] })),
+      contentPacks: ["core", "weald"],
+      bossEdgeRooms: true,
+    },
+    commands,
+    turn,
+    sources,
+  );
+  return { initial, bound, turn, save };
 }
