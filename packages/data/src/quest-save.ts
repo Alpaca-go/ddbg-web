@@ -249,6 +249,7 @@ export const savedCommandSchema = z.union([
   }),
   commandObject({
     type: z.literal("playMonsterSkill"),
+    toxicMushrooms: z.literal(true).optional(),
     damageStoneWindow: z.literal(true).optional(),
     ...actor,
     targetId: id,

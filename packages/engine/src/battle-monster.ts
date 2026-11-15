@@ -1,3 +1,4 @@
+import { withToxicMushrooms } from "./battle-toxic-mushrooms";
 import { isPounderMatchmanAction } from "./expansions/weald/boss/pounder-i-turn";
 import { applyPounderIFireInTheHole } from "./expansions/weald/boss/pounder-i-fire";
 import { isDarkestSupportSkill, playDarkestSupportSkill } from "./battle-monster-support";
@@ -148,6 +149,7 @@ function playMonsterSelfSkill(
 
 /** 调用方手动指定已选技能 / 单个目标；不执行姿态选招、目标 AI 或移动。 */
 export type PlayMonsterSkillCommand = {
+  readonly toxicMushrooms?: true;
   readonly damageStoneWindow?: true;
   readonly type: "playMonsterSkill";
   readonly actorId: string;
@@ -448,10 +450,14 @@ export function playMonsterSkill(
     },
     events: [event, ...pressure.events, ...statuses.events],
   };
+  const roomApplied = withToxicMushrooms(state, applied, command.toxicMushrooms, actor.id, [
+    result.resolution,
+  ]);
+  if (roomApplied.events.some((event) => event.type === "commandRefused")) return roomApplied;
   return intents.length
-    ? applied
+    ? roomApplied
     : chainSirenIHighTidePelagicAfterMonsterSkill(
-        recordMonsterSkill(applied, event, casualtyIds),
+        recordMonsterSkill(roomApplied, event, casualtyIds),
         actor.id,
         command.skillSlot,
         target.areaId,

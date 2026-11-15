@@ -1,3 +1,4 @@
+import { withToxicMushrooms } from "./battle-toxic-mushrooms";
 import { beginDamageStoneWindow, damageStoneHealthEffects } from "./battle-damage-stone";
 import { distance, rejectBattleCommand, skillTargetView, writeResolution } from "./battle";
 import type { BattleEntity } from "./battle";
@@ -299,5 +300,13 @@ export function playMonsterSkillTargets(
     },
     events: [event, ...pressure.events, ...statuses.events],
   };
-  return intents.length ? applied : recordMonsterSkill(applied, continuation, casualtyIds);
+  const roomApplied = withToxicMushrooms(
+    state,
+    applied,
+    command.toxicMushrooms,
+    actor.id,
+    resolutions,
+  );
+  if (roomApplied.events.some((event) => event.type === "commandRefused")) return roomApplied;
+  return intents.length ? roomApplied : recordMonsterSkill(roomApplied, continuation, casualtyIds);
 }
