@@ -1,3 +1,8 @@
+import {
+  enableClearingHeroes,
+  enableClearingMonsters,
+  endTurnClearingMonster,
+} from "./battle-clearing";
 import { enableOurs } from "./battle-ours";
 import { enableAbyssalPuff } from "./battle-abyssal-puff";
 import { enablePrecious, endTurnPrecious } from "./battle-precious";
@@ -134,6 +139,8 @@ export type EncounterCommand =
       readonly wealdPrecious?: true;
       readonly wealdAbyssalPuff?: true;
       readonly wealdOurs?: true;
+      readonly wealdClearingHeroes?: true;
+      readonly wealdClearingMonsters?: true;
     }
   | { readonly type: "drawInitiative" }
   | {
@@ -450,6 +457,12 @@ export function finishTurn(
       return eldritch;
     state = eldritch.state;
     events = eldritch.events;
+  }
+  const clearing = endTurnClearingMonster(state, actorId, events);
+  if (clearing) {
+    if (clearing.events.some((e) => e.type === "commandRefused")) return clearing;
+    state = clearing.state;
+    events = clearing.events;
   }
   const precious = endTurnPrecious(state, actorId, events);
   if (precious) {
@@ -1113,7 +1126,13 @@ export function applyEncounterCommand(state: GameState, command: EncounterComman
     const prophetBinding = readProphetIRoomD10Binding(state);
     if (prophetBinding.status === "refused")
       return rejectBattleCommand(state, prophetBinding.message);
-    const oursState = command.wealdOurs ? enableOurs(state) : state;
+    const monsterClearingState = command.wealdClearingMonsters
+      ? enableClearingMonsters(state)
+      : state;
+    const clearingState = command.wealdClearingHeroes
+      ? enableClearingHeroes(monsterClearingState)
+      : monsterClearingState;
+    const oursState = command.wealdOurs ? enableOurs(clearingState) : clearingState;
     const puffState = command.wealdAbyssalPuff ? enableAbyssalPuff(oursState) : oursState;
     const roomState = command.wealdPrecious ? enablePrecious(puffState) : puffState;
     const room = command.wealdUnprepared
