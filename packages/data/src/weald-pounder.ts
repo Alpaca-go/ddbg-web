@@ -23,6 +23,7 @@ const face = z.strictObject({
       name: z.literal("BOOOOOOM!"),
       target: z.literal("crowded"),
       range: z.literal(5),
+      minRange: z.literal(0),
       maxTargets: z.literal(4),
       crit: z.literal(0),
       critDamage: z.literal(19),

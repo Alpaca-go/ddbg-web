@@ -10,7 +10,7 @@ export const pounderIBossScript: BossScriptDefinition = {
   id: POUNDER_I_SCRIPT_ID,
   displayName: "Brigand Pounder I",
   rules: DEFAULT_BOSS_BATTLE_RULES,
-  notes: "威胁描述与纯结算核已接；命令时序、增援、炮击和正式部署仍 hold。",
+  notes: "两段威胁、显式增援与炮击命令已接；正式部署、清场和完整回放仍 hold。",
   combatEntry: {
     descriptionAbilityCardId: content.abilities.descriptionCardId,
     combatAbilityCardId: content.abilities.combatCardId,
@@ -38,7 +38,7 @@ export const pounderIBossScript: BossScriptDefinition = {
     // 不用通用出征／部署钩子把尚未实现的战斗伪装成可用。
     faceTheThreatEmbark: () => ({ status: "stub", message: "Pounder I 正式出征尚未接入" }),
     bossSlotPlacement: () => ({ status: "stub", message: "Pounder I 正式部署尚未接入" }),
-    summon: () => ({ status: "stub", message: "Pounder I 增援与炮击尚未接入" }),
+    summon: () => ({ status: "stub", message: "Pounder I 正式召唤钩子尚未接入；增援使用显式命令" }),
   },
 };
 

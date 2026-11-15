@@ -238,6 +238,10 @@ export const savedCommandSchema = z.union([
     shuffleChoice: shuffle.optional(),
   }),
   commandObject({
+    type: z.literal("applyPounderIFireInTheHole"),
+    ...actor,
+  }),
+  commandObject({
     type: z.literal("applyPounderIReinforcements"),
     ...actor,
   }),

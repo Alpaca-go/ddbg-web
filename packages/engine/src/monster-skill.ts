@@ -24,6 +24,7 @@ export type MonsterSkillView = Pick<
   | "unlabeled_numbers"
   | "effect_lines"
   | "verified_target_stress"
+  | "verified_range"
   | "verified_damage_bonus"
 > & {
   readonly slot: number;
