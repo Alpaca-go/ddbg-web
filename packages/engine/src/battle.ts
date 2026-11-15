@@ -329,6 +329,12 @@ export type BattleState = BattleSetup & {
         readonly casualtyIds: readonly string[];
       }
     | {
+        readonly type: "pounderReinforcements";
+        readonly actorId: string;
+        readonly remaining: readonly string[];
+        readonly choice: PendingChoice;
+      }
+    | {
         readonly type: "wealdSummon";
         readonly choice: PendingChoice;
         readonly resolved: MonsterSkillResolvedEvent;
