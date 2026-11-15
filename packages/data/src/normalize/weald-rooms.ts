@@ -247,7 +247,7 @@ const APPROVED_TILES: readonly WealdRoomTile[] = [
         effect: "precious",
         status: "confirmed",
         printedText: "Precious: 怪物在 D 结束回合时其他怪物增益 2t ×2",
-        runtimeReady: false,
+        runtimeReady: true,
       },
     ],
     wallNotes: ["A 下方横向黑块", "D／E 下方与 G 上方横向黑块"],
