@@ -135,7 +135,7 @@ const APPROVED_TILES: readonly WealdRoomTile[] = [
       effect: "toxicMushrooms" as const,
       status: "confirmed" as const,
       printedText: "Toxic Mushrooms: 怪物攻击该区域英雄未命中时，仅该区域所有英雄 1 腐蚀 2t",
-      runtimeReady: false as const,
+      runtimeReady: true as const,
     })),
     wallNotes: [],
   }),

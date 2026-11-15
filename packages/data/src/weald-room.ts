@@ -152,7 +152,7 @@ export const wealdRoomTileBaseSchema = z
   })
   .superRefine((tile, ctx) => {
     for (const region of tile.specialRegions) {
-      if (region.runtimeReady && region.effect !== "poisonousRoots")
+      if (region.runtimeReady && !["poisonousRoots", "toxicMushrooms"].includes(region.effect))
         ctx.addIssue({
           code: "custom",
           message: `特效 ${region.effect} 尚未允许 runtimeReady（R-048）`,
@@ -167,6 +167,14 @@ export const wealdRoomTileBaseSchema = z
           message: "Poisonous Roots 仅 Infected Oak 5 号板块可 runtimeReady",
         });
     }
+    if (
+      tile.specialRegions.some((r) => r.runtimeReady && r.effect === "toxicMushrooms") &&
+      (tile.roomId !== "room:weald:p001" || tile.number !== 1)
+    )
+      ctx.addIssue({
+        code: "custom",
+        message: "Toxic Mushrooms 仅 Fungal Spores 1 号板块可 runtimeReady",
+      });
     const ids = new Set(tile.areas.map((a) => a.id));
     if (ids.size !== tile.areas.length) ctx.addIssue({ code: "custom", message: "区域 ID 重复" });
     for (const areaId of [...tile.necroticFungusAreas, ...tile.zeroCapacityAreas])

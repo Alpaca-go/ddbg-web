@@ -224,7 +224,7 @@
      "effect": "toxicMushrooms",
      "status": "confirmed",
      "printedText": "Toxic Mushrooms: 怪物攻击该区域英雄未命中时，仅该区域所有英雄 1 腐蚀 2t",
-     "runtimeReady": false
+     "runtimeReady": true
     },
     {
      "areaId": "E",
@@ -232,7 +232,7 @@
      "effect": "toxicMushrooms",
      "status": "confirmed",
      "printedText": "Toxic Mushrooms: 怪物攻击该区域英雄未命中时，仅该区域所有英雄 1 腐蚀 2t",
-     "runtimeReady": false
+     "runtimeReady": true
     },
     {
      "areaId": "F",
@@ -240,7 +240,7 @@
      "effect": "toxicMushrooms",
      "status": "confirmed",
      "printedText": "Toxic Mushrooms: 怪物攻击该区域英雄未命中时，仅该区域所有英雄 1 腐蚀 2t",
-     "runtimeReady": false
+     "runtimeReady": true
     },
     {
      "areaId": "G",
@@ -248,7 +248,7 @@
      "effect": "toxicMushrooms",
      "status": "confirmed",
      "printedText": "Toxic Mushrooms: 怪物攻击该区域英雄未命中时，仅该区域所有英雄 1 腐蚀 2t",
-     "runtimeReady": false
+     "runtimeReady": true
     }
    ],
    "wallNotes": [],
