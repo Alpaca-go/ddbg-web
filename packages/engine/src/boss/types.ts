@@ -36,6 +36,14 @@ export type BossThreatPassiveDungeonOk =
   | HigherRuinsThreat
   | {
       readonly status: "ok";
+      readonly effect: "buffRiposteOnMonsterRangedEntry";
+      readonly buffTurns: number;
+      readonly riposteTurns: number;
+      readonly sourceAbilityCardId: string;
+      readonly rulesRef: readonly string[];
+    }
+  | {
+      readonly status: "ok";
       readonly effect: "firstBattleBoneCaptain";
       readonly monsterCardId: "monster_large:p001";
       readonly sourceAbilityCardId: string;
@@ -102,6 +110,14 @@ export type BossThreatPassiveDungeonOk =
 
 export type BossThreatPassiveHamletOk =
   | HigherRuinsThreat
+  | {
+      readonly status: "ok";
+      readonly effect: "bombardmentAtHamletDayEnd";
+      readonly damage: number;
+      readonly caretakerPreventsAll: true;
+      readonly sourceAbilityCardId: string;
+      readonly rulesRef: readonly string[];
+    }
   | {
       readonly status: "ok";
       readonly effect: "firstDayGraveyardGuard";
@@ -437,6 +453,7 @@ export type BossSlotPlacementPlan = {
 export type BossSlotPlacementResult = BossHookOk<BossSlotPlacementPlan> | BossHookStubResult;
 
 export type BossFaceTheThreatContext = {
+  readonly pounderBossBattles?: true;
   readonly scriptId: BossScriptId;
   readonly questId: BasicQuestId;
   readonly campaignLevel?: CampaignLevel;
@@ -453,6 +470,7 @@ export type BossSlotPlacementContext = {
 
 /** 引擎层 Face the Threat 解析输入（不绑定单一脚本钩子）。 */
 export type FaceTheThreatQuestContext = {
+  readonly pounderBossBattles?: true;
   readonly questId: BasicQuestId;
   readonly campaignLevel?: CampaignLevel;
   readonly activeBossThreatScriptId?: BossScriptId;

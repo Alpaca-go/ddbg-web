@@ -199,6 +199,10 @@ export type DungeonState = {
   /** W3：由显式版本化的开局定威胁命令开启，旧日志缺省沿用遗迹池。 */
   readonly locationBossThreats?: true;
   readonly bossLocationSources?: true;
+  /** 显式试验版本：仅接 Pounder I 地牢威胁，村庄仍保留停点。 */
+  readonly pounderDungeonThreats?: true;
+  readonly pounderHamletThreats?: true;
+  readonly pounderBossBattles?: true;
   /** 新地点战役：只记录已完成回村 XP 结算的普通任务，未选卡不计。 */
   readonly completedRegularQuests?: readonly {
     readonly questId: string;

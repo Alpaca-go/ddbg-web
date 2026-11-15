@@ -583,6 +583,9 @@ export function chooseNextQuest(
       ? { unregisteredImminentThreatHold: d.unregisteredImminentThreatHold }
       : {}),
     ...(d.bossLocationSources ? { bossLocationSources: true as const } : {}),
+    ...(d.pounderDungeonThreats ? { pounderDungeonThreats: true as const } : {}),
+    ...(d.pounderHamletThreats ? { pounderHamletThreats: true as const } : {}),
+    ...(d.pounderBossBattles ? { pounderBossBattles: true as const } : {}),
     ...(d.completedRegularQuests ? { completedRegularQuests: d.completedRegularQuests } : {}),
     ...(d.locationBossThreats ? { locationBossThreats: true as const } : {}),
     ...(d.defeatedWealdBossIdentities

@@ -1,3 +1,7 @@
+import {
+  pounderIRealCombatActive,
+  finishPounderIBattle,
+} from "./expansions/weald/boss/pounder-i-finish";
 import { hagIRealCombatActive, finishHagIBattle } from "./expansions/weald/boss/hag-i-finish";
 import { dungeonMonsterPoolCatalogValid } from "./monster-pool-validation";
 import { ruinsIRealCombatActive, finishRuinsIBattle } from "./boss/ruins-i-finish";
@@ -485,6 +489,7 @@ export function startDungeonBattle(state: GameState): ApplyResult {
 
 /** R25、R-059：仅完成的战斗可回传一次；R-068 / mutualWipeout 不发胜利或撤退奖励。 */
 export function finishDungeonBattle(state: GameState): ApplyResult {
+  if (pounderIRealCombatActive(state)) return finishPounderIBattle(state);
   if (hagIRealCombatActive(state)) return finishHagIBattle(state);
   if (prophetIIIRealCombatActive(state)) return finishProphetIIIBattle(state);
   if (prophetIIRealCombatActive(state)) return finishProphetIIBattle(state);

@@ -1,4 +1,10 @@
+import { deployPounderI } from "./expansions/weald/boss/pounder-i-deploy";
 import { deployHagI } from "./expansions/weald/boss/hag-i-deploy";
+import { applyPounderIHamletThreat } from "./expansions/weald/boss/pounder-i-hamlet-threat";
+import {
+  applyPounderIRangedEntry,
+  pounderDungeonThreatActive,
+} from "./expansions/weald/boss/pounder-i-dungeon-threat";
 import { bossEnabledForPacks } from "../../data/src/content-packs";
 import { chooseHagIRelease } from "./expansions/weald/boss/hag-i-release";
 import type { MonsterSupportResolvedEvent } from "./battle-monster-support";
@@ -102,6 +108,14 @@ import { startDungeonBattle, finishDungeonBattle } from "./dungeon-battle";
 import { conditionPoolProblem, replaceConditionQuirk } from "./conditions";
 import { recordMonsterSkill } from "./encounter";
 import { chooseNecromancerISummon } from "./boss/necromancer-i-combat-runtime";
+import {
+  applyPounderIReinforcements,
+  choosePounderIReinforcements,
+} from "./expansions/weald/boss/pounder-i-reinforcements";
+import {
+  applyPounderIFireInTheHole,
+  settlePounderIFireContext,
+} from "./expansions/weald/boss/pounder-i-fire";
 import { chooseWealdMonsterSummon } from "./expansions/weald/monster-summon";
 import { chooseCollectorISummon } from "./boss/collector-i-combat-runtime";
 import {
@@ -296,6 +310,7 @@ type BaseCommand =
   | { readonly type: "deployProphetI" }
   | { readonly type: "deployProphetII" }
   | { readonly type: "deployProphetIII" }
+  | { readonly type: "deployPounderI" }
   | { readonly type: "deployHagI" }
   | { readonly type: "deployFanaticI" }
   | { readonly type: "deployFanaticII" }
@@ -333,6 +348,8 @@ type BaseCommand =
   | { readonly type: "applyShufflingHorrorEchoingDisassembly"; readonly actorId: string }
   | { readonly type: "applyShufflingHorrorLacerate"; readonly actorId: string }
   | { readonly type: "applyMammothCystSummonWhiteCell"; readonly actorId: string }
+  | { readonly type: "applyPounderIFireInTheHole"; readonly actorId: string }
+  | { readonly type: "applyPounderIReinforcements"; readonly actorId: string }
   | { readonly type: "applyGestatingHeartSummon"; readonly actorId: string }
   | { readonly type: "applyAncestor1TimeHealsAll"; readonly actorId: string }
   | { readonly type: "applyAncestor1PerfectReplication"; readonly actorId: string }
@@ -718,6 +735,7 @@ function dispatchCommand(
   if (command.type === "deployProphetI") return deployProphetI(state);
   if (command.type === "deployProphetII") return deployProphetII(state);
   if (command.type === "deployProphetIII") return deployProphetIII(state);
+  if (command.type === "deployPounderI") return deployPounderI(state);
   if (command.type === "deployHagI") return deployHagI(state);
   if (command.type === "deployFanaticI") return deployFanaticI(state);
   if (command.type === "deployFanaticII") return deployFanaticII(state);
@@ -765,6 +783,8 @@ function dispatchCommand(
     }
     if (pending.type === "necromancerSummon")
       return chooseNecromancerISummon(state, command.optionId);
+    if (pending.type === "pounderReinforcements")
+      return choosePounderIReinforcements(state, command.optionId);
     if (pending.type === "wealdSummon") return chooseWealdMonsterSummon(state, command.optionId);
     if (pending.type === "hagRelease") return chooseHagIRelease(state, command.optionId);
     if (pending.type === "allTrinkets") return rejectBattleCommand(state, "饰品续接上下文缺失");
@@ -891,6 +911,10 @@ function dispatchCommand(
     return applyShufflingHorrorLacerate(state, command.actorId);
   if (command.type === "applyMammothCystSummonWhiteCell")
     return applyMammothCystSummonWhiteCell(state, command.actorId);
+  if (command.type === "applyPounderIFireInTheHole")
+    return applyPounderIFireInTheHole(state, command.actorId);
+  if (command.type === "applyPounderIReinforcements")
+    return applyPounderIReinforcements(state, command.actorId);
   if (command.type === "applyGestatingHeartSummon")
     return applyGestatingHeartSummon(state, command.actorId);
   if (command.type === "applyAncestor1TimeHealsAll")
@@ -1040,6 +1064,12 @@ function applyCommandCore(
   command: Command,
   legacyCardReview: boolean,
 ): ApplyResult {
+  if (
+    pounderDungeonThreatActive(state) &&
+    !state.dungeon?.pounderHamletThreats &&
+    state.dungeon?.phase === "inHamlet"
+  )
+    return rejectBattleCommand(state, "Pounder 村庄轰炸与日末续接尚未开放，保留回村进度");
   const heroes = state.battle
     ? state.battle.entities.filter((e) => e.side === "hero")
     : (state.dungeon?.heroes ?? []);
@@ -1087,16 +1117,23 @@ function applyCommandCore(
     return command.type === "resolveChoice"
       ? chooseReplacementPreparation(state, command.choiceId, command.optionId)
       : rejectBattleCommand(state, "请先完成替补英雄准备（R31）");
-  const dispatched = applyCreepingDarknessUnholySpawnStress(
+  const dispatched = applyPounderIRangedEntry(
     state,
-    applyHigherRuinsBattleSpawn(
+    applyPounderIHamletThreat(
       state,
-      applyHigherRuinsHamlet(state, command, dispatchCommand(state, command, legacyCardReview)),
+      command,
+      applyCreepingDarknessUnholySpawnStress(
+        state,
+        applyHigherRuinsBattleSpawn(
+          state,
+          applyHigherRuinsHamlet(state, command, dispatchCommand(state, command, legacyCardReview)),
+        ),
+      ),
     ),
   );
   const result = dispatched.events.some((e) => e.type === "commandRefused")
     ? dispatched
     : continuePoolRebirth(continueDeathEstates(dispatched));
   const refused = result.events.find((event) => event.type === "commandRefused");
-  return refused ? rejectBattleCommand(state, refused.message) : result;
+  return refused ? rejectBattleCommand(state, refused.message) : settlePounderIFireContext(result);
 }

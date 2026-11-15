@@ -9,7 +9,7 @@ import { graveyardServices, recoveryServices, survivalistServices } from "../ham
 import { applyHamletThreatDebuff, triggerDungeonPassive } from "../dungeon-passive";
 import { resolveDungeonPressure } from "../dungeon-pressure";
 
-function visitedBuilding(state: GameState, command: Command): string | undefined {
+export function hamletBuildingForCommand(state: GameState, command: Command): string | undefined {
   if (command.type === "visitGuild") return "guild";
   if (command.type === "visitBlacksmith") return "blacksmith";
   if (command.type === "visitNomadWagon") return "nomadWagon";
@@ -47,7 +47,7 @@ export function applyHigherRuinsHamlet(
   if (!effect) return result;
   const events = [...result.events];
   let visits = { ...(h.higherThreatVisits ?? {}) };
-  const building = visitedBuilding(before, command);
+  const building = hamletBuildingForCommand(before, command);
   if (building && "actorId" in command) visits = { ...visits, [building]: command.actorId };
   if (effect.kind === "hamletSkillDebuff" && command.type === "useHamletSkill") {
     const hero = d.heroes.find((e) => e.id === command.actorId);

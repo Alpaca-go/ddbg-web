@@ -237,6 +237,8 @@ export type OneBodyLifePool = {
 };
 
 export type BattleState = BattleSetup & {
+  /** R-258：炮击伤害归 Pounder，完成时结束触发者 Matchman 的回合。 */
+  readonly pounderFire?: { readonly matchmanId: string; readonly pounderId: string };
   readonly trinketRuntime?: import("./trinket-reactions").TrinketRuntime;
   /** R-028：任一角色的新回合开始时清空；每件饰品各自计数。 */
   readonly usedTrinketIds?: readonly string[];
@@ -327,6 +329,12 @@ export type BattleState = BattleSetup & {
         readonly choice: PendingChoice;
         readonly resolved: MonsterSkillResolvedEvent;
         readonly casualtyIds: readonly string[];
+      }
+    | {
+        readonly type: "pounderReinforcements";
+        readonly actorId: string;
+        readonly remaining: readonly string[];
+        readonly choice: PendingChoice;
       }
     | {
         readonly type: "wealdSummon";

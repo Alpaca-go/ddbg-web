@@ -62,6 +62,7 @@ export const savedCommandSchema = z.union([
   commandObject({ type: z.literal("deployCollectorII") }),
   commandObject({ type: z.literal("deployCollectorIII") }),
   commandObject({ type: z.literal("deployHagI") }),
+  commandObject({ type: z.literal("deployPounderI") }),
   commandObject({ type: z.literal("deployFanaticI") }),
   commandObject({ type: z.literal("deployFanaticII") }),
   commandObject({ type: z.literal("deployFanaticIII") }),
@@ -79,6 +80,9 @@ export const savedCommandSchema = z.union([
     type: z.literal("establishImminentThreat"),
     locationBosses: z.literal(true).optional(),
     locationSources: z.literal(true).optional(),
+    pounderDungeonThreats: z.literal(true).optional(),
+    pounderHamletThreats: z.literal(true).optional(),
+    pounderBossBattles: z.literal(true).optional(),
   }),
   commandObject({ type: z.literal("advanceRuinsAct") }),
   commandObject({ type: z.literal("enterDarkestDungeon") }),
@@ -234,6 +238,14 @@ export const savedCommandSchema = z.union([
     skillId: id,
     targetIds: z.array(id).min(1),
     shuffleChoice: shuffle.optional(),
+  }),
+  commandObject({
+    type: z.literal("applyPounderIFireInTheHole"),
+    ...actor,
+  }),
+  commandObject({
+    type: z.literal("applyPounderIReinforcements"),
+    ...actor,
   }),
   commandObject({
     type: z.literal("playMonsterSkill"),

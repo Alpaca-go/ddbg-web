@@ -1,4 +1,5 @@
 import { nextExpeditionLocationDecks } from "../hamlet-location-embark";
+import { ensurePounderIBossScriptRegistered } from "../expansions/weald/boss/pounder-i";
 import { wealdThreatPool } from "../expansions/weald/boss/threat-pool";
 import { ensureCampaignBossScriptsRegistered } from "../expansions/register";
 import { requireFaceTheThreatEmbarkPlanForSandbox } from "./face-the-threat-embark-runtime";
@@ -25,6 +26,9 @@ export type EstablishImminentThreatCommand = {
   readonly type: "establishImminentThreat";
   readonly locationBosses?: true | undefined;
   readonly locationSources?: true | undefined;
+  readonly pounderDungeonThreats?: true | undefined;
+  readonly pounderHamletThreats?: true | undefined;
+  readonly pounderBossBattles?: true | undefined;
 };
 
 export type DrawImminentThreatAfterActAdvanceCommand = {
@@ -93,7 +97,12 @@ function applyImminentThreatDraw(
   for (let i = 0; i < d.cursor; i++) rng.next();
   const { cardId, rngDraws } = drawOne(pool, rng);
   const cursor = d.cursor + rngDraws;
-  const scriptId = resolveScriptIdForDescriptionCard(cardId, d.contentPacks);
+  if (d.pounderDungeonThreats) ensurePounderIBossScriptRegistered();
+  const scriptId = resolveScriptIdForDescriptionCard(
+    cardId,
+    d.contentPacks,
+    d.pounderDungeonThreats,
+  );
   ensureCoreBossScriptsRegistered();
   if (d.locationBossThreats) ensureCampaignBossScriptsRegistered(d.contentPacks);
   const registered = scriptId && getBossScript(scriptId);
@@ -144,6 +153,31 @@ export function establishImminentThreat(
   if (state.battle) return rejectBattleCommand(state, "战斗进行中不能定威胁（R-048）");
   const d = state.dungeon;
   if (!d) return rejectBattleCommand(state, "缺少战役状态，不能定威胁");
+  if (command.pounderBossBattles && !command.pounderHamletThreats)
+    return rejectBattleCommand(state, "Pounder Boss 战斗版本须同时启用两段威胁版本");
+  if (
+    command.pounderBossBattles &&
+    (!d.contentPacks?.includes("weald") ||
+      (d.questDistribution?.questId === "quest:p019" &&
+        d.faceTheThreatEmbarkPlan?.roomPlacement !== "edgeRoomsR30"))
+  )
+    return rejectBattleCommand(
+      state,
+      "Pounder Boss 版本需要 Weald 包；p019 开局须使用已核准 R30 边缘房",
+    );
+  if (command.pounderHamletThreats && !command.pounderDungeonThreats)
+    return rejectBattleCommand(state, "Pounder 村庄威胁版本须同时启用地牢威胁版本");
+  if (
+    command.pounderDungeonThreats &&
+    (!command.locationSources ||
+      !command.locationBosses ||
+      d.mode === "stygian" ||
+      (d.questDistribution?.questId === "quest:p019" && !command.pounderBossBattles))
+  )
+    return rejectBattleCommand(
+      state,
+      "Pounder 地牢威胁试验须启用完整地点来源，暂不支持 Stygian 或 Boss 出征",
+    );
   if (readActiveBossThreatScriptId(d))
     return rejectBattleCommand(state, "已有激活迫近威胁；请先击败 Boss 或清除后再定威胁");
   if (d.imminentThreatDescriptionCardId)
@@ -167,6 +201,9 @@ export function establishImminentThreat(
             ...d,
             locationBossThreats: true,
             ...(command.locationSources ? { bossLocationSources: true } : {}),
+            ...(command.pounderDungeonThreats ? { pounderDungeonThreats: true } : {}),
+            ...(command.pounderHamletThreats ? { pounderHamletThreats: true } : {}),
+            ...(command.pounderBossBattles ? { pounderBossBattles: true } : {}),
           },
         }
       : state,
@@ -178,19 +215,21 @@ export function establishImminentThreat(
   let next = result.state.dungeon!;
   if (
     command.locationSources &&
-    next.activeBossThreatScriptId === "boss:weald:hag:1" &&
+    (next.activeBossThreatScriptId === "boss:weald:hag:1" ||
+      (command.pounderBossBattles &&
+        next.activeBossThreatScriptId === "boss:weald:brigandPounder:1")) &&
     d.questDistribution?.questId === "quest:p019"
   ) {
     if (d.phase !== "awaitingProvisions")
-      return rejectBattleCommand(state, "Hag 地点来源只能在 p019 开局补给前重建（W3）");
+      return rejectBattleCommand(state, "Weald Boss 地点来源只能在 p019 开局补给前重建（W3）");
     try {
       const decks = nextExpeditionLocationDecks(next, "quest:p019");
-      if (!decks) return rejectBattleCommand(state, "Hag 缺少地点来源（W3）");
+      if (!decks) return rejectBattleCommand(state, "Weald Boss 缺少地点来源（W3）");
       next = { ...next, ...decks, bossExpeditionRegion: "weald" };
     } catch (error) {
       return rejectBattleCommand(
         state,
-        error instanceof Error ? error.message : "Hag 地点来源无效",
+        error instanceof Error ? error.message : "Weald Boss 地点来源无效",
       );
     }
   }

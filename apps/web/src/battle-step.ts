@@ -40,6 +40,10 @@ const pendingSteps: Record<
     label: "等待 Weald 召唤挤占选择",
     hint: "选择角色与最近可用区域，完成 R-230 召唤部署。",
   },
+  pounderReinforcements: {
+    label: "等待 Pounder 增援挤占选择",
+    hint: "选择角色与最近可用区域，继续部署剩余增援。",
+  },
   trinketReward: {
     label: "等待饰品获得选择",
     hint: "选择接收者、转交或弃牌，继续原入牌；不会重抽或重复扣行动。",
@@ -119,6 +123,21 @@ export function battleStep(battle: BattleState): { readonly label: string; reado
       ? { label: "必须移动离开", hint: "当前区域没有足够空间；下一行动必须移动离开。" }
       : { label: "英雄行动", hint: "在行动面板选择移动、交互、换姿态或使用技能。" };
   if (turn.type === "monster") {
+    const cardId = battle.entities.find((e) => e.id === turn.actorId)?.monsterCardId;
+    if (cardId === "monster_medium:weald:p020" && !battle.monsterAction)
+      return {
+        label: "Pounder 行动",
+        hint: "点击「怪物选招与选目标」：缺少 Matchman 时增援，否则结束行动；炮击由 Matchman 触发。",
+      };
+    if (cardId === "monster_medium:weald:p023")
+      return !battle.monsterAction
+        ? { label: "Matchman 选择目标", hint: "点击「怪物选招与选目标」，锁定 Pounder。" }
+        : battle.monsterAction.positioned
+          ? { label: "Matchman 触发炮击", hint: "点击「结算怪物技能」，由同区 Pounder 发动炮击。" }
+          : {
+              label: "Matchman 移动",
+              hint: "点击「怪物移动到射程」，向 Pounder 靠近；同区才能触发炮击。",
+            };
     if (isInvokingMonster(battle, turn.actorId))
       return {
         label: "The Invokers移动",

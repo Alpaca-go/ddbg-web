@@ -1,3 +1,4 @@
+import { clearPounderIBrigands } from "./expansions/weald/boss/pounder-i-cleanup";
 import { readFinalFormSequence } from "./boss/final-form-sequence";
 import { beginHagIRelease } from "./expansions/weald/boss/hag-i-release";
 import { continueHagIIntoPot, finishHagISkillTurn } from "./expansions/weald/boss/hag-i-into-pot";
@@ -270,6 +271,13 @@ export function finishTurn(
   events: readonly GameEvent[],
   evilEyeResolved = false,
 ): ApplyResult {
+  const fire = state.battle?.pounderFire;
+  if (fire && actorId === fire.pounderId) {
+    actorId = fire.matchmanId;
+    const { pounderFire: _fire, ...battle } = state.battle!;
+    void _fire;
+    state = { ...state, battle };
+  }
   state = finishHagISkillTurn(state, actorId);
   const small = displaceSmallForHero(state, actorId, events);
   if (small) {
@@ -560,6 +568,7 @@ export function removeCasualties(result: ApplyResult, ids: readonly string[]): A
   ({ result, ids } = clearNecromancerICompanions(result, ids));
   ({ result, ids } = clearFanaticIPyre(result, ids));
   ({ result, ids } = clearHagIEmptyCauldron(result, ids));
+  ({ result, ids } = clearPounderIBrigands(result, ids));
   ({ result, ids } = clearRuinsBossCompanions(result, ids));
   ({ result, ids } = applyAncestor1ImperfectReflectionDeath(result, ids));
   const battle = result.state.battle!;

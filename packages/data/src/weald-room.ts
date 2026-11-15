@@ -97,7 +97,7 @@ const deploymentSchema = z.strictObject({
   ),
 });
 
-/** 普通房间与独立 Hag 目录共用的几何结构及引用校验。 */
+/** 普通房间与独立 Boss 目录共用的几何结构及引用校验。 */
 export const wealdRoomTileBaseSchema = z
   .strictObject({
     id: z.string().regex(/^room_tile:weald:p\d{3}:(?:front|back)$/),
@@ -111,7 +111,7 @@ export const wealdRoomTileBaseSchema = z
       page: z.int().min(1).max(6),
       face: z.enum(["front", "back"]),
     }),
-    ruling: z.enum(["R-234", "R-235", "R-236", "R-237", "R-238", "R-239", "R-254"]),
+    ruling: z.enum(["R-234", "R-235", "R-236", "R-237", "R-238", "R-239", "R-254", "R-258"]),
     geometryVerified: z.boolean(),
     geometryComplete: z.boolean(),
     usable: z.literal(false),

@@ -313,6 +313,16 @@ export function naturalQuest(
           continue;
         }
         if (
+          state.dungeon!.roomCards!.active!.cardId === "room:weald:p012" &&
+          state.dungeon!.activeBossThreatScriptId === "boss:weald:brigandPounder:1" &&
+          state.dungeon!.pounderBossBattles
+        ) {
+          step({ type: "deployPounderI" });
+          fight();
+          if (state.dungeon!.campaignFailure) return;
+          continue;
+        }
+        if (
           state.dungeon!.roomCards!.active!.cardId === "room:p013" &&
           state.dungeon!.activeBossThreatScriptId === "boss:ruins:fanatic:1"
         ) {
