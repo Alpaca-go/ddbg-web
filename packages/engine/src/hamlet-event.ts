@@ -40,6 +40,8 @@ export type HamletEventState = {
   readonly actedHeroes?: readonly string[];
   readonly visitedBuildings?: readonly string[];
   readonly higherThreatVisits?: Readonly<Record<string, string>>;
+  /** Pounder：当日实际建筑占用；日末轰炸后清除，不由 actedHeroes 推断。 */
+  readonly pounderBuildingHeroes?: Readonly<Record<string, string>>;
   /** 当前游商访问已经出售一件；访问结束删除，后续访问重新计数。 */
   readonly nomadSold?: true;
   readonly guildUpgrades?: number;

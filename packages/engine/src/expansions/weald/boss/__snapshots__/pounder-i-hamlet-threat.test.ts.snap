@@ -1,0 +1,10 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`固定seed17原策略：普通任务→回村→逐日村庄，完整新日志严格恢复 1`] = `
+{
+  "bombardments": 3,
+  "hamlet": "preparationComplete",
+  "phase": "inHamlet",
+  "stop": null,
+}
+`;

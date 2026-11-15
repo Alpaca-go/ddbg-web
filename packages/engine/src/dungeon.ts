@@ -201,6 +201,7 @@ export type DungeonState = {
   readonly bossLocationSources?: true;
   /** 显式试验版本：仅接 Pounder I 地牢威胁，村庄仍保留停点。 */
   readonly pounderDungeonThreats?: true;
+  readonly pounderHamletThreats?: true;
   /** 新地点战役：只记录已完成回村 XP 结算的普通任务，未选卡不计。 */
   readonly completedRegularQuests?: readonly {
     readonly questId: string;
