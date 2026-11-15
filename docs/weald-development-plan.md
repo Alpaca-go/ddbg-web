@@ -6,8 +6,8 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 ## 当前进度与下一步
 
 - **当前阶段：I 级五任务已有逐任务固定种子自然场景、XP／回村与严格日志验证；收尾核对发现普通房间剩余三类已核准效果未接运行时，Toxic Mushrooms、Unprepared! 与 Precious 已接显式新版本命令，因此步骤 3／5 未结案，完整战役尚未验收。**
-- **当前批次**：PR #699 按指令 squash 合入 main（`ec986091`）。本批接 4 号 Precious 的战斗开始版本标记、共用结束回合钩子与页面派发；自然完整日志与页面验收留待下一批。合入时 CI 运行中，不记全绿。
-- **下一刀：补 Precious 自然严格日志与页面验收、同步区域运行元数据，然后接 8／9 号剩余三类效果；旧日志兼容须显式处理。Boss 的实际养成跨任务抵达与自然胜利继续等待真实玩家输入，机制夹具和 seed17 败局不替代自然胜利，也不据此越过 Pounder 实现 Shrieker。**
+- **当前批次**：PR #700 按指令 squash 合入 main（`ac52a223`）。本批用 seed22 定向玩家公开路径完成 Precious 触发前后完整严格日志、删版本拒绝、页面移动待选续接与区域运行元数据；原 survival 策略采样未触发，不称原默认自然验收或任务通关。合入时 CI 运行中，不记全绿。
+- **下一刀：接 8 号 Resting Grounds 的真菌摧毁后全房间增益，再接 9 号剩余两类效果；旧日志兼容须显式处理。Boss 的实际养成跨任务抵达与自然胜利继续等待真实玩家输入，机制夹具和 seed17 败局不替代自然胜利，也不据此越过 Pounder 实现 Shrieker。**
 
 - 步骤 0 已完成，提交 `e7fd17e1`；完整地点战役尚未验收。
 - 导入与计划两批已合入并推送 `main`（`3be97c65`）。步骤 1 怪物批次已合入并推送 `main`（`7075f4d8`）。
@@ -59,14 +59,14 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 
 ### 普通房间效果的实际接线状态
 
-卡面语义沿用 [R-234–R-239](rulings.md)及[房间审阅稿](weald-room-review-2026-11-12.md)，不新增规则。核对 [房间生成器](../packages/data/src/normalize/weald-rooms.ts)、[区域投影](../packages/engine/src/expansions/weald/weald-mechanics.ts)与[数据 schema](../packages/data/src/weald-room.ts)：区域投影仍只接 `poisonousRoots`；Toxic Mushrooms 按核准房间身份与星区独立结算，schema 已允许 1 号该区域效果开启 `runtimeReady`。2／8 号是全房间触发，不能因 `specialRegions` 为空误记为没有效果。
+卡面语义沿用 [R-234–R-239](rulings.md)及[房间审阅稿](weald-room-review-2026-11-12.md)，不新增规则。核对 [房间生成器](../packages/data/src/normalize/weald-rooms.ts)、[区域投影](../packages/engine/src/expansions/weald/weald-mechanics.ts)与[数据 schema](../packages/data/src/weald-room.ts)：区域投影仍只接 `poisonousRoots`；Toxic Mushrooms 按核准房间身份与星区独立结算，schema 已允许 1 号 Toxic Mushrooms 与 4 号 Precious 的区域效果开启 `runtimeReady`。2／8 号是全房间触发，不能因 `specialRegions` 为空误记为没有效果。
 
 | 房间                 | 已核准效果       | 当前状态／后续触发位置                                                                                                                                                               |
 | -------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | 1．Fungal Spores     | Toxic Mushrooms  | 新标记命令已接；怪物攻击未命中后，仅目标所在 C／E／F／G 星区活英雄腐蚀 1·2t；旧命令不触发；seed4 自然触发／严格日志及页面位移续接已验收                                              |
 | 2．Ambush            | Unprepared!      | 新 startBattle 显式标记已接；所有活英雄减益 2t，抗性／免疫沿用既有规则；seed2 自然严格日志及页面开始按钮冒烟通过                                                                     |
 | 3／6／7              | 无独立卡面效果段 | 不新增特效；几何、部署及 7 号零容量规则仍适用                                                                                                                                        |
-| 4．Stash             | Precious         | 新战斗版本已接共用结束回合钩子；怪物在 D 结束回合时作用于所有其他活怪物，两项增益各为 2t；自然日志／页面验收待补                                                                     |
+| 4．Stash             | Precious         | 新战斗版本已接共用结束回合钩子；怪物在 D 结束回合时作用于所有其他活怪物，两项增益各为 2t；seed22 定向玩家完整严格日志／页面移动待选续接已验证                                        |
 | 5．Infected Oak      | Poisonous Roots  | 已接 B／D／E／G 的回合结束腐蚀；见 [运行时及测试](../packages/engine/src/battle-infected-oak.test.ts)。房间卡 `verifiedEffect.runtimeReady=false` 为早期元数据，不能据此否认实际接线 |
 | 8．Fungal Overgrowth | Abyssal Puff     | 未接；本房间真菌被摧毁时作用于全场怪物                                                                                                                                               |
 | 9．The Clearing      | Clearing／Ours!  | 未接；B 区回合结束的恢复压力／随机移除宝箱，以及全房间拾宝箱后的怪物状态，须分别处理                                                                                                 |
@@ -892,3 +892,12 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 - 在共用 finishTurn 接入：D 区活怪物结束回合，所有区域其他活怪物分别获得两项增益 2t；不去重，不合并 4t，不影响使用者或英雄。复用既有状态防御，缺受益目标防御目录拒绝。正式 playMonsterSkill 的回合收尾已测试进入钩子；后续位移续接沿用该共用入口，尚待自然日志验收。
 - 机制夹具通过底层 applyEncounterCommand 验结束回合；首轮误用正式地牢不允许的 finishMonsterTurn 被原准入拒绝，已改用底层夹具并另加真正公开技能命令测试，未放宽跳回合限制。缺防御目录时公开技能整条回滚，含伤口、RNG 和回合；旧版本、非 D、死者、错房间、错包与 Stygian 边界保留。
 - 最终组合 4 文件 59 项通过（32.78 秒）；typecheck、lint、build 通过，最后新增边界测试的引擎类型／格式复核通过，diff 空白检查通过。Node 24.20.0 低于约定 24.21.0，pnpm 12.9.1；完整 CI 待完成。下一批补 Precious 自然完整严格日志、页面操作及区域 runtimeReady 元数据，再补 8／9 号剩余效果。本批非阶段末，未新增按钮或浏览器冒烟；无新增裁定，Boss 跨任务自然胜利缺口及旧未跟踪交接文件继续保留，不提交该文件。
+
+### Precious 定向玩家完整日志、页面移动待选与区域元数据（2026-11-15）
+
+- #700 转 ready 后 squash 合入 `ac52a223`，同步 main；合入时 CI 运行中。分支 `codex/weald-precious-acceptance`。
+- R-234／R-237：4 号 D 星区 runtimeReady 改 true；schema 仅允许核准 Stash 身份。生成目录一致、错房间与未开放效果拒绝已验证。卡级历史 verifiedEffect.runtimeReady=false 继续保留兼容，不凭该字段判断可玩。
+- 原 survival／公开补员策略 seed1–32 有界采样均无 Precious；其中 seed4、22 进入 Stash。seed4 的支援怪物从 D 移向英雄所在处，不能将到过 Stash 当成触发。随后明确新增测试玩家偏好：仅 Stash 按已核准通路、英雄移动上限与公开 moveHero 趋向 D，其他行动换姿态；mustMove 时交回原驱动，不注入状态、牌序、伤口或 RNG。seed4 的早期 E 区尝试及最终 D 区策略仍未触发，已观察到 Stash 的 seed22 在 D 区策略下触发，最终固定 seed22，不扩大采样、不搜索 Boss 胜利。
+- 首次实际触发命令为怪物移动待选的 resolveChoice：选 D 后怪物因未到射程跳过技能并结束回合，由共用钩子给其他活怪物双增益。真实路径已发生英雄伤亡，不称自然通关、原默认策略成功或完整战役验收。完整初始命令前缀分别保存触发前后，JSON 后严格恢复同状态；删除最近开始命令 wealdPrecious 则拒绝。
+- 页面共用上述检查点：开始前点击“开始战斗”确认写入战斗版本；再在真实移动待选检查点选择实际选项，核对单次 Precious、实体、先攻、RNG 与引擎结果。首轮错误地仅映射技能／移动按钮，未处理真实 resolveChoice 而失败；补实际待选按钮后无重试通过（35.6 秒，整次 45.3 秒）。本机 Chrome 沿用配置支持入口。
+- 最终验证：组合 4 文件 17 项通过（40.91 秒），typecheck、lint、build 通过，最终改动文件 ESLint、文档格式与 diff 空白检查通过。Node 24.20.0 低于约定 24.21.0，pnpm 12.9.1；完整 CI 待完成。下一刀接 8 号 Resting Grounds 真菌摧毁全房间增益，再接 9 号 Ours!／Clearing；Boss 跨任务自然胜利与整体战役缺口继续保留。无新增裁定，旧未跟踪交接文件保留、不提交。

@@ -978,7 +978,7 @@
      "effect": "precious",
      "status": "confirmed",
      "printedText": "Precious: 怪物在 D 结束回合时其他怪物增益 2t ×2",
-     "runtimeReady": false
+     "runtimeReady": true
     }
    ],
    "wallNotes": [

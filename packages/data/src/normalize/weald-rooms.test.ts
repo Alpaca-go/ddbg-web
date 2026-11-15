@@ -30,6 +30,21 @@ describe("Weald 普通房间与板块（R-234–R-239、包隔离）", () => {
     ).toEqual(builtTiles);
   });
 
+  it("Precious 仅核准 Stash D 区标记可运行，不开放其他房间", () => {
+    const four = builtTiles.tiles.find((t) => t.number === 4)!;
+    expect(four.specialRegions).toMatchObject([
+      { areaId: "D", effect: "precious", runtimeReady: true },
+    ]);
+    expect(
+      wealdRoomTileSchema.safeParse({ ...four, number: 3, roomId: "room:weald:p003" }).success,
+    ).toBe(false);
+    expect(
+      wealdRoomTileSchema.safeParse({
+        ...four,
+        specialRegions: four.specialRegions.map((r) => ({ ...r, effect: "clearing" })),
+      }).success,
+    ).toBe(false);
+  });
   it("九张房间均属 weald 命名空间，核心目录不接纳", () => {
     for (const card of builtRooms.cards) {
       expect(cardContentPack(card)).toBe("weald");
