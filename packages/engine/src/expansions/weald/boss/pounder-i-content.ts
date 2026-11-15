@@ -1,10 +1,9 @@
-import printed from "../../../../../data/normalized/extension/weald/pounder_i.json";
-import { wealdPounderContentSchema } from "../../../../../data/src/weald-pounder";
+import { WEALD_POUNDER_I_CONTENT } from "./pounder-i-data";
+export { WEALD_POUNDER_I_CONTENT } from "./pounder-i-data";
 import { monsterPoolCatalogSchema } from "../../../../../data/src/monster-pool";
 import { wealdRoomTileBattleAreas } from "../weald-mechanics";
 
 /** 独立核准目录；不导入 Boss 注册器，不改普通池或存档入口。 */
-export const WEALD_POUNDER_I_CONTENT = wealdPounderContentSchema.parse(printed);
 
 export function pounderIApprovedBattleAreas() {
   return wealdRoomTileBattleAreas(WEALD_POUNDER_I_CONTENT.tile, { wealdMechanics: true });

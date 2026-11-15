@@ -6,7 +6,6 @@ import { POUNDER_I_SCRIPT_ID } from "./pounder-i";
 import { buildPounderICombatCatalog } from "./pounder-i-projection";
 import { applyPounderIReinforcements } from "./pounder-i-reinforcements";
 
-const [pounder, matchman] = buildPounderICombatCatalog();
 function active(state: GameState): boolean {
   const d = state.dungeon;
   return (
@@ -22,6 +21,8 @@ function active(state: GameState): boolean {
 
 /** R-258：仅实际 Matchman 固定技能可对活体 Pounder 定位，不改变普通目标规则。 */
 export function isPounderMatchmanAction(state: GameState, actorId: string): boolean {
+  if (!active(state)) return false;
+  const [pounder, matchman] = buildPounderICombatCatalog();
   const b = state.battle;
   const action = b?.monsterAction;
   return (
@@ -44,6 +45,8 @@ export function isPounderMatchmanAction(state: GameState, actorId: string): bool
 
 /** W4／R-258：两个专属角色均不掷选招骰。 */
 export function preparePounderITurn(state: GameState, actorId: string): ApplyResult | null {
+  if (!active(state)) return null;
+  const [pounder, matchman] = buildPounderICombatCatalog();
   const b = state.battle;
   const actor = b?.entities.find((e) => e.id === actorId);
   if (!active(state) || !b || !actor || ![pounder!.id, matchman!.id].includes(actor.monsterCardId!))

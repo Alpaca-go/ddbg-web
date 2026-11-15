@@ -975,3 +975,9 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 - 无新增待裁定项。下一刀补战斗内真菌存活禁疗页面，再复核普通房间与 I 级阶段收尾；Boss 自然胜利、完整战役及步骤 3／5 结案缺口继续保留。旧未跟踪交接文件保留、不提交。
 
 - 验证：组合 3 文件 18 项通过（25.33 秒）；补页面命令版本后本文件 1 项通过（21.18 秒）。页面最终无重试通过（54.8 秒，整次约 1 分钟）；首轮整份状态对比发现 allTrinkets 导致空 usedTrinketIds 差异，已显式对齐命令版本并复验严格日志。typecheck、lint、build、改动文件 ESLint／格式与 diff 空白检查通过。Node 24.20.0 低于约定 24.21.0，pnpm 12.9.1；完整 CI 待完成。
+
+### PR #709 合入前 CI 修复（2026-11-15）
+
+- 完整 CI 实际失败于 Pounder combat-plans／projection 两个文件的模块初始化；页面 CI 两次均成功。主检查其余 561 文件、4155 项通过、1 项跳过；不能记全绿。
+- 本机复现 content → Weald geometry → battle／encounter → Pounder runtime 的循环导入：注册脚本过早读取未初始化 content；修复后又暴露 turn 顶层调用 projection 的循环。
+- 将核准 JSON／schema 解析拆为不依赖战斗运行时的 pounder-i-data 叶模块，注册脚本直接依赖；回合投影延后至实际 Pounder 路径调用，保持卡面、规则、命令与 RNG 不变。原两失败文件及 turn 合计 17 项已通过；后续验证记录随合入更新。
