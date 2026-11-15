@@ -65,6 +65,7 @@ export type NaturalQuestOptions = {
   readonly wealdPrecious?: true;
   readonly wealdAbyssalPuff?: true;
   readonly wealdOurs?: true;
+  readonly wealdClearing?: true;
   /** 玩家策略：每间房后按这个「伤口 + 压力」阈值决定休息（默认 12，与既有自然策略一致）。 */
   readonly restThreshold?: number;
 };
@@ -93,6 +94,8 @@ export function naturalQuest(
       command = { ...command, wealdPrecious: true };
     if (options.wealdAbyssalPuff && command.type === "startBattle")
       command = { ...command, wealdAbyssalPuff: true };
+    if (options.wealdClearing && command.type === "startBattle")
+      command = { ...command, wealdClearingHeroes: true, wealdClearingMonsters: true };
     if (options.wealdOurs && command.type === "startBattle")
       command = { ...command, wealdOurs: true };
     const r = applyCommand(state, command);
