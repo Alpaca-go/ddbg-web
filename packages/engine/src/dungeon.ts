@@ -94,6 +94,7 @@ export type DungeonBattleCatalog = {
 };
 
 export type DungeonState = {
+  readonly inventoryOverflow?: true;
   readonly initialQuestDrawMode?: import("../../data/src/quest-save").QuestStart["initialQuestDrawMode"];
   /** 开局固定的包选择；缺省仅用于旧档/历史沙盒，英雄不受限。 */
   readonly contentPacks?: readonly import("../../data/src/content-packs").ContentPackId[];

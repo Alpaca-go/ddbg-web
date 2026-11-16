@@ -1,3 +1,9 @@
+import {
+  settleInventoryOverflow,
+  chooseInventoryOverflow,
+  withInventoryOverflow,
+  finishInventoryOverflowTurn,
+} from "./inventory-overflow";
 import { igniteWealdOak, chooseWealdOakRefill } from "./expansions/weald/burning-oak";
 import {
   beginShriekerDungeonTheft,
@@ -219,6 +225,10 @@ import type {
 } from "./battle-monster-action";
 
 export type GameState = {
+  readonly inventoryOverflow?: true;
+  readonly inventoryOverflowHold?: import("./inventory-overflow").InventoryOverflowHold;
+  readonly inventoryOverflowDecision?: number;
+  readonly inventoryOverflowTurn?: string;
   /** 固定战役的技能光照结算顺序，旧存档缺省沿用原顺序。 */
   readonly skillLightBeforeCrit?: true;
   readonly trinketChoice?: import("./trinket-reactions").TrinketContinuation;
@@ -287,7 +297,10 @@ export type HeroSkillEmptyAreaResolvedEvent = {
   readonly roll: number | null;
 };
 
-export type Command = BaseCommand & { readonly allTrinkets?: true | undefined };
+export type Command = BaseCommand & {
+  readonly allTrinkets?: true | undefined;
+  readonly inventoryOverflow?: true | undefined;
+};
 type BaseCommand =
   | UseCoreTrinketCommand
   | UseTrinketCommand
@@ -803,6 +816,8 @@ function dispatchCommand(
       return chooseNecromancerISummon(state, command.optionId);
     if (pending.type === "pounderReinforcements")
       return choosePounderIReinforcements(state, command.optionId);
+    if (pending.type === "inventoryOverflow")
+      return rejectBattleCommand(state, "补给超额续接上下文缺失");
     if (pending.type === "wealdOakRefill") return chooseWealdOakRefill(state, command.optionId);
     if (pending.type === "wealdSummon") return chooseWealdMonsterSummon(state, command.optionId);
     if (pending.type === "hagRelease") return chooseHagIRelease(state, command.optionId);
@@ -1005,12 +1020,25 @@ function dispatchCommand(
   };
 }
 
+/** R-266：新命令显式启用；旧无标记命令严格保留历史容量行为。 */
+export function applyCommand(state: GameState, command: Command, legacy = false): ApplyResult {
+  if (state.inventoryOverflowHold) return chooseInventoryOverflow(state, command);
+  const enabled = state.inventoryOverflow === true || command.inventoryOverflow === true;
+  const input = enabled ? withInventoryOverflow(state) : state;
+  const result = runCommand(input, command, legacy);
+  if (result.events.some((e) => e.type === "commandRefused")) return { ...result, state };
+  return enabled
+    ? settleInventoryOverflow({ ...result, state: withInventoryOverflow(result.state) })
+    : result;
+}
+
 /** 任一后续规则拒绝时，整次命令回滚骰子、行动和事件。 */
-export function applyCommand(
+function runCommand(
   state: GameState,
   command: Command,
   replayLegacyCardReview = false,
 ): ApplyResult {
+  if (state.inventoryOverflowTurn) return finishInventoryOverflowTurn(state, command);
   const d = state.dungeon;
   if (d?.shriekerTheft)
     return command.type === "resolveChoice"

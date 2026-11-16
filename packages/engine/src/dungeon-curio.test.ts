@@ -1168,3 +1168,43 @@ it("Wild 补给待选时重复 resolveDungeonCurio 给出公开命令提示", ()
     message: expect.stringContaining("Wild"),
   });
 });
+
+it("R-266 奇物满16仍掷奖励，新奖励也可弃，金钱与已完成行不重领", () => {
+  const base = protectedPage(8),
+    d = base.dungeon!;
+  const game = {
+    ...base,
+    dungeon: {
+      ...d,
+      explorationSetup: {
+        ...d.explorationSetup!,
+        provisions: Array.from({ length: 16 }, (_, i) => ({
+          id: `full:${i}`,
+          face: "food" as const,
+        })),
+      },
+    },
+  };
+  let result = applyCommand(game, { type: "resolveDungeonCurio", inventoryOverflow: true });
+  for (let i = 0; result.pendingChoice && !result.state.inventoryOverflowHold && i < 10; i++) {
+    const p = result.pendingChoice;
+    result = applyCommand(result.state, {
+      type: "resolveChoice",
+      choiceId: p.id,
+      optionId: "tool",
+    });
+  }
+  expect(result.state.dungeon!.explorationSetup!.provisions).toHaveLength(17);
+  const p = result.pendingChoice!,
+    incoming = p.options.find((o) => o.id.startsWith("curio-provision:"))!;
+  expect(incoming).toBeDefined();
+  result = applyCommand(result.state, {
+    type: "resolveChoice",
+    choiceId: p.id,
+    optionId: incoming.id,
+  });
+  expect(result.state.dungeon!.explorationSetup!.provisions).toHaveLength(16);
+  expect(result.state.dungeon!.gold).toBe(10);
+  expect(result.state.dungeon!.cursor).toBe(d.cursor + 1);
+  expect(result.state.dungeon!.curio!.discard).toEqual(["curio:p008"]);
+});
