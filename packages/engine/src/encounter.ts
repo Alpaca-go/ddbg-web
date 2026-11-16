@@ -148,6 +148,7 @@ export type EncounterCommand =
       readonly wealdOurs?: true;
       readonly wealdClearingHeroes?: true;
       readonly wealdClearingMonsters?: true;
+      readonly wealdWhisperingWoods?: true;
     }
   | { readonly type: "drawInitiative" }
   | {

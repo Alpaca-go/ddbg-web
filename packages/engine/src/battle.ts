@@ -244,6 +244,8 @@ export type OneBodyLifePool = {
 };
 
 export type BattleState = BattleSetup & {
+  /** R-264：显式启用的 Whispering Woods 最近已结算轮；旧战斗省略。 */
+  readonly whisperingWoodsRound?: number;
   /** R-258：炮击伤害归 Pounder，完成时结束触发者 Matchman 的回合。 */
   readonly pounderFire?: { readonly matchmanId: string; readonly pounderId: string };
   readonly trinketRuntime?: import("./trinket-reactions").TrinketRuntime;
