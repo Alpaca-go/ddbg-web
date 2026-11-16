@@ -1,3 +1,4 @@
+import type { WealdHagContent } from "../../../../../data/src/weald-hag";
 import type { BattleEntity } from "../../../battle";
 import type { MonsterCardView, MonsterSkillView } from "../../../monster-skill";
 import type { SkillSegment } from "../../../hero-skill";
@@ -20,8 +21,15 @@ const stances = ["aggressive", "defensive", "ranged", "support"] as const;
 
 /** R-254 独立运行投影；不加入普通池，不授予正式出征资格。 */
 export function buildHagICombatCatalog(): MonsterCardView[] {
-  return WEALD_HAG_I_CONTENT.faces.map((face): MonsterCardView => ({
-    id: ids[face.role],
+  return projectHagCombatFaces(WEALD_HAG_I_CONTENT.faces, ids);
+}
+
+export function projectHagCombatFaces(
+  faces: readonly Omit<WealdHagContent["faces"][number], "level" | "rawId">[],
+  runtimeIds: Readonly<Record<"hag" | "empty" | "full", string>>,
+): MonsterCardView[] {
+  return faces.map((face): MonsterCardView => ({
+    id: runtimeIds[face.role],
     life: face.life,
     speed: face.speed,
     dodge: face.dodge,

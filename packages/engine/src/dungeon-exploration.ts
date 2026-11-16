@@ -279,7 +279,11 @@ export function applyDungeonExploration(
       `${roll.heroId} 使用补给抵消 ${faceLabels[roll.face]}；弃掉 ${id}（R12、R14）`,
     );
     const merged = { ...completed, events: [...events, ...completed.events] };
-    const threat = applyBossThreatStressOnProvisionUse(merged.state, roll.heroId);
+    const threat = applyBossThreatStressOnProvisionUse(
+      merged.state,
+      roll.heroId,
+      d.explorationSetup?.provisions.find((p) => p.id === id)?.face,
+    );
     return { ...threat, events: [...merged.events, ...threat.events] };
   }
   const hero = d.heroes.find((h) => h.id === roll.heroId)!;

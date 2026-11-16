@@ -151,14 +151,14 @@ export function drawDungeonCurio(state: GameState, rollId: string, optionId: str
       pendingChoice: pending,
     };
     if (protectedCard && heroId) {
-      const threat = applyBossThreatStressOnProvisionUse(result.state, heroId);
+      const threat = applyBossThreatStressOnProvisionUse(result.state, heroId, "torch");
       result = { ...threat, events: [...result.events, ...threat.events] };
     }
     return result;
   }
   let result: ApplyResult = { ...drawn, events: [...beforeEvents, ...drawn.events] };
   if (protectedCard && heroId) {
-    const threat = applyBossThreatStressOnProvisionUse(result.state, heroId);
+    const threat = applyBossThreatStressOnProvisionUse(result.state, heroId, "torch");
     result = { ...threat, events: [...result.events, ...threat.events] };
   }
   return result;

@@ -71,6 +71,8 @@ export type BossThreatPassiveDungeonOk =
   | {
       readonly status: "ok";
       readonly effect: "stressOnHeroProvisionUse";
+      /** R-267 高等级指定补给；缺失保留历史行为。 */
+      readonly provisions?: readonly string[];
       readonly stressDelta: number;
       readonly sourceAbilityCardId: string;
       readonly rulesRef: readonly string[];

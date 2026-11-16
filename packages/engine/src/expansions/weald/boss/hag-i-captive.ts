@@ -9,15 +9,40 @@ import {
 } from "./hag-i";
 import { buildHagICombatCatalog } from "./hag-i-projection";
 
+import type { MonsterCardView } from "../../../monster-skill";
+
+export interface HagCaptiveContext {
+  readonly scriptId: string;
+  readonly matchesEncounter: (state: GameState) => boolean;
+  readonly hagId: string;
+  readonly emptyId: string;
+  readonly fullId: string;
+  readonly catalog: readonly MonsterCardView[];
+}
+const hagIContext = (): HagCaptiveContext => ({
+  scriptId: HAG_I_SCRIPT_ID,
+  matchesEncounter: (state) => resolveEncounterBossScriptId(state) === HAG_I_SCRIPT_ID,
+  hagId: HAG_I_COMBAT_MONSTER_CARD_ID,
+  emptyId: HAG_I_CAULDRON_EMPTY_MONSTER_CARD_ID,
+  fullId: HAG_I_CAULDRON_FULL_MONSTER_CARD_ID,
+  catalog: buildHagICombatCatalog(),
+});
+
 const stances = ["aggressive", "defensive", "ranged", "support"] as const;
 
 /** R-255 入锅命中效果的状态原语；选招、命中与 Self Pull 由技能入口先行完成。 */
 export function captureHagIHero(state: GameState, heroId: string): ApplyResult {
+  return captureHagHero(state, heroId, hagIContext());
+}
+
+export function captureHagHero(
+  state: GameState,
+  heroId: string,
+  context: HagCaptiveContext,
+): ApplyResult {
   const b = state.battle;
   const hero = b?.entities.find((e) => e.id === heroId && e.side === "hero" && !e.dead);
-  const pot = b?.entities.find(
-    (e) => e.monsterCardId === HAG_I_CAULDRON_EMPTY_MONSTER_CARD_ID && !e.dead,
-  );
+  const pot = b?.entities.find((e) => e.monsterCardId === context.emptyId && !e.dead);
   const turn = b?.encounter?.turn;
   if (
     !b ||
@@ -25,10 +50,10 @@ export function captureHagIHero(state: GameState, heroId: string): ApplyResult {
     !pot ||
     b.hagCauldron ||
     b.pending ||
-    resolveEncounterBossScriptId(state) !== HAG_I_SCRIPT_ID ||
+    !context.matchesEncounter(state) ||
     turn?.type !== "monster" ||
     !b.entities.some(
-      (e) => e.id === turn.actorId && !e.dead && e.monsterCardId === HAG_I_COMBAT_MONSTER_CARD_ID,
+      (e) => e.id === turn.actorId && !e.dead && e.monsterCardId === context.hagId,
     ) ||
     !Number.isSafeInteger(hero.life) ||
     hero.life! <= 0 ||
@@ -37,7 +62,7 @@ export function captureHagIHero(state: GameState, heroId: string): ApplyResult {
     stances.indexOf(hero.stance) < 0
   )
     return rejectBattleCommand(state, "R-255：入锅需要 Hag 回合、空锅与存活英雄，且无其它待选");
-  const full = buildHagICombatCatalog().find((c) => c.id === HAG_I_CAULDRON_FULL_MONSTER_CARD_ID)!;
+  const full = context.catalog.find((c) => c.id === context.fullId)!;
   const { areaId: _area, stance: _stance, ...captive } = hero;
   void _area;
   void _stance;
@@ -99,17 +124,25 @@ export function hagIReleaseAreas(state: GameState): string[] {
 
 /** R-255 释放状态原语；多个合法邻区始终交给玩家，不消耗 RNG。 */
 export function releaseHagIHero(state: GameState, areaId?: string): ApplyResult {
+  return releaseHagHero(state, hagIContext(), areaId);
+}
+
+export function releaseHagHero(
+  state: GameState,
+  context: HagCaptiveContext,
+  areaId?: string,
+): ApplyResult {
   const b = state.battle;
   const captive = b?.hagCauldron;
   const pot = b?.entities.find(
-    (e) => e.id === captive?.cauldronId && e.monsterCardId === HAG_I_CAULDRON_FULL_MONSTER_CARD_ID,
+    (e) => e.id === captive?.cauldronId && e.monsterCardId === context.fullId,
   );
   if (
     !b ||
     !captive ||
     !pot ||
     !b.encounter ||
-    resolveEncounterBossScriptId(state) !== HAG_I_SCRIPT_ID ||
+    !context.matchesEncounter(state) ||
     (b.pending && b.pending.type !== "hagRelease") ||
     b.entities.some((e) => e.id === captive.hero.id) ||
     captive.hero.dead
@@ -140,9 +173,7 @@ export function releaseHagIHero(state: GameState, areaId?: string): ApplyResult 
     };
   }
   if (!areas.includes(areaId)) return rejectBattleCommand(state, "R-255：释放区域非合法邻接区域");
-  const empty = buildHagICombatCatalog().find(
-    (c) => c.id === HAG_I_CAULDRON_EMPTY_MONSTER_CARD_ID,
-  )!;
+  const empty = context.catalog.find((c) => c.id === context.emptyId)!;
   const { hagCauldron: _captive, ...rest } = b;
   void _captive;
   return {
