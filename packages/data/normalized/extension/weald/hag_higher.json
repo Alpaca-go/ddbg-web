@@ -1,0 +1,276 @@
+{
+ "schema": "ddbg-weald-hag-higher-v1",
+ "ruling": "R-267",
+ "combatReady": false,
+ "sources": {"combatFront": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_140x140_monster_large_FRONT.pdf", "combatBack": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_140x140_monster_large_BACK.pdf", "abilityFront": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_FRONT.pdf", "abilityBack": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_BACK.pdf"},
+ "cards": [
+  {
+   "level": 2,
+   "faces": [
+    {
+     "role": "hag",
+     "rawId": "monster_large:weald:p011",
+     "face": "front",
+     "name": "Hag",
+     "level": 2,
+     "types": ["human", "large"],
+     "stanceSlots": 2,
+     "life": 75,
+     "speed": 2,
+     "dodge": 1,
+     "innateProtection": false,
+     "resistances": ["blight"],
+     "immunities": ["stun", "shuffle"],
+     "skills": [
+      {
+       "slot": 1,
+       "name": "Into the Pot",
+       "target": "closest",
+       "range": 1,
+       "maxTargets": 1,
+       "crit": null,
+       "critDamage": null,
+       "accuracy": 11,
+       "damage": null,
+       "effects": [
+        {"kind": "selfPull", "distance": 1},
+        {"kind": "putInCauldron"}
+       ]
+      },
+      {
+       "slot": 2,
+       "name": "Meat Tenderizer",
+       "target": "crowded",
+       "range": 1,
+       "maxTargets": 4,
+       "crit": 2,
+       "critDamage": 6,
+       "accuracy": 10,
+       "damage": 4,
+       "effects": []
+      },
+      {
+       "slot": 3,
+       "name": "Season to Perfection",
+       "target": "furthest",
+       "range": 2,
+       "maxTargets": 1,
+       "crit": 0,
+       "critDamage": 4,
+       "accuracy": 11,
+       "damage": 2,
+       "effects": [
+        {"kind": "debuff", "duration": 2},
+        {"kind": "stress", "amount": 1}
+       ]
+      }
+     ],
+     "allStancesSelection": [
+      {"min": 1, "max": 6, "slot": 2},
+      {"min": 7, "max": 10, "slot": 3}
+     ]
+    },
+    {
+     "role": "empty",
+     "rawId": "monster_large:weald:p014",
+     "face": "front",
+     "name": "Cauldron Empty",
+     "level": 2,
+     "types": ["large"],
+     "stanceSlots": 2,
+     "life": 100,
+     "speed": 0,
+     "dodge": 0,
+     "innateProtection": true,
+     "resistances": [],
+     "immunities": ["stun", "bleed", "blight", "debuff", "shuffle"],
+     "skills": [],
+     "allStancesSelection": []
+    },
+    {
+     "role": "full",
+     "rawId": "monster_large:weald:p014",
+     "face": "back",
+     "name": "Cauldron Full",
+     "level": 2,
+     "types": ["large"],
+     "stanceSlots": 2,
+     "life": 14,
+     "speed": 0,
+     "dodge": 0,
+     "innateProtection": false,
+     "resistances": [],
+     "immunities": ["stun", "bleed", "blight", "debuff", "shuffle"],
+     "skills": [
+      {
+       "slot": 1,
+       "name": "Boil",
+       "target": "closest",
+       "range": 0,
+       "maxTargets": 1,
+       "crit": 1,
+       "critDamage": 12,
+       "accuracy": 14,
+       "damage": 7,
+       "effects": [
+        {"kind": "stress", "amount": 1}
+       ]
+      }
+     ],
+     "allStancesSelection": []
+    }
+   ],
+   "abilities": {
+    "descriptionCardId": "boss_ability:weald:p014",
+    "hagCardId": "boss_ability:weald:p017",
+    "cauldronCardId": "boss_ability:weald:p020",
+    "hagActionsPerRound": 2,
+    "cauldronActionsPerRound": 1,
+    "captiveTargetable": false,
+    "lifecycleRulings": ["R-255", "R-256"],
+    "threats": {
+     "dungeon": {
+      "name": "Painfully Soothing II",
+      "provisions": ["potion", "food"],
+      "stressPerUse": 1
+     },
+     "hamlet": {"name": "No Rest for the Wicked II", "sanitariumHealingReduction": 6}
+    }
+   }
+  },
+  {
+   "level": 3,
+   "faces": [
+    {
+     "role": "hag",
+     "rawId": "monster_large:weald:p012",
+     "face": "front",
+     "name": "Hag",
+     "level": 3,
+     "types": ["human", "large"],
+     "stanceSlots": 2,
+     "life": 95,
+     "speed": 2,
+     "dodge": 1,
+     "innateProtection": false,
+     "resistances": ["blight"],
+     "immunities": ["stun", "shuffle"],
+     "skills": [
+      {
+       "slot": 1,
+       "name": "Into the Pot",
+       "target": "closest",
+       "range": 1,
+       "maxTargets": 1,
+       "crit": null,
+       "critDamage": null,
+       "accuracy": 12,
+       "damage": null,
+       "effects": [
+        {"kind": "selfPull", "distance": 1},
+        {"kind": "putInCauldron"}
+       ]
+      },
+      {
+       "slot": 2,
+       "name": "Meat Tenderizer",
+       "target": "crowded",
+       "range": 1,
+       "maxTargets": 4,
+       "crit": 2,
+       "critDamage": 9,
+       "accuracy": 11,
+       "damage": 6,
+       "effects": []
+      },
+      {
+       "slot": 3,
+       "name": "Season to Perfection",
+       "target": "furthest",
+       "range": 2,
+       "maxTargets": 1,
+       "crit": 0,
+       "critDamage": 6,
+       "accuracy": 12,
+       "damage": 3,
+       "effects": [
+        {"kind": "debuff", "duration": 2},
+        {"kind": "stress", "amount": 1}
+       ]
+      }
+     ],
+     "allStancesSelection": [
+      {"min": 1, "max": 6, "slot": 2},
+      {"min": 7, "max": 10, "slot": 3}
+     ]
+    },
+    {
+     "role": "empty",
+     "rawId": "monster_large:weald:p015",
+     "face": "front",
+     "name": "Cauldron Empty",
+     "level": 3,
+     "types": ["large"],
+     "stanceSlots": 2,
+     "life": 136,
+     "speed": 0,
+     "dodge": 0,
+     "innateProtection": true,
+     "resistances": [],
+     "immunities": ["stun", "bleed", "blight", "debuff", "shuffle"],
+     "skills": [],
+     "allStancesSelection": []
+    },
+    {
+     "role": "full",
+     "rawId": "monster_large:weald:p015",
+     "face": "back",
+     "name": "Cauldron Full",
+     "level": 3,
+     "types": ["large"],
+     "stanceSlots": 2,
+     "life": 19,
+     "speed": 0,
+     "dodge": 0,
+     "innateProtection": false,
+     "resistances": [],
+     "immunities": ["stun", "bleed", "blight", "debuff", "shuffle"],
+     "skills": [
+      {
+       "slot": 1,
+       "name": "Boil",
+       "target": "closest",
+       "range": 0,
+       "maxTargets": 1,
+       "crit": 1,
+       "critDamage": 16,
+       "accuracy": 16,
+       "damage": 9,
+       "effects": [
+        {"kind": "stress", "amount": 1}
+       ]
+      }
+     ],
+     "allStancesSelection": []
+    }
+   ],
+   "abilities": {
+    "descriptionCardId": "boss_ability:weald:p015",
+    "hagCardId": "boss_ability:weald:p018",
+    "cauldronCardId": "boss_ability:weald:p021",
+    "hagActionsPerRound": 2,
+    "cauldronActionsPerRound": 1,
+    "captiveTargetable": false,
+    "lifecycleRulings": ["R-255", "R-256"],
+    "threats": {
+     "dungeon": {
+      "name": "Painfully Soothing III",
+      "provisions": ["potion", "food", "bandage"],
+      "stressPerUse": 1
+     },
+     "hamlet": {"name": "No Rest for the Wicked III", "sanitariumHealingReduction": 9}
+    }
+   }
+  }
+ ]
+}
