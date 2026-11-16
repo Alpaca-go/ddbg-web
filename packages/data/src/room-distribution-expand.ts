@@ -8,6 +8,21 @@ import {
 /** 冲压板非 Objective 五类实体代币枚数；规则书未逐类核实，待确认时不阻塞 Q-112b（R-112）。 */
 export const nonObjectiveRoomTokenPoolCopiesPerKind = 3;
 
+/** R-265：仅 Searching in the Dark；实体冲压板五类各三枚。 */
+export const searchingInTheDarkRoomKinds: readonly RoomTokenKind[] = [
+  "empty",
+  "dark",
+  "curio",
+  "treasure",
+  "trap",
+];
+
+function randomKinds(template: RoomDistribution): readonly RoomTokenKind[] {
+  return template.questId === "quest:weald:p008"
+    ? searchingInTheDarkRoomKinds
+    : randomNonObjectiveRoomKinds;
+}
+
 export function buildNonObjectiveRoomTokenPool(
   copiesPerKind = nonObjectiveRoomTokenPoolCopiesPerKind,
 ): RoomTokenKind[] {
@@ -57,17 +72,17 @@ export function materializeRoomDistribution(
       `randomizeNonObjective×${need} 需要 ${need} 枚展开结果，收到 ${drawnNonObjective.length}`,
     );
   }
-  if (drawnNonObjective.some((k) => !randomNonObjectiveRoomKinds.includes(k))) {
+  if (drawnNonObjective.some((k) => !randomKinds(template).includes(k))) {
     throw new Error("展开结果含非法房间种类（仅允许非 Objective 五类）");
   }
   const poolCap = nonObjectiveRoomTokenPoolCopiesPerKind;
-  for (const kind of randomNonObjectiveRoomKinds) {
+  for (const kind of randomKinds(template)) {
     const n = drawnNonObjective.filter((k) => k === kind).length;
     if (n > poolCap) {
       throw new Error(`展开结果 ${kind}×${n} 超过实体池容量 ${poolCap}（禁止独立匀掷 kind）`);
     }
   }
-  const merged = [...template.counts];
+  const merged = template.counts.map((row) => ({ ...row }));
   for (const row of aggregateKinds(drawnNonObjective)) {
     const existing = merged.find((c) => c.kind === row.kind);
     if (existing) existing.count += row.count;
@@ -86,7 +101,10 @@ export function drawAndMaterializeRoomDistribution(
 ): RoomDistribution {
   const need = template.randomizeNonObjective;
   if (!need) return template;
-  const pool = buildNonObjectiveRoomTokenPool();
+  const pool =
+    template.questId === "quest:weald:p008"
+      ? searchingInTheDarkRoomKinds.flatMap((kind) => [kind, kind, kind])
+      : buildNonObjectiveRoomTokenPool();
   const drawn = drawRoomKindsWithoutReplacement(pool, need, randomUnit);
   return materializeRoomDistribution(template, drawn);
 }
