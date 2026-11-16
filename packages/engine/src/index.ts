@@ -1,6 +1,8 @@
 export { applyCommand, createInitialState } from "./command";
 export { readInfectedOakAction } from "./battle-infected-oak";
 export { buildWealdMonsterCatalog } from "./expansions/weald/monster-catalog";
+export { buildWealdHigherMonsterCatalog } from "./expansions/weald/higher-monster-catalog";
+export { buildWealdHigherMonsterPool } from "./expansions/weald/higher-monster-pool";
 export type { WealdBattleMonster } from "./expansions/weald/monster-catalog";
 export { canSetDungeonStances, DUNGEON_HERO_STANCES } from "./dungeon-stances";
 export { canSetHamletStances } from "./hamlet-stances";

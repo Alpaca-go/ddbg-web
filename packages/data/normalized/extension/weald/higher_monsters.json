@@ -1,0 +1,228 @@
+{
+ "schema": "ddbg-weald-higher-monsters-v1",
+ "ruling": "R-263",
+ "cards": [
+  {
+   "id": "monster_large:weald:p003",
+   "name": "Unclean Giant",
+   "level": 2,
+   "pages": [3],
+   "entityPages": [17],
+   "life": 60,
+   "dodge": 1,
+   "speed": 1,
+   "stanceSlots": 2,
+   "type_position_tags": [
+    "Human",
+    "Beast",
+    "Front",
+    "Large"
+   ],
+   "resistances": [
+    "stun",
+    "blight",
+    "shuffle"
+   ],
+   "immunities": [],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive",
+      "ranged",
+      "support"
+     ],
+     "rollTable": [
+      {
+       "min": 1,
+       "max": 2,
+       "skill": 1
+      },
+      {
+       "min": 3,
+       "max": 6,
+       "skill": 2
+      },
+      {
+       "min": 7,
+       "max": 10,
+       "skill": 3
+      }
+     ]
+    }
+   ],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Treebranch Smackdown",
+     "target": "Closest",
+     "range": 1,
+     "targets": 1,
+     "damage": [1, 24, 9, 16],
+     "plan": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{shuffle}Push1"
+      ],
+      "effects": [
+       {
+        "type": "shuffle",
+        "scope": "target",
+        "direction": "push",
+        "distance": 1
+       }
+      ]
+     }
+    },
+    {
+     "slot": 2,
+     "name": "Confusion Spores",
+     "target": "Crowded",
+     "range": 2,
+     "targets": 4,
+     "damage": [1, 4, 9, 2],
+     "plan": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{debuff}2t"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "debuff",
+        "duration": 2
+       }
+      ]
+     }
+    },
+    {
+     "slot": 3,
+     "name": "Poison Spores",
+     "target": "Furthest",
+     "range": 2,
+     "targets": 1,
+     "damage": [0, 4, 9, 2],
+     "plan": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}2{blight}3t"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "blight",
+        "duration": 3,
+        "amount": 2
+       }
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "monster_medium:weald:p018",
+   "name": "Hateful Virago",
+   "level": 3,
+   "pages": [18, 19],
+   "entityPages": [18, 19],
+   "life": 39,
+   "dodge": 4,
+   "speed": 3,
+   "stanceSlots": 1,
+   "type_position_tags": [
+    "Human",
+    "Back"
+   ],
+   "resistances": [
+    "blight",
+    "debuff"
+   ],
+   "immunities": [
+    "stun"
+   ],
+   "stanceGroups": [
+    {
+     "stances": [
+      "aggressive",
+      "defensive",
+      "ranged",
+      "support"
+     ],
+     "rollTable": [
+      {
+       "min": 1,
+       "max": 5,
+       "skill": 1
+      },
+      {
+       "min": 6,
+       "max": 10,
+       "skill": 2
+      }
+     ]
+    }
+   ],
+   "skills": [
+    {
+     "slot": 1,
+     "name": "Ruinous Hex",
+     "target": "Crowded",
+     "range": 1,
+     "targets": 2,
+     "damage": [0, 9, 10, 6],
+     "plan": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{mark}2t,{debuff}2t"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "mark",
+        "duration": 2
+       },
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "debuff",
+        "duration": 2
+       }
+      ]
+     }
+    },
+    {
+     "slot": 2,
+     "name": "Putrefying Breath",
+     "target": "Closest",
+     "range": 2,
+     "targets": 1,
+     "damage": [1, 14, 10, 9],
+     "plan": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}3{blight}3t,{shuffle}Push1"
+      ],
+      "effects": [
+       {
+        "type": "status",
+        "scope": "target",
+        "kind": "blight",
+        "duration": 3,
+        "amount": 3
+       },
+       {
+        "type": "shuffle",
+        "scope": "target",
+        "direction": "push",
+        "distance": 1
+       }
+      ]
+     }
+    }
+   ]
+  }
+ ]
+}
