@@ -54,7 +54,7 @@ export function parseWealdQuestDistributionLines(lines: readonly string[]) {
 export function buildWealdLevelOneQuestCards(raw: RawFile): WealdQuestCards {
   if (raw.category !== "quest" || raw.cards.length !== 15)
     throw new Error("需要完整 Weald 任务 raw");
-  const wealdL1 = basicQuests.filter((q) => q.id.startsWith("quest:weald:p00"));
+  const wealdL1 = basicQuests.filter((q) => q.expeditionRegion === "weald" && q.level === 1);
   if (wealdL1.length !== 5) throw new Error("basicQuests 须有 I 级五张 Weald 登记");
   const cards = [...raw.cards]
     .filter((card) => card.faces.front.page <= 5)
