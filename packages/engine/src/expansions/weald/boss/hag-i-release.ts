@@ -11,13 +11,8 @@ import {
   finishTurnStartAfterStatus,
 } from "../../../encounter";
 import { rejectBattleCommand } from "../../../battle";
-import { resolveEncounterBossScriptId } from "../../../boss/encounter-rules";
-import {
-  HAG_I_SCRIPT_ID,
-  HAG_I_COMBAT_MONSTER_CARD_ID,
-  HAG_I_CAULDRON_FULL_MONSTER_CARD_ID,
-} from "./hag-i";
-import { releaseHagIHero } from "./hag-i-captive";
+import { readHagRuntimeContext } from "./hag-runtime-context";
+import { releaseHagHero } from "./hag-i-captive";
 
 /** 只保存尚未完成的收尾，不保存或重放攻击、回合开始状态及其 RNG。 */
 export type HagReleaseResume =
@@ -47,18 +42,17 @@ export function beginHagIRelease(
 ): ApplyResult | null {
   const b = result.state.battle;
   const captive = b?.hagCauldron;
-  if (!b || !captive || resolveEncounterBossScriptId(result.state) !== HAG_I_SCRIPT_ID) return null;
+  const context = readHagRuntimeContext(result.state);
+  if (!b || !captive || !context) return null;
   const pot = b.entities.find((e) => e.id === captive.cauldronId);
-  if (!pot || pot.monsterCardId !== HAG_I_CAULDRON_FULL_MONSTER_CARD_ID)
+  if (!pot || pot.monsterCardId !== context.fullId)
     return rejectBattleCommand(result.state, "R-255：锅内英雄缺少对应 Full 实体");
-  const hagDead = b.entities.some(
-    (e) => e.monsterCardId === HAG_I_COMBAT_MONSTER_CARD_ID && e.dead,
-  );
+  const hagDead = b.entities.some((e) => e.monsterCardId === context.hagId && e.dead);
   const atDoor = captive.hero.life !== undefined && captive.hero.wounds >= captive.hero.life;
   if (!hagDead && !pot.dead && !(pot.life !== undefined && pot.wounds >= pot.life) && !atDoor)
     return null;
   if (b.pending?.type === "hagRelease") return { ...result, pendingChoice: b.pending.choice };
-  const offered = releaseHagIHero(result.state);
+  const offered = releaseHagHero(result.state, context);
   if (offered.events.some((e) => e.type === "commandRefused")) return offered;
   const pending = offered.state.battle!.pending!;
   if (pending.type !== "hagRelease")
@@ -76,8 +70,10 @@ export function beginHagIRelease(
 export function chooseHagIRelease(state: GameState, areaId: string): ApplyResult {
   const pending = state.battle?.pending;
   if (pending?.type !== "hagRelease") return rejectBattleCommand(state, "释放选择不存在或已过期");
+  const context = readHagRuntimeContext(state);
+  if (!context) return rejectBattleCommand(state, "Hag 释放上下文与核准等级不符");
   const resume = pending.resume;
-  const released = releaseHagIHero(state, areaId);
+  const released = releaseHagHero(state, context, areaId);
   if (!resume || released.events.some((e) => e.type === "commandRefused")) return released;
   switch (resume.type) {
     case "heroSkill":

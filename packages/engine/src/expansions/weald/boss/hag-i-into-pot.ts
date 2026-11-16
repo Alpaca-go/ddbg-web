@@ -2,14 +2,21 @@ import type { MonsterCardView, MonsterSkillView } from "../../../monster-skill";
 import type { ApplyResult, GameState, MonsterSkillResolvedEvent } from "../../../command";
 import { compileMonsterEffectPlan } from "../../../monster-effect-plan";
 import { buildHagICombatCatalog } from "./hag-i-projection";
-import { captureHagIHero } from "./hag-i-captive";
+import { captureHagHero } from "./hag-i-captive";
 import { beginHagIRelease } from "./hag-i-release";
-import { HAG_I_COMBAT_MONSTER_CARD_ID, HAG_I_SCRIPT_ID } from "./hag-i";
-import { resolveEncounterBossScriptId } from "../../../boss/encounter-rules";
+import { readHagRuntimeContext } from "./hag-runtime-context";
+import { hagHigherContext } from "./hag-higher";
 
 /** R-254／R-255：核对核准卡面，再把 Self Pull 交给共用自身效果流程。 */
 export function readHagIIntoPotAttack(card: MonsterCardView, skill: MonsterSkillView) {
-  const expected = buildHagICombatCatalog().find((c) => c.id === HAG_I_COMBAT_MONSTER_CARD_ID)!;
+  const expected = [
+    buildHagICombatCatalog(),
+    hagHigherContext(2).catalog,
+    hagHigherContext(3).catalog,
+  ]
+    .flat()
+    .find((c) => c.id === card.id && c.skills[0]?.verified_hag_into_pot);
+  if (!expected) return { status: "refused" as const, reason: "未核准的 Hag Into the Pot 卡面" };
   const canonical = (value: unknown): unknown => {
     if (Array.isArray(value)) return value.map(canonical);
     if (value !== null && typeof value === "object")
@@ -65,15 +72,16 @@ export function continueHagIIntoPot(
   resolved: MonsterSkillResolvedEvent,
 ): ApplyResult | null {
   const b = result.state.battle;
+  const context = readHagRuntimeContext(result.state);
   const actor = b?.entities.find((e) => e.id === resolved.actorId);
   const card = b?.monsters?.find((c) => c.id === actor?.monsterCardId);
   if (
     !b ||
+    !context ||
     resolved.skillSlot !== 1 ||
     actor?.dead ||
-    card?.id !== HAG_I_COMBAT_MONSTER_CARD_ID ||
-    !card.skills.find((s) => s.slot === 1)?.verified_hag_into_pot ||
-    resolveEncounterBossScriptId(result.state) !== HAG_I_SCRIPT_ID
+    card?.id !== context.hagId ||
+    !card.skills.find((s) => s.slot === 1)?.verified_hag_into_pot
   )
     return null;
   if (b.hagSecondSkillPending)
@@ -83,7 +91,7 @@ export function continueHagIIntoPot(
     };
   let next = result;
   if (resolved.resolution.outcome === "hit" || resolved.resolution.outcome === "crit") {
-    const captured = captureHagIHero(result.state, resolved.resolution.targetId);
+    const captured = captureHagHero(result.state, resolved.resolution.targetId, context);
     if (captured.events.some((e) => e.type === "commandRefused")) return captured;
     next = { ...captured, events: [...result.events, ...captured.events] };
   }
@@ -103,9 +111,11 @@ export function continueHagIIntoPot(
 
 export function finishHagISkillTurn(state: GameState, actorId: string): GameState {
   const b = state.battle;
+  const context = readHagRuntimeContext(state);
   if (
     !b?.hagSecondSkillPending ||
-    !b.entities.some((e) => e.id === actorId && e.monsterCardId === HAG_I_COMBAT_MONSTER_CARD_ID)
+    !context ||
+    !b.entities.some((e) => e.id === actorId && e.monsterCardId === context.hagId)
   )
     return state;
   const { hagSecondSkillPending: _second, ...rest } = b;

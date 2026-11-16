@@ -52,6 +52,14 @@ const scripts: BossScriptDefinition[] = content.cards.map((card) => {
       printedActionsPerRound: 2,
     },
     hooks: {
+      intoThePot: () => ({
+        status: "ok",
+        effect: "forceIntoThePotWhileCauldronEmptyEachTurn",
+        skillSlot: 1,
+        sourceAbilityCardId: ability,
+        rulesRef: ["R-267", ability],
+      }),
+      monsterTurnActionCount: () => ({ status: "ok", value: 2 }),
       threatPassiveDungeon: () => ({
         status: "ok",
         effect: "stressOnHeroProvisionUse",

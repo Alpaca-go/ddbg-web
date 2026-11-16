@@ -1,3 +1,4 @@
+import { readHagRuntimeContext } from "./expansions/weald/boss/hag-runtime-context";
 import { preparePounderITurn } from "./expansions/weald/boss/pounder-i-turn";
 import { applyHagIBoil } from "./expansions/weald/boss/hag-i-boil";
 import { isDarkestSupportSkill } from "./battle-monster-support";
@@ -150,6 +151,9 @@ export function prepareMonsterAction(
   }
   const forceWilburMark = swinePrinceIWilburMarkShouldForceSkill(state, actor.id);
   const forceIntoThePot = hagIntoThePotShouldForceSkill(state, actor.id);
+  const hagContext = readHagRuntimeContext(state);
+  const fixedHagBoil =
+    hagContext && actor.monsterCardId === hagContext.fullId && battle.hagCauldron;
   let selected: MonsterSkillSelection;
   let needsRoll = false;
   if (forceWilburMark) {
@@ -165,7 +169,7 @@ export function prepareMonsterAction(
     }
     selected = { status: "selected", skillSlot: slot, roll: null };
   } else if (forceIntoThePot) {
-    const scriptId = resolveEncounterBossScriptId(state);
+    const scriptId = readHagRuntimeContext(state)?.scriptId as `boss:${string}` | undefined;
     const script = scriptId ? getBossScript(scriptId) : undefined;
     const slot = script ? readHagIIntoThePotSkillSlot(script) : null;
     if (slot === null) {
@@ -176,6 +180,11 @@ export function prepareMonsterAction(
       return rejectBattleCommand(state, attack.reason);
     }
     selected = { status: "selected", skillSlot: slot, roll: null };
+  } else if (fixedHagBoil) {
+    // R-267：Full 仅一招，无印刷选招骰表；目标仍走普通板块英雄选区。
+    const attack = readMonsterAttackView(card, 1);
+    if (attack.status === "refused") return rejectBattleCommand(state, attack.reason);
+    selected = { status: "selected", skillSlot: 1, roll: null };
   } else {
     let pick = selectMonsterSkill(card, occupied);
     if (pick.status === "refused") return rejectBattleCommand(state, pick.reason);
