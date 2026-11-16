@@ -3485,3 +3485,15 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **通用范围**：所有背包取得／拾取的容量处理；补给覆盖普通／任务宝箱、出征与技能／事件奖励骰、奇物、挖掘点和露营饰品。不改变物品原有取得条件、可选使用次数、骰面、费用或任务道具不可弃置等其它规则。饰品原有 incoming 待选已允许收到新卡后弃新／旧，本批不另改装备槽数。
 - **取代**：R-041 等“满16停掷／多余奖励作废”、R-059“满池拒绝纯补给箱”、R-138“必须先弃旧才能领取”的容量部分；任务道具保护沿 R-205，补给溢出选择可包含新获得的普通补给和额外 Potion。
 - **日志兼容**：新增明确命令标记 inventoryOverflow:true。页面所有新命令启用，已有战役在首个成功新命令起记录切换；旧无标记命令／历史日志仍严格按原行为回放，不追改骰子或种子。
+
+
+### R-267
+
+- **日期**：2026-11-16。
+- **核准**：Kyries 审核修改 [Hag II／III 审阅稿](weald-hag-higher-review-2026-11-16.md) 后通知已审核修改。采用修改后的属性与技能表；Meat Tenderizer II／III 最多 **4** 目标，不采用初稿的 3。
+- **属性**：Hag II／III Life 75／95，Speed 2、Dodge 1；Empty II／III Life 100／136，Full II／III Life 14／19，锅两面 Speed／Dodge 均 0。Empty 有内置 Protection，Full 无；免疫／抗性与技能各项数值见本次核准表。大型占两格依 R-015，不当作另印字段。
+- **锅内英雄**：英雄入锅后不再是可互动单位，只有锅可以互动；Boil 不能选择锅内英雄。此结论适用于 II／III，不由 Closest／射程 0 推定例外。
+- **能力**：本次审阅稿能力四条全部核准。II／III Hag 每轮两行动，每次轮到且锅内无英雄，先 Into the Pot 再另一招；锅每轮一行动、开场 Empty，入锅翻 Full 并清伤口，锅内不可移动或 Shuffle。锅受伤达到 Life 或锅内英雄到死门，英雄放到邻接合法区域，锅翻 Empty 并清伤口。R-255／R-256 的生命周期和心脏病死亡翻锅口径扩至本批 II／III；死亡英雄不放回板块。
+- **威胁**：Painfully Soothing II：每次使用 Potion 或 Food，压力 +1；III：Potion、Food 或 Bandages 任一，压力 +1。No Rest for the Wicked II／III：Sanitarium 少治疗 6／9 Life。无 Holy Water；原稿 R-180／R-262 的援引已纠正。
+- **范围**：仅核准 Hag II／III 与对应锅及能力／威胁，不核准其它 Boss、房间复用或 Stygian；数据目录不等于正式入口和日志验收。Q-186 的本表字段及上述细节结案，其余项不受影响。
+- **依据**：Kyries 本次修改与核准；官方英文 large FRONT p11／p12／p14／p15、BACK p14／p15；Boss Abilities FRONT p17／p18／p20／p21、BACK p17／p18；Weald W4。完整来源范围见审阅稿。
