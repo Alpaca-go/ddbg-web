@@ -85,6 +85,15 @@ export function readDungeonQuestProgress(d: DungeonState) {
     (!Number.isSafeInteger(d.disinfectionOakCount) || d.disinfectionOakCount < 0)
   )
     return refuse("Disinfection 消毒计数无效（R-245）");
+  if (
+    quest.id === "quest:weald:p011" &&
+    d.wealdBurnedOakRoomIds !== undefined &&
+    (new Set(d.wealdBurnedOakRoomIds).size !== d.wealdBurnedOakRoomIds.length ||
+      d.wealdBurnedOakRoomIds.some(
+        (id) => !rooms.data.some((r) => r.id === id && r.kind === "objective" && r.revealed),
+      ))
+  )
+    return refuse("No Other Way 烧毁目标记录无效（R-264）");
   const completedRoomIds =
     quest.xpKind === "camp" || quest.xpKind === "broughtBack"
       ? clearedRoomIds
@@ -141,7 +150,7 @@ export function summarizeDungeonQuest(state: GameState): ApplyResult {
       stagecoachXp: xpPerHero,
       awarded: false,
     });
-    if (!summary.success) return refuse("Virago击杀记录不符（R-265）");
+    if (!summary.success) return refuse("Weald 任务专属进度无效（R-264／R-265）");
     return {
       state: { ...state, dungeon: { ...d, questSummary: summary.data } },
       events: [

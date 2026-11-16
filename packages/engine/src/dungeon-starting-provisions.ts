@@ -461,7 +461,11 @@ export function setupDungeonProvisions(
       else pool.push({ id, face });
       remainingSlots--;
     }
-    const { nextQuestPartyProvisionDice: _partyDice, nextQuestLostShipment: _shipment, ...consumed } = d;
+    const {
+      nextQuestPartyProvisionDice: _partyDice,
+      nextQuestLostShipment: _shipment,
+      ...consumed
+    } = d;
     void _shipment;
     void _partyDice;
     return finish(
@@ -478,7 +482,9 @@ export function setupDungeonProvisions(
   const choices = d.startingProvisionChoices;
   const first = choices?.[0];
   const ids = [...provisions.map((p) => p.id), ...(choices ?? []).map((p) => p.id)];
-  const expectedBase = wealdTaskActive(state, 10) ? [] : baseProvisionIds().filter((id) => !omitted.includes(id));
+  const expectedBase = wealdTaskActive(state, 10)
+    ? []
+    : baseProvisionIds().filter((id) => !omitted.includes(id));
   const bonusIds = ids.filter((id) => id.startsWith("dungeon-bonus-provision:"));
   const partyIds = ["dungeon-party-provision:0", "dungeon-party-provision:1"];
   if (

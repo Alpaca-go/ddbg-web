@@ -51,9 +51,10 @@
    },
    "approvedOverrides": [],
    "verifiedRules": [
-    "R-264"
+    "R-264",
+    "R-265"
    ],
-   "runtimeReady": false
+   "runtimeReady": true
   },
   {
    "id": "quest:weald:p007",
@@ -132,9 +133,10 @@
    },
    "approvedOverrides": [],
    "verifiedRules": [
-    "R-264"
+    "R-264",
+    "R-265"
    ],
-   "runtimeReady": false
+   "runtimeReady": true
   },
   {
    "id": "quest:weald:p009",
@@ -185,9 +187,10 @@
    },
    "approvedOverrides": [],
    "verifiedRules": [
-    "R-264"
+    "R-264",
+    "R-265"
    ],
-   "runtimeReady": false
+   "runtimeReady": true
   },
   {
    "id": "quest:weald:p010",
@@ -315,7 +318,7 @@
    "verifiedRules": [
     "R-264"
    ],
-   "runtimeReady": false
+   "runtimeReady": true
   },
   {
    "id": "quest:weald:p012",
@@ -366,9 +369,10 @@
    },
    "approvedOverrides": [],
    "verifiedRules": [
-    "R-264"
+    "R-264",
+    "R-265"
    ],
-   "runtimeReady": false
+   "runtimeReady": true
   },
   {
    "id": "quest:weald:p013",
@@ -416,9 +420,10 @@
    },
    "approvedOverrides": [],
    "verifiedRules": [
-    "R-264"
+    "R-264",
+    "R-265"
    ],
-   "runtimeReady": false
+   "runtimeReady": true
   },
   {
    "id": "quest:weald:p014",
@@ -469,9 +474,10 @@
     }
    ],
    "verifiedRules": [
-    "R-264"
+    "R-264",
+    "R-265"
    ],
-   "runtimeReady": false
+   "runtimeReady": true
   },
   {
    "id": "quest:weald:p015",
