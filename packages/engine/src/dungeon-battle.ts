@@ -5,6 +5,8 @@ import {
 import {
   pounderIRealCombatActive,
   finishPounderIBattle,
+  pounderHigherRealCombatActive,
+  finishPounderHigherBattle,
 } from "./expansions/weald/boss/pounder-i-finish";
 import {
   hagIRealCombatActive,
@@ -532,6 +534,7 @@ export function startDungeonBattle(state: GameState): ApplyResult {
 export function finishDungeonBattle(state: GameState): ApplyResult {
   if (shriekerIRealCombatActive(state)) return finishShriekerIBattle(state);
   if (pounderIRealCombatActive(state)) return finishPounderIBattle(state);
+  if (pounderHigherRealCombatActive(state)) return finishPounderHigherBattle(state);
   if (hagIRealCombatActive(state)) return finishHagIBattle(state);
   if (hagHigherRealCombatActive(state)) return finishHagHigherBattle(state);
   if (prophetIIIRealCombatActive(state)) return finishProphetIIIBattle(state);

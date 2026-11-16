@@ -13,7 +13,7 @@ import { deployShriekerI } from "./expansions/weald/boss/shrieker-i-deploy";
 import { withAbyssalPuff } from "./battle-abyssal-puff";
 import { applyWhisperingWoodsRoundStart } from "./expansions/weald/whispering-woods";
 import { applyFinalSwipeSpawn } from "./expansions/weald/higher-task-effects";
-import { deployPounderI } from "./expansions/weald/boss/pounder-i-deploy";
+import { deployPounderI, deployPounderHigher } from "./expansions/weald/boss/pounder-i-deploy";
 import { deployHagI, deployHagHigher } from "./expansions/weald/boss/hag-i-deploy";
 import { applyPounderIHamletThreat } from "./expansions/weald/boss/pounder-i-hamlet-threat";
 import {
@@ -337,6 +337,7 @@ type BaseCommand =
   | { readonly type: "deployProphetII" }
   | { readonly type: "deployProphetIII" }
   | { readonly type: "deployPounderI" }
+  | { readonly type: "deployPounderHigher" }
   | { readonly type: "deployShriekerI"; readonly shriekerSkills?: true | undefined }
   | { readonly type: "deployHagI" }
   | { readonly type: "deployHagHigher" }
@@ -766,6 +767,7 @@ function dispatchCommand(
   if (command.type === "deployProphetIII") return deployProphetIII(state);
   if (command.type === "deployShriekerI") return deployShriekerI(state, command);
   if (command.type === "deployPounderI") return deployPounderI(state);
+  if (command.type === "deployPounderHigher") return deployPounderHigher(state);
   if (command.type === "deployHagI") return deployHagI(state);
   if (command.type === "deployHagHigher") return deployHagHigher(state);
   if (command.type === "deployFanaticI") return deployFanaticI(state);
