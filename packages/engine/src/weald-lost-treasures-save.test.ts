@@ -68,6 +68,9 @@ it("Lost Treasures 固定seed0完整日志；II级当地＋通用限制及旧版
   expect(loadQuestSave(JSON.parse(JSON.stringify(save)), sources).game).toEqual(run.state);
   expect(remainingQuestIdsForLocationDeck("weald", 2, packs, "", [], true)).toEqual([]);
   expect(remainingQuestIdsForLocationDeck("weald", 2, packs, "", [], "tasks-v1")).toEqual([
-    ...basicQuests.filter((q) => q.expeditionRegion === "weald" && q.level === 2).map((q) => q.id).sort(),
+    ...basicQuests
+      .filter((q) => q.expeditionRegion === "weald" && q.level === 2)
+      .map((q) => q.id)
+      .sort(),
   ]);
 }, 60000);
