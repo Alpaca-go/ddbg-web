@@ -3441,3 +3441,12 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **飞行**：直达 Nest 实际所在区域，无视路径、墙、距离与容量，不改姿态。
 - **地牢威胁**：每获得一枚补给分别执行“加入→玩家选择弃一枚公共补给”；满池先完成既有满池选择，再执行威胁。多枚逐枚处理，不随机替玩家弃置。
 - **范围**：Q-186 本三组细节结案；I 级先接运行时，II／III 的其余属性／技能仍按各自卡面核实，不从 I 级推算。村庄按 R-261：全部英雄供给骰后只弃 reserve 一枚。
+
+### R-263：Weald II／III 级普通怪物
+
+- **日期**：2026-11-16。
+- **核准依据**：Kyries 修改 [高等级普通怪物审阅表](weald-higher-monster-review-2026-11-16.md) 后明确“没改的部分全部核准”。Virago III 更正为 Dodge 4、Speed 3；其它属性、防御、姿态、五项技能与实体对应按表采用。
+- **Giant II**：Life 60、Dodge 1、Speed 1，Human／Beast／Front／Large；眩晕、腐蚀、位移抗性，无免疫。medium p17 是实体参考，large p3 是战斗板，不额外增加副本。
+- **Virago III**：Life 39、Dodge 4、Speed 3，Human／Back；腐蚀、减益抗性，眩晕免疫。medium p18–19 两实体。
+- **范围**：同等级当地组池 II 为 Crone 两实体（沿用 R-253）和 Giant 一实体，III 为 Virago 两实体，再按 W3 加入通用同等级来源。不修改 I 级 14 实体池与 Circle of Witches 例外；不因此核准高等级任务、Boss 或 Stygian。
+- **来源**：Weald W3；印刷 medium FRONT p15–19、large FRONT p3。原始图标聚类不全局重命名，具体技能见已核准表。
