@@ -293,3 +293,30 @@ describe("英雄移动（R18、R-006、R-021、R-048）", () => {
     refused(state, move(["F"]));
   });
 });
+
+it("R-261 Nest 阻止英雄进入或穿过，死亡后恢复通行且拒绝不消费行动或 RNG", () => {
+  const base = setup();
+  const state: GameState = {
+    ...base,
+    battle: {
+      ...base.battle!,
+      entities: base.battle!.entities.map((e) =>
+        e.id === "m" ? { ...e, monsterCardId: "monster_large:weald:p007" } : e,
+      ),
+    },
+  };
+  for (const path of [["b"], ["b", "c"]]) {
+    const result = refused(state, move(path));
+    expect(result.events[0]).toMatchObject({ message: expect.stringContaining("Nest") });
+  }
+  const dead: GameState = {
+    ...state,
+    battle: {
+      ...state.battle!,
+      entities: state.battle!.entities.map((e) => (e.id === "m" ? { ...e, dead: true } : e)),
+    },
+  };
+  expect(applyCommand(dead, move(["b", "c"])).events.some((e) => e.type === "heroMoved")).toBe(
+    true,
+  );
+});

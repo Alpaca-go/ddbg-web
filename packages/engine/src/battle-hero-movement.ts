@@ -1,3 +1,4 @@
+import { shriekerINestAllowsEntry } from "./expansions/weald/boss/shrieker-i-nest";
 import { speedTrinketReaction } from "./trinket-reactions";
 import { rejectBattleCommand } from "./battle";
 import type { ApplyResult, GameState } from "./command";
@@ -68,6 +69,8 @@ export function moveHero(state: GameState, command: MoveHeroCommand): ApplyResul
   for (const id of command.path) {
     if (!battle.areas.find((area) => area.id === from)?.adjacent.includes(id))
       return rejectBattleCommand(state, "移动路径必须逐步相邻，不可穿墙或跨断图（R-021）");
+    if (!shriekerINestAllowsEntry(battle.entities, actor, id))
+      return rejectBattleCommand(state, "Nest 在场时只有 Shrieker 可进入其区域（R-261）");
     from = id;
   }
   if (turn.mustMove && from === actor.areaId)

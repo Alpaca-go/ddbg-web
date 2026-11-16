@@ -338,3 +338,37 @@ describe("Push / Pull 位置纯结算（R21/R24、R-020、R-021、Q-19）", () =
     expect(() => createBattleState(1, setup)).toThrow();
   });
 });
+
+it("R-261 Push／Pull 不得进入活 Nest 区，但保留姿态位移；Shrieker 可进入", () => {
+  const nest = entity("nest", {
+    monsterCardId: "monster_large:weald:p007",
+    stance: "ranged",
+    stanceSlots: 2,
+    areaId: "c",
+  });
+  const target = entity("target");
+  const setup = {
+    areas: line.map((a) => ({ ...a, capacity: 8 })),
+    entities: [hero(), target, nest],
+  };
+  const blocked = resolved(resolveShuffle(setup, intent()));
+  expect(blocked.path).toEqual([]);
+  expect(blocked.entities.find((e) => e.id === "target")).toMatchObject({
+    areaId: "b",
+    stance: "defensive",
+  });
+  const allowed = resolved(
+    resolveShuffle(
+      {
+        ...setup,
+        entities: [hero(), { ...target, monsterCardId: "monster_large:weald:p004" }, nest],
+      },
+      intent(),
+    ),
+  );
+  expect(allowed.path).toEqual(["c"]);
+  const released = resolved(
+    resolveShuffle({ ...setup, entities: [hero(), target, { ...nest, dead: true }] }, intent()),
+  );
+  expect(released.path).toEqual(["c"]);
+});

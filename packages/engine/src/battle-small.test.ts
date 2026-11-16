@@ -107,3 +107,27 @@ it("Small满员落点第一行动后可换姿态，结束回合才挤出；无�
   const bad = setup(1, true);
   expect(applyCommand(bad, move).state).toBe(bad);
 });
+
+it("R-261 Small 挤出候选排除 Nest 区，仅剩合法方向时直接结算", () => {
+  const base = setup();
+  const nest: BattleEntity = {
+    ...base.battle!.entities.find((e) => e.id === "small")!,
+    id: "nest",
+    monsterCardId: "monster_large:weald:p007",
+    areaId: "c",
+    stance: "ranged",
+    stanceSlots: 2,
+  };
+  const state: GameState = {
+    ...base,
+    battle: {
+      ...base.battle!,
+      areas: base.battle!.areas.map((a) => ({ ...a, capacity: a.id === "b" ? 1 : 8 })),
+      entities: [...base.battle!.entities, nest],
+    },
+  };
+  const result = applyCommand(state, move);
+  expect(result.events.some((e) => e.type === "commandRefused")).toBe(false);
+  expect(result.pendingChoice).toBeUndefined();
+  expect(result.state.battle!.entities.find((e) => e.id === "small")!.areaId).toBe("a");
+});

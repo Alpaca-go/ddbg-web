@@ -1,3 +1,4 @@
+import { shriekerINestAllowsEntry } from "./expansions/weald/boss/shrieker-i-nest";
 import { isPounderMatchmanAction } from "./expansions/weald/boss/pounder-i-turn";
 import { withTeleporterAdjacency } from "./battle-teleporters";
 import { isDarkestSupportSkill } from "./battle-monster-support";
@@ -400,10 +401,22 @@ export function moveMonsterToRange(
       steps <= maxRange + (heights[area.elevation] > heights[targetArea.elevation] ? 1 : 0)
     );
   };
-  const firing = battle.areas.filter(inRange);
+  const allowedIds = new Set(
+    battle.areas
+      .filter(
+        (area) =>
+          area.id === origin.id || shriekerINestAllowsEntry(battle.entities, actor, area.id),
+      )
+      .map((area) => area.id),
+  );
+  const movementAreas = battle.areas
+    .filter((area) => allowedIds.has(area.id))
+    .map((area) => ({ ...area, adjacent: area.adjacent.filter((id) => allowedIds.has(id)) }));
+  const firing = movementAreas.filter(inRange);
   // R-023 补充：与全部几何出手位断开时原地跳过，不造距离或要求无用的 Speed。
   const unreachable =
-    !inRange(origin) && !firing.some((area) => distance(battle.areas, origin.id, area.id) !== null);
+    !inRange(origin) &&
+    !firing.some((area) => distance(movementAreas, origin.id, area.id) !== null);
   let options = [origin.id];
   let skipped = unreachable;
   if (!inRange(origin) && !unreachable) {
@@ -417,8 +430,8 @@ export function moveMonsterToRange(
       )
     )
       return rejectBattleCommand(state, "缺少占格数，不能猜容量占用（R-048）");
-    const reachable = battle.areas.filter((area) => {
-      const steps = distance(battle.areas, origin.id, area.id);
+    const reachable = movementAreas.filter((area) => {
+      const steps = distance(movementAreas, origin.id, area.id);
       return steps !== null && steps <= card.speed!;
     });
     if (reachable.some((area) => !Number.isSafeInteger(area.capacity) || area.capacity! < 0))
@@ -437,7 +450,7 @@ export function moveMonsterToRange(
     const legal = reachable.filter(canEnd);
     options = [
       ...preferEldritchPowerMoveOptions(
-        battle.areas,
+        movementAreas,
         origin.id,
         legal.filter(inRange).map((area) => area.id),
       ),
@@ -448,7 +461,7 @@ export function moveMonsterToRange(
       const scored = legal.map((area) => ({
         id: area.id,
         steps: scoreEldritchPowerApproachSteps(
-          battle.areas,
+          movementAreas,
           area.id,
           firing.map((goal) => goal.id),
         ),
@@ -459,7 +472,7 @@ export function moveMonsterToRange(
       options = scored.filter((area) => area.steps === best).map((area) => area.id);
     }
   }
-  options = [...preferEldritchPowerMoveOptions(battle.areas, origin.id, options)].sort();
+  options = [...preferEldritchPowerMoveOptions(movementAreas, origin.id, options)].sort();
   if (chosenArea !== undefined && !options.includes(chosenArea))
     return rejectBattleCommand(state, "选择的怪物移动落点无效");
   if (chosenArea === undefined && options.length > 1) {
@@ -509,7 +522,11 @@ export function moveMonsterToRange(
       )
       .flatMap((entity) =>
         adjacent
-          .filter((area) => occupancy(area!.id) + slots(entity) <= area!.capacity!)
+          .filter(
+            (area) =>
+              occupancy(area!.id) + slots(entity) <= area!.capacity! &&
+              shriekerINestAllowsEntry(battle.entities, entity, area!.id),
+          )
           .map((area) => ({ id: `${entity.id}->${area!.id}`, entityId: entity.id, to: area!.id })),
       )
       .sort((a, b) => a.id.localeCompare(b.id));
@@ -574,7 +591,7 @@ export function moveMonsterToRange(
     targetId: target.id,
     from: origin.id,
     to,
-    steps: distance(battle.areas, origin.id, to)!,
+    steps: distance(movementAreas, origin.id, to)!,
     skipped,
     ...(displaced ? { displaced } : {}),
     message: unreachable

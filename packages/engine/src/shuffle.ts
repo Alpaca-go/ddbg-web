@@ -1,3 +1,4 @@
+import { shriekerINestAllowsEntry } from "./expansions/weald/boss/shrieker-i-nest";
 import type { BattleArea, BattleEntity } from "./battle";
 import type { SkillShuffle, SkillStance } from "./hero-skill";
 
@@ -135,6 +136,7 @@ export function resolveShuffle(
     const candidates = areas
       .find((area) => area.id === current)!
       .adjacent.filter((id) => graph.get(id) === graph.get(current)! + delta)
+      .filter((id) => shriekerINestAllowsEntry(entities, actor, id))
       .filter((id) => {
         const capacity = areas.find((area) => area.id === id)!.capacity!;
         const load = living
