@@ -1,0 +1,102 @@
+{
+ "schema": "ddbg-weald-pounder-higher-v1",
+ "ruling": "R-268",
+ "combatReady": false,
+ "sources": {"combatFront": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_monsters_medium_FRONT.pdf", "combatBack": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_monsters_medium_BACK.pdf", "abilityFront": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_FRONT.pdf", "abilityBack": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_BACK.pdf"},
+ "cards": [
+  {
+   "level": 2,
+   "faces": [
+    {
+     "role": "pounder",
+     "rawId": "monster_medium:weald:p021",
+     "face": "front",
+     "name": "Brigand Pounder",
+     "level": 2,
+     "types": [],
+     "life": 70,
+     "speed": 0,
+     "dodge": 1,
+     "innateProtection": true,
+     "resistances": [],
+     "immunities": ["stun", "bleed", "blight", "debuff", "shuffle"],
+     "selection": "triggerOnly",
+     "skill": {"slot": 1, "name": "BOOOOOOM!", "target": "crowded", "range": 5, "minRange": 0, "maxTargets": 4, "crit": 0, "critDamage": 24, "accuracy": 10, "damage": 12, "onHitStress": 2}
+    },
+    {
+     "role": "matchman",
+     "rawId": "monster_medium:weald:p024",
+     "face": "front",
+     "name": "Brigand Matchman",
+     "level": 2,
+     "types": ["human"],
+     "life": 9,
+     "speed": 1,
+     "dodge": 3,
+     "innateProtection": false,
+     "resistances": ["stun", "shuffle"],
+     "immunities": [],
+     "selection": "skill1AllStances",
+     "skill": {"slot": 1, "name": "Fire in the Hole!", "target": "pounder", "range": 0, "crit": null, "accuracy": null, "damage": null, "triggerSkill": "BOOOOOOM!", "requiresSameArea": true}
+    }
+   ],
+   "abilities": {
+    "descriptionCardId": "boss_ability:weald:p008",
+    "combatCardId": "boss_ability:weald:p011",
+    "actionsPerRound": 1,
+    "reinforcements": {"condition": "matchmanAbsent", "mode": "fillToComposition", "matchmen": 1, "companionCardId": "monster_large:p002", "companionLevel": 1, "companions": 1},
+    "threats": {
+     "dungeon": {"name": "Bullseye Guillotine II", "trigger": "enterMonsterRangedStance", "buffDuration": 2, "riposteDuration": 2},
+     "hamlet": {"name": "Bombardment II", "timing": "dayEndBeforeHeroRemoval", "roll": "d10", "heroDamage": 7, "emptyBuilding": "levelDownIfPossible", "caretaker": "preventsAllEffects"}
+    }
+   }
+  },
+  {
+   "level": 3,
+   "faces": [
+    {
+     "role": "pounder",
+     "rawId": "monster_medium:weald:p022",
+     "face": "front",
+     "name": "Brigand Pounder",
+     "level": 3,
+     "types": [],
+     "life": 90,
+     "speed": 0,
+     "dodge": 2,
+     "innateProtection": true,
+     "resistances": [],
+     "immunities": ["stun", "bleed", "blight", "debuff", "shuffle"],
+     "selection": "triggerOnly",
+     "skill": {"slot": 1, "name": "BOOOOOOM!", "target": "crowded", "range": 5, "minRange": 0, "maxTargets": 4, "crit": 0, "critDamage": 34, "accuracy": 11, "damage": 17, "onHitStress": 2}
+    },
+    {
+     "role": "matchman",
+     "rawId": "monster_medium:weald:p025",
+     "face": "front",
+     "name": "Brigand Matchman",
+     "level": 3,
+     "types": ["human"],
+     "life": 11,
+     "speed": 1,
+     "dodge": 4,
+     "innateProtection": false,
+     "resistances": ["stun", "shuffle"],
+     "immunities": [],
+     "selection": "skill1AllStances",
+     "skill": {"slot": 1, "name": "Fire in the Hole!", "target": "pounder", "range": 0, "crit": null, "accuracy": null, "damage": null, "triggerSkill": "BOOOOOOM!", "requiresSameArea": true}
+    }
+   ],
+   "abilities": {
+    "descriptionCardId": "boss_ability:weald:p009",
+    "combatCardId": "boss_ability:weald:p012",
+    "actionsPerRound": 1,
+    "reinforcements": {"condition": "matchmanAbsent", "mode": "fillToComposition", "matchmen": 1, "companionCardId": "monster_medium:p056", "companionLevel": 3, "companions": 2},
+    "threats": {
+     "dungeon": {"name": "Bullseye Guillotine III", "trigger": "enterMonsterRangedStance", "buffDuration": 3, "riposteDuration": 3},
+     "hamlet": {"name": "Bombardment III", "timing": "dayEndBeforeHeroRemoval", "roll": "d10", "heroDamage": 9, "emptyBuilding": "levelDownIfPossible", "caretaker": "preventsAllEffects"}
+    }
+   }
+  }
+ ]
+}

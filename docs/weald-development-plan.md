@@ -1351,3 +1351,9 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 - 标准／Radiant使用R-268获准共用的10号房与板块。新增deployHagHigher命令，I级deployHagI包装仍只认I级；英雄依真实持有的正式属性／技能部署，不强迫伪造同战役等级的英雄。终局交接核对同级身份、停止威胁面和无待选；不动普通池，不提前发XP，击败身份跨等级登记。
 - 高等级入口6项通过（10.26秒），含准备房间→部署→开战的公开命令、受控JSON检查点逐条恢复、错误版本／等级／包拒绝及受控终局一次交接；I级部署／结算及高等级回合另4文件40项通过（8.99秒）。这些夹具不是从初始种子自然养成抵达高等级的完整战役日志。完整typecheck、lint、build和diff空白检查通过；最终6文件52项组合复核通过（15.42秒）。首次类型复核发现测试用undefined模拟删版本不符合exactOptionalPropertyTypes，改为实际移除字段；未放宽生产类型。
 - 下一刀继续Pounder／Shrieker，按修订稿与R-268先行口径实现，最终统一页面与日志验证；旧未跟踪交接文件保留。
+
+### Pounder II／III：独立印刷数据（2026-11-17）
+
+- 按R-268及用户修订稿新增pounder_higher.json／Zod目录。实际Pounder Life70／90、Dodge1／2，Matchman Life9／11、Dodge3／4；特殊触发S不伪造为普通选招。炮击24／12与34／17伤害、Acc10／11，威胁2t／3t与7／9伤口逐面登记。
+- II召唤Matchman II＋Bloodletter I（核心大p2战斗面／中p30实体来源），III召唤Matchman III＋两份Raider III（核心中p56–58三实体）；不发明同级Bloodletter，不把参考面计额外副本。保留combatReady=false，正式运行时在下一批接。
+- 数据与旧内容2文件13项通过（3.80秒）；数据包tsc、改动ESLint／Prettier与diff空白检查通过。连续批次完整引擎／页面闸门在最终整合时统一复核，PR远端检查另以最新head为准。

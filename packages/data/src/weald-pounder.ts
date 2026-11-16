@@ -3,7 +3,7 @@ import { wealdRoomTileBaseSchema, WEALD_TILES_BACK } from "./weald-room";
 
 const PRINT = "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/";
 const status = z.enum(["stun", "bleed", "blight", "debuff", "shuffle"]);
-const face = z.strictObject({
+export const wealdPounderCombatFaceSchema = z.strictObject({
   role: z.enum(["pounder", "matchman"]),
   rawId: z.enum(["monster_medium:weald:p020", "monster_medium:weald:p023"]),
   face: z.literal("front"),
@@ -84,7 +84,7 @@ export const wealdPounderContentSchema = z
       abilityFront: z.literal(`${PRINT}DD_EN_WEALD_CARDS_70_120_Boss_Abilities_FRONT.pdf`),
       abilityBack: z.literal(`${PRINT}DD_EN_WEALD_CARDS_70_120_Boss_Abilities_BACK.pdf`),
     }),
-    faces: z.tuple([face, face]),
+    faces: z.tuple([wealdPounderCombatFaceSchema, wealdPounderCombatFaceSchema]),
     abilities: z.strictObject({
       descriptionCardId: z.literal("boss_ability:weald:p007"),
       combatCardId: z.literal("boss_ability:weald:p010"),
