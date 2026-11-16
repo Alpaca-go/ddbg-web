@@ -1,3 +1,4 @@
+import { beginHigherShriekerGain } from "./expansions/weald/boss/shrieker-i-provisions";
 import { settleInventoryOverflow } from "./inventory-overflow";
 import { wealdTaskActive } from "./expansions/weald/higher-task-effects";
 import { resolveOurs } from "./battle-ours";
@@ -106,6 +107,7 @@ function finishLoot(
   token: LootToken,
   reward: { gold: number } | { face: ProvisionFace },
   events: readonly GameEvent[],
+  acquisitionBefore?: GameState,
 ): ApplyResult {
   const battle = state.battle!;
   const loot = battle.loot!;
@@ -166,12 +168,18 @@ function finishLoot(
       state,
       ours.events.find((e) => e.type === "commandRefused")!.message,
     );
-  const overflow = settleInventoryOverflow(
+  const acquired = beginHigherShriekerGain(
+    acquisitionBefore ?? state,
     ours,
     turn.actions === 1 ? { type: "finishTurn", actorId } : { type: "result" },
   );
+  if (acquired.state.dungeon?.shriekerTheft) return acquired;
+  const overflow = settleInventoryOverflow(
+    acquired,
+    turn.actions === 1 ? { type: "finishTurn", actorId } : { type: "result" },
+  );
   if (overflow.pendingChoice) return overflow;
-  return turn.actions === 1 ? finishTurn(ours.state, actorId, ours.events) : ours;
+  return turn.actions === 1 ? finishTurn(acquired.state, actorId, acquired.events) : acquired;
 }
 function rewardChoice(
   state: GameState,
@@ -290,6 +298,7 @@ function lostSuppliesLoot(
     token,
     { face: last },
     rolled,
+    state,
   );
 }
 
