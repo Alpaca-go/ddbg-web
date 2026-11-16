@@ -275,12 +275,13 @@ const phase3QuestIds = basicQuests
       q.level === 1 ||
       q.expeditionRegion === "darkestDungeon" ||
       q.id === "quest:p019" ||
-      q.id === "quest:weald:p015",
+      q.id === "quest:weald:p015" ||
+      q.id === "quest:weald:p007",
   )
   .map((q) => q.id) as [BasicQuestId, ...BasicQuestId[]];
 
 export const questStartSchema = z.strictObject({
-  wealdHigherQuestOffers: z.literal(true).optional(),
+  wealdHigherQuestOffers: z.union([z.literal(true), z.literal("tasks-v1")]).optional(),
   whisperingWoodsQuest: z.literal(true).optional(),
   initialQuestDrawMode: z
     .enum([

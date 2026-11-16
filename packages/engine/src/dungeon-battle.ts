@@ -312,16 +312,25 @@ export function startDungeonBattle(state: GameState): ApplyResult {
       );
     const approvedWealdHigher =
       wealdLocal &&
-      d.whisperingWoodsQuest === true &&
-      d.questDistribution?.questId === "quest:weald:p015" &&
+      ((d.whisperingWoodsQuest === true && d.questDistribution?.questId === "quest:weald:p015") ||
+        d.wealdHigherQuestOffers === "tasks-v1") &&
       d.monsterPool?.wealdSourceVersion === "higher-v1" &&
-      d.monsterPool.wealdMonsterLevel === 3 &&
+      (d.monsterPool.wealdMonsterLevel === 2 || d.monsterPool.wealdMonsterLevel === 3) &&
       JSON.stringify(card) ===
-        JSON.stringify(buildWealdHigherMonsterCatalog(3).find((entry) => entry.id === card.id));
+        JSON.stringify(
+          buildWealdHigherMonsterCatalog(d.monsterPool.wealdMonsterLevel).find(
+            (entry) => entry.id === card.id,
+          ),
+        );
     // C-008 / R-082–083 与 R-263：核准范围和真实当地实例同时匹配才放行。
     if (
       !croneException &&
-      (card.level !== (wealdLocal ? (approvedWealdHigher ? 3 : 1) : identity?.level) ||
+      (card.level !==
+        (wealdLocal
+          ? approvedWealdHigher
+            ? d.monsterPool!.wealdMonsterLevel!
+            : 1
+          : identity?.level) ||
         (!allowPrintedLevel && !curioGuardSpawn && card.level > d.explorationSetup.dungeonLevel) ||
         (card.level !== 1 && !approvedWealdHigher && !hasApprovedHigherMonsterFields(card)))
     )

@@ -143,12 +143,14 @@ export function DungeonQuest() {
         taskSources,
         contentPacks,
         drawEnabled && drawnMode ? drawnMode : undefined,
-        contentPacks.includes("weald") && mode !== "stygian" ? true : undefined,
+        contentPacks.includes("weald") && mode !== "stygian" ? "tasks-v1" : undefined,
       );
       beginTask(game, {
         seed,
         contentPacks,
-        ...(game.dungeon?.wealdHigherQuestOffers ? { wealdHigherQuestOffers: true as const } : {}),
+        ...(game.dungeon?.wealdHigherQuestOffers
+          ? { wealdHigherQuestOffers: game.dungeon.wealdHigherQuestOffers }
+          : {}),
         ...(drawEnabled && drawnMode ? { initialQuestDrawMode: drawnMode } : {}),
         questId: selectedQuest.id,
         bossEdgeRooms: true,

@@ -63,7 +63,7 @@ export function createCoreDungeonQuest(
   contentPacks?: readonly ContentPackId[],
   initialQuestDrawMode?: HamletQuestDrawOptionId,
   whisperingWoodsQuest?: true,
-  wealdHigherQuestOffers?: true,
+  wealdHigherQuestOffers?: true | "tasks-v1",
 ) {
   if (contentPacks !== undefined) {
     contentPacks = normalizeContentPacks(contentPacks);
@@ -72,7 +72,12 @@ export function createCoreDungeonQuest(
   const quest = basicQuests.find((quest) => quest.id === questId);
   if (wealdHigherQuestOffers && (!contentPacks?.includes("weald") || mode === "stygian"))
     throw new Error("高等级 Weald 任务版本需要 Weald 包与非 Stygian 模式");
-  const whispering = questId === "quest:weald:p015" && whisperingWoodsQuest === true;
+  const advanced =
+    wealdHigherQuestOffers === "tasks-v1" &&
+    (questId === "quest:weald:p007" || questId === "quest:weald:p015");
+  const whispering = questId === "quest:weald:p015" && (whisperingWoodsQuest === true || advanced);
+  if (advanced && initialQuestDrawMode !== undefined)
+    throw new Error("高等级单任务不使用 I 级首趟抽选");
   if (
     (questId === "quest:weald:p015" || whisperingWoodsQuest !== undefined) &&
     (!whispering ||
@@ -86,11 +91,12 @@ export function createCoreDungeonQuest(
     (quest.level === 1 ||
       ("bossQuest" in quest && quest.bossQuest) ||
       isSandboxWealdEmbarkQuest(questId) ||
-      whispering);
+      whispering ||
+      advanced);
   const locationBlock = quest
     ? sandboxExpeditionEmbarkBlockReason(quest.expeditionRegion, questId, contentPacks)
     : null;
-  if (locationBlock && !whispering) throw new Error(locationBlock);
+  if (locationBlock && !whispering && !advanced) throw new Error(locationBlock);
   if (!basicQuestEnabledForContentPacks(questId, contentPacks))
     throw new Error("任务与所选内容包不一致，未创建地牢");
   if (
@@ -173,7 +179,7 @@ export function createCoreDungeonQuest(
         "weald",
         quest.level,
         contentPacks,
-        whispering ? "weald-higher-v1" : undefined,
+        whispering || advanced ? "weald-higher-v1" : undefined,
       )
     : rebuildCoreQuestDecks(sources);
   const draw = initialQuestDrawMode
@@ -215,7 +221,9 @@ export function createCoreDungeonQuest(
   );
   let game: GameState = { ...initial, skillLightBeforeCrit: true };
   if (wealdHigherQuestOffers && game.dungeon)
-    game = { ...game, dungeon: { ...game.dungeon, wealdHigherQuestOffers: true } };
+    game = { ...game, dungeon: { ...game.dungeon, wealdHigherQuestOffers } };
+  if (advanced && game.dungeon)
+    game = { ...game, dungeon: { ...game.dungeon, campaignLevel: quest.level } };
   if (whispering && game.dungeon)
     game = { ...game, dungeon: { ...game.dungeon, whisperingWoodsQuest: true, campaignLevel: 3 } };
   if (draw && game.dungeon)

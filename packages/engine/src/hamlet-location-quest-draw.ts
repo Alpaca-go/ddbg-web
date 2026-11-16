@@ -26,12 +26,13 @@ function questIdsForLocationDeck(
   deck: HamletLocationQuestDeck,
   campaignLevel: CampaignLevel,
   contentPacks?: readonly ContentPackId[],
-  higherQuests?: true,
+  higherQuests?: true | "tasks-v1",
 ): readonly BasicQuestId[] {
   if (deck === "ruins") {
     return questsForCampaignLevel(campaignLevel).map((q) => q.id);
   }
   if (!contentPacks?.includes("weald")) return [];
+  if (campaignLevel === 2 && higherQuests === "tasks-v1") return ["quest:weald:p007"];
   if (campaignLevel === 3 && higherQuests) return ["quest:weald:p015"];
   if (campaignLevel !== 1) return [];
   return SANDBOX_WEALD_EMBARK_QUEST_IDS;
@@ -44,7 +45,7 @@ export function remainingQuestIdsForLocationDeck(
   contentPacks: readonly ContentPackId[] | undefined,
   currentQuestId: string,
   discarded: readonly string[],
-  higherQuests?: true,
+  higherQuests?: true | "tasks-v1",
 ): readonly BasicQuestId[] {
   return questIdsForLocationDeck(deck, campaignLevel, contentPacks, higherQuests).filter(
     (id) => id !== currentQuestId && !discarded.includes(id),
@@ -62,7 +63,7 @@ export function legalHamletQuestDrawModes(
   contentPacks: readonly ContentPackId[] | undefined,
   currentQuestId: string,
   discarded: readonly string[],
-  higherQuests?: true,
+  higherQuests?: true | "tasks-v1",
 ): readonly HamletQuestDrawModePlan[] {
   if (!hamletWealdLocationDrawEnabled(contentPacks)) return [];
   const ruins = remainingQuestIdsForLocationDeck(
@@ -147,7 +148,7 @@ export function executeHamletQuestDrawMode(
   contentPacks: readonly ContentPackId[] | undefined,
   currentQuestId: string,
   discarded: readonly string[],
-  higherQuests?: true,
+  higherQuests?: true | "tasks-v1",
 ):
   | { readonly offers: readonly BasicQuestId[]; readonly cursor: number }
   | { readonly reason: string } {
