@@ -473,7 +473,8 @@ export function chooseNextQuest(
   if (
     locationBlock &&
     !(
-      quest.id === "quest:weald:p015" &&
+      (quest.id === "quest:weald:p015" ||
+        (quest.id === "quest:weald:p007" && d.wealdHigherQuestOffers === "tasks-v1")) &&
       d.wealdHigherQuestOffers &&
       d.mode !== "stygian" &&
       d.contentPacks?.includes("weald")
@@ -531,7 +532,7 @@ export function chooseNextQuest(
     return rejectBattleCommand(state, error instanceof Error ? error.message : "地点来源无法重建");
   }
   const next = {
-    ...(d.wealdHigherQuestOffers ? { wealdHigherQuestOffers: true as const } : {}),
+    ...(d.wealdHigherQuestOffers ? { wealdHigherQuestOffers: d.wealdHigherQuestOffers } : {}),
     ...(quest.id === "quest:weald:p015" ? { whisperingWoodsQuest: true as const } : {}),
     layout: parsedLayout,
     ...(d.initialQuestDrawMode ? { initialQuestDrawMode: d.initialQuestDrawMode } : {}),

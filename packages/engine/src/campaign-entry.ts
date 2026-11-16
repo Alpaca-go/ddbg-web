@@ -17,7 +17,7 @@ export function createCampaignQuest(
   sources: CoreQuestSources,
   packs: readonly ContentPackId[] = ["core"],
   initialQuestDrawMode?: HamletQuestDrawOptionId,
-  wealdHigherQuestOffers?: true,
+  wealdHigherQuestOffers?: true | "tasks-v1",
 ) {
   return createCoreDungeonQuest(
     seed,

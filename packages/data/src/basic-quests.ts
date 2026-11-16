@@ -32,7 +32,16 @@ import { cardContentPack, packEnabled, type ContentPackId } from "./content-pack
 import type { QuestExpeditionRegion } from "./quest-map-pairing";
 
 export type QuestXpKind =
-  "all" | "lair" | "gold" | "objective" | "curio" | "dark" | "camp" | "flat" | "broughtBack";
+  | "all"
+  | "treasure"
+  | "lair"
+  | "gold"
+  | "objective"
+  | "curio"
+  | "dark"
+  | "camp"
+  | "flat"
+  | "broughtBack";
 
 /** R-246：卡面「1 XP / Necrotic Fungus brought back」计数对象（非清房）。 */
 export type QuestBroughtBackSubject = "necroticFungus";
@@ -373,6 +382,27 @@ export const basicQuests = [
         { kind: "treasure", count: 1 },
         { kind: "lair", count: 3 },
         { kind: "trap", count: 1 },
+      ],
+    }),
+  },
+  {
+    id: "quest:weald:p007",
+    name: "Lost Treasures",
+    level: 2 as const,
+    restPoints: 12,
+    xpKind: "treasure" as const,
+    roomsPerXp: 1,
+    maxRooms: 3,
+    expeditionRegion: "weald" as const,
+    verifiedRuleRulings: ["R-264"] as const,
+    distribution: roomDistributionSchema.parse({
+      questId: "quest:weald:p007",
+      source: "Weald QUEST FRONT p7 / R-264",
+      counts: [
+        { kind: "dark", count: 2 },
+        { kind: "treasure", count: 3 },
+        { kind: "lair", count: 1 },
+        { kind: "trap", count: 2 },
       ],
     }),
   },

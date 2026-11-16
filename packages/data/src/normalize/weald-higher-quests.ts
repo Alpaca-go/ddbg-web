@@ -130,7 +130,7 @@ export function buildWealdHigherQuests(raw: RawFile) {
                 ]
               : [],
       verifiedRules: ["R-264"],
-      runtimeReady: page === 15,
+      runtimeReady: page === 7 || page === 15,
     };
   });
   return wealdHigherQuestsSchema.parse({ schema: "ddbg-weald-higher-quests-v1", cards });
