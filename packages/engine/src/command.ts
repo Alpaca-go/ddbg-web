@@ -1,3 +1,4 @@
+import { deployShriekerI } from "./expansions/weald/boss/shrieker-i-deploy";
 import { withAbyssalPuff } from "./battle-abyssal-puff";
 import { deployPounderI } from "./expansions/weald/boss/pounder-i-deploy";
 import { deployHagI } from "./expansions/weald/boss/hag-i-deploy";
@@ -312,6 +313,7 @@ type BaseCommand =
   | { readonly type: "deployProphetII" }
   | { readonly type: "deployProphetIII" }
   | { readonly type: "deployPounderI" }
+  | { readonly type: "deployShriekerI" }
   | { readonly type: "deployHagI" }
   | { readonly type: "deployFanaticI" }
   | { readonly type: "deployFanaticII" }
@@ -736,6 +738,7 @@ function dispatchCommand(
   if (command.type === "deployProphetI") return deployProphetI(state);
   if (command.type === "deployProphetII") return deployProphetII(state);
   if (command.type === "deployProphetIII") return deployProphetIII(state);
+  if (command.type === "deployShriekerI") return deployShriekerI(state);
   if (command.type === "deployPounderI") return deployPounderI(state);
   if (command.type === "deployHagI") return deployHagI(state);
   if (command.type === "deployFanaticI") return deployFanaticI(state);
@@ -993,6 +996,11 @@ export function applyCommand(
   replayLegacyCardReview = false,
 ): ApplyResult {
   const d = state.dungeon;
+  if (state.battle?.shriekerISetupHold)
+    return rejectBattleCommand(
+      state,
+      "Shrieker I 技能、威胁与 Nest 运行时尚未接入，停在开战前（R-261）",
+    );
   if (
     d?.contentPacks &&
     d.activeBossThreatScriptId &&
