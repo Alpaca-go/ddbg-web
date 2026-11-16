@@ -250,36 +250,37 @@ it("R-262 受控多目标技能：Acc 后飞行并治疗，已在巢内也治疗
   });
   const { shriekerISetupHold: _hold, ...base } = deployed.battle!;
   void _hold;
-  for (const origin of ["D", "E"]) {
-    const state: GameState = {
-      seed: deployed.seed,
-      notes: [],
-      battle: {
-        ...base,
-        monsters: buildShriekerICombatCatalog({ nestInPlay: true, nestFlightApproved: true }),
-        entities: base.entities.map((e) =>
-          e.id === "boss:shrieker"
-            ? { ...e, wounds: 5, areaId: origin }
-            : e.side === "hero"
-              ? { ...e, areaId: origin === "D" ? "A" : "B", dodge: 10 }
-              : e,
-        ),
-      },
-    };
-    const before = structuredClone(state);
-    const result = applyCommand(state, {
-      type: "playMonsterSkill",
-      actorId: "boss:shrieker",
-      targetId: state.battle!.entities[0]!.id,
-      skillSlot: 2,
-    });
-    expect(result.events.filter((e) => e.type === "commandRefused")).toEqual([]);
-    expect(result.state.battle!.entities.find((e) => e.id === "boss:shrieker")).toMatchObject({
-      areaId: "E",
-      wounds: 3,
-      stance: "aggressive",
-    });
-    expect(result.state.battle!.rngCursor).toBe(state.battle!.rngCursor + 1);
-    expect(state).toEqual(before);
-  }
+  for (const wounds of [0, 5])
+    for (const origin of ["D", "E"]) {
+      const state: GameState = {
+        seed: deployed.seed,
+        notes: [],
+        battle: {
+          ...base,
+          monsters: buildShriekerICombatCatalog({ nestInPlay: true, nestFlightApproved: true }),
+          entities: base.entities.map((e) =>
+            e.id === "boss:shrieker"
+              ? { ...e, wounds, areaId: origin }
+              : e.side === "hero"
+                ? { ...e, areaId: origin === "D" ? "A" : "B", dodge: 10 }
+                : e,
+          ),
+        },
+      };
+      const before = structuredClone(state);
+      const result = applyCommand(state, {
+        type: "playMonsterSkill",
+        actorId: "boss:shrieker",
+        targetId: state.battle!.entities[0]!.id,
+        skillSlot: 2,
+      });
+      expect(result.events.filter((e) => e.type === "commandRefused")).toEqual([]);
+      expect(result.state.battle!.entities.find((e) => e.id === "boss:shrieker")).toMatchObject({
+        areaId: "E",
+        wounds: Math.max(0, wounds - 2),
+        stance: "aggressive",
+      });
+      expect(result.state.battle!.rngCursor).toBe(state.battle!.rngCursor + 1);
+      expect(state).toEqual(before);
+    }
 });

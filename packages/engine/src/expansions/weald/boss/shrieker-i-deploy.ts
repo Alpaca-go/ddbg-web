@@ -150,7 +150,9 @@ export function deployShriekerI(
       lootPool: { ...(d.lootPool ?? createLootState()), gold: d.gold },
       provisionWindows: true,
     }).battle!;
-    const message = "Shrieker I 已按 W3／R-261 部署；技能与威胁未完成，停在开战前";
+    const message = d.shriekerBossBattles
+      ? "Shrieker I 已部署，等待开始战斗（W3／R-261／R-262）"
+      : "Shrieker I 已按 W3／R-261 部署；技能与威胁未完成，停在开战前";
     return {
       state: {
         ...state,

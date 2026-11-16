@@ -42,14 +42,14 @@ it("R-261 十区、14 共边及部署投影不修改数据", () => {
   expect(content).toEqual(before);
 });
 it("数据不会把 Boss 加进普通房间或移出原描述概率池", () => {
-  expect(content.combatReady).toBe(false);
+  expect(content.combatReady).toBe(true);
   expect(content.tile.usable).toBe(false);
   expect(findWealdRoomTile(content.tile.roomId)).toBeUndefined();
   expect(wealdRoomTileSchema.safeParse(content.tile).success).toBe(false);
   expect(wealdThreatPool({ contentPacks: ["core", "weald"] }, 1)).toContain(
     content.abilities.descriptionCardId,
   );
-  expect(content.pendingRuleDetails).toHaveLength(3);
+  expect(content.pendingRuleDetails).toHaveLength(0);
 });
 it.each([
   "identity",
@@ -77,6 +77,6 @@ it.each([
   if (kind === "edge") bad.tile.edges.push({ ...bad.tile.edges[0]! });
   if (kind === "area") bad.tile.deployment.monsters.ranged = "C";
   if (kind === "terrain") bad.tile.areas[0]!.elevation = "high";
-  if (kind === "ready") bad.combatReady = true;
+  if (kind === "ready") bad.combatReady = false;
   expect(wealdShriekerContentSchema.safeParse(bad).success).toBe(false);
 });

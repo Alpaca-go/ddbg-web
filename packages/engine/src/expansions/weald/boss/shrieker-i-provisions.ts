@@ -50,8 +50,9 @@ function present(result: ApplyResult, theft: ShriekerTheft): ApplyResult {
     .filter((p) => !isQuestProvisionId(p.id))
     .map((p) => ({ id: p.id, label: PROVISION_LABELS[p.face] }));
   if (!options.length) return result;
+  const cursor = theft.side === "battle" ? result.state.battle!.choiceCursor : d.decision;
   const choice: PendingChoice = {
-    id: `shrieker-theft:${d.decision}`,
+    id: `shrieker-theft:${cursor}`,
     actorId: "party",
     prompt:
       theft.side === "reserve"
@@ -61,9 +62,20 @@ function present(result: ApplyResult, theft: ShriekerTheft): ApplyResult {
   };
   const state = {
     ...result.state,
-    dungeon: { ...d, shriekerTheft: theft, pending: choice, decision: d.decision + 1 },
+    dungeon: {
+      ...d,
+      shriekerTheft: theft,
+      pending: choice,
+      decision: theft.side === "battle" ? d.decision : cursor + 1,
+    },
     ...(result.state.battle
-      ? { battle: { ...result.state.battle, pending: { type: "shriekerTheft" as const, choice } } }
+      ? {
+          battle: {
+            ...result.state.battle,
+            choiceCursor: theft.side === "battle" ? cursor + 1 : result.state.battle.choiceCursor,
+            pending: { type: "shriekerTheft" as const, choice },
+          },
+        }
       : {}),
   };
   return { ...result, state, pendingChoice: choice };

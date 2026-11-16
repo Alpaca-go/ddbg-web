@@ -232,8 +232,13 @@ export function FormalTabletopScoutingPanel({
         {d.roomCards?.active &&
           (() => {
             const active = d.roomCards.active;
-            if (["room:weald:p010", "room:weald:p012"].includes(active.cardId)) {
-              const label = active.cardId === "room:weald:p010" ? "Hag" : "Brigand Pounder";
+            if (["room:weald:p010", "room:weald:p011", "room:weald:p012"].includes(active.cardId)) {
+              const label =
+                active.cardId === "room:weald:p010"
+                  ? "Hag"
+                  : active.cardId === "room:weald:p011"
+                    ? "Shrieker"
+                    : "Brigand Pounder";
               return (
                 <div className="panel" data-testid="dungeon-room-card">
                   <div className="dungeon-room-card-row">
