@@ -183,6 +183,9 @@ export function setupDungeonProvisions(
     (!final && (d.exploration || d.questSummary || d.rooms.some((r) => r.revealed || r.cleared)))
   )
     return refuse();
+  const normalBase = baseProvisionIds().filter(
+    (id) => !(shriekerHigherThreatLevel(state) === 3 && id.endsWith(":1")),
+  );
   const omitted = d.startingProvisionOmittedIds ?? [];
   if (d.nextQuestPartyProvisionDice !== undefined && d.nextQuestPartyProvisionDice !== 2)
     return refuse();
@@ -200,7 +203,7 @@ export function setupDungeonProvisions(
     !Array.isArray(omitted) ||
     omitted.length > 2 ||
     new Set(omitted).size !== omitted.length ||
-    omitted.some((id) => !baseProvisionIds().includes(id)) ||
+    omitted.some((id) => !normalBase.includes(id)) ||
     (d.nextQuestLostShipment !== undefined && d.nextQuestLostShipment !== true) ||
     (!d.nextQuestLostShipment && omitted.length !== 0 && omitted.length !== 2)
   )
@@ -260,7 +263,7 @@ export function setupDungeonProvisions(
       options: STANCES.flatMap((stance, i) =>
         [0, 1].flatMap((index) => {
           const id = `dungeon-starting-provision:${stance}:${index}`;
-          return cancelled.includes(id)
+          return cancelled.includes(id) || !normalBase.includes(id)
             ? []
             : [
                 {
@@ -498,10 +501,7 @@ export function setupDungeonProvisions(
   const ids = [...provisions.map((p) => p.id), ...(choices ?? []).map((p) => p.id)];
   const expectedBase = wealdTaskActive(state, 10)
     ? []
-    : baseProvisionIds().filter(
-        (id) =>
-          !omitted.includes(id) && !(shriekerHigherThreatLevel(state) === 3 && id.endsWith(":1")),
-      );
+    : normalBase.filter((id) => !omitted.includes(id));
   const bonusIds = ids.filter((id) => id.startsWith("dungeon-bonus-provision:"));
   const partyIds = ["dungeon-party-provision:0", "dungeon-party-provision:1"];
   if (

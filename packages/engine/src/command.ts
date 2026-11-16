@@ -1056,12 +1056,17 @@ function runCommand(
 ): ApplyResult {
   if (state.inventoryOverflowTurn) return finishInventoryOverflowTurn(state, command);
   const d = state.dungeon;
-  if (d?.shriekerTheft)
-    return command.type === "resolveChoice"
-      ? chooseShriekerTheft(state, command.choiceId, command.optionId, (next) =>
-          finishQuestProvisionFlow(next, [], true),
-        )
-      : rejectBattleCommand(state, "请先完成 Shrieker 补给弃置");
+  if (d?.shriekerTheft) {
+    const resolveTheft = (current: GameState, chosen: Command) =>
+      chosen.type === "resolveChoice"
+        ? chooseShriekerTheft(current, chosen.choiceId, chosen.optionId, (next) =>
+            finishQuestProvisionFlow(next, [], true),
+          )
+        : rejectBattleCommand(current, "请先完成 Shrieker 补给弃置");
+    return d.shriekerTheft.finishTurnActorId
+      ? runTrinketCommand(state, command, resolveTheft, replayLegacyCardReview)
+      : resolveTheft(state, command);
+  }
   if (state.battle?.shriekerISetupHold)
     return rejectBattleCommand(
       state,

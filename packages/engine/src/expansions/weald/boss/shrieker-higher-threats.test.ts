@@ -1,3 +1,6 @@
+import trinketData from "../../../../../data/normalized/corebox/trinket.json";
+import { normalizedTrinketFileSchema } from "../../../../../data/src/normalize/schema";
+import { createTrinketPool } from "../../../trinket-acquisition";
 import { wealdSuppliesLootFixture } from "../../../test-helpers/weald-task-battle";
 import { describe, expect, it } from "vitest";
 import { applyCommand, type ApplyResult, type GameState } from "../../../command";
@@ -232,4 +235,100 @@ it("显式高等级版本自身携带R-266容量口径，缺旧独立标记仍�
     events: [],
   });
   expect(result.pendingChoice!.id).toMatch(/^inventory-overflow:/);
+});
+
+it("III最后弃置后回合结束治疗保留饰品待选；JSON恢复不重复弃置或治疗", () => {
+  const source = wealdSuppliesLootFixture(),
+    d = fixture(3).dungeon!,
+    b = source.battle!,
+    actor = b.entities[0]!,
+    turn = b.encounter!.turn;
+  if (turn.type !== "hero") throw new Error("hero fixture");
+  const pool = createTrinketPool(normalizedTrinketFileSchema.parse(trinketData).cards, 2);
+  const before: GameState = {
+    ...source,
+    inventoryOverflow: true,
+    dungeon: {
+      ...source.dungeon!,
+      campaignLevel: 3,
+      wealdHigherBosses: true,
+      shriekerBossBattles: true,
+      activeBossThreatScriptId: d.activeBossThreatScriptId!,
+      imminentThreatDescriptionCardId: d.imminentThreatDescriptionCardId!,
+    },
+    battle: {
+      ...b,
+      provisions: [],
+      areas: b.areas.map((a) => (a.id === actor.areaId ? { ...a, endTurnHeal: 3 as const } : a)),
+      entities: b.entities.map((e) =>
+        e.side === "hero"
+          ? { ...e, heroLevel: 1 as const, ...(e.id === actor.id ? { wounds: 8 } : {}) }
+          : e,
+      ),
+      trinkets: {
+        ...pool,
+        held: [{ cardId: "trinket:p023", heroId: actor.id, face: "upright" }],
+        deck: pool.cards.filter((c) => c.id !== "trinket:p023").map((c) => c.id),
+      },
+      encounter: { ...b.encounter!, turn: { ...turn, actions: 0 } },
+    },
+  };
+  const acquired = beginHigherShriekerGain(
+    before,
+    { state: { ...before, battle: { ...before.battle!, provisions: [item("new")] } }, events: [] },
+    { type: "finishTurn", actorId: actor.id },
+  );
+  const command = {
+    type: "resolveChoice",
+    choiceId: acquired.pendingChoice!.id,
+    optionId: "new",
+    allTrinkets: true,
+  } as const;
+  const open = applyCommand(acquired.state, command);
+  expect(open.events.filter((e) => e.type === "commandRefused")).toEqual([]);
+  expect(open.pendingChoice!.options.map((o) => o.id)).toContain("trinket:p023");
+  const chooseTrinket = {
+    type: "resolveChoice",
+    choiceId: open.pendingChoice!.id,
+    optionId: "trinket:p023",
+    allTrinkets: true,
+  } as const;
+  const done = applyCommand(open.state, chooseTrinket);
+  expect(done.events.filter((e) => e.type === "commandRefused")).toEqual([]);
+  expect(done.state.battle!.entities.find((e) => e.id === actor.id)!.wounds).toBe(1);
+  expect(done.events.filter((e) => e.type === "turnEnded")).toHaveLength(1);
+  expect(done.state.battle!.provisions).toEqual([]);
+  expect(done.state.dungeon!.shriekerTheft).toBeUndefined();
+  expect(applyCommand(JSON.parse(JSON.stringify(open.state)) as GameState, chooseTrinket)).toEqual(
+    done,
+  );
+});
+
+it("III与Lost Shipment组合只能取消仍存在的常规骰，奖励骰不受影响", () => {
+  const source = fixture(3);
+  const ready: GameState = {
+    ...source,
+    dungeon: {
+      ...source.dungeon!,
+      phase: "awaitingProvisions",
+      nextQuestLostShipment: true,
+      nextQuestPartyProvisionDice: 2,
+      heroes: source.dungeon!.heroes.map((h, i) =>
+        i === 0 ? { ...h, nextQuestProvisionDice: 2 } : h,
+      ),
+    },
+  };
+  let result = applyCommand(ready, { type: "rollDungeonProvisions" });
+  expect(result.pendingChoice!.options).toHaveLength(4);
+  expect(result.pendingChoice!.options.every((o) => o.id.endsWith(":0"))).toBe(true);
+  result = choose(result);
+  expect(result.pendingChoice!.options).toHaveLength(3);
+  result = choose(result);
+  for (let i = 0; result.pendingChoice && i < 20; i++)
+    result = choose(
+      result,
+      result.pendingChoice.options.some((o) => o.id === "food") ? "food" : undefined,
+    );
+  expect(result.state.dungeon!.phase).toBe("ready");
+  expect(result.state.dungeon!.explorationSetup!.provisions).toHaveLength(6);
 });
