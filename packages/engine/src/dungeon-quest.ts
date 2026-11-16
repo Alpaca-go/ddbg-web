@@ -118,9 +118,18 @@ export function summarizeDungeonQuest(state: GameState): ApplyResult {
   const progress = readDungeonQuestProgress(d);
   if (progress.status === "refused") return refuse(progress.reason);
   const { completedRoomIds: clearedRoomIds, quest } = progress;
-  if (d.wealdHigherQuestOffers === "tasks-v1" && quest.id === "quest:weald:p006") {
-    const taskProgress = d.wealdViragoKills ?? 0;
-    const xpPerHero = Math.min(3, taskProgress);
+  if (
+    d.wealdHigherQuestOffers === "tasks-v1" &&
+    ["quest:weald:p006", "quest:weald:p010"].includes(quest.id)
+  ) {
+    const taskProgress =
+      quest.id === "quest:weald:p010"
+        ? (d.explorationSetup?.provisions.length ?? 0)
+        : (d.wealdViragoKills ?? 0);
+    const xpPerHero = Math.min(
+      3,
+      Math.floor(taskProgress / (quest.id === "quest:weald:p010" ? 2 : 1)),
+    );
     const summary = wealdSpecialTaskSummarySchema.safeParse({
       questId: quest.id,
       name: quest.name,
@@ -136,7 +145,7 @@ export function summarizeDungeonQuest(state: GameState): ApplyResult {
       events: [
         {
           type: "dungeonUpdated",
-          message: `Spreaders of Miasma：击杀${taskProgress}，待发${xpPerHero}XP`,
+          message: `${quest.name}：进度${taskProgress}，待发${xpPerHero}XP`,
         },
       ],
     };
