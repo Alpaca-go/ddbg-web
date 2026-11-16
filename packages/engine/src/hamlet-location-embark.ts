@@ -46,7 +46,8 @@ export function nextExpeditionLocationDecks(d: DungeonState, questId: string) {
     d.contentPacks,
     ([
       "quest:weald:p006",
-      "quest:weald:p007", "quest:weald:p008",
+      "quest:weald:p007",
+      "quest:weald:p008",
       "quest:weald:p009",
       "quest:weald:p012",
       "quest:weald:p013",
