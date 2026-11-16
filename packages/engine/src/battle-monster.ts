@@ -1,12 +1,10 @@
+import { readHagRuntimeContext } from "./expansions/weald/boss/hag-runtime-context";
 import { withToxicMushrooms } from "./battle-toxic-mushrooms";
 import { isPounderMatchmanAction } from "./expansions/weald/boss/pounder-i-turn";
 import { applyPounderIFireInTheHole } from "./expansions/weald/boss/pounder-i-fire";
 import { isDarkestSupportSkill, playDarkestSupportSkill } from "./battle-monster-support";
-import { captureHagIHero } from "./expansions/weald/boss/hag-i-captive";
-import {
-  HAG_I_COMBAT_MONSTER_CARD_ID,
-  HAG_I_CAULDRON_FULL_MONSTER_CARD_ID,
-} from "./expansions/weald/boss/hag-i";
+import { captureHagHero } from "./expansions/weald/boss/hag-i-captive";
+import { HAG_I_CAULDRON_FULL_MONSTER_CARD_ID } from "./expansions/weald/boss/hag-i";
 import { isPyreCard, playPyreSkill } from "./boss/pyre-skill";
 import {
   isCollectedVestalCard,
@@ -214,7 +212,7 @@ export function playMonsterSkill(
   const attack = readMonsterAttackView(card, command.skillSlot);
   if (attack.status === "refused") return rejectBattleCommand(state, attack.reason);
   if (
-    card.id === HAG_I_COMBAT_MONSTER_CARD_ID &&
+    card.id === readHagRuntimeContext(state)?.hagId &&
     card.skills.some((s) => s.verified_hag_into_pot) &&
     !prepared
   )
@@ -222,7 +220,9 @@ export function playMonsterSkill(
   if (attack.hagIntoPot) {
     if (battle.hagSecondSkillPending)
       return rejectBattleCommand(state, "R-255：第二招不能重复 Into the Pot");
-    const probe = captureHagIHero(state, command.targetId);
+    const context = readHagRuntimeContext(state);
+    if (!context) return rejectBattleCommand(state, "Hag 入锅上下文未核准");
+    const probe = captureHagHero(state, command.targetId, context);
     const refused = probe.events.find((e) => e.type === "commandRefused");
     if (refused) return rejectBattleCommand(state, refused.message);
     const full = probe.state.battle!.entities.find(

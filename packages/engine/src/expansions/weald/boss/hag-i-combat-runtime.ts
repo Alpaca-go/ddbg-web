@@ -1,3 +1,4 @@
+import { readHagRuntimeContext } from "./hag-runtime-context";
 import type { BattleEntity, BattleState } from "../../../battle";
 import type { ApplyResult, GameState, MonsterSkillResolvedEvent } from "../../../command";
 import type { MonsterCardView } from "../../../monster-skill";
@@ -20,19 +21,17 @@ const STANCES = ["aggressive", "defensive", "ranged", "support"] as const;
 /** W4：Hag 被击败时移出空锅；R-255 满锅释放的自动续接另行接线。 */
 export function clearHagIEmptyCauldron(result: ApplyResult, ids: readonly string[]) {
   const battle = result.state.battle;
+  const context = readHagRuntimeContext(result.state);
   if (
     !battle ||
-    resolveEncounterBossScriptId(result.state) !== HAG_I_SCRIPT_ID ||
+    !context ||
     !battle.entities.some(
       (e) =>
-        e.side === "monster" &&
-        e.monsterCardId === HAG_I_COMBAT_MONSTER_CARD_ID &&
-        e.dead &&
-        ids.includes(e.id),
+        e.side === "monster" && e.monsterCardId === context.hagId && e.dead && ids.includes(e.id),
     )
   )
     return { result, ids };
-  const empty = emptyCauldronEntity(battle);
+  const empty = emptyCauldronEntity(battle, context.emptyId);
   if (!empty) return { result, ids };
   return {
     ids: [...ids, empty.id],
@@ -59,25 +58,27 @@ export function expandHagIInitiativeDeckSides(
   battle: BattleState,
   state: GameState,
 ): SkillTargetSide[] {
-  if (resolveEncounterBossScriptId(state) !== HAG_I_SCRIPT_ID || !hagEntity(battle))
-    return [...deck];
+  const context = readHagRuntimeContext(state);
+  if (!context || !hagEntity(battle, context.hagId)) return [...deck];
   return [...deck, "monster"];
 }
 
 /** finishTurn 先累加行动数，第二次结束才从本轮候选中移除 Hag。 */
 export function hagShouldEnterActedIdsAfterTurn(state: GameState, actorId: string): boolean {
   const battle = state.battle;
-  if (!battle || resolveEncounterBossScriptId(state) !== HAG_I_SCRIPT_ID) return true;
-  if (hagEntity(battle)?.id !== actorId) return true;
+  const context = readHagRuntimeContext(state);
+  if (!battle || !context) return true;
+  if (hagEntity(battle, context.hagId)?.id !== actorId) return true;
   return (battle.hagActionsThisRound ?? 0) >= 2;
 }
 
 /** W4：空锅仍有先攻与回合，但在回合开始触发／状态结算后不执行动作。 */
 export function hagIEmptyCauldronSkipsAction(state: GameState, actorId: string): boolean {
+  const context = readHagRuntimeContext(state);
   return (
     !!state.battle &&
-    resolveEncounterBossScriptId(state) === HAG_I_SCRIPT_ID &&
-    emptyCauldronEntity(state.battle!)?.id === actorId
+    !!context &&
+    emptyCauldronEntity(state.battle, context.emptyId)?.id === actorId
   );
 }
 
@@ -98,10 +99,11 @@ function livingMonsters(battle: BattleState) {
   return battle.entities.filter((entity) => entity.side === "monster" && !entity.dead);
 }
 
-function hagEntity(battle: BattleState): BattleEntity | undefined {
-  return livingMonsters(battle).find(
-    (entity) => entity.monsterCardId === HAG_I_COMBAT_MONSTER_CARD_ID,
-  );
+function hagEntity(
+  battle: BattleState,
+  cardId: string = HAG_I_COMBAT_MONSTER_CARD_ID,
+): BattleEntity | undefined {
+  return livingMonsters(battle).find((entity) => entity.monsterCardId === cardId);
 }
 
 function cauldronEntity(battle: BattleState): BattleEntity | undefined {
@@ -112,10 +114,11 @@ function cauldronEntity(battle: BattleState): BattleEntity | undefined {
   );
 }
 
-function emptyCauldronEntity(battle: BattleState): BattleEntity | undefined {
-  return livingMonsters(battle).find(
-    (entity) => entity.monsterCardId === HAG_I_CAULDRON_EMPTY_MONSTER_CARD_ID,
-  );
+function emptyCauldronEntity(
+  battle: BattleState,
+  cardId: string = HAG_I_CAULDRON_EMPTY_MONSTER_CARD_ID,
+): BattleEntity | undefined {
+  return livingMonsters(battle).find((entity) => entity.monsterCardId === cardId);
 }
 
 export function readHagICauldronFullMorphPlan(
@@ -132,7 +135,7 @@ export function readHagICauldronFullMorphPlan(
 }
 
 export function readHagIIntoThePotEnabled(script: BossScriptDefinition): boolean {
-  if (script.id !== HAG_I_SCRIPT_ID) return false;
+  if (!/^boss:weald:hag:[123]$/.test(script.id)) return false;
   const result = runBossHook(script, "intoThePot", { scriptId: script.id });
   return (
     result.status === "ok" &&
@@ -154,17 +157,12 @@ export function hagActionIndexBeforeTurn(battle: BattleState): number {
 
 export function bumpHagIActionRoundCount(state: GameState, actorId: string): GameState {
   const battle = state.battle;
-  if (!battle?.encounter) return state;
+  const context = readHagRuntimeContext(state);
+  if (!battle?.encounter || !context) return state;
   const actor = battle.entities.find((entity) => entity.id === actorId);
-  if (
-    !actor ||
-    actor.side !== "monster" ||
-    actor.dead ||
-    actor.monsterCardId !== HAG_I_COMBAT_MONSTER_CARD_ID
-  ) {
+  if (!actor || actor.side !== "monster" || actor.dead || actor.monsterCardId !== context.hagId) {
     return state;
   }
-  if (resolveEncounterBossScriptId(state) !== HAG_I_SCRIPT_ID) return state;
   const count = battle.hagActionsThisRound ?? 0;
   return { ...state, battle: { ...battle, hagActionsThisRound: count + 1 } };
 }
@@ -172,17 +170,19 @@ export function bumpHagIActionRoundCount(state: GameState, actorId: string): Gam
 /** R-255：每次 Hag 回合且空锅在场，均先用 Into the Pot；不是每轮仅首次。 */
 export function hagIntoThePotShouldForceSkill(state: GameState, actorId: string): boolean {
   const battle = state.battle;
-  if (!battle?.encounter || battle.monsterAction || battle.hagSecondSkillPending) return false;
+  const context = readHagRuntimeContext(state);
+  if (!context || !battle?.encounter || battle.monsterAction || battle.hagSecondSkillPending)
+    return false;
   const turn = battle.encounter.turn;
   if (turn.type !== "monster" || turn.actorId !== actorId) return false;
-  if (!emptyCauldronEntity(battle)) return false;
+  if (!emptyCauldronEntity(battle, context.emptyId)) return false;
 
-  const scriptId = resolveEncounterBossScriptId(state);
+  const scriptId = context.scriptId as `boss:${string}`;
   const script = scriptId ? getBossScript(scriptId) : undefined;
   if (!script || !readHagIIntoThePotEnabled(script)) return false;
 
   const actor = battle.entities.find((entity) => entity.id === actorId);
-  if (!actor || actor.monsterCardId !== HAG_I_COMBAT_MONSTER_CARD_ID || actor.dead) {
+  if (!actor || actor.monsterCardId !== context.hagId || actor.dead) {
     return false;
   }
   return true;
