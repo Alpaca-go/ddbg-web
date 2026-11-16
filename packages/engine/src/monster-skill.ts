@@ -35,6 +35,7 @@ export type MonsterSkillView = Pick<
   readonly verified_hag_into_pot?: true;
   /** R-261／Q-186：Nest 在场时的飞行／治疗细则尚未核准，不按 Self Push 结算。 */
   readonly verified_shrieker_nest_flight?: true;
+  readonly verified_shrieker_flight?: true;
   /** 规范化目标优先级文字；缺失时自动目标选择拒绝。 */
   readonly target?: string | null;
   readonly lines: readonly (readonly SkillSegment[])[];

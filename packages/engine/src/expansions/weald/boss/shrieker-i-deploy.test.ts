@@ -1,4 +1,7 @@
-import { removeCasualties } from "../../../encounter";
+import { buildShriekerICombatCatalog } from "./shrieker-i-projection";
+import { registerBossScript } from "../../../boss/registry";
+import { DEFAULT_BOSS_BATTLE_RULES } from "../../../boss/rules";
+import { finishTurn, removeCasualties } from "../../../encounter";
 import { expect, it } from "vitest";
 import { savedCommandSchema } from "../../../../../data/src/quest-save";
 import { applyCommand, type GameState, type Command } from "../../../command";
@@ -189,4 +192,94 @@ it("R-261 显式技能版本保留旧部署输出，两个版本都保持开战�
   expect(modern.battle!.rngCursor).toBe(legacy.battle!.rngCursor);
   expect(run(JSON.parse(JSON.stringify(prepared)) as GameState, command)).toEqual(modern);
   expect(applyCommand(modern, { type: "startBattle" }).state).toBe(modern);
+});
+
+it("W3／R-261 受控开战夹具：三张怪物先攻均给本体，Nest 不行动，下一轮重置", () => {
+  registerBossScript({
+    id: SHRIEKER_I_SCRIPT_ID,
+    displayName: "Shrieker I test",
+    rules: DEFAULT_BOSS_BATTLE_RULES,
+    combatEntry: SHRIEKER_I_DEPLOYMENT_ENTRY,
+    hooks: {},
+  });
+  const deployed = run(run(atObjective(), { type: "prepareDungeonBattle" }), {
+    type: "deployShriekerI",
+    shriekerSkills: true,
+  });
+  // 仅测试先攻／行动配额；不称自然开战或完整日志，不解除产品入口停点。
+  const { shriekerISetupHold: _hold, ...battle } = deployed.battle!;
+  void _hold;
+  let state = run({ ...deployed, battle }, { type: "startBattle" });
+  expect(state.battle!.encounter!.deck.filter((s) => s === "monster")).toHaveLength(3);
+  expect(state.battle!.encounter!.deck.filter((s) => s === "hero")).toHaveLength(4);
+  state = {
+    ...state,
+    battle: {
+      ...state.battle!,
+      encounter: {
+        ...state.battle!.encounter!,
+        deck: ["monster", "monster", "monster"],
+        actedIds: state.battle!.entities.filter((e) => e.side === "hero").map((e) => e.id),
+      },
+    },
+  };
+  for (let i = 1; i <= 3; i++) {
+    state = run(state, { type: "drawInitiative" });
+    expect(state.battle!.encounter!.turn).toMatchObject({
+      type: "monster",
+      actorId: "boss:shrieker",
+    });
+    state = { ...state, battle: { ...state.battle!, pending: null, monsterAction: null } };
+    const finished = finishTurn(state, "boss:shrieker", []);
+    expect(finished.events.some((e) => e.type === "commandRefused")).toBe(false);
+    state = finished.state;
+    if (i < 3) {
+      expect(state.battle!.shriekerActionsThisRound).toBe(i);
+      expect(state.battle!.encounter!.actedIds).not.toContain("boss:shrieker");
+    }
+  }
+  expect(state.battle!.encounter!.round).toBe(2);
+  expect(state.battle!.shriekerActionsThisRound).toBeUndefined();
+  expect(state.battle!.encounter!.deck.filter((s) => s === "monster")).toHaveLength(3);
+});
+
+it("R-262 受控多目标技能：Acc 后飞行并治疗，已在巢内也治疗，姿态与 RNG 不重复消费", () => {
+  const deployed = run(run(atObjective(), { type: "prepareDungeonBattle" }), {
+    type: "deployShriekerI",
+    shriekerSkills: true,
+  });
+  const { shriekerISetupHold: _hold, ...base } = deployed.battle!;
+  void _hold;
+  for (const origin of ["D", "E"]) {
+    const state: GameState = {
+      seed: deployed.seed,
+      notes: [],
+      battle: {
+        ...base,
+        monsters: buildShriekerICombatCatalog({ nestInPlay: true, nestFlightApproved: true }),
+        entities: base.entities.map((e) =>
+          e.id === "boss:shrieker"
+            ? { ...e, wounds: 5, areaId: origin }
+            : e.side === "hero"
+              ? { ...e, areaId: origin === "D" ? "A" : "B", dodge: 10 }
+              : e,
+        ),
+      },
+    };
+    const before = structuredClone(state);
+    const result = applyCommand(state, {
+      type: "playMonsterSkill",
+      actorId: "boss:shrieker",
+      targetId: state.battle!.entities[0]!.id,
+      skillSlot: 2,
+    });
+    expect(result.events.filter((e) => e.type === "commandRefused")).toEqual([]);
+    expect(result.state.battle!.entities.find((e) => e.id === "boss:shrieker")).toMatchObject({
+      areaId: "E",
+      wounds: 3,
+      stance: "aggressive",
+    });
+    expect(result.state.battle!.rngCursor).toBe(state.battle!.rngCursor + 1);
+    expect(state).toEqual(before);
+  }
 });

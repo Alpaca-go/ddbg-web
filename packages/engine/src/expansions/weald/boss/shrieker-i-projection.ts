@@ -9,6 +9,7 @@ const text = (text: string): SkillSegment => ({ type: "text", text });
 /** R-261：调用方必须明确 Nest 是否在场；不自行解释其替代飞行／治疗能力。 */
 export function buildShriekerICombatCatalog(context: {
   readonly nestInPlay: boolean;
+  readonly nestFlightApproved?: true;
 }): MonsterCardView[] {
   return content.faces.map((face): MonsterCardView => ({
     id: face.rawId,
@@ -39,6 +40,11 @@ export function buildShriekerICombatCatalog(context: {
         switch (effect.kind) {
           case "selfPull":
           case "selfPush": {
+            if (effect.kind === "selfPush" && context.nestInPlay && context.nestFlightApproved) {
+              effects.push({ type: "heal", scope: "self", amount: 2 });
+              tokens = [icon("heal"), text("2")];
+              break;
+            }
             const direction = effect.kind === "selfPull" ? "pull" : "push";
             effects.push({ type: "shuffle", scope: "self", direction, distance: effect.distance });
             tokens = [
@@ -85,6 +91,9 @@ export function buildShriekerICombatCatalog(context: {
         previousScope = scope;
       }
       return {
+        ...(skill.slot === 2 && context.nestInPlay && context.nestFlightApproved
+          ? { verified_shrieker_flight: true as const }
+          : {}),
         slot: skill.slot,
         name: skill.name,
         target: skill.target === "closest" ? "Closest" : "Crowded",
@@ -123,7 +132,7 @@ export function buildShriekerICombatCatalog(context: {
               .join(""),
           ),
         },
-        ...(skill.slot === 2 && context.nestInPlay
+        ...(skill.slot === 2 && context.nestInPlay && !context.nestFlightApproved
           ? { verified_shrieker_nest_flight: true as const }
           : {}),
       };
