@@ -249,7 +249,30 @@ export const bossFlatQuestSummarySchema = z
       ctx.addIssue({ code: "custom", message: "Boss 定额任务身份不一致" });
   });
 
+export const wealdSpecialTaskSummarySchema = z
+  .strictObject({
+    questId: z.enum(["quest:weald:p006", "quest:weald:p010", "quest:weald:p011"]),
+    name: z.string(),
+    clearedRoomIds: z.array(z.string()),
+    taskProgress: z.int().nonnegative(),
+    xpPerHero: z.int().min(0).max(3),
+    stagecoachXp: z.int().min(0).max(3),
+    awarded: z.boolean(),
+  })
+  .superRefine((s, ctx) => {
+    const q = basicQuests.find((q) => q.id === s.questId);
+    if (
+      !q ||
+      s.name !== q.name ||
+      s.xpPerHero !==
+        Math.min(3, Math.floor(s.taskProgress / (s.questId === "quest:weald:p010" ? 2 : 1))) ||
+      s.stagecoachXp !== s.xpPerHero ||
+      new Set(s.clearedRoomIds).size !== s.clearedRoomIds.length
+    )
+      ctx.addIssue({ code: "custom", message: "Weald 专属任务进度／XP不一致" });
+  });
 export const dungeonQuestSummarySchema = z.union([
+  wealdSpecialTaskSummarySchema,
   scoutQuestSummarySchema,
   wipeQuestSummarySchema,
   fundraiserQuestSummarySchema,

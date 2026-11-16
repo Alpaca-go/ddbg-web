@@ -316,6 +316,8 @@ export type DungeonState = {
   readonly mustLeaveRoomId?: string | undefined;
   readonly whisperingWoodsQuest?: true;
   readonly wealdHigherQuestOffers?: true | "tasks-v1";
+  readonly wealdViragoKills?: number;
+  readonly wealdSecuredRoomCardIds?: readonly string[];
   readonly monsterPool?: import("./monster-pool-runtime").MonsterPoolDeckState & {
     readonly remaining: readonly string[] | null;
     readonly discarded: readonly string[];

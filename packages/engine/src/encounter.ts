@@ -5,7 +5,11 @@ import {
   shriekerIActionQuotaReached,
 } from "./expansions/weald/boss/shrieker-i-actions";
 import { clearShriekerINest } from "./expansions/weald/boss/shrieker-i-cleanup";
-import { applyInfectedDeaths } from "./expansions/weald/higher-task-effects";
+import {
+  applyInfectedDeaths,
+  recordTaskViragoDeaths,
+} from "./expansions/weald/higher-task-effects";
+import { elderGiantActive } from "./expansions/weald/task-forced-monsters";
 import {
   enableClearingHeroes,
   enableClearingMonsters,
@@ -203,6 +207,11 @@ function startRound(
     )
     .map((entity) => entity.side);
   if (gameState) {
+    if (
+      elderGiantActive(gameState) &&
+      battle.entities.some((e) => e.id === "monster-deck:weald:p017" && !e.dead)
+    )
+      deck.push("monster");
     deck = expandProphetIInitiativeDeckSides(deck, battle, gameState);
     deck = expandFanaticIInitiativeDeckSides(deck, battle, gameState);
     deck = expandHagIInitiativeDeckSides(deck, battle, gameState);
@@ -258,6 +267,7 @@ function startRound(
   void _fanaticRoundActions;
   return {
     ...battleRest,
+    ...(gameState && elderGiantActive(gameState) ? { wealdElderActions: 0 } : {}),
     rngCursor: cursor,
     encounter: { round, deck, actedIds: [], turn: { type: "awaitingInitiative" } },
   };
@@ -488,6 +498,11 @@ export function finishTurn(
   state = bumpProphetIActionRoundCount(state, actorId);
   state = bumpHagIActionRoundCount(state, actorId);
   state = bumpShriekerIActionCount(state, actorId);
+  if (elderGiantActive(state, actorId))
+    state = {
+      ...state,
+      battle: { ...state.battle!, wealdElderActions: (state.battle!.wealdElderActions ?? 0) + 1 },
+    };
   state = bumpFanaticIActionRoundCount(state, actorId);
   state = bumpHeartOfDarknessImpendingDoomAfterAction(state, actorId);
   state = bumpAncestor2SwiftTeleportationAfterAction(state, actorId);
@@ -516,6 +531,7 @@ export function finishTurn(
     prophetShouldEnterActedIdsAfterTurn(state, actorId) &&
     hagShouldEnterActedIdsAfterTurn(state, actorId) &&
     shriekerIActionQuotaReached(state, actorId) &&
+    (!elderGiantActive(state, actorId) || (state.battle!.wealdElderActions ?? 0) >= 2) &&
     fanaticShouldEnterActedIdsAfterTurn(state, actorId)
       ? [...encounter.actedIds, actorId]
       : encounter.actedIds;
@@ -612,6 +628,7 @@ export function encounterSkillProblem(
 
 /** R24–25、R-030：只补本次死亡空位；旧尸体保留日志身份，不再占位。 */
 export function removeCasualties(result: ApplyResult, ids: readonly string[]): ApplyResult {
+  result = recordTaskViragoDeaths(result, ids);
   result = applyInfectedDeaths(result, ids);
   if (result.events.some((e) => e.type === "commandRefused")) return result;
   ({ result, ids } = clearNecromancerICompanions(result, ids));

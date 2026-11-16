@@ -90,3 +90,25 @@ export function applyInfectedDeaths(result: ApplyResult, ids: readonly string[])
   }
   return next;
 }
+
+export function recordTaskViragoDeaths(result: ApplyResult, ids: readonly string[]): ApplyResult {
+  if (!wealdTaskActive(result.state, 6) || !result.state.battle) return result;
+  let next = result;
+  for (const entity of result.state.battle.entities.filter(
+    (e) => e.dead && e.monsterCardId === "monster_medium:weald:p018" && ids.includes(e.id),
+  )) {
+    const key = `Spreaders of Miasma：击杀 ${entity.id}（R-265）`;
+    if (next.events.some((e) => e.type === "dungeonUpdated" && e.message === key)) continue;
+    next = {
+      state: {
+        ...next.state,
+        dungeon: {
+          ...next.state.dungeon!,
+          wealdViragoKills: (next.state.dungeon!.wealdViragoKills ?? 0) + 1,
+        },
+      },
+      events: [...next.events, { type: "dungeonUpdated", message: key }],
+    };
+  }
+  return next;
+}
