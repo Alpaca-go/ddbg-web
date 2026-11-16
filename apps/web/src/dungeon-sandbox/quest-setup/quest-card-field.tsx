@@ -25,7 +25,10 @@ export function QuestGoalNotes({ quest }: { readonly quest: QuestCardOption }) {
   return (
     <>
       <p>
-        从起点 S 开始，房间代币按任务随机分布。{quest.id === "quest:weald:p010" ? "Lost Supplies 不掷常规开局补给骰；技能等额外补给照常。" : "先领取八颗开局补给。"}
+        从起点 S 开始，房间代币按任务随机分布。
+        {quest.id === "quest:weald:p010"
+          ? "Lost Supplies 不掷常规开局补给骰；技能等额外补给照常。"
+          : "先领取八颗开局补给。"}
         {quest.id.startsWith("quest:weald:")
           ? "本趟使用 Weald 房间、板块和地点牌堆。"
           : "普通遗迹全部九面已接通。"}

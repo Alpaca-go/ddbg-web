@@ -118,11 +118,18 @@ export function summarizeDungeonQuest(state: GameState): ApplyResult {
   const progress = readDungeonQuestProgress(d);
   if (progress.status === "refused") return refuse(progress.reason);
   const { completedRoomIds: clearedRoomIds, quest } = progress;
-  if (d.wealdHigherQuestOffers === "tasks-v1" && ["quest:weald:p006", "quest:weald:p010"].includes(quest.id)) {
-    const taskProgress = quest.id === "quest:weald:p010"
-      ? (d.explorationSetup?.provisions.length ?? 0)
-      : (d.wealdViragoKills ?? 0);
-    const xpPerHero = Math.min(3, Math.floor(taskProgress / (quest.id === "quest:weald:p010" ? 2 : 1)));
+  if (
+    d.wealdHigherQuestOffers === "tasks-v1" &&
+    ["quest:weald:p006", "quest:weald:p010"].includes(quest.id)
+  ) {
+    const taskProgress =
+      quest.id === "quest:weald:p010"
+        ? (d.explorationSetup?.provisions.length ?? 0)
+        : (d.wealdViragoKills ?? 0);
+    const xpPerHero = Math.min(
+      3,
+      Math.floor(taskProgress / (quest.id === "quest:weald:p010" ? 2 : 1)),
+    );
     const summary = wealdSpecialTaskSummarySchema.safeParse({
       questId: quest.id,
       name: quest.name,
