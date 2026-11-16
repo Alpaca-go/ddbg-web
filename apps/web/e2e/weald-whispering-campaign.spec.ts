@@ -77,7 +77,7 @@ test("受控III级村庄页面抽选p015；真实起点版本文件导入和刷�
       const { useDungeonStore } = await import(/* @vite-ignore */ path);
       return useDungeonStore.getState().game.dungeon.wealdHigherQuestOffers;
     }),
-  ).toBe(true);
+  ).toBe("tasks-v1");
   await page.evaluate(async (game) => {
     const path = "/src/dungeon-sandbox/store.ts";
     const { useDungeonStore } = await import(/* @vite-ignore */ path);

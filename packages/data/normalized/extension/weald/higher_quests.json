@@ -99,7 +99,7 @@
    "verifiedRules": [
     "R-264"
    ],
-   "runtimeReady": false
+   "runtimeReady": true
   },
   {
    "id": "quest:weald:p008",
