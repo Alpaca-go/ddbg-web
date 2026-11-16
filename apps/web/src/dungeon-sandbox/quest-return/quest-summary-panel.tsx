@@ -31,15 +31,22 @@ export function QuestSummaryPanel({
       {d.questSummary ? (
         <p>
           {d.questSummary.name} ·{" "}
-          {d.questSummary.questId === "quest:weald:p001" && "broughtBackCount" in d.questSummary
-            ? `带回 ${d.questSummary.broughtBackCount} 个坏死真菌 · 任务目标${d.questSummary.objectiveMet ? "已取得" : "未取得"}`
-            : d.questSummary.questId === "quest:weald:p002" && "croneKills" in d.questSummary
-              ? `击杀 Crone ${d.questSummary.croneKills} 只`
-              : d.questSummary.questId === "quest:weald:p003" && "oaksDisinfected" in d.questSummary
-                ? `已消毒 ${d.questSummary.oaksDisinfected} 棵橡树`
-                : d.questSummary.questId === "quest:weald:p005"
-                  ? `已清理 ${d.questSummary.clearedRoomIds.length} 间房（每 2 间 1 XP）`
-                  : `${d.questSummary.questId !== "quest:p001" ? "巢穴清理" : "清理"} ${quest!.xpKind === "flat" ? "Boss 定额" : `${d.questSummary.clearedRoomIds.length} / ${questPrintedXpCap(quest!)} 间`}`}{" "}
+          {"taskProgress" in d.questSummary
+            ? d.questSummary.questId === "quest:weald:p006"
+              ? `击杀 Hateful Virago ${d.questSummary.taskProgress} 只`
+              : d.questSummary.questId === "quest:weald:p010"
+                ? `带回 ${d.questSummary.taskProgress} 颗补给（每2颗1XP）`
+                : `已烧毁 ${d.questSummary.taskProgress} 棵目标橡树`
+            : d.questSummary.questId === "quest:weald:p001" && "broughtBackCount" in d.questSummary
+              ? `带回 ${d.questSummary.broughtBackCount} 个坏死真菌 · 任务目标${d.questSummary.objectiveMet ? "已取得" : "未取得"}`
+              : d.questSummary.questId === "quest:weald:p002" && "croneKills" in d.questSummary
+                ? `击杀 Crone ${d.questSummary.croneKills} 只`
+                : d.questSummary.questId === "quest:weald:p003" &&
+                    "oaksDisinfected" in d.questSummary
+                  ? `已消毒 ${d.questSummary.oaksDisinfected} 棵橡树`
+                  : d.questSummary.questId === "quest:weald:p005"
+                    ? `已清理 ${d.questSummary.clearedRoomIds.length} 间房（每 2 间 1 XP）`
+                    : `${d.questSummary.questId !== "quest:p001" ? "巢穴清理" : "清理"} ${quest!.xpKind === "flat" ? "Boss 定额" : `${d.questSummary.clearedRoomIds.length} / ${questPrintedXpCap(quest!)} 间`}`}{" "}
           · 每名英雄
           {d.questSummary.awarded ? "已发" : "待发"} {d.questSummary.xpPerHero} XP · 驿站
           {d.questSummary.awarded ? "已发" : "待发"} {d.questSummary.stagecoachXp} XP
