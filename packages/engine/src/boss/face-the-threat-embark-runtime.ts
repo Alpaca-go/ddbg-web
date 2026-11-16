@@ -120,11 +120,13 @@ function faceTheThreatQuestContext(
     | "activeBossThreatScriptId"
     | "imminentThreatDescriptionCardId"
     | "pounderBossBattles"
+    | "shriekerBossBattles"
   >,
 ): import("./types").FaceTheThreatQuestContext {
   const base = {
     questId: FACE_THE_THREAT_QUEST_ID,
     campaignLevel: readCampaignLevel(d),
+    ...(d.shriekerBossBattles ? { shriekerBossBattles: true as const } : {}),
     ...(d.pounderBossBattles ? { pounderBossBattles: true as const } : {}),
   };
   if (d.activeBossThreatScriptId) {
@@ -179,6 +181,7 @@ export function requireFaceTheThreatEmbarkPlanForSandbox(
     | "activeBossThreatScriptId"
     | "imminentThreatDescriptionCardId"
     | "pounderBossBattles"
+    | "shriekerBossBattles"
   >,
 ): StoredFaceTheThreatEmbarkPlan {
   const hook = runFaceTheThreatEmbarkForQuest(faceTheThreatQuestContext(d));

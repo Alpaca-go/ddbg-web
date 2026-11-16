@@ -6,6 +6,7 @@ const pendingSteps: Record<
   NonNullable<BattleState["pending"]>["type"],
   { readonly label: string; readonly hint: string }
 > = {
+  shriekerTheft: { label: "等待弃置补给", hint: "选择弃一枚公共补给，再继续原流程。" },
   hagRelease: {
     label: "等待英雄出锅",
     hint: "选择邻接合法区域；英雄回到进攻姿态，其余英雄向后顺位。",

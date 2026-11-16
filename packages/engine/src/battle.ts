@@ -291,6 +291,7 @@ export type BattleState = BattleSetup & {
   /** 保存选招骰与目标；方向待选 / 攻击拒绝不能重新选招。 */
   readonly monsterAction: PreparedMonsterAction | null;
   readonly pending:
+    | { readonly type: "shriekerTheft"; readonly choice: PendingChoice }
     | {
         readonly type: "hagRelease";
         readonly choice: PendingChoice;

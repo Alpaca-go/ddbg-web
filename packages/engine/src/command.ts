@@ -1,3 +1,7 @@
+import {
+  beginShriekerDungeonTheft,
+  chooseShriekerTheft,
+} from "./expansions/weald/boss/shrieker-i-provisions";
 import { deployShriekerI } from "./expansions/weald/boss/shrieker-i-deploy";
 import { withAbyssalPuff } from "./battle-abyssal-puff";
 import { deployPounderI } from "./expansions/weald/boss/pounder-i-deploy";
@@ -97,7 +101,11 @@ import type { SetEquippedSkillsCommand } from "./hero-loadout";
 import { applyDungeonCommand } from "./dungeon";
 import { summarizeDungeonQuest, resolveFundraiserGold } from "./dungeon-quest";
 import { restDungeon } from "./dungeon-rest";
-import { chooseProvisionDiscard, setupDungeonProvisions } from "./dungeon-starting-provisions";
+import {
+  chooseProvisionDiscard,
+  setupDungeonProvisions,
+  finishQuestProvisionFlow,
+} from "./dungeon-starting-provisions";
 import { useDungeonProvision } from "./dungeon-provision-use";
 import { setupForwardCamp } from "./dungeon-forward-camp";
 import {
@@ -778,6 +786,8 @@ function dispatchCommand(
     return rejectBattleCommand(state, "请先完成地牢沙盒流程");
   if (command.type === "resolveChoice") {
     const pending = state.battle?.pending;
+    if (pending?.type === "shriekerTheft")
+      return rejectBattleCommand(state, "缺少 Shrieker 公共补给上下文");
     if (
       !pending ||
       pending.choice.id !== command.choiceId ||
@@ -996,6 +1006,12 @@ export function applyCommand(
   replayLegacyCardReview = false,
 ): ApplyResult {
   const d = state.dungeon;
+  if (d?.shriekerTheft)
+    return command.type === "resolveChoice"
+      ? chooseShriekerTheft(state, command.choiceId, command.optionId, (next) =>
+          finishQuestProvisionFlow(next, [], true),
+        )
+      : rejectBattleCommand(state, "请先完成 Shrieker 补给弃置");
   if (state.battle?.shriekerISetupHold)
     return rejectBattleCommand(
       state,
@@ -1145,5 +1161,7 @@ function applyCommandCore(
     : continuePoolRebirth(continueDeathEstates(dispatched));
   const puff = withAbyssalPuff(state, result);
   const refused = puff.events.find((event) => event.type === "commandRefused");
-  return refused ? rejectBattleCommand(state, refused.message) : settlePounderIFireContext(puff);
+  return refused
+    ? rejectBattleCommand(state, refused.message)
+    : beginShriekerDungeonTheft(state, settlePounderIFireContext(puff));
 }
