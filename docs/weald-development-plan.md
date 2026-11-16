@@ -1357,3 +1357,10 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 - 按R-268及用户修订稿新增pounder_higher.json／Zod目录。实际Pounder Life70／90、Dodge1／2，Matchman Life9／11、Dodge3／4；特殊触发S不伪造为普通选招。炮击24／12与34／17伤害、Acc10／11，威胁2t／3t与7／9伤口逐面登记。
 - II召唤Matchman II＋Bloodletter I（核心大p2战斗面／中p30实体来源），III召唤Matchman III＋两份Raider III（核心中p56–58三实体）；不发明同级Bloodletter，不把参考面计额外副本。保留combatReady=false，正式运行时在下一批接。
 - 数据与旧内容2文件13项通过（3.80秒）；数据包tsc、改动ESLint／Prettier与diff空白检查通过。连续批次完整引擎／页面闸门在最终整合时统一复核，PR远端检查另以最新head为准。
+
+### Pounder II／III：增援、同区炮击与清场（2026-11-17）
+
+- R-268独立目录投影到本级Pounder／Matchman，复用I级回合与炮击管线；I级较早显式命令的版本门槛保持原样。Matchman在场不补附属怪，Pounder不可绕过同区Matchman自行炮击，S仍为专属行为。
+- II真实Bloodletter I占两段相邻空姿态及两格容量；III两名Raider III各一格。成功增援逐只洗入当前先攻；挤占待选可JSON恢复，不重复Matchman或RNG。Pounder死亡移走所有Brigands，包含II战中的I级Bloodletter，不按Boss等级错误过滤。
+- 多名挤占新边界登记Q-189，已询问是否逐个处理，暂阻止超容量提交；这不是用假占格或扩大容量绕过规则。其它已核准分支继续接线。
+- 5文件42项通过（7.31秒）；补挤占恢复后2文件22项通过（4.47秒），含两等级10项。引擎包tsc、完整typecheck／lint／build通过；全部Pounder回归14文件121项通过（30.55秒），最终全批统一质量闸门。原炮击测试误读为单目标事件，改验共用多目标事件、实际12／17伤害和同一攻击骰，不改生产数值。

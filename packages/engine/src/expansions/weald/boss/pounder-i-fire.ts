@@ -2,9 +2,7 @@ import { distance, rejectBattleCommand } from "../../../battle";
 import type { ApplyResult, GameState } from "../../../command";
 import { playMonsterSkill } from "../../../battle-monster";
 import { selectMonsterTarget } from "../../../monster-target";
-import { resolveEncounterBossScriptId } from "../../../boss/encounter-rules";
-import { POUNDER_I_SCRIPT_ID } from "./pounder-i";
-import { buildPounderICombatCatalog } from "./pounder-i-projection";
+import { readPounderRuntimeContext } from "./pounder-runtime-context";
 import { planPounderIFireInTheHole } from "./pounder-i-combat-plans";
 
 /** 战斗结束时不遗留已消费的触发上下文；生命／压力待选期间继续保留。 */
@@ -25,6 +23,7 @@ export function applyPounderIFireInTheHole(
 ): ApplyResult {
   const b = state.battle;
   const d = state.dungeon;
+  const context = readPounderRuntimeContext(state);
   if (
     !b?.encounter ||
     b.pending ||
@@ -34,11 +33,10 @@ export function applyPounderIFireInTheHole(
     b.encounter.turn.type !== "monster" ||
     b.encounter.turn.actorId !== actorId ||
     d?.phase !== "inBattle" ||
-    d.campaignLevel !== 1 ||
     !d.pounderDungeonThreats ||
     !d.pounderHamletThreats ||
     !["standard", "radiant"].includes(d.mode) ||
-    resolveEncounterBossScriptId(state) !== POUNDER_I_SCRIPT_ID
+    !context
   )
     return rejectBattleCommand(
       state,
@@ -46,14 +44,14 @@ export function applyPounderIFireInTheHole(
     );
   let plan: ReturnType<typeof planPounderIFireInTheHole>;
   try {
-    plan = planPounderIFireInTheHole(b.entities, actorId);
+    plan = planPounderIFireInTheHole(b.entities, actorId, context);
   } catch {
     return rejectBattleCommand(state, "R-258：触发炮击需要核准活体 Matchman 与 Pounder");
   }
   if (plan.kind !== "triggerSkill")
     return rejectBattleCommand(state, "R-258：Matchman 必须与活体 Pounder 同区才能触发炮击");
   const pounder = b.entities.find((e) => e.id === plan.actorId)!;
-  const approvedCatalog = buildPounderICombatCatalog();
+  const approvedCatalog = context.catalog;
   const approved = approvedCatalog.find((c) => c.id === plan.cardId)!;
   const matchman = b.entities.find((e) => e.id === actorId)!;
   const approvedMatchman = approvedCatalog.find((c) => c.id === matchman.monsterCardId);

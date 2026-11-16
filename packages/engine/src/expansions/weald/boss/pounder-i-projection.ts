@@ -1,3 +1,4 @@
+import type { WealdPounderContent } from "../../../../../data/src/weald-pounder";
 import type { BattleEntity } from "../../../battle";
 import type { MonsterCardView, MonsterSkillView } from "../../../monster-skill";
 import type { SkillSegment, SkillStance } from "../../../hero-skill";
@@ -12,11 +13,21 @@ const stances = ["aggressive", "defensive", "ranged", "support"] as const;
 
 /** R-258：只投影核准两面；Pounder 不自动选招，Matchman 的触发技能不伪造命中数字。 */
 export function buildPounderICombatCatalog(): MonsterCardView[] {
-  const cannonFace = content.faces.find((face) => face.role === "pounder");
+  return projectPounderCombatFaces(content.faces);
+}
+
+type WidenNumbers<T> = { [K in keyof T]: T[K] extends number ? number : T[K] };
+export type PounderPrintedFace = Omit<
+  WealdPounderContent["faces"][number],
+  "level" | "rawId" | "skill"
+> & { rawId: string; skill: WidenNumbers<WealdPounderContent["faces"][number]["skill"]> };
+
+export function projectPounderCombatFaces(faces: readonly PounderPrintedFace[]): MonsterCardView[] {
+  const cannonFace = faces.find((face) => face.role === "pounder");
   if (!cannonFace || cannonFace.role !== "pounder") throw new Error("缺少 Pounder I 核准炮击卡");
   const cannon = cannonFace.skill;
   if (!("maxTargets" in cannon)) throw new Error("Pounder I 炮击字段不完整");
-  return content.faces.map((face): MonsterCardView => {
+  return faces.map((face): MonsterCardView => {
     const skill = face.skill;
     const pounder = face.role === "pounder";
     const effects: SkillSegment[][] = pounder
