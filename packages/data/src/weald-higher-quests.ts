@@ -41,7 +41,8 @@ export const wealdHigherQuestsSchema = z
             z.discriminatedUnion("kind", [
               z.strictObject({
                 kind: z.literal("lairDeathBlight"),
-                amount: z.literal(4),
+                amount: z.literal(2),
+                stacks: z.literal(2),
                 duration: z.literal(2),
               }),
               z.strictObject({

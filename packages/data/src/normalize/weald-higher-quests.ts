@@ -106,7 +106,7 @@ export function buildWealdHigherQuests(raw: RawFile) {
       xp: { subject, per, cap: 3 },
       approvedOverrides:
         page === 14
-          ? [{ kind: "lairDeathBlight", amount: 4, duration: 2 }]
+          ? [{ kind: "lairDeathBlight", amount: 2, duration: 2, stacks: 2 }]
           : page === 10
             ? [
                 {
