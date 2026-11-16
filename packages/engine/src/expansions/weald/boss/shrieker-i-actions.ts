@@ -1,3 +1,4 @@
+import { readShriekerRuntimeContext } from "./shrieker-runtime-context";
 import type { BattleEntity, BattleState } from "../../../battle";
 import type { GameState } from "../../../command";
 import type { SkillTargetSide } from "../../../hero-skill";
@@ -9,10 +10,9 @@ export function shriekerICombatActive(state: GameState): boolean {
   return (
     !!b &&
     !b.shriekerISetupHold &&
-    d?.campaignLevel === 1 &&
-    d.contentPacks?.includes("weald") === true &&
-    d.activeBossThreatScriptId === "boss:weald:shrieker:1" &&
-    d.roomCards?.active?.tileId === content.tile.id
+    !!readShriekerRuntimeContext(state) &&
+    d?.contentPacks?.includes("weald") === true &&
+    d?.roomCards?.active?.tileId === content.tile.id
   );
 }
 
@@ -20,7 +20,7 @@ export function shriekerINestHasNoInitiative(state: GameState, entity: BattleEnt
   return (
     shriekerICombatActive(state) &&
     entity.side === "monster" &&
-    entity.monsterCardId === content.faces[1]!.rawId
+    entity.monsterCardId === readShriekerRuntimeContext(state)!.faces[1].rawId
   );
 }
 
@@ -32,7 +32,10 @@ export function expandShriekerIInitiative(
 ): SkillTargetSide[] {
   if (!shriekerICombatActive(state)) return [...deck];
   const boss = battle.entities.find(
-    (e) => e.side === "monster" && !e.dead && e.monsterCardId === content.faces[0]!.rawId,
+    (e) =>
+      e.side === "monster" &&
+      !e.dead &&
+      e.monsterCardId === readShriekerRuntimeContext(state)!.faces[0].rawId,
   );
   return boss ? [...deck, "monster", "monster"] : [...deck];
 }
@@ -41,7 +44,8 @@ export function bumpShriekerIActionCount(state: GameState, actorId: string): Gam
   if (
     !shriekerICombatActive(state) ||
     !state.battle!.entities.some(
-      (e) => e.id === actorId && e.monsterCardId === content.faces[0]!.rawId,
+      (e) =>
+        e.id === actorId && e.monsterCardId === readShriekerRuntimeContext(state)!.faces[0].rawId,
     )
   )
     return state;
@@ -58,7 +62,8 @@ export function shriekerIActionQuotaReached(state: GameState, actorId: string): 
   if (
     !shriekerICombatActive(state) ||
     !state.battle!.entities.some(
-      (e) => e.id === actorId && e.monsterCardId === content.faces[0]!.rawId,
+      (e) =>
+        e.id === actorId && e.monsterCardId === readShriekerRuntimeContext(state)!.faces[0].rawId,
     )
   )
     return true;

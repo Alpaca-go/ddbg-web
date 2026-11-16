@@ -1,3 +1,4 @@
+import { readShriekerRuntimeContext } from "./shrieker-runtime-context";
 import { buildShriekerICombatCatalog } from "./shrieker-i-projection";
 import type { ApplyResult } from "../../../command";
 import { WEALD_SHRIEKER_I_CONTENT as content } from "./shrieker-i-content";
@@ -7,12 +8,12 @@ import { shriekerINestRemovalIds } from "./shrieker-i-nest";
 export function clearShriekerINest(result: ApplyResult, ids: readonly string[]) {
   const b = result.state.battle;
   const d = result.state.dungeon;
+  const context = readShriekerRuntimeContext(result.state);
   if (
     !b ||
     !d?.contentPacks?.includes("weald") ||
-    d.campaignLevel !== 1 ||
-    d.activeBossThreatScriptId !== "boss:weald:shrieker:1" ||
-    d.imminentThreatDescriptionCardId !== content.abilities.descriptionCardId ||
+    !context ||
+    d.imminentThreatDescriptionCardId !== context.abilities.descriptionCardId ||
     d.roomCards?.active?.tileId !== content.tile.id
   )
     return { result, ids };
@@ -21,14 +22,20 @@ export function clearShriekerINest(result: ApplyResult, ids: readonly string[]) 
     if (
       d.shriekerBossBattles &&
       b.monsters?.some((c) => c.skills.some((s) => s.verified_shrieker_flight)) &&
-      !b.entities.some((e) => !e.dead && e.monsterCardId === content.faces[1]!.rawId)
+      !b.entities.some((e) => !e.dead && e.monsterCardId === context.faces[1].rawId)
     ) {
       return {
         result: {
           ...result,
           state: {
             ...result.state,
-            battle: { ...b, monsters: buildShriekerICombatCatalog({ nestInPlay: false }) },
+            battle: {
+              ...b,
+              monsters:
+                context.level === 1
+                  ? buildShriekerICombatCatalog({ nestInPlay: false })
+                  : context.catalog(false),
+            },
           },
         },
         ids,
