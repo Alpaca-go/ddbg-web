@@ -46,3 +46,38 @@ export const wealdLevelOneMonsterInstancesSchema = z
       ctx.addIssue({ code: "custom", message: "Weald I 级实体、副本或部署身份不符" });
   });
 export type WealdLevelOneMonsterInstance = z.infer<typeof instanceSchema>;
+
+/** R-263／R-264：高等级独立实体清单，不能由任意快照自报牌堆身份。 */
+export function wealdHigherMonsterInstancesSchema(level: 2 | 3) {
+  if (level !== 2 && level !== 3) throw new Error("Weald 高等级仅支持 II／III");
+  const pages = level === 2 ? [15, 16, 17] : [18, 19];
+  return z
+    .array(instanceSchema)
+    .length(pages.length)
+    .superRefine((rows, ctx) => {
+      const expected = pages.map((page) => ({
+        instanceId: `monster-deck:weald:p${String(page).padStart(3, "0")}`,
+        cardId:
+          page === 17
+            ? "monster_large:weald:p003"
+            : `monster_medium:weald:p0${level === 2 ? 15 : 18}`,
+        edge: page === 17 ? "front" : "back",
+        stanceSlots: page === 17 ? 2 : 1,
+        verified: true,
+      }));
+      if (
+        new Set(rows.map((r) => r.instanceId)).size !== pages.length ||
+        expected.some(
+          (e) =>
+            !rows.some(
+              (r) =>
+                r.instanceId === e.instanceId &&
+                r.cardId === e.cardId &&
+                r.edge === e.edge &&
+                r.stanceSlots === e.stanceSlots,
+            ),
+        )
+      )
+        ctx.addIssue({ code: "custom", message: "Weald 高等级实体、副本或部署身份不符" });
+    });
+}

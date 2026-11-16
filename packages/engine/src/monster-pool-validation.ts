@@ -14,9 +14,11 @@ export function monsterPoolCatalogValidForLocation(
     return (
       (pool.location === undefined || pool.location === "ruins") &&
       pool.wealdInstances === undefined &&
+      pool.wealdSourceVersion === undefined &&
+      pool.wealdMonsterLevel === undefined &&
       monsterPoolCatalogSchema.safeParse(pool.cards).success
     );
-  if (location !== "weald" || pool.location !== "weald" || level !== 1) return false;
+  if (location !== "weald" || pool.location !== "weald") return false;
   try {
     dungeonMonsterPoolThrough(pool, level);
     return true;
