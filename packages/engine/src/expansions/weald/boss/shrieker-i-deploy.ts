@@ -1,3 +1,4 @@
+import { buildShriekerICombatCatalog } from "./shrieker-i-projection";
 import type { ApplyResult, GameState } from "../../../command";
 import { createBattleState, rejectBattleCommand } from "../../../battle";
 import { buildBossHeroEntities } from "../../../boss/deploy-heroes";
@@ -81,7 +82,10 @@ export function prepareShriekerIObjectiveRoom(state: GameState): ApplyResult {
 }
 
 /** 只部署核准 I 级，保留开战停点；高等级／Stygian 随后接。 */
-export function deployShriekerI(state: GameState): ApplyResult {
+export function deployShriekerI(
+  state: GameState,
+  options: { readonly shriekerSkills?: true | undefined } = {},
+): ApplyResult {
   const d = state.dungeon;
   const active = d?.roomCards?.active;
   const room = d?.rooms.find((r) => r.id === d.position);
@@ -127,15 +131,16 @@ export function deployShriekerI(state: GameState): ApplyResult {
   try {
     const battle = createBattleState(state.seed, {
       ...deployment,
-      // 仅用于部署属性关联；技能与能力尚未接入，不能开放战斗。
-      monsters: WEALD_SHRIEKER_I_CONTENT.faces.map((face) => ({
-        id: face.rawId,
-        life: face.life,
-        speed: face.speed,
-        dodge: face.dodge,
-        verification: { unverified: true },
-        skills: [],
-      })),
+      monsters: options.shriekerSkills
+        ? buildShriekerICombatCatalog({ nestInPlay: true })
+        : WEALD_SHRIEKER_I_CONTENT.faces.map((face) => ({
+            id: face.rawId,
+            life: face.life,
+            speed: face.speed,
+            dodge: face.dodge,
+            verification: { unverified: true },
+            skills: [],
+          })),
       roomName: "Shrieker",
       entities: [...heroes, ...deployment.entities],
       heroStats: d.battleCatalog.heroStats,

@@ -170,3 +170,23 @@ it("W3 本体死亡清除 Nest，经共用死亡事件且不重复清理；机�
   expect(repeated.events).toEqual([]);
   expect(repeated.state).toEqual(cleared.state);
 });
+
+it("R-261 显式技能版本保留旧部署输出，两个版本都保持开战停点", () => {
+  const prepared = run(atObjective(), { type: "prepareDungeonBattle" });
+  const legacy = run(prepared, { type: "deployShriekerI" });
+  expect(legacy.battle!.monsters![0]).toMatchObject({
+    skills: [],
+    verification: { unverified: true },
+  });
+  const command = { type: "deployShriekerI", shriekerSkills: true } as const;
+  expect(savedCommandSchema.parse(command)).toEqual(command);
+  expect(savedCommandSchema.safeParse({ ...command, shriekerSkills: false }).success).toBe(false);
+  const modern = run(prepared, command);
+  expect(modern.battle!.monsters![0]!.skills).toHaveLength(3);
+  expect(modern.battle!.monsters![1]!.skills).toEqual([]);
+  expect(modern.battle!.entities).toEqual(legacy.battle!.entities);
+  expect(modern.dungeon).toEqual(legacy.dungeon);
+  expect(modern.battle!.rngCursor).toBe(legacy.battle!.rngCursor);
+  expect(run(JSON.parse(JSON.stringify(prepared)) as GameState, command)).toEqual(modern);
+  expect(applyCommand(modern, { type: "startBattle" }).state).toBe(modern);
+});

@@ -313,7 +313,7 @@ type BaseCommand =
   | { readonly type: "deployProphetII" }
   | { readonly type: "deployProphetIII" }
   | { readonly type: "deployPounderI" }
-  | { readonly type: "deployShriekerI" }
+  | { readonly type: "deployShriekerI"; readonly shriekerSkills?: true | undefined }
   | { readonly type: "deployHagI" }
   | { readonly type: "deployFanaticI" }
   | { readonly type: "deployFanaticII" }
@@ -738,7 +738,7 @@ function dispatchCommand(
   if (command.type === "deployProphetI") return deployProphetI(state);
   if (command.type === "deployProphetII") return deployProphetII(state);
   if (command.type === "deployProphetIII") return deployProphetIII(state);
-  if (command.type === "deployShriekerI") return deployShriekerI(state);
+  if (command.type === "deployShriekerI") return deployShriekerI(state, command);
   if (command.type === "deployPounderI") return deployPounderI(state);
   if (command.type === "deployHagI") return deployHagI(state);
   if (command.type === "deployFanaticI") return deployFanaticI(state);

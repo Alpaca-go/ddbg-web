@@ -71,7 +71,7 @@ export const savedCommandSchema = z.union([
   commandObject({ type: z.literal("deployCollectorIII") }),
   commandObject({ type: z.literal("deployHagI") }),
   commandObject({ type: z.literal("deployPounderI") }),
-  commandObject({ type: z.literal("deployShriekerI") }),
+  commandObject({ type: z.literal("deployShriekerI"), shriekerSkills: z.literal(true).optional() }),
   commandObject({ type: z.literal("deployFanaticI") }),
   commandObject({ type: z.literal("deployFanaticII") }),
   commandObject({ type: z.literal("deployFanaticIII") }),
