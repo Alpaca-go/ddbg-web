@@ -616,3 +616,58 @@ it("R-130疾病引发第四怪癖时，先选择替换，再提供Book of Consti
   expect(paid.state.battle!.entities[0]!.quirkIds).toHaveLength(3);
   expect(paid.state.battle!.conditions!.diseaseDiscard).toHaveLength(2);
 });
+
+it.each([
+  { count: 15, late: false },
+  { count: 16, late: false },
+  { count: 15, late: true },
+])("R-266 Camper’s Helmet 满池$count，晚启用$late，仍掷两骰", ({ count, late }) => {
+  const initial = dungeon("trinket:p024");
+  const state = {
+    ...initial,
+    dungeon: {
+      ...initial.dungeon!,
+      explorationSetup: {
+        ...initial.dungeon!.explorationSetup!,
+        provisions: Array.from({ length: count }, (_, i) => ({
+          id: `helmet-old:${i}`,
+          face: "food" as const,
+        })),
+      },
+    },
+  };
+  let result = ok(
+    applyCommand(state, {
+      type: "restDungeon",
+      allTrinkets: true,
+      inventoryOverflow: late ? undefined : true,
+    }),
+  );
+  result = choose(result, "collective");
+  for (let i = 0; i < 32 && !result.state.trinketChoice && !result.state.dungeon!.rest!.used; i++)
+    result = choose(result, "heal:0");
+  expect(result.pendingChoice!.options.some((o) => o.id === "trinket:p024")).toBe(true);
+  expect(result.state.inventoryOverflow).toBe(late ? undefined : true);
+  result = late
+    ? ok(
+        applyCommand(result.state, {
+          type: "resolveChoice",
+          choiceId: result.pendingChoice!.id,
+          optionId: "trinket:p024",
+          allTrinkets: true,
+          inventoryOverflow: true,
+        }),
+      )
+    : choose(result, "trinket:p024");
+  for (let i = 0; i < 4 && result.state.trinketChoice; i++) result = choose(result, "food");
+  expect(result.state.dungeon!.explorationSetup!.provisions).toHaveLength(count + 2);
+  expect(result.state.dungeon!.cursor).toBe(state.dungeon.cursor + 2);
+  for (let i = 0; i < 3 && result.state.inventoryOverflowHold; i++) {
+    const p = result.pendingChoice!,
+      incoming = p.options.find((o) => o.id.startsWith("camp-provision:"))!;
+    result = choose(result, incoming.id);
+  }
+  expect(result.state.dungeon!.explorationSetup!.provisions).toHaveLength(16);
+  expect(result.state.dungeon!.rest!.used).toBe(true);
+  expect(result.state.dungeon!.trinkets!.held[0]!.face).toBe("inverted");
+});

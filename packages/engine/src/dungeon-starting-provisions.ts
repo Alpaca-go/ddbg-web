@@ -1,3 +1,4 @@
+import { settleInventoryOverflow } from "./inventory-overflow";
 import { wealdTaskActive } from "./expansions/weald/higher-task-effects";
 import { beginShriekerReserveTheft } from "./expansions/weald/boss/shrieker-i-provisions";
 import type { ApplyResult, Command, GameEvent, GameState } from "./command";
@@ -339,7 +340,7 @@ export function setupDungeonProvisions(
         ? [...questInfo.provisions, ...questInfo.questItems]
         : (completed.explorationSetup?.provisions ?? []);
     const overflow = Math.max(0, mergedProvisions.length + potionItems.length - 16);
-    if (overflow > 0) {
+    if (overflow > 0 && !state.inventoryOverflow) {
       return beginProvisionDiscard(
         {
           ...state,
@@ -387,10 +388,14 @@ export function setupDungeonProvisions(
           ]
         : []),
     ];
-    return finishQuestProvisionFlow({ ...state, dungeon: { ...questedDungeon, pending: null } }, [
-      ...events,
-      ...questEvents,
-    ]);
+    const acquired: ApplyResult = {
+      state: { ...state, dungeon: { ...questedDungeon, pending: null } },
+      events: [...events, ...questEvents],
+    };
+    const overflowResult = settleInventoryOverflow(acquired, { type: "questProvisionFlow" });
+    return overflowResult.pendingChoice
+      ? overflowResult
+      : finishQuestProvisionFlow(acquired.state, [...acquired.events]);
   };
   const provisions = d.explorationSetup.provisions;
   if (command.type === "rollDungeonProvisions") {
@@ -426,7 +431,7 @@ export function setupDungeonProvisions(
       const bonus = hero.nextQuestProvisionDice;
       if (bonus === undefined) return hero;
       for (let index = 0; index < bonus; index++) {
-        if (remainingSlots <= 0) break;
+        if (!state.inventoryOverflow && remainingSlots <= 0) break;
         const id = bonusProvisionId(hero.id, index);
         const face = nextProvisionFace(state.seed, cursor++);
         events.push({
@@ -446,7 +451,8 @@ export function setupDungeonProvisions(
     // Supply Run是队伍奖励，不借用任一英雄身份；Wild由队伍选择，不受Radiant自选影响。
     for (
       let index = 0;
-      index < (d.nextQuestPartyProvisionDice ?? 0) && remainingSlots > 0;
+      index < (d.nextQuestPartyProvisionDice ?? 0) &&
+      (state.inventoryOverflow || remainingSlots > 0);
       index++
     ) {
       const id = `dungeon-party-provision:${index}`;
@@ -496,7 +502,7 @@ export function setupDungeonProvisions(
     !PROVISION_FACES.includes(command.optionId as ProvisionFace) ||
     !d.pending.options.some((o) => o.id === command.optionId) ||
     ids.length < expectedBase.length ||
-    ids.length > 16 ||
+    (!state.inventoryOverflow && ids.length > 16) ||
     new Set(ids).size !== ids.length ||
     expectedBase.some((id) => !ids.includes(id)) ||
     ids.some(

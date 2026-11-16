@@ -1,3 +1,4 @@
+import { settleInventoryOverflow } from "./inventory-overflow";
 import { wealdTaskActive } from "./expansions/weald/higher-task-effects";
 import { resolveOurs } from "./battle-ours";
 import { rejectBattleCommand } from "./battle";
@@ -120,7 +121,10 @@ function finishLoot(
     return rejectBattleCommand(state, "战利品金币 / 补给实例游标无效");
   const gold = "gold" in reward ? loot.gold + reward.gold : loot.gold;
   if (!Number.isSafeInteger(gold)) return rejectBattleCommand(state, "金币超出安全整数范围");
-  if ("face" in reward && (!battle.provisions || battle.provisions.length >= 16))
+  if (
+    "face" in reward &&
+    (!battle.provisions || (!state.inventoryOverflow && battle.provisions.length >= 16))
+  )
     return rejectBattleCommand(state, "补给池已满或缺失，保留宝箱且不扣行动（R-059）");
   const next: GameState = {
     ...state,
@@ -162,6 +166,11 @@ function finishLoot(
       state,
       ours.events.find((e) => e.type === "commandRefused")!.message,
     );
+  const overflow = settleInventoryOverflow(
+    ours,
+    turn.actions === 1 ? { type: "finishTurn", actorId } : { type: "result" },
+  );
+  if (overflow.pendingChoice) return overflow;
   return turn.actions === 1 ? finishTurn(ours.state, actorId, ours.events) : ours;
 }
 function rewardChoice(
@@ -181,7 +190,7 @@ function rewardChoice(
             label:
               token.kind === "doubleGoldOrChoose" ? "掷 d10，获得双倍金币" : "掷 d10，获得金币",
           },
-          ...(battle.provisions!.length < 16
+          ...(state.inventoryOverflow || battle.provisions!.length < 16
             ? [
                 {
                   id: "provision",
@@ -309,11 +318,15 @@ export function interactLoot(state: GameState, actorId: string): ApplyResult {
     )
   )
     return rejectBattleCommand(state, "同区没有宝箱或补给池缺失 / 无效");
-  if (wealdTaskActive(state, 10) && battle.provisions.length === 16)
+  if (!state.inventoryOverflow && wealdTaskActive(state, 10) && battle.provisions.length === 16)
     return rejectBattleCommand(state, "补给池已满，保留宝箱且不扣行动（R-059）");
-  if (wealdTaskActive(state, 10) && battle.provisions.length === 15)
+  if (!state.inventoryOverflow && wealdTaskActive(state, 10) && battle.provisions.length === 15)
     return rejectBattleCommand(state, "补给池只剩一格，双份奖励的处理待确认；暂不拾取（Q-188）");
-  if (battle.provisions.length === 16 && ["rollProvision", "chooseProvision"].includes(token.kind))
+  if (
+    !state.inventoryOverflow &&
+    battle.provisions.length === 16 &&
+    ["rollProvision", "chooseProvision"].includes(token.kind)
+  )
     return rejectBattleCommand(state, "补给池已满，保留纯补给宝箱且不扣行动（R-059）");
   const next = {
     ...state,
@@ -365,7 +378,11 @@ export function resolveLootChoice(state: GameState, optionId: string): ApplyResu
       [],
     );
   }
-  if (optionId !== "provision" || !battle.provisions || battle.provisions.length >= 16)
+  if (
+    optionId !== "provision" ||
+    !battle.provisions ||
+    (!state.inventoryOverflow && battle.provisions.length >= 16)
+  )
     return rejectBattleCommand(state, "补给奖励无可用骰子（R-059）");
   return token.kind === "doubleGoldOrChoose"
     ? rewardChoice(state, actorId, token, "face", [])
