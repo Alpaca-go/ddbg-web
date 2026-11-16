@@ -118,3 +118,21 @@ it("R-261 Peck／Regurgitate 的效果计划不丢流血、减益或疾病；Nes
   });
   expect(resolveMonsterSkill(withNest!, 2, combat, 5).status).toBe("refused");
 });
+
+it("R-262 明确落空时自身治疗仍执行，飞行替代不再产生 Push 意图", () => {
+  const [card] = buildShriekerICombatCatalog({ nestInPlay: true, nestFlightApproved: true });
+  const result = resolveMonsterSkill(
+    card!,
+    2,
+    { ...combat, actor: { id: "shrieker", wounds: 5 }, target: { ...combat.target, dodge: 10 } },
+    10,
+  );
+  expect(result.status).toBe("resolved");
+  if (result.status !== "resolved") throw new Error(result.reason);
+  expect(result.resolution).toMatchObject({
+    outcome: "miss",
+    actorWounds: 3,
+    actorShuffle: null,
+    damageDealt: null,
+  });
+});

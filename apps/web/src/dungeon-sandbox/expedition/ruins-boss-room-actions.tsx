@@ -30,6 +30,15 @@ export function RuinsBossRoomActions({
 
 const entries = [
   {
+    id: "shrieker",
+    level: 1,
+    name: "Shrieker I",
+    roomName: "Shrieker",
+    room: "room:weald:p011",
+    script: "boss:weald:shrieker:1",
+    command: "deployShriekerI",
+  },
+  {
     id: "pounder",
     level: 1,
     name: "Brigand Pounder I",
@@ -166,9 +175,10 @@ function bossRoomEntry(d: DungeonState) {
     return undefined;
   return entries.find(
     (e) =>
+      (e.id !== "shrieker" || d.shriekerBossBattles) &&
       (e.id !== "pounder" ||
         (d.pounderBossBattles && d.pounderDungeonThreats && d.pounderHamletThreats)) &&
-      (!["hag", "pounder"].includes(e.id) ||
+      (!["hag", "pounder", "shrieker"].includes(e.id) ||
         (d.mode !== "stygian" &&
           d.contentPacks?.includes("weald") &&
           d.bossLocationSources &&
