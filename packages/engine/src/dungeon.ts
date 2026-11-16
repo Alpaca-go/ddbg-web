@@ -317,6 +317,7 @@ export type DungeonState = {
   readonly whisperingWoodsQuest?: true;
   readonly wealdHigherQuestOffers?: true | "tasks-v1";
   readonly wealdViragoKills?: number;
+  readonly wealdBurnedOakRoomIds?: readonly string[];
   readonly wealdSecuredRoomCardIds?: readonly string[];
   readonly monsterPool?: import("./monster-pool-runtime").MonsterPoolDeckState & {
     readonly remaining: readonly string[] | null;

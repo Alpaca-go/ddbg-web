@@ -18,6 +18,8 @@ export function spawnMonsters(
     readonly allowUnverified?: boolean;
     /** 为 true 时消耗牌序但不落位（实例进入 remaining，R-048 守恒）。 */
     readonly skipSpawn?: (card: SpawnCard) => boolean;
+    /** R-029：补怪时保留已有姿态，必要时按同一大型怪替换规则处理。 */
+    readonly initial?: readonly SpawnPlacement[];
   },
 ):
   | { type: "refused"; reason: string }
@@ -43,7 +45,20 @@ export function spawnMonsters(
     STANCES.some((stance) => typeof starts[stance] !== "string" || !starts[stance])
   )
     return { type: "refused", reason: "生成需要唯一实例、已核实前后排 / 占格和起点（R-048）" };
-  let placed: { card: SpawnCard; position: number }[] = [];
+  let placed: { card: SpawnCard; position: number }[] = (options?.initial ?? []).map((card) => ({
+    card,
+    position: STANCES.indexOf(card.stance),
+  }));
+  const initialSlots = placed.flatMap(({ card, position }) =>
+    Array.from({ length: card.stanceSlots }, (_, i) => position + i),
+  );
+  if (
+    initialSlots.some((n) => n < 0 || n > 3) ||
+    new Set(initialSlots).size !== initialSlots.length ||
+    new Set([...deck, ...(options?.initial ?? [])].map((c) => c.instanceId)).size !==
+      deck.length + placed.length
+  )
+    return { type: "refused", reason: "补怪的已有姿态或组件身份无效（R-029）" };
   const discarded: SpawnCard[] = [];
   const skippedCards: SpawnCard[] = [];
   let drawn = 0;

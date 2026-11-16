@@ -556,6 +556,28 @@ export const basicQuests = [
       ],
     }),
   },
+  {
+    id: "quest:weald:p011",
+    name: "No Other Way",
+    level: 3 as const,
+    restPoints: 8,
+    xpKind: "objective" as const,
+    roomsPerXp: 1,
+    maxRooms: 3,
+    expeditionRegion: "weald" as const,
+    setAsideRoomCardId: "room:weald:p005",
+    verifiedRuleRulings: ["R-264"] as const,
+    distribution: roomDistributionSchema.parse({
+      questId: "quest:weald:p011",
+      source: "Weald QUEST FRONT p11 / R-264",
+      counts: [
+        { kind: "objective", count: 3 },
+        { kind: "dark", count: 2 },
+        { kind: "lair", count: 2 },
+        { kind: "trap", count: 1 },
+      ],
+    }),
+  },
 ] as const;
 export type BasicQuestId = (typeof basicQuests)[number]["id"];
 export type CampaignLevel = 1 | 2 | 3;
@@ -655,10 +677,16 @@ export function storedDistributionMatchesQuest(
   const randomRows = stored.counts.filter((c) => !fixedKinds.has(c.kind));
   const randomTotal = randomRows.reduce((n, c) => n + c.count, 0);
   if (randomTotal !== template.randomizeNonObjective) return false;
-  const allowed = template.questId === "quest:weald:p008"
-    ? ["empty", "dark", "curio", "treasure", "trap"]
-    : randomNonObjectiveRoomKinds;
-  if (randomRows.some((c) => !allowed.includes(c.kind) || (template.questId === "quest:weald:p008" && c.count > 3))) return false;
+  const allowed =
+    template.questId === "quest:weald:p008"
+      ? ["empty", "dark", "curio", "treasure", "trap"]
+      : randomNonObjectiveRoomKinds;
+  if (
+    randomRows.some(
+      (c) => !allowed.includes(c.kind) || (template.questId === "quest:weald:p008" && c.count > 3),
+    )
+  )
+    return false;
   return roomDistributionTokenTotal(stored) === roomDistributionTokenTotal(template);
 }
 export function matchesQuestCounts(
