@@ -22,7 +22,7 @@ const skill = z.strictObject({
     ]),
   ),
 });
-const combatFace = z.strictObject({
+export const wealdHagCombatFaceSchema = z.strictObject({
   role: z.enum(["hag", "empty", "full"]),
   rawId: z.enum(["monster_large:weald:p010", "monster_large:weald:p013"]),
   face: z.enum(["front", "back"]),
@@ -86,7 +86,7 @@ export const wealdHagContentSchema = z
       abilityFront: z.literal(`${PRINT}DD_EN_WEALD_CARDS_70_120_Boss_Abilities_FRONT.pdf`),
       abilityBack: z.literal(`${PRINT}DD_EN_WEALD_CARDS_70_120_Boss_Abilities_BACK.pdf`),
     }),
-    faces: z.array(combatFace).length(3),
+    faces: z.array(wealdHagCombatFaceSchema).length(3),
     abilities: z.strictObject({
       descriptionCardId: z.literal("boss_ability:weald:p013"),
       hagCardId: z.literal("boss_ability:weald:p016"),

@@ -179,6 +179,8 @@ export {
 export type { WealdRoomCard, WealdRoomTile } from "./weald-room";
 export { wealdHagContentSchema, wealdHagTileSchema } from "./weald-hag";
 export type { WealdHagContent } from "./weald-hag";
+export { wealdHagHigherContentSchema } from "./weald-hag-higher";
+export type { WealdHagHigherContent } from "./weald-hag-higher";
 
 export {
   absoluteNothingnessSupportSchema,
