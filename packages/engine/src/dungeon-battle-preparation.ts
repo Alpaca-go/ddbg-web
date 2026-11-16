@@ -70,7 +70,10 @@ export function prepareDungeonBattle(state: GameState): ApplyResult {
   }
   const index = wealdTaskActive(state, 10)
     ? deck.findIndex((id) => {
-        const tile = readExpeditionRoomTile(pool.find((card) => card.id === id), d);
+        const tile = readExpeditionRoomTile(
+          pool.find((card) => card.id === id),
+          d,
+        );
         return tile.status === "matched" && (tile.deployment.lootAreas?.length ?? 0) > 0;
       })
     : 0;
