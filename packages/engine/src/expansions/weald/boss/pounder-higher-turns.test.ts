@@ -209,3 +209,23 @@ describe.each([2, 3] as const)("R-268 Pounder %i 级回合", (level) => {
     expect(result.state.battle!.rngCursor).toBe(dead.battle!.rngCursor);
   });
 });
+
+it("Q-189两名英雄占满两格时原子拒绝，不提交大型单位或先攻洗牌", () => {
+  const source = fixture(2),
+    state: GameState = {
+      ...source,
+      battle: {
+        ...source.battle!,
+        entities: source.battle!.entities.map((e) =>
+          e.side === "hero" ? { ...e, areaId: "I" } : e,
+        ),
+      },
+    };
+  const before = structuredClone(state),
+    result = applyCommand(state, { type: "prepareMonsterAction", actorId: "boss:pounder" });
+  expect(result.events).toEqual([
+    expect.objectContaining({ type: "commandRefused", message: expect.stringContaining("Q-189") }),
+  ]);
+  expect(result.state).toBe(state);
+  expect(state).toEqual(before);
+});
