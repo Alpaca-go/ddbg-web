@@ -280,6 +280,7 @@ const phase3QuestIds = basicQuests
   .map((q) => q.id) as [BasicQuestId, ...BasicQuestId[]];
 
 export const questStartSchema = z.strictObject({
+  wealdHigherQuestOffers: z.literal(true).optional(),
   whisperingWoodsQuest: z.literal(true).optional(),
   initialQuestDrawMode: z
     .enum([

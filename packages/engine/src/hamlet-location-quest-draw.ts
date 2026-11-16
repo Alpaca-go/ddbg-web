@@ -26,11 +26,14 @@ function questIdsForLocationDeck(
   deck: HamletLocationQuestDeck,
   campaignLevel: CampaignLevel,
   contentPacks?: readonly ContentPackId[],
+  higherQuests?: true,
 ): readonly BasicQuestId[] {
   if (deck === "ruins") {
     return questsForCampaignLevel(campaignLevel).map((q) => q.id);
   }
-  if (!contentPacks?.includes("weald") || campaignLevel !== 1) return [];
+  if (!contentPacks?.includes("weald")) return [];
+  if (campaignLevel === 3 && higherQuests) return ["quest:weald:p015"];
+  if (campaignLevel !== 1) return [];
   return SANDBOX_WEALD_EMBARK_QUEST_IDS;
 }
 
@@ -41,8 +44,9 @@ export function remainingQuestIdsForLocationDeck(
   contentPacks: readonly ContentPackId[] | undefined,
   currentQuestId: string,
   discarded: readonly string[],
+  higherQuests?: true,
 ): readonly BasicQuestId[] {
-  return questIdsForLocationDeck(deck, campaignLevel, contentPacks).filter(
+  return questIdsForLocationDeck(deck, campaignLevel, contentPacks, higherQuests).filter(
     (id) => id !== currentQuestId && !discarded.includes(id),
   );
 }
@@ -58,6 +62,7 @@ export function legalHamletQuestDrawModes(
   contentPacks: readonly ContentPackId[] | undefined,
   currentQuestId: string,
   discarded: readonly string[],
+  higherQuests?: true,
 ): readonly HamletQuestDrawModePlan[] {
   if (!hamletWealdLocationDrawEnabled(contentPacks)) return [];
   const ruins = remainingQuestIdsForLocationDeck(
@@ -66,6 +71,7 @@ export function legalHamletQuestDrawModes(
     contentPacks,
     currentQuestId,
     discarded,
+    higherQuests,
   );
   const weald = remainingQuestIdsForLocationDeck(
     "weald",
@@ -73,6 +79,7 @@ export function legalHamletQuestDrawModes(
     contentPacks,
     currentQuestId,
     discarded,
+    higherQuests,
   );
   const modes: HamletQuestDrawModePlan[] = [];
   if (ruins.length >= 2) {
@@ -140,6 +147,7 @@ export function executeHamletQuestDrawMode(
   contentPacks: readonly ContentPackId[] | undefined,
   currentQuestId: string,
   discarded: readonly string[],
+  higherQuests?: true,
 ):
   | { readonly offers: readonly BasicQuestId[]; readonly cursor: number }
   | { readonly reason: string } {
@@ -150,6 +158,7 @@ export function executeHamletQuestDrawMode(
       contentPacks,
       currentQuestId,
       discarded,
+      higherQuests,
     ),
   ];
   const weald = [
@@ -159,6 +168,7 @@ export function executeHamletQuestDrawMode(
       contentPacks,
       currentQuestId,
       discarded,
+      higherQuests,
     ),
   ];
   if (mode === HAMLET_QUEST_DRAW_OPTION.ruinsTwo) {

@@ -62,7 +62,7 @@ export const wealdHigherQuestsSchema = z
             ]),
           ),
           verifiedRules: z.tuple([z.literal("R-264")]),
-          runtimeReady: z.literal(false),
+          runtimeReady: z.boolean(),
         }),
       )
       .length(10),
@@ -75,6 +75,7 @@ export const wealdHigherQuestsSchema = z
       if (
         card.id !== `quest:weald:p${String(card.source.page).padStart(3, "0")}` ||
         card.level !== (card.source.page <= 10 ? 2 : 3) ||
+        card.runtimeReady !== (card.source.page === 15) ||
         counts.reduce<number>((sum, row) => sum + row.count, randomSlots) !== 8 ||
         new Set(counts.map((row) => row.kind)).size !== counts.length ||
         (randomSlots === 5 &&

@@ -17,6 +17,7 @@ export function createCampaignQuest(
   sources: CoreQuestSources,
   packs: readonly ContentPackId[] = ["core"],
   initialQuestDrawMode?: HamletQuestDrawOptionId,
+  wealdHigherQuestOffers?: true,
 ) {
   return createCoreDungeonQuest(
     seed,
@@ -28,5 +29,7 @@ export function createCampaignQuest(
     "full",
     normalizeContentPacks(packs),
     initialQuestDrawMode,
+    undefined,
+    wealdHigherQuestOffers,
   );
 }

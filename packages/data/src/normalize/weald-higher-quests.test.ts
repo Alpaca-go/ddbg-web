@@ -21,7 +21,9 @@ describe("R-264 高等级任务数据批", () => {
     expect(result.cards.filter((c) => c.level === 3)).toHaveLength(5);
     expect(result.cards.find((c) => c.source.page === 9)?.name).toBe("Hounds of the Woods");
     expect(result.cards.find((c) => c.source.page === 10)?.name).toBe("Lost Supplies");
-    expect(result.cards.every((c) => !c.runtimeReady)).toBe(true);
+    expect(result.cards.filter((c) => c.runtimeReady).map((c) => c.id)).toEqual([
+      "quest:weald:p015",
+    ]);
     expect(
       basicQuests.filter((q) => result.cards.some((c) => c.id === q.id)).map((q) => q.id),
     ).toEqual(["quest:weald:p015"]);

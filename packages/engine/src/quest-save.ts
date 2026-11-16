@@ -64,6 +64,7 @@ function replay(
     start.contentPacks,
     start.initialQuestDrawMode,
     start.whisperingWoodsQuest,
+    start.wealdHigherQuestOffers,
   );
   if (!start.skillLightBeforeCrit) {
     const { skillLightBeforeCrit, ...legacy } = game;
