@@ -1,3 +1,9 @@
+import {
+  expandShriekerIInitiative,
+  shriekerINestHasNoInitiative,
+  bumpShriekerIActionCount,
+  shriekerIActionQuotaReached,
+} from "./expansions/weald/boss/shrieker-i-actions";
 import { clearShriekerINest } from "./expansions/weald/boss/shrieker-i-cleanup";
 import {
   enableClearingHeroes,
@@ -188,13 +194,17 @@ function startRound(
   let deck: SkillTargetSide[] = battle.entities
     .filter(
       (entity) =>
-        !entity.dead && !isAbsoluteNothingnessEntity(entity) && !isNecroticFungusEntity(entity),
+        !entity.dead &&
+        !isAbsoluteNothingnessEntity(entity) &&
+        !isNecroticFungusEntity(entity) &&
+        (!gameState || !shriekerINestHasNoInitiative(gameState, entity)),
     )
     .map((entity) => entity.side);
   if (gameState) {
     deck = expandProphetIInitiativeDeckSides(deck, battle, gameState);
     deck = expandFanaticIInitiativeDeckSides(deck, battle, gameState);
     deck = expandHagIInitiativeDeckSides(deck, battle, gameState);
+    deck = expandShriekerIInitiative(deck, battle, gameState);
     deck = expandDarkestMidBossInitiativeDeckSides(deck, battle, gameState);
     const final = currentFinalActor(gameState);
     if (final && battle.entities.some((e) => !e.dead && e.monsterCardId === final.cardId)) {
@@ -233,6 +243,7 @@ function startRound(
     prophetCalamitousUsedThisRound: _calamitousRoundFlag,
     prophetActionsThisRound: _prophetRoundActions,
     hagActionsThisRound: _hagRoundActions,
+    shriekerActionsThisRound: _shriekerRoundActions,
     hagSecondSkillPending: _hagSecond,
     fanaticActionsThisRound: _fanaticRoundActions,
     ...battleRest
@@ -240,6 +251,7 @@ function startRound(
   void _calamitousRoundFlag;
   void _prophetRoundActions;
   void _hagRoundActions;
+  void _shriekerRoundActions;
   void _hagSecond;
   void _fanaticRoundActions;
   return {
@@ -473,6 +485,7 @@ export function finishTurn(
   }
   state = bumpProphetIActionRoundCount(state, actorId);
   state = bumpHagIActionRoundCount(state, actorId);
+  state = bumpShriekerIActionCount(state, actorId);
   state = bumpFanaticIActionRoundCount(state, actorId);
   state = bumpHeartOfDarknessImpendingDoomAfterAction(state, actorId);
   state = bumpAncestor2SwiftTeleportationAfterAction(state, actorId);
@@ -500,6 +513,7 @@ export function finishTurn(
     !encounter.actedIds.includes(actorId) &&
     prophetShouldEnterActedIdsAfterTurn(state, actorId) &&
     hagShouldEnterActedIdsAfterTurn(state, actorId) &&
+    shriekerIActionQuotaReached(state, actorId) &&
     fanaticShouldEnterActedIdsAfterTurn(state, actorId)
       ? [...encounter.actedIds, actorId]
       : encounter.actedIds;
@@ -521,7 +535,8 @@ export function finishTurn(
           entity.dead ||
           actedIds.includes(entity.id) ||
           isAbsoluteNothingnessEntity(entity) ||
-          isNecroticFungusEntity(entity),
+          isNecroticFungusEntity(entity) ||
+          shriekerINestHasNoInitiative(state, entity),
       ))
   ) {
     const abyss = endRoundInvocation({
@@ -1243,6 +1258,7 @@ export function applyEncounterCommand(state: GameState, command: EncounterComman
             !entity.dead &&
             entity.side === side &&
             !encounter.actedIds.includes(entity.id) &&
+            !shriekerINestHasNoInitiative(state, entity) &&
             !isAbsoluteNothingnessEntity(entity) &&
             !isNecroticFungusEntity(entity),
         )

@@ -179,6 +179,21 @@ export function beginSkillOwnEffects(
         events: [...health.events, ...statuses.events],
       },
     );
+  // R-262：Acc 后的自身飞行／治疗；保留声明快照，续接不重复支付。
+  const flight =
+    command.type === "playMonsterSkill" &&
+    battle.monsters
+      ?.find((c) => c.id === actor.monsterCardId)
+      ?.skills.find((s) => s.slot === command.skillSlot)?.verified_shrieker_flight;
+  const nest = flight
+    ? battle.entities.find(
+        (e) => e.side === "monster" && !e.dead && e.monsterCardId === "monster_large:weald:p007",
+      )
+    : undefined;
+  if (flight && !nest) return rejectBattleCommand(state, "Shrieker 飞行缺少在场 Nest（R-262）");
+  const ownEntities = nest
+    ? statuses.entities.map((e) => (e.id === actor.id ? { ...e, areaId: nest.areaId } : e))
+    : statuses.entities;
   const prefix: SkillPrefix = {
     ...(trinketAttack ? { trinketAttack } : {}),
     original: battle,
@@ -191,7 +206,7 @@ export function beginSkillOwnEffects(
       ...state,
       battle: {
         ...battle,
-        entities: statuses.entities,
+        entities: ownEntities,
         light: statuses.light,
         rngCursor: statuses.rngCursor,
         skillPrefix: prefix,
