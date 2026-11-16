@@ -655,10 +655,16 @@ export function storedDistributionMatchesQuest(
   const randomRows = stored.counts.filter((c) => !fixedKinds.has(c.kind));
   const randomTotal = randomRows.reduce((n, c) => n + c.count, 0);
   if (randomTotal !== template.randomizeNonObjective) return false;
-  const allowed = template.questId === "quest:weald:p008"
-    ? ["empty", "dark", "curio", "treasure", "trap"]
-    : randomNonObjectiveRoomKinds;
-  if (randomRows.some((c) => !allowed.includes(c.kind) || (template.questId === "quest:weald:p008" && c.count > 3))) return false;
+  const allowed =
+    template.questId === "quest:weald:p008"
+      ? ["empty", "dark", "curio", "treasure", "trap"]
+      : randomNonObjectiveRoomKinds;
+  if (
+    randomRows.some(
+      (c) => !allowed.includes(c.kind) || (template.questId === "quest:weald:p008" && c.count > 3),
+    )
+  )
+    return false;
   return roomDistributionTokenTotal(stored) === roomDistributionTokenTotal(template);
 }
 export function matchesQuestCounts(
