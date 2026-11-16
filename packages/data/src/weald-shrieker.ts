@@ -26,7 +26,7 @@ const skill = z.strictObject({
     ]),
   ),
 });
-const face = z.strictObject({
+export const wealdShriekerCombatFaceSchema = z.strictObject({
   role: z.enum(["shrieker", "nest"]),
   rawId: z.enum(["monster_large:weald:p004", "monster_large:weald:p007"]),
   face: z.literal("front"),
@@ -107,7 +107,7 @@ export const wealdShriekerContentSchema = z
       abilityFront: z.literal(`${PRINT}DD_EN_WEALD_CARDS_70_120_Boss_Abilities_FRONT.pdf`),
       abilityBack: z.literal(`${PRINT}DD_EN_WEALD_CARDS_70_120_Boss_Abilities_BACK.pdf`),
     }),
-    faces: z.tuple([face, face]),
+    faces: z.tuple([wealdShriekerCombatFaceSchema, wealdShriekerCombatFaceSchema]),
     abilities: z.strictObject({
       descriptionCardId: z.literal("boss_ability:weald:p001"),
       combatCardId: z.literal("boss_ability:weald:p004"),
