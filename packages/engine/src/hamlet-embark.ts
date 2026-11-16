@@ -474,7 +474,14 @@ export function chooseNextQuest(
     locationBlock &&
     !(
       (quest.id === "quest:weald:p015" ||
-        (["quest:weald:p007", "quest:weald:p013", "quest:weald:p014"].includes(quest.id) &&
+        ([
+          "quest:weald:p006",
+          "quest:weald:p007",
+          "quest:weald:p009",
+          "quest:weald:p012",
+          "quest:weald:p013",
+          "quest:weald:p014",
+        ].includes(quest.id) &&
           d.wealdHigherQuestOffers === "tasks-v1")) &&
       d.wealdHigherQuestOffers &&
       d.mode !== "stygian" &&
