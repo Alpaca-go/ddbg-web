@@ -10,7 +10,11 @@ export const nonObjectiveRoomTokenPoolCopiesPerKind = 3;
 
 /** R-265：仅 Searching in the Dark；实体冲压板五类各三枚。 */
 export const searchingInTheDarkRoomKinds: readonly RoomTokenKind[] = [
-  "empty", "dark", "curio", "treasure", "trap",
+  "empty",
+  "dark",
+  "curio",
+  "treasure",
+  "trap",
 ];
 
 function randomKinds(template: RoomDistribution): readonly RoomTokenKind[] {
@@ -97,9 +101,10 @@ export function drawAndMaterializeRoomDistribution(
 ): RoomDistribution {
   const need = template.randomizeNonObjective;
   if (!need) return template;
-  const pool = template.questId === "quest:weald:p008"
-    ? searchingInTheDarkRoomKinds.flatMap((kind) => [kind, kind, kind])
-    : buildNonObjectiveRoomTokenPool();
+  const pool =
+    template.questId === "quest:weald:p008"
+      ? searchingInTheDarkRoomKinds.flatMap((kind) => [kind, kind, kind])
+      : buildNonObjectiveRoomTokenPool();
   const drawn = drawRoomKindsWithoutReplacement(pool, need, randomUnit);
   return materializeRoomDistribution(template, drawn);
 }
