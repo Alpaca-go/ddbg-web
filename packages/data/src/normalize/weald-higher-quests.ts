@@ -129,8 +129,12 @@ export function buildWealdHigherQuests(raw: RawFile) {
                   },
                 ]
               : [],
-      verifiedRules: ["R-264", ...([6, 8, 9, 12, 13, 14].includes(page) ? ["R-265"] : [])],
-      runtimeReady: page !== 10,
+      verifiedRules: [
+        "R-264",
+        ...([6, 8, 9, 12, 13, 14].includes(page) ? ["R-265"] : []),
+        ...(page === 10 ? ["R-266"] : []),
+      ],
+      runtimeReady: true,
     };
   });
   return wealdHigherQuestsSchema.parse({ schema: "ddbg-weald-higher-quests-v1", cards });
