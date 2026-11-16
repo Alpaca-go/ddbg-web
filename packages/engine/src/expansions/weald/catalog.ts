@@ -8,18 +8,18 @@ export const WEALD_BOSS_DESCRIPTION_CARD_ID: Record<
 > = {
   hag: {
     1: "boss_ability:weald:p013", // R-254：描述目录不依赖战斗脚本初始化顺序。
-    2: undefined,
-    3: undefined,
+    2: "boss_ability:weald:p014",
+    3: "boss_ability:weald:p015",
   },
   brigandPounder: {
     1: "boss_ability:weald:p007",
-    2: undefined,
-    3: undefined,
+    2: "boss_ability:weald:p008",
+    3: "boss_ability:weald:p009",
   },
   shrieker: {
     1: "boss_ability:weald:p001",
-    2: undefined,
-    3: undefined,
+    2: "boss_ability:weald:p002",
+    3: "boss_ability:weald:p003",
   },
 };
 
