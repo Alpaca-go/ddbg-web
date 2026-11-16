@@ -40,7 +40,11 @@ export function campingTrinketReaction(
   const events: GameEvent[] = [];
   for (const hero of d.heroes) {
     const pool = d.explorationSetup?.provisions;
-    if (!pool || pool.length >= 16 || !availableTrinket(d, hero.id, "trinket:p024", "upright"))
+    if (
+      !pool ||
+      (!d.inventoryOverflow && pool.length >= 16) ||
+      !availableTrinket(d, hero.id, "trinket:p024", "upright")
+    )
       continue;
     const chosen = trinketChoice(
       d,
@@ -50,7 +54,7 @@ export function campingTrinketReaction(
       [{ id: "trinket:p024", label: "掷至多两颗补给骰并翻面" }],
     );
     if (chosen === "continue") continue;
-    const count = Math.min(2, 16 - pool.length);
+    const count = d.inventoryOverflow ? 2 : Math.min(2, 16 - pool.length);
     for (let i = 0; i < count; i++) {
       const rolled = nextProvisionFace(seed, d.cursor);
       events.push({
