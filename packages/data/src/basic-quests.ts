@@ -517,6 +517,23 @@ export const basicQuests = [
       ],
     }),
   },
+  {
+    id: "quest:weald:p008",
+    name: "Searching in the Dark",
+    level: 2 as const,
+    restPoints: 8,
+    xpKind: "lair" as const,
+    roomsPerXp: 1,
+    maxRooms: 3,
+    expeditionRegion: "weald" as const,
+    verifiedRuleRulings: ["R-264", "R-265"] as const,
+    distribution: roomDistributionSchema.parse({
+      questId: "quest:weald:p008",
+      source: "Weald QUEST FRONT p8 / R-265",
+      counts: [{ kind: "lair", count: 3 }],
+      randomizeNonObjective: 5,
+    }),
+  },
 ] as const;
 export type BasicQuestId = (typeof basicQuests)[number]["id"];
 export type CampaignLevel = 1 | 2 | 3;
@@ -616,7 +633,10 @@ export function storedDistributionMatchesQuest(
   const randomRows = stored.counts.filter((c) => !fixedKinds.has(c.kind));
   const randomTotal = randomRows.reduce((n, c) => n + c.count, 0);
   if (randomTotal !== template.randomizeNonObjective) return false;
-  if (randomRows.some((c) => !randomNonObjectiveRoomKinds.includes(c.kind))) return false;
+  const allowed = template.questId === "quest:weald:p008"
+    ? ["empty", "dark", "curio", "treasure", "trap"]
+    : randomNonObjectiveRoomKinds;
+  if (randomRows.some((c) => !allowed.includes(c.kind) || (template.questId === "quest:weald:p008" && c.count > 3))) return false;
   return roomDistributionTokenTotal(stored) === roomDistributionTokenTotal(template);
 }
 export function matchesQuestCounts(
