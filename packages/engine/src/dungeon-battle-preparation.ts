@@ -1,3 +1,4 @@
+import { wealdTaskActive } from "./expansions/weald/higher-task-effects";
 import { prepareDarkestRoom } from "./darkest-setup";
 import {
   expeditionRoomCatalogParses,
@@ -67,7 +68,14 @@ export function prepareDungeonBattle(state: GameState): ApplyResult {
       cursor++;
     }
   }
-  const cardId = deck.shift()!;
+  const index = wealdTaskActive(state, 10)
+    ? deck.findIndex((id) => {
+        const tile = readExpeditionRoomTile(pool.find((card) => card.id === id), d);
+        return tile.status === "matched" && (tile.deployment.lootAreas?.length ?? 0) > 0;
+      })
+    : 0;
+  if (index < 0) return refuse("Lost Supplies：有宝箱的房间牌已用尽（R-264）");
+  const cardId = deck.splice(index, 1)[0]!;
   const card = pool.find((card) => card.id === cardId)!;
   const selected = readExpeditionRoomTile(card, d);
   const blockedReason =
