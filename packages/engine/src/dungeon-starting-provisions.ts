@@ -1,3 +1,4 @@
+import { beginShriekerReserveTheft } from "./expansions/weald/boss/shrieker-i-provisions";
 import type { ApplyResult, Command, GameEvent, GameState } from "./command";
 import type { DungeonState } from "./dungeon";
 import { nextProvisionFace, PROVISION_FACES, PROVISION_LABELS } from "./loot";
@@ -29,7 +30,15 @@ function bonusProvisionId(heroId: string, index: number) {
   return `dungeon-bonus-provision:${heroId}:${index}`;
 }
 
-function finishQuestProvisionFlow(state: GameState, events: GameEvent[]): ApplyResult {
+export function finishQuestProvisionFlow(
+  state: GameState,
+  events: GameEvent[],
+  skipTheft = false,
+): ApplyResult {
+  if (!skipTheft) {
+    const theft = beginShriekerReserveTheft({ state, events });
+    if (theft.pendingChoice) return theft;
+  }
   const d = state.dungeon!;
   if (d.nextQuestProvisionFaceChoice) {
     const merchant = beginTravelingMerchantsChoice({ ...state, dungeon: { ...d, pending: null } });

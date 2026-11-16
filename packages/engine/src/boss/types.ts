@@ -33,6 +33,12 @@ export type HigherRuinsThreat = {
 };
 
 export type BossThreatPassiveDungeonOk =
+  | {
+      readonly status: "ok";
+      readonly effect: "shriekerProvisionTheft";
+      readonly sourceAbilityCardId: string;
+      readonly rulesRef: readonly string[];
+    }
   | HigherRuinsThreat
   | {
       readonly status: "ok";
@@ -109,6 +115,12 @@ export type BossThreatPassiveDungeonOk =
     };
 
 export type BossThreatPassiveHamletOk =
+  | {
+      readonly status: "ok";
+      readonly effect: "shriekerReserveTheft";
+      readonly sourceAbilityCardId: string;
+      readonly rulesRef: readonly string[];
+    }
   | HigherRuinsThreat
   | {
       readonly status: "ok";
@@ -454,6 +466,7 @@ export type BossSlotPlacementResult = BossHookOk<BossSlotPlacementPlan> | BossHo
 
 export type BossFaceTheThreatContext = {
   readonly pounderBossBattles?: true;
+  readonly shriekerBossBattles?: true;
   readonly scriptId: BossScriptId;
   readonly questId: BasicQuestId;
   readonly campaignLevel?: CampaignLevel;
@@ -471,6 +484,7 @@ export type BossSlotPlacementContext = {
 /** 引擎层 Face the Threat 解析输入（不绑定单一脚本钩子）。 */
 export type FaceTheThreatQuestContext = {
   readonly pounderBossBattles?: true;
+  readonly shriekerBossBattles?: true;
   readonly questId: BasicQuestId;
   readonly campaignLevel?: CampaignLevel;
   readonly activeBossThreatScriptId?: BossScriptId;
