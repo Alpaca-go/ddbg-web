@@ -163,7 +163,7 @@ export function resolveCurioRows(state: GameState): ApplyResult {
     const pool = d.explorationSetup?.provisions;
     if (
       !pool ||
-      pool.length > 16 ||
+      (!state.inventoryOverflow && pool.length > 16) ||
       new Set(pool.map((p) => p.id)).size !== pool.length ||
       pool.some((p) => !PROVISION_FACES.includes(p.face))
     )
@@ -332,7 +332,7 @@ export function resolveCurioRows(state: GameState): ApplyResult {
       const id = `curio-provision:${active.cardId}:${active.rollId}`;
       if (
         !provisions ||
-        provisions.length >= 16 ||
+        (!state.inventoryOverflow && provisions.length >= 16) ||
         new Set(provisions.map((p) => p.id)).size !== provisions.length ||
         provisions.some((p) => !PROVISION_FACES.includes(p.face) || p.id === id)
       )

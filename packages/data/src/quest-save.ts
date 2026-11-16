@@ -5,7 +5,11 @@ import { HERO_SKILL_TRINKET_IDS } from "./hero-skill-trinkets";
 import { contentPacksSchema } from "./content-packs";
 
 const commandObject = <S extends z.ZodRawShape>(shape: S) =>
-  z.strictObject({ ...shape, allTrinkets: z.literal(true).optional() });
+  z.strictObject({
+    ...shape,
+    allTrinkets: z.literal(true).optional(),
+    inventoryOverflow: z.literal(true).optional(),
+  });
 const id = z.string().min(1);
 const actor = { actorId: id };
 const shuffle = z.enum(["push", "pull"]);

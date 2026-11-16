@@ -28,6 +28,7 @@ export const useDungeonStore = create<{
       const recorded: Command = {
         ...command,
         allTrinkets: true,
+        inventoryOverflow: true,
         ...(command.type === "resolveChoice" ? { bossEdgeRooms: true } : {}),
       };
       const result = applyCommand(s.game, recorded);

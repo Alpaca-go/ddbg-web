@@ -213,3 +213,25 @@ it("最暗普通/目标房都保留正确房间牌，缺几何不替换为Ruins�
     }
   }
 });
+
+it("R-266 挖掘点先完整掷四骰，再从20颗里弃4颗，继续原休息待选", () => {
+  const game = excavationFixture();
+  let result = ok(game, { type: "resolveDungeonRoom", inventoryOverflow: true });
+  for (let i = 0; result.pendingChoice && !result.state.inventoryOverflowHold && i < 10; i++) {
+    const p = result.pendingChoice;
+    result = ok(result.state, {
+      type: "resolveChoice",
+      choiceId: p.id,
+      optionId: p.options[0]!.id,
+    });
+  }
+  expect(result.state.dungeon!.explorationSetup!.provisions).toHaveLength(20);
+  expect(result.state.dungeon!.cursor).toBe(game.dungeon!.cursor + 4);
+  for (let i = 0; result.state.inventoryOverflowHold && i < 5; i++) {
+    const p = result.pendingChoice!,
+      id = p.options.find((o) => o.id.startsWith("excavation:"))?.id ?? p.options[0]!.id;
+    result = ok(result.state, { type: "resolveChoice", choiceId: p.id, optionId: id });
+  }
+  expect(result.state.dungeon!.explorationSetup!.provisions).toHaveLength(16);
+  expect(result.pendingChoice!.options.some((o) => o.id === "equal")).toBe(true);
+});

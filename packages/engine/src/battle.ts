@@ -355,6 +355,10 @@ export type BattleState = BattleSetup & {
         readonly choice: PendingChoice;
       }
     | {
+        readonly type: "inventoryOverflow";
+        readonly choice: PendingChoice;
+      }
+    | {
         readonly type: "wealdOakRefill";
         readonly choice: PendingChoice;
       }

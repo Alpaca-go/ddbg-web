@@ -45,7 +45,7 @@ export function resolveExcavation(
   let provisions = [...d.explorationSetup.provisions],
     cursor = d.cursor;
   if (
-    provisions.length > 16 ||
+    (!state.inventoryOverflow && provisions.length > 16) ||
     new Set(provisions.map((p) => p.id)).size !== provisions.length ||
     !Number.isSafeInteger(cursor) ||
     cursor < 0
@@ -96,7 +96,7 @@ export function resolveExcavation(
       excavation = { ...excavation, reward: nextProvisionFace(state.seed, cursor) };
       cursor++;
     }
-    if (provisions.length === 16)
+    if (!state.inventoryOverflow && provisions.length === 16)
       return finish(
         provisions.map((p) => ({ id: `discard:${p.id}`, label: `弃 ${PROVISION_LABELS[p.face]}` })),
         "补给已满16颗：弃已有一颗后领取挖掘点已掷奖励，不重掷（R-138）",
