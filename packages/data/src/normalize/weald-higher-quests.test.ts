@@ -22,7 +22,14 @@ describe("R-264 高等级任务数据批", () => {
     expect(result.cards.find((c) => c.source.page === 9)?.name).toBe("Hounds of the Woods");
     expect(result.cards.find((c) => c.source.page === 10)?.name).toBe("Lost Supplies");
     expect(result.cards.filter((c) => c.runtimeReady).map((c) => c.id)).toEqual([
+      "quest:weald:p006",
       "quest:weald:p007",
+      "quest:weald:p008",
+      "quest:weald:p009",
+      "quest:weald:p011",
+      "quest:weald:p012",
+      "quest:weald:p013",
+      "quest:weald:p014",
       "quest:weald:p015",
     ]);
     expect(
@@ -30,7 +37,17 @@ describe("R-264 高等级任务数据批", () => {
         .filter((q) => result.cards.some((c) => c.id === q.id && c.runtimeReady))
         .map((q) => q.id)
         .sort(),
-    ).toEqual(["quest:weald:p007", "quest:weald:p015"]);
+    ).toEqual([
+      "quest:weald:p006",
+      "quest:weald:p007",
+      "quest:weald:p008",
+      "quest:weald:p009",
+      "quest:weald:p011",
+      "quest:weald:p012",
+      "quest:weald:p013",
+      "quest:weald:p014",
+      "quest:weald:p015",
+    ]);
   });
   it("p008 固定巢穴3＋随机5，不沿用核心问号分布或误作陷阱3", () => {
     expect(

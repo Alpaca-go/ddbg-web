@@ -1,3 +1,4 @@
+import { createLootState, nextProvisionFace } from "../loot";
 import { applyCommand, type GameState } from "../command";
 import { createBattleState } from "../battle";
 import { createCoreDungeonQuest } from "../dungeon-quest-entry";
@@ -12,7 +13,9 @@ export const wealdTaskSources = {
 };
 
 /** 已部署机制检查点，不伪装自然任务日志。 */
-export function wealdTaskBattleFixture(id: import("../../../data/src/basic-quests").BasicQuestId): GameState {
+export function wealdTaskBattleFixture(
+  id: import("../../../data/src/basic-quests").BasicQuestId,
+): GameState {
   let state = createCoreDungeonQuest(
     0,
     id,
@@ -91,6 +94,34 @@ export function wealdTaskBattleFixture(id: import("../../../data/src/basic-quest
       phase: "inBattle",
       position: d.rooms[0]!.id,
       rooms: d.rooms.map((r, i) => (i === 0 ? { ...r, kind: "lair", revealed: true } : r)),
+    },
+  };
+}
+
+/** 明确的补给宝箱／Wild机制检查点，非自然任务存档。 */
+export function wealdSuppliesLootFixture(): GameState {
+  const game = wealdTaskBattleFixture("quest:weald:p010"),
+    b = game.battle!;
+  const loot = createLootState(),
+    token = loot.available.find((t) => t.kind === "doubleGold")!;
+  let cursor = 0;
+  while (nextProvisionFace(0, cursor) !== "wild") cursor++;
+  return {
+    ...game,
+    battle: {
+      ...b,
+      rngCursor: cursor,
+      loot: {
+        ...loot,
+        available: loot.available.filter((t) => t.id !== token.id),
+        placed: [{ ...token, areaId: "a", revealed: false }],
+      },
+      encounter: {
+        round: 1,
+        deck: ["hero"],
+        actedIds: [],
+        turn: { type: "hero", actorId: b.entities[0]!.id, actions: 2, usedSkillIds: [] },
+      },
     },
   };
 }

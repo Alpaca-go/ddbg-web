@@ -119,15 +119,13 @@ export function prepareDungeonMonsters(state: GameState): ApplyResult {
   const threatDeck = firstBattleThreatDeck(d, deck);
   if (threatDeck.status === "refused") return refuse(threatDeck.reason);
   const threatSkip = threatIsRealNoL1LairSkipSpawn(d, room, pool.cards);
-  const localLair = d.wealdHigherQuestOffers === "tasks-v1" &&
-    d.questDistribution?.questId === "quest:weald:p008" && room?.kind === "lair";
+  const localLair =
+    d.wealdHigherQuestOffers === "tasks-v1" &&
+    d.questDistribution?.questId === "quest:weald:p008" &&
+    room?.kind === "lair";
   const skipSpawn = (card: import("./spawn").SpawnCard) =>
     (localLair && !card.cardId.includes(":weald:")) || Boolean(threatSkip?.(card));
-  const spawned = spawnMonsters(
-    threatDeck.deck,
-    deployment.monsters,
-    { skipSpawn },
-  );
+  const spawned = spawnMonsters(threatDeck.deck, deployment.monsters, { skipSpawn });
   if (spawned.type === "refused") return refuse(spawned.reason);
   if (spawned.monsters.reduce((n, m) => n + m.stanceSlots, 0) !== 4)
     return refuse("牌堆未填满四姿态，不提交半场部署");

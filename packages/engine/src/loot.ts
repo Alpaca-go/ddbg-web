@@ -233,8 +233,11 @@ function rollProvision(
 }
 /** R-264：两颗独立随机补给；Wild 保存已掷结果，完成后只移箱／扣行动一次。 */
 function lostSuppliesLoot(
-  state: GameState, actorId: string, token: LootToken,
-  events: readonly GameEvent[], selected?: ProvisionFace,
+  state: GameState,
+  actorId: string,
+  token: LootToken,
+  events: readonly GameEvent[],
+  selected?: ProvisionFace,
 ): ApplyResult {
   let battle = state.battle!;
   const faces = [...(battle.wealdLootFaces ?? []), ...(selected ? [selected] : [])];
@@ -242,20 +245,43 @@ function lostSuppliesLoot(
   while (faces.length < 2) {
     const face = nextProvisionFace(state.seed, battle.rngCursor);
     battle = { ...battle, rngCursor: battle.rngCursor + 1 };
-    rolled.push({ type: "provisionRolled", actorId, face,
-      message: `Lost Supplies：第${faces.length + 1}颗补给骰（R-264）` });
-    if (face === "wild") return rewardChoice(
-      { ...state, battle: { ...battle, wealdLootFaces: faces } }, actorId, token, "face", rolled);
+    rolled.push({
+      type: "provisionRolled",
+      actorId,
+      face,
+      message: `Lost Supplies：第${faces.length + 1}颗补给骰（R-264）`,
+    });
+    if (face === "wild")
+      return rewardChoice(
+        { ...state, battle: { ...battle, wealdLootFaces: faces } },
+        actorId,
+        token,
+        "face",
+        rolled,
+      );
     faces.push(face);
   }
-  const first = faces[0]!, last = faces[1]!;
+  const first = faces[0]!,
+    last = faces[1]!;
   const { wealdLootFaces: _faces, ...done } = battle;
   void _faces;
-  return finishLoot({ ...state, battle: {
-    ...done,
-    provisions: [...battle.provisions!, { id: `loot-provision:${battle.loot!.provisionCursor}`, face: first }],
-    loot: { ...battle.loot!, provisionCursor: battle.loot!.provisionCursor + 1 },
-  } }, actorId, token, { face: last }, rolled);
+  return finishLoot(
+    {
+      ...state,
+      battle: {
+        ...done,
+        provisions: [
+          ...battle.provisions!,
+          { id: `loot-provision:${battle.loot!.provisionCursor}`, face: first },
+        ],
+        loot: { ...battle.loot!, provisionCursor: battle.loot!.provisionCursor + 1 },
+      },
+    },
+    actorId,
+    token,
+    { face: last },
+    rolled,
+  );
 }
 
 export function interactLoot(state: GameState, actorId: string): ApplyResult {
@@ -283,8 +309,10 @@ export function interactLoot(state: GameState, actorId: string): ApplyResult {
     )
   )
     return rejectBattleCommand(state, "同区没有宝箱或补给池缺失 / 无效");
-  if (wealdTaskActive(state, 10) && battle.provisions.length > 14)
-    return rejectBattleCommand(state, "Lost Supplies：补给不足两格，保留宝箱且不扣行动（15颗边界待确认）");
+  if (wealdTaskActive(state, 10) && battle.provisions.length === 16)
+    return rejectBattleCommand(state, "补给池已满，保留宝箱且不扣行动（R-059）");
+  if (wealdTaskActive(state, 10) && battle.provisions.length === 15)
+    return rejectBattleCommand(state, "补给池只剩一格，双份奖励的处理待确认；暂不拾取（Q-188）");
   if (battle.provisions.length === 16 && ["rollProvision", "chooseProvision"].includes(token.kind))
     return rejectBattleCommand(state, "补给池已满，保留纯补给宝箱且不扣行动（R-059）");
   const next = {
