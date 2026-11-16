@@ -5,6 +5,8 @@ import {
   type MonsterPoolCard,
 } from "../../../../data/src/monster-pool";
 import { buildWealdHigherMonsterCatalog } from "./higher-monster-catalog";
+import { wealdHigherMonsterInstancesSchema } from "../../../../data/src/weald-monster-pool";
+import type { DungeonState } from "../../dungeon";
 
 /** W3／R-263：同等级当地＋通用的独立组池；正式任务／存档入口随后接入。 */
 export function buildWealdHigherMonsterPool(input: {
@@ -45,4 +47,23 @@ export function buildWealdHigherMonsterPool(input: {
     };
   });
   return [...common, ...local];
+}
+
+/** 显式版本只用于核准的同级来源，不升级旧 I 级状态。 */
+export function createWealdHigherMonsterPoolState(
+  input: Parameters<typeof buildWealdHigherMonsterPool>[0],
+) {
+  const instances = buildWealdHigherMonsterPool(input);
+  return {
+    cards: monsterPoolCatalogSchema.parse(input.core),
+    location: "weald" as const,
+    wealdSourceVersion: "higher-v1" as const,
+    wealdMonsterLevel: input.level,
+    wealdInstances: wealdHigherMonsterInstancesSchema(input.level).parse(
+      instances.filter((entry) => entry.instanceId.startsWith("monster-deck:weald:")),
+    ),
+    remaining: null,
+    discarded: [],
+    active: null,
+  } satisfies NonNullable<DungeonState["monsterPool"]>;
 }
