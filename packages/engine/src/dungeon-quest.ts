@@ -9,6 +9,7 @@ import {
   bossFlatQuestSummarySchema,
   circleOfWitchesQuestSummarySchema,
   disinfectionQuestSummarySchema,
+  wealdSpecialTaskSummarySchema,
 } from "../../data/src/quest-summary";
 import {
   matchesQuestCounts,
@@ -117,6 +118,29 @@ export function summarizeDungeonQuest(state: GameState): ApplyResult {
   const progress = readDungeonQuestProgress(d);
   if (progress.status === "refused") return refuse(progress.reason);
   const { completedRoomIds: clearedRoomIds, quest } = progress;
+  if (d.wealdHigherQuestOffers === "tasks-v1" && quest.id === "quest:weald:p006") {
+    const taskProgress = d.wealdViragoKills ?? 0;
+    const xpPerHero = Math.min(3, taskProgress);
+    const summary = wealdSpecialTaskSummarySchema.safeParse({
+      questId: quest.id,
+      name: quest.name,
+      clearedRoomIds,
+      taskProgress,
+      xpPerHero,
+      stagecoachXp: xpPerHero,
+      awarded: false,
+    });
+    if (!summary.success) return refuse("Virago击杀记录不符（R-265）");
+    return {
+      state: { ...state, dungeon: { ...d, questSummary: summary.data } },
+      events: [
+        {
+          type: "dungeonUpdated",
+          message: `Spreaders of Miasma：击杀${taskProgress}，待发${xpPerHero}XP`,
+        },
+      ],
+    };
+  }
   if (quest.id === "quest:p003") {
     if (!Number.isSafeInteger(d.gold) || d.gold < 0 || (d.lootPool && d.lootPool.gold !== d.gold))
       return refuse("共享金币 / 战利品金币不一致，不能捐献");

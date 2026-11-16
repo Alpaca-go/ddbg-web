@@ -9,6 +9,7 @@ import { buildWealdCroneCatalog } from "./expansions/weald/crone-catalog";
 import { createWealdLevelOneMonsterPoolState } from "./expansions/weald/monster-pool";
 import { createWealdHigherMonsterPoolState } from "./expansions/weald/higher-monster-pool";
 import { buildWealdHigherMonsterCatalog } from "./expansions/weald/higher-monster-catalog";
+import { buildWealdTaskMonsterCatalog } from "./expansions/weald/task-monster-catalog";
 
 export type WealdQuestSources = {
   readonly medium: unknown;
@@ -22,11 +23,12 @@ export function rebuildLocationQuestDecks(
   location: "ruins" | "weald",
   level: number,
   packs?: readonly ContentPackId[],
-  version?: "weald-higher-v1",
+  version?: "weald-higher-v1" | "weald-tasks-v1",
 ) {
   const selected = packs === undefined ? sources : sourcesForContentPacks(sources, packs);
   if (location === "ruins") return rebuildCoreQuestDecks(selected);
-  const higher = version === "weald-higher-v1" && (level === 2 || level === 3);
+  const higher =
+    (version === "weald-higher-v1" || version === "weald-tasks-v1") && (level === 2 || level === 3);
   if (
     location !== "weald" ||
     (level !== 1 && !higher) ||
@@ -61,9 +63,11 @@ export function rebuildLocationQuestDecks(
       ...selected.catalog,
       monsters: [
         ...common,
-        ...(higher
-          ? buildWealdHigherMonsterCatalog(level as 2 | 3)
-          : [...buildWealdMonsterCatalog(local.medium, local.large), buildWealdCroneCatalog()]),
+        ...(version === "weald-tasks-v1"
+          ? buildWealdTaskMonsterCatalog(local.medium, local.large)
+          : higher
+            ? buildWealdHigherMonsterCatalog(level as 2 | 3)
+            : [...buildWealdMonsterCatalog(local.medium, local.large), buildWealdCroneCatalog()]),
       ],
     },
     curios: locationCurioPool(selected.curios, { location: "weald", cards: local.curios }),

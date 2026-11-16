@@ -44,10 +44,19 @@ export function nextExpeditionLocationDecks(d: DungeonState, questId: string) {
     region,
     questId === "quest:p019" ? (d.campaignLevel ?? 1) : quest.level,
     d.contentPacks,
-    (["quest:weald:p007", "quest:weald:p013", "quest:weald:p014"].includes(questId) &&
+    ([
+      "quest:weald:p006",
+      "quest:weald:p007",
+      "quest:weald:p009",
+      "quest:weald:p012",
+      "quest:weald:p013",
+      "quest:weald:p014",
+    ].includes(questId) &&
       d.wealdHigherQuestOffers === "tasks-v1") ||
       (questId === "quest:weald:p015" && d.wealdHigherQuestOffers)
-      ? "weald-higher-v1"
+      ? d.wealdHigherQuestOffers === "tasks-v1"
+        ? "weald-tasks-v1"
+        : "weald-higher-v1"
       : undefined,
   );
   const cards = region === "weald" ? WEALD_APPROVED_ROOM_CARDS : sources.rooms;

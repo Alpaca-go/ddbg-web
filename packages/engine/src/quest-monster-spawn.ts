@@ -12,6 +12,7 @@ import { dungeonMonsterPoolThrough } from "./monster-pool-runtime";
 import type { SkillStance } from "./hero-skill";
 import { spawnMonsters, type SpawnCard } from "./spawn";
 import { wealdCroneExceptionOutsidePoolIds } from "./expansions/weald/circle-of-witches-spawn";
+import { forcedWealdTaskOutsideIds } from "./expansions/weald/task-forced-monsters";
 
 const cards = questCardsSchema.parse(questCards);
 
@@ -73,7 +74,7 @@ export function questMonsterOutsidePoolInstanceIds(d: DungeonState): readonly st
     !catalogIds.has(guard)
       ? [guard]
       : [];
-  const croneOutside = wealdCroneExceptionOutsidePoolIds(d);
+  const croneOutside = [...wealdCroneExceptionOutsidePoolIds(d), ...forcedWealdTaskOutsideIds(d)];
   const plan = readQuestMonsterPlanAtRoom(d);
   if (!plan || !questMonsterDeploymentMatchesPlan(d, plan))
     return [...guardOutside, ...croneOutside];
