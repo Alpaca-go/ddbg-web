@@ -33,6 +33,8 @@ function questIdsForLocationDeck(
   }
   if (!contentPacks?.includes("weald")) return [];
   if (campaignLevel === 2 && higherQuests === "tasks-v1") return ["quest:weald:p007"];
+  if (campaignLevel === 3 && higherQuests === "tasks-v1")
+    return ["quest:weald:p013", "quest:weald:p014", "quest:weald:p015"];
   if (campaignLevel === 3 && higherQuests) return ["quest:weald:p015"];
   if (campaignLevel !== 1) return [];
   return SANDBOX_WEALD_EMBARK_QUEST_IDS;

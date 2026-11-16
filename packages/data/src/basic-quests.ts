@@ -406,6 +406,49 @@ export const basicQuests = [
       ],
     }),
   },
+  {
+    id: "quest:weald:p013",
+    name: "Final Swipe",
+    level: 3 as const,
+    restPoints: 12,
+    xpKind: "all" as const,
+    roomsPerXp: 2,
+    maxRooms: 6,
+    expeditionRegion: "weald" as const,
+    verifiedRuleRulings: ["R-264", "R-265"] as const,
+    distribution: roomDistributionSchema.parse({
+      questId: "quest:weald:p013",
+      source: "Weald QUEST FRONT p13 / R-265",
+      counts: [
+        { kind: "dark", count: 1 },
+        { kind: "curio", count: 2 },
+        { kind: "treasure", count: 2 },
+        { kind: "lair", count: 2 },
+        { kind: "trap", count: 1 },
+      ],
+    }),
+  },
+  {
+    id: "quest:weald:p014",
+    name: "The Infected",
+    level: 3 as const,
+    restPoints: 8,
+    xpKind: "lair" as const,
+    roomsPerXp: 1,
+    maxRooms: 3,
+    expeditionRegion: "weald" as const,
+    verifiedRuleRulings: ["R-264", "R-265"] as const,
+    distribution: roomDistributionSchema.parse({
+      questId: "quest:weald:p014",
+      source: "Weald QUEST FRONT p14 / R-265",
+      counts: [
+        { kind: "dark", count: 2 },
+        { kind: "curio", count: 1 },
+        { kind: "lair", count: 3 },
+        { kind: "trap", count: 2 },
+      ],
+    }),
+  },
 ] as const;
 export type BasicQuestId = (typeof basicQuests)[number]["id"];
 export type CampaignLevel = 1 | 2 | 3;

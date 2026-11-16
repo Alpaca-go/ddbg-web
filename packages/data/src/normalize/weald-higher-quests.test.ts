@@ -27,7 +27,7 @@ describe("R-264 高等级任务数据批", () => {
     ]);
     expect(
       basicQuests
-        .filter((q) => result.cards.some((c) => c.id === q.id))
+        .filter((q) => result.cards.some((c) => c.id === q.id && c.runtimeReady))
         .map((q) => q.id)
         .sort(),
     ).toEqual(["quest:weald:p007", "quest:weald:p015"]);
@@ -50,7 +50,7 @@ describe("R-264 高等级任务数据批", () => {
       },
     ]);
     expect(cards.find((c) => c.source.page === 14)?.approvedOverrides).toEqual([
-      { kind: "lairDeathBlight", amount: 4, duration: 2 },
+      { kind: "lairDeathBlight", amount: 2, stacks: 2, duration: 2 },
     ]);
     expect(cards.find((c) => c.source.page === 10)?.approvedOverrides).toEqual([
       {
