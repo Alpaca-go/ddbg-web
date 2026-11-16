@@ -119,6 +119,7 @@ import {
   withLargeMonsterSpawnGuard,
 } from "./boss/threat-passive-runtime";
 import { recordRuinsBossDefeatOnThreatCleared } from "./boss/establish-imminent-threat";
+import { buildWealdHigherMonsterCatalog } from "./expansions/weald/higher-monster-catalog";
 import { resolveEncounterBossScriptId } from "./boss/encounter-rules";
 import { isBossQuestId } from "./boss/quest-bridge";
 import { firstBattleThreatEntry } from "./boss/necromancer-ii-army";
@@ -309,12 +310,20 @@ export function startDungeonBattle(state: GameState): ApplyResult {
           entry.cardId === card.id &&
           entry.stanceSlots === spawn.stanceSlots,
       );
-    // C-008 / R-082–083：level>1 须 hasApprovedHigherMonsterFields；DL 累加牌堆内 II 已批五组见 ruins-pool-admission。
+    const approvedWealdHigher =
+      wealdLocal &&
+      d.whisperingWoodsQuest === true &&
+      d.questDistribution?.questId === "quest:weald:p015" &&
+      d.monsterPool?.wealdSourceVersion === "higher-v1" &&
+      d.monsterPool.wealdMonsterLevel === 3 &&
+      JSON.stringify(card) ===
+        JSON.stringify(buildWealdHigherMonsterCatalog(3).find((entry) => entry.id === card.id));
+    // C-008 / R-082–083 与 R-263：核准范围和真实当地实例同时匹配才放行。
     if (
       !croneException &&
-      (card.level !== (wealdLocal ? 1 : identity?.level) ||
+      (card.level !== (wealdLocal ? (approvedWealdHigher ? 3 : 1) : identity?.level) ||
         (!allowPrintedLevel && !curioGuardSpawn && card.level > d.explorationSetup.dungeonLevel) ||
-        (card.level !== 1 && !hasApprovedHigherMonsterFields(card)))
+        (card.level !== 1 && !approvedWealdHigher && !hasApprovedHigherMonsterFields(card)))
     )
       return refuse(`${card.name} 的等级 / 高等级限定批准不符，保留部署（R-082、R-083、R-048）`);
     if (!Number.isSafeInteger(card.dodge) || card.dodge < 0)

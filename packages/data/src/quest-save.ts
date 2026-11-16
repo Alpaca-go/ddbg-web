@@ -270,10 +270,17 @@ export const savedCommandSchema = z.union([
   }),
 ]);
 const phase3QuestIds = basicQuests
-  .filter((q) => q.level === 1 || q.expeditionRegion === "darkestDungeon" || q.id === "quest:p019")
+  .filter(
+    (q) =>
+      q.level === 1 ||
+      q.expeditionRegion === "darkestDungeon" ||
+      q.id === "quest:p019" ||
+      q.id === "quest:weald:p015",
+  )
   .map((q) => q.id) as [BasicQuestId, ...BasicQuestId[]];
 
 export const questStartSchema = z.strictObject({
+  whisperingWoodsQuest: z.literal(true).optional(),
   initialQuestDrawMode: z
     .enum([
       "hamlet-quest-draw:ruins-two",

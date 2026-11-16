@@ -24,7 +24,9 @@ export function applyWhisperingWoodsRoundStart(
   result: ApplyResult,
 ): ApplyResult {
   if (result.events.some((e) => e.type === "commandRefused")) return result;
-  const enable = command.type === "startBattle" && command.wealdWhisperingWoods === true;
+  const enable =
+    command.type === "startBattle" &&
+    (command.wealdWhisperingWoods === true || result.state.dungeon?.whisperingWoodsQuest === true);
   if (!enable && result.state.battle?.whisperingWoodsRound === undefined) return result;
   if (!active(result.state))
     return rejectBattleCommand(

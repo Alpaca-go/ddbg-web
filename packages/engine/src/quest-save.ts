@@ -63,6 +63,7 @@ function replay(
     start.stygianRoomRules ?? null,
     start.contentPacks,
     start.initialQuestDrawMode,
+    start.whisperingWoodsQuest,
   );
   if (!start.skillLightBeforeCrit) {
     const { skillLightBeforeCrit, ...legacy } = game;
@@ -129,6 +130,7 @@ function replayCommands(commands: QuestSave["commands"]): Command[] {
         ...(command.wealdOurs ? { wealdOurs: true as const } : {}),
         ...(command.wealdClearingHeroes ? { wealdClearingHeroes: true as const } : {}),
         ...(command.wealdClearingMonsters ? { wealdClearingMonsters: true as const } : {}),
+        ...(command.wealdWhisperingWoods ? { wealdWhisperingWoods: true as const } : {}),
         ...(command.allTrinkets ? { allTrinkets: true as const } : {}),
       };
     }
