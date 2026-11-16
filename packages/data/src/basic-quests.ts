@@ -534,6 +534,28 @@ export const basicQuests = [
       randomizeNonObjective: 5,
     }),
   },
+  {
+    id: "quest:weald:p010",
+    name: "Lost Supplies",
+    level: 2 as const,
+    restPoints: 12,
+    xpKind: "objective" as const,
+    roomsPerXp: 1,
+    maxRooms: 3,
+    expeditionRegion: "weald" as const,
+    verifiedRuleRulings: ["R-264", "R-265"] as const,
+    distribution: roomDistributionSchema.parse({
+      questId: "quest:weald:p010",
+      source: "Weald QUEST FRONT p10 / R-264",
+      counts: [
+        { kind: "empty", count: 1 },
+        { kind: "dark", count: 1 },
+        { kind: "treasure", count: 2 },
+        { kind: "lair", count: 2 },
+        { kind: "trap", count: 2 },
+      ],
+    }),
+  },
 ] as const;
 export type BasicQuestId = (typeof basicQuests)[number]["id"];
 export type CampaignLevel = 1 | 2 | 3;
