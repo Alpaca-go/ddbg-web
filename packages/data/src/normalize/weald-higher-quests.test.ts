@@ -22,7 +22,9 @@ describe("R-264 高等级任务数据批", () => {
     expect(result.cards.find((c) => c.source.page === 9)?.name).toBe("Hounds of the Woods");
     expect(result.cards.find((c) => c.source.page === 10)?.name).toBe("Lost Supplies");
     expect(result.cards.every((c) => !c.runtimeReady)).toBe(true);
-    expect(basicQuests.some((q) => result.cards.some((c) => c.id === q.id))).toBe(false);
+    expect(
+      basicQuests.filter((q) => result.cards.some((c) => c.id === q.id)).map((q) => q.id),
+    ).toEqual(["quest:weald:p015"]);
   });
   it("p008 固定巢穴3＋随机5，不沿用核心问号分布或误作陷阱3", () => {
     expect(

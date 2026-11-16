@@ -353,6 +353,29 @@ export const basicQuests = [
     bossQuest: true as const,
     distribution: roomDistributionSchema.parse(faceTheThreat),
   },
+  {
+    id: "quest:weald:p015",
+    name: "Whispering Woods",
+    level: 3 as const,
+    restPoints: 8,
+    xpKind: "lair" as const,
+    roomsPerXp: 1,
+    maxRooms: 3,
+    expeditionRegion: "weald" as const,
+    verifiedRuleRulings: ["R-264"],
+    distribution: roomDistributionSchema.parse({
+      questId: "quest:weald:p015",
+      source: "Weald QUEST FRONT p15 / R-264",
+      counts: [
+        { kind: "empty", count: 1 },
+        { kind: "dark", count: 1 },
+        { kind: "curio", count: 1 },
+        { kind: "treasure", count: 1 },
+        { kind: "lair", count: 3 },
+        { kind: "trap", count: 1 },
+      ],
+    }),
+  },
 ] as const;
 export type BasicQuestId = (typeof basicQuests)[number]["id"];
 export type CampaignLevel = 1 | 2 | 3;

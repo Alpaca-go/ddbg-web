@@ -62,21 +62,32 @@ export function createCoreDungeonQuest(
   stygianRoomRules: DungeonState["stygianRoomRules"] | null = "full",
   contentPacks?: readonly ContentPackId[],
   initialQuestDrawMode?: HamletQuestDrawOptionId,
+  whisperingWoodsQuest?: true,
 ) {
   if (contentPacks !== undefined) {
     contentPacks = normalizeContentPacks(contentPacks);
     sources = sourcesForContentPacks(sources, contentPacks);
   }
   const quest = basicQuests.find((quest) => quest.id === questId);
+  const whispering = questId === "quest:weald:p015" && whisperingWoodsQuest === true;
+  if (
+    (questId === "quest:weald:p015" || whisperingWoodsQuest !== undefined) &&
+    (!whispering ||
+      mode === "stygian" ||
+      initialQuestDrawMode !== undefined ||
+      !contentPacks?.includes("weald"))
+  )
+    throw new Error("Whispering Woods 需要显式版本、Weald 包与非 Stygian 单任务入口");
   const sandboxEmbarkOk =
     quest &&
     (quest.level === 1 ||
       ("bossQuest" in quest && quest.bossQuest) ||
-      isSandboxWealdEmbarkQuest(questId));
+      isSandboxWealdEmbarkQuest(questId) ||
+      whispering);
   const locationBlock = quest
     ? sandboxExpeditionEmbarkBlockReason(quest.expeditionRegion, questId, contentPacks)
     : null;
-  if (locationBlock) throw new Error(locationBlock);
+  if (locationBlock && !whispering) throw new Error(locationBlock);
   if (!basicQuestEnabledForContentPacks(questId, contentPacks))
     throw new Error("任务与所选内容包不一致，未创建地牢");
   if (
@@ -154,7 +165,13 @@ export function createCoreDungeonQuest(
   if (wealdSandbox && (!contentPacks?.includes("weald") || !sources.weald))
     throw new Error("Weald 沙盒出征需要已选内容包与完整核准来源");
   const decks = wealdSandbox
-    ? rebuildLocationQuestDecks(sources, "weald", 1, contentPacks)
+    ? rebuildLocationQuestDecks(
+        sources,
+        "weald",
+        quest.level,
+        contentPacks,
+        whispering ? "weald-higher-v1" : undefined,
+      )
     : rebuildCoreQuestDecks(sources);
   const draw = initialQuestDrawMode
     ? drawInitialQuestOffers(seed, contentPacks, initialQuestDrawMode)
@@ -194,6 +211,8 @@ export function createCoreDungeonQuest(
     draw?.cursor ?? 0,
   );
   let game: GameState = { ...initial, skillLightBeforeCrit: true };
+  if (whispering && game.dungeon)
+    game = { ...game, dungeon: { ...game.dungeon, whisperingWoodsQuest: true, campaignLevel: 3 } };
   if (draw && game.dungeon)
     game = {
       ...game,
