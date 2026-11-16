@@ -74,7 +74,9 @@ export function createCoreDungeonQuest(
     throw new Error("高等级 Weald 任务版本需要 Weald 包与非 Stygian 模式");
   const advanced =
     wealdHigherQuestOffers === "tasks-v1" &&
-    (questId === "quest:weald:p007" || questId === "quest:weald:p015");
+    ["quest:weald:p007", "quest:weald:p013", "quest:weald:p014", "quest:weald:p015"].includes(
+      questId,
+    );
   const whispering = questId === "quest:weald:p015" && (whisperingWoodsQuest === true || advanced);
   if (advanced && initialQuestDrawMode !== undefined)
     throw new Error("高等级单任务不使用 I 级首趟抽选");

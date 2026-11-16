@@ -5,6 +5,7 @@ import {
   shriekerIActionQuotaReached,
 } from "./expansions/weald/boss/shrieker-i-actions";
 import { clearShriekerINest } from "./expansions/weald/boss/shrieker-i-cleanup";
+import { applyInfectedDeaths } from "./expansions/weald/higher-task-effects";
 import {
   enableClearingHeroes,
   enableClearingMonsters,
@@ -611,6 +612,8 @@ export function encounterSkillProblem(
 
 /** R24–25、R-030：只补本次死亡空位；旧尸体保留日志身份，不再占位。 */
 export function removeCasualties(result: ApplyResult, ids: readonly string[]): ApplyResult {
+  result = applyInfectedDeaths(result, ids);
+  if (result.events.some((e) => e.type === "commandRefused")) return result;
   ({ result, ids } = clearNecromancerICompanions(result, ids));
   ({ result, ids } = clearFanaticIPyre(result, ids));
   ({ result, ids } = clearHagIEmptyCauldron(result, ids));
