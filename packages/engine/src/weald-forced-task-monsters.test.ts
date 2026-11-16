@@ -3,7 +3,7 @@ import { createCoreDungeonQuest } from "./dungeon-quest-entry";
 import { coreParty } from "./test-helpers/core-quest";
 import { wealdTaskSources } from "./test-helpers/weald-task-battle";
 import { applyCommand, type GameState } from "./command";
-import { removeCasualties, endAfterCasualties } from "./encounter";
+import { removeCasualties, endAfterCasualties, finishTurn } from "./encounter";
 import { dungeonMonsterPoolThrough } from "./monster-pool-runtime";
 
 it.each(["quest:weald:p006", "quest:weald:p009", "quest:weald:p012"] as const)(
@@ -47,6 +47,23 @@ it.each(["quest:weald:p006", "quest:weald:p009", "quest:weald:p012"] as const)(
       };
       step({ type: "prepareDungeonBattle" });
       usedCards.push(game.dungeon!.roomCards!.active!.cardId);
+      if (id === "quest:weald:p006") {
+        // 固定两张大型先行的真实牌序，覆盖 R-029 挤掉首放 Virago 后的 R-265 随机替换。
+        const catalog = dungeonMonsterPoolThrough(game.dungeon!.monsterPool!, 2);
+        expect(catalog.filter((c) => c.stanceSlots === 2).length).toBeGreaterThanOrEqual(2);
+        game = {
+          ...game,
+          dungeon: {
+            ...game.dungeon!,
+            monsterPool: {
+              ...game.dungeon!.monsterPool!,
+              remaining: [...catalog]
+                .sort((a, b) => b.stanceSlots - a.stanceSlots)
+                .map((c) => c.instanceId),
+            },
+          },
+        };
+      }
       step({ type: "prepareDungeonMonsters" });
       const active = game.dungeon!.monsterPool!.active!;
       expect(
@@ -69,6 +86,31 @@ it.each(["quest:weald:p006", "quest:weald:p009", "quest:weald:p012"] as const)(
         expect(game.battle!.encounter!.deck.filter((side) => side === "monster")).toHaveLength(
           active.monsters.length + 1,
         );
+      if (id === "quest:weald:p012") {
+        const giant = "monster-deck:weald:p017";
+        game = {
+          ...game,
+          battle: {
+            ...game.battle!,
+            encounter: {
+              ...game.battle!.encounter!,
+              deck: ["monster", "monster", "hero"],
+              actedIds: [],
+              turn: { type: "monster", actorId: giant },
+            },
+          },
+        };
+        game = finishTurn(game, giant, []).state;
+        expect(game.battle!.encounter!.actedIds).not.toContain(giant);
+        step({ type: "drawInitiative" });
+        for (let i = 0; game.battle!.pending && i < 10; i++) {
+          const p = game.battle!.pending!.choice;
+          step({ type: "resolveChoice", choiceId: p.id, optionId: p.options[0]!.id });
+        }
+        expect(game.battle!.encounter!.turn).toMatchObject({ type: "monster", actorId: giant });
+        game = finishTurn(game, giant, []).state;
+        expect(game.battle!.encounter!.actedIds).toContain(giant);
+      }
       // 受控终局仅核对组件复用，不冒充自然胜利。
       const ids = game.battle!.entities.filter((e) => e.side === "monster").map((e) => e.id);
       const terminal: GameState = {

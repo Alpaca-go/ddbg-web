@@ -309,11 +309,10 @@ export function interactLoot(state: GameState, actorId: string): ApplyResult {
     )
   )
     return rejectBattleCommand(state, "同区没有宝箱或补给池缺失 / 无效");
-  if (wealdTaskActive(state, 10) && battle.provisions.length > 14)
-    return rejectBattleCommand(
-      state,
-      "Lost Supplies：补给不足两格，保留宝箱且不扣行动（15颗边界待确认）",
-    );
+  if (wealdTaskActive(state, 10) && battle.provisions.length === 16)
+    return rejectBattleCommand(state, "补给池已满，保留宝箱且不扣行动（R-059）");
+  if (wealdTaskActive(state, 10) && battle.provisions.length === 15)
+    return rejectBattleCommand(state, "补给池只剩一格，双份奖励的处理待确认；暂不拾取（Q-188）");
   if (battle.provisions.length === 16 && ["rollProvision", "chooseProvision"].includes(token.kind))
     return rejectBattleCommand(state, "补给池已满，保留纯补给宝箱且不扣行动（R-059）");
   const next = {
