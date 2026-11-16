@@ -244,6 +244,7 @@ export type OneBodyLifePool = {
 };
 
 export type BattleState = BattleSetup & {
+  readonly wealdLootFaces?: readonly import("./loot").ProvisionFace[];
   /** R-264：显式启用的 Whispering Woods 最近已结算轮；旧战斗省略。 */
   readonly whisperingWoodsRound?: number;
   readonly wealdElderActions?: number;

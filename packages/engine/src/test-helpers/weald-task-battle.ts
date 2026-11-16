@@ -12,7 +12,7 @@ export const wealdTaskSources = {
 };
 
 /** 已部署机制检查点，不伪装自然任务日志。 */
-export function wealdTaskBattleFixture(id: "quest:weald:p013" | "quest:weald:p014"): GameState {
+export function wealdTaskBattleFixture(id: import("../../../data/src/basic-quests").BasicQuestId): GameState {
   let state = createCoreDungeonQuest(
     0,
     id,
