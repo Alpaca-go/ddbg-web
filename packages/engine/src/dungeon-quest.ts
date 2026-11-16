@@ -120,12 +120,14 @@ export function summarizeDungeonQuest(state: GameState): ApplyResult {
   const { completedRoomIds: clearedRoomIds, quest } = progress;
   if (
     d.wealdHigherQuestOffers === "tasks-v1" &&
-    ["quest:weald:p006", "quest:weald:p010"].includes(quest.id)
+    ["quest:weald:p006", "quest:weald:p010", "quest:weald:p011"].includes(quest.id)
   ) {
     const taskProgress =
-      quest.id === "quest:weald:p010"
-        ? (d.explorationSetup?.provisions.length ?? 0)
-        : (d.wealdViragoKills ?? 0);
+      quest.id === "quest:weald:p011"
+        ? (d.wealdBurnedOakRoomIds ?? []).length
+        : quest.id === "quest:weald:p010"
+          ? (d.explorationSetup?.provisions.length ?? 0)
+          : (d.wealdViragoKills ?? 0);
     const xpPerHero = Math.min(
       3,
       Math.floor(taskProgress / (quest.id === "quest:weald:p010" ? 2 : 1)),

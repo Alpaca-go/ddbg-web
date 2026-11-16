@@ -480,6 +480,7 @@ export function chooseNextQuest(
           "quest:weald:p008",
           "quest:weald:p009",
           "quest:weald:p010",
+          "quest:weald:p011",
           "quest:weald:p012",
           "quest:weald:p013",
           "quest:weald:p014",

@@ -1,3 +1,4 @@
+import { endRoundWealdOak, waitingForWealdOak } from "./expansions/weald/burning-oak";
 import {
   expandShriekerIInitiative,
   shriekerINestHasNoInitiative,
@@ -557,22 +558,10 @@ export function finishTurn(
           shriekerINestHasNoInitiative(state, entity),
       ))
   ) {
-    const abyss = endRoundInvocation({
+    return finishEncounterRound({
       state: { ...state, battle: { ...battle, encounter: updatedEncounter } },
       events: ended,
     });
-    if (
-      abyss.events.some((event) => event.type === "commandRefused") ||
-      ["halted", "finished"].includes(abyss.state.battle!.encounter!.turn.type)
-    )
-      return abyss;
-    if (encounterForcesRetreatAfterRound(abyss.state, encounter.round))
-      return finishBattle(abyss.state, "retreat", abyss.events);
-    const next = startRound(state.seed, abyss.state.battle!, encounter.round + 1, state);
-    return {
-      state: { ...abyss.state, battle: next },
-      events: [...abyss.events, event(next, "roundStarted", "开始下一轮")],
-    };
   }
   return {
     state: {
@@ -584,6 +573,36 @@ export function finishTurn(
     },
     events: ended,
   };
+}
+
+/** 已完成轮末效果／待选后统一交接，不重放轮末效果。 */
+export function advanceAfterRound(result: ApplyResult): ApplyResult {
+  const b = result.state.battle!;
+  if (
+    result.pendingChoice ||
+    b.pending ||
+    result.events.some((e) => e.type === "commandRefused") ||
+    ["halted", "finished"].includes(b.encounter!.turn.type)
+  )
+    return result;
+  const ended = b.wealdOakIgnitedRound !== undefined ? endAfterCasualties(result) : null;
+  if (ended) return ended;
+  if (encounterForcesRetreatAfterRound(result.state, b.encounter!.round))
+    return finishBattle(result.state, "retreat", result.events);
+  const next = startRound(result.state.seed, b, b.encounter!.round + 1, result.state);
+  return {
+    state: { ...result.state, battle: next },
+    events: [...result.events, event(next, "roundStarted", "开始下一轮")],
+  };
+}
+function finishEncounterRound(result: ApplyResult): ApplyResult {
+  const invoked = endRoundInvocation(result);
+  if (
+    invoked.events.some((e) => e.type === "commandRefused") ||
+    ["halted", "finished"].includes(invoked.state.battle!.encounter!.turn.type)
+  )
+    return invoked;
+  return advanceAfterRound(endRoundWealdOak(invoked));
 }
 
 /** 状态代币缺 duration 时，不跳过回合开始结算继续运行（R-048）。 */
@@ -720,7 +739,9 @@ export function endAfterCasualties(result: ApplyResult): ApplyResult | null {
       ],
     };
   }
-  return monstersDefeated ? finishBattle(result.state, "victory", result.events) : null;
+  return monstersDefeated && !waitingForWealdOak(result.state)
+    ? finishBattle(result.state, "victory", result.events)
+    : null;
 }
 
 /** 技能前后死亡差集；位移待选时保存，续接只应用一次。 */
@@ -1348,19 +1369,7 @@ export function applyEncounterCommand(state: GameState, command: EncounterComman
         actor.id,
       );
     }
-    const abyss = endRoundInvocation({ state, events });
-    if (
-      abyss.events.some((event) => event.type === "commandRefused") ||
-      ["halted", "finished"].includes(abyss.state.battle!.encounter!.turn.type)
-    )
-      return abyss;
-    if (encounterForcesRetreatAfterRound(abyss.state, encounter.round))
-      return finishBattle(abyss.state, "retreat", abyss.events);
-    const next = startRound(state.seed, abyss.state.battle!, encounter.round + 1, state);
-    return {
-      state: { ...state, battle: next },
-      events: [...abyss.events, event(next, "roundStarted", "开始下一轮")],
-    };
+    return finishEncounterRound({ state, events });
   }
   if (command.type === "finishMonsterTurn") {
     if (isInvokingMonster(battle, command.actorId))
