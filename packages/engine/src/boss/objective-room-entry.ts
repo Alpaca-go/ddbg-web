@@ -1,3 +1,4 @@
+import { prepareShriekerIObjectiveRoom } from "../expansions/weald/boss/shrieker-i-deploy";
 import { preparePounderIObjectiveRoom } from "../expansions/weald/boss/pounder-i-deploy";
 import { prepareHagIObjectiveRoom } from "../expansions/weald/boss/hag-i-deploy";
 import { roomCatalogSchema } from "../../../data/src/room";
@@ -75,6 +76,8 @@ export function prepareBossObjectiveRoom(state: GameState): ApplyResult {
     plan.roomPlacement !== "edgeRoomsR30"
   )
     return refuse("需要 Face the Threat 未清理目标房和正式出征计划（R30）");
+  if (d.activeBossThreatScriptId === "boss:weald:shrieker:1")
+    return prepareShriekerIObjectiveRoom(state);
   if (d.activeBossThreatScriptId === "boss:weald:brigandPounder:1")
     return preparePounderIObjectiveRoom(state);
   if (d.activeBossThreatScriptId === "boss:weald:hag:1") return prepareHagIObjectiveRoom(state);

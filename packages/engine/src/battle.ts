@@ -180,6 +180,8 @@ export type PlayHeroSkillCommand = {
 export type BattleSetup = {
   readonly trinkets?: import("./trinket-acquisition").TrinketPool;
   readonly roomName?: string;
+  /** Shrieker I 部署批的显式运行时停点，未接技能／威胁前拒绝战斗命令。 */
+  readonly shriekerISetupHold?: true;
   /** 启用 W-03／W-04；须与出征 contentPacks 含 weald 一并判定。 */
   readonly wealdMechanics?: true;
   readonly wealdPrecious?: true;
