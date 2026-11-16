@@ -9,7 +9,7 @@ import {
   beginShriekerDungeonTheft,
   chooseShriekerTheft,
 } from "./expansions/weald/boss/shrieker-i-provisions";
-import { deployShriekerI } from "./expansions/weald/boss/shrieker-i-deploy";
+import { deployShriekerI, deployShriekerHigher } from "./expansions/weald/boss/shrieker-i-deploy";
 import { withAbyssalPuff } from "./battle-abyssal-puff";
 import { applyWhisperingWoodsRoundStart } from "./expansions/weald/whispering-woods";
 import { applyFinalSwipeSpawn } from "./expansions/weald/higher-task-effects";
@@ -338,6 +338,7 @@ type BaseCommand =
   | { readonly type: "deployProphetIII" }
   | { readonly type: "deployPounderI" }
   | { readonly type: "deployPounderHigher" }
+  | { readonly type: "deployShriekerHigher" }
   | { readonly type: "deployShriekerI"; readonly shriekerSkills?: true | undefined }
   | { readonly type: "deployHagI" }
   | { readonly type: "deployHagHigher" }
@@ -765,6 +766,7 @@ function dispatchCommand(
   if (command.type === "deployProphetI") return deployProphetI(state);
   if (command.type === "deployProphetII") return deployProphetII(state);
   if (command.type === "deployProphetIII") return deployProphetIII(state);
+  if (command.type === "deployShriekerHigher") return deployShriekerHigher(state);
   if (command.type === "deployShriekerI") return deployShriekerI(state, command);
   if (command.type === "deployPounderI") return deployPounderI(state);
   if (command.type === "deployPounderHigher") return deployPounderHigher(state);

@@ -1,7 +1,9 @@
+import { ensureShriekerHigherScriptsRegistered } from "./boss/shrieker-higher";
 import { ensurePounderHigherScriptsRegistered } from "./boss/pounder-higher";
 import { ensureHagIBossScriptRegistered } from "./boss/hag-i";
 import { ensureHagHigherScriptsRegistered } from "./boss/hag-higher";
 export function registerWealdBosses() {
+  ensureShriekerHigherScriptsRegistered();
   ensureHagIBossScriptRegistered();
   ensureHagHigherScriptsRegistered();
   ensurePounderHigherScriptsRegistered();

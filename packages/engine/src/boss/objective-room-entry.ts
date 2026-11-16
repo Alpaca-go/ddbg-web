@@ -1,4 +1,7 @@
-import { prepareShriekerIObjectiveRoom } from "../expansions/weald/boss/shrieker-i-deploy";
+import {
+  prepareShriekerIObjectiveRoom,
+  prepareShriekerHigherObjectiveRoom,
+} from "../expansions/weald/boss/shrieker-i-deploy";
 import {
   preparePounderIObjectiveRoom,
   preparePounderHigherObjectiveRoom,
@@ -82,6 +85,11 @@ export function prepareBossObjectiveRoom(state: GameState): ApplyResult {
     plan.roomPlacement !== "edgeRoomsR30"
   )
     return refuse("需要 Face the Threat 未清理目标房和正式出征计划（R30）");
+  if (
+    d.wealdHigherBosses &&
+    ["boss:weald:shrieker:2", "boss:weald:shrieker:3"].includes(d.activeBossThreatScriptId ?? "")
+  )
+    return prepareShriekerHigherObjectiveRoom(state);
   if (d.activeBossThreatScriptId === "boss:weald:shrieker:1")
     return prepareShriekerIObjectiveRoom(state);
   if (

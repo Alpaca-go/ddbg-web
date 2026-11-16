@@ -6,15 +6,24 @@ import { dungeonCurioCatalogValid } from "../../../dungeon-curio-catalog";
 import type { ApplyResult, GameState } from "../../../command";
 import { rejectBattleCommand } from "../../../battle";
 import { clearedBossThreatScriptIdAfterVictory } from "../../../boss/threat-campaign";
-import { SHRIEKER_I_DEPLOYMENT_ENTRY } from "./shrieker-i-content";
-import { SHRIEKER_I_SCRIPT_ID } from "./shrieker-i-content";
+import { shriekerDeploymentContext } from "./shrieker-deployment-context";
 import { WEALD_SHRIEKER_I_CONTENT as content } from "./shrieker-i-content";
 
 export function shriekerIRealCombatActive(state: GameState): boolean {
+  return shriekerRealCombatActive(state, 1);
+}
+export function shriekerHigherRealCombatActive(state: GameState): boolean {
+  const l = state.dungeon?.campaignLevel;
+  return (
+    !!state.dungeon?.wealdHigherBosses && (l === 2 || l === 3) && shriekerRealCombatActive(state, l)
+  );
+}
+function shriekerRealCombatActive(state: GameState, level: 1 | 2 | 3): boolean {
+  const binding = shriekerDeploymentContext(level);
   return (
     state.battle !== undefined &&
     state.dungeon?.phase === "inBattle" &&
-    state.dungeon.activeBossThreatScriptId === SHRIEKER_I_SCRIPT_ID &&
+    state.dungeon.activeBossThreatScriptId === binding.scriptId &&
     state.dungeon.roomCards?.active?.cardId === content.tile.roomId &&
     state.dungeon.roomCards.active.tileId === content.tile.id
   );
@@ -22,13 +31,22 @@ export function shriekerIRealCombatActive(state: GameState): boolean {
 
 /** R30／R38／R-044／R-261／R-262：专属 Boss 战交接，不消耗普通牌池或提前发 XP。 */
 export function finishShriekerIBattle(state: GameState): ApplyResult {
-  const level = 1;
+  return finishShriekerBattle(state, 1);
+}
+export function finishShriekerHigherBattle(state: GameState): ApplyResult {
+  const l = state.dungeon?.campaignLevel;
+  if ((l !== 2 && l !== 3) || !state.dungeon?.wealdHigherBosses)
+    return rejectBattleCommand(state, "Shrieker 高等级结算版本不符");
+  return finishShriekerBattle(state, l);
+}
+function finishShriekerBattle(state: GameState, level: 1 | 2 | 3): ApplyResult {
+  const binding = shriekerDeploymentContext(level);
   const boss = {
-    script: SHRIEKER_I_SCRIPT_ID,
-    card: content.faces[0].rawId,
-    description: content.abilities.descriptionCardId,
+    script: binding.scriptId,
+    card: binding.faces[0].rawId,
+    description: binding.abilities.descriptionCardId,
     entity: "boss:shrieker",
-    label: "Shrieker I",
+    label: level === 1 ? "Shrieker I" : `Shrieker ${level === 2 ? "II" : "III"}`,
     ruling: "W3／R-261／R-262",
   };
   const d = state.dungeon;
@@ -53,7 +71,7 @@ export function finishShriekerIBattle(state: GameState): ApplyResult {
     !restingMonsterPoolValid(d) ||
     !dungeonCurioCatalogValid(d) ||
     !b ||
-    !shriekerIRealCombatActive(state) ||
+    !shriekerRealCombatActive(state, level) ||
     d.campaignLevel !== level ||
     d.questDistribution?.questId !== "quest:p019" ||
     d.activeBossThreatScriptId !== boss.script ||
@@ -62,7 +80,7 @@ export function finishShriekerIBattle(state: GameState): ApplyResult {
     plan?.resolvedScriptId !== boss.script ||
     plan.roomPlacement !== "edgeRoomsR30" ||
     plan.combatEntry.combatMonsterCardId !== boss.card ||
-    Object.entries(SHRIEKER_I_DEPLOYMENT_ENTRY).some(
+    Object.entries(binding.entry).some(
       ([key, value]) => plan.combatEntry[key as keyof typeof plan.combatEntry] !== value,
     ) ||
     active?.roomId !== d.position ||
