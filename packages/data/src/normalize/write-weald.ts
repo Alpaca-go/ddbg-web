@@ -7,6 +7,22 @@ import { buildWealdLevelOneMonsters } from "./weald-monsters";
 import { buildWealdCurios } from "./weald-curios";
 import { buildWealdRooms, buildWealdRoomTiles } from "./weald-rooms";
 import { buildWealdLevelOneQuestCards } from "./weald-quest-cards";
+import { buildWealdHigherQuests } from "./weald-higher-quests";
+
+export function loadNormalizedWealdHigherQuests() {
+  return buildWealdHigherQuests(
+    rawFileSchema.parse(read("extract/extension/weald/raw/quest.json")),
+  );
+}
+
+export function writeNormalizedWealdHigherQuests(
+  outputDir = path.join(ROOT, "normalized/extension/weald"),
+) {
+  const built = loadNormalizedWealdHigherQuests();
+  mkdirSync(outputDir, { recursive: true });
+  writeFileSync(path.join(outputDir, "higher_quests.json"), `${JSON.stringify(built, null, 1)}\n`);
+  return built;
+}
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const read = (file: string): unknown =>

@@ -10,6 +10,7 @@ const result = spawnSync(
     "packages/data/src/normalize/normalize.test.ts",
     "packages/data/src/normalize/weald-monsters.test.ts",
     "packages/data/src/normalize/weald-curios.test.ts",
+    "packages/data/src/normalize/weald-higher-quests.test.ts",
   ],
   {
     cwd: fileURLToPath(root),

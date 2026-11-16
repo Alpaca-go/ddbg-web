@@ -1,0 +1,530 @@
+{
+ "schema": "ddbg-weald-higher-quests-v1",
+ "cards": [
+  {
+   "id": "quest:weald:p006",
+   "name": "Spreaders of Miasma",
+   "level": 2,
+   "restPoints": 12,
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_quests_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_quests_BACK.pdf",
+    "page": 6
+   },
+   "specialRuleLines": [
+    "In Objective Rooms spawn a",
+    "Hateful Virago (LvL 3)."
+   ],
+   "distribution": {
+    "counts": [
+     {
+      "kind": "objective",
+      "count": 3
+     },
+     {
+      "kind": "empty",
+      "count": 1
+     },
+     {
+      "kind": "dark",
+      "count": 1
+     },
+     {
+      "kind": "curio",
+      "count": 1
+     },
+     {
+      "kind": "lair",
+      "count": 1
+     },
+     {
+      "kind": "trap",
+      "count": 1
+     }
+    ],
+    "randomSlots": 0
+   },
+   "xp": {
+    "subject": "viragoKilled",
+    "per": 1,
+    "cap": 3
+   },
+   "approvedOverrides": [],
+   "verifiedRules": [
+    "R-264"
+   ],
+   "runtimeReady": false
+  },
+  {
+   "id": "quest:weald:p007",
+   "name": "Lost Treasures",
+   "level": 2,
+   "restPoints": 12,
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_quests_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_quests_BACK.pdf",
+    "page": 7
+   },
+   "specialRuleLines": [
+    "In Treasure Rooms, spawn",
+    "only Level 2 Monsters."
+   ],
+   "distribution": {
+    "counts": [
+     {
+      "kind": "dark",
+      "count": 2
+     },
+     {
+      "kind": "treasure",
+      "count": 3
+     },
+     {
+      "kind": "lair",
+      "count": 1
+     },
+     {
+      "kind": "trap",
+      "count": 2
+     }
+    ],
+    "randomSlots": 0
+   },
+   "xp": {
+    "subject": "treasureCleared",
+    "per": 1,
+    "cap": 3
+   },
+   "approvedOverrides": [],
+   "verifiedRules": [
+    "R-264"
+   ],
+   "runtimeReady": false
+  },
+  {
+   "id": "quest:weald:p008",
+   "name": "Searching in the Dark",
+   "level": 2,
+   "restPoints": 12,
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_quests_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_quests_BACK.pdf",
+    "page": 8
+   },
+   "specialRuleLines": [
+    "Fill the rest of the Room slots",
+    "with random Rooms. Spawn",
+    "only {icon:e933aa63f0} Monsters in Lairs."
+   ],
+   "distribution": {
+    "counts": [
+     {
+      "kind": "lair",
+      "count": 3
+     }
+    ],
+    "randomSlots": 5
+   },
+   "xp": {
+    "subject": "lairCleared",
+    "per": 1,
+    "cap": 3
+   },
+   "approvedOverrides": [],
+   "verifiedRules": [
+    "R-264"
+   ],
+   "runtimeReady": false
+  },
+  {
+   "id": "quest:weald:p009",
+   "name": "Hounds of the Woods",
+   "level": 2,
+   "restPoints": 8,
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_quests_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_quests_BACK.pdf",
+    "page": 9
+   },
+   "specialRuleLines": [
+    "Objective Rooms are Rooms {icon:497092fe1f} 1 ,",
+    "{icon:497092fe1f} 3 & {icon:497092fe1f} 6 . Upon entering,",
+    "randomly choose one and",
+    "discard it once secured. Spawn",
+    "3 Rabid Gnashers there."
+   ],
+   "distribution": {
+    "counts": [
+     {
+      "kind": "objective",
+      "count": 3
+     },
+     {
+      "kind": "empty",
+      "count": 1
+     },
+     {
+      "kind": "dark",
+      "count": 2
+     },
+     {
+      "kind": "curio",
+      "count": 1
+     },
+     {
+      "kind": "lair",
+      "count": 1
+     }
+    ],
+    "randomSlots": 0
+   },
+   "xp": {
+    "subject": "objectiveCleared",
+    "per": 1,
+    "cap": 3
+   },
+   "approvedOverrides": [],
+   "verifiedRules": [
+    "R-264"
+   ],
+   "runtimeReady": false
+  },
+  {
+   "id": "quest:weald:p010",
+   "name": "Lost Supplies",
+   "level": 2,
+   "restPoints": 12,
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_quests_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_quests_BACK.pdf",
+    "page": 10
+   },
+   "specialRuleLines": [
+    "Do not roll for Provisions for this Quest",
+    "other than those gained by the Survivalist",
+    "or other Skills. Use only Rooms with Loot",
+    "Chests for this Quest. When looting a Chest,",
+    "roll for two random Provisions instead",
+    "of their normal Loot. When returning",
+    "to the Hamlet and gaining Xp for the",
+    "Provisions you brought back, you’ll also",
+    "gain the 1 {icon:aeb7ab28d8} per Provision as normal."
+   ],
+   "distribution": {
+    "counts": [
+     {
+      "kind": "empty",
+      "count": 1
+     },
+     {
+      "kind": "dark",
+      "count": 1
+     },
+     {
+      "kind": "treasure",
+      "count": 2
+     },
+     {
+      "kind": "lair",
+      "count": 2
+     },
+     {
+      "kind": "trap",
+      "count": 2
+     }
+    ],
+    "randomSlots": 0
+   },
+   "xp": {
+    "subject": "provisionsReturned",
+    "per": 2,
+    "cap": 3
+   },
+   "approvedOverrides": [
+    {
+     "kind": "lostSupplies",
+     "skipNormalEmbarkDice": true,
+     "chestRolls": 2,
+     "preserveOtherRewards": true,
+     "returnedGoldPerProvision": 1
+    }
+   ],
+   "verifiedRules": [
+    "R-264"
+   ],
+   "runtimeReady": false
+  },
+  {
+   "id": "quest:weald:p011",
+   "name": "No Other Way",
+   "level": 3,
+   "restPoints": 8,
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_quests_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_quests_BACK.pdf",
+    "page": 11
+   },
+   "specialRuleLines": [
+    "Objective Room is always room {icon:497092fe1f} 5 . A",
+    "Hero must spend an action and a {icon:e53a881e84} when in",
+    "Area {icon:401040514c} to set the oak ablaze. Heroes must",
+    "wait until the end of the next round for the",
+    "oak to burn. This means it cannot be done",
+    "during round 4. At the end of the round that",
+    "the Heroes set the oak on fire, fill all empty",
+    "Stance slots with new Monsters. If the oak",
+    "burns, the objective is cleared even if there",
+    "are still Monsters at the end of round 4."
+   ],
+   "distribution": {
+    "counts": [
+     {
+      "kind": "objective",
+      "count": 3
+     },
+     {
+      "kind": "dark",
+      "count": 2
+     },
+     {
+      "kind": "lair",
+      "count": 2
+     },
+     {
+      "kind": "trap",
+      "count": 1
+     }
+    ],
+    "randomSlots": 0
+   },
+   "xp": {
+    "subject": "oakBurnt",
+    "per": 1,
+    "cap": 3
+   },
+   "approvedOverrides": [
+    {
+     "kind": "burnOakTiming",
+     "waitThroughEmptyBattle": true,
+     "refillAtIgnitionRoundEnd": true,
+     "burnAfterRounds": 1,
+     "burningDoesNotEndBattle": true,
+     "retainObjectiveOnForcedRetreat": true
+    }
+   ],
+   "verifiedRules": [
+    "R-264"
+   ],
+   "runtimeReady": false
+  },
+  {
+   "id": "quest:weald:p012",
+   "name": "Great Unclean Ones",
+   "level": 3,
+   "restPoints": 12,
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_quests_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_quests_BACK.pdf",
+    "page": 12
+   },
+   "specialRuleLines": [
+    "In Objective Rooms, spawn an",
+    "Unclean Giant. These elder giants",
+    "have 2 actions per round, so shuffle",
+    "an additional Initiative Card in",
+    "the Initiative Deck for them."
+   ],
+   "distribution": {
+    "counts": [
+     {
+      "kind": "objective",
+      "count": 3
+     },
+     {
+      "kind": "empty",
+      "count": 2
+     },
+     {
+      "kind": "curio",
+      "count": 1
+     },
+     {
+      "kind": "treasure",
+      "count": 1
+     },
+     {
+      "kind": "lair",
+      "count": 1
+     }
+    ],
+    "randomSlots": 0
+   },
+   "xp": {
+    "subject": "objectiveCleared",
+    "per": 1,
+    "cap": 3
+   },
+   "approvedOverrides": [],
+   "verifiedRules": [
+    "R-264"
+   ],
+   "runtimeReady": false
+  },
+  {
+   "id": "quest:weald:p013",
+   "name": "Final Swipe",
+   "level": 3,
+   "restPoints": 12,
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_quests_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_quests_BACK.pdf",
+    "page": 13
+   },
+   "specialRuleLines": [
+    "When you spawn a {icon:e933aa63f0} Monster in",
+    "Battle, all Heroes suffer 1 {icon:7edb8f71f4} 2t."
+   ],
+   "distribution": {
+    "counts": [
+     {
+      "kind": "dark",
+      "count": 1
+     },
+     {
+      "kind": "curio",
+      "count": 2
+     },
+     {
+      "kind": "treasure",
+      "count": 2
+     },
+     {
+      "kind": "lair",
+      "count": 2
+     },
+     {
+      "kind": "trap",
+      "count": 1
+     }
+    ],
+    "randomSlots": 0
+   },
+   "xp": {
+    "subject": "roomsCleared",
+    "per": 2,
+    "cap": 3
+   },
+   "approvedOverrides": [],
+   "verifiedRules": [
+    "R-264"
+   ],
+   "runtimeReady": false
+  },
+  {
+   "id": "quest:weald:p014",
+   "name": "The Infected",
+   "level": 3,
+   "restPoints": 8,
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_quests_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_quests_BACK.pdf",
+    "page": 14
+   },
+   "specialRuleLines": [
+    "When a Monster in a Lair is killed,",
+    "all Heroes suffer 2 {icon:7edb8f71f4} 2t, 2 {icon:49485b465b} 2t."
+   ],
+   "distribution": {
+    "counts": [
+     {
+      "kind": "dark",
+      "count": 2
+     },
+     {
+      "kind": "curio",
+      "count": 1
+     },
+     {
+      "kind": "lair",
+      "count": 3
+     },
+     {
+      "kind": "trap",
+      "count": 2
+     }
+    ],
+    "randomSlots": 0
+   },
+   "xp": {
+    "subject": "lairCleared",
+    "per": 1,
+    "cap": 3
+   },
+   "approvedOverrides": [
+    {
+     "kind": "lairDeathBlight",
+     "amount": 4,
+     "duration": 2
+    }
+   ],
+   "verifiedRules": [
+    "R-264"
+   ],
+   "runtimeReady": false
+  },
+  {
+   "id": "quest:weald:p015",
+   "name": "Whispering Woods",
+   "level": 3,
+   "restPoints": 8,
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_quests_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_quests_BACK.pdf",
+    "page": 15
+   },
+   "specialRuleLines": [
+    "At the start of each Battle",
+    "round, Heroes suffer {icon:800cca21c7} +1."
+   ],
+   "distribution": {
+    "counts": [
+     {
+      "kind": "empty",
+      "count": 1
+     },
+     {
+      "kind": "dark",
+      "count": 1
+     },
+     {
+      "kind": "curio",
+      "count": 1
+     },
+     {
+      "kind": "treasure",
+      "count": 1
+     },
+     {
+      "kind": "lair",
+      "count": 3
+     },
+     {
+      "kind": "trap",
+      "count": 1
+     }
+    ],
+    "randomSlots": 0
+   },
+   "xp": {
+    "subject": "lairCleared",
+    "per": 1,
+    "cap": 3
+   },
+   "approvedOverrides": [],
+   "verifiedRules": [
+    "R-264"
+   ],
+   "runtimeReady": false
+  }
+ ]
+}
