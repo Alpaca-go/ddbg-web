@@ -335,5 +335,10 @@ export function objectiveRoomClearsOnVictory(
   roomKind: string | undefined,
 ): boolean {
   if (roomKind !== "objective") return true;
+  if (
+    d.wealdHigherQuestOffers === "tasks-v1" &&
+    d.questDistribution?.questId === "quest:weald:p011"
+  )
+    return d.wealdBurnedOakRoomIds?.includes(d.position) === true;
   return readObjectiveRecoveryActions(d) === undefined;
 }

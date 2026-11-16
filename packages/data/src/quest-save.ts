@@ -183,6 +183,7 @@ export const savedCommandSchema = z.union([
       "eldritchVault",
       "interactLoot",
       "disinfectInfectedOak",
+      "igniteWealdOak",
       "finishMonsterTurn",
       "prepareMonsterAction",
       "autoMonsterTurn",
@@ -279,6 +280,7 @@ const phase3QuestIds = basicQuests
       q.id === "quest:weald:p006" ||
       q.id === "quest:weald:p009" ||
       q.id === "quest:weald:p010" ||
+      q.id === "quest:weald:p011" ||
       q.id === "quest:weald:p012" ||
       q.id === "quest:weald:p007" ||
       q.id === "quest:weald:p008" ||

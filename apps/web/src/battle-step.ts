@@ -37,6 +37,7 @@ const pendingSteps: Record<
     label: "等待召唤挤占选择",
     hint: "选择下方角色与最近可用区域，完成 Bone Rabble 召唤。",
   },
+  wealdOakRefill: { label: "等待烧树补怪挤占", hint: "选择角色与最近可用区域，完成点火轮末补怪。" },
   wealdSummon: {
     label: "等待 Weald 召唤挤占选择",
     hint: "选择角色与最近可用区域，完成 R-230 召唤部署。",
