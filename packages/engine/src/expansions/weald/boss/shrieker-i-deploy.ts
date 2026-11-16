@@ -1,3 +1,5 @@
+import { SHRIEKER_I_SCRIPT_ID, SHRIEKER_I_DEPLOYMENT_ENTRY } from "./shrieker-i-content";
+export { SHRIEKER_I_SCRIPT_ID, SHRIEKER_I_DEPLOYMENT_ENTRY } from "./shrieker-i-content";
 import { buildShriekerICombatCatalog } from "./shrieker-i-projection";
 import type { ApplyResult, GameState } from "../../../command";
 import { createBattleState, rejectBattleCommand } from "../../../battle";
@@ -12,15 +14,6 @@ import { dungeonCurioCatalogValid } from "../../../dungeon-curio-catalog";
 
 import { shriekerIInitialDeployment } from "./shrieker-i-deployment";
 import { WEALD_SHRIEKER_I_CONTENT } from "./shrieker-i-content";
-
-export const SHRIEKER_I_SCRIPT_ID = "boss:weald:shrieker:1" as const;
-export const SHRIEKER_I_DEPLOYMENT_ENTRY = {
-  descriptionAbilityCardId: WEALD_SHRIEKER_I_CONTENT.abilities.descriptionCardId,
-  combatAbilityCardId: WEALD_SHRIEKER_I_CONTENT.abilities.combatCardId,
-  combatMonsterCardId: WEALD_SHRIEKER_I_CONTENT.faces[0]!.rawId,
-  printedInitiativeCards: WEALD_SHRIEKER_I_CONTENT.setup.monsterInitiativeCards,
-  printedActionsPerRound: WEALD_SHRIEKER_I_CONTENT.abilities.actionsPerRound,
-};
 
 /** R30／W3／R-261：Boss 房使用独立核准目录，不占普通房间牌堆。 */
 export function prepareShriekerIObjectiveRoom(state: GameState): ApplyResult {
@@ -131,16 +124,20 @@ export function deployShriekerI(
   try {
     const battle = createBattleState(state.seed, {
       ...deployment,
-      monsters: options.shriekerSkills
-        ? buildShriekerICombatCatalog({ nestInPlay: true })
-        : WEALD_SHRIEKER_I_CONTENT.faces.map((face) => ({
-            id: face.rawId,
-            life: face.life,
-            speed: face.speed,
-            dodge: face.dodge,
-            verification: { unverified: true },
-            skills: [],
-          })),
+      monsters:
+        options.shriekerSkills || d.shriekerBossBattles
+          ? buildShriekerICombatCatalog({
+              nestInPlay: true,
+              ...(d.shriekerBossBattles ? { nestFlightApproved: true as const } : {}),
+            })
+          : WEALD_SHRIEKER_I_CONTENT.faces.map((face) => ({
+              id: face.rawId,
+              life: face.life,
+              speed: face.speed,
+              dodge: face.dodge,
+              verification: { unverified: true },
+              skills: [],
+            })),
       roomName: "Shrieker",
       entities: [...heroes, ...deployment.entities],
       heroStats: d.battleCatalog.heroStats,
@@ -167,7 +164,7 @@ export function deployShriekerI(
         },
         battle: {
           ...battle,
-          shriekerISetupHold: true,
+          ...(!d.shriekerBossBattles ? { shriekerISetupHold: true as const } : {}),
           rngCursor: d.cursor,
           choiceCursor: d.decision,
           resolveDecks: d.resolveDecks,
