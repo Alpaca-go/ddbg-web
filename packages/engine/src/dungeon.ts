@@ -315,6 +315,7 @@ export type DungeonState = {
   readonly battleCatalog?: DungeonBattleCatalog;
   readonly mustLeaveRoomId?: string | undefined;
   readonly whisperingWoodsQuest?: true;
+  readonly wealdHigherQuestOffers?: true;
   readonly monsterPool?: import("./monster-pool-runtime").MonsterPoolDeckState & {
     readonly remaining: readonly string[] | null;
     readonly discarded: readonly string[];

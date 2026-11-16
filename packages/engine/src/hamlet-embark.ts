@@ -318,6 +318,7 @@ export function offerNextQuest(state: GameState): ApplyResult {
       d.contentPacks,
       current,
       discarded,
+      d.wealdHigherQuestOffers,
     );
     const wealdRemaining = remainingQuestIdsForLocationDeck(
       "weald",
@@ -325,6 +326,7 @@ export function offerNextQuest(state: GameState): ApplyResult {
       d.contentPacks,
       current,
       discarded,
+      d.wealdHigherQuestOffers,
     );
     const allRemaining = [...ruinsRemaining, ...wealdRemaining];
     if (!allRemaining.length)
@@ -334,7 +336,13 @@ export function offerNextQuest(state: GameState): ApplyResult {
       );
     if (allRemaining.length === 1)
       return presentHamletNextQuestOffer(state, d, campaignLevel, [allRemaining[0]!], d.cursor);
-    const modes = legalHamletQuestDrawModes(campaignLevel, d.contentPacks, current, discarded);
+    const modes = legalHamletQuestDrawModes(
+      campaignLevel,
+      d.contentPacks,
+      current,
+      discarded,
+      d.wealdHigherQuestOffers,
+    );
     if (!modes.length)
       return rejectBattleCommand(
         state,
@@ -349,6 +357,7 @@ export function offerNextQuest(state: GameState): ApplyResult {
         d.contentPacks,
         current,
         discarded,
+        d.wealdHigherQuestOffers,
       );
       if ("reason" in drawn) return rejectBattleCommand(state, drawn.reason);
       return presentHamletNextQuestOffer(state, d, campaignLevel, drawn.offers, drawn.cursor);
@@ -417,6 +426,7 @@ export function chooseHamletQuestDrawMode(
     d.contentPacks,
     current,
     discarded,
+    d.wealdHigherQuestOffers,
   );
   if ("reason" in drawn) return rejectBattleCommand(state, drawn.reason);
   const { pending: _pending, ...dungeonBase } = d;
@@ -460,7 +470,16 @@ export function chooseNextQuest(
     quest.id,
     d.contentPacks,
   );
-  if (locationBlock) return rejectBattleCommand(state, locationBlock);
+  if (
+    locationBlock &&
+    !(
+      quest.id === "quest:weald:p015" &&
+      d.wealdHigherQuestOffers &&
+      d.mode !== "stygian" &&
+      d.contentPacks?.includes("weald")
+    )
+  )
+    return rejectBattleCommand(state, locationBlock);
   const faceEmbark = resolveFaceTheThreatEmbarkForChoose(state, optionId);
   if (faceEmbark.kind === "refused") return faceEmbark.result;
   if (!isFaceTheThreatQuestId(quest.id) && quest.level !== campaignLevel)
@@ -512,6 +531,8 @@ export function chooseNextQuest(
     return rejectBattleCommand(state, error instanceof Error ? error.message : "地点来源无法重建");
   }
   const next = {
+    ...(d.wealdHigherQuestOffers ? { wealdHigherQuestOffers: true as const } : {}),
+    ...(quest.id === "quest:weald:p015" ? { whisperingWoodsQuest: true as const } : {}),
     layout: parsedLayout,
     ...(d.initialQuestDrawMode ? { initialQuestDrawMode: d.initialQuestDrawMode } : {}),
     ...(d.contentPacks ? { contentPacks: d.contentPacks } : {}),

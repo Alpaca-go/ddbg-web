@@ -63,12 +63,15 @@ export function createCoreDungeonQuest(
   contentPacks?: readonly ContentPackId[],
   initialQuestDrawMode?: HamletQuestDrawOptionId,
   whisperingWoodsQuest?: true,
+  wealdHigherQuestOffers?: true,
 ) {
   if (contentPacks !== undefined) {
     contentPacks = normalizeContentPacks(contentPacks);
     sources = sourcesForContentPacks(sources, contentPacks);
   }
   const quest = basicQuests.find((quest) => quest.id === questId);
+  if (wealdHigherQuestOffers && (!contentPacks?.includes("weald") || mode === "stygian"))
+    throw new Error("高等级 Weald 任务版本需要 Weald 包与非 Stygian 模式");
   const whispering = questId === "quest:weald:p015" && whisperingWoodsQuest === true;
   if (
     (questId === "quest:weald:p015" || whisperingWoodsQuest !== undefined) &&
@@ -211,6 +214,8 @@ export function createCoreDungeonQuest(
     draw?.cursor ?? 0,
   );
   let game: GameState = { ...initial, skillLightBeforeCrit: true };
+  if (wealdHigherQuestOffers && game.dungeon)
+    game = { ...game, dungeon: { ...game.dungeon, wealdHigherQuestOffers: true } };
   if (whispering && game.dungeon)
     game = { ...game, dungeon: { ...game.dungeon, whisperingWoodsQuest: true, campaignLevel: 3 } };
   if (draw && game.dungeon)
