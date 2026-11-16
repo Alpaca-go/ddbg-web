@@ -1,3 +1,4 @@
+import { buildShriekerICombatCatalog } from "./shrieker-i-projection";
 import type { ApplyResult } from "../../../command";
 import { WEALD_SHRIEKER_I_CONTENT as content } from "./shrieker-i-content";
 import { shriekerINestRemovalIds } from "./shrieker-i-nest";
@@ -16,7 +17,25 @@ export function clearShriekerINest(result: ApplyResult, ids: readonly string[]) 
   )
     return { result, ids };
   const removed = shriekerINestRemovalIds(b.entities, ids);
-  if (!removed.length) return { result, ids };
+  if (!removed.length) {
+    if (
+      d.shriekerBossBattles &&
+      b.monsters?.some((c) => c.skills.some((s) => s.verified_shrieker_flight)) &&
+      !b.entities.some((e) => !e.dead && e.monsterCardId === content.faces[1]!.rawId)
+    ) {
+      return {
+        result: {
+          ...result,
+          state: {
+            ...result.state,
+            battle: { ...b, monsters: buildShriekerICombatCatalog({ nestInPlay: false }) },
+          },
+        },
+        ids,
+      };
+    }
+    return { result, ids };
+  }
   return {
     ids: [...ids, ...removed],
     result: {
