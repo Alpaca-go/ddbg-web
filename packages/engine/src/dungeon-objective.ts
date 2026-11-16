@@ -142,9 +142,11 @@ export function prepareObjectiveRoomBattle(state: GameState): ApplyResult | null
     if (!Number.isSafeInteger(d.cursor) || d.cursor < 0)
       return refuse(state, "随机游标无效，未选择目标房间（R-048）");
     const secured =
-      readBasicQuest(d.questDistribution)?.id === "quest:weald:p001"
-        ? (d.fungalResearchSecuredRoomCardIds ?? [])
-        : [];
+      readBasicQuest(d.questDistribution)?.id === "quest:weald:p009"
+        ? (d.wealdSecuredRoomCardIds ?? [])
+        : readBasicQuest(d.questDistribution)?.id === "quest:weald:p001"
+          ? (d.fungalResearchSecuredRoomCardIds ?? [])
+          : [];
     if (new Set(secured).size !== secured.length || secured.some((id) => !aside.includes(id)))
       return refuse(state, "Fungal Research 已取得旁置房间记录无效（R-246、R-048）");
     const candidates = aside

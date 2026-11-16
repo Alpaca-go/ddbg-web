@@ -120,6 +120,8 @@ import {
 } from "./boss/threat-passive-runtime";
 import { recordRuinsBossDefeatOnThreatCleared } from "./boss/establish-imminent-threat";
 import { buildWealdHigherMonsterCatalog } from "./expansions/weald/higher-monster-catalog";
+import { approvedWealdTaskMonster } from "./expansions/weald/task-monster-catalog";
+import { forcedWealdTaskOutsideIds } from "./expansions/weald/task-forced-monsters";
 import { resolveEncounterBossScriptId } from "./boss/encounter-rules";
 import { isBossQuestId } from "./boss/quest-bridge";
 import { firstBattleThreatEntry } from "./boss/necromancer-ii-army";
@@ -322,17 +324,29 @@ export function startDungeonBattle(state: GameState): ApplyResult {
             (entry) => entry.id === card.id,
           ),
         );
+    const approvedForcedWeald =
+      d.wealdHigherQuestOffers === "tasks-v1" &&
+      forcedWealdTaskOutsideIds(d).includes(spawn.instanceId) &&
+      JSON.stringify(card) === JSON.stringify(approvedWealdTaskMonster(card.id));
     // C-008 / R-082–083 与 R-263：核准范围和真实当地实例同时匹配才放行。
     if (
       !croneException &&
       (card.level !==
-        (wealdLocal
-          ? approvedWealdHigher
-            ? d.monsterPool!.wealdMonsterLevel!
-            : 1
-          : identity?.level) ||
-        (!allowPrintedLevel && !curioGuardSpawn && card.level > d.explorationSetup.dungeonLevel) ||
-        (card.level !== 1 && !approvedWealdHigher && !hasApprovedHigherMonsterFields(card)))
+        (approvedForcedWeald
+          ? card.level
+          : wealdLocal
+            ? approvedWealdHigher
+              ? d.monsterPool!.wealdMonsterLevel!
+              : 1
+            : identity?.level) ||
+        (!approvedForcedWeald &&
+          !allowPrintedLevel &&
+          !curioGuardSpawn &&
+          card.level > d.explorationSetup.dungeonLevel) ||
+        (card.level !== 1 &&
+          !approvedForcedWeald &&
+          !approvedWealdHigher &&
+          !hasApprovedHigherMonsterFields(card)))
     )
       return refuse(`${card.name} 的等级 / 高等级限定批准不符，保留部署（R-082、R-083、R-048）`);
     if (!Number.isSafeInteger(card.dodge) || card.dodge < 0)
@@ -788,6 +802,12 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
             }
           : {}),
         ...(disinfectionProgress ?? {}),
+        ...(victory &&
+        kind === "objective" &&
+        d.wealdHigherQuestOffers === "tasks-v1" &&
+        questId === "quest:weald:p009"
+          ? { wealdSecuredRoomCardIds: [...(d.wealdSecuredRoomCardIds ?? []), activeCardId] }
+          : {}),
         rooms: d.rooms.map((r) =>
           r.id === d.position && clearsRoom ? { ...r, cleared: true } : r,
         ),
