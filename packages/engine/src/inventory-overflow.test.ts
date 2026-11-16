@@ -191,3 +191,111 @@ it("新标记进入完整初始日志，旧日志不自动改变容量规则", (
     applyCommand(full, { type: "interactLoot", actorId: old.battle!.entities[0]!.id }).state,
   ).toBe(full);
 }, 60000);
+
+it("页面同样的全饰品命令标记下，满池Wild仍进入真实奖励与容量待选", () => {
+  const initial = wealdSuppliesLootFixture(),
+    b = initial.battle!;
+  let result = ok(
+    {
+      ...initial,
+      battle: {
+        ...b,
+        provisions: Array.from({ length: 15 }, (_, i) => ({ id: `ui:${i}`, face: "food" })),
+      },
+    },
+    {
+      type: "interactLoot",
+      actorId: b.entities[0]!.id,
+      allTrinkets: true,
+      inventoryOverflow: true,
+    },
+  );
+  expect(result.state.battle!.pending?.type).toBe("lootReward");
+  for (let i = 0; result.state.battle!.pending?.type === "lootReward" && i < 3; i++) {
+    const p = result.pendingChoice!;
+    result = ok(result.state, {
+      type: "resolveChoice",
+      choiceId: p.id,
+      optionId: "torch",
+      allTrinkets: true,
+      inventoryOverflow: true,
+    });
+  }
+  expect(result.state.battle!.pending?.type).toBe("inventoryOverflow");
+  expect(result.state.battle!.provisions).toHaveLength(17);
+  const p = result.pendingChoice!;
+  result = ok(result.state, {
+    type: "resolveChoice",
+    choiceId: p.id,
+    optionId: p.options[0]!.id,
+    allTrinkets: true,
+    inventoryOverflow: true,
+  });
+  expect(result.state.battle!.provisions).toHaveLength(16);
+});
+
+it("超额校验拒绝也原子回滚当前命令的奖励、RNG和行动", () => {
+  const initial = wealdSuppliesLootFixture(),
+    b = initial.battle!;
+  const game = {
+    ...initial,
+    battle: {
+      ...b,
+      provisions: Array.from({ length: 16 }, (_, i) => ({
+        id: i === 0 ? "loot-provision:0" : `old:${i}`,
+        face: "food" as const,
+      })),
+    },
+  };
+  let result = ok(game, {
+    type: "interactLoot",
+    actorId: b.entities[0]!.id,
+    inventoryOverflow: true,
+  });
+  let refused = false;
+  for (let i = 0; result.pendingChoice && i < 3; i++) {
+    const before = result.state,
+      p = result.pendingChoice;
+    result = applyCommand(before, { type: "resolveChoice", choiceId: p.id, optionId: "torch" });
+    if (result.events.some((e) => e.type === "commandRefused")) {
+      expect(result.state).toBe(before);
+      refused = true;
+      break;
+    }
+  }
+  expect(refused).toBe(true);
+});
+
+it("独立战斗沙盒没有地牢状态，普通补给箱满池也先领取后弃", () => {
+  const initial = wealdSuppliesLootFixture(),
+    { dungeon: _d, ...battleOnly } = initial;
+  void _d;
+  const b = initial.battle!,
+    token = b.loot!.available.find((t) => t.kind === "chooseProvision")!;
+  let result = ok(
+    {
+      ...battleOnly,
+      battle: {
+        ...b,
+        provisions: Array.from({ length: 16 }, (_, i) => ({ id: `battle:${i}`, face: "food" })),
+        loot: {
+          ...b.loot!,
+          available: b.loot!.available.filter((t) => t.id !== token.id),
+          placed: [{ ...token, areaId: "a", revealed: false }],
+        },
+      },
+    },
+    { type: "interactLoot", actorId: b.entities[0]!.id, inventoryOverflow: true },
+  );
+  const p = result.pendingChoice!;
+  result = ok(result.state, { type: "resolveChoice", choiceId: p.id, optionId: "torch" });
+  expect(result.state.dungeon).toBeUndefined();
+  expect(result.state.battle!.provisions).toHaveLength(17);
+  const overflow = result.pendingChoice!;
+  result = ok(result.state, {
+    type: "resolveChoice",
+    choiceId: overflow.id,
+    optionId: overflow.options[0]!.id,
+  });
+  expect(result.state.battle!.provisions).toHaveLength(16);
+});
