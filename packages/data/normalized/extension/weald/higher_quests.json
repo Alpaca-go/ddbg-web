@@ -253,9 +253,10 @@
     }
    ],
    "verifiedRules": [
-    "R-264"
+    "R-264",
+    "R-266"
    ],
-   "runtimeReady": false
+   "runtimeReady": true
   },
   {
    "id": "quest:weald:p011",
