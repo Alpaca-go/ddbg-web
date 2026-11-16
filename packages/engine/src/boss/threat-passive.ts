@@ -113,12 +113,16 @@ export function markTurnsOnBattleStartFromBossThreat(script: BossScriptDefinitio
 }
 
 /** 英雄使用补给（药瓶类）时的额外压力（地牢侧威胁）。 */
-export function stressOnHeroProvisionUseFromBossThreat(script: BossScriptDefinition): number {
+export function stressOnHeroProvisionUseFromBossThreat(
+  script: BossScriptDefinition,
+  provision?: string,
+): number {
   const passive = runBossHook(script, "threatPassiveDungeon", {
     scriptId: script.id,
     side: "dungeon",
   });
   if (passive.status !== "ok" || passive.effect !== "stressOnHeroProvisionUse") return 0;
+  if (passive.provisions && (!provision || !passive.provisions.includes(provision))) return 0;
   return passive.stressDelta;
 }
 

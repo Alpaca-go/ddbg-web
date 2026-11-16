@@ -151,13 +151,17 @@ export function applyBossThreatStressOnDungeonEntry(state: GameState): ApplyResu
 }
 
 /** 英雄消耗一颗补给（探索 / 战斗）时的额外压力。 */
-export function applyBossThreatStressOnProvisionUse(state: GameState, heroId: string): ApplyResult {
-  if (state.battle) return applyBossThreatStressOnBattleProvisionUse(state, heroId);
+export function applyBossThreatStressOnProvisionUse(
+  state: GameState,
+  heroId: string,
+  provision?: string,
+): ApplyResult {
+  if (state.battle) return applyBossThreatStressOnBattleProvisionUse(state, heroId, provision);
   const d = state.dungeon;
   if (!d) return { state, events: [] };
   const script = readActiveBossThreatScript(d);
   if (!script) return { state, events: [] };
-  const delta = stressOnHeroProvisionUseFromBossThreat(script);
+  const delta = stressOnHeroProvisionUseFromBossThreat(script, provision);
   return applyStressToHeroes(
     state,
     [heroId],
@@ -171,13 +175,14 @@ export function applyBossThreatStressOnProvisionUse(state: GameState, heroId: st
 export function applyBossThreatStressOnBattleProvisionUse(
   state: GameState,
   heroId: string,
+  provision?: string,
 ): ApplyResult {
   const d = state.dungeon;
   const battle = state.battle;
   if (!d || !battle) return { state, events: [] };
   const script = readActiveBossThreatScript(d);
   if (!script) return { state, events: [] };
-  const delta = stressOnHeroProvisionUseFromBossThreat(script);
+  const delta = stressOnHeroProvisionUseFromBossThreat(script, provision);
   if (delta <= 0) return { state, events: [] };
   const entity = battle.entities.find((e) => e.id === heroId && e.side === "hero" && !e.dead);
   if (!entity || entity.stress === undefined) {

@@ -132,7 +132,7 @@ export function useDungeonProvision(state: GameState, command: UseProvisionComma
   }
   const settled = settleDungeonLight(result);
   if (settled.events.some((e) => e.type === "commandRefused")) return settled;
-  const threat = applyBossThreatStressOnProvisionUse(settled.state, target.id);
+  const threat = applyBossThreatStressOnProvisionUse(settled.state, target.id, provision.face);
   if (threat.events.some((e) => e.type === "commandRefused")) return threat;
   const merged = {
     ...threat,

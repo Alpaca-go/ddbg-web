@@ -154,7 +154,7 @@ export function useProvision(state: GameState, command: UseProvisionCommand): Ap
     removed.state.battle!.entities.find((e) => e.id === turn.actorId)!.dead
   )
     return finishTurn(removed.state, turn.actorId, removed.events);
-  const threat = applyBossThreatStressOnProvisionUse(removed.state, target.id);
+  const threat = applyBossThreatStressOnProvisionUse(removed.state, target.id, provision.face);
   if (threat.events.some((e) => e.type === "commandRefused")) return threat;
   const pending = threat.state.battle?.pending;
   return {
