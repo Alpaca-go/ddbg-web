@@ -575,7 +575,9 @@ export function chooseNextQuest(
     })(),
     ...(quest.id === "quest:p019" &&
     d.bossLocationSources &&
-    d.activeBossThreatScriptId === "boss:weald:hag:1"
+    (d.activeBossThreatScriptId === "boss:weald:hag:1" ||
+      (d.wealdHigherBosses &&
+        ["boss:weald:hag:2", "boss:weald:hag:3"].includes(d.activeBossThreatScriptId ?? "")))
       ? { bossExpeditionRegion: "weald" as const }
       : {}),
     battleCatalog: locationDecks?.battleCatalog ?? d.battleCatalog!,

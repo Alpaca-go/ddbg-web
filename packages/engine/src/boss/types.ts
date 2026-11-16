@@ -467,6 +467,8 @@ export type BossSlotPlacementPlan = {
 export type BossSlotPlacementResult = BossHookOk<BossSlotPlacementPlan> | BossHookStubResult;
 
 export type BossFaceTheThreatContext = {
+  readonly contentPacks?: readonly import("../../../data/src/content-packs").ContentPackId[];
+  readonly wealdHigherBosses?: true;
   readonly pounderBossBattles?: true;
   readonly shriekerBossBattles?: true;
   readonly scriptId: BossScriptId;
@@ -485,6 +487,8 @@ export type BossSlotPlacementContext = {
 
 /** 引擎层 Face the Threat 解析输入（不绑定单一脚本钩子）。 */
 export type FaceTheThreatQuestContext = {
+  readonly contentPacks?: readonly import("../../../data/src/content-packs").ContentPackId[];
+  readonly wealdHigherBosses?: true;
   readonly pounderBossBattles?: true;
   readonly shriekerBossBattles?: true;
   readonly questId: BasicQuestId;

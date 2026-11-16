@@ -1,3 +1,7 @@
+import {
+  defaultBossSlotPlacementHook,
+  defaultFaceTheThreatEmbarkHook,
+} from "../../../boss/default-boss-hooks";
 import printed from "../../../../../data/normalized/extension/weald/hag_higher.json";
 import { wealdHagHigherContentSchema } from "../../../../../data/src/weald-hag-higher";
 import { getBossScript, registerBossScript } from "../../../boss/registry";
@@ -52,6 +56,8 @@ const scripts: BossScriptDefinition[] = content.cards.map((card) => {
       printedActionsPerRound: 2,
     },
     hooks: {
+      faceTheThreatEmbark: defaultFaceTheThreatEmbarkHook,
+      bossSlotPlacement: defaultBossSlotPlacementHook,
       intoThePot: () => ({
         status: "ok",
         effect: "forceIntoThePotWhileCauldronEmptyEachTurn",

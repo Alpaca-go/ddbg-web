@@ -3497,3 +3497,14 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **威胁**：Painfully Soothing II：每次使用 Potion 或 Food，压力 +1；III：Potion、Food 或 Bandages 任一，压力 +1。No Rest for the Wicked II／III：Sanitarium 少治疗 6／9 Life。无 Holy Water；原稿 R-180／R-262 的援引已纠正。
 - **范围**：仅核准 Hag II／III 与对应锅及能力／威胁，不核准其它 Boss、房间复用或 Stygian；数据目录不等于正式入口和日志验收。Q-186 的本表字段及上述细节结案，其余项不受影响。
 - **依据**：Kyries 本次修改与核准；官方英文 large FRONT p11／p12／p14／p15、BACK p14／p15；Boss Abilities FRONT p17／p18／p20／p21、BACK p17／p18；Weald W4。完整来源范围见审阅稿。
+
+
+### R-268：Weald 三 Boss 高等级先行实现口径（待整批逐项复核）
+
+- **日期／授权**：2026-11-17，Kyries 明确给出房间共用与召唤取卡口径，随后要求“先按照这样做，等做完我再重新核对一下每项信息”。本条记录本轮先行实现的明确取值与建议处理，最终逐项复核仍保留。
+- **房间**：标准／Radiant 的 Hag、Shrieker、Pounder II／III 共用已核准10／11／12号Boss房和对应板块。依据Weald W3／W4及rooms FRONT p10／11／12无等级；不把R-267范围自行扩为房间批准，也不纳入Stygian布置。
+- **Pounder 取卡**：II用Matchman II＋Bloodletter I；III用Matchman III＋两张Raider III。Matchman为Weald medium FRONT p23／24／25，Bloodletter为核心唯一印制I级（large FRONT p2、medium FRONT p30），Raider为核心唯一印制III级（medium FRONT p56–58）。不发明Bloodletter II或Raider I／II；同名大／中参考不增加实体副本。
+- **Pounder 行为**：按审阅稿建议延续R-258：只有Matchman缺失才触发，补足该等级印刷组成，已有附属怪计数；同区点炮，Pounder不自行炮击，姿态S不写成技能1。R-259时序与Caretaker例外沿用，II／III Buff＋Riposte分别2t／3t，轰炸7／9伤口。
+- **Shrieker 先行口径**：II忽略随机补给时仍完整掷骰／完成Wild选面，再忽略且不入池；III逐枚加入，先处理R-266容量，再选择弃两枚；不足两枚时全弃。II村庄reserve弃三枚，不足全弃。III每英雄只减常规两颗中的一颗，其它技能／事件额外骰照常。以上由本次“按当前建议先做、完成后复核”接线，不追溯改写I级或历史日志。
+- **字段**：按用户修订后的[高等级三Boss审阅稿](weald-higher-boss-review-2026-11-17.md)先行采用实际卡面数字；Pounder未印Speed为0，Nest未印Speed／Dodge为0。Hag数值仍依R-267；Shrieker Call the Murder三个等级飞行治疗依R-262。
+- **边界**：本批工程验证、自然养成与最终人工核对分别记录；数据／运行时接线通过不代表完整战役或人工实机已验收。

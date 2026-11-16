@@ -1,18 +1,25 @@
 import type { ApplyResult, GameState } from "../../../command";
 import { rejectBattleCommand } from "../../../battle";
 import { clearedBossThreatScriptIdAfterVictory } from "../../../boss/threat-campaign";
-import {
-  HAG_I_SCRIPT_ID,
-  HAG_I_COMBAT_MONSTER_CARD_ID,
-  HAG_I_DESCRIPTION_ABILITY_CARD_ID,
-} from "./hag-i";
+import { hagDeploymentContext } from "./hag-deployment-context";
 import { WEALD_HAG_I_CONTENT } from "./hag-i-content";
 
 export function hagIRealCombatActive(state: GameState): boolean {
+  return hagRealCombatActive(state, 1);
+}
+export function hagHigherRealCombatActive(state: GameState): boolean {
+  const level = state.dungeon?.campaignLevel;
+  return (
+    !!state.dungeon?.wealdHigherBosses &&
+    (level === 2 || level === 3) &&
+    hagRealCombatActive(state, level)
+  );
+}
+function hagRealCombatActive(state: GameState, level: 1 | 2 | 3): boolean {
   return (
     state.battle !== undefined &&
     state.dungeon?.phase === "inBattle" &&
-    state.dungeon.activeBossThreatScriptId === HAG_I_SCRIPT_ID &&
+    state.dungeon.activeBossThreatScriptId === `boss:weald:hag:${level}` &&
     state.dungeon.roomCards?.active?.cardId === WEALD_HAG_I_CONTENT.tile.roomId &&
     state.dungeon.roomCards.active.tileId === WEALD_HAG_I_CONTENT.tile.id
   );
@@ -20,13 +27,22 @@ export function hagIRealCombatActive(state: GameState): boolean {
 
 /** R30／R38／R-044／R-254–256：专属 Boss 战交接，不消耗普通牌池或提前发 XP。 */
 export function finishHagIBattle(state: GameState): ApplyResult {
-  const level = 1;
+  return finishHagBattle(state, 1);
+}
+export function finishHagHigherBattle(state: GameState): ApplyResult {
+  const level = state.dungeon?.campaignLevel;
+  if ((level !== 2 && level !== 3) || !state.dungeon?.wealdHigherBosses)
+    return rejectBattleCommand(state, "R-268：高等级 Hag 结算缺少版本或等级");
+  return finishHagBattle(state, level);
+}
+function finishHagBattle(state: GameState, level: 1 | 2 | 3): ApplyResult {
+  const binding = hagDeploymentContext(level);
   const boss = {
-    script: HAG_I_SCRIPT_ID,
-    card: HAG_I_COMBAT_MONSTER_CARD_ID,
-    description: HAG_I_DESCRIPTION_ABILITY_CARD_ID,
+    script: binding.script,
+    card: binding.card,
+    description: binding.description,
     entity: "boss:hag",
-    label: "Hag I",
+    label: level === 1 ? "Hag I" : `Hag ${level === 2 ? "II" : "III"}`,
     ruling: "W4／R-254–256",
   };
   const d = state.dungeon;
@@ -44,7 +60,7 @@ export function finishHagIBattle(state: GameState): ApplyResult {
     !["standard", "radiant"].includes(d.mode) ||
     b?.hagCauldron !== undefined ||
     !b ||
-    !hagIRealCombatActive(state) ||
+    !hagRealCombatActive(state, level) ||
     d.campaignLevel !== level ||
     d.questDistribution?.questId !== "quest:p019" ||
     d.activeBossThreatScriptId !== boss.script ||

@@ -6,7 +6,12 @@ import {
   pounderIRealCombatActive,
   finishPounderIBattle,
 } from "./expansions/weald/boss/pounder-i-finish";
-import { hagIRealCombatActive, finishHagIBattle } from "./expansions/weald/boss/hag-i-finish";
+import {
+  hagIRealCombatActive,
+  finishHagIBattle,
+  hagHigherRealCombatActive,
+  finishHagHigherBattle,
+} from "./expansions/weald/boss/hag-i-finish";
 import { dungeonMonsterPoolCatalogValid } from "./monster-pool-validation";
 import { ruinsIRealCombatActive, finishRuinsIBattle } from "./boss/ruins-i-finish";
 import {
@@ -528,6 +533,7 @@ export function finishDungeonBattle(state: GameState): ApplyResult {
   if (shriekerIRealCombatActive(state)) return finishShriekerIBattle(state);
   if (pounderIRealCombatActive(state)) return finishPounderIBattle(state);
   if (hagIRealCombatActive(state)) return finishHagIBattle(state);
+  if (hagHigherRealCombatActive(state)) return finishHagHigherBattle(state);
   if (prophetIIIRealCombatActive(state)) return finishProphetIIIBattle(state);
   if (prophetIIRealCombatActive(state)) return finishProphetIIBattle(state);
   if (ruinsIRealCombatActive(state, "prophet")) return finishRuinsIBattle(state, "prophet");

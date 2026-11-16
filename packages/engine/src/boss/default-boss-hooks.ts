@@ -45,7 +45,12 @@ export function canonicalBossSlotNodeIdsForLayout(layoutId: string): readonly st
 export function resolveBossScriptIdForFaceTheThreatContext(
   ctx: Pick<
     BossFaceTheThreatContext,
-    "questId" | "campaignLevel" | "activeBossThreatScriptId" | "imminentThreatDescriptionCardId"
+    | "questId"
+    | "campaignLevel"
+    | "activeBossThreatScriptId"
+    | "imminentThreatDescriptionCardId"
+    | "contentPacks"
+    | "wealdHigherBosses"
   >,
 ): BossScriptId | undefined {
   return resolveBossScriptIdForQuest(ctx.questId, ctx);

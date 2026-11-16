@@ -19,6 +19,8 @@ export function nextExpeditionLocationDecks(d: DungeonState, questId: string) {
     d.locationBossThreats &&
     questId === "quest:p019" &&
     (d.activeBossThreatScriptId === "boss:weald:hag:1" ||
+      (d.wealdHigherBosses &&
+        ["boss:weald:hag:2", "boss:weald:hag:3"].includes(d.activeBossThreatScriptId ?? "")) ||
       (d.shriekerBossBattles && d.activeBossThreatScriptId === "boss:weald:shrieker:1") ||
       (d.activeBossThreatScriptId === "boss:weald:brigandPounder:1" &&
         d.pounderDungeonThreats &&
@@ -44,23 +46,28 @@ export function nextExpeditionLocationDecks(d: DungeonState, questId: string) {
     region,
     questId === "quest:p019" ? (d.campaignLevel ?? 1) : quest.level,
     d.contentPacks,
-    ([
-      "quest:weald:p006",
-      "quest:weald:p007",
-      "quest:weald:p008",
-      "quest:weald:p009",
-      "quest:weald:p010",
-      "quest:weald:p011",
-      "quest:weald:p012",
-      "quest:weald:p013",
-      "quest:weald:p014",
-    ].includes(questId) &&
-      d.wealdHigherQuestOffers === "tasks-v1") ||
-      (questId === "quest:weald:p015" && d.wealdHigherQuestOffers)
-      ? d.wealdHigherQuestOffers === "tasks-v1"
-        ? "weald-tasks-v1"
-        : "weald-higher-v1"
-      : undefined,
+    questId === "quest:p019" &&
+      region === "weald" &&
+      d.wealdHigherBosses &&
+      (d.campaignLevel === 2 || d.campaignLevel === 3)
+      ? "weald-higher-v1"
+      : ([
+            "quest:weald:p006",
+            "quest:weald:p007",
+            "quest:weald:p008",
+            "quest:weald:p009",
+            "quest:weald:p010",
+            "quest:weald:p011",
+            "quest:weald:p012",
+            "quest:weald:p013",
+            "quest:weald:p014",
+          ].includes(questId) &&
+            d.wealdHigherQuestOffers === "tasks-v1") ||
+          (questId === "quest:weald:p015" && d.wealdHigherQuestOffers)
+        ? d.wealdHigherQuestOffers === "tasks-v1"
+          ? "weald-tasks-v1"
+          : "weald-higher-v1"
+        : undefined,
   );
   const cards = region === "weald" ? WEALD_APPROVED_ROOM_CARDS : sources.rooms;
   return {
