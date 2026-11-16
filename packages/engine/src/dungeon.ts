@@ -233,6 +233,8 @@ export type DungeonState = {
   readonly hamletDarkRitualActorId?: string;
   /** 当前开局已取消的常规骰id；Wild/Radiant待选完成后清除。 */
   readonly startingProvisionOmittedIds?: readonly string[];
+  readonly shriekerBossBattles?: true;
+  readonly shriekerTheft?: import("./expansions/weald/boss/shrieker-i-provisions").ShriekerTheft;
   /** Traveling Merchants 进行中：尚未改骰的英雄顺序。 */
   readonly provisionFaceChoiceRemaining?: readonly string[];
   /** Warm Up the Halls（quest:p011）：开局补给掷完后每名英雄可改一颗为 Torch。 */

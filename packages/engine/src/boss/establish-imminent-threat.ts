@@ -1,3 +1,4 @@
+import { ensureShriekerIBossScriptRegistered } from "../expansions/weald/boss/shrieker-i";
 import { nextExpeditionLocationDecks } from "../hamlet-location-embark";
 import { ensurePounderIBossScriptRegistered } from "../expansions/weald/boss/pounder-i";
 import { wealdThreatPool } from "../expansions/weald/boss/threat-pool";
@@ -29,6 +30,7 @@ export type EstablishImminentThreatCommand = {
   readonly pounderDungeonThreats?: true | undefined;
   readonly pounderHamletThreats?: true | undefined;
   readonly pounderBossBattles?: true | undefined;
+  readonly shriekerBossBattles?: true | undefined;
 };
 
 export type DrawImminentThreatAfterActAdvanceCommand = {
@@ -97,11 +99,13 @@ function applyImminentThreatDraw(
   for (let i = 0; i < d.cursor; i++) rng.next();
   const { cardId, rngDraws } = drawOne(pool, rng);
   const cursor = d.cursor + rngDraws;
+  if (d.shriekerBossBattles) ensureShriekerIBossScriptRegistered();
   if (d.pounderDungeonThreats) ensurePounderIBossScriptRegistered();
   const scriptId = resolveScriptIdForDescriptionCard(
     cardId,
     d.contentPacks,
     d.pounderDungeonThreats,
+    d.shriekerBossBattles,
   );
   ensureCoreBossScriptsRegistered();
   if (d.locationBossThreats) ensureCampaignBossScriptsRegistered(d.contentPacks);
@@ -153,6 +157,14 @@ export function establishImminentThreat(
   if (state.battle) return rejectBattleCommand(state, "战斗进行中不能定威胁（R-048）");
   const d = state.dungeon;
   if (!d) return rejectBattleCommand(state, "缺少战役状态，不能定威胁");
+  if (
+    command.shriekerBossBattles &&
+    (!command.locationBosses ||
+      !command.locationSources ||
+      !d.contentPacks?.includes("weald") ||
+      d.mode === "stygian")
+  )
+    return rejectBattleCommand(state, "Shrieker I 需要完整 Weald 来源与非 Stygian 模式");
   if (command.pounderBossBattles && !command.pounderHamletThreats)
     return rejectBattleCommand(state, "Pounder Boss 战斗版本须同时启用两段威胁版本");
   if (
@@ -203,6 +215,7 @@ export function establishImminentThreat(
             ...(command.locationSources ? { bossLocationSources: true } : {}),
             ...(command.pounderDungeonThreats ? { pounderDungeonThreats: true } : {}),
             ...(command.pounderHamletThreats ? { pounderHamletThreats: true } : {}),
+            ...(command.shriekerBossBattles ? { shriekerBossBattles: true } : {}),
             ...(command.pounderBossBattles ? { pounderBossBattles: true } : {}),
           },
         }
@@ -216,6 +229,7 @@ export function establishImminentThreat(
   if (
     command.locationSources &&
     (next.activeBossThreatScriptId === "boss:weald:hag:1" ||
+      (command.shriekerBossBattles && next.activeBossThreatScriptId === "boss:weald:shrieker:1") ||
       (command.pounderBossBattles &&
         next.activeBossThreatScriptId === "boss:weald:brigandPounder:1")) &&
     d.questDistribution?.questId === "quest:p019"

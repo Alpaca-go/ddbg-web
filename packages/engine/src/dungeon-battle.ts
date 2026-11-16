@@ -1,4 +1,8 @@
 import {
+  shriekerIRealCombatActive,
+  finishShriekerIBattle,
+} from "./expansions/weald/boss/shrieker-i-finish";
+import {
   pounderIRealCombatActive,
   finishPounderIBattle,
 } from "./expansions/weald/boss/pounder-i-finish";
@@ -489,6 +493,7 @@ export function startDungeonBattle(state: GameState): ApplyResult {
 
 /** R25、R-059：仅完成的战斗可回传一次；R-068 / mutualWipeout 不发胜利或撤退奖励。 */
 export function finishDungeonBattle(state: GameState): ApplyResult {
+  if (shriekerIRealCombatActive(state)) return finishShriekerIBattle(state);
   if (pounderIRealCombatActive(state)) return finishPounderIBattle(state);
   if (hagIRealCombatActive(state)) return finishHagIBattle(state);
   if (prophetIIIRealCombatActive(state)) return finishProphetIIIBattle(state);

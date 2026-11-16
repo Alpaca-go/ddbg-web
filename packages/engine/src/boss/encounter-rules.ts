@@ -1,3 +1,4 @@
+import { ensureShriekerIBossScriptRegistered } from "../expansions/weald/boss/shrieker-i";
 import type { GameState } from "../command";
 import { readBossCombatEntry } from "./combat-entry";
 import { readDarkestMidBossDeployedCardIds } from "./darkest-mid-boss-runtime";
@@ -42,6 +43,7 @@ function deployedIncludesBossActors(state: GameState, scriptId: BossScriptId): b
  * Boss 任务但未映射脚本 / 非 Boss 怪物遭遇：仍走普通第 4 轮撤退（quest→Boss 映射待 Kyries）。
  */
 export function resolveEncounterBossScriptId(state: GameState): BossScriptId | undefined {
+  if (state.dungeon?.shriekerBossBattles) ensureShriekerIBossScriptRegistered();
   ensureCampaignBossScriptsRegistered(state.dungeon?.contentPacks);
   const questId = state.dungeon?.questDistribution?.questId;
   if (!questId || !isBossQuestId(questId)) return undefined;

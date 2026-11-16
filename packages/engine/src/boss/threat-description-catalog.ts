@@ -186,8 +186,10 @@ export function resolveScriptIdForDescriptionCard(
   descriptionCardId: string,
   packs?: readonly ContentPackId[],
   pounderDungeonThreats = false,
+  shriekerBossBattles = false,
 ): BossScriptId | undefined {
   const id = resolveAnyScriptIdForDescriptionCard(descriptionCardId);
+  if (id === "boss:weald:shrieker:1" && !shriekerBossBattles) return undefined;
   // 注册表是全局缓存；新版本不得改变旧日志的 Pounder 未注册停点。
   if (id === "boss:weald:brigandPounder:1" && !pounderDungeonThreats) return undefined;
   return id && bossEnabledForPacks(packs, id) ? id : undefined;

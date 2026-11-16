@@ -341,6 +341,16 @@ export function naturalQuest(
           continue;
         }
         if (
+          state.dungeon!.roomCards!.active!.cardId === "room:weald:p011" &&
+          state.dungeon!.activeBossThreatScriptId === "boss:weald:shrieker:1" &&
+          state.dungeon!.shriekerBossBattles
+        ) {
+          step({ type: "deployShriekerI" });
+          fight();
+          if (state.dungeon!.campaignFailure) return;
+          continue;
+        }
+        if (
           state.dungeon!.roomCards!.active!.cardId === "room:weald:p010" &&
           state.dungeon!.activeBossThreatScriptId === "boss:weald:hag:1"
         ) {

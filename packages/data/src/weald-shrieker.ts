@@ -95,12 +95,12 @@ export const wealdShriekerTileSchema = wealdRoomTileBaseSchema
     )
       ctx.addIssue({ code: "custom", message: "R-261 部署、宝箱或区域机制不符" });
   });
-/** 已核准数据；pendingRuleDetails 保留原稿未给出具体答案的规则时点，不代表 runtime ready。 */
+/** R-261／R-262 核准 I 级数据与完整运行标记；旧命令准入仍由显式版本控制。 */
 export const wealdShriekerContentSchema = z
   .strictObject({
-    schema: z.literal("ddbg-weald-shrieker-i-v1"),
-    rulings: z.tuple([z.literal("R-261")]),
-    combatReady: z.literal(false),
+    schema: z.literal("ddbg-weald-shrieker-i-v2"),
+    rulings: z.tuple([z.literal("R-261"), z.literal("R-262")]),
+    combatReady: z.literal(true),
     sources: z.strictObject({
       combatFront: z.literal(`${PRINT}DD_EN_WEALD_CARDS_140x140_monster_large_FRONT.pdf`),
       combatBack: z.literal(`${PRINT}DD_EN_WEALD_CARDS_140x140_monster_large_BACK.pdf`),
@@ -134,11 +134,7 @@ export const wealdShriekerContentSchema = z
         }),
       }),
     }),
-    pendingRuleDetails: z.tuple([
-      z.literal("callTheMurderHealingTimingAndRecipient"),
-      z.literal("flightMovementConstraints"),
-      z.literal("multipleProvisionGainsAndFullPoolOrdering"),
-    ]),
+    pendingRuleDetails: z.tuple([]),
     setup: z.strictObject({
       rule: z.literal("Weald W3"),
       shriekerStance: z.literal("aggressive"),

@@ -1,0 +1,11 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`受控抵达检查点沿原策略执行完整 Shrieker 战斗，保留实际胜负并确定性续接 1`] = `
+{
+  "failure": undefined,
+  "phase": "awaitingReplacement",
+  "stop": null,
+  "turn": undefined,
+  "victory": true,
+}
+`;
