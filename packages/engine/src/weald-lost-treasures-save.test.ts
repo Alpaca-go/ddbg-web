@@ -1,3 +1,4 @@
+import { basicQuests } from "../../data/src/basic-quests";
 import { expect, it } from "vitest";
 import medium from "../../data/normalized/extension/weald/monster_medium.json";
 import large from "../../data/normalized/extension/weald/monster_large.json";
@@ -67,6 +68,9 @@ it("Lost Treasures 固定seed0完整日志；II级当地＋通用限制及旧版
   expect(loadQuestSave(JSON.parse(JSON.stringify(save)), sources).game).toEqual(run.state);
   expect(remainingQuestIdsForLocationDeck("weald", 2, packs, "", [], true)).toEqual([]);
   expect(remainingQuestIdsForLocationDeck("weald", 2, packs, "", [], "tasks-v1")).toEqual([
-    "quest:weald:p007",
+    ...basicQuests
+      .filter((q) => q.expeditionRegion === "weald" && q.level === 2)
+      .map((q) => q.id)
+      .sort(),
   ]);
 }, 60000);
