@@ -1,5 +1,4 @@
-import higherPrinted from "../../../../../data/normalized/extension/weald/pounder_higher.json";
-import { wealdPounderHigherContentSchema } from "../../../../../data/src/weald-pounder-higher";
+import { WEALD_POUNDER_HIGHER_CONTENT as higher } from "./pounder-higher-content";
 import corePool from "../../../../../data/normalized/corebox/monster_pool.json";
 import coreMedium from "../../../../../data/normalized/corebox/monster_medium.json";
 import coreLarge from "../../../../../data/normalized/corebox/monster_large.json";
@@ -10,7 +9,6 @@ import { WEALD_POUNDER_I_CONTENT as ordinary } from "./pounder-i-data";
 import { projectPounderCombatFaces } from "./pounder-i-projection";
 import { resolveEncounterBossScriptId } from "../../../boss/encounter-rules";
 
-const higher = wealdPounderHigherContentSchema.parse(higherPrinted);
 export function pounderContextForLevel(level: 1 | 2 | 3) {
   const card = level === 1 ? ordinary : higher.cards.find((c) => c.level === level)!;
   const companionId =
