@@ -1,3 +1,4 @@
+import { igniteWealdOak, chooseWealdOakRefill } from "./expansions/weald/burning-oak";
 import {
   beginShriekerDungeonTheft,
   chooseShriekerTheft,
@@ -347,6 +348,7 @@ type BaseCommand =
   | { readonly type: "lootTreasureChest"; readonly actorId: string }
   | { readonly type: "destroyEvilEye"; readonly actorId: string }
   | { readonly type: "disinfectInfectedOak"; readonly actorId: string }
+  | { readonly type: "igniteWealdOak"; readonly actorId: string }
   | { readonly type: "hallAscension"; readonly actorId: string }
   | { readonly type: "eldritchVault"; readonly actorId: string }
   | { readonly type: "hideAndHeal"; readonly actorId: string }
@@ -801,6 +803,7 @@ function dispatchCommand(
       return chooseNecromancerISummon(state, command.optionId);
     if (pending.type === "pounderReinforcements")
       return choosePounderIReinforcements(state, command.optionId);
+    if (pending.type === "wealdOakRefill") return chooseWealdOakRefill(state, command.optionId);
     if (pending.type === "wealdSummon") return chooseWealdMonsterSummon(state, command.optionId);
     if (pending.type === "hagRelease") return chooseHagIRelease(state, command.optionId);
     if (pending.type === "allTrinkets") return rejectBattleCommand(state, "饰品续接上下文缺失");
@@ -912,6 +915,7 @@ function dispatchCommand(
   if (command.type === "useTrinket") return useTrinket(state, command);
   if (command.type === "lootTreasureChest") return lootTreasureChest(state, command.actorId);
   if (command.type === "destroyEvilEye") return destroyEvilEye(state, command.actorId);
+  if (command.type === "igniteWealdOak") return igniteWealdOak(state, command.actorId);
   if (command.type === "disinfectInfectedOak") return disinfectInfectedOak(state, command.actorId);
   if (command.type === "hallAscension") return beginHallAscension(state, command.actorId);
   if (command.type === "eldritchVault") return beginEldritchVault(state, command.actorId);

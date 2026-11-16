@@ -1,4 +1,5 @@
 export { applyCommand, createInitialState } from "./command";
+export { readWealdOakAction } from "./expansions/weald/burning-oak";
 export { readInfectedOakAction } from "./battle-infected-oak";
 export { buildWealdMonsterCatalog } from "./expansions/weald/monster-catalog";
 export { buildWealdHigherMonsterCatalog } from "./expansions/weald/higher-monster-catalog";
