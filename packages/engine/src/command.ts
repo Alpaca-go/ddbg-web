@@ -1022,14 +1022,20 @@ function dispatchCommand(
 
 /** R-266：新命令显式启用；旧无标记命令严格保留历史容量行为。 */
 export function applyCommand(state: GameState, command: Command, legacy = false): ApplyResult {
-  if (state.inventoryOverflowHold) return chooseInventoryOverflow(state, command);
+  if (state.inventoryOverflowHold) {
+    const chosen = chooseInventoryOverflow(state, command);
+    const refused = chosen.events.find((e) => e.type === "commandRefused");
+    return refused ? rejectBattleCommand(state, refused.message) : chosen;
+  }
   const enabled = state.inventoryOverflow === true || command.inventoryOverflow === true;
   const input = enabled ? withInventoryOverflow(state) : state;
   const result = runCommand(input, command, legacy);
   if (result.events.some((e) => e.type === "commandRefused")) return { ...result, state };
-  return enabled
+  const settled = enabled
     ? settleInventoryOverflow({ ...result, state: withInventoryOverflow(result.state) })
     : result;
+  const refused = settled.events.find((e) => e.type === "commandRefused");
+  return refused ? rejectBattleCommand(state, refused.message) : settled;
 }
 
 /** 任一后续规则拒绝时，整次命令回滚骰子、行动和事件。 */

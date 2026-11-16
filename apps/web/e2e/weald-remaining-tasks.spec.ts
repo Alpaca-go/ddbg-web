@@ -87,7 +87,19 @@ test("剩余任务页面：点火与等待轮末；双补给宝箱Wild选择", a
     page.evaluate(async () => {
       const path = "/src/dungeon-sandbox/store.ts";
       const { useDungeonStore } = await import(/* @vite-ignore */ path);
-      return useDungeonStore.getState().game;
+      const game = useDungeonStore.getState().game,
+        b = game.battle;
+      return {
+        inventoryOverflowHold: game.inventoryOverflowHold,
+        battle: {
+          pending: b.pending,
+          provisions: b.provisions,
+          encounter: b.encounter,
+          loot: b.loot,
+          wealdOakIgnitedRound: b.wealdOakIgnitedRound,
+          wealdOakBurnt: b.wealdOakBurnt,
+        },
+      };
     });
   await install(oak!);
   await page.getByRole("tab", { name: "战利品", exact: true }).click();
