@@ -87,7 +87,19 @@ test("剩余任务页面：点火与等待轮末；双补给宝箱Wild选择", a
     page.evaluate(async () => {
       const path = "/src/dungeon-sandbox/store.ts";
       const { useDungeonStore } = await import(/* @vite-ignore */ path);
-      return useDungeonStore.getState().game;
+      const game = useDungeonStore.getState().game,
+        b = game.battle;
+      return {
+        inventoryOverflowHold: game.inventoryOverflowHold,
+        battle: {
+          pending: b.pending,
+          provisions: b.provisions,
+          encounter: b.encounter,
+          loot: b.loot,
+          wealdOakIgnitedRound: b.wealdOakIgnitedRound,
+          wealdOakBurnt: b.wealdOakBurnt,
+        },
+      };
     });
   await install(oak!);
   await page.getByRole("tab", { name: "战利品", exact: true }).click();
@@ -102,13 +114,36 @@ test("剩余任务页面：点火与等待轮末；双补给宝箱Wild选择", a
     type: "finished",
     outcome: "victory",
   });
-  await install(supplies!);
-  await page.getByRole("tab", { name: "战利品", exact: true }).click();
-  await page.getByRole("button", { name: "拾取同区宝箱", exact: true }).click();
-  await expect.poll(async () => (await current()).battle.pending?.type).toBe("lootReward");
-  for (let i = 0; i < 2 && (await current()).battle.pending; i++)
-    await page.getByRole("button", { name: "火把", exact: true }).click();
-  expect((await current()).battle.provisions).toHaveLength(2);
-  expect((await current()).battle.encounter.turn).toMatchObject({ type: "hero", actions: 1 });
-  expect((await current()).battle.loot.gold).toBe(0);
+  for (const count of [15, 16]) {
+    const fixture: GameState = {
+      ...supplies!,
+      battle: {
+        ...supplies!.battle!,
+        provisions: Array.from({ length: count }, (_, i) => ({
+          id: `existing:${i}`,
+          face: "food",
+        })),
+      },
+    };
+    await install(fixture);
+    await page.getByRole("tab", { name: "战利品", exact: true }).click();
+    await page.getByRole("button", { name: "拾取同区宝箱", exact: true }).click();
+    await expect.poll(async () => (await current()).battle.pending?.type).toBe("lootReward");
+    for (let i = 0; i < 2 && (await current()).battle.pending?.type === "lootReward"; i++)
+      await page.getByRole("button", { name: "火把", exact: true }).click();
+    expect((await current()).battle.provisions).toHaveLength(count + 2);
+    expect((await current()).battle.encounter.turn).toMatchObject({ type: "hero", actions: 1 });
+    for (let i = 0; i < count - 14; i++) {
+      const p = (await current()).battle.pending.choice;
+      const option =
+        i === 0
+          ? p.options.find((o: { id: string }) => o.id.startsWith("loot-provision:"))
+          : p.options[0];
+      await page.getByRole("button", { name: option.label, exact: true }).click();
+    }
+    expect((await current()).battle.provisions).toHaveLength(16);
+    expect((await current()).inventoryOverflowHold).toBeUndefined();
+    expect((await current()).battle.encounter.turn).toMatchObject({ type: "hero", actions: 1 });
+    expect((await current()).battle.loot.gold).toBe(0);
+  }
 });
