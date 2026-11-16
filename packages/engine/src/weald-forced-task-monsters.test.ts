@@ -41,7 +41,7 @@ it.each(["quest:weald:p006", "quest:weald:p009", "quest:weald:p012"] as const)(
           ...game.dungeon!,
           phase: "awaitingRoom",
           position: roomId,
-          visited: [...game.dungeon!.visited, roomId],
+          visited: [...(game.dungeon!.visited ?? []), roomId],
           rooms: game.dungeon!.rooms.map((r) => (r.id === roomId ? { ...r, revealed: true } : r)),
         },
       };
