@@ -1,3 +1,4 @@
+import { shriekerMechanismFixture } from "../../../test-helpers/shrieker-i";
 import { expect, it } from "vitest";
 import { applyCommand, type GameState } from "../../../command";
 import { createCoreDungeonQuest } from "../../../dungeon-quest-entry";
@@ -103,4 +104,33 @@ it("R30 无版本、非当前威胁或已经翻战斗面不触发补给盗取", 
     const result = { state, events: [] };
     expect(beginShriekerReserveTheft(result)).toBe(result);
   }
+});
+
+it("R-262 战斗盗取推进战斗选择游标，地牢游标留待既有战后交接，不重复 choice id", () => {
+  const source = fixture();
+  const battle = shriekerMechanismFixture().deployed.battle!;
+  const before: GameState = {
+    ...source,
+    dungeon: { ...source.dungeon!, phase: "inBattle" },
+    battle: { ...battle, choiceCursor: 7 },
+  };
+  const gained: GameState = {
+    ...before,
+    battle: {
+      ...before.battle!,
+      provisions: [...before.battle!.provisions!, { id: "new-provision", face: "food" }],
+    },
+  };
+  const pending = beginShriekerDungeonTheft(before, { state: gained, events: [] });
+  expect(pending.pendingChoice!.id).toBe("shrieker-theft:7");
+  expect(pending.state.battle!.choiceCursor).toBe(8);
+  expect(pending.state.dungeon!.decision).toBe(before.dungeon!.decision);
+  const next = applyCommand(pending.state, {
+    type: "resolveChoice",
+    choiceId: pending.pendingChoice!.id,
+    optionId: "new-provision",
+  });
+  expect(next.state.battle!.choiceCursor).toBe(8);
+  expect(next.state.battle!.rngCursor).toBe(before.battle!.rngCursor);
+  expect(next.state.battle!.pending).toBeNull();
 });

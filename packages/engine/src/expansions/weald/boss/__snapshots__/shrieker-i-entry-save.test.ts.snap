@@ -1,0 +1,30 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`seed0 沿用当前固定探索策略：新威胁版本的自然命令完整严格恢复，保留实际结果 1`] = `
+{
+  "phase": "exited",
+  "stop": null,
+  "summary": {
+    "awarded": false,
+    "clearedRoomIds": [
+      "C",
+    ],
+    "name": "Rising Threat I",
+    "questId": "quest:p005",
+    "stagecoachXp": 1,
+    "xpPerHero": 1,
+  },
+  "thefts": 3,
+}
+`;
+
+exports[`seed19 固定 Shrieker 身份：完整出发日志保留抵达前败局，不筛胜负 1`] = `
+{
+  "deployed": false,
+  "failure": "noWaitingHeroes",
+  "phase": "awaitingReplacement",
+  "skills": 0,
+  "stop": null,
+  "victory": undefined,
+}
+`;

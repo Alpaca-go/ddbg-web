@@ -1,7 +1,7 @@
 {
- "schema": "ddbg-weald-shrieker-i-v1",
- "rulings": ["R-261"],
- "combatReady": false,
+ "schema": "ddbg-weald-shrieker-i-v2",
+ "rulings": ["R-261", "R-262"],
+ "combatReady": true,
  "sources": {
   "combatFront": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_140x140_monster_large_FRONT.pdf",
   "combatBack": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_140x140_monster_large_BACK.pdf",
@@ -90,7 +90,7 @@
    "hamlet": {"name":"Murder of Magpies I","trigger":"afterAllHeroesRollSupplyDice","discardCount":1,"choice":"player"}
   }
  },
- "pendingRuleDetails": ["callTheMurderHealingTimingAndRecipient","flightMovementConstraints","multipleProvisionGainsAndFullPoolOrdering"],
+ "pendingRuleDetails": [],
  "setup": {
   "rule": "Weald W3",
   "shriekerStance": "aggressive",

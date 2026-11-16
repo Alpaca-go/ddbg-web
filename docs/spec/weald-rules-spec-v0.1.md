@@ -15,7 +15,7 @@
 
 1. 战役开始选择地点；英雄不受地点选择限制。当前产品保留核心固定启用的既有约定。
 2. 按等级混洗所有启用地点的 Boss 卡，构成 Boss 牌堆。
-   - **分批运行入口（截至 PR #678）**：显式 `establishImminentThreat { locationBosses: true }` 使用 I 级核心＋Weald 完整 7 张描述池；地点来源与 Pounder 两段威胁／Boss 战斗另有版本标记。新页面的核心＋Weald、非 Stygian 入口已发送这些标记，开放已核准 Hag I／Pounder I，Shrieker p1 仍保留未注册停点。旧命令和旧日志不自动启用新能力；II／III 仍拒绝，完整 Boss 自然战役未验收。
+   - **分批运行入口（截至 PR #678）**：显式 `establishImminentThreat { locationBosses: true }` 使用 I 级核心＋Weald 完整 7 张描述池；地点来源与 Pounder 两段威胁／Boss 战斗另有版本标记。新页面的核心＋Weald、非 Stygian 入口显式追加 shriekerBossBattles:true，开放已核准 Hag I／Pounder I／Shrieker I；旧无标记命令仍保留 Shrieker 未注册停点。旧命令和旧日志不自动启用新能力；II／III 仍拒绝，完整 Boss 自然战役未验收。
 3. 选择任务时，从启用地点的对应等级任务牌堆抽两张；可同地点两张，或两个地点各一张。
    - **运行时已接线（步骤 5 第十一／十五批）**：已选 Weald 包时，正式首趟与村庄共用遗迹／Weald I 级任务堆（p001–p005），可同地抽 2 或两地各 1，不混洗；首趟抽法与选中任务记录到存档起点，未选卡永久弃置。未选 Weald 包时首趟保留历史显式任务入口；II/III 时 Weald 堆为空，Warrens/Cove 等地任务堆未建。普通房间通过独立核准选择器部署，`usable=false` 仍保留；当前页面版本五个独立 I 级任务与普通房间六类效果已完成阶段验收（Fungal Research 保全策略为 0 XP）；不表示连续完整战役已验收。具体清单见[开发计划的 I 级收尾核对](../weald-development-plan.md#i-级收尾核对2026-11-15)。
 4. 每次出征时，混洗目标地点同等级怪物和通用同等级怪物。不能把其他地点怪物混入。
@@ -53,7 +53,7 @@ R-255（Hag I 生命周期补充）：入锅英雄离开板块放到锅卡上，
 R-256：锅内英雄因心脏病直接死亡时移走英雄，不放邻接区域；锅翻 Empty 并清伤。只补该死亡路径，不改变 R-255 其它释放；Boil 专用结算已接；正式自然战役仍待验收。
 Boss 技能、威胁能力、附属单位规则以对应卡面单独转录核对，不从本表推断。
 
-Hag I 已按 W4 修正空锅 Ranged，并要求显式怪物部署区域，缺映射拒绝。[Hag I 审阅](../weald-hag-i-review-2026-11-14.md) 的卡面与 10 号板块经 R-254 更正后核准：Hag Speed 2／Dodge 1，Empty／Full Speed 0，Empty 胸甲为内置 Protection（R-019），B–F 仅角点，10 号全部区域为普通地形。独立 `hag_i.json`、完整技能、入锅／释放／锅内死亡、正式部署及胜负交接已接；seed6 的单任务自然胜利／回村与页面路径已有验证，两普通任务养成后抵达的跨任务验收仍未完成。[Pounder I 审阅](../weald-pounder-i-review-2026-11-15.md)按 R-258／R-259 接入两段威胁、增援、炮击、清场与正式交接；seed17 的自然结果为败局，胜利／回村的受控夹具不作为自然胜利。两者均未使普通目录 `usable` 自动变更，Shrieker 仍未开放。
+Hag I 已按 W4 修正空锅 Ranged，并要求显式怪物部署区域，缺映射拒绝。[Hag I 审阅](../weald-hag-i-review-2026-11-14.md) 的卡面与 10 号板块经 R-254 更正后核准：Hag Speed 2／Dodge 1，Empty／Full Speed 0，Empty 胸甲为内置 Protection（R-019），B–F 仅角点，10 号全部区域为普通地形。独立 `hag_i.json`、完整技能、入锅／释放／锅内死亡、正式部署及胜负交接已接；seed6 的单任务自然胜利／回村与页面路径已有验证，两普通任务养成后抵达的跨任务验收仍未完成。[Pounder I 审阅](../weald-pounder-i-review-2026-11-15.md)按 R-258／R-259 接入两段威胁、增援、炮击、清场与正式交接；seed17 的自然结果为败局，胜利／回村的受控夹具不作为自然胜利。Shrieker I 按 R-261／R-262 接入三行动、Nest 禁入／清场、飞行治疗、两段补给威胁、正式出征与胜负交接。三者均未使普通目录 `usable` 自动变更；Shrieker 独立内容 schema v2 的 combatReady 为 true，正式准入由显式版本校验。
 
 ## 待确认 Q-186：地点卡面与几何
 
@@ -63,4 +63,11 @@ Hag I 已按 W4 修正空锅 Ranged，并要求显式怪物部署区域，缺映
 
 ### 2026-11-15 开发优先级调整
 
-Kyries 要求先后置人工实机测试，优先完善 Weald 内容。Hag／Pounder 的真实养成与自然胜利缺口仍保留，但不再阻断 Shrieker 数据和机制开发。Shrieker I 已形成[卡面与 11 号板块审阅稿](../weald-shrieker-i-review-2026-11-15.md)；未核准字段继续沿 Q-186，当前仍未开放运行时。此项仅调整开发顺序，不新增规则裁定，也不取消自动质量检查。
+Kyries 要求先后置人工实机测试，优先完善 Weald 内容。Hag／Pounder 的真实养成与自然胜利缺口仍保留，但不再阻断 Shrieker 数据和机制开发。Shrieker I 已形成[卡面与 11 号板块审阅稿](../weald-shrieker-i-review-2026-11-15.md)；原未决三组细节已由 R-262 结案，I 级运行时与页面已接；高等级仍按原计划核实。此项仅调整开发顺序，不新增规则裁定，也不取消自动质量检查。
+
+### R-262：Shrieker I 自身能力与盗取顺序
+
+- Call the Murder 在 Nest 在场时用飞行替代 Self Push 2：Acc 掷骰之后、伤害和目标效果之前直达 Nest 实际所在区，不改姿态，不受路径／墙／距离／容量限制；同时治疗 Shrieker 2，未命中或已在巢区也执行。Nest 被摧毁后恢复印刷 Self Push 2。
+- 本体每轮三行动，三张怪物先攻只供本体，Nest 无主动回合；轮初重置配额。
+- Where Did It Go? I 对成功获得的每枚普通补给分别“加入→玩家弃一枚”，满池先沿用既有处理。Murder of Magpies I 在全部 supply dice 及 Wild 自选完成后从 reserve 只弃一枚，随后继续补给准备。
+- 玩家决定均通过 PendingChoice；队列、原待选与 RNG 在严格日志恢复后保持一致。Boss 开战翻能力面后两段威胁停用。II／III 的治疗数值核准见 R-262，其余高等级字段不从 I 级推算。
