@@ -1,3 +1,4 @@
+import { clearShriekerINest } from "./expansions/weald/boss/shrieker-i-cleanup";
 import {
   enableClearingHeroes,
   enableClearingMonsters,
@@ -598,6 +599,7 @@ export function removeCasualties(result: ApplyResult, ids: readonly string[]): A
   ({ result, ids } = clearFanaticIPyre(result, ids));
   ({ result, ids } = clearHagIEmptyCauldron(result, ids));
   ({ result, ids } = clearPounderIBrigands(result, ids));
+  ({ result, ids } = clearShriekerINest(result, ids));
   ({ result, ids } = clearRuinsBossCompanions(result, ids));
   ({ result, ids } = applyAncestor1ImperfectReflectionDeath(result, ids));
   const battle = result.state.battle!;

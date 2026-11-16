@@ -1,3 +1,4 @@
+import { removeCasualties } from "../../../encounter";
 import { expect, it } from "vitest";
 import { savedCommandSchema } from "../../../../../data/src/quest-save";
 import { applyCommand, type GameState, type Command } from "../../../command";
@@ -121,4 +122,51 @@ it("不匹配的威胁、等级、包、出征计划、英雄或重复部署全�
     expect(result.state).toBe(state);
     expect(result.events.some((e) => e.type === "commandRefused")).toBe(true);
   }
+});
+
+it("W3 本体死亡清除 Nest，经共用死亡事件且不重复清理；机制夹具不解除开战停点", () => {
+  let state = run(run(atObjective(), { type: "prepareDungeonBattle" }), {
+    type: "deployShriekerI",
+  });
+  state = {
+    ...state,
+    battle: {
+      ...state.battle!,
+      encounter: {
+        round: 1,
+        deck: [],
+        actedIds: [],
+        turn: { type: "finished", outcome: "victory" },
+      },
+      entities: state.battle!.entities.map((e) =>
+        e.id === "boss:shrieker" ? { ...e, dead: true, wounds: e.life! } : e,
+      ),
+    },
+  };
+  for (const changes of [
+    { campaignLevel: 2 as const },
+    { activeBossThreatScriptId: "boss:weald:hag:1" as const },
+    { contentPacks: ["core"] as const },
+    { imminentThreatDescriptionCardId: "wrong" },
+  ]) {
+    const unrelated = { ...state, dungeon: { ...state.dungeon!, ...changes } };
+    const result = removeCasualties({ state: unrelated, events: [] }, ["boss:shrieker"]);
+    expect(result.state.battle!.entities.find((e) => e.id === "boss:shrieker:nest")!.dead).toBe(
+      false,
+    );
+    expect(result.events.filter((e) => e.type === "casualtyRemoved")).toHaveLength(1);
+  }
+  const cleared = removeCasualties({ state, events: [] }, ["boss:shrieker"]);
+  expect(cleared.state.battle!.entities.find((e) => e.id === "boss:shrieker:nest")!.dead).toBe(
+    true,
+  );
+  expect(cleared.events.filter((e) => e.type === "casualtyRemoved")).toHaveLength(2);
+  expect(cleared.state.battle!.entities.filter((e) => e.side === "hero")).toEqual(
+    state.battle!.entities.filter((e) => e.side === "hero"),
+  );
+  expect(cleared.state.battle!.rngCursor).toBe(state.battle!.rngCursor);
+  expect(cleared.state.battle!.shriekerISetupHold).toBe(true);
+  const repeated = removeCasualties({ state: cleared.state, events: [] }, []);
+  expect(repeated.events).toEqual([]);
+  expect(repeated.state).toEqual(cleared.state);
 });

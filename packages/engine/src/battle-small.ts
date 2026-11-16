@@ -1,3 +1,4 @@
+import { shriekerINestAllowsEntry } from "./expansions/weald/boss/shrieker-i-nest";
 import type { BattleEntity, BattleState } from "./battle";
 import type { ApplyResult, GameEvent, GameState } from "./command";
 import { rejectBattleCommand } from "./battle";
@@ -33,7 +34,9 @@ export function displaceSmallForHero(
     .flatMap((e) =>
       area.adjacent.flatMap((id) => {
         const adjacent = b.areas.find((a) => a.id === id);
-        return adjacent?.capacity !== undefined && occupancy(id) + slots(e) <= adjacent.capacity
+        return adjacent?.capacity !== undefined &&
+          occupancy(id) + slots(e) <= adjacent.capacity &&
+          shriekerINestAllowsEntry(b.entities, e, id)
           ? [{ id: `${e.id}->${id}`, label: `${e.id} → ${id}`, entityId: e.id, to: id }]
           : [];
       }),

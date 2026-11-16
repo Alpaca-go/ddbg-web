@@ -766,3 +766,64 @@ describe("普通怪单目标 Speed 定位（R18、R24–25；R-021/023/024/048/0
     },
   );
 });
+
+it("R-261 怪物寻路不进入或穿过 Nest，Nest 死亡后恢复原定位", () => {
+  const base = start(soldier, graph(["ab", "bc", "cd"]), "a", "d");
+  const nest: BattleEntity = {
+    ...base.battle!.entities.find((e) => e.id === "m")!,
+    id: "nest",
+    monsterCardId: "monster_large:weald:p007",
+    stance: "ranged",
+    stanceSlots: 2,
+    areaId: "b",
+  };
+  const state: GameState = {
+    ...base,
+    battle: { ...base.battle!, entities: [...base.battle!.entities, nest] },
+  };
+  const selected = applyCommand(state, prepare);
+  expect(selected.events.some((e) => e.type === "commandRefused")).toBe(false);
+  const result = applyCommand(selected.state, move);
+  expect(result.events.some((e) => e.type === "commandRefused")).toBe(false);
+  expect(position(result.state)).toBe("a");
+  expect(result.events).toContainEqual(
+    expect.objectContaining({ type: "monsterPositioned", steps: 0, skipped: true }),
+  );
+  const dead: GameState = {
+    ...state,
+    battle: {
+      ...state.battle!,
+      entities: state.battle!.entities.map((e) => (e.id === "nest" ? { ...e, dead: true } : e)),
+    },
+  };
+  const released = applyCommand(applyCommand(dead, prepare).state, move);
+  expect(released.events.some((e) => e.type === "commandRefused")).toBe(false);
+  expect(position(released.state)).not.toBe("a");
+});
+
+it("R-261 怪物绕过 Nest 使用可通行图计算 Speed 与事件步数", () => {
+  const base = start(
+    { ...soldier, speed: 3 },
+    graph(["ab", "bc", "cd", "ae", "ef", "fc"]),
+    "a",
+    "d",
+  );
+  const nest: BattleEntity = {
+    ...base.battle!.entities.find((e) => e.id === "m")!,
+    id: "nest",
+    monsterCardId: "monster_large:weald:p007",
+    stance: "ranged",
+    stanceSlots: 2,
+    areaId: "b",
+  };
+  const state: GameState = {
+    ...base,
+    battle: { ...base.battle!, entities: [...base.battle!.entities, nest] },
+  };
+  const result = applyCommand(applyCommand(state, prepare).state, move);
+  expect(result.events.some((e) => e.type === "commandRefused")).toBe(false);
+  expect(position(result.state)).toBe("c");
+  expect(result.events).toContainEqual(
+    expect.objectContaining({ type: "monsterPositioned", steps: 3 }),
+  );
+});
