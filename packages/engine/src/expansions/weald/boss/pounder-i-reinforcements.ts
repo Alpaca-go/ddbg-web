@@ -1,24 +1,32 @@
-import corePool from "../../../../../data/normalized/corebox/monster_pool.json";
-import coreMedium from "../../../../../data/normalized/corebox/monster_medium.json";
+import { readPounderRuntimeContext } from "./pounder-runtime-context";
 import { rejectBattleCommand, type BattleEntity } from "../../../battle";
 import type { ApplyResult, GameState } from "../../../command";
 import { finishTurn } from "../../../encounter";
 import { insertMonsterInitiative } from "../../../boss/monster-initiative";
-import { resolveEncounterBossScriptId } from "../../../boss/encounter-rules";
-import type { MonsterCardView } from "../../../monster-skill";
 import { resolveWealdSummonAreaPlacement } from "../monster-summon";
-import { POUNDER_I_SCRIPT_ID } from "./pounder-i";
-import { pounderIFusilierSource } from "./pounder-i-content";
-import { buildPounderICombatCatalog, createPounderIEntity } from "./pounder-i-projection";
+import { createPounderIEntity } from "./pounder-i-projection";
 import { planPounderIReinforcements } from "./pounder-i-combat-plans";
 
 const stances = ["aggressive", "defensive", "ranged", "support"] as const;
-const source = pounderIFusilierSource(corePool.cards);
-const fusilier = coreMedium.cards.find((c) => c.id === source.combatCardId)! as MonsterCardView;
-
 /** R31：沿用核心召唤实体模型，读取真实核心卡，不抽取或改写任务探索牌堆。 */
-function summonEntity(cardId: string, id: string, stance: (typeof stances)[number]): BattleEntity {
-  if (cardId !== source.combatCardId) return createPounderIEntity("matchman", id, stance);
+function summonEntity(
+  state: GameState,
+  cardId: string,
+  id: string,
+  stance: (typeof stances)[number],
+): BattleEntity {
+  const context = readPounderRuntimeContext(state)!;
+  const fusilier = context.companion;
+  if (cardId === context.matchmanCardId) {
+    const face = context.faces[1];
+    return {
+      ...createPounderIEntity("matchman", id, stance),
+      monsterCardId: face.rawId,
+      life: face.life,
+      dodge: face.dodge,
+    };
+  }
+  if (cardId !== context.companionCardId) throw new Error("Pounder 未核准的增援卡");
   const dodge = fusilier.header_unlabeled_numbers?.find(
     (n) => n.anchor.type === "beside_icon" && n.anchor.inside_icon?.key === "dodge",
   )?.numeric;
@@ -34,7 +42,7 @@ function summonEntity(cardId: string, id: string, stance: (typeof stances)[numbe
     wounds: 0,
     areaId: "",
     stance,
-    stanceSlots: 1,
+    stanceSlots: context.companionSize as 1 | 2,
     skillIds: [],
     guard: false,
     dead: false,
@@ -54,6 +62,10 @@ function continueReinforcements(
   let next = state;
   for (let index = 0; index < remaining.length; index++) {
     const battle = next.battle!;
+    const context = readPounderRuntimeContext(next);
+    if (!context) return rejectBattleCommand(original, "Pounder 增援上下文或等级不符");
+    const cardId = remaining[index]!;
+    const size = cardId === context.companionCardId ? context.companionSize : 1;
     const occupied = new Set<number>();
     for (const entity of battle.entities.filter((e) => e.side === "monster" && !e.dead)) {
       const start = stances.indexOf(entity.stance!);
@@ -64,14 +76,32 @@ function continueReinforcements(
         occupied.add(i);
       }
     }
-    const stance = stances.find((_, i) => !occupied.has(i));
+    const stance = stances.find(
+      (_, i) =>
+        i + size <= 4 &&
+        Array.from({ length: size }, (_, n) => i + n).every((slot) => !occupied.has(slot)),
+    );
     if (!stance) break; // R31：满轨召唤无效，不耗洗入先攻的 RNG。
     const areaId = battle.monsterStanceAreas?.[stance];
     if (!areaId) return rejectBattleCommand(original, "Pounder 增援缺少姿态对应区域");
+    const area = battle.areas.find((a) => a.id === areaId);
+    const occupants = battle.entities.filter((e) => !e.dead && e.areaId === areaId);
+    const width = (e: BattleEntity) => (e.side === "hero" ? 1 : (e.stanceSlots ?? 1));
+    const used = occupants.reduce((sum, e) => sum + width(e), 0);
+    if (
+      size === 2 &&
+      area?.capacity !== undefined &&
+      used + size > area.capacity &&
+      !occupants.some((e) => used - width(e) + size <= area.capacity!)
+    )
+      return rejectBattleCommand(
+        original,
+        "Q-189：大型增援需要挤占多名角色，待核准；未放入超容量区域",
+      );
     const placement = resolveWealdSummonAreaPlacement(
       next,
       areaId,
-      1,
+      size,
       index === 0 ? optionId : undefined,
     );
     if ("status" in placement) {
@@ -99,11 +129,15 @@ function continueReinforcements(
         pendingChoice: choice,
       };
     }
-    const cardId = remaining[index]!;
-    const entity = summonEntity(cardId, `pounder-summon:${cardId}:${battle.choiceCursor}`, stance);
+    const entity = summonEntity(
+      next,
+      cardId,
+      `pounder-summon:${cardId}:${battle.choiceCursor}`,
+      stance,
+    );
     if (battle.entities.some((e) => e.id === entity.id))
       return rejectBattleCommand(original, "Pounder 增援实体 ID 冲突");
-    const cards = [...buildPounderICombatCatalog(), fusilier];
+    const cards = [...context.catalog, context.companion];
     next = insertMonsterInitiative({
       ...next,
       battle: {
@@ -128,6 +162,7 @@ function continueReinforcements(
 
 export function applyPounderIReinforcements(state: GameState, actorId: string): ApplyResult {
   const b = state.battle;
+  const context = readPounderRuntimeContext(state);
   if (
     !b?.encounter ||
     b.pending ||
@@ -135,17 +170,14 @@ export function applyPounderIReinforcements(state: GameState, actorId: string): 
     b.shuffleIntents.length ||
     b.encounter.turn.type !== "monster" ||
     b.encounter.turn.actorId !== actorId ||
-    state.dungeon?.phase !== "inBattle" ||
-    state.dungeon.campaignLevel !== 1 ||
-    !state.dungeon.pounderHamletThreats ||
-    !["standard", "radiant"].includes(state.dungeon.mode) ||
-    resolveEncounterBossScriptId(state) !== POUNDER_I_SCRIPT_ID
+    !context ||
+    !state.dungeon?.pounderHamletThreats
   )
     return rejectBattleCommand(
       state,
       "Pounder I 增援需要显式新版本、I级非Stygian Boss 战及当前本体回合",
     );
-  const plan = planPounderIReinforcements(b.entities);
+  const plan = planPounderIReinforcements(b.entities, context);
   if (plan.kind !== "reinforcements" || plan.sourceId !== actorId)
     return rejectBattleCommand(state, "R-258：只有活体 Pounder 且 Matchman 缺席时才能增援");
   return continueReinforcements(
