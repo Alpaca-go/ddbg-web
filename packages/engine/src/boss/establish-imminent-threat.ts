@@ -183,12 +183,12 @@ export function establishImminentThreat(
     command.pounderDungeonThreats &&
     (!command.locationSources ||
       !command.locationBosses ||
-      d.mode === "stygian" ||
+      (d.mode === "stygian" && !command.pounderBossBattles) ||
       (d.questDistribution?.questId === "quest:p019" && !command.pounderBossBattles))
   )
     return rejectBattleCommand(
       state,
-      "Pounder 地牢威胁试验须启用完整地点来源，暂不支持 Stygian 或 Boss 出征",
+      "Pounder 地牢威胁试验须启用完整地点来源与核准 Boss 出征版本；Stygian 仅接受完整生产命令",
     );
   if (
     command.wealdHigherBosses &&

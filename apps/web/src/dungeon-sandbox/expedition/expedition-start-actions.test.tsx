@@ -74,6 +74,33 @@ it("old provision rolls, higher acts, Darkest and returning campaigns do not acq
     expect(needsInitialThreat({ ...d, ...patch })).toBe(false);
 });
 
+it("Stygian＋核心＋Weald 显示七位 Boss 池说明", () => {
+  const base = initial();
+  const stygian = {
+    ...base,
+    dungeon: {
+      ...base.dungeon!,
+      mode: "stygian" as const,
+      stygianRoomRules: "full" as const,
+      contentPacks: ["core", "weald"] as const,
+    },
+  };
+  expect(render(stygian)).toContain("七位 Boss");
+  const production = {
+    locationBosses: true,
+    locationSources: true,
+    pounderDungeonThreats: true,
+    pounderHamletThreats: true,
+    pounderBossBattles: true,
+    shriekerBossBattles: true,
+    wealdHigherBosses: true,
+  } as const;
+  const drawn = applyCommand(stygian, { type: "establishImminentThreat", ...production });
+  expect(drawn.events.filter((e) => e.type === "commandRefused")).toEqual([]);
+  expect(drawn.state.dungeon!.imminentThreatDescriptionCardId).toBeTruthy();
+  expect(drawn.state.dungeon!.locationBossThreats).toBe(true);
+});
+
 it("核心＋Weald 显示七位 Boss 与未开放提示；未知 Boss 结果暂停补给", () => {
   const base = initial();
   const selected = {
