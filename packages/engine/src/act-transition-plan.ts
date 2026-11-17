@@ -8,6 +8,10 @@ import {
   imminentThreatPoolForCampaign,
   type RuinsBossIdentity,
 } from "./boss/threat-description-catalog";
+import { wealdThreatPool } from "./expansions/weald/boss/threat-pool";
+import { WEALD_BOSS_IDENTITIES, type WealdBossIdentity } from "./expansions/weald/catalog";
+import { questIdsForLocationDeck } from "./hamlet-location-quest-draw";
+import { buildWealdHigherMonsterPool } from "./expansions/weald/higher-monster-pool";
 
 const monsters = monsterPoolFileSchema.parse(monsterSource).cards;
 const trinkets = normalizedTrinketFileSchema.parse(trinketSource).cards;
@@ -57,6 +61,77 @@ export function buildRuinsActTransitionPlan(
       cardId: m.cardId,
     })),
     // 这是可用卡目录，不是未持有卡组成的实际抽牌堆。
+    eligibleDungeonTrinketCardIds: trinkets.filter((c) => c.level === toLevel).map((c) => c.id),
+    nomadOnlyTrinketLevels: Array.from({ length: fromLevel }, (_, i) => i + 1),
+    retainHeldTrinkets: true as const,
+  };
+}
+
+const wealdOrdinaryQuestId = (id: string) =>
+  basicQuests.some(
+    (q) =>
+      q.id === id &&
+      q.expeditionRegion === "weald" &&
+      !("bossQuest" in q && q.bossQuest) &&
+      id !== "quest:p019",
+  );
+
+/** R35 / R-037 / W3：Weald 地点战役升幕计划（生产 `tasks-v1` 普通任务栈）。 */
+export function buildWealdActTransitionPlan(
+  fromLevel: 1 | 2,
+  defeatedBosses: readonly WealdBossIdentity[],
+  removedQuestIds: readonly string[],
+) {
+  if (
+    ![1, 2].includes(fromLevel) ||
+    defeatedBosses.length !== fromLevel ||
+    new Set(defeatedBosses).size !== defeatedBosses.length ||
+    defeatedBosses.some((id) => !WEALD_BOSS_IDENTITIES.includes(id))
+  )
+    throw new Error("升幕计划须有对应数量的不重复 Weald Boss 击败记录（W3／R35）");
+  if (
+    new Set(removedQuestIds).size !== removedQuestIds.length ||
+    removedQuestIds.some(
+      (id) => !wealdOrdinaryQuestId(id) || basicQuests.find((q) => q.id === id)!.level > fromLevel,
+    )
+  )
+    throw new Error("任务移出记录须为当前或先前等级的 Weald 普通任务（R-037）");
+  const toLevel = (fromLevel + 1) as 2 | 3;
+  const higherTasks = "tasks-v1" as const;
+  const retiredQuestIds = [
+    ...new Set([
+      ...removedQuestIds,
+      ...([1, 2, 3] as const)
+        .filter((level) => level <= fromLevel)
+        .flatMap((level) =>
+          questIdsForLocationDeck("weald", level, ["core", "weald"], higherTasks),
+        ),
+    ]),
+  ].sort();
+  return {
+    fromLevel,
+    toLevel,
+    imminentThreatDescriptionCardIds: [
+      ...wealdThreatPool(
+        {
+          contentPacks: ["core", "weald"],
+          wealdHigherBosses: true,
+          defeatedRuinsBossIdentities: [],
+          defeatedWealdBossIdentities: defeatedBosses,
+        },
+        toLevel,
+      ),
+    ],
+    retiredQuestIds,
+    nextOrdinaryQuestIds: [
+      ...questIdsForLocationDeck("weald", toLevel, ["core", "weald"], higherTasks),
+    ],
+    retainExistingMonsterInstances: true as const,
+    addedMonsterInstances: buildWealdHigherMonsterPool({
+      contentPacks: ["core", "weald"],
+      core: monsters,
+      level: toLevel,
+    }).map((m) => ({ instanceId: m.instanceId, cardId: m.cardId })),
     eligibleDungeonTrinketCardIds: trinkets.filter((c) => c.level === toLevel).map((c) => c.id),
     nomadOnlyTrinketLevels: Array.from({ length: fromLevel }, (_, i) => i + 1),
     retainHeldTrinkets: true as const,

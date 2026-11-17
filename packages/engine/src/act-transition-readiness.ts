@@ -1,9 +1,31 @@
 import { bossFlatQuestSummarySchema } from "../../data/src/quest-summary";
-import { buildRuinsActTransitionPlan } from "./act-transition-plan";
+import { buildRuinsActTransitionPlan, buildWealdActTransitionPlan } from "./act-transition-plan";
 import type { GameState } from "./command";
 import type { DungeonState } from "./dungeon";
 import { RUINS_COMBAT_LEVELS } from "./boss/ruins-combat-levels";
 import { countCompletedRegularQuestsAtCampaignLevel } from "./boss/face-the-threat-embark-runtime";
+import { WEALD_HIGHER_BOSS_ENTRIES } from "./expansions/weald/boss/higher-boss-entries";
+import { wealdBossActEntry } from "./expansions/weald/boss/weald-boss-act-entry";
+import type { WealdBossIdentity } from "./expansions/weald/catalog";
+
+export function wealdLocationActAdvanceEnabled(
+  d: Pick<
+    DungeonState,
+    "locationBossThreats" | "wealdHigherBosses" | "bossLocationSources" | "bossExpeditionRegion"
+  >,
+): boolean {
+  return (
+    d.locationBossThreats === true &&
+    d.wealdHigherBosses === true &&
+    d.bossLocationSources === true &&
+    d.bossExpeditionRegion === "weald"
+  );
+}
+
+function wealdBossIdentityFromScript(script: string): WealdBossIdentity | undefined {
+  const match = /^boss:weald:(hag|brigandPounder|shrieker):[123]$/.exec(script);
+  return match?.[1] as WealdBossIdentity | undefined;
+}
 
 /** 当前p019结算是否仍待I→II/II→III升幕；成功命令会清除旧出征绑定。 */
 export function requiresRuinsActAdvance(d: DungeonState): boolean {
@@ -15,35 +37,91 @@ export function requiresRuinsActAdvance(d: DungeonState): boolean {
   )
     return false;
   if (level === 1) return true;
-  const defeated = d.defeatedRuinsBossIdentities ?? [];
-  const advanced =
-    defeated.length === 1 &&
-    !d.faceTheThreatEmbarkPlan &&
-    !d.bossCombatThreatCeased &&
-    Object.entries(RUINS_COMBAT_LEVELS).some(
-      ([boss, entries]) =>
-        boss !== defeated[0] &&
-        entries[1].script === d.activeBossThreatScriptId &&
-        entries[1].description === d.imminentThreatDescriptionCardId,
-    );
+  const weald = wealdLocationActAdvanceEnabled(d);
+  const defeated = (weald ? d.defeatedWealdBossIdentities : d.defeatedRuinsBossIdentities) ?? [];
+  const advanced = weald
+    ? defeated.length === 1 &&
+      !d.faceTheThreatEmbarkPlan &&
+      !d.bossCombatThreatCeased &&
+      (WEALD_HIGHER_BOSS_ENTRIES.some(
+        (row) =>
+          row.scriptId.endsWith(`:${level}`) &&
+          wealdBossIdentityFromScript(row.scriptId) !== defeated[0] &&
+          row.scriptId === d.activeBossThreatScriptId &&
+          row.descriptionAbilityCardId === d.imminentThreatDescriptionCardId,
+      ) ||
+        Object.entries(RUINS_COMBAT_LEVELS).some(
+          ([boss, entries]) =>
+            boss !== defeated[0] &&
+            entries[1].script === d.activeBossThreatScriptId &&
+            entries[1].description === d.imminentThreatDescriptionCardId,
+        ))
+    : defeated.length === 1 &&
+      !d.faceTheThreatEmbarkPlan &&
+      !d.bossCombatThreatCeased &&
+      Object.entries(RUINS_COMBAT_LEVELS).some(
+        ([boss, entries]) =>
+          boss !== defeated[0] &&
+          entries[1].script === d.activeBossThreatScriptId &&
+          entries[1].description === d.imminentThreatDescriptionCardId,
+      );
   return !advanced;
 }
 
 export type RuinsActTransitionReadiness =
   | { readonly kind: "blocked"; readonly reason: string }
-  | { readonly kind: "ready"; readonly plan: ReturnType<typeof buildRuinsActTransitionPlan> };
+  | {
+      readonly kind: "ready";
+      readonly plan: ReturnType<typeof buildRuinsActTransitionPlan>;
+      readonly location: "ruins" | "weald";
+    };
+
+function readWealdActTransitionReadiness(state: GameState): RuinsActTransitionReadiness {
+  const blocked = (reason: string): RuinsActTransitionReadiness => ({ kind: "blocked", reason });
+  const d = state.dungeon!;
+  if (d.wealdHigherQuestOffers === true)
+    return blocked("已弃用的 wealdHigherQuestOffers:true 不能接通 II 级生产池（R-264）");
+  const level = d.campaignLevel ?? 1;
+  if (level === 2 && d.wealdHigherQuestOffers !== "tasks-v1")
+    return blocked("Weald II 级升幕须 production tasks-v1 普通任务版本（R-264／R-265）");
+  const defeated = d.defeatedWealdBossIdentities ?? [];
+  const latest = defeated.at(-1);
+  const entry = latest ? wealdBossActEntry(latest, level) : undefined;
+  const embark = d.faceTheThreatEmbarkPlan;
+  if (
+    !entry ||
+    !embark ||
+    embark.questId !== "quest:p019" ||
+    embark.resolvedScriptId !== entry.script ||
+    embark.combatEntry.combatMonsterCardId !== entry.card ||
+    embark.combatEntry.combatAbilityCardId !== entry.ability ||
+    embark.combatEntry.descriptionAbilityCardId !== entry.description ||
+    d.bossCombatThreatCeased !== entry.script ||
+    d.imminentThreatDescriptionCardId !== entry.description
+  )
+    return blocked("最近击败 Boss 须与当前等级的出征、停止威胁面及描述卡身份一致");
+  try {
+    return {
+      kind: "ready",
+      location: "weald",
+      plan: buildWealdActTransitionPlan(level as 1 | 2, defeated, d.discardedQuests ?? []),
+    };
+  } catch (error) {
+    return blocked(error instanceof Error ? error.message : "升幕记录无效");
+  }
+}
 
 /** §2.2/R35：读取现有胜利与回村记录，不生成胜利证明，不改状态或消费RNG。 */
 export function readRuinsActTransitionReadiness(state: GameState): RuinsActTransitionReadiness {
   const blocked = (reason: string): RuinsActTransitionReadiness => ({ kind: "blocked", reason });
   const d = state.dungeon;
   if (!d || state.battle || d.darkest || d.phase !== "inHamlet")
-    return blocked("须在遗迹Boss任务结束并回村后读取升幕计划（R35）");
+    return blocked("须在 Boss 任务结束并回村后读取升幕计划（R35）");
   const level = d.campaignLevel ?? 1;
   if (level !== 1 && level !== 2)
     return blocked("本接口只处理I→II和II→III；III幕后最暗地牢另行处理");
   if (d.questDistribution?.questId !== "quest:p019" || !d.bossQuestVictory)
-    return blocked("只有已击败Boss的Face the Threat任务能推进遗迹幕次");
+    return blocked("只有已击败 Boss 的 Face the Threat 任务能推进战役幕次");
   const summary = bossFlatQuestSummarySchema.safeParse(d.questSummary);
   if (
     !summary.success ||
@@ -64,6 +142,9 @@ export function readRuinsActTransitionReadiness(state: GameState): RuinsActTrans
   if (d.activeBossThreatScriptId) return blocked("已击败Boss的迫近威胁须先清除");
   if (countCompletedRegularQuestsAtCampaignLevel(d, level) !== 2)
     return blocked("本幕须已完成两个普通任务再击败Boss（§2.1）");
+  if (wealdLocationActAdvanceEnabled(d)) return readWealdActTransitionReadiness(state);
+  if (d.locationBossThreats && !d.wealdHigherBosses)
+    return blocked("Weald II／III 级 Boss 描述来源及升幕尚未核准接通（W3／R-048）");
   const defeated = d.defeatedRuinsBossIdentities ?? [];
   const latest = defeated.at(-1);
   const entry =
@@ -86,6 +167,7 @@ export function readRuinsActTransitionReadiness(state: GameState): RuinsActTrans
   try {
     return {
       kind: "ready",
+      location: "ruins",
       plan: buildRuinsActTransitionPlan(level, defeated, d.discardedQuests ?? []),
     };
   } catch (error) {
