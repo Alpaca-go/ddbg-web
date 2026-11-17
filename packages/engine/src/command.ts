@@ -1033,7 +1033,11 @@ export function applyCommand(state: GameState, command: Command, legacy = false)
     const refused = chosen.events.find((e) => e.type === "commandRefused");
     return refused ? rejectBattleCommand(state, refused.message) : chosen;
   }
-  const enabled = state.inventoryOverflow === true || command.inventoryOverflow === true;
+  const enabled =
+    state.inventoryOverflow === true ||
+    command.inventoryOverflow === true ||
+    state.dungeon?.wealdHigherBosses === true ||
+    (command.type === "establishImminentThreat" && command.wealdHigherBosses === true);
   const input = enabled ? withInventoryOverflow(state) : state;
   const result = runCommand(input, command, legacy);
   if (result.events.some((e) => e.type === "commandRefused")) return { ...result, state };

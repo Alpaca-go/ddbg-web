@@ -47,6 +47,7 @@ function prepareShriekerObjectiveRoom(state: GameState, level: 1 | 2 | 3): Apply
     !dungeonCurioCatalogValid(d) ||
     !["standard", "radiant"].includes(d.mode) ||
     d.campaignLevel !== level ||
+    (level !== 1 && !d.shriekerBossBattles) ||
     d.activeBossThreatScriptId !== binding.scriptId ||
     d.imminentThreatDescriptionCardId !== binding.abilities.descriptionCardId ||
     room?.kind !== "objective" ||
@@ -122,6 +123,7 @@ function deployShrieker(
     d.pending ||
     !["standard", "radiant"].includes(d.mode) ||
     d.campaignLevel !== level ||
+    (level !== 1 && !d.shriekerBossBattles) ||
     !d.battleCatalog ||
     !d.explorationSetup ||
     d.explorationSetup.dungeonLevel !== level ||

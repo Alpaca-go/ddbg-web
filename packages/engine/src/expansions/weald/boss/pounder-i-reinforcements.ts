@@ -129,6 +129,15 @@ function continueReinforcements(
         pendingChoice: choice,
       };
     }
+    if (
+      area?.capacity !== undefined &&
+      placement.battle.entities
+        .filter((e) => !e.dead && e.areaId === areaId)
+        .reduce((sum, e) => sum + width(e), 0) +
+        size >
+        area.capacity
+    )
+      return rejectBattleCommand(original, "Q-189：单次挤占后空间仍不足，未放入超容量增援");
     const entity = summonEntity(
       next,
       cardId,

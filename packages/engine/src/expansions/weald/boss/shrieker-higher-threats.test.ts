@@ -200,3 +200,36 @@ it.each([2, 3] as const)(
     expect(result.state.battle!.encounter!.turn.type).toBe("awaitingInitiative");
   },
 );
+
+it("显式高等级版本自身携带R-266容量口径，缺旧独立标记仍先容量后威胁", () => {
+  const source = fixture(3),
+    { inventoryOverflow: _flag, ...state } = source;
+  void _flag;
+  const before = {
+    ...state,
+    dungeon: {
+      ...state.dungeon!,
+      explorationSetup: {
+        ...state.dungeon!.explorationSetup!,
+        provisions: Array.from({ length: 16 }, (_, i) => item(`p${i}`)),
+      },
+    },
+  };
+  // 公开命令入口先激活该高等级版本的容量行为，随后取得走同一规则。
+  const marked = applyCommand(before, { type: "ping", message: "checkpoint" }).state;
+  expect(marked.inventoryOverflow).toBe(true);
+  const result = beginHigherShriekerGain(marked, {
+    state: {
+      ...marked,
+      dungeon: {
+        ...marked.dungeon!,
+        explorationSetup: {
+          ...marked.dungeon!.explorationSetup!,
+          provisions: [...marked.dungeon!.explorationSetup!.provisions, item("new")],
+        },
+      },
+    },
+    events: [],
+  });
+  expect(result.pendingChoice!.id).toMatch(/^inventory-overflow:/);
+});
