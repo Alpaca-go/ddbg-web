@@ -30,13 +30,15 @@ export function advanceRuinsAct(state: GameState): ApplyResult {
   const issue = buildingLevelsProblem(d) ?? conditionPoolProblem(d.conditions, d.heroes);
   if (issue) return rejectBattleCommand(state, issue);
   const switched = wealdLocationActAdvanceEnabled(d)
-    ? switchWealdActPools(
-        readiness.plan.fromLevel,
-        d.monsterPool,
-        d.trinkets,
-        d.heroes,
-        d.contentPacks ?? ["core"],
-      )
+    ? d.monsterPool?.location === "weald"
+      ? switchWealdActPools(
+          readiness.plan.fromLevel,
+          d.monsterPool,
+          d.trinkets,
+          d.heroes,
+          d.contentPacks ?? ["core"],
+        )
+      : switchRuinsActPools(readiness.plan.fromLevel, d.monsterPool, d.trinkets, d.heroes)
     : switchRuinsActPools(readiness.plan.fromLevel, d.monsterPool, d.trinkets, d.heroes);
   if (switched.kind === "blocked") return rejectBattleCommand(state, switched.reason);
   const {

@@ -24,6 +24,11 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 - **当前批次（第七刀）**：规则书只读复核：**无 Stygian 升幕抽牌专属拒绝**；原「引擎仍拒（W3）」为**计划误述**（实为 `!wealdHigherBosses` 版本守卫）。`drawImminentThreatAfterActAdvance` 生产路径已回归。p008 普通一项／Stygian 两项 2t 已目视结清。见 [升幕抽威胁核查](weald-stygian-act-threat-review-2026-11-17.md)。
 - **当前批次（第八刀，2026-11-17 规则书结论）**：Weald 地点战役与遗迹共用 **`quest:p019`** 与 `advanceRuinsAct` 命令；`readRuinsActTransitionReadiness`／`switchWealdActPools` 按生产路径（`locationBossThreats`＋`wealdHigherBosses`＋`bossLocationSources`＋`bossExpeditionRegion:weald`，II／III 须 `tasks-v1`）读回并提交升幕。不新加 Weald Boss 任务卡、不改 p019 触发。**未验收**：自然跨幕养成日志、步骤 8 整幕实机；夹具≠自然日志。
 - **当前批次（第九刀）**：`advanceRuinsAct` 在 **`wealdLocationActAdvanceEnabled`**（显式 `wealdHigherBosses` 等）升幕写入 **`wealdHigherQuestOffers:tasks-v1`**；遗迹升幕不写。生产 Boss 标记仅经 **`establishImminentThreat` 显式命令**守恒至出征，**不**在 `chooseNextQuest` 隐式补齐（旧版 strict replay 不变）。回归：`weald-face-the-threat-act-chain.test.ts`、`weald-act-advance`、`advance-ruins-act`、`hamlet-embark` p019 旧版／生产分测。**仍缺**：自然全链命令日志；不宣称步骤 8 自然跨幕验收。
+- **当前批次（第十刀，生产衔接）**：在 `d46d6ab4`（#774）起点上于 `origin/main` 核查并闭合三处接线缺口（夹具受控回归，**不是**步骤 8／自然日志验收）：
+  1. **Stygian × Shrieker II 跳补给骰**：移除 `command.ts` 与 `shrieker-provision-version.ts` 对 Stygian 的排除，与 sandbox `store.ts` 及 R-270 一致；旧无标记 strict replay 不变。
+  2. **混合地点升幕**：Weald 生产路径下 `defeatedRuinsBossIdentities`＋`defeatedWealdBossIdentities` 合计计幕；`buildWealdActTransitionPlan`／读回按 `bossCombatThreatCeased` 对齐最近击败；`advanceRuinsAct` 在 `monsterPool.location==='ruins'` 时走 `switchRuinsActPools` 仍写入 `tasks-v1`。纯遗迹、纯 Weald 夹具不回退。
+  3. **最暗入口**：`darkestActEntryPending` 在生产路径上接受三 Boss 合计（遗迹＋Weald）；纯遗迹仍仅看遗迹三条记录。
+     回归：`weald-production-wiring-gaps.test.ts`、`shrieker-skip-provision-rolls` Stygian 用例。
 - **下一步**：建立自然跨幕 Face the Threat 全流程命令日志（优先稳定种子／人工接续）；步骤 8 实机仍后置；无自然日志前不宣称完整战役验收。
 
 - 步骤 0 已完成，提交 `e7fd17e1`；完整地点战役尚未验收。

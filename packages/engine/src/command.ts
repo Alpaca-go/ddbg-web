@@ -1048,7 +1048,6 @@ export function applyCommand(state: GameState, command: Command, legacy = false)
     const d = state.dungeon;
     if (
       !d ||
-      d.mode === "stygian" ||
       !d.contentPacks?.includes("weald") ||
       !(
         d.wealdHigherBosses ||

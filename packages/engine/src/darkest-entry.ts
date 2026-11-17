@@ -5,6 +5,7 @@ import type { DungeonState } from "./dungeon";
 import { createRng } from "./rng";
 import { readDarkestBossEncounter } from "./boss/darkest-content";
 import { readCampaignLevel } from "./hamlet-campaign";
+import { campaignActIIIBossesComplete } from "./campaign-boss-defeats";
 
 /**
  * 规格书 §14.7.3：第 4 幕只打 **1** 张最暗任务（p016–p018 随机抽 1 张，不是 2 选 1），
@@ -33,7 +34,7 @@ export function darkestActEntryPending(d: DungeonState): boolean {
   return (
     readCampaignLevel(d) === 3 &&
     !d.darkest &&
-    (d.defeatedRuinsBossIdentities ?? []).length === 3 &&
+    campaignActIIIBossesComplete(d) &&
     d.questSummary?.questId === "quest:p019" &&
     d.questSummary.awarded === true &&
     d.bossQuestVictory === true &&

@@ -76,26 +76,36 @@ const wealdOrdinaryQuestId = (id: string) =>
       id !== "quest:p019",
   );
 
-/** R35 / R-037 / W3：Weald 地点战役升幕计划（生产 `tasks-v1` 普通任务栈）。 */
+/** R35 / R-037 / W3：Weald 地点战役升幕计划（生产 `tasks-v1` 普通任务栈）；遗迹与 Weald 击败合计计幕。 */
 export function buildWealdActTransitionPlan(
   fromLevel: 1 | 2,
-  defeatedBosses: readonly WealdBossIdentity[],
+  defeatedRuinsBosses: readonly RuinsBossIdentity[],
+  defeatedWealdBosses: readonly WealdBossIdentity[],
   removedQuestIds: readonly string[],
 ) {
   if (
     ![1, 2].includes(fromLevel) ||
-    defeatedBosses.length !== fromLevel ||
-    new Set(defeatedBosses).size !== defeatedBosses.length ||
-    defeatedBosses.some((id) => !WEALD_BOSS_IDENTITIES.includes(id))
+    defeatedRuinsBosses.length + defeatedWealdBosses.length !== fromLevel ||
+    new Set(defeatedRuinsBosses).size !== defeatedRuinsBosses.length ||
+    defeatedRuinsBosses.some((id) => !RUINS_BOSS_IDENTITIES.includes(id)) ||
+    new Set(defeatedWealdBosses).size !== defeatedWealdBosses.length ||
+    defeatedWealdBosses.some((id) => !WEALD_BOSS_IDENTITIES.includes(id))
   )
-    throw new Error("升幕计划须有对应数量的不重复 Weald Boss 击败记录（W3／R35）");
+    throw new Error(
+      "升幕计划须有对应幕次的不重复战役 Boss 击败记录（遗迹与 Weald 合计）（W3／R35）",
+    );
   if (
     new Set(removedQuestIds).size !== removedQuestIds.length ||
-    removedQuestIds.some(
-      (id) => !wealdOrdinaryQuestId(id) || basicQuests.find((q) => q.id === id)!.level > fromLevel,
-    )
+    removedQuestIds.some((id) => {
+      const quest = basicQuests.find((q) => q.id === id);
+      if (!quest || quest.id === "quest:p019") return true;
+      if (quest.level > fromLevel) return true;
+      if ("bossQuest" in quest && quest.bossQuest) return true;
+      if (quest.expeditionRegion === "weald") return !wealdOrdinaryQuestId(id);
+      return quest.expeditionRegion !== undefined && quest.expeditionRegion !== "ruins";
+    })
   )
-    throw new Error("任务移出记录须为当前或先前等级的 Weald 普通任务（R-037）");
+    throw new Error("任务移出记录须为当前或先前等级的普通任务（遗迹或 Weald）（R-037）");
   const toLevel = (fromLevel + 1) as 2 | 3;
   const higherTasks = "tasks-v1" as const;
   const retiredQuestIds = [
@@ -106,6 +116,11 @@ export function buildWealdActTransitionPlan(
         .flatMap((level) =>
           questIdsForLocationDeck("weald", level, ["core", "weald"], higherTasks),
         ),
+      ...basicQuests
+        .filter(
+          (q) => q.level <= fromLevel && q.id !== "quest:p019" && q.expeditionRegion !== "weald",
+        )
+        .map((q) => q.id),
     ]),
   ].sort();
   return {
@@ -116,8 +131,8 @@ export function buildWealdActTransitionPlan(
         {
           contentPacks: ["core", "weald"],
           wealdHigherBosses: true,
-          defeatedRuinsBossIdentities: [],
-          defeatedWealdBossIdentities: defeatedBosses,
+          defeatedRuinsBossIdentities: defeatedRuinsBosses,
+          defeatedWealdBossIdentities: defeatedWealdBosses,
         },
         toLevel,
       ),
