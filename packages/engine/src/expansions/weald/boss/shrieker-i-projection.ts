@@ -6,12 +6,29 @@ import { WEALD_SHRIEKER_I_CONTENT as content } from "./shrieker-i-content";
 const icon = (key: string): SkillSegment => ({ type: "icon", icon: { key, naming: "confirmed" } });
 const text = (text: string): SkillSegment => ({ type: "text", text });
 
+type PrintedFace = Omit<(typeof content.faces)[number], "level" | "rawId"> & {
+  readonly rawId: string;
+};
+export function projectShriekerCombatFaces(
+  faces: readonly PrintedFace[],
+  context: { readonly nestInPlay: boolean; readonly nestFlightApproved?: true },
+  heal: number,
+): MonsterCardView[] {
+  return buildCatalog(faces, context, heal);
+}
 /** R-261：调用方必须明确 Nest 是否在场；不自行解释其替代飞行／治疗能力。 */
 export function buildShriekerICombatCatalog(context: {
   readonly nestInPlay: boolean;
   readonly nestFlightApproved?: true;
 }): MonsterCardView[] {
-  return content.faces.map((face): MonsterCardView => ({
+  return buildCatalog(content.faces, context, 2);
+}
+function buildCatalog(
+  faces: readonly PrintedFace[],
+  context: { readonly nestInPlay: boolean; readonly nestFlightApproved?: true },
+  heal: number,
+): MonsterCardView[] {
+  return faces.map((face): MonsterCardView => ({
     id: face.rawId,
     life: face.life,
     speed: face.speed,
@@ -41,8 +58,8 @@ export function buildShriekerICombatCatalog(context: {
           case "selfPull":
           case "selfPush": {
             if (effect.kind === "selfPush" && context.nestInPlay && context.nestFlightApproved) {
-              effects.push({ type: "heal", scope: "self", amount: 2 });
-              tokens = [icon("heal"), text("2")];
+              effects.push({ type: "heal", scope: "self", amount: heal });
+              tokens = [icon("heal"), text(String(heal))];
               break;
             }
             const direction = effect.kind === "selfPull" ? "pull" : "push";

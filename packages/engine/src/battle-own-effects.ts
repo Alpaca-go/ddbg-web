@@ -187,7 +187,17 @@ export function beginSkillOwnEffects(
       ?.skills.find((s) => s.slot === command.skillSlot)?.verified_shrieker_flight;
   const nest = flight
     ? battle.entities.find(
-        (e) => e.side === "monster" && !e.dead && e.monsterCardId === "monster_large:weald:p007",
+        (e) =>
+          e.side === "monster" &&
+          !e.dead &&
+          e.monsterCardId ===
+            (
+              {
+                "monster_large:weald:p004": "monster_large:weald:p007",
+                "monster_large:weald:p005": "monster_large:weald:p008",
+                "monster_large:weald:p006": "monster_large:weald:p009",
+              } as Record<string, string>
+            )[actor.monsterCardId!],
       )
     : undefined;
   if (flight && !nest) return rejectBattleCommand(state, "Shrieker 飞行缺少在场 Nest（R-262）");
