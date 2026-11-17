@@ -30,6 +30,60 @@ export function RuinsBossRoomActions({
 
 const entries = [
   {
+    id: "hag",
+    level: 2,
+    name: "Hag II",
+    roomName: "Hag",
+    room: "room:weald:p010",
+    script: "boss:weald:hag:2",
+    command: "deployHagHigher",
+  },
+  {
+    id: "pounder",
+    level: 2,
+    name: "Brigand Pounder II",
+    roomName: "Brigand Pounder",
+    room: "room:weald:p012",
+    script: "boss:weald:brigandPounder:2",
+    command: "deployPounderHigher",
+  },
+  {
+    id: "shrieker",
+    level: 2,
+    name: "Shrieker II",
+    roomName: "Shrieker",
+    room: "room:weald:p011",
+    script: "boss:weald:shrieker:2",
+    command: "deployShriekerHigher",
+  },
+  {
+    id: "hag",
+    level: 3,
+    name: "Hag III",
+    roomName: "Hag",
+    room: "room:weald:p010",
+    script: "boss:weald:hag:3",
+    command: "deployHagHigher",
+  },
+  {
+    id: "pounder",
+    level: 3,
+    name: "Brigand Pounder III",
+    roomName: "Brigand Pounder",
+    room: "room:weald:p012",
+    script: "boss:weald:brigandPounder:3",
+    command: "deployPounderHigher",
+  },
+  {
+    id: "shrieker",
+    level: 3,
+    name: "Shrieker III",
+    roomName: "Shrieker",
+    room: "room:weald:p011",
+    script: "boss:weald:shrieker:3",
+    command: "deployShriekerHigher",
+  },
+  {
     id: "shrieker",
     level: 1,
     name: "Shrieker I",
@@ -175,6 +229,7 @@ function bossRoomEntry(d: DungeonState) {
     return undefined;
   return entries.find(
     (e) =>
+      (!["hag", "pounder", "shrieker"].includes(e.id) || e.level === 1 || d.wealdHigherBosses) &&
       (e.id !== "shrieker" || d.shriekerBossBattles) &&
       (e.id !== "pounder" ||
         (d.pounderBossBattles && d.pounderDungeonThreats && d.pounderHamletThreats)) &&

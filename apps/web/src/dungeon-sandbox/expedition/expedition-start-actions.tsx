@@ -36,7 +36,7 @@ export function ExpeditionStartActions({
         <div data-testid="initial-threat-setup">
           <p>
             {locationBosses
-              ? "从遗迹与 Weald 的七位 Boss 中随机确定迫近威胁。Weald 已开放 Hag I 与 Brigand Pounder I，以及 Shrieker I。"
+              ? "从遗迹与 Weald 的七位 Boss 中随机确定迫近威胁。Weald 已开放 Hag、Brigand Pounder 与 Shrieker 的 I／II／III 级战斗。"
               : "新战役先从四名遗迹 Boss 中随机确定迫近威胁，再掷开局补给骰。"}
           </p>
           <button
@@ -52,6 +52,7 @@ export function ExpeditionStartActions({
                       pounderHamletThreats: true,
                       pounderBossBattles: true,
                       shriekerBossBattles: true,
+                      wealdHigherBosses: true,
                     }
                   : {}),
               })

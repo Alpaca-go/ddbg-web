@@ -578,7 +578,10 @@ export function chooseNextQuest(
     d.bossLocationSources &&
     (d.activeBossThreatScriptId === "boss:weald:hag:1" ||
       (d.wealdHigherBosses &&
-        WEALD_HIGHER_BOSS_ENTRIES.some((e) => e.scriptId === d.activeBossThreatScriptId)))
+        (WEALD_HIGHER_BOSS_ENTRIES.some((e) => e.scriptId === d.activeBossThreatScriptId) ||
+          ["boss:weald:brigandPounder:1", "boss:weald:shrieker:1"].includes(
+            d.activeBossThreatScriptId ?? "",
+          ))))
       ? { bossExpeditionRegion: "weald" as const }
       : {}),
     battleCatalog: locationDecks?.battleCatalog ?? d.battleCatalog!,

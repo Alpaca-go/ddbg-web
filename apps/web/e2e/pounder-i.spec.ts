@@ -55,7 +55,12 @@ test("Pounder真实检查点：页面部署、单怪物先攻、增援回合与�
     ),
   ).toHaveLength(3);
   await install(fixture.initial);
-  await expect(page.getByText(/已开放 Hag I 与 Brigand Pounder I/)).toBeVisible();
+  await expect(
+    page.getByText(
+      "从遗迹与 Weald 的七位 Boss 中随机确定迫近威胁。Weald 已开放 Hag、Brigand Pounder 与 Shrieker 的 I／II／III 级战斗。",
+      { exact: true },
+    ),
+  ).toBeVisible();
   await page.getByRole("button", { name: "抽取迫近威胁", exact: true }).click();
   await expect(page.getByTestId("initial-threat-result")).toContainText("Brigand Pounder I");
   await expect(page.getByRole("button", { name: "掷开局补给骰", exact: true })).toBeEnabled();
