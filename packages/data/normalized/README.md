@@ -23,6 +23,10 @@ pnpm --filter @ddbg/pipeline normalize
 
 `extension/weald/room.json` 与 `room_tile_geometry.json` 使用独立 schema（`ddbg-weald-room-v1` / `ddbg-weald-room-tile-geometry-v0`），写入 R-234–R-239 已核准的九张普通房间与对应板块。含完整通行几何、容量、部署、真菌与星标效果区域；5 号零容量 I、7 号零容量 H／I／J；1 号 C／E／F／G 绑定 Toxic Mushrooms（R-239）。全部 `usable=false`，不开放出征；由 `pnpm --filter @ddbg/data test` 中 `weald-rooms.test.ts` 校验，可用 `WRITE_NORMALIZED=1` 重写 JSON。见 [房间审阅记录](../../../docs/weald-room-review-2026-11-12.md)。
 
+## Weald Stygian 九张房间（审阅入库）
+
+`extension/weald/stygian_rooms.json`（`ddbg-weald-stygian-rooms-v1`）由 `buildWealdStygianRooms` 生成，九张各 1 份，替换同名 `room:weald:p001`–`p009`；与核心 17 张 `corebox/stygian_rooms.json` 隔离。全部 `reviewedEffect.runtimeReady=false`，不接入出征替换。`WRITE_NORMALIZED=1` 可重写；`weald-stygian-rooms.test.ts` 校验。见 [Stygian 房间审阅记录](../../../docs/weald-stygian-room-review-2026-11-17.md)。
+
 ## Weald I 级普通任务
 
 `extension/weald/quest_cards.json`（`ddbg-weald-quest-cards-v1`，仅 I 级五张）与五张 `*_distribution.json` 由 `buildWealdLevelOneQuestCards` 生成，分布 kind 按 **R-240**–**R-249**；与 `basicQuests` 中 `quest:weald:p001`–`p005` 交叉核对。`WRITE_NORMALIZED=1` 可重写；`weald-quest-cards.test.ts` 校验。沙盒出征见 `quest:weald:p001`（**R-246** brought back + **R-252** 封顶）、`quest:weald:p004`（**R-248** 当地牌堆）、`quest:weald:p005`；村庄战役抽选仍关。

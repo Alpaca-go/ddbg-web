@@ -5,9 +5,9 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 
 ## 当前进度与下一步
 
-- **当前阶段：普通九房、Weald 专属机制及独立 I 级五任务已按原完成标准验收（步骤 3／4 限 I 级普通内容，步骤 5 为单任务闭环）；连续战役、高等级／Stygian 与三个 Boss 尚未验收。Fungal Research seed1 原策略败局和新保全策略 0 XP 均保留。**
-- **当前批次**：#733 已按指令合入 main（`355e3884`）；剩余 II／III 普通任务连续拆为 #734–#740，显式 `tasks-v1` 接全部十卡。Q-188 已由 R-266 确认，#741 接通所有背包完整获得后丢弃超额，收尾 #742 将 p010 打开；#734–#742 已全部合入 main（`82e2a08c`）。十卡 runtimeReady=true，无剩余任务规则待确认。旧 true／无标记版本保持原池；自然跨幕养成与人工实机仍未验收。
-- **下一步：核实 Hag II／III 房间复用并接正式入口／严格日志，随后推进其它高等级 Boss 与 Stygian。** #744 已按指令合入 main（`9431d384`）。R-267 独立目录、入锅状态原语、指定补给威胁，以及本批独立回合的强制选招／先攻／释放续接已接；combatReady=false，高等级 Face the Threat 正式准入仍不扩展。自然跨幕养成／人工实机继续后置。
+- **当前阶段：普通九房、Weald 专属机制及独立 I 级五任务已按原完成标准验收（步骤 3／4 限 I 级普通内容，步骤 5 为单任务闭环）；连续战役、Stygian 运行时与高等级 Boss 栈尚未验收。Fungal Research seed1 原策略败局和新保全策略 0 XP 均保留。**
+- **当前批次**：main 底 `45fee066`（#745 合入）。高等级 Boss 未合入栈（#746–#760 等）保持原状，本 session 不并。步骤 7 **Stygian 首刀**：九张 Weald Stygian 房间印刷对照与 `extension/weald/stygian_rooms.json` 审阅入库已交付；**未**开放出征替换、未接效果运行时、未动核心 17 张 Stygian。
+- **下一步：步骤 7 下一刀——Stygian 战役中按地点替换 Weald 房间并排效果；并行继续 Hag II／III 正式房间来源与其它高等级 Boss（#746+ 栈，本批不并）。自然跨幕养成／人工实机继续后置。
 
 - 步骤 0 已完成，提交 `e7fd17e1`；完整地点战役尚未验收。
 - 导入与计划两批已合入并推送 `main`（`3be97c65`）。步骤 1 怪物批次已合入并推送 `main`（`7075f4d8`）。
@@ -1335,3 +1335,9 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 - Full被打翻、英雄到死门或Hag死亡沿现有PendingChoice与resume续接；公开resolveChoice可恢复受控JSON待选，不重放攻击或消耗额外RNG。Hag死亡后移走空锅，按现有死亡收尾处理。
 - 本批夹具复用I级已核准几何作为受控战斗条件，不授予II／III正式房间复用资格；未放宽Face the Threat高等级仅遗迹的任务映射，也未开放正式出征或声称自然战役验收。下一刀核实高等级房间，再接正式来源／版本日志。
 - 验证：新增两等级12项通过（6.14秒），含命中／落空后两次行动、独立开战三张先攻、Full普通目标、JSON释放恢复及目录篡改拒绝；完整Hag（含原有自然日志）与任务映射17文件144项通过（133.18秒）；最后补Full公开攻击目标断言后12项复跑通过（9.97秒）。完整typecheck、lint、build及diff空白检查通过；初次lint的无用旧常量已清理。本批为#745，远端全量仍待最新head结果。本批无页面变化，非阶段末不加Playwright。
+
+### Weald Stygian 九房审阅入库首刀（2026-11-17）
+
+- 对照 `DD_EN_WEALD_CARDS_63x88_rooms_Stygian_FRONT.pdf` 九页与 [审阅稿](weald-stygian-room-review-2026-11-17.md)；`stygian_room:weald:p001`–`p009` 替换同名普通房，各 1 份。结构化记录 p008 两项增益 2t、p009 Ours! 仅增益 3t；3／6／7 无效果段；全部 `reviewedEffect.runtimeReady=false`。
+- 扩展 schema `ddbg-weald-stygian-rooms-v1` 与核心 `ddbg-stygian-rooms-v1` 隔离；`readWealdStygianRoomReplacement` 仅读目录，引擎出征未接线。不修改 Boss 房、核心 Stygian 17 张、战役模式开关或板块几何。
+- 验证：`pnpm --filter @ddbg/data exec vitest run weald-stygian-rooms stygian-rooms`；`pnpm typecheck`、`pnpm lint`、`pnpm build`、`git diff --check`。步骤 7 仍为进行中；下一刀为 Stygian 运行时替换与效果。
