@@ -96,7 +96,7 @@ function continueReinforcements(
     )
       return rejectBattleCommand(
         original,
-        "Q-189：大型增援需要挤占多名角色，待核准；未放入超容量区域",
+        "Q-189：单次挤占后仍无空间的后续规则未定义；技术停点，不判定召唤失败",
       );
     const placement = resolveWealdSummonAreaPlacement(
       next,
@@ -137,7 +137,10 @@ function continueReinforcements(
         size >
         area.capacity
     )
-      return rejectBattleCommand(original, "Q-189：单次挤占后空间仍不足，未放入超容量增援");
+      return rejectBattleCommand(
+        original,
+        "Q-189：单次挤占后仍无空间的后续规则未定义；技术停点，不判定召唤失败",
+      );
     const entity = summonEntity(
       next,
       cardId,

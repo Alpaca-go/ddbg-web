@@ -210,7 +210,7 @@ describe.each([2, 3] as const)("R-268 Pounder %i 级回合", (level) => {
   });
 });
 
-it("Q-189两名英雄占满两格时原子拒绝，不提交大型单位或先攻洗牌", () => {
+it("Q-189后续规则未定义时技术拒绝，不判定召唤失败或提交部分增援", () => {
   const source = fixture(2),
     state: GameState = {
       ...source,
@@ -226,6 +226,9 @@ it("Q-189两名英雄占满两格时原子拒绝，不提交大型单位或先�
   expect(result.events).toEqual([
     expect.objectContaining({ type: "commandRefused", message: expect.stringContaining("Q-189") }),
   ]);
+  expect(result.events[0]).toMatchObject({
+    message: expect.stringContaining("后续规则未定义；技术停点，不判定召唤失败"),
+  });
   expect(result.state).toBe(state);
   expect(state).toEqual(before);
 });
