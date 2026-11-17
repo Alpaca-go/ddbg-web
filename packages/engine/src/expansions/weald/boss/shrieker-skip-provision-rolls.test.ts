@@ -161,6 +161,29 @@ it("显式版本从首个公开命令严格回放；去掉标记但保留快照�
     savedCommandSchema.safeParse({ ...command, shriekerProvisionSkipRolls: false }).success,
   ).toBe(false);
 });
+it("Stygian 完整高等级：启用标记后 II 描述面仍跳补给骰（与页面 sandbox 一致）", () => {
+  const state = {
+    ...fixture(),
+    dungeon: {
+      ...fixture().dungeon!,
+      mode: "stygian" as const,
+      stygianRoomRules: "full" as const,
+    },
+  };
+  const actorId = state.battle!.entities[0]!.id;
+  const enabled = applyCommand(state, {
+    type: "ping",
+    message: "v",
+    shriekerProvisionSkipRolls: true,
+  });
+  expect(enabled.events.filter((e) => e.type === "commandRefused")).toEqual([]);
+  const rolled = applyCommand(enabled.state, { type: "interactLoot", actorId });
+  expect(rolled.events.filter((e) => e.type === "provisionRolled")).toEqual([]);
+  expect(rolled.events).toContainEqual(
+    expect.objectContaining({ type: "lootResolved", reward: { ignoredProvisions: 1 } }),
+  );
+});
+
 it.each([2, 3] as const)(
   "等级%i村庄补给照常；III Radiant保留随机骰并照加英雄／队伍奖励",
   (level) => {

@@ -7,7 +7,6 @@ export function shriekerSkipsProvisionRolls(d: DungeonState | undefined): boolea
     d.wealdHigherBosses === true &&
     d.shriekerBossBattles === true &&
     d.campaignLevel === 2 &&
-    d.mode !== "stygian" &&
     d.contentPacks?.includes("weald") === true &&
     !d.darkest &&
     !["awaitingProvisions", "inHamlet"].includes(d.phase) &&

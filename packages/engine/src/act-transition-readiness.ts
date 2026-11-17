@@ -3,10 +3,15 @@ import { buildRuinsActTransitionPlan, buildWealdActTransitionPlan } from "./act-
 import type { GameState } from "./command";
 import type { DungeonState } from "./dungeon";
 import { RUINS_COMBAT_LEVELS } from "./boss/ruins-combat-levels";
+import { RUINS_BOSS_IDENTITIES } from "./boss/threat-description-catalog";
 import { countCompletedRegularQuestsAtCampaignLevel } from "./boss/face-the-threat-embark-runtime";
 import { WEALD_HIGHER_BOSS_ENTRIES } from "./expansions/weald/boss/higher-boss-entries";
-import { wealdBossActEntry } from "./expansions/weald/boss/weald-boss-act-entry";
-import type { WealdBossIdentity } from "./expansions/weald/catalog";
+import { WEALD_BOSS_IDENTITIES, type WealdBossIdentity } from "./expansions/weald/catalog";
+import {
+  allDefeatedBossIdentityKeys,
+  bossActEntryFromCeasedScript,
+  readCampaignBossDefeatCounts,
+} from "./campaign-boss-defeats";
 
 export function wealdLocationActAdvanceEnabled(
   d: Pick<
@@ -38,33 +43,35 @@ export function requiresRuinsActAdvance(d: DungeonState): boolean {
     return false;
   if (level === 1) return true;
   const weald = wealdLocationActAdvanceEnabled(d);
-  const defeated = (weald ? d.defeatedWealdBossIdentities : d.defeatedRuinsBossIdentities) ?? [];
-  const advanced = weald
-    ? defeated.length === 1 &&
-      !d.faceTheThreatEmbarkPlan &&
-      !d.bossCombatThreatCeased &&
-      (WEALD_HIGHER_BOSS_ENTRIES.some(
-        (row) =>
-          row.scriptId.endsWith(`:${level}`) &&
-          wealdBossIdentityFromScript(row.scriptId) !== defeated[0] &&
-          row.scriptId === d.activeBossThreatScriptId &&
-          row.descriptionAbilityCardId === d.imminentThreatDescriptionCardId,
-      ) ||
+  const { ruins, weald: wealdDefeated, total } = readCampaignBossDefeatCounts(d);
+  const defeatedIds = allDefeatedBossIdentityKeys(ruins, wealdDefeated);
+  const advanced =
+    total === 1 &&
+    !d.faceTheThreatEmbarkPlan &&
+    !d.bossCombatThreatCeased &&
+    (weald
+      ? WEALD_HIGHER_BOSS_ENTRIES.some((row) => {
+          const identity = wealdBossIdentityFromScript(row.scriptId);
+          return (
+            row.scriptId.endsWith(`:${level}`) &&
+            identity !== undefined &&
+            !defeatedIds.has(identity) &&
+            row.scriptId === d.activeBossThreatScriptId &&
+            row.descriptionAbilityCardId === d.imminentThreatDescriptionCardId
+          );
+        }) ||
         Object.entries(RUINS_COMBAT_LEVELS).some(
           ([boss, entries]) =>
-            boss !== defeated[0] &&
+            !defeatedIds.has(boss) &&
             entries[1].script === d.activeBossThreatScriptId &&
             entries[1].description === d.imminentThreatDescriptionCardId,
-        ))
-    : defeated.length === 1 &&
-      !d.faceTheThreatEmbarkPlan &&
-      !d.bossCombatThreatCeased &&
-      Object.entries(RUINS_COMBAT_LEVELS).some(
-        ([boss, entries]) =>
-          boss !== defeated[0] &&
-          entries[1].script === d.activeBossThreatScriptId &&
-          entries[1].description === d.imminentThreatDescriptionCardId,
-      );
+        )
+      : Object.entries(RUINS_COMBAT_LEVELS).some(
+          ([boss, entries]) =>
+            !defeatedIds.has(boss) &&
+            entries[1].script === d.activeBossThreatScriptId &&
+            entries[1].description === d.imminentThreatDescriptionCardId,
+        ));
   return !advanced;
 }
 
@@ -84,9 +91,20 @@ function readWealdActTransitionReadiness(state: GameState): RuinsActTransitionRe
   const level = d.campaignLevel ?? 1;
   if (level === 2 && d.wealdHigherQuestOffers !== "tasks-v1")
     return blocked("Weald II 级升幕须 production tasks-v1 普通任务版本（R-264／R-265）");
-  const defeated = d.defeatedWealdBossIdentities ?? [];
-  const latest = defeated.at(-1);
-  const entry = latest ? wealdBossActEntry(latest, level) : undefined;
+  const { ruins, weald: wealdDefeated, total } = readCampaignBossDefeatCounts(d);
+  if (total !== level)
+    return blocked(
+      `本幕须已击败 ${level} 个战役 Boss（遗迹与 Weald 合计）；当前合计 ${total}（§2.2／W3）`,
+    );
+  if (
+    new Set(ruins).size !== ruins.length ||
+    ruins.some((id) => !RUINS_BOSS_IDENTITIES.includes(id)) ||
+    new Set(wealdDefeated).size !== wealdDefeated.length ||
+    wealdDefeated.some((id) => !WEALD_BOSS_IDENTITIES.includes(id))
+  )
+    return blocked("战役 Boss 击败记录重复或身份无效");
+  const ceased = d.bossCombatThreatCeased;
+  const entry = ceased ? bossActEntryFromCeasedScript(ceased, level) : undefined;
   const embark = d.faceTheThreatEmbarkPlan;
   if (
     !entry ||
@@ -104,7 +122,12 @@ function readWealdActTransitionReadiness(state: GameState): RuinsActTransitionRe
     return {
       kind: "ready",
       location: "weald",
-      plan: buildWealdActTransitionPlan(level as 1 | 2, defeated, d.discardedQuests ?? []),
+      plan: buildWealdActTransitionPlan(
+        level as 1 | 2,
+        ruins,
+        wealdDefeated,
+        d.discardedQuests ?? [],
+      ),
     };
   } catch (error) {
     return blocked(error instanceof Error ? error.message : "升幕记录无效");

@@ -8,7 +8,9 @@ import { ensurePounderIBossScriptRegistered } from "../expansions/weald/boss/pou
 import { ensureShriekerIBossScriptRegistered } from "../expansions/weald/boss/shrieker-i";
 import { getBossScript } from "../boss/registry";
 import { wealdBossActEntry } from "../expansions/weald/boss/weald-boss-act-entry";
+import type { RuinsBossIdentity } from "../boss/threat-description-catalog";
 import { WEALD_BOSS_IDENTITIES, type WealdBossIdentity } from "../expansions/weald/catalog";
+import { ruinsActReadyFixture } from "./ruins-act";
 import type { GameState } from "../command";
 import type { DungeonState } from "../dungeon";
 import { createWealdHigherMonsterPoolState } from "../expansions/weald/higher-monster-pool";
@@ -128,6 +130,58 @@ export function wealdActReadyFixture(level: 1 | 2, boss: WealdBossIdentity): Gam
         awarded: true,
       },
       hamletReturn: { phase: "complete" } as NonNullable<DungeonState["hamletReturn"]>,
+    },
+  };
+}
+
+/** 混合地点 II→III：一名遗迹 Boss + 一名 Weald Boss，仍走 Weald 生产升幕路径。 */
+export function wealdMixedActReadyFixture(
+  ruinsBoss: RuinsBossIdentity,
+  wealdBoss: WealdBossIdentity,
+): GameState {
+  const wealdSide = wealdActReadyFixture(2, wealdBoss);
+  const wealdEntry = wealdBossActEntry(wealdBoss, 2)!;
+  const ruinsPool = ruinsActReadyFixture(2, ruinsBoss).dungeon!.monsterPool!;
+  return {
+    ...wealdSide,
+    dungeon: {
+      ...wealdSide.dungeon!,
+      monsterPool: {
+        ...ruinsPool,
+        location: "ruins" as const,
+        remaining: ruinsPool.remaining,
+        discarded: ruinsPool.discarded,
+      },
+      defeatedRuinsBossIdentities: [ruinsBoss],
+      defeatedWealdBossIdentities: [wealdBoss],
+      bossCombatThreatCeased: wealdEntry.script,
+      imminentThreatDescriptionCardId: wealdEntry.description,
+      faceTheThreatEmbarkPlan: {
+        questId: "quest:p019",
+        resolvedScriptId: wealdEntry.script,
+        combatEntry: { ...getBossScript(wealdEntry.script)!.combatEntry! },
+        rulesRef: ["R35", "W3"],
+        layoutWiringHold: "混合地点夹具",
+      },
+      completedRegularQuests: [
+        { questId: "quest:p006", campaignLevel: 2 },
+        { questId: "quest:weald:p006", campaignLevel: 2 },
+      ],
+      discardedQuests: [
+        "quest:p006",
+        "quest:p007",
+        "quest:weald:p006",
+        "quest:weald:p007",
+        "quest:weald:p008",
+      ],
+      questSummary: {
+        questId: "quest:p019",
+        name: "Face the Threat!",
+        clearedRoomIds: [],
+        xpPerHero: 3,
+        stagecoachXp: 3,
+        awarded: true,
+      },
     },
   };
 }
