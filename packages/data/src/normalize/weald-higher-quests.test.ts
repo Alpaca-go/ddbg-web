@@ -56,7 +56,7 @@ describe("R-264 高等级任务数据批", () => {
       buildWealdHigherQuests(raw).cards.find((c) => c.source.page === 8)?.distribution,
     ).toEqual({ counts: [{ kind: "lair", count: 3 }], randomSlots: 5 });
   });
-  it("核准覆盖与印刷转录分开保留：腐蚀合并、箱子替换不吞其它奖励", () => {
+  it("核准覆盖与印刷转录分开保留：两份腐蚀各为2／2t、箱子替换不吞其它奖励", () => {
     const cards = buildWealdHigherQuests(raw).cards;
     expect(cards.find((c) => c.source.page === 11)?.approvedOverrides).toEqual([
       {
