@@ -35,29 +35,6 @@ import {
   resolveFaceTheThreatOfferAtNextQuest,
 } from "./boss/face-the-threat-embark-runtime";
 import { FACE_THE_THREAT_QUEST_ID, isFaceTheThreatQuestId } from "./boss/quest-bridge";
-
-/** W3 生产路径：地点战役在 Face the Threat 出征时补齐 Boss 版本标记（不 retro 改旧日志）。 */
-function wealdProductionBossVersionsForFaceTheThreat(
-  d: DungeonState,
-  questId: string,
-): Partial<DungeonState> {
-  if (
-    !isFaceTheThreatQuestId(questId) ||
-    !d.locationBossThreats ||
-    !d.bossLocationSources ||
-    !d.contentPacks?.includes("weald") ||
-    d.wealdHigherBosses
-  )
-    return {};
-  if (!d.activeBossThreatScriptId?.startsWith("boss:weald:")) return {};
-  return {
-    wealdHigherBosses: true,
-    pounderDungeonThreats: true,
-    pounderHamletThreats: true,
-    pounderBossBattles: true,
-    shriekerBossBattles: true,
-  };
-}
 import { darkestActEntryPending } from "./darkest-entry";
 import { isDarkestQuest, setupDarkestDungeon } from "./darkest-setup";
 
@@ -702,7 +679,6 @@ export function chooseNextQuest(
             : faceEmbark.plan,
         }
       : {}),
-    ...wealdProductionBossVersionsForFaceTheThreat(d, quest.id),
   } satisfies DungeonState;
   if (isDarkestQuest(quest.id)) {
     // R36 / R-121 / R-191：最暗任务换 16 房图、三 Boss 位、最暗怪物池与 III 级房间牌堆。

@@ -262,7 +262,40 @@ it("未准备完成/重复抽卡/无剩余任务原子拒绝", () => {
   expect(applyCommand(empty, { type: "offerNextQuest" }).state).toBe(empty);
 });
 
-it("Weald 地点 p019 出征：补齐 wealdHigherBosses 与两段 Pounder/Shrieker 生产标记", () => {
+function wealdP019EmbarkGate(game: GameState) {
+  const hamlet = preparationReady(baseline.game).dungeon!.hamlet!;
+  return {
+    ...game,
+    dungeon: {
+      ...game.dungeon!,
+      phase: "inHamlet" as const,
+      completedRegularQuests: [
+        { questId: "quest:weald:p001", campaignLevel: 1 as const },
+        { questId: "quest:weald:p002", campaignLevel: 1 as const },
+      ],
+      activeBossThreatScriptId: "boss:weald:hag:1" as const,
+      imminentThreatDescriptionCardId: "boss_ability:weald:p013",
+      questSummary: {
+        questId: "quest:p001" as const,
+        name: "Scout",
+        clearedRoomIds: [],
+        xpPerHero: 2,
+        stagecoachXp: 2,
+        awarded: true,
+      },
+      hamletReturn: {
+        phase: "complete" as const,
+        order: [],
+        resolveRoles: {},
+        convertedHeroIds: [],
+      },
+      pending: null,
+      hamlet,
+    },
+  };
+}
+
+it("旧版 establishImminentThreat 出征 p019：不隐式补齐 wealdHigherBosses 生产标记", () => {
   const seed = 6;
   const packs = ["core", "weald"] as const;
   let game = createCoreDungeonQuest(
@@ -276,55 +309,46 @@ it("Weald 地点 p019 出征：补齐 wealdHigherBosses 与两段 Pounder/Shriek
     packs,
   );
   game = ok(game, { type: "establishImminentThreat", locationBosses: true, locationSources: true });
-  const offered = ok(
-    {
-      ...game,
-      dungeon: {
-        ...game.dungeon!,
-        phase: "inHamlet",
-        completedRegularQuests: [
-          { questId: "quest:weald:p001", campaignLevel: 1 },
-          { questId: "quest:p002", campaignLevel: 1 },
-        ],
-        activeBossThreatScriptId: "boss:weald:hag:1",
-        imminentThreatDescriptionCardId: "boss_ability:weald:p013",
-        questSummary: {
-          questId: "quest:p001",
-          name: "Scout",
-          clearedRoomIds: [],
-          xpPerHero: 2,
-          stagecoachXp: 2,
-          awarded: true,
-        },
-        hamletReturn: {
-          phase: "complete",
-          order: [],
-          resolveRoles: {},
-          convertedHeroIds: [],
-        },
-        pending: null,
-        hamlet: {
-          phase: "preparationComplete",
-          remainingDays: 0,
-          actedHeroes: [],
-          visitedBuildings: [],
-          heroOrder: [],
-          caretaker: null,
-          blockedBuildings: [],
-          deck: [],
-          permanentlyRemoved: [],
-          active: null,
-        },
-      },
-    },
-    { type: "offerNextQuest" },
-  );
+  const offered = ok(wealdP019EmbarkGate(game), { type: "offerNextQuest" });
   const embarked = ok(offered, {
     type: "resolveChoice",
     choiceId: offered.dungeon!.pending!.id,
     optionId: "quest:p019",
   });
-  expect(embarked.dungeon!.wealdHigherBosses).toBe(true);
-  expect(embarked.dungeon!.pounderBossBattles).toBe(true);
-  expect(embarked.dungeon!.shriekerBossBattles).toBe(true);
+  expect(embarked.dungeon!.wealdHigherBosses).toBeUndefined();
+  expect(embarked.dungeon!.pounderBossBattles).toBeUndefined();
+});
+
+it("显式生产 establish 出征 p019：版本标记随村庄状态守恒进入地牢", () => {
+  const packs = ["core", "weald"] as const;
+  const establish = {
+    type: "establishImminentThreat",
+    locationBosses: true,
+    locationSources: true,
+    wealdHigherBosses: true,
+    pounderDungeonThreats: true,
+    pounderHamletThreats: true,
+    pounderBossBattles: true,
+    shriekerBossBattles: true,
+  } as const;
+  let game = createCoreDungeonQuest(
+    6,
+    "quest:p001",
+    "standard",
+    coreParty,
+    coreQuestSources,
+    true,
+    null,
+    packs,
+  );
+  game = ok(game, establish);
+  const offered = ok(wealdP019EmbarkGate(game), { type: "offerNextQuest" });
+  const after = ok(offered, {
+    type: "resolveChoice",
+    choiceId: offered.dungeon!.pending!.id,
+    optionId: "quest:p019",
+  });
+  expect(after.dungeon!.wealdHigherBosses).toBe(true);
+  expect(after.dungeon!.pounderBossBattles).toBe(true);
+  expect(after.dungeon!.shriekerBossBattles).toBe(true);
 });

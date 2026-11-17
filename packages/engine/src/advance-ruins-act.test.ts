@@ -11,6 +11,12 @@ import { coreParty, coreQuestSources } from "./test-helpers/core-quest";
 import { requiresRuinsActAdvance } from "./act-transition-readiness";
 
 const command = { type: "advanceRuinsAct" } as const;
+
+it("遗迹升幕不写 wealdHigherQuestOffers:tasks-v1", () => {
+  const state = applyCommand(ruinsActReadyFixture(1, "necromancer"), command).state;
+  expect(state.dungeon!.wealdHigherQuestOffers).toBeUndefined();
+});
+
 it("公开命令两级四Boss原子升幕，先抽威胁再洗完整怪物池，重复调用拒绝", () => {
   for (const level of [1, 2] as const)
     for (const boss of RUINS_BOSS_IDENTITIES) {
