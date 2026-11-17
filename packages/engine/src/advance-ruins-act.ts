@@ -69,11 +69,17 @@ export function advanceRuinsAct(state: GameState): ApplyResult {
     [deck[i], deck[j]] = [deck[j]!, deck[i]!];
     cursor++;
   }
+  const wealdTasks =
+    wealdLocationActAdvanceEnabled(d) &&
+    (readiness.plan.toLevel === 2 || readiness.plan.toLevel === 3)
+      ? ({ wealdHigherQuestOffers: "tasks-v1" as const } as const)
+      : {};
   return {
     state: {
       ...drawn.state,
       dungeon: {
         ...next,
+        ...wealdTasks,
         cursor,
         discardedQuests: readiness.plan.retiredQuestIds,
         monsterPool: { ...switched.monsterPool, remaining: deck },

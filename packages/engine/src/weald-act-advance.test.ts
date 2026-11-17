@@ -79,6 +79,7 @@ it.each([
         );
         expect(result.state.dungeon?.monsterPool?.wealdSourceVersion).toBe("higher-v1");
         expect(result.state.dungeon?.monsterPool?.wealdMonsterLevel).toBe(target);
+        if (target >= 2) expect(result.state.dungeon?.wealdHigherQuestOffers).toBe("tasks-v1");
         const village = applyCommand(result.state, { type: "drawHamletEvent" });
         expect(village.events.some((e) => e.type === "commandRefused")).toBe(false);
       }

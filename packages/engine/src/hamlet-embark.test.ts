@@ -7,7 +7,8 @@ import distribution from "../../data/normalized/corebox/scout_ahead_distribution
 import { nextProvisionFace } from "./loot";
 import { naturalAbbeyQuest } from "./test-helpers/abbey-quest";
 import { basicQuests } from "../../data/src/basic-quests";
-import { coreQuestSources } from "./test-helpers/core-quest";
+import { coreParty, coreQuestSources } from "./test-helpers/core-quest";
+import { createCoreDungeonQuest } from "./dungeon-quest-entry";
 import { applyTemporarySkillUpgrades, restoreTemporarySkillUpgrades } from "./hamlet-embark";
 
 let baseline: ReturnType<typeof naturalAbbeyQuest>;
@@ -259,4 +260,95 @@ it("未准备完成/重复抽卡/无剩余任务原子拒绝", () => {
     },
   };
   expect(applyCommand(empty, { type: "offerNextQuest" }).state).toBe(empty);
+});
+
+function wealdP019EmbarkGate(game: GameState) {
+  const hamlet = preparationReady(baseline.game).dungeon!.hamlet!;
+  return {
+    ...game,
+    dungeon: {
+      ...game.dungeon!,
+      phase: "inHamlet" as const,
+      completedRegularQuests: [
+        { questId: "quest:weald:p001", campaignLevel: 1 as const },
+        { questId: "quest:weald:p002", campaignLevel: 1 as const },
+      ],
+      activeBossThreatScriptId: "boss:weald:hag:1" as const,
+      imminentThreatDescriptionCardId: "boss_ability:weald:p013",
+      questSummary: {
+        questId: "quest:p001" as const,
+        name: "Scout",
+        clearedRoomIds: [],
+        xpPerHero: 2,
+        stagecoachXp: 2,
+        awarded: true,
+      },
+      hamletReturn: {
+        phase: "complete" as const,
+        order: [],
+        resolveRoles: {},
+        convertedHeroIds: [],
+      },
+      pending: null,
+      hamlet,
+    },
+  };
+}
+
+it("旧版 establishImminentThreat 出征 p019：不隐式补齐 wealdHigherBosses 生产标记", () => {
+  const seed = 6;
+  const packs = ["core", "weald"] as const;
+  let game = createCoreDungeonQuest(
+    seed,
+    "quest:p001",
+    "standard",
+    coreParty,
+    coreQuestSources,
+    true,
+    null,
+    packs,
+  );
+  game = ok(game, { type: "establishImminentThreat", locationBosses: true, locationSources: true });
+  const offered = ok(wealdP019EmbarkGate(game), { type: "offerNextQuest" });
+  const embarked = ok(offered, {
+    type: "resolveChoice",
+    choiceId: offered.dungeon!.pending!.id,
+    optionId: "quest:p019",
+  });
+  expect(embarked.dungeon!.wealdHigherBosses).toBeUndefined();
+  expect(embarked.dungeon!.pounderBossBattles).toBeUndefined();
+});
+
+it("显式生产 establish 出征 p019：版本标记随村庄状态守恒进入地牢", () => {
+  const packs = ["core", "weald"] as const;
+  const establish = {
+    type: "establishImminentThreat",
+    locationBosses: true,
+    locationSources: true,
+    wealdHigherBosses: true,
+    pounderDungeonThreats: true,
+    pounderHamletThreats: true,
+    pounderBossBattles: true,
+    shriekerBossBattles: true,
+  } as const;
+  let game = createCoreDungeonQuest(
+    6,
+    "quest:p001",
+    "standard",
+    coreParty,
+    coreQuestSources,
+    true,
+    null,
+    packs,
+  );
+  game = ok(game, establish);
+  const offered = ok(wealdP019EmbarkGate(game), { type: "offerNextQuest" });
+  const after = ok(offered, {
+    type: "resolveChoice",
+    choiceId: offered.dungeon!.pending!.id,
+    optionId: "quest:p019",
+  });
+  expect(after.dungeon!.wealdHigherBosses).toBe(true);
+  expect(after.dungeon!.pounderBossBattles).toBe(true);
+  expect(after.dungeon!.shriekerBossBattles).toBe(true);
 });
