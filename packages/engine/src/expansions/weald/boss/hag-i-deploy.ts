@@ -4,21 +4,27 @@ import { buildBossHeroEntities } from "../../../boss/deploy-heroes";
 import { resolveBossScriptIdForQuest } from "../../../boss/quest-bridge";
 import { getBossScript } from "../../../boss/registry";
 import { createLootState } from "../../../loot";
-import {
-  ensureHagIBossScriptRegistered,
-  HAG_I_SCRIPT_ID,
-  HAG_I_DESCRIPTION_ABILITY_CARD_ID,
-} from "./hag-i";
-import { hagIInitialDeployment } from "./hag-i-projection";
+import { ensureCampaignBossScriptsRegistered } from "../../../expansions/register";
+import { hagDeploymentContext } from "./hag-deployment-context";
 import { WEALD_HAG_I_CONTENT } from "./hag-i-content";
 
 /** R30／W4／R-254：Boss 房使用独立核准目录，不占普通房间牌堆。 */
 export function prepareHagIObjectiveRoom(state: GameState): ApplyResult {
+  return prepareHagObjectiveRoom(state, 1);
+}
+export function prepareHagHigherObjectiveRoom(state: GameState): ApplyResult {
+  const level = state.dungeon?.campaignLevel;
+  if ((level !== 2 && level !== 3) || !state.dungeon?.wealdHigherBosses)
+    return rejectBattleCommand(state, "R-268：高等级 Hag 需要显式版本及II／III级");
+  return prepareHagObjectiveRoom(state, level);
+}
+function prepareHagObjectiveRoom(state: GameState, level: 1 | 2 | 3): ApplyResult {
+  const binding = hagDeploymentContext(level);
   const d = state.dungeon;
   const room = d?.rooms.find((r) => r.id === d.position);
   const plan = d?.faceTheThreatEmbarkPlan;
-  if (d?.contentPacks?.includes("weald")) ensureHagIBossScriptRegistered();
-  const entry = getBossScript(HAG_I_SCRIPT_ID)?.combatEntry;
+  if (d?.contentPacks?.includes("weald")) ensureCampaignBossScriptsRegistered(d.contentPacks);
+  const entry = getBossScript(binding.script)?.combatEntry;
   if (
     !d ||
     state.battle ||
@@ -26,9 +32,9 @@ export function prepareHagIObjectiveRoom(state: GameState): ApplyResult {
     d.pending ||
     !d.contentPacks?.includes("weald") ||
     !["standard", "radiant"].includes(d.mode) ||
-    d.campaignLevel !== 1 ||
-    d.activeBossThreatScriptId !== HAG_I_SCRIPT_ID ||
-    d.imminentThreatDescriptionCardId !== HAG_I_DESCRIPTION_ABILITY_CARD_ID ||
+    d.campaignLevel !== level ||
+    d.activeBossThreatScriptId !== binding.script ||
+    d.imminentThreatDescriptionCardId !== binding.description ||
     room?.kind !== "objective" ||
     !room.revealed ||
     room.cleared ||
@@ -38,15 +44,18 @@ export function prepareHagIObjectiveRoom(state: GameState): ApplyResult {
     d.questDistribution?.questId !== "quest:p019" ||
     plan?.questId !== "quest:p019" ||
     plan.roomPlacement !== "edgeRoomsR30" ||
-    plan.resolvedScriptId !== HAG_I_SCRIPT_ID ||
-    resolveBossScriptIdForQuest("quest:p019", d) !== HAG_I_SCRIPT_ID ||
+    plan.resolvedScriptId !== binding.script ||
+    resolveBossScriptIdForQuest("quest:p019", d) !== binding.script ||
     !entry ||
     (Object.keys(entry) as (keyof typeof entry)[]).some(
       (key) => entry[key] !== plan.combatEntry[key],
     )
   )
     return rejectBattleCommand(state, "R-254：需要 Weald I 级 Hag 实际威胁、出征计划和未清目标房");
-  const message = "Hag 专属房已绑定；下一步 deployHagI，保留普通房间牌堆（W4／R-254）";
+  const message =
+    level === 1
+      ? "Hag 专属房已绑定；下一步 deployHagI，保留普通房间牌堆（W4／R-254）"
+      : `Hag ${level === 2 ? "II" : "III"}专属房已绑定；下一步 deployHagHigher，保留普通房间牌堆（W4／R-267／R-268）`;
   return {
     state: {
       ...state,
@@ -68,6 +77,16 @@ export function prepareHagIObjectiveRoom(state: GameState): ApplyResult {
 
 /** 只部署核准 I 级，保留显式 startBattle 先攻步骤；高等级／Stygian 随后接。 */
 export function deployHagI(state: GameState): ApplyResult {
+  return deployHag(state, 1);
+}
+export function deployHagHigher(state: GameState): ApplyResult {
+  const level = state.dungeon?.campaignLevel;
+  if ((level !== 2 && level !== 3) || !state.dungeon?.wealdHigherBosses)
+    return rejectBattleCommand(state, "R-268：高等级 Hag 需要显式版本及II／III级");
+  return deployHag(state, level);
+}
+function deployHag(state: GameState, level: 1 | 2 | 3): ApplyResult {
+  const binding = hagDeploymentContext(level);
   const d = state.dungeon;
   const active = d?.roomCards?.active;
   const room = d?.rooms.find((r) => r.id === d.position);
@@ -79,10 +98,10 @@ export function deployHagI(state: GameState): ApplyResult {
     d.phase !== "awaitingRoom" ||
     d.pending ||
     !["standard", "radiant"].includes(d.mode) ||
-    d.campaignLevel !== 1 ||
+    d.campaignLevel !== level ||
     !d.battleCatalog ||
     !d.explorationSetup ||
-    d.explorationSetup.dungeonLevel !== 1 ||
+    d.explorationSetup.dungeonLevel !== level ||
     d.monsterPool?.active ||
     active?.cardId !== tile.roomId ||
     active.tileId !== undefined ||
@@ -95,21 +114,29 @@ export function deployHagI(state: GameState): ApplyResult {
     !Number.isSafeInteger(d.decision) ||
     d.decision < 0 ||
     d.heroes.length !== 4 ||
-    d.heroes.some((h) => h.level !== 1) ||
+    (level === 1 && d.heroes.some((h) => h.level !== 1)) ||
     new Set(d.heroes.map((h) => h.id)).size !== 4 ||
     new Set(d.heroes.map((h) => h.stance)).size !== 4
   )
     return refuse("R-254：需要核准 Hag I 目标房、四英雄与有效地牢上下文");
   // 用同一入口复核实际威胁和计划；不修改输入，也不再次绑定房间。
-  const probe = prepareHagIObjectiveRoom({
-    ...state,
-    dungeon: { ...d, roomCards: { ...d.roomCards!, active: null } },
-  });
+  const probe = prepareHagObjectiveRoom(
+    {
+      ...state,
+      dungeon: { ...d, roomCards: { ...d.roomCards!, active: null } },
+    },
+    level,
+  );
   if (probe.events.some((e) => e.type === "commandRefused"))
     return refuse("R-254：Hag I 威胁或出征计划不一致");
-  const heroes = buildBossHeroEntities(state, refuse, tile.deployment.heroes, "Hag I");
+  const heroes = buildBossHeroEntities(
+    state,
+    refuse,
+    tile.deployment.heroes,
+    level === 1 ? "Hag I" : `Hag ${level === 2 ? "II" : "III"}`,
+  );
   if (!Array.isArray(heroes)) return heroes;
-  const deployment = hagIInitialDeployment();
+  const deployment = binding.deployment;
   try {
     const battle = createBattleState(state.seed, {
       ...deployment,
@@ -125,7 +152,10 @@ export function deployHagI(state: GameState): ApplyResult {
       lootPool: { ...(d.lootPool ?? createLootState()), gold: d.gold },
       provisionWindows: true,
     }).battle!;
-    const message = "Hag I 与 Empty 已按 W4／R-254 部署；等待 startBattle 洗先攻";
+    const message =
+      level === 1
+        ? "Hag I 与 Empty 已按 W4／R-254 部署；等待 startBattle 洗先攻"
+        : `Hag ${level === 2 ? "II" : "III"}与 Empty 已按 R-267／R-268 部署；等待 startBattle 洗先攻`;
     return {
       state: {
         ...state,

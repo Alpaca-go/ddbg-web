@@ -12,16 +12,16 @@ import {
 
 const icon = (key: string): SkillSegment => ({ type: "icon", icon: { key, naming: "confirmed" } });
 const text = (text: string): SkillSegment => ({ type: "text", text });
-const ids = {
+const ids = () => ({
   hag: HAG_I_COMBAT_MONSTER_CARD_ID,
   empty: HAG_I_CAULDRON_EMPTY_MONSTER_CARD_ID,
   full: HAG_I_CAULDRON_FULL_MONSTER_CARD_ID,
-};
+});
 const stances = ["aggressive", "defensive", "ranged", "support"] as const;
 
 /** R-254 独立运行投影；不加入普通池，不授予正式出征资格。 */
 export function buildHagICombatCatalog(): MonsterCardView[] {
-  return projectHagCombatFaces(WEALD_HAG_I_CONTENT.faces, ids);
+  return projectHagCombatFaces(WEALD_HAG_I_CONTENT.faces, ids());
 }
 
 export function projectHagCombatFaces(

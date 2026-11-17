@@ -1,6 +1,9 @@
 import { prepareShriekerIObjectiveRoom } from "../expansions/weald/boss/shrieker-i-deploy";
 import { preparePounderIObjectiveRoom } from "../expansions/weald/boss/pounder-i-deploy";
-import { prepareHagIObjectiveRoom } from "../expansions/weald/boss/hag-i-deploy";
+import {
+  prepareHagIObjectiveRoom,
+  prepareHagHigherObjectiveRoom,
+} from "../expansions/weald/boss/hag-i-deploy";
 import { roomCatalogSchema } from "../../../data/src/room";
 import type { ApplyResult, GameState } from "../command";
 import { rejectBattleCommand } from "../battle";
@@ -81,6 +84,11 @@ export function prepareBossObjectiveRoom(state: GameState): ApplyResult {
   if (d.activeBossThreatScriptId === "boss:weald:brigandPounder:1")
     return preparePounderIObjectiveRoom(state);
   if (d.activeBossThreatScriptId === "boss:weald:hag:1") return prepareHagIObjectiveRoom(state);
+  if (
+    d.wealdHigherBosses &&
+    ["boss:weald:hag:2", "boss:weald:hag:3"].includes(d.activeBossThreatScriptId ?? "")
+  )
+    return prepareHagHigherObjectiveRoom(state);
   const scriptId = resolveBossScriptIdForQuest(FACE_THE_THREAT_QUEST_ID, d);
   const registered = scriptId ? getBossScript(scriptId)?.combatEntry : undefined;
   const family = (Object.keys(rooms) as (keyof typeof rooms)[]).find((key) =>

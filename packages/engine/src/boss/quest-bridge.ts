@@ -1,3 +1,4 @@
+import { ensureCampaignBossScriptsRegistered } from "../expansions/register";
 import { bossEnabledForPacks } from "../../../data/src/content-packs";
 import { RUINS_COMBAT_LEVELS } from "./ruins-combat-levels";
 import { basicQuests, type BasicQuestId, type CampaignLevel } from "../../../data/src/basic-quests";
@@ -60,6 +61,7 @@ export function isFaceTheThreatQuestId(
 
 export type BossQuestScriptContext = {
   readonly contentPacks?: readonly import("../../../data/src/content-packs").ContentPackId[];
+  readonly wealdHigherBosses?: true;
   readonly campaignLevel?: CampaignLevel;
   readonly activeBossThreatScriptId?: BossScriptId;
   readonly imminentThreatDescriptionCardId?: string;
@@ -77,6 +79,22 @@ export function resolveBossScriptIdForQuest(
   if (!isBossQuestId(questId)) return undefined;
   const level = readCampaignLevel(context ?? {});
   if (questId === FACE_THE_THREAT_QUEST_ID && level > 1) {
+    if (
+      context?.wealdHigherBosses &&
+      context.contentPacks?.includes("weald") &&
+      context.activeBossThreatScriptId === `boss:weald:hag:${level}`
+    ) {
+      ensureCampaignBossScriptsRegistered(context.contentPacks);
+      const entry = getBossScript(context.activeBossThreatScriptId)?.combatEntry;
+      const description = `boss_ability:weald:p0${12 + level}`;
+      return context.imminentThreatDescriptionCardId === description &&
+        entry?.descriptionAbilityCardId === description &&
+        entry.combatAbilityCardId === `boss_ability:weald:p0${15 + level}` &&
+        entry.combatMonsterCardId === `monster_large:weald:p0${9 + level}`
+        ? context.activeBossThreatScriptId
+        : undefined;
+    }
+
     // R-124：II 只按本次实际威胁匹配；不使用沙盒缺省或任务级临时映射。
     ensureCoreBossScriptsRegistered();
     const active = context?.activeBossThreatScriptId;
