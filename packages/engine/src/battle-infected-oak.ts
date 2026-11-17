@@ -9,6 +9,7 @@ import {
 import { fixedDamageResolution } from "./battle-spiked-pit";
 import { applyBattleSkillStatuses } from "./battle-skill-status";
 import { endAfterCasualties, finishTurn, newlyDefeatedIds, removeCasualties } from "./encounter";
+import { wealdStygianEffect } from "./weald-stygian-room-effects";
 
 function disinfectionBattleContext(state: GameState): string | null {
   const d = state.dungeon;
@@ -128,6 +129,9 @@ export function endTurnPoisonousRoots(
   if (actor.dead || actor.side !== "hero") return null;
   const area = battle.areas.find((a) => a.id === actor.areaId);
   if (!area?.poisonousRoots) return null;
+  const stygian = wealdStygianEffect(state.dungeon, "poisonousRoots");
+  const duration = stygian?.kind === "poisonousRoots" ? stygian.duration : 2;
+  const amount = stygian?.kind === "poisonousRoots" ? stygian.blight : 2;
   const statuses = applyBattleSkillStatuses(
     battle,
     battle.entities,
@@ -135,7 +139,7 @@ export function endTurnPoisonousRoots(
     [
       {
         ...fixedDamageResolution(actor, "area:poisonousRoots"),
-        targetStatusEffects: [{ kind: "blight", amount: 2, duration: 2 }],
+        targetStatusEffects: [{ kind: "blight", amount, duration }],
       },
     ],
     state.seed,
@@ -154,7 +158,7 @@ export function endTurnPoisonousRoots(
         type: "passiveTriggered",
         entityId: actorId,
         trigger: "poisonousRoots",
-        message: "Poisonous Roots：英雄结束回合受到腐蚀 2·2t（R-245、R-234）",
+        message: `Poisonous Roots：英雄结束回合受到腐蚀 ${amount}·${duration}t（R-245、R-234）`,
       },
     ],
   };
