@@ -36,26 +36,40 @@ const command = {
   pounderBossBattles: true,
 } as const;
 
-it.each(["dependencies", "stygian", "level", "pack"])(
-  "拒绝新Boss版本 %s 越界且不耗骰序",
-  (kind) => {
-    const source = initial();
-    const state = {
-      ...source,
-      dungeon: {
-        ...source.dungeon!,
-        ...(kind === "stygian" ? { mode: "stygian" as const } : {}),
-        ...(kind === "level" ? { campaignLevel: 2 as const } : {}),
-        ...(kind === "pack" ? { contentPacks: ["core" as const] } : {}),
-      },
-    };
-    const { pounderHamletThreats: _dependency, ...missingDependency } = command;
-    void _dependency;
-    const result = applyCommand(state, kind === "dependencies" ? missingDependency : command);
-    expect(result.events.some((e) => e.type === "commandRefused")).toBe(true);
-    expect(result.state).toEqual(state);
-  },
-);
+it.each(["dependencies", "level", "pack"])("拒绝新Boss版本 %s 越界且不耗骰序", (kind) => {
+  const source = initial();
+  const state = {
+    ...source,
+    dungeon: {
+      ...source.dungeon!,
+      ...(kind === "level" ? { campaignLevel: 2 as const } : {}),
+      ...(kind === "pack" ? { contentPacks: ["core" as const] } : {}),
+    },
+  };
+  const { pounderHamletThreats: _dependency, ...missingDependency } = command;
+  void _dependency;
+  const result = applyCommand(state, kind === "dependencies" ? missingDependency : command);
+  expect(result.events.some((e) => e.type === "commandRefused")).toBe(true);
+  expect(result.state).toEqual(state);
+});
+
+it("Stygian 仅拒绝缺生产版本的试验命令", () => {
+  const source = initial();
+  const stygian = {
+    ...source,
+    dungeon: { ...source.dungeon!, mode: "stygian" as const, stygianRoomRules: "full" as const },
+  };
+  const trial = applyCommand(stygian, {
+    type: "establishImminentThreat",
+    locationBosses: true,
+    locationSources: true,
+    pounderDungeonThreats: true,
+  });
+  expect(trial.events.some((e) => e.type === "commandRefused")).toBe(true);
+  const production = applyCommand(stygian, command);
+  expect(production.events.filter((e) => e.type === "commandRefused")).toEqual([]);
+  expect(production.state.dungeon!.pounderBossBattles).toBe(true);
+});
 
 it("seed17 新版本p019定威胁重建Weald来源与出征计划，严格日志恢复且拒绝删版本", () => {
   const state = initial();

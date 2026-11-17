@@ -16,7 +16,6 @@ export function ExpeditionStartActions({
 }) {
   const missing = formal && needsInitialThreat(dungeon);
   const locationBosses =
-    dungeon.mode !== "stygian" &&
     dungeon.contentPacks?.length === 2 &&
     dungeon.contentPacks.includes("core") &&
     dungeon.contentPacks.includes("weald");

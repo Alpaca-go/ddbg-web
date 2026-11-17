@@ -20,7 +20,8 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 - **当前批次（#761／#762 + 本刀）**：步骤 7 Weald Stygian：**普通九房**替换与六房效果（`stygianRoomRules=full`，已合入）；**Boss** 按 R-036 不替换 p010–p012，三 Boss I–III 出征／结算／页面与 **+1 Crit** 本刀接线；`pounderDungeonThreats` 试验入口仍拒 Stygian。
 - **当前批次（第三刀续）**：Whispering Woods 与 `tasks-v1` 十张 II／III 普通任务在 Stygian 下接通出征／村庄选任务／专属效果（R-264／R-265），沿用九房 Stygian 替换与 0 起始金；旧版无 `tasks-v1` 日志不变。
 - **当前批次（第五刀）**：村庄跨幕高等级走 **`tasks-v1` 正式路径**（新战役页面与 `createCampaignQuest` 一致）；**不**把旧 `wealdHigherQuestOffers:true` 扩成 II 级池（该版本仍仅 III 级 p015，与 R-264／R-265 十卡栈无关）。引擎 `#769` 已移除 Stygian 闸门，本刀以村庄 II 级抽选／出征回归与清单更新为主。
-- **下一步**：步骤 8 自然跨幕／跨地点升幕；人工实机后置。`pounderDungeonThreats` 试验、出征准备 Boss 威胁 UI（`locationBosses` 仍排除 Stygian）待独立批次。
+- **当前批次（第六刀）**：出征准备 `locationBosses`／七位 Boss 迫近威胁在 Stygian＋核心＋Weald 与 standard／radiant 同 UI；`establishImminentThreat` 仅在接受完整 `pounderBossBattles` 生产命令时允许 Stygian 携带两段威胁标记，单独试验命令仍拒。
+- **下一步**：步骤 8 自然跨幕／跨地点升幕；人工实机后置。II／III 升幕抽威胁、Boss 自然跨任务链仍不宣称验收。
 
 - 步骤 0 已完成，提交 `e7fd17e1`；完整地点战役尚未验收。
 - 导入与计划两批已合入并推送 `main`（`3be97c65`）。步骤 1 怪物批次已合入并推送 `main`（`7075f4d8`）。
@@ -1519,13 +1520,21 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 - **正式新战役**：页面 `dungeon-quest.tsx` 在选 Weald 包时写 `tasks-v1`（含 Stygian），与 standard／radiant 一致；不启用已弃用的「`true` 版本 II 级池」试验路径。
 - **旧版 `true`**：仍仅 III 级 `quest:weald:p015`；campaignLevel 2 时 Weald 堆为空（与 radiant 相同），严格存档保留 `true`／无标记行为。
 - **本刀验收**：`weald-stygian-higher-tasks.test.ts` 补 Stygian 村庄 II 级 `offerNextQuest`→出征与正式战役起点；`docs/human-rulings-by-pdf-2026-10-30.md` 仅 Prettier（#398）。
-- **Stygian 剩余（未自然／人工验收）**：自然跨幕 II→III 养成；Face the Threat／Boss 村庄链在 Stygian；`pounderDungeonThreats` 试验；出征准备 `locationBosses` UI；完整战役实机。
+- **Stygian 剩余（未自然／人工验收）**：自然跨幕 II→III 养成；Boss 跨任务养成链；单独 `pounderDungeonThreats` 试验（无 `pounderBossBattles`）；II／III 升幕 `drawImminentThreatAfterActAdvance`；完整战役实机。
 
-| 项目                                       | 状态                          |
-| ------------------------------------------ | ----------------------------- |
-| 九房替换＋六效果                           | 已合入 #761／#762，引擎已接线 |
-| Boss I–III＋+1 Crit                        | 已合入 #768                   |
-| tasks-v1 十卡＋Whispering 出征／效果       | 已合入 #769                   |
-| 村庄 tasks-v1 抽选／跨幕 II（Stygian）     | 本刀回归已接；自然日志未验收  |
-| Boss 双威胁试验／hamlet Boss UI（Stygian） | 仍拒或隐藏                    |
-| 步骤 8 自然跨幕／人工实机                  | 未开始                        |
+| 项目                                 | 状态                      |
+| ------------------------------------ | ------------------------- |
+| 九房替换＋六效果                     | 已合 #761／#762           |
+| Boss I–III＋+1 Crit＋部署／结算      | 已合 #768                 |
+| tasks-v1 十卡＋Whispering            | 已合 #769                 |
+| 村庄 tasks-v1 抽选／跨幕 II          | 已合 #770；自然日志未验收 |
+| 出征准备七位 Boss 威胁 UI（Stygian） | 第六刀本 PR               |
+| 单独两段威胁试验（Stygian）          | 仍拒                      |
+| II／III 升幕抽 Boss 威胁             | 引擎仍拒（W3）            |
+| 步骤 8 自然跨幕／人工实机            | 未开始                    |
+
+### Weald Stygian 出征准备 Boss 威胁 UI（2026-11-17，步骤 7 第六刀）
+
+- **R-036／R-270／W3**：Stygian 下 `expedition-start-actions` 与 standard／radiant 相同派发完整生产版 `establishImminentThreat`（`locationBosses`＋`pounderBossBattles` 等）；不再因 `mode=stygian` 退回四遗迹 Boss 文案。
+- **版本边界**：缺 `pounderBossBattles` 的单独 `pounderDungeonThreats` 试验在 Stygian 仍原子拒绝；旧日志 strict replay 不变。
+- **未做**：自然 Face the Threat 跨任务链、升幕抽威胁、人工实机；不宣称步骤 8 验收。
