@@ -1,3 +1,4 @@
+import { shriekerSkipsProvisionRolls } from "./expansions/weald/boss/shrieker-provision-version";
 import type { DungeonState } from "./dungeon";
 import type { GameEvent } from "./command";
 import { availableTrinket, spendTrinket, trinketChoice } from "./trinket-reactions";
@@ -51,11 +52,25 @@ export function campingTrinketReaction(
       hero.id,
       "camping",
       "柴火休息已同意：可使用Camper’s Helmet掷补给骰",
-      [{ id: "trinket:p024", label: "掷至多两颗补给骰并翻面" }],
+      [
+        {
+          id: "trinket:p024",
+          label: shriekerSkipsProvisionRolls(d)
+            ? "使用并翻面；补给将被Shrieker II忽略"
+            : "掷至多两颗补给骰并翻面",
+        },
+      ],
     );
     if (chosen === "continue") continue;
     const count = d.inventoryOverflow ? 2 : Math.min(2, 16 - pool.length);
     for (let i = 0; i < count; i++) {
+      if (shriekerSkipsProvisionRolls(d)) {
+        events.push({
+          type: "dungeonUpdated",
+          message: "Shrieker II忽略Camper’s Helmet补给，跳过补给骰与Wild（R-270）",
+        });
+        continue;
+      }
       const rolled = nextProvisionFace(seed, d.cursor);
       events.push({
         type: "provisionRolled",

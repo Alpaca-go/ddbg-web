@@ -1,6 +1,6 @@
 {
- "schema": "ddbg-weald-shrieker-higher-v1",
- "ruling": "R-268",
+ "schema": "ddbg-weald-shrieker-higher-v2",
+ "ruling": "R-270",
  "combatReady": false,
  "sources": {"combatFront": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_140x140_monster_large_FRONT.pdf", "combatBack": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_140x140_monster_large_BACK.pdf", "abilityFront": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_FRONT.pdf", "abilityBack": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_BACK.pdf"},
  "cards": [
@@ -97,7 +97,7 @@
     "nestAreaExclusiveToShrieker": true,
     "callTheMurder": {"condition": "nestInPlay", "replaces": "selfPush2", "destination": "nestArea", "printedHeal": 3},
     "threats": {
-     "dungeon": {"mode": "ignoreAfterRoll"},
+     "dungeon": {"mode": "skipRoll"},
      "hamlet": {"mode": "discardReserve", "discardCount": 3, "insufficient": "discardAll"}
     }
    }

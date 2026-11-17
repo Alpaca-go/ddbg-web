@@ -1,7 +1,7 @@
 import { expect, it } from "vitest";
 import printed from "../normalized/extension/weald/shrieker_higher.json";
 import { wealdShriekerHigherContentSchema as schema } from "./weald-shrieker-higher";
-it("R-268：两级本体、Nest、三技能和不同补给威胁", () => {
+it("R-270：两级本体、Nest、三技能和不同补给威胁", () => {
   const data = schema.parse(printed);
   expect(
     data.cards.map((c) => [
@@ -14,7 +14,7 @@ it("R-268：两级本体、Nest、三技能和不同补给威胁", () => {
     [72, 40, 4],
   ]);
   expect(data.cards.map((c) => c.abilities.threats.dungeon.mode)).toEqual([
-    "ignoreAfterRoll",
+    "skipRoll",
     "gainThenDiscard",
   ]);
 });

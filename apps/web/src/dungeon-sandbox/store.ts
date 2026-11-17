@@ -29,6 +29,15 @@ export const useDungeonStore = create<{
         ...command,
         allTrinkets: true,
         inventoryOverflow: true,
+        ...(s.game.dungeon?.shriekerProvisionSkipRolls ||
+        ((s.game.dungeon?.wealdHigherBosses ||
+          (command.type === "establishImminentThreat" && command.wealdHigherBosses)) &&
+          !s.game.dungeon?.pending &&
+          !s.game.battle?.pending &&
+          !s.game.trinketChoice &&
+          !s.game.inventoryOverflowHold)
+          ? { shriekerProvisionSkipRolls: true as const }
+          : {}),
         ...(command.type === "resolveChoice" ? { bossEdgeRooms: true } : {}),
       };
       const result = applyCommand(s.game, recorded);

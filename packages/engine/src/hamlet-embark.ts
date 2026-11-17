@@ -623,6 +623,7 @@ export function chooseNextQuest(
       : {}),
     ...(d.bossLocationSources ? { bossLocationSources: true as const } : {}),
     ...(d.wealdHigherBosses ? { wealdHigherBosses: true as const } : {}),
+    ...(d.shriekerProvisionSkipRolls ? { shriekerProvisionSkipRolls: true as const } : {}),
     ...(d.pounderDungeonThreats ? { pounderDungeonThreats: true as const } : {}),
     ...(d.pounderHamletThreats ? { pounderHamletThreats: true as const } : {}),
     ...(d.shriekerBossBattles ? { shriekerBossBattles: true as const } : {}),

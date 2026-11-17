@@ -1,3 +1,4 @@
+import { shriekerSkipsProvisionRolls } from "./expansions/weald/boss/shrieker-provision-version";
 import { beginHigherShriekerGain } from "./expansions/weald/boss/shrieker-i-provisions";
 import { settleInventoryOverflow } from "./inventory-overflow";
 import { wealdTaskActive } from "./expansions/weald/higher-task-effects";
@@ -105,7 +106,7 @@ function finishLoot(
   state: GameState,
   actorId: string,
   token: LootToken,
-  reward: { gold: number } | { face: ProvisionFace },
+  reward: { gold: number } | { face: ProvisionFace } | { ignoredProvisions: number },
   events: readonly GameEvent[],
   acquisitionBefore?: GameState,
 ): ApplyResult {
@@ -159,7 +160,10 @@ function finishLoot(
       tokenId: token.id,
       kind: token.kind,
       reward,
-      message: "拾取战利品，奖励已结算，移除宝箱并消耗一个行动",
+      message:
+        "ignoredProvisions" in reward
+          ? "Shrieker II忽略补给：跳过补给骰与Wild，移除宝箱并消耗一个行动（R-270）"
+          : "拾取战利品，奖励已结算，移除宝箱并消耗一个行动",
     },
   ];
   const ours = resolveOurs(next, actorId, resolved);
@@ -233,6 +237,8 @@ function rollProvision(
   events: readonly GameEvent[],
 ): ApplyResult {
   const battle = state.battle!;
+  if (shriekerSkipsProvisionRolls(state.dungeon))
+    return finishLoot(state, actorId, token, { ignoredProvisions: 1 }, events);
   const face = nextProvisionFace(state.seed, battle.rngCursor);
   const next = { ...state, battle: { ...battle, rngCursor: battle.rngCursor + 1 } };
   const rolled: GameEvent[] = [
@@ -256,6 +262,8 @@ function lostSuppliesLoot(
   events: readonly GameEvent[],
   selected?: ProvisionFace,
 ): ApplyResult {
+  if (shriekerSkipsProvisionRolls(state.dungeon))
+    return finishLoot(state, actorId, token, { ignoredProvisions: 2 }, events);
   let battle = state.battle!;
   const faces = [...(battle.wealdLootFaces ?? []), ...(selected ? [selected] : [])];
   const rolled = [...events];

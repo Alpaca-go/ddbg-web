@@ -1,3 +1,4 @@
+import { shriekerSkipsProvisionRolls } from "./expansions/weald/boss/shrieker-provision-version";
 import { curioRewardTheft } from "./boss/higher-ruins-threat";
 import { planCurioEffects } from "../../data/src/curio";
 import { dungeonCurioCatalogValid } from "./dungeon-curio-catalog";
@@ -328,6 +329,14 @@ export function resolveCurioRows(state: GameState): ApplyResult {
       const waiting = awaitTrinket({ ...state, dungeon: d });
       return { ...waiting, events: [...events, ...waiting.events] };
     } else {
+      if (shriekerSkipsProvisionRolls(d)) {
+        events.push({
+          type: "dungeonUpdated",
+          message: "Shrieker II忽略Curio补给，跳过补给骰与Wild（R-270）",
+        });
+        advance(i + 1);
+        continue;
+      }
       const provisions = d.explorationSetup?.provisions;
       const id = `curio-provision:${active.cardId}:${active.rollId}`;
       if (

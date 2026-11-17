@@ -202,6 +202,8 @@ export type DungeonState = {
   readonly bossLocationSources?: true;
   /** W3：显式高等级描述来源；缺失保留原高等级停点。 */
   readonly wealdHigherBosses?: true;
+  /** R-270：新命令显式启用，旧日志仍完整掷骰后忽略。 */
+  readonly shriekerProvisionSkipRolls?: true;
   /** 显式试验版本：仅接 Pounder I 地牢威胁，村庄仍保留停点。 */
   readonly pounderDungeonThreats?: true;
   readonly pounderHamletThreats?: true;

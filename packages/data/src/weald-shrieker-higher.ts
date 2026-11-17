@@ -21,7 +21,7 @@ const abilities = base.shape.abilities.extend({
   }),
   threats: z.strictObject({
     dungeon: z.discriminatedUnion("mode", [
-      z.strictObject({ mode: z.literal("ignoreAfterRoll") }),
+      z.strictObject({ mode: z.literal("skipRoll") }),
       z.strictObject({
         mode: z.literal("gainThenDiscard"),
         discardCount: z.literal(2),
@@ -42,18 +42,18 @@ const abilities = base.shape.abilities.extend({
     ]),
   }),
 });
-/** R-268：按实际印刷等级收录，房间沿用核准 11 号；整批完成后逐项复核。 */
+/** R-270：按实际印刷等级收录，房间沿用核准 11 号；整批完成后逐项复核。 */
 export const wealdShriekerHigherContentSchema = z
   .strictObject({
-    schema: z.literal("ddbg-weald-shrieker-higher-v1"),
-    ruling: z.literal("R-268"),
+    schema: z.literal("ddbg-weald-shrieker-higher-v2"),
+    ruling: z.literal("R-270"),
     combatReady: z.literal(false),
     sources: base.shape.sources,
     cards: z.array(z.strictObject({ level, faces: z.tuple([face, face]), abilities })).length(2),
   })
   .superRefine(({ cards }, ctx) => {
     const fail = () =>
-      ctx.addIssue({ code: "custom", message: "R-268 Shrieker 等级、卡面或能力不符" });
+      ctx.addIssue({ code: "custom", message: "R-270 Shrieker 等级、卡面或能力不符" });
     if (cards.map((c) => c.level).join() !== "2,3") fail();
     for (const c of cards) {
       const [boss, nest] = c.faces,
@@ -156,7 +156,7 @@ export const wealdShriekerHigherContentSchema = z
         c.abilities.descriptionCardId !== `boss_ability:weald:p00${l}` ||
         c.abilities.combatCardId !== `boss_ability:weald:p00${3 + l}` ||
         c.abilities.callTheMurder.printedHeal !== l + 1 ||
-        c.abilities.threats.dungeon.mode !== (l === 2 ? "ignoreAfterRoll" : "gainThenDiscard") ||
+        c.abilities.threats.dungeon.mode !== (l === 2 ? "skipRoll" : "gainThenDiscard") ||
         c.abilities.threats.hamlet.mode !== (l === 2 ? "discardReserve" : "reduceNormalDice")
       )
         fail();

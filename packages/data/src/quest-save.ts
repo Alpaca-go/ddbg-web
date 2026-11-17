@@ -9,6 +9,7 @@ const commandObject = <S extends z.ZodRawShape>(shape: S) =>
     ...shape,
     allTrinkets: z.literal(true).optional(),
     inventoryOverflow: z.literal(true).optional(),
+    shriekerProvisionSkipRolls: z.literal(true).optional(),
   });
 const id = z.string().min(1);
 const actor = { actorId: id };
