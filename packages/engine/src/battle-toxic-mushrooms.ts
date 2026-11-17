@@ -5,6 +5,7 @@ import { applyBattleSkillStatuses } from "./battle-skill-status";
 import { fixedDamageResolution } from "./battle-spiked-pit";
 import { WEALD_APPROVED_ROOM_TILES } from "./expansions/weald/room-catalog";
 import { wealdMechanicsActive } from "./expansions/weald/weald-mechanics";
+import { wealdStygianEffect } from "./weald-stygian-room-effects";
 
 /** R-234／R-239：房间结算原语；正式攻击由 withToxicMushrooms 按命令版本启用。
  * 输入须为攻击位移前的状态；每次未命中分别影响目标当时所在星区。
@@ -29,6 +30,8 @@ export function resolveToxicMushrooms(
       .filter((region) => region.effect === "toxicMushrooms" && region.status === "confirmed")
       .map((region) => region.areaId),
   );
+  const stygian = wealdStygianEffect(state.dungeon, "toxicMushrooms");
+  const duration = stygian?.kind === "toxicMushrooms" ? stygian.duration : 2;
   const effects = resolutions.flatMap((resolution) => {
     const target = battle.entities.find((entity) => entity.id === resolution.targetId);
     if (resolution.outcome !== "miss" || target?.side !== "hero" || !marked.has(target.areaId))
@@ -37,7 +40,7 @@ export function resolveToxicMushrooms(
       .filter((entity) => entity.side === "hero" && !entity.dead && entity.areaId === target.areaId)
       .map((entity) => ({
         ...fixedDamageResolution(entity, "area:toxicMushrooms"),
-        targetStatusEffects: [{ kind: "blight" as const, amount: 1, duration: 2 }],
+        targetStatusEffects: [{ kind: "blight" as const, amount: 1, duration }],
       }));
   });
   if (!effects.length) return null;
@@ -62,7 +65,7 @@ export function resolveToxicMushrooms(
         type: "passiveTriggered",
         entityId: actorId,
         trigger: "toxicMushrooms",
-        message: "Toxic Mushrooms：未命中目标所在星区所有英雄腐蚀 1·2t（R-234、R-239）",
+        message: `Toxic Mushrooms：未命中目标所在星区所有英雄腐蚀 1·${duration}t（R-234、R-239）`,
       },
     ],
   };

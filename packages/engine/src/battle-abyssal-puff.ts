@@ -4,12 +4,12 @@ import { applyBattleSkillStatuses } from "./battle-skill-status";
 import { fixedDamageResolution } from "./battle-spiked-pit";
 import { isLivingCombatMonster, isNecroticFungusEntity } from "./expansions/weald/necrotic-fungus";
 import { wealdMechanicsActive } from "./expansions/weald/weald-mechanics";
+import { wealdOrdinaryRoomEffectActive, wealdStygianEffect } from "./weald-stygian-room-effects";
 
 function active(state: GameState): boolean {
   return (
     wealdMechanicsActive(state) &&
-    state.dungeon?.mode !== "stygian" &&
-    state.dungeon?.roomCards?.active?.cardId === "room:weald:p008"
+    wealdOrdinaryRoomEffectActive(state, "room:weald:p008", "abyssalPuff")
   );
 }
 export function enableAbyssalPuff(state: GameState): GameState {
@@ -35,12 +35,17 @@ export function withAbyssalPuff(original: GameState, result: ApplyResult): Apply
       ),
   );
   if (!destroyed.length) return result;
+  const stygian = wealdStygianEffect(original.dungeon, "abyssalPuff");
+  const duration = stygian?.kind === "abyssalPuff" ? stygian.buffDuration : 2;
+  const applications = stygian?.kind === "abyssalPuff" ? stygian.buffApplications : 1;
   const targets = battle.entities.filter(isLivingCombatMonster);
   const resolutions = destroyed.flatMap(() =>
-    targets.map((target) => ({
-      ...fixedDamageResolution(target, "room:abyssalPuff"),
-      targetStatusEffects: [{ kind: "buff" as const, duration: 2 }],
-    })),
+    targets.flatMap((target) =>
+      Array.from({ length: applications }, () => ({
+        ...fixedDamageResolution(target, "room:abyssalPuff"),
+        targetStatusEffects: [{ kind: "buff" as const, duration }],
+      })),
+    ),
   );
   const statuses = applyBattleSkillStatuses(
     battle,
@@ -64,7 +69,10 @@ export function withAbyssalPuff(original: GameState, result: ApplyResult): Apply
         type: "passiveTriggered" as const,
         entityId: fungus.id,
         trigger: "abyssalPuff",
-        message: "Abyssal Puff：真菌被摧毁，房内所有怪物增益 2t（R-234、R-236、W-04）",
+        message:
+          applications === 1
+            ? `Abyssal Puff：真菌被摧毁，房内所有怪物增益 ${duration}t（R-234、R-236、W-04）`
+            : `Abyssal Puff：真菌被摧毁，房内所有怪物两项增益 ${duration}t（R-234、R-236、W-04）`,
       })),
     ],
   };
