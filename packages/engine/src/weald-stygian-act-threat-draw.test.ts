@@ -125,3 +125,67 @@ it("单独 pounderDungeonThreats 试验不参与升幕抽牌状态", () => {
   });
   expect(trial.events.some((e) => e.type === "commandRefused")).toBe(true);
 });
+
+it("III 级：剩余 Boss 按战役等级抽当前级描述卡（七位混合池）", () => {
+  const established = applyCommand(initialStygian(), productionEstablish);
+  const {
+    activeBossThreatScriptId: _a,
+    imminentThreatDescriptionCardId: _c,
+    ...d
+  } = established.state.dungeon!;
+  void _a;
+  void _c;
+  const state: GameState = {
+    ...established.state,
+    dungeon: {
+      ...d,
+      campaignLevel: 3,
+      defeatedWealdBossIdentities: ["hag", "shrieker"],
+      defeatedRuinsBossIdentities: [],
+    },
+  };
+  clearBossScriptsForTest();
+  const draw = applyCommand(state, { type: "drawImminentThreatAfterActAdvance" });
+  expect(draw.events.filter((e) => e.type === "commandRefused")).toEqual([]);
+  const pool = wealdThreatPool(state.dungeon!, 3);
+  expect(pool).toHaveLength(5);
+  expect(pool).toContain(draw.state.dungeon!.imminentThreatDescriptionCardId);
+});
+
+it("同种子 production：Stygian 与 standard 升幕抽牌 RNG 一致", () => {
+  const seed = 5;
+  const modes = ["standard", "stygian"] as const;
+  const draws = modes.map((mode) => {
+    const base = createCoreDungeonQuest(
+      seed,
+      "quest:p001",
+      mode,
+      coreParty,
+      coreQuestSources,
+      true,
+      mode === "stygian" ? "full" : null,
+      [...packs],
+    );
+    const established = applyCommand(base, productionEstablish);
+    const {
+      activeBossThreatScriptId: _a,
+      imminentThreatDescriptionCardId: _c,
+      ...d
+    } = established.state.dungeon!;
+    void _a;
+    void _c;
+    const ready: GameState = {
+      ...established.state,
+      dungeon: {
+        ...d,
+        campaignLevel: 2,
+        defeatedWealdBossIdentities: ["hag"],
+        defeatedRuinsBossIdentities: [],
+      },
+    };
+    clearBossScriptsForTest();
+    return applyCommand(ready, { type: "drawImminentThreatAfterActAdvance" }).state.dungeon!
+      .imminentThreatDescriptionCardId;
+  });
+  expect(draws[0]).toBe(draws[1]);
+});

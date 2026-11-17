@@ -1,41 +1,47 @@
 # Weald Stygian 升幕抽迫近威胁（`drawImminentThreatAfterActAdvance`）核查（2026-11-17）
 
-状态：**核查完成；待 DDBG·规则书审阅 Weald 战役幕次与核心 §2.2 对齐结论前，不扩展 `advanceRuinsAct` 或新规则。**
+状态：**核查与规则书只读复核完成；`drawImminentThreatAfterActAdvance` 在 Stygian 生产路径下与 standard／radiant 同源（`establish-imminent-threat.ts` L282–325）。本 PR 不增引擎行为。**
 
-## 问题来源
+## 计划措辞纠偏
 
-开发计划曾写「II／III 升幕 `drawImminentThreatAfterActAdvance` 引擎仍拒（W3）」——需区分是 **Stygian 模式拦截**、**版本标记停点**，还是 **未接通的正式幕次链路**。
+- 原清单「Stygian 升幕引擎仍拒（W3）」**不准确**：唯一与 W3 相关的拒绝条件是 **`locationBossThreats && !wealdHigherBosses`**（L298–302），与 **`mode` 无关**。
+- #771 出征准备已派发 **`wealdHigherBosses: true`** 的生产版 `establishImminentThreat`；升幕抽牌在 `#771` 后**不存在** Stygian 专属拦截。
+- 仍缺的「拒」仅指：**旧存档／缺版本标记**（同上条件），以及 **`advanceRuinsAct` 整幕链路**仍只接遗迹 p019（工程范围，见下）。
 
-## 代码结论（`packages/engine/src/boss/establish-imminent-threat.ts`）
+## 规则书只读复核（用户转述证据，独立对照代码）
 
-| 门禁                                               | 是否 Stygian 专用 | 性质                                                                                                                                 |
-| -------------------------------------------------- | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| `readActiveBossThreatScriptId` 仍激活              | 否                | 规则流程（spec §2.2：击败后升幕再抽）                                                                                                |
-| `campaignLevel < 2`                                | 否                | 规则流程（R35）                                                                                                                      |
-| `locationBossThreats && !wealdHigherBosses`        | 否                | **历史版本守卫**（W3 文案）；旧战役用了地点池但未显式 `wealdHigherBosses` 时拒绝；#771 生产版 `establishImminentThreat` 已写入该标记 |
-| 击败数 `defeatedRuins + defeatedWeald === level-1` | 否                | 规则流程；Weald 击败记入 `defeatedWealdBossIdentities`（#768 生产结算）                                                              |
-| `wealdThreatPool` 内容包校验                       | 否                | 包隔离（须显式 core＋weald）                                                                                                         |
+| 出处                        | 结论                                                                                                     |
+| --------------------------- | -------------------------------------------------------------------------------------------------------- |
+| 核心规则书 **p.35**         | 升级战役后，从**剩余** Boss 的**新等级**描述卡洗抽下一张迫近威胁（II／III 同理）。                       |
+| Weald **W3**                | 在已选地点下按**战役等级**组威胁描述池（与 `wealdThreatPool` 一致）。                                    |
+| 核心 **p.36–37**、**R-036** | Stygian **不**改变威胁池组成，**不**改变升幕洗抽程序。                                                   |
+| **R-258／R-259／R-270**     | 本项目内的**工程版本／验收边界**（如两段威胁试验、p019 生产版本），**不是**规则书禁止 Stygian 升幕抽牌。 |
 
-**未发现** `mode === "stygian"` 分支。Stygian 在 **生产版** `wealdHigherBosses: true` 下，`drawImminentThreatAfterActAdvance` 与 standard／radiant 共用同一实现与同池。
+**无需新裁定号。**
 
-## 与「整幕升幕」的区别（未在本核查接线的部分）
+## 代码门禁（`establish-imminent-threat.ts` L282–325）
 
-- `advanceRuinsAct` / `readRuinsActTransitionReadiness`（`act-transition-readiness.ts`）仍只承认 **遗迹 p019 Face the Threat**、`defeatedRuinsBossIdentities` 与 `RUINS_COMBAT_LEVELS`。
-- 页面升幕按钮（`quest-summary-panel.tsx` → `advanceRuinsAct`）因此 **不** 覆盖 Weald 地点 Boss 战役的自然幕次闭环——这是 **范围／接线缺口**，不是 Stygian 单行判断。
-- Weald 扩展是否在 Stygian 下沿用核心 §2.2 同一升幕序列（两普通任务 + Boss + 抽下一张威胁），**待规则书审阅**；本项目不先行补裁定。
+| 条件                                        | Stygian 专属？ | 性质             |
+| ------------------------------------------- | -------------- | ---------------- |
+| 战斗进行中／缺 dungeon                      | 否             | R-048            |
+| 仍有 `activeBossThreatScriptId`             | 否             | §2.2 流程        |
+| `campaignLevel < 2`                         | 否             | R35              |
+| `locationBossThreats && !wealdHigherBosses` | **否**         | **版本守卫**     |
+| 已击败数 = `level - 1`（Ruins + Weald）     | 否             | §2.2             |
+| `wealdThreatPool` 包校验                    | 否             | core＋weald 隔离 |
 
-## 已批准依据（引用，不新增裁定）
+**无 `mode === "stygian"`。**
 
-- **R-036**：Stygian Boss 与房间边界（#768）。
-- **R-258／R-259**：Pounder 生产版本与两段威胁（试验入口边界，#771）。
-- **R-270**：Boss I–III 核准数据。
-- **W3**：地点威胁七位 Boss 池与 `wealdHigherBosses` 版本（`threat-pool.ts`、`higher-boss-sources.test.ts`）。
+## 工程上仍未验收（非本函数拒绝）
+
+- **`advanceRuinsAct`**（`act-transition-readiness.ts`）：读回与提交仍绑定遗迹 p019、`defeatedRuinsBossIdentities`、`RUINS_COMBAT_LEVELS`；页面升幕按钮走此命令。Weald 地点战役的**自然跨幕日志**未建立 → **不能**宣称步骤 8 或完整战役实机。
+- 单独命令 `drawImminentThreatAfterActAdvance` 可在**受控夹具**中验证 Stygian 生产态；**不等于**自然养成跨幕。
 
 ## 回归（本批）
 
-- `weald-stygian-act-threat-draw.test.ts`：受控夹具验证生产版 Stygian 升幕抽牌、版本停点、核心-only 隔离；**不** 称自然跨幕或完整战役。
+- `weald-stygian-act-threat-draw.test.ts`：II／III 级抽牌、与 standard 同 RNG、版本停点、核心-only、试验命令隔离。
+- **不**将夹具等同于自然日志；无自然跨幕固定 seed 日志则保持「未验收」。
 
-## 待规则书／Kyries（暂停实现）
+## p008 Stygian 房（同批次文档）
 
-1. Weald（含 Stygian）正式战役的幕次推进是否仍经 `advanceRuinsAct` 同等前置，或另有扩展程序。
-2. 地点 Boss 击败后升幕抽牌与遗迹 Boss defeat 记账的合并策略（若与当前 `defeatedRuins`／`defeatedWeald` 分列不一致）。
+见 [weald-stygian-room-review-2026-11-17.md](weald-stygian-room-review-2026-11-17.md)：**普通一项 2t、Stygian 两项 2t** 已目视结清；不改普通房、不改已合运行时。
