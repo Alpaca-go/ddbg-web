@@ -169,7 +169,9 @@ export { visitNomadWagon } from "./hamlet-nomad";
 export { blacksmithOptions } from "./hamlet-blacksmith";
 export { offerNextQuest } from "./hamlet-embark";
 export { advanceCampaignLevel, readCampaignLevel } from "./hamlet-campaign";
-export { buildRuinsActTransitionPlan } from "./act-transition-plan";
+export { buildRuinsActTransitionPlan, buildWealdActTransitionPlan } from "./act-transition-plan";
+export { switchWealdActPools } from "./act-transition-pools";
+export { wealdLocationActAdvanceEnabled } from "./act-transition-readiness";
 export {
   readRuinsActTransitionReadiness,
   requiresRuinsActAdvance,

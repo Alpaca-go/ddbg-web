@@ -22,7 +22,7 @@ export function hamletWealdLocationDrawEnabled(packs?: readonly ContentPackId[])
   return packs?.includes("weald") === true;
 }
 
-function questIdsForLocationDeck(
+export function questIdsForLocationDeck(
   deck: HamletLocationQuestDeck,
   campaignLevel: CampaignLevel,
   contentPacks?: readonly ContentPackId[],

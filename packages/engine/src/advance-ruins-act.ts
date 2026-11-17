@@ -1,7 +1,8 @@
 import type { ApplyResult, GameState } from "./command";
 import { rejectBattleCommand } from "./battle";
 import { readRuinsActTransitionReadiness } from "./act-transition-readiness";
-import { switchRuinsActPools } from "./act-transition-pools";
+import { switchRuinsActPools, switchWealdActPools } from "./act-transition-pools";
+import { wealdLocationActAdvanceEnabled } from "./act-transition-readiness";
 import { drawImminentThreatAfterActAdvance } from "./boss/establish-imminent-threat";
 import { conditionPoolProblem } from "./conditions";
 import { buildingLevelsProblem } from "./hamlet-buildings";
@@ -28,12 +29,15 @@ export function advanceRuinsAct(state: GameState): ApplyResult {
     return rejectBattleCommand(state, "升幕须在抽村庄事件前，具有完整牌池与有效RNG游标");
   const issue = buildingLevelsProblem(d) ?? conditionPoolProblem(d.conditions, d.heroes);
   if (issue) return rejectBattleCommand(state, issue);
-  const switched = switchRuinsActPools(
-    readiness.plan.fromLevel,
-    d.monsterPool,
-    d.trinkets,
-    d.heroes,
-  );
+  const switched = wealdLocationActAdvanceEnabled(d)
+    ? switchWealdActPools(
+        readiness.plan.fromLevel,
+        d.monsterPool,
+        d.trinkets,
+        d.heroes,
+        d.contentPacks ?? ["core"],
+      )
+    : switchRuinsActPools(readiness.plan.fromLevel, d.monsterPool, d.trinkets, d.heroes);
   if (switched.kind === "blocked") return rejectBattleCommand(state, switched.reason);
   const {
     faceTheThreatEmbarkPlan: _embark,

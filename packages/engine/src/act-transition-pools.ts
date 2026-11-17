@@ -1,9 +1,11 @@
+import type { ContentPackId } from "../../data/src/content-packs";
 import { monsterPoolCatalogValidForLocation } from "./monster-pool-validation";
 import trinketSource from "../../data/normalized/corebox/trinket.json";
 import { ruinsMonsterPoolThrough } from "../../data/src/monster-pool";
 import { normalizedTrinketFileSchema } from "../../data/src/normalize/schema";
 import type { DungeonState } from "./dungeon";
 import { dungeonMonsterPoolThrough } from "./monster-pool-runtime";
+import { createWealdHigherMonsterPoolState } from "./expansions/weald/higher-monster-pool";
 import {
   switchTrinketDungeonLevel,
   trinketPoolProblem,
@@ -62,6 +64,76 @@ export function switchRuinsActPools(
   return {
     kind: "ready",
     monsterPool: { ...monsterPool, remaining: [...actual, ...added], discarded: [], active: null },
+    trinkets: switched,
+  };
+}
+
+/** W3／R35：Weald 地点升幕切换怪物与饰品池（生产 higher-v1 栈）。 */
+export function switchWealdActPools(
+  fromLevel: 1 | 2,
+  monsterPool: MonsterPool,
+  trinketPool: TrinketPool,
+  heroes: DungeonState["heroes"],
+  contentPacks: readonly ContentPackId[],
+): ActPoolSwitch {
+  const blocked = (reason: string): ActPoolSwitch => ({ kind: "blocked", reason });
+  if (!contentPacks.includes("weald")) return blocked("Weald 升幕须已选扩展包（W-02）");
+  if (
+    ![1, 2].includes(fromLevel) ||
+    monsterPool.location !== "weald" ||
+    !monsterPoolCatalogValidForLocation(monsterPool, "weald", fromLevel) ||
+    monsterPool.active
+  )
+    return blocked("升幕需要完整 Weald 怪物目录、有效源等级且无活动遭遇");
+  if (fromLevel === 1 && monsterPool.wealdSourceVersion === "higher-v1")
+    return blocked("I 级升幕不能从高等级怪物版本状态提交");
+  const removed = monsterPool.permanentlyRemovedCombatCardIds ?? [];
+  const expected = dungeonMonsterPoolThrough(monsterPool, fromLevel).map((m) => m.instanceId);
+  const oldCatalog = dungeonMonsterPoolThrough(monsterPool, fromLevel);
+  if (
+    new Set(removed).size !== removed.length ||
+    removed.some((id) => !oldCatalog.some((m) => m.cardId === id))
+  )
+    return blocked("怪物永久移出记录重复或含非当前/先前等级卡牌");
+  if (monsterPool.remaining === null && monsterPool.discarded.length)
+    return blocked("未初始化怪物堆不能同时有弃牌");
+  const actual = [...(monsterPool.remaining ?? expected), ...monsterPool.discarded];
+  if (
+    actual.length !== expected.length ||
+    new Set(actual).size !== actual.length ||
+    actual.some((id) => !expected.includes(id))
+  )
+    return blocked("怪物池缺失、重复、含未来等级或已永久移出实例");
+  if (trinketPool.level !== fromLevel) return blocked("饰品池等级与升幕源等级不符");
+  const issue = trinketPoolProblem(trinketPool, heroes);
+  if (issue) return blocked(issue);
+  const nextLevel = (fromLevel + 1) as 2 | 3;
+  const switched = switchTrinketDungeonLevel(trinketPool, trinkets, nextLevel);
+  if ("reason" in switched) return blocked(switched.reason);
+  const afterIssue = trinketPoolProblem(switched, heroes);
+  if (afterIssue) return blocked(afterIssue);
+  const higher = createWealdHigherMonsterPoolState({
+    core: monsterPool.cards,
+    contentPacks: ["core", "weald"],
+    level: nextLevel,
+  });
+  const nextExpected = dungeonMonsterPoolThrough(higher, nextLevel).map((m) => m.instanceId);
+  const carry = actual.filter((id) => nextExpected.includes(id));
+  const added = nextExpected.filter((id) => !carry.includes(id));
+  const nextPool: MonsterPool = {
+    ...higher,
+    remaining: [...carry, ...added],
+    discarded: [],
+    active: null,
+  };
+  return {
+    kind: "ready",
+    monsterPool: monsterPool.permanentlyRemovedCombatCardIds
+      ? {
+          ...nextPool,
+          permanentlyRemovedCombatCardIds: monsterPool.permanentlyRemovedCombatCardIds,
+        }
+      : nextPool,
     trinkets: switched,
   };
 }

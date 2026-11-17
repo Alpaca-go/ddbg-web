@@ -34,7 +34,7 @@
 
 ## 工程上仍未验收（非本函数拒绝）
 
-- **`advanceRuinsAct`**（`act-transition-readiness.ts`）：读回与提交仍绑定遗迹 p019、`defeatedRuinsBossIdentities`、`RUINS_COMBAT_LEVELS`；页面升幕按钮走此命令。Weald 地点战役的**自然跨幕日志**未建立 → **不能**宣称步骤 8 或完整战役实机。
+- **`advanceRuinsAct`**（第八刀，#773+）：Weald 生产路径已接 `defeatedWealdBossIdentities`／`switchWealdActPools`；仍只认 `quest:p019`。页面升幕按钮仍走同命令。**自然跨幕日志**未建立 → **不能**宣称步骤 8 或完整战役实机。
 - 单独命令 `drawImminentThreatAfterActAdvance` 可在**受控夹具**中验证 Stygian 生产态；**不等于**自然养成跨幕。
 
 ## 回归（本批）

@@ -21,8 +21,9 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 - **当前批次（第三刀续）**：Whispering Woods 与 `tasks-v1` 十张 II／III 普通任务在 Stygian 下接通出征／村庄选任务／专属效果（R-264／R-265），沿用九房 Stygian 替换与 0 起始金；旧版无 `tasks-v1` 日志不变。
 - **当前批次（第五刀）**：村庄跨幕高等级走 **`tasks-v1` 正式路径**（新战役页面与 `createCampaignQuest` 一致）；**不**把旧 `wealdHigherQuestOffers:true` 扩成 II 级池（该版本仍仅 III 级 p015，与 R-264／R-265 十卡栈无关）。引擎 `#769` 已移除 Stygian 闸门，本刀以村庄 II 级抽选／出征回归与清单更新为主。
 - **当前批次（第六刀）**：出征准备 `locationBosses`／七位 Boss 迫近威胁在 Stygian＋核心＋Weald 与 standard／radiant 同 UI；`establishImminentThreat` 仅在接受完整 `pounderBossBattles` 生产命令时允许 Stygian 携带两段威胁标记，单独试验命令仍拒。
-- **当前批次（第七刀）**：规则书只读复核：**无 Stygian 升幕抽牌专属拒绝**；原「引擎仍拒（W3）」为**计划误述**（实为 `!wealdHigherBosses` 版本守卫）。`drawImminentThreatAfterActAdvance` 生产路径已回归；`advanceRuinsAct`／自然跨幕仍仅遗迹 p019、**未验收**。p008 普通一项／Stygian 两项 2t 已目视结清。见 [升幕抽威胁核查](weald-stygian-act-threat-review-2026-11-17.md)。
-- **下一步**：步骤 8 自然跨幕／Weald 整幕 UI（工程）；无自然日志前不宣称验收。R-270≠自然战役已结案。
+- **当前批次（第七刀）**：规则书只读复核：**无 Stygian 升幕抽牌专属拒绝**；原「引擎仍拒（W3）」为**计划误述**（实为 `!wealdHigherBosses` 版本守卫）。`drawImminentThreatAfterActAdvance` 生产路径已回归。p008 普通一项／Stygian 两项 2t 已目视结清。见 [升幕抽威胁核查](weald-stygian-act-threat-review-2026-11-17.md)。
+- **当前批次（第八刀，2026-11-17 规则书结论）**：Weald 地点战役与遗迹共用 **`quest:p019`** 与 `advanceRuinsAct` 命令；`readRuinsActTransitionReadiness`／`switchWealdActPools` 按生产路径（`locationBossThreats`＋`wealdHigherBosses`＋`bossLocationSources`＋`bossExpeditionRegion:weald`，II／III 须 `tasks-v1`）读回并提交升幕。不新加 Weald Boss 任务卡、不改 p019 触发。**未验收**：自然跨幕养成日志、步骤 8 整幕实机；夹具≠自然日志。
+- **下一步**：步骤 8 自然跨幕整条 Face the Threat 链路与人工实机；无自然日志前不宣称完整战役验收。
 
 - 步骤 0 已完成，提交 `e7fd17e1`；完整地点战役尚未验收。
 - 导入与计划两批已合入并推送 `main`（`3be97c65`）。步骤 1 怪物批次已合入并推送 `main`（`7075f4d8`）。
@@ -1523,17 +1524,18 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 - **本刀验收**：`weald-stygian-higher-tasks.test.ts` 补 Stygian 村庄 II 级 `offerNextQuest`→出征与正式战役起点；`docs/human-rulings-by-pdf-2026-10-30.md` 仅 Prettier（#398）。
 - **Stygian 剩余（未自然／人工验收）**：自然跨幕 II→III 养成；Boss 跨任务养成链；单独 `pounderDungeonThreats` 试验；Weald 自然幕次／`advanceRuinsAct`（待规则书）；完整战役实机。
 
-| 项目                                 | 状态                      |
-| ------------------------------------ | ------------------------- |
-| 九房替换＋六效果                     | 已合 #761／#762           |
-| Boss I–III＋+1 Crit＋部署／结算      | 已合 #768                 |
-| tasks-v1 十卡＋Whispering            | 已合 #769                 |
-| 村庄 tasks-v1 抽选／跨幕 II          | 已合 #770；自然日志未验收 |
-| 出征准备七位 Boss 威胁 UI（Stygian） | 已合 #771                 |
-| 单独两段威胁试验（Stygian）          | 仍拒                      |
-| 升幕抽威胁单命令（生产版 `#771+`）   | 已回归（非 Stygian 拒）   |
-| `advanceRuinsAct` 自然跨幕           | 仍仅遗迹 p019；未验收     |
-| 步骤 8 自然跨幕／人工实机            | 未开始                    |
+| 项目                                   | 状态                      |
+| -------------------------------------- | ------------------------- |
+| 九房替换＋六效果                       | 已合 #761／#762           |
+| Boss I–III＋+1 Crit＋部署／结算        | 已合 #768                 |
+| tasks-v1 十卡＋Whispering              | 已合 #769                 |
+| 村庄 tasks-v1 抽选／跨幕 II            | 已合 #770；自然日志未验收 |
+| 出征准备七位 Boss 威胁 UI（Stygian）   | 已合 #771                 |
+| 单独两段威胁试验（Stygian）            | 仍拒                      |
+| 升幕抽威胁单命令（生产版 `#771+`）     | 已回归（非 Stygian 拒）   |
+| `advanceRuinsAct` Weald 生产读回／提交 | 本刀接线；自然日志未验收  |
+| `advanceRuinsAct` 自然跨幕整条链       | 未验收（夹具已回归）      |
+| 步骤 8 自然跨幕／人工实机              | 未开始                    |
 
 ### Weald Stygian 出征准备 Boss 威胁 UI（2026-11-17，步骤 7 第六刀）
 

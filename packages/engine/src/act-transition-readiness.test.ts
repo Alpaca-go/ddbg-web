@@ -12,6 +12,7 @@ it("两级四Boss边界夹具读取对应计划，不改状态/游标，返回�
       const result = readRuinsActTransitionReadiness(state);
       expect(result.kind).toBe("ready");
       if (result.kind !== "ready") throw new Error(result.reason);
+      expect(result.location).toBe("ruins");
       expect(result.plan.toLevel).toBe(level + 1);
       expect(result.plan.imminentThreatDescriptionCardIds).toHaveLength(4 - level);
       result.plan.imminentThreatDescriptionCardIds.length = 0;
