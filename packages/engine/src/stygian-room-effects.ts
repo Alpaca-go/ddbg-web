@@ -10,23 +10,27 @@ import { readCampaignLevel } from "./hamlet-campaign";
 import { applyBattleSkillStatuses } from "./battle-skill-status";
 import { fixedDamageResolution } from "./battle-spiked-pit";
 import { removeAncestorConditions } from "./battle-ancestor";
+import { readActiveWealdStygianRoom } from "./weald-stygian-room-effects";
 
 const reviewedRooms = stygianRoomsSchema.parse(rawStygianRooms).cards;
 
 /** 保留标准卡的地图与牌池身份，仅替换实际启用的印刷卡效果。 */
 export function readActiveStygianRoom(d: DungeonState) {
   if (d.mode !== "stygian" || !d.stygianRoomRules) return undefined;
-  const card = reviewedRooms.find((c) => c.replacesCardId === d.roomCards?.active?.cardId);
-  if (!card) return undefined;
-  const kind = card.reviewedEffect.kind;
-  if (
-    d.stygianRoomRules === "full" ||
-    kind === "unholyAura" ||
-    kind === "poolOfRebirth" ||
-    (d.stygianRoomRules === "r229" && kind === "evilEye")
-  )
-    return card;
-  return undefined;
+  const replacesCardId = d.roomCards?.active?.cardId;
+  if (!replacesCardId) return undefined;
+  const card = reviewedRooms.find((c) => c.replacesCardId === replacesCardId);
+  if (card) {
+    const kind = card.reviewedEffect.kind;
+    if (
+      d.stygianRoomRules === "full" ||
+      kind === "unholyAura" ||
+      kind === "poolOfRebirth" ||
+      (d.stygianRoomRules === "r229" && kind === "evilEye")
+    )
+      return card;
+  }
+  return readActiveWealdStygianRoom(d);
 }
 
 export function endTurnStygianArea(
@@ -145,8 +149,18 @@ export function applyStygianRoomWounds(
 }
 
 export function stygianRoomBattleAreas(areas: readonly BattleArea[], d: DungeonState) {
-  const effect = readActiveStygianRoom(d)?.reviewedEffect;
-  if (!effect) return areas;
+  if (d.mode !== "stygian" || !d.stygianRoomRules) return areas;
+  const card = reviewedRooms.find((c) => c.replacesCardId === d.roomCards?.active?.cardId);
+  if (!card) return areas;
+  const kind = card.reviewedEffect.kind;
+  if (
+    d.stygianRoomRules !== "full" &&
+    kind !== "unholyAura" &&
+    kind !== "poolOfRebirth" &&
+    !(d.stygianRoomRules === "r229" && kind === "evilEye")
+  )
+    return areas;
+  const effect = card.reviewedEffect;
   return areas.map((area) => {
     if (effect.kind === "cornered" && area.endTurnStress === 1)
       return { ...area, endTurnStress: effect.stress };

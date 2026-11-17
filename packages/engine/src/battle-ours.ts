@@ -4,12 +4,12 @@ import { applyBattleSkillStatuses } from "./battle-skill-status";
 import { fixedDamageResolution } from "./battle-spiked-pit";
 import { isLivingCombatMonster } from "./expansions/weald/necrotic-fungus";
 import { wealdMechanicsActive } from "./expansions/weald/weald-mechanics";
+import { wealdOrdinaryRoomEffectActive, wealdStygianEffect } from "./weald-stygian-room-effects";
 
 function active(state: GameState): boolean {
   return (
     wealdMechanicsActive(state) &&
-    state.dungeon?.mode !== "stygian" &&
-    state.dungeon?.roomCards?.active?.cardId === "room:weald:p009"
+    wealdOrdinaryRoomEffectActive(state, "room:weald:p009", "clearing")
   );
 }
 export function enableOurs(state: GameState): GameState {
@@ -24,12 +24,16 @@ export function resolveOurs(
 ): ApplyResult {
   if (!state.battle?.wealdOurs || !active(state)) return { state, events };
   const battle = state.battle;
+  const stygian = wealdStygianEffect(state.dungeon, "clearing");
   const effects = battle.entities.filter(isLivingCombatMonster).map((target) => ({
     ...fixedDamageResolution(target, "room:ours"),
-    targetStatusEffects: [
-      { kind: "debuff" as const, duration: 1 },
-      { kind: "buff" as const, duration: 2 },
-    ],
+    targetStatusEffects:
+      stygian?.kind === "clearing"
+        ? [{ kind: "buff" as const, duration: stygian.oursBuffDuration }]
+        : [
+            { kind: "debuff" as const, duration: 1 },
+            { kind: "buff" as const, duration: 2 },
+          ],
   }));
   const statuses = applyBattleSkillStatuses(
     battle,
@@ -52,7 +56,10 @@ export function resolveOurs(
         type: "passiveTriggered",
         entityId: actorId,
         trigger: "ours",
-        message: "Ours!：拾取宝箱，房内怪物减益 1t、增益 2t（R-234、R-238）",
+        message:
+          stygian?.kind === "clearing"
+            ? `Ours!：拾取宝箱，房内怪物增益 ${stygian.oursBuffDuration}t（R-234、R-238）`
+            : "Ours!：拾取宝箱，房内怪物减益 1t、增益 2t（R-234、R-238）",
       },
     ],
   };
