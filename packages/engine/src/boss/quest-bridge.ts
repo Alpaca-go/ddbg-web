@@ -1,3 +1,4 @@
+import { WEALD_HIGHER_BOSS_ENTRIES } from "../expansions/weald/boss/higher-boss-entries";
 import { ensureCampaignBossScriptsRegistered } from "../expansions/register";
 import { bossEnabledForPacks } from "../../../data/src/content-packs";
 import { RUINS_COMBAT_LEVELS } from "./ruins-combat-levels";
@@ -79,22 +80,19 @@ export function resolveBossScriptIdForQuest(
   if (!isBossQuestId(questId)) return undefined;
   const level = readCampaignLevel(context ?? {});
   if (questId === FACE_THE_THREAT_QUEST_ID && level > 1) {
-    if (
-      context?.wealdHigherBosses &&
-      context.contentPacks?.includes("weald") &&
-      context.activeBossThreatScriptId === `boss:weald:hag:${level}`
-    ) {
+    const wealdEntry = WEALD_HIGHER_BOSS_ENTRIES.find(
+      (e) => e.scriptId === context?.activeBossThreatScriptId && e.scriptId.endsWith(`:${level}`),
+    );
+    if (context?.wealdHigherBosses && context.contentPacks?.includes("weald") && wealdEntry) {
       ensureCampaignBossScriptsRegistered(context.contentPacks);
-      const entry = getBossScript(context.activeBossThreatScriptId)?.combatEntry;
-      const description = `boss_ability:weald:p0${12 + level}`;
-      return context.imminentThreatDescriptionCardId === description &&
-        entry?.descriptionAbilityCardId === description &&
-        entry.combatAbilityCardId === `boss_ability:weald:p0${15 + level}` &&
-        entry.combatMonsterCardId === `monster_large:weald:p0${9 + level}`
-        ? context.activeBossThreatScriptId
+      const entry = getBossScript(wealdEntry.scriptId)?.combatEntry;
+      const { scriptId, ...expected } = wealdEntry;
+      return context.imminentThreatDescriptionCardId === expected.descriptionAbilityCardId &&
+        entry &&
+        Object.entries(expected).every(([key, value]) => entry[key as keyof typeof entry] === value)
+        ? scriptId
         : undefined;
     }
-
     // R-124：II 只按本次实际威胁匹配；不使用沙盒缺省或任务级临时映射。
     ensureCoreBossScriptsRegistered();
     const active = context?.activeBossThreatScriptId;

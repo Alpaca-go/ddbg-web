@@ -13,7 +13,7 @@ import { triggerDungeonPassive } from "../../../dungeon-passive";
 import { resolveDungeonPressure } from "../../../dungeon-pressure";
 import { statusProjection } from "../../../status";
 import { passiveDamageWounds } from "../../../passive";
-import { pounderDungeonThreatActive } from "./pounder-i-dungeon-threat";
+import { pounderDungeonThreatActive, readPounderThreatContext } from "./pounder-i-dungeon-threat";
 import { resolvePounderIBombardment } from "./pounder-i-threat";
 
 /** 统一公开命令收尾：记录付款后的占用，待选续接只消费一次日末。 */
@@ -62,22 +62,27 @@ export function applyPounderIHamletThreat(
           (id) => id === h.caretaker,
         );
   if (caretaker === undefined) return rejectBattleCommand(before, "Pounder 轰炸缺有效看守人记录");
-  const outcome = resolvePounderIBombardment(roll, caretaker, {
-    survivalist: target("survivalist"),
-    tavern: target("tavern"),
-    sanitarium: target("sanitarium"),
-    abbey: target("abbey"),
-    graveyard: target("graveyard"),
-    guild: target("guild"),
-    blacksmith: target("blacksmith"),
-    nomadWagon: target("nomadWagon"),
-  });
+  const outcome = resolvePounderIBombardment(
+    roll,
+    caretaker,
+    {
+      survivalist: target("survivalist"),
+      tavern: target("tavern"),
+      sanitarium: target("sanitarium"),
+      abbey: target("abbey"),
+      graveyard: target("graveyard"),
+      guild: target("guild"),
+      blacksmith: target("blacksmith"),
+      nomadWagon: target("nomadWagon"),
+    },
+    readPounderThreatContext(before)!.threats.hamlet.heroDamage,
+  );
   d = { ...d, cursor: d.cursor + 1 };
   const events = [
     ...result.events,
     {
       type: "dungeonUpdated" as const,
-      message: `Bombardment I：d10 ${roll} → ${outcome.building}，${outcome.effect === "damageHero" ? `${outcome.heroId}受到${outcome.damage}伤害` : outcome.effect === "downgradeBuilding" ? `建筑降至${outcome.level}级` : outcome.reason === "caretaker" ? "看守人在场，轰炸无效" : "建筑已处于最低等级"}（R-259）`,
+      message: `Bombardment ${readPounderThreatContext(before)!.level === 1 ? "I" : readPounderThreatContext(before)!.level === 2 ? "II" : "III"}：d10 ${roll} → ${outcome.building}，${outcome.effect === "damageHero" ? `${outcome.heroId}受到${outcome.damage}伤害` : outcome.effect === "downgradeBuilding" ? `建筑降至${outcome.level}级` : outcome.reason === "caretaker" ? "看守人在场，轰炸无效" : "建筑已处于最低等级"}（R-259）`,
     },
   ];
   if (outcome.effect === "downgradeBuilding") {
