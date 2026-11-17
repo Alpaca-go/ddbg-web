@@ -1,3 +1,4 @@
+import { planSummonCrowding } from "../summon-crowding";
 import poolFile from "../../../data/normalized/corebox/darkest_monster_pool.json";
 import { darkestMonsterPoolFileSchema } from "../../../data/src/darkest-monster-pool";
 import { rejectBattleCommand, type BattleEntity, type BattleState } from "../battle";
@@ -176,10 +177,24 @@ export function applyGestatingHeartSummon(state: GameState, actorId: string): Ap
       : { innateProtection: card.innateProtection, protection: card.innateProtection }),
   };
 
+  const placement = state.chainCrowding
+    ? planSummonCrowding(
+        { ...state, battle: { ...battle, rngCursor: picked.rngCursor } },
+        entity.areaId,
+        stanceSlots,
+      )
+    : null;
+  if (placement && "status" in placement)
+    return finishTurn(
+      { ...state, battle: { ...battle, rngCursor: picked.rngCursor, monsterAction: null } },
+      actorId,
+      [{ type: "dungeonUpdated", message: "R-271：连锁挤占不能完成，此次召唤无效" }],
+    );
+  const placed = placement?.battle ?? battle;
   const nextBattle = {
-    ...battle,
-    entities: [...battle.entities, entity],
-    rngCursor: picked.rngCursor,
+    ...placed,
+    entities: [...placed.entities, entity],
+    rngCursor: placement?.battle.rngCursor ?? picked.rngCursor,
     choiceCursor: battle.choiceCursor + 1,
     monsterAction: null,
   };

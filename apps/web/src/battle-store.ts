@@ -166,7 +166,12 @@ export const useBattleStore = create<BattleStore>((set) => ({
   notice: "请开始战斗，再抽取先攻。",
   dispatch: (command) =>
     set((store) => {
-      const recorded: Command = { ...command, allTrinkets: true, inventoryOverflow: true };
+      const recorded: Command = {
+        ...command,
+        allTrinkets: true,
+        inventoryOverflow: true,
+        ...(!store.game.battle?.pending ? { chainCrowding: true as const } : {}),
+      };
       const result = applyCommand(store.game, recorded);
       return {
         game: result.state,

@@ -89,6 +89,7 @@ function continueReinforcements(
     const width = (e: BattleEntity) => (e.side === "hero" ? 1 : (e.stanceSlots ?? 1));
     const used = occupants.reduce((sum, e) => sum + width(e), 0);
     if (
+      !next.chainCrowding &&
       size === 2 &&
       area?.capacity !== undefined &&
       used + size > area.capacity &&
@@ -105,6 +106,7 @@ function continueReinforcements(
       index === 0 ? optionId : undefined,
     );
     if ("status" in placement) {
+      if (placement.status === "invalid") continue;
       if (placement.status === "refused") return rejectBattleCommand(original, placement.message);
       const choice = {
         id: `pounder-reinforcements:${battle.choiceCursor}`,

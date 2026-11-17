@@ -1,3 +1,4 @@
+import { planSummonCrowding } from "../summon-crowding";
 import {
   RUINS_COMBAT_LEVELS,
   ruinsCombatForScript,
@@ -385,12 +386,11 @@ export function applyCollectorCollectAll(
         ],
       };
     }
-    const placement = resolveCollectorCollectedAreaPlacement(
-      nextBattle,
-      preferredAreaId,
-      displacements[part],
-    );
+    const placement = state.chainCrowding
+      ? planSummonCrowding({ ...state, battle: nextBattle }, preferredAreaId, 1)
+      : resolveCollectorCollectedAreaPlacement(nextBattle, preferredAreaId, displacements[part]);
     if ("status" in placement) {
+      if (placement.status === "invalid") continue;
       if (placement.status === "choice") {
         const choice = {
           id: `collector-summon:${battle.choiceCursor}:${part}`,
@@ -429,7 +429,7 @@ export function applyCollectorCollectAll(
     added.push(part);
   }
 
-  if (added.length !== COLLECTOR_I_COLLECT_ALL_PART_ORDER.length) {
+  if (!state.chainCrowding && added.length !== COLLECTOR_I_COLLECT_ALL_PART_ORDER.length) {
     return {
       state,
       events: [{ type: "commandRefused", message: "Collect All：召唤未完成（R-048）" }],
@@ -440,7 +440,9 @@ export function applyCollectorCollectAll(
     ...state,
     battle: { ...nextBattle, monsterAction: null },
   };
-  const initiativeShuffle = COLLECTOR_I_COLLECT_ALL_INITIATIVE_SHUFFLE_COUNT;
+  const initiativeShuffle = state.chainCrowding
+    ? added.length
+    : COLLECTOR_I_COLLECT_ALL_INITIATIVE_SHUFFLE_COUNT;
   nextState = shuffleCollectorCollectAllInitiativeIntoDeck(nextState, initiativeShuffle);
 
   return finishTurn(nextState, actorId, [

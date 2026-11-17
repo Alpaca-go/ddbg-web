@@ -29,6 +29,12 @@ export const useDungeonStore = create<{
         ...command,
         allTrinkets: true,
         inventoryOverflow: true,
+        ...(!s.game.battle?.pending &&
+        !s.game.dungeon?.pending &&
+        !s.game.trinketChoice &&
+        !s.game.inventoryOverflowHold
+          ? { chainCrowding: true as const }
+          : {}),
         ...(s.game.dungeon?.shriekerProvisionSkipRolls ||
         ((s.game.dungeon?.wealdHigherBosses ||
           (command.type === "establishImminentThreat" && command.wealdHigherBosses)) &&

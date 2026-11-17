@@ -225,6 +225,7 @@ import type {
 } from "./battle-monster-action";
 
 export type GameState = {
+  readonly chainCrowding?: true;
   readonly inventoryOverflow?: true;
   readonly inventoryOverflowHold?: import("./inventory-overflow").InventoryOverflowHold;
   readonly inventoryOverflowDecision?: number;
@@ -299,6 +300,7 @@ export type HeroSkillEmptyAreaResolvedEvent = {
 
 export type Command = BaseCommand & {
   readonly allTrinkets?: true | undefined;
+  readonly chainCrowding?: true | undefined;
   readonly inventoryOverflow?: true | undefined;
   readonly shriekerProvisionSkipRolls?: true | undefined;
 };
@@ -1031,6 +1033,17 @@ function dispatchCommand(
 
 /** R-266：新命令显式启用；旧无标记命令严格保留历史容量行为。 */
 export function applyCommand(state: GameState, command: Command, legacy = false): ApplyResult {
+  if (command.chainCrowding && !state.chainCrowding) {
+    if (
+      state.battle?.pending ||
+      state.dungeon?.pending ||
+      state.trinketChoice ||
+      state.inventoryOverflowHold
+    )
+      return rejectBattleCommand(state, "R-271：须先完成当前待选再切换挤占版本");
+    const result = applyCommand({ ...state, chainCrowding: true }, command, legacy);
+    return result.events.some((e) => e.type === "commandRefused") ? { ...result, state } : result;
+  }
   if (command.shriekerProvisionSkipRolls && !state.dungeon?.shriekerProvisionSkipRolls) {
     const d = state.dungeon;
     if (

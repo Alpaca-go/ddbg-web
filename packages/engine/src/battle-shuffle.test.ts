@@ -430,3 +430,20 @@ describe("applyCommand 位移接线（R20–21、R-020、R-025、R-030）", () =
     expect(applyCommand(initial, { type: "resolveShuffles" }).state).toBe(initial);
   });
 });
+
+it("R-271保留R-020英雄自身位移忽略免疫，目标免疫不扩到自身", () => {
+  const base = setup(pointBlank);
+  const initial: GameState = {
+    ...base,
+    battle: {
+      ...base.battle!,
+      areas: base.battle!.areas.map((a) => (a.id === "a" ? { ...a, ancestorGlory: true } : a)),
+    },
+  };
+  const rolled = applyCommand(initial, { ...play(pointBlank), chainCrowding: true });
+  expect(rolled.events.some((e) => e.type === "commandRefused")).toBe(false);
+  const waiting = applyCommand(rolled.state, { type: "resolveShuffles" });
+  const done = applyCommand(waiting.state, choose(waiting.state, "e"));
+  expect(done.events.some((e) => e.type === "commandRefused")).toBe(false);
+  expect(done.state.battle!.entities.find((e) => e.id === "hero")!.areaId).toBe("e");
+});
