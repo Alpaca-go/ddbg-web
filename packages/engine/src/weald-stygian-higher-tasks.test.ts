@@ -1,9 +1,17 @@
 import { expect, it } from "vitest";
 import { createCoreDungeonQuest } from "./dungeon-quest-entry";
+import { createCampaignQuest } from "./campaign-entry";
 import { coreParty, coreQuestSources } from "./test-helpers/core-quest";
 import { wealdTaskSources } from "./test-helpers/weald-task-battle";
-import { applyCommand } from "./command";
+import { wealdStygianTasksHamletFixture } from "./test-helpers/weald-stygian-higher-hamlet";
+import { applyCommand, type GameState } from "./command";
 import { createQuestSave, loadQuestSave } from "./quest-save";
+import {
+  legalHamletQuestDrawModes,
+  remainingQuestIdsForLocationDeck,
+  HAMLET_QUEST_DRAW_OPTION as modes,
+} from "./hamlet-location-quest-draw";
+import { nextExpeditionLocationDecks } from "./hamlet-location-embark";
 import medium from "../../data/normalized/extension/weald/monster_medium.json";
 import large from "../../data/normalized/extension/weald/monster_large.json";
 import curios from "../../data/normalized/extension/weald/curio.json";
@@ -231,3 +239,99 @@ it("Stygian Weald 普通房替换与 II 级任务并存", () => {
   };
   expect(readActiveWealdStygianRoom(withActive)?.id).toBe("stygian_room:weald:p001");
 });
+
+it("正式战役 Stygian＋tasks-v1 起点与 standard 仅差模式与版本标记", () => {
+  const baseline = createCampaignQuest(
+    0,
+    "quest:p001",
+    "standard",
+    coreParty,
+    coreQuestSources,
+    packs,
+  );
+  const game = createCampaignQuest(
+    0,
+    "quest:p001",
+    "stygian",
+    coreParty,
+    coreQuestSources,
+    packs,
+    undefined,
+    "tasks-v1",
+  );
+  expect(game.dungeon).toMatchObject({
+    mode: "stygian",
+    stygianRoomRules: "full",
+    wealdHigherQuestOffers: "tasks-v1",
+    gold: 0,
+  });
+  const {
+    wealdHigherQuestOffers: _v,
+    mode: _m,
+    stygianRoomRules: _s,
+    gold: _g,
+    ...rest
+  } = game.dungeon!;
+  const {
+    wealdHigherQuestOffers: __v,
+    mode: __m,
+    stygianRoomRules: __s,
+    gold: __g,
+    ...baseRest
+  } = baseline.dungeon!;
+  void _v;
+  void _m;
+  void _s;
+  void _g;
+  void __v;
+  void __m;
+  void __s;
+  void __g;
+  expect(rest).toEqual(baseRest);
+});
+
+it("tasks-v1：Stygian 村庄 II 级可抽选 Weald 堆并出征 higher-v1", () => {
+  let state = wealdStygianTasksHamletFixture();
+  const checkpoint = JSON.parse(JSON.stringify(state)) as GameState;
+  const commands: Parameters<typeof applyCommand>[1][] = [];
+  const step = (command: Parameters<typeof applyCommand>[1]) => {
+    const result = applyCommand(state, command);
+    expect(result.events.filter((e) => e.type === "commandRefused")).toEqual([]);
+    commands.push(command);
+    state = result.state;
+  };
+  expect(remainingQuestIdsForLocationDeck("weald", 2, packs, "", [], "tasks-v1")).toHaveLength(5);
+  const drawModes = legalHamletQuestDrawModes(2, packs, "", [], "tasks-v1");
+  expect(drawModes.some((m) => m.optionId === modes.wealdTwo)).toBe(true);
+  expect(remainingQuestIdsForLocationDeck("weald", 2, packs, "", [], true)).toEqual([]);
+  step({ type: "offerNextQuest" });
+  const draw = state.dungeon!.pending!;
+  step({ type: "resolveChoice", choiceId: draw.id, optionId: modes.wealdTwo });
+  const offers = state.dungeon!.nextQuestOffers ?? [];
+  expect(offers.length).toBeGreaterThan(0);
+  expect(offers.every((id) => id.startsWith("quest:weald:p00"))).toBe(true);
+  const picked = offers[0]!;
+  const heroes = structuredClone(state.dungeon!.heroes!);
+  step({
+    type: "resolveChoice",
+    choiceId: state.dungeon!.pending!.id,
+    optionId: picked,
+  });
+  expect(state.dungeon).toMatchObject({
+    phase: "awaitingProvisions",
+    mode: "stygian",
+    stygianRoomRules: "full",
+    wealdHigherQuestOffers: "tasks-v1",
+    campaignLevel: 2,
+  });
+  expect(state.dungeon!.heroes).toEqual(heroes);
+  expect(state.dungeon!.monsterPool).toMatchObject({
+    location: "weald",
+    wealdMonsterLevel: 2,
+    wealdSourceVersion: "higher-v1",
+  });
+  const restored = commands.reduce((s, c) => applyCommand(s, c).state, checkpoint);
+  expect(restored).toEqual(state);
+  const back = nextExpeditionLocationDecks(state.dungeon!, "quest:p001")!;
+  expect(back.monsterPool).not.toHaveProperty("wealdSourceVersion");
+}, 30000);
