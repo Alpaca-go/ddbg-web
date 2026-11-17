@@ -17,8 +17,10 @@ export function wealdStygianRoomIdentity(page: number) {
   };
 }
 
-const effectWithRuntimeGate = <T extends z.ZodRawShape>(kind: string, shape: T) =>
-  z.strictObject({ kind: z.literal(kind), runtimeReady: z.literal(false), ...shape });
+const effectWithRuntimeGate = <const K extends string, T extends z.ZodRawShape>(
+  kind: K,
+  shape: T,
+) => z.strictObject({ kind: z.literal(kind), runtimeReady: z.literal(true), ...shape });
 
 const wealdStygianReviewedEffectSchema = z.discriminatedUnion("kind", [
   effectWithRuntimeGate("toxicMushrooms", {
@@ -62,41 +64,41 @@ export const wealdStygianReviewedEffects: Readonly<
 > = {
   1: {
     kind: "toxicMushrooms",
-    runtimeReady: false,
+    runtimeReady: true,
     blight: 1,
     duration: 3,
     standardDuration: 2,
   },
   2: {
     kind: "unprepared",
-    runtimeReady: false,
+    runtimeReady: true,
     debuffDuration: 3,
     standardDebuffDuration: 2,
   },
   4: {
     kind: "precious",
-    runtimeReady: false,
+    runtimeReady: true,
     buffDuration: 3,
     buffApplications: 2,
     standardBuffDuration: 2,
   },
   5: {
     kind: "poisonousRoots",
-    runtimeReady: false,
+    runtimeReady: true,
     blight: 2,
     duration: 3,
     standardDuration: 2,
   },
   8: {
     kind: "abyssalPuff",
-    runtimeReady: false,
+    runtimeReady: true,
     buffDuration: 2,
     buffApplications: 2,
     note: "两项独立增益 2t，非 2t→3t 加长",
   },
   9: {
     kind: "clearing",
-    runtimeReady: false,
+    runtimeReady: true,
     oursBuffDuration: 3,
     oursDebuffRemoved: true,
     heroEndTurnStressRecover: 1,
