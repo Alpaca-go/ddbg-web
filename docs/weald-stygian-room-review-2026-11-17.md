@@ -18,21 +18,21 @@
 
 ## 逐卡对照（Stygian 印刷正面）
 
-| 编号 | 名称               | 普通效果（已核准，不改写）                                                        | Stygian 差异                                                 |
-| ---- | ------------------ | --------------------------------------------------------------------------------- | ------------------------------------------------------------ |
-| p001 | Fungal Spores      | Toxic Mushrooms：区域未命中 → 区域英雄 1 腐蚀 2t                                  | 同触发与范围；**1 腐蚀 3t**                                  |
-| p002 | Ambush             | Unprepared!：开战英雄减益 2t（全文 Heroes）                                       | 同；**减益 3t**                                              |
-| p003 | Thick Woods        | 无独立效果段                                                                      | 无独立效果段                                                 |
-| p004 | Stash              | Precious：怪物在此结束回合 → 其他怪物 **增益 2t、增益 2t**（两项不去重）          | 同；**增益 3t、增益 3t**                                     |
-| p005 | Infected Oak       | Poisonous Roots：英雄在此结束回合 → **2 腐蚀 2t**                                 | 同；**2 腐蚀 3t**                                            |
-| p006 | Chase in the Woods | 无独立效果段                                                                      | 无独立效果段                                                 |
-| p007 | Chasm              | 无独立效果段                                                                      | 无独立效果段                                                 |
-| p008 | Fungal Overgrowth  | Abyssal Puff：本房间真菌摧毁 → 所有怪物 **增益 2t**（普通审阅转录为单项 2t）      | 印刷为 **增益 2t、增益 2t**（**两项**，不是把 2t 加长为 3t） |
-| p009 | The Clearing       | Ours!：拾箱 → 怪物减益 1t、增益 2t；Clearing：英雄/怪物在此结束回合（压力与移箱） | Ours! 改为 **仅增益 3t**（无减益 1t）；Clearing 与普通相同   |
+| 编号 | 名称               | 普通效果（已核准，不改写）                                                        | Stygian 差异                                                |
+| ---- | ------------------ | --------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| p001 | Fungal Spores      | Toxic Mushrooms：区域未命中 → 区域英雄 1 腐蚀 2t                                  | 同触发与范围；**1 腐蚀 3t**                                 |
+| p002 | Ambush             | Unprepared!：开战英雄减益 2t（全文 Heroes）                                       | 同；**减益 3t**                                             |
+| p003 | Thick Woods        | 无独立效果段                                                                      | 无独立效果段                                                |
+| p004 | Stash              | Precious：怪物在此结束回合 → 其他怪物 **增益 2t、增益 2t**（两项不去重）          | 同；**增益 3t、增益 3t**                                    |
+| p005 | Infected Oak       | Poisonous Roots：英雄在此结束回合 → **2 腐蚀 2t**                                 | 同；**2 腐蚀 3t**                                           |
+| p006 | Chase in the Woods | 无独立效果段                                                                      | 无独立效果段                                                |
+| p007 | Chasm              | 无独立效果段                                                                      | 无独立效果段                                                |
+| p008 | Fungal Overgrowth  | Abyssal Puff：真菌摧毁 → 所有怪物 **增益 2t**（普通房核准一项）                   | 印刷 **两项独立增益 2t**（与普通一项 2t 并存，非 OCR 漏项） |
+| p009 | The Clearing       | Ours!：拾箱 → 怪物减益 1t、增益 2t；Clearing：英雄/怪物在此结束回合（压力与移箱） | Ours! 改为 **仅增益 3t**（无减益 1t）；Clearing 与普通相同  |
 
 ### 需单独说明的两张卡
 
-**p008**：相对普通核准稿，Stygian 正面明确列出两次 `{icon:…} 2t`（`all Monsters gain … 2t, … 2t`）。本批在目录 `reviewedEffect` 中记为 `abyssalPuff`、`buffApplications: 2`。若普通房也应为两项，**不在本批改普通房**——仅标「待确认、后续对照」。
+**p008（2026-11-17 规则书目视复核）**：对照 Weald 普通房与 Stygian 房印刷 PDF **第 8 页**，普通为 **一项** `gain … 2t`，Stygian 为 **两项** `gain … 2t, … 2t`。属印刷差异，**不是** OCR 漏扫；**不**将普通房改成双项，**不**改已合入运行时数值。目录 `reviewedEffect`：`abyssalPuff`、`buffApplications: 2`（`stygian_rooms.json`）。
 
 **p009**：Stygian `Ours!` 行为为单行 `Monsters gain … 3t`，不再出现减益图标／1t。Clearing 段与普通相同，仍含恢复 1 压力与怪物随机移除宝箱。
 
