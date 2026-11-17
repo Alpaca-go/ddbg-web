@@ -34,7 +34,7 @@ function assertPrintedDrift(page: number, printed: string, cardId: string) {
   if (check && !check()) throw new Error(`Weald Stygian 房间核准效果的来源文字漂移：${cardId}`);
 }
 
-/** 保留印刷转录，并附加本批审阅的结构化效果（runtimeReady 恒为 false）。 */
+/** 保留印刷转录，并附加审阅结构化效果（有运行时接线的效果 runtimeReady 为 true）。 */
 export function buildWealdStygianRooms(raw: RawFile, standardRooms: WealdRoomFile) {
   if (raw.category !== "stygian_room" || raw.cards.length !== 9)
     throw new Error("需要完整 9 张 Weald Stygian 房间 raw");

@@ -1,6 +1,6 @@
 # Weald Stygian 普通房间首批审阅（2026-11-17）
 
-状态：**九张 Stygian 房间卡印刷正面已对照、写入扩展规范化目录；未开放出征替换、未接效果运行时、未改板块几何。**
+状态：**九张 Stygian 房间卡印刷正面已对照、写入扩展规范化目录；步骤 7 第二刀已接 Stygian 出征效果运行时（保留普通 `room:weald:p00N` 身份）；未改板块几何。**
 
 依据：核心规则书 p.36 Stygian mode（开战无金币；用 Stygian Room Cards 替换 standard Room Cards；Boss 技能 Crit +1）；R-001、R-048。Weald 规则书仅列出「9 Stygian Room Cards」组件，未另写替换程序——本批按核心程序记录：**九张 Stygian 替换同名、同编号的九张 Weald 普通房间**（`stygian_room:weald:p00N` → `room:weald:p00N`），不新增裁定号、不替换 Boss 房、不触碰核心 17 张 Stygian（R-036）。
 
@@ -48,4 +48,4 @@
 
 ## 下一步（开发计划步骤 7）
 
-下一刀：在 **Stygian 战役**中按地点启用 Weald 房间替换并排效果；本刀仅为审阅入库首刀。
+效果运行时（六张有独立效果段）已接线；Boss 房 Stygian 与高等级内容仍待后续批次。

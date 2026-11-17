@@ -31,7 +31,7 @@
    ],
    "reviewedEffect": {
     "kind": "toxicMushrooms",
-    "runtimeReady": false,
+    "runtimeReady": true,
     "blight": 1,
     "duration": 3,
     "standardDuration": 2
@@ -72,7 +72,7 @@
    ],
    "reviewedEffect": {
     "kind": "unprepared",
-    "runtimeReady": false,
+    "runtimeReady": true,
     "debuffDuration": 3,
     "standardDebuffDuration": 2
    },
@@ -156,7 +156,7 @@
    ],
    "reviewedEffect": {
     "kind": "precious",
-    "runtimeReady": false,
+    "runtimeReady": true,
     "buffDuration": 3,
     "buffApplications": 2,
     "standardBuffDuration": 2
@@ -200,7 +200,7 @@
    ],
    "reviewedEffect": {
     "kind": "poisonousRoots",
-    "runtimeReady": false,
+    "runtimeReady": true,
     "blight": 2,
     "duration": 3,
     "standardDuration": 2
@@ -314,7 +314,7 @@
    ],
    "reviewedEffect": {
     "kind": "abyssalPuff",
-    "runtimeReady": false,
+    "runtimeReady": true,
     "buffDuration": 2,
     "buffApplications": 2,
     "note": "两项独立增益 2t，非 2t→3t 加长"
@@ -358,7 +358,7 @@
    ],
    "reviewedEffect": {
     "kind": "clearing",
-    "runtimeReady": false,
+    "runtimeReady": true,
     "oursBuffDuration": 3,
     "oursDebuffRemoved": true,
     "heroEndTurnStressRecover": 1,

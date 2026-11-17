@@ -4,13 +4,13 @@ import { createLootState } from "./loot";
 import { createRng } from "./rng";
 import { isLivingCombatMonster } from "./expansions/weald/necrotic-fungus";
 import { wealdMechanicsActive } from "./expansions/weald/weald-mechanics";
+import { wealdOrdinaryRoomEffectActive } from "./weald-stygian-room-effects";
 
 /** R-234／R-238：B 区英雄压力恢复，复用共用结束回合原语。 */
 export function enableClearingHeroes(state: GameState): GameState {
   if (
     !wealdMechanicsActive(state) ||
-    state.dungeon?.mode === "stygian" ||
-    state.dungeon?.roomCards?.active?.cardId !== "room:weald:p009"
+    !wealdOrdinaryRoomEffectActive(state, "room:weald:p009", "clearing")
   )
     return state;
   return {
@@ -27,8 +27,7 @@ export function enableClearingHeroes(state: GameState): GameState {
 export function enableClearingMonsters(state: GameState): GameState {
   if (
     !wealdMechanicsActive(state) ||
-    state.dungeon?.mode === "stygian" ||
-    state.dungeon?.roomCards?.active?.cardId !== "room:weald:p009"
+    !wealdOrdinaryRoomEffectActive(state, "room:weald:p009", "clearing")
   )
     return state;
   return { ...state, battle: { ...state.battle!, wealdClearingMonsters: true } };
@@ -43,8 +42,7 @@ export function endTurnClearingMonster(
   if (
     !state.battle?.wealdClearingMonsters ||
     !wealdMechanicsActive(state) ||
-    state.dungeon?.mode === "stygian" ||
-    state.dungeon?.roomCards?.active?.cardId !== "room:weald:p009"
+    !wealdOrdinaryRoomEffectActive(state, "room:weald:p009", "clearing")
   )
     return null;
   const battle = state.battle;
