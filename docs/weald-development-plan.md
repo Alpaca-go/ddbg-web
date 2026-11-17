@@ -5,9 +5,9 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 
 ## 当前进度与下一步
 
-- **当前阶段：普通九房、Weald 专属机制及独立 I 级五任务已按原完成标准验收（步骤 3／4 限 I 级普通内容，步骤 5 为单任务闭环）；连续战役、高等级／Stygian 与三个 Boss 尚未验收。Fungal Research seed1 原策略败局和新保全策略 0 XP 均保留。**
-- **当前批次**：#733 已按指令合入 main（`355e3884`）；剩余 II／III 普通任务连续拆为 #734–#740，显式 `tasks-v1` 接全部十卡。Q-188 已由 R-266 确认，#741 接通所有背包完整获得后丢弃超额，收尾 #742 将 p010 打开；#734–#742 已全部合入 main（`82e2a08c`）。十卡 runtimeReady=true，无剩余任务规则待确认。旧 true／无标记版本保持原池；自然跨幕养成与人工实机仍未验收。
-- **下一步：核实 Hag II／III 房间复用并接正式入口／严格日志，随后推进其它高等级 Boss 与 Stygian。** #744 已按指令合入 main（`9431d384`）。R-267 独立目录、入锅状态原语、指定补给威胁，以及本批独立回合的强制选招／先攻／释放续接已接；combatReady=false，高等级 Face the Threat 正式准入仍不扩展。自然跨幕养成／人工实机继续后置。
+- **当前阶段：普通九房、Weald 专属机制及独立 I 级五任务已按原完成标准验收（步骤 3／4 限 I 级普通内容，步骤 5 为单任务闭环）；连续战役、Stygian 运行时与高等级 Boss 栈尚未验收。Fungal Research seed1 原策略败局和新保全策略 0 XP 均保留。**
+- **当前批次**：步骤 7 **Stygian 第二刀**（出征替换与效果接线）：`mode=stygian` + `contentPacks` 含 `weald` + `stygianRoomRules=full` 时，按 `replacesCardId` 启用九张 Weald Stygian 印刷效果（**保留** `room:weald:p00N` 地图／牌池身份）；六张效果房 `runtimeReady=true`；核心 17 张 Stygian 与板块几何未改；Boss 房 p10–p12 不在范围。
+- **下一步**：步骤 7 其余未验收项（Boss 房 Stygian、II／III 与高等级 Boss 等）按后续审阅批次推进；自然跨幕养成／人工实机继续后置。
 
 - 步骤 0 已完成，提交 `e7fd17e1`；完整地点战役尚未验收。
 - 导入与计划两批已合入并推送 `main`（`3be97c65`）。步骤 1 怪物批次已合入并推送 `main`（`7075f4d8`）。
@@ -1343,3 +1343,14 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 - 本批新增establishImminentThreat.wealdHigherBosses:true，要求完整地点／I级Boss版本且非Stygian，保存到战役并跨任务保留；旧无标记来源／RNG及高等级停点不变。W3高等级始终四遗迹＋三当地描述，按已击败身份跨等级排除，不把未实现Boss从概率池删掉。升幕抽牌合计两地已击败Boss，未实现脚本保留hold。
 - 新标记的初始完整命令日志严格恢复，删版本保留快照拒绝；高等级抽牌为受控准备状态的公开命令回归，不冒充自然升幕。完整typecheck、lint、build通过；新3项复核通过（17.32秒），原来源／初始日志另8项通过；最终3文件11项组合复核通过（30.20秒）。无页面变更且非阶段末，不新增Playwright。
 - 下一刀接Hag已核准正式入口／结算和日志；Pounder／Shrieker未知细节等待#746审核时继续独立工作。旧未跟踪交接文件保留。
+
+### Weald Stygian 九房审阅入库首刀（2026-11-17）
+
+- 对照 `DD_EN_WEALD_CARDS_63x88_rooms_Stygian_FRONT.pdf` 九页与 [审阅稿](weald-stygian-room-review-2026-11-17.md)；`stygian_room:weald:p001`–`p009` 替换同名普通房，各 1 份。结构化记录 p008 两项增益 2t、p009 Ours! 仅增益 3t；3／6／7 无效果段。
+- 扩展 schema `ddbg-weald-stygian-rooms-v1` 与核心 `ddbg-stygian-rooms-v1` 隔离；当时引擎出征未接线。
+
+### Weald Stygian 出征替换与效果接线（2026-11-17，步骤 7 第二刀）
+
+- 引擎 `readActiveStygianRoom` 在 Weald 包 + `stygianRoomRules=full` 时回退读 `stygian_rooms.json`；普通房战斗模块按目录覆盖时长／次数，不改 `room:weald:p00N` id。p008 两项 2t、p009 无减益已测。UI `RoomCardFace` 增加 Weald Stygian 印刷正面回退路径。
+- 六张效果房 `reviewedEffect.runtimeReady=true`；3／6／7 仍为 `null`。不修改 Boss 房、核心 17 张 Stygian、板块几何或 p008 普通房语义。
+- 验证：`pnpm --filter @ddbg/engine exec vitest run toxic-mushrooms unprepared precious poisonous-roots abyssal-puff ours clearing stygian-room weald-stygian`；`pnpm --filter @ddbg/data exec vitest run weald-stygian-rooms stygian-rooms`；`pnpm typecheck`、`pnpm lint`、`pnpm build`、`git diff --check`。步骤 7 仍为进行中。
