@@ -3,12 +3,12 @@ import type { ApplyResult, GameEvent, GameState } from "./command";
 import { applyBattleSkillStatuses } from "./battle-skill-status";
 import { fixedDamageResolution } from "./battle-spiked-pit";
 import { wealdMechanicsActive } from "./expansions/weald/weald-mechanics";
+import { wealdOrdinaryRoomEffectActive, wealdStygianEffect } from "./weald-stygian-room-effects";
 
 function stashActive(state: GameState): boolean {
   return (
     wealdMechanicsActive(state) &&
-    state.dungeon?.mode !== "stygian" &&
-    state.dungeon?.roomCards?.active?.cardId === "room:weald:p004"
+    wealdOrdinaryRoomEffectActive(state, "room:weald:p004", "precious")
   );
 }
 
@@ -35,14 +35,24 @@ export function endTurnPrecious(
       targetStatusEffects: [
         { kind: "buff" as const, duration: 2 },
         { kind: "buff" as const, duration: 2 },
-      ],
+      ], // scaled below when Stygian 启用
     }));
   if (!effects.length) return null;
+  const stygian = wealdStygianEffect(state.dungeon, "precious");
+  const duration = stygian?.kind === "precious" ? stygian.buffDuration : 2;
+  const applications = stygian?.kind === "precious" ? stygian.buffApplications : 2;
+  const scaled = effects.map((effect) => ({
+    ...effect,
+    targetStatusEffects: Array.from({ length: applications }, () => ({
+      kind: "buff" as const,
+      duration,
+    })),
+  }));
   const statuses = applyBattleSkillStatuses(
     battle,
     battle.entities,
     "",
-    effects,
+    scaled,
     state.seed,
     battle.rngCursor,
   );
@@ -59,7 +69,7 @@ export function endTurnPrecious(
         type: "passiveTriggered",
         entityId: actorId,
         trigger: "precious",
-        message: "Precious：D 区怪物结束回合，其他怪物分别获得两项增益 2t（R-234、R-237）",
+        message: `Precious：D 区怪物结束回合，其他怪物分别获得两项增益 ${duration}t（R-234、R-237）`,
       },
     ],
   };

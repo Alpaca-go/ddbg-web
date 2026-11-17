@@ -11,6 +11,9 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 
 - **本轮复核更正（R-269）**：此前给予两份腐蚀2／2t的条目全部保留两个独立堆；已清除旧审阅稿、R-264及进度说明中的合并结论，数据／运行时核对正确，3文件14测通过。下一步仍为整批字段复核及Q-189规则缺口，不把此项更正扩为其它状态或印刷数值修改。
 
+- **当前批次**：步骤 7 **Stygian 第二刀**（出征替换与效果接线）：`mode=stygian` + `contentPacks` 含 `weald` + `stygianRoomRules=full` 时，按 `replacesCardId` 启用九张 Weald Stygian 印刷效果（**保留** `room:weald:p00N` 地图／牌池身份）；六张效果房 `runtimeReady=true`；核心 17 张 Stygian 与板块几何未改；Boss 房 p10–p12 不在范围。
+- **下一步**：步骤 7 其余未验收项（Boss 房 Stygian、II／III 与高等级 Boss 等）按后续审阅批次推进；自然跨幕养成／人工实机继续后置。
+
 - 步骤 0 已完成，提交 `e7fd17e1`；完整地点战役尚未验收。
 - 导入与计划两批已合入并推送 `main`（`3be97c65`）。步骤 1 怪物批次已合入并推送 `main`（`7075f4d8`）。
 - Houndmaster、Shieldbreaker 已接入，沿用现有英雄实现，不重做。
@@ -1394,7 +1397,7 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 
 - II 完成随机补给与 Wild 后忽略入池，村庄全骰后逐枚弃三枚；III 每枚取得先容量后弃两枚，不足全弃，常规每英雄两颗减一颗而保留英雄／队伍奖励。
 - 弃置、容量、后续取得和原待选均可 JSON 恢复；最后行动拾箱待弃置完成才结束回合，不重掷、不重领、不重复支付。
-- 验证：新威胁场景7测、旧盗取4测和容量8测通过；完整类型／lint／构建由批末统一记录。下一步正式来源、Boss房、部署和回村。
+- 验证：新威胁场景7测、旧盗取4测和容量9测通过；完整类型／lint／构建由批末统一记录。下一步正式来源、Boss房、部署和回村。
 
 ### Shrieker 高等级正式入口（R-268）
 
@@ -1454,3 +1457,14 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 - Q-189保持单次召唤挤占后仍不足的规则缺口；此次腐蚀澄清不改变该停点。三Boss其余字段仍按原复核安排。
 
 - 本轮双腐蚀条目更正为#763（`codex/weald-preserve-double-blight-stacks`），接在#760之后；本项说明与回归已完成，PR未合入，Q-189及整批人工复核仍按前述安排。
+
+### Weald Stygian 九房审阅入库首刀（2026-11-17）
+
+- 对照 `DD_EN_WEALD_CARDS_63x88_rooms_Stygian_FRONT.pdf` 九页与 [审阅稿](weald-stygian-room-review-2026-11-17.md)；`stygian_room:weald:p001`–`p009` 替换同名普通房，各 1 份。结构化记录 p008 两项增益 2t、p009 Ours! 仅增益 3t；3／6／7 无效果段。
+- 扩展 schema `ddbg-weald-stygian-rooms-v1` 与核心 `ddbg-stygian-rooms-v1` 隔离；当时引擎出征未接线。
+
+### Weald Stygian 出征替换与效果接线（2026-11-17，步骤 7 第二刀）
+
+- 引擎 `readActiveStygianRoom` 在 Weald 包 + `stygianRoomRules=full` 时回退读 `stygian_rooms.json`；普通房战斗模块按目录覆盖时长／次数，不改 `room:weald:p00N` id。p008 两项 2t、p009 无减益已测。UI `RoomCardFace` 增加 Weald Stygian 印刷正面回退路径。
+- 六张效果房 `reviewedEffect.runtimeReady=true`；3／6／7 仍为 `null`。不修改 Boss 房、核心 17 张 Stygian、板块几何或 p008 普通房语义。
+- 验证：`pnpm --filter @ddbg/engine exec vitest run toxic-mushrooms unprepared precious poisonous-roots abyssal-puff ours clearing stygian-room weald-stygian`；`pnpm --filter @ddbg/data exec vitest run weald-stygian-rooms stygian-rooms`；`pnpm typecheck`、`pnpm lint`、`pnpm build`、`git diff --check`。步骤 7 仍为进行中。
