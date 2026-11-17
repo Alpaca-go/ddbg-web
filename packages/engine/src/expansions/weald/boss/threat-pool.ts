@@ -10,7 +10,10 @@ import { WEALD_BOSS_IDENTITIES, WEALD_BOSS_DESCRIPTION_CARD_ID } from "../catalo
 export function wealdThreatPool(
   d: Pick<
     DungeonState,
-    "contentPacks" | "defeatedRuinsBossIdentities" | "defeatedWealdBossIdentities"
+    | "contentPacks"
+    | "defeatedRuinsBossIdentities"
+    | "defeatedWealdBossIdentities"
+    | "wealdHigherBosses"
   >,
   level: CampaignLevel,
 ): readonly string[] {
@@ -22,7 +25,8 @@ export function wealdThreatPool(
     packs.some((p) => p !== "core" && p !== "weald")
   )
     throw new Error("地点威胁入口当前仅支持显式核心＋Weald；其它地点来源尚未核准接通（W3／R-048）");
-  if (level !== 1) throw new Error("Weald II／III 级 Boss 描述来源尚未核准接通（W3／R-048）");
+  if (level !== 1 && !d.wealdHigherBosses)
+    throw new Error("Weald II／III 级 Boss 描述来源尚未核准接通（W3／R-048）");
   const ruins = d.defeatedRuinsBossIdentities ?? [];
   if (
     new Set(ruins).size !== ruins.length ||

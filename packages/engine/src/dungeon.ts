@@ -200,6 +200,8 @@ export type DungeonState = {
   /** W3：由显式版本化的开局定威胁命令开启，旧日志缺省沿用遗迹池。 */
   readonly locationBossThreats?: true;
   readonly bossLocationSources?: true;
+  /** W3：显式高等级描述来源；缺失保留原高等级停点。 */
+  readonly wealdHigherBosses?: true;
   /** 显式试验版本：仅接 Pounder I 地牢威胁，村庄仍保留停点。 */
   readonly pounderDungeonThreats?: true;
   readonly pounderHamletThreats?: true;

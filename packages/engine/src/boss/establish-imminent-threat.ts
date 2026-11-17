@@ -31,6 +31,7 @@ export type EstablishImminentThreatCommand = {
   readonly pounderHamletThreats?: true | undefined;
   readonly pounderBossBattles?: true | undefined;
   readonly shriekerBossBattles?: true | undefined;
+  readonly wealdHigherBosses?: true | undefined;
 };
 
 export type DrawImminentThreatAfterActAdvanceCommand = {
@@ -101,11 +102,13 @@ function applyImminentThreatDraw(
   const cursor = d.cursor + rngDraws;
   if (d.shriekerBossBattles) ensureShriekerIBossScriptRegistered();
   if (d.pounderDungeonThreats) ensurePounderIBossScriptRegistered();
+  if (d.wealdHigherBosses) ensureCampaignBossScriptsRegistered(d.contentPacks);
   const scriptId = resolveScriptIdForDescriptionCard(
     cardId,
     d.contentPacks,
     d.pounderDungeonThreats,
     d.shriekerBossBattles,
+    d.wealdHigherBosses,
   );
   ensureCoreBossScriptsRegistered();
   if (d.locationBossThreats) ensureCampaignBossScriptsRegistered(d.contentPacks);
@@ -190,6 +193,15 @@ export function establishImminentThreat(
       state,
       "Pounder 地牢威胁试验须启用完整地点来源，暂不支持 Stygian 或 Boss 出征",
     );
+  if (
+    command.wealdHigherBosses &&
+    (!command.locationSources ||
+      !command.locationBosses ||
+      !command.shriekerBossBattles ||
+      !command.pounderBossBattles ||
+      d.mode === "stygian")
+  )
+    return rejectBattleCommand(state, "Weald 高等级版本需要完整地点与Boss版本且非Stygian");
   if (readActiveBossThreatScriptId(d))
     return rejectBattleCommand(state, "已有激活迫近威胁；请先击败 Boss 或清除后再定威胁");
   if (d.imminentThreatDescriptionCardId)
@@ -213,6 +225,7 @@ export function establishImminentThreat(
             ...d,
             locationBossThreats: true,
             ...(command.locationSources ? { bossLocationSources: true } : {}),
+            ...(command.wealdHigherBosses ? { wealdHigherBosses: true } : {}),
             ...(command.pounderDungeonThreats ? { pounderDungeonThreats: true } : {}),
             ...(command.pounderHamletThreats ? { pounderHamletThreats: true } : {}),
             ...(command.shriekerBossBattles ? { shriekerBossBattles: true } : {}),
@@ -286,18 +299,28 @@ export function drawImminentThreatAfterActAdvance(
       state,
       "升幕抽迫近威胁须战役 II 级及以上（spec §2.2 / R35）；完整升幕步骤仍待接",
     );
-  if (d.locationBossThreats)
+  if (d.locationBossThreats && !d.wealdHigherBosses)
     return rejectBattleCommand(
       state,
       "Weald II／III 级 Boss 描述来源及升幕尚未核准接通（W3／R-048）",
     );
   const defeated = d.defeatedRuinsBossIdentities ?? [];
-  if (defeated.length !== ((level - 1) as number))
+  if (
+    defeated.length + (d.wealdHigherBosses ? (d.defeatedWealdBossIdentities?.length ?? 0) : 0) !==
+    ((level - 1) as number)
+  )
     return rejectBattleCommand(
       state,
       `升幕抽牌需已击败 ${level - 1} 个 Ruins Boss（当前 ${defeated.length}）；击败 Boss 后由 finishDungeonBattle 记录`,
     );
-  const pool = imminentThreatPoolForCampaign(level as CampaignLevel, defeated);
+  let pool: readonly string[];
+  try {
+    pool = d.wealdHigherBosses
+      ? wealdThreatPool(d, level as CampaignLevel)
+      : imminentThreatPoolForCampaign(level as CampaignLevel, defeated);
+  } catch (error) {
+    return rejectBattleCommand(state, error instanceof Error ? error.message : "地点威胁来源无效");
+  }
   return applyImminentThreatDraw(
     state,
     pool,
