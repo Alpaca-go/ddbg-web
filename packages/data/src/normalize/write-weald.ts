@@ -6,6 +6,7 @@ import { rawFileSchema } from "../extract/raw";
 import { buildWealdLevelOneMonsters } from "./weald-monsters";
 import { buildWealdCurios } from "./weald-curios";
 import { buildWealdRooms, buildWealdRoomTiles } from "./weald-rooms";
+import { buildWealdStygianRooms } from "./weald-stygian-rooms";
 import { buildWealdLevelOneQuestCards } from "./weald-quest-cards";
 import { buildWealdHigherQuests } from "./weald-higher-quests";
 
@@ -69,6 +70,23 @@ export function loadNormalizedWealdRooms() {
     rooms: buildWealdRooms(raw),
     tiles: buildWealdRoomTiles(),
   };
+}
+
+export function loadNormalizedWealdStygianRooms() {
+  const roomRaw = rawFileSchema.parse(read("extract/extension/weald/raw/room.json"));
+  return buildWealdStygianRooms(
+    rawFileSchema.parse(read("extract/extension/weald/raw/stygian_room.json")),
+    buildWealdRooms(roomRaw),
+  );
+}
+
+export function writeNormalizedWealdStygianRooms(
+  outputDir = path.join(ROOT, "normalized/extension/weald"),
+) {
+  const built = loadNormalizedWealdStygianRooms();
+  mkdirSync(outputDir, { recursive: true });
+  writeFileSync(path.join(outputDir, "stygian_rooms.json"), `${JSON.stringify(built, null, 1)}\n`);
+  return built;
 }
 
 export function loadNormalizedWealdLevelOneQuestCards() {
