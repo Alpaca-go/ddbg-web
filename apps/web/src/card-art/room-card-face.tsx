@@ -13,14 +13,19 @@ export function RoomCardFace({
 }) {
   const entry = lookupRoomCardArt(roomCardId);
   const caption = label ?? entry?.name ?? roomCardId;
-  const stygianPage = /^stygian_room:p(00[1-9]|01[0-7])$/.exec(roomCardId)?.[1];
+  const coreStygianPage = /^stygian_room:p(00[1-9]|01[0-7])$/.exec(roomCardId)?.[1];
+  const wealdStygianPage = /^stygian_room:weald:p(\d{3})$/.exec(roomCardId)?.[1];
   const art =
     entry ??
-    (stygianPage
+    (coreStygianPage
       ? {
-          pngRel: `png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_Stygian_FRONT.pdf_p${stygianPage}.png`,
+          pngRel: `png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_Stygian_FRONT.pdf_p${coreStygianPage}.png`,
         }
-      : undefined);
+      : wealdStygianPage
+        ? {
+            pngRel: `png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_06_EN_WEALD_DD_EN_WEALD_CARDS_63x88_rooms_Stygian_FRONT.pdf_p${wealdStygianPage}.png`,
+          }
+        : undefined);
   const [failed, setFailed] = useState(!art);
 
   const className = [
