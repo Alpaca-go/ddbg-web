@@ -18,7 +18,8 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 - **本轮复核更正（R-269）**：此前给予两份腐蚀2／2t的条目全部保留两个独立堆；已清除旧审阅稿、R-264及进度说明中的合并结论，数据／运行时核对正确，3文件14测通过。整批字段随后已由R-270核准；Q-189规则缺口后由R-271结清，不把此项更正扩为其它状态或印刷数值修改。
 
 - **当前批次（#761／#762 + 本刀）**：步骤 7 Weald Stygian：**普通九房**替换与六房效果（`stygianRoomRules=full`，已合入）；**Boss** 按 R-036 不替换 p010–p012，三 Boss I–III 出征／结算／页面与 **+1 Crit** 本刀接线；`pounderDungeonThreats` 试验入口仍拒 Stygian。
-- **下一步**：步骤 8 自然跨幕／跨地点升幕；人工实机后置。不接 Whispering Woods／II–III 普通任务堆等新 Stygian 入口。
+- **当前批次（第三刀续）**：Whispering Woods 与 `tasks-v1` 十张 II／III 普通任务在 Stygian 下接通出征／村庄选任务／专属效果（R-264／R-265），沿用九房 Stygian 替换与 0 起始金；旧版无 `tasks-v1` 日志不变。
+- **下一步**：步骤 8 自然跨幕／跨地点升幕；人工实机后置。村庄战役 `wealdHigherQuestOffers:true` 旧池、跨幕选 II 任务等仍按原版本边界。
 
 - 步骤 0 已完成，提交 `e7fd17e1`；完整地点战役尚未验收。
 - 导入与计划两批已合入并推送 `main`（`3be97c65`）。步骤 1 怪物批次已合入并推送 `main`（`7075f4d8`）。
@@ -1250,7 +1251,7 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 ### 步骤 7：Whispering Woods 显式轮开始压力（2026-11-16）
 
 - #730 已合入 `2032a8c2`，本机同步；合入时两轮远端主检查与页面仍运行，不记全绿。
-- R-264／任务 FRONT p15：新增 startBattle.wealdWhisperingWoods:true 严格可选标记，只有 Core＋Weald、非 Stygian、实际 p015、III 级 higher-v1 来源与 Weald 战斗机制的上下文可启用。旧无标记命令不升级，缺上下文或来源标记原子拒绝。
+- R-264／任务 FRONT p15：新增 startBattle.wealdWhisperingWoods:true 严格可选标记，只有 Core＋Weald、实际 p015、III 级 higher-v1 来源与 Weald 战斗机制的上下文可启用（**2026-11-17** 起 Stygian 与 standard／radiant 一致）。旧无标记命令不升级，缺上下文或来源标记原子拒绝。
 - 每个 roundStarted 结算一次存活英雄压力 +1，首轮包含；battle.whisperingWoodsRound 保留已结算轮，抽先攻不重复触发。复用 triggerBattlePassive、resolveBattlePressure、removeCasualties 与既有死亡遗产交接，不手写另一套压力／心脏病规则。
 - 使用受控已部署检查点，公开 startBattle／drawInitiative 验首轮与受控下一轮，JSON 检查点恢复后命令结果一致；实际意志检定取得真实唯一持牌／余牌后验证心脏病全灭。不是自然抵达或初始种子的完整任务日志，任务数据 runtimeReady 与正式抽选保持关闭。
 - 测试夹具首次错误填未关联属性的 Life、复制怪物压力、跳过地牢开局／阶段以及伪造重复意志持牌，均被原有校验拒绝；已改用真实开局补给流程、明确已部署阶段和真实检定输出，不放宽生产验证或改规则数值。
@@ -1504,3 +1505,9 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 - R-036／核心 R37：Weald 三 Boss **本体**九张战斗卡 id 纳入 `stygianBossCritApplies`；附属（锅、巢、Matchman）不加 Crit。Boss 房身份仍为 `room:weald:p010`／`p011`／`p012`。
 - 引擎：Hag／Pounder／Shrieker I–III 的 prepare／deploy／finish、Pounder 增援／炮击与生产用 `establishImminentThreat` 接受 `mode=stygian`；`pounderDungeonThreats` 试验仍拒 Stygian。页面在 Stygian＋完整 Weald Boss 版本时显示部署按钮。
 - 不宣称自然跨幕 Boss 链或人工实机验收。
+
+### Weald Stygian 高等级普通任务（2026-11-17，步骤 7 第四刀）
+
+- R-036／R-264／R-265：`tasks-v1` 与 Whispering Woods（p015）在 `mode=stygian` 下与 standard／radiant 共享任务数据与 higher-v1 来源；移除仅针对 Stygian 的运行时闸门；`pounderDungeonThreats`／Boss 补给跳骰试验入口边界不变。
+- 页面沙盒在 Stygian＋Weald 时同样传递 `tasks-v1`；旧无 `tasks-v1` 起点与严格存档篡改仍拒绝。
+- 不宣称村庄跨幕完整战役或人工实机验收。

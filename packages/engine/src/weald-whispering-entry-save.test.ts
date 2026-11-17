@@ -68,24 +68,24 @@ it("p015 显式单任务入口：完整初始日志按固定原策略续跑并�
   expect(loadQuestSave(JSON.parse(JSON.stringify(markedSave)), sources).commands).toEqual(marked);
 }, 60000);
 
-it("旧入口、未选包和Stygian拒绝；初始存档去版本／篡改状态拒绝", () => {
+it("旧入口、未选包拒绝；Stygian 显式版本可入；初始存档去版本／篡改状态拒绝", () => {
   expect(() =>
     createCoreDungeonQuest(0, start.questId, "radiant", naturalParty, sources, true, "full", packs),
   ).toThrow();
-  expect(() =>
-    createCoreDungeonQuest(
-      0,
-      start.questId,
-      "stygian",
-      naturalParty,
-      sources,
-      true,
-      "full",
-      packs,
-      undefined,
-      true,
-    ),
-  ).toThrow();
+  const stygian = createCoreDungeonQuest(
+    0,
+    start.questId,
+    "stygian",
+    naturalParty,
+    sources,
+    true,
+    "full",
+    packs,
+    undefined,
+    true,
+  );
+  expect(stygian.dungeon!.mode).toBe("stygian");
+  expect(stygian.dungeon!.whisperingWoodsQuest).toBe(true);
   expect(() =>
     createCoreDungeonQuest(
       0,

@@ -8,7 +8,6 @@ function active(state: GameState): boolean {
   const d = state.dungeon;
   return (
     d?.contentPacks?.includes("weald") === true &&
-    d.mode !== "stygian" &&
     d.questDistribution?.questId === "quest:weald:p015" &&
     d.monsterPool?.location === "weald" &&
     d.monsterPool.wealdSourceVersion === "higher-v1" &&
