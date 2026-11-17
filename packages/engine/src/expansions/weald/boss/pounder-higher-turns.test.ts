@@ -210,7 +210,7 @@ describe.each([2, 3] as const)("R-268 Pounder %i 级回合", (level) => {
   });
 });
 
-it("Q-189后续规则未定义时技术拒绝，不判定召唤失败或提交部分增援", () => {
+it("旧无标记日志保留Q-189技术停点，不判定召唤失败或提交部分增援", () => {
   const source = fixture(2),
     state: GameState = {
       ...source,
@@ -231,4 +231,59 @@ it("Q-189后续规则未定义时技术拒绝，不判定召唤失败或提交�
   });
   expect(result.state).toBe(state);
   expect(state).toEqual(before);
+});
+
+it("R-271：正式Pounder II增援连锁挤走两名英雄，严格保留旧无标记版本", () => {
+  const source = fixture(2);
+  const state: GameState = {
+    ...source,
+    battle: {
+      ...source.battle!,
+      entities: source.battle!.entities.map((e) => (e.side === "hero" ? { ...e, areaId: "I" } : e)),
+    },
+  };
+  const command: Command = {
+    type: "prepareMonsterAction",
+    actorId: "boss:pounder",
+    chainCrowding: true,
+  };
+  const before = structuredClone(state);
+  const result = run(state, command);
+  expect(result.state.chainCrowding).toBe(true);
+  expect(
+    result.state
+      .battle!.entities.filter((e) => !e.dead && e.areaId === "I")
+      .map((e) => e.stanceSlots),
+  ).toEqual([2]);
+  expect(
+    result.state.battle!.entities.filter((e) => e.side === "hero").every((e) => e.areaId !== "I"),
+  ).toBe(true);
+  expect(state).toEqual(before);
+  expect(applyCommand(JSON.parse(JSON.stringify(state)) as GameState, command)).toEqual(result);
+  expect(result.state.battle!.pending).toBeNull();
+});
+it("R-271：挤占无解仅使Bloodletter召唤无效，Matchman不回滚", () => {
+  const source = fixture(2);
+  const state: GameState = {
+    ...source,
+    battle: {
+      ...source.battle!,
+      areas: source.battle!.areas.map((a) => (a.id === "I" ? { ...a, capacity: 1 } : a)),
+    },
+  };
+  const result = run(state, {
+    type: "prepareMonsterAction",
+    actorId: "boss:pounder",
+    chainCrowding: true,
+  });
+  expect(
+    result.state.battle!.entities.some(
+      (e) => e.monsterCardId === pounderContextForLevel(2).matchmanCardId,
+    ),
+  ).toBe(true);
+  expect(
+    result.state.battle!.entities.some(
+      (e) => e.monsterCardId === pounderContextForLevel(2).companionCardId,
+    ),
+  ).toBe(false);
 });

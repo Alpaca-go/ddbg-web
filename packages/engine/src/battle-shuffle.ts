@@ -1,3 +1,4 @@
+import { createRng } from "./rng";
 import { completeMonsterSupport } from "./battle-monster-support";
 import { rejectBattleCommand } from "./battle";
 import type { ApplyResult, GameEvent, GameState, PendingChoice } from "./command";
@@ -81,8 +82,14 @@ export function applyBattleShuffles(state: GameState, path: readonly string[] = 
     // R20自身效果无视免疫；目标Shuffle在当前A4被免疫，不触发位移被动。
     if (
       entity &&
-      intent.entityId !== continuation.actorId &&
-      (ancestorGlory(next.areas, entity) || defence?.shuffleImmune)
+      (intent.entityId !== continuation.actorId ||
+        (state.chainCrowding && entity.side === "monster")) &&
+      (ancestorGlory(next.areas, entity) ||
+        defence?.shuffleImmune ||
+        (state.chainCrowding &&
+          next.monsters
+            ?.find((c) => c.id === entity.monsterCardId)
+            ?.immunities?.some((i) => i.key === "shuffle_resist")))
     ) {
       next = { ...next, shuffleIntents: next.shuffleIntents.slice(1) };
       choices = [];
@@ -129,7 +136,35 @@ export function applyBattleShuffles(state: GameState, path: readonly string[] = 
         pendingChoice: choice,
       };
     }
-    const result = resolveShuffle(next, intent, choices);
+    const result = resolveShuffle(
+      {
+        ...next,
+        ...(state.chainCrowding
+          ? {
+              crowding: {
+                random: (offset: number) => {
+                  const rng = createRng(state.seed);
+                  for (let i = 0; i < next.rngCursor + offset; i++) rng.next();
+                  return rng.next();
+                },
+                immovable: (e: import("./battle").BattleEntity) =>
+                  e.side === "hero"
+                    ? Boolean(
+                        readHeroPassiveDefence(next, e)?.shuffleImmune ||
+                        ancestorGlory(next.areas, e),
+                      )
+                    : Boolean(
+                        next.monsters
+                          ?.find((c) => c.id === e.monsterCardId)
+                          ?.immunities?.some((i) => i.key === "shuffle_resist"),
+                      ),
+              },
+            }
+          : {}),
+      },
+      intent,
+      choices,
+    );
     if (result.status === "refused") return rejectBattleCommand(state, result.reason);
     if (result.status === "needsChoice") {
       const choice: PendingChoice = {
@@ -162,6 +197,7 @@ export function applyBattleShuffles(state: GameState, path: readonly string[] = 
     next = {
       ...next,
       entities: result.entities,
+      rngCursor: next.rngCursor + (result.crowdingRolls ?? 0),
       shuffleIntents: next.shuffleIntents.slice(1),
       pending: null,
       shufflePassiveIds: [

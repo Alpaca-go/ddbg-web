@@ -133,6 +133,7 @@ function replayCommands(commands: QuestSave["commands"]): Command[] {
         ...(command.wealdClearingMonsters ? { wealdClearingMonsters: true as const } : {}),
         ...(command.wealdWhisperingWoods ? { wealdWhisperingWoods: true as const } : {}),
         ...(command.allTrinkets ? { allTrinkets: true as const } : {}),
+        ...(command.chainCrowding ? { chainCrowding: true as const } : {}),
         ...(command.inventoryOverflow ? { inventoryOverflow: true as const } : {}),
       };
     }

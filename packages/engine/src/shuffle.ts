@@ -1,3 +1,4 @@
+import { planCrowding } from "./crowding";
 import { shriekerINestAllowsEntry } from "./expansions/weald/boss/shrieker-i-nest";
 import type { BattleArea, BattleEntity } from "./battle";
 import type { SkillShuffle, SkillStance } from "./hero-skill";
@@ -29,6 +30,7 @@ export type ShuffleResolution =
       readonly path: readonly string[];
       readonly areaSteps: number;
       readonly stanceSteps: number;
+      readonly crowdingRolls?: number;
     };
 
 function width(entity: BattleEntity): number | undefined {
@@ -55,7 +57,14 @@ function distances(areas: readonly BattleArea[], origin: string): Map<string, nu
  * 纯函数不消费 RNG、不清意图、不做死亡补位、不处理挤占或怪癖。
  */
 export function resolveShuffle(
-  setup: { readonly entities: readonly BattleEntity[]; readonly areas: readonly BattleArea[] },
+  setup: {
+    readonly entities: readonly BattleEntity[];
+    readonly areas: readonly BattleArea[];
+    readonly crowding?: {
+      random: (offset: number) => number;
+      immovable: (e: BattleEntity) => boolean;
+    };
+  },
   intent: ShuffleIntent,
   choices: readonly string[] = [],
 ): ShuffleResolution {
@@ -131,13 +140,31 @@ export function resolveShuffle(
   const graph = distances(areas, relativeAreaId);
   if (!graph.has(actor.areaId)) return refuse("被位移者与参照区域不连通");
   let current = actor.areaId;
+  let movedEntities = entities;
+  let crowdingRolls = 0;
+  let blocked = false;
   const path: string[] = [];
   for (let step = 0; step < amount; step += 1) {
+    const plans = new Map<string, ReturnType<typeof planCrowding>>();
     const candidates = areas
       .find((area) => area.id === current)!
       .adjacent.filter((id) => graph.get(id) === graph.get(current)! + delta)
       .filter((id) => shriekerINestAllowsEntry(entities, actor, id))
       .filter((id) => {
+        if (setup.crowding) {
+          const plan = planCrowding(
+            areas,
+            movedEntities.filter((e) => e.id !== actor.id),
+            id,
+            width(actor)!,
+            (offset) => setup.crowding!.random(crowdingRolls + offset),
+            setup.crowding.immovable,
+            (e, target) => shriekerINestAllowsEntry(movedEntities, e, target),
+          );
+          plans.set(id, plan);
+          if (!plan) blocked = true;
+          return plan !== null;
+        }
         const capacity = areas.find((area) => area.id === id)!.capacity!;
         const load = living
           .filter((entity) => entity.id !== actor.id && entity.areaId === id)
@@ -151,6 +178,14 @@ export function resolveShuffle(
     if (chosen === undefined && candidates.length > 1)
       return { status: "needsChoice", path, options: candidates };
     current = chosen ?? candidates[0]!;
+    blocked = false;
+    const plan = plans.get(current);
+    if (plan) {
+      movedEntities = movedEntities.map((e) =>
+        e.id === actor.id ? { ...e, areaId: current } : plan.entities.find((p) => p.id === e.id)!,
+      );
+      crowdingRolls += plan.rolls;
+    }
     path.push(current);
   }
   if (choices.length > path.length) return refuse("位移路径超过距离或截断点");
@@ -193,7 +228,7 @@ export function resolveShuffle(
     block.start >= 0 && block.start + block.size <= STANCES.length;
   const collides = (a: Placed, b: Placed) =>
     a.start < b.start + b.size && b.start < a.start + a.size;
-  let truncated = false;
+  let truncated = Boolean(setup.crowding && blocked);
   for (let guard = 0; guard < 64; guard += 1) {
     const hit = placed.find((block) => collides(block, actorSlots));
     if (hit) {
@@ -226,7 +261,7 @@ export function resolveShuffle(
     truncated = true;
   return {
     status: "resolved",
-    entities: entities.map((entity) => {
+    entities: movedEntities.map((entity) => {
       if (entity.id === actor.id)
         return {
           ...entity,
@@ -240,5 +275,6 @@ export function resolveShuffle(
     path,
     areaSteps: path.length,
     stanceSteps: truncated ? 0 : Math.abs(destination - start),
+    ...(setup.crowding ? { crowdingRolls } : {}),
   };
 }

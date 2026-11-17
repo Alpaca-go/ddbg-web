@@ -8,6 +8,7 @@ const commandObject = <S extends z.ZodRawShape>(shape: S) =>
   z.strictObject({
     ...shape,
     allTrinkets: z.literal(true).optional(),
+    chainCrowding: z.literal(true).optional(),
     inventoryOverflow: z.literal(true).optional(),
     shriekerProvisionSkipRolls: z.literal(true).optional(),
   });

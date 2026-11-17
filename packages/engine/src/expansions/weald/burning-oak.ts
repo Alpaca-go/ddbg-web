@@ -106,6 +106,16 @@ function continueRefill(result: ApplyResult, optionId?: string): ApplyResult {
     );
     optionId = undefined;
     if ("status" in placement) {
+      if (placement.status === "invalid") {
+        next = {
+          ...next,
+          state: {
+            ...next.state,
+            battle: { ...b, wealdOakRefill: { ...info, index: info.index + 1 } },
+          },
+        };
+        continue;
+      }
       if (placement.status === "refused") return rejectBattleCommand(next.state, placement.message);
       const choice = {
         id: `weald-oak-refill:${b.choiceCursor}`,

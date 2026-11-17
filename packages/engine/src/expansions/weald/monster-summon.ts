@@ -1,3 +1,4 @@
+import { planSummonCrowding } from "../../summon-crowding";
 import { distance, rejectBattleCommand } from "../../battle";
 import type { BattleEntity, BattleState } from "../../battle";
 import type { ApplyResult, GameState, MonsterSkillResolvedEvent } from "../../command";
@@ -109,8 +110,10 @@ export function resolveWealdSummonAreaPlacement(
       readonly status: "choice";
       readonly options: readonly { readonly id: string; readonly label: string }[];
     }
+  | { readonly status: "invalid" }
   | { readonly status: "refused"; readonly message: string } {
   const battle = state.battle!;
+  if (state.chainCrowding) return planSummonCrowding(state, preferredAreaId, summonWidth);
   const preferred = battle.areas.find((a) => a.id === preferredAreaId);
   if (!preferred || !areaLegalForSummonEnd(state, preferredAreaId))
     return {
@@ -223,6 +226,7 @@ export function continueWealdMonsterSummon(
 
   const placement = resolveWealdSummonAreaPlacement(state, preferredAreaId, width, displacement);
   if ("status" in placement) {
+    if (placement.status === "invalid") return recordMonsterSkill(result, continued, casualtyIds);
     if (placement.status === "refused") return rejectBattleCommand(state, placement.message);
     const choice = {
       id: `weald-summon:${battle.choiceCursor}`,

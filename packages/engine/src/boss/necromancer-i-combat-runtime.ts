@@ -1,3 +1,4 @@
+import { planSummonCrowding } from "../summon-crowding";
 import { distance, rejectBattleCommand } from "../battle";
 import type { BattleEntity, BattleState } from "../battle";
 import type { ApplyResult, GameState, MonsterSkillResolvedEvent } from "../command";
@@ -190,7 +191,14 @@ export function continueNecromancerISummon(
   const space = (id: string, size: number) =>
     occupancy(id) + size <= battle.areas.find((a) => a.id === id)!.capacity!;
   let entities = battle.entities;
-  if (!space(areaId, 1)) {
+  let crowdingRolls = 0;
+  if (state.chainCrowding) {
+    const placement = planSummonCrowding(state, areaId, 1);
+    if ("status" in placement) return recordMonsterSkill(result, continued, casualtyIds);
+    entities = placement.battle.entities;
+    crowdingRolls = placement.battle.rngCursor - battle.rngCursor;
+  }
+  if (!state.chainCrowding && !space(areaId, 1)) {
     const occupants = living.filter((e) => e.areaId === areaId);
     const heroes = occupants.filter((e) => e.side === "hero");
     const movers = heroes.length ? heroes : occupants;
@@ -251,7 +259,7 @@ export function continueNecromancerISummon(
     shuffleResist: card.resistances.some((i) => i.key === "shuffle_resist"),
   };
   const rng = createRng(state.seed);
-  for (let i = 0; i < battle.rngCursor; i++) rng.next();
+  for (let i = 0; i < battle.rngCursor + crowdingRolls; i++) rng.next();
   const deck = [...battle.encounter!.deck];
   deck.splice(Math.floor(rng.next() * (deck.length + 1)), 0, "monster");
   const next: BattleState = {
@@ -261,7 +269,7 @@ export function continueNecromancerISummon(
     monsters: battle.monsters?.some((c) => c.id === card.id)
       ? battle.monsters
       : [...(battle.monsters ?? []), card],
-    rngCursor: battle.rngCursor + 1,
+    rngCursor: battle.rngCursor + crowdingRolls + 1,
     encounter: { ...battle.encounter!, deck },
   };
   return recordMonsterSkill(
