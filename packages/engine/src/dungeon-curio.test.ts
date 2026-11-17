@@ -1208,3 +1208,38 @@ it("R-266 奇物满16仍掷奖励，新奖励也可弃，金钱与已完成行�
   expect(result.state.dungeon!.cursor).toBe(d.cursor + 1);
   expect(result.state.dungeon!.curio!.discard).toEqual(["curio:p008"]);
 });
+
+it("R-270 Shrieker II忽略Curio补给时不掷骰／Wild，金币与弃牌照常完成", () => {
+  const original = protectedPage(8),
+    d = original.dungeon!;
+  const seed = Array.from({ length: 100 }, (_, i) => i).find(
+    (seed) => nextProvisionFace(seed, d.cursor) === "wild",
+  )!;
+  const state: GameState = {
+    ...original,
+    seed,
+    dungeon: {
+      ...d,
+      campaignLevel: 2,
+      contentPacks: ["core", "weald"],
+      wealdHigherBosses: true,
+      shriekerBossBattles: true,
+      shriekerProvisionSkipRolls: true,
+      activeBossThreatScriptId: "boss:weald:shrieker:2",
+      imminentThreatDescriptionCardId: "boss_ability:weald:p002",
+    },
+  };
+  const command = { type: "resolveDungeonCurio" } as const,
+    result = applyCommand(state, command);
+  expect(
+    result.events.filter((e) => e.type === "commandRefused" || e.type === "provisionRolled"),
+  ).toEqual([]);
+  expect(result.state.dungeon!.cursor).toBe(d.cursor);
+  expect(result.state.dungeon!.gold).toBe(10);
+  expect(result.state.dungeon!.explorationSetup!.provisions).toEqual(
+    d.explorationSetup!.provisions,
+  );
+  expect(result.state.dungeon!.curio!.discard).toEqual(["curio:p008"]);
+  expect(result.state.dungeon!.curio!.active).toBeNull();
+  expect(applyCommand(JSON.parse(JSON.stringify(state)) as GameState, command)).toEqual(result);
+});

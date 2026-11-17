@@ -671,3 +671,34 @@ it.each([
   expect(result.state.dungeon!.rest!.used).toBe(true);
   expect(result.state.dungeon!.trinkets!.held[0]!.face).toBe("inverted");
 });
+
+it("R-270 Shrieker II下Camper’s Helmet照常选择／翻面，但不掷两颗补给骰或Wild", () => {
+  const source = dungeon("trinket:p024");
+  const state: GameState = {
+    ...source,
+    dungeon: {
+      ...source.dungeon!,
+      campaignLevel: 2,
+      contentPacks: ["core", "weald"],
+      wealdHigherBosses: true,
+      shriekerBossBattles: true,
+      shriekerProvisionSkipRolls: true,
+      activeBossThreatScriptId: "boss:weald:shrieker:2",
+      imminentThreatDescriptionCardId: "boss_ability:weald:p002",
+    },
+  };
+  let result = ok(applyCommand(state, { type: "restDungeon", allTrinkets: true }));
+  result = choose(result, "collective");
+  for (let i = 0; i < 32 && !result.state.trinketChoice && !result.state.dungeon!.rest!.used; i++)
+    result = choose(result, "heal:0");
+  expect(result.pendingChoice!.options.some((o) => o.id === "trinket:p024")).toBe(true);
+  result = choose(result, "trinket:p024");
+  expect(result.events.filter((e) => e.type === "provisionRolled")).toEqual([]);
+  expect(result.state.trinketChoice).toBeUndefined();
+  expect(result.state.dungeon!.cursor).toBe(state.dungeon!.cursor);
+  expect(result.state.dungeon!.explorationSetup!.provisions).toEqual(
+    state.dungeon!.explorationSetup!.provisions,
+  );
+  expect(result.state.dungeon!.trinkets!.held[0]!.face).toBe("inverted");
+  expect(result.state.dungeon!.rest!.used).toBe(true);
+});

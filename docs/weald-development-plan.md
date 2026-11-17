@@ -7,12 +7,16 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 
 - **当前阶段：普通九房、Weald 专属机制及独立 I 级五任务已按原完成标准验收（步骤 3／4 限 I 级普通内容，步骤 5 为单任务闭环）；连续战役、高等级／Stygian 与三个 Boss 尚未验收。Fungal Research seed1 原策略败局和新保全策略 0 XP 均保留。**
 - **当前批次**：#733 已按指令合入 main（`355e3884`）；剩余 II／III 普通任务连续拆为 #734–#740，显式 `tasks-v1` 接全部十卡。Q-188 已由 R-266 确认，#741 接通所有背包完整获得后丢弃超额，收尾 #742 将 p010 打开；#734–#742 已全部合入 main（`82e2a08c`）。十卡 runtimeReady=true，无剩余任务规则待确认。旧 true／无标记版本保持原池；自然跨幕养成与人工实机仍未验收。
-- **当前连续批次：按用户口径完成三 Boss 主要工程并拆为 #746–#759，等待整批逐项复核。** #745 已合入 main；后续标准／Radiant 的 Hag、Pounder、Shrieker II／III 数据、机制、双威胁、正式部署／结算及页面均已接线。**Q-189已明确不能依据现有规则确认连续挤占；单次挤占后仍无空间的后续依然未裁定，相关分支保留技术停点，整批不记为无剩余结案。** 冻结实现版完整 typecheck／lint／test／build 通过：604文件、4379测通过、1测跳过；三条高等级页面冒烟及旧Pounder页面回归通过。PR尚未合入，最新远端检查仍重跑中。自然跨幕养成、跨地点升幕池切换、Stygian与人工实机不在本批验收结论内。
+- **当前连续批次：按用户口径完成三 Boss 主要工程并拆为 #746–#759，字段／能力已由R-270核准，新增跳骰修订见下。** #745 已合入 main；后续标准／Radiant 的 Hag、Pounder、Shrieker II／III 数据、机制、双威胁、正式部署／结算及页面均已接线。**Q-189已明确不能依据现有规则确认连续挤占；单次挤占后仍无空间的后续依然未裁定，相关分支保留技术停点，整批不记为无剩余结案。** 冻结实现版完整 typecheck／lint／test／build 通过：604文件、4379测通过、1测跳过；三条高等级页面冒烟及旧Pounder页面回归通过。前置#746–#760及#763已按本轮指令合入main；#764负责最终跳骰修订与本轮收尾。#759最终主检查与全部页面检查已成功。自然跨幕养成、跨地点升幕池切换、Stygian与人工实机不在本批验收结论内。
 
-- **本轮复核更正（R-269）**：此前给予两份腐蚀2／2t的条目全部保留两个独立堆；已清除旧审阅稿、R-264及进度说明中的合并结论，数据／运行时核对正确，3文件14测通过。下一步仍为整批字段复核及Q-189规则缺口，不把此项更正扩为其它状态或印刷数值修改。
+- **本轮合入收尾**：#746–#760、#763、#764按依赖顺序合入main；标准／Radiant三Boss高等级工程及R-269／R-270修订进入主线。Q-189仍未裁定，#750只合入已有技术停点；自然跨幕养成与人工实机继续保留。
+
+- **本轮最终核准（R-270）**：higher boss除明确保留项外，未改字段／能力全部核准；III奖励骰照加，Radiant扣自选骰、保留随机骰。Shrieker II改为跳过补给骰／Wild，以新显式版本接线；旧无标记日志维持旧骰序，Q-189继续未结。当前在独立worktree接续，不切换共享主工作区。
+
+- **本轮复核更正（R-269）**：此前给予两份腐蚀2／2t的条目全部保留两个独立堆；已清除旧审阅稿、R-264及进度说明中的合并结论，数据／运行时核对正确，3文件14测通过。整批字段随后已由R-270核准；Q-189规则缺口继续保留，不把此项更正扩为其它状态或印刷数值修改。
 
 - **当前批次**：步骤 7 **Stygian 第二刀**（出征替换与效果接线）：`mode=stygian` + `contentPacks` 含 `weald` + `stygianRoomRules=full` 时，按 `replacesCardId` 启用九张 Weald Stygian 印刷效果（**保留** `room:weald:p00N` 地图／牌池身份）；六张效果房 `runtimeReady=true`；核心 17 张 Stygian 与板块几何未改；Boss 房 p10–p12 不在范围。
-- **下一步**：步骤 7 其余未验收项（Boss 房 Stygian、II／III 与高等级 Boss 等）按后续审阅批次推进；自然跨幕养成／人工实机继续后置。
+- **下一步**：步骤 7 其余未验收项（Weald Stygian Boss 房与高等级 Boss 接续等）按后续审阅批次推进；自然跨幕养成／人工实机继续后置。
 
 - 步骤 0 已完成，提交 `e7fd17e1`；完整地点战役尚未验收。
 - 导入与计划两批已合入并推送 `main`（`3be97c65`）。步骤 1 怪物批次已合入并推送 `main`（`7075f4d8`）。
@@ -1458,6 +1462,13 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 
 - 本轮双腐蚀条目更正为#763（`codex/weald-preserve-double-blight-stacks`），接在#760之后；本项说明与回归已完成，PR未合入，Q-189及整批人工复核仍按前述安排。
 
+### R-270整批核准与Shrieker II跳骰（2026-11-17）
+
+- 用户明确全部未改字段／能力核准；III额外骰照加、Radiant保留随机骰／扣自选骰。房间与召唤等级已有明确确认，Q-189仍保留。审阅稿的冲突状态与待确认汇总已同步，原用户修订从原工作区保留的stash只读取恢复到本worktree，未弹出或覆盖其它工作。
+- 新命令显式shriekerProvisionSkipRolls:true，启用及原命令一起原子提交，已有待选不能中途切换；旧日志仍掷骰／Wild后忽略。标记随出征保留；页面在无待选时自动记录新口径。当前描述面II才跳过随机补给骰，不改村庄供给、III、I、停止威胁面或金币骰。
+- 宝箱（含Lost Supplies双奖励）、Curio、Camper’s Helmet在随机补给骰前跳过，保留来源成本、移箱、其它奖励及饰品翻面；无入池、无容量弃置、无Wild待选。当前Shrieker高等级目录升级v2／R-270，旧命令仍由独立版本门槛回放。
+- 独立worktree：D:/ddbg-web-worktrees/weald-shrieker-skip-provision-rolls，分支codex/weald-shrieker-skip-provision-rolls；typecheck、lint、build通过；定向数据／旧威胁2文件12测、新版本／Curio／饰品3文件93测通过；三Boss各II／III页面3测及新增跳骰页面1测通过。新增页面首轮因未打开战利品分页而超时，补齐真实分页操作后通过，未提高时间预算。全量605文件、4388测通过、1测跳过（1604.18秒）。本项为#764，接在#763之后；现按本轮指令合入main，下一步按批次继续，Q-189和自然跨幕／人工验收不因此结案。
+
 ### Weald Stygian 九房审阅入库首刀（2026-11-17）
 
 - 对照 `DD_EN_WEALD_CARDS_63x88_rooms_Stygian_FRONT.pdf` 九页与 [审阅稿](weald-stygian-room-review-2026-11-17.md)；`stygian_room:weald:p001`–`p009` 替换同名普通房，各 1 份。结构化记录 p008 两项增益 2t、p009 Ours! 仅增益 3t；3／6／7 无效果段。
@@ -1468,3 +1479,9 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 - 引擎 `readActiveStygianRoom` 在 Weald 包 + `stygianRoomRules=full` 时回退读 `stygian_rooms.json`；普通房战斗模块按目录覆盖时长／次数，不改 `room:weald:p00N` id。p008 两项 2t、p009 无减益已测。UI `RoomCardFace` 增加 Weald Stygian 印刷正面回退路径。
 - 六张效果房 `reviewedEffect.runtimeReady=true`；3／6／7 仍为 `null`。不修改 Boss 房、核心 17 张 Stygian、板块几何或 p008 普通房语义。
 - 验证：`pnpm --filter @ddbg/engine exec vitest run toxic-mushrooms unprepared precious poisonous-roots abyssal-puff ours clearing stygian-room weald-stygian`；`pnpm --filter @ddbg/data exec vitest run weald-stygian-rooms stygian-rooms`；`pnpm typecheck`、`pnpm lint`、`pnpm build`、`git diff --check`。步骤 7 仍为进行中。
+
+### 三Boss批次合入收尾（2026-11-17，#764）
+
+- 依次合入#746–#760、#763、#764；保留main中#761／#762的Weald Stygian九房接线。冲突仅在进度文档，保留两批记录并纠正容量回归旧计数；最终生产代码与8c4db056验证版完全一致。
+- 合并后typecheck、lint、build与4条阶段页面检查通过；验证版8c4db056的远端CI主检查与全套Playwright均成功（[运行记录](https://github.com/Alpaca-go/ddbg-web/actions/runs/44005125592)）；607个测试文件通过，测试阶段1304.26秒。最终仅文档收尾，生产代码与该验证版一致。
+- Q-189只保留技术停点，不因#750由草稿转为合入而新增规则裁定；下一步接步骤7剩余范围，Stygian Boss房及自然跨幕／人工实机仍单独验收。

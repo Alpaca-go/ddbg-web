@@ -36,7 +36,9 @@ export function StateEventDetails({
           {event.type === "lootResolved" &&
             ("gold" in event.reward
               ? ` · 获得金币 ${event.reward.gold}`
-              : ` · 获得补给：${provisionLabels[event.reward.face]}`)}
+              : "ignoredProvisions" in event.reward
+                ? ` · Shrieker II忽略${event.reward.ignoredProvisions}份补给，未掷骰`
+                : ` · 获得补给：${provisionLabels[event.reward.face]}`)}
         </p>
       );
     case "heroMoved":

@@ -300,6 +300,7 @@ export type HeroSkillEmptyAreaResolvedEvent = {
 export type Command = BaseCommand & {
   readonly allTrinkets?: true | undefined;
   readonly inventoryOverflow?: true | undefined;
+  readonly shriekerProvisionSkipRolls?: true | undefined;
 };
 type BaseCommand =
   | UseCoreTrinketCommand
@@ -466,7 +467,9 @@ export type GameEvent =
       readonly tokenId: string;
       readonly kind: import("./loot").LootKind;
       readonly reward:
-        { readonly gold: number } | { readonly face: import("./loot").ProvisionFace };
+        | { readonly gold: number }
+        | { readonly face: import("./loot").ProvisionFace }
+        | { readonly ignoredProvisions: number };
       readonly message: string;
     }
   | {
@@ -1028,6 +1031,32 @@ function dispatchCommand(
 
 /** R-266：新命令显式启用；旧无标记命令严格保留历史容量行为。 */
 export function applyCommand(state: GameState, command: Command, legacy = false): ApplyResult {
+  if (command.shriekerProvisionSkipRolls && !state.dungeon?.shriekerProvisionSkipRolls) {
+    const d = state.dungeon;
+    if (
+      !d ||
+      d.mode === "stygian" ||
+      !d.contentPacks?.includes("weald") ||
+      !(
+        d.wealdHigherBosses ||
+        (command.type === "establishImminentThreat" && command.wealdHigherBosses)
+      ) ||
+      d.pending ||
+      state.battle?.pending ||
+      state.trinketChoice ||
+      state.inventoryOverflowHold
+    )
+      return rejectBattleCommand(
+        state,
+        "R-270：跳过补给骰版本需要完整Weald高等级版本，且须先完成当前待选",
+      );
+    const result = applyCommand(
+      { ...state, dungeon: { ...d, shriekerProvisionSkipRolls: true } },
+      command,
+      legacy,
+    );
+    return result.events.some((e) => e.type === "commandRefused") ? { ...result, state } : result;
+  }
   if (state.inventoryOverflowHold) {
     const chosen = chooseInventoryOverflow(state, command);
     const refused = chosen.events.find((e) => e.type === "commandRefused");
