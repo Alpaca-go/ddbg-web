@@ -1496,3 +1496,5 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 - 新命令显式 chainCrowding:true；页面在无待选时记录启用，拒绝命令不提交切换。命令 schema 与 startBattle 严格日志重建保留标记；无标记旧日志仍按旧规则与 Q-189 历史技术停点回放。
 - 已验证：定向10文件119测通过（含新增边界、旧召唤／位移回归与Pounder II公开命令）；typecheck、lint、build通过；Pounder II／III页面部署、开战及受控JSON恢复1条冒烟通过（1.2分钟）。最终版全量 `pnpm exec vitest run --maxWorkers=4` 覆盖608文件：606文件／4409测通过、1测跳过，两条旧日志长场景分别在原120秒／20秒预算下超时；随后保持原预算，以 `--maxWorkers=1` 串行复跑这2文件，11测全部通过。此前中止的初轮不计通过。
 - 下一步：步骤7剩余 Stygian Boss 适配，随后按步骤8补自然跨幕与跨地点升幕来源；人工实机仍后置。本批不扩大为完整战役已验收。
+
+- 交付：实现提交 `05f422f6`，分支 `codex/r271-chain-crowding`，已推送并创建 [PR #767](https://github.com/Alpaca-go/ddbg-web/pull/767)，未合并。
