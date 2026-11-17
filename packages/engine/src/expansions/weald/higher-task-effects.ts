@@ -9,7 +9,6 @@ export function wealdTaskActive(state: GameState, page: number): boolean {
   return (
     d?.wealdHigherQuestOffers === "tasks-v1" &&
     d.contentPacks?.includes("weald") === true &&
-    d.mode !== "stygian" &&
     d.questDistribution?.questId === `quest:weald:p${String(page).padStart(3, "0")}`
   );
 }

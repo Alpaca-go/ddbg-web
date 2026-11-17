@@ -25,26 +25,47 @@ it("tasks-v1 II／III 各五张，旧版本不升级", () => {
   expect(draw(2)).toEqual([]);
   expect(draw(3)).toEqual([]);
 });
-it.each(ids.slice(0, 9))("%s 缺新版本或Stygian拒绝", (id) => {
-  expect(() =>
-    createCoreDungeonQuest(0, id, "radiant", coreParty, wealdTaskSources, true, "full", [
-      "core",
-      "weald",
-    ]),
-  ).toThrow();
-  expect(() =>
-    createCoreDungeonQuest(
-      0,
-      id,
-      "stygian",
-      coreParty,
-      wealdTaskSources,
-      true,
-      "full",
-      ["core", "weald"],
-      undefined,
-      undefined,
-      "tasks-v1",
-    ),
-  ).toThrow();
+it.each(ids.slice(0, 9))("%s 缺 tasks-v1 拒绝（standard/radiant/stygian 一致）", (id) => {
+  for (const mode of ["radiant", "stygian"] as const) {
+    expect(() =>
+      createCoreDungeonQuest(0, id, mode, coreParty, wealdTaskSources, true, "full", [
+        "core",
+        "weald",
+      ]),
+    ).toThrow();
+  }
+});
+
+it("p006 tasks-v1 Stygian 与 radiant 同等级出征上下文", () => {
+  const radiant = createCoreDungeonQuest(
+    0,
+    "quest:weald:p006",
+    "radiant",
+    coreParty,
+    wealdTaskSources,
+    true,
+    "full",
+    ["core", "weald"],
+    undefined,
+    undefined,
+    "tasks-v1",
+  );
+  const stygian = createCoreDungeonQuest(
+    0,
+    "quest:weald:p006",
+    "stygian",
+    coreParty,
+    wealdTaskSources,
+    true,
+    "full",
+    ["core", "weald"],
+    undefined,
+    undefined,
+    "tasks-v1",
+  );
+  expect(stygian.dungeon!.campaignLevel).toBe(radiant.dungeon!.campaignLevel);
+  expect(stygian.dungeon!.monsterPool).toEqual(radiant.dungeon!.monsterPool);
+  expect(stygian.dungeon!.mode).toBe("stygian");
+  expect(stygian.dungeon!.gold).toBe(0);
+  expect(radiant.dungeon!.gold).toBeGreaterThan(0);
 });

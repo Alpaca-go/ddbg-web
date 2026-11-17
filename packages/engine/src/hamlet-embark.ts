@@ -488,7 +488,6 @@ export function chooseNextQuest(
         ].includes(quest.id) &&
           d.wealdHigherQuestOffers === "tasks-v1")) &&
       d.wealdHigherQuestOffers &&
-      d.mode !== "stygian" &&
       d.contentPacks?.includes("weald")
     )
   )

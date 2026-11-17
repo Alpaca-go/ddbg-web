@@ -70,8 +70,8 @@ export function createCoreDungeonQuest(
     sources = sourcesForContentPacks(sources, contentPacks);
   }
   const quest = basicQuests.find((quest) => quest.id === questId);
-  if (wealdHigherQuestOffers && (!contentPacks?.includes("weald") || mode === "stygian"))
-    throw new Error("高等级 Weald 任务版本需要 Weald 包与非 Stygian 模式");
+  if (wealdHigherQuestOffers && !contentPacks?.includes("weald"))
+    throw new Error("高等级 Weald 任务版本需要 Weald 包");
   const advanced =
     wealdHigherQuestOffers === "tasks-v1" &&
     [
@@ -91,12 +91,9 @@ export function createCoreDungeonQuest(
     throw new Error("高等级单任务不使用 I 级首趟抽选");
   if (
     (questId === "quest:weald:p015" || whisperingWoodsQuest !== undefined) &&
-    (!whispering ||
-      mode === "stygian" ||
-      initialQuestDrawMode !== undefined ||
-      !contentPacks?.includes("weald"))
+    (!whispering || initialQuestDrawMode !== undefined || !contentPacks?.includes("weald"))
   )
-    throw new Error("Whispering Woods 需要显式版本、Weald 包与非 Stygian 单任务入口");
+    throw new Error("Whispering Woods 需要显式版本、Weald 包与单任务入口");
   const sandboxEmbarkOk =
     quest &&
     (quest.level === 1 ||

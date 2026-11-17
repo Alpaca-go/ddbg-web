@@ -143,7 +143,7 @@ export function DungeonQuest() {
         taskSources,
         contentPacks,
         drawEnabled && drawnMode ? drawnMode : undefined,
-        contentPacks.includes("weald") && mode !== "stygian" ? "tasks-v1" : undefined,
+        contentPacks.includes("weald") ? "tasks-v1" : undefined,
       );
       beginTask(game, {
         seed,
