@@ -1,3 +1,4 @@
+import { tickStatusStacks } from "../../status";
 import { expect, it } from "vitest";
 import { applyCommand } from "../../command";
 import { removeCasualties, endAfterCasualties } from "../../encounter";
@@ -49,7 +50,30 @@ it("The Infected 末只死亡先给两份2／2t再清场，同一次清理不重
     (s) => s.kind === "blight",
   );
   expect(stacks).toHaveLength(2);
-  expect(stacks?.map((s) => s.amount)).toEqual([2, 2]);
+  const expected = [
+    { kind: "blight", amount: 2, remaining: 2 },
+    { kind: "blight", amount: 2, remaining: 2 },
+  ];
+  expect(stacks).toEqual(expected);
+  for (const hero of cleared.state.battle!.entities.filter((e) => e.side === "hero"))
+    expect(hero.statusStacks?.filter((s) => s.kind === "blight")).toEqual(expected);
+  const first = tickStatusStacks(stacks!);
+  expect(first).toEqual({
+    status: "resolved",
+    stacks: expected.map((s) => ({ ...s, remaining: 1 })),
+    woundAmounts: [2, 2],
+    stunned: false,
+  });
+  if (first.status !== "resolved") throw new Error(first.reason);
+  const second = tickStatusStacks(first.stacks);
+  expect(second).toEqual({ status: "resolved", stacks: [], woundAmounts: [2, 2], stunned: false });
+  if (second.status !== "resolved") throw new Error(second.reason);
+  expect(tickStatusStacks(second.stacks)).toEqual({
+    status: "resolved",
+    stacks: [],
+    woundAmounts: [],
+    stunned: false,
+  });
   const repeated = removeCasualties(cleared, ["m"]);
   expect(repeated.state.battle!.entities[0]!.statusStacks).toEqual(
     cleared.state.battle!.entities[0]!.statusStacks,
