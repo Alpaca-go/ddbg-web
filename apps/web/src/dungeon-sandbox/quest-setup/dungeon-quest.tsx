@@ -284,7 +284,7 @@ export function DungeonQuest() {
         {mode === "stygian" && (
           <p className="embark-roster-hint" data-testid="embark-stygian-warning">
             {contentPacks.includes("weald")
-              ? "Stygian：起始 0 金，Boss +1 Crit；核心 17 张 + Weald 九张普通房使用 Stygian 卡（Boss 房 p010–p012 不替换，R-036）。"
+              ? "Stygian：起始 0 金；自有 Boss Abilities 的角色（含 Cauldron）技能 +1 Crit；核心 17 + Weald 九张普通房 Stygian（Boss 房不替换，R-036）。"
               : "Stygian：起始 0 金，Boss +1 Crit，17 张普通房间使用 Stygian 卡。"}
           </p>
         )}

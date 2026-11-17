@@ -2899,7 +2899,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **编号**：R-272
 - **日期**：2026-11-18
 - **核准**：Kyries 在 #777（Q-186 状态更新）合入后授权开放 **核心 + Weald** 的正式 **Stygian** 出征生产路径（`createCampaignQuest`、村庄 `chooseNextQuest`、`stygianRoomRules: "full"`）。
-- **规则**：沿用核心规则书 p.36 与 **R-036**：17 张核心普通 Stygian 房 + Weald 九张普通 Stygian 房（`stygian_room:weald:p001`–`p009`）替换同名标准房；**无** Weald Boss 房（`room:weald:p010`–`p012`）Stygian 印刷替换。Boss 本体技能 +1 Crit 按 R-036（不含锅、巢、Matchman 等附属）。
+- **规则**：沿用核心规则书 p.36 与 **R-036**：17 张核心普通 Stygian 房 + Weald 九张普通 Stygian 房（`stygian_room:weald:p001`–`p009`）替换同名标准房；**无** Weald Boss 房（`room:weald:p010`–`p012`）Stygian 印刷替换。Stygian 下「All Bosses have +1 Crit to their Skills」按 **R-036 判据**（自有 Boss Abilities 卡）：Hag／Shrieker／Brigand Pounder／**Cauldron I–III**（`boss_ability:weald:p019`–`p021`）；**不含** Nest、Matchman 等无独立 Boss Abilities 卡的战斗单位。
 - **工程边界**：
   - I 级：`quest:weald:p001`–`p005` 须已选 Weald 包；与 standard／radiant 同任务数据。
   - II／III：须 `wealdHigherQuestOffers: "tasks-v1"` 与 R-264／R-265 十卡；Stygian 无 `mode` 专属出征拒绝。

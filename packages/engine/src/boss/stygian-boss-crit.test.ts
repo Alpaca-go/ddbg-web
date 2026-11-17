@@ -28,21 +28,31 @@ it("R-036 / R37：只有 Stygian 的 Boss 卡吃 +1 Crit", () => {
   for (const id of [
     "monster_large:weald:p010",
     "monster_large:weald:p011",
+    "monster_large:weald:p012",
     "monster_medium:weald:p020",
     "monster_large:weald:p004",
     "monster_large:weald:p005",
     "monster_large:weald:p006",
     "monster_medium:weald:p021",
     "monster_medium:weald:p022",
+    "monster_large:weald:p013",
+    "monster_large:weald:p013:back",
+    "monster_large:weald:p014",
+    "monster_large:weald:p014:back",
+    "monster_large:weald:p015",
+    "monster_large:weald:p015:back",
   ])
     expect(stygianBossCritApplies("stygian", id), id).toBe(true);
   for (const id of [
     "monster_medium:p106",
     "monster_medium:p109",
     "monster_large:p011",
-    "monster_large:weald:p013",
-    "monster_medium:weald:p023",
+    "monster_large:weald:p007",
     "monster_large:weald:p008",
+    "monster_large:weald:p009",
+    "monster_medium:weald:p023",
+    "monster_medium:weald:p024",
+    "monster_medium:weald:p025",
   ])
     expect(stygianBossCritApplies("stygian", id), id).toBe(false);
   expect(stygianBossCritApplies("standard", "monster_medium:p089")).toBe(false);

@@ -1,6 +1,7 @@
 /**
  * R-036 / R37：Stygian 下「所有 Boss 的技能 +1 Crit」。
- * Boss = 有自己 Boss Abilities 卡的角色；不含 Reflections、Pyre、Collected、召唤物等。
+ * Boss = 拥有自己 Boss Abilities 卡的角色（`boss_ability:weald:p019`–`p021` 等为 Cauldron I–III）。
+ * 不含 Nest、Matchman、Reflections、Pyre、Collected、召唤物等。
  * 这里直接写已核实的正式卡 id，避免 import 运行时模块造成循环依赖。
  */
 export const STYGIAN_BOSS_CARD_IDS: ReadonlySet<string> = new Set<string>([
@@ -27,7 +28,7 @@ export const STYGIAN_BOSS_CARD_IDS: ReadonlySet<string> = new Set<string>([
   "monster_large:p018",
   "monster_large:p019",
   "monster_large:p020",
-  // Weald 三 Boss I–III（R-036；Boss 房 p010–p012 不替换，仅技能 +1 Crit）
+  // Weald Hag / Shrieker / Pounder I–III + Cauldron I–III（R-036；Boss 房 p010–p012 不替换）
   "monster_large:weald:p010",
   "monster_large:weald:p011",
   "monster_large:weald:p012",
@@ -37,6 +38,12 @@ export const STYGIAN_BOSS_CARD_IDS: ReadonlySet<string> = new Set<string>([
   "monster_medium:weald:p020",
   "monster_medium:weald:p021",
   "monster_medium:weald:p022",
+  "monster_large:weald:p013",
+  "monster_large:weald:p013:back",
+  "monster_large:weald:p014",
+  "monster_large:weald:p014:back",
+  "monster_large:weald:p015",
+  "monster_large:weald:p015:back",
 ]);
 
 export function stygianBossCritApplies(
