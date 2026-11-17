@@ -203,3 +203,6 @@ export { stygianRoomsSchema, readStygianRoomReplacement } from "./stygian-rooms"
 export { wealdStygianRoomsSchema, readWealdStygianRoomReplacement } from "./weald-stygian-rooms";
 export type { StygianRooms } from "./stygian-rooms";
 export { curioPoolIdentity, locationCurioPool } from "./curio-pool";
+
+export { wealdPounderHigherContentSchema } from "./weald-pounder-higher";
+export type { WealdPounderHigherContent } from "./weald-pounder-higher";
