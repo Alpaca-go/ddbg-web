@@ -187,10 +187,7 @@ export function applyPounderIReinforcements(state: GameState, actorId: string): 
     !context ||
     !state.dungeon?.pounderHamletThreats
   )
-    return rejectBattleCommand(
-      state,
-      "Pounder I 增援需要显式新版本、I级非Stygian Boss 战及当前本体回合",
-    );
+    return rejectBattleCommand(state, "Pounder I 增援需要显式新版本、I级 Boss 战及当前本体回合");
   const plan = planPounderIReinforcements(b.entities, context);
   if (plan.kind !== "reinforcements" || plan.sourceId !== actorId)
     return rejectBattleCommand(state, "R-258：只有活体 Pounder 且 Matchman 缺席时才能增援");

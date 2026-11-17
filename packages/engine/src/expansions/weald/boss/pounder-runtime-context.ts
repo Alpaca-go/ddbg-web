@@ -8,6 +8,7 @@ import { bossEnabledForPacks } from "../../../../../data/src/content-packs";
 import { WEALD_POUNDER_I_CONTENT as ordinary } from "./pounder-i-data";
 import { projectPounderCombatFaces } from "./pounder-i-projection";
 import { resolveEncounterBossScriptId } from "../../../boss/encounter-rules";
+import { isCampaignExpeditionMode } from "../../../campaign-expedition-mode";
 
 export function pounderContextForLevel(level: 1 | 2 | 3) {
   const card = level === 1 ? ordinary : higher.cards.find((c) => c.level === level)!;
@@ -51,7 +52,7 @@ export function readPounderRuntimeContext(state: GameState) {
     !d ||
     (level !== 1 && level !== 2 && level !== 3) ||
     d.phase !== "inBattle" ||
-    !["standard", "radiant"].includes(d.mode)
+    !isCampaignExpeditionMode(d.mode)
   )
     return null;
   const context = pounderContextForLevel(level);

@@ -46,6 +46,11 @@
 - `packages/data/src/normalize/weald-stygian-rooms.test.ts`：九张可再生、替换关系、印刷漂移检测、p008／p009 结构化字段、包隔离、拒绝错映射。
 - 核心 `stygian-rooms.test.ts` 与 17 张 `corebox/stygian_rooms.json` 不受影响。
 
+## Weald Boss 房与 Stygian（R-036）
+
+- Boss 房 **不替换**：Hag `room:weald:p010`、Shrieker `room:weald:p011`、Brigand Pounder `room:weald:p012` 无 Stygian 印刷版，出征身份保持不变。
+- Stygian 模式下三 Boss **本体**（有 Boss Abilities 卡的角色）技能 **+1 Crit**，与核心 Boss 相同程序；不含锅、巢、Matchman 等附属单位。
+
 ## 下一步（开发计划步骤 7）
 
-效果运行时（六张有独立效果段）已接线；Boss 房 Stygian 与高等级内容仍待后续批次。
+普通九房替换与六房效果、Boss +1 Crit 与 I–III Boss Stygian 出征接线已完成本批范围；自然跨幕／人工实机仍后置。

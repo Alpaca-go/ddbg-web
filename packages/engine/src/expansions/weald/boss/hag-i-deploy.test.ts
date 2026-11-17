@@ -76,7 +76,18 @@ it("W4／R-254：目标房绑定、11 区部署、显式 startBattle 三张怪�
   expect(applyCommand(deployed, command).state).toBe(deployed);
 });
 
-it.each(["pack", "threat", "plan", "level", "stygian", "skills"])(
+it("R-036：Stygian 仍绑定标准 Hag 房 p010，可部署开战", () => {
+  const source = atObjective();
+  const stygian: GameState = {
+    ...source,
+    dungeon: { ...source.dungeon!, mode: "stygian", stygianRoomRules: "full" },
+  };
+  const prepared = run(stygian, { type: "prepareDungeonBattle" });
+  expect(prepared.dungeon!.roomCards!.active!.cardId).toBe("room:weald:p010");
+  run(prepared, { type: "deployHagI" });
+});
+
+it.each(["pack", "threat", "plan", "level", "skills"])(
   "拒绝非法 Hag 部署且不消费 RNG：%s",
   (kind) => {
     const bound = run(atObjective(), { type: "prepareDungeonBattle" });
@@ -96,7 +107,6 @@ it.each(["pack", "threat", "plan", "level", "stygian", "skills"])(
             }
           : {}),
         ...(kind === "level" ? { campaignLevel: 2 } : {}),
-        ...(kind === "stygian" ? { mode: "stygian" } : {}),
         ...(kind === "skills"
           ? { heroes: d.heroes.map((h, i) => (i === 0 ? { ...h, skillIds: [] } : h)) }
           : {}),

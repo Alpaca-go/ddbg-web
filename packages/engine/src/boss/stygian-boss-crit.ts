@@ -27,6 +27,16 @@ export const STYGIAN_BOSS_CARD_IDS: ReadonlySet<string> = new Set<string>([
   "monster_large:p018",
   "monster_large:p019",
   "monster_large:p020",
+  // Weald 三 Boss I–III（R-036；Boss 房 p010–p012 不替换，仅技能 +1 Crit）
+  "monster_large:weald:p010",
+  "monster_large:weald:p011",
+  "monster_large:weald:p012",
+  "monster_large:weald:p004",
+  "monster_large:weald:p005",
+  "monster_large:weald:p006",
+  "monster_medium:weald:p020",
+  "monster_medium:weald:p021",
+  "monster_medium:weald:p022",
 ]);
 
 export function stygianBossCritApplies(

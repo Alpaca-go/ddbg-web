@@ -207,7 +207,13 @@ it("轨已满召唤无效，不增加实体、先攻或骰序", () => {
   expect(result.state.battle!.rngCursor).toBe(state.battle!.rngCursor);
 });
 
-it.each(["version", "level", "stygian", "pack", "actor"])("拒绝 %s 越界且原子保留输入", (kind) => {
+it("Stygian 下 Pounder I 增援与标准模式相同可用", () => {
+  const base = fixture();
+  const state = { ...base, dungeon: { ...base.dungeon!, mode: "stygian" as const } };
+  expect(refused(applyCommand(state, command))).toBe(false);
+});
+
+it.each(["version", "level", "pack", "actor"])("拒绝 %s 越界且原子保留输入", (kind) => {
   let state = fixture();
   if (kind === "version")
     state = {
@@ -217,7 +223,6 @@ it.each(["version", "level", "stygian", "pack", "actor"])("拒绝 %s 越界且�
       >,
     };
   if (kind === "level") state = { ...state, dungeon: { ...state.dungeon!, campaignLevel: 2 } };
-  if (kind === "stygian") state = { ...state, dungeon: { ...state.dungeon!, mode: "stygian" } };
   if (kind === "pack") state = { ...state, dungeon: { ...state.dungeon!, contentPacks: ["core"] } };
   const result = applyCommand(state, kind === "actor" ? { ...command, actorId: "h" } : command);
   expect(refused(result)).toBe(true);

@@ -15,6 +15,7 @@ import {
 import { dungeonCurioCatalogValid } from "../../../dungeon-curio-catalog";
 
 import { WEALD_SHRIEKER_I_CONTENT } from "./shrieker-i-content";
+import { isCampaignExpeditionMode } from "../../../campaign-expedition-mode";
 
 /** R30／W3／R-261：Boss 房使用独立核准目录，不占普通房间牌堆。 */
 export function prepareShriekerIObjectiveRoom(state: GameState): ApplyResult {
@@ -45,7 +46,7 @@ function prepareShriekerObjectiveRoom(state: GameState, level: 1 | 2 | 3): Apply
     !dungeonMonsterPoolCatalogValid(d) ||
     !restingMonsterPoolValid(d) ||
     !dungeonCurioCatalogValid(d) ||
-    !["standard", "radiant"].includes(d.mode) ||
+    !isCampaignExpeditionMode(d.mode) ||
     d.campaignLevel !== level ||
     (level !== 1 && !d.shriekerBossBattles) ||
     d.activeBossThreatScriptId !== binding.scriptId ||
@@ -92,7 +93,7 @@ function prepareShriekerObjectiveRoom(state: GameState, level: 1 | 2 | 3): Apply
   };
 }
 
-/** 只部署核准 I 级，保留开战停点；高等级／Stygian 随后接。 */
+/** 只部署核准 I 级，保留开战停点；Stygian 沿用标准 Boss 房（R-036）。 */
 export function deployShriekerI(
   state: GameState,
   options: { readonly shriekerSkills?: true | undefined } = {},
@@ -121,7 +122,7 @@ function deployShrieker(
     state.battle ||
     d.phase !== "awaitingRoom" ||
     d.pending ||
-    !["standard", "radiant"].includes(d.mode) ||
+    !isCampaignExpeditionMode(d.mode) ||
     d.campaignLevel !== level ||
     (level !== 1 && !d.shriekerBossBattles) ||
     !d.battleCatalog ||

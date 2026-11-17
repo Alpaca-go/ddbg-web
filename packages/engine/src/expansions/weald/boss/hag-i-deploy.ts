@@ -7,6 +7,7 @@ import { createLootState } from "../../../loot";
 import { ensureCampaignBossScriptsRegistered } from "../../../expansions/register";
 import { hagDeploymentContext } from "./hag-deployment-context";
 import { WEALD_HAG_I_CONTENT } from "./hag-i-content";
+import { isCampaignExpeditionMode } from "../../../campaign-expedition-mode";
 
 /** R30／W4／R-254：Boss 房使用独立核准目录，不占普通房间牌堆。 */
 export function prepareHagIObjectiveRoom(state: GameState): ApplyResult {
@@ -31,7 +32,7 @@ function prepareHagObjectiveRoom(state: GameState, level: 1 | 2 | 3): ApplyResul
     d.phase !== "awaitingRoom" ||
     d.pending ||
     !d.contentPacks?.includes("weald") ||
-    !["standard", "radiant"].includes(d.mode) ||
+    !isCampaignExpeditionMode(d.mode) ||
     d.campaignLevel !== level ||
     d.activeBossThreatScriptId !== binding.script ||
     d.imminentThreatDescriptionCardId !== binding.description ||
@@ -75,7 +76,7 @@ function prepareHagObjectiveRoom(state: GameState, level: 1 | 2 | 3): ApplyResul
   };
 }
 
-/** 只部署核准 I 级，保留显式 startBattle 先攻步骤；高等级／Stygian 随后接。 */
+/** 只部署核准 I 级，保留显式 startBattle 先攻步骤；Stygian 沿用标准 Boss 房（R-036）。 */
 export function deployHagI(state: GameState): ApplyResult {
   return deployHag(state, 1);
 }
@@ -97,7 +98,7 @@ function deployHag(state: GameState, level: 1 | 2 | 3): ApplyResult {
     state.battle ||
     d.phase !== "awaitingRoom" ||
     d.pending ||
-    !["standard", "radiant"].includes(d.mode) ||
+    !isCampaignExpeditionMode(d.mode) ||
     d.campaignLevel !== level ||
     !d.battleCatalog ||
     !d.explorationSetup ||

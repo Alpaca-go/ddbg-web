@@ -3,6 +3,7 @@ import { rejectBattleCommand } from "../../../battle";
 import { clearedBossThreatScriptIdAfterVictory } from "../../../boss/threat-campaign";
 import { hagDeploymentContext } from "./hag-deployment-context";
 import { WEALD_HAG_I_CONTENT } from "./hag-i-content";
+import { isCampaignExpeditionMode } from "../../../campaign-expedition-mode";
 
 export function hagIRealCombatActive(state: GameState): boolean {
   return hagRealCombatActive(state, 1);
@@ -57,7 +58,7 @@ function finishHagBattle(state: GameState, level: 1 | 2 | 3): ApplyResult {
   if (
     !d ||
     !d.contentPacks?.includes("weald") ||
-    !["standard", "radiant"].includes(d.mode) ||
+    !isCampaignExpeditionMode(d.mode) ||
     b?.hagCauldron !== undefined ||
     !b ||
     !hagRealCombatActive(state, level) ||

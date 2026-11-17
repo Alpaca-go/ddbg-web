@@ -25,7 +25,7 @@ pnpm --filter @ddbg/pipeline normalize
 
 ## Weald Stygian 九张房间（审阅入库）
 
-`extension/weald/stygian_rooms.json`（`ddbg-weald-stygian-rooms-v1`）由 `buildWealdStygianRooms` 生成，九张各 1 份，替换同名 `room:weald:p001`–`p009`；与核心 17 张 `corebox/stygian_rooms.json` 隔离。全部 `reviewedEffect.runtimeReady=false`，不接入出征替换。`WRITE_NORMALIZED=1` 可重写；`weald-stygian-rooms.test.ts` 校验。见 [Stygian 房间审阅记录](../../../docs/weald-stygian-room-review-2026-11-17.md)。
+`extension/weald/stygian_rooms.json`（`ddbg-weald-stygian-rooms-v1`）由 `buildWealdStygianRooms` 生成，九张各 1 份，替换同名 `room:weald:p001`–`p009`；与核心 17 张 `corebox/stygian_rooms.json` 隔离。六张有效果段 `reviewedEffect.runtimeReady=true`；Boss 房 p010–p012 不在替换范围（R-036）。`WRITE_NORMALIZED=1` 可重写；`weald-stygian-rooms.test.ts` 校验。见 [Stygian 房间审阅记录](../../../docs/weald-stygian-room-review-2026-11-17.md)。
 
 ## Weald I 级普通任务
 

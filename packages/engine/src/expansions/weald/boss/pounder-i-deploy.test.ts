@@ -126,7 +126,17 @@ it("W4：真实部署增援后本体死亡才清除 Brigands；重复清场不�
   expect(repeated.state).toEqual(cleared.state);
 });
 
-it.each(["pack", "threat", "plan", "level", "stygian", "skills", "version", "location"])(
+it("R-036：Stygian 仍绑定标准 Pounder 房 p012", () => {
+  const bound = run(atObjective(), { type: "prepareDungeonBattle" });
+  const stygian: GameState = {
+    ...bound,
+    dungeon: { ...bound.dungeon!, mode: "stygian", stygianRoomRules: "full" },
+  };
+  const deployed = run(stygian, { type: "deployPounderI" });
+  expect(deployed.dungeon!.roomCards!.active!.cardId).toBe("room:weald:p012");
+});
+
+it.each(["pack", "threat", "plan", "level", "skills", "version", "location"])(
   "拒绝非法 Pounder 部署且不消费 RNG：%s",
   (kind) => {
     const bound = run(atObjective(), { type: "prepareDungeonBattle" });
@@ -146,7 +156,6 @@ it.each(["pack", "threat", "plan", "level", "stygian", "skills", "version", "loc
             }
           : {}),
         ...(kind === "level" ? { campaignLevel: 2 } : {}),
-        ...(kind === "stygian" ? { mode: "stygian" } : {}),
         ...(kind === "skills"
           ? { heroes: d.heroes.map((h, i) => (i === 0 ? { ...h, skillIds: [] } : h)) }
           : {}),

@@ -8,6 +8,7 @@ import { rejectBattleCommand } from "../../../battle";
 import { clearedBossThreatScriptIdAfterVictory } from "../../../boss/threat-campaign";
 import { pounderDeploymentContext } from "./pounder-deployment-context";
 import { WEALD_POUNDER_I_CONTENT as content } from "./pounder-i-content";
+import { isCampaignExpeditionMode } from "../../../campaign-expedition-mode";
 
 export function pounderIRealCombatActive(state: GameState): boolean {
   return pounderRealCombatActive(state, 1);
@@ -70,7 +71,7 @@ function finishPounderBattle(state: GameState, level: 1 | 2 | 3): ApplyResult {
   if (
     !d ||
     !d.contentPacks?.includes("weald") ||
-    !["standard", "radiant"].includes(d.mode) ||
+    !isCampaignExpeditionMode(d.mode) ||
     b?.pounderFire !== undefined ||
     b?.monsterAction != null ||
     !d.pounderDungeonThreats ||

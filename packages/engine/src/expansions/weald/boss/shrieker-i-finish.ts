@@ -8,6 +8,7 @@ import { rejectBattleCommand } from "../../../battle";
 import { clearedBossThreatScriptIdAfterVictory } from "../../../boss/threat-campaign";
 import { shriekerDeploymentContext } from "./shrieker-deployment-context";
 import { WEALD_SHRIEKER_I_CONTENT as content } from "./shrieker-i-content";
+import { isCampaignExpeditionMode } from "../../../campaign-expedition-mode";
 
 export function shriekerIRealCombatActive(state: GameState): boolean {
   return shriekerRealCombatActive(state, 1);
@@ -61,7 +62,7 @@ function finishShriekerBattle(state: GameState, level: 1 | 2 | 3): ApplyResult {
   if (
     !d ||
     !d.contentPacks?.includes("weald") ||
-    !["standard", "radiant"].includes(d.mode) ||
+    !isCampaignExpeditionMode(d.mode) ||
     b?.shriekerISetupHold === true ||
     b?.monsterAction != null ||
     !d.shriekerBossBattles ||
