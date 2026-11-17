@@ -1,3 +1,4 @@
+import { WEALD_HIGHER_BOSS_ENTRIES } from "./expansions/weald/boss/higher-boss-entries";
 import { readExpeditionRoomRegion, expeditionRegionForQuestId } from "./expedition-room-catalog";
 import coreCurios from "../../data/normalized/corebox/curio.json";
 import coreRooms from "../../data/normalized/corebox/room.json";
@@ -20,7 +21,7 @@ export function nextExpeditionLocationDecks(d: DungeonState, questId: string) {
     questId === "quest:p019" &&
     (d.activeBossThreatScriptId === "boss:weald:hag:1" ||
       (d.wealdHigherBosses &&
-        ["boss:weald:hag:2", "boss:weald:hag:3"].includes(d.activeBossThreatScriptId ?? "")) ||
+        WEALD_HIGHER_BOSS_ENTRIES.some((e) => e.scriptId === d.activeBossThreatScriptId)) ||
       (d.shriekerBossBattles && d.activeBossThreatScriptId === "boss:weald:shrieker:1") ||
       (d.activeBossThreatScriptId === "boss:weald:brigandPounder:1" &&
         d.pounderDungeonThreats &&

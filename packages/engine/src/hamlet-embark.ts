@@ -1,3 +1,4 @@
+import { WEALD_HIGHER_BOSS_ENTRIES } from "./expansions/weald/boss/higher-boss-entries";
 import { skillBelongsToFormalHero } from "./formal-roster-catalog";
 import { asQuestMapPairingQuest, basicQuests } from "../../data/src/basic-quests";
 import { pickEmbarkQuestMapLayout } from "../../data/src/quest-map-pairing";
@@ -577,7 +578,7 @@ export function chooseNextQuest(
     d.bossLocationSources &&
     (d.activeBossThreatScriptId === "boss:weald:hag:1" ||
       (d.wealdHigherBosses &&
-        ["boss:weald:hag:2", "boss:weald:hag:3"].includes(d.activeBossThreatScriptId ?? "")))
+        WEALD_HIGHER_BOSS_ENTRIES.some((e) => e.scriptId === d.activeBossThreatScriptId)))
       ? { bossExpeditionRegion: "weald" as const }
       : {}),
     battleCatalog: locationDecks?.battleCatalog ?? d.battleCatalog!,

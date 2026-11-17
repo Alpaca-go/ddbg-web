@@ -6,14 +6,26 @@ import { dungeonCurioCatalogValid } from "../../../dungeon-curio-catalog";
 import type { ApplyResult, GameState } from "../../../command";
 import { rejectBattleCommand } from "../../../battle";
 import { clearedBossThreatScriptIdAfterVictory } from "../../../boss/threat-campaign";
-import { POUNDER_I_SCRIPT_ID, pounderIBossScript } from "./pounder-i";
+import { pounderDeploymentContext } from "./pounder-deployment-context";
 import { WEALD_POUNDER_I_CONTENT as content } from "./pounder-i-content";
 
 export function pounderIRealCombatActive(state: GameState): boolean {
+  return pounderRealCombatActive(state, 1);
+}
+export function pounderHigherRealCombatActive(state: GameState): boolean {
+  const level = state.dungeon?.campaignLevel;
+  return (
+    !!state.dungeon?.wealdHigherBosses &&
+    (level === 2 || level === 3) &&
+    pounderRealCombatActive(state, level)
+  );
+}
+function pounderRealCombatActive(state: GameState, level: 1 | 2 | 3): boolean {
+  const binding = pounderDeploymentContext(level);
   return (
     state.battle !== undefined &&
     state.dungeon?.phase === "inBattle" &&
-    state.dungeon.activeBossThreatScriptId === POUNDER_I_SCRIPT_ID &&
+    state.dungeon.activeBossThreatScriptId === binding.scriptId &&
     state.dungeon.roomCards?.active?.cardId === content.tile.roomId &&
     state.dungeon.roomCards.active.tileId === content.tile.id
   );
@@ -21,13 +33,29 @@ export function pounderIRealCombatActive(state: GameState): boolean {
 
 /** R30／R38／R-044／R-258：专属 Boss 战交接，不消耗普通牌池或提前发 XP。 */
 export function finishPounderIBattle(state: GameState): ApplyResult {
-  const level = 1;
+  return finishPounderBattle(state, 1);
+}
+export function finishPounderHigherBattle(state: GameState): ApplyResult {
+  const level = state.dungeon?.campaignLevel;
+  if ((level !== 2 && level !== 3) || !state.dungeon?.wealdHigherBosses)
+    return rejectBattleCommand(state, "Pounder高等级结算版本不符");
+  return finishPounderBattle(state, level);
+}
+function finishPounderBattle(state: GameState, level: 1 | 2 | 3): ApplyResult {
+  const binding = pounderDeploymentContext(level);
+  const expectedEntry = {
+    descriptionAbilityCardId: binding.description,
+    combatAbilityCardId: binding.ability,
+    combatMonsterCardId: binding.pounderCardId,
+    printedInitiativeCards: 1,
+    printedActionsPerRound: 1,
+  };
   const boss = {
-    script: POUNDER_I_SCRIPT_ID,
-    card: content.faces[0].rawId,
-    description: content.abilities.descriptionCardId,
+    script: binding.scriptId,
+    card: binding.pounderCardId,
+    description: binding.description,
     entity: "boss:pounder",
-    label: "Pounder I",
+    label: level === 1 ? "Pounder I" : `Pounder ${level === 2 ? "II" : "III"}`,
     ruling: "W4／R-258",
   };
   const d = state.dungeon;
@@ -53,7 +81,7 @@ export function finishPounderIBattle(state: GameState): ApplyResult {
     !restingMonsterPoolValid(d) ||
     !dungeonCurioCatalogValid(d) ||
     !b ||
-    !pounderIRealCombatActive(state) ||
+    !pounderRealCombatActive(state, level) ||
     d.campaignLevel !== level ||
     d.questDistribution?.questId !== "quest:p019" ||
     d.activeBossThreatScriptId !== boss.script ||
@@ -62,7 +90,7 @@ export function finishPounderIBattle(state: GameState): ApplyResult {
     plan?.resolvedScriptId !== boss.script ||
     plan.roomPlacement !== "edgeRoomsR30" ||
     plan.combatEntry.combatMonsterCardId !== boss.card ||
-    Object.entries(pounderIBossScript.combatEntry!).some(
+    Object.entries(expectedEntry).some(
       ([key, value]) => plan.combatEntry[key as keyof typeof plan.combatEntry] !== value,
     ) ||
     active?.roomId !== d.position ||

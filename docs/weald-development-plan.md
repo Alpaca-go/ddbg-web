@@ -1374,6 +1374,13 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 - 进入怪物姿态轨Ranged时II增益2t／反击2t、III各3t；站在原Ranged不重复刷新。日末轰炸II7／III9伤口，仍在移走村庄英雄前处理，Caretaker和英雄同处优先免除，空建筑只降一级并封底。
 - 高等级威胁6项与原I级村庄／地牢17项共3文件23项通过（11.87秒）；最终连同回合、来源、Hag入口7文件52项通过（22.74秒）。完整typecheck／lint／build、diff空白检查通过。受控村庄与姿态差异夹具不冒充自然跨幕日志。
 
+### Pounder II／III：正式命令入口与结算（2026-11-17）
+
+- R-268：显式版本下按同级脚本／描述／包属解析Face the Threat及地点来源，使用获准共用12号房与板块。新增deployPounderHigher，只初始部署本体；Matchman／Bloodletter／Raiders仍在增援窗口生成，不预放。旧deployPounderI包装仅认I级。
+- 终局按实际同级引用、停止威胁面、真实胜负、无未完成炮击／战利品等条件交接；普通怪物／房间池保持原样，不提前发XP，登记brigandPounder跨等级击败身份。受控JSON检查点可逐命令恢复。
+- 新旧部署与结算3文件29项通过（9.53秒），含两等级6项；完整typecheck／lint／build与diff空白检查通过。#745远端两轮主检查与页面已全部成功。新PR以各自最新head检查为准；本批仍不声称自然跨幕日志或人工实机验收。
+- 下一刀为Shrieker II／III数据、巢穴／飞行、三行动、两段补给威胁与正式入口；Q-189多名挤占继续单独跟踪，不停止其它已核准路径。
+
 ### Weald Stygian 九房审阅入库首刀（2026-11-17）
 
 - 对照 `DD_EN_WEALD_CARDS_63x88_rooms_Stygian_FRONT.pdf` 九页与 [审阅稿](weald-stygian-room-review-2026-11-17.md)；`stygian_room:weald:p001`–`p009` 替换同名普通房，各 1 份。结构化记录 p008 两项增益 2t、p009 Ours! 仅增益 3t；3／6／7 无效果段。
