@@ -60,6 +60,17 @@ function atObjective(): GameState {
   };
 }
 
+it("R-036：Stygian 仍绑定标准 Shrieker 房 p011", () => {
+  const source = atObjective();
+  const stygian: GameState = {
+    ...source,
+    dungeon: { ...source.dungeon!, mode: "stygian", stygianRoomRules: "full" },
+  };
+  const prepared = run(stygian, { type: "prepareDungeonBattle" });
+  expect(prepared.dungeon!.roomCards!.active!.cardId).toBe("room:weald:p011");
+  run(prepared, { type: "deployShriekerI" });
+});
+
 it("W3／R-261 公开命令绑定并部署十区，交接英雄、牌池及 RNG；JSON 序列化确定性", () => {
   const source = atObjective();
   const before = structuredClone(source);
@@ -98,7 +109,6 @@ it("不匹配的威胁、等级、包、出征计划、英雄或重复部署全�
   for (const changes of [
     { contentPacks: ["core"] as const },
     { campaignLevel: 2 as const },
-    { mode: "stygian" as const },
     { imminentThreatDescriptionCardId: "boss_ability:weald:p007" },
     { activeBossThreatScriptId: "boss:weald:hag:1" as const },
     {

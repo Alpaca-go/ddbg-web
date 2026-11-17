@@ -17,8 +17,8 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 
 - **本轮复核更正（R-269）**：此前给予两份腐蚀2／2t的条目全部保留两个独立堆；已清除旧审阅稿、R-264及进度说明中的合并结论，数据／运行时核对正确，3文件14测通过。整批字段随后已由R-270核准；Q-189规则缺口后由R-271结清，不把此项更正扩为其它状态或印刷数值修改。
 
-- **当前批次**：步骤 7 **Stygian 第二刀**（出征替换与效果接线）：`mode=stygian` + `contentPacks` 含 `weald` + `stygianRoomRules=full` 时，按 `replacesCardId` 启用九张 Weald Stygian 印刷效果（**保留** `room:weald:p00N` 地图／牌池身份）；六张效果房 `runtimeReady=true`；核心 17 张 Stygian 与板块几何未改；Boss 房 p10–p12 不在范围。
-- **下一步**：步骤 7 其余未验收项（Weald Stygian Boss 房与高等级 Boss 接续等）按后续审阅批次推进；自然跨幕养成／人工实机继续后置。
+- **当前批次（#761／#762 + 本刀）**：步骤 7 Weald Stygian：**普通九房**替换与六房效果（`stygianRoomRules=full`，已合入）；**Boss** 按 R-036 不替换 p010–p012，三 Boss I–III 出征／结算／页面与 **+1 Crit** 本刀接线；`pounderDungeonThreats` 试验入口仍拒 Stygian。
+- **下一步**：步骤 8 自然跨幕／跨地点升幕；人工实机后置。不接 Whispering Woods／II–III 普通任务堆等新 Stygian 入口。
 
 - 步骤 0 已完成，提交 `e7fd17e1`；完整地点战役尚未验收。
 - 导入与计划两批已合入并推送 `main`（`3be97c65`）。步骤 1 怪物批次已合入并推送 `main`（`7075f4d8`）。
@@ -1498,3 +1498,9 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 - 下一步：步骤7剩余 Stygian Boss 适配，随后按步骤8补自然跨幕与跨地点升幕来源；人工实机仍后置。本批不扩大为完整战役已验收。
 
 - 交付：实现提交 `05f422f6`，分支 `codex/r271-chain-crowding`，已推送并创建 [PR #767](https://github.com/Alpaca-go/ddbg-web/pull/767)，未合并。
+
+### Weald Stygian Boss 适配（2026-11-17，步骤 7 第三刀）
+
+- R-036／核心 R37：Weald 三 Boss **本体**九张战斗卡 id 纳入 `stygianBossCritApplies`；附属（锅、巢、Matchman）不加 Crit。Boss 房身份仍为 `room:weald:p010`／`p011`／`p012`。
+- 引擎：Hag／Pounder／Shrieker I–III 的 prepare／deploy／finish、Pounder 增援／炮击与生产用 `establishImminentThreat` 接受 `mode=stygian`；`pounderDungeonThreats` 试验仍拒 Stygian。页面在 Stygian＋完整 Weald Boss 版本时显示部署按钮。
+- 不宣称自然跨幕 Boss 链或人工实机验收。

@@ -13,6 +13,7 @@ import { ensurePounderIBossScriptRegistered } from "./pounder-i";
 import { pounderDeploymentContext } from "./pounder-deployment-context";
 import { ensureCampaignBossScriptsRegistered } from "../../../expansions/register";
 import { WEALD_POUNDER_I_CONTENT } from "./pounder-i-content";
+import { isCampaignExpeditionMode } from "../../../campaign-expedition-mode";
 
 /** R30／W4／R-258：Boss 房使用独立核准目录，不占普通房间牌堆。 */
 export function preparePounderIObjectiveRoom(state: GameState): ApplyResult {
@@ -46,7 +47,7 @@ function preparePounderObjectiveRoom(state: GameState, level: 1 | 2 | 3): ApplyR
     !dungeonMonsterPoolCatalogValid(d) ||
     !restingMonsterPoolValid(d) ||
     !dungeonCurioCatalogValid(d) ||
-    !["standard", "radiant"].includes(d.mode) ||
+    !isCampaignExpeditionMode(d.mode) ||
     d.campaignLevel !== level ||
     d.activeBossThreatScriptId !== binding.scriptId ||
     d.imminentThreatDescriptionCardId !== binding.description ||
@@ -115,7 +116,7 @@ function deployPounder(state: GameState, level: 1 | 2 | 3): ApplyResult {
     state.battle ||
     d.phase !== "awaitingRoom" ||
     d.pending ||
-    !["standard", "radiant"].includes(d.mode) ||
+    !isCampaignExpeditionMode(d.mode) ||
     d.campaignLevel !== level ||
     !d.battleCatalog ||
     !d.explorationSetup ||

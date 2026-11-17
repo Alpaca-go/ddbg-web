@@ -234,8 +234,7 @@ function bossRoomEntry(d: DungeonState) {
       (e.id !== "pounder" ||
         (d.pounderBossBattles && d.pounderDungeonThreats && d.pounderHamletThreats)) &&
       (!["hag", "pounder", "shrieker"].includes(e.id) ||
-        (d.mode !== "stygian" &&
-          d.contentPacks?.includes("weald") &&
+        (d.contentPacks?.includes("weald") &&
           d.bossLocationSources &&
           d.bossExpeditionRegion === "weald")) &&
       d.campaignLevel === e.level &&

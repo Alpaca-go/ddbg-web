@@ -162,12 +162,9 @@ export function establishImminentThreat(
   if (!d) return rejectBattleCommand(state, "缺少战役状态，不能定威胁");
   if (
     command.shriekerBossBattles &&
-    (!command.locationBosses ||
-      !command.locationSources ||
-      !d.contentPacks?.includes("weald") ||
-      d.mode === "stygian")
+    (!command.locationBosses || !command.locationSources || !d.contentPacks?.includes("weald"))
   )
-    return rejectBattleCommand(state, "Shrieker I 需要完整 Weald 来源与非 Stygian 模式");
+    return rejectBattleCommand(state, "Shrieker I 需要完整 Weald 来源");
   if (command.pounderBossBattles && !command.pounderHamletThreats)
     return rejectBattleCommand(state, "Pounder Boss 战斗版本须同时启用两段威胁版本");
   if (
@@ -198,10 +195,9 @@ export function establishImminentThreat(
     (!command.locationSources ||
       !command.locationBosses ||
       !command.shriekerBossBattles ||
-      !command.pounderBossBattles ||
-      d.mode === "stygian")
+      !command.pounderBossBattles)
   )
-    return rejectBattleCommand(state, "Weald 高等级版本需要完整地点与Boss版本且非Stygian");
+    return rejectBattleCommand(state, "Weald 高等级版本需要完整地点与 Boss 版本");
   if (readActiveBossThreatScriptId(d))
     return rejectBattleCommand(state, "已有激活迫近威胁；请先击败 Boss 或清除后再定威胁");
   if (d.imminentThreatDescriptionCardId)

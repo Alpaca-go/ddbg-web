@@ -3,6 +3,7 @@ import type { ApplyResult, GameState } from "../../../command";
 import { playMonsterSkill } from "../../../battle-monster";
 import { selectMonsterTarget } from "../../../monster-target";
 import { readPounderRuntimeContext } from "./pounder-runtime-context";
+import { isCampaignExpeditionMode } from "../../../campaign-expedition-mode";
 import { planPounderIFireInTheHole } from "./pounder-i-combat-plans";
 
 /** 战斗结束时不遗留已消费的触发上下文；生命／压力待选期间继续保留。 */
@@ -35,12 +36,12 @@ export function applyPounderIFireInTheHole(
     d?.phase !== "inBattle" ||
     !d.pounderDungeonThreats ||
     !d.pounderHamletThreats ||
-    !["standard", "radiant"].includes(d.mode) ||
+    !isCampaignExpeditionMode(d.mode) ||
     !context
   )
     return rejectBattleCommand(
       state,
-      "Fire in the Hole! 需要新版本 I 级非 Stygian Boss 战及当前 Matchman 回合",
+      "Fire in the Hole! 需要新版本 I 级 Boss 战及当前 Matchman 回合",
     );
   let plan: ReturnType<typeof planPounderIFireInTheHole>;
   try {

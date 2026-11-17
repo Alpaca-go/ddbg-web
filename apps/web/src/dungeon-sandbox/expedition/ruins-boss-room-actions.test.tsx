@@ -85,7 +85,7 @@ it("Stygian 仍保留房间、等级、威胁与待选守卫", () => {
   expect(html).toContain('disabled=""');
 });
 
-it("Hag I 页面入口要求新地点来源、已选 Weald；Stygian 继续拒绝", () => {
+it("Hag I 页面入口要求新地点来源、已选 Weald；Stygian 与标准相同显示", () => {
   const d: DungeonState = {
     ...room("fanatic", "room:p013", 1),
     mode: "standard",
@@ -106,11 +106,11 @@ it("Hag I 页面入口要求新地点来源、已选 Weald；Stygian 继续拒�
   expect(renderToStaticMarkup(<RuinsBossRoomActions dungeon={d} dispatch={() => {}} />)).toContain(
     "部署 Hag I 战斗",
   );
-  expect(ruinsBossRoomEntryVisible({ ...d, mode: "stygian" })).toBe(false);
+  expect(ruinsBossRoomEntryVisible({ ...d, mode: "stygian" })).toBe(true);
   expect(ruinsBossRoomEntryVisible({ ...d, contentPacks: ["core"] })).toBe(false);
 });
 
-it("Pounder I部署入口要求三段版本与Weald来源，旧档和Stygian不显示", () => {
+it("Pounder I 部署入口要求三段版本与 Weald 来源；Stygian 在版本齐全时显示", () => {
   const d: DungeonState = {
     ...room("fanatic", "room:p013", 1),
     mode: "standard",
@@ -136,10 +136,7 @@ it("Pounder I部署入口要求三段版本与Weald来源，旧档和Stygian不�
   );
   const { pounderBossBattles: _version, ...legacy } = d;
   void _version;
-  for (const state of [
-    legacy,
-    { ...d, mode: "stygian" as const },
-    { ...d, contentPacks: ["core" as const] },
-  ])
-    expect(ruinsBossRoomEntryVisible(state)).toBe(false);
+  expect(ruinsBossRoomEntryVisible(legacy)).toBe(false);
+  expect(ruinsBossRoomEntryVisible({ ...d, mode: "stygian" })).toBe(true);
+  expect(ruinsBossRoomEntryVisible({ ...d, contentPacks: ["core"] })).toBe(false);
 });
