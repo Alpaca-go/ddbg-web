@@ -1381,6 +1381,11 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 - 新旧部署与结算3文件29项通过（9.53秒），含两等级6项；完整typecheck／lint／build与diff空白检查通过。#745远端两轮主检查与页面已全部成功。新PR以各自最新head检查为准；本批仍不声称自然跨幕日志或人工实机验收。
 - 下一刀为Shrieker II／III数据、巢穴／飞行、三行动、两段补给威胁与正式入口；Q-189多名挤占继续单独跟踪，不停止其它已核准路径。
 
+### Shrieker 高等级数据（R-268）
+
+- 录入 II／III 本体、Nest、三技能、飞回巢穴治疗与两种补给威胁；独立目录仍为 combatReady=false，运行时与正式入口随后连续推进。
+- 验证：数据类型检查、格式及针对性 2 文件 15 测通过；旧 I 级目录不放宽。整批规则与数值待用户最终逐项复核。
+
 ### Weald Stygian 九房审阅入库首刀（2026-11-17）
 
 - 对照 `DD_EN_WEALD_CARDS_63x88_rooms_Stygian_FRONT.pdf` 九页与 [审阅稿](weald-stygian-room-review-2026-11-17.md)；`stygian_room:weald:p001`–`p009` 替换同名普通房，各 1 份。结构化记录 p008 两项增益 2t、p009 Ours! 仅增益 3t；3／6／7 无效果段。

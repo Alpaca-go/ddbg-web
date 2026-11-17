@@ -206,3 +206,6 @@ export { curioPoolIdentity, locationCurioPool } from "./curio-pool";
 
 export { wealdPounderHigherContentSchema } from "./weald-pounder-higher";
 export type { WealdPounderHigherContent } from "./weald-pounder-higher";
+
+export { wealdShriekerHigherContentSchema } from "./weald-shrieker-higher";
+export type { WealdShriekerHigherContent } from "./weald-shrieker-higher";

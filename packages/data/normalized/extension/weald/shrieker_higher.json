@@ -1,0 +1,204 @@
+{
+ "schema": "ddbg-weald-shrieker-higher-v1",
+ "ruling": "R-268",
+ "combatReady": false,
+ "sources": {"combatFront": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_140x140_monster_large_FRONT.pdf", "combatBack": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_140x140_monster_large_BACK.pdf", "abilityFront": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_FRONT.pdf", "abilityBack": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_70_120_Boss_Abilities_BACK.pdf"},
+ "cards": [
+  {
+   "level": 2,
+   "faces": [
+    {
+     "role": "shrieker",
+     "rawId": "monster_large:weald:p005",
+     "face": "front",
+     "name": "Shrieker",
+     "level": 2,
+     "types": ["eldritch", "beast", "large"],
+     "stanceSlots": 2,
+     "life": 60,
+     "speed": 3,
+     "dodge": 3,
+     "resistances": ["stun", "bleed", "shuffle"],
+     "immunities": ["blight"],
+     "selection": [
+      {"min": 1, "max": 5, "slot": 1},
+      {"min": 6, "max": 9, "slot": 2},
+      {"min": 10, "max": 10, "slot": 3}
+     ],
+     "skills": [
+      {
+       "slot": 1,
+       "name": "Peck",
+       "target": "closest",
+       "range": 1,
+       "maxTargets": 1,
+       "crit": 2,
+       "critDamage": 15,
+       "accuracy": 10,
+       "damage": 11,
+       "effects": [
+        {"kind": "selfPull", "distance": 1},
+        {"kind": "bleed", "amount": 3, "duration": 2}
+       ]
+      },
+      {
+       "slot": 2,
+       "name": "Call the Murder",
+       "target": "crowded",
+       "range": 1,
+       "maxTargets": 4,
+       "crit": 1,
+       "critDamage": 4,
+       "accuracy": 10,
+       "damage": 2,
+       "effects": [
+        {"kind": "selfPush", "distance": 2},
+        {"kind": "stress", "amount": 1}
+       ]
+      },
+      {
+       "slot": 3,
+       "name": "Regurgitate",
+       "target": "crowded",
+       "range": 2,
+       "maxTargets": 2,
+       "crit": 1,
+       "critDamage": 4,
+       "accuracy": 10,
+       "damage": 2,
+       "effects": [
+        {"kind": "debuff", "duration": 2},
+        {"kind": "disease"}
+       ]
+      }
+     ]
+    },
+    {
+     "role": "nest",
+     "rawId": "monster_large:weald:p008",
+     "face": "front",
+     "name": "Shrieker’s Nest",
+     "level": 2,
+     "types": ["large"],
+     "stanceSlots": 2,
+     "life": 30,
+     "speed": 0,
+     "dodge": 0,
+     "resistances": [],
+     "immunities": ["stun", "bleed", "blight", "debuff", "shuffle"],
+     "selection": [],
+     "skills": []
+    }
+   ],
+   "abilities": {
+    "descriptionCardId": "boss_ability:weald:p002",
+    "combatCardId": "boss_ability:weald:p005",
+    "actionsPerRound": 3,
+    "nestAreaExclusiveToShrieker": true,
+    "callTheMurder": {"condition": "nestInPlay", "replaces": "selfPush2", "destination": "nestArea", "printedHeal": 3},
+    "threats": {
+     "dungeon": {"mode": "ignoreAfterRoll"},
+     "hamlet": {"mode": "discardReserve", "discardCount": 3, "insufficient": "discardAll"}
+    }
+   }
+  },
+  {
+   "level": 3,
+   "faces": [
+    {
+     "role": "shrieker",
+     "rawId": "monster_large:weald:p006",
+     "face": "front",
+     "name": "Shrieker",
+     "level": 3,
+     "types": ["eldritch", "beast", "large"],
+     "stanceSlots": 2,
+     "life": 72,
+     "speed": 3,
+     "dodge": 4,
+     "resistances": ["stun", "bleed", "shuffle"],
+     "immunities": ["blight"],
+     "selection": [
+      {"min": 1, "max": 5, "slot": 1},
+      {"min": 6, "max": 9, "slot": 2},
+      {"min": 10, "max": 10, "slot": 3}
+     ],
+     "skills": [
+      {
+       "slot": 1,
+       "name": "Peck",
+       "target": "closest",
+       "range": 1,
+       "maxTargets": 1,
+       "crit": 2,
+       "critDamage": 20,
+       "accuracy": 11,
+       "damage": 15,
+       "effects": [
+        {"kind": "selfPull", "distance": 1},
+        {"kind": "bleed", "amount": 3, "duration": 3}
+       ]
+      },
+      {
+       "slot": 2,
+       "name": "Call the Murder",
+       "target": "crowded",
+       "range": 1,
+       "maxTargets": 4,
+       "crit": 1,
+       "critDamage": 6,
+       "accuracy": 11,
+       "damage": 3,
+       "effects": [
+        {"kind": "selfPush", "distance": 2},
+        {"kind": "stress", "amount": 1}
+       ]
+      },
+      {
+       "slot": 3,
+       "name": "Regurgitate",
+       "target": "crowded",
+       "range": 2,
+       "maxTargets": 2,
+       "crit": 1,
+       "critDamage": 6,
+       "accuracy": 11,
+       "damage": 3,
+       "effects": [
+        {"kind": "debuff", "duration": 2},
+        {"kind": "disease"}
+       ]
+      }
+     ]
+    },
+    {
+     "role": "nest",
+     "rawId": "monster_large:weald:p009",
+     "face": "front",
+     "name": "Shrieker’s Nest",
+     "level": 3,
+     "types": ["large"],
+     "stanceSlots": 2,
+     "life": 40,
+     "speed": 0,
+     "dodge": 0,
+     "resistances": [],
+     "immunities": ["stun", "bleed", "blight", "debuff", "shuffle"],
+     "selection": [],
+     "skills": []
+    }
+   ],
+   "abilities": {
+    "descriptionCardId": "boss_ability:weald:p003",
+    "combatCardId": "boss_ability:weald:p006",
+    "actionsPerRound": 3,
+    "nestAreaExclusiveToShrieker": true,
+    "callTheMurder": {"condition": "nestInPlay", "replaces": "selfPush2", "destination": "nestArea", "printedHeal": 4},
+    "threats": {
+     "dungeon": {"mode": "gainThenDiscard", "discardCount": 2, "insufficient": "discardAll"},
+     "hamlet": {"mode": "reduceNormalDice", "reductionPerHero": 1, "preserveExtraDice": true}
+    }
+   }
+  }
+ ]
+}
