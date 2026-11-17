@@ -1397,6 +1397,11 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 - 弃置、容量、后续取得和原待选均可 JSON 恢复；最后行动拾箱待弃置完成才结束回合，不重掷、不重领、不重复支付。
 - 验证：新威胁场景7测、旧盗取4测和容量9测通过；完整类型／lint／构建由批末统一记录。下一步正式来源、Boss房、部署和回村。
 
+### Shrieker 高等级正式入口（R-268）
+
+- 高等级脚本、Face the Threat 元数据、同级地点来源、11号Boss房、双大型实体部署、正式开战和胜利／全灭交接已接；命令日志新增 deployShriekerHigher，旧命令保持原行为。
+- 验证：高等级入口6测及旧部署／结算／高等级来源12测通过，共4文件18测；类型、lint、build结果在统一验证处记录。下一步三Boss高等级页面与阶段冒烟。
+
 ### Weald Stygian 九房审阅入库首刀（2026-11-17）
 
 - 对照 `DD_EN_WEALD_CARDS_63x88_rooms_Stygian_FRONT.pdf` 九页与 [审阅稿](weald-stygian-room-review-2026-11-17.md)；`stygian_room:weald:p001`–`p009` 替换同名普通房，各 1 份。结构化记录 p008 两项增益 2t、p009 Ours! 仅增益 3t；3／6／7 无效果段。

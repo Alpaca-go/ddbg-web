@@ -1,5 +1,7 @@
 import {
   shriekerIRealCombatActive,
+  shriekerHigherRealCombatActive,
+  finishShriekerHigherBattle,
   finishShriekerIBattle,
 } from "./expansions/weald/boss/shrieker-i-finish";
 import {
@@ -532,6 +534,7 @@ export function startDungeonBattle(state: GameState): ApplyResult {
 
 /** R25、R-059：仅完成的战斗可回传一次；R-068 / mutualWipeout 不发胜利或撤退奖励。 */
 export function finishDungeonBattle(state: GameState): ApplyResult {
+  if (shriekerHigherRealCombatActive(state)) return finishShriekerHigherBattle(state);
   if (shriekerIRealCombatActive(state)) return finishShriekerIBattle(state);
   if (pounderIRealCombatActive(state)) return finishPounderIBattle(state);
   if (pounderHigherRealCombatActive(state)) return finishPounderHigherBattle(state);
