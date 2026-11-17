@@ -604,7 +604,7 @@ export function basicQuestEnabledForContentPacks(
   return packEnabled(packs, cardContentPack(quest));
 }
 
-/** 步骤 5 沙盒：p001–p005（须选 Weald 包）；村庄战役池仍排除全部 Weald。 */
+/** I 级正式生产路径（R-272）：p001–p005（须选 Weald 包）；村庄 I 级池仍经 `questsForCampaignLevel` 排除 Weald。 */
 export const SANDBOX_WEALD_EMBARK_QUEST_IDS = [
   "quest:weald:p001",
   "quest:weald:p002",
@@ -617,6 +617,20 @@ export type SandboxWealdEmbarkQuestId = (typeof SANDBOX_WEALD_EMBARK_QUEST_IDS)[
 export function isSandboxWealdEmbarkQuest(questId: string): questId is SandboxWealdEmbarkQuestId {
   return (SANDBOX_WEALD_EMBARK_QUEST_IDS as readonly string[]).includes(questId);
 }
+
+/** II／III 正式生产路径（`wealdHigherQuestOffers: "tasks-v1"`，R-264／R-265／R-272）。 */
+export const FORMAL_WEALD_HIGHER_TASK_QUEST_IDS = [
+  "quest:weald:p006",
+  "quest:weald:p007",
+  "quest:weald:p008",
+  "quest:weald:p009",
+  "quest:weald:p010",
+  "quest:weald:p011",
+  "quest:weald:p012",
+  "quest:weald:p013",
+  "quest:weald:p014",
+  "quest:weald:p015",
+] as const;
 
 /** 沙盒 / 调试出征：I 级普通任务 + 已接通的 Boss 任务卡（R-120）；不含未开放 Weald 地点。 */
 export function sandboxEmbarkQuests() {

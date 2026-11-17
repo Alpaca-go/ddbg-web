@@ -272,14 +272,20 @@ export function DungeonQuest() {
             data-testid="embark-mode-stygian"
             aria-pressed={mode === "stygian"}
             onClick={() => setMode("stygian")}
-            title="Stygian：起始 0 金、Boss +1 Crit，使用 17 张 Stygian 房间卡"
+            title={
+              contentPacks.includes("weald")
+                ? "Stygian：起始 0 金、Boss +1 Crit；核心 17 张 + Weald 9 张普通房 Stygian（Boss 房不替换，R-036）"
+                : "Stygian：起始 0 金、Boss +1 Crit，使用 17 张 Stygian 房间卡"
+            }
           >
             Stygian
           </button>
         </div>
         {mode === "stygian" && (
           <p className="embark-roster-hint" data-testid="embark-stygian-warning">
-            Stygian：起始 0 金，Boss +1 Crit，17 张普通房间使用 Stygian 卡。
+            {contentPacks.includes("weald")
+              ? "Stygian：起始 0 金，Boss +1 Crit；核心 17 张 + Weald 九张普通房使用 Stygian 卡（Boss 房 p010–p012 不替换，R-036）。"
+              : "Stygian：起始 0 金，Boss +1 Crit，17 张普通房间使用 Stygian 卡。"}
           </p>
         )}
       </header>

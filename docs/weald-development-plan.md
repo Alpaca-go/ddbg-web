@@ -30,6 +30,7 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
   3. **最暗入口**：`darkestActEntryPending` 在生产路径上接受三 Boss 合计（遗迹＋Weald）；纯遗迹仍仅看遗迹三条记录。
      回归：`weald-production-wiring-gaps.test.ts`、`shrieker-skip-provision-rolls` Stygian 用例。
 - **当前批次（第十一刀，战役升幕边界）**：`wealdLocationActAdvanceEnabled`／`campaignActIIIBossesComplete` 在 `locationBossThreats`＋`wealdHigherBosses`＋`bossLocationSources` 已开时**不再**要求 `bossExpeditionRegion === "weald"`；出征守卫、Boss 部署／结算仍保留对该标记的检查。`bossExpeditionRegion` 仅在 Weald 威胁／Weald Boss p019 出征时写入，`hamlet-embark` 白名单字段不透传。回归：`weald-production-wiring-gaps.test.ts`、`weald-act-advance.test.ts`。**未验收**：自然全链日志、步骤 8 实机。
+- **当前批次（第十二刀，正式 Stygian 出征入口，2026-11-18）**：Kyries 授权在 #777 后开放核心 + Weald 正式 Stygian 生产路径（**R-272**）：`formalWealdProductionEmbarkAllowed`／`sandboxExpeditionEmbarkBlockReason` 统一 I 级五任务与 `tasks-v1` 高等级闸门；`hamlet-embark` 去除重复例外；新战役页 Weald + Stygian 文案标明九房 + R-036 Boss 房不替换。Boss 房 10–12 **无** Stygian 卡：依 R-036／[审阅稿](weald-stygian-room-review-2026-11-17.md)，**无需新裁定、本刀不实施 Boss 房替换**。回归：`weald-stygian-formal-entry.test.ts`、既有 stygian／hamlet 分测。**未验收**：自然全链、步骤 8 实机。
 - **下一步**：建立自然跨幕 Face the Threat 全流程命令日志（优先稳定种子／人工接续）；步骤 8 实机仍后置；无自然日志前不宣称完整战役验收。
 
 - 步骤 0 已完成，提交 `e7fd17e1`；完整地点战役尚未验收。

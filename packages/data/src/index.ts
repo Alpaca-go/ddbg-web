@@ -55,6 +55,7 @@ export {
   questIdPageNumber,
   questMapLayoutMatchesExpedition,
   questMapLayoutPageNumber,
+  formalWealdProductionEmbarkAllowed,
   sandboxExpeditionEmbarkBlockReason,
 } from "./quest-map-pairing";
 export type { QuestExpeditionRegion, QuestMapPairingInput } from "./quest-map-pairing";

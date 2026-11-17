@@ -102,7 +102,12 @@ export function createCoreDungeonQuest(
       whispering ||
       advanced);
   const locationBlock = quest
-    ? sandboxExpeditionEmbarkBlockReason(quest.expeditionRegion, questId, contentPacks)
+    ? sandboxExpeditionEmbarkBlockReason(
+        quest.expeditionRegion,
+        questId,
+        contentPacks,
+        wealdHigherQuestOffers,
+      )
     : null;
   if (locationBlock && !whispering && !advanced) throw new Error(locationBlock);
   if (!basicQuestEnabledForContentPacks(questId, contentPacks))
