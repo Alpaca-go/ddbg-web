@@ -91,8 +91,17 @@ it("缺 wealdHigherBosses 或 wealdHigherQuestOffers:true 时读回拒绝", () =
   const d = state.dungeon!;
   const { wealdHigherBosses: _b, ...noBossVersion } = d;
   void _b;
-  const { bossExpeditionRegion: _r, ...noRegion } = d;
-  void _r;
-  for (const dungeon of [noBossVersion, noRegion, { ...d, wealdHigherQuestOffers: true as const }])
+  for (const dungeon of [noBossVersion, { ...d, wealdHigherQuestOffers: true as const }])
     expect(readRuinsActTransitionReadiness({ ...state, dungeon }).kind).toBe("blocked");
+});
+
+it("缺 bossExpeditionRegion 时战役升幕仍可读回并提交", () => {
+  const state = wealdActReadyFixture(2, "hag");
+  const { bossExpeditionRegion: _r, ...dungeon } = state.dungeon!;
+  void _r;
+  expect(wealdLocationActAdvanceEnabled(dungeon)).toBe(true);
+  expect(readRuinsActTransitionReadiness({ ...state, dungeon }).kind).toBe("ready");
+  const advanced = applyCommand({ ...state, dungeon }, command);
+  expect(advanced.events.filter((e) => e.type === "commandRefused")).toEqual([]);
+  expect(advanced.state.dungeon!.wealdHigherQuestOffers).toBe("tasks-v1");
 });

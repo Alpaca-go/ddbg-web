@@ -45,8 +45,7 @@ export function campaignActIIIBossesComplete(d: DungeonState): boolean {
   if (
     d.locationBossThreats === true &&
     d.wealdHigherBosses === true &&
-    d.bossLocationSources === true &&
-    d.bossExpeditionRegion === "weald"
+    d.bossLocationSources === true
   )
     return ruins.length + weald.length === 3;
   return ruins.length === 3;

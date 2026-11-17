@@ -29,6 +29,7 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
   2. **混合地点升幕**：Weald 生产路径下 `defeatedRuinsBossIdentities`＋`defeatedWealdBossIdentities` 合计计幕；`buildWealdActTransitionPlan`／读回按 `bossCombatThreatCeased` 对齐最近击败；`advanceRuinsAct` 在 `monsterPool.location==='ruins'` 时走 `switchRuinsActPools` 仍写入 `tasks-v1`。纯遗迹、纯 Weald 夹具不回退。
   3. **最暗入口**：`darkestActEntryPending` 在生产路径上接受三 Boss 合计（遗迹＋Weald）；纯遗迹仍仅看遗迹三条记录。
      回归：`weald-production-wiring-gaps.test.ts`、`shrieker-skip-provision-rolls` Stygian 用例。
+- **当前批次（第十一刀，战役升幕边界）**：`wealdLocationActAdvanceEnabled`／`campaignActIIIBossesComplete` 在 `locationBossThreats`＋`wealdHigherBosses`＋`bossLocationSources` 已开时**不再**要求 `bossExpeditionRegion === "weald"`；出征守卫、Boss 部署／结算仍保留对该标记的检查。`bossExpeditionRegion` 仅在 Weald 威胁／Weald Boss p019 出征时写入，`hamlet-embark` 白名单字段不透传。回归：`weald-production-wiring-gaps.test.ts`、`weald-act-advance.test.ts`。**未验收**：自然全链日志、步骤 8 实机。
 - **下一步**：建立自然跨幕 Face the Threat 全流程命令日志（优先稳定种子／人工接续）；步骤 8 实机仍后置；无自然日志前不宣称完整战役验收。
 
 - 步骤 0 已完成，提交 `e7fd17e1`；完整地点战役尚未验收。

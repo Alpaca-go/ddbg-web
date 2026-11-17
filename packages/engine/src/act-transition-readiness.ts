@@ -14,16 +14,10 @@ import {
 } from "./campaign-boss-defeats";
 
 export function wealdLocationActAdvanceEnabled(
-  d: Pick<
-    DungeonState,
-    "locationBossThreats" | "wealdHigherBosses" | "bossLocationSources" | "bossExpeditionRegion"
-  >,
+  d: Pick<DungeonState, "locationBossThreats" | "wealdHigherBosses" | "bossLocationSources">,
 ): boolean {
   return (
-    d.locationBossThreats === true &&
-    d.wealdHigherBosses === true &&
-    d.bossLocationSources === true &&
-    d.bossExpeditionRegion === "weald"
+    d.locationBossThreats === true && d.wealdHigherBosses === true && d.bossLocationSources === true
   );
 }
 
