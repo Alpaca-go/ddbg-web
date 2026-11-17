@@ -1,3 +1,6 @@
+import { settleInventoryOverflow, type InventoryOverflowResume } from "../../../inventory-overflow";
+import { finishTurn } from "../../../encounter";
+import { readShriekerRuntimeContext } from "./shrieker-runtime-context";
 import type { ApplyResult, GameState, PendingChoice } from "../../../command";
 import type { BattleState } from "../../../battle";
 import { rejectBattleCommand } from "../../../battle";
@@ -6,6 +9,9 @@ import { PROVISION_LABELS, type ProvisionFace } from "../../../loot";
 
 type Provision = { readonly id: string; readonly face: ProvisionFace };
 export type ShriekerTheft = {
+  readonly remainingDiscards?: number;
+  readonly discardsPerGain?: number;
+  readonly finishTurnActorId?: string;
   readonly side: "reserve" | "dungeon" | "battle";
   readonly queue: readonly Provision[];
   readonly dungeonPending: PendingChoice | null;
@@ -22,6 +28,62 @@ export function shriekerIThreatActive(state: GameState): boolean {
     d.imminentThreatDescriptionCardId === "boss_ability:weald:p001" &&
     d.bossCombatThreatCeased !== "boss:weald:shrieker:1"
   );
+}
+
+/** R-268：仅显式高等级版本读取新威胁；战斗面翻开后立即停用。 */
+export function shriekerHigherThreatLevel(state: GameState): 2 | 3 | null {
+  const c = readShriekerRuntimeContext(state);
+  return c && c.level !== 1 && state.dungeon?.bossCombatThreatCeased !== c.scriptId
+    ? c.level
+    : null;
+}
+/** 获取与容量先后顺序在同一入口控制；旧 I 级仍走原钩子。 */
+export function beginHigherShriekerGain(
+  before: GameState,
+  result: ApplyResult,
+  resume: InventoryOverflowResume = { type: "result" },
+): ApplyResult {
+  const level = shriekerHigherThreatLevel(before);
+  if (
+    !level ||
+    result.state.dungeon?.shriekerTheft ||
+    result.events.some((e) => e.type === "commandRefused") ||
+    ["awaitingProvisions", "inHamlet"].includes(before.dungeon!.phase) ||
+    !!before.battle !== !!result.state.battle ||
+    !result.state.dungeon?.explorationSetup
+  )
+    return result;
+  const side = result.state.battle ? "battle" : "dungeon";
+  const old = new Set(pool(before, side).map((p) => p.id));
+  const gained = pool(result.state, side).filter(
+    (p) => !old.has(p.id) && !isQuestProvisionId(p.id),
+  );
+  if (!gained.length) return result;
+  const hidden = new Set((level === 2 ? gained : gained.slice(1)).map((p) => p.id));
+  const state = writePool(
+    result.state,
+    side,
+    pool(result.state, side).filter((p) => !hidden.has(p.id)),
+  );
+  if (level === 2) return { ...result, state };
+  const theft: ShriekerTheft = {
+    side,
+    queue: gained.slice(1),
+    remainingDiscards: 2,
+    discardsPerGain: 2,
+    dungeonPending: state.dungeon!.pending,
+    battlePending: state.battle?.pending ?? null,
+    ...(resume.type === "finishTurn" ? { finishTurnActorId: resume.actorId } : {}),
+  };
+  return stageHigherTheft({ ...result, state }, theft);
+}
+function stageHigherTheft(result: ApplyResult, theft: ShriekerTheft): ApplyResult {
+  const state = { ...result.state, dungeon: { ...result.state.dungeon!, shriekerTheft: theft } };
+  const overflow = settleInventoryOverflow({ ...result, state }, { type: "shriekerTheft" });
+  return overflow.state.inventoryOverflowHold ? overflow : present(overflow, theft);
+}
+export function resumeShriekerAfterOverflow(result: ApplyResult): ApplyResult {
+  return present(result, result.state.dungeon!.shriekerTheft!);
 }
 
 function pool(state: GameState, side: ShriekerTheft["side"]): readonly Provision[] {
@@ -83,14 +145,17 @@ function present(result: ApplyResult, theft: ShriekerTheft): ApplyResult {
 
 /** R-261：只在所有 supply dice（含 Wild 自选）完成后触发一次。 */
 export function beginShriekerReserveTheft(result: ApplyResult): ApplyResult {
+  const higher = shriekerHigherThreatLevel(result.state);
+  if (higher === 3) return result;
   if (
-    !shriekerIThreatActive(result.state) ||
+    !(shriekerIThreatActive(result.state) || higher === 2) ||
     !result.state.dungeon?.explorationSetup?.provisions.some((p) => !isQuestProvisionId(p.id))
   )
     return result;
   return present(result, {
     side: "reserve",
     queue: [],
+    ...(higher === 2 ? { remainingDiscards: 3 } : {}),
     dungeonPending: result.state.dungeon.pending,
     battlePending: null,
   });
@@ -98,6 +163,7 @@ export function beginShriekerReserveTheft(result: ApplyResult): ApplyResult {
 
 /** R-262：命令成功后逐枚加入／弃置；暂存后续获得物，不能提前丢弃尚未获得者。 */
 export function beginShriekerDungeonTheft(before: GameState, result: ApplyResult): ApplyResult {
+  if (shriekerHigherThreatLevel(before)) return beginHigherShriekerGain(before, result);
   if (
     !shriekerIThreatActive(before) ||
     result.events.some((e) => e.type === "commandRefused") ||
@@ -154,9 +220,21 @@ export function chooseShriekerTheft(
   const events = [
     { type: "dungeonUpdated" as const, message: `Shrieker：玩家弃置 ${optionId}（R-261／R-262）` },
   ];
+  if ((theft.remainingDiscards ?? 1) > 1 && provisions.some((p) => !isQuestProvisionId(p.id)))
+    return present(
+      { state: next, events },
+      { ...theft, remainingDiscards: theft.remainingDiscards! - 1 },
+    );
   if (theft.queue.length) {
     next = writePool(next, theft.side, [...provisions, theft.queue[0]!]);
-    return present({ state: next, events }, { ...theft, queue: theft.queue.slice(1) });
+    const queued = {
+      ...theft,
+      queue: theft.queue.slice(1),
+      ...(theft.discardsPerGain ? { remainingDiscards: theft.discardsPerGain } : {}),
+    };
+    return theft.discardsPerGain
+      ? stageHigherTheft({ state: next, events }, queued)
+      : present({ state: next, events }, queued);
   }
   const { shriekerTheft: _theft, ...rest } = next.dungeon!;
   void _theft;
@@ -169,6 +247,7 @@ export function chooseShriekerTheft(
     const result = resumeReserve(next);
     return { ...result, events: [...events, ...result.events] };
   }
+  if (theft.finishTurnActorId) return finishTurn(next, theft.finishTurnActorId, events);
   const pending = theft.battlePending?.choice ?? theft.dungeonPending;
   return { state: next, events, ...(pending ? { pendingChoice: pending } : {}) };
 }

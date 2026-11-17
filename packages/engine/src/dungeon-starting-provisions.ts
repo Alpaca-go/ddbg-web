@@ -1,6 +1,9 @@
 import { settleInventoryOverflow } from "./inventory-overflow";
 import { wealdTaskActive } from "./expansions/weald/higher-task-effects";
-import { beginShriekerReserveTheft } from "./expansions/weald/boss/shrieker-i-provisions";
+import {
+  beginShriekerReserveTheft,
+  shriekerHigherThreatLevel,
+} from "./expansions/weald/boss/shrieker-i-provisions";
 import type { ApplyResult, Command, GameEvent, GameState } from "./command";
 import type { DungeonState } from "./dungeon";
 import { nextProvisionFace, PROVISION_FACES, PROVISION_LABELS } from "./loot";
@@ -409,7 +412,12 @@ export function setupDungeonProvisions(
       const actorId = d.heroes.find((h) => h.stance === stance)!.id;
       for (let index = 0; index < 2; index++) {
         const id = `dungeon-starting-provision:${stance}:${index}`;
-        if (wealdTaskActive(state, 10) || omitted.includes(id)) continue;
+        if (
+          wealdTaskActive(state, 10) ||
+          omitted.includes(id) ||
+          (shriekerHigherThreatLevel(state) === 3 && index === 1)
+        )
+          continue;
         if (d.mode === "radiant" && index === 1) {
           choices.push({ id, actorId });
           continue;
@@ -490,7 +498,10 @@ export function setupDungeonProvisions(
   const ids = [...provisions.map((p) => p.id), ...(choices ?? []).map((p) => p.id)];
   const expectedBase = wealdTaskActive(state, 10)
     ? []
-    : baseProvisionIds().filter((id) => !omitted.includes(id));
+    : baseProvisionIds().filter(
+        (id) =>
+          !omitted.includes(id) && !(shriekerHigherThreatLevel(state) === 3 && id.endsWith(":1")),
+      );
   const bonusIds = ids.filter((id) => id.startsWith("dungeon-bonus-provision:"));
   const partyIds = ["dungeon-party-provision:0", "dungeon-party-provision:1"];
   if (

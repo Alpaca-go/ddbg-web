@@ -1,3 +1,4 @@
+import { resumeShriekerAfterOverflow } from "./expansions/weald/boss/shrieker-i-provisions";
 import { runTrinketCommand } from "./trinket-reactions";
 import type { ApplyResult, Command, GameState, PendingChoice } from "./command";
 import type { BattleState } from "./battle";
@@ -8,6 +9,7 @@ import { isQuestProvisionId } from "./quest-provisions";
 import { PROVISION_FACES, PROVISION_LABELS } from "./loot";
 
 export type InventoryOverflowResume =
+  | { readonly type: "shriekerTheft" }
   | { readonly type: "result" }
   | { readonly type: "finishTurn"; readonly actorId: string }
   | { readonly type: "questProvisionFlow" };
@@ -145,6 +147,7 @@ export function chooseInventoryOverflow(state: GameState, command: Command): App
     );
     return { ...resumed, events: [...result.events, ...resumed.events] };
   }
+  if (hold.resume.type === "shriekerTheft") return resumeShriekerAfterOverflow(result);
   if (hold.resume.type === "questProvisionFlow")
     return finishQuestProvisionFlow(next, [...result.events]);
   return result;
