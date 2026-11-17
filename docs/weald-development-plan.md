@@ -13,6 +13,9 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 
 - **本轮复核更正（R-269）**：此前给予两份腐蚀2／2t的条目全部保留两个独立堆；已清除旧审阅稿、R-264及进度说明中的合并结论，数据／运行时核对正确，3文件14测通过。整批字段随后已由R-270核准；Q-189规则缺口继续保留，不把此项更正扩为其它状态或印刷数值修改。
 
+- **当前批次**：步骤 7 **Stygian 第二刀**（出征替换与效果接线）：`mode=stygian` + `contentPacks` 含 `weald` + `stygianRoomRules=full` 时，按 `replacesCardId` 启用九张 Weald Stygian 印刷效果（**保留** `room:weald:p00N` 地图／牌池身份）；六张效果房 `runtimeReady=true`；核心 17 张 Stygian 与板块几何未改；Boss 房 p10–p12 不在范围。
+- **下一步**：步骤 7 其余未验收项（Boss 房 Stygian、II／III 与高等级 Boss 等）按后续审阅批次推进；自然跨幕养成／人工实机继续后置。
+
 - 步骤 0 已完成，提交 `e7fd17e1`；完整地点战役尚未验收。
 - 导入与计划两批已合入并推送 `main`（`3be97c65`）。步骤 1 怪物批次已合入并推送 `main`（`7075f4d8`）。
 - Houndmaster、Shieldbreaker 已接入，沿用现有英雄实现，不重做。
@@ -1463,3 +1466,14 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 - 新命令显式shriekerProvisionSkipRolls:true，启用及原命令一起原子提交，已有待选不能中途切换；旧日志仍掷骰／Wild后忽略。标记随出征保留；页面在无待选时自动记录新口径。当前描述面II才跳过随机补给骰，不改村庄供给、III、I、停止威胁面或金币骰。
 - 宝箱（含Lost Supplies双奖励）、Curio、Camper’s Helmet在随机补给骰前跳过，保留来源成本、移箱、其它奖励及饰品翻面；无入池、无容量弃置、无Wild待选。当前Shrieker高等级目录升级v2／R-270，旧命令仍由独立版本门槛回放。
 - 独立worktree：D:/ddbg-web-worktrees/weald-shrieker-skip-provision-rolls，分支codex/weald-shrieker-skip-provision-rolls；typecheck、lint、build通过；定向数据／旧威胁2文件12测、新版本／Curio／饰品3文件93测通过；三Boss各II／III页面3测及新增跳骰页面1测通过。新增页面首轮因未打开战利品分页而超时，补齐真实分页操作后通过，未提高时间预算。全量605文件、4388测通过、1测跳过（1604.18秒）。本项为#764，接在#763之后，尚未合入；下一步核对远端CI并按批次继续，Q-189和自然跨幕／人工验收不因此结案。
+
+### Weald Stygian 九房审阅入库首刀（2026-11-17）
+
+- 对照 `DD_EN_WEALD_CARDS_63x88_rooms_Stygian_FRONT.pdf` 九页与 [审阅稿](weald-stygian-room-review-2026-11-17.md)；`stygian_room:weald:p001`–`p009` 替换同名普通房，各 1 份。结构化记录 p008 两项增益 2t、p009 Ours! 仅增益 3t；3／6／7 无效果段。
+- 扩展 schema `ddbg-weald-stygian-rooms-v1` 与核心 `ddbg-stygian-rooms-v1` 隔离；当时引擎出征未接线。
+
+### Weald Stygian 出征替换与效果接线（2026-11-17，步骤 7 第二刀）
+
+- 引擎 `readActiveStygianRoom` 在 Weald 包 + `stygianRoomRules=full` 时回退读 `stygian_rooms.json`；普通房战斗模块按目录覆盖时长／次数，不改 `room:weald:p00N` id。p008 两项 2t、p009 无减益已测。UI `RoomCardFace` 增加 Weald Stygian 印刷正面回退路径。
+- 六张效果房 `reviewedEffect.runtimeReady=true`；3／6／7 仍为 `null`。不修改 Boss 房、核心 17 张 Stygian、板块几何或 p008 普通房语义。
+- 验证：`pnpm --filter @ddbg/engine exec vitest run toxic-mushrooms unprepared precious poisonous-roots abyssal-puff ours clearing stygian-room weald-stygian`；`pnpm --filter @ddbg/data exec vitest run weald-stygian-rooms stygian-rooms`；`pnpm typecheck`、`pnpm lint`、`pnpm build`、`git diff --check`。步骤 7 仍为进行中。
