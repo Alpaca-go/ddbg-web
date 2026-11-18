@@ -4,6 +4,18 @@ import {
   type WealdNaturalActOneDriveOptions,
 } from "./weald-face-the-threat-natural-prefix";
 
+/** 第十六刀战役保全驱动：等候代币优先驿站复活 + 保守战斗 + 村庄治疗/有序目标技能。 */
+export const WEALD_NATURAL_ACT_ONE_CAMPAIGN_SURVIVAL_DRIVE: WealdNaturalActOneDriveOptions = {
+  skillFallback: true,
+  handleDeaths: true,
+  preferStagecoachRevival: true,
+  survival: true,
+  restThreshold: 4,
+  hamletHealFirst: true,
+  hamletOrderedSkillTargets: true,
+  wealdProductionRooms: true,
+};
+
 /**
  * 有界种子扫描元数据（第十四刀）。
  * 算法：`wealdFaceTheThreatNaturalActOnePrefix` 逐 seed 调用；停点取 prefix.stop、campaignFailure 或抛错信息；
@@ -14,6 +26,9 @@ export const WEALD_NATURAL_ACT_ONE_SEED_SCAN = {
   end: 127,
   /** 扩展扫描上限（不入默认 vitest 快照，仅供本地调查）。 */
   extendedEnd: 511,
+  /** 第十六刀：未扫过的种子带下界（假设不同 RNG 分支可能连通 Hag 全胜）。 */
+  extendedBandStart: 512,
+  extendedBandEnd: 639,
   algorithm:
     "生产 establishImminentThreat → 至多 3 趟出征（2 普通 + p019）→ 公开回村；无输赢筛选、不换种子",
 } as const;

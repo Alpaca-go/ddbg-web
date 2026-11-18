@@ -23,6 +23,7 @@ import { ensurePounderIBossScriptRegistered } from "../expansions/weald/boss/pou
 import { ensureShriekerIBossScriptRegistered } from "../expansions/weald/boss/shrieker-i";
 import { ensureCampaignBossScriptsRegistered } from "../expansions/register";
 import { wealdActReadyFixture } from "./weald-act";
+import { pickNaturalReplacementOptionId } from "./natural-replacement";
 
 const packs = ["core", "weald"] as const;
 const defaultDrawMode = "hamlet-quest-draw:ruins-two" as const;
@@ -38,6 +39,13 @@ export type WealdNaturalActOneDriveOptions = {
   readonly restThreshold?: number;
   /** 村庄优先可治疗建筑，再回退 Zealous Speech／建筑服务。 */
   readonly hamletHealFirst?: boolean;
+  /**
+   * 按 hamlet.heroOrder 遍历行动英雄，对带目标村庄技能按 hero-0..3 固定顺序选首个合法目标
+   *（对照 plague 医生 Experimental Vapours 核准场景；R-190 旁路）。
+   */
+  readonly hamletOrderedSkillTargets?: boolean;
+  /** 替补优先驿站复活，保留等待英雄代币（R-147–149）。 */
+  readonly preferStagecoachRevival?: boolean;
   /** 显式 Weald 生产房间命令版本；默认关闭。 */
   readonly wealdProductionRooms?: boolean;
   /** 正式 Stygian 生产路径（R-272：tasks-v1、stygianRoomRules:full、0 起始金）。 */
@@ -66,11 +74,7 @@ function step(game: GameState, command: Command, log: Command[]) {
   return result.state;
 }
 
-function settle(
-  game: GameState,
-  log: Command[],
-  options: { readonly handleDeaths?: boolean } = {},
-) {
+function settle(game: GameState, log: Command[], options: WealdNaturalActOneDriveOptions = {}) {
   let state = game;
   for (let guard = 0; guard < 400; guard++) {
     const d = state.dungeon!;
@@ -88,7 +92,10 @@ function settle(
         {
           type: "resolveChoice",
           choiceId: d.replacementPreparation.choice.id,
-          optionId: d.replacementPreparation.choice.options[0]!.id,
+          optionId: pickNaturalReplacementOptionId(
+            d.replacementPreparation.choice,
+            options.preferStagecoachRevival === true,
+          ),
         },
         log,
       );
@@ -105,10 +112,30 @@ function settle(
   return state;
 }
 
+const hamletSkillTargetOrder = ["hero-0", "hero-1", "hero-2", "hero-3"] as const;
+
 function pickHamletActionCommand(
   state: GameState,
   options: WealdNaturalActOneDriveOptions,
 ): Command | undefined {
+  if (options.hamletOrderedSkillTargets) {
+    const hamlet = state.dungeon!.hamlet!;
+    const actingIds = hamlet.heroOrder.filter((id) => !hamlet.actedHeroes?.includes(id));
+    for (const actorId of actingIds) {
+      for (const targetId of hamletSkillTargetOrder) {
+        for (const skill of ["experimentalVapours", "darkRitual"] as const) {
+          const trial: Command = {
+            type: "useHamletSkill",
+            actorId,
+            skill,
+            targetId,
+          };
+          if (!applyCommand(state, trial).events.some((e) => e.type === "commandRefused"))
+            return trial;
+        }
+      }
+    }
+  }
   if (options.hamletHealFirst) {
     const buildingOptions = hamletActionOptions(state);
     const ordered = [
@@ -290,6 +317,7 @@ function createProductionFaceTheThreatStart(
 function naturalQuestOptionsForActOne(options: WealdNaturalActOneDriveOptions) {
   return {
     ...(options.handleDeaths ? { handleDeaths: true as const } : {}),
+    ...(options.preferStagecoachRevival ? { preferStagecoachRevival: true as const } : {}),
     ...(options.survival
       ? { survival: true as const, restThreshold: options.restThreshold ?? 6 }
       : {}),

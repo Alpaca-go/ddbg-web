@@ -33,10 +33,13 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 - **当前批次（第十二刀，正式 Stygian 出征入口，2026-11-18）**：Kyries 授权在 #777 后开放核心 + Weald 正式 Stygian 生产路径（**R-272**）：`formalWealdProductionEmbarkAllowed`／出征闸门统一；新战役页 Weald + Stygian 文案；**R-036 更正**：Cauldron I–III 纳入 `stygianBossCritApplies`（`boss_ability:weald:p019`–`p021`），Nest／Matchman 仍排除。Boss 房 10–12 无 Stygian 替换（房间审阅结论不变）。回归：`weald-stygian-formal-entry.test.ts`、`stygian-boss-crit.test.ts`。**未验收**：自然全链、步骤 8 实机。
 - **当前批次（第十三刀，已合入 #779，`ffcf0eda`）**：`weald-face-the-threat-natural-prefix.ts` + `weald-face-the-threat-natural-replay.test.ts`（固定 seed **1**）。生产定威胁→村庄出征→回村；跨幕段自 `wealdActReadyFixture(1,hag)` 人工接续。**不覆盖** I 幕 Hag 自然全胜、步骤 8 实机。
 - **当前批次（第十四刀，已合入 #780，`ab2ce4ed`）**：`weald-face-the-threat-natural-seed-scan.ts` + `weald-face-the-threat-natural-seed-scan.test.ts`；驱动扩展选项（`survival`／`hamletHealFirst`／`wealdProductionRooms`，默认关）；`wealdFaceTheThreatNaturalCrossActJourney` 在 `hagVictory` 且 `readRuinsActTransitionReadiness` 为 `ready` 时从**自然末态**接续升幕（否则仍夹具）。**种子扫描**：默认驱动与扩展驱动各 **0–127**；本地扩扫 **0–511** 仍无 Hag I 自然全胜可读回种子；主停点 `noWaitingHeroes`。**仍人工接续**：seed **1** 标准回归（夹具≠自然胜仗）。
-- **当前批次（第十五刀，Stygian／混合地点自然跨幕日志，2026-11-18）**：
-  - **Stygian**：`weald-face-the-threat-natural-prefix.ts` 扩展 `stygian`／`drawMode`（Stygian 默认 `hamlet-quest-draw:weald-two` + `tasks-v1`）；`weald-stygian-natural-replay.test.ts` 固定 seed **3**。生产 `establishImminentThreat`→出征→回村；探索目击 `stygian_room:weald:p001–p009`；p010–p012 按 R-036 读回不替换。**I→II 跨幕**仍从 `wealdActReadyFixture(1,hag)` 人工接续（夹具≠自然胜仗）。
-  - **混合地点**：`weald-mixed-location-natural-prefix.ts` + `weald-mixed-location-natural-replay.test.ts`，固定 seed **3**，`split-one-each`、无 `bossExpeditionRegion`；I 幕自然混合出征前缀 + **II→III** 从 `wealdMixedActReadyFixture`（necromancer + brigandPounder，遗迹最近击败）明示边界接续升幕来源。**不覆盖**：II 幕 Face the Threat 自然链、I 幕 Hag 自然全胜、步骤 8 实机。
-- **下一步**：I 幕 Hag（及混合 II 末）自然全胜仍待引擎／策略链或新种子（不伪造胜利）；步骤 8 实机仍后置。
+- **当前批次（第十五刀，已合入 #781，`18ec54be`）**：Stygian／混合地点自然跨幕日志（`weald-stygian-natural-replay.test.ts` seed **3**；`weald-mixed-location-natural-replay.test.ts` seed **3**）。**I→II 跨幕**仍从 `wealdActReadyFixture(1,hag)`／`wealdMixedActReadyFixture` 人工接续（夹具≠自然胜仗）。
+- **当前批次（第十六刀，I 幕 Hag 自然全胜驱动，2026-11-18）**：
+  - **新假设／驱动**：`preferStagecoachRevival`（`natural-replacement.ts`）优先驿站复活保留等待代币；`hamletOrderedSkillTargets` 按 `hero-0..3` 选首个合法 Experimental Vapours／Dark Ritual；`WEALD_NATURAL_ACT_ONE_CAMPAIGN_SURVIVAL_DRIVE` 组合 survival（`restThreshold:4`）+ `hamletHealFirst` + 生产房间版本。
+  - **扫描（非重复 0–511 默认矩阵）**：0–127 战役保全驱动 vitest 快照；**512–639** 扩展种子带同驱动；本地 0–511 复核仍为 **0** 个 `hagVictory && actAdvanceReady`；主停点仍 **`noWaitingHeroes`**（Boss 出征前／p019 替补链），少量 `村庄无可用建筑服务`。
+  - **跨幕**：seed **1** 标准回归仍 `naturalActOneBoundary === false`，`wealdActReadyFixture(1,hag)` 接续不变；`hag-i-natural-save` seed **6** 单任务胜仗不记为 I 幕生产链全胜。
+  - **混合地点 II 末自然全胜**：本刀未拿到；`wealdMixedActReadyFixture` 仍明示边界。
+- **下一步**：I 幕 Hag 自然全胜仍待引擎／更强村庄编排或更广种子（不伪造）；混合 II 末亦然；步骤 8 实机后置。
 
 - 步骤 0 已完成，提交 `e7fd17e1`；完整地点战役尚未验收。
 - 导入与计划两批已合入并推送 `main`（`3be97c65`）。步骤 1 怪物批次已合入并推送 `main`（`7075f4d8`）。

@@ -7,6 +7,7 @@ import { coreParty, coreQuestSources } from "./core-quest";
 import { canRestDungeon } from "../dungeon-rest";
 import { nextNaturalRoute } from "./natural-route";
 import { playNaturalBattle } from "./natural-battle";
+import { pickNaturalReplacementOptionId } from "./natural-replacement";
 import { isBossQuestId } from "../boss/quest-bridge";
 import {
   DARKEST_MAMMOTH_CYST_SCRIPT_ID,
@@ -57,6 +58,8 @@ export type NaturalQuestOptions = {
    * 供跨任务的战役级回放使用；默认关闭以保持既有单任务场景不变，也不改战斗策略。
    */
   readonly handleDeaths?: boolean;
+  /** 替补时优先驿站复活（不扣等待代币）；默认关闭以保持历史日志。 */
+  readonly preferStagecoachRevival?: boolean;
   /** 遗物偏好：保守打法（击杀优先、避免英雄掉血），只给玩家策略链用，不改自然默认。 */
   readonly survival?: boolean;
   /** 显式跟随页面的新攻击命令版本，不改变玩家策略。 */
@@ -180,7 +183,10 @@ export function naturalQuest(
         step({
           type: "resolveChoice",
           choiceId: state.dungeon.replacementPreparation.choice.id,
-          optionId: state.dungeon.replacementPreparation.choice.options[0]!.id,
+          optionId: pickNaturalReplacementOptionId(
+            state.dungeon.replacementPreparation.choice,
+            options.preferStagecoachRevival === true,
+          ),
         });
       const p = choice();
       if (p) {
