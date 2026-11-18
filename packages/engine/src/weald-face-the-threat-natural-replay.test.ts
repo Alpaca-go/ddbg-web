@@ -4,8 +4,7 @@ import { createCoreDungeonQuest } from "./dungeon-quest-entry";
 import type { BasicQuestId } from "../../data/src/basic-quests";
 import { loadQuestSave } from "./quest-save";
 import { coreParty } from "./test-helpers/core-quest";
-import { naturalParty } from "./test-helpers/natural-quest";
-import { WEALD_NATURAL_ACT_ONE_CAMPAIGN_SURVIVAL_DRIVE } from "./test-helpers/weald-face-the-threat-natural-seed-scan";
+import { WEALD_NATURAL_ACT_ONE_RADIANT_CAMPAIGN_DRIVE } from "./test-helpers/weald-face-the-threat-natural-seed-scan";
 import { wealdTaskSources } from "./test-helpers/weald-task-battle";
 import {
   WEALD_PRODUCTION_ESTABLISH_THREAT,
@@ -110,15 +109,13 @@ describe("Weald 自然 I 幕生产定威胁（seed 1 固定矩阵）", () => {
 });
 
 it("Radiant seed 13：从正式开局击败 Hag I、回村、升 II 幕并严格回放同一局", () => {
-  const journey = wealdFaceTheThreatNaturalCrossActJourney(13, {
-    ...WEALD_NATURAL_ACT_ONE_CAMPAIGN_SURVIVAL_DRIVE,
-    party: naturalParty,
-    currentCampaign: true,
-    radiant: true,
-    combatProvisions: true,
-  });
+  const journey = wealdFaceTheThreatNaturalCrossActJourney(
+    13,
+    WEALD_NATURAL_ACT_ONE_RADIANT_CAMPAIGN_DRIVE,
+  );
   const { actOnePrefix: actOne, commands, crossActSave, game } = journey;
   expect(actOne.stop).toBeNull();
+  expect(actOne.wealdBossVictory).toBe(true);
   expect(journey.naturalActOneBoundary).toBe(true);
   expect(journey.actOneReady).toBe(actOne.game);
   expect(journey.start.mode).toBe("radiant");

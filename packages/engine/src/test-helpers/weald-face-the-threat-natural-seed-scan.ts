@@ -1,3 +1,4 @@
+import { naturalParty } from "./natural-quest";
 import {
   wealdFaceTheThreatNaturalActOneAdvanceReady,
   wealdFaceTheThreatNaturalActOnePrefix,
@@ -14,6 +15,18 @@ export const WEALD_NATURAL_ACT_ONE_CAMPAIGN_SURVIVAL_DRIVE: WealdNaturalActOneDr
   hamletHealFirst: true,
   hamletOrderedSkillTargets: true,
   wealdProductionRooms: true,
+};
+
+/**
+ * 明亮连续战役驱动：上面保守驱动 + 正式新战役 + 明亮侦察 + 战斗补给。
+ * 0–127 内三 Boss 自然全胜可读回种子：Pounder 7、Hag 13、Shrieker 56／60／83／91／97。
+ */
+export const WEALD_NATURAL_ACT_ONE_RADIANT_CAMPAIGN_DRIVE: WealdNaturalActOneDriveOptions = {
+  ...WEALD_NATURAL_ACT_ONE_CAMPAIGN_SURVIVAL_DRIVE,
+  party: naturalParty,
+  currentCampaign: true,
+  radiant: true,
+  combatProvisions: true,
 };
 
 /**
