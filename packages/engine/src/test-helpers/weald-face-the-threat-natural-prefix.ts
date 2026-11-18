@@ -278,7 +278,7 @@ export type WealdFaceTheThreatActOnePrefix = {
   readonly start: QuestStart;
   readonly stop: string | null;
   readonly hagVictory: boolean;
-  /** I 幕任意 Weald Boss（Hag／Pounder／Shrieker）自然全胜并回村完成。 */
+  /** I 幕任意 Weald Boss（Hag／Pounder／Shrieker）自然全胜；回村与升幕可读回另由旅程判定。 */
   readonly wealdBossVictory: boolean;
   /** Stygian 模式下目击的 Weald p001–p009 替换 id（R-036：p010–p012 无替换）。 */
   readonly stygianOrdinaryRoomWitnesses?: readonly string[];

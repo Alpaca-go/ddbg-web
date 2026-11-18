@@ -5,15 +5,28 @@ import { wealdTaskSources } from "./test-helpers/weald-task-battle";
 import { wealdFaceTheThreatNaturalCrossActJourney } from "./test-helpers/weald-face-the-threat-natural-prefix";
 import type { WealdBossIdentity } from "./expansions/weald/catalog";
 
-function expectBossCampaign(seed: number, boss: WealdBossIdentity, deployCommand: string) {
-  const journey = wealdFaceTheThreatNaturalCrossActJourney(
-    seed,
-    WEALD_NATURAL_ACT_ONE_RADIANT_CAMPAIGN_DRIVE,
-  );
+function expectBossCampaign(
+  seed: number,
+  boss: WealdBossIdentity,
+  deployCommand: string,
+  mode: "radiant" | "standard" | "stygian",
+) {
+  const journey = wealdFaceTheThreatNaturalCrossActJourney(seed, {
+    ...WEALD_NATURAL_ACT_ONE_RADIANT_CAMPAIGN_DRIVE,
+    radiant: mode === "radiant",
+    ...(mode === "stygian" ? { stygian: true } : {}),
+  });
   const actOne = journey.actOnePrefix;
   expect(actOne.stop).toBeNull();
   expect(actOne.wealdBossVictory).toBe(true);
-  expect(journey.start.mode).toBe("radiant");
+  expect(journey.start.mode).toBe(mode);
+  if (mode === "stygian") {
+    expect(journey.start).toMatchObject({
+      stygianRoomRules: "full",
+      initialQuestDrawMode: "hamlet-quest-draw:weald-two",
+    });
+    expect((actOne.stygianOrdinaryRoomWitnesses ?? []).length).toBeGreaterThan(0);
+  }
   expect(journey.naturalActOneBoundary).toBe(true);
   expect(journey.actOneReady).toBe(actOne.game);
   expect(actOne.game.dungeon!.completedRegularQuests).toHaveLength(2);
@@ -40,9 +53,17 @@ function expectBossCampaign(seed: number, boss: WealdBossIdentity, deployCommand
 }
 
 it("Radiant seed 7：两趟普通任务后自然击败 Pounder I、回村领取 3 XP 并升 II 幕", () => {
-  expectBossCampaign(7, "brigandPounder", "deployPounderI");
+  expectBossCampaign(7, "brigandPounder", "deployPounderI", "radiant");
 }, 120_000);
 
 it("Radiant seed 56：两趟普通任务后自然击败 Shrieker I、回村领取 3 XP 并升 II 幕", () => {
-  expectBossCampaign(56, "shrieker", "deployShriekerI");
+  expectBossCampaign(56, "shrieker", "deployShriekerI", "radiant");
+}, 120_000);
+
+it("Standard seed 49：两趟普通任务后自然击败 Pounder I、回村领取 3 XP 并升 II 幕", () => {
+  expectBossCampaign(49, "brigandPounder", "deployPounderI", "standard");
+}, 120_000);
+
+it("Stygian seed 20：两趟普通任务后自然击败 Hag I、回村领取 3 XP 并升 II 幕", () => {
+  expectBossCampaign(20, "hag", "deployHagI", "stygian");
 }, 120_000);
