@@ -6,21 +6,20 @@ import { releaseDeadHeroCards } from "./hero-death-cards";
 import { captureFallenHeroes } from "./fallen-heroes";
 import { isFormalHeroName } from "./formal-heroes";
 import { verifiedLevel1CombatSkillsForHero } from "./formal-roster-catalog";
+import { battleHeroCardHolders } from "./battle-hero-card-holders";
 
 function context(state: GameState) {
   const d = state.dungeon!;
   const b = state.battle;
   const heroes = b
-    ? b.entities
-        .filter((e) => e.side === "hero")
-        .map((e) => ({
-          id: e.id,
-          dead: e.dead,
-          heroStatId: e.heroStatId,
-          ...(d.heroes.find((h) => h.id === e.id)?.level === undefined
-            ? {}
-            : { level: d.heroes.find((h) => h.id === e.id)!.level! }),
-        }))
+    ? battleHeroCardHolders(b).map((e) => ({
+        id: e.id,
+        dead: e.dead,
+        heroStatId: e.heroStatId,
+        ...(d.heroes.find((h) => h.id === e.id)?.level === undefined
+          ? {}
+          : { level: d.heroes.find((h) => h.id === e.id)!.level! }),
+      }))
     : d.heroes;
   return {
     d,
@@ -60,7 +59,7 @@ export function replacementHeroCandidates(d: DungeonState) {
 
 type EstateOption = { id: string; label: string; take?: string; discard?: string };
 function estateOptions(state: GameState) {
-  const { heroes, pool } = context(state);
+  const { b, heroes, pool } = context(state);
   if (!pool || trinketPoolProblem(pool, heroes)) return null;
   const held = pool.held.find((c) => heroes.some((h) => h.id === c.heroId && h.dead));
   if (!held) return null;
@@ -68,7 +67,7 @@ function estateOptions(state: GameState) {
   const options: EstateOption[] = [];
   if (discardHeldTrinket(pool, held.cardId).status === "resolved")
     options.push({ id: "discard", label: `弃置死者饰品 ${card.name}`, discard: held.cardId });
-  for (const hero of heroes.filter((h) => !h.dead)) {
+  for (const hero of heroes.filter((h) => !h.dead && h.id !== b?.hagCauldron?.hero.id)) {
     const owned = pool.held.filter((c) => c.heroId === hero.id);
     if (owned.length < hero.level!)
       options.push({

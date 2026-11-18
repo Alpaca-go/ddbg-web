@@ -5,6 +5,8 @@ import { hagIInitialDeployment } from "./hag-i-projection";
 import { captureHagIHero, hagIReleaseAreas, releaseHagIHero } from "./hag-i-captive";
 import { ensureHagIBossScriptRegistered, HAG_I_SCRIPT_ID } from "./hag-i";
 import { FACE_THE_THREAT_QUEST_ID } from "../../../boss/quest-bridge";
+import { gainDisease } from "../../../conditions";
+import { coreQuestSources } from "../../../test-helpers/core-quest";
 
 beforeEach(() => ensureHagIBossScriptRegistered());
 
@@ -103,6 +105,46 @@ it("已行动英雄入锅不删掉其他英雄的剩余先攻；拒绝错误回�
     },
   };
   expect(captureHagIHero(waiting, "h1").state).toBe(waiting);
+});
+
+it("R-255：锅内英雄离板后仍持有疾病，公开命令可继续结算释放", () => {
+  const state = fixture();
+  const battle = state.battle!;
+  const infected = gainDisease(
+    coreQuestSources.catalog.conditions!,
+    battle.entities.filter((entity) => entity.side === "hero"),
+    "h1",
+    state.seed,
+    battle.rngCursor,
+  );
+  if (infected.status !== "resolved") throw new Error(infected.reason);
+  const captured = captureHagIHero(
+    {
+      ...state,
+      battle: {
+        ...battle,
+        conditions: infected.pool,
+        rngCursor: infected.cursor,
+        entities: battle.entities.map((entity) =>
+          entity.id === "h1" ? { ...entity, heroLevel: 1, diseaseId: infected.diseaseId } : entity,
+        ),
+      },
+    },
+    "h1",
+  ).state;
+  const offered = releaseHagIHero(captured);
+  const choice = offered.pendingChoice!;
+  const result = applyCommand(offered.state, {
+    type: "resolveChoice",
+    choiceId: choice.id,
+    optionId: choice.options[0]!.id,
+  });
+  expect(result.events.filter((event) => event.type === "commandRefused")).toEqual([]);
+  expect(result.state.battle!.hagCauldron).toBeUndefined();
+  expect(result.state.battle!.entities.find((entity) => entity.id === "h1")?.diseaseId).toBe(
+    infected.diseaseId,
+  );
+  expect(result.state.battle!.conditions).toEqual(infected.pool);
 });
 
 it("释放经公开 resolveChoice 选择邻区，进入 Aggressive，其余后移且不凭空补先攻", () => {

@@ -1,3 +1,4 @@
+import { battleTrinketHolders } from "./battle-hero-card-holders";
 import { isFreeTrinketId, useFreeTrinket } from "./battle-free-trinkets";
 import type { FreeTrinketId } from "./battle-free-trinkets";
 import type { NormalizedTrinketCard } from "../../data/src/normalize/schema";
@@ -68,16 +69,7 @@ export function fortunateArmletUseProblem(state: GameState, actorId: string): st
     return "饰品持有者或压力无效（R-048）";
   const pool = b.trinkets;
   if (!pool) return "缺少完整饰品牌池（R-048）";
-  const problem = trinketPoolProblem(
-    pool,
-    b.entities
-      .filter((e) => e.side === "hero")
-      .map((e) => ({
-        id: e.id,
-        dead: e.dead,
-        ...(e.heroLevel === undefined ? {} : { level: e.heroLevel }),
-      })),
-  );
+  const problem = trinketPoolProblem(pool, battleTrinketHolders(b));
   if (problem) return problem;
   const card = pool.cards.find((c) => c.id === FORTUNATE_ARMLET_ID);
   if (!card || !isFortunateArmlet(card)) return "Fortunate Armlet 卡面与已核实效果不符（R-048）";

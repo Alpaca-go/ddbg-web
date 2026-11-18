@@ -1,6 +1,7 @@
 import { applyCommand } from "../command";
 import type { Command, GameState } from "../command";
 import { createCoreDungeonQuest } from "../dungeon-quest-entry";
+import type { QuestParty } from "../dungeon-quest-entry";
 import type { BasicQuestId } from "../../../data/src/basic-quests";
 import { drawInitialQuestOffers } from "../initial-quest-draw";
 import { currentHamletHero, hamletActionOptions } from "../hamlet-actions";
@@ -24,6 +25,7 @@ import { ensureShriekerIBossScriptRegistered } from "../expansions/weald/boss/sh
 import { ensureCampaignBossScriptsRegistered } from "../expansions/register";
 import { wealdActReadyFixture } from "./weald-act";
 import { pickNaturalReplacementOptionId } from "./natural-replacement";
+import { PROVISION_EFFECTS } from "../provision-use";
 
 const packs = ["core", "weald"] as const;
 const defaultDrawMode = "hamlet-quest-draw:ruins-two" as const;
@@ -32,6 +34,10 @@ const wealdBossRoomIds = new Set(["room:weald:p010", "room:weald:p011", "room:we
 
 /** 第十四刀：生产路径 I 幕自然驱动选项；缺省与第十三刀回归矩阵一致。 */
 export type WealdNaturalActOneDriveOptions = {
+  readonly party?: QuestParty;
+  readonly combatProvisions?: boolean;
+  readonly currentCampaign?: boolean;
+  readonly radiant?: boolean;
   readonly skillFallback?: boolean;
   readonly handleDeaths?: boolean;
   /** 玩家策略战斗打分（R-190 旁路）；默认关闭。 */
@@ -193,6 +199,16 @@ function prepareHamlet(
   if (state.dungeon!.hamletReturn!.phase !== "provisions")
     throw new Error(`回村暂停：${state.dungeon!.hamletReturn!.phase}`);
   state = step(state, { type: "finishReturnToHamlet" }, log);
+  if (state.dungeon!.bossQuestVictory) return state;
+  return prepareHamletDay(state, log, options);
+}
+
+function prepareHamletDay(
+  game: GameState,
+  log: Command[],
+  options: WealdNaturalActOneDriveOptions,
+) {
+  let state = game;
   state = step(state, { type: "drawHamletEvent" }, log);
   state = settle(state, log, options);
   for (let i = 0; i < 100 && state.dungeon!.hamlet!.phase !== "preparationComplete"; i++) {
@@ -275,45 +291,81 @@ function createProductionFaceTheThreatStart(
   const drawMode =
     options.drawMode ?? (options.stygian ? HAMLET_QUEST_DRAW_OPTION.wealdTwo : defaultDrawMode);
   const stygian = options.stygian === true;
-  const mode = stygian ? "stygian" : "standard";
+  const mode = stygian ? "stygian" : options.radiant ? "radiant" : "standard";
+  const party = options.party ?? coreParty;
   const start: QuestStart = {
     seed,
     questId: firstQuest,
     mode,
-    party: coreParty.map((h) => ({ ...h, skillIds: [...h.skillIds] })),
+    party: party.map((h) => ({ ...h, skillIds: [...h.skillIds] })),
     contentPacks: [...packs],
     bossEdgeRooms: true,
     initialQuestDrawMode: drawMode,
-    ...(stygian
+    ...(stygian || options.currentCampaign
       ? { stygianRoomRules: "full" as const, wealdHigherQuestOffers: "tasks-v1" as const }
       : {}),
   };
-  const game = stygian
-    ? createCampaignQuest(
-        seed,
-        firstQuest,
-        "stygian",
-        coreParty,
-        productionQuestSources,
-        [...packs],
-        drawMode,
-        "tasks-v1",
-      )
-    : createCoreDungeonQuest(
-        seed,
-        firstQuest,
-        "standard",
-        coreParty,
-        productionQuestSources,
-        true,
-        null,
-        [...packs],
-        drawMode,
-      );
+  const game =
+    stygian || options.currentCampaign
+      ? createCampaignQuest(
+          seed,
+          firstQuest,
+          mode,
+          party,
+          productionQuestSources,
+          [...packs],
+          drawMode,
+          "tasks-v1",
+        )
+      : createCoreDungeonQuest(
+          seed,
+          firstQuest,
+          mode,
+          party,
+          productionQuestSources,
+          true,
+          null,
+          [...packs],
+          drawMode,
+        );
   return { game, start };
 }
 
 /** 自然 I 幕：生产定威胁 → 村庄循环出征（与 hag-i-campaign 同策略）；不宣称全胜。 */
+function useCombatProvisions(state: GameState): Command | undefined {
+  const battle = state.battle!;
+  const heroes = battle.entities.filter((hero) => hero.side === "hero" && !hero.dead);
+  for (const provision of battle.provisions ?? []) {
+    for (const effect of PROVISION_EFFECTS[provision.face]) {
+      const target = [...heroes]
+        .sort((a, b) => b.wounds - a.wounds)
+        .find((hero) => {
+          switch (effect) {
+            case "heal":
+              return hero.wounds >= Math.max(2, (hero.life ?? 0) - 5);
+            case "clearBleed":
+              return (hero.bleed?.length ?? 0) > 0;
+            case "clearBlight":
+              return (hero.blight?.length ?? 0) > 0;
+            case "reduceStress":
+              return (hero.stress ?? 0) >= 7;
+            case "raiseLight":
+              return battle.light < 4;
+          }
+        });
+      if (!target) continue;
+      const command = {
+        type: "useProvision",
+        provisionId: provision.id,
+        targetId: target.id,
+        effect,
+      } as const;
+      if (!applyCommand(state, command).events.some((e) => e.type === "commandRefused"))
+        return command;
+    }
+  }
+}
+
 function naturalQuestOptionsForActOne(options: WealdNaturalActOneDriveOptions) {
   return {
     ...(options.handleDeaths ? { handleDeaths: true as const } : {}),
@@ -322,6 +374,8 @@ function naturalQuestOptionsForActOne(options: WealdNaturalActOneDriveOptions) {
       ? { survival: true as const, restThreshold: options.restThreshold ?? 6 }
       : {}),
     ...(options.wealdProductionRooms ? CURRENT_WEALD_ROOM_VERSIONS : {}),
+    ...(options.combatProvisions ? { heroAction: useCombatProvisions } : {}),
+    ...(options.radiant ? { radiantScouting: true } : {}),
   };
 }
 
@@ -346,7 +400,17 @@ export function wealdFaceTheThreatNaturalActOnePrefix(
   const commands: Command[] = [];
   const stygianOrdinaryRoomWitnesses = new Set<string>();
   let bossRoomWithoutStygianWitness = false;
-  game = step(game, WEALD_PRODUCTION_ESTABLISH_THREAT, commands);
+  game = step(
+    game,
+    options.currentCampaign
+      ? {
+          ...WEALD_PRODUCTION_ESTABLISH_THREAT,
+          chainCrowding: true,
+          shriekerProvisionSkipRolls: true,
+        }
+      : WEALD_PRODUCTION_ESTABLISH_THREAT,
+    commands,
+  );
   if (game.dungeon!.unregisteredImminentThreatHold)
     throw new Error(game.dungeon!.unregisteredImminentThreatHold);
 
@@ -398,7 +462,12 @@ export function wealdFaceTheThreatNaturalActOnePrefix(
       const pick = offers[0]!;
       game = step(
         game,
-        { type: "resolveChoice", choiceId: game.dungeon!.pending!.id, optionId: pick },
+        {
+          type: "resolveChoice",
+          choiceId: game.dungeon!.pending!.id,
+          optionId: pick,
+          ...(options.currentCampaign ? { bossEdgeRooms: true } : {}),
+        },
         commands,
       );
     } catch (error) {
@@ -476,7 +545,9 @@ export function wealdFaceTheThreatNaturalCrossActJourney(
 
   game = step(game, { type: "advanceRuinsAct" }, commands);
   expectProductionMarkers(game);
-  game = actAdvanceHamlet(game, commands);
+  game = naturalActOneBoundary
+    ? prepareHamletDay(game, commands, options)
+    : actAdvanceHamlet(game, commands);
   game = step(game, { type: "offerNextQuest" }, commands);
 
   const campaignLevel = game.dungeon!.campaignLevel!;
@@ -534,10 +605,14 @@ export function wealdFaceTheThreatNaturalCrossActJourney(
     bossEdgeRooms: true,
   };
   let crossActSave: ReturnType<typeof createQuestSave> | null;
-  try {
-    crossActSave = createQuestSave(crossStart, crossActCommands, game, productionQuestSources);
-  } catch {
-    crossActSave = null;
+  if (naturalActOneBoundary) {
+    crossActSave = createQuestSave(actOnePrefix.start, commands, game, productionQuestSources);
+  } else {
+    try {
+      crossActSave = createQuestSave(crossStart, crossActCommands, game, productionQuestSources);
+    } catch {
+      crossActSave = null;
+    }
   }
   return {
     seed,
