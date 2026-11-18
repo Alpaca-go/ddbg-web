@@ -1,3 +1,4 @@
+import { battleTrinketHolders } from "./battle-hero-card-holders";
 import type { GameState, ApplyResult, GameEvent } from "./command";
 import type { NormalizedTrinketCard } from "../../data/src/normalize/schema";
 import { rejectBattleCommand } from "./battle";
@@ -170,16 +171,7 @@ export function freeTrinketUseProblem(
     return "持有者或压力无效（R-048）";
   const pool = b.trinkets;
   if (!pool) return "缺少饰品牌池";
-  const problem = trinketPoolProblem(
-    pool,
-    b.entities
-      .filter((e) => e.side === "hero")
-      .map((e) => ({
-        id: e.id,
-        dead: e.dead,
-        ...(e.heroLevel === undefined ? {} : { level: e.heroLevel }),
-      })),
-  );
+  const problem = trinketPoolProblem(pool, battleTrinketHolders(b));
   if (problem) return problem;
   const card = pool.cards.find((c) => c.id === id),
     held = pool.held.find((h) => h.cardId === id && h.heroId === actorId);

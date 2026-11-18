@@ -74,6 +74,8 @@ export type NaturalQuestOptions = {
   readonly bossEdgeRooms?: true;
   /** 玩家策略：每间房后按这个「伤口 + 压力」阈值决定休息（默认 12，与既有自然策略一致）。 */
   readonly restThreshold?: number;
+  /** 明亮模式下，用公开侦察减少探索骰；不在高压时支付侦察费用。 */
+  readonly radiantScouting?: boolean;
 };
 
 /** 与正式页面 startBattle／playMonsterSkill 及 store.dispatch 的显式版本一致。 */
@@ -471,6 +473,21 @@ export function naturalQuest(
       if (state.dungeon!.heroes.some((h) => h.dead)) throw new Error("hero died");
       const route = nextNaturalRoute(state.dungeon!);
       if (!route) break;
+      const dBefore = state.dungeon!;
+      if (
+        options.radiantScouting &&
+        dBefore.mode === "radiant" &&
+        !route.backtrack &&
+        dBefore.layout.nodes.some((node) => node.id === dBefore.position && node.kind === "room") &&
+        dBefore.mustLeaveRoomId !== dBefore.position &&
+        dBefore.heroes.every((hero) => hero.stress < 7)
+      ) {
+        step({ type: "scoutDungeon" });
+        settle();
+        if (dungeonPhase() !== "ready") room();
+        if (state.dungeon!.campaignFailure)
+          return { initial, state, commands, events, stopReason: null };
+      }
       step({ type: route.backtrack ? "beginDungeonBacktrack" : "beginDungeonExploration" });
       choose(route.to);
       if (!route.backtrack) step({ type: "rollDungeonExploration" });

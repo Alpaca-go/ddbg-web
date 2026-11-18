@@ -51,6 +51,7 @@ import { triggerBattlePassive } from "./battle-passive";
 import { resolveHeroHealth } from "./hero-health";
 import { passiveHeal } from "./passive";
 import { gainDisease } from "./conditions";
+import { battleHeroCardHolders } from "./battle-hero-card-holders";
 import { applyBattleSkillStatuses, readHeroPassiveDefence } from "./battle-skill-status";
 import { applyPassiveHero } from "./passive-runtime";
 import { endTurnOldAbbey } from "./battle-old-abbey";
@@ -936,7 +937,7 @@ export function recordMonsterSkill(
       }
       const acquired = gainDisease(
         next.conditions,
-        next.entities.filter((e) => e.side === "hero"),
+        battleHeroCardHolders(next),
         hero.id,
         result.state.seed,
         next.rngCursor,
@@ -947,7 +948,10 @@ export function recordMonsterSkill(
         ...next,
         conditions: acquired.pool,
         rngCursor: acquired.cursor,
-        entities: next.entities.map((e) => acquired.heroes.find((h) => h.id === e.id) ?? e),
+        entities: next.entities.map((e) => ({
+          ...e,
+          ...acquired.heroes.find((h) => h.id === e.id),
+        })),
       };
       events.push({
         type: "diseaseAcquired",

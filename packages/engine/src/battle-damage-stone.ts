@@ -1,3 +1,4 @@
+import { battleTrinketHolders } from "./battle-hero-card-holders";
 import { nextBattleRoll } from "./battle-roll";
 import { rejectBattleCommand, playHeroSkill } from "./battle";
 import { playHeroSkillTargets } from "./battle-hero-targets";
@@ -57,16 +58,7 @@ function poolProblem(state: GameState): string | null {
   const b = state.battle!,
     pool = b.trinkets!;
   if (!pool) return "缺少完整饰品牌池（R-048）";
-  const problem = trinketPoolProblem(
-    pool,
-    b.entities
-      .filter((e) => e.side === "hero")
-      .map((e) => ({
-        id: e.id,
-        dead: e.dead,
-        ...(e.heroLevel === undefined ? {} : { level: e.heroLevel }),
-      })),
-  );
+  const problem = trinketPoolProblem(pool, battleTrinketHolders(b));
   if (problem) return problem;
   const card = pool.cards.find((c) => c.id === DAMAGE_STONE_ID);
   return !card ||

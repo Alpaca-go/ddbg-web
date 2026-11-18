@@ -4,6 +4,7 @@ import type { ApplyResult, Command, GameState, PendingChoice, GameEvent } from "
 import type { BattleState } from "./battle";
 import type { DungeonState } from "./dungeon";
 import { trinketPoolProblem } from "./trinket-acquisition";
+import { battleTrinketHolders } from "./battle-hero-card-holders";
 import type { StatusEffect } from "./status";
 
 export type TrinketDecision = { readonly key: string; readonly optionId: string };
@@ -81,13 +82,16 @@ export function availableTrinket(
   if (!holder || holder.dead) return false;
   const problem = trinketPoolProblem(
     pool,
-    heroes.map((h) => ({
-      id: h.id,
-      dead: h.dead ?? false,
-      ...(("heroLevel" in h ? h.heroLevel : h.level) === undefined
-        ? {}
-        : { level: "heroLevel" in h ? h.heroLevel : h.level }),
-    })),
+    "entities" in scope
+      ? battleTrinketHolders(scope)
+      : scope.heroes.map((hero) => {
+          const level = "heroLevel" in hero ? hero.heroLevel : hero.level;
+          return {
+            id: hero.id,
+            dead: hero.dead ?? false,
+            ...(level === undefined ? {} : { level }),
+          };
+        }),
   );
   if (problem) throw new InvalidTrinket(problem);
   const c = pool.cards.find((c) => c.id === id),

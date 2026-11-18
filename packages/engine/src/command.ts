@@ -125,6 +125,7 @@ import {
 } from "./hamlet-return";
 import { startDungeonBattle, finishDungeonBattle } from "./dungeon-battle";
 import { conditionPoolProblem, replaceConditionQuirk } from "./conditions";
+import { battleHeroCardHolders } from "./battle-hero-card-holders";
 import { recordMonsterSkill } from "./encounter";
 import { chooseNecromancerISummon } from "./boss/necromancer-i-combat-runtime";
 import {
@@ -853,7 +854,7 @@ function dispatchCommand(
       if (!b.conditions) return rejectBattleCommand(state, "缺少疾病 / 怪癖池");
       const applied = replaceConditionQuirk(
         b.conditions,
-        b.entities.filter((e) => e.side === "hero"),
+        battleHeroCardHolders(b),
         command.optionId,
       );
       if (applied.status === "refused") return rejectBattleCommand(state, applied.reason);
@@ -865,7 +866,10 @@ function dispatchCommand(
               ...b,
               pending: null,
               conditions: applied.pool,
-              entities: b.entities.map((e) => applied.heroes.find((h) => h.id === e.id) ?? e),
+              entities: b.entities.map((e) => ({
+                ...e,
+                ...applied.heroes.find((h) => h.id === e.id),
+              })),
             },
           },
           events: [],
@@ -1191,9 +1195,7 @@ function applyCommandCore(
     state.dungeon?.phase === "inHamlet"
   )
     return rejectBattleCommand(state, "Pounder 村庄轰炸与日末续接尚未开放，保留回村进度");
-  const heroes = state.battle
-    ? state.battle.entities.filter((e) => e.side === "hero")
-    : (state.dungeon?.heroes ?? []);
+  const heroes = state.battle ? battleHeroCardHolders(state.battle) : (state.dungeon?.heroes ?? []);
   const pool = state.battle?.conditions ?? state.dungeon?.conditions;
   if (pool) {
     const problem = conditionPoolProblem(pool, heroes);

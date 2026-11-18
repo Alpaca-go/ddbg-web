@@ -1,3 +1,4 @@
+import { battleTrinketHolders } from "./battle-hero-card-holders";
 import { HERO_SKILL_TRINKET_IDS } from "../../data/src/hero-skill-trinkets";
 import type { HeroSkillTrinketId } from "../../data/src/hero-skill-trinkets";
 import type { NormalizedTrinketCard } from "../../data/src/normalize/schema";
@@ -303,16 +304,7 @@ function readOffers(
       (h) => h.heroId === actor.id && ids.includes(h.cardId as HeroSkillTrinketId),
     ) ?? [];
   if (!held.length) return { offers: [] };
-  const problem = trinketPoolProblem(
-    b.trinkets!,
-    b.entities
-      .filter((e) => e.side === "hero")
-      .map((e) => ({
-        id: e.id,
-        ...(e.heroLevel === undefined ? {} : { level: e.heroLevel }),
-        dead: e.dead,
-      })),
-  );
+  const problem = trinketPoolProblem(b.trinkets!, battleTrinketHolders(b));
   if (problem) return { problem };
   const skill = b.skills.find((s) => s.id === command.skillId)!;
   const offers: Offer[] = [];

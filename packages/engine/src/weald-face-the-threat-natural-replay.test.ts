@@ -4,6 +4,8 @@ import { createCoreDungeonQuest } from "./dungeon-quest-entry";
 import type { BasicQuestId } from "../../data/src/basic-quests";
 import { loadQuestSave } from "./quest-save";
 import { coreParty } from "./test-helpers/core-quest";
+import { naturalParty } from "./test-helpers/natural-quest";
+import { WEALD_NATURAL_ACT_ONE_CAMPAIGN_SURVIVAL_DRIVE } from "./test-helpers/weald-face-the-threat-natural-seed-scan";
 import { wealdTaskSources } from "./test-helpers/weald-task-battle";
 import {
   WEALD_PRODUCTION_ESTABLISH_THREAT,
@@ -106,3 +108,35 @@ describe("Weald 自然 I 幕生产定威胁（seed 1 固定矩阵）", () => {
     expect(prefix.stop ?? prefix.hagVictory).toBeTruthy();
   });
 });
+
+it("Radiant seed 13：从正式开局击败 Hag I、回村、升 II 幕并严格回放同一局", () => {
+  const journey = wealdFaceTheThreatNaturalCrossActJourney(13, {
+    ...WEALD_NATURAL_ACT_ONE_CAMPAIGN_SURVIVAL_DRIVE,
+    party: naturalParty,
+    currentCampaign: true,
+    radiant: true,
+    combatProvisions: true,
+  });
+  const { actOnePrefix: actOne, commands, crossActSave, game } = journey;
+  expect(actOne.stop).toBeNull();
+  expect(journey.naturalActOneBoundary).toBe(true);
+  expect(journey.actOneReady).toBe(actOne.game);
+  expect(journey.start.mode).toBe("radiant");
+  const { dungeon } = actOne.game;
+  expect(dungeon!.completedRegularQuests).toHaveLength(2);
+  expect(dungeon).toMatchObject({
+    phase: "inHamlet",
+    defeatedWealdBossIdentities: ["hag"],
+    faceTheThreatEmbarkPlan: { roomPlacement: "edgeRoomsR30" },
+    hamletReturn: { phase: "complete" },
+    questSummary: { questId: "quest:p019", xpPerHero: 3, stagecoachXp: 3, awarded: true },
+  });
+  expect(actOne.commands.filter((command) => command.type === "deployHagI")).toHaveLength(1);
+  expect(commands[actOne.commands.length]).toEqual({ type: "advanceRuinsAct" });
+  expect(game.dungeon).toMatchObject({ campaignLevel: 2, wealdHigherQuestOffers: "tasks-v1" });
+  expect(game.dungeon!.questDistribution!.questId).toMatch(/^quest:weald:p0(?:06|07|08|09|10)$/);
+  expect(crossActSave).not.toBeNull();
+  const loaded = loadQuestSave(JSON.parse(JSON.stringify(crossActSave)), wealdTaskSources);
+  expect(loaded.commands).toEqual(commands);
+  expect(loaded.game).toEqual(game);
+}, 120_000);

@@ -1,3 +1,4 @@
+import { battleTrinketHolders } from "./battle-hero-card-holders";
 import { playHeroSkill, rejectBattleCommand } from "./battle";
 import type { PlayHeroSkillCommand } from "./battle";
 import { playHeroSkillTargets } from "./battle-hero-targets";
@@ -22,16 +23,7 @@ function stone(state: GameState, actorId: string) {
   const held = b.trinkets?.held.find((h) => h.cardId === CRITICAL_STONE && h.heroId === actorId);
   if (!held) return null;
   const card = b.trinkets!.cards.find((c) => c.id === CRITICAL_STONE);
-  const problem = trinketPoolProblem(
-    b.trinkets!,
-    b.entities
-      .filter((e) => e.side === "hero")
-      .map((e) => ({
-        id: e.id,
-        ...(e.heroLevel === undefined ? {} : { level: e.heroLevel }),
-        dead: e.dead,
-      })),
-  );
+  const problem = trinketPoolProblem(b.trinkets!, battleTrinketHolders(b));
   // R26 整页明确给出这一张卡的正反面；不推广其它饰品的印刷方向。
   if (
     problem ||

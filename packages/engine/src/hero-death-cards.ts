@@ -3,6 +3,7 @@ import { rejectBattleCommand } from "./battle";
 import { conditionPoolProblem } from "./conditions";
 import { createRng } from "./rng";
 import { resolveHolders } from "./stagecoach-holdings";
+import { battleHeroCardHolders } from "./battle-hero-card-holders";
 
 /** R31、R-091：实时死者持有的共享卡立即洗回；不回收其他弃牌、不转换怪癖。 */
 export function releaseDeadHeroCards(result: ApplyResult): ApplyResult {
@@ -10,8 +11,8 @@ export function releaseDeadHeroCards(result: ApplyResult): ApplyResult {
     d = state.dungeon;
   if (!d) return result;
   const b = state.battle,
-    heroes = b ? b.entities.filter((e) => e.side === "hero") : d.heroes,
-    dead = heroes.filter((h) => h.dead),
+    heroes = b ? battleHeroCardHolders(b) : d.heroes,
+    dead = heroes.filter((h) => h.dead && h.id !== b?.hagCauldron?.hero.id),
     diseases = dead.flatMap((h) => (h.diseaseId ? [h.diseaseId] : [])),
     quirks = dead.flatMap((h) => h.quirkIds ?? []),
     resolves = dead.flatMap((h) => (h.resolveCardId ? [h.resolveCardId] : []));
