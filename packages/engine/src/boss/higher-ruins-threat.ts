@@ -3,7 +3,7 @@ import type { ApplyResult, GameState } from "../command";
 import type { DungeonState } from "../dungeon";
 import type { BattleEntity } from "../battle";
 import { rejectBattleCommand } from "../battle";
-import { readActiveBossThreatScript } from "./threat-passive-runtime";
+import { readActiveBossThreatScript, readDungeonBossThreatScript } from "./threat-passive-runtime";
 import { runBossHook } from "./hooks";
 import { nextBattleRoll } from "../battle-roll";
 import { readHeroPassiveDefence } from "../battle-skill-status";
@@ -12,7 +12,8 @@ import { triggerBattlePassive } from "../battle-passive";
 import { resolveBattlePressure } from "../pressure";
 
 export function higherRuinsThreat(d: DungeonState | undefined, side: "dungeon" | "hamlet") {
-  const script = d && readActiveBossThreatScript(d);
+  const script =
+    d && (side === "dungeon" ? readDungeonBossThreatScript(d) : readActiveBossThreatScript(d));
   if (!script) return undefined;
   const effect =
     side === "dungeon"

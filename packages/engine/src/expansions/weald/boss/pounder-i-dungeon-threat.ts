@@ -1,6 +1,9 @@
 import type { ApplyResult, GameState } from "../../../command";
 import { rejectBattleCommand } from "../../../battle";
-import { readEffectiveBossThreatScriptId } from "../../../boss/threat-campaign";
+import {
+  activeBossThreatMatchesDungeonLocation,
+  readEffectiveBossThreatScriptId,
+} from "../../../boss/threat-campaign";
 import { statusProjection } from "../../../status";
 import { POUNDER_I_SCRIPT_ID } from "./pounder-i";
 import { pounderContextForLevel } from "./pounder-runtime-context";
@@ -31,8 +34,10 @@ export function pounderDungeonThreatActive(state: GameState): boolean {
 /** 公开命令提交前消费姿态变化；失败沿外层事务回滚，不读取棋盘区域。 */
 export function applyPounderIRangedEntry(before: GameState, result: ApplyResult): ApplyResult {
   const battle = result.state.battle;
+  const d = result.state.dungeon;
+  if (!battle || !d || !activeBossThreatMatchesDungeonLocation(d)) return result;
   const context = readPounderThreatContext(result.state);
-  if (!context || !battle || result.events.some((e) => e.type === "commandRefused")) return result;
+  if (!context || result.events.some((e) => e.type === "commandRefused")) return result;
   const events = [...result.events];
   const entities = [];
   for (const entity of battle.entities) {

@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { applyCommand, type Command, type GameState } from "../../../command";
 import { createCoreDungeonQuest } from "../../../dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "../../../test-helpers/core-quest";
+import { wealdTaskSources } from "../../../test-helpers/weald-task-battle";
 import { caretakerBuilding } from "../../../hamlet-event";
 import { nextBattleRoll } from "../../../battle-roll";
 import { createBattleState, type BattleEntity } from "../../../battle";
@@ -9,6 +10,18 @@ import { applyPounderIRangedEntry } from "./pounder-i-dungeon-threat";
 import { pounderContextForLevel } from "./pounder-runtime-context";
 
 const packs = ["core", "weald"] as const;
+/** R-273：Weald Boss 的地牢侧威胁只在 Weald 任务生效；取真实 Weald 任务的完整分布。 */
+const wealdQuestDistribution = () =>
+  createCoreDungeonQuest(
+    17,
+    "quest:weald:p001",
+    "standard",
+    coreParty,
+    wealdTaskSources,
+    true,
+    null,
+    packs,
+  ).dungeon!.questDistribution!;
 const initial = (seed = 17) =>
   createCoreDungeonQuest(
     seed,
@@ -118,7 +131,14 @@ describe.each([2, 3] as const)("R-268 Pounder %i 级威胁", (level) => {
     expect(ok(empty, pray(empty)).state.dungeon!.buildingLevels ?? {}).toEqual({});
   });
   it("进入姿态轨Ranged才加Buff／Riposte，II各2t、III各3t，不重复刷新", () => {
-    const source = fixture(level);
+    const base = fixture(level);
+    const source: GameState = {
+      ...base,
+      dungeon: {
+        ...base.dungeon!,
+        questDistribution: wealdQuestDistribution(),
+      },
+    };
     const context = pounderContextForLevel(level);
     const card = context.catalog[0]!;
     const monster: BattleEntity = {

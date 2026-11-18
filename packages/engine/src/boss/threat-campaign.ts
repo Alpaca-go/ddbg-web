@@ -2,6 +2,7 @@ import type { GameState } from "../command";
 import type { DungeonState } from "../dungeon";
 import type { HamletEventState } from "../hamlet-event";
 import { combatCardIdForPoolInstance } from "../monster-pool-runtime";
+import { readExpeditionRoomRegion } from "../expedition-room-catalog";
 import { readBossCombatEntry } from "./combat-entry";
 import { ensureCampaignBossScriptsRegistered } from "../expansions/register";
 import { bossEnabledForPacks } from "../../../data/src/content-packs";
@@ -29,6 +30,26 @@ export function readEffectiveBossThreatScriptId(d: DungeonState): BossScriptId |
   return d.activeBossThreatScriptId === d.bossCombatThreatCeased
     ? undefined
     : readActiveBossThreatScriptId(d);
+}
+
+/** R-273：Boss 脚本身份自带地点；未知地点不套用跨地点判断。 */
+export function bossScriptLocation(scriptId: BossScriptId): "ruins" | "weald" | undefined {
+  if (scriptId.startsWith("boss:weald:")) return "weald";
+  if (scriptId.startsWith("boss:ruins:")) return "ruins";
+  return undefined;
+}
+
+/**
+ * R-273（Kyries 2026-11-18）：地牢侧威胁能力只在 Boss 所属地点的地牢生效。
+ * 跨地点任务不应用该 Boss 的地牢侧能力；村庄侧能力不受影响。
+ * 尚未接入地点制的旧脚本（如 Warrens／Cove 试验）保持原行为。
+ */
+export function activeBossThreatMatchesDungeonLocation(d: DungeonState): boolean {
+  const scriptId = readEffectiveBossThreatScriptId(d);
+  if (!scriptId) return false;
+  const location = bossScriptLocation(scriptId);
+  if (!location) return true;
+  return location === readExpeditionRoomRegion(d);
 }
 
 export function bossThreatHamletBlockedBuildings(d: DungeonState): readonly string[] {
@@ -87,7 +108,9 @@ export function applyBossThreatAfterBattleToPool(
   activeMonsters: readonly { readonly cardId: string }[],
   instanceIdsToShuffle: readonly string[],
 ): BossThreatPoolPatch {
-  const scriptId = readActiveBossThreatScriptId(d);
+  const scriptId = activeBossThreatMatchesDungeonLocation(d)
+    ? readActiveBossThreatScriptId(d)
+    : undefined;
   if (!scriptId || !d.battleCatalog) {
     return { pool, instanceIds: instanceIdsToShuffle, removedCombatCardIds: [] };
   }
