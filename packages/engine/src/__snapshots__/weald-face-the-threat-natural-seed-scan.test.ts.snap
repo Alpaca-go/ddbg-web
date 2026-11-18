@@ -1,0 +1,26 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Weald I 幕自然前缀种子扫描（生产路径，有界） > 0–127：扩展驱动（survival+hamletHealFirst+生产房间版本）仍无自然可读回升幕种子 1`] = `
+{
+  "battle halted: heroesDefeated": 4,
+  "beginDungeonExploration: 已停在未接线的压力 / 危险结算接口": 2,
+  "dungeon halted awaitingHazards": 1,
+  "error:村庄无可用建筑服务": 15,
+  "noWaitingHeroes": 104,
+  "offerNextQuest: 须在村庄准备完成后、无待选且四名已核实英雄（I–III，技能槽=2+HL）齐全时出征下一任务（R32/R33、R-051）": 1,
+  "resolveChoice: 需要完整 24 张 Curio 与有效探索停点（R-048）；未抽牌、未消费 Torch": 1,
+}
+`;
+
+exports[`Weald I 幕自然前缀种子扫描（生产路径，有界） > 0–127：第十三刀默认驱动停点聚合（不宣称 Hag 自然全胜） 1`] = `
+{
+  "battle halted: heroesDefeated": 6,
+  "beginDungeonExploration: 已停在未接线的压力 / 危险结算接口": 1,
+  "dungeon halted awaitingHazards": 2,
+  "error:prepareReplacementHero: 驿站等待英雄不足，战役已失败（R9/R25/R33）": 2,
+  "error:村庄无可用建筑服务": 3,
+  "hero died": 1,
+  "noWaitingHeroes": 112,
+  "resolveDungeonRoom: 当前房间没有可开始的结算；不能重启已有分配": 1,
+}
+`;

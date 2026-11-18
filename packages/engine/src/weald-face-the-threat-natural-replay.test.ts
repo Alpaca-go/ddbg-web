@@ -39,6 +39,11 @@ describe("Weald 自然跨幕 Face the Threat 全流程命令日志（生产路�
     expect(journey.actOnePrefix.commands.some((c) => c.type === "offerNextQuest")).toBe(true);
   });
 
+  it("第十四刀：seed 1 跨幕仍依赖夹具边界（自然链未 Hag 全胜）", () => {
+    expect(journey.naturalActOneBoundary).toBe(false);
+    expect(journey.manualContinuation.reason).toContain("wealdActReadyFixture");
+  });
+
   it("跨幕段：advanceRuinsAct→tasks-v1 抽选→II 出征（从 I 幕末边界重放）", () => {
     const crossAct = journey.commands.slice(journey.actOnePrefix.commands.length);
     expect(crossAct[0]).toEqual({ type: "advanceRuinsAct" });
