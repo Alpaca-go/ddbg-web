@@ -1072,15 +1072,16 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
   - TDH 免疫栏标题装饰 `55a3fded25` 不入词典、不参与 STAT 核实（Q-104）。
   - **战斗**：各七张 I 级技能 id `hero_skill:p274`–`p292`（Leper）、`p295`–`p313`（Antiquarian）规范化核实后接线；移出 `FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS`，纳入正式替补白名单（与 Abom/Jester/Arbalest 同）。
 - **依据 / 边界**：TDH 印刷 PDF、extract `extension/warrens`、R-048/R-101 路径。不使用 FAQ。
-- **关联待确认**：Q-103、Q-104
+- **关联待确认**：Q-104
 - **状态**：Kyries 已确认（2026-10-24）
 
 ### Q-103
 
 - **编号**：Q-103
-- **问题**：#286 / `print-hero-18-art-catalog` 登记 Antiquarian 技能 p232–252、Leper p253–273；当前仓内 TDH 技能 PDF 上 Leper 自 **p274**、Antiquarian 自 **p295**（Nervous Stab 在 p295）。
-- **暂定**（数据层）：扩展技能 extract 与规范化 id 采用 **印刷页** `hero_skill:p274`–`p315`；art map 页码待与 Kyries 对齐后改 catalog，不阻塞本 PR 接线。
-- **状态**：待 Kyries 确认
+- **问题**：#286 / `print-hero-18-art-catalog` 曾登记 Antiquarian 技能 p232–252、Leper p253–273；当前仓内 TDH 技能 PDF 上 Leper 自 **p274**、Antiquarian 自 **p295**（Nervous Stab 在 p295）。
+- **裁定**（Kyries 2026-11-18）：`EXTENSION_SKILL_BLOCKS` 与 `hero-skill-print-art-map.json` 扩展行按 **TDH 印刷页**对齐——Leper **p274–294**、Antiquarian **p295–315**；规范化战斗 id 仍为 `hero_skill:p274`–`p315`（`extract/extension/warrens`、`formal-roster-catalog` `WARRENS_VERIFIED_SKILL_PAGE_BLOCKS`），**不改**已有 skill 数据 id。
+- **依据**：`DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf`；`tools/pipeline/extract-print/scripts/extract_warrens_extension.py`；本 PR 重建 art map。
+- **状态**：Kyries 已确认（2026-11-18）
 
 ### Q-104
 
@@ -1100,15 +1101,15 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
   - TDH 免疫栏标题装饰 `55a3fded25` 不入词典、不参与 STAT 核实（同 Q-104 / Q-105）。
   - **战斗**：各七张 I 级技能 id `hero_skill:p232`–`p250`（MAA）、`p253`–`p271`（Flagellant）规范化核实后接线；移出 `FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS`，纳入正式替补白名单。
 - **依据 / 边界**：Cove/TDH 印刷 PDF、CE OFFICIAL_PRINTED_COMPONENT 字面、`extract/extension/cove`、R-048/R-104 路径。不使用 FAQ。
-- **关联待确认**：Q-105
 - **状态**：Kyries 已确认（2026-10-24）
 
 ### Q-105
 
 - **编号**：Q-105
-- **问题**：`print-hero-18-art-catalog` 登记 MAA 技能 p232–252、Flagellant p253–273；Cove 英雄包 STAT 为 p1–4，TDH STAT 重印为 p24–27。本 PR 技能 id 与 extract 采用 **TDH 技能页 p232–273**；STAT raw 文件路径用 Cove 包 PDF、页码 p1–4（几何自 TDH p24–27 提取，见 import 脚本注释）。
-- **暂定**：art map 中 EXTENSION_SKILL_BLOCKS 仍登记 p274+ 待与 Kyries 对齐；不阻塞本 PR 接线。
-- **状态**：待 Kyries 确认
+- **问题**：`print-hero-18-art-catalog` 曾误将 p274+ 登记为 Cove；Cove 英雄包 STAT 为 p1–4，TDH STAT 重印为 p24–27。技能 id 与 extract 采用 **TDH 技能页 p232–273**；STAT raw 用 Cove 包 PDF p1–4（几何自 TDH p24–27）。
+- **裁定**（Kyries 2026-11-18）：`EXTENSION_SKILL_BLOCKS` 仅登记 Cove——Man-at-Arms **p232–252**、Flagellant **p253–273**；**不**再占用 p274+（该段为 Warrens Leper/Antiquarian）。art id `hero_skill:art:man-at-arms:p232`–`p252`、`hero_skill:art:flagellant:p253`–`p273`；规范化 id 不变。
+- **依据**：`extract/extension/cove`、`extract_cove_extension.py`；`COVE_VERIFIED_SKILL_PAGE_BLOCKS`。
+- **状态**：Kyries 已确认（2026-11-18）
 
 ### R-106
 
@@ -1121,15 +1122,15 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
   - TDH 免疫栏标题装饰 `55a3fded25` 不入词典、不参与 STAT 核实（同 Q-104 / Q-105 / Q-106）。
   - **战斗**：各七张 I 级技能 id `hero_skill:p316`–`p334`（Shieldbreaker）、`p337`–`p355`（Houndmaster）规范化核实后接线；移出 `FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS`，纳入正式替补白名单。
 - **依据 / 边界**：Weald/TDH 印刷 PDF、CE OFFICIAL_PRINTED_COMPONENT 字面、`extract/extension/weald`、R-048/R-104/R-105 路径。不使用 FAQ。
-- **关联待确认**：Q-106
 - **状态**：Kyries 已确认（2026-10-24）
 
 ### Q-106
 
 - **编号**：Q-106
-- **问题**：`print-hero-18-art-catalog` 登记 Houndmaster 技能 p316–336、Shieldbreaker p337–357；CE / 当前 TDH 技能 PDF 上 **Shieldbreaker 自 p316、Houndmaster 自 p337**（与 catalog 英雄顺序对调）。本 PR 技能 id 与 extract 采用 **印刷页 p316–357**；STAT raw 文件路径用 Weald 包 PDF、页码 p1–4（几何自 TDH p32–35 提取）。
-- **暂定**：art map / EXTENSION_SKILL_BLOCKS 仍登记 HM→316、SB→337 待与 Kyries 对齐；不阻塞本 PR 接线。Shieldbreaker I/II CE `movement.literal` 为 3 而 Weald 印刷移动栏仅两枚靴，R-106 Speed 记 2。
-- **状态**：待 Kyries 确认
+- **问题**：`print-hero-18-art-catalog` 曾登记 Houndmaster p316–336、Shieldbreaker p337–357；TDH 技能 PDF 上 **Shieldbreaker 自 p316、Houndmaster 自 p337**（与旧 catalog 英雄顺序对调）。
+- **裁定**（Kyries 2026-11-18）：`EXTENSION_SKILL_BLOCKS` 按印刷顺序——Shieldbreaker **p316–336**、Houndmaster **p337–357**；规范化 id 与 `WEALD_VERIFIED_SKILL_PAGE_BLOCKS` 不变。本 Q **不改** R-106 Shieldbreaker I/II Speed=2（两枚靴）。
+- **依据**：`extract/extension/weald`、`extract_weald_extension.py`；`formal-roster-catalog`。
+- **状态**：Kyries 已确认（2026-11-18）
 
 ### R-107
 
@@ -1142,15 +1143,15 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
   - 免疫栏标题装饰 `55a3fded25` / `f9c2c60dad` 不入词典、不参与 STAT 核实（同 R-104–R-106）。
   - **战斗**：七张 I 级技能 id `hero_skill:musketeer:p001`、`p004`、`p007`、`p010`、`p013`、`p016`、`p019`（Aimed Shot、Smokescreen、Call the Shot、Buckshot、Sidearm、Patch Up、Skeet Shot）规范化核实后接线；移出 `FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS`（名单清空），纳入正式替补白名单。
 - **依据 / 边界**：Musketeer 包印刷 PDF、CE OFFICIAL_PRINTED_COMPONENT 字面、`extract/extension/musketeer`、R-048/R-103。不打开 PvP / 专属扩展机制。不使用 FAQ。
-- **关联待确认**：Q-107
 - **状态**：Kyries 已确认（2026-10-24）
 
 ### Q-107
 
 - **编号**：Q-107
-- **问题**：`print-hero-18-art-catalog` 与 `EXTENSION_SKILL_BLOCKS` 登记 Musketeer 技能 `startPage: 1`（与 MG_DD_08 包内页序一致），但规范化 id 使用前缀 `hero_skill:musketeer:p###` 以避免与核心盒 `hero_skill:p001` 冲突；art map 仍为 `hero_skill:art:musketeer:p###`。
-- **暂定**：战役沙盒与 `MUSKETEER_VERIFIED_SKILL_PAGE_BLOCKS` 采用 **包内页 p1–21** + `musketeer:` 前缀 id；catalog 登记待与 Kyries 对齐。
-- **状态**：待 Kyries 确认
+- **问题**：Musketeer 包内技能页 p1–21 与核心盒 `hero_skill:p001` 编号空间冲突。
+- **裁定**（Kyries 2026-11-18）：`EXTENSION_SKILL_BLOCKS` 保持 `startPage: 1`、`MUSKETEER_SKILLS_FRONT`（MG_DD_08）；规范化 id **`hero_skill:musketeer:p###`**、art **`hero_skill:art:musketeer:p###`**（包内页 p001–p021），**不**改为核心盒无前缀 id。目录与 `MUSKETEER_VERIFIED_SKILL_PAGE_BLOCKS` / `extract/extension/musketeer` 一致。
+- **依据**：`DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf`；`extract_musketeer_extension.py`。
+- **状态**：Kyries 已确认（2026-11-18）
 
 ### R-108
 
@@ -1452,6 +1453,10 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 | Q-112 | R-112 | Kyries 已确认（2026-10-25） |
 | Q-112b | R-112 | Kyries 已确认（2026-10-25；建局实体池无放回 C+B） |
 | Q-113 | R-113 | Kyries 已确认（2026-10-26；设营 SPECIAL + camp XP + 摘要） |
+| Q-103 | R-104（Warrens 技能页目录） | Kyries 已确认（2026-11-18） |
+| Q-105 | R-105（Cove 技能页目录） | Kyries 已确认（2026-11-18） |
+| Q-106 | R-106（Weald 技能页目录） | Kyries 已确认（2026-11-18） |
+| Q-107 | R-107（Musketeer 技能页目录） | Kyries 已确认（2026-11-18） |
 
 ### 仍待确认
 
@@ -1751,6 +1756,26 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 
 - **问题 / 来源**：Arbalest Rallying Flare I–III（`hero_skill:p166` 等）射程行后含 `{icon:d93aef1e33}`（红骷髅/金头盔斜线，词典 needs_review）。整卡 `verification.unverified`；其余六张 Arbalest I 级已核实并接线。
 - **处理 / 状态**：confirmed（R-103，2026-10-24）。Kyries 确认 `d93aef1e33`→target_hero_or_monster；射程旁 ×2 = 可选英雄或怪物目标。词典已确认，I–III 整卡核实并接线。
+
+### Q-103
+
+- **问题 / 来源**：`print-hero-18-art-catalog` / art map 曾按 #286 登记 Warrens 技能页，与 TDH 印刷及已入库 `hero_skill:p274`–`p315` 不一致。
+- **处理 / 状态**：confirmed（2026-11-18）。Kyries 授权按印刷页对齐目录：Leper p274–294、Antiquarian p295–315；正文见上 **Q-103** 裁定。
+
+### Q-105
+
+- **问题 / 来源**：catalog 曾误将 p274+ 留给 Cove；规范化 id 已为 MAA p232–273。
+- **处理 / 状态**：confirmed（2026-11-18）。MAA p232–252、Flagellant p253–273；正文见上 **Q-105** 裁定。
+
+### Q-106
+
+- **问题 / 来源**：catalog 曾对调 HM/SB 起始页。
+- **处理 / 状态**：confirmed（2026-11-18）。Shieldbreaker p316–336、Houndmaster p337–357；不改 R-106 Speed；正文见上 **Q-106** 裁定。
+
+### Q-107
+
+- **问题 / 来源**：Musketeer 包内页与核心盒 id 命名空间。
+- **处理 / 状态**：confirmed（2026-11-18）。`startPage: 1`、`hero_skill:musketeer:p###` / `hero_skill:art:musketeer:p###`；正文见上 **Q-107** 裁定。
 
 ### Q-114
 

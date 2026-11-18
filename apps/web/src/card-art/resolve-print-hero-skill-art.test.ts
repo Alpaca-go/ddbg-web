@@ -28,6 +28,17 @@ describe("print hero skill art map (Kyries CSV)", () => {
     }
   });
 
+  it("binds extension art-only rows to TDH/Musketeer print pages (Q-103–Q-107)", () => {
+    expect(lookupPrintHeroSkillFace("hero_skill:art:leper:p274")?.printPage).toBe(274);
+    expect(lookupPrintHeroSkillFace("hero_skill:art:antiquarian:p295")?.printPage).toBe(295);
+    expect(lookupPrintHeroSkillFace("hero_skill:art:man-at-arms:p232")?.printPage).toBe(232);
+    expect(lookupPrintHeroSkillFace("hero_skill:art:flagellant:p253")?.printPage).toBe(253);
+    expect(lookupPrintHeroSkillFace("hero_skill:art:shieldbreaker:p316")?.printPage).toBe(316);
+    expect(lookupPrintHeroSkillFace("hero_skill:art:houndmaster:p337")?.printPage).toBe(337);
+    expect(lookupPrintHeroSkillFace("hero_skill:art:musketeer:p001")?.printPage).toBe(1);
+    expect(lookupPrintHeroSkillFace("hero_skill:art:flagellant:p274")).toBeUndefined();
+  });
+
   it("binds Smite I to SKILLS_FRONT p001", () => {
     const smite = lookupPrintHeroSkillFace("hero_skill:p001");
     expect(smite).toMatchObject({

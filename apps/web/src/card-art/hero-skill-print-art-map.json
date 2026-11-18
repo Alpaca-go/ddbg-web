@@ -2788,10 +2788,10 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:art:antiquarian:p232",
+      "id": "hero_skill:art:man-at-arms:p232",
       "name": "Skill 1 (art-only)",
       "level": 1,
-      "hero": "ANTIQUARIAN",
+      "hero": "MAN-AT-ARMS",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p232.png",
       "printPage": 232,
@@ -2800,10 +2800,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:antiquarian:p233",
+      "id": "hero_skill:art:man-at-arms:p233",
       "name": "Skill 1 (art-only)",
       "level": 2,
-      "hero": "ANTIQUARIAN",
+      "hero": "MAN-AT-ARMS",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p233.png",
       "printPage": 233,
@@ -2812,10 +2812,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:antiquarian:p234",
+      "id": "hero_skill:art:man-at-arms:p234",
       "name": "Skill 1 (art-only)",
       "level": 3,
-      "hero": "ANTIQUARIAN",
+      "hero": "MAN-AT-ARMS",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p234.png",
       "printPage": 234,
@@ -2824,10 +2824,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:antiquarian:p235",
+      "id": "hero_skill:art:man-at-arms:p235",
       "name": "Skill 2 (art-only)",
       "level": 1,
-      "hero": "ANTIQUARIAN",
+      "hero": "MAN-AT-ARMS",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p235.png",
       "printPage": 235,
@@ -2836,10 +2836,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:antiquarian:p236",
+      "id": "hero_skill:art:man-at-arms:p236",
       "name": "Skill 2 (art-only)",
       "level": 2,
-      "hero": "ANTIQUARIAN",
+      "hero": "MAN-AT-ARMS",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p236.png",
       "printPage": 236,
@@ -2848,10 +2848,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:antiquarian:p237",
+      "id": "hero_skill:art:man-at-arms:p237",
       "name": "Skill 2 (art-only)",
       "level": 3,
-      "hero": "ANTIQUARIAN",
+      "hero": "MAN-AT-ARMS",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p237.png",
       "printPage": 237,
@@ -2860,10 +2860,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:antiquarian:p238",
+      "id": "hero_skill:art:man-at-arms:p238",
       "name": "Skill 3 (art-only)",
       "level": 1,
-      "hero": "ANTIQUARIAN",
+      "hero": "MAN-AT-ARMS",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p238.png",
       "printPage": 238,
@@ -2872,10 +2872,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:antiquarian:p239",
+      "id": "hero_skill:art:man-at-arms:p239",
       "name": "Skill 3 (art-only)",
       "level": 2,
-      "hero": "ANTIQUARIAN",
+      "hero": "MAN-AT-ARMS",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p239.png",
       "printPage": 239,
@@ -2884,10 +2884,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:antiquarian:p240",
+      "id": "hero_skill:art:man-at-arms:p240",
       "name": "Skill 3 (art-only)",
       "level": 3,
-      "hero": "ANTIQUARIAN",
+      "hero": "MAN-AT-ARMS",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p240.png",
       "printPage": 240,
@@ -2896,10 +2896,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:antiquarian:p241",
+      "id": "hero_skill:art:man-at-arms:p241",
       "name": "Skill 4 (art-only)",
       "level": 1,
-      "hero": "ANTIQUARIAN",
+      "hero": "MAN-AT-ARMS",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p241.png",
       "printPage": 241,
@@ -2908,10 +2908,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:antiquarian:p242",
+      "id": "hero_skill:art:man-at-arms:p242",
       "name": "Skill 4 (art-only)",
       "level": 2,
-      "hero": "ANTIQUARIAN",
+      "hero": "MAN-AT-ARMS",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p242.png",
       "printPage": 242,
@@ -2920,10 +2920,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:antiquarian:p243",
+      "id": "hero_skill:art:man-at-arms:p243",
       "name": "Skill 4 (art-only)",
       "level": 3,
-      "hero": "ANTIQUARIAN",
+      "hero": "MAN-AT-ARMS",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p243.png",
       "printPage": 243,
@@ -2932,10 +2932,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:antiquarian:p244",
+      "id": "hero_skill:art:man-at-arms:p244",
       "name": "Skill 5 (art-only)",
       "level": 1,
-      "hero": "ANTIQUARIAN",
+      "hero": "MAN-AT-ARMS",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p244.png",
       "printPage": 244,
@@ -2944,10 +2944,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:antiquarian:p245",
+      "id": "hero_skill:art:man-at-arms:p245",
       "name": "Skill 5 (art-only)",
       "level": 2,
-      "hero": "ANTIQUARIAN",
+      "hero": "MAN-AT-ARMS",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p245.png",
       "printPage": 245,
@@ -2956,10 +2956,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:antiquarian:p246",
+      "id": "hero_skill:art:man-at-arms:p246",
       "name": "Skill 5 (art-only)",
       "level": 3,
-      "hero": "ANTIQUARIAN",
+      "hero": "MAN-AT-ARMS",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p246.png",
       "printPage": 246,
@@ -2968,10 +2968,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:antiquarian:p247",
+      "id": "hero_skill:art:man-at-arms:p247",
       "name": "Skill 6 (art-only)",
       "level": 1,
-      "hero": "ANTIQUARIAN",
+      "hero": "MAN-AT-ARMS",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p247.png",
       "printPage": 247,
@@ -2980,10 +2980,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:antiquarian:p248",
+      "id": "hero_skill:art:man-at-arms:p248",
       "name": "Skill 6 (art-only)",
       "level": 2,
-      "hero": "ANTIQUARIAN",
+      "hero": "MAN-AT-ARMS",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p248.png",
       "printPage": 248,
@@ -2992,10 +2992,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:antiquarian:p249",
+      "id": "hero_skill:art:man-at-arms:p249",
       "name": "Skill 6 (art-only)",
       "level": 3,
-      "hero": "ANTIQUARIAN",
+      "hero": "MAN-AT-ARMS",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p249.png",
       "printPage": 249,
@@ -3004,10 +3004,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:antiquarian:p250",
+      "id": "hero_skill:art:man-at-arms:p250",
       "name": "Skill 7 (art-only)",
       "level": 1,
-      "hero": "ANTIQUARIAN",
+      "hero": "MAN-AT-ARMS",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p250.png",
       "printPage": 250,
@@ -3016,10 +3016,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:antiquarian:p251",
+      "id": "hero_skill:art:man-at-arms:p251",
       "name": "Skill 7 (art-only)",
       "level": 2,
-      "hero": "ANTIQUARIAN",
+      "hero": "MAN-AT-ARMS",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p251.png",
       "printPage": 251,
@@ -3028,10 +3028,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:antiquarian:p252",
+      "id": "hero_skill:art:man-at-arms:p252",
       "name": "Skill 7 (art-only)",
       "level": 3,
-      "hero": "ANTIQUARIAN",
+      "hero": "MAN-AT-ARMS",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p252.png",
       "printPage": 252,
@@ -3040,10 +3040,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:leper:p253",
+      "id": "hero_skill:art:flagellant:p253",
       "name": "Skill 1 (art-only)",
       "level": 1,
-      "hero": "LEPER",
+      "hero": "FLAGELLANT",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p253.png",
       "printPage": 253,
@@ -3052,10 +3052,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:leper:p254",
+      "id": "hero_skill:art:flagellant:p254",
       "name": "Skill 1 (art-only)",
       "level": 2,
-      "hero": "LEPER",
+      "hero": "FLAGELLANT",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p254.png",
       "printPage": 254,
@@ -3064,10 +3064,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:leper:p255",
+      "id": "hero_skill:art:flagellant:p255",
       "name": "Skill 1 (art-only)",
       "level": 3,
-      "hero": "LEPER",
+      "hero": "FLAGELLANT",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p255.png",
       "printPage": 255,
@@ -3076,10 +3076,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:leper:p256",
+      "id": "hero_skill:art:flagellant:p256",
       "name": "Skill 2 (art-only)",
       "level": 1,
-      "hero": "LEPER",
+      "hero": "FLAGELLANT",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p256.png",
       "printPage": 256,
@@ -3088,10 +3088,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:leper:p257",
+      "id": "hero_skill:art:flagellant:p257",
       "name": "Skill 2 (art-only)",
       "level": 2,
-      "hero": "LEPER",
+      "hero": "FLAGELLANT",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p257.png",
       "printPage": 257,
@@ -3100,10 +3100,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:leper:p258",
+      "id": "hero_skill:art:flagellant:p258",
       "name": "Skill 2 (art-only)",
       "level": 3,
-      "hero": "LEPER",
+      "hero": "FLAGELLANT",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p258.png",
       "printPage": 258,
@@ -3112,10 +3112,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:leper:p259",
+      "id": "hero_skill:art:flagellant:p259",
       "name": "Skill 3 (art-only)",
       "level": 1,
-      "hero": "LEPER",
+      "hero": "FLAGELLANT",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p259.png",
       "printPage": 259,
@@ -3124,10 +3124,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:leper:p260",
+      "id": "hero_skill:art:flagellant:p260",
       "name": "Skill 3 (art-only)",
       "level": 2,
-      "hero": "LEPER",
+      "hero": "FLAGELLANT",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p260.png",
       "printPage": 260,
@@ -3136,10 +3136,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:leper:p261",
+      "id": "hero_skill:art:flagellant:p261",
       "name": "Skill 3 (art-only)",
       "level": 3,
-      "hero": "LEPER",
+      "hero": "FLAGELLANT",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p261.png",
       "printPage": 261,
@@ -3148,10 +3148,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:leper:p262",
+      "id": "hero_skill:art:flagellant:p262",
       "name": "Skill 4 (art-only)",
       "level": 1,
-      "hero": "LEPER",
+      "hero": "FLAGELLANT",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p262.png",
       "printPage": 262,
@@ -3160,10 +3160,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:leper:p263",
+      "id": "hero_skill:art:flagellant:p263",
       "name": "Skill 4 (art-only)",
       "level": 2,
-      "hero": "LEPER",
+      "hero": "FLAGELLANT",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p263.png",
       "printPage": 263,
@@ -3172,10 +3172,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:leper:p264",
+      "id": "hero_skill:art:flagellant:p264",
       "name": "Skill 4 (art-only)",
       "level": 3,
-      "hero": "LEPER",
+      "hero": "FLAGELLANT",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p264.png",
       "printPage": 264,
@@ -3184,10 +3184,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:leper:p265",
+      "id": "hero_skill:art:flagellant:p265",
       "name": "Skill 5 (art-only)",
       "level": 1,
-      "hero": "LEPER",
+      "hero": "FLAGELLANT",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p265.png",
       "printPage": 265,
@@ -3196,10 +3196,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:leper:p266",
+      "id": "hero_skill:art:flagellant:p266",
       "name": "Skill 5 (art-only)",
       "level": 2,
-      "hero": "LEPER",
+      "hero": "FLAGELLANT",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p266.png",
       "printPage": 266,
@@ -3208,10 +3208,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:leper:p267",
+      "id": "hero_skill:art:flagellant:p267",
       "name": "Skill 5 (art-only)",
       "level": 3,
-      "hero": "LEPER",
+      "hero": "FLAGELLANT",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p267.png",
       "printPage": 267,
@@ -3220,10 +3220,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:leper:p268",
+      "id": "hero_skill:art:flagellant:p268",
       "name": "Skill 6 (art-only)",
       "level": 1,
-      "hero": "LEPER",
+      "hero": "FLAGELLANT",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p268.png",
       "printPage": 268,
@@ -3232,10 +3232,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:leper:p269",
+      "id": "hero_skill:art:flagellant:p269",
       "name": "Skill 6 (art-only)",
       "level": 2,
-      "hero": "LEPER",
+      "hero": "FLAGELLANT",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p269.png",
       "printPage": 269,
@@ -3244,10 +3244,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:leper:p270",
+      "id": "hero_skill:art:flagellant:p270",
       "name": "Skill 6 (art-only)",
       "level": 3,
-      "hero": "LEPER",
+      "hero": "FLAGELLANT",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p270.png",
       "printPage": 270,
@@ -3256,10 +3256,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:leper:p271",
+      "id": "hero_skill:art:flagellant:p271",
       "name": "Skill 7 (art-only)",
       "level": 1,
-      "hero": "LEPER",
+      "hero": "FLAGELLANT",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p271.png",
       "printPage": 271,
@@ -3268,10 +3268,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:leper:p272",
+      "id": "hero_skill:art:flagellant:p272",
       "name": "Skill 7 (art-only)",
       "level": 2,
-      "hero": "LEPER",
+      "hero": "FLAGELLANT",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p272.png",
       "printPage": 272,
@@ -3280,10 +3280,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:leper:p273",
+      "id": "hero_skill:art:flagellant:p273",
       "name": "Skill 7 (art-only)",
       "level": 3,
-      "hero": "LEPER",
+      "hero": "FLAGELLANT",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p273.png",
       "printPage": 273,
@@ -3292,10 +3292,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:flagellant:p274",
+      "id": "hero_skill:art:leper:p274",
       "name": "Skill 1 (art-only)",
       "level": 1,
-      "hero": "FLAGELLANT",
+      "hero": "LEPER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p274.png",
       "printPage": 274,
@@ -3304,10 +3304,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:flagellant:p275",
+      "id": "hero_skill:art:leper:p275",
       "name": "Skill 1 (art-only)",
       "level": 2,
-      "hero": "FLAGELLANT",
+      "hero": "LEPER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p275.png",
       "printPage": 275,
@@ -3316,10 +3316,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:flagellant:p276",
+      "id": "hero_skill:art:leper:p276",
       "name": "Skill 1 (art-only)",
       "level": 3,
-      "hero": "FLAGELLANT",
+      "hero": "LEPER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p276.png",
       "printPage": 276,
@@ -3328,10 +3328,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:flagellant:p277",
+      "id": "hero_skill:art:leper:p277",
       "name": "Skill 2 (art-only)",
       "level": 1,
-      "hero": "FLAGELLANT",
+      "hero": "LEPER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p277.png",
       "printPage": 277,
@@ -3340,10 +3340,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:flagellant:p278",
+      "id": "hero_skill:art:leper:p278",
       "name": "Skill 2 (art-only)",
       "level": 2,
-      "hero": "FLAGELLANT",
+      "hero": "LEPER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p278.png",
       "printPage": 278,
@@ -3352,10 +3352,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:flagellant:p279",
+      "id": "hero_skill:art:leper:p279",
       "name": "Skill 2 (art-only)",
       "level": 3,
-      "hero": "FLAGELLANT",
+      "hero": "LEPER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p279.png",
       "printPage": 279,
@@ -3364,10 +3364,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:flagellant:p280",
+      "id": "hero_skill:art:leper:p280",
       "name": "Skill 3 (art-only)",
       "level": 1,
-      "hero": "FLAGELLANT",
+      "hero": "LEPER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p280.png",
       "printPage": 280,
@@ -3376,10 +3376,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:flagellant:p281",
+      "id": "hero_skill:art:leper:p281",
       "name": "Skill 3 (art-only)",
       "level": 2,
-      "hero": "FLAGELLANT",
+      "hero": "LEPER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p281.png",
       "printPage": 281,
@@ -3388,10 +3388,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:flagellant:p282",
+      "id": "hero_skill:art:leper:p282",
       "name": "Skill 3 (art-only)",
       "level": 3,
-      "hero": "FLAGELLANT",
+      "hero": "LEPER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p282.png",
       "printPage": 282,
@@ -3400,10 +3400,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:flagellant:p283",
+      "id": "hero_skill:art:leper:p283",
       "name": "Skill 4 (art-only)",
       "level": 1,
-      "hero": "FLAGELLANT",
+      "hero": "LEPER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p283.png",
       "printPage": 283,
@@ -3412,10 +3412,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:flagellant:p284",
+      "id": "hero_skill:art:leper:p284",
       "name": "Skill 4 (art-only)",
       "level": 2,
-      "hero": "FLAGELLANT",
+      "hero": "LEPER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p284.png",
       "printPage": 284,
@@ -3424,10 +3424,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:flagellant:p285",
+      "id": "hero_skill:art:leper:p285",
       "name": "Skill 4 (art-only)",
       "level": 3,
-      "hero": "FLAGELLANT",
+      "hero": "LEPER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p285.png",
       "printPage": 285,
@@ -3436,10 +3436,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:flagellant:p286",
+      "id": "hero_skill:art:leper:p286",
       "name": "Skill 5 (art-only)",
       "level": 1,
-      "hero": "FLAGELLANT",
+      "hero": "LEPER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p286.png",
       "printPage": 286,
@@ -3448,10 +3448,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:flagellant:p287",
+      "id": "hero_skill:art:leper:p287",
       "name": "Skill 5 (art-only)",
       "level": 2,
-      "hero": "FLAGELLANT",
+      "hero": "LEPER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p287.png",
       "printPage": 287,
@@ -3460,10 +3460,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:flagellant:p288",
+      "id": "hero_skill:art:leper:p288",
       "name": "Skill 5 (art-only)",
       "level": 3,
-      "hero": "FLAGELLANT",
+      "hero": "LEPER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p288.png",
       "printPage": 288,
@@ -3472,10 +3472,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:flagellant:p289",
+      "id": "hero_skill:art:leper:p289",
       "name": "Skill 6 (art-only)",
       "level": 1,
-      "hero": "FLAGELLANT",
+      "hero": "LEPER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p289.png",
       "printPage": 289,
@@ -3484,10 +3484,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:flagellant:p290",
+      "id": "hero_skill:art:leper:p290",
       "name": "Skill 6 (art-only)",
       "level": 2,
-      "hero": "FLAGELLANT",
+      "hero": "LEPER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p290.png",
       "printPage": 290,
@@ -3496,10 +3496,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:flagellant:p291",
+      "id": "hero_skill:art:leper:p291",
       "name": "Skill 6 (art-only)",
       "level": 3,
-      "hero": "FLAGELLANT",
+      "hero": "LEPER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p291.png",
       "printPage": 291,
@@ -3508,10 +3508,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:flagellant:p292",
+      "id": "hero_skill:art:leper:p292",
       "name": "Skill 7 (art-only)",
       "level": 1,
-      "hero": "FLAGELLANT",
+      "hero": "LEPER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p292.png",
       "printPage": 292,
@@ -3520,10 +3520,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:flagellant:p293",
+      "id": "hero_skill:art:leper:p293",
       "name": "Skill 7 (art-only)",
       "level": 2,
-      "hero": "FLAGELLANT",
+      "hero": "LEPER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p293.png",
       "printPage": 293,
@@ -3532,10 +3532,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:flagellant:p294",
+      "id": "hero_skill:art:leper:p294",
       "name": "Skill 7 (art-only)",
       "level": 3,
-      "hero": "FLAGELLANT",
+      "hero": "LEPER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p294.png",
       "printPage": 294,
@@ -3544,10 +3544,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:man-at-arms:p295",
+      "id": "hero_skill:art:antiquarian:p295",
       "name": "Skill 1 (art-only)",
       "level": 1,
-      "hero": "MAN-AT-ARMS",
+      "hero": "ANTIQUARIAN",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p295.png",
       "printPage": 295,
@@ -3556,10 +3556,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:man-at-arms:p296",
+      "id": "hero_skill:art:antiquarian:p296",
       "name": "Skill 1 (art-only)",
       "level": 2,
-      "hero": "MAN-AT-ARMS",
+      "hero": "ANTIQUARIAN",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p296.png",
       "printPage": 296,
@@ -3568,10 +3568,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:man-at-arms:p297",
+      "id": "hero_skill:art:antiquarian:p297",
       "name": "Skill 1 (art-only)",
       "level": 3,
-      "hero": "MAN-AT-ARMS",
+      "hero": "ANTIQUARIAN",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p297.png",
       "printPage": 297,
@@ -3580,10 +3580,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:man-at-arms:p298",
+      "id": "hero_skill:art:antiquarian:p298",
       "name": "Skill 2 (art-only)",
       "level": 1,
-      "hero": "MAN-AT-ARMS",
+      "hero": "ANTIQUARIAN",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p298.png",
       "printPage": 298,
@@ -3592,10 +3592,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:man-at-arms:p299",
+      "id": "hero_skill:art:antiquarian:p299",
       "name": "Skill 2 (art-only)",
       "level": 2,
-      "hero": "MAN-AT-ARMS",
+      "hero": "ANTIQUARIAN",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p299.png",
       "printPage": 299,
@@ -3604,10 +3604,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:man-at-arms:p300",
+      "id": "hero_skill:art:antiquarian:p300",
       "name": "Skill 2 (art-only)",
       "level": 3,
-      "hero": "MAN-AT-ARMS",
+      "hero": "ANTIQUARIAN",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p300.png",
       "printPage": 300,
@@ -3616,10 +3616,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:man-at-arms:p301",
+      "id": "hero_skill:art:antiquarian:p301",
       "name": "Skill 3 (art-only)",
       "level": 1,
-      "hero": "MAN-AT-ARMS",
+      "hero": "ANTIQUARIAN",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p301.png",
       "printPage": 301,
@@ -3628,10 +3628,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:man-at-arms:p302",
+      "id": "hero_skill:art:antiquarian:p302",
       "name": "Skill 3 (art-only)",
       "level": 2,
-      "hero": "MAN-AT-ARMS",
+      "hero": "ANTIQUARIAN",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p302.png",
       "printPage": 302,
@@ -3640,10 +3640,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:man-at-arms:p303",
+      "id": "hero_skill:art:antiquarian:p303",
       "name": "Skill 3 (art-only)",
       "level": 3,
-      "hero": "MAN-AT-ARMS",
+      "hero": "ANTIQUARIAN",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p303.png",
       "printPage": 303,
@@ -3652,10 +3652,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:man-at-arms:p304",
+      "id": "hero_skill:art:antiquarian:p304",
       "name": "Skill 4 (art-only)",
       "level": 1,
-      "hero": "MAN-AT-ARMS",
+      "hero": "ANTIQUARIAN",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p304.png",
       "printPage": 304,
@@ -3664,10 +3664,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:man-at-arms:p305",
+      "id": "hero_skill:art:antiquarian:p305",
       "name": "Skill 4 (art-only)",
       "level": 2,
-      "hero": "MAN-AT-ARMS",
+      "hero": "ANTIQUARIAN",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p305.png",
       "printPage": 305,
@@ -3676,10 +3676,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:man-at-arms:p306",
+      "id": "hero_skill:art:antiquarian:p306",
       "name": "Skill 4 (art-only)",
       "level": 3,
-      "hero": "MAN-AT-ARMS",
+      "hero": "ANTIQUARIAN",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p306.png",
       "printPage": 306,
@@ -3688,10 +3688,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:man-at-arms:p307",
+      "id": "hero_skill:art:antiquarian:p307",
       "name": "Skill 5 (art-only)",
       "level": 1,
-      "hero": "MAN-AT-ARMS",
+      "hero": "ANTIQUARIAN",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p307.png",
       "printPage": 307,
@@ -3700,10 +3700,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:man-at-arms:p308",
+      "id": "hero_skill:art:antiquarian:p308",
       "name": "Skill 5 (art-only)",
       "level": 2,
-      "hero": "MAN-AT-ARMS",
+      "hero": "ANTIQUARIAN",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p308.png",
       "printPage": 308,
@@ -3712,10 +3712,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:man-at-arms:p309",
+      "id": "hero_skill:art:antiquarian:p309",
       "name": "Skill 5 (art-only)",
       "level": 3,
-      "hero": "MAN-AT-ARMS",
+      "hero": "ANTIQUARIAN",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p309.png",
       "printPage": 309,
@@ -3724,10 +3724,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:man-at-arms:p310",
+      "id": "hero_skill:art:antiquarian:p310",
       "name": "Skill 6 (art-only)",
       "level": 1,
-      "hero": "MAN-AT-ARMS",
+      "hero": "ANTIQUARIAN",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p310.png",
       "printPage": 310,
@@ -3736,10 +3736,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:man-at-arms:p311",
+      "id": "hero_skill:art:antiquarian:p311",
       "name": "Skill 6 (art-only)",
       "level": 2,
-      "hero": "MAN-AT-ARMS",
+      "hero": "ANTIQUARIAN",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p311.png",
       "printPage": 311,
@@ -3748,10 +3748,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:man-at-arms:p312",
+      "id": "hero_skill:art:antiquarian:p312",
       "name": "Skill 6 (art-only)",
       "level": 3,
-      "hero": "MAN-AT-ARMS",
+      "hero": "ANTIQUARIAN",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p312.png",
       "printPage": 312,
@@ -3760,10 +3760,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:man-at-arms:p313",
+      "id": "hero_skill:art:antiquarian:p313",
       "name": "Skill 7 (art-only)",
       "level": 1,
-      "hero": "MAN-AT-ARMS",
+      "hero": "ANTIQUARIAN",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p313.png",
       "printPage": 313,
@@ -3772,10 +3772,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:man-at-arms:p314",
+      "id": "hero_skill:art:antiquarian:p314",
       "name": "Skill 7 (art-only)",
       "level": 2,
-      "hero": "MAN-AT-ARMS",
+      "hero": "ANTIQUARIAN",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p314.png",
       "printPage": 314,
@@ -3784,10 +3784,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:man-at-arms:p315",
+      "id": "hero_skill:art:antiquarian:p315",
       "name": "Skill 7 (art-only)",
       "level": 3,
-      "hero": "MAN-AT-ARMS",
+      "hero": "ANTIQUARIAN",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p315.png",
       "printPage": 315,
@@ -3796,10 +3796,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:houndmaster:p316",
+      "id": "hero_skill:art:shieldbreaker:p316",
       "name": "Skill 1 (art-only)",
       "level": 1,
-      "hero": "HOUNDMASTER",
+      "hero": "SHIELDBREAKER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p316.png",
       "printPage": 316,
@@ -3808,10 +3808,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:houndmaster:p317",
+      "id": "hero_skill:art:shieldbreaker:p317",
       "name": "Skill 1 (art-only)",
       "level": 2,
-      "hero": "HOUNDMASTER",
+      "hero": "SHIELDBREAKER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p317.png",
       "printPage": 317,
@@ -3820,10 +3820,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:houndmaster:p318",
+      "id": "hero_skill:art:shieldbreaker:p318",
       "name": "Skill 1 (art-only)",
       "level": 3,
-      "hero": "HOUNDMASTER",
+      "hero": "SHIELDBREAKER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p318.png",
       "printPage": 318,
@@ -3832,10 +3832,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:houndmaster:p319",
+      "id": "hero_skill:art:shieldbreaker:p319",
       "name": "Skill 2 (art-only)",
       "level": 1,
-      "hero": "HOUNDMASTER",
+      "hero": "SHIELDBREAKER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p319.png",
       "printPage": 319,
@@ -3844,10 +3844,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:houndmaster:p320",
+      "id": "hero_skill:art:shieldbreaker:p320",
       "name": "Skill 2 (art-only)",
       "level": 2,
-      "hero": "HOUNDMASTER",
+      "hero": "SHIELDBREAKER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p320.png",
       "printPage": 320,
@@ -3856,10 +3856,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:houndmaster:p321",
+      "id": "hero_skill:art:shieldbreaker:p321",
       "name": "Skill 2 (art-only)",
       "level": 3,
-      "hero": "HOUNDMASTER",
+      "hero": "SHIELDBREAKER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p321.png",
       "printPage": 321,
@@ -3868,10 +3868,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:houndmaster:p322",
+      "id": "hero_skill:art:shieldbreaker:p322",
       "name": "Skill 3 (art-only)",
       "level": 1,
-      "hero": "HOUNDMASTER",
+      "hero": "SHIELDBREAKER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p322.png",
       "printPage": 322,
@@ -3880,10 +3880,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:houndmaster:p323",
+      "id": "hero_skill:art:shieldbreaker:p323",
       "name": "Skill 3 (art-only)",
       "level": 2,
-      "hero": "HOUNDMASTER",
+      "hero": "SHIELDBREAKER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p323.png",
       "printPage": 323,
@@ -3892,10 +3892,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:houndmaster:p324",
+      "id": "hero_skill:art:shieldbreaker:p324",
       "name": "Skill 3 (art-only)",
       "level": 3,
-      "hero": "HOUNDMASTER",
+      "hero": "SHIELDBREAKER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p324.png",
       "printPage": 324,
@@ -3904,10 +3904,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:houndmaster:p325",
+      "id": "hero_skill:art:shieldbreaker:p325",
       "name": "Skill 4 (art-only)",
       "level": 1,
-      "hero": "HOUNDMASTER",
+      "hero": "SHIELDBREAKER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p325.png",
       "printPage": 325,
@@ -3916,10 +3916,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:houndmaster:p326",
+      "id": "hero_skill:art:shieldbreaker:p326",
       "name": "Skill 4 (art-only)",
       "level": 2,
-      "hero": "HOUNDMASTER",
+      "hero": "SHIELDBREAKER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p326.png",
       "printPage": 326,
@@ -3928,10 +3928,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:houndmaster:p327",
+      "id": "hero_skill:art:shieldbreaker:p327",
       "name": "Skill 4 (art-only)",
       "level": 3,
-      "hero": "HOUNDMASTER",
+      "hero": "SHIELDBREAKER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p327.png",
       "printPage": 327,
@@ -3940,10 +3940,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:houndmaster:p328",
+      "id": "hero_skill:art:shieldbreaker:p328",
       "name": "Skill 5 (art-only)",
       "level": 1,
-      "hero": "HOUNDMASTER",
+      "hero": "SHIELDBREAKER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p328.png",
       "printPage": 328,
@@ -3952,10 +3952,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:houndmaster:p329",
+      "id": "hero_skill:art:shieldbreaker:p329",
       "name": "Skill 5 (art-only)",
       "level": 2,
-      "hero": "HOUNDMASTER",
+      "hero": "SHIELDBREAKER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p329.png",
       "printPage": 329,
@@ -3964,10 +3964,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:houndmaster:p330",
+      "id": "hero_skill:art:shieldbreaker:p330",
       "name": "Skill 5 (art-only)",
       "level": 3,
-      "hero": "HOUNDMASTER",
+      "hero": "SHIELDBREAKER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p330.png",
       "printPage": 330,
@@ -3976,10 +3976,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:houndmaster:p331",
+      "id": "hero_skill:art:shieldbreaker:p331",
       "name": "Skill 6 (art-only)",
       "level": 1,
-      "hero": "HOUNDMASTER",
+      "hero": "SHIELDBREAKER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p331.png",
       "printPage": 331,
@@ -3988,10 +3988,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:houndmaster:p332",
+      "id": "hero_skill:art:shieldbreaker:p332",
       "name": "Skill 6 (art-only)",
       "level": 2,
-      "hero": "HOUNDMASTER",
+      "hero": "SHIELDBREAKER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p332.png",
       "printPage": 332,
@@ -4000,10 +4000,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:houndmaster:p333",
+      "id": "hero_skill:art:shieldbreaker:p333",
       "name": "Skill 6 (art-only)",
       "level": 3,
-      "hero": "HOUNDMASTER",
+      "hero": "SHIELDBREAKER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p333.png",
       "printPage": 333,
@@ -4012,10 +4012,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:houndmaster:p334",
+      "id": "hero_skill:art:shieldbreaker:p334",
       "name": "Skill 7 (art-only)",
       "level": 1,
-      "hero": "HOUNDMASTER",
+      "hero": "SHIELDBREAKER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p334.png",
       "printPage": 334,
@@ -4024,10 +4024,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:houndmaster:p335",
+      "id": "hero_skill:art:shieldbreaker:p335",
       "name": "Skill 7 (art-only)",
       "level": 2,
-      "hero": "HOUNDMASTER",
+      "hero": "SHIELDBREAKER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p335.png",
       "printPage": 335,
@@ -4036,10 +4036,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:houndmaster:p336",
+      "id": "hero_skill:art:shieldbreaker:p336",
       "name": "Skill 7 (art-only)",
       "level": 3,
-      "hero": "HOUNDMASTER",
+      "hero": "SHIELDBREAKER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p336.png",
       "printPage": 336,
@@ -4048,10 +4048,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:shieldbreaker:p337",
+      "id": "hero_skill:art:houndmaster:p337",
       "name": "Skill 1 (art-only)",
       "level": 1,
-      "hero": "SHIELDBREAKER",
+      "hero": "HOUNDMASTER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p337.png",
       "printPage": 337,
@@ -4060,10 +4060,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:shieldbreaker:p338",
+      "id": "hero_skill:art:houndmaster:p338",
       "name": "Skill 1 (art-only)",
       "level": 2,
-      "hero": "SHIELDBREAKER",
+      "hero": "HOUNDMASTER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p338.png",
       "printPage": 338,
@@ -4072,10 +4072,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:shieldbreaker:p339",
+      "id": "hero_skill:art:houndmaster:p339",
       "name": "Skill 1 (art-only)",
       "level": 3,
-      "hero": "SHIELDBREAKER",
+      "hero": "HOUNDMASTER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p339.png",
       "printPage": 339,
@@ -4084,10 +4084,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:shieldbreaker:p340",
+      "id": "hero_skill:art:houndmaster:p340",
       "name": "Skill 2 (art-only)",
       "level": 1,
-      "hero": "SHIELDBREAKER",
+      "hero": "HOUNDMASTER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p340.png",
       "printPage": 340,
@@ -4096,10 +4096,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:shieldbreaker:p341",
+      "id": "hero_skill:art:houndmaster:p341",
       "name": "Skill 2 (art-only)",
       "level": 2,
-      "hero": "SHIELDBREAKER",
+      "hero": "HOUNDMASTER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p341.png",
       "printPage": 341,
@@ -4108,10 +4108,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:shieldbreaker:p342",
+      "id": "hero_skill:art:houndmaster:p342",
       "name": "Skill 2 (art-only)",
       "level": 3,
-      "hero": "SHIELDBREAKER",
+      "hero": "HOUNDMASTER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p342.png",
       "printPage": 342,
@@ -4120,10 +4120,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:shieldbreaker:p343",
+      "id": "hero_skill:art:houndmaster:p343",
       "name": "Skill 3 (art-only)",
       "level": 1,
-      "hero": "SHIELDBREAKER",
+      "hero": "HOUNDMASTER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p343.png",
       "printPage": 343,
@@ -4132,10 +4132,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:shieldbreaker:p344",
+      "id": "hero_skill:art:houndmaster:p344",
       "name": "Skill 3 (art-only)",
       "level": 2,
-      "hero": "SHIELDBREAKER",
+      "hero": "HOUNDMASTER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p344.png",
       "printPage": 344,
@@ -4144,10 +4144,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:shieldbreaker:p345",
+      "id": "hero_skill:art:houndmaster:p345",
       "name": "Skill 3 (art-only)",
       "level": 3,
-      "hero": "SHIELDBREAKER",
+      "hero": "HOUNDMASTER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p345.png",
       "printPage": 345,
@@ -4156,10 +4156,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:shieldbreaker:p346",
+      "id": "hero_skill:art:houndmaster:p346",
       "name": "Skill 4 (art-only)",
       "level": 1,
-      "hero": "SHIELDBREAKER",
+      "hero": "HOUNDMASTER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p346.png",
       "printPage": 346,
@@ -4168,10 +4168,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:shieldbreaker:p347",
+      "id": "hero_skill:art:houndmaster:p347",
       "name": "Skill 4 (art-only)",
       "level": 2,
-      "hero": "SHIELDBREAKER",
+      "hero": "HOUNDMASTER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p347.png",
       "printPage": 347,
@@ -4180,10 +4180,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:shieldbreaker:p348",
+      "id": "hero_skill:art:houndmaster:p348",
       "name": "Skill 4 (art-only)",
       "level": 3,
-      "hero": "SHIELDBREAKER",
+      "hero": "HOUNDMASTER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p348.png",
       "printPage": 348,
@@ -4192,10 +4192,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:shieldbreaker:p349",
+      "id": "hero_skill:art:houndmaster:p349",
       "name": "Skill 5 (art-only)",
       "level": 1,
-      "hero": "SHIELDBREAKER",
+      "hero": "HOUNDMASTER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p349.png",
       "printPage": 349,
@@ -4204,10 +4204,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:shieldbreaker:p350",
+      "id": "hero_skill:art:houndmaster:p350",
       "name": "Skill 5 (art-only)",
       "level": 2,
-      "hero": "SHIELDBREAKER",
+      "hero": "HOUNDMASTER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p350.png",
       "printPage": 350,
@@ -4216,10 +4216,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:shieldbreaker:p351",
+      "id": "hero_skill:art:houndmaster:p351",
       "name": "Skill 5 (art-only)",
       "level": 3,
-      "hero": "SHIELDBREAKER",
+      "hero": "HOUNDMASTER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p351.png",
       "printPage": 351,
@@ -4228,10 +4228,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:shieldbreaker:p352",
+      "id": "hero_skill:art:houndmaster:p352",
       "name": "Skill 6 (art-only)",
       "level": 1,
-      "hero": "SHIELDBREAKER",
+      "hero": "HOUNDMASTER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p352.png",
       "printPage": 352,
@@ -4240,10 +4240,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:shieldbreaker:p353",
+      "id": "hero_skill:art:houndmaster:p353",
       "name": "Skill 6 (art-only)",
       "level": 2,
-      "hero": "SHIELDBREAKER",
+      "hero": "HOUNDMASTER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p353.png",
       "printPage": 353,
@@ -4252,10 +4252,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:shieldbreaker:p354",
+      "id": "hero_skill:art:houndmaster:p354",
       "name": "Skill 6 (art-only)",
       "level": 3,
-      "hero": "SHIELDBREAKER",
+      "hero": "HOUNDMASTER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p354.png",
       "printPage": 354,
@@ -4264,10 +4264,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:shieldbreaker:p355",
+      "id": "hero_skill:art:houndmaster:p355",
       "name": "Skill 7 (art-only)",
       "level": 1,
-      "hero": "SHIELDBREAKER",
+      "hero": "HOUNDMASTER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p355.png",
       "printPage": 355,
@@ -4276,10 +4276,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:shieldbreaker:p356",
+      "id": "hero_skill:art:houndmaster:p356",
       "name": "Skill 7 (art-only)",
       "level": 2,
-      "hero": "SHIELDBREAKER",
+      "hero": "HOUNDMASTER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p356.png",
       "printPage": 356,
@@ -4288,10 +4288,10 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_skill:art:shieldbreaker:p357",
+      "id": "hero_skill:art:houndmaster:p357",
       "name": "Skill 7 (art-only)",
       "level": 3,
-      "hero": "SHIELDBREAKER",
+      "hero": "HOUNDMASTER",
       "dataStatus": "art-only",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_10_EN_The_Darkest_Heroes_DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf_p357.png",
       "printPage": 357,
@@ -4554,6 +4554,6 @@
   ],
   "uncoveredEngineIds": [],
   "pendingConfirmation": [
-    "Extension skill page blocks (TDH p232–357, Musketeer pack) not Kyries CSV-reviewed."
+    "Extension skill page blocks aligned to print (Q-103–Q-107, Kyries 2026-11-18); rows art-only, not Kyries CSV-reviewed."
   ]
 }
