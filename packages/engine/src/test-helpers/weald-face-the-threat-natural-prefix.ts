@@ -278,6 +278,8 @@ export type WealdFaceTheThreatActOnePrefix = {
   readonly start: QuestStart;
   readonly stop: string | null;
   readonly hagVictory: boolean;
+  /** I 幕任意 Weald Boss（Hag／Pounder／Shrieker）自然全胜并回村完成。 */
+  readonly wealdBossVictory: boolean;
   /** Stygian 模式下目击的 Weald p001–p009 替换 id（R-036：p010–p012 无替换）。 */
   readonly stygianOrdinaryRoomWitnesses?: readonly string[];
   readonly bossRoomWithoutStygianWitness?: boolean;
@@ -475,6 +477,9 @@ export function wealdFaceTheThreatNaturalActOnePrefix(
       break;
     }
   }
+  const wealdBossVictory =
+    (game.dungeon!.defeatedWealdBossIdentities?.length ?? 0) > 0 &&
+    game.dungeon!.bossQuestVictory === true;
   const hagVictory =
     game.dungeon!.defeatedWealdBossIdentities?.includes("hag") === true &&
     game.dungeon!.bossQuestVictory === true;
@@ -486,6 +491,7 @@ export function wealdFaceTheThreatNaturalActOnePrefix(
     start,
     stop,
     hagVictory,
+    wealdBossVictory,
     ...(options.stygian
       ? {
           stygianOrdinaryRoomWitnesses: [...stygianOrdinaryRoomWitnesses],
@@ -523,7 +529,7 @@ export function wealdFaceTheThreatNaturalCrossActJourney(
 ): WealdFaceTheThreatCrossActJourney {
   const actOnePrefix = wealdFaceTheThreatNaturalActOnePrefix(seed, options);
   const naturalActOneBoundary =
-    actOnePrefix.hagVictory && wealdFaceTheThreatNaturalActOneAdvanceReady(actOnePrefix.game);
+    actOnePrefix.wealdBossVictory && wealdFaceTheThreatNaturalActOneAdvanceReady(actOnePrefix.game);
   const actOneReady = naturalActOneBoundary
     ? actOnePrefix.game
     : wealdFaceTheThreatActOneReadyBoundary(seed);
@@ -532,9 +538,9 @@ export function wealdFaceTheThreatNaturalCrossActJourney(
 
   const manualContinuation = {
     reason: naturalActOneBoundary
-      ? "I 幕 Hag 自然全胜且升幕可读回；跨幕段从自然命令日志末态接续（无 wealdActReadyFixture）"
-      : actOnePrefix.hagVictory
-        ? "I 幕击败 Hag 但升幕可读回未满足（回村／摘要／威胁字段）；升幕段仍从 wealdActReadyFixture(1,hag) 人工接续"
+      ? "I 幕 Weald Boss 自然全胜且升幕可读回；跨幕段从自然命令日志末态接续（无 wealdActReadyFixture）"
+      : actOnePrefix.wealdBossVictory
+        ? "I 幕击败 Weald Boss 但升幕可读回未满足（回村／摘要／威胁字段）；升幕段仍从 wealdActReadyFixture(1,hag) 人工接续"
         : `I 幕自然链在「${actOnePrefix.stop ?? "末态"}」停止；升幕段从 wealdActReadyFixture(1,hag) 生产可读回边界人工接续`,
     actOnePrefixCommandCount: actOnePrefix.commands.length,
     actOnePrefixStop: actOnePrefix.stop,

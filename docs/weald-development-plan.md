@@ -5,15 +5,18 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 
 ## 当前进度与下一步
 
+- **I 幕三 Boss 连续战役已自动验收（Radiant，seed 7／13／56）**：同一明亮战役驱动（保守战斗＋明亮侦察＋战斗补给＋正式新战役）从正式核心＋Weald 开局，完成两趟普通任务后经村庄接 `Face the Threat`，按 R30 布置边缘房，分别击败 Pounder I（seed 7）、Hag I（seed 13）与 Shrieker I（seed 56），回村领取 3 XP；随后从同一末态执行 `advanceRuinsAct`，以 `tasks-v1` 抽选并出征 Weald II 级任务。三份完整 JSON 存档均从第一次出征入口严格回放。见 [Boss 连续战役回归](../packages/engine/src/weald-face-the-threat-natural-boss-campaign.test.ts) 与 [Hag 回放](../packages/engine/src/weald-face-the-threat-natural-replay.test.ts)。
+- **驱动与种子**：`WEALD_NATURAL_ACT_ONE_RADIANT_CAMPAIGN_DRIVE` 固化了该驱动；0–127 扫描另得 Shrieker seed 60／83／91／97 同样全胜可读回，seed 0／73／115 击败 Shrieker 后因 `noWaitingHeroes` 未能回村，保留为反例。Pounder／Hag 本驱动下仅 seed 7／13 全胜；普通任务或 p019 探索仍会耗尽替补。跨幕判定由 `wealdBossVictory` 统一读取，不再只认 Hag。
+- **本轮验证（#785）**：typecheck、lint、build 通过；Boss 连续战役 2 测、Hag 回放 7 测与有界种子扫描 4 测，共 3 文件／13 测通过。三个 Boss 均断言回村 3 XP、升 II 幕与完整 JSON 存档严格回放。
 - **2026-11-18 本地盘点（`be24ef76`）**：普通内容已覆盖 15 张任务（I 级 5 张、II／III 级各 5 张）、16 张当地奇物、九张普通房及其九张 Stygian 替换、I–III 级当地怪物和同级通用组池。Hag／Pounder／Shrieker 各 I–III 级已接正式出征、战斗与结算。Q-186 已核准卡面、12 面几何与真菌位置，保留全局图标词典、I 级原目录验证标记与 PvP 范围边界。Q-188、Q-189 已分别由 R-266、R-271 结清；规则规格书 v0.1 仍标为待 Kyries 整稿复核。
 - **I 幕 Hag 连续战役已自动验收（Radiant，seed 13）**：从正式核心＋Weald 新战役抽选开局，完成两趟普通任务，经村庄准备接 `Face the Threat`，按 R30 布置边缘房，击败 Hag I 并回村领取 3 XP。随后从同一末态执行 `advanceRuinsAct`，以 `tasks-v1` 抽选并出征 Weald II 级任务。完整 JSON 存档从第一次出征入口严格回放。见 [连续战役回归](../packages/engine/src/weald-face-the-threat-natural-replay.test.ts)。
 - **定位及修正**：部分样本在普通任务或 p019 探索时耗尽替补。seed 13 在旧驱动下走完 p019，选任务时漏传正式页面已有的 `bossEdgeRooms: true`。补上后发现 R-255 入锅会让战斗持牌校验漏掉锅内英雄。现将锅内英雄计入疾病／怪癖与饰品守恒；出锅和正常战场选目标沿用原入口。回村完成后先升幕再抽村庄事件（R35）。
-- **本轮验证**：typecheck、lint、build 通过；定向 Vitest 23 文件／219 测与全量 `pnpm test` 均通过。Playwright 的 Hag I 部署／先攻／释放以及 Stygian 正式出征两条冒烟通过（本机 Edge）。
-- **下一步**：步骤 6 继续 Pounder I 和 Shrieker I 的同局养成、胜利与回村。步骤 8 保留 Standard／Stygian 的 I→II、混合地点的 II→III、III 后进入最暗地牢的自然回放，以及完整战役人工实机。规格书整稿复核仍待 Kyries；本轮无新规则待确认。
+- **本轮验证（#784）**：typecheck、lint、build 通过；定向 Vitest 23 文件／219 测与全量 `pnpm test` 均通过。Playwright 的 Hag I 部署／先攻／释放以及 Stygian 正式出征两条冒烟通过（本机 Edge）。
+- **下一步**：步骤 6 的 I 级三 Boss 已结案，剩余验收转入步骤 8：Standard／Stygian 的 I→II、混合地点的 II→III、III 后进入最暗地牢的自然回放，以及完整战役人工实机。规格书整稿复核仍待 Kyries；本轮无新规则待确认。
 
 - **R-271 接续（2026-11-17）**：Q-189 已由 #765／#766 的裁定结清。当前实现批次接召唤连锁挤占及 Push／Pull 补裁；下文原批次“Q-189 未裁定／保留技术停点”均为旧版本历史，不再是待确认项。旧无标记日志保留原行为，新命令显式 `chainCrowding:true`，已有待选完成后再切换。验证结果见末尾本批记录。
 
-- **当前阶段：普通九房、Weald 专属机制及独立 I 级五任务已按原完成标准验收（步骤 3／4 限 I 级普通内容，步骤 5 为单任务闭环）。Hag I 的 Radiant 连续战役已自动验收，其余连续战役、高等级／Stygian 和人工实机仍待验收。Fungal Research seed1 原策略败局和新保全策略 0 XP 均保留。**
+- **当前阶段：普通九房、Weald 专属机制及独立 I 级五任务已按原完成标准验收（步骤 3／4 限 I 级普通内容，步骤 5 为单任务闭环）。三 Boss I 级的 Radiant 连续战役已自动验收（步骤 6 结案），Standard／Stygian／混合地点／最暗的自然全链、步骤 7 剩余高等级边界与人工实机仍待验收。Fungal Research seed1 原策略败局和新保全策略 0 XP 均保留。**
 - **当前批次**：#733 已按指令合入 main（`355e3884`）；剩余 II／III 普通任务连续拆为 #734–#740，显式 `tasks-v1` 接全部十卡。Q-188 已由 R-266 确认，#741 接通所有背包完整获得后丢弃超额，收尾 #742 将 p010 打开；#734–#742 已全部合入 main（`82e2a08c`）。十卡 runtimeReady=true，无剩余任务规则待确认。旧 true／无标记版本保持原池；自然跨幕养成与人工实机仍未验收。
 - **当前连续批次：按用户口径完成三 Boss 主要工程并拆为 #746–#759，字段／能力已由R-270核准，新增跳骰修订见下。** #745 已合入 main；后续标准／Radiant 的 Hag、Pounder、Shrieker II／III 数据、机制、双威胁、正式部署／结算及页面均已接线。**Q-189现由R-271结清；连锁挤占与Push／Pull按本轮接续实现，旧版本仍保留原技术停点。** 冻结实现版完整 typecheck／lint／test／build 通过：604文件、4379测通过、1测跳过；三条高等级页面冒烟及旧Pounder页面回归通过。前置#746–#760及#763已按本轮指令合入main；#764负责最终跳骰修订与本轮收尾。#759最终主检查与全部页面检查已成功。自然跨幕养成、跨地点升幕池切换、Stygian与人工实机不在本批验收结论内。
 
@@ -69,7 +72,7 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 | 3．普通房间与板块       | I级已验收 | 核实 9 张普通房间及对应板块容量、邻接、墙、高低地、标记                       | 已核实房间能够正确部署；未核实几何不提供默认值                   |
 | 4．Weald 专属机制       | I级已验收 | 零容量区域通行与回合结束限制；真菌放置、全场禁疗、技能摧毁                    | 引擎与 UI 完成合法操作，拒绝非法操作；遵循 W-03、W-04            |
 | 5．I 级任务闭环         | 已验收    | 核实 I 级任务分布、目标、XP、特殊规则并接线                                   | 村庄选任务 → 出征 → 探索与战斗 → 结算回村，存档可恢复            |
-| 6．三个 Boss I 级       | 进行中    | 顺序为 Hag → Brigand Pounder → Shrieker；补齐房间、部署、能力、附属单位、清场 | 每个 Boss 都能从正式战役入口自然进入并结算，逐个完成再推进下一个 |
+| 6．三个 Boss I 级       | I级已验收 | 顺序为 Hag → Brigand Pounder → Shrieker；补齐房间、部署、能力、附属单位、清场 | 每个 Boss 都能从正式战役入口自然进入并结算，逐个完成再推进下一个 |
 | 7．II／III 级与 Stygian | 进行中    | 先补高等级怪物、任务、Boss，再接 Stygian 房间替换                             | 各等级按实际卡面核实，不从 I 级推算；相应任务和战斗链可用        |
 | 8．完整战役与收尾       | 进行中    | 多地点任务选择、Boss 池、跨幕推进、回村、升级、存档兼容                       | 核心＋Weald 完整战役通过质量闸门和关键路径冒烟                   |
 
