@@ -49,13 +49,17 @@ function loadNormalizedIds(category) {
   return data.cards.map((c) => c.id);
 }
 
+const COREBOX_SKILL_ROW_COUNT = 231;
+
 const { csv, out } = parseArgs(process.argv);
 const normalizedIds = loadNormalizedIds("hero_skill");
-const expectedCount = normalizedIds.length;
+const coreNormalizedIds = normalizedIds.filter(
+  (id) => /^hero_skill:p\d{3}$/.test(id) && Number(id.slice(-3)) <= COREBOX_SKILL_ROW_COUNT,
+);
 const rows = parseCsv(readFileSync(csv, "utf8")).filter((r) => r.verdict === "ok");
-if (rows.length !== expectedCount) {
+if (rows.length !== COREBOX_SKILL_ROW_COUNT) {
   console.error(
-    `Expected ${expectedCount} verdict=ok rows (normalized hero_skill), got ${rows.length}`,
+    `Expected ${COREBOX_SKILL_ROW_COUNT} verdict=ok CSV rows (core SKILLS_FRONT), got ${rows.length}`,
   );
   process.exit(1);
 }
@@ -102,7 +106,8 @@ const extensionCards = extensionArtOnlyCards();
 const cards = [...coreCards, ...extensionCards];
 
 const covered = new Set(cards.map((c) => c.id));
-const uncoveredEngineIds = normalizedIds.filter((id) => !covered.has(id));
+/** Extension combat skills use art-only ids until UI binds normalized `hero_skill:p###` rows. */
+const uncoveredEngineIds = coreNormalizedIds.filter((id) => !covered.has(id));
 if (uncoveredEngineIds.length) {
   console.error("Uncovered normalized hero_skill ids:", uncoveredEngineIds.join(", "));
   process.exit(1);
@@ -127,7 +132,7 @@ const map = {
   cards,
   uncoveredEngineIds,
   pendingConfirmation: [
-    "Extension skill page blocks (TDH p232–357, Musketeer pack) not Kyries CSV-reviewed.",
+    "Extension skill page blocks aligned to print (Q-103–Q-107); rows art-only, not Kyries CSV-reviewed.",
     ...(uncoveredEngineIds.length
       ? [
           `${uncoveredEngineIds.length} normalized engine id(s) not in reviewed CSV (extension / out of scope).`,

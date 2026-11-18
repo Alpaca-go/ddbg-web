@@ -77,14 +77,14 @@ export const TDH_SKILLS_FRONT =
 export const MUSKETEER_SKILLS_FRONT =
   "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf";
 
-/** Extension combat skills (not in normalized corebox yet): TDH reprint pages 232–357 + Musketeer pack. */
+/** Extension combat skills: TDH SKILLS_FRONT p232–357（印刷页序）+ Musketeer 包 p1–21；与 extract / formal-roster-catalog 对齐（Q-103、Q-105、Q-106、Q-107）。 */
 export const EXTENSION_SKILL_BLOCKS = [
-  { hero: "ANTIQUARIAN", pdfRel: TDH_SKILLS_FRONT, startPage: 232, count: 21 },
-  { hero: "LEPER", pdfRel: TDH_SKILLS_FRONT, startPage: 253, count: 21 },
-  { hero: "FLAGELLANT", pdfRel: TDH_SKILLS_FRONT, startPage: 274, count: 21 },
-  { hero: "MAN-AT-ARMS", pdfRel: TDH_SKILLS_FRONT, startPage: 295, count: 21 },
-  { hero: "HOUNDMASTER", pdfRel: TDH_SKILLS_FRONT, startPage: 316, count: 21 },
-  { hero: "SHIELDBREAKER", pdfRel: TDH_SKILLS_FRONT, startPage: 337, count: 21 },
+  { hero: "MAN-AT-ARMS", pdfRel: TDH_SKILLS_FRONT, startPage: 232, count: 21 },
+  { hero: "FLAGELLANT", pdfRel: TDH_SKILLS_FRONT, startPage: 253, count: 21 },
+  { hero: "LEPER", pdfRel: TDH_SKILLS_FRONT, startPage: 274, count: 21 },
+  { hero: "ANTIQUARIAN", pdfRel: TDH_SKILLS_FRONT, startPage: 295, count: 21 },
+  { hero: "SHIELDBREAKER", pdfRel: TDH_SKILLS_FRONT, startPage: 316, count: 21 },
+  { hero: "HOUNDMASTER", pdfRel: TDH_SKILLS_FRONT, startPage: 337, count: 21 },
   { hero: "MUSKETEER", pdfRel: MUSKETEER_SKILLS_FRONT, startPage: 1, count: 21 },
 ];
 

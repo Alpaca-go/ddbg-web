@@ -20,7 +20,7 @@ STAT_B = f"{TDH}/DD_EN_THE_DARKEST_HEROES_CARDS_100x180_Hero_STAT_BACK.pdf"
 K.PRINT_ROOT = ROOT / "ddbg-print"
 OUT = ROOT / "packages/data/extract/extension/warrens"
 
-# TDH SKILLS FRONT：Leper p274–294、Antiquarian p295–315（与 #286 登记页 253–273 / 232–252 版次不同，见 Q-103）。
+# TDH SKILLS FRONT：Leper p274–294、Antiquarian p295–315（与 print-hero-18-art-catalog / Q-103 一致）。
 SKILL_PAGES = list(range(274, 316))
 STAT_FRONT = {
     28: "hero_stat:warrens:leper:p001",
