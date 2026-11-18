@@ -47,6 +47,9 @@ function fixture(extra: readonly BattleEntity[] = []): GameState {
       pounderDungeonThreats: true,
       pounderHamletThreats: true,
       questDistribution: { questId: "quest:p019", campaignLevel: 1 },
+      bossExpeditionRegion: "weald",
+      locationBossThreats: true,
+      bossLocationSources: true,
       activeBossThreatScriptId: POUNDER_I_SCRIPT_ID,
     } as unknown as NonNullable<GameState["dungeon"]>,
     battle: {

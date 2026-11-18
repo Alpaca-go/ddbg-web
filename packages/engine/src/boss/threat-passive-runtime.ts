@@ -12,7 +12,10 @@ import { addStatusStack, STATUS_KINDS, statusProjection } from "../status";
 import type { StatusKind, StatusStack } from "../status";
 import { ensureCampaignBossScriptsRegistered } from "../expansions/register";
 import { getBossScript } from "./registry";
-import { readEffectiveBossThreatScriptId } from "./threat-campaign";
+import {
+  activeBossThreatMatchesDungeonLocation,
+  readEffectiveBossThreatScriptId,
+} from "./threat-campaign";
 import {
   beastMonsterDamageBonusFromBossThreat,
   blackSheepDebuffTurnsFromBossThreat,
@@ -50,12 +53,17 @@ export function readActiveBossThreatScript(d: DungeonState): BossScriptDefinitio
   return script?.id === scriptId ? script : undefined;
 }
 
+/** R-273：地牢侧能力只在该 Boss 所属地点的地牢生效；村庄侧仍用未过滤的读取。 */
+export function readDungeonBossThreatScript(d: DungeonState): BossScriptDefinition | undefined {
+  return activeBossThreatMatchesDungeonLocation(d) ? readActiveBossThreatScript(d) : undefined;
+}
+
 /** 怪物类型标签 + 当前威胁 → 对英雄攻击的 flat 伤害加值（Beast / Eldritch）。 */
 export function monsterThreatFlatDamageBonus(
   d: DungeonState | undefined,
   typeTags: readonly string[] | undefined,
 ): number {
-  const script = d ? readActiveBossThreatScript(d) : undefined;
+  const script = d ? readDungeonBossThreatScript(d) : undefined;
   if (!script || !typeTags?.length) return 0;
   const normalized = typeTags.map((tag) => tag.toLowerCase());
   if (normalized.includes("beast")) return beastMonsterDamageBonusFromBossThreat(script);
@@ -138,7 +146,7 @@ function applyStressToHeroes(
 export function applyBossThreatStressOnDungeonEntry(state: GameState): ApplyResult {
   const d = state.dungeon;
   if (!d) return { state, events: [] };
-  const script = readActiveBossThreatScript(d);
+  const script = readDungeonBossThreatScript(d);
   if (!script) return { state, events: [] };
   const perHero = stressOnDungeonEntryPerHeroFromBossThreat(script);
   return applyStressToHeroes(
@@ -159,7 +167,7 @@ export function applyBossThreatStressOnProvisionUse(
   if (state.battle) return applyBossThreatStressOnBattleProvisionUse(state, heroId, provision);
   const d = state.dungeon;
   if (!d) return { state, events: [] };
-  const script = readActiveBossThreatScript(d);
+  const script = readDungeonBossThreatScript(d);
   if (!script) return { state, events: [] };
   const delta = stressOnHeroProvisionUseFromBossThreat(script, provision);
   return applyStressToHeroes(
@@ -180,7 +188,7 @@ export function applyBossThreatStressOnBattleProvisionUse(
   const d = state.dungeon;
   const battle = state.battle;
   if (!d || !battle) return { state, events: [] };
-  const script = readActiveBossThreatScript(d);
+  const script = readDungeonBossThreatScript(d);
   if (!script) return { state, events: [] };
   const delta = stressOnHeroProvisionUseFromBossThreat(script, provision);
   if (delta <= 0) return { state, events: [] };
@@ -223,7 +231,7 @@ export function applyBossThreatStressOnBattleProvisionUse(
 
 /** Collector I 等：Curio 房间清理后不进入 Curio 抽牌流程。 */
 export function shouldSkipCurioDrawInCurioRoom(d: DungeonState): boolean {
-  const script = readActiveBossThreatScript(d);
+  const script = readDungeonBossThreatScript(d);
   return script ? skipCurioDrawInCurioRoomsFromBossThreat(script) : false;
 }
 
@@ -441,7 +449,7 @@ export function applyBossThreatMarkedForDeathOnBattleStart(state: GameState): Ap
   const battle = state.battle;
   const d = state.dungeon;
   if (!battle || !d) return { state, events: [] };
-  const script = readActiveBossThreatScript(d);
+  const script = readDungeonBossThreatScript(d);
   if (!script) return { state, events: [] };
   const markTurns = markTurnsOnBattleStartFromBossThreat(script);
   if (markTurns <= 0) return { state, events: [] };
@@ -561,7 +569,7 @@ export function withLargeMonsterSpawnGuard<E extends SpawnGuardEntity>(
   | { readonly status: "ok"; readonly entity: E }
   | { readonly status: "refused"; readonly reason: string } {
   if (!dungeon || entity.stanceSlots !== 2) return { status: "ok", entity };
-  const script = readActiveBossThreatScript(dungeon);
+  const script = readDungeonBossThreatScript(dungeon);
   if (!script) return { status: "ok", entity };
   const guardTurns = guardTurnsOnLargeMonsterSpawnFromBossThreat(script);
   if (guardTurns <= 0) return { status: "ok", entity };

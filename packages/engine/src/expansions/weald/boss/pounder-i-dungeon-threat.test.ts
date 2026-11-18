@@ -6,6 +6,7 @@ import { createQuestSave, loadQuestSave } from "../../../quest-save";
 import { createBattleState } from "../../../battle";
 import { POUNDER_I_SCRIPT_ID } from "./pounder-i";
 import { naturalQuest } from "../../../test-helpers/natural-quest";
+import { wealdTaskSources } from "../../../test-helpers/weald-task-battle";
 
 const packs = ["core", "weald"] as const;
 const start: Parameters<typeof createQuestSave>[0] = {
@@ -27,6 +28,18 @@ const initial = () =>
     null,
     packs,
   );
+/** R-273：Weald Boss 的地牢侧威胁只在 Weald 任务生效；取真实 Weald 任务的完整分布。 */
+const wealdQuestDistribution = () =>
+  createCoreDungeonQuest(
+    17,
+    "quest:weald:p001",
+    "standard",
+    coreParty,
+    wealdTaskSources,
+    true,
+    null,
+    packs,
+  ).dungeon!.questDistribution!;
 const command = {
   type: "establishImminentThreat",
   locationBosses: true,
@@ -158,6 +171,7 @@ function battleFixture(): GameState {
     dungeon: {
       ...dungeon,
       phase: "inBattle",
+      questDistribution: wealdQuestDistribution(),
       pounderDungeonThreats: true,
       activeBossThreatScriptId: POUNDER_I_SCRIPT_ID,
     },

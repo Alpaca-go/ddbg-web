@@ -1,6 +1,6 @@
 import type { DungeonState } from "../dungeon";
 import type { SpawnCard } from "../spawn";
-import { readActiveBossThreatScript } from "./threat-passive-runtime";
+import { readDungeonBossThreatScript } from "./threat-passive-runtime";
 import { runBossHook } from "./hooks";
 import type { ApplyResult, GameState } from "../command";
 import type { BattleEntity } from "../battle";
@@ -20,7 +20,7 @@ function readMonsterDodge(card: MonsterCardView & { readonly dodge?: number }): 
 
 function firstBattleMonster(d: DungeonState): string | undefined {
   if (d.necromancerIIArmyUsed) return undefined;
-  const script = readActiveBossThreatScript(d);
+  const script = readDungeonBossThreatScript(d);
   if (!script) return undefined;
   const effect = runBossHook(script, "threatPassiveDungeon", {
     scriptId: script.id,
