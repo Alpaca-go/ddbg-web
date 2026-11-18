@@ -3,7 +3,8 @@ import { applyCommand, type Command, type GameState } from "./command";
 import { createCoreDungeonQuest } from "./dungeon-quest-entry";
 import type { BasicQuestId } from "../../data/src/basic-quests";
 import { loadQuestSave } from "./quest-save";
-import { coreParty, coreQuestSources } from "./test-helpers/core-quest";
+import { coreParty } from "./test-helpers/core-quest";
+import { wealdTaskSources } from "./test-helpers/weald-task-battle";
 import {
   WEALD_PRODUCTION_ESTABLISH_THREAT,
   wealdFaceTheThreatNaturalActOnePrefix,
@@ -63,7 +64,7 @@ describe("Weald 自然跨幕 Face the Threat 全流程命令日志（生产路�
       firstQuest as BasicQuestId,
       "standard",
       coreParty,
-      coreQuestSources,
+      wealdTaskSources,
       true,
       null,
       journey.actOnePrefix.start.contentPacks,
@@ -80,13 +81,13 @@ describe("Weald 自然跨幕 Face the Threat 全流程命令日志（生产路�
     expect(replayed).toEqual(journey.game);
     const actOneLoaded = loadQuestSave(
       JSON.parse(JSON.stringify(journey.actOneSave)),
-      coreQuestSources,
+      wealdTaskSources,
     );
     expect(actOneLoaded.game).toEqual(journey.actOnePrefix.game);
     if (journey.crossActSave) {
       const crossLoaded = loadQuestSave(
         JSON.parse(JSON.stringify(journey.crossActSave)),
-        coreQuestSources,
+        wealdTaskSources,
       );
       expect(crossLoaded.game).toEqual(journey.game);
       expect(crossLoaded.commands).toEqual(crossAct);
