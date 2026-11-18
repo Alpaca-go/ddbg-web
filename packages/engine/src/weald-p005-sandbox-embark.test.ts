@@ -42,7 +42,7 @@ describe("Patrol the Woods 沙盒出征（步骤 5 第一刀）", () => {
         "full",
         ["core"],
       ),
-    ).toThrow(/尚未开放/);
+    ).toThrow(/R-272/);
   });
 
   it("选了包可读沙盒任务，村庄 I 级池仍不含 Weald", () => {

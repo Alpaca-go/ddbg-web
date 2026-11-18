@@ -470,28 +470,9 @@ export function chooseNextQuest(
     quest.expeditionRegion,
     quest.id,
     d.contentPacks,
+    d.wealdHigherQuestOffers,
   );
-  if (
-    locationBlock &&
-    !(
-      (quest.id === "quest:weald:p015" ||
-        ([
-          "quest:weald:p006",
-          "quest:weald:p007",
-          "quest:weald:p008",
-          "quest:weald:p009",
-          "quest:weald:p010",
-          "quest:weald:p011",
-          "quest:weald:p012",
-          "quest:weald:p013",
-          "quest:weald:p014",
-        ].includes(quest.id) &&
-          d.wealdHigherQuestOffers === "tasks-v1")) &&
-      d.wealdHigherQuestOffers &&
-      d.contentPacks?.includes("weald")
-    )
-  )
-    return rejectBattleCommand(state, locationBlock);
+  if (locationBlock) return rejectBattleCommand(state, locationBlock);
   const faceEmbark = resolveFaceTheThreatEmbarkForChoose(state, optionId);
   if (faceEmbark.kind === "refused") return faceEmbark.result;
   if (!isFaceTheThreatQuestId(quest.id) && quest.level !== campaignLevel)

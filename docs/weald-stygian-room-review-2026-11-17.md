@@ -49,7 +49,7 @@
 ## Weald Boss 房与 Stygian（R-036）
 
 - Boss 房 **不替换**：Hag `room:weald:p010`、Shrieker `room:weald:p011`、Brigand Pounder `room:weald:p012` 无 Stygian 印刷版，出征身份保持不变。
-- Stygian 模式下三 Boss **本体**（有 Boss Abilities 卡的角色）技能 **+1 Crit**，与核心 Boss 相同程序；不含锅、巢、Matchman 等附属单位。
+- Stygian 下技能 **+1 Crit** 按 **R-036**（自有 Boss Abilities 卡）：Hag、Shrieker、Pounder 与 **Cauldron I–III**（`boss_ability:weald:p019`–`p021`）；不含 Nest、Matchman 等无独立能力卡单位。
 
 ## 下一步（开发计划步骤 7）
 

@@ -5,32 +5,45 @@ import {
   roomDistributionTokenTotal,
   type DungeonLayout,
 } from "./dungeon-layout";
-import { isSandboxWealdEmbarkQuest } from "./basic-quests";
+import { FORMAL_WEALD_HIGHER_TASK_QUEST_IDS, isSandboxWealdEmbarkQuest } from "./basic-quests";
 import type { ContentPackId } from "./content-packs";
 
 /** R-046 / R-116：8 槽遗迹 vs 16 槽最暗地牢（红边 QuestMap p11/p12，VQ-08/09）。 */
 export type QuestExpeditionRegion = "ruins" | "darkestDungeon" | "weald";
 
-/** 步骤 5 数据刀：Weald 任务已登记，地点战役与 QuestMap 未开放。 */
+/** 未列入生产路径的 Weald 出征仍拒绝（正式路径见 R-272／`formalWealdProductionEmbarkAllowed`）。 */
 export function expeditionLocationEmbarkBlockReason(
   expeditionRegion: QuestExpeditionRegion,
 ): string | null {
-  if (expeditionRegion === "weald")
-    return "Weald 地点战役尚未开放（步骤 5 仅登记任务数据，出征入口仍关闭）";
+  if (expeditionRegion === "weald") return "Weald 任务未列入当前正式出征生产路径（R-272）";
   return null;
 }
 
-/** 村庄战役与 Hamlet 正式出征；沙盒 allowlist 见 `sandboxExpeditionEmbarkBlockReason`。 */
+/** R-272：核心 + Weald 正式 Stygian／Standard／Radiant 生产路径（`createCampaignQuest`、村庄出征）。 */
+export function formalWealdProductionEmbarkAllowed(
+  expeditionRegion: QuestExpeditionRegion,
+  questId: string,
+  packs?: readonly ContentPackId[],
+  wealdHigherQuestOffers?: true | "tasks-v1",
+): boolean {
+  if (expeditionRegion !== "weald" || !packs?.includes("weald")) return false;
+  if (isSandboxWealdEmbarkQuest(questId)) return true;
+  if (!wealdHigherQuestOffers) return false;
+  if (questId === "quest:weald:p015") return true;
+  return (
+    wealdHigherQuestOffers === "tasks-v1" &&
+    (FORMAL_WEALD_HIGHER_TASK_QUEST_IDS as readonly string[]).includes(questId)
+  );
+}
+
+/** 村庄与战役起点共用；允许任务返回 null，否则回退 `expeditionLocationEmbarkBlockReason`。 */
 export function sandboxExpeditionEmbarkBlockReason(
   expeditionRegion: QuestExpeditionRegion,
   questId: string,
   packs?: readonly ContentPackId[],
+  wealdHigherQuestOffers?: true | "tasks-v1",
 ): string | null {
-  if (
-    expeditionRegion === "weald" &&
-    isSandboxWealdEmbarkQuest(questId) &&
-    packs?.includes("weald")
-  )
+  if (formalWealdProductionEmbarkAllowed(expeditionRegion, questId, packs, wealdHigherQuestOffers))
     return null;
   return expeditionLocationEmbarkBlockReason(expeditionRegion);
 }

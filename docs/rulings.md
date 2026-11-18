@@ -2891,8 +2891,21 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **日期**：2026-11-11
 - **问题**：Weald 地点组件已按核心包管线提取，尚需核对本批图标语义与核心词典映射、12 面板块几何和真菌放置位置，以及任务/奇物/房间/Boss 的印刷效果。感知聚类和文字解析不作为语义核准。
 - **材料**：[导入记录](weald-location-intake-2026-11-11.md)、[Weald 规则规格书](spec/weald-rules-spec-v0.1.md)。私有正反面审阅页可用导入脚本 `--review` 重建；图片不入库。
-- **边界**：遵守 R-001、R-048；不修改全局图标词典。I 级七张普通怪物目录可继续 `verification.unverified`。本条不开放正式 Stygian 出征入口，PvP 不进主线。
-- **状态**：核准通过（2026-11-18，「Weald 任务规则」群，Kyries）。原文要核的字段、12 面板块几何与真菌放置、任务／奇物／房间／Boss 印刷效果已核准（R-230、R-232–R-239、R-240 以降至 R-270 等）；九张 Stygian 房间效果同日核准。不是整条全部结清：上述词典／目录门、Stygian 出征入口与 PvP 边界仍保留。
+- **边界**：遵守 R-001、R-048；不修改全局图标词典。I 级七张普通怪物目录可继续 `verification.unverified`。正式 Stygian 出征入口见 **R-272**；PvP 不进主线。
+- **状态**：核准通过（2026-11-18，「Weald 任务规则」群，Kyries）。原文要核的字段、12 面板块几何与真菌放置、任务／奇物／房间／Boss 印刷效果已核准（R-230、R-232–R-239、R-240 以降至 R-270 等）；九张 Stygian 房间效果同日核准。不是整条全部结清：词典／目录门与 PvP 边界仍保留；Stygian 正式出征由 R-272 另载工程边界。
+
+### R-272
+
+- **编号**：R-272
+- **日期**：2026-11-18
+- **核准**：Kyries 在 #777（Q-186 状态更新）合入后授权开放 **核心 + Weald** 的正式 **Stygian** 出征生产路径（`createCampaignQuest`、村庄 `chooseNextQuest`、`stygianRoomRules: "full"`）。
+- **规则**：沿用核心规则书 p.36 与 **R-036**：17 张核心普通 Stygian 房 + Weald 九张普通 Stygian 房（`stygian_room:weald:p001`–`p009`）替换同名标准房；**无** Weald Boss 房（`room:weald:p010`–`p012`）Stygian 印刷替换。Stygian 下「All Bosses have +1 Crit to their Skills」按 **R-036 判据**（自有 Boss Abilities 卡）：Hag／Shrieker／Brigand Pounder／**Cauldron I–III**（`boss_ability:weald:p019`–`p021`）；**不含** Nest、Matchman 等无独立 Boss Abilities 卡的战斗单位。
+- **工程边界**：
+  - I 级：`quest:weald:p001`–`p005` 须已选 Weald 包；与 standard／radiant 同任务数据。
+  - II／III：须 `wealdHigherQuestOffers: "tasks-v1"` 与 R-264／R-265 十卡；Stygian 无 `mode` 专属出征拒绝。
+  - 未选 Weald、缺 `stygianRoomRules`、无版本旧档：行为不变。`pounderDungeonThreats` 单独试验仍拒 Stygian。
+  - **未验收**：自然跨幕养成、步骤 8 实机；受控夹具≠自然命令日志。
+- **依据**：R-001、R-036、R-048；[weald-stygian-room-review-2026-11-17.md](weald-stygian-room-review-2026-11-17.md)；Q-186（2026-11-18）。
 
 ### R-201
 

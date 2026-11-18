@@ -51,7 +51,7 @@ describe("Disinfection 沙盒出征（R-245）", () => {
     expect(sandboxEmbarkQuestsForPacks(["core"]).map((q) => q.id)).not.toContain(QUEST);
     expect(() =>
       createCoreDungeonQuest(3, QUEST, "radiant", coreParty, wealdSources, true, "full", ["core"]),
-    ).toThrow(/尚未开放/);
+    ).toThrow(/R-272/);
   });
 
   it("选了包可读沙盒任务，村庄 I 级池仍不含 Weald", () => {

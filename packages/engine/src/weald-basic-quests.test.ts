@@ -77,18 +77,16 @@ it("仅 expeditionRegion 仍拒绝 Weald；Hamlet chooseNextQuest + weald 包放
   expect(embarked.events.some((e) => e.type === "commandRefused")).toBe(false);
 });
 
-it("村庄战役闸门仍拒绝全部 Weald；p001–p005 沙盒 allowlist", () => {
+it("未列入生产路径时仍拒绝；p001–p005 正式路径（R-272）", () => {
   const sandboxOk = new Set([...WEALD_IDS]);
   for (const id of WEALD_IDS) {
     const quest = basicQuests.find((q) => q.id === id)!;
     expect(quest.expeditionRegion).toBe("weald");
-    expect(expeditionLocationEmbarkBlockReason(quest.expeditionRegion)).toMatch(/尚未开放/);
+    expect(expeditionLocationEmbarkBlockReason(quest.expeditionRegion)).toMatch(/R-272/);
     if (sandboxOk.has(id)) {
       expect(sandboxExpeditionEmbarkBlockReason("weald", id, ["core", "weald"])).toBeNull();
     } else {
-      expect(sandboxExpeditionEmbarkBlockReason("weald", id, ["core", "weald"])).toMatch(
-        /尚未开放/,
-      );
+      expect(sandboxExpeditionEmbarkBlockReason("weald", id, ["core", "weald"])).toMatch(/R-272/);
     }
   }
 });
