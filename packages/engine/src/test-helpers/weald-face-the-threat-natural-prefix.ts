@@ -9,7 +9,7 @@ import {
   questIdsForLocationDeck,
 } from "../hamlet-location-quest-draw";
 import { readRuinsActTransitionReadiness } from "../act-transition-readiness";
-import { naturalQuest } from "./natural-quest";
+import { CURRENT_WEALD_ROOM_VERSIONS, naturalQuest } from "./natural-quest";
 import { coreParty, coreQuestSources } from "./core-quest";
 import { createQuestSave } from "../quest-save";
 import type { QuestStart } from "../../../data/src/quest-save";
@@ -21,6 +21,20 @@ import { wealdActReadyFixture } from "./weald-act";
 
 const packs = ["core", "weald"] as const;
 const drawMode = "hamlet-quest-draw:ruins-two" as const;
+const hamletHealFirstServiceIds = ["heal10", "heal5", "tavern6", "tavern3"] as const;
+
+/** 第十四刀：生产路径 I 幕自然驱动选项；缺省与第十三刀回归矩阵一致。 */
+export type WealdNaturalActOneDriveOptions = {
+  readonly skillFallback?: boolean;
+  readonly handleDeaths?: boolean;
+  /** 玩家策略战斗打分（R-190 旁路）；默认关闭。 */
+  readonly survival?: boolean;
+  readonly restThreshold?: number;
+  /** 村庄优先可治疗建筑，再回退 Zealous Speech／建筑服务。 */
+  readonly hamletHealFirst?: boolean;
+  /** 显式 Weald 生产房间命令版本；默认关闭。 */
+  readonly wealdProductionRooms?: boolean;
+};
 
 /** 生产路径 Face the Threat 开局定威胁（显式版本标记；不经 chooseNextQuest 隐式补齐）。 */
 export const WEALD_PRODUCTION_ESTABLISH_THREAT: Command = {
@@ -81,10 +95,47 @@ function settle(
   return state;
 }
 
+function pickHamletActionCommand(
+  state: GameState,
+  options: WealdNaturalActOneDriveOptions,
+): Command | undefined {
+  if (options.hamletHealFirst) {
+    const buildingOptions = hamletActionOptions(state);
+    const ordered = [
+      ...buildingOptions.filter((option) => {
+        if (option.command.type !== "visitHamletBuilding") return false;
+        const serviceId = option.command.serviceId;
+        return (hamletHealFirstServiceIds as readonly string[]).includes(serviceId);
+      }),
+      ...buildingOptions,
+    ];
+    const healFirst = ordered
+      .map((option) => option.command)
+      .find(
+        (command) => !applyCommand(state, command).events.some((e) => e.type === "commandRefused"),
+      );
+    if (healFirst) return healFirst;
+  }
+  const actorId = currentHamletHero(state)?.id;
+  if (!actorId) return undefined;
+  const speech: Command = { type: "useHamletSkill", actorId, skill: "zealousSpeech" };
+  if (!applyCommand(state, speech).events.some((e) => e.type === "commandRefused")) return speech;
+  const service = hamletActionOptions(state)
+    .map((o) => o.command)
+    .find((c) => c.type === "visitHamletBuilding");
+  if (service) return service;
+  if (options.skillFallback) {
+    return hamletActionOptions(state)
+      .map((o) => o.command)
+      .find((c) => c.type === "useHamletSkill");
+  }
+  return undefined;
+}
+
 function prepareHamlet(
   game: GameState,
   log: Command[],
-  options: { readonly skillFallback?: boolean; readonly handleDeaths?: boolean } = {},
+  options: WealdNaturalActOneDriveOptions = {},
 ) {
   let state = step(game, { type: "beginReturnToHamlet" }, log);
   state = settle(state, log, options);
@@ -113,22 +164,9 @@ function prepareHamlet(
       state = settle(state, log, options);
       continue;
     }
-    const actorId = currentHamletHero(state)?.id;
-    if (!actorId) throw new Error(`村庄暂停：${state.dungeon!.hamlet!.phase}`);
-    const speech: Command = { type: "useHamletSkill", actorId, skill: "zealousSpeech" };
-    const legal = !applyCommand(state, speech).events.some((e) => e.type === "commandRefused");
-    const service = hamletActionOptions(state)
-      .map((o) => o.command)
-      .find((c) => c.type === "visitHamletBuilding");
-    const fallback = options.skillFallback
-      ? hamletActionOptions(state)
-          .map((o) => o.command)
-          .find((c) => c.type === "useHamletSkill")
-      : undefined;
-    if (legal) state = step(state, speech, log);
-    else if (service) state = step(state, service, log);
-    else if (fallback) state = step(state, fallback, log);
-    else throw new Error("村庄无可用建筑服务");
+    const hamletCommand = pickHamletActionCommand(state, options);
+    if (!hamletCommand) throw new Error("村庄无可用建筑服务");
+    state = step(state, hamletCommand, log);
     state = settle(state, log, options);
   }
   if (state.dungeon!.hamlet!.phase !== "preparationComplete") throw new Error("村庄行动循环超限");
@@ -190,9 +228,24 @@ export type WealdFaceTheThreatActOnePrefix = {
 };
 
 /** 自然 I 幕：生产定威胁 → 村庄循环出征（与 hag-i-campaign 同策略）；不宣称全胜。 */
+function naturalQuestOptionsForActOne(options: WealdNaturalActOneDriveOptions) {
+  return {
+    ...(options.handleDeaths ? { handleDeaths: true as const } : {}),
+    ...(options.survival
+      ? { survival: true as const, restThreshold: options.restThreshold ?? 6 }
+      : {}),
+    ...(options.wealdProductionRooms ? CURRENT_WEALD_ROOM_VERSIONS : {}),
+  };
+}
+
+/** 自然 I 幕末是否可读回升幕（须 Boss 胜利、回村完成且生产标记齐全）。 */
+export function wealdFaceTheThreatNaturalActOneAdvanceReady(game: GameState): boolean {
+  return readRuinsActTransitionReadiness(game).kind === "ready";
+}
+
 export function wealdFaceTheThreatNaturalActOnePrefix(
   seed: number,
-  options: { skillFallback?: boolean; handleDeaths?: boolean } = {},
+  options: WealdNaturalActOneDriveOptions = {},
 ): WealdFaceTheThreatActOnePrefix {
   ensureHagIBossScriptRegistered();
   ensurePounderIBossScriptRegistered();
@@ -229,7 +282,7 @@ export function wealdFaceTheThreatNaturalActOnePrefix(
     const questId = game.dungeon!.questDistribution!.questId;
     const run = naturalQuest(seed, questId as typeof firstQuest, true, coreQuestSources, 2, {
       continueFrom: game,
-      ...(options.handleDeaths ? { handleDeaths: true } : {}),
+      ...naturalQuestOptionsForActOne(options),
     });
     commands.push(...run.commands);
     game = run.state;
@@ -284,6 +337,8 @@ export type WealdFaceTheThreatCrossActJourney = {
     readonly actOnePrefixStop: string | null;
   };
   readonly actOnePrefix: WealdFaceTheThreatActOnePrefix;
+  /** true 表示跨幕段从自然 I 幕末重放，而非 wealdActReadyFixture。 */
+  readonly naturalActOneBoundary: boolean;
 };
 
 /**
@@ -292,17 +347,23 @@ export type WealdFaceTheThreatCrossActJourney = {
  */
 export function wealdFaceTheThreatNaturalCrossActJourney(
   seed: number,
-  options: { skillFallback?: boolean; handleDeaths?: boolean } = {},
+  options: WealdNaturalActOneDriveOptions = {},
 ): WealdFaceTheThreatCrossActJourney {
   const actOnePrefix = wealdFaceTheThreatNaturalActOnePrefix(seed, options);
-  const actOneReady = wealdFaceTheThreatActOneReadyBoundary(seed);
+  const naturalActOneBoundary =
+    actOnePrefix.hagVictory && wealdFaceTheThreatNaturalActOneAdvanceReady(actOnePrefix.game);
+  const actOneReady = naturalActOneBoundary
+    ? actOnePrefix.game
+    : wealdFaceTheThreatActOneReadyBoundary(seed);
   const commands: Command[] = [...actOnePrefix.commands];
   let game = actOneReady;
 
   const manualContinuation = {
-    reason: actOnePrefix.hagVictory
-      ? "I 幕自然链已记录全胜停点，但升幕重放仍从明示 I 幕末生产边界接续（与 warm-up III 同模式，避免混用夹具态与自然态）"
-      : `I 幕自然链在「${actOnePrefix.stop ?? "末态"}」停止；升幕段从 wealdActReadyFixture(1,hag) 生产可读回边界人工接续`,
+    reason: naturalActOneBoundary
+      ? "I 幕 Hag 自然全胜且升幕可读回；跨幕段从自然命令日志末态接续（无 wealdActReadyFixture）"
+      : actOnePrefix.hagVictory
+        ? "I 幕击败 Hag 但升幕可读回未满足（回村／摘要／威胁字段）；升幕段仍从 wealdActReadyFixture(1,hag) 人工接续"
+        : `I 幕自然链在「${actOnePrefix.stop ?? "末态"}」停止；升幕段从 wealdActReadyFixture(1,hag) 生产可读回边界人工接续`,
     actOnePrefixCommandCount: actOnePrefix.commands.length,
     actOnePrefixStop: actOnePrefix.stop,
   };
@@ -385,5 +446,6 @@ export function wealdFaceTheThreatNaturalCrossActJourney(
     crossActSave,
     manualContinuation,
     actOnePrefix,
+    naturalActOneBoundary,
   };
 }
