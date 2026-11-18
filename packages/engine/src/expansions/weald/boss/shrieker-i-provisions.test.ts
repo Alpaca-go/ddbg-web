@@ -2,16 +2,17 @@ import { shriekerMechanismFixture } from "../../../test-helpers/shrieker-i";
 import { expect, it } from "vitest";
 import { applyCommand, type GameState } from "../../../command";
 import { createCoreDungeonQuest } from "../../../dungeon-quest-entry";
-import { coreParty, coreQuestSources } from "../../../test-helpers/core-quest";
+import { coreParty } from "../../../test-helpers/core-quest";
+import { wealdTaskSources } from "../../../test-helpers/weald-task-battle";
 import { beginShriekerDungeonTheft, beginShriekerReserveTheft } from "./shrieker-i-provisions";
 
 function fixture(): GameState {
   const state = createCoreDungeonQuest(
     0,
-    "quest:p001",
+    "quest:weald:p001",
     "standard",
     coreParty,
-    coreQuestSources,
+    wealdTaskSources,
     true,
     null,
     ["core", "weald"],

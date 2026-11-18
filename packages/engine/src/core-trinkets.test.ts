@@ -678,6 +678,7 @@ it("R-270 Shrieker II下Camper’s Helmet照常选择／翻面，但不掷两颗
     ...source,
     dungeon: {
       ...source.dungeon!,
+      bossExpeditionRegion: "weald",
       campaignLevel: 2,
       contentPacks: ["core", "weald"],
       wealdHigherBosses: true,

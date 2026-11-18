@@ -60,8 +60,8 @@ it("Radiant seed 56：两趟普通任务后自然击败 Shrieker I、回村领�
   expectBossCampaign(56, "shrieker", "deployShriekerI", "radiant");
 }, 120_000);
 
-it("Standard seed 49：两趟普通任务后自然击败 Pounder I、回村领取 3 XP 并升 II 幕", () => {
-  expectBossCampaign(49, "brigandPounder", "deployPounderI", "standard");
+it("Standard seed 90：两趟普通任务后自然击败 Pounder I、回村领取 3 XP 并升 II 幕", () => {
+  expectBossCampaign(90, "brigandPounder", "deployPounderI", "standard");
 }, 120_000);
 
 it("Stygian seed 20：两趟普通任务后自然击败 Hag I、回村领取 3 XP 并升 II 幕", () => {

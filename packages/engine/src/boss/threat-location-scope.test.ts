@@ -7,6 +7,11 @@ import { coreParty } from "../test-helpers/core-quest";
 import { wealdTaskSources } from "../test-helpers/weald-task-battle";
 import { firstBattleThreatDeck } from "./necromancer-ii-army";
 import {
+  shriekerHigherThreatLevel,
+  shriekerIThreatActive,
+} from "../expansions/weald/boss/shrieker-i-provisions";
+import { shriekerSkipsProvisionRolls } from "../expansions/weald/boss/shrieker-provision-version";
+import {
   activeBossThreatMatchesDungeonLocation,
   bossThreatHamletBlockedBuildings,
 } from "./threat-campaign";
@@ -32,6 +37,35 @@ function stateWithThreat(questId: BasicQuestId, scriptId: string): GameState {
       locationBossThreats: true,
       bossLocationSources: true,
       activeBossThreatScriptId: scriptId as never,
+    },
+  };
+}
+
+function stateWithShrieker(questId: BasicQuestId, level: 1 | 2): GameState {
+  ensureCampaignBossScriptsRegistered([...packs]);
+  const game = createCoreDungeonQuest(
+    1,
+    questId,
+    "standard",
+    coreParty,
+    wealdTaskSources,
+    true,
+    null,
+    [...packs],
+  );
+  return {
+    ...game,
+    dungeon: {
+      ...game.dungeon!,
+      phase: "ready",
+      campaignLevel: level,
+      locationBossThreats: true,
+      bossLocationSources: true,
+      shriekerBossBattles: true,
+      ...(level === 2 ? { wealdHigherBosses: true, shriekerProvisionSkipRolls: true } : {}),
+      activeBossThreatScriptId: `boss:weald:shrieker:${level}` as never,
+      imminentThreatDescriptionCardId:
+        level === 1 ? "boss_ability:weald:p001" : "boss_ability:weald:p002",
     },
   };
 }
@@ -83,5 +117,21 @@ describe("R-273：地牢侧 Boss 威胁只在其所属地点的地牢生效", ()
     const weald = stateWithThreat("quest:weald:p001", "boss:ruins:necromancer:1");
     expect(activeBossThreatMatchesDungeonLocation(weald.dungeon!)).toBe(false);
     expect(bossThreatHamletBlockedBuildings(weald.dungeon!)).toContain("graveyard");
+  });
+
+  it("Shrieker I 的补给盗取只在 Weald 任务生效", () => {
+    const weald = stateWithShrieker("quest:weald:p001", 1);
+    const ruins = stateWithShrieker("quest:p001", 1);
+    expect(shriekerIThreatActive(weald)).toBe(true);
+    expect(shriekerIThreatActive(ruins)).toBe(false);
+  });
+
+  it("Shrieker II 的补给跳过与高等级盗取只在 Weald 任务生效", () => {
+    const weald = stateWithShrieker("quest:weald:p001", 2);
+    const ruins = stateWithShrieker("quest:p001", 2);
+    expect(shriekerHigherThreatLevel(weald)).toBe(2);
+    expect(shriekerHigherThreatLevel(ruins)).toBeNull();
+    expect(shriekerSkipsProvisionRolls(weald.dungeon!)).toBe(true);
+    expect(shriekerSkipsProvisionRolls(ruins.dungeon!)).toBe(false);
   });
 });

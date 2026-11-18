@@ -5,24 +5,27 @@ import { coreParty, coreQuestSources } from "../../../test-helpers/core-quest";
 import { drawInitialQuestOffers } from "../../../initial-quest-draw";
 import { createQuestSave, loadQuestSave } from "../../../quest-save";
 import { naturalQuest, CURRENT_WEALD_ROOM_VERSIONS } from "../../../test-helpers/natural-quest";
+import { wealdTaskSources } from "../../../test-helpers/weald-task-battle";
 
 const packs = ["core", "weald"] as const;
-const mode = "hamlet-quest-draw:ruins-two" as const;
-const questId = drawInitialQuestOffers(0, packs, mode).offers[0]!;
+/** R-273：Weald Boss 的地牢侧威胁只在 Weald 任务生效；seed18 的 Weald 抽选实际抽到 Shrieker I。 */
+const seed = 18;
+const mode = "hamlet-quest-draw:weald-two" as const;
+const questId = drawInitialQuestOffers(seed, packs, mode).offers[0]!;
 const initial = () =>
   createCoreDungeonQuest(
-    0,
+    seed,
     questId,
     "standard",
     coreParty,
-    coreQuestSources,
+    wealdTaskSources,
     true,
     null,
     packs,
     mode,
   );
 const start = {
-  seed: 0,
+  seed,
   questId,
   mode: "standard" as const,
   party: coreParty.map((h) => ({ ...h, skillIds: [...h.skillIds] })),
@@ -39,7 +42,7 @@ const command = {
   shriekerBossBattles: true,
 } as const;
 
-it("seed0 原固定身份：新版本抽到实际 Shrieker，旧无标记仍保持停点；reserve待选完整日志恢复", () => {
+it("seed18 原固定身份：新版本抽到实际 Shrieker，旧无标记仍保持停点；reserve待选完整日志恢复", () => {
   const source = initial();
   const result = applyCommand(source, command);
   expect(result.events.filter((e) => e.type === "commandRefused")).toEqual([]);
@@ -63,8 +66,8 @@ it("seed0 原固定身份：新版本抽到实际 Shrieker，旧无标记仍保�
   }
   expect(state.dungeon!.shriekerTheft!.side).toBe("reserve");
   const before = state;
-  const save = createQuestSave(start, commands, state, coreQuestSources);
-  expect(loadQuestSave(JSON.parse(JSON.stringify(save)), coreQuestSources).game).toEqual(state);
+  const save = createQuestSave(start, commands, state, wealdTaskSources);
+  expect(loadQuestSave(JSON.parse(JSON.stringify(save)), wealdTaskSources).game).toEqual(state);
   const pending = state.dungeon!.pending!;
   const chosen = {
     type: "resolveChoice" as const,
@@ -77,20 +80,20 @@ it("seed0 原固定身份：新版本抽到实际 Shrieker，旧无标记仍保�
     before.dungeon!.explorationSetup!.provisions.length - 1,
   );
   expect(state.dungeon!.shriekerTheft).toBeUndefined();
-  const final = createQuestSave(start, commands, state, coreQuestSources);
-  expect(loadQuestSave(JSON.parse(JSON.stringify(final)), coreQuestSources).game).toEqual(state);
+  const final = createQuestSave(start, commands, state, wealdTaskSources);
+  expect(loadQuestSave(JSON.parse(JSON.stringify(final)), wealdTaskSources).game).toEqual(state);
 });
 
-it("seed0 沿用当前固定探索策略：新威胁版本的自然命令完整严格恢复，保留实际结果", () => {
+it("seed18 沿用当前固定探索策略：新威胁版本的自然命令完整严格恢复，保留实际结果", () => {
   const established = applyCommand(initial(), command);
-  const run = naturalQuest(0, questId, true, coreQuestSources, 2, {
+  const run = naturalQuest(seed, questId, true, wealdTaskSources, 2, {
     ...CURRENT_WEALD_ROOM_VERSIONS,
     continueFrom: established.state,
     handleDeaths: true,
   });
   const commands = [command, ...run.commands];
-  const save = createQuestSave(start, commands, run.state, coreQuestSources);
-  expect(loadQuestSave(JSON.parse(JSON.stringify(save)), coreQuestSources).game).toEqual(run.state);
+  const save = createQuestSave(start, commands, run.state, wealdTaskSources);
+  expect(loadQuestSave(JSON.parse(JSON.stringify(save)), wealdTaskSources).game).toEqual(run.state);
   expect({
     stop: run.stopReason,
     phase: run.state.dungeon?.phase,
