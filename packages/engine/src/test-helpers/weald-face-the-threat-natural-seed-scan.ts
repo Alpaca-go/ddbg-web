@@ -33,10 +33,12 @@ export const WEALD_NATURAL_ACT_ONE_RADIANT_CAMPAIGN_DRIVE: WealdNaturalActOneDri
 export const WEALD_NATURAL_ACT_TWO_CAMPAIGN_DRIVE: WealdNaturalActOneDriveOptions = {
   ...WEALD_NATURAL_ACT_ONE_RADIANT_CAMPAIGN_DRIVE,
   hamletGuildLevels: true,
+  guildPriorityHeroIds: ["hero-3", "hero-1", "hero-0", "hero-2"],
   hamletBlacksmith: true,
   hamletSmartHeal: true,
   hamletHealThreshold: 6,
   hamletBossPrep: true,
+  hamletStressFirst: true,
 };
 
 /**
