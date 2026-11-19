@@ -50,6 +50,8 @@ export type WealdNaturalActOneDriveOptions = {
   /** V1：只在任一英雄伤口或压力达到阈值时才优先治疗，空出天数给公会／铁匠。 */
   readonly hamletSmartHeal?: boolean;
   readonly hamletHealThreshold?: number;
+  /** V1：本幕两趟普通任务完成后按 Boss 前准备处理，优先把队伍治满。 */
+  readonly hamletBossPrep?: boolean;
   /** 英雄有 4 XP＋2 金且未满 III 时优先 visitGuild 升英雄等级（V1）。 */
   readonly hamletGuildLevels?: boolean;
   /** 村庄优先用铁匠把已装备技能升到当前等级（1 金/次，V1）。 */
@@ -192,7 +194,14 @@ function pickHamletActionCommand(
       }
     }
   }
+  const bossPrep =
+    options.hamletBossPrep === true &&
+    (state.dungeon!.campaignLevel ?? 1) >= 2 &&
+    (state.dungeon!.completedRegularQuests ?? []).filter(
+      (quest) => quest.campaignLevel === state.dungeon!.campaignLevel,
+    ).length >= 2;
   const needsHeal =
+    bossPrep ||
     !options.hamletSmartHeal ||
     state.dungeon!.heroes.some(
       (hero) =>
