@@ -29,6 +29,15 @@ export const WEALD_NATURAL_ACT_ONE_RADIANT_CAMPAIGN_DRIVE: WealdNaturalActOneDri
   combatProvisions: true,
 };
 
+/** V1：在明亮驱动上加村庄公会英雄升级，用于 II 幕自然链。 */
+export const WEALD_NATURAL_ACT_TWO_CAMPAIGN_DRIVE: WealdNaturalActOneDriveOptions = {
+  ...WEALD_NATURAL_ACT_ONE_RADIANT_CAMPAIGN_DRIVE,
+  hamletGuildLevels: true,
+  hamletBlacksmith: true,
+  hamletSmartHeal: true,
+  hamletHealThreshold: 6,
+};
+
 /**
  * 有界种子扫描元数据（第十四刀）。
  * 算法：`wealdFaceTheThreatNaturalActOnePrefix` 逐 seed 调用；停点取 prefix.stop、campaignFailure 或抛错信息；
