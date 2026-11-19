@@ -1220,6 +1220,7 @@ it("R-270 Shrieker II忽略Curio补给时不掷骰／Wild，金币与弃牌照�
     seed,
     dungeon: {
       ...d,
+      bossExpeditionRegion: "weald",
       campaignLevel: 2,
       contentPacks: ["core", "weald"],
       wealdHigherBosses: true,

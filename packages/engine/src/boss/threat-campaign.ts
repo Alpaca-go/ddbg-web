@@ -49,7 +49,9 @@ export function activeBossThreatMatchesDungeonLocation(d: DungeonState): boolean
   if (!scriptId) return false;
   const location = bossScriptLocation(scriptId);
   if (!location) return true;
-  return location === readExpeditionRoomRegion(d);
+  const dungeonLocation =
+    d.bossExpeditionRegion === "weald" ? "weald" : readExpeditionRoomRegion(d);
+  return location === dungeonLocation;
 }
 
 export function bossThreatHamletBlockedBuildings(d: DungeonState): readonly string[] {

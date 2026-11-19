@@ -6,6 +6,7 @@ import type { BattleState } from "../../../battle";
 import { rejectBattleCommand } from "../../../battle";
 import { isQuestProvisionId } from "../../../quest-provisions";
 import { PROVISION_LABELS, type ProvisionFace } from "../../../loot";
+import { activeBossThreatMatchesDungeonLocation } from "../../../boss/threat-campaign";
 
 type Provision = { readonly id: string; readonly face: ProvisionFace };
 export type ShriekerTheft = {
@@ -21,7 +22,9 @@ export type ShriekerTheft = {
 export function shriekerIThreatActive(state: GameState): boolean {
   const d = state.dungeon;
   return (
-    d?.shriekerBossBattles === true &&
+    !!d &&
+    activeBossThreatMatchesDungeonLocation(d) &&
+    d.shriekerBossBattles === true &&
     (d.campaignLevel ?? 1) === 1 &&
     d.contentPacks?.includes("weald") === true &&
     d.activeBossThreatScriptId === "boss:weald:shrieker:1" &&
@@ -30,12 +33,12 @@ export function shriekerIThreatActive(state: GameState): boolean {
   );
 }
 
-/** R-268：仅显式高等级版本读取新威胁；战斗面翻开后立即停用。 */
+/** R-268：仅显式高等级版本读取新威胁；战斗面翻开后立即停用。R-273：跨地点任务不生效。 */
 export function shriekerHigherThreatLevel(state: GameState): 2 | 3 | null {
+  const d = state.dungeon;
+  if (!d || !activeBossThreatMatchesDungeonLocation(d)) return null;
   const c = readShriekerRuntimeContext(state);
-  return c && c.level !== 1 && state.dungeon?.bossCombatThreatCeased !== c.scriptId
-    ? c.level
-    : null;
+  return c && c.level !== 1 && d.bossCombatThreatCeased !== c.scriptId ? c.level : null;
 }
 /** 获取与容量先后顺序在同一入口控制；旧 I 级仍走原钩子。 */
 export function beginHigherShriekerGain(

@@ -1,20 +1,23 @@
 import trinketData from "../../../../../data/normalized/corebox/trinket.json";
 import { normalizedTrinketFileSchema } from "../../../../../data/src/normalize/schema";
 import { createTrinketPool } from "../../../trinket-acquisition";
-import { wealdSuppliesLootFixture } from "../../../test-helpers/weald-task-battle";
+import {
+  wealdSuppliesLootFixture,
+  wealdTaskSources,
+} from "../../../test-helpers/weald-task-battle";
 import { describe, expect, it } from "vitest";
 import { applyCommand, type ApplyResult, type GameState } from "../../../command";
 import { createCoreDungeonQuest } from "../../../dungeon-quest-entry";
-import { coreParty, coreQuestSources } from "../../../test-helpers/core-quest";
+import { coreParty } from "../../../test-helpers/core-quest";
 import { beginHigherShriekerGain } from "./shrieker-i-provisions";
 const item = (id: string) => ({ id, face: "food" as const });
 function fixture(level: 2 | 3): GameState {
   const state = createCoreDungeonQuest(
     0,
-    "quest:p001",
+    "quest:weald:p001",
     "standard",
     coreParty,
-    coreQuestSources,
+    wealdTaskSources,
     true,
     null,
     ["core", "weald"],

@@ -1,7 +1,10 @@
 import { expect, it } from "vitest";
 import { applyCommand, type GameState } from "../../../command";
 import { createLootState } from "../../../loot";
-import { wealdSuppliesLootFixture } from "../../../test-helpers/weald-task-battle";
+import {
+  wealdSuppliesLootFixture,
+  wealdTaskSources,
+} from "../../../test-helpers/weald-task-battle";
 import { coreParty, coreQuestSources } from "../../../test-helpers/core-quest";
 import { createCoreDungeonQuest } from "../../../dungeon-quest-entry";
 import { createQuestSave, loadQuestSave } from "../../../quest-save";
@@ -21,10 +24,21 @@ function fixture(lost = false): GameState {
       shriekerBossBattles: true,
       activeBossThreatScriptId: "boss:weald:shrieker:2",
       imminentThreatDescriptionCardId: "boss_ability:weald:p002",
-      questDistribution: {
-        ...source.dungeon!.questDistribution!,
-        questId: lost ? "quest:weald:p010" : "quest:p001",
-      },
+      questDistribution: lost
+        ? {
+            ...source.dungeon!.questDistribution!,
+            questId: "quest:weald:p010",
+          }
+        : createCoreDungeonQuest(
+            17,
+            "quest:weald:p001",
+            "standard",
+            coreParty,
+            wealdTaskSources,
+            true,
+            null,
+            ["core", "weald"],
+          ).dungeon!.questDistribution!,
     },
     battle: {
       ...b,
@@ -189,10 +203,10 @@ it.each([2, 3] as const)(
   (level) => {
     const initial = createCoreDungeonQuest(
       0,
-      "quest:p001",
+      "quest:weald:p001",
       "radiant",
       coreParty,
-      coreQuestSources,
+      wealdTaskSources,
       true,
       null,
       ["core", "weald"],

@@ -1,19 +1,10 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`seed0 沿用当前固定探索策略：新威胁版本的自然命令完整严格恢复，保留实际结果 1`] = `
+exports[`seed18 沿用当前固定探索策略：新威胁版本的自然命令完整严格恢复，保留实际结果 1`] = `
 {
-  "phase": "exited",
+  "phase": "awaitingReplacement",
   "stop": null,
-  "summary": {
-    "awarded": false,
-    "clearedRoomIds": [
-      "C",
-    ],
-    "name": "Rising Threat I",
-    "questId": "quest:p005",
-    "stagecoachXp": 1,
-    "xpPerHero": 1,
-  },
+  "summary": undefined,
   "thefts": 3,
 }
 `;

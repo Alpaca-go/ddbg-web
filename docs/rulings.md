@@ -2940,13 +2940,13 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **裁定**（Kyries 2026-11-18 确认）：
   1. **地牢侧威胁能力只在该 Boss 所属地点的地牢生效**；跨地点任务不应用其地牢侧能力。
   2. **村庄侧威胁能力不受地点影响**，仍按 R11／R32 在村庄生效。
-  3. 同一原则适用于 Weald Boss；本批已接入 Hag／Pounder 的地牢侧入口，Shrieker 的补给盗取入口仍走旧读取，列为下一刀统一项。
+  3. 同一原则适用于 Weald Boss；Hag／Pounder／**Shrieker** 的地牢侧入口均已接入（Shrieker 含 I 的补给盗取、II／III 的跳补给骰与高等级盗取）。
   4. 未接入地点制的旧脚本（Warrens／Cove 等试验）保持原行为，待各自地点入口核准后再纳入。
   5. 遗迹 p019 Boss 战仍在其所属地点，Army of the Dead 等能力照常；真实牌池判定（R-048）不变。
 - **具体效果**：遗迹 Boss 威胁在 Weald 任务内不生成 Bone Captain、不施加 Beast／Eldritch 加伤、不进地牢／补给压力、不触发开战 Mark、Large 生成 Guard、Curio 房间跳过、战后永久移除非 Unholy 等；Weald Boss 威胁在遗迹任务内同样不触发其地牢侧钩子。
-- **实现**：`activeBossThreatMatchesDungeonLocation` / `readDungeonBossThreatScript` 统一过滤；本批接入遗迹 Boss 的 Army of the Dead、higher ruins 地牢侧、威胁压力与战斗开始状态、战后牌池移除，以及 Weald Boss 的 Hag 补给压力、Pounder Ranged 进场。新增 `threat-location-scope.test.ts`；受影响 Boss 场景夹具改用真实 Weald 任务分布或生产 p019 地点标记。Shrieker 补给盗取入口仍待下一刀统一。
+- **实现**：`activeBossThreatMatchesDungeonLocation` / `readDungeonBossThreatScript` 统一过滤；本批接入遗迹 Boss 的 Army of the Dead、higher ruins 地牢侧、威胁压力与战斗开始状态、战后牌池移除，以及 Weald Boss 的 Hag 补给压力、Pounder Ranged 进场、Shrieker I 补给盗取与 II／III 跳补给骰／高等级盗取。新增 `threat-location-scope.test.ts`；受影响 Boss 场景夹具改用真实 Weald 任务分布或生产 p019 地点标记。Shrieker 收口后 core-trinkets、dungeon-curio 等共享夹具也一并修正。
 - **依据**：W3（按等级混洗所有启用地点 Boss）、核心 §2.3（威胁地牢侧／村庄侧）、R-001、R-048；Kyries 2026-11-18 指令。
-- **状态**：已裁定并实现（2026-11-18）
+- **状态**：已裁定并实现（2026-11-18；Shrieker 入口 2026-11-19 收口）
 
 ### R-201
 

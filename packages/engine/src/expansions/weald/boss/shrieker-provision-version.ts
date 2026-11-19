@@ -1,8 +1,10 @@
 import type { DungeonState } from "../../../dungeon";
-/** R-270：显式新版本只作用于地牢中的II级描述面，不回改已掷骰／开局村庄补给。 */
+import { activeBossThreatMatchesDungeonLocation } from "../../../boss/threat-campaign";
+/** R-270：显式新版本只作用于地牢中的II级描述面，不回改已掷骰／开局村庄补给。R-273：跨地点任务不生效。 */
 export function shriekerSkipsProvisionRolls(d: DungeonState | undefined): boolean {
   return (
     !!d &&
+    activeBossThreatMatchesDungeonLocation(d) &&
     d.shriekerProvisionSkipRolls === true &&
     d.wealdHigherBosses === true &&
     d.shriekerBossBattles === true &&
