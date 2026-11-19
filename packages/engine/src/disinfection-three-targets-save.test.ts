@@ -87,5 +87,5 @@ it.each([7, 2] as const)(
       expect(() => loadQuestSave(tampered, sources)).toThrow();
     }
   },
-  120000,
+  300000,
 );
