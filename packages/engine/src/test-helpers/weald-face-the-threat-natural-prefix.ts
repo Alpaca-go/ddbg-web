@@ -26,6 +26,8 @@ import { ensureCampaignBossScriptsRegistered } from "../expansions/register";
 import { wealdActReadyFixture } from "./weald-act";
 import { pickNaturalReplacementOptionId } from "./natural-replacement";
 import { PROVISION_EFFECTS } from "../provision-use";
+import { heroSkillSlotCount, ownedHeroSkills } from "../hero-loadout";
+import { blacksmithOptions } from "../hamlet-blacksmith";
 
 const packs = ["core", "weald"] as const;
 const defaultDrawMode = "hamlet-quest-draw:ruins-two" as const;
@@ -45,6 +47,13 @@ export type WealdNaturalActOneDriveOptions = {
   readonly restThreshold?: number;
   /** 村庄优先可治疗建筑，再回退 Zealous Speech／建筑服务。 */
   readonly hamletHealFirst?: boolean;
+  /** V1：只在任一英雄伤口或压力达到阈值时才优先治疗，空出天数给公会／铁匠。 */
+  readonly hamletSmartHeal?: boolean;
+  readonly hamletHealThreshold?: number;
+  /** 英雄有 4 XP＋2 金且未满 III 时优先 visitGuild 升英雄等级（V1）。 */
+  readonly hamletGuildLevels?: boolean;
+  /** 村庄优先用铁匠把已装备技能升到当前等级（1 金/次，V1）。 */
+  readonly hamletBlacksmith?: boolean;
   /**
    * 按 hamlet.heroOrder 遍历行动英雄，对带目标村庄技能按 hero-0..3 固定顺序选首个合法目标
    *（对照 plague 医生 Experimental Vapours 核准场景；R-190 旁路）。
@@ -107,6 +116,17 @@ function settle(game: GameState, log: Command[], options: WealdNaturalActOneDriv
       );
       continue;
     }
+    if (d.pending?.id.startsWith("hamlet-guild:")) {
+      const pick =
+        d.pending.options.find((o) => o.id === "upgrade-hero") ??
+        d.pending.options.find((o) => o.id === "leave")!;
+      state = step(
+        state,
+        { type: "resolveChoice", choiceId: d.pending.id, optionId: pick.id },
+        log,
+      );
+      continue;
+    }
     if (!d.pending) break;
     state = step(
       state,
@@ -120,10 +140,40 @@ function settle(game: GameState, log: Command[], options: WealdNaturalActOneDriv
 
 const hamletSkillTargetOrder = ["hero-0", "hero-1", "hero-2", "hero-3"] as const;
 
+/** 公会升级后技能槽变宽；在下次出征前补满已拥有技能（R-051）。 */
+function normalizeSkillSlots(game: GameState, log: Command[]) {
+  let state = game;
+  for (const hero of state.dungeon!.heroes) {
+    if (hero.dead) continue;
+    const slots = heroSkillSlotCount(hero.level!);
+    const currentSkillIds = hero.skillIds ?? [];
+    if (currentSkillIds.length === slots) continue;
+    const owned = ownedHeroSkills(hero, state.dungeon!.battleCatalog!);
+    if (!owned) continue;
+    const equipped = new Set(currentSkillIds);
+    const additions = owned
+      .filter((skill) => !equipped.has(skill.id))
+      .slice(0, slots - currentSkillIds.length)
+      .map((skill) => skill.id);
+    const skillIds = [...currentSkillIds, ...additions];
+    if (skillIds.length !== slots) continue;
+    state = step(state, { type: "setEquippedSkills", actorId: hero.id, skillIds }, log);
+  }
+  return state;
+}
+
 function pickHamletActionCommand(
   state: GameState,
   options: WealdNaturalActOneDriveOptions,
 ): Command | undefined {
+  if (options.hamletGuildLevels) {
+    const hero = currentHamletHero(state);
+    const d = state.dungeon!;
+    if (hero && (hero.xp ?? 0) >= 4 && d.gold >= 2 && hero.level! < 3) {
+      const trial: Command = { type: "visitGuild", actorId: hero.id };
+      if (!applyCommand(state, trial).events.some((e) => e.type === "commandRefused")) return trial;
+    }
+  }
   if (options.hamletOrderedSkillTargets) {
     const hamlet = state.dungeon!.hamlet!;
     const actingIds = hamlet.heroOrder.filter((id) => !hamlet.actedHeroes?.includes(id));
@@ -142,7 +192,15 @@ function pickHamletActionCommand(
       }
     }
   }
-  if (options.hamletHealFirst) {
+  const needsHeal =
+    !options.hamletSmartHeal ||
+    state.dungeon!.heroes.some(
+      (hero) =>
+        !hero.dead &&
+        ((hero.wounds ?? 0) >= (options.hamletHealThreshold ?? 6) ||
+          (hero.stress ?? 0) >= (options.hamletHealThreshold ?? 6)),
+    );
+  if (options.hamletHealFirst && needsHeal) {
     const buildingOptions = hamletActionOptions(state);
     const ordered = [
       ...buildingOptions.filter((option) => {
@@ -158,6 +216,13 @@ function pickHamletActionCommand(
         (command) => !applyCommand(state, command).events.some((e) => e.type === "commandRefused"),
       );
     if (healFirst) return healFirst;
+  }
+  if (options.hamletBlacksmith) {
+    const command = blacksmithOptions(state)[0]?.command;
+    if (command) {
+      if (!applyCommand(state, command).events.some((e) => e.type === "commandRefused"))
+        return command;
+    }
   }
   const actorId = currentHamletHero(state)?.id;
   if (!actorId) return undefined;
@@ -451,6 +516,7 @@ export function wealdFaceTheThreatNaturalActOnePrefix(
     }
     game = prepareHamlet(game, commands, options);
     if (trip === 2) break;
+    game = normalizeSkillSlots(game, commands);
     try {
       game = step(game, { type: "offerNextQuest" }, commands);
       if (game.dungeon!.pending?.id.startsWith("hamlet-quest-draw:")) {
@@ -554,6 +620,7 @@ export function wealdFaceTheThreatNaturalCrossActJourney(
   game = naturalActOneBoundary
     ? prepareHamletDay(game, commands, options)
     : actAdvanceHamlet(game, commands);
+  game = normalizeSkillSlots(game, commands);
   game = step(game, { type: "offerNextQuest" }, commands);
 
   const campaignLevel = game.dungeon!.campaignLevel!;
@@ -631,5 +698,103 @@ export function wealdFaceTheThreatNaturalCrossActJourney(
     manualContinuation,
     actOnePrefix,
     naturalActOneBoundary,
+  };
+}
+
+export type WealdNaturalActTwoJourney = {
+  readonly seed: number;
+  readonly commands: readonly Command[];
+  readonly game: GameState;
+  readonly stop: string | null;
+  readonly actTwoSave: ReturnType<typeof createQuestSave> | null;
+  readonly actOneJourney: WealdFaceTheThreatCrossActJourney;
+};
+
+/**
+ * V1：I 幕自然全胜 → II 幕出征，再跑两趟 II 级普通任务 + p019 II 级 Boss，
+ * 回村后执行 advanceRuinsAct 进入 III。仍只走公开命令；不筛胜负。
+ */
+export function wealdNaturalActTwoJourney(
+  seed: number,
+  options: WealdNaturalActOneDriveOptions = {},
+): WealdNaturalActTwoJourney {
+  const actOneJourney = wealdFaceTheThreatNaturalCrossActJourney(seed, options);
+  let game = actOneJourney.game;
+  const commands: Command[] = [...actOneJourney.commands];
+  let stop: string | null = null;
+
+  for (let trip = 0; trip < 3 && !stop; trip++) {
+    const questId = game.dungeon!.questDistribution!.questId as BasicQuestId;
+    const run = naturalQuest(seed, questId, true, productionQuestSources, 2, {
+      continueFrom: game,
+      ...naturalQuestOptionsForActOne(options),
+    });
+    commands.push(...run.commands);
+    game = run.state;
+    if (run.stopReason) {
+      stop = run.stopReason;
+      break;
+    }
+    if (game.dungeon!.campaignFailure) {
+      stop = game.dungeon!.campaignFailure;
+      break;
+    }
+    game = prepareHamlet(game, commands, options);
+    if (trip === 2) break;
+    game = normalizeSkillSlots(game, commands);
+    try {
+      game = step(game, { type: "offerNextQuest" }, commands);
+      const drawMode = HAMLET_QUEST_DRAW_OPTION.wealdTwo;
+      if (game.dungeon!.pending?.id.startsWith("hamlet-quest-draw:")) {
+        game = step(
+          game,
+          { type: "resolveChoice", choiceId: game.dungeon!.pending!.id, optionId: drawMode },
+          commands,
+        );
+      }
+      const offers = game.dungeon!.nextQuestOffers!;
+      game = step(
+        game,
+        {
+          type: "resolveChoice",
+          choiceId: game.dungeon!.pending!.id,
+          optionId: offers[0]!,
+          ...(options.currentCampaign ? { bossEdgeRooms: true } : {}),
+        },
+        commands,
+      );
+    } catch (error) {
+      stop = error instanceof Error ? error.message : String(error);
+    }
+  }
+
+  if (!stop && game.dungeon!.bossQuestVictory && game.dungeon!.campaignLevel === 2) {
+    const readiness = readRuinsActTransitionReadiness(game);
+    if (readiness.kind === "ready") {
+      game = step(game, { type: "advanceRuinsAct" }, commands);
+      game = prepareHamletDay(game, commands, options);
+    } else {
+      stop = readiness.reason;
+    }
+  } else if (!stop) {
+    stop = game.dungeon!.bossQuestVictory ? "II 幕 Boss 未结算" : "II 幕未完成";
+  }
+
+  let actTwoSave: ReturnType<typeof createQuestSave> | null = null;
+  if (!stop) {
+    try {
+      actTwoSave = createQuestSave(actOneJourney.start, commands, game, productionQuestSources);
+    } catch {
+      actTwoSave = null;
+    }
+  }
+
+  return {
+    seed,
+    commands,
+    game,
+    stop,
+    actTwoSave,
+    actOneJourney,
   };
 }
