@@ -23,6 +23,7 @@ export function playNaturalBattle(
   options: {
     readonly preferWipeout?: boolean;
     readonly survival?: boolean;
+    readonly emergencyHeal?: boolean;
     readonly heroAction?: (state: GameState) => Command | undefined;
     readonly fungalResearch?: "retain-one" | "retain-all" | "destroy-all";
   } = {},
@@ -64,6 +65,44 @@ export function playNaturalBattle(
     }
     return total;
   };
+  /** 仅 V1 开启：有英雄濒死且行动者带治疗技能时，优先治疗而不是继续贪伤害。 */
+  const emergencyHeal = (s: GameState): Command | undefined => {
+    const b = s.battle!,
+      turn = b.encounter!.turn;
+    if (turn.type !== "hero") return;
+    const actor = b.entities.find((e) => e.id === turn.actorId)!;
+    const living = b.entities.filter((e) => e.side === "hero" && !e.dead);
+    const remaining = (e: (typeof living)[number]) => (e.life ?? 0) - (e.wounds ?? 0);
+    const target = [...living].sort((a, b) => remaining(a) - remaining(b))[0];
+    if (!target || remaining(target) > 6) return;
+    let best: PlayHeroSkillCommand | undefined,
+      bestGain = 0;
+    for (const skillId of actor.skillIds) {
+      const skill = b.skills?.find((entry) => entry.id === skillId);
+      if (!skill?.verified_target_heal && !skill?.verified_self_heal) continue;
+      const selfOnly = !!skill.verified_self_heal && !skill.verified_target_heal;
+      const targetId = selfOnly ? actor.id : target.id;
+      for (const face of ["front", "back"] as const) {
+        const command: PlayHeroSkillCommand = {
+          type: "playHeroSkill",
+          actorId: actor.id,
+          targetId,
+          skillId,
+          face,
+        };
+        const previewed = preview(s, command);
+        if (previewed.events.some((e) => e.type === "commandRefused")) continue;
+        const after = previewed.state.battle!.entities.find((e) => e.id === targetId)!;
+        const gain = remaining(target) - remaining(after);
+        if (gain > bestGain) {
+          bestGain = gain;
+          best = command;
+        }
+      }
+    }
+    return bestGain > 0 ? best : undefined;
+  };
+
   const attacks = (s: GameState) => {
     const b = s.battle!,
       turn = b.encounter!.turn;
@@ -170,6 +209,11 @@ export function playNaturalBattle(
         actorId: actor.id,
         direction: actor.stance === "aggressive" ? "backward" : "forward",
       });
+      continue;
+    }
+    const emergency = options.emergencyHeal ? emergencyHeal(state) : undefined;
+    if (emergency) {
+      driver.step(emergency);
       continue;
     }
     const direct = attacks(state)[0];

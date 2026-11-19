@@ -9,22 +9,22 @@ exports[`V1 Act II 自然链基线（非验收） 1`] = `
     "guildVisits": 3,
     "heroes": [
       {
-        "dead": false,
+        "dead": true,
         "id": "hero-1",
         "level": 2,
       },
       {
-        "dead": true,
+        "dead": false,
         "id": "hero-3",
         "level": 2,
       },
       {
-        "dead": false,
+        "dead": true,
         "id": "hero-2",
         "level": 2,
       },
       {
-        "dead": true,
+        "dead": false,
         "id": "replacement-1",
         "level": 2,
       },

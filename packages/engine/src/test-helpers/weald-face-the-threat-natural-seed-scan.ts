@@ -32,6 +32,7 @@ export const WEALD_NATURAL_ACT_ONE_RADIANT_CAMPAIGN_DRIVE: WealdNaturalActOneDri
 /** V1：在明亮驱动上加村庄公会英雄升级，用于 II 幕自然链。 */
 export const WEALD_NATURAL_ACT_TWO_CAMPAIGN_DRIVE: WealdNaturalActOneDriveOptions = {
   ...WEALD_NATURAL_ACT_ONE_RADIANT_CAMPAIGN_DRIVE,
+  emergencyHeal: true,
   hamletGuildLevels: true,
   guildPriorityHeroIds: ["hero-3", "hero-1", "hero-0", "hero-2"],
   hamletBlacksmith: true,

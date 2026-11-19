@@ -28,6 +28,7 @@ import { pickNaturalReplacementOptionId } from "./natural-replacement";
 import { PROVISION_EFFECTS } from "../provision-use";
 import { heroSkillSlotCount, ownedHeroSkills } from "../hero-loadout";
 import { blacksmithOptions } from "../hamlet-blacksmith";
+import { higherRuinsThreat } from "../boss/higher-ruins-threat";
 
 const packs = ["core", "weald"] as const;
 const defaultDrawMode = "hamlet-quest-draw:ruins-two" as const;
@@ -44,6 +45,8 @@ export type WealdNaturalActOneDriveOptions = {
   readonly handleDeaths?: boolean;
   /** 玩家策略战斗打分（R-190 旁路）；默认关闭。 */
   readonly survival?: boolean;
+  /** V1：生存战斗中濒死优先治疗。 */
+  readonly emergencyHeal?: boolean;
   readonly restThreshold?: number;
   /** 村庄优先可治疗建筑，再回退 Zealous Speech／建筑服务。 */
   readonly hamletHealFirst?: boolean;
@@ -479,6 +482,7 @@ function naturalQuestOptionsForActOne(options: WealdNaturalActOneDriveOptions) {
     ...(options.survival
       ? { survival: true as const, restThreshold: options.restThreshold ?? 6 }
       : {}),
+    ...(options.emergencyHeal ? { emergencyHeal: true as const } : {}),
     ...(options.wealdProductionRooms ? CURRENT_WEALD_ROOM_VERSIONS : {}),
     ...(options.combatProvisions ? { heroAction: useCombatProvisions } : {}),
     ...(options.radiant ? { radiantScouting: true } : {}),
@@ -764,9 +768,14 @@ export function wealdNaturalActTwoJourney(
 
   for (let trip = 0; trip < 3 && !stop; trip++) {
     const questId = game.dungeon!.questDistribution!.questId as BasicQuestId;
+    const scoutStress = higherRuinsThreat(game.dungeon, "dungeon")?.kind === "scoutStress";
+    const questOptions = naturalQuestOptionsForActOne({
+      ...options,
+      radiant: options.radiant === true && !scoutStress,
+    });
     const run = naturalQuest(seed, questId, true, productionQuestSources, 2, {
       continueFrom: game,
-      ...naturalQuestOptionsForActOne(options),
+      ...questOptions,
     });
     commands.push(...run.commands);
     game = run.state;

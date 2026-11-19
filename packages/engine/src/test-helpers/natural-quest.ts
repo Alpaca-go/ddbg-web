@@ -62,6 +62,8 @@ export type NaturalQuestOptions = {
   readonly preferStagecoachRevival?: boolean;
   /** 遗物偏好：保守打法（击杀优先、避免英雄掉血），只给玩家策略链用，不改自然默认。 */
   readonly survival?: boolean;
+  /** V1：濒死时优先使用治疗技能（需 survival）。 */
+  readonly emergencyHeal?: boolean;
   /** 显式跟随页面的新攻击命令版本，不改变玩家策略。 */
   readonly toxicMushrooms?: true;
   readonly wealdUnprepared?: true;
@@ -214,7 +216,7 @@ export function naturalQuest(
         ...(options.preferWipeout
           ? { preferWipeout: true }
           : options.survival
-            ? { survival: true }
+            ? { survival: true, ...(options.emergencyHeal ? { emergencyHeal: true } : {}) }
             : {}),
         ...(options.heroAction ? { heroAction: options.heroAction } : {}),
         ...(options.fungalResearch ? { fungalResearch: options.fungalResearch } : {}),
