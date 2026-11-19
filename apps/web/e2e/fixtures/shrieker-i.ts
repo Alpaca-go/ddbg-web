@@ -10,7 +10,7 @@ import { createQuestSave } from "../../../../packages/engine/src/quest-save";
 
 export function shriekerUiFixture(sources: CoreQuestSources) {
   const packs = ["core", "weald"] as const,
-    draw = "hamlet-quest-draw:ruins-two" as const;
+    draw = "hamlet-quest-draw:weald-two" as const;
   const questId = drawInitialQuestOffers(0, packs, draw).offers[0]!;
   let game = createCoreDungeonQuest(
     0,

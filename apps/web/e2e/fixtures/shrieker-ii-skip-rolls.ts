@@ -16,7 +16,6 @@ export function shriekerSkipRollsUiFixture(): GameState {
       shriekerBossBattles: true,
       activeBossThreatScriptId: "boss:weald:shrieker:2",
       imminentThreatDescriptionCardId: "boss_ability:weald:p002",
-      questDistribution: { ...source.dungeon!.questDistribution!, questId: "quest:weald:p006" },
     },
     battle: {
       ...b,

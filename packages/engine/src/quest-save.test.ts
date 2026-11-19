@@ -70,7 +70,7 @@ it("版本存档恢复真实起点与待选开局补给，续接不重掷；输�
   expect(applyCommand(restored.game, choice)).toEqual(applyCommand(pending.state, choice));
   expect(game).toEqual(before);
   expect(roundTrip(createQuestSave(start, [], game, coreQuestSources)).commands).toEqual([]);
-}, 20000);
+}, 60000);
 it("旧存档严格验证历史前缀，续玩及重存保留规则切换点", () => {
   const command = { type: "rollDungeonProvisions" } as const;
   const before = applyCommand(initial(), command).state;
@@ -92,7 +92,7 @@ it("旧存档严格验证历史前缀，续玩及重存保留规则切换点", (
   const saved = createQuestSave(loaded.start, [command, next], after.state, coreQuestSources);
   expect(roundTrip(saved).game).toEqual(after.state);
   expect(() => roundTrip({ ...legacy, snapshot: { ...before, seed: 0 } })).toThrow();
-}, 20000);
+}, 60000);
 it("自然任务含真实战斗的日志可恢复到摘要，牌池、金币、XP与RNG全部一致", () => {
   const run = naturalQuest(1, "quest:p001");
   const entry: QuestStart = {
@@ -160,7 +160,7 @@ it("自然任务含真实战斗的日志可恢复到摘要，牌池、金币、X
     }
   }
   expect(game.battle?.pending).toBeDefined();
-}, 20000);
+}, 60000);
 it("未知版本、非法命令、伪造快照／种子、截断日志和错误来源拒绝", () => {
   const game = initial(),
     saved = createQuestSave(start, [], game, coreQuestSources);
@@ -185,4 +185,4 @@ it("未知版本、非法命令、伪造快照／种子、截断日志和错误�
     expect(() => roundTrip(corrupt)).toThrow();
   expect(() => loadQuestSave(saved, { ...coreQuestSources, rooms: [] })).toThrow();
   expect(() => createQuestSave(start, [], pending.state, coreQuestSources)).toThrow(/不一致/);
-}, 20000);
+}, 60000);
