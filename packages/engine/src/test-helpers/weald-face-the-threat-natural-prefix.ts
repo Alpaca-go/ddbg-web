@@ -50,10 +50,14 @@ export type WealdNaturalActOneDriveOptions = {
   /** V1：只在任一英雄伤口或压力达到阈值时才优先治疗，空出天数给公会／铁匠。 */
   readonly hamletSmartHeal?: boolean;
   readonly hamletHealThreshold?: number;
+  /** V1：任一英雄压力较高时优先酒馆减压，再治疗伤口。 */
+  readonly hamletStressFirst?: boolean;
   /** V1：本幕两趟普通任务完成后按 Boss 前准备处理，优先把队伍治满。 */
   readonly hamletBossPrep?: boolean;
   /** 英雄有 4 XP＋2 金且未满 III 时优先 visitGuild 升英雄等级（V1）。 */
   readonly hamletGuildLevels?: boolean;
+  /** 只让这些英雄优先使用公会（同一天公会只能被一名英雄访问）。 */
+  readonly guildPriorityHeroIds?: readonly string[];
   /** 村庄优先用铁匠把已装备技能升到当前等级（1 金/次，V1）。 */
   readonly hamletBlacksmith?: boolean;
   /**
@@ -171,7 +175,18 @@ function pickHamletActionCommand(
   if (options.hamletGuildLevels) {
     const hero = currentHamletHero(state);
     const d = state.dungeon!;
-    if (hero && (hero.xp ?? 0) >= 4 && d.gold >= 2 && hero.level! < 3) {
+    const priority = options.guildPriorityHeroIds;
+    const eligible = priority?.length
+      ? priority.filter((id) => {
+          const candidate = d.heroes.find((entry) => entry.id === id);
+          return (
+            candidate && !candidate.dead && (candidate.level ?? 1) < 3 && (candidate.xp ?? 0) >= 4
+          );
+        })
+      : [];
+    const top = eligible[0];
+    const allowed = !priority?.length || !top || hero?.id === top;
+    if (allowed && hero && (hero.xp ?? 0) >= 4 && d.gold >= 2 && hero.level! < 3) {
       const trial: Command = { type: "visitGuild", actorId: hero.id };
       if (!applyCommand(state, trial).events.some((e) => e.type === "commandRefused")) return trial;
     }
@@ -209,13 +224,28 @@ function pickHamletActionCommand(
         ((hero.wounds ?? 0) >= (options.hamletHealThreshold ?? 6) ||
           (hero.stress ?? 0) >= (options.hamletHealThreshold ?? 6)),
     );
+  if (options.hamletStressFirst) {
+    const stressHigh = state.dungeon!.heroes.some((hero) => !hero.dead && (hero.stress ?? 0) >= 7);
+    const actor = currentHamletHero(state);
+    if (stressHigh && actor) {
+      const speech: Command = { type: "useHamletSkill", actorId: actor.id, skill: "zealousSpeech" };
+      if (!applyCommand(state, speech).events.some((e) => e.type === "commandRefused"))
+        return speech;
+    }
+  }
   if (options.hamletHealFirst && needsHeal) {
+    const stressHigh =
+      options.hamletStressFirst &&
+      state.dungeon!.heroes.some((hero) => !hero.dead && (hero.stress ?? 0) >= 8);
+    const serviceOrder = stressHigh
+      ? (["tavern6", "tavern3", "heal10", "heal5"] as const)
+      : hamletHealFirstServiceIds;
     const buildingOptions = hamletActionOptions(state);
     const ordered = [
       ...buildingOptions.filter((option) => {
         if (option.command.type !== "visitHamletBuilding") return false;
         const serviceId = option.command.serviceId;
-        return (hamletHealFirstServiceIds as readonly string[]).includes(serviceId);
+        return (serviceOrder as readonly string[]).includes(serviceId);
       }),
       ...buildingOptions,
     ];

@@ -6,26 +6,26 @@ exports[`V1 Act II 自然链基线（非验收） 1`] = `
     "blacksmithVisits": 3,
     "campaignLevel": 2,
     "completedRegularQuests": 4,
-    "guildVisits": 2,
+    "guildVisits": 3,
     "heroes": [
       {
         "dead": false,
-        "id": "hero-3",
-        "level": 1,
+        "id": "hero-1",
+        "level": 2,
       },
       {
         "dead": true,
-        "id": "hero-2",
-        "level": 1,
-      },
-      {
-        "dead": false,
-        "id": "replacement-1",
+        "id": "hero-3",
         "level": 2,
       },
       {
         "dead": false,
-        "id": "replacement-8",
+        "id": "hero-2",
+        "level": 2,
+      },
+      {
+        "dead": true,
+        "id": "replacement-1",
         "level": 2,
       },
     ],
@@ -96,19 +96,19 @@ exports[`V1 Act II 自然链基线（非验收） 1`] = `
     "stop": "noWaitingHeroes",
   },
   {
-    "blacksmithVisits": 0,
+    "blacksmithVisits": 1,
     "campaignLevel": 2,
     "completedRegularQuests": 2,
     "guildVisits": 0,
     "heroes": [
       {
         "dead": false,
-        "id": "hero-0",
+        "id": "hero-2",
         "level": 1,
       },
       {
-        "dead": true,
-        "id": "hero-1",
+        "dead": false,
+        "id": "hero-0",
         "level": 1,
       },
       {
@@ -117,14 +117,14 @@ exports[`V1 Act II 自然链基线（非验收） 1`] = `
         "level": 1,
       },
       {
-        "dead": true,
+        "dead": false,
         "id": "replacement-1",
         "level": 1,
       },
     ],
     "mode": "standard",
     "seed": 90,
-    "stop": "noWaitingHeroes",
+    "stop": "battle halted: heroesDefeated",
   },
   {
     "blacksmithVisits": 3,
