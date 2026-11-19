@@ -20,9 +20,10 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 - **I 幕 Hag 连续战役已自动验收（Radiant，seed 13）**：从正式核心＋Weald 新战役抽选开局，完成两趟普通任务，经村庄准备接 `Face the Threat`，按 R30 布置边缘房，击败 Hag I 并回村领取 3 XP。随后从同一末态执行 `advanceRuinsAct`，以 `tasks-v1` 抽选并出征 Weald II 级任务。完整 JSON 存档从第一次出征入口严格回放。见 [连续战役回归](../packages/engine/src/weald-face-the-threat-natural-replay.test.ts)。
 - **定位及修正**：部分样本在普通任务或 p019 探索时耗尽替补。seed 13 在旧驱动下走完 p019，选任务时漏传正式页面已有的 `bossEdgeRooms: true`。补上后发现 R-255 入锅会让战斗持牌校验漏掉锅内英雄。现将锅内英雄计入疾病／怪癖与饰品守恒；出锅和正常战场选目标沿用原入口。回村完成后先升幕再抽村庄事件（R35）。
 - **本轮验证（#784）**：typecheck、lint、build 通过；定向 Vitest 23 文件／219 测与全量 `pnpm test` 均通过。Playwright 的 Hag I 部署／先攻／释放以及 Stygian 正式出征两条冒烟通过（本机 Edge）。
+- **P1 盘点（2026-11-19）**：见 [P1 未确认项盘点](weald-p1-open-items-2026-11-19.md)。结论：Q-186 三项边界（全局图标词典、I 级目录验证标记、PvP）建议记为“保留边界”；R-272 状态细化为“Stygian I→II 已验收，混合 II→III／实机待做”；Act II 5-seed 探测仅 seed 7 完成一趟 II 级任务（1 XP），驱动未访问 `visitGuild`；`usable/runtimeReady=false` 建议保持到整稿复核；8 个扩展英雄 higher-skill 测试覆盖、`FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS=[]`。三项待 Kyries 拍板后进入 V1。
 - **下一步（先收口再开新驱动）**：
   1. ~~统一 Shrieker 补给盗取入口~~ 已随 #790 收口；R-273 的地牢侧过滤现覆盖全部已接线 Boss。
-  2. 给 Weald 自然驱动接 `visitGuild`（公会升级／技能升级），并改进村庄与战斗策略；Act II 的停点要先用**有界、入库**的种子探测记录，再推进混合 II→III。现有回归只到升 II 幕并出征第一趟 II 级任务为止。
+  2. P1 盘点已出（见上）；待 Kyries 对 Q-186 边界、`usable/runtimeReady` 口径、V1 方向拍板后，给 Weald 自然驱动接 `visitGuild`（公会升级／技能升级）并改进村庄与战斗策略；Act II 的停点要用**有界、入库**的种子探测记录，再推进混合 II→III。现有回归只到 II 幕出征为止。
   3. III 后进入最暗地牢、完整战役人工实机，以及规格书整稿复核继续后置。
 
 - **R-271 接续（2026-11-17）**：Q-189 已由 #765／#766 的裁定结清。当前实现批次接召唤连锁挤占及 Push／Pull 补裁；下文原批次“Q-189 未裁定／保留技术停点”均为旧版本历史，不再是待确认项。旧无标记日志保留原行为，新命令显式 `chainCrowding:true`，已有待选完成后再切换。验证结果见末尾本批记录。
