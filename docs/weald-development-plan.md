@@ -21,7 +21,7 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 - **定位及修正**：部分样本在普通任务或 p019 探索时耗尽替补。seed 13 在旧驱动下走完 p019，选任务时漏传正式页面已有的 `bossEdgeRooms: true`。补上后发现 R-255 入锅会让战斗持牌校验漏掉锅内英雄。现将锅内英雄计入疾病／怪癖与饰品守恒；出锅和正常战场选目标沿用原入口。回村完成后先升幕再抽村庄事件（R35）。
 - **本轮验证（#784）**：typecheck、lint、build 通过；定向 Vitest 23 文件／219 测与全量 `pnpm test` 均通过。Playwright 的 Hag I 部署／先攻／释放以及 Stygian 正式出征两条冒烟通过（本机 Edge）。
 - **P1 盘点（2026-11-19，已拍板）**：见 [P1 未确认项盘点](weald-p1-open-items-2026-11-19.md)。Q-186 三项边界（全局图标词典、I 级目录验证标记、PvP）确认为“保留边界”；`usable/runtimeReady=false` 保持到整稿复核；R-272 状态细化为“Stygian I→II 已验收，混合 II→III／实机待做”；Act II 5-seed 基线（仅 seed 7 完成一趟 p009，1 XP）已入库；8 个扩展英雄 higher-skill 测试覆盖、无 unwired 标记。**V1 方向已确认**。
-- **V1 初版（2026-11-19）**：自然驱动新增 `hamletGuildLevels`、`hamletBlacksmith`、`hamletSmartHeal`，并新增 `wealdNaturalActTwoJourney` 续跑完整 II 幕；基线 `weald-act-two-journey.test.ts`（5 seed）显示 seed 7 最好，完成 4 个普通任务（I 幕 2＋II 幕 2）后停在 II Boss；其余 seed 更早停。**II 幕仍未验收**；下一步补 Boss 前准备（饰品／补给／技能）与更稳战斗策略。
+- **V1 初版（2026-11-19）**：自然驱动新增 `hamletGuildLevels`、`hamletBlacksmith`、`hamletSmartHeal`、`hamletBossPrep`，并新增 `wealdNaturalActTwoJourney` 续跑完整 II 幕；基线 `weald-act-two-journey.test.ts`（5 seed）显示 seed 7 最好，完成 4 个普通任务（I 幕 2＋II 幕 2）后停在 II Boss（Prophet II，公会 2 次、铁匠 3 次），其余 seed 更早停。**II 幕仍未验收**；下一步补 Boss 前饰品／额外补给／技能升级优先级与更稳战斗策略。
 - **P2 文档收口（2026-11-19）**：X2 Weald 规格书状态与 Q-186 章节更新为“已核准”，并注明批次运行说明为历史；X5 步骤 7 改为“内容已接线，验收中”；X6 明确 `usable=false`／`runtimeReady=false` 是保留标记而非未实现；X3 旧交接文档加历史横幅并继续保持未跟踪。X1、X4 已随 P0 关闭。
 - **下一步（先收口再开新驱动）**：
   1. ~~统一 Shrieker 补给盗取入口~~ 已随 #790 收口；R-273 的地牢侧过滤现覆盖全部已接线 Boss。

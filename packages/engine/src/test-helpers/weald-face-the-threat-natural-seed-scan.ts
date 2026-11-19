@@ -36,6 +36,7 @@ export const WEALD_NATURAL_ACT_TWO_CAMPAIGN_DRIVE: WealdNaturalActOneDriveOption
   hamletBlacksmith: true,
   hamletSmartHeal: true,
   hamletHealThreshold: 6,
+  hamletBossPrep: true,
 };
 
 /**
