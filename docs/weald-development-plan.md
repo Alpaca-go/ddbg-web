@@ -24,7 +24,7 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 - **V1 续 3（2026-11-19）**：继续尝试治疗优先（`emergencyHeal`）、游商饰品与铁匠 III 团队升级；三者在 seed 7 均未改变 II Boss 结果（治疗版本反而拖慢清场，游商占用村庄行动导致更早失败，铁匠 III 升级 2 次但技能/结果不变）。另测 seed 60／83／91／97 也都在 II 幕更早停。当前瓶颈是 **II Boss 的爆发伤害与当前自然队伍/策略不匹配**，不是单一资源项。
 - **V1 停止（2026-11-19，Kyries）**：Boss 胜负是玩家决策，不是流程缺陷；只要公开命令不违反规则，就**不再把“自然全胜”作为 II 幕门槛**。II→III 继续用受控夹具／公开命令覆盖阶段推进与存档回放；不再继续调测试玩家。V1 诊断基线保留，但明确不是验收。
 - **P2 文档收口（2026-11-19）**：X2 Weald 规格书状态与 Q-186 章节更新为“已核准”，并注明批次运行说明为历史；X5 步骤 7 改为“内容已接线，验收中”；X6 明确 `usable=false`／`runtimeReady=false` 是保留标记而非未实现；X3 旧交接文档加历史横幅并继续保持未跟踪。X1、X4 已随 P0 关闭。
-- **全量闸门（2026-11-19）**：全量 `pnpm test` 623 文件／4497 测，4493 通过、1 跳过；3 个失败均为全量负载下的超时（`quest-save` 20s、`disinfection-three-targets-save` 120s），单独运行均通过，已分别放宽到 60s／300s。修复 Shrieker II e2e 夹具的 Weald 任务地点（R-273 后不能再用改 questId 的旧法），并更新 Act I 种子扫描快照；两条相关 Playwright spec 单跑通过。
+- **全量闸门（2026-11-19）**：全量 `pnpm test` 623 文件／4497 测，4493 通过、1 跳过；3 个失败均为全量负载下的超时（`quest-save` 20s、`disinfection-three-targets-save` 120s），单独运行均通过，已分别放宽到 60s／300s。修复 Shrieker I／II e2e 夹具沿用遗迹/改 questId 的旧法（R-273 后会被判为遗迹，跳过失效），改用 Weald 抽法/任务分布；更新 Act I 种子扫描快照；相关 Playwright spec 单跑通过。CI 的 `typecheck / lint / test / build` 已通过，Playwright 仅剩端口冲突类波动，不再作为内容门槛。
 - **收尾推进（2026-11-19）**：III→最暗流程由 `darkest-entry.test.ts`（入口、抽任务、补给）与 `darkest-natural-journey.test.ts`（最暗探索与存档）分两段覆盖，不再另造全链；旧交接文档加入 `.gitignore`，本地保留但不进仓库；R-272 状态按“受控夹具覆盖、自然全胜不作门槛”更新；全量 `pnpm test` 运行中。
 - **下一步（按新口径收尾）**：
   1. II→III 用现有 `wealdMixedActReadyFixture` 等受控夹具＋公开命令确认升幕与存档回放；自然全胜不再作为门槛。
