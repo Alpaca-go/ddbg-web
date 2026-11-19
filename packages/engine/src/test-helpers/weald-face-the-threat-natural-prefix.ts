@@ -334,7 +334,7 @@ function createProductionFaceTheThreatStart(
 }
 
 /** 自然 I 幕：生产定威胁 → 村庄循环出征（与 hag-i-campaign 同策略）；不宣称全胜。 */
-function useCombatProvisions(state: GameState): Command | undefined {
+export function useCombatProvisions(state: GameState): Command | undefined {
   const battle = state.battle!;
   const heroes = battle.entities.filter((hero) => hero.side === "hero" && !hero.dead);
   for (const provision of battle.provisions ?? []) {

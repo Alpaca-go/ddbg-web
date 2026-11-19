@@ -1,0 +1,188 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`已验收种子的 Act II 第一趟探测快照（非验收） 1`] = `
+[
+  {
+    "cleared": [
+      "D",
+    ],
+    "fail": null,
+    "heroes": [
+      {
+        "dead": false,
+        "id": "hero-0",
+        "level": 1,
+        "wounds": 6,
+      },
+      {
+        "dead": false,
+        "id": "hero-1",
+        "level": 1,
+        "wounds": 8,
+      },
+      {
+        "dead": false,
+        "id": "hero-2",
+        "level": 1,
+        "wounds": 2,
+      },
+      {
+        "dead": false,
+        "id": "hero-3",
+        "level": 1,
+        "wounds": 0,
+      },
+    ],
+    "mode": "radiant",
+    "phase": "exited",
+    "questId": "quest:weald:p009",
+    "seed": 7,
+    "stop": null,
+    "xp": 1,
+  },
+  {
+    "cleared": null,
+    "fail": "noWaitingHeroes",
+    "heroes": [
+      {
+        "dead": false,
+        "id": "hero-0",
+        "level": 1,
+        "wounds": 17,
+      },
+      {
+        "dead": false,
+        "id": "hero-3",
+        "level": 1,
+        "wounds": 12,
+      },
+      {
+        "dead": true,
+        "id": "replacement-1",
+        "level": 1,
+        "wounds": 14,
+      },
+      {
+        "dead": false,
+        "id": "replacement-7",
+        "level": 2,
+        "wounds": 0,
+      },
+    ],
+    "mode": "radiant",
+    "phase": "awaitingReplacement",
+    "questId": "quest:weald:p006",
+    "seed": 13,
+    "stop": null,
+    "xp": null,
+  },
+  {
+    "cleared": null,
+    "fail": "noWaitingHeroes",
+    "heroes": [
+      {
+        "dead": true,
+        "id": "hero-2",
+        "level": 1,
+        "wounds": 12,
+      },
+      {
+        "dead": false,
+        "id": "hero-3",
+        "level": 1,
+        "wounds": 12,
+      },
+      {
+        "dead": false,
+        "id": "replacement-1",
+        "level": 1,
+        "wounds": 14,
+      },
+      {
+        "dead": false,
+        "id": "replacement-7",
+        "level": 1,
+        "wounds": 2,
+      },
+    ],
+    "mode": "radiant",
+    "phase": "awaitingReplacement",
+    "questId": "quest:weald:p006",
+    "seed": 56,
+    "stop": null,
+    "xp": null,
+  },
+  {
+    "cleared": null,
+    "fail": "noWaitingHeroes",
+    "heroes": [
+      {
+        "dead": false,
+        "id": "hero-0",
+        "level": 1,
+        "wounds": 0,
+      },
+      {
+        "dead": true,
+        "id": "hero-1",
+        "level": 1,
+        "wounds": 14,
+      },
+      {
+        "dead": false,
+        "id": "hero-3",
+        "level": 1,
+        "wounds": 1,
+      },
+      {
+        "dead": true,
+        "id": "replacement-1",
+        "level": 1,
+        "wounds": 14,
+      },
+    ],
+    "mode": "standard",
+    "phase": "awaitingReplacement",
+    "questId": "quest:weald:p010",
+    "seed": 90,
+    "stop": null,
+    "xp": null,
+  },
+  {
+    "cleared": null,
+    "fail": "noWaitingHeroes",
+    "heroes": [
+      {
+        "dead": true,
+        "id": "hero-2",
+        "level": 1,
+        "wounds": 12,
+      },
+      {
+        "dead": false,
+        "id": "hero-3",
+        "level": 1,
+        "wounds": 4,
+      },
+      {
+        "dead": false,
+        "id": "replacement-1",
+        "level": 2,
+        "wounds": 6,
+      },
+      {
+        "dead": false,
+        "id": "replacement-8",
+        "level": 2,
+        "wounds": 2,
+      },
+    ],
+    "mode": "stygian",
+    "phase": "awaitingReplacement",
+    "questId": "quest:weald:p010",
+    "seed": 20,
+    "stop": null,
+    "xp": null,
+  },
+]
+`;

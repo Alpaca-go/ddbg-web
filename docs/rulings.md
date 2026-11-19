@@ -2931,6 +2931,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
   - 未选 Weald、缺 `stygianRoomRules`、无版本旧档：行为不变。`pounderDungeonThreats` 单独试验仍拒 Stygian。
   - **未验收**：自然跨幕养成、步骤 8 实机；受控夹具≠自然命令日志。
 - **依据**：R-001、R-036、R-048；[weald-stygian-room-review-2026-11-17.md](weald-stygian-room-review-2026-11-17.md)；Q-186（2026-11-18）。
+- **2026-11-19 状态补充**：Stygian I→II 自然链已由 #786（seed 20）验收；自然混合 II→III、步骤 8 实机仍未验收，旧“未验收”句按此细化。
 
 ### R-273：跨地点迫近威胁的地牢侧能力边界
 
