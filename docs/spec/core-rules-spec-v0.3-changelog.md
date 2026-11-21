@@ -54,7 +54,7 @@ Kyries 于 2026-11-21 **先**核准第 1／3／4／6 项，**后**核准剩余�
 |---|---|---|---|
 | 核心 | `stygian_room:p001`–`p017`（17 张） | **已确认且已可玩** | 印刷转录＋`reviewedEffect` 齐全；`stygianRoomRules:"full"` 已接；其中 Torture／Pool／Evil Eye 另有 R-227–R-229 |
 | Weald | `stygian_room:weald:p001`–`p009`（9 张） | **已确认且已可玩** | 审阅稿＋`pendingReview:[]`；R-272 正式出征；p003／p006／p007 无独立效果段（卡面如此，非缺口） |
-| Cove／Warrens 等 | — | **未接入** | 无 Stygian 规范化目录／出征接线；地点战役未开放前不可玩 |
+| Cove／Warrens 等 | — | **未接入 Stygian／地点战役** | Cove 包已登记、奇物首批导入（#800），但 Stygian 规范化目录／出征接线与地点战役未开放；Warrens 未接入 |
 | — | （当前无） | **已转录但仍有未确认** | 核心 17＋Weald 9 未发现须单独延后的逐张缺口；若后续出现，按 R-274 **仅该张**延后并列缺口 |
 
 ---
