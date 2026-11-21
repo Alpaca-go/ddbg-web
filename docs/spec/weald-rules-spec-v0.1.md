@@ -1,6 +1,6 @@
 # Weald 规则规格书 v0.1
 
-状态：官方规则书四页已逐页渲染核对；Q-186 主体已核准（R-230–R-272 等），本稿待 Kyries 整稿复核。文中按批次记录的历史运行状态可能已过时，最新进度以 [开发计划](../weald-development-plan.md) 与 [P1 盘点](../weald-p1-open-items-2026-11-19.md) 为准。
+状态：官方规则书四页已逐页渲染核对；Q-186 主体已核准（R-230–R-274 等），本稿待 Kyries 整稿复核。Weald 地点已开放，II／III 任务与 Boss 已接线；按 Kyries 2026-11-19 口径，Boss 胜负属玩家决策，自然全胜不作流程门槛。文中按批次记录的历史运行状态可能已过时，最新进度以 [开发计划](../weald-development-plan.md) 与 [P1 盘点](../weald-p1-open-items-2026-11-19.md) 为准。
 来源仅为当前印刷 `DD_EN_WEALD_RULES.pdf`（页码 W1–W4）、核心规则书和本项目裁定。遵守 R-001、R-048；不使用 FAQ。
 
 ## W-01：组件（W1–W2）
@@ -15,9 +15,9 @@
 
 1. 战役开始选择地点；英雄不受地点选择限制。当前产品保留核心固定启用的既有约定。
 2. 按等级混洗所有启用地点的 Boss 卡，构成 Boss 牌堆。
-   - **分批运行入口（截至 PR #678）**：显式 `establishImminentThreat { locationBosses: true }` 使用 I 级核心＋Weald 完整 7 张描述池；地点来源与 Pounder 两段威胁／Boss 战斗另有版本标记。新页面的核心＋Weald、非 Stygian 入口显式追加 shriekerBossBattles:true，开放已核准 Hag I／Pounder I／Shrieker I；旧无标记命令仍保留 Shrieker 未注册停点。旧命令和旧日志不自动启用新能力；II／III 仍拒绝，完整 Boss 自然战役未验收。
+   - **运行入口（截至 #798）**：显式 `establishImminentThreat { locationBosses: true }` 使用 I 级核心＋Weald 完整 7 张描述池；地点来源与 Pounder 两段威胁／Boss 战斗另有版本标记。新页面的核心＋Weald、非 Stygian 入口显式追加 shriekerBossBattles:true，开放已核准 Hag I／Pounder I／Shrieker I；II／III 走 `tasks-v1`／`wealdHigherBosses` 等显式版本，三 Boss I–III 与 Stygian 已接线。旧无标记命令仍保留旧停点，旧命令和旧日志不自动启用新能力。按 Kyries 2026-11-19 口径，Boss 胜负属玩家决策，自然全胜不作流程门槛；流程验收以公开命令无拒绝、阶段推进与存档回放为准。
 3. 选择任务时，从启用地点的对应等级任务牌堆抽两张；可同地点两张，或两个地点各一张。
-   - **运行时已接线（步骤 5 第十一／十五批）**：已选 Weald 包时，正式首趟与村庄共用遗迹／Weald I 级任务堆（p001–p005），可同地抽 2 或两地各 1，不混洗；首趟抽法与选中任务记录到存档起点，未选卡永久弃置。未选 Weald 包时首趟保留历史显式任务入口；II/III 时 Weald 堆为空，Warrens/Cove 等地任务堆未建。普通房间通过独立核准选择器部署，`usable=false` 仍保留；当前页面版本五个独立 I 级任务与普通房间六类效果已完成阶段验收（Fungal Research 保全策略为 0 XP）；不表示连续完整战役已验收。具体清单见[开发计划的 I 级收尾核对](../weald-development-plan.md#i-级收尾核对2026-11-15)。
+   - **运行时已接线（步骤 5 第十一／十五批，状态更新至 #798）**：已选 Weald 包时，正式首趟与村庄共用遗迹／Weald I 级任务堆（p001–p005），可同地抽 2 或两地各 1，不混洗；II／III 使用 `tasks-v1` 十卡，不再是空堆。首趟抽法与选中任务记录到存档起点，未选卡永久弃置。未选 Weald 包时首趟保留历史显式任务入口；Warrens／Cove 等地任务堆未建。普通房间通过独立核准选择器部署，`usable=false` 是保留审阅标记，不是未实现；连续流程已由受控夹具／公开命令覆盖升幕与存档回放，自然全胜不作门槛。具体清单见[开发计划的 I 级收尾核对](../weald-development-plan.md#i-级收尾核对2026-11-15)。
 4. 每次出征时，混洗目标地点同等级怪物和通用同等级怪物。不能把其他地点怪物混入。
 5. 每次出征时，混洗 Weald 专属奇物和通用奇物。不能直接加入全部核心奇物。
 6. 使用目标地点自己的房间牌堆与房间板块。
@@ -50,14 +50,14 @@ Heroes / Monsters 可穿过 capacity 0 的区域，但不能在那里结束其�
 
 R-255（Hag I 生命周期补充）：入锅英雄离开板块放到锅卡上，不保留姿态／先攻且不可操作、不可被技能选中；后方英雄前移。每次 Hag 空锅回合先 Into the Pot 再同回合第二招。Full 打翻或 Hag 清场时，英雄释放到邻接合法区域并进入 Aggressive，其余英雄后移。状态原语与正式技能／战役接线的进度分别记录，不能由裁定通过推定正式可玩。
 
-R-256：锅内英雄因心脏病直接死亡时移走英雄，不放邻接区域；锅翻 Empty 并清伤。只补该死亡路径，不改变 R-255 其它释放；Boil 专用结算已接；正式自然战役仍待验收。
+R-256：锅内英雄因心脏病直接死亡时移走英雄，不放邻接区域；锅翻 Empty 并清伤。只补该死亡路径，不改变 R-255 其它释放；Boil 专用结算已接；按 Kyries 2026-11-19 口径，自然全胜不作流程门槛。
 Boss 技能、威胁能力、附属单位规则以对应卡面单独转录核对，不从本表推断。
 
-Hag I 已按 W4 修正空锅 Ranged，并要求显式怪物部署区域，缺映射拒绝。[Hag I 审阅](../weald-hag-i-review-2026-11-14.md) 的卡面与 10 号板块经 R-254 更正后核准：Hag Speed 2／Dodge 1，Empty／Full Speed 0，Empty 胸甲为内置 Protection（R-019），B–F 仅角点，10 号全部区域为普通地形。独立 `hag_i.json`、完整技能、入锅／释放／锅内死亡、正式部署及胜负交接已接；seed6 的单任务自然胜利／回村与页面路径已有验证，两普通任务养成后抵达的跨任务验收仍未完成。[Pounder I 审阅](../weald-pounder-i-review-2026-11-15.md)按 R-258／R-259 接入两段威胁、增援、炮击、清场与正式交接；seed17 的自然结果为败局，胜利／回村的受控夹具不作为自然胜利。Shrieker I 按 R-261／R-262 接入三行动、Nest 禁入／清场、飞行治疗、两段补给威胁、正式出征与胜负交接。三者均未使普通目录 `usable` 自动变更；Shrieker 独立内容 schema v2 的 combatReady 为 true，正式准入由显式版本校验。
+Hag I 已按 W4 修正空锅 Ranged，并要求显式怪物部署区域，缺映射拒绝。[Hag I 审阅](../weald-hag-i-review-2026-11-14.md) 的卡面与 10 号板块经 R-254 更正后核准：Hag Speed 2／Dodge 1，Empty／Full Speed 0，Empty 胸甲为内置 Protection（R-019），B–F 仅角点，10 号全部区域为普通地形。独立 `hag_i.json`、完整技能、入锅／释放／锅内死亡、正式部署及胜负交接已接；seed6 的单任务自然胜利／回村与页面路径已有验证，Hag 的两普通任务→p019→回村→升 II 已在 Radiant seed13 自动验收（#785）。[Pounder I 审阅](../weald-pounder-i-review-2026-11-15.md)按 R-258／R-259 接入两段威胁、增援、炮击、清场与正式交接；seed17 的自然结果为败局，胜利／回村的受控夹具不作为自然胜利。Shrieker I 按 R-261／R-262 接入三行动、Nest 禁入／清场、飞行治疗、两段补给威胁、正式出征与胜负交接。三者均未使普通目录 `usable` 自动变更；Shrieker 独立内容 schema v2 的 combatReady 为 true，正式准入由显式版本校验。
 
 ## Q-186：地点卡面与几何（已核准）
 
-Q-186 主体已由 Kyries 核准：卡面字段、12 面板块几何与真菌位置、任务／奇物／房间／Boss 印刷效果、九张 Stygian 房间效果（R-230、R-232–R-239、R-240 以降至 R-272 等）。导入、解析停点与逐项审阅记录见 [导入记录](../weald-location-intake-2026-11-11.md)。
+Q-186 主体已由 Kyries 核准：卡面字段、12 面板块几何与真菌位置、任务／奇物／房间／Boss 印刷效果、九张 Stygian 房间效果（R-230、R-232–R-239、R-240 以降至 R-274 等；R-273 跨地点威胁边界与 R-274 Stygian 可玩性见核心 §17）。导入、解析停点与逐项审阅记录见 [导入记录](../weald-location-intake-2026-11-11.md)。
 
 保留边界三项——全局图标词典、I 级原目录验证标记、PvP 范围——已由 [P1 盘点](../weald-p1-open-items-2026-11-19.md) 确认为“保留边界”，不再作为待审问题。其中 `usable=false`／`runtimeReady=false` 是审阅标记，不是未实现：Weald 房间通过独立核准选择器部署，该口径保持到规格书整稿复核。
 

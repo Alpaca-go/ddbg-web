@@ -91,7 +91,7 @@ export const hagIBossScript: BossScriptDefinition = {
   displayName: "Hag I",
   rules: DEFAULT_BOSS_BATTLE_RULES,
   notes:
-    "W4／R-254：Hag 自身两张先攻、锅一张；Hag 每轮两次行动，空锅回合自动结束。入锅／释放与锅完整生命周期仍 hold。",
+    "W4／R-254：Hag 自身两张先攻、锅一张；Hag 每轮两次行动，空锅回合自动结束。入锅／释放与锅完整生命周期已接（R-255／R-256）。",
   combatEntry: {
     descriptionAbilityCardId: HAG_I_DESCRIPTION_ABILITY_CARD_ID,
     combatAbilityCardId: HAG_I_COMBAT_ABILITY_CARD_ID,

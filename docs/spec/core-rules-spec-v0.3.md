@@ -1085,7 +1085,7 @@ draw(card):
 | 房间卡 | 标准 | 标准 | 用 17 张 Stygian 房间卡替换同名的 Ruins 1–9 与最暗地牢 1–8 房间卡；8 张 Boss 房间卡不替换（R-036） |
 | Boss | 标准 | 标准 | 所有 Boss 的技能 +1 Crit。Boss = 有 Boss Abilities 卡的角色：Necromancer、Prophet、Collector、Fanatic、Templar Impaler、Templar Warlord、Mammoth Cyst、White Cell Stalk、Shuffling Horror、Ancestor 1st / 2nd Form、Gestating Heart、Heart of Darkness（不含召唤物、Pyre、Reflections 等）（R-036） |
 
-> ✅ **Q-10 → R-011 修订／R-274（Kyries 2026-11-21 核准 §22.C 第 6 项）**：**所有 Stygian 如没有未确认部分都应该可玩。** 废止「转录完成前不开放 Stygian 整模式」占位，以及把「尚未核准仍延后」写成默认整模式政策的折中措辞。核心 17 张 + 已接入扩展包（Weald 9 张；Cove／Warrens 等尚未转录／确认则仍不可玩）中，无未确认部分的房间应可玩；某一张仍有未确认部分则**仅该张**延后，须逐张列缺口，不猜测数值／不发明效果（R-001、R-048）。已批切片仍可引用：Torture Chamber Unholy Aura（R-227／R-228）、Pool of Rebirth（R-227）、Evil Eye（R-229）。含 Weald 时的出征入口见 §17／R-272；**不是**把 Weald 专属并入核心默认。
+> ✅ **Q-10 → R-011 修订／R-274（Kyries 2026-11-21 核准 §22.C 第 6 项）**：**所有 Stygian 如没有未确认部分都应该可玩。** 废止「转录完成前不开放 Stygian 整模式」占位，以及把「尚未核准仍延后」写成默认整模式政策的折中措辞。核心 17 张 + 已接入扩展包（Weald 9 张；Cove 已登记包、奇物首批导入但 Stygian 目录／地点战役未接入；Warrens 未接入）中，无未确认部分的房间应可玩；某一张仍有未确认部分则**仅该张**延后，须逐张列缺口，不猜测数值／不发明效果（R-001、R-048）。已批切片仍可引用：Torture Chamber Unholy Aura（R-227／R-228）、Pool of Rebirth（R-227）、Evil Eye（R-229）。含 Weald 时的出征入口见 §17／R-272；**不是**把 Weald 专属并入核心默认。
 >
 > ✅ **Q-35 → R-036（依据印刷件）**：17 张替换 Ruins 1–9 与最暗地牢 1–8；Boss 名单见上表，不含召唤物。
 
@@ -1537,7 +1537,7 @@ R-189（combatReady 标记）、R-190／R-201（测试／策略约束）——�
 
 | 项 | 裁定 | 进展备注 | 规格位置 |
 |---|---|---|---|
-| **Q-10 → R-011／R-274** | 仅跟踪仍有未确认部分的个别 Stygian 房间 | **2026-11-21**：整模式封锁废止（R-274）；无未确认部分应可玩。当前核心 17＋Weald 9 无逐张缺口；Cove／Warrens 等未接入 | §16.1、§17 |
+| **Q-10 → R-011／R-274** | 仅跟踪仍有未确认部分的个别 Stygian 房间 | **2026-11-21**：整模式封锁废止（R-274）；无未确认部分应可玩。当前核心 17＋Weald 9 无逐张缺口；Cove 包已登记／奇物首批导入但地点战役未开放，Warrens 未接入 | §16.1、§17 |
 | **Q-45 → R-046** | 剩余边缘房／地图 hold | 规则层灰点／离开已定；QuestMap 多份布局确认；p011／p012 绳绑卷轴＝**R-121** Boss 槽（三候选／一真 Boss 房；R-115／117 Objective 进展句已过时） | §5.1、§5.6、§5.8 |
 | **Q-47 → R-048** | 剩余未命名图标不猜测 | 多批 hash 已由 R-061＋、R-064、R-108… 确认；其余仍延后 | §21.2 |
 
