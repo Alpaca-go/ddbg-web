@@ -34,7 +34,7 @@ docs/rulings.md      # 本项目裁定
 docs/data-legend.md  # 卡面图标图例
 ```
 
-核心规则说明书现行稿为 [docs/spec/core-rules-spec-v0.3.md](docs/spec/core-rules-spec-v0.3.md)（v0.3，已按现行裁定更新，待 Kyries 复核；检查点 ① 尚未完成）。v0.2 历史快照见 [docs/spec/core-rules-spec-v0.2.md](docs/spec/core-rules-spec-v0.2.md)。大纲 §3.2 中的 `docs/rules-spec/` 指的是同一份规格书；正式稿放在 `docs/spec/`。
+核心规则说明书现行稿为 [docs/spec/core-rules-spec-v0.3.md](docs/spec/core-rules-spec-v0.3.md)（v0.3，已按现行裁定更新，**已复核 2026-11-22**；检查点 ① 已结案）。v0.2 历史快照见 [docs/spec/core-rules-spec-v0.2.md](docs/spec/core-rules-spec-v0.2.md)。大纲 §3.2 中的 `docs/rules-spec/` 指的是同一份规格书；正式稿放在 `docs/spec/`。
 
 ## 规则引擎
 

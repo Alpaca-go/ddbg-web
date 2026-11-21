@@ -1,8 +1,8 @@
 # 核心规则说明书
 
-地点扩展：[Weald 规则规格书 v0.1](weald-rules-spec-v0.1.md)（W1–W4 已逐页核对；Q-186 主体已核准，Weald 地点已开放；整稿待 Kyries 复核）。
+地点扩展：[Weald 规则规格书 v0.1](weald-rules-spec-v0.1.md)（W1–W4 已逐页核对；Q-186 主体已核准，Weald 地点已开放；**已复核 2026-11-22**）。
 
-**现行稿**：[核心规则说明书 v0.3](core-rules-spec-v0.3.md)。状态：**已按现行裁定更新，待 Kyries 复核**（检查点 ① 尚未完成）。
+**现行稿**：[核心规则说明书 v0.3](core-rules-spec-v0.3.md)。状态：**已复核（Kyries 2026-11-22）**；检查点 ① 已结案。
 
 按章变更说明（复核入口）：[core-rules-spec-v0.3-changelog.md](core-rules-spec-v0.3-changelog.md)。
 
