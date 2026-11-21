@@ -447,7 +447,7 @@ export type BossFaceTheThreatEmbarkPlan = {
   readonly questId: BasicQuestId;
   readonly combatEntry: BossCombatEntryRefs;
   readonly rulesRef: readonly string[];
-  /** 已解析脚本与 combatEntry；边缘房 / R-121 dungeon 写入仍 hold（出征 plan 见 faceTheThreatEmbarkPlan）。 */
+  /** 已解析脚本与 combatEntry；边缘房 / R-121 dungeon 写入已接线（出征 plan 见 faceTheThreatEmbarkPlan）。 */
   readonly wiringHold: string;
 };
 

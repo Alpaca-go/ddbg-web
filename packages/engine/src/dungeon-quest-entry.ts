@@ -314,7 +314,7 @@ export function createCoreDungeonQuest(
         ? {
             ...plan,
             roomPlacement: "edgeRoomsR30" as const,
-            layoutWiringHold: "R30 边缘房代币已布置；Boss 专属战斗房间生产绑定仍 hold（R-048）",
+            layoutWiringHold: "R30 边缘房代币已布置；Boss 专属战斗房间由各 Boss deploy* 绑定",
           }
         : plan,
     },

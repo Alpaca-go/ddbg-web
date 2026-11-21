@@ -149,7 +149,7 @@ export function applyBossThreatAfterBattleToPool(
 
 /**
  * Boss 被击败后清除迫近威胁（spec §2.3：威胁在 Boss 被击败前持续生效）。
- * 升幕抽下一张威胁、Face the Threat 完整流程仍 hold。
+ * 升幕抽下一张威胁、Face the Threat 出征由 `drawImminentThreatAfterActAdvance` / `chooseNextQuest` 接管；边缘房与 R-121 布局已接线。
  */
 export function clearedBossThreatScriptIdAfterVictory(state: GameState): BossScriptId | undefined {
   const d = state.dungeon;
@@ -169,7 +169,7 @@ export function clearedBossThreatScriptIdAfterVictory(state: GameState): BossScr
   return scriptId;
 }
 
-/** 清除威胁后未自动抽下一张时的事件说明（升幕 §2.2 其余步骤仍 hold）。 */
+/** 清除威胁后未自动抽下一张时的事件说明（升幕 §2.2 其余步骤见对应命令）。 */
 export function bossThreatClearHoldReason(): string {
-  return "升幕抽下一张迫近威胁请用 drawImminentThreatAfterActAdvance；Face the Threat 出征见 chooseNextQuest / faceTheThreatEmbarkPlan；边缘房与 R-121 洗牌仍 hold";
+  return "升幕抽下一张迫近威胁请用 drawImminentThreatAfterActAdvance；Face the Threat 出征见 chooseNextQuest / faceTheThreatEmbarkPlan；边缘房与 R-121 布局已接线";
 }
