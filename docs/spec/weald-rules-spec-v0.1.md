@@ -72,3 +72,8 @@ Kyries 要求先后置人工实机测试，优先完善 Weald 内容。Hag／Pou
 - 本体每轮三行动，三张怪物先攻只供本体，Nest 无主动回合；轮初重置配额。
 - Where Did It Go? I 对成功获得的每枚普通补给分别“加入→玩家弃一枚”，满池先沿用既有处理。Murder of Magpies I 在全部 supply dice 及 Wild 自选完成后从 reserve 只弃一枚，随后继续补给准备。
 - 玩家决定均通过 PendingChoice；队列、原待选与 RNG 在严格日志恢复后保持一致。Boss 开战翻能力面后两段威胁停用。II／III 的治疗数值核准见 R-262，其余高等级字段不从 I 级推算。
+
+## W-06：高等级与 Stygian 引用
+
+- **II／III Boss**：Hag 依 R-267；Pounder／Shrieker 依 R-268／R-270；本表只列 W3–W4 的通用部署，不从 I 级推算高等级属性、技能或威胁。
+- **Stygian**：房间替换与 Boss +1 Crit 依 R-036；核心＋Weald 正式出征入口依 R-272；可玩性政策依 R-274（没有未确认部分的 Stygian 房间应可玩）。Weald 专属规则不并入核心默认。
