@@ -1,12 +1,13 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { curioFileSchema, wealdCurioFileSchema } from "./curio";
+import { coveCurioFileSchema, curioFileSchema, wealdCurioFileSchema } from "./curio";
 import { curioPoolIdentity, locationCurioPool } from "./curio-pool";
 
 const read = (path: string): unknown =>
   JSON.parse(readFileSync(new URL(`../${path}`, import.meta.url), "utf8")) as unknown;
 const core = curioFileSchema.parse(read("normalized/corebox/curio.json")).cards;
 const weald = wealdCurioFileSchema.parse(read("normalized/extension/weald/curio.json")).cards;
+const cove = coveCurioFileSchema.parse(read("normalized/extension/cove/curio.json")).cards;
 
 describe("地点奇物组池（核心 R9–R10、Weald W3）", () => {
   it("核心 raw 旗帜身份对应 8 张通用和 16 张遗迹", () => {
@@ -57,5 +58,13 @@ it("Weald 出征目录精确要求 8 通用＋16 当地，不能用任意 24 张
   expect(schema.safeParse([...pool.slice(1), core[8]!]).success).toBe(false);
   expect(schema.safeParse([...pool.slice(1), pool[1]!]).success).toBe(false);
   expect(schema.safeParse([...pool.slice(0, 8), ...weald.slice(1), weald[1]!]).success).toBe(false);
-  expect(() => curioPoolSchemaForLocation("cove")).toThrow();
+});
+
+it("Cove 出征目录精确要求 8 通用＋16 当地", async () => {
+  const { curioPoolSchemaForLocation } = await import("./curio-pool");
+  const pool = locationCurioPool(core, { location: "cove", cards: cove });
+  const schema = curioPoolSchemaForLocation("cove");
+  expect(schema.parse(pool)).toEqual(pool);
+  expect(schema.safeParse(core).success).toBe(false);
+  expect(schema.safeParse([...pool.slice(0, 8), ...weald]).success).toBe(false);
 });

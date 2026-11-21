@@ -17,6 +17,8 @@ import { naturalHamletStart } from "./test-helpers/guild-quest";
 import { cardContentPack } from "../../data/src/content-packs";
 import { resolveScriptIdForDescriptionCard } from "./boss/threat-description-catalog";
 import { HAG_I_DESCRIPTION_ABILITY_CARD_ID } from "./expansions/weald/boss/hag-i";
+import coveCurio from "../../data/normalized/extension/cove/curio.json";
+import { coveCurioFileSchema } from "../../data/src/curio";
 
 beforeEach(clearBossScriptsForTest);
 const start = {
@@ -95,6 +97,17 @@ it("核心包单独启用时，十八名英雄及全部等级技能仍可开局�
   }
   const game = campaign();
   expect(replacementHeroCandidates(game.dungeon!)).toHaveLength(14);
+});
+
+it("Cove Curio 仅在勾选 Cove 包时进入战役来源", () => {
+  const cove = { curios: coveCurioFileSchema.parse(coveCurio).cards };
+  const sources = { ...coreQuestSources, cove };
+  expect(sourcesForContentPacks(sources, ["core"]).cove).toBeUndefined();
+  expect(sourcesForContentPacks(sources, ["core", "weald"]).cove).toBeUndefined();
+  const enabled = sourcesForContentPacks(sources, ["core", "cove"]);
+  expect(enabled.cove?.curios).toHaveLength(16);
+  expect(enabled.cove?.curios.every((card) => card.id.startsWith("curio:cove:"))).toBe(true);
+  expect(cardContentPack(enabled.cove!.curios[0]!)).toBe("cove");
 });
 
 it("所有非英雄来源在建池前按包过滤，同包条目保序；不修改输入", () => {

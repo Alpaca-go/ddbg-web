@@ -19,6 +19,8 @@ pnpm --filter @ddbg/pipeline normalize
 
 同一 normalize 命令生成 `extension/weald/curio.json`，独立校验 16 张、64 行，R-233 逐卡核准，同名卡不合并。来源、图标和印刷数字漂移会使生成失败，不修改全局图标词典。核心 24 张目录约束保持不变；当地目录与通用卡组合在开发步骤 2 接入。效果按印刷顺序规划，Torch 只抑制负面效果，未知行继续整卡停点。见 [奇物审阅记录](../../../docs/weald-curio-review-2026-11-11.md)。
 
+`extension/cove/curio.json` 由 `buildCoveCurios` 生成，独立校验 16 张、64 行；仅词典已确认的压力与补给骰写入效果，其余行 **Q-186** 停点。见 [Cove 奇物审阅](../../../docs/cove-curio-review-2026-11-21.md)。
+
 ## Weald 普通房间与板块
 
 `extension/weald/room.json` 与 `room_tile_geometry.json` 使用独立 schema（`ddbg-weald-room-v1` / `ddbg-weald-room-tile-geometry-v0`），写入 R-234–R-239 已核准的九张普通房间与对应板块。含完整通行几何、容量、部署、真菌与星标效果区域；5 号零容量 I、7 号零容量 H／I／J；1 号 C／E／F／G 绑定 Toxic Mushrooms（R-239）。全部 `usable=false`，不开放出征；由 `pnpm --filter @ddbg/data test` 中 `weald-rooms.test.ts` 校验，可用 `WRITE_NORMALIZED=1` 重写 JSON。见 [房间审阅记录](../../../docs/weald-room-review-2026-11-12.md)。

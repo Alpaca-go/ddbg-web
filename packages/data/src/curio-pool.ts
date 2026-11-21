@@ -1,22 +1,29 @@
 import { z } from "zod";
 import {
   CURIO_FRONT,
+  WEALD_CURIO_FRONT,
   curioCardSchema,
   curioCatalogSchema,
   wealdCurioCatalogSchema,
+  coveCurioCatalogSchema,
   type CurioCard,
 } from "./curio";
 
-/** 核心 R9–R10、Weald W3：旗帜无地点图标的核心 p1–8 为通用卡。 */
-export function curioPoolIdentity(input: CurioCard): "common" | "ruins" | "weald" {
+/** 核心 R9–R10、Weald W3、Cove C1：旗帜无地点图标的核心 p1–8 为通用卡。 */
+export function curioPoolIdentity(input: CurioCard): "common" | "ruins" | "weald" | "cove" {
   const card = curioCardSchema.parse(input);
-  return card.source.front === CURIO_FRONT ? (card.source.page <= 8 ? "common" : "ruins") : "weald";
+  if (card.source.front === CURIO_FRONT) return card.source.page <= 8 ? "common" : "ruins";
+  if (card.source.front === WEALD_CURIO_FRONT) return "weald";
+  return "cove";
 }
 
 /** 仅构造未洗牌目录；包选择、种子洗牌及存档由战役层负责。 */
 export function locationCurioPool(
   core: readonly CurioCard[],
-  target: { location: "ruins" } | { location: "weald"; cards: readonly CurioCard[] },
+  target:
+    | { location: "ruins" }
+    | { location: "weald"; cards: readonly CurioCard[] }
+    | { location: "cove"; cards: readonly CurioCard[] },
 ): CurioCard[] {
   const cards = curioCatalogSchema.parse(core);
   switch (target.location) {
@@ -27,6 +34,11 @@ export function locationCurioPool(
         ...cards.filter((card) => curioPoolIdentity(card) === "common"),
         ...wealdCurioCatalogSchema.parse(target.cards),
       ];
+    case "cove":
+      return [
+        ...cards.filter((card) => curioPoolIdentity(card) === "common"),
+        ...coveCurioCatalogSchema.parse(target.cards),
+      ];
     default:
       throw new Error("尚未支持的奇物地点");
   }
@@ -35,6 +47,24 @@ export function locationCurioPool(
 /** 完整出征目录校验：不能用任意 24 张代替当地＋通用卡。 */
 export function curioPoolSchemaForLocation(location: string) {
   if (location === "ruins") return curioCatalogSchema;
+  if (location === "cove") {
+    return z
+      .array(curioCardSchema)
+      .length(24)
+      .superRefine((cards, ctx) => {
+        const common = cards.filter((card) => curioPoolIdentity(card) === "common");
+        const local = cards.filter((card) => curioPoolIdentity(card) === "cove");
+        if (
+          common.length !== 8 ||
+          new Set(common.map((card) => card.id)).size !== 8 ||
+          !coveCurioCatalogSchema.safeParse(local).success
+        )
+          ctx.addIssue({
+            code: "custom",
+            message: "Cove 奇物必须完整包含 8 张通用和 16 张当地卡",
+          });
+      });
+  }
   if (location !== "weald") throw new Error(`尚未支持的奇物地点：${location}`);
   return z
     .array(curioCardSchema)

@@ -33,8 +33,13 @@ import type { GameState } from "./command";
 import { sourcesForContentPacks } from "./content-packs";
 import { normalizeContentPacks, type ContentPackId } from "../../data/src/content-packs";
 
+export type CoveQuestSources = {
+  readonly curios: readonly CurioCard[];
+};
+
 export type CoreQuestSources = {
   readonly weald?: import("./location-quest-sources").WealdQuestSources;
+  readonly cove?: CoveQuestSources;
   readonly catalog: DungeonBattleCatalog;
   readonly resolveCards: readonly ResolveCard[];
   readonly curios: readonly CurioCard[];

@@ -17,6 +17,8 @@ export {
   curioFileSchema,
   wealdCurioCatalogSchema,
   wealdCurioFileSchema,
+  coveCurioCatalogSchema,
+  coveCurioFileSchema,
   planCurioEffects,
 } from "./curio";
 export type { CurioCard, CurioEffect } from "./curio";

@@ -1,0 +1,3000 @@
+{
+  "schema": "ddbg-raw-v1",
+  "extractor_version": "1.0.4",
+  "category": "curio",
+  "kind": "card",
+  "units": {
+    "length": "mm",
+    "origin": "top-left corner of the PDF TrimBox (card face, bleed excluded)",
+    "y_axis": "down",
+    "font_size": "pt"
+  },
+  "sources": [
+    {
+      "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_FRONT.pdf",
+      "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_BACK.pdf",
+      "source_set": "extension",
+      "kind": "card",
+      "front_pages": 16,
+      "back_pages": 16
+    }
+  ],
+  "n_pages": 16,
+  "n_unique": 16,
+  "n_copies_total": 16,
+  "cards": [
+    {
+      "id": "curio:cove:p001",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [1],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_FRONT.pdf",
+          "page": 1,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "85952d2f2d81b567",
+          "spans": [
+            {
+              "t": "+1",
+              "bbox": [21.56, 44.48, 25.5, 51.42],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            },
+            {
+              "t": "1",
+              "bbox": [14.59, 53.66, 16.34, 60.6],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ee2824"
+            },
+            {
+              "t": "3t",
+              "bbox": [21.78, 53.66, 25.86, 60.6],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffffff"
+            },
+            {
+              "t": "A treasure chest blanketed in barnacles.",
+              "bbox": [10.21, 17.2, 52.49, 21.19],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "As you pry it open, your arm is",
+              "bbox": [14.75, 20.91, 47.95, 24.9],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "slashed open against one of the hard",
+              "bbox": [12.11, 24.61, 50.59, 28.6],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "shelled barnacles. Your heart pounds",
+              "bbox": [11.93, 28.31, 50.76, 32.3],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "faster from the pain as you realize",
+              "bbox": [12.86, 32.01, 49.84, 36.0],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "that the chest is filled with gold.",
+              "bbox": [14.34, 35.72, 48.35, 39.71],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "2t",
+              "bbox": [21.16, 62.77, 25.13, 69.71],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffe6ad"
+            },
+            {
+              "t": "10",
+              "bbox": [15.66, 71.81, 20.08, 78.75],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            },
+            {
+              "t": "Barnacle Crusted Chest",
+              "bbox": [10.06, 7.08, 48.86, 12.87],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#006caa"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "52c98eccde",
+              "bbox": [49.3, 0.0, 57.27, 13.2]
+            },
+            {
+              "iconId": "3abb0695cd",
+              "bbox": [2.02, 10.0, 9.75, 17.57],
+              "bbox_full": [1.19, 9.22, 11.73, 19.63]
+            },
+            {
+              "iconId": "12438e9a49",
+              "bbox": [14.82, 45.16, 20.46, 50.45],
+              "bbox_full": [13.63, 43.81, 26.59, 51.94]
+            },
+            {
+              "iconId": "eebbb64c26",
+              "bbox": [16.93, 53.62, 21.17, 59.62],
+              "bbox_full": [13.77, 52.06, 26.85, 61.21]
+            },
+            {
+              "iconId": "604a7d83ac",
+              "bbox": [15.52, 63.5, 20.11, 68.79],
+              "bbox_full": [13.75, 62.11, 26.07, 70.38]
+            },
+            {
+              "iconId": "f22bd32ab3",
+              "bbox": [14.13, 71.04, 26.57, 79.55],
+              "decor": true,
+              "container": true
+            },
+            {
+              "iconId": "011ae63e02",
+              "bbox": [20.46, 72.67, 25.05, 77.96]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Barnacle Crusted Chest {icon:52c98eccde}",
+              "bbox": [10.06, 0.0, 57.27, 13.2]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:3abb0695cd}",
+              "bbox": [2.02, 10.0, 9.75, 17.57]
+            },
+            {
+              "rot": 0,
+              "text": "A treasure chest blanketed in barnacles.",
+              "bbox": [10.21, 17.2, 52.49, 21.19]
+            },
+            {
+              "rot": 0,
+              "text": "As you pry it open, your arm is",
+              "bbox": [14.75, 20.91, 47.95, 24.9]
+            },
+            {
+              "rot": 0,
+              "text": "slashed open against one of the hard",
+              "bbox": [12.11, 24.61, 50.59, 28.6]
+            },
+            {
+              "rot": 0,
+              "text": "shelled barnacles. Your heart pounds",
+              "bbox": [11.93, 28.31, 50.76, 32.3]
+            },
+            {
+              "rot": 0,
+              "text": "faster from the pain as you realize",
+              "bbox": [12.86, 32.01, 49.84, 36.0]
+            },
+            {
+              "rot": 0,
+              "text": "that the chest is filled with gold.",
+              "bbox": [14.34, 35.72, 48.35, 39.71]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:12438e9a49} +1",
+              "bbox": [14.82, 44.48, 25.5, 51.42]
+            },
+            {
+              "rot": 0,
+              "text": "1 {icon:eebbb64c26} 3t",
+              "bbox": [14.59, 53.62, 25.86, 60.6]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:604a7d83ac} 2t",
+              "bbox": [15.52, 62.77, 25.13, 69.71]
+            },
+            {
+              "rot": 0,
+              "text": "10 {icon:011ae63e02}",
+              "bbox": [15.66, 71.81, 25.05, 78.75]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_BACK.pdf",
+          "page": 1,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "906b6f101bce26e7",
+          "spans": [],
+          "icons": [],
+          "lines": []
+        }
+      }
+    },
+    {
+      "id": "curio:cove:p002",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [2],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_FRONT.pdf",
+          "page": 2,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "85952f2f3fc09523",
+          "spans": [
+            {
+              "t": "Barnacle Crusted Chest",
+              "bbox": [10.06, 7.08, 48.86, 12.87],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#006caa"
+            },
+            {
+              "t": "A treasure chest blanketed in barnacles. You",
+              "bbox": [8.05, 17.2, 54.65, 21.19],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "open it rather easily and a noxious permeating",
+              "bbox": [6.8, 20.91, 55.9, 24.9],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "odour from the rotting barnacles invades",
+              "bbox": [9.54, 24.61, 53.16, 28.6],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "your nostrils. Cursing your luck you grab",
+              "bbox": [9.17, 28.31, 53.53, 32.3],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "a satchel filled with coins and provisions",
+              "bbox": [9.8, 32.01, 52.9, 36.0],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "resting on the bottom of the chest.",
+              "bbox": [13.14, 35.72, 49.55, 39.71],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "1",
+              "bbox": [14.49, 53.53, 16.24, 60.47],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            },
+            {
+              "t": "3t",
+              "bbox": [21.89, 53.53, 25.95, 60.47],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffffff"
+            },
+            {
+              "t": "5",
+              "bbox": [16.57, 62.14, 19.17, 69.08],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "52c98eccde",
+              "bbox": [49.3, 0.0, 57.27, 13.2]
+            },
+            {
+              "iconId": "3abb0695cd",
+              "bbox": [2.02, 10.0, 9.75, 17.57],
+              "bbox_full": [1.19, 9.22, 11.73, 19.63]
+            },
+            {
+              "iconId": "188b149a77",
+              "bbox": [14.09, 42.32, 26.62, 56.92]
+            },
+            {
+              "iconId": "d05cfb9165",
+              "bbox": [17.29, 54.33, 21.52, 58.91],
+              "bbox_full": [13.73, 53.0, 26.94, 60.75]
+            },
+            {
+              "iconId": "6fdb7d91e7",
+              "bbox": [14.89, 61.36, 25.69, 69.87],
+              "decor": true,
+              "container": true
+            },
+            {
+              "iconId": "bbe8342098",
+              "bbox": [19.4, 63.15, 23.99, 68.09]
+            },
+            {
+              "iconId": "ae45f5bcb3",
+              "bbox": [13.37, 70.43, 26.52, 83.58],
+              "bbox_full": [12.38, 70.43, 27.36, 85.94]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Barnacle Crusted Chest {icon:52c98eccde}",
+              "bbox": [10.06, 0.0, 57.27, 13.2]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:3abb0695cd}",
+              "bbox": [2.02, 10.0, 9.75, 17.57]
+            },
+            {
+              "rot": 0,
+              "text": "A treasure chest blanketed in barnacles. You",
+              "bbox": [8.05, 17.2, 54.65, 21.19]
+            },
+            {
+              "rot": 0,
+              "text": "open it rather easily and a noxious permeating",
+              "bbox": [6.8, 20.91, 55.9, 24.9]
+            },
+            {
+              "rot": 0,
+              "text": "odour from the rotting barnacles invades",
+              "bbox": [9.54, 24.61, 53.16, 28.6]
+            },
+            {
+              "rot": 0,
+              "text": "your nostrils. Cursing your luck you grab",
+              "bbox": [9.17, 28.31, 53.53, 32.3]
+            },
+            {
+              "rot": 0,
+              "text": "a satchel filled with coins and provisions",
+              "bbox": [9.8, 32.01, 52.9, 36.0]
+            },
+            {
+              "rot": 0,
+              "text": "resting on the bottom of the chest.",
+              "bbox": [13.14, 35.72, 49.55, 39.71]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:188b149a77} {icon:d05cfb9165}",
+              "bbox": [14.09, 42.32, 26.62, 58.91]
+            },
+            {
+              "rot": 0,
+              "text": "1 3t",
+              "bbox": [14.49, 53.53, 25.95, 60.47]
+            },
+            {
+              "rot": 0,
+              "text": "5 {icon:bbe8342098}",
+              "bbox": [16.57, 62.14, 23.99, 69.08]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:ae45f5bcb3}",
+              "bbox": [13.37, 70.43, 26.52, 83.58]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_BACK.pdf",
+          "page": 2,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "906b6f101bce26e7",
+          "spans": [],
+          "icons": [],
+          "lines": []
+        }
+      }
+    },
+    {
+      "id": "curio:cove:p003",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [3],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_FRONT.pdf",
+          "page": 3,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "85952f2f2dc53d05",
+          "spans": [
+            {
+              "t": "Bas Relief",
+              "bbox": [22.79, 6.92, 40.66, 13.09],
+              "font": "DwarvenAxeBB",
+              "size": 16.0,
+              "color": "#006caa"
+            },
+            {
+              "t": "+1",
+              "bbox": [21.56, 44.48, 25.5, 51.42],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            },
+            {
+              "t": "A puzzingly ancient sculpture of dizzying",
+              "bbox": [9.5, 18.84, 53.2, 22.84],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "implication...Noticing the gold thrown in",
+              "bbox": [10.44, 22.65, 52.26, 26.64],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "front of it... are these... offerings? You",
+              "bbox": [10.59, 26.46, 52.11, 30.45],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "grab them quickly, praying that nothing",
+              "bbox": [10.61, 30.27, 52.09, 34.26],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "malignant is watching you do this.",
+              "bbox": [13.37, 34.07, 49.33, 38.07],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "2t",
+              "bbox": [21.11, 62.52, 25.09, 69.46],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffe6ad"
+            },
+            {
+              "t": "10",
+              "bbox": [15.66, 71.81, 20.08, 78.75],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "52c98eccde",
+              "bbox": [49.3, 0.0, 57.27, 13.2]
+            },
+            {
+              "iconId": "3abb0695cd",
+              "bbox": [2.02, 10.0, 9.75, 17.57],
+              "bbox_full": [1.19, 9.22, 11.73, 19.63]
+            },
+            {
+              "iconId": "12438e9a49",
+              "bbox": [14.82, 45.16, 20.46, 50.45],
+              "bbox_full": [13.63, 43.81, 26.59, 51.94]
+            },
+            {
+              "iconId": "bc4c4c71d2",
+              "bbox": [14.56, 51.72, 27.09, 66.32]
+            },
+            {
+              "iconId": "604a7d83ac",
+              "bbox": [15.52, 63.5, 20.46, 68.44],
+              "bbox_full": [13.79, 61.87, 26.11, 70.13]
+            },
+            {
+              "iconId": "f22bd32ab3",
+              "bbox": [14.13, 71.04, 26.57, 79.55],
+              "decor": true,
+              "container": true
+            },
+            {
+              "iconId": "011ae63e02",
+              "bbox": [20.46, 72.67, 25.05, 77.96]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Bas Relief {icon:52c98eccde}",
+              "bbox": [22.79, 0.0, 57.27, 13.2]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:3abb0695cd}",
+              "bbox": [2.02, 10.0, 9.75, 17.57]
+            },
+            {
+              "rot": 0,
+              "text": "A puzzingly ancient sculpture of dizzying",
+              "bbox": [9.5, 18.84, 53.2, 22.84]
+            },
+            {
+              "rot": 0,
+              "text": "implication...Noticing the gold thrown in",
+              "bbox": [10.44, 22.65, 52.26, 26.64]
+            },
+            {
+              "rot": 0,
+              "text": "front of it... are these... offerings? You",
+              "bbox": [10.59, 26.46, 52.11, 30.45]
+            },
+            {
+              "rot": 0,
+              "text": "grab them quickly, praying that nothing",
+              "bbox": [10.61, 30.27, 52.09, 34.26]
+            },
+            {
+              "rot": 0,
+              "text": "malignant is watching you do this.",
+              "bbox": [13.37, 34.07, 49.33, 38.07]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:12438e9a49} +1",
+              "bbox": [14.82, 44.48, 25.5, 51.42]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:bc4c4c71d2} {icon:604a7d83ac} 2t",
+              "bbox": [14.56, 51.72, 27.09, 69.46]
+            },
+            {
+              "rot": 0,
+              "text": "10 {icon:011ae63e02}",
+              "bbox": [15.66, 71.81, 25.05, 78.75]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_BACK.pdf",
+          "page": 3,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "906b6f101bce26e7",
+          "spans": [],
+          "icons": [],
+          "lines": []
+        }
+      }
+    },
+    {
+      "id": "curio:cove:p004",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [4],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_FRONT.pdf",
+          "page": 4,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "85952f2f2d87b505",
+          "spans": [
+            {
+              "t": "Bas Relief",
+              "bbox": [22.79, 6.92, 40.66, 13.09],
+              "font": "DwarvenAxeBB",
+              "size": 16.0,
+              "color": "#006caa"
+            },
+            {
+              "t": "+1",
+              "bbox": [21.56, 44.48, 25.5, 51.42],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            },
+            {
+              "t": "A puzzingly ancient sculpture of dizzying",
+              "bbox": [9.5, 16.94, 53.2, 20.93],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "implication...You touch its rough surface as",
+              "bbox": [8.59, 20.75, 54.1, 24.74],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "a piece of sharp stone detaches and cuts you",
+              "bbox": [7.79, 24.55, 54.9, 28.55],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "heavily on the wrist. Your hand goes numb",
+              "bbox": [8.87, 28.36, 53.83, 32.35],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "and you start to lose blood, the wound looks",
+              "bbox": [7.82, 32.17, 54.88, 36.16],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "contaminated and needs to be treated quickly!",
+              "bbox": [7.36, 35.98, 55.35, 39.97],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "1",
+              "bbox": [14.68, 72.05, 16.44, 79.05],
+              "font": "DwarvenAxeBB",
+              "size": 18.15,
+              "color": "#ee2824"
+            },
+            {
+              "t": "3t",
+              "bbox": [21.67, 72.05, 25.77, 79.05],
+              "font": "DwarvenAxeBB",
+              "size": 18.15,
+              "color": "#ffffff"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "52c98eccde",
+              "bbox": [49.3, 0.0, 57.27, 13.2]
+            },
+            {
+              "iconId": "3abb0695cd",
+              "bbox": [2.02, 10.0, 9.75, 17.57],
+              "bbox_full": [1.19, 9.22, 11.73, 19.63]
+            },
+            {
+              "iconId": "12438e9a49",
+              "bbox": [14.82, 45.16, 20.46, 50.45],
+              "bbox_full": [13.63, 43.81, 26.59, 51.94]
+            },
+            {
+              "iconId": "51ee2324e3",
+              "bbox": [14.09, 51.72, 26.62, 66.32]
+            },
+            {
+              "iconId": "1951b03736",
+              "bbox": [17.47, 62.87, 22.98, 69.31],
+              "bbox_full": [16.7, 62.11, 23.82, 70.11]
+            },
+            {
+              "iconId": "fd239b3b43",
+              "bbox": [17.29, 71.97, 21.17, 77.96],
+              "bbox_full": [13.9, 70.5, 26.73, 79.64]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Bas Relief {icon:52c98eccde}",
+              "bbox": [22.79, 0.0, 57.27, 13.2]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:3abb0695cd}",
+              "bbox": [2.02, 10.0, 9.75, 17.57]
+            },
+            {
+              "rot": 0,
+              "text": "A puzzingly ancient sculpture of dizzying",
+              "bbox": [9.5, 16.94, 53.2, 20.93]
+            },
+            {
+              "rot": 0,
+              "text": "implication...You touch its rough surface as",
+              "bbox": [8.59, 20.75, 54.1, 24.74]
+            },
+            {
+              "rot": 0,
+              "text": "a piece of sharp stone detaches and cuts you",
+              "bbox": [7.79, 24.55, 54.9, 28.55]
+            },
+            {
+              "rot": 0,
+              "text": "heavily on the wrist. Your hand goes numb",
+              "bbox": [8.87, 28.36, 53.83, 32.35]
+            },
+            {
+              "rot": 0,
+              "text": "and you start to lose blood, the wound looks",
+              "bbox": [7.82, 32.17, 54.88, 36.16]
+            },
+            {
+              "rot": 0,
+              "text": "contaminated and needs to be treated quickly!",
+              "bbox": [7.36, 35.98, 55.35, 39.97]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:12438e9a49} +1",
+              "bbox": [14.82, 44.48, 25.5, 51.42]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:51ee2324e3} {icon:1951b03736}",
+              "bbox": [14.09, 51.72, 26.62, 69.31]
+            },
+            {
+              "rot": 0,
+              "text": "1 {icon:fd239b3b43} 3t",
+              "bbox": [14.68, 71.97, 25.77, 79.05]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_BACK.pdf",
+          "page": 4,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "906b6f101bce26e7",
+          "spans": [],
+          "icons": [],
+          "lines": []
+        }
+      }
+    },
+    {
+      "id": "curio:cove:p005",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [5],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_FRONT.pdf",
+          "page": 5,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "85953d2f2f851d25",
+          "spans": [
+            {
+              "t": "Brackish Tide Pool",
+              "bbox": [14.37, 6.92, 47.19, 13.09],
+              "font": "DwarvenAxeBB",
+              "size": 16.0,
+              "color": "#006caa"
+            },
+            {
+              "t": "+1",
+              "bbox": [21.31, 44.48, 25.26, 51.42],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            },
+            {
+              "t": "A pool of water cupped in smooth stone.",
+              "bbox": [10.24, 17.2, 52.45, 21.19],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "Its color looks slightly off... A rotting",
+              "bbox": [11.58, 20.91, 51.12, 24.9],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "odour emanates from it, making your",
+              "bbox": [11.65, 24.61, 51.05, 28.6],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "lungs protest in pain. You step back",
+              "bbox": [12.74, 28.31, 49.96, 32.3],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "and try to exhale out the air. You feel",
+              "bbox": [11.62, 32.01, 51.08, 36.0],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "weak, yet even more resolute.",
+              "bbox": [15.49, 35.72, 47.21, 39.71],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "2t",
+              "bbox": [20.91, 62.77, 24.88, 69.71],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffe6ad"
+            },
+            {
+              "t": "1",
+              "bbox": [14.24, 53.53, 15.99, 60.47],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            },
+            {
+              "t": "3t",
+              "bbox": [21.64, 53.53, 25.7, 60.47],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffffff"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "52c98eccde",
+              "bbox": [49.3, 0.0, 57.27, 13.2]
+            },
+            {
+              "iconId": "3abb0695cd",
+              "bbox": [2.02, 10.0, 9.75, 17.57],
+              "bbox_full": [1.19, 9.22, 11.73, 19.63]
+            },
+            {
+              "iconId": "12438e9a49",
+              "bbox": [14.82, 45.16, 20.11, 50.45],
+              "bbox_full": [13.38, 43.81, 26.34, 51.94]
+            },
+            {
+              "iconId": "d05cfb9165",
+              "bbox": [16.93, 54.33, 21.17, 58.91],
+              "bbox_full": [13.48, 53.0, 26.69, 60.75]
+            },
+            {
+              "iconId": "604a7d83ac",
+              "bbox": [15.17, 63.5, 20.11, 68.79],
+              "bbox_full": [13.5, 62.11, 25.82, 70.38]
+            },
+            {
+              "iconId": "4fbd5890e2",
+              "bbox": [13.58, 70.01, 26.11, 84.61]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Brackish Tide Pool {icon:52c98eccde}",
+              "bbox": [14.37, 0.0, 57.27, 13.2]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:3abb0695cd}",
+              "bbox": [2.02, 10.0, 9.75, 17.57]
+            },
+            {
+              "rot": 0,
+              "text": "A pool of water cupped in smooth stone.",
+              "bbox": [10.24, 17.2, 52.45, 21.19]
+            },
+            {
+              "rot": 0,
+              "text": "Its color looks slightly off... A rotting",
+              "bbox": [11.58, 20.91, 51.12, 24.9]
+            },
+            {
+              "rot": 0,
+              "text": "odour emanates from it, making your",
+              "bbox": [11.65, 24.61, 51.05, 28.6]
+            },
+            {
+              "rot": 0,
+              "text": "lungs protest in pain. You step back",
+              "bbox": [12.74, 28.31, 49.96, 32.3]
+            },
+            {
+              "rot": 0,
+              "text": "and try to exhale out the air. You feel",
+              "bbox": [11.62, 32.01, 51.08, 36.0]
+            },
+            {
+              "rot": 0,
+              "text": "weak, yet even more resolute.",
+              "bbox": [15.49, 35.72, 47.21, 39.71]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:12438e9a49} +1",
+              "bbox": [14.82, 44.48, 25.26, 51.42]
+            },
+            {
+              "rot": 0,
+              "text": "1 {icon:d05cfb9165} 3t",
+              "bbox": [14.24, 53.53, 25.7, 60.47]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:604a7d83ac} 2t",
+              "bbox": [15.17, 62.77, 24.88, 69.71]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:4fbd5890e2}",
+              "bbox": [13.58, 70.01, 26.11, 84.61]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_BACK.pdf",
+          "page": 5,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "906b6f101bce26e7",
+          "spans": [],
+          "icons": [],
+          "lines": []
+        }
+      }
+    },
+    {
+      "id": "curio:cove:p006",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [6],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_FRONT.pdf",
+          "page": 6,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "85952f2f3f854531",
+          "spans": [
+            {
+              "t": "Brackish Tide Pool",
+              "bbox": [14.37, 6.92, 47.19, 13.09],
+              "font": "DwarvenAxeBB",
+              "size": 16.0,
+              "color": "#006caa"
+            },
+            {
+              "t": "A pool of water cupped in smooth stone.",
+              "bbox": [10.24, 17.2, 52.45, 21.19],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "Its color looks slightly off... You notice",
+              "bbox": [10.93, 20.91, 51.77, 24.9],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "something shining in it, a trinket and",
+              "bbox": [12.05, 24.61, 50.66, 28.6],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "some coins. Yet the pool’s vapours make",
+              "bbox": [10.1, 28.31, 52.6, 32.3],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "your eyes burn. You curse your luck and",
+              "bbox": [9.78, 32.01, 52.91, 36.0],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "resolve to carry on with your quest.",
+              "bbox": [11.92, 35.72, 50.78, 39.71],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "1",
+              "bbox": [14.24, 53.53, 15.99, 60.47],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            },
+            {
+              "t": "3t",
+              "bbox": [21.64, 53.53, 25.7, 60.47],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffffff"
+            },
+            {
+              "t": "5",
+              "bbox": [17.04, 62.14, 19.64, 69.08],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "52c98eccde",
+              "bbox": [49.3, 0.0, 57.27, 13.2]
+            },
+            {
+              "iconId": "3abb0695cd",
+              "bbox": [2.02, 10.0, 9.75, 17.57],
+              "bbox_full": [1.19, 9.22, 11.73, 19.63]
+            },
+            {
+              "iconId": "188b149a77",
+              "bbox": [13.56, 42.32, 26.09, 56.92]
+            },
+            {
+              "iconId": "d05cfb9165",
+              "bbox": [16.93, 54.33, 21.17, 58.91],
+              "bbox_full": [13.48, 53.0, 26.69, 60.75]
+            },
+            {
+              "iconId": "6fdb7d91e7",
+              "bbox": [15.36, 61.36, 26.15, 69.87],
+              "decor": true,
+              "container": true
+            },
+            {
+              "iconId": "011ae63e02",
+              "bbox": [20.11, 63.15, 24.69, 68.09]
+            },
+            {
+              "iconId": "780a0a8ba6",
+              "bbox": [14.08, 71.99, 26.36, 80.23],
+              "bbox_full": [13.67, 71.58, 26.87, 80.73]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Brackish Tide Pool {icon:52c98eccde}",
+              "bbox": [14.37, 0.0, 57.27, 13.2]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:3abb0695cd}",
+              "bbox": [2.02, 10.0, 9.75, 17.57]
+            },
+            {
+              "rot": 0,
+              "text": "A pool of water cupped in smooth stone.",
+              "bbox": [10.24, 17.2, 52.45, 21.19]
+            },
+            {
+              "rot": 0,
+              "text": "Its color looks slightly off... You notice",
+              "bbox": [10.93, 20.91, 51.77, 24.9]
+            },
+            {
+              "rot": 0,
+              "text": "something shining in it, a trinket and",
+              "bbox": [12.05, 24.61, 50.66, 28.6]
+            },
+            {
+              "rot": 0,
+              "text": "some coins. Yet the pool’s vapours make",
+              "bbox": [10.1, 28.31, 52.6, 32.3]
+            },
+            {
+              "rot": 0,
+              "text": "your eyes burn. You curse your luck and",
+              "bbox": [9.78, 32.01, 52.91, 36.0]
+            },
+            {
+              "rot": 0,
+              "text": "resolve to carry on with your quest.",
+              "bbox": [11.92, 35.72, 50.78, 39.71]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:188b149a77} {icon:d05cfb9165}",
+              "bbox": [13.56, 42.32, 26.09, 58.91]
+            },
+            {
+              "rot": 0,
+              "text": "1 3t",
+              "bbox": [14.24, 53.53, 25.7, 60.47]
+            },
+            {
+              "rot": 0,
+              "text": "5 {icon:011ae63e02}",
+              "bbox": [17.04, 62.14, 24.69, 69.08]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:780a0a8ba6}",
+              "bbox": [14.08, 71.99, 26.36, 80.23]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_BACK.pdf",
+          "page": 6,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "906b6f101bce26e7",
+          "spans": [],
+          "icons": [],
+          "lines": []
+        }
+      }
+    },
+    {
+      "id": "curio:cove:p007",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [7],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_FRONT.pdf",
+          "page": 7,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "85942f2f3d859725",
+          "spans": [
+            {
+              "t": "Eerie Coral",
+              "bbox": [21.5, 6.92, 41.95, 13.09],
+              "font": "DwarvenAxeBB",
+              "size": 16.0,
+              "color": "#006caa"
+            },
+            {
+              "t": "There is something odd about this",
+              "bbox": [13.53, 18.84, 49.17, 22.84],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "coral. Touching its surface you notice",
+              "bbox": [11.59, 22.65, 51.11, 26.64],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "its colors brightening and then with a",
+              "bbox": [11.48, 26.46, 51.22, 30.45],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "small snap, your finger gets mangled",
+              "bbox": [11.93, 30.27, 50.78, 34.26],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "in its odd-looking hidden jaw.",
+              "bbox": [15.78, 34.07, 46.92, 38.07],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "2t",
+              "bbox": [20.91, 62.77, 24.88, 69.71],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffe6ad"
+            },
+            {
+              "t": "1",
+              "bbox": [14.34, 53.89, 16.09, 60.84],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ee2824"
+            },
+            {
+              "t": "3t",
+              "bbox": [21.53, 53.89, 25.6, 60.84],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffffff"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "52c98eccde",
+              "bbox": [49.3, 0.0, 57.27, 13.2]
+            },
+            {
+              "iconId": "3abb0695cd",
+              "bbox": [2.02, 10.0, 9.75, 17.57],
+              "bbox_full": [1.19, 9.22, 11.73, 19.63]
+            },
+            {
+              "iconId": "51ee2324e3",
+              "bbox": [13.84, 42.32, 26.37, 56.92]
+            },
+            {
+              "iconId": "eebbb64c26",
+              "bbox": [16.93, 53.62, 20.81, 59.97],
+              "bbox_full": [13.61, 52.3, 26.56, 61.44]
+            },
+            {
+              "iconId": "604a7d83ac",
+              "bbox": [15.17, 63.5, 20.11, 68.79],
+              "bbox_full": [13.5, 62.11, 25.82, 70.38]
+            },
+            {
+              "iconId": "4fbd5890e2",
+              "bbox": [13.58, 70.01, 26.11, 84.61]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Eerie Coral {icon:52c98eccde}",
+              "bbox": [21.5, 0.0, 57.27, 13.2]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:3abb0695cd}",
+              "bbox": [2.02, 10.0, 9.75, 17.57]
+            },
+            {
+              "rot": 0,
+              "text": "There is something odd about this",
+              "bbox": [13.53, 18.84, 49.17, 22.84]
+            },
+            {
+              "rot": 0,
+              "text": "coral. Touching its surface you notice",
+              "bbox": [11.59, 22.65, 51.11, 26.64]
+            },
+            {
+              "rot": 0,
+              "text": "its colors brightening and then with a",
+              "bbox": [11.48, 26.46, 51.22, 30.45]
+            },
+            {
+              "rot": 0,
+              "text": "small snap, your finger gets mangled",
+              "bbox": [11.93, 30.27, 50.78, 34.26]
+            },
+            {
+              "rot": 0,
+              "text": "in its odd-looking hidden jaw.",
+              "bbox": [15.78, 34.07, 46.92, 38.07]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:51ee2324e3} {icon:eebbb64c26}",
+              "bbox": [13.84, 42.32, 26.37, 59.97]
+            },
+            {
+              "rot": 0,
+              "text": "1 3t",
+              "bbox": [14.34, 53.89, 25.6, 60.84]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:604a7d83ac} 2t",
+              "bbox": [15.17, 62.77, 24.88, 69.71]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:4fbd5890e2}",
+              "bbox": [13.58, 70.01, 26.11, 84.61]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_BACK.pdf",
+          "page": 7,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "906b6f101bce26e7",
+          "spans": [],
+          "icons": [],
+          "lines": []
+        }
+      }
+    },
+    {
+      "id": "curio:cove:p008",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [8],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_FRONT.pdf",
+          "page": 8,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "85943d2f2f859365",
+          "spans": [
+            {
+              "t": "Eerie Coral",
+              "bbox": [21.5, 6.92, 41.95, 13.09],
+              "font": "DwarvenAxeBB",
+              "size": 16.0,
+              "color": "#006caa"
+            },
+            {
+              "t": "There is something odd about this coral.",
+              "bbox": [10.04, 18.84, 52.66, 22.84],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "Yet you feel drawn to it, but when you",
+              "bbox": [11.17, 22.65, 51.53, 26.64],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "get close it lets out a big puff of noxious",
+              "bbox": [9.93, 26.46, 52.77, 30.45],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "smoke. Your knees are weak, your throat",
+              "bbox": [9.52, 30.27, 53.18, 34.26],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "goes dry and you start to cough up blood.",
+              "bbox": [9.15, 34.07, 53.55, 38.07],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "2t",
+              "bbox": [20.86, 62.52, 24.84, 69.46],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffe6ad"
+            },
+            {
+              "t": "1",
+              "bbox": [14.34, 45.2, 16.09, 52.14],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ee2824"
+            },
+            {
+              "t": "3t",
+              "bbox": [21.53, 45.2, 25.6, 52.14],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffffff"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "52c98eccde",
+              "bbox": [49.3, 0.0, 57.27, 13.2]
+            },
+            {
+              "iconId": "3abb0695cd",
+              "bbox": [2.02, 10.0, 9.75, 17.57],
+              "bbox_full": [1.19, 9.22, 11.73, 19.63]
+            },
+            {
+              "iconId": "eebbb64c26",
+              "bbox": [16.93, 45.16, 20.81, 51.15],
+              "bbox_full": [13.61, 43.61, 26.56, 52.75]
+            },
+            {
+              "iconId": "1951b03736",
+              "bbox": [17.22, 53.72, 22.73, 60.15],
+              "bbox_full": [16.45, 52.95, 23.57, 60.95]
+            },
+            {
+              "iconId": "604a7d83ac",
+              "bbox": [15.17, 63.5, 20.11, 68.44],
+              "bbox_full": [13.54, 61.87, 25.86, 70.13]
+            },
+            {
+              "iconId": "4fbd5890e2",
+              "bbox": [13.58, 70.01, 26.11, 84.61]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Eerie Coral {icon:52c98eccde}",
+              "bbox": [21.5, 0.0, 57.27, 13.2]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:3abb0695cd}",
+              "bbox": [2.02, 10.0, 9.75, 17.57]
+            },
+            {
+              "rot": 0,
+              "text": "There is something odd about this coral.",
+              "bbox": [10.04, 18.84, 52.66, 22.84]
+            },
+            {
+              "rot": 0,
+              "text": "Yet you feel drawn to it, but when you",
+              "bbox": [11.17, 22.65, 51.53, 26.64]
+            },
+            {
+              "rot": 0,
+              "text": "get close it lets out a big puff of noxious",
+              "bbox": [9.93, 26.46, 52.77, 30.45]
+            },
+            {
+              "rot": 0,
+              "text": "smoke. Your knees are weak, your throat",
+              "bbox": [9.52, 30.27, 53.18, 34.26]
+            },
+            {
+              "rot": 0,
+              "text": "goes dry and you start to cough up blood.",
+              "bbox": [9.15, 34.07, 53.55, 38.07]
+            },
+            {
+              "rot": 0,
+              "text": "1 {icon:eebbb64c26} 3t",
+              "bbox": [14.34, 45.16, 25.6, 52.14]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:1951b03736}",
+              "bbox": [17.22, 53.72, 22.73, 60.15]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:604a7d83ac} 2t",
+              "bbox": [15.17, 62.52, 24.84, 69.46]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:4fbd5890e2}",
+              "bbox": [13.58, 70.01, 26.11, 84.61]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_BACK.pdf",
+          "page": 8,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "906b6f101bce26e7",
+          "spans": [],
+          "icons": [],
+          "lines": []
+        }
+      }
+    },
+    {
+      "id": "curio:cove:p009",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [9],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_FRONT.pdf",
+          "page": 9,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "85942d2f3fc53c43",
+          "spans": [
+            {
+              "t": "Fish Idol",
+              "bbox": [23.9, 6.92, 39.55, 13.09],
+              "font": "DwarvenAxeBB",
+              "size": 16.0,
+              "color": "#006caa"
+            },
+            {
+              "t": "+1",
+              "bbox": [21.56, 44.48, 25.5, 51.42],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            },
+            {
+              "t": "A strange presence is felt near this statue",
+              "bbox": [9.99, 16.94, 52.71, 20.93],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "of worship. You fall to your knees to pick",
+              "bbox": [10.29, 20.75, 52.41, 24.74],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "up the coin offerings, and you immediately",
+              "bbox": [9.72, 24.55, 52.99, 28.55],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "get the feeling that you’re being watched.",
+              "bbox": [10.26, 28.36, 52.44, 32.35],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "Looking back at the idol, you shake that creepy",
+              "bbox": [7.36, 32.17, 55.35, 36.16],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "thought away and you rise to your feet.",
+              "bbox": [10.93, 35.98, 51.77, 39.97],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "2t",
+              "bbox": [21.16, 62.77, 25.13, 69.71],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffe6ad"
+            },
+            {
+              "t": "10",
+              "bbox": [15.66, 71.81, 20.08, 78.75],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "52c98eccde",
+              "bbox": [49.3, 0.0, 57.27, 13.2]
+            },
+            {
+              "iconId": "b9de8f4b93",
+              "bbox": [21.52, 5.8, 41.84, 14.31],
+              "decor": true
+            },
+            {
+              "iconId": "3abb0695cd",
+              "bbox": [2.02, 10.0, 9.75, 17.57],
+              "bbox_full": [1.19, 9.22, 11.73, 19.63]
+            },
+            {
+              "iconId": "12438e9a49",
+              "bbox": [14.82, 45.16, 20.46, 50.45],
+              "bbox_full": [13.63, 43.81, 26.59, 51.94]
+            },
+            {
+              "iconId": "bc4c4c71d2",
+              "bbox": [14.56, 51.72, 27.09, 66.32]
+            },
+            {
+              "iconId": "604a7d83ac",
+              "bbox": [15.52, 63.5, 20.11, 68.79],
+              "bbox_full": [13.75, 62.11, 26.07, 70.38]
+            },
+            {
+              "iconId": "f22bd32ab3",
+              "bbox": [14.13, 71.04, 26.57, 79.55],
+              "decor": true,
+              "container": true
+            },
+            {
+              "iconId": "011ae63e02",
+              "bbox": [20.46, 72.67, 25.05, 77.96]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Fish Idol {icon:52c98eccde}",
+              "bbox": [23.9, 0.0, 57.27, 13.2]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:3abb0695cd}",
+              "bbox": [2.02, 10.0, 9.75, 17.57]
+            },
+            {
+              "rot": 0,
+              "text": "A strange presence is felt near this statue",
+              "bbox": [9.99, 16.94, 52.71, 20.93]
+            },
+            {
+              "rot": 0,
+              "text": "of worship. You fall to your knees to pick",
+              "bbox": [10.29, 20.75, 52.41, 24.74]
+            },
+            {
+              "rot": 0,
+              "text": "up the coin offerings, and you immediately",
+              "bbox": [9.72, 24.55, 52.99, 28.55]
+            },
+            {
+              "rot": 0,
+              "text": "get the feeling that you’re being watched.",
+              "bbox": [10.26, 28.36, 52.44, 32.35]
+            },
+            {
+              "rot": 0,
+              "text": "Looking back at the idol, you shake that creepy",
+              "bbox": [7.36, 32.17, 55.35, 36.16]
+            },
+            {
+              "rot": 0,
+              "text": "thought away and you rise to your feet.",
+              "bbox": [10.93, 35.98, 51.77, 39.97]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:12438e9a49} +1",
+              "bbox": [14.82, 44.48, 25.5, 51.42]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:bc4c4c71d2} {icon:604a7d83ac} 2t",
+              "bbox": [14.56, 51.72, 27.09, 69.71]
+            },
+            {
+              "rot": 0,
+              "text": "10 {icon:011ae63e02}",
+              "bbox": [15.66, 71.81, 25.05, 78.75]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_BACK.pdf",
+          "page": 9,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "906b6f101bce26e7",
+          "spans": [],
+          "icons": [],
+          "lines": []
+        }
+      }
+    },
+    {
+      "id": "curio:cove:p010",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [10],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_FRONT.pdf",
+          "page": 10,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "95942d3f2d853c63",
+          "spans": [
+            {
+              "t": "Fish Idol",
+              "bbox": [23.9, 6.92, 39.55, 13.09],
+              "font": "DwarvenAxeBB",
+              "size": 16.0,
+              "color": "#006caa"
+            },
+            {
+              "t": "+1",
+              "bbox": [21.56, 44.48, 25.5, 51.42],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            },
+            {
+              "t": "A strange presence is felt near this statue of",
+              "bbox": [9.29, 16.94, 53.42, 20.93],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "worship. Convinced that it might have some sort",
+              "bbox": [7.48, 20.75, 55.23, 24.74],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "of secret mechanism, you twist its head. Moldy",
+              "bbox": [7.94, 24.55, 54.77, 28.55],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "and rotten, it gives way, as part of its residue is",
+              "bbox": [7.2, 28.36, 55.51, 32.35],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "smeared onto your face. You clean your face from",
+              "bbox": [6.5, 32.17, 56.22, 36.16],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "a nearby puddle, alas filled with noxious water.",
+              "bbox": [7.69, 35.98, 55.02, 39.97],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "2t",
+              "bbox": [21.16, 71.47, 25.13, 78.42],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffe6ad"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "52c98eccde",
+              "bbox": [49.3, 0.0, 57.27, 13.2]
+            },
+            {
+              "iconId": "b9de8f4b93",
+              "bbox": [21.52, 5.8, 41.84, 14.31],
+              "decor": true
+            },
+            {
+              "iconId": "3abb0695cd",
+              "bbox": [2.02, 10.0, 9.75, 17.57],
+              "bbox_full": [1.19, 9.22, 11.73, 19.63]
+            },
+            {
+              "iconId": "12438e9a49",
+              "bbox": [14.82, 45.16, 20.46, 50.45],
+              "bbox_full": [13.63, 43.81, 26.59, 51.94]
+            },
+            {
+              "iconId": "51ee2324e3",
+              "bbox": [14.09, 51.72, 26.62, 66.32]
+            },
+            {
+              "iconId": "1951b03736",
+              "bbox": [17.47, 63.0, 22.98, 69.43],
+              "bbox_full": [16.7, 62.23, 23.82, 70.23]
+            },
+            {
+              "iconId": "8585fa8523",
+              "bbox": [15.52, 72.32, 20.11, 77.61],
+              "bbox_full": [13.75, 70.82, 26.07, 79.08]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Fish Idol {icon:52c98eccde}",
+              "bbox": [23.9, 0.0, 57.27, 13.2]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:3abb0695cd}",
+              "bbox": [2.02, 10.0, 9.75, 17.57]
+            },
+            {
+              "rot": 0,
+              "text": "A strange presence is felt near this statue of",
+              "bbox": [9.29, 16.94, 53.42, 20.93]
+            },
+            {
+              "rot": 0,
+              "text": "worship. Convinced that it might have some sort",
+              "bbox": [7.48, 20.75, 55.23, 24.74]
+            },
+            {
+              "rot": 0,
+              "text": "of secret mechanism, you twist its head. Moldy",
+              "bbox": [7.94, 24.55, 54.77, 28.55]
+            },
+            {
+              "rot": 0,
+              "text": "and rotten, it gives way, as part of its residue is",
+              "bbox": [7.2, 28.36, 55.51, 32.35]
+            },
+            {
+              "rot": 0,
+              "text": "smeared onto your face. You clean your face from",
+              "bbox": [6.5, 32.17, 56.22, 36.16]
+            },
+            {
+              "rot": 0,
+              "text": "a nearby puddle, alas filled with noxious water.",
+              "bbox": [7.69, 35.98, 55.02, 39.97]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:12438e9a49} +1",
+              "bbox": [14.82, 44.48, 25.5, 51.42]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:51ee2324e3} {icon:1951b03736}",
+              "bbox": [14.09, 51.72, 26.62, 69.43]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:8585fa8523} 2t",
+              "bbox": [15.52, 71.47, 25.13, 78.42]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_BACK.pdf",
+          "page": 10,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "906b6f101bce26e7",
+          "spans": [],
+          "icons": [],
+          "lines": []
+        }
+      }
+    },
+    {
+      "id": "curio:cove:p011",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [11],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_FRONT.pdf",
+          "page": 11,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "85942f3f2f853447",
+          "spans": [
+            {
+              "t": "Fish Carcass",
+              "bbox": [20.09, 6.92, 43.36, 13.09],
+              "font": "DwarvenAxeBB",
+              "size": 16.0,
+              "color": "#006caa"
+            },
+            {
+              "t": "+1",
+              "bbox": [21.56, 44.48, 25.5, 51.42],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            },
+            {
+              "t": "A stuffed sea creature has washed ashore.",
+              "bbox": [9.44, 15.03, 53.26, 19.03],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "Wonder what it ate?... Glistening where its",
+              "bbox": [9.56, 18.84, 53.14, 22.83],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "stomach should’ve been, you see a slimy satchel",
+              "bbox": [6.85, 22.65, 55.85, 26.64],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "with some provisions. As you pull it out, your",
+              "bbox": [7.95, 26.46, 54.74, 30.45],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "gloved hand finds its razor sharp bones. You",
+              "bbox": [8.24, 30.26, 54.46, 34.26],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "feel a shiver down your spine, as the carcass’",
+              "bbox": [7.65, 34.07, 55.05, 38.06],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "contaminating toxins invade your body.",
+              "bbox": [11.27, 37.88, 51.42, 41.87],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "1",
+              "bbox": [14.49, 62.52, 16.24, 69.46],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            },
+            {
+              "t": "3t",
+              "bbox": [21.89, 62.52, 25.95, 69.46],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffffff"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "52c98eccde",
+              "bbox": [49.3, 0.0, 57.27, 13.2]
+            },
+            {
+              "iconId": "3abb0695cd",
+              "bbox": [2.02, 10.0, 9.75, 17.57],
+              "bbox_full": [1.19, 9.22, 11.73, 19.63]
+            },
+            {
+              "iconId": "12438e9a49",
+              "bbox": [14.82, 45.16, 20.46, 50.45],
+              "bbox_full": [13.63, 43.81, 26.59, 51.94]
+            },
+            {
+              "iconId": "188b149a77",
+              "bbox": [14.56, 51.72, 27.09, 66.32]
+            },
+            {
+              "iconId": "d05cfb9165",
+              "bbox": [17.29, 63.5, 21.52, 68.09],
+              "bbox_full": [13.76, 61.99, 26.97, 69.74]
+            },
+            {
+              "iconId": "ae45f5bcb3",
+              "bbox": [13.37, 70.43, 26.52, 83.58],
+              "bbox_full": [12.38, 70.43, 27.36, 85.94]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Fish Carcass {icon:52c98eccde}",
+              "bbox": [20.09, 0.0, 57.27, 13.2]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:3abb0695cd} A stuffed sea creature has washed ashore.",
+              "bbox": [2.02, 10.0, 53.26, 19.03]
+            },
+            {
+              "rot": 0,
+              "text": "Wonder what it ate?... Glistening where its",
+              "bbox": [9.56, 18.84, 53.14, 22.83]
+            },
+            {
+              "rot": 0,
+              "text": "stomach should’ve been, you see a slimy satchel",
+              "bbox": [6.85, 22.65, 55.85, 26.64]
+            },
+            {
+              "rot": 0,
+              "text": "with some provisions. As you pull it out, your",
+              "bbox": [7.95, 26.46, 54.74, 30.45]
+            },
+            {
+              "rot": 0,
+              "text": "gloved hand finds its razor sharp bones. You",
+              "bbox": [8.24, 30.26, 54.46, 34.26]
+            },
+            {
+              "rot": 0,
+              "text": "feel a shiver down your spine, as the carcass’",
+              "bbox": [7.65, 34.07, 55.05, 38.06]
+            },
+            {
+              "rot": 0,
+              "text": "contaminating toxins invade your body.",
+              "bbox": [11.27, 37.88, 51.42, 41.87]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:12438e9a49} +1",
+              "bbox": [14.82, 44.48, 25.5, 51.42]
+            },
+            {
+              "rot": 0,
+              "text": "1 {icon:188b149a77} {icon:d05cfb9165} 3t",
+              "bbox": [14.49, 51.72, 27.09, 69.46]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:ae45f5bcb3}",
+              "bbox": [13.37, 70.43, 26.52, 83.58]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_BACK.pdf",
+          "page": 11,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "906b6f101bce26e7",
+          "spans": [],
+          "icons": [],
+          "lines": []
+        }
+      }
+    },
+    {
+      "id": "curio:cove:p012",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [12],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_FRONT.pdf",
+          "page": 12,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "85942f2f2f85346d",
+          "spans": [
+            {
+              "t": "Fish Carcass",
+              "bbox": [20.09, 6.92, 43.36, 13.09],
+              "font": "DwarvenAxeBB",
+              "size": 16.0,
+              "color": "#006caa"
+            },
+            {
+              "t": "A stuffed sea creature has washed ashore.",
+              "bbox": [9.44, 15.03, 53.26, 19.03],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "Wonder what it ate?... Glistening where its",
+              "bbox": [9.56, 18.84, 53.14, 22.83],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "stomach should’ve been, you see a slimy satchel",
+              "bbox": [6.85, 22.65, 55.85, 26.64],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "with some provisions. As you pull it out, your",
+              "bbox": [7.95, 26.46, 54.74, 30.45],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "gloved hand finds its razor sharp bones. You",
+              "bbox": [8.24, 30.26, 54.46, 34.26],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "begin to bleed and you feel a stinging pain",
+              "bbox": [9.93, 34.07, 52.77, 38.06],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "through your entire arm. Something isn’t right...",
+              "bbox": [6.41, 37.88, 56.3, 41.87],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "1",
+              "bbox": [14.43, 53.85, 16.19, 60.85],
+              "font": "DwarvenAxeBB",
+              "size": 18.15,
+              "color": "#ee2824"
+            },
+            {
+              "t": "3t",
+              "bbox": [21.42, 53.85, 25.52, 60.85],
+              "font": "DwarvenAxeBB",
+              "size": 18.15,
+              "color": "#ffffff"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "52c98eccde",
+              "bbox": [49.3, 0.0, 57.27, 13.2]
+            },
+            {
+              "iconId": "3abb0695cd",
+              "bbox": [2.02, 10.0, 9.75, 17.57],
+              "bbox_full": [1.19, 9.22, 11.73, 19.63]
+            },
+            {
+              "iconId": "51ee2324e3",
+              "bbox": [13.84, 42.27, 26.37, 56.87]
+            },
+            {
+              "iconId": "eebbb64c26",
+              "bbox": [16.93, 53.62, 20.81, 59.97],
+              "bbox_full": [13.61, 52.3, 26.43, 61.44]
+            },
+            {
+              "iconId": "1951b03736",
+              "bbox": [17.22, 63.01, 22.73, 69.44],
+              "bbox_full": [16.45, 62.24, 23.57, 70.24]
+            },
+            {
+              "iconId": "ae45f5bcb3",
+              "bbox": [13.37, 70.43, 26.52, 83.58],
+              "bbox_full": [12.38, 70.43, 27.36, 85.94]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Fish Carcass {icon:52c98eccde}",
+              "bbox": [20.09, 0.0, 57.27, 13.2]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:3abb0695cd} A stuffed sea creature has washed ashore.",
+              "bbox": [2.02, 10.0, 53.26, 19.03]
+            },
+            {
+              "rot": 0,
+              "text": "Wonder what it ate?... Glistening where its",
+              "bbox": [9.56, 18.84, 53.14, 22.83]
+            },
+            {
+              "rot": 0,
+              "text": "stomach should’ve been, you see a slimy satchel",
+              "bbox": [6.85, 22.65, 55.85, 26.64]
+            },
+            {
+              "rot": 0,
+              "text": "with some provisions. As you pull it out, your",
+              "bbox": [7.95, 26.46, 54.74, 30.45]
+            },
+            {
+              "rot": 0,
+              "text": "gloved hand finds its razor sharp bones. You",
+              "bbox": [8.24, 30.26, 54.46, 34.26]
+            },
+            {
+              "rot": 0,
+              "text": "begin to bleed and you feel a stinging pain",
+              "bbox": [9.93, 34.07, 52.77, 38.06]
+            },
+            {
+              "rot": 0,
+              "text": "through your entire arm. Something isn’t right...",
+              "bbox": [6.41, 37.88, 56.3, 41.87]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:51ee2324e3} {icon:eebbb64c26}",
+              "bbox": [13.84, 42.27, 26.37, 59.97]
+            },
+            {
+              "rot": 0,
+              "text": "1 3t",
+              "bbox": [14.43, 53.85, 25.52, 60.85]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:1951b03736}",
+              "bbox": [17.22, 63.01, 22.73, 69.44]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:ae45f5bcb3}",
+              "bbox": [13.37, 70.43, 26.52, 83.58]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_BACK.pdf",
+          "page": 12,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "906b6f101bce26e7",
+          "spans": [],
+          "icons": [],
+          "lines": []
+        }
+      }
+    },
+    {
+      "id": "curio:cove:p013",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [13],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_FRONT.pdf",
+          "page": 13,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "85953d2f3f819507",
+          "spans": [
+            {
+              "t": "Giant Oyster",
+              "bbox": [20.47, 6.92, 42.98, 13.09],
+              "font": "DwarvenAxeBB",
+              "size": 16.0,
+              "color": "#006caa"
+            },
+            {
+              "t": "A live oyster. Who knows what value it",
+              "bbox": [10.88, 15.35, 51.82, 19.34],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "hides... Eager and greedy you pry it open,",
+              "bbox": [9.28, 19.05, 53.42, 23.04],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "only to discover a trinket with some gold.",
+              "bbox": [9.24, 22.75, 53.47, 26.75],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "Your spirits are lifted but in an instant the",
+              "bbox": [9.05, 26.46, 53.66, 30.45],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "oyster clams shut, cutting your arm almost",
+              "bbox": [8.54, 30.16, 54.16, 34.15],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "in half. As the blood flows into its mouth, it",
+              "bbox": [8.53, 33.86, 54.17, 37.85],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "opens now on its own, eager... and greedy.",
+              "bbox": [8.55, 37.56, 54.15, 41.56],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "1",
+              "bbox": [14.34, 45.2, 16.09, 52.14],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ee2824"
+            },
+            {
+              "t": "3t",
+              "bbox": [21.53, 45.2, 25.6, 52.14],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffffff"
+            },
+            {
+              "t": "5",
+              "bbox": [16.32, 53.23, 18.92, 60.17],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "52c98eccde",
+              "bbox": [49.3, 0.0, 57.27, 13.2]
+            },
+            {
+              "iconId": "3abb0695cd",
+              "bbox": [2.02, 10.0, 9.75, 17.57],
+              "bbox_full": [1.19, 9.22, 11.73, 19.63]
+            },
+            {
+              "iconId": "eebbb64c26",
+              "bbox": [16.93, 45.16, 20.81, 51.15],
+              "bbox_full": [13.61, 43.61, 26.56, 52.75]
+            },
+            {
+              "iconId": "6fdb7d91e7",
+              "bbox": [14.64, 52.46, 25.44, 60.97],
+              "decor": true,
+              "container": true
+            },
+            {
+              "iconId": "011ae63e02",
+              "bbox": [19.4, 53.97, 23.64, 59.27]
+            },
+            {
+              "iconId": "4bfe02849b",
+              "bbox": [13.58, 60.89, 26.11, 75.48]
+            },
+            {
+              "iconId": "780a0a8ba6",
+              "bbox": [13.84, 71.99, 26.11, 80.23],
+              "bbox_full": [13.42, 71.58, 26.63, 80.73]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Giant Oyster {icon:52c98eccde}",
+              "bbox": [20.47, 0.0, 57.27, 13.2]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:3abb0695cd} A live oyster. Who knows what value it",
+              "bbox": [2.02, 10.0, 51.82, 19.34]
+            },
+            {
+              "rot": 0,
+              "text": "hides... Eager and greedy you pry it open,",
+              "bbox": [9.28, 19.05, 53.42, 23.04]
+            },
+            {
+              "rot": 0,
+              "text": "only to discover a trinket with some gold.",
+              "bbox": [9.24, 22.75, 53.47, 26.75]
+            },
+            {
+              "rot": 0,
+              "text": "Your spirits are lifted but in an instant the",
+              "bbox": [9.05, 26.46, 53.66, 30.45]
+            },
+            {
+              "rot": 0,
+              "text": "oyster clams shut, cutting your arm almost",
+              "bbox": [8.54, 30.16, 54.16, 34.15]
+            },
+            {
+              "rot": 0,
+              "text": "in half. As the blood flows into its mouth, it",
+              "bbox": [8.53, 33.86, 54.17, 37.85]
+            },
+            {
+              "rot": 0,
+              "text": "opens now on its own, eager... and greedy.",
+              "bbox": [8.55, 37.56, 54.15, 41.56]
+            },
+            {
+              "rot": 0,
+              "text": "1 {icon:eebbb64c26} 3t",
+              "bbox": [14.34, 45.16, 25.6, 52.14]
+            },
+            {
+              "rot": 0,
+              "text": "5 {icon:011ae63e02}",
+              "bbox": [16.32, 53.23, 23.64, 60.17]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:4bfe02849b}",
+              "bbox": [13.58, 60.89, 26.11, 75.48]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:780a0a8ba6}",
+              "bbox": [13.84, 71.99, 26.11, 80.23]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_BACK.pdf",
+          "page": 13,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "906b6f101bce26e7",
+          "spans": [],
+          "icons": [],
+          "lines": []
+        }
+      }
+    },
+    {
+      "id": "curio:cove:p014",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [14],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_FRONT.pdf",
+          "page": 14,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "85952d2f3fc59521",
+          "spans": [
+            {
+              "t": "Giant Oyster",
+              "bbox": [20.78, 6.92, 42.67, 13.09],
+              "font": "DwarvenAxeBB",
+              "size": 16.0,
+              "color": "#006caa"
+            },
+            {
+              "t": "A live oyster. Who knows what",
+              "bbox": [15.1, 18.84, 47.6, 22.84],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "value it hides... You force it open but",
+              "bbox": [12.04, 22.65, 50.66, 26.64],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "you manage to cut yourself on its",
+              "bbox": [13.67, 26.46, 49.03, 30.45],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "hard, rough shell. In it you find a",
+              "bbox": [13.75, 30.27, 48.94, 34.26],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "small pearl and a moldy trinket.",
+              "bbox": [14.55, 34.07, 48.15, 38.07],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "1",
+              "bbox": [14.34, 53.89, 16.09, 60.84],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ee2824"
+            },
+            {
+              "t": "3t",
+              "bbox": [21.53, 53.89, 25.6, 60.84],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffffff"
+            },
+            {
+              "t": "10",
+              "bbox": [15.41, 63.01, 19.83, 69.95],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "52c98eccde",
+              "bbox": [49.3, 0.0, 57.27, 13.2]
+            },
+            {
+              "iconId": "3abb0695cd",
+              "bbox": [2.02, 10.0, 9.75, 17.57],
+              "bbox_full": [1.19, 9.22, 11.73, 19.63]
+            },
+            {
+              "iconId": "51ee2324e3",
+              "bbox": [13.84, 42.32, 26.37, 56.92]
+            },
+            {
+              "iconId": "eebbb64c26",
+              "bbox": [16.93, 53.62, 20.81, 59.97],
+              "bbox_full": [13.61, 52.3, 26.56, 61.44]
+            },
+            {
+              "iconId": "ed2632cef4",
+              "bbox": [13.88, 62.23, 26.32, 70.74],
+              "decor": true,
+              "container": true
+            },
+            {
+              "iconId": "011ae63e02",
+              "bbox": [20.11, 63.85, 24.69, 69.14]
+            },
+            {
+              "iconId": "780a0a8ba6",
+              "bbox": [13.84, 71.99, 26.11, 80.23],
+              "bbox_full": [13.42, 71.58, 26.63, 80.73]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Giant Oyster {icon:52c98eccde}",
+              "bbox": [20.78, 0.0, 57.27, 13.2]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:3abb0695cd}",
+              "bbox": [2.02, 10.0, 9.75, 17.57]
+            },
+            {
+              "rot": 0,
+              "text": "A live oyster. Who knows what",
+              "bbox": [15.1, 18.84, 47.6, 22.84]
+            },
+            {
+              "rot": 0,
+              "text": "value it hides... You force it open but",
+              "bbox": [12.04, 22.65, 50.66, 26.64]
+            },
+            {
+              "rot": 0,
+              "text": "you manage to cut yourself on its",
+              "bbox": [13.67, 26.46, 49.03, 30.45]
+            },
+            {
+              "rot": 0,
+              "text": "hard, rough shell. In it you find a",
+              "bbox": [13.75, 30.27, 48.94, 34.26]
+            },
+            {
+              "rot": 0,
+              "text": "small pearl and a moldy trinket.",
+              "bbox": [14.55, 34.07, 48.15, 38.07]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:51ee2324e3} {icon:eebbb64c26}",
+              "bbox": [13.84, 42.32, 26.37, 59.97]
+            },
+            {
+              "rot": 0,
+              "text": "1 3t",
+              "bbox": [14.34, 53.89, 25.6, 60.84]
+            },
+            {
+              "rot": 0,
+              "text": "10 {icon:011ae63e02}",
+              "bbox": [15.41, 63.01, 24.69, 69.95]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:780a0a8ba6}",
+              "bbox": [13.84, 71.99, 26.11, 80.23]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_BACK.pdf",
+          "page": 14,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "906b6f101bce26e7",
+          "spans": [],
+          "icons": [],
+          "lines": []
+        }
+      }
+    },
+    {
+      "id": "curio:cove:p015",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [15],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_FRONT.pdf",
+          "page": 15,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "85942f2f2f853cc3",
+          "spans": [
+            {
+              "t": "Ship’s Figurehead",
+              "bbox": [15.56, 6.92, 47.89, 13.09],
+              "font": "DwarvenAxeBB",
+              "size": 16.0,
+              "color": "#006caa"
+            },
+            {
+              "t": "+1",
+              "bbox": [21.56, 44.48, 25.5, 51.42],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            },
+            {
+              "t": "The figurehead emits a marvelous aura.",
+              "bbox": [10.95, 16.94, 51.76, 20.93],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "Unnerved yet inspired, you reach for the",
+              "bbox": [10.65, 20.75, 52.06, 24.74],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "satchel hanging from it. There are still some",
+              "bbox": [8.59, 24.55, 54.12, 28.55],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "provisions left in it! As you stash them away,",
+              "bbox": [8.26, 28.36, 54.45, 32.35],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "you feel its aura intensifying, manifesting in",
+              "bbox": [8.92, 32.17, 53.79, 36.16],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "a curse that’ll haunt you soon enough...",
+              "bbox": [11.08, 35.98, 51.62, 39.97],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "2t",
+              "bbox": [21.16, 62.77, 25.13, 69.71],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffe6ad"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "52c98eccde",
+              "bbox": [49.3, 0.0, 57.27, 13.2]
+            },
+            {
+              "iconId": "3abb0695cd",
+              "bbox": [2.02, 10.0, 9.75, 17.57],
+              "bbox_full": [1.19, 9.22, 11.73, 19.63]
+            },
+            {
+              "iconId": "12438e9a49",
+              "bbox": [14.82, 45.16, 20.46, 50.45],
+              "bbox_full": [13.63, 43.81, 26.59, 51.94]
+            },
+            {
+              "iconId": "bc4c4c71d2",
+              "bbox": [14.56, 51.72, 27.09, 66.32]
+            },
+            {
+              "iconId": "604a7d83ac",
+              "bbox": [15.52, 63.5, 20.11, 68.79],
+              "bbox_full": [13.75, 62.11, 26.07, 70.38]
+            },
+            {
+              "iconId": "ae45f5bcb3",
+              "bbox": [13.37, 70.43, 26.52, 83.58],
+              "bbox_full": [12.38, 70.43, 27.36, 85.94]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Ship’s Figurehead {icon:52c98eccde}",
+              "bbox": [15.56, 0.0, 57.27, 13.2]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:3abb0695cd}",
+              "bbox": [2.02, 10.0, 9.75, 17.57]
+            },
+            {
+              "rot": 0,
+              "text": "The figurehead emits a marvelous aura.",
+              "bbox": [10.95, 16.94, 51.76, 20.93]
+            },
+            {
+              "rot": 0,
+              "text": "Unnerved yet inspired, you reach for the",
+              "bbox": [10.65, 20.75, 52.06, 24.74]
+            },
+            {
+              "rot": 0,
+              "text": "satchel hanging from it. There are still some",
+              "bbox": [8.59, 24.55, 54.12, 28.55]
+            },
+            {
+              "rot": 0,
+              "text": "provisions left in it! As you stash them away,",
+              "bbox": [8.26, 28.36, 54.45, 32.35]
+            },
+            {
+              "rot": 0,
+              "text": "you feel its aura intensifying, manifesting in",
+              "bbox": [8.92, 32.17, 53.79, 36.16]
+            },
+            {
+              "rot": 0,
+              "text": "a curse that’ll haunt you soon enough...",
+              "bbox": [11.08, 35.98, 51.62, 39.97]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:12438e9a49} +1",
+              "bbox": [14.82, 44.48, 25.5, 51.42]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:bc4c4c71d2} {icon:604a7d83ac} 2t",
+              "bbox": [14.56, 51.72, 27.09, 69.71]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:ae45f5bcb3}",
+              "bbox": [13.37, 70.43, 26.52, 83.58]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_BACK.pdf",
+          "page": 15,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "906b6f101bce26e7",
+          "spans": [],
+          "icons": [],
+          "lines": []
+        }
+      }
+    },
+    {
+      "id": "curio:cove:p016",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [16],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_FRONT.pdf",
+          "page": 16,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "85952d2f3fc59521",
+          "spans": [
+            {
+              "t": "Ship’s Figurehead",
+              "bbox": [16.01, 6.92, 47.44, 13.09],
+              "font": "DwarvenAxeBB",
+              "size": 16.0,
+              "color": "#006caa"
+            },
+            {
+              "t": "The figurehead emits a marvelous aura.",
+              "bbox": [10.36, 18.84, 52.34, 22.84],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "Hanging from it is a pouch with some",
+              "bbox": [11.75, 22.65, 50.94, 26.64],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "coins and a trinket... and a hidden",
+              "bbox": [13.36, 26.46, 49.34, 30.45],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "coral crab! It breaks your fingers",
+              "bbox": [13.3, 30.27, 49.4, 34.26],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "with a snap, eager for some blood!",
+              "bbox": [12.93, 34.07, 49.77, 38.07],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "1",
+              "bbox": [14.34, 53.89, 16.09, 60.84],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ee2824"
+            },
+            {
+              "t": "3t",
+              "bbox": [21.53, 53.89, 25.6, 60.84],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffffff"
+            },
+            {
+              "t": "5",
+              "bbox": [16.32, 62.14, 18.92, 69.08],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "52c98eccde",
+              "bbox": [49.3, 0.0, 57.27, 13.2]
+            },
+            {
+              "iconId": "3abb0695cd",
+              "bbox": [2.02, 10.0, 9.75, 17.57],
+              "bbox_full": [1.19, 9.22, 11.73, 19.63]
+            },
+            {
+              "iconId": "51ee2324e3",
+              "bbox": [13.84, 42.32, 26.37, 56.92]
+            },
+            {
+              "iconId": "eebbb64c26",
+              "bbox": [16.93, 53.62, 20.81, 59.97],
+              "bbox_full": [13.61, 52.3, 26.56, 61.44]
+            },
+            {
+              "iconId": "6fdb7d91e7",
+              "bbox": [14.64, 61.36, 25.44, 69.87],
+              "decor": true,
+              "container": true
+            },
+            {
+              "iconId": "011ae63e02",
+              "bbox": [19.4, 63.15, 23.64, 68.09]
+            },
+            {
+              "iconId": "780a0a8ba6",
+              "bbox": [13.84, 71.99, 26.11, 80.23],
+              "bbox_full": [13.42, 71.58, 26.63, 80.73]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Ship’s Figurehead {icon:52c98eccde}",
+              "bbox": [16.01, 0.0, 57.27, 13.2]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:3abb0695cd}",
+              "bbox": [2.02, 10.0, 9.75, 17.57]
+            },
+            {
+              "rot": 0,
+              "text": "The figurehead emits a marvelous aura.",
+              "bbox": [10.36, 18.84, 52.34, 22.84]
+            },
+            {
+              "rot": 0,
+              "text": "Hanging from it is a pouch with some",
+              "bbox": [11.75, 22.65, 50.94, 26.64]
+            },
+            {
+              "rot": 0,
+              "text": "coins and a trinket... and a hidden",
+              "bbox": [13.36, 26.46, 49.34, 30.45]
+            },
+            {
+              "rot": 0,
+              "text": "coral crab! It breaks your fingers",
+              "bbox": [13.3, 30.27, 49.4, 34.26]
+            },
+            {
+              "rot": 0,
+              "text": "with a snap, eager for some blood!",
+              "bbox": [12.93, 34.07, 49.77, 38.07]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:51ee2324e3} {icon:eebbb64c26}",
+              "bbox": [13.84, 42.32, 26.37, 59.97]
+            },
+            {
+              "rot": 0,
+              "text": "1 3t",
+              "bbox": [14.34, 53.89, 25.6, 60.84]
+            },
+            {
+              "rot": 0,
+              "text": "5 {icon:011ae63e02}",
+              "bbox": [16.32, 62.14, 23.64, 69.08]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:780a0a8ba6}",
+              "bbox": [13.84, 71.99, 26.11, 80.23]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_BACK.pdf",
+          "page": 16,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "906b6f101bce26e7",
+          "spans": [],
+          "icons": [],
+          "lines": []
+        }
+      }
+    }
+  ]
+}
