@@ -1,0 +1,634 @@
+{
+  "schema": "ddbg-curio-v1",
+  "dictionaryVersion": "1.8",
+  "cards": [
+    {
+      "id": "curio:cove:p001",
+      "name": "Barnacle Crusted Chest",
+      "text": "A treasure chest blanketed in barnacles. As you pry it open, your arm is slashed open against one of the hard shelled barnacles. Your heart pounds faster from the pain as you realize that the chest is filled with gold.",
+      "copies": 1,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_BACK.pdf",
+        "page": 1
+      },
+      "rows": [
+        {
+          "printed": "{icon:12438e9a49} +1",
+          "iconId": "12438e9a49",
+          "effect": {
+            "type": "stress",
+            "amount": 1
+          },
+          "reason": null
+        },
+        {
+          "printed": "1 {icon:eebbb64c26} 3t",
+          "iconId": "eebbb64c26",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        },
+        {
+          "printed": "{icon:604a7d83ac} 2t",
+          "iconId": "604a7d83ac",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        },
+        {
+          "printed": "10 {icon:011ae63e02}",
+          "iconId": "011ae63e02",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        }
+      ]
+    },
+    {
+      "id": "curio:cove:p002",
+      "name": "Barnacle Crusted Chest",
+      "text": "A treasure chest blanketed in barnacles. You open it rather easily and a noxious permeating odour from the rotting barnacles invades your nostrils. Cursing your luck you grab a satchel filled with coins and provisions resting on the bottom of the chest.",
+      "copies": 1,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_BACK.pdf",
+        "page": 2
+      },
+      "rows": [
+        {
+          "printed": "{icon:188b149a77}",
+          "iconId": "188b149a77",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        },
+        {
+          "printed": "1 {icon:d05cfb9165} 3t",
+          "iconId": "d05cfb9165",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        },
+        {
+          "printed": "5 {icon:bbe8342098}",
+          "iconId": "bbe8342098",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        },
+        {
+          "printed": "{icon:ae45f5bcb3}",
+          "iconId": "ae45f5bcb3",
+          "effect": {
+            "type": "rollProvision",
+            "count": 1
+          },
+          "reason": null
+        }
+      ]
+    },
+    {
+      "id": "curio:cove:p003",
+      "name": "Bas Relief",
+      "text": "A puzzingly ancient sculpture of dizzying implication...Noticing the gold thrown in front of it... are these... offerings? You grab them quickly, praying that nothing malignant is watching you do this.",
+      "copies": 1,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_BACK.pdf",
+        "page": 3
+      },
+      "rows": [
+        {
+          "printed": "{icon:12438e9a49} +1",
+          "iconId": "12438e9a49",
+          "effect": {
+            "type": "stress",
+            "amount": 1
+          },
+          "reason": null
+        },
+        {
+          "printed": "{icon:bc4c4c71d2}",
+          "iconId": "bc4c4c71d2",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        },
+        {
+          "printed": "{icon:604a7d83ac} 2t",
+          "iconId": "604a7d83ac",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        },
+        {
+          "printed": "10 {icon:011ae63e02}",
+          "iconId": "011ae63e02",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        }
+      ]
+    },
+    {
+      "id": "curio:cove:p004",
+      "name": "Bas Relief",
+      "text": "A puzzingly ancient sculpture of dizzying implication...You touch its rough surface as a piece of sharp stone detaches and cuts you heavily on the wrist. Your hand goes numb and you start to lose blood, the wound looks contaminated and needs to be treated quickly!",
+      "copies": 1,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_BACK.pdf",
+        "page": 4
+      },
+      "rows": [
+        {
+          "printed": "{icon:12438e9a49} +1",
+          "iconId": "12438e9a49",
+          "effect": {
+            "type": "stress",
+            "amount": 1
+          },
+          "reason": null
+        },
+        {
+          "printed": "{icon:51ee2324e3}",
+          "iconId": "51ee2324e3",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        },
+        {
+          "printed": "{icon:1951b03736}",
+          "iconId": "1951b03736",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        },
+        {
+          "printed": "1 {icon:fd239b3b43} 3t",
+          "iconId": "fd239b3b43",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        }
+      ]
+    },
+    {
+      "id": "curio:cove:p005",
+      "name": "Brackish Tide Pool",
+      "text": "A pool of water cupped in smooth stone. Its color looks slightly off... A rotting odour emanates from it, making your lungs protest in pain. You step back and try to exhale out the air. You feel weak, yet even more resolute.",
+      "copies": 1,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_BACK.pdf",
+        "page": 5
+      },
+      "rows": [
+        {
+          "printed": "{icon:12438e9a49} +1",
+          "iconId": "12438e9a49",
+          "effect": {
+            "type": "stress",
+            "amount": 1
+          },
+          "reason": null
+        },
+        {
+          "printed": "1 {icon:d05cfb9165} 3t",
+          "iconId": "d05cfb9165",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        },
+        {
+          "printed": "{icon:604a7d83ac} 2t",
+          "iconId": "604a7d83ac",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        },
+        {
+          "printed": "{icon:4fbd5890e2}",
+          "iconId": "4fbd5890e2",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        }
+      ]
+    },
+    {
+      "id": "curio:cove:p006",
+      "name": "Brackish Tide Pool",
+      "text": "A pool of water cupped in smooth stone. Its color looks slightly off... You notice something shining in it, a trinket and some coins. Yet the pool’s vapours make your eyes burn. You curse your luck and resolve to carry on with your quest.",
+      "copies": 1,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_BACK.pdf",
+        "page": 6
+      },
+      "rows": [
+        {
+          "printed": "{icon:188b149a77}",
+          "iconId": "188b149a77",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        },
+        {
+          "printed": "1 {icon:d05cfb9165} 3t",
+          "iconId": "d05cfb9165",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        },
+        {
+          "printed": "5 {icon:011ae63e02}",
+          "iconId": "011ae63e02",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        },
+        {
+          "printed": "{icon:780a0a8ba6}",
+          "iconId": "780a0a8ba6",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        }
+      ]
+    },
+    {
+      "id": "curio:cove:p007",
+      "name": "Eerie Coral",
+      "text": "There is something odd about this coral. Touching its surface you notice its colors brightening and then with a small snap, your finger gets mangled in its odd-looking hidden jaw.",
+      "copies": 1,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_BACK.pdf",
+        "page": 7
+      },
+      "rows": [
+        {
+          "printed": "{icon:51ee2324e3}",
+          "iconId": "51ee2324e3",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        },
+        {
+          "printed": "1 {icon:eebbb64c26} 3t",
+          "iconId": "eebbb64c26",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        },
+        {
+          "printed": "{icon:604a7d83ac} 2t",
+          "iconId": "604a7d83ac",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        },
+        {
+          "printed": "{icon:4fbd5890e2}",
+          "iconId": "4fbd5890e2",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        }
+      ]
+    },
+    {
+      "id": "curio:cove:p008",
+      "name": "Eerie Coral",
+      "text": "There is something odd about this coral. Yet you feel drawn to it, but when you get close it lets out a big puff of noxious smoke. Your knees are weak, your throat goes dry and you start to cough up blood.",
+      "copies": 1,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_BACK.pdf",
+        "page": 8
+      },
+      "rows": [
+        {
+          "printed": "1 {icon:eebbb64c26} 3t",
+          "iconId": "eebbb64c26",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        },
+        {
+          "printed": "{icon:1951b03736}",
+          "iconId": "1951b03736",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        },
+        {
+          "printed": "{icon:604a7d83ac} 2t",
+          "iconId": "604a7d83ac",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        },
+        {
+          "printed": "{icon:4fbd5890e2}",
+          "iconId": "4fbd5890e2",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        }
+      ]
+    },
+    {
+      "id": "curio:cove:p009",
+      "name": "Fish Idol",
+      "text": "A strange presence is felt near this statue of worship. You fall to your knees to pick up the coin offerings, and you immediately get the feeling that you’re being watched. Looking back at the idol, you shake that creepy thought away and you rise to your feet.",
+      "copies": 1,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_BACK.pdf",
+        "page": 9
+      },
+      "rows": [
+        {
+          "printed": "{icon:12438e9a49} +1",
+          "iconId": "12438e9a49",
+          "effect": {
+            "type": "stress",
+            "amount": 1
+          },
+          "reason": null
+        },
+        {
+          "printed": "{icon:bc4c4c71d2}",
+          "iconId": "bc4c4c71d2",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        },
+        {
+          "printed": "{icon:604a7d83ac} 2t",
+          "iconId": "604a7d83ac",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        },
+        {
+          "printed": "10 {icon:011ae63e02}",
+          "iconId": "011ae63e02",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        }
+      ]
+    },
+    {
+      "id": "curio:cove:p010",
+      "name": "Fish Idol",
+      "text": "A strange presence is felt near this statue of worship. Convinced that it might have some sort of secret mechanism, you twist its head. Moldy and rotten, it gives way, as part of its residue is smeared onto your face. You clean your face from a nearby puddle, alas filled with noxious water.",
+      "copies": 1,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_BACK.pdf",
+        "page": 10
+      },
+      "rows": [
+        {
+          "printed": "{icon:12438e9a49} +1",
+          "iconId": "12438e9a49",
+          "effect": {
+            "type": "stress",
+            "amount": 1
+          },
+          "reason": null
+        },
+        {
+          "printed": "{icon:51ee2324e3}",
+          "iconId": "51ee2324e3",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        },
+        {
+          "printed": "{icon:1951b03736}",
+          "iconId": "1951b03736",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        },
+        {
+          "printed": "{icon:8585fa8523} 2t",
+          "iconId": "8585fa8523",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        }
+      ]
+    },
+    {
+      "id": "curio:cove:p011",
+      "name": "Fish Carcass",
+      "text": "Wonder what it ate?... Glistening where its stomach should’ve been, you see a slimy satchel with some provisions. As you pull it out, your gloved hand finds its razor sharp bones. You feel a shiver down your spine, as the carcass’ contaminating toxins invade your body.",
+      "copies": 1,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_BACK.pdf",
+        "page": 11
+      },
+      "rows": [
+        {
+          "printed": "{icon:12438e9a49} +1",
+          "iconId": "12438e9a49",
+          "effect": {
+            "type": "stress",
+            "amount": 1
+          },
+          "reason": null
+        },
+        {
+          "printed": "1 {icon:188b149a77} 3t",
+          "iconId": "188b149a77",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        },
+        {
+          "printed": "{icon:d05cfb9165}",
+          "iconId": "d05cfb9165",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        },
+        {
+          "printed": "{icon:ae45f5bcb3}",
+          "iconId": "ae45f5bcb3",
+          "effect": {
+            "type": "rollProvision",
+            "count": 1
+          },
+          "reason": null
+        }
+      ]
+    },
+    {
+      "id": "curio:cove:p012",
+      "name": "Fish Carcass",
+      "text": "Wonder what it ate?... Glistening where its stomach should’ve been, you see a slimy satchel with some provisions. As you pull it out, your gloved hand finds its razor sharp bones. You begin to bleed and you feel a stinging pain through your entire arm. Something isn’t right...",
+      "copies": 1,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_BACK.pdf",
+        "page": 12
+      },
+      "rows": [
+        {
+          "printed": "{icon:51ee2324e3}",
+          "iconId": "51ee2324e3",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        },
+        {
+          "printed": "1 {icon:eebbb64c26} 3t",
+          "iconId": "eebbb64c26",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        },
+        {
+          "printed": "{icon:1951b03736}",
+          "iconId": "1951b03736",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        },
+        {
+          "printed": "{icon:ae45f5bcb3}",
+          "iconId": "ae45f5bcb3",
+          "effect": {
+            "type": "rollProvision",
+            "count": 1
+          },
+          "reason": null
+        }
+      ]
+    },
+    {
+      "id": "curio:cove:p013",
+      "name": "Giant Oyster",
+      "text": "hides... Eager and greedy you pry it open, only to discover a trinket with some gold. Your spirits are lifted but in an instant the oyster clams shut, cutting your arm almost in half. As the blood flows into its mouth, it opens now on its own, eager... and greedy.",
+      "copies": 1,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_BACK.pdf",
+        "page": 13
+      },
+      "rows": [
+        {
+          "printed": "1 {icon:eebbb64c26} 3t",
+          "iconId": "eebbb64c26",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        },
+        {
+          "printed": "5 {icon:011ae63e02}",
+          "iconId": "011ae63e02",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        },
+        {
+          "printed": "{icon:4bfe02849b}",
+          "iconId": "4bfe02849b",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        },
+        {
+          "printed": "{icon:780a0a8ba6}",
+          "iconId": "780a0a8ba6",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        }
+      ]
+    },
+    {
+      "id": "curio:cove:p014",
+      "name": "Giant Oyster",
+      "text": "A live oyster. Who knows what value it hides... You force it open but you manage to cut yourself on its hard, rough shell. In it you find a small pearl and a moldy trinket.",
+      "copies": 1,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_BACK.pdf",
+        "page": 14
+      },
+      "rows": [
+        {
+          "printed": "{icon:51ee2324e3}",
+          "iconId": "51ee2324e3",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        },
+        {
+          "printed": "1 {icon:eebbb64c26} 3t",
+          "iconId": "eebbb64c26",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        },
+        {
+          "printed": "10 {icon:011ae63e02}",
+          "iconId": "011ae63e02",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        },
+        {
+          "printed": "{icon:780a0a8ba6}",
+          "iconId": "780a0a8ba6",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        }
+      ]
+    },
+    {
+      "id": "curio:cove:p015",
+      "name": "Ship’s Figurehead",
+      "text": "The figurehead emits a marvelous aura. Unnerved yet inspired, you reach for the satchel hanging from it. There are still some provisions left in it! As you stash them away, you feel its aura intensifying, manifesting in a curse that’ll haunt you soon enough...",
+      "copies": 1,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_BACK.pdf",
+        "page": 15
+      },
+      "rows": [
+        {
+          "printed": "{icon:12438e9a49} +1",
+          "iconId": "12438e9a49",
+          "effect": {
+            "type": "stress",
+            "amount": 1
+          },
+          "reason": null
+        },
+        {
+          "printed": "{icon:bc4c4c71d2}",
+          "iconId": "bc4c4c71d2",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        },
+        {
+          "printed": "{icon:604a7d83ac} 2t",
+          "iconId": "604a7d83ac",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        },
+        {
+          "printed": "{icon:ae45f5bcb3}",
+          "iconId": "ae45f5bcb3",
+          "effect": {
+            "type": "rollProvision",
+            "count": 1
+          },
+          "reason": null
+        }
+      ]
+    },
+    {
+      "id": "curio:cove:p016",
+      "name": "Ship’s Figurehead",
+      "text": "The figurehead emits a marvelous aura. Hanging from it is a pouch with some coins and a trinket... and a hidden coral crab! It breaks your fingers with a snap, eager for some blood!",
+      "copies": 1,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_BACK.pdf",
+        "page": 16
+      },
+      "rows": [
+        {
+          "printed": "{icon:51ee2324e3}",
+          "iconId": "51ee2324e3",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        },
+        {
+          "printed": "1 {icon:eebbb64c26} 3t",
+          "iconId": "eebbb64c26",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        },
+        {
+          "printed": "5 {icon:011ae63e02}",
+          "iconId": "011ae63e02",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        },
+        {
+          "printed": "{icon:780a0a8ba6}",
+          "iconId": "780a0a8ba6",
+          "effect": null,
+          "reason": "Q-186：Cove Curio 效果图标待核对"
+        }
+      ]
+    }
+  ]
+}
