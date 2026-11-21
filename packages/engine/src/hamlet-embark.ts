@@ -655,7 +655,7 @@ export function chooseNextQuest(
             ? {
                 ...faceEmbark.plan,
                 roomPlacement: "edgeRoomsR30" as const,
-                layoutWiringHold: "R30 边缘房代币已布置；Boss 专属战斗房间生产绑定仍 hold（R-048）",
+                layoutWiringHold: "R30 边缘房代币已布置；Boss 专属战斗房间由各 Boss deploy* 绑定",
               }
             : faceEmbark.plan,
         }
@@ -688,7 +688,7 @@ export function chooseNextQuest(
     quest.id === "quest:p011" ? "；Warm Up the Halls待开局改Torch（QUEST p11）" : "";
   const faceNote =
     faceEmbark.kind === "ok"
-      ? `；Face the Threat→${faceEmbark.plan.resolvedScriptId}（${faceEmbark.plan.combatEntry.combatMonsterCardId}；${bossEdgeRooms ? "R30 边缘房已布置；专属战斗房间仍 hold" : "layout hold"}）`
+      ? `；Face the Threat→${faceEmbark.plan.resolvedScriptId}（${faceEmbark.plan.combatEntry.combatMonsterCardId}；${bossEdgeRooms ? "R30 边缘房与专属战斗房间已接线" : "layout hold"}）`
       : "";
   return {
     state: { ...state, dungeon: next },
