@@ -43,7 +43,7 @@ test("W-04 seed1：真菌存活时页面治疗原子拒绝", async ({ page }) =>
   await dock.getByRole("tab", { name: "技能", exact: true }).click();
   await dock
     .getByRole("listbox", { name: "手牌技能" })
-    .getByTestId("card-face-hero_skill:p094")
+    .getByTestId("card-face-hero_skill:core:h05:p094")
     .click();
   await dock.getByLabel("目标", { exact: true }).selectOption(fixture.heal.targetId);
   await dock.getByRole("button", { name: "使用技能", exact: true }).click();

@@ -1,18 +1,20 @@
 import type { NormalizedHeroSkillCard } from "./schema";
+import { legacyHeroSkillId } from "../hero-registry";
 
 /** 四核心完整印刷逐页核对：只录已命名伤害图标和明文条件。 */
 export function attachVerifiedHeroDamage(
   cards: readonly NormalizedHeroSkillCard[],
 ): NormalizedHeroSkillCard[] {
   return cards.map((card) => {
-    if (card.id === "hero_skill:p043" || card.id === "hero_skill:p181") {
+    const legacyId = legacyHeroSkillId(card);
+    if (legacyId === "hero_skill:p043" || legacyId === "hero_skill:p181") {
       const signature = (line: (typeof card.effect_lines)[number]) =>
         line
           .map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
           .join("")
           .replace(/\s+/g, "");
       const dual =
-        card.id === "hero_skill:p043"
+        legacyId === "hero_skill:p043"
           ? {
               hero: "BOUNTY HUNTER",
               name: "Collect Bounty",
@@ -274,7 +276,7 @@ export function attachVerifiedHeroDamage(
         suffix: "Unholy",
       },
     } as const;
-    const entry = reviewed[card.id as keyof typeof reviewed];
+    const entry = reviewed[legacyId as keyof typeof reviewed];
     if (!entry) return card;
     const line = card.effect_lines[entry.lineIndex];
     const text = line
@@ -283,19 +285,19 @@ export function attachVerifiedHeroDamage(
       .replace(/\s+/g, "");
     if (
       card.name !== entry.name ||
-      (card.id === "hero_skill:p058" &&
+      (legacyId === "hero_skill:p058" &&
         (card.hero !== "BOUNTY HUNTER" ||
           card.back_name !== entry.name ||
           card.back_level !== 1 ||
           card.copies !== 1 ||
           card.effect_lines.length !== 1)) ||
-      (card.id === "hero_skill:p172" &&
+      (legacyId === "hero_skill:p172" &&
         (card.hero !== "GRAVE ROBBER" ||
           card.back_name !== entry.name ||
           card.back_level !== 1 ||
           card.copies !== 1 ||
           card.effect_lines.length !== 2)) ||
-      ((card.id === "hero_skill:p190" || card.id === "hero_skill:p193") &&
+      ((legacyId === "hero_skill:p190" || legacyId === "hero_skill:p193") &&
         (card.hero !== "OCCULTIST" ||
           card.back_name !== entry.name ||
           card.back_level !== 1 ||

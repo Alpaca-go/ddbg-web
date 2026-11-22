@@ -1,4 +1,5 @@
 import type { NormalizedHeroSkillCard } from "./schema";
+import { legacyHeroSkillId } from "../hero-registry";
 
 /** 完整 SKILLS_FRONT p019–021；只附已复核数字，不改原始 numeric=null。 */
 export function attachVerifiedHeroSupport(
@@ -6,7 +7,7 @@ export function attachVerifiedHeroSupport(
 ): NormalizedHeroSkillCard[] {
   return cards.map((card) => {
     const pages = { "hero_skill:p019": 19, "hero_skill:p020": 20, "hero_skill:p021": 21 };
-    const page = pages[card.id as keyof typeof pages];
+    const page = pages[legacyHeroSkillId(card) as keyof typeof pages];
     if (!page) return card;
     const lineIndex = page === 19 ? 1 : 2;
     const line = card.effect_lines[lineIndex];

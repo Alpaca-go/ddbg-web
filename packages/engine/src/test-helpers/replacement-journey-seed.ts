@@ -47,7 +47,12 @@ export function replacementJourneySeed(
       step({ type: "prepareReplacementHero" });
       choose("hero_stat:core:h07:p013:front");
       choose("finish-upgrades");
-      for (const id of ["hero_skill:p136", "hero_skill:p127", "hero_skill:p139"]) choose(id);
+      for (const id of [
+        "hero_skill:core:h07:p136",
+        "hero_skill:core:h07:p127",
+        "hero_skill:core:h07:p139",
+      ])
+        choose(id);
       step({ type: "joinPreparedReplacements" });
       step({ type: "leaveDungeon" });
       choose("agree");

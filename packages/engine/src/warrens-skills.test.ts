@@ -27,23 +27,23 @@ const monster = clean<NonNullable<BattleSetup["monsters"]>[number]>(
 );
 
 const LEPER_L1 = [
-  ["hero_skill:p274", "Chop"],
-  ["hero_skill:p277", "Hew"],
-  ["hero_skill:p280", "Purge"],
-  ["hero_skill:p283", "Revenge"],
-  ["hero_skill:p286", "Withstand"],
-  ["hero_skill:p289", "Solemnity"],
-  ["hero_skill:p292", "Intimidate"],
+  ["hero_skill:warrens:h14:p274", "Chop"],
+  ["hero_skill:warrens:h14:p277", "Hew"],
+  ["hero_skill:warrens:h14:p280", "Purge"],
+  ["hero_skill:warrens:h14:p283", "Revenge"],
+  ["hero_skill:warrens:h14:p286", "Withstand"],
+  ["hero_skill:warrens:h14:p289", "Solemnity"],
+  ["hero_skill:warrens:h14:p292", "Intimidate"],
 ] as const;
 
 const ANTIQUARIAN_L1 = [
-  ["hero_skill:p295", "Nervous Stab"],
-  ["hero_skill:p298", "Festering Vapours"],
-  ["hero_skill:p301", "Get Down!"],
-  ["hero_skill:p304", "Flashpowder"],
-  ["hero_skill:p307", "Fortifying Vapours"],
-  ["hero_skill:p310", "Invigorating Vapours"],
-  ["hero_skill:p313", "Protect Me"],
+  ["hero_skill:warrens:h15:p295", "Nervous Stab"],
+  ["hero_skill:warrens:h15:p298", "Festering Vapours"],
+  ["hero_skill:warrens:h15:p301", "Get Down!"],
+  ["hero_skill:warrens:h15:p304", "Flashpowder"],
+  ["hero_skill:warrens:h15:p307", "Fortifying Vapours"],
+  ["hero_skill:warrens:h15:p310", "Invigorating Vapours"],
+  ["hero_skill:warrens:h15:p313", "Protect Me"],
 ] as const;
 
 function webQuestSources(): CoreQuestSources {
@@ -159,7 +159,7 @@ it("Warrens：Leper / Antiquarian 七张 I 级已核实；STAT life≠1", () => 
 });
 
 it("Chop I 可结算伤害；两人可替补且战斗已接线", () => {
-  const chop = card("hero_skill:p274");
+  const chop = card("hero_skill:warrens:h14:p274");
   expect(
     resolveHeroSkillEffects(
       chop,

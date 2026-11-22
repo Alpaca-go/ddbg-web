@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 
 import { createRng, resolveHeroSkill, rollD10 } from "./index";
+import { heroSkillIdForPage } from "../../data/src/hero-registry";
 import { createIconLookup, resolveLines } from "../../data/src/normalize/icons";
 import { iconDictionarySchema } from "../../data/src/dictionary/schema";
 import type { HeroSkillCardView, HeroSkillResolution, SkillCombatState } from "./index";
@@ -75,10 +76,10 @@ for (const entry of file.cards) {
   delete legacy.verified_damage_bonus;
   delete legacy.verified_damage_bonuses;
   delete legacy.verified_target_support;
-  if (["hero_skill:p038", "hero_skill:p039"].includes(entry.id)) {
+  if (["hero_skill:core:h02:p038", "hero_skill:core:h02:p039"].includes(entry.id)) {
     legacy.stats_line = null;
     legacy.effect_lines = resolveLines(
-      rawSkills.cards.find((c) => c.id === entry.id)!.effect_lines_raw,
+      rawSkills.cards.find((c) => c.id === `hero_skill:p${entry.id.slice(-3)}`)!.effect_lines_raw,
       legacyIcons,
       new Set(),
     );
@@ -225,7 +226,7 @@ function use(id: string, combat: SkillCombatState, roll: number): HeroSkillResol
   // 这些用例特意输入未附注解的旧转录。真实堕落者卡的投影由 abomination-skills.test.ts 验证。
   if (
     ["p211", "p214", "p217", "p220", "p223", "p226", "p229"].some(
-      (page) => id === `hero_skill:${page}`,
+      (page) => id === heroSkillIdForPage(Number(page.slice(1))),
     )
   ) {
     return { ...resolveHeroSkill({ ...skill, id: `${id}:legacy` }, combat, roll), skillId: id };
@@ -236,7 +237,7 @@ function use(id: string, combat: SkillCombatState, roll: number): HeroSkillResol
 /** 明确破损的输入夹具；真实 Zealous 已修复，仍要保证不能从技能名猜伤害。 */
 function damagedZealous(): FixtureCard {
   return {
-    ...card("hero_skill:p004"),
+    ...card("hero_skill:core:h01:p004"),
     stats_line: [{ type: "text", text: "Zealous Accusation I" }],
   };
 }
@@ -256,16 +257,16 @@ function namedTargetIconCount(skill: FixtureCard): number {
 }
 
 describe("resolveHeroSkill", () => {
-  it("hero_skill:p022 Wicked Hack I 用已命名的 damage 结算暴击和命中", () => {
-    const skill = card("hero_skill:p022");
+  it("hero_skill:core:h02:p022 Wicked Hack I 用已命名的 damage 结算暴击和命中", () => {
+    const skill = card("hero_skill:core:h02:p022");
     expect(skill.name).toBe("Wicked Hack");
     expect(skill.level).toBe(1);
     expect(skill.hero).toBe("HELLION");
     expect(skill.verification.unverified).toBe(false);
 
-    const crit = use("hero_skill:p022", target("monster", 0, 0), 1);
+    const crit = use("hero_skill:core:h02:p022", target("monster", 0, 0), 1);
     expect(crit).toEqual({
-      skillId: "hero_skill:p022",
+      skillId: "hero_skill:core:h02:p022",
       targetId: "monster-1",
       status: "resolved",
       reason: null,
@@ -294,19 +295,19 @@ describe("resolveHeroSkill", () => {
       skipped: [],
     });
 
-    expect(use("hero_skill:p022", target("monster", 2, 0), 2)).toMatchObject({
+    expect(use("hero_skill:core:h02:p022", target("monster", 2, 0), 2)).toMatchObject({
       outcome: "hit",
       effect: "damage",
       printedAmount: 7,
       wounds: 9,
       skipped: [],
     });
-    expect(use("hero_skill:p022", target("monster", 2, 0), 9)).toMatchObject({
+    expect(use("hero_skill:core:h02:p022", target("monster", 2, 0), 9)).toMatchObject({
       outcome: "hit",
       printedAmount: 7,
       wounds: 9,
     });
-    expect(use("hero_skill:p022", target("monster", 2, 0), 10)).toMatchObject({
+    expect(use("hero_skill:core:h02:p022", target("monster", 2, 0), 10)).toMatchObject({
       status: "resolved",
       outcome: "miss",
       effect: "damage",
@@ -316,17 +317,17 @@ describe("resolveHeroSkill", () => {
   });
 
   it("暴击不减 Dodge，命中阈值是 Acc 减 Dodge", () => {
-    expect(use("hero_skill:p022", target("monster", 0, 20), 1)).toMatchObject({
+    expect(use("hero_skill:core:h02:p022", target("monster", 0, 20), 1)).toMatchObject({
       outcome: "crit",
       printedAmount: 12,
       wounds: 12,
     });
-    expect(use("hero_skill:p022", target("monster", 0, 5), 4)).toMatchObject({
+    expect(use("hero_skill:core:h02:p022", target("monster", 0, 5), 4)).toMatchObject({
       outcome: "hit",
       printedAmount: 7,
       wounds: 7,
     });
-    expect(use("hero_skill:p022", target("monster", 3, 5), 5)).toMatchObject({
+    expect(use("hero_skill:core:h02:p022", target("monster", 3, 5), 5)).toMatchObject({
       outcome: "miss",
       printedAmount: null,
       wounds: 3,
@@ -337,8 +338,8 @@ describe("resolveHeroSkill", () => {
     const combat = target("monster", 1, 0, "brigand");
     const frozen = structuredClone(combat);
     const roll = rollD10(createRng(1));
-    const first = use("hero_skill:p022", combat, roll);
-    const second = use("hero_skill:p022", combat, rollD10(createRng(1)));
+    const first = use("hero_skill:core:h02:p022", combat, roll);
+    const second = use("hero_skill:core:h02:p022", combat, rollD10(createRng(1)));
 
     expect(roll).toBe(7);
     expect(second).toEqual(first);
@@ -346,15 +347,15 @@ describe("resolveHeroSkill", () => {
     expect(combat).toEqual(frozen);
   });
 
-  it("hero_skill:p014 Battle Heal II 用已命名的 heal 移除伤口，不会低于 0", () => {
-    const skill = card("hero_skill:p014");
+  it("hero_skill:core:h01:p014 Battle Heal II 用已命名的 heal 移除伤口，不会低于 0", () => {
+    const skill = card("hero_skill:core:h01:p014");
     expect(skill.name).toBe("Battle Heal");
     expect(skill.level).toBe(2);
     expect(skill.hero).toBe("CRUSADER");
     expect(skill.verification.unverified).toBe(false);
 
-    expect(use("hero_skill:p014", target("hero", 6, 0), 2)).toEqual({
-      skillId: "hero_skill:p014",
+    expect(use("hero_skill:core:h01:p014", target("hero", 6, 0), 2)).toEqual({
+      skillId: "hero_skill:core:h01:p014",
       targetId: "hero-1",
       status: "resolved",
       reason: null,
@@ -382,37 +383,37 @@ describe("resolveHeroSkill", () => {
       untargetedBesideTargetStress: null,
       skipped: [],
     });
-    expect(use("hero_skill:p014", target("hero", 6, 0), 10)).toMatchObject({
+    expect(use("hero_skill:core:h01:p014", target("hero", 6, 0), 10)).toMatchObject({
       outcome: "hit",
       effect: "heal",
       printedAmount: 3,
       wounds: 3,
     });
-    expect(use("hero_skill:p014", target("hero", 1, 0), 2)).toMatchObject({
+    expect(use("hero_skill:core:h01:p014", target("hero", 1, 0), 2)).toMatchObject({
       outcome: "crit",
       printedAmount: 5,
       wounds: 0,
     });
-    expect(use("hero_skill:p014", target("hero", 4, 6), 9)).toMatchObject({
+    expect(use("hero_skill:core:h01:p014", target("hero", 4, 6), 9)).toMatchObject({
       outcome: "miss",
       printedAmount: null,
       wounds: 4,
     });
-    expect(use("hero_skill:p014", target("hero", 4, 6), 8)).toMatchObject({
+    expect(use("hero_skill:core:h01:p014", target("hero", 4, 6), 8)).toMatchObject({
       outcome: "hit",
       printedAmount: 3,
       wounds: 1,
     });
   });
 
-  it("hero_skill:p013 Battle Heal I 只结算 heal，跳过组合标记", () => {
-    const skill = card("hero_skill:p013");
+  it("hero_skill:core:h01:p013 Battle Heal I 只结算 heal，跳过组合标记", () => {
+    const skill = card("hero_skill:core:h01:p013");
     expect(skill.name).toBe("Battle Heal");
     expect(skill.level).toBe(1);
     expect(skill.verification.unverified).toBe(false);
 
-    expect(use("hero_skill:p013", target("hero", 5, 0), 10)).toEqual({
-      skillId: "hero_skill:p013",
+    expect(use("hero_skill:core:h01:p013", target("hero", 5, 0), 10)).toEqual({
+      skillId: "hero_skill:core:h01:p013",
       targetId: "hero-1",
       status: "resolved",
       reason: null,
@@ -442,15 +443,15 @@ describe("resolveHeroSkill", () => {
     });
   });
 
-  it("hero_skill:p001 Smite I 命中只加 Acc 旁边的 7，不把 +1 vs Unholy 算进去", () => {
-    const skill = card("hero_skill:p001");
+  it("hero_skill:core:h01:p001 Smite I 命中只加 Acc 旁边的 7，不把 +1 vs Unholy 算进去", () => {
+    const skill = card("hero_skill:core:h01:p001");
     expect(skill.name).toBe("Smite");
     expect(skill.level).toBe(1);
     expect(skill.hero).toBe("CRUSADER");
     expect(skill.verification.unverified).toBe(false);
 
-    expect(use("hero_skill:p001", target("monster", 0, 0), 1)).toEqual({
-      skillId: "hero_skill:p001",
+    expect(use("hero_skill:core:h01:p001", target("monster", 0, 0), 1)).toEqual({
+      skillId: "hero_skill:core:h01:p001",
       targetId: "monster-1",
       status: "resolved",
       reason: null,
@@ -478,7 +479,7 @@ describe("resolveHeroSkill", () => {
       untargetedBesideTargetStress: null,
       skipped: [{ code: "effect_lines" }],
     });
-    expect(use("hero_skill:p001", target("monster", 4, 0), 10)).toMatchObject({
+    expect(use("hero_skill:core:h01:p001", target("monster", 4, 0), 10)).toMatchObject({
       outcome: "miss",
       printedAmount: null,
       wounds: 4,
@@ -487,7 +488,7 @@ describe("resolveHeroSkill", () => {
   });
 
   it("未验证、读不出 Acc、Self 没有使用者或阵营不符时不改伤口", () => {
-    const bleed = card("hero_skill:p040");
+    const bleed = card("hero_skill:core:h02:p040");
     expect(bleed.name).toBe("Bleed Out");
     expect(bleed.verification.unverified).toBe(false);
     expect(
@@ -506,7 +507,7 @@ describe("resolveHeroSkill", () => {
       skipped: [],
     });
 
-    const bounty = card("hero_skill:p044");
+    const bounty = card("hero_skill:core:h03:p044");
     expect(bounty.name).toBe("Collect Bounty");
     expect(bounty.level).toBe(2);
     expect(bounty.verification.unverified).toBe(false);
@@ -528,22 +529,22 @@ describe("resolveHeroSkill", () => {
       outcome: null,
     });
 
-    const absolution = card("hero_skill:p217");
+    const absolution = card("hero_skill:core:h11:p217");
     expect(absolution.name).toBe("Absolution");
     expect(absolution.level).toBe(1);
     expect(absolution.verification.unverified).toBe(false);
-    expect(use("hero_skill:p217", target("hero", 3, 0), 5)).toMatchObject({
+    expect(use("hero_skill:core:h11:p217", target("hero", 3, 0), 5)).toMatchObject({
       status: "refused",
       reason: "技能目标写的是 Self，但没有使用者（规则书第 19 页）",
       wounds: 3,
     });
 
-    expect(use("hero_skill:p022", target("hero", 6, 0), 5)).toMatchObject({
+    expect(use("hero_skill:core:h02:p022", target("hero", 6, 0), 5)).toMatchObject({
       status: "refused",
       reason: "目标阵营与技能的目标图标不一致",
       wounds: 6,
     });
-    expect(use("hero_skill:p014", target("monster", 6, 0), 5)).toMatchObject({
+    expect(use("hero_skill:core:h01:p014", target("monster", 6, 0), 5)).toMatchObject({
       status: "refused",
       reason: "目标阵营与技能的目标图标不一致",
       wounds: 6,
@@ -551,18 +552,18 @@ describe("resolveHeroSkill", () => {
   });
 
   it("非法骰面、伤口和 Dodge 不结算", () => {
-    expect(use("hero_skill:p022", target("monster", 1, 0), 0).reason).toBe(
+    expect(use("hero_skill:core:h02:p022", target("monster", 1, 0), 0).reason).toBe(
       "d10 必须是 1 到 10 的整数",
     );
-    expect(use("hero_skill:p022", target("monster", 1, 0), 11).reason).toBe(
+    expect(use("hero_skill:core:h02:p022", target("monster", 1, 0), 11).reason).toBe(
       "d10 必须是 1 到 10 的整数",
     );
-    expect(use("hero_skill:p022", target("monster", -1, 0), 5)).toMatchObject({
+    expect(use("hero_skill:core:h02:p022", target("monster", -1, 0), 5)).toMatchObject({
       status: "refused",
       reason: "伤口必须是非负整数",
       wounds: -1,
     });
-    expect(use("hero_skill:p022", target("monster", 1, 1.5), 5).reason).toBe(
+    expect(use("hero_skill:core:h02:p022", target("monster", 1, 1.5), 5).reason).toBe(
       "Dodge 必须是非负整数",
     );
   });
@@ -589,7 +590,7 @@ describe("resolveHeroSkill", () => {
       resistances: [],
     });
 
-    expect(use("hero_skill:p022", target("monster", 0, 0), 2)).toMatchObject({
+    expect(use("hero_skill:core:h02:p022", target("monster", 0, 0), 2)).toMatchObject({
       outcome: "hit",
       printedAmount: 7,
       damageDealt: 7,
@@ -597,7 +598,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p022",
+        "hero_skill:core:h02:p022",
         { target: { ...target("monster", 0, 0).target, protection: true } },
         2,
       ),
@@ -610,7 +611,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p022",
+        "hero_skill:core:h02:p022",
         { target: { ...target("monster", 1, 0).target, protection: true } },
         1,
       ),
@@ -621,7 +622,11 @@ describe("resolveHeroSkill", () => {
       wounds: 7,
     });
     expect(
-      use("hero_skill:p014", { target: { ...target("hero", 6, 0).target, protection: true } }, 10),
+      use(
+        "hero_skill:core:h01:p014",
+        { target: { ...target("hero", 6, 0).target, protection: true } },
+        10,
+      ),
     ).toMatchObject({
       outcome: "hit",
       effect: "heal",
@@ -635,7 +640,7 @@ describe("resolveHeroSkill", () => {
     const life = monster("monster_medium:p001").life;
     expect(life).toBe(7);
     expect(
-      use("hero_skill:p022", { target: { ...target("monster", 0, 0).target, life } }, 2),
+      use("hero_skill:core:h02:p022", { target: { ...target("monster", 0, 0).target, life } }, 2),
     ).toMatchObject({
       outcome: "hit",
       damageDealt: 7,
@@ -644,7 +649,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p022",
+        "hero_skill:core:h02:p022",
         { target: { ...target("monster", 0, 0).target, life, protection: true } },
         2,
       ),
@@ -658,14 +663,14 @@ describe("resolveHeroSkill", () => {
     expect(arbalistLife).toBe(11);
     expect(
       use(
-        "hero_skill:p022",
+        "hero_skill:core:h02:p022",
         { target: { ...target("monster", 0, 0).target, life: arbalistLife } },
         2,
       ),
     ).toMatchObject({ damageDealt: 7, wounds: 7, targetDead: false });
     expect(
       use(
-        "hero_skill:p022",
+        "hero_skill:core:h02:p022",
         { target: { ...target("monster", 0, 0).target, life: arbalistLife } },
         1,
       ),
@@ -676,14 +681,14 @@ describe("resolveHeroSkill", () => {
       targetDead: true,
     });
     expect(
-      use("hero_skill:p022", { target: { ...target("monster", 7, 0).target, life } }, 10),
+      use("hero_skill:core:h02:p022", { target: { ...target("monster", 7, 0).target, life } }, 10),
     ).toMatchObject({
       outcome: "miss",
       damageDealt: null,
       wounds: 7,
       targetDead: true,
     });
-    expect(use("hero_skill:p022", target("monster", 0, 0), 2)).toMatchObject({
+    expect(use("hero_skill:core:h02:p022", target("monster", 0, 0), 2)).toMatchObject({
       wounds: 7,
       targetDead: false,
     });
@@ -698,7 +703,7 @@ describe("resolveHeroSkill", () => {
       riposte: true,
     };
     const hit = use(
-      "hero_skill:p022",
+      "hero_skill:core:h02:p022",
       {
         actor,
         target: { ...target("monster", 0, 0).target, riposte: true, protection: true },
@@ -716,7 +721,7 @@ describe("resolveHeroSkill", () => {
     });
 
     const crit = use(
-      "hero_skill:p022",
+      "hero_skill:core:h02:p022",
       {
         actor: { id: "hellion", wounds: 0, protection: true, riposte: true },
         target: { ...target("monster", 0, 0).target, riposte: true },
@@ -733,7 +738,7 @@ describe("resolveHeroSkill", () => {
     });
 
     const missed = use(
-      "hero_skill:p022",
+      "hero_skill:core:h02:p022",
       {
         actor,
         target: { ...target("monster", 3, 0).target, riposte: true },
@@ -748,7 +753,7 @@ describe("resolveHeroSkill", () => {
     });
 
     const healed = use(
-      "hero_skill:p014",
+      "hero_skill:core:h01:p014",
       {
         actor,
         target: { ...target("hero", 6, 0).target, riposte: true },
@@ -764,7 +769,11 @@ describe("resolveHeroSkill", () => {
     });
 
     expect(
-      use("hero_skill:p022", { target: { ...target("monster", 1, 0).target, riposte: true } }, 2),
+      use(
+        "hero_skill:core:h02:p022",
+        { target: { ...target("monster", 1, 0).target, riposte: true } },
+        2,
+      ),
     ).toMatchObject({
       status: "refused",
       reason: "目标有 Riposte，但没有攻击者可以承受反弹（R-017）",
@@ -775,7 +784,7 @@ describe("resolveHeroSkill", () => {
 
   it("打出暴击时使用者和同区域英雄压力各减 1，治疗暴击也算", () => {
     const dealt = use(
-      "hero_skill:p022",
+      "hero_skill:core:h02:p022",
       {
         actor: { id: "hellion", wounds: 0, stress: 4 },
         heroesBesideActor: [
@@ -799,7 +808,7 @@ describe("resolveHeroSkill", () => {
     });
 
     const atCap = use(
-      "hero_skill:p022",
+      "hero_skill:core:h02:p022",
       {
         actor: { id: "hellion", wounds: 0, stress: 10 },
         target: target("monster", 0, 0).target,
@@ -809,7 +818,7 @@ describe("resolveHeroSkill", () => {
     expect(atCap).toMatchObject({ actorStress: 9, targetDead: false });
 
     const hit = use(
-      "hero_skill:p022",
+      "hero_skill:core:h02:p022",
       {
         actor: { id: "hellion", wounds: 0, stress: 4 },
         heroesBesideActor: [{ id: "crusader", stress: 2 }],
@@ -824,7 +833,7 @@ describe("resolveHeroSkill", () => {
     });
 
     const healCrit = use(
-      "hero_skill:p014",
+      "hero_skill:core:h01:p014",
       {
         actor: { id: "crusader", wounds: 0, stress: 1 },
         heroesBesideActor: [{ id: "vestal", stress: 3 }],
@@ -845,7 +854,7 @@ describe("resolveHeroSkill", () => {
     });
 
     const healApart = use(
-      "hero_skill:p014",
+      "hero_skill:core:h01:p014",
       {
         actor: { id: "crusader", wounds: 0, stress: 0 },
         target: { ...target("hero", 6, 0).target, stress: 4 },
@@ -860,7 +869,7 @@ describe("resolveHeroSkill", () => {
 
     expect(
       use(
-        "hero_skill:p022",
+        "hero_skill:core:h02:p022",
         {
           heroesBesideActor: [{ id: "crusader", stress: 2 }],
           target: target("monster", 0, 0).target,
@@ -872,7 +881,7 @@ describe("resolveHeroSkill", () => {
 
   it("英雄 Life、死门和非法的压力或 Life 不结算", () => {
     expect(
-      use("hero_skill:p014", { target: { ...target("hero", 4, 0).target, life: 33 } }, 10),
+      use("hero_skill:core:h01:p014", { target: { ...target("hero", 4, 0).target, life: 33 } }, 10),
     ).toMatchObject({
       status: "refused",
       reason:
@@ -880,15 +889,19 @@ describe("resolveHeroSkill", () => {
       wounds: 4,
     });
     expect(
-      use("hero_skill:p022", { target: { ...target("monster", 1, 0).target, life: 0 } }, 2).reason,
+      use("hero_skill:core:h02:p022", { target: { ...target("monster", 1, 0).target, life: 0 } }, 2)
+        .reason,
     ).toBe("Life 必须是正整数");
     expect(
-      use("hero_skill:p022", { target: { ...target("monster", 1, 0).target, stress: 3 } }, 2)
-        .reason,
+      use(
+        "hero_skill:core:h02:p022",
+        { target: { ...target("monster", 1, 0).target, stress: 3 } },
+        2,
+      ).reason,
     ).toBe("怪物没有压力轨");
     expect(
       use(
-        "hero_skill:p014",
+        "hero_skill:core:h01:p014",
         {
           actor: { id: "crusader", wounds: 0, stress: 11 },
           target: target("hero", 4, 0).target,
@@ -898,7 +911,7 @@ describe("resolveHeroSkill", () => {
     ).toBe("攻击者的压力必须是 0 到 10 的整数");
     expect(
       use(
-        "hero_skill:p022",
+        "hero_skill:core:h02:p022",
         {
           actor: { id: "hellion", wounds: 0, stress: 1 },
           heroesBesideActor: [
@@ -912,8 +925,8 @@ describe("resolveHeroSkill", () => {
     ).toBe("使用者身边的英雄里有重复的英雄");
   });
 
-  it("hero_skill:p122 Inspiring Tune II 结算自身和目标的压力，落空只改自身", () => {
-    const skill = card("hero_skill:p122");
+  it("hero_skill:core:h06:p122 Inspiring Tune II 结算自身和目标的压力，落空只改自身", () => {
+    const skill = card("hero_skill:core:h06:p122");
     expect(skill.name).toBe("Inspiring Tune");
     expect(skill.level).toBe(2);
     expect(skill.hero).toBe("JESTER");
@@ -941,9 +954,9 @@ describe("resolveHeroSkill", () => {
     };
     const frozen = structuredClone(combat);
 
-    const missed = use("hero_skill:p122", combat, 6);
+    const missed = use("hero_skill:core:h06:p122", combat, 6);
     expect(missed).toEqual({
-      skillId: "hero_skill:p122",
+      skillId: "hero_skill:core:h06:p122",
       targetId: "vestal",
       status: "resolved",
       reason: null,
@@ -973,7 +986,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(combat).toEqual(frozen);
 
-    expect(use("hero_skill:p122", combat, 5)).toMatchObject({
+    expect(use("hero_skill:core:h06:p122", combat, 5)).toMatchObject({
       outcome: "hit",
       effect: "stress",
       printedAmount: null,
@@ -988,7 +1001,9 @@ describe("resolveHeroSkill", () => {
       skipped: [],
     });
 
-    expect(use("hero_skill:p122", { ...combat, targetInActorArea: true }, 2)).toMatchObject({
+    expect(
+      use("hero_skill:core:h06:p122", { ...combat, targetInActorArea: true }, 2),
+    ).toMatchObject({
       outcome: "crit",
       effect: "stress",
       wounds: 3,
@@ -999,7 +1014,7 @@ describe("resolveHeroSkill", () => {
     });
 
     expect(
-      use("hero_skill:p122", { ...combat, target: { ...combat.target, dodge: 20 } }, 2),
+      use("hero_skill:core:h06:p122", { ...combat, target: { ...combat.target, dodge: 20 } }, 2),
     ).toMatchObject({
       outcome: "crit",
       actorStress: 2,
@@ -1008,7 +1023,7 @@ describe("resolveHeroSkill", () => {
     });
 
     const clamped = use(
-      "hero_skill:p122",
+      "hero_skill:core:h06:p122",
       {
         actor: { id: "jester", wounds: 0, stress: 0 },
         target: { ...combat.target, stress: 0, dodge: 0 },
@@ -1029,12 +1044,12 @@ describe("resolveHeroSkill", () => {
       dodge: 0,
       stress: 6,
     };
-    expect(use("hero_skill:p122", { target: plainTarget }, 5).reason).toBe(
+    expect(use("hero_skill:core:h06:p122", { target: plainTarget }, 5).reason).toBe(
       "自身效果要改压力，但没有使用者的压力（规则书第 20 页）",
     );
     expect(
       use(
-        "hero_skill:p122",
+        "hero_skill:core:h06:p122",
         {
           actor: { id: "jester", wounds: 0, stress: 4 },
           target: { id: "vestal", side: "hero", wounds: 3, dodge: 0 },
@@ -1042,15 +1057,15 @@ describe("resolveHeroSkill", () => {
         5,
       ).reason,
     ).toBe("目标效果要改压力，但目标没有压力（规则书第 20 页）");
-    expect(use("hero_skill:p122", target("monster", 1, 0), 5)).toMatchObject({
+    expect(use("hero_skill:core:h06:p122", target("monster", 1, 0), 5)).toMatchObject({
       status: "refused",
       reason: "目标阵营与技能的目标图标不一致",
       wounds: 1,
     });
   });
 
-  it("hero_skill:p123 Inspiring Tune III 的暴击阈值是 3，压力仍是各 −1", () => {
-    const skill = card("hero_skill:p123");
+  it("hero_skill:core:h06:p123 Inspiring Tune III 的暴击阈值是 3，压力仍是各 −1", () => {
+    const skill = card("hero_skill:core:h06:p123");
     expect(skill.name).toBe("Inspiring Tune");
     expect(skill.level).toBe(3);
     expect(skill.verification.unverified).toBe(false);
@@ -1058,7 +1073,7 @@ describe("resolveHeroSkill", () => {
       actor: { id: "jester", wounds: 0, stress: 5 },
       target: { id: "vestal", side: "hero", wounds: 2, dodge: 0, stress: 5 },
     };
-    expect(use("hero_skill:p123", combat, 3)).toMatchObject({
+    expect(use("hero_skill:core:h06:p123", combat, 3)).toMatchObject({
       outcome: "crit",
       effect: "stress",
       printedAmount: null,
@@ -1067,15 +1082,15 @@ describe("resolveHeroSkill", () => {
       targetStress: 4,
       skipped: [],
     });
-    expect(use("hero_skill:p123", combat, 4)).toMatchObject({
+    expect(use("hero_skill:core:h06:p123", combat, 4)).toMatchObject({
       outcome: "hit",
       actorStress: 4,
       targetStress: 4,
     });
   });
 
-  it("hero_skill:p121 Inspiring Tune I 用正面的两枚英雄头盔结算压力", () => {
-    const skill = card("hero_skill:p121");
+  it("hero_skill:core:h06:p121 Inspiring Tune I 用正面的两枚英雄头盔结算压力", () => {
+    const skill = card("hero_skill:core:h06:p121");
     expect(skill.name).toBe("Inspiring Tune");
     expect(skill.level).toBe(1);
     expect(skill.hero).toBe("JESTER");
@@ -1129,8 +1144,8 @@ describe("resolveHeroSkill", () => {
     };
     const frozen = structuredClone(combat);
 
-    expect(use("hero_skill:p121", combat, 6)).toEqual({
-      skillId: "hero_skill:p121",
+    expect(use("hero_skill:core:h06:p121", combat, 6)).toEqual({
+      skillId: "hero_skill:core:h06:p121",
       targetId: "vestal",
       status: "resolved",
       reason: null,
@@ -1160,7 +1175,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(combat).toEqual(frozen);
 
-    expect(use("hero_skill:p121", { ...combat, targetsInArea: 1 }, 5)).toMatchObject({
+    expect(use("hero_skill:core:h06:p121", { ...combat, targetsInArea: 1 }, 5)).toMatchObject({
       outcome: "hit",
       effect: "stress",
       actorStress: 3,
@@ -1168,13 +1183,15 @@ describe("resolveHeroSkill", () => {
       wounds: 3,
       skipped: [],
     });
-    expect(use("hero_skill:p121", { ...combat, targetInActorArea: true }, 2)).toMatchObject({
+    expect(
+      use("hero_skill:core:h06:p121", { ...combat, targetInActorArea: true }, 2),
+    ).toMatchObject({
       outcome: "crit",
       actorStress: 2,
       targetStress: 4,
       besideActorStress: [{ id: "crusader", stress: 1 }],
     });
-    expect(use("hero_skill:p121", { ...combat, targetsInArea: 3 }, 5)).toMatchObject({
+    expect(use("hero_skill:core:h06:p121", { ...combat, targetsInArea: 3 }, 5)).toMatchObject({
       status: "refused",
       reason: "一个区域内选中的目标个数必须是 1 到卡面目标图标的个数（规则书第 19 页）",
       wounds: 3,
@@ -1182,7 +1199,7 @@ describe("resolveHeroSkill", () => {
       targetStress: 6,
       outcome: null,
     });
-    expect(use("hero_skill:p121", { ...combat, areaDistance: 1 }, 5)).toMatchObject({
+    expect(use("hero_skill:core:h06:p121", { ...combat, areaDistance: 1 }, 5)).toMatchObject({
       status: "refused",
       reason: "目标区域与使用者的距离不是卡面印的射程（规则书第 19 页）",
       wounds: 3,
@@ -1191,7 +1208,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p121",
+        "hero_skill:core:h06:p121",
         {
           ...combat,
           target: { id: "soldier", side: "monster", wounds: 3, dodge: 15 },
@@ -1227,7 +1244,7 @@ describe("resolveHeroSkill", () => {
   });
 
   it("压力 numeric 为 null，或 Self 打到别人身上时不改压力", () => {
-    const rage = card("hero_skill:p226");
+    const rage = card("hero_skill:core:h11:p226");
     expect(rage.name).toBe("Rage");
     expect(rage.level).toBe(1);
     expect(rage.hero).toBe("ABOMINATION");
@@ -1243,7 +1260,7 @@ describe("resolveHeroSkill", () => {
       actor: { id: "abomination", wounds: 0, stress: 4 },
       target: target("monster", 1, 0).target,
     };
-    expect(use("hero_skill:p226", raging, 1)).toMatchObject({
+    expect(use("hero_skill:core:h11:p226", raging, 1)).toMatchObject({
       status: "resolved",
       outcome: "crit",
       effect: "damage",
@@ -1253,7 +1270,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 3,
       skipped: [{ code: "effect_lines" }],
     });
-    expect(use("hero_skill:p226", raging, 9)).toMatchObject({
+    expect(use("hero_skill:core:h11:p226", raging, 9)).toMatchObject({
       outcome: "hit",
       printedAmount: 9,
       damageDealt: 9,
@@ -1261,19 +1278,19 @@ describe("resolveHeroSkill", () => {
       actorStress: 4,
       skipped: [{ code: "effect_lines" }],
     });
-    expect(use("hero_skill:p226", raging, 10)).toMatchObject({
+    expect(use("hero_skill:core:h11:p226", raging, 10)).toMatchObject({
       outcome: "miss",
       printedAmount: null,
       wounds: 1,
       actorStress: 4,
     });
 
-    const absolution = card("hero_skill:p217");
+    const absolution = card("hero_skill:core:h11:p217");
     expect(absolution.name).toBe("Absolution");
     expect(absolution.verification.unverified).toBe(false);
     expect(
       use(
-        "hero_skill:p217",
+        "hero_skill:core:h11:p217",
         {
           actor: { id: "abomination", wounds: 0, stress: 4 },
           target: { id: "vestal", side: "hero", wounds: 3, dodge: 0, stress: 4 },
@@ -1289,13 +1306,13 @@ describe("resolveHeroSkill", () => {
       targetStress: 4,
     });
 
-    const cry = card("hero_skill:p019");
+    const cry = card("hero_skill:core:h01:p019");
     expect(cry.name).toBe("Inspiring Cry");
     expect(cry.level).toBe(1);
     expect(cry.verification.unverified).toBe(false);
     expect(
       use(
-        "hero_skill:p019",
+        "hero_skill:core:h01:p019",
         {
           actor: { id: "crusader", wounds: 4, stress: 4 },
           target: { id: "vestal", side: "hero", wounds: 2, dodge: 0, stress: 4 },
@@ -1312,8 +1329,8 @@ describe("resolveHeroSkill", () => {
     });
   });
 
-  it("hero_skill:p098 Divine Comfort II 暴击时自身治疗 3，目标治疗 4", () => {
-    const skill = card("hero_skill:p098");
+  it("hero_skill:core:h05:p098 Divine Comfort II 暴击时自身治疗 3，目标治疗 4", () => {
+    const skill = card("hero_skill:core:h05:p098");
     expect(skill.name).toBe("Divine Comfort");
     expect(skill.level).toBe(2);
     expect(skill.hero).toBe("VESTAL");
@@ -1344,8 +1361,8 @@ describe("resolveHeroSkill", () => {
     };
     const frozen = structuredClone(combat);
 
-    expect(use("hero_skill:p098", combat, 2)).toEqual({
-      skillId: "hero_skill:p098",
+    expect(use("hero_skill:core:h05:p098", combat, 2)).toEqual({
+      skillId: "hero_skill:core:h05:p098",
       targetId: "patient",
       status: "resolved",
       reason: null,
@@ -1375,7 +1392,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(combat).toEqual(frozen);
 
-    expect(use("hero_skill:p098", combat, 4)).toMatchObject({
+    expect(use("hero_skill:core:h05:p098", combat, 4)).toMatchObject({
       outcome: "hit",
       effect: "heal",
       printedAmount: 3,
@@ -1388,7 +1405,7 @@ describe("resolveHeroSkill", () => {
     });
 
     const missed = use(
-      "hero_skill:p098",
+      "hero_skill:core:h05:p098",
       { ...combat, target: { ...combat.target, dodge: 5 } },
       10,
     );
@@ -1403,7 +1420,11 @@ describe("resolveHeroSkill", () => {
     });
 
     expect(
-      use("hero_skill:p098", { ...combat, actor: { id: "vestal", wounds: 1, stress: 4 } }, 2),
+      use(
+        "hero_skill:core:h05:p098",
+        { ...combat, actor: { id: "vestal", wounds: 1, stress: 4 } },
+        2,
+      ),
     ).toMatchObject({
       outcome: "crit",
       printedAmount: 4,
@@ -1413,7 +1434,7 @@ describe("resolveHeroSkill", () => {
     });
 
     expect(
-      use("hero_skill:p098", { target: { ...combat.target, riposte: false } }, 2),
+      use("hero_skill:core:h05:p098", { target: { ...combat.target, riposte: false } }, 2),
     ).toMatchObject({
       status: "refused",
       reason: "自身效果要治疗，但没有使用者的伤口（规则书第 20 页）",
@@ -1422,8 +1443,8 @@ describe("resolveHeroSkill", () => {
     });
   });
 
-  it("hero_skill:p015 Battle Heal III 的自身治疗是 5，不是 Acc 旁边的 4", () => {
-    const skill = card("hero_skill:p015");
+  it("hero_skill:core:h01:p015 Battle Heal III 的自身治疗是 5，不是 Acc 旁边的 4", () => {
+    const skill = card("hero_skill:core:h01:p015");
     expect(skill.name).toBe("Battle Heal");
     expect(skill.level).toBe(3);
     expect(skill.hero).toBe("CRUSADER");
@@ -1431,7 +1452,7 @@ describe("resolveHeroSkill", () => {
 
     expect(
       use(
-        "hero_skill:p015",
+        "hero_skill:core:h01:p015",
         {
           actor: { id: "crusader", wounds: 9, stress: 1 },
           target: { id: "patient", side: "hero", wounds: 8, dodge: 0, stress: 2 },
@@ -1450,7 +1471,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p015",
+        "hero_skill:core:h01:p015",
         {
           actor: { id: "crusader", wounds: 9, stress: 4 },
           target: { id: "patient", side: "hero", wounds: 8, dodge: 8, stress: 2 },
@@ -1466,8 +1487,8 @@ describe("resolveHeroSkill", () => {
     });
   });
 
-  it("hero_skill:p088 Judgement I 先治疗自身，再结算伤害和反弹", () => {
-    const skill = card("hero_skill:p088");
+  it("hero_skill:core:h05:p088 Judgement I 先治疗自身，再结算伤害和反弹", () => {
+    const skill = card("hero_skill:core:h05:p088");
     expect(skill.name).toBe("Judgement");
     expect(skill.level).toBe(1);
     expect(skill.hero).toBe("VESTAL");
@@ -1482,7 +1503,7 @@ describe("resolveHeroSkill", () => {
 
     expect(
       use(
-        "hero_skill:p088",
+        "hero_skill:core:h05:p088",
         {
           actor: { id: "vestal", wounds: 5, stress: 4 },
           target: target("monster", 0, 0).target,
@@ -1502,7 +1523,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p088",
+        "hero_skill:core:h05:p088",
         {
           actor: { id: "vestal", wounds: 4, stress: 4 },
           target: target("monster", 3, 0).target,
@@ -1520,7 +1541,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p088",
+        "hero_skill:core:h05:p088",
         {
           actor: { id: "vestal", wounds: 4, stress: 4 },
           target: target("monster", 0, 0).target,
@@ -1537,7 +1558,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p088",
+        "hero_skill:core:h05:p088",
         {
           actor: { id: "vestal", wounds: 1, stress: 0, protection: true, riposte: true },
           target: { ...target("monster", 0, 0).target, riposte: true, protection: true },
@@ -1554,8 +1575,8 @@ describe("resolveHeroSkill", () => {
     });
   });
 
-  it("hero_skill:p140 Battlefield Medicine II 治疗自身并清掉自己的两种状态，命中再清目标", () => {
-    const skill = card("hero_skill:p140");
+  it("hero_skill:core:h07:p140 Battlefield Medicine II 治疗自身并清掉自己的两种状态，命中再清目标", () => {
+    const skill = card("hero_skill:core:h07:p140");
     expect(skill.name).toBe("Battlefield Medicine");
     expect(skill.level).toBe(2);
     expect(skill.hero).toBe("PLAGUE DOCTOR");
@@ -1571,7 +1592,7 @@ describe("resolveHeroSkill", () => {
 
     expect(
       use(
-        "hero_skill:p140",
+        "hero_skill:core:h07:p140",
         {
           actor: { id: "doctor", wounds: 6, stress: 2 },
           target: { id: "patient", side: "hero", wounds: 5, dodge: 0, stress: 1 },
@@ -1597,7 +1618,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p140",
+        "hero_skill:core:h07:p140",
         {
           actor: { id: "doctor", wounds: 6, stress: 2 },
           target: { id: "patient", side: "hero", wounds: 5, dodge: 11, stress: 1 },
@@ -1622,7 +1643,7 @@ describe("resolveHeroSkill", () => {
   });
 
   it("和 null 光照写在同一行的治疗不扣目标伤口，变身卡上的治疗整数也不扣", () => {
-    const cry = card("hero_skill:p020");
+    const cry = card("hero_skill:core:h01:p020");
     expect(cry.name).toBe("Inspiring Cry");
     expect(cry.level).toBe(2);
     expect(cry.verification.unverified).toBe(false);
@@ -1640,7 +1661,7 @@ describe("resolveHeroSkill", () => {
     // numeric 为 null，不把治疗拆出来扣目标的伤口。
     expect(
       use(
-        "hero_skill:p020",
+        "hero_skill:core:h01:p020",
         {
           actor: { id: "crusader", wounds: 5, stress: 4 },
           target: { id: "vestal", side: "hero", wounds: 2, dodge: 0, stress: 4 },
@@ -1658,7 +1679,7 @@ describe("resolveHeroSkill", () => {
       targetStress: 4,
     });
 
-    const beast = card("hero_skill:p220");
+    const beast = card("hero_skill:core:h11:p220");
     expect(beast.name).toBe("Transform to Beast");
     expect(beast.level).toBe(1);
     expect(beast.verification.unverified).toBe(false);
@@ -1674,7 +1695,7 @@ describe("resolveHeroSkill", () => {
     ).toEqual([4]);
     expect(
       use(
-        "hero_skill:p220",
+        "hero_skill:core:h11:p220",
         {
           actor: { id: "abomination", wounds: 5, stress: 4 },
           target: { id: "vestal", side: "hero", wounds: 2, dodge: 0, stress: 4 },
@@ -1696,8 +1717,8 @@ describe("resolveHeroSkill", () => {
     });
   });
 
-  it("hero_skill:p139 Battlefield Medicine I 命中或暴击时治疗，并清掉目标的全部流血和腐蚀", () => {
-    const skill = card("hero_skill:p139");
+  it("hero_skill:core:h07:p139 Battlefield Medicine I 命中或暴击时治疗，并清掉目标的全部流血和腐蚀", () => {
+    const skill = card("hero_skill:core:h07:p139");
     expect(skill.name).toBe("Battlefield Medicine");
     expect(skill.level).toBe(1);
     expect(skill.hero).toBe("PLAGUE DOCTOR");
@@ -1720,8 +1741,8 @@ describe("resolveHeroSkill", () => {
     };
     const frozen = structuredClone(combat);
 
-    expect(use("hero_skill:p139", combat, 1)).toEqual({
-      skillId: "hero_skill:p139",
+    expect(use("hero_skill:core:h07:p139", combat, 1)).toEqual({
+      skillId: "hero_skill:core:h07:p139",
       targetId: "patient",
       status: "resolved",
       reason: null,
@@ -1751,7 +1772,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(combat).toEqual(frozen);
 
-    expect(use("hero_skill:p139", combat, 10)).toMatchObject({
+    expect(use("hero_skill:core:h07:p139", combat, 10)).toMatchObject({
       outcome: "hit",
       effect: "heal",
       printedAmount: 1,
@@ -1770,7 +1791,7 @@ describe("resolveHeroSkill", () => {
     });
 
     expect(
-      use("hero_skill:p139", { ...combat, target: { ...combat.target, dodge: 15 } }, 10),
+      use("hero_skill:core:h07:p139", { ...combat, target: { ...combat.target, dodge: 15 } }, 10),
     ).toMatchObject({
       outcome: "miss",
       printedAmount: null,
@@ -1787,7 +1808,11 @@ describe("resolveHeroSkill", () => {
     });
 
     expect(
-      use("hero_skill:p139", { ...combat, target: { ...combat.target, wounds: 1, dodge: 30 } }, 1),
+      use(
+        "hero_skill:core:h07:p139",
+        { ...combat, target: { ...combat.target, wounds: 1, dodge: 30 } },
+        1,
+      ),
     ).toMatchObject({
       outcome: "crit",
       printedAmount: 2,
@@ -1800,7 +1825,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 3,
     });
 
-    expect(use("hero_skill:p139", target("monster", 5, 0), 1)).toMatchObject({
+    expect(use("hero_skill:core:h07:p139", target("monster", 5, 0), 1)).toMatchObject({
       status: "refused",
       reason: "目标阵营与技能的目标图标不一致",
       wounds: 5,
@@ -1812,15 +1837,15 @@ describe("resolveHeroSkill", () => {
     });
   });
 
-  it("hero_skill:p141 Battlefield Medicine III 先治疗自身 4 并清掉自己的两种状态，命中再治疗目标", () => {
-    const skill = card("hero_skill:p141");
+  it("hero_skill:core:h07:p141 Battlefield Medicine III 先治疗自身 4 并清掉自己的两种状态，命中再治疗目标", () => {
+    const skill = card("hero_skill:core:h07:p141");
     expect(skill.name).toBe("Battlefield Medicine");
     expect(skill.level).toBe(3);
     expect(skill.verification.unverified).toBe(false);
 
     expect(
       use(
-        "hero_skill:p141",
+        "hero_skill:core:h07:p141",
         {
           actor: { id: "doctor", wounds: 9, stress: 2 },
           target: { id: "patient", side: "hero", wounds: 8, dodge: 0, stress: 1 },
@@ -1847,7 +1872,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p141",
+        "hero_skill:core:h07:p141",
         {
           actor: { id: "doctor", wounds: 9, stress: 4 },
           target: { id: "patient", side: "hero", wounds: 8, dodge: 11, stress: 1 },
@@ -1870,7 +1895,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p141",
+        "hero_skill:core:h07:p141",
         {
           actor: { id: "doctor", wounds: 9, stress: 4 },
           target: { id: "patient", side: "hero", wounds: 8, dodge: 0, stress: 1 },
@@ -1894,7 +1919,7 @@ describe("resolveHeroSkill", () => {
   });
 
   it("回合数 numeric 为 null，或 Remove 和增益写在同一行时，不移除状态", () => {
-    const stun = card("hero_skill:p007");
+    const stun = card("hero_skill:core:h01:p007");
     expect(stun.name).toBe("Stunning Blow");
     expect(stun.level).toBe(1);
     expect(stun.hero).toBe("CRUSADER");
@@ -1912,7 +1937,7 @@ describe("resolveHeroSkill", () => {
         anchor: { type: "beside_icon", left_icon: null, inside_icon: null },
       },
     ]);
-    expect(use("hero_skill:p007", target("monster", 0, 0), 1)).toMatchObject({
+    expect(use("hero_skill:core:h01:p007", target("monster", 0, 0), 1)).toMatchObject({
       status: "resolved",
       outcome: "hit",
       effect: "damage",
@@ -1926,7 +1951,7 @@ describe("resolveHeroSkill", () => {
       targetStunMarkCleared: false,
       skipped: [{ code: "effect_lines" }],
     });
-    expect(use("hero_skill:p007", target("monster", 1, 0), 10)).toMatchObject({
+    expect(use("hero_skill:core:h01:p007", target("monster", 1, 0), 10)).toMatchObject({
       outcome: "miss",
       printedAmount: null,
       damageDealt: null,
@@ -1939,7 +1964,7 @@ describe("resolveHeroSkill", () => {
       skipped: [{ code: "effect_lines" }],
     });
 
-    const rush = card("hero_skill:p037");
+    const rush = card("hero_skill:core:h02:p037");
     expect(rush.name).toBe("Adrenaline Rush");
     expect(rush.level).toBe(1);
     expect(rush.hero).toBe("HELLION");
@@ -1960,7 +1985,7 @@ describe("resolveHeroSkill", () => {
     ).toEqual([null]);
     expect(
       use(
-        "hero_skill:p037",
+        "hero_skill:core:h02:p037",
         {
           actor: { id: "hellion", wounds: 3, stress: 2 },
           target: { id: "patient", side: "hero", wounds: 4, dodge: 0, stress: 1 },
@@ -1981,8 +2006,8 @@ describe("resolveHeroSkill", () => {
     });
   });
 
-  it("hero_skill:p034 Breakthrough I 落空也把使用者拉近 1，没有使用者则拒绝", () => {
-    const skill = card("hero_skill:p034");
+  it("hero_skill:core:h02:p034 Breakthrough I 落空也把使用者拉近 1，没有使用者则拒绝", () => {
+    const skill = card("hero_skill:core:h02:p034");
     expect(skill.name).toBe("Breakthrough");
     expect(skill.level).toBe(1);
     expect(skill.hero).toBe("HELLION");
@@ -2001,8 +2026,8 @@ describe("resolveHeroSkill", () => {
     };
     const frozen = structuredClone(combat);
 
-    expect(use("hero_skill:p034", combat, 8)).toEqual({
-      skillId: "hero_skill:p034",
+    expect(use("hero_skill:core:h02:p034", combat, 8)).toEqual({
+      skillId: "hero_skill:core:h02:p034",
       targetId: "soldier",
       status: "resolved",
       reason: null,
@@ -2032,7 +2057,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(combat).toEqual(frozen);
 
-    expect(use("hero_skill:p034", combat, 9)).toMatchObject({
+    expect(use("hero_skill:core:h02:p034", combat, 9)).toMatchObject({
       outcome: "miss",
       printedAmount: null,
       damageDealt: null,
@@ -2042,13 +2067,13 @@ describe("resolveHeroSkill", () => {
       actorShuffle: { direction: "pull", distance: 1 },
       targetShuffle: null,
     });
-    expect(use("hero_skill:p034", combat, 1)).toMatchObject({
+    expect(use("hero_skill:core:h02:p034", combat, 1)).toMatchObject({
       outcome: "hit",
       printedAmount: 4,
       damageDealt: 4,
       actorShuffle: { direction: "pull", distance: 1 },
     });
-    expect(use("hero_skill:p034", target("monster", 1, 0), 8)).toMatchObject({
+    expect(use("hero_skill:core:h02:p034", target("monster", 1, 0), 8)).toMatchObject({
       status: "refused",
       reason: "自身效果要位移，但没有使用者（规则书第 21 页）",
       wounds: 1,
@@ -2057,7 +2082,7 @@ describe("resolveHeroSkill", () => {
       targetShuffle: null,
     });
 
-    const finale = card("hero_skill:p112");
+    const finale = card("hero_skill:core:h06:p112");
     expect(finale.name).toBe("Finale");
     expect(finale.level).toBe(1);
     expect(finale.hero).toBe("JESTER");
@@ -2066,7 +2091,7 @@ describe("resolveHeroSkill", () => {
       actor: { id: "jester", wounds: 0, stress: 5 },
       target: { id: "soldier", side: "monster", wounds: 2, dodge: 10 },
     };
-    expect(use("hero_skill:p112", finaleCombat, 10)).toMatchObject({
+    expect(use("hero_skill:core:h06:p112", finaleCombat, 10)).toMatchObject({
       outcome: "miss",
       printedAmount: null,
       damageDealt: null,
@@ -2075,7 +2100,7 @@ describe("resolveHeroSkill", () => {
       actorShuffle: { direction: "push", distance: 3 },
       targetShuffle: null,
     });
-    expect(use("hero_skill:p112", finaleCombat, 4)).toMatchObject({
+    expect(use("hero_skill:core:h06:p112", finaleCombat, 4)).toMatchObject({
       outcome: "hit",
       printedAmount: 7,
       damageDealt: 7,
@@ -2083,7 +2108,7 @@ describe("resolveHeroSkill", () => {
       actorShuffle: { direction: "push", distance: 3 },
       targetShuffle: null,
     });
-    expect(use("hero_skill:p112", finaleCombat, 1)).toMatchObject({
+    expect(use("hero_skill:core:h06:p112", finaleCombat, 1)).toMatchObject({
       outcome: "crit",
       printedAmount: 10,
       damageDealt: 10,
@@ -2094,8 +2119,8 @@ describe("resolveHeroSkill", () => {
     });
   });
 
-  it("hero_skill:p070 Point Blank Shot I 自身和目标都推 1，落空只推自身", () => {
-    const skill = card("hero_skill:p070");
+  it("hero_skill:core:h04:p070 Point Blank Shot I 自身和目标都推 1，落空只推自身", () => {
+    const skill = card("hero_skill:core:h04:p070");
     expect(skill.name).toBe("Point Blank Shot");
     expect(skill.level).toBe(1);
     expect(skill.hero).toBe("HIGHWAYMAN");
@@ -2106,7 +2131,7 @@ describe("resolveHeroSkill", () => {
       actor: { id: "highwayman", wounds: 0, stress: 4 },
       target: { id: "soldier", side: "monster", wounds: 0, dodge: 0 },
     };
-    expect(use("hero_skill:p070", combat, 1)).toMatchObject({
+    expect(use("hero_skill:core:h04:p070", combat, 1)).toMatchObject({
       outcome: "crit",
       effect: "damage",
       printedAmount: 15,
@@ -2118,7 +2143,7 @@ describe("resolveHeroSkill", () => {
       targetShuffle: { direction: "push", distance: 1 },
       skipped: [],
     });
-    expect(use("hero_skill:p070", combat, 10)).toMatchObject({
+    expect(use("hero_skill:core:h04:p070", combat, 10)).toMatchObject({
       outcome: "hit",
       printedAmount: 9,
       damageDealt: 9,
@@ -2128,7 +2153,7 @@ describe("resolveHeroSkill", () => {
       targetShuffle: { direction: "push", distance: 1 },
     });
     expect(
-      use("hero_skill:p070", { ...combat, target: { ...combat.target, dodge: 5 } }, 10),
+      use("hero_skill:core:h04:p070", { ...combat, target: { ...combat.target, dodge: 5 } }, 10),
     ).toMatchObject({
       outcome: "miss",
       printedAmount: null,
@@ -2139,7 +2164,11 @@ describe("resolveHeroSkill", () => {
       targetShuffle: null,
     });
     expect(
-      use("hero_skill:p070", { ...combat, target: { ...combat.target, protection: true } }, 10),
+      use(
+        "hero_skill:core:h04:p070",
+        { ...combat, target: { ...combat.target, protection: true } },
+        10,
+      ),
     ).toMatchObject({
       outcome: "hit",
       printedAmount: 9,
@@ -2150,7 +2179,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p070",
+        "hero_skill:core:h04:p070",
         {
           actor: { id: "highwayman", wounds: 1, stress: 4 },
           target: { id: "soldier", side: "monster", wounds: 0, dodge: 0, riposte: true },
@@ -2168,8 +2197,8 @@ describe("resolveHeroSkill", () => {
     });
   });
 
-  it("hero_skill:p157 Bola I 自身推 1、目标推 2，暴击不改距离", () => {
-    const skill = card("hero_skill:p157");
+  it("hero_skill:core:h08:p157 Bola I 自身推 1、目标推 2，暴击不改距离", () => {
+    const skill = card("hero_skill:core:h08:p157");
     expect(skill.name).toBe("Bola");
     expect(skill.level).toBe(1);
     expect(skill.hero).toBe("ARBALEST");
@@ -2179,7 +2208,7 @@ describe("resolveHeroSkill", () => {
       actor: { id: "arbalist", wounds: 0, stress: 2 },
       target: { id: "soldier", side: "monster", wounds: 4, dodge: 0 },
     };
-    expect(use("hero_skill:p157", combat, 5)).toMatchObject({
+    expect(use("hero_skill:core:h08:p157", combat, 5)).toMatchObject({
       outcome: "hit",
       printedAmount: 3,
       damageDealt: 3,
@@ -2188,7 +2217,7 @@ describe("resolveHeroSkill", () => {
       targetShuffle: { direction: "push", distance: 2 },
       skipped: [],
     });
-    expect(use("hero_skill:p157", combat, 1)).toMatchObject({
+    expect(use("hero_skill:core:h08:p157", combat, 1)).toMatchObject({
       outcome: "crit",
       printedAmount: 6,
       damageDealt: 6,
@@ -2199,15 +2228,15 @@ describe("resolveHeroSkill", () => {
     });
   });
 
-  it("hero_skill:p208 Daemon’s Pull I 只在命中或暴击时把目标拉近 2", () => {
-    const skill = card("hero_skill:p208");
+  it("hero_skill:core:h10:p208 Daemon’s Pull I 只在命中或暴击时把目标拉近 2", () => {
+    const skill = card("hero_skill:core:h10:p208");
     expect(skill.name).toBe("Daemon’s Pull");
     expect(skill.level).toBe(1);
     expect(skill.hero).toBe("OCCULTIST");
     expect(skill.verification.unverified).toBe(false);
     expect(skill.effect_lines).toHaveLength(1);
 
-    expect(use("hero_skill:p208", target("monster", 2, 0), 5)).toMatchObject({
+    expect(use("hero_skill:core:h10:p208", target("monster", 2, 0), 5)).toMatchObject({
       status: "resolved",
       outcome: "hit",
       printedAmount: 3,
@@ -2218,14 +2247,14 @@ describe("resolveHeroSkill", () => {
       targetShuffle: { direction: "pull", distance: 2 },
       skipped: [],
     });
-    expect(use("hero_skill:p208", target("monster", 2, 0), 1)).toMatchObject({
+    expect(use("hero_skill:core:h10:p208", target("monster", 2, 0), 1)).toMatchObject({
       outcome: "crit",
       printedAmount: 4,
       damageDealt: 4,
       wounds: 6,
       targetShuffle: { direction: "pull", distance: 2 },
     });
-    expect(use("hero_skill:p208", target("monster", 2, 0), 10)).toMatchObject({
+    expect(use("hero_skill:core:h10:p208", target("monster", 2, 0), 10)).toMatchObject({
       outcome: "miss",
       printedAmount: null,
       damageDealt: null,
@@ -2235,8 +2264,8 @@ describe("resolveHeroSkill", () => {
     });
   });
 
-  it("hero_skill:p016 Holy Lance I 拉近自身 1，不把 numeric 为 null 的 +1 vs Unholy 算进伤害", () => {
-    const skill = card("hero_skill:p016");
+  it("hero_skill:core:h01:p016 Holy Lance I 拉近自身 1，不把 numeric 为 null 的 +1 vs Unholy 算进伤害", () => {
+    const skill = card("hero_skill:core:h01:p016");
     expect(skill.name).toBe("Holy Lance");
     expect(skill.level).toBe(1);
     expect(skill.hero).toBe("CRUSADER");
@@ -2254,7 +2283,7 @@ describe("resolveHeroSkill", () => {
       actor: { id: "crusader", wounds: 1, stress: 2 },
       target: { id: "unholy", side: "monster", wounds: 3, dodge: 0 },
     };
-    expect(use("hero_skill:p016", combat, 2)).toMatchObject({
+    expect(use("hero_skill:core:h01:p016", combat, 2)).toMatchObject({
       outcome: "hit",
       printedAmount: 7,
       damageDealt: 7,
@@ -2263,7 +2292,7 @@ describe("resolveHeroSkill", () => {
       targetShuffle: null,
       skipped: [{ code: "effect_lines" }],
     });
-    expect(use("hero_skill:p016", combat, 10)).toMatchObject({
+    expect(use("hero_skill:core:h01:p016", combat, 10)).toMatchObject({
       outcome: "miss",
       printedAmount: null,
       damageDealt: null,
@@ -2272,7 +2301,7 @@ describe("resolveHeroSkill", () => {
       targetShuffle: null,
     });
 
-    const lunge = card("hero_skill:p172");
+    const lunge = card("hero_skill:core:h09:p172");
     expect(lunge.name).toBe("Lunge");
     expect(lunge.level).toBe(1);
     expect(lunge.hero).toBe("GRAVE ROBBER");
@@ -2286,7 +2315,7 @@ describe("resolveHeroSkill", () => {
     ).toEqual([null]);
     expect(
       use(
-        "hero_skill:p172",
+        "hero_skill:core:h09:p172",
         {
           actor: { id: "robber", wounds: 0, stress: 1 },
           target: { id: "blighted", side: "monster", wounds: 2, dodge: 0 },
@@ -2305,7 +2334,7 @@ describe("resolveHeroSkill", () => {
   });
 
   it("回合数 numeric 为 null，或印成 Push 或 Pull 时，不从同一行抽出位移", () => {
-    const uppercut = card("hero_skill:p052");
+    const uppercut = card("hero_skill:core:h03:p052");
     expect(uppercut.name).toBe("Uppercut");
     expect(uppercut.level).toBe(1);
     expect(uppercut.hero).toBe("BOUNTY HUNTER");
@@ -2324,7 +2353,7 @@ describe("resolveHeroSkill", () => {
     ]);
     expect(
       use(
-        "hero_skill:p052",
+        "hero_skill:core:h03:p052",
         {
           actor: { id: "hunter", wounds: 0, stress: 2 },
           target: { id: "soldier", side: "monster", wounds: 1, dodge: 0 },
@@ -2342,7 +2371,7 @@ describe("resolveHeroSkill", () => {
       skipped: [{ code: "effect_lines" }],
     });
 
-    const advance = card("hero_skill:p079");
+    const advance = card("hero_skill:core:h04:p079");
     expect(advance.name).toBe("Duelist’s Advance");
     expect(advance.level).toBe(1);
     expect(advance.hero).toBe("HIGHWAYMAN");
@@ -2356,7 +2385,7 @@ describe("resolveHeroSkill", () => {
     ).toEqual([null]);
     expect(
       use(
-        "hero_skill:p079",
+        "hero_skill:core:h04:p079",
         {
           actor: { id: "highwayman", wounds: 1, stress: 2 },
           target: { id: "soldier", side: "monster", wounds: 0, dodge: 0 },
@@ -2373,7 +2402,7 @@ describe("resolveHeroSkill", () => {
       skipped: [{ code: "effect_lines" }],
     });
 
-    const blast = card("hero_skill:p145");
+    const blast = card("hero_skill:core:h07:p145");
     expect(blast.name).toBe("Disorienting Blast");
     expect(blast.level).toBe(1);
     expect(blast.hero).toBe("PLAGUE DOCTOR");
@@ -2386,7 +2415,7 @@ describe("resolveHeroSkill", () => {
     ).toEqual(["Push 2 or Pull 2"]);
     expect(
       use(
-        "hero_skill:p145",
+        "hero_skill:core:h07:p145",
         {
           actor: { id: "doctor", wounds: 0, stress: 1 },
           target: { id: "soldier", side: "monster", wounds: 2, dodge: 0 },
@@ -2405,8 +2434,8 @@ describe("resolveHeroSkill", () => {
     });
   });
 
-  it("hero_skill:p169 Pick to the Face I 命中和暴击都不被 Protection 减半", () => {
-    const skill = card("hero_skill:p169");
+  it("hero_skill:core:h09:p169 Pick to the Face I 命中和暴击都不被 Protection 减半", () => {
+    const skill = card("hero_skill:core:h09:p169");
     expect(skill.name).toBe("Pick to the Face");
     expect(skill.level).toBe(1);
     expect(skill.hero).toBe("GRAVE ROBBER");
@@ -2420,7 +2449,7 @@ describe("resolveHeroSkill", () => {
       dodge: 0,
       protection: true,
     };
-    const hit = use("hero_skill:p169", { target: protectedTarget }, 9);
+    const hit = use("hero_skill:core:h09:p169", { target: protectedTarget }, 9);
     expect(hit).toMatchObject({
       status: "resolved",
       outcome: "hit",
@@ -2437,7 +2466,7 @@ describe("resolveHeroSkill", () => {
     });
 
     const crit = use(
-      "hero_skill:p169",
+      "hero_skill:core:h09:p169",
       {
         actor: { id: "robber", wounds: 1, stress: 3 },
         target: { ...protectedTarget, dodge: 20 },
@@ -2457,7 +2486,7 @@ describe("resolveHeroSkill", () => {
       skipped: [],
     });
 
-    const missed = use("hero_skill:p169", { target: protectedTarget }, 10);
+    const missed = use("hero_skill:core:h09:p169", { target: protectedTarget }, 10);
     expect(missed).toMatchObject({
       outcome: "miss",
       printedAmount: null,
@@ -2472,7 +2501,7 @@ describe("resolveHeroSkill", () => {
     const life = monster("monster_medium:p001").life;
     expect(life).toBe(7);
     expect(
-      use("hero_skill:p169", { target: { ...protectedTarget, wounds: 0, life } }, 1),
+      use("hero_skill:core:h09:p169", { target: { ...protectedTarget, wounds: 0, life } }, 1),
     ).toMatchObject({
       outcome: "crit",
       damageDealt: 7,
@@ -2483,7 +2512,7 @@ describe("resolveHeroSkill", () => {
       targetStunMarkCleared: false,
     });
     expect(
-      use("hero_skill:p169", { target: { ...protectedTarget, wounds: 0, life } }, 9),
+      use("hero_skill:core:h09:p169", { target: { ...protectedTarget, wounds: 0, life } }, 9),
     ).toMatchObject({
       outcome: "hit",
       damageDealt: 4,
@@ -2496,7 +2525,7 @@ describe("resolveHeroSkill", () => {
 
     expect(
       use(
-        "hero_skill:p169",
+        "hero_skill:core:h09:p169",
         {
           actor: { id: "robber", wounds: 2, stress: 1 },
           target: { ...protectedTarget, wounds: 1, riposte: true },
@@ -2516,8 +2545,8 @@ describe("resolveHeroSkill", () => {
     });
   });
 
-  it("hero_skill:p170 与 p171 的无视防护在暴击时仍是印刷伤害", () => {
-    const second = card("hero_skill:p170");
+  it("hero_skill:core:h09:p170 与 p171 的无视防护在暴击时仍是印刷伤害", () => {
+    const second = card("hero_skill:core:h09:p170");
     expect(second.name).toBe("Pick to the Face");
     expect(second.level).toBe(2);
     expect(second.verification.unverified).toBe(false);
@@ -2530,7 +2559,7 @@ describe("resolveHeroSkill", () => {
         protection: true,
       },
     };
-    expect(use("hero_skill:p170", shielded, 10)).toMatchObject({
+    expect(use("hero_skill:core:h09:p170", shielded, 10)).toMatchObject({
       outcome: "hit",
       printedAmount: 6,
       damageDealt: 6,
@@ -2542,7 +2571,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p170",
+        "hero_skill:core:h09:p170",
         {
           actor: { id: "robber", wounds: 0, stress: 4 },
           target: { ...shielded.target, dodge: 8 },
@@ -2559,7 +2588,9 @@ describe("resolveHeroSkill", () => {
       actorStunMarkCleared: false,
       targetStunMarkCleared: false,
     });
-    expect(use("hero_skill:p170", { target: { ...shielded.target, dodge: 1 } }, 10)).toMatchObject({
+    expect(
+      use("hero_skill:core:h09:p170", { target: { ...shielded.target, dodge: 1 } }, 10),
+    ).toMatchObject({
       outcome: "miss",
       damageDealt: null,
       wounds: 1,
@@ -2568,12 +2599,12 @@ describe("resolveHeroSkill", () => {
       targetStunMarkCleared: false,
     });
 
-    const third = card("hero_skill:p171");
+    const third = card("hero_skill:core:h09:p171");
     expect(third.name).toBe("Pick to the Face");
     expect(third.level).toBe(3);
     expect(third.hero).toBe("GRAVE ROBBER");
     expect(third.verification.unverified).toBe(false);
-    expect(use("hero_skill:p171", shielded, 10)).toMatchObject({
+    expect(use("hero_skill:core:h09:p171", shielded, 10)).toMatchObject({
       outcome: "hit",
       printedAmount: 7,
       damageDealt: 7,
@@ -2583,7 +2614,7 @@ describe("resolveHeroSkill", () => {
       targetStunMarkCleared: false,
       skipped: [],
     });
-    expect(use("hero_skill:p171", shielded, 1)).toMatchObject({
+    expect(use("hero_skill:core:h09:p171", shielded, 1)).toMatchObject({
       outcome: "crit",
       printedAmount: 12,
       damageDealt: 12,
@@ -2592,7 +2623,9 @@ describe("resolveHeroSkill", () => {
       actorStunMarkCleared: false,
       targetStunMarkCleared: false,
     });
-    expect(use("hero_skill:p171", { target: { ...shielded.target, dodge: 2 } }, 10)).toMatchObject({
+    expect(
+      use("hero_skill:core:h09:p171", { target: { ...shielded.target, dodge: 2 } }, 10),
+    ).toMatchObject({
       outcome: "miss",
       printedAmount: null,
       wounds: 1,
@@ -2603,7 +2636,7 @@ describe("resolveHeroSkill", () => {
   });
 
   it("防护回合数是 null，或 Ignores 旁边的图标没命名时，不把这次攻击当成无视防护", () => {
-    const bulwark = card("hero_skill:p010");
+    const bulwark = card("hero_skill:core:h01:p010");
     expect(bulwark.name).toBe("Bulwark of Faith");
     expect(bulwark.level).toBe(1);
     expect(bulwark.hero).toBe("CRUSADER");
@@ -2619,7 +2652,7 @@ describe("resolveHeroSkill", () => {
     ).toEqual([null]);
     expect(
       use(
-        "hero_skill:p010",
+        "hero_skill:core:h01:p010",
         { target: { id: "soldier", side: "monster", wounds: 3, dodge: 0, protection: true } },
         5,
       ),
@@ -2635,7 +2668,7 @@ describe("resolveHeroSkill", () => {
       targetStunMarkCleared: false,
     });
 
-    const dirk = card("hero_skill:p106");
+    const dirk = card("hero_skill:core:h06:p106");
     expect(dirk.name).toBe("Dirk Stab");
     expect(dirk.level).toBe(1);
     expect(dirk.hero).toBe("JESTER");
@@ -2647,7 +2680,7 @@ describe("resolveHeroSkill", () => {
     ).toEqual(["guard"]);
     expect(
       use(
-        "hero_skill:p106",
+        "hero_skill:core:h06:p106",
         {
           actor: { id: "jester", wounds: 0, stress: 2 },
           target: { id: "soldier", side: "monster", wounds: 4, dodge: 0 },
@@ -2665,8 +2698,8 @@ describe("resolveHeroSkill", () => {
     });
   });
 
-  it("hero_skill:p220 Transform to Beast I 不掷骰，只记下换成兽形", () => {
-    const skill = card("hero_skill:p220");
+  it("hero_skill:core:h11:p220 Transform to Beast I 不掷骰，只记下换成兽形", () => {
+    const skill = card("hero_skill:core:h11:p220");
     expect(skill.name).toBe("Transform to Beast");
     expect(skill.level).toBe(1);
     expect(skill.hero).toBeNull();
@@ -2710,9 +2743,9 @@ describe("resolveHeroSkill", () => {
       target: { id: "vestal", side: "hero", wounds: 4, dodge: 0, stress: 4 },
     };
     const frozen = structuredClone(combat);
-    const changed = use("hero_skill:p220", combat, 1);
+    const changed = use("hero_skill:core:h11:p220", combat, 1);
     expect(changed).toEqual({
-      skillId: "hero_skill:p220",
+      skillId: "hero_skill:core:h11:p220",
       targetId: "vestal",
       status: "resolved",
       reason: null,
@@ -2741,8 +2774,8 @@ describe("resolveHeroSkill", () => {
       skipped: [{ code: "effect_lines" }],
     });
     expect(combat).toEqual(frozen);
-    expect(use("hero_skill:p220", combat, 10)).toEqual(changed);
-    expect(use("hero_skill:p220", target("hero", 4, 0), 1)).toMatchObject({
+    expect(use("hero_skill:core:h11:p220", combat, 10)).toEqual(changed);
+    expect(use("hero_skill:core:h11:p220", target("hero", 4, 0), 1)).toMatchObject({
       status: "refused",
       reason: "自身效果要切换形态，但没有使用者（规则书第 38 页）",
       wounds: 4,
@@ -2754,8 +2787,8 @@ describe("resolveHeroSkill", () => {
     });
   });
 
-  it("hero_skill:p221 与 p222 保留源数字，拒绝缺形态/队友与错误目标的旧上下文", () => {
-    const second = card("hero_skill:p221");
+  it("hero_skill:core:h11:p221 与 p222 保留源数字，拒绝缺形态/队友与错误目标的旧上下文", () => {
+    const second = card("hero_skill:core:h11:p221");
     expect(second.name).toBe("Transform to Beast");
     expect(second.level).toBe(2);
     expect(second.verification.unverified).toBe(false);
@@ -2775,7 +2808,7 @@ describe("resolveHeroSkill", () => {
     ).toEqual([null]);
     expect(
       use(
-        "hero_skill:p221",
+        "hero_skill:core:h11:p221",
         {
           actor: { id: "abomination", wounds: 6, stress: 1 },
           target: { id: "vestal", side: "hero", wounds: 2, dodge: 0, stress: 8 },
@@ -2784,7 +2817,7 @@ describe("resolveHeroSkill", () => {
       ),
     ).toMatchObject({ status: "refused" });
 
-    const third = card("hero_skill:p222");
+    const third = card("hero_skill:core:h11:p222");
     expect(third.name).toBe("Transform to Beast");
     expect(third.level).toBe(3);
     expect(third.verification.unverified).toBe(false);
@@ -2797,7 +2830,7 @@ describe("resolveHeroSkill", () => {
     ).toEqual([8]);
     expect(
       use(
-        "hero_skill:p222",
+        "hero_skill:core:h11:p222",
         {
           actor: { id: "abomination", wounds: 3, stress: 7 },
           target: { id: "vestal", side: "hero", wounds: 1, dodge: 9, stress: 0 },
@@ -2807,8 +2840,8 @@ describe("resolveHeroSkill", () => {
     ).toMatchObject({ status: "refused" });
   });
 
-  it("hero_skill:p220 背面 Transform to Human 不掷骰，只记下换成人形", () => {
-    const skill = card("hero_skill:p220");
+  it("hero_skill:core:h11:p220 背面 Transform to Human 不掷骰，只记下换成人形", () => {
+    const skill = card("hero_skill:core:h11:p220");
     expect(skill.name).toBe("Transform to Beast");
     expect(skill.level).toBe(1);
     expect(skill.verification.unverified).toBe(false);
@@ -2878,9 +2911,9 @@ describe("resolveHeroSkill", () => {
       target: { id: "vestal", side: "hero", wounds: 4, dodge: 0, stress: 4 },
     };
     const frozen = structuredClone(combat);
-    const changed = use("hero_skill:p220", combat, 1);
+    const changed = use("hero_skill:core:h11:p220", combat, 1);
     expect(changed).toEqual({
-      skillId: "hero_skill:p220",
+      skillId: "hero_skill:core:h11:p220",
       targetId: "vestal",
       status: "resolved",
       reason: null,
@@ -2909,10 +2942,10 @@ describe("resolveHeroSkill", () => {
       skipped: [{ code: "effect_lines" }],
     });
     expect(combat).toEqual(frozen);
-    expect(use("hero_skill:p220", combat, 10)).toEqual(changed);
+    expect(use("hero_skill:core:h11:p220", combat, 10)).toEqual(changed);
     expect(
       use(
-        "hero_skill:p220",
+        "hero_skill:core:h11:p220",
         {
           ...combat,
           actor: { id: "abomination", wounds: 5, stress: 3, stance: "ranged" },
@@ -2921,7 +2954,7 @@ describe("resolveHeroSkill", () => {
       ),
     ).toEqual(changed);
 
-    const second = card("hero_skill:p221");
+    const second = card("hero_skill:core:h11:p221");
     expect(second.back_face_skill?.name).toBe("Transform to Human");
     expect(second.back_face_skill?.level).toBe(2);
     expect(
@@ -2933,7 +2966,7 @@ describe("resolveHeroSkill", () => {
     ).toEqual([6]);
     expect(
       use(
-        "hero_skill:p221",
+        "hero_skill:core:h11:p221",
         {
           face: "back",
           actor: { id: "abomination", wounds: 6, stress: 1, form: "beast" },
@@ -2943,7 +2976,7 @@ describe("resolveHeroSkill", () => {
       ),
     ).toMatchObject({ status: "refused" });
 
-    const third = card("hero_skill:p222");
+    const third = card("hero_skill:core:h11:p222");
     expect(third.back_face_skill?.name).toBe("Transform to Human");
     expect(third.back_face_skill?.level).toBe(3);
     expect(
@@ -2955,7 +2988,7 @@ describe("resolveHeroSkill", () => {
     ).toEqual([8]);
     expect(
       use(
-        "hero_skill:p222",
+        "hero_skill:core:h11:p222",
         {
           face: "back",
           actor: { id: "abomination", wounds: 3, stress: 7, form: "beast", stance: "support" },
@@ -2967,7 +3000,7 @@ describe("resolveHeroSkill", () => {
 
     expect(
       use(
-        "hero_skill:p220",
+        "hero_skill:core:h11:p220",
         {
           face: "front",
           actor: { id: "abomination", wounds: 5, stress: 3, form: "beast", stance: "aggressive" },
@@ -2988,7 +3021,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p220",
+        "hero_skill:core:h11:p220",
         {
           actor: { id: "abomination", wounds: 5, stress: 3, stance: "ranged" },
           target: { id: "vestal", side: "hero", wounds: 4, dodge: 0, stress: 4 },
@@ -3007,7 +3040,7 @@ describe("resolveHeroSkill", () => {
 
   it("背面的压力 -1、减益回合和正面治疗整数都不生效；没有这句文字的底板不限定形态", () => {
     const humanOnly = use(
-      "hero_skill:p220",
+      "hero_skill:core:h11:p220",
       {
         face: "back",
         actor: { id: "abomination", wounds: 5, stress: 3, form: "human", stance: "aggressive" },
@@ -3031,7 +3064,7 @@ describe("resolveHeroSkill", () => {
 
     expect(
       use(
-        "hero_skill:p220",
+        "hero_skill:core:h11:p220",
         {
           face: "back",
           actor: { id: "abomination", wounds: 5, stress: 3, form: "beast" },
@@ -3052,7 +3085,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p220",
+        "hero_skill:core:h11:p220",
         {
           face: "back",
           actor: { id: "abomination", wounds: 5, stress: 3, form: "beast" },
@@ -3072,7 +3105,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p220",
+        "hero_skill:core:h11:p220",
         { face: "back", target: { id: "vestal", side: "hero", wounds: 4, dodge: 0 } },
         1,
       ),
@@ -3086,7 +3119,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p001",
+        "hero_skill:core:h01:p001",
         {
           face: "back",
           actor: { id: "crusader", wounds: 0, form: "beast" },
@@ -3105,7 +3138,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p220",
+        "hero_skill:core:h11:p220",
         {
           face: "side" as "back",
           actor: { id: "abomination", wounds: 5, stress: 3, form: "beast" },
@@ -3125,7 +3158,7 @@ describe("resolveHeroSkill", () => {
 
     // 文字底板的词典说明同时写了两种形态。卡面没有「Human Form Only」这句时，
     // 传入人形也不拦 Beast’s Bile；没有「Beast Form Only」时，兽形也不拦 Manacles。
-    const bile = card("hero_skill:p214");
+    const bile = card("hero_skill:core:h11:p214");
     expect(bile.name).toBe("Beast’s Bile");
     expect(bile.level).toBe(1);
     expect(bile.hero).toBe("ABOMINATION");
@@ -3138,7 +3171,7 @@ describe("resolveHeroSkill", () => {
     ).toBe(false);
     expect(
       use(
-        "hero_skill:p214",
+        "hero_skill:core:h11:p214",
         {
           actor: { id: "abomination", wounds: 2, stress: 1, form: "human", stance: "defensive" },
           target: { id: "soldier", side: "monster", wounds: 0, dodge: 0 },
@@ -3158,7 +3191,7 @@ describe("resolveHeroSkill", () => {
       actorBlightCleared: false,
     });
 
-    const manacles = card("hero_skill:p211");
+    const manacles = card("hero_skill:core:h11:p211");
     expect(manacles.top_row_icons?.some((icon) => icon.key === "text_plate")).toBe(true);
     expect(
       manacles.effect_lines.some((line) =>
@@ -3167,7 +3200,7 @@ describe("resolveHeroSkill", () => {
     ).toBe(false);
     expect(
       use(
-        "hero_skill:p211",
+        "hero_skill:core:h11:p211",
         {
           actor: { id: "abomination", wounds: 1, stress: 3, form: "beast", stance: "defensive" },
           target: { id: "soldier", side: "monster", wounds: 0, dodge: 0 },
@@ -3187,8 +3220,8 @@ describe("resolveHeroSkill", () => {
     });
   });
 
-  it("hero_skill:p031 If It Bleeds I 的流血面值是整数，但 2t 为 null，不放流血堆", () => {
-    const skill = card("hero_skill:p031");
+  it("hero_skill:core:h02:p031 If It Bleeds I 的流血面值是整数，但 2t 为 null，不放流血堆", () => {
+    const skill = card("hero_skill:core:h02:p031");
     expect(skill.name).toBe("If It Bleeds");
     expect(skill.level).toBe(1);
     expect(skill.hero).toBe("HELLION");
@@ -3216,7 +3249,7 @@ describe("resolveHeroSkill", () => {
     ).toEqual([null]);
     expect(
       use(
-        "hero_skill:p031",
+        "hero_skill:core:h02:p031",
         {
           actor: { id: "hellion", wounds: 1, stress: 4 },
           target: { id: "soldier", side: "monster", wounds: 0, dodge: 0 },
@@ -3240,7 +3273,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p031",
+        "hero_skill:core:h02:p031",
         { target: { id: "soldier", side: "monster", wounds: 0, dodge: 0 } },
         10,
       ),
@@ -3256,8 +3289,8 @@ describe("resolveHeroSkill", () => {
     });
   });
 
-  it("hero_skill:p217 Absolution I 的目标是 Self：治疗自己，并先减 1 点压力", () => {
-    const skill = card("hero_skill:p217");
+  it("hero_skill:core:h11:p217 Absolution I 的目标是 Self：治疗自己，并先减 1 点压力", () => {
+    const skill = card("hero_skill:core:h11:p217");
     expect(skill.name).toBe("Absolution");
     expect(skill.level).toBe(1);
     expect(skill.hero).toBe("ABOMINATION");
@@ -3312,8 +3345,8 @@ describe("resolveHeroSkill", () => {
     };
     const frozen = structuredClone(self);
 
-    expect(use("hero_skill:p217", self, 5)).toEqual({
-      skillId: "hero_skill:p217",
+    expect(use("hero_skill:core:h11:p217", self, 5)).toEqual({
+      skillId: "hero_skill:core:h11:p217",
       targetId: "abomination",
       status: "resolved",
       reason: null,
@@ -3343,7 +3376,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(self).toEqual(frozen);
 
-    expect(use("hero_skill:p217", self, 1)).toMatchObject({
+    expect(use("hero_skill:core:h11:p217", self, 1)).toMatchObject({
       outcome: "crit",
       effect: "heal",
       printedAmount: 4,
@@ -3358,7 +3391,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p217",
+        "hero_skill:core:h11:p217",
         {
           actor: { id: "abomination", wounds: 1, stress: 0 },
           target: { id: "abomination", side: "hero", wounds: 1, dodge: 20, stress: 0 },
@@ -3375,7 +3408,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p217",
+        "hero_skill:core:h11:p217",
         {
           actor: { id: "abomination", wounds: 5, stress: 4 },
           target: { id: "abomination", side: "hero", wounds: 5, dodge: 20, stress: 4 },
@@ -3394,7 +3427,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p217",
+        "hero_skill:core:h11:p217",
         {
           actor: { id: "abomination", wounds: 5, stress: 4 },
           target: { id: "abomination", side: "monster", wounds: 5, dodge: 0 },
@@ -3410,7 +3443,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p217",
+        "hero_skill:core:h11:p217",
         {
           actor: { id: "abomination", wounds: 5, stress: 4 },
           target: { id: "abomination", side: "hero", wounds: 2, dodge: 0, stress: 4 },
@@ -3427,8 +3460,8 @@ describe("resolveHeroSkill", () => {
     });
   });
 
-  it("hero_skill:p218 与 p219 的自身治疗按 Crit / Acc 旁边的整数，不解释组合标记", () => {
-    const second = card("hero_skill:p218");
+  it("hero_skill:core:h11:p218 与 p219 的自身治疗按 Crit / Acc 旁边的整数，不解释组合标记", () => {
+    const second = card("hero_skill:core:h11:p218");
     expect(second.name).toBe("Absolution");
     expect(second.level).toBe(2);
     expect(second.hero).toBe("ABOMINATION");
@@ -3444,7 +3477,7 @@ describe("resolveHeroSkill", () => {
     ).toEqual([6, 3]);
     expect(
       use(
-        "hero_skill:p218",
+        "hero_skill:core:h11:p218",
         {
           actor: { form: "human", id: "abomination", wounds: 7, stress: 6 },
           target: { id: "abomination", side: "hero", wounds: 7, dodge: 0, stress: 6 },
@@ -3464,7 +3497,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p218",
+        "hero_skill:core:h11:p218",
         {
           actor: { form: "human", id: "abomination", wounds: 7, stress: 6 },
           target: { id: "abomination", side: "hero", wounds: 7, dodge: 20, stress: 6 },
@@ -3481,7 +3514,7 @@ describe("resolveHeroSkill", () => {
       skipped: [{ code: "damage_or_heal_combined_marker" }],
     });
 
-    const third = card("hero_skill:p219");
+    const third = card("hero_skill:core:h11:p219");
     expect(third.name).toBe("Absolution");
     expect(third.level).toBe(3);
     expect(third.verification.unverified).toBe(false);
@@ -3496,7 +3529,7 @@ describe("resolveHeroSkill", () => {
     ).toEqual([8, 4]);
     expect(
       use(
-        "hero_skill:p219",
+        "hero_skill:core:h11:p219",
         {
           actor: { form: "human", id: "abomination", wounds: 9, stress: 1 },
           target: { id: "abomination", side: "hero", wounds: 9, dodge: 0, stress: 1 },
@@ -3514,7 +3547,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p219",
+        "hero_skill:core:h11:p219",
         {
           actor: { form: "human", id: "abomination", wounds: 3, stress: 10 },
           target: { id: "abomination", side: "hero", wounds: 3, dodge: 20, stress: 10 },
@@ -3531,7 +3564,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p219",
+        "hero_skill:core:h11:p219",
         {
           actor: { form: "human", id: "abomination", wounds: 3, stress: 10 },
           target: { id: "abomination", side: "hero", wounds: 3, dodge: 20, stress: 10 },
@@ -3548,8 +3581,8 @@ describe("resolveHeroSkill", () => {
     });
   });
 
-  it("hero_skill:p154 Sniper’s Mark I 的标记回合 2t 为 null，不放标记", () => {
-    const skill = card("hero_skill:p154");
+  it("hero_skill:core:h08:p154 Sniper’s Mark I 的标记回合 2t 为 null，不放标记", () => {
+    const skill = card("hero_skill:core:h08:p154");
     expect(skill.name).toBe("Sniper’s Mark");
     expect(skill.level).toBe(1);
     expect(skill.hero).toBe("ARBALEST");
@@ -3582,7 +3615,7 @@ describe("resolveHeroSkill", () => {
     ]);
     expect(
       use(
-        "hero_skill:p154",
+        "hero_skill:core:h08:p154",
         {
           actor: { id: "arbalest", wounds: 0, stress: 2 },
           target: { id: "soldier", side: "monster", wounds: 4, dodge: 0 },
@@ -3604,8 +3637,8 @@ describe("resolveHeroSkill", () => {
     });
   });
 
-  it("hero_skill:p103 Hand of Light I 只在点亮的防御或进攻姿态下造成伤害", () => {
-    const skill = card("hero_skill:p103");
+  it("hero_skill:core:h05:p103 Hand of Light I 只在点亮的防御或进攻姿态下造成伤害", () => {
+    const skill = card("hero_skill:core:h05:p103");
     expect(skill.name).toBe("Hand of Light");
     expect(skill.level).toBe(1);
     expect(skill.hero).toBe("VESTAL");
@@ -3625,7 +3658,7 @@ describe("resolveHeroSkill", () => {
     const soldier = { id: "soldier", side: "monster" as const, wounds: 0, dodge: 0 };
     expect(
       use(
-        "hero_skill:p103",
+        "hero_skill:core:h05:p103",
         { actor: { id: "vestal", wounds: 2, stance: "aggressive" }, target: soldier },
         1,
       ),
@@ -3641,7 +3674,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p103",
+        "hero_skill:core:h05:p103",
         {
           actor: { id: "vestal", wounds: 2, stance: "defensive" },
           target: { ...soldier, dodge: 20 },
@@ -3658,7 +3691,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p103",
+        "hero_skill:core:h05:p103",
         { actor: { id: "vestal", wounds: 2, stance: "aggressive" }, target: soldier },
         9,
       ),
@@ -3670,7 +3703,7 @@ describe("resolveHeroSkill", () => {
       wounds: 3,
       actorWounds: 2,
     });
-    expect(use("hero_skill:p103", { target: soldier }, 9)).toMatchObject({
+    expect(use("hero_skill:core:h05:p103", { target: soldier }, 9)).toMatchObject({
       status: "resolved",
       outcome: "hit",
       printedAmount: 3,
@@ -3681,7 +3714,7 @@ describe("resolveHeroSkill", () => {
 
     expect(
       use(
-        "hero_skill:p103",
+        "hero_skill:core:h05:p103",
         { actor: { id: "vestal", wounds: 2, stance: "support" }, target: soldier },
         1,
       ),
@@ -3696,7 +3729,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p103",
+        "hero_skill:core:h05:p103",
         { actor: { id: "vestal", wounds: 2, stance: "ranged" }, target: { ...soldier, wounds: 4 } },
         1,
       ),
@@ -3708,7 +3741,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p103",
+        "hero_skill:core:h05:p103",
         {
           actor: {
             id: "vestal",
@@ -3727,8 +3760,8 @@ describe("resolveHeroSkill", () => {
     });
   });
 
-  it("hero_skill:p025 只有进攻可用，p013 四格都点亮，p122 未点亮时不改压力", () => {
-    const swan = card("hero_skill:p025");
+  it("hero_skill:core:h02:p025 只有进攻可用，p013 四格都点亮，p122 未点亮时不改压力", () => {
+    const swan = card("hero_skill:core:h02:p025");
     expect(swan.name).toBe("Iron Swan");
     expect(swan.level).toBe(1);
     expect(swan.hero).toBe("HELLION");
@@ -3743,7 +3776,7 @@ describe("resolveHeroSkill", () => {
     const soldier = { id: "soldier", side: "monster" as const, wounds: 0, dodge: 0 };
     expect(
       use(
-        "hero_skill:p025",
+        "hero_skill:core:h02:p025",
         {
           actor: { id: "hellion", wounds: 1, stance: "aggressive" },
           target: { ...soldier, dodge: 20 },
@@ -3762,7 +3795,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p025",
+        "hero_skill:core:h02:p025",
         { actor: { id: "hellion", wounds: 1, stance: "aggressive" }, target: soldier },
         9,
       ),
@@ -3775,7 +3808,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p025",
+        "hero_skill:core:h02:p025",
         { actor: { id: "hellion", wounds: 1, stance: "defensive" }, target: soldier },
         9,
       ),
@@ -3787,7 +3820,7 @@ describe("resolveHeroSkill", () => {
       damageDealt: null,
     });
 
-    const heal = card("hero_skill:p013");
+    const heal = card("hero_skill:core:h01:p013");
     expect(heal.name).toBe("Battle Heal");
     expect(heal.top_row_icons?.map((icon) => icon.key)).toEqual([
       "stance_support_lit",
@@ -3797,7 +3830,7 @@ describe("resolveHeroSkill", () => {
     ]);
     expect(
       use(
-        "hero_skill:p013",
+        "hero_skill:core:h01:p013",
         {
           actor: { id: "crusader", wounds: 1, stance: "support" },
           target: { id: "vestal", side: "hero", wounds: 5, dodge: 0 },
@@ -3813,7 +3846,7 @@ describe("resolveHeroSkill", () => {
       actorWounds: 1,
     });
 
-    const tune = card("hero_skill:p122");
+    const tune = card("hero_skill:core:h06:p122");
     expect(tune.name).toBe("Inspiring Tune");
     expect(tune.level).toBe(2);
     expect(tune.top_row_icons?.map((icon) => icon.key)).toEqual([
@@ -3826,7 +3859,7 @@ describe("resolveHeroSkill", () => {
       actor: { id: "jester", wounds: 0, stress: 4, stance: "aggressive" as const },
       target: { id: "vestal", side: "hero" as const, wounds: 2, dodge: 0, stress: 4 },
     };
-    expect(use("hero_skill:p122", beside, 1)).toMatchObject({
+    expect(use("hero_skill:core:h06:p122", beside, 1)).toMatchObject({
       status: "refused",
       reason: "当前姿态没有点亮，不能使用这张技能（规则书第 19 页）",
       wounds: 2,
@@ -3835,7 +3868,11 @@ describe("resolveHeroSkill", () => {
       targetStress: 4,
     });
     expect(
-      use("hero_skill:p122", { ...beside, actor: { ...beside.actor, stance: "support" } }, 10),
+      use(
+        "hero_skill:core:h06:p122",
+        { ...beside, actor: { ...beside.actor, stance: "support" } },
+        10,
+      ),
     ).toMatchObject({
       status: "resolved",
       outcome: "hit",
@@ -3846,8 +3883,8 @@ describe("resolveHeroSkill", () => {
     });
   });
 
-  it("hero_skill:p211 的远程格没有点亮标记，p223 的文字底板不改伤害", () => {
-    const manacles = card("hero_skill:p211");
+  it("hero_skill:core:h11:p211 的远程格没有点亮标记，p223 的文字底板不改伤害", () => {
+    const manacles = card("hero_skill:core:h11:p211");
     expect(manacles.name).toBe("Manacles");
     expect(manacles.level).toBe(1);
     expect(manacles.hero).toBe("ABOMINATION");
@@ -3872,7 +3909,7 @@ describe("resolveHeroSkill", () => {
     const soldier = { id: "soldier", side: "monster" as const, wounds: 0, dodge: 0 };
     expect(
       use(
-        "hero_skill:p211",
+        "hero_skill:core:h11:p211",
         {
           actor: { id: "abomination", wounds: 1, stress: 3, stance: "defensive" },
           target: soldier,
@@ -3895,7 +3932,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p211",
+        "hero_skill:core:h11:p211",
         { actor: { id: "abomination", wounds: 1, stress: 3, stance: "ranged" }, target: soldier },
         1,
       ),
@@ -3913,7 +3950,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p211",
+        "hero_skill:core:h11:p211",
         { actor: { id: "abomination", wounds: 1, stress: 3, stance: "support" }, target: soldier },
         1,
       ),
@@ -3925,7 +3962,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p211",
+        "hero_skill:core:h11:p211",
         {
           actor: { id: "abomination", wounds: 1, stress: 3, stance: "aggressive" },
           target: soldier,
@@ -3939,7 +3976,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 3,
     });
 
-    const rake = card("hero_skill:p223");
+    const rake = card("hero_skill:core:h11:p223");
     expect(rake.name).toBe("Rake");
     expect(rake.level).toBe(1);
     expect(rake.hero).toBe("ABOMINATION");
@@ -3960,7 +3997,7 @@ describe("resolveHeroSkill", () => {
     ).toEqual([null]);
     expect(
       use(
-        "hero_skill:p223",
+        "hero_skill:core:h11:p223",
         {
           actor: { id: "abomination", wounds: 2, stress: 4, stance: "aggressive" },
           target: soldier,
@@ -3983,7 +4020,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p223",
+        "hero_skill:core:h11:p223",
         { actor: { id: "abomination", wounds: 2, stress: 4, stance: "support" }, target: soldier },
         5,
       ),
@@ -4000,7 +4037,7 @@ describe("resolveHeroSkill", () => {
   });
 
   it("射程 0、1、2 必须恰好等于卡面那个整数，对不上就不结算", () => {
-    const smite = card("hero_skill:p001");
+    const smite = card("hero_skill:core:h01:p001");
     expect(smite.name).toBe("Smite");
     expect(smite.level).toBe(1);
     expect(
@@ -4011,7 +4048,7 @@ describe("resolveHeroSkill", () => {
         .map((item) => item.numeric),
     ).toEqual([0]);
     const soldier = { id: "soldier", side: "monster" as const, wounds: 0, dodge: 0 };
-    expect(use("hero_skill:p001", { target: soldier, areaDistance: 0 }, 1)).toMatchObject({
+    expect(use("hero_skill:core:h01:p001", { target: soldier, areaDistance: 0 }, 1)).toMatchObject({
       status: "resolved",
       outcome: "hit",
       effect: "damage",
@@ -4020,14 +4057,14 @@ describe("resolveHeroSkill", () => {
       wounds: 7,
       skipped: [{ code: "effect_lines" }],
     });
-    expect(use("hero_skill:p001", { target: soldier }, 1)).toMatchObject({
+    expect(use("hero_skill:core:h01:p001", { target: soldier }, 1)).toMatchObject({
       status: "resolved",
       outcome: "hit",
       printedAmount: 7,
       damageDealt: 7,
       wounds: 7,
     });
-    expect(use("hero_skill:p001", { target: soldier, areaDistance: 1 }, 1)).toMatchObject({
+    expect(use("hero_skill:core:h01:p001", { target: soldier, areaDistance: 1 }, 1)).toMatchObject({
       status: "refused",
       reason: "目标区域与使用者的距离不是卡面印的射程（规则书第 19 页）",
       outcome: null,
@@ -4038,7 +4075,7 @@ describe("resolveHeroSkill", () => {
       actorWounds: null,
     });
 
-    const bleeds = card("hero_skill:p031");
+    const bleeds = card("hero_skill:core:h02:p031");
     expect(bleeds.name).toBe("If It Bleeds");
     expect(
       bleeds.unlabeled_numbers
@@ -4056,7 +4093,7 @@ describe("resolveHeroSkill", () => {
     ).toEqual([null]);
     expect(
       use(
-        "hero_skill:p031",
+        "hero_skill:core:h02:p031",
         {
           actor: { id: "hellion", wounds: 1, stress: 4 },
           target: soldier,
@@ -4078,7 +4115,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p031",
+        "hero_skill:core:h02:p031",
         {
           actor: { id: "hellion", wounds: 1, stress: 4 },
           target: { ...soldier, wounds: 2 },
@@ -4096,7 +4133,7 @@ describe("resolveHeroSkill", () => {
       targetBleedCleared: false,
     });
 
-    const swan = card("hero_skill:p025");
+    const swan = card("hero_skill:core:h02:p025");
     expect(swan.name).toBe("Iron Swan");
     expect(swan.level).toBe(1);
     expect(
@@ -4108,7 +4145,7 @@ describe("resolveHeroSkill", () => {
     ).toEqual([2]);
     expect(
       use(
-        "hero_skill:p025",
+        "hero_skill:core:h02:p025",
         {
           actor: { id: "hellion", wounds: 1, stance: "aggressive" },
           target: soldier,
@@ -4127,7 +4164,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p025",
+        "hero_skill:core:h02:p025",
         {
           actor: { id: "hellion", wounds: 1, stance: "aggressive" },
           target: soldier,
@@ -4144,7 +4181,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p025",
+        "hero_skill:core:h02:p025",
         {
           actor: { id: "hellion", wounds: 1, stance: "defensive" },
           target: soldier,
@@ -4158,16 +4195,18 @@ describe("resolveHeroSkill", () => {
       wounds: 0,
       actorWounds: 1,
     });
-    expect(use("hero_skill:p001", { target: soldier, areaDistance: -1 }, 1)).toMatchObject({
-      status: "refused",
-      reason: "区域距离必须是非负整数",
-      wounds: 0,
-      damageDealt: null,
-    });
+    expect(use("hero_skill:core:h01:p001", { target: soldier, areaDistance: -1 }, 1)).toMatchObject(
+      {
+        status: "refused",
+        reason: "区域距离必须是非负整数",
+        wounds: 0,
+        damageDealt: null,
+      },
+    );
   });
 
-  it("hero_skill:p070 Point Blank Shot I 距离不是 0 时，自身和目标的 Push 1 都不发生", () => {
-    const skill = card("hero_skill:p070");
+  it("hero_skill:core:h04:p070 Point Blank Shot I 距离不是 0 时，自身和目标的 Push 1 都不发生", () => {
+    const skill = card("hero_skill:core:h04:p070");
     expect(skill.name).toBe("Point Blank Shot");
     expect(skill.level).toBe(1);
     expect(skill.hero).toBe("HIGHWAYMAN");
@@ -4184,7 +4223,7 @@ describe("resolveHeroSkill", () => {
       target: { id: "soldier", side: "monster", wounds: 0, dodge: 0 },
       areaDistance: 0,
     };
-    expect(use("hero_skill:p070", combat, 10)).toMatchObject({
+    expect(use("hero_skill:core:h04:p070", combat, 10)).toMatchObject({
       status: "resolved",
       outcome: "hit",
       effect: "damage",
@@ -4196,7 +4235,7 @@ describe("resolveHeroSkill", () => {
       actorShuffle: { direction: "push", distance: 1 },
       targetShuffle: { direction: "push", distance: 1 },
     });
-    expect(use("hero_skill:p070", { ...combat, areaDistance: 1 }, 10)).toMatchObject({
+    expect(use("hero_skill:core:h04:p070", { ...combat, areaDistance: 1 }, 10)).toMatchObject({
       status: "refused",
       reason: "目标区域与使用者的距离不是卡面印的射程（规则书第 19 页）",
       outcome: null,
@@ -4211,7 +4250,7 @@ describe("resolveHeroSkill", () => {
   });
 
   it("区间、Self 和 All Allies 没有单个射程整数，传入距离就整次拒绝", () => {
-    const heal = card("hero_skill:p013");
+    const heal = card("hero_skill:core:h01:p013");
     expect(heal.name).toBe("Battle Heal");
     expect(heal.level).toBe(1);
     expect(heal.verification.unverified).toBe(false);
@@ -4224,7 +4263,7 @@ describe("resolveHeroSkill", () => {
     ).toEqual([["0-1", null]]);
     const ally = { id: "vestal", side: "hero" as const, wounds: 5, dodge: 0 };
     for (const areaDistance of [0, 1]) {
-      expect(use("hero_skill:p013", { target: ally, areaDistance }, 10)).toMatchObject({
+      expect(use("hero_skill:core:h01:p013", { target: ally, areaDistance }, 10)).toMatchObject({
         status: "refused",
         reason:
           "射程印成区间，旁边数字的 numeric 为 null，不能核对不同距离（规则书第 19 页，R-048）",
@@ -4236,7 +4275,7 @@ describe("resolveHeroSkill", () => {
       });
     }
 
-    const absolution = card("hero_skill:p217");
+    const absolution = card("hero_skill:core:h11:p217");
     expect(absolution.name).toBe("Absolution");
     expect(
       absolution.unlabeled_numbers.filter(
@@ -4254,7 +4293,7 @@ describe("resolveHeroSkill", () => {
       },
       areaDistance: 0,
     };
-    expect(use("hero_skill:p217", self, 5)).toMatchObject({
+    expect(use("hero_skill:core:h11:p217", self, 5)).toMatchObject({
       status: "refused",
       reason:
         "卡面没有恰好一个射程整数，不能把 Self 或 All Allies 当成距离 0（规则书第 19 页，R-048）",
@@ -4270,7 +4309,7 @@ describe("resolveHeroSkill", () => {
       actorBlightCleared: false,
     });
 
-    const transform = card("hero_skill:p220");
+    const transform = card("hero_skill:core:h11:p220");
     expect(transform.name).toBe("Transform to Beast");
     expect(transform.level).toBe(1);
     expect(transform.verification.unverified).toBe(false);
@@ -4281,7 +4320,7 @@ describe("resolveHeroSkill", () => {
     ).toEqual(["All Allies"]);
     expect(
       use(
-        "hero_skill:p220",
+        "hero_skill:core:h11:p220",
         {
           actor: { id: "abomination", wounds: 2, stress: 3 },
           target: { id: "vestal", side: "hero", wounds: 2, dodge: 0, stress: 1 },
@@ -4301,7 +4340,7 @@ describe("resolveHeroSkill", () => {
       actorBlightCleared: false,
     });
 
-    const mark = card("hero_skill:p154");
+    const mark = card("hero_skill:core:h08:p154");
     expect(mark.name).toBe("Sniper’s Mark");
     expect(mark.level).toBe(1);
     expect(mark.verification.unverified).toBe(false);
@@ -4314,7 +4353,7 @@ describe("resolveHeroSkill", () => {
     ).toEqual([["1-2", null]]);
     expect(
       use(
-        "hero_skill:p154",
+        "hero_skill:core:h08:p154",
         {
           actor: { id: "arbalest", wounds: 0, stress: 2 },
           target: { id: "soldier", side: "monster", wounds: 3, dodge: 0 },
@@ -4333,7 +4372,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 2,
     });
 
-    const light = card("hero_skill:p103");
+    const light = card("hero_skill:core:h05:p103");
     expect(light.name).toBe("Hand of Light");
     expect(
       light.unlabeled_numbers
@@ -4344,7 +4383,7 @@ describe("resolveHeroSkill", () => {
     ).toEqual([1]);
     expect(
       use(
-        "hero_skill:p103",
+        "hero_skill:core:h05:p103",
         {
           actor: { id: "vestal", wounds: 2, stance: "aggressive" },
           target: { id: "soldier", side: "monster", wounds: 0, dodge: 0 },
@@ -4364,7 +4403,7 @@ describe("resolveHeroSkill", () => {
     // 高地可选射程 +1（规则书第 25 页，R-022）不加：印的是 1，距离 2 仍整次拒绝。
     expect(
       use(
-        "hero_skill:p103",
+        "hero_skill:core:h05:p103",
         {
           actor: { id: "vestal", wounds: 2, stance: "aggressive" },
           target: { id: "soldier", side: "monster", wounds: 0, dodge: 0 },
@@ -4383,14 +4422,14 @@ describe("resolveHeroSkill", () => {
   });
 
   it("一个区域内最多选 stats 行上那么多个已命名目标，少选可以，多选整次拒绝", () => {
-    const smite = card("hero_skill:p001");
+    const smite = card("hero_skill:core:h01:p001");
     expect(smite.name).toBe("Smite");
     expect(smite.level).toBe(1);
     expect(smite.verification.unverified).toBe(false);
     expect(namedTargetIconCount(smite)).toBe(1);
     const soldier = { id: "soldier", side: "monster" as const, wounds: 0, dodge: 0 };
     expect(
-      use("hero_skill:p001", { target: soldier, areaDistance: 0, targetsInArea: 1 }, 1),
+      use("hero_skill:core:h01:p001", { target: soldier, areaDistance: 0, targetsInArea: 1 }, 1),
     ).toMatchObject({
       status: "resolved",
       outcome: "hit",
@@ -4401,7 +4440,7 @@ describe("resolveHeroSkill", () => {
       skipped: [{ code: "effect_lines" }],
     });
     expect(
-      use("hero_skill:p001", { target: soldier, areaDistance: 0, targetsInArea: 2 }, 1),
+      use("hero_skill:core:h01:p001", { target: soldier, areaDistance: 0, targetsInArea: 2 }, 1),
     ).toMatchObject({
       status: "refused",
       reason: "一个区域内选中的目标个数必须是 1 到卡面目标图标的个数（规则书第 19 页）",
@@ -4411,20 +4450,24 @@ describe("resolveHeroSkill", () => {
       damageDealt: null,
       wounds: 0,
     });
-    expect(use("hero_skill:p001", { target: soldier, targetsInArea: 1.5 }, 1)).toMatchObject({
+    expect(
+      use("hero_skill:core:h01:p001", { target: soldier, targetsInArea: 1.5 }, 1),
+    ).toMatchObject({
       status: "refused",
       reason: "区域内选中的目标个数必须是非负整数",
       wounds: 0,
       damageDealt: null,
     });
-    expect(use("hero_skill:p001", { target: soldier, targetsInArea: -1 }, 1)).toMatchObject({
+    expect(
+      use("hero_skill:core:h01:p001", { target: soldier, targetsInArea: -1 }, 1),
+    ).toMatchObject({
       status: "refused",
       reason: "区域内选中的目标个数必须是非负整数",
       wounds: 0,
     });
     // 距离先核对。个数在范围内，但距离不是印出来的 0，仍整次拒绝。
     expect(
-      use("hero_skill:p001", { target: soldier, areaDistance: 1, targetsInArea: 1 }, 1),
+      use("hero_skill:core:h01:p001", { target: soldier, areaDistance: 1, targetsInArea: 1 }, 1),
     ).toMatchObject({
       status: "refused",
       reason: "目标区域与使用者的距离不是卡面印的射程（规则书第 19 页）",
@@ -4432,7 +4475,7 @@ describe("resolveHeroSkill", () => {
       damageDealt: null,
     });
 
-    const grenade = card("hero_skill:p130");
+    const grenade = card("hero_skill:core:h07:p130");
     expect(grenade.name).toBe("Plague Grenade");
     expect(grenade.level).toBe(1);
     expect(grenade.verification.unverified).toBe(false);
@@ -4450,7 +4493,7 @@ describe("resolveHeroSkill", () => {
       areaDistance: 2,
       targetsInArea: 2,
     };
-    expect(use("hero_skill:p130", grenadeCombat, 9)).toMatchObject({
+    expect(use("hero_skill:core:h07:p130", grenadeCombat, 9)).toMatchObject({
       status: "resolved",
       outcome: "hit",
       effect: "damage",
@@ -4462,7 +4505,9 @@ describe("resolveHeroSkill", () => {
       targetBlightCleared: false,
       skipped: [{ code: "effect_lines" }],
     });
-    expect(use("hero_skill:p130", { ...grenadeCombat, targetsInArea: 1 }, 9)).toMatchObject({
+    expect(
+      use("hero_skill:core:h07:p130", { ...grenadeCombat, targetsInArea: 1 }, 9),
+    ).toMatchObject({
       status: "resolved",
       outcome: "hit",
       printedAmount: 1,
@@ -4471,7 +4516,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p130",
+        "hero_skill:core:h07:p130",
         { ...grenadeCombat, target: { ...soldier, wounds: 4 }, targetsInArea: 3 },
         9,
       ),
@@ -4485,14 +4530,14 @@ describe("resolveHeroSkill", () => {
       targetBlightCleared: false,
     });
 
-    const breakthrough = card("hero_skill:p034");
+    const breakthrough = card("hero_skill:core:h02:p034");
     expect(breakthrough.name).toBe("Breakthrough");
     expect(breakthrough.level).toBe(1);
     expect(breakthrough.verification.unverified).toBe(false);
     expect(namedTargetIconCount(breakthrough)).toBe(3);
     expect(
       use(
-        "hero_skill:p034",
+        "hero_skill:core:h02:p034",
         {
           actor: { id: "hellion", wounds: 2, stress: 4 },
           target: soldier,
@@ -4516,7 +4561,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p034",
+        "hero_skill:core:h02:p034",
         {
           actor: { id: "hellion", wounds: 2, stress: 4 },
           target: { ...soldier, wounds: 1 },
@@ -4537,7 +4582,7 @@ describe("resolveHeroSkill", () => {
       actorShuffle: null,
     });
 
-    const comfort = card("hero_skill:p098");
+    const comfort = card("hero_skill:core:h05:p098");
     expect(comfort.name).toBe("Divine Comfort");
     expect(comfort.level).toBe(2);
     expect(comfort.verification.unverified).toBe(false);
@@ -4549,7 +4594,7 @@ describe("resolveHeroSkill", () => {
       targetsInArea: 3,
     };
     // 说明书 G-02：对 3 名友方。这一层只结算传入的那一个，不另造另外两名。
-    expect(use("hero_skill:p098", comfortCombat, 2)).toMatchObject({
+    expect(use("hero_skill:core:h05:p098", comfortCombat, 2)).toMatchObject({
       status: "resolved",
       outcome: "crit",
       effect: "heal",
@@ -4562,7 +4607,9 @@ describe("resolveHeroSkill", () => {
       targetStress: 5,
       skipped: [{ code: "damage_or_heal_combined_marker" }],
     });
-    expect(use("hero_skill:p098", { ...comfortCombat, targetsInArea: 4 }, 2)).toMatchObject({
+    expect(
+      use("hero_skill:core:h05:p098", { ...comfortCombat, targetsInArea: 4 }, 2),
+    ).toMatchObject({
       status: "refused",
       reason: "一个区域内选中的目标个数必须是 1 到卡面目标图标的个数（规则书第 19 页）",
       outcome: null,
@@ -4575,7 +4622,7 @@ describe("resolveHeroSkill", () => {
       damageDealt: null,
     });
 
-    const grapeshot = card("hero_skill:p073");
+    const grapeshot = card("hero_skill:core:h04:p073");
     expect(grapeshot.name).toBe("Grapeshot Blast");
     expect(grapeshot.verification.unverified).toBe(false);
     expect(namedTargetIconCount(grapeshot)).toBe(3);
@@ -4588,7 +4635,7 @@ describe("resolveHeroSkill", () => {
     ).toEqual([["0-1", null]]);
     expect(
       use(
-        "hero_skill:p073",
+        "hero_skill:core:h04:p073",
         { actor: { id: "highwayman", wounds: 0 }, target: soldier, targetsInArea: 3 },
         8,
       ),
@@ -4605,14 +4652,14 @@ describe("resolveHeroSkill", () => {
   });
 
   it("Self、All Allies 和效果行里的目标图标不能当成一个区域内的个数", () => {
-    const absolution = card("hero_skill:p217");
+    const absolution = card("hero_skill:core:h11:p217");
     expect(absolution.name).toBe("Absolution");
     expect(absolution.level).toBe(1);
     expect(absolution.verification.unverified).toBe(false);
     expect(namedTargetIconCount(absolution)).toBe(0);
     expect(
       use(
-        "hero_skill:p217",
+        "hero_skill:core:h11:p217",
         {
           actor: { id: "abomination", wounds: 5, stress: 4 },
           target: { id: "abomination", side: "hero", wounds: 5, dodge: 0, stress: 4 },
@@ -4633,14 +4680,14 @@ describe("resolveHeroSkill", () => {
       targetStress: 4,
     });
 
-    const transform = card("hero_skill:p220");
+    const transform = card("hero_skill:core:h11:p220");
     expect(transform.name).toBe("Transform to Beast");
     expect(transform.verification.unverified).toBe(false);
     expect(transform.stats_line).toBeNull();
     expect(namedTargetIconCount(transform)).toBe(0);
     expect(
       use(
-        "hero_skill:p220",
+        "hero_skill:core:h11:p220",
         {
           actor: { id: "abomination", wounds: 2, stress: 3 },
           target: { id: "vestal", side: "hero", wounds: 2, dodge: 0, stress: 1 },
@@ -4661,7 +4708,7 @@ describe("resolveHeroSkill", () => {
       actorBlightCleared: false,
     });
 
-    const ballad = card("hero_skill:p118");
+    const ballad = card("hero_skill:core:h06:p118");
     expect(ballad.name).toBe("Battle Ballad");
     expect(ballad.level).toBe(1);
     expect(ballad.verification.unverified).toBe(false);
@@ -4681,7 +4728,7 @@ describe("resolveHeroSkill", () => {
     expect(helmets).toBe(2);
     expect(
       use(
-        "hero_skill:p118",
+        "hero_skill:core:h06:p118",
         {
           actor: { id: "jester", wounds: 1, stress: 3 },
           target: { id: "vestal", side: "hero", wounds: 1, dodge: 0, stress: 2 },
@@ -4702,7 +4749,7 @@ describe("resolveHeroSkill", () => {
   });
 
   it("使用者身上每一堆已有的 Buff 让暴击阈值 +1，不改命中阈值和伤害数字", () => {
-    const smite = card("hero_skill:p001");
+    const smite = card("hero_skill:core:h01:p001");
     expect(smite.name).toBe("Smite");
     expect(smite.level).toBe(1);
     expect(smite.verification.unverified).toBe(false);
@@ -4726,7 +4773,7 @@ describe("resolveHeroSkill", () => {
     };
     const frozen = structuredClone(oneStack);
     // Crit 0 + 1 堆。掷 1 变成暴击，伤害仍是 Crit 旁边的 13，不是 13 + 1。
-    expect(use("hero_skill:p001", oneStack, 1)).toMatchObject({
+    expect(use("hero_skill:core:h01:p001", oneStack, 1)).toMatchObject({
       status: "resolved",
       outcome: "crit",
       effect: "damage",
@@ -4741,7 +4788,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(oneStack).toEqual(frozen);
     // 同一堆不把掷 2 变成暴击。命中阈值仍是 Acc 9 − Dodge 0。
-    expect(use("hero_skill:p001", oneStack, 2)).toMatchObject({
+    expect(use("hero_skill:core:h01:p001", oneStack, 2)).toMatchObject({
       status: "resolved",
       outcome: "hit",
       printedAmount: 7,
@@ -4751,7 +4798,7 @@ describe("resolveHeroSkill", () => {
       besideActorStress: [{ id: "vestal", stress: 2 }],
     });
     expect(
-      use("hero_skill:p001", { ...oneStack, actor: { ...crusader, buffStacks: 0 } }, 1),
+      use("hero_skill:core:h01:p001", { ...oneStack, actor: { ...crusader, buffStacks: 0 } }, 1),
     ).toMatchObject({
       outcome: "hit",
       printedAmount: 7,
@@ -4759,7 +4806,7 @@ describe("resolveHeroSkill", () => {
       wounds: 7,
       actorStress: 4,
     });
-    expect(use("hero_skill:p001", { target: soldier, areaDistance: 0 }, 1)).toMatchObject({
+    expect(use("hero_skill:core:h01:p001", { target: soldier, areaDistance: 0 }, 1)).toMatchObject({
       outcome: "hit",
       printedAmount: 7,
       damageDealt: 7,
@@ -4770,7 +4817,7 @@ describe("resolveHeroSkill", () => {
     const dodging = { ...soldier, dodge: 8, wounds: 2 };
     expect(
       use(
-        "hero_skill:p001",
+        "hero_skill:core:h01:p001",
         { actor: { ...crusader, buffStacks: 0 }, target: dodging, areaDistance: 0 },
         2,
       ),
@@ -4783,7 +4830,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p001",
+        "hero_skill:core:h01:p001",
         {
           actor: { ...crusader, buffStacks: 2 },
           target: { ...dodging, protection: true, riposte: true },
@@ -4801,7 +4848,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 3,
     });
 
-    const pistol = card("hero_skill:p067");
+    const pistol = card("hero_skill:core:h04:p067");
     expect(pistol.name).toBe("Pistol Shot");
     expect(pistol.level).toBe(1);
     expect(pistol.verification.unverified).toBe(false);
@@ -4812,7 +4859,9 @@ describe("resolveHeroSkill", () => {
     // 说明书 G-08 的 Pistol Shot：Crit 1，暴击 9、命中 5。这里只加 1 堆，不加光照 4 的 Crit +1。
     // 所以掷 2 暴击，掷 3 仍是命中。射程 1-2 的 numeric 为 null，不传距离。
     const highwayman = { id: "highwayman", wounds: 1, stress: 5, buffStacks: 1 };
-    expect(use("hero_skill:p067", { actor: highwayman, target: soldier }, 2)).toMatchObject({
+    expect(
+      use("hero_skill:core:h04:p067", { actor: highwayman, target: soldier }, 2),
+    ).toMatchObject({
       status: "resolved",
       outcome: "crit",
       printedAmount: 9,
@@ -4820,7 +4869,9 @@ describe("resolveHeroSkill", () => {
       wounds: 9,
       actorStress: 4,
     });
-    expect(use("hero_skill:p067", { actor: highwayman, target: soldier }, 3)).toMatchObject({
+    expect(
+      use("hero_skill:core:h04:p067", { actor: highwayman, target: soldier }, 3),
+    ).toMatchObject({
       outcome: "hit",
       printedAmount: 5,
       damageDealt: 5,
@@ -4828,7 +4879,11 @@ describe("resolveHeroSkill", () => {
       actorStress: 5,
     });
     expect(
-      use("hero_skill:p067", { actor: { ...highwayman, buffStacks: 0 }, target: soldier }, 2),
+      use(
+        "hero_skill:core:h04:p067",
+        { actor: { ...highwayman, buffStacks: 0 }, target: soldier },
+        2,
+      ),
     ).toMatchObject({
       outcome: "hit",
       printedAmount: 5,
@@ -4836,14 +4891,14 @@ describe("resolveHeroSkill", () => {
       wounds: 5,
     });
 
-    const heal = card("hero_skill:p013");
+    const heal = card("hero_skill:core:h01:p013");
     expect(heal.name).toBe("Battle Heal");
     expect(heal.level).toBe(1);
     expect(heal.verification.unverified).toBe(false);
     const vestal = { id: "vestal", wounds: 1, stress: 5, buffStacks: 1 };
     const patient = { id: "patient", side: "hero" as const, wounds: 5, dodge: 0, stress: 3 };
     // Crit 2 + 1 堆。掷 3 暴击，治疗 4。不传距离：射程印的是 0-1，numeric 为 null。
-    expect(use("hero_skill:p013", { actor: vestal, target: patient }, 3)).toMatchObject({
+    expect(use("hero_skill:core:h01:p013", { actor: vestal, target: patient }, 3)).toMatchObject({
       status: "resolved",
       outcome: "crit",
       effect: "heal",
@@ -4857,7 +4912,7 @@ describe("resolveHeroSkill", () => {
       skipped: [{ code: "damage_or_heal_combined_marker" }],
     });
     expect(
-      use("hero_skill:p013", { actor: { ...vestal, buffStacks: 0 }, target: patient }, 3),
+      use("hero_skill:core:h01:p013", { actor: { ...vestal, buffStacks: 0 }, target: patient }, 3),
     ).toMatchObject({
       outcome: "hit",
       printedAmount: 2,
@@ -4867,7 +4922,7 @@ describe("resolveHeroSkill", () => {
     // Dodge 11，命中阈值是 1。掷 3 本来落空；一堆增益让它变成暴击，治疗不减半。
     expect(
       use(
-        "hero_skill:p013",
+        "hero_skill:core:h01:p013",
         {
           actor: vestal,
           target: { ...patient, dodge: 11, protection: true, riposte: true },
@@ -4887,7 +4942,7 @@ describe("resolveHeroSkill", () => {
     // 没有 Acc 的变身不掷骰。已有的增益不造出一次暴击，也不改形态结果。
     expect(
       use(
-        "hero_skill:p220",
+        "hero_skill:core:h11:p220",
         {
           actor: { id: "abomination", wounds: 5, stress: 3, buffStacks: 2 },
           target: { id: "vestal", side: "hero", wounds: 4, dodge: 0, stress: 4 },
@@ -4912,7 +4967,7 @@ describe("resolveHeroSkill", () => {
     const soldier = { id: "soldier", side: "monster" as const, wounds: 0, dodge: 0 };
     expect(
       use(
-        "hero_skill:p001",
+        "hero_skill:core:h01:p001",
         {
           actor: { id: "crusader", wounds: 0, stress: 4, buffStacks: -1 },
           target: soldier,
@@ -4933,7 +4988,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p001",
+        "hero_skill:core:h01:p001",
         {
           actor: { id: "crusader", wounds: 2, stress: 4, buffStacks: 1.5 },
           target: { ...soldier, wounds: 3 },
@@ -4950,7 +5005,7 @@ describe("resolveHeroSkill", () => {
       damageDealt: null,
     });
 
-    const tracking = card("hero_skill:p076");
+    const tracking = card("hero_skill:core:h04:p076");
     expect(tracking.name).toBe("Tracking Shot");
     expect(tracking.level).toBe(1);
     expect(tracking.verification.unverified).toBe(false);
@@ -4964,7 +5019,7 @@ describe("resolveHeroSkill", () => {
     // Crit 0。若把 3t 读成 3 堆，掷 1 会是暴击、伤害 3。回合数是 null，所以仍是命中、伤害 2。
     expect(
       use(
-        "hero_skill:p076",
+        "hero_skill:core:h04:p076",
         { actor: { id: "highwayman", wounds: 1, stress: 4, buffStacks: 0 }, target: soldier },
         1,
       ),
@@ -4980,7 +5035,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p076",
+        "hero_skill:core:h04:p076",
         {
           actor: { id: "highwayman", wounds: 1, stress: 4 },
           target: { ...soldier, wounds: 6 },
@@ -4998,7 +5053,7 @@ describe("resolveHeroSkill", () => {
       damageDealt: null,
     });
 
-    const hand = card("hero_skill:p103");
+    const hand = card("hero_skill:core:h05:p103");
     expect(hand.name).toBe("Hand of Light");
     expect(hand.level).toBe(1);
     expect(hand.verification.unverified).toBe(false);
@@ -5009,7 +5064,7 @@ describe("resolveHeroSkill", () => {
     // +1 vs Unholy 的 numeric 为 null，暴击伤害仍是 6。
     expect(
       use(
-        "hero_skill:p103",
+        "hero_skill:core:h05:p103",
         {
           actor: { id: "crusader", wounds: 0, stress: 2, buffStacks: 1, stance: "aggressive" },
           target: soldier,
@@ -5028,7 +5083,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p103",
+        "hero_skill:core:h05:p103",
         {
           actor: { id: "crusader", wounds: 0, stress: 2, buffStacks: 1, stance: "aggressive" },
           target: soldier,
@@ -5047,7 +5102,7 @@ describe("resolveHeroSkill", () => {
   });
 
   it("目标是怪物时，每一堆已有的 Debuff 让暴击阈值 +1，英雄目标不加", () => {
-    const grapeshot = card("hero_skill:p073");
+    const grapeshot = card("hero_skill:core:h04:p073");
     expect(grapeshot.name).toBe("Grapeshot Blast");
     expect(grapeshot.level).toBe(1);
     expect(grapeshot.hero).toBe("HIGHWAYMAN");
@@ -5087,7 +5142,7 @@ describe("resolveHeroSkill", () => {
     // 射程印的是 0-1，numeric 为 null，不传距离。Crit 0 + 1 堆。掷 1 暴击，伤害仍是 5。
     const oneStack = { actor: highwayman, heroesBesideActor: beside, target: soldier };
     const frozen = structuredClone(oneStack);
-    expect(use("hero_skill:p073", oneStack, 1)).toMatchObject({
+    expect(use("hero_skill:core:h04:p073", oneStack, 1)).toMatchObject({
       status: "resolved",
       outcome: "crit",
       effect: "damage",
@@ -5102,7 +5157,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(oneStack).toEqual(frozen);
     // 同一堆不把掷 2 变成暴击。命中阈值仍是 Acc 8 − Dodge 0，伤害仍是 3。
-    expect(use("hero_skill:p073", oneStack, 2)).toMatchObject({
+    expect(use("hero_skill:core:h04:p073", oneStack, 2)).toMatchObject({
       status: "resolved",
       outcome: "hit",
       printedAmount: 3,
@@ -5112,7 +5167,7 @@ describe("resolveHeroSkill", () => {
       besideActorStress: [{ id: "vestal", stress: 2 }],
     });
     expect(
-      use("hero_skill:p073", { ...oneStack, target: { ...soldier, debuffStacks: 0 } }, 1),
+      use("hero_skill:core:h04:p073", { ...oneStack, target: { ...soldier, debuffStacks: 0 } }, 1),
     ).toMatchObject({
       outcome: "hit",
       printedAmount: 3,
@@ -5122,7 +5177,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p073",
+        "hero_skill:core:h04:p073",
         {
           actor: highwayman,
           heroesBesideActor: beside,
@@ -5139,7 +5194,9 @@ describe("resolveHeroSkill", () => {
     });
     // Dodge 8 时命中阈值是 0。没有减益，掷 1 落空。一堆让暴击阈值变成 1，暴击不看 Dodge。
     const dodging = { ...soldier, dodge: 8, wounds: 1, debuffStacks: 0 };
-    expect(use("hero_skill:p073", { actor: highwayman, target: dodging }, 1)).toMatchObject({
+    expect(
+      use("hero_skill:core:h04:p073", { actor: highwayman, target: dodging }, 1),
+    ).toMatchObject({
       outcome: "miss",
       printedAmount: null,
       damageDealt: null,
@@ -5148,7 +5205,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p073",
+        "hero_skill:core:h04:p073",
         {
           actor: highwayman,
           target: { ...dodging, debuffStacks: 1, protection: true, riposte: true },
@@ -5165,7 +5222,11 @@ describe("resolveHeroSkill", () => {
       actorStress: 3,
     });
     expect(
-      use("hero_skill:p073", { actor: highwayman, target: { ...dodging, debuffStacks: 1 } }, 2),
+      use(
+        "hero_skill:core:h04:p073",
+        { actor: highwayman, target: { ...dodging, debuffStacks: 1 } },
+        2,
+      ),
     ).toMatchObject({
       outcome: "miss",
       printedAmount: null,
@@ -5176,7 +5237,11 @@ describe("resolveHeroSkill", () => {
     });
     // 两堆把暴击阈值抬到 2。掷 2 暴击、伤害 5；掷 3 仍是命中、伤害 3。
     expect(
-      use("hero_skill:p073", { actor: highwayman, target: { ...soldier, debuffStacks: 2 } }, 2),
+      use(
+        "hero_skill:core:h04:p073",
+        { actor: highwayman, target: { ...soldier, debuffStacks: 2 } },
+        2,
+      ),
     ).toMatchObject({
       outcome: "crit",
       printedAmount: 5,
@@ -5185,7 +5250,11 @@ describe("resolveHeroSkill", () => {
       actorStress: 3,
     });
     expect(
-      use("hero_skill:p073", { actor: highwayman, target: { ...soldier, debuffStacks: 2 } }, 3),
+      use(
+        "hero_skill:core:h04:p073",
+        { actor: highwayman, target: { ...soldier, debuffStacks: 2 } },
+        3,
+      ),
     ).toMatchObject({
       outcome: "hit",
       printedAmount: 3,
@@ -5194,7 +5263,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 4,
     });
 
-    const second = card("hero_skill:p074");
+    const second = card("hero_skill:core:h04:p074");
     expect(second.name).toBe("Grapeshot Blast");
     expect(second.level).toBe(2);
     expect(second.verification.unverified).toBe(false);
@@ -5207,7 +5276,7 @@ describe("resolveHeroSkill", () => {
         .filter((item) => item.anchor.type === "printed_label")
         .map((item) => item.numeric),
     ).toEqual([7, 4]);
-    expect(use("hero_skill:p074", oneStack, 1)).toMatchObject({
+    expect(use("hero_skill:core:h04:p074", oneStack, 1)).toMatchObject({
       status: "resolved",
       outcome: "crit",
       printedAmount: 7,
@@ -5216,7 +5285,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 3,
       skipped: [{ code: "effect_lines" }],
     });
-    expect(use("hero_skill:p074", oneStack, 2)).toMatchObject({
+    expect(use("hero_skill:core:h04:p074", oneStack, 2)).toMatchObject({
       outcome: "hit",
       printedAmount: 4,
       damageDealt: 4,
@@ -5224,7 +5293,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 4,
     });
 
-    const third = card("hero_skill:p075");
+    const third = card("hero_skill:core:h04:p075");
     expect(third.name).toBe("Grapeshot Blast");
     expect(third.level).toBe(3);
     expect(third.verification.unverified).toBe(false);
@@ -5237,13 +5306,13 @@ describe("resolveHeroSkill", () => {
         .filter((item) => item.anchor.type === "printed_label")
         .map((item) => item.numeric),
     ).toEqual([8, 5]);
-    expect(use("hero_skill:p075", oneStack, 1)).toMatchObject({
+    expect(use("hero_skill:core:h04:p075", oneStack, 1)).toMatchObject({
       outcome: "crit",
       printedAmount: 8,
       damageDealt: 8,
       wounds: 8,
     });
-    expect(use("hero_skill:p075", oneStack, 2)).toMatchObject({
+    expect(use("hero_skill:core:h04:p075", oneStack, 2)).toMatchObject({
       outcome: "hit",
       printedAmount: 5,
       damageDealt: 5,
@@ -5254,7 +5323,7 @@ describe("resolveHeroSkill", () => {
     const smiteTarget = { ...soldier, debuffStacks: 1 };
     expect(
       use(
-        "hero_skill:p001",
+        "hero_skill:core:h01:p001",
         {
           actor: { id: "crusader", wounds: 0, stress: 4, buffStacks: 1 },
           target: smiteTarget,
@@ -5273,7 +5342,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p001",
+        "hero_skill:core:h01:p001",
         {
           actor: { id: "crusader", wounds: 0, stress: 4, buffStacks: 1 },
           target: smiteTarget,
@@ -5290,7 +5359,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p001",
+        "hero_skill:core:h01:p001",
         {
           actor: { id: "crusader", wounds: 0, stress: 4, buffStacks: 1 },
           target: { ...soldier, debuffStacks: 0 },
@@ -5306,7 +5375,7 @@ describe("resolveHeroSkill", () => {
     });
 
     // Battle Heal I：Crit 2。友方身上的减益不加，掷 3 仍是命中、治疗 2，不是暴击治疗 4。
-    const heal = card("hero_skill:p013");
+    const heal = card("hero_skill:core:h01:p013");
     expect(heal.name).toBe("Battle Heal");
     expect(heal.level).toBe(1);
     expect(heal.verification.unverified).toBe(false);
@@ -5321,7 +5390,7 @@ describe("resolveHeroSkill", () => {
       protection: true,
       riposte: true,
     };
-    expect(use("hero_skill:p013", { actor: vestal, target: patient }, 3)).toMatchObject({
+    expect(use("hero_skill:core:h01:p013", { actor: vestal, target: patient }, 3)).toMatchObject({
       status: "resolved",
       outcome: "hit",
       effect: "heal",
@@ -5334,7 +5403,11 @@ describe("resolveHeroSkill", () => {
       targetStress: 3,
     });
     expect(
-      use("hero_skill:p013", { actor: vestal, target: { ...patient, debuffStacks: 0 } }, 3),
+      use(
+        "hero_skill:core:h01:p013",
+        { actor: vestal, target: { ...patient, debuffStacks: 0 } },
+        3,
+      ),
     ).toMatchObject({
       outcome: "hit",
       printedAmount: 2,
@@ -5343,7 +5416,7 @@ describe("resolveHeroSkill", () => {
     });
 
     // Inspiring Tune II：Crit 2，自身和目标各 −1。友方有 1 堆时，掷 3 仍不是暴击。
-    const tune = card("hero_skill:p122");
+    const tune = card("hero_skill:core:h06:p122");
     expect(tune.name).toBe("Inspiring Tune");
     expect(tune.level).toBe(2);
     expect(tune.verification.unverified).toBe(false);
@@ -5362,7 +5435,7 @@ describe("resolveHeroSkill", () => {
     };
     expect(
       use(
-        "hero_skill:p122",
+        "hero_skill:core:h06:p122",
         {
           actor: jester,
           heroesBesideActor: [{ id: "vestal", stress: 2 }],
@@ -5386,7 +5459,7 @@ describe("resolveHeroSkill", () => {
     // Absolution I：目标是自己。Crit 1。自己身上的减益不加，掷 2 仍是命中治疗 2。
     expect(
       use(
-        "hero_skill:p217",
+        "hero_skill:core:h11:p217",
         {
           actor: { id: "abomination", wounds: 5, stress: 4 },
           heroesBesideActor: [{ id: "vestal", stress: 2 }],
@@ -5417,7 +5490,7 @@ describe("resolveHeroSkill", () => {
     // 没有 Acc 的变身不掷骰。目标身上的减益不造出一次暴击。
     expect(
       use(
-        "hero_skill:p220",
+        "hero_skill:core:h11:p220",
         {
           actor: { id: "abomination", wounds: 5, stress: 3 },
           target: {
@@ -5447,7 +5520,7 @@ describe("resolveHeroSkill", () => {
     const soldier = { id: "soldier", side: "monster" as const, wounds: 2, dodge: 0 };
     expect(
       use(
-        "hero_skill:p073",
+        "hero_skill:core:h04:p073",
         {
           actor: { id: "highwayman", wounds: 1, stress: 4 },
           target: { ...soldier, debuffStacks: -1 },
@@ -5467,7 +5540,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p001",
+        "hero_skill:core:h01:p001",
         {
           actor: { id: "crusader", wounds: 0, stress: 4 },
           target: { ...soldier, wounds: 3, debuffStacks: 1.5 },
@@ -5486,7 +5559,7 @@ describe("resolveHeroSkill", () => {
     // 友方身上的非法堆数也不结算，不改治疗。
     expect(
       use(
-        "hero_skill:p013",
+        "hero_skill:core:h01:p013",
         {
           actor: { id: "vestal", wounds: 1, stress: 5 },
           target: {
@@ -5510,7 +5583,7 @@ describe("resolveHeroSkill", () => {
       damageDealt: null,
     });
 
-    const grapeshot = card("hero_skill:p073");
+    const grapeshot = card("hero_skill:core:h04:p073");
     expect(
       grapeshot.unlabeled_numbers
         .filter(
@@ -5521,7 +5594,7 @@ describe("resolveHeroSkill", () => {
     // Crit 0。若把 1t 读成 1 堆，掷 1 会是暴击、伤害 5。回合数是 null，所以仍是命中、伤害 3。
     expect(
       use(
-        "hero_skill:p073",
+        "hero_skill:core:h04:p073",
         {
           actor: { id: "highwayman", wounds: 0, stress: 4, buffStacks: 0 },
           target: { ...soldier, wounds: 0, debuffStacks: 0 },
@@ -5539,7 +5612,7 @@ describe("resolveHeroSkill", () => {
       skipped: [{ code: "effect_lines" }],
     });
 
-    const curse = card("hero_skill:p196");
+    const curse = card("hero_skill:core:h10:p196");
     expect(curse.name).toBe("Weakening Curse");
     expect(curse.level).toBe(1);
     expect(curse.hero).toBe("OCCULTIST");
@@ -5563,7 +5636,7 @@ describe("resolveHeroSkill", () => {
     // 调用方的 1 堆把暴击阈值从 1 抬到 2。卡上的 2t 不加，所以掷 2 暴击、伤害 3，掷 3 仍是命中、伤害 2。
     expect(
       use(
-        "hero_skill:p196",
+        "hero_skill:core:h10:p196",
         {
           actor: { id: "occultist", wounds: 0, stress: 2 },
           target: { ...soldier, wounds: 0, debuffStacks: 1 },
@@ -5581,7 +5654,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p196",
+        "hero_skill:core:h10:p196",
         {
           actor: { id: "occultist", wounds: 0, stress: 2 },
           target: { ...soldier, wounds: 0, debuffStacks: 1 },
@@ -5597,7 +5670,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 2,
     });
 
-    const illumination = card("hero_skill:p100");
+    const illumination = card("hero_skill:core:h05:p100");
     expect(illumination.name).toBe("Illumination");
     expect(illumination.level).toBe(1);
     expect(illumination.hero).toBe("VESTAL");
@@ -5619,7 +5692,7 @@ describe("resolveHeroSkill", () => {
     // 1t 和光照 +1 的 numeric 都是 null。没有已有的减益时，掷 1 是命中、伤害 2，不是暴击 4，也不是 3。
     expect(
       use(
-        "hero_skill:p100",
+        "hero_skill:core:h05:p100",
         {
           actor: { id: "vestal", wounds: 0, stress: 4 },
           target: { ...soldier, wounds: 0, debuffStacks: 0 },
@@ -5638,7 +5711,7 @@ describe("resolveHeroSkill", () => {
     // 已有 1 堆时暴击伤害仍是印刷的 4，光照 +1 不加进伤害。
     expect(
       use(
-        "hero_skill:p100",
+        "hero_skill:core:h05:p100",
         {
           actor: { id: "vestal", wounds: 0, stress: 4 },
           target: { ...soldier, wounds: 0, debuffStacks: 1 },
@@ -5657,7 +5730,7 @@ describe("resolveHeroSkill", () => {
   });
 
   it("目标是怪物时，每一堆已有的 Mark 让命中阈值 +1，英雄目标不加", () => {
-    const shot = card("hero_skill:p148");
+    const shot = card("hero_skill:core:h08:p148");
     expect(shot.name).toBe("Sniper Shot");
     expect(shot.level).toBe(1);
     expect(shot.hero).toBe("ARBALEST");
@@ -5703,7 +5776,7 @@ describe("resolveHeroSkill", () => {
       areaDistance: 2,
     };
     const frozen = structuredClone(oneStack);
-    expect(use("hero_skill:p148", oneStack, 10)).toMatchObject({
+    expect(use("hero_skill:core:h08:p148", oneStack, 10)).toMatchObject({
       status: "resolved",
       outcome: "hit",
       effect: "damage",
@@ -5718,7 +5791,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(oneStack).toEqual(frozen);
     expect(
-      use("hero_skill:p148", { ...oneStack, target: { ...soldier, markStacks: 0 } }, 10),
+      use("hero_skill:core:h08:p148", { ...oneStack, target: { ...soldier, markStacks: 0 } }, 10),
     ).toMatchObject({
       outcome: "miss",
       printedAmount: null,
@@ -5729,7 +5802,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p148",
+        "hero_skill:core:h08:p148",
         {
           actor: arbalest,
           heroesBesideActor: beside,
@@ -5745,7 +5818,7 @@ describe("resolveHeroSkill", () => {
       wounds: 0,
     });
     // 标记不加暴击阈值。Crit 仍是 1：掷 1 暴击、伤害 9；掷 2 是命中、伤害 6。
-    expect(use("hero_skill:p148", oneStack, 1)).toMatchObject({
+    expect(use("hero_skill:core:h08:p148", oneStack, 1)).toMatchObject({
       outcome: "crit",
       printedAmount: 9,
       damageDealt: 9,
@@ -5753,7 +5826,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 3,
       besideActorStress: [{ id: "vestal", stress: 1 }],
     });
-    expect(use("hero_skill:p148", oneStack, 2)).toMatchObject({
+    expect(use("hero_skill:core:h08:p148", oneStack, 2)).toMatchObject({
       outcome: "hit",
       printedAmount: 6,
       damageDealt: 6,
@@ -5764,7 +5837,7 @@ describe("resolveHeroSkill", () => {
     // Dodge 8。两堆把命中阈值抬到 3。掷 3 命中、伤害 6；掷 4 仍落空。暴击阈值仍是 1。
     const dodging = { ...soldier, dodge: 8, wounds: 1, markStacks: 2 };
     expect(
-      use("hero_skill:p148", { actor: arbalest, target: dodging, areaDistance: 2 }, 3),
+      use("hero_skill:core:h08:p148", { actor: arbalest, target: dodging, areaDistance: 2 }, 3),
     ).toMatchObject({
       outcome: "hit",
       printedAmount: 6,
@@ -5773,7 +5846,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 4,
     });
     expect(
-      use("hero_skill:p148", { actor: arbalest, target: dodging, areaDistance: 2 }, 4),
+      use("hero_skill:core:h08:p148", { actor: arbalest, target: dodging, areaDistance: 2 }, 4),
     ).toMatchObject({
       outcome: "miss",
       printedAmount: null,
@@ -5785,7 +5858,7 @@ describe("resolveHeroSkill", () => {
     // 一堆、Dodge 8：命中阈值是 2。掷 2 命中。防护减半后是 3，反弹按减半前的 6 取一半。
     expect(
       use(
-        "hero_skill:p148",
+        "hero_skill:core:h08:p148",
         {
           actor: arbalest,
           target: { ...dodging, markStacks: 1, protection: true, riposte: true },
@@ -5804,7 +5877,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p148",
+        "hero_skill:core:h08:p148",
         {
           actor: arbalest,
           target: { ...dodging, markStacks: 0 },
@@ -5822,14 +5895,14 @@ describe("resolveHeroSkill", () => {
     });
 
     // 增益和减益只抬暴击，标记只抬命中。Crit 0 + 1 + 1 = 2，Acc 9 + 1 = 10。
-    const smite = card("hero_skill:p001");
+    const smite = card("hero_skill:core:h01:p001");
     expect(smite.name).toBe("Smite");
     expect(smite.level).toBe(1);
     expect(smite.verification.unverified).toBe(false);
     const marked = { ...soldier, markStacks: 1, debuffStacks: 1 };
     expect(
       use(
-        "hero_skill:p001",
+        "hero_skill:core:h01:p001",
         {
           actor: { id: "crusader", wounds: 0, stress: 4, buffStacks: 1 },
           target: marked,
@@ -5848,7 +5921,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p001",
+        "hero_skill:core:h01:p001",
         {
           actor: { id: "crusader", wounds: 0, stress: 4, buffStacks: 1 },
           target: marked,
@@ -5865,7 +5938,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p001",
+        "hero_skill:core:h01:p001",
         {
           actor: { id: "crusader", wounds: 0, stress: 4, buffStacks: 1 },
           target: marked,
@@ -5882,7 +5955,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p001",
+        "hero_skill:core:h01:p001",
         {
           actor: { id: "crusader", wounds: 0, stress: 4, buffStacks: 1 },
           target: { ...marked, markStacks: 0 },
@@ -5898,7 +5971,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 4,
     });
 
-    const pistol = card("hero_skill:p067");
+    const pistol = card("hero_skill:core:h04:p067");
     expect(pistol.name).toBe("Pistol Shot");
     expect(pistol.level).toBe(1);
     expect(pistol.verification.unverified).toBe(false);
@@ -5906,17 +5979,23 @@ describe("resolveHeroSkill", () => {
       pistol.unlabeled_numbers.filter((item) => item.numeric === null).map((item) => item.text),
     ).toEqual(["+2", "1-2"]);
     // 射程是区间，不传距离。+2 vs 已命名标记的 numeric 为 null，命中伤害仍是 5。
-    expect(use("hero_skill:p067", { actor: arbalest, target: soldier }, 10)).toMatchObject({
-      status: "resolved",
-      outcome: "hit",
-      printedAmount: 5,
-      damageDealt: 5,
-      wounds: 5,
-      actorStress: 4,
-      skipped: [{ code: "effect_lines" }],
-    });
+    expect(use("hero_skill:core:h04:p067", { actor: arbalest, target: soldier }, 10)).toMatchObject(
+      {
+        status: "resolved",
+        outcome: "hit",
+        printedAmount: 5,
+        damageDealt: 5,
+        wounds: 5,
+        actorStress: 4,
+        skipped: [{ code: "effect_lines" }],
+      },
+    );
     expect(
-      use("hero_skill:p067", { actor: arbalest, target: { ...soldier, markStacks: 0 } }, 10),
+      use(
+        "hero_skill:core:h04:p067",
+        { actor: arbalest, target: { ...soldier, markStacks: 0 } },
+        10,
+      ),
     ).toMatchObject({
       outcome: "miss",
       printedAmount: null,
@@ -5925,7 +6004,11 @@ describe("resolveHeroSkill", () => {
     });
     // 五堆只抬命中。Crit 仍是 1，掷 2 是命中、伤害 5，不是暴击 9，也不是 7。
     expect(
-      use("hero_skill:p067", { actor: arbalest, target: { ...soldier, markStacks: 5 } }, 2),
+      use(
+        "hero_skill:core:h04:p067",
+        { actor: arbalest, target: { ...soldier, markStacks: 5 } },
+        2,
+      ),
     ).toMatchObject({
       outcome: "hit",
       printedAmount: 5,
@@ -5934,7 +6017,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 4,
     });
 
-    const hither = card("hero_skill:p049");
+    const hither = card("hero_skill:core:h03:p049");
     expect(hither.name).toBe("Come Hither");
     expect(hither.level).toBe(1);
     expect(hither.hero).toBe("BOUNTY HUNTER");
@@ -5956,7 +6039,7 @@ describe("resolveHeroSkill", () => {
     // Crit 0。标记堆不把掷 1 变成暴击，伤害仍是 2。同一行的 2t 和 Pull 2 不抽出位移。
     expect(
       use(
-        "hero_skill:p049",
+        "hero_skill:core:h03:p049",
         { actor: { id: "bounty-hunter", wounds: 0, stress: 3 }, target: soldier, areaDistance: 2 },
         1,
       ),
@@ -5973,7 +6056,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p049",
+        "hero_skill:core:h03:p049",
         {
           actor: { id: "bounty-hunter", wounds: 0, stress: 3 },
           target: { ...soldier, markStacks: 0 },
@@ -5991,7 +6074,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p049",
+        "hero_skill:core:h03:p049",
         { actor: { id: "bounty-hunter", wounds: 0, stress: 3 }, target: soldier, areaDistance: 2 },
         10,
       ),
@@ -6004,7 +6087,7 @@ describe("resolveHeroSkill", () => {
     });
 
     // Battle Heal I：Acc 12、Crit 2。友方 3 堆标记不加。Dodge 12 时掷 3 仍落空，不治疗。
-    const heal = card("hero_skill:p013");
+    const heal = card("hero_skill:core:h01:p013");
     expect(heal.name).toBe("Battle Heal");
     expect(heal.level).toBe(1);
     expect(heal.verification.unverified).toBe(false);
@@ -6019,7 +6102,7 @@ describe("resolveHeroSkill", () => {
       protection: true,
       riposte: true,
     };
-    expect(use("hero_skill:p013", { actor: vestal, target: patient }, 3)).toMatchObject({
+    expect(use("hero_skill:core:h01:p013", { actor: vestal, target: patient }, 3)).toMatchObject({
       status: "resolved",
       outcome: "miss",
       effect: "heal",
@@ -6032,7 +6115,7 @@ describe("resolveHeroSkill", () => {
       targetStress: 3,
     });
     expect(
-      use("hero_skill:p013", { actor: vestal, target: { ...patient, markStacks: 0 } }, 3),
+      use("hero_skill:core:h01:p013", { actor: vestal, target: { ...patient, markStacks: 0 } }, 3),
     ).toMatchObject({
       outcome: "miss",
       wounds: 5,
@@ -6042,7 +6125,7 @@ describe("resolveHeroSkill", () => {
     // Absolution I：目标是自己。Crit 1、Acc 12。自己的标记不加，掷 2 落空，自身压力仍 −1。
     expect(
       use(
-        "hero_skill:p217",
+        "hero_skill:core:h11:p217",
         {
           actor: { id: "abomination", wounds: 5, stress: 4 },
           heroesBesideActor: [{ id: "vestal", stress: 2 }],
@@ -6073,7 +6156,7 @@ describe("resolveHeroSkill", () => {
     // 没有 Acc 的变身不掷骰。目标身上的标记不造出一次命中或暴击。
     expect(
       use(
-        "hero_skill:p220",
+        "hero_skill:core:h11:p220",
         {
           actor: { id: "abomination", wounds: 5, stress: 3 },
           target: {
@@ -6103,7 +6186,7 @@ describe("resolveHeroSkill", () => {
     const soldier = { id: "soldier", side: "monster" as const, wounds: 2, dodge: 0 };
     expect(
       use(
-        "hero_skill:p148",
+        "hero_skill:core:h08:p148",
         {
           actor: { id: "arbalest", wounds: 1, stress: 4 },
           target: { ...soldier, markStacks: -1 },
@@ -6124,7 +6207,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p001",
+        "hero_skill:core:h01:p001",
         {
           actor: { id: "crusader", wounds: 0, stress: 4 },
           target: { ...soldier, wounds: 3, markStacks: 1.5 },
@@ -6142,7 +6225,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p013",
+        "hero_skill:core:h01:p013",
         {
           actor: { id: "vestal", wounds: 1, stress: 5 },
           target: {
@@ -6166,7 +6249,7 @@ describe("resolveHeroSkill", () => {
       damageDealt: null,
     });
 
-    const hex = card("hero_skill:p202");
+    const hex = card("hero_skill:core:h10:p202");
     expect(hex.name).toBe("Vulnerability Hex");
     expect(hex.level).toBe(1);
     expect(hex.hero).toBe("OCCULTIST");
@@ -6192,7 +6275,7 @@ describe("resolveHeroSkill", () => {
     // Dodge 10，没有已有的标记时命中阈值是 0。若把 2t 读成 2 堆，掷 2 会命中、伤害 1。回合数是 null，所以落空。
     expect(
       use(
-        "hero_skill:p202",
+        "hero_skill:core:h10:p202",
         {
           actor: { id: "occultist", wounds: 0, stress: 2 },
           target: { ...soldier, wounds: 0, dodge: 10, markStacks: 0 },
@@ -6212,7 +6295,7 @@ describe("resolveHeroSkill", () => {
     // 调用方的 1 堆把命中阈值抬到 1，卡上的 2t 不再加一堆，掷 2 仍落空。两堆才命中，伤害仍是 1。
     expect(
       use(
-        "hero_skill:p202",
+        "hero_skill:core:h10:p202",
         {
           actor: { id: "occultist", wounds: 0, stress: 2 },
           target: { ...soldier, wounds: 0, dodge: 10, markStacks: 1 },
@@ -6228,7 +6311,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p202",
+        "hero_skill:core:h10:p202",
         {
           actor: { id: "occultist", wounds: 0, stress: 2 },
           target: { ...soldier, wounds: 0, dodge: 10, markStacks: 2 },
@@ -6245,7 +6328,7 @@ describe("resolveHeroSkill", () => {
       skipped: [{ code: "effect_lines" }],
     });
 
-    const mark = card("hero_skill:p154");
+    const mark = card("hero_skill:core:h08:p154");
     expect(mark.name).toBe("Sniper’s Mark");
     expect(mark.level).toBe(1);
     expect(mark.verification.unverified).toBe(false);
@@ -6255,7 +6338,7 @@ describe("resolveHeroSkill", () => {
     // 目标已经有 1 堆。这张卡没有伤害或治疗，2t 仍不放新标记，整次拒绝，伤口不动。
     expect(
       use(
-        "hero_skill:p154",
+        "hero_skill:core:h08:p154",
         {
           actor: { id: "arbalest", wounds: 0, stress: 2 },
           target: { id: "soldier", side: "monster", wounds: 4, dodge: 0, markStacks: 1 },
@@ -6278,7 +6361,7 @@ describe("resolveHeroSkill", () => {
   });
 
   it("目标区域更低时命中阈值 +1，暴击阈值和印刷伤害不变，友方治疗也加", () => {
-    const shot = card("hero_skill:p148");
+    const shot = card("hero_skill:core:h08:p148");
     expect(shot.name).toBe("Sniper Shot");
     expect(shot.level).toBe(1);
     expect(shot.hero).toBe("ARBALEST");
@@ -6308,7 +6391,7 @@ describe("resolveHeroSkill", () => {
       targetAreaLower: true,
     };
     const frozen = structuredClone(lower);
-    expect(use("hero_skill:p148", lower, 10)).toMatchObject({
+    expect(use("hero_skill:core:h08:p148", lower, 10)).toMatchObject({
       status: "resolved",
       outcome: "hit",
       effect: "damage",
@@ -6322,17 +6405,19 @@ describe("resolveHeroSkill", () => {
       skipped: [{ code: "effect_lines" }],
     });
     expect(lower).toEqual(frozen);
-    expect(use("hero_skill:p148", { ...lower, targetAreaLower: false }, 10)).toMatchObject({
-      outcome: "miss",
-      printedAmount: null,
-      damageDealt: null,
-      wounds: 0,
-      actorStress: 4,
-      besideActorStress: [{ id: "vestal", stress: 2 }],
-    });
+    expect(use("hero_skill:core:h08:p148", { ...lower, targetAreaLower: false }, 10)).toMatchObject(
+      {
+        outcome: "miss",
+        printedAmount: null,
+        damageDealt: null,
+        wounds: 0,
+        actorStress: 4,
+        besideActorStress: [{ id: "vestal", stress: 2 }],
+      },
+    );
     expect(
       use(
-        "hero_skill:p148",
+        "hero_skill:core:h08:p148",
         { actor: arbalest, heroesBesideActor: beside, target: soldier, areaDistance: 2 },
         10,
       ),
@@ -6343,7 +6428,7 @@ describe("resolveHeroSkill", () => {
       wounds: 0,
     });
     // 高地不加暴击。Crit 仍是 1：掷 1 暴击、伤害 9；掷 2 是命中、伤害 6。
-    expect(use("hero_skill:p148", lower, 1)).toMatchObject({
+    expect(use("hero_skill:core:h08:p148", lower, 1)).toMatchObject({
       outcome: "crit",
       printedAmount: 9,
       damageDealt: 9,
@@ -6351,7 +6436,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 3,
       besideActorStress: [{ id: "vestal", stress: 1 }],
     });
-    expect(use("hero_skill:p148", lower, 2)).toMatchObject({
+    expect(use("hero_skill:core:h08:p148", lower, 2)).toMatchObject({
       outcome: "hit",
       printedAmount: 6,
       damageDealt: 6,
@@ -6363,7 +6448,7 @@ describe("resolveHeroSkill", () => {
     const dodging = { ...soldier, dodge: 8, wounds: 1 };
     expect(
       use(
-        "hero_skill:p148",
+        "hero_skill:core:h08:p148",
         { actor: arbalest, target: dodging, areaDistance: 2, targetAreaLower: true },
         2,
       ),
@@ -6376,7 +6461,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p148",
+        "hero_skill:core:h08:p148",
         { actor: arbalest, target: dodging, areaDistance: 2, targetAreaLower: false },
         2,
       ),
@@ -6391,7 +6476,7 @@ describe("resolveHeroSkill", () => {
     // 同一掷。防护减半后是 3，反弹按减半前的 6 取一半。高地不加进这两边。
     expect(
       use(
-        "hero_skill:p148",
+        "hero_skill:core:h08:p148",
         {
           actor: arbalest,
           target: { ...dodging, protection: true, riposte: true },
@@ -6413,7 +6498,7 @@ describe("resolveHeroSkill", () => {
     const highDodge = { ...soldier, dodge: 9, wounds: 2, markStacks: 1 };
     expect(
       use(
-        "hero_skill:p148",
+        "hero_skill:core:h08:p148",
         {
           actor: arbalest,
           target: highDodge,
@@ -6431,7 +6516,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p148",
+        "hero_skill:core:h08:p148",
         {
           actor: arbalest,
           target: { ...highDodge, markStacks: 0 },
@@ -6448,7 +6533,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p148",
+        "hero_skill:core:h08:p148",
         {
           actor: arbalest,
           target: highDodge,
@@ -6466,7 +6551,7 @@ describe("resolveHeroSkill", () => {
     // 增益只抬暴击。1 堆增益 + 高地：掷 2 暴击、伤害 9。没有增益时上面已经是命中、伤害 6。
     expect(
       use(
-        "hero_skill:p148",
+        "hero_skill:core:h08:p148",
         {
           actor: { ...arbalest, buffStacks: 1 },
           target: soldier,
@@ -6483,7 +6568,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 3,
     });
 
-    const lance = card("hero_skill:p016");
+    const lance = card("hero_skill:core:h01:p016");
     expect(lance.name).toBe("Holy Lance");
     expect(lance.level).toBe(1);
     expect(lance.hero).toBe("CRUSADER");
@@ -6509,7 +6594,7 @@ describe("resolveHeroSkill", () => {
     // 射程 1。高地让掷 10 命中，伤害 7。+1 vs Unholy 的 numeric 为 null，不加。自身 Pull 1 仍记上。
     expect(
       use(
-        "hero_skill:p016",
+        "hero_skill:core:h01:p016",
         {
           actor: crusader,
           target: soldier,
@@ -6531,7 +6616,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p016",
+        "hero_skill:core:h01:p016",
         { actor: crusader, target: soldier, areaDistance: 1, targetAreaLower: false },
         10,
       ),
@@ -6546,7 +6631,7 @@ describe("resolveHeroSkill", () => {
     // Dodge 9、高地：命中阈值 1。掷 10 落空，自身 Pull 1 仍发生，伤害不加。
     expect(
       use(
-        "hero_skill:p016",
+        "hero_skill:core:h01:p016",
         {
           actor: crusader,
           target: { ...soldier, dodge: 9 },
@@ -6565,7 +6650,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p016",
+        "hero_skill:core:h01:p016",
         { actor: crusader, target: soldier, areaDistance: 1, targetAreaLower: true },
         1,
       ),
@@ -6579,7 +6664,7 @@ describe("resolveHeroSkill", () => {
     });
 
     // Battle Heal I：Acc 12、Crit 2，暴击治疗 4、命中治疗 2。友方也加这 1 点命中。
-    const heal = card("hero_skill:p013");
+    const heal = card("hero_skill:core:h01:p013");
     expect(heal.name).toBe("Battle Heal");
     expect(heal.level).toBe(1);
     expect(heal.verification.unverified).toBe(false);
@@ -6599,7 +6684,7 @@ describe("resolveHeroSkill", () => {
       riposte: true,
     };
     // Dodge 10。没有高地时命中阈值是 2，掷 3 落空。标记堆对英雄不加。
-    expect(use("hero_skill:p013", { actor: vestal, target: patient }, 3)).toMatchObject({
+    expect(use("hero_skill:core:h01:p013", { actor: vestal, target: patient }, 3)).toMatchObject({
       status: "resolved",
       outcome: "miss",
       effect: "heal",
@@ -6613,7 +6698,7 @@ describe("resolveHeroSkill", () => {
     });
     // 高地把命中阈值抬到 3。掷 3 是命中治疗 2，不减半，不反弹。暴击阈值仍是 2，所以不是治疗 4。
     expect(
-      use("hero_skill:p013", { actor: vestal, target: patient, targetAreaLower: true }, 3),
+      use("hero_skill:core:h01:p013", { actor: vestal, target: patient, targetAreaLower: true }, 3),
     ).toMatchObject({
       status: "resolved",
       outcome: "hit",
@@ -6628,7 +6713,7 @@ describe("resolveHeroSkill", () => {
       skipped: [{ code: "damage_or_heal_combined_marker" }],
     });
     expect(
-      use("hero_skill:p013", { actor: vestal, target: patient, targetAreaLower: true }, 2),
+      use("hero_skill:core:h01:p013", { actor: vestal, target: patient, targetAreaLower: true }, 2),
     ).toMatchObject({
       outcome: "crit",
       printedAmount: 4,
@@ -6637,7 +6722,7 @@ describe("resolveHeroSkill", () => {
       riposteDamage: null,
     });
     expect(
-      use("hero_skill:p013", { actor: vestal, target: patient, targetAreaLower: true }, 4),
+      use("hero_skill:core:h01:p013", { actor: vestal, target: patient, targetAreaLower: true }, 4),
     ).toMatchObject({
       outcome: "miss",
       printedAmount: null,
@@ -6645,7 +6730,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 5,
     });
 
-    const pistol = card("hero_skill:p067");
+    const pistol = card("hero_skill:core:h04:p067");
     expect(pistol.name).toBe("Pistol Shot");
     expect(pistol.level).toBe(1);
     expect(pistol.verification.unverified).toBe(false);
@@ -6655,7 +6740,7 @@ describe("resolveHeroSkill", () => {
     // 射程是区间，不传距离。+2 vs 标记的 numeric 为 null。高地让掷 10 命中，伤害仍是 5。
     expect(
       use(
-        "hero_skill:p067",
+        "hero_skill:core:h04:p067",
         {
           actor: arbalest,
           target: { ...soldier, markStacks: 1 },
@@ -6672,15 +6757,21 @@ describe("resolveHeroSkill", () => {
       actorStress: 4,
       skipped: [{ code: "effect_lines" }],
     });
-    expect(use("hero_skill:p067", { actor: arbalest, target: soldier }, 10)).toMatchObject({
-      outcome: "miss",
-      printedAmount: null,
-      damageDealt: null,
-      wounds: 0,
-    });
+    expect(use("hero_skill:core:h04:p067", { actor: arbalest, target: soldier }, 10)).toMatchObject(
+      {
+        outcome: "miss",
+        printedAmount: null,
+        damageDealt: null,
+        wounds: 0,
+      },
+    );
     // 高地不加暴击。掷 2 仍是命中、伤害 5，不是暴击 9，也不是 7。
     expect(
-      use("hero_skill:p067", { actor: arbalest, target: soldier, targetAreaLower: true }, 2),
+      use(
+        "hero_skill:core:h04:p067",
+        { actor: arbalest, target: soldier, targetAreaLower: true },
+        2,
+      ),
     ).toMatchObject({
       outcome: "hit",
       printedAmount: 5,
@@ -6689,7 +6780,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 4,
     });
 
-    const light = card("hero_skill:p100");
+    const light = card("hero_skill:core:h05:p100");
     expect(light.name).toBe("Illumination");
     expect(light.level).toBe(1);
     expect(light.hero).toBe("VESTAL");
@@ -6709,7 +6800,7 @@ describe("resolveHeroSkill", () => {
     // Dodge 9。高地让掷 1 命中，伤害 2。Crit 仍是 0，所以不是暴击 4。光照 +1 的 numeric 为 null，不是 3。
     expect(
       use(
-        "hero_skill:p100",
+        "hero_skill:core:h05:p100",
         {
           actor: { id: "vestal", wounds: 0, stress: 2 },
           target: { ...soldier, dodge: 9 },
@@ -6728,7 +6819,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p100",
+        "hero_skill:core:h05:p100",
         { actor: { id: "vestal", wounds: 0, stress: 2 }, target: { ...soldier, dodge: 9 } },
         1,
       ),
@@ -6743,7 +6834,7 @@ describe("resolveHeroSkill", () => {
     // 没有 Acc 的变身不掷骰。目标区域更低也不造出一次命中。
     expect(
       use(
-        "hero_skill:p220",
+        "hero_skill:core:h11:p220",
         {
           actor: { id: "abomination", wounds: 5, stress: 3 },
           target: { id: "cultist", side: "monster", wounds: 4, dodge: 0 },
@@ -6767,7 +6858,7 @@ describe("resolveHeroSkill", () => {
   it("自身区域不能当成更低；高地只把单个射程上限加 1，区间仍不拆", () => {
     const soldier = { id: "soldier", side: "monster" as const, wounds: 2, dodge: 0 };
     // Smite I 射程是 0，目标就在使用者的区域里。
-    const smite = card("hero_skill:p001");
+    const smite = card("hero_skill:core:h01:p001");
     expect(smite.name).toBe("Smite");
     expect(smite.level).toBe(1);
     expect(smite.verification.unverified).toBe(false);
@@ -6778,7 +6869,7 @@ describe("resolveHeroSkill", () => {
     ).toBe(0);
     expect(
       use(
-        "hero_skill:p001",
+        "hero_skill:core:h01:p001",
         {
           actor: { id: "crusader", wounds: 0, stress: 4 },
           target: soldier,
@@ -6799,7 +6890,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p001",
+        "hero_skill:core:h01:p001",
         {
           actor: { id: "crusader", wounds: 0, stress: 4 },
           target: soldier,
@@ -6819,7 +6910,7 @@ describe("resolveHeroSkill", () => {
     // 同一高度仍按原来的 Acc 9。掷 9 命中、伤害 7，不加 +1 vs Unholy。
     expect(
       use(
-        "hero_skill:p001",
+        "hero_skill:core:h01:p001",
         {
           actor: { id: "crusader", wounds: 0, stress: 4 },
           target: soldier,
@@ -6840,7 +6931,7 @@ describe("resolveHeroSkill", () => {
     // Absolution I 的目标是 Self。自身压力 −1 在拒绝时也不发生。
     expect(
       use(
-        "hero_skill:p217",
+        "hero_skill:core:h11:p217",
         {
           actor: { id: "abomination", wounds: 5, stress: 4 },
           heroesBesideActor: [{ id: "vestal", stress: 2 }],
@@ -6872,7 +6963,7 @@ describe("resolveHeroSkill", () => {
     // 射程 2 对上距离 4 仍拒绝。高地只把上限再加 1，距离 3 在后面的测试里通过。
     expect(
       use(
-        "hero_skill:p148",
+        "hero_skill:core:h08:p148",
         {
           actor: { id: "arbalest", wounds: 0, stress: 4 },
           target: soldier,
@@ -6892,7 +6983,7 @@ describe("resolveHeroSkill", () => {
     // Holy Lance 射程是 1。距离 3 超出可选的 +1，自身 Pull 也不发生。
     expect(
       use(
-        "hero_skill:p016",
+        "hero_skill:core:h01:p016",
         {
           actor: { id: "crusader", wounds: 1, stress: 4 },
           target: soldier,
@@ -6913,7 +7004,7 @@ describe("resolveHeroSkill", () => {
     // Pistol Shot 的射程是 1-2，numeric 为 null。传入距离就整次拒绝，高地不把它拆开。
     expect(
       use(
-        "hero_skill:p067",
+        "hero_skill:core:h04:p067",
         {
           actor: { id: "highwayman", wounds: 0, stress: 3 },
           target: soldier,
@@ -6932,7 +7023,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p148",
+        "hero_skill:core:h08:p148",
         {
           actor: { id: "arbalest", wounds: 1, stress: 4 },
           target: soldier,
@@ -6952,7 +7043,7 @@ describe("resolveHeroSkill", () => {
   });
 
   it("目标区域更低时，单个整数射程的上限可以再加 1，原距离仍然可以", () => {
-    const lance = card("hero_skill:p016");
+    const lance = card("hero_skill:core:h01:p016");
     expect(lance.name).toBe("Holy Lance");
     expect(lance.level).toBe(1);
     expect(lance.hero).toBe("CRUSADER");
@@ -6983,7 +7074,7 @@ describe("resolveHeroSkill", () => {
       targetAreaLower: true,
     };
     const frozen = structuredClone(extended);
-    expect(use("hero_skill:p016", extended, 10)).toMatchObject({
+    expect(use("hero_skill:core:h01:p016", extended, 10)).toMatchObject({
       status: "resolved",
       outcome: "hit",
       effect: "damage",
@@ -7000,7 +7091,9 @@ describe("resolveHeroSkill", () => {
     });
     expect(extended).toEqual(frozen);
     // 同一距离，区域没有更低：整次拒绝，自身 Pull 也不发生。
-    expect(use("hero_skill:p016", { ...extended, targetAreaLower: false }, 10)).toMatchObject({
+    expect(
+      use("hero_skill:core:h01:p016", { ...extended, targetAreaLower: false }, 10),
+    ).toMatchObject({
       status: "refused",
       reason: "目标区域与使用者的距离不是卡面印的射程（规则书第 19 页）",
       outcome: null,
@@ -7013,7 +7106,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p016",
+        "hero_skill:core:h01:p016",
         {
           actor: extended.actor,
           heroesBesideActor: extended.heroesBesideActor,
@@ -7032,7 +7125,7 @@ describe("resolveHeroSkill", () => {
     // 原距离 1 仍然可以。Dodge 1 时命中阈值是 9。掷 10 落空，Pull 1 仍记上。
     expect(
       use(
-        "hero_skill:p016",
+        "hero_skill:core:h01:p016",
         {
           actor: crusader,
           target: { ...soldier, dodge: 1 },
@@ -7052,7 +7145,7 @@ describe("resolveHeroSkill", () => {
     // 距离 2、Dodge 1：命中阈值仍是 9。掷 10 落空，伤害不加，Pull 仍发生。
     expect(
       use(
-        "hero_skill:p016",
+        "hero_skill:core:h01:p016",
         {
           ...extended,
           target: { ...soldier, dodge: 1 },
@@ -7069,7 +7162,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 4,
     });
     // 高地不加暴击。Crit 仍是 1。距离 2、掷 1 暴击、伤害 13，压力各 −1。
-    expect(use("hero_skill:p016", extended, 1)).toMatchObject({
+    expect(use("hero_skill:core:h01:p016", extended, 1)).toMatchObject({
       outcome: "crit",
       printedAmount: 13,
       damageDealt: 13,
@@ -7078,7 +7171,7 @@ describe("resolveHeroSkill", () => {
       besideActorStress: [{ id: "vestal", stress: 1 }],
       actorShuffle: { direction: "pull", distance: 1 },
     });
-    expect(use("hero_skill:p016", extended, 2)).toMatchObject({
+    expect(use("hero_skill:core:h01:p016", extended, 2)).toMatchObject({
       outcome: "hit",
       printedAmount: 7,
       damageDealt: 7,
@@ -7087,7 +7180,7 @@ describe("resolveHeroSkill", () => {
       besideActorStress: [{ id: "vestal", stress: 2 }],
     });
     // 距离 3 超出 +1。自身效果不发生。
-    expect(use("hero_skill:p016", { ...extended, areaDistance: 3 }, 1)).toMatchObject({
+    expect(use("hero_skill:core:h01:p016", { ...extended, areaDistance: 3 }, 1)).toMatchObject({
       status: "refused",
       wounds: 2,
       actorWounds: 1,
@@ -7098,7 +7191,7 @@ describe("resolveHeroSkill", () => {
     });
 
     // Smite I 射程 0。距离 1 且更低：Acc 10，掷 10 命中、伤害 7。掷 1 仍是命中，不是暴击 13。
-    const smite = card("hero_skill:p001");
+    const smite = card("hero_skill:core:h01:p001");
     expect(smite.name).toBe("Smite");
     expect(smite.level).toBe(1);
     expect(
@@ -7114,7 +7207,7 @@ describe("resolveHeroSkill", () => {
       areaDistance: 1,
       targetAreaLower: true,
     };
-    expect(use("hero_skill:p001", melee, 10)).toMatchObject({
+    expect(use("hero_skill:core:h01:p001", melee, 10)).toMatchObject({
       status: "resolved",
       outcome: "hit",
       printedAmount: 7,
@@ -7123,21 +7216,21 @@ describe("resolveHeroSkill", () => {
       actorStress: 5,
       skipped: [{ code: "effect_lines" }],
     });
-    expect(use("hero_skill:p001", melee, 1)).toMatchObject({
+    expect(use("hero_skill:core:h01:p001", melee, 1)).toMatchObject({
       outcome: "hit",
       printedAmount: 7,
       damageDealt: 7,
       wounds: 7,
       actorStress: 5,
     });
-    expect(use("hero_skill:p001", { ...melee, targetAreaLower: false }, 9)).toMatchObject({
+    expect(use("hero_skill:core:h01:p001", { ...melee, targetAreaLower: false }, 9)).toMatchObject({
       status: "refused",
       wounds: 0,
       actorWounds: 0,
       actorStress: 5,
       damageDealt: null,
     });
-    expect(use("hero_skill:p001", { ...melee, areaDistance: 2 }, 1)).toMatchObject({
+    expect(use("hero_skill:core:h01:p001", { ...melee, areaDistance: 2 }, 1)).toMatchObject({
       status: "refused",
       wounds: 0,
       damageDealt: null,
@@ -7145,7 +7238,7 @@ describe("resolveHeroSkill", () => {
     });
 
     // Sniper Shot I 射程 2。距离 3、更低：掷 10 命中、伤害 6。+3 vs 标记不加。
-    const shot = card("hero_skill:p148");
+    const shot = card("hero_skill:core:h08:p148");
     expect(shot.name).toBe("Sniper Shot");
     expect(shot.level).toBe(1);
     expect(shot.hero).toBe("ARBALEST");
@@ -7166,7 +7259,7 @@ describe("resolveHeroSkill", () => {
       areaDistance: 3,
       targetAreaLower: true,
     };
-    expect(use("hero_skill:p148", sniper, 10)).toMatchObject({
+    expect(use("hero_skill:core:h08:p148", sniper, 10)).toMatchObject({
       outcome: "hit",
       printedAmount: 6,
       damageDealt: 6,
@@ -7175,7 +7268,9 @@ describe("resolveHeroSkill", () => {
       skipped: [{ code: "effect_lines" }],
     });
     // 2 堆标记已经把命中阈值抬到 11。没有高地时距离 3 根本进不了结算。
-    expect(use("hero_skill:p148", { ...sniper, targetAreaLower: false }, 10)).toMatchObject({
+    expect(
+      use("hero_skill:core:h08:p148", { ...sniper, targetAreaLower: false }, 10),
+    ).toMatchObject({
       status: "refused",
       wounds: 1,
       damageDealt: null,
@@ -7184,7 +7279,7 @@ describe("resolveHeroSkill", () => {
     // 原距离 2、没有标记：Acc 9 + 高地 1，掷 10 命中、伤害仍是 6。标记不加进伤害。
     expect(
       use(
-        "hero_skill:p148",
+        "hero_skill:core:h08:p148",
         {
           actor: sniper.actor,
           target: { id: "soldier", side: "monster" as const, wounds: 1, dodge: 0 },
@@ -7201,7 +7296,7 @@ describe("resolveHeroSkill", () => {
     });
 
     // Divine Comfort I 射程 1，治疗友方。距离 2 且更低才结算。自身治疗 2 在落空时也扣。
-    const comfort = card("hero_skill:p097");
+    const comfort = card("hero_skill:core:h05:p097");
     expect(comfort.name).toBe("Divine Comfort");
     expect(comfort.level).toBe(1);
     expect(comfort.hero).toBe("VESTAL");
@@ -7237,7 +7332,7 @@ describe("resolveHeroSkill", () => {
       targetAreaLower: true,
     };
     // Dodge 4。没有高地时命中阈值是 8，有高地是 9。掷 9 命中、治疗 2，不是暴击的 3。
-    expect(use("hero_skill:p097", healFar, 9)).toMatchObject({
+    expect(use("hero_skill:core:h05:p097", healFar, 9)).toMatchObject({
       status: "resolved",
       outcome: "hit",
       effect: "heal",
@@ -7251,14 +7346,14 @@ describe("resolveHeroSkill", () => {
       besideActorStress: [{ id: "crusader", stress: 2 }],
       skipped: [{ code: "damage_or_heal_combined_marker" }],
     });
-    expect(use("hero_skill:p097", healFar, 4)).toMatchObject({
+    expect(use("hero_skill:core:h05:p097", healFar, 4)).toMatchObject({
       outcome: "hit",
       printedAmount: 2,
       wounds: 4,
       actorWounds: 4,
       actorStress: 4,
     });
-    expect(use("hero_skill:p097", healFar, 3)).toMatchObject({
+    expect(use("hero_skill:core:h05:p097", healFar, 3)).toMatchObject({
       outcome: "crit",
       printedAmount: 3,
       wounds: 3,
@@ -7267,7 +7362,7 @@ describe("resolveHeroSkill", () => {
       besideActorStress: [{ id: "crusader", stress: 1 }],
       targetStress: 5,
     });
-    expect(use("hero_skill:p097", healFar, 10)).toMatchObject({
+    expect(use("hero_skill:core:h05:p097", healFar, 10)).toMatchObject({
       outcome: "miss",
       printedAmount: null,
       wounds: 6,
@@ -7275,7 +7370,9 @@ describe("resolveHeroSkill", () => {
       actorStress: 4,
       targetStress: 5,
     });
-    expect(use("hero_skill:p097", { ...healFar, targetAreaLower: false }, 9)).toMatchObject({
+    expect(
+      use("hero_skill:core:h05:p097", { ...healFar, targetAreaLower: false }, 9),
+    ).toMatchObject({
       status: "refused",
       wounds: 6,
       actorWounds: 6,
@@ -7286,7 +7383,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p097",
+        "hero_skill:core:h05:p097",
         {
           actor: vestal,
           target: patient,
@@ -7301,7 +7398,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 4,
       printedAmount: null,
     });
-    expect(use("hero_skill:p097", { ...healFar, areaDistance: 3 }, 3)).toMatchObject({
+    expect(use("hero_skill:core:h05:p097", { ...healFar, areaDistance: 3 }, 3)).toMatchObject({
       status: "refused",
       wounds: 6,
       actorWounds: 6,
@@ -7310,7 +7407,7 @@ describe("resolveHeroSkill", () => {
     });
 
     // If It Bleeds I 射程 1。距离 2 可以打到，流血 2t 仍是 null，不放堆，也不加进伤害。
-    const bleeds = card("hero_skill:p031");
+    const bleeds = card("hero_skill:core:h02:p031");
     expect(bleeds.name).toBe("If It Bleeds");
     expect(bleeds.level).toBe(1);
     expect(
@@ -7322,7 +7419,7 @@ describe("resolveHeroSkill", () => {
     ).toEqual([null]);
     expect(
       use(
-        "hero_skill:p031",
+        "hero_skill:core:h02:p031",
         {
           actor: { id: "hellion", wounds: 1, stress: 4 },
           target: { id: "soldier", side: "monster", wounds: 0, dodge: 0 },
@@ -7343,7 +7440,7 @@ describe("resolveHeroSkill", () => {
     });
 
     // Pistol Shot I 的射程是 1-2，numeric 为 null。高地不把它拆成 1、2 或 3。
-    const pistol = card("hero_skill:p067");
+    const pistol = card("hero_skill:core:h04:p067");
     expect(pistol.name).toBe("Pistol Shot");
     expect(pistol.level).toBe(1);
     expect(
@@ -7356,7 +7453,7 @@ describe("resolveHeroSkill", () => {
     for (const areaDistance of [1, 2, 3]) {
       expect(
         use(
-          "hero_skill:p067",
+          "hero_skill:core:h04:p067",
           {
             actor: { id: "highwayman", wounds: 0, stress: 3 },
             target: soldier,
@@ -7378,7 +7475,7 @@ describe("resolveHeroSkill", () => {
   });
 
   it("光照 0 到 4 让暴击阈值 +1，光照 5 不加，印刷数字不变", () => {
-    const smite = card("hero_skill:p001");
+    const smite = card("hero_skill:core:h01:p001");
     expect(smite.name).toBe("Smite");
     expect(smite.level).toBe(1);
     expect(smite.hero).toBe("CRUSADER");
@@ -7402,7 +7499,7 @@ describe("resolveHeroSkill", () => {
     // +1 vs Unholy 的 numeric 为 null，不是 14，也不是 8。
     const lit = { actor: crusader, target: soldier, areaDistance: 0, light: 4 };
     const frozen = structuredClone(lit);
-    expect(use("hero_skill:p001", lit, 1)).toMatchObject({
+    expect(use("hero_skill:core:h01:p001", lit, 1)).toMatchObject({
       status: "resolved",
       outcome: "crit",
       effect: "damage",
@@ -7416,7 +7513,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(lit).toEqual(frozen);
     expect(
-      use("hero_skill:p001", { actor: crusader, target: soldier, areaDistance: 0 }, 1),
+      use("hero_skill:core:h01:p001", { actor: crusader, target: soldier, areaDistance: 0 }, 1),
     ).toMatchObject({
       outcome: "hit",
       printedAmount: 7,
@@ -7426,7 +7523,9 @@ describe("resolveHeroSkill", () => {
     });
     // 4、3、1、0 都有这一项。恰好 5 没有。掷 2 仍是命中：暴击阈值只到 1。
     for (const light of [4, 3, 1, 0]) {
-      expect(use("hero_skill:p001", { actor: crusader, target: soldier, light }, 1)).toMatchObject({
+      expect(
+        use("hero_skill:core:h01:p001", { actor: crusader, target: soldier, light }, 1),
+      ).toMatchObject({
         outcome: "crit",
         printedAmount: 13,
         damageDealt: 13,
@@ -7434,36 +7533,36 @@ describe("resolveHeroSkill", () => {
         actorStress: 4,
       });
     }
-    expect(use("hero_skill:p001", { actor: crusader, target: soldier, light: 5 }, 1)).toMatchObject(
-      {
-        outcome: "hit",
-        printedAmount: 7,
-        damageDealt: 7,
-        wounds: 7,
-        actorStress: 5,
-      },
-    );
-    expect(use("hero_skill:p001", { actor: crusader, target: soldier, light: 4 }, 2)).toMatchObject(
-      {
-        outcome: "hit",
-        printedAmount: 7,
-        damageDealt: 7,
-        wounds: 7,
-        actorStress: 5,
-      },
-    );
-    // 光照 4 不改命中阈值，仍是 Acc 9。掷 9 命中、伤害 7。光照 0 的怪物 Dodge 在后面的测试里。
-    expect(use("hero_skill:p001", { actor: crusader, target: soldier, light: 4 }, 9)).toMatchObject(
-      {
-        outcome: "hit",
-        printedAmount: 7,
-        damageDealt: 7,
-        wounds: 7,
-        actorStress: 5,
-      },
-    );
     expect(
-      use("hero_skill:p001", { actor: crusader, target: soldier, light: 4 }, 10),
+      use("hero_skill:core:h01:p001", { actor: crusader, target: soldier, light: 5 }, 1),
+    ).toMatchObject({
+      outcome: "hit",
+      printedAmount: 7,
+      damageDealt: 7,
+      wounds: 7,
+      actorStress: 5,
+    });
+    expect(
+      use("hero_skill:core:h01:p001", { actor: crusader, target: soldier, light: 4 }, 2),
+    ).toMatchObject({
+      outcome: "hit",
+      printedAmount: 7,
+      damageDealt: 7,
+      wounds: 7,
+      actorStress: 5,
+    });
+    // 光照 4 不改命中阈值，仍是 Acc 9。掷 9 命中、伤害 7。光照 0 的怪物 Dodge 在后面的测试里。
+    expect(
+      use("hero_skill:core:h01:p001", { actor: crusader, target: soldier, light: 4 }, 9),
+    ).toMatchObject({
+      outcome: "hit",
+      printedAmount: 7,
+      damageDealt: 7,
+      wounds: 7,
+      actorStress: 5,
+    });
+    expect(
+      use("hero_skill:core:h01:p001", { actor: crusader, target: soldier, light: 4 }, 10),
     ).toMatchObject({
       outcome: "miss",
       printedAmount: null,
@@ -7473,7 +7572,11 @@ describe("resolveHeroSkill", () => {
     });
     // Dodge 20。暴击仍不减 Dodge。光照没有把这次落空的命中阈值抬上去。
     expect(
-      use("hero_skill:p001", { actor: crusader, target: { ...soldier, dodge: 20 }, light: 4 }, 1),
+      use(
+        "hero_skill:core:h01:p001",
+        { actor: crusader, target: { ...soldier, dodge: 20 }, light: 4 },
+        1,
+      ),
     ).toMatchObject({
       outcome: "crit",
       printedAmount: 13,
@@ -7482,7 +7585,11 @@ describe("resolveHeroSkill", () => {
       actorStress: 4,
     });
     expect(
-      use("hero_skill:p001", { actor: crusader, target: { ...soldier, dodge: 8 }, light: 4 }, 2),
+      use(
+        "hero_skill:core:h01:p001",
+        { actor: crusader, target: { ...soldier, dodge: 8 }, light: 4 },
+        2,
+      ),
     ).toMatchObject({
       outcome: "miss",
       printedAmount: null,
@@ -7493,7 +7600,7 @@ describe("resolveHeroSkill", () => {
     // 标记抬的是命中，不是暴击。Dodge 8、1 堆标记：掷 2 命中、伤害 7。没有标记则上面已经落空。
     expect(
       use(
-        "hero_skill:p001",
+        "hero_skill:core:h01:p001",
         { actor: crusader, target: { ...soldier, dodge: 8, markStacks: 1 }, light: 4 },
         2,
       ),
@@ -7507,7 +7614,7 @@ describe("resolveHeroSkill", () => {
     // 1 堆减益再 +1 暴击。掷 2 变成暴击、伤害 13。防护减半后是 7，反弹按减半前的 13 取一半。
     expect(
       use(
-        "hero_skill:p001",
+        "hero_skill:core:h01:p001",
         {
           actor: crusader,
           target: { ...soldier, debuffStacks: 1, protection: true, riposte: true },
@@ -7526,7 +7633,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p001",
+        "hero_skill:core:h01:p001",
         { actor: { ...crusader, buffStacks: 1 }, target: soldier, light: 4 },
         2,
       ),
@@ -7539,7 +7646,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p001",
+        "hero_skill:core:h01:p001",
         { actor: { ...crusader, buffStacks: 1 }, target: soldier, light: 4 },
         3,
       ),
@@ -7553,7 +7660,7 @@ describe("resolveHeroSkill", () => {
 
     // 说明书 G-08（OR24-p7）：Pistol Shot Crit 1，自身已有 1 堆增益，光照 4。
     // 暴击阈值 3。掷 1–3 暴击、伤害 9；4–9 命中、伤害 5；10 落空。+2 vs 标记不加。
-    const pistol = card("hero_skill:p067");
+    const pistol = card("hero_skill:core:h04:p067");
     expect(pistol.name).toBe("Pistol Shot");
     expect(pistol.level).toBe(1);
     expect(pistol.hero).toBe("HIGHWAYMAN");
@@ -7579,7 +7686,7 @@ describe("resolveHeroSkill", () => {
       light: 4,
     };
     for (const roll of [1, 2, 3]) {
-      expect(use("hero_skill:p067", shot, roll)).toMatchObject({
+      expect(use("hero_skill:core:h04:p067", shot, roll)).toMatchObject({
         status: "resolved",
         outcome: "crit",
         printedAmount: 9,
@@ -7591,7 +7698,7 @@ describe("resolveHeroSkill", () => {
       });
     }
     for (const roll of [4, 9]) {
-      expect(use("hero_skill:p067", shot, roll)).toMatchObject({
+      expect(use("hero_skill:core:h04:p067", shot, roll)).toMatchObject({
         outcome: "hit",
         printedAmount: 5,
         damageDealt: 5,
@@ -7600,7 +7707,7 @@ describe("resolveHeroSkill", () => {
         besideActorStress: [{ id: "vestal", stress: 2 }],
       });
     }
-    expect(use("hero_skill:p067", shot, 10)).toMatchObject({
+    expect(use("hero_skill:core:h04:p067", shot, 10)).toMatchObject({
       outcome: "miss",
       printedAmount: null,
       damageDealt: null,
@@ -7610,7 +7717,11 @@ describe("resolveHeroSkill", () => {
     });
     // 只有增益、没有光照：阈值是 2。掷 3 是命中、伤害 5。
     expect(
-      use("hero_skill:p067", { actor: highwayman, heroesBesideActor: beside, target: soldier }, 3),
+      use(
+        "hero_skill:core:h04:p067",
+        { actor: highwayman, heroesBesideActor: beside, target: soldier },
+        3,
+      ),
     ).toMatchObject({
       outcome: "hit",
       printedAmount: 5,
@@ -7622,7 +7733,7 @@ describe("resolveHeroSkill", () => {
     // 只有光照、没有增益：阈值是 2。掷 2 暴击、伤害 9；掷 3 命中、伤害 5。
     expect(
       use(
-        "hero_skill:p067",
+        "hero_skill:core:h04:p067",
         { actor: { ...highwayman, buffStacks: 0 }, target: soldier, light: 4 },
         2,
       ),
@@ -7635,7 +7746,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p067",
+        "hero_skill:core:h04:p067",
         { actor: { ...highwayman, buffStacks: 0 }, target: soldier, light: 4 },
         3,
       ),
@@ -7649,7 +7760,7 @@ describe("resolveHeroSkill", () => {
     // 增益、减益、光照叠在一起。阈值 4。掷 4 暴击、伤害 9；掷 5 命中、伤害 5。
     expect(
       use(
-        "hero_skill:p067",
+        "hero_skill:core:h04:p067",
         {
           actor: highwayman,
           target: { ...soldier, debuffStacks: 1 },
@@ -7666,7 +7777,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p067",
+        "hero_skill:core:h04:p067",
         { actor: highwayman, target: { ...soldier, debuffStacks: 1 }, light: 4 },
         5,
       ),
@@ -7680,7 +7791,7 @@ describe("resolveHeroSkill", () => {
     // 2 堆标记不加进暴击伤害。掷 2 仍是 9，不是 13。掷 3 的命中伤害仍是 5，不是 7。
     expect(
       use(
-        "hero_skill:p067",
+        "hero_skill:core:h04:p067",
         {
           actor: { ...highwayman, buffStacks: 0 },
           target: { ...soldier, markStacks: 2 },
@@ -7696,7 +7807,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p067",
+        "hero_skill:core:h04:p067",
         {
           actor: { ...highwayman, buffStacks: 0 },
           target: { ...soldier, markStacks: 2 },
@@ -7712,7 +7823,7 @@ describe("resolveHeroSkill", () => {
     });
     // 光照 5 不再给暴击。1 堆增益时阈值回到 2，掷 3 是命中。
     expect(
-      use("hero_skill:p067", { actor: highwayman, target: soldier, light: 5 }, 3),
+      use("hero_skill:core:h04:p067", { actor: highwayman, target: soldier, light: 5 }, 3),
     ).toMatchObject({
       outcome: "hit",
       printedAmount: 5,
@@ -7722,7 +7833,7 @@ describe("resolveHeroSkill", () => {
     });
     // 光照不加命中。掷 10 仍落空。高地才把这一掷变成命中，伤害仍是 5。
     expect(
-      use("hero_skill:p067", { actor: highwayman, target: soldier, light: 4 }, 10),
+      use("hero_skill:core:h04:p067", { actor: highwayman, target: soldier, light: 4 }, 10),
     ).toMatchObject({
       outcome: "miss",
       printedAmount: null,
@@ -7732,7 +7843,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p067",
+        "hero_skill:core:h04:p067",
         { actor: highwayman, target: soldier, light: 4, targetAreaLower: true },
         10,
       ),
@@ -7745,7 +7856,7 @@ describe("resolveHeroSkill", () => {
     });
 
     // Battle Heal I：暴击治疗 4、命中治疗 2。友方也吃光照的暴击 +1。英雄身上的减益不加。
-    const heal = card("hero_skill:p013");
+    const heal = card("hero_skill:core:h01:p013");
     expect(heal.name).toBe("Battle Heal");
     expect(heal.level).toBe(1);
     expect(heal.verification.unverified).toBe(false);
@@ -7766,7 +7877,7 @@ describe("resolveHeroSkill", () => {
       riposte: true,
     };
     // Dodge 11。没有光照时暴击阈值 2、命中阈值 1，掷 3 落空。
-    expect(use("hero_skill:p013", { actor: vestal, target: patient }, 3)).toMatchObject({
+    expect(use("hero_skill:core:h01:p013", { actor: vestal, target: patient }, 3)).toMatchObject({
       outcome: "miss",
       effect: "heal",
       printedAmount: null,
@@ -7775,7 +7886,9 @@ describe("resolveHeroSkill", () => {
       riposteDamage: null,
     });
     // 光照 4 把暴击阈值抬到 3，不看 Dodge。掷 3 暴击治疗 4，不减半，不反弹。
-    expect(use("hero_skill:p013", { actor: vestal, target: patient, light: 4 }, 3)).toMatchObject({
+    expect(
+      use("hero_skill:core:h01:p013", { actor: vestal, target: patient, light: 4 }, 3),
+    ).toMatchObject({
       status: "resolved",
       outcome: "crit",
       effect: "heal",
@@ -7789,7 +7902,9 @@ describe("resolveHeroSkill", () => {
       skipped: [{ code: "damage_or_heal_combined_marker" }],
     });
     // 减益没有把暴击阈值再抬到 4。掷 4 仍落空。
-    expect(use("hero_skill:p013", { actor: vestal, target: patient, light: 4 }, 4)).toMatchObject({
+    expect(
+      use("hero_skill:core:h01:p013", { actor: vestal, target: patient, light: 4 }, 4),
+    ).toMatchObject({
       outcome: "miss",
       printedAmount: null,
       wounds: 6,
@@ -7797,7 +7912,9 @@ describe("resolveHeroSkill", () => {
     });
     // 光照 5 不加暴击。Dodge 9 再 +1，命中阈值是 2。5 堆标记对英雄不加。掷 3 落空，治疗不发生。
     const bright = { ...patient, dodge: 9 };
-    expect(use("hero_skill:p013", { actor: vestal, target: bright, light: 5 }, 3)).toMatchObject({
+    expect(
+      use("hero_skill:core:h01:p013", { actor: vestal, target: bright, light: 5 }, 3),
+    ).toMatchObject({
       outcome: "miss",
       printedAmount: null,
       damageDealt: null,
@@ -7806,7 +7923,9 @@ describe("resolveHeroSkill", () => {
       riposteDamage: null,
     });
     // 暴击仍不减这 1 点 Dodge。掷 2 暴击治疗 4。
-    expect(use("hero_skill:p013", { actor: vestal, target: bright, light: 5 }, 2)).toMatchObject({
+    expect(
+      use("hero_skill:core:h01:p013", { actor: vestal, target: bright, light: 5 }, 2),
+    ).toMatchObject({
       outcome: "crit",
       printedAmount: 4,
       wounds: 2,
@@ -7814,7 +7933,7 @@ describe("resolveHeroSkill", () => {
     });
 
     // 光照 2 只抬暴击。压力仍按原来的 −1，不因为「承受压力 +1」再加。
-    const tune = card("hero_skill:p122");
+    const tune = card("hero_skill:core:h06:p122");
     expect(tune.name).toBe("Inspiring Tune");
     expect(tune.level).toBe(2);
     expect(tune.verification.unverified).toBe(false);
@@ -7827,7 +7946,7 @@ describe("resolveHeroSkill", () => {
     const company = [{ id: "crusader", stress: 2 }];
     expect(
       use(
-        "hero_skill:p122",
+        "hero_skill:core:h06:p122",
         {
           actor: jester,
           heroesBesideActor: company,
@@ -7849,7 +7968,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p122",
+        "hero_skill:core:h06:p122",
         {
           actor: jester,
           heroesBesideActor: company,
@@ -7869,7 +7988,7 @@ describe("resolveHeroSkill", () => {
 
   it("光照恰好为 5 时，英雄目标的 Dodge +1，怪物目标不加", () => {
     // Battlefield Bandage I：Crit 0、Acc 8、暴击治疗 6、命中治疗 4。Crit 0 不会先抢走命中。
-    const bandage = card("hero_skill:p163");
+    const bandage = card("hero_skill:core:h08:p163");
     expect(bandage.name).toBe("Battlefield Bandage");
     expect(bandage.level).toBe(1);
     expect(bandage.hero).toBe("ARBALEST");
@@ -7892,7 +8011,7 @@ describe("resolveHeroSkill", () => {
     const bright = { actor: arbalest, target: ally, light: 5 };
     const frozen = structuredClone(bright);
     // Dodge 0 再 +1，命中阈值是 7。掷 8 落空。不传光照时掷 8 命中、治疗 4。
-    expect(use("hero_skill:p163", bright, 8)).toMatchObject({
+    expect(use("hero_skill:core:h08:p163", bright, 8)).toMatchObject({
       status: "resolved",
       outcome: "miss",
       effect: "heal",
@@ -7906,34 +8025,40 @@ describe("resolveHeroSkill", () => {
       skipped: [{ code: "damage_or_heal_combined_marker" }, { code: "effect_lines" }],
     });
     expect(bright).toEqual(frozen);
-    expect(use("hero_skill:p163", { actor: arbalest, target: ally }, 8)).toMatchObject({
+    expect(use("hero_skill:core:h08:p163", { actor: arbalest, target: ally }, 8)).toMatchObject({
       outcome: "hit",
       printedAmount: 4,
       wounds: 2,
       actorWounds: 1,
       actorStress: 4,
     });
-    expect(use("hero_skill:p163", bright, 7)).toMatchObject({
+    expect(use("hero_skill:core:h08:p163", bright, 7)).toMatchObject({
       outcome: "hit",
       printedAmount: 4,
       wounds: 2,
       actorStress: 4,
     });
     // 光照 4 只有暴击 +1，没有英雄 Dodge +1。掷 8 仍命中、治疗 4；掷 1 暴击、治疗 6。
-    expect(use("hero_skill:p163", { actor: arbalest, target: ally, light: 4 }, 8)).toMatchObject({
+    expect(
+      use("hero_skill:core:h08:p163", { actor: arbalest, target: ally, light: 4 }, 8),
+    ).toMatchObject({
       outcome: "hit",
       printedAmount: 4,
       wounds: 2,
       actorStress: 4,
     });
-    expect(use("hero_skill:p163", { actor: arbalest, target: ally, light: 4 }, 1)).toMatchObject({
+    expect(
+      use("hero_skill:core:h08:p163", { actor: arbalest, target: ally, light: 4 }, 1),
+    ).toMatchObject({
       outcome: "crit",
       printedAmount: 6,
       wounds: 0,
       actorStress: 3,
     });
     // 光照 0 也不给英雄 Dodge +1。掷 8 命中。2t 增益的 numeric 为 null，不另放堆。
-    expect(use("hero_skill:p163", { actor: arbalest, target: ally, light: 0 }, 8)).toMatchObject({
+    expect(
+      use("hero_skill:core:h08:p163", { actor: arbalest, target: ally, light: 0 }, 8),
+    ).toMatchObject({
       outcome: "hit",
       printedAmount: 4,
       wounds: 2,
@@ -7942,7 +8067,11 @@ describe("resolveHeroSkill", () => {
     });
     // Dodge 7 再 +1，命中阈值是 0。Crit 0，掷 1 也落空。
     expect(
-      use("hero_skill:p163", { actor: arbalest, target: { ...ally, dodge: 7 }, light: 5 }, 1),
+      use(
+        "hero_skill:core:h08:p163",
+        { actor: arbalest, target: { ...ally, dodge: 7 }, light: 5 },
+        1,
+      ),
     ).toMatchObject({
       outcome: "miss",
       printedAmount: null,
@@ -7951,45 +8080,45 @@ describe("resolveHeroSkill", () => {
     });
 
     // Smite I 打的是怪物。光照 5 不加英雄 Dodge，掷 9 仍命中、伤害 7。+1 vs Unholy 不加。
-    const smite = card("hero_skill:p001");
+    const smite = card("hero_skill:core:h01:p001");
     expect(smite.name).toBe("Smite");
     expect(smite.verification.unverified).toBe(false);
     const crusader = { id: "crusader", wounds: 0, stress: 5 };
     const soldier = { id: "soldier", side: "monster" as const, wounds: 0, dodge: 0 };
-    expect(use("hero_skill:p001", { actor: crusader, target: soldier, light: 5 }, 9)).toMatchObject(
-      {
-        status: "resolved",
-        outcome: "hit",
-        effect: "damage",
-        printedAmount: 7,
-        damageDealt: 7,
-        wounds: 7,
-        actorStress: 5,
-        skipped: [{ code: "effect_lines" }],
-      },
-    );
+    expect(
+      use("hero_skill:core:h01:p001", { actor: crusader, target: soldier, light: 5 }, 9),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      effect: "damage",
+      printedAmount: 7,
+      damageDealt: 7,
+      wounds: 7,
+      actorStress: 5,
+      skipped: [{ code: "effect_lines" }],
+    });
     // 光照 0 才给怪物 Dodge +1。命中阈值是 8。掷 8 命中、伤害 7；掷 9 落空。英雄 Acc 不加。
-    expect(use("hero_skill:p001", { actor: crusader, target: soldier, light: 0 }, 8)).toMatchObject(
-      {
-        outcome: "hit",
-        printedAmount: 7,
-        damageDealt: 7,
-        wounds: 7,
-        actorStress: 5,
-      },
-    );
-    expect(use("hero_skill:p001", { actor: crusader, target: soldier, light: 0 }, 9)).toMatchObject(
-      {
-        outcome: "miss",
-        printedAmount: null,
-        damageDealt: null,
-        wounds: 0,
-        actorStress: 5,
-      },
-    );
+    expect(
+      use("hero_skill:core:h01:p001", { actor: crusader, target: soldier, light: 0 }, 8),
+    ).toMatchObject({
+      outcome: "hit",
+      printedAmount: 7,
+      damageDealt: 7,
+      wounds: 7,
+      actorStress: 5,
+    });
+    expect(
+      use("hero_skill:core:h01:p001", { actor: crusader, target: soldier, light: 0 }, 9),
+    ).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      damageDealt: null,
+      wounds: 0,
+      actorStress: 5,
+    });
 
     // Divine Comfort I：Crit 3、Acc 12、暴击治疗 3、命中治疗 2。自身治疗 2 落空也扣。
-    const comfort = card("hero_skill:p097");
+    const comfort = card("hero_skill:core:h05:p097");
     expect(comfort.name).toBe("Divine Comfort");
     expect(comfort.level).toBe(1);
     expect(comfort.hero).toBe("VESTAL");
@@ -8037,7 +8166,7 @@ describe("resolveHeroSkill", () => {
     };
     // Dodge 8 再 +1，命中阈值是 3。暴击阈值也是 3，所以掷 4 落空。自身治疗 2 仍扣。
     // 标记、防护、反击对友方治疗都不改这个结果。
-    expect(use("hero_skill:p097", comfortBright, 4)).toMatchObject({
+    expect(use("hero_skill:core:h05:p097", comfortBright, 4)).toMatchObject({
       status: "resolved",
       outcome: "miss",
       effect: "heal",
@@ -8052,7 +8181,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p097",
+        "hero_skill:core:h05:p097",
         {
           actor: vestal,
           target: patient,
@@ -8070,7 +8199,7 @@ describe("resolveHeroSkill", () => {
       riposteDamage: null,
     });
     // 暴击不减 Dodge +1。掷 3 暴击治疗 3，同区暴击压力 −1。不是命中治疗 2。
-    expect(use("hero_skill:p097", comfortBright, 3)).toMatchObject({
+    expect(use("hero_skill:core:h05:p097", comfortBright, 3)).toMatchObject({
       outcome: "crit",
       printedAmount: 3,
       wounds: 2,
@@ -8079,7 +8208,7 @@ describe("resolveHeroSkill", () => {
     });
     // 1 堆增益把暴击阈值抬到 4。光照 5 不再另加暴击。掷 4 变成暴击治疗 3。
     expect(
-      use("hero_skill:p097", { ...comfortBright, actor: { ...vestal, buffStacks: 1 } }, 4),
+      use("hero_skill:core:h05:p097", { ...comfortBright, actor: { ...vestal, buffStacks: 1 } }, 4),
     ).toMatchObject({
       outcome: "crit",
       printedAmount: 3,
@@ -8096,14 +8225,14 @@ describe("resolveHeroSkill", () => {
       targetAreaLower: true,
       light: 5,
     };
-    expect(use("hero_skill:p097", lower, 8)).toMatchObject({
+    expect(use("hero_skill:core:h05:p097", lower, 8)).toMatchObject({
       outcome: "hit",
       printedAmount: 2,
       wounds: 3,
       actorWounds: 2,
       actorStress: 5,
     });
-    expect(use("hero_skill:p097", { ...lower, targetAreaLower: false }, 8)).toMatchObject({
+    expect(use("hero_skill:core:h05:p097", { ...lower, targetAreaLower: false }, 8)).toMatchObject({
       outcome: "miss",
       printedAmount: null,
       wounds: 5,
@@ -8112,7 +8241,7 @@ describe("resolveHeroSkill", () => {
     });
 
     // Absolution I 的目标是 Self，使用者自己也是英雄。Crit 1、Acc 12、命中治疗 2。
-    const absolution = card("hero_skill:p217");
+    const absolution = card("hero_skill:core:h11:p217");
     expect(absolution.name).toBe("Absolution");
     expect(absolution.level).toBe(1);
     expect(absolution.hero).toBe("ABOMINATION");
@@ -8130,52 +8259,56 @@ describe("resolveHeroSkill", () => {
       stress: 4,
     };
     // 光照 4 不加 Dodge。命中阈值是 3，暴击阈值是 2。掷 3 命中、治疗 2，自身压力 −1。
-    expect(use("hero_skill:p217", { actor: abomination, target: self, light: 4 }, 3)).toMatchObject(
-      {
-        status: "resolved",
-        outcome: "hit",
-        effect: "heal",
-        printedAmount: 2,
-        wounds: 3,
-        actorWounds: 3,
-        actorStress: 3,
-        targetStress: 3,
-        skipped: [],
-      },
-    );
+    expect(
+      use("hero_skill:core:h11:p217", { actor: abomination, target: self, light: 4 }, 3),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      effect: "heal",
+      printedAmount: 2,
+      wounds: 3,
+      actorWounds: 3,
+      actorStress: 3,
+      targetStress: 3,
+      skipped: [],
+    });
     // 光照 5：Dodge 9 再 +1，命中阈值是 2。掷 3 落空。自身压力 −1 仍在，治疗没有。
-    expect(use("hero_skill:p217", { actor: abomination, target: self, light: 5 }, 3)).toMatchObject(
-      {
-        outcome: "miss",
-        printedAmount: null,
-        wounds: 5,
-        actorWounds: 5,
-        actorStress: 3,
-        targetStress: 3,
-      },
-    );
+    expect(
+      use("hero_skill:core:h11:p217", { actor: abomination, target: self, light: 5 }, 3),
+    ).toMatchObject({
+      outcome: "miss",
+      printedAmount: null,
+      wounds: 5,
+      actorWounds: 5,
+      actorStress: 3,
+      targetStress: 3,
+    });
     // 掷 1 仍是暴击治疗 4。暴击压力再 −1，停在 2。不减 Dodge。
-    expect(use("hero_skill:p217", { actor: abomination, target: self, light: 5 }, 1)).toMatchObject(
-      {
-        outcome: "crit",
-        printedAmount: 4,
-        wounds: 1,
-        actorWounds: 1,
-        actorStress: 2,
-        targetStress: 2,
-      },
-    );
+    expect(
+      use("hero_skill:core:h11:p217", { actor: abomination, target: self, light: 5 }, 1),
+    ).toMatchObject({
+      outcome: "crit",
+      printedAmount: 4,
+      wounds: 1,
+      actorWounds: 1,
+      actorStress: 2,
+      targetStress: 2,
+    });
 
     // Inspiring Tune II：Acc 20。Dodge 17 再 +1 后，掷 3 落空。自身压力 −1，目标压力不动。
     // 没有「承受压力额外 +1」。不传光照时掷 3 命中，双方各 −1。
-    const tune = card("hero_skill:p122");
+    const tune = card("hero_skill:core:h06:p122");
     expect(tune.name).toBe("Inspiring Tune");
     expect(tune.level).toBe(2);
     expect(tune.verification.unverified).toBe(false);
     const jester = { id: "jester", wounds: 0, stress: 6 };
     const stressed = { id: "vestal", side: "hero" as const, wounds: 1, dodge: 17, stress: 6 };
     expect(
-      use("hero_skill:p122", { actor: jester, target: stressed, areaDistance: 0, light: 5 }, 3),
+      use(
+        "hero_skill:core:h06:p122",
+        { actor: jester, target: stressed, areaDistance: 0, light: 5 },
+        3,
+      ),
     ).toMatchObject({
       status: "resolved",
       outcome: "miss",
@@ -8186,7 +8319,7 @@ describe("resolveHeroSkill", () => {
       skipped: [],
     });
     expect(
-      use("hero_skill:p122", { actor: jester, target: stressed, areaDistance: 0 }, 3),
+      use("hero_skill:core:h06:p122", { actor: jester, target: stressed, areaDistance: 0 }, 3),
     ).toMatchObject({
       outcome: "hit",
       actorStress: 5,
@@ -8200,7 +8333,11 @@ describe("resolveHeroSkill", () => {
     const patient = { id: "patient", side: "hero" as const, wounds: 5, dodge: 0, stress: 3 };
     // Divine Comfort I 射程是 1。距离 2 整次拒绝，自身治疗 2 也不发生。
     expect(
-      use("hero_skill:p097", { actor: vestal, target: patient, areaDistance: 2, light: 5 }, 1),
+      use(
+        "hero_skill:core:h05:p097",
+        { actor: vestal, target: patient, areaDistance: 2, light: 5 },
+        1,
+      ),
     ).toMatchObject({
       status: "refused",
       reason: "目标区域与使用者的距离不是卡面印的射程（规则书第 19 页）",
@@ -8215,7 +8352,7 @@ describe("resolveHeroSkill", () => {
     });
 
     // Inspiring Cry I 的 stats 行是空的。效果行上的光照「+1」numeric 为 null，不能当成 Dodge 或光照 5。
-    const cry = card("hero_skill:p019");
+    const cry = card("hero_skill:core:h01:p019");
     expect(cry.name).toBe("Inspiring Cry");
     expect(cry.level).toBe(1);
     expect(cry.hero).toBe("CRUSADER");
@@ -8232,7 +8369,7 @@ describe("resolveHeroSkill", () => {
     ).toEqual(["target_effects", "damage_or_heal_combined_marker", "heal", "stress", "light"]);
     expect(
       use(
-        "hero_skill:p019",
+        "hero_skill:core:h01:p019",
         {
           actor: { id: "crusader", wounds: 4, stress: 4 },
           target: patient,
@@ -8288,7 +8425,9 @@ describe("resolveHeroSkill", () => {
     const soldier = { id: "soldier", side: "monster" as const, wounds: 2, dodge: 0 };
     const crusader = { id: "crusader", wounds: 1, stress: 4 };
     for (const light of [6, -1, 1.5]) {
-      expect(use("hero_skill:p001", { actor: crusader, target: soldier, light }, 1)).toMatchObject({
+      expect(
+        use("hero_skill:core:h01:p001", { actor: crusader, target: soldier, light }, 1),
+      ).toMatchObject({
         status: "refused",
         reason: "光照必须是 0 到 5 的整数",
         outcome: null,
@@ -8302,7 +8441,7 @@ describe("resolveHeroSkill", () => {
     }
     expect(
       use(
-        "hero_skill:p001",
+        "hero_skill:core:h01:p001",
         { actor: crusader, target: soldier, light: null as unknown as number },
         1,
       ),
@@ -8317,7 +8456,7 @@ describe("resolveHeroSkill", () => {
 
     // Illumination I 的效果行有已命名光照和「+1」，numeric 为 null。不传入光照时，
     // Crit 0 的掷 1 仍是命中、伤害 2，不是暴击 4，也不是 3。
-    const illumination = card("hero_skill:p100");
+    const illumination = card("hero_skill:core:h05:p100");
     expect(illumination.name).toBe("Illumination");
     expect(illumination.level).toBe(1);
     expect(illumination.hero).toBe("VESTAL");
@@ -8342,7 +8481,7 @@ describe("resolveHeroSkill", () => {
         .map((segment) => segment.icon.key),
     ).toEqual(["target_effects", "debuff", "light"]);
     const vestal = { id: "vestal", wounds: 0, stress: 2 };
-    expect(use("hero_skill:p100", { actor: vestal, target: soldier }, 1)).toMatchObject({
+    expect(use("hero_skill:core:h05:p100", { actor: vestal, target: soldier }, 1)).toMatchObject({
       status: "resolved",
       outcome: "hit",
       printedAmount: 2,
@@ -8352,7 +8491,9 @@ describe("resolveHeroSkill", () => {
       skipped: [{ code: "effect_lines" }],
     });
     // 传入光照 4 才暴击，伤害是印刷的 4。卡面 +1 不加进伤害，1t 也不放减益。
-    expect(use("hero_skill:p100", { actor: vestal, target: soldier, light: 4 }, 1)).toMatchObject({
+    expect(
+      use("hero_skill:core:h05:p100", { actor: vestal, target: soldier, light: 4 }, 1),
+    ).toMatchObject({
       outcome: "crit",
       printedAmount: 4,
       damageDealt: 4,
@@ -8361,7 +8502,9 @@ describe("resolveHeroSkill", () => {
       skipped: [{ code: "effect_lines" }],
     });
     // 光照 5 不暴击。卡面 +1 不能代替光照 4。
-    expect(use("hero_skill:p100", { actor: vestal, target: soldier, light: 5 }, 1)).toMatchObject({
+    expect(
+      use("hero_skill:core:h05:p100", { actor: vestal, target: soldier, light: 5 }, 1),
+    ).toMatchObject({
       outcome: "hit",
       printedAmount: 2,
       damageDealt: 2,
@@ -8370,7 +8513,11 @@ describe("resolveHeroSkill", () => {
     });
     // Dodge 9。暴击阈值是 1，命中阈值是 0。掷 2 落空。卡面 +1 不加 Acc。
     expect(
-      use("hero_skill:p100", { actor: vestal, target: { ...soldier, dodge: 9 }, light: 4 }, 2),
+      use(
+        "hero_skill:core:h05:p100",
+        { actor: vestal, target: { ...soldier, dodge: 9 }, light: 4 },
+        2,
+      ),
     ).toMatchObject({
       outcome: "miss",
       printedAmount: null,
@@ -8380,7 +8527,7 @@ describe("resolveHeroSkill", () => {
     });
 
     // Tracking Shot 的自身增益是 3t，numeric 为 null，不放新堆。光照仍只改这一次的暴击。
-    const tracking = card("hero_skill:p076");
+    const tracking = card("hero_skill:core:h04:p076");
     expect(tracking.name).toBe("Tracking Shot");
     expect(tracking.level).toBe(1);
     expect(tracking.hero).toBe("HIGHWAYMAN");
@@ -8397,7 +8544,9 @@ describe("resolveHeroSkill", () => {
     expect(
       tracking.unlabeled_numbers.filter((item) => item.numeric === null).map((item) => item.text),
     ).toEqual(["3t", "1-2"]);
-    expect(use("hero_skill:p076", { actor: vestal, target: soldier, light: 4 }, 1)).toMatchObject({
+    expect(
+      use("hero_skill:core:h04:p076", { actor: vestal, target: soldier, light: 4 }, 1),
+    ).toMatchObject({
       status: "resolved",
       outcome: "crit",
       printedAmount: 3,
@@ -8406,14 +8555,16 @@ describe("resolveHeroSkill", () => {
       actorStress: 1,
       skipped: [{ code: "effect_lines" }],
     });
-    expect(use("hero_skill:p076", { actor: vestal, target: soldier, light: 4 }, 2)).toMatchObject({
+    expect(
+      use("hero_skill:core:h04:p076", { actor: vestal, target: soldier, light: 4 }, 2),
+    ).toMatchObject({
       outcome: "hit",
       printedAmount: 2,
       damageDealt: 2,
       wounds: 4,
       actorStress: 2,
     });
-    expect(use("hero_skill:p076", { actor: vestal, target: soldier }, 1)).toMatchObject({
+    expect(use("hero_skill:core:h04:p076", { actor: vestal, target: soldier }, 1)).toMatchObject({
       outcome: "hit",
       printedAmount: 2,
       damageDealt: 2,
@@ -8462,7 +8613,7 @@ describe("resolveHeroSkill", () => {
     // 没有 Acc 的变身不掷骰。光照 4 不造出暴击。非法光照则形态也不记。
     expect(
       use(
-        "hero_skill:p220",
+        "hero_skill:core:h11:p220",
         {
           actor: { id: "abomination", wounds: 5, stress: 3 },
           target: soldier,
@@ -8483,7 +8634,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p220",
+        "hero_skill:core:h11:p220",
         {
           actor: { id: "abomination", wounds: 5, stress: 3 },
           target: soldier,
@@ -8506,7 +8657,7 @@ describe("resolveHeroSkill", () => {
 
   it("光照恰好为 0 时，怪物目标的 Dodge +1，英雄目标和英雄 Acc 都不加", () => {
     // Smite I：Crit 0、Acc 9、暴击伤害 13、命中伤害 7。光照 0 还有暴击 +1。
-    const smite = card("hero_skill:p001");
+    const smite = card("hero_skill:core:h01:p001");
     expect(smite.name).toBe("Smite");
     expect(smite.level).toBe(1);
     expect(smite.hero).toBe("CRUSADER");
@@ -8546,7 +8697,7 @@ describe("resolveHeroSkill", () => {
     const frozen = structuredClone(dark);
     // Dodge 0 再 +1，命中阈值是 8。暴击阈值是 1。掷 8 命中、伤害 7，伤口到 Life 7。
     // 若英雄 Acc 也 +1，阈值会回到 9，这一掷仍是命中，但掷 9 不会落空。
-    expect(use("hero_skill:p001", dark, 8)).toMatchObject({
+    expect(use("hero_skill:core:h01:p001", dark, 8)).toMatchObject({
       status: "resolved",
       outcome: "hit",
       effect: "damage",
@@ -8560,7 +8711,7 @@ describe("resolveHeroSkill", () => {
       skipped: [{ code: "effect_lines" }],
     });
     expect(dark).toEqual(frozen);
-    expect(use("hero_skill:p001", dark, 9)).toMatchObject({
+    expect(use("hero_skill:core:h01:p001", dark, 9)).toMatchObject({
       outcome: "miss",
       printedAmount: null,
       damageDealt: null,
@@ -8569,7 +8720,7 @@ describe("resolveHeroSkill", () => {
       targetDead: false,
     });
     // 不传光照就没有这 1 点 Dodge。掷 9 命中、伤害 7。+1 vs Unholy 的 numeric 为 null，不是 8。
-    expect(use("hero_skill:p001", { actor: crusader, target: soldier }, 9)).toMatchObject({
+    expect(use("hero_skill:core:h01:p001", { actor: crusader, target: soldier }, 9)).toMatchObject({
       outcome: "hit",
       printedAmount: 7,
       damageDealt: 7,
@@ -8578,28 +8729,32 @@ describe("resolveHeroSkill", () => {
       targetDead: true,
     });
     // 光照 1 只有暴击 +1，没有怪物 Dodge。掷 9 仍命中。光照 5 也不加怪物 Dodge。
-    expect(use("hero_skill:p001", { actor: crusader, target: soldier, light: 1 }, 9)).toMatchObject(
-      {
-        outcome: "hit",
-        printedAmount: 7,
-        damageDealt: 7,
-        wounds: 7,
-        actorStress: 5,
-        targetDead: true,
-      },
-    );
-    expect(use("hero_skill:p001", { actor: crusader, target: soldier, light: 5 }, 9)).toMatchObject(
-      {
-        outcome: "hit",
-        printedAmount: 7,
-        damageDealt: 7,
-        wounds: 7,
-        actorStress: 5,
-      },
-    );
+    expect(
+      use("hero_skill:core:h01:p001", { actor: crusader, target: soldier, light: 1 }, 9),
+    ).toMatchObject({
+      outcome: "hit",
+      printedAmount: 7,
+      damageDealt: 7,
+      wounds: 7,
+      actorStress: 5,
+      targetDead: true,
+    });
+    expect(
+      use("hero_skill:core:h01:p001", { actor: crusader, target: soldier, light: 5 }, 9),
+    ).toMatchObject({
+      outcome: "hit",
+      printedAmount: 7,
+      damageDealt: 7,
+      wounds: 7,
+      actorStress: 5,
+    });
     // 暴击不减这 1 点 Dodge。Dodge 20 时掷 1 仍暴击、伤害 13。没有光照则 Crit 0，掷 1 落空。
     expect(
-      use("hero_skill:p001", { actor: crusader, target: { ...soldier, dodge: 20 }, light: 0 }, 1),
+      use(
+        "hero_skill:core:h01:p001",
+        { actor: crusader, target: { ...soldier, dodge: 20 }, light: 0 },
+        1,
+      ),
     ).toMatchObject({
       outcome: "crit",
       printedAmount: 13,
@@ -8609,7 +8764,7 @@ describe("resolveHeroSkill", () => {
       targetDead: true,
     });
     expect(
-      use("hero_skill:p001", { actor: crusader, target: { ...soldier, dodge: 20 } }, 1),
+      use("hero_skill:core:h01:p001", { actor: crusader, target: { ...soldier, dodge: 20 } }, 1),
     ).toMatchObject({
       outcome: "miss",
       printedAmount: null,
@@ -8621,7 +8776,7 @@ describe("resolveHeroSkill", () => {
     // 防护减半后是 4，不到 Life 7。反弹按减半前的 7 取一半。落空不反弹。
     expect(
       use(
-        "hero_skill:p001",
+        "hero_skill:core:h01:p001",
         {
           actor: crusader,
           target: { ...soldier, protection: true, riposte: true },
@@ -8641,7 +8796,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p001",
+        "hero_skill:core:h01:p001",
         {
           actor: crusader,
           target: { ...soldier, protection: true, riposte: true },
@@ -8662,7 +8817,7 @@ describe("resolveHeroSkill", () => {
     // 1 堆标记把命中阈值抬回 9。掷 9 命中、伤害仍是 7。没有标记则上面已经落空。
     expect(
       use(
-        "hero_skill:p001",
+        "hero_skill:core:h01:p001",
         { actor: crusader, target: { ...soldier, markStacks: 1 }, light: 0 },
         9,
       ),
@@ -8677,7 +8832,7 @@ describe("resolveHeroSkill", () => {
     // 1 堆增益只加暴击。掷 2 暴击、伤害 13；掷 9 仍落空，增益不加 Acc。
     expect(
       use(
-        "hero_skill:p001",
+        "hero_skill:core:h01:p001",
         { actor: { ...crusader, buffStacks: 1 }, target: soldier, light: 0 },
         2,
       ),
@@ -8690,7 +8845,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p001",
+        "hero_skill:core:h01:p001",
         { actor: { ...crusader, buffStacks: 1 }, target: soldier, light: 0 },
         9,
       ),
@@ -8703,7 +8858,7 @@ describe("resolveHeroSkill", () => {
     });
 
     // Holy Lance I：Crit 1、Acc 9、射程 1。高地 +1 和怪物 Dodge +1 叠在一起，阈值是 9。
-    const lance = card("hero_skill:p016");
+    const lance = card("hero_skill:core:h01:p016");
     expect(lance.name).toBe("Holy Lance");
     expect(lance.level).toBe(1);
     expect(lance.verification.unverified).toBe(false);
@@ -8720,7 +8875,7 @@ describe("resolveHeroSkill", () => {
       areaDistance: 1,
       light: 0,
     };
-    expect(use("hero_skill:p016", lanceDark, 9)).toMatchObject({
+    expect(use("hero_skill:core:h01:p016", lanceDark, 9)).toMatchObject({
       status: "resolved",
       outcome: "miss",
       printedAmount: null,
@@ -8731,7 +8886,9 @@ describe("resolveHeroSkill", () => {
       targetShuffle: null,
       skipped: [{ code: "effect_lines" }],
     });
-    expect(use("hero_skill:p016", { ...lanceDark, targetAreaLower: true }, 9)).toMatchObject({
+    expect(
+      use("hero_skill:core:h01:p016", { ...lanceDark, targetAreaLower: true }, 9),
+    ).toMatchObject({
       outcome: "hit",
       printedAmount: 7,
       damageDealt: 7,
@@ -8740,7 +8897,9 @@ describe("resolveHeroSkill", () => {
       actorShuffle: { direction: "pull", distance: 1 },
     });
     // 高地抵消 Dodge 之后，掷 10 仍落空。标记再 +1 才命中。+1 vs Unholy 不加进 7。
-    expect(use("hero_skill:p016", { ...lanceDark, targetAreaLower: true }, 10)).toMatchObject({
+    expect(
+      use("hero_skill:core:h01:p016", { ...lanceDark, targetAreaLower: true }, 10),
+    ).toMatchObject({
       outcome: "miss",
       printedAmount: null,
       damageDealt: null,
@@ -8750,7 +8909,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p016",
+        "hero_skill:core:h01:p016",
         {
           ...lanceDark,
           target: { ...lanceDark.target, markStacks: 1 },
@@ -8768,7 +8927,11 @@ describe("resolveHeroSkill", () => {
     });
     // 暴击阈值是 2，不减 Dodge。掷 2 暴击、伤害 13。
     expect(
-      use("hero_skill:p016", { ...lanceDark, target: { ...lanceDark.target, dodge: 20 } }, 2),
+      use(
+        "hero_skill:core:h01:p016",
+        { ...lanceDark, target: { ...lanceDark.target, dodge: 20 } },
+        2,
+      ),
     ).toMatchObject({
       outcome: "crit",
       printedAmount: 13,
@@ -8779,7 +8942,7 @@ describe("resolveHeroSkill", () => {
     });
 
     // Battlefield Bandage I 的目标是英雄。光照 0 不加怪物 Dodge。Acc 8，掷 8 命中、治疗 4。
-    const bandage = card("hero_skill:p163");
+    const bandage = card("hero_skill:core:h08:p163");
     expect(bandage.name).toBe("Battlefield Bandage");
     expect(bandage.level).toBe(1);
     expect(bandage.hero).toBe("ARBALEST");
@@ -8790,7 +8953,9 @@ describe("resolveHeroSkill", () => {
     ]);
     const arbalest = { id: "arbalest", wounds: 1, stress: 4 };
     const ally = { id: "crusader", side: "hero" as const, wounds: 6, dodge: 0, stress: 2 };
-    expect(use("hero_skill:p163", { actor: arbalest, target: ally, light: 0 }, 8)).toMatchObject({
+    expect(
+      use("hero_skill:core:h08:p163", { actor: arbalest, target: ally, light: 0 }, 8),
+    ).toMatchObject({
       status: "resolved",
       outcome: "hit",
       effect: "heal",
@@ -8800,14 +8965,18 @@ describe("resolveHeroSkill", () => {
       actorStress: 4,
       targetStress: 2,
     });
-    expect(use("hero_skill:p163", { actor: arbalest, target: ally, light: 0 }, 9)).toMatchObject({
+    expect(
+      use("hero_skill:core:h08:p163", { actor: arbalest, target: ally, light: 0 }, 9),
+    ).toMatchObject({
       outcome: "miss",
       printedAmount: null,
       wounds: 6,
       actorStress: 4,
     });
     // 暴击阈值是 1。掷 1 暴击治疗 6。不是因为怪物 Dodge 把掷 8 变成落空。
-    expect(use("hero_skill:p163", { actor: arbalest, target: ally, light: 0 }, 1)).toMatchObject({
+    expect(
+      use("hero_skill:core:h08:p163", { actor: arbalest, target: ally, light: 0 }, 1),
+    ).toMatchObject({
       outcome: "crit",
       printedAmount: 6,
       wounds: 0,
@@ -8815,7 +8984,7 @@ describe("resolveHeroSkill", () => {
     });
 
     // Absolution I 的目标是 Self，使用者也是英雄。Dodge 9，命中阈值仍是 3。掷 3 命中、治疗 2。
-    const absolution = card("hero_skill:p217");
+    const absolution = card("hero_skill:core:h11:p217");
     expect(absolution.name).toBe("Absolution");
     expect(absolution.level).toBe(1);
     expect(absolution.verification.unverified).toBe(false);
@@ -8831,30 +9000,30 @@ describe("resolveHeroSkill", () => {
       dodge: 9,
       stress: 4,
     };
-    expect(use("hero_skill:p217", { actor: abomination, target: self, light: 0 }, 3)).toMatchObject(
-      {
-        status: "resolved",
-        outcome: "hit",
-        effect: "heal",
-        printedAmount: 2,
-        wounds: 3,
-        actorWounds: 3,
-        actorStress: 3,
-        targetStress: 3,
-        skipped: [],
-      },
-    );
+    expect(
+      use("hero_skill:core:h11:p217", { actor: abomination, target: self, light: 0 }, 3),
+    ).toMatchObject({
+      status: "resolved",
+      outcome: "hit",
+      effect: "heal",
+      printedAmount: 2,
+      wounds: 3,
+      actorWounds: 3,
+      actorStress: 3,
+      targetStress: 3,
+      skipped: [],
+    });
     // 暴击阈值是 2。掷 1 暴击治疗 4，暴击压力再 −1。光照 0 不给减压力再加 1。
-    expect(use("hero_skill:p217", { actor: abomination, target: self, light: 0 }, 1)).toMatchObject(
-      {
-        outcome: "crit",
-        printedAmount: 4,
-        wounds: 1,
-        actorWounds: 1,
-        actorStress: 2,
-        targetStress: 2,
-      },
-    );
+    expect(
+      use("hero_skill:core:h11:p217", { actor: abomination, target: self, light: 0 }, 1),
+    ).toMatchObject({
+      outcome: "crit",
+      printedAmount: 4,
+      wounds: 1,
+      actorWounds: 1,
+      actorStress: 2,
+      targetStress: 2,
+    });
   });
 
   it("光照 0 不解开缺 stats 行、区间射程和卡面光照 +1", () => {
@@ -8897,7 +9066,7 @@ describe("resolveHeroSkill", () => {
     // Smite 射程是 0。同一区域不能再低，光照 0 的 Dodge 也不让这次高地放行。
     expect(
       use(
-        "hero_skill:p001",
+        "hero_skill:core:h01:p001",
         {
           actor: crusader,
           target: soldier,
@@ -8918,7 +9087,7 @@ describe("resolveHeroSkill", () => {
     });
 
     // Pistol Shot I 的射程是 1-2，numeric 为 null。传入距离就拒绝，光照 0 不把区间拆开。
-    const pistol = card("hero_skill:p067");
+    const pistol = card("hero_skill:core:h04:p067");
     expect(pistol.name).toBe("Pistol Shot");
     expect(pistol.level).toBe(1);
     expect(pistol.verification.unverified).toBe(false);
@@ -8927,7 +9096,7 @@ describe("resolveHeroSkill", () => {
     ).toEqual(["+2", "1-2"]);
     expect(
       use(
-        "hero_skill:p067",
+        "hero_skill:core:h04:p067",
         {
           actor: { id: "highwayman", wounds: 0, stress: 3 },
           target: soldier,
@@ -8950,7 +9119,7 @@ describe("resolveHeroSkill", () => {
     // 掷 8 命中、伤害 5；掷 9 落空。+2 vs 标记不加。
     expect(
       use(
-        "hero_skill:p067",
+        "hero_skill:core:h04:p067",
         { actor: { id: "highwayman", wounds: 0, stress: 3 }, target: soldier, light: 0 },
         8,
       ),
@@ -8965,7 +9134,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p067",
+        "hero_skill:core:h04:p067",
         { actor: { id: "highwayman", wounds: 0, stress: 3 }, target: soldier, light: 0 },
         9,
       ),
@@ -8978,7 +9147,7 @@ describe("resolveHeroSkill", () => {
     });
 
     // Illumination I 的效果行有光照「+1」，numeric 为 null。不把它加成英雄 Acc，也不另加 Dodge。
-    const illumination = card("hero_skill:p100");
+    const illumination = card("hero_skill:core:h05:p100");
     expect(illumination.name).toBe("Illumination");
     expect(illumination.level).toBe(1);
     expect(illumination.verification.unverified).toBe(false);
@@ -8988,7 +9157,9 @@ describe("resolveHeroSkill", () => {
         .map((item) => item.text),
     ).toEqual(["1t", "+1", "1-2"]);
     const vestal = { id: "vestal", wounds: 0, stress: 2 };
-    expect(use("hero_skill:p100", { actor: vestal, target: soldier, light: 0 }, 8)).toMatchObject({
+    expect(
+      use("hero_skill:core:h05:p100", { actor: vestal, target: soldier, light: 0 }, 8),
+    ).toMatchObject({
       status: "resolved",
       outcome: "hit",
       printedAmount: 2,
@@ -8997,7 +9168,9 @@ describe("resolveHeroSkill", () => {
       actorStress: 2,
       skipped: [{ code: "effect_lines" }],
     });
-    expect(use("hero_skill:p100", { actor: vestal, target: soldier, light: 0 }, 9)).toMatchObject({
+    expect(
+      use("hero_skill:core:h05:p100", { actor: vestal, target: soldier, light: 0 }, 9),
+    ).toMatchObject({
       outcome: "miss",
       printedAmount: null,
       damageDealt: null,
@@ -9005,7 +9178,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 2,
     });
     // 不传光照时，卡面 +1 不会把光照当成 0。掷 9 命中、伤害 2，不是落空，也不是 3。
-    expect(use("hero_skill:p100", { actor: vestal, target: soldier }, 9)).toMatchObject({
+    expect(use("hero_skill:core:h05:p100", { actor: vestal, target: soldier }, 9)).toMatchObject({
       outcome: "hit",
       printedAmount: 2,
       damageDealt: 2,
@@ -9023,7 +9196,7 @@ describe("resolveHeroSkill", () => {
     expect(defender.dodge).toBe(0);
     expect(defender.resistances).toEqual([{ key: "shuffle_resist", naming: "confirmed" }]);
 
-    const shot = card("hero_skill:p070");
+    const shot = card("hero_skill:core:h04:p070");
     expect(shot.name).toBe("Point Blank Shot");
     expect(shot.level).toBe(1);
     expect(shot.hero).toBe("HIGHWAYMAN");
@@ -9044,7 +9217,7 @@ describe("resolveHeroSkill", () => {
     const pushed = { actor: highwayman, target: bone, areaDistance: 0 };
     const frozen = structuredClone(pushed);
     // 自身 Push 1 不减。目标 Push 1 少 1，记成 0。掷 10 命中、伤害 9，伤口 9，还没到 Life 10。
-    expect(use("hero_skill:p070", pushed, 10)).toMatchObject({
+    expect(use("hero_skill:core:h04:p070", pushed, 10)).toMatchObject({
       status: "resolved",
       outcome: "hit",
       effect: "damage",
@@ -9062,7 +9235,7 @@ describe("resolveHeroSkill", () => {
     // 不传抗性时目标仍是印刷的 Push 1。
     expect(
       use(
-        "hero_skill:p070",
+        "hero_skill:core:h04:p070",
         {
           actor: highwayman,
           target: { id: defender.id, side: "monster", wounds: 0, dodge: 0, life: defender.life },
@@ -9079,7 +9252,7 @@ describe("resolveHeroSkill", () => {
       targetShuffle: { direction: "push", distance: 1 },
     });
     // 暴击不把被抗性减掉的 1 加回来。伤害 15，伤口达到 Life，死亡。自身仍是 Push 1。
-    expect(use("hero_skill:p070", pushed, 1)).toMatchObject({
+    expect(use("hero_skill:core:h04:p070", pushed, 1)).toMatchObject({
       outcome: "crit",
       printedAmount: 15,
       damageDealt: 15,
@@ -9090,7 +9263,9 @@ describe("resolveHeroSkill", () => {
       targetShuffle: { direction: "push", distance: 0 },
     });
     // 落空没有目标位移。抗性不造出一个距离 0 的 Push。自身 Push 1 仍在。
-    expect(use("hero_skill:p070", { ...pushed, target: { ...bone, dodge: 5 } }, 10)).toMatchObject({
+    expect(
+      use("hero_skill:core:h04:p070", { ...pushed, target: { ...bone, dodge: 5 } }, 10),
+    ).toMatchObject({
       outcome: "miss",
       printedAmount: null,
       damageDealt: null,
@@ -9101,7 +9276,7 @@ describe("resolveHeroSkill", () => {
     });
     // 防护把伤害 9 减半成 5。抗性仍只改距离，不改伤害。
     expect(
-      use("hero_skill:p070", { ...pushed, target: { ...bone, protection: true } }, 10),
+      use("hero_skill:core:h04:p070", { ...pushed, target: { ...bone, protection: true } }, 10),
     ).toMatchObject({
       outcome: "hit",
       printedAmount: 9,
@@ -9111,7 +9286,7 @@ describe("resolveHeroSkill", () => {
       targetShuffle: { direction: "push", distance: 0 },
     });
     // 光照 0 另给怪物 Dodge +1。掷 9 仍命中、伤害 9，目标距离仍是 0。掷 10 落空，目标位移是 null。
-    expect(use("hero_skill:p070", { ...pushed, light: 0 }, 9)).toMatchObject({
+    expect(use("hero_skill:core:h04:p070", { ...pushed, light: 0 }, 9)).toMatchObject({
       outcome: "hit",
       printedAmount: 9,
       damageDealt: 9,
@@ -9119,7 +9294,7 @@ describe("resolveHeroSkill", () => {
       actorShuffle: { direction: "push", distance: 1 },
       targetShuffle: { direction: "push", distance: 0 },
     });
-    expect(use("hero_skill:p070", { ...pushed, light: 0 }, 10)).toMatchObject({
+    expect(use("hero_skill:core:h04:p070", { ...pushed, light: 0 }, 10)).toMatchObject({
       outcome: "miss",
       printedAmount: null,
       damageDealt: null,
@@ -9129,7 +9304,7 @@ describe("resolveHeroSkill", () => {
     });
 
     // Point Blank Shot II 的目标仍是 Push 1，少移后是 0。命中伤害是 12，不是 I 级的 9。
-    const shotTwo = card("hero_skill:p071");
+    const shotTwo = card("hero_skill:core:h04:p071");
     expect(shotTwo.name).toBe("Point Blank Shot");
     expect(shotTwo.level).toBe(2);
     expect(shotTwo.verification.unverified).toBe(false);
@@ -9138,7 +9313,7 @@ describe("resolveHeroSkill", () => {
       ["Acc", 11],
     ]);
     expect(
-      use("hero_skill:p071", { actor: highwayman, target: bone, areaDistance: 0 }, 10),
+      use("hero_skill:core:h04:p071", { actor: highwayman, target: bone, areaDistance: 0 }, 10),
     ).toMatchObject({
       status: "resolved",
       outcome: "hit",
@@ -9151,13 +9326,13 @@ describe("resolveHeroSkill", () => {
     });
 
     // Bola I：自身 Push 1，目标 Push 2。抗性只把目标减成 1。暴击不改距离。
-    const bola = card("hero_skill:p157");
+    const bola = card("hero_skill:core:h08:p157");
     expect(bola.name).toBe("Bola");
     expect(bola.level).toBe(1);
     expect(bola.hero).toBe("ARBALEST");
     expect(bola.verification.unverified).toBe(false);
     const arbalest = { id: "arbalest", wounds: 0, stress: 2 };
-    expect(use("hero_skill:p157", { actor: arbalest, target: bone }, 5)).toMatchObject({
+    expect(use("hero_skill:core:h08:p157", { actor: arbalest, target: bone }, 5)).toMatchObject({
       status: "resolved",
       outcome: "hit",
       printedAmount: 3,
@@ -9167,7 +9342,7 @@ describe("resolveHeroSkill", () => {
       targetShuffle: { direction: "push", distance: 1 },
       skipped: [],
     });
-    expect(use("hero_skill:p157", { actor: arbalest, target: bone }, 1)).toMatchObject({
+    expect(use("hero_skill:core:h08:p157", { actor: arbalest, target: bone }, 1)).toMatchObject({
       outcome: "crit",
       printedAmount: 6,
       damageDealt: 6,
@@ -9178,12 +9353,12 @@ describe("resolveHeroSkill", () => {
     });
 
     // Daemon’s Pull I：只有目标 Pull 2。抗性后是 1，不是 0：抗性少移 1，不是免疫。
-    const pull = card("hero_skill:p208");
+    const pull = card("hero_skill:core:h10:p208");
     expect(pull.name).toBe("Daemon’s Pull");
     expect(pull.level).toBe(1);
     expect(pull.hero).toBe("OCCULTIST");
     expect(pull.verification.unverified).toBe(false);
-    expect(use("hero_skill:p208", { target: bone }, 5)).toMatchObject({
+    expect(use("hero_skill:core:h10:p208", { target: bone }, 5)).toMatchObject({
       status: "resolved",
       outcome: "hit",
       printedAmount: 3,
@@ -9194,21 +9369,23 @@ describe("resolveHeroSkill", () => {
       targetShuffle: { direction: "pull", distance: 1 },
       skipped: [],
     });
-    expect(use("hero_skill:p208", { target: bone }, 1)).toMatchObject({
+    expect(use("hero_skill:core:h10:p208", { target: bone }, 1)).toMatchObject({
       outcome: "crit",
       printedAmount: 4,
       damageDealt: 4,
       wounds: 4,
       targetShuffle: { direction: "pull", distance: 1 },
     });
-    expect(use("hero_skill:p208", { target: bone }, 10)).toMatchObject({
+    expect(use("hero_skill:core:h10:p208", { target: bone }, 10)).toMatchObject({
       outcome: "miss",
       printedAmount: null,
       damageDealt: null,
       wounds: 0,
       targetShuffle: null,
     });
-    expect(use("hero_skill:p208", { target: { ...bone, shuffleResist: false } }, 5)).toMatchObject({
+    expect(
+      use("hero_skill:core:h10:p208", { target: { ...bone, shuffleResist: false } }, 5),
+    ).toMatchObject({
       outcome: "hit",
       printedAmount: 3,
       damageDealt: 3,
@@ -9216,7 +9393,7 @@ describe("resolveHeroSkill", () => {
     });
 
     // Daemon’s Pull II 的目标仍是 Pull 2，少移后是 1。命中伤害是 4。
-    const pullTwo = card("hero_skill:p209");
+    const pullTwo = card("hero_skill:core:h10:p209");
     expect(pullTwo.name).toBe("Daemon’s Pull");
     expect(pullTwo.level).toBe(2);
     expect(pullTwo.verification.unverified).toBe(false);
@@ -9224,7 +9401,7 @@ describe("resolveHeroSkill", () => {
       ["Crit", 1],
       ["Acc", 10],
     ]);
-    expect(use("hero_skill:p209", { target: bone }, 5)).toMatchObject({
+    expect(use("hero_skill:core:h10:p209", { target: bone }, 5)).toMatchObject({
       status: "resolved",
       outcome: "hit",
       printedAmount: 4,
@@ -9246,14 +9423,14 @@ describe("resolveHeroSkill", () => {
     };
     // Holy Lance I 只有自身 Pull 1。目标有抗性也不减这 1，也不造出目标位移。
     // +1 vs Unholy 的 numeric 为 null，伤害仍是 7。
-    const lance = card("hero_skill:p016");
+    const lance = card("hero_skill:core:h01:p016");
     expect(lance.name).toBe("Holy Lance");
     expect(lance.level).toBe(1);
     expect(lance.hero).toBe("CRUSADER");
     expect(lance.verification.unverified).toBe(false);
     expect(
       use(
-        "hero_skill:p016",
+        "hero_skill:core:h01:p016",
         { actor: { id: "crusader", wounds: 1, stress: 2 }, target: bone, areaDistance: 1 },
         2,
       ),
@@ -9271,7 +9448,7 @@ describe("resolveHeroSkill", () => {
     });
 
     // Uppercut I 的 Push 2 和眩晕 1t 在同一行。1t 的 numeric 为 null，抗性不能把这行拆开。
-    const uppercut = card("hero_skill:p052");
+    const uppercut = card("hero_skill:core:h03:p052");
     expect(uppercut.name).toBe("Uppercut");
     expect(uppercut.level).toBe(1);
     expect(uppercut.hero).toBe("BOUNTY HUNTER");
@@ -9288,7 +9465,7 @@ describe("resolveHeroSkill", () => {
     expect(
       uppercut.unlabeled_numbers.filter((item) => item.numeric === null).map((item) => item.text),
     ).toEqual(["1t"]);
-    expect(use("hero_skill:p052", { target: bone, areaDistance: 0 }, 5)).toMatchObject({
+    expect(use("hero_skill:core:h03:p052", { target: bone, areaDistance: 0 }, 5)).toMatchObject({
       status: "resolved",
       outcome: "hit",
       printedAmount: 3,
@@ -9302,7 +9479,7 @@ describe("resolveHeroSkill", () => {
     // 抗性不是布尔值时整次拒绝，伤口和位移都不改。
     expect(
       use(
-        "hero_skill:p070",
+        "hero_skill:core:h04:p070",
         {
           actor: { id: "highwayman", wounds: 0, stress: 4 },
           target: { ...bone, shuffleResist: 1 as unknown as boolean },
@@ -9328,7 +9505,7 @@ describe("resolveHeroSkill", () => {
   it("光照 2–1 的额外压力还不加：减压力不是承受压力，加压力的数字是 null", () => {
     // R-002：光照 1 = Crit +1，并且英雄每次承受压力额外 +1。光照 0 把这项累加上去。
     // 减压力不是承受压力。Inspiring Tune II 的自身和目标都是已命名的 −1。
-    const tune = card("hero_skill:p122");
+    const tune = card("hero_skill:core:h06:p122");
     expect(tune.name).toBe("Inspiring Tune");
     expect(tune.level).toBe(2);
     expect(tune.hero).toBe("JESTER");
@@ -9357,7 +9534,7 @@ describe("resolveHeroSkill", () => {
     };
     // 光照 1 把暴击阈值抬到 3。掷 3 暴击：自身 −1 再因打出暴击 −1，变成 2。
     // 目标 −1，又在同一区域再 −1，变成 4。身边英雄 2 变成 1。不是再额外 +1。
-    expect(use("hero_skill:p122", { ...tuned, light: 1 }, 3)).toMatchObject({
+    expect(use("hero_skill:core:h06:p122", { ...tuned, light: 1 }, 3)).toMatchObject({
       status: "resolved",
       outcome: "crit",
       effect: "stress",
@@ -9371,7 +9548,7 @@ describe("resolveHeroSkill", () => {
     });
     // 掷 4 是命中，不是暴击。只有印刷的 −1：自身 3，目标 5，身边仍是 2。
     // 若把这次减压力当成承受压力再 +1，双方会停在 4 和 6。
-    expect(use("hero_skill:p122", { ...tuned, light: 1 }, 4)).toMatchObject({
+    expect(use("hero_skill:core:h06:p122", { ...tuned, light: 1 }, 4)).toMatchObject({
       outcome: "hit",
       actorStress: 3,
       targetStress: 5,
@@ -9379,14 +9556,14 @@ describe("resolveHeroSkill", () => {
       wounds: 3,
     });
     // 光照 3 只有 Crit +1，没有「承受压力 +1」。命中时的压力和光照 1 相同。
-    expect(use("hero_skill:p122", { ...tuned, light: 3 }, 4)).toMatchObject({
+    expect(use("hero_skill:core:h06:p122", { ...tuned, light: 3 }, 4)).toMatchObject({
       outcome: "hit",
       actorStress: 3,
       targetStress: 5,
       besideActorStress: [{ id: "crusader", stress: 2 }],
     });
     // 光照 0 仍累加 Crit +1。目标是英雄，怪物 Dodge 不加。掷 4 仍是命中，压力仍只 −1。
-    expect(use("hero_skill:p122", { ...tuned, light: 0 }, 4)).toMatchObject({
+    expect(use("hero_skill:core:h06:p122", { ...tuned, light: 0 }, 4)).toMatchObject({
       outcome: "hit",
       actorStress: 3,
       targetStress: 5,
@@ -9395,7 +9572,7 @@ describe("resolveHeroSkill", () => {
     });
 
     // Rage I：自身「+1」压力的 numeric 是 null。不能先加成 5，再在光照 1 加成 6。
-    const rage = card("hero_skill:p226");
+    const rage = card("hero_skill:core:h11:p226");
     expect(rage.name).toBe("Rage");
     expect(rage.level).toBe(1);
     expect(rage.hero).toBe("ABOMINATION");
@@ -9415,7 +9592,7 @@ describe("resolveHeroSkill", () => {
     const soldier = { id: "soldier", side: "monster" as const, wounds: 1, dodge: 0 };
     // 光照 1 把暴击阈值抬到 2。掷 2 暴击、伤害 12。压力只因打出暴击变成 3，不是 5。
     expect(
-      use("hero_skill:p226", { actor: abomination, target: soldier, light: 1 }, 2),
+      use("hero_skill:core:h11:p226", { actor: abomination, target: soldier, light: 1 }, 2),
     ).toMatchObject({
       status: "resolved",
       outcome: "crit",
@@ -9430,7 +9607,7 @@ describe("resolveHeroSkill", () => {
     });
     // 掷 3 命中、伤害 9。没有承受压力，压力停在 4，不是 5，也不是 6。
     expect(
-      use("hero_skill:p226", { actor: abomination, target: soldier, light: 1 }, 3),
+      use("hero_skill:core:h11:p226", { actor: abomination, target: soldier, light: 1 }, 3),
     ).toMatchObject({
       outcome: "hit",
       printedAmount: 9,
@@ -9442,7 +9619,7 @@ describe("resolveHeroSkill", () => {
     // 光照 0 同样只给暴击和怪物 Dodge。Dodge 0 再 +1，命中阈值是 8。掷 9 落空。
     // 英雄 Acc 不加，所以不是命中。压力仍是 4。怪物没有压力轨。
     expect(
-      use("hero_skill:p226", { actor: abomination, target: soldier, light: 0 }, 9),
+      use("hero_skill:core:h11:p226", { actor: abomination, target: soldier, light: 0 }, 9),
     ).toMatchObject({
       outcome: "miss",
       printedAmount: null,
@@ -9453,7 +9630,7 @@ describe("resolveHeroSkill", () => {
     });
 
     // Rage II 原 numeric 保留 null；已核实 +1 在光照1按R-002加为2，暴击再减1。
-    const rageTwo = card("hero_skill:p227");
+    const rageTwo = card("hero_skill:core:h11:p227");
     expect(rageTwo.name).toBe("Rage");
     expect(rageTwo.level).toBe(2);
     expect(rageTwo.verification.unverified).toBe(false);
@@ -9466,7 +9643,7 @@ describe("resolveHeroSkill", () => {
     ).toEqual(["+1"]);
     expect(
       use(
-        "hero_skill:p227",
+        "hero_skill:core:h11:p227",
         { actor: { ...abomination, form: "beast" }, target: soldier, light: 1 },
         2,
       ),
@@ -9482,7 +9659,7 @@ describe("resolveHeroSkill", () => {
 
     // Rake I：自身增益 2t 和压力 +1 写在一行，两个 numeric 都是 null。
     // 光照 2 只抬暴击。掷 1 暴击、伤害 9，压力变成 3。掷 2 命中、伤害 5，压力仍是 4。
-    const rake = card("hero_skill:p223");
+    const rake = card("hero_skill:core:h11:p223");
     expect(rake.name).toBe("Rake");
     expect(rake.level).toBe(1);
     expect(rake.verification.unverified).toBe(false);
@@ -9499,7 +9676,7 @@ describe("resolveHeroSkill", () => {
       target: soldier,
       light: 2,
     };
-    expect(use("hero_skill:p223", raking, 1)).toMatchObject({
+    expect(use("hero_skill:core:h11:p223", raking, 1)).toMatchObject({
       status: "resolved",
       outcome: "crit",
       printedAmount: 9,
@@ -9512,7 +9689,7 @@ describe("resolveHeroSkill", () => {
       actorBlightCleared: false,
       skipped: [{ code: "effect_lines" }],
     });
-    expect(use("hero_skill:p223", raking, 2)).toMatchObject({
+    expect(use("hero_skill:core:h11:p223", raking, 2)).toMatchObject({
       outcome: "hit",
       printedAmount: 5,
       damageDealt: 5,
@@ -9522,7 +9699,7 @@ describe("resolveHeroSkill", () => {
 
     // Slam I：自身 Pull 1 和压力 +1 在一行，目标 Push 2 和减益 1t 在一行。
     // 光照 1 不把 null 的 +1 收成压力，也不把混在一行里的位移抽出来。
-    const slam = card("hero_skill:p229");
+    const slam = card("hero_skill:core:h11:p229");
     expect(slam.name).toBe("Slam");
     expect(slam.level).toBe(1);
     expect(slam.hero).toBe("ABOMINATION");
@@ -9535,7 +9712,11 @@ describe("resolveHeroSkill", () => {
       slam.unlabeled_numbers.filter((item) => item.numeric === null).map((item) => item.text),
     ).toEqual(["1t", "+1"]);
     expect(
-      use("hero_skill:p229", { actor: abomination, target: soldier, areaDistance: 1, light: 1 }, 1),
+      use(
+        "hero_skill:core:h11:p229",
+        { actor: abomination, target: soldier, areaDistance: 1, light: 1 },
+        1,
+      ),
     ).toMatchObject({
       status: "resolved",
       outcome: "crit",
@@ -9548,7 +9729,11 @@ describe("resolveHeroSkill", () => {
       skipped: [{ code: "effect_lines" }],
     });
     expect(
-      use("hero_skill:p229", { actor: abomination, target: soldier, areaDistance: 1, light: 1 }, 2),
+      use(
+        "hero_skill:core:h11:p229",
+        { actor: abomination, target: soldier, areaDistance: 1, light: 1 },
+        2,
+      ),
     ).toMatchObject({
       outcome: "hit",
       printedAmount: 7,
@@ -9561,7 +9746,7 @@ describe("resolveHeroSkill", () => {
 
     // Transform to Beast I：目标「+2」压力的 numeric 是 null。光照 1 不加成 5 或 6。
     // 治疗图标里的 4 也不扣伤口。没有 Acc，不掷骰，只记下兽形。
-    const beast = card("hero_skill:p220");
+    const beast = card("hero_skill:core:h11:p220");
     expect(beast.name).toBe("Transform to Beast");
     expect(beast.level).toBe(1);
     expect(beast.verification.unverified).toBe(false);
@@ -9577,7 +9762,7 @@ describe("resolveHeroSkill", () => {
     ]);
     expect(
       use(
-        "hero_skill:p220",
+        "hero_skill:core:h11:p220",
         {
           actor: { id: "abomination", wounds: 5, stress: 3 },
           target: soldier,
@@ -9601,7 +9786,7 @@ describe("resolveHeroSkill", () => {
 
     // Hands from the Abyss I：光照「-1」的 numeric 是 −1，但没有挂在光照图标上，
     // 并且和眩晕 2t 写在同一行。不改伤害，命中也不改压力，不把传入的光照改成 4。
-    const abyss = card("hero_skill:p205");
+    const abyss = card("hero_skill:core:h10:p205");
     expect(abyss.name).toBe("Hands from the Abyss");
     expect(abyss.level).toBe(1);
     expect(abyss.hero).toBe("OCCULTIST");
@@ -9630,7 +9815,7 @@ describe("resolveHeroSkill", () => {
       light: 5,
     };
     const frozen = structuredClone(dim);
-    expect(use("hero_skill:p205", dim, 2)).toMatchObject({
+    expect(use("hero_skill:core:h10:p205", dim, 2)).toMatchObject({
       status: "resolved",
       outcome: "hit",
       effect: "damage",
@@ -9643,7 +9828,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(dim).toEqual(frozen);
     // 光照 2 另给暴击。掷 2 暴击、伤害 4。压力只因打出暴击变成 3。卡面 −1 不把光照改掉。
-    expect(use("hero_skill:p205", { ...dim, light: 2 }, 2)).toMatchObject({
+    expect(use("hero_skill:core:h10:p205", { ...dim, light: 2 }, 2)).toMatchObject({
       outcome: "crit",
       printedAmount: 4,
       damageDealt: 4,
@@ -9676,8 +9861,8 @@ describe("resolveHeroSkill", () => {
     });
   });
 
-  it("hero_skill:p020 Inspiring Cry II 不掷骰，自身治疗 1 并减 1 点压力", () => {
-    const skill = card("hero_skill:p020");
+  it("hero_skill:core:h01:p020 Inspiring Cry II 不掷骰，自身治疗 1 并减 1 点压力", () => {
+    const skill = card("hero_skill:core:h01:p020");
     expect(skill.name).toBe("Inspiring Cry");
     expect(skill.level).toBe(2);
     expect(skill.hero).toBe("CRUSADER");
@@ -9729,9 +9914,9 @@ describe("resolveHeroSkill", () => {
       light: 1,
     };
     const frozen = structuredClone(combat);
-    const cried = use("hero_skill:p020", combat, 1);
+    const cried = use("hero_skill:core:h01:p020", combat, 1);
     expect(cried).toEqual({
-      skillId: "hero_skill:p020",
+      skillId: "hero_skill:core:h01:p020",
       targetId: "vestal",
       status: "resolved",
       reason: null,
@@ -9761,11 +9946,11 @@ describe("resolveHeroSkill", () => {
     });
     expect(combat).toEqual(frozen);
     // 没有 Acc，骰面不改结果。光照 1 的「承受压力 +1」不加在这次减压上。
-    expect(use("hero_skill:p020", combat, 10)).toEqual(cried);
+    expect(use("hero_skill:core:h01:p020", combat, 10)).toEqual(cried);
     // 伤口到底，压力到 0，都停住。
     expect(
       use(
-        "hero_skill:p020",
+        "hero_skill:core:h01:p020",
         {
           actor: { id: "crusader", wounds: 0, stress: 0, stance: "aggressive" },
           target: { id: "vestal", side: "hero", wounds: 2, dodge: 0, stress: 6 },
@@ -9783,7 +9968,7 @@ describe("resolveHeroSkill", () => {
     });
 
     // 等级 III 的自身一行仍是治疗 1、压力 −1。效果行里的两枚头盔不当成区域内个数。
-    const third = card("hero_skill:p021");
+    const third = card("hero_skill:core:h01:p021");
     expect(third.name).toBe("Inspiring Cry");
     expect(third.level).toBe(3);
     expect(third.hero).toBe("CRUSADER");
@@ -9795,7 +9980,7 @@ describe("resolveHeroSkill", () => {
     ).toEqual(["range", "target_hero", "target_hero"]);
     expect(
       use(
-        "hero_skill:p021",
+        "hero_skill:core:h01:p021",
         {
           actor: { id: "crusader", wounds: 3, stress: 8 },
           target: { id: "vestal", side: "hero", wounds: 4, dodge: 9, stress: 1 },
@@ -9816,7 +10001,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p021",
+        "hero_skill:core:h01:p021",
         {
           actor: { id: "crusader", wounds: 3, stress: 8 },
           target: { id: "vestal", side: "hero", wounds: 4, dodge: 0, stress: 1 },
@@ -9837,7 +10022,7 @@ describe("resolveHeroSkill", () => {
     // 等级 I 没有这条自身效果。目标行的治疗 1、压力 −1 和光照 +1 仍整行不拆。
     expect(
       use(
-        "hero_skill:p019",
+        "hero_skill:core:h01:p019",
         {
           actor: { id: "crusader", wounds: 5, stress: 4 },
           target: { id: "vestal", side: "hero", wounds: 2, dodge: 0, stress: 6 },
@@ -9858,7 +10043,7 @@ describe("resolveHeroSkill", () => {
     // 射程是 1。距离不对时自身治疗和减压都不发生。
     expect(
       use(
-        "hero_skill:p020",
+        "hero_skill:core:h01:p020",
         {
           actor: { id: "crusader", wounds: 5, stress: 4 },
           target: { id: "vestal", side: "hero", wounds: 2, dodge: 0, stress: 6 },
@@ -9878,7 +10063,7 @@ describe("resolveHeroSkill", () => {
     // 效果行里的头盔不核对阵营。怪物目标不吃治疗，使用者仍治疗并减压。
     expect(
       use(
-        "hero_skill:p020",
+        "hero_skill:core:h01:p020",
         {
           actor: { id: "crusader", wounds: 5, stress: 4 },
           target: { id: "soldier", side: "monster", wounds: 3, dodge: 0 },
@@ -9896,7 +10081,7 @@ describe("resolveHeroSkill", () => {
       targetDead: false,
     });
 
-    expect(use("hero_skill:p020", target("hero", 2, 0), 5)).toMatchObject({
+    expect(use("hero_skill:core:h01:p020", target("hero", 2, 0), 5)).toMatchObject({
       status: "refused",
       reason: "自身效果要改压力，但没有使用者的压力（规则书第 20 页）",
       wounds: 2,
@@ -9905,7 +10090,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p020",
+        "hero_skill:core:h01:p020",
         {
           actor: { id: "crusader", wounds: 5 },
           target: { id: "vestal", side: "hero", wounds: 2, dodge: 0, stress: 6 },
@@ -9922,10 +10107,10 @@ describe("resolveHeroSkill", () => {
     });
   });
 
-  it("hero_skill:p199 Wyrd Reconstruction I 只治疗，流血面值 1 不放堆也不改伤口", () => {
+  it("hero_skill:core:h10:p199 Wyrd Reconstruction I 只治疗，流血面值 1 不放堆也不改伤口", () => {
     // 规则书第 21 页：Bleed 是面值 x、持续 Nt。面值是整数，回合数 numeric 为 null。
     // 不放代币，也不把面值当成这次治疗多扣或少扣的伤口（R-026、R-048）。
-    const skill = card("hero_skill:p199");
+    const skill = card("hero_skill:core:h10:p199");
     expect(skill.name).toBe("Wyrd Reconstruction");
     expect(skill.level).toBe(1);
     expect(skill.hero).toBe("OCCULTIST");
@@ -9996,8 +10181,8 @@ describe("resolveHeroSkill", () => {
     };
     const frozen = structuredClone(combat);
     // 掷 4 命中，治疗 4。伤口变成 2。若把流血面值 1 加成伤口，会是 3；若从治疗里扣掉，会是 3。
-    expect(use("hero_skill:p199", combat, 4)).toEqual({
-      skillId: "hero_skill:p199",
+    expect(use("hero_skill:core:h10:p199", combat, 4)).toEqual({
+      skillId: "hero_skill:core:h10:p199",
       targetId: "patient",
       status: "resolved",
       reason: null,
@@ -10027,7 +10212,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(combat).toEqual(frozen);
     // 掷 3 暴击，治疗 8，伤口到 0。打出暴击再减使用者压力。目标压力不动：治疗暴击不是承受伤害暴击。
-    expect(use("hero_skill:p199", combat, 3)).toMatchObject({
+    expect(use("hero_skill:core:h10:p199", combat, 3)).toMatchObject({
       status: "resolved",
       outcome: "crit",
       effect: "heal",
@@ -10044,7 +10229,7 @@ describe("resolveHeroSkill", () => {
       skipped: [{ code: "effect_lines" }],
     });
     // 掷 10 落空。不治疗，也不放流血。
-    expect(use("hero_skill:p199", combat, 10)).toMatchObject({
+    expect(use("hero_skill:core:h10:p199", combat, 10)).toMatchObject({
       status: "resolved",
       outcome: "miss",
       effect: "heal",
@@ -10061,7 +10246,7 @@ describe("resolveHeroSkill", () => {
     // 伤口只有 1，命中治疗仍停在 0，不会因为流血面值变成 1。
     expect(
       use(
-        "hero_skill:p199",
+        "hero_skill:core:h10:p199",
         {
           ...combat,
           target: { ...combat.target, wounds: 1 },
@@ -10076,7 +10261,7 @@ describe("resolveHeroSkill", () => {
     });
 
     // 射程印成 0-1，numeric 为 null。传入距离就整次拒绝，治疗和流血都不发生。
-    expect(use("hero_skill:p199", { ...combat, areaDistance: 0 }, 4)).toMatchObject({
+    expect(use("hero_skill:core:h10:p199", { ...combat, areaDistance: 0 }, 4)).toMatchObject({
       status: "refused",
       reason: "射程印成区间，旁边数字的 numeric 为 null，不能核对不同距离（规则书第 19 页，R-048）",
       outcome: null,
@@ -10088,7 +10273,7 @@ describe("resolveHeroSkill", () => {
       targetStress: 5,
       targetBleedCleared: false,
     });
-    expect(use("hero_skill:p199", { ...combat, areaDistance: 1 }, 4)).toMatchObject({
+    expect(use("hero_skill:core:h10:p199", { ...combat, areaDistance: 1 }, 4)).toMatchObject({
       status: "refused",
       reason: "射程印成区间，旁边数字的 numeric 为 null，不能核对不同距离（规则书第 19 页，R-048）",
       wounds: 6,
@@ -10097,7 +10282,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p199",
+        "hero_skill:core:h10:p199",
         { ...combat, target: { id: "soldier", side: "monster", wounds: 6, dodge: 0 } },
         4,
       ),
@@ -10110,7 +10295,7 @@ describe("resolveHeroSkill", () => {
     });
 
     // III：面值是 2，回合数仍是 null。命中治疗 6，伤口从 8 到 2，不是 4。
-    const third = card("hero_skill:p201");
+    const third = card("hero_skill:core:h10:p201");
     expect(third.name).toBe("Wyrd Reconstruction");
     expect(third.level).toBe(3);
     expect(third.hero).toBe("OCCULTIST");
@@ -10141,7 +10326,7 @@ describe("resolveHeroSkill", () => {
     ).toEqual([["2t", null]]);
     expect(
       use(
-        "hero_skill:p201",
+        "hero_skill:core:h10:p201",
         {
           actor: { id: "occultist", wounds: 1, stress: 3 },
           target: { id: "patient", side: "hero", wounds: 8, dodge: 0, stress: 1 },
@@ -10164,7 +10349,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p201",
+        "hero_skill:core:h10:p201",
         {
           actor: { id: "occultist", wounds: 1, stress: 3 },
           target: { id: "patient", side: "hero", wounds: 8, dodge: 0, stress: 1 },
@@ -10182,7 +10367,7 @@ describe("resolveHeroSkill", () => {
   });
 
   it("打怪物时如果没选中有 Guard 的敌人，整次拒绝；友方和自身技能不受这条限制", () => {
-    const lance = card("hero_skill:p016");
+    const lance = card("hero_skill:core:h01:p016");
     expect(lance.name).toBe("Holy Lance");
     expect(lance.level).toBe(1);
     expect(lance.hero).toBe("CRUSADER");
@@ -10220,7 +10405,7 @@ describe("resolveHeroSkill", () => {
     };
     const frozen = structuredClone(omitted);
     // 掷 1 本来会暴击并给自己减压力，掷 2 本来会命中 7。漏选 Guard 时两者都不发生，自身 Pull 1 也不记。
-    expect(use("hero_skill:p016", omitted, 1)).toMatchObject({
+    expect(use("hero_skill:core:h01:p016", omitted, 1)).toMatchObject({
       status: "refused",
       reason:
         "不以友方为目标的技能必须把有 Guard 的敌人选为目标之一，这次没有选中（规则书第 21 页，R-024）",
@@ -10234,7 +10419,7 @@ describe("resolveHeroSkill", () => {
       actorShuffle: null,
       targetShuffle: null,
     });
-    expect(use("hero_skill:p016", omitted, 2)).toMatchObject({
+    expect(use("hero_skill:core:h01:p016", omitted, 2)).toMatchObject({
       status: "refused",
       reason:
         "不以友方为目标的技能必须把有 Guard 的敌人选为目标之一，这次没有选中（规则书第 21 页，R-024）",
@@ -10246,7 +10431,9 @@ describe("resolveHeroSkill", () => {
     expect(omitted).toEqual(frozen);
 
     // 标明没有漏选时，距离 1、掷 2 仍是命中 7，自身 Pull 1。
-    expect(use("hero_skill:p016", { ...omitted, guardedEnemyOmitted: false }, 2)).toMatchObject({
+    expect(
+      use("hero_skill:core:h01:p016", { ...omitted, guardedEnemyOmitted: false }, 2),
+    ).toMatchObject({
       status: "resolved",
       outcome: "hit",
       effect: "damage",
@@ -10258,7 +10445,7 @@ describe("resolveHeroSkill", () => {
       actorShuffle: { direction: "pull", distance: 1 },
     });
     expect(
-      use("hero_skill:p016", { actor: crusader, target: enemy, areaDistance: 1 }, 2),
+      use("hero_skill:core:h01:p016", { actor: crusader, target: enemy, areaDistance: 1 }, 2),
     ).toMatchObject({
       status: "resolved",
       outcome: "hit",
@@ -10269,7 +10456,7 @@ describe("resolveHeroSkill", () => {
     });
 
     // 距离先核对。射程 1 对上距离 2，还没轮到 Guard，自身 Pull 同样不发生。
-    expect(use("hero_skill:p016", { ...omitted, areaDistance: 2 }, 2)).toMatchObject({
+    expect(use("hero_skill:core:h01:p016", { ...omitted, areaDistance: 2 }, 2)).toMatchObject({
       status: "refused",
       reason: "目标区域与使用者的距离不是卡面印的射程（规则书第 19 页）",
       wounds: 3,
@@ -10280,7 +10467,7 @@ describe("resolveHeroSkill", () => {
     // 打到英雄身上，先按目标图标拒绝，不把原因说成漏选 Guard。
     expect(
       use(
-        "hero_skill:p016",
+        "hero_skill:core:h01:p016",
         {
           actor: crusader,
           target: { id: "vestal", side: "hero", wounds: 3, dodge: 0 },
@@ -10297,7 +10484,11 @@ describe("resolveHeroSkill", () => {
       actorShuffle: null,
     });
     expect(
-      use("hero_skill:p016", { ...omitted, guardedEnemyOmitted: 1 as unknown as boolean }, 2),
+      use(
+        "hero_skill:core:h01:p016",
+        { ...omitted, guardedEnemyOmitted: 1 as unknown as boolean },
+        2,
+      ),
     ).toMatchObject({
       status: "refused",
       reason: "有没有漏选 Guard 敌人必须是布尔值",
@@ -10307,7 +10498,7 @@ describe("resolveHeroSkill", () => {
       actorShuffle: null,
     });
 
-    const rush = card("hero_skill:p034");
+    const rush = card("hero_skill:core:h02:p034");
     expect(rush.name).toBe("Breakthrough");
     expect(rush.level).toBe(1);
     expect(rush.hero).toBe("HELLION");
@@ -10318,7 +10509,7 @@ describe("resolveHeroSkill", () => {
     // 个数 3 合法，但没包含 Guard，整次拒绝，自身 Pull 1 不记。
     expect(
       use(
-        "hero_skill:p034",
+        "hero_skill:core:h02:p034",
         {
           actor: hellion,
           target: soldier,
@@ -10341,7 +10532,7 @@ describe("resolveHeroSkill", () => {
     // 个数先核对。选 4 个时还没轮到 Guard。
     expect(
       use(
-        "hero_skill:p034",
+        "hero_skill:core:h02:p034",
         {
           actor: hellion,
           target: soldier,
@@ -10360,7 +10551,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p034",
+        "hero_skill:core:h02:p034",
         {
           actor: hellion,
           target: soldier,
@@ -10380,7 +10571,7 @@ describe("resolveHeroSkill", () => {
     });
 
     // 治疗友方：Battle Heal I 的目标是英雄，漏选标志不挡这次治疗。
-    const heal = card("hero_skill:p013");
+    const heal = card("hero_skill:core:h01:p013");
     expect(heal.name).toBe("Battle Heal");
     expect(heal.level).toBe(1);
     expect(heal.hero).toBe("CRUSADER");
@@ -10393,7 +10584,7 @@ describe("resolveHeroSkill", () => {
     ).toEqual(["target_hero"]);
     expect(
       use(
-        "hero_skill:p013",
+        "hero_skill:core:h01:p013",
         {
           target: { id: "patient", side: "hero", wounds: 5, dodge: 0 },
           guardedEnemyOmitted: true,
@@ -10410,13 +10601,13 @@ describe("resolveHeroSkill", () => {
     });
 
     // 自身目标：Absolution I 写的是 Self。漏选标志不挡治疗和减压。
-    const absolution = card("hero_skill:p217");
+    const absolution = card("hero_skill:core:h11:p217");
     expect(absolution.name).toBe("Absolution");
     expect(absolution.level).toBe(1);
     expect(absolution.verification.unverified).toBe(false);
     expect(
       use(
-        "hero_skill:p217",
+        "hero_skill:core:h11:p217",
         {
           actor: { id: "abomination", wounds: 5, stress: 4 },
           target: { id: "abomination", side: "hero", wounds: 5, dodge: 0, stress: 4 },
@@ -10436,13 +10627,13 @@ describe("resolveHeroSkill", () => {
     });
 
     // 正面头盔标的是英雄。Inspiring Tune I 在漏选标志下仍给自己减压。
-    const tune = card("hero_skill:p121");
+    const tune = card("hero_skill:core:h06:p121");
     expect(tune.name).toBe("Inspiring Tune");
     expect(tune.level).toBe(1);
     expect(tune.verification.unverified).toBe(false);
     expect(
       use(
-        "hero_skill:p121",
+        "hero_skill:core:h06:p121",
         {
           actor: { id: "jester", wounds: 1, stress: 4 },
           target: { id: "vestal", side: "hero", wounds: 3, dodge: 15, stress: 6 },
@@ -10464,7 +10655,7 @@ describe("resolveHeroSkill", () => {
 
     // 只有眩晕、没有已命名伤害的技能仍不结算。漏选标志不替它补出 Crit，也不放 1t。
     // 正面怪物头和射程 0 对得上时也一样；专测见下面的 YAWP! / Blinding Gas。
-    const yawp = card("hero_skill:p028");
+    const yawp = card("hero_skill:core:h02:p028");
     expect(yawp.name).toBe("Barbaric YAWP!");
     expect(yawp.level).toBe(1);
     expect(yawp.hero).toBe("HELLION");
@@ -10475,7 +10666,7 @@ describe("resolveHeroSkill", () => {
     ).toEqual([null]);
     expect(
       use(
-        "hero_skill:p028",
+        "hero_skill:core:h02:p028",
         {
           actor: { id: "hellion", wounds: 0, stress: 1 },
           target: { id: "soldier", side: "monster", wounds: 4, dodge: 0 },
@@ -10500,7 +10691,7 @@ describe("resolveHeroSkill", () => {
   });
 
   it("Barbaric YAWP! 和 Blinding Gas 只有 Acc 和眩晕 1t，不放堆，也不把 Acc 当成伤害", () => {
-    const yawp = card("hero_skill:p028");
+    const yawp = card("hero_skill:core:h02:p028");
     expect(yawp.name).toBe("Barbaric YAWP!");
     expect(yawp.level).toBe(1);
     expect(yawp.hero).toBe("HELLION");
@@ -10559,7 +10750,7 @@ describe("resolveHeroSkill", () => {
     const frozen = structuredClone(ready);
     // 射程 0、选 2 个都合法。掷 1 本来会落在 Acc 10 以内，掷 10 也对得上 Acc。两者都不改伤口。
     for (const roll of [1, 10]) {
-      expect(use("hero_skill:p028", ready, roll)).toMatchObject({
+      expect(use("hero_skill:core:h02:p028", ready, roll)).toMatchObject({
         status: "refused",
         reason: "stats_line 没有已命名的 damage 或 heal",
         outcome: null,
@@ -10587,7 +10778,11 @@ describe("resolveHeroSkill", () => {
     expect(ready).toEqual(frozen);
     // 少选 1 个仍然合法，还是不把 Acc 10 当成伤害。标明没有漏选 Guard 也不放行。
     expect(
-      use("hero_skill:p028", { ...ready, targetsInArea: 1, guardedEnemyOmitted: false }, 10),
+      use(
+        "hero_skill:core:h02:p028",
+        { ...ready, targetsInArea: 1, guardedEnemyOmitted: false },
+        10,
+      ),
     ).toMatchObject({
       status: "refused",
       reason: "stats_line 没有已命名的 damage 或 heal",
@@ -10597,7 +10792,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 1,
     });
     // 距离先核对。射程 0 对不上 1，还没轮到「没有伤害」。
-    expect(use("hero_skill:p028", { ...ready, areaDistance: 1 }, 1)).toMatchObject({
+    expect(use("hero_skill:core:h02:p028", { ...ready, areaDistance: 1 }, 1)).toMatchObject({
       status: "refused",
       reason: "目标区域与使用者的距离不是卡面印的射程（规则书第 19 页）",
       wounds: 4,
@@ -10606,14 +10801,14 @@ describe("resolveHeroSkill", () => {
       printedAmount: null,
     });
     // 正面两枚怪物头：选 3 个先按个数拒绝。
-    expect(use("hero_skill:p028", { ...ready, targetsInArea: 3 }, 1)).toMatchObject({
+    expect(use("hero_skill:core:h02:p028", { ...ready, targetsInArea: 3 }, 1)).toMatchObject({
       status: "refused",
       reason: "一个区域内选中的目标个数必须是 1 到卡面目标图标的个数（规则书第 19 页）",
       wounds: 4,
       printedAmount: null,
     });
 
-    const yawpTwo = card("hero_skill:p029");
+    const yawpTwo = card("hero_skill:core:h02:p029");
     expect(yawpTwo.name).toBe("Barbaric YAWP!");
     expect(yawpTwo.level).toBe(2);
     expect(yawpTwo.verification.unverified).toBe(false);
@@ -10621,7 +10816,7 @@ describe("resolveHeroSkill", () => {
     expect(
       yawpTwo.unlabeled_numbers.filter((item) => item.text === "1t").map((item) => item.numeric),
     ).toEqual([null]);
-    expect(use("hero_skill:p029", ready, 1)).toMatchObject({
+    expect(use("hero_skill:core:h02:p029", ready, 1)).toMatchObject({
       status: "refused",
       reason: "stats_line 没有已命名的 damage 或 heal",
       printedAmount: null,
@@ -10629,12 +10824,12 @@ describe("resolveHeroSkill", () => {
       actorStress: 1,
     });
 
-    const yawpThree = card("hero_skill:p030");
+    const yawpThree = card("hero_skill:core:h02:p030");
     expect(yawpThree.name).toBe("Barbaric YAWP!");
     expect(yawpThree.level).toBe(3);
     expect(yawpThree.verification.unverified).toBe(false);
     expect(yawpThree.printed_labels.map((item) => [item.label, item.value])).toEqual([["Acc", 12]]);
-    expect(use("hero_skill:p030", ready, 10)).toMatchObject({
+    expect(use("hero_skill:core:h02:p030", ready, 10)).toMatchObject({
       status: "refused",
       reason: "stats_line 没有已命名的 damage 或 heal",
       printedAmount: null,
@@ -10642,7 +10837,7 @@ describe("resolveHeroSkill", () => {
       damageDealt: null,
     });
 
-    const gas = card("hero_skill:p133");
+    const gas = card("hero_skill:core:h07:p133");
     expect(gas.name).toBe("Blinding Gas");
     expect(gas.level).toBe(1);
     expect(gas.hero).toBe("PLAGUE DOCTOR");
@@ -10680,7 +10875,7 @@ describe("resolveHeroSkill", () => {
     for (const roll of [1, 9]) {
       expect(
         use(
-          "hero_skill:p133",
+          "hero_skill:core:h07:p133",
           { actor: doctor, target: patient, targetsInArea: 2, guardedEnemyOmitted: false },
           roll,
         ),
@@ -10702,7 +10897,7 @@ describe("resolveHeroSkill", () => {
     }
     // 掷 10 超过 Acc 9。没有已命名伤害，所以不是落空，整次拒绝，伤口仍是 6。
     expect(
-      use("hero_skill:p133", { actor: doctor, target: patient, targetsInArea: 1 }, 10),
+      use("hero_skill:core:h07:p133", { actor: doctor, target: patient, targetsInArea: 1 }, 10),
     ).toMatchObject({
       status: "refused",
       reason: "stats_line 没有已命名的 damage 或 heal",
@@ -10714,7 +10909,7 @@ describe("resolveHeroSkill", () => {
     // 区间「1-2」的 numeric 为 null。传入距离就按区间拒绝，不先当成命中再放眩晕。
     expect(
       use(
-        "hero_skill:p133",
+        "hero_skill:core:h07:p133",
         { actor: doctor, target: patient, areaDistance: 1, targetsInArea: 2 },
         1,
       ),
@@ -10728,7 +10923,7 @@ describe("resolveHeroSkill", () => {
       damageDealt: null,
     });
     expect(
-      use("hero_skill:p133", { actor: doctor, target: patient, targetsInArea: 3 }, 1),
+      use("hero_skill:core:h07:p133", { actor: doctor, target: patient, targetsInArea: 3 }, 1),
     ).toMatchObject({
       status: "refused",
       reason: "一个区域内选中的目标个数必须是 1 到卡面目标图标的个数（规则书第 19 页）",
@@ -10736,7 +10931,7 @@ describe("resolveHeroSkill", () => {
       printedAmount: null,
     });
 
-    const gasTwo = card("hero_skill:p134");
+    const gasTwo = card("hero_skill:core:h07:p134");
     expect(gasTwo.name).toBe("Blinding Gas");
     expect(gasTwo.level).toBe(2);
     expect(gasTwo.verification.unverified).toBe(false);
@@ -10745,7 +10940,7 @@ describe("resolveHeroSkill", () => {
       gasTwo.unlabeled_numbers.filter((item) => item.text === "1t").map((item) => item.numeric),
     ).toEqual([null]);
     expect(
-      use("hero_skill:p134", { actor: doctor, target: patient, targetsInArea: 2 }, 1),
+      use("hero_skill:core:h07:p134", { actor: doctor, target: patient, targetsInArea: 2 }, 1),
     ).toMatchObject({
       status: "refused",
       reason: "stats_line 没有已命名的 damage 或 heal",
@@ -10754,12 +10949,12 @@ describe("resolveHeroSkill", () => {
       actorStress: 3,
     });
 
-    const gasThree = card("hero_skill:p135");
+    const gasThree = card("hero_skill:core:h07:p135");
     expect(gasThree.name).toBe("Blinding Gas");
     expect(gasThree.level).toBe(3);
     expect(gasThree.verification.unverified).toBe(false);
     expect(gasThree.printed_labels.map((item) => [item.label, item.value])).toEqual([["Acc", 14]]);
-    expect(use("hero_skill:p135", { actor: doctor, target: patient }, 10)).toMatchObject({
+    expect(use("hero_skill:core:h07:p135", { actor: doctor, target: patient }, 10)).toMatchObject({
       status: "refused",
       reason: "stats_line 没有已命名的 damage 或 heal",
       printedAmount: null,
@@ -10770,8 +10965,8 @@ describe("resolveHeroSkill", () => {
     });
   });
 
-  it("hero_skill:p039 Adrenaline Rush III 不掷骰，清掉使用者的全部流血", () => {
-    const skill = card("hero_skill:p039");
+  it("hero_skill:core:h02:p039 Adrenaline Rush III 不掷骰，清掉使用者的全部流血", () => {
+    const skill = card("hero_skill:core:h02:p039");
     expect(skill.name).toBe("Adrenaline Rush");
     expect(skill.level).toBe(3);
     expect(skill.hero).toBe("HELLION");
@@ -10810,9 +11005,9 @@ describe("resolveHeroSkill", () => {
       light: 2,
     };
     const frozen = structuredClone(combat);
-    const rushed = use("hero_skill:p039", combat, 1);
+    const rushed = use("hero_skill:core:h02:p039", combat, 1);
     expect(rushed).toEqual({
-      skillId: "hero_skill:p039",
+      skillId: "hero_skill:core:h02:p039",
       targetId: "vestal",
       status: "resolved",
       reason: null,
@@ -10842,9 +11037,9 @@ describe("resolveHeroSkill", () => {
     });
     expect(combat).toEqual(frozen);
     // 没有 Acc，骰面不改结果。光照 2 的额外压力不加：这次没有承受压力。
-    expect(use("hero_skill:p039", combat, 10)).toEqual(rushed);
+    expect(use("hero_skill:core:h02:p039", combat, 10)).toEqual(rushed);
 
-    expect(use("hero_skill:p039", { target: combat.target }, 4)).toMatchObject({
+    expect(use("hero_skill:core:h02:p039", { target: combat.target }, 4)).toMatchObject({
       status: "refused",
       reason: "自身效果要移除流血，但没有使用者（规则书第 20 页）",
       wounds: 5,
@@ -10854,7 +11049,7 @@ describe("resolveHeroSkill", () => {
       targetBleedCleared: false,
       targetBlightCleared: false,
     });
-    expect(use("hero_skill:p039", combat, 0)).toMatchObject({
+    expect(use("hero_skill:core:h02:p039", combat, 0)).toMatchObject({
       status: "refused",
       reason: "d10 必须是 1 到 10 的整数",
       wounds: 5,
@@ -10863,7 +11058,7 @@ describe("resolveHeroSkill", () => {
       actorBlightCleared: false,
     });
     // 区间射程 numeric 为 null。对不上时整次拒绝，自身的移除也不发生。
-    expect(use("hero_skill:p039", { ...combat, areaDistance: 1 }, 3)).toMatchObject({
+    expect(use("hero_skill:core:h02:p039", { ...combat, areaDistance: 1 }, 3)).toMatchObject({
       status: "refused",
       reason: "射程印成区间，旁边数字的 numeric 为 null，不能核对不同距离（规则书第 19 页，R-048）",
       wounds: 5,
@@ -10874,7 +11069,7 @@ describe("resolveHeroSkill", () => {
       targetBleedCleared: false,
     });
     // 两枚英雄头盔在效果行上，不能当成一个区域内能选几个。
-    expect(use("hero_skill:p039", { ...combat, targetsInArea: 2 }, 3)).toMatchObject({
+    expect(use("hero_skill:core:h02:p039", { ...combat, targetsInArea: 2 }, 3)).toMatchObject({
       status: "refused",
       reason:
         "stats 行没有已命名的目标图标，不能把 Self、All Allies 或效果行里的图标当成区域内能选几个（规则书第 19 页，R-048）",
@@ -10884,7 +11079,7 @@ describe("resolveHeroSkill", () => {
       wounds: 5,
     });
 
-    const mixed = card("hero_skill:p037");
+    const mixed = card("hero_skill:core:h02:p037");
     expect(mixed.name).toBe("Adrenaline Rush");
     expect(mixed.level).toBe(1);
     expect(mixed.hero).toBe("HELLION");
@@ -10894,7 +11089,7 @@ describe("resolveHeroSkill", () => {
         ?.filter((segment) => segment.type === "icon")
         .map((segment) => segment.icon.key),
     ).toEqual(["self_effects", "bleed", "blight", "buff"]);
-    expect(use("hero_skill:p037", combat, 1)).toMatchObject({
+    expect(use("hero_skill:core:h02:p037", combat, 1)).toMatchObject({
       status: "refused",
       reason: "stats_line 没有已命名的 damage 或 heal",
       wounds: 5,
@@ -10906,7 +11101,7 @@ describe("resolveHeroSkill", () => {
       targetBlightCleared: false,
     });
 
-    const shared = card("hero_skill:p038");
+    const shared = card("hero_skill:core:h02:p038");
     expect(shared.name).toBe("Adrenaline Rush");
     expect(shared.level).toBe(2);
     expect(shared.verification.unverified).toBe(false);
@@ -10915,7 +11110,7 @@ describe("resolveHeroSkill", () => {
         ?.filter((segment) => segment.type === "icon")
         .map((segment) => segment.icon.key),
     ).toEqual(["self_effects", "bleed", "blight", "target_effects", "bleed", "blight", "buff"]);
-    expect(use("hero_skill:p038", combat, 5)).toMatchObject({
+    expect(use("hero_skill:core:h02:p038", combat, 5)).toMatchObject({
       status: "refused",
       reason: "stats_line 没有已命名的 damage 或 heal",
       actorBleedCleared: false,
@@ -10928,7 +11123,7 @@ describe("resolveHeroSkill", () => {
   });
 
   it("换行后的 Remove Bleed、Blight 配给效果框：Toxin Trickery 不掷骰，两种都清", () => {
-    const first = card("hero_skill:p187");
+    const first = card("hero_skill:core:h09:p187");
     expect(first.name).toBe("Toxin Trickery");
     expect(first.level).toBe(1);
     expect(first.hero).toBe("GRAVE ROBBER");
@@ -10961,9 +11156,9 @@ describe("resolveHeroSkill", () => {
       target: { id: "robber", side: "hero", wounds: 2, dodge: 20, stress: 3 },
     };
     const frozen = structuredClone(self);
-    const cleared = use("hero_skill:p187", self, 1);
+    const cleared = use("hero_skill:core:h09:p187", self, 1);
     expect(cleared).toEqual({
-      skillId: "hero_skill:p187",
+      skillId: "hero_skill:core:h09:p187",
       targetId: "robber",
       status: "resolved",
       reason: null,
@@ -10993,8 +11188,8 @@ describe("resolveHeroSkill", () => {
     });
     expect(self).toEqual(frozen);
     // 没有 Acc。骰面 10、目标 Dodge 很高，仍然清使用者，不清目标，不放增益。
-    expect(use("hero_skill:p187", self, 10)).toEqual(cleared);
-    expect(use("hero_skill:p187", { target: self.target }, 4)).toMatchObject({
+    expect(use("hero_skill:core:h09:p187", self, 10)).toEqual(cleared);
+    expect(use("hero_skill:core:h09:p187", { target: self.target }, 4)).toMatchObject({
       status: "refused",
       reason: "自身效果要移除流血和腐蚀，但没有使用者（规则书第 20 页）",
       wounds: 2,
@@ -11005,7 +11200,7 @@ describe("resolveHeroSkill", () => {
       targetBlightCleared: false,
     });
     // 射程旁边是 Self，不是整数 0。传入距离就整次拒绝，移除也不发生。
-    expect(use("hero_skill:p187", { ...self, areaDistance: 0 }, 3)).toMatchObject({
+    expect(use("hero_skill:core:h09:p187", { ...self, areaDistance: 0 }, 3)).toMatchObject({
       status: "refused",
       reason:
         "卡面没有恰好一个射程整数，不能把 Self 或 All Allies 当成距离 0（规则书第 19 页，R-048）",
@@ -11015,7 +11210,7 @@ describe("resolveHeroSkill", () => {
       actorWounds: 2,
     });
 
-    const second = card("hero_skill:p188");
+    const second = card("hero_skill:core:h09:p188");
     expect(second.name).toBe("Toxin Trickery");
     expect(second.level).toBe(2);
     expect(second.verification.unverified).toBe(false);
@@ -11047,7 +11242,7 @@ describe("resolveHeroSkill", () => {
       areaDistance: 1,
     };
     const allyFrozen = structuredClone(ally);
-    const both = use("hero_skill:p188", ally, 10);
+    const both = use("hero_skill:core:h09:p188", ally, 10);
     expect(both).toMatchObject({
       status: "resolved",
       outcome: null,
@@ -11063,7 +11258,7 @@ describe("resolveHeroSkill", () => {
       skipped: [{ code: "effect_lines" }],
     });
     expect(ally).toEqual(allyFrozen);
-    expect(use("hero_skill:p188", { ...ally, areaDistance: 2 }, 1)).toMatchObject({
+    expect(use("hero_skill:core:h09:p188", { ...ally, areaDistance: 2 }, 1)).toMatchObject({
       status: "refused",
       reason: "目标区域与使用者的距离不是卡面印的射程（规则书第 19 页）",
       wounds: 6,
@@ -11074,7 +11269,7 @@ describe("resolveHeroSkill", () => {
       targetBlightCleared: false,
     });
     // 英雄头盔在效果行上，不能当成一个区域内能选几个。
-    expect(use("hero_skill:p188", { ...ally, targetsInArea: 1 }, 1)).toMatchObject({
+    expect(use("hero_skill:core:h09:p188", { ...ally, targetsInArea: 1 }, 1)).toMatchObject({
       status: "refused",
       reason:
         "stats 行没有已命名的目标图标，不能把 Self、All Allies 或效果行里的图标当成区域内能选几个（规则书第 19 页，R-048）",
@@ -11084,11 +11279,11 @@ describe("resolveHeroSkill", () => {
       wounds: 6,
     });
 
-    const third = card("hero_skill:p189");
+    const third = card("hero_skill:core:h09:p189");
     expect(third.name).toBe("Toxin Trickery");
     expect(third.level).toBe(3);
     expect(third.verification.unverified).toBe(false);
-    expect(use("hero_skill:p189", { ...ally, areaDistance: 1 }, 2)).toMatchObject({
+    expect(use("hero_skill:core:h09:p189", { ...ally, areaDistance: 1 }, 2)).toMatchObject({
       status: "resolved",
       outcome: null,
       wounds: 6,
@@ -11100,8 +11295,8 @@ describe("resolveHeroSkill", () => {
     });
   });
 
-  it("hero_skill:p145 Disorienting Blast I 选定 Push 或 Pull 后才记距离 2，不把 Acc 当成伤害", () => {
-    const skill = card("hero_skill:p145");
+  it("hero_skill:core:h07:p145 Disorienting Blast I 选定 Push 或 Pull 后才记距离 2，不把 Acc 当成伤害", () => {
+    const skill = card("hero_skill:core:h07:p145");
     expect(skill.name).toBe("Disorienting Blast");
     expect(skill.level).toBe(1);
     expect(skill.hero).toBe("PLAGUE DOCTOR");
@@ -11148,9 +11343,9 @@ describe("resolveHeroSkill", () => {
       shuffleChoice: "push",
     };
     const frozen = structuredClone(pushed);
-    const hit = use("hero_skill:p145", pushed, 9);
+    const hit = use("hero_skill:core:h07:p145", pushed, 9);
     expect(hit).toEqual({
-      skillId: "hero_skill:p145",
+      skillId: "hero_skill:core:h07:p145",
       targetId: "soldier",
       status: "resolved",
       reason: null,
@@ -11179,10 +11374,10 @@ describe("resolveHeroSkill", () => {
       skipped: [{ code: "effect_lines" }],
     });
     expect(pushed).toEqual(frozen);
-    expect(use("hero_skill:p145", pushed, 9)).toEqual(hit);
+    expect(use("hero_skill:core:h07:p145", pushed, 9)).toEqual(hit);
 
     // 骰面 1 也只是命中。增益和光照 ≤4 只加暴击，卡面没有 Crit，不因此暴击，压力不减。
-    expect(use("hero_skill:p145", { ...pushed, light: 0 }, 1)).toMatchObject({
+    expect(use("hero_skill:core:h07:p145", { ...pushed, light: 0 }, 1)).toMatchObject({
       outcome: "hit",
       effect: null,
       printedAmount: null,
@@ -11192,7 +11387,7 @@ describe("resolveHeroSkill", () => {
       actorStress: 5,
       targetShuffle: { direction: "push", distance: 2 },
     });
-    expect(use("hero_skill:p145", pushed, 10)).toMatchObject({
+    expect(use("hero_skill:core:h07:p145", pushed, 10)).toMatchObject({
       status: "resolved",
       outcome: "miss",
       effect: null,
@@ -11204,7 +11399,7 @@ describe("resolveHeroSkill", () => {
       skipped: [{ code: "effect_lines" }],
     });
 
-    expect(use("hero_skill:p145", { ...pushed, shuffleChoice: "pull" }, 9)).toMatchObject({
+    expect(use("hero_skill:core:h07:p145", { ...pushed, shuffleChoice: "pull" }, 9)).toMatchObject({
       outcome: "hit",
       wounds: 4,
       targetShuffle: { direction: "pull", distance: 2 },
@@ -11215,7 +11410,7 @@ describe("resolveHeroSkill", () => {
     expect(defender.resistances).toEqual([{ key: "shuffle_resist", naming: "confirmed" }]);
     expect(
       use(
-        "hero_skill:p145",
+        "hero_skill:core:h07:p145",
         {
           actor: doctor,
           target: { ...soldier, id: defender.id, shuffleResist: true, life: defender.life },
@@ -11232,7 +11427,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p145",
+        "hero_skill:core:h07:p145",
         {
           actor: doctor,
           target: { ...soldier, shuffleResist: true, dodge: 9 },
@@ -11249,35 +11444,35 @@ describe("resolveHeroSkill", () => {
 
     // 标记和高地加在命中上。增益堆不加，所以骰面 10 在没有这两项时落空。
     expect(
-      use("hero_skill:p145", { ...pushed, actor: { ...doctor, buffStacks: 5 } }, 10),
+      use("hero_skill:core:h07:p145", { ...pushed, actor: { ...doctor, buffStacks: 5 } }, 10),
     ).toMatchObject({
       outcome: "miss",
       actorStress: 5,
       targetShuffle: null,
     });
     expect(
-      use("hero_skill:p145", { ...pushed, target: { ...soldier, debuffStacks: 5 } }, 10),
+      use("hero_skill:core:h07:p145", { ...pushed, target: { ...soldier, debuffStacks: 5 } }, 10),
     ).toMatchObject({ outcome: "miss", targetShuffle: null, wounds: 4 });
     expect(
-      use("hero_skill:p145", { ...pushed, target: { ...soldier, markStacks: 1 } }, 10),
+      use("hero_skill:core:h07:p145", { ...pushed, target: { ...soldier, markStacks: 1 } }, 10),
     ).toMatchObject({
       outcome: "hit",
       targetShuffle: { direction: "push", distance: 2 },
       wounds: 4,
     });
     expect(
-      use("hero_skill:p145", { ...pushed, targetAreaLower: true, areaDistance: 2 }, 10),
+      use("hero_skill:core:h07:p145", { ...pushed, targetAreaLower: true, areaDistance: 2 }, 10),
     ).toMatchObject({
       outcome: "hit",
       targetShuffle: { direction: "push", distance: 2 },
     });
     expect(
-      use("hero_skill:p145", { ...pushed, targetAreaLower: true, areaDistance: 1 }, 10),
+      use("hero_skill:core:h07:p145", { ...pushed, targetAreaLower: true, areaDistance: 1 }, 10),
     ).toMatchObject({ outcome: "hit", wounds: 4 });
     // 光照 0 的怪物 Dodge +1，命中阈值变成 8。不改印刷距离。
     expect(
       use(
-        "hero_skill:p145",
+        "hero_skill:core:h07:p145",
         { target: soldier, areaDistance: 1, shuffleChoice: "push", light: 0 },
         9,
       ),
@@ -11289,7 +11484,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p145",
+        "hero_skill:core:h07:p145",
         { target: soldier, areaDistance: 1, shuffleChoice: "push", light: 0 },
         8,
       ),
@@ -11300,7 +11495,7 @@ describe("resolveHeroSkill", () => {
 
     expect(
       use(
-        "hero_skill:p145",
+        "hero_skill:core:h07:p145",
         {
           actor: { ...doctor, stance: "support" },
           target: soldier,
@@ -11310,12 +11505,12 @@ describe("resolveHeroSkill", () => {
         9,
       ),
     ).toMatchObject({ status: "resolved", targetShuffle: { direction: "push", distance: 2 } });
-    expect(use("hero_skill:p145", { ...pushed, targetsInArea: 1 }, 9)).toMatchObject({
+    expect(use("hero_skill:core:h07:p145", { ...pushed, targetsInArea: 1 }, 9)).toMatchObject({
       status: "resolved",
       wounds: 4,
     });
 
-    const second = card("hero_skill:p146");
+    const second = card("hero_skill:core:h07:p146");
     expect(second.name).toBe("Disorienting Blast");
     expect(second.level).toBe(2);
     expect(second.verification.unverified).toBe(false);
@@ -11325,7 +11520,11 @@ describe("resolveHeroSkill", () => {
       ["1-2", null],
     ]);
     expect(
-      use("hero_skill:p146", { target: { ...soldier, dodge: 0 }, shuffleChoice: "pull" }, 10),
+      use(
+        "hero_skill:core:h07:p146",
+        { target: { ...soldier, dodge: 0 }, shuffleChoice: "pull" },
+        10,
+      ),
     ).toMatchObject({
       status: "resolved",
       outcome: "hit",
@@ -11336,27 +11535,39 @@ describe("resolveHeroSkill", () => {
       skipped: [{ code: "effect_lines" }],
     });
     expect(
-      use("hero_skill:p146", { target: { ...soldier, dodge: 1 }, shuffleChoice: "pull" }, 10),
+      use(
+        "hero_skill:core:h07:p146",
+        { target: { ...soldier, dodge: 1 }, shuffleChoice: "pull" },
+        10,
+      ),
     ).toMatchObject({
       outcome: "miss",
       wounds: 4,
       targetShuffle: null,
     });
 
-    const third = card("hero_skill:p147");
+    const third = card("hero_skill:core:h07:p147");
     expect(third.name).toBe("Disorienting Blast");
     expect(third.level).toBe(3);
     expect(third.verification.unverified).toBe(false);
     expect(third.printed_labels.map((item) => [item.label, item.value])).toEqual([["Acc", 12]]);
     expect(
-      use("hero_skill:p147", { target: { ...soldier, dodge: 2 }, shuffleChoice: "push" }, 10),
+      use(
+        "hero_skill:core:h07:p147",
+        { target: { ...soldier, dodge: 2 }, shuffleChoice: "push" },
+        10,
+      ),
     ).toMatchObject({
       outcome: "hit",
       wounds: 4,
       targetShuffle: { direction: "push", distance: 2 },
     });
     expect(
-      use("hero_skill:p147", { target: { ...soldier, dodge: 3 }, shuffleChoice: "push" }, 10),
+      use(
+        "hero_skill:core:h07:p147",
+        { target: { ...soldier, dodge: 3 }, shuffleChoice: "push" },
+        10,
+      ),
     ).toMatchObject({
       outcome: "miss",
       wounds: 4,
@@ -11366,7 +11577,7 @@ describe("resolveHeroSkill", () => {
 
   it("没选定方向、混进行、或射程对不上时，不记 Push 或 Pull，也不把 Acc 当成伤害", () => {
     const soldier = { id: "soldier", side: "monster" as const, wounds: 4, dodge: 0 };
-    expect(use("hero_skill:p145", { target: soldier, areaDistance: 1 }, 9)).toMatchObject({
+    expect(use("hero_skill:core:h07:p145", { target: soldier, areaDistance: 1 }, 9)).toMatchObject({
       status: "refused",
       reason: "stats_line 没有已命名的 damage 或 heal",
       outcome: null,
@@ -11377,7 +11588,11 @@ describe("resolveHeroSkill", () => {
       actorShuffle: null,
     });
     expect(
-      use("hero_skill:p145", { target: soldier, areaDistance: 2, shuffleChoice: "push" }, 9),
+      use(
+        "hero_skill:core:h07:p145",
+        { target: soldier, areaDistance: 2, shuffleChoice: "push" },
+        9,
+      ),
     ).toMatchObject({
       status: "refused",
       reason: "目标区域与使用者的距离不是卡面印的射程（规则书第 19 页）",
@@ -11386,7 +11601,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p145",
+        "hero_skill:core:h07:p145",
         { target: soldier, areaDistance: 3, targetAreaLower: true, shuffleChoice: "pull" },
         9,
       ),
@@ -11398,7 +11613,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p145",
+        "hero_skill:core:h07:p145",
         { target: soldier, areaDistance: 1, shuffleChoice: "push", targetsInArea: 2 },
         9,
       ),
@@ -11410,7 +11625,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p145",
+        "hero_skill:core:h07:p145",
         {
           actor: { id: "doctor", wounds: 1, stress: 5, stance: "aggressive" },
           target: soldier,
@@ -11429,7 +11644,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p145",
+        "hero_skill:core:h07:p145",
         { target: soldier, areaDistance: 1, shuffleChoice: "push", guardedEnemyOmitted: true },
         9,
       ),
@@ -11442,7 +11657,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p145",
+        "hero_skill:core:h07:p145",
         {
           target: { id: "vestal", side: "hero", wounds: 4, dodge: 0, stress: 2 },
           areaDistance: 1,
@@ -11459,7 +11674,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p145",
+        "hero_skill:core:h07:p145",
         {
           target: soldier,
           areaDistance: 1,
@@ -11475,7 +11690,11 @@ describe("resolveHeroSkill", () => {
     });
 
     expect(
-      use("hero_skill:p146", { target: soldier, areaDistance: 1, shuffleChoice: "push" }, 5),
+      use(
+        "hero_skill:core:h07:p146",
+        { target: soldier, areaDistance: 1, shuffleChoice: "push" },
+        5,
+      ),
     ).toMatchObject({
       status: "refused",
       reason: "射程印成区间，旁边数字的 numeric 为 null，不能核对不同距离（规则书第 19 页，R-048）",
@@ -11484,7 +11703,7 @@ describe("resolveHeroSkill", () => {
     });
     expect(
       use(
-        "hero_skill:p147",
+        "hero_skill:core:h07:p147",
         { target: soldier, areaDistance: 2, targetAreaLower: true, shuffleChoice: "pull" },
         5,
       ),
@@ -11495,7 +11714,7 @@ describe("resolveHeroSkill", () => {
       targetShuffle: null,
     });
 
-    const flash = card("hero_skill:p055");
+    const flash = card("hero_skill:core:h03:p055");
     expect(flash.name).toBe("Flashbang");
     expect(flash.level).toBe(1);
     expect(flash.hero).toBe("BOUNTY HUNTER");
@@ -11510,20 +11729,26 @@ describe("resolveHeroSkill", () => {
     expect(
       flash.unlabeled_numbers.filter((item) => item.numeric === null).map((item) => item.text),
     ).toEqual(["1t", "1-2"]);
-    expect(use("hero_skill:p055", { target: soldier, shuffleChoice: "push" }, 5)).toMatchObject({
+    expect(
+      use("hero_skill:core:h03:p055", { target: soldier, shuffleChoice: "push" }, 5),
+    ).toMatchObject({
       status: "refused",
       reason: "stats_line 没有已命名的 damage 或 heal",
       wounds: 4,
       targetShuffle: null,
       printedAmount: null,
     });
-    expect(use("hero_skill:p056", { target: soldier, shuffleChoice: "pull" }, 1)).toMatchObject({
+    expect(
+      use("hero_skill:core:h03:p056", { target: soldier, shuffleChoice: "pull" }, 1),
+    ).toMatchObject({
       status: "refused",
       reason: "stats_line 没有已命名的 damage 或 heal",
       targetShuffle: null,
       wounds: 4,
     });
-    expect(use("hero_skill:p057", { target: soldier, shuffleChoice: "push" }, 10)).toMatchObject({
+    expect(
+      use("hero_skill:core:h03:p057", { target: soldier, shuffleChoice: "push" }, 10),
+    ).toMatchObject({
       status: "refused",
       reason: "stats_line 没有已命名的 damage 或 heal",
       targetShuffle: null,
@@ -11533,7 +11758,7 @@ describe("resolveHeroSkill", () => {
     // 已经印成单一 Push 的行不改用选定的 Pull。
     expect(
       use(
-        "hero_skill:p070",
+        "hero_skill:core:h04:p070",
         {
           actor: { id: "highwayman", wounds: 0, stress: 4 },
           target: soldier,

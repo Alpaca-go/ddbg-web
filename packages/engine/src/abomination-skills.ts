@@ -83,7 +83,8 @@ export function projectAbominationSkill(
 ): HeroSkillCardView | null {
   const page = Number(skill.id.slice(-3));
   const expected = signatures[page];
-  if (!expected || skill.id !== `hero_skill:p${page}`) return null;
+  if (!expected || skill.id !== `hero_skill:core:h11:p${String(page).padStart(3, "0")}`)
+    return null;
   const level = ((page - 211) % 3) + 1;
   const transform = page >= 220 && page <= 222;
   const identity = skill as HeroSkillCardView & { name?: string; level?: number };

@@ -5,7 +5,7 @@ test("桌面原型：选技能 → 选目标 → 确认展示 mock 骰子", asyn
   await page.goto("/?view=tabletop");
   await expect(page.getByTestId("tabletop-view")).toBeVisible();
 
-  const skillId = "hero_skill:p037";
+  const skillId = "hero_skill:core:h02:p037";
   await page.getByTestId(`card-face-${skillId}`).click();
   await page.getByTestId("tabletop-target-m0").click();
   await expect(page.getByTestId("tabletop-confirm-action")).toBeEnabled();

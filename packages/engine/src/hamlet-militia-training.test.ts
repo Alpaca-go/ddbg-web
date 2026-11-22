@@ -66,7 +66,11 @@ it("Abomination自然返村抽Militia免费升级Transform，待选和升级后�
       ? {
           ...h,
           heroStatId: "hero_stat:core:h11:p021:front",
-          skillIds: ["hero_skill:p211", "hero_skill:p214", "hero_skill:p220"],
+          skillIds: [
+            "hero_skill:core:h11:p211",
+            "hero_skill:core:h11:p214",
+            "hero_skill:core:h11:p220",
+          ],
         }
       : { ...h, skillIds: [...h.skillIds] },
   );
@@ -97,8 +101,8 @@ it("Abomination自然返村抽Militia免费升级Transform，待选和升级后�
   verifySave();
   const gold = game.dungeon!.gold,
     xp = game.dungeon!.heroes.map((h) => h.xp);
-  step(choose(game, "upgrade:hero_skill:p220"));
-  expect(game.dungeon!.heroes[0]!.skillIds).toContain("hero_skill:p221");
+  step(choose(game, "upgrade:hero_skill:core:h11:p220"));
+  expect(game.dungeon!.heroes[0]!.skillIds).toContain("hero_skill:core:h11:p221");
   expect(ownedHeroSkills(game.dungeon!.heroes[0]!, game.dungeon!.battleCatalog!)).toHaveLength(7);
   verifySave();
   while (pending()) step(choose(game, pending()!.options[0]!.id));
@@ -223,7 +227,7 @@ it("集体/逐英雄待选冻结其他命令，非法/跳过/过期选择不付�
       { type: "rollHamletCaretaker" },
       { type: "offerNextQuest" },
       choose(state, "skip"),
-      choose(state, "upgrade:hero_skill:p002"),
+      choose(state, "upgrade:hero_skill:core:h01:p002"),
     ] as Command[])
       expect(applyCommand(state, c).state).toBe(state);
     expect(state).toEqual(before);
@@ -268,7 +272,10 @@ it("复用永久升级与R-080：铁匠临时III归还卡更新为II，保持临
           ? {
               ...h,
               nextQuestSkillUpgrades: [
-                { originalSkillId: "hero_skill:p001", temporarySkillId: "hero_skill:p003" },
+                {
+                  originalSkillId: "hero_skill:core:h01:p001",
+                  temporarySkillId: "hero_skill:core:h01:p003",
+                },
               ],
             }
           : h,
@@ -277,8 +284,8 @@ it("复用永久升级与R-080：铁匠临时III归还卡更新为II，保持临
   };
   const drawn = ok(fixture, { type: "drawHamletEvent" }).state;
   const trained = ok(drawn, choose(drawn, "train")).state;
-  const upgraded = ok(trained, choose(trained, "upgrade:hero_skill:p001")).state;
+  const upgraded = ok(trained, choose(trained, "upgrade:hero_skill:core:h01:p001")).state;
   expect(upgraded.dungeon!.heroes[0]!.nextQuestSkillUpgrades).toEqual([
-    { originalSkillId: "hero_skill:p002", temporarySkillId: "hero_skill:p003" },
+    { originalSkillId: "hero_skill:core:h01:p002", temporarySkillId: "hero_skill:core:h01:p003" },
   ]);
 });

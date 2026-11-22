@@ -240,7 +240,7 @@ it("公开 Smite 击败 Hag，先选区释放锅内英雄，再 finishDungeonBat
     type: "playHeroSkill",
     actorId: hero.id,
     targetId: "boss:hag",
-    skillId: "hero_skill:p001",
+    skillId: "hero_skill:core:h01:p001",
   });
   expect(hit.events.filter((e) => e.type === "commandRefused")).toEqual([]);
   expect(hit.pendingChoice).toBeDefined();

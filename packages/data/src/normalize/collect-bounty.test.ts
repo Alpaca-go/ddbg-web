@@ -5,7 +5,7 @@ import { attachVerifiedHeroLayout } from "./verified-hero-layout";
 import { attachVerifiedHeroDamage } from "./verified-hero-damage";
 
 const cards = loadNormalizedCorebox().hero_skill.cards;
-const card = cards.find((c) => c.id === "hero_skill:p043")!;
+const card = cards.find((c) => c.id === "hero_skill:core:h03:p043")!;
 
 it("Collect Bounty I完整目标框两条件黄金值，继承原标记且高等级由独立注解覆盖", () => {
   expect(card.verified_damage_bonuses).toEqual([
@@ -25,7 +25,7 @@ it("Collect Bounty I完整目标框两条件黄金值，继承原标记且高等
   expect(attachVerifiedHeroDamage([card])[0]).toEqual(card);
   for (const text of ["+1", "+2"])
     expect(card.unlabeled_numbers.find((n) => n.text === text)?.numeric).toBeNull();
-  for (const id of ["hero_skill:p044", "hero_skill:p045"])
+  for (const id of ["hero_skill:core:h03:p044", "hero_skill:core:h03:p045"])
     expect(cards.find((c) => c.id === id)!.verified_damage_bonuses).toBeDefined();
 });
 

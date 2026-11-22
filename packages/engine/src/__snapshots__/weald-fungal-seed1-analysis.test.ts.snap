@@ -28,7 +28,7 @@ exports[`Fungal Research seed1：首处分歧为真实 Abyssal Puff，控制前�
   "command": {
     "actorId": "hero-0",
     "face": "front",
-    "skillId": "hero_skill:p004",
+    "skillId": "hero_skill:core:h01:p004",
     "targetId": "necrotic-fungus:room_tile:weald:08:E:1",
     "type": "playHeroSkill",
   },

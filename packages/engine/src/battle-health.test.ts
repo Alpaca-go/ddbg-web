@@ -9,6 +9,7 @@ import type {
   HeroSkillCardView,
   MonsterCardView,
 } from "./index";
+import { heroSkillIdForPage } from "../../data/src/hero-registry";
 
 function cards<T>(file: string): T[] {
   return (
@@ -26,7 +27,9 @@ const profiles = cards<NonNullable<BattleSetup["heroStats"]>[number]>("hero_stat
 const crusader = profiles.find((card) => card.id === "hero_stat:core:h01:p001:front")!;
 const vestal = profiles.find((card) => card.name === "VESTAL")!;
 function skill(id: string) {
-  return skills.find((card) => card.id === `hero_skill:${id}`)!;
+  return skills.find(
+    (card) => card.id === heroSkillIdForPage(Number(String(id).replace(/^p/, ""))),
+  )!;
 }
 function setup(card = skill("p001"), seed = 1, monster = soldier): GameState {
   const stat = card.hero === "VESTAL" ? vestal : crusader;
@@ -102,7 +105,7 @@ const smite = {
   type: "playHeroSkill",
   actorId: "hero",
   targetId: "monster",
-  skillId: "hero_skill:p001",
+  skillId: "hero_skill:core:h01:p001",
 } as const;
 
 describe("战斗技能生命命令沙盒（R20、R29、R-005、R-048）", () => {

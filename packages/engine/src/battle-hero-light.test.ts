@@ -5,7 +5,7 @@ import { coreQuestSources } from "./test-helpers/core-quest";
 import { roomEffectFixture } from "./test-helpers/room-effects";
 import { nextBattleRoll } from "./encounter";
 
-const skill = coreQuestSources.catalog.skills.find((s) => s.id === "hero_skill:p091")!;
+const skill = coreQuestSources.catalog.skills.find((s) => s.id === "hero_skill:core:h05:p091")!;
 const stat = coreQuestSources.catalog.heroStats.find((s) => s.name === "VESTAL" && s.level === 1)!;
 const q = (name: string) =>
   coreQuestSources.catalog.conditions!.quirks.find((c) => c.name === name)!.id;
@@ -60,7 +60,7 @@ function setup(stress: number, tested = false): GameState {
 const actor = (s: GameState) => s.battle!.entities.find((e) => e.id === "h0")!;
 it("Hands from the Abyss 降光照先结清 Night Blindness，再执行暴击减压", () => {
   const s = setup(9);
-  const abyss = coreQuestSources.catalog.skills.find((c) => c.id === "hero_skill:p205")!;
+  const abyss = coreQuestSources.catalog.skills.find((c) => c.id === "hero_skill:core:h10:p205")!;
   const occultist = coreQuestSources.catalog.heroStats.find(
     (c) => c.name === "OCCULTIST" && c.level === 1,
   )!;

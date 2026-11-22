@@ -9,7 +9,11 @@ import { savedCommandSchema } from "../../data/src/quest-save";
 const STONE = "trinket:p006";
 // R26 黄金场景：Hellion I 的 Crit 1 + 已有一堆 Buff = Crit 2；seed18 掷出 4。
 // 姿态、Buff、持牌和先攻为明示机制夹具；技能、怪物与完整饰品牌池来自正式目录。
-function setup(seed = 18, face: "upright" | "inverted" = "upright", skillId = "hero_skill:p022") {
+function setup(
+  seed = 18,
+  face: "upright" | "inverted" = "upright",
+  skillId = "hero_skill:core:h02:p022",
+) {
   const catalog = coreQuestSources.catalog;
   const skill = catalog.skills.find((s) => s.id === skillId)!;
   const names = [
@@ -32,7 +36,7 @@ function setup(seed = 18, face: "upright" | "inverted" = "upright", skillId = "h
       dodge: stat.dodge!,
       dead: false,
       guard: false,
-      skillIds: i === 0 ? [skillId, "hero_skill:p028"] : [],
+      skillIds: i === 0 ? [skillId, "hero_skill:core:h02:p028"] : [],
       bleed: [],
       blight: [],
       ...(i === 0
@@ -53,7 +57,7 @@ function setup(seed = 18, face: "upright" | "inverted" = "upright", skillId = "h
     dead: false,
     stance: i === 0 ? "aggressive" : "defensive",
     stanceSlots: 1,
-    areaId: skillId === "hero_skill:p004" ? "b" : "a",
+    areaId: skillId === "hero_skill:core:h01:p004" ? "b" : "a",
     skillIds: [],
     bleed: [],
     blight: [],
@@ -86,7 +90,7 @@ const attack: PlayHeroSkillCommand = {
   trinketWindow: true,
   actorId: "h0",
   targetId: "m1",
-  skillId: "hero_skill:p022",
+  skillId: "hero_skill:core:h02:p022",
 };
 function ok(result: ApplyResult) {
   expect(
@@ -190,7 +194,7 @@ it("R-028：同一角色回合第二行动不再开窗，下一怪物回合重�
       trinketWindow: true,
       actorId: "h0",
       targetId: "m2",
-      skillId: "hero_skill:p028",
+      skillId: "hero_skill:core:h02:p028",
     }),
   );
   expect(second.state.battle!.pending).toBeNull();
@@ -205,11 +209,11 @@ it("R-028：同一角色回合第二行动不再开窗，下一怪物回合重�
 
 it("多目标共用一次饰品与骰面，暴击减压不按目标重复；自身位移续接仍保留修正", () => {
   const multi = ok(
-    applyCommand(setup(18, "upright", "hero_skill:p004"), {
+    applyCommand(setup(18, "upright", "hero_skill:core:h01:p004"), {
       type: "playHeroSkillTargets",
       trinketWindow: true,
       actorId: "h0",
-      skillId: "hero_skill:p004",
+      skillId: "hero_skill:core:h01:p004",
       targetIds: ["m1", "m2"],
     }),
   );
@@ -226,11 +230,11 @@ it("多目标共用一次饰品与骰面，暴击减压不按目标重复；自�
   expect(result.state.battle!.rngCursor).toBe(1);
   const critical = choose(
     ok(
-      applyCommand(setup(0, "upright", "hero_skill:p004"), {
+      applyCommand(setup(0, "upright", "hero_skill:core:h01:p004"), {
         type: "playHeroSkillTargets",
         trinketWindow: true,
         actorId: "h0",
-        skillId: "hero_skill:p004",
+        skillId: "hero_skill:core:h01:p004",
         targetIds: ["m1", "m2"],
       }),
     ),
@@ -246,9 +250,9 @@ it("多目标共用一次饰品与骰面，暴击减压不按目标重复；自�
   ).toEqual([2, 2, 2, 2]);
   let shifted = choose(
     ok(
-      applyCommand(setup(18, "upright", "hero_skill:p070"), {
+      applyCommand(setup(18, "upright", "hero_skill:core:h04:p070"), {
         ...attack,
-        skillId: "hero_skill:p070",
+        skillId: "hero_skill:core:h04:p070",
       }),
     ),
   );
@@ -300,7 +304,7 @@ it("旧技能日志仍直接结算；新窗口标记可存档且不接受伪造�
     type: "playHeroSkill" as const,
     actorId: "h0",
     targetId: "m1",
-    skillId: "hero_skill:p022",
+    skillId: "hero_skill:core:h02:p022",
   };
   const result = ok(applyCommand(setup(), legacy));
   expect(result.state.battle!.pending).toBeNull();

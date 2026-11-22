@@ -28,7 +28,10 @@ function fixture(level: 1 | 3 = 1): GameState {
               stress: 3,
               nextQuestProvisionDice: 1,
               nextQuestSkillUpgrades: [
-                { originalSkillId: "hero_skill:p001", temporarySkillId: "hero_skill:p003" },
+                {
+                  originalSkillId: "hero_skill:core:h01:p001",
+                  temporarySkillId: "hero_skill:core:h01:p003",
+                },
               ],
             },
       ),
@@ -49,9 +52,11 @@ it.each([1, 3] as const)(
     expect(before).toEqual(snapshot);
     expect(applyCommand(JSON.parse(JSON.stringify(before)), command)).toEqual(result);
     expect(d.heroes[0]).toMatchObject({ wounds: 2, stress: 3, nextQuestProvisionDice: 1 });
-    expect(d.heroes[0]!.skillIds).toContain("hero_skill:p003");
-    expect(d.heroes[0]!.skillIds).not.toContain("hero_skill:p001");
-    expect(restoreTemporarySkillUpgrades(d.heroes)[0]!.skillIds).toContain("hero_skill:p001");
+    expect(d.heroes[0]!.skillIds).toContain("hero_skill:core:h01:p003");
+    expect(d.heroes[0]!.skillIds).not.toContain("hero_skill:core:h01:p001");
+    expect(restoreTemporarySkillUpgrades(d.heroes)[0]!.skillIds).toContain(
+      "hero_skill:core:h01:p001",
+    );
     expect(d.trinkets!.display).toBeUndefined();
     expect(d.trinkets!.held).toEqual(before.dungeon!.trinkets!.held);
     expect(d.trinkets!.discard).toEqual(before.dungeon!.trinkets!.discard);
@@ -98,7 +103,7 @@ it("坏临时卡、跨职业原卡、重复陈列或待分配饰品均原子拒�
             : {
                 ...h,
                 nextQuestSkillUpgrades: [
-                  { originalSkillId: "hero_skill:p001", temporarySkillId: "missing" },
+                  { originalSkillId: "hero_skill:core:h01:p001", temporarySkillId: "missing" },
                 ],
               },
         ),
@@ -109,7 +114,7 @@ it("坏临时卡、跨职业原卡、重复陈列或待分配饰品均原子拒�
       dungeon: {
         ...d,
         heroes: d.heroes.map((h, i) =>
-          i ? h : { ...h, skillIds: ["hero_skill:p211", ...h.skillIds!.slice(1)] },
+          i ? h : { ...h, skillIds: ["hero_skill:core:h11:p211", ...h.skillIds!.slice(1)] },
         ),
       },
     },

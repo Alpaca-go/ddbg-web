@@ -1,5 +1,6 @@
 import { normalizedHeroSkillCardSchema } from "./schema";
 import type { NormalizedHeroSkillCard, Segment } from "./schema";
+import { legacyHeroSkillId } from "../hero-registry";
 
 const signature = (line: readonly Segment[]) =>
   line
@@ -11,7 +12,7 @@ const signature = (line: readonly Segment[]) =>
 export function attachVerifiedBountyStatuses(cards: readonly NormalizedHeroSkillCard[]) {
   // R-141：保留原始 Acc 1O 转录，只修正已核图的数值阈值。
   cards = cards.map((card) => {
-    if (card.id !== "hero_skill:p044") return card;
+    if (legacyHeroSkillId(card) !== "hero_skill:p044") return card;
     const acc = card.printed_labels.filter((l) => l.label === "Acc");
     if (
       card.name !== "Collect Bounty" ||
@@ -107,10 +108,10 @@ export function attachVerifiedBountyStatuses(cards: readonly NormalizedHeroSkill
     },
   ] as const;
   for (const row of rows)
-    if (cards.filter((c) => c.id === row.id).length !== 1)
+    if (cards.filter((c) => legacyHeroSkillId(c) === row.id).length !== 1)
       throw new Error(`赏金猎人限定状态卡必须唯一存在（R-089）：${row.id}`);
   return cards.map((card) => {
-    const row = rows.find((r) => r.id === card.id);
+    const row = rows.find((r) => r.id === legacyHeroSkillId(card));
     if (!row) return card;
     if (
       card.hero !== "BOUNTY HUNTER" ||
@@ -174,7 +175,10 @@ export function attachVerifiedBountyStatuses(cards: readonly NormalizedHeroSkill
       if (found.length !== 1) throw new Error("限定状态图标定位不唯一（R-089）");
       return { ...effect, segmentIndex: found[0]! };
     });
-    if (card.id === "hero_skill:p046" || card.id === "hero_skill:p048") {
+    if (
+      legacyHeroSkillId(card) === "hero_skill:p046" ||
+      legacyHeroSkillId(card) === "hero_skill:p048"
+    ) {
       const ranges = card.unlabeled_numbers.filter(
         (n) =>
           n.anchor.type === "beside_icon" &&
@@ -188,7 +192,8 @@ export function attachVerifiedBountyStatuses(cards: readonly NormalizedHeroSkill
       ...card,
       effect_lines,
       verified_status_effects,
-      ...(card.id === "hero_skill:p046" || card.id === "hero_skill:p048"
+      ...(legacyHeroSkillId(card) === "hero_skill:p046" ||
+      legacyHeroSkillId(card) === "hero_skill:p048"
         ? { verified_range: { min: 0, max: 2, source: "print_front" } }
         : {}),
     });

@@ -8,8 +8,8 @@ const cards = (
     readFileSync(new URL("../../data/normalized/corebox/hero_skill.json", import.meta.url), "utf8"),
   ) as { cards: HeroSkillCardView[] }
 ).cards;
-const blast = cards.find((card) => card.id === "hero_skill:p145")!;
-const pointBlank = cards.find((card) => card.id === "hero_skill:p070")!;
+const blast = cards.find((card) => card.id === "hero_skill:core:h07:p145")!;
+const pointBlank = cards.find((card) => card.id === "hero_skill:core:h04:p070")!;
 const stances: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 function setup(skill = blast, fourHeroes = false, monsterLife = 100): GameState {
   const hero: BattleEntity = {

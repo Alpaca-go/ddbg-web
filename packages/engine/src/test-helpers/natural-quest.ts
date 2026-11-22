@@ -16,10 +16,10 @@ import {
 } from "../boss/darkest-mid-boss-scripts";
 
 const equipped = [
-  ["hero_skill:p001", "hero_skill:p004", "hero_skill:p016"],
-  ["hero_skill:p022", "hero_skill:p031", "hero_skill:p034"],
-  ["hero_skill:p064", "hero_skill:p067", "hero_skill:p073"],
-  ["hero_skill:p088", "hero_skill:p094", "hero_skill:p097"],
+  ["hero_skill:core:h01:p001", "hero_skill:core:h01:p004", "hero_skill:core:h01:p016"],
+  ["hero_skill:core:h02:p022", "hero_skill:core:h02:p031", "hero_skill:core:h02:p034"],
+  ["hero_skill:core:h04:p064", "hero_skill:core:h04:p067", "hero_skill:core:h04:p073"],
+  ["hero_skill:core:h05:p088", "hero_skill:core:h05:p094", "hero_skill:core:h05:p097"],
 ];
 export const naturalParty = coreParty.map((hero, index) => ({
   ...hero,

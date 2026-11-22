@@ -5,14 +5,14 @@ import { attachVerifiedHeroStatuses } from "./verified-hero-statuses";
 const cards = loadNormalizedCorebox().hero_skill.cards;
 const rows = [
   [
-    "hero_skill:p127",
+    "hero_skill:core:h07:p127",
     [
       { lineIndex: 0, segmentIndex: 2, scope: "target", kind: "blight", amount: 4, duration: 2 },
       { lineIndex: 0, segmentIndex: 4, scope: "target", kind: "debuff", duration: 1 },
     ],
   ],
   [
-    "hero_skill:p136",
+    "hero_skill:core:h07:p136",
     [{ lineIndex: 0, segmentIndex: 2, scope: "target", kind: "bleed", amount: 2, duration: 2 }],
   ],
 ] as const;

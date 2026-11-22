@@ -7,9 +7,9 @@ import { nextBattleRoll } from "./encounter";
 const cards: HeroSkillCardView[] = JSON.parse(
   readFileSync(new URL("../../data/normalized/corebox/hero_skill.json", import.meta.url), "utf8"),
 ).cards;
-const tracking = cards.find((card) => card.id === "hero_skill:p076")!;
-const pistol = cards.find((card) => card.id === "hero_skill:p067")!;
-const judgement = cards.find((card) => card.id === "hero_skill:p088")!;
+const tracking = cards.find((card) => card.id === "hero_skill:core:h04:p076")!;
+const pistol = cards.find((card) => card.id === "hero_skill:core:h04:p067")!;
+const judgement = cards.find((card) => card.id === "hero_skill:core:h05:p088")!;
 const life: number = JSON.parse(
   readFileSync(
     new URL("../../data/normalized/corebox/monster_large.json", import.meta.url),

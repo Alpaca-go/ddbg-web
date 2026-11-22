@@ -1,5 +1,6 @@
 import { expect, it } from "vitest";
 import { loadNormalizedCorebox } from "../../data/src/normalize/write";
+import { heroSkillIdForPage } from "../../data/src/hero-registry";
 import {
   resolveHeroSkillEffects,
   readPrintedRange,
@@ -10,20 +11,20 @@ import type { HeroSkillCardView } from "./hero-skill";
 
 /** Cove Man-at-Arms II/III 14 张（Crush 以外）；Retribution/Defender 见 Q-176/Q-177。 */
 const MAA_II_III_IDS = [
-  "hero_skill:p233",
-  "hero_skill:p234",
-  "hero_skill:p236",
-  "hero_skill:p237",
-  "hero_skill:p239",
-  "hero_skill:p240",
-  "hero_skill:p242",
-  "hero_skill:p243",
-  "hero_skill:p245",
-  "hero_skill:p246",
-  "hero_skill:p248",
-  "hero_skill:p249",
-  "hero_skill:p251",
-  "hero_skill:p252",
+  "hero_skill:cove:h12:p233",
+  "hero_skill:cove:h12:p234",
+  "hero_skill:cove:h12:p236",
+  "hero_skill:cove:h12:p237",
+  "hero_skill:cove:h12:p239",
+  "hero_skill:cove:h12:p240",
+  "hero_skill:cove:h12:p242",
+  "hero_skill:cove:h12:p243",
+  "hero_skill:cove:h12:p245",
+  "hero_skill:cove:h12:p246",
+  "hero_skill:cove:h12:p248",
+  "hero_skill:cove:h12:p249",
+  "hero_skill:cove:h12:p251",
+  "hero_skill:cove:h12:p252",
 ] as const;
 
 const data = loadNormalizedCorebox();
@@ -31,7 +32,7 @@ const clean = <T>(v: unknown): T => JSON.parse(JSON.stringify(v));
 
 it.each([250, 268, 346])("R-213：技能 p%i 命中只给选中目标减压", (page) => {
   const skill = clean<HeroSkillCardView>(
-    data.hero_skill.cards.find((card) => card.id === `hero_skill:p${page}`),
+    data.hero_skill.cards.find((card) => card.id === heroSkillIdForPage(page)),
   );
   const combat = {
     actor: { id: "actor", wounds: 0, stress: 4 },

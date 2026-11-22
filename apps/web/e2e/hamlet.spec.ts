@@ -778,9 +778,9 @@ test("Phase 4：墓地、自然交易与公会升级、旧替补存档迁移保�
     () => JSON.parse(localStorage.getItem("ddbg.core-quest.save.v1")!).snapshot.dungeon.heroes[0],
   );
   expect(smithHero.nextQuestSkillUpgrades).toEqual([
-    { originalSkillId: "hero_skill:p001", temporarySkillId: "hero_skill:p002" },
+    { originalSkillId: "hero_skill:core:h01:p001", temporarySkillId: "hero_skill:core:h01:p002" },
   ]);
-  expect(smithHero.skillIds).toContain("hero_skill:p001");
+  expect(smithHero.skillIds).toContain("hero_skill:core:h01:p001");
   await page.reload();
   await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
   await expect(page.getByTestId("blacksmith-plan")).toContainText("hero-0 Smite II");

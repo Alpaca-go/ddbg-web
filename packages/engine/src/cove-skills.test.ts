@@ -27,23 +27,23 @@ const monster = clean<NonNullable<BattleSetup["monsters"]>[number]>(
 );
 
 const MAA_L1 = [
-  ["hero_skill:p232", "Crush"],
-  ["hero_skill:p235", "Rampart"],
-  ["hero_skill:p238", "Bellow"],
-  ["hero_skill:p241", "Defender"],
-  ["hero_skill:p244", "Retribution"],
-  ["hero_skill:p247", "Command"],
-  ["hero_skill:p250", "Bolster"],
+  ["hero_skill:cove:h12:p232", "Crush"],
+  ["hero_skill:cove:h12:p235", "Rampart"],
+  ["hero_skill:cove:h12:p238", "Bellow"],
+  ["hero_skill:cove:h12:p241", "Defender"],
+  ["hero_skill:cove:h12:p244", "Retribution"],
+  ["hero_skill:cove:h12:p247", "Command"],
+  ["hero_skill:cove:h12:p250", "Bolster"],
 ] as const;
 
 const FLAG_L1 = [
-  ["hero_skill:p253", "Punish"],
-  ["hero_skill:p256", "Rain of Sorrows"],
-  ["hero_skill:p259", "Exsanguinate"],
-  ["hero_skill:p262", "Reclaim"],
-  ["hero_skill:p265", "Redeem"],
-  ["hero_skill:p268", "Endure"],
-  ["hero_skill:p271", "Suffer"],
+  ["hero_skill:cove:h13:p253", "Punish"],
+  ["hero_skill:cove:h13:p256", "Rain of Sorrows"],
+  ["hero_skill:cove:h13:p259", "Exsanguinate"],
+  ["hero_skill:cove:h13:p262", "Reclaim"],
+  ["hero_skill:cove:h13:p265", "Redeem"],
+  ["hero_skill:cove:h13:p268", "Endure"],
+  ["hero_skill:cove:h13:p271", "Suffer"],
 ] as const;
 
 function webQuestSources(): CoreQuestSources {
@@ -159,7 +159,7 @@ it("Cove：MAA / Flagellant 七张 I 级已核实；STAT life≠1", () => {
 });
 
 it("Crush I 可结算伤害；两人可替补且战斗已接线", () => {
-  const crush = card("hero_skill:p232");
+  const crush = card("hero_skill:cove:h12:p232");
   expect(
     resolveHeroSkillEffects(
       crush,

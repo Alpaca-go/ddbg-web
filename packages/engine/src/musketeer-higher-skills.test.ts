@@ -10,20 +10,20 @@ import type { HeroSkillCardView } from "./hero-skill";
 
 /** Musketeer II/III 14 张。 */
 const MSK_II_III_IDS = [
-  "hero_skill:musketeer:p002",
-  "hero_skill:musketeer:p003",
-  "hero_skill:musketeer:p005",
-  "hero_skill:musketeer:p006",
-  "hero_skill:musketeer:p008",
-  "hero_skill:musketeer:p009",
-  "hero_skill:musketeer:p011",
-  "hero_skill:musketeer:p012",
-  "hero_skill:musketeer:p014",
-  "hero_skill:musketeer:p015",
-  "hero_skill:musketeer:p017",
-  "hero_skill:musketeer:p018",
-  "hero_skill:musketeer:p020",
-  "hero_skill:musketeer:p021",
+  "hero_skill:musketeer:h18:p359",
+  "hero_skill:musketeer:h18:p360",
+  "hero_skill:musketeer:h18:p362",
+  "hero_skill:musketeer:h18:p363",
+  "hero_skill:musketeer:h18:p365",
+  "hero_skill:musketeer:h18:p366",
+  "hero_skill:musketeer:h18:p368",
+  "hero_skill:musketeer:h18:p369",
+  "hero_skill:musketeer:h18:p371",
+  "hero_skill:musketeer:h18:p372",
+  "hero_skill:musketeer:h18:p374",
+  "hero_skill:musketeer:h18:p375",
+  "hero_skill:musketeer:h18:p377",
+  "hero_skill:musketeer:h18:p378",
 ] as const;
 
 const data = loadNormalizedCorebox();

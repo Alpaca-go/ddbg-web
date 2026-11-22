@@ -25,7 +25,7 @@ const cards = normalizedTrinketFileSchema.parse(rawTrinkets).cards;
 function fixture(
   ids: readonly (HeroSkillTrinketId | FreeTrinketId)[],
   stance: SkillStance = "aggressive",
-  skillId = "hero_skill:p001",
+  skillId = "hero_skill:core:h01:p001",
   face: "upright" | "inverted" = "upright",
   seed = 4,
   monsterId = "monster_medium:p001",
@@ -53,7 +53,7 @@ function fixture(
       life: stat.life,
       stance: stances[i]!,
       areaId: "a",
-      skillIds: i ? [] : [skillId, ...(name === "CRUSADER" ? ["hero_skill:p007"] : [])],
+      skillIds: i ? [] : [skillId, ...(name === "CRUSADER" ? ["hero_skill:core:h01:p007"] : [])],
       wounds: 0,
       stress: 3,
       dodge: stat.dodge!,
@@ -72,7 +72,13 @@ function fixture(
     life: monster.life,
     stance: "aggressive",
     stanceSlots: 1,
-    areaId: ["hero_skill:p001", "hero_skill:p070", "hero_skill:p028"].includes(skillId) ? "a" : "b",
+    areaId: [
+      "hero_skill:core:h01:p001",
+      "hero_skill:core:h04:p070",
+      "hero_skill:core:h02:p028",
+    ].includes(skillId)
+      ? "a"
+      : "b",
     skillIds: [],
     wounds: 0,
     dodge: monster.dodge,
@@ -124,7 +130,7 @@ function fixture(
 const use = (state: GameState, id: FreeTrinketId) =>
   applyCommand(state, { type: "useTrinket", actorId: "h0", cardId: id });
 function ready(id: FreeTrinketId, face: "upright" | "inverted" = "upright") {
-  const { state } = fixture([id], "aggressive", "hero_skill:p001", face);
+  const { state } = fixture([id], "aggressive", "hero_skill:core:h01:p001", face);
   return {
     ...state,
     battle: {
@@ -238,7 +244,7 @@ function seedForRoll(roll: number) {
 }
 function monsterTurn(id: FreeTrinketId, face: "upright" | "inverted", roll = 3) {
   const seed = seedForRoll(roll),
-    { state } = trinketBattle([id], "aggressive", "hero_skill:p001", face, seed);
+    { state } = trinketBattle([id], "aggressive", "hero_skill:core:h01:p001", face, seed);
   return {
     ...state,
     battle: {

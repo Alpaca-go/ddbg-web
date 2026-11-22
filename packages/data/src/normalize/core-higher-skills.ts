@@ -1,12 +1,13 @@
 import rows from "./core-higher-skill-annotations.json";
 import { normalizedHeroSkillCardSchema } from "./schema";
 import type { NormalizedHeroSkillCard } from "./schema";
+import { legacyHeroSkillId } from "../hero-registry";
 import { lineSignature } from "./verified-hero-layout";
 
 /** R19–21: explicit printed values only; R-089's card-specific correction is excluded. */
 export function attachCoreHigherSkills(cards: readonly NormalizedHeroSkillCard[]) {
   return cards.map((card) => {
-    const row = rows.find((r) => r.id === card.id);
+    const row = rows.find((r) => r.id === legacyHeroSkillId(card));
     if (!row) return card;
     if (
       card.name !== row.name ||

@@ -12,7 +12,7 @@ const cards: ResolveCard[] = JSON.parse(
 ).cards;
 const skill: HeroSkillCardView = JSON.parse(
   readFileSync(new URL("../../data/normalized/corebox/hero_skill.json", import.meta.url), "utf8"),
-).cards.find((card: HeroSkillCardView) => card.id === "hero_skill:p001");
+).cards.find((card: HeroSkillCardView) => card.id === "hero_skill:core:h01:p001");
 function setup(seed = 0): GameState {
   const heroes: BattleEntity[] = (["aggressive", "defensive", "ranged", "support"] as const).map(
     (stance, index) => ({

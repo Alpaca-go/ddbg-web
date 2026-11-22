@@ -111,22 +111,24 @@ it("最终战接受可恢复原卡的铁匠临时升级，拒绝伪造拥有的�
           : {
               ...h,
               skillIds: h.skillIds!.map((id) =>
-                id === "hero_skill:p001" ? "hero_skill:p003" : id,
+                id === "hero_skill:core:h01:p001" ? "hero_skill:core:h01:p003" : id,
               ),
-              nextQuestSkillUpgrades: [{ originalSkillId, temporarySkillId: "hero_skill:p003" }],
+              nextQuestSkillUpgrades: [
+                { originalSkillId, temporarySkillId: "hero_skill:core:h01:p003" },
+              ],
             },
       ),
     },
   });
-  const accepted = applyCommand(make("hero_skill:p001"), {
+  const accepted = applyCommand(make("hero_skill:core:h01:p001"), {
     type: "deployFinalBattleForm",
     startBattle: true,
   });
   expect(accepted.events.some((e) => e.type === "commandRefused")).toBe(false);
   expect(accepted.state.battle!.entities.find((e) => e.id === "hero-0")!.skillIds).toContain(
-    "hero_skill:p003",
+    "hero_skill:core:h01:p003",
   );
-  const state = make("hero_skill:p004");
+  const state = make("hero_skill:core:h01:p004");
   expect(applyCommand(state, { type: "deployFinalBattleForm", startBattle: true }).state).toBe(
     state,
   );

@@ -1,5 +1,6 @@
 import { expect, it } from "vitest";
 import { loadNormalizedCorebox } from "../../data/src/normalize/write";
+import { heroSkillIdForPage } from "../../data/src/hero-registry";
 import {
   resolveHeroSkillEffects,
   readPrintedRange,
@@ -20,12 +21,14 @@ it("Mark II self Buff3t survives a miss; Caltrops II applies Bleed3 for 2t and D
     actor: { id: "h", wounds: 0, stress: 0 },
     target: { id: "m", side: "monster" as const, wounds: 0, dodge: 20 },
   };
-  const mark = clean<HeroSkillCardView>(cards.find((c) => c.id === "hero_skill:p047")!);
+  const mark = clean<HeroSkillCardView>(cards.find((c) => c.id === "hero_skill:core:h03:p047")!);
   const miss = resolveHeroSkillEffects(mark, combat, 10).resolution;
   expect(miss.outcome).toBe("miss");
   expect(miss.actorStatusEffects).toEqual([{ kind: "buff", duration: 3 }]);
   expect(miss.targetStatusEffects).toEqual([]);
-  const caltrops = clean<HeroSkillCardView>(cards.find((c) => c.id === "hero_skill:p062")!);
+  const caltrops = clean<HeroSkillCardView>(
+    cards.find((c) => c.id === "hero_skill:core:h03:p062")!,
+  );
   const hit = resolveHeroSkillEffects(
     caltrops,
     { ...combat, target: { ...combat.target, dodge: 0 } },
@@ -49,9 +52,9 @@ it("252 higher cards (154 core + 98 expansion) are available with no explicit ho
       c.id,
     ).toBe(true);
   for (const p of Object.keys(CORE_HIGHER_SKILL_HOLDS))
-    expect(
-      catalog.skills.some((s: { id: string }) => s.id === `hero_skill:p${p.padStart(3, "0")}`),
-    ).toBe(false);
+    expect(catalog.skills.some((s: { id: string }) => s.id === heroSkillIdForPage(Number(p)))).toBe(
+      false,
+    );
 });
 it.each(cards)("$id $name: all d10 faces resolve every effect line deterministically", (raw) => {
   const card = clean<HeroSkillCardView>(raw),
@@ -83,7 +86,7 @@ it.each(cards)("$id $name: all d10 faces resolve every effect line deterministic
     },
     light: 4,
     shuffleChoice: "push" as const,
-    ...(raw.id === "hero_skill:p303" ? { shufflePushDistance: 2 as const } : {}),
+    ...(raw.id === "hero_skill:warrens:h15:p303" ? { shufflePushDistance: 2 as const } : {}),
     areaDistance:
       range.kind === "exact" ? range.distance : range.kind === "interval" ? range.min : 0,
     targetsInArea: targets.kind === "exact" ? targets.max : 1,

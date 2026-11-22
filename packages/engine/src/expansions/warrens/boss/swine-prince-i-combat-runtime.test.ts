@@ -63,7 +63,9 @@ const wilburLife = 12;
 const soldier = cards<MonsterCardView>("monster_medium").find(
   (card) => card.id === "monster_medium:p001",
 )!;
-const smite = cards<HeroSkillCardView>("hero_skill").find((card) => card.id === "hero_skill:p001")!;
+const smite = cards<HeroSkillCardView>("hero_skill").find(
+  (card) => card.id === "hero_skill:core:h01:p001",
+)!;
 const heroProfiles = cards<NonNullable<BattleSetup["heroStats"]>[number]>("hero_stat").filter(
   (card) => card.attributesVerified && card.level === 1,
 );

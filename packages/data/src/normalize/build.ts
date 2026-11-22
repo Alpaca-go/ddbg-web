@@ -67,6 +67,7 @@ import { assertHallOfAscensionEffectSource } from "./hall-of-ascension";
 import { assertPoolOfRebirthEffectSource } from "./pool-of-rebirth";
 import type { RoomTileGeometryFile } from "./room-tile";
 import { buildHeroStats, normalizedHeroStatFileSchema } from "./hero-stat";
+import { heroSkillId } from "../hero-registry";
 import { buildWarrensHeroStats } from "./warrens-hero-stat";
 import { buildCoveHeroStats } from "./cove-hero-stat";
 import { buildWealdHeroStats } from "./weald-hero-stat";
@@ -310,6 +311,7 @@ function buildHeroSkills(
       copies: card.copies,
       name: card.name,
       level: card.level,
+      source: { file: front.file, page: front.page },
       printed_labels: printedLabels(card),
       unlabeled_numbers: unlabeledNumbers(card, lookup, reasons),
       effect_lines: resolveLines(card.effect_lines_raw, lookup, reasons),
@@ -352,6 +354,16 @@ function buildHeroSkills(
     },
     stats: cardStats(cards),
     cards,
+  });
+}
+
+/** 所有旧 ID 审批/状态接线完成后，再统一映射到 v1.1 canonical ID。 */
+function canonicalHeroSkillCards(cards: NormalizedHeroSkillFile["cards"]) {
+  return cards.map((card) => {
+    const page = card.pages[0]!;
+    const hero = card.hero ?? "ABOMINATION";
+    const globalPage = card.id.startsWith("hero_skill:musketeer:") ? 357 + page : page;
+    return { ...card, id: heroSkillId(hero, globalPage) };
   });
 }
 
@@ -738,24 +750,21 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
       const raw = { ...input.heroSkillRaw, cards: rawCards };
       const file = buildHeroSkills(parsed, raw, lookup);
       const reviewed = attachReviewedHeroStances(file.cards);
-      return normalizedHeroSkillFileSchema.parse({
-        ...file,
-        cards: attachCoreHigherSkills(
-          attachVerifiedRallyingFlare(
-            attachVerifiedBountyStatuses(
-              attachVerifiedHeroSupport(
-                attachVerifiedHeroDamage(
-                  attachVerifiedHeroRanges(
-                    attachVerifiedHeroStatuses(
-                      attachVerifiedWealdHoundmasterHigher(
-                        attachVerifiedWealdShieldbreakerHigher(
-                          attachVerifiedMusketeerHigher(
-                            attachVerifiedCoveManAtArmsHigher(
-                              attachVerifiedCoveFlagellantHigher(
-                                attachVerifiedWarrensAntiquarianHigher(
-                                  attachVerifiedWarrensLeperHigher(
-                                    attachVerifiedHeroLayout(reviewed),
-                                  ),
+      const cards = attachCoreHigherSkills(
+        attachVerifiedRallyingFlare(
+          attachVerifiedBountyStatuses(
+            attachVerifiedHeroSupport(
+              attachVerifiedHeroDamage(
+                attachVerifiedHeroRanges(
+                  attachVerifiedHeroStatuses(
+                    attachVerifiedWealdHoundmasterHigher(
+                      attachVerifiedWealdShieldbreakerHigher(
+                        attachVerifiedMusketeerHigher(
+                          attachVerifiedCoveManAtArmsHigher(
+                            attachVerifiedCoveFlagellantHigher(
+                              attachVerifiedWarrensAntiquarianHigher(
+                                attachVerifiedWarrensLeperHigher(
+                                  attachVerifiedHeroLayout(reviewed),
                                 ),
                               ),
                             ),
@@ -769,6 +778,10 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
             ),
           ),
         ),
+      );
+      return normalizedHeroSkillFileSchema.parse({
+        ...file,
+        cards: canonicalHeroSkillCards(cards),
       });
     })(),
     room_tile_geometry: (() => {

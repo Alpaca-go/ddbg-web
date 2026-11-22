@@ -55,15 +55,15 @@ it("正式网页目录的四房间2XP公会场景：访问、付款、结束均�
   step({
     type: "resolveChoice",
     choiceId: game.dungeon!.pending!.id,
-    optionId: "upgrade:hero_skill:p001",
+    optionId: "upgrade:hero_skill:core:h01:p001",
   });
   expect(game.dungeon!.gold).toBe(45);
   expect(game.dungeon!.heroes[0]).toMatchObject({
     level: 1,
     xp: 0,
-    permanentlyRemovedSkillIds: ["hero_skill:p001"],
+    permanentlyRemovedSkillIds: ["hero_skill:core:h01:p001"],
   });
-  expect(game.dungeon!.heroes[0]!.skillIds).toContain("hero_skill:p002");
+  expect(game.dungeon!.heroes[0]!.skillIds).toContain("hero_skill:core:h01:p002");
   expect(game.dungeon!.pending!.options.map((option) => option.id)).toEqual(["leave"]);
   step({ type: "resolveChoice", choiceId: game.dungeon!.pending!.id, optionId: "leave" });
   expect(game.dungeon!.pending).toBeNull();

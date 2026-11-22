@@ -22,7 +22,7 @@ const journeys = [
     blacksmith: false,
     blight: true,
     medicine: false,
-    skill: "hero_skill:p127",
+    skill: "hero_skill:core:h07:p127",
     summary: { xpPerHero: 1, stagecoachXp: 1 },
   },
   {
@@ -35,7 +35,7 @@ const journeys = [
     blacksmith: true,
     blight: true,
     medicine: true,
-    skill: "hero_skill:p127",
+    skill: "hero_skill:core:h07:p127",
     summary: {
       earlyLeave: false,
       objectiveMet: true,
@@ -55,7 +55,7 @@ const journeys = [
     blacksmith: false,
     blight: false,
     medicine: false,
-    skill: "hero_skill:p136",
+    skill: "hero_skill:core:h07:p136",
     summary: {
       earlyLeave: true,
       objectiveMet: false,
@@ -127,7 +127,12 @@ for (const fixture of journeys) {
     step({ type: "prepareReplacementHero" });
     choose("hero_stat:core:h07:p013:front");
     choose("finish-upgrades");
-    for (const id of ["hero_skill:p136", "hero_skill:p127", "hero_skill:p139"]) choose(id);
+    for (const id of [
+      "hero_skill:core:h07:p136",
+      "hero_skill:core:h07:p127",
+      "hero_skill:core:h07:p139",
+    ])
+      choose(id);
     step({ type: "joinPreparedReplacements" });
     step({ type: "leaveDungeon" });
     choose("agree");
@@ -152,7 +157,11 @@ for (const fixture of journeys) {
     )!;
     expect(game.dungeon!.deadHeroNames).toHaveLength(1);
     expect(game.dungeon!.waitingHeroTokens).toBe(1);
-    expect(doctor.skillIds).toEqual(["hero_skill:p136", "hero_skill:p127", "hero_skill:p139"]);
+    expect(doctor.skillIds).toEqual([
+      "hero_skill:core:h07:p136",
+      "hero_skill:core:h07:p127",
+      "hero_skill:core:h07:p139",
+    ]);
     step({ type: "useHamletSkill", actorId: "hero-0", skill: "zealousSpeech" });
     step({ type: "rollHamletCaretaker" });
     const service = hamletActionOptions(game).find(
@@ -225,7 +234,7 @@ for (const fixture of journeys) {
         const doctorBlight =
           command.type === "playHeroSkill" &&
           command.actorId === doctor.id &&
-          command.skillId === "hero_skill:p127" &&
+          command.skillId === "hero_skill:core:h07:p127" &&
           snapshot.battle?.entities.some(
             (e) => e.side === "monster" && e.statusStacks?.some((s) => s.kind === "blight"),
           );
@@ -257,7 +266,7 @@ for (const fixture of journeys) {
           (e) =>
             e.type === "heroSkillResolved" &&
             e.actorId === doctor.id &&
-            e.resolution.skillId === "hero_skill:p139" &&
+            e.resolution.skillId === "hero_skill:core:h07:p139" &&
             e.resolution.effect === "heal" &&
             e.resolution.outcome === "hit",
         ),

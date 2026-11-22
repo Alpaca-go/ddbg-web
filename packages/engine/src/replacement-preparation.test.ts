@@ -139,17 +139,21 @@ it("两次英雄升级只扣8XP免金币，III级5槽自选且剩余XP保留；�
 });
 it("同一技能可连续两次升级至III，旧卡永久移除；不升级时允许保留全部XP", () => {
   let game = select();
-  game = choose(game, "upgrade:hero_skill:p043");
-  game = choose(game, "upgrade:hero_skill:p044");
+  game = choose(game, "upgrade:hero_skill:core:h03:p043");
+  game = choose(game, "upgrade:hero_skill:core:h03:p044");
   expect(game.dungeon!.replacementPreparation!.hero).toMatchObject({
     xp: 5,
-    permanentlyRemovedSkillIds: ["hero_skill:p043", "hero_skill:p044"],
+    permanentlyRemovedSkillIds: ["hero_skill:core:h03:p043", "hero_skill:core:h03:p044"],
   });
   expect(
-    game.dungeon!.replacementPreparation!.choice.options.some((o) => o.id === "hero_skill:p045"),
+    game.dungeon!.replacementPreparation!.choice.options.some(
+      (o) => o.id === "hero_skill:core:h03:p045",
+    ),
   ).toBe(true);
   expect(
-    game.dungeon!.replacementPreparation!.choice.options.some((o) => o.id === "hero_skill:p043"),
+    game.dungeon!.replacementPreparation!.choice.options.some(
+      (o) => o.id === "hero_skill:core:h03:p043",
+    ),
   ).toBe(false);
   game = equipAll(game);
   expect(game.dungeon!.preparedReplacements![0]!.hero.skillIds).toHaveLength(3);
@@ -158,7 +162,7 @@ it("同一技能可连续两次升级至III，旧卡永久移除；不升级时�
 });
 it("可混合英雄/技能升级，XP不足不显示升级；旧/重复/未知选择与其他命令原子拒绝", () => {
   let game = choose(select(), "upgrade-hero");
-  game = choose(game, "upgrade:hero_skill:p043");
+  game = choose(game, "upgrade:hero_skill:core:h03:p043");
   expect(game.dungeon!.replacementPreparation!.hero).toMatchObject({ level: 2, xp: 3 });
   expect(equipAll(game).dungeon!.preparedReplacements![0]!.hero.skillIds).toHaveLength(4);
   const low = select(fixture(1));

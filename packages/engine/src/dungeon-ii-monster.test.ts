@@ -165,7 +165,7 @@ it("Gargoyle常驻Protection在状态堆消退后仍生效，真实Smite伤害8�
       type: "playHeroSkill",
       actorId: hero.id,
       targetId: gargoyle.id,
-      skillId: "hero_skill:p001",
+      skillId: "hero_skill:core:h01:p001",
     },
   );
   expect(attacked.state.battle!.entities.find((e) => e.id === gargoyle.id)).toMatchObject({

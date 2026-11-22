@@ -45,7 +45,7 @@ const smite: HeroSkillCardView = JSON.parse(
     new URL("../../../data/normalized/corebox/hero_skill.json", import.meta.url),
     "utf8",
   ),
-).cards.find((card: HeroSkillCardView) => card.id === "hero_skill:p001");
+).cards.find((card: HeroSkillCardView) => card.id === "hero_skill:core:h01:p001");
 
 const stances: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 

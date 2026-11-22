@@ -4,15 +4,12 @@ export const CORE_HIGHER_SKILL_HOLDS: Readonly<Record<number, string>> = {};
 
 export function coreHigherSkillAvailable(card: { id: string; level: number }): boolean {
   if (card.level < 2 || card.level > 3) return false;
-  const core = /^hero_skill:p(\d{3})$/.exec(card.id);
-  if (core) {
-    const page = Number(core[1]);
-    return page >= 1 && page <= 357 && !(page in CORE_HIGHER_SKILL_HOLDS);
-  }
-  const musketeer = /^hero_skill:musketeer:p(\d{3})$/.exec(card.id);
-  if (musketeer) {
-    const page = Number(musketeer[1]);
-    return page >= 1 && page <= 21;
+  const canonical = /^hero_skill:(?:core|cove|warrens|weald|musketeer):h\d{2}:p(\d{3})$/.exec(
+    card.id,
+  );
+  if (canonical) {
+    const page = Number(canonical[1]);
+    return page >= 1 && page <= 378 && !(page in CORE_HIGHER_SKILL_HOLDS);
   }
   return false;
 }

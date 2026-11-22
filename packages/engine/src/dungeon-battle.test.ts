@@ -160,7 +160,7 @@ it("R-155：升华升级后带新增空槽进入下一场真实房间战斗；�
   };
   expect(applyCommand(forged, { type: "startDungeonBattle" }).state).toBe(forged);
 });
-it.each(["hero_skill:p221", "hero_skill:p222"])(
+it.each(["hero_skill:core:h11:p221", "hero_skill:core:h11:p222"])(
   "Abomination永久升级%s通过真实房间战斗入场",
   (id) => {
     const prepared = deploy(35),
@@ -170,7 +170,11 @@ it.each(["hero_skill:p221", "hero_skill:p222"])(
       {
         ...coreParty[0]!,
         heroStatId: "hero_stat:core:h11:p021:front",
-        skillIds: ["hero_skill:p211", "hero_skill:p214", "hero_skill:p220"],
+        skillIds: [
+          "hero_skill:core:h11:p211",
+          "hero_skill:core:h11:p214",
+          "hero_skill:core:h11:p220",
+        ],
       },
       ...coreParty.slice(1),
     ];
@@ -183,9 +187,11 @@ it.each(["hero_skill:p221", "hero_skill:p222"])(
     ).dungeon!;
     const hero = {
       ...actual.heroes[0]!,
-      skillIds: ["hero_skill:p211", "hero_skill:p214", id],
+      skillIds: ["hero_skill:core:h11:p211", "hero_skill:core:h11:p214", id],
       permanentlyRemovedSkillIds:
-        id === "hero_skill:p221" ? ["hero_skill:p220"] : ["hero_skill:p220", "hero_skill:p221"],
+        id === "hero_skill:core:h11:p221"
+          ? ["hero_skill:core:h11:p220"]
+          : ["hero_skill:core:h11:p220", "hero_skill:core:h11:p221"],
     };
     const state = {
       ...prepared,
@@ -206,7 +212,9 @@ it.each(["hero_skill:p221", "hero_skill:p222"])(
           {
             ...hero,
             permanentlyRemovedSkillIds: [],
-            nextQuestSkillUpgrades: [{ originalSkillId: "hero_skill:p220", temporarySkillId: id }],
+            nextQuestSkillUpgrades: [
+              { originalSkillId: "hero_skill:core:h11:p220", temporarySkillId: id },
+            ],
           },
           ...d.heroes.slice(1),
         ],
@@ -222,7 +230,9 @@ it.each(["hero_skill:p221", "hero_skill:p222"])(
         heroes: [
           {
             ...temporary.dungeon.heroes[0]!,
-            nextQuestSkillUpgrades: [{ originalSkillId: "hero_skill:p001", temporarySkillId: id }],
+            nextQuestSkillUpgrades: [
+              { originalSkillId: "hero_skill:core:h01:p001", temporarySkillId: id },
+            ],
           },
           ...d.heroes.slice(1),
         ],
@@ -234,7 +244,7 @@ it.each(["hero_skill:p221", "hero_skill:p222"])(
 it("Guild后的II/III级装备技能可进入真实房间战斗，永久移除的旧卡不能重新装备", () => {
   const prepared = deploy(35),
     d = prepared.dungeon!;
-  for (const id of ["hero_skill:p002", "hero_skill:p003"]) {
+  for (const id of ["hero_skill:core:h01:p002", "hero_skill:core:h01:p003"]) {
     // 明示永久装备夹具；使用真实房间/怪物部署，不声称已接通下一次出征。
     const upgraded = {
       ...prepared,
@@ -246,9 +256,9 @@ it("Guild后的II/III级装备技能可进入真实房间战斗，永久移除�
                 ...h,
                 skillIds: [id, ...h.skillIds!.slice(1)],
                 permanentlyRemovedSkillIds:
-                  id === "hero_skill:p002"
-                    ? ["hero_skill:p001"]
-                    : ["hero_skill:p001", "hero_skill:p002"],
+                  id === "hero_skill:core:h01:p002"
+                    ? ["hero_skill:core:h01:p001"]
+                    : ["hero_skill:core:h01:p001", "hero_skill:core:h01:p002"],
               }
             : h,
         ),
@@ -1199,7 +1209,14 @@ it("入场前拒绝缺英雄属性、错误装备、非配套房间与损坏牌�
         ...d,
         heroes: d.heroes.map((h, i) =>
           i === 0
-            ? { ...h, skillIds: ["hero_skill:p002", "hero_skill:p004", "hero_skill:p007"] }
+            ? {
+                ...h,
+                skillIds: [
+                  "hero_skill:core:h01:p002",
+                  "hero_skill:core:h01:p004",
+                  "hero_skill:core:h01:p007",
+                ],
+              }
             : h,
         ),
       },

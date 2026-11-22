@@ -9,30 +9,30 @@ import {
 import type { HeroSkillCardView } from "./hero-skill";
 
 const FLAGELLANT_HIGHER_IDS = [
-  "hero_skill:p254",
-  "hero_skill:p255",
-  "hero_skill:p257",
-  "hero_skill:p258",
-  "hero_skill:p260",
-  "hero_skill:p261",
-  "hero_skill:p263",
-  "hero_skill:p264",
-  "hero_skill:p266",
-  "hero_skill:p267",
-  "hero_skill:p269",
-  "hero_skill:p270",
-  "hero_skill:p272",
-  "hero_skill:p273",
+  "hero_skill:cove:h13:p254",
+  "hero_skill:cove:h13:p255",
+  "hero_skill:cove:h13:p257",
+  "hero_skill:cove:h13:p258",
+  "hero_skill:cove:h13:p260",
+  "hero_skill:cove:h13:p261",
+  "hero_skill:cove:h13:p263",
+  "hero_skill:cove:h13:p264",
+  "hero_skill:cove:h13:p266",
+  "hero_skill:cove:h13:p267",
+  "hero_skill:cove:h13:p269",
+  "hero_skill:cove:h13:p270",
+  "hero_skill:cove:h13:p272",
+  "hero_skill:cove:h13:p273",
 ] as const;
 
 const FLAGELLANT_L1_WASH = [
-  "hero_skill:p253",
-  "hero_skill:p256",
-  "hero_skill:p259",
-  "hero_skill:p262",
-  "hero_skill:p265",
-  "hero_skill:p268",
-  "hero_skill:p271",
+  "hero_skill:cove:h13:p253",
+  "hero_skill:cove:h13:p256",
+  "hero_skill:cove:h13:p259",
+  "hero_skill:cove:h13:p262",
+  "hero_skill:cove:h13:p265",
+  "hero_skill:cove:h13:p268",
+  "hero_skill:cove:h13:p271",
 ] as const;
 
 const IDS = [...FLAGELLANT_HIGHER_IDS, ...FLAGELLANT_L1_WASH] as const;

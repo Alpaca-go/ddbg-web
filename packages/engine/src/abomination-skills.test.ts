@@ -1,5 +1,6 @@
 import { expect, it } from "vitest";
 import { loadNormalizedCorebox } from "../../data/src/normalize/write";
+import { heroSkillIdForPage } from "../../data/src/hero-registry";
 import { savedCommandSchema } from "../../data/src/quest-save";
 import { createBattleState } from "./battle";
 import type { BattleEntity, BattleSetup } from "./battle";
@@ -10,7 +11,7 @@ import type { HeroSkillCardView } from "./hero-skill";
 const data = loadNormalizedCorebox();
 const clean = <T>(v: unknown): T => JSON.parse(JSON.stringify(v));
 const card = (page: number) =>
-  clean<HeroSkillCardView>(data.hero_skill.cards.find((c) => c.id === `hero_skill:p${page}`)!);
+  clean<HeroSkillCardView>(data.hero_skill.cards.find((c) => c.id === heroSkillIdForPage(page))!);
 function fixture(level: 1 | 2 | 3 = 2) {
   const names = ["ABOMINATION", "CRUSADER", "HELLION", "VESTAL"];
   const stats = data.hero_stat.cards.filter((c) => c.level === level && names.includes(c.name));
@@ -28,7 +29,8 @@ function fixture(level: 1 | 2 | 3 = 2) {
       stress: 3,
       areaId: i === 0 ? "a" : "b",
       stance: (["support", "ranged", "defensive", "aggressive"] as const)[i]!,
-      skillIds: i === 0 ? [218, 221, 224, 227, 230].map((p) => `hero_skill:p${p + level - 2}`) : [],
+      skillIds:
+        i === 0 ? [218, 221, 224, 227, 230].map((p) => heroSkillIdForPage(p + level - 2)) : [],
       form: "human",
       guard: false,
       dead: false,
@@ -52,7 +54,7 @@ const transform = (level: 1 | 2 | 3 = 2): Command => ({
   type: "playHeroSkill",
   actorId: "h0",
   targetId: "h0",
-  skillId: `hero_skill:p${221 + level - 2}`,
+  skillId: heroSkillIdForPage(221 + level - 2),
 });
 it.each([1, 2, 3] as const)(
   "Transform %i applies all allies across disconnected areas, no dice; automatic reverse uses the same card",
@@ -166,7 +168,7 @@ it("Transform omits dead allies, rejects another target and wrong face, and refu
     battle: {
       ...game.battle!,
       skills: game.battle!.skills.map((s) =>
-        s.id === "hero_skill:p221" ? { ...s, effect_lines: [] } : s,
+        s.id === "hero_skill:core:h11:p221" ? { ...s, effect_lines: [] } : s,
       ),
     },
   };
@@ -234,7 +236,7 @@ it("Rake shared roll charges self Buff/stress once on two misses and spends one 
   const cmd: Command = {
     type: "playHeroSkillTargets",
     actorId: "h0",
-    skillId: "hero_skill:p224",
+    skillId: "hero_skill:core:h11:p224",
     targetIds: ["m0", "m1"],
   };
   const result = applyCommand(game, cmd);
@@ -267,7 +269,7 @@ it("Transform resolves remote allies reaching 10, keeps its self effects, and sp
   expect(result.state.battle!.encounter!.turn).toMatchObject({
     type: "hero",
     actions: 2,
-    usedSkillIds: ["hero_skill:p221"],
+    usedSkillIds: ["hero_skill:core:h11:p221"],
   });
   expect(applyCommand(clean<typeof game>(game), transform())).toEqual(result);
 });

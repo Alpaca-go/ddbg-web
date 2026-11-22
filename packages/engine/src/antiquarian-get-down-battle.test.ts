@@ -7,7 +7,7 @@ import { needsHeroSkillShufflePushDistance } from "./hero-skill";
 const data = loadNormalizedCorebox();
 const clean = <T>(v: unknown): T => JSON.parse(JSON.stringify(v));
 const skill = clean<HeroSkillCardView>(
-  data.hero_skill.cards.find((c) => c.id === "hero_skill:p303")!,
+  data.hero_skill.cards.find((c) => c.id === "hero_skill:warrens:h15:p303")!,
 );
 const stat = clean<NonNullable<BattleSetup["heroStats"]>[number]>(
   data.hero_stat.cards.find((c) => c.id === "hero_stat:warrens:h15:p030:front")!,

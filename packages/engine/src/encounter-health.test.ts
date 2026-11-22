@@ -22,7 +22,7 @@ function cards<T>(file: string): T[] {
 }
 const profiles = cards<NonNullable<BattleSetup["heroStats"]>[number]>("hero_stat");
 const skills = cards<HeroSkillCardView>("hero_skill");
-const smite = skills.find((card) => card.id === "hero_skill:p001")!;
+const smite = skills.find((card) => card.id === "hero_skill:core:h01:p001")!;
 const soldier = cards<MonsterCardView>("monster_medium")[0]!;
 const defender = cards<MonsterCardView>("monster_medium").find(
   (card) => card.id === "monster_medium:p010",
@@ -262,7 +262,7 @@ describe("英雄生命遭遇战收尾（R24–25、R29、R-030、R-044）", () =
   );
 
   it("自身位移选择时英雄仍存活，随后攻击反击死亡，只结束一次回合并补位", () => {
-    const pointBlank = skills.find((card) => card.id === "hero_skill:p070")!;
+    const pointBlank = skills.find((card) => card.id === "hero_skill:core:h04:p070")!;
     let state = turn(setup(soldier, 2, pointBlank), "hero");
     state = patch(state, "m0", { areaId: "a", riposte: true });
     state = {

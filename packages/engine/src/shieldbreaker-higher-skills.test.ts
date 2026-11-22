@@ -10,20 +10,20 @@ import type { HeroSkillCardView } from "./hero-skill";
 
 /** Weald Shieldbreaker II/III 14 张。 */
 const SB_II_III_IDS = [
-  "hero_skill:p317",
-  "hero_skill:p318",
-  "hero_skill:p320",
-  "hero_skill:p321",
-  "hero_skill:p323",
-  "hero_skill:p324",
-  "hero_skill:p326",
-  "hero_skill:p327",
-  "hero_skill:p329",
-  "hero_skill:p330",
-  "hero_skill:p332",
-  "hero_skill:p333",
-  "hero_skill:p335",
-  "hero_skill:p336",
+  "hero_skill:weald:h16:p317",
+  "hero_skill:weald:h16:p318",
+  "hero_skill:weald:h16:p320",
+  "hero_skill:weald:h16:p321",
+  "hero_skill:weald:h16:p323",
+  "hero_skill:weald:h16:p324",
+  "hero_skill:weald:h16:p326",
+  "hero_skill:weald:h16:p327",
+  "hero_skill:weald:h16:p329",
+  "hero_skill:weald:h16:p330",
+  "hero_skill:weald:h16:p332",
+  "hero_skill:weald:h16:p333",
+  "hero_skill:weald:h16:p335",
+  "hero_skill:weald:h16:p336",
 ] as const;
 
 const data = loadNormalizedCorebox();
@@ -40,7 +40,7 @@ type SbCard = HeroSkillCardView & { readonly name: string; readonly level: numbe
 
 function combatFor(card: SbCard) {
   const self = heroSkillUsesSelfTarget(card);
-  const serpentIii = card.id === "hero_skill:p336";
+  const serpentIii = card.id === "hero_skill:weald:h16:p336";
   const captivate = card.name === "Captivate";
   const range = readPrintedRange(card);
   const targets = readPrintedTargets(card);
