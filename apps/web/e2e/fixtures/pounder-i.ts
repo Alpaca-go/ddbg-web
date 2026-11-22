@@ -42,7 +42,7 @@ export function pounderUiFixture(sources: CoreQuestSources = coreQuestSources) {
       commands.push(command);
       if (
         command.type === "prepareDungeonBattle" &&
-        state.dungeon?.roomCards?.active?.cardId === "room:weald:p012"
+        state.dungeon?.roomCards?.active?.cardId === "room:weald:12"
       )
         bound = state;
       const current = state.battle?.encounter?.turn;

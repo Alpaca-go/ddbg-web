@@ -32,7 +32,7 @@ export function hagUiFixture(sources: CoreQuestSources = coreQuestSources) {
       commands.push(command);
       if (
         command.type === "prepareDungeonBattle" &&
-        state.dungeon?.roomCards?.active?.cardId === "room:weald:p010"
+        state.dungeon?.roomCards?.active?.cardId === "room:weald:10"
       )
         bound = state;
       if (!release && state.battle?.pending?.type === "hagRelease") {
