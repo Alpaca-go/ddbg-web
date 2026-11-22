@@ -258,7 +258,8 @@ export function battleDataPlugin(): Plugin {
       const tile = roomTileGeometryFileSchema
         .parse(read("room_tile_geometry"))
         .tiles.find(
-          (entry) => entry.id === "room_tile:p001" && entry.rawId === "dungeon_tile:p001",
+          (entry) =>
+            entry.id === "room_tile:ruins:01" && entry.rawId === "dungeon_tile:p001",
         );
       const expectedHeroStats = graveOccultist
         ? 54
