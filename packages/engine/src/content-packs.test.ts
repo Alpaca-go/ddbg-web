@@ -19,9 +19,8 @@ import { resolveScriptIdForDescriptionCard } from "./boss/threat-description-cat
 import { HAG_I_DESCRIPTION_ABILITY_CARD_ID } from "./expansions/weald/boss/hag-i";
 import coveCurio from "../../data/normalized/extension/cove/curio.json";
 import coveRoom from "../../data/normalized/extension/cove/room.json";
-import coveBossRooms from "../../data/normalized/extension/cove/boss_room_sources.json";
 import { coveCurioFileSchema } from "../../data/src/curio";
-import { coveBossRoomSourceFileSchema, coveRoomFileSchema } from "../../data/src/cove-room";
+import { coveRoomFileSchema } from "../../data/src/cove-room";
 
 beforeEach(clearBossScriptsForTest);
 const start = {
@@ -105,8 +104,8 @@ it("核心包单独启用时，十八名英雄及全部等级技能仍可开局�
 it("Cove Curio 与房间目录仅在勾选 Cove 包时进入战役来源", () => {
   const cove = {
     curios: coveCurioFileSchema.parse(coveCurio).cards,
-    rooms: coveRoomFileSchema.parse(coveRoom).cards,
-    bossRoomSources: coveBossRoomSourceFileSchema.parse(coveBossRooms).cards,
+    rooms: coveRoomFileSchema.parse(coveRoom).cards.filter((card) => !card.boss),
+    bossRoomSources: coveRoomFileSchema.parse(coveRoom).cards.filter((card) => card.boss),
   };
   const sources = { ...coreQuestSources, cove };
   expect(sourcesForContentPacks(sources, ["core"]).cove).toBeUndefined();

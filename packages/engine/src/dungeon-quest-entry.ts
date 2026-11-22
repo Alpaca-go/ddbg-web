@@ -36,7 +36,7 @@ import { normalizeContentPacks, type ContentPackId } from "../../data/src/conten
 export type CoveQuestSources = {
   readonly curios: readonly CurioCard[];
   readonly rooms: readonly import("../../data/src/cove-room").CoveRoomCard[];
-  readonly bossRoomSources: readonly import("../../data/src/cove-room").CoveBossRoomSource[];
+  readonly bossRoomSources: readonly import("../../data/src/cove-room").CoveBossRoomCard[];
 };
 
 export type CoreQuestSources = {

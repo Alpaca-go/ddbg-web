@@ -3,13 +3,9 @@ import { describe, expect, it } from "vitest";
 import { cardContentPack } from "../content-packs";
 import { rawFileSchema } from "../extract/raw";
 import { roomCatalogSchema } from "../room";
-import { coveBossRoomSourceFileSchema, coveRoomFileSchema } from "../cove-room";
-import { buildCoveBossRoomSources, buildCoveRooms } from "./cove-rooms";
-import {
-  loadNormalizedCoveBossRoomSources,
-  loadNormalizedCoveRooms,
-  writeNormalizedCoveRooms,
-} from "./write-cove";
+import { coveRoomFileSchema } from "../cove-room";
+import { buildCoveRooms } from "./cove-rooms";
+import { loadNormalizedCoveRooms, writeNormalizedCoveRooms } from "./write-cove";
 
 const read = (file: string): unknown =>
   JSON.parse(readFileSync(new URL(`../../${file}`, import.meta.url), "utf8")) as unknown;
@@ -17,39 +13,37 @@ const read = (file: string): unknown =>
 if (process.env.WRITE_NORMALIZED === "1") writeNormalizedCoveRooms();
 
 const builtRooms = loadNormalizedCoveRooms();
-const builtBossSources = loadNormalizedCoveBossRoomSources();
 
-describe("Cove 普通房间与 Boss 来源（R-001、R-048、包隔离）", () => {
+describe("Cove 十二张房间（R-001、R-048、包隔离）", () => {
   it("重建结果与提交的 normalized 文件一致", () => {
     expect(coveRoomFileSchema.parse(read("normalized/extension/cove/room.json"))).toEqual(
       builtRooms,
     );
-    expect(
-      coveBossRoomSourceFileSchema.parse(read("normalized/extension/cove/boss_room_sources.json")),
-    ).toEqual(builtBossSources);
   });
 
   it("九张普通房间均属 cove 命名空间，核心目录不接纳", () => {
-    for (const card of builtRooms.cards) {
+    const normal = builtRooms.cards.filter((card) => !card.boss);
+    expect(normal).toHaveLength(9);
+    for (const card of normal) {
       expect(cardContentPack(card)).toBe("cove");
-      expect(card.boss).toBe(false);
       expect(card.pendingReview[0]).toContain("Q-186");
     }
-    expect(roomCatalogSchema.safeParse(builtRooms.cards).success).toBe(false);
+    expect(roomCatalogSchema.safeParse(normal).success).toBe(false);
   });
 
-  it("Boss 房仅登记来源，poolEligible=false，不进入九房目录", () => {
-    for (const card of builtBossSources.cards) {
-      expect(card.boss).toBe(true);
+  it("三张 Boss 房是 room 卡，poolEligible=false，不进入普通房间牌堆", () => {
+    const boss = builtRooms.cards.filter((card) => card.boss);
+    expect(boss).toHaveLength(3);
+    for (const card of boss) {
       expect(card.poolEligible).toBe(false);
       expect(cardContentPack(card)).toBe("cove");
       expect(card.classificationEvidence.some((line) => line.includes("BOSS"))).toBe(true);
     }
-    const normalIds = new Set(builtRooms.cards.map((c) => c.id));
-    for (const boss of builtBossSources.cards) expect(normalIds.has(boss.id)).toBe(false);
+    const normalIds = new Set(builtRooms.cards.filter((c) => !c.boss).map((c) => c.id));
+    for (const card of boss) expect(normalIds.has(card.id)).toBe(false);
   });
 
-  it("名称与页码绑定；raw 页码漂移会失败", () => {
+  it("名称与页码绑定；raw 页码或 BOSS 标签漂移会失败", () => {
     const raw = rawFileSchema.parse(read("extract/extension/cove/raw/room.json"));
     expect(() =>
       buildCoveRooms({
@@ -60,7 +54,7 @@ describe("Cove 普通房间与 Boss 来源（R-001、R-048、包隔离）", () =
       }),
     ).toThrow();
     expect(() =>
-      buildCoveBossRoomSources({
+      buildCoveRooms({
         ...raw,
         cards: raw.cards.map((card) =>
           card.id === "room:cove:p010"
@@ -80,7 +74,7 @@ describe("Cove 普通房间与 Boss 来源（R-001、R-048、包隔离）", () =
     ).toThrow();
   });
 
-  it("逐页登记九张普通房间名称", () => {
+  it("逐页登记十二张房间名称", () => {
     expect(builtRooms.cards.map((c) => [c.number, c.name])).toEqual([
       [1, "Eldritch Augmentation"],
       [2, "Flooded Room"],
@@ -91,6 +85,9 @@ describe("Cove 普通房间与 Boss 来源（R-001、R-048、包隔离）", () =
       [7, "Shipwreck"],
       [8, "Sea Rites"],
       [9, "Temple of the Deep One"],
+      [10, "Siren’s Room"],
+      [11, "Shambler’s Room"],
+      [12, "Drowned Crew Room"],
     ]);
   });
 });
