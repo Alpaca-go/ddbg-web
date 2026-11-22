@@ -9,7 +9,7 @@ import { wealdOrdinaryRoomEffectActive, wealdStygianEffect } from "./weald-stygi
 export function applyUnprepared(state: GameState): ApplyResult {
   if (
     !wealdMechanicsActive(state) ||
-    !wealdOrdinaryRoomEffectActive(state, "room:weald:p002", "unprepared")
+    !wealdOrdinaryRoomEffectActive(state, "room:weald:02", "unprepared")
   )
     return { state, events: [] };
   const stygian = wealdStygianEffect(state.dungeon, "unprepared");
@@ -39,7 +39,7 @@ export function applyUnprepared(state: GameState): ApplyResult {
       ...statuses.events,
       {
         type: "passiveTriggered",
-        entityId: "room:weald:p002",
+        entityId: "room:weald:02",
         trigger: "unprepared",
         message: `Unprepared!：战斗开始时所有英雄减益 ${duration}t（R-234）`,
       },

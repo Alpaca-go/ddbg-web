@@ -100,9 +100,9 @@ function tile(
 
 const APPROVED_TILES: readonly WealdRoomTile[] = [
   tile({
-    id: "room_tile:weald:p001:front",
+    id: "room_tile:weald:01",
     rawId: "dungeon_tile:weald:p001",
-    roomId: "room:weald:p001",
+    roomId: "room:weald:01",
     number: 1,
     name: "Fungal Spores",
     source: { file: WEALD_TILES_FRONT, page: 1, face: "front" },
@@ -140,9 +140,9 @@ const APPROVED_TILES: readonly WealdRoomTile[] = [
     wallNotes: [],
   }),
   tile({
-    id: "room_tile:weald:p002:back",
+    id: "room_tile:weald:02",
     rawId: "dungeon_tile:weald:p001",
-    roomId: "room:weald:p002",
+    roomId: "room:weald:02",
     number: 2,
     name: "Ambush",
     source: { file: WEALD_TILES_BACK, page: 1, face: "back" },
@@ -174,9 +174,9 @@ const APPROVED_TILES: readonly WealdRoomTile[] = [
     wallNotes: ["B–C 竖缝", "D–E 竖缝", "E–F 竖缝"],
   }),
   tile({
-    id: "room_tile:weald:p003:front",
+    id: "room_tile:weald:03",
     rawId: "dungeon_tile:weald:p002",
-    roomId: "room:weald:p003",
+    roomId: "room:weald:03",
     number: 3,
     name: "Thick Woods",
     source: { file: WEALD_TILES_FRONT, page: 2, face: "front" },
@@ -210,9 +210,9 @@ const APPROVED_TILES: readonly WealdRoomTile[] = [
     wallNotes: ["F–J 横向黑块", "I–J 竖缝", "E 下方／G 上方黑块", "D 下方／H 上方黑块"],
   }),
   tile({
-    id: "room_tile:weald:p004:back",
+    id: "room_tile:weald:04",
     rawId: "dungeon_tile:weald:p002",
-    roomId: "room:weald:p004",
+    roomId: "room:weald:04",
     number: 4,
     name: "Stash",
     source: { file: WEALD_TILES_BACK, page: 2, face: "back" },
@@ -253,9 +253,9 @@ const APPROVED_TILES: readonly WealdRoomTile[] = [
     wallNotes: ["A 下方横向黑块", "D／E 下方与 G 上方横向黑块"],
   }),
   tile({
-    id: "room_tile:weald:p005:front",
+    id: "room_tile:weald:05",
     rawId: "dungeon_tile:weald:p003",
-    roomId: "room:weald:p005",
+    roomId: "room:weald:05",
     number: 5,
     name: "Infected Oak",
     source: { file: WEALD_TILES_FRONT, page: 3, face: "front" },
@@ -294,9 +294,9 @@ const APPROVED_TILES: readonly WealdRoomTile[] = [
     wallNotes: ["G 下方黑色矩形缺口"],
   }),
   tile({
-    id: "room_tile:weald:p006:back",
+    id: "room_tile:weald:06",
     rawId: "dungeon_tile:weald:p003",
-    roomId: "room:weald:p006",
+    roomId: "room:weald:06",
     number: 6,
     name: "Chase in the Woods",
     source: { file: WEALD_TILES_BACK, page: 3, face: "back" },
@@ -324,9 +324,9 @@ const APPROVED_TILES: readonly WealdRoomTile[] = [
     wallNotes: ["B 下方／C 上方", "E 与 C／F 间竖块", "C–D 竖块", "F–H 竖块"],
   }),
   tile({
-    id: "room_tile:weald:p007:front",
+    id: "room_tile:weald:07",
     rawId: "dungeon_tile:weald:p004",
-    roomId: "room:weald:p007",
+    roomId: "room:weald:07",
     number: 7,
     name: "Chasm",
     source: { file: WEALD_TILES_FRONT, page: 4, face: "front" },
@@ -375,9 +375,9 @@ const APPROVED_TILES: readonly WealdRoomTile[] = [
     wallNotes: ["A–B 矩形缺口"],
   }),
   tile({
-    id: "room_tile:weald:p008:back",
+    id: "room_tile:weald:08",
     rawId: "dungeon_tile:weald:p004",
-    roomId: "room:weald:p008",
+    roomId: "room:weald:08",
     number: 8,
     name: "Fungal Overgrowth",
     source: { file: WEALD_TILES_BACK, page: 4, face: "back" },
@@ -409,9 +409,9 @@ const APPROVED_TILES: readonly WealdRoomTile[] = [
     wallNotes: ["A 下方／F 上方", "B 右至 C 左缺口", "H 下方至 G／I 底间缺口"],
   }),
   tile({
-    id: "room_tile:weald:p009:front",
+    id: "room_tile:weald:09",
     rawId: "dungeon_tile:weald:p005",
-    roomId: "room:weald:p009",
+    roomId: "room:weald:09",
     number: 9,
     name: "The Clearing",
     source: { file: WEALD_TILES_FRONT, page: 5, face: "front" },
@@ -529,7 +529,7 @@ export function buildWealdRooms(raw: RawFile) {
       if (!name) throw new Error(`Weald 房间 p${front.page} 无法从印刷行解析名称`);
       const meta = EFFECTS[front.page];
       return {
-        id: card.id,
+        id: `room:weald:${String(front.page).padStart(2, "0")}`,
         name,
         copies: card.copies as 1,
         location: "weald" as const,

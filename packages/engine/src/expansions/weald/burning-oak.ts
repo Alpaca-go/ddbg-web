@@ -13,7 +13,7 @@ function oakContext(state: GameState): boolean {
     wealdTaskActive(state, 11) &&
     state.battle?.wealdMechanics === true &&
     d?.rooms.find((r) => r.id === d.position)?.kind === "objective" &&
-    d.roomCards?.active?.cardId === "room:weald:p005"
+    d.roomCards?.active?.cardId === "room:weald:05"
   );
 }
 export function waitingForWealdOak(state: GameState): boolean {

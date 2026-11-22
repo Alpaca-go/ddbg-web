@@ -48,9 +48,9 @@ export const wealdPounderCombatFaceSchema = z.strictObject({
 /** 仅扩展独立 Boss 身份；普通九房 schema 的范围保持不变。 */
 export const wealdPounderTileSchema = wealdRoomTileBaseSchema
   .safeExtend({
-    id: z.literal("room_tile:weald:p006:back"),
+    id: z.literal("room_tile:weald:12"),
     rawId: z.literal("dungeon_tile:weald:p006"),
-    roomId: z.literal("room:weald:p012"),
+    roomId: z.literal("room:weald:12"),
     number: z.literal(12),
     ruling: z.literal("R-258"),
     geometryVerified: z.literal(true),

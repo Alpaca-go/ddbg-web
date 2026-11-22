@@ -100,9 +100,9 @@
   "removeNestOnShriekerDefeat": true
  },
  "tile": {
-  "id": "room_tile:weald:p006:front",
+  "id": "room_tile:weald:11",
   "rawId": "dungeon_tile:weald:p006",
-  "roomId": "room:weald:p011",
+  "roomId": "room:weald:11",
   "location": "weald",
   "number": 11,
   "name": "Shrieker",

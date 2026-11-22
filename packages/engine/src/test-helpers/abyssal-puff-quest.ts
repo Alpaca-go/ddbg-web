@@ -41,7 +41,7 @@ export function abyssalPuffQuest() {
     observe(game, command, events = []) {
       if (
         command.type === "startBattle" &&
-        game.dungeon?.roomCards?.active?.cardId === "room:weald:p008"
+        game.dungeon?.roomCards?.active?.cardId === "room:weald:08"
       )
         beforeStart = previous;
       if (events.some((e) => e.type === "passiveTriggered" && e.trigger === "abyssalPuff")) {

@@ -351,7 +351,7 @@ export function naturalQuest(
           continue;
         }
         if (
-          state.dungeon!.roomCards!.active!.cardId === "room:weald:p011" &&
+          state.dungeon!.roomCards!.active!.cardId === "room:weald:11" &&
           state.dungeon!.activeBossThreatScriptId === "boss:weald:shrieker:1" &&
           state.dungeon!.shriekerBossBattles
         ) {
@@ -361,7 +361,7 @@ export function naturalQuest(
           continue;
         }
         if (
-          state.dungeon!.roomCards!.active!.cardId === "room:weald:p010" &&
+          state.dungeon!.roomCards!.active!.cardId === "room:weald:10" &&
           state.dungeon!.activeBossThreatScriptId === "boss:weald:hag:1"
         ) {
           step({ type: "deployHagI" });
@@ -370,7 +370,7 @@ export function naturalQuest(
           continue;
         }
         if (
-          state.dungeon!.roomCards!.active!.cardId === "room:weald:p012" &&
+          state.dungeon!.roomCards!.active!.cardId === "room:weald:12" &&
           state.dungeon!.activeBossThreatScriptId === "boss:weald:brigandPounder:1" &&
           state.dungeon!.pounderBossBattles
         ) {

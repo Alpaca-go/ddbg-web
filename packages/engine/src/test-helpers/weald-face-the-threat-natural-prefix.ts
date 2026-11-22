@@ -33,7 +33,7 @@ import { higherRuinsThreat } from "../boss/higher-ruins-threat";
 const packs = ["core", "weald"] as const;
 const defaultDrawMode = "hamlet-quest-draw:ruins-two" as const;
 const hamletHealFirstServiceIds = ["heal10", "heal5", "tavern6", "tavern3"] as const;
-const wealdBossRoomIds = new Set(["room:weald:p010", "room:weald:p011", "room:weald:p012"]);
+const wealdBossRoomIds = new Set(["room:weald:10", "room:weald:11", "room:weald:12"]);
 
 /** 第十四刀：生产路径 I 幕自然驱动选项；缺省与第十三刀回归矩阵一致。 */
 export type WealdNaturalActOneDriveOptions = {
@@ -542,7 +542,7 @@ export function wealdFaceTheThreatNaturalActOnePrefix(
                 if (replacement === undefined) bossRoomWithoutStygianWitness = true;
                 return;
               }
-              if (replacement?.id.startsWith("stygian_room:weald:p00")) {
+              if (replacement?.id.startsWith("stygian_room:weald:")) {
                 stygianOrdinaryRoomWitnesses.add(replacement.id);
               }
             },

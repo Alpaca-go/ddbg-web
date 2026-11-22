@@ -14,7 +14,7 @@ it.each([1, 3] as const)(
     expect(starts).toHaveLength(kills);
     expect(new Set(starts.map((p) => p.game.dungeon!.position)).size).toBe(kills);
     for (const { game } of starts) {
-      expect(game.dungeon!.roomCards!.active!.cardId).toBe("room:weald:p009");
+      expect(game.dungeon!.roomCards!.active!.cardId).toBe("room:weald:09");
       expect(game.dungeon!.questExceptionComponentAvailable).toBe(false);
       expect(game.battle!.entities.filter((e) => e.id === croneId)).toHaveLength(1);
       expect(dungeonMonsterPoolThrough(game.dungeon!.monsterPool!, 1)).toHaveLength(45);

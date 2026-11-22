@@ -73,7 +73,7 @@ describe("Disinfection 沙盒出征（R-245）", () => {
       [...packs],
     );
     const d = game.dungeon!;
-    expect(d.setAsideRoomCardId).toBe("room:weald:p005");
+    expect(d.setAsideRoomCardId).toBe("room:weald:05");
     expect(d.disinfectionOakCount).toBe(0);
     expect(d.questDistribution?.questId).toBe(QUEST);
     expect(d.monsterPool?.monsterDrawScope).toBeUndefined();
@@ -86,7 +86,7 @@ describe("Disinfection 沙盒出征（R-245）", () => {
     expect(d.layout.review).toBe("confirmed");
     expect(dungeonMonsterPoolThrough(d.monsterPool!, 1)).toHaveLength(45);
     expect(d.roomCards!.cards).toHaveLength(9);
-    expect((d.roomCards!.deck ?? []).includes("room:weald:p005")).toBe(false);
+    expect((d.roomCards!.deck ?? []).includes("room:weald:05")).toBe(false);
   });
 
   it("开局公共池额外 3 枚普通 Potion（非 R-197 任务药水）", () => {

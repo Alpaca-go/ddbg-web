@@ -44,7 +44,7 @@ export function oursQuest() {
       const b = game.battle!,
         turn = b.encounter!.turn;
       if (
-        game.dungeon?.roomCards?.active?.cardId !== "room:weald:p009" ||
+        game.dungeon?.roomCards?.active?.cardId !== "room:weald:09" ||
         turn.type !== "hero" ||
         turn.mustMove
       )
@@ -75,7 +75,7 @@ export function oursQuest() {
     observe(game, command, events = []) {
       if (
         command.type === "interactLoot" &&
-        previous.dungeon?.roomCards?.active?.cardId === "room:weald:p009"
+        previous.dungeon?.roomCards?.active?.cardId === "room:weald:09"
       ) {
         beforePickup = previous;
         pickupIndex = commands.length;
@@ -83,7 +83,7 @@ export function oursQuest() {
       if (game.dungeon?.roomCards?.active) rooms.add(game.dungeon.roomCards.active.cardId);
       if (
         command.type === "startBattle" &&
-        game.dungeon?.roomCards?.active?.cardId === "room:weald:p009"
+        game.dungeon?.roomCards?.active?.cardId === "room:weald:09"
       )
         beforeStart = previous;
       if (events.some((e) => e.type === "passiveTriggered" && e.trigger === "ours")) {

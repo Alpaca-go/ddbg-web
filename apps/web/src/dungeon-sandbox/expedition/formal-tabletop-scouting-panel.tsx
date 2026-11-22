@@ -232,11 +232,11 @@ export function FormalTabletopScoutingPanel({
         {d.roomCards?.active &&
           (() => {
             const active = d.roomCards.active;
-            if (["room:weald:p010", "room:weald:p011", "room:weald:p012"].includes(active.cardId)) {
+            if (["room:weald:10", "room:weald:11", "room:weald:12"].includes(active.cardId)) {
               const label =
-                active.cardId === "room:weald:p010"
+                active.cardId === "room:weald:10"
                   ? "Hag"
-                  : active.cardId === "room:weald:p011"
+                  : active.cardId === "room:weald:11"
                     ? "Shrieker"
                     : "Brigand Pounder";
               return (

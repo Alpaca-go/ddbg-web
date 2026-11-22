@@ -59,7 +59,7 @@ function setup(version = true): GameState {
       mode: "radiant",
       heroes: [],
       contentPacks: ["core", "weald"],
-      roomCards: { active: { roomId: "R1", cardId: "room:weald:p004" } },
+      roomCards: { active: { roomId: "R1", cardId: "room:weald:04" } },
     } as unknown as NonNullable<GameState["dungeon"]>,
   };
   const started = applyCommand(base, {
@@ -198,7 +198,7 @@ describe("Precious 结束回合（R-234／R-237）", () => {
             ? {
                 roomCards: {
                   ...d.roomCards!,
-                  active: { ...d.roomCards!.active!, cardId: "room:weald:p002" },
+                  active: { ...d.roomCards!.active!, cardId: "room:weald:02" },
                 },
               }
             : {}),

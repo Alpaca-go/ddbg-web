@@ -67,7 +67,7 @@ it("R-036：Stygian 仍绑定标准 Shrieker 房 p011", () => {
     dungeon: { ...source.dungeon!, mode: "stygian", stygianRoomRules: "full" },
   };
   const prepared = run(stygian, { type: "prepareDungeonBattle" });
-  expect(prepared.dungeon!.roomCards!.active!.cardId).toBe("room:weald:p011");
+  expect(prepared.dungeon!.roomCards!.active!.cardId).toBe("room:weald:11");
   run(prepared, { type: "deployShriekerI" });
 });
 
@@ -75,7 +75,7 @@ it("W3／R-261 公开命令绑定并部署十区，交接英雄、牌池及 RNG�
   const source = atObjective();
   const before = structuredClone(source);
   const prepared = run(source, { type: "prepareDungeonBattle" });
-  expect(prepared.dungeon!.roomCards!.active!.cardId).toBe("room:weald:p011");
+  expect(prepared.dungeon!.roomCards!.active!.cardId).toBe("room:weald:11");
   const command = { type: "deployShriekerI" } as const;
   expect(savedCommandSchema.parse(command)).toEqual(command);
   const state = run(prepared, command);

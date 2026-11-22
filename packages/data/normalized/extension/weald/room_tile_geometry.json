@@ -3,9 +3,9 @@
  "category": "weald_room_tile_geometry",
  "tiles": [
   {
-   "id": "room_tile:weald:p001:front",
+   "id": "room_tile:weald:01",
    "rawId": "dungeon_tile:weald:p001",
-   "roomId": "room:weald:p001",
+   "roomId": "room:weald:01",
    "location": "weald",
    "number": 1,
    "name": "Fungal Spores",
@@ -255,9 +255,9 @@
    "unresolvedMarkers": []
   },
   {
-   "id": "room_tile:weald:p002:back",
+   "id": "room_tile:weald:02",
    "rawId": "dungeon_tile:weald:p001",
-   "roomId": "room:weald:p002",
+   "roomId": "room:weald:02",
    "location": "weald",
    "number": 2,
    "name": "Ambush",
@@ -483,9 +483,9 @@
    "unresolvedMarkers": []
   },
   {
-   "id": "room_tile:weald:p003:front",
+   "id": "room_tile:weald:03",
    "rawId": "dungeon_tile:weald:p002",
-   "roomId": "room:weald:p003",
+   "roomId": "room:weald:03",
    "location": "weald",
    "number": 3,
    "name": "Thick Woods",
@@ -758,9 +758,9 @@
    "unresolvedMarkers": []
   },
   {
-   "id": "room_tile:weald:p004:back",
+   "id": "room_tile:weald:04",
    "rawId": "dungeon_tile:weald:p002",
-   "roomId": "room:weald:p004",
+   "roomId": "room:weald:04",
    "location": "weald",
    "number": 4,
    "name": "Stash",
@@ -988,9 +988,9 @@
    "unresolvedMarkers": []
   },
   {
-   "id": "room_tile:weald:p005:front",
+   "id": "room_tile:weald:05",
    "rawId": "dungeon_tile:weald:p003",
-   "roomId": "room:weald:p005",
+   "roomId": "room:weald:05",
    "location": "weald",
    "number": 5,
    "name": "Infected Oak",
@@ -1299,9 +1299,9 @@
    "unresolvedMarkers": []
   },
   {
-   "id": "room_tile:weald:p006:back",
+   "id": "room_tile:weald:06",
    "rawId": "dungeon_tile:weald:p003",
-   "roomId": "room:weald:p006",
+   "roomId": "room:weald:06",
    "location": "weald",
    "number": 6,
    "name": "Chase in the Woods",
@@ -1515,9 +1515,9 @@
    "unresolvedMarkers": []
   },
   {
-   "id": "room_tile:weald:p007:front",
+   "id": "room_tile:weald:07",
    "rawId": "dungeon_tile:weald:p004",
-   "roomId": "room:weald:p007",
+   "roomId": "room:weald:07",
    "location": "weald",
    "number": 7,
    "name": "Chasm",
@@ -1796,9 +1796,9 @@
    "unresolvedMarkers": []
   },
   {
-   "id": "room_tile:weald:p008:back",
+   "id": "room_tile:weald:08",
    "rawId": "dungeon_tile:weald:p004",
-   "roomId": "room:weald:p008",
+   "roomId": "room:weald:08",
    "location": "weald",
    "number": 8,
    "name": "Fungal Overgrowth",
@@ -2046,9 +2046,9 @@
    "unresolvedMarkers": []
   },
   {
-   "id": "room_tile:weald:p009:front",
+   "id": "room_tile:weald:09",
    "rawId": "dungeon_tile:weald:p005",
-   "roomId": "room:weald:p009",
+   "roomId": "room:weald:09",
    "location": "weald",
    "number": 9,
    "name": "The Clearing",

@@ -9,7 +9,7 @@ it("seed4 Patrol 自然触发前后严格回放，删版本标记拒绝（R-234�
   expect([...commands].reverse().find((c) => c.type === "playMonsterSkill")).toMatchObject({
     toxicMushrooms: true,
   });
-  expect(before.dungeon!.roomCards!.active!.cardId).toBe("room:weald:p001");
+  expect(before.dungeon!.roomCards!.active!.cardId).toBe("room:weald:01");
   expect(applyCommand(before, attack).state).toEqual(after);
   for (const [game, log] of [
     [before, commands],

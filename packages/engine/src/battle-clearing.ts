@@ -10,7 +10,7 @@ import { wealdOrdinaryRoomEffectActive } from "./weald-stygian-room-effects";
 export function enableClearingHeroes(state: GameState): GameState {
   if (
     !wealdMechanicsActive(state) ||
-    !wealdOrdinaryRoomEffectActive(state, "room:weald:p009", "clearing")
+    !wealdOrdinaryRoomEffectActive(state, "room:weald:09", "clearing")
   )
     return state;
   return {
@@ -27,7 +27,7 @@ export function enableClearingHeroes(state: GameState): GameState {
 export function enableClearingMonsters(state: GameState): GameState {
   if (
     !wealdMechanicsActive(state) ||
-    !wealdOrdinaryRoomEffectActive(state, "room:weald:p009", "clearing")
+    !wealdOrdinaryRoomEffectActive(state, "room:weald:09", "clearing")
   )
     return state;
   return { ...state, battle: { ...state.battle!, wealdClearingMonsters: true } };
@@ -42,7 +42,7 @@ export function endTurnClearingMonster(
   if (
     !state.battle?.wealdClearingMonsters ||
     !wealdMechanicsActive(state) ||
-    !wealdOrdinaryRoomEffectActive(state, "room:weald:p009", "clearing")
+    !wealdOrdinaryRoomEffectActive(state, "room:weald:09", "clearing")
   )
     return null;
   const battle = state.battle;

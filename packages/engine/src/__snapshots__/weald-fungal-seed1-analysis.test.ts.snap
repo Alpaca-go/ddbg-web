@@ -24,12 +24,12 @@ exports[`Fungal Research seed1：首处分歧为真实 Abyssal Puff，控制前�
       "id": "monster-deck:p036",
     },
   ],
-  "card": "room:weald:p008",
+  "card": "room:weald:08",
   "command": {
     "actorId": "hero-0",
     "face": "front",
     "skillId": "hero_skill:p004",
-    "targetId": "necrotic-fungus:room_tile:weald:p008:back:E:1",
+    "targetId": "necrotic-fungus:room_tile:weald:08:E:1",
     "type": "playHeroSkill",
   },
   "currentCursorEvents": [
@@ -44,7 +44,7 @@ exports[`Fungal Research seed1：首处分歧为真实 Abyssal Puff，控制前�
   ],
   "currentDeaths": [
     {
-      "card": "room:weald:p006",
+      "card": "room:weald:06",
       "command": "resolveChoice",
       "commandNumber": 240,
       "hero": "hero-1",
@@ -52,7 +52,7 @@ exports[`Fungal Research seed1：首处分歧为真实 Abyssal Puff，控制前�
       "round": 1,
     },
     {
-      "card": "room:weald:p006",
+      "card": "room:weald:06",
       "command": "playMonsterSkill",
       "commandNumber": 254,
       "hero": "hero-0",
@@ -60,7 +60,7 @@ exports[`Fungal Research seed1：首处分歧为真实 Abyssal Puff，控制前�
       "round": 1,
     },
     {
-      "card": "room:weald:p006",
+      "card": "room:weald:06",
       "command": "resolveChoice",
       "commandNumber": 284,
       "hero": "hero-3",
@@ -68,7 +68,7 @@ exports[`Fungal Research seed1：首处分歧为真实 Abyssal Puff，控制前�
       "round": 3,
     },
     {
-      "card": "room:weald:p006",
+      "card": "room:weald:06",
       "command": "resolveChoice",
       "commandNumber": 311,
       "hero": "hero-2",

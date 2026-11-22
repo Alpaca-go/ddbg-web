@@ -9,7 +9,7 @@ import { wealdOrdinaryRoomEffectActive, wealdStygianEffect } from "./weald-stygi
 function active(state: GameState): boolean {
   return (
     wealdMechanicsActive(state) &&
-    wealdOrdinaryRoomEffectActive(state, "room:weald:p008", "abyssalPuff")
+    wealdOrdinaryRoomEffectActive(state, "room:weald:08", "abyssalPuff")
   );
 }
 export function enableAbyssalPuff(state: GameState): GameState {

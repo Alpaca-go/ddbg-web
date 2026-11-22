@@ -19,7 +19,7 @@ describe("Weald 房间目录包隔离", () => {
     expect(catalog?.rooms).toHaveLength(9);
     expect(catalog?.tiles).toHaveLength(9);
     expect(catalog?.tiles.every((t) => t.usable === false)).toBe(true);
-    expect(findWealdRoomTile("room:weald:p007")?.geometryComplete).toBe(true);
+    expect(findWealdRoomTile("room:weald:07")?.geometryComplete).toBe(true);
     const one = WEALD_APPROVED_ROOM_TILES.find((t) => t.number === 1)!;
     expect(one.edges.filter((e) => !e.cornerOnly && !e.blocked)).toHaveLength(11);
   });

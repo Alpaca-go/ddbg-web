@@ -228,7 +228,7 @@ it("Stygian Weald 普通房替换与 II 级任务并存", () => {
     "tasks-v1",
   );
   const d = game.dungeon!;
-  const cardId = "room:weald:p001";
+  const cardId = "room:weald:01";
   const withActive = {
     ...d,
     roomCards: {
@@ -237,7 +237,7 @@ it("Stygian Weald 普通房替换与 II 级任务并存", () => {
       active: { roomId: "r1", cardId, blockedReason: "stygian-test" },
     },
   };
-  expect(readActiveWealdStygianRoom(withActive)?.id).toBe("stygian_room:weald:p001");
+  expect(readActiveWealdStygianRoom(withActive)?.id).toBe("stygian_room:weald:01");
 });
 
 it("正式战役 Stygian＋tasks-v1 起点与 standard 仅差模式与版本标记", () => {

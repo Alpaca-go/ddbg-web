@@ -64,7 +64,7 @@ function setup(): GameState {
       mode: "radiant",
       heroes: [],
       contentPacks: ["core", "weald"],
-      roomCards: { active: { roomId: "R1", cardId: "room:weald:p002" } },
+      roomCards: { active: { roomId: "R1", cardId: "room:weald:02" } },
     } as unknown as NonNullable<GameState["dungeon"]>,
   };
 }
@@ -139,7 +139,7 @@ describe("Ambush / Unprepared!（R-234）", () => {
             ? {
                 roomCards: {
                   ...d.roomCards!,
-                  active: { ...d.roomCards!.active!, cardId: "room:weald:p001" },
+                  active: { ...d.roomCards!.active!, cardId: "room:weald:01" },
                 },
               }
             : {}),

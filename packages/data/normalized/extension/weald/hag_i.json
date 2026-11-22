@@ -74,8 +74,8 @@
   "emptySkipsAction": true, "removeCauldronOnHagDefeat": true
  },
  "tile": {
-  "id": "room_tile:weald:p005:back", "rawId": "dungeon_tile:weald:p005",
-  "roomId": "room:weald:p010", "location": "weald", "number": 10, "name": "Hag",
+  "id": "room_tile:weald:10", "rawId": "dungeon_tile:weald:p005",
+  "roomId": "room:weald:10", "location": "weald", "number": 10, "name": "Hag",
   "source": {"file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_WEALD_TILES_BACK.pdf", "page": 5, "face": "back"},
   "ruling": "R-254", "geometryVerified": true, "geometryComplete": true, "usable": false,
   "pendingReview": [],

@@ -19,7 +19,7 @@ const verifiedEffectSchema = z.strictObject({
 
 export const wealdRoomCardSchema = z
   .strictObject({
-    id: z.string().regex(/^room:weald:p\d{3}$/),
+    id: z.string().regex(/^room:weald:\d{2}$/),
     name: z.string().min(1),
     copies: z.literal(1),
     location: z.literal("weald"),
@@ -35,9 +35,9 @@ export const wealdRoomCardSchema = z
     pendingReview: z.array(z.string()),
   })
   .superRefine((card, ctx) => {
-    const expected = `room:weald:p${String(card.source.page).padStart(3, "0")}`;
+    const expected = `room:weald:${String(card.number).padStart(2, "0")}`;
     if (card.id !== expected || card.number !== card.source.page)
-      ctx.addIssue({ code: "custom", message: "Weald 普通房间身份与印刷页不一致" });
+      ctx.addIssue({ code: "custom", message: "Weald 普通房间身份与房间号/印刷页不一致" });
   });
 
 export const wealdRoomFileSchema = z
@@ -100,11 +100,11 @@ const deploymentSchema = z.strictObject({
 /** 普通房间与独立 Boss 目录共用的几何结构及引用校验。 */
 export const wealdRoomTileBaseSchema = z
   .strictObject({
-    id: z.string().regex(/^room_tile:weald:p\d{3}:(?:front|back)$/),
+    id: z.string().regex(/^room_tile:weald:\d{2}$/),
     rawId: z.string().regex(/^dungeon_tile:weald:p\d{3}$/),
-    roomId: z.string().regex(/^room:weald:p\d{3}$/),
+    roomId: z.string().regex(/^room:weald:\d{2}$/),
     location: z.literal("weald"),
-    number: z.int().min(1).max(10),
+    number: z.int().min(1).max(12),
     name: z.string().min(1),
     source: z.strictObject({
       file: z.string().min(1),
@@ -161,6 +161,12 @@ export const wealdRoomTileBaseSchema = z
     unresolvedMarkers: z.array(z.never()),
   })
   .superRefine((tile, ctx) => {
+    const expectedRoomId = `room:weald:${String(tile.number).padStart(2, "0")}`;
+    if (
+      tile.roomId !== expectedRoomId ||
+      tile.id !== `room_tile:weald:${String(tile.number).padStart(2, "0")}`
+    )
+      ctx.addIssue({ code: "custom", message: "板块 ID / roomId 必须与 number 一致" });
     for (const region of tile.specialRegions) {
       if (
         region.runtimeReady &&
@@ -173,7 +179,7 @@ export const wealdRoomTileBaseSchema = z
       if (
         region.runtimeReady &&
         region.effect === "poisonousRoots" &&
-        (tile.roomId !== "room:weald:p005" || tile.number !== 5)
+        (tile.roomId !== "room:weald:05" || tile.number !== 5)
       )
         ctx.addIssue({
           code: "custom",
@@ -182,7 +188,7 @@ export const wealdRoomTileBaseSchema = z
     }
     if (
       tile.specialRegions.some((r) => r.runtimeReady && r.effect === "toxicMushrooms") &&
-      (tile.roomId !== "room:weald:p001" || tile.number !== 1)
+      (tile.roomId !== "room:weald:01" || tile.number !== 1)
     )
       ctx.addIssue({
         code: "custom",
@@ -190,7 +196,7 @@ export const wealdRoomTileBaseSchema = z
       });
     if (
       tile.specialRegions.some((r) => r.runtimeReady && r.effect === "precious") &&
-      (tile.roomId !== "room:weald:p004" || tile.number !== 4)
+      (tile.roomId !== "room:weald:04" || tile.number !== 4)
     )
       ctx.addIssue({ code: "custom", message: "Precious 仅 Stash 4 号板块可 runtimeReady" });
     const ids = new Set(tile.areas.map((a) => a.id));
@@ -254,7 +260,7 @@ export const wealdRoomTileGeometryFileSchema = z
     if (numbers.join(",") !== "1,2,3,4,5,6,7,8,9")
       ctx.addIssue({ code: "custom", message: "必须覆盖 1–9 号板块" });
     for (const tile of file.tiles)
-      if (tile.roomId !== `room:weald:p${String(tile.number).padStart(3, "0")}`)
+      if (tile.roomId !== `room:weald:${String(tile.number).padStart(2, "0")}`)
         ctx.addIssue({ code: "custom", message: "板块与房间编号不一致" });
   });
 

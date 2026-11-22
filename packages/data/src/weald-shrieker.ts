@@ -51,9 +51,9 @@ export const wealdShriekerCombatFaceSchema = z.strictObject({
 /** 独立 Boss 面，不放宽普通九房目录。 */
 export const wealdShriekerTileSchema = wealdRoomTileBaseSchema
   .safeExtend({
-    id: z.literal("room_tile:weald:p006:front"),
+    id: z.literal("room_tile:weald:11"),
     rawId: z.literal("dungeon_tile:weald:p006"),
-    roomId: z.literal("room:weald:p011"),
+    roomId: z.literal("room:weald:11"),
     number: z.literal(11),
     ruling: z.literal("R-261"),
     geometryVerified: z.literal(true),

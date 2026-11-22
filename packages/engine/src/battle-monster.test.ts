@@ -899,7 +899,7 @@ describe("Toxic Mushrooms 正式攻击版本（R-234／R-239）", () => {
         phase: "inBattle",
         heroes: [],
         contentPacks: ["core", "weald"],
-        roomCards: { active: { roomId: "R1", cardId: "room:weald:p001" } },
+        roomCards: { active: { roomId: "R1", cardId: "room:weald:01" } },
       } as unknown as NonNullable<GameState["dungeon"]>,
       battle: {
         ...base.battle!,

@@ -47,7 +47,7 @@ test("Fungal Research：三目标取得、带回 4 封顶 3 XP，保存刷新一
     const { useDungeonStore } = await import(/* @vite-ignore */ path);
     return useDungeonStore.getState().game.dungeon.fungalResearchSecuredRoomCardIds;
   });
-  expect([...secured].sort()).toEqual(["room:weald:p003", "room:weald:p006", "room:weald:p008"]);
+  expect([...secured].sort()).toEqual(["room:weald:03", "room:weald:06", "room:weald:08"]);
   await page.screenshot({
     path: testInfo.outputPath("fungal-three-objectives.png"),
     fullPage: true,

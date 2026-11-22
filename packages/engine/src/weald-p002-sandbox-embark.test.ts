@@ -38,7 +38,7 @@ const QUEST = "quest:weald:p002" as const;
 function atObjectiveRoom(game: GameState, seed: number): GameState {
   const d = game.dungeon!;
   const objectiveId = d.rooms.find((r) => r.kind === "objective")!.id;
-  const asideCard = WEALD_APPROVED_ROOM_CARDS.find((c) => c.id === "room:weald:p009")!;
+  const asideCard = WEALD_APPROVED_ROOM_CARDS.find((c) => c.id === "room:weald:09")!;
   const tile = selectWealdRoomTile(asideCard);
   if (tile.status !== "matched") throw new Error(tile.reason);
   return {
@@ -67,7 +67,7 @@ function atObjectiveRoom(game: GameState, seed: number): GameState {
 function atTreasureRoom(game: GameState, seed: number): GameState {
   const d = game.dungeon!;
   const lairId = d.rooms.find((r) => r.kind === "treasure")!.id;
-  const otherCard = WEALD_APPROVED_ROOM_CARDS.find((c) => c.id !== "room:weald:p009" && !c.boss)!;
+  const otherCard = WEALD_APPROVED_ROOM_CARDS.find((c) => c.id !== "room:weald:09" && !c.boss)!;
   const tile = selectWealdRoomTile(otherCard!);
   if (tile.status !== "matched") throw new Error(tile.reason);
   return {
@@ -118,7 +118,7 @@ describe("Circle of Witches 沙盒出征（R-244 / R-247）", () => {
       [...packs],
     );
     const d = game.dungeon!;
-    expect(d.setAsideRoomCardId).toBe("room:weald:p009");
+    expect(d.setAsideRoomCardId).toBe("room:weald:09");
     expect(d.questExceptionComponentAvailable).toBe(true);
     expect(d.questExceptionCroneKills).toBe(0);
     const expectedLayout = pickEmbarkQuestMapLayout(
@@ -130,7 +130,7 @@ describe("Circle of Witches 沙盒出征（R-244 / R-247）", () => {
     expect(d.layout.review).toBe("confirmed");
     expect(dungeonMonsterPoolThrough(d.monsterPool!, 1)).toHaveLength(45);
     expect(d.roomCards!.cards).toHaveLength(9);
-    expect((d.roomCards!.deck ?? []).includes("room:weald:p009")).toBe(false);
+    expect((d.roomCards!.deck ?? []).includes("room:weald:09")).toBe(false);
   });
 
   it("目标房开战：1 只 II Crone 先部署再补 I 级", () => {

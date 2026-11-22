@@ -42,7 +42,7 @@ export function preciousQuest() {
       const b = game.battle!,
         turn = b.encounter!.turn;
       if (
-        game.dungeon?.roomCards?.active?.cardId !== "room:weald:p004" ||
+        game.dungeon?.roomCards?.active?.cardId !== "room:weald:04" ||
         turn.type !== "hero" ||
         turn.mustMove
       )
@@ -72,7 +72,7 @@ export function preciousQuest() {
       if (game.dungeon?.roomCards?.active) rooms.add(game.dungeon.roomCards.active.cardId);
       if (
         command.type === "startBattle" &&
-        game.dungeon?.roomCards?.active?.cardId === "room:weald:p004"
+        game.dungeon?.roomCards?.active?.cardId === "room:weald:04"
       )
         beforeStart = previous;
       if (events.some((e) => e.type === "passiveTriggered" && e.trigger === "precious")) {

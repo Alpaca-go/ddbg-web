@@ -43,7 +43,9 @@ describe("Weald Stygian 九张房间卡（审阅入库、包隔离）", () => {
     }
     for (const c of built.cards)
       expect(c.printedLines).toEqual(
-        stygianRaw.cards.find((r) => r.id === c.id)!.faces.front.lines.map((l) => l.text),
+        stygianRaw.cards
+          .find((r) => r.faces.front.page === c.source.page)!
+          .faces.front.lines.map((l) => l.text),
       );
     const eight = built.cards.find((c) => c.number === 8)!;
     expect(eight.reviewedEffect).toMatchObject({ kind: "abyssalPuff", buffApplications: 2 });
@@ -53,9 +55,9 @@ describe("Weald Stygian 九张房间卡（审阅入库、包隔离）", () => {
       oursDebuffRemoved: true,
       oursBuffDuration: 3,
     });
-    const copy = readWealdStygianRoomReplacement(built, "room:weald:p001")!;
+    const copy = readWealdStygianRoomReplacement(built, "room:weald:01")!;
     copy.printedLines.length = 0;
-    expect(readWealdStygianRoomReplacement(built, "room:weald:p001")?.printedLines.length).toBe(
+    expect(readWealdStygianRoomReplacement(built, "room:weald:01")?.printedLines.length).toBe(
       stygianRaw.cards[0]!.faces.front.lines.length,
     );
   });

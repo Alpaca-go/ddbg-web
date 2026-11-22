@@ -58,7 +58,7 @@ function setup(): GameState {
     }),
     dungeon: {
       contentPacks: ["core", "weald"],
-      roomCards: { active: { roomId: "R1", cardId: "room:weald:p001" } },
+      roomCards: { active: { roomId: "R1", cardId: "room:weald:01" } },
     } as unknown as NonNullable<GameState["dungeon"]>,
   };
 }

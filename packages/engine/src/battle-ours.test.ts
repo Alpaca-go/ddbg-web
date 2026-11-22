@@ -64,7 +64,7 @@ function setup(kind: LootKind = "doubleGold", version = true): GameState {
       mode: "radiant",
       heroes: [],
       contentPacks: ["core", "weald"],
-      roomCards: { active: { roomId: "R1", cardId: "room:weald:p009" } },
+      roomCards: { active: { roomId: "R1", cardId: "room:weald:09" } },
     } as unknown as NonNullable<GameState["dungeon"]>,
   };
   const withLoot: GameState = {
