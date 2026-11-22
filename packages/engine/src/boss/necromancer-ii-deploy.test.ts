@@ -78,7 +78,7 @@ it("R-166 几何 / R-172 模式：Necromancer II 进攻 A、四英雄 G，部署
   expect(b.choiceCursor).toBe(d.decision);
   expect(r.state.dungeon!.heroes).toEqual(d.heroes);
   expect(r.state.dungeon!.gold).toBe(d.gold);
-  expect(r.state.dungeon!.roomCards!.active!.tileId).toBe("room_tile:p006:back");
+  expect(r.state.dungeon!.roomCards!.active!.tileId).toBe("room_tile:ruins:10");
   expect(r.state.dungeon!.activeBossThreatScriptId).toBe(NECROMANCER_II_SCRIPT_ID);
   expect(r).toEqual(applyCommand(JSON.parse(JSON.stringify(s)), command));
   expect(s).toEqual(before);

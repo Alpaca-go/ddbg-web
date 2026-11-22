@@ -2,7 +2,7 @@
  "schema": "ddbg-room-v1",
  "cards": [
   {
-   "id": "room:p001",
+   "id": "room:ruins:01",
    "name": "Ritual Chamber",
    "copies": 1,
    "location": "ruins",
@@ -39,7 +39,7 @@
    }
   },
   {
-   "id": "room:p002",
+   "id": "room:ruins:02",
    "name": "Torture Chamber",
    "copies": 1,
    "location": "ruins",
@@ -72,7 +72,7 @@
    }
   },
   {
-   "id": "room:p003",
+   "id": "room:ruins:03",
    "name": "Healing Fountain",
    "copies": 1,
    "location": "ruins",
@@ -106,7 +106,7 @@
    }
   },
   {
-   "id": "room:p004",
+   "id": "room:ruins:04",
    "name": "Spiked Pit",
    "copies": 1,
    "location": "ruins",
@@ -149,7 +149,7 @@
    }
   },
   {
-   "id": "room:p005",
+   "id": "room:ruins:05",
    "name": "Beacon of Light",
    "copies": 1,
    "location": "ruins",
@@ -186,7 +186,7 @@
    }
   },
   {
-   "id": "room:p006",
+   "id": "room:ruins:06",
    "name": "Treasure Chamber",
    "copies": 1,
    "location": "ruins",
@@ -223,7 +223,7 @@
    }
   },
   {
-   "id": "room:p007",
+   "id": "room:ruins:07",
    "name": "Tomb of Ancestor",
    "copies": 1,
    "location": "ruins",
@@ -259,7 +259,7 @@
    }
   },
   {
-   "id": "room:p008",
+   "id": "room:ruins:08",
    "name": "Invocation Chamber",
    "copies": 1,
    "location": "ruins",
@@ -299,7 +299,7 @@
    }
   },
   {
-   "id": "room:p009",
+   "id": "room:ruins:09",
    "name": "Old Abbey",
    "copies": 1,
    "location": "ruins",
@@ -336,7 +336,7 @@
    }
   },
   {
-   "id": "room:p010",
+   "id": "room:ruins:10",
    "name": "Necromancer Room",
    "copies": 1,
    "location": "ruins",
@@ -363,7 +363,7 @@
    }
   },
   {
-   "id": "room:p011",
+   "id": "room:ruins:11",
    "name": "Prophet Room",
    "copies": 1,
    "location": "ruins",
@@ -401,7 +401,7 @@
    }
   },
   {
-   "id": "room:p012",
+   "id": "room:ruins:12",
    "name": "Collector Room",
    "copies": 1,
    "location": "ruins",
@@ -433,7 +433,7 @@
    }
   },
   {
-   "id": "room:p013",
+   "id": "room:ruins:13",
    "name": "Fanatic Room",
    "copies": 1,
    "location": "ruins",
@@ -463,7 +463,7 @@
    }
   },
   {
-   "id": "room:p014",
+   "id": "room:darkest:01",
    "name": "Pool of Rebirth",
    "copies": 1,
    "location": "darkestDungeon",
@@ -504,7 +504,7 @@
    }
   },
   {
-   "id": "room:p015",
+   "id": "room:darkest:02",
    "name": "Hall of Ascension",
    "copies": 1,
    "location": "darkestDungeon",
@@ -544,7 +544,7 @@
    }
   },
   {
-   "id": "room:p016",
+   "id": "room:darkest:03",
    "name": "Eldritch Vault",
    "copies": 1,
    "location": "darkestDungeon",
@@ -581,7 +581,7 @@
    }
   },
   {
-   "id": "room:p017",
+   "id": "room:darkest:04",
    "name": "Toxic Chamber",
    "copies": 1,
    "location": "darkestDungeon",
@@ -616,7 +616,7 @@
    }
   },
   {
-   "id": "room:p018",
+   "id": "room:darkest:05",
    "name": "Eldritch Power Chamber",
    "copies": 1,
    "location": "darkestDungeon",
@@ -650,7 +650,7 @@
    }
   },
   {
-   "id": "room:p019",
+   "id": "room:darkest:06",
    "name": "Teleporters",
    "copies": 1,
    "location": "darkestDungeon",
@@ -688,7 +688,7 @@
    }
   },
   {
-   "id": "room:p020",
+   "id": "room:darkest:07",
    "name": "Evil Eye",
    "copies": 1,
    "location": "darkestDungeon",
@@ -724,7 +724,7 @@
    }
   },
   {
-   "id": "room:p021",
+   "id": "room:darkest:08",
    "name": "Temple of the Chosen",
    "copies": 1,
    "location": "darkestDungeon",
@@ -759,7 +759,7 @@
    }
   },
   {
-   "id": "room:p022",
+   "id": "room:darkest:09",
    "name": "Templars Room",
    "copies": 1,
    "location": "darkestDungeon",
@@ -799,7 +799,7 @@
    }
   },
   {
-   "id": "room:p023",
+   "id": "room:darkest:10",
    "name": "Shuffling Horror Room",
    "copies": 1,
    "location": "darkestDungeon",
@@ -829,7 +829,7 @@
    }
   },
   {
-   "id": "room:p024",
+   "id": "room:darkest:11",
    "name": "Mammoth Cyst Room",
    "copies": 1,
    "location": "darkestDungeon",
@@ -867,7 +867,7 @@
    }
   },
   {
-   "id": "room:p025",
+   "id": "room:darkest:12",
    "name": "Ancestor Room",
    "copies": 1,
    "location": "darkestDungeon",

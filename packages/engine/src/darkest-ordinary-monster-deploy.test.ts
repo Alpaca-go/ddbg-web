@@ -45,8 +45,8 @@ describe("最暗普通房 26 牌堆部署", () => {
     const battlePrep = preparedOrdinary(game);
     const d0 = game.dungeon!;
     expect(battlePrep.state.dungeon!.roomCards!.active).toMatchObject({
-      cardId: "room:p020",
-      tileId: "room_tile:p012",
+      cardId: "room:darkest:07",
+      tileId: "room_tile:darkest:07",
     });
     expect(battlePrep.state.dungeon!.cursor).toBe(d0.cursor);
     const deployed = ok(battlePrep.state, { type: "prepareDungeonMonsters" });

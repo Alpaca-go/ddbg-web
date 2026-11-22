@@ -46,7 +46,6 @@ export function buildStygianRooms(raw: RawFile, standardRaw: RawFile) {
         )
           throw new Error(`Stygian 房间核准效果的来源文字漂移（R-227～R-229）：${card.id}`);
         return {
-          id: card.id,
           name: titles[0]!.replace(/^\d+—/, "").trim(),
           copies: 1,
           ...identity,

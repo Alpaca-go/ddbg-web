@@ -85,7 +85,7 @@ it("R-178：真实九区部署、Fanatic 进攻 B、无额外 RNG、显式 start
     0,
   );
   expect(applyCommand(deployed, deploy).state).toBe(deployed);
-  expect(deployed.dungeon!.roomCards!.active!.tileId).toBe("room_tile:p007:front");
+  expect(deployed.dungeon!.roomCards!.active!.tileId).toBe("room_tile:ruins:13");
 
   const started = apply(deployed, start);
   const pyre = started.battle!.entities.find((e) => e.id === "boss:fanatic:pyre")!;
@@ -111,7 +111,7 @@ it("拒绝等级、威胁、目标房和出征战斗卡错配", () => {
     { ...d, imminentThreatDescriptionCardId: "boss_ability:p007" },
     {
       ...d,
-      roomCards: { ...d.roomCards!, active: { ...d.roomCards!.active!, cardId: "room:p012" } },
+      roomCards: { ...d.roomCards!, active: { ...d.roomCards!.active!, cardId: "room:ruins:12" } },
     },
     {
       ...d,

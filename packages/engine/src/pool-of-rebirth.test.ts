@@ -125,7 +125,7 @@ it.each([false, true])("Stygian 重生池先承压，心脏病死亡 %s（R-227�
     coreParty,
     coreQuestSources,
   );
-  const active = { roomId: dungeon!.position, cardId: "room:p014", blockedReason: "" };
+  const active = { roomId: dungeon!.position, cardId: "room:darkest:01", blockedReason: "" };
   const d = { ...dungeon!, roomCards: { ...dungeon!.roomCards!, active } };
   const state = setup({
     quirkIds: [q("Off Guard"), q("Anemic")],

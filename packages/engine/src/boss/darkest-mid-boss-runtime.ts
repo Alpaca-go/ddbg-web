@@ -16,9 +16,9 @@ import { resolveBossScriptIdForQuest } from "./quest-bridge";
 import type { BossScriptId } from "./types";
 
 const ROOM_NAMES: Record<string, string> = {
-  "room:p023": "Shuffling Horror Room",
-  "room:p022": "Templars Room",
-  "room:p024": "Mammoth Cyst Room",
+  "room:darkest:10": "Shuffling Horror Room",
+  "room:darkest:09": "Templars Room",
+  "room:darkest:11": "Mammoth Cyst Room",
 };
 
 const PLACEHOLDER_AREAS: Readonly<Record<SkillStance, string>> = {

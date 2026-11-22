@@ -40,7 +40,7 @@ export function createTabletopInitialState(): TabletopState {
       roomsCleared: 2,
       roomTotal: 8,
       layoutId: "quest_map:p001",
-      currentRoomCardId: "room:p006",
+      currentRoomCardId: "room:ruins:06",
     },
     battle: {
       light: 4,

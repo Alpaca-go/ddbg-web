@@ -45,10 +45,10 @@ function room(
 }
 
 for (const [family, cardId, name] of [
-  ["necromancer", "room:p010", "Necromancer"],
-  ["prophet", "room:p011", "Prophet"],
-  ["collector", "room:p012", "Collector"],
-  ["fanatic", "room:p013", "Fanatic"],
+  ["necromancer", "room:ruins:10", "Necromancer"],
+  ["prophet", "room:ruins:11", "Prophet"],
+  ["collector", "room:ruins:12", "Collector"],
+  ["fanatic", "room:ruins:13", "Fanatic"],
 ] as const) {
   it.each([1, 2, 3] as const)(`Stygian ${name} %i 目标房显示部署入口`, (level) => {
     const dungeon = room(family, cardId, level);
@@ -65,7 +65,7 @@ for (const [family, cardId, name] of [
 }
 
 it("Stygian 仍保留房间、等级、威胁与待选守卫", () => {
-  const dungeon = room("necromancer", "room:p010", 1);
+  const dungeon = room("necromancer", "room:ruins:10", 1);
   const { faceTheThreatEmbarkPlan, ...withoutPlan } = dungeon;
   void faceTheThreatEmbarkPlan;
   const blocked: DungeonState[] = [
@@ -87,7 +87,7 @@ it("Stygian 仍保留房间、等级、威胁与待选守卫", () => {
 
 it("Hag I 页面入口要求新地点来源、已选 Weald；Stygian 与标准相同显示", () => {
   const d: DungeonState = {
-    ...room("fanatic", "room:p013", 1),
+    ...room("fanatic", "room:ruins:13", 1),
     mode: "standard",
     contentPacks: ["core", "weald"],
     bossLocationSources: true,
@@ -112,7 +112,7 @@ it("Hag I 页面入口要求新地点来源、已选 Weald；Stygian 与标准�
 
 it("Pounder I 部署入口要求三段版本与 Weald 来源；Stygian 在版本齐全时显示", () => {
   const d: DungeonState = {
-    ...room("fanatic", "room:p013", 1),
+    ...room("fanatic", "room:ruins:13", 1),
     mode: "standard",
     contentPacks: ["core", "weald"],
     bossLocationSources: true,

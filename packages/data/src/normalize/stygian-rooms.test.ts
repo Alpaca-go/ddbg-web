@@ -37,12 +37,16 @@ it("17张可再生，只替换九张遗迹/八张最暗非Boss房，保留正文
   }
   for (const c of built.cards)
     expect(c.printedLines).toEqual(
-      raw.cards.find((r) => r.id === c.id)!.faces.front.lines.map((l) => l.text),
+      raw.cards
+        .find((r) => r.faces.front.page === c.source.page)!
+        .faces.front.lines.map((l) => l.text),
     );
   expect(new Set(built.cards.map((card) => card.reviewedEffect.kind)).size).toBe(17);
-  const copy = readStygianRoomReplacement(built, "room:p001")!;
+  const copy = readStygianRoomReplacement(built, "room:ruins:01")!;
   copy.printedLines.length = 0;
-  expect(readStygianRoomReplacement(built, "room:p001")?.printedLines.length).toBeGreaterThan(0);
+  expect(readStygianRoomReplacement(built, "room:ruins:01")?.printedLines.length).toBeGreaterThan(
+    0,
+  );
 });
 
 it("拒绝缺卡、重复、错来源/双面页码/标题及错替换目标", () => {
@@ -62,7 +66,7 @@ it("拒绝缺卡、重复、错来源/双面页码/标题及错替换目标", ()
   pool.text = pool.text.replace("+2", "+1");
   expect(() => buildStygianRooms(printed, standard)).toThrow(/R-227/);
   const changed = structuredClone(built);
-  changed.cards[9]!.replacesCardId = "room:p010";
+  changed.cards[9]!.replacesCardId = "room:ruins:10";
   expect(stygianRoomsSchema.safeParse(changed).success).toBe(false);
   expect(
     stygianRoomsSchema.safeParse({ ...built, cards: [...built.cards, built.cards[0]] }).success,

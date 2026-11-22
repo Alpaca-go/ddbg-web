@@ -55,7 +55,7 @@ it("R-168：八区与三独立宝箱可确定性生成，保持Boss准入关闭"
   expect(tile.specialRegions).toEqual([]);
   expect(
     selectRoomTile(
-      rooms.cards.find((c) => c.id === "room:p012"),
+      rooms.cards.find((c) => c.id === "room:ruins:12"),
       geometry,
     ),
   ).toMatchObject({

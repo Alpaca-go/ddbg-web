@@ -43,11 +43,11 @@ const end = (s: GameState) => {
 it("R-160/170：生产选择与区域投影、存档命令", () => {
   expect(
     selectRoomTile(
-      rooms.cards.find((c) => c.id === "room:p020"),
+      rooms.cards.find((c) => c.id === "room:darkest:07"),
       catalog,
     ).status,
   ).toBe("matched");
-  expect(readRoomTile(rooms.cards.find((c) => c.id === "room:p020")).status).toBe("matched");
+  expect(readRoomTile(rooms.cards.find((c) => c.id === "room:darkest:07")).status).toBe("matched");
   expect(
     roomTileBattleAreas(tile)
       .filter((a) => a.staringEyes)

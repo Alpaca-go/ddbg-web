@@ -34,9 +34,9 @@ const placements = z.strictObject({
   support: z.string(),
 });
 const tileShape = z.strictObject({
-  id: z.literal("room_tile:p010"),
+  id: z.literal("room_tile:darkest:03"),
   rawId: z.literal("dungeon_tile:p010"),
-  roomId: z.literal("room:p016"),
+  roomId: z.literal("room:darkest:03"),
   location: z.literal("darkestDungeon"),
   number: z.literal(3),
   name: z.literal("Eldritch Vault"),
@@ -49,7 +49,7 @@ const tileShape = z.strictObject({
   geometryVerified: z.literal(true),
   usable: z.literal(true),
   effectSource: z.strictObject({
-    roomId: z.literal("room:p016"),
+    roomId: z.literal("room:darkest:03"),
     file: z.literal(ROOM_FRONT),
     page: z.literal(16),
     ruling: z.literal("R-156"),
@@ -104,9 +104,9 @@ const tileShape = z.strictObject({
 
 // R-156：几何与 Eldritch Vault 饰品交互均已接通，可参战。
 export const approvedEldritchVault = tileShape.parse({
-  id: "room_tile:p010",
+  id: "room_tile:darkest:03",
   rawId: "dungeon_tile:p010",
-  roomId: "room:p016",
+  roomId: "room:darkest:03",
   location: "darkestDungeon",
   number: 3,
   name: "Eldritch Vault",
@@ -119,7 +119,7 @@ export const approvedEldritchVault = tileShape.parse({
   geometryVerified: true,
   usable: true,
   effectSource: {
-    roomId: "room:p016",
+    roomId: "room:darkest:03",
     file: "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
     page: 16,
     ruling: "R-156",

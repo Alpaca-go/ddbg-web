@@ -19,6 +19,6 @@ describe("selectWealdRoomTile", () => {
   });
 
   it("核心房间身份不被接受", () => {
-    expect(selectWealdRoomTile({ id: "room:p001", location: "ruins" }).status).toBe("refused");
+    expect(selectWealdRoomTile({ id: "room:ruins:01", location: "ruins" }).status).toBe("refused");
   });
 });

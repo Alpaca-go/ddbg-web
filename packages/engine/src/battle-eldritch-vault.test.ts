@@ -92,11 +92,11 @@ it("R-156：Eldritch Vault 参战闸门与 E 区投影", () => {
   expect(tile.usable).toBe(true);
   expect(
     selectRoomTile(
-      rooms.cards.find((c) => c.id === "room:p016"),
+      rooms.cards.find((c) => c.id === "room:darkest:03"),
       catalog,
     ).status,
   ).toBe("matched");
-  expect(readRoomTile(rooms.cards.find((c) => c.id === "room:p016")).status).toBe("matched");
+  expect(readRoomTile(rooms.cards.find((c) => c.id === "room:darkest:03")).status).toBe("matched");
   const areas = roomTileBattleAreas(tile);
   expect(areas.filter((a) => a.eldritchVaultTrinkets).map((a) => a.id)).toEqual(["E"]);
 });

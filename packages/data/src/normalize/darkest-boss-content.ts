@@ -47,7 +47,7 @@ export function buildDarkestBossContent(
   const encounters = [
     {
       questId: "quest:p016",
-      roomCardId: "room:p023",
+      roomCardId: "room:darkest:10",
       actors: [actor("monster_large:p017", 33, "Shuffling Horror", "aggressive", 2, 2)],
       supportCardIds: ["monster_medium:p072", "monster_medium:p075"],
       supportAbilityCardIds: [],
@@ -56,7 +56,7 @@ export function buildDarkestBossContent(
     },
     {
       questId: "quest:p017",
-      roomCardId: "room:p022",
+      roomCardId: "room:darkest:09",
       actors: [
         actor("monster_large:p015", 28, "Templar Impaler", "aggressive", 2, 2),
         actor("monster_large:p014", 26, "Templar Warlord", "ranged", 2, 2),
@@ -68,7 +68,7 @@ export function buildDarkestBossContent(
     },
     {
       questId: "quest:p018",
-      roomCardId: "room:p024",
+      roomCardId: "room:darkest:11",
       actors: [actor("monster_large:p016", 30, "Mammoth Cyst", "aggressive", 2, 2)],
       supportCardIds: ["monster_medium:p104"],
       supportAbilityCardIds: [
@@ -107,7 +107,7 @@ export function buildDarkestBossContent(
     },
     encounters,
     finalBattle: {
-      roomCardId: "room:p025",
+      roomCardId: "room:darkest:12",
       preparationDays: 4,
       drawHamletEvent: false,
       exploration: false,

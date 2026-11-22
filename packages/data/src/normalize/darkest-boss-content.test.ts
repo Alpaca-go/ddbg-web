@@ -36,7 +36,7 @@ it("p16取消二形态、p17取消一形态、p18取消孕育之心；最终形�
       drawHamletEvent: false,
       exploration: false,
       rollProvisions: true,
-      roomCardId: "room:p025",
+      roomCardId: "room:darkest:12",
     });
   }
   expect(() => finalBattlePlanForQuest(file, "quest:p019")).toThrow();

@@ -152,7 +152,7 @@ describe("Prophet I · Calamitous Prognostication 战斗最小运行时", () => 
     ensureProphetIBossScriptRegistered();
   });
 
-  it("d10 标记匹配 room:p011 印刷范围", () => {
+  it("d10 标记匹配 room:ruins:11 印刷范围", () => {
     expect(prophetD10RollMatchesMarker(1, "1-2")).toBe(true);
     expect(prophetD10RollMatchesMarker(2, "1-2")).toBe(true);
     expect(prophetD10RollMatchesMarker(8, "7-8")).toBe(true);
@@ -400,10 +400,10 @@ describe("C-013 · Prophet Room d10 绑定与正式几何停点", () => {
     };
   }
 
-  it("八个绑定键与 room:p011 的已确认印刷标记一致，覆盖全部十面", () => {
+  it("八个绑定键与 room:ruins:11 的已确认印刷标记一致，覆盖全部十面", () => {
     const room = JSON.parse(
       readFileSync(new URL("../../../data/normalized/corebox/room.json", import.meta.url), "utf8"),
-    ).cards.find((c: { id: string }) => c.id === "room:p011");
+    ).cards.find((c: { id: string }) => c.id === "room:ruins:11");
     const printed = room.printedLines.flatMap((line: string) => {
       const marker = /^\{icon:096ea91bb9\} (.+)$/.exec(line);
       return marker ? [marker[1]] : [];
@@ -452,7 +452,7 @@ describe("C-013 · Prophet Room d10 绑定与正式几何停点", () => {
       dungeon: {
         ...initial.dungeon!,
         roomCards: {
-          active: { cardId: "room:p012" },
+          active: { cardId: "room:ruins:12" },
         } as unknown as NonNullable<NonNullable<GameState["dungeon"]>["roomCards"]>,
       },
     };

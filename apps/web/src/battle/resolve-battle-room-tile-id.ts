@@ -1,8 +1,8 @@
 import type { GameState } from "@ddbg/engine";
 import roomTileGeometry from "../../../../packages/data/normalized/corebox/room_tile_geometry.json";
 
-/** Matches battle-data-plugin sandbox (Ritual Chamber / room_tile:p001). */
-const SANDBOX_DEFAULT_TILE_ID = "room_tile:p001";
+/** Matches battle-data-plugin sandbox (Ritual Chamber / room_tile:ruins:01). */
+const SANDBOX_DEFAULT_TILE_ID = "room_tile:ruins:01";
 const SANDBOX_DEFAULT_TILE_NAME = "Ritual Chamber";
 
 type GeometryTile = { readonly id: string; readonly name: string };

@@ -69,7 +69,7 @@ it("R-135/166/172：Necromancer III 进攻 A、四英雄 G，部署不掷骰/洗
   ]);
   expect(b.entities).toHaveLength(5);
   expect(b.encounter).toBeUndefined();
-  expect(r.state.dungeon!.roomCards!.active!.tileId).toBe("room_tile:p006:back");
+  expect(r.state.dungeon!.roomCards!.active!.tileId).toBe("room_tile:ruins:10");
   expect(r.state.dungeon!.activeBossThreatScriptId).toBe(NECROMANCER_III_SCRIPT_ID);
   expect(r).toEqual(applyCommand(JSON.parse(JSON.stringify(s)), command));
   expect(s).toEqual(before);

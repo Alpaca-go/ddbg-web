@@ -70,8 +70,8 @@ describe("R-193 Templars Spikes & Pit Toss", () => {
     expect(templarsPitTossTargetArea(10)).toBe("N");
   });
 
-  it("room_tile:p013:front 投影 B/E/H/K/N 为 templarsSpikes", () => {
-    const raw = geometry.tiles.find((t) => t.id === "room_tile:p013:front");
+  it("room_tile:darkest:09 投影 B/E/H/K/N 为 templarsSpikes", () => {
+    const raw = geometry.tiles.find((t) => t.id === "room_tile:darkest:09");
     const tile = templarsRoomSchema.parse(raw);
     const areas = roomTileBattleAreas(tile);
     for (const id of ["B", "E", "H", "K", "N"] as const) {

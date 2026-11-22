@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { roomFileSchema } from "./room";
+import { roomFileSchema, roomIdentity } from "./room";
 
 export const STYGIAN_ROOM_FRONT =
   "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_Stygian_FRONT.pdf";
@@ -9,10 +9,13 @@ export const STYGIAN_ROOM_BACK =
 /** R-036：九张遗迹、八张最暗非Boss房间；不推断印刷几何。 */
 export function stygianRoomIdentity(page: number) {
   if (!Number.isInteger(page) || page < 1 || page > 17) throw new Error("Stygian房间页码无效");
+  const roomPage = page <= 9 ? page : page + 4;
+  const room = roomIdentity(roomPage);
   return {
-    location: page <= 9 ? ("ruins" as const) : ("darkestDungeon" as const),
+    location: room.location,
     number: page <= 9 ? page : page - 9,
-    replacesCardId: `room:p${String(page <= 9 ? page : page + 4).padStart(3, "0")}`,
+    id: `stygian_room:${room.id.slice("room:".length)}`,
+    replacesCardId: room.id,
   };
 }
 
@@ -122,7 +125,7 @@ export const stygianRoomsSchema = z
         identity = stygianRoomIdentity(page);
       const expectedEffect = stygianReviewedEffects[page]?.kind;
       if (
-        c.id !== `stygian_room:p${String(page).padStart(3, "0")}` ||
+        c.id !== identity.id ||
         c.source.page !== page ||
         c.location !== identity.location ||
         c.number !== identity.number ||

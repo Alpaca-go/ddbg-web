@@ -13,7 +13,7 @@ const soldier = (read("monster_medium").cards as MonsterCardView[]).find(
 )!;
 const tile = read("room_tile_geometry").tiles[0];
 const spiked = read("room_tile_geometry").tiles.find(
-  (entry: { id: string }) => entry.id === "room_tile:p003:back",
+  (entry: { id: string }) => entry.id === "room_tile:ruins:04",
 );
 const stances: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 const move = { type: "moveMonsterToRange", actorId: "m" } as const;

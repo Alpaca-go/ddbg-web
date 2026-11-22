@@ -165,7 +165,7 @@ export function roomTileBattleAreas(tile: {
     )
       ? { spikedPit: true as const }
       : {}),
-    ...((tile.usable === true || tile.id === "room_tile:p013:front") &&
+    ...((tile.usable === true || tile.id === "room_tile:darkest:09") &&
     tile.specialRegions?.some(
       (region) =>
         region.areaId === area.id &&

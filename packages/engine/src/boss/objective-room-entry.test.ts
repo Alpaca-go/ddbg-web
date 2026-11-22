@@ -37,10 +37,10 @@ const command = { type: "prepareDungeonBattle" } as const;
 
 it("四 Boss I–III 按实际威胁绑定专属房间；不抽普通牌、不消费 RNG、不生成怪物或奖励", () => {
   const ids = {
-    necromancer: "room:p010",
-    prophet: "room:p011",
-    collector: "room:p012",
-    fanatic: "room:p013",
+    necromancer: "room:ruins:10",
+    prophet: "room:ruins:11",
+    collector: "room:ruins:12",
+    fanatic: "room:ruins:13",
   };
   for (const family of Object.keys(ids) as (keyof typeof ids)[]) {
     for (const level of [1, 2, 3]) {
@@ -121,7 +121,7 @@ it("错级威胁、篡改计划/房间身份与缺目录均原子拒绝", () => 
         roomCards: {
           ...d.roomCards!,
           cards: d.roomCards!.cards.map((c) =>
-            c.id === "room:p012" ? { ...c, name: "Necromancer Room" } : c,
+            c.id === "room:ruins:12" ? { ...c, name: "Necromancer Room" } : c,
           ),
         },
       },

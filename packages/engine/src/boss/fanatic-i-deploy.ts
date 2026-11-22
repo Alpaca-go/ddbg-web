@@ -57,7 +57,7 @@ function deployFanatic(state: GameState, level: 1 | 2 | 3): ApplyResult {
     plan.resolvedScriptId !== scriptId ||
     plan.roomPlacement !== "edgeRoomsR30" ||
     active?.roomId !== d.position ||
-    active.cardId !== "room:p013" ||
+    active.cardId !== "room:ruins:13" ||
     active.tileId !== undefined ||
     !d.battleCatalog ||
     !d.explorationSetup ||

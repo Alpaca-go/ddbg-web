@@ -151,7 +151,7 @@ export function startDungeonBattle(state: GameState): ApplyResult {
     if (
       selected.status === "matched" &&
       d.darkest.ordinaryDeployment &&
-      (selected.tile.roomId === "room:p014" || readActiveStygianRoom(d))
+      (selected.tile.roomId === "room:darkest:01" || readActiveStygianRoom(d))
     )
       return deployDarkestOrdinaryEncounter(state);
     const darkestHold = darkestOrdinaryDeploymentHold(d) ?? darkestMidBossDeploymentHold(d);

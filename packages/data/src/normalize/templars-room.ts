@@ -43,9 +43,9 @@ const placements = z.strictObject({
   support: z.string(),
 });
 const tileShape = z.strictObject({
-  id: z.literal("room_tile:p013:front"),
+  id: z.literal("room_tile:darkest:09"),
   rawId: z.literal("dungeon_tile:p013"),
-  roomId: z.literal("room:p022"),
+  roomId: z.literal("room:darkest:09"),
   location: z.literal("darkestDungeon"),
   number: z.literal(9),
   name: z.literal("Templars Room"),
@@ -58,7 +58,7 @@ const tileShape = z.strictObject({
   geometryVerified: z.literal(true),
   usable: z.literal(false),
   effectSource: z.strictObject({
-    roomId: z.literal("room:p022"),
+    roomId: z.literal("room:darkest:09"),
     file: z.literal(ROOM_FRONT),
     page: z.literal(22),
     ruling: z.literal("R-162"),
@@ -114,9 +114,9 @@ const tileShape = z.strictObject({
 
 // R-162：几何及卡文来源获批；尖刺运行时见 R-193。
 export const approvedTemplarsRoom = tileShape.parse({
-  id: "room_tile:p013:front",
+  id: "room_tile:darkest:09",
   rawId: "dungeon_tile:p013",
-  roomId: "room:p022",
+  roomId: "room:darkest:09",
   location: "darkestDungeon",
   number: 9,
   name: "Templars Room",
@@ -129,7 +129,7 @@ export const approvedTemplarsRoom = tileShape.parse({
   geometryVerified: true,
   usable: false,
   effectSource: {
-    roomId: "room:p022",
+    roomId: "room:darkest:09",
     file: "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
     page: 22,
     ruling: "R-162",

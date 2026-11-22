@@ -77,7 +77,7 @@ it("运行时开放橙星效果交互；容量、部署、边和来源漂移拒�
   });
   expect(
     selectRoomTile(
-      rooms.cards.find((c) => c.id === "room:p021"),
+      rooms.cards.find((c) => c.id === "room:darkest:08"),
       geometry,
     ),
   ).toMatchObject({ status: "matched" });

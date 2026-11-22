@@ -366,7 +366,7 @@ it("完整九房间池自然抽到Fountain后可正式部署入场；独立高�
   let seed = 1;
   for (; seed <= 400; seed++) {
     const candidate = deploy(seed);
-    if (candidate.dungeon!.roomCards!.active?.cardId !== "room:p003") continue;
+    if (candidate.dungeon!.roomCards!.active?.cardId !== "room:ruins:03") continue;
     const result = applyCommand(candidate, { type: "startDungeonBattle" });
     if (result.state.battle) {
       entered = result.state;
@@ -499,8 +499,8 @@ it("房间 / 板块身份漂移或活动地图房间过期时不进入战斗、�
     d = original.dungeon!,
     pool = d.roomCards!;
   for (const active of [
-    { ...pool.active!, cardId: "room:p002" },
-    { ...pool.active!, tileId: "room_tile:p002:back" },
+    { ...pool.active!, cardId: "room:ruins:02" },
+    { ...pool.active!, tileId: "room_tile:ruins:02" },
     { ...pool.active!, roomId: "G" },
   ]) {
     const state = { ...original, dungeon: { ...d, roomCards: { ...pool, active } } };
@@ -1003,7 +1003,7 @@ it("胜利一次回传20金币与有限牌堆；同种子同命令回放，英�
   expect(a.battle).toBeUndefined();
   expect(a.dungeon!.gold).toBe(20);
   expect(a.dungeon!.rooms.find((r) => r.id === "D")!.cleared).toBe(true);
-  expect(a.dungeon!.roomCards!.discard).toEqual(["room:p001"]);
+  expect(a.dungeon!.roomCards!.discard).toEqual(["room:ruins:01"]);
   expect(a.dungeon!.monsterPool!.remaining).toHaveLength(42);
   expect(new Set(a.dungeon!.monsterPool!.remaining).size).toBe(42);
   expect(a.dungeon!.cursor).toBe(s.battle!.rngCursor + 41);
@@ -1209,7 +1209,10 @@ it("入场前拒绝缺英雄属性、错误装备、非配套房间与损坏牌�
       ...s,
       dungeon: {
         ...d,
-        roomCards: { ...d.roomCards!, active: { ...d.roomCards!.active!, cardId: "room:p002" } },
+        roomCards: {
+          ...d.roomCards!,
+          active: { ...d.roomCards!.active!, cardId: "room:ruins:02" },
+        },
       },
     },
   ];
@@ -1309,7 +1312,7 @@ it.each(["standard", "stygian"] as const)(
     let entered: ReturnType<typeof applyCommand> | undefined;
     for (let seed = 1; seed <= 100; seed++) {
       const s = deploy(seed);
-      if (s.dungeon!.roomCards!.active!.cardId !== "room:p002") continue;
+      if (s.dungeon!.roomCards!.active!.cardId !== "room:ruins:02") continue;
       const result = applyCommand(
         {
           ...s,

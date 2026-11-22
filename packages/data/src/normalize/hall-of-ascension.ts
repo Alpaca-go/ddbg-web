@@ -33,9 +33,9 @@ const placements = z.strictObject({
   support: z.string(),
 });
 const tileShape = z.strictObject({
-  id: z.literal("room_tile:p009:back"),
+  id: z.literal("room_tile:darkest:02"),
   rawId: z.literal("dungeon_tile:p009"),
-  roomId: z.literal("room:p015"),
+  roomId: z.literal("room:darkest:02"),
   location: z.literal("darkestDungeon"),
   number: z.literal(2),
   name: z.literal("Hall of Ascension"),
@@ -48,7 +48,7 @@ const tileShape = z.strictObject({
   geometryVerified: z.literal(true),
   usable: z.literal(true),
   effectSource: z.strictObject({
-    roomId: z.literal("room:p015"),
+    roomId: z.literal("room:darkest:02"),
     file: z.literal(ROOM_FRONT),
     page: z.literal(15),
     ruling: z.literal("R-153"),
@@ -103,9 +103,9 @@ const tileShape = z.strictObject({
 
 // R-153–155：几何、费用、重复使用与新增空槽已接通。
 export const approvedHallOfAscension = tileShape.parse({
-  id: "room_tile:p009:back",
+  id: "room_tile:darkest:02",
   rawId: "dungeon_tile:p009",
-  roomId: "room:p015",
+  roomId: "room:darkest:02",
   location: "darkestDungeon",
   number: 2,
   name: "Hall of Ascension",
@@ -118,7 +118,7 @@ export const approvedHallOfAscension = tileShape.parse({
   geometryVerified: true,
   usable: true,
   effectSource: {
-    roomId: "room:p015",
+    roomId: "room:darkest:02",
     file: "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
     page: 15,
     ruling: "R-153",

@@ -59,7 +59,7 @@ export const higherRuinsBossScripts: readonly BossScriptDefinition[] = [
           ? {
               status: "ok",
               value: {
-                summonMonsterCardId: "room:p011:wooden_pew",
+                summonMonsterCardId: "room:ruins:11:wooden_pew",
                 woodenPewIndex: ctx.woodenPewIndex,
                 miniaturePlacement: "areaD10Marker",
                 rulesRef: ["R38–39", row.ability],

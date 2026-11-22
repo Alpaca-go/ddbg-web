@@ -14,9 +14,9 @@ import { getBossScript } from "./registry";
 import { bossQuestScriptId, resolveBossScriptIdForQuest } from "./quest-bridge";
 
 const quests = [
-  ["quest:p016", DARKEST_SHUFFLING_HORROR_SCRIPT_ID, "room:p023"] as const,
-  ["quest:p017", DARKEST_TEMPLARS_SCRIPT_ID, "room:p022"] as const,
-  ["quest:p018", DARKEST_MAMMOTH_CYST_SCRIPT_ID, "room:p024"] as const,
+  ["quest:p016", DARKEST_SHUFFLING_HORROR_SCRIPT_ID, "room:darkest:10"] as const,
+  ["quest:p017", DARKEST_TEMPLARS_SCRIPT_ID, "room:darkest:09"] as const,
+  ["quest:p018", DARKEST_MAMMOTH_CYST_SCRIPT_ID, "room:darkest:11"] as const,
 ];
 
 function ok(game: GameState, command: Command) {

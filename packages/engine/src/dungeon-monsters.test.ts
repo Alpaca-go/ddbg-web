@@ -41,8 +41,8 @@ it("错配板块与不在真实房间抽牌记录的Torture都不能抽怪物，
     d = original.dungeon!,
     pool = d.roomCards!;
   for (const active of [
-    { ...pool.active!, tileId: "room_tile:p002:back" },
-    { ...pool.active!, cardId: "room:p002", tileId: "room_tile:p002:back" },
+    { ...pool.active!, tileId: "room_tile:ruins:02" },
+    { ...pool.active!, cardId: "room:ruins:02", tileId: "room_tile:ruins:02" },
   ]) {
     const state = { ...original, dungeon: { ...d, roomCards: { ...pool, active } } };
     const before = structuredClone(state);
@@ -58,7 +58,7 @@ it("错配板块与不在真实房间抽牌记录的Torture都不能抽怪物，
 it("真实种子+命令可回放，完整42张只洗一次；部署+弃牌+余牌守恒，未执行战斗/奖励", () => {
   const s = room(setup()),
     before = structuredClone(s);
-  expect(s.dungeon!.roomCards!.active!.tileId).toBe("room_tile:p001");
+  expect(s.dungeon!.roomCards!.active!.tileId).toBe("room_tile:ruins:01");
   const result = draw(s),
     d = result.state.dungeon!,
     p = d.monsterPool!;

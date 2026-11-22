@@ -97,7 +97,7 @@ it("新 p019 入口 JSON 存档复原；旧无标记入口保持原布局与 RNG
         },
       };
       const result = prepareObjectiveRoomBattle(entered)!;
-      expect(result.state.dungeon!.roomCards!.active?.cardId).toBe("room:p010");
+      expect(result.state.dungeon!.roomCards!.active?.cardId).toBe("room:ruins:10");
       expect(result.events[0]).toMatchObject({ type: "dungeonUpdated" });
     }
     const roundtrip = JSON.parse(JSON.stringify(save));

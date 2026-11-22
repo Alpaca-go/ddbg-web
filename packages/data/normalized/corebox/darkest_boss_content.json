@@ -7,7 +7,7 @@
  "encounters": [
   {
    "questId": "quest:p016",
-   "roomCardId": "room:p023",
+   "roomCardId": "room:darkest:10",
    "actors": [
     {
      "cardId": "monster_large:p017",
@@ -27,7 +27,7 @@
   },
   {
    "questId": "quest:p017",
-   "roomCardId": "room:p022",
+   "roomCardId": "room:darkest:09",
    "actors": [
     {
      "cardId": "monster_large:p015",
@@ -51,7 +51,7 @@
   },
   {
    "questId": "quest:p018",
-   "roomCardId": "room:p024",
+   "roomCardId": "room:darkest:11",
    "actors": [
     {
      "cardId": "monster_large:p016",
@@ -72,7 +72,7 @@
   }
  ],
  "finalBattle": {
-  "roomCardId": "room:p025",
+  "roomCardId": "room:darkest:12",
   "preparationDays": 4,
   "drawHamletEvent": false,
   "exploration": false,

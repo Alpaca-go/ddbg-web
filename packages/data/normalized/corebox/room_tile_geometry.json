@@ -3,8 +3,8 @@
  "category": "room_tile_geometry",
  "tiles": [
   {
-   "id": "room_tile:p001",
-   "roomId": "room:p001",
+   "id": "room_tile:ruins:01",
+   "roomId": "room:ruins:01",
    "location": "ruins",
    "number": 1,
    "rawId": "dungeon_tile:p001",
@@ -210,9 +210,9 @@
    "unresolvedMarkers": []
   },
   {
-   "id": "room_tile:p002:back",
+   "id": "room_tile:ruins:02",
    "rawId": "dungeon_tile:p002",
-   "roomId": "room:p002",
+   "roomId": "room:ruins:02",
    "location": "ruins",
    "number": 2,
    "name": "Torture Chamber",
@@ -460,9 +460,9 @@
    "unresolvedMarkers": []
   },
   {
-   "id": "room_tile:p002:front",
+   "id": "room_tile:ruins:03",
    "rawId": "dungeon_tile:p002",
-   "roomId": "room:p003",
+   "roomId": "room:ruins:03",
    "location": "ruins",
    "number": 3,
    "name": "Healing Fountain",
@@ -710,9 +710,9 @@
    "unresolvedMarkers": []
   },
   {
-   "id": "room_tile:p003:front",
+   "id": "room_tile:ruins:05",
    "rawId": "dungeon_tile:p003",
-   "roomId": "room:p005",
+   "roomId": "room:ruins:05",
    "location": "ruins",
    "number": 5,
    "name": "Beacon of Light",
@@ -949,9 +949,9 @@
    "unresolvedMarkers": []
   },
   {
-   "id": "room_tile:p003:back",
+   "id": "room_tile:ruins:04",
    "rawId": "dungeon_tile:p003",
-   "roomId": "room:p004",
+   "roomId": "room:ruins:04",
    "location": "ruins",
    "number": 4,
    "name": "Spiked Pit",
@@ -1240,9 +1240,9 @@
    "unresolvedMarkers": []
   },
   {
-   "id": "room_tile:p004:back",
+   "id": "room_tile:ruins:06",
    "rawId": "dungeon_tile:p004",
-   "roomId": "room:p006",
+   "roomId": "room:ruins:06",
    "location": "ruins",
    "number": 6,
    "name": "Treasure Chamber",
@@ -1453,9 +1453,9 @@
    "unresolvedMarkers": []
   },
   {
-   "id": "room_tile:p004:front",
+   "id": "room_tile:ruins:07",
    "rawId": "dungeon_tile:p004",
-   "roomId": "room:p007",
+   "roomId": "room:ruins:07",
    "location": "ruins",
    "number": 7,
    "name": "Tomb of Ancestor",
@@ -1689,9 +1689,9 @@
    "unresolvedMarkers": []
   },
   {
-   "id": "room_tile:p005:back",
+   "id": "room_tile:ruins:08",
    "rawId": "dungeon_tile:p005",
-   "roomId": "room:p008",
+   "roomId": "room:ruins:08",
    "location": "ruins",
    "number": 8,
    "name": "Invocation Chamber",
@@ -1938,9 +1938,9 @@
    "unresolvedMarkers": []
   },
   {
-   "id": "room_tile:p005:front",
+   "id": "room_tile:ruins:09",
    "rawId": "dungeon_tile:p005",
-   "roomId": "room:p009",
+   "roomId": "room:ruins:09",
    "location": "ruins",
    "number": 9,
    "name": "Old Abbey",
@@ -2200,9 +2200,9 @@
    "unresolvedMarkers": []
   },
   {
-   "id": "room_tile:p009:front",
+   "id": "room_tile:darkest:01",
    "rawId": "dungeon_tile:p009",
-   "roomId": "room:p014",
+   "roomId": "room:darkest:01",
    "location": "darkestDungeon",
    "number": 1,
    "name": "Pool of Rebirth",
@@ -2215,7 +2215,7 @@
    "geometryVerified": true,
    "usable": true,
    "effectSource": {
-    "roomId": "room:p014",
+    "roomId": "room:darkest:01",
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
     "page": 14,
     "ruling": "R-145"
@@ -2505,9 +2505,9 @@
    "unresolvedMarkers": []
   },
   {
-   "id": "room_tile:p009:back",
+   "id": "room_tile:darkest:02",
    "rawId": "dungeon_tile:p009",
-   "roomId": "room:p015",
+   "roomId": "room:darkest:02",
    "location": "darkestDungeon",
    "number": 2,
    "name": "Hall of Ascension",
@@ -2520,7 +2520,7 @@
    "geometryVerified": true,
    "usable": true,
    "effectSource": {
-    "roomId": "room:p015",
+    "roomId": "room:darkest:02",
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
     "page": 15,
     "ruling": "R-153"
@@ -2768,9 +2768,9 @@
    "unresolvedMarkers": []
   },
   {
-   "id": "room_tile:p010",
+   "id": "room_tile:darkest:03",
    "rawId": "dungeon_tile:p010",
-   "roomId": "room:p016",
+   "roomId": "room:darkest:03",
    "location": "darkestDungeon",
    "number": 3,
    "name": "Eldritch Vault",
@@ -2783,7 +2783,7 @@
    "geometryVerified": true,
    "usable": true,
    "effectSource": {
-    "roomId": "room:p016",
+    "roomId": "room:darkest:03",
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
     "page": 16,
     "ruling": "R-156"
@@ -2964,9 +2964,9 @@
    "unresolvedMarkers": []
   },
   {
-   "id": "room_tile:p010:back",
+   "id": "room_tile:darkest:04",
    "rawId": "dungeon_tile:p010",
-   "roomId": "room:p017",
+   "roomId": "room:darkest:04",
    "location": "darkestDungeon",
    "number": 4,
    "name": "Toxic Chamber",
@@ -2979,7 +2979,7 @@
    "geometryVerified": true,
    "usable": true,
    "effectSource": {
-    "roomId": "room:p017",
+    "roomId": "room:darkest:04",
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
     "page": 17,
     "ruling": "R-157"
@@ -3230,9 +3230,9 @@
    "unresolvedMarkers": []
   },
   {
-   "id": "room_tile:p011",
+   "id": "room_tile:darkest:05",
    "rawId": "dungeon_tile:p011",
-   "roomId": "room:p018",
+   "roomId": "room:darkest:05",
    "location": "darkestDungeon",
    "number": 5,
    "name": "Eldritch Power Chamber",
@@ -3245,7 +3245,7 @@
    "geometryVerified": true,
    "usable": true,
    "effectSource": {
-    "roomId": "room:p018",
+    "roomId": "room:darkest:05",
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
     "page": 18,
     "ruling": "R-158"
@@ -3454,9 +3454,9 @@
    "unresolvedMarkers": []
   },
   {
-   "id": "room_tile:p011:back",
+   "id": "room_tile:darkest:06",
    "rawId": "dungeon_tile:p011",
-   "roomId": "room:p019",
+   "roomId": "room:darkest:06",
    "location": "darkestDungeon",
    "number": 6,
    "name": "Teleporters",
@@ -3469,7 +3469,7 @@
    "geometryVerified": true,
    "usable": true,
    "effectSource": {
-    "roomId": "room:p019",
+    "roomId": "room:darkest:06",
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
     "page": 19,
     "ruling": "R-159"
@@ -3648,9 +3648,9 @@
    "unresolvedMarkers": []
   },
   {
-   "id": "room_tile:p012",
+   "id": "room_tile:darkest:07",
    "rawId": "dungeon_tile:p012",
-   "roomId": "room:p020",
+   "roomId": "room:darkest:07",
    "location": "darkestDungeon",
    "number": 7,
    "name": "Evil Eye",
@@ -3663,7 +3663,7 @@
    "geometryVerified": true,
    "usable": true,
    "effectSource": {
-    "roomId": "room:p020",
+    "roomId": "room:darkest:07",
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
     "page": 20,
     "ruling": "R-160"
@@ -3956,9 +3956,9 @@
    "unresolvedMarkers": []
   },
   {
-   "id": "room_tile:p012:back",
+   "id": "room_tile:darkest:08",
    "rawId": "dungeon_tile:p012",
-   "roomId": "room:p021",
+   "roomId": "room:darkest:08",
    "location": "darkestDungeon",
    "number": 8,
    "name": "Temple of the Chosen",
@@ -3971,7 +3971,7 @@
    "geometryVerified": true,
    "usable": true,
    "effectSource": {
-    "roomId": "room:p021",
+    "roomId": "room:darkest:08",
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
     "page": 21,
     "ruling": "R-161"
@@ -4192,9 +4192,9 @@
    "unresolvedMarkers": []
   },
   {
-   "id": "room_tile:p013:front",
+   "id": "room_tile:darkest:09",
    "rawId": "dungeon_tile:p013",
-   "roomId": "room:p022",
+   "roomId": "room:darkest:09",
    "location": "darkestDungeon",
    "number": 9,
    "name": "Templars Room",
@@ -4207,7 +4207,7 @@
    "geometryVerified": true,
    "usable": false,
    "effectSource": {
-    "roomId": "room:p022",
+    "roomId": "room:darkest:09",
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
     "page": 22,
     "ruling": "R-162"
@@ -4558,9 +4558,9 @@
    "unresolvedMarkers": []
   },
   {
-   "id": "room_tile:p013:back",
+   "id": "room_tile:darkest:10",
    "rawId": "dungeon_tile:p013",
-   "roomId": "room:p023",
+   "roomId": "room:darkest:10",
    "location": "darkestDungeon",
    "number": 10,
    "name": "Shuffling Horror Room",
@@ -4573,7 +4573,7 @@
    "geometryVerified": true,
    "usable": false,
    "effectSource": {
-    "roomId": "room:p023",
+    "roomId": "room:darkest:10",
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
     "page": 23,
     "ruling": "R-163"
@@ -4775,9 +4775,9 @@
    "unresolvedMarkers": []
   },
   {
-   "id": "room_tile:p014:front",
+   "id": "room_tile:darkest:11",
    "rawId": "dungeon_tile:p014",
-   "roomId": "room:p024",
+   "roomId": "room:darkest:11",
    "location": "darkestDungeon",
    "number": 11,
    "name": "Mammoth Cyst Room",
@@ -4790,7 +4790,7 @@
    "geometryVerified": true,
    "usable": false,
    "effectSource": {
-    "roomId": "room:p024",
+    "roomId": "room:darkest:11",
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
     "page": 24,
     "ruling": "R-164"
@@ -5044,9 +5044,9 @@
    "unresolvedMarkers": []
   },
   {
-   "id": "room_tile:p014:back",
+   "id": "room_tile:darkest:12",
    "rawId": "dungeon_tile:p014",
-   "roomId": "room:p025",
+   "roomId": "room:darkest:12",
    "location": "darkestDungeon",
    "number": 12,
    "name": "Ancestor Room",
@@ -5059,7 +5059,7 @@
    "geometryVerified": true,
    "usable": false,
    "effectSource": {
-    "roomId": "room:p025",
+    "roomId": "room:darkest:12",
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
     "page": 25,
     "ruling": "R-165"
@@ -5313,9 +5313,9 @@
    "unresolvedMarkers": []
   },
   {
-   "id": "room_tile:p006:back",
+   "id": "room_tile:ruins:10",
    "rawId": "dungeon_tile:p006",
-   "roomId": "room:p010",
+   "roomId": "room:ruins:10",
    "location": "ruins",
    "number": 10,
    "name": "Necromancer Room",
@@ -5328,7 +5328,7 @@
    "geometryVerified": true,
    "usable": false,
    "effectSource": {
-    "roomId": "room:p010",
+    "roomId": "room:ruins:10",
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
     "page": 10,
     "ruling": "R-166"
@@ -5528,9 +5528,9 @@
    "unresolvedMarkers": []
   },
   {
-   "id": "room_tile:p006:front",
+   "id": "room_tile:ruins:11",
    "rawId": "dungeon_tile:p006",
-   "roomId": "room:p011",
+   "roomId": "room:ruins:11",
    "location": "ruins",
    "number": 11,
    "name": "Prophet Room",
@@ -5543,7 +5543,7 @@
    "geometryVerified": true,
    "usable": false,
    "effectSource": {
-    "roomId": "room:p011",
+    "roomId": "room:ruins:11",
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
     "page": 11,
     "ruling": "R-167"
@@ -5789,9 +5789,9 @@
    "unresolvedMarkers": []
   },
   {
-   "id": "room_tile:p007:back",
+   "id": "room_tile:ruins:12",
    "rawId": "dungeon_tile:p007",
-   "roomId": "room:p012",
+   "roomId": "room:ruins:12",
    "location": "ruins",
    "number": 12,
    "name": "Collector Room",
@@ -5804,7 +5804,7 @@
    "geometryVerified": true,
    "usable": false,
    "effectSource": {
-    "roomId": "room:p012",
+    "roomId": "room:ruins:12",
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
     "page": 12,
     "ruling": "R-168"
@@ -5995,9 +5995,9 @@
    "unresolvedMarkers": []
   },
   {
-   "id": "room_tile:p007:front",
+   "id": "room_tile:ruins:13",
    "rawId": "dungeon_tile:p007",
-   "roomId": "room:p013",
+   "roomId": "room:ruins:13",
    "location": "ruins",
    "number": 13,
    "name": "Fanatic Room",
@@ -6010,7 +6010,7 @@
    "geometryVerified": true,
    "usable": false,
    "effectSource": {
-    "roomId": "room:p013",
+    "roomId": "room:ruins:13",
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
     "page": 13,
     "ruling": "R-169"

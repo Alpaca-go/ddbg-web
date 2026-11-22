@@ -22,9 +22,9 @@ const placement = z.strictObject({
 /** VQ-01–05及R-067本面Unholy Aura获批；禁疗入口验证完成后可参战。 */
 export const tortureChamberSchema = z
   .strictObject({
-    id: z.literal("room_tile:p002:back"),
+    id: z.literal("room_tile:ruins:02"),
     rawId: z.literal("dungeon_tile:p002"),
-    roomId: z.literal("room:p002"),
+    roomId: z.literal("room:ruins:02"),
     location: z.literal("ruins"),
     number: z.literal(2),
     name: z.literal("Torture Chamber"),
@@ -110,9 +110,9 @@ const approvedTorturePlacements = [
 ];
 
 export const approvedTortureChamber = tortureChamberSchema.parse({
-  id: "room_tile:p002:back",
+  id: "room_tile:ruins:02",
   rawId: "dungeon_tile:p002",
-  roomId: "room:p002",
+  roomId: "room:ruins:02",
   location: "ruins",
   number: 2,
   name: "Torture Chamber",

@@ -39,7 +39,7 @@ it("R-153：BACK p9独立面可再生，L容量3，两处高地及三个宝箱�
 it("完整升级交互开放，几何/部署漂移不能绕过校验", () => {
   expect(
     selectRoomTile(
-      rooms.cards.find((c) => c.id === "room:p015"),
+      rooms.cards.find((c) => c.id === "room:darkest:02"),
       geometry,
     ).status,
   ).toBe("matched");

@@ -41,9 +41,9 @@ const placements = z.strictObject({
   support: z.string(),
 });
 const tileShape = z.strictObject({
-  id: z.literal("room_tile:p007:back"),
+  id: z.literal("room_tile:ruins:12"),
   rawId: z.literal("dungeon_tile:p007"),
-  roomId: z.literal("room:p012"),
+  roomId: z.literal("room:ruins:12"),
   location: z.literal("ruins"),
   number: z.literal(12),
   name: z.literal("Collector Room"),
@@ -56,7 +56,7 @@ const tileShape = z.strictObject({
   geometryVerified: z.literal(true),
   usable: z.literal(false),
   effectSource: z.strictObject({
-    roomId: z.literal("room:p012"),
+    roomId: z.literal("room:ruins:12"),
     file: z.literal(ROOM_FRONT),
     page: z.literal(12),
     ruling: z.literal("R-168"),
@@ -110,9 +110,9 @@ const tileShape = z.strictObject({
 
 // R-168图面；F区三宝箱交互见 R-177。Boss准入与 room usable 仍单独核实。
 export const approvedCollectorRoom = tileShape.parse({
-  id: "room_tile:p007:back",
+  id: "room_tile:ruins:12",
   rawId: "dungeon_tile:p007",
-  roomId: "room:p012",
+  roomId: "room:ruins:12",
   location: "ruins",
   number: 12,
   name: "Collector Room",
@@ -120,7 +120,7 @@ export const approvedCollectorRoom = tileShape.parse({
   ruling: "R-168",
   geometryVerified: true,
   usable: false,
-  effectSource: { roomId: "room:p012", file: ROOM_FRONT, page: 12, ruling: "R-168" },
+  effectSource: { roomId: "room:ruins:12", file: ROOM_FRONT, page: 12, ruling: "R-168" },
   specialRegions: [],
   printedLoot: {
     areaId: "F",

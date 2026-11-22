@@ -89,14 +89,14 @@ type Family = "prophet" | "collector";
 const FAMILY = {
   prophet: {
     name: "Prophet",
-    roomId: "room:p011",
+    roomId: "room:ruins:11",
     roomName: "Prophet Room",
     ruling: "R-173",
     geometry: "R-167",
   },
   collector: {
     name: "Collector",
-    roomId: "room:p012",
+    roomId: "room:ruins:12",
     roomName: "Collector Room",
     ruling: "R-175",
     geometry: "R-168",

@@ -270,7 +270,7 @@ export function naturalQuest(
       ) {
         step({ type: "prepareDungeonBattle" });
         if (
-          state.dungeon!.roomCards!.active!.cardId === "room:p010" &&
+          state.dungeon!.roomCards!.active!.cardId === "room:ruins:10" &&
           state.dungeon!.activeBossThreatScriptId === "boss:ruins:necromancer:1"
         ) {
           step({ type: "deployNecromancerI" });
@@ -279,7 +279,7 @@ export function naturalQuest(
           continue;
         }
         if (
-          state.dungeon!.roomCards!.active!.cardId === "room:p010" &&
+          state.dungeon!.roomCards!.active!.cardId === "room:ruins:10" &&
           state.dungeon!.activeBossThreatScriptId === "boss:ruins:necromancer:2"
         ) {
           step({ type: "deployNecromancerII" });
@@ -288,7 +288,7 @@ export function naturalQuest(
           continue;
         }
         if (
-          state.dungeon!.roomCards!.active!.cardId === "room:p010" &&
+          state.dungeon!.roomCards!.active!.cardId === "room:ruins:10" &&
           state.dungeon!.activeBossThreatScriptId === "boss:ruins:necromancer:3"
         ) {
           step({ type: "deployNecromancerIII" });
@@ -297,7 +297,7 @@ export function naturalQuest(
           continue;
         }
         if (
-          state.dungeon!.roomCards!.active!.cardId === "room:p011" &&
+          state.dungeon!.roomCards!.active!.cardId === "room:ruins:11" &&
           state.dungeon!.activeBossThreatScriptId === "boss:ruins:prophet:1"
         ) {
           step({ type: "deployProphetI" });
@@ -306,7 +306,7 @@ export function naturalQuest(
           continue;
         }
         if (
-          state.dungeon!.roomCards!.active!.cardId === "room:p011" &&
+          state.dungeon!.roomCards!.active!.cardId === "room:ruins:11" &&
           state.dungeon!.activeBossThreatScriptId === "boss:ruins:prophet:2"
         ) {
           step({ type: "deployProphetII" });
@@ -315,7 +315,7 @@ export function naturalQuest(
           continue;
         }
         if (
-          state.dungeon!.roomCards!.active!.cardId === "room:p011" &&
+          state.dungeon!.roomCards!.active!.cardId === "room:ruins:11" &&
           state.dungeon!.activeBossThreatScriptId === "boss:ruins:prophet:3"
         ) {
           step({ type: "deployProphetIII" });
@@ -324,7 +324,7 @@ export function naturalQuest(
           continue;
         }
         if (
-          state.dungeon!.roomCards!.active!.cardId === "room:p012" &&
+          state.dungeon!.roomCards!.active!.cardId === "room:ruins:12" &&
           state.dungeon!.activeBossThreatScriptId === "boss:ruins:collector:1"
         ) {
           step({ type: "deployCollectorI" });
@@ -333,7 +333,7 @@ export function naturalQuest(
           continue;
         }
         if (
-          state.dungeon!.roomCards!.active!.cardId === "room:p012" &&
+          state.dungeon!.roomCards!.active!.cardId === "room:ruins:12" &&
           state.dungeon!.activeBossThreatScriptId === "boss:ruins:collector:2"
         ) {
           step({ type: "deployCollectorII" });
@@ -342,7 +342,7 @@ export function naturalQuest(
           continue;
         }
         if (
-          state.dungeon!.roomCards!.active!.cardId === "room:p012" &&
+          state.dungeon!.roomCards!.active!.cardId === "room:ruins:12" &&
           state.dungeon!.activeBossThreatScriptId === "boss:ruins:collector:3"
         ) {
           step({ type: "deployCollectorIII" });
@@ -380,7 +380,7 @@ export function naturalQuest(
           continue;
         }
         if (
-          state.dungeon!.roomCards!.active!.cardId === "room:p013" &&
+          state.dungeon!.roomCards!.active!.cardId === "room:ruins:13" &&
           state.dungeon!.activeBossThreatScriptId === "boss:ruins:fanatic:1"
         ) {
           step({ type: "deployFanaticI" });
@@ -389,7 +389,7 @@ export function naturalQuest(
           continue;
         }
         if (
-          state.dungeon!.roomCards!.active!.cardId === "room:p013" &&
+          state.dungeon!.roomCards!.active!.cardId === "room:ruins:13" &&
           state.dungeon!.activeBossThreatScriptId === "boss:ruins:fanatic:2"
         ) {
           step({ type: "deployFanaticII" });
@@ -398,7 +398,7 @@ export function naturalQuest(
           continue;
         }
         if (
-          state.dungeon!.roomCards!.active!.cardId === "room:p013" &&
+          state.dungeon!.roomCards!.active!.cardId === "room:ruins:13" &&
           state.dungeon!.activeBossThreatScriptId === "boss:ruins:fanatic:3"
         ) {
           step({ type: "deployFanaticIII" });
@@ -407,7 +407,7 @@ export function naturalQuest(
           continue;
         }
         if (
-          state.dungeon!.roomCards!.active!.cardId === "room:p022" &&
+          state.dungeon!.roomCards!.active!.cardId === "room:darkest:09" &&
           state.dungeon!.darkest?.bossEncounterPlan?.resolvedScriptId === DARKEST_TEMPLARS_SCRIPT_ID
         ) {
           step({ type: "deployTemplarsI" });
@@ -416,7 +416,7 @@ export function naturalQuest(
           continue;
         }
         if (
-          state.dungeon!.roomCards!.active!.cardId === "room:p023" &&
+          state.dungeon!.roomCards!.active!.cardId === "room:darkest:10" &&
           state.dungeon!.darkest?.bossEncounterPlan?.resolvedScriptId ===
             DARKEST_SHUFFLING_HORROR_SCRIPT_ID
         ) {
@@ -426,7 +426,7 @@ export function naturalQuest(
           continue;
         }
         if (
-          state.dungeon!.roomCards!.active!.cardId === "room:p024" &&
+          state.dungeon!.roomCards!.active!.cardId === "room:darkest:11" &&
           state.dungeon!.darkest?.bossEncounterPlan?.resolvedScriptId ===
             DARKEST_MAMMOTH_CYST_SCRIPT_ID
         ) {

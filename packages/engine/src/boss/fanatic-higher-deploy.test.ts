@@ -64,7 +64,7 @@ it.each([2, 3] as const)(
       },
     ]);
     expect(b.encounter).toBeUndefined();
-    expect(r.state.dungeon!.roomCards!.active!.tileId).toBe("room_tile:p007:front");
+    expect(r.state.dungeon!.roomCards!.active!.tileId).toBe("room_tile:ruins:13");
     expect(r.state.dungeon!.activeBossThreatScriptId).toBe(row.script);
     expect(r).toEqual(applyCommand(JSON.parse(JSON.stringify(s)), command(level)));
     expect(s).toEqual(before);

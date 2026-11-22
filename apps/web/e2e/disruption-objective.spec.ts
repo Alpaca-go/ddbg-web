@@ -53,7 +53,7 @@ test("Disruption II room-entry fixture: seeded Objective card selection is logge
       commands: commands.map((c: { type: string }) => c.type),
     };
   });
-  expect(["room:p004", "room:p008"]).toContain(state.cardId);
+  expect(["room:ruins:04", "room:ruins:08"]).toContain(state.cardId);
   expect(state.cursor).toBe(game.dungeon!.cursor + 1);
   expect(state.deck).toBeNull();
   expect(state.cleared).toBe(false);

@@ -119,19 +119,19 @@ describe("最暗普通房 deployDarkestOrdinaryEncounter / startBattle", () => {
 
   it.each([
     [
-      "room:p014",
+      "room:darkest:01",
       "r229",
       [{ id: "F", poolOfRebirth: { stressPerNegativeQuirk: 2, healPerNegativeQuirk: 3 } }],
     ],
     [
-      "room:p020",
+      "room:darkest:07",
       "r229",
       [
         { id: "E", evilGazeDisease: true },
         ...["A", "D", "H", "I"].map((id) => ({ id, staringEyesStress: 3 })),
       ],
     ],
-    ["room:p020", "r227", []],
+    ["room:darkest:07", "r227", []],
   ] as const)("Stygian 最暗普通房真实部署 %s（%s）", (cardId, rules, expected) => {
     const battle = ok(deployedStygian(cardId, rules), {
       type: rules === "r229" ? "startDungeonBattle" : "deployDarkestOrdinaryEncounter",

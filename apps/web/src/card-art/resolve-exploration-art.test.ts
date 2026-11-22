@@ -29,14 +29,14 @@ describe("print exploration art map (Kyries CSV)", () => {
   });
 
   it("maps Ritual Chamber and Fanatic Room to print pages", () => {
-    const ritual = lookupRoomCardArt("room:p001");
+    const ritual = lookupRoomCardArt("room:ruins:01");
     expect(ritual).toMatchObject({
       name: "Ritual Chamber",
       page: 1,
       category: "room",
     });
     expect(ritual?.pngRel).toContain("_p001.png");
-    const fanatic = lookupRoomCardArt("room:p013");
+    const fanatic = lookupRoomCardArt("room:ruins:13");
     expect(fanatic?.name).toBe("Fanatic Room");
     expect(fanatic?.pngRel).toContain("_p013.png");
   });
