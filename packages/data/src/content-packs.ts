@@ -33,6 +33,7 @@ export function cardContentPack(card: {
   if (card.id.startsWith("hero_skill:") || card.id.startsWith("hero_stat:")) return "core";
   const namespace = card.id.split(":")[1];
   if (CONTENT_PACK_IDS.includes(namespace as ContentPackId)) return namespace as ContentPackId;
+  if (namespace === "ruins" || namespace === "darkest") return "core";
   if (/^p\d+$/.test(namespace ?? "")) return "core";
   // R-214：最终战两张补印 Reflection，属于核心盒，不是独立扩展。
   if (card.id === "monster_medium:ADD_014:p001" || card.id === "monster_medium:ADD_014:p003")
