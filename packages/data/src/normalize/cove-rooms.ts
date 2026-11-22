@@ -2,8 +2,8 @@ import type { RawFile } from "../extract/raw";
 import {
   COVE_ROOM_BACK,
   COVE_ROOM_FRONT,
-  coveBossRoomSourceFileSchema,
   coveRoomFileSchema,
+  type CoveRoomCard,
 } from "../cove-room";
 
 const PENDING = "Q-186：Cove 普通房间效果待 Kyries 逐卡核准";
@@ -44,47 +44,36 @@ function assertRoomFace(
   return { lines: front.lines.map((line) => line.text), page: front.page };
 }
 
+/** 十二张 Cove 房间：p1–p9 普通、p10–p12 Boss。 */
 export function buildCoveRooms(raw: RawFile) {
   if (raw.category !== "room" || raw.cards.length !== 12)
     throw new Error("需要完整 Cove Room raw（12 面）");
-  const cards = Array.from({ length: 9 }, (_, index) => {
+  const cards: CoveRoomCard[] = Array.from({ length: 12 }, (_, index) => {
     const page = index + 1;
     const { lines } = assertRoomFace(raw, page);
     const name = parsePrintedName(lines, page);
-    return {
+    const base = {
       id: `room:cove:${String(page).padStart(2, "0")}`,
       name,
       copies: 1 as const,
       location: "cove" as const,
       number: page,
-      boss: false as const,
       printedLines: [...lines],
-      source: { front: COVE_ROOM_FRONT, back: COVE_ROOM_BACK, page },
-      pendingReview: [PENDING],
+      source: { front: COVE_ROOM_FRONT, back: COVE_ROOM_BACK, page } as const,
     };
-  });
-  return coveRoomFileSchema.parse({ schema: "ddbg-cove-room-v0", cards });
-}
-
-export function buildCoveBossRoomSources(raw: RawFile) {
-  if (raw.category !== "room" || raw.cards.length !== 12)
-    throw new Error("需要完整 Cove Room raw（12 面）");
-  const cards = ([10, 11, 12] as const).map((page) => {
-    const { lines } = assertRoomFace(raw, page);
+    if (page <= 9)
+      return {
+        ...base,
+        boss: false as const,
+        pendingReview: [PENDING],
+      };
     const plain = lines.map(stripIcons).filter((line) => line.length > 0);
     if (!plain.some((line) => line === "BOSS"))
       throw new Error(`Cove p${page} 缺少印刷 BOSS 标签，不能归类为 Boss 房`);
-    const name = parsePrintedName(lines, page);
     return {
-      id: `room:cove:${String(page).padStart(2, "0")}`,
-      name,
-      copies: 1 as const,
-      location: "cove" as const,
-      number: page,
+      ...base,
       boss: true as const,
       poolEligible: false as const,
-      printedLines: [...lines],
-      source: { front: COVE_ROOM_FRONT, back: COVE_ROOM_BACK, page },
       classificationEvidence: [
         `印刷正文含独立一行「BOSS」（FRONT p${page}）`,
         `标题解析为「${name}」（p${page} 破折号标题行）`,
@@ -92,8 +81,5 @@ export function buildCoveBossRoomSources(raw: RawFile) {
       pendingReview: [BOSS_PENDING],
     };
   });
-  return coveBossRoomSourceFileSchema.parse({
-    schema: "ddbg-cove-boss-room-sources-v0",
-    cards,
-  });
+  return coveRoomFileSchema.parse({ schema: "ddbg-cove-room-v0", cards });
 }

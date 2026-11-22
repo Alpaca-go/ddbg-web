@@ -3,7 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { rawFileSchema } from "../extract/raw";
 import { buildCoveCurios } from "./cove-curios";
-import { buildCoveBossRoomSources, buildCoveRooms } from "./cove-rooms";
+import { buildCoveRooms } from "./cove-rooms";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const read = (file: string): unknown =>
@@ -28,18 +28,9 @@ export function loadNormalizedCoveRooms() {
   return buildCoveRooms(roomRaw());
 }
 
-export function loadNormalizedCoveBossRoomSources() {
-  return buildCoveBossRoomSources(roomRaw());
-}
-
 export function writeNormalizedCoveRooms(outputDir = path.join(ROOT, "normalized/extension/cove")) {
   const rooms = loadNormalizedCoveRooms();
-  const bossSources = loadNormalizedCoveBossRoomSources();
   mkdirSync(outputDir, { recursive: true });
   writeFileSync(path.join(outputDir, "room.json"), `${JSON.stringify(rooms, null, 1)}\n`);
-  writeFileSync(
-    path.join(outputDir, "boss_room_sources.json"),
-    `${JSON.stringify(bossSources, null, 1)}\n`,
-  );
-  return { rooms, bossSources };
+  return rooms;
 }
