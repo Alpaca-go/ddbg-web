@@ -2,7 +2,7 @@
   "schema": "ddbg-cove-room-v0",
   "cards": [
     {
-      "id": "room:cove:p001",
+      "id": "room:cove:01",
       "name": "Eldritch Augmentation",
       "copies": 1,
       "location": "cove",
@@ -41,7 +41,7 @@
       "pendingReview": ["Q-186：Cove 普通房间效果待 Kyries 逐卡核准"]
     },
     {
-      "id": "room:cove:p002",
+      "id": "room:cove:02",
       "name": "Flooded Room",
       "copies": 1,
       "location": "cove",
@@ -82,7 +82,7 @@
       "pendingReview": ["Q-186：Cove 普通房间效果待 Kyries 逐卡核准"]
     },
     {
-      "id": "room:cove:p003",
+      "id": "room:cove:03",
       "name": "The Hoarders",
       "copies": 1,
       "location": "cove",
@@ -119,7 +119,7 @@
       "pendingReview": ["Q-186：Cove 普通房间效果待 Kyries 逐卡核准"]
     },
     {
-      "id": "room:cove:p004",
+      "id": "room:cove:04",
       "name": "Buried Treasures",
       "copies": 1,
       "location": "cove",
@@ -156,7 +156,7 @@
       "pendingReview": ["Q-186：Cove 普通房间效果待 Kyries 逐卡核准"]
     },
     {
-      "id": "room:cove:p005",
+      "id": "room:cove:05",
       "name": "Twin Idols",
       "copies": 1,
       "location": "cove",
@@ -198,7 +198,7 @@
       "pendingReview": ["Q-186：Cove 普通房间效果待 Kyries 逐卡核准"]
     },
     {
-      "id": "room:cove:p006",
+      "id": "room:cove:06",
       "name": "Lairs in Tunnels",
       "copies": 1,
       "location": "cove",
@@ -235,7 +235,7 @@
       "pendingReview": ["Q-186：Cove 普通房间效果待 Kyries 逐卡核准"]
     },
     {
-      "id": "room:cove:p007",
+      "id": "room:cove:07",
       "name": "Shipwreck",
       "copies": 1,
       "location": "cove",
@@ -279,7 +279,7 @@
       "pendingReview": ["Q-186：Cove 普通房间效果待 Kyries 逐卡核准"]
     },
     {
-      "id": "room:cove:p008",
+      "id": "room:cove:08",
       "name": "Sea Rites",
       "copies": 1,
       "location": "cove",
@@ -323,7 +323,7 @@
       "pendingReview": ["Q-186：Cove 普通房间效果待 Kyries 逐卡核准"]
     },
     {
-      "id": "room:cove:p009",
+      "id": "room:cove:09",
       "name": "Temple of the Deep One",
       "copies": 1,
       "location": "cove",
