@@ -18,7 +18,10 @@ import { cardContentPack } from "../../data/src/content-packs";
 import { resolveScriptIdForDescriptionCard } from "./boss/threat-description-catalog";
 import { HAG_I_DESCRIPTION_ABILITY_CARD_ID } from "./expansions/weald/boss/hag-i";
 import coveCurio from "../../data/normalized/extension/cove/curio.json";
+import coveRoom from "../../data/normalized/extension/cove/room.json";
+import coveBossRooms from "../../data/normalized/extension/cove/boss_room_sources.json";
 import { coveCurioFileSchema } from "../../data/src/curio";
+import { coveBossRoomSourceFileSchema, coveRoomFileSchema } from "../../data/src/cove-room";
 
 beforeEach(clearBossScriptsForTest);
 const start = {
@@ -99,15 +102,29 @@ it("核心包单独启用时，十八名英雄及全部等级技能仍可开局�
   expect(replacementHeroCandidates(game.dungeon!)).toHaveLength(14);
 });
 
-it("Cove Curio 仅在勾选 Cove 包时进入战役来源", () => {
-  const cove = { curios: coveCurioFileSchema.parse(coveCurio).cards };
+it("Cove Curio 与房间目录仅在勾选 Cove 包时进入战役来源", () => {
+  const cove = {
+    curios: coveCurioFileSchema.parse(coveCurio).cards,
+    rooms: coveRoomFileSchema.parse(coveRoom).cards,
+    bossRoomSources: coveBossRoomSourceFileSchema.parse(coveBossRooms).cards,
+  };
   const sources = { ...coreQuestSources, cove };
   expect(sourcesForContentPacks(sources, ["core"]).cove).toBeUndefined();
   expect(sourcesForContentPacks(sources, ["core", "weald"]).cove).toBeUndefined();
   const enabled = sourcesForContentPacks(sources, ["core", "cove"]);
   expect(enabled.cove?.curios).toHaveLength(16);
   expect(enabled.cove?.curios.every((card) => card.id.startsWith("curio:cove:"))).toBe(true);
+  expect(enabled.cove?.rooms).toHaveLength(9);
+  expect(enabled.cove?.rooms.every((card) => card.id.startsWith("room:cove:"))).toBe(true);
+  expect(enabled.cove?.bossRoomSources).toHaveLength(3);
+  expect(enabled.cove?.bossRoomSources.every((card) => card.poolEligible === false)).toBe(true);
   expect(cardContentPack(enabled.cove!.curios[0]!)).toBe("cove");
+  expect(cardContentPack(enabled.cove!.rooms[0]!)).toBe("cove");
+  expect(
+    enabled.cove!.rooms.every(
+      (card) => !enabled.cove!.bossRoomSources.some((boss) => boss.id === card.id),
+    ),
+  ).toBe(true);
 });
 
 it("所有非英雄来源在建池前按包过滤，同包条目保序；不修改输入", () => {

@@ -1,0 +1,130 @@
+{
+  "schema": "ddbg-cove-boss-room-sources-v0",
+  "cards": [
+    {
+      "id": "room:cove:p010",
+      "name": "Siren’s Room",
+      "copies": 1,
+      "location": "cove",
+      "number": 10,
+      "boss": true,
+      "poolEligible": false,
+      "printedLines": [
+        "{icon:432714b571} 10—Siren’s Room",
+        "{icon:6be4283818}",
+        "{icon:f4233fbf6a}",
+        "{icon:f4233fbf6a}",
+        "{icon:be4f829eb7} 10",
+        "{icon:6fb6fe3130}",
+        "{icon:49d58f8be4} {icon:42fd3c115f}",
+        "{icon:6e7ac3e7ba}",
+        "{icon:f4233fbf6a}",
+        "{icon:f4233fbf6a}",
+        "{icon:8ba1ceffa6}",
+        "{icon:f4233fbf6a}",
+        "{icon:f4233fbf6a}",
+        "{icon:d0db4f8340}",
+        "{icon:274c1a8204}",
+        "{icon:b3bed65cc7} {icon:14ed877df8} {icon:3a8dde7028} {icon:5d4431c3fa}",
+        "BOSS",
+        "{icon:15276792e1} The Call: Heroes entering",
+        "here suffer {icon:f53dfff5f0} +2."
+      ],
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_rooms_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_rooms_BACK.pdf",
+        "page": 10
+      },
+      "classificationEvidence": [
+        "印刷正文含独立一行「BOSS」（FRONT p10）",
+        "标题解析为「Siren’s Room」（p10 破折号标题行）"
+      ],
+      "pendingReview": ["Cove Boss 房留待专属 Boss 刀核准；不得进入普通房间牌堆"]
+    },
+    {
+      "id": "room:cove:p011",
+      "name": "Shambler’s Room",
+      "copies": 1,
+      "location": "cove",
+      "number": 11,
+      "boss": true,
+      "poolEligible": false,
+      "printedLines": [
+        "{icon:432714b571} 11—Shambler’s Room",
+        "{icon:a9c9a5ccb1}",
+        "{icon:68681d687e}",
+        "{icon:b86d600bf8} {icon:be4f829eb7} 11",
+        "{icon:68681d687e}",
+        "{icon:68681d687e}",
+        "{icon:c18c29c0ad} {icon:42fd3c115f}",
+        "{icon:a70c926562}",
+        "{icon:6e7ac3e7ba}",
+        "{icon:68681d687e}",
+        "{icon:274c1a8204}",
+        "{icon:68681d687e}",
+        "{icon:3a8dde7028}",
+        "{icon:a210285ad2}",
+        "{icon:6fb6fe3130}",
+        "{icon:b86d600bf8}",
+        "{icon:68681d687e}",
+        "{icon:68681d687e}",
+        "{icon:3835a8b053} !",
+        "{icon:49d58f8be4}",
+        "BOSS",
+        "{icon:d168f2fa79} Shambler’s Altar: Heroes can {icon:21af232d0b}",
+        "spend an action here to gain +1 ."
+      ],
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_rooms_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_rooms_BACK.pdf",
+        "page": 11
+      },
+      "classificationEvidence": [
+        "印刷正文含独立一行「BOSS」（FRONT p11）",
+        "标题解析为「Shambler’s Room」（p11 破折号标题行）"
+      ],
+      "pendingReview": ["Cove Boss 房留待专属 Boss 刀核准；不得进入普通房间牌堆"]
+    },
+    {
+      "id": "room:cove:p012",
+      "name": "Drowned Crew Room",
+      "copies": 1,
+      "location": "cove",
+      "number": 12,
+      "boss": true,
+      "poolEligible": false,
+      "printedLines": [
+        "{icon:432714b571} 12—Drowned Crew Room",
+        "{icon:6be4283818}",
+        "{icon:7adef71a76}",
+        "{icon:4057909759} {icon:be4f829eb7} 12",
+        "{icon:6fb6fe3130}",
+        "{icon:49d58f8be4} {icon:42fd3c115f}",
+        "{icon:6e7ac3e7ba}",
+        "{icon:274c1a8204}",
+        "{icon:4057909759}",
+        "{icon:4057909759}",
+        "{icon:ab27044bdb}",
+        "{icon:8507f04bc8}",
+        "{icon:45792e6820} {icon:5d4431c3fa}",
+        "{icon:8507f04bc8}",
+        "{icon:ab27044bdb}",
+        "{icon:35cdd82190} ! !",
+        "{icon:b3bed65cc7} {icon:b27479506b}",
+        "BOSS",
+        "{icon:15276792e1} Drowning Waters: Monsters attacking",
+        "Heroes in this area gain +1 Acc."
+      ],
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_rooms_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_rooms_BACK.pdf",
+        "page": 12
+      },
+      "classificationEvidence": [
+        "印刷正文含独立一行「BOSS」（FRONT p12）",
+        "标题解析为「Drowned Crew Room」（p12 破折号标题行）"
+      ],
+      "pendingReview": ["Cove Boss 房留待专属 Boss 刀核准；不得进入普通房间牌堆"]
+    }
+  ]
+}

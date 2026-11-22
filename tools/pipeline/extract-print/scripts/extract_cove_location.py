@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[4]
 LOCATION = Path("DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE")
 COMPONENTS = {
     "curio": "DD_EN_COVE_CARDS_63x88_CURIO",
+    "room": "DD_EN_COVE_CARDS_63x88_rooms",
 }
 
 
