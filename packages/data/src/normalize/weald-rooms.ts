@@ -24,6 +24,7 @@ const MARKER = {
 
 const ORANGE_STAR = "ea307609d9";
 const GREEN_STAR = "41c31d63d8";
+const BOSS_PENDING = "Weald Boss 房留待专属 Boss 刀核准；不得进入普通房间牌堆";
 
 type Stance = WealdRoomTile["deployment"]["heroes"];
 type Monsters = WealdRoomTile["deployment"]["monsters"];
@@ -508,7 +509,6 @@ export function buildWealdRooms(raw: RawFile) {
   if (raw.category !== "room" || raw.cards.length !== 12)
     throw new Error("需要完整 Weald Room raw（12 面）");
   const cards = raw.cards
-    .filter((card) => card.faces.front.page <= 9)
     .map((card) => {
       const front = card.faces.front;
       if (
@@ -528,13 +528,12 @@ export function buildWealdRooms(raw: RawFile) {
       const name = title.replace(/^\d+\s*[—–-]\s*/, "").trim();
       if (!name) throw new Error(`Weald 房间 p${front.page} 无法从印刷行解析名称`);
       const meta = EFFECTS[front.page];
-      return {
+      const base = {
         id: `room:weald:${String(front.page).padStart(2, "0")}`,
         name,
         copies: card.copies as 1,
         location: "weald" as const,
         number: front.page,
-        boss: false as const,
         printedLines: lines,
         source: { front: WEALD_ROOM_FRONT, back: WEALD_ROOM_BACK, page: front.page },
         verifiedEffect: meta
@@ -545,7 +544,25 @@ export function buildWealdRooms(raw: RawFile) {
               effectAreaBinding: meta.binding,
             }
           : null,
-        pendingReview: [],
+      };
+      if (front.page <= 9)
+        return {
+          ...base,
+          boss: false as const,
+          pendingReview: [],
+        };
+      const plain = lines.map((line) => line.replace(/\{icon:[^}]+\}/g, "").trim());
+      if (!plain.some((line) => line === "BOSS"))
+        throw new Error(`Weald p${front.page} 缺少印刷 BOSS 标签，不能归类为 Boss 房`);
+      return {
+        ...base,
+        boss: true as const,
+        poolEligible: false as const,
+        classificationEvidence: [
+          `印刷正文含独立一行「BOSS」（FRONT p${front.page}）`,
+          `标题解析为「${name}」（p${front.page} 破折号标题行）`,
+        ],
+        pendingReview: [BOSS_PENDING],
       };
     })
     .sort((a, b) => a.number - b.number);

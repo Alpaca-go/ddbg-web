@@ -45,12 +45,30 @@ describe("Weald 普通房间与板块（R-234–R-239、包隔离）", () => {
       }).success,
     ).toBe(false);
   });
-  it("九张房间均属 weald 命名空间，核心目录不接纳", () => {
-    for (const card of builtRooms.cards) {
+  it("九张普通房间均属 weald 命名空间，核心目录不接纳", () => {
+    const normal = builtRooms.cards.filter((card) => !card.boss);
+    expect(normal).toHaveLength(9);
+    for (const card of normal) {
       expect(cardContentPack(card)).toBe("weald");
-      expect(card.boss).toBe(false);
+      expect(card.pendingReview).toEqual([]);
     }
-    expect(roomCatalogSchema.safeParse(builtRooms.cards).success).toBe(false);
+    expect(roomCatalogSchema.safeParse(normal).success).toBe(false);
+  });
+
+  it("三张 Boss 房是 room 卡，poolEligible=false，不进入普通房间牌堆", () => {
+    const boss = builtRooms.cards.filter((card) => card.boss);
+    expect(boss.map((card) => [card.number, card.name])).toEqual([
+      [10, "Hag"],
+      [11, "Shrieker"],
+      [12, "Brigand Pounder"],
+    ]);
+    for (const card of boss) {
+      expect(card.poolEligible).toBe(false);
+      expect(cardContentPack(card)).toBe("weald");
+      expect(card.classificationEvidence.some((line) => line.includes("BOSS"))).toBe(true);
+    }
+    const normalIds = new Set(builtRooms.cards.filter((card) => !card.boss).map((card) => card.id));
+    for (const card of boss) expect(normalIds.has(card.id)).toBe(false);
   });
 
   it("1–9 号通路／角点计数与裁定一致", () => {
@@ -134,4 +152,4 @@ describe("Weald 普通房间与板块（R-234–R-239、包隔离）", () => {
 });
 
 const raw = rawFileSchema.parse(read("extract/extension/weald/raw/room.json"));
-expect(buildWealdRooms(raw).cards).toHaveLength(9);
+expect(buildWealdRooms(raw).cards).toHaveLength(12);

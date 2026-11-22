@@ -7,7 +7,6 @@
    "copies": 1,
    "location": "weald",
    "number": 1,
-   "boss": false,
    "printedLines": [
     "{icon:904b2f5950} 1—Fungal Spores",
     "{icon:497092fe1f} 1",
@@ -40,7 +39,8 @@
     "runtimeReady": false,
     "effectAreaBinding": "confirmed"
    },
-   "pendingReview": []
+   "pendingReview": [],
+   "boss": false
   },
   {
    "id": "room:weald:02",
@@ -48,7 +48,6 @@
    "copies": 1,
    "location": "weald",
    "number": 2,
-   "boss": false,
    "printedLines": [
     "{icon:07104c1226}",
     "2—Ambush",
@@ -80,7 +79,8 @@
     "runtimeReady": false,
     "effectAreaBinding": "confirmed"
    },
-   "pendingReview": []
+   "pendingReview": [],
+   "boss": false
   },
   {
    "id": "room:weald:03",
@@ -88,7 +88,6 @@
    "copies": 1,
    "location": "weald",
    "number": 3,
-   "boss": false,
    "printedLines": [
     "{icon:904b2f5950} 3—Thick Woods",
     "{icon:a03fc0c541}",
@@ -121,7 +120,8 @@
     "page": 3
    },
    "verifiedEffect": null,
-   "pendingReview": []
+   "pendingReview": [],
+   "boss": false
   },
   {
    "id": "room:weald:04",
@@ -129,7 +129,6 @@
    "copies": 1,
    "location": "weald",
    "number": 4,
-   "boss": false,
    "printedLines": [
     "{icon:07104c1226}",
     "4—Stash",
@@ -164,7 +163,8 @@
     "runtimeReady": false,
     "effectAreaBinding": "confirmed"
    },
-   "pendingReview": []
+   "pendingReview": [],
+   "boss": false
   },
   {
    "id": "room:weald:05",
@@ -172,7 +172,6 @@
    "copies": 1,
    "location": "weald",
    "number": 5,
-   "boss": false,
    "printedLines": [
     "{icon:904b2f5950}",
     "5—Infected Oak",
@@ -207,7 +206,8 @@
     "runtimeReady": false,
     "effectAreaBinding": "confirmed"
    },
-   "pendingReview": []
+   "pendingReview": [],
+   "boss": false
   },
   {
    "id": "room:weald:06",
@@ -215,7 +215,6 @@
    "copies": 1,
    "location": "weald",
    "number": 6,
-   "boss": false,
    "printedLines": [
     "{icon:904b2f5950} 6—Chase in the Woods",
     "{icon:497092fe1f} 6",
@@ -242,7 +241,8 @@
     "page": 6
    },
    "verifiedEffect": null,
-   "pendingReview": []
+   "pendingReview": [],
+   "boss": false
   },
   {
    "id": "room:weald:07",
@@ -250,7 +250,6 @@
    "copies": 1,
    "location": "weald",
    "number": 7,
-   "boss": false,
    "printedLines": [
     "{icon:904b2f5950}",
     "7—Chasm",
@@ -276,7 +275,8 @@
     "page": 7
    },
    "verifiedEffect": null,
-   "pendingReview": []
+   "pendingReview": [],
+   "boss": false
   },
   {
    "id": "room:weald:08",
@@ -284,7 +284,6 @@
    "copies": 1,
    "location": "weald",
    "number": 8,
-   "boss": false,
    "printedLines": [
     "{icon:07104c1226} 8—Fungal Overgrowth",
     "{icon:c371c7b280}",
@@ -320,7 +319,8 @@
     "runtimeReady": false,
     "effectAreaBinding": "confirmed"
    },
-   "pendingReview": []
+   "pendingReview": [],
+   "boss": false
   },
   {
    "id": "room:weald:09",
@@ -328,7 +328,6 @@
    "copies": 1,
    "location": "weald",
    "number": 9,
-   "boss": false,
    "printedLines": [
     "{icon:07104c1226} 9—The Clearing",
     "{icon:91bfaec784}",
@@ -363,7 +362,143 @@
     "runtimeReady": false,
     "effectAreaBinding": "confirmed"
    },
-   "pendingReview": []
+   "pendingReview": [],
+   "boss": false
+  },
+  {
+   "id": "room:weald:10",
+   "name": "Hag",
+   "copies": 1,
+   "location": "weald",
+   "number": 10,
+   "printedLines": [
+    "{icon:07104c1226}",
+    "10—Hag",
+    "{icon:e7824caa34}",
+    "{icon:63bb8a6b34}",
+    "{icon:9bdab431be}",
+    "{icon:497092fe1f} 10",
+    "{icon:70f3ac05b8}",
+    "{icon:9bdab431be}",
+    "{icon:cb6ab57f85}",
+    "{icon:cf5ff40569} {icon:fad938a6dc}",
+    "{icon:63bb8a6b34}",
+    "{icon:933e28ff76} {icon:2026bed18f}",
+    "{icon:2410f9cb24}",
+    "{icon:9bdab431be}",
+    "{icon:63bb8a6b34}",
+    "{icon:63bb8a6b34}",
+    "{icon:9bdab431be}",
+    "{icon:29caa2cafd}",
+    "{icon:f8e4a91e06} {icon:8556221f31}",
+    "BOSS"
+   ],
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_rooms_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_rooms_BACK.pdf",
+    "page": 10
+   },
+   "verifiedEffect": null,
+   "pendingReview": [
+    "Weald Boss 房留待专属 Boss 刀核准；不得进入普通房间牌堆"
+   ],
+   "boss": true,
+   "poolEligible": false,
+   "classificationEvidence": [
+    "印刷正文含独立一行「BOSS」（FRONT p10）",
+    "标题解析为「Hag」（p10 破折号标题行）"
+   ]
+  },
+  {
+   "id": "room:weald:11",
+   "name": "Shrieker",
+   "copies": 1,
+   "location": "weald",
+   "number": 11,
+   "printedLines": [
+    "{icon:07104c1226}",
+    "11—Shrieker",
+    "{icon:e445d15ec7}",
+    "{icon:312a0149f0}",
+    "{icon:312a0149f0}",
+    "{icon:497092fe1f} 11",
+    "{icon:e5e64a39ca} !",
+    "{icon:8556221f31} {icon:74f5c46f3d}",
+    "{icon:80863bf0a8}",
+    "{icon:768a5788aa}",
+    "{icon:9bdab431be}",
+    "{icon:80863bf0a8}",
+    "{icon:fd79a9bc06} {icon:5564c4f411} {icon:933e28ff76} {icon:2026bed18f} {icon:e5e64a39ca} !",
+    "{icon:4fe9e8c0de}",
+    "{icon:4fe9e8c0de}",
+    "{icon:be68aef5d4}",
+    "{icon:e5e64a39ca} !",
+    "{icon:89c8de39bb} {icon:9a5d930261}",
+    "BOSS",
+    "{icon:401040514c} Shrieker’s Nest: Heroes cannot enter",
+    "this Area as long as Shrieker’s Nest is in play."
+   ],
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_rooms_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_rooms_BACK.pdf",
+    "page": 11
+   },
+   "verifiedEffect": null,
+   "pendingReview": [
+    "Weald Boss 房留待专属 Boss 刀核准；不得进入普通房间牌堆"
+   ],
+   "boss": true,
+   "poolEligible": false,
+   "classificationEvidence": [
+    "印刷正文含独立一行「BOSS」（FRONT p11）",
+    "标题解析为「Shrieker」（p11 破折号标题行）"
+   ]
+  },
+  {
+   "id": "room:weald:12",
+   "name": "Brigand Pounder",
+   "copies": 1,
+   "location": "weald",
+   "number": 12,
+   "printedLines": [
+    "{icon:07104c1226} 12—Brigand Pounder",
+    "{icon:e445d15ec7}",
+    "{icon:cb6ab57f85}",
+    "{icon:9bdab431be}",
+    "{icon:497092fe1f} 12",
+    "{icon:fd79a9bc06}",
+    "{icon:924951456a}",
+    "{icon:8d535b8194}",
+    "{icon:8d535b8194}",
+    "{icon:9bdab431be}",
+    "{icon:be68aef5d4}",
+    "{icon:d4bafe101c}",
+    "{icon:cb6ab57f85}",
+    "{icon:a03fc0c541}",
+    "{icon:9bdab431be}",
+    "{icon:9bdab431be}",
+    "{icon:933e28ff76}",
+    "{icon:63bb8a6b34}",
+    "{icon:80d1bb5092} {icon:5a061bcddb}",
+    "{icon:70f3ac05b8}",
+    "{icon:8556221f31}",
+    "BOSS"
+   ],
+   "source": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_rooms_FRONT.pdf",
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_rooms_BACK.pdf",
+    "page": 12
+   },
+   "verifiedEffect": null,
+   "pendingReview": [
+    "Weald Boss 房留待专属 Boss 刀核准；不得进入普通房间牌堆"
+   ],
+   "boss": true,
+   "poolEligible": false,
+   "classificationEvidence": [
+    "印刷正文含独立一行「BOSS」（FRONT p12）",
+    "标题解析为「Brigand Pounder」（p12 破折号标题行）"
+   ]
   }
  ]
 }
