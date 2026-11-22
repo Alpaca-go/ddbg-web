@@ -21,6 +21,10 @@ pnpm --filter @ddbg/pipeline normalize
 
 `extension/cove/curio.json` 由 `buildCoveCurios` 生成，独立校验 16 张、64 行；仅词典已确认的压力与补给骰写入效果，其余行 **Q-186** 停点。见 [Cove 奇物审阅](../../../docs/cove-curio-review-2026-11-21.md)。
 
+## Cove 普通房间（首批）
+
+`extension/cove/room.json`（`ddbg-cove-room-v0`）与 `boss_room_sources.json`（`ddbg-cove-boss-room-sources-v0`）由 `buildCoveRooms` / `buildCoveBossRoomSources` 生成：raw 12 面，普通 p1–p9 各 1 张入目录，Boss p10–p12 仅来源登记（`poolEligible: false`）。效果保留印刷行，全部 **Q-186** 停点；不开放出征。`WRITE_NORMALIZED=1` + `cove-rooms.test.ts` 可重写 JSON。见 [Cove 房间审阅](../../../docs/cove-room-review-2026-11-22.md)。
+
 ## Weald 普通房间与板块
 
 `extension/weald/room.json` 与 `room_tile_geometry.json` 使用独立 schema（`ddbg-weald-room-v1` / `ddbg-weald-room-tile-geometry-v0`），写入 R-234–R-239 已核准的九张普通房间与对应板块。含完整通行几何、容量、部署、真菌与星标效果区域；5 号零容量 I、7 号零容量 H／I／J；1 号 C／E／F／G 绑定 Toxic Mushrooms（R-239）。全部 `usable=false`，不开放出征；由 `pnpm --filter @ddbg/data test` 中 `weald-rooms.test.ts` 校验，可用 `WRITE_NORMALIZED=1` 重写 JSON。见 [房间审阅记录](../../../docs/weald-room-review-2026-11-12.md)。
