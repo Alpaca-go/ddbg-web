@@ -63,7 +63,7 @@ it("R-156：饰品交互就绪后 selectRoomTile 返回 matched；几何漂移�
   expect(tile.specialRegions.every((r) => r.runtimeReady)).toBe(true);
   expect(
     selectRoomTile(
-      rooms.cards.find((c) => c.id === "room:p016"),
+      rooms.cards.find((c) => c.id === "room:darkest:03"),
       geometry,
     ),
   ).toMatchObject({ status: "matched" });

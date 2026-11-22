@@ -157,7 +157,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "room:p001",
+      "id": "room:ruins:01",
       "name": "Ritual Chamber",
       "category": "room",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p001.png",
@@ -168,7 +168,7 @@
       "boss": false
     },
     {
-      "id": "room:p002",
+      "id": "room:ruins:02",
       "name": "Torture Chamber",
       "category": "room",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p002.png",
@@ -179,7 +179,7 @@
       "boss": false
     },
     {
-      "id": "room:p003",
+      "id": "room:ruins:03",
       "name": "Healing Fountain",
       "category": "room",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p003.png",
@@ -190,7 +190,7 @@
       "boss": false
     },
     {
-      "id": "room:p004",
+      "id": "room:ruins:04",
       "name": "Spiked Pit",
       "category": "room",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p004.png",
@@ -201,7 +201,7 @@
       "boss": false
     },
     {
-      "id": "room:p005",
+      "id": "room:ruins:05",
       "name": "Beacon of Light",
       "category": "room",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p005.png",
@@ -212,7 +212,7 @@
       "boss": false
     },
     {
-      "id": "room:p006",
+      "id": "room:ruins:06",
       "name": "Treasure Chamber",
       "category": "room",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p006.png",
@@ -223,7 +223,7 @@
       "boss": false
     },
     {
-      "id": "room:p007",
+      "id": "room:ruins:07",
       "name": "Tomb of Ancestor",
       "category": "room",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p007.png",
@@ -234,7 +234,7 @@
       "boss": false
     },
     {
-      "id": "room:p008",
+      "id": "room:ruins:08",
       "name": "Invocation Chamber",
       "category": "room",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p008.png",
@@ -245,7 +245,7 @@
       "boss": false
     },
     {
-      "id": "room:p009",
+      "id": "room:ruins:09",
       "name": "Old Abbey",
       "category": "room",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p009.png",
@@ -256,7 +256,7 @@
       "boss": false
     },
     {
-      "id": "room:p010",
+      "id": "room:ruins:10",
       "name": "Necromancer Room",
       "category": "room",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p010.png",
@@ -267,7 +267,7 @@
       "boss": true
     },
     {
-      "id": "room:p011",
+      "id": "room:ruins:11",
       "name": "Prophet Room",
       "category": "room",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p011.png",
@@ -278,7 +278,7 @@
       "boss": true
     },
     {
-      "id": "room:p012",
+      "id": "room:ruins:12",
       "name": "Collector Room",
       "category": "room",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p012.png",
@@ -289,7 +289,7 @@
       "boss": true
     },
     {
-      "id": "room:p013",
+      "id": "room:ruins:13",
       "name": "Fanatic Room",
       "category": "room",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p013.png",
@@ -300,7 +300,7 @@
       "boss": true
     },
     {
-      "id": "room:p014",
+      "id": "room:darkest:01",
       "name": "Pool of Rebirth",
       "category": "room",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p014.png",
@@ -310,7 +310,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "room:p015",
+      "id": "room:darkest:02",
       "name": "Hall of Ascension",
       "category": "room",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p015.png",
@@ -320,7 +320,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "room:p016",
+      "id": "room:darkest:03",
       "name": "Eldritch Vault",
       "category": "room",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p016.png",
@@ -330,7 +330,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "room:p017",
+      "id": "room:darkest:04",
       "name": "Toxic Chamber",
       "category": "room",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p017.png",
@@ -340,7 +340,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "room:p018",
+      "id": "room:darkest:05",
       "name": "Eldritch Power Chamber",
       "category": "room",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p018.png",
@@ -350,7 +350,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "room:p019",
+      "id": "room:darkest:06",
       "name": "Teleporters",
       "category": "room",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p019.png",
@@ -360,7 +360,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "room:p020",
+      "id": "room:darkest:07",
       "name": "Evil Eye",
       "category": "room",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p020.png",
@@ -370,7 +370,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "room:p021",
+      "id": "room:darkest:08",
       "name": "Temple of the Chosen",
       "category": "room",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p021.png",
@@ -380,7 +380,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "room:p022",
+      "id": "room:darkest:09",
       "name": "Templars Room",
       "category": "room",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p022.png",
@@ -390,7 +390,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "room:p023",
+      "id": "room:darkest:10",
       "name": "Shuffling Horror Room",
       "category": "room",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p023.png",
@@ -400,7 +400,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "room:p024",
+      "id": "room:darkest:11",
       "name": "Mammoth Cyst Room",
       "category": "room",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p024.png",
@@ -410,7 +410,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "room:p025",
+      "id": "room:darkest:12",
       "name": "Ancestor Room",
       "category": "room",
       "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_1_MG_DD_01_EN_COREBOX_Print_02_DD_CARDS_COREBOX_DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf_p025.png",

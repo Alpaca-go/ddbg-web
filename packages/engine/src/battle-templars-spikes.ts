@@ -52,7 +52,7 @@ function heroStandingOnTemplarsSpikes(state: GameState, entityId: string): boole
 }
 
 /**
- * R-193：Templars Room 橙星尖刺区（room:p022 / room_tile:p013:front）。
+ * R-193：Templars Room 橙星尖刺区（room:darkest:09 / room_tile:darkest:09）。
  * 仅对英雄结算；5 伤 + Bleed 3（3t），抗性/免疫走常规栏。
  */
 export function applyTemplarsSpikes(

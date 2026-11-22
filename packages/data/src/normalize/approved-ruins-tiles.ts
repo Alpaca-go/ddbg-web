@@ -153,9 +153,9 @@ function approvedTile(input: {
 }): ApprovedTile {
   const pageId = `p${String(input.page).padStart(3, "0")}`;
   return tileShape.parse({
-    id: `room_tile:${pageId}:${input.face}`,
+    id: `room_tile:ruins:${String(input.number).padStart(2, "0")}`,
     rawId: `dungeon_tile:${pageId}`,
-    roomId: `room:p${String(input.number).padStart(3, "0")}`,
+    roomId: `room:ruins:${String(input.number).padStart(2, "0")}`,
     location: "ruins",
     number: input.number,
     name: input.name,
@@ -189,9 +189,9 @@ function approvedTile(input: {
 /** R-065/VQ-06：仅本面获批位置；不全局解释同形星号。 */
 export const approvedExtraRuinsTiles: readonly ApprovedTile[] = [
   tileShape.parse({
-    id: "room_tile:p002:front",
+    id: "room_tile:ruins:03",
     rawId: "dungeon_tile:p002",
-    roomId: "room:p003",
+    roomId: "room:ruins:03",
     location: "ruins",
     number: 3,
     name: "Healing Fountain",
@@ -230,9 +230,9 @@ export const approvedExtraRuinsTiles: readonly ApprovedTile[] = [
     unresolvedMarkers: [],
   }),
   tileShape.parse({
-    id: "room_tile:p003:front",
+    id: "room_tile:ruins:05",
     rawId: "dungeon_tile:p003",
-    roomId: "room:p005",
+    roomId: "room:ruins:05",
     location: "ruins",
     number: 5,
     name: "Beacon of Light",

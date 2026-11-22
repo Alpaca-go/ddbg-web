@@ -180,9 +180,9 @@ function buildHeroEntities(
 }
 
 function roomLabel(plan: StoredDarkestBossEncounterPlan): string {
-  if (plan.roomCardId === "room:p023") return "Shuffling Horror Room";
-  if (plan.roomCardId === "room:p022") return "Templars Room";
-  if (plan.roomCardId === "room:p024") return "Mammoth Cyst Room";
+  if (plan.roomCardId === "room:darkest:10") return "Shuffling Horror Room";
+  if (plan.roomCardId === "room:darkest:09") return "Templars Room";
+  if (plan.roomCardId === "room:darkest:11") return "Mammoth Cyst Room";
   return plan.roomCardId;
 }
 

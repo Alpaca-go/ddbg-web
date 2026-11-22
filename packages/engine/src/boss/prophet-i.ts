@@ -31,13 +31,13 @@ export const PROPHET_I_COMBAT_MONSTER_CARD_ID = "monster_large:p005" as const;
  * Wooden Pew 为 Prophet Room 卡面代币（非 normalized 怪物 deck 卡）。
  * 引擎 summon 声明用 id；运行时写入 `battle.woodenPews` 区域标记。
  */
-export const PROPHET_I_WOODEN_PEW_SUMMON_TOKEN_ID = "room:p011:wooden_pew" as const;
+export const PROPHET_I_WOODEN_PEW_SUMMON_TOKEN_ID = "room:ruins:11:wooden_pew" as const;
 
 /** Prophet Room 房间卡 id（`room.json` · d10 标记来源）。 */
-export const PROPHET_ROOM_CARD_ID = "room:p011" as const;
+export const PROPHET_ROOM_CARD_ID = "room:ruins:11" as const;
 
 /**
- * `room:p011` 上 `{icon:096ea91bb9}` 标记的印刷数字/范围（顺序同 normalized `printedLines`）。
+ * `room:ruins:11` 上 `{icon:096ea91bb9}` 标记的印刷数字/范围（顺序同 normalized `printedLines`）。
  * R-167/173批准真实区域绑定；运行时依赖 `prophetRoomD10AreaTable` 绑定。
  */
 export const PROPHET_ROOM_D10_MARKERS = ["4", "3", "1-2", "6", "5", "7-8", "10", "9"] as const;

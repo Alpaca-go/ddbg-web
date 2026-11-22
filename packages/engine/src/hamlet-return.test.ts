@@ -129,9 +129,11 @@ it("R32 a-c回收所有对应弃牌、持牌保留、状态清零与饰品正置
       roomCards: {
         ...d.roomCards!,
         deck: d
-          .roomCards!.cards.filter((c) => c.location === "ruins" && !c.boss && c.id !== "room:p001")
+          .roomCards!.cards.filter(
+            (c) => c.location === "ruins" && !c.boss && c.id !== "room:ruins:01",
+          )
           .map((c) => c.id),
-        discard: ["room:p001"],
+        discard: ["room:ruins:01"],
       },
       lootPool: {
         ...d.lootPool!,

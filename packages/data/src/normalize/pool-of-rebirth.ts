@@ -41,9 +41,9 @@ const placements = z.strictObject({
   support: z.string(),
 });
 const tileShape = z.strictObject({
-  id: z.literal("room_tile:p009:front"),
+  id: z.literal("room_tile:darkest:01"),
   rawId: z.literal("dungeon_tile:p009"),
-  roomId: z.literal("room:p014"),
+  roomId: z.literal("room:darkest:01"),
   location: z.literal("darkestDungeon"),
   number: z.literal(1),
   name: z.literal("Pool of Rebirth"),
@@ -56,7 +56,7 @@ const tileShape = z.strictObject({
   geometryVerified: z.literal(true),
   usable: z.literal(true),
   effectSource: z.strictObject({
-    roomId: z.literal("room:p014"),
+    roomId: z.literal("room:darkest:01"),
     file: z.literal(ROOM_FRONT),
     page: z.literal(14),
     ruling: z.literal("R-145"),
@@ -112,9 +112,9 @@ const tileShape = z.strictObject({
 
 // R-144–152：获批几何、区域结算及一次性清场复活/免费补位已接通。
 export const approvedPoolOfRebirth = tileShape.parse({
-  id: "room_tile:p009:front",
+  id: "room_tile:darkest:01",
   rawId: "dungeon_tile:p009",
-  roomId: "room:p014",
+  roomId: "room:darkest:01",
   location: "darkestDungeon",
   number: 1,
   name: "Pool of Rebirth",
@@ -122,7 +122,7 @@ export const approvedPoolOfRebirth = tileShape.parse({
   ruling: "R-144",
   geometryVerified: true,
   usable: true,
-  effectSource: { roomId: "room:p014", file: ROOM_FRONT, page: 14, ruling: "R-145" },
+  effectSource: { roomId: "room:darkest:01", file: ROOM_FRONT, page: 14, ruling: "R-145" },
   specialRegions: [
     {
       areaId: "F",

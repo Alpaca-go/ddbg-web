@@ -17,7 +17,7 @@ describe("获批 Ritual Chamber 几何（R-054）", () => {
     expect(raw).toEqual(before);
     expect(file.tiles.filter((tile) => tile.usable)).toHaveLength(17);
     const tile = file.tiles[0]!;
-    expect(tile.id).toBe("room_tile:p001");
+    expect(tile.id).toBe("room_tile:ruins:01");
     expect(tile.areas.map((area) => [area.id, area.capacity])).toEqual([
       ["A", 4],
       ["B", 3],
@@ -152,14 +152,14 @@ describe("获批 Ritual Chamber 几何（R-054）", () => {
     ).toBe(false);
   });
 
-  it("VQ-01–05：Torture 独立 BACK p2 / room:p002，保持获批容量、部署和非通行边", () => {
+  it("VQ-01–05：Torture 独立 BACK p2 / room:ruins:02，保持获批容量、部署和非通行边", () => {
     const before = structuredClone(raw);
     const file = buildRoomTileGeometry(raw);
     expect(raw).toEqual(before);
     expect(file.tiles).toHaveLength(25);
-    const tile = file.tiles.find((t) => t.id === "room_tile:p002:back")!;
+    const tile = file.tiles.find((t) => t.id === "room_tile:ruins:02")!;
     expect(tile).toMatchObject({
-      roomId: "room:p002",
+      roomId: "room:ruins:02",
       location: "ruins",
       number: 2,
       source: { file: "DD_COREBOX_TILES_BACK.pdf", page: 2, face: "back" },
@@ -229,7 +229,9 @@ describe("获批 Ritual Chamber 几何（R-054）", () => {
       roomTileGeometrySchema.safeParse({ ...tile, source: { ...tile.source, face: "front" } })
         .success,
     ).toBe(false);
-    expect(roomTileGeometrySchema.safeParse({ ...tile, roomId: "room:p003" }).success).toBe(false);
+    expect(roomTileGeometrySchema.safeParse({ ...tile, roomId: "room:ruins:03" }).success).toBe(
+      false,
+    );
   });
 
   it("Torture 来源守卫只读 BACK；缺背面、错编号或缺本面标记拒绝，不拿 FRONT 补齐", () => {

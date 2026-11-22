@@ -96,7 +96,7 @@ it("VQ06锁定FRONT p2/遗迹3、高地/部署与十通路；候选/运行时漂
   for (const changed of [
     { source: { ...tile.source, face: "back" } },
     { usable: false },
-    { roomId: "room:p002" },
+    { roomId: "room:ruins:02" },
   ])
     expect(approvedExtraRuinsTileSchema.safeParse({ ...tile, ...changed }).success).toBe(false);
   expect(roomTileBattleAreas({ ...tile, usable: false }).some((a) => a.endTurnHeal)).toBe(false);

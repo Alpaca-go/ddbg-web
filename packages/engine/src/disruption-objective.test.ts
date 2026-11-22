@@ -17,11 +17,11 @@ const prepare = { type: "prepareDungeonBattle" } as const;
 it("Disruption sets aside rooms 4 and 8, while ordinary encounters shuffle only the other seven", () => {
   const base = fixture(1, "lair"),
     d = base.dungeon!;
-  expect(readSetAsideRoomCardIds(d)).toEqual(["room:p004", "room:p008"]);
+  expect(readSetAsideRoomCardIds(d)).toEqual(["room:ruins:04", "room:ruins:08"]);
   const deck = ruinsRoomDeckWithoutSetAside(d.roomCards!.cards, readSetAsideRoomCardIds(d));
   expect(deck).toHaveLength(7);
-  expect(deck).not.toContain("room:p004");
-  expect(deck).not.toContain("room:p008");
+  expect(deck).not.toContain("room:ruins:04");
+  expect(deck).not.toContain("room:ruins:08");
   for (let seed = 0; seed < 16; seed++) {
     const before = fixture(seed, "lair"),
       result = applyCommand(before, prepare);
@@ -59,7 +59,7 @@ it("each Objective entry makes one deterministic draw from both cards; repeat cl
     if (tile.status === "matched") expect(active.tileId).toBe(tile.tile.id);
     else expect(active.tileId).toBeUndefined();
   }
-  expect([...seen].sort()).toEqual(["room:p004", "room:p008"]);
+  expect([...seen].sort()).toEqual(["room:ruins:04", "room:ruins:08"]);
 }, 15000);
 it("both cards remain available on later entries; ordinary room discards cannot contain set-aside cards", () => {
   let game = fixture();
@@ -81,23 +81,23 @@ it("both cards remain available on later entries; ordinary room discards cannot 
   for (const patch of [
     {
       deck: [
-        "room:p004",
-        "room:p001",
-        "room:p002",
-        "room:p003",
-        "room:p005",
-        "room:p006",
-        "room:p009",
+        "room:ruins:04",
+        "room:ruins:01",
+        "room:ruins:02",
+        "room:ruins:03",
+        "room:ruins:05",
+        "room:ruins:06",
+        "room:ruins:09",
       ],
       discard: [],
     },
-    { deck: [], discard: ["room:p008"] },
+    { deck: [], discard: ["room:ruins:08"] },
   ]) {
     const bad = { ...base, dungeon: { ...d, roomCards: { ...d.roomCards!, ...patch } } };
     expect(applyCommand(bad, prepare).state).toBe(bad);
   }
   expect(() =>
-    ruinsRoomDeckWithoutSetAside(d.roomCards!.cards, ["room:p004", "room:p004"]),
+    ruinsRoomDeckWithoutSetAside(d.roomCards!.cards, ["room:ruins:04", "room:ruins:04"]),
   ).toThrow();
 });
 it.each(["victory", "retreat"] as const)(

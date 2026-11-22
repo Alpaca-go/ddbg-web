@@ -36,9 +36,9 @@ const placements = z.strictObject({
   support: z.string(),
 });
 const tileShape = z.strictObject({
-  id: z.literal("room_tile:p006:back"),
+  id: z.literal("room_tile:ruins:10"),
   rawId: z.literal("dungeon_tile:p006"),
-  roomId: z.literal("room:p010"),
+  roomId: z.literal("room:ruins:10"),
   location: z.literal("ruins"),
   number: z.literal(10),
   name: z.literal("Necromancer Room"),
@@ -51,7 +51,7 @@ const tileShape = z.strictObject({
   geometryVerified: z.literal(true),
   usable: z.literal(false),
   effectSource: z.strictObject({
-    roomId: z.literal("room:p010"),
+    roomId: z.literal("room:ruins:10"),
     file: z.literal(ROOM_FRONT),
     page: z.literal(10),
     ruling: z.literal("R-166"),
@@ -97,9 +97,9 @@ const tileShape = z.strictObject({
 
 // R-166仅批准图面，Boss运行时准入仍单独核实。
 export const approvedNecromancerRoom = tileShape.parse({
-  id: "room_tile:p006:back",
+  id: "room_tile:ruins:10",
   rawId: "dungeon_tile:p006",
-  roomId: "room:p010",
+  roomId: "room:ruins:10",
   location: "ruins",
   number: 10,
   name: "Necromancer Room",
@@ -107,7 +107,7 @@ export const approvedNecromancerRoom = tileShape.parse({
   ruling: "R-166",
   geometryVerified: true,
   usable: false,
-  effectSource: { roomId: "room:p010", file: ROOM_FRONT, page: 10, ruling: "R-166" },
+  effectSource: { roomId: "room:ruins:10", file: ROOM_FRONT, page: 10, ruling: "R-166" },
   specialRegions: [],
   deployment: {
     printReview: "verified",

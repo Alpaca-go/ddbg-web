@@ -100,11 +100,11 @@ it("R-159：参战闸门、橙星投影与 readRoomTile", () => {
   expect(roomTileBattleAreas({ ...tile, usable: false }).some((a) => a.teleporter)).toBe(false);
   expect(
     selectRoomTile(
-      rooms.cards.find((c) => c.id === "room:p019"),
+      rooms.cards.find((c) => c.id === "room:darkest:06"),
       catalog,
     ),
   ).toMatchObject({ status: "matched" });
-  expect(readRoomTile(rooms.cards.find((c) => c.id === "room:p019")).status).toBe("matched");
+  expect(readRoomTile(rooms.cards.find((c) => c.id === "room:darkest:06")).status).toBe("matched");
 });
 
 it("橙星虚拟邻接不污染非本房与无橙星区", () => {

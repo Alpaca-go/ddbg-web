@@ -6,7 +6,7 @@ function gameWithTile(tileId?: string): GameState {
   return {
     dungeon: {
       roomCards: {
-        active: tileId ? { cardId: "room:p003", tileId } : { cardId: "room:p003" },
+        active: tileId ? { cardId: "room:ruins:03", tileId } : { cardId: "room:ruins:03" },
       },
     },
   } as GameState;
@@ -14,18 +14,16 @@ function gameWithTile(tileId?: string): GameState {
 
 describe("resolveBattleRoomTileId", () => {
   it("prefers dungeon active tileId", () => {
-    expect(resolveBattleRoomTileId(gameWithTile("room_tile:p002:front"), "Healing Fountain")).toBe(
-      "room_tile:p002:front",
+    expect(resolveBattleRoomTileId(gameWithTile("room_tile:ruins:03"), "Healing Fountain")).toBe(
+      "room_tile:ruins:03",
     );
   });
 
   it("falls back to room name in geometry catalog", () => {
-    expect(resolveBattleRoomTileId({} as GameState, "Beacon of Light")).toBe(
-      "room_tile:p003:front",
-    );
+    expect(resolveBattleRoomTileId({} as GameState, "Beacon of Light")).toBe("room_tile:ruins:05");
   });
 
   it("maps battle sandbox default tile name to ritual chamber", () => {
-    expect(resolveBattleRoomTileId({} as GameState, "Ritual Chamber")).toBe("room_tile:p001");
+    expect(resolveBattleRoomTileId({} as GameState, "Ritual Chamber")).toBe("room_tile:ruins:01");
   });
 });

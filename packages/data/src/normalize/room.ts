@@ -22,7 +22,6 @@ export function buildRooms(raw: RawFile) {
       const name = title.replace(/^\d+\s*[—–-]\s*/, "").trim();
       if (!title.startsWith(`${identity.number}—`)) throw new Error("缺少印刷房间编号");
       return {
-        id: card.id,
         name,
         copies: card.copies,
         ...identity,

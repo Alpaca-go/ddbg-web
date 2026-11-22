@@ -11,7 +11,7 @@ it("R-157：Toxic Chamber 参战闸门与 Toxic Vapors 区域投影", () => {
   expect(tile.usable).toBe(true);
   expect(
     selectRoomTile(
-      rooms.cards.find((c) => c.id === "room:p017"),
+      rooms.cards.find((c) => c.id === "room:darkest:04"),
       catalog,
     ).status,
   ).toBe("matched");
@@ -22,7 +22,7 @@ it("R-157：Toxic Chamber 参战闸门与 Toxic Vapors 区域投影", () => {
       .map((a) => a.id)
       .sort(),
   ).toEqual(["A", "B", "C", "E"]);
-  expect(readRoomTile(rooms.cards.find((c) => c.id === "room:p017")).status).toBe("matched");
+  expect(readRoomTile(rooms.cards.find((c) => c.id === "room:darkest:04")).status).toBe("matched");
   expect(heroStandingAccuracyModifier(areas.find((a) => a.id === "A"))).toBe(-3);
   expect(heroStandingAccuracyModifier(areas.find((a) => a.id === "F"))).toBe(0);
 });

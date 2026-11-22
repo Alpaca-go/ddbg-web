@@ -16,7 +16,7 @@ describe("print room tile art map", () => {
     expect(meta.tileCount).toBe(11);
     expect(meta.faceManualDir).toBe(ROOM_TILE_FACE_MANUAL_DIR);
     expect(printMap.tiles).toHaveLength(11);
-    const hall = lookupRoomTileArt("room_tile:p009:back");
+    const hall = lookupRoomTileArt("room_tile:darkest:02");
     expect(hall).toMatchObject({
       name: "Hall of Ascension",
       printPage: 9,
@@ -25,10 +25,10 @@ describe("print room tile art map", () => {
       facePngRel: "manual/room-tile-faces/room_tile-p009-back.png",
     });
 
-    const fountain = lookupRoomTileArt("room_tile:p002:front");
+    const fountain = lookupRoomTileArt("room_tile:ruins:03");
     expect(fountain?.name).toBe("Healing Fountain");
     expect(fountain?.facePngRel).toBe("manual/room-tile-faces/room_tile-p002-front.png");
-    expect(resolveRoomTileFaceUrl("room_tile:p002:front")).toBe(
+    expect(resolveRoomTileFaceUrl("room_tile:ruins:03")).toBe(
       cachedPrintRoomTileRelUrl("manual/room-tile-faces/room_tile-p002-front.png"),
     );
   });

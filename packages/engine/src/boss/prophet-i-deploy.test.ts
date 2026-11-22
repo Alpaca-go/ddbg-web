@@ -78,7 +78,7 @@ it("R-167/173：真实8区/12通路、Boss进攻E、四姿态部署，部署不�
   expect(b.choiceCursor).toBe(d.decision);
   expect(r.state.dungeon!.heroes).toEqual(d.heroes);
   expect(r.state.dungeon!.gold).toBe(d.gold);
-  expect(r.state.dungeon!.roomCards!.active!.tileId).toBe("room_tile:p006:front");
+  expect(r.state.dungeon!.roomCards!.active!.tileId).toBe("room_tile:ruins:11");
   expect(r.state.dungeon!.monsterPool).toEqual(d.monsterPool);
   expect(b.prophetRoomD10AreaTable).toHaveLength(8);
   expect(r).toEqual(applyCommand(JSON.parse(JSON.stringify(s)), command));
@@ -152,7 +152,10 @@ it("I级专用，不接受其它Boss/等级、旧无边缘房标记、错房或�
       ...s,
       dungeon: {
         ...d,
-        roomCards: { ...d.roomCards!, active: { ...d.roomCards!.active!, cardId: "room:p010" } },
+        roomCards: {
+          ...d.roomCards!,
+          active: { ...d.roomCards!.active!, cardId: "room:ruins:10" },
+        },
       },
     },
     {
@@ -225,7 +228,7 @@ it("命令可序列化重放，普通Boss选择与usable/combatReady停点不被
   expect(geometry.tiles.filter((t) => t.usable)).toHaveLength(17);
   expect(
     selectRoomTile(
-      rooms.cards.find((c) => c.id === "room:p011"),
+      rooms.cards.find((c) => c.id === "room:ruins:11"),
       geometry,
     ).status,
   ).toBe("refused");

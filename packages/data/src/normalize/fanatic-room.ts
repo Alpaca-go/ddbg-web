@@ -39,9 +39,9 @@ const placements = z.strictObject({
   support: z.string(),
 });
 const tileShape = z.strictObject({
-  id: z.literal("room_tile:p007:front"),
+  id: z.literal("room_tile:ruins:13"),
   rawId: z.literal("dungeon_tile:p007"),
-  roomId: z.literal("room:p013"),
+  roomId: z.literal("room:ruins:13"),
   location: z.literal("ruins"),
   number: z.literal(13),
   name: z.literal("Fanatic Room"),
@@ -54,7 +54,7 @@ const tileShape = z.strictObject({
   geometryVerified: z.literal(true),
   usable: z.literal(false),
   effectSource: z.strictObject({
-    roomId: z.literal("room:p013"),
+    roomId: z.literal("room:ruins:13"),
     file: z.literal(ROOM_FRONT),
     page: z.literal(13),
     ruling: z.literal("R-169"),
@@ -100,9 +100,9 @@ const tileShape = z.strictObject({
 
 // R-169仅批准图面，Boss运行时准入仍单独核实。
 export const approvedFanaticRoom = tileShape.parse({
-  id: "room_tile:p007:front",
+  id: "room_tile:ruins:13",
   rawId: "dungeon_tile:p007",
-  roomId: "room:p013",
+  roomId: "room:ruins:13",
   location: "ruins",
   number: 13,
   name: "Fanatic Room",
@@ -110,7 +110,7 @@ export const approvedFanaticRoom = tileShape.parse({
   ruling: "R-169",
   geometryVerified: true,
   usable: false,
-  effectSource: { roomId: "room:p013", file: ROOM_FRONT, page: 13, ruling: "R-169" },
+  effectSource: { roomId: "room:ruins:13", file: ROOM_FRONT, page: 13, ruling: "R-169" },
   specialRegions: [],
   deployment: {
     printReview: "verified",

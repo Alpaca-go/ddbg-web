@@ -44,9 +44,9 @@ const placements = z.strictObject({
   support: z.string(),
 });
 const tileShape = z.strictObject({
-  id: z.literal("room_tile:p013:back"),
+  id: z.literal("room_tile:darkest:10"),
   rawId: z.literal("dungeon_tile:p013"),
-  roomId: z.literal("room:p023"),
+  roomId: z.literal("room:darkest:10"),
   location: z.literal("darkestDungeon"),
   number: z.literal(10),
   name: z.literal("Shuffling Horror Room"),
@@ -59,7 +59,7 @@ const tileShape = z.strictObject({
   geometryVerified: z.literal(true),
   usable: z.literal(false),
   effectSource: z.strictObject({
-    roomId: z.literal("room:p023"),
+    roomId: z.literal("room:darkest:10"),
     file: z.literal(ROOM_FRONT),
     page: z.literal(23),
     ruling: z.literal("R-163"),
@@ -105,9 +105,9 @@ const tileShape = z.strictObject({
 
 // R-163仅批准印刷几何，Boss运行时准入仍单独核实。
 export const approvedShufflingHorrorRoom = tileShape.parse({
-  id: "room_tile:p013:back",
+  id: "room_tile:darkest:10",
   rawId: "dungeon_tile:p013",
-  roomId: "room:p023",
+  roomId: "room:darkest:10",
   location: "darkestDungeon",
   number: 10,
   name: "Shuffling Horror Room",
@@ -115,7 +115,7 @@ export const approvedShufflingHorrorRoom = tileShape.parse({
   ruling: "R-163",
   geometryVerified: true,
   usable: false,
-  effectSource: { roomId: "room:p023", file: ROOM_FRONT, page: 23, ruling: "R-163" },
+  effectSource: { roomId: "room:darkest:10", file: ROOM_FRONT, page: 23, ruling: "R-163" },
   specialRegions: [],
   deployment: {
     printReview: "verified",

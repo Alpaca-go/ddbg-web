@@ -113,13 +113,13 @@ it("R-158：参战闸门、橙星投影与 readRoomTile", () => {
   expect(tile.specialRegions.every((r) => r.runtimeReady)).toBe(true);
   expect(
     selectRoomTile(
-      rooms.cards.find((c) => c.id === "room:p018"),
+      rooms.cards.find((c) => c.id === "room:darkest:05"),
       catalog,
     ).status,
   ).toBe("matched");
   const areas = roomTileBattleAreas(tile);
   expect(areas.filter((a) => a.eldritchPower).map((a) => a.id)).toEqual(["C"]);
-  expect(readRoomTile(rooms.cards.find((c) => c.id === "room:p018")).status).toBe("matched");
+  expect(readRoomTile(rooms.cards.find((c) => c.id === "room:darkest:05")).status).toBe("matched");
   expect(roomTileBattleAreas({ ...tile, usable: false }).some((a) => a.eldritchPower)).toBe(false);
 });
 

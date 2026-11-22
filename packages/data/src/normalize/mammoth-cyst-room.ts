@@ -58,9 +58,9 @@ const placements = z.strictObject({
   support: z.string(),
 });
 const tileShape = z.strictObject({
-  id: z.literal("room_tile:p014:front"),
+  id: z.literal("room_tile:darkest:11"),
   rawId: z.literal("dungeon_tile:p014"),
-  roomId: z.literal("room:p024"),
+  roomId: z.literal("room:darkest:11"),
   location: z.literal("darkestDungeon"),
   number: z.literal(11),
   name: z.literal("Mammoth Cyst Room"),
@@ -73,7 +73,7 @@ const tileShape = z.strictObject({
   geometryVerified: z.literal(true),
   usable: z.literal(false),
   effectSource: z.strictObject({
-    roomId: z.literal("room:p024"),
+    roomId: z.literal("room:darkest:11"),
     file: z.literal(ROOM_FRONT),
     page: z.literal(24),
     ruling: z.literal("R-164"),
@@ -128,9 +128,9 @@ const tileShape = z.strictObject({
 
 // R-164批准图面，紫星只记录颜色和印刷编号，不推定运行时效果。
 export const approvedMammothCystRoom = tileShape.parse({
-  id: "room_tile:p014:front",
+  id: "room_tile:darkest:11",
   rawId: "dungeon_tile:p014",
-  roomId: "room:p024",
+  roomId: "room:darkest:11",
   location: "darkestDungeon",
   number: 11,
   name: "Mammoth Cyst Room",
@@ -138,7 +138,7 @@ export const approvedMammothCystRoom = tileShape.parse({
   ruling: "R-164",
   geometryVerified: true,
   usable: false,
-  effectSource: { roomId: "room:p024", file: ROOM_FRONT, page: 24, ruling: "R-164" },
+  effectSource: { roomId: "room:darkest:11", file: ROOM_FRONT, page: 24, ruling: "R-164" },
   specialRegions: [],
   printedMarkers: [
     ["A", "1-2"],

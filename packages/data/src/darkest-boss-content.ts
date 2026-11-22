@@ -37,7 +37,7 @@ export const darkestBossContentSchema = z
       )
       .length(3),
     finalBattle: z.strictObject({
-      roomCardId: z.literal("room:p025"),
+      roomCardId: z.literal("room:darkest:12"),
       preparationDays: z.literal(4),
       drawHamletEvent: z.literal(false),
       exploration: z.literal(false),
@@ -76,9 +76,9 @@ export const darkestBossContentSchema = z
         ctx.addIssue({ code: "custom", message: `Boss能力卡/姿态/先攻/行动数漂移：${a.cardId}` });
     }
     const expected = [
-      ["quest:p016", "room:p023", "ancestor2", "monster_large:p017"],
-      ["quest:p017", "room:p022", "ancestor1", "monster_large:p015", "monster_large:p014"],
-      ["quest:p018", "room:p024", "gestatingHeart", "monster_large:p016"],
+      ["quest:p016", "room:darkest:10", "ancestor2", "monster_large:p017"],
+      ["quest:p017", "room:darkest:09", "ancestor1", "monster_large:p015", "monster_large:p014"],
+      ["quest:p018", "room:darkest:11", "gestatingHeart", "monster_large:p016"],
     ];
     expected.forEach(([quest, room, skip, ...ids]) => {
       const rows = file.encounters.filter((e) => e.questId === quest),

@@ -35,9 +35,9 @@ const placements = z.strictObject({
   support: z.string(),
 });
 const tileShape = z.strictObject({
-  id: z.literal("room_tile:p012:back"),
+  id: z.literal("room_tile:darkest:08"),
   rawId: z.literal("dungeon_tile:p012"),
-  roomId: z.literal("room:p021"),
+  roomId: z.literal("room:darkest:08"),
   location: z.literal("darkestDungeon"),
   number: z.literal(8),
   name: z.literal("Temple of the Chosen"),
@@ -50,7 +50,7 @@ const tileShape = z.strictObject({
   geometryVerified: z.literal(true),
   usable: z.literal(true),
   effectSource: z.strictObject({
-    roomId: z.literal("room:p021"),
+    roomId: z.literal("room:darkest:08"),
     file: z.literal(ROOM_FRONT),
     page: z.literal(21),
     ruling: z.literal("R-161"),
@@ -105,9 +105,9 @@ const tileShape = z.strictObject({
 
 // R-161：本面几何与卡文来源已批准；Rite of the Chosen运行时未接通。
 export const approvedTempleOfTheChosen = tileShape.parse({
-  id: "room_tile:p012:back",
+  id: "room_tile:darkest:08",
   rawId: "dungeon_tile:p012",
-  roomId: "room:p021",
+  roomId: "room:darkest:08",
   location: "darkestDungeon",
   number: 8,
   name: "Temple of the Chosen",
@@ -120,7 +120,7 @@ export const approvedTempleOfTheChosen = tileShape.parse({
   geometryVerified: true,
   usable: true,
   effectSource: {
-    roomId: "room:p021",
+    roomId: "room:darkest:08",
     file: "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
     page: 21,
     ruling: "R-161",

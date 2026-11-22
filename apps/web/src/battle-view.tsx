@@ -66,7 +66,7 @@ export function BattleView({
   const [provisionTargetId, setProvisionTargetId] = useState("hero-0");
   const [provisionEffect, setProvisionEffect] = useState<ProvisionEffect>("heal");
   const battle = game.battle!;
-  const collectorLootPending = game.dungeon?.roomCards?.active?.tileId === "room_tile:p007:back";
+  const collectorLootPending = game.dungeon?.roomCards?.active?.tileId === "room_tile:ruins:12";
   const displayData = formal ? questBattleData : battleData;
   const displayMonsters = [...displayData.monsters, ...(displayData.bossMonsters ?? [])];
   const roomTileId = resolveBattleRoomTileId(game, battle.roomName ?? displayData.tileName);

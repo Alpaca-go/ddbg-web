@@ -31,9 +31,9 @@ const placements = z.strictObject({
   support: z.string(),
 });
 const tileShape = z.strictObject({
-  id: z.literal("room_tile:p010:back"),
+  id: z.literal("room_tile:darkest:04"),
   rawId: z.literal("dungeon_tile:p010"),
-  roomId: z.literal("room:p017"),
+  roomId: z.literal("room:darkest:04"),
   location: z.literal("darkestDungeon"),
   number: z.literal(4),
   name: z.literal("Toxic Chamber"),
@@ -46,7 +46,7 @@ const tileShape = z.strictObject({
   geometryVerified: z.literal(true),
   usable: z.literal(true),
   effectSource: z.strictObject({
-    roomId: z.literal("room:p017"),
+    roomId: z.literal("room:darkest:04"),
     file: z.literal(ROOM_FRONT),
     page: z.literal(17),
     ruling: z.literal("R-157"),
@@ -101,9 +101,9 @@ const tileShape = z.strictObject({
 
 // R-157：含 Kyries 修正的 D/F 部署；Toxic Vapors 站立 Acc −3 已接通。
 export const approvedToxicChamber = tileShape.parse({
-  id: "room_tile:p010:back",
+  id: "room_tile:darkest:04",
   rawId: "dungeon_tile:p010",
-  roomId: "room:p017",
+  roomId: "room:darkest:04",
   location: "darkestDungeon",
   number: 4,
   name: "Toxic Chamber",
@@ -116,7 +116,7 @@ export const approvedToxicChamber = tileShape.parse({
   geometryVerified: true,
   usable: true,
   effectSource: {
-    roomId: "room:p017",
+    roomId: "room:darkest:04",
     file: "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
     page: 17,
     ruling: "R-157",

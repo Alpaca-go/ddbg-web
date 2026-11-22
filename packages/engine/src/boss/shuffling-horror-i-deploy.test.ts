@@ -60,7 +60,7 @@ it("R-182：九区部署、Boss 进攻/H、四英雄 R-163 区、JSON 续接", (
   expect(b.rngCursor).toBe(source.dungeon!.cursor);
   expect(b.encounter).toBeUndefined();
   expect(deployed.dungeon!.darkest!.bossDeployment).toBeUndefined();
-  expect(deployed.dungeon!.roomCards!.active!.tileId).toBe("room_tile:p013:back");
+  expect(deployed.dungeon!.roomCards!.active!.tileId).toBe("room_tile:darkest:10");
   expect(deployed.dungeon!.darkest!.bossEncounterPlan!.resolvedScriptId).toBe(
     DARKEST_SHUFFLING_HORROR_SCRIPT_ID,
   );
@@ -136,7 +136,10 @@ it("拒绝错任务、未绑房、占位 bossDeployment 与 deployDarkestMidBoss
     { ...d, questDistribution: { ...d.questDistribution!, questId: "quest:p017" as const } },
     {
       ...d,
-      roomCards: { ...d.roomCards!, active: { ...d.roomCards!.active!, cardId: "room:p022" } },
+      roomCards: {
+        ...d.roomCards!,
+        active: { ...d.roomCards!.active!, cardId: "room:darkest:09" },
+      },
     },
     {
       ...d,

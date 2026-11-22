@@ -76,7 +76,7 @@ it("R-157：Toxic Vapors 就绪后 selectRoomTile 返回 matched；几何漂移�
   expect(tile.specialRegions.every((r) => r.runtimeReady)).toBe(true);
   expect(
     selectRoomTile(
-      rooms.cards.find((c) => c.id === "room:p017"),
+      rooms.cards.find((c) => c.id === "room:darkest:04"),
       geometry,
     ),
   ).toMatchObject({ status: "matched" });

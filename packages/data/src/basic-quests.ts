@@ -107,7 +107,7 @@ export const basicQuests = [
     maxRooms: 1,
     expeditionRegion: "ruins" as const,
     /** QUEST p4：开局旁置 room 7，目标房内使用 Tomb of Ancestor（R15、规格书 §5.1）。 */
-    setAsideRoomCardId: "room:p007" as const,
+    setAsideRoomCardId: "room:ruins:07" as const,
     /** 任务卡 SPECIAL RULES：英雄须在区域内花费 2 行动拾取骨骸后目标房才算清理。 */
     objectiveRecoveryActions: 2 as const,
     objectiveRecoveryStepLabel: "拾取骨骸" as const,
@@ -202,7 +202,7 @@ export const basicQuests = [
     id: "quest:p006",
     name: "Disruption II",
     /** R15 / QUEST p6: pick one of these set-aside rooms on each Objective entry. */
-    setAsideRoomCardIds: ["room:p004", "room:p008"] as const,
+    setAsideRoomCardIds: ["room:ruins:04", "room:ruins:08"] as const,
     level: 2 as const,
     restPoints: 12,
     xpKind: "objective" as const,
@@ -254,7 +254,7 @@ export const basicQuests = [
     maxRooms: 1,
     expeditionRegion: "ruins" as const,
     /** QUEST p10：开局旁置 room 3（Healing Fountain），同 Dem Bones 旁置 room 7（R15、规格书 §5.1）。 */
-    setAsideRoomCardId: "room:p003" as const,
+    setAsideRoomCardId: "room:ruins:03" as const,
     /** 任务卡 SPECIAL：须花费 2 行动净化喷泉后目标房才算清理（R-197：额外消耗 1 个任务药水）。 */
     objectiveRecoveryActions: 2 as const,
     objectiveRecoveryStepLabel: "净化喷泉" as const,

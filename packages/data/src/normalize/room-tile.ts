@@ -39,8 +39,8 @@ import { approvedPoolOfRebirth, poolOfRebirthSchema } from "./pool-of-rebirth";
 /** 几何数据不是可用卡池；未命名图标只保留 ID，不补含义或数值（R-048）。 */
 const ritualChamberSchema = z
   .strictObject({
-    id: z.literal("room_tile:p001"),
-    roomId: z.literal("room:p001"),
+    id: z.literal("room_tile:ruins:01"),
+    roomId: z.literal("room:ruins:01"),
     location: z.literal("ruins"),
     number: z.literal(1),
     rawId: z.string().min(1),
@@ -185,8 +185,8 @@ export type RoomTileGeometryFile = z.infer<typeof roomTileGeometryFileSchema>;
 
 /** Kyries 2026-10-10 批准核对表，E-F 黑墙不相邻（R-054）；只有这一面。 */
 export const approvedRoomTileGeometry = ritualChamberSchema.parse({
-  id: "room_tile:p001",
-  roomId: "room:p001",
+  id: "room_tile:ruins:01",
+  roomId: "room:ruins:01",
   location: "ruins",
   number: 1,
   rawId: "dungeon_tile:p001",

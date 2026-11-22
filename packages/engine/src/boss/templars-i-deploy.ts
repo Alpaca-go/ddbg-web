@@ -18,8 +18,8 @@ import {
 import type { StoredDarkestBossEncounterPlan } from "./darkest-mid-boss-runtime";
 import type { MonsterCardView } from "../monster-skill";
 
-const ROOM_CARD_ID = "room:p022";
-const TILE_ID = "room_tile:p013:front";
+const ROOM_CARD_ID = "room:darkest:09";
+const TILE_ID = "room_tile:darkest:09";
 
 function readMonsterDodge(card: MonsterCardView & { readonly dodge?: number }): number | undefined {
   if (Number.isSafeInteger(card.dodge) && card.dodge! >= 0) return card.dodge!;

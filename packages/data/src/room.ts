@@ -5,10 +5,13 @@ export const ROOM_BACK = "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_BA
 // 逐页核对正面地点徽记、房间编号和 BOSS 字样；不解释效果栏未确认图标。
 export function roomIdentity(page: number) {
   const location = page <= 13 ? ("ruins" as const) : ("darkestDungeon" as const);
+  const number = page <= 13 ? page : page - 13;
+  const idLocation = location === "ruins" ? "ruins" : "darkest";
   return {
     location,
-    number: page <= 13 ? page : page - 13,
+    number,
     boss: (page >= 10 && page <= 13) || page >= 22,
+    id: `room:${idLocation}:${String(number).padStart(2, "0")}`,
   };
 }
 export const roomCardSchema = z
@@ -29,7 +32,7 @@ export const roomCardSchema = z
   .superRefine((card, ctx) => {
     const expected = roomIdentity(card.source.page);
     if (
-      card.id !== `room:p${String(card.source.page).padStart(3, "0")}` ||
+      card.id !== expected.id ||
       card.location !== expected.location ||
       card.number !== expected.number ||
       card.boss !== expected.boss

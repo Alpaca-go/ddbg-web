@@ -66,23 +66,23 @@ describe("守卫房间准备（R10、R15–17、R-048）", () => {
       const active = d.roomCards!.active!;
       seen.add(active.cardId);
       expect(active.tileId).toBe(
-        active.cardId === "room:p008"
-          ? "room_tile:p005:back"
-          : active.cardId === "room:p004"
-            ? "room_tile:p003:back"
-            : active.cardId === "room:p009"
-              ? "room_tile:p005:front"
-              : active.cardId === "room:p007"
-                ? "room_tile:p004:front"
-                : active.cardId === "room:p005"
-                  ? "room_tile:p003:front"
-                  : active.cardId === "room:p001"
-                    ? "room_tile:p001"
-                    : active.cardId === "room:p002"
-                      ? "room_tile:p002:back"
-                      : active.cardId === "room:p003"
-                        ? "room_tile:p002:front"
-                        : "room_tile:p004:back",
+        active.cardId === "room:ruins:08"
+          ? "room_tile:ruins:08"
+          : active.cardId === "room:ruins:04"
+            ? "room_tile:ruins:04"
+            : active.cardId === "room:ruins:09"
+              ? "room_tile:ruins:09"
+              : active.cardId === "room:ruins:07"
+                ? "room_tile:ruins:07"
+                : active.cardId === "room:ruins:05"
+                  ? "room_tile:ruins:05"
+                  : active.cardId === "room:ruins:01"
+                    ? "room_tile:ruins:01"
+                    : active.cardId === "room:ruins:02"
+                      ? "room_tile:ruins:02"
+                      : active.cardId === "room:ruins:03"
+                        ? "room_tile:ruins:03"
+                        : "room_tile:ruins:06",
       );
       expect(active.blockedReason).toContain("完整 Common + Ruins");
     }
@@ -99,7 +99,7 @@ describe("守卫房间准备（R10、R15–17、R-048）", () => {
     const c = s.dungeon!.roomCards!;
     const decks = [
       cards.slice(0, 8).map((c) => c.id),
-      Array(9).fill("room:p001"),
+      Array(9).fill("room:ruins:01"),
       cards.slice(1, 10).map((c) => c.id),
     ];
     for (const deck of decks) {
@@ -113,7 +113,10 @@ describe("守卫房间准备（R10、R15–17、R-048）", () => {
       patch(s, { phase: "ready" }),
       patch(s, { roomCards: { ...c, cards: cards.slice(0, 9) } }),
       patch(s, {
-        roomCards: { ...c, active: { roomId: "G", cardId: "room:p001", blockedReason: "stop" } },
+        roomCards: {
+          ...c,
+          active: { roomId: "G", cardId: "room:ruins:01", blockedReason: "stop" },
+        },
       }),
       patch(s, {
         rooms: s.dungeon!.rooms.map((r) => (r.id === "D" ? { ...r, cleared: true } : r)),

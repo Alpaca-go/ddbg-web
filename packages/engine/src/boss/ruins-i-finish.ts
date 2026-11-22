@@ -7,10 +7,10 @@ import { recordRuinsBossDefeatOnThreatCleared } from "./establish-imminent-threa
 type Identity = keyof typeof RUINS_COMBAT_LEVELS;
 
 const ROOMS = {
-  necromancer: { room: "room:p010", tile: "room_tile:p006:back" },
-  prophet: { room: "room:p011", tile: "room_tile:p006:front" },
-  collector: { room: "room:p012", tile: "room_tile:p007:back" },
-  fanatic: { room: "room:p013", tile: "room_tile:p007:front" },
+  necromancer: { room: "room:ruins:10", tile: "room_tile:ruins:10" },
+  prophet: { room: "room:ruins:11", tile: "room_tile:ruins:11" },
+  collector: { room: "room:ruins:12", tile: "room_tile:ruins:12" },
+  fanatic: { room: "room:ruins:13", tile: "room_tile:ruins:13" },
 } as const;
 
 const NAMES = {

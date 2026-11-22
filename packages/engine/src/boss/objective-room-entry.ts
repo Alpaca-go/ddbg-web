@@ -19,10 +19,10 @@ import { RUINS_COMBAT_LEVELS } from "./ruins-combat-levels";
 
 /** 已核对的房间身份（room.ts / rooms FRONT p10–13），不推断区域与图标。 */
 const rooms = {
-  necromancer: { id: "room:p010", name: "Necromancer Room" },
-  prophet: { id: "room:p011", name: "Prophet Room" },
-  collector: { id: "room:p012", name: "Collector Room" },
-  fanatic: { id: "room:p013", name: "Fanatic Room" },
+  necromancer: { id: "room:ruins:10", name: "Necromancer Room" },
+  prophet: { id: "room:ruins:11", name: "Prophet Room" },
+  collector: { id: "room:ruins:12", name: "Collector Room" },
+  fanatic: { id: "room:ruins:13", name: "Fanatic Room" },
 } as const;
 
 const RUINS_I_DEPLOY_COMMAND = {

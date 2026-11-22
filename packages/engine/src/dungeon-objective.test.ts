@@ -59,15 +59,15 @@ function purifyFountainsFixture(seed = 1): GameState {
   );
 }
 
-it("Dem Bones 出征旁置 room:p007，遭遇堆守恒八张", () => {
+it("Dem Bones 出征旁置 room:ruins:07，遭遇堆守恒八张", () => {
   const game = createCoreDungeonQuest(1, "quest:p004", "radiant", coreParty, coreQuestSources);
   const d = game.dungeon!;
-  expect(d.setAsideRoomCardId).toBe("room:p007");
+  expect(d.setAsideRoomCardId).toBe("room:ruins:07");
   const ids = allRuinsRoomCardIds(d);
   expect(ids).toHaveLength(9);
   expect(new Set(ids).size).toBe(9);
   expect(ids).not.toContain(undefined);
-  expect(ruinsRoomDeckWithoutSetAside(d.roomCards!.cards, "room:p007")).toHaveLength(8);
+  expect(ruinsRoomDeckWithoutSetAside(d.roomCards!.cards, "room:ruins:07")).toHaveLength(8);
 });
 
 it("目标房守卫战胜利后须两次拾取才清理", () => {
@@ -121,14 +121,14 @@ it("目标房守卫战胜利后须两次拾取才清理", () => {
   expect(s.dungeon!.phase).toBe("ready");
 });
 
-it("Purify the Fountains II 出征旁置 room:p003，遭遇堆守恒八张", () => {
+it("Purify the Fountains II 出征旁置 room:ruins:03，遭遇堆守恒八张", () => {
   const game = purifyFountainsFixture(2);
   const d = game.dungeon!;
-  expect(d.setAsideRoomCardId).toBe("room:p003");
+  expect(d.setAsideRoomCardId).toBe("room:ruins:03");
   const ids = allRuinsRoomCardIds(d);
   expect(ids).toHaveLength(9);
   expect(new Set(ids).size).toBe(9);
-  expect(ruinsRoomDeckWithoutSetAside(d.roomCards!.cards, "room:p003")).toHaveLength(8);
+  expect(ruinsRoomDeckWithoutSetAside(d.roomCards!.cards, "room:ruins:03")).toHaveLength(8);
 });
 
 it("出征摘掉旁置牌、回村放回：连续战役里目标房与牌堆都守恒（R15 / R32）", () => {
@@ -141,7 +141,7 @@ it("出征摘掉旁置牌、回村放回：连续战役里目标房与牌堆都�
   };
   const embarked = roomCardsForQuest(carried.roomCards!, "quest:p010");
   expect(embarked.deck).toHaveLength(8);
-  expect(embarked.deck).not.toContain("room:p003");
+  expect(embarked.deck).not.toContain("room:ruins:03");
   // 普通任务不动带回的牌序。
   expect(roomCardsForQuest(carried.roomCards!, "quest:p001").deck).toEqual(full);
   // 目标房战斗：deck 8 + 旁置 1 = 9，回村守恒且旁置放回牌堆。
@@ -157,10 +157,10 @@ it("Purify 目标房的 Healing Waters 净化前不生效；普通房间的同�
   const areas = [
     { id: "G", adjacent: [], elevation: "normal" as const, capacity: 3, endTurnHeal: 3 as const },
   ];
-  // 活动房间牌 = 本任务旁置的 room:p003：目标房净化前不触发回合结束治疗。
+  // 活动房间牌 = 本任务旁置的 room:ruins:03：目标房净化前不触发回合结束治疗。
   const objective = {
     ...d,
-    roomCards: { ...d.roomCards!, active: { ...d.roomCards!.active!, cardId: "room:p003" } },
+    roomCards: { ...d.roomCards!, active: { ...d.roomCards!.active!, cardId: "room:ruins:03" } },
   };
   expect(objectiveRoomBattleAreas(areas, objective)).toEqual([
     { id: "G", adjacent: [], elevation: "normal", capacity: 3 },

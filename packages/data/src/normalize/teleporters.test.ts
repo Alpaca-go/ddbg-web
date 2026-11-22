@@ -66,7 +66,7 @@ it("R-159：完整运行时开放参战；容量、部署、边和来源漂移�
   });
   expect(
     selectRoomTile(
-      rooms.cards.find((c) => c.id === "room:p019"),
+      rooms.cards.find((c) => c.id === "room:darkest:06"),
       geometry,
     ),
   ).toMatchObject({ status: "matched" });

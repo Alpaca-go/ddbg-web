@@ -29,7 +29,7 @@ function setup(areaId = "A", wounds = 8): GameState {
 const end = (s: GameState) => applyCommand(s, { type: "finishMonsterTurn", actorId: "m" });
 
 it("R-161/171：生产入口与星标投影，仅A区有区域效果", () => {
-  const card = rooms.cards.find((c) => c.id === "room:p021");
+  const card = rooms.cards.find((c) => c.id === "room:darkest:08");
   expect(selectRoomTile(card, catalog).status).toBe("matched");
   expect(readRoomTile(card).status).toBe("matched");
   expect(

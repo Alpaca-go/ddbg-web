@@ -36,7 +36,7 @@ it.each([
     ).toEqual(outcomes);
     expect(run.commands.some((c) => c.type === "beginDungeonBacktrack")).toBe(backtracked);
     if (questId === "quest:p004") {
-      expect(d.setAsideRoomCardId).toBe("room:p007");
+      expect(d.setAsideRoomCardId).toBe("room:ruins:07");
       expect(run.commands.some((c) => c.type === "resolveDungeonRoom")).toBe(true);
       expect(
         run.commands.filter(

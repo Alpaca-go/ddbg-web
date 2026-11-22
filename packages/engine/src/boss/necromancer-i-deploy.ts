@@ -164,7 +164,7 @@ function deployNecromancer(state: GameState, level: NecromancerLevel): ApplyResu
     plan.resolvedScriptId !== cfg.script ||
     plan.roomPlacement !== "edgeRoomsR30" ||
     active?.roomId !== d.position ||
-    active.cardId !== "room:p010" ||
+    active.cardId !== "room:ruins:10" ||
     active.tileId !== undefined ||
     !d.battleCatalog ||
     !d.explorationSetup ||

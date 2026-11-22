@@ -151,7 +151,7 @@ describe("C-015 · Collector Room 三宝箱布置（R39、R-047/048/059）", () 
       dungeon: {
         ...initial.dungeon!,
         roomCards: {
-          active: { cardId: "room:p001" },
+          active: { cardId: "room:ruins:01" },
         } as unknown as NonNullable<NonNullable<GameState["dungeon"]>["roomCards"]>,
       },
     };

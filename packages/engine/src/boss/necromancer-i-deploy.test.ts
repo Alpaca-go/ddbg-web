@@ -78,7 +78,7 @@ it("R-166/172：真实8区/11通路、Boss进攻A、四英雄G，部署不掷骰
   expect(b.choiceCursor).toBe(d.decision);
   expect(r.state.dungeon!.heroes).toEqual(d.heroes);
   expect(r.state.dungeon!.gold).toBe(d.gold);
-  expect(r.state.dungeon!.roomCards!.active!.tileId).toBe("room_tile:p006:back");
+  expect(r.state.dungeon!.roomCards!.active!.tileId).toBe("room_tile:ruins:10");
   expect(r.state.dungeon!.monsterPool).toEqual(d.monsterPool);
   expect(b.monsters!.some((c) => c.id === "monster_medium:p040")).toBe(true);
   expect(r).toEqual(applyCommand(JSON.parse(JSON.stringify(s)), command));
@@ -149,7 +149,10 @@ it("I级专用，不接受其它Boss/等级、旧无边缘房标记、错房或�
       ...s,
       dungeon: {
         ...d,
-        roomCards: { ...d.roomCards!, active: { ...d.roomCards!.active!, cardId: "room:p011" } },
+        roomCards: {
+          ...d.roomCards!,
+          active: { ...d.roomCards!.active!, cardId: "room:ruins:11" },
+        },
       },
     },
     {
@@ -222,7 +225,7 @@ it("命令可序列化重放，普通Boss选择与usable/combatReady停点不被
   expect(geometry.tiles.filter((t) => t.usable)).toHaveLength(17);
   expect(
     selectRoomTile(
-      rooms.cards.find((c) => c.id === "room:p010"),
+      rooms.cards.find((c) => c.id === "room:ruins:10"),
       geometry,
     ).status,
   ).toBe("refused");

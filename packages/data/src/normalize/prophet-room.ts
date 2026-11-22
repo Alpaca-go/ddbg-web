@@ -47,9 +47,9 @@ const placements = z.strictObject({
   support: z.string(),
 });
 const tileShape = z.strictObject({
-  id: z.literal("room_tile:p006:front"),
+  id: z.literal("room_tile:ruins:11"),
   rawId: z.literal("dungeon_tile:p006"),
-  roomId: z.literal("room:p011"),
+  roomId: z.literal("room:ruins:11"),
   location: z.literal("ruins"),
   number: z.literal(11),
   name: z.literal("Prophet Room"),
@@ -62,7 +62,7 @@ const tileShape = z.strictObject({
   geometryVerified: z.literal(true),
   usable: z.literal(false),
   effectSource: z.strictObject({
-    roomId: z.literal("room:p011"),
+    roomId: z.literal("room:ruins:11"),
     file: z.literal(ROOM_FRONT),
     page: z.literal(11),
     ruling: z.literal("R-167"),
@@ -117,9 +117,9 @@ const tileShape = z.strictObject({
 
 // R-167仅批准图面，Boss运行时准入仍单独核实。
 export const approvedProphetRoom = tileShape.parse({
-  id: "room_tile:p006:front",
+  id: "room_tile:ruins:11",
   rawId: "dungeon_tile:p006",
-  roomId: "room:p011",
+  roomId: "room:ruins:11",
   location: "ruins",
   number: 11,
   name: "Prophet Room",
@@ -127,7 +127,7 @@ export const approvedProphetRoom = tileShape.parse({
   ruling: "R-167",
   geometryVerified: true,
   usable: false,
-  effectSource: { roomId: "room:p011", file: ROOM_FRONT, page: 11, ruling: "R-167" },
+  effectSource: { roomId: "room:ruins:11", file: ROOM_FRONT, page: 11, ruling: "R-167" },
   specialRegions: [],
   printedMarkers: [
     {

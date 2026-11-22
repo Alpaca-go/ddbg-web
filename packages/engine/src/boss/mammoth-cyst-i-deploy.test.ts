@@ -61,7 +61,7 @@ it("R-184：十二区部署、Boss 进攻/H、四英雄均 K、JSON 续接", () 
   expect(b.rngCursor).toBe(source.dungeon!.cursor);
   expect(b.encounter).toBeUndefined();
   expect(deployed.dungeon!.darkest!.bossDeployment).toBeUndefined();
-  expect(deployed.dungeon!.roomCards!.active!.tileId).toBe("room_tile:p014:front");
+  expect(deployed.dungeon!.roomCards!.active!.tileId).toBe("room_tile:darkest:11");
   expect(deployed.dungeon!.darkest!.bossEncounterPlan!.resolvedScriptId).toBe(
     DARKEST_MAMMOTH_CYST_SCRIPT_ID,
   );
@@ -110,7 +110,10 @@ it("拒绝错任务、未绑房、占位 bossDeployment 与 deployDarkestMidBoss
     { ...d, questDistribution: { ...d.questDistribution!, questId: "quest:p016" as const } },
     {
       ...d,
-      roomCards: { ...d.roomCards!, active: { ...d.roomCards!.active!, cardId: "room:p023" } },
+      roomCards: {
+        ...d.roomCards!,
+        active: { ...d.roomCards!.active!, cardId: "room:darkest:10" },
+      },
     },
     {
       ...d,

@@ -15,8 +15,8 @@ import { SHUFFLING_HORROR_COMBAT_MONSTER_CARD_ID } from "./darkest-shuffling-hor
 import type { StoredDarkestBossEncounterPlan } from "./darkest-mid-boss-runtime";
 import type { MonsterCardView } from "../monster-skill";
 
-const ROOM_CARD_ID = "room:p023";
-const TILE_ID = "room_tile:p013:back";
+const ROOM_CARD_ID = "room:darkest:10";
+const TILE_ID = "room_tile:darkest:10";
 
 function readMonsterDodge(card: MonsterCardView & { readonly dodge?: number }): number | undefined {
   if (Number.isSafeInteger(card.dodge) && card.dodge! >= 0) return card.dodge!;

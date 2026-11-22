@@ -47,9 +47,9 @@ function fixture(questId: string): GameState {
         ...d.roomCards!,
         active: {
           roomId: position,
-          cardId: "room:p001",
+          cardId: "room:ruins:01",
           tileId: (() => {
-            const selected = readRoomTile(sources.rooms.find((r) => r.id === "room:p001"));
+            const selected = readRoomTile(sources.rooms.find((r) => r.id === "room:ruins:01"));
             if (selected.status !== "matched") throw new Error("fixture requires approved room");
             return selected.tile.id;
           })(),

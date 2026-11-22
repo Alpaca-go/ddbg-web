@@ -34,9 +34,9 @@ const placements = z.strictObject({
   support: z.string(),
 });
 const tileShape = z.strictObject({
-  id: z.literal("room_tile:p011:back"),
+  id: z.literal("room_tile:darkest:06"),
   rawId: z.literal("dungeon_tile:p011"),
-  roomId: z.literal("room:p019"),
+  roomId: z.literal("room:darkest:06"),
   location: z.literal("darkestDungeon"),
   number: z.literal(6),
   name: z.literal("Teleporters"),
@@ -49,7 +49,7 @@ const tileShape = z.strictObject({
   geometryVerified: z.literal(true),
   usable: z.literal(true),
   effectSource: z.strictObject({
-    roomId: z.literal("room:p019"),
+    roomId: z.literal("room:darkest:06"),
     file: z.literal(ROOM_FRONT),
     page: z.literal(19),
     ruling: z.literal("R-159"),
@@ -104,9 +104,9 @@ const tileShape = z.strictObject({
 
 // R-159：逐面几何已批准；橙星虚拟邻接与英雄穿过压力已接通。
 export const approvedTeleporters = tileShape.parse({
-  id: "room_tile:p011:back",
+  id: "room_tile:darkest:06",
   rawId: "dungeon_tile:p011",
-  roomId: "room:p019",
+  roomId: "room:darkest:06",
   location: "darkestDungeon",
   number: 6,
   name: "Teleporters",
@@ -119,7 +119,7 @@ export const approvedTeleporters = tileShape.parse({
   geometryVerified: true,
   usable: true,
   effectSource: {
-    roomId: "room:p019",
+    roomId: "room:darkest:06",
     file: "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
     page: 19,
     ruling: "R-159",

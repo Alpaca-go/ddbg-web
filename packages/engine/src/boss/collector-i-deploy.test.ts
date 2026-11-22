@@ -263,7 +263,7 @@ it("拒绝等级、威胁、目标房和出征战斗卡错配", () => {
     { ...d, imminentThreatDescriptionCardId: "boss_ability:p007" },
     {
       ...d,
-      roomCards: { ...d.roomCards!, active: { ...d.roomCards!.active!, cardId: "room:p011" } },
+      roomCards: { ...d.roomCards!, active: { ...d.roomCards!.active!, cardId: "room:ruins:11" } },
     },
     {
       ...d,

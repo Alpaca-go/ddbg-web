@@ -29,7 +29,7 @@ import {
 } from "../../../data/src/normalize/ancestor-room";
 import { roomTileGeometryFileSchema } from "../../../data/src/normalize/room-tile";
 
-const ANCESTOR_ROOM_TILE_ID = "room_tile:p014:back" as const;
+const ANCESTOR_ROOM_TILE_ID = "room_tile:darkest:12" as const;
 
 /** R-165 / R-186：`deployFinalBattleForm` 与最终战 Summon / Nothingness 等共用的印刷怪物姿态区。 */
 export const FINAL_BATTLE_MONSTER_STANCE_AREAS = approvedAncestorRoom.deployment.monsters;
@@ -225,7 +225,9 @@ export function deployFinalBattleForm(state: GameState): ApplyResult {
     return refuse("首形态开战前不能保留其它战斗沙盒（R36）");
   const tile = readAncestorRoomProductionTile();
   if (!tile)
-    return refuse("Ancestor Room（room:p025 / room_tile:p014:back）R-165 获批几何无效（R-186）");
+    return refuse(
+      "Ancestor Room（room:darkest:12 / room_tile:darkest:12）R-165 获批几何无效（R-186）",
+    );
   const areas = [...roomTileBattleAreas(tile)];
   const deployment = tile.deployment;
   const geometryNote =

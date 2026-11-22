@@ -18,7 +18,7 @@ export function registerPoolRebirthClear(
   if (
     !d ||
     !victory ||
-    cardId !== "room:p014" ||
+    cardId !== "room:darkest:01" ||
     d.poolRebirthRooms?.some((r) => r.roomId === d.position)
   )
     return result;

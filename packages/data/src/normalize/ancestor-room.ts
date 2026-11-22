@@ -39,9 +39,9 @@ const placements = z.strictObject({
   support: z.string(),
 });
 const tileShape = z.strictObject({
-  id: z.literal("room_tile:p014:back"),
+  id: z.literal("room_tile:darkest:12"),
   rawId: z.literal("dungeon_tile:p014"),
-  roomId: z.literal("room:p025"),
+  roomId: z.literal("room:darkest:12"),
   location: z.literal("darkestDungeon"),
   number: z.literal(12),
   name: z.literal("Ancestor Room"),
@@ -54,7 +54,7 @@ const tileShape = z.strictObject({
   geometryVerified: z.literal(true),
   usable: z.literal(false),
   effectSource: z.strictObject({
-    roomId: z.literal("room:p025"),
+    roomId: z.literal("room:darkest:12"),
     file: z.literal(ROOM_FRONT),
     page: z.literal(25),
     ruling: z.literal("R-165"),
@@ -100,9 +100,9 @@ const tileShape = z.strictObject({
 
 // R-165仅批准图面，最终战形态切换与Boss运行时准入仍单独核实。
 export const approvedAncestorRoom = tileShape.parse({
-  id: "room_tile:p014:back",
+  id: "room_tile:darkest:12",
   rawId: "dungeon_tile:p014",
-  roomId: "room:p025",
+  roomId: "room:darkest:12",
   location: "darkestDungeon",
   number: 12,
   name: "Ancestor Room",
@@ -110,7 +110,7 @@ export const approvedAncestorRoom = tileShape.parse({
   ruling: "R-165",
   geometryVerified: true,
   usable: false,
-  effectSource: { roomId: "room:p025", file: ROOM_FRONT, page: 25, ruling: "R-165" },
+  effectSource: { roomId: "room:darkest:12", file: ROOM_FRONT, page: 25, ruling: "R-165" },
   specialRegions: [],
   deployment: {
     printReview: "verified",

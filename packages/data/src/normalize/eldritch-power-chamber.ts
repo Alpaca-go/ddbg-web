@@ -33,9 +33,9 @@ const placements = z.strictObject({
   support: z.string(),
 });
 const tileShape = z.strictObject({
-  id: z.literal("room_tile:p011"),
+  id: z.literal("room_tile:darkest:05"),
   rawId: z.literal("dungeon_tile:p011"),
-  roomId: z.literal("room:p018"),
+  roomId: z.literal("room:darkest:05"),
   location: z.literal("darkestDungeon"),
   number: z.literal(5),
   name: z.literal("Eldritch Power Chamber"),
@@ -48,7 +48,7 @@ const tileShape = z.strictObject({
   geometryVerified: z.literal(true),
   usable: z.literal(true),
   effectSource: z.strictObject({
-    roomId: z.literal("room:p018"),
+    roomId: z.literal("room:darkest:05"),
     file: z.literal(ROOM_FRONT),
     page: z.literal(18),
     ruling: z.literal("R-158"),
@@ -103,9 +103,9 @@ const tileShape = z.strictObject({
 
 // R-158：逐面几何已批准；橙星移动偏好与回合结束伤害已接通。
 export const approvedEldritchPowerChamber = tileShape.parse({
-  id: "room_tile:p011",
+  id: "room_tile:darkest:05",
   rawId: "dungeon_tile:p011",
-  roomId: "room:p018",
+  roomId: "room:darkest:05",
   location: "darkestDungeon",
   number: 5,
   name: "Eldritch Power Chamber",
@@ -118,7 +118,7 @@ export const approvedEldritchPowerChamber = tileShape.parse({
   geometryVerified: true,
   usable: true,
   effectSource: {
-    roomId: "room:p018",
+    roomId: "room:darkest:05",
     file: "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf",
     page: 18,
     ruling: "R-158",

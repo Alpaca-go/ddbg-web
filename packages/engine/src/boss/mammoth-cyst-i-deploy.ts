@@ -15,8 +15,8 @@ import { DARKEST_MAMMOTH_CYST_SCRIPT_ID } from "./darkest-mid-boss-scripts";
 import type { StoredDarkestBossEncounterPlan } from "./darkest-mid-boss-runtime";
 import type { MonsterCardView } from "../monster-skill";
 
-const ROOM_CARD_ID = "room:p024";
-const TILE_ID = "room_tile:p014:front";
+const ROOM_CARD_ID = "room:darkest:11";
+const TILE_ID = "room_tile:darkest:11";
 
 function readMonsterDodge(card: MonsterCardView & { readonly dodge?: number }): number | undefined {
   if (Number.isSafeInteger(card.dodge) && card.dodge! >= 0) return card.dodge!;

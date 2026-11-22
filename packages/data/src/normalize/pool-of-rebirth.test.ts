@@ -20,7 +20,7 @@ it("R-144：独立最暗编号1、12区容量/高地、14通路/9角点及八姿
   const before = structuredClone(raw);
   const built = buildRoomTileGeometry(raw);
   expect(built).toEqual(roomTileGeometryFileSchema.parse(geometryFile));
-  const tile = built.tiles.find((t) => t.roomId === "room:p014")!;
+  const tile = built.tiles.find((t) => t.roomId === "room:darkest:01")!;
   expect(tile).toEqual(approvedPoolOfRebirth);
   expect(tile.areas.map((a) => a.capacity)).toEqual([2, 3, 2, 2, 2, 6, 2, 3, 3, 2, 3, 3]);
   expect(tile.areas.filter((a) => a.elevation === "high").map((a) => a.id)).toEqual(["G"]);
@@ -82,10 +82,10 @@ it("星形绑定对应Room效果行，区域与整房效果完整开放", () => 
   );
   expect(approvedPoolOfRebirth.specialRoomEffect.printedText).toContain("to revive a dead Hero");
   expect(approvedPoolOfRebirth.specialRoomEffect.runtimeReady).toBe(true);
-  const room = roomFile.cards.find((r) => r.id === "room:p014")!;
+  const room = roomFile.cards.find((r) => r.id === "room:darkest:01")!;
   expect(selectRoomTile(room, geometryFile)).toMatchObject({
     status: "matched",
-    tile: { roomId: "room:p014" },
+    tile: { roomId: "room:darkest:01" },
   });
   expect(geometryFile.tiles.filter((t) => t.usable)).toHaveLength(17);
 });
@@ -111,7 +111,7 @@ it("不允许改变容量、边、部署、未确认标记或绕过usable停点"
     },
     { source: { file: "DD_COREBOX_TILES_BACK.pdf", page: 9, face: "back" } },
     { location: "ruins" },
-    { roomId: "room:p001" },
+    { roomId: "room:ruins:01" },
   ])
     expect(poolOfRebirthSchema.safeParse({ ...approvedPoolOfRebirth, ...patch }).success).toBe(
       false,

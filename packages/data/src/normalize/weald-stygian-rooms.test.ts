@@ -90,7 +90,7 @@ describe("Weald Stygian 九张房间卡（审阅入库、包隔离）", () => {
     line.text = line.text.replace("3t", "2t");
     expect(() => buildWealdStygianRooms(printed, standardRooms)).toThrow(/漂移/);
     const changed = structuredClone(built);
-    changed.cards[0]!.replacesCardId = "room:p001";
+    changed.cards[0]!.replacesCardId = "room:ruins:01";
     expect(wealdStygianRoomsSchema.safeParse(changed).success).toBe(false);
     expect(
       wealdStygianRoomsSchema.safeParse({ ...built, cards: [...built.cards, built.cards[0]] })
