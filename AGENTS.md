@@ -6,6 +6,22 @@
 
 Weald 扩展按 Kyries 已确认的 [开发计划](docs/weald-development-plan.md) 顺序推进。新 session 先读该文档的“当前进度与下一步”，核对工作区后接续最早未完成步骤；结束前更新进度、待确认项、下一步和验证结果。
 
+## 命名规范（必读）
+
+新增或修改任何 `packages/data` 的 raw / normalized / engine ID 前，先读
+[docs/id-naming-rules.md](docs/id-naming-rules.md)。这是必读规范，不是建议：
+
+- 房间族（`room` / `room_tile` / `stygian_room`）按房间号命名：
+  `room:weald:06`、`room_tile:darkest:01`；不写 `:front` / `:back`。
+- 其他核心/分包内容按页码命名：
+  `<category>:pNNN[:face]` / `<category>:<pack>:pNNN[:face]`。
+- 18 名英雄带固定编号 `h01`–`h18`，ID 保留归类 pack（如
+  `hero_stat:weald:h17:p034:front`、`hero_skill:musketeer:h18:p358`）；
+  pack 只用于归类，所有英雄始终可选，不按勾选的内容包过滤。
+- 一个实体只有一个 canonical ID；交叉引用和存档只写 canonical ID。
+- 新内容必须按规范命名，并带 schema / 测试校验；不符合规范的 ID 不合入。
+- 旧 ID 按规范 §8 分批迁移；迁移完成前不要新增旧形式。
+
 ## 项目目标与范围
 
 - 从零做《暗黑地牢桌游》网页客户端。先做核心盒（遗迹 Ruins + 最暗地牢 Darkest Dungeon），走通完整战役，再按地点扩展。

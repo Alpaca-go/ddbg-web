@@ -2,6 +2,7 @@
 
 Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 开发入口。
 本计划是开发安排，不新增规则裁定；规则来源仍遵守 AGENTS.md、R-001、R-048。
+新增或修改任何内容 ID 前，先读 [ID 命名规范](id-naming-rules.md)（v1.1，必读；AGENTS.md 已钉死）。
 
 ## 当前进度与下一步
 
