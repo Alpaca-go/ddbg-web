@@ -52,7 +52,7 @@ export function buildCoveRooms(raw: RawFile) {
     const { lines } = assertRoomFace(raw, page);
     const name = parsePrintedName(lines, page);
     return {
-      id: `room:cove:p${String(page).padStart(3, "0")}`,
+      id: `room:cove:${String(page).padStart(2, "0")}`,
       name,
       copies: 1 as const,
       location: "cove" as const,
@@ -76,7 +76,7 @@ export function buildCoveBossRoomSources(raw: RawFile) {
       throw new Error(`Cove p${page} 缺少印刷 BOSS 标签，不能归类为 Boss 房`);
     const name = parsePrintedName(lines, page);
     return {
-      id: `room:cove:p${String(page).padStart(3, "0")}`,
+      id: `room:cove:${String(page).padStart(2, "0")}`,
       name,
       copies: 1 as const,
       location: "cove" as const,

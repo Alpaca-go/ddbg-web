@@ -14,7 +14,7 @@ const sourceSchema = z.strictObject({
 /** 九张 Cove 普通房间目录；不混入 Boss 房，不开放出征或房间牌堆。 */
 export const coveRoomCardSchema = z
   .strictObject({
-    id: z.string().regex(/^room:cove:p\d{3}$/),
+    id: z.string().regex(/^room:cove:\d{2}$/),
     name: z.string().min(1),
     copies: z.literal(1),
     location: z.literal("cove"),
@@ -25,9 +25,9 @@ export const coveRoomCardSchema = z
     pendingReview: z.array(z.string()).min(1),
   })
   .superRefine((card, ctx) => {
-    const expected = `room:cove:p${String(card.source.page).padStart(3, "0")}`;
+    const expected = `room:cove:${String(card.number).padStart(2, "0")}`;
     if (card.id !== expected || card.number !== card.source.page)
-      ctx.addIssue({ code: "custom", message: "Cove 普通房间身份与印刷页不一致" });
+      ctx.addIssue({ code: "custom", message: "Cove 普通房间身份与房间号/印刷页不一致" });
   });
 
 export const coveRoomCatalogSchema = z
@@ -48,10 +48,10 @@ export const coveRoomFileSchema = z
 
 export type CoveRoomCard = z.infer<typeof coveRoomCardSchema>;
 
-/** Boss 房仅登记印刷来源与审阅字段，不得进入普通房间牌堆（比照 Weald p10–p12）。 */
+/** Boss 房仅登记印刷来源与审阅字段，不得进入普通房间牌堆（比照 Weald room:weald:10–12）。 */
 export const coveBossRoomSourceSchema = z
   .strictObject({
-    id: z.string().regex(/^room:cove:p01[0-2]$/),
+    id: z.string().regex(/^room:cove:\d{2}$/),
     name: z.string().min(1),
     copies: z.literal(1),
     location: z.literal("cove"),
@@ -64,9 +64,9 @@ export const coveBossRoomSourceSchema = z
     pendingReview: z.array(z.string()).min(1),
   })
   .superRefine((card, ctx) => {
-    const expected = `room:cove:p${String(card.source.page).padStart(3, "0")}`;
+    const expected = `room:cove:${String(card.number).padStart(2, "0")}`;
     if (card.id !== expected || card.number !== card.source.page)
-      ctx.addIssue({ code: "custom", message: "Cove Boss 房身份与印刷页不一致" });
+      ctx.addIssue({ code: "custom", message: "Cove Boss 房身份与房间号/印刷页不一致" });
   });
 
 export const coveBossRoomSourceFileSchema = z.strictObject({

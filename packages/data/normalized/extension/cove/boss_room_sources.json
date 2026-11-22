@@ -2,7 +2,7 @@
   "schema": "ddbg-cove-boss-room-sources-v0",
   "cards": [
     {
-      "id": "room:cove:p010",
+      "id": "room:cove:10",
       "name": "Siren’s Room",
       "copies": 1,
       "location": "cove",
@@ -42,7 +42,7 @@
       "pendingReview": ["Cove Boss 房留待专属 Boss 刀核准；不得进入普通房间牌堆"]
     },
     {
-      "id": "room:cove:p011",
+      "id": "room:cove:11",
       "name": "Shambler’s Room",
       "copies": 1,
       "location": "cove",
@@ -86,7 +86,7 @@
       "pendingReview": ["Cove Boss 房留待专属 Boss 刀核准；不得进入普通房间牌堆"]
     },
     {
-      "id": "room:cove:p012",
+      "id": "room:cove:12",
       "name": "Drowned Crew Room",
       "copies": 1,
       "location": "cove",
