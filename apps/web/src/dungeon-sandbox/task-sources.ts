@@ -63,7 +63,7 @@ export const preHeroStatReviewTaskSources: CoreQuestSources = {
       if (stat.verified_higher_condition_defence?.approval !== "kyries_review_2026-11-10")
         return stat;
       const { verified_higher_condition_defence: reviewed, ...old } = stat;
-      if (stat.id === "hero_stat:warrens:leper:p001:front")
+      if (stat.id === "hero_stat:warrens:h14:p028:front")
         return {
           ...old,
           verified_condition_defence: {
@@ -73,7 +73,7 @@ export const preHeroStatReviewTaskSources: CoreQuestSources = {
             approval: "kyries_review_2026-10-24",
           },
         };
-      if (stat.id === "hero_stat:warrens:antiquarian:p002:front")
+      if (stat.id === "hero_stat:warrens:h15:p031:front")
         return {
           ...old,
           speed: 0,
@@ -84,7 +84,7 @@ export const preHeroStatReviewTaskSources: CoreQuestSources = {
           },
         };
       if (stat.name === "ANTIQUARIAN" || stat.name === "FLAGELLANT") return { ...old, speed: 0 };
-      if (stat.id === "hero_stat:cove:man-at-arms:p002:front") return { ...old, speed: 1 };
+      if (stat.id === "hero_stat:cove:h12:p025:front") return { ...old, speed: 1 };
       return old;
     }),
   },

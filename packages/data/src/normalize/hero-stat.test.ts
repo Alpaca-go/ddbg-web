@@ -6,6 +6,7 @@ import { createIconLookup } from "./icons";
 import {
   approvedHeroStats,
   buildHeroStats,
+  canonicalHeroStatCardSchema,
   normalizedHeroStatCardSchema,
   normalizedHeroStatFileSchema,
 } from "./hero-stat";
@@ -13,6 +14,12 @@ import { loadNormalizedCorebox } from "./write";
 
 const json = (file: string) =>
   JSON.parse(readFileSync(new URL(`../../${file}`, import.meta.url), "utf8"));
+
+/** 旧来源校验仍按 rawId:face；canonical 卡只用于验证新 ID。 */
+const withLegacyId = <T extends { rawId?: string; face?: "front" | "back" }>(card: T) => ({
+  ...card,
+  id: `${card.rawId}:${card.face}`,
+});
 const raw = rawFileSchema.parse(json("extract/corebox/raw/hero_stat.json"));
 const dictionary = iconDictionarySchema.parse(json("dictionary/icon-dictionary-v1.8.json"));
 const built = buildHeroStats(raw, dictionary);
@@ -37,7 +44,7 @@ describe("八名英雄24面获批属性（R10/19/29；R-006/007/048/088/094/095�
         .map((c) => [c.id, c.verified_condition_defence]),
     ).toEqual([
       [
-        "hero_stat:p001:front",
+        "hero_stat:core:h01:p001:front",
         {
           resistances: ["stun"],
           immunities: [],
@@ -46,7 +53,7 @@ describe("八名英雄24面获批属性（R10/19/29；R-006/007/048/088/094/095�
         },
       ],
       [
-        "hero_stat:p003:front",
+        "hero_stat:core:h02:p003:front",
         {
           resistances: ["bleed"],
           immunities: [],
@@ -55,7 +62,7 @@ describe("八名英雄24面获批属性（R10/19/29；R-006/007/048/088/094/095�
         },
       ],
       [
-        "hero_stat:p007:front",
+        "hero_stat:core:h04:p007:front",
         {
           resistances: ["stun"],
           immunities: [],
@@ -64,7 +71,7 @@ describe("八名英雄24面获批属性（R10/19/29；R-006/007/048/088/094/095�
         },
       ],
       [
-        "hero_stat:p009:front",
+        "hero_stat:core:h05:p009:front",
         {
           resistances: ["bleed"],
           immunities: [],
@@ -73,7 +80,7 @@ describe("八名英雄24面获批属性（R10/19/29；R-006/007/048/088/094/095�
         },
       ],
       [
-        "hero_stat:p005:front",
+        "hero_stat:core:h03:p005:front",
         {
           resistances: ["stun"],
           immunities: [],
@@ -82,14 +89,14 @@ describe("八名英雄24面获批属性（R10/19/29；R-006/007/048/088/094/095�
         },
       ],
     ]);
-    const hellion = built.cards.find((c) => c.id === "hero_stat:p003:front")!;
+    const hellion = built.cards.find((c) => c.id === "hero_stat:core:h02:p003:front")!;
     const annotation = hellion.verified_condition_defence!;
     for (const card of [
       { ...hellion, verified_condition_defence: { ...annotation, resistances: ["stun"] } },
       { ...hellion, verified_condition_defence: { ...annotation, immunities: ["bleed"] } },
       { ...built.cards[1], verified_condition_defence: annotation },
     ])
-      expect(normalizedHeroStatCardSchema.safeParse(card).success).toBe(false);
+      expect(normalizedHeroStatCardSchema.safeParse(withLegacyId(card)).success).toBe(false);
     const originalIcon = createIconLookup(dictionary).resolve("d29a868ed8");
     expect(hellion.icons.find((i) => i.iconId === "d29a868ed8")).toEqual(originalIcon);
     expect(originalIcon.naming).toBe("unverified");
@@ -109,19 +116,19 @@ describe("八名英雄24面获批属性（R10/19/29；R-006/007/048/088/094/095�
   });
   it("只核获批 I 级 Buff 抗性栏；栏位漂移拒绝，其他图标仍保留未验证", () => {
     expect(built.cards.filter((c) => c.verified_buff_defence).map((c) => c.id)).toEqual([
-      "hero_stat:p001:front",
-      "hero_stat:p003:front",
-      "hero_stat:p007:front",
-      "hero_stat:p009:front",
-      "hero_stat:p005:front",
-      "hero_stat:p013:front",
-      "hero_stat:p017:front",
-      "hero_stat:p019:front",
-      "hero_stat:p011:front",
-      "hero_stat:p015:front",
-      "hero_stat:p021:front",
+      "hero_stat:core:h01:p001:front",
+      "hero_stat:core:h02:p003:front",
+      "hero_stat:core:h04:p007:front",
+      "hero_stat:core:h05:p009:front",
+      "hero_stat:core:h03:p005:front",
+      "hero_stat:core:h07:p013:front",
+      "hero_stat:core:h09:p017:front",
+      "hero_stat:core:h10:p019:front",
+      "hero_stat:core:h06:p011:front",
+      "hero_stat:core:h08:p015:front",
+      "hero_stat:core:h11:p021:front",
     ]);
-    expect(built.cards.find((c) => c.id === "hero_stat:p003:front")).toMatchObject({
+    expect(built.cards.find((c) => c.id === "hero_stat:core:h02:p003:front")).toMatchObject({
       verified_buff_defence: { resistant: false, immune: false, source: "print_front" },
       verification: { unverified: true, reasons: expect.arrayContaining(["icon:d29a868ed8"]) },
     });
@@ -148,18 +155,18 @@ describe("八名英雄24面获批属性（R10/19/29；R-006/007/048/088/094/095�
         )
         .map((card) => [card.id, card.name, card.level, card.life, card.dodge, card.speed]),
     ).toEqual([
-      ["hero_stat:p001:front", "CRUSADER", 1, 17, 0, 1],
-      ["hero_stat:p001:back", "CRUSADER", 2, 24, 1, 1],
-      ["hero_stat:p002:front", "CRUSADER", 3, 32, 2, 1],
-      ["hero_stat:p003:front", "HELLION", 1, 14, 1, 2],
-      ["hero_stat:p003:back", "HELLION", 2, 18, 2, 2],
-      ["hero_stat:p004:front", "HELLION", 3, 24, 3, 2],
-      ["hero_stat:p007:front", "HIGHWAYMAN", 1, 12, 1, 2],
-      ["hero_stat:p007:back", "HIGHWAYMAN", 2, 17, 2, 2],
-      ["hero_stat:p008:front", "HIGHWAYMAN", 3, 22, 3, 3],
-      ["hero_stat:p009:front", "VESTAL", 1, 12, 0, 1],
-      ["hero_stat:p009:back", "VESTAL", 2, 17, 1, 1],
-      ["hero_stat:p010:front", "VESTAL", 3, 22, 2, 2],
+      ["hero_stat:core:h01:p001:front", "CRUSADER", 1, 17, 0, 1],
+      ["hero_stat:core:h01:p001:back", "CRUSADER", 2, 24, 1, 1],
+      ["hero_stat:core:h01:p002:front", "CRUSADER", 3, 32, 2, 1],
+      ["hero_stat:core:h02:p003:front", "HELLION", 1, 14, 1, 2],
+      ["hero_stat:core:h02:p003:back", "HELLION", 2, 18, 2, 2],
+      ["hero_stat:core:h02:p004:front", "HELLION", 3, 24, 3, 2],
+      ["hero_stat:core:h04:p007:front", "HIGHWAYMAN", 1, 12, 1, 2],
+      ["hero_stat:core:h04:p007:back", "HIGHWAYMAN", 2, 17, 2, 2],
+      ["hero_stat:core:h04:p008:front", "HIGHWAYMAN", 3, 22, 3, 3],
+      ["hero_stat:core:h05:p009:front", "VESTAL", 1, 12, 0, 1],
+      ["hero_stat:core:h05:p009:back", "VESTAL", 2, 17, 1, 1],
+      ["hero_stat:core:h05:p010:front", "VESTAL", 3, 22, 2, 2],
     ]);
     expect(built.cards.every((card) => card.attributesVerified)).toBe(true);
     expect(
@@ -195,10 +202,12 @@ describe("八名英雄24面获批属性（R10/19/29；R-006/007/048/088/094/095�
     const unverified = built.cards[1]!;
     expect(unverified.verification.reasons).toEqual(["icon:7034784ee1", "icon:b284fea953"]);
     expect(
-      normalizedHeroStatCardSchema.safeParse({
-        ...unverified,
-        verification: { unverified: false, reasons: [] },
-      }).success,
+      normalizedHeroStatCardSchema.safeParse(
+        withLegacyId({
+          ...unverified,
+          verification: { unverified: false, reasons: [] },
+        }),
+      ).success,
     ).toBe(false);
   });
 
@@ -236,7 +245,7 @@ describe("八名英雄24面获批属性（R10/19/29；R-006/007/048/088/094/095�
       expect(() => buildHeroStats(changed, dictionary)).toThrow("身份漂移");
     }
     const card = built.cards[0]!;
-    expect(normalizedHeroStatCardSchema.safeParse({ ...card, id: card.rawId }).success).toBe(false);
+    expect(canonicalHeroStatCardSchema.safeParse({ ...card, id: card.rawId }).success).toBe(false);
     expect(normalizedHeroStatFileSchema.safeParse({ ...built, cards: [card, card] }).success).toBe(
       false,
     );

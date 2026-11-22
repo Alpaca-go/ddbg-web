@@ -9,6 +9,7 @@ import {
   higherHeroDefenceSchema,
   readHigherHeroDefence,
 } from "./hero-higher-defence";
+import { heroStatId } from "../hero-registry";
 
 const STAT_FRONT =
   "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_100x180_Hero_STAT_FRONT.pdf";
@@ -97,7 +98,7 @@ export function buildWarrensHeroStats(
 ): WarrensHeroStatCard[] {
   if (raw.category !== "hero_stat") throw new Error("Warrens 英雄属性来源类别错误");
   const lookup = createIconLookup(dictionary);
-  return approved.map((entry) => {
+  const cards = approved.map((entry) => {
     const attributes = warrensAttributesSchema.parse(entry);
     const sources = raw.cards.filter((card) => card.id === attributes.rawId);
     if (sources.length !== 1)
@@ -205,4 +206,8 @@ export function buildWarrensHeroStats(
       verification: finishVerification(reasons),
     });
   });
+  return cards.map((card) => ({
+    ...card,
+    id: heroStatId(card.name, card.level, card.face),
+  }));
 }

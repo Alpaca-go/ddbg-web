@@ -14,7 +14,7 @@ import { tickStatusStacks } from "./status";
 const clean = <T>(value: unknown): T => JSON.parse(JSON.stringify(value));
 const data = loadNormalizedCorebox();
 const stat = clean<NonNullable<BattleSetup["heroStats"]>[number] & { dodge: number; life: number }>(
-  data.hero_stat.cards.find((c) => c.id === "hero_stat:p005:front")!,
+  data.hero_stat.cards.find((c) => c.id === "hero_stat:core:h03:p005:front")!,
 );
 const mark = clean<HeroSkillCardView>(
   data.hero_skill.cards.find((c) => c.id === "hero_skill:p046")!,

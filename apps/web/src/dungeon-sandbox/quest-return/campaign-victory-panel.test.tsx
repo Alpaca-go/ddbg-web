@@ -27,7 +27,7 @@ it("战役胜利面板显示终局与存活英雄，且不回村", () => {
   expect(markup).toContain('data-testid="campaign-victory-hero"');
   // 英雄名来自已核实 battleCatalog，不显示裸 heroStatId。
   expect(markup).toContain("CRUSADER");
-  expect(markup).not.toContain("hero_stat:p001:front ·");
+  expect(markup).not.toContain("hero_stat:core:h01:p001:front ·");
 });
 
 it("提供开新战役入口，点击回调只由页面处理", () => {

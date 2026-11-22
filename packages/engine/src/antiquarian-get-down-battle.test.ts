@@ -10,7 +10,7 @@ const skill = clean<HeroSkillCardView>(
   data.hero_skill.cards.find((c) => c.id === "hero_skill:p303")!,
 );
 const stat = clean<NonNullable<BattleSetup["heroStats"]>[number]>(
-  data.hero_stat.cards.find((c) => c.id === "hero_stat:warrens:antiquarian:p001:front")!,
+  data.hero_stat.cards.find((c) => c.id === "hero_stat:warrens:h15:p030:front")!,
 );
 
 function setup() {

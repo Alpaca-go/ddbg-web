@@ -9,6 +9,7 @@ import {
   higherHeroDefenceSchema,
   readHigherHeroDefence,
 } from "./hero-higher-defence";
+import { heroStatId } from "../hero-registry";
 
 const STAT_FRONT =
   "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_100x180_Hero_STAT_FRONT.pdf";
@@ -65,7 +66,7 @@ export function buildMusketeerHeroStats(
 ): MusketeerHeroStatCard[] {
   if (raw.category !== "hero_stat") throw new Error("Musketeer 英雄属性来源类别错误");
   const lookup = createIconLookup(dictionary);
-  return approved.map((entry) => {
+  const cards = approved.map((entry) => {
     const attributes = musketeerAttributesSchema.parse(entry);
     const sources = raw.cards.filter((card) => card.id === attributes.rawId);
     if (sources.length !== 1)
@@ -155,4 +156,8 @@ export function buildMusketeerHeroStats(
       verification: finishVerification(reasons),
     });
   });
+  return cards.map((card) => ({
+    ...card,
+    id: heroStatId(card.name, card.level, card.face),
+  }));
 }

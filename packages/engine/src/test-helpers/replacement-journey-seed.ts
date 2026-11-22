@@ -45,7 +45,7 @@ export function replacementJourneySeed(
       }
       while (game.dungeon!.deathTrinketChoice) choose("discard");
       step({ type: "prepareReplacementHero" });
-      choose("hero_stat:p013:front");
+      choose("hero_stat:core:h07:p013:front");
       choose("finish-upgrades");
       for (const id of ["hero_skill:p136", "hero_skill:p127", "hero_skill:p139"]) choose(id);
       step({ type: "joinPreparedReplacements" });
@@ -67,7 +67,9 @@ export function replacementJourneySeed(
       }
       if (game.dungeon!.hamlet!.phase === "awaitingCaretaker")
         step({ type: "rollHamletCaretaker" });
-      const doctor = game.dungeon!.heroes.find((h) => h.heroStatId === "hero_stat:p013:front");
+      const doctor = game.dungeon!.heroes.find(
+        (h) => h.heroStatId === "hero_stat:core:h07:p013:front",
+      );
       if (!doctor) continue;
       step({ type: "useHamletSkill", actorId: "hero-0", skill: "zealousSpeech" });
       step({ type: "rollHamletCaretaker" });

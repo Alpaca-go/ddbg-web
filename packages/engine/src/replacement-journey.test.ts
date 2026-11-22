@@ -125,7 +125,7 @@ for (const fixture of journeys) {
     }
     while (game.dungeon!.deathTrinketChoice) choose("discard");
     step({ type: "prepareReplacementHero" });
-    choose("hero_stat:p013:front");
+    choose("hero_stat:core:h07:p013:front");
     choose("finish-upgrades");
     for (const id of ["hero_skill:p136", "hero_skill:p127", "hero_skill:p139"]) choose(id);
     step({ type: "joinPreparedReplacements" });
@@ -147,7 +147,9 @@ for (const fixture of journeys) {
     step({ type: "drawHamletEvent" });
     settle();
     if (game.dungeon!.hamlet!.phase === "awaitingCaretaker") step({ type: "rollHamletCaretaker" });
-    const doctor = game.dungeon!.heroes.find((h) => h.heroStatId === "hero_stat:p013:front")!;
+    const doctor = game.dungeon!.heroes.find(
+      (h) => h.heroStatId === "hero_stat:core:h07:p013:front",
+    )!;
     expect(game.dungeon!.deadHeroNames).toHaveLength(1);
     expect(game.dungeon!.waitingHeroTokens).toBe(1);
     expect(doctor.skillIds).toEqual(["hero_skill:p136", "hero_skill:p127", "hero_skill:p139"]);

@@ -14,7 +14,7 @@ const clean = <T>(v: unknown): T => JSON.parse(JSON.stringify(v));
 const skills = [139, 142, 1].map((p) =>
   clean<HeroSkillCardView>(data.hero_skill.cards.find((c) => c.pages[0] === p)!),
 );
-const stats = ["hero_stat:p013:front", "hero_stat:p001:front"].map((id) =>
+const stats = ["hero_stat:core:h07:p013:front", "hero_stat:core:h01:p001:front"].map((id) =>
   clean<NonNullable<BattleSetup["heroStats"]>[number] & { dodge: number }>(
     data.hero_stat.cards.find((c) => c.id === id)!,
   ),

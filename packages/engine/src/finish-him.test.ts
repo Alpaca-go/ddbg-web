@@ -15,7 +15,7 @@ const uppercut = clean<HeroSkillCardView>(
   data.hero_skill.cards.find((c) => c.id === "hero_skill:p052")!,
 );
 const stat = clean<NonNullable<BattleSetup["heroStats"]>[number] & { dodge: number }>(
-  data.hero_stat.cards.find((c) => c.id === "hero_stat:p005:front")!,
+  data.hero_stat.cards.find((c) => c.id === "hero_stat:core:h03:p005:front")!,
 );
 const monster = clean<NonNullable<BattleSetup["monsters"]>[number]>(
   data.monster_medium.cards.find((c) => c.id === "monster_medium:p021")!,

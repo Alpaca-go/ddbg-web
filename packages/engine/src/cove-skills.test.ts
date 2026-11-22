@@ -150,8 +150,8 @@ it("Cove：MAA / Flagellant 七张 I 级已核实；STAT life≠1", () => {
   }
   expect(verifiedLevel1CombatSkillsForHero("MAN-AT-ARMS", data.hero_skill.cards)).toHaveLength(7);
   expect(verifiedLevel1CombatSkillsForHero("FLAGELLANT", data.hero_skill.cards)).toHaveLength(7);
-  const maaStat = stat("hero_stat:cove:man-at-arms:p001:front");
-  const flagStat = stat("hero_stat:cove:flagellant:p001:front");
+  const maaStat = stat("hero_stat:cove:h12:p024:front");
+  const flagStat = stat("hero_stat:cove:h13:p026:front");
   expect(maaStat.life).toBe(16);
   expect(flagStat.life).toBe(12);
   expect(maaStat.attributesVerified).toBe(true);
@@ -178,12 +178,9 @@ it("Crush I 可结算伤害；两人可替补且战斗已接线", () => {
   expect(heroHasUnwiredCombatSkills("MAN-AT-ARMS")).toBe(false);
   expect(heroHasUnwiredCombatSkills("FLAGELLANT")).toBe(false);
 
-  const { game, command } = setupBattle(
-    "MAN-AT-ARMS",
-    "hero_stat:cove:man-at-arms:p001:front",
-    crush,
-    { actor: { stance: "aggressive" } },
-  );
+  const { game, command } = setupBattle("MAN-AT-ARMS", "hero_stat:cove:h12:p024:front", crush, {
+    actor: { stance: "aggressive" },
+  });
   play(game, command);
 
   const quest = createCoreDungeonQuest(41, "quest:p001", "radiant", coreParty, sources);

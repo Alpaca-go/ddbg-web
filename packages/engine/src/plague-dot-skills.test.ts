@@ -15,7 +15,7 @@ const skills = [127, 136].map((page) =>
   clean<HeroSkillCardView>(data.hero_skill.cards.find((c) => c.pages[0] === page)!),
 );
 const stat = clean<NonNullable<BattleSetup["heroStats"]>[number] & { dodge: number }>(
-  data.hero_stat.cards.find((c) => c.id === "hero_stat:p013:front")!,
+  data.hero_stat.cards.find((c) => c.id === "hero_stat:core:h07:p013:front")!,
 );
 const entity = (game: GameState) => game.battle!.entities.find((e) => e.id === "m")!;
 

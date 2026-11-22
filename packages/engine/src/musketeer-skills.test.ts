@@ -51,7 +51,7 @@ it("Musketeer：七张 I 级已核实；STAT life≠1", () => {
     expect(skill.verification.unverified).toBe(false);
   }
   expect(verifiedLevel1CombatSkillsForHero("MUSKETEER", data.hero_skill.cards)).toHaveLength(7);
-  const mStat = stat("hero_stat:musketeer:musketeer:p001:front");
+  const mStat = stat("hero_stat:musketeer:h18:p036:front");
   expect(mStat.life).toBe(14);
   expect(mStat.attributesVerified).toBe(true);
 });

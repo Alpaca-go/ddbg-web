@@ -9,6 +9,7 @@ import {
   higherHeroDefenceSchema,
   readHigherHeroDefence,
 } from "./hero-higher-defence";
+import { heroStatId } from "../hero-registry";
 
 const STAT_FRONT =
   "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_100x180_Hero_STAT_FRONT.pdf";
@@ -102,7 +103,7 @@ export function buildWealdHeroStats(
 ): WealdHeroStatCard[] {
   if (raw.category !== "hero_stat") throw new Error("Weald 英雄属性来源类别错误");
   const lookup = createIconLookup(dictionary);
-  return approved.map((entry) => {
+  const cards = approved.map((entry) => {
     const attributes = wealdAttributesSchema.parse(entry);
     const sources = raw.cards.filter((card) => card.id === attributes.rawId);
     if (sources.length !== 1)
@@ -208,4 +209,8 @@ export function buildWealdHeroStats(
       verification: finishVerification(reasons),
     });
   });
+  return cards.map((card) => ({
+    ...card,
+    id: heroStatId(card.name, card.level, card.face),
+  }));
 }

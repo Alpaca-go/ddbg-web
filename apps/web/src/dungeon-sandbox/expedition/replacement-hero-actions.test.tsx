@@ -81,7 +81,7 @@ describe("ReplacementHeroActions", () => {
             deadHeroId: "hero-0",
             hero: {
               id: "hero-repl-0",
-              heroStatId: "hero_stat:p006:front",
+              heroStatId: "hero_stat:core:h03:p006:front",
               attributesVerified: true,
               level: 1,
               heroLevel: 1,

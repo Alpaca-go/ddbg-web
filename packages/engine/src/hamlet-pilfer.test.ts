@@ -35,7 +35,12 @@ function fixture(level = 1): GameState {
   const d = baseline.game.dungeon!;
   const stat = coreQuestSources.catalog.heroStats.find(
     (s) =>
-      s.id === ["hero_stat:p017:front", "hero_stat:p017:back", "hero_stat:p018:front"][level - 1],
+      s.id ===
+      [
+        "hero_stat:core:h09:p017:front",
+        "hero_stat:core:h09:p017:back",
+        "hero_stat:core:h09:p018:front",
+      ][level - 1],
   )!;
   return {
     ...baseline.game,
@@ -171,7 +176,7 @@ it("空堆与身份拒绝（R-098 / R-048）；UI 选项仅对获核 GR 出现",
           ? h
           : {
               ...h,
-              heroStatId: "hero_stat:p001:front",
+              heroStatId: "hero_stat:core:h01:p001:front",
               level: 1,
               heroLevel: 1,
               life: 17,
@@ -210,7 +215,7 @@ it("GR 退出未接线名单；Occ 仍保留（R-096）", () => {
   expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).not.toContain("GRAVE ROBBER");
   expect(
     coreQuestSources.catalog.heroStats.some(
-      (s) => s.id === "hero_stat:p017:front" && s.name === "GRAVE ROBBER",
+      (s) => s.id === "hero_stat:core:h09:p017:front" && s.name === "GRAVE ROBBER",
     ),
   ).toBe(true);
 });

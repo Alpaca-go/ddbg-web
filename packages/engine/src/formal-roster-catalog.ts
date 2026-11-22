@@ -45,13 +45,13 @@ export function isFormalHeroRosterPendingAttributes(name: string): boolean {
 
 /** 建队 I 级 STAT 面 id（与 hero-stat-print-art-map 一致；数值为占位，待 Kyries 核实）。 */
 const ROSTER_PENDING_STAT_IDS: Record<FormalHeroName, string> = {
-  ANTIQUARIAN: "hero_stat:warrens:antiquarian:p001:front",
-  LEPER: "hero_stat:warrens:leper:p001:front",
-  FLAGELLANT: "hero_stat:cove:flagellant:p001:front",
-  "MAN-AT-ARMS": "hero_stat:cove:man-at-arms:p001:front",
-  HOUNDMASTER: "hero_stat:weald:houndmaster:p001:front",
-  SHIELDBREAKER: "hero_stat:weald:shieldbreaker:p001:front",
-  MUSKETEER: "",
+  ANTIQUARIAN: "hero_stat:warrens:h15:p030:front",
+  LEPER: "hero_stat:warrens:h14:p028:front",
+  FLAGELLANT: "hero_stat:cove:h13:p026:front",
+  "MAN-AT-ARMS": "hero_stat:cove:h12:p024:front",
+  HOUNDMASTER: "hero_stat:weald:h17:p034:front",
+  SHIELDBREAKER: "hero_stat:weald:h16:p032:front",
+  MUSKETEER: "hero_stat:musketeer:h18:p036:front",
   CRUSADER: "",
   HELLION: "",
   HIGHWAYMAN: "",

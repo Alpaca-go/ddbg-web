@@ -252,7 +252,7 @@ it("夹具4XP可升英雄I→II并保留疾病；同访可再升技能；真实2
   const heroUp = ok(shop, choose(shop, "upgrade-hero"));
   expect(heroUp.dungeon!.heroes[0]).toMatchObject({
     level: 2,
-    heroStatId: "hero_stat:p001:back",
+    heroStatId: "hero_stat:core:h01:p001:back",
     life: 24,
     diseaseId: "disease:p001",
     xp: 0,
@@ -278,7 +278,7 @@ it("夹具4XP可升英雄I→II并保留疾病；同访可再升技能；真实2
       battleCatalog: {
         ...fixture(4).dungeon!.battleCatalog!,
         heroStats: fixture(4).dungeon!.battleCatalog!.heroStats.filter(
-          (s) => s.id !== "hero_stat:p001:back",
+          (s) => s.id !== "hero_stat:core:h01:p001:back",
         ),
       },
     },
@@ -305,7 +305,7 @@ it("未装备拥有技能可永久升级且不改装备栏；III级英雄不再�
           ? {
               ...h,
               level: 3,
-              heroStatId: "hero_stat:p002:front",
+              heroStatId: "hero_stat:core:h01:p002:front",
               life: 32,
               xp: 8,
             }

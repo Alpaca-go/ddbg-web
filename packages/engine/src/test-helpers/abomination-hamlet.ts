@@ -8,7 +8,7 @@ export function abominationHamletFixture() {
   const party = [
     {
       ...coreParty[0]!,
-      heroStatId: "hero_stat:p021:front",
+      heroStatId: "hero_stat:core:h11:p021:front",
       skillIds: ["hero_skill:p211", "hero_skill:p214", "hero_skill:p220"],
     },
     ...coreParty.slice(1),

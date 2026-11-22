@@ -111,7 +111,7 @@ describe("五英雄旧目录补员存档迁移", () => {
     record("阵亡");
     run.step({ type: "prepareReplacementHero" });
     record("英雄候选");
-    choice("hero_stat:p005:front");
+    choice("hero_stat:core:h03:p005:front");
     expect(run.game.dungeon!.replacementPreparation!.stage).toBe("upgrades");
     record("升级待选");
     choice("finish-upgrades");
@@ -154,7 +154,9 @@ describe("五英雄旧目录补员存档迁移", () => {
 
       if (stage === "英雄候选") {
         const preparation = game.dungeon!.replacementPreparation!;
-        expect(preparation.choice.options.map((o) => o.id)).toEqual(["hero_stat:p005:front"]);
+        expect(preparation.choice.options.map((o) => o.id)).toEqual([
+          "hero_stat:core:h03:p005:front",
+        ]);
         expect(
           loaded.dungeon!.replacementPreparation!.choice.options.map((o) => o.id).sort(),
         ).toEqual([...VERIFIED_REPLACEMENT_STAT_IDS].sort());
@@ -169,7 +171,7 @@ describe("五英雄旧目录补员存档迁移", () => {
         const chosen = applyCommand(loaded, {
           type: "resolveChoice",
           choiceId: preparation.choice.id,
-          optionId: "hero_stat:p013:front",
+          optionId: "hero_stat:core:h07:p013:front",
         });
         expect(chosen.events.some((e) => e.type === "commandRefused")).toBe(false);
       }
@@ -194,7 +196,7 @@ describe("五英雄旧目录补员存档迁移", () => {
 it("自然再次侦察多人死亡：第二名候选准备、禁止半队入场与代币耗尽存档", () => {
   const run = naturalDeath(sources);
   const deadNames: string[] = [];
-  for (const id of ["hero_stat:p005:front", "hero_stat:p013:front"]) {
+  for (const id of ["hero_stat:core:h03:p005:front", "hero_stat:core:h07:p013:front"]) {
     while (run.game.dungeon!.deathTrinketChoice)
       run.step({
         type: "resolveChoice",
@@ -213,7 +215,7 @@ it("自然再次侦察多人死亡：第二名候选准备、禁止半队入场�
     choose("finish-upgrades");
     while (run.game.dungeon!.replacementPreparation)
       choose(run.game.dungeon!.replacementPreparation!.choice.options[0]!.id);
-    if (id === "hero_stat:p013:front") {
+    if (id === "hero_stat:core:h07:p013:front") {
       expect(run.game.dungeon!.preparedReplacements).toHaveLength(1);
       expect(run.game.dungeon!.preparedReplacements![0]!.hero.heroStatId).toBe(id);
       // 三死者仅准备一名，禁止半队入队；目录仍有 GR/Occ，但代币已耗尽。
@@ -236,7 +238,7 @@ it("自然再次侦察多人死亡：第二名候选准备、禁止半队入场�
     expect(run.game.dungeon!.deadHeroNames).toEqual(deadNames);
     const save = createQuestSave(start, run.commands, run.game, sources);
     expect(loadQuestSave(JSON.parse(JSON.stringify(save)), sources).game).toEqual(run.game);
-    if (id === "hero_stat:p005:front") {
+    if (id === "hero_stat:core:h03:p005:front") {
       expect(
         replacementHeroCandidates(run.game.dungeon!)
           .map((s) => s.name)
@@ -338,7 +340,7 @@ it("旧目录真实战斗待选存档更新卡目录后，行动、实体、待�
   ).toEqual(updated);
 }, 30000);
 
-it.each(["hero_stat:p005:front", "hero_stat:p013:front"])(
+it.each(["hero_stat:core:h03:p005:front", "hero_stat:core:h07:p013:front"])(
   "真实网页目录：自然死亡、%s候选/技能/入队与回村均可存档续接",
   (replacementId) => {
     const run = naturalQuest(14, "quest:p001", true, sources, 2, {

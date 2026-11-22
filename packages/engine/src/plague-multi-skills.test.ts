@@ -15,7 +15,7 @@ const skills = [130, 133].map((p) =>
   clean<HeroSkillCardView>(data.hero_skill.cards.find((c) => c.pages[0] === p)!),
 );
 const stat = clean<NonNullable<BattleSetup["heroStats"]>[number] & { dodge: number }>(
-  data.hero_stat.cards.find((c) => c.id === "hero_stat:p013:front")!,
+  data.hero_stat.cards.find((c) => c.id === "hero_stat:core:h07:p013:front")!,
 );
 const monsters = ["monster_medium:p024", "monster_medium:p021"].map((id) =>
   clean<NonNullable<BattleSetup["monsters"]>[number]>(

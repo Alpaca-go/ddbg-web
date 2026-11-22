@@ -8,9 +8,9 @@ import { finishHamletAction } from "./hamlet-actions";
 type Hero = DungeonState["heroes"][number];
 
 const reviewed = {
-  "hero_stat:p017:front": { level: 1 },
-  "hero_stat:p017:back": { level: 2 },
-  "hero_stat:p018:front": { level: 3 },
+  "hero_stat:core:h09:p017:front": { level: 1 },
+  "hero_stat:core:h09:p017:back": { level: 2 },
+  "hero_stat:core:h09:p018:front": { level: 3 },
 } as const;
 
 /** R-047：十枚规范实例；缺池时按回村同款建立，不发明额外供给。 */

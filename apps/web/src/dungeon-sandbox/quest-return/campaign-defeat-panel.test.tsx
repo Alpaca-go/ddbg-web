@@ -31,7 +31,7 @@ it("战役失败面板显示原因、阵亡名单与终局文案，不回村", (
   expect(markup).toContain('data-testid="campaign-defeat-hero"');
   // 英雄名来自已核实 battleCatalog，不显示裸 heroStatId。
   expect(markup).toContain("CRUSADER");
-  expect(markup).not.toContain("hero_stat:p001:front（阵亡）");
+  expect(markup).not.toContain("hero_stat:core:h01:p001:front（阵亡）");
 });
 
 it("三种失败原因各有对应文案（R-044 / R9·R25 / R33）", () => {

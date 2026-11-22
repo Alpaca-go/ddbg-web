@@ -122,7 +122,9 @@ it("固定seed17普通任务按原策略自然续行并严格回放真实停点"
 function battleFixture(): GameState {
   const dungeon = initial().dungeon!;
   const skill = coreQuestSources.catalog.skills.find((s) => s.id === "hero_skill:p145")!;
-  const stat = coreQuestSources.catalog.heroStats.find((s) => s.id === "hero_stat:p013:front")!;
+  const stat = coreQuestSources.catalog.heroStats.find(
+    (s) => s.id === "hero_stat:core:h07:p013:front",
+  )!;
   const monster = coreQuestSources.catalog.monsters.find((m) => m.id === "monster_medium:p021")!;
   const common = { wounds: 0, guard: false, dead: false, bleed: [], blight: [], statusStacks: [] };
   const base = createBattleState(1, {

@@ -89,7 +89,7 @@ it("开局可编入 Jester（已核实属性 + 已转录 I 级技能）；attrib
   const party = partyFromNames(["JESTER", "CRUSADER", "HELLION", "HIGHWAYMAN"], sources);
   const game = createCoreDungeonQuest(23, "quest:p001", "standard", party, sources);
   expect(game.dungeon!.heroes[0]!.attributesVerified).toBe(true);
-  expect(game.dungeon!.heroes[0]!.heroStatId).toBe("hero_stat:p011:front");
+  expect(game.dungeon!.heroes[0]!.heroStatId).toBe("hero_stat:core:h06:p011:front");
   expect(isFormalHeroRosterPendingAttributes("JESTER")).toBe(false);
   expect(heroHasUnwiredCombatSkills("JESTER")).toBe(false);
 });
@@ -103,7 +103,7 @@ it("开局可编入 Musketeer（已核实属性 + I 级技能）；存档往返�
     ),
   ).toEqual(["MUSKETEER", "VESTAL", "HELLION", "HIGHWAYMAN"]);
   expect(game.dungeon!.heroes[0]!.attributesVerified).toBe(true);
-  expect(game.dungeon!.heroes[0]!.heroStatId).toBe("hero_stat:musketeer:musketeer:p001:front");
+  expect(game.dungeon!.heroes[0]!.heroStatId).toBe("hero_stat:musketeer:h18:p036:front");
   expect(formalRosterLevel1ArtSkillIds("MUSKETEER")).toHaveLength(0);
   expect(isFormalHeroRosterPendingAttributes("MUSKETEER")).toBe(false);
   const start = {

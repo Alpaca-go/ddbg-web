@@ -316,12 +316,14 @@ export function readHigherHeroDefence(
   )
     return undefined;
   const got = card.verified_higher_condition_defence!;
+  const key =
+    "rawId" in card && "face" in card ? `${String(card.rawId)}:${String(card.face)}` : card.id;
   const reviewed = got.approval === "kyries_review_2026-11-10";
   const row = reviewed
-    ? reviewedHeroDefences.get(card.id)
-    : higherHeroDefenceApprovals.find((entry) => entry.id === card.id);
+    ? reviewedHeroDefences.get(key)
+    : higherHeroDefenceApprovals.find((entry) => entry.id === key);
   if (!row || card.name !== row.name || card.level !== row.level) return undefined;
-  const expected = (reviewed ? approvedHigherDefence(card.id) : originalHigherDefence(card.id))!;
+  const expected = (reviewed ? approvedHigherDefence(key) : originalHigherDefence(key))!;
   return got.source === expected.source &&
     got.approval === expected.approval &&
     JSON.stringify(got.resistances) === JSON.stringify(expected.resistances) &&

@@ -16,7 +16,7 @@ const clean = <T>(value: unknown): T => JSON.parse(JSON.stringify(value));
 const skill = (page: number) =>
   clean<HeroSkillCardView>(data.hero_skill.cards.find((c) => c.pages[0] === page)!);
 const stat = clean<NonNullable<BattleSetup["heroStats"]>[number] & { dodge: number }>(
-  data.hero_stat.cards.find((c) => c.id === "hero_stat:p017:front")!,
+  data.hero_stat.cards.find((c) => c.id === "hero_stat:core:h09:p017:front")!,
 );
 const monster = clean<NonNullable<BattleSetup["monsters"]>[number]>(
   data.monster_medium.cards.find((c) => c.id === "monster_medium:p021")!,
@@ -353,7 +353,7 @@ it("Toxin Trickery I：不掷骰清 Bleed/Blight 并放 Buff 2t；无 skipped", 
 });
 
 it("Pilfer：R-096 限定命名；词典仍 unreviewed；命令 schema 接受 pilfer；GR 退出未接线名单", () => {
-  const face = data.hero_stat.cards.find((c) => c.id === "hero_stat:p017:front")!;
+  const face = data.hero_stat.cards.find((c) => c.id === "hero_stat:core:h09:p017:front")!;
   expect(face.lines.some((line) => line.includes("Hamlet Skill: Pilfer"))).toBe(true);
   expect(
     face.icons.some((icon) => icon.iconId === "79084a2922" && icon.naming === "unverified"),

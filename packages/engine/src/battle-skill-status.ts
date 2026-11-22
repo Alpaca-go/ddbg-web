@@ -45,7 +45,8 @@ export function readHeroPassiveDefence(
     };
   }
   const defence = hero?.verified_condition_defence;
-  const expected = hero && approvedHeroConditionDefences[hero.id];
+  const legacyKey = hero?.rawId ? `${hero.rawId}:${hero.face}` : hero?.id;
+  const expected = legacyKey ? approvedHeroConditionDefences[legacyKey] : undefined;
   if (
     !hero?.attributesVerified ||
     hero.level !== 1 ||

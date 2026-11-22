@@ -24,7 +24,11 @@ export function resolveDungeonTrap(state: GameState, rollId: string, heroId: str
   const d = state.dungeon!;
   const hero = d.heroes.find((h) => h.id === heroId);
   const stat = d.battleCatalog?.heroStats.find((s) => s.id === hero?.heroStatId);
-  const approved = approvedHeroStats.find((s) => `${s.rawId}:${s.face}` === stat?.id);
+  const approved = approvedHeroStats.find((s) =>
+    stat?.rawId !== undefined && stat.face !== undefined
+      ? s.rawId === stat.rawId && s.face === stat.face
+      : `${s.rawId}:${s.face}` === stat?.id,
+  );
   const config = d.explorationSetup;
   const stacks = hero?.statusStacks ?? hero?.combat?.statusStacks ?? [];
   if (

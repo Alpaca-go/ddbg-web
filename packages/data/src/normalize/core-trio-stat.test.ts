@@ -81,9 +81,9 @@ it("九面限定 I 级 / 高等级防御与印刷一致；Jester II/III 按 R-21
         readHigherHeroDefence(c)?.resistances ?? null,
       ]),
   ).toEqual([
-    ["hero_stat:p011:front", ["debuff"], null],
-    ["hero_stat:p011:back", null, ["debuff", "bleed"]],
-    ["hero_stat:p012:front", null, ["debuff", "bleed", "blight"]],
+    ["hero_stat:core:h06:p011:front", ["debuff"], null],
+    ["hero_stat:core:h06:p011:back", null, ["debuff", "bleed"]],
+    ["hero_stat:core:h06:p012:front", null, ["debuff", "bleed", "blight"]],
   ]);
   expect(
     built.cards
@@ -95,9 +95,9 @@ it("九面限定 I 级 / 高等级防御与印刷一致；Jester II/III 按 R-21
         readHigherHeroDefence(c)?.immunities ?? null,
       ]),
   ).toEqual([
-    ["hero_stat:p015:front", null, ["shuffle"], []],
-    ["hero_stat:p015:back", null, ["stun", "shuffle"], []],
-    ["hero_stat:p016:front", null, ["stun"], ["shuffle"]],
+    ["hero_stat:core:h08:p015:front", null, ["shuffle"], []],
+    ["hero_stat:core:h08:p015:back", null, ["stun", "shuffle"], []],
+    ["hero_stat:core:h08:p016:front", null, ["stun"], ["shuffle"]],
   ]);
   expect(
     built.cards
@@ -109,9 +109,9 @@ it("九面限定 I 级 / 高等级防御与印刷一致；Jester II/III 按 R-21
         readHigherHeroDefence(c)?.immunities ?? null,
       ]),
   ).toEqual([
-    ["hero_stat:p021:front", ["blight"], null, null],
-    ["hero_stat:p022:front", null, ["stun", "blight"], []],
-    ["hero_stat:p023:front", null, ["stun"], ["blight"]],
+    ["hero_stat:core:h11:p021:front", ["blight"], null, null],
+    ["hero_stat:core:h11:p022:front", null, ["stun", "blight"], []],
+    ["hero_stat:core:h11:p023:front", null, ["stun"], ["blight"]],
   ]);
 });
 

@@ -57,10 +57,10 @@ function journey() {
 }
 
 it.each([
-  ["hero-0", "hero_stat:p001:back", 24, 1, "hero_skill:p007"],
-  ["hero-1", "hero_stat:p003:back", 18, 2, "hero_skill:p025"],
-  ["hero-2", "hero_stat:p007:back", 17, 2, "hero_skill:p070"],
-  ["hero-3", "hero_stat:p009:back", 17, 1, "hero_skill:p091"],
+  ["hero-0", "hero_stat:core:h01:p001:back", 24, 1, "hero_skill:p007"],
+  ["hero-1", "hero_stat:core:h02:p003:back", 18, 2, "hero_skill:p025"],
+  ["hero-2", "hero_stat:core:h04:p007:back", 17, 2, "hero_skill:p070"],
+  ["hero-3", "hero_stat:core:h05:p009:back", 17, 1, "hero_skill:p091"],
 ] as const)(
   "自然4XP后%s升II、装备四技能并正式保存续接",
   (actorId, statId, life, dodge, extraSkill) => {

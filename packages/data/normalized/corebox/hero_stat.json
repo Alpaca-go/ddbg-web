@@ -16,7 +16,7 @@
    "life": 17,
    "dodge": 0,
    "speed": 1,
-   "id": "hero_stat:p001:front",
+   "id": "hero_stat:core:h01:p001:front",
    "source": {
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_FRONT.pdf",
     "page": 1
@@ -194,7 +194,7 @@
    "life": 24,
    "dodge": 1,
    "speed": 1,
-   "id": "hero_stat:p001:back",
+   "id": "hero_stat:core:h01:p001:back",
    "source": {
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_BACK.pdf",
     "page": 1
@@ -395,7 +395,7 @@
    "life": 32,
    "dodge": 2,
    "speed": 1,
-   "id": "hero_stat:p002:front",
+   "id": "hero_stat:core:h01:p002:front",
    "source": {
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_FRONT.pdf",
     "page": 2
@@ -618,7 +618,7 @@
    "life": 14,
    "dodge": 1,
    "speed": 2,
-   "id": "hero_stat:p003:front",
+   "id": "hero_stat:core:h02:p003:front",
    "source": {
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_FRONT.pdf",
     "page": 3
@@ -766,7 +766,7 @@
    "life": 18,
    "dodge": 2,
    "speed": 2,
-   "id": "hero_stat:p003:back",
+   "id": "hero_stat:core:h02:p003:back",
    "source": {
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_BACK.pdf",
     "page": 3
@@ -934,7 +934,7 @@
    "life": 24,
    "dodge": 3,
    "speed": 2,
-   "id": "hero_stat:p004:front",
+   "id": "hero_stat:core:h02:p004:front",
    "source": {
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_FRONT.pdf",
     "page": 4
@@ -1124,7 +1124,7 @@
    "life": 12,
    "dodge": 1,
    "speed": 2,
-   "id": "hero_stat:p007:front",
+   "id": "hero_stat:core:h04:p007:front",
    "source": {
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_FRONT.pdf",
     "page": 7
@@ -1270,7 +1270,7 @@
    "life": 17,
    "dodge": 2,
    "speed": 2,
-   "id": "hero_stat:p007:back",
+   "id": "hero_stat:core:h04:p007:back",
    "source": {
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_BACK.pdf",
     "page": 7
@@ -1436,7 +1436,7 @@
    "life": 22,
    "dodge": 3,
    "speed": 3,
-   "id": "hero_stat:p008:front",
+   "id": "hero_stat:core:h04:p008:front",
    "source": {
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_FRONT.pdf",
     "page": 8
@@ -1635,7 +1635,7 @@
    "life": 12,
    "dodge": 0,
    "speed": 1,
-   "id": "hero_stat:p009:front",
+   "id": "hero_stat:core:h05:p009:front",
    "source": {
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_FRONT.pdf",
     "page": 9
@@ -1849,7 +1849,7 @@
    "life": 17,
    "dodge": 1,
    "speed": 1,
-   "id": "hero_stat:p009:back",
+   "id": "hero_stat:core:h05:p009:back",
    "source": {
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_BACK.pdf",
     "page": 9
@@ -2081,7 +2081,7 @@
    "life": 22,
    "dodge": 2,
    "speed": 2,
-   "id": "hero_stat:p010:front",
+   "id": "hero_stat:core:h05:p010:front",
    "source": {
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_FRONT.pdf",
     "page": 10
@@ -2351,7 +2351,7 @@
    "life": 14,
    "dodge": 1,
    "speed": 2,
-   "id": "hero_stat:p005:front",
+   "id": "hero_stat:core:h03:p005:front",
    "source": {
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_FRONT.pdf",
     "page": 5
@@ -2495,7 +2495,7 @@
    "life": 18,
    "dodge": 2,
    "speed": 2,
-   "id": "hero_stat:p005:back",
+   "id": "hero_stat:core:h03:p005:back",
    "source": {
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_BACK.pdf",
     "page": 5
@@ -2659,7 +2659,7 @@
    "life": 23,
    "dodge": 3,
    "speed": 2,
-   "id": "hero_stat:p006:front",
+   "id": "hero_stat:core:h03:p006:front",
    "source": {
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_FRONT.pdf",
     "page": 6
@@ -2847,7 +2847,7 @@
    "life": 11,
    "dodge": 0,
    "speed": 3,
-   "id": "hero_stat:p013:front",
+   "id": "hero_stat:core:h07:p013:front",
    "source": {
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_FRONT.pdf",
     "page": 13
@@ -3046,7 +3046,7 @@
    "life": 15,
    "dodge": 1,
    "speed": 3,
-   "id": "hero_stat:p013:back",
+   "id": "hero_stat:core:h07:p013:back",
    "source": {
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_BACK.pdf",
     "page": 13
@@ -3266,7 +3266,7 @@
    "life": 19,
    "dodge": 2,
    "speed": 3,
-   "id": "hero_stat:p014:front",
+   "id": "hero_stat:core:h07:p014:front",
    "source": {
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_FRONT.pdf",
     "page": 14
@@ -3498,7 +3498,7 @@
    "life": 11,
    "dodge": 1,
    "speed": 3,
-   "id": "hero_stat:p017:front",
+   "id": "hero_stat:core:h09:p017:front",
    "source": {
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_FRONT.pdf",
     "page": 17
@@ -3655,7 +3655,7 @@
    "life": 15,
    "dodge": 2,
    "speed": 3,
-   "id": "hero_stat:p017:back",
+   "id": "hero_stat:core:h09:p017:back",
    "source": {
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_BACK.pdf",
     "page": 17
@@ -3832,7 +3832,7 @@
    "life": 19,
    "dodge": 3,
    "speed": 3,
-   "id": "hero_stat:p018:front",
+   "id": "hero_stat:core:h09:p018:front",
    "source": {
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_FRONT.pdf",
     "page": 18
@@ -4033,7 +4033,7 @@
    "life": 10,
    "dodge": 1,
    "speed": 2,
-   "id": "hero_stat:p019:front",
+   "id": "hero_stat:core:h10:p019:front",
    "source": {
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_FRONT.pdf",
     "page": 19
@@ -4235,7 +4235,7 @@
    "life": 14,
    "dodge": 2,
    "speed": 2,
-   "id": "hero_stat:p019:back",
+   "id": "hero_stat:core:h10:p019:back",
    "source": {
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_BACK.pdf",
     "page": 19
@@ -4457,7 +4457,7 @@
    "life": 18,
    "dodge": 3,
    "speed": 3,
-   "id": "hero_stat:p020:front",
+   "id": "hero_stat:core:h10:p020:front",
    "source": {
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_FRONT.pdf",
     "page": 20
@@ -4714,7 +4714,7 @@
    "life": 10,
    "dodge": 2,
    "speed": 3,
-   "id": "hero_stat:p011:front",
+   "id": "hero_stat:core:h06:p011:front",
    "source": {
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_FRONT.pdf",
     "page": 11
@@ -4904,7 +4904,7 @@
    "life": 14,
    "dodge": 3,
    "speed": 3,
-   "id": "hero_stat:p011:back",
+   "id": "hero_stat:core:h06:p011:back",
    "source": {
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_BACK.pdf",
     "page": 11
@@ -5113,7 +5113,7 @@
    "life": 18,
    "dodge": 4,
    "speed": 3,
-   "id": "hero_stat:p012:front",
+   "id": "hero_stat:core:h06:p012:front",
    "source": {
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_FRONT.pdf",
     "page": 12
@@ -5346,7 +5346,7 @@
    "life": 14,
    "dodge": 0,
    "speed": 1,
-   "id": "hero_stat:p015:front",
+   "id": "hero_stat:core:h08:p015:front",
    "source": {
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_FRONT.pdf",
     "page": 15
@@ -5546,7 +5546,7 @@
    "life": 19,
    "dodge": 1,
    "speed": 1,
-   "id": "hero_stat:p015:back",
+   "id": "hero_stat:core:h08:p015:back",
    "source": {
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_BACK.pdf",
     "page": 15
@@ -5766,7 +5766,7 @@
    "life": 24,
    "dodge": 2,
    "speed": 2,
-   "id": "hero_stat:p016:front",
+   "id": "hero_stat:core:h08:p016:front",
    "source": {
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_FRONT.pdf",
     "page": 16
@@ -6010,7 +6010,7 @@
    "life": 13,
    "dodge": 1,
    "speed": 2,
-   "id": "hero_stat:p021:front",
+   "id": "hero_stat:core:h11:p021:front",
    "source": {
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_FRONT.pdf",
     "page": 21
@@ -6288,7 +6288,7 @@
    "life": 18,
    "dodge": 2,
    "speed": 3,
-   "id": "hero_stat:p022:front",
+   "id": "hero_stat:core:h11:p022:front",
    "source": {
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_FRONT.pdf",
     "page": 22
@@ -6596,7 +6596,7 @@
    "life": 23,
    "dodge": 3,
    "speed": 3,
-   "id": "hero_stat:p023:front",
+   "id": "hero_stat:core:h11:p023:front",
    "source": {
     "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_FRONT.pdf",
     "page": 23
@@ -6918,7 +6918,7 @@
    "life": 18,
    "dodge": 0,
    "speed": 1,
-   "id": "hero_stat:warrens:leper:p001:front",
+   "id": "hero_stat:warrens:h14:p028:front",
    "source": {
     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_100x180_Hero_STAT_FRONT.pdf",
     "page": 28
@@ -7136,7 +7136,7 @@
    "life": 25,
    "dodge": 1,
    "speed": 1,
-   "id": "hero_stat:warrens:leper:p001:back",
+   "id": "hero_stat:warrens:h14:p028:back",
    "source": {
     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_100x180_Hero_STAT_BACK.pdf",
     "page": 28
@@ -7379,7 +7379,7 @@
    "life": 33,
    "dodge": 2,
    "speed": 1,
-   "id": "hero_stat:warrens:leper:p002:front",
+   "id": "hero_stat:warrens:h14:p029:front",
    "source": {
     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_100x180_Hero_STAT_FRONT.pdf",
     "page": 29
@@ -7644,7 +7644,7 @@
    "life": 9,
    "dodge": 1,
    "speed": 2,
-   "id": "hero_stat:warrens:antiquarian:p001:front",
+   "id": "hero_stat:warrens:h15:p030:front",
    "source": {
     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_100x180_Hero_STAT_FRONT.pdf",
     "page": 30
@@ -7822,7 +7822,7 @@
    "life": 12,
    "dodge": 2,
    "speed": 2,
-   "id": "hero_stat:warrens:antiquarian:p001:back",
+   "id": "hero_stat:warrens:h15:p030:back",
    "source": {
     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_100x180_Hero_STAT_BACK.pdf",
     "page": 30
@@ -8026,7 +8026,7 @@
    "life": 15,
    "dodge": 3,
    "speed": 2,
-   "id": "hero_stat:warrens:antiquarian:p002:front",
+   "id": "hero_stat:warrens:h15:p031:front",
    "source": {
     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_100x180_Hero_STAT_FRONT.pdf",
     "page": 31
@@ -8258,7 +8258,7 @@
    "life": 12,
    "dodge": 2,
    "speed": 2,
-   "id": "hero_stat:cove:flagellant:p001:front",
+   "id": "hero_stat:cove:h13:p026:front",
    "source": {
     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_100x180_Hero_STAT_FRONT.pdf",
     "page": 1
@@ -8453,7 +8453,7 @@
    "life": 16,
    "dodge": 3,
    "speed": 3,
-   "id": "hero_stat:cove:flagellant:p001:back",
+   "id": "hero_stat:cove:h13:p026:back",
    "source": {
     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_100x180_Hero_STAT_BACK.pdf",
     "page": 1
@@ -8685,7 +8685,7 @@
    "life": 22,
    "dodge": 3,
    "speed": 3,
-   "id": "hero_stat:cove:flagellant:p002:front",
+   "id": "hero_stat:cove:h13:p027:front",
    "source": {
     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_100x180_Hero_STAT_FRONT.pdf",
     "page": 2
@@ -8938,7 +8938,7 @@
    "life": 16,
    "dodge": 1,
    "speed": 1,
-   "id": "hero_stat:cove:man-at-arms:p001:front",
+   "id": "hero_stat:cove:h12:p024:front",
    "source": {
     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_100x180_Hero_STAT_FRONT.pdf",
     "page": 3
@@ -9147,7 +9147,7 @@
    "life": 22,
    "dodge": 2,
    "speed": 1,
-   "id": "hero_stat:cove:man-at-arms:p001:back",
+   "id": "hero_stat:cove:h12:p024:back",
    "source": {
     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_100x180_Hero_STAT_BACK.pdf",
     "page": 3
@@ -9382,7 +9382,7 @@
    "life": 28,
    "dodge": 3,
    "speed": 2,
-   "id": "hero_stat:cove:man-at-arms:p002:front",
+   "id": "hero_stat:cove:h12:p025:front",
    "source": {
     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_100x180_Hero_STAT_FRONT.pdf",
     "page": 4
@@ -9649,7 +9649,7 @@
    "life": 11,
    "dodge": 1,
    "speed": 2,
-   "id": "hero_stat:weald:houndmaster:p001:front",
+   "id": "hero_stat:weald:h17:p034:front",
    "source": {
     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_100x180_Hero_STAT_FRONT.pdf",
     "page": 1
@@ -9804,7 +9804,7 @@
    "life": 15,
    "dodge": 2,
    "speed": 2,
-   "id": "hero_stat:weald:houndmaster:p001:back",
+   "id": "hero_stat:weald:h17:p034:back",
    "source": {
     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_100x180_Hero_STAT_BACK.pdf",
     "page": 1
@@ -9983,7 +9983,7 @@
    "life": 19,
    "dodge": 3,
    "speed": 2,
-   "id": "hero_stat:weald:houndmaster:p002:front",
+   "id": "hero_stat:weald:h17:p035:front",
    "source": {
     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_100x180_Hero_STAT_FRONT.pdf",
     "page": 2
@@ -10186,7 +10186,7 @@
    "life": 11,
    "dodge": 1,
    "speed": 2,
-   "id": "hero_stat:weald:shieldbreaker:p001:front",
+   "id": "hero_stat:weald:h16:p032:front",
    "source": {
     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_100x180_Hero_STAT_FRONT.pdf",
     "page": 3
@@ -10417,7 +10417,7 @@
    "life": 15,
    "dodge": 2,
    "speed": 2,
-   "id": "hero_stat:weald:shieldbreaker:p001:back",
+   "id": "hero_stat:weald:h16:p032:back",
    "source": {
     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_100x180_Hero_STAT_BACK.pdf",
     "page": 3
@@ -10672,7 +10672,7 @@
    "life": 19,
    "dodge": 3,
    "speed": 3,
-   "id": "hero_stat:weald:shieldbreaker:p002:front",
+   "id": "hero_stat:weald:h16:p033:front",
    "source": {
     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_100x180_Hero_STAT_FRONT.pdf",
     "page": 4
@@ -10952,7 +10952,7 @@
    "life": 14,
    "dodge": 0,
    "speed": 1,
-   "id": "hero_stat:musketeer:musketeer:p001:front",
+   "id": "hero_stat:musketeer:h18:p036:front",
    "source": {
     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_100x180_Hero_STAT_FRONT.pdf",
     "page": 1
@@ -11171,7 +11171,7 @@
    "life": 19,
    "dodge": 1,
    "speed": 1,
-   "id": "hero_stat:musketeer:musketeer:p001:back",
+   "id": "hero_stat:musketeer:h18:p036:back",
    "source": {
     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_100x180_Hero_STAT_BACK.pdf",
     "page": 1
@@ -11416,7 +11416,7 @@
    "life": 24,
    "dodge": 2,
    "speed": 2,
-   "id": "hero_stat:musketeer:musketeer:p002:front",
+   "id": "hero_stat:musketeer:h18:p037:front",
    "source": {
     "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_100x180_Hero_STAT_FRONT.pdf",
     "page": 2
