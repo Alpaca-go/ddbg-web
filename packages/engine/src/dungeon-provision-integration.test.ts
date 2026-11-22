@@ -9,6 +9,8 @@ import type { Command, GameState } from "./command";
 import type { ProvisionFace } from "./loot";
 const stats = normalizedHeroStatFileSchema.parse(statData).cards.map((s) => ({
   id: s.id,
+  rawId: s.rawId,
+  face: s.face,
   name: s.name,
   level: s.level,
   life: s.life,
