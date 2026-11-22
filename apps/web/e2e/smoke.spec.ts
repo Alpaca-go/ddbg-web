@@ -41,7 +41,7 @@ test("加载获批数据，多目标治疗共用一骰且选择不会跨区域�
       .getByLabel("技能", { exact: true })
       .getByRole("option", { name: "Bulwark of Faith III", exact: true }),
   ).toHaveCount(1);
-  await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p012");
+  await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:core:h01:p012");
   await expect(page.getByTestId("skill-requirements")).toContainText("卡面目标：自身");
   await expect(page.getByTestId("skill-requirements")).not.toContainText("卡面射程");
   await expect(page.getByText("目标：自身 · CRUSADER", { exact: true })).toBeVisible();
@@ -59,7 +59,7 @@ test("加载获批数据，多目标治疗共用一骰且选择不会跨区域�
   await page.getByRole("button", { name: "重新布置", exact: true }).click();
   await page.getByRole("button", { name: "开始战斗", exact: true }).click();
   await page.getByRole("button", { name: "抽取先攻", exact: true }).click();
-  await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p019");
+  await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:core:h01:p019");
   await expect(page.getByTestId("skill-card-text")).toContainText("Inspiring Cry · 等级 1");
   await page.getByLabel("目标", { exact: true }).selectOption("hero-1");
   await page.getByRole("button", { name: "使用技能", exact: true }).click();
@@ -126,7 +126,7 @@ test("加载获批数据，多目标治疗共用一骰且选择不会跨区域�
     }
     await page.getByRole("button", { name: "抽取先攻", exact: true }).click();
     await expect(page.getByTestId("turn-status")).toContainText("VESTAL · 剩余 2 行动");
-    await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p097");
+    await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:core:h05:p097");
     await expect(page.getByTestId("skill-requirements")).toContainText("卡面射程：区域距离 1");
     await expect(page.getByTestId("skill-requirements")).toContainText(
       "卡面目标：同一区域内最多 3 个目标",
@@ -150,8 +150,8 @@ test("加载获批数据，多目标治疗共用一骰且选择不会跨区域�
       page.getByRole("checkbox", { name: "选择 HELLION", exact: true }),
     ).not.toBeChecked();
     await page.getByRole("checkbox", { name: "选择 HELLION", exact: true }).check();
-    await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p088");
-    await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p097");
+    await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:core:h05:p088");
+    await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:core:h05:p097");
     await expect(
       page.getByRole("checkbox", { name: "选择 HELLION", exact: true }),
     ).not.toBeChecked();
@@ -200,7 +200,7 @@ test("加载获批数据，多目标治疗共用一骰且选择不会跨区域�
     await page.getByRole("button", { name: "重新布置", exact: true }).click();
     await page.getByRole("button", { name: "开始战斗", exact: true }).click();
     await page.getByRole("button", { name: "抽取先攻", exact: true }).click();
-    await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p013");
+    await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:core:h01:p013");
     await page.getByLabel("目标", { exact: true }).selectOption("hero-3");
     await expect(page.getByTestId("skill-card-text")).toContainText("Battle Heal · 等级 1");
     await expect(page.getByTestId("skill-card-text")).toContainText("[射程] 0-1");
@@ -235,7 +235,7 @@ test("加载获批数据，多目标治疗共用一骰且选择不会跨区域�
     }
     await page.getByRole("button", { name: "抽取先攻", exact: true }).click();
     await expect(page.getByTestId("turn-status")).toContainText("CRUSADER · 剩余 2 行动");
-    await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p016");
+    await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:core:h01:p016");
     await page.getByLabel("目标", { exact: true }).selectOption("soldier");
     await expect(page.getByTestId("skill-card-text")).toContainText("Holy Lance · 等级 1");
     await expect(page.getByTestId("skill-card-text")).toContainText("+1 vs Unholy");
@@ -265,7 +265,7 @@ test("加载获批数据，多目标治疗共用一骰且选择不会跨区域�
       await page.getByRole("button", { name: "确认移动", exact: true }).click();
     }
     await page.getByRole("button", { name: "抽取先攻", exact: true }).click();
-    await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p097");
+    await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:core:h05:p097");
     await page.getByRole("checkbox", { name: "选择空区域", exact: true }).check();
     await page.getByLabel("空区域", { exact: true }).selectOption("F");
     await page.getByRole("button", { name: "使用技能", exact: true }).click();
@@ -297,7 +297,7 @@ test("加载获批数据，多目标治疗共用一骰且选择不会跨区域�
   }
   await page.getByRole("button", { name: "抽取先攻", exact: true }).click();
   await page.getByRole("button", { name: "向后换姿态", exact: true }).click();
-  await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p088");
+  await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:core:h05:p088");
   await page.getByLabel("目标", { exact: true }).selectOption("soldier");
   await page.getByRole("button", { name: "使用技能", exact: true }).click();
   await expect(page.getByTestId("entity-hero-3")).toContainText("伤口 3/12");
@@ -468,11 +468,11 @@ test("英雄射程拒绝后移动攻击，胜利停场且同种子回放一致",
           const hero = turn.split(" · ")[0]!;
           if (!heroSkillsUsed.has(hero)) {
             if (hero === "CRUSADER" && ["进攻", "防御"].includes(stance)) {
-              await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p010");
+              await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:core:h01:p010");
             } else if (hero === "HELLION") {
-              await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p037");
+              await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:core:h02:p037");
             } else if (hero === "HIGHWAYMAN") {
-              await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p076");
+              await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:core:h04:p076");
               await expect(page.getByTestId("skill-requirements")).toContainText(
                 "卡面射程：区域距离 1–2",
               );
@@ -494,7 +494,7 @@ test("英雄射程拒绝后移动攻击，胜利停场且同种子回放一致",
                 vestalMoved = true;
                 continue;
               }
-              await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p097");
+              await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:core:h05:p097");
               await page.getByLabel("目标区域", { exact: true }).selectOption("C");
               await page.getByRole("checkbox", { name: "选择 HELLION", exact: true }).check();
             } else throw new Error(`${layout} ${hero} 首次技能姿态异常`);
@@ -519,7 +519,7 @@ test("英雄射程拒绝后移动攻击，胜利停场且同种子回放一致",
           turn.startsWith("HELLION") &&
           ["远程", "支援"].includes(stance)
         ) {
-          await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p034");
+          await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:core:h02:p034");
           await page.getByLabel("目标区域", { exact: true }).selectOption("B");
           for (const checkbox of await page
             .getByRole("group", { name: "同区目标", exact: true })
@@ -586,7 +586,7 @@ test("位移分岔冻结其他行动，选择后续接一次并可重放", async
     await page.getByRole("button", { name: "开始战斗", exact: true }).click();
     await page.getByRole("button", { name: "抽取先攻", exact: true }).click();
     await expect(page.getByTestId("turn-status")).toContainText("HIGHWAYMAN · 剩余 2 行动");
-    await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p070");
+    await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:core:h04:p070");
     await page.getByRole("button", { name: "使用技能", exact: true }).click();
     await expect(page.getByTestId("turn-status")).toContainText("剩余 2 行动");
     await expect(page.getByRole("button", { name: "使用技能", exact: true })).toBeDisabled();
@@ -630,7 +630,7 @@ test("位移分岔冻结其他行动，选择后续接一次并可重放", async
   await page.getByRole("button", { name: "开始战斗", exact: true }).click();
   await page.getByRole("button", { name: "抽取先攻", exact: true }).click();
   await page.getByRole("button", { name: "向后换姿态", exact: true }).click();
-  await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:p079");
+  await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:core:h04:p079");
   await page.getByRole("checkbox", { name: "选择空区域", exact: true }).check();
   await page.getByLabel("空区域", { exact: true }).selectOption("E");
   await page.getByRole("button", { name: "使用技能", exact: true }).click();

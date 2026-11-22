@@ -49,8 +49,8 @@ test("憎恶公会机制夹具：变身卡连续永久升级并记录命令", as
     };
   });
   expect(result).toMatchObject({
-    skills: ["hero_skill:p211", "hero_skill:p214", "hero_skill:p222"],
-    removed: ["hero_skill:p220", "hero_skill:p221"],
+    skills: ["hero_skill:core:h11:p211", "hero_skill:core:h11:p214", "hero_skill:core:h11:p222"],
+    removed: ["hero_skill:core:h11:p220", "hero_skill:core:h11:p221"],
     xp: 6,
     gold: 98,
     commands: ["visitGuild", "resolveChoice", "resolveChoice"],
