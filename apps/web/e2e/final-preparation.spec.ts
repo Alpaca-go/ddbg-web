@@ -69,7 +69,10 @@ test("最暗胜利后最后四天准备：不展示事件卡，不误入普通�
                   ...h,
                   nextQuestProvisionDice: 1,
                   nextQuestSkillUpgrades: [
-                    { originalSkillId: "hero_skill:core:h01:p001", temporarySkillId: "hero_skill:core:h01:p003" },
+                    {
+                      originalSkillId: "hero_skill:core:h01:p001",
+                      temporarySkillId: "hero_skill:core:h01:p003",
+                    },
                   ],
                 },
           ),

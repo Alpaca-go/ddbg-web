@@ -468,11 +468,17 @@ test("英雄射程拒绝后移动攻击，胜利停场且同种子回放一致",
           const hero = turn.split(" · ")[0]!;
           if (!heroSkillsUsed.has(hero)) {
             if (hero === "CRUSADER" && ["进攻", "防御"].includes(stance)) {
-              await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:core:h01:p010");
+              await page
+                .getByLabel("技能", { exact: true })
+                .selectOption("hero_skill:core:h01:p010");
             } else if (hero === "HELLION") {
-              await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:core:h02:p037");
+              await page
+                .getByLabel("技能", { exact: true })
+                .selectOption("hero_skill:core:h02:p037");
             } else if (hero === "HIGHWAYMAN") {
-              await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:core:h04:p076");
+              await page
+                .getByLabel("技能", { exact: true })
+                .selectOption("hero_skill:core:h04:p076");
               await expect(page.getByTestId("skill-requirements")).toContainText(
                 "卡面射程：区域距离 1–2",
               );
@@ -494,7 +500,9 @@ test("英雄射程拒绝后移动攻击，胜利停场且同种子回放一致",
                 vestalMoved = true;
                 continue;
               }
-              await page.getByLabel("技能", { exact: true }).selectOption("hero_skill:core:h05:p097");
+              await page
+                .getByLabel("技能", { exact: true })
+                .selectOption("hero_skill:core:h05:p097");
               await page.getByLabel("目标区域", { exact: true }).selectOption("C");
               await page.getByRole("checkbox", { name: "选择 HELLION", exact: true }).check();
             } else throw new Error(`${layout} ${hero} 首次技能姿态异常`);
