@@ -10,20 +10,20 @@ import type { HeroSkillCardView } from "./hero-skill";
 
 /** Weald Houndmaster II/III 14 张（与 L1 技能族一一对应 L2/L3）。 */
 const HM_II_III_IDS = [
-  "hero_skill:p338",
-  "hero_skill:p339",
-  "hero_skill:p341",
-  "hero_skill:p342",
-  "hero_skill:p344",
-  "hero_skill:p345",
-  "hero_skill:p347",
-  "hero_skill:p348",
-  "hero_skill:p350",
-  "hero_skill:p351",
-  "hero_skill:p353",
-  "hero_skill:p354",
-  "hero_skill:p356",
-  "hero_skill:p357",
+  "hero_skill:weald:h17:p338",
+  "hero_skill:weald:h17:p339",
+  "hero_skill:weald:h17:p341",
+  "hero_skill:weald:h17:p342",
+  "hero_skill:weald:h17:p344",
+  "hero_skill:weald:h17:p345",
+  "hero_skill:weald:h17:p347",
+  "hero_skill:weald:h17:p348",
+  "hero_skill:weald:h17:p350",
+  "hero_skill:weald:h17:p351",
+  "hero_skill:weald:h17:p353",
+  "hero_skill:weald:h17:p354",
+  "hero_skill:weald:h17:p356",
+  "hero_skill:weald:h17:p357",
 ] as const;
 
 const data = loadNormalizedCorebox();

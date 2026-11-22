@@ -25,8 +25,8 @@ const crusaderStat = normalizedHeroStatFileSchema
   .parse(statsFile)
   .cards.find((c) => c.name === "CRUSADER" && c.level === 1 && c.face === "front")!;
 const skillCards = (skillsFile as { cards: HeroSkillCardView[] }).cards;
-const smite = skillCards.find((c) => c.id === "hero_skill:p001")!;
-const bolster = skillCards.find((c) => c.id === "hero_skill:p013")!;
+const smite = skillCards.find((c) => c.id === "hero_skill:core:h01:p001")!;
+const bolster = skillCards.find((c) => c.id === "hero_skill:core:h01:p013")!;
 
 const tileFive = WEALD_APPROVED_ROOM_TILES.find((t) => t.number === 5)!;
 const tileThree = WEALD_APPROVED_ROOM_TILES.find((t) => t.number === 3)!;

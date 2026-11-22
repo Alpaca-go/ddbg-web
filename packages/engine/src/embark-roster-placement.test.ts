@@ -9,13 +9,13 @@ import {
 } from "./embark-roster-placement";
 
 const smite = loadNormalizedCorebox().hero_skill.cards.find(
-  (c) => c.id === "hero_skill:p001",
+  (c) => c.id === "hero_skill:core:h01:p001",
 )! as HeroSkillCardView;
 
 describe("embark roster placement", () => {
   it("prefers stance with highest lit count; ties favor aggressive", () => {
     const judgement = loadNormalizedCorebox().hero_skill.cards.find(
-      (c) => c.id === "hero_skill:p016",
+      (c) => c.id === "hero_skill:core:h01:p016",
     )! as HeroSkillCardView;
     expect(preferredEmbarkStanceFromSelectedSkills([smite])).toBe("aggressive");
     expect(preferredEmbarkStanceFromSelectedSkills([smite, judgement])).toBe("aggressive");

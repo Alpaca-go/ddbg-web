@@ -9,10 +9,10 @@ import { resolveTurnStartStatus } from "./battle-status";
 const data = loadNormalizedCorebox();
 const clean = <T>(value: unknown): T => JSON.parse(JSON.stringify(value));
 const skill = clean<HeroSkillCardView>(
-  data.hero_skill.cards.find((c) => c.id === "hero_skill:p058")!,
+  data.hero_skill.cards.find((c) => c.id === "hero_skill:core:h03:p058")!,
 );
 const uppercut = clean<HeroSkillCardView>(
-  data.hero_skill.cards.find((c) => c.id === "hero_skill:p052")!,
+  data.hero_skill.cards.find((c) => c.id === "hero_skill:core:h03:p052")!,
 );
 const stat = clean<NonNullable<BattleSetup["heroStats"]>[number] & { dodge: number }>(
   data.hero_stat.cards.find((c) => c.id === "hero_stat:core:h03:p005:front")!,

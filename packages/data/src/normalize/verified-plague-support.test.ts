@@ -3,7 +3,7 @@ import { loadNormalizedCorebox } from "./write";
 import { attachVerifiedHeroStatuses } from "./verified-hero-statuses";
 
 const cards = loadNormalizedCorebox().hero_skill.cards;
-const id = "hero_skill:p142";
+const id = "hero_skill:core:h07:p142";
 it("Emboldening Vapours I完整黄金注解，四姿态、无Acc/Crit，保留原始null与高等级边界", () => {
   const card = cards.find((c) => c.id === id)!;
   expect(card.verified_status_effects).toEqual([

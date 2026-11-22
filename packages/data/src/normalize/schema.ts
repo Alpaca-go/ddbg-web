@@ -251,6 +251,8 @@ const heroSkillShared = {
   copies: z.int().positive(),
   name: z.string().min(1),
   level: levelSchema,
+  /** v1.1 英雄 SKILL 的物理来源；旧数据可缺省。 */
+  source: z.strictObject({ file: z.string().min(1), page: z.int().positive() }).optional(),
   ...skillStatFields,
   verified_status_effects: z.array(verifiedStatusEffectSchema).min(1).optional(),
   top_row_icons: z.array(normalizedIconSchema),

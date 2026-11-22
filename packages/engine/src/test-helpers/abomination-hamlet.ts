@@ -9,7 +9,11 @@ export function abominationHamletFixture() {
     {
       ...coreParty[0]!,
       heroStatId: "hero_stat:core:h11:p021:front",
-      skillIds: ["hero_skill:p211", "hero_skill:p214", "hero_skill:p220"],
+      skillIds: [
+        "hero_skill:core:h11:p211",
+        "hero_skill:core:h11:p214",
+        "hero_skill:core:h11:p220",
+      ],
     },
     ...coreParty.slice(1),
   ];

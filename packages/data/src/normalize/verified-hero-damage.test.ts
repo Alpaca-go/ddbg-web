@@ -21,7 +21,7 @@ describe("逐卡复核条件伤害", () => {
     ).toEqual([
       1, 2, 3, 16, 17, 18, 58, 67, 68, 69, 85, 86, 87, 103, 104, 105, 148, 172, 190, 193, 331,
     ]);
-    const lance = cards.find((card) => card.id === "hero_skill:p016")!;
+    const lance = cards.find((card) => card.id === "hero_skill:core:h01:p016")!;
     expect(lance.verified_damage_bonus).toEqual({
       lineIndex: 1,
       amount: 1,
@@ -31,12 +31,12 @@ describe("逐卡复核条件伤害", () => {
     expect(lance.unlabeled_numbers.find((number) => number.text === "+1")?.numeric).toBeNull();
     expect(
       cards
-        .find((card) => card.id === "hero_skill:p067")!
+        .find((card) => card.id === "hero_skill:core:h04:p067")!
         .unlabeled_numbers.find((number) => number.text === "+2")?.numeric,
     ).toBeNull();
   });
   it("Holy Lance I 的页码、等级、卡名、条件和命名图标漂移均拒绝", () => {
-    const card = cards.find((card) => card.id === "hero_skill:p016")!;
+    const card = cards.find((card) => card.id === "hero_skill:core:h01:p016")!;
     for (const changed of [
       { ...card, pages: [17] },
       { ...card, level: 2 as const },
@@ -65,7 +65,7 @@ describe("逐卡复核条件伤害", () => {
       expect(() => attachVerifiedHeroDamage([changed])).toThrow();
   });
   it("未核实卡或效果行变化拒绝", () => {
-    const card = cards.find((card) => card.id === "hero_skill:p067")!;
+    const card = cards.find((card) => card.id === "hero_skill:core:h04:p067")!;
     expect(() => attachVerifiedHeroDamage([{ ...card, effect_lines: [] }])).toThrow();
     expect(() =>
       attachVerifiedHeroDamage([
@@ -75,7 +75,7 @@ describe("逐卡复核条件伤害", () => {
   });
 
   it("Finish Him仅I级完整面入库，原始数字不变；身份/条件/图标漂移拒绝", () => {
-    const card = cards.find((c) => c.id === "hero_skill:p058")!;
+    const card = cards.find((c) => c.id === "hero_skill:core:h03:p058")!;
     expect(card.verified_damage_bonus).toEqual({
       lineIndex: 0,
       amount: 2,
@@ -88,7 +88,7 @@ describe("逐卡复核条件伤害", () => {
     const before = structuredClone(cards);
     expect(attachVerifiedHeroDamage(cards)).toEqual(cards);
     expect(cards).toEqual(before);
-    for (const id of ["hero_skill:p059", "hero_skill:p060"])
+    for (const id of ["hero_skill:core:h03:p059", "hero_skill:core:h03:p060"])
       expect(cards.find((c) => c.id === id)!.verified_damage_bonus).toBeDefined();
     for (const mutate of [
       (c: typeof card) => {

@@ -13,6 +13,7 @@ import {
 } from "../../packages/engine/src/index";
 import { diseaseFileSchema } from "../../packages/data/src/disease";
 import { normalizedHeroStatFileSchema } from "../../packages/data/src/normalize/hero-stat";
+import { heroSkillIdForPage } from "../../packages/data/src/hero-registry";
 import { shareBattleCatalogs } from "./battle-data-shared";
 import { roomTileGeometryFileSchema } from "../../packages/data/src/normalize/room-tile";
 import {
@@ -132,23 +133,19 @@ export function battleDataPlugin(): Plugin {
       // 已逐页核实的四核心 I/II/III：印刷 p001–042、p064–105，共 84 张。
       const skillIds = new Set(
         [1, 64].flatMap((start) =>
-          Array.from({ length: 42 }, (_, i) => `hero_skill:p${String(start + i).padStart(3, "0")}`),
+          Array.from({ length: 42 }, (_, i) => heroSkillIdForPage(start + i)),
         ),
       );
       // 赏金猎人仅七张I级技能已接通，不随属性批准开放II/III级技能。
       if (questCatalog)
-        for (let page = 43; page <= 61; page += 3)
-          skillIds.add(`hero_skill:p${String(page).padStart(3, "0")}`);
+        for (let page = 43; page <= 61; page += 3) skillIds.add(heroSkillIdForPage(page));
       // R-094及后续七技能/村庄能力已接通；仍只开放I级技能。
       if (plagueDoctor)
-        for (let page = 127; page <= 145; page += 3)
-          skillIds.add(`hero_skill:p${String(page).padStart(3, "0")}`);
+        for (let page = 127; page <= 145; page += 3) skillIds.add(heroSkillIdForPage(page));
       // R-095 / R-096 / R-097 / R-098：GR I级七技能与 Pilfer 抽取已接（抽取不翻面）；Occ I级七技能与 Dark Ritual I–III 已接。
       if (graveOccultist) {
-        for (let page = 169; page <= 187; page += 3)
-          skillIds.add(`hero_skill:p${String(page).padStart(3, "0")}`);
-        for (let page = 190; page <= 208; page += 3)
-          skillIds.add(`hero_skill:p${String(page).padStart(3, "0")}`);
+        for (let page = 169; page <= 187; page += 3) skillIds.add(heroSkillIdForPage(page));
+        for (let page = 190; page <= 208; page += 3) skillIds.add(heroSkillIdForPage(page));
       }
       const allHeroSkills = normalizedHeroSkillFileSchema.parse(read("hero_skill")).cards;
       if (currentQuest)

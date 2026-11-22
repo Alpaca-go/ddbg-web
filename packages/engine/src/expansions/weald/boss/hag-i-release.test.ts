@@ -20,7 +20,9 @@ const read = <T>(name: string): T[] =>
     ) as { cards: T[] }
   ).cards;
 const stats = read<NonNullable<BattleSetup["heroStats"]>[number]>("hero_stat");
-const smite = read<HeroSkillCardView>("hero_skill").find((s) => s.id === "hero_skill:p001")!;
+const smite = read<HeroSkillCardView>("hero_skill").find(
+  (s) => s.id === "hero_skill:core:h01:p001",
+)!;
 
 // 已开始战斗的受控前置：原语入锅、受控伤口／Buff，不充当自然战役或印刷数值来源。
 function fixture(): GameState {

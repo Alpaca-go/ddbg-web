@@ -10,7 +10,11 @@ let baseline: ReturnType<typeof naturalAbbeyQuest>;
 beforeAll(() => {
   baseline = naturalAbbeyQuest();
 }, 30000);
-const visit: Command = { type: "visitBlacksmith", actorId: "hero-0", skillId: "hero_skill:p001" };
+const visit: Command = {
+  type: "visitBlacksmith",
+  actorId: "hero-0",
+  skillId: "hero_skill:core:h01:p001",
+};
 function ok(game: GameState, command: Command) {
   const result = applyCommand(game, command);
   expect(
@@ -49,8 +53,8 @@ it("铁匠I/II/III均1金，记录已核实II/III技能；III奖励骰累加且�
     expect(n.gold).toBe(99);
     expect(n.heroes[0]!.nextQuestSkillUpgrades).toEqual([
       {
-        originalSkillId: "hero_skill:p001",
-        temporarySkillId: level === 1 ? "hero_skill:p002" : "hero_skill:p003",
+        originalSkillId: "hero_skill:core:h01:p001",
+        temporarySkillId: level === 1 ? "hero_skill:core:h01:p002" : "hero_skill:core:h01:p003",
       },
     ]);
     expect(n.heroes[0]!.nextQuestProvisionDice ?? 0).toBe(level === 3 ? 1 : 0);
@@ -80,10 +84,10 @@ it("铁匠I/II/III均1金，记录已核实II/III技能；III奖励骰累加且�
 });
 it("四英雄各自技能映射到同名III级卡，不把其他英雄/未核实属性当作所属技能", () => {
   for (const [index, originalSkillId, temporarySkillId] of [
-    [0, "hero_skill:p001", "hero_skill:p003"],
-    [1, "hero_skill:p022", "hero_skill:p024"],
-    [2, "hero_skill:p064", "hero_skill:p066"],
-    [3, "hero_skill:p088", "hero_skill:p090"],
+    [0, "hero_skill:core:h01:p001", "hero_skill:core:h01:p003"],
+    [1, "hero_skill:core:h02:p022", "hero_skill:core:h02:p024"],
+    [2, "hero_skill:core:h04:p064", "hero_skill:core:h04:p066"],
+    [3, "hero_skill:core:h05:p088", "hero_skill:core:h05:p090"],
   ] as const) {
     const b = fixture(2),
       d = b.dungeon!;
@@ -120,7 +124,7 @@ it("缺钱/封锁/占用/越序/未装备/外英雄/未核实卡/重复或坏计
         ...d,
         battleCatalog: {
           ...d.battleCatalog!,
-          skills: d.battleCatalog!.skills.filter((c) => c.id !== "hero_skill:p002"),
+          skills: d.battleCatalog!.skills.filter((c) => c.id !== "hero_skill:core:h01:p002"),
         },
       },
     },
@@ -129,7 +133,9 @@ it("缺钱/封锁/占用/越序/未装备/外英雄/未核实卡/重复或坏计
       dungeon: {
         ...d,
         heroes: d.heroes.map((h, i) =>
-          i === 0 ? { ...h, skillIds: ["hero_skill:p001", "hero_skill:p001"] } : h,
+          i === 0
+            ? { ...h, skillIds: ["hero_skill:core:h01:p001", "hero_skill:core:h01:p001"] }
+            : h,
         ),
       },
     },
@@ -142,8 +148,14 @@ it("缺钱/封锁/占用/越序/未装备/外英雄/未核实卡/重复或坏计
             ? {
                 ...h,
                 nextQuestSkillUpgrades: [
-                  { originalSkillId: "hero_skill:p001", temporarySkillId: "hero_skill:p002" },
-                  { originalSkillId: "hero_skill:p001", temporarySkillId: "hero_skill:p002" },
+                  {
+                    originalSkillId: "hero_skill:core:h01:p001",
+                    temporarySkillId: "hero_skill:core:h01:p002",
+                  },
+                  {
+                    originalSkillId: "hero_skill:core:h01:p001",
+                    temporarySkillId: "hero_skill:core:h01:p002",
+                  },
                 ],
               }
             : h,
@@ -159,7 +171,10 @@ it("缺钱/封锁/占用/越序/未装备/外英雄/未核实卡/重复或坏计
             ? {
                 ...h,
                 nextQuestSkillUpgrades: [
-                  { originalSkillId: "hero_skill:p001", temporarySkillId: "hero_skill:p023" },
+                  {
+                    originalSkillId: "hero_skill:core:h01:p001",
+                    temporarySkillId: "hero_skill:core:h02:p023",
+                  },
                 ],
               }
             : h,
@@ -170,9 +185,9 @@ it("缺钱/封锁/占用/越序/未装备/外英雄/未核实卡/重复或坏计
     expect(applyCommand(bad, visit).state).toBe(bad);
   for (const c of [
     { ...visit, actorId: "hero-1" },
-    { ...visit, skillId: "hero_skill:p022" },
-    { ...visit, skillId: "hero_skill:p007" },
-    { ...visit, skillId: "hero_skill:p002" },
+    { ...visit, skillId: "hero_skill:core:h02:p022" },
+    { ...visit, skillId: "hero_skill:core:h01:p007" },
+    { ...visit, skillId: "hero_skill:core:h01:p002" },
   ])
     expect(applyCommand(game, c).state).toBe(game);
   const pending = ok(game, { type: "visitNomadWagon", actorId: "hero-0" });
@@ -192,16 +207,16 @@ it("多日不同技能保留原计划；III坏奖励骰不付款，升级建筑�
   };
   const building = ok(nextDay, { type: "upgradeHamletBuilding", building: "blacksmith" });
   expect(building.dungeon!.heroes[0]!.nextQuestSkillUpgrades![0]!.temporarySkillId).toBe(
-    "hero_skill:p002",
+    "hero_skill:core:h01:p002",
   );
   const second = ok(building, {
     type: "visitBlacksmith",
     actorId: "hero-0",
-    skillId: "hero_skill:p004",
+    skillId: "hero_skill:core:h01:p004",
   });
   expect(second.dungeon!.heroes[0]!.nextQuestSkillUpgrades).toEqual([
-    { originalSkillId: "hero_skill:p001", temporarySkillId: "hero_skill:p002" },
-    { originalSkillId: "hero_skill:p004", temporarySkillId: "hero_skill:p006" },
+    { originalSkillId: "hero_skill:core:h01:p001", temporarySkillId: "hero_skill:core:h01:p002" },
+    { originalSkillId: "hero_skill:core:h01:p004", temporarySkillId: "hero_skill:core:h01:p006" },
   ]);
   for (const value of [-1, 1.5, null, Number.MAX_SAFE_INTEGER]) {
     const bad = {
@@ -229,16 +244,19 @@ it("R-079重复同一技能仍支付1金，按当前铁匠等级覆盖，原卡�
     expect(same.dungeon!.gold).toBe(98);
     expect(same.dungeon!.heroes[0]!.nextQuestSkillUpgrades).toHaveLength(1);
     expect(same.dungeon!.heroes[0]!.nextQuestSkillUpgrades![0]!.originalSkillId).toBe(
-      "hero_skill:p001",
+      "hero_skill:core:h01:p001",
     );
-    expect(same.dungeon!.heroes[0]!.skillIds).toContain("hero_skill:p001");
+    expect(same.dungeon!.heroes[0]!.skillIds).toContain("hero_skill:core:h01:p001");
     expect(same.dungeon!.heroes[0]!.nextQuestProvisionDice ?? 0).toBe(level === 3 ? 2 : 0);
     if (level === 1) {
       const higher = ok(reset(same), { type: "upgradeHamletBuilding", building: "blacksmith" });
       const replaced = ok(higher, visit);
       expect(replaced.dungeon!.gold).toBe(87);
       expect(replaced.dungeon!.heroes[0]!.nextQuestSkillUpgrades).toEqual([
-        { originalSkillId: "hero_skill:p001", temporarySkillId: "hero_skill:p003" },
+        {
+          originalSkillId: "hero_skill:core:h01:p001",
+          temporarySkillId: "hero_skill:core:h01:p003",
+        },
       ]);
     }
   }
@@ -272,8 +290,8 @@ it("真实回村第一天购买Smite II记录，保存/刷新/跨日回放不重
   step({ type: "rollHamletCaretaker" });
   expect(game.dungeon!.gold).toBe(gold - 2);
   expect(game.dungeon!.heroes[0]!.nextQuestSkillUpgrades).toEqual([
-    { originalSkillId: "hero_skill:p001", temporarySkillId: "hero_skill:p002" },
+    { originalSkillId: "hero_skill:core:h01:p001", temporarySkillId: "hero_skill:core:h01:p002" },
   ]);
-  expect(game.dungeon!.heroes[0]!.skillIds).toContain("hero_skill:p001");
+  expect(game.dungeon!.heroes[0]!.skillIds).toContain("hero_skill:core:h01:p001");
   save();
 }, 30000);

@@ -31,7 +31,7 @@ function ok(game: GameState, command: Command) {
 }
 function setup(skill: HeroSkillCardView, roll = 5, fork = false) {
   const seed = Array.from({ length: 300 }, (_, i) => i).find((s) => nextBattleRoll(s, 0) === roll)!;
-  const uppercut = skill.id === "hero_skill:p052";
+  const uppercut = skill.id === "hero_skill:core:h03:p052";
   const common = { wounds: 0, guard: false, dead: false, bleed: [], blight: [], statusStacks: [] };
   const game = createBattleState(seed, {
     heroStats: [stat],
@@ -84,7 +84,7 @@ function setup(skill: HeroSkillCardView, roll = 5, fork = false) {
 }
 
 it.each(skills)("$id 十骰面：伤害、完整目标状态及位移只在命中时应用", (skill) => {
-  const uppercut = skill.id === "hero_skill:p052";
+  const uppercut = skill.id === "hero_skill:core:h03:p052";
   for (let roll = 1; roll <= 10; roll++) {
     const r = resolveHeroSkillEffects(
       skill,
@@ -117,7 +117,7 @@ it.each(skills)("$id 公开命令及位移续接不重复伤害、状态或RNG�
       before = structuredClone(game);
     const played = ok(game, command);
     const hit = roll !== 10,
-      uppercut = skill.id === "hero_skill:p052";
+      uppercut = skill.id === "hero_skill:core:h03:p052";
     expect(entity(played.state).wounds).toBe(hit ? (uppercut ? 3 : 2) : 0);
     expect(entity(played.state).statusStacks).toEqual(
       hit ? [{ kind: uppercut ? "stun" : "mark", remaining: uppercut ? 1 : 2 }] : [],
@@ -190,7 +190,7 @@ it.each(skills)("$id 未完整核实的同行内容和缺防御在掷骰前原�
 });
 
 it.each(skills)("$id Shuffle抗性只少移一格，不减目标状态时长", (skill) => {
-  const uppercut = skill.id === "hero_skill:p052";
+  const uppercut = skill.id === "hero_skill:core:h03:p052";
   const r = resolveHeroSkillEffects(
     skill,
     {

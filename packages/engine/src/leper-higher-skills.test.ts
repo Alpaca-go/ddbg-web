@@ -9,20 +9,20 @@ import {
 import type { HeroSkillCardView } from "./hero-skill";
 
 const LEPER_II_III_IDS = [
-  "hero_skill:p275",
-  "hero_skill:p276",
-  "hero_skill:p278",
-  "hero_skill:p279",
-  "hero_skill:p281",
-  "hero_skill:p282",
-  "hero_skill:p284",
-  "hero_skill:p285",
-  "hero_skill:p287",
-  "hero_skill:p288",
-  "hero_skill:p290",
-  "hero_skill:p291",
-  "hero_skill:p293",
-  "hero_skill:p294",
+  "hero_skill:warrens:h14:p275",
+  "hero_skill:warrens:h14:p276",
+  "hero_skill:warrens:h14:p278",
+  "hero_skill:warrens:h14:p279",
+  "hero_skill:warrens:h14:p281",
+  "hero_skill:warrens:h14:p282",
+  "hero_skill:warrens:h14:p284",
+  "hero_skill:warrens:h14:p285",
+  "hero_skill:warrens:h14:p287",
+  "hero_skill:warrens:h14:p288",
+  "hero_skill:warrens:h14:p290",
+  "hero_skill:warrens:h14:p291",
+  "hero_skill:warrens:h14:p293",
+  "hero_skill:warrens:h14:p294",
 ] as const;
 
 const data = loadNormalizedCorebox();

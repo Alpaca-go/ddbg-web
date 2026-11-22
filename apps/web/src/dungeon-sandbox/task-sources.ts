@@ -10,6 +10,7 @@ import { battleData as previousQuestBattleData } from "virtual:quest-battle-data
 import { battleData as sixHeroQuestBattleData } from "virtual:quest-battle-data-v2";
 import rawRooms from "../../../../packages/data/normalized/corebox/room.json";
 import { roomFileSchema } from "../../../../packages/data/src/room";
+import { heroSkillIdForPage } from "../../../../packages/data/src/hero-registry";
 import rawMonsterPool from "../../../../packages/data/normalized/corebox/monster_pool.json";
 import { monsterPoolFileSchema } from "../../../../packages/data/src/monster-pool";
 import rawTrinkets from "../../../../packages/data/normalized/corebox/trinket.json";
@@ -192,7 +193,7 @@ export const preDarkestTaskSources: CoreQuestSources = {
 };
 /** #416's fixed 141-card higher catalog, for strict validation before upgrading catalog fields. */
 const abominationHigherAdded = new Set(
-  [218, 219, 221, 222, 224, 225, 227, 228, 230, 231].map((p) => `hero_skill:p${p}`),
+  [218, 219, 221, 222, 224, 225, 227, 228, 230, 231].map((p) => heroSkillIdForPage(p)),
 );
 export const preAbominationTaskSources: CoreQuestSources = {
   ...taskSources,

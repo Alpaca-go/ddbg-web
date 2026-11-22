@@ -39,13 +39,13 @@ export function fungusHealingQuest() {
       if (turn.type !== "hero" || turn.mustMove || !livingNecroticFungus(b).length)
         return undefined;
       const actor = b.entities.find((e) => e.id === turn.actorId)!;
-      if (!actor.skillIds.includes("hero_skill:p094")) return undefined;
+      if (!actor.skillIds.includes("hero_skill:core:h05:p094")) return undefined;
       for (const target of b.entities.filter((e) => e.side === "hero" && !e.dead)) {
         const c = {
           type: "playHeroSkill",
           actorId: actor.id,
           targetId: target.id,
-          skillId: "hero_skill:p094",
+          skillId: "hero_skill:core:h05:p094",
           allTrinkets: true,
         } as const;
         const r = applyCommand(game, c);

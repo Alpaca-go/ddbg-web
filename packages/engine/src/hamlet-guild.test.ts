@@ -59,16 +59,16 @@ it("真实四房间获得2XP，公会访问/永久升级/离开节点存档一�
   step(visit);
   save();
   const old = game.dungeon!.pending!;
-  step(choose(game, "upgrade:hero_skill:p001"));
+  step(choose(game, "upgrade:hero_skill:core:h01:p001"));
   expect(game.dungeon!.gold).toBe(d.gold - 1);
   expect(game.dungeon!.heroes[0]!.xp).toBe(0);
   expect(game.dungeon!.heroes[0]!.skillIds).toEqual([
-    "hero_skill:p002",
-    "hero_skill:p004",
-    "hero_skill:p016",
+    "hero_skill:core:h01:p002",
+    "hero_skill:core:h01:p004",
+    "hero_skill:core:h01:p016",
   ]);
   expect(game.dungeon!.heroes[0]!.combat!.skillIds).toEqual(game.dungeon!.heroes[0]!.skillIds);
-  expect(game.dungeon!.heroes[0]!.permanentlyRemovedSkillIds).toEqual(["hero_skill:p001"]);
+  expect(game.dungeon!.heroes[0]!.permanentlyRemovedSkillIds).toEqual(["hero_skill:core:h01:p001"]);
   expect(game.dungeon!.hamlet!.actedHeroes ?? []).toEqual([]);
   expect(game.dungeon!.pending!.options.map((o) => o.id)).toEqual(["leave"]);
   expect(
@@ -76,8 +76,11 @@ it("真实四房间获得2XP，公会访问/永久升级/离开节点存档一�
       .state,
   ).toBe(game);
   expect(
-    applyCommand(game, { type: "visitBlacksmith", actorId: "hero-0", skillId: "hero_skill:p002" })
-      .state,
+    applyCommand(game, {
+      type: "visitBlacksmith",
+      actorId: "hero-0",
+      skillId: "hero_skill:core:h01:p002",
+    }).state,
   ).toBe(game);
   save();
   step(choose(game, "leave"));
@@ -91,22 +94,22 @@ it("真实四房间获得2XP，公会访问/永久升级/离开节点存档一�
 it("一次可升同技能I→II→III并永久移除两张；最多两项自动结束，不能第三次或回退", () => {
   const game = fixture(),
     shop = ok(game, visit);
-  const first = ok(shop, choose(shop, "upgrade:hero_skill:p001"));
-  const second = ok(first, choose(first, "upgrade:hero_skill:p002"));
+  const first = ok(shop, choose(shop, "upgrade:hero_skill:core:h01:p001"));
+  const second = ok(first, choose(first, "upgrade:hero_skill:core:h01:p002"));
   expect(second.dungeon!.gold).toBe(98);
   expect(second.dungeon!.heroes[0]!.xp).toBe(2);
   expect(second.dungeon!.heroes[0]!.permanentlyRemovedSkillIds).toEqual([
-    "hero_skill:p001",
-    "hero_skill:p002",
+    "hero_skill:core:h01:p001",
+    "hero_skill:core:h01:p002",
   ]);
-  expect(second.dungeon!.heroes[0]!.skillIds![0]).toBe("hero_skill:p003");
+  expect(second.dungeon!.heroes[0]!.skillIds![0]).toBe("hero_skill:core:h01:p003");
   expect(second.dungeon!.pending).toBeNull();
   expect(second.dungeon!.hamlet!.actedHeroes).toEqual(["hero-0"]);
   expect(applyCommand(second, visit).state).toBe(second);
-  const other = ok(first, choose(first, "upgrade:hero_skill:p004"));
+  const other = ok(first, choose(first, "upgrade:hero_skill:core:h01:p004"));
   expect(other.dungeon!.heroes[0]!.skillIds!.slice(0, 2)).toEqual([
-    "hero_skill:p002",
-    "hero_skill:p005",
+    "hero_skill:core:h01:p002",
+    "hero_skill:core:h01:p005",
   ]);
 });
 it("缺钱/XP不足仍可查看和离开，封锁/越序/坏XP/坏移除记录拒绝；无效选项不改变资源", () => {
@@ -131,9 +134,9 @@ it("缺钱/XP不足仍可查看和离开，封锁/越序/坏XP/坏移除记录�
   expect(applyCommand(b, { type: "visitGuild", actorId: "hero-1" }).state).toBe(b);
   const valid = ok(b, visit);
   for (const id of [
-    "upgrade:hero_skill:p022", // 其他英雄技能
-    "upgrade:hero_skill:p002", // 尚未拥有的II级
-    "upgrade:hero_skill:p003", // 尚未拥有的III级
+    "upgrade:hero_skill:core:h02:p022", // 其他英雄技能
+    "upgrade:hero_skill:core:h01:p002", // 尚未拥有的II级
+    "upgrade:hero_skill:core:h01:p003", // 尚未拥有的III级
   ])
     expect(applyCommand(valid, choose(valid, id)).state).toBe(valid);
   const corrupted = {
@@ -141,7 +144,7 @@ it("缺钱/XP不足仍可查看和离开，封锁/越序/坏XP/坏移除记录�
     dungeon: {
       ...d,
       heroes: d.heroes.map((h, i) =>
-        i === 0 ? { ...h, permanentlyRemovedSkillIds: ["hero_skill:p001"] } : h,
+        i === 0 ? { ...h, permanentlyRemovedSkillIds: ["hero_skill:core:h01:p001"] } : h,
       ),
     },
   };
@@ -159,8 +162,14 @@ it("R-080临时III后永久II更新归还卡，继续永久III不恢复旧卡；
           ? {
               ...h,
               nextQuestSkillUpgrades: [
-                { originalSkillId: "hero_skill:p001", temporarySkillId: "hero_skill:p003" },
-                { originalSkillId: "hero_skill:p004", temporarySkillId: "hero_skill:p005" },
+                {
+                  originalSkillId: "hero_skill:core:h01:p001",
+                  temporarySkillId: "hero_skill:core:h01:p003",
+                },
+                {
+                  originalSkillId: "hero_skill:core:h01:p004",
+                  temporarySkillId: "hero_skill:core:h01:p005",
+                },
               ],
             }
           : h,
@@ -168,15 +177,15 @@ it("R-080临时III后永久II更新归还卡，继续永久III不恢复旧卡；
     },
   };
   const shop = ok(planned, visit),
-    first = ok(shop, choose(shop, "upgrade:hero_skill:p001"));
+    first = ok(shop, choose(shop, "upgrade:hero_skill:core:h01:p001"));
   expect(first.dungeon!.heroes[0]!.nextQuestSkillUpgrades).toEqual([
-    { originalSkillId: "hero_skill:p002", temporarySkillId: "hero_skill:p003" },
-    { originalSkillId: "hero_skill:p004", temporarySkillId: "hero_skill:p005" },
+    { originalSkillId: "hero_skill:core:h01:p002", temporarySkillId: "hero_skill:core:h01:p003" },
+    { originalSkillId: "hero_skill:core:h01:p004", temporarySkillId: "hero_skill:core:h01:p005" },
   ]);
-  const second = ok(first, choose(first, "upgrade:hero_skill:p002"));
+  const second = ok(first, choose(first, "upgrade:hero_skill:core:h01:p002"));
   expect(second.dungeon!.heroes[0]!.nextQuestSkillUpgrades![0]).toEqual({
-    originalSkillId: "hero_skill:p003",
-    temporarySkillId: "hero_skill:p003",
+    originalSkillId: "hero_skill:core:h01:p003",
+    temporarySkillId: "hero_skill:core:h01:p003",
   });
   const hamlet = { ...first.dungeon!.hamlet!, visitedBuildings: [], actedHeroes: [] };
   delete hamlet.guildUpgrades;
@@ -193,18 +202,18 @@ it("R-080临时III后永久II更新归还卡，继续永久III不恢复旧卡；
     ok(nextDay, {
       type: "visitBlacksmith",
       actorId: "hero-0",
-      skillId: "hero_skill:p002",
+      skillId: "hero_skill:core:h01:p002",
     }).dungeon!.heroes[0]!.nextQuestSkillUpgrades!.find(
-      (u) => u.originalSkillId === "hero_skill:p002",
+      (u) => u.originalSkillId === "hero_skill:core:h01:p002",
     )!.temporarySkillId,
-  ).toBe("hero_skill:p003");
+  ).toBe("hero_skill:core:h01:p003");
 });
 it("四英雄各自升级已装备技能，缺失/未核实高等级卡不提供选项，不消耗XP或金币", () => {
   for (const [i, old, next] of [
-    [0, "hero_skill:p001", "hero_skill:p002"],
-    [1, "hero_skill:p022", "hero_skill:p023"],
-    [2, "hero_skill:p064", "hero_skill:p065"],
-    [3, "hero_skill:p088", "hero_skill:p089"],
+    [0, "hero_skill:core:h01:p001", "hero_skill:core:h01:p002"],
+    [1, "hero_skill:core:h02:p022", "hero_skill:core:h02:p023"],
+    [2, "hero_skill:core:h04:p064", "hero_skill:core:h04:p065"],
+    [3, "hero_skill:core:h05:p088", "hero_skill:core:h05:p089"],
   ] as const) {
     const b = fixture(),
       d = b.dungeon!;
@@ -262,11 +271,11 @@ it("夹具4XP可升英雄I→II并保留疾病；同访可再升技能；真实2
   const rich = fixture(8);
   const shop2 = ok(rich, visit);
   const afterHero = ok(shop2, choose(shop2, "upgrade-hero"));
-  const afterSkill = ok(afterHero, choose(afterHero, "upgrade:hero_skill:p001"));
+  const afterSkill = ok(afterHero, choose(afterHero, "upgrade:hero_skill:core:h01:p001"));
   expect(afterSkill.dungeon!.heroes[0]).toMatchObject({
     level: 2,
-    skillIds: expect.arrayContaining(["hero_skill:p002"]),
-    permanentlyRemovedSkillIds: ["hero_skill:p001"],
+    skillIds: expect.arrayContaining(["hero_skill:core:h01:p002"]),
+    permanentlyRemovedSkillIds: ["hero_skill:core:h01:p001"],
     xp: 2,
   });
   expect(afterSkill.dungeon!.pending).toBeNull();
@@ -289,7 +298,7 @@ it("夹具4XP可升英雄I→II并保留疾病；同访可再升技能；真实2
 });
 it("未装备拥有技能可永久升级且不改装备栏；III级英雄不再提供英雄升级", () => {
   const b = fixture(),
-    unequipped = "hero_skill:p007"; // Stunning Blow I，默认未装备
+    unequipped = "hero_skill:core:h01:p007"; // Stunning Blow I，默认未装备
   expect(b.dungeon!.heroes[0]!.skillIds).not.toContain(unequipped);
   const shop = ok(b, visit);
   expect(shop.dungeon!.pending!.options.some((o) => o.id === `upgrade:${unequipped}`)).toBe(true);

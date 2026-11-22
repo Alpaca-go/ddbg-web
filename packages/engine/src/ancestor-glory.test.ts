@@ -200,7 +200,7 @@ it("Crusader III真实Holy Lance自身Pull无视新免疫，仍移动区域和�
     type: "playHeroSkill",
     actorId: "h0",
     targetId: "m",
-    skillId: "hero_skill:p016",
+    skillId: "hero_skill:core:h01:p016",
   });
   expect(
     rolled.events.some((e) => e.type === "commandRefused"),
@@ -327,7 +327,7 @@ it("R20自身Bulwark标记忽略免疫后由站立效果移除，Protection保�
     type: "playHeroSkill",
     actorId: "h0",
     targetId: "h0",
-    skillId: "hero_skill:p010",
+    skillId: "hero_skill:core:h01:p010",
   });
   expect(
     result.events.some((e) => e.type === "commandRefused"),
@@ -343,7 +343,7 @@ it("R20自身Point Blank Shuffle不被光环免疫，落空也能离区，无永
     type: "playHeroSkill",
     actorId: "h0",
     targetId: "m",
-    skillId: "hero_skill:p070",
+    skillId: "hero_skill:core:h04:p070",
   });
   result = applyCommand(result.state, { type: "resolveShuffles" });
   if (result.pendingChoice)

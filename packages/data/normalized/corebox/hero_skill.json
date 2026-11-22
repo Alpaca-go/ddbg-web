@@ -14,13 +14,17 @@
  },
  "cards": [
   {
-   "id": "hero_skill:p001",
+   "id": "hero_skill:core:h01:p001",
    "pages": [
     1
    ],
    "copies": 1,
    "name": "Smite",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 1
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -468,13 +472,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p002",
+   "id": "hero_skill:core:h01:p002",
    "pages": [
     2
    ],
    "copies": 1,
    "name": "Smite",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 2
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -922,13 +930,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p003",
+   "id": "hero_skill:core:h01:p003",
    "pages": [
     3
    ],
    "copies": 1,
    "name": "Smite",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 3
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -1365,13 +1377,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p004",
+   "id": "hero_skill:core:h01:p004",
    "pages": [
     4
    ],
    "copies": 1,
    "name": "Zealous Accusation",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 4
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -1752,13 +1768,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p005",
+   "id": "hero_skill:core:h01:p005",
    "pages": [
     5
    ],
    "copies": 1,
    "name": "Zealous Accusation",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 5
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -2139,13 +2159,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p006",
+   "id": "hero_skill:core:h01:p006",
    "pages": [
     6
    ],
    "copies": 1,
    "name": "Zealous Accusation",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 6
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -2515,13 +2539,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p007",
+   "id": "hero_skill:core:h01:p007",
    "pages": [
     7
    ],
    "copies": 1,
    "name": "Stunning Blow",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 7
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -2952,13 +2980,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p008",
+   "id": "hero_skill:core:h01:p008",
    "pages": [
     8
    ],
    "copies": 1,
    "name": "Stunning Blow",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 8
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -3389,13 +3421,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p009",
+   "id": "hero_skill:core:h01:p009",
    "pages": [
     9
    ],
    "copies": 1,
    "name": "Stunning Blow",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 9
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -3815,13 +3851,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p010",
+   "id": "hero_skill:core:h01:p010",
    "pages": [
     10
    ],
    "copies": 1,
    "name": "Bulwark of Faith",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 10
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -4223,13 +4263,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p011",
+   "id": "hero_skill:core:h01:p011",
    "pages": [
     11
    ],
    "copies": 1,
    "name": "Bulwark of Faith",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 11
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -4631,13 +4675,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p012",
+   "id": "hero_skill:core:h01:p012",
    "pages": [
     12
    ],
    "copies": 1,
    "name": "Bulwark of Faith",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 12
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -5018,13 +5066,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p013",
+   "id": "hero_skill:core:h01:p013",
    "pages": [
     13
    ],
    "copies": 1,
    "name": "Battle Heal",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 13
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -5439,13 +5491,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p014",
+   "id": "hero_skill:core:h01:p014",
    "pages": [
     14
    ],
    "copies": 1,
    "name": "Battle Heal",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 14
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -5860,13 +5916,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p015",
+   "id": "hero_skill:core:h01:p015",
    "pages": [
     15
    ],
    "copies": 1,
    "name": "Battle Heal",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 15
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -6374,13 +6434,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p016",
+   "id": "hero_skill:core:h01:p016",
    "pages": [
     16
    ],
    "copies": 1,
    "name": "Holy Lance",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 16
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -6888,13 +6952,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p017",
+   "id": "hero_skill:core:h01:p017",
    "pages": [
     17
    ],
    "copies": 1,
    "name": "Holy Lance",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 17
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -7402,13 +7470,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p018",
+   "id": "hero_skill:core:h01:p018",
    "pages": [
     18
    ],
    "copies": 1,
    "name": "Holy Lance",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 18
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -7905,13 +7977,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p019",
+   "id": "hero_skill:core:h01:p019",
    "pages": [
     19
    ],
    "copies": 1,
    "name": "Inspiring Cry",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 19
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -8387,13 +8463,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p020",
+   "id": "hero_skill:core:h01:p020",
    "pages": [
     20
    ],
    "copies": 1,
    "name": "Inspiring Cry",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 20
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -9025,13 +9105,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p021",
+   "id": "hero_skill:core:h01:p021",
    "pages": [
     21
    ],
    "copies": 1,
    "name": "Inspiring Cry",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 21
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -9681,13 +9765,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p022",
+   "id": "hero_skill:core:h02:p022",
    "pages": [
     22
    ],
    "copies": 1,
    "name": "Wicked Hack",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 22
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -10039,13 +10127,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p023",
+   "id": "hero_skill:core:h02:p023",
    "pages": [
     23
    ],
    "copies": 1,
    "name": "Wicked Hack",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 23
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -10397,13 +10489,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p024",
+   "id": "hero_skill:core:h02:p024",
    "pages": [
     24
    ],
    "copies": 1,
    "name": "Wicked Hack",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 24
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -10744,13 +10840,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p025",
+   "id": "hero_skill:core:h02:p025",
    "pages": [
     25
    ],
    "copies": 1,
    "name": "Iron Swan",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 25
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -11102,13 +11202,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p026",
+   "id": "hero_skill:core:h02:p026",
    "pages": [
     26
    ],
    "copies": 1,
    "name": "Iron Swan",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 26
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -11460,13 +11564,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p027",
+   "id": "hero_skill:core:h02:p027",
    "pages": [
     27
    ],
    "copies": 1,
    "name": "Iron Swan",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 27
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -11807,13 +11915,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p028",
+   "id": "hero_skill:core:h02:p028",
    "pages": [
     28
    ],
    "copies": 1,
    "name": "Barbaric YAWP!",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 28
+   },
    "printed_labels": [
     {
      "label": "Acc",
@@ -12144,13 +12256,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p029",
+   "id": "hero_skill:core:h02:p029",
    "pages": [
     29
    ],
    "copies": 1,
    "name": "Barbaric YAWP!",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 29
+   },
    "printed_labels": [
     {
      "label": "Acc",
@@ -12481,13 +12597,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p030",
+   "id": "hero_skill:core:h02:p030",
    "pages": [
     30
    ],
    "copies": 1,
    "name": "Barbaric YAWP!",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 30
+   },
    "printed_labels": [
     {
      "label": "Acc",
@@ -12807,13 +12927,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p031",
+   "id": "hero_skill:core:h02:p031",
    "pages": [
     31
    ],
    "copies": 1,
    "name": "If It Bleeds",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 31
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -13274,13 +13398,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p032",
+   "id": "hero_skill:core:h02:p032",
    "pages": [
     32
    ],
    "copies": 1,
    "name": "If It Bleeds",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 32
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -13741,13 +13869,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p033",
+   "id": "hero_skill:core:h02:p033",
    "pages": [
     33
    ],
    "copies": 1,
    "name": "If It Bleeds",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 33
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -14197,13 +14329,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p034",
+   "id": "hero_skill:core:h02:p034",
    "pages": [
     34
    ],
    "copies": 1,
    "name": "Breakthrough",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 34
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -14674,13 +14810,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p035",
+   "id": "hero_skill:core:h02:p035",
    "pages": [
     35
    ],
    "copies": 1,
    "name": "Breakthrough",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 35
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -15151,13 +15291,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p036",
+   "id": "hero_skill:core:h02:p036",
    "pages": [
     36
    ],
    "copies": 1,
    "name": "Breakthrough",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 36
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -15617,13 +15761,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p037",
+   "id": "hero_skill:core:h02:p037",
    "pages": [
     37
    ],
    "copies": 1,
    "name": "Adrenaline Rush",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 37
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -15990,13 +16138,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p038",
+   "id": "hero_skill:core:h02:p038",
    "pages": [
     38
    ],
    "copies": 1,
    "name": "Adrenaline Rush",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 38
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -16555,13 +16707,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p039",
+   "id": "hero_skill:core:h02:p039",
    "pages": [
     39
    ],
    "copies": 1,
    "name": "Adrenaline Rush",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 39
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -17138,13 +17294,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p040",
+   "id": "hero_skill:core:h02:p040",
    "pages": [
     40
    ],
    "copies": 1,
    "name": "Bleed Out",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 40
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -17670,13 +17830,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p041",
+   "id": "hero_skill:core:h02:p041",
    "pages": [
     41
    ],
    "copies": 1,
    "name": "Bleed Out",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 41
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -18202,13 +18366,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p042",
+   "id": "hero_skill:core:h02:p042",
    "pages": [
     42
    ],
    "copies": 1,
    "name": "Bleed Out",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 42
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -18737,13 +18905,17 @@
      "source": "print_front"
     }
    ],
-   "id": "hero_skill:p043",
+   "id": "hero_skill:core:h03:p043",
    "pages": [
     43
    ],
    "copies": 1,
    "name": "Collect Bounty",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 43
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -19302,13 +19474,17 @@
      "source": "print_front"
     }
    ],
-   "id": "hero_skill:p044",
+   "id": "hero_skill:core:h03:p044",
    "pages": [
     44
    ],
    "copies": 1,
    "name": "Collect Bounty",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 44
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -19869,13 +20045,17 @@
      "source": "print_front"
     }
    ],
-   "id": "hero_skill:p045",
+   "id": "hero_skill:core:h03:p045",
    "pages": [
     45
    ],
    "copies": 1,
    "name": "Collect Bounty",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 45
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -20409,13 +20589,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p046",
+   "id": "hero_skill:core:h03:p046",
    "pages": [
     46
    ],
    "copies": 1,
    "name": "Mark for Death",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 46
+   },
    "printed_labels": [
     {
      "label": "Acc",
@@ -20881,13 +21065,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p047",
+   "id": "hero_skill:core:h03:p047",
    "pages": [
     47
    ],
    "copies": 1,
    "name": "Mark for Death",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 47
+   },
    "printed_labels": [
     {
      "label": "Acc",
@@ -21353,13 +21541,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p048",
+   "id": "hero_skill:core:h03:p048",
    "pages": [
     48
    ],
    "copies": 1,
    "name": "Mark for Death",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 48
+   },
    "printed_labels": [
     {
      "label": "Acc",
@@ -21814,13 +22006,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p049",
+   "id": "hero_skill:core:h03:p049",
    "pages": [
     49
    ],
    "copies": 1,
    "name": "Come Hither",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 49
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -22280,13 +22476,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p050",
+   "id": "hero_skill:core:h03:p050",
    "pages": [
     50
    ],
    "copies": 1,
    "name": "Come Hither",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 50
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -22746,13 +22946,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p051",
+   "id": "hero_skill:core:h03:p051",
    "pages": [
     51
    ],
    "copies": 1,
    "name": "Come Hither",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 51
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -23201,13 +23405,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p052",
+   "id": "hero_skill:core:h03:p052",
    "pages": [
     52
    ],
    "copies": 1,
    "name": "Uppercut",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 52
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -23667,13 +23875,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p053",
+   "id": "hero_skill:core:h03:p053",
    "pages": [
     53
    ],
    "copies": 1,
    "name": "Uppercut",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 53
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -24133,13 +24345,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p054",
+   "id": "hero_skill:core:h03:p054",
    "pages": [
     54
    ],
    "copies": 1,
    "name": "Uppercut",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 54
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -24588,13 +24804,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p055",
+   "id": "hero_skill:core:h03:p055",
    "pages": [
     55
    ],
    "copies": 1,
    "name": "Flashbang",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 55
+   },
    "printed_labels": [
     {
      "label": "Acc",
@@ -24977,13 +25197,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p056",
+   "id": "hero_skill:core:h03:p056",
    "pages": [
     56
    ],
    "copies": 1,
    "name": "Flashbang",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 56
+   },
    "printed_labels": [
     {
      "label": "Acc",
@@ -25366,13 +25590,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p057",
+   "id": "hero_skill:core:h03:p057",
    "pages": [
     57
    ],
    "copies": 1,
    "name": "Flashbang",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 57
+   },
    "printed_labels": [
     {
      "label": "Acc",
@@ -25744,13 +25972,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p058",
+   "id": "hero_skill:core:h03:p058",
    "pages": [
     58
    ],
    "copies": 1,
    "name": "Finish Him",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 58
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -26228,13 +26460,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p059",
+   "id": "hero_skill:core:h03:p059",
    "pages": [
     59
    ],
    "copies": 1,
    "name": "Finish Him",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 59
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -26712,13 +26948,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p060",
+   "id": "hero_skill:core:h03:p060",
    "pages": [
     60
    ],
    "copies": 1,
    "name": "Finish Him",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 60
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -27185,13 +27425,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p061",
+   "id": "hero_skill:core:h03:p061",
    "pages": [
     61
    ],
    "copies": 1,
    "name": "Caltrops",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 61
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -27707,13 +27951,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p062",
+   "id": "hero_skill:core:h03:p062",
    "pages": [
     62
    ],
    "copies": 1,
    "name": "Caltrops",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 62
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -28229,13 +28477,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p063",
+   "id": "hero_skill:core:h03:p063",
    "pages": [
     63
    ],
    "copies": 1,
    "name": "Caltrops",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 63
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -28740,13 +28992,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p064",
+   "id": "hero_skill:core:h04:p064",
    "pages": [
     64
    ],
    "copies": 1,
    "name": "Wicked Slice",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 64
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -29098,13 +29354,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p065",
+   "id": "hero_skill:core:h04:p065",
    "pages": [
     65
    ],
    "copies": 1,
    "name": "Wicked Slice",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 65
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -29456,13 +29716,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p066",
+   "id": "hero_skill:core:h04:p066",
    "pages": [
     66
    ],
    "copies": 1,
    "name": "Wicked Slice",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 66
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -29803,13 +30067,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p067",
+   "id": "hero_skill:core:h04:p067",
    "pages": [
     67
    ],
    "copies": 1,
    "name": "Pistol Shot",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 67
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -30287,13 +30555,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p068",
+   "id": "hero_skill:core:h04:p068",
    "pages": [
     68
    ],
    "copies": 1,
    "name": "Pistol Shot",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 68
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -30771,13 +31043,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p069",
+   "id": "hero_skill:core:h04:p069",
    "pages": [
     69
    ],
    "copies": 1,
    "name": "Pistol Shot",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 69
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -31244,13 +31520,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p070",
+   "id": "hero_skill:core:h04:p070",
    "pages": [
     70
    ],
    "copies": 1,
    "name": "Point Blank Shot",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 70
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -31723,13 +32003,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p071",
+   "id": "hero_skill:core:h04:p071",
    "pages": [
     71
    ],
    "copies": 1,
    "name": "Point Blank Shot",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 71
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -32202,13 +32486,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p072",
+   "id": "hero_skill:core:h04:p072",
    "pages": [
     72
    ],
    "copies": 1,
    "name": "Point Blank Shot",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 72
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -32670,13 +32958,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p073",
+   "id": "hero_skill:core:h04:p073",
    "pages": [
     73
    ],
    "copies": 1,
    "name": "Grapeshot Blast",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 73
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -33180,13 +33472,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p074",
+   "id": "hero_skill:core:h04:p074",
    "pages": [
     74
    ],
    "copies": 1,
    "name": "Grapeshot Blast",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 74
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -33690,13 +33986,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p075",
+   "id": "hero_skill:core:h04:p075",
    "pages": [
     75
    ],
    "copies": 1,
    "name": "Grapeshot Blast",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 75
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -34189,13 +34489,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p076",
+   "id": "hero_skill:core:h04:p076",
    "pages": [
     76
    ],
    "copies": 1,
    "name": "Tracking Shot",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 76
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -34641,13 +34945,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p077",
+   "id": "hero_skill:core:h04:p077",
    "pages": [
     77
    ],
    "copies": 1,
    "name": "Tracking Shot",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 77
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -35093,13 +35401,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p078",
+   "id": "hero_skill:core:h04:p078",
    "pages": [
     78
    ],
    "copies": 1,
    "name": "Tracking Shot",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 78
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -35534,13 +35846,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p079",
+   "id": "hero_skill:core:h04:p079",
    "pages": [
     79
    ],
    "copies": 1,
    "name": "Duelist’s Advance",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 79
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -36010,13 +36326,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p080",
+   "id": "hero_skill:core:h04:p080",
    "pages": [
     80
    ],
    "copies": 1,
    "name": "Duelist’s Advance",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 80
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -36486,13 +36806,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p081",
+   "id": "hero_skill:core:h04:p081",
    "pages": [
     81
    ],
    "copies": 1,
    "name": "Duelist’s Advance",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 81
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -36951,13 +37275,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p082",
+   "id": "hero_skill:core:h04:p082",
    "pages": [
     82
    ],
    "copies": 1,
    "name": "Open Vein",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 82
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -37418,13 +37746,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p083",
+   "id": "hero_skill:core:h04:p083",
    "pages": [
     83
    ],
    "copies": 1,
    "name": "Open Vein",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 83
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -37885,13 +38217,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p084",
+   "id": "hero_skill:core:h04:p084",
    "pages": [
     84
    ],
    "copies": 1,
    "name": "Open Vein",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 84
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -38341,13 +38677,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p085",
+   "id": "hero_skill:core:h05:p085",
    "pages": [
     85
    ],
    "copies": 1,
    "name": "Mace Bash",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 85
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -38795,13 +39135,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p086",
+   "id": "hero_skill:core:h05:p086",
    "pages": [
     86
    ],
    "copies": 1,
    "name": "Mace Bash",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 86
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -39249,13 +39593,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p087",
+   "id": "hero_skill:core:h05:p087",
    "pages": [
     87
    ],
    "copies": 1,
    "name": "Mace Bash",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 87
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -39692,13 +40040,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p088",
+   "id": "hero_skill:core:h05:p088",
    "pages": [
     88
    ],
    "copies": 1,
    "name": "Judgement",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 88
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -40164,13 +40516,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p089",
+   "id": "hero_skill:core:h05:p089",
    "pages": [
     89
    ],
    "copies": 1,
    "name": "Judgement",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 89
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -40636,13 +40992,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p090",
+   "id": "hero_skill:core:h05:p090",
    "pages": [
     90
    ],
    "copies": 1,
    "name": "Judgement",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 90
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -41097,13 +41457,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p091",
+   "id": "hero_skill:core:h05:p091",
    "pages": [
     91
    ],
    "copies": 1,
    "name": "Dazzling Light",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 91
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -41572,13 +41936,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p092",
+   "id": "hero_skill:core:h05:p092",
    "pages": [
     92
    ],
    "copies": 1,
    "name": "Dazzling Light",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 92
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -42047,13 +42415,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p093",
+   "id": "hero_skill:core:h05:p093",
    "pages": [
     93
    ],
    "copies": 1,
    "name": "Dazzling Light",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 93
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -42511,13 +42883,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p094",
+   "id": "hero_skill:core:h05:p094",
    "pages": [
     94
    ],
    "copies": 1,
    "name": "Divine Grace",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 94
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -42932,13 +43308,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p095",
+   "id": "hero_skill:core:h05:p095",
    "pages": [
     95
    ],
    "copies": 1,
    "name": "Divine Grace",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 95
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -43353,13 +43733,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p096",
+   "id": "hero_skill:core:h05:p096",
    "pages": [
     96
    ],
    "copies": 1,
    "name": "Divine Grace",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 96
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -43763,13 +44147,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p097",
+   "id": "hero_skill:core:h05:p097",
    "pages": [
     97
    ],
    "copies": 1,
    "name": "Divine Comfort",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 97
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -44346,13 +44734,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p098",
+   "id": "hero_skill:core:h05:p098",
    "pages": [
     98
    ],
    "copies": 1,
    "name": "Divine Comfort",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 98
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -44929,13 +45321,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p099",
+   "id": "hero_skill:core:h05:p099",
    "pages": [
     99
    ],
    "copies": 1,
    "name": "Divine Comfort",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 99
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -45501,13 +45897,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p100",
+   "id": "hero_skill:core:h05:p100",
    "pages": [
     100
    ],
    "copies": 1,
    "name": "Illumination",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 100
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -45991,13 +46391,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p101",
+   "id": "hero_skill:core:h05:p101",
    "pages": [
     101
    ],
    "copies": 1,
    "name": "Illumination",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 101
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -46481,13 +46885,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p102",
+   "id": "hero_skill:core:h05:p102",
    "pages": [
     102
    ],
    "copies": 1,
    "name": "Illumination",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 102
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -46960,13 +47368,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p103",
+   "id": "hero_skill:core:h05:p103",
    "pages": [
     103
    ],
    "copies": 1,
    "name": "Hand of Light",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 103
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -47502,13 +47914,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p104",
+   "id": "hero_skill:core:h05:p104",
    "pages": [
     104
    ],
    "copies": 1,
    "name": "Hand of Light",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 104
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -48044,13 +48460,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p105",
+   "id": "hero_skill:core:h05:p105",
    "pages": [
     105
    ],
    "copies": 1,
    "name": "Hand of Light",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 105
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -48575,13 +48995,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p106",
+   "id": "hero_skill:core:h06:p106",
    "pages": [
     106
    ],
    "copies": 1,
    "name": "Dirk Stab",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 106
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -49025,13 +49449,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p107",
+   "id": "hero_skill:core:h06:p107",
    "pages": [
     107
    ],
    "copies": 1,
    "name": "Dirk Stab",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 107
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -49475,13 +49903,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p108",
+   "id": "hero_skill:core:h06:p108",
    "pages": [
     108
    ],
    "copies": 1,
    "name": "Dirk Stab",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 108
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -49914,13 +50346,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p109",
+   "id": "hero_skill:core:h06:p109",
    "pages": [
     109
    ],
    "copies": 1,
    "name": "Harvest",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 109
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -50410,13 +50846,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p110",
+   "id": "hero_skill:core:h06:p110",
    "pages": [
     110
    ],
    "copies": 1,
    "name": "Harvest",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 110
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -50906,13 +51346,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p111",
+   "id": "hero_skill:core:h06:p111",
    "pages": [
     111
    ],
    "copies": 1,
    "name": "Harvest",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 111
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -51391,13 +51835,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p112",
+   "id": "hero_skill:core:h06:p112",
    "pages": [
     112
    ],
    "copies": 1,
    "name": "Finale",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 112
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -51810,13 +52258,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p113",
+   "id": "hero_skill:core:h06:p113",
    "pages": [
     113
    ],
    "copies": 1,
    "name": "Finale",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 113
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -52229,13 +52681,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p114",
+   "id": "hero_skill:core:h06:p114",
    "pages": [
     114
    ],
    "copies": 1,
    "name": "Finale",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 114
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -52637,13 +53093,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p115",
+   "id": "hero_skill:core:h06:p115",
    "pages": [
     115
    ],
    "copies": 1,
    "name": "Solo",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 115
+   },
    "printed_labels": [
     {
      "label": "Acc",
@@ -53078,13 +53538,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p116",
+   "id": "hero_skill:core:h06:p116",
    "pages": [
     116
    ],
    "copies": 1,
    "name": "Solo",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 116
+   },
    "printed_labels": [
     {
      "label": "Acc",
@@ -53519,13 +53983,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p117",
+   "id": "hero_skill:core:h06:p117",
    "pages": [
     117
    ],
    "copies": 1,
    "name": "Solo",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 117
+   },
    "printed_labels": [
     {
      "label": "Acc",
@@ -53949,13 +54417,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p118",
+   "id": "hero_skill:core:h06:p118",
    "pages": [
     118
    ],
    "copies": 1,
    "name": "Battle Ballad",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 118
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -54427,13 +54899,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p119",
+   "id": "hero_skill:core:h06:p119",
    "pages": [
     119
    ],
    "copies": 1,
    "name": "Battle Ballad",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 119
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -54934,13 +55410,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p120",
+   "id": "hero_skill:core:h06:p120",
    "pages": [
     120
    ],
    "copies": 1,
    "name": "Battle Ballad",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 120
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -55430,13 +55910,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p121",
+   "id": "hero_skill:core:h06:p121",
    "pages": [
     121
    ],
    "copies": 1,
    "name": "Inspiring Tune",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 121
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -55852,13 +56336,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p122",
+   "id": "hero_skill:core:h06:p122",
    "pages": [
     122
    ],
    "copies": 1,
    "name": "Inspiring Tune",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 122
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -56353,13 +56841,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p123",
+   "id": "hero_skill:core:h06:p123",
    "pages": [
     123
    ],
    "copies": 1,
    "name": "Inspiring Tune",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 123
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -56843,13 +57335,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p124",
+   "id": "hero_skill:core:h06:p124",
    "pages": [
     124
    ],
    "copies": 1,
    "name": "Slice Off",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 124
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -57310,13 +57806,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p125",
+   "id": "hero_skill:core:h06:p125",
    "pages": [
     125
    ],
    "copies": 1,
    "name": "Slice Off",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 125
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -57777,13 +58277,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p126",
+   "id": "hero_skill:core:h06:p126",
    "pages": [
     126
    ],
    "copies": 1,
    "name": "Slice Off",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 126
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -58233,13 +58737,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p127",
+   "id": "hero_skill:core:h07:p127",
    "pages": [
     127
    ],
    "copies": 1,
    "name": "Noxious Blast",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 127
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -58755,13 +59263,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p128",
+   "id": "hero_skill:core:h07:p128",
    "pages": [
     128
    ],
    "copies": 1,
    "name": "Noxious Blast",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 128
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -59277,13 +59789,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p129",
+   "id": "hero_skill:core:h07:p129",
    "pages": [
     129
    ],
    "copies": 1,
    "name": "Noxious Blast",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 129
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -59788,13 +60304,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p130",
+   "id": "hero_skill:core:h07:p130",
    "pages": [
     130
    ],
    "copies": 1,
    "name": "Plague Grenade",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 130
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -60284,13 +60804,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p131",
+   "id": "hero_skill:core:h07:p131",
    "pages": [
     131
    ],
    "copies": 1,
    "name": "Plague Grenade",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 131
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -60780,13 +61304,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p132",
+   "id": "hero_skill:core:h07:p132",
    "pages": [
     132
    ],
    "copies": 1,
    "name": "Plague Grenade",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 132
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -61265,13 +61793,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p133",
+   "id": "hero_skill:core:h07:p133",
    "pages": [
     133
    ],
    "copies": 1,
    "name": "Blinding Gas",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 133
+   },
    "printed_labels": [
     {
      "label": "Acc",
@@ -61607,13 +62139,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p134",
+   "id": "hero_skill:core:h07:p134",
    "pages": [
     134
    ],
    "copies": 1,
    "name": "Blinding Gas",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 134
+   },
    "printed_labels": [
     {
      "label": "Acc",
@@ -61949,13 +62485,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p135",
+   "id": "hero_skill:core:h07:p135",
    "pages": [
     135
    ],
    "copies": 1,
    "name": "Blinding Gas",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 135
+   },
    "printed_labels": [
     {
      "label": "Acc",
@@ -62280,13 +62820,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p136",
+   "id": "hero_skill:core:h07:p136",
    "pages": [
     136
    ],
    "copies": 1,
    "name": "Incision",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 136
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -62747,13 +63291,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p137",
+   "id": "hero_skill:core:h07:p137",
    "pages": [
     137
    ],
    "copies": 1,
    "name": "Incision",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 137
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -63214,13 +63762,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p138",
+   "id": "hero_skill:core:h07:p138",
    "pages": [
     138
    ],
    "copies": 1,
    "name": "Incision",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 138
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -63670,13 +64222,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p139",
+   "id": "hero_skill:core:h07:p139",
    "pages": [
     139
    ],
    "copies": 1,
    "name": "Battlefield Medicine",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 139
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -64172,13 +64728,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p140",
+   "id": "hero_skill:core:h07:p140",
    "pages": [
     140
    ],
    "copies": 1,
    "name": "Battlefield Medicine",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 140
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -64842,13 +65402,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p141",
+   "id": "hero_skill:core:h07:p141",
    "pages": [
     141
    ],
    "copies": 1,
    "name": "Battlefield Medicine",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 141
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -65501,13 +66065,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p142",
+   "id": "hero_skill:core:h07:p142",
    "pages": [
     142
    ],
    "copies": 1,
    "name": "Emboldening Vapours",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 142
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -65864,13 +66432,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p143",
+   "id": "hero_skill:core:h07:p143",
    "pages": [
     143
    ],
    "copies": 1,
    "name": "Emboldening Vapours",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 143
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -66313,13 +66885,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p144",
+   "id": "hero_skill:core:h07:p144",
    "pages": [
     144
    ],
    "copies": 1,
    "name": "Emboldening Vapours",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 144
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -66751,13 +67327,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p145",
+   "id": "hero_skill:core:h07:p145",
    "pages": [
     145
    ],
    "copies": 1,
    "name": "Disorienting Blast",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 145
+   },
    "printed_labels": [
     {
      "label": "Acc",
@@ -67109,13 +67689,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p146",
+   "id": "hero_skill:core:h07:p146",
    "pages": [
     146
    ],
    "copies": 1,
    "name": "Disorienting Blast",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 146
+   },
    "printed_labels": [
     {
      "label": "Acc",
@@ -67472,13 +68056,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p147",
+   "id": "hero_skill:core:h07:p147",
    "pages": [
     147
    ],
    "copies": 1,
    "name": "Disorienting Blast",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 147
+   },
    "printed_labels": [
     {
      "label": "Acc",
@@ -67824,13 +68412,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p148",
+   "id": "hero_skill:core:h08:p148",
    "pages": [
     148
    ],
    "copies": 1,
    "name": "Sniper Shot",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 148
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -68303,13 +68895,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p149",
+   "id": "hero_skill:core:h08:p149",
    "pages": [
     149
    ],
    "copies": 1,
    "name": "Sniper Shot",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 149
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -68782,13 +69378,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p150",
+   "id": "hero_skill:core:h08:p150",
    "pages": [
     150
    ],
    "copies": 1,
    "name": "Sniper Shot",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 150
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -69250,13 +69850,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p151",
+   "id": "hero_skill:core:h08:p151",
    "pages": [
     151
    ],
    "copies": 1,
    "name": "Suppressive Fire",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 151
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -69731,13 +70335,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p152",
+   "id": "hero_skill:core:h08:p152",
    "pages": [
     152
    ],
    "copies": 1,
    "name": "Suppressive Fire",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 152
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -70212,13 +70820,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p153",
+   "id": "hero_skill:core:h08:p153",
    "pages": [
     153
    ],
    "copies": 1,
    "name": "Suppressive Fire",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 153
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -70682,13 +71294,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p154",
+   "id": "hero_skill:core:h08:p154",
    "pages": [
     154
    ],
    "copies": 1,
    "name": "Sniper’s Mark",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 154
+   },
    "printed_labels": [
     {
      "label": "Acc",
@@ -71013,13 +71629,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p155",
+   "id": "hero_skill:core:h08:p155",
    "pages": [
     155
    ],
    "copies": 1,
    "name": "Sniper’s Mark",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 155
+   },
    "printed_labels": [
     {
      "label": "Acc",
@@ -71344,13 +71964,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p156",
+   "id": "hero_skill:core:h08:p156",
    "pages": [
     156
    ],
    "copies": 1,
    "name": "Sniper’s Mark",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 156
+   },
    "printed_labels": [
     {
      "label": "Acc",
@@ -71664,13 +72288,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p157",
+   "id": "hero_skill:core:h08:p157",
    "pages": [
     157
    ],
    "copies": 1,
    "name": "Bola",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 157
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -72172,13 +72800,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p158",
+   "id": "hero_skill:core:h08:p158",
    "pages": [
     158
    ],
    "copies": 1,
    "name": "Bola",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 158
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -72680,13 +73312,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p159",
+   "id": "hero_skill:core:h08:p159",
    "pages": [
     159
    ],
    "copies": 1,
    "name": "Bola",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 159
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -73177,13 +73813,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p160",
+   "id": "hero_skill:core:h08:p160",
    "pages": [
     160
    ],
    "copies": 1,
    "name": "Blindfire",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 160
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -73601,13 +74241,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p161",
+   "id": "hero_skill:core:h08:p161",
    "pages": [
     161
    ],
    "copies": 1,
    "name": "Blindfire",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 161
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -74025,13 +74669,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p162",
+   "id": "hero_skill:core:h08:p162",
    "pages": [
     162
    ],
    "copies": 1,
    "name": "Blindfire",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 162
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -74438,13 +75086,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p163",
+   "id": "hero_skill:core:h08:p163",
    "pages": [
     163
    ],
    "copies": 1,
    "name": "Battlefield Bandage",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 163
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -74948,13 +75600,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p164",
+   "id": "hero_skill:core:h08:p164",
    "pages": [
     164
    ],
    "copies": 1,
    "name": "Battlefield Bandage",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 164
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -75458,13 +76114,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p165",
+   "id": "hero_skill:core:h08:p165",
    "pages": [
     165
    ],
    "copies": 1,
    "name": "Battlefield Bandage",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 165
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -75957,13 +76617,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p166",
+   "id": "hero_skill:core:h08:p166",
    "pages": [
     166
    ],
    "copies": 1,
    "name": "Rallying Flare",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 166
+   },
    "printed_labels": [
     {
      "label": "Acc",
@@ -76518,13 +77182,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p167",
+   "id": "hero_skill:core:h08:p167",
    "pages": [
     167
    ],
    "copies": 1,
    "name": "Rallying Flare",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 167
+   },
    "printed_labels": [
     {
      "label": "Acc",
@@ -77090,13 +77758,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p168",
+   "id": "hero_skill:core:h08:p168",
    "pages": [
     168
    ],
    "copies": 1,
    "name": "Rallying Flare",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 168
+   },
    "printed_labels": [
     {
      "label": "Acc",
@@ -77662,13 +78334,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p169",
+   "id": "hero_skill:core:h09:p169",
    "pages": [
     169
    ],
    "copies": 1,
    "name": "Pick to the Face",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 169
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -78077,13 +78753,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p170",
+   "id": "hero_skill:core:h09:p170",
    "pages": [
     170
    ],
    "copies": 1,
    "name": "Pick to the Face",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 170
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -78492,13 +79172,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p171",
+   "id": "hero_skill:core:h09:p171",
    "pages": [
     171
    ],
    "copies": 1,
    "name": "Pick to the Face",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 171
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -78896,13 +79580,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p172",
+   "id": "hero_skill:core:h09:p172",
    "pages": [
     172
    ],
    "copies": 1,
    "name": "Lunge",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 172
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -79435,13 +80123,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p173",
+   "id": "hero_skill:core:h09:p173",
    "pages": [
     173
    ],
    "copies": 1,
    "name": "Lunge",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 173
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -79974,13 +80666,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p174",
+   "id": "hero_skill:core:h09:p174",
    "pages": [
     174
    ],
    "copies": 1,
    "name": "Lunge",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 174
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -80502,13 +81198,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p175",
+   "id": "hero_skill:core:h09:p175",
    "pages": [
     175
    ],
    "copies": 1,
    "name": "Flashing Daggers",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 175
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -80889,13 +81589,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p176",
+   "id": "hero_skill:core:h09:p176",
    "pages": [
     176
    ],
    "copies": 1,
    "name": "Flashing Daggers",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 176
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -81365,13 +82069,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p177",
+   "id": "hero_skill:core:h09:p177",
    "pages": [
     177
    ],
    "copies": 1,
    "name": "Flashing Daggers",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 177
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -81830,13 +82538,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p178",
+   "id": "hero_skill:core:h09:p178",
    "pages": [
     178
    ],
    "copies": 1,
    "name": "Shadow Fade",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 178
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -82174,13 +82886,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p179",
+   "id": "hero_skill:core:h09:p179",
    "pages": [
     179
    ],
    "copies": 1,
    "name": "Shadow Fade",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 179
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -82518,13 +83234,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p180",
+   "id": "hero_skill:core:h09:p180",
    "pages": [
     180
    ],
    "copies": 1,
    "name": "Shadow Fade",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 180
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -82865,13 +83585,17 @@
      "source": "print_front"
     }
    ],
-   "id": "hero_skill:p181",
+   "id": "hero_skill:core:h09:p181",
    "pages": [
     181
    ],
    "copies": 1,
    "name": "Throw Dagger",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 181
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -83450,13 +84174,17 @@
      "source": "print_front"
     }
    ],
-   "id": "hero_skill:p182",
+   "id": "hero_skill:core:h09:p182",
    "pages": [
     182
    ],
    "copies": 1,
    "name": "Throw Dagger",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 182
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -84035,13 +84763,17 @@
      "source": "print_front"
     }
    ],
-   "id": "hero_skill:p183",
+   "id": "hero_skill:core:h09:p183",
    "pages": [
     183
    ],
    "copies": 1,
    "name": "Throw Dagger",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 183
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -84595,13 +85327,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p184",
+   "id": "hero_skill:core:h09:p184",
    "pages": [
     184
    ],
    "copies": 1,
    "name": "Poison Dart",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 184
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -85067,13 +85803,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p185",
+   "id": "hero_skill:core:h09:p185",
    "pages": [
     185
    ],
    "copies": 1,
    "name": "Poison Dart",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 185
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -85539,13 +86279,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p186",
+   "id": "hero_skill:core:h09:p186",
    "pages": [
     186
    ],
    "copies": 1,
    "name": "Poison Dart",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 186
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -86000,13 +86744,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p187",
+   "id": "hero_skill:core:h09:p187",
    "pages": [
     187
    ],
    "copies": 1,
    "name": "Toxin Trickery",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 187
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -86375,13 +87123,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p188",
+   "id": "hero_skill:core:h09:p188",
    "pages": [
     188
    ],
    "copies": 1,
    "name": "Toxin Trickery",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 188
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -86944,13 +87696,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p189",
+   "id": "hero_skill:core:h09:p189",
    "pages": [
     189
    ],
    "copies": 1,
    "name": "Toxin Trickery",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 189
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -87531,13 +88287,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p190",
+   "id": "hero_skill:core:h10:p190",
    "pages": [
     190
    ],
    "copies": 1,
    "name": "Sacrificial Stab",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 190
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -87985,13 +88745,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p191",
+   "id": "hero_skill:core:h10:p191",
    "pages": [
     191
    ],
    "copies": 1,
    "name": "Sacrificial Stab",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 191
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -88439,13 +89203,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p192",
+   "id": "hero_skill:core:h10:p192",
    "pages": [
     192
    ],
    "copies": 1,
    "name": "Sacrificial Stab",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 192
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -88882,13 +89650,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p193",
+   "id": "hero_skill:core:h10:p193",
    "pages": [
     193
    ],
    "copies": 1,
    "name": "Abyssal Artillery",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 193
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -89365,13 +90137,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p194",
+   "id": "hero_skill:core:h10:p194",
    "pages": [
     194
    ],
    "copies": 1,
    "name": "Abyssal Artillery",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 194
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -89848,13 +90624,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p195",
+   "id": "hero_skill:core:h10:p195",
    "pages": [
     195
    ],
    "copies": 1,
    "name": "Abyssal Artillery",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 195
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -90320,13 +91100,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p196",
+   "id": "hero_skill:core:h10:p196",
    "pages": [
     196
    ],
    "copies": 1,
    "name": "Weakening Curse",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 196
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -90772,13 +91556,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p197",
+   "id": "hero_skill:core:h10:p197",
    "pages": [
     197
    ],
    "copies": 1,
    "name": "Weakening Curse",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 197
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -91224,13 +92012,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p198",
+   "id": "hero_skill:core:h10:p198",
    "pages": [
     198
    ],
    "copies": 1,
    "name": "Weakening Curse",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 198
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -91665,13 +92457,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p199",
+   "id": "hero_skill:core:h10:p199",
    "pages": [
     199
    ],
    "copies": 1,
    "name": "Wyrd Reconstruction",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 199
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -92195,13 +92991,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p200",
+   "id": "hero_skill:core:h10:p200",
    "pages": [
     200
    ],
    "copies": 1,
    "name": "Wyrd Reconstruction",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 200
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -92725,13 +93525,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p201",
+   "id": "hero_skill:core:h10:p201",
    "pages": [
     201
    ],
    "copies": 1,
    "name": "Wyrd Reconstruction",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 201
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -93244,13 +94048,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p202",
+   "id": "hero_skill:core:h10:p202",
    "pages": [
     202
    ],
    "copies": 1,
    "name": "Vulnerability Hex",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 202
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -93686,13 +94494,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p203",
+   "id": "hero_skill:core:h10:p203",
    "pages": [
     203
    ],
    "copies": 1,
    "name": "Vulnerability Hex",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 203
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -94128,13 +94940,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p204",
+   "id": "hero_skill:core:h10:p204",
    "pages": [
     204
    ],
    "copies": 1,
    "name": "Vulnerability Hex",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 204
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -94559,13 +95375,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p205",
+   "id": "hero_skill:core:h10:p205",
    "pages": [
     205
    ],
    "copies": 1,
    "name": "Hands from the Abyss",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 205
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -95034,13 +95854,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p206",
+   "id": "hero_skill:core:h10:p206",
    "pages": [
     206
    ],
    "copies": 1,
    "name": "Hands from the Abyss",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 206
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -95538,13 +96362,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p207",
+   "id": "hero_skill:core:h10:p207",
    "pages": [
     207
    ],
    "copies": 1,
    "name": "Hands from the Abyss",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 207
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -96031,13 +96859,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p208",
+   "id": "hero_skill:core:h10:p208",
    "pages": [
     208
    ],
    "copies": 1,
    "name": "Daemon’s Pull",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 208
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -96450,13 +97282,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p209",
+   "id": "hero_skill:core:h10:p209",
    "pages": [
     209
    ],
    "copies": 1,
    "name": "Daemon’s Pull",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 209
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -96869,13 +97705,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p210",
+   "id": "hero_skill:core:h10:p210",
    "pages": [
     210
    ],
    "copies": 1,
    "name": "Daemon’s Pull",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 210
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -97277,13 +98117,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p211",
+   "id": "hero_skill:core:h11:p211",
    "pages": [
     211
    ],
    "copies": 1,
    "name": "Manacles",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 211
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -97736,13 +98580,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p212",
+   "id": "hero_skill:core:h11:p212",
    "pages": [
     212
    ],
    "copies": 1,
    "name": "Manacles",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 212
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -98195,13 +99043,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p213",
+   "id": "hero_skill:core:h11:p213",
    "pages": [
     213
    ],
    "copies": 1,
    "name": "Manacles",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 213
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -98643,13 +99495,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p214",
+   "id": "hero_skill:core:h11:p214",
    "pages": [
     214
    ],
    "copies": 1,
    "name": "Beast’s Bile",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 214
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -99166,13 +100022,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p215",
+   "id": "hero_skill:core:h11:p215",
    "pages": [
     215
    ],
    "copies": 1,
    "name": "Beast’s Bile",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 215
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -99689,13 +100549,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p216",
+   "id": "hero_skill:core:h11:p216",
    "pages": [
     216
    ],
    "copies": 1,
    "name": "Beast’s Bile",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 216
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -100201,13 +101065,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p217",
+   "id": "hero_skill:core:h11:p217",
    "pages": [
     217
    ],
    "copies": 1,
    "name": "Absolution",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 217
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -100671,13 +101539,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p218",
+   "id": "hero_skill:core:h11:p218",
    "pages": [
     218
    ],
    "copies": 1,
    "name": "Absolution",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 218
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -101141,13 +102013,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p219",
+   "id": "hero_skill:core:h11:p219",
    "pages": [
     219
    ],
    "copies": 1,
    "name": "Absolution",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 219
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -101600,13 +102476,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p220",
+   "id": "hero_skill:core:h11:p220",
    "pages": [
     220
    ],
    "copies": 1,
    "name": "Transform to Beast",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 220
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -102493,13 +103373,17 @@
    }
   },
   {
-   "id": "hero_skill:p221",
+   "id": "hero_skill:core:h11:p221",
    "pages": [
     221
    ],
    "copies": 1,
    "name": "Transform to Beast",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 221
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -103336,13 +104220,17 @@
    }
   },
   {
-   "id": "hero_skill:p222",
+   "id": "hero_skill:core:h11:p222",
    "pages": [
     222
    ],
    "copies": 1,
    "name": "Transform to Beast",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 222
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -104179,13 +105067,17 @@
    }
   },
   {
-   "id": "hero_skill:p223",
+   "id": "hero_skill:core:h11:p223",
    "pages": [
     223
    ],
    "copies": 1,
    "name": "Rake",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 223
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -104716,13 +105608,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p224",
+   "id": "hero_skill:core:h11:p224",
    "pages": [
     224
    ],
    "copies": 1,
    "name": "Rake",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 224
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -105253,13 +106149,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p225",
+   "id": "hero_skill:core:h11:p225",
    "pages": [
     225
    ],
    "copies": 1,
    "name": "Rake",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 225
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -105779,13 +106679,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p226",
+   "id": "hero_skill:core:h11:p226",
    "pages": [
     226
    ],
    "copies": 1,
    "name": "Rage",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 226
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -106239,13 +107143,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p227",
+   "id": "hero_skill:core:h11:p227",
    "pages": [
     227
    ],
    "copies": 1,
    "name": "Rage",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 227
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -106699,13 +107607,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p228",
+   "id": "hero_skill:core:h11:p228",
    "pages": [
     228
    ],
    "copies": 1,
    "name": "Rage",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 228
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -107148,13 +108060,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p229",
+   "id": "hero_skill:core:h11:p229",
    "pages": [
     229
    ],
    "copies": 1,
    "name": "Slam",
    "level": 1,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 229
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -107735,13 +108651,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p230",
+   "id": "hero_skill:core:h11:p230",
    "pages": [
     230
    ],
    "copies": 1,
    "name": "Slam",
    "level": 2,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 230
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -108320,13 +109240,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p231",
+   "id": "hero_skill:core:h11:p231",
    "pages": [
     231
    ],
    "copies": 1,
    "name": "Slam",
    "level": 3,
+   "source": {
+    "file": "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 231
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -108894,13 +109818,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p274",
+   "id": "hero_skill:warrens:h14:p274",
    "pages": [
     274
    ],
    "copies": 1,
    "name": "Chop",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 274
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -109274,13 +110202,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p275",
+   "id": "hero_skill:warrens:h14:p275",
    "pages": [
     275
    ],
    "copies": 1,
    "name": "Chop",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 275
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -109654,13 +110586,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p276",
+   "id": "hero_skill:warrens:h14:p276",
    "pages": [
     276
    ],
    "copies": 1,
    "name": "Chop",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 276
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -110034,13 +110970,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p277",
+   "id": "hero_skill:warrens:h14:p277",
    "pages": [
     277
    ],
    "copies": 1,
    "name": "Hew",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 277
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -110443,13 +111383,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p278",
+   "id": "hero_skill:warrens:h14:p278",
    "pages": [
     278
    ],
    "copies": 1,
    "name": "Hew",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 278
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -110852,13 +111796,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p279",
+   "id": "hero_skill:warrens:h14:p279",
    "pages": [
     279
    ],
    "copies": 1,
    "name": "Hew",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 279
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -111261,13 +112209,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p280",
+   "id": "hero_skill:warrens:h14:p280",
    "pages": [
     280
    ],
    "copies": 1,
    "name": "Purge",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 280
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -111833,13 +112785,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p281",
+   "id": "hero_skill:warrens:h14:p281",
    "pages": [
     281
    ],
    "copies": 1,
    "name": "Purge",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 281
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -112405,13 +113361,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p282",
+   "id": "hero_skill:warrens:h14:p282",
    "pages": [
     282
    ],
    "copies": 1,
    "name": "Purge",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 282
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -112977,13 +113937,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p283",
+   "id": "hero_skill:warrens:h14:p283",
    "pages": [
     283
    ],
    "copies": 1,
    "name": "Revenge",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 283
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -113416,13 +114380,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p284",
+   "id": "hero_skill:warrens:h14:p284",
    "pages": [
     284
    ],
    "copies": 1,
    "name": "Revenge",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 284
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -113824,13 +114792,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p285",
+   "id": "hero_skill:warrens:h14:p285",
    "pages": [
     285
    ],
    "copies": 1,
    "name": "Revenge",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 285
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -114232,13 +115204,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p286",
+   "id": "hero_skill:warrens:h14:p286",
    "pages": [
     286
    ],
    "copies": 1,
    "name": "Withstand",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 286
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -114669,13 +115645,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p287",
+   "id": "hero_skill:warrens:h14:p287",
    "pages": [
     287
    ],
    "copies": 1,
    "name": "Withstand",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 287
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -115106,13 +116086,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p288",
+   "id": "hero_skill:warrens:h14:p288",
    "pages": [
     288
    ],
    "copies": 1,
    "name": "Withstand",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 288
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -115543,13 +116527,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p289",
+   "id": "hero_skill:warrens:h14:p289",
    "pages": [
     289
    ],
    "copies": 1,
    "name": "Solemnity",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 289
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -115991,13 +116979,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p290",
+   "id": "hero_skill:warrens:h14:p290",
    "pages": [
     290
    ],
    "copies": 1,
    "name": "Solemnity",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 290
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -116439,13 +117431,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p291",
+   "id": "hero_skill:warrens:h14:p291",
    "pages": [
     291
    ],
    "copies": 1,
    "name": "Solemnity",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 291
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -116887,13 +117883,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p292",
+   "id": "hero_skill:warrens:h14:p292",
    "pages": [
     292
    ],
    "copies": 1,
    "name": "Intimidate",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 292
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -117541,13 +118541,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p293",
+   "id": "hero_skill:warrens:h14:p293",
    "pages": [
     293
    ],
    "copies": 1,
    "name": "Intimidate",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 293
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -118195,13 +119199,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p294",
+   "id": "hero_skill:warrens:h14:p294",
    "pages": [
     294
    ],
    "copies": 1,
    "name": "Intimidate",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 294
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -118870,13 +119878,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p295",
+   "id": "hero_skill:warrens:h15:p295",
    "pages": [
     295
    ],
    "copies": 1,
    "name": "Nervous Stab",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 295
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -119250,13 +120262,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p296",
+   "id": "hero_skill:warrens:h15:p296",
    "pages": [
     296
    ],
    "copies": 1,
    "name": "Nervous Stab",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 296
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -119630,13 +120646,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p297",
+   "id": "hero_skill:warrens:h15:p297",
    "pages": [
     297
    ],
    "copies": 1,
    "name": "Nervous Stab",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 297
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -120010,13 +121030,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p298",
+   "id": "hero_skill:warrens:h15:p298",
    "pages": [
     298
    ],
    "copies": 1,
    "name": "Festering Vapours",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 298
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -120624,13 +121648,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p299",
+   "id": "hero_skill:warrens:h15:p299",
    "pages": [
     299
    ],
    "copies": 1,
    "name": "Festering Vapours",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 299
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -121238,13 +122266,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p300",
+   "id": "hero_skill:warrens:h15:p300",
    "pages": [
     300
    ],
    "copies": 1,
    "name": "Festering Vapours",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 300
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -121852,13 +122884,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p301",
+   "id": "hero_skill:warrens:h15:p301",
    "pages": [
     301
    ],
    "copies": 1,
    "name": "Get Down!",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 301
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -122259,13 +123295,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p302",
+   "id": "hero_skill:warrens:h15:p302",
    "pages": [
     302
    ],
    "copies": 1,
    "name": "Get Down!",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 302
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -122666,13 +123706,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p303",
+   "id": "hero_skill:warrens:h15:p303",
    "pages": [
     303
    ],
    "copies": 1,
    "name": "Get Down!",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 303
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -123073,13 +124117,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p304",
+   "id": "hero_skill:warrens:h15:p304",
    "pages": [
     304
    ],
    "copies": 1,
    "name": "Flashpowder",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 304
+   },
    "printed_labels": [
     {
      "label": "Acc",
@@ -123518,13 +124566,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p305",
+   "id": "hero_skill:warrens:h15:p305",
    "pages": [
     305
    ],
    "copies": 1,
    "name": "Flashpowder",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 305
+   },
    "printed_labels": [
     {
      "label": "Acc",
@@ -123963,13 +125015,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p306",
+   "id": "hero_skill:warrens:h15:p306",
    "pages": [
     306
    ],
    "copies": 1,
    "name": "Flashpowder",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 306
+   },
    "printed_labels": [
     {
      "label": "Acc",
@@ -124408,13 +125464,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p307",
+   "id": "hero_skill:warrens:h15:p307",
    "pages": [
     307
    ],
    "copies": 1,
    "name": "Fortifying Vapours",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 307
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -125161,13 +126221,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p308",
+   "id": "hero_skill:warrens:h15:p308",
    "pages": [
     308
    ],
    "copies": 1,
    "name": "Fortifying Vapours",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 308
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -125914,13 +126978,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p309",
+   "id": "hero_skill:warrens:h15:p309",
    "pages": [
     309
    ],
    "copies": 1,
    "name": "Fortifying Vapours",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 309
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -126667,13 +127735,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p310",
+   "id": "hero_skill:warrens:h15:p310",
    "pages": [
     310
    ],
    "copies": 1,
    "name": "Invigorating Vapours",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 310
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -127191,13 +128263,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p311",
+   "id": "hero_skill:warrens:h15:p311",
    "pages": [
     311
    ],
    "copies": 1,
    "name": "Invigorating Vapours",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 311
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -127744,13 +128820,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p312",
+   "id": "hero_skill:warrens:h15:p312",
    "pages": [
     312
    ],
    "copies": 1,
    "name": "Invigorating Vapours",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 312
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -128326,13 +129406,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p313",
+   "id": "hero_skill:warrens:h15:p313",
    "pages": [
     313
    ],
    "copies": 1,
    "name": "Protect Me",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 313
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -128833,13 +129917,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p314",
+   "id": "hero_skill:warrens:h15:p314",
    "pages": [
     314
    ],
    "copies": 1,
    "name": "Protect Me",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 314
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -129340,13 +130428,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p315",
+   "id": "hero_skill:warrens:h15:p315",
    "pages": [
     315
    ],
    "copies": 1,
    "name": "Protect Me",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 315
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -129847,13 +130939,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p232",
+   "id": "hero_skill:cove:h12:p232",
    "pages": [
     232
    ],
    "copies": 1,
    "name": "Crush",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 232
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -130227,13 +131323,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p233",
+   "id": "hero_skill:cove:h12:p233",
    "pages": [
     233
    ],
    "copies": 1,
    "name": "Crush",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 233
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -130607,13 +131707,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p234",
+   "id": "hero_skill:cove:h12:p234",
    "pages": [
     234
    ],
    "copies": 1,
    "name": "Crush",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 234
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -130987,13 +132091,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p235",
+   "id": "hero_skill:cove:h12:p235",
    "pages": [
     235
    ],
    "copies": 1,
    "name": "Rampart",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 235
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -131546,13 +132654,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p236",
+   "id": "hero_skill:cove:h12:p236",
    "pages": [
     236
    ],
    "copies": 1,
    "name": "Rampart",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 236
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -132105,13 +133217,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p237",
+   "id": "hero_skill:cove:h12:p237",
    "pages": [
     237
    ],
    "copies": 1,
    "name": "Rampart",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 237
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -132664,13 +133780,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p238",
+   "id": "hero_skill:cove:h12:p238",
    "pages": [
     238
    ],
    "copies": 1,
    "name": "Bellow",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 238
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -133167,13 +134287,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p239",
+   "id": "hero_skill:cove:h12:p239",
    "pages": [
     239
    ],
    "copies": 1,
    "name": "Bellow",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 239
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -133670,13 +134794,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p240",
+   "id": "hero_skill:cove:h12:p240",
    "pages": [
     240
    ],
    "copies": 1,
    "name": "Bellow",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 240
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -134173,13 +135301,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p241",
+   "id": "hero_skill:cove:h12:p241",
    "pages": [
     241
    ],
    "copies": 1,
    "name": "Defender",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 241
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -134649,13 +135781,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p242",
+   "id": "hero_skill:cove:h12:p242",
    "pages": [
     242
    ],
    "copies": 1,
    "name": "Defender",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 242
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -135125,13 +136261,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p243",
+   "id": "hero_skill:cove:h12:p243",
    "pages": [
     243
    ],
    "copies": 1,
    "name": "Defender",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 243
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -135601,13 +136741,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p244",
+   "id": "hero_skill:cove:h12:p244",
    "pages": [
     244
    ],
    "copies": 1,
    "name": "Retribution",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 244
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -136151,13 +137295,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p245",
+   "id": "hero_skill:cove:h12:p245",
    "pages": [
     245
    ],
    "copies": 1,
    "name": "Retribution",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 245
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -136701,13 +137849,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p246",
+   "id": "hero_skill:cove:h12:p246",
    "pages": [
     246
    ],
    "copies": 1,
    "name": "Retribution",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 246
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -137251,13 +138403,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p247",
+   "id": "hero_skill:cove:h12:p247",
    "pages": [
     247
    ],
    "copies": 1,
    "name": "Command",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 247
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -137775,13 +138931,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p248",
+   "id": "hero_skill:cove:h12:p248",
    "pages": [
     248
    ],
    "copies": 1,
    "name": "Command",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 248
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -138328,13 +139488,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p249",
+   "id": "hero_skill:cove:h12:p249",
    "pages": [
     249
    ],
    "copies": 1,
    "name": "Command",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 249
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -138910,13 +140074,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p250",
+   "id": "hero_skill:cove:h12:p250",
    "pages": [
     250
    ],
    "copies": 1,
    "name": "Bolster",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 250
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -139444,13 +140612,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p251",
+   "id": "hero_skill:cove:h12:p251",
    "pages": [
     251
    ],
    "copies": 1,
    "name": "Bolster",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 251
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -139989,13 +141161,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p252",
+   "id": "hero_skill:cove:h12:p252",
    "pages": [
     252
    ],
    "copies": 1,
    "name": "Bolster",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 252
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -140613,13 +141789,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p253",
+   "id": "hero_skill:cove:h13:p253",
    "pages": [
     253
    ],
    "copies": 1,
    "name": "Punish",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 253
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -141270,13 +142450,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p254",
+   "id": "hero_skill:cove:h13:p254",
    "pages": [
     254
    ],
    "copies": 1,
    "name": "Punish",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 254
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -141927,13 +143111,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p255",
+   "id": "hero_skill:cove:h13:p255",
    "pages": [
     255
    ],
    "copies": 1,
    "name": "Punish",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 255
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -142584,13 +143772,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p256",
+   "id": "hero_skill:cove:h13:p256",
    "pages": [
     256
    ],
    "copies": 1,
    "name": "Rain of Sorrows",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 256
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -143215,13 +144407,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p257",
+   "id": "hero_skill:cove:h13:p257",
    "pages": [
     257
    ],
    "copies": 1,
    "name": "Rain of Sorrows",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 257
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -143846,13 +145042,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p258",
+   "id": "hero_skill:cove:h13:p258",
    "pages": [
     258
    ],
    "copies": 1,
    "name": "Rain of Sorrows",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 258
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -144477,13 +145677,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p259",
+   "id": "hero_skill:cove:h13:p259",
    "pages": [
     259
    ],
    "copies": 1,
    "name": "Exsanguinate",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 259
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -145168,13 +146372,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p260",
+   "id": "hero_skill:cove:h13:p260",
    "pages": [
     260
    ],
    "copies": 1,
    "name": "Exsanguinate",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 260
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -145859,13 +147067,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p261",
+   "id": "hero_skill:cove:h13:p261",
    "pages": [
     261
    ],
    "copies": 1,
    "name": "Exsanguinate",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 261
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -146550,13 +147762,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p262",
+   "id": "hero_skill:cove:h13:p262",
    "pages": [
     262
    ],
    "copies": 1,
    "name": "Reclaim",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 262
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -147144,13 +148360,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p263",
+   "id": "hero_skill:cove:h13:p263",
    "pages": [
     263
    ],
    "copies": 1,
    "name": "Reclaim",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 263
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -147738,13 +148958,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p264",
+   "id": "hero_skill:cove:h13:p264",
    "pages": [
     264
    ],
    "copies": 1,
    "name": "Reclaim",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 264
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -148375,13 +149599,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p265",
+   "id": "hero_skill:cove:h13:p265",
    "pages": [
     265
    ],
    "copies": 1,
    "name": "Redeem",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 265
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -148977,13 +150205,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p266",
+   "id": "hero_skill:cove:h13:p266",
    "pages": [
     266
    ],
    "copies": 1,
    "name": "Redeem",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 266
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -149579,13 +150811,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p267",
+   "id": "hero_skill:cove:h13:p267",
    "pages": [
     267
    ],
    "copies": 1,
    "name": "Redeem",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 267
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -150181,13 +151417,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p268",
+   "id": "hero_skill:cove:h13:p268",
    "pages": [
     268
    ],
    "copies": 1,
    "name": "Endure",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 268
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -150709,13 +151949,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p269",
+   "id": "hero_skill:cove:h13:p269",
    "pages": [
     269
    ],
    "copies": 1,
    "name": "Endure",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 269
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -151242,13 +152486,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p270",
+   "id": "hero_skill:cove:h13:p270",
    "pages": [
     270
    ],
    "copies": 1,
    "name": "Endure",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 270
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -151775,13 +153023,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p271",
+   "id": "hero_skill:cove:h13:p271",
    "pages": [
     271
    ],
    "copies": 1,
    "name": "Suffer",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 271
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -152340,13 +153592,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p272",
+   "id": "hero_skill:cove:h13:p272",
    "pages": [
     272
    ],
    "copies": 1,
    "name": "Suffer",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 272
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -152905,13 +154161,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p273",
+   "id": "hero_skill:cove:h13:p273",
    "pages": [
     273
    ],
    "copies": 1,
    "name": "Suffer",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 273
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -153470,13 +154730,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p316",
+   "id": "hero_skill:weald:h16:p316",
    "pages": [
     316
    ],
    "copies": 1,
    "name": "Pierce",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 316
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -154000,13 +155264,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p317",
+   "id": "hero_skill:weald:h16:p317",
    "pages": [
     317
    ],
    "copies": 1,
    "name": "Pierce",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 317
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -154530,13 +155798,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p318",
+   "id": "hero_skill:weald:h16:p318",
    "pages": [
     318
    ],
    "copies": 1,
    "name": "Pierce",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 318
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -155060,13 +156332,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p319",
+   "id": "hero_skill:weald:h16:p319",
    "pages": [
     319
    ],
    "copies": 1,
    "name": "Puncture",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 319
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -155599,13 +156875,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p320",
+   "id": "hero_skill:weald:h16:p320",
    "pages": [
     320
    ],
    "copies": 1,
    "name": "Puncture",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 320
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -156143,13 +157423,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p321",
+   "id": "hero_skill:weald:h16:p321",
    "pages": [
     321
    ],
    "copies": 1,
    "name": "Puncture",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 321
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -156687,13 +157971,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p322",
+   "id": "hero_skill:weald:h16:p322",
    "pages": [
     322
    ],
    "copies": 1,
    "name": "Adder’s Kiss",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 322
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -157278,13 +158566,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p323",
+   "id": "hero_skill:weald:h16:p323",
    "pages": [
     323
    ],
    "copies": 1,
    "name": "Adder’s Kiss",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 323
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -157869,13 +159161,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p324",
+   "id": "hero_skill:weald:h16:p324",
    "pages": [
     324
    ],
    "copies": 1,
    "name": "Adder’s Kiss",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 324
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -158460,13 +159756,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p325",
+   "id": "hero_skill:weald:h16:p325",
    "pages": [
     325
    ],
    "copies": 1,
    "name": "Impale",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 325
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -159104,13 +160404,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p326",
+   "id": "hero_skill:weald:h16:p326",
    "pages": [
     326
    ],
    "copies": 1,
    "name": "Impale",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 326
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -159748,13 +161052,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p327",
+   "id": "hero_skill:weald:h16:p327",
    "pages": [
     327
    ],
    "copies": 1,
    "name": "Impale",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 327
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -160392,13 +161700,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p328",
+   "id": "hero_skill:weald:h16:p328",
    "pages": [
     328
    ],
    "copies": 1,
    "name": "Expose",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 328
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -160949,13 +162261,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p329",
+   "id": "hero_skill:weald:h16:p329",
    "pages": [
     329
    ],
    "copies": 1,
    "name": "Expose",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 329
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -161506,13 +162822,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p330",
+   "id": "hero_skill:weald:h16:p330",
    "pages": [
     330
    ],
    "copies": 1,
    "name": "Expose",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 330
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -162063,13 +163383,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p331",
+   "id": "hero_skill:weald:h16:p331",
    "pages": [
     331
    ],
    "copies": 1,
    "name": "Captivate",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 331
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -162657,13 +163981,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p332",
+   "id": "hero_skill:weald:h16:p332",
    "pages": [
     332
    ],
    "copies": 1,
    "name": "Captivate",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 332
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -163251,13 +164579,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p333",
+   "id": "hero_skill:weald:h16:p333",
    "pages": [
     333
    ],
    "copies": 1,
    "name": "Captivate",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 333
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -163845,13 +165177,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p334",
+   "id": "hero_skill:weald:h16:p334",
    "pages": [
     334
    ],
    "copies": 1,
    "name": "Serpent Sway",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 334
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -164295,13 +165631,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p335",
+   "id": "hero_skill:weald:h16:p335",
    "pages": [
     335
    ],
    "copies": 1,
    "name": "Serpent Sway",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 335
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -164745,13 +166085,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p336",
+   "id": "hero_skill:weald:h16:p336",
    "pages": [
     336
    ],
    "copies": 1,
    "name": "Serpent Sway",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 336
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -165332,13 +166676,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p337",
+   "id": "hero_skill:weald:h17:p337",
    "pages": [
     337
    ],
    "copies": 1,
    "name": "Hound’s Rush",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 337
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -165970,13 +167318,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p338",
+   "id": "hero_skill:weald:h17:p338",
    "pages": [
     338
    ],
    "copies": 1,
    "name": "Hound’s Rush",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 338
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -166608,13 +167960,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p339",
+   "id": "hero_skill:weald:h17:p339",
    "pages": [
     339
    ],
    "copies": 1,
    "name": "Hound’s Rush",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 339
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -167246,13 +168602,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p340",
+   "id": "hero_skill:weald:h17:p340",
    "pages": [
     340
    ],
    "copies": 1,
    "name": "Hound’s Harry",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 340
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -167853,13 +169213,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p341",
+   "id": "hero_skill:weald:h17:p341",
    "pages": [
     341
    ],
    "copies": 1,
    "name": "Hound’s Harry",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 341
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -168460,13 +169824,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p342",
+   "id": "hero_skill:weald:h17:p342",
    "pages": [
     342
    ],
    "copies": 1,
    "name": "Hound’s Harry",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 342
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -169067,13 +170435,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p343",
+   "id": "hero_skill:weald:h17:p343",
    "pages": [
     343
    ],
    "copies": 1,
    "name": "Target Whistle",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 343
+   },
    "printed_labels": [
     {
      "label": "Acc",
@@ -169538,13 +170910,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p344",
+   "id": "hero_skill:weald:h17:p344",
    "pages": [
     344
    ],
    "copies": 1,
    "name": "Target Whistle",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 344
+   },
    "printed_labels": [
     {
      "label": "Acc",
@@ -169978,13 +171354,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p345",
+   "id": "hero_skill:weald:h17:p345",
    "pages": [
     345
    ],
    "copies": 1,
    "name": "Target Whistle",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 345
+   },
    "printed_labels": [
     {
      "label": "Acc",
@@ -170418,13 +171798,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p346",
+   "id": "hero_skill:weald:h17:p346",
    "pages": [
     346
    ],
    "copies": 1,
    "name": "Cry Havoc",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 346
+   },
    "printed_labels": [
     {
      "label": "Acc",
@@ -170979,13 +172363,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p347",
+   "id": "hero_skill:weald:h17:p347",
    "pages": [
     347
    ],
    "copies": 1,
    "name": "Cry Havoc",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 347
+   },
    "printed_labels": [
     {
      "label": "Acc",
@@ -171569,13 +172957,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p348",
+   "id": "hero_skill:weald:h17:p348",
    "pages": [
     348
    ],
    "copies": 1,
    "name": "Cry Havoc",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 348
+   },
    "printed_labels": [
     {
      "label": "Acc",
@@ -172159,13 +173551,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p349",
+   "id": "hero_skill:weald:h17:p349",
    "pages": [
     349
    ],
    "copies": 1,
    "name": "Guard Dog",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 349
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -172560,13 +173956,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p350",
+   "id": "hero_skill:weald:h17:p350",
    "pages": [
     350
    ],
    "copies": 1,
    "name": "Guard Dog",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 350
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -172961,13 +174361,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p351",
+   "id": "hero_skill:weald:h17:p351",
    "pages": [
     351
    ],
    "copies": 1,
    "name": "Guard Dog",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 351
+   },
    "printed_labels": [],
    "unlabeled_numbers": [
     {
@@ -173362,13 +174766,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p352",
+   "id": "hero_skill:weald:h17:p352",
    "pages": [
     352
    ],
    "copies": 1,
    "name": "Lick Wounds",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 352
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -173728,13 +175136,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p353",
+   "id": "hero_skill:weald:h17:p353",
    "pages": [
     353
    ],
    "copies": 1,
    "name": "Lick Wounds",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 353
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -174094,13 +175506,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p354",
+   "id": "hero_skill:weald:h17:p354",
    "pages": [
     354
    ],
    "copies": 1,
    "name": "Lick Wounds",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 354
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -174460,13 +175876,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:p355",
+   "id": "hero_skill:weald:h17:p355",
    "pages": [
     355
    ],
    "copies": 1,
    "name": "Blackjack",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 355
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -174940,13 +176360,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:p356",
+   "id": "hero_skill:weald:h17:p356",
    "pages": [
     356
    ],
    "copies": 1,
    "name": "Blackjack",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 356
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -175420,13 +176844,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:p357",
+   "id": "hero_skill:weald:h17:p357",
    "pages": [
     357
    ],
    "copies": 1,
    "name": "Blackjack",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 357
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -175900,13 +177328,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:musketeer:p001",
+   "id": "hero_skill:musketeer:h18:p358",
    "pages": [
     1
    ],
    "copies": 1,
    "name": "Aimed Shot",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 1
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -176412,13 +177844,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:musketeer:p002",
+   "id": "hero_skill:musketeer:h18:p359",
    "pages": [
     2
    ],
    "copies": 1,
    "name": "Aimed Shot",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 2
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -176924,13 +178360,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:musketeer:p003",
+   "id": "hero_skill:musketeer:h18:p360",
    "pages": [
     3
    ],
    "copies": 1,
    "name": "Aimed Shot",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 3
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -177436,13 +178876,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:musketeer:p004",
+   "id": "hero_skill:musketeer:h18:p361",
    "pages": [
     4
    ],
    "copies": 1,
    "name": "Smokescreen",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 4
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -177960,13 +179404,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:musketeer:p005",
+   "id": "hero_skill:musketeer:h18:p362",
    "pages": [
     5
    ],
    "copies": 1,
    "name": "Smokescreen",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 5
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -178484,13 +179932,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:musketeer:p006",
+   "id": "hero_skill:musketeer:h18:p363",
    "pages": [
     6
    ],
    "copies": 1,
    "name": "Smokescreen",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 6
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -179008,13 +180460,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:musketeer:p007",
+   "id": "hero_skill:musketeer:h18:p364",
    "pages": [
     7
    ],
    "copies": 1,
    "name": "Call the Shot",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 7
+   },
    "printed_labels": [
     {
      "label": "Acc",
@@ -179382,13 +180838,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:musketeer:p008",
+   "id": "hero_skill:musketeer:h18:p365",
    "pages": [
     8
    ],
    "copies": 1,
    "name": "Call the Shot",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 8
+   },
    "printed_labels": [
     {
      "label": "Acc",
@@ -179756,13 +181216,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:musketeer:p009",
+   "id": "hero_skill:musketeer:h18:p366",
    "pages": [
     9
    ],
    "copies": 1,
    "name": "Call the Shot",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 9
+   },
    "printed_labels": [
     {
      "label": "Acc",
@@ -180130,13 +181594,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:musketeer:p010",
+   "id": "hero_skill:musketeer:h18:p367",
    "pages": [
     10
    ],
    "copies": 1,
    "name": "Buckshot",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 10
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -180682,13 +182150,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:musketeer:p011",
+   "id": "hero_skill:musketeer:h18:p368",
    "pages": [
     11
    ],
    "copies": 1,
    "name": "Buckshot",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 11
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -181234,13 +182706,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:musketeer:p012",
+   "id": "hero_skill:musketeer:h18:p369",
    "pages": [
     12
    ],
    "copies": 1,
    "name": "Buckshot",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 12
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -181786,13 +183262,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:musketeer:p013",
+   "id": "hero_skill:musketeer:h18:p370",
    "pages": [
     13
    ],
    "copies": 1,
    "name": "Sidearm",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 13
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -182243,13 +183723,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:musketeer:p014",
+   "id": "hero_skill:musketeer:h18:p371",
    "pages": [
     14
    ],
    "copies": 1,
    "name": "Sidearm",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 14
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -182700,13 +184184,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:musketeer:p015",
+   "id": "hero_skill:musketeer:h18:p372",
    "pages": [
     15
    ],
    "copies": 1,
    "name": "Sidearm",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 15
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -183157,13 +184645,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:musketeer:p016",
+   "id": "hero_skill:musketeer:h18:p373",
    "pages": [
     16
    ],
    "copies": 1,
    "name": "Patch Up",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 16
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -183721,13 +185213,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:musketeer:p017",
+   "id": "hero_skill:musketeer:h18:p374",
    "pages": [
     17
    ],
    "copies": 1,
    "name": "Patch Up",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 17
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -184285,13 +185781,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:musketeer:p018",
+   "id": "hero_skill:musketeer:h18:p375",
    "pages": [
     18
    ],
    "copies": 1,
    "name": "Patch Up",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 18
+   },
    "printed_labels": [
     {
      "label": "Crit",
@@ -184849,13 +186349,17 @@
    "back_level": 3
   },
   {
-   "id": "hero_skill:musketeer:p019",
+   "id": "hero_skill:musketeer:h18:p376",
    "pages": [
     19
    ],
    "copies": 1,
    "name": "Skeet Shot",
    "level": 1,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 19
+   },
    "printed_labels": [
     {
      "label": "Acc",
@@ -185443,13 +186947,17 @@
    "back_level": 1
   },
   {
-   "id": "hero_skill:musketeer:p020",
+   "id": "hero_skill:musketeer:h18:p377",
    "pages": [
     20
    ],
    "copies": 1,
    "name": "Skeet Shot",
    "level": 2,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 20
+   },
    "printed_labels": [
     {
      "label": "Acc",
@@ -186048,13 +187556,17 @@
    "back_level": 2
   },
   {
-   "id": "hero_skill:musketeer:p021",
+   "id": "hero_skill:musketeer:h18:p378",
    "pages": [
     21
    ],
    "copies": 1,
    "name": "Skeet Shot",
    "level": 3,
+   "source": {
+    "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_44x68_SKILLS_FRONT.pdf",
+    "page": 21
+   },
    "printed_labels": [
     {
      "label": "Acc",

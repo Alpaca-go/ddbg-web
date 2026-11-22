@@ -1,4 +1,5 @@
 import type { NormalizedHeroSkillCard, Segment } from "./schema";
+import { legacyHeroSkillId } from "../hero-registry";
 
 export function lineSignature(line: readonly Segment[]): string {
   return line
@@ -28,7 +29,8 @@ export function attachVerifiedHeroLayout(
     ],
   };
   return cards.map((card) => {
-    if (card.id === "hero_skill:p106") {
+    const legacyId = legacyHeroSkillId(card);
+    if (legacyId === "hero_skill:p106") {
       const [move, guard] = card.effect_lines;
       if (
         card.name !== "Dirk Stab" ||
@@ -54,9 +56,9 @@ export function attachVerifiedHeroLayout(
       };
     }
     // FRONT p43 / p181：同一目标效果框跨两行，沿用该框实际标记，不改原始转录。
-    if (card.id === "hero_skill:p043" || card.id === "hero_skill:p181") {
+    if (legacyId === "hero_skill:p043" || legacyId === "hero_skill:p181") {
       const expected =
-        card.id === "hero_skill:p043"
+        legacyId === "hero_skill:p043"
           ? {
               hero: "BOUNTY HUNTER",
               name: "Collect Bounty",
@@ -110,7 +112,7 @@ export function attachVerifiedHeroLayout(
     }
     const page = card.pages[0]!;
     const original = reviewed[page];
-    if (!original || card.id !== `hero_skill:p0${page}`) return card;
+    if (!original || legacyId !== `hero_skill:p${String(page).padStart(3, "0")}`) return card;
     if (
       card.name !== "Adrenaline Rush" ||
       card.level !== page - 36 ||

@@ -121,7 +121,7 @@ it("固定seed17普通任务按原策略自然续行并严格回放真实停点"
 /** 真实卡技能的机制夹具，显式设置战斗位置／回合，不冒称自然部署。 */
 function battleFixture(): GameState {
   const dungeon = initial().dungeon!;
-  const skill = coreQuestSources.catalog.skills.find((s) => s.id === "hero_skill:p145")!;
+  const skill = coreQuestSources.catalog.skills.find((s) => s.id === "hero_skill:core:h07:p145")!;
   const stat = coreQuestSources.catalog.heroStats.find(
     (s) => s.id === "hero_stat:core:h07:p013:front",
   )!;
@@ -195,7 +195,7 @@ it("公开Disorienting Blast→Push→Ranged只触发一次，不从区域变化
     type: "playHeroSkill",
     actorId: "h",
     targetId: "m",
-    skillId: "hero_skill:p145",
+    skillId: "hero_skill:core:h07:p145",
     shuffleChoice: "push",
   });
   expect(result.events.filter((e) => e.type === "commandRefused")).toEqual([]);
@@ -244,7 +244,7 @@ it.each(["legacy", "ceased", "wrongPack"])("%s 不获得Pounder状态，非法�
     type: "playHeroSkill",
     actorId: "h",
     targetId: "m",
-    skillId: "hero_skill:p145",
+    skillId: "hero_skill:core:h07:p145",
     shuffleChoice: "push",
   });
   if (kind === "wrongPack") {

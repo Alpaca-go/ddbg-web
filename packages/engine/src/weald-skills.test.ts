@@ -20,23 +20,23 @@ const stat = (id: string) =>
   );
 
 const SB_L1 = [
-  ["hero_skill:p316", "Pierce"],
-  ["hero_skill:p319", "Puncture"],
-  ["hero_skill:p322", "Adder\u2019s Kiss"],
-  ["hero_skill:p325", "Impale"],
-  ["hero_skill:p328", "Expose"],
-  ["hero_skill:p331", "Captivate"],
-  ["hero_skill:p334", "Serpent Sway"],
+  ["hero_skill:weald:h16:p316", "Pierce"],
+  ["hero_skill:weald:h16:p319", "Puncture"],
+  ["hero_skill:weald:h16:p322", "Adder\u2019s Kiss"],
+  ["hero_skill:weald:h16:p325", "Impale"],
+  ["hero_skill:weald:h16:p328", "Expose"],
+  ["hero_skill:weald:h16:p331", "Captivate"],
+  ["hero_skill:weald:h16:p334", "Serpent Sway"],
 ] as const;
 
 const HM_L1 = [
-  ["hero_skill:p337", "Hound\u2019s Rush"],
-  ["hero_skill:p340", "Hound\u2019s Harry"],
-  ["hero_skill:p343", "Target Whistle"],
-  ["hero_skill:p346", "Cry Havoc"],
-  ["hero_skill:p349", "Guard Dog"],
-  ["hero_skill:p352", "Lick Wounds"],
-  ["hero_skill:p355", "Blackjack"],
+  ["hero_skill:weald:h17:p337", "Hound\u2019s Rush"],
+  ["hero_skill:weald:h17:p340", "Hound\u2019s Harry"],
+  ["hero_skill:weald:h17:p343", "Target Whistle"],
+  ["hero_skill:weald:h17:p346", "Cry Havoc"],
+  ["hero_skill:weald:h17:p349", "Guard Dog"],
+  ["hero_skill:weald:h17:p352", "Lick Wounds"],
+  ["hero_skill:weald:h17:p355", "Blackjack"],
 ] as const;
 
 function webQuestSources(): CoreQuestSources {
@@ -76,11 +76,14 @@ it("Weald：HM / Shieldbreaker 七张 I 级已核实；STAT life≠1", () => {
 it("两人可替补且战役 I 级技能已开放", () => {
   const sources = webQuestSources();
   type EmbarkSkill = Parameters<typeof embarkSkillAllowed>[1];
-  expect(embarkSkillAllowed("HOUNDMASTER", card("hero_skill:p352") as unknown as EmbarkSkill)).toBe(
-    true,
-  );
   expect(
-    embarkSkillAllowed("SHIELDBREAKER", card("hero_skill:p316") as unknown as EmbarkSkill),
+    embarkSkillAllowed("HOUNDMASTER", card("hero_skill:weald:h17:p352") as unknown as EmbarkSkill),
+  ).toBe(true);
+  expect(
+    embarkSkillAllowed(
+      "SHIELDBREAKER",
+      card("hero_skill:weald:h16:p316") as unknown as EmbarkSkill,
+    ),
   ).toBe(true);
   expect(heroHasUnwiredCombatSkills("SHIELDBREAKER")).toBe(false);
   expect(heroHasUnwiredCombatSkills("HOUNDMASTER")).toBe(false);

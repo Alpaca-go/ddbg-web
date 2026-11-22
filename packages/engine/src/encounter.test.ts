@@ -9,7 +9,7 @@ const cards = (
     readFileSync(new URL("../../data/normalized/corebox/hero_skill.json", import.meta.url), "utf8"),
   ) as { cards: HeroSkillCardView[] }
 ).cards;
-const skill = cards.find((card) => card.id === "hero_skill:p001")!;
+const skill = cards.find((card) => card.id === "hero_skill:core:h01:p001")!;
 const stances: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 function setup(seed = 0, monsters: Partial<BattleEntity>[] = [{}]): GameState {
   const heroes: BattleEntity[] = stances.map((stance, index) => ({
@@ -171,7 +171,7 @@ describe("普通遭遇战先攻与回合（R17–19、R25、R-025、R-030、R-03
   });
 
   it("无 Acc 自身技能也扣行动、锁定重用，但不消费 RNG", () => {
-    const transform = cards.find((card) => card.id === "hero_skill:p220")!;
+    const transform = cards.find((card) => card.id === "hero_skill:core:h11:p220")!;
     const initial = setup();
     const state = nextHero(
       start({
@@ -322,7 +322,7 @@ describe("普通遭遇战先攻与回合（R17–19、R25、R-025、R-030、R-03
   });
 
   it("方向和区域位移完成后扣一次行动；位移尚未应用时阻止后续回合操作", () => {
-    const blast = cards.find((card) => card.id === "hero_skill:p145")!;
+    const blast = cards.find((card) => card.id === "hero_skill:core:h07:p145")!;
     const initial = setup();
     const changed: GameState = {
       ...initial,

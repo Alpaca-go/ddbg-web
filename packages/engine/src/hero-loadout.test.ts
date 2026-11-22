@@ -81,14 +81,16 @@ it("R-051槽数与拥有七技能推导：永久移除阶梯指向当前拥有�
   expect(unequippedHeroSkills(hero, catalog)).toHaveLength(4);
   const unequippedOwned = {
     heroStatId: hero.heroStatId!,
-    skillIds: hero.skillIds!.filter((id) => id !== "hero_skill:p001"),
-    permanentlyRemovedSkillIds: ["hero_skill:p001"] as const,
+    skillIds: hero.skillIds!.filter((id) => id !== "hero_skill:core:h01:p001"),
+    permanentlyRemovedSkillIds: ["hero_skill:core:h01:p001"] as const,
   };
   expect(ownedHeroSkills(unequippedOwned, catalog)!.find((s) => s.name === "Smite")!.id).toBe(
-    "hero_skill:p002",
+    "hero_skill:core:h01:p002",
   );
   expect(
-    unequippedHeroSkills(unequippedOwned, catalog)!.some((s) => s.id === "hero_skill:p002"),
+    unequippedHeroSkills(unequippedOwned, catalog)!.some(
+      (s) => s.id === "hero_skill:core:h01:p002",
+    ),
   ).toBe(true);
 });
 

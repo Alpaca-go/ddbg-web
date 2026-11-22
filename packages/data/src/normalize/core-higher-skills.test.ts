@@ -2,7 +2,9 @@ import { expect, it } from "vitest";
 import { attachCoreHigherSkills } from "./core-higher-skills";
 import { loadNormalizedCorebox } from "./write";
 
-const card = loadNormalizedCorebox().hero_skill.cards.find((c) => c.id === "hero_skill:p110")!;
+const card = loadNormalizedCorebox().hero_skill.cards.find(
+  (c) => c.id === "hero_skill:core:h06:p110",
+)!;
 it("higher skills reject name, level, duration, and icon approval drift", () => {
   for (const patch of [
     { name: "Other" },

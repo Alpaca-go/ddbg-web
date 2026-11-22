@@ -35,7 +35,7 @@ const skill = (
       "utf8",
     ),
   ) as { cards: HeroSkillCardView[] }
-).cards.find((card) => card.id === "hero_skill:p001")!;
+).cards.find((card) => card.id === "hero_skill:core:h01:p001")!;
 
 const stances: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 

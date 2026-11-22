@@ -157,7 +157,7 @@ it("Warning Rattle反击按真实Smite伤害7返4，不重掷攻击骰", () => {
     type: "playHeroSkill",
     actorId: "hero-0",
     targetId: "m",
-    skillId: "hero_skill:p001",
+    skillId: "hero_skill:core:h01:p001",
   };
   const free: GameState = {
     ...result.state,

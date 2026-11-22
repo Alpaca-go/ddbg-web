@@ -99,7 +99,7 @@ it("Collector I 胜利归还三个宝箱并回村只结算一次 XP", () => {
     type: "playHeroSkill",
     actorId: "hero-0",
     targetId: boss.id,
-    skillId: "hero_skill:p001",
+    skillId: "hero_skill:core:h01:p001",
   });
   expect(won.battle!.encounter!.turn).toEqual({ type: "finished", outcome: "victory" });
   const survivor = {

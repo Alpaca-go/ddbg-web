@@ -28,9 +28,9 @@ export const FORMAL_HEROES_PARTIAL_CORE_SKILLS: readonly FormalHeroName[] = [];
 
 /** Abomination 双面变身卡：规范化 `hero` 为 null，出征/替补按英雄归属。 */
 export const ABOMINATION_DOUBLE_FACED_SKILL_IDS: Record<1 | 2 | 3, string> = {
-  1: "hero_skill:p220",
-  2: "hero_skill:p221",
-  3: "hero_skill:p222",
+  1: "hero_skill:core:h11:p220",
+  2: "hero_skill:core:h11:p221",
+  3: "hero_skill:core:h11:p222",
 };
 
 const EXTENSION_ROSTER_HEROES: readonly FormalHeroName[] = [];
@@ -66,25 +66,25 @@ const ROSTER_PENDING_STAT_IDS: Record<FormalHeroName, string> = {
 };
 
 /** 与 tools/pipeline/print-card-art/fixtures/print-hero-18-art-catalog.mjs EXTENSION_SKILL_BLOCKS 对齐。 */
-/** Antiquarian / Leper：规范化 `hero_skill:p274`–`p315`（TDH 印刷页，见 Q-103）。 */
+/** Antiquarian / Leper：规范化 `hero_skill:warrens:h14:p274`–`p315`（TDH 印刷页，见 Q-103）。 */
 export const WARRENS_VERIFIED_SKILL_PAGE_BLOCKS = [
   { hero: "LEPER" as const, startPage: 274, count: 21 },
   { hero: "ANTIQUARIAN" as const, startPage: 295, count: 21 },
 ] as const;
 
-/** Man-at-Arms / Flagellant：规范化 `hero_skill:p232`–`p273`（TDH 印刷页，见 Q-105）。 */
+/** Man-at-Arms / Flagellant：规范化 `hero_skill:cove:h12:p232`–`p273`（TDH 印刷页，见 Q-105）。 */
 export const COVE_VERIFIED_SKILL_PAGE_BLOCKS = [
   { hero: "MAN-AT-ARMS" as const, startPage: 232, count: 21 },
   { hero: "FLAGELLANT" as const, startPage: 253, count: 21 },
 ] as const;
 
-/** Shieldbreaker / Houndmaster：规范化 `hero_skill:p316`–`p357`（TDH 印刷页，见 Q-106）。 */
+/** Shieldbreaker / Houndmaster：规范化 `hero_skill:weald:h16:p316`–`p357`（TDH 印刷页，见 Q-106）。 */
 export const WEALD_VERIFIED_SKILL_PAGE_BLOCKS = [
   { hero: "SHIELDBREAKER" as const, startPage: 316, count: 21 },
   { hero: "HOUNDMASTER" as const, startPage: 337, count: 21 },
 ] as const;
 
-/** Musketeer：规范化 `hero_skill:musketeer:p001`–`p021`（MG_DD_08 包 p1–21，见 Q-107）。 */
+/** Musketeer：规范化 `hero_skill:musketeer:h18:p358`–`p378`（MG_DD_08 包 p1–21，见 Q-107）。 */
 export const MUSKETEER_VERIFIED_SKILL_PAGE_BLOCKS = [
   { hero: "MUSKETEER" as const, startPage: 1, count: 21 },
 ] as const;

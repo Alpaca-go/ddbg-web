@@ -3,12 +3,15 @@ import { describe, expect, it } from "vitest";
 import { applyCommand, createBattleState, resolveHeroSkill } from "./index";
 import type { BattleEntity, BattleSetup, Command, HeroSkillCardView } from "./index";
 import { loadNormalizedCorebox } from "../../data/src/normalize/write";
+import { heroSkillIdForPage } from "../../data/src/hero-registry";
 
 const file = JSON.parse(
   readFileSync(new URL("../../data/normalized/corebox/hero_skill.json", import.meta.url), "utf8"),
 ) as { cards: HeroSkillCardView[] };
 function card(id: string): HeroSkillCardView {
-  const found = file.cards.find((entry) => entry.id === `hero_skill:${id}`);
+  const found = file.cards.find(
+    (entry) => entry.id === heroSkillIdForPage(Number(String(id).replace(/^p/, ""))),
+  );
   if (!found) throw new Error(`缺少技能 ${id}`);
   return found;
 }

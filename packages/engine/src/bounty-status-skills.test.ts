@@ -17,10 +17,10 @@ const stat = clean<NonNullable<BattleSetup["heroStats"]>[number] & { dodge: numb
   data.hero_stat.cards.find((c) => c.id === "hero_stat:core:h03:p005:front")!,
 );
 const mark = clean<HeroSkillCardView>(
-  data.hero_skill.cards.find((c) => c.id === "hero_skill:p046")!,
+  data.hero_skill.cards.find((c) => c.id === "hero_skill:core:h03:p046")!,
 );
 const caltrops = clean<HeroSkillCardView>(
-  data.hero_skill.cards.find((c) => c.id === "hero_skill:p061")!,
+  data.hero_skill.cards.find((c) => c.id === "hero_skill:core:h03:p061")!,
 );
 const monster = clean<MonsterCardView & { life: number }>(
   data.monster_medium.cards.find((c) => c.id === "monster_medium:p021")!,

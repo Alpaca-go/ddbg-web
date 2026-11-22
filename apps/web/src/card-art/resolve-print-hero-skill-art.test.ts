@@ -40,7 +40,7 @@ describe("print hero skill art map (Kyries CSV)", () => {
   });
 
   it("binds Smite I to SKILLS_FRONT p001", () => {
-    const smite = lookupPrintHeroSkillFace("hero_skill:p001");
+    const smite = lookupPrintHeroSkillFace("hero_skill:core:h01:p001");
     expect(smite).toMatchObject({
       name: "Smite",
       level: 1,

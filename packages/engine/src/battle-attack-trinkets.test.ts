@@ -20,7 +20,7 @@ const cards = normalizedTrinketFileSchema.parse(rawTrinkets).cards;
 function fixture(
   ids: readonly (HeroSkillTrinketId | CoreTrinketId)[],
   stance: SkillStance = "aggressive",
-  skillId = "hero_skill:p001",
+  skillId = "hero_skill:core:h01:p001",
   face: "upright" | "inverted" = "upright",
   seed = 4,
   monsterId = "monster_medium:p001",
@@ -48,7 +48,7 @@ function fixture(
       life: stat.life,
       stance: stances[i]!,
       areaId: "a",
-      skillIds: i ? [] : [skillId, ...(name === "CRUSADER" ? ["hero_skill:p007"] : [])],
+      skillIds: i ? [] : [skillId, ...(name === "CRUSADER" ? ["hero_skill:core:h01:p007"] : [])],
       wounds: 0,
       stress: 3,
       dodge: stat.dodge!,
@@ -67,7 +67,13 @@ function fixture(
     life: monster.life,
     stance: "aggressive",
     stanceSlots: 1,
-    areaId: ["hero_skill:p001", "hero_skill:p070", "hero_skill:p028"].includes(skillId) ? "a" : "b",
+    areaId: [
+      "hero_skill:core:h01:p001",
+      "hero_skill:core:h04:p070",
+      "hero_skill:core:h02:p028",
+    ].includes(skillId)
+      ? "a"
+      : "b",
     skillIds: [],
     wounds: 0,
     dodge: monster.dodge,
@@ -138,7 +144,13 @@ it.each([
   [4, "miss", "hit"], // d10=10：Smite Acc9，+1才命中。
   [7, "hit", "crit"], // d10=1：Smite Crit0，+1才暴击。
 ] as const)("Fortunate Armlet同时提供Acc+1与Crit+1：seed%s", (seed, before, after) => {
-  const { state, command } = fixture([armlet], "aggressive", "hero_skill:p001", "upright", seed);
+  const { state, command } = fixture(
+    [armlet],
+    "aggressive",
+    "hero_skill:core:h01:p001",
+    "upright",
+    seed,
+  );
   const opened = ok(applyCommand(state, command));
   expect(opened.pendingChoice!.options[1]!.label).toContain("Acc+1、Crit+1");
   expect(outcome(choose(opened, "continue"))!.resolution.outcome).toBe(before);
@@ -151,7 +163,11 @@ it.each([
 });
 
 it("Fortunate Armlet多饰品/多目标共骰，只翻一次，旧十二张名单不新增选项", () => {
-  const { state, command } = fixture([armlet, "trinket:p006"], "aggressive", "hero_skill:p004");
+  const { state, command } = fixture(
+    [armlet, "trinket:p006"],
+    "aggressive",
+    "hero_skill:core:h01:p004",
+  );
   const opened = ok(
     applyCommand(state, { ...command, type: "playHeroSkillTargets", targetIds: ["m", "m2"] }),
   );
@@ -184,7 +200,7 @@ it("Fortunate Armlet多饰品/多目标共骰，只翻一次，旧十二张名�
 });
 
 it("Fortunate Armlet反面免费加压，不改技能骰/行动，下一角色回合才能再用", () => {
-  const { state } = fixture([armlet], "aggressive", "hero_skill:p001", "inverted");
+  const { state } = fixture([armlet], "aggressive", "hero_skill:core:h01:p001", "inverted");
   const before = structuredClone(state);
   const result = ok(applyCommand(state, useArmlet));
   expect(fortunateArmletUseProblem(state, "h0")).toBeNull();
@@ -204,7 +220,7 @@ it("Fortunate Armlet反面免费加压，不改技能骰/行动，下一角色�
       type: "playHeroSkill",
       actorId: "h0",
       targetId: "m",
-      skillId: "hero_skill:p001",
+      skillId: "hero_skill:core:h01:p001",
       trinketWindow: HERO_SKILL_TRINKET_IDS,
     }),
   );
@@ -213,7 +229,7 @@ it("Fortunate Armlet反面免费加压，不改技能骰/行动，下一角色�
       type: "playHeroSkill",
       actorId: "h0",
       targetId: "m2",
-      skillId: "hero_skill:p007",
+      skillId: "hero_skill:core:h01:p007",
       trinketWindow: HERO_SKILL_TRINKET_IDS,
     }),
   );
@@ -224,14 +240,14 @@ it("Fortunate Armlet反面免费加压，不改技能骰/行动，下一角色�
 });
 
 it("Fortunate Armlet无Crit栏仍可加Acc；自身位移待选沿用原骰和两项修正", () => {
-  const status = fixture([armlet], "aggressive", "hero_skill:p028", "upright", 4);
+  const status = fixture([armlet], "aggressive", "hero_skill:core:h02:p028", "upright", 4);
   const opened = ok(applyCommand(status.state, status.command));
   expect(opened.pendingChoice!.options.map((o) => o.id)).toContain(armlet);
   expect(outcome(choose(opened, armlet))!.resolution.outcome).toBe("hit");
   const { state: initial, command } = fixture(
     [armlet],
     "aggressive",
-    "hero_skill:p070",
+    "hero_skill:core:h04:p070",
     "upright",
     18,
   );
@@ -274,7 +290,7 @@ it("Fortunate Armlet无Crit栏仍可加Acc；自身位移待选沿用原骰和�
 });
 
 it("Fortunate Armlet反面经低光和Nervous加压，意志/心脏病及牌堆缺失沿原收尾", () => {
-  const { state } = fixture([armlet], "aggressive", "hero_skill:p001", "inverted");
+  const { state } = fixture([armlet], "aggressive", "hero_skill:core:h01:p001", "inverted");
   const nervous: GameState = {
     ...state,
     battle: {
@@ -337,7 +353,12 @@ it("Fortunate Armlet反面经低光和Nervous加压，意志/心脏病及牌堆�
 });
 
 it("Fortunate Armlet反面可在他人及已定位怪物回合使用，不能插入未完成结算", () => {
-  const { state, command } = fixture([armlet], "aggressive", "hero_skill:p001", "inverted");
+  const { state, command } = fixture(
+    [armlet],
+    "aggressive",
+    "hero_skill:core:h01:p001",
+    "inverted",
+  );
   const other: GameState = {
     ...state,
     battle: {
@@ -399,7 +420,7 @@ it("Fortunate Armlet反面可在他人及已定位怪物回合使用，不能插
 
 it("Fortunate Armlet正反面卡面漂移均拒绝，不消费骰、翻面或压力", () => {
   for (const face of ["upright", "inverted"] as const) {
-    const { state, command } = fixture([armlet], "aggressive", "hero_skill:p001", face);
+    const { state, command } = fixture([armlet], "aggressive", "hero_skill:core:h01:p001", face);
     const card = state.battle.trinkets!.cards.find((c) => c.id === armlet)!;
     const glyph = card.inverted_half.effect_lines[0]![0]!;
     if (glyph.type !== "icon") throw new Error("缺压力图标");
@@ -452,11 +473,11 @@ it("Fortunate Armlet正反面卡面漂移均拒绝，不消费骰、翻面或压
 });
 
 it.each([
-  ["trinket:p001", "aggressive", "hero_skill:p001"],
-  ["trinket:p002", "ranged", "hero_skill:p067"],
-  ["trinket:p009", "support", "hero_skill:p088"],
-  ["trinket:p014", "defensive", "hero_skill:p001"],
-  ["trinket:p013", "aggressive", "hero_skill:p001"],
+  ["trinket:p001", "aggressive", "hero_skill:core:h01:p001"],
+  ["trinket:p002", "ranged", "hero_skill:core:h04:p067"],
+  ["trinket:p009", "support", "hero_skill:core:h05:p088"],
+  ["trinket:p014", "defensive", "hero_skill:core:h01:p001"],
+  ["trinket:p013", "aggressive", "hero_skill:core:h01:p001"],
 ] as const)("%s：正面精确补足命中差值，反面−1令原命中变落空", (id, stance, skill) => {
   // 骰10：命中石对 Dodge0 的骷髅士兵补1；其余对 Dodge1 的骷髅廷臣须补足2。
   const { state, command } = fixture(
@@ -486,10 +507,10 @@ it.each([
 });
 
 it.each([
-  ["trinket:p002", "support", "hero_skill:p067"],
-  ["trinket:p009", "ranged", "hero_skill:p088"],
-  ["trinket:p014", "aggressive", "hero_skill:p001"],
-  ["trinket:p013", "defensive", "hero_skill:p001"],
+  ["trinket:p002", "support", "hero_skill:core:h04:p067"],
+  ["trinket:p009", "ranged", "hero_skill:core:h05:p088"],
+  ["trinket:p014", "aggressive", "hero_skill:core:h01:p001"],
+  ["trinket:p013", "defensive", "hero_skill:core:h01:p001"],
 ] as const)("%s：姿态不符不提供正面，反面不额外要求姿态", (id, stance, skill) => {
   const { state, command } = fixture([id], stance, skill);
   const result = ok(applyCommand(state, command));
@@ -504,7 +525,7 @@ it.each([
 it.each(["trinket:p001", "trinket:p013"] as const)(
   "%s：新名单多目标技能共骰并只翻一次，两目标均由落空变命中",
   (id) => {
-    const { state, command } = fixture([id], "aggressive", "hero_skill:p004");
+    const { state, command } = fixture([id], "aggressive", "hero_skill:core:h01:p004");
     const window = ok(
       applyCommand(state, {
         type: "playHeroSkillTargets",
@@ -630,7 +651,11 @@ it.each(["trinket:p001", "trinket:p013"] as const)(
     expect(first.state.battle!.usedTrinketIds).toEqual([id]);
     expect(first.state.battle!.encounter!.turn).toMatchObject({ actions: 1 });
     const second = ok(
-      applyCommand(first.state, { ...command, targetId: "m2", skillId: "hero_skill:p007" }),
+      applyCommand(first.state, {
+        ...command,
+        targetId: "m2",
+        skillId: "hero_skill:core:h01:p007",
+      }),
     );
     expect(second.pendingChoice!.options.map((o) => o.id)).toEqual(["continue", "trinket:p006"]);
     expect(choose(second, "trinket:p006").state.battle!.usedTrinketIds).toEqual([
@@ -705,10 +730,22 @@ it("Warrior’s Bracer的新旧能力名单与JSON续接：旧十一张不增窗
 });
 
 const stanceRings = [
-  ["trinket:p031", "ranged", "hero_skill:p067", "support", "hero_skill:p088"],
-  ["trinket:p032", "aggressive", "hero_skill:p001", "defensive", "hero_skill:p001"],
-  ["trinket:p033", "defensive", "hero_skill:p001", "aggressive", "hero_skill:p001"],
-  ["trinket:p034", "support", "hero_skill:p088", "ranged", "hero_skill:p067"],
+  ["trinket:p031", "ranged", "hero_skill:core:h04:p067", "support", "hero_skill:core:h05:p088"],
+  [
+    "trinket:p032",
+    "aggressive",
+    "hero_skill:core:h01:p001",
+    "defensive",
+    "hero_skill:core:h01:p001",
+  ],
+  [
+    "trinket:p033",
+    "defensive",
+    "hero_skill:core:h01:p001",
+    "aggressive",
+    "hero_skill:core:h01:p001",
+  ],
+  ["trinket:p034", "support", "hero_skill:core:h05:p088", "ranged", "hero_skill:core:h04:p067"],
 ] as const;
 
 it.each(stanceRings)(
@@ -762,7 +799,7 @@ it("III级戒指与I级饰品共骰逐件选择，旧五张名单及true标记�
   const { state, command } = fixture(
     ["trinket:p032", "trinket:p006"],
     "aggressive",
-    "hero_skill:p001",
+    "hero_skill:core:h01:p001",
     "upright",
     18,
   );
@@ -793,19 +830,25 @@ it("III级戒指与I级饰品共骰逐件选择，旧五张名单及true标记�
   }
   expect(savedCommandSchema.parse(command)).toEqual(command);
   const second = ok(
-    applyCommand(final.state, { ...command, skillId: "hero_skill:p007", targetId: "m2" }),
+    applyCommand(final.state, { ...command, skillId: "hero_skill:core:h01:p007", targetId: "m2" }),
   );
   expect(second.pendingChoice).toBeUndefined();
   expect(second.state.battle!.usedTrinketIds).toEqual(final.state.battle!.usedTrinketIds);
 });
 
 it("姿态戒指多目标共骰，只翻一次且暴击压力不按目标重复", () => {
-  const { state } = fixture(["trinket:p033"], "defensive", "hero_skill:p004", "upright", 18);
+  const { state } = fixture(
+    ["trinket:p033"],
+    "defensive",
+    "hero_skill:core:h01:p004",
+    "upright",
+    18,
+  );
   const window = ok(
     applyCommand(state, {
       type: "playHeroSkillTargets",
       actorId: "h0",
-      skillId: "hero_skill:p004",
+      skillId: "hero_skill:core:h01:p004",
       targetIds: ["m", "m2"],
       trinketWindow: HERO_SKILL_TRINKET_IDS,
     }),
@@ -863,7 +906,7 @@ it("戒指修正经过Point Blank Shot自身位移续接，只消费一次骰面
   const { state, command } = fixture(
     ["trinket:p032"],
     "aggressive",
-    "hero_skill:p070",
+    "hero_skill:core:h04:p070",
     "upright",
     14,
   );
@@ -884,9 +927,9 @@ it("戒指修正经过Point Blank Shot自身位移续接，只消费一次骰面
 });
 
 it("无Crit栏的技能不提供正面，反面仅要求Acc且姿态适用", () => {
-  const front = fixture(["trinket:p033"], "defensive", "hero_skill:p028");
+  const front = fixture(["trinket:p033"], "defensive", "hero_skill:core:h02:p028");
   expect(ok(applyCommand(front.state, front.command)).pendingChoice).toBeUndefined();
-  const back = fixture(["trinket:p033"], "aggressive", "hero_skill:p028", "inverted");
+  const back = fixture(["trinket:p033"], "aggressive", "hero_skill:core:h02:p028", "inverted");
   const opened = ok(applyCommand(back.state, back.command));
   expect(opened.pendingChoice!.options.map((o) => o.id)).toContain("trinket:p033");
   expect(choose(opened, "trinket:p033").state.battle!.trinkets!.held[0]!.face).toBe("upright");
@@ -901,7 +944,7 @@ it.each(["trinket:p021", "trinket:p026"] as const)(
         const { state, command } = fixture(
           [id],
           "aggressive",
-          "hero_skill:p001",
+          "hero_skill:core:h01:p001",
           face,
           0,
           "monster_medium:p001",
@@ -939,7 +982,7 @@ it.each(["trinket:p021", "trinket:p026"] as const)(
           const above = fixture(
             [id],
             "aggressive",
-            "hero_skill:p001",
+            "hero_skill:core:h01:p001",
             face,
             18,
             "monster_medium:p001",
@@ -959,7 +1002,7 @@ it("反面取消含Unholy加成的伤害与反弹，保留命中状态及光照�
   const run = fixture(
     ["trinket:p021"],
     "aggressive",
-    "hero_skill:p001",
+    "hero_skill:core:h01:p001",
     "inverted",
     18,
     "monster_medium:p001",
@@ -987,7 +1030,7 @@ it("反面取消含Unholy加成的伤害与反弹，保留命中状态及光照�
   const status = fixture(
     ["trinket:p021"],
     "support",
-    "hero_skill:p091",
+    "hero_skill:core:h05:p091",
     "inverted",
     18,
     "monster_medium:p001",
@@ -1006,7 +1049,7 @@ it("先用命中石将落空改为命中，才提供反面零伤害；选择暂�
   const run = fixture(
     ["trinket:p021", "trinket:p001"],
     "aggressive",
-    "hero_skill:p001",
+    "hero_skill:core:h01:p001",
     "upright",
     4,
     "monster_medium:p001",
@@ -1043,7 +1086,7 @@ it("若Acc惩罚会令已选零伤害失去命中条件，则不提供该无效�
   const { state, command } = fixture(
     ["trinket:p021", "trinket:p006"],
     "aggressive",
-    "hero_skill:p001",
+    "hero_skill:core:h01:p001",
     "inverted",
     2,
     "monster_medium:p001",
@@ -1067,7 +1110,7 @@ it("反面多目标共骰仍为暴击、零伤害，只翻一次；纯状态技�
   const { state } = fixture(
     ["trinket:p021"],
     "defensive",
-    "hero_skill:p004",
+    "hero_skill:core:h01:p004",
     "inverted",
     7,
     "monster_medium:p001",
@@ -1077,7 +1120,7 @@ it("反面多目标共骰仍为暴击、零伤害，只翻一次；纯状态技�
     applyCommand(state, {
       type: "playHeroSkillTargets",
       actorId: "h0",
-      skillId: "hero_skill:p004",
+      skillId: "hero_skill:core:h01:p004",
       targetIds: ["m", "m2"],
       trinketWindow: HERO_SKILL_TRINKET_IDS,
     }),
@@ -1103,7 +1146,7 @@ it("反面多目标共骰仍为暴击、零伤害，只翻一次；纯状态技�
   const status = fixture(
     ["trinket:p021"],
     "aggressive",
-    "hero_skill:p028",
+    "hero_skill:core:h02:p028",
     "inverted",
     18,
     "monster_medium:p001",
@@ -1116,7 +1159,7 @@ it("反面零伤害经过自身位移续接，仍保留目标推离、一次骰�
   const { state: initial, command } = fixture(
     ["trinket:p026"],
     "aggressive",
-    "hero_skill:p070",
+    "hero_skill:core:h04:p070",
     "inverted",
     18,
     "monster_medium:p001",
@@ -1157,7 +1200,7 @@ it("多目标中先落空的目标不掩盖后面的命中；按当前共骰结�
   const run = fixture(
     ["trinket:p021", "trinket:p001"],
     "defensive",
-    "hero_skill:p004",
+    "hero_skill:core:h01:p004",
     "upright",
     4,
     "monster_medium:p001",
@@ -1185,7 +1228,7 @@ it("多目标中先落空的目标不掩盖后面的命中；按当前共骰结�
     applyCommand(state, {
       type: "playHeroSkillTargets",
       actorId: "h0",
-      skillId: "hero_skill:p004",
+      skillId: "hero_skill:core:h01:p004",
       targetIds: ["m2", "m"],
       trinketWindow: HERO_SKILL_TRINKET_IDS,
     }),
@@ -1207,7 +1250,7 @@ it("旧九张能力名单不启用护腕；比较符漂移、光照篡改的待�
   const { state, command } = fixture(
     ["trinket:p021"],
     "aggressive",
-    "hero_skill:p001",
+    "hero_skill:core:h01:p001",
     "inverted",
     18,
     "monster_medium:p001",
@@ -1273,7 +1316,13 @@ function withoutTrinkets(command: PlayHeroSkillCommand): PlayHeroSkillCommand {
   return legacy;
 }
 it.each([false, true])("Damage Stone +3在Protection前相加：protection=%s", (protection) => {
-  const { state, command } = fixture([damageStone], "aggressive", "hero_skill:p001", "upright", 7);
+  const { state, command } = fixture(
+    [damageStone],
+    "aggressive",
+    "hero_skill:core:h01:p001",
+    "upright",
+    7,
+  );
   const prepared = {
     ...state,
     battle: {
@@ -1304,9 +1353,9 @@ it.each([false, true])("Damage Stone +3在Protection前相加：protection=%s", 
 it("Damage Stone落空及反面不提供，旧十三张名单无新增选择", () => {
   const miss = fixture([damageStone]);
   expect(ok(applyCommand(miss.state, miss.command)).pendingChoice).toBeUndefined();
-  const back = fixture([damageStone], "aggressive", "hero_skill:p001", "inverted", 7);
+  const back = fixture([damageStone], "aggressive", "hero_skill:core:h01:p001", "inverted", 7);
   expect(ok(applyCommand(back.state, back.command)).pendingChoice).toBeUndefined();
-  const old = fixture([damageStone], "aggressive", "hero_skill:p001", "upright", 7);
+  const old = fixture([damageStone], "aggressive", "hero_skill:core:h01:p001", "upright", 7);
   expect(
     ok(
       applyCommand(old.state, {
@@ -1317,7 +1366,13 @@ it("Damage Stone落空及反面不提供，旧十三张名单无新增选择", (
   ).toBeUndefined();
 });
 it("Damage Stone多目标共享同一骰，翻面一次且每目标加3", () => {
-  const { state, command } = fixture([damageStone], "aggressive", "hero_skill:p004", "upright", 7);
+  const { state, command } = fixture(
+    [damageStone],
+    "aggressive",
+    "hero_skill:core:h01:p004",
+    "upright",
+    7,
+  );
   const multi = {
     type: "playHeroSkillTargets" as const,
     actorId: "h0",
@@ -1343,7 +1398,7 @@ it("Damage Stone卡面漂移拒绝；与Critical Stone同技能暴击叠加仍�
   const { state, command } = fixture(
     [damageStone, "trinket:p006"],
     "aggressive",
-    "hero_skill:p001",
+    "hero_skill:core:h01:p001",
     "upright",
     7,
   );
@@ -1371,7 +1426,13 @@ it("Damage Stone卡面漂移拒绝；与Critical Stone同技能暴击叠加仍�
 });
 
 function reverseFixture(seed = 7) {
-  const { state } = fixture([damageStone], "aggressive", "hero_skill:p001", "inverted", seed);
+  const { state } = fixture(
+    [damageStone],
+    "aggressive",
+    "hero_skill:core:h01:p001",
+    "inverted",
+    seed,
+  );
   return {
     ...state,
     battle: {
@@ -1468,7 +1529,13 @@ it("Damage Stone额外伤口不受Protection减半，死门仍走同一个种子
 });
 
 it("Damage Stone反面也能响应英雄攻击遭遇的Riposte，落地只加一次2伤口", () => {
-  const { state, command } = fixture([damageStone], "aggressive", "hero_skill:p001", "inverted", 7);
+  const { state, command } = fixture(
+    [damageStone],
+    "aggressive",
+    "hero_skill:core:h01:p001",
+    "inverted",
+    7,
+  );
   const b = {
     ...state,
     battle: {
@@ -1488,7 +1555,7 @@ it("Damage Stone群攻只给持有者额外2伤口；共用原骰、不重复伤
   const { state } = fixture(
     [damageStone],
     "aggressive",
-    "hero_skill:p001",
+    "hero_skill:core:h01:p001",
     "inverted",
     7,
     "monster_medium:p013",
@@ -1548,7 +1615,13 @@ it("Damage Stone反面拒绝伪造骰、持有状态和重复续接", () => {
 });
 
 it("Damage Stone正反面循环：正面加伤翻面，下一角色回合解除限次后反面翻回", () => {
-  const { state, command } = fixture([damageStone], "aggressive", "hero_skill:p004", "upright", 7);
+  const { state, command } = fixture(
+    [damageStone],
+    "aggressive",
+    "hero_skill:core:h01:p004",
+    "upright",
+    7,
+  );
   const front = choose(ok(applyCommand(state, command)), damageStone);
   expect(front.state.battle!.trinkets!.held[0]!.face).toBe("inverted");
   const changed = ok(
@@ -1601,7 +1674,7 @@ it.each([
   const { state, command } = fixture(
     [cardId],
     "aggressive",
-    "hero_skill:p001",
+    "hero_skill:core:h01:p001",
     "upright",
     7,
     "monster_medium:p024",
@@ -1627,7 +1700,7 @@ it("流血护符反面：选择缩短正在施加的一个条件，不缩短所�
   const { state, command } = fixture(
     ["trinket:p003"],
     "aggressive",
-    "hero_skill:p082",
+    "hero_skill:core:h04:p082",
     "inverted",
     7,
     "monster_medium:p024",

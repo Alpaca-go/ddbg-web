@@ -15,6 +15,7 @@ import type {
   SkillCombatState,
   SkillEffectsResolution,
 } from "./index";
+import { heroSkillIdForPage } from "../../data/src/hero-registry";
 
 function cards<T>(file: string): T[] {
   return (
@@ -26,7 +27,9 @@ function cards<T>(file: string): T[] {
 const skills = cards<HeroSkillCardView>("hero_skill");
 const monsters = cards<MonsterCardView>("monster_medium");
 function card(id: string) {
-  const found = skills.find((entry) => entry.id === `hero_skill:${id}`);
+  const found = skills.find(
+    (entry) => entry.id === heroSkillIdForPage(Number(String(id).replace(/^p/, ""))),
+  );
   if (!found) throw new Error(`缺少 ${id}`);
   return found;
 }

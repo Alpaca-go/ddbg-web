@@ -51,9 +51,9 @@ it("临时技能纯函数应用/归还；R-080归还目标可为永久II", () =>
   const hero = {
     id: "hero-0",
     heroStatId: catalog.heroStats.find((s) => s.level === 1 && s.name === "CRUSADER")!.id,
-    skillIds: ["hero_skill:p002", "hero_skill:p004", "hero_skill:p007"],
+    skillIds: ["hero_skill:core:h01:p002", "hero_skill:core:h01:p004", "hero_skill:core:h01:p007"],
     nextQuestSkillUpgrades: [
-      { originalSkillId: "hero_skill:p002", temporarySkillId: "hero_skill:p003" },
+      { originalSkillId: "hero_skill:core:h01:p002", temporarySkillId: "hero_skill:core:h01:p003" },
     ],
     stress: 0,
   };
@@ -61,9 +61,9 @@ it("临时技能纯函数应用/归还；R-080归还目标可为永久II", () =>
   expect("heroes" in applied).toBe(true);
   if (!("heroes" in applied)) return;
   expect(applied.heroes[0]!.skillIds).toEqual([
-    "hero_skill:p003",
-    "hero_skill:p004",
-    "hero_skill:p007",
+    "hero_skill:core:h01:p003",
+    "hero_skill:core:h01:p004",
+    "hero_skill:core:h01:p007",
   ]);
   expect(applied.heroes[0]!.nextQuestSkillUpgrades).toEqual(hero.nextQuestSkillUpgrades);
   const restored = restoreTemporarySkillUpgrades(applied.heroes);
@@ -130,12 +130,12 @@ it("真实铁匠/生存专家记录后出征：应用临时技能、弃置未选
       },
     },
   };
-  step({ type: "visitBlacksmith", actorId: "hero-0", skillId: "hero_skill:p001" });
+  step({ type: "visitBlacksmith", actorId: "hero-0", skillId: "hero_skill:core:h01:p001" });
   expect(game.dungeon!.heroes[0]!.nextQuestSkillUpgrades).toEqual([
-    { originalSkillId: "hero_skill:p001", temporarySkillId: "hero_skill:p003" },
+    { originalSkillId: "hero_skill:core:h01:p001", temporarySkillId: "hero_skill:core:h01:p003" },
   ]);
   expect(game.dungeon!.heroes[0]!.nextQuestProvisionDice).toBe(1);
-  expect(game.dungeon!.heroes[0]!.skillIds![0]).toBe("hero_skill:p001");
+  expect(game.dungeon!.heroes[0]!.skillIds![0]).toBe("hero_skill:core:h01:p001");
   step({ type: "useHamletSkill", actorId: "hero-1", skill: "sharpenSpear" });
   step({
     type: "visitHamletBuilding",
@@ -170,9 +170,9 @@ it("真实铁匠/生存专家记录后出征：应用临时技能、弃置未选
   expect(game.dungeon!.hamletMemory!.deck).toEqual(memoryDeck);
   expect(game.dungeon!.discardedQuests).toEqual(["quest:p003", rejected]);
   expect(game.dungeon!.gold).toBe(gold);
-  expect(game.dungeon!.heroes[0]!.skillIds![0]).toBe("hero_skill:p003");
+  expect(game.dungeon!.heroes[0]!.skillIds![0]).toBe("hero_skill:core:h01:p003");
   expect(game.dungeon!.heroes[0]!.nextQuestSkillUpgrades![0]!.originalSkillId).toBe(
-    "hero_skill:p001",
+    "hero_skill:core:h01:p001",
   );
   expect(game.dungeon!.questDistribution!.questId).toBe(chosen);
   const cursorBefore = game.dungeon!.cursor;
@@ -199,7 +199,7 @@ it("真实铁匠/生存专家记录后出征：应用临时技能、弃置未选
   embark({ type: "beginReturnToHamlet" });
   // 提前离开无清理房间：无意志转换待选；临时技能在 beginReturn 已归还。
   expect(game.dungeon!.pending).toBeNull();
-  expect(game.dungeon!.heroes[0]!.skillIds![0]).toBe("hero_skill:p001");
+  expect(game.dungeon!.heroes[0]!.skillIds![0]).toBe("hero_skill:core:h01:p001");
   expect(game.dungeon!.heroes[0]!.nextQuestSkillUpgrades).toBeUndefined();
   embark({ type: "finishReturnToHamlet" });
   embark({ type: "drawHamletEvent" });
@@ -221,7 +221,7 @@ it("真实铁匠/生存专家记录后出征：应用临时技能、弃置未选
   for (const c of [
     { type: "upgradeHamletBuilding", building: "blacksmith" },
     { type: "upgradeHamletBuilding", building: "blacksmith" },
-    { type: "visitBlacksmith", actorId: "hero-0", skillId: "hero_skill:p001" },
+    { type: "visitBlacksmith", actorId: "hero-0", skillId: "hero_skill:core:h01:p001" },
     { type: "useHamletSkill", actorId: "hero-1", skill: "sharpenSpear" },
     {
       type: "visitHamletBuilding",

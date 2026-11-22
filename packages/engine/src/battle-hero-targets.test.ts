@@ -7,13 +7,15 @@ import type {
   HeroSkillCardView,
   PlayHeroSkillTargetsCommand,
 } from "./index";
+import { heroSkillIdForPage } from "../../data/src/hero-registry";
 
 const read = (name: string) =>
   JSON.parse(
     readFileSync(new URL(`../../data/normalized/corebox/${name}.json`, import.meta.url), "utf8"),
   );
 const cards = read("hero_skill").cards as HeroSkillCardView[];
-const card = (id: string) => cards.find((c) => c.id === `hero_skill:${id}`)!;
+const card = (id: string) =>
+  cards.find((c) => c.id === heroSkillIdForPage(Number(String(id).replace(/^p/, ""))))!;
 const daggers = card("p175");
 const comfort = card("p097");
 const soldier = read("monster_medium").cards[0];

@@ -218,7 +218,7 @@ it.each([true, false])("R-072：实际落点先坑再Vertigo，死门=%s；死�
     {
       wounds: 14,
       stance: "ranged",
-      skillIds: ["hero_skill:p016"],
+      skillIds: ["hero_skill:core:h01:p016"],
       quirkIds: [quirk("Soft")],
       diseaseId: disease("Vertigo"),
     },
@@ -239,7 +239,7 @@ it.each([true, false])("R-072：实际落点先坑再Vertigo，死门=%s；死�
       type: "playHeroSkill",
       actorId: "h0",
       targetId: "m",
-      skillId: "hero_skill:p016",
+      skillId: "hero_skill:core:h01:p016",
     }),
   );
   expect(entity(declared.state, "m").wounds).toBe(0);
@@ -475,14 +475,14 @@ it("坑伤害在死门致死后取消Bleed；资料缺失的公开Shuffle原子�
   expect(entity(dead.state).statusStacks).toBeUndefined();
   expect(dead.state.battle!.rngCursor).toBe(1);
   const state = turn(
-    setup({ stance: "ranged", skillIds: ["hero_skill:p016"] }, { areaId: "S8" }, seed),
+    setup({ stance: "ranged", skillIds: ["hero_skill:core:h01:p016"] }, { areaId: "S8" }, seed),
   );
   const declared = success(
     applyCommand(state, {
       type: "playHeroSkill",
       actorId: "h0",
       targetId: "m",
-      skillId: "hero_skill:p016",
+      skillId: "hero_skill:core:h01:p016",
     }),
   );
   const missing = { ...declared.state, battle: { ...declared.state.battle!, heroStats: [] } };
@@ -510,7 +510,11 @@ it("最后一个行动自身落坑且仍站立：Shuffle与结束回合各触发
   const seed = Array.from({ length: 200 }, (_, index) => index).find(
     (seed) => nextBattleRoll(seed, 0) === 4,
   )!;
-  const base = setup({ stance: "ranged", skillIds: ["hero_skill:p016"] }, { areaId: "S8" }, seed);
+  const base = setup(
+    { stance: "ranged", skillIds: ["hero_skill:core:h01:p016"] },
+    { areaId: "S8" },
+    seed,
+  );
   const state = turn(
     {
       ...base,
@@ -532,7 +536,7 @@ it("最后一个行动自身落坑且仍站立：Shuffle与结束回合各触发
       type: "playHeroSkill",
       actorId: "h0",
       targetId: "m",
-      skillId: "hero_skill:p016",
+      skillId: "hero_skill:core:h01:p016",
     }),
   );
   const done = finishShuffle(declared, "S8");

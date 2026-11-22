@@ -23,7 +23,7 @@ function monsterTargeted(
   held: Parameters<typeof trinketBattle>[0],
   face: "upright" | "inverted" = "inverted",
 ) {
-  const { state } = trinketBattle(held, "aggressive", "hero_skill:p001", face, seed);
+  const { state } = trinketBattle(held, "aggressive", "hero_skill:core:h01:p001", face, seed);
   return {
     ...state,
     battle: {

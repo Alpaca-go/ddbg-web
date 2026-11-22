@@ -23,13 +23,13 @@ const stat = (id: string) =>
   );
 
 const L1 = [
-  ["hero_skill:musketeer:p001", "Aimed Shot"],
-  ["hero_skill:musketeer:p004", "Smokescreen"],
-  ["hero_skill:musketeer:p007", "Call the Shot"],
-  ["hero_skill:musketeer:p010", "Buckshot"],
-  ["hero_skill:musketeer:p013", "Sidearm"],
-  ["hero_skill:musketeer:p016", "Patch Up"],
-  ["hero_skill:musketeer:p019", "Skeet Shot"],
+  ["hero_skill:musketeer:h18:p358", "Aimed Shot"],
+  ["hero_skill:musketeer:h18:p361", "Smokescreen"],
+  ["hero_skill:musketeer:h18:p364", "Call the Shot"],
+  ["hero_skill:musketeer:h18:p367", "Buckshot"],
+  ["hero_skill:musketeer:h18:p370", "Sidearm"],
+  ["hero_skill:musketeer:h18:p373", "Patch Up"],
+  ["hero_skill:musketeer:h18:p376", "Skeet Shot"],
 ] as const;
 
 function webQuestSources(): CoreQuestSources {
@@ -60,7 +60,10 @@ it("可替补且战役 I 级技能已开放；未接线名单已空", () => {
   const sources = webQuestSources();
   type EmbarkSkill = Parameters<typeof embarkSkillAllowed>[1];
   expect(
-    embarkSkillAllowed("MUSKETEER", card("hero_skill:musketeer:p001") as unknown as EmbarkSkill),
+    embarkSkillAllowed(
+      "MUSKETEER",
+      card("hero_skill:musketeer:h18:p358") as unknown as EmbarkSkill,
+    ),
   ).toBe(true);
   expect(heroHasUnwiredCombatSkills("MUSKETEER")).toBe(false);
   expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).toEqual([]);
