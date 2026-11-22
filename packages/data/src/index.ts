@@ -205,15 +205,15 @@ export type { QuestMonsterPlan } from "./quest-monster-plan";
 export { stygianRoomsSchema, readStygianRoomReplacement } from "./stygian-rooms";
 export { wealdStygianRoomsSchema, readWealdStygianRoomReplacement } from "./weald-stygian-rooms";
 export {
-  coveBossRoomSourceFileSchema,
-  coveBossRoomSourceSchema,
+  coveBossRoomCardSchema,
+  coveNormalRoomCardSchema,
   coveRoomCardSchema,
   coveRoomCatalogSchema,
   coveRoomFileSchema,
   COVE_ROOM_BACK,
   COVE_ROOM_FRONT,
 } from "./cove-room";
-export type { CoveBossRoomSource, CoveRoomCard } from "./cove-room";
+export type { CoveBossRoomCard, CoveRoomCard } from "./cove-room";
 export type { StygianRooms } from "./stygian-rooms";
 export { curioPoolIdentity, locationCurioPool } from "./curio-pool";
 
