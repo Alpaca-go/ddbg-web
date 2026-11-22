@@ -50,9 +50,9 @@ export const wealdHagCombatFaceSchema = z.strictObject({
 /** 独立 Boss 几何复用区域／引用校验，不扩大普通九房目录。 */
 export const wealdHagTileSchema = wealdRoomTileBaseSchema
   .safeExtend({
-    id: z.literal("room_tile:weald:p005:back"),
+    id: z.literal("room_tile:weald:10"),
     rawId: z.literal("dungeon_tile:weald:p005"),
-    roomId: z.literal("room:weald:p010"),
+    roomId: z.literal("room:weald:10"),
     number: z.literal(10),
     ruling: z.literal("R-254"),
     geometryVerified: z.literal(true),

@@ -12,7 +12,7 @@ it("R-246/R-252：三目标旁置牌 secured 后不再抽，带回 4 封顶 3 XP
   expect(starts).toHaveLength(3);
   expect(new Set(starts.map((p) => p.game.dungeon!.position)).size).toBe(3);
   const cardIds = starts.map((p) => p.game.dungeon!.roomCards!.active!.cardId);
-  expect([...cardIds].sort()).toEqual(["room:weald:p003", "room:weald:p006", "room:weald:p008"]);
+  expect([...cardIds].sort()).toEqual(["room:weald:03", "room:weald:06", "room:weald:08"]);
   for (const [i, p] of starts.entries()) {
     expect(p.game.dungeon!.fungalResearchSecuredRoomCardIds ?? []).toEqual(cardIds.slice(0, i));
     expect((p.game.dungeon!.roomCards!.deck ?? []).some((id) => cardIds.includes(id))).toBe(false);
@@ -34,7 +34,7 @@ it("R-246/R-252：三目标旁置牌 secured 后不再抽，带回 4 封顶 3 XP
   const first = starts[0]!.game;
   const { battle: _battle, ...outside } = first;
   void _battle;
-  for (const secured of [["room:weald:p003", "room:weald:p003"], ["room:weald:p001"]]) {
+  for (const secured of [["room:weald:03", "room:weald:03"], ["room:weald:01"]]) {
     const invalid = {
       ...outside,
       dungeon: {

@@ -60,10 +60,10 @@ it("createCampaignQuest：核心+Weald Stygian 首趟抽选与 tasks-v1", () => 
     ...game.dungeon!,
     roomCards: {
       ...game.dungeon!.roomCards!,
-      active: { roomId: "r-test", cardId: "room:weald:p002", blockedReason: "" },
+      active: { roomId: "r-test", cardId: "room:weald:02", blockedReason: "" },
     },
   };
-  expect(readActiveWealdStygianRoom(withRoom)?.id).toBe("stygian_room:weald:p002");
+  expect(readActiveWealdStygianRoom(withRoom)?.id).toBe("stygian_room:weald:02");
 });
 
 it("正式存档：Stygian+Weald 起点严格回放；核心-only 旧档不受影响", () => {

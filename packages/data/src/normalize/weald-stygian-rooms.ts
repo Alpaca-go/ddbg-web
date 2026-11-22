@@ -69,7 +69,7 @@ export function buildWealdStygianRooms(raw: RawFile, standardRooms: WealdRoomFil
         const printed = lines.join(" ");
         assertPrintedDrift(front.page, printed, card.id);
         return {
-          id: card.id,
+          id: `stygian_room:weald:${String(front.page).padStart(2, "0")}`,
           name,
           copies: 1 as const,
           ...identity,

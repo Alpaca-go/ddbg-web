@@ -2,7 +2,7 @@
  "schema": "ddbg-weald-room-v1",
  "cards": [
   {
-   "id": "room:weald:p001",
+   "id": "room:weald:01",
    "name": "Fungal Spores",
    "copies": 1,
    "location": "weald",
@@ -43,7 +43,7 @@
    "pendingReview": []
   },
   {
-   "id": "room:weald:p002",
+   "id": "room:weald:02",
    "name": "Ambush",
    "copies": 1,
    "location": "weald",
@@ -83,7 +83,7 @@
    "pendingReview": []
   },
   {
-   "id": "room:weald:p003",
+   "id": "room:weald:03",
    "name": "Thick Woods",
    "copies": 1,
    "location": "weald",
@@ -124,7 +124,7 @@
    "pendingReview": []
   },
   {
-   "id": "room:weald:p004",
+   "id": "room:weald:04",
    "name": "Stash",
    "copies": 1,
    "location": "weald",
@@ -167,7 +167,7 @@
    "pendingReview": []
   },
   {
-   "id": "room:weald:p005",
+   "id": "room:weald:05",
    "name": "Infected Oak",
    "copies": 1,
    "location": "weald",
@@ -210,7 +210,7 @@
    "pendingReview": []
   },
   {
-   "id": "room:weald:p006",
+   "id": "room:weald:06",
    "name": "Chase in the Woods",
    "copies": 1,
    "location": "weald",
@@ -245,7 +245,7 @@
    "pendingReview": []
   },
   {
-   "id": "room:weald:p007",
+   "id": "room:weald:07",
    "name": "Chasm",
    "copies": 1,
    "location": "weald",
@@ -279,7 +279,7 @@
    "pendingReview": []
   },
   {
-   "id": "room:weald:p008",
+   "id": "room:weald:08",
    "name": "Fungal Overgrowth",
    "copies": 1,
    "location": "weald",
@@ -323,7 +323,7 @@
    "pendingReview": []
   },
   {
-   "id": "room:weald:p009",
+   "id": "room:weald:09",
    "name": "The Clearing",
    "copies": 1,
    "location": "weald",

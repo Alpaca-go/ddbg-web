@@ -72,7 +72,7 @@ function setup(version = true): GameState {
       mode: "radiant",
       heroes: [],
       contentPacks: ["core", "weald"],
-      roomCards: { active: { roomId: "R1", cardId: "room:weald:p008" } },
+      roomCards: { active: { roomId: "R1", cardId: "room:weald:08" } },
     } as unknown as NonNullable<GameState["dungeon"]>,
   };
   const started = applyCommand(base, {
@@ -170,7 +170,7 @@ describe("Fungal Overgrowth / Abyssal Puff（R-234／R-236、W-04）", () => {
             ? {
                 roomCards: {
                   ...d.roomCards!,
-                  active: { ...d.roomCards!.active!, cardId: "room:weald:p003" },
+                  active: { ...d.roomCards!.active!, cardId: "room:weald:03" },
                 },
               }
             : {}),

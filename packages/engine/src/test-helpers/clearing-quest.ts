@@ -48,7 +48,7 @@ export function clearingQuest(kind: "monster" | "hero" | "next-room" = "monster"
       const b = game.battle!,
         turn = b.encounter!.turn;
       if (
-        game.dungeon?.roomCards?.active?.cardId !== "room:weald:p009" ||
+        game.dungeon?.roomCards?.active?.cardId !== "room:weald:09" ||
         turn.type !== "hero" ||
         turn.mustMove
       )
@@ -98,7 +98,7 @@ export function clearingQuest(kind: "monster" | "hero" | "next-room" = "monster"
       if (game.dungeon?.roomCards?.active) rooms.add(game.dungeon.roomCards.active.cardId);
       if (
         command.type === "startBattle" &&
-        game.dungeon?.roomCards?.active?.cardId === "room:weald:p009"
+        game.dungeon?.roomCards?.active?.cardId === "room:weald:09"
       )
         beforeStart = previous;
       if (

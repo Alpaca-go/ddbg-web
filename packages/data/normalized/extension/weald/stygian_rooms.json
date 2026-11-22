@@ -2,12 +2,12 @@
  "schema": "ddbg-weald-stygian-rooms-v1",
  "cards": [
   {
-   "id": "stygian_room:weald:p001",
+   "id": "stygian_room:weald:01",
    "name": "Fungal Spores",
    "copies": 1,
    "location": "weald",
    "number": 1,
-   "replacesCardId": "room:weald:p001",
+   "replacesCardId": "room:weald:01",
    "printedLines": [
     "{icon:904b2f5950} 1—Fungal Spores",
     "{icon:497092fe1f} 1",
@@ -44,12 +44,12 @@
    }
   },
   {
-   "id": "stygian_room:weald:p002",
+   "id": "stygian_room:weald:02",
    "name": "Ambush",
    "copies": 1,
    "location": "weald",
    "number": 2,
-   "replacesCardId": "room:weald:p002",
+   "replacesCardId": "room:weald:02",
    "printedLines": [
     "{icon:07104c1226} {icon:48dc95e15f}",
     "2—Ambush",
@@ -84,12 +84,12 @@
    }
   },
   {
-   "id": "stygian_room:weald:p003",
+   "id": "stygian_room:weald:03",
    "name": "Thick Woods",
    "copies": 1,
    "location": "weald",
    "number": 3,
-   "replacesCardId": "room:weald:p003",
+   "replacesCardId": "room:weald:03",
    "printedLines": [
     "{icon:904b2f5950} 3—Thick Woods",
     "{icon:a03fc0c541}",
@@ -125,12 +125,12 @@
    }
   },
   {
-   "id": "stygian_room:weald:p004",
+   "id": "stygian_room:weald:04",
    "name": "Stash",
    "copies": 1,
    "location": "weald",
    "number": 4,
-   "replacesCardId": "room:weald:p004",
+   "replacesCardId": "room:weald:04",
    "printedLines": [
     "{icon:07104c1226} {icon:48dc95e15f}",
     "4—Stash",
@@ -169,12 +169,12 @@
    }
   },
   {
-   "id": "stygian_room:weald:p005",
+   "id": "stygian_room:weald:05",
    "name": "Infected Oak",
    "copies": 1,
    "location": "weald",
    "number": 5,
-   "replacesCardId": "room:weald:p005",
+   "replacesCardId": "room:weald:05",
    "printedLines": [
     "{icon:904b2f5950}",
     "5—Infected Oak",
@@ -213,12 +213,12 @@
    }
   },
   {
-   "id": "stygian_room:weald:p006",
+   "id": "stygian_room:weald:06",
    "name": "Chase in the Woods",
    "copies": 1,
    "location": "weald",
    "number": 6,
-   "replacesCardId": "room:weald:p006",
+   "replacesCardId": "room:weald:06",
    "printedLines": [
     "{icon:904b2f5950} 6—Chase in the Woods",
     "{icon:497092fe1f} 6",
@@ -248,12 +248,12 @@
    }
   },
   {
-   "id": "stygian_room:weald:p007",
+   "id": "stygian_room:weald:07",
    "name": "Chasm",
    "copies": 1,
    "location": "weald",
    "number": 7,
-   "replacesCardId": "room:weald:p007",
+   "replacesCardId": "room:weald:07",
    "printedLines": [
     "{icon:904b2f5950}",
     "7—Chasm",
@@ -282,12 +282,12 @@
    }
   },
   {
-   "id": "stygian_room:weald:p008",
+   "id": "stygian_room:weald:08",
    "name": "Fungal Overgrowth",
    "copies": 1,
    "location": "weald",
    "number": 8,
-   "replacesCardId": "room:weald:p008",
+   "replacesCardId": "room:weald:08",
    "printedLines": [
     "{icon:07104c1226} {icon:48dc95e15f} 8—Fungal Overgrowth",
     "{icon:c371c7b280}",
@@ -327,12 +327,12 @@
    }
   },
   {
-   "id": "stygian_room:weald:p009",
+   "id": "stygian_room:weald:09",
    "name": "The Clearing",
    "copies": 1,
    "location": "weald",
    "number": 9,
-   "replacesCardId": "room:weald:p009",
+   "replacesCardId": "room:weald:09",
    "printedLines": [
     "{icon:07104c1226} {icon:48dc95e15f} 9—The Clearing",
     "{icon:fac3a7a6af}",

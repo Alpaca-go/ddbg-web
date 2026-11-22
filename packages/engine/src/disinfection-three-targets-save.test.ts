@@ -14,7 +14,7 @@ it.each([7, 2] as const)(
     expect(disinfected.map((p) => p.game.dungeon!.disinfectionOakCount)).toEqual([1, 2, 3]);
     for (const after of disinfected) {
       const before = points.find((p) => p.commands.length === after.commands.length - 1)!;
-      expect(after.game.dungeon!.roomCards!.active!.cardId).toBe("room:weald:p005");
+      expect(after.game.dungeon!.roomCards!.active!.cardId).toBe("room:weald:05");
       expect(
         before.game.battle!.provisions!.filter((p) => p.face === "potion").length -
           after.game.battle!.provisions!.filter((p) => p.face === "potion").length,

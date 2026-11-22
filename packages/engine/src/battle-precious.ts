@@ -7,8 +7,7 @@ import { wealdOrdinaryRoomEffectActive, wealdStygianEffect } from "./weald-stygi
 
 function stashActive(state: GameState): boolean {
   return (
-    wealdMechanicsActive(state) &&
-    wealdOrdinaryRoomEffectActive(state, "room:weald:p004", "precious")
+    wealdMechanicsActive(state) && wealdOrdinaryRoomEffectActive(state, "room:weald:04", "precious")
   );
 }
 

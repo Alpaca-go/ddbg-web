@@ -36,7 +36,7 @@ describe("Weald 普通房间与板块（R-234–R-239、包隔离）", () => {
       { areaId: "D", effect: "precious", runtimeReady: true },
     ]);
     expect(
-      wealdRoomTileSchema.safeParse({ ...four, number: 3, roomId: "room:weald:p003" }).success,
+      wealdRoomTileSchema.safeParse({ ...four, number: 3, roomId: "room:weald:03" }).success,
     ).toBe(false);
     expect(
       wealdRoomTileSchema.safeParse({
@@ -83,7 +83,7 @@ describe("Weald 普通房间与板块（R-234–R-239、包隔离）", () => {
     expect(toxicAreas).toEqual(["C", "E", "F", "G"]);
     expect(one.specialRegions.every((r) => r.runtimeReady)).toBe(true);
     expect(
-      wealdRoomTileSchema.safeParse({ ...one, roomId: "room:weald:p002", number: 2 }).success,
+      wealdRoomTileSchema.safeParse({ ...one, roomId: "room:weald:02", number: 2 }).success,
     ).toBe(false);
     expect(
       wealdRoomTileSchema.safeParse({

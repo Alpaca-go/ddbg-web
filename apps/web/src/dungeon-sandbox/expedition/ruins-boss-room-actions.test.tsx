@@ -95,7 +95,7 @@ it("Hag I 页面入口要求新地点来源、已选 Weald；Stygian 与标准�
     activeBossThreatScriptId: "boss:weald:hag:1",
     roomCards: {
       ...base.roomCards!,
-      active: { roomId: "objective", cardId: "room:weald:p010", blockedReason: "Hag" },
+      active: { roomId: "objective", cardId: "room:weald:10", blockedReason: "Hag" },
     },
     faceTheThreatEmbarkPlan: {
       ...requireFaceTheThreatEmbarkPlanForSandbox({ campaignLevel: 1 }),
@@ -123,7 +123,7 @@ it("Pounder I 部署入口要求三段版本与 Weald 来源；Stygian 在版本
     activeBossThreatScriptId: "boss:weald:brigandPounder:1",
     roomCards: {
       ...base.roomCards!,
-      active: { roomId: "objective", cardId: "room:weald:p012", blockedReason: "Pounder" },
+      active: { roomId: "objective", cardId: "room:weald:12", blockedReason: "Pounder" },
     },
     faceTheThreatEmbarkPlan: {
       ...requireFaceTheThreatEmbarkPlanForSandbox({ campaignLevel: 1 }),

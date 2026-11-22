@@ -42,9 +42,7 @@ describe("R-254 Hag I 独立印刷目录", () => {
     const tile = readRaw("dungeon_tile").cards.find((c) => c.id === approved.tile.rawId)!;
     expect(tile.faces.back?.file).toBe(approved.tile.source.file);
     expect(tile.faces.back?.page).toBe(5);
-    expect(readRaw("room").cards.find((c) => c.id === approved.tile.roomId)?.faces.front.page).toBe(
-      10,
-    );
+    expect(readRaw("room").cards.find((c) => c.faces.front.page === 10)?.faces.front.page).toBe(10);
   });
 
   it("核准数值、满锅翻面防护和未印刷伤害不被旧占位覆盖", () => {

@@ -63,7 +63,7 @@ function fixture(level: 2 | 3, matchman = false): GameState {
       pounderHamletThreats: true,
       activeBossThreatScriptId: context.scriptId,
       imminentThreatDescriptionCardId: context.description,
-      roomCards: { active: { tileId: "room_tile:weald:p006:back" } },
+      roomCards: { active: { tileId: "room_tile:weald:12" } },
     } as unknown as NonNullable<GameState["dungeon"]>,
     battle: {
       ...state.battle!,

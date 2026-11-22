@@ -13,7 +13,7 @@ export function wealdStygianRoomIdentity(page: number) {
   return {
     location: "weald" as const,
     number: page,
-    replacesCardId: `room:weald:p${String(page).padStart(3, "0")}`,
+    replacesCardId: `room:weald:${String(page).padStart(2, "0")}`,
   };
 }
 
@@ -109,12 +109,12 @@ export const wealdStygianReviewedEffects: Readonly<
 
 const wealdStygianRoomCardSchema = z
   .strictObject({
-    id: z.string().regex(/^stygian_room:weald:p\d{3}$/),
+    id: z.string().regex(/^stygian_room:weald:\d{2}$/),
     name: z.string().min(1),
     copies: z.literal(1),
     location: z.literal("weald"),
     number: z.int().min(1).max(9),
-    replacesCardId: z.string().regex(/^room:weald:p\d{3}$/),
+    replacesCardId: z.string().regex(/^room:weald:\d{2}$/),
     printedLines: z.array(z.string()).min(1),
     reviewedEffect: wealdStygianReviewedEffectSchema.nullable(),
     pendingReview: z.array(z.string()),
@@ -127,7 +127,7 @@ const wealdStygianRoomCardSchema = z
   .superRefine((card, ctx) => {
     const expected = wealdStygianRoomIdentity(card.source.page);
     if (
-      card.id !== `stygian_room:weald:p${String(card.source.page).padStart(3, "0")}` ||
+      card.id !== `stygian_room:weald:${String(card.source.page).padStart(2, "0")}` ||
       card.number !== expected.number ||
       card.replacesCardId !== expected.replacesCardId
     )

@@ -17,7 +17,7 @@ export function readActiveWealdStygianRoom(d: DungeonState): ActiveWealdStygianR
   if (d.mode !== "stygian" || d.stygianRoomRules !== "full" || !wealdPackSelected(d.contentPacks))
     return undefined;
   const cardId = d.roomCards?.active?.cardId;
-  if (!cardId?.startsWith("room:weald:p")) return undefined;
+  if (!cardId?.startsWith("room:weald:")) return undefined;
   return readWealdStygianRoomReplacement(wealdStygianRooms, cardId);
 }
 

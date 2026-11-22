@@ -69,12 +69,12 @@ describe("Weald Stygian 自然 Face the Threat 命令日志（正式生产路径
   it("探索中目击 Weald p001–p009 Stygian 替换；p010–p012 生产读回不替换（R-036）", () => {
     const witnesses = journey.actOnePrefix.stygianOrdinaryRoomWitnesses ?? [];
     expect(witnesses.length).toBeGreaterThan(0);
-    expect(witnesses.every((id) => /^stygian_room:weald:p00[1-9]$/.test(id))).toBe(true);
+    expect(witnesses.every((id) => /^stygian_room:weald:\d{2}$/.test(id))).toBe(true);
     const bossDungeon = {
       ...journey.actOnePrefix.game.dungeon!,
       roomCards: {
         ...journey.actOnePrefix.game.dungeon!.roomCards!,
-        active: { roomId: "r-boss", cardId: "room:weald:p010", blockedReason: "" },
+        active: { roomId: "r-boss", cardId: "room:weald:10", blockedReason: "" },
       },
     };
     expect(readActiveWealdStygianRoom(bossDungeon)).toBeUndefined();

@@ -54,9 +54,9 @@
  },
  "setup": {"rule": "Weald W4", "pounderStance": "aggressive", "monsterInitiativeCards": 1, "heroInitiativeCards": 4, "removeAllBrigandsOnPounderDefeat": true},
  "tile": {
-  "id": "room_tile:weald:p006:back",
+  "id": "room_tile:weald:12",
   "rawId": "dungeon_tile:weald:p006",
-  "roomId": "room:weald:p012",
+  "roomId": "room:weald:12",
   "location": "weald",
   "number": 12,
   "name": "Brigand Pounder",

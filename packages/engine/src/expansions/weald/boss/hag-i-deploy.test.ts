@@ -54,7 +54,7 @@ it("W4／R-254：目标房绑定、11 区部署、显式 startBattle 三张怪�
   const source = atObjective();
   clearBossScriptsForTest();
   const prepared = run(source, { type: "prepareDungeonBattle" });
-  expect(prepared.dungeon!.roomCards!.active!.cardId).toBe("room:weald:p010");
+  expect(prepared.dungeon!.roomCards!.active!.cardId).toBe("room:weald:10");
   expect(prepared.dungeon!.cursor).toBe(source.dungeon!.cursor);
   const command = { type: "deployHagI" } as const;
   expect(savedCommandSchema.parse(command)).toEqual(command);
@@ -83,7 +83,7 @@ it("R-036：Stygian 仍绑定标准 Hag 房 p010，可部署开战", () => {
     dungeon: { ...source.dungeon!, mode: "stygian", stygianRoomRules: "full" },
   };
   const prepared = run(stygian, { type: "prepareDungeonBattle" });
-  expect(prepared.dungeon!.roomCards!.active!.cardId).toBe("room:weald:p010");
+  expect(prepared.dungeon!.roomCards!.active!.cardId).toBe("room:weald:10");
   run(prepared, { type: "deployHagI" });
 });
 

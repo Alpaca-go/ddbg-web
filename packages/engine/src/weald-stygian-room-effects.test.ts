@@ -32,8 +32,8 @@ function stygianWealdDungeon(roomCardId: string) {
 
 describe("Weald Stygian 出征替换（包隔离、保留普通卡 id）", () => {
   it("核心 17 张目录不被 Weald 扩展污染", () => {
-    const d = stygianWealdDungeon("room:weald:p001");
-    expect(readActiveWealdStygianRoom(d)?.id).toBe("stygian_room:weald:p001");
+    const d = stygianWealdDungeon("room:weald:01");
+    expect(readActiveWealdStygianRoom(d)?.id).toBe("stygian_room:weald:01");
     expect(readActiveWealdStygianRoom({ ...d, contentPacks: ["core"] })).toBeUndefined();
     const coreDungeon = createCoreDungeonQuest(
       1,
@@ -57,9 +57,9 @@ describe("Weald Stygian 出征替换（包隔离、保留普通卡 id）", () =>
   });
 
   it("非 full 规则或未开 Weald 包时不启用 Weald Stygian 替换", () => {
-    const d = stygianWealdDungeon("room:weald:p002");
+    const d = stygianWealdDungeon("room:weald:02");
     expect(readActiveWealdStygianRoom(d)?.name).toBe("Ambush");
-    expect(readActiveStygianRoom(d)?.id).toBe("stygian_room:weald:p002");
+    expect(readActiveStygianRoom(d)?.id).toBe("stygian_room:weald:02");
     expect(readActiveWealdStygianRoom({ ...d, stygianRoomRules: "r229" })).toBeUndefined();
     expect(readActiveWealdStygianRoom({ ...d, contentPacks: ["core"] })).toBeUndefined();
     expect(readActiveStygianRoom({ ...d, mode: "radiant" })).toBeUndefined();
@@ -95,7 +95,7 @@ describe("Weald Stygian 房间效果数值", () => {
         areas: [{ id: "A", capacity: 4, elevation: "normal", adjacent: [] }],
         wealdMechanics: true,
       }),
-      dungeon: stygianWealdDungeon("room:weald:p002"),
+      dungeon: stygianWealdDungeon("room:weald:02"),
     };
     const stygian = applyUnprepared(base);
     expect(stygian.state.battle!.entities[0]!.statusStacks).toEqual([
@@ -159,7 +159,7 @@ describe("Weald Stygian 房间效果数值", () => {
         wealdMechanics: true,
         areas: [{ id: "C", capacity: 4, elevation: "normal" as const, adjacent: [] }],
       }),
-      dungeon: stygianWealdDungeon("room:weald:p001"),
+      dungeon: stygianWealdDungeon("room:weald:01"),
     };
     const miss = {
       ...fixedDamageResolution(state.battle!.entities[0]!),
@@ -208,7 +208,7 @@ describe("Weald Stygian 房间效果数值", () => {
         }).battle!,
         wealdOurs: true as const,
       },
-      dungeon: stygianWealdDungeon("room:weald:p009"),
+      dungeon: stygianWealdDungeon("room:weald:09"),
     };
     const ours = resolveOurs(oursState, "h0", []);
     expect(ours.state.battle!.entities[0]!.statusStacks).toEqual([{ kind: "buff", remaining: 3 }]);
@@ -244,7 +244,7 @@ describe("Weald Stygian 房间效果数值", () => {
         wealdMechanics: true,
         wealdAbyssalPuff: true,
       }),
-      dungeon: stygianWealdDungeon("room:weald:p008"),
+      dungeon: stygianWealdDungeon("room:weald:08"),
     };
     const before = puffBase.battle!.entities;
     const after = before.map((e) => (e.id === "f1" ? { ...e, dead: true } : e));
@@ -303,7 +303,7 @@ describe("Weald Stygian 房间效果数值", () => {
           turn: { type: "hero" as const, actorId: "h0", actions: 1, usedSkillIds: [] },
         },
       },
-      dungeon: stygianWealdDungeon("room:weald:p005"),
+      dungeon: stygianWealdDungeon("room:weald:05"),
     };
     const result = endTurnPoisonousRoots(state, "h0", [])!;
     expect(result.state.battle!.entities[0]!.statusStacks).toEqual([

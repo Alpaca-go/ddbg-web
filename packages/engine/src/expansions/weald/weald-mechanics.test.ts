@@ -159,7 +159,7 @@ describe("Weald W-03 / W-04", () => {
     expect(tileOne.necroticFungusAreas).toEqual([]);
     const placed = necroticFungusEntitiesForTile(tileThree);
     expect(placed.map((e) => e.areaId).sort()).toEqual(["B", "G"]);
-    expect(findWealdRoomTile("room:weald:p001")?.necroticFungusAreas).toEqual([]);
+    expect(findWealdRoomTile("room:weald:01")?.necroticFungusAreas).toEqual([]);
   });
 
   it("零容量标记仅在启用 wealdMechanics 时投影", () => {

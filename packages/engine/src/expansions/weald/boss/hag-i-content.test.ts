@@ -37,6 +37,6 @@ describe("R-254 Hag I 生产几何投影", () => {
     expect(tile.deployment.heroes[setup.cauldronStance]).toBe("J");
     expect(areas.find((a) => a.id === "F")?.capacity).toBe(3);
     expect(WEALD_HAG_I_CONTENT).toEqual(before);
-    expect(findWealdRoomTile("room:weald:p010")).toBeUndefined();
+    expect(findWealdRoomTile("room:weald:10")).toBeUndefined();
   });
 });

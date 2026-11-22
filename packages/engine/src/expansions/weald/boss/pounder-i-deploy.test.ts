@@ -63,7 +63,7 @@ it("W4／R-258：目标房绑定、12 区部署、显式 startBattle 一张怪�
   const source = atObjective();
   clearBossScriptsForTest();
   const prepared = run(source, { type: "prepareDungeonBattle" });
-  expect(prepared.dungeon!.roomCards!.active!.cardId).toBe("room:weald:p012");
+  expect(prepared.dungeon!.roomCards!.active!.cardId).toBe("room:weald:12");
   expect(prepared.dungeon!.cursor).toBe(source.dungeon!.cursor);
   const command = { type: "deployPounderI" } as const;
   expect(savedCommandSchema.parse(command)).toEqual(command);
@@ -133,7 +133,7 @@ it("R-036：Stygian 仍绑定标准 Pounder 房 p012", () => {
     dungeon: { ...bound.dungeon!, mode: "stygian", stygianRoomRules: "full" },
   };
   const deployed = run(stygian, { type: "deployPounderI" });
-  expect(deployed.dungeon!.roomCards!.active!.cardId).toBe("room:weald:p012");
+  expect(deployed.dungeon!.roomCards!.active!.cardId).toBe("room:weald:12");
 });
 
 it.each(["pack", "threat", "plan", "level", "skills", "version", "location"])(
