@@ -21,7 +21,9 @@ function cards<T>(file: string): T[] {
   ).cards;
 }
 const monsters = cards<MonsterCardView>("monster_medium");
-const smite = cards<HeroSkillCardView>("hero_skill").find((c) => c.id === "hero_skill:p001")!;
+const smite = cards<HeroSkillCardView>("hero_skill").find(
+  (c) => c.id === "hero_skill:core:h01:p001",
+)!;
 const stances = ["aggressive", "defensive", "ranged", "support"] as const;
 function monster(id: string, card: MonsterCardView, index: number, areaId = "b"): BattleEntity {
   return {

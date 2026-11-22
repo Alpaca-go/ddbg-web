@@ -15,7 +15,7 @@ const tile = WEALD_APPROVED_ROOM_TILES.find((t) => t.number === 8)!;
 const stat = coreQuestSources.catalog.heroStats.find(
   (c) => c.name === "CRUSADER" && c.level === 1,
 )!;
-const smite = coreQuestSources.catalog.skills.find((c) => c.id === "hero_skill:p001")!;
+const smite = coreQuestSources.catalog.skills.find((c) => c.id === "hero_skill:core:h01:p001")!;
 const card = coreQuestSources.catalog.monsters.find((c) => c.id === "monster_medium:p001")!;
 function setup(version = true): GameState {
   const stances = ["aggressive", "defensive", "ranged", "support"] as const;

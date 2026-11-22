@@ -16,7 +16,7 @@
   },
   "cards": [
     {
-      "id": "hero_skill:p001",
+      "id": "hero_skill:core:h01:p001",
       "name": "Smite",
       "level": 1,
       "hero": "CRUSADER",
@@ -28,7 +28,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p002",
+      "id": "hero_skill:core:h01:p002",
       "name": "Smite",
       "level": 2,
       "hero": "CRUSADER",
@@ -40,7 +40,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p003",
+      "id": "hero_skill:core:h01:p003",
       "name": "Smite",
       "level": 3,
       "hero": "CRUSADER",
@@ -52,7 +52,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p004",
+      "id": "hero_skill:core:h01:p004",
       "name": "Zealous Accusation",
       "level": 1,
       "hero": "CRUSADER",
@@ -64,7 +64,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p005",
+      "id": "hero_skill:core:h01:p005",
       "name": "Zealous Accusation",
       "level": 2,
       "hero": "CRUSADER",
@@ -76,7 +76,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p006",
+      "id": "hero_skill:core:h01:p006",
       "name": "Zealous Accusation",
       "level": 3,
       "hero": "CRUSADER",
@@ -88,7 +88,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p007",
+      "id": "hero_skill:core:h01:p007",
       "name": "Stunning Blow",
       "level": 1,
       "hero": "CRUSADER",
@@ -100,7 +100,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p008",
+      "id": "hero_skill:core:h01:p008",
       "name": "Stunning Blow",
       "level": 2,
       "hero": "CRUSADER",
@@ -112,7 +112,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p009",
+      "id": "hero_skill:core:h01:p009",
       "name": "Stunning Blow",
       "level": 3,
       "hero": "CRUSADER",
@@ -124,7 +124,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p010",
+      "id": "hero_skill:core:h01:p010",
       "name": "Bulwark of Faith",
       "level": 1,
       "hero": "CRUSADER",
@@ -136,7 +136,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p011",
+      "id": "hero_skill:core:h01:p011",
       "name": "Bulwark of Faith",
       "level": 2,
       "hero": "CRUSADER",
@@ -148,7 +148,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p012",
+      "id": "hero_skill:core:h01:p012",
       "name": "Bulwark of Faith",
       "level": 3,
       "hero": "CRUSADER",
@@ -160,7 +160,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p013",
+      "id": "hero_skill:core:h01:p013",
       "name": "Battle Heal",
       "level": 1,
       "hero": "CRUSADER",
@@ -172,7 +172,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p014",
+      "id": "hero_skill:core:h01:p014",
       "name": "Battle Heal",
       "level": 2,
       "hero": "CRUSADER",
@@ -184,7 +184,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p015",
+      "id": "hero_skill:core:h01:p015",
       "name": "Battle Heal",
       "level": 3,
       "hero": "CRUSADER",
@@ -196,7 +196,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p016",
+      "id": "hero_skill:core:h01:p016",
       "name": "Holy Lance",
       "level": 1,
       "hero": "CRUSADER",
@@ -208,7 +208,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p017",
+      "id": "hero_skill:core:h01:p017",
       "name": "Holy Lance",
       "level": 2,
       "hero": "CRUSADER",
@@ -220,7 +220,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p018",
+      "id": "hero_skill:core:h01:p018",
       "name": "Holy Lance",
       "level": 3,
       "hero": "CRUSADER",
@@ -232,7 +232,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p019",
+      "id": "hero_skill:core:h01:p019",
       "name": "Inspiring Cry",
       "level": 1,
       "hero": "CRUSADER",
@@ -244,7 +244,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p020",
+      "id": "hero_skill:core:h01:p020",
       "name": "Inspiring Cry",
       "level": 2,
       "hero": "CRUSADER",
@@ -256,7 +256,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p021",
+      "id": "hero_skill:core:h01:p021",
       "name": "Inspiring Cry",
       "level": 3,
       "hero": "CRUSADER",
@@ -268,7 +268,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p022",
+      "id": "hero_skill:core:h02:p022",
       "name": "Wicked Hack",
       "level": 1,
       "hero": "HELLION",
@@ -280,7 +280,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p023",
+      "id": "hero_skill:core:h02:p023",
       "name": "Wicked Hack",
       "level": 2,
       "hero": "HELLION",
@@ -292,7 +292,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p024",
+      "id": "hero_skill:core:h02:p024",
       "name": "Wicked Hack",
       "level": 3,
       "hero": "HELLION",
@@ -304,7 +304,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p025",
+      "id": "hero_skill:core:h02:p025",
       "name": "Iron Swan",
       "level": 1,
       "hero": "HELLION",
@@ -316,7 +316,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p026",
+      "id": "hero_skill:core:h02:p026",
       "name": "Iron Swan",
       "level": 2,
       "hero": "HELLION",
@@ -328,7 +328,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p027",
+      "id": "hero_skill:core:h02:p027",
       "name": "Iron Swan",
       "level": 3,
       "hero": "HELLION",
@@ -340,7 +340,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p028",
+      "id": "hero_skill:core:h02:p028",
       "name": "Barbaric YAWP!",
       "level": 1,
       "hero": "HELLION",
@@ -352,7 +352,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p029",
+      "id": "hero_skill:core:h02:p029",
       "name": "Barbaric YAWP!",
       "level": 2,
       "hero": "HELLION",
@@ -364,7 +364,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p030",
+      "id": "hero_skill:core:h02:p030",
       "name": "Barbaric YAWP!",
       "level": 3,
       "hero": "HELLION",
@@ -376,7 +376,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p031",
+      "id": "hero_skill:core:h02:p031",
       "name": "If It Bleeds",
       "level": 1,
       "hero": "HELLION",
@@ -388,7 +388,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p032",
+      "id": "hero_skill:core:h02:p032",
       "name": "If It Bleeds",
       "level": 2,
       "hero": "HELLION",
@@ -400,7 +400,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p033",
+      "id": "hero_skill:core:h02:p033",
       "name": "If It Bleeds",
       "level": 3,
       "hero": "HELLION",
@@ -412,7 +412,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p034",
+      "id": "hero_skill:core:h02:p034",
       "name": "Breakthrough",
       "level": 1,
       "hero": "HELLION",
@@ -424,7 +424,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p035",
+      "id": "hero_skill:core:h02:p035",
       "name": "Breakthrough",
       "level": 2,
       "hero": "HELLION",
@@ -436,7 +436,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p036",
+      "id": "hero_skill:core:h02:p036",
       "name": "Breakthrough",
       "level": 3,
       "hero": "HELLION",
@@ -448,7 +448,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p037",
+      "id": "hero_skill:core:h02:p037",
       "name": "Adrenaline Rush",
       "level": 1,
       "hero": "HELLION",
@@ -460,7 +460,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p038",
+      "id": "hero_skill:core:h02:p038",
       "name": "Adrenaline Rush",
       "level": 2,
       "hero": "HELLION",
@@ -472,7 +472,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p039",
+      "id": "hero_skill:core:h02:p039",
       "name": "Adrenaline Rush",
       "level": 3,
       "hero": "HELLION",
@@ -484,7 +484,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p040",
+      "id": "hero_skill:core:h02:p040",
       "name": "Bleed Out",
       "level": 1,
       "hero": "HELLION",
@@ -496,7 +496,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p041",
+      "id": "hero_skill:core:h02:p041",
       "name": "Bleed Out",
       "level": 2,
       "hero": "HELLION",
@@ -508,7 +508,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p042",
+      "id": "hero_skill:core:h02:p042",
       "name": "Bleed Out",
       "level": 3,
       "hero": "HELLION",
@@ -520,7 +520,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p043",
+      "id": "hero_skill:core:h03:p043",
       "name": "Collect Bounty",
       "level": 1,
       "hero": "BOUNTY HUNTER",
@@ -532,7 +532,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p044",
+      "id": "hero_skill:core:h03:p044",
       "name": "Collect Bounty",
       "level": 2,
       "hero": "BOUNTY HUNTER",
@@ -544,7 +544,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p045",
+      "id": "hero_skill:core:h03:p045",
       "name": "Collect Bounty",
       "level": 3,
       "hero": "BOUNTY HUNTER",
@@ -556,7 +556,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p046",
+      "id": "hero_skill:core:h03:p046",
       "name": "Mark for Death",
       "level": 1,
       "hero": "BOUNTY HUNTER",
@@ -568,7 +568,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p047",
+      "id": "hero_skill:core:h03:p047",
       "name": "Mark for Death",
       "level": 2,
       "hero": "BOUNTY HUNTER",
@@ -580,7 +580,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p048",
+      "id": "hero_skill:core:h03:p048",
       "name": "Mark for Death",
       "level": 3,
       "hero": "BOUNTY HUNTER",
@@ -592,7 +592,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p049",
+      "id": "hero_skill:core:h03:p049",
       "name": "Come Hither",
       "level": 1,
       "hero": "BOUNTY HUNTER",
@@ -604,7 +604,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p050",
+      "id": "hero_skill:core:h03:p050",
       "name": "Come Hither",
       "level": 2,
       "hero": "BOUNTY HUNTER",
@@ -616,7 +616,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p051",
+      "id": "hero_skill:core:h03:p051",
       "name": "Come Hither",
       "level": 3,
       "hero": "BOUNTY HUNTER",
@@ -628,7 +628,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p052",
+      "id": "hero_skill:core:h03:p052",
       "name": "Uppercut",
       "level": 1,
       "hero": "BOUNTY HUNTER",
@@ -640,7 +640,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p053",
+      "id": "hero_skill:core:h03:p053",
       "name": "Uppercut",
       "level": 2,
       "hero": "BOUNTY HUNTER",
@@ -652,7 +652,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p054",
+      "id": "hero_skill:core:h03:p054",
       "name": "Uppercut",
       "level": 3,
       "hero": "BOUNTY HUNTER",
@@ -664,7 +664,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p055",
+      "id": "hero_skill:core:h03:p055",
       "name": "Flashbang",
       "level": 1,
       "hero": "BOUNTY HUNTER",
@@ -676,7 +676,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p056",
+      "id": "hero_skill:core:h03:p056",
       "name": "Flashbang",
       "level": 2,
       "hero": "BOUNTY HUNTER",
@@ -688,7 +688,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p057",
+      "id": "hero_skill:core:h03:p057",
       "name": "Flashbang",
       "level": 3,
       "hero": "BOUNTY HUNTER",
@@ -700,7 +700,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p058",
+      "id": "hero_skill:core:h03:p058",
       "name": "Finish Him",
       "level": 1,
       "hero": "BOUNTY HUNTER",
@@ -712,7 +712,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p059",
+      "id": "hero_skill:core:h03:p059",
       "name": "Finish Him",
       "level": 2,
       "hero": "BOUNTY HUNTER",
@@ -724,7 +724,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p060",
+      "id": "hero_skill:core:h03:p060",
       "name": "Finish Him",
       "level": 3,
       "hero": "BOUNTY HUNTER",
@@ -736,7 +736,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p061",
+      "id": "hero_skill:core:h03:p061",
       "name": "Caltrops",
       "level": 1,
       "hero": "BOUNTY HUNTER",
@@ -748,7 +748,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p062",
+      "id": "hero_skill:core:h03:p062",
       "name": "Caltrops",
       "level": 2,
       "hero": "BOUNTY HUNTER",
@@ -760,7 +760,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p063",
+      "id": "hero_skill:core:h03:p063",
       "name": "Caltrops",
       "level": 3,
       "hero": "BOUNTY HUNTER",
@@ -772,7 +772,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p064",
+      "id": "hero_skill:core:h04:p064",
       "name": "Wicked Slice",
       "level": 1,
       "hero": "HIGHWAYMAN",
@@ -784,7 +784,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p065",
+      "id": "hero_skill:core:h04:p065",
       "name": "Wicked Slice",
       "level": 2,
       "hero": "HIGHWAYMAN",
@@ -796,7 +796,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p066",
+      "id": "hero_skill:core:h04:p066",
       "name": "Wicked Slice",
       "level": 3,
       "hero": "HIGHWAYMAN",
@@ -808,7 +808,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p067",
+      "id": "hero_skill:core:h04:p067",
       "name": "Pistol Shot",
       "level": 1,
       "hero": "HIGHWAYMAN",
@@ -820,7 +820,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p068",
+      "id": "hero_skill:core:h04:p068",
       "name": "Pistol Shot",
       "level": 2,
       "hero": "HIGHWAYMAN",
@@ -832,7 +832,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p069",
+      "id": "hero_skill:core:h04:p069",
       "name": "Pistol Shot",
       "level": 3,
       "hero": "HIGHWAYMAN",
@@ -844,7 +844,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p070",
+      "id": "hero_skill:core:h04:p070",
       "name": "Point Blank Shot",
       "level": 1,
       "hero": "HIGHWAYMAN",
@@ -856,7 +856,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p071",
+      "id": "hero_skill:core:h04:p071",
       "name": "Point Blank Shot",
       "level": 2,
       "hero": "HIGHWAYMAN",
@@ -868,7 +868,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p072",
+      "id": "hero_skill:core:h04:p072",
       "name": "Point Blank Shot",
       "level": 3,
       "hero": "HIGHWAYMAN",
@@ -880,7 +880,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p073",
+      "id": "hero_skill:core:h04:p073",
       "name": "Grapeshot Blast",
       "level": 1,
       "hero": "HIGHWAYMAN",
@@ -892,7 +892,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p074",
+      "id": "hero_skill:core:h04:p074",
       "name": "Grapeshot Blast",
       "level": 2,
       "hero": "HIGHWAYMAN",
@@ -904,7 +904,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p075",
+      "id": "hero_skill:core:h04:p075",
       "name": "Grapeshot Blast",
       "level": 3,
       "hero": "HIGHWAYMAN",
@@ -916,7 +916,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p076",
+      "id": "hero_skill:core:h04:p076",
       "name": "Tracking Shot",
       "level": 1,
       "hero": "HIGHWAYMAN",
@@ -928,7 +928,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p077",
+      "id": "hero_skill:core:h04:p077",
       "name": "Tracking Shot",
       "level": 2,
       "hero": "HIGHWAYMAN",
@@ -940,7 +940,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p078",
+      "id": "hero_skill:core:h04:p078",
       "name": "Tracking Shot",
       "level": 3,
       "hero": "HIGHWAYMAN",
@@ -952,7 +952,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p079",
+      "id": "hero_skill:core:h04:p079",
       "name": "Duelist’s Advance",
       "level": 1,
       "hero": "HIGHWAYMAN",
@@ -964,7 +964,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p080",
+      "id": "hero_skill:core:h04:p080",
       "name": "Duelist’s Advance",
       "level": 2,
       "hero": "HIGHWAYMAN",
@@ -976,7 +976,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p081",
+      "id": "hero_skill:core:h04:p081",
       "name": "Duelist’s Advance",
       "level": 3,
       "hero": "HIGHWAYMAN",
@@ -988,7 +988,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p082",
+      "id": "hero_skill:core:h04:p082",
       "name": "Open Vein",
       "level": 1,
       "hero": "HIGHWAYMAN",
@@ -1000,7 +1000,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p083",
+      "id": "hero_skill:core:h04:p083",
       "name": "Open Vein",
       "level": 2,
       "hero": "HIGHWAYMAN",
@@ -1012,7 +1012,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p084",
+      "id": "hero_skill:core:h04:p084",
       "name": "Open Vein",
       "level": 3,
       "hero": "HIGHWAYMAN",
@@ -1024,7 +1024,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p085",
+      "id": "hero_skill:core:h05:p085",
       "name": "Mace Bash",
       "level": 1,
       "hero": "VESTAL",
@@ -1036,7 +1036,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p086",
+      "id": "hero_skill:core:h05:p086",
       "name": "Mace Bash",
       "level": 2,
       "hero": "VESTAL",
@@ -1048,7 +1048,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p087",
+      "id": "hero_skill:core:h05:p087",
       "name": "Mace Bash",
       "level": 3,
       "hero": "VESTAL",
@@ -1060,7 +1060,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p088",
+      "id": "hero_skill:core:h05:p088",
       "name": "Judgement",
       "level": 1,
       "hero": "VESTAL",
@@ -1072,7 +1072,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p089",
+      "id": "hero_skill:core:h05:p089",
       "name": "Judgement",
       "level": 2,
       "hero": "VESTAL",
@@ -1084,7 +1084,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p090",
+      "id": "hero_skill:core:h05:p090",
       "name": "Judgement",
       "level": 3,
       "hero": "VESTAL",
@@ -1096,7 +1096,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p091",
+      "id": "hero_skill:core:h05:p091",
       "name": "Dazzling Light",
       "level": 1,
       "hero": "VESTAL",
@@ -1108,7 +1108,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p092",
+      "id": "hero_skill:core:h05:p092",
       "name": "Dazzling Light",
       "level": 2,
       "hero": "VESTAL",
@@ -1120,7 +1120,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p093",
+      "id": "hero_skill:core:h05:p093",
       "name": "Dazzling Light",
       "level": 3,
       "hero": "VESTAL",
@@ -1132,7 +1132,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p094",
+      "id": "hero_skill:core:h05:p094",
       "name": "Divine Grace",
       "level": 1,
       "hero": "VESTAL",
@@ -1144,7 +1144,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p095",
+      "id": "hero_skill:core:h05:p095",
       "name": "Divine Grace",
       "level": 2,
       "hero": "VESTAL",
@@ -1156,7 +1156,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p096",
+      "id": "hero_skill:core:h05:p096",
       "name": "Divine Grace",
       "level": 3,
       "hero": "VESTAL",
@@ -1168,7 +1168,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p097",
+      "id": "hero_skill:core:h05:p097",
       "name": "Divine Comfort",
       "level": 1,
       "hero": "VESTAL",
@@ -1180,7 +1180,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p098",
+      "id": "hero_skill:core:h05:p098",
       "name": "Divine Comfort",
       "level": 2,
       "hero": "VESTAL",
@@ -1192,7 +1192,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p099",
+      "id": "hero_skill:core:h05:p099",
       "name": "Divine Comfort",
       "level": 3,
       "hero": "VESTAL",
@@ -1204,7 +1204,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p100",
+      "id": "hero_skill:core:h05:p100",
       "name": "Illumination",
       "level": 1,
       "hero": "VESTAL",
@@ -1216,7 +1216,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p101",
+      "id": "hero_skill:core:h05:p101",
       "name": "Illumination",
       "level": 2,
       "hero": "VESTAL",
@@ -1228,7 +1228,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p102",
+      "id": "hero_skill:core:h05:p102",
       "name": "Illumination",
       "level": 3,
       "hero": "VESTAL",
@@ -1240,7 +1240,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p103",
+      "id": "hero_skill:core:h05:p103",
       "name": "Hand of Light",
       "level": 1,
       "hero": "VESTAL",
@@ -1252,7 +1252,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p104",
+      "id": "hero_skill:core:h05:p104",
       "name": "Hand of Light",
       "level": 2,
       "hero": "VESTAL",
@@ -1264,7 +1264,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p105",
+      "id": "hero_skill:core:h05:p105",
       "name": "Hand of Light",
       "level": 3,
       "hero": "VESTAL",
@@ -1276,7 +1276,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p106",
+      "id": "hero_skill:core:h06:p106",
       "name": "Dirk Stab",
       "level": 1,
       "hero": "JESTER",
@@ -1288,7 +1288,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p107",
+      "id": "hero_skill:core:h06:p107",
       "name": "Dirk Stab",
       "level": 2,
       "hero": "JESTER",
@@ -1300,7 +1300,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p108",
+      "id": "hero_skill:core:h06:p108",
       "name": "Dirk Stab",
       "level": 3,
       "hero": "JESTER",
@@ -1312,7 +1312,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p109",
+      "id": "hero_skill:core:h06:p109",
       "name": "Harvest",
       "level": 1,
       "hero": "JESTER",
@@ -1324,7 +1324,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p110",
+      "id": "hero_skill:core:h06:p110",
       "name": "Harvest",
       "level": 2,
       "hero": "JESTER",
@@ -1336,7 +1336,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p111",
+      "id": "hero_skill:core:h06:p111",
       "name": "Harvest",
       "level": 3,
       "hero": "JESTER",
@@ -1348,7 +1348,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p112",
+      "id": "hero_skill:core:h06:p112",
       "name": "Finale",
       "level": 1,
       "hero": "JESTER",
@@ -1360,7 +1360,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p113",
+      "id": "hero_skill:core:h06:p113",
       "name": "Finale",
       "level": 2,
       "hero": "JESTER",
@@ -1372,7 +1372,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p114",
+      "id": "hero_skill:core:h06:p114",
       "name": "Finale",
       "level": 3,
       "hero": "JESTER",
@@ -1384,7 +1384,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p115",
+      "id": "hero_skill:core:h06:p115",
       "name": "Solo",
       "level": 1,
       "hero": "JESTER",
@@ -1396,7 +1396,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p116",
+      "id": "hero_skill:core:h06:p116",
       "name": "Solo",
       "level": 2,
       "hero": "JESTER",
@@ -1408,7 +1408,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p117",
+      "id": "hero_skill:core:h06:p117",
       "name": "Solo",
       "level": 3,
       "hero": "JESTER",
@@ -1420,7 +1420,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p118",
+      "id": "hero_skill:core:h06:p118",
       "name": "Battle Ballad",
       "level": 1,
       "hero": "JESTER",
@@ -1432,7 +1432,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p119",
+      "id": "hero_skill:core:h06:p119",
       "name": "Battle Ballad",
       "level": 2,
       "hero": "JESTER",
@@ -1444,7 +1444,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p120",
+      "id": "hero_skill:core:h06:p120",
       "name": "Battle Ballad",
       "level": 3,
       "hero": "JESTER",
@@ -1456,7 +1456,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p121",
+      "id": "hero_skill:core:h06:p121",
       "name": "Inspiring Tune",
       "level": 1,
       "hero": "JESTER",
@@ -1468,7 +1468,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p122",
+      "id": "hero_skill:core:h06:p122",
       "name": "Inspiring Tune",
       "level": 2,
       "hero": "JESTER",
@@ -1480,7 +1480,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p123",
+      "id": "hero_skill:core:h06:p123",
       "name": "Inspiring Tune",
       "level": 3,
       "hero": "JESTER",
@@ -1492,7 +1492,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p124",
+      "id": "hero_skill:core:h06:p124",
       "name": "Slice Off",
       "level": 1,
       "hero": "JESTER",
@@ -1504,7 +1504,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p125",
+      "id": "hero_skill:core:h06:p125",
       "name": "Slice Off",
       "level": 2,
       "hero": "JESTER",
@@ -1516,7 +1516,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p126",
+      "id": "hero_skill:core:h06:p126",
       "name": "Slice Off",
       "level": 3,
       "hero": "JESTER",
@@ -1528,7 +1528,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p127",
+      "id": "hero_skill:core:h07:p127",
       "name": "Noxious Blast",
       "level": 1,
       "hero": "PLAGUE DOCTOR",
@@ -1540,7 +1540,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p128",
+      "id": "hero_skill:core:h07:p128",
       "name": "Noxious Blast",
       "level": 2,
       "hero": "PLAGUE DOCTOR",
@@ -1552,7 +1552,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p129",
+      "id": "hero_skill:core:h07:p129",
       "name": "Noxious Blast",
       "level": 3,
       "hero": "PLAGUE DOCTOR",
@@ -1564,7 +1564,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p130",
+      "id": "hero_skill:core:h07:p130",
       "name": "Plague Grenade",
       "level": 1,
       "hero": "PLAGUE DOCTOR",
@@ -1576,7 +1576,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p131",
+      "id": "hero_skill:core:h07:p131",
       "name": "Plague Grenade",
       "level": 2,
       "hero": "PLAGUE DOCTOR",
@@ -1588,7 +1588,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p132",
+      "id": "hero_skill:core:h07:p132",
       "name": "Plague Grenade",
       "level": 3,
       "hero": "PLAGUE DOCTOR",
@@ -1600,7 +1600,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p133",
+      "id": "hero_skill:core:h07:p133",
       "name": "Blinding Gas",
       "level": 1,
       "hero": "PLAGUE DOCTOR",
@@ -1612,7 +1612,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p134",
+      "id": "hero_skill:core:h07:p134",
       "name": "Blinding Gas",
       "level": 2,
       "hero": "PLAGUE DOCTOR",
@@ -1624,7 +1624,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p135",
+      "id": "hero_skill:core:h07:p135",
       "name": "Blinding Gas",
       "level": 3,
       "hero": "PLAGUE DOCTOR",
@@ -1636,7 +1636,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p136",
+      "id": "hero_skill:core:h07:p136",
       "name": "Incision",
       "level": 1,
       "hero": "PLAGUE DOCTOR",
@@ -1648,7 +1648,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p137",
+      "id": "hero_skill:core:h07:p137",
       "name": "Incision",
       "level": 2,
       "hero": "PLAGUE DOCTOR",
@@ -1660,7 +1660,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p138",
+      "id": "hero_skill:core:h07:p138",
       "name": "Incision",
       "level": 3,
       "hero": "PLAGUE DOCTOR",
@@ -1672,7 +1672,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p139",
+      "id": "hero_skill:core:h07:p139",
       "name": "Battlefield Medicine",
       "level": 1,
       "hero": "PLAGUE DOCTOR",
@@ -1684,7 +1684,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p140",
+      "id": "hero_skill:core:h07:p140",
       "name": "Battlefield Medicine",
       "level": 2,
       "hero": "PLAGUE DOCTOR",
@@ -1696,7 +1696,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p141",
+      "id": "hero_skill:core:h07:p141",
       "name": "Battlefield Medicine",
       "level": 3,
       "hero": "PLAGUE DOCTOR",
@@ -1708,7 +1708,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p142",
+      "id": "hero_skill:core:h07:p142",
       "name": "Emboldening Vapours",
       "level": 1,
       "hero": "PLAGUE DOCTOR",
@@ -1720,7 +1720,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p143",
+      "id": "hero_skill:core:h07:p143",
       "name": "Emboldening Vapours",
       "level": 2,
       "hero": "PLAGUE DOCTOR",
@@ -1732,7 +1732,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p144",
+      "id": "hero_skill:core:h07:p144",
       "name": "Emboldening Vapours",
       "level": 3,
       "hero": "PLAGUE DOCTOR",
@@ -1744,7 +1744,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p145",
+      "id": "hero_skill:core:h07:p145",
       "name": "Disorienting Blast",
       "level": 1,
       "hero": "PLAGUE DOCTOR",
@@ -1756,7 +1756,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p146",
+      "id": "hero_skill:core:h07:p146",
       "name": "Disorienting Blast",
       "level": 2,
       "hero": "PLAGUE DOCTOR",
@@ -1768,7 +1768,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p147",
+      "id": "hero_skill:core:h07:p147",
       "name": "Disorienting Blast",
       "level": 3,
       "hero": "PLAGUE DOCTOR",
@@ -1780,7 +1780,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p148",
+      "id": "hero_skill:core:h08:p148",
       "name": "Sniper Shot",
       "level": 1,
       "hero": "ARBALEST",
@@ -1792,7 +1792,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p149",
+      "id": "hero_skill:core:h08:p149",
       "name": "Sniper Shot",
       "level": 2,
       "hero": "ARBALEST",
@@ -1804,7 +1804,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p150",
+      "id": "hero_skill:core:h08:p150",
       "name": "Sniper Shot",
       "level": 3,
       "hero": "ARBALEST",
@@ -1816,7 +1816,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p151",
+      "id": "hero_skill:core:h08:p151",
       "name": "Suppressive Fire",
       "level": 1,
       "hero": "ARBALEST",
@@ -1828,7 +1828,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p152",
+      "id": "hero_skill:core:h08:p152",
       "name": "Suppressive Fire",
       "level": 2,
       "hero": "ARBALEST",
@@ -1840,7 +1840,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p153",
+      "id": "hero_skill:core:h08:p153",
       "name": "Suppressive Fire",
       "level": 3,
       "hero": "ARBALEST",
@@ -1852,7 +1852,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p154",
+      "id": "hero_skill:core:h08:p154",
       "name": "Sniper’s Mark",
       "level": 1,
       "hero": "ARBALEST",
@@ -1864,7 +1864,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p155",
+      "id": "hero_skill:core:h08:p155",
       "name": "Sniper’s Mark",
       "level": 2,
       "hero": "ARBALEST",
@@ -1876,7 +1876,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p156",
+      "id": "hero_skill:core:h08:p156",
       "name": "Sniper’s Mark",
       "level": 3,
       "hero": "ARBALEST",
@@ -1888,7 +1888,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p157",
+      "id": "hero_skill:core:h08:p157",
       "name": "Bola",
       "level": 1,
       "hero": "ARBALEST",
@@ -1900,7 +1900,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p158",
+      "id": "hero_skill:core:h08:p158",
       "name": "Bola",
       "level": 2,
       "hero": "ARBALEST",
@@ -1912,7 +1912,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p159",
+      "id": "hero_skill:core:h08:p159",
       "name": "Bola",
       "level": 3,
       "hero": "ARBALEST",
@@ -1924,7 +1924,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p160",
+      "id": "hero_skill:core:h08:p160",
       "name": "Blindfire",
       "level": 1,
       "hero": "ARBALEST",
@@ -1936,7 +1936,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p161",
+      "id": "hero_skill:core:h08:p161",
       "name": "Blindfire",
       "level": 2,
       "hero": "ARBALEST",
@@ -1948,7 +1948,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p162",
+      "id": "hero_skill:core:h08:p162",
       "name": "Blindfire",
       "level": 3,
       "hero": "ARBALEST",
@@ -1960,7 +1960,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p163",
+      "id": "hero_skill:core:h08:p163",
       "name": "Battlefield Bandage",
       "level": 1,
       "hero": "ARBALEST",
@@ -1972,7 +1972,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p164",
+      "id": "hero_skill:core:h08:p164",
       "name": "Battlefield Bandage",
       "level": 2,
       "hero": "ARBALEST",
@@ -1984,7 +1984,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p165",
+      "id": "hero_skill:core:h08:p165",
       "name": "Battlefield Bandage",
       "level": 3,
       "hero": "ARBALEST",
@@ -1996,7 +1996,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p166",
+      "id": "hero_skill:core:h08:p166",
       "name": "Rallying Flare",
       "level": 1,
       "hero": "ARBALEST",
@@ -2008,7 +2008,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p167",
+      "id": "hero_skill:core:h08:p167",
       "name": "Rallying Flare",
       "level": 2,
       "hero": "ARBALEST",
@@ -2020,7 +2020,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p168",
+      "id": "hero_skill:core:h08:p168",
       "name": "Rallying Flare",
       "level": 3,
       "hero": "ARBALEST",
@@ -2032,7 +2032,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p169",
+      "id": "hero_skill:core:h09:p169",
       "name": "Pick to the Face",
       "level": 1,
       "hero": "GRAVE ROBBER",
@@ -2044,7 +2044,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p170",
+      "id": "hero_skill:core:h09:p170",
       "name": "Pick to the Face",
       "level": 2,
       "hero": "GRAVE ROBBER",
@@ -2056,7 +2056,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p171",
+      "id": "hero_skill:core:h09:p171",
       "name": "Pick to the Face",
       "level": 3,
       "hero": "GRAVE ROBBER",
@@ -2068,7 +2068,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p172",
+      "id": "hero_skill:core:h09:p172",
       "name": "Lunge",
       "level": 1,
       "hero": "GRAVE ROBBER",
@@ -2080,7 +2080,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p173",
+      "id": "hero_skill:core:h09:p173",
       "name": "Lunge",
       "level": 2,
       "hero": "GRAVE ROBBER",
@@ -2092,7 +2092,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p174",
+      "id": "hero_skill:core:h09:p174",
       "name": "Lunge",
       "level": 3,
       "hero": "GRAVE ROBBER",
@@ -2104,7 +2104,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p175",
+      "id": "hero_skill:core:h09:p175",
       "name": "Flashing Daggers",
       "level": 1,
       "hero": "GRAVE ROBBER",
@@ -2116,7 +2116,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p176",
+      "id": "hero_skill:core:h09:p176",
       "name": "Flashing Daggers",
       "level": 2,
       "hero": "GRAVE ROBBER",
@@ -2128,7 +2128,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p177",
+      "id": "hero_skill:core:h09:p177",
       "name": "Flashing Daggers",
       "level": 3,
       "hero": "GRAVE ROBBER",
@@ -2140,7 +2140,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p178",
+      "id": "hero_skill:core:h09:p178",
       "name": "Shadow Fade",
       "level": 1,
       "hero": "GRAVE ROBBER",
@@ -2152,7 +2152,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p179",
+      "id": "hero_skill:core:h09:p179",
       "name": "Shadow Fade",
       "level": 2,
       "hero": "GRAVE ROBBER",
@@ -2164,7 +2164,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p180",
+      "id": "hero_skill:core:h09:p180",
       "name": "Shadow Fade",
       "level": 3,
       "hero": "GRAVE ROBBER",
@@ -2176,7 +2176,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p181",
+      "id": "hero_skill:core:h09:p181",
       "name": "Throw Dagger",
       "level": 1,
       "hero": "GRAVE ROBBER",
@@ -2188,7 +2188,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p182",
+      "id": "hero_skill:core:h09:p182",
       "name": "Throw Dagger",
       "level": 2,
       "hero": "GRAVE ROBBER",
@@ -2200,7 +2200,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p183",
+      "id": "hero_skill:core:h09:p183",
       "name": "Throw Dagger",
       "level": 3,
       "hero": "GRAVE ROBBER",
@@ -2212,7 +2212,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p184",
+      "id": "hero_skill:core:h09:p184",
       "name": "Poison Dart",
       "level": 1,
       "hero": "GRAVE ROBBER",
@@ -2224,7 +2224,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p185",
+      "id": "hero_skill:core:h09:p185",
       "name": "Poison Dart",
       "level": 2,
       "hero": "GRAVE ROBBER",
@@ -2236,7 +2236,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p186",
+      "id": "hero_skill:core:h09:p186",
       "name": "Poison Dart",
       "level": 3,
       "hero": "GRAVE ROBBER",
@@ -2248,7 +2248,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p187",
+      "id": "hero_skill:core:h09:p187",
       "name": "Toxin Trickery",
       "level": 1,
       "hero": "GRAVE ROBBER",
@@ -2260,7 +2260,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p188",
+      "id": "hero_skill:core:h09:p188",
       "name": "Toxin Trickery",
       "level": 2,
       "hero": "GRAVE ROBBER",
@@ -2272,7 +2272,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p189",
+      "id": "hero_skill:core:h09:p189",
       "name": "Toxin Trickery",
       "level": 3,
       "hero": "GRAVE ROBBER",
@@ -2284,7 +2284,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p190",
+      "id": "hero_skill:core:h10:p190",
       "name": "Sacrificial Stab",
       "level": 1,
       "hero": "OCCULTIST",
@@ -2296,7 +2296,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p191",
+      "id": "hero_skill:core:h10:p191",
       "name": "Sacrificial Stab",
       "level": 2,
       "hero": "OCCULTIST",
@@ -2308,7 +2308,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p192",
+      "id": "hero_skill:core:h10:p192",
       "name": "Sacrificial Stab",
       "level": 3,
       "hero": "OCCULTIST",
@@ -2320,7 +2320,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p193",
+      "id": "hero_skill:core:h10:p193",
       "name": "Abyssal Artillery",
       "level": 1,
       "hero": "OCCULTIST",
@@ -2332,7 +2332,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p194",
+      "id": "hero_skill:core:h10:p194",
       "name": "Abyssal Artillery",
       "level": 2,
       "hero": "OCCULTIST",
@@ -2344,7 +2344,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p195",
+      "id": "hero_skill:core:h10:p195",
       "name": "Abyssal Artillery",
       "level": 3,
       "hero": "OCCULTIST",
@@ -2356,7 +2356,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p196",
+      "id": "hero_skill:core:h10:p196",
       "name": "Weakening Curse",
       "level": 1,
       "hero": "OCCULTIST",
@@ -2368,7 +2368,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p197",
+      "id": "hero_skill:core:h10:p197",
       "name": "Weakening Curse",
       "level": 2,
       "hero": "OCCULTIST",
@@ -2380,7 +2380,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p198",
+      "id": "hero_skill:core:h10:p198",
       "name": "Weakening Curse",
       "level": 3,
       "hero": "OCCULTIST",
@@ -2392,7 +2392,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p199",
+      "id": "hero_skill:core:h10:p199",
       "name": "Wyrd Reconstruction",
       "level": 1,
       "hero": "OCCULTIST",
@@ -2404,7 +2404,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p200",
+      "id": "hero_skill:core:h10:p200",
       "name": "Wyrd Reconstruction",
       "level": 2,
       "hero": "OCCULTIST",
@@ -2416,7 +2416,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p201",
+      "id": "hero_skill:core:h10:p201",
       "name": "Wyrd Reconstruction",
       "level": 3,
       "hero": "OCCULTIST",
@@ -2428,7 +2428,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p202",
+      "id": "hero_skill:core:h10:p202",
       "name": "Vulnerability Hex",
       "level": 1,
       "hero": "OCCULTIST",
@@ -2440,7 +2440,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p203",
+      "id": "hero_skill:core:h10:p203",
       "name": "Vulnerability Hex",
       "level": 2,
       "hero": "OCCULTIST",
@@ -2452,7 +2452,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p204",
+      "id": "hero_skill:core:h10:p204",
       "name": "Vulnerability Hex",
       "level": 3,
       "hero": "OCCULTIST",
@@ -2464,7 +2464,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p205",
+      "id": "hero_skill:core:h10:p205",
       "name": "Hands from the Abyss",
       "level": 1,
       "hero": "OCCULTIST",
@@ -2476,7 +2476,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p206",
+      "id": "hero_skill:core:h10:p206",
       "name": "Hands from the Abyss",
       "level": 2,
       "hero": "OCCULTIST",
@@ -2488,7 +2488,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p207",
+      "id": "hero_skill:core:h10:p207",
       "name": "Hands from the Abyss",
       "level": 3,
       "hero": "OCCULTIST",
@@ -2500,7 +2500,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p208",
+      "id": "hero_skill:core:h10:p208",
       "name": "Daemon’s Pull",
       "level": 1,
       "hero": "OCCULTIST",
@@ -2512,7 +2512,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p209",
+      "id": "hero_skill:core:h10:p209",
       "name": "Daemon’s Pull",
       "level": 2,
       "hero": "OCCULTIST",
@@ -2524,7 +2524,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p210",
+      "id": "hero_skill:core:h10:p210",
       "name": "Daemon’s Pull",
       "level": 3,
       "hero": "OCCULTIST",
@@ -2536,7 +2536,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p211",
+      "id": "hero_skill:core:h11:p211",
       "name": "Manacles",
       "level": 1,
       "hero": "ABOMINATION",
@@ -2548,7 +2548,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p212",
+      "id": "hero_skill:core:h11:p212",
       "name": "Manacles",
       "level": 2,
       "hero": "ABOMINATION",
@@ -2560,7 +2560,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p213",
+      "id": "hero_skill:core:h11:p213",
       "name": "Manacles",
       "level": 3,
       "hero": "ABOMINATION",
@@ -2572,7 +2572,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p214",
+      "id": "hero_skill:core:h11:p214",
       "name": "Beast’s Bile",
       "level": 1,
       "hero": "ABOMINATION",
@@ -2584,7 +2584,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p215",
+      "id": "hero_skill:core:h11:p215",
       "name": "Beast’s Bile",
       "level": 2,
       "hero": "ABOMINATION",
@@ -2596,7 +2596,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p216",
+      "id": "hero_skill:core:h11:p216",
       "name": "Beast’s Bile",
       "level": 3,
       "hero": "ABOMINATION",
@@ -2608,7 +2608,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p217",
+      "id": "hero_skill:core:h11:p217",
       "name": "Absolution",
       "level": 1,
       "hero": "ABOMINATION",
@@ -2620,7 +2620,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p218",
+      "id": "hero_skill:core:h11:p218",
       "name": "Absolution",
       "level": 2,
       "hero": "ABOMINATION",
@@ -2632,7 +2632,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p219",
+      "id": "hero_skill:core:h11:p219",
       "name": "Absolution",
       "level": 3,
       "hero": "ABOMINATION",
@@ -2644,7 +2644,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p220",
+      "id": "hero_skill:core:h11:p220",
       "name": "Transform to Beast",
       "level": 1,
       "hero": "",
@@ -2656,7 +2656,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p221",
+      "id": "hero_skill:core:h11:p221",
       "name": "Transform to Beast",
       "level": 2,
       "hero": "",
@@ -2668,7 +2668,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p222",
+      "id": "hero_skill:core:h11:p222",
       "name": "Transform to Beast",
       "level": 3,
       "hero": "",
@@ -2680,7 +2680,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p223",
+      "id": "hero_skill:core:h11:p223",
       "name": "Rake",
       "level": 1,
       "hero": "ABOMINATION",
@@ -2692,7 +2692,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p224",
+      "id": "hero_skill:core:h11:p224",
       "name": "Rake",
       "level": 2,
       "hero": "ABOMINATION",
@@ -2704,7 +2704,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p225",
+      "id": "hero_skill:core:h11:p225",
       "name": "Rake",
       "level": 3,
       "hero": "ABOMINATION",
@@ -2716,7 +2716,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p226",
+      "id": "hero_skill:core:h11:p226",
       "name": "Rage",
       "level": 1,
       "hero": "ABOMINATION",
@@ -2728,7 +2728,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p227",
+      "id": "hero_skill:core:h11:p227",
       "name": "Rage",
       "level": 2,
       "hero": "ABOMINATION",
@@ -2740,7 +2740,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p228",
+      "id": "hero_skill:core:h11:p228",
       "name": "Rage",
       "level": 3,
       "hero": "ABOMINATION",
@@ -2752,7 +2752,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p229",
+      "id": "hero_skill:core:h11:p229",
       "name": "Slam",
       "level": 1,
       "hero": "ABOMINATION",
@@ -2764,7 +2764,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p230",
+      "id": "hero_skill:core:h11:p230",
       "name": "Slam",
       "level": 2,
       "hero": "ABOMINATION",
@@ -2776,7 +2776,7 @@
       "reviewVerdict": "ok"
     },
     {
-      "id": "hero_skill:p231",
+      "id": "hero_skill:core:h11:p231",
       "name": "Slam",
       "level": 3,
       "hero": "ABOMINATION",

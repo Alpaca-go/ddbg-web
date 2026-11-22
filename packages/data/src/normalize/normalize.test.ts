@@ -132,7 +132,7 @@ describe("规范化核心盒", () => {
   });
 
   it("Crit / Acc 旁边的数字用中性占位，不命名成伤害", () => {
-    const smite = built.hero_skill.cards.find((card) => card.id === "hero_skill:p001");
+    const smite = built.hero_skill.cards.find((card) => card.id === "hero_skill:core:h01:p001");
     expect(smite?.printed_labels).toEqual([
       { label: "Crit", raw: "Crit 0", value: 0 },
       { label: "Acc", raw: "Acc 9", value: 9 },
@@ -143,7 +143,7 @@ describe("规范化核心盒", () => {
       { text: "7", numeric: 7, anchor: { type: "printed_label", label: "Acc" } },
     ]);
 
-    const bounty = built.hero_skill.cards.find((card) => card.id === "hero_skill:p044");
+    const bounty = built.hero_skill.cards.find((card) => card.id === "hero_skill:core:h03:p044");
     expect(bounty?.printed_labels).toContainEqual({ label: "Acc", raw: "Acc 1O", value: 10 });
     expect(
       bounty?.unlabeled_numbers.some(
@@ -158,10 +158,10 @@ describe("规范化核心盒", () => {
       (icon) => icon.key?.startsWith("pending_") === true,
     );
     for (const icon of pending) expect(icon.naming).toBe("unverified");
-    const flare = built.hero_skill.cards.find((card) => card.id === "hero_skill:p166");
+    const flare = built.hero_skill.cards.find((card) => card.id === "hero_skill:core:h08:p166");
     expect(flare?.verification.unverified).toBe(false);
     expect(flare?.verified_rallying_flare?.source).toBe("print_front");
-    const dirk = built.hero_skill.cards.find((card) => card.id === "hero_skill:p106");
+    const dirk = built.hero_skill.cards.find((card) => card.id === "hero_skill:core:h06:p106");
     expect(dirk?.verification.unverified).toBe(false);
 
     const merged = iconsNamed(built.virtue_affliction, (icon) => icon.iconId === "5d95c49a05");

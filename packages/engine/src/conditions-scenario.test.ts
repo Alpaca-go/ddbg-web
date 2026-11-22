@@ -567,7 +567,7 @@ it("Bad Gambler 掷 10 死门死亡时中止技能，不执行随后治疗 / 攻
       entities: patched.battle!.entities.map((e) => (e.id === "m" ? { ...e, areaId: "a" } : e)),
     },
   };
-  const smite = skills.find((s) => s.id === "hero_skill:p001")!;
+  const smite = skills.find((s) => s.id === "hero_skill:core:h01:p001")!;
   const result = applyCommand(state, {
     type: "playHeroSkill",
     actorId: "h0",
@@ -627,7 +627,7 @@ it("Vertigo 在位移区域选择完成后触发一次，沿用原技能骰，�
 function balancedShot(vertigo = false): GameState {
   const initial = setup("monster_medium:p001");
   const stat = stats.find((s) => s.name === "HIGHWAYMAN")!;
-  const skill = skills.find((s) => s.id === "hero_skill:p070")!;
+  const skill = skills.find((s) => s.id === "hero_skill:core:h04:p070")!;
   const patched = patch(initial, {
     hero: stat.name,
     heroStatId: stat.id,
@@ -695,7 +695,7 @@ it("Balanced 自身位移可减到零：冻结待选、一次扣行动、不触�
   expect(done.state.battle!.rngCursor).toBe(played.battle!.rngCursor);
   expect(done.state.battle!.encounter!.turn).toMatchObject({
     actions: 1,
-    usedSkillIds: ["hero_skill:p070"],
+    usedSkillIds: ["hero_skill:core:h04:p070"],
   });
   expect(done.state.battle!.shuffleIntents).toEqual([]);
   expect(done.events.filter((e) => e.type === "passiveTriggered")).toHaveLength(0);
@@ -1090,7 +1090,7 @@ it.each([
 
 it.each([false, true])("R20：自身Bleed Out创伤致死取消目标伤害与Bleed（多选=%s）", (multiple) => {
   const stat = stats.find((stat) => stat.name === "HELLION")!;
-  const skill = skills.find((skill) => skill.id === "hero_skill:p040")!;
+  const skill = skills.find((skill) => skill.id === "hero_skill:core:h02:p040")!;
   const seed = Array.from({ length: 500 }, (_, index) => index).find(
     (seed) => nextBattleRoll(seed, 0) === 4 && nextBattleRoll(seed, 1) <= 3,
   )!;
@@ -1159,13 +1159,13 @@ it.each([false, true])(
           type: "playHeroSkillTargets" as const,
           actorId: "h0",
           targetIds: ["m"],
-          skillId: "hero_skill:p070",
+          skillId: "hero_skill:core:h04:p070",
         }
       : {
           type: "playHeroSkill" as const,
           actorId: "h0",
           targetId: "m",
-          skillId: "hero_skill:p070",
+          skillId: "hero_skill:core:h04:p070",
         };
     const declared = applyCommand(state, command);
     const waiting = applyCommand(declared.state, { type: "resolveShuffles" });
@@ -1197,7 +1197,7 @@ it("自身位移待选遇缺意志资料原子拒绝；补回后只续接一次�
     type: "playHeroSkill" as const,
     actorId: "h0",
     targetId: "m",
-    skillId: "hero_skill:p070",
+    skillId: "hero_skill:core:h04:p070",
   };
   const declared = applyCommand(full, command);
   const reduction = applyCommand(declared.state, { type: "resolveShuffles" });
@@ -1230,7 +1230,7 @@ function emptyVertigo(changes: Partial<BattleEntity> = {}, seed = hitSeed): Game
     diseaseId: "disease:p007",
     stress: 8,
     stance: "support",
-    skillIds: ["hero_skill:p079"],
+    skillIds: ["hero_skill:core:h04:p079"],
     ...changes,
   });
   return turn({
@@ -1252,7 +1252,7 @@ function emptyVertigo(changes: Partial<BattleEntity> = {}, seed = hitSeed): Game
 const emptyAdvance = {
   type: "playHeroSkillEmptyArea",
   actorId: "h0",
-  skillId: "hero_skill:p079",
+  skillId: "hero_skill:core:h04:p079",
   areaId: "d",
 } as const;
 it("空区域 Vertigo：完成自身分岔后接首次意志检定，自身 Riposte / 技能骰 / 行动只结算一次", () => {
@@ -1294,7 +1294,7 @@ it("空区域 Vertigo：完成自身分岔后接首次意志检定，自身 Ripo
     expect(hero(done.state).statusStacks).toEqual(hero(used.state).statusStacks);
     expect(done.state.battle!.encounter!.turn).toMatchObject({
       actions: 1,
-      usedSkillIds: ["hero_skill:p079"],
+      usedSkillIds: ["hero_skill:core:h04:p079"],
     });
     expect(done.state.battle!.entities.find((e) => e.id === "m")).toEqual(
       initial.battle!.entities.find((e) => e.id === "m"),
@@ -1335,7 +1335,7 @@ it("空区域 Vertigo 与 Balanced：少移到零时不增加压力、不检定�
   expect(done.state.battle!.rngCursor).toBe(used.state.battle!.rngCursor);
   expect(done.state.battle!.encounter!.turn).toMatchObject({
     actions: 1,
-    usedSkillIds: ["hero_skill:p079"],
+    usedSkillIds: ["hero_skill:core:h04:p079"],
   });
   expect(
     done.events.filter((e) => e.type === "resolveTested" || e.type === "heartAttack"),

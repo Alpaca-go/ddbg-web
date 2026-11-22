@@ -6,7 +6,7 @@ import { nextBattleRoll } from "./encounter";
 const skills = JSON.parse(
   readFileSync(new URL("../../data/normalized/corebox/hero_skill.json", import.meta.url), "utf8"),
 ).cards as HeroSkillCardView[];
-const lance = skills.find((c) => c.id === "hero_skill:p016")!;
+const lance = skills.find((c) => c.id === "hero_skill:core:h01:p016")!;
 const monsters = JSON.parse(
   readFileSync(
     new URL("../../data/normalized/corebox/monster_medium.json", import.meta.url),

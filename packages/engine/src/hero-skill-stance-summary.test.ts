@@ -4,7 +4,7 @@ import { aggregateLitHeroSkillStanceCounts, readHeroSkillStanceMarks } from "./h
 import type { HeroSkillCardView } from "./hero-skill";
 
 const smite = loadNormalizedCorebox().hero_skill.cards.find(
-  (c) => c.id === "hero_skill:p001",
+  (c) => c.id === "hero_skill:core:h01:p001",
 )! as HeroSkillCardView;
 
 describe("英雄技能姿态汇总（建队灯条）", () => {
@@ -19,7 +19,7 @@ describe("英雄技能姿态汇总（建队灯条）", () => {
 
   it("aggregateLitHeroSkillStanceCounts 累加已选卡面的点亮格", () => {
     const judgement = loadNormalizedCorebox().hero_skill.cards.find(
-      (c) => c.id === "hero_skill:p016",
+      (c) => c.id === "hero_skill:core:h01:p016",
     )! as HeroSkillCardView;
     expect(aggregateLitHeroSkillStanceCounts([smite, judgement])).toEqual({
       support: 1,

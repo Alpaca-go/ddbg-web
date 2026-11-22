@@ -9,7 +9,7 @@ import { nextBattleRoll } from "./encounter";
 const cards = JSON.parse(
   readFileSync(new URL("../../data/normalized/corebox/hero_skill.json", import.meta.url), "utf8"),
 ).cards as HeroSkillCardView[];
-const heal = cards.find((card) => card.id === "hero_skill:p013")!;
+const heal = cards.find((card) => card.id === "hero_skill:core:h01:p013")!;
 const profiles = JSON.parse(
   readFileSync(new URL("../../data/normalized/corebox/hero_stat.json", import.meta.url), "utf8"),
 ).cards as (NonNullable<BattleSetup["heroStats"]>[number] & { level: number; dodge: number })[];
@@ -132,11 +132,11 @@ describe("Battle Heal I 逐卡复核（SKILLS_FRONT p13、R19–20、R-022 / R-0
     const { verified_range, ...without } = heal;
     expect(verified_range).toEqual({ min: 0, max: 1, source: "print_front" });
     expect(readPrintedRange(without)).toEqual({ kind: "null_numeric" });
-    expect(cards.find((c) => c.id === "hero_skill:p014")!.verified_range).toMatchObject({
+    expect(cards.find((c) => c.id === "hero_skill:core:h01:p014")!.verified_range).toMatchObject({
       min: 0,
       max: 1,
     });
-    expect(readPrintedRange(cards.find((c) => c.id === "hero_skill:p015")!)).toEqual({
+    expect(readPrintedRange(cards.find((c) => c.id === "hero_skill:core:h01:p015")!)).toEqual({
       kind: "exact",
       distance: 1,
     });

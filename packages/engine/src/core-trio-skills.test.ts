@@ -31,33 +31,33 @@ const monster = clean<NonNullable<BattleSetup["monsters"]>[number]>(
 );
 
 const JESTER_L1 = [
-  ["hero_skill:p106", "Dirk Stab", false],
-  ["hero_skill:p109", "Harvest", false],
-  ["hero_skill:p112", "Finale", false],
-  ["hero_skill:p115", "Solo", false],
-  ["hero_skill:p118", "Battle Ballad", false],
-  ["hero_skill:p121", "Inspiring Tune", false],
-  ["hero_skill:p124", "Slice Off", false],
+  ["hero_skill:core:h06:p106", "Dirk Stab", false],
+  ["hero_skill:core:h06:p109", "Harvest", false],
+  ["hero_skill:core:h06:p112", "Finale", false],
+  ["hero_skill:core:h06:p115", "Solo", false],
+  ["hero_skill:core:h06:p118", "Battle Ballad", false],
+  ["hero_skill:core:h06:p121", "Inspiring Tune", false],
+  ["hero_skill:core:h06:p124", "Slice Off", false],
 ] as const;
 
 const ARBALEST_L1 = [
-  ["hero_skill:p148", "Sniper Shot", false],
-  ["hero_skill:p151", "Suppressive Fire", false],
-  ["hero_skill:p154", "Sniper\u2019s Mark", false],
-  ["hero_skill:p157", "Bola", false],
-  ["hero_skill:p160", "Blindfire", false],
-  ["hero_skill:p163", "Battlefield Bandage", false],
-  ["hero_skill:p166", "Rallying Flare", false],
+  ["hero_skill:core:h08:p148", "Sniper Shot", false],
+  ["hero_skill:core:h08:p151", "Suppressive Fire", false],
+  ["hero_skill:core:h08:p154", "Sniper\u2019s Mark", false],
+  ["hero_skill:core:h08:p157", "Bola", false],
+  ["hero_skill:core:h08:p160", "Blindfire", false],
+  ["hero_skill:core:h08:p163", "Battlefield Bandage", false],
+  ["hero_skill:core:h08:p166", "Rallying Flare", false],
 ] as const;
 
 const ABOMINATION_L1 = [
-  ["hero_skill:p211", "Manacles", false],
-  ["hero_skill:p214", "Beast\u2019s Bile", false],
-  ["hero_skill:p217", "Absolution", false],
-  ["hero_skill:p220", "Transform to Beast", false],
-  ["hero_skill:p223", "Rake", false],
-  ["hero_skill:p226", "Rage", false],
-  ["hero_skill:p229", "Slam", false],
+  ["hero_skill:core:h11:p211", "Manacles", false],
+  ["hero_skill:core:h11:p214", "Beast\u2019s Bile", false],
+  ["hero_skill:core:h11:p217", "Absolution", false],
+  ["hero_skill:core:h11:p220", "Transform to Beast", false],
+  ["hero_skill:core:h11:p223", "Rake", false],
+  ["hero_skill:core:h11:p226", "Rage", false],
+  ["hero_skill:core:h11:p229", "Slam", false],
 ] as const;
 
 function webQuestSources(): CoreQuestSources {
@@ -167,7 +167,7 @@ it("I 级目录：Jester/Arbalest 七张已核实；Abomination 七张（含双�
     const skill = card(id) as HeroSkillCardView & { name: string };
     expect(skill.name).toBe(name);
     expect(skill.verification.unverified).toBe(unverified);
-    if (id === "hero_skill:p220") expect(skill.hero).toBeNull();
+    if (id === "hero_skill:core:h11:p220") expect(skill.hero).toBeNull();
     else expect(skill.hero).toBe("ABOMINATION");
   }
   expect(verifiedLevel1CombatSkillsForHero("JESTER", data.hero_skill.cards)).toHaveLength(7);
@@ -176,7 +176,7 @@ it("I 级目录：Jester/Arbalest 七张已核实；Abomination 七张（含双�
 });
 
 it("Dirk Stab / Rallying Flare I 可结算；R-102 无视 Guard", () => {
-  const dirk = card("hero_skill:p106");
+  const dirk = card("hero_skill:core:h06:p106");
   expect(
     resolveHeroSkillEffects(
       dirk,
@@ -190,7 +190,7 @@ it("Dirk Stab / Rallying Flare I 可结算；R-102 无视 Guard", () => {
     ).resolution,
   ).toMatchObject({ status: "resolved", outcome: "hit", damageDealt: 5 });
 
-  const flare = card("hero_skill:p166");
+  const flare = card("hero_skill:core:h08:p166");
   expect(readPrintedTargets(flare)).toEqual({ kind: "hero_or_monster", max: 2 });
   expect(
     resolveHeroSkillEffects(
@@ -209,7 +209,7 @@ it("Dirk Stab / Rallying Flare I 可结算；R-102 无视 Guard", () => {
     targetStatusEffects: [{ kind: "debuff", duration: 2 }],
   });
 
-  const transform = card("hero_skill:p220");
+  const transform = card("hero_skill:core:h11:p220");
   const abom = setupBattle("ABOMINATION", "hero_stat:core:h11:p021:front", transform, {
     areaDistance: 1,
   });
@@ -226,12 +226,12 @@ it("Dirk Stab / Rallying Flare I 可结算；R-102 无视 Guard", () => {
 it("Jester/Arbalest 可替补；七张 I 级已核实", () => {
   const sources = webQuestSources();
   type EmbarkSkill = Parameters<typeof embarkSkillAllowed>[1];
-  expect(embarkSkillAllowed("JESTER", card("hero_skill:p106") as unknown as EmbarkSkill)).toBe(
-    true,
-  );
-  expect(embarkSkillAllowed("ARBALEST", card("hero_skill:p166") as unknown as EmbarkSkill)).toBe(
-    true,
-  );
+  expect(
+    embarkSkillAllowed("JESTER", card("hero_skill:core:h06:p106") as unknown as EmbarkSkill),
+  ).toBe(true);
+  expect(
+    embarkSkillAllowed("ARBALEST", card("hero_skill:core:h08:p166") as unknown as EmbarkSkill),
+  ).toBe(true);
 
   const game = createCoreDungeonQuest(31, "quest:p001", "radiant", coreParty, sources);
   expect(replacementHeroCandidates(game.dungeon!).map((s) => s.name)).toEqual(

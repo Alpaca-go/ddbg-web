@@ -1589,10 +1589,17 @@ export function attachVerifiedHeroStatuses(
     NonNullable<NormalizedHeroSkillCard["verified_status_effects"]>
   >();
   for (const entry of entries) {
-    const matches = cards.filter((card) => card.id === entry.id);
+    const page = Number(entry.id.slice(-3));
+    const musketeerEntry = entry.id.startsWith("hero_skill:musketeer:");
+    const matches = cards.filter(
+      (card) =>
+        card.pages.length === 1 &&
+        card.pages[0] === page &&
+        (musketeerEntry ? card.hero === "MUSKETEER" : card.hero !== "MUSKETEER") &&
+        (entry.hero === undefined || card.hero === entry.hero),
+    );
     if (matches.length !== 1) throw new Error(`状态映射 id 必须唯一存在：${entry.id}`);
     const card = matches[0]!;
-    const page = Number(entry.id.slice(-3));
     if (
       card.name !== entry.name ||
       (entry.hero !== undefined &&

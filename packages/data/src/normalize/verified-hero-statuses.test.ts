@@ -10,15 +10,15 @@ describe("逐卡核实的状态持续时间（R20–21 / R-048）", () => {
     const annotated = cards.filter((card) => card.verified_status_effects !== undefined);
     expect(annotated).toHaveLength(230);
     expect(annotated.every((card) => !card.verification.unverified)).toBe(true);
-    expect(cards.find((card) => card.id === "hero_skill:p037")!.verified_status_effects).toEqual([
-      { lineIndex: 1, segmentIndex: 6, scope: "self", kind: "buff", duration: 3 },
-    ]);
     expect(
-      cards.find((card) => card.id === "hero_skill:p031")!.verified_status_effects![0],
+      cards.find((card) => card.id === "hero_skill:core:h02:p037")!.verified_status_effects,
+    ).toEqual([{ lineIndex: 1, segmentIndex: 6, scope: "self", kind: "buff", duration: 3 }]);
+    expect(
+      cards.find((card) => card.id === "hero_skill:core:h02:p031")!.verified_status_effects![0],
     ).toMatchObject({ kind: "bleed", amount: 2, duration: 2 });
-    expect(cards.find((card) => card.id === "hero_skill:p008")!.verified_status_effects).toEqual([
-      { lineIndex: 0, segmentIndex: 2, scope: "target", kind: "stun", duration: 1 },
-    ]);
+    expect(
+      cards.find((card) => card.id === "hero_skill:core:h01:p008")!.verified_status_effects,
+    ).toEqual([{ lineIndex: 0, segmentIndex: 2, scope: "target", kind: "stun", duration: 1 }]);
     for (const card of annotated) {
       expect(
         card.unlabeled_numbers
@@ -37,7 +37,7 @@ describe("逐卡核实的状态持续时间（R20–21 / R-048）", () => {
   it("卡面版本、持续时间文字、未确认图标和缺卡漂移都拒绝，不静默推断", () => {
     const mutate = (change: (card: (typeof cards)[number]) => void) => {
       const changed = structuredClone(cards);
-      change(changed.find((card) => card.id === "hero_skill:p007")!);
+      change(changed.find((card) => card.id === "hero_skill:core:h01:p007")!);
       return () => attachVerifiedHeroStatuses(changed);
     };
     expect(
@@ -57,15 +57,18 @@ describe("逐卡核实的状态持续时间（R20–21 / R-048）", () => {
       }),
     ).toThrow(/未确认/);
     expect(() =>
-      attachVerifiedHeroStatuses(cards.filter((card) => card.id !== "hero_skill:p007")),
+      attachVerifiedHeroStatuses(cards.filter((card) => card.id !== "hero_skill:core:h01:p007")),
     ).toThrow(/唯一/);
     expect(() =>
-      attachVerifiedHeroStatuses([...cards, cards.find((card) => card.id === "hero_skill:p007")!]),
+      attachVerifiedHeroStatuses([
+        ...cards,
+        cards.find((card) => card.id === "hero_skill:core:h01:p007")!,
+      ]),
     ).toThrow(/唯一/);
   });
 
   it("缺 duration、零和负数不会成为默认值", () => {
-    const card = cards.find((card) => card.id === "hero_skill:p007")!;
+    const card = cards.find((card) => card.id === "hero_skill:core:h01:p007")!;
     for (const duration of [undefined, 0, -1, 1.5]) {
       expect(
         normalizedHeroSkillCardSchema.safeParse({
@@ -77,9 +80,9 @@ describe("逐卡核实的状态持续时间（R20–21 / R-048）", () => {
   });
 
   it.each([
-    ["hero_skill:p049", "mark", 2, "Pull 2"],
-    ["hero_skill:p052", "stun", 1, "Push 2"],
-    ["hero_skill:p055", "stun", 1, "Push 1"],
+    ["hero_skill:core:h03:p049", "mark", 2, "Pull 2"],
+    ["hero_skill:core:h03:p052", "stun", 1, "Push 2"],
+    ["hero_skill:core:h03:p055", "stun", 1, "Push 1"],
   ] as const)("%s 的完整同行状态与位移核实，来源漂移拒绝", (id, kind, duration, move) => {
     const card = cards.find((c) => c.id === id)!;
     expect(card.verified_status_effects).toEqual([

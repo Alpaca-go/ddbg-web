@@ -83,7 +83,7 @@ function victory(): GameState {
     type: "playHeroSkill",
     actorId: "hero-0",
     targetId: boss.id,
-    skillId: "hero_skill:p001",
+    skillId: "hero_skill:core:h01:p001",
   });
   expect(result.state.battle!.encounter!.turn).toEqual({ type: "finished", outcome: "victory" });
   expect(result.state.battle!.entities.find((e) => e.id === "summoned-rabble")).toMatchObject({

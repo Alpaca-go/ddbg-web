@@ -3,10 +3,12 @@ import { describe, expect, it } from "vitest";
 import { applyCommand, createBattleState, resolveHeroSkill } from "./index";
 import type { BattleEntity, GameState, HeroSkillCardView } from "./index";
 import { nextBattleRoll } from "./encounter";
+import { heroSkillIdForPage } from "../../data/src/hero-registry";
 const cards: HeroSkillCardView[] = JSON.parse(
   readFileSync(new URL("../../data/normalized/corebox/hero_skill.json", import.meta.url), "utf8"),
 ).cards;
-const card = (id: string) => cards.find((card) => card.id === `hero_skill:${id}`)!;
+const card = (id: string) =>
+  cards.find((card) => card.id === heroSkillIdForPage(Number(String(id).replace(/^p/, ""))))!;
 const monsterLife = (file: string, id: string): number =>
   JSON.parse(
     readFileSync(new URL(`../../data/normalized/corebox/${file}.json`, import.meta.url), "utf8"),
@@ -74,7 +76,7 @@ const swanCommand = {
   type: "playHeroSkill" as const,
   actorId: "hellion",
   targetId: "arbalist",
-  skillId: "hero_skill:p025",
+  skillId: "hero_skill:core:h02:p025",
 };
 describe("真实印刷卡的官方黄金例子", () => {
   it("G-01 公共命令：真实 Iron Swan I 距离 2、Dodge 1、掷 2 伤害 7并扣一次行动", () => {

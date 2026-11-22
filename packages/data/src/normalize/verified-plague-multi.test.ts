@@ -4,8 +4,8 @@ import { attachVerifiedHeroStatuses } from "./verified-hero-statuses";
 
 const cards = loadNormalizedCorebox().hero_skill.cards;
 const rows = [
-  ["hero_skill:p130", { kind: "blight", duration: 2, amount: 3 }],
-  ["hero_skill:p133", { kind: "stun", duration: 1 }],
+  ["hero_skill:core:h07:p130", { kind: "blight", duration: 2, amount: 3 }],
+  ["hero_skill:core:h07:p133", { kind: "stun", duration: 1 }],
 ] as const;
 
 it.each(rows)("%s完整卡面黄金值，保留Nt null及高等级边界", (id, effect) => {

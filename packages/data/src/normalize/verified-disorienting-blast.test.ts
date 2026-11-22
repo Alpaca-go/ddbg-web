@@ -2,7 +2,7 @@ import { expect, it } from "vitest";
 import { loadNormalizedCorebox } from "./write";
 import { attachVerifiedHeroStatuses } from "./verified-hero-statuses";
 const cards = loadNormalizedCorebox().hero_skill.cards;
-const id = "hero_skill:p145";
+const id = "hero_skill:core:h07:p145";
 
 it("Disorienting Blast I保留原始两行与Nt null，限定目标续行黄金注解，高等级由独立注解覆盖", () => {
   const card = cards.find((c) => c.id === id)!;

@@ -6,8 +6,8 @@ import { iconDictionarySchema } from "../dictionary/schema";
 
 const file = loadNormalizedCorebox().hero_skill,
   cards = file.cards;
-const mark = cards.find((c) => c.id === "hero_skill:p046")!;
-const caltrops = cards.find((c) => c.id === "hero_skill:p061")!;
+const mark = cards.find((c) => c.id === "hero_skill:core:h03:p046")!;
+const caltrops = cards.find((c) => c.id === "hero_skill:core:h03:p061")!;
 const effects = (card: typeof mark) =>
   card.verified_status_effects!.map(({ scope, kind, duration, ...rest }) => [
     scope,
@@ -16,19 +16,19 @@ const effects = (card: typeof mark) =>
     "amount" in rest ? rest.amount : null,
   ]);
 it("R-141 三张高等级卡逐卡核图，来源漂移不放行", () => {
-  const bounty = cards.find((c) => c.id === "hero_skill:p044")!;
+  const bounty = cards.find((c) => c.id === "hero_skill:core:h03:p044")!;
   expect(bounty.printed_labels).toContainEqual({ label: "Acc", raw: "Acc 1O", value: 10 });
   expect(bounty.unlabeled_numbers).toContainEqual({
     text: "8",
     numeric: 8,
     anchor: { type: "printed_label", label: "Acc" },
   });
-  expect(effects(cards.find((c) => c.id === "hero_skill:p048")!)).toEqual([
+  expect(effects(cards.find((c) => c.id === "hero_skill:core:h03:p048")!)).toEqual([
     ["target", "mark", 3, null],
     ["target", "debuff", 3, null],
     ["self", "buff", 3, null],
   ]);
-  expect(effects(cards.find((c) => c.id === "hero_skill:p063")!)).toEqual([
+  expect(effects(cards.find((c) => c.id === "hero_skill:core:h03:p063")!)).toEqual([
     ["target", "bleed", 3, 3],
     ["target", "debuff", 3, null],
   ]);
@@ -79,9 +79,13 @@ it("生成可重复且不突变、不触碰其余五张I技能或其他卡", () 
   expect(cards).toEqual(before);
   for (const [i, c] of cards.entries())
     if (
-      ![mark.id, caltrops.id, "hero_skill:p044", "hero_skill:p048", "hero_skill:p063"].includes(
-        c.id,
-      )
+      ![
+        mark.id,
+        caltrops.id,
+        "hero_skill:core:h03:p044",
+        "hero_skill:core:h03:p048",
+        "hero_skill:core:h03:p063",
+      ].includes(c.id)
     )
       expect(again[i]).toBe(c);
   expect(file).toEqual(

@@ -5,7 +5,7 @@ import type { BattleEntity, GameState, HeroSkillCardView } from "./index";
 import { nextBattleRoll } from "./encounter";
 const pistol: HeroSkillCardView = JSON.parse(
   readFileSync(new URL("../../data/normalized/corebox/hero_skill.json", import.meta.url), "utf8"),
-).cards.find((card: HeroSkillCardView) => card.id === "hero_skill:p067");
+).cards.find((card: HeroSkillCardView) => card.id === "hero_skill:core:h04:p067");
 describe("已复核 Pistol I 对 Mark +2（R19–21、R-017、R-019、R-048）", () => {
   it("公共技能命令只消耗一次 RNG / 行动，标记目标受 7 伤口且回放一致", () => {
     let seed = 0;

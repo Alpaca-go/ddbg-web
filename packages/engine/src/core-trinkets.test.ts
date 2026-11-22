@@ -38,7 +38,7 @@ function use(state: GameState, cardId: CoreTrinketId) {
   );
 }
 function battle(ids: readonly CoreTrinketId[], face: "upright" | "inverted" = "upright", seed = 7) {
-  const { state } = trinketBattle(ids, "aggressive", "hero_skill:p001", face, seed);
+  const { state } = trinketBattle(ids, "aggressive", "hero_skill:core:h01:p001", face, seed);
   return { ...state, battle: { ...state.battle!, resolveCards: coreQuestSources.resolveCards } };
 }
 function dungeon(
@@ -198,7 +198,7 @@ it("通用饰品重选锁定原动作和骰面；旧命令不展开新窗口", (
   const { state, command } = trinketBattle(
     ["trinket:p003"],
     "aggressive",
-    "hero_skill:p001",
+    "hero_skill:core:h01:p001",
     "upright",
     7,
     "monster_medium:p024",
@@ -233,7 +233,14 @@ function monsterTurn(
   monsterId = "monster_medium:p001",
 ) {
   const seed = seedForRoll(roll),
-    { state } = trinketBattle([id], "aggressive", "hero_skill:p001", face, seed, monsterId);
+    { state } = trinketBattle(
+      [id],
+      "aggressive",
+      "hero_skill:core:h01:p001",
+      face,
+      seed,
+      monsterId,
+    );
   return {
     ...state,
     battle: {

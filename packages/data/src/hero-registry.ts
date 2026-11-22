@@ -117,3 +117,37 @@ export function heroSkillId(name: string, page: number): string {
   if (page < base || page > base + 20) throw new Error(`英雄 ${name} 的 SKILL 页 ${page} 超出页段`);
   return `hero_skill:${HERO_PACK[name]}:${heroNumber(name)}:p${String(page).padStart(3, "0")}`;
 }
+
+export function heroNameForSkillPage(page: number): HeroName {
+  const hero = HERO_ORDER.find((name) => {
+    const base = HERO_SKILL_BASE[name];
+    return page >= base && page <= base + 20;
+  });
+  if (!hero) throw new Error(`SKILL 页 ${page} 不在任何英雄页段`);
+  return hero;
+}
+
+export function heroSkillIdForPage(page: number): string {
+  return heroSkillId(heroNameForSkillPage(page), page);
+}
+
+/** 旧版 SKILL ID（页号，Musketeer 单独命名空间）；审批表仍按它索引。 */
+export function legacyHeroSkillId(card: {
+  readonly id?: string;
+  readonly hero: string | null;
+  readonly pages: readonly number[];
+}): string {
+  const canonical = /^hero_skill:(musketeer|core|cove|warrens|weald):h\d{2}:p(\d{3})$/.exec(
+    card.id ?? "",
+  );
+  if (canonical) {
+    const page = Number(canonical[2]);
+    return canonical[1] === "musketeer"
+      ? `hero_skill:musketeer:p${String(page - 357).padStart(3, "0")}`
+      : `hero_skill:p${String(page).padStart(3, "0")}`;
+  }
+  const page = card.pages[0]!;
+  const musketeer =
+    card.hero === "MUSKETEER" || card.id?.startsWith("hero_skill:musketeer:") === true;
+  return `hero_skill:${musketeer ? "musketeer:" : ""}p${String(page).padStart(3, "0")}`;
+}

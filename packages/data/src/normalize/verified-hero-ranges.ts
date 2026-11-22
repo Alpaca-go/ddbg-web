@@ -221,7 +221,13 @@ export function attachVerifiedHeroRanges(
       "hero_skill:musketeer:p013": { name: "Sidearm", level: 1, min: 0, max: 2 },
       "hero_skill:musketeer:p016": { name: "Patch Up", level: 1, min: 0, max: 1 },
     };
-    const range = reviewed[card.id];
+    const reviewedByPage = new Map(
+      Object.entries(reviewed).map(([id, value]) => [
+        `${id.startsWith("hero_skill:musketeer:") ? "M" : ""}${Number(id.slice(-3))}`,
+        value,
+      ]),
+    );
+    const range = reviewedByPage.get(`${card.hero === "MUSKETEER" ? "M" : ""}${card.pages[0]}`);
     if (!range) return card;
     const ranges = card.unlabeled_numbers.filter(
       (item) =>

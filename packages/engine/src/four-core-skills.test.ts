@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { loadNormalizedCorebox } from "../../data/src/normalize/write";
+import { heroSkillIdForPage } from "../../data/src/hero-registry";
 import {
   applyCommand,
   createBattleState,
@@ -30,8 +31,7 @@ const skills = data.hero_skill.cards.filter(
   level: number;
   top_row_icons: readonly { key: string | null }[];
 })[];
-const skill = (page: number) =>
-  skills.find((c) => c.id === `hero_skill:p${String(page).padStart(3, "0")}`)!;
+const skill = (page: number) => skills.find((c) => c.id === heroSkillIdForPage(page))!;
 const soldier = data.monster_medium.cards.find(
   (c) => c.id === "monster_medium:p001",
 )! as unknown as MonsterCardView & { life: number };

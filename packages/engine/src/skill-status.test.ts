@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { applyCommand, createBattleState, resolveHeroSkill } from "./index";
 import type { BattleEntity, HeroSkillCardView, MonsterCardView } from "./index";
+import { heroSkillIdForPage } from "../../data/src/hero-registry";
 
 const skills = (
   JSON.parse(
@@ -16,7 +17,8 @@ const monsters = (
     ),
   ) as { cards: MonsterCardView[] }
 ).cards;
-const card = (id: string) => skills.find((skill) => skill.id === `hero_skill:${id}`)!;
+const card = (id: string) =>
+  skills.find((skill) => skill.id === heroSkillIdForPage(Number(String(id).replace(/^p/, ""))))!;
 const soldier = monsters.find((monster) => monster.id === "monster_medium:p001")!;
 function setup(skill = card("p007"), seed = 0, enemyCard = soldier, count = 1) {
   const heroes: BattleEntity[] = (["aggressive", "defensive", "ranged", "support"] as const).map(

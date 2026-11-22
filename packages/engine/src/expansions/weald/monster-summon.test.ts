@@ -14,7 +14,7 @@ const read = (path: string): unknown =>
     readFileSync(new URL(`../../../../data/normalized/${path}.json`, import.meta.url), "utf8"),
   ) as unknown;
 const smite = (read("corebox/hero_skill") as { cards: HeroSkillCardView[] }).cards.find(
-  (c) => c.id === "hero_skill:p001",
+  (c) => c.id === "hero_skill:core:h01:p001",
 )!;
 const catalog = buildWealdMonsterCatalog(
   read("extension/weald/monster_medium"),

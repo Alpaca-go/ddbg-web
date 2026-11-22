@@ -7,11 +7,13 @@ import type {
   HeroSkillCardView,
   PlayHeroSkillEmptyAreaCommand,
 } from "./index";
+import { heroSkillIdForPage } from "../../data/src/hero-registry";
 
 const cards = JSON.parse(
   readFileSync(new URL("../../data/normalized/corebox/hero_skill.json", import.meta.url), "utf8"),
 ).cards as HeroSkillCardView[];
-const card = (page: string) => cards.find((s) => s.id === `hero_skill:${page}`)!;
+const card = (page: string) =>
+  cards.find((s) => s.id === heroSkillIdForPage(Number(String(page).replace(/^p/, ""))))!;
 function setup(skill = card("p097"), guarded = false): GameState {
   const hero: BattleEntity = {
     id: "vestal",

@@ -8,7 +8,7 @@ import type { NormalizedHeroSkillCard } from "../../data/src/normalize/schema";
 const cards = JSON.parse(
   readFileSync(new URL("../../data/normalized/corebox/hero_skill.json", import.meta.url), "utf8"),
 ).cards as NormalizedHeroSkillCard[];
-const rawCry = cards.find((c) => c.id === "hero_skill:p019")!;
+const rawCry = cards.find((c) => c.id === "hero_skill:core:h01:p019")!;
 const cry = rawCry as HeroSkillCardView;
 const context = {
   actor: { id: "c", stance: "aggressive" as const, wounds: 5, stress: 3 },

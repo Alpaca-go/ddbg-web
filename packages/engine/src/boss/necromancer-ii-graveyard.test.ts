@@ -182,7 +182,7 @@ describe("C-019 / R-125 · Haunted Graveyard", () => {
     for (const command of [
       { type: "visitGuild", actorId: "h0" },
       { type: "visitNomadWagon", actorId: "h0" },
-      { type: "visitBlacksmith", actorId: "h0", skillId: "hero_skill:p001" },
+      { type: "visitBlacksmith", actorId: "h0", skillId: "hero_skill:core:h01:p001" },
       { type: "useHamletSkill", actorId: "h0", skill: "zealousSpeech" },
       { ...guard, serviceId: "tavern3" },
     ] as const)
