@@ -10,7 +10,12 @@ import tiles from "../../../../data/normalized/extension/weald/room_tile_geometr
 const roomFile = wealdRoomFileSchema.parse(rooms);
 const tileFile = wealdRoomTileGeometryFileSchema.parse(tiles);
 
-export const WEALD_APPROVED_ROOM_CARDS: readonly WealdRoomCard[] = roomFile.cards;
+export const WEALD_APPROVED_ROOM_CARDS: readonly WealdRoomCard[] = roomFile.cards.filter(
+  (card) => !card.boss,
+);
+export const WEALD_BOSS_ROOM_CARDS: readonly WealdRoomCard[] = roomFile.cards.filter(
+  (card) => card.boss,
+);
 export const WEALD_APPROVED_ROOM_TILES: readonly WealdRoomTile[] = tileFile.tiles;
 
 /** 内容包未启用或出征未开放时不注入战役；此处仅提供核准目录读取。 */

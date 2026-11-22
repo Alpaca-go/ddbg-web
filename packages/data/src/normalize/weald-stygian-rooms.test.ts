@@ -33,7 +33,7 @@ describe("Weald Stygian 九张房间卡（审阅入库、包隔离）", () => {
     expect(JSON.parse(readFileSync(target, "utf8"))).toEqual(built);
     expect(built.cards).toHaveLength(9);
     expect(built.cards.every((c) => c.location === "weald")).toBe(true);
-    for (const room of standardRooms.cards) {
+    for (const room of standardRooms.cards.filter((card) => !card.boss)) {
       const replacement = readWealdStygianRoomReplacement(built, room.id);
       expect(replacement).toMatchObject({
         name: room.name,
