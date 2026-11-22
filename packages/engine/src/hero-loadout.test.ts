@@ -165,7 +165,7 @@ it("英雄升II后技能槽4须装满；饰品容量随HL；已有疾病不因�
   const hero = left.dungeon!.heroes[0]!;
   expect(hero).toMatchObject({
     level: 2,
-    heroStatId: "hero_stat:p001:back",
+    heroStatId: "hero_stat:core:h01:p001:back",
     life: 24,
     diseaseId: "disease:p001",
     xp: 4,

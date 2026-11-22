@@ -13,7 +13,7 @@
   },
   "faces": [
     {
-      "id": "hero_stat:p001:front",
+      "id": "hero_stat:core:h01:p001:front",
       "rawId": "hero_stat:p001",
       "face": "front",
       "hero": "CRUSADER",
@@ -26,7 +26,7 @@
       "reviewVerdict": "normalized"
     },
     {
-      "id": "hero_stat:p001:back",
+      "id": "hero_stat:core:h01:p001:back",
       "rawId": "hero_stat:p001",
       "face": "back",
       "hero": "CRUSADER",
@@ -39,7 +39,7 @@
       "reviewVerdict": "normalized"
     },
     {
-      "id": "hero_stat:p002:front",
+      "id": "hero_stat:core:h01:p002:front",
       "rawId": "hero_stat:p002",
       "face": "front",
       "hero": "CRUSADER",
@@ -65,7 +65,7 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_stat:p003:front",
+      "id": "hero_stat:core:h02:p003:front",
       "rawId": "hero_stat:p003",
       "face": "front",
       "hero": "HELLION",
@@ -78,7 +78,7 @@
       "reviewVerdict": "normalized"
     },
     {
-      "id": "hero_stat:p003:back",
+      "id": "hero_stat:core:h02:p003:back",
       "rawId": "hero_stat:p003",
       "face": "back",
       "hero": "HELLION",
@@ -91,7 +91,7 @@
       "reviewVerdict": "normalized"
     },
     {
-      "id": "hero_stat:p004:front",
+      "id": "hero_stat:core:h02:p004:front",
       "rawId": "hero_stat:p004",
       "face": "front",
       "hero": "HELLION",
@@ -117,7 +117,7 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_stat:p005:front",
+      "id": "hero_stat:core:h03:p005:front",
       "rawId": "hero_stat:p005",
       "face": "front",
       "hero": "BOUNTY HUNTER",
@@ -130,7 +130,7 @@
       "reviewVerdict": "normalized"
     },
     {
-      "id": "hero_stat:p005:back",
+      "id": "hero_stat:core:h03:p005:back",
       "rawId": "hero_stat:p005",
       "face": "back",
       "hero": "BOUNTY HUNTER",
@@ -143,7 +143,7 @@
       "reviewVerdict": "normalized"
     },
     {
-      "id": "hero_stat:p006:front",
+      "id": "hero_stat:core:h03:p006:front",
       "rawId": "hero_stat:p006",
       "face": "front",
       "hero": "BOUNTY HUNTER",
@@ -169,7 +169,7 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_stat:p007:front",
+      "id": "hero_stat:core:h04:p007:front",
       "rawId": "hero_stat:p007",
       "face": "front",
       "hero": "HIGHWAYMAN",
@@ -182,7 +182,7 @@
       "reviewVerdict": "normalized"
     },
     {
-      "id": "hero_stat:p007:back",
+      "id": "hero_stat:core:h04:p007:back",
       "rawId": "hero_stat:p007",
       "face": "back",
       "hero": "HIGHWAYMAN",
@@ -195,7 +195,7 @@
       "reviewVerdict": "normalized"
     },
     {
-      "id": "hero_stat:p008:front",
+      "id": "hero_stat:core:h04:p008:front",
       "rawId": "hero_stat:p008",
       "face": "front",
       "hero": "HIGHWAYMAN",
@@ -221,7 +221,7 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_stat:p009:front",
+      "id": "hero_stat:core:h05:p009:front",
       "rawId": "hero_stat:p009",
       "face": "front",
       "hero": "VESTAL",
@@ -234,7 +234,7 @@
       "reviewVerdict": "normalized"
     },
     {
-      "id": "hero_stat:p009:back",
+      "id": "hero_stat:core:h05:p009:back",
       "rawId": "hero_stat:p009",
       "face": "back",
       "hero": "VESTAL",
@@ -247,7 +247,7 @@
       "reviewVerdict": "normalized"
     },
     {
-      "id": "hero_stat:p010:front",
+      "id": "hero_stat:core:h05:p010:front",
       "rawId": "hero_stat:p010",
       "face": "front",
       "hero": "VESTAL",
@@ -273,7 +273,7 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_stat:p011:front",
+      "id": "hero_stat:core:h06:p011:front",
       "rawId": "hero_stat:p011",
       "face": "front",
       "hero": "JESTER",
@@ -286,7 +286,7 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_stat:p011:back",
+      "id": "hero_stat:core:h06:p011:back",
       "rawId": "hero_stat:p011",
       "face": "back",
       "hero": "JESTER",
@@ -299,7 +299,7 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_stat:p012:front",
+      "id": "hero_stat:core:h06:p012:front",
       "rawId": "hero_stat:p012",
       "face": "front",
       "hero": "JESTER",
@@ -325,7 +325,7 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_stat:p013:front",
+      "id": "hero_stat:core:h07:p013:front",
       "rawId": "hero_stat:p013",
       "face": "front",
       "hero": "PLAGUE DOCTOR",
@@ -338,7 +338,7 @@
       "reviewVerdict": "normalized"
     },
     {
-      "id": "hero_stat:p013:back",
+      "id": "hero_stat:core:h07:p013:back",
       "rawId": "hero_stat:p013",
       "face": "back",
       "hero": "PLAGUE DOCTOR",
@@ -351,7 +351,7 @@
       "reviewVerdict": "normalized"
     },
     {
-      "id": "hero_stat:p014:front",
+      "id": "hero_stat:core:h07:p014:front",
       "rawId": "hero_stat:p014",
       "face": "front",
       "hero": "PLAGUE DOCTOR",
@@ -377,7 +377,7 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_stat:p015:front",
+      "id": "hero_stat:core:h08:p015:front",
       "rawId": "hero_stat:p015",
       "face": "front",
       "hero": "ARBALEST",
@@ -390,7 +390,7 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_stat:p015:back",
+      "id": "hero_stat:core:h08:p015:back",
       "rawId": "hero_stat:p015",
       "face": "back",
       "hero": "ARBALEST",
@@ -403,7 +403,7 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_stat:p016:front",
+      "id": "hero_stat:core:h08:p016:front",
       "rawId": "hero_stat:p016",
       "face": "front",
       "hero": "ARBALEST",
@@ -429,7 +429,7 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_stat:p017:front",
+      "id": "hero_stat:core:h09:p017:front",
       "rawId": "hero_stat:p017",
       "face": "front",
       "hero": "GRAVE ROBBER",
@@ -442,7 +442,7 @@
       "reviewVerdict": "normalized"
     },
     {
-      "id": "hero_stat:p017:back",
+      "id": "hero_stat:core:h09:p017:back",
       "rawId": "hero_stat:p017",
       "face": "back",
       "hero": "GRAVE ROBBER",
@@ -455,7 +455,7 @@
       "reviewVerdict": "normalized"
     },
     {
-      "id": "hero_stat:p018:front",
+      "id": "hero_stat:core:h09:p018:front",
       "rawId": "hero_stat:p018",
       "face": "front",
       "hero": "GRAVE ROBBER",
@@ -481,7 +481,7 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_stat:p019:front",
+      "id": "hero_stat:core:h10:p019:front",
       "rawId": "hero_stat:p019",
       "face": "front",
       "hero": "OCCULTIST",
@@ -494,7 +494,7 @@
       "reviewVerdict": "normalized"
     },
     {
-      "id": "hero_stat:p019:back",
+      "id": "hero_stat:core:h10:p019:back",
       "rawId": "hero_stat:p019",
       "face": "back",
       "hero": "OCCULTIST",
@@ -507,7 +507,7 @@
       "reviewVerdict": "normalized"
     },
     {
-      "id": "hero_stat:p020:front",
+      "id": "hero_stat:core:h10:p020:front",
       "rawId": "hero_stat:p020",
       "face": "front",
       "hero": "OCCULTIST",
@@ -533,7 +533,7 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_stat:p021:front",
+      "id": "hero_stat:core:h11:p021:front",
       "rawId": "hero_stat:p021",
       "face": "front",
       "hero": "ABOMINATION",
@@ -559,7 +559,7 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_stat:p022:front",
+      "id": "hero_stat:core:h11:p022:front",
       "rawId": "hero_stat:p022",
       "face": "front",
       "hero": "ABOMINATION",
@@ -585,7 +585,7 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_stat:p023:front",
+      "id": "hero_stat:core:h11:p023:front",
       "rawId": "hero_stat:p023",
       "face": "front",
       "hero": "ABOMINATION",
@@ -611,7 +611,7 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_stat:warrens:antiquarian:p001:front",
+      "id": "hero_stat:warrens:h15:p030:front",
       "rawId": "hero_stat:warrens:p001",
       "face": "front",
       "hero": "ANTIQUARIAN",
@@ -624,7 +624,7 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_stat:warrens:antiquarian:p001:back",
+      "id": "hero_stat:warrens:h15:p030:back",
       "rawId": "hero_stat:warrens:p001",
       "face": "back",
       "hero": "ANTIQUARIAN",
@@ -637,7 +637,7 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_stat:warrens:antiquarian:p002:front",
+      "id": "hero_stat:warrens:h15:p031:front",
       "rawId": "hero_stat:warrens:p002",
       "face": "front",
       "hero": "ANTIQUARIAN",
@@ -650,7 +650,7 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_stat:warrens:leper:p001:front",
+      "id": "hero_stat:warrens:h14:p028:front",
       "rawId": "hero_stat:warrens:p001",
       "face": "front",
       "hero": "LEPER",
@@ -663,7 +663,7 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_stat:warrens:leper:p001:back",
+      "id": "hero_stat:warrens:h14:p028:back",
       "rawId": "hero_stat:warrens:p001",
       "face": "back",
       "hero": "LEPER",
@@ -676,7 +676,7 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_stat:warrens:leper:p002:front",
+      "id": "hero_stat:warrens:h14:p029:front",
       "rawId": "hero_stat:warrens:p002",
       "face": "front",
       "hero": "LEPER",
@@ -689,7 +689,7 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_stat:cove:flagellant:p001:front",
+      "id": "hero_stat:cove:h13:p026:front",
       "rawId": "hero_stat:cove:p001",
       "face": "front",
       "hero": "FLAGELLANT",
@@ -702,7 +702,7 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_stat:cove:flagellant:p001:back",
+      "id": "hero_stat:cove:h13:p026:back",
       "rawId": "hero_stat:cove:p001",
       "face": "back",
       "hero": "FLAGELLANT",
@@ -715,7 +715,7 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_stat:cove:flagellant:p002:front",
+      "id": "hero_stat:cove:h13:p027:front",
       "rawId": "hero_stat:cove:p002",
       "face": "front",
       "hero": "FLAGELLANT",
@@ -728,7 +728,7 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_stat:cove:man-at-arms:p001:front",
+      "id": "hero_stat:cove:h12:p024:front",
       "rawId": "hero_stat:cove:p001",
       "face": "front",
       "hero": "MAN-AT-ARMS",
@@ -741,7 +741,7 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_stat:cove:man-at-arms:p001:back",
+      "id": "hero_stat:cove:h12:p024:back",
       "rawId": "hero_stat:cove:p001",
       "face": "back",
       "hero": "MAN-AT-ARMS",
@@ -754,7 +754,7 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_stat:cove:man-at-arms:p002:front",
+      "id": "hero_stat:cove:h12:p025:front",
       "rawId": "hero_stat:cove:p002",
       "face": "front",
       "hero": "MAN-AT-ARMS",
@@ -767,7 +767,7 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_stat:weald:houndmaster:p001:front",
+      "id": "hero_stat:weald:h17:p034:front",
       "rawId": "hero_stat:weald:p001",
       "face": "front",
       "hero": "HOUNDMASTER",
@@ -780,7 +780,7 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_stat:weald:houndmaster:p001:back",
+      "id": "hero_stat:weald:h17:p034:back",
       "rawId": "hero_stat:weald:p001",
       "face": "back",
       "hero": "HOUNDMASTER",
@@ -793,7 +793,7 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_stat:weald:houndmaster:p002:front",
+      "id": "hero_stat:weald:h17:p035:front",
       "rawId": "hero_stat:weald:p002",
       "face": "front",
       "hero": "HOUNDMASTER",
@@ -806,7 +806,7 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_stat:weald:shieldbreaker:p001:front",
+      "id": "hero_stat:weald:h16:p032:front",
       "rawId": "hero_stat:weald:p001",
       "face": "front",
       "hero": "SHIELDBREAKER",
@@ -819,7 +819,7 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_stat:weald:shieldbreaker:p001:back",
+      "id": "hero_stat:weald:h16:p032:back",
       "rawId": "hero_stat:weald:p001",
       "face": "back",
       "hero": "SHIELDBREAKER",
@@ -832,7 +832,7 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_stat:weald:shieldbreaker:p002:front",
+      "id": "hero_stat:weald:h16:p033:front",
       "rawId": "hero_stat:weald:p002",
       "face": "front",
       "hero": "SHIELDBREAKER",
@@ -845,7 +845,7 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_stat:musketeer:musketeer:p001:front",
+      "id": "hero_stat:musketeer:h18:p036:front",
       "rawId": "hero_stat:musketeer:p001",
       "face": "front",
       "hero": "MUSKETEER",
@@ -858,7 +858,7 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_stat:musketeer:musketeer:p001:back",
+      "id": "hero_stat:musketeer:h18:p036:back",
       "rawId": "hero_stat:musketeer:p001",
       "face": "back",
       "hero": "MUSKETEER",
@@ -871,7 +871,7 @@
       "reviewVerdict": "art-only"
     },
     {
-      "id": "hero_stat:musketeer:musketeer:p002:front",
+      "id": "hero_stat:musketeer:h18:p037:front",
       "rawId": "hero_stat:musketeer:p002",
       "face": "front",
       "hero": "MUSKETEER",

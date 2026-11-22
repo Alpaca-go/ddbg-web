@@ -73,7 +73,9 @@ function hamletAfterActAdvance(game: GameState, log: Command[]) {
     const actorId = currentHamletHero(state)?.id;
     const canSpeech =
       actorId &&
-      state.dungeon!.heroes.find((h) => h.id === actorId)?.heroStatId?.startsWith("hero_stat:p001");
+      state
+        .dungeon!.heroes.find((h) => h.id === actorId)
+        ?.heroStatId?.startsWith("hero_stat:core:h01:");
     if (canSpeech) {
       state = step(state, { type: "useHamletSkill", actorId, skill: "zealousSpeech" }, log);
       continue;

@@ -44,7 +44,7 @@ describe("print hero stat art map (18 heroes)", () => {
   });
 
   it("binds Crusader I to core Hero_STAT FRONT p1", () => {
-    const crusader = lookupPrintHeroStatFace("hero_stat:p001:front");
+    const crusader = lookupPrintHeroStatFace("hero_stat:core:h01:p001:front");
     expect(crusader).toMatchObject({
       hero: "CRUSADER",
       dataStatus: "verified-data",
@@ -54,7 +54,7 @@ describe("print hero stat art map (18 heroes)", () => {
   });
 
   it("marks Jester I as art-only until gameplay stat verified", () => {
-    const jester = lookupPrintHeroStatFace("hero_stat:p011:front");
+    const jester = lookupPrintHeroStatFace("hero_stat:core:h06:p011:front");
     expect(jester?.dataStatus).toBe("art-only");
     expect(jester?.hero).toBe("JESTER");
   });

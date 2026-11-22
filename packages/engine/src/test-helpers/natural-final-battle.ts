@@ -72,7 +72,7 @@ export function naturalFinalBattle(
     if (h.phase !== "heroActions") throw new Error(`hamlet halted ${h.phase}`);
     const actor = currentHamletHero(state);
     const isFirst = !h.actedHeroes?.length;
-    const crusader = actor?.heroStatId?.startsWith("hero_stat:p001");
+    const crusader = actor?.heroStatId?.startsWith("hero_stat:core:h01:");
     if (isFirst && crusader && actor) {
       step({ type: "useHamletSkill", actorId: actor.id, skill: "zealousSpeech" });
       continue;

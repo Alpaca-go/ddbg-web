@@ -13,9 +13,9 @@ type Hero = DungeonState["heroes"][number];
 
 /** Hero STAT FRONT/BACK p19、FRONT p20：治疗量按等级；III Buff 图标见 R-097。 */
 const reviewed = {
-  "hero_stat:p019:front": { level: 1, heal: 2 },
-  "hero_stat:p019:back": { level: 2, heal: 4 },
-  "hero_stat:p020:front": { level: 3, heal: 5 },
+  "hero_stat:core:h10:p019:front": { level: 1, heal: 2 },
+  "hero_stat:core:h10:p019:back": { level: 2, heal: 4 },
+  "hero_stat:core:h10:p020:front": { level: 3, heal: 5 },
 } as const;
 
 export function darkRitualHealing(heroStatId: string) {

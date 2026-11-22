@@ -60,7 +60,7 @@ function choose(game: GameState, optionId: string) {
   });
 }
 function select(game = fixture()) {
-  return choose(ok(game, begin), "hero_stat:p005:front");
+  return choose(ok(game, begin), "hero_stat:core:h03:p005:front");
 }
 function equipAll(game: GameState) {
   for (let n = 0; game.dungeon!.replacementPreparation && n < 5; n++)
@@ -75,13 +75,13 @@ it("选英雄才扣一枚、继承全部XP但不扣驿站余额；保持新英�
   expect(offered.dungeon!.replacementPreparation!.choice.options.map((o) => o.id).sort()).toEqual(
     [...VERIFIED_REPLACEMENT_STAT_IDS].sort(),
   );
-  const game = choose(offered, "hero_stat:p005:front"),
+  const game = choose(offered, "hero_stat:core:h03:p005:front"),
     p = game.dungeon!.replacementPreparation!;
   expect(game.dungeon!.waitingHeroTokens).toBe(1);
   expect(game.dungeon!.stagecoachXp).toBe(9);
   expect(game.dungeon!.heroes).toEqual(base.dungeon!.heroes);
   expect(p.hero).toMatchObject({
-    heroStatId: "hero_stat:p005:front",
+    heroStatId: "hero_stat:core:h03:p005:front",
     life: 14,
     level: 1,
     xp: 9,
@@ -267,7 +267,7 @@ it("真实入口命令日志：走到房间后侦察至死亡，替补选择/初
   step({
     type: "resolveChoice",
     choiceId: game.dungeon!.replacementPreparation!.choice.id,
-    optionId: "hero_stat:p005:front",
+    optionId: "hero_stat:core:h03:p005:front",
   });
   saved();
   step({

@@ -26,10 +26,19 @@ it("R-095六面独立黄金值与限定防御；旧批准日期不重写", () =>
       c.approval,
     ]),
   ).toEqual([
-    ["hero_stat:p017:front", 1, 11, 1, 3, ["blight"], [], "kyries_review_2026-10-18"],
-    ["hero_stat:p017:back", 2, 15, 2, 3, ["blight", "debuff"], [], "kyries_review_2026-10-18"],
+    ["hero_stat:core:h09:p017:front", 1, 11, 1, 3, ["blight"], [], "kyries_review_2026-10-18"],
     [
-      "hero_stat:p018:front",
+      "hero_stat:core:h09:p017:back",
+      2,
+      15,
+      2,
+      3,
+      ["blight", "debuff"],
+      [],
+      "kyries_review_2026-10-18",
+    ],
+    [
+      "hero_stat:core:h09:p018:front",
       3,
       19,
       3,
@@ -38,10 +47,19 @@ it("R-095六面独立黄金值与限定防御；旧批准日期不重写", () =>
       [],
       "kyries_review_2026-10-18",
     ],
-    ["hero_stat:p019:front", 1, 10, 1, 2, ["debuff"], [], "kyries_review_2026-10-18"],
-    ["hero_stat:p019:back", 2, 14, 2, 2, ["bleed", "debuff"], [], "kyries_review_2026-10-18"],
+    ["hero_stat:core:h10:p019:front", 1, 10, 1, 2, ["debuff"], [], "kyries_review_2026-10-18"],
     [
-      "hero_stat:p020:front",
+      "hero_stat:core:h10:p019:back",
+      2,
+      14,
+      2,
+      2,
+      ["bleed", "debuff"],
+      [],
+      "kyries_review_2026-10-18",
+    ],
+    [
+      "hero_stat:core:h10:p020:front",
       3,
       18,
       3,
@@ -63,11 +81,11 @@ it("限定图标只在获批卡面位置解释，词典/raw/整卡未验证与Je
   const beforeRaw = structuredClone(raw),
     beforeDictionary = structuredClone(dictionary);
   for (const [id, iconId] of [
-    ["hero_stat:p017:back", "e61ed317de"],
-    ["hero_stat:p018:front", "e61ed317de"],
-    ["hero_stat:p019:front", "8cbe7d6703"],
-    ["hero_stat:p019:back", "a8c4b25b4e"],
-    ["hero_stat:p020:front", "e61ed317de"],
+    ["hero_stat:core:h09:p017:back", "e61ed317de"],
+    ["hero_stat:core:h09:p018:front", "e61ed317de"],
+    ["hero_stat:core:h10:p019:front", "8cbe7d6703"],
+    ["hero_stat:core:h10:p019:back", "a8c4b25b4e"],
+    ["hero_stat:core:h10:p020:front", "e61ed317de"],
   ] as const) {
     const card = built.cards.find((c) => c.id === id)!;
     expect(card.icons.find((i) => i.iconId === iconId)).toMatchObject({
@@ -94,9 +112,9 @@ it("完整防御栏逐面拒绝缺失/重复/左右交换/新增；不外推Jest
       const changed = structuredClone(raw);
       const face = changed.cards.find((c) => c.id === card.rawId)!.faces[card.face]!;
       const target =
-        card.id === "hero_stat:p019:front"
+        card.id === "hero_stat:core:h10:p019:front"
           ? "8cbe7d6703"
-          : card.id === "hero_stat:p019:back"
+          : card.id === "hero_stat:core:h10:p019:back"
             ? "a8c4b25b4e"
             : card.level === 1
               ? "40bb356305"

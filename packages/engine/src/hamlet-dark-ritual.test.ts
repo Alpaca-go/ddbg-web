@@ -41,7 +41,12 @@ function fixture(level: 1 | 2 | 3 = 1): GameState {
   const d = baseline.game.dungeon!;
   const stat = coreQuestSources.catalog.heroStats.find(
     (s) =>
-      s.id === ["hero_stat:p019:front", "hero_stat:p019:back", "hero_stat:p020:front"][level - 1],
+      s.id ===
+      [
+        "hero_stat:core:h10:p019:front",
+        "hero_stat:core:h10:p019:back",
+        "hero_stat:core:h10:p020:front",
+      ][level - 1],
   )!;
   return {
     ...baseline.game,
@@ -160,7 +165,7 @@ it("自身可选（I）；III 对获批 Buff 目标成功；UI I–III 均出现
 
 it("目标缺 Buff 防御或死亡拒绝；压力10走意志续接", () => {
   const noBuff = patch(fixture(1), "hero-1", {
-    heroStatId: "hero_stat:p019:back",
+    heroStatId: "hero_stat:core:h10:p019:back",
     level: 2,
     heroLevel: 2,
     life: 14,

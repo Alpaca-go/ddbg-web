@@ -55,7 +55,9 @@ export function twoQuestGuildPathForSeed(sources: CoreQuestSources, seed: number
     const actorId = currentHamletHero(game)?.id;
     const canSpeech =
       actorId &&
-      game.dungeon!.heroes.find((h) => h.id === actorId)?.heroStatId?.startsWith("hero_stat:p001");
+      game
+        .dungeon!.heroes.find((h) => h.id === actorId)
+        ?.heroStatId?.startsWith("hero_stat:core:h01:");
     if (canSpeech) {
       step({ type: "useHamletSkill", actorId, skill: "zealousSpeech" });
       continue;

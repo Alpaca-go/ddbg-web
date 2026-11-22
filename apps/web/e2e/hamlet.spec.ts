@@ -945,7 +945,7 @@ test("Phase 4：墓地、自然交易与公会升级、旧替补存档迁移保�
   expect(
     joined.heroes.some(
       (h: { heroStatId: string; dead?: boolean }) =>
-        h.heroStatId === "hero_stat:p013:front" && !h.dead,
+        h.heroStatId === "hero_stat:core:h07:p013:front" && !h.dead,
     ),
   ).toBe(true);
   await page.reload();

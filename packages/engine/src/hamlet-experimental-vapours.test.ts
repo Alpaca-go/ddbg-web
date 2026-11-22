@@ -32,7 +32,12 @@ function fixture(level = 1): GameState {
   const d = baseline.game.dungeon!;
   const stat = coreQuestSources.catalog.heroStats.find(
     (s) =>
-      s.id === ["hero_stat:p013:front", "hero_stat:p013:back", "hero_stat:p014:front"][level - 1],
+      s.id ===
+      [
+        "hero_stat:core:h07:p013:front",
+        "hero_stat:core:h07:p013:back",
+        "hero_stat:core:h07:p014:front",
+      ][level - 1],
   )!;
   return {
     ...baseline.game,

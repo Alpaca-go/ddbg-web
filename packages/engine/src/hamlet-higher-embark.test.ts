@@ -76,7 +76,7 @@ function upgradeHero0FillSlots(game: GameState) {
       optionId: "leave",
     });
   const hero = next.dungeon!.heroes[0]!;
-  expect(hero).toMatchObject({ level: 2, heroStatId: "hero_stat:p001:back", life: 24 });
+  expect(hero).toMatchObject({ level: 2, heroStatId: "hero_stat:core:h01:p001:back", life: 24 });
   expect(hero.skillIds).toHaveLength(3);
   const owned = ownedHeroSkills(hero, next.dungeon!.battleCatalog!)!;
   const four = [...hero.skillIds!, owned.find((s) => !hero.skillIds!.includes(s.id))!.id];
@@ -113,7 +113,7 @@ it("升II后未装满2+HL技能槽拒绝出征；装满后可出征下一I级任
   expect(embarked.dungeon!.rest?.questId).toBe(chosen);
   expect(embarked.dungeon!.heroes[0]).toMatchObject({
     level: 2,
-    heroStatId: "hero_stat:p001:back",
+    heroStatId: "hero_stat:core:h01:p001:back",
     life: 24,
     attributesVerified: true,
   });
@@ -186,7 +186,7 @@ it("II级英雄带4个装备技能可通过真实房间战斗交接（R-048、R-
   expect(entity).toMatchObject({
     heroLevel: 2,
     life: 24,
-    heroStatId: "hero_stat:p001:back",
+    heroStatId: "hero_stat:core:h01:p001:back",
     dead: false,
   });
   expect(entity.skillIds).toHaveLength(4);

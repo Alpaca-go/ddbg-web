@@ -16,7 +16,7 @@ const clean = <T>(value: unknown): T => JSON.parse(JSON.stringify(value));
 const skill = (page: number) =>
   clean<HeroSkillCardView>(data.hero_skill.cards.find((c) => c.pages[0] === page)!);
 const stat = clean<NonNullable<BattleSetup["heroStats"]>[number] & { dodge: number }>(
-  data.hero_stat.cards.find((c) => c.id === "hero_stat:p019:front")!,
+  data.hero_stat.cards.find((c) => c.id === "hero_stat:core:h10:p019:front")!,
 );
 const monster = clean<NonNullable<BattleSetup["monsters"]>[number]>(
   data.monster_medium.cards.find((c) => c.id === "monster_medium:p021")!,
@@ -230,7 +230,7 @@ it("Wyrd Reconstruction I：0–1 射程；命中治疗并施加 Bleed 1·2t", (
   const card = skill(199);
   expect(readPrintedRange(card)).toEqual({ kind: "interval", min: 0, max: 1 });
   const ally = clean<NonNullable<BattleSetup["heroStats"]>[number] & { dodge: number }>(
-    data.hero_stat.cards.find((c) => c.id === "hero_stat:p001:front")!,
+    data.hero_stat.cards.find((c) => c.id === "hero_stat:core:h01:p001:front")!,
   );
   const seed = Array.from({ length: 300 }, (_, i) => i).find((s) => nextBattleRoll(s, 0) === 5)!;
   const common = { wounds: 0, guard: false, dead: false, bleed: [], blight: [], statusStacks: [] };
@@ -359,7 +359,7 @@ it("Occ 退出未接线名单；Dark Ritual 命令 schema 接受；III 印刷治
       targetId: "hero-1",
     }).success,
   ).toBe(true);
-  const iii = data.hero_stat.cards.find((c) => c.id === "hero_stat:p020:front")!;
+  const iii = data.hero_stat.cards.find((c) => c.id === "hero_stat:core:h10:p020:front")!;
   expect(iii.lines.join(" ")).toMatch(/Dark Ritual/);
   expect(iii.lines.join(" ")).toMatch(/20ffe98e2d\} 5/);
   expect(iii.lines.some((l) => l.includes("4f7549c1b8") && l.includes("3t"))).toBe(true);

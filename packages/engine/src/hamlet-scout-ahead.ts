@@ -19,7 +19,7 @@ export function useScoutAhead(state: GameState, hero: Hero): ApplyResult {
   const count = d.nextQuestRoomReveals ?? 0;
   if (
     !hero.attributesVerified ||
-    stat?.id !== "hero_stat:p005:front" ||
+    stat?.id !== "hero_stat:core:h03:p005:front" ||
     !stat.attributesVerified ||
     stat.name !== "BOUNTY HUNTER" ||
     stat.level !== 1 ||

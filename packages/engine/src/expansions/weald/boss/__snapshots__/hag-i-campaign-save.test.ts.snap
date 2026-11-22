@@ -155,7 +155,7 @@ exports[`地点战役 seed 6／既有替补流程 false／追加技能 false：�
 
 exports[`地点战役 seed 6／既有替补流程 true／追加技能 false：两普通任务后 Boss 的公开命令与日志 1`] = `
 {
-  "currentHero": "hero_stat:p013:front",
+  "currentHero": "hero_stat:core:h07:p013:front",
   "description": "boss_ability:weald:p013",
   "phase": "inHamlet",
   "stages": [

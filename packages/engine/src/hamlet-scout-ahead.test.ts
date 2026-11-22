@@ -24,7 +24,9 @@ function ok(game: GameState, command: Command) {
 /** 明示第五英雄机制夹具；正式入口仍保留原四英雄，不冒充死亡替换或自然战役。 */
 function fixture(): GameState {
   const d = baseline.game.dungeon!;
-  const stat = coreQuestSources.catalog.heroStats.find((s) => s.id === "hero_stat:p005:front")!;
+  const stat = coreQuestSources.catalog.heroStats.find(
+    (s) => s.id === "hero_stat:core:h03:p005:front",
+  )!;
   const skillIds = coreQuestSources.catalog.skills
     .filter((s) => s.hero === "BOUNTY HUNTER" && s.level === 1)
     .slice(0, 3)

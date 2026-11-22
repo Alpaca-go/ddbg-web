@@ -13,7 +13,7 @@ const mark = clean<HeroSkillCardView>(
   data.hero_skill.cards.find((c) => c.id === "hero_skill:p046")!,
 );
 const stat = clean<NonNullable<BattleSetup["heroStats"]>[number] & { dodge: number }>(
-  data.hero_stat.cards.find((c) => c.id === "hero_stat:p005:front")!,
+  data.hero_stat.cards.find((c) => c.id === "hero_stat:core:h03:p005:front")!,
 );
 const target = (game: GameState) => game.battle!.entities.find((e) => e.id === "m")!;
 function setup(marked = false, enemyId = "monster_medium:p021") {

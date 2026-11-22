@@ -193,6 +193,8 @@ export type BattleSetup = {
   /** 只使用逐面获批属性；整卡其他图标的验证状态不因此改变。 */
   readonly heroStats?: readonly {
     readonly id: string;
+    readonly rawId?: string;
+    readonly face?: "front" | "back";
     readonly name: string;
     readonly life: number;
     readonly speed?: number | null;

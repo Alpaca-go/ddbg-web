@@ -33,18 +33,20 @@ it("R-094/R-095后瘟疫医生与盗墓者/神秘学者进入正式候选白名�
   ).toEqual([...VERIFIED_REPLACEMENT_NAMES].sort());
   const battle = { heroStats: coreQuestSources.catalog.heroStats };
   expect(
-    readHeroPassiveDefence(battle, { heroStatId: "hero_stat:p013:front" })!.resistances,
+    readHeroPassiveDefence(battle, { heroStatId: "hero_stat:core:h07:p013:front" })!.resistances,
   ).toEqual(["blight"]);
-  expect(readHeroPassiveDefence(battle, { heroStatId: "hero_stat:p014:front" })).toMatchObject({
+  expect(
+    readHeroPassiveDefence(battle, { heroStatId: "hero_stat:core:h07:p014:front" }),
+  ).toMatchObject({
     resistances: [],
     immunities: ["blight"],
     diseaseImmune: true,
   });
   expect(
-    readHeroPassiveDefence(battle, { heroStatId: "hero_stat:p017:front" })!.resistances,
+    readHeroPassiveDefence(battle, { heroStatId: "hero_stat:core:h09:p017:front" })!.resistances,
   ).toEqual(["blight"]);
   expect(
-    readHeroPassiveDefence(battle, { heroStatId: "hero_stat:p019:front" })!.resistances,
+    readHeroPassiveDefence(battle, { heroStatId: "hero_stat:core:h10:p019:front" })!.resistances,
   ).toEqual(["debuff"]);
 });
 

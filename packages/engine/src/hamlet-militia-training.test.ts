@@ -65,7 +65,7 @@ it("Abomination自然返村抽Militia免费升级Transform，待选和升级后�
     i === 0
       ? {
           ...h,
-          heroStatId: "hero_stat:p021:front",
+          heroStatId: "hero_stat:core:h11:p021:front",
           skillIds: ["hero_skill:p211", "hero_skill:p214", "hero_skill:p220"],
         }
       : { ...h, skillIds: [...h.skillIds] },

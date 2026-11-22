@@ -11,10 +11,10 @@ import { SCENARIO_SEED_SEARCH_LIMIT } from "./scenario-seed-search";
 
 /** 正式已核实额外替补（开局四人死后）：赏金猎人、瘟疫医生、盗墓者、神秘学者。 */
 export const VERIFIED_EXTRA_IDS = [
-  "hero_stat:p005:front",
-  "hero_stat:p013:front",
-  "hero_stat:p017:front",
-  "hero_stat:p019:front",
+  "hero_stat:core:h03:p005:front",
+  "hero_stat:core:h07:p013:front",
+  "hero_stat:core:h09:p017:front",
+  "hero_stat:core:h10:p019:front",
 ] as const;
 
 /** 机制夹具：在已部署战斗态上强制标记死者后准备替补。不冒充自然击杀或正式存档日志。 */
@@ -166,7 +166,9 @@ export function naturalWipeoutReplacementPathForSeed(sources: CoreQuestSources, 
     const actorId = currentHamletHero(game)?.id;
     const canSpeech =
       actorId &&
-      game.dungeon!.heroes.find((h) => h.id === actorId)?.heroStatId?.startsWith("hero_stat:p001");
+      game
+        .dungeon!.heroes.find((h) => h.id === actorId)
+        ?.heroStatId?.startsWith("hero_stat:core:h01:");
     if (!canSpeech) throw new Error("当前村庄不能通过 Zealous Speech 结束准备日");
     step({ type: "useHamletSkill", actorId, skill: "zealousSpeech" });
   }

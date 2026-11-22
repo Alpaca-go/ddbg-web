@@ -210,7 +210,9 @@ it("Dirk Stab / Rallying Flare I 可结算；R-102 无视 Guard", () => {
   });
 
   const transform = card("hero_skill:p220");
-  const abom = setupBattle("ABOMINATION", "hero_stat:p021:front", transform, { areaDistance: 1 });
+  const abom = setupBattle("ABOMINATION", "hero_stat:core:h11:p021:front", transform, {
+    areaDistance: 1,
+  });
   const transformCmd: Command = {
     type: "playHeroSkill",
     actorId: "h",

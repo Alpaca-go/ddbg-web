@@ -160,7 +160,7 @@ describe("applyCommand 战斗沙盒（R19–21、R-024、R-031、R-048）", () =
   it("Transform I 结算自身治疗和压力，不消耗骰子（R-212）", () => {
     const skill = card("p220");
     const stat = loadNormalizedCorebox().hero_stat.cards.find(
-      (c) => c.id === "hero_stat:p021:front",
+      (c) => c.id === "hero_stat:core:h11:p021:front",
     )!;
     const actor = hero(skill, {
       form: "human",

@@ -11,9 +11,9 @@ import { resolveDungeonPressure } from "./dungeon-pressure";
 
 type Hero = DungeonState["heroes"][number];
 const reviewed = {
-  "hero_stat:p013:front": { level: 1, heal: 4 },
-  "hero_stat:p013:back": { level: 2, heal: 7 },
-  "hero_stat:p014:front": { level: 3, heal: 9 },
+  "hero_stat:core:h07:p013:front": { level: 1, heal: 4 },
+  "hero_stat:core:h07:p013:back": { level: 2, heal: 7 },
+  "hero_stat:core:h07:p014:front": { level: 3, heal: 9 },
 } as const;
 export function experimentalVapoursHealing(heroStatId: string) {
   return reviewed[heroStatId as keyof typeof reviewed]?.heal;

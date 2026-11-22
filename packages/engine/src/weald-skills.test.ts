@@ -65,8 +65,8 @@ it("Weald：HM / Shieldbreaker 七张 I 级已核实；STAT life≠1", () => {
   }
   expect(verifiedLevel1CombatSkillsForHero("SHIELDBREAKER", data.hero_skill.cards)).toHaveLength(7);
   expect(verifiedLevel1CombatSkillsForHero("HOUNDMASTER", data.hero_skill.cards)).toHaveLength(7);
-  const sbStat = stat("hero_stat:weald:shieldbreaker:p001:front");
-  const hmStat = stat("hero_stat:weald:houndmaster:p001:front");
+  const sbStat = stat("hero_stat:weald:h16:p032:front");
+  const hmStat = stat("hero_stat:weald:h17:p034:front");
   expect(sbStat.life).toBe(11);
   expect(hmStat.life).toBe(11);
   expect(sbStat.attributesVerified).toBe(true);

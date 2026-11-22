@@ -150,8 +150,8 @@ it("Warrens：Leper / Antiquarian 七张 I 级已核实；STAT life≠1", () => 
   }
   expect(verifiedLevel1CombatSkillsForHero("LEPER", data.hero_skill.cards)).toHaveLength(7);
   expect(verifiedLevel1CombatSkillsForHero("ANTIQUARIAN", data.hero_skill.cards)).toHaveLength(7);
-  const leperStat = stat("hero_stat:warrens:leper:p001:front");
-  const antiStat = stat("hero_stat:warrens:antiquarian:p001:front");
+  const leperStat = stat("hero_stat:warrens:h14:p028:front");
+  const antiStat = stat("hero_stat:warrens:h15:p030:front");
   expect(leperStat.life).toBe(18);
   expect(antiStat.life).toBe(9);
   expect(leperStat.attributesVerified).toBe(true);
@@ -178,7 +178,7 @@ it("Chop I 可结算伤害；两人可替补且战斗已接线", () => {
   expect(heroHasUnwiredCombatSkills("LEPER")).toBe(false);
   expect(heroHasUnwiredCombatSkills("ANTIQUARIAN")).toBe(false);
 
-  const { game, command } = setupBattle("LEPER", "hero_stat:warrens:leper:p001:front", chop, {
+  const { game, command } = setupBattle("LEPER", "hero_stat:warrens:h14:p028:front", chop, {
     actor: { stance: "aggressive" },
   });
   play(game, command);

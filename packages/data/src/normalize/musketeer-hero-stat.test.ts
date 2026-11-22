@@ -4,12 +4,9 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { iconDictionarySchema } from "../dictionary/schema";
 import { rawFileSchema } from "../extract/raw";
-import {
-  approvedMusketeerHeroStats,
-  buildMusketeerHeroStats,
-  musketeerHeroStatCardSchema,
-} from "./musketeer-hero-stat";
+import { approvedMusketeerHeroStats, buildMusketeerHeroStats } from "./musketeer-hero-stat";
 import { loadNormalizedCorebox } from "./write";
+import { canonicalHeroStatCardSchema } from "./hero-stat";
 
 const DATA_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const json = (rel: string) => JSON.parse(readFileSync(path.join(DATA_ROOT, rel), "utf8"));
@@ -21,9 +18,9 @@ it("Musketeer：三面获批 STAT 与 raw 一致", () => {
   const built = buildMusketeerHeroStats(raw, dictionary);
   expect(built).toHaveLength(approvedMusketeerHeroStats.length);
   const cases: [string, number, number, number, number][] = [
-    ["hero_stat:musketeer:musketeer:p001:front", 1, 14, 0, 1],
-    ["hero_stat:musketeer:musketeer:p001:back", 2, 19, 1, 1],
-    ["hero_stat:musketeer:musketeer:p002:front", 3, 24, 2, 2],
+    ["hero_stat:musketeer:h18:p036:front", 1, 14, 0, 1],
+    ["hero_stat:musketeer:h18:p036:back", 2, 19, 1, 1],
+    ["hero_stat:musketeer:h18:p037:front", 3, 24, 2, 2],
   ];
   for (const [id, level, life, dodge, speed] of cases) {
     const card = built.find((c) => c.id === id)!;
@@ -32,7 +29,7 @@ it("Musketeer：三面获批 STAT 与 raw 一致", () => {
     expect(card.life).toBe(life);
     expect(card.dodge).toBe(dodge);
     expect(card.speed).toBe(speed);
-    expect(musketeerHeroStatCardSchema.safeParse(card).success).toBe(true);
+    expect(canonicalHeroStatCardSchema.safeParse(card).success).toBe(true);
   }
   const file = loadNormalizedCorebox().hero_stat;
   const musketeer = file.cards.filter((c: { id: string }) =>

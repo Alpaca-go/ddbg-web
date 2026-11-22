@@ -25,7 +25,7 @@ it("R-088三面独立黄金值、完整防御与实际批准日期；旧批准�
     ]),
   ).toEqual([
     [
-      "hero_stat:p005:front",
+      "hero_stat:core:h03:p005:front",
       1,
       14,
       1,
@@ -39,7 +39,7 @@ it("R-088三面独立黄金值、完整防御与实际批准日期；旧批准�
       },
     ],
     [
-      "hero_stat:p005:back",
+      "hero_stat:core:h03:p005:back",
       2,
       18,
       2,
@@ -53,7 +53,7 @@ it("R-088三面独立黄金值、完整防御与实际批准日期；旧批准�
       },
     ],
     [
-      "hero_stat:p006:front",
+      "hero_stat:core:h03:p006:front",
       3,
       23,
       3,

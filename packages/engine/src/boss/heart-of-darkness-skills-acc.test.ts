@@ -426,7 +426,7 @@ it("Dissolution · Furthest 选最远英雄 · 命中 Stun 1t + 3 Blight 3t + 1 
 it("Dissolution · 目标带卡面 Stun 抗性时 1t Stun 不放代币（R-033）", () => {
   const fighting = heartOfDarknessFighting();
   const heroes = fighting.battle!.entities.filter((entity) => entity.side === "hero");
-  const crusader = heroes.find((hero) => hero.heroStatId === "hero_stat:p001:front")!;
+  const crusader = heroes.find((hero) => hero.heroStatId === "hero_stat:core:h01:p001:front")!;
   let cursor = 0;
   while (nextBattleRoll(fighting.seed, cursor) !== 5) cursor += 1;
   // 唯一最远目标仍是 Crusader；其卡面条件抗性为 Stun（1t − 1 = 0，R-033）。

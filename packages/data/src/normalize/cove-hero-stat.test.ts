@@ -4,12 +4,9 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { iconDictionarySchema } from "../dictionary/schema";
 import { rawFileSchema } from "../extract/raw";
-import {
-  approvedCoveHeroStats,
-  buildCoveHeroStats,
-  coveHeroStatCardSchema,
-} from "./cove-hero-stat";
+import { approvedCoveHeroStats, buildCoveHeroStats } from "./cove-hero-stat";
 import { loadNormalizedCorebox } from "./write";
+import { canonicalHeroStatCardSchema } from "./hero-stat";
 
 const DATA_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const json = (rel: string) => JSON.parse(readFileSync(path.join(DATA_ROOT, rel), "utf8"));
@@ -21,12 +18,12 @@ it("Cove：六面获批 STAT 与 raw 一致", () => {
   const built = buildCoveHeroStats(raw, dictionary);
   expect(built).toHaveLength(approvedCoveHeroStats.length);
   const cases: [string, number, number, number, number][] = [
-    ["hero_stat:cove:flagellant:p001:front", 1, 12, 2, 2],
-    ["hero_stat:cove:flagellant:p001:back", 2, 16, 3, 3],
-    ["hero_stat:cove:flagellant:p002:front", 3, 22, 3, 3],
-    ["hero_stat:cove:man-at-arms:p001:front", 1, 16, 1, 1],
-    ["hero_stat:cove:man-at-arms:p001:back", 2, 22, 2, 1],
-    ["hero_stat:cove:man-at-arms:p002:front", 3, 28, 3, 2],
+    ["hero_stat:cove:h13:p026:front", 1, 12, 2, 2],
+    ["hero_stat:cove:h13:p026:back", 2, 16, 3, 3],
+    ["hero_stat:cove:h13:p027:front", 3, 22, 3, 3],
+    ["hero_stat:cove:h12:p024:front", 1, 16, 1, 1],
+    ["hero_stat:cove:h12:p024:back", 2, 22, 2, 1],
+    ["hero_stat:cove:h12:p025:front", 3, 28, 3, 2],
   ];
   for (const [id, level, life, dodge, speed] of cases) {
     const card = built.find((c) => c.id === id)!;
@@ -35,7 +32,7 @@ it("Cove：六面获批 STAT 与 raw 一致", () => {
     expect(card.life).toBe(life);
     expect(card.dodge).toBe(dodge);
     expect(card.speed).toBe(speed);
-    expect(coveHeroStatCardSchema.safeParse(card).success).toBe(true);
+    expect(canonicalHeroStatCardSchema.safeParse(card).success).toBe(true);
   }
   const file = loadNormalizedCorebox().hero_stat;
   const cove = file.cards.filter((c: { id: string }) => c.id.startsWith("hero_stat:cove:"));

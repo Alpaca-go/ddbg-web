@@ -13,6 +13,7 @@ import { warrensHeroStatCardSchema } from "./warrens-hero-stat";
 import { coveHeroStatCardSchema } from "./cove-hero-stat";
 import { wealdHeroStatCardSchema } from "./weald-hero-stat";
 import { musketeerHeroStatCardSchema } from "./musketeer-hero-stat";
+import { heroStatId } from "../hero-registry";
 
 const FRONT = "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_FRONT.pdf";
 const BACK = "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_BACK.pdf";
@@ -189,6 +190,34 @@ export const normalizedHeroStatCardSchema = attributesSchema
       ctx.addIssue({ code: "custom", message: "未确认图标必须保留整卡未验证原因（R-048）" });
   });
 
+/** v1.1 canonical：全英雄 STAT ID（pack + hNN + 全局页）；构建器先按旧来源校验，再映射到此形状。 */
+export const canonicalHeroStatCardSchema = attributesSchema
+  .extend({
+    rawId: z.string().regex(/^hero_stat:(?:[a-z-]+:)*p\d{3}$/),
+    id: z
+      .string()
+      .regex(/^hero_stat:(?:core|cove|warrens|weald|musketeer):h\d{2}:p\d{3}:(?:front|back)$/),
+    source: z.strictObject({ file: z.string().min(1), page: z.int().positive() }),
+    attributesVerified: z.literal(true),
+    approval: z.string().min(1),
+    verified_buff_defence: z
+      .strictObject({
+        resistant: z.boolean(),
+        immune: z.boolean(),
+        source: z.literal("print_front"),
+      })
+      .optional(),
+    verified_condition_defence: heroConditionDefenceSchema.optional(),
+    verified_higher_condition_defence: higherHeroDefenceSchema.optional(),
+    lines: z.array(z.string()),
+    icons: z.array(normalizedIconSchema),
+    verification: verificationSchema,
+  })
+  .superRefine((card, ctx) => {
+    if (card.id !== heroStatId(card.name, card.level, card.face))
+      ctx.addIssue({ code: "custom", message: "英雄 STAT canonical ID 与英雄编号/等级/面不符" });
+  });
+
 export const normalizedHeroStatFileSchema = z
   .strictObject({
     schema: z.literal("ddbg-normalized-v0"),
@@ -206,6 +235,7 @@ export const normalizedHeroStatFileSchema = z
         coveHeroStatCardSchema,
         wealdHeroStatCardSchema,
         musketeerHeroStatCardSchema,
+        canonicalHeroStatCardSchema,
       ]),
     ),
   })
@@ -382,7 +412,7 @@ export function buildHeroStats(
       verification: finishVerification(reasons),
     });
   });
-  return coreHeroStatFileSchema.parse({
+  const file = coreHeroStatFileSchema.parse({
     schema: "ddbg-normalized-v0",
     dictionary_version: "1.8",
     category: "hero_stat",
@@ -393,4 +423,11 @@ export function buildHeroStats(
     },
     cards,
   });
+  return {
+    ...file,
+    cards: file.cards.map((card) => ({
+      ...card,
+      id: heroStatId(card.name, card.level, card.face),
+    })),
+  };
 }

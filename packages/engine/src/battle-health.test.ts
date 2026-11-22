@@ -23,7 +23,7 @@ const defender = cards<MonsterCardView>("monster_medium").find(
   (card) => card.id === "monster_medium:p010",
 )!;
 const profiles = cards<NonNullable<BattleSetup["heroStats"]>[number]>("hero_stat");
-const crusader = profiles.find((card) => card.id === "hero_stat:p001:front")!;
+const crusader = profiles.find((card) => card.id === "hero_stat:core:h01:p001:front")!;
 const vestal = profiles.find((card) => card.name === "VESTAL")!;
 function skill(id: string) {
   return skills.find((card) => card.id === `hero_skill:${id}`)!;

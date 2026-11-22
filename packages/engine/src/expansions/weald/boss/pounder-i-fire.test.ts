@@ -20,7 +20,7 @@ function fixture(extra: readonly BattleEntity[] = []): GameState {
     wounds: 0,
     dodge: 0,
     life: 17,
-    heroStatId: "hero_stat:p001:front",
+    heroStatId: "hero_stat:core:h01:p001:front",
     stress: 0,
     skillIds: [],
     guard: false,

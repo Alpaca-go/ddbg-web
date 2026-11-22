@@ -12,7 +12,7 @@ const skill = clean<HeroSkillCardView>(
   data.hero_skill.cards.find((c) => c.id === "hero_skill:p145")!,
 );
 const stat = clean<NonNullable<BattleSetup["heroStats"]>[number] & { dodge: number }>(
-  data.hero_stat.cards.find((c) => c.id === "hero_stat:p013:front")!,
+  data.hero_stat.cards.find((c) => c.id === "hero_stat:core:h07:p013:front")!,
 );
 /** 真实卡牌机制夹具；位置/压力/Dodge及回合入口明示，不冒充正式候选入口。 */
 function setup(roll = 5, fork = false, monsterId = "monster_medium:p021") {

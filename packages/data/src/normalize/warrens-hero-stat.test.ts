@@ -2,11 +2,8 @@ import { readFileSync } from "node:fs";
 import { expect, it } from "vitest";
 import { rawFileSchema } from "../extract/raw";
 import { iconDictionarySchema } from "../dictionary/schema";
-import {
-  approvedWarrensHeroStats,
-  buildWarrensHeroStats,
-  warrensHeroStatCardSchema,
-} from "./warrens-hero-stat";
+import { approvedWarrensHeroStats, buildWarrensHeroStats } from "./warrens-hero-stat";
+import { canonicalHeroStatCardSchema } from "./hero-stat";
 
 const json = (path: string) =>
   JSON.parse(readFileSync(new URL(`../../${path}`, import.meta.url), "utf8"));
@@ -27,18 +24,18 @@ it("R-215 + Q-104：Leper / Antiquarian I–III 黄金值；Antiquarian III 免�
       c.verified_higher_condition_defence?.resistances,
     ]),
   ).toEqual([
-    ["hero_stat:warrens:leper:p001:front", 1, 18, 0, 1, false, ["debuff"]],
-    ["hero_stat:warrens:leper:p001:back", 2, 25, 1, 1, false, ["shuffle", "debuff"]],
-    ["hero_stat:warrens:leper:p002:front", 3, 33, 2, 1, false, ["stun", "shuffle", "debuff"]],
-    ["hero_stat:warrens:antiquarian:p001:front", 1, 9, 1, 2, false, ["shuffle"]],
-    ["hero_stat:warrens:antiquarian:p001:back", 2, 12, 2, 2, true, ["stun", "shuffle"]],
-    ["hero_stat:warrens:antiquarian:p002:front", 3, 15, 3, 2, true, ["stun"]],
+    ["hero_stat:warrens:h14:p028:front", 1, 18, 0, 1, false, ["debuff"]],
+    ["hero_stat:warrens:h14:p028:back", 2, 25, 1, 1, false, ["shuffle", "debuff"]],
+    ["hero_stat:warrens:h14:p029:front", 3, 33, 2, 1, false, ["stun", "shuffle", "debuff"]],
+    ["hero_stat:warrens:h15:p030:front", 1, 9, 1, 2, false, ["shuffle"]],
+    ["hero_stat:warrens:h15:p030:back", 2, 12, 2, 2, true, ["stun", "shuffle"]],
+    ["hero_stat:warrens:h15:p031:front", 3, 15, 3, 2, true, ["stun"]],
   ]);
   expect(built.at(-1)?.verified_higher_condition_defence?.immunities).toEqual([
     "shuffle",
     "disease",
   ]);
-  for (const card of built) expect(warrensHeroStatCardSchema.safeParse(card).success).toBe(true);
+  for (const card of built) expect(canonicalHeroStatCardSchema.safeParse(card).success).toBe(true);
 });
 
 it("与 committed normalized Warrens 面一致", () => {

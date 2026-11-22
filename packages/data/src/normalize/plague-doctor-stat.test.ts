@@ -25,9 +25,27 @@ it("R-094三面独立黄金值；III从Blight抗性变为Blight/Disease双免疫
       c.approval,
     ]),
   ).toEqual([
-    ["hero_stat:p013:front", 1, 11, 0, 3, ["blight"], [], "kyries_review_2026-10-17"],
-    ["hero_stat:p013:back", 2, 15, 1, 3, ["blight"], ["disease"], "kyries_review_2026-10-17"],
-    ["hero_stat:p014:front", 3, 19, 2, 3, [], ["blight", "disease"], "kyries_review_2026-10-17"],
+    ["hero_stat:core:h07:p013:front", 1, 11, 0, 3, ["blight"], [], "kyries_review_2026-10-17"],
+    [
+      "hero_stat:core:h07:p013:back",
+      2,
+      15,
+      1,
+      3,
+      ["blight"],
+      ["disease"],
+      "kyries_review_2026-10-17",
+    ],
+    [
+      "hero_stat:core:h07:p014:front",
+      3,
+      19,
+      2,
+      3,
+      [],
+      ["blight", "disease"],
+      "kyries_review_2026-10-17",
+    ],
   ]);
   expect(
     cards.every(

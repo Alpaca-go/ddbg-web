@@ -169,7 +169,7 @@ it.each(["hero_skill:p221", "hero_skill:p222"])(
     const party = [
       {
         ...coreParty[0]!,
-        heroStatId: "hero_stat:p021:front",
+        heroStatId: "hero_stat:core:h11:p021:front",
         skillIds: ["hero_skill:p211", "hero_skill:p214", "hero_skill:p220"],
       },
       ...coreParty.slice(1),
@@ -638,10 +638,10 @@ it("等待四人时按逃跑交接；不清宝藏/不发20金，登记四死者�
   expect(awaiting.dungeon!.phase).toBe("awaitingReplacement");
   expect(prepared.dungeon!.preparedReplacements).toHaveLength(4);
   expect(prepared.dungeon!.preparedReplacements!.map((p) => p.hero.heroStatId).sort()).toEqual([
-    "hero_stat:p005:front",
-    "hero_stat:p013:front",
-    "hero_stat:p017:front",
-    "hero_stat:p019:front",
+    "hero_stat:core:h03:p005:front",
+    "hero_stat:core:h07:p013:front",
+    "hero_stat:core:h09:p017:front",
+    "hero_stat:core:h10:p019:front",
   ]);
   expect(prepared.dungeon!.waitingHeroTokens).toBe(0);
   expect(
@@ -661,10 +661,10 @@ it("等待四人时按逃跑交接；不清宝藏/不发20金，登记四死者�
   const joined = send(prepared, { type: "joinPreparedReplacements" });
   expect(joined.dungeon!.heroes.every((h) => !h.dead)).toBe(true);
   expect(joined.dungeon!.heroes.map((h) => h.heroStatId).sort()).toEqual([
-    "hero_stat:p005:front",
-    "hero_stat:p013:front",
-    "hero_stat:p017:front",
-    "hero_stat:p019:front",
+    "hero_stat:core:h03:p005:front",
+    "hero_stat:core:h07:p013:front",
+    "hero_stat:core:h09:p017:front",
+    "hero_stat:core:h10:p019:front",
   ]);
   expect(joined.dungeon!.campaignFailure).toBeUndefined();
   expect(joined.dungeon!.preparedReplacements).toBeUndefined();
