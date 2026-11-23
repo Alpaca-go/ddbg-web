@@ -3,7 +3,7 @@ import { loadNormalizedCorebox } from "./write";
 import { attachVerifiedHeroDamage } from "./verified-hero-damage";
 import { attachVerifiedHeroLayout } from "./verified-hero-layout";
 import { attachVerifiedHeroRanges } from "./verified-hero-ranges";
-import { attachVerifiedHeroStatuses } from "./verified-hero-statuses";
+import { applyHeroStatuses } from "./hero-annotations";
 
 const cards = loadNormalizedCorebox().hero_skill.cards;
 
@@ -23,7 +23,7 @@ it("Poison Dart I / Shadow Fade I / Toxin Trickery I 完整状态黄金值；II/
     "hero_skill:core:h09:p188",
   ] as const)
     expect(cards.find((c) => c.id === id)!.verified_status_effects).toBeDefined();
-  expect(attachVerifiedHeroStatuses(cards)).toEqual(cards);
+  expect(applyHeroStatuses(cards)).toEqual(cards);
 });
 
 it("Throw Dagger I 同框双条件与 1–2 射程；Lunge I 对 Blight +2；区间原 numeric 仍 null", () => {

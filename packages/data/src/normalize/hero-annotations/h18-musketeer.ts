@@ -1,4 +1,4 @@
-import type { HeroAnnotationModule } from "./types";
+import type { HeroAnnotationModule, StatusEffectEntry } from "./types";
 import type { NormalizedHeroSkillCard, Segment } from "../schema";
 import { normalizedHeroSkillCardSchema } from "../schema";
 import { lineSignature } from "../verified-hero-layout";
@@ -611,3 +611,64 @@ export const musketeerAnnotations: HeroAnnotationModule = {
   hero: "MUSKETEER",
   apply: attachVerifiedMusketeerHigher,
 };
+
+/** 完整印刷逐页核对的状态效果行（docs/phase2-four-core-skills-2026-10-11.md）。 */
+export const statusEntries: readonly StatusEffectEntry[] = [
+  {
+    id: "hero_skill:musketeer:p004",
+    name: "Smokescreen",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} {debuff} 1t",
+    effects: [{ kind: "debuff", duration: 1 }],
+  },
+  {
+    id: "hero_skill:musketeer:p007",
+    name: "Call the Shot",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} {mark} 2t",
+    effects: [{ kind: "mark", duration: 2 }],
+  },
+  {
+    id: "hero_skill:musketeer:p016",
+    name: "Patch Up",
+    level: 1,
+    lineIndex: 0,
+    scope: "self",
+    signature: "{self_effects} Self {buff} 2t",
+    effects: [{ kind: "buff", duration: 2 }],
+  },
+  {
+    id: "hero_skill:musketeer:p019",
+    hero: "MUSKETEER",
+    name: "Skeet Shot",
+    level: 1,
+    lineIndex: 1,
+    scope: "target",
+    signature: "{target_monster} : {debuff} 2t",
+    effects: [{ kind: "debuff", duration: 2 }],
+  },
+  {
+    id: "hero_skill:musketeer:p020",
+    hero: "MUSKETEER",
+    name: "Skeet Shot",
+    level: 2,
+    lineIndex: 1,
+    scope: "target",
+    signature: "{target_monster} : {debuff} 2t",
+    effects: [{ kind: "debuff", duration: 2 }],
+  },
+  {
+    id: "hero_skill:musketeer:p021",
+    hero: "MUSKETEER",
+    name: "Skeet Shot",
+    level: 3,
+    lineIndex: 1,
+    scope: "target",
+    signature: "{target_monster} : {debuff} 2t",
+    effects: [{ kind: "debuff", duration: 2 }],
+  },
+];

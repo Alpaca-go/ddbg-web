@@ -1,4 +1,4 @@
-import type { CoreHigherSkillRow } from "./types";
+import type { CoreHigherSkillRow, StatusEffectEntry } from "./types";
 
 /** 核心盒 Grave Robber II/III 级逐卡注解（Kyries 审阅；R-048 签名断言由 core-higher-skills 执行）。 */
 export const coreHigherRows: readonly CoreHigherSkillRow[] = [
@@ -289,5 +289,41 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
         source: "print_front",
       },
     },
+  },
+];
+
+/** 完整印刷逐页核对的状态效果行（docs/phase2-four-core-skills-2026-10-11.md）。 */
+export const statusEntries: readonly StatusEffectEntry[] = [
+  // 完整FRONT p184：目标 Blight 2·3t；仅 I 级。
+  {
+    id: "hero_skill:p184",
+    hero: "GRAVE ROBBER",
+    name: "Poison Dart",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} 2 {blight} 3t",
+    effects: [{ kind: "blight", amount: 2, duration: 3 }],
+  },
+  // 完整FRONT p178：无 Acc；射程 Self 行由 selfHeaders 计入，Buff 2t 与 Push 2 同行。
+  {
+    id: "hero_skill:p178",
+    hero: "GRAVE ROBBER",
+    name: "Shadow Fade",
+    level: 1,
+    lineIndex: 1,
+    scope: "self",
+    signature: "{self_effects} Self {buff} 2t, {shuffle} Push 2",
+    effects: [{ kind: "buff", duration: 2 }],
+  },
+  // 完整FRONT p187：无 Acc；Buff 与换行 Remove Bleed/Blight 分列，不套 hero 行数闸。
+  {
+    id: "hero_skill:p187",
+    name: "Toxin Trickery",
+    level: 1,
+    lineIndex: 1,
+    scope: "self",
+    signature: "{self_effects} Self {buff} 2t,",
+    effects: [{ kind: "buff", duration: 2 }],
   },
 ];

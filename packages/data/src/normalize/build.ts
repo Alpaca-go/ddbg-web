@@ -45,14 +45,13 @@ import { attachVerifiedMonsterEffects } from "./verified-monster-effects";
 import { attachVerifiedHeartOfDarknessSkillRanges } from "./verified-heart-of-darkness-ranges";
 import { attachVerifiedMonsterStress } from "./verified-monster-stress";
 import { attachVerifiedMonsterDamage } from "./verified-monster-damage";
-import { attachVerifiedHeroStatuses } from "./verified-hero-statuses";
+import { attachVerifiedHeroLayout } from "./verified-hero-layout";
 import { attachVerifiedBountyStatuses } from "./verified-bounty-statuses";
 import { attachVerifiedHeroRanges } from "./verified-hero-ranges";
 import { attachVerifiedHeroDamage } from "./verified-hero-damage";
 import { attachVerifiedHeroSupport } from "./verified-hero-support";
-import { attachVerifiedHeroLayout } from "./verified-hero-layout";
 import { attachReviewedHeroStances } from "./reviewed-hero-stances";
-import { applyHeroAnnotations } from "./hero-annotations";
+import { applyHeroAnnotations, applyHeroStatuses } from "./hero-annotations";
 import { attachVerifiedResolveTriggers } from "./verified-resolve-triggers";
 import { attachVerifiedRallyingFlare } from "./verified-rallying-flare";
 import { approvedResolveLookup } from "./approved-resolve-icons";
@@ -750,9 +749,7 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
             attachVerifiedHeroSupport(
               attachVerifiedHeroDamage(
                 attachVerifiedHeroRanges(
-                  attachVerifiedHeroStatuses(
-                    applyHeroAnnotations(attachVerifiedHeroLayout(reviewed)),
-                  ),
+                  applyHeroStatuses(applyHeroAnnotations(attachVerifiedHeroLayout(reviewed))),
                 ),
               ),
             ),

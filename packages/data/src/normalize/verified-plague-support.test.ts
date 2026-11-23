@@ -1,6 +1,6 @@
 import { expect, it } from "vitest";
 import { loadNormalizedCorebox } from "./write";
-import { attachVerifiedHeroStatuses } from "./verified-hero-statuses";
+import { applyHeroStatuses } from "./hero-annotations";
 
 const cards = loadNormalizedCorebox().hero_skill.cards;
 const id = "hero_skill:core:h07:p142";
@@ -22,7 +22,7 @@ it("Emboldening Vapours I完整黄金注解，四姿态、无Acc/Crit，保留�
   for (const p of [143, 144])
     expect(cards.find((c) => c.pages[0] === p)!.verified_status_effects).toBeDefined();
   const before = structuredClone(cards);
-  expect(attachVerifiedHeroStatuses(cards)).toEqual(cards);
+  expect(applyHeroStatuses(cards)).toEqual(cards);
   expect(cards).toEqual(before);
 });
 
@@ -65,10 +65,8 @@ it("精确身份、完整双行、目标/射程/持续时间与命名漂移拒�
     }
     if (field === "labels") card.printed_labels = [{ label: "Acc", raw: "Acc 9", value: 9 }];
     if (field === "stats") card.stats_line = [{ type: "text", text: "Acc 9" }];
-    expect(() => attachVerifiedHeroStatuses(changed), field).toThrow();
+    expect(() => applyHeroStatuses(changed), field).toThrow();
   }
-  expect(() => attachVerifiedHeroStatuses(cards.filter((c) => c.id !== id))).toThrow(/唯一/);
-  expect(() => attachVerifiedHeroStatuses([...cards, cards.find((c) => c.id === id)!])).toThrow(
-    /唯一/,
-  );
+  expect(() => applyHeroStatuses(cards.filter((c) => c.id !== id))).toThrow(/唯一/);
+  expect(() => applyHeroStatuses([...cards, cards.find((c) => c.id === id)!])).toThrow(/唯一/);
 });

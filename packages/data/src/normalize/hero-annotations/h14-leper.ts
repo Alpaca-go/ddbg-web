@@ -1,4 +1,4 @@
-import type { HeroAnnotationModule } from "./types";
+import type { HeroAnnotationModule, StatusEffectEntry } from "./types";
 import type { NormalizedHeroSkillCard, Segment } from "../schema";
 import { normalizedHeroSkillCardSchema } from "../schema";
 import { lineSignature } from "../verified-hero-layout";
@@ -255,3 +255,161 @@ export const leperAnnotations: HeroAnnotationModule = {
   hero: "LEPER",
   apply: attachVerifiedWarrensLeperHigher,
 };
+
+/** 完整印刷逐页核对的状态效果行（docs/phase2-four-core-skills-2026-10-11.md）。 */
+export const statusEntries: readonly StatusEffectEntry[] = [
+  {
+    id: "hero_skill:p280",
+    name: "Purge",
+    level: 1,
+    lineIndex: 0,
+    scope: "self",
+    signature: "{self_effects} Self {buff} 2t",
+    effects: [{ kind: "buff", duration: 2 }],
+  },
+  {
+    id: "hero_skill:p283",
+    name: "Revenge",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} {mark} 2t, {debuff} 1t",
+    effects: [
+      { kind: "mark", duration: 2 },
+      { kind: "debuff", duration: 1 },
+    ],
+  },
+  {
+    id: "hero_skill:p286",
+    name: "Withstand",
+    level: 1,
+    lineIndex: 1,
+    scope: "self",
+    signature: "{self_effects} Self {protection} 2t, {mark} 2t",
+    effects: [
+      { kind: "protection", duration: 2 },
+      { kind: "mark", duration: 2 },
+    ],
+  },
+  {
+    id: "hero_skill:p292",
+    name: "Intimidate",
+    level: 1,
+    lineIndex: 0,
+    scope: "self",
+    signature: "{self_effects} Self {mark} 2t",
+    effects: [{ kind: "mark", duration: 2 }],
+  },
+  {
+    id: "hero_skill:p292",
+    name: "Intimidate",
+    level: 1,
+    lineIndex: 3,
+    scope: "target",
+    signature: "{target_effects} {debuff} 1t",
+    effects: [{ kind: "debuff", duration: 1 }],
+  },
+  // R-200：Leper Purge II/III 已确认读数（仅自身 Buff 2t；III 伤害见 hero-annotations/h14-leper stats 覆盖）。
+  {
+    id: "hero_skill:p281",
+    name: "Purge",
+    level: 2,
+    lineIndex: 0,
+    scope: "self",
+    signature: "{self_effects} Self {buff} 2t",
+    effects: [{ kind: "buff", duration: 2 }],
+  },
+  {
+    id: "hero_skill:p282",
+    name: "Purge",
+    level: 3,
+    lineIndex: 0,
+    scope: "self",
+    signature: "{self_effects} Self {buff} 2t",
+    effects: [{ kind: "buff", duration: 2 }],
+  },
+  {
+    id: "hero_skill:p284",
+    name: "Revenge",
+    level: 2,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} {mark} 2t, {debuff} 2t",
+    effects: [
+      { kind: "mark", duration: 2 },
+      { kind: "debuff", duration: 2 },
+    ],
+  },
+  {
+    id: "hero_skill:p285",
+    name: "Revenge",
+    level: 3,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} {mark} 3t, {debuff} 3t",
+    effects: [
+      { kind: "mark", duration: 3 },
+      { kind: "debuff", duration: 3 },
+    ],
+  },
+  {
+    id: "hero_skill:p287",
+    name: "Withstand",
+    level: 2,
+    lineIndex: 1,
+    scope: "self",
+    signature: "{self_effects} Self {protection} 2t, {mark} 1t",
+    effects: [
+      { kind: "protection", duration: 2 },
+      { kind: "mark", duration: 1 },
+    ],
+  },
+  {
+    id: "hero_skill:p288",
+    name: "Withstand",
+    level: 3,
+    lineIndex: 1,
+    scope: "self",
+    signature: "{self_effects} Self {protection} 3t, {mark} 1t",
+    effects: [
+      { kind: "protection", duration: 3 },
+      { kind: "mark", duration: 1 },
+    ],
+  },
+  {
+    id: "hero_skill:p293",
+    name: "Intimidate",
+    level: 2,
+    lineIndex: 0,
+    scope: "self",
+    signature: "{self_effects} Self {mark} 2t",
+    effects: [{ kind: "mark", duration: 2 }],
+  },
+  {
+    id: "hero_skill:p293",
+    name: "Intimidate",
+    level: 2,
+    lineIndex: 3,
+    scope: "target",
+    signature: "{target_effects} {debuff} 2t",
+    effects: [{ kind: "debuff", duration: 2 }],
+  },
+  {
+    id: "hero_skill:p294",
+    name: "Intimidate",
+    level: 3,
+    lineIndex: 0,
+    scope: "self",
+    signature: "{self_effects} Self {mark} 1t",
+    effects: [{ kind: "mark", duration: 1 }],
+  },
+  {
+    id: "hero_skill:p294",
+    name: "Intimidate",
+    level: 3,
+    lineIndex: 3,
+    scope: "target",
+    signature: "{target_effects} {debuff} 3t",
+    effects: [{ kind: "debuff", duration: 3 }],
+  },
+];

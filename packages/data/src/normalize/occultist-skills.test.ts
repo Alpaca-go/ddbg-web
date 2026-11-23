@@ -2,7 +2,7 @@ import { expect, it } from "vitest";
 import { loadNormalizedCorebox } from "./write";
 import { attachVerifiedHeroDamage } from "./verified-hero-damage";
 import { attachVerifiedHeroRanges } from "./verified-hero-ranges";
-import { attachVerifiedHeroStatuses } from "./verified-hero-statuses";
+import { applyHeroStatuses } from "./hero-annotations";
 
 const cards = loadNormalizedCorebox().hero_skill.cards;
 
@@ -51,7 +51,7 @@ it("Occ I：Weakening Curse / Wyrd / Hex / Hands 完整状态与区间；Daemon 
     max: 2,
     source: "print_front",
   });
-  expect(attachVerifiedHeroStatuses(cards)).toEqual(cards);
+  expect(applyHeroStatuses(cards)).toEqual(cards);
   expect(attachVerifiedHeroRanges(cards)).toEqual(cards);
 });
 
@@ -63,5 +63,5 @@ it("Occ I 身份或效果行漂移拒绝", () => {
   const drifted = cards.map((c) =>
     c.id === "hero_skill:core:h10:p196" ? ({ ...c, hero: "PLAGUE DOCTOR" } as typeof c) : c,
   );
-  expect(() => attachVerifiedHeroStatuses(drifted)).toThrow(/Weakening Curse|p196/);
+  expect(() => applyHeroStatuses(drifted)).toThrow(/Weakening Curse|p196/);
 });

@@ -42,7 +42,7 @@ Kyries 决定：**18 名正式英雄都按核心内容对待**（Musketeer 纳�
   4. `verified-hero-damage.ts`（伤害加成/条件伤害）
   5. `verified-hero-support.ts`（治疗/支援/Empty Area 等）
   6. `verified-bounty-statuses.ts`
-- **2026-11-23 目录调整**：II/III 级逐卡注解已按英雄收进 `normalize/hero-annotations/hNN-*.ts`（`h03`–`h11` 为核心盒高等级行，`h12`–`h18` 为扩展英雄），统一入口是 `applyHeroAnnotations` 与 `CORE_HIGHER_SKILL_ROWS`；上面 1–6 项的 aspect 文件仍在，属于下一批待归并。
+- **2026-11-23 目录调整**：II/III 级逐卡注解与状态效果行已按英雄收进 `normalize/hero-annotations/hNN-*.ts`；统一入口是 `applyHeroAnnotations`、`CORE_HIGHER_SKILL_ROWS`、`applyHeroStatuses` / `STATUS_EFFECTS`。状态效果表不再单独存在（`verified-hero-statuses.ts` 已删除）。仍在根目录的 aspect 文件：`verified-hero-layout`、`-ranges`、`-damage`、`-support`、`verified-bounty-statuses`、`verified-rallying-flare`、`verified-resolve-triggers`，属于下一批待归并。
 - 生成入口：`packages/data/src/normalize/build.ts`（`hero_skill` 段）。
 - 重生成：`$env:WRITE_NORMALIZED='1'; pnpm exec vitest run packages/data/src/normalize/normalize.test.ts`
 - 卡面数字位置：raw 的 `spans`（文本）与 `icons`（图标 bbox）；核对时以印刷行为准。

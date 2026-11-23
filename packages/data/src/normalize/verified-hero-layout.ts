@@ -1,15 +1,8 @@
 import type { NormalizedHeroSkillCard, Segment } from "./schema";
 import { legacyHeroSkillId } from "../hero-registry";
+import { lineSignature } from "./hero-annotations/shared";
 
-export function lineSignature(line: readonly Segment[]): string {
-  return line
-    .map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
-    .join("")
-    .split(String.fromCharCode(7))
-    .join("")
-    .replace(/\s+/g, " ")
-    .trim();
-}
+export { lineSignature };
 
 /** 完整印刷 p038–039 / p043：整理已核实的跨行效果框，不改原始转录。 */
 export function attachVerifiedHeroLayout(

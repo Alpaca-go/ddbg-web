@@ -1,4 +1,4 @@
-import type { CoreHigherSkillRow } from "./types";
+import type { CoreHigherSkillRow, StatusEffectEntry } from "./types";
 
 /** 核心盒 Abomination II/III 级逐卡注解（Kyries 审阅；R-048 签名断言由 core-higher-skills 执行）。 */
 export const coreHigherRows: readonly CoreHigherSkillRow[] = [
@@ -85,5 +85,27 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
         source: "print_front",
       },
     },
+  },
+];
+
+/** 完整印刷逐页核对的状态效果行（docs/phase2-four-core-skills-2026-10-11.md）。 */
+export const statusEntries: readonly StatusEffectEntry[] = [
+  {
+    id: "hero_skill:p211",
+    name: "Manacles",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} {stun} 1t",
+    effects: [{ kind: "stun", duration: 1 }],
+  },
+  {
+    id: "hero_skill:p214",
+    name: "Beast’s Bile",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} 2 {blight} 2t",
+    effects: [{ kind: "blight", amount: 2, duration: 2 }],
   },
 ];

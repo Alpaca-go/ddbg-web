@@ -1,4 +1,4 @@
-import type { CoreHigherSkillRow } from "./types";
+import type { CoreHigherSkillRow, StatusEffectEntry } from "./types";
 
 /** 核心盒 Occultist II/III 级逐卡注解（Kyries 审阅；R-048 签名断言由 core-higher-skills 执行）。 */
 export const coreHigherRows: readonly CoreHigherSkillRow[] = [
@@ -237,5 +237,50 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
         },
       ],
     },
+  },
+];
+
+/** 完整印刷逐页核对的状态效果行（docs/phase2-four-core-skills-2026-10-11.md）。 */
+export const statusEntries: readonly StatusEffectEntry[] = [
+  // 完整 FRONT p196/p199/p202/p205；仅 Occ I，不向 II/III 外推。
+  {
+    id: "hero_skill:p196",
+    hero: "OCCULTIST",
+    name: "Weakening Curse",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} {debuff} 2t",
+    effects: [{ kind: "debuff", duration: 2 }],
+  },
+  {
+    id: "hero_skill:p199",
+    hero: "OCCULTIST",
+    name: "Wyrd Reconstruction",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} 1 {bleed} 2t",
+    effects: [{ kind: "bleed", amount: 1, duration: 2 }],
+  },
+  {
+    id: "hero_skill:p202",
+    hero: "OCCULTIST",
+    name: "Vulnerability Hex",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} {mark} 2t",
+    effects: [{ kind: "mark", duration: 2 }],
+  },
+  {
+    id: "hero_skill:p205",
+    hero: "OCCULTIST",
+    name: "Hands from the Abyss",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} {stun} 2t, {light} -1",
+    effects: [{ kind: "stun", duration: 2 }],
   },
 ];

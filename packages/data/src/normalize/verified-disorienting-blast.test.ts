@@ -1,6 +1,6 @@
 import { expect, it } from "vitest";
 import { loadNormalizedCorebox } from "./write";
-import { attachVerifiedHeroStatuses } from "./verified-hero-statuses";
+import { applyHeroStatuses } from "./hero-annotations";
 const cards = loadNormalizedCorebox().hero_skill.cards;
 const id = "hero_skill:core:h07:p145";
 
@@ -29,7 +29,7 @@ it("Disorienting Blast I保留原始两行与Nt null，限定目标续行黄金�
   for (const p of [146, 147])
     expect(cards.find((c) => c.pages[0] === p)!.verified_status_effects).toBeDefined();
   const before = structuredClone(cards);
-  expect(attachVerifiedHeroStatuses(cards)).toEqual(cards);
+  expect(applyHeroStatuses(cards)).toEqual(cards);
   expect(cards).toEqual(before);
 });
 
@@ -69,10 +69,8 @@ it("身份、完整位移行/状态续行、方向距离与图标命名漂移均
       const s = c.effect_lines[field === "stun" ? 1 : 0]![field === "shuffle" ? 2 : 0]!;
       if (s.type === "icon") s.icon.naming = "unverified";
     }
-    expect(() => attachVerifiedHeroStatuses(changed), field).toThrow();
+    expect(() => applyHeroStatuses(changed), field).toThrow();
   }
-  expect(() => attachVerifiedHeroStatuses(cards.filter((c) => c.id !== id))).toThrow(/唯一/);
-  expect(() => attachVerifiedHeroStatuses([...cards, cards.find((c) => c.id === id)!])).toThrow(
-    /唯一/,
-  );
+  expect(() => applyHeroStatuses(cards.filter((c) => c.id !== id))).toThrow(/唯一/);
+  expect(() => applyHeroStatuses([...cards, cards.find((c) => c.id === id)!])).toThrow(/唯一/);
 });

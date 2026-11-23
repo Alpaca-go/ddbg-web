@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { loadNormalizedCorebox } from "./write";
 import { normalizedHeroSkillCardSchema } from "./schema";
-import { attachVerifiedHeroStatuses } from "./verified-hero-statuses";
+import { applyHeroStatuses } from "./hero-annotations";
 
 const cards = loadNormalizedCorebox().hero_skill.cards;
 
@@ -38,7 +38,7 @@ describe("逐卡核实的状态持续时间（R20–21 / R-048）", () => {
     const mutate = (change: (card: (typeof cards)[number]) => void) => {
       const changed = structuredClone(cards);
       change(changed.find((card) => card.id === "hero_skill:core:h01:p007")!);
-      return () => attachVerifiedHeroStatuses(changed);
+      return () => applyHeroStatuses(changed);
     };
     expect(
       mutate((card) => {
@@ -57,13 +57,10 @@ describe("逐卡核实的状态持续时间（R20–21 / R-048）", () => {
       }),
     ).toThrow(/未确认/);
     expect(() =>
-      attachVerifiedHeroStatuses(cards.filter((card) => card.id !== "hero_skill:core:h01:p007")),
+      applyHeroStatuses(cards.filter((card) => card.id !== "hero_skill:core:h01:p007")),
     ).toThrow(/唯一/);
     expect(() =>
-      attachVerifiedHeroStatuses([
-        ...cards,
-        cards.find((card) => card.id === "hero_skill:core:h01:p007")!,
-      ]),
+      applyHeroStatuses([...cards, cards.find((card) => card.id === "hero_skill:core:h01:p007")!]),
     ).toThrow(/唯一/);
   });
 
@@ -89,7 +86,7 @@ describe("逐卡核实的状态持续时间（R20–21 / R-048）", () => {
       { lineIndex: 0, segmentIndex: 2, scope: "target", kind, duration },
     ]);
     expect(card.unlabeled_numbers.find((n) => n.text === `${duration}t`)?.numeric).toBeNull();
-    expect(attachVerifiedHeroStatuses(cards)).toEqual(cards);
+    expect(applyHeroStatuses(cards)).toEqual(cards);
     for (const mutate of [
       (c: typeof card) => {
         c.hero = "VESTAL";
@@ -115,7 +112,7 @@ describe("逐卡核实的状态持续时间（R20–21 / R-048）", () => {
     ]) {
       const changed = structuredClone(cards);
       mutate(changed.find((c) => c.id === id)!);
-      expect(() => attachVerifiedHeroStatuses(changed)).toThrow();
+      expect(() => applyHeroStatuses(changed)).toThrow();
     }
     for (const page of [Number(id.slice(-3)) + 1, Number(id.slice(-3)) + 2])
       expect(cards.find((c) => c.pages[0] === page)!.verified_status_effects).toBeDefined();

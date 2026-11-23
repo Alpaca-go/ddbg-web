@@ -40,3 +40,22 @@ export type CoreHigherSkillRow = {
   readonly lines: readonly string[];
   readonly flags: CoreHigherSkillFlags;
 };
+
+/** 状态效果注解行：一张卡的一行印刷文字对应哪些状态效果。 */
+export type StatusEffectEntry = {
+  readonly id: string;
+  readonly hero?: HeroName;
+  readonly name: string;
+  readonly level: number;
+  readonly lineIndex: number;
+  readonly scope: "self" | "target";
+  readonly signature: string;
+  readonly headerSignature?: string;
+  readonly scopeLine?: { readonly index: number; readonly signature: string };
+  readonly effects: readonly {
+    readonly kind:
+      "bleed" | "blight" | "stun" | "buff" | "mark" | "riposte" | "protection" | "guard" | "debuff";
+    readonly duration: number;
+    readonly amount?: number;
+  }[];
+};

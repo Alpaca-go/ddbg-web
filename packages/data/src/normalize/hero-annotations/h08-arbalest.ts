@@ -1,4 +1,4 @@
-import type { CoreHigherSkillRow } from "./types";
+import type { CoreHigherSkillRow, StatusEffectEntry } from "./types";
 
 /** 核心盒 Arbalest II/III 级逐卡注解（Kyries 审阅；R-048 签名断言由 core-higher-skills 执行）。 */
 export const coreHigherRows: readonly CoreHigherSkillRow[] = [
@@ -237,5 +237,63 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
         source: "print_front",
       },
     },
+  },
+];
+
+/** 完整印刷逐页核对的状态效果行（docs/phase2-four-core-skills-2026-10-11.md）。 */
+export const statusEntries: readonly StatusEffectEntry[] = [
+  {
+    id: "hero_skill:p151",
+    name: "Suppressive Fire",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} {debuff} 1t",
+    effects: [{ kind: "debuff", duration: 1 }],
+  },
+  {
+    id: "hero_skill:p154",
+    name: "Sniper’s Mark",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} {mark} 2t",
+    effects: [{ kind: "mark", duration: 2 }],
+  },
+  {
+    id: "hero_skill:p163",
+    name: "Battlefield Bandage",
+    level: 1,
+    lineIndex: 0,
+    scope: "self",
+    signature: "{self_effects} Self {buff} 2t",
+    effects: [{ kind: "buff", duration: 2 }],
+  },
+  {
+    id: "hero_skill:p166",
+    name: "Rallying Flare",
+    level: 1,
+    lineIndex: 1,
+    scope: "target",
+    signature: "{target_monster} : {debuff} 2t",
+    effects: [{ kind: "debuff", duration: 2 }],
+  },
+  {
+    id: "hero_skill:p167",
+    name: "Rallying Flare",
+    level: 2,
+    lineIndex: 1,
+    scope: "target",
+    signature: "{target_monster} : {debuff} 2t",
+    effects: [{ kind: "debuff", duration: 2 }],
+  },
+  {
+    id: "hero_skill:p168",
+    name: "Rallying Flare",
+    level: 3,
+    lineIndex: 1,
+    scope: "target",
+    signature: "{target_monster} : {debuff} 2t",
+    effects: [{ kind: "debuff", duration: 2 }],
   },
 ];

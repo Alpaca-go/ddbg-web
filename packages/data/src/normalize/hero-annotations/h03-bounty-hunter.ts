@@ -1,4 +1,4 @@
-import type { CoreHigherSkillRow } from "./types";
+import type { CoreHigherSkillRow, StatusEffectEntry } from "./types";
 
 /** 核心盒 Bounty Hunter II/III 级逐卡注解（Kyries 审阅；R-048 签名断言由 core-higher-skills 执行）。 */
 export const coreHigherRows: readonly CoreHigherSkillRow[] = [
@@ -268,5 +268,40 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
         },
       ],
     },
+  },
+];
+
+/** 完整印刷逐页核对的状态效果行（docs/phase2-four-core-skills-2026-10-11.md）。 */
+export const statusEntries: readonly StatusEffectEntry[] = [
+  {
+    id: "hero_skill:p055",
+    hero: "BOUNTY HUNTER",
+    name: "Flashbang",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} {stun} 1t, {shuffle} Push 1 or {shuffle} Pull 1",
+    effects: [{ kind: "stun", duration: 1 }],
+  },
+  // 当前版 FRONT p49/p52，完整卡面及 R20–21：状态与同行位移一并消费。
+  {
+    id: "hero_skill:p049",
+    hero: "BOUNTY HUNTER",
+    name: "Come Hither",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} {mark} 2t, {shuffle} Pull 2",
+    effects: [{ kind: "mark", duration: 2 }],
+  },
+  {
+    id: "hero_skill:p052",
+    hero: "BOUNTY HUNTER",
+    name: "Uppercut",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} {stun} 1t, {shuffle} Push 2",
+    effects: [{ kind: "stun", duration: 1 }],
   },
 ];

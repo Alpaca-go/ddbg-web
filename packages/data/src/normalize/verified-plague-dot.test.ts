@@ -1,6 +1,6 @@
 import { expect, it } from "vitest";
 import { loadNormalizedCorebox } from "./write";
-import { attachVerifiedHeroStatuses } from "./verified-hero-statuses";
+import { applyHeroStatuses } from "./hero-annotations";
 
 const cards = loadNormalizedCorebox().hero_skill.cards;
 const rows = [
@@ -31,7 +31,7 @@ it.each(rows)("%s完整状态黄金值；Nt原numeric保留null，II/III已有�
 
 it.each(rows)("%s限定身份、整行数值和所有图标命名；漂移/缺失/重复卡拒绝，重复生成不突变", (id) => {
   const original = structuredClone(cards);
-  expect(attachVerifiedHeroStatuses(cards)).toEqual(cards);
+  expect(applyHeroStatuses(cards)).toEqual(cards);
   expect(cards).toEqual(original);
   for (const change of [
     "hero",
@@ -70,10 +70,8 @@ it.each(rows)("%s限定身份、整行数值和所有图标命名；漂移/缺�
       const segment = card.effect_lines[0]![2]!;
       if (segment.type === "icon") segment.icon.naming = "unverified";
     }
-    expect(() => attachVerifiedHeroStatuses(changed), change).toThrow();
+    expect(() => applyHeroStatuses(changed), change).toThrow();
   }
-  expect(() => attachVerifiedHeroStatuses(cards.filter((c) => c.id !== id))).toThrow(/唯一/);
-  expect(() => attachVerifiedHeroStatuses([...cards, cards.find((c) => c.id === id)!])).toThrow(
-    /唯一/,
-  );
+  expect(() => applyHeroStatuses(cards.filter((c) => c.id !== id))).toThrow(/唯一/);
+  expect(() => applyHeroStatuses([...cards, cards.find((c) => c.id === id)!])).toThrow(/唯一/);
 });
