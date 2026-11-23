@@ -1,8 +1,6 @@
-import type { HeroAnnotationModule, StatusEffectEntry } from "./types";
-import { lineSignature } from "./shared";
-import type { NormalizedHeroSkillCard } from "../schema";
-import { normalizedHeroSkillCardSchema } from "../schema";
+﻿import type { HeroAnnotationModule, HeroSkillPatch, StatusEffectEntry } from "./types";
 import {
+  applyPatches,
   cloneKey,
   iconFromCard,
   iconFromPool,
@@ -10,205 +8,224 @@ import {
   text,
 } from "./patch-helpers";
 import type { IconSegment } from "./patch-helpers";
-
-function assertLeper(card: NormalizedHeroSkillCard, page: number, name: string, level: number) {
-  if (
-    card.id !== `hero_skill:p${page}` ||
-    card.hero !== "LEPER" ||
-    card.name !== name ||
-    card.level !== level ||
-    card.pages[0] !== page ||
-    card.verification.unverified
-  )
-    throw new Error(`${card.id} 元数据漂移（R-048）`);
-}
+import { lineSignature } from "./shared";
+import type { NormalizedHeroSkillCard } from "../schema";
+import { normalizedHeroSkillCardSchema } from "../schema";
 
 /**
  * R-200 / Q-163～Q-166：Leper II–III 逐卡印刷覆盖（签名断言 + 必要 icon key 修正，不改全局词典）。
+ * 每张卡一条 patch；hero / 卡名 / 等级 / 页码由 applyPatches 统一断言。
  */
-export function attachVerifiedWarrensLeperHigher(
-  cards: readonly NormalizedHeroSkillCard[],
-): NormalizedHeroSkillCard[] {
-  const rangeIcon = iconFromPool(cards, "range");
-  const stressIcon = iconFromPool(cards, "stress");
-  const targetEffectsIcon = iconFromPool(cards, "target_effects");
+function purge(page: number): HeroSkillPatch {
+  const level = page - 279;
+  return {
+    id: `hero_skill:p${page}`,
+    name: "Purge",
+    level,
+    page,
+    apply: (card) => {
+      const rawSig = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
+      if (rawSig !== "{self_effects}{buff}Self{buff}2t")
+        throw new Error(`${card.id} Purge Buff 行漂移（R-048）`);
+      const buff = iconFromCard(card, "buff");
+      const selfEffects = iconFromCard(card, "self_effects");
+      const base = {
+        ...card,
+        effect_lines: [[selfEffects, text(" Self "), buff, text(" 2t")], card.effect_lines[1]!],
+      };
+      if (page !== 282) return normalizedHeroSkillCardSchema.parse(base);
+      const stats = card.stats_line;
+      const statsSig = stats ? lineSignature(stats).replace(/\s+/g, "") : "";
+      if (statsSig !== "{range}0{target_monster}Crit0{heal}19Acc11{heal}12")
+        throw new Error(`${card.id} Purge III stats_line 漂移（R-048）`);
+      return normalizedHeroSkillCardSchema.parse({
+        ...base,
+        stats_line: stats!.map((segment) =>
+          segment.type === "icon" && segment.icon.key === "heal"
+            ? cloneKey(segment, "damage")
+            : segment,
+        ),
+      });
+    },
+  };
+}
 
-  return cards.map((card) => {
-    switch (card.id) {
-      case "hero_skill:p280":
-      case "hero_skill:p281":
-      case "hero_skill:p282": {
-        const page = Number(card.id.slice(-3));
-        assertLeper(card, page, "Purge", page - 279);
-        const rawSig = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
-        if (rawSig !== "{self_effects}{buff}Self{buff}2t")
-          throw new Error(`${card.id} Purge Buff 行漂移（R-048）`);
-        const buff = iconFromCard(card, "buff");
-        const selfEffects = iconFromCard(card, "self_effects");
-        const base = {
-          ...card,
-          effect_lines: [[selfEffects, text(" Self "), buff, text(" 2t")], card.effect_lines[1]!],
-        };
-        if (page !== 282) {
-          return normalizedHeroSkillCardSchema.parse(base);
-        }
-        const stats = card.stats_line;
-        const statsSig = stats ? lineSignature(stats).replace(/\s+/g, "") : "";
-        if (statsSig !== "{range}0{target_monster}Crit0{heal}19Acc11{heal}12")
-          throw new Error(`${card.id} Purge III stats_line 漂移（R-048）`);
-        return normalizedHeroSkillCardSchema.parse({
-          ...base,
-          stats_line: stats!.map((segment) =>
-            segment.type === "icon" && segment.icon.key === "heal"
-              ? cloneKey(segment, "damage")
-              : segment,
-          ),
-        });
-      }
-      case "hero_skill:p283":
-      case "hero_skill:p284":
-      case "hero_skill:p285": {
-        const page = Number(card.id.slice(-3));
-        const level = page - 282;
-        const markT = Math.max(2, level);
-        assertLeper(card, page, "Revenge", level);
-        const rawSig = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
-        if (rawSig !== `{heal}{mark}${markT}t,{debuff}${level}t`)
-          throw new Error(`${card.id} Revenge 效果行漂移（R-048）`);
-        const line = card.effect_lines[0]!;
-        const leadHeal = line[0];
-        if (leadHeal?.type !== "icon" || leadHeal.icon.iconId !== "20ffe98e2d")
-          throw new Error(`${card.id} Revenge 行首误 heal 段漂移（R-048）`);
-        return normalizedHeroSkillCardSchema.parse({
-          ...card,
-          effect_lines: [[cloneKey(leadHeal, "target_effects"), ...line.slice(1)]],
-        });
-      }
-      case "hero_skill:p286":
-      case "hero_skill:p287":
-      case "hero_skill:p288": {
-        const page = Number(card.id.slice(-3));
-        const protT = page === 288 ? 3 : 2;
-        const markT = page === 286 ? 2 : 1;
-        assertLeper(card, page, "Withstand", page - 285);
-        const rawSig = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
-        if (rawSig !== `{self_effects}{buff}Self{protection}${protT}t,{mark}${markT}t`)
-          throw new Error(`${card.id} Withstand 效果行漂移（R-048）`);
-        const selfEffects = iconFromCard(card, "self_effects");
-        const protection = iconFromCard(card, "protection");
-        const mark = iconFromCard(card, "mark");
-        return normalizedHeroSkillCardSchema.parse({
-          ...card,
-          stats_line: null,
-          effect_lines: [
-            [rangeIcon, text(" Self")],
-            [
-              selfEffects,
-              text(" Self "),
-              protection,
-              text(` ${protT}t, `),
-              mark,
-              text(` ${markT}t`),
-            ],
+function revenge(page: number): HeroSkillPatch {
+  const level = page - 282;
+  return {
+    id: `hero_skill:p${page}`,
+    name: "Revenge",
+    level,
+    page,
+    apply: (card) => {
+      const markT = Math.max(2, level);
+      const rawSig = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
+      if (rawSig !== `{heal}{mark}${markT}t,{debuff}${level}t`)
+        throw new Error(`${card.id} Revenge 效果行漂移（R-048）`);
+      const line = card.effect_lines[0]!;
+      const leadHeal = line[0];
+      if (leadHeal?.type !== "icon" || leadHeal.icon.iconId !== "20ffe98e2d")
+        throw new Error(`${card.id} Revenge 行首误 heal 段漂移（R-048）`);
+      return normalizedHeroSkillCardSchema.parse({
+        ...card,
+        effect_lines: [[cloneKey(leadHeal, "target_effects"), ...line.slice(1)]],
+      });
+    },
+  };
+}
+
+function withstand(cards: readonly NormalizedHeroSkillCard[], page: number): HeroSkillPatch {
+  const level = page - 285;
+  const protT = page === 288 ? 3 : 2;
+  const markT = page === 286 ? 2 : 1;
+  return {
+    id: `hero_skill:p${page}`,
+    name: "Withstand",
+    level,
+    page,
+    apply: (card) => {
+      const rawSig = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
+      if (rawSig !== `{self_effects}{buff}Self{protection}${protT}t,{mark}${markT}t`)
+        throw new Error(`${card.id} Withstand 效果行漂移（R-048）`);
+      const selfEffects = iconFromCard(card, "self_effects");
+      const protection = iconFromCard(card, "protection");
+      const mark = iconFromCard(card, "mark");
+      const rangeIcon = iconFromPool(cards, "range");
+      return normalizedHeroSkillCardSchema.parse({
+        ...card,
+        stats_line: null,
+        effect_lines: [
+          [rangeIcon, text(" Self")],
+          [selfEffects, text(" Self "), protection, text(` ${protT}t, `), mark, text(` ${markT}t`)],
+        ],
+      });
+    },
+  };
+}
+
+function solemnity(cards: readonly NormalizedHeroSkillCard[], page: number): HeroSkillPatch {
+  const level = page - 288;
+  const heal = 3 + level * 3;
+  return {
+    id: `hero_skill:p${page}`,
+    name: "Solemnity",
+    level,
+    page,
+    apply: (card) => {
+      const raw = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
+      const expected =
+        page !== 291
+          ? `{self_effects}{buff}Self{buff}{heal}${heal},{shuffle}-1`
+          : "{self_effects}{buff}Self{buff}12{heal},{shuffle}-1";
+      if (raw !== expected) throw new Error(`${card.id} Solemnity 效果行漂移（R-048）`);
+      const selfEffects = iconFromCard(card, "self_effects");
+      const healIcon = iconFromCard(card, "heal");
+      const shuffleMisread = segmentOnCardInEffects(card, "f18923574c");
+      const rangeIcon = iconFromPool(cards, "range");
+      const stressIcon = iconFromPool(cards, "stress");
+      return normalizedHeroSkillCardSchema.parse({
+        ...card,
+        stats_line: [rangeIcon, text(" Self")],
+        effect_lines: [
+          [
+            selfEffects,
+            text(" Self "),
+            healIcon,
+            text(` ${heal}`),
+            cloneKey(shuffleMisread, "stress"),
+            text("-1"),
           ],
-        });
-      }
-      case "hero_skill:p289":
-      case "hero_skill:p290":
-      case "hero_skill:p291": {
-        const page = Number(card.id.slice(-3));
-        const level = page - 288;
-        const heal = 3 + level * 3;
-        assertLeper(card, page, "Solemnity", level);
-        const raw = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
-        const expected =
-          page !== 291
-            ? `{self_effects}{buff}Self{buff}{heal}${heal},{shuffle}-1`
-            : "{self_effects}{buff}Self{buff}12{heal},{shuffle}-1";
-        if (raw !== expected) throw new Error(`${card.id} Solemnity 效果行漂移（R-048）`);
-        const selfEffects = iconFromCard(card, "self_effects");
-        const healIcon = iconFromCard(card, "heal");
-        const shuffleMisread = segmentOnCardInEffects(card, "f18923574c");
-        return normalizedHeroSkillCardSchema.parse({
-          ...card,
-          stats_line: [rangeIcon, text(" Self")],
-          effect_lines: [
-            [
-              selfEffects,
-              text(" Self "),
-              healIcon,
-              text(` ${heal}`),
-              cloneKey(shuffleMisread, "stress"),
-              text("-1"),
-            ],
-          ],
-          unlabeled_numbers: [
-            {
-              text: "0",
-              numeric: 0,
+        ],
+        unlabeled_numbers: [
+          {
+            text: "0",
+            numeric: 0,
+            anchor: {
+              type: "beside_icon" as const,
+              left_icon: rangeIcon.icon,
+              inside_icon: null,
+            },
+          },
+          ...card.unlabeled_numbers.map((item) => {
+            if (item.text !== "-1" || item.anchor.type !== "beside_icon") return item;
+            return {
+              ...item,
               anchor: {
                 type: "beside_icon" as const,
-                left_icon: rangeIcon.icon,
-                inside_icon: null,
+                left_icon: { ...stressIcon.icon },
+                inside_icon: item.anchor.inside_icon,
               },
-            },
-            ...card.unlabeled_numbers.map((item) => {
-              if (item.text !== "-1" || item.anchor.type !== "beside_icon") return item;
-              return {
-                ...item,
-                anchor: {
-                  type: "beside_icon" as const,
-                  left_icon: { ...stressIcon.icon },
-                  inside_icon: item.anchor.inside_icon,
-                },
-              };
-            }),
-          ],
-        });
-      }
-      case "hero_skill:p292":
-      case "hero_skill:p293":
-      case "hero_skill:p294": {
-        const page = Number(card.id.slice(-3));
-        const markT = page === 294 ? 1 : 2;
-        const debuffT = page - 291;
-        assertLeper(card, page, "Intimidate", debuffT);
-        const rawSigs = card.effect_lines.map((line) => lineSignature(line).replace(/\s+/g, ""));
-        const expected = [
-          `{self_effects}{buff}Self{buff}${markT}t`,
-          `{light}Ignores{target_effects}{target_effects},{${page === 292 ? "light" : "debuff"}}${debuffT}t`,
-        ];
-        if (JSON.stringify(rawSigs) !== JSON.stringify(expected))
-          throw new Error(`${card.id} Intimidate 效果行漂移（R-048）`);
-        const selfEffects = iconFromCard(card, "self_effects");
-        const markMisread = segmentOnCardInEffects(card, "d4329c2a97");
-        const targetDupes = card.effect_lines[1]!.filter(
-          (s): s is IconSegment => s.type === "icon" && s.icon.iconId === "b6afaa4d7b",
-        );
-        if (targetDupes.length < 2)
-          throw new Error(`${card.id} Intimidate Ignores 行 target_effects 漂移（R-048）`);
-        const debuff = iconFromPool(cards, "debuff");
-        // 印刷签名闸仍用提取键 `{light}`（9ffbd6087a）；折角箭头非光照，不入结算段（Q-164）。
-        return normalizedHeroSkillCardSchema.parse({
-          ...card,
-          effect_lines: [
-            [selfEffects, text(" Self "), cloneKey(markMisread, "mark"), text(` ${markT}t`)],
-            [targetEffectsIcon, text(" Ignores "), cloneKey(targetDupes[0]!, "protection")],
-            [text("Ignores "), cloneKey(targetDupes[1]!, "guard")],
-            [targetEffectsIcon, text(" "), debuff, text(` ${debuffT}t`)],
-          ],
-        });
-      }
-      default:
-        return card;
-    }
-  });
+            };
+          }),
+        ],
+      });
+    },
+  };
+}
+
+function intimidate(cards: readonly NormalizedHeroSkillCard[], page: number): HeroSkillPatch {
+  const markT = page === 294 ? 1 : 2;
+  const debuffT = page - 291;
+  return {
+    id: `hero_skill:p${page}`,
+    name: "Intimidate",
+    level: debuffT,
+    page,
+    apply: (card) => {
+      const rawSigs = card.effect_lines.map((line) => lineSignature(line).replace(/\s+/g, ""));
+      const expected = [
+        `{self_effects}{buff}Self{buff}${markT}t`,
+        `{light}Ignores{target_effects}{target_effects},{${page === 292 ? "light" : "debuff"}}${debuffT}t`,
+      ];
+      if (JSON.stringify(rawSigs) !== JSON.stringify(expected))
+        throw new Error(`${card.id} Intimidate 效果行漂移（R-048）`);
+      const selfEffects = iconFromCard(card, "self_effects");
+      const markMisread = segmentOnCardInEffects(card, "d4329c2a97");
+      const targetDupes = card.effect_lines[1]!.filter(
+        (s): s is IconSegment => s.type === "icon" && s.icon.iconId === "b6afaa4d7b",
+      );
+      if (targetDupes.length < 2)
+        throw new Error(`${card.id} Intimidate Ignores 行 target_effects 漂移（R-048）`);
+      const debuff = iconFromPool(cards, "debuff");
+      const targetEffectsIcon = iconFromPool(cards, "target_effects");
+      // 印刷签名闸仍用提取键 `{light}`（9ffbd6087a）；折角箭头非光照，不入结算段（Q-164）。
+      return normalizedHeroSkillCardSchema.parse({
+        ...card,
+        effect_lines: [
+          [selfEffects, text(" Self "), cloneKey(markMisread, "mark"), text(` ${markT}t`)],
+          [targetEffectsIcon, text(" Ignores "), cloneKey(targetDupes[0]!, "protection")],
+          [text("Ignores "), cloneKey(targetDupes[1]!, "guard")],
+          [targetEffectsIcon, text(" "), debuff, text(` ${debuffT}t`)],
+        ],
+      });
+    },
+  };
+}
+
+function leperPatches(cards: readonly NormalizedHeroSkillCard[]): readonly HeroSkillPatch[] {
+  return [
+    purge(280),
+    purge(281),
+    purge(282),
+    revenge(283),
+    revenge(284),
+    revenge(285),
+    withstand(cards, 286),
+    withstand(cards, 287),
+    withstand(cards, 288),
+    solemnity(cards, 289),
+    solemnity(cards, 290),
+    solemnity(cards, 291),
+    intimidate(cards, 292),
+    intimidate(cards, 293),
+    intimidate(cards, 294),
+  ];
 }
 
 export const leperAnnotations: HeroAnnotationModule = {
   id: "h14",
   hero: "LEPER",
-  apply: attachVerifiedWarrensLeperHigher,
+  apply: (cards) => applyPatches(cards, leperPatches(cards), "LEPER"),
 };
 
 /** 完整印刷逐页核对的状态效果行（docs/phase2-four-core-skills-2026-10-11.md）。 */

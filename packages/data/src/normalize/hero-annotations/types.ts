@@ -150,3 +150,14 @@ export type DamageEntry = {
   readonly condition: "marked" | "unholy" | "stunned" | "blighted" | "eldritch";
   readonly suffix: string;
 };
+/**
+ * 单张技能卡的逐卡补丁：元数据（name/level/page）由共享 runner 统一断言，
+ * `apply` 只负责卡面修正本身。
+ */
+export type HeroSkillPatch = {
+  readonly id: string;
+  readonly name: string;
+  readonly level: number;
+  readonly page: number;
+  readonly apply: (card: NormalizedHeroSkillCard) => NormalizedHeroSkillCard;
+};

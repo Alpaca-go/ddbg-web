@@ -1,4 +1,6 @@
 import type { NormalizedHeroSkillCard, Segment } from "../schema";
+import type { HeroName } from "../../hero-registry";
+import type { HeroSkillPatch } from "./types";
 
 export type IconSegment = Extract<Segment, { type: "icon" }>;
 
@@ -76,4 +78,26 @@ export function segmentOnCardInEffects(card: NormalizedHeroSkillCard, iconId: st
     }
   }
   throw new Error(`${card.id} 缺少印刷段 iconId=${iconId}（R-048）`);
+}
+/** 逐卡补丁 runner：统一断言 hero / 卡名 / 等级 / 页码 / 验证状态，再执行该卡的 apply。 */
+export function applyPatches(
+  cards: readonly NormalizedHeroSkillCard[],
+  patches: readonly HeroSkillPatch[],
+  hero: HeroName,
+): NormalizedHeroSkillCard[] {
+  const byId = new Map(patches.map((patch) => [patch.id, patch]));
+  return cards.map((card) => {
+    const patch = byId.get(card.id);
+    if (!patch) return card;
+    if (
+      card.hero !== hero ||
+      card.name !== patch.name ||
+      card.level !== patch.level ||
+      card.pages.length !== 1 ||
+      card.pages[0] !== patch.page ||
+      card.verification.unverified
+    )
+      throw new Error(`${card.id} 元数据漂移（R-048）`);
+    return patch.apply(card);
+  });
 }
