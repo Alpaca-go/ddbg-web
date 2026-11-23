@@ -182,10 +182,20 @@ describe("已选怪物攻击的纯结算（R19–21）", () => {
     const legacy = {
       ...original,
       skills: original.skills.map((skill) => {
-        const { verified_target_stress, verified_monster_effects, ...without } = skill;
+        const { verified_target_stress, verified_monster_effects, rules, ...without } = skill;
+        const { effects: _planEffects, target, ...rulesRest } = rules ?? {};
+        const { stress: _ruleStress, ...targetRest } = target ?? {};
         if (skill.slot === 1) expect(verified_target_stress).toBeDefined();
         void verified_monster_effects;
-        return without;
+        void _planEffects;
+        void _ruleStress;
+        return {
+          ...without,
+          rules: {
+            ...rulesRest,
+            ...(Object.keys(targetRest).length ? { target: targetRest } : {}),
+          },
+        };
       }),
     };
     expect(
@@ -195,10 +205,18 @@ describe("已选怪物攻击的纯结算（R19–21）", () => {
       ...original,
       skills: original.skills.map((skill) => {
         if (skill.slot !== 1) return skill;
-        const { verified_monster_effects, ...rest } = skill;
+        const { verified_monster_effects, rules, ...rest } = skill;
+        const { effects: _planEffects, target, ...rulesRest } = rules ?? {};
+        const { stress: _ruleStress, ...targetRest } = target ?? {};
         void verified_monster_effects;
+        void _planEffects;
+        void _ruleStress;
         return {
           ...rest,
+          rules: {
+            ...rulesRest,
+            ...(Object.keys(targetRest).length ? { target: targetRest } : {}),
+          },
           verified_target_stress: { ...skill.verified_target_stress!, amount: 2 },
         };
       }),

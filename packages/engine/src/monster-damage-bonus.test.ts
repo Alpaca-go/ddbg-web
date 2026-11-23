@@ -31,10 +31,20 @@ function withBonus(amount: number): MonsterCardView {
     ...arbalist,
     skills: arbalist.skills.map((skill) => {
       if (skill.slot !== 1) return skill;
-      const { verified_monster_effects, ...rest } = skill;
+      const { verified_monster_effects, rules, ...rest } = skill;
+      const {
+        effects: _planEffects,
+        damage: _ruleDamage,
+        damageBonuses: _ruleDamageBonuses,
+        ...rulesWithoutPlan
+      } = rules ?? {};
       void verified_monster_effects;
+      void _planEffects;
+      void _ruleDamage;
+      void _ruleDamageBonuses;
       return {
         ...rest,
+        rules: rulesWithoutPlan,
         verified_damage_bonus: { ...skill.verified_damage_bonus!, amount },
       };
     }),
@@ -138,10 +148,19 @@ describe("Arbalist I Quarrel 已核实对 Mark +1（R20–21、R-017、R-019、R
     const legacy = {
       ...arbalist,
       skills: arbalist.skills.map((skill) => {
-        const { verified_damage_bonus, verified_monster_effects, ...rest } = skill;
+        const { verified_damage_bonus, verified_monster_effects, rules, ...rest } = skill;
+        const {
+          effects: _planEffects,
+          damage: _ruleDamage,
+          damageBonuses: _ruleDamageBonuses,
+          ...rulesWithoutPlan
+        } = rules ?? {};
         if (skill.slot === 1) expect(verified_damage_bonus).toBeDefined();
         void verified_monster_effects;
-        return rest;
+        void _planEffects;
+        void _ruleDamage;
+        void _ruleDamageBonuses;
+        return { ...rest, rules: rulesWithoutPlan };
       }),
     };
     const marked = { ...combat, target: { ...combat.target, markStacks: 1 } };

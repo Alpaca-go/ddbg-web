@@ -15,6 +15,7 @@ import type {
   SkillTargetState,
   SkillHealthEffect,
   SkillEffectsResolution,
+  SkillRules,
 } from "./hero-skill";
 
 /** 只读规范化怪物技能；不从 footer_lines 推断可用姿态、选招骰表或 AI。 */
@@ -31,6 +32,11 @@ export type MonsterSkillView = Pick<
   readonly name?: string;
   readonly verified_monster_effects?: MonsterEffectPlan;
   readonly verified_weald_attack?: WealdMonsterAttack;
+  /** R1 起的规则命名空间；读取方优先用 rules。 */
+  readonly rules?: SkillRules & {
+    readonly effects?: MonsterEffectPlan;
+    readonly wealdAttack?: WealdMonsterAttack;
+  };
   /** R-254／R-255 专属入锅效果；未印刷伤害不得补成普通攻击数字。 */
   readonly verified_hag_into_pot?: true;
   /** R-261／Q-186：Nest 在场时的飞行／治疗细则尚未核准，不按 Self Push 结算。 */
@@ -103,8 +109,12 @@ export type MonsterSkillResolution = {
 /** 与技能结算共享已命名的位移行解析器，不从 null 数字创建选择。 */
 export function needsMonsterSkillShuffleChoice(monster: MonsterCardView, slot: number): boolean {
   const skill = monster.skills.find((entry) => entry.slot === slot);
-  if (skill?.verified_weald_attack) {
-    const attack = readWealdMonsterAttack(monster, skill);
+  const wealdAttack = skill?.rules?.wealdAttack ?? skill?.verified_weald_attack;
+  if (wealdAttack) {
+    const attack = readWealdMonsterAttack(monster, {
+      ...skill!,
+      verified_weald_attack: wealdAttack,
+    });
     return attack.status === "ready" && needsHeroSkillShuffleChoice(attack.view);
   }
   return (
@@ -147,13 +157,16 @@ export function readMonsterAttackView(
   const matches = monster.skills.filter((skill) => skill.slot === skillSlot);
   if (matches.length !== 1) return { status: "refused", reason: "怪物卡没有唯一对应的技能编号" };
   const skill = matches[0]!;
+  const wealdAttack = skill.rules?.wealdAttack ?? skill.verified_weald_attack;
+  const effectsPlan = skill.rules?.effects ?? skill.verified_monster_effects;
   if (skill.verified_shrieker_nest_flight)
     return {
       status: "refused",
       reason: "Call the Murder：Nest 在场的飞行与治疗细则待裁定（R-261／Q-186）",
     };
   if (skill.verified_hag_into_pot) return readHagIIntoPotAttack(monster, skill);
-  if (skill.verified_weald_attack !== undefined) return readWealdMonsterAttack(monster, skill);
+  if (wealdAttack !== undefined)
+    return readWealdMonsterAttack(monster, { ...skill, verified_weald_attack: wealdAttack });
   const excluded = new Set<number>();
   for (const effectLine of skill.effect_lines) {
     const key = lineKey(effectLine);
@@ -174,9 +187,7 @@ export function readMonsterAttackView(
   };
   const necromancer = readNecromancerISkillEffects(view);
   if (necromancer) return { status: "ready", view: necromancer, necromancerSummon: true };
-  return skill.verified_monster_effects
-    ? compileMonsterEffectPlan(view, skill.verified_monster_effects)
-    : { status: "ready", view };
+  return effectsPlan ? compileMonsterEffectPlan(view, effectsPlan) : { status: "ready", view };
 }
 
 /**
@@ -234,6 +245,7 @@ function resolveMonsterSkillInternal(
   }
   const matches = monster.skills.filter((skill) => skill.slot === skillSlot);
   if (matches.length !== 1) return refused("怪物卡没有唯一对应的技能编号");
+  const skillPlan = matches[0]!.rules?.effects ?? matches[0]!.verified_monster_effects;
   if (combat.actor === undefined || "stress" in combat.actor) {
     return refused("必须提供怪物使用者，怪物没有压力轨");
   }
@@ -251,8 +263,7 @@ function resolveMonsterSkillInternal(
   const ordered =
     monster.id === "monster_large:p003" &&
     skillSlot === 3 &&
-    matches[0]!.verified_monster_effects?.signatures[0] ===
-      "{target_effects}{light}-1,{stress}+2,{disease}";
+    skillPlan?.signatures[0] === "{target_effects}{light}-1,{stress}+2,{disease}";
   // 完整计划已由readMonsterAttackView校验；R-084先只结算攻击/暴击压力。
   let view = attack.view;
   if (ordered) {
@@ -269,10 +280,7 @@ function resolveMonsterSkillInternal(
     "monster_large:p020",
   ]);
   const bossAccOnlyEffectHold =
-    bossAccOnlyCardIds.has(monster.id) &&
-    skillSlot >= 1 &&
-    skillSlot <= 3 &&
-    !matches[0]!.verified_monster_effects;
+    bossAccOnlyCardIds.has(monster.id) && skillSlot >= 1 && skillSlot <= 3 && !skillPlan;
   if (bossAccOnlyEffectHold) {
     const {
       verified_target_stress: _stress,
@@ -301,25 +309,21 @@ function resolveMonsterSkillInternal(
       // R-253：Crone 的纯效果技能无 Acc／伤害栏。
       monster.id === "monster_medium:weald:p015" &&
       skillSlot === 3 &&
-      matches[0]!.verified_monster_effects?.effects.length === 2 &&
-      matches[0]!.verified_monster_effects.effects[0]?.type === "stress" &&
-      matches[0]!.verified_monster_effects.effects[1]?.type === "light"
+      skillPlan?.effects.length === 2 &&
+      skillPlan?.effects[0]?.type === "stress" &&
+      skillPlan?.effects[1]?.type === "light"
     ) &&
-    !(
-      monster.id === "monster_medium:p016" &&
-      skillSlot === 1 &&
-      matches[0]!.verified_monster_effects
-    ) &&
+    !(monster.id === "monster_medium:p016" && skillSlot === 1 && skillPlan) &&
     !(
       monster.id === "monster_medium:p086" &&
       skillSlot === 3 &&
-      matches[0]!.verified_monster_effects?.effects.every((e) => e.type === "stress")
+      skillPlan?.effects.every((e) => e.type === "stress")
     ) &&
     !(
       // R-195：White Cell Stalk · Teleport 印刷行只有 +2 压力，落点由专用运行时处理。
       monster.id === "monster_medium:p104" &&
       skillSlot === 3 &&
-      matches[0]!.verified_monster_effects?.effects.every((e) => e.type === "stress")
+      skillPlan?.effects.every((e) => e.type === "stress")
     )
   ) {
     return refused("当前怪物攻击需要已命名的 damage，支援与纯状态技能尚未接入（R-048）");

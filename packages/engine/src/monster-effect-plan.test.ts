@@ -116,7 +116,10 @@ describe("怪物复合效果原语（R20–21 / R27–28）", () => {
   });
   it("注解数值 / 范围或原始行漂移原子拒绝，不能靠更新签名放行", () => {
     const card = structuredClone(byId("monster_medium:p034"));
-    const skill = card.skills[0]!;
+    const rawSkill = card.skills[0]!;
+    const { effects: _planEffects, ...rulesWithoutPlan } = rawSkill.rules ?? {};
+    void _planEffects;
+    const skill = { ...rawSkill, rules: rulesWithoutPlan };
     const plan = skill.verified_monster_effects!;
     for (const effects of [
       plan.effects.slice(1),
