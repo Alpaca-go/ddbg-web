@@ -29,6 +29,8 @@ export default defineConfig({
   server: {
     port: DEV_SERVER_PORT,
     strictPort: true,
+    // Phase A0.5 工作台读取 docs/reviews 矩阵与 packages/data/normalized
+    fs: { allow: [repoRoot] },
   },
   preview: {
     port: DEV_SERVER_PORT,
