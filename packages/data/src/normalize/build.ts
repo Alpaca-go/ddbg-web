@@ -46,17 +46,17 @@ import { attachVerifiedHeartOfDarknessSkillRanges } from "./verified-heart-of-da
 import { attachVerifiedMonsterStress } from "./verified-monster-stress";
 import { attachVerifiedMonsterDamage } from "./verified-monster-damage";
 import { attachVerifiedHeroLayout } from "./verified-hero-layout";
-import { attachVerifiedBountyStatuses } from "./verified-bounty-statuses";
 import { attachVerifiedHeroDamage } from "./verified-hero-damage";
 import { attachReviewedHeroStances } from "./reviewed-hero-stances";
 import {
   applyHeroAnnotations,
+  applyHeroBountyStatuses,
   applyHeroRanges,
+  applyHeroRallyingFlare,
   applyHeroStatuses,
   applyHeroSupport,
 } from "./hero-annotations";
 import { attachVerifiedResolveTriggers } from "./verified-resolve-triggers";
-import { attachVerifiedRallyingFlare } from "./verified-rallying-flare";
 import { approvedResolveLookup } from "./approved-resolve-icons";
 import { buildRoomTileGeometry } from "./room-tile";
 import { assertHallOfAscensionEffectSource } from "./hall-of-ascension";
@@ -747,8 +747,8 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
       const file = buildHeroSkills(parsed, raw, lookup);
       const reviewed = attachReviewedHeroStances(file.cards);
       const cards = attachCoreHigherSkills(
-        attachVerifiedRallyingFlare(
-          attachVerifiedBountyStatuses(
+        applyHeroRallyingFlare(
+          applyHeroBountyStatuses(
             applyHeroSupport(
               attachVerifiedHeroDamage(
                 applyHeroRanges(

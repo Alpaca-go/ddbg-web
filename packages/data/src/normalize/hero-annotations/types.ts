@@ -84,3 +84,30 @@ export type SupportEffectEntry = {
     readonly light: number;
   };
 };
+/** Rallying Flare / Skeet Shot 逐卡复核行（R-103）。 */
+export type RallyingFlareEntry = {
+  readonly id: string;
+  readonly hero: "ARBALEST" | "MUSKETEER";
+  readonly name: string;
+  readonly level: number;
+  readonly acc: number;
+  readonly targetIcons: number;
+};
+
+/** 赏金猎人限定状态卡行：目标框图标逐卡改为 debuff（R-089）。 */
+export type BountyStatusRow = {
+  readonly id: string;
+  readonly name: string;
+  readonly page: number;
+  readonly level: number;
+  readonly lines: readonly string[];
+  readonly stats: string;
+  readonly labels: readonly (readonly [string, number])[];
+  readonly effects: readonly {
+    readonly scope: "self" | "target";
+    readonly kind: "mark" | "debuff" | "buff" | "bleed";
+    readonly duration: number;
+    readonly amount?: number;
+    readonly lineIndex: number;
+  }[];
+};

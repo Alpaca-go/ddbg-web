@@ -1,4 +1,9 @@
-import type { CoreHigherSkillRow, StatusEffectEntry, RangeEntry } from "./types";
+import type {
+  CoreHigherSkillRow,
+  StatusEffectEntry,
+  RangeEntry,
+  RallyingFlareEntry,
+} from "./types";
 
 /** 核心盒 Arbalest II/III 级逐卡注解（Kyries 审阅；R-048 签名断言由 core-higher-skills 执行）。 */
 export const coreHigherRows: readonly CoreHigherSkillRow[] = [
@@ -348,5 +353,33 @@ export const rangeEntries: readonly RangeEntry[] = [
     level: 1,
     min: 0,
     max: 1,
+  },
+];
+
+/** Rallying Flare / Skeet Shot 逐卡复核（R-103）：混阵营目标与眩晕/标记清除行。 */
+export const rallyingFlareEntries: readonly RallyingFlareEntry[] = [
+  {
+    id: "hero_skill:p166",
+    hero: "ARBALEST",
+    name: "Rallying Flare",
+    level: 1,
+    acc: 10,
+    targetIcons: 2,
+  },
+  {
+    id: "hero_skill:p167",
+    hero: "ARBALEST",
+    name: "Rallying Flare",
+    level: 2,
+    acc: 11,
+    targetIcons: 3,
+  },
+  {
+    id: "hero_skill:p168",
+    hero: "ARBALEST",
+    name: "Rallying Flare",
+    level: 3,
+    acc: 12,
+    targetIcons: 4,
   },
 ];

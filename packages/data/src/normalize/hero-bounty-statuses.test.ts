@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { expect, it } from "vitest";
 import { loadNormalizedCorebox } from "./write";
-import { attachVerifiedBountyStatuses } from "./verified-bounty-statuses";
+import { applyHeroBountyStatuses } from "./hero-annotations";
 import { iconDictionarySchema } from "../dictionary/schema";
 
 const file = loadNormalizedCorebox().hero_skill,
@@ -34,7 +34,7 @@ it("R-141 三张高等级卡逐卡核图，来源漂移不放行", () => {
   ]);
   const bad = structuredClone(cards);
   bad.find((c) => c.id === bounty.id)!.printed_labels.find((l) => l.label === "Acc")!.value = 11;
-  expect(() => attachVerifiedBountyStatuses(bad)).toThrow(/R-141/);
+  expect(() => applyHeroBountyStatuses(bad)).toThrow(/R-141/);
 });
 it("R-089两卡完整状态黄金值；Mark射程0–2、Caltrops伤害数字不混入Bleed", () => {
   expect(effects(mark)).toEqual([
@@ -74,7 +74,7 @@ it("仅目标效果段修正语义，图标ID/原清单/未命名数字/全局�
 });
 it("生成可重复且不突变、不触碰其余五张I技能或其他卡", () => {
   const before = structuredClone(cards),
-    again = attachVerifiedBountyStatuses(cards);
+    again = applyHeroBountyStatuses(cards);
   expect(again).toEqual(cards);
   expect(cards).toEqual(before);
   for (const [i, c] of cards.entries())
@@ -131,12 +131,12 @@ it("限定身份、印刷数值、整行、图标与射程漂移原子拒绝，�
     ]) {
       const changed = structuredClone(cards);
       mutate(changed.find((c) => c.id === id)!);
-      expect(() => attachVerifiedBountyStatuses(changed)).toThrow(/R-089/);
+      expect(() => applyHeroBountyStatuses(changed)).toThrow(/R-089/);
     }
-  expect(() => attachVerifiedBountyStatuses(cards.filter((c) => c.id !== mark.id))).toThrow(/唯一/);
-  expect(() => attachVerifiedBountyStatuses([...cards, mark])).toThrow(/唯一/);
+  expect(() => applyHeroBountyStatuses(cards.filter((c) => c.id !== mark.id))).toThrow(/唯一/);
+  expect(() => applyHeroBountyStatuses([...cards, mark])).toThrow(/唯一/);
   const changed = structuredClone(cards),
     range = changed.find((c) => c.id === mark.id)!.unlabeled_numbers.find((n) => n.text === "0-2")!;
   range.text = "0-3";
-  expect(() => attachVerifiedBountyStatuses(changed)).toThrow(/射程/);
+  expect(() => applyHeroBountyStatuses(changed)).toThrow(/射程/);
 });

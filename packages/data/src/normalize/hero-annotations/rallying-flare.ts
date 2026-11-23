@@ -1,84 +1,17 @@
-import type { NormalizedHeroSkillCard } from "./schema";
+import type { NormalizedHeroSkillCard } from "../schema";
+import { lineSignature } from "./shared";
+import type { RallyingFlareEntry } from "./types";
 
 const CLEANUP_SIGNATURE =
   "{self_effects} Self Remove {stun} {mark} {target_effects} {target_hero} : Remove {stun} {mark}";
 const MONSTER_DEBUFF_SIGNATURE = "{target_monster} : {debuff} 2t";
 
-const ENTRIES: readonly {
-  readonly id: string;
-  readonly hero: "ARBALEST" | "MUSKETEER";
-  readonly name: string;
-  readonly level: number;
-  readonly acc: number;
-  readonly targetIcons: number;
-}[] = [
-  {
-    id: "hero_skill:p166",
-    hero: "ARBALEST",
-    name: "Rallying Flare",
-    level: 1,
-    acc: 10,
-    targetIcons: 2,
-  },
-  {
-    id: "hero_skill:p167",
-    hero: "ARBALEST",
-    name: "Rallying Flare",
-    level: 2,
-    acc: 11,
-    targetIcons: 3,
-  },
-  {
-    id: "hero_skill:p168",
-    hero: "ARBALEST",
-    name: "Rallying Flare",
-    level: 3,
-    acc: 12,
-    targetIcons: 4,
-  },
-  {
-    id: "hero_skill:musketeer:p019",
-    hero: "MUSKETEER",
-    name: "Skeet Shot",
-    level: 1,
-    acc: 10,
-    targetIcons: 2,
-  },
-  {
-    id: "hero_skill:musketeer:p020",
-    hero: "MUSKETEER",
-    name: "Skeet Shot",
-    level: 2,
-    acc: 11,
-    targetIcons: 3,
-  },
-  {
-    id: "hero_skill:musketeer:p021",
-    hero: "MUSKETEER",
-    name: "Skeet Shot",
-    level: 3,
-    acc: 12,
-    targetIcons: 4,
-  },
-];
-
-function signature(
-  line: readonly { type: string; text?: string; icon?: { key: string | null } }[],
-) {
-  return line
-    .map((s) => (s.type === "text" ? s.text : `{${s.icon!.key}}`))
-    .join("")
-    .split(String.fromCharCode(7))
-    .join("")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-/** Rallying Flare I–III：逐卡复核混阵营目标与眩晕/标记清除行（R-103）。 */
-export function attachVerifiedRallyingFlare(
+/** Rallying Flare / Skeet Shot I–III：逐卡复核混阵营目标与眩晕/标记清除行（R-103）。 */
+export function applyRallyingFlare(
   cards: readonly NormalizedHeroSkillCard[],
+  entries: readonly RallyingFlareEntry[],
 ): NormalizedHeroSkillCard[] {
-  const byId = new Map(ENTRIES.map((e) => [e.id, e]));
+  const byId = new Map(entries.map((entry) => [entry.id, entry]));
   return cards.map((card) => {
     const entry = byId.get(card.id);
     if (!entry) return card;
@@ -100,9 +33,9 @@ export function attachVerifiedRallyingFlare(
       acc !== entry.acc ||
       targetGlyphs.length !== entry.targetIcons ||
       !cleanup ||
-      signature(cleanup) !== CLEANUP_SIGNATURE ||
+      lineSignature(cleanup) !== CLEANUP_SIGNATURE ||
       !monster ||
-      signature(monster) !== MONSTER_DEBUFF_SIGNATURE ||
+      lineSignature(monster) !== MONSTER_DEBUFF_SIGNATURE ||
       cleanup.some(
         (s) => s.type === "icon" && !["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
       ) ||

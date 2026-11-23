@@ -6,6 +6,7 @@ import {
 } from "./h01-crusader";
 import { rangeEntries as hellionRanges, statusEntries as hellionStatus } from "./h02-hellion";
 import {
+  bountyStatusRows,
   coreHigherRows as bountyHunterHigherRows,
   rangeEntries as bountyHunterRanges,
   statusEntries as bountyHunterStatus,
@@ -23,6 +24,7 @@ import {
 } from "./h07-plague-doctor";
 import {
   coreHigherRows as arbalestHigherRows,
+  rallyingFlareEntries as arbalestRallyingFlare,
   rangeEntries as arbalestRanges,
   statusEntries as arbalestStatus,
 } from "./h08-arbalest";
@@ -53,25 +55,32 @@ import { shieldbreakerAnnotations } from "./h16-shieldbreaker";
 import { houndmasterAnnotations } from "./h17-houndmaster";
 import {
   musketeerAnnotations,
+  rallyingFlareEntries as musketeerRallyingFlare,
   rangeEntries as musketeerRanges,
   statusEntries as musketeerStatus,
 } from "./h18-musketeer";
+import { applyBountyStatuses } from "./bounty-statuses";
+import { applyRallyingFlare } from "./rallying-flare";
 import { applyRangeEntries } from "./ranges";
 import { applyStatusEffects } from "./status-effects";
 import { applySupportEffects } from "./support-effects";
 import type {
+  BountyStatusRow,
   CoreHigherSkillRow,
   HeroAnnotationModule,
+  RallyingFlareEntry,
   RangeEntry,
   StatusEffectEntry,
   SupportEffectEntry,
 } from "./types";
 
 export type {
+  BountyStatusRow,
   CoreHigherSkillFlags,
   CoreHigherSkillRow,
   HeroAnnotationApplier,
   HeroAnnotationModule,
+  RallyingFlareEntry,
   RangeEntry,
   StatusEffectEntry,
   SupportEffectEntry,
@@ -132,6 +141,15 @@ export const RANGES: readonly RangeEntry[] = [
 /** 已复核支援效果行（当前只有 Crusader 的 Inspiring Cry I–III）。 */
 export const SUPPORT_EFFECTS: readonly SupportEffectEntry[] = [...crusaderSupport];
 
+/** Rallying Flare / Skeet Shot 逐卡行（Arbalest + Musketeer）。 */
+export const RALLYING_FLARE_ENTRIES: readonly RallyingFlareEntry[] = [
+  ...arbalestRallyingFlare,
+  ...musketeerRallyingFlare,
+];
+
+/** 赏金猎人限定状态卡行。 */
+export const BOUNTY_STATUS_ROWS: readonly BountyStatusRow[] = [...bountyStatusRows];
+
 /**
  * 已入库的逐卡审校模块，按 hNN 升序排列。
  * 每个模块只碰自己英雄的卡，顺序不影响结果；新增英雄时在对应位置插入。
@@ -171,4 +189,16 @@ export function applyHeroSupport(
   cards: readonly NormalizedHeroSkillCard[],
 ): NormalizedHeroSkillCard[] {
   return applySupportEffects(cards, SUPPORT_EFFECTS);
+}
+
+export function applyHeroRallyingFlare(
+  cards: readonly NormalizedHeroSkillCard[],
+): NormalizedHeroSkillCard[] {
+  return applyRallyingFlare(cards, RALLYING_FLARE_ENTRIES);
+}
+
+export function applyHeroBountyStatuses(
+  cards: readonly NormalizedHeroSkillCard[],
+): NormalizedHeroSkillCard[] {
+  return applyBountyStatuses(cards, BOUNTY_STATUS_ROWS);
 }

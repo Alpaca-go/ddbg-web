@@ -1,6 +1,7 @@
-import { normalizedHeroSkillCardSchema } from "./schema";
-import type { NormalizedHeroSkillCard, Segment } from "./schema";
-import { legacyHeroSkillId } from "../hero-registry";
+import { normalizedHeroSkillCardSchema } from "../schema";
+import type { NormalizedHeroSkillCard, Segment } from "../schema";
+import { legacyHeroSkillId } from "../../hero-registry";
+import type { BountyStatusRow } from "./types";
 
 const signature = (line: readonly Segment[]) =>
   line
@@ -8,8 +9,14 @@ const signature = (line: readonly Segment[]) =>
     .join("")
     .replace(/\s+/g, "");
 
-/** R-089：只修正两张I级卡目标框763ad8e857；全局词典和原始图标清单不改。 */
-export function attachVerifiedBountyStatuses(cards: readonly NormalizedHeroSkillCard[]) {
+/**
+ * 赏金猎人限定状态卡（R-089）与 Collect Bounty II 核图数值（R-141）。
+ * 前者按行数据修正目标框图标；后者是单卡一次性修正，保留在算法里。
+ */
+export function applyBountyStatuses(
+  cards: readonly NormalizedHeroSkillCard[],
+  rows: readonly BountyStatusRow[],
+): NormalizedHeroSkillCard[] {
   // R-141：保留原始 Acc 1O 转录，只修正已核图的数值阈值。
   cards = cards.map((card) => {
     if (legacyHeroSkillId(card) !== "hero_skill:p044") return card;
@@ -45,68 +52,6 @@ export function attachVerifiedBountyStatuses(cards: readonly NormalizedHeroSkill
       ),
     });
   });
-  const rows = [
-    {
-      id: "hero_skill:p046",
-      name: "Mark for Death",
-      page: 46,
-      level: 1,
-      lines: ["{target_effects}{mark}3t,{buff}2t", "{self_effects}Self{buff}2t"],
-      stats: "Acc10",
-      labels: [["Acc", 10]],
-      effects: [
-        { scope: "target", kind: "mark", duration: 3, lineIndex: 0 },
-        { scope: "target", kind: "debuff", duration: 2, lineIndex: 0 },
-        { scope: "self", kind: "buff", duration: 2, lineIndex: 1 },
-      ],
-    },
-    {
-      id: "hero_skill:p061",
-      name: "Caltrops",
-      page: 61,
-      level: 1,
-      lines: ["{target_effects}2{bleed}3t,{buff}1t"],
-      stats: "{range}2{target_monster}Crit1{damage}2Acc9{damage}1",
-      labels: [
-        ["Crit", 1],
-        ["Acc", 9],
-      ],
-      effects: [
-        { scope: "target", kind: "bleed", duration: 3, amount: 2, lineIndex: 0 },
-        { scope: "target", kind: "debuff", duration: 1, lineIndex: 0 },
-      ],
-    },
-    {
-      id: "hero_skill:p048",
-      name: "Mark for Death",
-      page: 48,
-      level: 3,
-      lines: ["{target_effects}{mark}3t,{buff}3t", "{self_effects}Self{buff}3t"],
-      stats: "Acc12",
-      labels: [["Acc", 12]],
-      effects: [
-        { scope: "target", kind: "mark", duration: 3, lineIndex: 0 },
-        { scope: "target", kind: "debuff", duration: 3, lineIndex: 0 },
-        { scope: "self", kind: "buff", duration: 3, lineIndex: 1 },
-      ],
-    },
-    {
-      id: "hero_skill:p063",
-      name: "Caltrops",
-      page: 63,
-      level: 3,
-      lines: ["{target_effects}3{bleed}3t,{buff}3t"],
-      stats: "{range}2{target_monster}Crit1{damage}3Acc11{damage}2",
-      labels: [
-        ["Crit", 1],
-        ["Acc", 11],
-      ],
-      effects: [
-        { scope: "target", kind: "bleed", duration: 3, amount: 3, lineIndex: 0 },
-        { scope: "target", kind: "debuff", duration: 3, lineIndex: 0 },
-      ],
-    },
-  ] as const;
   for (const row of rows)
     if (cards.filter((c) => legacyHeroSkillId(c) === row.id).length !== 1)
       throw new Error(`赏金猎人限定状态卡必须唯一存在（R-089）：${row.id}`);
@@ -175,10 +120,10 @@ export function attachVerifiedBountyStatuses(cards: readonly NormalizedHeroSkill
       if (found.length !== 1) throw new Error("限定状态图标定位不唯一（R-089）");
       return { ...effect, segmentIndex: found[0]! };
     });
-    if (
+    const isMarkForDeath =
       legacyHeroSkillId(card) === "hero_skill:p046" ||
-      legacyHeroSkillId(card) === "hero_skill:p048"
-    ) {
+      legacyHeroSkillId(card) === "hero_skill:p048";
+    if (isMarkForDeath) {
       const ranges = card.unlabeled_numbers.filter(
         (n) =>
           n.anchor.type === "beside_icon" &&
@@ -192,10 +137,7 @@ export function attachVerifiedBountyStatuses(cards: readonly NormalizedHeroSkill
       ...card,
       effect_lines,
       verified_status_effects,
-      ...(legacyHeroSkillId(card) === "hero_skill:p046" ||
-      legacyHeroSkillId(card) === "hero_skill:p048"
-        ? { verified_range: { min: 0, max: 2, source: "print_front" } }
-        : {}),
+      ...(isMarkForDeath ? { verified_range: { min: 0, max: 2, source: "print_front" } } : {}),
     });
   });
 }

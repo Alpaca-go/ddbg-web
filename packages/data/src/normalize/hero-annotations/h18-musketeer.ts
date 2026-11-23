@@ -1,4 +1,9 @@
-import type { HeroAnnotationModule, StatusEffectEntry, RangeEntry } from "./types";
+import type {
+  HeroAnnotationModule,
+  StatusEffectEntry,
+  RangeEntry,
+  RallyingFlareEntry,
+} from "./types";
 import type { NormalizedHeroSkillCard, Segment } from "../schema";
 import { normalizedHeroSkillCardSchema } from "../schema";
 import { lineSignature } from "../verified-hero-layout";
@@ -702,5 +707,33 @@ export const rangeEntries: readonly RangeEntry[] = [
     level: 1,
     min: 0,
     max: 1,
+  },
+];
+
+/** Rallying Flare / Skeet Shot 逐卡复核（R-103）：混阵营目标与眩晕/标记清除行。 */
+export const rallyingFlareEntries: readonly RallyingFlareEntry[] = [
+  {
+    id: "hero_skill:musketeer:p019",
+    hero: "MUSKETEER",
+    name: "Skeet Shot",
+    level: 1,
+    acc: 10,
+    targetIcons: 2,
+  },
+  {
+    id: "hero_skill:musketeer:p020",
+    hero: "MUSKETEER",
+    name: "Skeet Shot",
+    level: 2,
+    acc: 11,
+    targetIcons: 3,
+  },
+  {
+    id: "hero_skill:musketeer:p021",
+    hero: "MUSKETEER",
+    name: "Skeet Shot",
+    level: 3,
+    acc: 12,
+    targetIcons: 4,
   },
 ];

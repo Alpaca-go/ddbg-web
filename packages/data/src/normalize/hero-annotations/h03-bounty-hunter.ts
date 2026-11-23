@@ -1,4 +1,4 @@
-import type { CoreHigherSkillRow, StatusEffectEntry, RangeEntry } from "./types";
+import type { CoreHigherSkillRow, StatusEffectEntry, RangeEntry, BountyStatusRow } from "./types";
 
 /** 核心盒 Bounty Hunter II/III 级逐卡注解（Kyries 审阅；R-048 签名断言由 core-higher-skills 执行）。 */
 export const coreHigherRows: readonly CoreHigherSkillRow[] = [
@@ -321,5 +321,69 @@ export const rangeEntries: readonly RangeEntry[] = [
     level: 1,
     min: 1,
     max: 2,
+  },
+];
+
+/** R-089：赏金猎人限定状态卡（目标框 763ad8e857 逐卡改为 debuff）。 */
+export const bountyStatusRows: readonly BountyStatusRow[] = [
+  {
+    id: "hero_skill:p046",
+    name: "Mark for Death",
+    page: 46,
+    level: 1,
+    lines: ["{target_effects}{mark}3t,{buff}2t", "{self_effects}Self{buff}2t"],
+    stats: "Acc10",
+    labels: [["Acc", 10]],
+    effects: [
+      { scope: "target", kind: "mark", duration: 3, lineIndex: 0 },
+      { scope: "target", kind: "debuff", duration: 2, lineIndex: 0 },
+      { scope: "self", kind: "buff", duration: 2, lineIndex: 1 },
+    ],
+  },
+  {
+    id: "hero_skill:p061",
+    name: "Caltrops",
+    page: 61,
+    level: 1,
+    lines: ["{target_effects}2{bleed}3t,{buff}1t"],
+    stats: "{range}2{target_monster}Crit1{damage}2Acc9{damage}1",
+    labels: [
+      ["Crit", 1],
+      ["Acc", 9],
+    ],
+    effects: [
+      { scope: "target", kind: "bleed", duration: 3, amount: 2, lineIndex: 0 },
+      { scope: "target", kind: "debuff", duration: 1, lineIndex: 0 },
+    ],
+  },
+  {
+    id: "hero_skill:p048",
+    name: "Mark for Death",
+    page: 48,
+    level: 3,
+    lines: ["{target_effects}{mark}3t,{buff}3t", "{self_effects}Self{buff}3t"],
+    stats: "Acc12",
+    labels: [["Acc", 12]],
+    effects: [
+      { scope: "target", kind: "mark", duration: 3, lineIndex: 0 },
+      { scope: "target", kind: "debuff", duration: 3, lineIndex: 0 },
+      { scope: "self", kind: "buff", duration: 3, lineIndex: 1 },
+    ],
+  },
+  {
+    id: "hero_skill:p063",
+    name: "Caltrops",
+    page: 63,
+    level: 3,
+    lines: ["{target_effects}3{bleed}3t,{buff}3t"],
+    stats: "{range}2{target_monster}Crit1{damage}3Acc11{damage}2",
+    labels: [
+      ["Crit", 1],
+      ["Acc", 11],
+    ],
+    effects: [
+      { scope: "target", kind: "bleed", duration: 3, amount: 3, lineIndex: 0 },
+      { scope: "target", kind: "debuff", duration: 3, lineIndex: 0 },
+    ],
   },
 ];
