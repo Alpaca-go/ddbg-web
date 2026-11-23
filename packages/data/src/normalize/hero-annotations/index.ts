@@ -90,6 +90,8 @@ import { applyDamage } from "./damage";
 import { applyLayouts } from "./layout";
 import { applyRallyingFlare } from "./rallying-flare";
 import { applySelfEffects } from "./self-effects";
+import { applyTextRules } from "./text-rules";
+import { IGNORES_RULES, SHUFFLE_RULES } from "./text-rules-data";
 import { applyRangeEntries } from "./ranges";
 import { applyStatusEffects } from "./status-effects";
 import { applySupportEffects } from "./support-effects";
@@ -282,4 +284,9 @@ export function applyHeroSelfEffects(
   cards: readonly NormalizedHeroSkillCard[],
 ): NormalizedHeroSkillCard[] {
   return applySelfEffects(cards, SELF_EFFECTS);
+}
+export function applyHeroTextRules(
+  cards: readonly NormalizedHeroSkillCard[],
+): NormalizedHeroSkillCard[] {
+  return applyTextRules(cards, SHUFFLE_RULES, IGNORES_RULES);
 }

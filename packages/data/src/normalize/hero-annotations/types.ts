@@ -170,3 +170,21 @@ export type SelfEffectEntry = {
   readonly kind: "heal" | "stress";
   readonly amount: number;
 };
+/** 文本位移规则：scope 来自印刷作用侧，text 保留「Push N / Pull N」原文。 */
+export type ShuffleEntry = {
+  readonly id: string;
+  readonly name: string;
+  readonly level: number;
+  readonly lineIndex: number;
+  readonly scope: "self" | "target";
+  readonly text: string;
+};
+
+/** Ignores Protection / Guard 的逐行规则。 */
+export type IgnoresEntry = {
+  readonly id: string;
+  readonly name: string;
+  readonly level: number;
+  readonly lineIndex: number;
+  readonly kind: "protection" | "guard";
+};

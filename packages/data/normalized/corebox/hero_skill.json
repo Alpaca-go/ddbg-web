@@ -6745,6 +6745,15 @@
      "text": " 7"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Pull 1"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -7263,6 +7272,15 @@
      "text": " 9"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Pull 1"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -7781,6 +7799,15 @@
      "text": " 11"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Pull 1"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -14623,6 +14650,15 @@
      "text": " 4"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Pull 1"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -15104,6 +15140,15 @@
      "text": " 5"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Pull 1"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -15585,6 +15630,15 @@
      "text": " 6"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Pull 1"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -22300,6 +22354,15 @@
      "text": " 2"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "target",
+      "text": "Pull 2"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -22770,6 +22833,15 @@
      "text": " 3"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "target",
+      "text": "Pull 2"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -23240,6 +23312,15 @@
      "text": " 4"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "target",
+      "text": "Pull 2"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -23699,6 +23780,15 @@
      "text": " 3"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "target",
+      "text": "Push 2"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -24169,6 +24259,15 @@
      "text": " 5"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "target",
+      "text": "Push 2"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -24639,6 +24738,15 @@
      "text": " 6"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "target",
+      "text": "Push 2"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -31816,6 +31924,20 @@
      "text": " 9"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Push 1"
+     },
+     {
+      "lineIndex": 1,
+      "scope": "target",
+      "text": "Push 1"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -32299,6 +32421,20 @@
      "text": " 12"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Push 1"
+     },
+     {
+      "lineIndex": 1,
+      "scope": "target",
+      "text": "Push 1"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -32782,6 +32918,20 @@
      "text": " 15"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Push 1"
+     },
+     {
+      "lineIndex": 1,
+      "scope": "target",
+      "text": "Push 1"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -36150,6 +36300,15 @@
      "text": " 4"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Pull 1"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -36630,6 +36789,15 @@
      "text": " 6"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Pull 1"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -37110,6 +37278,15 @@
      "text": " 8"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Pull 1"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -49303,6 +49480,21 @@
      "text": " 5"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Pull 1"
+     }
+    ],
+    "ignores": [
+     {
+      "lineIndex": 1,
+      "kind": "guard"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -49757,6 +49949,21 @@
      "text": " 7"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Pull 1"
+     }
+    ],
+    "ignores": [
+     {
+      "lineIndex": 1,
+      "kind": "guard"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -50211,6 +50418,21 @@
      "text": " 8"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Pull 1"
+     }
+    ],
+    "ignores": [
+     {
+      "lineIndex": 1,
+      "kind": "guard"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -52123,6 +52345,15 @@
      "text": " 7"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Push 3"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -52546,6 +52777,15 @@
      "text": " 10"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Push 3"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -52969,6 +53209,15 @@
      "text": " 12"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Push 3"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -53392,6 +53641,15 @@
      "text": "Acc 12"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 1,
+      "scope": "self",
+      "text": "Pull 2"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -53837,6 +54095,15 @@
      "text": "Acc 14"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 1,
+      "scope": "self",
+      "text": "Pull 2"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -54282,6 +54549,15 @@
      "text": "Acc 15"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 1,
+      "scope": "self",
+      "text": "Pull 2"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -67590,6 +67866,15 @@
      "text": "Acc 9"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "target",
+      "text": "Push 2 or Pull 2"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -67957,6 +68242,15 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "target",
+      "text": "Push 2 or Pull 2"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -68323,6 +68617,15 @@
     "min": 1,
     "max": 2,
     "source": "print_front"
+   },
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "target",
+      "text": "Push 2 or Pull 2"
+     }
+    ]
    },
    "front_icons": [
     {
@@ -72657,6 +72960,20 @@
      "text": " 3"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Push 1"
+     },
+     {
+      "lineIndex": 1,
+      "scope": "target",
+      "text": "Push 2"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -73169,6 +73486,20 @@
      "text": " 4"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Push 2"
+     },
+     {
+      "lineIndex": 1,
+      "scope": "target",
+      "text": "Push 2"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -73681,6 +74012,20 @@
      "text": " 5"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Push 2"
+     },
+     {
+      "lineIndex": 1,
+      "scope": "target",
+      "text": "Push 2"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -74131,6 +74476,15 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Push 1"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -74559,6 +74913,15 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Push 2"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -74986,6 +75349,15 @@
     "min": 0,
     "max": 2,
     "source": "print_front"
+   },
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Push 2"
+     }
+    ]
    },
    "front_icons": [
     {
@@ -78643,6 +79015,14 @@
      "text": " 4"
     }
    ],
+   "rules": {
+    "ignores": [
+     {
+      "lineIndex": 0,
+      "kind": "protection"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -79062,6 +79442,14 @@
      "text": " 6"
     }
    ],
+   "rules": {
+    "ignores": [
+     {
+      "lineIndex": 0,
+      "kind": "protection"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -79481,6 +79869,14 @@
      "text": " 7"
     }
    ],
+   "rules": {
+    "ignores": [
+     {
+      "lineIndex": 0,
+      "kind": "protection"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -79980,6 +80376,15 @@
      "text": " 7"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Pull 2"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -80523,6 +80928,15 @@
      "text": " 10"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Pull 2"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -81066,6 +81480,15 @@
      "text": " 11"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Pull 2"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -82798,6 +83221,15 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 1,
+      "scope": "self",
+      "text": "Push 2"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -83146,6 +83578,15 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 1,
+      "scope": "self",
+      "text": "Push 2"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -83494,6 +83935,15 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 1,
+      "scope": "self",
+      "text": "Push 2"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -97172,6 +97622,15 @@
      "text": " 3"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "target",
+      "text": "Pull 2"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -97595,6 +98054,15 @@
      "text": " 4"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "target",
+      "text": "Pull 2"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -98018,6 +98486,15 @@
      "text": " 5"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "target",
+      "text": "Pull 2"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -108536,6 +109013,20 @@
      "text": " 7"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Pull 1"
+     },
+     {
+      "lineIndex": 1,
+      "scope": "target",
+      "text": "Push 2"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -112658,6 +113149,15 @@
      "text": " 7"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 1,
+      "scope": "target",
+      "text": "Push 2"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -113234,6 +113734,15 @@
      "text": " 10"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 1,
+      "scope": "target",
+      "text": "Push 2"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -113810,6 +114319,15 @@
      "text": " 12"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 1,
+      "scope": "target",
+      "text": "Push 2"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -118425,6 +118943,18 @@
      "text": " 4"
     }
    ],
+   "rules": {
+    "ignores": [
+     {
+      "lineIndex": 1,
+      "kind": "protection"
+     },
+     {
+      "lineIndex": 2,
+      "kind": "guard"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -119083,6 +119613,18 @@
      "text": " 6"
     }
    ],
+   "rules": {
+    "ignores": [
+     {
+      "lineIndex": 1,
+      "kind": "protection"
+     },
+     {
+      "lineIndex": 2,
+      "kind": "guard"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -119751,6 +120293,18 @@
      "text": " 8"
     }
    ],
+   "rules": {
+    "ignores": [
+     {
+      "lineIndex": 1,
+      "kind": "protection"
+     },
+     {
+      "lineIndex": 2,
+      "kind": "guard"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -123257,6 +123811,15 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 1,
+      "scope": "self",
+      "text": "Push 2"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -123669,6 +124232,15 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 1,
+      "scope": "self",
+      "text": "Push 2"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -124081,6 +124653,15 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 1,
+      "scope": "self",
+      "text": "Push 1 or Push 2"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -132589,6 +133170,20 @@
      "text": " 4"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "target",
+      "text": "Push 1"
+     },
+     {
+      "lineIndex": 1,
+      "scope": "self",
+      "text": "Pull 1"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -133152,6 +133747,20 @@
      "text": " 5"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "target",
+      "text": "Push 2"
+     },
+     {
+      "lineIndex": 1,
+      "scope": "self",
+      "text": "Pull 1"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -133715,6 +134324,20 @@
      "text": " 6"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "target",
+      "text": "Push 2"
+     },
+     {
+      "lineIndex": 1,
+      "scope": "self",
+      "text": "Pull 1"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -155188,6 +155811,21 @@
      "text": " 6"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Pull 1"
+     }
+    ],
+    "ignores": [
+     {
+      "lineIndex": 1,
+      "kind": "protection"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -155722,6 +156360,21 @@
      "text": " 9"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Pull 1"
+     }
+    ],
+    "ignores": [
+     {
+      "lineIndex": 1,
+      "kind": "protection"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -156256,6 +156909,21 @@
      "text": " 12"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Pull 1"
+     }
+    ],
+    "ignores": [
+     {
+      "lineIndex": 1,
+      "kind": "protection"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -156810,6 +157478,26 @@
      "text": " 4"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Pull 1"
+     },
+     {
+      "lineIndex": 2,
+      "scope": "target",
+      "text": "Pull 1"
+     }
+    ],
+    "ignores": [
+     {
+      "lineIndex": 1,
+      "kind": "guard"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -157358,6 +158046,26 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Pull 1"
+     },
+     {
+      "lineIndex": 2,
+      "scope": "target",
+      "text": "Pull 1"
+     }
+    ],
+    "ignores": [
+     {
+      "lineIndex": 1,
+      "kind": "guard"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -157905,6 +158613,26 @@
     "min": 1,
     "max": 2,
     "source": "print_front"
+   },
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Pull 1"
+     },
+     {
+      "lineIndex": 2,
+      "scope": "target",
+      "text": "Pull 1"
+     }
+    ],
+    "ignores": [
+     {
+      "lineIndex": 1,
+      "kind": "guard"
+     }
+    ]
    },
    "front_icons": [
     {
@@ -158501,6 +159229,15 @@
      "text": " 7"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Push 1"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -159096,6 +159833,15 @@
      "text": " 10"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Push 1"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -159691,6 +160437,15 @@
      "text": " 14"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Push 1"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -160306,6 +161061,15 @@
      "text": " 3"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Push 1"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -160954,6 +161718,15 @@
      "text": " 4"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Push 1"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -161602,6 +162375,15 @@
      "text": " 6"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Push 1"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -162196,6 +162978,15 @@
      "text": " 5"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Push 1"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -162757,6 +163548,15 @@
      "text": " 6"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Push 1"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -163318,6 +164118,15 @@
      "text": " 8"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Push 1"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -165588,6 +166397,15 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 2,
+      "scope": "self",
+      "text": "Pull 1"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -166042,6 +166860,15 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 2,
+      "scope": "self",
+      "text": "Pull 1"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -166578,6 +167405,15 @@
      }
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 1,
+      "scope": "self",
+      "text": "Pull 1"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -182074,6 +182910,20 @@
      "text": " 3"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Push 1"
+     },
+     {
+      "lineIndex": 1,
+      "scope": "target",
+      "text": "Push 2"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -182630,6 +183480,20 @@
      "text": " 4"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Push 2"
+     },
+     {
+      "lineIndex": 1,
+      "scope": "target",
+      "text": "Push 2"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -183186,6 +184050,20 @@
      "text": " 5"
     }
    ],
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Push 2"
+     },
+     {
+      "lineIndex": 1,
+      "scope": "target",
+      "text": "Push 2"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -183691,6 +184569,15 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Push 1"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -184152,6 +185039,15 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Push 2"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -184612,6 +185508,15 @@
     "min": 0,
     "max": 2,
     "source": "print_front"
+   },
+   "rules": {
+    "shuffle": [
+     {
+      "lineIndex": 0,
+      "scope": "self",
+      "text": "Push 2"
+     }
+    ]
    },
    "front_icons": [
     {

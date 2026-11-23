@@ -4,6 +4,8 @@ import type {
   RangeEntry,
   LayoutEntry,
   DamageEntry,
+  ShuffleEntry,
+  IgnoresEntry,
 } from "./types";
 
 /** 核心盒 Grave Robber II/III 级逐卡注解（Kyries 审阅；R-048 签名断言由 core-higher-skills 执行）。 */
@@ -378,5 +380,82 @@ export const damageEntries: readonly DamageEntry[] = [
     amount: 2,
     condition: "blighted",
     suffix: "{blight}",
+  },
+];
+
+/** 文本位移规则（scope + Push/Pull 原文）。 */
+export const shuffleEntries: readonly ShuffleEntry[] = [
+  {
+    id: "hero_skill:core:h09:p172",
+    name: "Lunge",
+    level: 1,
+    lineIndex: 0,
+    scope: "self",
+    text: "Pull 2",
+  },
+  {
+    id: "hero_skill:core:h09:p173",
+    name: "Lunge",
+    level: 2,
+    lineIndex: 0,
+    scope: "self",
+    text: "Pull 2",
+  },
+  {
+    id: "hero_skill:core:h09:p174",
+    name: "Lunge",
+    level: 3,
+    lineIndex: 0,
+    scope: "self",
+    text: "Pull 2",
+  },
+  {
+    id: "hero_skill:core:h09:p178",
+    name: "Shadow Fade",
+    level: 1,
+    lineIndex: 1,
+    scope: "self",
+    text: "Push 2",
+  },
+  {
+    id: "hero_skill:core:h09:p179",
+    name: "Shadow Fade",
+    level: 2,
+    lineIndex: 1,
+    scope: "self",
+    text: "Push 2",
+  },
+  {
+    id: "hero_skill:core:h09:p180",
+    name: "Shadow Fade",
+    level: 3,
+    lineIndex: 1,
+    scope: "self",
+    text: "Push 2",
+  },
+];
+
+/** Ignores Protection / Guard 规则。 */
+export const ignoresEntries: readonly IgnoresEntry[] = [
+  {
+    id: "hero_skill:core:h09:p169",
+    name: "Pick to the Face",
+    level: 1,
+    lineIndex: 0,
+    kind: "protection",
+  },
+  {
+    id: "hero_skill:core:h09:p170",
+    name: "Pick to the Face",
+    level: 2,
+    lineIndex: 0,
+    kind: "protection",
+  },
+  {
+    id: "hero_skill:core:h09:p171",
+    name: "Pick to the Face",
+    level: 3,
+    lineIndex: 0,
+    kind: "protection",
   },
 ];

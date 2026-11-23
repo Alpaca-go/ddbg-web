@@ -248,6 +248,17 @@ export type SkillSegment =
 
 /** 规范化英雄技能里这一层会读的字段。多出来的字段可以留在对象上。 */
 export type HeroSkillCardView = {
+  readonly rules?: {
+    readonly shuffle?: readonly {
+      readonly lineIndex: number;
+      readonly scope: "self" | "target";
+      readonly text: string;
+    }[];
+    readonly ignores?: readonly {
+      readonly lineIndex: number;
+      readonly kind: "protection" | "guard";
+    }[];
+  };
   readonly verified_self_range?: true;
   readonly verified_required_form?: SkillForm;
   readonly verified_allies_stress?: number;
@@ -1312,16 +1323,19 @@ function readShuffles(skill: HeroSkillCardView, choice: "push" | "pull" | undefi
   const selves: SkillShuffle[] = [];
   const targets: SkillShuffle[] = [];
   const choices: number[] = [];
-  for (const line of skill.effect_lines) {
-    const parsed = shuffleFromLine(line);
+  const scopeByLine = new Map(
+    (skill.rules?.shuffle ?? []).map((rule) => [rule.lineIndex, rule.scope]),
+  );
+  skill.effect_lines.forEach((line, lineIndex) => {
+    const parsed = shuffleFromLine(line, scopeByLine.get(lineIndex));
     if (parsed !== null) {
       if (parsed.audience === "self") selves.push(parsed.move);
       else targets.push(parsed.move);
-      continue;
+      return;
     }
     const distance = shuffleChoiceDistance(line);
     if (distance !== null) choices.push(distance);
-  }
+  });
   const self = selves.length === 1 && selves[0] !== undefined ? selves[0] : null;
   let target = targets.length === 1 && targets[0] !== undefined ? targets[0] : null;
   const chosen = choices.length === 1 ? choices[0] : undefined;
@@ -1433,6 +1447,7 @@ function shuffleChoiceDistance(line: readonly SkillSegment[]): number | null {
 
 function shuffleFromLine(
   line: readonly SkillSegment[],
+  audienceOverride?: "self" | "target",
 ): { readonly audience: "self" | "target"; readonly move: SkillShuffle } | null {
   let audience: "self" | "target" | null = null;
   let shuffles = 0;
@@ -1468,9 +1483,10 @@ function shuffleFromLine(
     }
     return null;
   }
-  if (audience === null || shuffles !== 1 || move === null) return null;
-  if (sawSelfWord !== (audience === "self")) return null;
-  return { audience, move };
+  const resolved = audienceOverride ?? audience;
+  if (resolved === null || shuffles !== 1 || move === null) return null;
+  if (audienceOverride === undefined && sawSelfWord !== (audience === "self")) return null;
+  return { audience: resolved, move };
 }
 
 type IgnoresProtection = {
@@ -1484,6 +1500,10 @@ type IgnoresProtection = {
  * 不读回合数，也不把这行理解成移除防护。
  */
 function readIgnoresProtection(skill: HeroSkillCardView): IgnoresProtection {
+  const ruleCount = (skill.rules?.ignores ?? []).filter(
+    (rule) => rule.kind === "protection",
+  ).length;
+  if (ruleCount > 0) return { targetLines: ruleCount };
   let targetLines = 0;
   for (const line of skill.effect_lines) {
     if (ignoresProtectionLine(line)) targetLines += 1;
@@ -1526,6 +1546,8 @@ type IgnoresGuard = {
 
 /** 只接受「Ignores + guard」整行（R-102）。 */
 function readIgnoresGuard(skill: HeroSkillCardView): IgnoresGuard {
+  const ruleCount = (skill.rules?.ignores ?? []).filter((rule) => rule.kind === "guard").length;
+  if (ruleCount > 0) return { targetLines: ruleCount };
   let targetLines = 0;
   for (const line of skill.effect_lines) {
     if (ignoresGuardLine(line)) targetLines += 1;

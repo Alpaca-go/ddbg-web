@@ -5,6 +5,7 @@ import type {
   BountyStatusRow,
   LayoutEntry,
   DamageEntry,
+  ShuffleEntry,
 } from "./types";
 
 /** 核心盒 Bounty Hunter II/III 级逐卡注解（Kyries 审阅；R-048 签名断言由 core-higher-skills 执行）。 */
@@ -420,5 +421,57 @@ export const damageEntries: readonly DamageEntry[] = [
     amount: 2,
     condition: "stunned",
     suffix: "{stun}",
+  },
+];
+
+/** 文本位移规则（scope + Push/Pull 原文）。 */
+export const shuffleEntries: readonly ShuffleEntry[] = [
+  {
+    id: "hero_skill:core:h03:p049",
+    name: "Come Hither",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    text: "Pull 2",
+  },
+  {
+    id: "hero_skill:core:h03:p050",
+    name: "Come Hither",
+    level: 2,
+    lineIndex: 0,
+    scope: "target",
+    text: "Pull 2",
+  },
+  {
+    id: "hero_skill:core:h03:p051",
+    name: "Come Hither",
+    level: 3,
+    lineIndex: 0,
+    scope: "target",
+    text: "Pull 2",
+  },
+  {
+    id: "hero_skill:core:h03:p052",
+    name: "Uppercut",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    text: "Push 2",
+  },
+  {
+    id: "hero_skill:core:h03:p053",
+    name: "Uppercut",
+    level: 2,
+    lineIndex: 0,
+    scope: "target",
+    text: "Push 2",
+  },
+  {
+    id: "hero_skill:core:h03:p054",
+    name: "Uppercut",
+    level: 3,
+    lineIndex: 0,
+    scope: "target",
+    text: "Push 2",
   },
 ];

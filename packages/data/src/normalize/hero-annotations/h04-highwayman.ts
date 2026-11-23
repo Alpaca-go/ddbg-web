@@ -1,4 +1,4 @@
-import type { StatusEffectEntry, RangeEntry, DamageEntry } from "./types";
+import type { StatusEffectEntry, RangeEntry, DamageEntry, ShuffleEntry } from "./types";
 
 /** 完整印刷逐页核对的状态效果行（docs/phase2-four-core-skills-2026-10-11.md）。 */
 export const statusEntries: readonly StatusEffectEntry[] = [
@@ -273,5 +273,81 @@ export const damageEntries: readonly DamageEntry[] = [
     amount: 4,
     condition: "marked",
     suffix: "{mark}",
+  },
+];
+
+/** 文本位移规则（scope + Push/Pull 原文）。 */
+export const shuffleEntries: readonly ShuffleEntry[] = [
+  {
+    id: "hero_skill:core:h04:p070",
+    name: "Point Blank Shot",
+    level: 1,
+    lineIndex: 0,
+    scope: "self",
+    text: "Push 1",
+  },
+  {
+    id: "hero_skill:core:h04:p070",
+    name: "Point Blank Shot",
+    level: 1,
+    lineIndex: 1,
+    scope: "target",
+    text: "Push 1",
+  },
+  {
+    id: "hero_skill:core:h04:p071",
+    name: "Point Blank Shot",
+    level: 2,
+    lineIndex: 0,
+    scope: "self",
+    text: "Push 1",
+  },
+  {
+    id: "hero_skill:core:h04:p071",
+    name: "Point Blank Shot",
+    level: 2,
+    lineIndex: 1,
+    scope: "target",
+    text: "Push 1",
+  },
+  {
+    id: "hero_skill:core:h04:p072",
+    name: "Point Blank Shot",
+    level: 3,
+    lineIndex: 0,
+    scope: "self",
+    text: "Push 1",
+  },
+  {
+    id: "hero_skill:core:h04:p072",
+    name: "Point Blank Shot",
+    level: 3,
+    lineIndex: 1,
+    scope: "target",
+    text: "Push 1",
+  },
+  {
+    id: "hero_skill:core:h04:p079",
+    name: "Duelist’s Advance",
+    level: 1,
+    lineIndex: 0,
+    scope: "self",
+    text: "Pull 1",
+  },
+  {
+    id: "hero_skill:core:h04:p080",
+    name: "Duelist’s Advance",
+    level: 2,
+    lineIndex: 0,
+    scope: "self",
+    text: "Pull 1",
+  },
+  {
+    id: "hero_skill:core:h04:p081",
+    name: "Duelist’s Advance",
+    level: 3,
+    lineIndex: 0,
+    scope: "self",
+    text: "Pull 1",
   },
 ];

@@ -1,4 +1,10 @@
-import type { CoreHigherSkillRow, StatusEffectEntry, RangeEntry, DamageEntry } from "./types";
+import type {
+  CoreHigherSkillRow,
+  StatusEffectEntry,
+  RangeEntry,
+  DamageEntry,
+  ShuffleEntry,
+} from "./types";
 
 /** 核心盒 Occultist II/III 级逐卡注解（Kyries 审阅；R-048 签名断言由 core-higher-skills 执行）。 */
 export const coreHigherRows: readonly CoreHigherSkillRow[] = [
@@ -331,5 +337,33 @@ export const damageEntries: readonly DamageEntry[] = [
     amount: 1,
     condition: "eldritch",
     suffix: "Eldritch",
+  },
+];
+
+/** 文本位移规则（scope + Push/Pull 原文）。 */
+export const shuffleEntries: readonly ShuffleEntry[] = [
+  {
+    id: "hero_skill:core:h10:p208",
+    name: "Daemon’s Pull",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    text: "Pull 2",
+  },
+  {
+    id: "hero_skill:core:h10:p209",
+    name: "Daemon’s Pull",
+    level: 2,
+    lineIndex: 0,
+    scope: "target",
+    text: "Pull 2",
+  },
+  {
+    id: "hero_skill:core:h10:p210",
+    name: "Daemon’s Pull",
+    level: 3,
+    lineIndex: 0,
+    scope: "target",
+    text: "Pull 2",
   },
 ];

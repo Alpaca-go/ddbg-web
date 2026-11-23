@@ -4,6 +4,7 @@ import type {
   RangeEntry,
   RallyingFlareEntry,
   DamageEntry,
+  ShuffleEntry,
 } from "./types";
 import { lineSignature } from "./shared";
 import type { NormalizedHeroSkillCard } from "../schema";
@@ -700,3 +701,79 @@ export const musketeerAnnotations: HeroAnnotationModule = {
   hero: "MUSKETEER",
   apply: applyMusketeerAnnotations,
 };
+
+/** 文本位移规则（scope + Push/Pull 原文）。 */
+export const shuffleEntries: readonly ShuffleEntry[] = [
+  {
+    id: "hero_skill:musketeer:h18:p367",
+    name: "Buckshot",
+    level: 1,
+    lineIndex: 0,
+    scope: "self",
+    text: "Push 1",
+  },
+  {
+    id: "hero_skill:musketeer:h18:p367",
+    name: "Buckshot",
+    level: 1,
+    lineIndex: 1,
+    scope: "target",
+    text: "Push 2",
+  },
+  {
+    id: "hero_skill:musketeer:h18:p368",
+    name: "Buckshot",
+    level: 2,
+    lineIndex: 0,
+    scope: "self",
+    text: "Push 2",
+  },
+  {
+    id: "hero_skill:musketeer:h18:p368",
+    name: "Buckshot",
+    level: 2,
+    lineIndex: 1,
+    scope: "target",
+    text: "Push 2",
+  },
+  {
+    id: "hero_skill:musketeer:h18:p369",
+    name: "Buckshot",
+    level: 3,
+    lineIndex: 0,
+    scope: "self",
+    text: "Push 2",
+  },
+  {
+    id: "hero_skill:musketeer:h18:p369",
+    name: "Buckshot",
+    level: 3,
+    lineIndex: 1,
+    scope: "target",
+    text: "Push 2",
+  },
+  {
+    id: "hero_skill:musketeer:h18:p370",
+    name: "Sidearm",
+    level: 1,
+    lineIndex: 0,
+    scope: "self",
+    text: "Push 1",
+  },
+  {
+    id: "hero_skill:musketeer:h18:p371",
+    name: "Sidearm",
+    level: 2,
+    lineIndex: 0,
+    scope: "self",
+    text: "Push 2",
+  },
+  {
+    id: "hero_skill:musketeer:h18:p372",
+    name: "Sidearm",
+    level: 3,
+    lineIndex: 0,
+    scope: "self",
+    text: "Push 2",
+  },
+];

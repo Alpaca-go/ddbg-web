@@ -1,4 +1,4 @@
-import type { HeroAnnotationModule } from "./types";
+import type { HeroAnnotationModule, ShuffleEntry } from "./types";
 import { lineSignature } from "./shared";
 import type { NormalizedHeroSkillCard, Segment } from "../schema";
 import { normalizedHeroSkillCardSchema } from "../schema";
@@ -414,3 +414,55 @@ export const manAtArmsAnnotations: HeroAnnotationModule = {
   hero: "MAN-AT-ARMS",
   apply: applyManAtArmsAnnotations,
 };
+
+/** 文本位移规则（scope + Push/Pull 原文）。 */
+export const shuffleEntries: readonly ShuffleEntry[] = [
+  {
+    id: "hero_skill:cove:h12:p235",
+    name: "Rampart",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    text: "Push 1",
+  },
+  {
+    id: "hero_skill:cove:h12:p235",
+    name: "Rampart",
+    level: 1,
+    lineIndex: 1,
+    scope: "self",
+    text: "Pull 1",
+  },
+  {
+    id: "hero_skill:cove:h12:p236",
+    name: "Rampart",
+    level: 2,
+    lineIndex: 0,
+    scope: "target",
+    text: "Push 2",
+  },
+  {
+    id: "hero_skill:cove:h12:p236",
+    name: "Rampart",
+    level: 2,
+    lineIndex: 1,
+    scope: "self",
+    text: "Pull 1",
+  },
+  {
+    id: "hero_skill:cove:h12:p237",
+    name: "Rampart",
+    level: 3,
+    lineIndex: 0,
+    scope: "target",
+    text: "Push 2",
+  },
+  {
+    id: "hero_skill:cove:h12:p237",
+    name: "Rampart",
+    level: 3,
+    lineIndex: 1,
+    scope: "self",
+    text: "Pull 1",
+  },
+];

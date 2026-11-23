@@ -1,4 +1,10 @@
-import type { CoreHigherSkillRow, StatusEffectEntry, RangeEntry, SelfEffectEntry } from "./types";
+import type {
+  CoreHigherSkillRow,
+  StatusEffectEntry,
+  RangeEntry,
+  SelfEffectEntry,
+  ShuffleEntry,
+} from "./types";
 
 /** 核心盒 Abomination II/III 级逐卡注解（Kyries 审阅；R-048 签名断言由 core-higher-skills 执行）。 */
 export const coreHigherRows: readonly CoreHigherSkillRow[] = [
@@ -219,5 +225,25 @@ export const selfEffectEntries: readonly SelfEffectEntry[] = [
     lineIndex: 0,
     kind: "stress",
     amount: 1,
+  },
+];
+
+/** 文本位移规则（scope + Push/Pull 原文）。 */
+export const shuffleEntries: readonly ShuffleEntry[] = [
+  {
+    id: "hero_skill:core:h11:p229",
+    name: "Slam",
+    level: 1,
+    lineIndex: 0,
+    scope: "self",
+    text: "Pull 1",
+  },
+  {
+    id: "hero_skill:core:h11:p229",
+    name: "Slam",
+    level: 1,
+    lineIndex: 1,
+    scope: "target",
+    text: "Push 2",
   },
 ];

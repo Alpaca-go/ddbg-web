@@ -1,4 +1,11 @@
-import type { CoreHigherSkillRow, StatusEffectEntry, LayoutEntry, SelfEffectEntry } from "./types";
+import type {
+  CoreHigherSkillRow,
+  StatusEffectEntry,
+  LayoutEntry,
+  SelfEffectEntry,
+  ShuffleEntry,
+  IgnoresEntry,
+} from "./types";
 
 /** 核心盒 Jester II/III 级逐卡注解（Kyries 审阅；R-048 签名断言由 core-higher-skills 执行）。 */
 export const coreHigherRows: readonly CoreHigherSkillRow[] = [
@@ -317,4 +324,87 @@ export const selfEffectEntries: readonly SelfEffectEntry[] = [
     kind: "stress",
     amount: -1,
   },
+];
+
+/** 文本位移规则（scope + Push/Pull 原文）。 */
+export const shuffleEntries: readonly ShuffleEntry[] = [
+  {
+    id: "hero_skill:core:h06:p106",
+    name: "Dirk Stab",
+    level: 1,
+    lineIndex: 0,
+    scope: "self",
+    text: "Pull 1",
+  },
+  {
+    id: "hero_skill:core:h06:p107",
+    name: "Dirk Stab",
+    level: 2,
+    lineIndex: 0,
+    scope: "self",
+    text: "Pull 1",
+  },
+  {
+    id: "hero_skill:core:h06:p108",
+    name: "Dirk Stab",
+    level: 3,
+    lineIndex: 0,
+    scope: "self",
+    text: "Pull 1",
+  },
+  {
+    id: "hero_skill:core:h06:p112",
+    name: "Finale",
+    level: 1,
+    lineIndex: 0,
+    scope: "self",
+    text: "Push 3",
+  },
+  {
+    id: "hero_skill:core:h06:p113",
+    name: "Finale",
+    level: 2,
+    lineIndex: 0,
+    scope: "self",
+    text: "Push 3",
+  },
+  {
+    id: "hero_skill:core:h06:p114",
+    name: "Finale",
+    level: 3,
+    lineIndex: 0,
+    scope: "self",
+    text: "Push 3",
+  },
+  {
+    id: "hero_skill:core:h06:p115",
+    name: "Solo",
+    level: 1,
+    lineIndex: 1,
+    scope: "self",
+    text: "Pull 2",
+  },
+  {
+    id: "hero_skill:core:h06:p116",
+    name: "Solo",
+    level: 2,
+    lineIndex: 1,
+    scope: "self",
+    text: "Pull 2",
+  },
+  {
+    id: "hero_skill:core:h06:p117",
+    name: "Solo",
+    level: 3,
+    lineIndex: 1,
+    scope: "self",
+    text: "Pull 2",
+  },
+];
+
+/** Ignores Protection / Guard 规则。 */
+export const ignoresEntries: readonly IgnoresEntry[] = [
+  { id: "hero_skill:core:h06:p106", name: "Dirk Stab", level: 1, lineIndex: 1, kind: "guard" },
+  { id: "hero_skill:core:h06:p107", name: "Dirk Stab", level: 2, lineIndex: 1, kind: "guard" },
+  { id: "hero_skill:core:h06:p108", name: "Dirk Stab", level: 3, lineIndex: 1, kind: "guard" },
 ];

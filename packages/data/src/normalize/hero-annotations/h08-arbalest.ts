@@ -4,6 +4,7 @@ import type {
   RangeEntry,
   RallyingFlareEntry,
   DamageEntry,
+  ShuffleEntry,
 } from "./types";
 
 /** 核心盒 Arbalest II/III 级逐卡注解（Kyries 审阅；R-048 签名断言由 core-higher-skills 执行）。 */
@@ -396,5 +397,81 @@ export const damageEntries: readonly DamageEntry[] = [
     amount: 3,
     condition: "marked",
     suffix: "{mark}",
+  },
+];
+
+/** 文本位移规则（scope + Push/Pull 原文）。 */
+export const shuffleEntries: readonly ShuffleEntry[] = [
+  {
+    id: "hero_skill:core:h08:p157",
+    name: "Bola",
+    level: 1,
+    lineIndex: 0,
+    scope: "self",
+    text: "Push 1",
+  },
+  {
+    id: "hero_skill:core:h08:p157",
+    name: "Bola",
+    level: 1,
+    lineIndex: 1,
+    scope: "target",
+    text: "Push 2",
+  },
+  {
+    id: "hero_skill:core:h08:p158",
+    name: "Bola",
+    level: 2,
+    lineIndex: 0,
+    scope: "self",
+    text: "Push 2",
+  },
+  {
+    id: "hero_skill:core:h08:p158",
+    name: "Bola",
+    level: 2,
+    lineIndex: 1,
+    scope: "target",
+    text: "Push 2",
+  },
+  {
+    id: "hero_skill:core:h08:p159",
+    name: "Bola",
+    level: 3,
+    lineIndex: 0,
+    scope: "self",
+    text: "Push 2",
+  },
+  {
+    id: "hero_skill:core:h08:p159",
+    name: "Bola",
+    level: 3,
+    lineIndex: 1,
+    scope: "target",
+    text: "Push 2",
+  },
+  {
+    id: "hero_skill:core:h08:p160",
+    name: "Blindfire",
+    level: 1,
+    lineIndex: 0,
+    scope: "self",
+    text: "Push 1",
+  },
+  {
+    id: "hero_skill:core:h08:p161",
+    name: "Blindfire",
+    level: 2,
+    lineIndex: 0,
+    scope: "self",
+    text: "Push 2",
+  },
+  {
+    id: "hero_skill:core:h08:p162",
+    name: "Blindfire",
+    level: 3,
+    lineIndex: 0,
+    scope: "self",
+    text: "Push 2",
   },
 ];

@@ -4,6 +4,7 @@ import type {
   SupportEffectEntry,
   DamageEntry,
   SelfEffectEntry,
+  ShuffleEntry,
 } from "./types";
 
 /** 完整印刷逐页核对的状态效果行（docs/phase2-four-core-skills-2026-10-11.md）。 */
@@ -263,5 +264,33 @@ export const selfEffectEntries: readonly SelfEffectEntry[] = [
     lineIndex: 1,
     kind: "stress",
     amount: -1,
+  },
+];
+
+/** 文本位移规则（scope + Push/Pull 原文）。 */
+export const shuffleEntries: readonly ShuffleEntry[] = [
+  {
+    id: "hero_skill:core:h01:p016",
+    name: "Holy Lance",
+    level: 1,
+    lineIndex: 0,
+    scope: "self",
+    text: "Pull 1",
+  },
+  {
+    id: "hero_skill:core:h01:p017",
+    name: "Holy Lance",
+    level: 2,
+    lineIndex: 0,
+    scope: "self",
+    text: "Pull 1",
+  },
+  {
+    id: "hero_skill:core:h01:p018",
+    name: "Holy Lance",
+    level: 3,
+    lineIndex: 0,
+    scope: "self",
+    text: "Pull 1",
   },
 ];

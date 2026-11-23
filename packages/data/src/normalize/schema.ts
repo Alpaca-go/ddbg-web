@@ -276,6 +276,30 @@ const heroSkillShared = {
       source: z.literal("print_front"),
     })
     .optional(),
+  /** 规则语义（新命名空间）：只放引擎要执行的解释，不放印刷原文。 */
+  rules: z
+    .strictObject({
+      shuffle: z
+        .array(
+          z.strictObject({
+            lineIndex: z.int().nonnegative(),
+            scope: z.enum(["self", "target"]),
+            text: z.string().min(1),
+          }),
+        )
+        .min(1)
+        .optional(),
+      ignores: z
+        .array(
+          z.strictObject({
+            lineIndex: z.int().nonnegative(),
+            kind: z.enum(["protection", "guard"]),
+          }),
+        )
+        .min(1)
+        .optional(),
+    })
+    .optional(),
   front_icons: z.array(normalizedIconSchema),
   back_icons: z.array(normalizedIconSchema),
   issues: z.array(z.string()),

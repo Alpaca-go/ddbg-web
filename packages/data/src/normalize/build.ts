@@ -54,6 +54,7 @@ import {
   applyHeroRanges,
   applyHeroRallyingFlare,
   applyHeroSelfEffects,
+  applyHeroTextRules,
   applyHeroStatuses,
   applyHeroSupport,
 } from "./hero-annotations";
@@ -754,7 +755,9 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
               applyHeroDamage(
                 applyHeroRanges(
                   applyHeroStatuses(
-                    applyHeroSelfEffects(applyHeroAnnotations(applyHeroLayouts(reviewed))),
+                    applyHeroTextRules(
+                      applyHeroSelfEffects(applyHeroAnnotations(applyHeroLayouts(reviewed))),
+                    ),
                   ),
                 ),
               ),

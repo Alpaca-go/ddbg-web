@@ -1,4 +1,4 @@
-import type { StatusEffectEntry, RangeEntry, LayoutEntry } from "./types";
+import type { StatusEffectEntry, RangeEntry, LayoutEntry, ShuffleEntry } from "./types";
 
 /** 完整印刷逐页核对的状态效果行（docs/phase2-four-core-skills-2026-10-11.md）。 */
 export const statusEntries: readonly StatusEffectEntry[] = [
@@ -258,5 +258,33 @@ export const layoutEntries: readonly LayoutEntry[] = [
       "{self_effects} Self Remove {bleed} {blight}, {buff} 2t",
       "{target_effects} Remove {bleed} {blight}, {buff} 2t",
     ],
+  },
+];
+
+/** 文本位移规则（scope + Push/Pull 原文）。 */
+export const shuffleEntries: readonly ShuffleEntry[] = [
+  {
+    id: "hero_skill:core:h02:p034",
+    name: "Breakthrough",
+    level: 1,
+    lineIndex: 0,
+    scope: "self",
+    text: "Pull 1",
+  },
+  {
+    id: "hero_skill:core:h02:p035",
+    name: "Breakthrough",
+    level: 2,
+    lineIndex: 0,
+    scope: "self",
+    text: "Pull 1",
+  },
+  {
+    id: "hero_skill:core:h02:p036",
+    name: "Breakthrough",
+    level: 3,
+    lineIndex: 0,
+    scope: "self",
+    text: "Pull 1",
   },
 ];

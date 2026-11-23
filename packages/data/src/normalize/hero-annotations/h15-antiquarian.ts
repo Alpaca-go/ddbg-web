@@ -1,4 +1,4 @@
-import type { HeroAnnotationModule, StatusEffectEntry } from "./types";
+import type { HeroAnnotationModule, StatusEffectEntry, ShuffleEntry } from "./types";
 import { lineSignature } from "./shared";
 import type { NormalizedHeroSkillCard } from "../schema";
 import { normalizedHeroSkillCardSchema } from "../schema";
@@ -716,3 +716,31 @@ export const antiquarianAnnotations: HeroAnnotationModule = {
   hero: "ANTIQUARIAN",
   apply: applyAntiquarianAnnotations,
 };
+
+/** 文本位移规则（scope + Push/Pull 原文）。 */
+export const shuffleEntries: readonly ShuffleEntry[] = [
+  {
+    id: "hero_skill:warrens:h15:p301",
+    name: "Get Down!",
+    level: 1,
+    lineIndex: 1,
+    scope: "self",
+    text: "Push 2",
+  },
+  {
+    id: "hero_skill:warrens:h15:p302",
+    name: "Get Down!",
+    level: 2,
+    lineIndex: 1,
+    scope: "self",
+    text: "Push 2",
+  },
+  {
+    id: "hero_skill:warrens:h15:p303",
+    name: "Get Down!",
+    level: 3,
+    lineIndex: 1,
+    scope: "self",
+    text: "Push 1 or Push 2",
+  },
+];

@@ -1,4 +1,10 @@
-import type { HeroAnnotationModule, HeroSkillPatch, StatusEffectEntry } from "./types";
+import type {
+  HeroAnnotationModule,
+  HeroSkillPatch,
+  StatusEffectEntry,
+  ShuffleEntry,
+  IgnoresEntry,
+} from "./types";
 import {
   applyPatches,
   cloneKey,
@@ -388,3 +394,59 @@ export const leperAnnotations: HeroAnnotationModule = {
   hero: "LEPER",
   apply: (cards) => applyPatches(cards, leperPatches(cards), "LEPER"),
 };
+
+/** 文本位移规则（scope + Push/Pull 原文）。 */
+export const shuffleEntries: readonly ShuffleEntry[] = [
+  {
+    id: "hero_skill:warrens:h14:p280",
+    name: "Purge",
+    level: 1,
+    lineIndex: 1,
+    scope: "target",
+    text: "Push 2",
+  },
+  {
+    id: "hero_skill:warrens:h14:p281",
+    name: "Purge",
+    level: 2,
+    lineIndex: 1,
+    scope: "target",
+    text: "Push 2",
+  },
+  {
+    id: "hero_skill:warrens:h14:p282",
+    name: "Purge",
+    level: 3,
+    lineIndex: 1,
+    scope: "target",
+    text: "Push 2",
+  },
+];
+
+/** Ignores Protection / Guard 规则。 */
+export const ignoresEntries: readonly IgnoresEntry[] = [
+  {
+    id: "hero_skill:warrens:h14:p292",
+    name: "Intimidate",
+    level: 1,
+    lineIndex: 1,
+    kind: "protection",
+  },
+  { id: "hero_skill:warrens:h14:p292", name: "Intimidate", level: 1, lineIndex: 2, kind: "guard" },
+  {
+    id: "hero_skill:warrens:h14:p293",
+    name: "Intimidate",
+    level: 2,
+    lineIndex: 1,
+    kind: "protection",
+  },
+  { id: "hero_skill:warrens:h14:p293", name: "Intimidate", level: 2, lineIndex: 2, kind: "guard" },
+  {
+    id: "hero_skill:warrens:h14:p294",
+    name: "Intimidate",
+    level: 3,
+    lineIndex: 1,
+    kind: "protection",
+  },
+  { id: "hero_skill:warrens:h14:p294", name: "Intimidate", level: 3, lineIndex: 2, kind: "guard" },
+];
