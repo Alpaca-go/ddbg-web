@@ -11,6 +11,12 @@
 其中 h01–h11 是纯数据表，h14 已改成统一 patch 表（参考实现）；
 **还剩 h12、h13、h15、h16、h17、h18 六个代码模块待按同一模式改写**。
 
+> **2026-11-23 方向调整（优先读）**：Kyries 已拍板走 A+C 方案
+> （规则只读逐卡注解、图标降级为显示层；提取器一形一 ID），见
+> [PLAN-2026-11-23-icon-semantics-decoupling.md](PLAN-2026-11-23-icon-semantics-decoupling.md)。
+> 本文 §3–§4 的「把剩余 6 个改成 patch 表」**暂停**：先做该计划的 Phase A1/A2，
+> A3 会直接删掉 h12–h18 的 rekey/重建类代码。本文保留作为当前结构的说明。
+
 截至撰写时：分支 `main`，工作区干净，本地 `ff007a4c` 领先 `origin/main`
 （`14995041`）1 个提交。开工前先 `git status` / `git log --oneline -3` 核对。
 
