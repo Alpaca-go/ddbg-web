@@ -123047,6 +123047,7 @@
      }
     ]
    ],
+   "verified_self_range": true,
    "verified_status_effects": [
     {
      "lineIndex": 1,
@@ -123458,6 +123459,7 @@
      }
     ]
    ],
+   "verified_self_range": true,
    "verified_status_effects": [
     {
      "lineIndex": 1,
@@ -123869,6 +123871,7 @@
      }
     ]
    ],
+   "verified_self_range": true,
    "verified_status_effects": [
     {
      "lineIndex": 1,
@@ -125769,6 +125772,11 @@
      }
     ]
    ],
+   "verified_self_heal": {
+    "lineIndex": 0,
+    "amount": 1,
+    "source": "print_front"
+   },
    "verified_status_effects": [
     {
      "lineIndex": 2,
@@ -126526,6 +126534,11 @@
      }
     ]
    ],
+   "verified_self_heal": {
+    "lineIndex": 0,
+    "amount": 2,
+    "source": "print_front"
+   },
    "verified_status_effects": [
     {
      "lineIndex": 2,
@@ -127283,6 +127296,11 @@
      }
     ]
    ],
+   "verified_self_heal": {
+    "lineIndex": 0,
+    "amount": 4,
+    "source": "print_front"
+   },
    "verified_status_effects": [
     {
      "lineIndex": 2,
