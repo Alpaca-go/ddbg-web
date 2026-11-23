@@ -53,6 +53,7 @@ import {
   applyHeroLayouts,
   applyHeroRanges,
   applyHeroRallyingFlare,
+  applyHeroRemoval,
   applyHeroSelfEffects,
   applyHeroTargetStress,
   applyHeroTextRules,
@@ -759,7 +760,9 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
                   applyHeroStatuses(
                     applyHeroTextRules(
                       applyHeroTargetStress(
-                        applyHeroSelfEffects(applyHeroAnnotations(applyHeroLayouts(reviewed))),
+                        applyHeroRemoval(
+                          applyHeroSelfEffects(applyHeroAnnotations(applyHeroLayouts(reviewed))),
+                        ),
                       ),
                     ),
                   ),

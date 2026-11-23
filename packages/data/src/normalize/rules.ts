@@ -59,6 +59,8 @@ export function projectHeroSkillRules(card: NormalizedHeroSkillCard): HeroSkillR
   // 单元 5 已写入的文本规则不属于 verified_*，投影时原样保留。
   if (card.rules?.shuffle) rules.shuffle = card.rules.shuffle;
   if (card.rules?.ignores) rules.ignores = card.rules.ignores;
+  // A2 单元 2 的条件移除规则同样直接写在 rules 下。
+  if (card.rules?.removal) rules.removal = card.rules.removal;
   if (card.verified_status_effects) rules.statuses = card.verified_status_effects;
   if (card.verified_damage_bonus) rules.damage = card.verified_damage_bonus;
   if (card.verified_damage_bonuses) rules.damageBonuses = card.verified_damage_bonuses;

@@ -90,6 +90,8 @@ import { applyBountyStatuses } from "./bounty-statuses";
 import { applyDamage } from "./damage";
 import { applyLayouts } from "./layout";
 import { applyRallyingFlare } from "./rallying-flare";
+import { applyRemoval } from "./removal";
+import { REMOVAL_RULES } from "./removal-data";
 import { applySelfEffects } from "./self-effects";
 import { applyTargetStress } from "./target-stress";
 import { applyTextRules } from "./text-rules";
@@ -109,6 +111,7 @@ import type {
   StatusEffectEntry,
   SupportEffectEntry,
   TargetStressEntry,
+  RemovalEntry,
 } from "./types";
 
 export type {
@@ -125,6 +128,7 @@ export type {
   StatusEffectEntry,
   SupportEffectEntry,
   TargetStressEntry,
+  RemovalEntry,
 } from "./types";
 
 /**
@@ -190,6 +194,9 @@ export const SELF_EFFECTS: readonly SelfEffectEntry[] = [
 
 /** 目标压力行（目前只有 Jester 的 Inspiring Tune I–III）。 */
 export const TARGET_STRESS: readonly TargetStressEntry[] = [...jesterTargetStress];
+
+/** 条件移除行（Battlefield Medicine、Toxin Trickery）。 */
+export const REMOVAL_ENTRIES: readonly RemovalEntry[] = [...REMOVAL_RULES];
 
 /** 已复核支援效果行（当前只有 Crusader 的 Inspiring Cry I–III）。 */
 export const SUPPORT_EFFECTS: readonly SupportEffectEntry[] = [...crusaderSupport];
@@ -296,6 +303,11 @@ export function applyHeroTargetStress(
   cards: readonly NormalizedHeroSkillCard[],
 ): NormalizedHeroSkillCard[] {
   return applyTargetStress(cards, TARGET_STRESS);
+}
+export function applyHeroRemoval(
+  cards: readonly NormalizedHeroSkillCard[],
+): NormalizedHeroSkillCard[] {
+  return applyRemoval(cards, REMOVAL_ENTRIES);
 }
 export function applyHeroTextRules(
   cards: readonly NormalizedHeroSkillCard[],

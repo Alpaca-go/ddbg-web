@@ -4,6 +4,7 @@ import type {
   RangeEntry,
   SelfEffectEntry,
   ShuffleEntry,
+  RemovalEntry,
 } from "./types";
 
 /** 核心盒 Plague Doctor II/III 级逐卡注解（Kyries 审阅；R-048 签名断言由 core-higher-skills 执行）。 */
@@ -436,5 +437,49 @@ export const shuffleEntries: readonly ShuffleEntry[] = [
     lineIndex: 0,
     scope: "target",
     text: "Push 2 or Pull 2",
+  },
+];
+
+/** Battlefield Medicine 的 Remove Bleed/Blight 行；没有标记的行与同框治疗行配对。 */
+export const removalEntries: readonly RemovalEntry[] = [
+  {
+    id: "hero_skill:core:h07:p139",
+    name: "Battlefield Medicine",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    kinds: ["bleed", "blight"],
+  },
+  {
+    id: "hero_skill:core:h07:p140",
+    name: "Battlefield Medicine",
+    level: 2,
+    lineIndex: 1,
+    scope: "target",
+    kinds: ["bleed", "blight"],
+  },
+  {
+    id: "hero_skill:core:h07:p140",
+    name: "Battlefield Medicine",
+    level: 2,
+    lineIndex: 2,
+    scope: "self",
+    kinds: ["bleed", "blight"],
+  },
+  {
+    id: "hero_skill:core:h07:p141",
+    name: "Battlefield Medicine",
+    level: 3,
+    lineIndex: 1,
+    scope: "target",
+    kinds: ["bleed", "blight"],
+  },
+  {
+    id: "hero_skill:core:h07:p141",
+    name: "Battlefield Medicine",
+    level: 3,
+    lineIndex: 2,
+    scope: "self",
+    kinds: ["bleed", "blight"],
   },
 ];

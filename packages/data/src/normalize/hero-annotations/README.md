@@ -34,22 +34,28 @@ h01–h11 只有 1–2；h12–h18 是 1–5。
 
 ## 数据表与 applier 的对应
 
-| 数据导出               | 消费方                                               |
-| ---------------------- | ---------------------------------------------------- |
-| `statusEntries`        | [status-effects.ts](status-effects.ts)               |
-| `rangeEntries`         | [ranges.ts](ranges.ts)                               |
-| `supportEntries`       | [support-effects.ts](support-effects.ts)             |
-| `layoutEntries`        | [layout.ts](layout.ts)                               |
-| `damageEntries`        | [damage.ts](damage.ts)                               |
-| `rallyingFlareEntries` | [rallying-flare.ts](rallying-flare.ts)               |
-| `bountyStatusRows`     | [bounty-statuses.ts](bounty-statuses.ts)             |
-| `coreHigherRows`       | [../core-higher-skills.ts](../core-higher-skills.ts) |
+| 数据导出                            | 消费方                                               |
+| ----------------------------------- | ---------------------------------------------------- |
+| `statusEntries`                     | [status-effects.ts](status-effects.ts)               |
+| `rangeEntries`                      | [ranges.ts](ranges.ts)                               |
+| `selfEffectEntries`                 | [self-effects.ts](self-effects.ts)                   |
+| `targetStressEntries`               | [target-stress.ts](target-stress.ts)                 |
+| `removalEntries`                    | [removal.ts](removal.ts)                             |
+| `supportEntries`                    | [support-effects.ts](support-effects.ts)             |
+| `layoutEntries`                     | [layout.ts](layout.ts)                               |
+| `damageEntries`                     | [damage.ts](damage.ts)                               |
+| `rallyingFlareEntries`              | [rallying-flare.ts](rallying-flare.ts)               |
+| `bountyStatusRows`                  | [bounty-statuses.ts](bounty-statuses.ts)             |
+| `shuffleEntries` / `ignoresEntries` | [text-rules.ts](text-rules.ts)                       |
+| `coreHigherRows`                    | [../core-higher-skills.ts](../core-higher-skills.ts) |
 
 补丁类（h12–h18）由 `index.ts` 的 `applyHeroAnnotations` 按 `HERO_ANNOTATIONS` 顺序执行，
 元数据断言统一由 [patch-helpers.ts](patch-helpers.ts) 的 `applyPatches` 完成。
 
 ## 规则
 
+- 旧字段仍写 `verified_*`；A2 新增的文本/移除规则直接写嵌套 `rules.*`
+  （`rules.shuffle`、`rules.ignores`、`rules.removal`），引擎优先读 `rules`，文本解析作未注解卡的 fallback。
 - 所有签名断言保留（`lineSignature`），不得放宽（R-048）。
 - 评审注释（`R-xxx` / `Q-xxx`）随对应行保留。
 - 改写后必须零 diff：

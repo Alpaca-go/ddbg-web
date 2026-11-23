@@ -181,4 +181,33 @@ describe("R1：rules 与 verified_* 双写一致", () => {
     }
     expect(file.cards.every((card) => card.rules?.turnStart !== undefined)).toBe(true);
   });
+
+  it("A2 单元 2：Remove Bleed/Blight 行写在 rules.removal", () => {
+    const file = normalizedHeroSkillFileSchema.parse(read("normalized/corebox/hero_skill.json"));
+    const expected: Record<string, unknown> = {
+      "hero_skill:core:h07:p139": [{ lineIndex: 0, scope: "target", kinds: ["bleed", "blight"] }],
+      "hero_skill:core:h07:p140": [
+        { lineIndex: 1, scope: "target", kinds: ["bleed", "blight"] },
+        { lineIndex: 2, scope: "self", kinds: ["bleed", "blight"] },
+      ],
+      "hero_skill:core:h07:p141": [
+        { lineIndex: 1, scope: "target", kinds: ["bleed", "blight"] },
+        { lineIndex: 2, scope: "self", kinds: ["bleed", "blight"] },
+      ],
+      "hero_skill:core:h09:p187": [{ lineIndex: 2, scope: "self", kinds: ["bleed", "blight"] }],
+      "hero_skill:core:h09:p188": [
+        { lineIndex: 3, scope: "self", kinds: ["bleed", "blight"] },
+        { lineIndex: 4, scope: "target", kinds: ["bleed", "blight"] },
+      ],
+      "hero_skill:core:h09:p189": [
+        { lineIndex: 3, scope: "self", kinds: ["bleed", "blight"] },
+        { lineIndex: 4, scope: "target", kinds: ["bleed", "blight"] },
+      ],
+    };
+    for (const [id, removal] of Object.entries(expected)) {
+      const card = file.cards.find((entry) => entry.id === id);
+      expect(card, id).toBeDefined();
+      expect(card?.rules?.removal, id).toEqual(removal);
+    }
+  });
 });

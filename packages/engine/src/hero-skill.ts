@@ -258,6 +258,11 @@ export type HeroSkillCardView = {
       readonly lineIndex: number;
       readonly kind: "protection" | "guard";
     }[];
+    readonly removal?: readonly {
+      readonly lineIndex: number;
+      readonly scope: "self" | "target";
+      readonly kinds: readonly ("bleed" | "blight")[];
+    }[];
   };
   readonly verified_self_range?: true;
   readonly verified_required_form?: SkillForm;
@@ -1144,10 +1149,68 @@ function stressLineAudience(
 const EXTRACTED_SELF_MARK = String.fromCharCode(7);
 
 /**
- * 「Remove + bleed + blight」。标记可以在同一行，也可以在同一效果框的另一行。
- * 和增益、回合数写在同一行的不算。文字必须是「Remove」这一个词。
+ * 「Remove + bleed + blight」。优先读逐卡规则 `rules.removal`；
+ * 未注解的卡（历史测试视图）仍走文本解析，标记可在同一行，也可和效果框的另一行配对。
  */
 function readConditionRemoval(skill: HeroSkillCardView): ConditionRemoval {
+  const rules = skill.rules?.removal;
+  if (rules) return readConditionRemovalFromRules(skill, rules);
+  return readConditionRemovalFromText(skill);
+}
+
+function readConditionRemovalFromRules(
+  skill: HeroSkillCardView,
+  rules: NonNullable<NonNullable<HeroSkillCardView["rules"]>["removal"]>,
+): ConditionRemoval {
+  const none: ConditionRemoval = {
+    targetLines: 0,
+    actorLines: 0,
+    pairedTargetLines: 0,
+    lineCount: 0,
+  };
+  const removeLines = new Set(rules.map((rule) => rule.lineIndex));
+  const openBoxes: ("self" | "target")[] = [];
+  skill.effect_lines.forEach((line, index) => {
+    if (removeLines.has(index)) return;
+    const audience = effectBoxAudience(line);
+    if (audience !== null) openBoxes.push(audience);
+  });
+  let markedSelf = 0;
+  let markedTarget = 0;
+  const unmarked: ("self" | "target")[] = [];
+  for (const rule of rules) {
+    if (!Number.isSafeInteger(rule.lineIndex) || rule.lineIndex < 0) return none;
+    const line = skill.effect_lines[rule.lineIndex];
+    if (!line) return none;
+    if (!rule.kinds.includes("bleed") || !rule.kinds.includes("blight")) return none;
+    const kind = removeBleedBlightKind(line);
+    if (kind === null) return none;
+    if (kind === "unmarked") {
+      unmarked.push(rule.scope);
+      continue;
+    }
+    if (kind !== rule.scope) return none;
+    if (kind === "self") markedSelf += 1;
+    else markedTarget += 1;
+  }
+  if (unmarked.length !== openBoxes.length) return none;
+  let pairedSelf = 0;
+  let pairedTarget = 0;
+  for (let index = 0; index < unmarked.length; index++) {
+    const scope = unmarked[index]!;
+    if (scope !== openBoxes[index]) return none;
+    if (scope === "self") pairedSelf += 1;
+    else pairedTarget += 1;
+  }
+  return {
+    targetLines: markedTarget + pairedTarget,
+    actorLines: markedSelf + pairedSelf,
+    pairedTargetLines: pairedTarget,
+    lineCount: rules.length,
+  };
+}
+
+function readConditionRemovalFromText(skill: HeroSkillCardView): ConditionRemoval {
   const none: ConditionRemoval = {
     targetLines: 0,
     actorLines: 0,

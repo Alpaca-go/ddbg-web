@@ -7,6 +7,10 @@
 来源：[audit-2026-11-23-icon-semantics.md](audit-2026-11-23-icon-semantics.md) 的 223 行，
 其中「规则语义」168 行按目标字段归成以下迁移单元。分类是初分，开工前逐行复核。
 
+> **2026-11-24 进展**：R1（`rules` 双写）已完成；单元 1 的 Inspiring Tune 目标压力补注解并修掉回归；
+> 单元 2 已完成——Battlefield Medicine p139–p141、Toxin Trickery p187–p189 写入 `rules.removal`，
+> 引擎优先读规则、文本解析保留给未注解的历史测试视图。单元 3 未开始。
+
 总体原则：
 
 - 规则只读 `verified_*`；文本规则（Push/Pull、Ignores）保留文本解析，只去掉对「用 `icon.key` 找 self/target 侧」的依赖；
@@ -32,6 +36,9 @@
 风险：低。字段已存在；有现成数据测试。
 
 ## 单元 2：条件移除（Remove Bleed/Blight 等）
+
+**状态：已完成（2026-11-24）**。`rules.removal` 覆盖 Battlefield Medicine p139–p141、
+Toxin Trickery p187–p189；Adrenaline Rush 的 Remove 与 Buff 同一行，继续由状态注解消费。
 
 行数：5 + 3 + 2（`readConditionRemoval`、`removeBleedBlightKind`、
 `readSelfBleedRemoval`、`selfRemoveBleedLine`）。

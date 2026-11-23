@@ -6,6 +6,7 @@ import type {
   DamageEntry,
   ShuffleEntry,
   IgnoresEntry,
+  RemovalEntry,
 } from "./types";
 
 /** 核心盒 Grave Robber II/III 级逐卡注解（Kyries 审阅；R-048 签名断言由 core-higher-skills 执行）。 */
@@ -457,5 +458,49 @@ export const ignoresEntries: readonly IgnoresEntry[] = [
     level: 3,
     lineIndex: 0,
     kind: "protection",
+  },
+];
+
+/** Toxin Trickery 的 Remove Bleed/Blight 行；按卡面效果框顺序配对自身/目标。 */
+export const removalEntries: readonly RemovalEntry[] = [
+  {
+    id: "hero_skill:core:h09:p187",
+    name: "Toxin Trickery",
+    level: 1,
+    lineIndex: 2,
+    scope: "self",
+    kinds: ["bleed", "blight"],
+  },
+  {
+    id: "hero_skill:core:h09:p188",
+    name: "Toxin Trickery",
+    level: 2,
+    lineIndex: 3,
+    scope: "self",
+    kinds: ["bleed", "blight"],
+  },
+  {
+    id: "hero_skill:core:h09:p188",
+    name: "Toxin Trickery",
+    level: 2,
+    lineIndex: 4,
+    scope: "target",
+    kinds: ["bleed", "blight"],
+  },
+  {
+    id: "hero_skill:core:h09:p189",
+    name: "Toxin Trickery",
+    level: 3,
+    lineIndex: 3,
+    scope: "self",
+    kinds: ["bleed", "blight"],
+  },
+  {
+    id: "hero_skill:core:h09:p189",
+    name: "Toxin Trickery",
+    level: 3,
+    lineIndex: 4,
+    scope: "target",
+    kinds: ["bleed", "blight"],
   },
 ];

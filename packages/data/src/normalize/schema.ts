@@ -315,6 +315,19 @@ export const heroSkillRulesSchema = z.strictObject({
     )
     .min(1)
     .optional(),
+  removal: z
+    .array(
+      z.strictObject({
+        lineIndex: z.int().nonnegative(),
+        scope: z.enum(["self", "target"]),
+        kinds: z
+          .array(z.enum(["bleed", "blight"]))
+          .length(2)
+          .refine((kinds) => new Set(kinds).size === kinds.length, "移除状态种类不得重复"),
+      }),
+    )
+    .min(1)
+    .optional(),
 });
 
 /** 怪物技能规则：与英雄共用核心字段，另有怪物效果计划。 */

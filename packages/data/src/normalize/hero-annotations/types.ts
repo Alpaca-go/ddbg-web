@@ -196,3 +196,13 @@ export type IgnoresEntry = {
   readonly lineIndex: number;
   readonly kind: "protection" | "guard";
 };
+
+/** Remove Bleed / Blight 的逐行规则；scope 由卡面标记或同框配对行决定。 */
+export type RemovalEntry = {
+  readonly id: string;
+  readonly name: string;
+  readonly level: number;
+  readonly lineIndex: number;
+  readonly scope: "self" | "target";
+  readonly kinds: readonly ("bleed" | "blight")[];
+};

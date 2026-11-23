@@ -66434,6 +66434,18 @@
      "text": " 1"
     }
    ],
+   "rules": {
+    "removal": [
+     {
+      "lineIndex": 0,
+      "scope": "target",
+      "kinds": [
+       "bleed",
+       "blight"
+      ]
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -67065,7 +67077,25 @@
       "amount": 3,
       "source": "print_front"
      }
-    }
+    },
+    "removal": [
+     {
+      "lineIndex": 1,
+      "scope": "target",
+      "kinds": [
+       "bleed",
+       "blight"
+      ]
+     },
+     {
+      "lineIndex": 2,
+      "scope": "self",
+      "kinds": [
+       "bleed",
+       "blight"
+      ]
+     }
+    ]
    },
    "front_icons": [
     {
@@ -67753,7 +67783,25 @@
       "amount": 4,
       "source": "print_front"
      }
-    }
+    },
+    "removal": [
+     {
+      "lineIndex": 1,
+      "scope": "target",
+      "kinds": [
+       "bleed",
+       "blight"
+      ]
+     },
+     {
+      "lineIndex": 2,
+      "scope": "self",
+      "kinds": [
+       "bleed",
+       "blight"
+      ]
+     }
+    ]
    },
    "front_icons": [
     {
@@ -89625,6 +89673,16 @@
       "kind": "buff",
       "duration": 2
      }
+    ],
+    "removal": [
+     {
+      "lineIndex": 2,
+      "scope": "self",
+      "kinds": [
+       "bleed",
+       "blight"
+      ]
+     }
     ]
    },
    "front_icons": [
@@ -90166,6 +90224,24 @@
       "scope": "target",
       "kind": "buff",
       "duration": 2
+     }
+    ],
+    "removal": [
+     {
+      "lineIndex": 3,
+      "scope": "self",
+      "kinds": [
+       "bleed",
+       "blight"
+      ]
+     },
+     {
+      "lineIndex": 4,
+      "scope": "target",
+      "kinds": [
+       "bleed",
+       "blight"
+      ]
      }
     ]
    },
@@ -90781,6 +90857,24 @@
       "scope": "target",
       "kind": "buff",
       "duration": 2
+     }
+    ],
+    "removal": [
+     {
+      "lineIndex": 3,
+      "scope": "self",
+      "kinds": [
+       "bleed",
+       "blight"
+      ]
+     },
+     {
+      "lineIndex": 4,
+      "scope": "target",
+      "kinds": [
+       "bleed",
+       "blight"
+      ]
      }
     ]
    },
