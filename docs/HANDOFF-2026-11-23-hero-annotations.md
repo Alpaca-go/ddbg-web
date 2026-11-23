@@ -16,8 +16,15 @@
 
 ## 1. 目标结构
 
+文件骨架与两种文件形态见
+[hero-annotations/README.md](../packages/data/src/normalize/hero-annotations/README.md)：
+h01–h11 是纯数据表，h12–h18 是「数据 + 逐卡补丁」；**前 11 个不需要改**，
+它们的注解本来就由共享 applier 消费。改写 h12–h18 时按 README 的统一顺序排版
+（imports → 数据 → 工厂 → patch 表 → 模块导出），h14 是参考实现。
+
 ```text
 packages/data/src/normalize/hero-annotations/
+  README.md          文件骨架、两种形态、数据表与 applier 对应表
   shared.ts          lineSignature（唯一实现）
   patch-helpers.ts   text / cloneKey / iconFromPool / iconFromCard /
                      segmentOnCard / segmentOnCardAll / segmentOnCardInEffects /
@@ -76,7 +83,9 @@ packages/data/src/normalize/hero-annotations/
 
 ## 4. 单个英雄的改写配方（照抄 h14）
 
-参考 [h14-leper.ts](../packages/data/src/normalize/hero-annotations/h14-leper.ts)：
+参考 [h14-leper.ts](../packages/data/src/normalize/hero-annotations/h14-leper.ts)，
+文件顺序按 [hero-annotations/README.md](../packages/data/src/normalize/hero-annotations/README.md)：
+imports → 数据导出（若有）→ 工厂函数 → patch 表 → 模块导出。
 
 1. **删掉** `switch (card.id)` 与 `assertXxx`。
 2. 每个技能族写一个工厂函数，返回 `HeroSkillPatch`：
