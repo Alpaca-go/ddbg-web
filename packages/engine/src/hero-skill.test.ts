@@ -1267,22 +1267,22 @@ describe("resolveHeroSkill", () => {
       printedAmount: 12,
       damageDealt: 12,
       wounds: 13,
-      actorStress: 3,
-      skipped: [{ code: "effect_lines" }],
+      actorStress: 4,
+      skipped: [],
     });
     expect(use("hero_skill:core:h11:p226", raging, 9)).toMatchObject({
       outcome: "hit",
       printedAmount: 9,
       damageDealt: 9,
       wounds: 10,
-      actorStress: 4,
-      skipped: [{ code: "effect_lines" }],
+      actorStress: 5,
+      skipped: [],
     });
     expect(use("hero_skill:core:h11:p226", raging, 10)).toMatchObject({
       outcome: "miss",
       printedAmount: null,
       wounds: 1,
-      actorStress: 4,
+      actorStress: 5,
     });
 
     const absolution = card("hero_skill:core:h11:p217");
@@ -9571,7 +9571,7 @@ describe("resolveHeroSkill", () => {
       wounds: 3,
     });
 
-    // Rage I：自身「+1」压力的 numeric 是 null。不能先加成 5，再在光照 1 加成 6。
+    // Rage I：自身「+1」已在 A0.5 核实（numeric 保留 null）。光照 1 再 +1，暴击再 −1。
     const rage = card("hero_skill:core:h11:p226");
     expect(rage.name).toBe("Rage");
     expect(rage.level).toBe(1);
@@ -9590,7 +9590,7 @@ describe("resolveHeroSkill", () => {
     ).toEqual([["+1", null]]);
     const abomination = { id: "abomination", wounds: 0, stress: 4 };
     const soldier = { id: "soldier", side: "monster" as const, wounds: 1, dodge: 0 };
-    // 光照 1 把暴击阈值抬到 2。掷 2 暴击、伤害 12。压力只因打出暴击变成 3，不是 5。
+    // 光照 1 把暴击阈值抬到 2。掷 2 暴击、伤害 12。压力 4 +1（卡面）+1（光照）−1（暴击）= 5。
     expect(
       use("hero_skill:core:h11:p226", { actor: abomination, target: soldier, light: 1 }, 2),
     ).toMatchObject({
@@ -9601,11 +9601,11 @@ describe("resolveHeroSkill", () => {
       damageDealt: 12,
       wounds: 13,
       actorWounds: 0,
-      actorStress: 3,
+      actorStress: 5,
       targetStress: null,
-      skipped: [{ code: "effect_lines" }],
+      skipped: [],
     });
-    // 掷 3 命中、伤害 9。没有承受压力，压力停在 4，不是 5，也不是 6。
+    // 掷 3 命中、伤害 9。压力 4 +1（卡面）+1（光照）= 6。
     expect(
       use("hero_skill:core:h11:p226", { actor: abomination, target: soldier, light: 1 }, 3),
     ).toMatchObject({
@@ -9613,11 +9613,11 @@ describe("resolveHeroSkill", () => {
       printedAmount: 9,
       damageDealt: 9,
       wounds: 10,
-      actorStress: 4,
-      skipped: [{ code: "effect_lines" }],
+      actorStress: 6,
+      skipped: [],
     });
     // 光照 0 同样只给暴击和怪物 Dodge。Dodge 0 再 +1，命中阈值是 8。掷 9 落空。
-    // 英雄 Acc 不加，所以不是命中。压力仍是 4。怪物没有压力轨。
+    // 英雄 Acc 不加，所以不是命中。自身压力 +1，光照 0 再 +1，变成 6。怪物没有压力轨。
     expect(
       use("hero_skill:core:h11:p226", { actor: abomination, target: soldier, light: 0 }, 9),
     ).toMatchObject({
@@ -9625,7 +9625,7 @@ describe("resolveHeroSkill", () => {
       printedAmount: null,
       damageDealt: null,
       wounds: 1,
-      actorStress: 4,
+      actorStress: 6,
       targetStress: null,
     });
 

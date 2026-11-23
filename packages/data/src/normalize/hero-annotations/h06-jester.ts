@@ -3,6 +3,7 @@ import type {
   StatusEffectEntry,
   LayoutEntry,
   SelfEffectEntry,
+  TargetStressEntry,
   ShuffleEntry,
   IgnoresEntry,
 } from "./types";
@@ -322,6 +323,31 @@ export const selfEffectEntries: readonly SelfEffectEntry[] = [
     level: 3,
     lineIndex: 1,
     kind: "stress",
+    amount: -1,
+  },
+];
+
+/** Inspiring Tune 的目标压力行；与上面的自身压力行成对（R-213 同型）。 */
+export const targetStressEntries: readonly TargetStressEntry[] = [
+  {
+    id: "hero_skill:core:h06:p121",
+    name: "Inspiring Tune",
+    level: 1,
+    lineIndex: 0,
+    amount: -1,
+  },
+  {
+    id: "hero_skill:core:h06:p122",
+    name: "Inspiring Tune",
+    level: 2,
+    lineIndex: 0,
+    amount: -1,
+  },
+  {
+    id: "hero_skill:core:h06:p123",
+    name: "Inspiring Tune",
+    level: 3,
+    lineIndex: 0,
     amount: -1,
   },
 ];

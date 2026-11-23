@@ -35,6 +35,7 @@ import {
   layoutEntries as jesterLayouts,
   selfEffectEntries as jesterSelfEffects,
   statusEntries as jesterStatus,
+  targetStressEntries as jesterTargetStress,
 } from "./h06-jester";
 import {
   coreHigherRows as plagueDoctorHigherRows,
@@ -90,6 +91,7 @@ import { applyDamage } from "./damage";
 import { applyLayouts } from "./layout";
 import { applyRallyingFlare } from "./rallying-flare";
 import { applySelfEffects } from "./self-effects";
+import { applyTargetStress } from "./target-stress";
 import { applyTextRules } from "./text-rules";
 import { IGNORES_RULES, SHUFFLE_RULES } from "./text-rules-data";
 import { applyRangeEntries } from "./ranges";
@@ -106,6 +108,7 @@ import type {
   SelfEffectEntry,
   StatusEffectEntry,
   SupportEffectEntry,
+  TargetStressEntry,
 } from "./types";
 
 export type {
@@ -121,6 +124,7 @@ export type {
   SelfEffectEntry,
   StatusEffectEntry,
   SupportEffectEntry,
+  TargetStressEntry,
 } from "./types";
 
 /**
@@ -183,6 +187,9 @@ export const SELF_EFFECTS: readonly SelfEffectEntry[] = [
   ...plagueDoctorSelfEffects,
   ...abominationSelfEffects,
 ];
+
+/** 目标压力行（目前只有 Jester 的 Inspiring Tune I–III）。 */
+export const TARGET_STRESS: readonly TargetStressEntry[] = [...jesterTargetStress];
 
 /** 已复核支援效果行（当前只有 Crusader 的 Inspiring Cry I–III）。 */
 export const SUPPORT_EFFECTS: readonly SupportEffectEntry[] = [...crusaderSupport];
@@ -284,6 +291,11 @@ export function applyHeroSelfEffects(
   cards: readonly NormalizedHeroSkillCard[],
 ): NormalizedHeroSkillCard[] {
   return applySelfEffects(cards, SELF_EFFECTS);
+}
+export function applyHeroTargetStress(
+  cards: readonly NormalizedHeroSkillCard[],
+): NormalizedHeroSkillCard[] {
+  return applyTargetStress(cards, TARGET_STRESS);
 }
 export function applyHeroTextRules(
   cards: readonly NormalizedHeroSkillCard[],

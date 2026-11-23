@@ -2685,8 +2685,6 @@ function resolveSkill(
       )
     )
       return refuse(skill, combat, "目标压力注解与已确认卡面不符（R-048）");
-    if (!emptyArea && target.stress === undefined)
-      return refuse(skill, combat, "目标压力效果缺少压力轨");
   }
   if (
     active.verified_damage_bonuses !== undefined &&
@@ -2906,6 +2904,9 @@ function resolveSkill(
         );
       }
     }
+  }
+  if (extraStress && !emptyArea && target.stress === undefined) {
+    return refuse(skill, combat, "目标效果要改压力，但目标没有压力（规则书第 20 页）");
   }
   if (selfTarget) {
     const actor = combat.actor;

@@ -170,6 +170,14 @@ export type SelfEffectEntry = {
   readonly kind: "heal" | "stress";
   readonly amount: number;
 };
+/** 目标压力行：lineIndex 指向含 target_effects + stress 的那一行。 */
+export type TargetStressEntry = {
+  readonly id: string;
+  readonly name: string;
+  readonly level: number;
+  readonly lineIndex: number;
+  readonly amount: number;
+};
 /** 文本位移规则：scope 来自印刷作用侧，text 保留「Push N / Pull N」原文。 */
 export type ShuffleEntry = {
   readonly id: string;
