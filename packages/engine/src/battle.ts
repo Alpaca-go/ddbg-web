@@ -207,6 +207,16 @@ export type BattleSetup = {
       readonly immune: boolean;
       readonly source: "print_front";
     };
+    /** R1 起的规则命名空间；读取方优先用 rules，旧字段保留 fallback。 */
+    readonly rules?: {
+      readonly conditionDefence?: import("../../data/src/normalize/hero-stat").HeroConditionDefence;
+      readonly higherConditionDefence?: import("../../data/src/normalize/hero-higher-defence").HigherHeroDefence;
+      readonly buffDefence?: {
+        readonly resistant: boolean;
+        readonly immune: boolean;
+        readonly source: "print_front";
+      };
+    };
   }[];
   readonly entities: readonly BattleEntity[];
   readonly areas: readonly BattleArea[];

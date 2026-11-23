@@ -27,8 +27,12 @@ export function readHeroPassiveDefence(
   entity: Pick<BattleEntity, "heroStatId"> & Partial<Pick<BattleEntity, "side" | "areaId">>,
 ): HeroRuntimeDefence | undefined {
   const hero = battle.heroStats?.find((h) => h.id === entity.heroStatId);
-  if (hero && (hero.verified_higher_condition_defence || hero.level !== 1)) {
-    const higher = readHigherHeroDefence(hero);
+  const higherAnn = hero?.rules?.higherConditionDefence ?? hero?.verified_higher_condition_defence;
+  if (hero && (higherAnn || hero.level !== 1)) {
+    const higher = readHigherHeroDefence({
+      ...hero,
+      verified_higher_condition_defence: higherAnn,
+    });
     if (!higher) return undefined;
     const persistent = (kinds: readonly string[]) =>
       STATUS_KINDS.filter((kind) => kinds.includes(kind));
@@ -45,7 +49,7 @@ export function readHeroPassiveDefence(
       diseaseImmune: higher.immunities.includes("disease"),
     };
   }
-  const defence = hero?.verified_condition_defence;
+  const defence = hero?.rules?.conditionDefence ?? hero?.verified_condition_defence;
   const legacyKey = hero?.rawId ? `${hero.rawId}:${hero.face}` : hero?.id;
   const expected = legacyKey ? approvedHeroConditionDefences[legacyKey] : undefined;
   if (
@@ -133,10 +137,12 @@ export function applyBattleSkillStatuses(
     let immunities: StatusKind[] = [];
     if (scope === "target") {
       const hero = battle.heroStats?.find((entry) => entry.id === entity.heroStatId);
-      const buff = hero?.verified_buff_defence;
+      const buff = hero?.rules?.buffDefence ?? hero?.verified_buff_defence;
+      const higherDefence =
+        hero?.rules?.higherConditionDefence ?? hero?.verified_higher_condition_defence;
       if (entity.side === "hero") {
-        const defence = hero?.verified_condition_defence;
-        if (defence || (hero && (hero.verified_higher_condition_defence || hero.level !== 1))) {
+        const defence = hero?.rules?.conditionDefence ?? hero?.verified_condition_defence;
+        if (defence || (hero && (higherDefence || hero.level !== 1))) {
           const approved = readHeroPassiveDefence(battle, entity);
           if (!approved) return "英雄条件防御不符合限定审批（R-048）";
           resistances = [...approved.resistances];
