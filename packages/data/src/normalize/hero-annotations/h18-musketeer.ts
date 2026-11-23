@@ -1,4 +1,4 @@
-import type { HeroAnnotationModule, StatusEffectEntry } from "./types";
+import type { HeroAnnotationModule, StatusEffectEntry, RangeEntry } from "./types";
 import type { NormalizedHeroSkillCard, Segment } from "../schema";
 import { normalizedHeroSkillCardSchema } from "../schema";
 import { lineSignature } from "../verified-hero-layout";
@@ -670,5 +670,37 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     scope: "target",
     signature: "{target_monster} : {debuff} 2t",
     effects: [{ kind: "debuff", duration: 2 }],
+  },
+];
+
+/** 已复核的印刷区间（R-048）：只附加已命名 range 图标旁的明确数字。 */
+export const rangeEntries: readonly RangeEntry[] = [
+  {
+    id: "hero_skill:musketeer:p004",
+    name: "Smokescreen",
+    level: 1,
+    min: 1,
+    max: 2,
+  },
+  {
+    id: "hero_skill:musketeer:p007",
+    name: "Call the Shot",
+    level: 1,
+    min: 1,
+    max: 2,
+  },
+  {
+    id: "hero_skill:musketeer:p013",
+    name: "Sidearm",
+    level: 1,
+    min: 0,
+    max: 2,
+  },
+  {
+    id: "hero_skill:musketeer:p016",
+    name: "Patch Up",
+    level: 1,
+    min: 0,
+    max: 1,
   },
 ];

@@ -1,4 +1,4 @@
-import type { CoreHigherSkillRow, StatusEffectEntry } from "./types";
+import type { CoreHigherSkillRow, StatusEffectEntry, RangeEntry } from "./types";
 
 /** 核心盒 Arbalest II/III 级逐卡注解（Kyries 审阅；R-048 签名断言由 core-higher-skills 执行）。 */
 export const coreHigherRows: readonly CoreHigherSkillRow[] = [
@@ -295,5 +295,58 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     scope: "target",
     signature: "{target_monster} : {debuff} 2t",
     effects: [{ kind: "debuff", duration: 2 }],
+  },
+];
+
+/** 已复核的印刷区间（R-048）：只附加已命名 range 图标旁的明确数字。 */
+export const rangeEntries: readonly RangeEntry[] = [
+  {
+    id: "hero_skill:p166",
+    name: "Rallying Flare",
+    level: 1,
+    min: 1,
+    max: 2,
+  },
+  {
+    id: "hero_skill:p167",
+    name: "Rallying Flare",
+    level: 2,
+    min: 1,
+    max: 2,
+  },
+  {
+    id: "hero_skill:p168",
+    name: "Rallying Flare",
+    level: 3,
+    min: 1,
+    max: 2,
+  },
+  {
+    id: "hero_skill:p151",
+    name: "Suppressive Fire",
+    level: 1,
+    min: 1,
+    max: 2,
+  },
+  {
+    id: "hero_skill:p154",
+    name: "Sniper’s Mark",
+    level: 1,
+    min: 1,
+    max: 2,
+  },
+  {
+    id: "hero_skill:p160",
+    name: "Blindfire",
+    level: 1,
+    min: 0,
+    max: 2,
+  },
+  {
+    id: "hero_skill:p163",
+    name: "Battlefield Bandage",
+    level: 1,
+    min: 0,
+    max: 1,
   },
 ];

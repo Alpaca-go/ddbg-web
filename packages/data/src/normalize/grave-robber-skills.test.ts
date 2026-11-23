@@ -2,7 +2,7 @@ import { expect, it } from "vitest";
 import { loadNormalizedCorebox } from "./write";
 import { attachVerifiedHeroDamage } from "./verified-hero-damage";
 import { attachVerifiedHeroLayout } from "./verified-hero-layout";
-import { attachVerifiedHeroRanges } from "./verified-hero-ranges";
+import { applyHeroRanges } from "./hero-annotations";
 import { applyHeroStatuses } from "./hero-annotations";
 
 const cards = loadNormalizedCorebox().hero_skill.cards;
@@ -48,7 +48,7 @@ it("Throw Dagger I 同框双条件与 1–2 射程；Lunge I 对 Blight +2；区
   });
   // 幂等：对已注解卡再挂载一次应得到相同注解。
   expect(attachVerifiedHeroDamage(cards)).toEqual(cards);
-  expect(attachVerifiedHeroRanges(cards)).toEqual(cards);
+  expect(applyHeroRanges(cards)).toEqual(cards);
   expect(attachVerifiedHeroLayout([dagger])).toEqual([dagger]);
 });
 

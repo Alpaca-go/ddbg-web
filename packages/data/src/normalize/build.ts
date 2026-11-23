@@ -47,11 +47,14 @@ import { attachVerifiedMonsterStress } from "./verified-monster-stress";
 import { attachVerifiedMonsterDamage } from "./verified-monster-damage";
 import { attachVerifiedHeroLayout } from "./verified-hero-layout";
 import { attachVerifiedBountyStatuses } from "./verified-bounty-statuses";
-import { attachVerifiedHeroRanges } from "./verified-hero-ranges";
 import { attachVerifiedHeroDamage } from "./verified-hero-damage";
-import { attachVerifiedHeroSupport } from "./verified-hero-support";
 import { attachReviewedHeroStances } from "./reviewed-hero-stances";
-import { applyHeroAnnotations, applyHeroStatuses } from "./hero-annotations";
+import {
+  applyHeroAnnotations,
+  applyHeroRanges,
+  applyHeroStatuses,
+  applyHeroSupport,
+} from "./hero-annotations";
 import { attachVerifiedResolveTriggers } from "./verified-resolve-triggers";
 import { attachVerifiedRallyingFlare } from "./verified-rallying-flare";
 import { approvedResolveLookup } from "./approved-resolve-icons";
@@ -746,9 +749,9 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
       const cards = attachCoreHigherSkills(
         attachVerifiedRallyingFlare(
           attachVerifiedBountyStatuses(
-            attachVerifiedHeroSupport(
+            applyHeroSupport(
               attachVerifiedHeroDamage(
-                attachVerifiedHeroRanges(
+                applyHeroRanges(
                   applyHeroStatuses(applyHeroAnnotations(attachVerifiedHeroLayout(reviewed))),
                 ),
               ),

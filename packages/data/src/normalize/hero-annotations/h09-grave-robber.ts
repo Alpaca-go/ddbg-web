@@ -1,4 +1,4 @@
-import type { CoreHigherSkillRow, StatusEffectEntry } from "./types";
+import type { CoreHigherSkillRow, StatusEffectEntry, RangeEntry } from "./types";
 
 /** 核心盒 Grave Robber II/III 级逐卡注解（Kyries 审阅；R-048 签名断言由 core-higher-skills 执行）。 */
 export const coreHigherRows: readonly CoreHigherSkillRow[] = [
@@ -325,5 +325,24 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     scope: "self",
     signature: "{self_effects} Self {buff} 2t,",
     effects: [{ kind: "buff", duration: 2 }],
+  },
+];
+
+/** 已复核的印刷区间（R-048）：只附加已命名 range 图标旁的明确数字。 */
+export const rangeEntries: readonly RangeEntry[] = [
+  // 当前版完整FRONT p181/p184；不向II/III级外推。
+  {
+    id: "hero_skill:p181",
+    name: "Throw Dagger",
+    level: 1,
+    min: 1,
+    max: 2,
+  },
+  {
+    id: "hero_skill:p184",
+    name: "Poison Dart",
+    level: 1,
+    min: 1,
+    max: 2,
   },
 ];

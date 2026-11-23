@@ -1,4 +1,4 @@
-import type { StatusEffectEntry } from "./types";
+import type { StatusEffectEntry, RangeEntry } from "./types";
 
 /** 完整印刷逐页核对的状态效果行（docs/phase2-four-core-skills-2026-10-11.md）。 */
 export const statusEntries: readonly StatusEffectEntry[] = [
@@ -172,5 +172,72 @@ export const statusEntries: readonly StatusEffectEntry[] = [
         amount: 3,
       },
     ],
+  },
+];
+
+/** 已复核的印刷区间（R-048）：只附加已命名 range 图标旁的明确数字。 */
+export const rangeEntries: readonly RangeEntry[] = [
+  {
+    id: "hero_skill:p067",
+    name: "Pistol Shot",
+    level: 1,
+    min: 1,
+    max: 2,
+  },
+  {
+    id: "hero_skill:p068",
+    name: "Pistol Shot",
+    level: 2,
+    min: 1,
+    max: 2,
+  },
+  {
+    id: "hero_skill:p069",
+    name: "Pistol Shot",
+    level: 3,
+    min: 1,
+    max: 2,
+  },
+  {
+    id: "hero_skill:p073",
+    name: "Grapeshot Blast",
+    level: 1,
+    min: 0,
+    max: 1,
+  },
+  {
+    id: "hero_skill:p074",
+    name: "Grapeshot Blast",
+    level: 2,
+    min: 0,
+    max: 1,
+  },
+  {
+    id: "hero_skill:p075",
+    name: "Grapeshot Blast",
+    level: 3,
+    min: 0,
+    max: 1,
+  },
+  {
+    id: "hero_skill:p076",
+    name: "Tracking Shot",
+    level: 1,
+    min: 1,
+    max: 2,
+  },
+  {
+    id: "hero_skill:p077",
+    name: "Tracking Shot",
+    level: 2,
+    min: 1,
+    max: 2,
+  },
+  {
+    id: "hero_skill:p078",
+    name: "Tracking Shot",
+    level: 3,
+    min: 1,
+    max: 2,
   },
 ];

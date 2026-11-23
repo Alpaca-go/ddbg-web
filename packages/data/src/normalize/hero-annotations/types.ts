@@ -59,3 +59,28 @@ export type StatusEffectEntry = {
     readonly amount?: number;
   }[];
 };
+
+/** 已复核的印刷区间：卡面 range 图标旁印出的明确数字。 */
+export type RangeEntry = {
+  readonly id: string;
+  readonly name: string;
+  readonly level: number;
+  readonly min: number;
+  readonly max: number;
+};
+
+/** 已复核的支援效果：目标行 + 效果行上的治疗 / 压力 / 光照数字。 */
+export type SupportEffectEntry = {
+  readonly id: string;
+  readonly name: string;
+  readonly level: number;
+  readonly page: number;
+  readonly lineIndex: number;
+  readonly targetSignature: string;
+  readonly effectSignature: string;
+  readonly effects: {
+    readonly heal: number;
+    readonly stress: number;
+    readonly light: number;
+  };
+};

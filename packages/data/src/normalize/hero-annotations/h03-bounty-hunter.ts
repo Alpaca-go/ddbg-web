@@ -1,4 +1,4 @@
-import type { CoreHigherSkillRow, StatusEffectEntry } from "./types";
+import type { CoreHigherSkillRow, StatusEffectEntry, RangeEntry } from "./types";
 
 /** 核心盒 Bounty Hunter II/III 级逐卡注解（Kyries 审阅；R-048 签名断言由 core-higher-skills 执行）。 */
 export const coreHigherRows: readonly CoreHigherSkillRow[] = [
@@ -303,5 +303,23 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     scope: "target",
     signature: "{target_effects} {stun} 1t, {shuffle} Push 2",
     effects: [{ kind: "stun", duration: 1 }],
+  },
+];
+
+/** 已复核的印刷区间（R-048）：只附加已命名 range 图标旁的明确数字。 */
+export const rangeEntries: readonly RangeEntry[] = [
+  {
+    id: "hero_skill:p058",
+    name: "Finish Him",
+    level: 1,
+    min: 0,
+    max: 1,
+  },
+  {
+    id: "hero_skill:p055",
+    name: "Flashbang",
+    level: 1,
+    min: 1,
+    max: 2,
   },
 ];

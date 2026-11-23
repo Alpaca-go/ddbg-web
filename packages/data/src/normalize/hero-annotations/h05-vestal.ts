@@ -1,4 +1,4 @@
-import type { StatusEffectEntry } from "./types";
+import type { StatusEffectEntry, RangeEntry } from "./types";
 
 /** 完整印刷逐页核对的状态效果行（docs/phase2-four-core-skills-2026-10-11.md）。 */
 export const statusEntries: readonly StatusEffectEntry[] = [
@@ -127,5 +127,72 @@ export const statusEntries: readonly StatusEffectEntry[] = [
         duration: 3,
       },
     ],
+  },
+];
+
+/** 已复核的印刷区间（R-048）：只附加已命名 range 图标旁的明确数字。 */
+export const rangeEntries: readonly RangeEntry[] = [
+  {
+    id: "hero_skill:p088",
+    name: "Judgement",
+    level: 1,
+    min: 1,
+    max: 2,
+  },
+  {
+    id: "hero_skill:p089",
+    name: "Judgement",
+    level: 2,
+    min: 1,
+    max: 2,
+  },
+  {
+    id: "hero_skill:p090",
+    name: "Judgement",
+    level: 3,
+    min: 1,
+    max: 2,
+  },
+  {
+    id: "hero_skill:p094",
+    name: "Divine Grace",
+    level: 1,
+    min: 0,
+    max: 1,
+  },
+  {
+    id: "hero_skill:p095",
+    name: "Divine Grace",
+    level: 2,
+    min: 0,
+    max: 1,
+  },
+  {
+    id: "hero_skill:p096",
+    name: "Divine Grace",
+    level: 3,
+    min: 0,
+    max: 1,
+  },
+  {
+    id: "hero_skill:p100",
+    name: "Illumination",
+    level: 1,
+    min: 1,
+    max: 2,
+  },
+  {
+    id: "hero_skill:p101",
+    name: "Illumination",
+    level: 2,
+    min: 1,
+    max: 2,
+  },
+  {
+    id: "hero_skill:p102",
+    name: "Illumination",
+    level: 3,
+    min: 1,
+    max: 2,
   },
 ];

@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { normalizedHeroSkillFileSchema } from "./schema";
-import { attachVerifiedHeroRanges } from "./verified-hero-ranges";
+import { applyHeroRanges } from "./hero-annotations";
 const cards = normalizedHeroSkillFileSchema.parse(
   JSON.parse(
     readFileSync(new URL("../../normalized/corebox/hero_skill.json", import.meta.url), "utf8"),
@@ -9,7 +9,7 @@ const cards = normalizedHeroSkillFileSchema.parse(
 ).cards;
 describe("逐卡复核的区间来源", () => {
   it("核实逐卡审校后的区间覆盖，原 null 不变（R-207、R-210 至 R-212）", () => {
-    const attached = attachVerifiedHeroRanges(cards);
+    const attached = applyHeroRanges(cards);
     expect(
       attached
         .filter(
@@ -70,12 +70,12 @@ describe("逐卡复核的区间来源", () => {
         ),
       },
     ])
-      expect(() => attachVerifiedHeroRanges([changed])).toThrow();
+      expect(() => applyHeroRanges([changed])).toThrow();
   });
   it("已复核卡的印刷数值或验证状态改变就拒绝，不补新边界", () => {
     const card = cards.find((card) => card.id === "hero_skill:core:h04:p067")!;
     expect(() =>
-      attachVerifiedHeroRanges([
+      applyHeroRanges([
         {
           ...card,
           unlabeled_numbers: card.unlabeled_numbers.map((number) =>
@@ -85,9 +85,7 @@ describe("逐卡复核的区间来源", () => {
       ]),
     ).toThrow();
     expect(() =>
-      attachVerifiedHeroRanges([
-        { ...card, verification: { ...card.verification, unverified: true } },
-      ]),
+      applyHeroRanges([{ ...card, verification: { ...card.verification, unverified: true } }]),
     ).toThrow();
   });
 });

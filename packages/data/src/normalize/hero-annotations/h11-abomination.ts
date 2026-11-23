@@ -1,4 +1,4 @@
-import type { CoreHigherSkillRow, StatusEffectEntry } from "./types";
+import type { CoreHigherSkillRow, StatusEffectEntry, RangeEntry } from "./types";
 
 /** 核心盒 Abomination II/III 级逐卡注解（Kyries 审阅；R-048 签名断言由 core-higher-skills 执行）。 */
 export const coreHigherRows: readonly CoreHigherSkillRow[] = [
@@ -107,5 +107,17 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     scope: "target",
     signature: "{target_effects} 2 {blight} 2t",
     effects: [{ kind: "blight", amount: 2, duration: 2 }],
+  },
+];
+
+/** 已复核的印刷区间（R-048）：只附加已命名 range 图标旁的明确数字。 */
+export const rangeEntries: readonly RangeEntry[] = [
+  // R-207，已逐卡核对的 I 级区间。火枪手与弩手按 Q-185 对齐。
+  {
+    id: "hero_skill:p214",
+    name: "Beast’s Bile",
+    level: 1,
+    min: 1,
+    max: 2,
   },
 ];

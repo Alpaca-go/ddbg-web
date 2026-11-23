@@ -1,4 +1,4 @@
-import type { HeroAnnotationModule, StatusEffectEntry } from "./types";
+import type { HeroAnnotationModule, StatusEffectEntry, RangeEntry } from "./types";
 import type { NormalizedHeroSkillCard, Segment } from "../schema";
 import { normalizedHeroSkillCardSchema } from "../schema";
 import { lineSignature } from "../verified-hero-layout";
@@ -671,5 +671,44 @@ export const statusEntries: readonly StatusEffectEntry[] = [
       { kind: "mark", duration: 1 },
       { kind: "buff", duration: 4 },
     ],
+  },
+];
+
+/** 已复核的印刷区间（R-048）：只附加已命名 range 图标旁的明确数字。 */
+export const rangeEntries: readonly RangeEntry[] = [
+  {
+    id: "hero_skill:p262",
+    name: "Reclaim",
+    level: 1,
+    min: 0,
+    max: 1,
+  },
+  {
+    id: "hero_skill:p263",
+    name: "Reclaim",
+    level: 2,
+    min: 0,
+    max: 1,
+  },
+  {
+    id: "hero_skill:p264",
+    name: "Reclaim",
+    level: 3,
+    min: 0,
+    max: 1,
+  },
+  {
+    id: "hero_skill:p269",
+    name: "Endure",
+    level: 2,
+    min: 1,
+    max: 2,
+  },
+  {
+    id: "hero_skill:p270",
+    name: "Endure",
+    level: 3,
+    min: 1,
+    max: 2,
   },
 ];

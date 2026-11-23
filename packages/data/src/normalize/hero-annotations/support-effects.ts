@@ -1,16 +1,17 @@
-import type { NormalizedHeroSkillCard } from "./schema";
-import { legacyHeroSkillId } from "../hero-registry";
+import type { NormalizedHeroSkillCard } from "../schema";
+import { legacyHeroSkillId } from "../../hero-registry";
+import type { SupportEffectEntry } from "./types";
 
-/** 完整 SKILLS_FRONT p019–021；只附已复核数字，不改原始 numeric=null。 */
-export function attachVerifiedHeroSupport(
+/** 已复核支援效果 applier：按 legacy id 定位卡片，断言目标行与效果行签名。 */
+export function applySupportEffects(
   cards: readonly NormalizedHeroSkillCard[],
+  entries: readonly SupportEffectEntry[],
 ): NormalizedHeroSkillCard[] {
+  const byId = new Map(entries.map((entry) => [entry.id, entry]));
   return cards.map((card) => {
-    const pages = { "hero_skill:p019": 19, "hero_skill:p020": 20, "hero_skill:p021": 21 };
-    const page = pages[legacyHeroSkillId(card) as keyof typeof pages];
-    if (!page) return card;
-    const lineIndex = page === 19 ? 1 : 2;
-    const line = card.effect_lines[lineIndex];
+    const entry = byId.get(legacyHeroSkillId(card));
+    if (!entry) return card;
+    const line = card.effect_lines[entry.lineIndex];
     const text = line
       ?.map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
       .join("")
@@ -21,24 +22,19 @@ export function attachVerifiedHeroSupport(
       .join("")
       .replace(/\s+/g, "");
     if (
-      card.name !== "Inspiring Cry" ||
-      card.level !== page - 18 ||
+      card.name !== entry.name ||
+      card.level !== entry.level ||
       card.verification.unverified ||
       card.pages.length !== 1 ||
-      card.pages[0] !== page ||
+      card.pages[0] !== entry.page ||
       card.printed_labels.length ||
       card.stats_line !== null ||
-      card.effect_lines.length !== lineIndex + 1 ||
-      target !==
-        (page === 19
-          ? "{range}0{target_hero}"
-          : page === 20
-            ? "{range}1{target_hero}"
-            : "{range}1{target_hero}{target_hero}") ||
+      card.effect_lines.length !== entry.lineIndex + 1 ||
+      target !== entry.targetSignature ||
       targetLine?.some(
         (s) => s.type === "icon" && !["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
       ) ||
-      text !== "{target_effects}{damage_or_heal_combined_marker}{heal}1,{stress}-1,{light}+1" ||
+      text !== entry.effectSignature ||
       line?.some(
         (s) => s.type === "icon" && !["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
       )
@@ -47,10 +43,10 @@ export function attachVerifiedHeroSupport(
     return {
       ...card,
       verified_target_support: {
-        lineIndex,
-        heal: 1,
-        stress: -1,
-        light: 1,
+        lineIndex: entry.lineIndex,
+        heal: entry.effects.heal,
+        stress: entry.effects.stress,
+        light: entry.effects.light,
         source: "print_front" as const,
       },
     };

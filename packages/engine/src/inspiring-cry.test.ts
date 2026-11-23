@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { applyCommand, createBattleState, resolveHeroSkill } from "./index";
 import type { BattleEntity, BattleSetup, HeroSkillCardView } from "./index";
-import { attachVerifiedHeroSupport } from "../../data/src/normalize/verified-hero-support";
+import { applyHeroSupport } from "../../data/src/normalize/hero-annotations";
 import type { NormalizedHeroSkillCard } from "../../data/src/normalize/schema";
 
 const cards = JSON.parse(
@@ -101,7 +101,7 @@ describe("Inspiring Cry I（印刷 p19、规则书 R19–21、R-025 / R-048）",
       { ...rawCry, verification: { unverified: true, reasons: ["test"] } },
       { ...rawCry, effect_lines: [] },
     ])
-      expect(() => attachVerifiedHeroSupport([changed])).toThrow();
+      expect(() => applyHeroSupport([changed])).toThrow();
   });
   it("四姿态、全部骰面不掷骰或暴击；治疗减压封零，友方 Dodge 无影响", () => {
     for (const stance of ["aggressive", "defensive", "ranged", "support"] as const)

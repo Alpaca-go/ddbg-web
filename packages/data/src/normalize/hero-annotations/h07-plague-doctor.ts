@@ -1,4 +1,4 @@
-import type { CoreHigherSkillRow, StatusEffectEntry } from "./types";
+import type { CoreHigherSkillRow, StatusEffectEntry, RangeEntry } from "./types";
 
 /** 核心盒 Plague Doctor II/III 级逐卡注解（Kyries 审阅；R-048 签名断言由 core-higher-skills 执行）。 */
 export const coreHigherRows: readonly CoreHigherSkillRow[] = [
@@ -370,5 +370,17 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     scope: "target",
     signature: "{target_effects} 2 {bleed} 2t",
     effects: [{ kind: "bleed", amount: 2, duration: 2 }],
+  },
+];
+
+/** 已复核的印刷区间（R-048）：只附加已命名 range 图标旁的明确数字。 */
+export const rangeEntries: readonly RangeEntry[] = [
+  // 当前版完整FRONT p133；不向II/III级外推。
+  {
+    id: "hero_skill:p133",
+    name: "Blinding Gas",
+    level: 1,
+    min: 1,
+    max: 2,
   },
 ];

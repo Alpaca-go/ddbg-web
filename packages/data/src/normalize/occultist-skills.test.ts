@@ -1,7 +1,7 @@
 import { expect, it } from "vitest";
 import { loadNormalizedCorebox } from "./write";
 import { attachVerifiedHeroDamage } from "./verified-hero-damage";
-import { attachVerifiedHeroRanges } from "./verified-hero-ranges";
+import { applyHeroRanges } from "./hero-annotations";
 import { applyHeroStatuses } from "./hero-annotations";
 
 const cards = loadNormalizedCorebox().hero_skill.cards;
@@ -52,7 +52,7 @@ it("Occ I：Weakening Curse / Wyrd / Hex / Hands 完整状态与区间；Daemon 
     source: "print_front",
   });
   expect(applyHeroStatuses(cards)).toEqual(cards);
-  expect(attachVerifiedHeroRanges(cards)).toEqual(cards);
+  expect(applyHeroRanges(cards)).toEqual(cards);
 });
 
 it("Occ I 身份或效果行漂移拒绝", () => {
