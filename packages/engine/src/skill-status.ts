@@ -1,4 +1,5 @@
-import type { HeroSkillCardView, SkillShuffle } from "./hero-skill";
+import type { HeroSkillCardView, SkillRules, SkillShuffle } from "./hero-skill";
+import { rulesOf } from "./hero-skill";
 import { statusStackProblem } from "./status";
 import type { StatusEffect } from "./status";
 
@@ -23,17 +24,14 @@ export function readVerifiedStatusEffects(
     } {
   const self: StatusEffect[] = [];
   const target: StatusEffect[] = [];
-  const groups = new Map<
-    number,
-    NonNullable<HeroSkillCardView["verified_status_effects"]>[number][]
-  >();
+  const groups = new Map<number, NonNullable<SkillRules["statuses"]>[number][]>();
   let selfLight = 0;
   let targetLight = 0;
   let selfRemove = false;
   let targetRemove = false;
   let selfShuffle: SkillShuffle | null = null;
   let targetShuffle: SkillShuffle | null = null;
-  for (const annotation of skill.verified_status_effects ?? []) {
+  for (const annotation of rulesOf(skill).statuses ?? skill.verified_status_effects ?? []) {
     const line = skill.effect_lines[annotation.lineIndex];
     const segment = line?.[annotation.segmentIndex];
     const problem = statusStackProblem([
@@ -76,7 +74,7 @@ export function readVerifiedStatusEffects(
   }
   for (const [lineIndex, group] of groups) {
     const line = skill.effect_lines[lineIndex]!;
-    const rallying = skill.verified_rallying_flare;
+    const rallying = rulesOf(skill).rallyingFlare ?? skill.verified_rallying_flare;
     if (
       rallying &&
       lineIndex === rallying.monsterDebuffLineIndex &&
@@ -204,7 +202,7 @@ export function readVerifiedStatusEffects(
       selfShuffle = { direction: "push", distance: shufflePushDistance };
     } else if (/^\{heal\}[1-9]\d*$/.test(rest)) {
       const amount = Number(rest.slice("{heal}".length));
-      const healAnn = skill.verified_self_heal;
+      const healAnn = rulesOf(skill).self?.heal ?? skill.verified_self_heal;
       if (
         scope !== "self" ||
         !healAnn ||
