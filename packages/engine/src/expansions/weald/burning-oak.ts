@@ -1,4 +1,5 @@
 import type { ApplyResult, GameState } from "../../command";
+import { monsterShuffleResist } from "../../monster-defence";
 import { rejectBattleCommand } from "../../battle";
 import { advanceAfterRound, finishTurn } from "../../encounter";
 import { spawnMonsters, type SpawnPlacement } from "../../spawn";
@@ -163,7 +164,7 @@ function continueRefill(result: ApplyResult, optionId?: string): ApplyResult {
               dead: false,
               bleed: [],
               blight: [],
-              shuffleResist: Boolean(card.resistances?.some((r) => r.key === "shuffle_resist")),
+              shuffleResist: monsterShuffleResist(card),
               ...(card.innateProtection === undefined
                 ? {}
                 : { innateProtection: card.innateProtection, protection: card.innateProtection }),

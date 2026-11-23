@@ -1,4 +1,5 @@
 import type { BattleEntity, BattleState } from "../../../battle";
+import { monsterShuffleResist } from "../../../monster-defence";
 import { stygianBossCritApplies } from "../../../boss/stygian-boss-crit";
 import type { ApplyResult, GameState, MonsterSkillResolvedEvent } from "../../../command";
 import { skillTargetView, writeResolution, distance } from "../../../battle";
@@ -202,7 +203,7 @@ export function applySwinePrinceIWilburBattleStart(state: GameState): ApplyResul
     areaId,
     stance: fixedStance,
     stanceSlots: width,
-    shuffleResist: (card.resistances ?? []).some((icon) => icon.key === "shuffle_resist"),
+    shuffleResist: monsterShuffleResist(card),
     wounds: 0,
     skillIds: [],
     guard: false,

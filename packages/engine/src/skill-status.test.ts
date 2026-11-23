@@ -136,7 +136,14 @@ describe("完整 Nt 注解的技能状态接线（R19–21 / R-048）", () => {
     expect(immune.events[0]?.type).toBe("heroSkillResolved");
     expect(immune.state.battle!.entities[4]!.statusStacks).toEqual([]);
     // 抗性路由夹具，不修改任何真实怪物卡数据。
-    const plain = applyCommand(setup(bleed, 0, { ...soldier, immunities: [] }), command(bleed));
+    const plain = applyCommand(
+      setup(bleed, 0, {
+        ...soldier,
+        immunities: [],
+        rules: { ...soldier.rules, immunities: [] },
+      }),
+      command(bleed),
+    );
     expect(plain.state.battle!.entities[4]!.statusStacks).toEqual([
       { kind: "bleed", remaining: 2, amount: 2 },
     ]);
@@ -145,6 +152,7 @@ describe("完整 Nt 注解的技能状态接线（R19–21 / R-048）", () => {
         ...soldier,
         immunities: [],
         resistances: [{ key: "bleed_resist", naming: "confirmed" }],
+        rules: { ...soldier.rules, immunities: [], resistances: ["bleed"] },
       }),
       command(bleed),
     );

@@ -1,4 +1,5 @@
 import type { BattleEntity, BattleState } from "../../../battle";
+import { monsterShuffleResist } from "../../../monster-defence";
 import type { ApplyResult, GameState } from "../../../command";
 import type { MonsterCardView } from "../../../monster-skill";
 import { runBossHook } from "../../../boss/hooks";
@@ -176,7 +177,7 @@ export function applySirenIHighTidePelagicSummon(
     areaId: targetAreaId,
     stance: fixedStance,
     stanceSlots: width,
-    shuffleResist: (card.resistances ?? []).some((icon) => icon.key === "shuffle_resist"),
+    shuffleResist: monsterShuffleResist(card),
     wounds: 0,
     skillIds: [],
     guard: false,

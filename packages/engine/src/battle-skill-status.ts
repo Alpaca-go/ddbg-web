@@ -3,6 +3,7 @@ import type { BattleEntity, BattleState } from "./battle";
 import type { HeroSkillResolution } from "./hero-skill";
 import { addStatusStack, STATUS_KINDS, statusProjection } from "./status";
 import type { StatusEffect, StatusKind } from "./status";
+import { monsterStatusImmunities, monsterStatusResistances } from "./monster-defence";
 import { applyPassiveHero, applyPassiveStatus } from "./passive-runtime";
 import { resolveSeededHeroHealth } from "./hero-health";
 import type { GameEvent } from "./command";
@@ -162,29 +163,12 @@ export function applyBattleSkillStatuses(
           card.immunities === undefined
         )
           return "目标缺少已核实抗性 / 免疫栏（R-048）";
-        const read = (icons: NonNullable<typeof card.resistances>): StatusKind[] | null => {
-          const kinds: StatusKind[] = [];
-          for (const icon of icons) {
-            // 已命名Shuffle抗性是即时位移防御，不是持久状态堆；不能因此拒绝Bleed。
-            if (
-              icon.key === "shuffle_resist" &&
-              ["confirmed", "confirmed_rulebook"].includes(icon.naming)
-            )
-              continue;
-            const kind = STATUS_KINDS.find(
-              (kind) => icon.key === kind || icon.key === `${kind}_resist`,
-            );
-            if (!kind || !["confirmed", "confirmed_rulebook"].includes(icon.naming)) return null;
-            kinds.push(kind);
-          }
-          return kinds;
-        };
-        const resistance = read(card.resistances);
-        const immunity = read(card.immunities);
+        const resistance = monsterStatusResistances(card);
+        const immunity = monsterStatusImmunities(card);
         if (resistance === null || immunity === null)
           return "目标抗性 / 免疫图标未确认或未支持（R-048）";
-        resistances = resistance;
-        immunities = immunity;
+        resistances = [...resistance];
+        immunities = [...immunity];
       }
     }
     let stacks = entity.statusStacks ?? [];

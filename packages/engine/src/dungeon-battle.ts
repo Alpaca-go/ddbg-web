@@ -1,3 +1,4 @@
+import { monsterShuffleResist } from "./monster-defence";
 import {
   shriekerIRealCombatActive,
   shriekerHigherRealCombatActive,
@@ -428,7 +429,7 @@ export function startDungeonBattle(state: GameState): ApplyResult {
       areaId: spawn.areaId,
       stance: spawn.stance,
       stanceSlots: spawn.stanceSlots,
-      shuffleResist: card.resistances.some((icon) => icon.key === "shuffle_resist"),
+      shuffleResist: monsterShuffleResist(card),
       wounds: 0,
       skillIds: [] as readonly string[],
       guard: false,

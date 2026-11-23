@@ -1,4 +1,5 @@
 import { planSummonCrowding } from "../summon-crowding";
+import { monsterShuffleResist } from "../monster-defence";
 import { distance, rejectBattleCommand } from "../battle";
 import type { BattleEntity, BattleState } from "../battle";
 import type { ApplyResult, GameState, MonsterSkillResolvedEvent } from "../command";
@@ -256,7 +257,7 @@ export function continueNecromancerISummon(
     dead: false,
     bleed: [],
     blight: [],
-    shuffleResist: card.resistances.some((i) => i.key === "shuffle_resist"),
+    shuffleResist: monsterShuffleResist(card),
   };
   const rng = createRng(state.seed);
   for (let i = 0; i < battle.rngCursor + crowdingRolls; i++) rng.next();

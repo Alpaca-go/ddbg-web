@@ -62,6 +62,8 @@ import {
   applyHeroSupport,
 } from "./hero-annotations";
 import { attachVerifiedResolveTriggers } from "./verified-resolve-triggers";
+import { applyMonsterResistances } from "./monster-resistances";
+import { MONSTER_RESISTANCES } from "./monster-resistances-data";
 import { withHeroSkillRules, withMonsterCardRules, withVirtueRules } from "./rules";
 import { approvedResolveLookup } from "./approved-resolve-icons";
 import { buildRoomTileGeometry } from "./room-tile";
@@ -479,20 +481,23 @@ export function buildMonsterMedium(
       dictionary: DICTIONARY_SOURCE,
     },
     stats: cardStats(cards),
-    cards: (sourceRoot === "extract/corebox"
-      ? attachVerifiedMonsterEffects(
-          attachVerifiedMonsterDamage(
-            attachVerifiedMonsterStress(
-              attachVerifiedMonsterProtection(
-                attachVerifiedMonsterSpeeds(
-                  attachVerifiedMonsterStances(attachVerifiedCollectedLife(cards)),
+    cards: applyMonsterResistances(
+      (sourceRoot === "extract/corebox"
+        ? attachVerifiedMonsterEffects(
+            attachVerifiedMonsterDamage(
+              attachVerifiedMonsterStress(
+                attachVerifiedMonsterProtection(
+                  attachVerifiedMonsterSpeeds(
+                    attachVerifiedMonsterStances(attachVerifiedCollectedLife(cards)),
+                  ),
                 ),
               ),
             ),
-          ),
-        )
-      : cards
-    ).map((card) => withMonsterCardRules(card)),
+          )
+        : cards
+      ).map((card) => withMonsterCardRules(card)),
+      MONSTER_RESISTANCES,
+    ),
   });
 }
 
@@ -516,15 +521,18 @@ export function buildMonsterLarge(
       dictionary: DICTIONARY_SOURCE,
     },
     stats: cardStats(cards),
-    cards: (sourceRoot === "extract/corebox"
-      ? attachVerifiedMonsterEffects(
-          attachVerifiedHeartOfDarknessSkillRanges(
-            attachVerifiedMonsterProtection(attachVerifiedLargeMonsterFields(cards), true),
-          ),
-          true,
-        )
-      : cards
-    ).map((card) => withMonsterCardRules(card)),
+    cards: applyMonsterResistances(
+      (sourceRoot === "extract/corebox"
+        ? attachVerifiedMonsterEffects(
+            attachVerifiedHeartOfDarknessSkillRanges(
+              attachVerifiedMonsterProtection(attachVerifiedLargeMonsterFields(cards), true),
+            ),
+            true,
+          )
+        : cards
+      ).map((card) => withMonsterCardRules(card)),
+      MONSTER_RESISTANCES,
+    ),
   });
 }
 

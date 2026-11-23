@@ -1,4 +1,5 @@
 import type { ApplyResult } from "../command";
+import { monsterShuffleResist } from "../monster-defence";
 import type { BattleEntity } from "../battle";
 import { rejectBattleCommand } from "../battle";
 import { higherRuinsThreat } from "./higher-ruins-threat";
@@ -72,7 +73,7 @@ export function applyNecromancerIIIReanimation(
     bleed: [],
     blight: [],
     statusStacks: [],
-    shuffleResist: card.resistances.some((i) => i.key === "shuffle_resist"),
+    shuffleResist: monsterShuffleResist(card),
     ...(card.innateProtection ? { innateProtection: true, protection: true } : {}),
   };
   const rng = createRng(result.state.seed);

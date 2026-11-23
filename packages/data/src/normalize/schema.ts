@@ -236,23 +236,27 @@ const skillStatFields = {
   verified_bleed_blight_transfer: transferRuleSchema.optional(),
 };
 
+/** 状态种类；抗性 / 免疫规则共用同一枚举。 */
+export const statusKindSchema = z.enum([
+  "bleed",
+  "blight",
+  "stun",
+  "buff",
+  "debuff",
+  "mark",
+  "guard",
+  "riposte",
+  "protection",
+]);
+export type StatusKindValue = z.infer<typeof statusKindSchema>;
+
 /** 逐卡对照完整页面后附加的 Nt；缺失不表示任何默认持续时间。 */
 const statusEffectRuleSchema = z.strictObject({
   lineIndex: z.int().nonnegative(),
   scopeLineIndex: z.int().nonnegative().optional(),
   segmentIndex: z.int().nonnegative(),
   scope: z.enum(["self", "target"]),
-  kind: z.enum([
-    "bleed",
-    "blight",
-    "stun",
-    "buff",
-    "debuff",
-    "mark",
-    "guard",
-    "riposte",
-    "protection",
-  ]),
+  kind: statusKindSchema,
   duration: z.int().positive(),
   amount: z.int().positive().optional(),
 });
@@ -349,6 +353,18 @@ export const monsterSkillRulesSchema = z.strictObject({
 /** 怪物卡级规则（技能级规则在各 skill.rules）。 */
 export const monsterCardRulesSchema = z.strictObject({
   wealdProfile: wealdMonsterProfileSchema.optional(),
+  /** 已核实的抗性 / 免疫状态种类；空数组表示该栏没有任何图标。 */
+  resistances: z
+    .array(statusKindSchema)
+    .refine((kinds) => new Set(kinds).size === kinds.length, "抗性种类不得重复")
+    .optional(),
+  immunities: z
+    .array(statusKindSchema)
+    .refine((kinds) => new Set(kinds).size === kinds.length, "免疫种类不得重复")
+    .optional(),
+  /** Shuffle 抗性 / 免疫是即时位移防御，不是持久状态堆。 */
+  shuffleResist: z.boolean().optional(),
+  shuffleImmune: z.boolean().optional(),
 });
 
 const heroSkillShared = {

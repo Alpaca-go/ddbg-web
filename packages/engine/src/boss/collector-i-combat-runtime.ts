@@ -1,4 +1,5 @@
 import { planSummonCrowding } from "../summon-crowding";
+import { monsterShuffleResist } from "../monster-defence";
 import {
   RUINS_COMBAT_LEVELS,
   ruinsCombatForScript,
@@ -284,7 +285,7 @@ function buildCollectedEntity(
     areaId,
     stance,
     stanceSlots: 1,
-    shuffleResist: (card.resistances ?? []).some((icon) => icon.key === "shuffle_resist"),
+    shuffleResist: monsterShuffleResist(card),
     wounds: 0,
     skillIds: [],
     guard: false,

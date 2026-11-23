@@ -1,3 +1,4 @@
+import { monsterShuffleResist } from "../monster-defence";
 import {
   RUINS_COMBAT_LEVELS,
   ruinsCombatForScript,
@@ -278,7 +279,7 @@ export function applyFanaticIPyreBattleStart(state: GameState): ApplyResult {
     areaId,
     stance: "ranged",
     stanceSlots: width,
-    shuffleResist: (card.resistances ?? []).some((icon) => icon.key === "shuffle_resist"),
+    shuffleResist: monsterShuffleResist(card),
     wounds: 0,
     skillIds: [],
     guard: false,

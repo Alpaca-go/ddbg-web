@@ -1,4 +1,5 @@
 import type { ApplyResult, GameState } from "../command";
+import { monsterShuffleResist } from "../monster-defence";
 import { buildBossHeroEntities } from "./deploy-heroes";
 import geometry from "../../../data/normalized/corebox/room_tile_geometry.json";
 import { fanaticRoomSchema } from "../../../data/src/normalize/fanatic-room";
@@ -123,7 +124,7 @@ function deployFanatic(state: GameState, level: 1 | 2 | 3): ApplyResult {
           dodge: dodge!,
           stance: "aggressive",
           stanceSlots: 2,
-          shuffleResist: (boss.resistances ?? []).some((icon) => icon.key === "shuffle_resist"),
+          shuffleResist: monsterShuffleResist(boss),
           areaId: deployment.monsters.aggressive,
           wounds: 0,
           skillIds: [],

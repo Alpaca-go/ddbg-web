@@ -232,4 +232,31 @@ describe("R1：rules 与 verified_* 双写一致", () => {
     expect(written).toBe(346);
     expect(special).toBe(32);
   });
+
+  it("A2 单元 8：怪物抗性 / 免疫写入 rules", () => {
+    const medium = normalizedMonsterMediumFileSchema.parse(
+      read("normalized/corebox/monster_medium.json"),
+    );
+    const large = normalizedMonsterLargeFileSchema.parse(
+      read("normalized/corebox/monster_large.json"),
+    );
+    const annotated = [...medium.cards, ...large.cards].filter(
+      (card) => "resistances" in card && card.rules?.resistances !== undefined,
+    );
+    expect(annotated).toHaveLength(69);
+    const soldier = medium.cards.find((card) => card.id === "monster_medium:p001");
+    expect(soldier && "rules" in soldier ? soldier.rules : undefined).toMatchObject({
+      resistances: [],
+      immunities: ["bleed"],
+      shuffleResist: false,
+      shuffleImmune: false,
+    });
+    const adder = large.cards.find((card) => card.id === "monster_large:p004");
+    expect(adder && "rules" in adder ? adder.rules : undefined).toMatchObject({
+      resistances: ["stun"],
+      immunities: ["debuff"],
+      shuffleResist: false,
+      shuffleImmune: true,
+    });
+  });
 });

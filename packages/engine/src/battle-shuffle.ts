@@ -5,6 +5,7 @@ import type { ApplyResult, GameEvent, GameState, PendingChoice } from "./command
 import { recordEncounterSkill, recordMonsterSkill } from "./encounter";
 import { resolveShuffle } from "./shuffle";
 import { triggerBattlePassive } from "./battle-passive";
+import { monsterShuffleImmune } from "./monster-defence";
 import { newlyDefeatedIds } from "./encounter";
 import { hasQuirk } from "./passive";
 import { ancestorGlory, clearAncestorConditions } from "./battle-ancestor";
@@ -77,6 +78,7 @@ export function applyBattleShuffles(state: GameState, path: readonly string[] = 
     const entity = next.entities.find((entry) => entry.id === intent.entityId);
     const stat = next.heroStats?.find((card) => card.id === entity?.heroStatId);
     const defence = entity?.side === "hero" ? readHeroPassiveDefence(next, entity) : undefined;
+    const targetMonster = next.monsters?.find((card) => card.id === entity?.monsterCardId);
     if (entity?.side === "hero" && stat && stat.level !== 1 && !defence)
       return rejectBattleCommand(state, "英雄位移防御不符合限定审批（R-081）");
     // R20自身效果无视免疫；目标Shuffle在当前A4被免疫，不触发位移被动。
@@ -86,10 +88,7 @@ export function applyBattleShuffles(state: GameState, path: readonly string[] = 
         (state.chainCrowding && entity.side === "monster")) &&
       (ancestorGlory(next.areas, entity) ||
         defence?.shuffleImmune ||
-        (state.chainCrowding &&
-          next.monsters
-            ?.find((c) => c.id === entity.monsterCardId)
-            ?.immunities?.some((i) => i.key === "shuffle_resist")))
+        (state.chainCrowding && targetMonster !== undefined && monsterShuffleImmune(targetMonster)))
     ) {
       next = { ...next, shuffleIntents: next.shuffleIntents.slice(1) };
       choices = [];
@@ -147,17 +146,15 @@ export function applyBattleShuffles(state: GameState, path: readonly string[] = 
                   for (let i = 0; i < next.rngCursor + offset; i++) rng.next();
                   return rng.next();
                 },
-                immovable: (e: import("./battle").BattleEntity) =>
-                  e.side === "hero"
+                immovable: (e: import("./battle").BattleEntity) => {
+                  const monster = next.monsters?.find((c) => c.id === e.monsterCardId);
+                  return e.side === "hero"
                     ? Boolean(
                         readHeroPassiveDefence(next, e)?.shuffleImmune ||
                         ancestorGlory(next.areas, e),
                       )
-                    : Boolean(
-                        next.monsters
-                          ?.find((c) => c.id === e.monsterCardId)
-                          ?.immunities?.some((i) => i.key === "shuffle_resist"),
-                      ),
+                    : monster !== undefined && monsterShuffleImmune(monster);
+                },
               },
             }
           : {}),

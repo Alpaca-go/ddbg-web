@@ -10,6 +10,11 @@ import type { MonsterCardView } from "../monster-skill";
 import { readHeroPassiveDefence } from "../battle-skill-status";
 import { addStatusStack, STATUS_KINDS, statusProjection } from "../status";
 import type { StatusKind, StatusStack } from "../status";
+import {
+  monsterStatusImmunities,
+  monsterStatusResistances,
+  type MonsterDefenceCard,
+} from "../monster-defence";
 import { ensureCampaignBossScriptsRegistered } from "../expansions/register";
 import { getBossScript } from "./registry";
 import {
@@ -561,10 +566,7 @@ type SpawnGuardEntity = {
 export function withLargeMonsterSpawnGuard<E extends SpawnGuardEntity>(
   dungeon: DungeonState | undefined,
   entity: E,
-  card: {
-    readonly resistances?: readonly StatusDefenceIcon[];
-    readonly immunities?: readonly StatusDefenceIcon[];
-  },
+  card: MonsterDefenceCard,
 ):
   | { readonly status: "ok"; readonly entity: E }
   | { readonly status: "refused"; readonly reason: string } {
@@ -573,8 +575,8 @@ export function withLargeMonsterSpawnGuard<E extends SpawnGuardEntity>(
   if (!script) return { status: "ok", entity };
   const guardTurns = guardTurnsOnLargeMonsterSpawnFromBossThreat(script);
   if (guardTurns <= 0) return { status: "ok", entity };
-  const resistances = confirmedStatusKinds(card.resistances);
-  const immunities = confirmedStatusKinds(card.immunities);
+  const resistances = monsterStatusResistances(card);
+  const immunities = monsterStatusImmunities(card);
   if (!resistances || !immunities) {
     return { status: "refused", reason: "Large 生成 Guard 缺已确认抗性 / 免疫，不能猜（R-048）" };
   }

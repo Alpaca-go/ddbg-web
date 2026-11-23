@@ -10,7 +10,8 @@
 > **2026-11-24 进展**：R1（`rules` 双写）已完成；单元 1 的 Inspiring Tune 目标压力补注解并修掉回归；
 > 单元 2 已完成——Battlefield Medicine p139–p141、Toxin Trickery p187–p189 写入 `rules.removal`，
 > 引擎优先读规则、文本解析保留给未注解的历史测试视图；单元 3 已完成——18 名英雄的 346 张
-> 非特殊目标卡写入 `rules.targets`，目标框 / Rallying Flare / 支援卡仍走各自注解。
+> 非特殊目标卡写入 `rules.targets`；单元 8 已完成——核心盒 69 张怪物的抗性 / 免疫写入
+> `rules.resistances` / `rules.immunities` / `rules.shuffleResist` / `rules.shuffleImmune`。
 
 总体原则：
 
@@ -104,6 +105,11 @@ Toxin Trickery p187–p189；Adrenaline Rush 的 Remove 与 Buff 同一行，继
 风险：中。怪物数据量大，按卡池分批。
 
 ## 单元 8：抗性（shuffle_resist 等）
+
+**状态：已完成（2026-11-24）**。核心盒 69 张怪物卡写入
+`rules.resistances` / `rules.immunities` / `rules.shuffleResist` / `rules.shuffleImmune`；
+`monster-defence.ts` 优先读规则，未注解卡回退到已确认图标。Weald 低等级怪物没有抗性图标，
+仍走 fallback。
 
 行数：7 + 1（`battle-skill-status`）。
 

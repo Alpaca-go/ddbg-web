@@ -56,6 +56,13 @@ export type MonsterCardView = {
   readonly innateProtection?: boolean;
   readonly resistances?: readonly { readonly key: string | null; readonly naming: string }[];
   readonly immunities?: readonly { readonly key: string | null; readonly naming: string }[];
+  /** A2 单元 8：已冻结的抗性 / 免疫规则；缺失时回退到上面的图标。 */
+  readonly rules?: {
+    readonly resistances?: readonly string[];
+    readonly immunities?: readonly string[];
+    readonly shuffleResist?: boolean;
+    readonly shuffleImmune?: boolean;
+  };
 };
 
 /** 调用方已选定一个英雄目标；英雄 Life / 死门尚未接入。 */

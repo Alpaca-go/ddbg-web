@@ -1,4 +1,5 @@
 import { readHagRuntimeContext } from "./hag-runtime-context";
+import { monsterShuffleResist } from "../../../monster-defence";
 import type { BattleEntity, BattleState } from "../../../battle";
 import type { ApplyResult, GameState, MonsterSkillResolvedEvent } from "../../../command";
 import type { MonsterCardView } from "../../../monster-skill";
@@ -404,7 +405,7 @@ export function applyHagICauldronBattleStart(state: GameState): ApplyResult {
     areaId,
     stance: fixedStance,
     stanceSlots: width,
-    shuffleResist: (card.resistances ?? []).some((icon) => icon.key === "shuffle_resist"),
+    shuffleResist: monsterShuffleResist(card),
     wounds: 0,
     skillIds: [],
     guard: false,

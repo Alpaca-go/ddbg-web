@@ -1,4 +1,5 @@
 import type { WealdHagContent } from "../../../../../data/src/weald-hag";
+import { monsterShuffleImmune } from "../../../monster-defence";
 import type { BattleEntity } from "../../../battle";
 import type { MonsterCardView, MonsterSkillView } from "../../../monster-skill";
 import type { SkillSegment } from "../../../hero-skill";
@@ -164,7 +165,7 @@ export function hagIInitialDeployment() {
       dead: false,
       bleed: [],
       blight: [],
-      shuffleResist: card.immunities!.some((i) => i.key === "shuffle_resist"),
+      shuffleResist: monsterShuffleImmune(card),
       innateProtection: card.innateProtection!,
       protection: card.innateProtection!,
     };

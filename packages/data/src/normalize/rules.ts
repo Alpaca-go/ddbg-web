@@ -129,7 +129,14 @@ export function projectMonsterSkillRules(skill: MonsterSkill): MonsterSkillRules
 }
 
 export function projectMonsterCardRules(card: MonsterFighterCard): MonsterCardRules | undefined {
-  return card.verified_weald_profile ? { wealdProfile: card.verified_weald_profile } : undefined;
+  const rules: MonsterCardRules = {};
+  if (card.verified_weald_profile) rules.wealdProfile = card.verified_weald_profile;
+  // A2 单元 8 的抗性规则直接写在 rules 下，投影时原样保留。
+  if (card.rules?.resistances) rules.resistances = card.rules.resistances;
+  if (card.rules?.immunities) rules.immunities = card.rules.immunities;
+  if (card.rules?.shuffleResist !== undefined) rules.shuffleResist = card.rules.shuffleResist;
+  if (card.rules?.shuffleImmune !== undefined) rules.shuffleImmune = card.rules.shuffleImmune;
+  return compact(rules);
 }
 
 export function projectHeroStatRules(card: HeroStatRuleSource): HeroStatRules | undefined {

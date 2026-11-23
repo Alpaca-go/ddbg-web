@@ -543,6 +543,15 @@
     "value": null,
     "naming": "confirmed"
    },
+   "rules": {
+    "resistances": [],
+    "immunities": [
+     "stun",
+     "bleed"
+    ],
+    "shuffleResist": true,
+    "shuffleImmune": false
+   },
    "speed": 1,
    "innateProtection": false,
    "resistances": [
@@ -2222,6 +2231,14 @@
     "meaning_zh": "生命值（图标内数字）",
     "value": null,
     "naming": "confirmed"
+   },
+   "rules": {
+    "resistances": [],
+    "immunities": [
+     "stun"
+    ],
+    "shuffleResist": true,
+    "shuffleImmune": false
    },
    "speed": 1,
    "resistances": [
@@ -4571,6 +4588,16 @@
     "meaning_zh": "生命值（图标内数字）",
     "value": null,
     "naming": "confirmed"
+   },
+   "rules": {
+    "resistances": [
+     "debuff"
+    ],
+    "immunities": [
+     "stun"
+    ],
+    "shuffleResist": true,
+    "shuffleImmune": false
    },
    "speed": 2,
    "innateProtection": true,
@@ -6938,6 +6965,16 @@
     "value": null,
     "naming": "confirmed"
    },
+   "rules": {
+    "resistances": [
+     "stun"
+    ],
+    "immunities": [
+     "debuff"
+    ],
+    "shuffleResist": false,
+    "shuffleImmune": true
+   },
    "speed": 1,
    "resistances": [
     {
@@ -8895,6 +8932,14 @@
     "value": null,
     "naming": "confirmed"
    },
+   "rules": {
+    "resistances": [],
+    "immunities": [
+     "stun"
+    ],
+    "shuffleResist": false,
+    "shuffleImmune": true
+   },
    "speed": 1,
    "resistances": [],
    "immunities": [
@@ -10650,6 +10695,14 @@
     "value": null,
     "naming": "confirmed"
    },
+   "rules": {
+    "resistances": [],
+    "immunities": [
+     "stun"
+    ],
+    "shuffleResist": false,
+    "shuffleImmune": true
+   },
    "speed": 1,
    "resistances": [],
    "immunities": [
@@ -12404,6 +12457,14 @@
     "meaning_zh": "生命值（图标内数字）",
     "value": null,
     "naming": "confirmed"
+   },
+   "rules": {
+    "resistances": [],
+    "immunities": [
+     "stun"
+    ],
+    "shuffleResist": false,
+    "shuffleImmune": true
    },
    "speed": 1,
    "resistances": [],
@@ -14313,6 +14374,16 @@
     "meaning_zh": "生命值（图标内数字）",
     "value": null,
     "naming": "confirmed"
+   },
+   "rules": {
+    "resistances": [
+     "blight"
+    ],
+    "immunities": [
+     "stun"
+    ],
+    "shuffleResist": true,
+    "shuffleImmune": false
    },
    "speed": 2,
    "resistances": [
@@ -16615,6 +16686,16 @@
     "meaning_zh": "生命值（图标内数字）",
     "value": null,
     "naming": "confirmed"
+   },
+   "rules": {
+    "resistances": [
+     "blight"
+    ],
+    "immunities": [
+     "stun"
+    ],
+    "shuffleResist": true,
+    "shuffleImmune": false
    },
    "speed": 2,
    "resistances": [
@@ -18929,6 +19010,16 @@
     "value": null,
     "naming": "confirmed"
    },
+   "rules": {
+    "resistances": [
+     "blight"
+    ],
+    "immunities": [
+     "stun"
+    ],
+    "shuffleResist": true,
+    "shuffleImmune": false
+   },
    "speed": 3,
    "resistances": [
     {
@@ -20823,6 +20914,16 @@
     "value": null,
     "naming": "confirmed"
    },
+   "rules": {
+    "resistances": [],
+    "immunities": [
+     "stun",
+     "blight",
+     "bleed"
+    ],
+    "shuffleResist": false,
+    "shuffleImmune": false
+   },
    "speed": 0,
    "resistances": [],
    "immunities": [
@@ -21585,6 +21686,16 @@
     "value": null,
     "naming": "confirmed"
    },
+   "rules": {
+    "resistances": [],
+    "immunities": [
+     "stun",
+     "blight",
+     "bleed"
+    ],
+    "shuffleResist": false,
+    "shuffleImmune": false
+   },
    "speed": 0,
    "resistances": [],
    "immunities": [
@@ -22346,6 +22457,16 @@
     "meaning_zh": "生命值（图标内数字）",
     "value": null,
     "naming": "confirmed"
+   },
+   "rules": {
+    "resistances": [],
+    "immunities": [
+     "stun",
+     "blight",
+     "bleed"
+    ],
+    "shuffleResist": false,
+    "shuffleImmune": false
    },
    "speed": 0,
    "resistances": [],
@@ -23429,6 +23550,14 @@
     "meaning_zh": "生命值（图标内数字）",
     "value": null,
     "naming": "confirmed"
+   },
+   "rules": {
+    "resistances": [
+     "blight"
+    ],
+    "immunities": [],
+    "shuffleResist": true,
+    "shuffleImmune": false
    },
    "speed": 2,
    "resistances": [
@@ -25349,6 +25478,14 @@
     "value": null,
     "naming": "confirmed"
    },
+   "rules": {
+    "resistances": [
+     "blight"
+    ],
+    "immunities": [],
+    "shuffleResist": true,
+    "shuffleImmune": false
+   },
    "speed": 2,
    "resistances": [
     {
@@ -27206,6 +27343,16 @@
     "meaning_zh": "生命值（图标内数字）",
     "value": null,
     "naming": "confirmed"
+   },
+   "rules": {
+    "resistances": [
+     "blight"
+    ],
+    "immunities": [
+     "stun"
+    ],
+    "shuffleResist": true,
+    "shuffleImmune": false
    },
    "speed": 1,
    "resistances": [
@@ -29186,6 +29333,16 @@
     "meaning_zh": "生命值（图标内数字）",
     "value": null,
     "naming": "confirmed"
+   },
+   "rules": {
+    "resistances": [
+     "blight"
+    ],
+    "immunities": [
+     "stun"
+    ],
+    "shuffleResist": true,
+    "shuffleImmune": false
    },
    "speed": 1,
    "resistances": [
@@ -31197,6 +31354,14 @@
     "value": null,
     "naming": "confirmed"
    },
+   "rules": {
+    "resistances": [],
+    "immunities": [
+     "stun"
+    ],
+    "shuffleResist": false,
+    "shuffleImmune": false
+   },
    "speed": 3,
    "resistances": [],
    "immunities": [
@@ -32990,6 +33155,16 @@
     "value": null,
     "naming": "confirmed"
    },
+   "rules": {
+    "resistances": [
+     "blight"
+    ],
+    "immunities": [
+     "stun"
+    ],
+    "shuffleResist": false,
+    "shuffleImmune": true
+   },
    "speed": 0,
    "resistances": [
     {
@@ -34069,6 +34244,16 @@
     "meaning_zh": "生命值（图标内数字）",
     "value": null,
     "naming": "confirmed"
+   },
+   "rules": {
+    "resistances": [
+     "buff"
+    ],
+    "immunities": [
+     "stun"
+    ],
+    "shuffleResist": false,
+    "shuffleImmune": true
    },
    "speed": 0,
    "resistances": [
