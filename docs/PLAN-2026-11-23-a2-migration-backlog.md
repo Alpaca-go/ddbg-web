@@ -10,7 +10,8 @@
 > **2026-11-24 进展**：R1（`rules` 双写）已完成；单元 1 的 Inspiring Tune 目标压力补注解并修掉回归；
 > 单元 2 已完成——Battlefield Medicine p139–p141、Toxin Trickery p187–p189 写入 `rules.removal`，
 > 引擎优先读规则、文本解析保留给未注解的历史测试视图；单元 3 已完成——18 名英雄的 346 张
-> 非特殊目标卡写入 `rules.targets`；单元 8 已完成——核心盒 69 张怪物的抗性 / 免疫写入
+> 非特殊目标卡写入 `rules.targets`；单元 6 已完成——Abomination 21 张卡的投影结果冻结到
+> `abomination-projection-data.ts`；单元 8 已完成——核心盒 69 张怪物的抗性 / 免疫写入
 > `rules.resistances` / `rules.immunities` / `rules.shuffleResist` / `rules.shuffleImmune`。
 
 总体原则：
@@ -83,6 +84,10 @@ Toxin Trickery p187–p189；Adrenaline Rush 的 Remove 与 Buff 同一行，继
 风险：低。行为不变，只是去掉对图标 key 的依赖。
 
 ## 单元 6：Abomination 运行时合成
+
+**状态：已完成（2026-11-24）**。21 张卡的投影结果冻结在
+[`hero-annotations/abomination-projection-data.ts`](../../packages/data/src/normalize/hero-annotations/abomination-projection-data.ts)；
+`projectAbominationSkill` 只保留身份 / 签名断言、行与图标的解析，不再在运行时合成 `verified_*`。
 
 行数：8（`abomination-skills.ts`）。
 

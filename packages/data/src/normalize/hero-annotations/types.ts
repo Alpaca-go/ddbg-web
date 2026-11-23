@@ -214,3 +214,33 @@ export type TargetCountEntry = {
   readonly monster: number;
   readonly heroOrMonster: number;
 };
+
+/** Abomination 投影后的一面：行、字段与必要结构转换。 */
+export type AbominationProjectionFace = {
+  readonly lines?: readonly string[];
+  readonly statsLine?: null;
+  readonly printedLabels?: readonly [];
+  readonly topIcons?: readonly (string | null)[];
+  readonly statuses?: readonly {
+    readonly lineIndex: number;
+    readonly segmentIndex: number;
+    readonly scope: "self" | "target";
+    readonly kind:
+      "bleed" | "blight" | "stun" | "buff" | "debuff" | "mark" | "guard" | "riposte" | "protection";
+    readonly duration: number;
+    readonly amount?: number;
+  }[];
+  readonly selfStress?: { readonly lineIndex: number; readonly amount: number };
+  readonly selfHeal?: { readonly lineIndex: number; readonly amount: number };
+  readonly selfRange?: true;
+  readonly alliesStress?: number;
+  readonly requiredForm?: "human" | "beast";
+};
+
+export type AbominationProjectionRow = {
+  readonly id: string;
+  readonly name: string;
+  readonly level: number;
+  readonly front: AbominationProjectionFace;
+  readonly back?: AbominationProjectionFace;
+};

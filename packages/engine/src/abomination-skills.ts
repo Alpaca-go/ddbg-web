@@ -1,3 +1,4 @@
+import { ABOMINATION_PROJECTIONS } from "../../data/src/normalize/hero-annotations/abomination-projection-data";
 import type { HeroSkillCardView, SkillSegment } from "./hero-skill";
 
 const signatures: Record<number, string[]> = {
@@ -76,7 +77,10 @@ const signature = (line: readonly SkillSegment[]) =>
     .replace(/\s+/g, " ")
     .trim();
 
-/** R-212，印刷正反面 p211–231。保留来源转录，按选用卡面投影。 */
+/**
+ * R-212，印刷正反面 p211–231。规则表在 hero-annotations 的
+ * `abomination-projection-data.ts`；这里只做身份 / 签名断言和行、图标的解析。
+ */
 export function projectAbominationSkill(
   skill: HeroSkillCardView,
   face: "front" | "back",
@@ -126,6 +130,11 @@ export function projectAbominationSkill(
     )
       throw new Error("Abomination reverse effects changed (R-048)");
   }
+  const row = ABOMINATION_PROJECTIONS.find((entry) => entry.id === skill.id);
+  if (!row || row.name !== identity.name || row.level !== level)
+    throw new Error("Abomination projection data changed (R-048)");
+  const faceRow = face === "front" ? row.front : row.back;
+  if (!faceRow) throw new Error("Abomination projection face missing (R-048)");
   const pool = [...source.flat(), ...skill.effect_lines.flat(), ...(skill.stats_line ?? [])];
   const line = (text: string): SkillSegment[] =>
     text
@@ -138,82 +147,29 @@ export function projectAbominationSkill(
         if (!found) throw new Error(`Missing verified icon ${key}`);
         return found;
       });
-  const lines: SkillSegment[][] = [];
-  if (page <= 216) return { ...skill, verified_required_form: "human" };
-  let selfStress: { lineIndex: number; amount: number; source: "print_front" } | undefined;
-  const statuses: NonNullable<HeroSkillCardView["verified_status_effects"]>[number][] = [];
-  const status = (
-    scope: "self" | "target",
-    kind: "buff" | "debuff",
-    duration: number,
-    suffix = "",
-  ) => {
-    const index = lines.length;
-    const segments = line(
-      `{${scope === "self" ? "self_effects" : "target_effects"}}${scope === "self" ? " Self" : ""} {${kind}} ${duration}t${suffix}`,
-    );
-    lines.push(segments);
-    statuses.push({
-      lineIndex: index,
-      segmentIndex: segments.findIndex((s) => s.type === "icon" && s.icon.key === kind),
-      scope,
-      kind,
-      duration,
-    });
-  };
-  const stress = (amount: number) => {
-    selfStress = { lineIndex: lines.length, amount, source: "print_front" };
-    lines.push(line(`{self_effects} Self {stress} ${amount > 0 ? "+" : ""}${amount}`));
-  };
-  if (page >= 217 && page <= 219)
-    return { ...skill, verified_self_range: true, verified_required_form: "human" };
-  if (transform) {
-    const human = face === "back";
-    lines.push(
-      line("{range} Self"),
-      line(`{self_effects} Self Change: ${human ? "Human" : "Beast"}`),
-    );
-    const healAmount = 2 + level * 2;
-    status("self", human ? "debuff" : "buff", human ? 4 - level : level === 1 ? 2 : 3);
-    if (human) stress(-1);
-    else {
-      lines.push(line(`{self_effects} Self {heal} ${healAmount}`));
-      if (level === 1) stress(2);
-    }
-    return {
-      ...skill,
-      stats_line: null,
-      printed_labels: [],
-      effect_lines: lines,
-      top_row_icons: human
-        ? source[0]!.flatMap((s) => (s.type === "icon" ? [s.icon] : []))
-        : (skill.top_row_icons ?? []),
-      verified_status_effects: statuses,
-      verified_self_range: true,
-      verified_required_form: human ? "beast" : "human",
-      verified_allies_stress: human ? -1 : 2,
-      ...(selfStress ? { verified_self_stress: selfStress } : {}),
-      ...(!human
-        ? {
-            verified_self_heal: {
-              lineIndex: 3,
-              amount: healAmount,
-              source: "print_front" as const,
-            },
-          }
-        : {}),
-    };
-  }
-  if (page >= 223 && page <= 225) status("self", "buff", 2);
-  const slam = page >= 229;
-  if (slam) lines.push(line("{self_effects} Self {shuffle} Pull 1"));
-  stress(1);
-  if (slam) status("target", "debuff", level === 1 ? 1 : 2, ", {shuffle} Push 2");
   return {
     ...skill,
-    effect_lines: lines,
-    verified_required_form: "beast",
-    verified_self_stress: selfStress!,
-    ...(statuses.length ? { verified_status_effects: statuses } : {}),
+    ...(faceRow.lines ? { effect_lines: faceRow.lines.map(line) } : {}),
+    ...(faceRow.statsLine === null ? { stats_line: null } : {}),
+    ...(faceRow.printedLabels ? { printed_labels: [] } : {}),
+    ...(faceRow.topIcons
+      ? {
+          top_row_icons: faceRow.topIcons.map((key) => {
+            const found = pool.find((s) => s.type === "icon" && s.icon.key === key);
+            if (!found || found.type !== "icon") throw new Error(`Missing verified icon ${key}`);
+            return found.icon;
+          }),
+        }
+      : {}),
+    ...(faceRow.statuses ? { verified_status_effects: faceRow.statuses } : {}),
+    ...(faceRow.selfStress
+      ? { verified_self_stress: { ...faceRow.selfStress, source: "print_front" as const } }
+      : {}),
+    ...(faceRow.selfHeal
+      ? { verified_self_heal: { ...faceRow.selfHeal, source: "print_front" as const } }
+      : {}),
+    ...(faceRow.selfRange ? { verified_self_range: true as const } : {}),
+    ...(faceRow.alliesStress !== undefined ? { verified_allies_stress: faceRow.alliesStress } : {}),
+    ...(faceRow.requiredForm ? { verified_required_form: faceRow.requiredForm } : {}),
   };
 }
