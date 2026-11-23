@@ -33,18 +33,30 @@ export function projectPounderCombatFaces(faces: readonly PounderPrintedFace[]):
     const effects: SkillSegment[][] = pounder
       ? [[icon("target_effects"), icon("stress"), text(`+${cannon.onHitStress}`)]]
       : [];
+    const range = pounder
+      ? { min: cannon.minRange, max: cannon.range, source: "print_front" as const }
+      : undefined;
+    const plan = pounder
+      ? {
+          source: "print_front" as const,
+          effects: [
+            {
+              type: "stress" as const,
+              scope: "target" as const,
+              amount: cannon.onHitStress,
+            },
+          ],
+          signatures: effects.map((line) =>
+            line.map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`)).join(""),
+          ),
+        }
+      : undefined;
     const projected: MonsterSkillView = {
       slot: skill.slot,
       name: skill.name,
       target: pounder ? "Crowded" : "Pounder",
-      ...(pounder
-        ? {
-            verified_range: {
-              min: cannon.minRange,
-              max: cannon.range,
-              source: "print_front" as const,
-            },
-          }
+      ...(pounder && range && plan
+        ? { verified_range: range, verified_monster_effects: plan, rules: { range, effects: plan } }
         : {}),
       printed_labels: pounder
         ? [
@@ -85,23 +97,6 @@ export function projectPounderCombatFaces(faces: readonly PounderPrintedFace[]):
         ...effects,
       ],
       effect_lines: effects,
-      ...(pounder
-        ? {
-            verified_monster_effects: {
-              source: "print_front" as const,
-              effects: [
-                {
-                  type: "stress" as const,
-                  scope: "target" as const,
-                  amount: cannon.onHitStress,
-                },
-              ],
-              signatures: effects.map((line) =>
-                line.map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`)).join(""),
-              ),
-            },
-          }
-        : {}),
     };
     return {
       id: face.rawId,

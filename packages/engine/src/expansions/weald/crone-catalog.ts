@@ -27,6 +27,16 @@ export function buildWealdCroneCatalog(): DungeonBattleCatalog["monsters"][numbe
       text(String(range)),
       ...Array.from({ length: targets }, () => icon("target_hero")),
     ];
+    const plan = {
+      source: "print_front" as const,
+      signatures: effect_lines.map((line) =>
+        line
+          .map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
+          .join("")
+          .replace(/\s+/g, ""),
+      ),
+      effects,
+    };
     return {
       slot,
       name,
@@ -64,16 +74,8 @@ export function buildWealdCroneCatalog(): DungeonBattleCatalog["monsters"][numbe
       ],
       lines: [stats, ...effect_lines],
       effect_lines,
-      verified_monster_effects: {
-        source: "print_front",
-        signatures: effect_lines.map((line) =>
-          line
-            .map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
-            .join("")
-            .replace(/\s+/g, ""),
-        ),
-        effects,
-      },
+      verified_monster_effects: plan,
+      rules: { effects: plan },
     };
   };
   return {

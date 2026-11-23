@@ -92,6 +92,15 @@ export function projectHagCombatFaces(
         text(String(skill.range)),
         ...Array.from({ length: skill.maxTargets }, () => icon("target_hero")),
       ];
+      const plan = effects.length
+        ? {
+            source: "print_front" as const,
+            effects,
+            signatures: effectLines.map((line) =>
+              line.map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`)).join(""),
+            ),
+          }
+        : undefined;
       return {
         slot: skill.slot,
         name: skill.name,
@@ -122,16 +131,8 @@ export function projectHagCombatFaces(
         effect_lines: effectLines,
         ...(intoPot
           ? { verified_hag_into_pot: true }
-          : effects.length
-            ? {
-                verified_monster_effects: {
-                  source: "print_front",
-                  effects,
-                  signatures: effectLines.map((line) =>
-                    line.map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`)).join(""),
-                  ),
-                },
-              }
+          : plan
+            ? { verified_monster_effects: plan, rules: { effects: plan } }
             : {}),
       };
     }),

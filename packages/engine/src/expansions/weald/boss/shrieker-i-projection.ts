@@ -107,6 +107,15 @@ function buildCatalog(
           ]);
         previousScope = scope;
       }
+      const plan = {
+        source: "print_front" as const,
+        effects,
+        signatures: lines.map((line) =>
+          line
+            .map((segment) => (segment.type === "text" ? segment.text : `{${segment.icon.key}}`))
+            .join(""),
+        ),
+      };
       return {
         ...(skill.slot === 2 && context.nestInPlay && context.nestFlightApproved
           ? { verified_shrieker_flight: true as const }
@@ -140,15 +149,8 @@ function buildCatalog(
           ...lines,
         ],
         effect_lines: lines,
-        verified_monster_effects: {
-          source: "print_front",
-          effects,
-          signatures: lines.map((line) =>
-            line
-              .map((segment) => (segment.type === "text" ? segment.text : `{${segment.icon.key}}`))
-              .join(""),
-          ),
-        },
+        verified_monster_effects: plan,
+        rules: { effects: plan },
         ...(skill.slot === 2 && context.nestInPlay && !context.nestFlightApproved
           ? { verified_shrieker_nest_flight: true as const }
           : {}),

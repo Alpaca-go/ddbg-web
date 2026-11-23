@@ -52,6 +52,7 @@ export function buildWealdHigherMonsterCatalog(level: 2 | 3): DungeonBattleCatal
           ],
           effect_lines,
           verified_monster_effects: skill.plan,
+          rules: { effects: skill.plan },
         };
       });
       const monster = {
