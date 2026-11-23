@@ -400,3 +400,14 @@ bash 等价命令只需把 `$env:WRITE_NORMALIZED='1'` 换成
 > `docs/audit-2026-11-23-icon-semantics.md`），随后做 A1.5（覆盖审计 + 双通道核对 +
 > `effects_reviewed` 字段）。A0.5/A1/A1.5 完成前不要改 h12–h18 的代码，也不要动提取器。
 > 每个阶段单独 commit，按文档 §4 验收；不确定的规则/图标含义按 R-048 停下问 Kyries。
+
+## 8. 复核完成后的代码样式统一（Kyries 2026-11-23 追加）
+
+A0.5 的 432 张全部复核完成后，再做一次**纯样式**整理（不与语义改动混在一个 PR）：
+
+- 所有 `hNN-*.ts` 使用同一骨架：imports → 数据导出 → 工厂函数 → patch 表 → 模块导出；
+- 同一类 helper 只保留一份（`patch-helpers.ts`），禁止复制到英雄文件；
+- 统一命名：工厂 `xxxPatch(...)`、表 `xxxPatches(cards)`、模块 `xxxAnnotations`；
+- 纯数据文件不引入函数；纯补丁文件不重复数据表；
+- 每步仍用 `pnpm lint` / `pnpm typecheck` / 归一化重生成（允许零 diff）验收；
+- 样式统一 PR 不改变任何 `verified_*` 数据与引擎行为。
