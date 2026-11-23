@@ -413,3 +413,10 @@ A0.5 的 432 张全部复核完成后，再做一次**纯样式**整理（不与
 - 样式统一 PR 不改变任何 `verified_*` 数据与引擎行为。
 
 > 2026-11-23 进展：基础样式统一已完成（hNN 数据前置、模块名 `xxxAnnotations`、应用函数 `applyXxxAnnotations` 不导出、helper 集中）。`switch` → patch 表的结构改写留到 A3 删除 rekey 代码时一起做。
+
+### 8.1 终态验收（A3 后）
+
+- `hero-annotations/hNN-*.ts` 必须是**纯数据文件**：不再有工厂函数、patch 表或模块导出；
+  用 `git grep -n "function " packages/data/src/normalize/hero-annotations/h*.ts` 检查应为空。
+- 确实无法数据化的几何修复，移到 `hero-patches/hNN-*.ts`，文件头注明原因与 R/Q 编号。
+- 这一条与 A3 的「删除 rekey 代码」同时验收，不单独作为一个 PR。
