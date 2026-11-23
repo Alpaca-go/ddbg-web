@@ -1,4 +1,4 @@
-﻿import type { HeroAnnotationModule, HeroSkillPatch, StatusEffectEntry } from "./types";
+import type { HeroAnnotationModule, HeroSkillPatch, StatusEffectEntry } from "./types";
 import {
   applyPatches,
   cloneKey,
@@ -252,6 +252,7 @@ function withstand(cards: readonly NormalizedHeroSkillCard[], page: number): Her
       return normalizedHeroSkillCardSchema.parse({
         ...card,
         stats_line: null,
+        verified_self_range: true,
         effect_lines: [
           [rangeIcon, text(" Self")],
           [selfEffects, text(" Self "), protection, text(` ${protT}t, `), mark, text(` ${markT}t`)],
@@ -284,6 +285,8 @@ function solemnity(cards: readonly NormalizedHeroSkillCard[], page: number): Her
       return normalizedHeroSkillCardSchema.parse({
         ...card,
         stats_line: [rangeIcon, text(" Self")],
+        verified_self_heal: { lineIndex: 0, amount: heal, source: "print_front" },
+        verified_self_stress: { lineIndex: 0, amount: -1, source: "print_front" },
         effect_lines: [
           [
             selfEffects,

@@ -1,5 +1,9 @@
 # Musketeer（h18）技能语义复核 — 2026-11-23
 
+> **状态：pending**。Kyries 2026-11-23 确认：Musketeer 与 Arbalest 效果完全一致，
+> 只有技能图标和技能名不同。因此 Musketeer **不单独判定**，等 Arbalest 核对通过后
+> 按 Q-185 同步；本文记录的是同步前的对照核查。
+
 范围：`hero_skill:musketeer:h18:p358`–`p378`，共 21 张（7 技能 × I–III）。
 依据：Q-185 裁定（Musketeer 与 Arbalest 效果完全一致，仅图标与技能名不同）、
 [musketeer-arbalest-parity.test.ts](../../packages/data/src/normalize/musketeer-arbalest-parity.test.ts)。

@@ -115335,6 +115335,7 @@
      }
     ]
    ],
+   "verified_self_range": true,
    "verified_status_effects": [
     {
      "lineIndex": 1,
@@ -115776,6 +115777,7 @@
      }
     ]
    ],
+   "verified_self_range": true,
    "verified_status_effects": [
     {
      "lineIndex": 1,
@@ -116217,6 +116219,7 @@
      }
     ]
    ],
+   "verified_self_range": true,
    "verified_status_effects": [
     {
      "lineIndex": 1,
@@ -116677,6 +116680,16 @@
      }
     ]
    ],
+   "verified_self_heal": {
+    "lineIndex": 0,
+    "amount": 6,
+    "source": "print_front"
+   },
+   "verified_self_stress": {
+    "lineIndex": 0,
+    "amount": -1,
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -117129,6 +117142,16 @@
      }
     ]
    ],
+   "verified_self_heal": {
+    "lineIndex": 0,
+    "amount": 9,
+    "source": "print_front"
+   },
+   "verified_self_stress": {
+    "lineIndex": 0,
+    "amount": -1,
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "978f861dea",
@@ -117581,6 +117604,16 @@
      }
     ]
    ],
+   "verified_self_heal": {
+    "lineIndex": 0,
+    "amount": 12,
+    "source": "print_front"
+   },
+   "verified_self_stress": {
+    "lineIndex": 0,
+    "amount": -1,
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "978f861dea",

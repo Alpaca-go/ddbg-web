@@ -12,7 +12,7 @@
  * 说明：
  * - 只做「可机器判断」的三角定位（印刷行、当前注解、明显缺口），
  *   不替代人工判定；verdict 默认 pending。
- * - 不修改任何游戏数据。
+ * - 不修改任何游戏数据。\n * - 生成后请运行 pnpm exec prettier --write docs/reviews/*，否则 lint 会报格式问题。
  */
 import { existsSync, readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { dirname, resolve } from "node:path";
