@@ -1,4 +1,10 @@
-import type { StatusEffectEntry, RangeEntry, SupportEffectEntry, DamageEntry } from "./types";
+import type {
+  StatusEffectEntry,
+  RangeEntry,
+  SupportEffectEntry,
+  DamageEntry,
+  SelfEffectEntry,
+} from "./types";
 
 /** 完整印刷逐页核对的状态效果行（docs/phase2-four-core-skills-2026-10-11.md）。 */
 export const statusEntries: readonly StatusEffectEntry[] = [
@@ -213,5 +219,49 @@ export const damageEntries: readonly DamageEntry[] = [
     amount: 3,
     condition: "unholy",
     suffix: "Unholy",
+  },
+];
+
+/** 自身治疗 / 压力行（lineIndex 指向 self_effects 行）。 */
+export const selfEffectEntries: readonly SelfEffectEntry[] = [
+  {
+    id: "hero_skill:core:h01:p015",
+    name: "Battle Heal",
+    level: 3,
+    lineIndex: 0,
+    kind: "heal",
+    amount: 5,
+  },
+  {
+    id: "hero_skill:core:h01:p020",
+    name: "Inspiring Cry",
+    level: 2,
+    lineIndex: 1,
+    kind: "heal",
+    amount: 1,
+  },
+  {
+    id: "hero_skill:core:h01:p020",
+    name: "Inspiring Cry",
+    level: 2,
+    lineIndex: 1,
+    kind: "stress",
+    amount: -1,
+  },
+  {
+    id: "hero_skill:core:h01:p021",
+    name: "Inspiring Cry",
+    level: 3,
+    lineIndex: 1,
+    kind: "heal",
+    amount: 1,
+  },
+  {
+    id: "hero_skill:core:h01:p021",
+    name: "Inspiring Cry",
+    level: 3,
+    lineIndex: 1,
+    kind: "stress",
+    amount: -1,
   },
 ];

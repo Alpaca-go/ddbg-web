@@ -326,6 +326,8 @@ alias 表覆盖全部旧 ID。
 ```powershell
 $env:WRITE_NORMALIZED='1'
 pnpm exec vitest run packages/data/src/normalize/normalize.test.ts
+# 注意：只对 normalize.test.ts 设置 WRITE_NORMALIZED；
+# 对整个 normalize 目录设置会顺带重写 cove room/curio（格式不同），产生无关 diff。
 git diff --stat packages/data/normalized
 ```
 
@@ -348,6 +350,8 @@ pnpm test:e2e
 # 规范化数据重生成（每次改注解后）
 $env:WRITE_NORMALIZED='1'
 pnpm exec vitest run packages/data/src/normalize/normalize.test.ts
+# 注意：只对 normalize.test.ts 设置 WRITE_NORMALIZED；
+# 对整个 normalize 目录设置会顺带重写 cove room/curio（格式不同），产生无关 diff。
 git diff --stat packages/data/normalized    # 语义整理阶段必须为空
 
 # 限定范围的测试

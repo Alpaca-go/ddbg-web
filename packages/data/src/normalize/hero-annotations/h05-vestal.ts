@@ -1,4 +1,4 @@
-import type { StatusEffectEntry, RangeEntry, DamageEntry } from "./types";
+import type { StatusEffectEntry, RangeEntry, DamageEntry, SelfEffectEntry } from "./types";
 
 /** 完整印刷逐页核对的状态效果行（docs/phase2-four-core-skills-2026-10-11.md）。 */
 export const statusEntries: readonly StatusEffectEntry[] = [
@@ -258,5 +258,57 @@ export const damageEntries: readonly DamageEntry[] = [
     amount: 3,
     condition: "unholy",
     suffix: "Unholy",
+  },
+];
+
+/** 自身治疗 / 压力行（lineIndex 指向 self_effects 行）。 */
+export const selfEffectEntries: readonly SelfEffectEntry[] = [
+  {
+    id: "hero_skill:core:h05:p088",
+    name: "Judgement",
+    level: 1,
+    lineIndex: 0,
+    kind: "heal",
+    amount: 2,
+  },
+  {
+    id: "hero_skill:core:h05:p089",
+    name: "Judgement",
+    level: 2,
+    lineIndex: 0,
+    kind: "heal",
+    amount: 3,
+  },
+  {
+    id: "hero_skill:core:h05:p090",
+    name: "Judgement",
+    level: 3,
+    lineIndex: 0,
+    kind: "heal",
+    amount: 4,
+  },
+  {
+    id: "hero_skill:core:h05:p097",
+    name: "Divine Comfort",
+    level: 1,
+    lineIndex: 0,
+    kind: "heal",
+    amount: 2,
+  },
+  {
+    id: "hero_skill:core:h05:p098",
+    name: "Divine Comfort",
+    level: 2,
+    lineIndex: 0,
+    kind: "heal",
+    amount: 3,
+  },
+  {
+    id: "hero_skill:core:h05:p099",
+    name: "Divine Comfort",
+    level: 3,
+    lineIndex: 0,
+    kind: "heal",
+    amount: 4,
   },
 ];

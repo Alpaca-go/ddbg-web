@@ -1,4 +1,4 @@
-import type { CoreHigherSkillRow, StatusEffectEntry, RangeEntry } from "./types";
+import type { CoreHigherSkillRow, StatusEffectEntry, RangeEntry, SelfEffectEntry } from "./types";
 
 /** 核心盒 Abomination II/III 级逐卡注解（Kyries 审阅；R-048 签名断言由 core-higher-skills 执行）。 */
 export const coreHigherRows: readonly CoreHigherSkillRow[] = [
@@ -119,5 +119,105 @@ export const rangeEntries: readonly RangeEntry[] = [
     level: 1,
     min: 1,
     max: 2,
+  },
+];
+
+/** 自身治疗 / 压力行（lineIndex 指向 self_effects 行）。 */
+export const selfEffectEntries: readonly SelfEffectEntry[] = [
+  {
+    id: "hero_skill:core:h11:p217",
+    name: "Absolution",
+    level: 1,
+    lineIndex: 0,
+    kind: "stress",
+    amount: -1,
+  },
+  {
+    id: "hero_skill:core:h11:p218",
+    name: "Absolution",
+    level: 2,
+    lineIndex: 0,
+    kind: "stress",
+    amount: -1,
+  },
+  {
+    id: "hero_skill:core:h11:p219",
+    name: "Absolution",
+    level: 3,
+    lineIndex: 0,
+    kind: "stress",
+    amount: -1,
+  },
+  {
+    id: "hero_skill:core:h11:p223",
+    name: "Rake",
+    level: 1,
+    lineIndex: 0,
+    kind: "stress",
+    amount: 1,
+  },
+  {
+    id: "hero_skill:core:h11:p224",
+    name: "Rake",
+    level: 2,
+    lineIndex: 0,
+    kind: "stress",
+    amount: 1,
+  },
+  {
+    id: "hero_skill:core:h11:p225",
+    name: "Rake",
+    level: 3,
+    lineIndex: 0,
+    kind: "stress",
+    amount: 1,
+  },
+  {
+    id: "hero_skill:core:h11:p226",
+    name: "Rage",
+    level: 1,
+    lineIndex: 0,
+    kind: "stress",
+    amount: 1,
+  },
+  {
+    id: "hero_skill:core:h11:p227",
+    name: "Rage",
+    level: 2,
+    lineIndex: 0,
+    kind: "stress",
+    amount: 1,
+  },
+  {
+    id: "hero_skill:core:h11:p228",
+    name: "Rage",
+    level: 3,
+    lineIndex: 0,
+    kind: "stress",
+    amount: 1,
+  },
+  {
+    id: "hero_skill:core:h11:p229",
+    name: "Slam",
+    level: 1,
+    lineIndex: 0,
+    kind: "stress",
+    amount: 1,
+  },
+  {
+    id: "hero_skill:core:h11:p230",
+    name: "Slam",
+    level: 2,
+    lineIndex: 0,
+    kind: "stress",
+    amount: 1,
+  },
+  {
+    id: "hero_skill:core:h11:p231",
+    name: "Slam",
+    level: 3,
+    lineIndex: 0,
+    kind: "stress",
+    amount: 1,
   },
 ];

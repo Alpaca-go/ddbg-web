@@ -1,6 +1,7 @@
 import type { NormalizedHeroSkillCard } from "../schema";
 import {
   rangeEntries as crusaderRanges,
+  selfEffectEntries as crusaderSelfEffects,
   statusEntries as crusaderStatus,
   supportEntries as crusaderSupport,
   damageEntries as crusaderDamage,
@@ -26,16 +27,19 @@ import {
 import {
   damageEntries as vestalDamage,
   rangeEntries as vestalRanges,
+  selfEffectEntries as vestalSelfEffects,
   statusEntries as vestalStatus,
 } from "./h05-vestal";
 import {
   coreHigherRows as jesterHigherRows,
   layoutEntries as jesterLayouts,
+  selfEffectEntries as jesterSelfEffects,
   statusEntries as jesterStatus,
 } from "./h06-jester";
 import {
   coreHigherRows as plagueDoctorHigherRows,
   rangeEntries as plagueDoctorRanges,
+  selfEffectEntries as plagueDoctorSelfEffects,
   statusEntries as plagueDoctorStatus,
 } from "./h07-plague-doctor";
 import {
@@ -61,6 +65,7 @@ import {
 import {
   coreHigherRows as abominationHigherRows,
   rangeEntries as abominationRanges,
+  selfEffectEntries as abominationSelfEffects,
   statusEntries as abominationStatus,
 } from "./h11-abomination";
 import { manAtArmsAnnotations } from "./h12-man-at-arms";
@@ -84,6 +89,7 @@ import { applyBountyStatuses } from "./bounty-statuses";
 import { applyDamage } from "./damage";
 import { applyLayouts } from "./layout";
 import { applyRallyingFlare } from "./rallying-flare";
+import { applySelfEffects } from "./self-effects";
 import { applyRangeEntries } from "./ranges";
 import { applyStatusEffects } from "./status-effects";
 import { applySupportEffects } from "./support-effects";
@@ -95,6 +101,7 @@ import type {
   LayoutEntry,
   RallyingFlareEntry,
   RangeEntry,
+  SelfEffectEntry,
   StatusEffectEntry,
   SupportEffectEntry,
 } from "./types";
@@ -109,6 +116,7 @@ export type {
   LayoutEntry,
   RallyingFlareEntry,
   RangeEntry,
+  SelfEffectEntry,
   StatusEffectEntry,
   SupportEffectEntry,
 } from "./types";
@@ -163,6 +171,15 @@ export const RANGES: readonly RangeEntry[] = [
   ...abominationRanges,
   ...flagellantRanges,
   ...musketeerRanges,
+];
+
+/** 自身治疗 / 压力行。 */
+export const SELF_EFFECTS: readonly SelfEffectEntry[] = [
+  ...crusaderSelfEffects,
+  ...vestalSelfEffects,
+  ...jesterSelfEffects,
+  ...plagueDoctorSelfEffects,
+  ...abominationSelfEffects,
 ];
 
 /** 已复核支援效果行（当前只有 Crusader 的 Inspiring Cry I–III）。 */
@@ -260,4 +277,9 @@ export function applyHeroDamage(
   cards: readonly NormalizedHeroSkillCard[],
 ): NormalizedHeroSkillCard[] {
   return applyDamage(cards, DAMAGE_ENTRIES);
+}
+export function applyHeroSelfEffects(
+  cards: readonly NormalizedHeroSkillCard[],
+): NormalizedHeroSkillCard[] {
+  return applySelfEffects(cards, SELF_EFFECTS);
 }

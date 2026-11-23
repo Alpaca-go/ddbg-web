@@ -1,4 +1,4 @@
-import type { CoreHigherSkillRow, StatusEffectEntry, LayoutEntry } from "./types";
+import type { CoreHigherSkillRow, StatusEffectEntry, LayoutEntry, SelfEffectEntry } from "./types";
 
 /** 核心盒 Jester II/III 级逐卡注解（Kyries 审阅；R-048 签名断言由 core-higher-skills 执行）。 */
 export const coreHigherRows: readonly CoreHigherSkillRow[] = [
@@ -288,5 +288,33 @@ export const layoutEntries: readonly LayoutEntry[] = [
     name: "Dirk Stab",
     level: 1,
     expected: ["{self_effects} Self {shuffle} Pull 1,", "Ignores {guard}"],
+  },
+];
+
+/** 自身治疗 / 压力行（lineIndex 指向 self_effects 行）。 */
+export const selfEffectEntries: readonly SelfEffectEntry[] = [
+  {
+    id: "hero_skill:core:h06:p121",
+    name: "Inspiring Tune",
+    level: 1,
+    lineIndex: 1,
+    kind: "stress",
+    amount: -1,
+  },
+  {
+    id: "hero_skill:core:h06:p122",
+    name: "Inspiring Tune",
+    level: 2,
+    lineIndex: 1,
+    kind: "stress",
+    amount: -1,
+  },
+  {
+    id: "hero_skill:core:h06:p123",
+    name: "Inspiring Tune",
+    level: 3,
+    lineIndex: 1,
+    kind: "stress",
+    amount: -1,
   },
 ];

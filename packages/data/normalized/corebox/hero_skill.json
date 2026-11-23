@@ -6053,6 +6053,11 @@
      }
     ]
    ],
+   "verified_self_heal": {
+    "lineIndex": 0,
+    "amount": 5,
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -8800,6 +8805,16 @@
     "light": 1,
     "source": "print_front"
    },
+   "verified_self_heal": {
+    "lineIndex": 1,
+    "amount": 1,
+    "source": "print_front"
+   },
+   "verified_self_stress": {
+    "lineIndex": 1,
+    "amount": -1,
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -9458,6 +9473,16 @@
     "heal": 1,
     "stress": -1,
     "light": 1,
+    "source": "print_front"
+   },
+   "verified_self_heal": {
+    "lineIndex": 1,
+    "amount": 1,
+    "source": "print_front"
+   },
+   "verified_self_stress": {
+    "lineIndex": 1,
+    "amount": -1,
     "source": "print_front"
    },
    "top_row_icons": [
@@ -40177,6 +40202,11 @@
      }
     ]
    ],
+   "verified_self_heal": {
+    "lineIndex": 0,
+    "amount": 2,
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -40653,6 +40683,11 @@
      }
     ]
    ],
+   "verified_self_heal": {
+    "lineIndex": 0,
+    "amount": 3,
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -41129,6 +41164,11 @@
      }
     ]
    ],
+   "verified_self_heal": {
+    "lineIndex": 0,
+    "amount": 4,
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -44284,6 +44324,11 @@
      }
     ]
    ],
+   "verified_self_heal": {
+    "lineIndex": 0,
+    "amount": 2,
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -44871,6 +44916,11 @@
      }
     ]
    ],
+   "verified_self_heal": {
+    "lineIndex": 0,
+    "amount": 3,
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -45458,6 +45508,11 @@
      }
     ]
    ],
+   "verified_self_heal": {
+    "lineIndex": 0,
+    "amount": 4,
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -56070,6 +56125,11 @@
      }
     ]
    ],
+   "verified_self_stress": {
+    "lineIndex": 1,
+    "amount": -1,
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -56496,6 +56556,11 @@
      }
     ]
    ],
+   "verified_self_stress": {
+    "lineIndex": 1,
+    "amount": -1,
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -57001,6 +57066,11 @@
      }
     ]
    ],
+   "verified_self_stress": {
+    "lineIndex": 1,
+    "amount": -1,
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -64955,6 +65025,11 @@
      }
     ]
    ],
+   "verified_self_heal": {
+    "lineIndex": 0,
+    "amount": 3,
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -65629,6 +65704,11 @@
      }
     ]
    ],
+   "verified_self_heal": {
+    "lineIndex": 0,
+    "amount": 4,
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -101165,6 +101245,11 @@
      }
     ]
    ],
+   "verified_self_stress": {
+    "lineIndex": 0,
+    "amount": -1,
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "41a528a693",
@@ -101639,6 +101724,11 @@
      }
     ]
    ],
+   "verified_self_stress": {
+    "lineIndex": 0,
+    "amount": -1,
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "41a528a693",
@@ -102113,6 +102203,11 @@
      }
     ]
    ],
+   "verified_self_stress": {
+    "lineIndex": 0,
+    "amount": -1,
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "41a528a693",
@@ -105223,6 +105318,11 @@
      }
     ]
    ],
+   "verified_self_stress": {
+    "lineIndex": 0,
+    "amount": 1,
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "41a528a693",
@@ -105764,6 +105864,11 @@
      }
     ]
    ],
+   "verified_self_stress": {
+    "lineIndex": 0,
+    "amount": 1,
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "41a528a693",
@@ -106305,6 +106410,11 @@
      }
     ]
    ],
+   "verified_self_stress": {
+    "lineIndex": 0,
+    "amount": 1,
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "41a528a693",
@@ -106798,6 +106908,11 @@
      }
     ]
    ],
+   "verified_self_stress": {
+    "lineIndex": 0,
+    "amount": 1,
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "41a528a693",
@@ -107262,6 +107377,11 @@
      }
     ]
    ],
+   "verified_self_stress": {
+    "lineIndex": 0,
+    "amount": 1,
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "41a528a693",
@@ -107726,6 +107846,11 @@
      }
     ]
    ],
+   "verified_self_stress": {
+    "lineIndex": 0,
+    "amount": 1,
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "41a528a693",
@@ -108262,6 +108387,11 @@
      }
     ]
    ],
+   "verified_self_stress": {
+    "lineIndex": 0,
+    "amount": 1,
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "41a528a693",
@@ -108851,6 +108981,11 @@
      }
     ]
    ],
+   "verified_self_stress": {
+    "lineIndex": 0,
+    "amount": 1,
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "41a528a693",
@@ -109440,6 +109575,11 @@
      }
     ]
    ],
+   "verified_self_stress": {
+    "lineIndex": 0,
+    "amount": 1,
+    "source": "print_front"
+   },
    "top_row_icons": [
     {
      "iconId": "41a528a693",

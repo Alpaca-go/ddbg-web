@@ -161,3 +161,12 @@ export type HeroSkillPatch = {
   readonly page: number;
   readonly apply: (card: NormalizedHeroSkillCard) => NormalizedHeroSkillCard;
 };
+/** 自身治疗 / 压力行：lineIndex 指向含 self_effects + heal/stress 的那一行。 */
+export type SelfEffectEntry = {
+  readonly id: string;
+  readonly name: string;
+  readonly level: number;
+  readonly lineIndex: number;
+  readonly kind: "heal" | "stress";
+  readonly amount: number;
+};

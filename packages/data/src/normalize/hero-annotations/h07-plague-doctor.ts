@@ -1,4 +1,4 @@
-import type { CoreHigherSkillRow, StatusEffectEntry, RangeEntry } from "./types";
+import type { CoreHigherSkillRow, StatusEffectEntry, RangeEntry, SelfEffectEntry } from "./types";
 
 /** 核心盒 Plague Doctor II/III 级逐卡注解（Kyries 审阅；R-048 签名断言由 core-higher-skills 执行）。 */
 export const coreHigherRows: readonly CoreHigherSkillRow[] = [
@@ -382,5 +382,25 @@ export const rangeEntries: readonly RangeEntry[] = [
     level: 1,
     min: 1,
     max: 2,
+  },
+];
+
+/** 自身治疗 / 压力行（lineIndex 指向 self_effects 行）。 */
+export const selfEffectEntries: readonly SelfEffectEntry[] = [
+  {
+    id: "hero_skill:core:h07:p140",
+    name: "Battlefield Medicine",
+    level: 2,
+    lineIndex: 0,
+    kind: "heal",
+    amount: 3,
+  },
+  {
+    id: "hero_skill:core:h07:p141",
+    name: "Battlefield Medicine",
+    level: 3,
+    lineIndex: 0,
+    kind: "heal",
+    amount: 4,
   },
 ];
