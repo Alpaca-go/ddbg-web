@@ -1326,6 +1326,49 @@ const entries: readonly {
     signature: "{self_effects}Self{shuffle}Pull1",
     effects: [{ type: "shuffle", scope: "self", direction: "pull", distance: 1 }],
   },
+  {
+    id: "monster_medium:ADD_014:p001",
+    name: "Perfect Reflection",
+    level: 3,
+    pages: [1, 2],
+    slot: 1,
+    signature: ["{target_effects}{damage}+3vs{mark},2{bleed}3t,", "{stress}+1"],
+    effects: [
+      { type: "damageBonus", condition: "marked", amount: 3 },
+      { type: "status", scope: "target", kind: "bleed", amount: 2, duration: 3 },
+      { type: "stress", scope: "target", amount: 1 },
+    ],
+  },
+  {
+    id: "monster_medium:ADD_014:p001",
+    name: "Perfect Reflection",
+    level: 3,
+    pages: [1, 2],
+    slot: 2,
+    signature: "{target_effects}{stress}+2",
+    effects: [{ type: "stress", scope: "target", amount: 2 }],
+  },
+  {
+    id: "monster_medium:ADD_014:p003",
+    name: "Imperfect Reflection",
+    level: 3,
+    pages: [3, 4],
+    slot: 1,
+    signature: "{target_effects}{mark}2t,{stun}1t",
+    effects: [
+      { type: "status", scope: "target", kind: "mark", duration: 2 },
+      { type: "status", scope: "target", kind: "stun", duration: 1 },
+    ],
+  },
+  {
+    id: "monster_medium:ADD_014:p003",
+    name: "Imperfect Reflection",
+    level: 3,
+    pages: [3, 4],
+    slot: 2,
+    signature: "{target_effects}{stress}+1",
+    effects: [{ type: "stress", scope: "target", amount: 1 }],
+  },
 ];
 
 export function attachVerifiedMonsterEffects(
