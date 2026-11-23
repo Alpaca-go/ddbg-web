@@ -328,6 +328,14 @@ export const heroSkillRulesSchema = z.strictObject({
     )
     .min(1)
     .optional(),
+  /** 已核实的区域目标数（规则书第 19 页）；0/0/0 表示没有目标图标。 */
+  targets: z
+    .strictObject({
+      hero: z.int().nonnegative(),
+      monster: z.int().nonnegative(),
+      heroOrMonster: z.int().nonnegative(),
+    })
+    .optional(),
 });
 
 /** 怪物技能规则：与英雄共用核心字段，另有怪物效果计划。 */

@@ -206,3 +206,11 @@ export type RemovalEntry = {
   readonly scope: "self" | "target";
   readonly kinds: readonly ("bleed" | "blight")[];
 };
+
+/** 区域目标数：stats 行或卡面正面的已命名目标图标个数。 */
+export type TargetCountEntry = {
+  readonly id: string;
+  readonly hero: number;
+  readonly monster: number;
+  readonly heroOrMonster: number;
+};

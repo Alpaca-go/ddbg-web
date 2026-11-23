@@ -61,6 +61,8 @@ export function projectHeroSkillRules(card: NormalizedHeroSkillCard): HeroSkillR
   if (card.rules?.ignores) rules.ignores = card.rules.ignores;
   // A2 单元 2 的条件移除规则同样直接写在 rules 下。
   if (card.rules?.removal) rules.removal = card.rules.removal;
+  // A2 单元 3 的区域目标数同样直接写在 rules 下。
+  if (card.rules?.targets) rules.targets = card.rules.targets;
   if (card.verified_status_effects) rules.statuses = card.verified_status_effects;
   if (card.verified_damage_bonus) rules.damage = card.verified_damage_bonus;
   if (card.verified_damage_bonuses) rules.damageBonuses = card.verified_damage_bonuses;

@@ -93,6 +93,8 @@ import { applyRallyingFlare } from "./rallying-flare";
 import { applyRemoval } from "./removal";
 import { REMOVAL_RULES } from "./removal-data";
 import { applySelfEffects } from "./self-effects";
+import { applyTargetCounts } from "./target-counts";
+import { TARGET_COUNTS } from "./target-counts-data";
 import { applyTargetStress } from "./target-stress";
 import { applyTextRules } from "./text-rules";
 import { IGNORES_RULES, SHUFFLE_RULES } from "./text-rules-data";
@@ -112,6 +114,7 @@ import type {
   SupportEffectEntry,
   TargetStressEntry,
   RemovalEntry,
+  TargetCountEntry,
 } from "./types";
 
 export type {
@@ -129,6 +132,7 @@ export type {
   SupportEffectEntry,
   TargetStressEntry,
   RemovalEntry,
+  TargetCountEntry,
 } from "./types";
 
 /**
@@ -197,6 +201,9 @@ export const TARGET_STRESS: readonly TargetStressEntry[] = [...jesterTargetStres
 
 /** 条件移除行（Battlefield Medicine、Toxin Trickery）。 */
 export const REMOVAL_ENTRIES: readonly RemovalEntry[] = [...REMOVAL_RULES];
+
+/** Core 11 的区域目标数（A2 单元 3a）。 */
+export const TARGET_COUNT_ENTRIES: readonly TargetCountEntry[] = [...TARGET_COUNTS];
 
 /** 已复核支援效果行（当前只有 Crusader 的 Inspiring Cry I–III）。 */
 export const SUPPORT_EFFECTS: readonly SupportEffectEntry[] = [...crusaderSupport];
@@ -308,6 +315,11 @@ export function applyHeroRemoval(
   cards: readonly NormalizedHeroSkillCard[],
 ): NormalizedHeroSkillCard[] {
   return applyRemoval(cards, REMOVAL_ENTRIES);
+}
+export function applyHeroTargetCounts(
+  cards: readonly NormalizedHeroSkillCard[],
+): NormalizedHeroSkillCard[] {
+  return applyTargetCounts(cards, TARGET_COUNT_ENTRIES);
 }
 export function applyHeroTextRules(
   cards: readonly NormalizedHeroSkillCard[],

@@ -288,6 +288,11 @@
      "amount": 1,
      "condition": "unholy",
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -754,6 +759,11 @@
      "amount": 2,
      "condition": "unholy",
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -1220,6 +1230,11 @@
      "amount": 3,
      "condition": "unholy",
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -1613,6 +1628,13 @@
      "text": " 5"
     }
    ],
+   "rules": {
+    "targets": {
+     "hero": 0,
+     "monster": 2,
+     "heroOrMonster": 0
+    }
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -2004,6 +2026,13 @@
      "text": " 6"
     }
    ],
+   "rules": {
+    "targets": {
+     "hero": 0,
+     "monster": 2,
+     "heroOrMonster": 0
+    }
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -2395,6 +2424,13 @@
      "text": " 7"
     }
    ],
+   "rules": {
+    "targets": {
+     "hero": 0,
+     "monster": 2,
+     "heroOrMonster": 0
+    }
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -2823,7 +2859,12 @@
       "kind": "stun",
       "duration": 1
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -3275,7 +3316,12 @@
       "kind": "stun",
       "duration": 1
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -3727,7 +3773,12 @@
       "kind": "stun",
       "duration": 1
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -4157,7 +4208,12 @@
       "kind": "mark",
       "duration": 3
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 0,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -4587,7 +4643,12 @@
       "kind": "mark",
       "duration": 3
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 0,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -5007,7 +5068,12 @@
       "kind": "mark",
       "duration": 2
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 0,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -5417,6 +5483,11 @@
      "min": 0,
      "max": 1,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 1,
+     "monster": 0,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -5849,6 +5920,11 @@
      "min": 0,
      "max": 1,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 1,
+     "monster": 0,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -6359,6 +6435,11 @@
       "amount": 5,
       "source": "print_front"
      }
+    },
+    "targets": {
+     "hero": 1,
+     "monster": 0,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -6892,7 +6973,12 @@
       "scope": "self",
       "text": "Pull 1"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -7425,7 +7511,12 @@
       "scope": "self",
       "text": "Pull 1"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -7958,7 +8049,12 @@
       "scope": "self",
       "text": "Pull 1"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -10220,6 +10316,13 @@
      "text": " 7"
     }
    ],
+   "rules": {
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -10582,6 +10685,13 @@
      "text": " 9"
     }
    ],
+   "rules": {
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -10944,6 +11054,13 @@
      "text": " 11"
     }
    ],
+   "rules": {
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -11295,6 +11412,13 @@
      "text": " 7"
     }
    ],
+   "rules": {
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -11657,6 +11781,13 @@
      "text": " 9"
     }
    ],
+   "rules": {
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -12019,6 +12150,13 @@
      "text": " 11"
     }
    ],
+   "rules": {
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -12347,7 +12485,12 @@
       "kind": "stun",
       "duration": 1
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 2,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -12699,7 +12842,12 @@
       "kind": "stun",
       "duration": 1
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 2,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -13051,7 +13199,12 @@
       "kind": "stun",
       "duration": 1
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 2,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -13512,7 +13665,12 @@
       "duration": 2,
       "amount": 2
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -13995,7 +14153,12 @@
       "duration": 3,
       "amount": 3
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -14478,7 +14641,12 @@
       "duration": 3,
       "amount": 4
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -14935,7 +15103,12 @@
       "scope": "self",
       "text": "Pull 1"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 3,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -15425,7 +15598,12 @@
       "scope": "self",
       "text": "Pull 1"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 3,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -15915,7 +16093,12 @@
       "scope": "self",
       "text": "Pull 1"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 3,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -16325,7 +16508,12 @@
       "kind": "buff",
       "duration": 3
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 0,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -16862,6 +17050,11 @@
      "min": 0,
      "max": 1,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 1,
+     "monster": 0,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -17472,6 +17665,11 @@
      "min": 0,
      "max": 1,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 2,
+     "monster": 0,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -18042,7 +18240,12 @@
       "duration": 2,
       "amount": 3
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -18590,7 +18793,12 @@
       "duration": 3,
       "amount": 3
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -19138,7 +19346,12 @@
       "duration": 3,
       "amount": 4
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -19712,7 +19925,12 @@
       "condition": "marked",
       "source": "print_front"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -20297,7 +20515,12 @@
       "condition": "marked",
       "source": "print_front"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -20884,7 +21107,12 @@
       "condition": "marked",
       "source": "print_front"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -21390,6 +21618,11 @@
      "min": 0,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -21896,6 +22129,11 @@
      "min": 0,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -22402,6 +22640,11 @@
      "min": 0,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -22879,7 +23122,12 @@
       "scope": "target",
       "text": "Pull 2"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -23367,7 +23615,12 @@
       "scope": "target",
       "text": "Pull 2"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -23855,7 +24108,12 @@
       "scope": "target",
       "text": "Pull 2"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -24332,7 +24590,12 @@
       "scope": "target",
       "text": "Push 2"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -24820,7 +25083,12 @@
       "scope": "target",
       "text": "Push 2"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -25308,7 +25576,12 @@
       "scope": "target",
       "text": "Push 2"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -25717,6 +25990,11 @@
      "min": 1,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -26126,6 +26404,11 @@
      "min": 1,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -26535,6 +26818,11 @@
      "min": 1,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -27014,6 +27302,11 @@
      "min": 0,
      "max": 1,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -27515,6 +27808,11 @@
      "min": 0,
      "max": 1,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -28016,6 +28314,11 @@
      "min": 0,
      "max": 1,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -28550,7 +28853,12 @@
       "kind": "debuff",
       "duration": 1
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -29095,7 +29403,12 @@
       "kind": "debuff",
       "duration": 2
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -29640,7 +29953,12 @@
       "kind": "debuff",
       "duration": 3
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -30026,6 +30344,13 @@
      "text": " 7"
     }
    ],
+   "rules": {
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -30388,6 +30713,13 @@
      "text": " 9"
     }
    ],
+   "rules": {
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -30750,6 +31082,13 @@
      "text": " 11"
     }
    ],
+   "rules": {
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -31205,6 +31544,11 @@
      "min": 1,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -31706,6 +32050,11 @@
      "min": 1,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -32207,6 +32556,11 @@
      "min": 1,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -32682,7 +33036,12 @@
       "scope": "target",
       "text": "Push 1"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -33179,7 +33538,12 @@
       "scope": "target",
       "text": "Push 1"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -33676,7 +34040,12 @@
       "scope": "target",
       "text": "Push 1"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -34195,6 +34564,11 @@
      "min": 0,
      "max": 1,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 3,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -34725,6 +35099,11 @@
      "min": 0,
      "max": 1,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 3,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -35255,6 +35634,11 @@
      "min": 0,
      "max": 1,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 3,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -35738,6 +36122,11 @@
      "min": 1,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -36210,6 +36599,11 @@
      "min": 1,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -36682,6 +37076,11 @@
      "min": 1,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -37158,7 +37557,12 @@
       "scope": "self",
       "text": "Pull 1"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -37656,7 +38060,12 @@
       "scope": "self",
       "text": "Pull 1"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -38154,7 +38563,12 @@
       "scope": "self",
       "text": "Pull 1"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -38637,7 +39051,12 @@
       "duration": 2,
       "amount": 2
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -39120,7 +39539,12 @@
       "duration": 3,
       "amount": 2
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -39603,7 +40027,12 @@
       "duration": 3,
       "amount": 3
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -40058,6 +40487,11 @@
      "amount": 1,
      "condition": "unholy",
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -40524,6 +40958,11 @@
      "amount": 2,
      "condition": "unholy",
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -40990,6 +41429,11 @@
      "amount": 3,
      "condition": "unholy",
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -41463,6 +41907,11 @@
      "min": 1,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -41958,6 +42407,11 @@
      "min": 1,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -42453,6 +42907,11 @@
      "min": 1,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -42932,7 +43391,12 @@
       "kind": "stun",
       "duration": 1
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -43422,7 +43886,12 @@
       "kind": "stun",
       "duration": 1
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -43912,7 +44381,12 @@
       "kind": "stun",
       "duration": 1
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -44344,6 +44818,11 @@
      "min": 0,
      "max": 1,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 1,
+     "monster": 0,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -44776,6 +45255,11 @@
      "min": 0,
      "max": 1,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 1,
+     "monster": 0,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -45208,6 +45692,11 @@
      "min": 0,
      "max": 1,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 1,
+     "monster": 0,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -45743,6 +46232,11 @@
       "amount": 2,
       "source": "print_front"
      }
+    },
+    "targets": {
+     "hero": 3,
+     "monster": 0,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -46344,6 +46838,11 @@
       "amount": 3,
       "source": "print_front"
      }
+    },
+    "targets": {
+     "hero": 3,
+     "monster": 0,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -46945,6 +47444,11 @@
       "amount": 4,
       "source": "print_front"
      }
+    },
+    "targets": {
+     "hero": 3,
+     "monster": 0,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -47488,6 +47992,11 @@
      "min": 1,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -47998,6 +48507,11 @@
      "min": 1,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -48508,6 +49022,11 @@
      "min": 1,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -49049,7 +49568,12 @@
       "kind": "buff",
       "duration": 3
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -49612,7 +50136,12 @@
       "kind": "buff",
       "duration": 3
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -50175,7 +50704,12 @@
       "kind": "buff",
       "duration": 3
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -50644,7 +51178,12 @@
       "lineIndex": 1,
       "kind": "guard"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -51113,7 +51652,12 @@
       "lineIndex": 1,
       "kind": "guard"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -51582,7 +52126,12 @@
       "lineIndex": 1,
       "kind": "guard"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -52083,7 +52632,12 @@
       "duration": 2,
       "amount": 2
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 2,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -52595,7 +53149,12 @@
       "duration": 3,
       "amount": 2
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 2,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -53107,7 +53666,12 @@
       "duration": 3,
       "amount": 3
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 2,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -53539,7 +54103,12 @@
       "scope": "self",
       "text": "Push 3"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -53971,7 +54540,12 @@
       "scope": "self",
       "text": "Push 3"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -54403,7 +54977,12 @@
       "scope": "self",
       "text": "Push 3"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -54851,7 +55430,12 @@
       "scope": "self",
       "text": "Pull 2"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -55321,7 +55905,12 @@
       "scope": "self",
       "text": "Pull 2"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -55791,7 +56380,12 @@
       "scope": "self",
       "text": "Pull 2"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -57797,6 +58391,11 @@
       "amount": -1,
       "source": "print_front"
      }
+    },
+    "targets": {
+     "hero": 2,
+     "monster": 0,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -58317,6 +58916,11 @@
       "amount": -1,
       "source": "print_front"
      }
+    },
+    "targets": {
+     "hero": 3,
+     "monster": 0,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -58848,6 +59452,11 @@
       "amount": -1,
       "source": "print_front"
      }
+    },
+    "targets": {
+     "hero": 3,
+     "monster": 0,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -59342,7 +59951,12 @@
       "duration": 1,
       "amount": 3
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -59825,7 +60439,12 @@
       "duration": 2,
       "amount": 3
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -60308,7 +60927,12 @@
       "duration": 3,
       "amount": 3
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -60831,7 +61455,12 @@
       "kind": "debuff",
       "duration": 1
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -61376,7 +62005,12 @@
       "kind": "debuff",
       "duration": 1
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -61921,7 +62555,12 @@
       "kind": "debuff",
       "duration": 2
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -62422,7 +63061,12 @@
       "duration": 2,
       "amount": 3
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 2,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -62934,7 +63578,12 @@
       "duration": 3,
       "amount": 3
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 2,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -63446,7 +64095,12 @@
       "duration": 3,
       "amount": 3
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 2,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -63819,6 +64473,11 @@
      "min": 1,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 2,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -64181,6 +64840,11 @@
      "min": 1,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 2,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -64543,6 +65207,11 @@
      "min": 1,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 2,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -65004,7 +65673,12 @@
       "duration": 2,
       "amount": 2
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -65487,7 +66161,12 @@
       "duration": 3,
       "amount": 2
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -65970,7 +66649,12 @@
       "duration": 3,
       "amount": 3
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -66444,7 +67128,12 @@
        "blight"
       ]
      }
-    ]
+    ],
+    "targets": {
+     "hero": 1,
+     "monster": 0,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -67095,7 +67784,12 @@
        "blight"
       ]
      }
-    ]
+    ],
+    "targets": {
+     "hero": 1,
+     "monster": 0,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -67801,7 +68495,12 @@
        "blight"
       ]
      }
-    ]
+    ],
+    "targets": {
+     "hero": 1,
+     "monster": 0,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -69597,7 +70296,12 @@
       "scope": "target",
       "text": "Push 2 or Pull 2"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -69988,7 +70692,12 @@
       "scope": "target",
       "text": "Push 2 or Pull 2"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -70379,7 +71088,12 @@
       "scope": "target",
       "text": "Push 2 or Pull 2"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -70837,6 +71551,11 @@
      "amount": 3,
      "condition": "marked",
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -71328,6 +72047,11 @@
      "amount": 5,
      "condition": "marked",
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -71819,6 +72543,11 @@
      "amount": 9,
      "condition": "marked",
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -72309,6 +73038,11 @@
      "min": 1,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 2,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -72810,6 +73544,11 @@
      "min": 1,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 2,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -73311,6 +74050,11 @@
      "min": 1,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 2,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -73684,6 +74428,11 @@
      "min": 1,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -74035,6 +74784,11 @@
      "min": 1,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -74386,6 +75140,11 @@
      "min": 1,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -74846,7 +75605,12 @@
       "scope": "target",
       "text": "Push 2"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 2,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -75372,7 +76136,12 @@
       "scope": "target",
       "text": "Push 2"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 2,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -75898,7 +76667,12 @@
       "scope": "target",
       "text": "Push 2"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 2,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -76362,7 +77136,12 @@
       "scope": "self",
       "text": "Push 1"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -76804,7 +77583,12 @@
       "scope": "self",
       "text": "Push 2"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -77246,7 +78030,12 @@
       "scope": "self",
       "text": "Push 2"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -77743,6 +78532,11 @@
      "min": 0,
      "max": 1,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 1,
+     "monster": 0,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -78273,6 +79067,11 @@
      "min": 0,
      "max": 1,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 1,
+     "monster": 0,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -78803,6 +79602,11 @@
      "min": 0,
      "max": 1,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 1,
+     "monster": 0,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -81030,7 +81834,12 @@
       "lineIndex": 0,
       "kind": "protection"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -81457,7 +82266,12 @@
       "lineIndex": 0,
       "kind": "protection"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -81884,7 +82698,12 @@
       "lineIndex": 0,
       "kind": "protection"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -82398,7 +83217,12 @@
       "scope": "self",
       "text": "Pull 2"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -82956,7 +83780,12 @@
       "scope": "self",
       "text": "Pull 2"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -83514,7 +84343,12 @@
       "scope": "self",
       "text": "Pull 2"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -83940,6 +84774,13 @@
      "text": " 3"
     }
    ],
+   "rules": {
+    "targets": {
+     "hero": 0,
+     "monster": 2,
+     "heroOrMonster": 0
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -84407,7 +85248,12 @@
       "kind": "debuff",
       "duration": 1
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 2,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -84898,7 +85744,12 @@
       "kind": "debuff",
       "duration": 2
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 2,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -85286,7 +86137,12 @@
       "scope": "self",
       "text": "Push 2"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 0,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -85652,7 +86508,12 @@
       "scope": "self",
       "text": "Push 2"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 0,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -86018,7 +86879,12 @@
       "scope": "self",
       "text": "Push 2"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 0,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -86562,6 +87428,11 @@
      "min": 1,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -87172,6 +88043,11 @@
      "min": 1,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -87782,6 +88658,11 @@
      "min": 1,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -88297,6 +89178,11 @@
      "min": 1,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -88790,6 +89676,11 @@
      "min": 1,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -89283,6 +90174,11 @@
      "min": 1,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -89683,7 +90579,12 @@
        "blight"
       ]
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 0,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -91386,6 +92287,11 @@
      "amount": 1,
      "condition": "eldritch",
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -91852,6 +92758,11 @@
      "amount": 2,
      "condition": "eldritch",
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -92318,6 +93229,11 @@
      "amount": 3,
      "condition": "eldritch",
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -92791,6 +93707,11 @@
      "amount": 1,
      "condition": "eldritch",
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 2,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -93286,6 +94207,11 @@
      "amount": 2,
      "condition": "eldritch",
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 2,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -93781,6 +94707,11 @@
      "amount": 3,
      "condition": "eldritch",
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 2,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -94253,6 +95184,11 @@
      "min": 1,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -94725,6 +95661,11 @@
      "min": 1,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -95197,6 +96138,11 @@
      "min": 1,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -95715,6 +96661,11 @@
      "min": 0,
      "max": 1,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 1,
+     "monster": 0,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -96266,6 +97217,11 @@
      "min": 0,
      "max": 1,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 1,
+     "monster": 0,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -96817,6 +97773,11 @@
      "min": 0,
      "max": 1,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 1,
+     "monster": 0,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -97290,6 +98251,11 @@
      "min": 1,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -97752,6 +98718,11 @@
      "min": 1,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -98214,6 +99185,11 @@
      "min": 1,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -98682,7 +99658,12 @@
       "kind": "stun",
       "duration": 2
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -99190,7 +100171,12 @@
       "kind": "stun",
       "duration": 2
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 2,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -99709,7 +100695,12 @@
       "kind": "stun",
       "duration": 3
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 2,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -100152,7 +101143,12 @@
       "scope": "target",
       "text": "Pull 2"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -100584,7 +101580,12 @@
       "scope": "target",
       "text": "Pull 2"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -101016,7 +102017,12 @@
       "scope": "target",
       "text": "Pull 2"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -101468,7 +102474,12 @@
       "kind": "stun",
       "duration": 1
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -101942,7 +102953,12 @@
       "kind": "stun",
       "duration": 1
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -102416,7 +103432,12 @@
       "kind": "stun",
       "duration": 1
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -102938,6 +103959,11 @@
      "min": 1,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 2,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -103482,6 +104508,11 @@
      "min": 1,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 2,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -104026,6 +105057,11 @@
      "min": 1,
      "max": 2,
      "source": "print_front"
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 2,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -104503,6 +105539,11 @@
       "amount": -1,
       "source": "print_front"
      }
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 0,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -104991,6 +106032,11 @@
       "amount": -1,
       "source": "print_front"
      }
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 0,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -105479,6 +106525,11 @@
       "amount": -1,
       "source": "print_front"
      }
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 0,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -105981,6 +107032,13 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "targets": {
+     "hero": 0,
+     "monster": 0,
+     "heroOrMonster": 0
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -106839,6 +107897,13 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "targets": {
+     "hero": 0,
+     "monster": 0,
+     "heroOrMonster": 0
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -107686,6 +108751,13 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "targets": {
+     "hero": 0,
+     "monster": 0,
+     "heroOrMonster": 0
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -108603,6 +109675,11 @@
       "amount": 1,
       "source": "print_front"
      }
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 2,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -109158,6 +110235,11 @@
       "amount": 1,
       "source": "print_front"
      }
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 2,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -109713,6 +110795,11 @@
       "amount": 1,
       "source": "print_front"
      }
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 2,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -110202,6 +111289,11 @@
       "amount": 1,
       "source": "print_front"
      }
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -110680,6 +111772,11 @@
       "amount": 1,
       "source": "print_front"
      }
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -111158,6 +112255,11 @@
       "amount": 1,
       "source": "print_front"
      }
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -111720,7 +112822,12 @@
       "scope": "target",
       "text": "Push 2"
      }
-    ]
+    ],
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
+    }
    },
    "front_icons": [
     {
@@ -112323,6 +113430,11 @@
       "amount": 1,
       "source": "print_front"
      }
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [
@@ -112926,6 +114038,11 @@
       "amount": 1,
       "source": "print_front"
      }
+    },
+    "targets": {
+     "hero": 0,
+     "monster": 1,
+     "heroOrMonster": 0
     }
    },
    "front_icons": [

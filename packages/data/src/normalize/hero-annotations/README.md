@@ -41,6 +41,7 @@ h01–h11 只有 1–2；h12–h18 是 1–5。
 | `selfEffectEntries`                 | [self-effects.ts](self-effects.ts)                   |
 | `targetStressEntries`               | [target-stress.ts](target-stress.ts)                 |
 | `removalEntries`                    | [removal.ts](removal.ts)                             |
+| `TARGET_COUNTS`                     | [target-counts.ts](target-counts.ts)                 |
 | `supportEntries`                    | [support-effects.ts](support-effects.ts)             |
 | `layoutEntries`                     | [layout.ts](layout.ts)                               |
 | `damageEntries`                     | [damage.ts](damage.ts)                               |
@@ -54,8 +55,9 @@ h01–h11 只有 1–2；h12–h18 是 1–5。
 
 ## 规则
 
-- 旧字段仍写 `verified_*`；A2 新增的文本/移除规则直接写嵌套 `rules.*`
-  （`rules.shuffle`、`rules.ignores`、`rules.removal`），引擎优先读 `rules`，文本解析作未注解卡的 fallback。
+- 旧字段仍写 `verified_*`；A2 新增的文本/移除/目标规则直接写嵌套 `rules.*`
+  （`rules.shuffle`、`rules.ignores`、`rules.removal`、`rules.targets`），引擎优先读 `rules`，
+  文本解析作未注解卡的 fallback。
 - 所有签名断言保留（`lineSignature`），不得放宽（R-048）。
 - 评审注释（`R-xxx` / `Q-xxx`）随对应行保留。
 - 改写后必须零 diff：

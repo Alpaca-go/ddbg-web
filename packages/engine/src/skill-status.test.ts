@@ -158,6 +158,7 @@ describe("完整 Nt 注解的技能状态接线（R19–21 / R-048）", () => {
     const stun = card("p007");
     const two = {
       ...stun,
+      rules: { ...stun.rules, targets: { hero: 0, monster: 2, heroOrMonster: 0 } },
       stats_line: [
         ...stun.stats_line!,
         { type: "icon" as const, icon: { key: "target_monster", naming: "confirmed" } },

@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 
 import { normalizedHeroStatFileSchema } from "./hero-stat";
+import { expectedTargetCounts } from "./hero-annotations/target-counts";
 import {
   projectHeroSkillRules,
   projectHeroStatRules,
@@ -209,5 +210,25 @@ describe("R1：rules 与 verified_* 双写一致", () => {
       expect(card, id).toBeDefined();
       expect(card?.rules?.removal, id).toEqual(removal);
     }
+  });
+
+  it("A2 单元 3a：Core 11 非特殊目标卡写入 rules.targets", () => {
+    const file = normalizedHeroSkillFileSchema.parse(read("normalized/corebox/hero_skill.json"));
+    const core = file.cards.filter((card) => /^hero_skill:core:h(0[1-9]|1[01]):/.test(card.id));
+    expect(core.length).toBeGreaterThan(200);
+    for (const card of core) {
+      if (
+        card.verified_target_header !== undefined ||
+        card.verified_rallying_flare !== undefined ||
+        card.verified_target_support !== undefined
+      ) {
+        expect(card.rules?.targets, card.id).toBeUndefined();
+        continue;
+      }
+      expect(card.rules?.targets, card.id).toEqual(expectedTargetCounts(card));
+    }
+    // 扩展英雄（h12-h18）留到 3b，仍走图标 fallback。
+    const extension = file.cards.filter((card) => !card.id.startsWith("hero_skill:core:"));
+    expect(extension.every((card) => card.rules?.targets === undefined)).toBe(true);
   });
 });

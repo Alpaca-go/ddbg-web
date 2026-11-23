@@ -71,6 +71,7 @@ for (const entry of file.cards) {
   // 这组历史测试覆盖没有逐卡 Nt 注解的视图，确保 null 仍不会被默认填值。
   // 当前已核实状态卡的完整输入另由 skill-status.test.ts 覆盖。
   const legacy = { ...entry };
+  delete legacy.rules;
   delete legacy.verified_status_effects;
   delete legacy.verified_range;
   delete legacy.verified_damage_bonus;

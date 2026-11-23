@@ -264,6 +264,11 @@ export type HeroSkillCardView = {
       readonly scope: "self" | "target";
       readonly kinds: readonly ("bleed" | "blight")[];
     }[];
+    readonly targets?: {
+      readonly hero: number;
+      readonly monster: number;
+      readonly heroOrMonster: number;
+    };
   };
   readonly verified_self_range?: true;
   readonly verified_required_form?: SkillForm;
@@ -2253,6 +2258,21 @@ function readTargetIconCounts(skill: HeroSkillCardView): {
       return countNamedTargets(lineTargetIcons(line!));
     return { hero: 0, monster: 0, heroOrMonster: 0 };
   }
+  const annotated = skill.rules?.targets;
+  if (
+    annotated &&
+    Number.isSafeInteger(annotated.hero) &&
+    annotated.hero >= 0 &&
+    Number.isSafeInteger(annotated.monster) &&
+    annotated.monster >= 0 &&
+    Number.isSafeInteger(annotated.heroOrMonster) &&
+    annotated.heroOrMonster >= 0
+  )
+    return {
+      hero: annotated.hero,
+      monster: annotated.monster,
+      heroOrMonster: annotated.heroOrMonster,
+    };
   const stats = countNamedTargets(lineTargetIcons(skill.stats_line ?? []));
   if (stats.hero > 0 || stats.monster > 0 || stats.heroOrMonster > 0) return stats;
   for (const line of skill.effect_lines) {

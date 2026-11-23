@@ -9,7 +9,8 @@
 
 > **2026-11-24 进展**：R1（`rules` 双写）已完成；单元 1 的 Inspiring Tune 目标压力补注解并修掉回归；
 > 单元 2 已完成——Battlefield Medicine p139–p141、Toxin Trickery p187–p189 写入 `rules.removal`，
-> 引擎优先读规则、文本解析保留给未注解的历史测试视图。单元 3 未开始。
+> 引擎优先读规则、文本解析保留给未注解的历史测试视图；单元 3a 已完成——Core 11（h01–h11）
+> 的非特殊目标卡写入 `rules.targets`。3b（扩展英雄 h12–h18）未开始。
 
 总体原则：
 
@@ -51,6 +52,10 @@ Toxin Trickery p187–p189；Adrenaline Rush 的 Remove 与 Buff 同一行，继
 风险：中。需要 schema 扩展与逐卡数据。
 
 ## 单元 3：目标计数 / 目标头
+
+**状态：3a 已完成（2026-11-24）**。Core 11（h01–h11）非特殊目标卡的
+`rules.targets` 已入库并由引擎优先读取；目标框 / Rallying Flare / 支援卡仍走各自注解。
+**3b 待做**：扩展英雄 h12–h18 仍用图标 fallback，需要同样冻结目标数后删除 fallback。
 
 行数：11（`countNamedTargets`、`readTargetIconCounts`）。
 
