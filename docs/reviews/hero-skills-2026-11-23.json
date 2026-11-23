@@ -1,6 +1,6 @@
 {
   "schema": "ddbg.hero-annotation-review.v1",
-  "generatedAt": "2026-11-23T10:26:58.611Z",
+  "generatedAt": "2026-11-23T10:32:15.677Z",
   "source": "packages/data/normalized/corebox/hero_skill.json + hero_stat.json",
   "totals": {
     "entries": 432,
@@ -21574,12 +21574,12 @@
       "pages": [
         1
       ],
-      "verdict": "pending",
-      "evidence": null,
-      "reviewer": null,
-      "date": null,
+      "verdict": "confirmed",
+      "evidence": "Q-185；packages/data/src/normalize/musketeer-arbalest-parity.test.ts；2026-11-23 数值序列逐级核对与 Arbalest 一致",
+      "reviewer": "ai-review",
+      "date": "2026-11-23",
       "qid": null,
-      "notes": null,
+      "notes": "与 Arbalest Sniper Shot 同族（Q-185）：条件伤害 +3/+5/+9 vs marked，数值一致。",
       "annotationKeys": [
         "verified_damage_bonus"
       ],
@@ -21628,12 +21628,12 @@
       "pages": [
         2
       ],
-      "verdict": "pending",
-      "evidence": null,
-      "reviewer": null,
-      "date": null,
+      "verdict": "confirmed",
+      "evidence": "Q-185；packages/data/src/normalize/musketeer-arbalest-parity.test.ts；2026-11-23 数值序列逐级核对与 Arbalest 一致",
+      "reviewer": "ai-review",
+      "date": "2026-11-23",
       "qid": null,
-      "notes": null,
+      "notes": "与 Arbalest Sniper Shot 同族（Q-185）：条件伤害 +3/+5/+9 vs marked，数值一致。",
       "annotationKeys": [
         "verified_damage_bonus"
       ],
@@ -21682,12 +21682,12 @@
       "pages": [
         3
       ],
-      "verdict": "pending",
-      "evidence": null,
-      "reviewer": null,
-      "date": null,
+      "verdict": "confirmed",
+      "evidence": "Q-185；packages/data/src/normalize/musketeer-arbalest-parity.test.ts；2026-11-23 数值序列逐级核对与 Arbalest 一致",
+      "reviewer": "ai-review",
+      "date": "2026-11-23",
       "qid": null,
-      "notes": null,
+      "notes": "与 Arbalest Sniper Shot 同族（Q-185）：条件伤害 +3/+5/+9 vs marked，数值一致。",
       "annotationKeys": [
         "verified_damage_bonus"
       ],
@@ -21736,12 +21736,12 @@
       "pages": [
         4
       ],
-      "verdict": "pending",
-      "evidence": null,
-      "reviewer": null,
-      "date": null,
+      "verdict": "confirmed",
+      "evidence": "Q-185；packages/data/src/normalize/musketeer-arbalest-parity.test.ts；2026-11-23 数值序列逐级核对与 Arbalest 一致",
+      "reviewer": "ai-review",
+      "date": "2026-11-23",
       "qid": null,
-      "notes": null,
+      "notes": "与 Arbalest Suppressive Fire 同族：目标 Debuff 1/2/3t，射程 1–2。",
       "annotationKeys": [
         "verified_status_effects",
         "verified_range"
@@ -21798,12 +21798,12 @@
       "pages": [
         5
       ],
-      "verdict": "pending",
-      "evidence": null,
-      "reviewer": null,
-      "date": null,
+      "verdict": "confirmed",
+      "evidence": "Q-185；packages/data/src/normalize/musketeer-arbalest-parity.test.ts；2026-11-23 数值序列逐级核对与 Arbalest 一致",
+      "reviewer": "ai-review",
+      "date": "2026-11-23",
       "qid": null,
-      "notes": null,
+      "notes": "与 Arbalest Suppressive Fire 同族：目标 Debuff 1/2/3t，射程 1–2。",
       "annotationKeys": [
         "verified_status_effects",
         "verified_range"
@@ -21860,12 +21860,12 @@
       "pages": [
         6
       ],
-      "verdict": "pending",
-      "evidence": null,
-      "reviewer": null,
-      "date": null,
+      "verdict": "confirmed",
+      "evidence": "Q-185；packages/data/src/normalize/musketeer-arbalest-parity.test.ts；2026-11-23 数值序列逐级核对与 Arbalest 一致",
+      "reviewer": "ai-review",
+      "date": "2026-11-23",
       "qid": null,
-      "notes": null,
+      "notes": "与 Arbalest Suppressive Fire 同族：目标 Debuff 1/2/3t，射程 1–2。",
       "annotationKeys": [
         "verified_status_effects",
         "verified_range"
@@ -21922,12 +21922,12 @@
       "pages": [
         7
       ],
-      "verdict": "pending",
-      "evidence": null,
-      "reviewer": null,
-      "date": null,
+      "verdict": "confirmed",
+      "evidence": "Q-185；packages/data/src/normalize/musketeer-arbalest-parity.test.ts；2026-11-23 数值序列逐级核对与 Arbalest 一致",
+      "reviewer": "ai-review",
+      "date": "2026-11-23",
       "qid": null,
-      "notes": null,
+      "notes": "与 Arbalest Sniper's Mark 同族：目标 Mark 2/3/4t。",
       "annotationKeys": [
         "verified_status_effects",
         "verified_range"
@@ -21979,12 +21979,12 @@
       "pages": [
         8
       ],
-      "verdict": "pending",
-      "evidence": null,
-      "reviewer": null,
-      "date": null,
+      "verdict": "confirmed",
+      "evidence": "Q-185；packages/data/src/normalize/musketeer-arbalest-parity.test.ts；2026-11-23 数值序列逐级核对与 Arbalest 一致",
+      "reviewer": "ai-review",
+      "date": "2026-11-23",
       "qid": null,
-      "notes": null,
+      "notes": "与 Arbalest Sniper's Mark 同族：目标 Mark 2/3/4t。",
       "annotationKeys": [
         "verified_status_effects",
         "verified_range"
@@ -22036,12 +22036,12 @@
       "pages": [
         9
       ],
-      "verdict": "pending",
-      "evidence": null,
-      "reviewer": null,
-      "date": null,
+      "verdict": "confirmed",
+      "evidence": "Q-185；packages/data/src/normalize/musketeer-arbalest-parity.test.ts；2026-11-23 数值序列逐级核对与 Arbalest 一致",
+      "reviewer": "ai-review",
+      "date": "2026-11-23",
       "qid": null,
-      "notes": null,
+      "notes": "与 Arbalest Sniper's Mark 同族：目标 Mark 2/3/4t。",
       "annotationKeys": [
         "verified_status_effects",
         "verified_range"
@@ -22093,12 +22093,12 @@
       "pages": [
         10
       ],
-      "verdict": "pending",
-      "evidence": null,
-      "reviewer": null,
-      "date": null,
+      "verdict": "confirmed",
+      "evidence": "Q-185；packages/data/src/normalize/musketeer-arbalest-parity.test.ts；2026-11-23 数值序列逐级核对与 Arbalest 一致",
+      "reviewer": "ai-review",
+      "date": "2026-11-23",
       "qid": null,
-      "notes": null,
+      "notes": "与 Arbalest Bola 同族：自身与目标 Push；无 verified_* 字段，与对照卡一致。",
       "annotationKeys": [],
       "flags": [],
       "digest": {
@@ -22145,12 +22145,12 @@
       "pages": [
         11
       ],
-      "verdict": "pending",
-      "evidence": null,
-      "reviewer": null,
-      "date": null,
+      "verdict": "confirmed",
+      "evidence": "Q-185；packages/data/src/normalize/musketeer-arbalest-parity.test.ts；2026-11-23 数值序列逐级核对与 Arbalest 一致",
+      "reviewer": "ai-review",
+      "date": "2026-11-23",
       "qid": null,
-      "notes": null,
+      "notes": "与 Arbalest Bola 同族：自身与目标 Push；无 verified_* 字段，与对照卡一致。",
       "annotationKeys": [],
       "flags": [],
       "digest": {
@@ -22197,12 +22197,12 @@
       "pages": [
         12
       ],
-      "verdict": "pending",
-      "evidence": null,
-      "reviewer": null,
-      "date": null,
+      "verdict": "confirmed",
+      "evidence": "Q-185；packages/data/src/normalize/musketeer-arbalest-parity.test.ts；2026-11-23 数值序列逐级核对与 Arbalest 一致",
+      "reviewer": "ai-review",
+      "date": "2026-11-23",
       "qid": null,
-      "notes": null,
+      "notes": "与 Arbalest Bola 同族：自身与目标 Push；无 verified_* 字段，与对照卡一致。",
       "annotationKeys": [],
       "flags": [],
       "digest": {
@@ -22249,12 +22249,12 @@
       "pages": [
         13
       ],
-      "verdict": "pending",
-      "evidence": null,
-      "reviewer": null,
-      "date": null,
+      "verdict": "confirmed",
+      "evidence": "Q-185；packages/data/src/normalize/musketeer-arbalest-parity.test.ts；2026-11-23 数值序列逐级核对与 Arbalest 一致",
+      "reviewer": "ai-review",
+      "date": "2026-11-23",
       "qid": null,
-      "notes": null,
+      "notes": "与 Arbalest Blindfire 同族：自身 Push 1/2/2，射程 0–2。",
       "annotationKeys": [
         "verified_range"
       ],
@@ -22301,12 +22301,12 @@
       "pages": [
         14
       ],
-      "verdict": "pending",
-      "evidence": null,
-      "reviewer": null,
-      "date": null,
+      "verdict": "confirmed",
+      "evidence": "Q-185；packages/data/src/normalize/musketeer-arbalest-parity.test.ts；2026-11-23 数值序列逐级核对与 Arbalest 一致",
+      "reviewer": "ai-review",
+      "date": "2026-11-23",
       "qid": null,
-      "notes": null,
+      "notes": "与 Arbalest Blindfire 同族：自身 Push 1/2/2，射程 0–2。",
       "annotationKeys": [
         "verified_range"
       ],
@@ -22353,12 +22353,12 @@
       "pages": [
         15
       ],
-      "verdict": "pending",
-      "evidence": null,
-      "reviewer": null,
-      "date": null,
+      "verdict": "confirmed",
+      "evidence": "Q-185；packages/data/src/normalize/musketeer-arbalest-parity.test.ts；2026-11-23 数值序列逐级核对与 Arbalest 一致",
+      "reviewer": "ai-review",
+      "date": "2026-11-23",
       "qid": null,
-      "notes": null,
+      "notes": "与 Arbalest Blindfire 同族：自身 Push 1/2/2，射程 0–2。",
       "annotationKeys": [
         "verified_range"
       ],
@@ -22405,12 +22405,12 @@
       "pages": [
         16
       ],
-      "verdict": "pending",
-      "evidence": null,
-      "reviewer": null,
-      "date": null,
+      "verdict": "confirmed",
+      "evidence": "Q-185；packages/data/src/normalize/musketeer-arbalest-parity.test.ts；2026-11-23 数值序列逐级核对与 Arbalest 一致",
+      "reviewer": "ai-review",
+      "date": "2026-11-23",
       "qid": null,
-      "notes": null,
+      "notes": "与 Arbalest Battlefield Bandage 同族：自身 Buff 2t，治疗 6/4、8/5、10/7。",
       "annotationKeys": [
         "verified_status_effects",
         "verified_range"
@@ -22467,12 +22467,12 @@
       "pages": [
         17
       ],
-      "verdict": "pending",
-      "evidence": null,
-      "reviewer": null,
-      "date": null,
+      "verdict": "confirmed",
+      "evidence": "Q-185；packages/data/src/normalize/musketeer-arbalest-parity.test.ts；2026-11-23 数值序列逐级核对与 Arbalest 一致",
+      "reviewer": "ai-review",
+      "date": "2026-11-23",
       "qid": null,
-      "notes": null,
+      "notes": "与 Arbalest Battlefield Bandage 同族：自身 Buff 2t，治疗 6/4、8/5、10/7。",
       "annotationKeys": [
         "verified_status_effects",
         "verified_range"
@@ -22529,12 +22529,12 @@
       "pages": [
         18
       ],
-      "verdict": "pending",
-      "evidence": null,
-      "reviewer": null,
-      "date": null,
+      "verdict": "confirmed",
+      "evidence": "Q-185；packages/data/src/normalize/musketeer-arbalest-parity.test.ts；2026-11-23 数值序列逐级核对与 Arbalest 一致",
+      "reviewer": "ai-review",
+      "date": "2026-11-23",
       "qid": null,
-      "notes": null,
+      "notes": "与 Arbalest Battlefield Bandage 同族：自身 Buff 2t，治疗 6/4、8/5、10/7。",
       "annotationKeys": [
         "verified_status_effects",
         "verified_range"
@@ -22591,12 +22591,12 @@
       "pages": [
         19
       ],
-      "verdict": "pending",
-      "evidence": null,
-      "reviewer": null,
-      "date": null,
+      "verdict": "confirmed",
+      "evidence": "Q-185；packages/data/src/normalize/musketeer-arbalest-parity.test.ts；2026-11-23 数值序列逐级核对与 Arbalest 一致",
+      "reviewer": "ai-review",
+      "date": "2026-11-23",
       "qid": null,
-      "notes": null,
+      "notes": "与 Arbalest Rallying Flare 同族：清除 stun/mark，目标 Monster Debuff 2t。",
       "annotationKeys": [
         "verified_status_effects",
         "verified_range",
@@ -22670,12 +22670,12 @@
       "pages": [
         20
       ],
-      "verdict": "pending",
-      "evidence": null,
-      "reviewer": null,
-      "date": null,
+      "verdict": "confirmed",
+      "evidence": "Q-185；packages/data/src/normalize/musketeer-arbalest-parity.test.ts；2026-11-23 数值序列逐级核对与 Arbalest 一致",
+      "reviewer": "ai-review",
+      "date": "2026-11-23",
       "qid": null,
-      "notes": null,
+      "notes": "与 Arbalest Rallying Flare 同族：清除 stun/mark，目标 Monster Debuff 2t。",
       "annotationKeys": [
         "verified_status_effects",
         "verified_range",
@@ -22749,12 +22749,12 @@
       "pages": [
         21
       ],
-      "verdict": "pending",
-      "evidence": null,
-      "reviewer": null,
-      "date": null,
+      "verdict": "confirmed",
+      "evidence": "Q-185；packages/data/src/normalize/musketeer-arbalest-parity.test.ts；2026-11-23 数值序列逐级核对与 Arbalest 一致",
+      "reviewer": "ai-review",
+      "date": "2026-11-23",
       "qid": null,
-      "notes": null,
+      "notes": "与 Arbalest Rallying Flare 同族：清除 stun/mark，目标 Monster Debuff 2t。",
       "annotationKeys": [
         "verified_status_effects",
         "verified_range",
