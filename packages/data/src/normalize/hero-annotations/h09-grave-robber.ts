@@ -1,4 +1,4 @@
-import type { CoreHigherSkillRow, StatusEffectEntry, RangeEntry } from "./types";
+import type { CoreHigherSkillRow, StatusEffectEntry, RangeEntry, LayoutEntry } from "./types";
 
 /** 核心盒 Grave Robber II/III 级逐卡注解（Kyries 审阅；R-048 签名断言由 core-higher-skills 执行）。 */
 export const coreHigherRows: readonly CoreHigherSkillRow[] = [
@@ -344,5 +344,19 @@ export const rangeEntries: readonly RangeEntry[] = [
     level: 1,
     min: 1,
     max: 2,
+  },
+];
+
+/** 逐卡已复核的效果框布局（R-048）。 */
+export const layoutEntries: readonly LayoutEntry[] = [
+  {
+    kind: "target-box",
+    id: "hero_skill:p181",
+    hero: "GRAVE ROBBER",
+    name: "Throw Dagger",
+    page: 181,
+    first: "{target_effects} {damage} +1 vs {blight}",
+    second: ["{damage} +2 vs {mark}", "{target_effects} {damage} +2 vs {mark}"],
+    label: "Throw Dagger I",
   },
 ];

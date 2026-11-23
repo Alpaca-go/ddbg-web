@@ -1,4 +1,4 @@
-import type { StatusEffectEntry, RangeEntry } from "./types";
+import type { StatusEffectEntry, RangeEntry, LayoutEntry } from "./types";
 
 /** 完整印刷逐页核对的状态效果行（docs/phase2-four-core-skills-2026-10-11.md）。 */
 export const statusEntries: readonly StatusEffectEntry[] = [
@@ -221,5 +221,42 @@ export const rangeEntries: readonly RangeEntry[] = [
     level: 3,
     min: 0,
     max: 1,
+  },
+];
+
+/** 逐卡已复核的效果框布局（R-048）。 */
+export const layoutEntries: readonly LayoutEntry[] = [
+  {
+    kind: "rebuild-lines",
+    id: "hero_skill:p038",
+    name: "Adrenaline Rush",
+    level: 2,
+    page: 38,
+    expected: [
+      "{range} 0-1 {target_hero}",
+      "{self_effects} Self Remove {bleed} {blight} , {target_effects} Remove {bleed} {blight} , {buff} 2t",
+      "{buff} 2t",
+    ],
+    output: [
+      "{self_effects} Self Remove {bleed} {blight}, {buff} 2t",
+      "{target_effects} Remove {bleed} {blight}, {buff} 2t",
+    ],
+  },
+  {
+    kind: "rebuild-lines",
+    id: "hero_skill:p039",
+    name: "Adrenaline Rush",
+    level: 3,
+    page: 39,
+    expected: [
+      "{range} 0-1 {target_hero} {target_hero}",
+      "{self_effects} Self Remove {bleed}",
+      "{target_effects} Remove {bleed} {blight} , {buff} 2t",
+      "{blight} , {buff} 2t",
+    ],
+    output: [
+      "{self_effects} Self Remove {bleed} {blight}, {buff} 2t",
+      "{target_effects} Remove {bleed} {blight}, {buff} 2t",
+    ],
   },
 ];

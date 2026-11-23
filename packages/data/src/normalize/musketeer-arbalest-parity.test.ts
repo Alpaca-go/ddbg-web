@@ -1,6 +1,6 @@
 import { expect, it } from "vitest";
 import { loadNormalizedCorebox } from "./write";
-import { lineSignature } from "./verified-hero-layout";
+import { lineSignature } from "./hero-annotations/shared";
 import type { NormalizedHeroSkillCard } from "./schema";
 
 const PAIRS: ReadonlyArray<readonly [string, string]> = [

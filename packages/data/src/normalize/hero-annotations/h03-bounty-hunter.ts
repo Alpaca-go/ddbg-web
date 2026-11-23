@@ -1,4 +1,10 @@
-import type { CoreHigherSkillRow, StatusEffectEntry, RangeEntry, BountyStatusRow } from "./types";
+import type {
+  CoreHigherSkillRow,
+  StatusEffectEntry,
+  RangeEntry,
+  BountyStatusRow,
+  LayoutEntry,
+} from "./types";
 
 /** 核心盒 Bounty Hunter II/III 级逐卡注解（Kyries 审阅；R-048 签名断言由 core-higher-skills 执行）。 */
 export const coreHigherRows: readonly CoreHigherSkillRow[] = [
@@ -385,5 +391,19 @@ export const bountyStatusRows: readonly BountyStatusRow[] = [
       { scope: "target", kind: "bleed", duration: 3, amount: 3, lineIndex: 0 },
       { scope: "target", kind: "debuff", duration: 3, lineIndex: 0 },
     ],
+  },
+];
+
+/** 逐卡已复核的效果框布局（R-048）。 */
+export const layoutEntries: readonly LayoutEntry[] = [
+  {
+    kind: "target-box",
+    id: "hero_skill:p043",
+    hero: "BOUNTY HUNTER",
+    name: "Collect Bounty",
+    page: 43,
+    first: "{target_effects} {damage} +1 vs Humans",
+    second: ["{damage} +2 vs {mark}", "{target_effects} {damage} +2 vs {mark}"],
+    label: "Collect Bounty I",
   },
 ];

@@ -1,6 +1,6 @@
 import { expect, it } from "vitest";
 import { loadNormalizedCorebox } from "../write";
-import { lineSignature } from "../verified-hero-layout";
+import { lineSignature } from "./shared";
 
 it("R-200：Shieldbreaker 高等级逐卡覆盖签名", () => {
   const data = loadNormalizedCorebox();

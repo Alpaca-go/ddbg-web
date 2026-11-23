@@ -4,10 +4,15 @@ import {
   statusEntries as crusaderStatus,
   supportEntries as crusaderSupport,
 } from "./h01-crusader";
-import { rangeEntries as hellionRanges, statusEntries as hellionStatus } from "./h02-hellion";
+import {
+  layoutEntries as hellionLayouts,
+  rangeEntries as hellionRanges,
+  statusEntries as hellionStatus,
+} from "./h02-hellion";
 import {
   bountyStatusRows,
   coreHigherRows as bountyHunterHigherRows,
+  layoutEntries as bountyHunterLayouts,
   rangeEntries as bountyHunterRanges,
   statusEntries as bountyHunterStatus,
 } from "./h03-bounty-hunter";
@@ -16,7 +21,11 @@ import {
   statusEntries as highwaymanStatus,
 } from "./h04-highwayman";
 import { rangeEntries as vestalRanges, statusEntries as vestalStatus } from "./h05-vestal";
-import { coreHigherRows as jesterHigherRows, statusEntries as jesterStatus } from "./h06-jester";
+import {
+  coreHigherRows as jesterHigherRows,
+  layoutEntries as jesterLayouts,
+  statusEntries as jesterStatus,
+} from "./h06-jester";
 import {
   coreHigherRows as plagueDoctorHigherRows,
   rangeEntries as plagueDoctorRanges,
@@ -30,6 +39,7 @@ import {
 } from "./h08-arbalest";
 import {
   coreHigherRows as graveRobberHigherRows,
+  layoutEntries as graveRobberLayouts,
   rangeEntries as graveRobberRanges,
   statusEntries as graveRobberStatus,
 } from "./h09-grave-robber";
@@ -60,6 +70,7 @@ import {
   statusEntries as musketeerStatus,
 } from "./h18-musketeer";
 import { applyBountyStatuses } from "./bounty-statuses";
+import { applyLayouts } from "./layout";
 import { applyRallyingFlare } from "./rallying-flare";
 import { applyRangeEntries } from "./ranges";
 import { applyStatusEffects } from "./status-effects";
@@ -68,6 +79,7 @@ import type {
   BountyStatusRow,
   CoreHigherSkillRow,
   HeroAnnotationModule,
+  LayoutEntry,
   RallyingFlareEntry,
   RangeEntry,
   StatusEffectEntry,
@@ -80,6 +92,7 @@ export type {
   CoreHigherSkillRow,
   HeroAnnotationApplier,
   HeroAnnotationModule,
+  LayoutEntry,
   RallyingFlareEntry,
   RangeEntry,
   StatusEffectEntry,
@@ -150,6 +163,14 @@ export const RALLYING_FLARE_ENTRIES: readonly RallyingFlareEntry[] = [
 /** 赏金猎人限定状态卡行。 */
 export const BOUNTY_STATUS_ROWS: readonly BountyStatusRow[] = [...bountyStatusRows];
 
+/** 逐卡效果框布局行。 */
+export const LAYOUT_ENTRIES: readonly LayoutEntry[] = [
+  ...hellionLayouts,
+  ...bountyHunterLayouts,
+  ...jesterLayouts,
+  ...graveRobberLayouts,
+];
+
 /**
  * 已入库的逐卡审校模块，按 hNN 升序排列。
  * 每个模块只碰自己英雄的卡，顺序不影响结果；新增英雄时在对应位置插入。
@@ -201,4 +222,10 @@ export function applyHeroBountyStatuses(
   cards: readonly NormalizedHeroSkillCard[],
 ): NormalizedHeroSkillCard[] {
   return applyBountyStatuses(cards, BOUNTY_STATUS_ROWS);
+}
+
+export function applyHeroLayouts(
+  cards: readonly NormalizedHeroSkillCard[],
+): NormalizedHeroSkillCard[] {
+  return applyLayouts(cards, LAYOUT_ENTRIES);
 }

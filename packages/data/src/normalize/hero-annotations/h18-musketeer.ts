@@ -6,7 +6,7 @@ import type {
 } from "./types";
 import type { NormalizedHeroSkillCard, Segment } from "../schema";
 import { normalizedHeroSkillCardSchema } from "../schema";
-import { lineSignature } from "../verified-hero-layout";
+import { lineSignature } from "./shared";
 
 type IconSegment = Extract<Segment, { type: "icon" }>;
 

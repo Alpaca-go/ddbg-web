@@ -111,3 +111,31 @@ export type BountyStatusRow = {
     readonly lineIndex: number;
   }[];
 };
+/** 逐卡效果框布局：整理已核实的跨行框，不改原始转录（R-048）。 */
+export type LayoutEntry =
+  | {
+      readonly kind: "strip-trailing-comma";
+      readonly id: string;
+      readonly name: string;
+      readonly level: number;
+      readonly expected: readonly [string, string];
+    }
+  | {
+      readonly kind: "target-box";
+      readonly id: string;
+      readonly hero: HeroName;
+      readonly name: string;
+      readonly page: number;
+      readonly first: string;
+      readonly second: readonly [string, string];
+      readonly label: string;
+    }
+  | {
+      readonly kind: "rebuild-lines";
+      readonly id: string;
+      readonly name: string;
+      readonly level: number;
+      readonly page: number;
+      readonly expected: readonly string[];
+      readonly output: readonly [string, string];
+    };

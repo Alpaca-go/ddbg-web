@@ -1,4 +1,4 @@
-import type { CoreHigherSkillRow, StatusEffectEntry } from "./types";
+import type { CoreHigherSkillRow, StatusEffectEntry, LayoutEntry } from "./types";
 
 /** 核心盒 Jester II/III 级逐卡注解（Kyries 审阅；R-048 签名断言由 core-higher-skills 执行）。 */
 export const coreHigherRows: readonly CoreHigherSkillRow[] = [
@@ -277,5 +277,16 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     scope: "target",
     signature: "{target_effects} 3 {bleed} 1t",
     effects: [{ kind: "bleed", amount: 3, duration: 1 }],
+  },
+];
+
+/** 逐卡已复核的效果框布局（R-048）。 */
+export const layoutEntries: readonly LayoutEntry[] = [
+  {
+    kind: "strip-trailing-comma",
+    id: "hero_skill:p106",
+    name: "Dirk Stab",
+    level: 1,
+    expected: ["{self_effects} Self {shuffle} Pull 1,", "Ignores {guard}"],
   },
 ];

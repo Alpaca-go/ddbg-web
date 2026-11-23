@@ -1,7 +1,7 @@
 import { expect, it } from "vitest";
 import { loadNormalizedCorebox } from "./write";
 import { normalizedHeroSkillCardSchema } from "./schema";
-import { attachVerifiedHeroLayout } from "./verified-hero-layout";
+import { applyHeroLayouts } from "./hero-annotations";
 import { attachVerifiedHeroDamage } from "./verified-hero-damage";
 
 const cards = loadNormalizedCorebox().hero_skill.cards;
@@ -20,7 +20,7 @@ it("Collect Bounty I完整目标框两条件黄金值，继承原标记且高等
     effect_lines: [card.effect_lines[0]!, card.effect_lines[1]!.slice(2)],
   };
   const before = structuredClone(rawLayout);
-  expect(attachVerifiedHeroLayout([rawLayout])[0]).toEqual(card);
+  expect(applyHeroLayouts([rawLayout])[0]).toEqual(card);
   expect(rawLayout).toEqual(before);
   expect(attachVerifiedHeroDamage([card])[0]).toEqual(card);
   for (const text of ["+1", "+2"])
@@ -49,7 +49,7 @@ it("完整来源/版面漂移拒绝，schema拒绝重复或冲突伤害注解", 
   ]) {
     const changed = structuredClone(card);
     mutate(changed);
-    expect(() => attachVerifiedHeroLayout([changed])).toThrow();
+    expect(() => applyHeroLayouts([changed])).toThrow();
     expect(() => attachVerifiedHeroDamage([changed])).toThrow();
   }
   expect(
