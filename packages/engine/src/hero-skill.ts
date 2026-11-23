@@ -225,13 +225,14 @@ import { resolveAttackDamage } from "./attack-damage";
  * 不是怪物。不改印刷伤害或治疗。
  * 光照 2–1，以及累加到光照 0 的「每次承受压力额外 +1」（R-002），仍不加。
  * 这一层已经结算的压力都是减压力：Inspiring Tune、Absolution 的 −1，以及打出暴击
- * 的 −1。减压力不是承受压力。会让英雄加压力的印刷数字，Rage / Rake / Slam 的
- * 「+1」、Transform 的「+2」，numeric 都是 null，不加，也不能拿它们当成一次已经
- * 发生的压力事件再额外 +1。没有已验证的英雄技能对英雄造成伤害，承受暴击的 +1
- * 压力也不会在这里发生。卡面光照「+1」「+2」的 numeric 为 null。Hands from the
- * Abyss 的「-1」虽然 numeric 是 −1，但没有挂在已命名的光照图标上，并且和眩晕
- * 「2t」（numeric 为 null）写在同一行，不改传入的光照，也不加进伤害或 Dodge。
- * 饰品和 Stygian 的 Boss Crit +1 不加。
+ * 的 −1。减压力不是承受压力。会让英雄加压力的印刷数字：Rage 的「+1」已由 A0.5
+ * 核实并写入自身压力注解（numeric 仍为 null），按规则结算；Rake / Slam 的「+1」
+ * 与其它图标同一行，不在这里结算；Transform 的「+2」numeric 为 null，不加。
+ * 这些数字都不能拿它们当成一次已经发生的压力事件再额外 +1。没有已验证的英雄技能
+ * 对英雄造成伤害，承受暴击的 +1 压力也不会在这里发生。卡面光照「+1」「+2」的
+ * numeric 为 null。Hands from the Abyss 的「-1」虽然 numeric 是 −1，但没有挂在
+ * 已命名的光照图标上，并且和眩晕「2t」（numeric 为 null）写在同一行，不改传入的
+ * 光照，也不加进伤害或 Dodge。饰品和 Stygian 的 Boss Crit +1 不加。
  *
  * 不解释 `damage_or_heal_combined_marker`。英雄 Life、死门骰都不在这里。
  */
