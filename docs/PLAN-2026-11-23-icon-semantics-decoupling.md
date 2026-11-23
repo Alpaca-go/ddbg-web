@@ -52,14 +52,15 @@
 
 ### 1.2 签名
 
-逐卡断言改为 **「文本 + iconId 序列」**，不再用语义 `key`：
+逐卡断言改为 **「文本 + 字形身份序列」**，不再用语义 `key`：
 
 ```text
 "{target_effects} {damage} +2 vs {mark}"
 → "text: |icon:763ad8e857|text: +2 vs |icon:1ce58a493c|"
 ```
 
-好处：聚类改名不影响签名；提取器换 ID 时只需一次迁移。
+（C 之前字形身份就是 `iconId`；C 之后换成 `glyphId`。）
+好处：聚类/改名不影响签名；提取器换 ID 时只需一次迁移。
 
 ### 1.3 引擎
 
@@ -91,11 +92,20 @@ packages/engine/src/battle-skill-status.ts
 2. （可选，依赖 C）按 `bbox` 从卡图裁切渲染原始字形；
    需要提取器为每个 token 输出 bbox（见 Phase C1）。
 
-### 1.5 字典
+### 1.5 图标身份与字典
 
-- 只负责 `iconId → 标签/含义` 的可读性，不参与规则判定。
-- 继续遵守 R-048：单卡错配不改全局词典。
-- C 完成后，一个字形一个 ID，字典可以一形一义。
+图标需要三层信息，**不能混成一个编号**：
+
+| 层           | 名称                                    | 谁用                   | 人要读     |
+| ------------ | --------------------------------------- | ---------------------- | ---------- |
+| 精确视觉身份 | `glyphId`（内容哈希）                   | 显示（裁图）、签名断言 | 否，机器用 |
+| 语义族       | `family` / `key`（`heal` / `stun` / …） | 字典、注解、显示标签   | 是         |
+| 可读别名     | `slug`（如 `icon:heal`）                | 文档、审阅页、报错信息 | 是         |
+
+- 规则仍然不读任何图标身份（这是 A 的前提）。
+- 字典绑定的是 **family → 图标含义**，不是「编号 → 整张卡的效果」。
+  一张卡的完整效果 = 图标含义 + 数字/时长/目标/条件，后四项来自逐卡注解。
+- 继续遵守 R-048：单卡歧义留在逐卡注解，不进全局字典。
 
 ## 2. 分阶段执行（每阶段一个 PR）
 
@@ -177,16 +187,22 @@ git grep -n "cloneKey\|segmentOnCard" -- packages/data/src/normalize/hero-annota
 
 验收：手测 + Playwright 冒烟（建队选技能、战斗手牌）。
 
-### Phase C1：提取器一形一 ID
+### Phase C1：提取器一形一 ID（两级身份）
 
-前置：A 已合入；`iconId` 在规则层已无引用。
+前置：A 已合入；图标身份在规则层已无引用。
 
-1. 修改 `ddbg_extract/cluster.py`：
-   - 先用**精确签名**（phash + grid + size 完全相同）建 ID；
-   - 感知合并只用于生成 `family`（可选），不再合并 ID；
-   - 或采用两级：`glyphId`（精确）/ `iconId`（兼容别名）。
-2. 产出 `alias.json`：`oldIconId → newGlyphId`（按签名匹配生成，人工抽检）。
-3. 用私有 PDF 重跑（本机需 Python 3.12）：
+1. 修改 `ddbg_extract/cluster.py` 为两级身份：
+   - **`glyphId`**：精确签名（phash + grid + size 完全相同）→ 一个字形一个 ID；
+     用于显示裁图与签名断言。
+   - **`family`**：保留现有感知聚类，用于把「同一设计的不同尺寸 / 明暗 / 重绘」
+     归为一族；family 只承担语义，不再决定 glyphId。
+2. 人工审阅 family（这是唯一需要人工合并/拆分的地方）：
+   - 生成 contact sheet：每个 glyph 一张裁剪图 + 出现的卡/页；
+   - **同义变体**（active/dimmed、不同包重绘、放大缩小）→ 并入同一 family；
+   - **被错误合并的不同字形**（如 `20ffe98e2d` 的 heal 与 Purge 伤害）→ 拆成不同 family；
+   - 无法确认的挂 `Q-xx`，不要猜（R-048）。
+3. 产出 `alias.json`：`oldIconId → { glyphId, family }`。
+4. 用私有 PDF 重跑（本机需 Python 3.12）：
 
 ```powershell
 cd tools/pipeline/extract-print
@@ -194,13 +210,33 @@ python3 scripts/run_all.py --force
 python3 scripts/test_parse.py
 ```
 
-4. 对比：`n_unique` 变化、已知错配（如 `20ffe98e2d` 拆成多个 ID）是否消失。
+5. 对比：`n_unique` 变化、已知错配（`20ffe98e2d`）是否被拆开、
+   同义变体是否仍归在同一 family。
 
-验收：同一字形全局唯一 ID；已知错误合并清单全部拆开；旧 ID 保留在 alias 表。
+验收：同一字形全局唯一 `glyphId`；每个 family 只有一个含义；
+已知错误合并全部拆开；alias 表覆盖全部旧 ID。
+
+#### C1.1 词典工作流
+
+词典（`packages/data/dictionary/icon-dictionary-v1.9.json` + CSV）按 **family** 记一行：
+
+| 列                          | 说明                                                            |
+| --------------------------- | --------------------------------------------------------------- |
+| `family`                    | 语义族键，如 `heal`；注解和代码只引用它                         |
+| `slug`                      | 可读名，如 `icon:heal`；文档与报错使用                          |
+| `meaning_en` / `meaning_zh` | 人工审阅后的含义                                                |
+| `kind`                      | `status` / `damage_type` / `target` / `range` / `dice_face` / … |
+| `status`                    | `confirmed` / `needs_review` / `decor` / …                      |
+| `glyphs`                    | 该族包含的 `glyphId` 列表（同义变体）                           |
+| `evidence`                  | 出处页或 Kyries 审阅批次                                        |
+
+流程：抽 contact sheet → 人工标 family 与含义 → 同义变体并入 → 冲突挂 `Q-xx` → 冻结版本。
+新扩展包只增量追加，不改已有 family 的含义。
 
 ### Phase C2：引用迁移 + 清理
 
-1. 按 alias 表替换：字典、normalized（重生成）、art maps、测试。
+1. 按 alias 表替换：字典（改为 family 行）、normalized（重生成）、art maps、测试。
+   normalized 图标同时带 `glyphId`（显示）与 `family`（语义）。
 2. 重生成并审查 diff：
 
 ```powershell
@@ -211,7 +247,7 @@ git diff --stat packages/data/normalized
 
 3. 删除兼容开关与 alias 表；文档收敛。
 
-验收：`git grep -n "20ffe98e2d"` 不再出现在规则/标注代码里（历史文档除外）；
+验收：规则/注解代码里不再出现任何旧十六进制 ID；
 全量测试、构建、e2e 通过。
 
 ## 3. 命令速查（Windows PowerShell）
@@ -245,15 +281,16 @@ bash 等价命令只需把 `$env:WRITE_NORMALIZED='1'` 换成
 
 ## 4. 验收总表
 
-| 阶段 | 硬性验收                                             |
-| ---- | ---------------------------------------------------- |
-| 0    | 基线记录 + 3 条行为快照                              |
-| A1   | 审计表 100% 覆盖；新字段有 schema/测试；快照不变     |
-| A2   | 迁移函数无 `icon.key` 语义读取；测试/快照绿          |
-| A3   | h12–h18 无 rekey 代码；`verified_*` 逐卡不变；快照绿 |
-| A4   | 摘要来自注解；未知图标中性；冒烟通过                 |
-| C1   | 一形一 ID；已知错配拆开；alias 表产出                |
-| C2   | 引用全部迁移；无旧 ID 残留；全量测试绿               |
+| 阶段 | 硬性验收                                                              |
+| ---- | --------------------------------------------------------------------- |
+| 0    | 基线记录 + 3 条行为快照                                               |
+| A1   | 审计表 100% 覆盖；新字段有 schema/测试；快照不变                      |
+| A2   | 迁移函数无 `icon.key` 语义读取；测试/快照绿                           |
+| A3   | h12–h18 无 rekey 代码；`verified_*` 逐卡不变；快照绿                  |
+| A4   | 摘要来自注解；未知图标中性；冒烟通过                                  |
+| C1   | 一形一 `glyphId`；同义变体归入同一 family；已知错配拆开；alias 表产出 |
+| C1.1 | 词典按 family 建行，含 `glyphs` 列表与出处                            |
+| C2   | 引用全部迁移；规则/注解无旧十六进制 ID；全量测试绿                    |
 
 ## 5. 红线
 
