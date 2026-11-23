@@ -340,6 +340,8 @@ export const heroSkillRulesSchema = z.strictObject({
       heroOrMonster: z.int().nonnegative(),
     })
     .optional(),
+  /** stats 行的主效果；只有 damage / heal 两种已命名图标。 */
+  effect: z.enum(["damage", "heal"]).optional(),
 });
 
 /** 怪物技能规则：与英雄共用核心字段，另有怪物效果计划。 */

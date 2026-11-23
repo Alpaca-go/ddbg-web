@@ -269,6 +269,7 @@ export type HeroSkillCardView = {
       readonly monster: number;
       readonly heroOrMonster: number;
     };
+    readonly effect?: "damage" | "heal";
   };
   readonly verified_self_range?: true;
   readonly verified_required_form?: SkillForm;
@@ -2895,7 +2896,10 @@ function resolveSkill(
   }
   const formChange = readFormChange(active);
   const keys = namedKeys(active.stats_line);
-  const kinds = new Set(keys.filter((key) => key === "damage" || key === "heal"));
+  const annotatedEffect = active.rules?.effect;
+  const kinds = new Set(
+    annotatedEffect ? [annotatedEffect] : keys.filter((key) => key === "damage" || key === "heal"),
+  );
   if (kinds.size > 1) {
     return refuse(skill, combat, "stats_line 同时有已命名的 damage 和 heal");
   }

@@ -259,4 +259,14 @@ describe("R1：rules 与 verified_* 双写一致", () => {
       shuffleImmune: true,
     });
   });
+
+  it("A2 单元 4a：stats 行主效果写入 rules.effect", () => {
+    const file = normalizedHeroSkillFileSchema.parse(read("normalized/corebox/hero_skill.json"));
+    const annotated = file.cards.filter((card) => card.rules?.effect !== undefined);
+    expect(annotated).toHaveLength(267);
+    const smite = file.cards.find((card) => card.id === "hero_skill:core:h01:p001");
+    expect(smite?.rules?.effect).toBe("damage");
+    const heal = file.cards.find((card) => card.id === "hero_skill:core:h01:p013");
+    expect(heal?.rules?.effect).toBe("heal");
+  });
 });

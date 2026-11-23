@@ -63,6 +63,8 @@ export function projectHeroSkillRules(card: NormalizedHeroSkillCard): HeroSkillR
   if (card.rules?.removal) rules.removal = card.rules.removal;
   // A2 单元 3 的区域目标数同样直接写在 rules 下。
   if (card.rules?.targets) rules.targets = card.rules.targets;
+  // A2 单元 4 的主效果类型。
+  if (card.rules?.effect) rules.effect = card.rules.effect;
   if (card.verified_status_effects) rules.statuses = card.verified_status_effects;
   if (card.verified_damage_bonus) rules.damage = card.verified_damage_bonus;
   if (card.verified_damage_bonuses) rules.damageBonuses = card.verified_damage_bonuses;

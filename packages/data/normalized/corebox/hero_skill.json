@@ -293,7 +293,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -764,7 +765,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -1235,7 +1237,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -1633,7 +1636,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -2031,7 +2035,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -2429,7 +2434,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -2864,7 +2870,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -3321,7 +3328,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -3778,7 +3786,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -5488,7 +5497,8 @@
      "hero": 1,
      "monster": 0,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "heal"
    },
    "front_icons": [
     {
@@ -5925,7 +5935,8 @@
      "hero": 1,
      "monster": 0,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "heal"
    },
    "front_icons": [
     {
@@ -6440,7 +6451,8 @@
      "hero": 1,
      "monster": 0,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "heal"
    },
    "front_icons": [
     {
@@ -6978,7 +6990,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -7516,7 +7529,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -8054,7 +8068,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -10321,7 +10336,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -10690,7 +10706,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -11059,7 +11076,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -11417,7 +11435,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -11786,7 +11805,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -12155,7 +12175,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -13670,7 +13691,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -14158,7 +14180,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -14646,7 +14669,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -15108,7 +15132,8 @@
      "hero": 0,
      "monster": 3,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -15603,7 +15628,8 @@
      "hero": 0,
      "monster": 3,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -16098,7 +16124,8 @@
      "hero": 0,
      "monster": 3,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -18245,7 +18272,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -18798,7 +18826,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -19351,7 +19380,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -19930,7 +19960,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -20520,7 +20551,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -21112,7 +21144,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -23127,7 +23160,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -23620,7 +23654,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -24113,7 +24148,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -24595,7 +24631,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -25088,7 +25125,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -25581,7 +25619,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -27307,7 +27346,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -27813,7 +27853,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -28319,7 +28360,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -28858,7 +28900,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -29408,7 +29451,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -29958,7 +30002,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -30349,7 +30394,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -30718,7 +30764,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -31087,7 +31134,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -31549,7 +31597,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -32055,7 +32104,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -32561,7 +32611,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -33041,7 +33092,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -33543,7 +33595,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -34045,7 +34098,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -34569,7 +34623,8 @@
      "hero": 0,
      "monster": 3,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -35104,7 +35159,8 @@
      "hero": 0,
      "monster": 3,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -35639,7 +35695,8 @@
      "hero": 0,
      "monster": 3,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -36127,7 +36184,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -36604,7 +36662,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -37081,7 +37140,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -37562,7 +37622,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -38065,7 +38126,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -38568,7 +38630,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -39056,7 +39119,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -39544,7 +39608,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -40032,7 +40097,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -40492,7 +40558,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -40963,7 +41030,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -41434,7 +41502,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -41912,7 +41981,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -42412,7 +42482,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -42912,7 +42983,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -43396,7 +43468,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -43891,7 +43964,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -44386,7 +44460,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -44823,7 +44898,8 @@
      "hero": 1,
      "monster": 0,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "heal"
    },
    "front_icons": [
     {
@@ -45260,7 +45336,8 @@
      "hero": 1,
      "monster": 0,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "heal"
    },
    "front_icons": [
     {
@@ -45697,7 +45774,8 @@
      "hero": 1,
      "monster": 0,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "heal"
    },
    "front_icons": [
     {
@@ -46237,7 +46315,8 @@
      "hero": 3,
      "monster": 0,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "heal"
    },
    "front_icons": [
     {
@@ -46843,7 +46922,8 @@
      "hero": 3,
      "monster": 0,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "heal"
    },
    "front_icons": [
     {
@@ -47449,7 +47529,8 @@
      "hero": 3,
      "monster": 0,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "heal"
    },
    "front_icons": [
     {
@@ -47997,7 +48078,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -48512,7 +48594,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -49027,7 +49110,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -49573,7 +49657,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -50141,7 +50226,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -50709,7 +50795,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -51183,7 +51270,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -51657,7 +51745,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -52131,7 +52220,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -52637,7 +52727,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -53154,7 +53245,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -53671,7 +53763,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -54108,7 +54201,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -54545,7 +54639,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -54982,7 +55077,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -59956,7 +60052,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -60444,7 +60541,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -60932,7 +61030,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -61460,7 +61559,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -62010,7 +62110,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -62560,7 +62661,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -63066,7 +63168,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -63583,7 +63686,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -64100,7 +64204,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -65678,7 +65783,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -66166,7 +66272,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -66654,7 +66761,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -67133,7 +67241,8 @@
      "hero": 1,
      "monster": 0,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "heal"
    },
    "front_icons": [
     {
@@ -67789,7 +67898,8 @@
      "hero": 1,
      "monster": 0,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "heal"
    },
    "front_icons": [
     {
@@ -68500,7 +68610,8 @@
      "hero": 1,
      "monster": 0,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "heal"
    },
    "front_icons": [
     {
@@ -71556,7 +71667,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -72052,7 +72164,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -72548,7 +72661,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -73043,7 +73157,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -73549,7 +73664,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -74055,7 +74171,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -75610,7 +75727,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -76141,7 +76259,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -76672,7 +76791,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -77141,7 +77261,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -77588,7 +77709,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -78035,7 +78157,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -78537,7 +78660,8 @@
      "hero": 1,
      "monster": 0,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "heal"
    },
    "front_icons": [
     {
@@ -79072,7 +79196,8 @@
      "hero": 1,
      "monster": 0,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "heal"
    },
    "front_icons": [
     {
@@ -79607,7 +79732,8 @@
      "hero": 1,
      "monster": 0,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "heal"
    },
    "front_icons": [
     {
@@ -81839,7 +81965,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -82271,7 +82398,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -82703,7 +82831,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -83222,7 +83351,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -83785,7 +83915,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -84348,7 +84479,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -84779,7 +84911,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -85253,7 +85386,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -85749,7 +85883,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -87433,7 +87568,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -88048,7 +88184,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -88663,7 +88800,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -89183,7 +89321,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -89681,7 +89820,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -90179,7 +90319,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -92292,7 +92433,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -92763,7 +92905,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -93234,7 +93377,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -93712,7 +93856,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -94212,7 +94357,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -94712,7 +94858,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -95189,7 +95336,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -95666,7 +95814,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -96143,7 +96292,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -96666,7 +96816,8 @@
      "hero": 1,
      "monster": 0,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "heal"
    },
    "front_icons": [
     {
@@ -97222,7 +97373,8 @@
      "hero": 1,
      "monster": 0,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "heal"
    },
    "front_icons": [
     {
@@ -97778,7 +97930,8 @@
      "hero": 1,
      "monster": 0,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "heal"
    },
    "front_icons": [
     {
@@ -98256,7 +98409,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -98723,7 +98877,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -99190,7 +99345,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -99663,7 +99819,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -100176,7 +100333,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -100700,7 +100858,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -101148,7 +101307,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -101585,7 +101745,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -102022,7 +102183,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -102479,7 +102641,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -102958,7 +103121,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -103437,7 +103601,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -103964,7 +104129,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -104513,7 +104679,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -105062,7 +105229,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -105544,7 +105712,8 @@
      "hero": 0,
      "monster": 0,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "heal"
    },
    "front_icons": [
     {
@@ -106037,7 +106206,8 @@
      "hero": 0,
      "monster": 0,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "heal"
    },
    "front_icons": [
     {
@@ -106530,7 +106700,8 @@
      "hero": 0,
      "monster": 0,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "heal"
    },
    "front_icons": [
     {
@@ -109680,7 +109851,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -110240,7 +110412,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -110800,7 +110973,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -111294,7 +111468,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -111777,7 +111952,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -112260,7 +112436,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -112827,7 +113004,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -113435,7 +113613,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -114043,7 +114222,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -114478,7 +114658,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -114869,7 +115050,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -115260,7 +115442,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -115669,7 +115852,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -116089,7 +116273,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -116509,7 +116694,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -117042,7 +117228,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -117641,7 +117828,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -118240,7 +118428,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -123092,7 +123281,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -123783,7 +123973,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -124484,7 +124675,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -124985,7 +125177,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -125376,7 +125569,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -125767,7 +125961,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -126354,7 +126549,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -126996,7 +127192,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -127638,7 +127835,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -131105,7 +131303,8 @@
      "hero": 1,
      "monster": 0,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "heal"
    },
    "front_icons": [
     {
@@ -131897,7 +132096,8 @@
      "hero": 1,
      "monster": 0,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "heal"
    },
    "front_icons": [
     {
@@ -132689,7 +132889,8 @@
      "hero": 1,
      "monster": 0,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "heal"
    },
    "front_icons": [
     {
@@ -136559,7 +136760,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -136950,7 +137152,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -137341,7 +137544,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -137866,7 +138070,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -138457,7 +138662,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -139048,7 +139254,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -142739,7 +142946,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -143321,7 +143529,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -143903,7 +144112,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -148092,7 +148302,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -148782,7 +148993,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -149472,7 +149684,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -150129,7 +150342,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -150786,7 +151000,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -151443,7 +151658,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -152147,7 +152363,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -152873,7 +153090,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -153599,7 +153817,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -154241,7 +154460,8 @@
      "hero": 1,
      "monster": 0,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "heal"
    },
    "front_icons": [
     {
@@ -154861,7 +155081,8 @@
      "hero": 1,
      "monster": 0,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "heal"
    },
    "front_icons": [
     {
@@ -155520,7 +155741,8 @@
      "hero": 1,
      "monster": 0,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "heal"
    },
    "front_icons": [
     {
@@ -161488,7 +161710,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -162042,7 +162265,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -162596,7 +162820,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -163175,7 +163400,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -163753,7 +163979,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -164331,7 +164558,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -164950,7 +165178,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -165569,7 +165798,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -166188,7 +166418,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -166826,7 +167057,8 @@
      "hero": 0,
      "monster": 4,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -167497,7 +167729,8 @@
      "hero": 0,
      "monster": 4,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -168168,7 +168401,8 @@
      "hero": 0,
      "monster": 4,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -168785,7 +169019,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -169369,7 +169604,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -169953,7 +170189,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -170596,7 +170833,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -171217,7 +171455,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -171838,7 +172077,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -174052,7 +174292,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -174718,7 +174959,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -175384,7 +175626,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -176023,7 +176266,8 @@
      "hero": 0,
      "monster": 4,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -176651,7 +176895,8 @@
      "hero": 0,
      "monster": 4,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -177279,7 +177524,8 @@
      "hero": 0,
      "monster": 4,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -182238,7 +182484,8 @@
      "hero": 1,
      "monster": 0,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "heal"
    },
    "front_icons": [
     {
@@ -182618,7 +182865,8 @@
      "hero": 1,
      "monster": 0,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "heal"
    },
    "front_icons": [
     {
@@ -182998,7 +183246,8 @@
      "hero": 1,
      "monster": 0,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "heal"
    },
    "front_icons": [
     {
@@ -183487,7 +183736,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -183987,7 +184237,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -184487,7 +184738,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -185005,7 +185257,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -185534,7 +185787,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -186063,7 +186317,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -186612,7 +186867,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -187161,7 +187417,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -187710,7 +187967,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -189449,7 +189707,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -190024,7 +190283,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -190599,7 +190859,8 @@
      "hero": 0,
      "monster": 2,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -191123,7 +191384,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -191603,7 +191865,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -192083,7 +192346,8 @@
      "hero": 0,
      "monster": 1,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "damage"
    },
    "front_icons": [
     {
@@ -192639,7 +192903,8 @@
      "hero": 1,
      "monster": 0,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "heal"
    },
    "front_icons": [
     {
@@ -193228,7 +193493,8 @@
      "hero": 1,
      "monster": 0,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "heal"
    },
    "front_icons": [
     {
@@ -193817,7 +194083,8 @@
      "hero": 1,
      "monster": 0,
      "heroOrMonster": 0
-    }
+    },
+    "effect": "heal"
    },
    "front_icons": [
     {

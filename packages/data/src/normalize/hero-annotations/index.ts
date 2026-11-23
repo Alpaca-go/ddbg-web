@@ -88,6 +88,8 @@ import {
 } from "./h18-musketeer";
 import { applyBountyStatuses } from "./bounty-statuses";
 import { applyDamage } from "./damage";
+import { applyEffectKind } from "./effect-kind";
+import { EFFECT_KINDS } from "./effect-kind-data";
 import { applyLayouts } from "./layout";
 import { applyRallyingFlare } from "./rallying-flare";
 import { applyRemoval } from "./removal";
@@ -205,6 +207,9 @@ export const REMOVAL_ENTRIES: readonly RemovalEntry[] = [...REMOVAL_RULES];
 /** 18 名英雄的区域目标数（A2 单元 3）。 */
 export const TARGET_COUNT_ENTRIES: readonly TargetCountEntry[] = [...TARGET_COUNTS];
 
+/** 18 名英雄 stats 行的主效果（A2 单元 4a）。 */
+export const EFFECT_KIND_ENTRIES = EFFECT_KINDS;
+
 /** 已复核支援效果行（当前只有 Crusader 的 Inspiring Cry I–III）。 */
 export const SUPPORT_EFFECTS: readonly SupportEffectEntry[] = [...crusaderSupport];
 
@@ -320,6 +325,11 @@ export function applyHeroTargetCounts(
   cards: readonly NormalizedHeroSkillCard[],
 ): NormalizedHeroSkillCard[] {
   return applyTargetCounts(cards, TARGET_COUNT_ENTRIES);
+}
+export function applyHeroEffectKind(
+  cards: readonly NormalizedHeroSkillCard[],
+): NormalizedHeroSkillCard[] {
+  return applyEffectKind(cards, EFFECT_KIND_ENTRIES);
 }
 export function applyHeroTextRules(
   cards: readonly NormalizedHeroSkillCard[],
