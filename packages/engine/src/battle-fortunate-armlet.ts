@@ -27,6 +27,7 @@ export function isFortunateArmlet(card: NormalizedTrinketCard): boolean {
     card.id === FORTUNATE_ARMLET_ID &&
     card.name === "Fortunate Armlet" &&
     card.level === 2 &&
+    card.rules?.useStress === 1 &&
     !card.verification.unverified &&
     front.name === card.name &&
     back.name === card.name &&
@@ -73,6 +74,8 @@ export function fortunateArmletUseProblem(state: GameState, actorId: string): st
   if (problem) return problem;
   const card = pool.cards.find((c) => c.id === FORTUNATE_ARMLET_ID);
   if (!card || !isFortunateArmlet(card)) return "Fortunate Armlet 卡面与已核实效果不符（R-048）";
+  const useStress = card.rules?.useStress;
+  if (useStress !== 1) return "Fortunate Armlet 缺少已核实的压力使用规则（R-048）";
   if (
     !pool.held.some((h) => h.heroId === actorId && h.cardId === card.id && h.face === "inverted") ||
     b.usedTrinketIds?.includes(card.id)
@@ -92,9 +95,13 @@ export function useTrinket(
   const problem = fortunateArmletUseProblem(state, command.actorId);
   if (problem) return rejectBattleCommand(state, problem);
   const b = state.battle!;
+  const armlet = b.trinkets!.cards.find((card) => card.id === FORTUNATE_ARMLET_ID);
+  const useStress = armlet?.rules?.useStress;
+  if (useStress !== 1)
+    return rejectBattleCommand(state, "Fortunate Armlet 缺少已核实的压力使用规则（R-048）");
   const paid = triggerBattlePassive(b, state.seed, [command.actorId], {
     type: "stress",
-    amount: 1,
+    amount: useStress,
   });
   if (paid.status === "refused") return rejectBattleCommand(state, paid.reason);
   const pressure = resolveBattlePressure({

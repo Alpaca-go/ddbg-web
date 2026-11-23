@@ -10,10 +10,14 @@
 > **2026-11-24 进展**：R1（`rules` 双写）已完成；单元 1 的 Inspiring Tune 目标压力补注解并修掉回归；
 > 单元 2 已完成——Battlefield Medicine p139–p141、Toxin Trickery p187–p189 写入 `rules.removal`，
 > 引擎优先读规则、文本解析保留给未注解的历史测试视图；单元 3 已完成——18 名英雄的 346 张
-> 非特殊目标卡写入 `rules.targets`；单元 6 已完成——Abomination 21 张卡的投影结果冻结到
+> 非特殊目标卡写入 `rules.targets`；单元 4 的 stats 主效果写入 `rules.effect`（267 张），
+> 单元 6 已完成——Abomination 21 张卡的投影结果冻结到
 > `abomination-projection-data.ts`；单元 7 已完成——核心盒普通怪物补 14 个 EffectPlan；
 > 单元 8 已完成——核心盒 69 张怪物的抗性 / 免疫写入
-> `rules.resistances` / `rules.immunities` / `rules.shuffleResist` / `rules.shuffleImmune`。
+> `rules.resistances` / `rules.immunities` / `rules.shuffleResist` / `rules.shuffleImmune`；
+> 单元 9 的饰品触发条件已结构化，卡面文本只作签名守门；Fortunate Armlet 使用效果已写入
+> `trinket.rules.useStress`。
+> 单元 4 / 9 的剩余 `{icon.key}` 均为漂移签名，按 A1 §1.2 留到 C2（依赖 C1 `family`）。
 
 总体原则：
 
@@ -67,6 +71,10 @@ Toxin Trickery p187–p189；Adrenaline Rush 的 Remove 与 Buff 同一行，继
 风险：中。多数卡只有 0–2 个目标，可先做核心 11 人。
 
 ## 单元 4：`resolveSkill` 的签名与校验（21 行）
+
+**状态：A2 范围内完成（2026-11-24）**。定位已全部走注解 `lineIndex` / `segmentIndex`；
+stats 主效果改为 `rules.effect`（4a，267 张卡）。剩余 `{icon.key}` 只用于卡面漂移签名；
+签名改语义族按 A1 §1.2 留到 C2（依赖 C1 `family`）。
 
 现状：大量 `effect_lines.map(... {icon.key})` 用于断言与定位。
 
@@ -132,6 +140,11 @@ Summon、All Allies、Rearrange 等仍由现有专用运行时处理，未在计
 风险：低。数据已存在，只是读取方式。
 
 ## 单元 9：饰品条件
+
+**状态：A2 范围内完成（2026-11-24）**。攻击 / 免费 / 反应饰品的触发条件已由
+`definitions` / `CORE_TRINKET_BINDINGS` 的结构化数值、姿态、光照与面值决定；
+Fortunate Armlet 的独立使用效果写入 `trinket.rules.useStress`，引擎读该字段。
+卡面 `effect_lines` 匹配只作漂移签名；签名改语义族留到 C2（依赖 C1 `family`）。
 
 行数：8 + 5 + 4（`battle-attack-trinkets`、`battle-free-trinkets`、
 `trinket-reactions`、`battle-fortunate-armlet`）。

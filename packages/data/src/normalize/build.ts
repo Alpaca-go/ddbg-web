@@ -65,6 +65,7 @@ import {
 import { attachVerifiedResolveTriggers } from "./verified-resolve-triggers";
 import { applyMonsterResistances } from "./monster-resistances";
 import { MONSTER_RESISTANCES } from "./monster-resistances-data";
+import { TRINKET_RULES } from "./trinket-rules-data";
 import { withHeroSkillRules, withMonsterCardRules, withVirtueRules } from "./rules";
 import { approvedResolveLookup } from "./approved-resolve-icons";
 import { buildRoomTileGeometry } from "./room-tile";
@@ -554,6 +555,7 @@ function buildTrinkets(
       effect_lines: resolveLines(source.effect_lines_raw, lookup, reasons),
       printed_rotation: source.printed_rotation,
     });
+    const rules = TRINKET_RULES.find((entry) => entry.id === card.id);
     return {
       id: card.id,
       pages: card.pages,
@@ -563,6 +565,7 @@ function buildTrinkets(
       back_level: card.back_level,
       upright_half: half(card.upright_half),
       inverted_half: half(card.inverted_half),
+      ...(rules ? { rules: { useStress: rules.useStress } } : {}),
       front_icons: faceIcons(printed.faces.front.icons, lookup, reasons),
       back_icons: faceIcons(back.icons, lookup, reasons),
       issues: card.issues,

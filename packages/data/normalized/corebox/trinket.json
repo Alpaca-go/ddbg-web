@@ -3928,6 +3928,9 @@
     ],
     "printed_rotation": 180
    },
+   "rules": {
+    "useStress": 1
+   },
    "front_icons": [
     {
      "iconId": "fc3594bb8c",

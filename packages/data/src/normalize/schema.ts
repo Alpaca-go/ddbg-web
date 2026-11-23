@@ -527,6 +527,12 @@ export const normalizedTrinketCardSchema = z.strictObject({
   back_level: levelSchema,
   upright_half: trinketHalfSchema,
   inverted_half: trinketHalfSchema,
+  /** 已核实的独立使用效果；缺失表示这张饰品没有独立使用能力。 */
+  rules: z
+    .strictObject({
+      useStress: z.literal(1).optional(),
+    })
+    .optional(),
   front_icons: z.array(normalizedIconSchema),
   back_icons: z.array(normalizedIconSchema),
   issues: z.array(z.string()),
