@@ -8,7 +8,9 @@
 pnpm --filter @ddbg/pipeline normalize
 ```
 
-印刷 PDF 和图标切图不在这里。Musketeer 不在这批数据里（R-008）。
+印刷 PDF 和图标切图不在这里。
+
+18 名正式英雄一律按核心内容（R-200，Musketeer 纳入并覆盖 R-008）：`corebox/hero_skill.json` 收全部 378 张技能（5 个 pack 来源都在这一份里），`corebox/hero_stat.json` 收全部 54 面属性卡。ID 里的 pack 段（如 `hero_skill:weald:h17:p034`）只用于归类，不表示文件要放进 `extension/`；这些英雄卡不要按包拆出去。
 
 ## Weald 首批普通怪物
 
