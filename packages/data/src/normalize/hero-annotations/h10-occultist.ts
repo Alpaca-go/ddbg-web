@@ -1,4 +1,4 @@
-import type { CoreHigherSkillRow, StatusEffectEntry, RangeEntry } from "./types";
+import type { CoreHigherSkillRow, StatusEffectEntry, RangeEntry, DamageEntry } from "./types";
 
 /** 核心盒 Occultist II/III 级逐卡注解（Kyries 审阅；R-048 签名断言由 core-higher-skills 执行）。 */
 export const coreHigherRows: readonly CoreHigherSkillRow[] = [
@@ -307,5 +307,29 @@ export const rangeEntries: readonly RangeEntry[] = [
     level: 1,
     min: 1,
     max: 2,
+  },
+];
+
+/** 已复核条件伤害（只录已命名 damage 图标与明文条件）。 */
+export const damageEntries: readonly DamageEntry[] = [
+  {
+    id: "hero_skill:p190",
+    name: "Sacrificial Stab",
+    level: 1,
+    page: 190,
+    lineIndex: 0,
+    amount: 1,
+    condition: "eldritch",
+    suffix: "Eldritch",
+  },
+  {
+    id: "hero_skill:p193",
+    name: "Abyssal Artillery",
+    level: 1,
+    page: 193,
+    lineIndex: 0,
+    amount: 1,
+    condition: "eldritch",
+    suffix: "Eldritch",
   },
 ];

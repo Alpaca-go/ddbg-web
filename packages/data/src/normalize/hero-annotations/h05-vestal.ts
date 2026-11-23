@@ -1,4 +1,4 @@
-import type { StatusEffectEntry, RangeEntry } from "./types";
+import type { StatusEffectEntry, RangeEntry, DamageEntry } from "./types";
 
 /** 完整印刷逐页核对的状态效果行（docs/phase2-four-core-skills-2026-10-11.md）。 */
 export const statusEntries: readonly StatusEffectEntry[] = [
@@ -194,5 +194,69 @@ export const rangeEntries: readonly RangeEntry[] = [
     level: 3,
     min: 1,
     max: 2,
+  },
+];
+
+/** 已复核条件伤害（只录已命名 damage 图标与明文条件）。 */
+export const damageEntries: readonly DamageEntry[] = [
+  {
+    id: "hero_skill:p085",
+    name: "Mace Bash",
+    level: 1,
+    page: 85,
+    lineIndex: 0,
+    amount: 1,
+    condition: "unholy",
+    suffix: "Unholy",
+  },
+  {
+    id: "hero_skill:p086",
+    name: "Mace Bash",
+    level: 2,
+    page: 86,
+    lineIndex: 0,
+    amount: 2,
+    condition: "unholy",
+    suffix: "Unholy",
+  },
+  {
+    id: "hero_skill:p087",
+    name: "Mace Bash",
+    level: 3,
+    page: 87,
+    lineIndex: 0,
+    amount: 3,
+    condition: "unholy",
+    suffix: "Unholy",
+  },
+  {
+    id: "hero_skill:p103",
+    name: "Hand of Light",
+    level: 1,
+    page: 103,
+    lineIndex: 1,
+    amount: 1,
+    condition: "unholy",
+    suffix: "Unholy",
+  },
+  {
+    id: "hero_skill:p104",
+    name: "Hand of Light",
+    level: 2,
+    page: 104,
+    lineIndex: 1,
+    amount: 2,
+    condition: "unholy",
+    suffix: "Unholy",
+  },
+  {
+    id: "hero_skill:p105",
+    name: "Hand of Light",
+    level: 3,
+    page: 105,
+    lineIndex: 1,
+    amount: 3,
+    condition: "unholy",
+    suffix: "Unholy",
   },
 ];

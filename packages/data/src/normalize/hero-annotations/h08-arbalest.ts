@@ -3,6 +3,7 @@ import type {
   StatusEffectEntry,
   RangeEntry,
   RallyingFlareEntry,
+  DamageEntry,
 } from "./types";
 
 /** 核心盒 Arbalest II/III 级逐卡注解（Kyries 审阅；R-048 签名断言由 core-higher-skills 执行）。 */
@@ -381,5 +382,19 @@ export const rallyingFlareEntries: readonly RallyingFlareEntry[] = [
     level: 3,
     acc: 12,
     targetIcons: 4,
+  },
+];
+
+/** 已复核条件伤害（只录已命名 damage 图标与明文条件）。 */
+export const damageEntries: readonly DamageEntry[] = [
+  {
+    id: "hero_skill:p148",
+    name: "Sniper Shot",
+    level: 1,
+    page: 148,
+    lineIndex: 0,
+    amount: 3,
+    condition: "marked",
+    suffix: "{mark}",
   },
 ];

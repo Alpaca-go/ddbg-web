@@ -1,6 +1,6 @@
 import { expect, it } from "vitest";
 import { loadNormalizedCorebox } from "./write";
-import { attachVerifiedHeroDamage } from "./verified-hero-damage";
+import { applyHeroDamage } from "./hero-annotations";
 import { applyHeroRanges } from "./hero-annotations";
 import { applyHeroStatuses } from "./hero-annotations";
 
@@ -17,7 +17,7 @@ it("Occ I：Sacrificial Stab / Abyssal Artillery Eldritch +1；II/III已有独�
   }
   for (const id of ["hero_skill:core:h10:p191", "hero_skill:core:h10:p194"] as const)
     expect(cards.find((c) => c.id === id)!.verified_damage_bonus).toBeDefined();
-  expect(attachVerifiedHeroDamage(cards)).toEqual(cards);
+  expect(applyHeroDamage(cards)).toEqual(cards);
 });
 
 it("Occ I：Weakening Curse / Wyrd / Hex / Hands 完整状态与区间；Daemon Pull 无状态注解", () => {
@@ -57,9 +57,9 @@ it("Occ I：Weakening Curse / Wyrd / Hex / Hands 完整状态与区间；Daemon 
 
 it("Occ I 身份或效果行漂移拒绝", () => {
   const stab = cards.find((c) => c.id === "hero_skill:core:h10:p190")!;
-  expect(() =>
-    attachVerifiedHeroDamage([{ ...stab, hero: "BOUNTY HUNTER" } as typeof stab]),
-  ).toThrow(/Sacrificial Stab|p190/);
+  expect(() => applyHeroDamage([{ ...stab, hero: "BOUNTY HUNTER" } as typeof stab])).toThrow(
+    /Sacrificial Stab|p190/,
+  );
   const drifted = cards.map((c) =>
     c.id === "hero_skill:core:h10:p196" ? ({ ...c, hero: "PLAGUE DOCTOR" } as typeof c) : c,
   );

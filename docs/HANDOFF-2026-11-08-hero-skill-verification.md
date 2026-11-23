@@ -42,7 +42,7 @@ Kyries 决定：**18 名正式英雄都按核心内容对待**（Musketeer 纳�
   4. `verified-hero-damage.ts`（伤害加成/条件伤害）
   5. `verified-hero-support.ts`（治疗/支援/Empty Area 等）
   6. `verified-bounty-statuses.ts`
-- **2026-11-23 目录调整**：II/III 级逐卡注解、状态效果行、印刷区间、支援效果、Rallying Flare / Skeet Shot、赏金猎人限定状态卡已按英雄收进 `normalize/hero-annotations/hNN-*.ts`；统一入口是 `applyHeroAnnotations`、`CORE_HIGHER_SKILL_ROWS`、`applyHeroStatuses` / `STATUS_EFFECTS`、`applyHeroRanges` / `RANGES`、`applyHeroSupport` / `SUPPORT_EFFECTS`、`applyHeroRallyingFlare` / `RALLYING_FLARE_ENTRIES`、`applyHeroBountyStatuses` / `BOUNTY_STATUS_ROWS`。`verified-hero-statuses/-ranges/-support`、`verified-rallying-flare`、`verified-bounty-statuses` 已删除。仍在根目录的英雄技能 aspect 文件只剩 `verified-hero-layout` 与 `verified-hero-damage`（`verified-resolve-triggers` 属于美德/折磨卡，不在本批）。
+- **2026-11-23 目录调整（已完成）**：英雄技能的逐卡注解已全部按 hNN 收进 `normalize/hero-annotations/`：`CORE_HIGHER_SKILL_ROWS`、`STATUS_EFFECTS`、`RANGES`、`SUPPORT_EFFECTS`、`RALLYING_FLARE_ENTRIES`、`BOUNTY_STATUS_ROWS`、`LAYOUT_ENTRIES`、`DAMAGE_ENTRIES`，以及 `HERO_ANNOTATIONS`（扩展英雄补丁模块）。根目录的 `verified-hero-*` / `verified-rallying-flare` / `verified-bounty-statuses` 已全部删除；`build.ts` 统一经由 `hero-annotations` 的 apply 函数接线（`verified-resolve-triggers` 属于美德/折磨卡，不在本批）。
 - 生成入口：`packages/data/src/normalize/build.ts`（`hero_skill` 段）。
 - 重生成：`$env:WRITE_NORMALIZED='1'; pnpm exec vitest run packages/data/src/normalize/normalize.test.ts`
 - 卡面数字位置：raw 的 `spans`（文本）与 `icons`（图标 bbox）；核对时以印刷行为准。

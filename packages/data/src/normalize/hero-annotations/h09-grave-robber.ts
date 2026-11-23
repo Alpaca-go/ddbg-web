@@ -1,4 +1,10 @@
-import type { CoreHigherSkillRow, StatusEffectEntry, RangeEntry, LayoutEntry } from "./types";
+import type {
+  CoreHigherSkillRow,
+  StatusEffectEntry,
+  RangeEntry,
+  LayoutEntry,
+  DamageEntry,
+} from "./types";
 
 /** 核心盒 Grave Robber II/III 级逐卡注解（Kyries 审阅；R-048 签名断言由 core-higher-skills 执行）。 */
 export const coreHigherRows: readonly CoreHigherSkillRow[] = [
@@ -358,5 +364,19 @@ export const layoutEntries: readonly LayoutEntry[] = [
     first: "{target_effects} {damage} +1 vs {blight}",
     second: ["{damage} +2 vs {mark}", "{target_effects} {damage} +2 vs {mark}"],
     label: "Throw Dagger I",
+  },
+];
+
+/** 已复核条件伤害（只录已命名 damage 图标与明文条件）。 */
+export const damageEntries: readonly DamageEntry[] = [
+  {
+    id: "hero_skill:p172",
+    name: "Lunge",
+    level: 1,
+    page: 172,
+    lineIndex: 1,
+    amount: 2,
+    condition: "blighted",
+    suffix: "{blight}",
   },
 ];

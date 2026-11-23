@@ -1,4 +1,4 @@
-import type { StatusEffectEntry, RangeEntry, SupportEffectEntry } from "./types";
+import type { StatusEffectEntry, RangeEntry, SupportEffectEntry, DamageEntry } from "./types";
 
 /** 完整印刷逐页核对的状态效果行（docs/phase2-four-core-skills-2026-10-11.md）。 */
 export const statusEntries: readonly StatusEffectEntry[] = [
@@ -149,5 +149,69 @@ export const supportEntries: readonly SupportEffectEntry[] = [
     targetSignature: "{range}1{target_hero}{target_hero}",
     effectSignature: "{target_effects}{damage_or_heal_combined_marker}{heal}1,{stress}-1,{light}+1",
     effects: { heal: 1, stress: -1, light: 1 },
+  },
+];
+
+/** 已复核条件伤害（只录已命名 damage 图标与明文条件）。 */
+export const damageEntries: readonly DamageEntry[] = [
+  {
+    id: "hero_skill:p001",
+    name: "Smite",
+    level: 1,
+    page: 1,
+    lineIndex: 0,
+    amount: 1,
+    condition: "unholy",
+    suffix: "Unholy",
+  },
+  {
+    id: "hero_skill:p002",
+    name: "Smite",
+    level: 2,
+    page: 2,
+    lineIndex: 0,
+    amount: 2,
+    condition: "unholy",
+    suffix: "Unholy",
+  },
+  {
+    id: "hero_skill:p003",
+    name: "Smite",
+    level: 3,
+    page: 3,
+    lineIndex: 0,
+    amount: 3,
+    condition: "unholy",
+    suffix: "Unholy",
+  },
+  {
+    id: "hero_skill:p016",
+    name: "Holy Lance",
+    level: 1,
+    page: 16,
+    lineIndex: 1,
+    amount: 1,
+    condition: "unholy",
+    suffix: "Unholy",
+  },
+  {
+    id: "hero_skill:p017",
+    name: "Holy Lance",
+    level: 2,
+    page: 17,
+    lineIndex: 1,
+    amount: 2,
+    condition: "unholy",
+    suffix: "Unholy",
+  },
+  {
+    id: "hero_skill:p018",
+    name: "Holy Lance",
+    level: 3,
+    page: 18,
+    lineIndex: 1,
+    amount: 3,
+    condition: "unholy",
+    suffix: "Unholy",
   },
 ];

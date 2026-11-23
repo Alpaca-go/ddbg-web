@@ -3,6 +3,7 @@ import type {
   StatusEffectEntry,
   RangeEntry,
   RallyingFlareEntry,
+  DamageEntry,
 } from "./types";
 import type { NormalizedHeroSkillCard, Segment } from "../schema";
 import { normalizedHeroSkillCardSchema } from "../schema";
@@ -735,5 +736,19 @@ export const rallyingFlareEntries: readonly RallyingFlareEntry[] = [
     level: 3,
     acc: 12,
     targetIcons: 4,
+  },
+];
+
+/** 已复核条件伤害（只录已命名 damage 图标与明文条件）。 */
+export const damageEntries: readonly DamageEntry[] = [
+  {
+    id: "hero_skill:musketeer:p001",
+    name: "Aimed Shot",
+    level: 1,
+    page: 1,
+    lineIndex: 0,
+    amount: 3,
+    condition: "marked",
+    suffix: "{mark}",
   },
 ];

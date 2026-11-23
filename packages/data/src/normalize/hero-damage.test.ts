@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { normalizedHeroSkillFileSchema } from "./schema";
-import { attachVerifiedHeroDamage } from "./verified-hero-damage";
+import { applyHeroDamage } from "./hero-annotations";
 const cards = normalizedHeroSkillFileSchema.parse(
   JSON.parse(
     readFileSync(new URL("../../normalized/corebox/hero_skill.json", import.meta.url), "utf8"),
@@ -10,7 +10,7 @@ const cards = normalizedHeroSkillFileSchema.parse(
 describe("逐卡复核条件伤害", () => {
   it("逐卡核实条件伤，保留原 null（R-208、R-211）", () => {
     expect(
-      attachVerifiedHeroDamage(cards)
+      applyHeroDamage(cards)
         .filter(
           (card) =>
             card.verified_damage_bonus &&
@@ -62,15 +62,13 @@ describe("逐卡复核条件伤害", () => {
         ),
       },
     ])
-      expect(() => attachVerifiedHeroDamage([changed])).toThrow();
+      expect(() => applyHeroDamage([changed])).toThrow();
   });
   it("未核实卡或效果行变化拒绝", () => {
     const card = cards.find((card) => card.id === "hero_skill:core:h04:p067")!;
-    expect(() => attachVerifiedHeroDamage([{ ...card, effect_lines: [] }])).toThrow();
+    expect(() => applyHeroDamage([{ ...card, effect_lines: [] }])).toThrow();
     expect(() =>
-      attachVerifiedHeroDamage([
-        { ...card, verification: { ...card.verification, unverified: true } },
-      ]),
+      applyHeroDamage([{ ...card, verification: { ...card.verification, unverified: true } }]),
     ).toThrow();
   });
 
@@ -86,7 +84,7 @@ describe("逐卡复核条件伤害", () => {
     expect(card.unlabeled_numbers.find((n) => n.text === "+2")?.numeric).toBeNull();
     expect(card.unlabeled_numbers.find((n) => n.text === "0-1")?.numeric).toBeNull();
     const before = structuredClone(cards);
-    expect(attachVerifiedHeroDamage(cards)).toEqual(cards);
+    expect(applyHeroDamage(cards)).toEqual(cards);
     expect(cards).toEqual(before);
     for (const id of ["hero_skill:core:h03:p059", "hero_skill:core:h03:p060"])
       expect(cards.find((c) => c.id === id)!.verified_damage_bonus).toBeDefined();
@@ -113,7 +111,7 @@ describe("逐卡复核条件伤害", () => {
     ]) {
       const changed = structuredClone(card);
       mutate(changed);
-      expect(() => attachVerifiedHeroDamage([changed])).toThrow();
+      expect(() => applyHeroDamage([changed])).toThrow();
     }
   });
 });

@@ -1,4 +1,4 @@
-import type { StatusEffectEntry, RangeEntry } from "./types";
+import type { StatusEffectEntry, RangeEntry, DamageEntry } from "./types";
 
 /** 完整印刷逐页核对的状态效果行（docs/phase2-four-core-skills-2026-10-11.md）。 */
 export const statusEntries: readonly StatusEffectEntry[] = [
@@ -239,5 +239,39 @@ export const rangeEntries: readonly RangeEntry[] = [
     level: 3,
     min: 1,
     max: 2,
+  },
+];
+
+/** 已复核条件伤害（只录已命名 damage 图标与明文条件）。 */
+export const damageEntries: readonly DamageEntry[] = [
+  {
+    id: "hero_skill:p067",
+    name: "Pistol Shot",
+    level: 1,
+    page: 67,
+    lineIndex: 0,
+    amount: 2,
+    condition: "marked",
+    suffix: "{mark}",
+  },
+  {
+    id: "hero_skill:p068",
+    name: "Pistol Shot",
+    level: 2,
+    page: 68,
+    lineIndex: 0,
+    amount: 3,
+    condition: "marked",
+    suffix: "{mark}",
+  },
+  {
+    id: "hero_skill:p069",
+    name: "Pistol Shot",
+    level: 3,
+    page: 69,
+    lineIndex: 0,
+    amount: 4,
+    condition: "marked",
+    suffix: "{mark}",
   },
 ];

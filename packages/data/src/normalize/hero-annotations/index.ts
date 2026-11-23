@@ -3,6 +3,7 @@ import {
   rangeEntries as crusaderRanges,
   statusEntries as crusaderStatus,
   supportEntries as crusaderSupport,
+  damageEntries as crusaderDamage,
 } from "./h01-crusader";
 import {
   layoutEntries as hellionLayouts,
@@ -15,12 +16,18 @@ import {
   layoutEntries as bountyHunterLayouts,
   rangeEntries as bountyHunterRanges,
   statusEntries as bountyHunterStatus,
+  damageEntries as bountyHunterDamage,
 } from "./h03-bounty-hunter";
 import {
   rangeEntries as highwaymanRanges,
   statusEntries as highwaymanStatus,
+  damageEntries as highwaymanDamage,
 } from "./h04-highwayman";
-import { rangeEntries as vestalRanges, statusEntries as vestalStatus } from "./h05-vestal";
+import {
+  damageEntries as vestalDamage,
+  rangeEntries as vestalRanges,
+  statusEntries as vestalStatus,
+} from "./h05-vestal";
 import {
   coreHigherRows as jesterHigherRows,
   layoutEntries as jesterLayouts,
@@ -36,17 +43,20 @@ import {
   rallyingFlareEntries as arbalestRallyingFlare,
   rangeEntries as arbalestRanges,
   statusEntries as arbalestStatus,
+  damageEntries as arbalestDamage,
 } from "./h08-arbalest";
 import {
   coreHigherRows as graveRobberHigherRows,
   layoutEntries as graveRobberLayouts,
   rangeEntries as graveRobberRanges,
   statusEntries as graveRobberStatus,
+  damageEntries as graveRobberDamage,
 } from "./h09-grave-robber";
 import {
   coreHigherRows as occultistHigherRows,
   rangeEntries as occultistRanges,
   statusEntries as occultistStatus,
+  damageEntries as occultistDamage,
 } from "./h10-occultist";
 import {
   coreHigherRows as abominationHigherRows,
@@ -68,8 +78,10 @@ import {
   rallyingFlareEntries as musketeerRallyingFlare,
   rangeEntries as musketeerRanges,
   statusEntries as musketeerStatus,
+  damageEntries as musketeerDamage,
 } from "./h18-musketeer";
 import { applyBountyStatuses } from "./bounty-statuses";
+import { applyDamage } from "./damage";
 import { applyLayouts } from "./layout";
 import { applyRallyingFlare } from "./rallying-flare";
 import { applyRangeEntries } from "./ranges";
@@ -77,6 +89,7 @@ import { applyStatusEffects } from "./status-effects";
 import { applySupportEffects } from "./support-effects";
 import type {
   BountyStatusRow,
+  DamageEntry,
   CoreHigherSkillRow,
   HeroAnnotationModule,
   LayoutEntry,
@@ -88,6 +101,7 @@ import type {
 
 export type {
   BountyStatusRow,
+  DamageEntry,
   CoreHigherSkillFlags,
   CoreHigherSkillRow,
   HeroAnnotationApplier,
@@ -171,6 +185,18 @@ export const LAYOUT_ENTRIES: readonly LayoutEntry[] = [
   ...graveRobberLayouts,
 ];
 
+/** 已复核条件伤害行。 */
+export const DAMAGE_ENTRIES: readonly DamageEntry[] = [
+  ...crusaderDamage,
+  ...bountyHunterDamage,
+  ...highwaymanDamage,
+  ...vestalDamage,
+  ...arbalestDamage,
+  ...graveRobberDamage,
+  ...occultistDamage,
+  ...musketeerDamage,
+];
+
 /**
  * 已入库的逐卡审校模块，按 hNN 升序排列。
  * 每个模块只碰自己英雄的卡，顺序不影响结果；新增英雄时在对应位置插入。
@@ -228,4 +254,10 @@ export function applyHeroLayouts(
   cards: readonly NormalizedHeroSkillCard[],
 ): NormalizedHeroSkillCard[] {
   return applyLayouts(cards, LAYOUT_ENTRIES);
+}
+
+export function applyHeroDamage(
+  cards: readonly NormalizedHeroSkillCard[],
+): NormalizedHeroSkillCard[] {
+  return applyDamage(cards, DAMAGE_ENTRIES);
 }

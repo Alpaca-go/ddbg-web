@@ -4,6 +4,7 @@ import type {
   RangeEntry,
   BountyStatusRow,
   LayoutEntry,
+  DamageEntry,
 } from "./types";
 
 /** 核心盒 Bounty Hunter II/III 级逐卡注解（Kyries 审阅；R-048 签名断言由 core-higher-skills 执行）。 */
@@ -405,5 +406,19 @@ export const layoutEntries: readonly LayoutEntry[] = [
     first: "{target_effects} {damage} +1 vs Humans",
     second: ["{damage} +2 vs {mark}", "{target_effects} {damage} +2 vs {mark}"],
     label: "Collect Bounty I",
+  },
+];
+
+/** 已复核条件伤害（只录已命名 damage 图标与明文条件）。 */
+export const damageEntries: readonly DamageEntry[] = [
+  {
+    id: "hero_skill:p058",
+    name: "Finish Him",
+    level: 1,
+    page: 58,
+    lineIndex: 0,
+    amount: 2,
+    condition: "stunned",
+    suffix: "{stun}",
   },
 ];

@@ -139,3 +139,14 @@ export type LayoutEntry =
       readonly expected: readonly string[];
       readonly output: readonly [string, string];
     };
+/** 已复核条件伤害：只录已命名 damage 图标与明文条件。 */
+export type DamageEntry = {
+  readonly id: string;
+  readonly name: string;
+  readonly level: number;
+  readonly page: number;
+  readonly lineIndex: number;
+  readonly amount: number;
+  readonly condition: "marked" | "unholy" | "stunned" | "blighted" | "eldritch";
+  readonly suffix: string;
+};

@@ -1,6 +1,6 @@
 import { expect, it } from "vitest";
 import { loadNormalizedCorebox } from "./write";
-import { attachVerifiedHeroDamage } from "./verified-hero-damage";
+import { applyHeroDamage } from "./hero-annotations";
 import { applyHeroLayouts } from "./hero-annotations";
 import { applyHeroRanges } from "./hero-annotations";
 import { applyHeroStatuses } from "./hero-annotations";
@@ -47,7 +47,7 @@ it("Throw Dagger I 同框双条件与 1–2 射程；Lunge I 对 Blight +2；区
     source: "print_front",
   });
   // 幂等：对已注解卡再挂载一次应得到相同注解。
-  expect(attachVerifiedHeroDamage(cards)).toEqual(cards);
+  expect(applyHeroDamage(cards)).toEqual(cards);
   expect(applyHeroRanges(cards)).toEqual(cards);
   expect(applyHeroLayouts([dagger])).toEqual([dagger]);
 });
@@ -58,7 +58,7 @@ it("Throw Dagger / Lunge 身份或效果行漂移拒绝；Pick to the Face / Fla
     /Throw Dagger/,
   );
   expect(() =>
-    attachVerifiedHeroDamage([{ ...dagger, effect_lines: dagger.effect_lines.slice(0, 1) }]),
+    applyHeroDamage([{ ...dagger, effect_lines: dagger.effect_lines.slice(0, 1) }]),
   ).toThrow();
   for (const id of ["hero_skill:core:h09:p169", "hero_skill:core:h09:p175"] as const) {
     const card = cards.find((c) => c.id === id)!;
