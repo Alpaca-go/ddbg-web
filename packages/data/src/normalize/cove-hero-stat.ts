@@ -10,6 +10,7 @@ import {
   readHigherHeroDefence,
 } from "./hero-higher-defence";
 import { heroStatId } from "../hero-registry";
+import { withHeroStatRules } from "./rules";
 
 const STAT_FRONT =
   "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_100x180_Hero_STAT_FRONT.pdf";
@@ -41,6 +42,11 @@ export const approvedCoveHeroStats = [
   coveAttributesSchema.parse({ rawId, face, name, level, life, dodge, speed }),
 );
 
+/** Cove 英雄属性的规则语义（与技能 rules 同一命名空间）。 */
+const coveHeroStatRulesSchema = z.strictObject({
+  higherConditionDefence: higherHeroDefenceSchema.optional(),
+});
+
 export const coveHeroStatCardSchema = coveAttributesSchema
   .extend({
     id: z.string().regex(/^hero_stat:cove:(flagellant|man-at-arms):p00[12]:(front|back)$/),
@@ -51,6 +57,8 @@ export const coveHeroStatCardSchema = coveAttributesSchema
     attributesVerified: z.literal(true),
     approval: z.literal("kyries_review_2026-10-24"),
     verified_higher_condition_defence: higherHeroDefenceSchema.optional(),
+    /** 规则语义（新命名空间）：只放引擎要执行的解释，不放印刷原文。 */
+    rules: coveHeroStatRulesSchema.optional(),
     lines: z.array(z.string()),
     icons: z.array(normalizedIconSchema),
     verification: verificationSchema,
@@ -158,8 +166,10 @@ export function buildCoveHeroStats(
       verification: finishVerification(reasons),
     });
   });
-  return cards.map((card) => ({
-    ...card,
-    id: heroStatId(card.name, card.level, card.face),
-  }));
+  return cards.map((card) =>
+    withHeroStatRules({
+      ...card,
+      id: heroStatId(card.name, card.level, card.face),
+    }),
+  );
 }

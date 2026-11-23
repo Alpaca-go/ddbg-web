@@ -178,6 +178,17 @@
      "amount": -2
     }
    },
+   "rules": {
+    "turnStart": {
+     "rollMin": 1,
+     "rollMax": 3,
+     "effect": {
+      "type": "stress",
+      "scope": "self",
+      "amount": -2
+     }
+    }
+   },
    "verification": {
     "unverified": false,
     "reasons": []
@@ -462,6 +473,17 @@
      "amount": -1
     }
    },
+   "rules": {
+    "turnStart": {
+     "rollMin": 1,
+     "rollMax": 3,
+     "effect": {
+      "type": "stress",
+      "scope": "heroes",
+      "amount": -1
+     }
+    }
+   },
    "verification": {
     "unverified": false,
     "reasons": []
@@ -630,6 +652,17 @@
      "type": "buff",
      "scope": "self",
      "duration": 2
+    }
+   },
+   "rules": {
+    "turnStart": {
+     "rollMin": 1,
+     "rollMax": 5,
+     "effect": {
+      "type": "buff",
+      "scope": "self",
+      "duration": 2
+     }
     }
    },
    "verification": {
@@ -916,6 +949,17 @@
      "duration": 2
     }
    },
+   "rules": {
+    "turnStart": {
+     "rollMin": 1,
+     "rollMax": 3,
+     "effect": {
+      "type": "buff",
+      "scope": "heroes",
+      "duration": 2
+     }
+    }
+   },
    "verification": {
     "unverified": false,
     "reasons": []
@@ -1122,6 +1166,18 @@
      "perHeroLevel": true
     }
    },
+   "rules": {
+    "turnStart": {
+     "rollMin": 1,
+     "rollMax": 3,
+     "effect": {
+      "type": "heal",
+      "scope": "self",
+      "amount": 3,
+      "perHeroLevel": true
+     }
+    }
+   },
    "verification": {
     "unverified": false,
     "reasons": []
@@ -1292,6 +1348,17 @@
      "amount": 2
     }
    },
+   "rules": {
+    "turnStart": {
+     "rollMin": 1,
+     "rollMax": 2,
+     "effect": {
+      "type": "stress",
+      "scope": "self",
+      "amount": 2
+     }
+    }
+   },
    "verification": {
     "unverified": false,
     "reasons": []
@@ -1436,6 +1503,16 @@
     "effect": {
      "type": "consumeProvision",
      "amount": 1
+    }
+   },
+   "rules": {
+    "turnStart": {
+     "rollMin": 1,
+     "rollMax": 4,
+     "effect": {
+      "type": "consumeProvision",
+      "amount": 1
+     }
     }
    },
    "verification": {
@@ -1642,6 +1719,18 @@
      "scope": "self",
      "amount": 2,
      "perHeroLevel": true
+    }
+   },
+   "rules": {
+    "turnStart": {
+     "rollMin": 1,
+     "rollMax": 3,
+     "effect": {
+      "type": "wounds",
+      "scope": "self",
+      "amount": 2,
+      "perHeroLevel": true
+     }
     }
    },
    "verification": {
@@ -1928,6 +2017,17 @@
      "amount": 1
     }
    },
+   "rules": {
+    "turnStart": {
+     "rollMin": 1,
+     "rollMax": 3,
+     "effect": {
+      "type": "stress",
+      "scope": "heroes",
+      "amount": 1
+     }
+    }
+   },
    "verification": {
     "unverified": false,
     "reasons": []
@@ -2180,6 +2280,17 @@
      "type": "stanceMove",
      "forwardThrough": 5,
      "distance": 1
+    }
+   },
+   "rules": {
+    "turnStart": {
+     "rollMin": 1,
+     "rollMax": 10,
+     "effect": {
+      "type": "stanceMove",
+      "forwardThrough": 5,
+      "distance": 1
+     }
     }
    },
    "verification": {

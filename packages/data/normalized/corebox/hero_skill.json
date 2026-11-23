@@ -282,6 +282,14 @@
      "text": " 7"
     }
    ],
+   "rules": {
+    "damage": {
+     "lineIndex": 0,
+     "amount": 1,
+     "condition": "unholy",
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -740,6 +748,14 @@
      "text": " 9"
     }
    ],
+   "rules": {
+    "damage": {
+     "lineIndex": 0,
+     "amount": 2,
+     "condition": "unholy",
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -1198,6 +1214,14 @@
      "text": " 11"
     }
    ],
+   "rules": {
+    "damage": {
+     "lineIndex": 0,
+     "amount": 3,
+     "condition": "unholy",
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -2790,6 +2814,17 @@
      "text": " 4"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "stun",
+      "duration": 1
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -3231,6 +3266,17 @@
      "text": " 5"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "stun",
+      "duration": 1
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -3672,6 +3718,17 @@
      "text": " 6"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "stun",
+      "duration": 1
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -4084,6 +4141,24 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "protection",
+      "duration": 2
+     },
+     {
+      "lineIndex": 1,
+      "segmentIndex": 4,
+      "scope": "self",
+      "kind": "mark",
+      "duration": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -4496,6 +4571,24 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "protection",
+      "duration": 3
+     },
+     {
+      "lineIndex": 1,
+      "segmentIndex": 4,
+      "scope": "self",
+      "kind": "mark",
+      "duration": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -4898,6 +4991,24 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "protection",
+      "duration": 3
+     },
+     {
+      "lineIndex": 1,
+      "segmentIndex": 4,
+      "scope": "self",
+      "kind": "mark",
+      "duration": 2
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -5300,6 +5411,13 @@
     "min": 0,
     "max": 1,
     "source": "print_front"
+   },
+   "rules": {
+    "range": {
+     "min": 0,
+     "max": 1,
+     "source": "print_front"
+    }
    },
    "front_icons": [
     {
@@ -5725,6 +5843,13 @@
     "min": 0,
     "max": 1,
     "source": "print_front"
+   },
+   "rules": {
+    "range": {
+     "min": 0,
+     "max": 1,
+     "source": "print_front"
+    }
    },
    "front_icons": [
     {
@@ -6227,6 +6352,15 @@
      "text": " 4"
     }
    ],
+   "rules": {
+    "self": {
+     "heal": {
+      "lineIndex": 0,
+      "amount": 5,
+      "source": "print_front"
+     }
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -6746,6 +6880,12 @@
     }
    ],
    "rules": {
+    "damage": {
+     "lineIndex": 1,
+     "amount": 1,
+     "condition": "unholy",
+     "source": "print_front"
+    },
     "shuffle": [
      {
       "lineIndex": 0,
@@ -7273,6 +7413,12 @@
     }
    ],
    "rules": {
+    "damage": {
+     "lineIndex": 1,
+     "amount": 2,
+     "condition": "unholy",
+     "source": "print_front"
+    },
     "shuffle": [
      {
       "lineIndex": 0,
@@ -7800,6 +7946,12 @@
     }
    ],
    "rules": {
+    "damage": {
+     "lineIndex": 1,
+     "amount": 3,
+     "condition": "unholy",
+     "source": "print_front"
+    },
     "shuffle": [
      {
       "lineIndex": 0,
@@ -8294,6 +8446,17 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "target": {
+     "support": {
+      "lineIndex": 1,
+      "heal": 1,
+      "stress": -1,
+      "light": 1,
+      "source": "print_front"
+     }
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -8902,6 +9065,29 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "self": {
+     "heal": {
+      "lineIndex": 1,
+      "amount": 1,
+      "source": "print_front"
+     },
+     "stress": {
+      "lineIndex": 1,
+      "amount": -1,
+      "source": "print_front"
+     }
+    },
+    "target": {
+     "support": {
+      "lineIndex": 2,
+      "heal": 1,
+      "stress": -1,
+      "light": 1,
+      "source": "print_front"
+     }
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -9572,6 +9758,29 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "self": {
+     "heal": {
+      "lineIndex": 1,
+      "amount": 1,
+      "source": "print_front"
+     },
+     "stress": {
+      "lineIndex": 1,
+      "amount": -1,
+      "source": "print_front"
+     }
+    },
+    "target": {
+     "support": {
+      "lineIndex": 2,
+      "heal": 1,
+      "stress": -1,
+      "light": 1,
+      "source": "print_front"
+     }
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -12129,6 +12338,17 @@
      "text": "Acc 10"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "stun",
+      "duration": 1
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -12470,6 +12690,17 @@
      "text": "Acc 11"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "stun",
+      "duration": 1
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -12811,6 +13042,17 @@
      "text": "Acc 12"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "stun",
+      "duration": 1
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -13260,6 +13502,18 @@
      "text": " 5"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "bleed",
+      "duration": 2,
+      "amount": 2
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -13731,6 +13985,18 @@
      "text": " 6"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "bleed",
+      "duration": 3,
+      "amount": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -14202,6 +14468,18 @@
      "text": " 8"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "bleed",
+      "duration": 3,
+      "amount": 4
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -16038,6 +16316,17 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 6,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -16551,6 +16840,29 @@
     "min": 0,
     "max": 1,
     "source": "print_front"
+   },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 6,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 2
+     },
+     {
+      "lineIndex": 1,
+      "segmentIndex": 6,
+      "scope": "target",
+      "kind": "buff",
+      "duration": 2
+     }
+    ],
+    "range": {
+     "min": 0,
+     "max": 1,
+     "source": "print_front"
+    }
    },
    "front_icons": [
     {
@@ -17139,6 +17451,29 @@
     "max": 1,
     "source": "print_front"
    },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 6,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 2
+     },
+     {
+      "lineIndex": 1,
+      "segmentIndex": 6,
+      "scope": "target",
+      "kind": "buff",
+      "duration": 2
+     }
+    ],
+    "range": {
+     "min": 0,
+     "max": 1,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -17697,6 +18032,18 @@
      "text": " 9"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "bleed",
+      "duration": 2,
+      "amount": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -18233,6 +18580,18 @@
      "text": " 12"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "bleed",
+      "duration": 3,
+      "amount": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -18769,6 +19128,18 @@
      "text": " 14"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "bleed",
+      "duration": 3,
+      "amount": 4
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -19327,6 +19698,22 @@
      "text": " 6"
     }
    ],
+   "rules": {
+    "damageBonuses": [
+     {
+      "lineIndex": 0,
+      "amount": 1,
+      "condition": "human",
+      "source": "print_front"
+     },
+     {
+      "lineIndex": 1,
+      "amount": 2,
+      "condition": "marked",
+      "source": "print_front"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -19896,6 +20283,22 @@
      "text": " 8"
     }
    ],
+   "rules": {
+    "damageBonuses": [
+     {
+      "lineIndex": 0,
+      "amount": 2,
+      "condition": "human",
+      "source": "print_front"
+     },
+     {
+      "lineIndex": 1,
+      "amount": 3,
+      "condition": "marked",
+      "source": "print_front"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -20467,6 +20870,22 @@
      "text": " 9"
     }
    ],
+   "rules": {
+    "damageBonuses": [
+     {
+      "lineIndex": 0,
+      "amount": 2,
+      "condition": "human",
+      "source": "print_front"
+     },
+     {
+      "lineIndex": 1,
+      "amount": 3,
+      "condition": "marked",
+      "source": "print_front"
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -20942,6 +21361,36 @@
     "min": 0,
     "max": 2,
     "source": "print_front"
+   },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "mark",
+      "duration": 3
+     },
+     {
+      "lineIndex": 0,
+      "segmentIndex": 4,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 2
+     },
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 2
+     }
+    ],
+    "range": {
+     "min": 0,
+     "max": 2,
+     "source": "print_front"
+    }
    },
    "front_icons": [
     {
@@ -21419,6 +21868,36 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "mark",
+      "duration": 3
+     },
+     {
+      "lineIndex": 0,
+      "segmentIndex": 4,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 2
+     },
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 3
+     }
+    ],
+    "range": {
+     "min": 0,
+     "max": 2,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -21895,6 +22374,36 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "mark",
+      "duration": 3
+     },
+     {
+      "lineIndex": 0,
+      "segmentIndex": 4,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 3
+     },
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 3
+     }
+    ],
+    "range": {
+     "min": 0,
+     "max": 2,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -22355,6 +22864,15 @@
     }
    ],
    "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "mark",
+      "duration": 2
+     }
+    ],
     "shuffle": [
      {
       "lineIndex": 0,
@@ -22834,6 +23352,15 @@
     }
    ],
    "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "mark",
+      "duration": 2
+     }
+    ],
     "shuffle": [
      {
       "lineIndex": 0,
@@ -23313,6 +23840,15 @@
     }
    ],
    "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "mark",
+      "duration": 3
+     }
+    ],
     "shuffle": [
      {
       "lineIndex": 0,
@@ -23781,6 +24317,15 @@
     }
    ],
    "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "stun",
+      "duration": 1
+     }
+    ],
     "shuffle": [
      {
       "lineIndex": 0,
@@ -24260,6 +24805,15 @@
     }
    ],
    "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "stun",
+      "duration": 1
+     }
+    ],
     "shuffle": [
      {
       "lineIndex": 0,
@@ -24739,6 +25293,15 @@
     }
    ],
    "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "stun",
+      "duration": 1
+     }
+    ],
     "shuffle": [
      {
       "lineIndex": 0,
@@ -25140,6 +25703,22 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "stun",
+      "duration": 1
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -25533,6 +26112,22 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "stun",
+      "duration": 1
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -25925,6 +26520,22 @@
     "min": 1,
     "max": 2,
     "source": "print_front"
+   },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "stun",
+      "duration": 1
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
    },
    "front_icons": [
     {
@@ -26391,6 +27002,19 @@
     "min": 0,
     "max": 1,
     "source": "print_front"
+   },
+   "rules": {
+    "damage": {
+     "lineIndex": 0,
+     "amount": 2,
+     "condition": "stunned",
+     "source": "print_front"
+    },
+    "range": {
+     "min": 0,
+     "max": 1,
+     "source": "print_front"
+    }
    },
    "front_icons": [
     {
@@ -26880,6 +27504,19 @@
     "max": 1,
     "source": "print_front"
    },
+   "rules": {
+    "damage": {
+     "lineIndex": 0,
+     "amount": 3,
+     "condition": "stunned",
+     "source": "print_front"
+    },
+    "range": {
+     "min": 0,
+     "max": 1,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -27367,6 +28004,19 @@
     "min": 0,
     "max": 1,
     "source": "print_front"
+   },
+   "rules": {
+    "damage": {
+     "lineIndex": 0,
+     "amount": 4,
+     "condition": "stunned",
+     "source": "print_front"
+    },
+    "range": {
+     "min": 0,
+     "max": 1,
+     "source": "print_front"
+    }
    },
    "front_icons": [
     {
@@ -27883,6 +28533,25 @@
      "text": " 1"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "bleed",
+      "duration": 3,
+      "amount": 2
+     },
+     {
+      "lineIndex": 0,
+      "segmentIndex": 4,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 1
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -28409,6 +29078,25 @@
      "text": " 2"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "bleed",
+      "duration": 2,
+      "amount": 3
+     },
+     {
+      "lineIndex": 0,
+      "segmentIndex": 4,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 2
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -28935,6 +29623,25 @@
      "text": " 2"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "bleed",
+      "duration": 3,
+      "amount": 3
+     },
+     {
+      "lineIndex": 0,
+      "segmentIndex": 4,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -30487,6 +31194,19 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "damage": {
+     "lineIndex": 0,
+     "amount": 2,
+     "condition": "marked",
+     "source": "print_front"
+    },
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -30975,6 +31695,19 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "damage": {
+     "lineIndex": 0,
+     "amount": 3,
+     "condition": "marked",
+     "source": "print_front"
+    },
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -31462,6 +32195,19 @@
     "min": 1,
     "max": 2,
     "source": "print_front"
+   },
+   "rules": {
+    "damage": {
+     "lineIndex": 0,
+     "amount": 4,
+     "condition": "marked",
+     "source": "print_front"
+    },
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
    },
    "front_icons": [
     {
@@ -33435,6 +34181,22 @@
     "max": 1,
     "source": "print_front"
    },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 1
+     }
+    ],
+    "range": {
+     "min": 0,
+     "max": 1,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "d9551e4669",
@@ -33948,6 +34710,22 @@
     "min": 0,
     "max": 1,
     "source": "print_front"
+   },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 2
+     }
+    ],
+    "range": {
+     "min": 0,
+     "max": 1,
+     "source": "print_front"
+    }
    },
    "front_icons": [
     {
@@ -34463,6 +35241,22 @@
     "max": 1,
     "source": "print_front"
    },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 3
+     }
+    ],
+    "range": {
+     "min": 0,
+     "max": 1,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "d9551e4669",
@@ -34930,6 +35724,22 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 3
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -35386,6 +36196,22 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 4
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -35841,6 +36667,22 @@
     "min": 1,
     "max": 2,
     "source": "print_front"
+   },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 4
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
    },
    "front_icons": [
     {
@@ -36301,6 +37143,15 @@
     }
    ],
    "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "riposte",
+      "duration": 2
+     }
+    ],
     "shuffle": [
      {
       "lineIndex": 0,
@@ -36790,6 +37641,15 @@
     }
    ],
    "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "riposte",
+      "duration": 3
+     }
+    ],
     "shuffle": [
      {
       "lineIndex": 0,
@@ -37279,6 +38139,15 @@
     }
    ],
    "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "riposte",
+      "duration": 3
+     }
+    ],
     "shuffle": [
      {
       "lineIndex": 0,
@@ -37758,6 +38627,18 @@
      "text": " 5"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "bleed",
+      "duration": 2,
+      "amount": 2
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -38229,6 +39110,18 @@
      "text": " 7"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "bleed",
+      "duration": 3,
+      "amount": 2
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -38700,6 +39593,18 @@
      "text": " 9"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "bleed",
+      "duration": 3,
+      "amount": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -39147,6 +40052,14 @@
      "text": " 5"
     }
    ],
+   "rules": {
+    "damage": {
+     "lineIndex": 0,
+     "amount": 1,
+     "condition": "unholy",
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -39605,6 +40518,14 @@
      "text": " 7"
     }
    ],
+   "rules": {
+    "damage": {
+     "lineIndex": 0,
+     "amount": 2,
+     "condition": "unholy",
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -40063,6 +40984,14 @@
      "text": " 8"
     }
    ],
+   "rules": {
+    "damage": {
+     "lineIndex": 0,
+     "amount": 3,
+     "condition": "unholy",
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -40521,6 +41450,20 @@
     "min": 1,
     "max": 2,
     "source": "print_front"
+   },
+   "rules": {
+    "self": {
+     "heal": {
+      "lineIndex": 0,
+      "amount": 2,
+      "source": "print_front"
+     }
+    },
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
    },
    "front_icons": [
     {
@@ -41003,6 +41946,20 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "self": {
+     "heal": {
+      "lineIndex": 0,
+      "amount": 3,
+      "source": "print_front"
+     }
+    },
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -41484,6 +42441,20 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "self": {
+     "heal": {
+      "lineIndex": 0,
+      "amount": 4,
+      "source": "print_front"
+     }
+    },
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -41952,6 +42923,17 @@
      "text": " 2"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "stun",
+      "duration": 1
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -42431,6 +43413,17 @@
      "text": " 3"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "stun",
+      "duration": 1
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -42910,6 +43903,17 @@
      "text": " 4"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "stun",
+      "duration": 1
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -43334,6 +44338,13 @@
     "min": 0,
     "max": 1,
     "source": "print_front"
+   },
+   "rules": {
+    "range": {
+     "min": 0,
+     "max": 1,
+     "source": "print_front"
+    }
    },
    "front_icons": [
     {
@@ -43760,6 +44771,13 @@
     "max": 1,
     "source": "print_front"
    },
+   "rules": {
+    "range": {
+     "min": 0,
+     "max": 1,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -44184,6 +45202,13 @@
     "min": 0,
     "max": 1,
     "source": "print_front"
+   },
+   "rules": {
+    "range": {
+     "min": 0,
+     "max": 1,
+     "source": "print_front"
+    }
    },
    "front_icons": [
     {
@@ -44711,6 +45736,15 @@
      "text": " 2"
     }
    ],
+   "rules": {
+    "self": {
+     "heal": {
+      "lineIndex": 0,
+      "amount": 2,
+      "source": "print_front"
+     }
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -45303,6 +46337,15 @@
      "text": " 3"
     }
    ],
+   "rules": {
+    "self": {
+     "heal": {
+      "lineIndex": 0,
+      "amount": 3,
+      "source": "print_front"
+     }
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -45895,6 +46938,15 @@
      "text": " 4"
     }
    ],
+   "rules": {
+    "self": {
+     "heal": {
+      "lineIndex": 0,
+      "amount": 4,
+      "source": "print_front"
+     }
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -46422,6 +47474,22 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 1
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -46916,6 +47984,22 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 2
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -47409,6 +48493,22 @@
     "min": 1,
     "max": 2,
     "source": "print_front"
+   },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 3
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
    },
    "front_icons": [
     {
@@ -47934,6 +49034,23 @@
      "text": " 3"
     }
    ],
+   "rules": {
+    "damage": {
+     "lineIndex": 1,
+     "amount": 1,
+     "condition": "unholy",
+     "source": "print_front"
+    },
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -48480,6 +49597,23 @@
      "text": " 4"
     }
    ],
+   "rules": {
+    "damage": {
+     "lineIndex": 1,
+     "amount": 2,
+     "condition": "unholy",
+     "source": "print_front"
+    },
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -49026,6 +50160,23 @@
      "text": " 5"
     }
    ],
+   "rules": {
+    "damage": {
+     "lineIndex": 1,
+     "amount": 3,
+     "condition": "unholy",
+     "source": "print_front"
+    },
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -50922,6 +52073,18 @@
      "text": " 3"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "bleed",
+      "duration": 2,
+      "amount": 2
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "d9551e4669",
@@ -51422,6 +52585,18 @@
      "text": " 4"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "bleed",
+      "duration": 3,
+      "amount": 2
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "d9551e4669",
@@ -51922,6 +53097,18 @@
      "text": " 5"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "bleed",
+      "duration": 3,
+      "amount": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "d9551e4669",
@@ -53642,6 +54829,22 @@
     }
    ],
    "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "stun",
+      "duration": 1
+     },
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 2
+     }
+    ],
     "shuffle": [
      {
       "lineIndex": 1,
@@ -54096,6 +55299,22 @@
     }
    ],
    "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "stun",
+      "duration": 1
+     },
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 2
+     }
+    ],
     "shuffle": [
      {
       "lineIndex": 1,
@@ -54550,6 +55769,22 @@
     }
    ],
    "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "stun",
+      "duration": 2
+     },
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 3
+     }
+    ],
     "shuffle": [
      {
       "lineIndex": 1,
@@ -55029,6 +56264,30 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "target": {
+     "header": {
+      "lineIndex": 0,
+      "source": "print_front"
+     }
+    },
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 2
+     },
+     {
+      "lineIndex": 2,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "buff",
+      "duration": 2
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -55529,6 +56788,30 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "target": {
+     "header": {
+      "lineIndex": 0,
+      "source": "print_front"
+     }
+    },
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 3
+     },
+     {
+      "lineIndex": 2,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "buff",
+      "duration": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -56040,6 +57323,30 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "target": {
+     "header": {
+      "lineIndex": 0,
+      "source": "print_front"
+     }
+    },
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 4
+     },
+     {
+      "lineIndex": 2,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "buff",
+      "duration": 4
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -56471,6 +57778,15 @@
      "text": "Crit 2 Acc 20"
     }
    ],
+   "rules": {
+    "self": {
+     "stress": {
+      "lineIndex": 1,
+      "amount": -1,
+      "source": "print_front"
+     }
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -56970,6 +58286,15 @@
      "text": " Crit 2 Acc 20"
     }
    ],
+   "rules": {
+    "self": {
+     "stress": {
+      "lineIndex": 1,
+      "amount": -1,
+      "source": "print_front"
+     }
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -57480,6 +58805,15 @@
      "text": " Crit 3 Acc 20"
     }
    ],
+   "rules": {
+    "self": {
+     "stress": {
+      "lineIndex": 1,
+      "amount": -1,
+      "source": "print_front"
+     }
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -57962,6 +59296,18 @@
      "text": " 4"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "bleed",
+      "duration": 1,
+      "amount": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "d9551e4669",
@@ -58433,6 +59779,18 @@
      "text": " 5"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "bleed",
+      "duration": 2,
+      "amount": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "d9551e4669",
@@ -58904,6 +60262,18 @@
      "text": " 6"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "bleed",
+      "duration": 3,
+      "amount": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "d9551e4669",
@@ -59408,6 +60778,25 @@
      "text": " 2"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "blight",
+      "duration": 2,
+      "amount": 4
+     },
+     {
+      "lineIndex": 0,
+      "segmentIndex": 4,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 1
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -59934,6 +61323,25 @@
      "text": " 3"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "blight",
+      "duration": 3,
+      "amount": 4
+     },
+     {
+      "lineIndex": 0,
+      "segmentIndex": 4,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 1
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -60460,6 +61868,25 @@
      "text": " 4"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "blight",
+      "duration": 3,
+      "amount": 4
+     },
+     {
+      "lineIndex": 0,
+      "segmentIndex": 4,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 2
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -60949,6 +62376,18 @@
      "text": " 1"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "blight",
+      "duration": 2,
+      "amount": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -61449,6 +62888,18 @@
      "text": " 2"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "blight",
+      "duration": 3,
+      "amount": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -61949,6 +63400,18 @@
      "text": " 3"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "blight",
+      "duration": 3,
+      "amount": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -62306,6 +63769,22 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "stun",
+      "duration": 1
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -62652,6 +64131,22 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "stun",
+      "duration": 1
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -62997,6 +64492,22 @@
     "min": 1,
     "max": 2,
     "source": "print_front"
+   },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "stun",
+      "duration": 1
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
    },
    "front_icons": [
     {
@@ -63447,6 +64958,18 @@
      "text": " 5"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "bleed",
+      "duration": 2,
+      "amount": 2
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -63918,6 +65441,18 @@
      "text": " 7"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "bleed",
+      "duration": 3,
+      "amount": 2
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -64389,6 +65924,18 @@
      "text": " 8"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "bleed",
+      "duration": 3,
+      "amount": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -65475,6 +67022,15 @@
      "text": " 2"
     }
    ],
+   "rules": {
+    "self": {
+     "heal": {
+      "lineIndex": 0,
+      "amount": 3,
+      "source": "print_front"
+     }
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -66154,6 +67710,15 @@
      "text": " 3"
     }
    ],
+   "rules": {
+    "self": {
+     "heal": {
+      "lineIndex": 0,
+      "amount": 4,
+      "source": "print_front"
+     }
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -66620,6 +68185,23 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "target": {
+     "header": {
+      "lineIndex": 0,
+      "source": "print_front"
+     }
+    },
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "buff",
+      "duration": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -67051,6 +68633,30 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "target": {
+     "header": {
+      "lineIndex": 0,
+      "source": "print_front"
+     }
+    },
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 3
+     },
+     {
+      "lineIndex": 2,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "buff",
+      "duration": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -67504,6 +69110,30 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "target": {
+     "header": {
+      "lineIndex": 0,
+      "source": "print_front"
+     }
+    },
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 4
+     },
+     {
+      "lineIndex": 2,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "buff",
+      "duration": 4
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -67867,6 +69497,16 @@
     }
    ],
    "rules": {
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "scopeLineIndex": 0,
+      "segmentIndex": 0,
+      "scope": "target",
+      "kind": "stun",
+      "duration": 1
+     }
+    ],
     "shuffle": [
      {
       "lineIndex": 0,
@@ -68243,6 +69883,21 @@
     "source": "print_front"
    },
    "rules": {
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "scopeLineIndex": 0,
+      "segmentIndex": 0,
+      "scope": "target",
+      "kind": "stun",
+      "duration": 1
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    },
     "shuffle": [
      {
       "lineIndex": 0,
@@ -68619,6 +70274,21 @@
     "source": "print_front"
    },
    "rules": {
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "scopeLineIndex": 0,
+      "segmentIndex": 0,
+      "scope": "target",
+      "kind": "stun",
+      "duration": 1
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    },
     "shuffle": [
      {
       "lineIndex": 0,
@@ -69077,6 +70747,14 @@
      "text": " 6"
     }
    ],
+   "rules": {
+    "damage": {
+     "lineIndex": 0,
+     "amount": 3,
+     "condition": "marked",
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -69560,6 +71238,14 @@
      "text": " 8"
     }
    ],
+   "rules": {
+    "damage": {
+     "lineIndex": 0,
+     "amount": 5,
+     "condition": "marked",
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -70043,6 +71729,14 @@
      "text": " 10"
     }
    ],
+   "rules": {
+    "damage": {
+     "lineIndex": 0,
+     "amount": 9,
+     "condition": "marked",
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -70516,6 +72210,22 @@
     "min": 1,
     "max": 2,
     "source": "print_front"
+   },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 1
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
    },
    "front_icons": [
     {
@@ -71002,6 +72712,22 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 2
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -71487,6 +73213,22 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 3
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -71844,6 +73586,22 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "mark",
+      "duration": 2
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -72179,6 +73937,22 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "mark",
+      "duration": 3
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -72513,6 +74287,22 @@
     "min": 1,
     "max": 2,
     "source": "print_front"
+   },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "mark",
+      "duration": 4
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
    },
    "front_icons": [
     {
@@ -74477,6 +76267,11 @@
     "source": "print_front"
    },
    "rules": {
+    "range": {
+     "min": 0,
+     "max": 2,
+     "source": "print_front"
+    },
     "shuffle": [
      {
       "lineIndex": 0,
@@ -74914,6 +76709,11 @@
     "source": "print_front"
    },
    "rules": {
+    "range": {
+     "min": 0,
+     "max": 2,
+     "source": "print_front"
+    },
     "shuffle": [
      {
       "lineIndex": 0,
@@ -75351,6 +77151,11 @@
     "source": "print_front"
    },
    "rules": {
+    "range": {
+     "min": 0,
+     "max": 2,
+     "source": "print_front"
+    },
     "shuffle": [
      {
       "lineIndex": 0,
@@ -75839,6 +77644,22 @@
     "min": 0,
     "max": 1,
     "source": "print_front"
+   },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 2
+     }
+    ],
+    "range": {
+     "min": 0,
+     "max": 1,
+     "source": "print_front"
+    }
    },
    "front_icons": [
     {
@@ -76354,6 +78175,22 @@
     "max": 1,
     "source": "print_front"
    },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 2
+     }
+    ],
+    "range": {
+     "min": 0,
+     "max": 1,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -76868,6 +78705,22 @@
     "max": 1,
     "source": "print_front"
    },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 2
+     }
+    ],
+    "range": {
+     "min": 0,
+     "max": 1,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -77377,6 +79230,30 @@
     "monsterDebuffSignature": "{target_monster} : {debuff} 2t",
     "debuffDuration": 2,
     "source": "print_front"
+   },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 2
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    },
+    "rallyingFlare": {
+     "cleanupLineIndex": 0,
+     "cleanupSignature": "{self_effects} Self Remove {stun} {mark} {target_effects} {target_hero} : Remove {stun} {mark}",
+     "monsterDebuffLineIndex": 1,
+     "monsterDebuffSignature": "{target_monster} : {debuff} 2t",
+     "debuffDuration": 2,
+     "source": "print_front"
+    }
    },
    "front_icons": [
     {
@@ -77942,6 +79819,30 @@
     "monsterDebuffSignature": "{target_monster} : {debuff} 2t",
     "debuffDuration": 2,
     "source": "print_front"
+   },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 2
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    },
+    "rallyingFlare": {
+     "cleanupLineIndex": 0,
+     "cleanupSignature": "{self_effects} Self Remove {stun} {mark} {target_effects} {target_hero} : Remove {stun} {mark}",
+     "monsterDebuffLineIndex": 1,
+     "monsterDebuffSignature": "{target_monster} : {debuff} 2t",
+     "debuffDuration": 2,
+     "source": "print_front"
+    }
    },
    "front_icons": [
     {
@@ -78518,6 +80419,30 @@
     "monsterDebuffSignature": "{target_monster} : {debuff} 2t",
     "debuffDuration": 2,
     "source": "print_front"
+   },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 2
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    },
+    "rallyingFlare": {
+     "cleanupLineIndex": 0,
+     "cleanupSignature": "{self_effects} Self Remove {stun} {mark} {target_effects} {target_hero} : Remove {stun} {mark}",
+     "monsterDebuffLineIndex": 1,
+     "monsterDebuffSignature": "{target_monster} : {debuff} 2t",
+     "debuffDuration": 2,
+     "source": "print_front"
+    }
    },
    "front_icons": [
     {
@@ -80377,6 +82302,12 @@
     }
    ],
    "rules": {
+    "damage": {
+     "lineIndex": 1,
+     "amount": 2,
+     "condition": "blighted",
+     "source": "print_front"
+    },
     "shuffle": [
      {
       "lineIndex": 0,
@@ -80929,6 +82860,12 @@
     }
    ],
    "rules": {
+    "damage": {
+     "lineIndex": 1,
+     "amount": 4,
+     "condition": "blighted",
+     "source": "print_front"
+    },
     "shuffle": [
      {
       "lineIndex": 0,
@@ -81481,6 +83418,12 @@
     }
    ],
    "rules": {
+    "damage": {
+     "lineIndex": 1,
+     "amount": 6,
+     "condition": "blighted",
+     "source": "print_front"
+    },
     "shuffle": [
      {
       "lineIndex": 0,
@@ -82371,6 +84314,17 @@
      "text": " 4"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 1
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -82851,6 +84805,17 @@
      "text": " 5"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 2
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -83222,6 +85187,15 @@
    ],
    "stats_line": null,
    "rules": {
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 2
+     }
+    ],
     "shuffle": [
      {
       "lineIndex": 1,
@@ -83579,6 +85553,15 @@
    ],
    "stats_line": null,
    "rules": {
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 3
+     }
+    ],
     "shuffle": [
      {
       "lineIndex": 1,
@@ -83936,6 +85919,15 @@
    ],
    "stats_line": null,
    "rules": {
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 4
+     }
+    ],
     "shuffle": [
      {
       "lineIndex": 1,
@@ -84466,6 +86458,27 @@
     "min": 1,
     "max": 2,
     "source": "print_front"
+   },
+   "rules": {
+    "damageBonuses": [
+     {
+      "lineIndex": 0,
+      "amount": 1,
+      "condition": "blighted",
+      "source": "print_front"
+     },
+     {
+      "lineIndex": 1,
+      "amount": 2,
+      "condition": "marked",
+      "source": "print_front"
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
    },
    "front_icons": [
     {
@@ -85056,6 +87069,27 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "damageBonuses": [
+     {
+      "lineIndex": 0,
+      "amount": 2,
+      "condition": "blighted",
+      "source": "print_front"
+     },
+     {
+      "lineIndex": 1,
+      "amount": 3,
+      "condition": "marked",
+      "source": "print_front"
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -85645,6 +87679,27 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "damageBonuses": [
+     {
+      "lineIndex": 0,
+      "amount": 3,
+      "condition": "blighted",
+      "source": "print_front"
+     },
+     {
+      "lineIndex": 1,
+      "amount": 4,
+      "condition": "marked",
+      "source": "print_front"
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -86143,6 +88198,23 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "blight",
+      "duration": 3,
+      "amount": 2
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -86618,6 +88690,23 @@
     "min": 1,
     "max": 2,
     "source": "print_front"
+   },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "blight",
+      "duration": 3,
+      "amount": 3
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
    },
    "front_icons": [
     {
@@ -87095,6 +89184,23 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "blight",
+      "duration": 3,
+      "amount": 4
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -87474,6 +89580,17 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 2
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -87992,6 +90109,30 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "target": {
+     "header": {
+      "lineIndex": 0,
+      "source": "print_front"
+     }
+    },
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 2
+     },
+     {
+      "lineIndex": 2,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "buff",
+      "duration": 2
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -88583,6 +90724,30 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "target": {
+     "header": {
+      "lineIndex": 0,
+      "source": "print_front"
+     }
+    },
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 2
+     },
+     {
+      "lineIndex": 2,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "buff",
+      "duration": 2
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -89085,6 +91250,14 @@
      "text": " 5"
     }
    ],
+   "rules": {
+    "damage": {
+     "lineIndex": 0,
+     "amount": 1,
+     "condition": "eldritch",
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -89543,6 +91716,14 @@
      "text": " 7"
     }
    ],
+   "rules": {
+    "damage": {
+     "lineIndex": 0,
+     "amount": 2,
+     "condition": "eldritch",
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -90001,6 +92182,14 @@
      "text": " 8"
     }
    ],
+   "rules": {
+    "damage": {
+     "lineIndex": 0,
+     "amount": 3,
+     "condition": "eldritch",
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -90466,6 +92655,14 @@
      "text": " 4"
     }
    ],
+   "rules": {
+    "damage": {
+     "lineIndex": 0,
+     "amount": 1,
+     "condition": "eldritch",
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -90953,6 +93150,14 @@
      "text": " 5"
     }
    ],
+   "rules": {
+    "damage": {
+     "lineIndex": 0,
+     "amount": 2,
+     "condition": "eldritch",
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -91440,6 +93645,14 @@
      "text": " 6"
     }
    ],
+   "rules": {
+    "damage": {
+     "lineIndex": 0,
+     "amount": 3,
+     "condition": "eldritch",
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -91895,6 +94108,22 @@
     "min": 1,
     "max": 2,
     "source": "print_front"
+   },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 2
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
    },
    "front_icons": [
     {
@@ -92352,6 +94581,22 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 3
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -92807,6 +95052,22 @@
     "min": 1,
     "max": 2,
     "source": "print_front"
+   },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 4
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
    },
    "front_icons": [
     {
@@ -93308,6 +95569,23 @@
     "min": 0,
     "max": 1,
     "source": "print_front"
+   },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "bleed",
+      "duration": 2,
+      "amount": 1
+     }
+    ],
+    "range": {
+     "min": 0,
+     "max": 1,
+     "source": "print_front"
+    }
    },
    "front_icons": [
     {
@@ -93843,6 +96121,23 @@
     "max": 1,
     "source": "print_front"
    },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "bleed",
+      "duration": 3,
+      "amount": 1
+     }
+    ],
+    "range": {
+     "min": 0,
+     "max": 1,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -94377,6 +96672,23 @@
     "max": 1,
     "source": "print_front"
    },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "bleed",
+      "duration": 2,
+      "amount": 2
+     }
+    ],
+    "range": {
+     "min": 0,
+     "max": 1,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -94834,6 +97146,22 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "mark",
+      "duration": 2
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -95280,6 +97608,22 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "mark",
+      "duration": 3
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -95725,6 +98069,22 @@
     "min": 1,
     "max": 2,
     "source": "print_front"
+   },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "mark",
+      "duration": 4
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
    },
    "front_icons": [
     {
@@ -96183,6 +98543,17 @@
      "text": " 3"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "stun",
+      "duration": 2
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -96680,6 +99051,17 @@
      "text": " 4"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "stun",
+      "duration": 2
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -97188,6 +99570,17 @@
      "text": " 5"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "stun",
+      "duration": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -98936,6 +101329,17 @@
      "text": " 4"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "stun",
+      "duration": 1
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "895cbc2e41",
@@ -99399,6 +101803,17 @@
      "text": " 5"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "stun",
+      "duration": 1
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "895cbc2e41",
@@ -99862,6 +102277,17 @@
      "text": " 7"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "stun",
+      "duration": 1
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "895cbc2e41",
@@ -100366,6 +102792,23 @@
     "min": 1,
     "max": 2,
     "source": "print_front"
+   },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "blight",
+      "duration": 2,
+      "amount": 2
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
    },
    "front_icons": [
     {
@@ -100894,6 +103337,23 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "blight",
+      "duration": 3,
+      "amount": 2
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "895cbc2e41",
@@ -101421,6 +103881,23 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "blight",
+      "duration": 3,
+      "amount": 3
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "895cbc2e41",
@@ -101889,6 +104366,15 @@
      "text": " 2"
     }
    ],
+   "rules": {
+    "self": {
+     "stress": {
+      "lineIndex": 0,
+      "amount": -1,
+      "source": "print_front"
+     }
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -102368,6 +104854,15 @@
      "text": " 3"
     }
    ],
+   "rules": {
+    "self": {
+     "stress": {
+      "lineIndex": 0,
+      "amount": -1,
+      "source": "print_front"
+     }
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -102847,6 +105342,15 @@
      "text": " 4"
     }
    ],
+   "rules": {
+    "self": {
+     "stress": {
+      "lineIndex": 0,
+      "amount": -1,
+      "source": "print_front"
+     }
+    }
+   },
    "front_icons": [
     {
      "iconId": "9e4a5bb3a3",
@@ -105962,6 +108466,15 @@
      "text": " 5"
     }
    ],
+   "rules": {
+    "self": {
+     "stress": {
+      "lineIndex": 0,
+      "amount": 1,
+      "source": "print_front"
+     }
+    }
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -106508,6 +109021,15 @@
      "text": " 7"
     }
    ],
+   "rules": {
+    "self": {
+     "stress": {
+      "lineIndex": 0,
+      "amount": 1,
+      "source": "print_front"
+     }
+    }
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -107054,6 +109576,15 @@
      "text": " 9"
     }
    ],
+   "rules": {
+    "self": {
+     "stress": {
+      "lineIndex": 0,
+      "amount": 1,
+      "source": "print_front"
+     }
+    }
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -107534,6 +110065,15 @@
      "text": " 9"
     }
    ],
+   "rules": {
+    "self": {
+     "stress": {
+      "lineIndex": 0,
+      "amount": 1,
+      "source": "print_front"
+     }
+    }
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -108003,6 +110543,15 @@
      "text": " 11"
     }
    ],
+   "rules": {
+    "self": {
+     "stress": {
+      "lineIndex": 0,
+      "amount": 1,
+      "source": "print_front"
+     }
+    }
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -108472,6 +111021,15 @@
      "text": " 15"
     }
    ],
+   "rules": {
+    "self": {
+     "stress": {
+      "lineIndex": 0,
+      "amount": 1,
+      "source": "print_front"
+     }
+    }
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -109014,6 +111572,13 @@
     }
    ],
    "rules": {
+    "self": {
+     "stress": {
+      "lineIndex": 0,
+      "amount": 1,
+      "source": "print_front"
+     }
+    },
     "shuffle": [
      {
       "lineIndex": 0,
@@ -109621,6 +112186,15 @@
      "text": " 9"
     }
    ],
+   "rules": {
+    "self": {
+     "stress": {
+      "lineIndex": 0,
+      "amount": 1,
+      "source": "print_front"
+     }
+    }
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -110215,6 +112789,15 @@
      "text": " 12"
     }
    ],
+   "rules": {
+    "self": {
+     "stress": {
+      "lineIndex": 0,
+      "amount": 1,
+      "source": "print_front"
+     }
+    }
+   },
    "front_icons": [
     {
      "iconId": "208e98c5d6",
@@ -113150,6 +115733,15 @@
     }
    ],
    "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 2
+     }
+    ],
     "shuffle": [
      {
       "lineIndex": 1,
@@ -113735,6 +116327,15 @@
     }
    ],
    "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 2
+     }
+    ],
     "shuffle": [
      {
       "lineIndex": 1,
@@ -114320,6 +116921,15 @@
     }
    ],
    "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 2
+     }
+    ],
     "shuffle": [
      {
       "lineIndex": 1,
@@ -114826,6 +117436,24 @@
      "text": "Crit 1 Acc 10"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "mark",
+      "duration": 2
+     },
+     {
+      "lineIndex": 0,
+      "segmentIndex": 4,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 1
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -115249,6 +117877,24 @@
      "text": "Crit 1 Acc 11"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "mark",
+      "duration": 2
+     },
+     {
+      "lineIndex": 0,
+      "segmentIndex": 4,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 2
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -115661,6 +118307,24 @@
      "text": "Crit 1 Acc 12"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "mark",
+      "duration": 3
+     },
+     {
+      "lineIndex": 0,
+      "segmentIndex": 4,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -116070,6 +118734,27 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "self": {
+     "range": true
+    },
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "protection",
+      "duration": 2
+     },
+     {
+      "lineIndex": 1,
+      "segmentIndex": 4,
+      "scope": "self",
+      "kind": "mark",
+      "duration": 2
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -116512,6 +119197,27 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "self": {
+     "range": true
+    },
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "protection",
+      "duration": 2
+     },
+     {
+      "lineIndex": 1,
+      "segmentIndex": 4,
+      "scope": "self",
+      "kind": "mark",
+      "duration": 1
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -116954,6 +119660,27 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "self": {
+     "range": true
+    },
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "protection",
+      "duration": 3
+     },
+     {
+      "lineIndex": 1,
+      "segmentIndex": 4,
+      "scope": "self",
+      "kind": "mark",
+      "duration": 1
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -117427,6 +120154,20 @@
      "text": " Self"
     }
    ],
+   "rules": {
+    "self": {
+     "heal": {
+      "lineIndex": 0,
+      "amount": 6,
+      "source": "print_front"
+     },
+     "stress": {
+      "lineIndex": 0,
+      "amount": -1,
+      "source": "print_front"
+     }
+    }
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -117889,6 +120630,20 @@
      "text": " Self"
     }
    ],
+   "rules": {
+    "self": {
+     "heal": {
+      "lineIndex": 0,
+      "amount": 9,
+      "source": "print_front"
+     },
+     "stress": {
+      "lineIndex": 0,
+      "amount": -1,
+      "source": "print_front"
+     }
+    }
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -118351,6 +121106,20 @@
      "text": " Self"
     }
    ],
+   "rules": {
+    "self": {
+     "heal": {
+      "lineIndex": 0,
+      "amount": 12,
+      "source": "print_front"
+     },
+     "stress": {
+      "lineIndex": 0,
+      "amount": -1,
+      "source": "print_front"
+     }
+    }
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -118944,6 +121713,22 @@
     }
    ],
    "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "mark",
+      "duration": 2
+     },
+     {
+      "lineIndex": 3,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 1
+     }
+    ],
     "ignores": [
      {
       "lineIndex": 1,
@@ -119614,6 +122399,22 @@
     }
    ],
    "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "mark",
+      "duration": 2
+     },
+     {
+      "lineIndex": 3,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 2
+     }
+    ],
     "ignores": [
      {
       "lineIndex": 1,
@@ -120294,6 +123095,22 @@
     }
    ],
    "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "mark",
+      "duration": 1
+     },
+     {
+      "lineIndex": 3,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 3
+     }
+    ],
     "ignores": [
      {
       "lineIndex": 1,
@@ -122130,6 +124947,25 @@
      "text": " 1"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "blight",
+      "duration": 2,
+      "amount": 2
+     },
+     {
+      "lineIndex": 0,
+      "segmentIndex": 4,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 1
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -122748,6 +125584,25 @@
      "text": " 2"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "blight",
+      "duration": 3,
+      "amount": 2
+     },
+     {
+      "lineIndex": 0,
+      "segmentIndex": 4,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 2
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -123366,6 +126221,25 @@
      "text": " 3"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "blight",
+      "duration": 3,
+      "amount": 3
+     },
+     {
+      "lineIndex": 0,
+      "segmentIndex": 4,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 2
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -123812,6 +126686,18 @@
    ],
    "stats_line": null,
    "rules": {
+    "self": {
+     "range": true
+    },
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 2
+     }
+    ],
     "shuffle": [
      {
       "lineIndex": 1,
@@ -124233,6 +127119,18 @@
    ],
    "stats_line": null,
    "rules": {
+    "self": {
+     "range": true
+    },
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 3
+     }
+    ],
     "shuffle": [
      {
       "lineIndex": 1,
@@ -124654,6 +127552,18 @@
    ],
    "stats_line": null,
    "rules": {
+    "self": {
+     "range": true
+    },
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 4
+     }
+    ],
     "shuffle": [
      {
       "lineIndex": 1,
@@ -125100,6 +128010,24 @@
      "text": "Acc 10"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "stun",
+      "duration": 1
+     },
+     {
+      "lineIndex": 0,
+      "segmentIndex": 4,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 1
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -125549,6 +128477,24 @@
      "text": "Acc 11"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "stun",
+      "duration": 1
+     },
+     {
+      "lineIndex": 0,
+      "segmentIndex": 4,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 2
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -125998,6 +128944,24 @@
      "text": "Acc 12"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "stun",
+      "duration": 2
+     },
+     {
+      "lineIndex": 0,
+      "segmentIndex": 4,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 2
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -126683,6 +129647,31 @@
      "text": " 1"
     }
    ],
+   "rules": {
+    "self": {
+     "heal": {
+      "lineIndex": 0,
+      "amount": 1,
+      "source": "print_front"
+     }
+    },
+    "statuses": [
+     {
+      "lineIndex": 2,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "buff",
+      "duration": 2
+     },
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 2
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -127445,6 +130434,31 @@
      "text": " 2"
     }
    ],
+   "rules": {
+    "self": {
+     "heal": {
+      "lineIndex": 0,
+      "amount": 2,
+      "source": "print_front"
+     }
+    },
+    "statuses": [
+     {
+      "lineIndex": 2,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "buff",
+      "duration": 3
+     },
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -128207,6 +131221,31 @@
      "text": " 3"
     }
    ],
+   "rules": {
+    "self": {
+     "heal": {
+      "lineIndex": 0,
+      "amount": 4,
+      "source": "print_front"
+     }
+    },
+    "statuses": [
+     {
+      "lineIndex": 2,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "buff",
+      "duration": 3
+     },
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -128790,6 +131829,30 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "target": {
+     "header": {
+      "lineIndex": 0,
+      "source": "print_front"
+     }
+    },
+    "statuses": [
+     {
+      "lineIndex": 2,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 2
+     },
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "buff",
+      "duration": 2
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -129336,6 +132399,30 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "target": {
+     "header": {
+      "lineIndex": 0,
+      "source": "print_front"
+     }
+    },
+    "statuses": [
+     {
+      "lineIndex": 2,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 2
+     },
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "buff",
+      "duration": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -129911,6 +132998,30 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "target": {
+     "header": {
+      "lineIndex": 0,
+      "source": "print_front"
+     }
+    },
+    "statuses": [
+     {
+      "lineIndex": 2,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 3
+     },
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "buff",
+      "duration": 4
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -130455,6 +133566,37 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "target": {
+     "header": {
+      "lineIndex": 0,
+      "source": "print_front"
+     }
+    },
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "guard",
+      "duration": 2
+     },
+     {
+      "lineIndex": 1,
+      "segmentIndex": 4,
+      "scope": "target",
+      "kind": "protection",
+      "duration": 2
+     },
+     {
+      "lineIndex": 1,
+      "segmentIndex": 6,
+      "scope": "target",
+      "kind": "mark",
+      "duration": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -130966,6 +134108,37 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "target": {
+     "header": {
+      "lineIndex": 0,
+      "source": "print_front"
+     }
+    },
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "guard",
+      "duration": 3
+     },
+     {
+      "lineIndex": 1,
+      "segmentIndex": 4,
+      "scope": "target",
+      "kind": "protection",
+      "duration": 2
+     },
+     {
+      "lineIndex": 1,
+      "segmentIndex": 6,
+      "scope": "target",
+      "kind": "mark",
+      "duration": 2
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -131477,6 +134650,37 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "target": {
+     "header": {
+      "lineIndex": 0,
+      "source": "print_front"
+     }
+    },
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "guard",
+      "duration": 3
+     },
+     {
+      "lineIndex": 1,
+      "segmentIndex": 4,
+      "scope": "target",
+      "kind": "protection",
+      "duration": 3
+     },
+     {
+      "lineIndex": 1,
+      "segmentIndex": 6,
+      "scope": "target",
+      "kind": "mark",
+      "duration": 1
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -133171,6 +136375,15 @@
     }
    ],
    "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "stun",
+      "duration": 1
+     }
+    ],
     "shuffle": [
      {
       "lineIndex": 0,
@@ -133748,6 +136961,15 @@
     }
    ],
    "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "stun",
+      "duration": 1
+     }
+    ],
     "shuffle": [
      {
       "lineIndex": 0,
@@ -134325,6 +137547,15 @@
     }
    ],
    "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "stun",
+      "duration": 1
+     }
+    ],
     "shuffle": [
      {
       "lineIndex": 0,
@@ -134867,6 +138098,17 @@
      "text": " Crit 0 Acc 9"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 1
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -135374,6 +138616,17 @@
      "text": " Crit 0 Acc 10"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 2
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -135881,6 +139134,17 @@
      "text": " Crit 1 Acc 11"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -136361,6 +139625,27 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "self": {
+     "range": true
+    },
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "guard",
+      "duration": 1
+     },
+     {
+      "lineIndex": 2,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "protection",
+      "duration": 2
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -136841,6 +140126,27 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "self": {
+     "range": true
+    },
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "guard",
+      "duration": 2
+     },
+     {
+      "lineIndex": 2,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "protection",
+      "duration": 2
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -137321,6 +140627,27 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "self": {
+     "range": true
+    },
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "guard",
+      "duration": 2
+     },
+     {
+      "lineIndex": 2,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "protection",
+      "duration": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -137874,6 +141201,29 @@
     "min": 1,
     "max": 2,
     "source": "print_front"
+   },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "mark",
+      "duration": 2
+     },
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "riposte",
+      "duration": 2
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
    },
    "front_icons": [
     {
@@ -138429,6 +141779,29 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "mark",
+      "duration": 2
+     },
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "riposte",
+      "duration": 3
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -138983,6 +142356,29 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "mark",
+      "duration": 2
+     },
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "riposte",
+      "duration": 3
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -139500,6 +142896,30 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "target": {
+     "header": {
+      "lineIndex": 0,
+      "source": "print_front"
+     }
+    },
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 2
+     },
+     {
+      "lineIndex": 2,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "buff",
+      "duration": 2
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -140046,6 +143466,30 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "target": {
+     "header": {
+      "lineIndex": 0,
+      "source": "print_front"
+     }
+    },
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 2
+     },
+     {
+      "lineIndex": 2,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "buff",
+      "duration": 2
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -140621,6 +144065,30 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "target": {
+     "header": {
+      "lineIndex": 0,
+      "source": "print_front"
+     }
+    },
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 3
+     },
+     {
+      "lineIndex": 2,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "buff",
+      "duration": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -141181,6 +144649,22 @@
      "text": "Crit 1 Acc 12"
     }
    ],
+   "rules": {
+    "self": {
+     "stress": {
+      "lineIndex": 0,
+      "amount": -1,
+      "source": "print_front"
+     }
+    },
+    "target": {
+     "stress": {
+      "lineIndex": 1,
+      "amount": -1,
+      "source": "print_front"
+     }
+    }
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -141719,6 +145203,22 @@
      "text": "Crit 1 Acc 14"
     }
    ],
+   "rules": {
+    "self": {
+     "stress": {
+      "lineIndex": 0,
+      "amount": -1,
+      "source": "print_front"
+     }
+    },
+    "target": {
+     "stress": {
+      "lineIndex": 1,
+      "amount": -1,
+      "source": "print_front"
+     }
+    }
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -142336,6 +145836,22 @@
      "text": " Crit 2 Acc 16"
     }
    ],
+   "rules": {
+    "self": {
+     "stress": {
+      "lineIndex": 0,
+      "amount": -1,
+      "source": "print_front"
+     }
+    },
+    "target": {
+     "stress": {
+      "lineIndex": 1,
+      "amount": -1,
+      "source": "print_front"
+     }
+    }
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -143008,6 +146524,30 @@
      "text": " 4"
     }
    ],
+   "rules": {
+    "actorDamage": {
+     "lineIndex": 0,
+     "amount": 2,
+     "source": "print_front"
+    },
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "bleed",
+      "duration": 2,
+      "amount": 2
+     },
+     {
+      "lineIndex": 1,
+      "segmentIndex": 4,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 1
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -143669,6 +147209,30 @@
      "text": " 6"
     }
    ],
+   "rules": {
+    "actorDamage": {
+     "lineIndex": 0,
+     "amount": 2,
+     "source": "print_front"
+    },
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "bleed",
+      "duration": 3,
+      "amount": 2
+     },
+     {
+      "lineIndex": 1,
+      "segmentIndex": 4,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 1
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -144330,6 +147894,30 @@
      "text": " 8"
     }
    ],
+   "rules": {
+    "actorDamage": {
+     "lineIndex": 0,
+     "amount": 2,
+     "source": "print_front"
+    },
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "bleed",
+      "duration": 3,
+      "amount": 3
+     },
+     {
+      "lineIndex": 1,
+      "segmentIndex": 4,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 1
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -144965,6 +148553,23 @@
      "text": " 2"
     }
    ],
+   "rules": {
+    "actorDamage": {
+     "lineIndex": 0,
+     "amount": 2,
+     "source": "print_front"
+    },
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "blight",
+      "duration": 2,
+      "amount": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -145600,6 +149205,23 @@
      "text": " 3"
     }
    ],
+   "rules": {
+    "actorDamage": {
+     "lineIndex": 0,
+     "amount": 3,
+     "source": "print_front"
+    },
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "blight",
+      "duration": 3,
+      "amount": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -146235,6 +149857,23 @@
      "text": " 4"
     }
    ],
+   "rules": {
+    "actorDamage": {
+     "lineIndex": 0,
+     "amount": 4,
+     "source": "print_front"
+    },
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "blight",
+      "duration": 4,
+      "amount": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -146908,6 +150547,32 @@
      "text": " 4"
     }
    ],
+   "rules": {
+    "self": {
+     "heal": {
+      "lineIndex": 0,
+      "amount": 3,
+      "source": "print_front"
+     }
+    },
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 4,
+      "scope": "self",
+      "kind": "debuff",
+      "duration": 1
+     },
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "bleed",
+      "duration": 3,
+      "amount": 2
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -147603,6 +151268,32 @@
      "text": " 6"
     }
    ],
+   "rules": {
+    "self": {
+     "heal": {
+      "lineIndex": 0,
+      "amount": 5,
+      "source": "print_front"
+     }
+    },
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 4,
+      "scope": "self",
+      "kind": "debuff",
+      "duration": 1
+     },
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "bleed",
+      "duration": 3,
+      "amount": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -148298,6 +151989,32 @@
      "text": " 8"
     }
    ],
+   "rules": {
+    "self": {
+     "heal": {
+      "lineIndex": 0,
+      "amount": 7,
+      "source": "print_front"
+     }
+    },
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 4,
+      "scope": "self",
+      "kind": "debuff",
+      "duration": 1
+     },
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "bleed",
+      "duration": 4,
+      "amount": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -148918,6 +152635,23 @@
     "max": 1,
     "source": "print_front"
    },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "bleed",
+      "duration": 3,
+      "amount": 1
+     }
+    ],
+    "range": {
+     "min": 0,
+     "max": 1,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -149515,6 +153249,23 @@
     "min": 0,
     "max": 1,
     "source": "print_front"
+   },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "bleed",
+      "duration": 3,
+      "amount": 1
+     }
+    ],
+    "range": {
+     "min": 0,
+     "max": 1,
+     "source": "print_front"
+    }
    },
    "front_icons": [
     {
@@ -150146,6 +153897,30 @@
     "max": 1,
     "source": "print_front"
    },
+   "rules": {
+    "self": {
+     "heal": {
+      "lineIndex": 0,
+      "amount": 5,
+      "source": "print_front"
+     }
+    },
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 4,
+      "scope": "self",
+      "kind": "bleed",
+      "duration": 3,
+      "amount": 1
+     }
+    ],
+    "range": {
+     "min": 0,
+     "max": 1,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -150752,6 +154527,35 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "self": {
+     "heal": {
+      "lineIndex": 1,
+      "amount": 3,
+      "source": "print_front"
+     }
+    },
+    "target": {
+     "header": {
+      "lineIndex": 0,
+      "source": "print_front"
+     },
+     "heal": {
+      "lineIndex": 2,
+      "amount": 3,
+      "source": "print_front"
+     }
+    },
+    "statuses": [
+     {
+      "lineIndex": 3,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "debuff",
+      "duration": 1
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -151358,6 +155162,35 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "self": {
+     "heal": {
+      "lineIndex": 1,
+      "amount": 5,
+      "source": "print_front"
+     }
+    },
+    "target": {
+     "header": {
+      "lineIndex": 0,
+      "source": "print_front"
+     },
+     "heal": {
+      "lineIndex": 2,
+      "amount": 5,
+      "source": "print_front"
+     }
+    },
+    "statuses": [
+     {
+      "lineIndex": 3,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "debuff",
+      "duration": 1
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -151964,6 +155797,35 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "self": {
+     "heal": {
+      "lineIndex": 1,
+      "amount": 7,
+      "source": "print_front"
+     }
+    },
+    "target": {
+     "header": {
+      "lineIndex": 0,
+      "source": "print_front"
+     },
+     "heal": {
+      "lineIndex": 2,
+      "amount": 7,
+      "source": "print_front"
+     }
+    },
+    "statuses": [
+     {
+      "lineIndex": 3,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "debuff",
+      "duration": 1
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -152518,6 +156380,22 @@
      "text": " Crit 0 Acc 12"
     }
    ],
+   "rules": {
+    "self": {
+     "stress": {
+      "lineIndex": 0,
+      "amount": -1,
+      "source": "print_front"
+     }
+    },
+    "target": {
+     "stress": {
+      "lineIndex": 1,
+      "amount": -1,
+      "source": "print_front"
+     }
+    }
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -153055,6 +156933,27 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "self": {
+     "stress": {
+      "lineIndex": 0,
+      "amount": -1,
+      "source": "print_front"
+     }
+    },
+    "target": {
+     "stress": {
+      "lineIndex": 1,
+      "amount": -1,
+      "source": "print_front"
+     }
+    },
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -153591,6 +157490,27 @@
     "min": 1,
     "max": 2,
     "source": "print_front"
+   },
+   "rules": {
+    "self": {
+     "stress": {
+      "lineIndex": 0,
+      "amount": -1,
+      "source": "print_front"
+     }
+    },
+    "target": {
+     "stress": {
+      "lineIndex": 1,
+      "amount": -1,
+      "source": "print_front"
+     }
+    },
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
    },
    "front_icons": [
     {
@@ -154161,6 +158081,47 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "receipts": [
+     {
+      "lineIndex": 2,
+      "signature": "{stress}",
+      "source": "print_front"
+     },
+     {
+      "lineIndex": 4,
+      "signature": "to the Flagellant.",
+      "source": "print_front"
+     }
+    ],
+    "transfer": {
+     "lineIndex": 1,
+     "signature": "{target_effects}Transferall{bleed}or{blight}",
+     "source": "print_front"
+    },
+    "target": {
+     "header": {
+      "lineIndex": 0,
+      "source": "print_front"
+     }
+    },
+    "statuses": [
+     {
+      "lineIndex": 3,
+      "segmentIndex": 4,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 2
+     },
+     {
+      "lineIndex": 3,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "mark",
+      "duration": 2
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -154730,6 +158691,47 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "receipts": [
+     {
+      "lineIndex": 2,
+      "signature": "{stress}",
+      "source": "print_front"
+     },
+     {
+      "lineIndex": 4,
+      "signature": "to the Flagellant.",
+      "source": "print_front"
+     }
+    ],
+    "transfer": {
+     "lineIndex": 1,
+     "signature": "{target_effects}Transferall{bleed}or{blight}",
+     "source": "print_front"
+    },
+    "target": {
+     "header": {
+      "lineIndex": 0,
+      "source": "print_front"
+     }
+    },
+    "statuses": [
+     {
+      "lineIndex": 3,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "mark",
+      "duration": 2
+     },
+     {
+      "lineIndex": 3,
+      "segmentIndex": 4,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -155299,6 +159301,47 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "receipts": [
+     {
+      "lineIndex": 2,
+      "signature": "{stress}",
+      "source": "print_front"
+     },
+     {
+      "lineIndex": 4,
+      "signature": "to the Flagellant.",
+      "source": "print_front"
+     }
+    ],
+    "transfer": {
+     "lineIndex": 1,
+     "signature": "{target_effects}Transferall{bleed}or{blight}",
+     "source": "print_front"
+    },
+    "target": {
+     "header": {
+      "lineIndex": 0,
+      "source": "print_front"
+     }
+    },
+    "statuses": [
+     {
+      "lineIndex": 3,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "mark",
+      "duration": 1
+     },
+     {
+      "lineIndex": 3,
+      "segmentIndex": 4,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 4
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -158047,6 +162090,11 @@
     "source": "print_front"
    },
    "rules": {
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    },
     "shuffle": [
      {
       "lineIndex": 0,
@@ -158615,6 +162663,11 @@
     "source": "print_front"
    },
    "rules": {
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    },
     "shuffle": [
      {
       "lineIndex": 0,
@@ -159230,6 +163283,16 @@
     }
    ],
    "rules": {
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "blight",
+      "duration": 2,
+      "amount": 2
+     }
+    ],
     "shuffle": [
      {
       "lineIndex": 0,
@@ -159834,6 +163897,16 @@
     }
    ],
    "rules": {
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "blight",
+      "duration": 3,
+      "amount": 2
+     }
+    ],
     "shuffle": [
      {
       "lineIndex": 0,
@@ -160438,6 +164511,16 @@
     }
    ],
    "rules": {
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "blight",
+      "duration": 3,
+      "amount": 2
+     }
+    ],
     "shuffle": [
      {
       "lineIndex": 0,
@@ -161062,6 +165145,15 @@
     }
    ],
    "rules": {
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 1,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 1
+     }
+    ],
     "shuffle": [
      {
       "lineIndex": 0,
@@ -161719,6 +165811,15 @@
     }
    ],
    "rules": {
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 1,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 2
+     }
+    ],
     "shuffle": [
      {
       "lineIndex": 0,
@@ -162376,6 +166477,15 @@
     }
    ],
    "rules": {
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 1,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 2
+     }
+    ],
     "shuffle": [
      {
       "lineIndex": 0,
@@ -162979,6 +167089,15 @@
     }
    ],
    "rules": {
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 1,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 1
+     }
+    ],
     "shuffle": [
      {
       "lineIndex": 0,
@@ -163549,6 +167668,15 @@
     }
    ],
    "rules": {
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 1,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 2
+     }
+    ],
     "shuffle": [
      {
       "lineIndex": 0,
@@ -164119,6 +168247,15 @@
     }
    ],
    "rules": {
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 1,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 2
+     }
+    ],
     "shuffle": [
      {
       "lineIndex": 0,
@@ -164747,6 +168884,24 @@
      "text": " 6"
     }
    ],
+   "rules": {
+    "damage": {
+     "lineIndex": 0,
+     "amount": 2,
+     "condition": "marked",
+     "source": "print_front"
+    },
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "blight",
+      "duration": 2,
+      "amount": 2
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -165345,6 +169500,24 @@
      "text": " 8"
     }
    ],
+   "rules": {
+    "damage": {
+     "lineIndex": 0,
+     "amount": 4,
+     "condition": "marked",
+     "source": "print_front"
+    },
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "blight",
+      "duration": 2,
+      "amount": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -165943,6 +170116,24 @@
      "text": " 10"
     }
    ],
+   "rules": {
+    "damage": {
+     "lineIndex": 0,
+     "amount": 4,
+     "condition": "marked",
+     "source": "print_front"
+    },
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "blight",
+      "duration": 2,
+      "amount": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -166398,6 +170589,18 @@
    ],
    "stats_line": null,
    "rules": {
+    "self": {
+     "range": true
+    },
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "protection",
+      "duration": 2
+     }
+    ],
     "shuffle": [
      {
       "lineIndex": 2,
@@ -166861,6 +171064,18 @@
    ],
    "stats_line": null,
    "rules": {
+    "self": {
+     "range": true
+    },
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "protection",
+      "duration": 3
+     }
+    ],
     "shuffle": [
      {
       "lineIndex": 2,
@@ -167406,6 +171621,22 @@
     }
    ],
    "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "protection",
+      "duration": 3
+     },
+     {
+      "lineIndex": 2,
+      "segmentIndex": 1,
+      "scope": "target",
+      "kind": "protection",
+      "duration": 2
+     }
+    ],
     "shuffle": [
      {
       "lineIndex": 1,
@@ -168078,6 +172309,25 @@
      "text": " 5"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 2
+     },
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "bleed",
+      "duration": 3,
+      "amount": 1
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -168720,6 +172970,25 @@
      "text": " 7"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 3
+     },
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "bleed",
+      "duration": 2,
+      "amount": 2
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -169362,6 +173631,25 @@
      "text": " 8"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 3
+     },
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "bleed",
+      "duration": 3,
+      "amount": 2
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -169984,6 +174272,18 @@
      "text": " 2"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "bleed",
+      "duration": 3,
+      "amount": 1
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -170595,6 +174895,18 @@
      "text": " 3"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "bleed",
+      "duration": 2,
+      "amount": 2
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -171206,6 +175518,18 @@
      "text": " 4"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "bleed",
+      "duration": 2,
+      "amount": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -171725,6 +176049,29 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "mark",
+      "duration": 2
+     },
+     {
+      "lineIndex": 0,
+      "segmentIndex": 4,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 1
+     }
+    ],
+    "range": {
+     "min": 0,
+     "max": 2,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -172180,6 +176527,29 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "mark",
+      "duration": 3
+     },
+     {
+      "lineIndex": 0,
+      "segmentIndex": 4,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 2
+     }
+    ],
+    "range": {
+     "min": 0,
+     "max": 2,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -172623,6 +176993,29 @@
     "min": 0,
     "max": 2,
     "source": "print_front"
+   },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "mark",
+      "duration": 3
+     },
+     {
+      "lineIndex": 0,
+      "segmentIndex": 4,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 3
+     }
+    ],
+    "range": {
+     "min": 0,
+     "max": 2,
+     "source": "print_front"
+    }
    },
    "front_icons": [
     {
@@ -173134,6 +177527,22 @@
      "text": " Acc 9"
     }
    ],
+   "rules": {
+    "self": {
+     "stress": {
+      "lineIndex": 1,
+      "amount": -1,
+      "source": "print_front"
+     }
+    },
+    "target": {
+     "stress": {
+      "lineIndex": 0,
+      "amount": -1,
+      "source": "print_front"
+     }
+    }
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -173717,6 +178126,22 @@
      "text": " Acc 10"
     }
    ],
+   "rules": {
+    "self": {
+     "stress": {
+      "lineIndex": 1,
+      "amount": -1,
+      "source": "print_front"
+     }
+    },
+    "target": {
+     "stress": {
+      "lineIndex": 0,
+      "amount": -1,
+      "source": "print_front"
+     }
+    }
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -174311,6 +178736,22 @@
      "text": " Acc 11"
     }
    ],
+   "rules": {
+    "self": {
+     "stress": {
+      "lineIndex": 1,
+      "amount": -2,
+      "source": "print_front"
+     }
+    },
+    "target": {
+     "stress": {
+      "lineIndex": 0,
+      "amount": -1,
+      "source": "print_front"
+     }
+    }
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -174760,6 +179201,20 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "self": {
+     "range": true
+    },
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "protection",
+      "duration": 2
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -175165,6 +179620,20 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "self": {
+     "range": true
+    },
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "protection",
+      "duration": 3
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -175570,6 +180039,20 @@
     }
    ],
    "stats_line": null,
+   "rules": {
+    "self": {
+     "range": true
+    },
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "protection",
+      "duration": 4
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -175951,6 +180434,11 @@
      "text": " 3"
     }
    ],
+   "rules": {
+    "self": {
+     "range": true
+    }
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -176321,6 +180809,11 @@
      "text": " 4"
     }
    ],
+   "rules": {
+    "self": {
+     "range": true
+    }
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -176691,6 +181184,11 @@
      "text": " 6"
     }
    ],
+   "rules": {
+    "self": {
+     "range": true
+    }
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -177164,6 +181662,17 @@
      "text": " 3"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "stun",
+      "duration": 1
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -177648,6 +182157,17 @@
      "text": " 4"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "stun",
+      "duration": 1
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -178132,6 +182652,17 @@
      "text": " 5"
     }
    ],
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "stun",
+      "duration": 1
+     }
+    ]
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -178637,6 +183168,14 @@
      "text": " 6"
     }
    ],
+   "rules": {
+    "damage": {
+     "lineIndex": 0,
+     "amount": 3,
+     "condition": "marked",
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -179153,6 +183692,14 @@
      "text": " 8"
     }
    ],
+   "rules": {
+    "damage": {
+     "lineIndex": 0,
+     "amount": 5,
+     "condition": "marked",
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -179669,6 +184216,14 @@
      "text": " 10"
     }
    ],
+   "rules": {
+    "damage": {
+     "lineIndex": 0,
+     "amount": 9,
+     "condition": "marked",
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -180196,6 +184751,22 @@
     "min": 1,
     "max": 2,
     "source": "print_front"
+   },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 1
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
    },
    "front_icons": [
     {
@@ -180725,6 +185296,22 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 2
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -181253,6 +185840,22 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 3
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -181664,6 +186267,22 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "mark",
+      "duration": 2
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -182042,6 +186661,22 @@
     "max": 2,
     "source": "print_front"
    },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "mark",
+      "duration": 3
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -182419,6 +187054,22 @@
     "min": 1,
     "max": 2,
     "source": "print_front"
+   },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "mark",
+      "duration": 4
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    }
    },
    "front_icons": [
     {
@@ -184570,6 +189221,11 @@
     "source": "print_front"
    },
    "rules": {
+    "range": {
+     "min": 0,
+     "max": 2,
+     "source": "print_front"
+    },
     "shuffle": [
      {
       "lineIndex": 0,
@@ -185040,6 +189696,11 @@
     "source": "print_front"
    },
    "rules": {
+    "range": {
+     "min": 0,
+     "max": 2,
+     "source": "print_front"
+    },
     "shuffle": [
      {
       "lineIndex": 0,
@@ -185510,6 +190171,11 @@
     "source": "print_front"
    },
    "rules": {
+    "range": {
+     "min": 0,
+     "max": 2,
+     "source": "print_front"
+    },
     "shuffle": [
      {
       "lineIndex": 0,
@@ -186052,6 +190718,22 @@
     "min": 0,
     "max": 1,
     "source": "print_front"
+   },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 2
+     }
+    ],
+    "range": {
+     "min": 0,
+     "max": 1,
+     "source": "print_front"
+    }
    },
    "front_icons": [
     {
@@ -186621,6 +191303,22 @@
     "max": 1,
     "source": "print_front"
    },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 2
+     }
+    ],
+    "range": {
+     "min": 0,
+     "max": 1,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -187189,6 +191887,22 @@
     "max": 1,
     "source": "print_front"
    },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 0,
+      "segmentIndex": 2,
+      "scope": "self",
+      "kind": "buff",
+      "duration": 2
+     }
+    ],
+    "range": {
+     "min": 0,
+     "max": 1,
+     "source": "print_front"
+    }
+   },
    "front_icons": [
     {
      "iconId": "978f861dea",
@@ -187753,6 +192467,30 @@
     "monsterDebuffSignature": "{target_monster} : {debuff} 2t",
     "debuffDuration": 2,
     "source": "print_front"
+   },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 2
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    },
+    "rallyingFlare": {
+     "cleanupLineIndex": 0,
+     "cleanupSignature": "{self_effects} Self Remove {stun} {mark} {target_effects} {target_hero} : Remove {stun} {mark}",
+     "monsterDebuffLineIndex": 1,
+     "monsterDebuffSignature": "{target_monster} : {debuff} 2t",
+     "debuffDuration": 2,
+     "source": "print_front"
+    }
    },
    "front_icons": [
     {
@@ -188351,6 +193089,30 @@
     "monsterDebuffSignature": "{target_monster} : {debuff} 2t",
     "debuffDuration": 2,
     "source": "print_front"
+   },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 2
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    },
+    "rallyingFlare": {
+     "cleanupLineIndex": 0,
+     "cleanupSignature": "{self_effects} Self Remove {stun} {mark} {target_effects} {target_hero} : Remove {stun} {mark}",
+     "monsterDebuffLineIndex": 1,
+     "monsterDebuffSignature": "{target_monster} : {debuff} 2t",
+     "debuffDuration": 2,
+     "source": "print_front"
+    }
    },
    "front_icons": [
     {
@@ -188960,6 +193722,30 @@
     "monsterDebuffSignature": "{target_monster} : {debuff} 2t",
     "debuffDuration": 2,
     "source": "print_front"
+   },
+   "rules": {
+    "statuses": [
+     {
+      "lineIndex": 1,
+      "segmentIndex": 2,
+      "scope": "target",
+      "kind": "debuff",
+      "duration": 2
+     }
+    ],
+    "range": {
+     "min": 1,
+     "max": 2,
+     "source": "print_front"
+    },
+    "rallyingFlare": {
+     "cleanupLineIndex": 0,
+     "cleanupSignature": "{self_effects} Self Remove {stun} {mark} {target_effects} {target_hero} : Remove {stun} {mark}",
+     "monsterDebuffLineIndex": 1,
+     "monsterDebuffSignature": "{target_monster} : {debuff} 2t",
+     "debuffDuration": 2,
+     "source": "print_front"
+    }
    },
    "front_icons": [
     {

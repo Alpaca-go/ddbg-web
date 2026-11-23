@@ -10,6 +10,7 @@ import {
   readHigherHeroDefence,
 } from "./hero-higher-defence";
 import { heroStatId } from "../hero-registry";
+import { withHeroStatRules } from "./rules";
 
 const STAT_FRONT =
   "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_10_EN_The Darkest Heroes/DD_EN_THE_DARKEST_HEROES_CARDS_100x180_Hero_STAT_FRONT.pdf";
@@ -58,6 +59,12 @@ const warrensConditionDefenceSchema = z.strictObject({
   approval: z.literal("kyries_review_2026-10-24"),
 });
 
+/** Warrens 英雄属性的规则语义（与技能 rules 同一命名空间）。 */
+const warrensHeroStatRulesSchema = z.strictObject({
+  conditionDefence: warrensConditionDefenceSchema.optional(),
+  higherConditionDefence: higherHeroDefenceSchema.optional(),
+});
+
 export const warrensHeroStatCardSchema = warrensAttributesSchema
   .extend({
     id: z.string().regex(/^hero_stat:warrens:(antiquarian|leper):p00[12]:(front|back)$/),
@@ -69,6 +76,8 @@ export const warrensHeroStatCardSchema = warrensAttributesSchema
     approval: z.enum(["kyries_review_2026-10-24", "kyries_review_2026-11-08"]),
     verified_condition_defence: warrensConditionDefenceSchema.optional(),
     verified_higher_condition_defence: higherHeroDefenceSchema.optional(),
+    /** 规则语义（新命名空间）：只放引擎要执行的解释，不放印刷原文。 */
+    rules: warrensHeroStatRulesSchema.optional(),
     lines: z.array(z.string()),
     icons: z.array(normalizedIconSchema),
     verification: verificationSchema,
@@ -206,8 +215,10 @@ export function buildWarrensHeroStats(
       verification: finishVerification(reasons),
     });
   });
-  return cards.map((card) => ({
-    ...card,
-    id: heroStatId(card.name, card.level, card.face),
-  }));
+  return cards.map((card) =>
+    withHeroStatRules({
+      ...card,
+      id: heroStatId(card.name, card.level, card.face),
+    }),
+  );
 }

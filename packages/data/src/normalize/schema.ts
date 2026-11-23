@@ -139,10 +139,82 @@ export const verificationSchema = z.strictObject({
 
 const lineListSchema = z.array(z.array(segmentSchema));
 
-const verifiedDamageBonusSchema = z.strictObject({
+const damageBonusRuleSchema = z.strictObject({
   lineIndex: z.int().nonnegative(),
   amount: z.int().positive(),
   condition: z.enum(["marked", "unholy", "stunned", "human", "blighted", "eldritch"]),
+  source: z.literal("print_front"),
+});
+
+const targetHeaderRuleSchema = z.strictObject({
+  lineIndex: z.literal(0),
+  source: z.literal("print_front"),
+});
+
+const targetSupportRuleSchema = z.strictObject({
+  lineIndex: z.int().nonnegative(),
+  heal: z.int().positive(),
+  stress: z.int().negative(),
+  light: z.int().positive(),
+  source: z.literal("print_front"),
+});
+
+const targetStressRuleSchema = z.strictObject({
+  lineIndex: z.int().nonnegative(),
+  amount: z.int().refine((amount) => amount !== 0),
+  source: z.literal("print_front"),
+});
+
+const targetHealRuleSchema = z.strictObject({
+  lineIndex: z.int().nonnegative(),
+  amount: z.int().positive(),
+  source: z.literal("print_front"),
+});
+
+const effectLineReceiptRuleSchema = z.strictObject({
+  lineIndex: z.int().nonnegative(),
+  signature: z.string().min(1),
+  source: z.literal("print_front"),
+});
+
+const selfHealRuleSchema = z.strictObject({
+  lineIndex: z.int().nonnegative(),
+  amount: z.int().positive(),
+  source: z.literal("print_front"),
+});
+
+const selfStressRuleSchema = z.strictObject({
+  lineIndex: z.int().nonnegative(),
+  amount: z.int(),
+  source: z.literal("print_front"),
+});
+
+const actorDamageRuleSchema = z.strictObject({
+  lineIndex: z.int().nonnegative(),
+  amount: z.int().positive(),
+  source: z.literal("print_front"),
+});
+
+const transferRuleSchema = z.strictObject({
+  lineIndex: z.int().nonnegative(),
+  signature: z.string().min(1),
+  source: z.literal("print_front"),
+});
+
+const rangeRuleSchema = z
+  .strictObject({
+    min: z.int().nonnegative(),
+    max: z.int().nonnegative(),
+    source: z.literal("print_front"),
+  })
+  .refine((range) => range.min <= range.max);
+
+const rallyingFlareRuleSchema = z.strictObject({
+  cleanupLineIndex: z.literal(0),
+  cleanupSignature: z.string().min(1),
+  monsterDebuffLineIndex: z.literal(1),
+  monsterDebuffSignature: z.string().min(1),
+  debuffDuration: z.int().positive(),
   source: z.literal("print_front"),
 });
 
@@ -150,77 +222,22 @@ const skillStatFields = {
   printed_labels: z.array(printedLabelSchema),
   unlabeled_numbers: z.array(normalizedUnlabeledNumberSchema),
   effect_lines: lineListSchema,
-  verified_damage_bonus: verifiedDamageBonusSchema.optional(),
-  verified_target_header: z
-    .object({ lineIndex: z.literal(0), source: z.literal("print_front") })
-    .optional(),
-  verified_target_support: z
-    .strictObject({
-      lineIndex: z.int().nonnegative(),
-      heal: z.int().positive(),
-      stress: z.int().negative(),
-      light: z.int().positive(),
-      source: z.literal("print_front"),
-    })
-    .optional(),
-  verified_target_stress: z
-    .strictObject({
-      lineIndex: z.int().nonnegative(),
-      amount: z.int().refine((amount) => amount !== 0),
-      source: z.literal("print_front"),
-    })
-    .optional(),
-  verified_target_heal: z
-    .strictObject({
-      lineIndex: z.int().nonnegative(),
-      amount: z.int().positive(),
-      source: z.literal("print_front"),
-    })
-    .optional(),
-  verified_effect_line_receipts: z
-    .array(
-      z.strictObject({
-        lineIndex: z.int().nonnegative(),
-        signature: z.string().min(1),
-        source: z.literal("print_front"),
-      }),
-    )
-    .min(1)
-    .optional(),
-  verified_self_heal: z
-    .strictObject({
-      lineIndex: z.int().nonnegative(),
-      amount: z.int().positive(),
-      source: z.literal("print_front"),
-    })
-    .optional(),
-  verified_self_stress: z
-    .strictObject({
-      lineIndex: z.int().nonnegative(),
-      amount: z.int(),
-      source: z.literal("print_front"),
-    })
-    .optional(),
+  verified_damage_bonus: damageBonusRuleSchema.optional(),
+  verified_target_header: targetHeaderRuleSchema.optional(),
+  verified_target_support: targetSupportRuleSchema.optional(),
+  verified_target_stress: targetStressRuleSchema.optional(),
+  verified_target_heal: targetHealRuleSchema.optional(),
+  verified_effect_line_receipts: z.array(effectLineReceiptRuleSchema).min(1).optional(),
+  verified_self_heal: selfHealRuleSchema.optional(),
+  verified_self_stress: selfStressRuleSchema.optional(),
   verified_allies_stress: z.int().optional(),
   verified_self_range: z.literal(true).optional(),
-  verified_actor_damage_bonus: z
-    .strictObject({
-      lineIndex: z.int().nonnegative(),
-      amount: z.int().positive(),
-      source: z.literal("print_front"),
-    })
-    .optional(),
-  verified_bleed_blight_transfer: z
-    .strictObject({
-      lineIndex: z.int().nonnegative(),
-      signature: z.string().min(1),
-      source: z.literal("print_front"),
-    })
-    .optional(),
+  verified_actor_damage_bonus: actorDamageRuleSchema.optional(),
+  verified_bleed_blight_transfer: transferRuleSchema.optional(),
 };
 
 /** 逐卡对照完整页面后附加的 Nt；缺失不表示任何默认持续时间。 */
-export const verifiedStatusEffectSchema = z.strictObject({
+const statusEffectRuleSchema = z.strictObject({
   lineIndex: z.int().nonnegative(),
   scopeLineIndex: z.int().nonnegative().optional(),
   segmentIndex: z.int().nonnegative(),
@@ -240,9 +257,82 @@ export const verifiedStatusEffectSchema = z.strictObject({
   amount: z.int().positive().optional(),
 });
 
+const selfRulesSchema = z
+  .strictObject({
+    range: z.literal(true).optional(),
+    heal: selfHealRuleSchema.optional(),
+    stress: selfStressRuleSchema.optional(),
+  })
+  .optional();
+
+const targetRulesSchema = z
+  .strictObject({
+    header: targetHeaderRuleSchema.optional(),
+    heal: targetHealRuleSchema.optional(),
+    stress: targetStressRuleSchema.optional(),
+    support: targetSupportRuleSchema.optional(),
+  })
+  .optional();
+
+/** hero_skill 与 monster_skill 共用的规则字段（不含类别专属项）。 */
+const skillRulesCoreShape = {
+  damage: damageBonusRuleSchema.optional(),
+  actorDamage: actorDamageRuleSchema.optional(),
+  receipts: z.array(effectLineReceiptRuleSchema).min(1).optional(),
+  transfer: transferRuleSchema.optional(),
+  alliesStress: z.int().optional(),
+  self: selfRulesSchema,
+  target: targetRulesSchema,
+};
+
+/** 英雄技能规则：只放引擎要执行的解释，不放印刷原文。 */
+export const heroSkillRulesSchema = z.strictObject({
+  ...skillRulesCoreShape,
+  statuses: z.array(statusEffectRuleSchema).min(1).optional(),
+  damageBonuses: z
+    .array(damageBonusRuleSchema)
+    .min(2)
+    .refine((bonuses) => new Set(bonuses.map((b) => b.lineIndex)).size === bonuses.length)
+    .optional(),
+  range: rangeRuleSchema.optional(),
+  rallyingFlare: rallyingFlareRuleSchema.optional(),
+  shuffle: z
+    .array(
+      z.strictObject({
+        lineIndex: z.int().nonnegative(),
+        scope: z.enum(["self", "target"]),
+        text: z.string().min(1),
+      }),
+    )
+    .min(1)
+    .optional(),
+  ignores: z
+    .array(
+      z.strictObject({
+        lineIndex: z.int().nonnegative(),
+        kind: z.enum(["protection", "guard"]),
+      }),
+    )
+    .min(1)
+    .optional(),
+});
+
+/** 怪物技能规则：与英雄共用核心字段，另有怪物效果计划。 */
+export const monsterSkillRulesSchema = z.strictObject({
+  ...skillRulesCoreShape,
+  range: rangeRuleSchema.optional(),
+  effects: monsterEffectPlanSchema.optional(),
+  wealdAttack: wealdMonsterAttackSchema.optional(),
+});
+
+/** 怪物卡级规则（技能级规则在各 skill.rules）。 */
+export const monsterCardRulesSchema = z.strictObject({
+  wealdProfile: wealdMonsterProfileSchema.optional(),
+});
+
 const heroSkillShared = {
   verified_damage_bonuses: z
-    .array(verifiedDamageBonusSchema)
+    .array(damageBonusRuleSchema)
     .min(2)
     .refine((bonuses) => new Set(bonuses.map((b) => b.lineIndex)).size === bonuses.length)
     .optional(),
@@ -254,52 +344,14 @@ const heroSkillShared = {
   /** v1.1 英雄 SKILL 的物理来源；旧数据可缺省。 */
   source: z.strictObject({ file: z.string().min(1), page: z.int().positive() }).optional(),
   ...skillStatFields,
-  verified_status_effects: z.array(verifiedStatusEffectSchema).min(1).optional(),
+  verified_status_effects: z.array(statusEffectRuleSchema).min(1).optional(),
   top_row_icons: z.array(normalizedIconSchema),
   name_row_icons: z.array(normalizedIconSchema),
   stats_line: z.array(segmentSchema).nullable(),
-  verified_range: z
-    .strictObject({
-      min: z.int().nonnegative(),
-      max: z.int().nonnegative(),
-      source: z.literal("print_front"),
-    })
-    .refine((range) => range.min <= range.max)
-    .optional(),
-  verified_rallying_flare: z
-    .strictObject({
-      cleanupLineIndex: z.literal(0),
-      cleanupSignature: z.string().min(1),
-      monsterDebuffLineIndex: z.literal(1),
-      monsterDebuffSignature: z.string().min(1),
-      debuffDuration: z.int().positive(),
-      source: z.literal("print_front"),
-    })
-    .optional(),
+  verified_range: rangeRuleSchema.optional(),
+  verified_rallying_flare: rallyingFlareRuleSchema.optional(),
   /** 规则语义（新命名空间）：只放引擎要执行的解释，不放印刷原文。 */
-  rules: z
-    .strictObject({
-      shuffle: z
-        .array(
-          z.strictObject({
-            lineIndex: z.int().nonnegative(),
-            scope: z.enum(["self", "target"]),
-            text: z.string().min(1),
-          }),
-        )
-        .min(1)
-        .optional(),
-      ignores: z
-        .array(
-          z.strictObject({
-            lineIndex: z.int().nonnegative(),
-            kind: z.enum(["protection", "guard"]),
-          }),
-        )
-        .min(1)
-        .optional(),
-    })
-    .optional(),
+  rules: heroSkillRulesSchema.optional(),
   front_icons: z.array(normalizedIconSchema),
   back_icons: z.array(normalizedIconSchema),
   issues: z.array(z.string()),
@@ -338,16 +390,11 @@ const normalizedMonsterSkillSchema = z.strictObject({
   name: z.string().min(1),
   target: z.string().min(1).nullable(),
   ...skillStatFields,
-  verified_range: z
-    .strictObject({
-      min: z.int().nonnegative(),
-      max: z.int().nonnegative(),
-      source: z.literal("print_front"),
-    })
-    .refine((range) => range.min <= range.max)
-    .optional(),
+  verified_range: rangeRuleSchema.optional(),
   lines: lineListSchema,
   verified_monster_effects: monsterEffectPlanSchema.optional(),
+  /** 规则语义（新命名空间）：只放引擎要执行的解释，不放印刷原文。 */
+  rules: monsterSkillRulesSchema.optional(),
 });
 
 const monsterShared = {
@@ -384,6 +431,8 @@ const monsterCardSchema = z
     life: z.int().positive(),
     life_icon: normalizedIconSchema,
     verified_weald_profile: wealdMonsterProfileSchema.optional(),
+    /** 规则语义（新命名空间）：只放引擎要执行的解释，不放印刷原文。 */
+    rules: monsterCardRulesSchema.optional(),
     /** R-230：逐卡确认的 Dodge；不覆盖原始图标旁数字。 */
     dodge: z.int().nonnegative().optional(),
     /** R24：仅接受另行核实的移动区域数；缺失不代表 0，不从图标自动补值。 */
@@ -483,6 +532,11 @@ export const verifiedResolveTriggerSchema = z.strictObject({
   ]),
 });
 
+/** 美德 / 折磨的规则语义。 */
+export const virtueRulesSchema = z.strictObject({
+  turnStart: verifiedResolveTriggerSchema.optional(),
+});
+
 export const normalizedQuirkCardSchema = z.strictObject({
   id: z.string().min(1),
   pages: pageListSchema,
@@ -518,6 +572,8 @@ export const normalizedVirtueAfflictionCardSchema = z
     lines: lineListSchema,
     icons: z.array(normalizedIconSchema),
     verified_turn_start: verifiedResolveTriggerSchema.optional(),
+    /** 规则语义（新命名空间）：只放引擎要执行的解释，不放印刷原文。 */
+    rules: virtueRulesSchema.optional(),
     verification: verificationSchema,
   })
   .superRefine((card, ctx) => {

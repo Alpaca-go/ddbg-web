@@ -1790,7 +1790,16 @@
         "text": " +1"
        }
       ]
-     ]
+     ],
+     "rules": {
+      "target": {
+       "stress": {
+        "lineIndex": 0,
+        "amount": 1,
+        "source": "print_front"
+       }
+      }
+     }
     },
     {
      "slot": 2,
@@ -2940,7 +2949,15 @@
         }
        }
       ]
-     ]
+     ],
+     "rules": {
+      "damage": {
+       "lineIndex": 0,
+       "amount": 1,
+       "condition": "marked",
+       "source": "print_front"
+      }
+     }
     },
     {
      "slot": 2,
@@ -4424,6 +4441,28 @@
         "distance": 1
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{stun}2t,{shuffle}Push1"
+       ],
+       "effects": [
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "stun",
+         "duration": 2
+        },
+        {
+         "type": "shuffle",
+         "scope": "target",
+         "direction": "push",
+         "distance": 1
+        }
+       ]
+      }
      }
     },
     {
@@ -6726,6 +6765,22 @@
         "distance": 1
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{shuffle}Push1"
+       ],
+       "effects": [
+        {
+         "type": "shuffle",
+         "scope": "target",
+         "direction": "push",
+         "distance": 1
+        }
+       ]
+      }
      }
     },
     {
@@ -8147,6 +8202,27 @@
         "amount": 1
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{debuff}2t,{stress}+1"
+       ],
+       "effects": [
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "debuff",
+         "duration": 2
+        },
+        {
+         "type": "stress",
+         "scope": "target",
+         "amount": 1
+        }
+       ]
+      }
      }
     },
     {
@@ -8389,6 +8465,22 @@
         "distance": 1
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{self_effects}Self{shuffle}Push1"
+       ],
+       "effects": [
+        {
+         "type": "shuffle",
+         "scope": "self",
+         "direction": "push",
+         "distance": 1
+        }
+       ]
+      }
      }
     },
     {
@@ -9979,6 +10071,40 @@
         "amount": 1
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{self_effects}Self{shuffle}Pull1{target_effects}1{bleed}3t,{debuff}2t,{stress}+1"
+       ],
+       "effects": [
+        {
+         "type": "shuffle",
+         "scope": "self",
+         "direction": "pull",
+         "distance": 1
+        },
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "bleed",
+         "duration": 3,
+         "amount": 1
+        },
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "debuff",
+         "duration": 2
+        },
+        {
+         "type": "stress",
+         "scope": "target",
+         "amount": 1
+        }
+       ]
+      }
      }
     },
     {
@@ -10326,6 +10452,27 @@
         "amount": 1
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{self_effects}Self{shuffle}Pull1{target_effects}{damage}+1vs{mark}"
+       ],
+       "effects": [
+        {
+         "type": "shuffle",
+         "scope": "self",
+         "direction": "pull",
+         "distance": 1
+        },
+        {
+         "type": "damageBonus",
+         "condition": "marked",
+         "amount": 1
+        }
+       ]
+      }
      }
     }
    ],
@@ -11488,6 +11635,26 @@
         "amount": -1
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{stress}+1,{light}-1"
+       ],
+       "effects": [
+        {
+         "type": "stress",
+         "scope": "target",
+         "amount": 1
+        },
+        {
+         "type": "light",
+         "scope": "target",
+         "amount": -1
+        }
+       ]
+      }
      }
     },
     {
@@ -13246,6 +13413,22 @@
         "duration": 2
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{debuff}2t"
+       ],
+       "effects": [
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "debuff",
+         "duration": 2
+        }
+       ]
+      }
      }
     },
     {
@@ -13758,6 +13941,28 @@
         "distance": 1
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{self_effects}Self{buff}2t,{shuffle}Pull1"
+       ],
+       "effects": [
+        {
+         "type": "status",
+         "scope": "self",
+         "kind": "buff",
+         "duration": 2
+        },
+        {
+         "type": "shuffle",
+         "scope": "self",
+         "direction": "pull",
+         "distance": 1
+        }
+       ]
+      }
      }
     }
    ],
@@ -14831,6 +15036,22 @@
         "duration": 2
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{debuff}2t"
+       ],
+       "effects": [
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "debuff",
+         "duration": 2
+        }
+       ]
+      }
      }
     },
     {
@@ -17167,6 +17388,31 @@
         "scope": "target"
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{stress}+1,{stun}1t,{disease}"
+       ],
+       "effects": [
+        {
+         "type": "stress",
+         "scope": "target",
+         "amount": 1
+        },
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "stun",
+         "duration": 1
+        },
+        {
+         "type": "disease",
+         "scope": "target"
+        }
+       ]
+      }
      }
     }
    ],
@@ -18248,6 +18494,34 @@
         "duration": 3
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{debuff}2t,{stun}2t,{mark}3t"
+       ],
+       "effects": [
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "debuff",
+         "duration": 2
+        },
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "stun",
+         "duration": 2
+        },
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "mark",
+         "duration": 3
+        }
+       ]
+      }
      }
     },
     {
@@ -18560,6 +18834,28 @@
         "amount": 2
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}1{blight}3t,{damage}+2vs{mark}"
+       ],
+       "effects": [
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "blight",
+         "duration": 3,
+         "amount": 1
+        },
+        {
+         "type": "damageBonus",
+         "condition": "marked",
+         "amount": 2
+        }
+       ]
+      }
      }
     }
    ],
@@ -19729,6 +20025,34 @@
         "amount": 2
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{debuff}2t,1{blight}3t,{damage}+2vs{mark}"
+       ],
+       "effects": [
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "debuff",
+         "duration": 2
+        },
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "blight",
+         "duration": 3,
+         "amount": 1
+        },
+        {
+         "type": "damageBonus",
+         "condition": "marked",
+         "amount": 2
+        }
+       ]
+      }
      }
     },
     {
@@ -20041,6 +20365,28 @@
         "amount": 2
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}1{blight}3t,{damage}+2vs{mark}"
+       ],
+       "effects": [
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "blight",
+         "duration": 3,
+         "amount": 1
+        },
+        {
+         "type": "damageBonus",
+         "condition": "marked",
+         "amount": 2
+        }
+       ]
+      }
      }
     }
    ],
@@ -22101,6 +22447,21 @@
         "amount": 1
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{stress}+1"
+       ],
+       "effects": [
+        {
+         "type": "stress",
+         "scope": "target",
+         "amount": 1
+        }
+       ]
+      }
      }
     },
     {
@@ -22402,6 +22763,27 @@
         "amount": 2
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{debuff}2t,{stress}+2"
+       ],
+       "effects": [
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "debuff",
+         "duration": 2
+        },
+        {
+         "type": "stress",
+         "scope": "target",
+         "amount": 2
+        }
+       ]
+      }
      }
     }
    ],
@@ -23415,6 +23797,23 @@
         "amount": 2
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}2{blight}2t"
+       ],
+       "effects": [
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "blight",
+         "duration": 2,
+         "amount": 2
+        }
+       ]
+      }
      }
     },
     {
@@ -23658,6 +24057,23 @@
         "amount": 2
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}2{blight}3t"
+       ],
+       "effects": [
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "blight",
+         "duration": 3,
+         "amount": 2
+        }
+       ]
+      }
      }
     }
    ],
@@ -25981,6 +26397,22 @@
         "duration": 2
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{debuff}2t"
+       ],
+       "effects": [
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "debuff",
+         "duration": 2
+        }
+       ]
+      }
      }
     },
     {
@@ -26265,6 +26697,28 @@
         "distance": 1
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{stun}2t,{shuffle}Push1"
+       ],
+       "effects": [
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "stun",
+         "duration": 2
+        },
+        {
+         "type": "shuffle",
+         "scope": "target",
+         "direction": "push",
+         "distance": 1
+        }
+       ]
+      }
      }
     }
    ],
@@ -27437,6 +27891,34 @@
         "duration": 1
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{self_effects}Self{buff}2t,{guard}1t,{riposte}1t"
+       ],
+       "effects": [
+        {
+         "type": "status",
+         "scope": "self",
+         "kind": "buff",
+         "duration": 2
+        },
+        {
+         "type": "status",
+         "scope": "self",
+         "kind": "guard",
+         "duration": 1
+        },
+        {
+         "type": "status",
+         "scope": "self",
+         "kind": "riposte",
+         "duration": 1
+        }
+       ]
+      }
      }
     },
     {
@@ -27680,6 +28162,23 @@
         "amount": 2
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}2{bleed}3t"
+       ],
+       "effects": [
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "bleed",
+         "duration": 3,
+         "amount": 2
+        }
+       ]
+      }
      }
     },
     {
@@ -27922,6 +28421,22 @@
         "distance": 2
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{self_effects}Self{shuffle}Pull2"
+       ],
+       "effects": [
+        {
+         "type": "shuffle",
+         "scope": "self",
+         "direction": "pull",
+         "distance": 2
+        }
+       ]
+      }
      }
     }
    ],
@@ -29231,6 +29746,22 @@
         "duration": 2
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{debuff}2t"
+       ],
+       "effects": [
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "debuff",
+         "duration": 2
+        }
+       ]
+      }
      }
     },
     {
@@ -29474,6 +30005,23 @@
         "amount": 3
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}3{bleed}2t"
+       ],
+       "effects": [
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "bleed",
+         "duration": 2,
+         "amount": 3
+        }
+       ]
+      }
      }
     },
     {
@@ -29794,6 +30342,28 @@
         "distance": 1
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{self_effects}{self_plate}Self{buff}2t,{shuffle}Pull1"
+       ],
+       "effects": [
+        {
+         "type": "status",
+         "scope": "self",
+         "kind": "buff",
+         "duration": 2
+        },
+        {
+         "type": "shuffle",
+         "scope": "self",
+         "direction": "pull",
+         "distance": 1
+        }
+       ]
+      }
      }
     }
    ],
@@ -31002,6 +31572,27 @@
         "amount": 1
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{debuff}2t,{stress}+1"
+       ],
+       "effects": [
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "debuff",
+         "duration": 2
+        },
+        {
+         "type": "stress",
+         "scope": "target",
+         "amount": 1
+        }
+       ]
+      }
      }
     },
     {
@@ -31244,6 +31835,22 @@
         "distance": 1
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{self_effects}Self{shuffle}Push1"
+       ],
+       "effects": [
+        {
+         "type": "shuffle",
+         "scope": "self",
+         "direction": "push",
+         "distance": 1
+        }
+       ]
+      }
      }
     }
    ],
@@ -33518,6 +34125,41 @@
         "amount": 3
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{self_effects}Self{shuffle}Pull1{target_effects}2{bleed}3t,{debuff}1t,",
+        "{damage}+3vs{mark}"
+       ],
+       "effects": [
+        {
+         "type": "shuffle",
+         "scope": "self",
+         "direction": "pull",
+         "distance": 1
+        },
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "bleed",
+         "duration": 3,
+         "amount": 2
+        },
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "debuff",
+         "duration": 1
+        },
+        {
+         "type": "damageBonus",
+         "condition": "marked",
+         "amount": 3
+        }
+       ]
+      }
      }
     },
     {
@@ -33760,6 +34402,22 @@
         "distance": 1
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{self_effects}Self{shuffle}Pull1"
+       ],
+       "effects": [
+        {
+         "type": "shuffle",
+         "scope": "self",
+         "direction": "pull",
+         "distance": 1
+        }
+       ]
+      }
      }
     }
    ],
@@ -34942,6 +35600,32 @@
         "duration": 2
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{stress}+2,{light}-1,{mark}2t"
+       ],
+       "effects": [
+        {
+         "type": "stress",
+         "scope": "target",
+         "amount": 2
+        },
+        {
+         "type": "light",
+         "scope": "target",
+         "amount": -1
+        },
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "mark",
+         "duration": 2
+        }
+       ]
+      }
      }
     },
     {
@@ -35225,6 +35909,27 @@
         "amount": 1
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{shuffle}Push2,{stress}+1"
+       ],
+       "effects": [
+        {
+         "type": "shuffle",
+         "scope": "target",
+         "direction": "push",
+         "distance": 2
+        },
+        {
+         "type": "stress",
+         "scope": "target",
+         "amount": 1
+        }
+       ]
+      }
      }
     },
     {
@@ -35508,6 +36213,27 @@
         "amount": 1
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{shuffle_resist}Pull2,{stress}+1"
+       ],
+       "effects": [
+        {
+         "type": "shuffle",
+         "scope": "target",
+         "direction": "pull",
+         "distance": 2
+        },
+        {
+         "type": "stress",
+         "scope": "target",
+         "amount": 1
+        }
+       ]
+      }
      }
     }
    ],
@@ -36489,6 +37215,22 @@
         "duration": 1
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{self_effects}Self{guard}1t"
+       ],
+       "effects": [
+        {
+         "type": "status",
+         "scope": "self",
+         "kind": "guard",
+         "duration": 1
+        }
+       ]
+      }
      }
     },
     {
@@ -36715,6 +37457,21 @@
         "amount": 9
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{damage_or_heal_combined_marker}{heal}9"
+       ],
+       "effects": [
+        {
+         "type": "heal",
+         "scope": "target",
+         "amount": 9
+        }
+       ]
+      }
      }
     }
    ],
@@ -37919,6 +38676,27 @@
         "amount": 1
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{debuff}1t,{stress}+1"
+       ],
+       "effects": [
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "debuff",
+         "duration": 1
+        },
+        {
+         "type": "stress",
+         "scope": "target",
+         "amount": 1
+        }
+       ]
+      }
      }
     },
     {
@@ -38277,6 +39055,34 @@
         "amount": 5
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}3{bleed}3t,{stress}+2,",
+        "{damage}+5vs{mark}"
+       ],
+       "effects": [
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "bleed",
+         "duration": 3,
+         "amount": 3
+        },
+        {
+         "type": "stress",
+         "scope": "target",
+         "amount": 2
+        },
+        {
+         "type": "damageBonus",
+         "condition": "marked",
+         "amount": 5
+        }
+       ]
+      }
      }
     }
    ],
@@ -39356,6 +40162,23 @@
         "amount": 2
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}2{bleed}3t"
+       ],
+       "effects": [
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "bleed",
+         "duration": 3,
+         "amount": 2
+        }
+       ]
+      }
      }
     },
     {
@@ -39598,6 +40421,22 @@
         "duration": 2
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{stun}2t"
+       ],
+       "effects": [
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "stun",
+         "duration": 2
+        }
+       ]
+      }
      }
     }
    ],
@@ -40759,6 +41598,21 @@
         "amount": 1
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{stress}+1"
+       ],
+       "effects": [
+        {
+         "type": "stress",
+         "scope": "target",
+         "amount": 1
+        }
+       ]
+      }
      }
     },
     {
@@ -41001,6 +41855,22 @@
         "distance": 2
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{self_effects}Self{shuffle}Pull2"
+       ],
+       "effects": [
+        {
+         "type": "shuffle",
+         "scope": "self",
+         "direction": "pull",
+         "distance": 2
+        }
+       ]
+      }
      }
     },
     {
@@ -41285,6 +42155,28 @@
         "distance": 2
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{stun}1t,{shuffle}Pull2"
+       ],
+       "effects": [
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "stun",
+         "duration": 1
+        },
+        {
+         "type": "shuffle",
+         "scope": "target",
+         "direction": "pull",
+         "distance": 2
+        }
+       ]
+      }
      }
     }
    ],
@@ -42493,6 +43385,29 @@
         "duration": 2
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}3{blight}3t,{mark}2t"
+       ],
+       "effects": [
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "blight",
+         "duration": 3,
+         "amount": 3
+        },
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "mark",
+         "duration": 2
+        }
+       ]
+      }
      }
     },
     {
@@ -42735,6 +43650,22 @@
         "distance": 2
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{self_effects}Self{shuffle}Push2"
+       ],
+       "effects": [
+        {
+         "type": "shuffle",
+         "scope": "self",
+         "direction": "push",
+         "distance": 2
+        }
+       ]
+      }
      }
     },
     {
@@ -42977,6 +43908,22 @@
         "distance": 2
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{shuffle}Push2"
+       ],
+       "effects": [
+        {
+         "type": "shuffle",
+         "scope": "target",
+         "direction": "push",
+         "distance": 2
+        }
+       ]
+      }
      }
     }
    ],
@@ -43922,6 +44869,22 @@
         "duration": 1
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{stun}1t"
+       ],
+       "effects": [
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "stun",
+         "duration": 1
+        }
+       ]
+      }
      }
     }
    ],
@@ -44926,6 +45889,22 @@
         "duration": 3
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{buff}3t"
+       ],
+       "effects": [
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "buff",
+         "duration": 3
+        }
+       ]
+      }
      }
     },
     {
@@ -45204,6 +46183,27 @@
         "amount": 17
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{self_effects}Self{shuffle}Push2{target_effects}{heal}17{heal}"
+       ],
+       "effects": [
+        {
+         "type": "shuffle",
+         "scope": "self",
+         "direction": "push",
+         "distance": 2
+        },
+        {
+         "type": "heal",
+         "scope": "target",
+         "amount": 17
+        }
+       ]
+      }
      }
     },
     {
@@ -45442,6 +46442,21 @@
         "amount": 2
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{stress}+2"
+       ],
+       "effects": [
+        {
+         "type": "stress",
+         "scope": "target",
+         "amount": 2
+        }
+       ]
+      }
      }
     }
    ],
@@ -52979,6 +53994,21 @@
         "amount": 1
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{stress}+1"
+       ],
+       "effects": [
+        {
+         "type": "stress",
+         "scope": "target",
+         "amount": 1
+        }
+       ]
+      }
      }
     },
     {
@@ -53395,6 +54425,34 @@
         "duration": 2
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{self_effects}Self{heal}{heal}9{target_effects}2{bleed}2t,{mark}2t"
+       ],
+       "effects": [
+        {
+         "type": "heal",
+         "scope": "self",
+         "amount": 9
+        },
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "bleed",
+         "duration": 2,
+         "amount": 2
+        },
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "mark",
+         "duration": 2
+        }
+       ]
+      }
      }
     }
    ],
@@ -54551,6 +55609,21 @@
         "amount": 1
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{stress}+1"
+       ],
+       "effects": [
+        {
+         "type": "stress",
+         "scope": "target",
+         "amount": 1
+        }
+       ]
+      }
      }
     },
     {
@@ -54967,6 +56040,34 @@
         "duration": 2
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{self_effects}Self{heal}14{heal}{target_effects}2{bleed}2t,{mark}2t"
+       ],
+       "effects": [
+        {
+         "type": "heal",
+         "scope": "self",
+         "amount": 14
+        },
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "bleed",
+         "duration": 2,
+         "amount": 2
+        },
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "mark",
+         "duration": 2
+        }
+       ]
+      }
      }
     }
    ],
@@ -56123,6 +57224,21 @@
         "amount": 1
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{stress}+1"
+       ],
+       "effects": [
+        {
+         "type": "stress",
+         "scope": "target",
+         "amount": 1
+        }
+       ]
+      }
      }
     },
     {
@@ -56539,6 +57655,34 @@
         "duration": 2
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{self_effects}Self{heal}18{heal}{target_effects}3{bleed}2t,{mark}2t"
+       ],
+       "effects": [
+        {
+         "type": "heal",
+         "scope": "self",
+         "amount": 18
+        },
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "bleed",
+         "duration": 2,
+         "amount": 3
+        },
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "mark",
+         "duration": 2
+        }
+       ]
+      }
      }
     }
    ],
@@ -57442,6 +58586,23 @@
         "amount": 1
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}1{bleed}2t"
+       ],
+       "effects": [
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "bleed",
+         "duration": 2,
+         "amount": 1
+        }
+       ]
+      }
      }
     }
    ],
@@ -58208,6 +59369,23 @@
         "amount": 2
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}2{bleed}2t"
+       ],
+       "effects": [
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "bleed",
+         "duration": 2,
+         "amount": 2
+        }
+       ]
+      }
      }
     }
    ],
@@ -58974,6 +60152,23 @@
         "amount": 3
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}3{bleed}2t"
+       ],
+       "effects": [
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "bleed",
+         "duration": 2,
+         "amount": 3
+        }
+       ]
+      }
      }
     }
    ],
@@ -59761,6 +60956,22 @@
         "duration": 1
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{stun}1t"
+       ],
+       "effects": [
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "stun",
+         "duration": 1
+        }
+       ]
+      }
      }
     }
    ],
@@ -60548,6 +61759,22 @@
         "duration": 1
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{stun}1t"
+       ],
+       "effects": [
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "stun",
+         "duration": 1
+        }
+       ]
+      }
      }
     }
    ],
@@ -61335,6 +62562,22 @@
         "duration": 1
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{stun}1t"
+       ],
+       "effects": [
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "stun",
+         "duration": 1
+        }
+       ]
+      }
      }
     }
    ],
@@ -62170,6 +63413,27 @@
         "amount": 7
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{buff}2t,{heal}{heal}7"
+       ],
+       "effects": [
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "buff",
+         "duration": 2
+        },
+        {
+         "type": "heal",
+         "scope": "target",
+         "amount": 7
+        }
+       ]
+      }
      }
     }
    ],
@@ -63005,6 +64269,27 @@
         "amount": 9
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{buff}2t,{heal}{heal}9"
+       ],
+       "effects": [
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "buff",
+         "duration": 2
+        },
+        {
+         "type": "heal",
+         "scope": "target",
+         "amount": 9
+        }
+       ]
+      }
      }
     }
    ],
@@ -63832,6 +65117,27 @@
         "amount": 11
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{buff}2t,{heal}11{heal}"
+       ],
+       "effects": [
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "buff",
+         "duration": 2
+        },
+        {
+         "type": "heal",
+         "scope": "target",
+         "amount": 11
+        }
+       ]
+      }
      }
     }
    ],
@@ -64852,6 +66158,27 @@
         "duration": 2
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{heal}14{heal},{buff}2t"
+       ],
+       "effects": [
+        {
+         "type": "heal",
+         "scope": "target",
+         "amount": 14
+        },
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "buff",
+         "duration": 2
+        }
+       ]
+      }
      }
     },
     {
@@ -65136,6 +66463,28 @@
         "distance": 2
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{debuff}2t,{shuffle}Push2"
+       ],
+       "effects": [
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "debuff",
+         "duration": 2
+        },
+        {
+         "type": "shuffle",
+         "scope": "target",
+         "direction": "push",
+         "distance": 2
+        }
+       ]
+      }
      }
     },
     {
@@ -65320,6 +66669,21 @@
         "amount": 2
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{stress}+2,Teleport"
+       ],
+       "effects": [
+        {
+         "type": "stress",
+         "scope": "target",
+         "amount": 2
+        }
+       ]
+      }
      }
     }
    ],
@@ -68437,6 +69801,34 @@
         "amount": 1
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{damage}+3vs{mark},2{bleed}3t,",
+        "{stress}+1"
+       ],
+       "effects": [
+        {
+         "type": "damageBonus",
+         "condition": "marked",
+         "amount": 3
+        },
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "bleed",
+         "duration": 3,
+         "amount": 2
+        },
+        {
+         "type": "stress",
+         "scope": "target",
+         "amount": 1
+        }
+       ]
+      }
      }
     },
     {
@@ -68696,6 +70088,21 @@
         "amount": 2
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{stress}+2"
+       ],
+       "effects": [
+        {
+         "type": "stress",
+         "scope": "target",
+         "amount": 2
+        }
+       ]
+      }
      }
     }
    ],
@@ -69879,6 +71286,28 @@
         "duration": 1
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{mark}2t,{stun}1t"
+       ],
+       "effects": [
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "mark",
+         "duration": 2
+        },
+        {
+         "type": "status",
+         "scope": "target",
+         "kind": "stun",
+         "duration": 1
+        }
+       ]
+      }
      }
     },
     {
@@ -70138,6 +71567,21 @@
         "amount": 1
        }
       ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{stress}+1"
+       ],
+       "effects": [
+        {
+         "type": "stress",
+         "scope": "target",
+         "amount": 1
+        }
+       ]
+      }
      }
     }
    ],

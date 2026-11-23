@@ -6,6 +6,7 @@ import { rawFileSchema } from "../extract/raw";
 import { buildMonsterLarge, buildMonsterMedium } from "./build";
 import { createIconLookup } from "./icons";
 import { attachVerifiedWealdMonster } from "./verified-weald-monsters";
+import { withMonsterCardRules } from "./rules";
 import { normalizedMonsterMediumFileSchema, normalizedMonsterLargeFileSchema } from "./schema";
 
 const SOURCE_ROOT = "extract/extension/weald";
@@ -111,11 +112,15 @@ export function buildWealdLevelOneMonsters(input: {
   return {
     monster_medium: normalizedMonsterMediumFileSchema.parse({
       ...built.monster_medium,
-      cards: built.monster_medium.cards.map(attachVerifiedWealdMonster),
+      cards: built.monster_medium.cards
+        .map(attachVerifiedWealdMonster)
+        .map((card) => withMonsterCardRules(card)),
     }),
     monster_large: normalizedMonsterLargeFileSchema.parse({
       ...built.monster_large,
-      cards: built.monster_large.cards.map(attachVerifiedWealdMonster),
+      cards: built.monster_large.cards
+        .map(attachVerifiedWealdMonster)
+        .map((card) => withMonsterCardRules(card)),
     }),
   };
 }

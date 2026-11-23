@@ -36,6 +36,21 @@
     "source": "print_front",
     "approval": "kyries_review_2026-10-12"
    },
+   "rules": {
+    "buffDefence": {
+     "resistant": false,
+     "immune": false,
+     "source": "print_front"
+    },
+    "conditionDefence": {
+     "resistances": [
+      "stun"
+     ],
+     "immunities": [],
+     "source": "print_front",
+     "approval": "kyries_review_2026-10-12"
+    }
+   },
    "lines": [
     "{icon:bb21119dee}",
     "I",
@@ -209,6 +224,17 @@
     "immunities": [],
     "source": "print_back",
     "approval": "kyries_review_2026-10-15"
+   },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [
+      "stun",
+      "shuffle"
+     ],
+     "immunities": [],
+     "source": "print_back",
+     "approval": "kyries_review_2026-10-15"
+    }
    },
    "lines": [
     "{icon:bb21119dee}",
@@ -412,6 +438,19 @@
     ],
     "source": "print_front",
     "approval": "kyries_review_2026-10-15"
+   },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [
+      "stun",
+      "debuff"
+     ],
+     "immunities": [
+      "shuffle"
+     ],
+     "source": "print_front",
+     "approval": "kyries_review_2026-10-15"
+    }
    },
    "lines": [
     "{icon:bb21119dee}",
@@ -638,6 +677,21 @@
     "source": "print_front",
     "approval": "kyries_review_2026-10-12"
    },
+   "rules": {
+    "buffDefence": {
+     "resistant": false,
+     "immune": false,
+     "source": "print_front"
+    },
+    "conditionDefence": {
+     "resistances": [
+      "bleed"
+     ],
+     "immunities": [],
+     "source": "print_front",
+     "approval": "kyries_review_2026-10-12"
+    }
+   },
    "lines": [
     "{icon:166eae2abd}",
     "I",
@@ -781,6 +835,17 @@
     "immunities": [],
     "source": "print_back",
     "approval": "kyries_review_2026-10-15"
+   },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [
+      "bleed",
+      "blight"
+     ],
+     "immunities": [],
+     "source": "print_back",
+     "approval": "kyries_review_2026-10-15"
+    }
    },
    "lines": [
     "{icon:166eae2abd}",
@@ -950,6 +1015,18 @@
     "immunities": [],
     "source": "print_front",
     "approval": "kyries_review_2026-10-15"
+   },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [
+      "stun",
+      "bleed",
+      "blight"
+     ],
+     "immunities": [],
+     "source": "print_front",
+     "approval": "kyries_review_2026-10-15"
+    }
    },
    "lines": [
     "{icon:166eae2abd}",
@@ -1144,6 +1221,21 @@
     "source": "print_front",
     "approval": "kyries_review_2026-10-12"
    },
+   "rules": {
+    "buffDefence": {
+     "resistant": false,
+     "immune": false,
+     "source": "print_front"
+    },
+    "conditionDefence": {
+     "resistances": [
+      "stun"
+     ],
+     "immunities": [],
+     "source": "print_front",
+     "approval": "kyries_review_2026-10-12"
+    }
+   },
    "lines": [
     "{icon:be780e3d42}",
     "I",
@@ -1285,6 +1377,17 @@
     "immunities": [],
     "source": "print_back",
     "approval": "kyries_review_2026-10-15"
+   },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [
+      "stun",
+      "bleed"
+     ],
+     "immunities": [],
+     "source": "print_back",
+     "approval": "kyries_review_2026-10-15"
+    }
    },
    "lines": [
     "{icon:be780e3d42}",
@@ -1452,6 +1555,18 @@
     "immunities": [],
     "source": "print_front",
     "approval": "kyries_review_2026-10-15"
+   },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [
+      "stun",
+      "bleed",
+      "blight"
+     ],
+     "immunities": [],
+     "source": "print_front",
+     "approval": "kyries_review_2026-10-15"
+    }
    },
    "lines": [
     "{icon:be780e3d42}",
@@ -1654,6 +1769,21 @@
     "immunities": [],
     "source": "print_front",
     "approval": "kyries_review_2026-10-12"
+   },
+   "rules": {
+    "buffDefence": {
+     "resistant": false,
+     "immune": false,
+     "source": "print_front"
+    },
+    "conditionDefence": {
+     "resistances": [
+      "bleed"
+     ],
+     "immunities": [],
+     "source": "print_front",
+     "approval": "kyries_review_2026-10-12"
+    }
    },
    "lines": [
     "{icon:7144178576}",
@@ -1864,6 +1994,17 @@
     "immunities": [],
     "source": "print_back",
     "approval": "kyries_review_2026-10-15"
+   },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [
+      "stun",
+      "bleed"
+     ],
+     "immunities": [],
+     "source": "print_back",
+     "approval": "kyries_review_2026-10-15"
+    }
    },
    "lines": [
     "{icon:7144178576}",
@@ -2098,6 +2239,19 @@
     ],
     "source": "print_front",
     "approval": "kyries_review_2026-10-15"
+   },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [
+      "stun",
+      "bleed"
+     ],
+     "immunities": [
+      "disease"
+     ],
+     "source": "print_front",
+     "approval": "kyries_review_2026-10-15"
+    }
    },
    "lines": [
     "{icon:7144178576}",
@@ -2371,6 +2525,21 @@
     "source": "print_front",
     "approval": "kyries_review_2026-10-16"
    },
+   "rules": {
+    "buffDefence": {
+     "resistant": false,
+     "immune": false,
+     "source": "print_front"
+    },
+    "conditionDefence": {
+     "resistances": [
+      "stun"
+     ],
+     "immunities": [],
+     "source": "print_front",
+     "approval": "kyries_review_2026-10-16"
+    }
+   },
    "lines": [
     "{icon:605ef84c59}",
     "I",
@@ -2510,6 +2679,17 @@
     "immunities": [],
     "source": "print_back",
     "approval": "kyries_review_2026-10-16"
+   },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [
+      "stun",
+      "debuff"
+     ],
+     "immunities": [],
+     "source": "print_back",
+     "approval": "kyries_review_2026-10-16"
+    }
    },
    "lines": [
     "{icon:605ef84c59}",
@@ -2675,6 +2855,18 @@
     "immunities": [],
     "source": "print_front",
     "approval": "kyries_review_2026-10-16"
+   },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [
+      "stun",
+      "debuff",
+      "bleed"
+     ],
+     "immunities": [],
+     "source": "print_front",
+     "approval": "kyries_review_2026-10-16"
+    }
    },
    "lines": [
     "{icon:605ef84c59}",
@@ -2866,6 +3058,21 @@
     "immunities": [],
     "source": "print_front",
     "approval": "kyries_review_2026-10-17"
+   },
+   "rules": {
+    "buffDefence": {
+     "resistant": false,
+     "immune": false,
+     "source": "print_front"
+    },
+    "conditionDefence": {
+     "resistances": [
+      "blight"
+     ],
+     "immunities": [],
+     "source": "print_front",
+     "approval": "kyries_review_2026-10-17"
+    }
    },
    "lines": [
     "{icon:27c28d0324}",
@@ -3062,6 +3269,18 @@
     ],
     "source": "print_back",
     "approval": "kyries_review_2026-10-17"
+   },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [
+      "blight"
+     ],
+     "immunities": [
+      "disease"
+     ],
+     "source": "print_back",
+     "approval": "kyries_review_2026-10-17"
+    }
    },
    "lines": [
     "{icon:27c28d0324}",
@@ -3281,6 +3500,17 @@
     ],
     "source": "print_front",
     "approval": "kyries_review_2026-10-17"
+   },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [],
+     "immunities": [
+      "blight",
+      "disease"
+     ],
+     "source": "print_front",
+     "approval": "kyries_review_2026-10-17"
+    }
    },
    "lines": [
     "{icon:27c28d0324}",
@@ -3518,6 +3748,21 @@
     "source": "print_front",
     "approval": "kyries_review_2026-10-18"
    },
+   "rules": {
+    "buffDefence": {
+     "resistant": false,
+     "immune": false,
+     "source": "print_front"
+    },
+    "conditionDefence": {
+     "resistances": [
+      "blight"
+     ],
+     "immunities": [],
+     "source": "print_front",
+     "approval": "kyries_review_2026-10-18"
+    }
+   },
    "lines": [
     "{icon:f9b2a22c96}",
     "I",
@@ -3670,6 +3915,17 @@
     "immunities": [],
     "source": "print_back",
     "approval": "kyries_review_2026-10-18"
+   },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [
+      "blight",
+      "debuff"
+     ],
+     "immunities": [],
+     "source": "print_back",
+     "approval": "kyries_review_2026-10-18"
+    }
    },
    "lines": [
     "{icon:f9b2a22c96}",
@@ -3848,6 +4104,18 @@
     "immunities": [],
     "source": "print_front",
     "approval": "kyries_review_2026-10-18"
+   },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [
+      "bleed",
+      "blight",
+      "debuff"
+     ],
+     "immunities": [],
+     "source": "print_front",
+     "approval": "kyries_review_2026-10-18"
+    }
    },
    "lines": [
     "{icon:f9b2a22c96}",
@@ -4053,6 +4321,21 @@
     "source": "print_front",
     "approval": "kyries_review_2026-10-18"
    },
+   "rules": {
+    "buffDefence": {
+     "resistant": false,
+     "immune": false,
+     "source": "print_front"
+    },
+    "conditionDefence": {
+     "resistances": [
+      "debuff"
+     ],
+     "immunities": [],
+     "source": "print_front",
+     "approval": "kyries_review_2026-10-18"
+    }
+   },
    "lines": [
     "{icon:164f6dde5a}",
     "I",
@@ -4250,6 +4533,17 @@
     "immunities": [],
     "source": "print_back",
     "approval": "kyries_review_2026-10-18"
+   },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [
+      "bleed",
+      "debuff"
+     ],
+     "immunities": [],
+     "source": "print_back",
+     "approval": "kyries_review_2026-10-18"
+    }
    },
    "lines": [
     "{icon:164f6dde5a}",
@@ -4473,6 +4767,18 @@
     "immunities": [],
     "source": "print_front",
     "approval": "kyries_review_2026-10-18"
+   },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [
+      "bleed",
+      "blight",
+      "debuff"
+     ],
+     "immunities": [],
+     "source": "print_front",
+     "approval": "kyries_review_2026-10-18"
+    }
    },
    "lines": [
     "{icon:164f6dde5a}",
@@ -4734,6 +5040,21 @@
     "source": "print_front",
     "approval": "kyries_review_2026-10-24"
    },
+   "rules": {
+    "buffDefence": {
+     "resistant": false,
+     "immune": false,
+     "source": "print_front"
+    },
+    "conditionDefence": {
+     "resistances": [
+      "debuff"
+     ],
+     "immunities": [],
+     "source": "print_front",
+     "approval": "kyries_review_2026-10-24"
+    }
+   },
    "lines": [
     "{icon:5e10f3c627}",
     "I",
@@ -4919,6 +5240,17 @@
     "immunities": [],
     "source": "print_back",
     "approval": "kyries_review_2026-11-10"
+   },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [
+      "debuff",
+      "bleed"
+     ],
+     "immunities": [],
+     "source": "print_back",
+     "approval": "kyries_review_2026-11-10"
+    }
    },
    "lines": [
     "{icon:5e10f3c627}",
@@ -5129,6 +5461,18 @@
     "immunities": [],
     "source": "print_front",
     "approval": "kyries_review_2026-11-10"
+   },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [
+      "debuff",
+      "bleed",
+      "blight"
+     ],
+     "immunities": [],
+     "source": "print_front",
+     "approval": "kyries_review_2026-11-10"
+    }
    },
    "lines": [
     "{icon:5e10f3c627}",
@@ -5366,6 +5710,21 @@
     "source": "print_front",
     "approval": "kyries_review_2026-11-10"
    },
+   "rules": {
+    "buffDefence": {
+     "resistant": false,
+     "immune": false,
+     "source": "print_front"
+    },
+    "higherConditionDefence": {
+     "resistances": [
+      "shuffle"
+     ],
+     "immunities": [],
+     "source": "print_front",
+     "approval": "kyries_review_2026-11-10"
+    }
+   },
    "lines": [
     "{icon:1a3164a34f}",
     "I",
@@ -5561,6 +5920,17 @@
     "immunities": [],
     "source": "print_back",
     "approval": "kyries_review_2026-10-24"
+   },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [
+      "stun",
+      "shuffle"
+     ],
+     "immunities": [],
+     "source": "print_back",
+     "approval": "kyries_review_2026-10-24"
+    }
    },
    "lines": [
     "{icon:1a3164a34f}",
@@ -5782,6 +6152,18 @@
     ],
     "source": "print_front",
     "approval": "kyries_review_2026-10-24"
+   },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [
+      "stun"
+     ],
+     "immunities": [
+      "shuffle"
+     ],
+     "source": "print_front",
+     "approval": "kyries_review_2026-10-24"
+    }
    },
    "lines": [
     "{icon:1a3164a34f}",
@@ -6029,6 +6411,21 @@
     "immunities": [],
     "source": "print_front",
     "approval": "kyries_review_2026-10-24"
+   },
+   "rules": {
+    "buffDefence": {
+     "resistant": false,
+     "immune": false,
+     "source": "print_front"
+    },
+    "conditionDefence": {
+     "resistances": [
+      "blight"
+     ],
+     "immunities": [],
+     "source": "print_front",
+     "approval": "kyries_review_2026-10-24"
+    }
    },
    "lines": [
     "{icon:918f94ea06}",
@@ -6303,6 +6700,17 @@
     "immunities": [],
     "source": "print_front",
     "approval": "kyries_review_2026-10-24"
+   },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [
+      "stun",
+      "blight"
+     ],
+     "immunities": [],
+     "source": "print_front",
+     "approval": "kyries_review_2026-10-24"
+    }
    },
    "lines": [
     "{icon:918f94ea06}",
@@ -6612,6 +7020,18 @@
     ],
     "source": "print_front",
     "approval": "kyries_review_2026-10-24"
+   },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [
+      "stun"
+     ],
+     "immunities": [
+      "blight"
+     ],
+     "source": "print_front",
+     "approval": "kyries_review_2026-10-24"
+    }
    },
    "lines": [
     "{icon:918f94ea06}",
@@ -6933,6 +7353,16 @@
     "source": "print_front",
     "approval": "kyries_review_2026-11-10"
    },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [
+      "debuff"
+     ],
+     "immunities": [],
+     "source": "print_front",
+     "approval": "kyries_review_2026-11-10"
+    }
+   },
    "lines": [
     "{icon:bb21119dee}",
     "{icon:8466c441ea} I",
@@ -7151,6 +7581,17 @@
     "immunities": [],
     "source": "print_back",
     "approval": "kyries_review_2026-11-10"
+   },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [
+      "shuffle",
+      "debuff"
+     ],
+     "immunities": [],
+     "source": "print_back",
+     "approval": "kyries_review_2026-11-10"
+    }
    },
    "lines": [
     "{icon:bb21119dee}",
@@ -7395,6 +7836,18 @@
     "immunities": [],
     "source": "print_front",
     "approval": "kyries_review_2026-11-10"
+   },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [
+      "stun",
+      "shuffle",
+      "debuff"
+     ],
+     "immunities": [],
+     "source": "print_front",
+     "approval": "kyries_review_2026-11-10"
+    }
    },
    "lines": [
     "{icon:bb21119dee}",
@@ -7659,6 +8112,16 @@
     "source": "print_front",
     "approval": "kyries_review_2026-11-10"
    },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [
+      "shuffle"
+     ],
+     "immunities": [],
+     "source": "print_front",
+     "approval": "kyries_review_2026-11-10"
+    }
+   },
    "lines": [
     "{icon:bb21119dee}",
     "{icon:8466c441ea} I",
@@ -7837,6 +8300,17 @@
     "immunities": [],
     "source": "print_back",
     "approval": "kyries_review_2026-11-10"
+   },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [
+      "stun",
+      "shuffle"
+     ],
+     "immunities": [],
+     "source": "print_back",
+     "approval": "kyries_review_2026-11-10"
+    }
    },
    "lines": [
     "{icon:bb21119dee}",
@@ -8043,6 +8517,19 @@
     ],
     "source": "print_front",
     "approval": "kyries_review_2026-11-10"
+   },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [
+      "stun"
+     ],
+     "immunities": [
+      "shuffle",
+      "disease"
+     ],
+     "source": "print_front",
+     "approval": "kyries_review_2026-11-10"
+    }
    },
    "lines": [
     "{icon:bb21119dee}",
@@ -8273,6 +8760,16 @@
     "source": "print_front",
     "approval": "kyries_review_2026-11-10"
    },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [
+      "bleed"
+     ],
+     "immunities": [],
+     "source": "print_front",
+     "approval": "kyries_review_2026-11-10"
+    }
+   },
    "lines": [
     "{icon:bb21119dee}",
     "{icon:8466c441ea} I",
@@ -8468,6 +8965,17 @@
     "immunities": [],
     "source": "print_back",
     "approval": "kyries_review_2026-11-10"
+   },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [
+      "shuffle",
+      "bleed"
+     ],
+     "immunities": [],
+     "source": "print_back",
+     "approval": "kyries_review_2026-11-10"
+    }
    },
    "lines": [
     "{icon:bb21119dee}",
@@ -8701,6 +9209,18 @@
     "immunities": [],
     "source": "print_front",
     "approval": "kyries_review_2026-11-10"
+   },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [
+      "stun",
+      "shuffle",
+      "bleed"
+     ],
+     "immunities": [],
+     "source": "print_front",
+     "approval": "kyries_review_2026-11-10"
+    }
    },
    "lines": [
     "{icon:bb21119dee}",
@@ -8953,6 +9473,16 @@
     "source": "print_front",
     "approval": "kyries_review_2026-11-10"
    },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [
+      "shuffle"
+     ],
+     "immunities": [],
+     "source": "print_front",
+     "approval": "kyries_review_2026-11-10"
+    }
+   },
    "lines": [
     "{icon:bb21119dee}",
     "{icon:8466c441ea} I",
@@ -9162,6 +9692,17 @@
     "immunities": [],
     "source": "print_back",
     "approval": "kyries_review_2026-11-10"
+   },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [
+      "shuffle",
+      "bleed"
+     ],
+     "immunities": [],
+     "source": "print_back",
+     "approval": "kyries_review_2026-11-10"
+    }
    },
    "lines": [
     "{icon:bb21119dee}",
@@ -9398,6 +9939,18 @@
     "immunities": [],
     "source": "print_front",
     "approval": "kyries_review_2026-11-10"
+   },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [
+      "stun",
+      "shuffle",
+      "bleed"
+     ],
+     "immunities": [],
+     "source": "print_front",
+     "approval": "kyries_review_2026-11-10"
+    }
    },
    "lines": [
     "{icon:bb21119dee}",
@@ -9664,6 +10217,16 @@
     "source": "print_front",
     "approval": "kyries_review_2026-10-24"
    },
+   "rules": {
+    "conditionDefence": {
+     "resistances": [
+      "stun"
+     ],
+     "immunities": [],
+     "source": "print_front",
+     "approval": "kyries_review_2026-10-24"
+    }
+   },
    "lines": [
     "{icon:bb21119dee}",
     "{icon:8466c441ea} I",
@@ -9819,6 +10382,17 @@
     "immunities": [],
     "source": "print_back",
     "approval": "kyries_review_2026-11-10"
+   },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [
+      "stun",
+      "bleed"
+     ],
+     "immunities": [],
+     "source": "print_back",
+     "approval": "kyries_review_2026-11-10"
+    }
    },
    "lines": [
     "{icon:bb21119dee}",
@@ -9999,6 +10573,18 @@
     "immunities": [],
     "source": "print_front",
     "approval": "kyries_review_2026-11-10"
+   },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [
+      "stun",
+      "bleed",
+      "blight"
+     ],
+     "immunities": [],
+     "source": "print_front",
+     "approval": "kyries_review_2026-11-10"
+    }
    },
    "lines": [
     "{icon:bb21119dee}",
@@ -10200,6 +10786,16 @@
     "immunities": [],
     "source": "print_front",
     "approval": "kyries_review_2026-10-24"
+   },
+   "rules": {
+    "conditionDefence": {
+     "resistances": [
+      "stun"
+     ],
+     "immunities": [],
+     "source": "print_front",
+     "approval": "kyries_review_2026-10-24"
+    }
    },
    "lines": [
     "{icon:bb21119dee}",
@@ -10432,6 +11028,17 @@
     "immunities": [],
     "source": "print_back",
     "approval": "kyries_review_2026-11-10"
+   },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [
+      "stun",
+      "shuffle"
+     ],
+     "immunities": [],
+     "source": "print_back",
+     "approval": "kyries_review_2026-11-10"
+    }
    },
    "lines": [
     "{icon:bb21119dee}",
@@ -10688,6 +11295,18 @@
     ],
     "source": "print_front",
     "approval": "kyries_review_2026-11-10"
+   },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [
+      "stun"
+     ],
+     "immunities": [
+      "shuffle"
+     ],
+     "source": "print_front",
+     "approval": "kyries_review_2026-11-10"
+    }
    },
    "lines": [
     "{icon:bb21119dee}",
@@ -10967,6 +11586,16 @@
     "source": "print_front",
     "approval": "kyries_review_2026-11-10"
    },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [
+      "shuffle"
+     ],
+     "immunities": [],
+     "source": "print_front",
+     "approval": "kyries_review_2026-11-10"
+    }
+   },
    "lines": [
     "{icon:bb21119dee}",
     "{icon:8466c441ea} I",
@@ -11186,6 +11815,17 @@
     "immunities": [],
     "source": "print_back",
     "approval": "kyries_review_2026-11-10"
+   },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [
+      "stun",
+      "shuffle"
+     ],
+     "immunities": [],
+     "source": "print_back",
+     "approval": "kyries_review_2026-11-10"
+    }
    },
    "lines": [
     "{icon:bb21119dee}",
@@ -11432,6 +12072,18 @@
     ],
     "source": "print_front",
     "approval": "kyries_review_2026-11-10"
+   },
+   "rules": {
+    "higherConditionDefence": {
+     "resistances": [
+      "stun"
+     ],
+     "immunities": [
+      "shuffle"
+     ],
+     "source": "print_front",
+     "approval": "kyries_review_2026-11-10"
+    }
    },
    "lines": [
     "{icon:bb21119dee}",

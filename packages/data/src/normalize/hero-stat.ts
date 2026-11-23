@@ -14,6 +14,7 @@ import { coveHeroStatCardSchema } from "./cove-hero-stat";
 import { wealdHeroStatCardSchema } from "./weald-hero-stat";
 import { musketeerHeroStatCardSchema } from "./musketeer-hero-stat";
 import { heroStatId } from "../hero-registry";
+import { withHeroStatRules } from "./rules";
 
 const FRONT = "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_FRONT.pdf";
 const BACK = "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_BACK.pdf";
@@ -46,6 +47,19 @@ export const heroConditionDefenceSchema = z.strictObject({
   ]),
 });
 export type HeroConditionDefence = z.infer<typeof heroConditionDefenceSchema>;
+
+/** 核心盒英雄属性的规则语义（与技能 rules 同一命名空间）。 */
+export const heroStatRulesSchema = z.strictObject({
+  buffDefence: z
+    .strictObject({
+      resistant: z.boolean(),
+      immune: z.boolean(),
+      source: z.literal("print_front"),
+    })
+    .optional(),
+  conditionDefence: heroConditionDefenceSchema.optional(),
+  higherConditionDefence: higherHeroDefenceSchema.optional(),
+});
 const attributesSchema = z.strictObject({
   rawId: z.string().regex(/^hero_stat:p\d{3}$/),
   face: z.enum(["front", "back"]),
@@ -135,6 +149,8 @@ export const normalizedHeroStatCardSchema = attributesSchema
       .optional(),
     verified_condition_defence: heroConditionDefenceSchema.optional(),
     verified_higher_condition_defence: higherHeroDefenceSchema.optional(),
+    /** 规则语义（新命名空间）：只放引擎要执行的解释，不放印刷原文。 */
+    rules: heroStatRulesSchema.optional(),
     /** 其他卡面文字只保留，不解释村庄效果、抗性或免疫。 */
     lines: z.array(z.string()),
     icons: z.array(normalizedIconSchema),
@@ -209,6 +225,8 @@ export const canonicalHeroStatCardSchema = attributesSchema
       .optional(),
     verified_condition_defence: heroConditionDefenceSchema.optional(),
     verified_higher_condition_defence: higherHeroDefenceSchema.optional(),
+    /** 规则语义（新命名空间）：只放引擎要执行的解释，不放印刷原文。 */
+    rules: heroStatRulesSchema.optional(),
     lines: z.array(z.string()),
     icons: z.array(normalizedIconSchema),
     verification: verificationSchema,
@@ -425,9 +443,8 @@ export function buildHeroStats(
   });
   return {
     ...file,
-    cards: file.cards.map((card) => ({
-      ...card,
-      id: heroStatId(card.name, card.level, card.face),
-    })),
+    cards: file.cards.map((card) =>
+      withHeroStatRules({ ...card, id: heroStatId(card.name, card.level, card.face) }),
+    ),
   };
 }

@@ -59,6 +59,7 @@ import {
   applyHeroSupport,
 } from "./hero-annotations";
 import { attachVerifiedResolveTriggers } from "./verified-resolve-triggers";
+import { withHeroSkillRules, withMonsterCardRules, withVirtueRules } from "./rules";
 import { approvedResolveLookup } from "./approved-resolve-icons";
 import { buildRoomTileGeometry } from "./room-tile";
 import { assertHallOfAscensionEffectSource } from "./hall-of-ascension";
@@ -475,20 +476,20 @@ export function buildMonsterMedium(
       dictionary: DICTIONARY_SOURCE,
     },
     stats: cardStats(cards),
-    cards:
-      sourceRoot === "extract/corebox"
-        ? attachVerifiedMonsterEffects(
-            attachVerifiedMonsterDamage(
-              attachVerifiedMonsterStress(
-                attachVerifiedMonsterProtection(
-                  attachVerifiedMonsterSpeeds(
-                    attachVerifiedMonsterStances(attachVerifiedCollectedLife(cards)),
-                  ),
+    cards: (sourceRoot === "extract/corebox"
+      ? attachVerifiedMonsterEffects(
+          attachVerifiedMonsterDamage(
+            attachVerifiedMonsterStress(
+              attachVerifiedMonsterProtection(
+                attachVerifiedMonsterSpeeds(
+                  attachVerifiedMonsterStances(attachVerifiedCollectedLife(cards)),
                 ),
               ),
             ),
-          )
-        : cards,
+          ),
+        )
+      : cards
+    ).map((card) => withMonsterCardRules(card)),
   });
 }
 
@@ -512,15 +513,15 @@ export function buildMonsterLarge(
       dictionary: DICTIONARY_SOURCE,
     },
     stats: cardStats(cards),
-    cards:
-      sourceRoot === "extract/corebox"
-        ? attachVerifiedMonsterEffects(
-            attachVerifiedHeartOfDarknessSkillRanges(
-              attachVerifiedMonsterProtection(attachVerifiedLargeMonsterFields(cards), true),
-            ),
-            true,
-          )
-        : cards,
+    cards: (sourceRoot === "extract/corebox"
+      ? attachVerifiedMonsterEffects(
+          attachVerifiedHeartOfDarknessSkillRanges(
+            attachVerifiedMonsterProtection(attachVerifiedLargeMonsterFields(cards), true),
+          ),
+          true,
+        )
+      : cards
+    ).map((card) => withMonsterCardRules(card)),
   });
 }
 
@@ -767,7 +768,7 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
       );
       return normalizedHeroSkillFileSchema.parse({
         ...file,
-        cards: canonicalHeroSkillCards(cards),
+        cards: canonicalHeroSkillCards(cards).map((card) => withHeroSkillRules(card)),
       });
     })(),
     room_tile_geometry: (() => {
@@ -797,7 +798,7 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
       const file = buildVirtues(input.virtues, lookup);
       return normalizedVirtueAfflictionFileSchema.parse({
         ...file,
-        cards: attachVerifiedResolveTriggers(file.cards),
+        cards: attachVerifiedResolveTriggers(file.cards).map((card) => withVirtueRules(card)),
       });
     })(),
   };

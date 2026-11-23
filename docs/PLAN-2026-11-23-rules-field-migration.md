@@ -6,6 +6,12 @@
 现状：全仓 `verified_` 约 **2917 次**，分布在约 197 个文件（engine 114、data 70、
 web 3、docs 若干）。因此作为独立迁移分支，不夹在 A2 里做。
 
+> **2026-11-23 进展：R1 已完成。** hero_skill / hero_stat / monster（卡级 + 技能级）/
+> virtue_affliction 的 schema 都增加了可选 `rules`；`normalize/rules.ts` 负责投影，
+> `build` 在最后一步双写；`normalize/rules.test.ts` 断言 `projectRules(card)` 与
+> `card.rules` 逐值一致。引擎仍只读旧 `verified_*`，R2 未开始。
+> R1 的 `rules` 保留旧字段的 `lineIndex` / `source` / `approval`，便于 R2 直接替换读取路径。
+
 ## 1. 终态形状
 
 ### hero_skill

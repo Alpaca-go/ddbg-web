@@ -10,6 +10,7 @@ import {
   readHigherHeroDefence,
 } from "./hero-higher-defence";
 import { heroStatId } from "../hero-registry";
+import { withHeroStatRules } from "./rules";
 
 const STAT_FRONT =
   "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_100x180_Hero_STAT_FRONT.pdf";
@@ -38,6 +39,11 @@ export const approvedMusketeerHeroStats = [
   musketeerAttributesSchema.parse({ rawId, face, name, level, life, dodge, speed }),
 );
 
+/** Musketeer 英雄属性的规则语义（与技能 rules 同一命名空间）。 */
+const musketeerHeroStatRulesSchema = z.strictObject({
+  higherConditionDefence: higherHeroDefenceSchema.optional(),
+});
+
 export const musketeerHeroStatCardSchema = musketeerAttributesSchema
   .extend({
     id: z.string().regex(/^hero_stat:musketeer:musketeer:p00[12]:(front|back)$/),
@@ -48,6 +54,8 @@ export const musketeerHeroStatCardSchema = musketeerAttributesSchema
     attributesVerified: z.literal(true),
     approval: z.literal("kyries_review_2026-10-24"),
     verified_higher_condition_defence: higherHeroDefenceSchema.optional(),
+    /** 规则语义（新命名空间）：只放引擎要执行的解释，不放印刷原文。 */
+    rules: musketeerHeroStatRulesSchema.optional(),
     lines: z.array(z.string()),
     icons: z.array(normalizedIconSchema),
     verification: verificationSchema,
@@ -156,8 +164,10 @@ export function buildMusketeerHeroStats(
       verification: finishVerification(reasons),
     });
   });
-  return cards.map((card) => ({
-    ...card,
-    id: heroStatId(card.name, card.level, card.face),
-  }));
+  return cards.map((card) =>
+    withHeroStatRules({
+      ...card,
+      id: heroStatId(card.name, card.level, card.face),
+    }),
+  );
 }
