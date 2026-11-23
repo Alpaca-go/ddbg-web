@@ -1,6 +1,7 @@
-import type { NormalizedHeroSkillCard, Segment } from "./schema";
-import { normalizedHeroSkillCardSchema } from "./schema";
-import { lineSignature } from "./verified-hero-layout";
+import type { HeroAnnotationModule } from "./types";
+import type { NormalizedHeroSkillCard, Segment } from "../schema";
+import { normalizedHeroSkillCardSchema } from "../schema";
+import { lineSignature } from "../verified-hero-layout";
 
 type IconSegment = Extract<Segment, { type: "icon" }>;
 
@@ -248,3 +249,9 @@ export function attachVerifiedWarrensLeperHigher(
     }
   });
 }
+
+export const leperAnnotations: HeroAnnotationModule = {
+  id: "h14",
+  hero: "LEPER",
+  apply: attachVerifiedWarrensLeperHigher,
+};

@@ -1025,7 +1025,7 @@ const entries: readonly Entry[] = [
     signature: "{target_monster} : {debuff} 2t",
     effects: [{ kind: "debuff", duration: 2 }],
   },
-  // R-200：Leper Purge II/III 已确认读数（仅自身 Buff 2t；III 伤害见 verified-warrens-leper-higher stats 覆盖）。
+  // R-200：Leper Purge II/III 已确认读数（仅自身 Buff 2t；III 伤害见 hero-annotations/h14-leper stats 覆盖）。
   {
     id: "hero_skill:p281",
     name: "Purge",

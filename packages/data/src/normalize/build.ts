@@ -52,13 +52,7 @@ import { attachVerifiedHeroDamage } from "./verified-hero-damage";
 import { attachVerifiedHeroSupport } from "./verified-hero-support";
 import { attachVerifiedHeroLayout } from "./verified-hero-layout";
 import { attachReviewedHeroStances } from "./reviewed-hero-stances";
-import { attachVerifiedWarrensLeperHigher } from "./verified-warrens-leper-higher";
-import { attachVerifiedWarrensAntiquarianHigher } from "./verified-warrens-antiquarian-higher";
-import { attachVerifiedCoveFlagellantHigher } from "./verified-cove-flagellant-higher";
-import { attachVerifiedCoveManAtArmsHigher } from "./verified-cove-man-at-arms-higher";
-import { attachVerifiedWealdHoundmasterHigher } from "./verified-weald-houndmaster-higher";
-import { attachVerifiedWealdShieldbreakerHigher } from "./verified-weald-shieldbreaker-higher";
-import { attachVerifiedMusketeerHigher } from "./verified-musketeer-higher";
+import { applyHeroAnnotations } from "./hero-annotations";
 import { attachVerifiedResolveTriggers } from "./verified-resolve-triggers";
 import { attachVerifiedRallyingFlare } from "./verified-rallying-flare";
 import { approvedResolveLookup } from "./approved-resolve-icons";
@@ -757,21 +751,7 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
               attachVerifiedHeroDamage(
                 attachVerifiedHeroRanges(
                   attachVerifiedHeroStatuses(
-                    attachVerifiedWealdHoundmasterHigher(
-                      attachVerifiedWealdShieldbreakerHigher(
-                        attachVerifiedMusketeerHigher(
-                          attachVerifiedCoveManAtArmsHigher(
-                            attachVerifiedCoveFlagellantHigher(
-                              attachVerifiedWarrensAntiquarianHigher(
-                                attachVerifiedWarrensLeperHigher(
-                                  attachVerifiedHeroLayout(reviewed),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                    applyHeroAnnotations(attachVerifiedHeroLayout(reviewed)),
                   ),
                 ),
               ),

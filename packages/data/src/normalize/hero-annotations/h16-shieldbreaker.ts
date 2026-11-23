@@ -1,6 +1,7 @@
-import type { NormalizedHeroSkillCard, Segment } from "./schema";
-import { normalizedHeroSkillCardSchema } from "./schema";
-import { lineSignature } from "./verified-hero-layout";
+import type { HeroAnnotationModule } from "./types";
+import type { NormalizedHeroSkillCard, Segment } from "../schema";
+import { normalizedHeroSkillCardSchema } from "../schema";
+import { lineSignature } from "../verified-hero-layout";
 
 type IconSegment = Extract<Segment, { type: "icon" }>;
 
@@ -648,3 +649,9 @@ export function attachVerifiedWealdShieldbreakerHigher(
     }
   });
 }
+
+export const shieldbreakerAnnotations: HeroAnnotationModule = {
+  id: "h16",
+  hero: "SHIELDBREAKER",
+  apply: attachVerifiedWealdShieldbreakerHigher,
+};

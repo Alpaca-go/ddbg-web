@@ -1,6 +1,7 @@
-import type { NormalizedHeroSkillCard, Segment } from "./schema";
-import { normalizedHeroSkillCardSchema } from "./schema";
-import { lineSignature } from "./verified-hero-layout";
+import type { HeroAnnotationModule } from "./types";
+import type { NormalizedHeroSkillCard, Segment } from "../schema";
+import { normalizedHeroSkillCardSchema } from "../schema";
+import { lineSignature } from "../verified-hero-layout";
 
 type IconSegment = Extract<Segment, { type: "icon" }>;
 
@@ -499,3 +500,9 @@ export function attachVerifiedWarrensAntiquarianHigher(
     }
   });
 }
+
+export const antiquarianAnnotations: HeroAnnotationModule = {
+  id: "h15",
+  hero: "ANTIQUARIAN",
+  apply: attachVerifiedWarrensAntiquarianHigher,
+};
