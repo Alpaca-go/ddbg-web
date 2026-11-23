@@ -1,6 +1,6 @@
 # Phase 4 · 卡图接入切片：英雄技能 / 手牌 Face 展示
 
-状态：**英雄技能 Face 已切印刷 PNG**（见 [phase4-print-hero-skill-art-map-2026-10-19.md](phase4-print-hero-skill-art-map-2026-10-19.md)）。下文 TTS 段落保留作历史与 `hero-skill-face-map.json` 生成说明；**运行时 UI 不再使用 TTS atlas 显示技能正面**。
+状态：**英雄技能 Face 已切印刷 PNG**（见 [phase4-print-hero-skill-art-map-2026-10-19.md](phase4-print-hero-skill-art-map-2026-10-19.md)）。**2026-11-23 起 TTS 路线整体移除**：本地印刷 PDF 是美术资产的唯一真实来源；`hero-skill-face-map.json`、`build-tts-*.mjs`、`cache-tts-card-art.mjs` 已删除，`pnpm dev` 不再挂载 `/tts-card-art/`。
 
 ## 当前权威来源（英雄技能 Face）
 
@@ -8,40 +8,15 @@
 - 本机 `.cache/print-card-art/` + Vite `/print-card-art/png/…`。
 - 无缓存 →「无本地卡图」占位；技能名文字仍在。
 
-## 历史：TTS Workshop 映射（不入运行时 UI）
+## 历史：TTS Workshop 映射（已移除，仅存档）
 
-- Steam Workshop TTS 存档 JSON（本机示例：`3657612854.json` / Workshop id `3657612854`）。
-- 曾用 `CustomDeck.FaceURL` 10×7 atlas 映射正式八英雄 168 张战斗技能。
-- 已提交遗留映射：`apps/web/src/card-art/hero-skill-face-map.json`（仅 URL 与格索引，无图像）。
-
-重生成（对照用，本机放好 TTS JSON 后）：
-
-```bash
-node tools/pipeline/scripts/build-tts-hero-skill-face-map.mjs \
-  --tts /path/to/3657612854.json
-```
-
-## 本地 TTS 缓存（对照用，非运行时 UI）
-
-```bash
-# 默认写入 <repo>/.cache/tts-card-art/（已 gitignore）；仅 hero-skill-face-map 中的 atlas
-node tools/pipeline/scripts/cache-tts-card-art.mjs
-```
-
-`pnpm dev` 时 Vite 仍挂载 `/tts-card-art/*` 供人工打开对照；**应用 UI 不请求该路径**。
+- 早期曾用 Steam Workshop TTS 存档（Workshop id `3657612854`）的 `CustomDeck.FaceURL` 10×7 atlas 映射正式八英雄 168 张战斗技能。
+- 该映射（`apps/web/src/card-art/hero-skill-face-map.json`）及生成 / 缓存脚本已于 2026-11-23 删除；TTS 不再作为美术核对参照，需要重新建图时只走印刷 PDF 的 `build-print-*.mjs`。
 
 ## UI 接入面
 
 - `/?phase=3&play=1` 编队：每个起始技能旁缩略卡面（印刷 PNG）。
 - 战斗行动面板「使用技能」：手牌式技能卡行（点选）+ 当前技能大图；下方英文卡面文字保留（R-048 图标词典不变）。
-
-## 待确认（TTS 映射 JSON，历史）
-
-见 `hero-skill-face-map.json` 的 `pendingConfirmation`，摘要：
-
-- Deck 419（英雄属性 / 营地技能板）未映射。
-- 1×1 英雄肖像 CustomDeck 未映射。
-- 非正式英雄（Jester / Arbalest 等）未映射。
 
 ## 范围外
 

@@ -2,7 +2,7 @@
 
 《暗黑地牢桌游》（Darkest Dungeon: The Board Game，简称 DDBG）网页客户端的私有仓库。先做核心盒（遗迹 Ruins 与最暗地牢），用单设备、1–4 人轮流操作（hot-seat）走通战役，再按地点扩展。
 
-仓库保持私有，是因为卡图和版图的美术版权属于原游戏与桌游发行方。TTS 创意工坊资源和印刷文件中的图像不放进仓库；印刷 PDF 只用来提取卡牌文字和数字。规划见 [docs/plan.md](docs/plan.md)（大纲 v0.2，2026-10-06 由 Kyries 确认），给编码代理的约定见 [AGENTS.md](AGENTS.md)，命名规范见 [docs/id-naming-rules.md](docs/id-naming-rules.md)（必读），规则歧义见 [docs/rulings.md](docs/rulings.md)。核心规则说明书 v0.2 在 [docs/spec/](docs/spec/README.md)。图标图例在 [docs/data-legend.md](docs/data-legend.md)（词典 v1.8 已入库，见 R-048 / Q-47）。
+仓库保持私有，是因为卡图和版图的美术版权属于原游戏与桌游发行方。**本地印刷 PDF 是卡牌文字、数字与美术的唯一来源**：从 PDF 导出的 PNG 只留在 gitignored 的本地缓存，不进仓库；TTS 创意工坊资源已不再使用。规划见 [docs/plan.md](docs/plan.md)（大纲 v0.2，2026-10-06 由 Kyries 确认），给编码代理的约定见 [AGENTS.md](AGENTS.md)，命名规范见 [docs/id-naming-rules.md](docs/id-naming-rules.md)（必读），规则歧义见 [docs/rulings.md](docs/rulings.md)。核心规则说明书 v0.2 在 [docs/spec/](docs/spec/README.md)。图标图例在 [docs/data-legend.md](docs/data-legend.md)（词典 v1.8 已入库，见 R-048 / Q-47）。
 
 ## 开发
 
@@ -25,16 +25,16 @@ pnpm build
 
 ### 本地卡图缓存（可选）
 
-运行时卡图均为**印刷 PNG**（不入库）：英雄技能、怪物、探索房间牌 / QuestMap、房间代币、Monster Stance 整板、八英雄立牌等映射见 `apps/web/src/card-art/*-print-art-map.json`（及 `hero-standee-print-art-map.json`），导出到 gitignored `.cache/print-card-art/`（见 [phase4-print-art-pipeline-2026-10-19.md](docs/phase4-print-art-pipeline-2026-10-19.md)）。无本地缓存或加载失败时 UI **占位**，不回退 TTS Workshop atlas。
+运行时卡图均为**印刷 PNG**（不入库）：英雄技能、怪物、探索房间牌 / QuestMap、房间代币、Monster Stance 整板、八英雄立牌等映射见 `apps/web/src/card-art/*-print-art-map.json`（及 `hero-standee-print-art-map.json`），导出到 gitignored `.cache/print-card-art/`（见 [phase4-print-art-pipeline-2026-10-19.md](docs/phase4-print-art-pipeline-2026-10-19.md)）。无本地缓存或加载失败时 UI **占位**，不回退任何外部图源。
 
 ```bash
 node tools/pipeline/scripts/export-print-card-art.mjs --input /path/to/EN_FILES --out .cache/print-card-art
 # 可选：DDBG_PRINT_CARD_ART_CACHE
 ```
 
-**对照用（不喂运行时 UI）**：`hero-skill-face-map.json`、`build-tts-hero-skill-face-map.mjs`、`build-tts-battle-position-art-map.mjs`；可选 `cache-tts-card-art.mjs` 把技能 atlas 下到 `.cache/tts-card-art/`（`pnpm dev` 仍挂载 `/tts-card-art/` 仅供人工对照）。`build-tts-exploration-art-map.mjs` 已废弃。
+**美术唯一真实来源是本地印刷 PDF**，TTS 创意工坊不再作为美术资产的核对参照。2026-11-23 已移除 `apps/web/src/card-art/hero-skill-face-map.json`、`build-tts-hero-skill-face-map.mjs`、`build-tts-battle-position-art-map.mjs`、`build-tts-exploration-art-map.mjs` 与 `cache-tts-card-art.mjs`，`pnpm dev` 不再挂载 `/tts-card-art/`。需要生成或更新映射时，只用 `tools/pipeline/scripts/` 下的 `build-print-*.mjs`。
 
-说明见 [docs/phase4-print-hero-skill-art-map-2026-10-19.md](docs/phase4-print-hero-skill-art-map-2026-10-19.md)、[docs/phase4-print-monster-art-map-2026-10-19.md](docs/phase4-print-monster-art-map-2026-10-19.md)、[docs/phase4-print-exploration-art-map-2026-10-19.md](docs/phase4-print-exploration-art-map-2026-10-19.md)、[docs/phase4-print-room-token-art-2026-10-19.md](docs/phase4-print-room-token-art-2026-10-19.md) 与 [docs/phase4-exploration-art-2026-10-19.md](docs/phase4-exploration-art-2026-10-19.md)。**不要把印刷 PNG 或 Steam CDN 图像提交进仓库。**
+说明见 [docs/phase4-print-hero-skill-art-map-2026-10-19.md](docs/phase4-print-hero-skill-art-map-2026-10-19.md)、[docs/phase4-print-monster-art-map-2026-10-19.md](docs/phase4-print-monster-art-map-2026-10-19.md)、[docs/phase4-print-exploration-art-map-2026-10-19.md](docs/phase4-print-exploration-art-map-2026-10-19.md)、[docs/phase4-print-room-token-art-2026-10-19.md](docs/phase4-print-room-token-art-2026-10-19.md) 与 [docs/phase4-exploration-art-2026-10-19.md](docs/phase4-exploration-art-2026-10-19.md)。**不要把印刷 PNG 提交进仓库。**
 
 2026-10-18最新进度：基线 #247 / `42b9620`。当前确认 Q-80→R-100（recycle_discard_fill）：游商首次陈列可抽不足时将该级弃牌洗回再抽满额；真耗尽才拒绝。见[rulings](docs/rulings.md) R-100与[接线记录](docs/phase4-nomad-q80-r100-2026-10-18.md)。正式Boss与人工试玩继续保留，保持Phase4。以下段落为历史进度。
 

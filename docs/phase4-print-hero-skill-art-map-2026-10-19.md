@@ -58,6 +58,6 @@ Kyries 在印刷导出 manifest 上人工核对 **SKILLS_FRONT** 页序；引擎
 - 英雄技能 BACK 面、效果图标切格仍不在本刀。
 - 探索与战斗站位美术见印刷 map（[phase4-exploration-art-2026-10-19.md](phase4-exploration-art-2026-10-19.md)、[phase4-print-monster-stance-art-2026-10-19.md](phase4-print-monster-stance-art-2026-10-19.md)、[phase4-print-hero-standee-art-2026-10-20.md](phase4-print-hero-standee-art-2026-10-20.md)）；运行时无 TTS 回退。
 
-## 历史 TTS 映射
+## 历史 TTS 映射（已移除）
 
-`hero-skill-face-map.json` 与 `build-tts-hero-skill-face-map.mjs` 仍保留供 `cache-tts-card-art.mjs` 与文档对照；**运行时 UI 不再读取**。
+2026-11-23 起 TTS 不再作为美术核对参照：`hero-skill-face-map.json`、`build-tts-hero-skill-face-map.mjs`、`cache-tts-card-art.mjs` 已删除。本地印刷 PDF 是美术资产的唯一真实来源，建图只走 `build-print-hero-skill-art-map.mjs`。

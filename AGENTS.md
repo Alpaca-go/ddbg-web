@@ -44,7 +44,7 @@ Weald 扩展按 Kyries 已确认的 [开发计划](docs/weald-development-plan.m
 packages/engine/     # 纯 TypeScript 规则引擎，不依赖 React / DOM
 packages/data/       # Zod schema + 规范化游戏数据 JSON
 apps/web/            # React + Tailwind UI
-tools/pipeline/      # TTS 解析、图片缓存与切图、转录辅助、校验、抽检页
+tools/pipeline/      # 印刷 PDF 导出与切图、转录辅助、校验、抽检页
 docs/rules-spec/     # 规则规格书（中英术语对照，标页码）
 docs/rulings.md      # 本项目裁定
 docs/data-legend.md  # 卡面图标图例
@@ -75,8 +75,8 @@ docs/data-legend.md  # 卡面图标图例
 ## 美术与版权
 
 - 仓库保持私有。美术版权属于原游戏和桌游发行方。
-- TTS 创意工坊美术和印刷 PDF 里的图像都不提交。印刷 PDF 只作数据和文字来源。
-- 需要图片时用本地私有缓存（Steam CDN）或占位图，缓存不进仓库。
+- 本地印刷 PDF 是美术与卡牌数据的唯一来源；从 PDF 导出的 PNG 只进本地缓存（`.cache/`），不提交。TTS 创意工坊资源不再使用。
+- 需要图片时用本地私有缓存或占位图，缓存不进仓库。
 
 ## 旧仓库
 

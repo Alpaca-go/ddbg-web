@@ -16,7 +16,7 @@
 
 本机导出与建图见 [phase4-print-hero-standee-art-2026-10-20.md](phase4-print-hero-standee-art-2026-10-20.md)。
 
-`cache-tts-card-art.mjs` 仅服务英雄技能卡面 atlas，**不再**下载 hero token。
+2026-11-23 起 TTS 路线整体移除：`cache-tts-card-art.mjs` 与 `hero-skill-face-map.json` 已删除，本地印刷 PDF 是美术资产的唯一真实来源。
 
 ## 历史说明
 

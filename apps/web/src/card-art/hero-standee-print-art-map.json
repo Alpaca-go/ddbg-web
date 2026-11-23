@@ -112,7 +112,6 @@
   "pendingConfirmation": [
     "DH punchboard UNLABELED die-cut slots (Jester / Abomination / Arbalest?) not mapped in formal8 slice.",
     "FRONT vs BACK raster bytes differ for Crusader trial — duplex same art vs mirrored face 待目视确认.",
-    "Bleed vs inset clip at arch points vs physical die-cut 待确认.",
-    "TTS Custom_Token may be circular crop of same portrait art 待确认."
+    "Bleed vs inset clip at arch points vs physical die-cut 待确认."
   ]
 }

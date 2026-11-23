@@ -11,12 +11,8 @@ playwright-report/
 test-results/
 blob-report/
 
-# TTS / Steam CDN art — local private cache only (never commit binaries)
-.cache/tts-card-art/
+# 印刷 PDF 导出的卡图 — 仅本地私有缓存，二进制不入库
 .cache/print-card-art/
-.cache/tts-workshop/
-*.tts-cache/
-apps/web/public/tts-card-art/
 artifacts/*.png
 ddbg-print/
 

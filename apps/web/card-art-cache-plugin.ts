@@ -3,7 +3,6 @@ import { resolve } from "node:path";
 import type { Connect } from "vite";
 import type { Plugin } from "vite";
 
-const TTS_PUBLIC_PREFIX = "/tts-card-art";
 const PRINT_PUBLIC_PREFIX = "/print-card-art";
 const HERO_SKILL_ICON_PREFIX = "/hero-skill-icons";
 const ASSETS_PLUS_PREFIX = "/ddbg-assets-plus";
@@ -55,16 +54,11 @@ function mountCacheStatic(
 
 /**
  * Serve gitignored card art from local cache directories.
- * - Print PNGs (runtime UI): DDBG_PRINT_CARD_ART_CACHE or <repo>/.cache/print-card-art (png/… subpaths)
- * - TTS atlases (legacy / cross-check only; UI does not request these): DDBG_TTS_CARD_ART_CACHE or
- *   <repo>/.cache/tts-card-art (flat filenames from cache-tts-card-art.mjs + hero-skill-face-map.json)
+ * - Print PNGs (only art source): DDBG_PRINT_CARD_ART_CACHE or <repo>/.cache/print-card-art (png/… subpaths)
  * - Hero skill icons (建队 UI): DDBG_HERO_SKILL_ICON_ROOT or D:/ddbg-assets plus/hero
  * - Kyries UI PNGs (menu 箭头等): DDBG_ASSETS_PLUS_ROOT or D:/ddbg-assets plus
  */
 export function cardArtCachePlugin(repoRoot: string): Plugin {
-  const ttsCacheDir = resolve(
-    process.env.DDBG_TTS_CARD_ART_CACHE || resolve(repoRoot, ".cache/tts-card-art"),
-  );
   const printCacheDir = resolve(
     process.env.DDBG_PRINT_CARD_ART_CACHE || resolve(repoRoot, ".cache/print-card-art"),
   );
@@ -74,7 +68,6 @@ export function cardArtCachePlugin(repoRoot: string): Plugin {
   );
 
   const mountAll = (middlewares: Connect.Server) => {
-    mountCacheStatic(middlewares, TTS_PUBLIC_PREFIX, ttsCacheDir, false);
     mountCacheStatic(middlewares, PRINT_PUBLIC_PREFIX, printCacheDir, true);
     mountCacheStatic(middlewares, ASSETS_PLUS_PREFIX, assetsPlusDir, true);
     mountCacheStatic(middlewares, HERO_SKILL_ICON_PREFIX, heroSkillIconDir, true);

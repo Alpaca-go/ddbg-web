@@ -106,8 +106,8 @@ def build_monster_map(
             "printCategory": category,
             "normalized": f"packages/data/normalized/corebox/{category}.json",
             "notes": [
-                "Mapping uses print FRONT/BACK page index vs normalized `pages` (not TTS atlas).",
-                "TTS maps in apps/web/src/card-art/* are auxiliary only; print wins when cached.",
+                "Mapping uses print FRONT/BACK page index vs normalized `pages`.",
+                "Local print PDF is the only art source; no TTS atlas is referenced.",
                 "docs/plan.md: TrimBox = card face, 3 mm bleed when only MediaBox (R-048: no invented geometry).",
             ],
         },

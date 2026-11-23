@@ -62,15 +62,10 @@ python3 tools/pipeline/print-card-art/run.py \
 
 怪物与英雄技能 **Kyries 审阅 CSV** 已提升为 `apps/web/src/card-art/monster-print-art-map.json`、`hero-skill-print-art-map.json`（见 [phase4-print-monster-art-map-2026-10-19.md](phase4-print-monster-art-map-2026-10-19.md)、[phase4-print-hero-skill-art-map-2026-10-19.md](phase4-print-hero-skill-art-map-2026-10-19.md)）；亦可从 `maps/*-print-art-map.json` 手工对照。战斗 UI 怪物与英雄技能 Face 仅 `/print-card-art/png/…`（无 TTS 回退）。
 
-## 运行时 UI 与 TTS 对照工具
+## 运行时 UI 与对照源
 
-- **运行时**：怪物、英雄技能、探索（房间牌 / QuestMap / 房间代币）、Monster Stance 整板、八英雄立牌等均仅印刷 PNG + `*-print-art-map.json`；失败 → 占位，**不回退** Workshop atlas。
-- **对照用（不喂 UI）**：
-  - `apps/web/src/card-art/hero-skill-face-map.json` + `build-tts-hero-skill-face-map.mjs`
-  - `build-tts-battle-position-art-map.mjs`（历史 hero token URL；站位已切印刷）
-  - `cache-tts-card-art.mjs`（仅下载英雄技能 atlas 到 `.cache/tts-card-art/`；可选）
-  - `build-tts-exploration-art-map.mjs`：**已废弃**（执行即报错并提示印刷管线）
-- `pnpm dev` 的 Vite 插件仍挂载 `/tts-card-art/` 与 `/print-card-art/`；前者仅供本机对照已缓存 atlas，**无运行时请求**。
+- **运行时**：怪物、英雄技能、探索（房间牌 / QuestMap / 房间代币）、Monster Stance 整板、八英雄立牌等均仅印刷 PNG + `*-print-art-map.json`；失败 → 占位，**不回退任何外部图源**。
+- **TTS 对照工具已于 2026-11-23 移除**：`hero-skill-face-map.json`、`build-tts-hero-skill-face-map.mjs`、`build-tts-battle-position-art-map.mjs`、`cache-tts-card-art.mjs`、`build-tts-exploration-art-map.mjs` 均已删除；`pnpm dev` 的 Vite 插件只挂载 `/print-card-art/`。本地印刷 PDF 是美术资产的唯一真实来源。
 
 ## 对照源
 
@@ -78,7 +73,7 @@ python3 tools/pipeline/print-card-art/run.py \
 | --------------------- | ---------------------------------------------------------------- |
 | 引擎卡牌 id           | `packages/data/normalized/corebox/*.json`                        |
 | 页码 / 卡名（提取侧） | `packages/data/extract/corebox/parsed/`（与 extract-print 同源） |
-| TTS 辅助              | `apps/web/src/card-art/hero-skill-face-map.json` 等              |
+| 印刷裁片              | `.cache/print-card-art/png/`（本地，不入库）                     |
 
 怪物映射逻辑：印刷 FRONT/BACK **页码**与 normalized `pages` 对齐；页内文字与 `name` 不一致时写入 map `pending`。
 

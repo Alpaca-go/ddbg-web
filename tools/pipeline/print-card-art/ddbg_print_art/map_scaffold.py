@@ -28,7 +28,7 @@ def write_scaffolds(maps_dir: Path, manifest_rows: list[dict], dpi: int) -> list
                 "status": "scaffold",
                 "notes": [
                     "Pages exported to pngRel; engine id matching pending separate pass.",
-                    "Cross-check TTS: apps/web/src/card-art/hero-skill-face-map.json (auxiliary).",
+                    "Local print PDF is the only art source; no TTS cross-check.",
                 ],
             },
             "dpi": dpi,
