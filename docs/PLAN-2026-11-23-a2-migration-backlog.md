@@ -11,7 +11,8 @@
 > 单元 2 已完成——Battlefield Medicine p139–p141、Toxin Trickery p187–p189 写入 `rules.removal`，
 > 引擎优先读规则、文本解析保留给未注解的历史测试视图；单元 3 已完成——18 名英雄的 346 张
 > 非特殊目标卡写入 `rules.targets`；单元 6 已完成——Abomination 21 张卡的投影结果冻结到
-> `abomination-projection-data.ts`；单元 8 已完成——核心盒 69 张怪物的抗性 / 免疫写入
+> `abomination-projection-data.ts`；单元 7 已完成——核心盒普通怪物补 14 个 EffectPlan；
+> 单元 8 已完成——核心盒 69 张怪物的抗性 / 免疫写入
 > `rules.resistances` / `rules.immunities` / `rules.shuffleResist` / `rules.shuffleImmune`。
 
 总体原则：
@@ -99,6 +100,11 @@ Toxin Trickery p187–p189；Adrenaline Rush 的 Remove 与 Buff 同一行，继
 风险：中高。这是「规则在代码里」的典型，迁移后要保证 97 项 abomination 测试不变。
 
 ## 单元 7：怪物效果
+
+**状态：核心盒普通怪物已完成（2026-11-24）**。所有可归入 EffectPlan 的普通怪物技能都已读取
+`verified_monster_effects`；7a/7b 补了 14 个简单位移 / 压力 / 条件伤害 / 状态计划。
+Summon、All Allies、Rearrange 等仍由现有专用运行时处理，未在计划里猜；Weald 攻击已由
+`verified_weald_attack` 覆盖。
 
 行数：6（`monster-effect-plan`）+ 7（`monster-skill`）+ 5（`weald-monster-attack`）
 
