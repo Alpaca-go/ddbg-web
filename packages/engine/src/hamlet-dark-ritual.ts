@@ -60,7 +60,7 @@ export function useDarkRitual(state: GameState, actor: Hero, targetId: string): 
   const row = reviewed[actor.heroStatId as keyof typeof reviewed];
   const target = d.heroes.find((h) => h.id === targetId);
   const targetStat = d.battleCatalog?.heroStats.find((s) => s.id === target?.heroStatId);
-  const buff = targetStat?.verified_buff_defence;
+  const buff = targetStat?.rules?.buffDefence ?? targetStat?.verified_buff_defence;
   if (
     !row ||
     !actor.attributesVerified ||

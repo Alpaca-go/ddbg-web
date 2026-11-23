@@ -61,7 +61,9 @@ export function buildWealdMonsterCatalog(
   return WEALD_MONSTER_PROFILES.map((profile) => {
     const source = sources.find((c) => c.id === profile.cardId);
     if (!source || !("skills" in source)) throw new Error("Weald 战斗卡缺失");
-    const receipt = wealdMonsterProfileSchema.parse(source.verified_weald_profile);
+    const receipt = wealdMonsterProfileSchema.parse(
+      source.rules?.wealdProfile ?? source.verified_weald_profile,
+    );
     if (
       JSON.stringify(receipt) !== JSON.stringify(profile) ||
       source.name !== profile.name ||
@@ -86,8 +88,8 @@ export function buildWealdMonsterCatalog(
       throw new Error("Weald 技能缺失或重复");
     const skills: (MonsterSkillView & { readonly target: string })[] = source.skills.map(
       (skill) => {
-        if (!skill.verified_weald_attack || skill.target === null)
-          throw new Error("Weald 技能未经 R-230 核准");
+        const attack = skill.rules?.wealdAttack ?? skill.verified_weald_attack;
+        if (!attack || skill.target === null) throw new Error("Weald 技能未经 R-230 核准");
         return {
           slot: skill.slot,
           name: skill.name,
@@ -96,7 +98,7 @@ export function buildWealdMonsterCatalog(
           unlabeled_numbers: skill.unlabeled_numbers,
           lines: skill.lines,
           effect_lines: skill.effect_lines,
-          verified_weald_attack: skill.verified_weald_attack,
+          verified_weald_attack: attack,
         };
       },
     );
