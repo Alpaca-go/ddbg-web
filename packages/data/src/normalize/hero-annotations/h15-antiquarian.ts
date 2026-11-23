@@ -1,63 +1,9 @@
 import type { HeroAnnotationModule, StatusEffectEntry } from "./types";
-import type { NormalizedHeroSkillCard, Segment } from "../schema";
-import { normalizedHeroSkillCardSchema } from "../schema";
 import { lineSignature } from "./shared";
-
-type IconSegment = Extract<Segment, { type: "icon" }>;
-
-function text(value: string): Segment {
-  return { type: "text", text: value };
-}
-
-function iconFromPool(cards: readonly NormalizedHeroSkillCard[], key: string): IconSegment {
-  for (const card of cards) {
-    const pools = [
-      ...(card.stats_line ?? []),
-      ...card.effect_lines.flat(),
-      ...card.front_icons.map((icon) => ({ type: "icon" as const, icon })),
-    ];
-    const hit = pools.find(
-      (s): s is IconSegment =>
-        s.type === "icon" &&
-        s.icon.key === key &&
-        ["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
-    );
-    if (hit) return hit;
-  }
-  throw new Error(`缺少已确认图标 {${key}}（R-048）`);
-}
-
-function iconFromCard(card: NormalizedHeroSkillCard, key: string): IconSegment {
-  const pools = [
-    ...(card.stats_line ?? []),
-    ...card.effect_lines.flat(),
-    ...card.front_icons.map((icon) => ({ type: "icon" as const, icon })),
-  ];
-  const hit = pools.find(
-    (s): s is IconSegment =>
-      s.type === "icon" &&
-      s.icon.key === key &&
-      ["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
-  );
-  if (!hit) throw new Error(`${card.id} 缺少已确认图标 {${key}}（R-048）`);
-  return hit;
-}
-
-function segmentOnCard(card: NormalizedHeroSkillCard, iconId: string): IconSegment {
-  const pools = [
-    ...(card.stats_line ?? []),
-    ...card.effect_lines.flat(),
-    ...card.front_icons.map((icon) => ({ type: "icon" as const, icon })),
-  ];
-  for (const segment of pools) {
-    if (segment.type === "icon" && segment.icon.iconId === iconId) return segment;
-  }
-  throw new Error(`${card.id} 缺少印刷段 iconId=${iconId}（R-048）`);
-}
-
-function cloneKey(segment: IconSegment, key: string): IconSegment {
-  return { type: "icon", icon: { ...segment.icon, key } };
-}
+import type { NormalizedHeroSkillCard } from "../schema";
+import { normalizedHeroSkillCardSchema } from "../schema";
+import { cloneKey, iconFromCard, iconFromPool, segmentOnCardAll, text } from "./patch-helpers";
+import type { IconSegment } from "./patch-helpers";
 
 function assertAntiquarian(
   card: NormalizedHeroSkillCard,
@@ -254,8 +200,8 @@ export function attachVerifiedWarrensAntiquarianHigher(
         if (raw !== "{light}{shuffle}2t,{damage}2t,{mark}3t")
           throw new Error(`${card.id} Protect Me I 效果行漂移（R-048）`);
         const mark = iconFromCard(card, "mark");
-        const lightMis = segmentOnCard(card, "9ffbd6087a");
-        const dmgMis = segmentOnCard(card, "8d4bbe5e11");
+        const lightMis = segmentOnCardAll(card, "9ffbd6087a");
+        const dmgMis = segmentOnCardAll(card, "8d4bbe5e11");
         return normalizedHeroSkillCardSchema.parse({
           ...card,
           stats_line: null,
@@ -443,8 +389,8 @@ export function attachVerifiedWarrensAntiquarianHigher(
         if (raw !== "{light}{shuffle}3t,{damage}2t,{mark}2t")
           throw new Error(`${card.id} Protect Me II 效果行漂移（R-048）`);
         const mark = iconFromCard(card, "mark");
-        const lightMis = segmentOnCard(card, "9ffbd6087a");
-        const dmgMis = segmentOnCard(card, "8d4bbe5e11");
+        const lightMis = segmentOnCardAll(card, "9ffbd6087a");
+        const dmgMis = segmentOnCardAll(card, "8d4bbe5e11");
         const targetEffects = iconFromCard(card, "target_effects");
         return normalizedHeroSkillCardSchema.parse({
           ...card,
@@ -474,8 +420,8 @@ export function attachVerifiedWarrensAntiquarianHigher(
         );
         if (targets.length < 2)
           throw new Error(`${card.id} Protect Me III 目标效果段漂移（R-048）`);
-        const lightMis = segmentOnCard(card, "9ffbd6087a");
-        const markMis = segmentOnCard(card, "9d58d3d431");
+        const lightMis = segmentOnCardAll(card, "9ffbd6087a");
+        const markMis = segmentOnCardAll(card, "9d58d3d431");
         const targetEffects = iconFromCard(card, "target_effects");
         return normalizedHeroSkillCardSchema.parse({
           ...card,

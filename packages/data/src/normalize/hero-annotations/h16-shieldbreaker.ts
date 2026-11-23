@@ -1,60 +1,9 @@
 import type { HeroAnnotationModule } from "./types";
-import type { NormalizedHeroSkillCard, Segment } from "../schema";
-import { normalizedHeroSkillCardSchema } from "../schema";
 import { lineSignature } from "./shared";
-
-type IconSegment = Extract<Segment, { type: "icon" }>;
-
-function text(value: string): Segment {
-  return { type: "text", text: value };
-}
-
-function cloneKey(segment: IconSegment, key: string): IconSegment {
-  return { type: "icon", icon: { ...segment.icon, key } };
-}
-
-function iconFromPool(cards: readonly NormalizedHeroSkillCard[], key: string): IconSegment {
-  for (const card of cards) {
-    const pools = [
-      ...(card.stats_line ?? []),
-      ...card.effect_lines.flat(),
-      ...card.front_icons.map((icon) => ({ type: "icon" as const, icon })),
-    ];
-    const hit = pools.find(
-      (s): s is IconSegment =>
-        s.type === "icon" &&
-        s.icon.key === key &&
-        ["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
-    );
-    if (hit) return hit;
-  }
-  throw new Error(`缺少已确认图标 {${key}}（R-048）`);
-}
-
-function iconFromCard(card: NormalizedHeroSkillCard, key: string): IconSegment {
-  const pools = [
-    ...(card.stats_line ?? []),
-    ...card.effect_lines.flat(),
-    ...card.front_icons.map((icon) => ({ type: "icon" as const, icon })),
-  ];
-  const hit = pools.find(
-    (s): s is IconSegment =>
-      s.type === "icon" &&
-      s.icon.key === key &&
-      ["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
-  );
-  if (!hit) throw new Error(`${card.id} 缺少已确认图标 {${key}}（R-048）`);
-  return hit;
-}
-
-function segmentOnCard(card: NormalizedHeroSkillCard, iconId: string): IconSegment {
-  for (const line of [...card.effect_lines, ...(card.stats_line ? [card.stats_line] : [])]) {
-    for (const segment of line) {
-      if (segment.type === "icon" && segment.icon.iconId === iconId) return segment;
-    }
-  }
-  throw new Error(`${card.id} 缺少印刷段 iconId=${iconId}（R-048）`);
-}
+import type { NormalizedHeroSkillCard } from "../schema";
+import { normalizedHeroSkillCardSchema } from "../schema";
+import { cloneKey, iconFromCard, iconFromPool, segmentOnCard, text } from "./patch-helpers";
+import type { IconSegment } from "./patch-helpers";
 
 function assertSb(card: NormalizedHeroSkillCard, page: number, name: string, level: number) {
   if (

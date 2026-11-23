@@ -1,63 +1,9 @@
 import type { HeroAnnotationModule } from "./types";
+import { lineSignature } from "./shared";
 import type { NormalizedHeroSkillCard, Segment } from "../schema";
 import { normalizedHeroSkillCardSchema } from "../schema";
-import { lineSignature } from "./shared";
-
-type IconSegment = Extract<Segment, { type: "icon" }>;
-
-function text(value: string): Segment {
-  return { type: "text", text: value };
-}
-
-function cloneKey(segment: IconSegment, key: string): IconSegment {
-  return { type: "icon", icon: { ...segment.icon, key } };
-}
-
-function iconFromPool(cards: readonly NormalizedHeroSkillCard[], key: string): IconSegment {
-  for (const card of cards) {
-    const pools = [
-      ...(card.stats_line ?? []),
-      ...card.effect_lines.flat(),
-      ...card.front_icons.map((icon) => ({ type: "icon" as const, icon })),
-    ];
-    const hit = pools.find(
-      (s): s is IconSegment =>
-        s.type === "icon" &&
-        s.icon.key === key &&
-        ["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
-    );
-    if (hit) return hit;
-  }
-  throw new Error(`缺少已确认图标 {${key}}（R-048）`);
-}
-
-function iconFromCard(card: NormalizedHeroSkillCard, key: string): IconSegment {
-  const pools = [
-    ...(card.stats_line ?? []),
-    ...card.effect_lines.flat(),
-    ...card.front_icons.map((icon) => ({ type: "icon" as const, icon })),
-  ];
-  const hit = pools.find(
-    (s): s is IconSegment =>
-      s.type === "icon" &&
-      s.icon.key === key &&
-      ["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
-  );
-  if (!hit) throw new Error(`${card.id} 缺少已确认图标 {${key}}（R-048）`);
-  return hit;
-}
-
-function segmentOnCard(card: NormalizedHeroSkillCard, iconId: string): IconSegment {
-  const pools = [
-    ...(card.stats_line ?? []),
-    ...card.effect_lines.flat(),
-    ...card.front_icons.map((icon) => ({ type: "icon" as const, icon })),
-  ];
-  for (const segment of pools) {
-    if (segment.type === "icon" && segment.icon.iconId === iconId) return segment;
-  }
-  throw new Error(`${card.id} 缺少印刷段 iconId=${iconId}（R-048）`);
-}
+import { cloneKey, iconFromCard, iconFromPool, segmentOnCardAll, text } from "./patch-helpers";
+import type { IconSegment } from "./patch-helpers";
 
 function assertMaa(card: NormalizedHeroSkillCard, page: number, name: string, level: number) {
   if (
@@ -112,7 +58,7 @@ function fixRampart(
   const stun = iconFromCard(card, "stun");
   const shuffle = iconFromCard(card, "shuffle");
   const selfEffects = iconFromCard(card, "self_effects");
-  const pullMis = segmentOnCard(card, "d4329c2a97");
+  const pullMis = segmentOnCardAll(card, "d4329c2a97");
   return normalizedHeroSkillCardSchema.parse({
     ...card,
     effect_lines: [
@@ -186,8 +132,8 @@ function fixDefender(
     throw new Error(`${card.id} Defender 效果行漂移（R-048）`);
   const rangeIcon = iconFromCard(card, "range");
   const selfEffects = iconFromCard(card, "self_effects");
-  const riposteMis = segmentOnCard(card, "a0290ad4ce");
-  const shuffleMis = segmentOnCard(card, "ac56561b87");
+  const riposteMis = segmentOnCardAll(card, "a0290ad4ce");
+  const shuffleMis = segmentOnCardAll(card, "ac56561b87");
   iconFromPool(cards, "protection");
   return normalizedHeroSkillCardSchema.parse({
     ...card,
@@ -230,8 +176,8 @@ function fixRetribution(
   const raw = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
   if (raw !== expectedSelfRaw) throw new Error(`${card.id} Retribution 效果行漂移（R-048）`);
   const selfEffects = iconFromCard(card, "self_effects");
-  const stressMis = segmentOnCard(card, "9d58d3d431");
-  const markMis = segmentOnCard(card, "1ce58a493c");
+  const stressMis = segmentOnCardAll(card, "9d58d3d431");
+  const markMis = segmentOnCardAll(card, "1ce58a493c");
   return normalizedHeroSkillCardSchema.parse({
     ...card,
     effect_lines: [
@@ -326,7 +272,7 @@ function fixBolster(
   const stressMis = card.effect_lines.some((line) =>
     line.some((s) => s.type === "icon" && s.icon.iconId === "f18923574c"),
   )
-    ? segmentOnCard(card, "f18923574c")
+    ? segmentOnCardAll(card, "f18923574c")
     : stressIcon;
 
   const anchors = [stressMinusOneAnchor(stressIcon), stressMinusOneAnchor(stressIcon)];
