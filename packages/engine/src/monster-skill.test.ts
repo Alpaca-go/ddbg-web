@@ -182,8 +182,9 @@ describe("已选怪物攻击的纯结算（R19–21）", () => {
     const legacy = {
       ...original,
       skills: original.skills.map((skill) => {
-        const { verified_target_stress, ...without } = skill;
+        const { verified_target_stress, verified_monster_effects, ...without } = skill;
         if (skill.slot === 1) expect(verified_target_stress).toBeDefined();
+        void verified_monster_effects;
         return without;
       }),
     };
@@ -192,11 +193,15 @@ describe("已选怪物攻击的纯结算（R19–21）", () => {
     ).toMatchObject({ targetStress: 5, skipped: [{ code: "effect_lines" }] });
     const changed = {
       ...original,
-      skills: original.skills.map((skill) =>
-        skill.slot === 1
-          ? { ...skill, verified_target_stress: { ...skill.verified_target_stress!, amount: 2 } }
-          : skill,
-      ),
+      skills: original.skills.map((skill) => {
+        if (skill.slot !== 1) return skill;
+        const { verified_monster_effects, ...rest } = skill;
+        void verified_monster_effects;
+        return {
+          ...rest,
+          verified_target_stress: { ...skill.verified_target_stress!, amount: 2 },
+        };
+      }),
     };
     expect(resolveMonsterSkill(changed, 1, { ...combat, areaDistance: 2 }, 4).status).toBe(
       "refused",

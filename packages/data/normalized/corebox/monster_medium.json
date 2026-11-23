@@ -894,7 +894,37 @@
         "text": " Pull 1"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{self_effects}Self{shuffle}Pull1"
+      ],
+      "effects": [
+       {
+        "type": "shuffle",
+        "scope": "self",
+        "direction": "pull",
+        "distance": 1
+       }
+      ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{self_effects}Self{shuffle}Pull1"
+       ],
+       "effects": [
+        {
+         "type": "shuffle",
+         "scope": "self",
+         "direction": "pull",
+         "distance": 1
+        }
+       ]
+      }
+     }
     }
    ],
    "footer_lines": [
@@ -1807,6 +1837,19 @@
        }
       ]
      ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{stress}+1"
+      ],
+      "effects": [
+       {
+        "type": "stress",
+        "scope": "target",
+        "amount": 1
+       }
+      ]
+     },
      "rules": {
       "target": {
        "stress": {
@@ -1814,6 +1857,19 @@
         "amount": 1,
         "source": "print_front"
        }
+      },
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{stress}+1"
+       ],
+       "effects": [
+        {
+         "type": "stress",
+         "scope": "target",
+         "amount": 1
+        }
+       ]
       }
      }
     },
@@ -2974,12 +3030,38 @@
        }
       ]
      ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{damage}+1vs{mark}"
+      ],
+      "effects": [
+       {
+        "type": "damageBonus",
+        "condition": "marked",
+        "amount": 1
+       }
+      ]
+     },
      "rules": {
       "damage": {
        "lineIndex": 0,
        "amount": 1,
        "condition": "marked",
        "source": "print_front"
+      },
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{damage}+1vs{mark}"
+       ],
+       "effects": [
+        {
+         "type": "damageBonus",
+         "condition": "marked",
+         "amount": 1
+        }
+       ]
       }
      }
     },
@@ -3209,7 +3291,37 @@
         "text": " Push 1"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{self_effects}Self{shuffle}Push1"
+      ],
+      "effects": [
+       {
+        "type": "shuffle",
+        "scope": "self",
+        "direction": "push",
+        "distance": 1
+       }
+      ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{self_effects}Self{shuffle}Push1"
+       ],
+       "effects": [
+        {
+         "type": "shuffle",
+         "scope": "self",
+         "direction": "push",
+         "distance": 1
+        }
+       ]
+      }
+     }
     }
    ],
    "footer_lines": [
@@ -4741,7 +4853,37 @@
         "text": " Pull 1"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{self_effects}Self{shuffle}Pull1"
+      ],
+      "effects": [
+       {
+        "type": "shuffle",
+        "scope": "self",
+        "direction": "pull",
+        "distance": 1
+       }
+      ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{self_effects}Self{shuffle}Pull1"
+       ],
+       "effects": [
+        {
+         "type": "shuffle",
+         "scope": "self",
+         "direction": "pull",
+         "distance": 1
+        }
+       ]
+      }
+     }
     }
    ],
    "footer_lines": [
@@ -11967,7 +12109,37 @@
         "text": " Pull 2"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{shuffle}Pull2"
+      ],
+      "effects": [
+       {
+        "type": "shuffle",
+        "scope": "target",
+        "direction": "pull",
+        "distance": 2
+       }
+      ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{shuffle}Pull2"
+       ],
+       "effects": [
+        {
+         "type": "shuffle",
+         "scope": "target",
+         "direction": "pull",
+         "distance": 2
+        }
+       ]
+      }
+     }
     },
     {
      "slot": 3,
@@ -12195,7 +12367,37 @@
         "text": " Push 2"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{shuffle}Push2"
+      ],
+      "effects": [
+       {
+        "type": "shuffle",
+        "scope": "target",
+        "direction": "push",
+        "distance": 2
+       }
+      ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{shuffle}Push2"
+       ],
+       "effects": [
+        {
+         "type": "shuffle",
+         "scope": "target",
+         "direction": "push",
+         "distance": 2
+        }
+       ]
+      }
+     }
     }
    ],
    "footer_lines": [
@@ -13731,7 +13933,37 @@
         "text": " Push 1"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{target_effects}{shuffle}Push1"
+      ],
+      "effects": [
+       {
+        "type": "shuffle",
+        "scope": "target",
+        "direction": "push",
+        "distance": 1
+       }
+      ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{target_effects}{shuffle}Push1"
+       ],
+       "effects": [
+        {
+         "type": "shuffle",
+         "scope": "target",
+         "direction": "push",
+         "distance": 1
+        }
+       ]
+      }
+     }
     },
     {
      "slot": 3,
@@ -15362,7 +15594,37 @@
         "text": " Push 1"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{self_effects}Self{shuffle}Push1"
+      ],
+      "effects": [
+       {
+        "type": "shuffle",
+        "scope": "self",
+        "direction": "push",
+        "distance": 1
+       }
+      ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{self_effects}Self{shuffle}Push1"
+       ],
+       "effects": [
+        {
+         "type": "shuffle",
+         "scope": "self",
+         "direction": "push",
+         "distance": 1
+        }
+       ]
+      }
+     }
     }
    ],
    "footer_lines": [
@@ -21487,7 +21749,37 @@
         "text": " Pull 1"
        }
       ]
-     ]
+     ],
+     "verified_monster_effects": {
+      "source": "print_front",
+      "signatures": [
+       "{self_effects}Self{shuffle}Pull1"
+      ],
+      "effects": [
+       {
+        "type": "shuffle",
+        "scope": "self",
+        "direction": "pull",
+        "distance": 1
+       }
+      ]
+     },
+     "rules": {
+      "effects": {
+       "source": "print_front",
+       "signatures": [
+        "{self_effects}Self{shuffle}Pull1"
+       ],
+       "effects": [
+        {
+         "type": "shuffle",
+         "scope": "self",
+         "direction": "pull",
+         "distance": 1
+        }
+       ]
+      }
+     }
     }
    ],
    "footer_lines": [

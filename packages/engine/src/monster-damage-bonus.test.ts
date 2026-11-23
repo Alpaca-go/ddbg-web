@@ -29,14 +29,15 @@ const combat: MonsterCombatState = {
 function withBonus(amount: number): MonsterCardView {
   return {
     ...arbalist,
-    skills: arbalist.skills.map((skill) =>
-      skill.slot === 1
-        ? {
-            ...skill,
-            verified_damage_bonus: { ...skill.verified_damage_bonus!, amount },
-          }
-        : skill,
-    ),
+    skills: arbalist.skills.map((skill) => {
+      if (skill.slot !== 1) return skill;
+      const { verified_monster_effects, ...rest } = skill;
+      void verified_monster_effects;
+      return {
+        ...rest,
+        verified_damage_bonus: { ...skill.verified_damage_bonus!, amount },
+      };
+    }),
   };
 }
 function setup(card = arbalist): GameState {
@@ -137,8 +138,9 @@ describe("Arbalist I Quarrel 已核实对 Mark +1（R20–21、R-017、R-019、R
     const legacy = {
       ...arbalist,
       skills: arbalist.skills.map((skill) => {
-        const { verified_damage_bonus, ...rest } = skill;
+        const { verified_damage_bonus, verified_monster_effects, ...rest } = skill;
         if (skill.slot === 1) expect(verified_damage_bonus).toBeDefined();
+        void verified_monster_effects;
         return rest;
       }),
     };
