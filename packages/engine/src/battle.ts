@@ -758,7 +758,9 @@ export function playHeroSkill(
   );
   if (probe.status === "refused") return rejectBattleCommand(state, probe.reason ?? "技能拒绝结算");
   if (
-    (skill.verified_status_effects !== undefined || probe.targetShuffle !== null || needsChoice) &&
+    ((skill.rules?.statuses ?? skill.verified_status_effects) !== undefined ||
+      probe.targetShuffle !== null ||
+      needsChoice) &&
     probe.skipped.some((skip) => skip.code === "effect_lines")
   )
     return rejectBattleCommand(state, "已核实状态与同行效果尚未完整支持，整次拒绝（R-048）");

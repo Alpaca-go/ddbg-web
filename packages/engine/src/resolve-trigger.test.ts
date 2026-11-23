@@ -229,6 +229,8 @@ describe("十张真实意志卡回合开始触发（R18 / R28 / R-056 / R-057）
       if (name === "Focused") {
         const card = battle.resolveCards!.find((card) => card.name === name)!;
         Object.assign(card.verified_turn_start!.effect, { duration: undefined });
+        if (card.rules?.turnStart)
+          Object.assign(card.rules.turnStart.effect, { duration: undefined });
       } else if (name === "Selfish") Object.assign(battle, { provisions: undefined });
       else Object.assign(battle.entities[0]!, { heroLevel: undefined });
       const invalid = { ...state, battle };
