@@ -228,6 +228,9 @@ Leper 已经暴露过三类问题：图标误聚（heal）、提取错位（Reve
 
 > 具体迁移单元、行数与顺序见 [PLAN-2026-11-23-a2-migration-backlog.md](PLAN-2026-11-23-a2-migration-backlog.md)（由 A1 的 168 条规则语义归组）。
 
+> 字段命名调整：erified_* 将迁移为嵌套
+> ules 对象，见 [PLAN-2026-11-23-rules-field-migration.md](PLAN-2026-11-23-rules-field-migration.md)。该迁移先于 A2 执行。
+
 1. 每次只迁移一个技能族（如「四核心基础技能」→「II/III」→「扩展英雄」→「Boss 技能」）。
 2. 迁移后：
 
