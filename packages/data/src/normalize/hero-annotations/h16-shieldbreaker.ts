@@ -367,7 +367,7 @@ function fixSerpentSwayIii(
 }
 
 /** R-200 / Q-181～Q-184：Shieldbreaker I–III 七技能族逐卡覆盖（含 L1 OCR 洗净）。 */
-export function attachVerifiedWealdShieldbreakerHigher(
+function applyShieldbreakerAnnotations(
   cards: readonly NormalizedHeroSkillCard[],
 ): NormalizedHeroSkillCard[] {
   return cards.map((card) => {
@@ -602,5 +602,5 @@ export function attachVerifiedWealdShieldbreakerHigher(
 export const shieldbreakerAnnotations: HeroAnnotationModule = {
   id: "h16",
   hero: "SHIELDBREAKER",
-  apply: attachVerifiedWealdShieldbreakerHigher,
+  apply: applyShieldbreakerAnnotations,
 };

@@ -341,7 +341,7 @@ function fixBolster(
  * R-200：Man-at-Arms L1–III 技能族（TDH p232–252）逐卡覆盖；II/III 共 14 张 + 同族 L1 OCR 洗净。
  * Retribution / Defender 见 Q-176 / Q-177（Mark+Riposte、Guard+Protection）。
  */
-export function attachVerifiedCoveManAtArmsHigher(
+function applyManAtArmsAnnotations(
   cards: readonly NormalizedHeroSkillCard[],
 ): NormalizedHeroSkillCard[] {
   return cards.map((card) => {
@@ -412,5 +412,5 @@ export function attachVerifiedCoveManAtArmsHigher(
 export const manAtArmsAnnotations: HeroAnnotationModule = {
   id: "h12",
   hero: "MAN-AT-ARMS",
-  apply: attachVerifiedCoveManAtArmsHigher,
+  apply: applyManAtArmsAnnotations,
 };

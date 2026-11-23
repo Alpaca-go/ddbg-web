@@ -136,10 +136,10 @@ export const manAtArmsAnnotations: HeroAnnotationModule = {
 4. **保留文件底部的数据导出**（`statusEntries` / `rangeEntries` / …）原样不动；
    `index.ts` 仍在 import 它们。
 5. **保留所有 `//` 评审注释**（R-xxx / Q-xxx），跟着对应行/函数走。
-6. 删掉 `attachVerifiedXxxHigher` 导出前先确认无外部引用：
+6. 模块内的应用函数统一命名为 `applyXxxAnnotations` 且**不导出**；若需要新增导出，先确认无外部引用：
 
 ```powershell
-git grep -n "attachVerifiedCoveManAtArmsHigher"
+git grep -n "applyManAtArmsAnnotations"
 ```
 
 `applyPatches` 已经统一断言 hero / 卡名 / 等级 / 页码 / `verification.unverified`，

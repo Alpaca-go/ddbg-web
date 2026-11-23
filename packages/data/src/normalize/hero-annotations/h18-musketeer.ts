@@ -10,6 +10,141 @@ import type { NormalizedHeroSkillCard } from "../schema";
 import { normalizedHeroSkillCardSchema } from "../schema";
 import { cloneKey, iconFromCard, iconFromPool, segmentOnCard, text } from "./patch-helpers";
 
+/** 完整印刷逐页核对的状态效果行（docs/phase2-four-core-skills-2026-10-11.md）。 */
+export const statusEntries: readonly StatusEffectEntry[] = [
+  {
+    id: "hero_skill:musketeer:p004",
+    name: "Smokescreen",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} {debuff} 1t",
+    effects: [{ kind: "debuff", duration: 1 }],
+  },
+  {
+    id: "hero_skill:musketeer:p007",
+    name: "Call the Shot",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    signature: "{target_effects} {mark} 2t",
+    effects: [{ kind: "mark", duration: 2 }],
+  },
+  {
+    id: "hero_skill:musketeer:p016",
+    name: "Patch Up",
+    level: 1,
+    lineIndex: 0,
+    scope: "self",
+    signature: "{self_effects} Self {buff} 2t",
+    effects: [{ kind: "buff", duration: 2 }],
+  },
+  {
+    id: "hero_skill:musketeer:p019",
+    hero: "MUSKETEER",
+    name: "Skeet Shot",
+    level: 1,
+    lineIndex: 1,
+    scope: "target",
+    signature: "{target_monster} : {debuff} 2t",
+    effects: [{ kind: "debuff", duration: 2 }],
+  },
+  {
+    id: "hero_skill:musketeer:p020",
+    hero: "MUSKETEER",
+    name: "Skeet Shot",
+    level: 2,
+    lineIndex: 1,
+    scope: "target",
+    signature: "{target_monster} : {debuff} 2t",
+    effects: [{ kind: "debuff", duration: 2 }],
+  },
+  {
+    id: "hero_skill:musketeer:p021",
+    hero: "MUSKETEER",
+    name: "Skeet Shot",
+    level: 3,
+    lineIndex: 1,
+    scope: "target",
+    signature: "{target_monster} : {debuff} 2t",
+    effects: [{ kind: "debuff", duration: 2 }],
+  },
+];
+
+/** 已复核的印刷区间（R-048）：只附加已命名 range 图标旁的明确数字。 */
+export const rangeEntries: readonly RangeEntry[] = [
+  {
+    id: "hero_skill:musketeer:p004",
+    name: "Smokescreen",
+    level: 1,
+    min: 1,
+    max: 2,
+  },
+  {
+    id: "hero_skill:musketeer:p007",
+    name: "Call the Shot",
+    level: 1,
+    min: 1,
+    max: 2,
+  },
+  {
+    id: "hero_skill:musketeer:p013",
+    name: "Sidearm",
+    level: 1,
+    min: 0,
+    max: 2,
+  },
+  {
+    id: "hero_skill:musketeer:p016",
+    name: "Patch Up",
+    level: 1,
+    min: 0,
+    max: 1,
+  },
+];
+
+/** Rallying Flare / Skeet Shot 逐卡复核（R-103）：混阵营目标与眩晕/标记清除行。 */
+export const rallyingFlareEntries: readonly RallyingFlareEntry[] = [
+  {
+    id: "hero_skill:musketeer:p019",
+    hero: "MUSKETEER",
+    name: "Skeet Shot",
+    level: 1,
+    acc: 10,
+    targetIcons: 2,
+  },
+  {
+    id: "hero_skill:musketeer:p020",
+    hero: "MUSKETEER",
+    name: "Skeet Shot",
+    level: 2,
+    acc: 11,
+    targetIcons: 3,
+  },
+  {
+    id: "hero_skill:musketeer:p021",
+    hero: "MUSKETEER",
+    name: "Skeet Shot",
+    level: 3,
+    acc: 12,
+    targetIcons: 4,
+  },
+];
+
+/** 已复核条件伤害（只录已命名 damage 图标与明文条件）。 */
+export const damageEntries: readonly DamageEntry[] = [
+  {
+    id: "hero_skill:musketeer:p001",
+    name: "Aimed Shot",
+    level: 1,
+    page: 1,
+    lineIndex: 0,
+    amount: 3,
+    condition: "marked",
+    suffix: "{mark}",
+  },
+];
+
 function assertMus(
   card: NormalizedHeroSkillCard,
   slug: string,
@@ -342,7 +477,7 @@ function fixSkeetEffectLines(
  * R-200 / Q-185（Kyries 真确认）：Musketeer 与 Arbalest 七技能族数值/效果完全一致，仅图标与名称不同。
  * II/III 十四张 + L1 同族 OCR 洗净；效果/verified_* 对照 Suppressive Fire / Sniper's Mark 等已核实 Arbalest 卡。
  */
-export function attachVerifiedMusketeerHigher(
+function applyMusketeerAnnotations(
   cards: readonly NormalizedHeroSkillCard[],
 ): NormalizedHeroSkillCard[] {
   return cards.map((card) => {
@@ -563,140 +698,5 @@ export function attachVerifiedMusketeerHigher(
 export const musketeerAnnotations: HeroAnnotationModule = {
   id: "h18",
   hero: "MUSKETEER",
-  apply: attachVerifiedMusketeerHigher,
+  apply: applyMusketeerAnnotations,
 };
-
-/** 完整印刷逐页核对的状态效果行（docs/phase2-four-core-skills-2026-10-11.md）。 */
-export const statusEntries: readonly StatusEffectEntry[] = [
-  {
-    id: "hero_skill:musketeer:p004",
-    name: "Smokescreen",
-    level: 1,
-    lineIndex: 0,
-    scope: "target",
-    signature: "{target_effects} {debuff} 1t",
-    effects: [{ kind: "debuff", duration: 1 }],
-  },
-  {
-    id: "hero_skill:musketeer:p007",
-    name: "Call the Shot",
-    level: 1,
-    lineIndex: 0,
-    scope: "target",
-    signature: "{target_effects} {mark} 2t",
-    effects: [{ kind: "mark", duration: 2 }],
-  },
-  {
-    id: "hero_skill:musketeer:p016",
-    name: "Patch Up",
-    level: 1,
-    lineIndex: 0,
-    scope: "self",
-    signature: "{self_effects} Self {buff} 2t",
-    effects: [{ kind: "buff", duration: 2 }],
-  },
-  {
-    id: "hero_skill:musketeer:p019",
-    hero: "MUSKETEER",
-    name: "Skeet Shot",
-    level: 1,
-    lineIndex: 1,
-    scope: "target",
-    signature: "{target_monster} : {debuff} 2t",
-    effects: [{ kind: "debuff", duration: 2 }],
-  },
-  {
-    id: "hero_skill:musketeer:p020",
-    hero: "MUSKETEER",
-    name: "Skeet Shot",
-    level: 2,
-    lineIndex: 1,
-    scope: "target",
-    signature: "{target_monster} : {debuff} 2t",
-    effects: [{ kind: "debuff", duration: 2 }],
-  },
-  {
-    id: "hero_skill:musketeer:p021",
-    hero: "MUSKETEER",
-    name: "Skeet Shot",
-    level: 3,
-    lineIndex: 1,
-    scope: "target",
-    signature: "{target_monster} : {debuff} 2t",
-    effects: [{ kind: "debuff", duration: 2 }],
-  },
-];
-
-/** 已复核的印刷区间（R-048）：只附加已命名 range 图标旁的明确数字。 */
-export const rangeEntries: readonly RangeEntry[] = [
-  {
-    id: "hero_skill:musketeer:p004",
-    name: "Smokescreen",
-    level: 1,
-    min: 1,
-    max: 2,
-  },
-  {
-    id: "hero_skill:musketeer:p007",
-    name: "Call the Shot",
-    level: 1,
-    min: 1,
-    max: 2,
-  },
-  {
-    id: "hero_skill:musketeer:p013",
-    name: "Sidearm",
-    level: 1,
-    min: 0,
-    max: 2,
-  },
-  {
-    id: "hero_skill:musketeer:p016",
-    name: "Patch Up",
-    level: 1,
-    min: 0,
-    max: 1,
-  },
-];
-
-/** Rallying Flare / Skeet Shot 逐卡复核（R-103）：混阵营目标与眩晕/标记清除行。 */
-export const rallyingFlareEntries: readonly RallyingFlareEntry[] = [
-  {
-    id: "hero_skill:musketeer:p019",
-    hero: "MUSKETEER",
-    name: "Skeet Shot",
-    level: 1,
-    acc: 10,
-    targetIcons: 2,
-  },
-  {
-    id: "hero_skill:musketeer:p020",
-    hero: "MUSKETEER",
-    name: "Skeet Shot",
-    level: 2,
-    acc: 11,
-    targetIcons: 3,
-  },
-  {
-    id: "hero_skill:musketeer:p021",
-    hero: "MUSKETEER",
-    name: "Skeet Shot",
-    level: 3,
-    acc: 12,
-    targetIcons: 4,
-  },
-];
-
-/** 已复核条件伤害（只录已命名 damage 图标与明文条件）。 */
-export const damageEntries: readonly DamageEntry[] = [
-  {
-    id: "hero_skill:musketeer:p001",
-    name: "Aimed Shot",
-    level: 1,
-    page: 1,
-    lineIndex: 0,
-    amount: 3,
-    condition: "marked",
-    suffix: "{mark}",
-  },
-];

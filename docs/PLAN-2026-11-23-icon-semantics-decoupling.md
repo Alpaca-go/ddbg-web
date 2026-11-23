@@ -411,3 +411,5 @@ A0.5 的 432 张全部复核完成后，再做一次**纯样式**整理（不与
 - 纯数据文件不引入函数；纯补丁文件不重复数据表；
 - 每步仍用 `pnpm lint` / `pnpm typecheck` / 归一化重生成（允许零 diff）验收；
 - 样式统一 PR 不改变任何 `verified_*` 数据与引擎行为。
+
+> 2026-11-23 进展：基础样式统一已完成（hNN 数据前置、模块名 `xxxAnnotations`、应用函数 `applyXxxAnnotations` 不导出、helper 集中）。`switch` → patch 表的结构改写留到 A3 删除 rekey 代码时一起做。

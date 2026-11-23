@@ -338,7 +338,7 @@ function fixBlackjack(
  * R-200：Houndmaster II–III（p338–p357 中 14 张）+ 同技能族 L1 OCR 洗净（p337–p355 七族）。
  * Q-178～Q-180 Kyries 已真确认：Rush 1ff34c908b=自身起效；Cry Havoc 压力行（非目标减益）；Blackjack=Stun。
  */
-export function attachVerifiedWealdHoundmasterHigher(
+function applyHoundmasterAnnotations(
   cards: readonly NormalizedHeroSkillCard[],
 ): NormalizedHeroSkillCard[] {
   return cards.map((card) => {
@@ -517,5 +517,5 @@ export function attachVerifiedWealdHoundmasterHigher(
 export const houndmasterAnnotations: HeroAnnotationModule = {
   id: "h17",
   hero: "HOUNDMASTER",
-  apply: attachVerifiedWealdHoundmasterHigher,
+  apply: applyHoundmasterAnnotations,
 };
