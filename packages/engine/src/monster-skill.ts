@@ -19,6 +19,29 @@ import type {
 } from "./hero-skill";
 
 /** 只读规范化怪物技能；不从 footer_lines 推断可用姿态、选招骰表或 AI。 */
+/** 清除编译产物里的效果字段，保留射程 / 目标头 / 目标数等静态规则。 */
+function rulesWithoutCompiledEffects(rules: SkillRules | undefined): SkillRules {
+  const {
+    statuses: _statuses,
+    damage: _damage,
+    self: _self,
+    target,
+    receipts: _receipts,
+    transfer: _transfer,
+    alliesStress: _alliesStress,
+    rallyingFlare: _rallyingFlare,
+    ...rest
+  } = rules ?? {};
+  void _statuses;
+  void _damage;
+  void _self;
+  void _receipts;
+  void _transfer;
+  void _alliesStress;
+  void _rallyingFlare;
+  return { ...rest, ...(target?.header ? { target: { header: target.header } } : {}) };
+}
+
 export type MonsterSkillView = Pick<
   HeroSkillCardView,
   | "printed_labels"
@@ -269,7 +292,12 @@ function resolveMonsterSkillInternal(
   if (ordered) {
     const { verified_target_stress: _stress, ...base } = view;
     void _stress;
-    view = { ...base, effect_lines: [], verified_status_effects: [] };
+    view = {
+      ...base,
+      effect_lines: [],
+      verified_status_effects: [],
+      rules: rulesWithoutCompiledEffects(view.rules),
+    };
   }
   const bossAccOnlyCardIds = new Set([
     "monster_large:p014",
@@ -293,7 +321,12 @@ function resolveMonsterSkillInternal(
     void _status;
     void _disease;
     void _bonus;
-    view = { ...base, effect_lines: [], verified_status_effects: [] };
+    view = {
+      ...base,
+      effect_lines: [],
+      verified_status_effects: [],
+      rules: rulesWithoutCompiledEffects(view.rules),
+    };
   }
   const stats = view.stats_line!;
   if (

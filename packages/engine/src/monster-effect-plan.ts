@@ -226,12 +226,37 @@ export function compileMonsterEffectPlan(
   void _stress;
   void _bonus;
   void _statuses;
+  const {
+    statuses: _oldStatuses,
+    damage: _oldDamage,
+    self: oldSelf,
+    target: oldTarget,
+    ...restRules
+  } = view.rules ?? {};
+  void _oldStatuses;
+  void _oldDamage;
+  const selfRules = {
+    ...(oldSelf?.range ? { range: true as const } : {}),
+    ...(selfHeal ? { heal: selfHeal } : {}),
+  };
+  const targetRules = {
+    ...(oldTarget?.header ? { header: oldTarget.header } : {}),
+    ...(stress ? { stress } : {}),
+  };
+  const rules = {
+    ...restRules,
+    ...(statuses.length ? { statuses } : {}),
+    ...(Object.keys(selfRules).length ? { self: selfRules } : {}),
+    ...(Object.keys(targetRules).length ? { target: targetRules } : {}),
+    ...(bonus ? { damage: bonus } : {}),
+  };
   return {
     status: "ready",
     selfLight,
     targetLight,
     view: {
       ...base,
+      rules,
       effect_lines: lines,
       verified_status_effects: statuses,
       ...(selfHeal ? { verified_self_heal: selfHeal } : {}),
