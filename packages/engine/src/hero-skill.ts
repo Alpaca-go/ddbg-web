@@ -247,30 +247,105 @@ export type SkillSegment =
   | { readonly type: "text"; readonly text: string }
   | { readonly type: "icon"; readonly icon: SkillIconRef };
 
+type RangeAnnotation = {
+  readonly min: number;
+  readonly max: number;
+  readonly source: "print_front";
+};
+type AmountAnnotation = {
+  readonly lineIndex: number;
+  readonly amount: number;
+  readonly source: "print_front";
+};
+type TargetSupportAnnotation = {
+  readonly lineIndex: number;
+  readonly heal: number;
+  readonly stress: number;
+  readonly light: number;
+  readonly source: "print_front";
+};
+type TargetHeaderAnnotation = {
+  readonly lineIndex: 0;
+  readonly source: "print_front";
+};
+type ReceiptAnnotation = {
+  readonly lineIndex: number;
+  readonly signature: string;
+  readonly source: "print_front";
+};
+type DamageBonusAnnotation = {
+  readonly lineIndex: number;
+  readonly amount: number;
+  readonly condition: "marked" | "unholy" | "stunned" | "human" | "blighted" | "eldritch";
+  readonly source: "print_front";
+};
+type RallyingFlareAnnotation = {
+  readonly cleanupLineIndex: 0;
+  readonly cleanupSignature: string;
+  readonly monsterDebuffLineIndex: 1;
+  readonly monsterDebuffSignature: string;
+  readonly debuffDuration: number;
+  readonly source: "print_front";
+};
+type StatusAnnotation = StatusEffect & {
+  readonly scopeLineIndex?: number;
+  readonly lineIndex: number;
+  readonly segmentIndex: number;
+  readonly scope: "self" | "target";
+};
+
+/** R1 起规则输入的唯一定义；`rulesOf(card)` 读取，未迁移的卡仍回退旧 `verified_*`。 */
+export type SkillRules = {
+  readonly statuses?: readonly StatusAnnotation[];
+  readonly damage?: DamageBonusAnnotation;
+  readonly damageBonuses?: readonly DamageBonusAnnotation[];
+  readonly actorDamage?: AmountAnnotation;
+  readonly range?: RangeAnnotation;
+  readonly self?: {
+    readonly range?: true;
+    readonly heal?: AmountAnnotation;
+    readonly stress?: AmountAnnotation;
+  };
+  readonly target?: {
+    readonly header?: TargetHeaderAnnotation;
+    readonly heal?: AmountAnnotation;
+    readonly stress?: AmountAnnotation;
+    readonly support?: TargetSupportAnnotation;
+  };
+  readonly alliesStress?: number;
+  readonly rallyingFlare?: RallyingFlareAnnotation;
+  readonly receipts?: readonly ReceiptAnnotation[];
+  readonly transfer?: ReceiptAnnotation;
+  readonly shuffle?: readonly {
+    readonly lineIndex: number;
+    readonly scope: "self" | "target";
+    readonly text: string;
+  }[];
+  readonly ignores?: readonly {
+    readonly lineIndex: number;
+    readonly kind: "protection" | "guard";
+  }[];
+  readonly removal?: readonly {
+    readonly lineIndex: number;
+    readonly scope: "self" | "target";
+    readonly kinds: readonly ("bleed" | "blight")[];
+  }[];
+  readonly targets?: {
+    readonly hero: number;
+    readonly monster: number;
+    readonly heroOrMonster: number;
+  };
+  readonly effect?: "damage" | "heal";
+};
+
+/** R2：规则读取入口；缺失时返回空对象，调用方继续各自的旧字段 fallback。 */
+export function rulesOf(card: { readonly rules?: SkillRules }): SkillRules {
+  return card.rules ?? {};
+}
+
 /** 规范化英雄技能里这一层会读的字段。多出来的字段可以留在对象上。 */
 export type HeroSkillCardView = {
-  readonly rules?: {
-    readonly shuffle?: readonly {
-      readonly lineIndex: number;
-      readonly scope: "self" | "target";
-      readonly text: string;
-    }[];
-    readonly ignores?: readonly {
-      readonly lineIndex: number;
-      readonly kind: "protection" | "guard";
-    }[];
-    readonly removal?: readonly {
-      readonly lineIndex: number;
-      readonly scope: "self" | "target";
-      readonly kinds: readonly ("bleed" | "blight")[];
-    }[];
-    readonly targets?: {
-      readonly hero: number;
-      readonly monster: number;
-      readonly heroOrMonster: number;
-    };
-    readonly effect?: "damage" | "heal";
-  };
+  readonly rules?: SkillRules;
   readonly verified_self_range?: true;
   readonly verified_required_form?: SkillForm;
   readonly verified_allies_stress?: number;
@@ -839,7 +914,7 @@ type ConditionRemoval = {
  */
 function readImmediateStress(skill: HeroSkillCardView): ImmediateStress {
   const none: ImmediateStress = { self: 0, target: 0, lineCount: 0 };
-  const explicit = skill.verified_self_stress;
+  const explicit = rulesOf(skill).self?.stress ?? skill.verified_self_stress;
   if (explicit) {
     const line = skill.effect_lines[explicit.lineIndex];
     const text = line
@@ -893,7 +968,7 @@ function readImmediateStress(skill: HeroSkillCardView): ImmediateStress {
  */
 export function readSelfHeal(skill: HeroSkillCardView): SelfHeal {
   const none: SelfHeal = { amount: 0, lineCount: 0 };
-  const confirmed = skill.verified_self_heal;
+  const confirmed = rulesOf(skill).self?.heal ?? skill.verified_self_heal;
   if (confirmed)
     return confirmed.source === "print_front" &&
       nonNegativeInteger(confirmed.amount) &&
@@ -1832,6 +1907,9 @@ function selectFace(
  * 只看 stats 行。效果行里自身效果框上的「Self」不算。
  */
 function readsAsSelfTarget(skill: HeroSkillCardView): boolean {
+  const rules = rulesOf(skill);
+  const statuses = rules.statuses ?? skill.verified_status_effects;
+  const selfRange = rules.self?.range ?? skill.verified_self_range;
   const line = skill.stats_line;
   if (line === null) {
     const hasSelfRangeHeader = skill.effect_lines.some(
@@ -1842,12 +1920,8 @@ function readsAsSelfTarget(skill: HeroSkillCardView): boolean {
           .replace(/\s+/g, "") === "{range}Self" &&
         line.every((s) => s.type === "text" || NAMED.has(s.icon.naming)),
     );
-    if (skill.verified_self_range && hasSelfRangeHeader) return true;
-    if (
-      !skill.verified_status_effects?.length ||
-      skill.verified_status_effects.some((entry) => entry.scope !== "self")
-    )
-      return false;
+    if (selfRange && hasSelfRangeHeader) return true;
+    if (!statuses?.length || statuses.some((entry) => entry.scope !== "self")) return false;
     return hasSelfRangeHeader;
   }
   let range = 0;
@@ -2069,10 +2143,11 @@ type PrintedRange =
  * 原 numeric=null 不改；无注解区间、图标内数字、Self / All Allies 都不补距离。
  */
 export function readPrintedRange(
-  skill: Pick<HeroSkillCardView, "unlabeled_numbers" | "verified_range">,
+  skill: Pick<HeroSkillCardView, "unlabeled_numbers" | "verified_range" | "rules">,
 ): PrintedRange {
-  if (skill.verified_range) {
-    const range = skill.verified_range;
+  const annotatedRange = rulesOf(skill).range ?? skill.verified_range;
+  if (annotatedRange) {
+    const range = annotatedRange;
     const numbers = skill.unlabeled_numbers.filter(
       (item) =>
         item.anchor.type === "beside_icon" &&
@@ -2119,12 +2194,14 @@ export function readPrintedRange(
  */
 function rangeProblem(skill: HeroSkillCardView, combat: SkillCombatState): string | null {
   if (combat.areaDistance === undefined) return null;
+  const rules = rulesOf(skill);
+  const selfRange = rules.self?.range ?? skill.verified_self_range;
+  const statuses = rules.statuses ?? skill.verified_status_effects;
   if ((skill as HeroSkillCardView & { readonly target?: string }).target === "Special") {
     return null;
   }
   if (
-    ((skill.verified_self_range || skill.verified_status_effects?.length) &&
-      readsAsSelfTarget(skill)) ||
+    ((selfRange || statuses?.length) && readsAsSelfTarget(skill)) ||
     (skill as HeroSkillCardView & { readonly target?: string }).target === "Self"
   )
     return combat.areaDistance === 0 && combat.actor?.id === combat.target.id
@@ -2213,16 +2290,18 @@ function readTargetIconCounts(skill: HeroSkillCardView): {
 } {
   // 已逐卡核实的无Acc卡：提取器将射程0/单英雄目标行放入effect_lines[0]。
   // 明确注解才读取；不从其他效果行或未核实卡推断目标。
-  if (skill.verified_target_header !== undefined) {
-    const header = skill.verified_target_header;
+  const rules = rulesOf(skill);
+  const headerAnn = rules.target?.header ?? skill.verified_target_header;
+  const targetHealAnn = rules.target?.heal ?? skill.verified_target_heal;
+  const statusesAnn = rules.statuses ?? skill.verified_status_effects;
+  if (headerAnn !== undefined) {
+    const header = headerAnn;
     const line = skill.effect_lines[0];
     const text = line
       ?.map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
       .join("")
       .replace(/\s+/g, "");
-    const headerHealOnly =
-      skill.verified_target_heal !== undefined &&
-      (skill.verified_status_effects?.length ?? 0) === 0;
+    const headerHealOnly = targetHealAnn !== undefined && (statusesAnn?.length ?? 0) === 0;
     if (
       header.lineIndex !== 0 ||
       header.source !== "print_front" ||
@@ -2230,23 +2309,21 @@ function readTargetIconCounts(skill: HeroSkillCardView): {
       skill.printed_labels.length !== 0 ||
       skill.effect_lines.length < 2 ||
       !/^\{range\}[0-2](?:\{target_hero\}){1,3}$/.test(text ?? "") ||
-      (!headerHealOnly &&
-        (!skill.verified_status_effects?.length ||
-          skill.verified_status_effects.some((e) => e.lineIndex < 1))) ||
+      (!headerHealOnly && (!statusesAnn?.length || statusesAnn.some((e) => e.lineIndex < 1))) ||
       line?.some((s) => s.type === "icon" && !NAMED.has(s.icon.naming))
     )
       return { hero: 0, monster: 0, heroOrMonster: 0 };
     return countNamedTargets(lineTargetIcons(line!));
   }
   // p019 的射程 / 目标行被提取到 effect_lines；只读逐卡复核注解对应的已确认行。
-  if (skill.verified_rallying_flare) {
+  if ((rules.rallyingFlare ?? skill.verified_rallying_flare) !== undefined) {
     const heroOrMonster = (skill.front_icons ?? []).filter(
       (icon) => NAMED.has(icon.naming) && icon.key === "target_hero_or_monster",
     ).length;
     if (heroOrMonster > 0) return { hero: 0, monster: 0, heroOrMonster };
     return { hero: 0, monster: 0, heroOrMonster: 0 };
   }
-  if (skill.verified_target_support) {
+  if ((rules.target?.support ?? skill.verified_target_support) !== undefined) {
     const line = skill.effect_lines[0];
     const text = line
       ?.map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
@@ -2304,11 +2381,11 @@ export function readPrintedTargets(skill: HeroSkillCardView): PrintedTargets {
  */
 function targetCountProblem(skill: HeroSkillCardView, combat: SkillCombatState): string | null {
   if (combat.targetsInArea === undefined) return null;
+  const rules = rulesOf(skill);
+  const selfRange = rules.self?.range ?? skill.verified_self_range;
+  const statuses = rules.statuses ?? skill.verified_status_effects;
   if ((skill as HeroSkillCardView & { readonly target?: string }).target === "Special") return null;
-  if (
-    (skill.verified_self_range || skill.verified_status_effects?.length) &&
-    readsAsSelfTarget(skill)
-  )
+  if ((selfRange || statuses?.length) && readsAsSelfTarget(skill))
     return combat.targetsInArea === 1 && combat.actor?.id === combat.target.id
       ? null
       : "Self 技能只能选择使用者自己";
@@ -2615,8 +2692,9 @@ function resolveSkill(
   );
   if (!selected.ok) return refuse(skill, combat, selected.reason);
   const active = selected.skill;
-  const allies =
-    active.verified_allies_stress === undefined ? null : readAreaHeroes(combat.allies, "所有队友");
+  const activeRules = rulesOf(active);
+  const alliesStressAnn = activeRules.alliesStress ?? active.verified_allies_stress;
+  const allies = alliesStressAnn === undefined ? null : readAreaHeroes(combat.allies, "所有队友");
   if (
     allies &&
     (!allies.ok || allies.heroes === null || allies.heroes.some((h) => h.id === combat.actor?.id))
@@ -2635,7 +2713,7 @@ function resolveSkill(
 
   const target = combat.target;
   let effectLineReceiptCount = 0;
-  const actorBonus = active.verified_actor_damage_bonus;
+  const actorBonus = activeRules.actorDamage ?? active.verified_actor_damage_bonus;
   if (actorBonus) {
     const line = active.effect_lines[actorBonus.lineIndex];
     const text = line
@@ -2655,7 +2733,7 @@ function resolveSkill(
     )
       return refuse(skill, combat, "使用者条件伤害注解与已确认卡面不符（Q-172，R-048）");
   }
-  const statusTransfer = active.verified_bleed_blight_transfer;
+  const statusTransfer = activeRules.transfer ?? active.verified_bleed_blight_transfer;
   if (statusTransfer) {
     const line = active.effect_lines[statusTransfer.lineIndex];
     const text = line
@@ -2677,7 +2755,7 @@ function resolveSkill(
     if (!Array.isArray(target.statusStacks) || statusStackProblem(target.statusStacks))
       return refuse(skill, combat, "流血/腐蚀转移缺少合法的队友状态堆（Q-173）");
   }
-  for (const receipt of active.verified_effect_line_receipts ?? []) {
+  for (const receipt of activeRules.receipts ?? active.verified_effect_line_receipts ?? []) {
     const line = active.effect_lines[receipt.lineIndex];
     const sig = line
       ?.map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
@@ -2695,7 +2773,7 @@ function resolveSkill(
       return refuse(skill, combat, "效果行签收与已确认卡面不符（R-048）");
     effectLineReceiptCount += 1;
   }
-  const targetHealAnn = active.verified_target_heal;
+  const targetHealAnn = activeRules.target?.heal ?? active.verified_target_heal;
   if (targetHealAnn) {
     const line = active.effect_lines[targetHealAnn.lineIndex];
     const text = line
@@ -2718,7 +2796,7 @@ function resolveSkill(
       return refuse(skill, combat, "友方治疗缺少英雄伤口轨");
     }
   }
-  const support = active.verified_target_support;
+  const support = activeRules.target?.support ?? active.verified_target_support;
   if (support) {
     const line = active.effect_lines[support.lineIndex];
     const text = line
@@ -2750,7 +2828,7 @@ function resolveSkill(
       return refuse(skill, combat, "目标支持效果缺少光照或压力轨");
   }
   const stress = support ? { self: 0, target: 0, lineCount: 0 } : readImmediateStress(active);
-  const extraStress = active.verified_target_stress;
+  const extraStress = activeRules.target?.stress ?? active.verified_target_stress;
   if (extraStress) {
     const line = active.effect_lines[extraStress.lineIndex];
     const text = line
@@ -2771,19 +2849,18 @@ function resolveSkill(
     )
       return refuse(skill, combat, "目标压力注解与已确认卡面不符（R-048）");
   }
+  const damageBonusesAnn = activeRules.damageBonuses ?? active.verified_damage_bonuses;
+  const damageBonusAnn = activeRules.damage ?? active.verified_damage_bonus;
   if (
-    active.verified_damage_bonuses !== undefined &&
-    (active.verified_damage_bonus !== undefined ||
-      !Array.isArray(active.verified_damage_bonuses) ||
-      active.verified_damage_bonuses.length < 2 ||
-      Array.from(active.verified_damage_bonuses).some((b) => !b || typeof b !== "object") ||
-      new Set(active.verified_damage_bonuses.map((b) => b.lineIndex)).size !==
-        active.verified_damage_bonuses.length)
+    damageBonusesAnn !== undefined &&
+    (damageBonusAnn !== undefined ||
+      !Array.isArray(damageBonusesAnn) ||
+      damageBonusesAnn.length < 2 ||
+      Array.from(damageBonusesAnn).some((b) => !b || typeof b !== "object") ||
+      new Set(damageBonusesAnn.map((b) => b.lineIndex)).size !== damageBonusesAnn.length)
   )
     return refuse(skill, combat, "多条条件伤害注解重复、缺失或与单条注解冲突（R-048）");
-  const bonuses =
-    active.verified_damage_bonuses ??
-    (active.verified_damage_bonus ? [active.verified_damage_bonus] : []);
+  const bonuses = damageBonusesAnn ?? (damageBonusAnn ? [damageBonusAnn] : []);
   for (const bonus of bonuses) {
     const line = active.effect_lines[bonus.lineIndex];
     const text = line
@@ -2862,7 +2939,7 @@ function resolveSkill(
   };
   const ignoresProtection = readIgnoresProtection(active);
   const ignoresGuard = readIgnoresGuard(active);
-  const rallyingFlare = active.verified_rallying_flare;
+  const rallyingFlare = activeRules.rallyingFlare ?? active.verified_rallying_flare;
   if (rallyingFlare) {
     const cleanup = active.effect_lines[rallyingFlare.cleanupLineIndex];
     const monsterLine = active.effect_lines[rallyingFlare.monsterDebuffLineIndex];
@@ -2919,7 +2996,7 @@ function resolveSkill(
         statuses.lineCount === 0 &&
         !support &&
         !extraStress &&
-        !active.verified_rallying_flare &&
+        !rallyingFlare &&
         !targetHealAnn
       ) {
         return refuse(skill, combat, "stats_line 没有已命名的 damage 或 heal");
@@ -2935,7 +3012,7 @@ function resolveSkill(
   // 没有伤害、治疗，但已经记上位移：仍要按 Acc 掷骰。变身和没有 Acc 的自身效果不掷。
   // 无 Acc / 无 printed_labels 的自身位移（如 Shadow Fade）与变身同类，不因 Push/Pull 强行要 Acc。
   const formOnly =
-    (effect === null || active.verified_allies_stress !== undefined) &&
+    (effect === null || alliesStressAnn !== undefined) &&
     shuffles.target === null &&
     statuses.target.length === 0 &&
     !support &&
@@ -3284,17 +3361,13 @@ function resolveSkill(
     healthEffects: [...healthEffects],
   };
 
-  if (allies?.ok && allies.heroes && active.verified_allies_stress !== undefined)
+  if (allies?.ok && allies.heroes && alliesStressAnn !== undefined) {
+    const alliesStress = alliesStressAnn;
     besideActorStress = combat.allies!.map((hero) => ({
       ...hero,
-      stress: changeStress(
-        hero,
-        hero.stress,
-        active.verified_allies_stress!,
-        pressureLight,
-        "transformAllies",
-      ),
+      stress: changeStress(hero, hero.stress, alliesStress, pressureLight, "transformAllies"),
     }));
+  }
   if ((effect === "damage" || effect === "heal") && outcome !== null && outcome !== "miss") {
     const amount = outcome === "crit" ? critAmount : hitAmount;
     if (amount === null) {
@@ -3544,17 +3617,17 @@ function resolveSkill(
         (statusTransfer ? 1 : 0) +
         (rallyingFlare ? 1 : 0) +
         (extraStress ? 1 : 0) +
-        (active.verified_target_header ? 1 : 0) +
+        ((activeRules.target?.header ?? active.verified_target_header) ? 1 : 0) +
         (support ? 2 : 0) +
         effectLineReceiptCount +
         (targetHealAnn ? 1 : 0) +
-        (active.verified_allies_stress !== undefined &&
+        (alliesStressAnn !== undefined &&
         active.effect_lines.some((line) => {
           const compact = line
             .map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
             .join("")
             .replace(/\s/g, "");
-          const amount = active.verified_allies_stress!;
+          const amount = alliesStressAnn;
           return compact === `{target_effects}{stress}${amount > 0 ? "+" : ""}${amount}`;
         })
           ? 1
