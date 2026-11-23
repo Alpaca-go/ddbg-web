@@ -212,23 +212,24 @@ describe("R1：rules 与 verified_* 双写一致", () => {
     }
   });
 
-  it("A2 单元 3a：Core 11 非特殊目标卡写入 rules.targets", () => {
+  it("A2 单元 3：18 名英雄的非特殊目标卡写入 rules.targets", () => {
     const file = normalizedHeroSkillFileSchema.parse(read("normalized/corebox/hero_skill.json"));
-    const core = file.cards.filter((card) => /^hero_skill:core:h(0[1-9]|1[01]):/.test(card.id));
-    expect(core.length).toBeGreaterThan(200);
-    for (const card of core) {
+    let written = 0;
+    let special = 0;
+    for (const card of file.cards) {
       if (
         card.verified_target_header !== undefined ||
         card.verified_rallying_flare !== undefined ||
         card.verified_target_support !== undefined
       ) {
         expect(card.rules?.targets, card.id).toBeUndefined();
+        special += 1;
         continue;
       }
       expect(card.rules?.targets, card.id).toEqual(expectedTargetCounts(card));
+      written += 1;
     }
-    // 扩展英雄（h12-h18）留到 3b，仍走图标 fallback。
-    const extension = file.cards.filter((card) => !card.id.startsWith("hero_skill:core:"));
-    expect(extension.every((card) => card.rules?.targets === undefined)).toBe(true);
+    expect(written).toBe(346);
+    expect(special).toBe(32);
   });
 });

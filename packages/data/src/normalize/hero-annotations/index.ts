@@ -202,7 +202,7 @@ export const TARGET_STRESS: readonly TargetStressEntry[] = [...jesterTargetStres
 /** 条件移除行（Battlefield Medicine、Toxin Trickery）。 */
 export const REMOVAL_ENTRIES: readonly RemovalEntry[] = [...REMOVAL_RULES];
 
-/** Core 11 的区域目标数（A2 单元 3a）。 */
+/** 18 名英雄的区域目标数（A2 单元 3）。 */
 export const TARGET_COUNT_ENTRIES: readonly TargetCountEntry[] = [...TARGET_COUNTS];
 
 /** 已复核支援效果行（当前只有 Crusader 的 Inspiring Cry I–III）。 */

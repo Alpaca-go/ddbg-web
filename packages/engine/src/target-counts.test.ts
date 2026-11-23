@@ -12,7 +12,7 @@ function card(id: string): HeroSkillCardView {
   return found as HeroSkillCardView;
 }
 
-it("A2 单元 3a：Core 11 读 rules.targets，不再数 stats 目标图标", () => {
+it("A2 单元 3：Core 11 读 rules.targets，不再数 stats 目标图标", () => {
   const crusader = card("hero_skill:core:h01:p004");
   expect(crusader.rules?.targets).toEqual({ hero: 0, monster: 2, heroOrMonster: 0 });
   // 即使把 stats 行清空，规则仍给出两个目标；旧读法会变成 absent。
@@ -29,7 +29,11 @@ it("A2 单元 3a：Core 11 读 rules.targets，不再数 stats 目标图标", ()
   });
 });
 
-it("A2 单元 3a：扩展英雄仍走图标 fallback，不写 rules.targets", () => {
+it("A2 单元 3：扩展英雄同样读 rules.targets", () => {
   const cove = card("hero_skill:cove:h12:p236");
-  expect(cove.rules?.targets).toBeUndefined();
+  expect(cove.rules?.targets).toEqual({ hero: 0, monster: 1, heroOrMonster: 0 });
+  expect(readPrintedTargets({ ...cove, stats_line: [], front_icons: [] })).toEqual({
+    kind: "exact",
+    max: 1,
+  });
 });

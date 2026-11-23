@@ -12,7 +12,7 @@ web 3、docs 若干）。因此作为独立迁移分支，不夹在 A2 里做。
 > `card.rules` 逐值一致。引擎仍只读旧 `verified_*`，R2 未开始。
 > R1 的 `rules` 保留旧字段的 `lineIndex` / `source` / `approval`，便于 R2 直接替换读取路径。
 > A2 单元 2 的 `rules.removal` 已直接写在 `rules` 下（Battlefield Medicine / Toxin Trickery），
-> 引擎已优先读取；单元 3a 的 `rules.targets`（Core 11 非特殊目标卡）也已上线。
+> 引擎已优先读取；单元 3 的 `rules.targets`（18 名英雄 346 张非特殊目标卡）也已上线。
 
 ## 1. 终态形状
 
