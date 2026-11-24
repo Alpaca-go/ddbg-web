@@ -2,7 +2,7 @@ import { expect, it } from "vitest";
 import { applyCommand, type GameState } from "../../../src/shared/core/command";
 import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "../../helpers/core-quest";
-import { RUINS_COMBAT_LEVELS } from "../../../src/core/bosses/ruins-combat-levels";
+import { RUINS_COMBAT_LEVELS } from "../../../src/core/bosses/ruins/ruins-combat-levels";
 import { requireFaceTheThreatEmbarkPlanForSandbox } from "../../../src/core/bosses/face-the-threat-embark-runtime";
 
 const initial = createCoreDungeonQuest(17, "quest:p019", "standard", coreParty, coreQuestSources);

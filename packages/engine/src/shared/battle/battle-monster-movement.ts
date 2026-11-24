@@ -2,8 +2,11 @@ import { shriekerINestAllowsEntry } from "../../weald/bosses/shrieker-i-nest";
 import { isPounderMatchmanAction } from "../../weald/bosses/pounder-i-turn";
 import { withTeleporterAdjacency } from "./battle-teleporters";
 import { isDarkestSupportSkill } from "./battle-monster-support";
-import { isPyreCard } from "../../core/bosses/pyre-skill";
-import { isCollectedVestalCard, isBoneBearerRally } from "../../core/bosses/collected-vestal";
+import { isPyreCard } from "../../core/bosses/fanatic/pyre-skill";
+import {
+  isCollectedVestalCard,
+  isBoneBearerRally,
+} from "../../core/bosses/collector/collected-vestal";
 import { distance, rejectBattleCommand, skillTargetView } from "./battle";
 import type { BattleArea } from "./battle";
 import type { ApplyResult, GameState } from "../core/command";

@@ -1,6 +1,6 @@
-import { readDarkestBossEncounter } from "../bosses/darkest-content";
+import { readDarkestBossEncounter } from "../bosses/darkest/darkest-content";
 import { readRoomTile } from "../../shared/core/room-tile-selection";
-import { prepareDarkestObjectiveBossRoom } from "../bosses/darkest-mid-boss-runtime";
+import { prepareDarkestObjectiveBossRoom } from "../bosses/darkest/darkest-mid-boss-runtime";
 import poolFile from "../../../../data/normalized/corebox/darkest_monster_pool.json";
 import trinketFile from "../../../../data/normalized/corebox/trinket.json";
 import {

@@ -50,14 +50,14 @@ import type { PassiveHolder } from "../core/passive";
 import { cancelSkillAfterRoll } from "./battle-passive";
 import { withFleshOneBodyPoolState } from "../../warrens/bosses/flesh-i-combat-runtime";
 import { chainSwinePrinceIEnragedDestructionAfterHeroSkill } from "../../warrens/bosses/swine-prince-i-combat-runtime";
-import { chainGestatingHeartIchorAfterHeroSkill } from "../../core/bosses/gestating-heart-ichor";
-import { withAncestor1ReflectionsGuardEntities } from "../../core/bosses/ancestor1-reflections-guard";
+import { chainGestatingHeartIchorAfterHeroSkill } from "../../core/bosses/final/gestating-heart-ichor";
+import { withAncestor1ReflectionsGuardEntities } from "../../core/bosses/ancestor/ancestor1-reflections-guard";
 import {
   ABSOLUTE_NOTHINGNESS_DODGE,
   ABSOLUTE_NOTHINGNESS_LIFE,
   absoluteNothingnessTargetRefusal,
   isAbsoluteNothingnessMonsterCardId,
-} from "../../core/bosses/ancestor2-absolute-nothingness";
+} from "../../core/bosses/ancestor/ancestor2-absolute-nothingness";
 import { NECROTIC_FUNGUS_MONSTER_CARD_ID } from "../../weald/necrotic-fungus";
 import { beginSkillOwnEffects, afterHeroOwnCombat } from "./battle-own-effects";
 import type { SkillPrefix } from "./battle-own-effects";

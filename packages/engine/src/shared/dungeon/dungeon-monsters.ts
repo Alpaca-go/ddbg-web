@@ -14,11 +14,11 @@ import { curioRoomGuardBattleActive, isGuardedDungeonRoom } from "./dungeon-curi
 import { prepareCurioRoomGuardMonsters } from "../core/curio-room-guard";
 import { allRuinsRoomCardIds } from "./dungeon-objective";
 import { readCampaignLevel } from "../hamlet/hamlet-campaign";
-import { firstBattleThreatDeck } from "../../core/bosses/necromancer-ii-army";
+import { firstBattleThreatDeck } from "../../core/bosses/necromancer/necromancer-ii-army";
 import {
   darkestMidBossDeploymentHold,
   prepareDarkestMidBossDeployment,
-} from "../../core/bosses/darkest-mid-boss-runtime";
+} from "../../core/bosses/darkest/darkest-mid-boss-runtime";
 import {
   darkestOrdinaryDeploymentHold,
   prepareDarkestOrdinaryMonsterDeployment,

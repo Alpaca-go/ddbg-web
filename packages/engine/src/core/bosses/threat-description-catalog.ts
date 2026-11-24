@@ -1,11 +1,11 @@
 import type { CampaignLevel } from "../../../../data/src/core/quests/basic-quests";
 import { bossEnabledForPacks, type ContentPackId } from "../../../../data/src/shared/content-packs";
-import { ensureCoreBossScriptsRegistered } from "./necromancer-i";
+import { ensureCoreBossScriptsRegistered } from "./necromancer/necromancer-i";
 import {
   NECROMANCER_I_DESCRIPTION_ABILITY_CARD_ID,
   NECROMANCER_I_SCRIPT_ID,
-} from "./necromancer-i";
-import { PROPHET_I_DESCRIPTION_ABILITY_CARD_ID, PROPHET_I_SCRIPT_ID } from "./prophet-i";
+} from "./necromancer/necromancer-i";
+import { PROPHET_I_DESCRIPTION_ABILITY_CARD_ID, PROPHET_I_SCRIPT_ID } from "./prophet/prophet-i";
 import { HAG_I_DESCRIPTION_ABILITY_CARD_ID, HAG_I_SCRIPT_ID } from "../../weald/bosses/hag-i";
 import {
   SWINE_PRINCE_I_DESCRIPTION_ABILITY_CARD_ID,
@@ -16,8 +16,11 @@ import {
   FLESH_I_SCRIPT_ID,
 } from "../../warrens/bosses/flesh-i";
 import { SIREN_I_DESCRIPTION_ABILITY_CARD_ID, SIREN_I_SCRIPT_ID } from "../../cove/bosses/siren-i";
-import { COLLECTOR_I_DESCRIPTION_ABILITY_CARD_ID, COLLECTOR_I_SCRIPT_ID } from "./collector-i";
-import { FANATIC_I_DESCRIPTION_ABILITY_CARD_ID, FANATIC_I_SCRIPT_ID } from "./fanatic-i";
+import {
+  COLLECTOR_I_DESCRIPTION_ABILITY_CARD_ID,
+  COLLECTOR_I_SCRIPT_ID,
+} from "./collector/collector-i";
+import { FANATIC_I_DESCRIPTION_ABILITY_CARD_ID, FANATIC_I_SCRIPT_ID } from "./fanatic/fanatic-i";
 import { getBossScript, listBossScripts } from "./registry";
 import type { BossScriptId } from "./types";
 

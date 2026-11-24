@@ -15,7 +15,7 @@ import type { ApplyResult, GameState } from "../../shared/core/command";
 import { rejectBattleCommand } from "../../shared/battle/battle";
 import { resolveBossScriptIdForQuest, FACE_THE_THREAT_QUEST_ID } from "./quest-bridge";
 import { getBossScript } from "./registry";
-import { RUINS_COMBAT_LEVELS } from "./ruins-combat-levels";
+import { RUINS_COMBAT_LEVELS } from "./ruins/ruins-combat-levels";
 
 /** 已核对的房间身份（room.ts / rooms FRONT p10–13），不推断区域与图标。 */
 const rooms = {

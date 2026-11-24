@@ -13,7 +13,7 @@ import {
   DARKEST_MAMMOTH_CYST_SCRIPT_ID,
   DARKEST_SHUFFLING_HORROR_SCRIPT_ID,
   DARKEST_TEMPLARS_SCRIPT_ID,
-} from "../../src/core/bosses/darkest-mid-boss-scripts";
+} from "../../src/core/bosses/darkest/darkest-mid-boss-scripts";
 
 const equipped = [
   ["hero_skill:core:h01:p001", "hero_skill:core:h01:p004", "hero_skill:core:h01:p016"],

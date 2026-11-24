@@ -7,7 +7,7 @@ import type { MonsterEffectPlan } from "../../../../data/src/core/monsters/monst
 import { compileMonsterEffectPlan } from "./monster-effect-plan";
 import { readWealdMonsterAttack } from "../../weald/monsters/monster-attack";
 import type { WealdMonsterAttack } from "../../../../data/src/weald/monsters/weald-monster-rulings";
-import { readNecromancerISkillEffects } from "../../core/bosses/necromancer-i-skill";
+import { readNecromancerISkillEffects } from "../../core/bosses/necromancer/necromancer-i-skill";
 import { readHagIIntoPotAttack } from "../../weald/bosses/hag-i-into-pot";
 import type {
   HeroSkillCardView,

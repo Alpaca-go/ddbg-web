@@ -23,7 +23,7 @@ import {
 import {
   ensureNecromancerIIBossScriptRegistered,
   NECROMANCER_II_SCRIPT_ID,
-} from "../../../src/core/bosses/necromancer-ii";
+} from "../../../src/core/bosses/necromancer/necromancer-ii";
 
 function ok(game: GameState, command: Command) {
   const result = applyCommand(game, command);

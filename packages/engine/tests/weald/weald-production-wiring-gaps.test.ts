@@ -5,7 +5,7 @@ import {
   wealdLocationActAdvanceEnabled,
 } from "../../src/shared/hamlet/act-transition-readiness";
 import { campaignActIIIBossesComplete } from "../../src/shared/hamlet/campaign-boss-defeats";
-import { RUINS_COMBAT_LEVELS } from "../../src/core/bosses/ruins-combat-levels";
+import { RUINS_COMBAT_LEVELS } from "../../src/core/bosses/ruins/ruins-combat-levels";
 import { getBossScript } from "../../src/core/bosses/registry";
 import {
   darkestActEntryPending,

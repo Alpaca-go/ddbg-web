@@ -18,50 +18,50 @@ import {
   finishHagHigherBattle,
 } from "../../weald/bosses/hag-i-finish";
 import { dungeonMonsterPoolCatalogValid } from "../core/monster-pool-validation";
-import { ruinsIRealCombatActive, finishRuinsIBattle } from "../../core/bosses/ruins-i-finish";
+import { ruinsIRealCombatActive, finishRuinsIBattle } from "../../core/bosses/ruins/ruins-i-finish";
 import {
   necromancerIRealCombatActive,
   finishNecromancerIBattle,
-} from "../../core/bosses/necromancer-i-finish";
+} from "../../core/bosses/necromancer/necromancer-i-finish";
 import {
   necromancerIIRealCombatActive,
   finishNecromancerIIBattle,
-} from "../../core/bosses/necromancer-ii-finish";
+} from "../../core/bosses/necromancer/necromancer-ii-finish";
 import {
   necromancerIIIRealCombatActive,
   finishNecromancerIIIBattle,
-} from "../../core/bosses/necromancer-iii-finish";
+} from "../../core/bosses/necromancer/necromancer-iii-finish";
 import {
   prophetIIRealCombatActive,
   finishProphetIIBattle,
-} from "../../core/bosses/prophet-ii-finish";
+} from "../../core/bosses/prophet/prophet-ii-finish";
 import {
   prophetIIIRealCombatActive,
   finishProphetIIIBattle,
-} from "../../core/bosses/prophet-iii-finish";
+} from "../../core/bosses/prophet/prophet-iii-finish";
 import {
   collectorIIRealCombatActive,
   finishCollectorIIBattle,
-} from "../../core/bosses/collector-ii-finish";
+} from "../../core/bosses/collector/collector-ii-finish";
 import {
   collectorIIIRealCombatActive,
   finishCollectorIIIBattle,
-} from "../../core/bosses/collector-iii-finish";
+} from "../../core/bosses/collector/collector-iii-finish";
 import {
   fanaticIIRealCombatActive,
   finishFanaticIIBattle,
-} from "../../core/bosses/fanatic-ii-finish";
+} from "../../core/bosses/fanatic/fanatic-ii-finish";
 import {
   fanaticIIIRealCombatActive,
   finishFanaticIIIBattle,
-} from "../../core/bosses/fanatic-iii-finish";
+} from "../../core/bosses/fanatic/fanatic-iii-finish";
 import { skillBelongsToFormalHero } from "../core/formal-roster-catalog";
 import { questMonsterDeploymentHold } from "../quest/quest-monster-deployment";
 import { deployDarkestOrdinaryEncounter } from "../../core/darkest/darkest-ordinary-encounter-deploy";
 import { finishDarkestDungeonBattle } from "../../core/darkest/darkest-finish-battle";
 import { darkestOrdinaryDeploymentHold } from "../../core/darkest/darkest-ordinary-monster-deploy";
-import { darkestMidBossDeploymentHold } from "../../core/bosses/darkest-mid-boss-runtime";
-import { darkestMidBossCombatActive } from "../../core/bosses/darkest-mid-boss-deploy";
+import { darkestMidBossDeploymentHold } from "../../core/bosses/darkest/darkest-mid-boss-runtime";
+import { darkestMidBossCombatActive } from "../../core/bosses/darkest/darkest-mid-boss-deploy";
 import { darkestOrdinaryCombatActive } from "../../core/darkest/darkest-ordinary-encounter-deploy";
 import {
   questMonsterDeploymentMatchesPlan,
@@ -73,7 +73,7 @@ import {
   applyTemporarySkillUpgrades,
   restoreTemporarySkillUpgrades,
 } from "../hamlet/hamlet-embark";
-import { darkestBossVictoryAfterEncounter } from "../../core/bosses/darkest-content";
+import { darkestBossVictoryAfterEncounter } from "../../core/bosses/darkest/darkest-content";
 import { readCurioRoomAlwaysGuarded } from "./dungeon-curio-room";
 import { readRoomTile } from "../core/room-tile-selection";
 import {
@@ -132,7 +132,10 @@ import type { StatusEffect } from "../core/status";
 import { readBasicQuest } from "../../../../data/src/core/quests/basic-quests";
 import { stagecoachWaitingTokens, recoveryBuildingLevel } from "../hamlet/hamlet-buildings";
 import { ownedHeroSkills } from "../../core/heroes/hero-loadout";
-import { isBoneBearerRally, boneBearerRallyProblem } from "../../core/bosses/collected-vestal";
+import {
+  isBoneBearerRally,
+  boneBearerRallyProblem,
+} from "../../core/bosses/collector/collected-vestal";
 import { dungeonMonsterPoolThrough } from "../core/monster-pool-runtime";
 import {
   applyBossThreatAfterBattleToPool,
@@ -149,7 +152,7 @@ import { approvedWealdTaskMonster } from "../../weald/task-monster-catalog";
 import { forcedWealdTaskOutsideIds } from "../../weald/task-forced-monsters";
 import { resolveEncounterBossScriptId } from "../../core/bosses/encounter-rules";
 import { isBossQuestId } from "../../core/bosses/quest-bridge";
-import { firstBattleThreatEntry } from "../../core/bosses/necromancer-ii-army";
+import { firstBattleThreatEntry } from "../../core/bosses/necromancer/necromancer-ii-army";
 
 /** R15–18、R-048、R-051、R-055：只接真实部署，缺字段原子拒绝。 */
 export function startDungeonBattle(state: GameState): ApplyResult {

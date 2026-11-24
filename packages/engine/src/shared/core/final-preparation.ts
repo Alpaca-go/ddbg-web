@@ -1,6 +1,6 @@
 import type { ApplyResult, GameState } from "./command";
 import { rejectBattleCommand } from "../battle/battle";
-import { readFinalBattlePlanAfterDarkestVictory } from "../../core/bosses/darkest-content";
+import { readFinalBattlePlanAfterDarkestVictory } from "../../core/bosses/darkest/darkest-content";
 import { applyTemporarySkillUpgrades, washNomadDisplay } from "../hamlet/hamlet-embark";
 import { ownedHeroSkills, heroSkillSlotCount } from "../../core/heroes/hero-loadout";
 import { trinketPoolProblem } from "../trinkets/trinket-acquisition";

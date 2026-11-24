@@ -3,14 +3,14 @@ import geometry from "../../../../data/normalized/corebox/room_tile_geometry.jso
 import { templarsRoomSchema } from "../../../../data/src/core/rooms/templars-room.build";
 import { roomTileBattleAreas } from "../../../src/shared/battle/battle-monster-movement";
 import { applyCommand, type Command, type GameState } from "../../../src/shared/core/command";
-import { templarsPitTossTargetArea } from "../../../src/core/bosses/templars-pit-toss";
+import { templarsPitTossTargetArea } from "../../../src/core/bosses/templars/templars-pit-toss";
 import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "../../helpers/core-quest";
-import { ensureDarkestMidBossScriptsRegistered } from "../../../src/core/bosses/darkest-mid-boss-scripts";
+import { ensureDarkestMidBossScriptsRegistered } from "../../../src/core/bosses/darkest/darkest-mid-boss-scripts";
 import {
   TEMPLAR_BODY_SLAM_SKILL_SLOT,
   TEMPLAR_IMPALER_MONSTER_CARD_ID,
-} from "../../../src/core/bosses/darkest-templars-skills-acc";
+} from "../../../src/core/bosses/templars/darkest-templars-skills-acc";
 import { nextBattleRoll } from "../../../src/shared/dungeon/encounter";
 
 function ok(game: GameState, command: Command) {

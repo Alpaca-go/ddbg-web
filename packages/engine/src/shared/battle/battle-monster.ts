@@ -5,13 +5,13 @@ import { applyPounderIFireInTheHole } from "../../weald/bosses/pounder-i-fire";
 import { isDarkestSupportSkill, playDarkestSupportSkill } from "./battle-monster-support";
 import { captureHagHero } from "../../weald/bosses/hag-i-captive";
 import { HAG_I_CAULDRON_FULL_MONSTER_CARD_ID } from "../../weald/bosses/hag-i";
-import { isPyreCard, playPyreSkill } from "../../core/bosses/pyre-skill";
+import { isPyreCard, playPyreSkill } from "../../core/bosses/fanatic/pyre-skill";
 import {
   isCollectedVestalCard,
   isBoneBearerRally,
   playCollectedVestalSkill,
-} from "../../core/bosses/collected-vestal";
-import { playWhiteCellReconstitute } from "../../core/bosses/white-cell-stalk";
+} from "../../core/bosses/collector/collected-vestal";
+import { playWhiteCellReconstitute } from "../../core/bosses/mammoth-cyst/white-cell-stalk";
 import { beginDamageStoneWindow, damageStoneHealthEffects } from "./battle-damage-stone";
 import { isInvokingMonster } from "./battle-invocation";
 import {
@@ -37,8 +37,8 @@ import { chainSirenIHighTidePelagicAfterMonsterSkill } from "../../cove/bosses/s
 import {
   TEMPLAR_BODY_SLAM_SKILL_SLOT,
   TEMPLAR_IMPALER_MONSTER_CARD_ID,
-} from "../../core/bosses/darkest-templars-skills-acc";
-import { templarsProductionCombatActive } from "../../core/bosses/templars-i-deploy";
+} from "../../core/bosses/templars/darkest-templars-skills-acc";
+import { templarsProductionCombatActive } from "../../core/bosses/templars/templars-i-deploy";
 import {
   needsMonsterSkillShuffleChoice,
   resolveMonsterSkill,

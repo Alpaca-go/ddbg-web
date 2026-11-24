@@ -1,6 +1,6 @@
 import { createCoreDungeonQuest } from "../../src/shared/dungeon/dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "./core-quest";
-import { RUINS_COMBAT_LEVELS } from "../../src/core/bosses/ruins-combat-levels";
+import { RUINS_COMBAT_LEVELS } from "../../src/core/bosses/ruins/ruins-combat-levels";
 import { ensureCoreBossScriptsRegistered } from "../../src/core/bosses/ensure-core-boss-scripts";
 import { getBossScript } from "../../src/core/bosses/registry";
 import {

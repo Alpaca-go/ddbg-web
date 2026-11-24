@@ -7,7 +7,7 @@ import {
   coreQuestSources,
 } from "../../../../../packages/engine/tests/helpers/core-quest";
 import { RuinsBossRoomActions, ruinsBossRoomEntryVisible } from "./ruins-boss-room-actions";
-import { RUINS_COMBAT_LEVELS } from "../../../../../packages/engine/src/core/bosses/ruins-combat-levels";
+import { RUINS_COMBAT_LEVELS } from "../../../../../packages/engine/src/core/bosses/ruins/ruins-combat-levels";
 import { requireFaceTheThreatEmbarkPlanForSandbox } from "../../../../../packages/engine/src/core/bosses/face-the-threat-embark-runtime";
 
 const base = createCoreDungeonQuest(

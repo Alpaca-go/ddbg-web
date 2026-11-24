@@ -23,8 +23,8 @@ import { beforeTargetShuffle } from "./battle-target-pressure";
 import {
   TEMPLAR_BODY_SLAM_SKILL_SLOT,
   TEMPLAR_IMPALER_MONSTER_CARD_ID,
-} from "../../core/bosses/darkest-templars-skills-acc";
-import { templarsProductionCombatActive } from "../../core/bosses/templars-i-deploy";
+} from "../../core/bosses/templars/darkest-templars-skills-acc";
+import { templarsProductionCombatActive } from "../../core/bosses/templars/templars-i-deploy";
 
 const stances = ["aggressive", "defensive", "ranged", "support"];
 

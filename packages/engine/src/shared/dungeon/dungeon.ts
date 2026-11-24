@@ -1,4 +1,4 @@
-import { higherRuinsScoutingStress } from "../../core/bosses/higher-ruins-threat";
+import { higherRuinsScoutingStress } from "../../core/bosses/ruins/higher-ruins-threat";
 import { scoutTrinketReaction } from "../trinkets/trinket-reactions";
 import {
   dungeonLayoutSchema,
@@ -106,7 +106,7 @@ export type DungeonState = {
     readonly monsterDeck: readonly string[];
     readonly excavation?: import("../../core/darkest/darkest-excavation").Excavation;
     /** 目标房 prepareDungeonBattle 后：专属房间 + Boss 脚本身份（A-4）。 */
-    readonly bossEncounterPlan?: import("../../core/bosses/darkest-mid-boss-runtime").StoredDarkestBossEncounterPlan;
+    readonly bossEncounterPlan?: import("../../core/bosses/darkest/darkest-mid-boss-runtime").StoredDarkestBossEncounterPlan;
     /** prepareDungeonMonsters 后：Boss 战斗卡身份占位部署；combatReady 仍为 false。 */
     readonly bossDeployment?: {
       readonly roomId: string;
@@ -169,7 +169,7 @@ export type DungeonState = {
   readonly hamlet?: import("../hamlet/hamlet-event").HamletEventState;
   /** R36 最终战前补给；独立于探索，不伪造新任务/地图。 */
   readonly finalBattleProvisions?: "awaiting" | "ready";
-  readonly finalFormSequence?: import("../../core/bosses/final-form-sequence").FinalFormSequence;
+  readonly finalFormSequence?: import("../../core/bosses/final/final-form-sequence").FinalFormSequence;
   readonly higherThreatTheft?: {
     readonly heroId: string;
     readonly roll: number;

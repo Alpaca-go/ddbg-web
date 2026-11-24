@@ -11,7 +11,7 @@ import { readCampaignLevel } from "../../shared/hamlet/hamlet-campaign";
 import { createRng } from "../../shared/core/rng";
 import type { DungeonState } from "../../shared/dungeon/dungeon";
 import { applyActiveBossThreatToDungeon } from "./apply-active-boss-threat";
-import { ensureCoreBossScriptsRegistered } from "./necromancer-i";
+import { ensureCoreBossScriptsRegistered } from "./necromancer/necromancer-i";
 import { getBossScript } from "./registry";
 import {
   imminentThreatPoolForCampaign,

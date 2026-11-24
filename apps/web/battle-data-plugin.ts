@@ -1,5 +1,5 @@
-import { DARKEST_BOSS_CATALOG_CARD_IDS } from "../../packages/engine/src/core/bosses/darkest-boss-catalog";
-import { RUINS_BOSS_CATALOG_CARD_IDS } from "../../packages/engine/src/core/bosses/ruins-combat-levels";
+import { DARKEST_BOSS_CATALOG_CARD_IDS } from "../../packages/engine/src/core/bosses/darkest/darkest-boss-catalog";
+import { RUINS_BOSS_CATALOG_CARD_IDS } from "../../packages/engine/src/core/bosses/ruins/ruins-combat-levels";
 import { darkestMonsterPoolFileSchema } from "../../packages/data/src/core/monsters/darkest-monster-pool";
 import { coreHigherSkillAvailable } from "../../packages/engine/src/core/heroes/core-higher-skill-catalog";
 import { readFileSync } from "node:fs";

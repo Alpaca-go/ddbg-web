@@ -5,7 +5,7 @@ import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-ques
 import { ensureCampaignBossScriptsRegistered } from "../../../src/shared/core/registry";
 import { coreParty } from "../../helpers/core-quest";
 import { wealdTaskSources } from "../../helpers/weald-task-battle";
-import { firstBattleThreatDeck } from "../../../src/core/bosses/necromancer-ii-army";
+import { firstBattleThreatDeck } from "../../../src/core/bosses/necromancer/necromancer-ii-army";
 import {
   shriekerHigherThreatLevel,
   shriekerIThreatActive,

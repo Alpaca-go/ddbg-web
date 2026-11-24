@@ -1,5 +1,5 @@
 import { finishExcavationRest } from "../../core/darkest/darkest-excavation";
-import { higherRuinsThreat } from "../../core/bosses/higher-ruins-threat";
+import { higherRuinsThreat } from "../../core/bosses/ruins/higher-ruins-threat";
 import { campingTrinketReaction } from "../trinkets/trinket-exploration-reactions";
 import { healingTrinketReaction } from "../trinkets/trinket-reactions";
 import { restPoints, scoutRestSchema } from "../../../../data/src/core/misc/scout-rest";

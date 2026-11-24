@@ -19,7 +19,7 @@ import { beginFeast } from "./hamlet-feast";
 import { applyLostShipment } from "./hamlet-lost-shipment";
 import { mergeHamletCaretakerBlockedWithBossThreat } from "../../core/bosses/threat-campaign";
 import { applyBossThreatBlackSheepBeforeHamletEvent } from "../../core/bosses/threat-passive-runtime";
-import { beginHauntedGraveyard } from "../../core/bosses/necromancer-ii-graveyard";
+import { beginHauntedGraveyard } from "../../core/bosses/necromancer/necromancer-ii-graveyard";
 import { requiresRuinsActAdvance } from "./act-transition-readiness";
 
 const catalog = hamletEventFileSchema.parse(rawEvents).cards;

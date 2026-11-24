@@ -2,12 +2,12 @@ import { expect, it } from "vitest";
 import { applyCommand, type Command, type GameState } from "../../../src/shared/core/command";
 import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "../../helpers/core-quest";
-import { ensureDarkestMidBossScriptsRegistered } from "../../../src/core/bosses/darkest-mid-boss-scripts";
+import { ensureDarkestMidBossScriptsRegistered } from "../../../src/core/bosses/darkest/darkest-mid-boss-scripts";
 import {
   TEMPLAR_IMPALER_MONSTER_CARD_ID,
   TEMPLAR_REVELATION_SKILL_SLOT,
   TEMPLAR_WARLORD_MONSTER_CARD_ID,
-} from "../../../src/core/bosses/darkest-templars-skills-acc";
+} from "../../../src/core/bosses/templars/darkest-templars-skills-acc";
 import { nextBattleRoll } from "../../../src/shared/battle/battle-roll";
 
 const ok = (game: GameState, command: Command) => {

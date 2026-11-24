@@ -1,4 +1,4 @@
-import { RUINS_COMBAT_LEVELS } from "../../src/core/bosses/ruins-combat-levels";
+import { RUINS_COMBAT_LEVELS } from "../../src/core/bosses/ruins/ruins-combat-levels";
 import {
   RUINS_BOSS_IDENTITIES,
   type RuinsBossIdentity,

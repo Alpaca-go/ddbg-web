@@ -40,7 +40,7 @@ export type {
   BossThreatPassiveHamletResult,
   FaceTheThreatQuestContext,
 } from "./types";
-export { isHauntedGraveyardGuard } from "./necromancer-ii-graveyard";
+export { isHauntedGraveyardGuard } from "./necromancer/necromancer-ii-graveyard";
 export { readBossCombatEntry } from "./combat-entry";
 export {
   cardIdsPermanentlyRemovedAfterBattle,
@@ -129,14 +129,14 @@ export {
   NECROMANCER_I_SCRIPT_ID,
   NECROMANCER_I_SUMMON_MONSTER_CARD_ID,
   necromancerIBossScript,
-} from "./necromancer-i";
+} from "./necromancer/necromancer-i";
 export {
   ensureNecromancerIIBossScriptRegistered,
   necromancerIIBossScript,
   NECROMANCER_II_SCRIPT_ID,
   NECROMANCER_II_COMBAT_MONSTER_CARD_ID,
   NECROMANCER_II_SUMMON_MONSTER_CARD_ID,
-} from "./necromancer-ii";
+} from "./necromancer/necromancer-ii";
 export {
   ensureProphetIBossScriptRegistered,
   PROPHET_I_COMBAT_ABILITY_CARD_ID,
@@ -150,7 +150,7 @@ export {
   prophetD10RollMatchesMarker,
   prophetIBossScript,
   prophetRoomMarkerForD10Roll,
-} from "./prophet-i";
+} from "./prophet/prophet-i";
 export {
   applyProphetCalamitousPrognostication,
   applyProphetRubbleOfRuin,
@@ -169,7 +169,7 @@ export {
   readProphetIRubbleEnabled,
   readProphetIWwoodenPewPlan,
   resolveProphetAreaIdForD10Roll,
-} from "./prophet-i-combat-runtime";
+} from "./prophet/prophet-i-combat-runtime";
 export {
   ensureHagIBossScriptRegistered,
   HAG_I_CAULDRON_EMPTY_MONSTER_CARD_ID,
@@ -268,7 +268,7 @@ export {
   collectorCollectedPartCardId,
   collectorCollectedPartStance,
   collectorIBossScript,
-} from "./collector-i";
+} from "./collector/collector-i";
 export {
   applyCollectorCollectAll,
   collectorCollectAllShouldReplaceSkill,
@@ -277,7 +277,7 @@ export {
   readCollectorICollectAllPartPlan,
   resolveCollectorCollectedAreaPlacement,
   shuffleCollectorCollectAllInitiativeIntoDeck,
-} from "./collector-i-combat-runtime";
+} from "./collector/collector-i-combat-runtime";
 export {
   ensureFanaticIBossScriptRegistered,
   FANATIC_I_COMBAT_ABILITY_CARD_ID,
@@ -286,7 +286,7 @@ export {
   FANATIC_I_PYRE_MONSTER_CARD_ID,
   FANATIC_I_SCRIPT_ID,
   fanaticIBossScript,
-} from "./fanatic-i";
+} from "./fanatic/fanatic-i";
 export {
   clearBossScriptsForTest,
   getBossScript,
@@ -344,7 +344,7 @@ export {
   readFanaticIPitTossEnabled,
   readFanaticIPyreBattleStartPlan,
   readFanaticISentenceRenderedEnabled,
-} from "./fanatic-i-combat-runtime";
+} from "./fanatic/fanatic-i-combat-runtime";
 export {
   applyFleshIOneBodyBattleStart,
   applyFleshOneBodyMorphAtRoundStart,
@@ -370,25 +370,28 @@ export {
   DARKEST_TEMPLARS_SCRIPT_ID,
   darkestMidBossScriptIdForQuest,
   readDarkestMidBossRequiredCombatCardIds,
-} from "./darkest-mid-boss-scripts";
+} from "./darkest/darkest-mid-boss-scripts";
 export {
   darkestMidBossDeploymentHold,
   prepareDarkestMidBossDeployment,
   prepareDarkestObjectiveBossRoom,
   readDarkestMidBossDeployedCardIds,
   type StoredDarkestBossEncounterPlan,
-} from "./darkest-mid-boss-runtime";
+} from "./darkest/darkest-mid-boss-runtime";
 export {
   deployDarkestMidBoss,
   darkestMidBossCombatActive,
   expandDarkestMidBossInitiativeDeckSides,
-} from "./darkest-mid-boss-deploy";
-export { deployTemplarsI, templarsProductionCombatActive } from "./templars-i-deploy";
+} from "./darkest/darkest-mid-boss-deploy";
+export { deployTemplarsI, templarsProductionCombatActive } from "./templars/templars-i-deploy";
 export {
   deployShufflingHorrorI,
   shufflingHorrorProductionCombatActive,
-} from "./shuffling-horror-i-deploy";
-export { deployMammothCystI, mammothCystProductionCombatActive } from "./mammoth-cyst-i-deploy";
+} from "./shuffling-horror/shuffling-horror-i-deploy";
+export {
+  deployMammothCystI,
+  mammothCystProductionCombatActive,
+} from "./mammoth-cyst/mammoth-cyst-i-deploy";
 export {
   applyShufflingHorrorEchoingDisassembly,
   applyShufflingHorrorUndulations,
@@ -396,49 +399,49 @@ export {
   DARKEST_MID_BOSS_MONSTER_STANCE_AREAS,
   SHUFFLING_HORROR_COMBAT_MONSTER_CARD_ID,
   SHUFFLING_HORROR_ECHOING_SUMMON_CARD_IDS,
-} from "./darkest-shuffling-horror-combat-runtime";
+} from "./shuffling-horror/darkest-shuffling-horror-combat-runtime";
 export {
   applyShufflingHorrorLacerate,
   SHUFFLING_HORROR_LACERATE_SKILL_SLOT,
   type ApplyShufflingHorrorLacerateCommand,
-} from "./darkest-shuffling-horror-skills-acc";
+} from "./shuffling-horror/darkest-shuffling-horror-skills-acc";
 export {
   applyMammothCystSummonWhiteCell,
   MAMMOTH_CYST_COMBAT_MONSTER_CARD_ID,
   MAMMOTH_CYST_WHITE_CELL_SUMMON_CARD_ID,
-} from "./darkest-mammoth-cyst-combat-runtime";
+} from "./mammoth-cyst/darkest-mammoth-cyst-combat-runtime";
 export {
   applyGestatingHeartSummon,
   type ApplyGestatingHeartSummonCommand,
-} from "./gestating-heart-summon";
+} from "./final/gestating-heart-summon";
 export {
   ANCESTOR_1_MONSTER_CARD_ID,
   TIME_HEALS_ALL_HEAL_AMOUNT,
   TIME_HEALS_ALL_SKILL_SLOT,
   applyAncestor1TimeHealsAll,
   type ApplyAncestor1TimeHealsAllCommand,
-} from "./ancestor1-time-heals-all";
+} from "./ancestor/ancestor1-time-heals-all";
 export {
   PERFECT_REPLICATION_LIGHT_DELTA,
   PERFECT_REPLICATION_SKILL_SLOT,
   PERFECT_REPLICATION_SUMMON_CARD_ID,
   applyAncestor1PerfectReplication,
   type ApplyAncestor1PerfectReplicationCommand,
-} from "./ancestor1-perfect-replication";
+} from "./ancestor/ancestor1-perfect-replication";
 export {
   IMPERFECT_REPRODUCTION_SKILL_SLOT,
   IMPERFECT_REPRODUCTION_STRESS_AMOUNT,
   IMPERFECT_REPRODUCTION_SUMMON_CARD_ID,
   applyAncestor1ImperfectReproduction,
   type ApplyAncestor1ImperfectReproductionCommand,
-} from "./ancestor1-imperfect-reproduction";
+} from "./ancestor/ancestor1-imperfect-reproduction";
 export {
   HEART_OF_DARKNESS_MONSTER_CARD_ID,
   applyHeartOfDarknessImpendingDoomRoll,
   impendingDoomSkillLabelFromDie,
   impendingDoomSkillSlotFromDie,
   type ApplyHeartOfDarknessImpendingDoomRollCommand,
-} from "./heart-of-darkness-impending-doom";
+} from "./final/heart-of-darkness-impending-doom";
 export {
   applyHeartOfDarknessDissolution,
   applyHeartOfDarknessImpendingDoomSkill,
@@ -451,7 +454,7 @@ export {
   type ApplyHeartOfDarknessImpendingDoomSkillCommand,
   type ApplyHeartOfDarknessKnowThisCommand,
   type ApplyHeartOfDarknessPunctureCommand,
-} from "./heart-of-darkness-skills-acc";
+} from "./final/heart-of-darkness-skills-acc";
 export {
   ABSOLUTE_NOTHINGNESS_DODGE,
   ABSOLUTE_NOTHINGNESS_LIFE,
@@ -464,13 +467,13 @@ export {
   isAbsoluteNothingnessEntity,
   isAbsoluteNothingnessMonsterCardId,
   type ApplyAncestor2DeployAbsoluteNothingnessCommand,
-} from "./ancestor2-absolute-nothingness";
+} from "./ancestor/ancestor2-absolute-nothingness";
 export {
   ANCESTOR_2_MONSTER_CARD_ID,
   applyAncestor2SwiftTeleportation,
   swiftTeleportStanceFromDie,
   type ApplyAncestor2SwiftTeleportationCommand,
-} from "./ancestor2-swift-teleportation";
+} from "./ancestor/ancestor2-swift-teleportation";
 export {
   applyAncestor2EmbraceFutility,
   applyAncestor2RefashionThem,
@@ -481,11 +484,11 @@ export {
   type ApplyAncestor2EmbraceFutilityCommand,
   type ApplyAncestor2RefashionThemCommand,
   type ApplyAncestor2UnmakeThemAllCommand,
-} from "./ancestor2-skills-acc";
+} from "./ancestor/ancestor2-skills-acc";
 export {
   ancestor2SkillAiShouldReplacePrepare,
   applyAncestor2SkillFromStanceSelection,
-} from "./ancestor2-skill-ai";
+} from "./ancestor/ancestor2-skill-ai";
 export {
   applyMammothCystBulgingGaze,
   applyMammothCystDigestion,
@@ -496,7 +499,7 @@ export {
   type ApplyMammothCystBulgingGazeCommand,
   type ApplyMammothCystDigestionCommand,
   type ApplyMammothCystRevivifyCommand,
-} from "./darkest-mammoth-cyst-skills-acc";
+} from "./mammoth-cyst/darkest-mammoth-cyst-skills-acc";
 export {
   applyTemplarImpalerBodySlam,
   applyTemplarImpalerRevelation,
@@ -516,8 +519,8 @@ export {
   type ApplyTemplarWarlordRevelationCommand,
   type ApplyTemplarWarlordStingerShotCommand,
   type ApplyTemplarWarlordTormentCommand,
-} from "./darkest-templars-skills-acc";
-export { FINAL_BATTLE_MONSTER_STANCE_AREAS } from "./final-battle-deploy";
+} from "./templars/darkest-templars-skills-acc";
+export { FINAL_BATTLE_MONSTER_STANCE_AREAS } from "./final/final-battle-deploy";
 
 export {
   ensureNecromancerIIIBossScriptRegistered,
@@ -525,4 +528,4 @@ export {
   NECROMANCER_III_SCRIPT_ID,
   NECROMANCER_III_COMBAT_MONSTER_CARD_ID,
   NECROMANCER_III_SUMMON_MONSTER_CARD_ID,
-} from "./necromancer-iii";
+} from "./necromancer/necromancer-iii";

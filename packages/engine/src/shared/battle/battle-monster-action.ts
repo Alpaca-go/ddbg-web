@@ -3,7 +3,10 @@ import { preparePounderITurn } from "../../weald/bosses/pounder-i-turn";
 import { applyHagIBoil } from "../../weald/bosses/hag-i-boil";
 import { isDarkestSupportSkill } from "./battle-monster-support";
 import { HAG_I_CAULDRON_FULL_MONSTER_CARD_ID } from "../../weald/bosses/hag-i";
-import { isCollectedVestalCard, isBoneBearerRally } from "../../core/bosses/collected-vestal";
+import {
+  isCollectedVestalCard,
+  isBoneBearerRally,
+} from "../../core/bosses/collector/collected-vestal";
 import { isInvokingMonster, moveInvokingMonster } from "./battle-invocation";
 import { distance, rejectBattleCommand } from "./battle";
 import { statusProjection } from "../core/status";
@@ -12,29 +15,29 @@ import { applyEncounterCommand, nextBattleRoll, finishTurn } from "../dungeon/en
 import {
   applyFanaticSentenceRendered,
   fanaticSentenceRenderedShouldReplaceSkill,
-} from "../../core/bosses/fanatic-i-combat-runtime";
+} from "../../core/bosses/fanatic/fanatic-i-combat-runtime";
 import {
   ancestor2SkillAiShouldReplacePrepare,
   applyAncestor2SkillFromStanceSelection,
-} from "../../core/bosses/ancestor2-skill-ai";
+} from "../../core/bosses/ancestor/ancestor2-skill-ai";
 import {
   ancestor1SkillAiShouldReplacePrepare,
   applyAncestor1SkillFromStanceSelection,
-} from "../../core/bosses/ancestor1-skill-ai";
+} from "../../core/bosses/ancestor/ancestor1-skill-ai";
 import {
   applyGestatingHeartDispersion,
   gestatingHeartSkillAiShouldReplacePrepare,
-} from "../../core/bosses/gestating-heart-summon";
+} from "../../core/bosses/final/gestating-heart-summon";
 import {
   applyCollectorCollectAll,
   collectorCollectAllShouldReplaceSkill,
-} from "../../core/bosses/collector-i-combat-runtime";
+} from "../../core/bosses/collector/collector-i-combat-runtime";
 import {
   applyProphetCalamitousPrognostication,
   applyProphetRubbleOfRuin,
   prophetCalamitousShouldReplaceSkill,
   prophetRubbleShouldReplaceSkill,
-} from "../../core/bosses/prophet-i-combat-runtime";
+} from "../../core/bosses/prophet/prophet-i-combat-runtime";
 import {
   readSwinePrinceIWilburMarkSkillSlot,
   swinePrinceIWilburMarkShouldForceSkill,
@@ -46,19 +49,19 @@ import {
 import {
   applyHeartOfDarknessImpendingDoomFromEncounter,
   heartOfDarknessImpendingDoomShouldReplaceSkill,
-} from "../../core/bosses/heart-of-darkness-combat-runtime";
+} from "../../core/bosses/final/heart-of-darkness-combat-runtime";
 import {
   applyMammothCystRevivify,
   MAMMOTH_REVIVIFY_SKILL_SLOT,
-} from "../../core/bosses/darkest-mammoth-cyst-skills-acc";
-import { MAMMOTH_CYST_COMBAT_MONSTER_CARD_ID } from "../../core/bosses/darkest-mammoth-cyst-combat-runtime";
-import { mammothCystProductionCombatActive } from "../../core/bosses/mammoth-cyst-i-deploy";
+} from "../../core/bosses/mammoth-cyst/darkest-mammoth-cyst-skills-acc";
+import { MAMMOTH_CYST_COMBAT_MONSTER_CARD_ID } from "../../core/bosses/mammoth-cyst/darkest-mammoth-cyst-combat-runtime";
+import { mammothCystProductionCombatActive } from "../../core/bosses/mammoth-cyst/mammoth-cyst-i-deploy";
 import {
   applyShufflingHorrorUndulations,
   SHUFFLING_HORROR_COMBAT_MONSTER_CARD_ID,
   SHUFFLING_HORROR_UNDULATIONS_SKILL_SLOT,
-} from "../../core/bosses/darkest-shuffling-horror-combat-runtime";
-import { shufflingHorrorProductionCombatActive } from "../../core/bosses/shuffling-horror-i-deploy";
+} from "../../core/bosses/shuffling-horror/darkest-shuffling-horror-combat-runtime";
+import { shufflingHorrorProductionCombatActive } from "../../core/bosses/shuffling-horror/shuffling-horror-i-deploy";
 import { getBossScript } from "../../core/bosses/registry";
 import { resolveEncounterBossScriptId } from "../../core/bosses/encounter-rules";
 import { readMonsterSelfStatuses } from "../core/monster-self-status";

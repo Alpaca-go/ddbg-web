@@ -1,7 +1,7 @@
 import { WEALD_HIGHER_BOSS_ENTRIES } from "../../weald/bosses/higher-boss-entries";
 import { ensureCampaignBossScriptsRegistered } from "../../shared/core/registry";
 import { bossEnabledForPacks } from "../../../../data/src/shared/content-packs";
-import { RUINS_COMBAT_LEVELS } from "./ruins-combat-levels";
+import { RUINS_COMBAT_LEVELS } from "./ruins/ruins-combat-levels";
 import {
   basicQuests,
   type BasicQuestId,
@@ -13,7 +13,7 @@ import {
   DARKEST_MAMMOTH_CYST_SCRIPT_ID,
   DARKEST_SHUFFLING_HORROR_SCRIPT_ID,
   DARKEST_TEMPLARS_SCRIPT_ID,
-} from "./darkest-mid-boss-scripts";
+} from "./darkest/darkest-mid-boss-scripts";
 import { getBossScript } from "./registry";
 import type { BossScriptId } from "./types";
 

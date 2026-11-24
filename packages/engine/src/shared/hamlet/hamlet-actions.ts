@@ -21,7 +21,7 @@ import { grantGraveyardVirtue } from "./hamlet-graveyard";
 import {
   hauntedHamletCommandProblem,
   isHauntedGraveyardGuard,
-} from "../../core/bosses/necromancer-ii-graveyard";
+} from "../../core/bosses/necromancer/necromancer-ii-graveyard";
 import {
   buildingLevelsProblem,
   recoveryServices,

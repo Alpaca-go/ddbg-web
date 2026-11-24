@@ -1,5 +1,5 @@
-import { darkestBossVictoryAfterEncounter } from "../bosses/darkest-content";
-import { darkestMidBossCombatActive } from "../bosses/darkest-mid-boss-deploy";
+import { darkestBossVictoryAfterEncounter } from "../bosses/darkest/darkest-content";
+import { darkestMidBossCombatActive } from "../bosses/darkest/darkest-mid-boss-deploy";
 import { isBossQuestId } from "../bosses/quest-bridge";
 import { rejectBattleCommand } from "../../shared/battle/battle";
 import { createLootState } from "../../shared/trinkets/loot";
