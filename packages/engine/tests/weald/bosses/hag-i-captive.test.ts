@@ -8,7 +8,7 @@ import {
   releaseHagIHero,
 } from "../../../src/weald/bosses/hag-i-captive";
 import { ensureHagIBossScriptRegistered, HAG_I_SCRIPT_ID } from "../../../src/weald/bosses/hag-i";
-import { FACE_THE_THREAT_QUEST_ID } from "../../../src/boss/quest-bridge";
+import { FACE_THE_THREAT_QUEST_ID } from "../../../src/core/bosses/quest-bridge";
 import { gainDisease } from "../../../src/conditions";
 import { coreQuestSources } from "../../../src/test-helpers/core-quest";
 

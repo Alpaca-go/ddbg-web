@@ -1,6 +1,6 @@
-import { readDarkestBossEncounter } from "./boss/darkest-content";
+import { readDarkestBossEncounter } from "./core/bosses/darkest-content";
 import { readRoomTile } from "./room-tile-selection";
-import { prepareDarkestObjectiveBossRoom } from "./boss/darkest-mid-boss-runtime";
+import { prepareDarkestObjectiveBossRoom } from "./core/bosses/darkest-mid-boss-runtime";
 import poolFile from "../../data/normalized/corebox/darkest_monster_pool.json";
 import trinketFile from "../../data/normalized/corebox/trinket.json";
 import {
@@ -10,7 +10,7 @@ import {
 import { coreQuestMapLayouts } from "../../data/src/quest-map-pairing";
 import type { DungeonLayout, RoomTokenKind } from "../../data/src/dungeon-layout";
 import { normalizedTrinketFileSchema } from "../../data/src/normalize/schema";
-import { R121_BOSS_SLOT_LAYOUTS } from "./boss/default-boss-hooks";
+import { R121_BOSS_SLOT_LAYOUTS } from "./core/bosses/default-boss-hooks";
 import { switchTrinketDungeonLevel } from "./trinket-acquisition";
 import { createRng } from "./rng";
 import type { GameState, ApplyResult } from "./command";

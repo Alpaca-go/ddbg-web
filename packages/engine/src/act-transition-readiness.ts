@@ -2,9 +2,9 @@ import { bossFlatQuestSummarySchema } from "../../data/src/quest-summary";
 import { buildRuinsActTransitionPlan, buildWealdActTransitionPlan } from "./act-transition-plan";
 import type { GameState } from "./command";
 import type { DungeonState } from "./dungeon";
-import { RUINS_COMBAT_LEVELS } from "./boss/ruins-combat-levels";
-import { RUINS_BOSS_IDENTITIES } from "./boss/threat-description-catalog";
-import { countCompletedRegularQuestsAtCampaignLevel } from "./boss/face-the-threat-embark-runtime";
+import { RUINS_COMBAT_LEVELS } from "./core/bosses/ruins-combat-levels";
+import { RUINS_BOSS_IDENTITIES } from "./core/bosses/threat-description-catalog";
+import { countCompletedRegularQuestsAtCampaignLevel } from "./core/bosses/face-the-threat-embark-runtime";
 import { WEALD_HIGHER_BOSS_ENTRIES } from "./weald/bosses/higher-boss-entries";
 import { WEALD_BOSS_IDENTITIES, type WealdBossIdentity } from "./weald/catalog";
 import {

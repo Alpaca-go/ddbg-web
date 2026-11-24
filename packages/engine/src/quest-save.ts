@@ -1,5 +1,5 @@
-import { DARKEST_BOSS_CATALOG_CARD_IDS } from "./boss/darkest-boss-catalog";
-import { RUINS_BOSS_CATALOG_CARD_IDS } from "./boss/ruins-combat-levels";
+import { DARKEST_BOSS_CATALOG_CARD_IDS } from "./core/bosses/darkest-boss-catalog";
+import { RUINS_BOSS_CATALOG_CARD_IDS } from "./core/bosses/ruins-combat-levels";
 import darkestPool from "../../data/normalized/corebox/darkest_monster_pool.json";
 import { upgradeTrinketR127Metadata } from "./trinket-save-upgrade";
 import { upgradeFallenHeroSnapshot } from "./fallen-heroes";

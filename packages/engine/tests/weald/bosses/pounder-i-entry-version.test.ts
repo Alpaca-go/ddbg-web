@@ -5,7 +5,7 @@ import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
 import { createQuestSave, loadQuestSave } from "../../../src/quest-save";
 import { naturalQuest } from "../../../src/test-helpers/natural-quest";
-import { resolveFaceTheThreatEmbarkForChoose } from "../../../src/boss/face-the-threat-embark-runtime";
+import { resolveFaceTheThreatEmbarkForChoose } from "../../../src/core/bosses/face-the-threat-embark-runtime";
 
 const packs = ["core", "weald"] as const;
 const start: Parameters<typeof createQuestSave>[0] = {

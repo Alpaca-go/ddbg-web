@@ -3,8 +3,8 @@ import { createCoreDungeonQuest } from "./dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "./test-helpers/core-quest";
 import { applyCommand, type GameState } from "./command";
 import { closeBattleLoot } from "./loot";
-import { readDarkestBossEncounter } from "./boss/darkest-content";
-import { readDarkestMidBossRequiredCombatCardIds } from "./boss/darkest-mid-boss-scripts";
+import { readDarkestBossEncounter } from "./core/bosses/darkest-content";
+import { readDarkestMidBossRequiredCombatCardIds } from "./core/bosses/darkest-mid-boss-scripts";
 
 const quests = ["quest:p016", "quest:p017", "quest:p018"] as const;
 

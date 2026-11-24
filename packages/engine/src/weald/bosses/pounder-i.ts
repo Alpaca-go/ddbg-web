@@ -1,7 +1,7 @@
-import { getBossScript, registerBossScript } from "../../boss/registry";
-import { defaultFaceTheThreatEmbarkHook } from "../../boss/default-boss-hooks";
-import { DEFAULT_BOSS_BATTLE_RULES } from "../../boss/rules";
-import type { BossScriptDefinition } from "../../boss/types";
+import { getBossScript, registerBossScript } from "../../core/bosses/registry";
+import { defaultFaceTheThreatEmbarkHook } from "../../core/bosses/default-boss-hooks";
+import { DEFAULT_BOSS_BATTLE_RULES } from "../../core/bosses/rules";
+import type { BossScriptDefinition } from "../../core/bosses/types";
 import { WEALD_POUNDER_I_CONTENT as content } from "./pounder-i-data";
 
 export const POUNDER_I_SCRIPT_ID = "boss:weald:brigandPounder:1" as const;

@@ -33,12 +33,12 @@ import { roomCardsForQuest } from "./dungeon-objective";
 import {
   resolveFaceTheThreatEmbarkForChoose,
   resolveFaceTheThreatOfferAtNextQuest,
-} from "./boss/face-the-threat-embark-runtime";
-import { FACE_THE_THREAT_QUEST_ID, isFaceTheThreatQuestId } from "./boss/quest-bridge";
+} from "./core/bosses/face-the-threat-embark-runtime";
+import { FACE_THE_THREAT_QUEST_ID, isFaceTheThreatQuestId } from "./core/bosses/quest-bridge";
 import { darkestActEntryPending } from "./darkest-entry";
 import { isDarkestQuest, setupDarkestDungeon } from "./darkest-setup";
 
-import { placeFaceTheThreatRooms } from "./boss/edge-room-placement";
+import { placeFaceTheThreatRooms } from "./core/bosses/edge-room-placement";
 import { nextExpeditionLocationDecks } from "./hamlet-location-embark";
 
 type Hero = DungeonState["heroes"][number];

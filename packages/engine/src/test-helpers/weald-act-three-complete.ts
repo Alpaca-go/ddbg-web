@@ -3,7 +3,7 @@ import type { GameState } from "../command";
 import type { DungeonState } from "../dungeon";
 import { WEALD_BOSS_IDENTITIES, type WealdBossIdentity } from "../weald/catalog";
 import { wealdBossActEntry } from "../weald/bosses/weald-boss-act-entry";
-import { getBossScript } from "../boss/registry";
+import { getBossScript } from "../core/bosses/registry";
 import { wealdActInitial, wealdActReadyFixture } from "./weald-act";
 
 /** Act III 纯 Weald 生产路径：三名 Weald Boss 已击败，不冒称自然日志。 */

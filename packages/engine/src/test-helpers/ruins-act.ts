@@ -1,9 +1,12 @@
 import { createCoreDungeonQuest } from "../dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "../test-helpers/core-quest";
-import { RUINS_COMBAT_LEVELS } from "../boss/ruins-combat-levels";
-import { ensureCoreBossScriptsRegistered } from "../boss/ensure-core-boss-scripts";
-import { getBossScript } from "../boss/registry";
-import { RUINS_BOSS_IDENTITIES, type RuinsBossIdentity } from "../boss/threat-description-catalog";
+import { RUINS_COMBAT_LEVELS } from "../core/bosses/ruins-combat-levels";
+import { ensureCoreBossScriptsRegistered } from "../core/bosses/ensure-core-boss-scripts";
+import { getBossScript } from "../core/bosses/registry";
+import {
+  RUINS_BOSS_IDENTITIES,
+  type RuinsBossIdentity,
+} from "../core/bosses/threat-description-catalog";
 import type { GameState } from "../command";
 import type { DungeonState } from "../dungeon";
 

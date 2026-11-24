@@ -4,7 +4,7 @@ import type { BattleEntity, BattleState } from "../battle";
 import type { ApplyResult, GameState, MonsterSkillResolvedEvent } from "../command";
 import { recordMonsterSkill } from "../encounter";
 import type { MonsterCardView } from "../monster-skill";
-import { insertMonsterInitiative } from "../boss/monster-initiative";
+import { insertMonsterInitiative } from "../core/bosses/monster-initiative";
 import { buildWealdMonsterCatalog } from "./monster-catalog";
 import { wealdMechanicsActive, wealdPackSelected } from "./weald-mechanics";
 

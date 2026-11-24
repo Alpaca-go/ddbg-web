@@ -1,4 +1,4 @@
-import { prepareBossObjectiveRoom } from "./boss/objective-room-entry";
+import { prepareBossObjectiveRoom } from "./core/bosses/objective-room-entry";
 import { basicQuests, readBasicQuest } from "../../data/src/basic-quests";
 import type { ApplyResult, GameState } from "./command";
 import type { BattleArea } from "./battle";

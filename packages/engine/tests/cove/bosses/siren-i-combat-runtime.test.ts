@@ -20,7 +20,7 @@ import {
   sirenIPelagicHighTideStance,
   sirenIHighTideShouldSummonPelagic,
   FACE_THE_THREAT_QUEST_ID,
-} from "../../../src/boss/index";
+} from "../../../src/core/bosses/index";
 
 function cards<T>(file: string): T[] {
   return (

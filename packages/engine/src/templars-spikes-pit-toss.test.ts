@@ -3,14 +3,14 @@ import geometry from "../../data/normalized/corebox/room_tile_geometry.json";
 import { templarsRoomSchema } from "../../data/src/normalize/templars-room";
 import { roomTileBattleAreas } from "./battle-monster-movement";
 import { applyCommand, type Command, type GameState } from "./command";
-import { templarsPitTossTargetArea } from "./boss/templars-pit-toss";
+import { templarsPitTossTargetArea } from "./core/bosses/templars-pit-toss";
 import { createCoreDungeonQuest } from "./dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "./test-helpers/core-quest";
-import { ensureDarkestMidBossScriptsRegistered } from "./boss/darkest-mid-boss-scripts";
+import { ensureDarkestMidBossScriptsRegistered } from "./core/bosses/darkest-mid-boss-scripts";
 import {
   TEMPLAR_BODY_SLAM_SKILL_SLOT,
   TEMPLAR_IMPALER_MONSTER_CARD_ID,
-} from "./boss/darkest-templars-skills-acc";
+} from "./core/bosses/darkest-templars-skills-acc";
 import { nextBattleRoll } from "./encounter";
 
 function ok(game: GameState, command: Command) {

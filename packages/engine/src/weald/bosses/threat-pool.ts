@@ -3,7 +3,7 @@ import type { DungeonState } from "../../dungeon";
 import {
   imminentThreatPoolForCampaign,
   RUINS_BOSS_IDENTITIES,
-} from "../../boss/threat-description-catalog";
+} from "../../core/bosses/threat-description-catalog";
 import { WEALD_BOSS_IDENTITIES, WEALD_BOSS_DESCRIPTION_CARD_ID } from "../catalog";
 
 /** W3：完整启用地点描述池；未实现战斗的 Boss 不能从概率池剔除。 */

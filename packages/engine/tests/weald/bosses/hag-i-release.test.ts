@@ -7,7 +7,7 @@ import { applyCommand, type Command, type GameState, type ApplyResult } from "..
 import { hagIInitialDeployment } from "../../../src/weald/bosses/hag-i-projection";
 import { captureHagIHero } from "../../../src/weald/bosses/hag-i-captive";
 import { ensureHagIBossScriptRegistered, HAG_I_SCRIPT_ID } from "../../../src/weald/bosses/hag-i";
-import { FACE_THE_THREAT_QUEST_ID } from "../../../src/boss/quest-bridge";
+import { FACE_THE_THREAT_QUEST_ID } from "../../../src/core/bosses/quest-bridge";
 
 beforeEach(() => ensureHagIBossScriptRegistered());
 const read = <T>(name: string): T[] =>

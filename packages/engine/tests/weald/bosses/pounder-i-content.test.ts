@@ -5,7 +5,7 @@ import printed from "../../../../data/normalized/extension/weald/pounder_i.json"
 import { wealdPounderContentSchema } from "../../../../data/src/weald-pounder";
 import { wealdRoomTileSchema } from "../../../../data/src/weald-room";
 import { findWealdRoomTile } from "../../../src/weald/room-catalog";
-import { resolveScriptIdForDescriptionCard } from "../../../src/boss/threat-description-catalog";
+import { resolveScriptIdForDescriptionCard } from "../../../src/core/bosses/threat-description-catalog";
 import {
   WEALD_POUNDER_I_CONTENT as content,
   pounderIApprovedBattleAreas,

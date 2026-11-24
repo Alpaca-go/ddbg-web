@@ -1,8 +1,8 @@
 import { afterEach, expect, it } from "vitest";
-import { clearBossScriptsForTest, getBossScript } from "../../../src/boss/registry";
-import { runBossHook } from "../../../src/boss/hooks";
+import { clearBossScriptsForTest, getBossScript } from "../../../src/core/bosses/registry";
+import { runBossHook } from "../../../src/core/bosses/hooks";
 import { ensureCampaignBossScriptsRegistered } from "../../../src/registry";
-import { resolveScriptIdForDescriptionCard } from "../../../src/boss/threat-description-catalog";
+import { resolveScriptIdForDescriptionCard } from "../../../src/core/bosses/threat-description-catalog";
 import { caretakerBuilding } from "../../../src/hamlet-event";
 import { statusProjection, type StatusStack } from "../../../src/status";
 import {

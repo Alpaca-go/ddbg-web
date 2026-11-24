@@ -28,7 +28,7 @@ import { pickNaturalReplacementOptionId } from "./natural-replacement";
 import { PROVISION_EFFECTS } from "../provision-use";
 import { heroSkillSlotCount, ownedHeroSkills } from "../hero-loadout";
 import { blacksmithOptions } from "../hamlet-blacksmith";
-import { higherRuinsThreat } from "../boss/higher-ruins-threat";
+import { higherRuinsThreat } from "../core/bosses/higher-ruins-threat";
 
 const packs = ["core", "weald"] as const;
 const defaultDrawMode = "hamlet-quest-draw:ruins-two" as const;

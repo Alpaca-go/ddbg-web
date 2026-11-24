@@ -4,13 +4,13 @@ import { normalizedHeroStatFileSchema } from "../../../../data/src/normalize/her
 import { createBattleState, type BattleEntity } from "../../../src/battle";
 import { applyCommand } from "../../../src/command";
 import type { GameState } from "../../../src/command";
-import { FACE_THE_THREAT_QUEST_ID } from "../../../src/boss/quest-bridge";
-import { getBossScript } from "../../../src/boss/registry";
-import { stressOnHeroProvisionUseFromBossThreat } from "../../../src/boss/threat-passive";
+import { FACE_THE_THREAT_QUEST_ID } from "../../../src/core/bosses/quest-bridge";
+import { getBossScript } from "../../../src/core/bosses/registry";
+import { stressOnHeroProvisionUseFromBossThreat } from "../../../src/core/bosses/threat-passive";
 import {
   applyBossThreatStressOnProvisionUse,
   effectiveHamletSanitariumHealAmount,
-} from "../../../src/boss/threat-passive-runtime";
+} from "../../../src/core/bosses/threat-passive-runtime";
 import { captureHagIHero } from "../../../src/weald/bosses/hag-i-captive";
 import { applyHagIBoil } from "../../../src/weald/bosses/hag-i-boil";
 import {

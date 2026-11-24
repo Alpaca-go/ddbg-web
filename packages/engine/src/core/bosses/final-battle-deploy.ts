@@ -1,0 +1,365 @@
+import type { ApplyResult, GameState } from "../../command";
+import {
+  createBattleState,
+  rejectBattleCommand,
+  type BattleEntity,
+  type BattleState,
+} from "../../battle";
+import { roomTileBattleAreas } from "../../battle-monster-movement";
+import { createLootState } from "../../loot";
+import { createRng } from "../../rng";
+import type { SkillStance } from "../../hero-skill";
+import type { MonsterCardView } from "../../monster-skill";
+import { skillBelongsToFormalHero } from "../../formal-roster-catalog";
+import { questHeroSkillCount } from "../../hero-loadout";
+import { ownedHeroSkills } from "../../hero-loadout";
+import { applyTemporarySkillUpgrades, restoreTemporarySkillUpgrades } from "../../hamlet-embark";
+import { statusProjection } from "../../status";
+import { readFinalFormSequence } from "./final-form-sequence";
+import {
+  isAncestor1ReflectionMonsterCardId,
+  withAncestor1ReflectionsGuardState,
+} from "./ancestor1-reflections-guard";
+import { readFinalBattlePlanAfterDarkestVictory } from "./darkest-content";
+import { appendAbsoluteNothingnessSupportEntities } from "./ancestor2-absolute-nothingness";
+import roomCatalog from "../../../../data/normalized/corebox/room_tile_geometry.json";
+import {
+  ancestorRoomSchema,
+  approvedAncestorRoom,
+} from "../../../../data/src/normalize/ancestor-room";
+import { roomTileGeometryFileSchema } from "../../../../data/src/normalize/room-tile";
+
+const ANCESTOR_ROOM_TILE_ID = "room_tile:darkest:12" as const;
+
+/** R-165 / R-186：`deployFinalBattleForm` 与最终战 Summon / Nothingness 等共用的印刷怪物姿态区。 */
+export const FINAL_BATTLE_MONSTER_STANCE_AREAS = approvedAncestorRoom.deployment.monsters;
+
+const FINAL_BATTLE_HERO_STANCE_AREAS = approvedAncestorRoom.deployment.heroes;
+
+function readAncestorRoomProductionTile(): typeof approvedAncestorRoom | undefined {
+  const catalog = roomTileGeometryFileSchema.parse(roomCatalog);
+  const tile = catalog.tiles.find((entry) => entry.id === ANCESTOR_ROOM_TILE_ID);
+  const parsed = ancestorRoomSchema.safeParse(tile);
+  if (!parsed.success || parsed.data.usable !== false) return undefined;
+  return parsed.data;
+}
+
+function readMonsterDodge(card: MonsterCardView & { readonly dodge?: number }): number | undefined {
+  if (Number.isSafeInteger(card.dodge) && card.dodge! >= 0) return card.dodge!;
+  const printed = card.header_unlabeled_numbers?.find(
+    (entry) => entry.anchor.type === "beside_icon" && entry.anchor.inside_icon?.key === "dodge",
+  )?.numeric;
+  return Number.isSafeInteger(printed) && printed! >= 0 ? printed! : undefined;
+}
+
+function stanceSlots(card: MonsterCardView): 1 | 2 {
+  return card.id.startsWith("monster_large:") ? 2 : 1;
+}
+
+function spawnFormMonsters(
+  form: NonNullable<ReturnType<typeof readFinalFormSequence>>["current"],
+  monsters: readonly MonsterCardView[],
+  reflectionStances: readonly SkillStance[],
+  refuse: (message: string) => ApplyResult,
+): BattleEntity[] | ApplyResult {
+  if (!form) return refuse("当前最终战形态缺失（R36）");
+  const spawned: BattleEntity[] = [];
+  const spawnOne = (
+    cardId: string,
+    stance: SkillStance,
+    id: string,
+  ): ApplyResult | BattleEntity => {
+    const card = monsters.find((entry) => entry.id === cardId) as
+      (MonsterCardView & { readonly dodge?: number }) | undefined;
+    if (!card || !("skills" in card) || card.life === undefined)
+      return refuse(`${cardId} 缺少 Life 或战斗目录条目，不能伪造 Boss 部署（R-048）`);
+    const dodge = readMonsterDodge(card);
+    if (dodge === undefined) return refuse(`${cardId} 缺少已核实 Dodge，保留 hold（R-048）`);
+    const reflectionsGuard = form.id === "ancestor1" && isAncestor1ReflectionMonsterCardId(card.id);
+    return {
+      id,
+      side: "monster",
+      hero: null,
+      monsterCardId: card.id,
+      life: card.life,
+      dodge,
+      areaId: FINAL_BATTLE_MONSTER_STANCE_AREAS[stance!],
+      stance,
+      stanceSlots: stanceSlots(card),
+      wounds: 0,
+      skillIds: [],
+      guard: reflectionsGuard,
+      dead: false,
+      bleed: [],
+      blight: [],
+      ...(reflectionsGuard ? { statusStacks: [] as const } : {}),
+      ...(card.innateProtection === undefined
+        ? {}
+        : { innateProtection: card.innateProtection, protection: card.innateProtection }),
+    };
+  };
+  const actor = spawnOne(form.actor.cardId, form.actor.stance, `final-${form.id}-actor`);
+  if ("events" in actor) return actor;
+  spawned.push(actor);
+  for (const [index, cardId] of form.supportCardIds.entries()) {
+    const stance = reflectionStances[index];
+    if (!stance) return refuse("最终战支援配置缺少已核实的姿态（R-217）");
+    const support = spawnOne(cardId, stance, `final-${form.id}-support-${index}`);
+    if ("events" in support) return support;
+    spawned.push(support);
+  }
+  return spawned;
+}
+
+function buildHeroEntities(
+  state: GameState,
+  refuse: (message: string) => ApplyResult,
+): BattleEntity[] | ApplyResult {
+  const d = state.dungeon!;
+  const { heroStats: stats, skills, monsters: _monsters } = d.battleCatalog!;
+  void _monsters;
+  const heroes: BattleEntity[] = [];
+  for (const hero of d.heroes) {
+    const plans = hero.nextQuestSkillUpgrades;
+    if (
+      plans !== undefined &&
+      (!Array.isArray(plans) ||
+        plans.some(
+          (p) =>
+            !p || typeof p.originalSkillId !== "string" || typeof p.temporarySkillId !== "string",
+        ))
+    )
+      return refuse(`${hero.id} 的临时技能计划无效（R34）`);
+    if (plans?.length) {
+      const original = {
+        ...hero,
+        skillIds: restoreTemporarySkillUpgrades([hero])[0]!.skillIds ?? [],
+      };
+      const reapplied = applyTemporarySkillUpgrades([original], d.battleCatalog!);
+      if (
+        !ownedHeroSkills(original, d.battleCatalog!) ||
+        !("heroes" in reapplied) ||
+        JSON.stringify(reapplied.heroes[0]!.skillIds) !== JSON.stringify(hero.skillIds)
+      )
+        return refuse(`${hero.id} 的临时技能与拥有原卡不符（R34、R-048）`);
+    }
+    const stat = stats.find((entry) => entry.id === hero.heroStatId);
+    const selected = hero.skillIds?.map((id) => skills.find((skill) => skill.id === id));
+    const slots = questHeroSkillCount(hero);
+    if (
+      !stat ||
+      !stat.attributesVerified ||
+      ![1, 2, 3].includes(stat.level) ||
+      hero.level !== stat.level ||
+      (hero.heroLevel !== undefined && hero.heroLevel !== stat.level) ||
+      hero.life !== stat.life ||
+      !hero.stance ||
+      hero.dead ||
+      hero.wounds === undefined ||
+      !selected ||
+      selected.length !== slots ||
+      new Set(hero.skillIds).size !== slots ||
+      selected.some(
+        (skill) =>
+          !skill ||
+          !skillBelongsToFormalHero(stat.name ?? "", skill) ||
+          ![1, 2, 3].includes(skill.level) ||
+          skill.verification.unverified,
+      ) ||
+      (!plans?.length && !ownedHeroSkills(hero, d.battleCatalog!))
+    )
+      return refuse(`${hero.id} 缺少获批属性或有效装备技能，不能进入最终战（R-048、R-051）`);
+    heroes.push({
+      ...hero.combat,
+      diseaseId: hero.diseaseId ?? null,
+      quirkIds: hero.quirkIds ?? [],
+      ...(hero.deathReason ? { deathReason: hero.deathReason } : {}),
+      id: hero.id,
+      side: "hero",
+      hero: stat.name,
+      heroStatId: stat.id,
+      heroLevel: stat.level,
+      life: stat.life,
+      skillIds: hero.skillIds!,
+      stance: hero.stance,
+      areaId: FINAL_BATTLE_HERO_STANCE_AREAS[hero.stance],
+      wounds: hero.wounds,
+      stress: hero.stress,
+      dodge: stat.dodge,
+      dead: false,
+      guard: hero.combat?.guard ?? false,
+      bleed: hero.combat?.bleed ?? [],
+      blight: hero.combat?.blight ?? [],
+      ...(hero.statusStacks
+        ? {
+            statusStacks: hero.statusStacks,
+            ...statusProjection(hero.statusStacks, hero.combat?.innateProtection),
+          }
+        : {}),
+      ...(hero.resolveTested === undefined ? {} : { resolveTested: hero.resolveTested }),
+      ...(hero.resolveCardId === undefined ? {} : { resolveCardId: hero.resolveCardId }),
+    });
+  }
+  return heroes;
+}
+
+/** R36 / R-186：awaitingDeployment → fighting；Ancestor Room R-165 十一区与印刷姿态部署（tile usable 仍 false）。 */
+export function deployFinalBattleForm(state: GameState): ApplyResult {
+  const d = state.dungeon;
+  const sequence = readFinalFormSequence(state);
+  const refuse = (message: string) => rejectBattleCommand(state, message);
+  if (
+    !d ||
+    d.pending ||
+    d.deathTrinketChoice ||
+    d.finalBattleProvisions !== "ready" ||
+    !sequence?.current ||
+    sequence.progress.status !== "awaitingDeployment" ||
+    !readFinalBattlePlanAfterDarkestVictory(d) ||
+    !d.battleCatalog ||
+    d.heroes.length !== 4 ||
+    (sequence.progress.completedForms.length === 0 && d.heroes.some((hero) => hero.dead))
+  )
+    return refuse("须在完成最终战补给与形态流程后，于 awaitingDeployment 部署当前形态（R36）");
+  if (state.battle && sequence.progress.completedForms.length === 0)
+    return refuse("首形态开战前不能保留其它战斗沙盒（R36）");
+  const tile = readAncestorRoomProductionTile();
+  if (!tile)
+    return refuse(
+      "Ancestor Room（room:darkest:12 / room_tile:darkest:12）R-165 获批几何无效（R-186）",
+    );
+  const areas = [...roomTileBattleAreas(tile)];
+  const deployment = tile.deployment;
+  const geometryNote =
+    "Ancestor Room 已按 R-186 部署：十一区 R-165，英雄 K/I/K/C、怪物 E/B/A/J；tile usable 仍 false、无 ancestorGlory 运行时";
+  let monsters: readonly MonsterCardView[] = d.battleCatalog.monsters;
+  const rngCursor = state.battle?.rngCursor ?? d.cursor;
+  const reflectionStances: SkillStance[] = ["defensive", "ranged", "support"];
+  const randomizeReflections = sequence.current.id === "ancestor1";
+  if (randomizeReflections) {
+    const rng = createRng(state.seed);
+    for (let i = 0; i < rngCursor; i++) rng.next();
+    // 两只 Perfect 相同，一次等概率选 Imperfect 的姿态就能随机出三种配置。
+    const imperfect = Math.floor(rng.next() * reflectionStances.length);
+    [reflectionStances[1], reflectionStances[imperfect]] = [
+      reflectionStances[imperfect]!,
+      reflectionStances[1]!,
+    ];
+  }
+  const nextCursor = rngCursor + Number(randomizeReflections);
+  const spawnedResult = spawnFormMonsters(sequence.current, monsters, reflectionStances, refuse);
+  if (!Array.isArray(spawnedResult)) return spawnedResult;
+  let spawnedMonsters: BattleEntity[] = [...spawnedResult];
+  let nothingnessDeployMessage = "";
+  if (sequence.current.id === "ancestor2") {
+    const draftBattle: BattleState = {
+      entities: spawnedMonsters,
+      areas,
+      skills: d.battleCatalog.skills,
+      monsters,
+      light: d.explorationSetup?.light ?? 4,
+      heroStats: d.battleCatalog.heroStats,
+      rngCursor: 0,
+      choiceCursor: state.battle?.choiceCursor ?? d.decision,
+      monsterAction: null,
+      pending: null,
+      shuffleIntents: [],
+      shuffleContinuation: null,
+      monsterStanceAreas: deployment.monsters,
+    };
+    const appended = appendAbsoluteNothingnessSupportEntities(draftBattle);
+    monsters = appended.monsters;
+    spawnedMonsters = appended.entities.filter((entity) => entity.side === "monster");
+    if (appended.placed.length)
+      nothingnessDeployMessage = `；Absolute Nothingness ${appended.placed.length}/3（${appended.placed.join("、")}；boss_ability:p035）`;
+  }
+
+  if (!state.battle) {
+    const heroes = buildHeroEntities(state, refuse);
+    if (!Array.isArray(heroes)) return heroes;
+    try {
+      const battle = createBattleState(state.seed, {
+        roomName: "Ancestor Room",
+        ...(d.trinkets ? { trinkets: d.trinkets } : {}),
+        ...(d.conditions ? { conditions: d.conditions } : {}),
+        heroStats: d.battleCatalog.heroStats,
+        entities: [...heroes, ...spawnedMonsters],
+        skills: d.battleCatalog.skills,
+        monsters,
+        areas,
+        monsterStanceAreas: deployment.monsters,
+        light: d.explorationSetup?.light ?? 4,
+        provisions: d.explorationSetup?.provisions ?? [],
+        resolveCards: d.resolveCards,
+        lootPool: { ...(d.lootPool ?? createLootState()), gold: d.gold },
+        provisionWindows: true,
+      }).battle!;
+      return {
+        state: withAncestor1ReflectionsGuardState({
+          ...state,
+          dungeon: {
+            ...d,
+            phase: "inBattle",
+            finalFormSequence: { ...sequence.progress, status: "fighting" },
+          },
+          battle: {
+            ...battle,
+            rngCursor: nextCursor,
+            choiceCursor: d.decision,
+            resolveDecks: d.resolveDecks,
+          },
+        }),
+        events: [
+          {
+            type: "dungeonUpdated",
+            message: `${geometryNote}；已登记 ${sequence.current.id} Boss 实体${nothingnessDeployMessage}，等待 startBattle，不宣称形态技能已可玩（R36、R-048）`,
+          },
+        ],
+      };
+    } catch (error) {
+      return refuse(
+        `最终战开战交接无效：${error instanceof Error ? error.message : String(error)}`,
+      );
+    }
+  }
+
+  const heroes = state.battle.entities.filter((entity) => entity.side === "hero");
+  // R-044：最终战各形态之间不补人；阵亡英雄保留为阵亡实体继续续战，只要求四名英雄实体仍在场。
+  if (heroes.length !== 4)
+    return refuse("形态间续战须保留原四名英雄实体（阵亡者不补人；R-035、R-044）");
+  const {
+    encounter: _encounter,
+    pending: _pending,
+    shuffleIntents: _shuffles,
+    ...battleBase
+  } = state.battle;
+  void _encounter;
+  void _pending;
+  void _shuffles;
+  return {
+    state: withAncestor1ReflectionsGuardState({
+      ...state,
+      dungeon: {
+        ...d,
+        phase: "inBattle",
+        finalFormSequence: { ...sequence.progress, status: "fighting" },
+      },
+      battle: {
+        ...battleBase,
+        rngCursor: nextCursor,
+        monsters,
+        areas,
+        monsterStanceAreas: deployment.monsters,
+        entities: [...heroes, ...spawnedMonsters],
+        pending: null,
+        shuffleIntents: [],
+      },
+    }),
+    events: [
+      {
+        type: "dungeonUpdated",
+        message: `${geometryNote}；同一 BattleState 续接 ${sequence.current.id}${nothingnessDeployMessage}，清除上一形态怪物并等待 startBattle（R-035、R-048）`,
+      },
+    ],
+  };
+}

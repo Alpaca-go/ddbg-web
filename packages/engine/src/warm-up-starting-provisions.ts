@@ -2,7 +2,7 @@ import type { ApplyResult, GameEvent, GameState } from "./command";
 import { rejectBattleCommand } from "./battle";
 import type { DungeonState } from "./dungeon";
 import { beginScoutAheadReveal } from "./hamlet-scout-ahead";
-import { applyBossThreatStressOnDungeonEntry } from "./boss/threat-passive-runtime";
+import { applyBossThreatStressOnDungeonEntry } from "./core/bosses/threat-passive-runtime";
 import { heroStartingProvisionIds } from "./starting-provision-hero-ids";
 
 const STANCES = ["aggressive", "defensive", "ranged", "support"] as const;

@@ -1,6 +1,6 @@
 import { rejectBattleCommand } from "../../battle";
 import type { ApplyResult, GameState, PendingChoice } from "../../command";
-import { resolveEncounterBossScriptId } from "../../boss/encounter-rules";
+import { resolveEncounterBossScriptId } from "../../core/bosses/encounter-rules";
 import {
   HAG_I_SCRIPT_ID,
   HAG_I_COMBAT_MONSTER_CARD_ID,

@@ -1,7 +1,7 @@
 import { expect, it } from "vitest";
 import { applyCommand } from "../../src/command";
-import { drawImminentThreatAfterActAdvance } from "../../src/boss/establish-imminent-threat";
-import { clearBossScriptsForTest } from "../../src/boss/registry";
+import { drawImminentThreatAfterActAdvance } from "../../src/core/bosses/establish-imminent-threat";
+import { clearBossScriptsForTest } from "../../src/core/bosses/registry";
 import {
   readRuinsActTransitionReadiness,
   requiresRuinsActAdvance,

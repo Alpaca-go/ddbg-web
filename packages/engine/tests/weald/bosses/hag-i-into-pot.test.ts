@@ -7,7 +7,7 @@ import {
   buildHagICombatCatalog,
 } from "../../../src/weald/bosses/hag-i-projection";
 import { ensureHagIBossScriptRegistered, HAG_I_SCRIPT_ID } from "../../../src/weald/bosses/hag-i";
-import { FACE_THE_THREAT_QUEST_ID } from "../../../src/boss/quest-bridge";
+import { FACE_THE_THREAT_QUEST_ID } from "../../../src/core/bosses/quest-bridge";
 import { readMonsterAttackView, resolveMonsterSkill } from "../../../src/monster-skill";
 import { endAfterCasualties } from "../../../src/encounter";
 

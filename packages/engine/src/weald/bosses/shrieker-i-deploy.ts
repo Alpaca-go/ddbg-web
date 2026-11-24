@@ -1,11 +1,11 @@
 import { shriekerDeploymentContext } from "./shrieker-deployment-context";
 import { ensureCampaignBossScriptsRegistered } from "../../registry";
-import { resolveBossScriptIdForQuest } from "../../boss/quest-bridge";
+import { resolveBossScriptIdForQuest } from "../../core/bosses/quest-bridge";
 export { SHRIEKER_I_SCRIPT_ID, SHRIEKER_I_DEPLOYMENT_ENTRY } from "./shrieker-i-content";
 import { buildShriekerICombatCatalog } from "./shrieker-i-projection";
 import type { ApplyResult, GameState } from "../../command";
 import { createBattleState, rejectBattleCommand } from "../../battle";
-import { buildBossHeroEntities } from "../../boss/deploy-heroes";
+import { buildBossHeroEntities } from "../../core/bosses/deploy-heroes";
 
 import { createLootState } from "../../loot";
 import {

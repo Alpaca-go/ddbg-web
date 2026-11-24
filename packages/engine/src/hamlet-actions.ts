@@ -16,12 +16,12 @@ import {
   effectiveHamletStressRecoveryAmount,
   applyBossThreatCreepingSicknessEndOfHamletDay,
   transferCreepingSicknessBuildingWoundsToHero,
-} from "./boss/threat-passive-runtime";
+} from "./core/bosses/threat-passive-runtime";
 import { grantGraveyardVirtue } from "./hamlet-graveyard";
 import {
   hauntedHamletCommandProblem,
   isHauntedGraveyardGuard,
-} from "./boss/necromancer-ii-graveyard";
+} from "./core/bosses/necromancer-ii-graveyard";
 import {
   buildingLevelsProblem,
   recoveryServices,

@@ -4,7 +4,7 @@ import { resolveMonsterSkillEffects } from "../../monster-skill";
 import { applySkillHealth } from "../../battle-health";
 import { resolveBattlePressure } from "../../pressure";
 import { nextBattleRoll, recordMonsterSkill } from "../../encounter";
-import { resolveEncounterBossScriptId } from "../../boss/encounter-rules";
+import { resolveEncounterBossScriptId } from "../../core/bosses/encounter-rules";
 import { buildHagICombatCatalog } from "./hag-i-projection";
 import { HAG_I_SCRIPT_ID, HAG_I_CAULDRON_EMPTY_MONSTER_CARD_ID } from "./hag-i";
 

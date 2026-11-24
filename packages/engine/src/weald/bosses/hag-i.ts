@@ -1,16 +1,16 @@
-import { getBossScript, registerBossScript } from "../../boss/registry";
-import { DEFAULT_BOSS_BATTLE_RULES } from "../../boss/rules";
+import { getBossScript, registerBossScript } from "../../core/bosses/registry";
+import { DEFAULT_BOSS_BATTLE_RULES } from "../../core/bosses/rules";
 import {
   defaultBossSlotPlacementHook,
   defaultFaceTheThreatEmbarkHook,
-} from "../../boss/default-boss-hooks";
+} from "../../core/bosses/default-boss-hooks";
 import type {
   BossIntoThePotOk,
   BossScriptDefinition,
   BossSummonOk,
   BossThreatPassiveDungeonOk,
   BossThreatPassiveHamletOk,
-} from "../../boss/types";
+} from "../../core/bosses/types";
 
 /** 引擎脚本 id；与印刷卡 id 分离。 */
 export const HAG_I_SCRIPT_ID = "boss:weald:hag:1" as const;

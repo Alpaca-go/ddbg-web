@@ -9,7 +9,7 @@ import { triggerBattlePassive } from "./battle-passive";
 import { isSmallMonster } from "./battle-small";
 import { clearAncestorConditions } from "./battle-ancestor";
 import { applyHeroTeleporterMoveStress } from "./battle-teleporters";
-import { templarsProductionCombatActive } from "./boss/templars-i-deploy";
+import { templarsProductionCombatActive } from "./core/bosses/templars-i-deploy";
 
 export type MoveHeroCommand = {
   readonly type: "moveHero";

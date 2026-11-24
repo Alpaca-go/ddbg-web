@@ -5,7 +5,7 @@ import {
 import { dungeonCurioCatalogValid } from "../../dungeon-curio-catalog";
 import type { ApplyResult, GameState } from "../../command";
 import { rejectBattleCommand } from "../../battle";
-import { clearedBossThreatScriptIdAfterVictory } from "../../boss/threat-campaign";
+import { clearedBossThreatScriptIdAfterVictory } from "../../core/bosses/threat-campaign";
 import { pounderDeploymentContext } from "./pounder-deployment-context";
 import { WEALD_POUNDER_I_CONTENT as content } from "./pounder-i-content";
 import { isCampaignExpeditionMode } from "../../campaign-expedition-mode";

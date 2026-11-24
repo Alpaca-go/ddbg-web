@@ -1,10 +1,10 @@
 import { expect, it } from "vitest";
 import { applyCommand } from "./command";
 import { ruinsActReadyFixture } from "./test-helpers/ruins-act";
-import { RUINS_BOSS_IDENTITIES } from "./boss/threat-description-catalog";
+import { RUINS_BOSS_IDENTITIES } from "./core/bosses/threat-description-catalog";
 import { savedCommandSchema } from "../../data/src/quest-save";
 import { switchRuinsActPools } from "./act-transition-pools";
-import { drawImminentThreatAfterActAdvance } from "./boss/establish-imminent-threat";
+import { drawImminentThreatAfterActAdvance } from "./core/bosses/establish-imminent-threat";
 import type { DungeonState } from "./dungeon";
 import { createQuestSave } from "./quest-save";
 import { coreParty, coreQuestSources } from "./test-helpers/core-quest";

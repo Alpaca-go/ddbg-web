@@ -1,6 +1,6 @@
 import type { ApplyResult, GameState } from "./command";
 import { readDungeonQuestProgress } from "./dungeon-quest";
-import { isBossQuestId } from "./boss/quest-bridge";
+import { isBossQuestId } from "./core/bosses/quest-bridge";
 
 /** R14：探索阶段、掷骰前，全员同意离开；不能跳过已开始的结算。 */
 export function canLeaveDungeon(state: GameState): boolean {

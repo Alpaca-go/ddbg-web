@@ -23,10 +23,10 @@ import { createConditionPool } from "./conditions";
 import { trinketPoolProblem } from "./trinket-acquisition";
 import { isFormalHeroName } from "./formal-heroes";
 import { embarkSkillAllowed, isFormalHeroRosterPendingAttributes } from "./formal-roster-catalog";
-import { FACE_THE_THREAT_QUEST_ID } from "./boss/quest-bridge";
-import { requireFaceTheThreatEmbarkPlanForSandbox } from "./boss/face-the-threat-embark-runtime";
+import { FACE_THE_THREAT_QUEST_ID } from "./core/bosses/quest-bridge";
+import { requireFaceTheThreatEmbarkPlanForSandbox } from "./core/bosses/face-the-threat-embark-runtime";
 
-import { placeFaceTheThreatRooms } from "./boss/edge-room-placement";
+import { placeFaceTheThreatRooms } from "./core/bosses/edge-room-placement";
 
 import { setupDarkestDungeon, isDarkestQuest } from "./darkest-setup";
 import type { GameState } from "./command";

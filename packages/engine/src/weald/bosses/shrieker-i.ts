@@ -1,6 +1,6 @@
-import { getBossScript, registerBossScript } from "../../boss/registry";
-import { DEFAULT_BOSS_BATTLE_RULES } from "../../boss/rules";
-import type { BossScriptDefinition } from "../../boss/types";
+import { getBossScript, registerBossScript } from "../../core/bosses/registry";
+import { DEFAULT_BOSS_BATTLE_RULES } from "../../core/bosses/rules";
+import type { BossScriptDefinition } from "../../core/bosses/types";
 import {
   SHRIEKER_I_SCRIPT_ID,
   SHRIEKER_I_DEPLOYMENT_ENTRY,

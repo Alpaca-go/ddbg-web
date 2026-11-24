@@ -1,7 +1,10 @@
 import { applyCommand } from "../command";
 import type { Command, GameState } from "../command";
 import { currentHamletHero } from "../hamlet-actions";
-import { RUINS_BOSS_IDENTITIES, type RuinsBossIdentity } from "../boss/threat-description-catalog";
+import {
+  RUINS_BOSS_IDENTITIES,
+  type RuinsBossIdentity,
+} from "../core/bosses/threat-description-catalog";
 import { basicQuests, type BasicQuestId } from "../../../data/src/basic-quests";
 import { coreParty, coreQuestSources } from "./core-quest";
 import { guildQuest } from "./guild-quest";

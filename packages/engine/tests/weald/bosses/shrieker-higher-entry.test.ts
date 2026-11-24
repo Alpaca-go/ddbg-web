@@ -3,10 +3,10 @@ import { describe, expect, it } from "vitest";
 import { applyCommand, type Command, type GameState } from "../../../src/command";
 import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
-import { requireFaceTheThreatEmbarkPlanForSandbox } from "../../../src/boss/face-the-threat-embark-runtime";
+import { requireFaceTheThreatEmbarkPlanForSandbox } from "../../../src/core/bosses/face-the-threat-embark-runtime";
 import { nextExpeditionLocationDecks } from "../../../src/hamlet-location-embark";
-import { resolveBossScriptIdForQuest } from "../../../src/boss/quest-bridge";
-import { clearBossScriptsForTest } from "../../../src/boss/registry";
+import { resolveBossScriptIdForQuest } from "../../../src/core/bosses/quest-bridge";
+import { clearBossScriptsForTest } from "../../../src/core/bosses/registry";
 import { savedCommandSchema } from "../../../../data/src/quest-save";
 
 const run = (state: GameState, command: Command) => {

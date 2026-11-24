@@ -3,7 +3,7 @@ import { rejectBattleCommand } from "./battle";
 import { readRuinsActTransitionReadiness } from "./act-transition-readiness";
 import { switchRuinsActPools, switchWealdActPools } from "./act-transition-pools";
 import { wealdLocationActAdvanceEnabled } from "./act-transition-readiness";
-import { drawImminentThreatAfterActAdvance } from "./boss/establish-imminent-threat";
+import { drawImminentThreatAfterActAdvance } from "./core/bosses/establish-imminent-threat";
 import { conditionPoolProblem } from "./conditions";
 import { buildingLevelsProblem } from "./hamlet-buildings";
 import { createRng } from "./rng";

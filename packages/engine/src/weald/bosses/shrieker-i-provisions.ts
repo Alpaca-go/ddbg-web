@@ -6,7 +6,7 @@ import type { BattleState } from "../../battle";
 import { rejectBattleCommand } from "../../battle";
 import { isQuestProvisionId } from "../../quest-provisions";
 import { PROVISION_LABELS, type ProvisionFace } from "../../loot";
-import { activeBossThreatMatchesDungeonLocation } from "../../boss/threat-campaign";
+import { activeBossThreatMatchesDungeonLocation } from "../../core/bosses/threat-campaign";
 
 type Provision = { readonly id: string; readonly face: ProvisionFace };
 export type ShriekerTheft = {

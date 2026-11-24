@@ -17,9 +17,9 @@ import type { DungeonState } from "./dungeon";
 import { applySupplyRun } from "./hamlet-supply-run";
 import { beginFeast } from "./hamlet-feast";
 import { applyLostShipment } from "./hamlet-lost-shipment";
-import { mergeHamletCaretakerBlockedWithBossThreat } from "./boss/threat-campaign";
-import { applyBossThreatBlackSheepBeforeHamletEvent } from "./boss/threat-passive-runtime";
-import { beginHauntedGraveyard } from "./boss/necromancer-ii-graveyard";
+import { mergeHamletCaretakerBlockedWithBossThreat } from "./core/bosses/threat-campaign";
+import { applyBossThreatBlackSheepBeforeHamletEvent } from "./core/bosses/threat-passive-runtime";
+import { beginHauntedGraveyard } from "./core/bosses/necromancer-ii-graveyard";
 import { requiresRuinsActAdvance } from "./act-transition-readiness";
 
 const catalog = hamletEventFileSchema.parse(rawEvents).cards;

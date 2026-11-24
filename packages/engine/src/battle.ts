@@ -50,14 +50,14 @@ import type { PassiveHolder } from "./passive";
 import { cancelSkillAfterRoll } from "./battle-passive";
 import { withFleshOneBodyPoolState } from "./warrens/bosses/flesh-i-combat-runtime";
 import { chainSwinePrinceIEnragedDestructionAfterHeroSkill } from "./warrens/bosses/swine-prince-i-combat-runtime";
-import { chainGestatingHeartIchorAfterHeroSkill } from "./boss/gestating-heart-ichor";
-import { withAncestor1ReflectionsGuardEntities } from "./boss/ancestor1-reflections-guard";
+import { chainGestatingHeartIchorAfterHeroSkill } from "./core/bosses/gestating-heart-ichor";
+import { withAncestor1ReflectionsGuardEntities } from "./core/bosses/ancestor1-reflections-guard";
 import {
   ABSOLUTE_NOTHINGNESS_DODGE,
   ABSOLUTE_NOTHINGNESS_LIFE,
   absoluteNothingnessTargetRefusal,
   isAbsoluteNothingnessMonsterCardId,
-} from "./boss/ancestor2-absolute-nothingness";
+} from "./core/bosses/ancestor2-absolute-nothingness";
 import { NECROTIC_FUNGUS_MONSTER_CARD_ID } from "./weald/necrotic-fungus";
 import { beginSkillOwnEffects, afterHeroOwnCombat } from "./battle-own-effects";
 import type { SkillPrefix } from "./battle-own-effects";
@@ -342,9 +342,9 @@ export type BattleState = BattleSetup & {
         readonly type: "collectorSummon";
         readonly actorId: string;
         readonly choice: PendingChoice;
-        readonly part: import("./boss/types").CollectorCollectedPart;
+        readonly part: import("./core/bosses/types").CollectorCollectedPart;
         readonly displacements: Readonly<
-          Partial<Record<import("./boss/types").CollectorCollectedPart, string>>
+          Partial<Record<import("./core/bosses/types").CollectorCollectedPart, string>>
         >;
       }
     | {

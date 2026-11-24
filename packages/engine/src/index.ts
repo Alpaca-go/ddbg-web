@@ -162,7 +162,7 @@ export {
 export { createQuestSave, loadQuestSave } from "./quest-save";
 export { currentHamletEvent, caretakerBuilding } from "./hamlet-event";
 export { warmUpDarkRoomNeedsTorch } from "./dungeon-light";
-export { readFinalFormSequence } from "./boss/final-form-sequence";
+export { readFinalFormSequence } from "./core/bosses/final-form-sequence";
 export type { QuestStart } from "../../data/src/quest-save";
 export { currentHamletHero, hamletActionOptions } from "./hamlet-actions";
 export { visitNomadWagon } from "./hamlet-nomad";
@@ -298,7 +298,7 @@ export {
   applyBossThreatAfterBattleToPool,
   clearedBossThreatScriptIdAfterVictory,
   syncHamletBlockedBuildingsForBossThreat,
-} from "./boss/index";
+} from "./core/bosses/index";
 export type {
   BossBattleRules,
   BossCombatEntryRefs,
@@ -323,9 +323,9 @@ export type {
   RuinsBossIdentity,
   WealdBossIdentity,
   WarrensBossIdentity,
-} from "./boss/index";
+} from "./core/bosses/index";
 export { dungeonMonsterPoolThrough, combatCardIdForPoolInstance } from "./monster-pool-runtime";
-export { isHauntedGraveyardGuard } from "./boss/necromancer-ii-graveyard";
+export { isHauntedGraveyardGuard } from "./core/bosses/necromancer-ii-graveyard";
 export { HERO_SKILL_TRINKET_IDS } from "../../data/src/hero-skill-trinkets";
 
 export {
@@ -343,7 +343,7 @@ export { heroMovePathLimit } from "./battle-hero-movement";
 export {
   darkestBossVictoryAfterEncounter,
   readFinalBattlePlanAfterDarkestVictory,
-} from "./boss/darkest-content";
+} from "./core/bosses/darkest-content";
 export { sourcesForContentPacks, CONTENT_PACKS, CONTENT_PACK_IDS } from "./content-packs";
 export { createCampaignQuest } from "./campaign-entry";
 export { initialQuestDrawModes, drawInitialQuestOffers } from "./initial-quest-draw";

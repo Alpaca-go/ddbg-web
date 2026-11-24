@@ -2,7 +2,7 @@ import { expect, it } from "vitest";
 import { applyCommand, type GameState, type Command } from "../../../src/command";
 import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
-import { getBossScript } from "../../../src/boss/registry";
+import { getBossScript } from "../../../src/core/bosses/registry";
 import { nextExpeditionLocationDecks } from "../../../src/hamlet-location-embark";
 import { recoverHamletPools } from "../../../src/hamlet-return-pools";
 import {

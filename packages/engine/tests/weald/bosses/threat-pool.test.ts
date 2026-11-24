@@ -7,7 +7,7 @@ import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
 import { createQuestSave, loadQuestSave } from "../../../src/quest-save";
 import { savedCommandSchema } from "../../../../data/src/quest-save";
-import { clearBossScriptsForTest } from "../../../src/boss/registry";
+import { clearBossScriptsForTest } from "../../../src/core/bosses/registry";
 
 const packs = ["core", "weald"] as const;
 const command = { type: "establishImminentThreat", locationBosses: true } as const;

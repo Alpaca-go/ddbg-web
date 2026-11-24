@@ -4,7 +4,7 @@
 
 ## 已接通
 
-- R-168 / R-175：`room:p012` / `room_tile:p007:back` 图面绑定；I 级 Face the Threat 的实际威胁与出征计划须一致。专用 **`deployCollectorI`**（[`ruins-i-deploy.ts`](../packages/engine/src/boss/ruins-i-deploy.ts)）按获批八区落点部署，保留英雄和 RNG 状态；显式 `startBattle` 在 F 摆三个独立宝箱。Collect All 的防御、远程、辅助召唤物分别落 G、E、A，并洗入当前轮三张先攻。
+- R-168 / R-175：`room:p012` / `room_tile:p007:back` 图面绑定；I 级 Face the Threat 的实际威胁与出征计划须一致。专用 **`deployCollectorI`**（[`ruins-i-deploy.ts`](../packages/engine/src/core/bosses/ruins-i-deploy.ts)）按获批八区落点部署，保留英雄和 RNG 状态；显式 `startBattle` 在 F 摆三个独立宝箱。Collect All 的防御、远程、辅助召唤物分别落 G、E、A，并洗入当前轮三张先攻。
 - **R-177**：F 区三宝箱已接通 `interactLoot` 与 R-047 / R-059 翻开奖励；白色叹号仅图面外观（R-168）。详见 [phase5-collector-i-loot-interaction-2026-11-04.md](phase5-collector-i-loot-interaction-2026-11-04.md)。
 - `finishDungeonBattle` 使用遗迹 I 级共用交接。存活敌人阻止胜利回传。胜利归还未拾取宝箱、清除威胁、记录 Collector 击败，按 R-122 回村支付一次 3 XP。英雄全灭走 R-044。
 - **R-176**（#577）：印刷第 92 页的 Speed 2 和四姿态共用选招表写入正式目录。1–5 为 Show Collection，6–10 为 Life Steal。三个 Collected 原已在正式目录。
@@ -37,7 +37,7 @@ R-168 白色叹号**不推定额外规则语义**；F 区交互与有限堆奖�
 ## 接手入口
 
 - [R-168、R-175、R-176、R-177](rulings.md) 和[卡面核对](phase5-collector-i-page-entry-review-2026-11-04.md)。
-- [专用部署](../packages/engine/src/boss/ruins-i-deploy.ts)、[胜负交接](../packages/engine/src/boss/ruins-i-finish.ts)、[Collector 场景](../packages/engine/src/boss/collector-i-deploy.test.ts)、[Show Collection / Life Steal 验收](../packages/engine/src/boss/collector-i-skills-acc.test.ts)、[Collected 三技能闭环](../packages/engine/src/boss/collector-i-collected-skills-acc.test.ts)、[宝箱运行时](../packages/engine/src/boss/collector-i-room-runtime.test.ts)。
+- [专用部署](../packages/engine/src/core/bosses/ruins-i-deploy.ts)、[胜负交接](../packages/engine/src/core/bosses/ruins-i-finish.ts)、[Collector 场景](../packages/engine/tests/core/bosses/collector-i-deploy.test.ts)、[Show Collection / Life Steal 验收](../packages/engine/tests/core/bosses/collector-i-skills-acc.test.ts)、[Collected 三技能闭环](../packages/engine/tests/core/bosses/collector-i-collected-skills-acc.test.ts)、[宝箱运行时](../packages/engine/tests/core/bosses/collector-i-room-runtime.test.ts)。
 - [正式目录及兼容来源](../apps/web/src/dungeon-sandbox/task-sources.ts)、[目录和迁移测试](../apps/web/src/dungeon-sandbox/task-sources.test.ts)、[页面冒烟](../apps/web/e2e/collector-i.spec.ts)。
 
 ## 验证

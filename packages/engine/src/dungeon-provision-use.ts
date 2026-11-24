@@ -9,7 +9,7 @@ import { statusProjection, statusStackProblem } from "./status";
 import { triggerDungeonPassive } from "./dungeon-passive";
 import { settleDungeonLight, useDungeonTorch } from "./dungeon-light";
 import { dungeonProvisionWindow } from "./dungeon-provision-window";
-import { applyBossThreatStressOnProvisionUse } from "./boss/threat-passive-runtime";
+import { applyBossThreatStressOnProvisionUse } from "./core/bosses/threat-passive-runtime";
 import { isQuestProvisionId } from "./quest-provisions";
 
 /** R12 / 规格书§5.2：完成效果之间使用补给；各颗是独立事件，不套Q-69休息分组。 */

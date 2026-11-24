@@ -31,7 +31,7 @@ import {
   readHagIIntoThePotSkillSlot,
   runBossHook,
   FACE_THE_THREAT_QUEST_ID,
-} from "../../../src/boss/index";
+} from "../../../src/core/bosses/index";
 
 const stances: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 

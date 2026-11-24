@@ -1,6 +1,9 @@
-import { RUINS_COMBAT_LEVELS } from "../boss/ruins-combat-levels";
-import { RUINS_BOSS_IDENTITIES, type RuinsBossIdentity } from "../boss/threat-description-catalog";
-import { getBossScript } from "../boss/registry";
+import { RUINS_COMBAT_LEVELS } from "../core/bosses/ruins-combat-levels";
+import {
+  RUINS_BOSS_IDENTITIES,
+  type RuinsBossIdentity,
+} from "../core/bosses/threat-description-catalog";
+import { getBossScript } from "../core/bosses/registry";
 import { switchRuinsActPools } from "../act-transition-pools";
 import type { GameState } from "../command";
 import type { DungeonState } from "../dungeon";

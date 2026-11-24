@@ -9,7 +9,7 @@ import {
 import {
   darkestMidBossDeploymentHold,
   prepareDarkestMidBossDeployment,
-} from "./boss/darkest-mid-boss-runtime";
+} from "./core/bosses/darkest-mid-boss-runtime";
 
 const quests = ["quest:p016", "quest:p017", "quest:p018"] as const;
 

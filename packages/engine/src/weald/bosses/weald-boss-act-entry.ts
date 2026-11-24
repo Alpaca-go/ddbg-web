@@ -1,4 +1,4 @@
-import { getBossScript } from "../../boss/registry";
+import { getBossScript } from "../../core/bosses/registry";
 import type { CampaignLevel } from "../../../../data/src/basic-quests";
 import { WEALD_BOSS_DESCRIPTION_CARD_ID, type WealdBossIdentity } from "../catalog";
 import { WEALD_HIGHER_BOSS_ENTRIES } from "./higher-boss-entries";

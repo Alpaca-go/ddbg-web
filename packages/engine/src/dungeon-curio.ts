@@ -9,7 +9,7 @@ import { resolveDungeonPressure } from "./dungeon-pressure";
 import type { ProvisionFace } from "./loot";
 import { chooseTrinket } from "./trinket-acquisition";
 import { resolveCurioRows as resolveDungeonCurio } from "./dungeon-curio-effects";
-import { applyBossThreatStressOnProvisionUse } from "./boss/threat-passive-runtime";
+import { applyBossThreatStressOnProvisionUse } from "./core/bosses/threat-passive-runtime";
 export { resolveDungeonCurio };
 
 const refuse = (state: GameState, message: string): ApplyResult => ({

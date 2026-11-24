@@ -6,8 +6,8 @@ import { applySkillHealth } from "./battle-health";
 import { applyBattleSkillStatuses } from "./battle-skill-status";
 import { multiTargetHealthEffects, projectActorWounds } from "./skill-actor-health";
 import type { ApplyResult, GameState, MonsterSkillTargetsResolvedEvent } from "./command";
-import { monsterCombatThreatDamageBonus } from "./boss/threat-passive-runtime";
-import { stygianBossCritApplies } from "./boss/stygian-boss-crit";
+import { monsterCombatThreatDamageBonus } from "./core/bosses/threat-passive-runtime";
+import { stygianBossCritApplies } from "./core/bosses/stygian-boss-crit";
 import { newlyDefeatedIds, nextBattleRoll, recordMonsterSkill } from "./encounter";
 import {
   needsMonsterSkillShuffleChoice,
@@ -23,8 +23,8 @@ import { beforeTargetShuffle } from "./battle-target-pressure";
 import {
   TEMPLAR_BODY_SLAM_SKILL_SLOT,
   TEMPLAR_IMPALER_MONSTER_CARD_ID,
-} from "./boss/darkest-templars-skills-acc";
-import { templarsProductionCombatActive } from "./boss/templars-i-deploy";
+} from "./core/bosses/darkest-templars-skills-acc";
+import { templarsProductionCombatActive } from "./core/bosses/templars-i-deploy";
 
 const stances = ["aggressive", "defensive", "ranged", "support"];
 

@@ -20,9 +20,9 @@ import {
 } from "./weald-face-the-threat-natural-prefix";
 import { currentHamletHero } from "../hamlet-actions";
 import { wealdMixedActReadyFixture } from "./weald-act";
-import { RUINS_COMBAT_LEVELS } from "../boss/ruins-combat-levels";
-import { getBossScript } from "../boss/registry";
-import type { RuinsBossIdentity } from "../boss/threat-description-catalog";
+import { RUINS_COMBAT_LEVELS } from "../core/bosses/ruins-combat-levels";
+import { getBossScript } from "../core/bosses/registry";
+import type { RuinsBossIdentity } from "../core/bosses/threat-description-catalog";
 import type { WealdBossIdentity } from "../weald/catalog";
 import { ensureHagIBossScriptRegistered } from "../weald/bosses/hag-i";
 import { ensurePounderIBossScriptRegistered } from "../weald/bosses/pounder-i";

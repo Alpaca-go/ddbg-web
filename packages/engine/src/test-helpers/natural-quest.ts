@@ -8,12 +8,12 @@ import { canRestDungeon } from "../dungeon-rest";
 import { nextNaturalRoute } from "./natural-route";
 import { playNaturalBattle } from "./natural-battle";
 import { pickNaturalReplacementOptionId } from "./natural-replacement";
-import { isBossQuestId } from "../boss/quest-bridge";
+import { isBossQuestId } from "../core/bosses/quest-bridge";
 import {
   DARKEST_MAMMOTH_CYST_SCRIPT_ID,
   DARKEST_SHUFFLING_HORROR_SCRIPT_ID,
   DARKEST_TEMPLARS_SCRIPT_ID,
-} from "../boss/darkest-mid-boss-scripts";
+} from "../core/bosses/darkest-mid-boss-scripts";
 
 const equipped = [
   ["hero_skill:core:h01:p001", "hero_skill:core:h01:p004", "hero_skill:core:h01:p016"],

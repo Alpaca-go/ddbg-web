@@ -1,5 +1,5 @@
-import { isCollectedVestalCard, isBoneBearerRally } from "./boss/collected-vestal";
-import { isPyreCard } from "./boss/pyre-skill";
+import { isCollectedVestalCard, isBoneBearerRally } from "./core/bosses/collected-vestal";
+import { isPyreCard } from "./core/bosses/pyre-skill";
 import { distance, rejectBattleCommand } from "./battle";
 import type { BattleEntity, BattleState } from "./battle";
 import type { PreparedMonsterAction } from "./battle-monster-action";

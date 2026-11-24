@@ -5,13 +5,13 @@ import { applyPounderIFireInTheHole } from "./weald/bosses/pounder-i-fire";
 import { isDarkestSupportSkill, playDarkestSupportSkill } from "./battle-monster-support";
 import { captureHagHero } from "./weald/bosses/hag-i-captive";
 import { HAG_I_CAULDRON_FULL_MONSTER_CARD_ID } from "./weald/bosses/hag-i";
-import { isPyreCard, playPyreSkill } from "./boss/pyre-skill";
+import { isPyreCard, playPyreSkill } from "./core/bosses/pyre-skill";
 import {
   isCollectedVestalCard,
   isBoneBearerRally,
   playCollectedVestalSkill,
-} from "./boss/collected-vestal";
-import { playWhiteCellReconstitute } from "./boss/white-cell-stalk";
+} from "./core/bosses/collected-vestal";
+import { playWhiteCellReconstitute } from "./core/bosses/white-cell-stalk";
 import { beginDamageStoneWindow, damageStoneHealthEffects } from "./battle-damage-stone";
 import { isInvokingMonster } from "./battle-invocation";
 import {
@@ -27,13 +27,13 @@ import { playMonsterSkillTargets } from "./battle-monster-targets";
 import { readPrintedTargets } from "./hero-skill";
 import type { ApplyResult, GameState, MonsterSkillResolvedEvent, PendingChoice } from "./command";
 import { nextBattleRoll, newlyDefeatedIds, recordMonsterSkill } from "./encounter";
-import { monsterCombatThreatDamageBonus } from "./boss/threat-passive-runtime";
+import { monsterCombatThreatDamageBonus } from "./core/bosses/threat-passive-runtime";
 import { chainSirenIHighTidePelagicAfterMonsterSkill } from "./cove/bosses/siren-i-combat-runtime";
 import {
   TEMPLAR_BODY_SLAM_SKILL_SLOT,
   TEMPLAR_IMPALER_MONSTER_CARD_ID,
-} from "./boss/darkest-templars-skills-acc";
-import { templarsProductionCombatActive } from "./boss/templars-i-deploy";
+} from "./core/bosses/darkest-templars-skills-acc";
+import { templarsProductionCombatActive } from "./core/bosses/templars-i-deploy";
 import {
   needsMonsterSkillShuffleChoice,
   resolveMonsterSkill,
@@ -48,7 +48,7 @@ import { beforeTargetShuffle } from "./battle-target-pressure";
 import type { MonsterCardView } from "./monster-skill";
 import type { HeroSkillCardView } from "./hero-skill";
 import { resolveMonsterAttackEffects } from "./hero-skill";
-import { stygianBossCritApplies } from "./boss/stygian-boss-crit";
+import { stygianBossCritApplies } from "./core/bosses/stygian-boss-crit";
 
 /** Self 目标、无英雄目标：不掷攻击骰，走 verified 自身效果（R19–20 / R-048）。 */
 function playMonsterSelfSkill(

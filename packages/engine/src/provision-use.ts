@@ -8,7 +8,7 @@ import { passiveHeal, passiveStress } from "./passive";
 import { triggerBattlePassive } from "./battle-passive";
 import { resolveBattlePressure } from "./pressure";
 import { removeCasualties, endAfterCasualties, newlyDefeatedIds, finishTurn } from "./encounter";
-import { applyBossThreatStressOnProvisionUse } from "./boss/threat-passive-runtime";
+import { applyBossThreatStressOnProvisionUse } from "./core/bosses/threat-passive-runtime";
 
 export type ProvisionEffect = "heal" | "clearBleed" | "clearBlight" | "reduceStress" | "raiseLight";
 export type UseProvisionCommand = {

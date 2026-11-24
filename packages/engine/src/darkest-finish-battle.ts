@@ -1,13 +1,13 @@
-import { darkestBossVictoryAfterEncounter } from "./boss/darkest-content";
-import { darkestMidBossCombatActive } from "./boss/darkest-mid-boss-deploy";
-import { isBossQuestId } from "./boss/quest-bridge";
+import { darkestBossVictoryAfterEncounter } from "./core/bosses/darkest-content";
+import { darkestMidBossCombatActive } from "./core/bosses/darkest-mid-boss-deploy";
+import { isBossQuestId } from "./core/bosses/quest-bridge";
 import { rejectBattleCommand } from "./battle";
 import { createLootState } from "./loot";
 import { awaitDungeonRoomCurio } from "./dungeon-curio-room";
 import {
   completeCurioRoomWithoutCurioDraw,
   shouldSkipCurioDrawInCurioRoom,
-} from "./boss/threat-passive-runtime";
+} from "./core/bosses/threat-passive-runtime";
 import {
   objectiveRoomClearsOnVictory,
   objectiveRoomResolutionAfterVictory,

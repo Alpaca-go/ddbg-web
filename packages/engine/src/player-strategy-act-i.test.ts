@@ -3,7 +3,7 @@ import { applyCommand } from "./command";
 import type { Command, GameState } from "./command";
 import { createCoreDungeonQuest } from "./dungeon-quest-entry";
 import { hamletActionOptions } from "./hamlet-actions";
-import { ensureCoreBossScriptsRegistered } from "./boss/ensure-core-boss-scripts";
+import { ensureCoreBossScriptsRegistered } from "./core/bosses/ensure-core-boss-scripts";
 import type { BasicQuestId } from "../../data/src/basic-quests";
 import { coreQuestSources as sources } from "./test-helpers/core-quest";
 import { naturalParty, naturalQuest } from "./test-helpers/natural-quest";

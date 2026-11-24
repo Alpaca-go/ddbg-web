@@ -30,8 +30,8 @@ import {
   prepareFinalBattleForms,
   finishFinalBattleForm,
   finalBattleCombatActive,
-} from "./boss/final-form-sequence";
-import { deployFinalBattleForm } from "./boss/final-battle-deploy";
+} from "./core/bosses/final-form-sequence";
+import { deployFinalBattleForm } from "./core/bosses/final-battle-deploy";
 import {
   deployCollectorI,
   deployCollectorII,
@@ -39,21 +39,21 @@ import {
   deployProphetI,
   deployProphetII,
   deployProphetIII,
-} from "./boss/ruins-i-deploy";
-import { deployFanaticI, deployFanaticII, deployFanaticIII } from "./boss/fanatic-i-deploy";
-import { deployTemplarsI } from "./boss/templars-i-deploy";
-import { deployShufflingHorrorI } from "./boss/shuffling-horror-i-deploy";
-import { deployMammothCystI } from "./boss/mammoth-cyst-i-deploy";
+} from "./core/bosses/ruins-i-deploy";
+import { deployFanaticI, deployFanaticII, deployFanaticIII } from "./core/bosses/fanatic-i-deploy";
+import { deployTemplarsI } from "./core/bosses/templars-i-deploy";
+import { deployShufflingHorrorI } from "./core/bosses/shuffling-horror-i-deploy";
+import { deployMammothCystI } from "./core/bosses/mammoth-cyst-i-deploy";
 import {
   deployNecromancerI,
   deployNecromancerII,
   deployNecromancerIII,
-} from "./boss/necromancer-i-deploy";
-import { deployDarkestMidBoss } from "./boss/darkest-mid-boss-deploy";
+} from "./core/bosses/necromancer-i-deploy";
+import { deployDarkestMidBoss } from "./core/bosses/darkest-mid-boss-deploy";
 import { deployDarkestOrdinaryEncounter } from "./darkest-ordinary-encounter-deploy";
 import { beginFinalPreparation, beginFinalBattleProvisions } from "./final-preparation";
-import { applyHigherRuinsHamlet, chooseHigherRuinsTheft } from "./boss/higher-ruins-hamlet";
-import { applyHigherRuinsBattleSpawn } from "./boss/higher-ruins-threat";
+import { applyHigherRuinsHamlet, chooseHigherRuinsTheft } from "./core/bosses/higher-ruins-hamlet";
+import { applyHigherRuinsBattleSpawn } from "./core/bosses/higher-ruins-threat";
 import { applyCreepingDarknessUnholySpawnStress } from "./creeping-darkness-unholy-stress";
 import { useCoreTrinket } from "./core-trinket-free";
 import type { UseCoreTrinketCommand } from "./core-trinket-free";
@@ -87,20 +87,20 @@ import { offerNextQuest, chooseNextQuest, chooseHamletQuestDrawMode } from "./ha
 import { advanceCampaignLevel } from "./hamlet-campaign";
 import { advanceRuinsAct } from "./advance-ruins-act";
 import { enterDarkestDungeon } from "./darkest-entry";
-import { setActiveBossThreat } from "./boss/set-active-boss-threat";
+import { setActiveBossThreat } from "./core/bosses/set-active-boss-threat";
 import {
   chooseHauntedGraveyard,
   hauntedHamletCommandProblem,
-} from "./boss/necromancer-ii-graveyard";
-import type { SetActiveBossThreatCommand } from "./boss/set-active-boss-threat";
+} from "./core/bosses/necromancer-ii-graveyard";
+import type { SetActiveBossThreatCommand } from "./core/bosses/set-active-boss-threat";
 import {
   drawImminentThreatAfterActAdvance,
   establishImminentThreat,
-} from "./boss/establish-imminent-threat";
+} from "./core/bosses/establish-imminent-threat";
 import type {
   DrawImminentThreatAfterActAdvanceCommand,
   EstablishImminentThreatCommand,
-} from "./boss/establish-imminent-threat";
+} from "./core/bosses/establish-imminent-threat";
 import type { BlacksmithCommand } from "./hamlet-blacksmith";
 import type { HamletActionCommand } from "./hamlet-actions";
 import { upgradeHamletBuilding } from "./hamlet-buildings";
@@ -127,7 +127,7 @@ import { startDungeonBattle, finishDungeonBattle } from "./dungeon-battle";
 import { conditionPoolProblem, replaceConditionQuirk } from "./conditions";
 import { battleHeroCardHolders } from "./battle-hero-card-holders";
 import { recordMonsterSkill } from "./encounter";
-import { chooseNecromancerISummon } from "./boss/necromancer-i-combat-runtime";
+import { chooseNecromancerISummon } from "./core/bosses/necromancer-i-combat-runtime";
 import {
   applyPounderIReinforcements,
   choosePounderIReinforcements,
@@ -137,31 +137,31 @@ import {
   settlePounderIFireContext,
 } from "./weald/bosses/pounder-i-fire";
 import { chooseWealdMonsterSummon } from "./weald/monster-summon";
-import { chooseCollectorISummon } from "./boss/collector-i-combat-runtime";
+import { chooseCollectorISummon } from "./core/bosses/collector-i-combat-runtime";
 import {
   applyShufflingHorrorEchoingDisassembly,
   applyShufflingHorrorUndulations,
-} from "./boss/darkest-shuffling-horror-combat-runtime";
-import { applyShufflingHorrorLacerate } from "./boss/darkest-shuffling-horror-skills-acc";
-import { applyMammothCystSummonWhiteCell } from "./boss/darkest-mammoth-cyst-combat-runtime";
-import { applyGestatingHeartSummon } from "./boss/gestating-heart-summon";
-import { applyAncestor1TimeHealsAll } from "./boss/ancestor1-time-heals-all";
-import { applyAncestor1PerfectReplication } from "./boss/ancestor1-perfect-replication";
-import { applyAncestor1ImperfectReproduction } from "./boss/ancestor1-imperfect-reproduction";
-import { applyHeartOfDarknessImpendingDoomRoll } from "./boss/heart-of-darkness-impending-doom";
-import { applyAncestor2SwiftTeleportation } from "./boss/ancestor2-swift-teleportation";
-import { applyAncestor2DeployAbsoluteNothingness } from "./boss/ancestor2-absolute-nothingness";
+} from "./core/bosses/darkest-shuffling-horror-combat-runtime";
+import { applyShufflingHorrorLacerate } from "./core/bosses/darkest-shuffling-horror-skills-acc";
+import { applyMammothCystSummonWhiteCell } from "./core/bosses/darkest-mammoth-cyst-combat-runtime";
+import { applyGestatingHeartSummon } from "./core/bosses/gestating-heart-summon";
+import { applyAncestor1TimeHealsAll } from "./core/bosses/ancestor1-time-heals-all";
+import { applyAncestor1PerfectReplication } from "./core/bosses/ancestor1-perfect-replication";
+import { applyAncestor1ImperfectReproduction } from "./core/bosses/ancestor1-imperfect-reproduction";
+import { applyHeartOfDarknessImpendingDoomRoll } from "./core/bosses/heart-of-darkness-impending-doom";
+import { applyAncestor2SwiftTeleportation } from "./core/bosses/ancestor2-swift-teleportation";
+import { applyAncestor2DeployAbsoluteNothingness } from "./core/bosses/ancestor2-absolute-nothingness";
 import {
   applyAncestor2EmbraceFutility,
   applyAncestor2RefashionThem,
   applyAncestor2UnmakeThemAll,
-} from "./boss/ancestor2-skills-acc";
+} from "./core/bosses/ancestor2-skills-acc";
 import {
   applyHeartOfDarknessDissolution,
   applyHeartOfDarknessImpendingDoomSkill,
   applyHeartOfDarknessKnowThis,
   applyHeartOfDarknessPuncture,
-} from "./boss/heart-of-darkness-skills-acc";
+} from "./core/bosses/heart-of-darkness-skills-acc";
 import {
   applyTemplarImpalerBodySlam,
   applyTemplarImpalerRevelation,
@@ -169,12 +169,12 @@ import {
   applyTemplarWarlordRevelation,
   applyTemplarWarlordStingerShot,
   applyTemplarWarlordTorment,
-} from "./boss/darkest-templars-skills-acc";
+} from "./core/bosses/darkest-templars-skills-acc";
 import {
   applyMammothCystBulgingGaze,
   applyMammothCystDigestion,
   applyMammothCystRevivify,
-} from "./boss/darkest-mammoth-cyst-skills-acc";
+} from "./core/bosses/darkest-mammoth-cyst-skills-acc";
 import {
   resolveDungeonConditionChoice,
   resolveDungeonCurioProvisionChoice,

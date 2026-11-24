@@ -20,7 +20,7 @@ import {
   readQuestStartingPotions,
 } from "./quest-provisions";
 import { scoutAheadPlanProblem } from "./hamlet-scout-ahead";
-import { readFinalBattlePlanAfterDarkestVictory } from "./boss/darkest-content";
+import { readFinalBattlePlanAfterDarkestVictory } from "./core/bosses/darkest-content";
 import { rejectBattleCommand } from "./battle";
 
 const STANCES = ["aggressive", "defensive", "ranged", "support"] as const;

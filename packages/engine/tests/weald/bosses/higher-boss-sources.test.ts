@@ -5,7 +5,7 @@ import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
 import { createQuestSave, loadQuestSave } from "../../../src/quest-save";
 import { savedCommandSchema, type QuestStart } from "../../../../data/src/quest-save";
-import { clearBossScriptsForTest } from "../../../src/boss/registry";
+import { clearBossScriptsForTest } from "../../../src/core/bosses/registry";
 
 const command = {
   type: "establishImminentThreat",

@@ -1,7 +1,7 @@
 import type { DungeonState } from "../../dungeon";
 import type { ApplyResult, Command, GameState } from "../../command";
 import { rejectBattleCommand } from "../../battle";
-import { hamletBuildingForCommand } from "../../boss/higher-ruins-hamlet";
+import { hamletBuildingForCommand } from "../../core/bosses/higher-ruins-hamlet";
 import { nextBattleRoll } from "../../battle-roll";
 import { caretakerBuilding } from "../../hamlet-event";
 import {

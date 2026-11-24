@@ -4,7 +4,7 @@ import { playHeroSkillTargets } from "../battle-hero-targets";
 import type { PlayHeroSkillCommand } from "../battle";
 import type { PlayHeroSkillTargetsCommand } from "../battle-hero-targets";
 import type { ApplyResult, Command, GameState } from "../command";
-import { templarsProductionCombatActive } from "../boss/templars-i-deploy";
+import { templarsProductionCombatActive } from "../core/bosses/templars-i-deploy";
 import { livingNecroticFungus } from "../weald/necrotic-fungus";
 
 export type NaturalBattleDriver = {

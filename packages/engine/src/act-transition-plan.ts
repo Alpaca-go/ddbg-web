@@ -7,7 +7,7 @@ import {
   RUINS_BOSS_IDENTITIES,
   imminentThreatPoolForCampaign,
   type RuinsBossIdentity,
-} from "./boss/threat-description-catalog";
+} from "./core/bosses/threat-description-catalog";
 import { wealdThreatPool } from "./weald/bosses/threat-pool";
 import { WEALD_BOSS_IDENTITIES, type WealdBossIdentity } from "./weald/catalog";
 import { questIdsForLocationDeck } from "./hamlet-location-quest-draw";

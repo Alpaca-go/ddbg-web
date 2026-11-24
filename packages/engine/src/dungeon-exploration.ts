@@ -7,7 +7,7 @@ import { createRng } from "./rng";
 import { resolveDungeonPressure } from "./dungeon-pressure";
 import { drawDungeonCurio } from "./dungeon-curio";
 import { triggerDungeonPassive } from "./dungeon-passive";
-import { applyBossThreatStressOnProvisionUse } from "./boss/threat-passive-runtime";
+import { applyBossThreatStressOnProvisionUse } from "./core/bosses/threat-passive-runtime";
 import { resolveDungeonTrap } from "./dungeon-trap";
 import { changeDungeonLight } from "./dungeon-light";
 import { PROVISION_FACES } from "./loot";

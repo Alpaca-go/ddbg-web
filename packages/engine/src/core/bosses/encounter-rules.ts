@@ -1,0 +1,92 @@
+import { ensureShriekerIBossScriptRegistered } from "../../weald/bosses/shrieker-i";
+import type { GameState } from "../../command";
+import { readBossCombatEntry } from "./combat-entry";
+import { readDarkestMidBossDeployedCardIds } from "./darkest-mid-boss-runtime";
+import { readDarkestMidBossRequiredCombatCardIds } from "./darkest-mid-boss-scripts";
+import { ensureCampaignBossScriptsRegistered } from "../../registry";
+import { bossEnabledForPacks } from "../../../../data/src/content-packs";
+import { getBossScript } from "./registry";
+import { encounterRoundRetreatLimit } from "./rules";
+import { isBossQuestId, resolveBossScriptIdForQuest } from "./quest-bridge";
+import { isDarkestQuest } from "../../darkest-setup";
+import type { BossBattleRules, BossScriptId } from "./types";
+
+function deployedMonsterCardIds(state: GameState): readonly string[] {
+  const fromBattle = state.battle?.entities
+    .filter((entity) => entity.side === "monster" && entity.monsterCardId)
+    .map((entity) => entity.monsterCardId!);
+  if (fromBattle?.length) return fromBattle;
+  const d = state.dungeon;
+  const darkest = readDarkestMidBossDeployedCardIds(d);
+  if (darkest.length) return darkest;
+  const active = d?.monsterPool?.active;
+  if (active && active.roomId === d?.position) return active.monsters.map((spawn) => spawn.cardId);
+  return [];
+}
+
+function deployedIncludesBossActors(state: GameState, scriptId: BossScriptId): boolean {
+  const questId = state.dungeon?.questDistribution?.questId;
+  const deployed = deployedMonsterCardIds(state);
+  if (questId && isDarkestQuest(questId)) {
+    const required = readDarkestMidBossRequiredCombatCardIds(questId);
+    return required.length > 0 && required.every((cardId) => deployed.includes(cardId));
+  }
+  const bossCardId = readBossCombatEntry(getBossScript(scriptId))?.combatMonsterCardId;
+  return !!bossCardId && deployed.includes(bossCardId);
+}
+
+/**
+ * 本场战斗是否按 Boss 规则处理轮数上限（规则书 §14、R-044）。
+ *
+ * 判定：当前任务为 Boss 任务（R-120）且 `bossQuestScriptId` 已映射到已注册脚本，
+ * 且部署怪物含该脚本的 `combatMonsterCardId`。
+ * Boss 任务但未映射脚本 / 非 Boss 怪物遭遇：仍走普通第 4 轮撤退（quest→Boss 映射待 Kyries）。
+ */
+export function resolveEncounterBossScriptId(state: GameState): BossScriptId | undefined {
+  if (state.dungeon?.shriekerBossBattles) ensureShriekerIBossScriptRegistered();
+  ensureCampaignBossScriptsRegistered(state.dungeon?.contentPacks);
+  const questId = state.dungeon?.questDistribution?.questId;
+  if (!questId || !isBossQuestId(questId)) return undefined;
+  const scriptId = resolveBossScriptIdForQuest(questId, state.dungeon);
+  if (!scriptId) return undefined;
+  if (!bossEnabledForPacks(state.dungeon?.contentPacks, scriptId)) return undefined;
+  const script = getBossScript(scriptId);
+  if (!script?.combatEntry) return undefined;
+  if (!deployedIncludesBossActors(state, scriptId)) return undefined;
+  return scriptId;
+}
+
+export function resolveEncounterBossBattleRules(state: GameState): BossBattleRules | undefined {
+  const scriptId = resolveEncounterBossScriptId(state);
+  if (!scriptId) return undefined;
+  return getBossScript(scriptId)?.rules;
+}
+
+/** 与 `encounter.ts` 轮末分支共用：达到上限则被迫撤退。 */
+export function encounterForcesRetreatAfterRound(state: GameState, round: number): boolean {
+  // R-044 / R36：最终战属 Boss 战，不计轮数、没有逃跑；此时 quest 分发仍是 p018，不能套普通第 4 轮撤退。
+  if (state.dungeon?.finalFormSequence?.status === "fighting") return false;
+  const limit = encounterRoundRetreatLimit(resolveEncounterBossBattleRules(state));
+  return limit !== null && round >= limit;
+}
+
+export function isBossEncounter(state: GameState): boolean {
+  return resolveEncounterBossBattleRules(state) !== undefined;
+}
+
+/** R30：新正式出征在 Boss 开战前翻能力卡；旧无标记日志保留原回放。 */
+export function ceaseThreatForBossCombat(state: GameState): GameState {
+  const d = state.dungeon;
+  const plan = d?.faceTheThreatEmbarkPlan;
+  if (plan?.roomPlacement !== "edgeRoomsR30") return state;
+  const scriptId = resolveEncounterBossScriptId(state);
+  if (
+    !d ||
+    !scriptId ||
+    scriptId !== plan.resolvedScriptId ||
+    scriptId !== d.activeBossThreatScriptId ||
+    d.bossCombatThreatCeased === scriptId
+  )
+    return state;
+  return { ...state, dungeon: { ...d, bossCombatThreatCeased: scriptId } };
+}

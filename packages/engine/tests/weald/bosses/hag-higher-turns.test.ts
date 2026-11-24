@@ -7,7 +7,7 @@ import { hagHigherContext } from "../../../src/weald/bosses/hag-higher";
 import {
   FACE_THE_THREAT_QUEST_ID,
   resolveBossScriptIdForQuest,
-} from "../../../src/boss/quest-bridge";
+} from "../../../src/core/bosses/quest-bridge";
 import { beginHagIRelease } from "../../../src/weald/bosses/hag-i-release";
 import { applyEncounterCommand, removeCasualties } from "../../../src/encounter";
 import { readHagRuntimeContext } from "../../../src/weald/bosses/hag-runtime-context";

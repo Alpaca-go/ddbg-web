@@ -18,13 +18,13 @@ import { enableAbyssalPuff } from "./battle-abyssal-puff";
 import { enablePrecious, endTurnPrecious } from "./battle-precious";
 import { applyUnprepared } from "./battle-unprepared";
 import { clearPounderIBrigands } from "./weald/bosses/pounder-i-cleanup";
-import { readFinalFormSequence } from "./boss/final-form-sequence";
+import { readFinalFormSequence } from "./core/bosses/final-form-sequence";
 import { beginHagIRelease } from "./weald/bosses/hag-i-release";
 import { continueHagIIntoPot, finishHagISkillTurn } from "./weald/bosses/hag-i-into-pot";
-import { applyAncestor1ImperfectReflectionDeath } from "./boss/ancestor1-reflections-death";
-import { withAncestor1ReflectionsGuardState } from "./boss/ancestor1-reflections-guard";
-import { clearRuinsBossCompanions } from "./boss/ruins-boss-death";
-import { applyNecromancerIIIReanimation } from "./boss/necromancer-iii-reanimation";
+import { applyAncestor1ImperfectReflectionDeath } from "./core/bosses/ancestor1-reflections-death";
+import { withAncestor1ReflectionsGuardState } from "./core/bosses/ancestor1-reflections-guard";
+import { clearRuinsBossCompanions } from "./core/bosses/ruins-boss-death";
+import { applyNecromancerIIIReanimation } from "./core/bosses/necromancer-iii-reanimation";
 import { healingTrinketReaction } from "./trinket-reactions";
 import { rejectBattleCommand } from "./battle";
 import type { BattleEntity, BattleState } from "./battle";
@@ -57,26 +57,29 @@ import { endTurnStygianArea } from "./stygian-room-effects";
 import { endRoundInvocation, isInvokingMonster } from "./battle-invocation";
 import { endTurnSpikedPit } from "./battle-spiked-pit";
 import { clearTemplarsSpikesTurnTracking } from "./battle-templars-spikes";
-import { chainTemplarImpalerBodySlamPitTossAfterMonsterSkill } from "./boss/templars-pit-toss";
-import { chainWhiteCellTeleportAfterMonsterSkill } from "./boss/mammoth-cyst-teleport";
+import { chainTemplarImpalerBodySlamPitTossAfterMonsterSkill } from "./core/bosses/templars-pit-toss";
+import { chainWhiteCellTeleportAfterMonsterSkill } from "./core/bosses/mammoth-cyst-teleport";
 import { endTurnRiteOfTheChosen } from "./battle-temple-of-the-chosen";
 import { endTurnEvilEye } from "./battle-evil-eye";
 import { endTurnPoisonousRoots } from "./battle-infected-oak";
 import { endTurnEldritchPower } from "./battle-eldritch-power";
-import { ceaseThreatForBossCombat, encounterForcesRetreatAfterRound } from "./boss/encounter-rules";
-import { applyBossThreatMarkedForDeathOnBattleStart } from "./boss/threat-passive-runtime";
+import {
+  ceaseThreatForBossCombat,
+  encounterForcesRetreatAfterRound,
+} from "./core/bosses/encounter-rules";
+import { applyBossThreatMarkedForDeathOnBattleStart } from "./core/bosses/threat-passive-runtime";
 import {
   applyHeartOfDarknessImpendingDoomOnBattleStart,
   bumpHeartOfDarknessImpendingDoomAfterAction,
-} from "./boss/heart-of-darkness-impending-doom";
-import { bumpAncestor2SwiftTeleportationAfterAction } from "./boss/ancestor2-swift-teleportation";
-import { isAbsoluteNothingnessEntity } from "./boss/ancestor2-absolute-nothingness";
+} from "./core/bosses/heart-of-darkness-impending-doom";
+import { bumpAncestor2SwiftTeleportationAfterAction } from "./core/bosses/ancestor2-swift-teleportation";
+import { isAbsoluteNothingnessEntity } from "./core/bosses/ancestor2-absolute-nothingness";
 import { isLivingCombatMonster, isNecroticFungusEntity } from "./weald/necrotic-fungus";
 import { rejectIfWealdZeroCapacityEndTurn } from "./weald/weald-mechanics";
-import { applyFanaticIPyreBattleStart } from "./boss/fanatic-i-combat-runtime";
+import { applyFanaticIPyreBattleStart } from "./core/bosses/fanatic-i-combat-runtime";
 import { applyFleshIOneBodyBattleStart } from "./warrens/bosses/flesh-i-combat-runtime";
 import { applySwinePrinceIWilburBattleStart } from "./warrens/bosses/swine-prince-i-combat-runtime";
-import { applyNecromancerIIArmyBattleStart } from "./boss/necromancer-ii-army";
+import { applyNecromancerIIArmyBattleStart } from "./core/bosses/necromancer-ii-army";
 import {
   applyHagICauldronBattleStart,
   clearHagIEmptyCauldron,
@@ -90,13 +93,13 @@ import {
   bumpProphetIActionRoundCount,
   expandProphetIInitiativeDeckSides,
   prophetShouldEnterActedIdsAfterTurn,
-} from "./boss/prophet-i-combat-runtime";
-import { readCollectorIRoomLootPlacement } from "./boss/collector-i-room-runtime";
-import { readProphetIRoomD10Binding } from "./boss/prophet-i-room-runtime";
+} from "./core/bosses/prophet-i-combat-runtime";
+import { readCollectorIRoomLootPlacement } from "./core/bosses/collector-i-room-runtime";
+import { readProphetIRoomD10Binding } from "./core/bosses/prophet-i-room-runtime";
 import {
   clearNecromancerICompanions,
   continueNecromancerISummon,
-} from "./boss/necromancer-i-combat-runtime";
+} from "./core/bosses/necromancer-i-combat-runtime";
 import { continueWealdMonsterSummon } from "./weald/monster-summon";
 import {
   applyPatrolTheWoodsRoundOneInitiative,
@@ -108,12 +111,12 @@ import {
   clearFanaticIPyre,
   expandFanaticIInitiativeDeckSides,
   fanaticShouldEnterActedIdsAfterTurn,
-} from "./boss/fanatic-i-combat-runtime";
+} from "./core/bosses/fanatic-i-combat-runtime";
 import {
   darkestMidBossCombatActive,
   expandDarkestMidBossInitiativeDeckSides,
-} from "./boss/darkest-mid-boss-deploy";
-import { readDarkestBossEncounter } from "./boss/darkest-content";
+} from "./core/bosses/darkest-mid-boss-deploy";
+import { readDarkestBossEncounter } from "./core/bosses/darkest-content";
 
 const STANCES: readonly SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 

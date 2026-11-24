@@ -1,8 +1,8 @@
 import type { ApplyResult, GameState } from "../../command";
 import { createBattleState, rejectBattleCommand } from "../../battle";
-import { buildBossHeroEntities } from "../../boss/deploy-heroes";
-import { resolveBossScriptIdForQuest } from "../../boss/quest-bridge";
-import { getBossScript } from "../../boss/registry";
+import { buildBossHeroEntities } from "../../core/bosses/deploy-heroes";
+import { resolveBossScriptIdForQuest } from "../../core/bosses/quest-bridge";
+import { getBossScript } from "../../core/bosses/registry";
 import { createLootState } from "../../loot";
 import { ensureCampaignBossScriptsRegistered } from "../../registry";
 import { hagDeploymentContext } from "./hag-deployment-context";

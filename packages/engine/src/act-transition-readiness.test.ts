@@ -1,6 +1,6 @@
 import { expect, it } from "vitest";
 import { readRuinsActTransitionReadiness } from "./act-transition-readiness";
-import { RUINS_BOSS_IDENTITIES } from "./boss/threat-description-catalog";
+import { RUINS_BOSS_IDENTITIES } from "./core/bosses/threat-description-catalog";
 import type { DungeonState } from "./dungeon";
 import { ruinsActReadyFixture as ready, ruinsActInitial as start } from "./test-helpers/ruins-act";
 

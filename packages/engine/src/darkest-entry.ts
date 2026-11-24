@@ -3,7 +3,7 @@ import type { ApplyResult, GameState } from "./command";
 import { rejectBattleCommand } from "./battle";
 import type { DungeonState } from "./dungeon";
 import { createRng } from "./rng";
-import { readDarkestBossEncounter } from "./boss/darkest-content";
+import { readDarkestBossEncounter } from "./core/bosses/darkest-content";
 import { readCampaignLevel } from "./hamlet-campaign";
 import { campaignActIIIBossesComplete } from "./campaign-boss-defeats";
 

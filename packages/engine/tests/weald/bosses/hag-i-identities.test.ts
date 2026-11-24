@@ -12,7 +12,7 @@ import {
   WEALD_HAG_I_CONTENT,
   hagIPrintedFaceForRuntimeId,
 } from "../../../src/weald/bosses/hag-i-content";
-import { resolveScriptIdForDescriptionCard } from "../../../src/boss/threat-description-catalog";
+import { resolveScriptIdForDescriptionCard } from "../../../src/core/bosses/threat-description-catalog";
 
 it("R-254 运行能力 ID 对齐三个真实印刷来源，保留选包闸门", () => {
   expect([

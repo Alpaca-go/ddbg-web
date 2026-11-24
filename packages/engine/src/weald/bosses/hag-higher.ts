@@ -1,16 +1,16 @@
 import {
   defaultBossSlotPlacementHook,
   defaultFaceTheThreatEmbarkHook,
-} from "../../boss/default-boss-hooks";
+} from "../../core/bosses/default-boss-hooks";
 import printed from "../../../../data/normalized/extension/weald/hag_higher.json";
 import { wealdHagHigherContentSchema } from "../../../../data/src/weald-hag-higher";
-import { getBossScript, registerBossScript } from "../../boss/registry";
-import { DEFAULT_BOSS_BATTLE_RULES } from "../../boss/rules";
-import type { BossScriptDefinition } from "../../boss/types";
+import { getBossScript, registerBossScript } from "../../core/bosses/registry";
+import { DEFAULT_BOSS_BATTLE_RULES } from "../../core/bosses/rules";
+import type { BossScriptDefinition } from "../../core/bosses/types";
 import { projectHagCombatFaces } from "./hag-i-projection";
 import { captureHagHero, releaseHagHero } from "./hag-i-captive";
 import { bossEnabledForPacks } from "../../../../data/src/content-packs";
-import { FACE_THE_THREAT_QUEST_ID } from "../../boss/quest-bridge";
+import { FACE_THE_THREAT_QUEST_ID } from "../../core/bosses/quest-bridge";
 import { rejectBattleCommand } from "../../battle";
 import type { GameState } from "../../command";
 

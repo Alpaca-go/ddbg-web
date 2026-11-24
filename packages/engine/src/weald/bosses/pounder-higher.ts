@@ -1,8 +1,8 @@
 import { WEALD_POUNDER_HIGHER_CONTENT } from "./pounder-higher-content";
-import { DEFAULT_BOSS_BATTLE_RULES } from "../../boss/rules";
-import { defaultFaceTheThreatEmbarkHook } from "../../boss/default-boss-hooks";
-import { getBossScript, registerBossScript } from "../../boss/registry";
-import type { BossScriptDefinition } from "../../boss/types";
+import { DEFAULT_BOSS_BATTLE_RULES } from "../../core/bosses/rules";
+import { defaultFaceTheThreatEmbarkHook } from "../../core/bosses/default-boss-hooks";
+import { getBossScript, registerBossScript } from "../../core/bosses/registry";
+import type { BossScriptDefinition } from "../../core/bosses/types";
 
 const scripts: BossScriptDefinition[] = WEALD_POUNDER_HIGHER_CONTENT.cards.map(
   (card): BossScriptDefinition => ({

@@ -1,6 +1,6 @@
 import { expect, it } from "vitest";
 import { buildRuinsActTransitionPlan } from "./act-transition-plan";
-import { RUINS_BOSS_IDENTITIES } from "./boss/threat-description-catalog";
+import { RUINS_BOSS_IDENTITIES } from "./core/bosses/threat-description-catalog";
 
 it("I→II从剩余三Boss的II级描述卡抽选，任务整级替换，只加入II级怪物", () => {
   const defeated = ["necromancer"] as const;

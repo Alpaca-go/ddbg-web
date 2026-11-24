@@ -9,7 +9,7 @@ import { resolveDungeonPressure } from "./dungeon-pressure";
 import {
   completeCurioRoomWithoutCurioDraw,
   shouldSkipCurioDrawInCurioRoom,
-} from "./boss/threat-passive-runtime";
+} from "./core/bosses/threat-passive-runtime";
 
 const refuse = (state: GameState, message: string): ApplyResult => ({
   state,

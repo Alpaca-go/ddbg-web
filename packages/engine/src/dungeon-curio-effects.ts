@@ -1,5 +1,5 @@
 import { shriekerSkipsProvisionRolls } from "./weald/bosses/shrieker-provision-version";
-import { curioRewardTheft } from "./boss/higher-ruins-threat";
+import { curioRewardTheft } from "./core/bosses/higher-ruins-threat";
 import { planCurioEffects } from "../../data/src/curio";
 import { dungeonCurioCatalogValid } from "./dungeon-curio-catalog";
 import type { ApplyResult, GameEvent, GameState } from "./command";

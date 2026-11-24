@@ -3,7 +3,7 @@ import { applyCommand, type GameState } from "../../src/command";
 import { createCoreDungeonQuest } from "../../src/dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "../../src/test-helpers/core-quest";
 import { wealdThreatPool } from "../../src/weald/bosses/threat-pool";
-import { clearBossScriptsForTest } from "../../src/boss/registry";
+import { clearBossScriptsForTest } from "../../src/core/bosses/registry";
 
 const packs = ["core", "weald"] as const;
 const productionEstablish = {

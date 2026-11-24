@@ -1,6 +1,6 @@
 import type { BattleEntity, BattleState } from "../../battle";
 import { monsterShuffleResist } from "../../monster-defence";
-import { stygianBossCritApplies } from "../../boss/stygian-boss-crit";
+import { stygianBossCritApplies } from "../../core/bosses/stygian-boss-crit";
 import type { ApplyResult, GameState, MonsterSkillResolvedEvent } from "../../command";
 import { skillTargetView, writeResolution, distance } from "../../battle";
 import { applySkillHealth } from "../../battle-health";
@@ -11,8 +11,8 @@ import {
   resolveMonsterSkill,
   resolveMonsterSkillEffects,
 } from "../../monster-skill";
-import { runBossHook } from "../../boss/hooks";
-import { resolveEncounterBossScriptId } from "../../boss/encounter-rules";
+import { runBossHook } from "../../core/bosses/hooks";
+import { resolveEncounterBossScriptId } from "../../core/bosses/encounter-rules";
 import {
   SWINE_PRINCE_I_COMBAT_MONSTER_CARD_ID,
   SWINE_PRINCE_I_ENRAGED_DESTRUCTION_SKILL_SLOT,
@@ -21,9 +21,9 @@ import {
   SWINE_PRINCE_I_WILBUR_MONSTER_CARD_ID,
   swinePrinceIWilburBattleStartStance,
 } from "./swine-prince-i";
-import { getBossScript } from "../../boss/registry";
-import type { BossScriptDefinition, BossSummonOk } from "../../boss/types";
-import { monsterCombatThreatDamageBonus } from "../../boss/threat-passive-runtime";
+import { getBossScript } from "../../core/bosses/registry";
+import type { BossScriptDefinition, BossSummonOk } from "../../core/bosses/types";
+import { monsterCombatThreatDamageBonus } from "../../core/bosses/threat-passive-runtime";
 
 const STANCES = ["aggressive", "defensive", "ranged", "support"] as const;
 

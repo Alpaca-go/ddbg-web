@@ -3,7 +3,7 @@ import { rejectBattleCommand } from "../../battle";
 import {
   activeBossThreatMatchesDungeonLocation,
   readEffectiveBossThreatScriptId,
-} from "../../boss/threat-campaign";
+} from "../../core/bosses/threat-campaign";
 import { statusProjection } from "../../status";
 import { POUNDER_I_SCRIPT_ID } from "./pounder-i";
 import { pounderContextForLevel } from "./pounder-runtime-context";

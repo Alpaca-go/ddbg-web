@@ -1,6 +1,6 @@
 import { buildShriekerICombatCatalog } from "../../../src/weald/bosses/shrieker-i-projection";
-import { registerBossScript } from "../../../src/boss/registry";
-import { DEFAULT_BOSS_BATTLE_RULES } from "../../../src/boss/rules";
+import { registerBossScript } from "../../../src/core/bosses/registry";
+import { DEFAULT_BOSS_BATTLE_RULES } from "../../../src/core/bosses/rules";
 import { finishTurn, removeCasualties } from "../../../src/encounter";
 import { expect, it } from "vitest";
 import { savedCommandSchema } from "../../../../data/src/quest-save";

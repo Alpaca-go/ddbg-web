@@ -1,7 +1,7 @@
 import type { CampaignLevel } from "../../data/src/basic-quests";
-import { RUINS_COMBAT_LEVELS } from "./boss/ruins-combat-levels";
-import type { RuinsBossIdentity } from "./boss/threat-description-catalog";
-import { RUINS_BOSS_IDENTITIES } from "./boss/threat-description-catalog";
+import { RUINS_COMBAT_LEVELS } from "./core/bosses/ruins-combat-levels";
+import type { RuinsBossIdentity } from "./core/bosses/threat-description-catalog";
+import { RUINS_BOSS_IDENTITIES } from "./core/bosses/threat-description-catalog";
 import type { DungeonState } from "./dungeon";
 import { wealdBossActEntry } from "./weald/bosses/weald-boss-act-entry";
 import { WEALD_BOSS_IDENTITIES, type WealdBossIdentity } from "./weald/catalog";

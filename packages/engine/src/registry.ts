@@ -1,6 +1,6 @@
 import type { ContentPackId } from "../../data/src/content-packs";
 import { packEnabled } from "../../data/src/content-packs";
-import { ensureCoreBossScriptsRegistered } from "./boss/ensure-core-boss-scripts";
+import { ensureCoreBossScriptsRegistered } from "./core/bosses/ensure-core-boss-scripts";
 import { registerWealdBosses } from "./weald";
 import { registerWarrensBosses } from "./warrens";
 import { registerCoveBosses } from "./cove";

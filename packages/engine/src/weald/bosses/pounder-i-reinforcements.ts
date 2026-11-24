@@ -2,7 +2,7 @@ import { readPounderRuntimeContext } from "./pounder-runtime-context";
 import { rejectBattleCommand, type BattleEntity } from "../../battle";
 import type { ApplyResult, GameState } from "../../command";
 import { finishTurn } from "../../encounter";
-import { insertMonsterInitiative } from "../../boss/monster-initiative";
+import { insertMonsterInitiative } from "../../core/bosses/monster-initiative";
 import { resolveWealdSummonAreaPlacement } from "../monster-summon";
 import { createPounderIEntity } from "./pounder-i-projection";
 import { planPounderIReinforcements } from "./pounder-i-combat-plans";

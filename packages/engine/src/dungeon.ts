@@ -1,4 +1,4 @@
-import { higherRuinsScoutingStress } from "./boss/higher-ruins-threat";
+import { higherRuinsScoutingStress } from "./core/bosses/higher-ruins-threat";
 import { scoutTrinketReaction } from "./trinket-reactions";
 import {
   dungeonLayoutSchema,
@@ -103,11 +103,11 @@ export type DungeonState = {
     readonly monsterDeck: readonly string[];
     readonly excavation?: import("./darkest-excavation").Excavation;
     /** 目标房 prepareDungeonBattle 后：专属房间 + Boss 脚本身份（A-4）。 */
-    readonly bossEncounterPlan?: import("./boss/darkest-mid-boss-runtime").StoredDarkestBossEncounterPlan;
+    readonly bossEncounterPlan?: import("./core/bosses/darkest-mid-boss-runtime").StoredDarkestBossEncounterPlan;
     /** prepareDungeonMonsters 后：Boss 战斗卡身份占位部署；combatReady 仍为 false。 */
     readonly bossDeployment?: {
       readonly roomId: string;
-      readonly resolvedScriptId: import("./boss/types").BossScriptId;
+      readonly resolvedScriptId: import("./core/bosses/types").BossScriptId;
       readonly monsters: readonly import("./spawn").SpawnPlacement[];
       /** 目录 supportCardIds 身份占位；verified: false，不计入 Boss 遭遇判定。 */
       readonly supportMonsters: readonly import("./spawn").SpawnPlacement[];
@@ -166,7 +166,7 @@ export type DungeonState = {
   readonly hamlet?: import("./hamlet-event").HamletEventState;
   /** R36 最终战前补给；独立于探索，不伪造新任务/地图。 */
   readonly finalBattleProvisions?: "awaiting" | "ready";
-  readonly finalFormSequence?: import("./boss/final-form-sequence").FinalFormSequence;
+  readonly finalFormSequence?: import("./core/bosses/final-form-sequence").FinalFormSequence;
   readonly higherThreatTheft?: {
     readonly heroId: string;
     readonly roll: number;
@@ -186,13 +186,13 @@ export type DungeonState = {
    * 当前迫近威胁对应的 Boss 脚本 id（正式：`establishImminentThreat` / 升幕抽牌；沙盒：`setActiveBossThreat`）。
    * spec §2.3 R11：威胁被动在 Boss 被击败前持续生效。
    */
-  readonly activeBossThreatScriptId?: import("./boss/types").BossScriptId;
+  readonly activeBossThreatScriptId?: import("./core/bosses/types").BossScriptId;
   /** R30：Boss 开战翻至战斗面；保留身份用于胜利清场，但该身份的威胁被动已停止。 */
-  readonly bossCombatThreatCeased?: import("./boss/types").BossScriptId;
+  readonly bossCombatThreatCeased?: import("./core/bosses/types").BossScriptId;
   /** Army of the Dead：本趟地牢的首次战斗已开始；新任务不继承。 */
   readonly necromancerIIArmyUsed?: true;
   /** Face the Threat 出征钩子 ok 后写入（`chooseNextQuest` / 沙盒 p019）；R-121 布局仍 hold。 */
-  readonly faceTheThreatEmbarkPlan?: import("./boss/face-the-threat-embark-runtime").StoredFaceTheThreatEmbarkPlan;
+  readonly faceTheThreatEmbarkPlan?: import("./core/bosses/face-the-threat-embark-runtime").StoredFaceTheThreatEmbarkPlan;
   /** 最近一次 Imminent Threat 抽到的 Boss Description 印刷 id（spec §2.4 / §2.2）。 */
   readonly imminentThreatDescriptionCardId?: string;
   /** 抽到未注册 Boss 时的 hold 文案；脚本落地后由正式抽牌清除。 */
@@ -217,7 +217,7 @@ export type DungeonState = {
   readonly bossExpeditionRegion?: "weald";
   readonly defeatedWealdBossIdentities?: readonly import("./weald/catalog").WealdBossIdentity[];
   /** 本战役已击败的 Ruins Boss（升幕抽下一张威胁时排除，spec §2.2）。 */
-  readonly defeatedRuinsBossIdentities?: readonly import("./boss/threat-description-catalog").RuinsBossIdentity[];
+  readonly defeatedRuinsBossIdentities?: readonly import("./core/bosses/threat-description-catalog").RuinsBossIdentity[];
   /** 准备结束后抽到的下一任务候选项，选定后清除。 */
   readonly nextQuestOffers?: readonly string[];
   /** Unsettling Darkness：下次出征起始光照（印刷 Light 4，图标 d13c8b76af 已确认）。 */
