@@ -61,10 +61,10 @@ export type MonsterSkillView = Pick<
     readonly wealdAttack?: WealdMonsterAttack;
   };
   /** R-254／R-255 专属入锅效果；未印刷伤害不得补成普通攻击数字。 */
-  readonly verified_hag_into_pot?: true;
+  readonly hagIntoPot?: true;
   /** R-261／Q-186：Nest 在场时的飞行／治疗细则尚未核准，不按 Self Push 结算。 */
-  readonly verified_shrieker_nest_flight?: true;
-  readonly verified_shrieker_flight?: true;
+  readonly shriekerNestFlight?: true;
+  readonly shriekerFlight?: true;
   /** 规范化目标优先级文字；缺失时自动目标选择拒绝。 */
   readonly target?: string | null;
   readonly lines: readonly (readonly SkillSegment[])[];
@@ -182,12 +182,12 @@ export function readMonsterAttackView(
   const skill = matches[0]!;
   const wealdAttack = skill.rules?.wealdAttack ?? skill.verified_weald_attack;
   const effectsPlan = skill.rules?.effects ?? skill.verified_monster_effects;
-  if (skill.verified_shrieker_nest_flight)
+  if (skill.shriekerNestFlight)
     return {
       status: "refused",
       reason: "Call the Murder：Nest 在场的飞行与治疗细则待裁定（R-261／Q-186）",
     };
-  if (skill.verified_hag_into_pot) return readHagIIntoPotAttack(monster, skill);
+  if (skill.hagIntoPot) return readHagIIntoPotAttack(monster, skill);
   if (wealdAttack !== undefined)
     return readWealdMonsterAttack(monster, { ...skill, verified_weald_attack: wealdAttack });
   const excluded = new Set<number>();
@@ -313,7 +313,7 @@ function resolveMonsterSkillInternal(
     const {
       verified_target_stress: _stress,
       verified_status_effects: _status,
-      verified_target_disease: _disease,
+      targetDisease: _disease,
       verified_damage_bonus: _bonus,
       ...base
     } = view;
@@ -389,7 +389,7 @@ function resolveMonsterSkillInternal(
       ? baseResolution
       : {
           ...baseResolution,
-          ...(view.verified_target_disease && baseResolution.outcome !== "miss"
+          ...(view.targetDisease && baseResolution.outcome !== "miss"
             ? { targetDisease: true as const }
             : {}),
           ...(ordered && baseResolution.outcome !== "miss"

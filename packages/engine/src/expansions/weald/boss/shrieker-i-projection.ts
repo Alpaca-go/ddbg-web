@@ -118,7 +118,7 @@ function buildCatalog(
       };
       return {
         ...(skill.slot === 2 && context.nestInPlay && context.nestFlightApproved
-          ? { verified_shrieker_flight: true as const }
+          ? { shriekerFlight: true as const }
           : {}),
         slot: skill.slot,
         name: skill.name,
@@ -152,7 +152,7 @@ function buildCatalog(
         verified_monster_effects: plan,
         rules: { effects: plan },
         ...(skill.slot === 2 && context.nestInPlay && !context.nestFlightApproved
-          ? { verified_shrieker_nest_flight: true as const }
+          ? { shriekerNestFlight: true as const }
           : {}),
       };
     }),

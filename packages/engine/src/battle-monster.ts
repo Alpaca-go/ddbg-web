@@ -220,7 +220,7 @@ export function playMonsterSkill(
   if (attack.status === "refused") return rejectBattleCommand(state, attack.reason);
   if (
     card.id === readHagRuntimeContext(state)?.hagId &&
-    card.skills.some((s) => s.verified_hag_into_pot) &&
+    card.skills.some((s) => s.hagIntoPot) &&
     !prepared
   )
     return rejectBattleCommand(state, "R-255：Hag 技能必须先完成正式选招与选目标");

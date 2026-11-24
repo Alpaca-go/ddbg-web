@@ -19,7 +19,7 @@ it("R-262 正式版本可开战、移除 Nest 后切回印刷 Push 2；Boss 死�
     },
   };
   const cleared = removeCasualties({ state: nestDead, events: [] }, ["boss:shrieker:nest"]);
-  expect(cleared.state.battle!.monsters![0]!.skills[1]!.verified_shrieker_flight).toBeUndefined();
+  expect(cleared.state.battle!.monsters![0]!.skills[1]!.shriekerFlight).toBeUndefined();
   const victory: GameState = {
     ...cleared.state,
     battle: {

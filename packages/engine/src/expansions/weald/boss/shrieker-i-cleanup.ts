@@ -21,7 +21,7 @@ export function clearShriekerINest(result: ApplyResult, ids: readonly string[]) 
   if (!removed.length) {
     if (
       d.shriekerBossBattles &&
-      b.monsters?.some((c) => c.skills.some((s) => s.verified_shrieker_flight)) &&
+      b.monsters?.some((c) => c.skills.some((s) => s.shriekerFlight)) &&
       !b.entities.some((e) => !e.dead && e.monsterCardId === context.faces[1].rawId)
     ) {
       return {

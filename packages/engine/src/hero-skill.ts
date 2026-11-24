@@ -347,14 +347,14 @@ export function rulesOf(card: { readonly rules?: SkillRules }): SkillRules {
 export type HeroSkillCardView = {
   readonly rules?: SkillRules;
   readonly verified_self_range?: true;
-  readonly verified_required_form?: SkillForm;
+  readonly requiredForm?: SkillForm;
   readonly verified_allies_stress?: number;
   readonly verified_self_stress?: {
     readonly lineIndex: number;
     readonly amount: number;
     readonly source: "print_front";
   };
-  readonly verified_target_disease?: true;
+  readonly targetDisease?: true;
   readonly id: string;
   readonly hero: string | null;
   readonly verification: { readonly unverified: boolean };
@@ -1809,7 +1809,7 @@ function formRequirementFromLine(line: readonly SkillSegment[]): SkillForm | nul
  * 没传入当前形态时不检查。
  */
 function formRequirementProblem(skill: HeroSkillCardView, combat: SkillCombatState): string | null {
-  if (skill.verified_required_form && combat.actor?.form !== skill.verified_required_form)
+  if (skill.requiredForm && combat.actor?.form !== skill.requiredForm)
     return "技能需要对应的憎恶形态（R38）";
   const required: SkillForm[] = [];
   for (const line of skill.effect_lines) {

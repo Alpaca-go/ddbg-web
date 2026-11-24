@@ -15,7 +15,7 @@ export function readHagIIntoPotAttack(card: MonsterCardView, skill: MonsterSkill
     hagHigherContext(3).catalog,
   ]
     .flat()
-    .find((c) => c.id === card.id && c.skills[0]?.verified_hag_into_pot);
+    .find((c) => c.id === card.id && c.skills[0]?.hagIntoPot);
   if (!expected) return { status: "refused" as const, reason: "未核准的 Hag Into the Pot 卡面" };
   const canonical = (value: unknown): unknown => {
     if (Array.isArray(value)) return value.map(canonical);
@@ -37,7 +37,7 @@ export function readHagIIntoPotAttack(card: MonsterCardView, skill: MonsterSkill
         s.unlabeled_numbers,
         s.lines,
         s.effect_lines,
-        s.verified_hag_into_pot,
+        s.hagIntoPot,
       ]),
     );
   if (
@@ -81,7 +81,7 @@ export function continueHagIIntoPot(
     resolved.skillSlot !== 1 ||
     actor?.dead ||
     card?.id !== context.hagId ||
-    !card.skills.find((s) => s.slot === 1)?.verified_hag_into_pot
+    !card.skills.find((s) => s.slot === 1)?.hagIntoPot
   )
     return null;
   if (b.hagSecondSkillPending)

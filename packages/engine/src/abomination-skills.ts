@@ -183,6 +183,6 @@ export function projectAbominationSkill(
       : {}),
     ...(faceRow.selfRange ? { verified_self_range: true as const } : {}),
     ...(faceRow.alliesStress !== undefined ? { verified_allies_stress: faceRow.alliesStress } : {}),
-    ...(faceRow.requiredForm ? { verified_required_form: faceRow.requiredForm } : {}),
+    ...(faceRow.requiredForm ? { requiredForm: faceRow.requiredForm } : {}),
   };
 }

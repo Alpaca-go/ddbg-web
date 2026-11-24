@@ -103,7 +103,7 @@ describe("Weald R-230 已确认技能的独立结算", () => {
     }
     const rush = readMonsterAttackView(card(G), 1);
     expect(rush.status).toBe("ready");
-    if (rush.status === "ready") expect(rush.view.verified_target_disease).toBe(true);
+    if (rush.status === "ready") expect(rush.view.targetDisease).toBe(true);
     const prey = readMonsterAttackView(card(A), 1);
     if (prey.status !== "ready") throw new Error(prey.reason);
     expect(
@@ -121,7 +121,7 @@ describe("Weald R-230 已确认技能的独立结算", () => {
       expect(attack.view.verified_status_effects).toContainEqual(
         expect.objectContaining({ kind: "blight", amount, duration }),
       );
-      if (slot === 2) expect(attack.view.verified_target_disease).toBe(true);
+      if (slot === 2) expect(attack.view.targetDisease).toBe(true);
     }
   });
 

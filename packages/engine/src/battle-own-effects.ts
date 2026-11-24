@@ -184,7 +184,7 @@ export function beginSkillOwnEffects(
     command.type === "playMonsterSkill" &&
     battle.monsters
       ?.find((c) => c.id === actor.monsterCardId)
-      ?.skills.find((s) => s.slot === command.skillSlot)?.verified_shrieker_flight;
+      ?.skills.find((s) => s.slot === command.skillSlot)?.shriekerFlight;
   const nest = flight
     ? battle.entities.find(
         (e) =>

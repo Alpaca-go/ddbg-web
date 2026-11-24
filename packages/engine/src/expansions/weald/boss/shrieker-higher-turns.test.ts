@@ -85,7 +85,7 @@ describe.each([2, 3] as const)("R-268 Shrieker %i 战斗", (level) => {
         [id],
       );
     expect(
-      killed("boss:shrieker:nest").state.battle!.monsters![0]!.skills[1]!.verified_shrieker_flight,
+      killed("boss:shrieker:nest").state.battle!.monsters![0]!.skills[1]!.shriekerFlight,
     ).toBeUndefined();
     expect(
       killed("boss:shrieker").state.battle!.entities.find((e) => e.id === "boss:shrieker:nest")!

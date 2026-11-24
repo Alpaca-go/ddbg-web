@@ -260,7 +260,7 @@ export function compileMonsterEffectPlan(
       effect_lines: lines,
       verified_status_effects: statuses,
       ...(selfHeal ? { verified_self_heal: selfHeal } : {}),
-      ...(disease ? { verified_target_disease: true as const } : {}),
+      ...(disease ? { targetDisease: true as const } : {}),
       ...(stress ? { verified_target_stress: stress } : {}),
       ...(bonus ? { verified_damage_bonus: bonus } : {}),
     },
