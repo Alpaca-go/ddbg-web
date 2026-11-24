@@ -106,7 +106,7 @@ function play(game: GameState, command: Command) {
 
 it("Sacrificial Stab I：vs Eldritch +1；缺类型拒绝；存档命令形状不变", () => {
   const card = skill(190);
-  expect(card.verified_damage_bonus).toMatchObject({ condition: "eldritch", amount: 1 });
+  expect(card.rules?.damage).toMatchObject({ condition: "eldritch", amount: 1 });
   for (const [tags, bonus] of [
     [["Eldritch"], 1],
     [["Beast"], 0],
