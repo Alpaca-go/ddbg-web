@@ -35,6 +35,11 @@ web 3、docs 若干）。因此作为独立迁移分支，不夹在 A2 里做。
 > monster 效果/压力/伤害/Weald/Heart 注解直接写 `rules`。normalized 7 个文件
 > 重生成后旧字段仍为 0。注解数据文件里仍有旧字段名作为内部输入 DSL，
 > 由 build 边界统一转换；引擎类型 / pipeline / 历史测试的最终改名留给 R3c。
+> **R3c 已完成（2026-11-24）**：`packages/engine`、`apps/web`、`tools/pipeline`
+> 的 `verified_*` 引用清零；HeroSkillCardView / MonsterSkillView / battle heroStats
+> 不再声明旧字段，Boss / Weald 投影与 monster effect plan 只写 `rules`。
+> 引擎验收 735 项、Boss 1136 项、data 313 项通过；engine 全量 3870 通过，
+> 剩余 5 项为并发超时，单独运行均通过。Playwright 因本机缺少 Chromium 未执行。
 
 ## 1. 终态形状
 
