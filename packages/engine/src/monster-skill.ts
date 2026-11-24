@@ -132,7 +132,7 @@ export type MonsterSkillResolution = {
 /** 与技能结算共享已命名的位移行解析器，不从 null 数字创建选择。 */
 export function needsMonsterSkillShuffleChoice(monster: MonsterCardView, slot: number): boolean {
   const skill = monster.skills.find((entry) => entry.slot === slot);
-  const wealdAttack = skill?.rules?.wealdAttack ?? skill?.verified_weald_attack;
+  const wealdAttack = skill?.rules?.wealdAttack;
   if (wealdAttack) {
     const attack = readWealdMonsterAttack(monster, {
       ...skill!,
@@ -180,8 +180,8 @@ export function readMonsterAttackView(
   const matches = monster.skills.filter((skill) => skill.slot === skillSlot);
   if (matches.length !== 1) return { status: "refused", reason: "怪物卡没有唯一对应的技能编号" };
   const skill = matches[0]!;
-  const wealdAttack = skill.rules?.wealdAttack ?? skill.verified_weald_attack;
-  const effectsPlan = skill.rules?.effects ?? skill.verified_monster_effects;
+  const wealdAttack = skill.rules?.wealdAttack;
+  const effectsPlan = skill.rules?.effects;
   if (skill.shriekerNestFlight)
     return {
       status: "refused",
@@ -268,7 +268,7 @@ function resolveMonsterSkillInternal(
   }
   const matches = monster.skills.filter((skill) => skill.slot === skillSlot);
   if (matches.length !== 1) return refused("怪物卡没有唯一对应的技能编号");
-  const skillPlan = matches[0]!.rules?.effects ?? matches[0]!.verified_monster_effects;
+  const skillPlan = matches[0]!.rules?.effects;
   if (combat.actor === undefined || "stress" in combat.actor) {
     return refused("必须提供怪物使用者，怪物没有压力轨");
   }

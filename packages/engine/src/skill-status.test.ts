@@ -212,12 +212,11 @@ describe("完整 Nt 注解的技能状态接线（R19–21 / R-048）", () => {
 
   it("缺或漂移 Nt 注解不补默认值，混合同行未完整支持时整次拒绝", () => {
     const stun = card("p007");
-    const { statuses: _statuses, ...rulesWithoutStatuses } = stun.rules ?? {};
-    void _statuses;
+    const drifted = { ...stun.rules!.statuses![0]!, duration: 2 };
     const invalid = {
       ...stun,
-      rules: rulesWithoutStatuses,
-      verified_status_effects: [{ ...stun.verified_status_effects![0]!, duration: 2 }],
+      rules: { ...stun.rules, statuses: [drifted] },
+      verified_status_effects: [drifted],
     };
     expect(
       resolveHeroSkill(

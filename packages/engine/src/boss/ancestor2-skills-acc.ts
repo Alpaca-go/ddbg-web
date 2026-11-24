@@ -118,7 +118,7 @@ function runAncestor2SkillAcc(
     },
   };
   const skill = card.skills.find((entry) => entry.slot === skillSlot);
-  const skillPlan = skill?.rules?.effects ?? skill?.verified_monster_effects;
+  const skillPlan = skill?.rules?.effects;
   const played = playMonsterSkill(prepared, {
     type: "playMonsterSkill",
     actorId: actor.id,

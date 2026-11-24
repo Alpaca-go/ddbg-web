@@ -205,19 +205,21 @@ describe("已选怪物攻击的纯结算（R19–21）", () => {
       ...original,
       skills: original.skills.map((skill) => {
         if (skill.slot !== 1) return skill;
-        const { verified_monster_effects, rules, ...rest } = skill;
-        const { effects: _planEffects, target, ...rulesRest } = rules ?? {};
-        const { stress: _ruleStress, ...targetRest } = target ?? {};
-        void verified_monster_effects;
-        void _planEffects;
-        void _ruleStress;
+        const annotation = { ...skill.rules!.target!.stress!, amount: 2 };
+        const plan = skill.rules!.effects!;
+        const changedPlan = {
+          ...plan,
+          effects: plan.effects.map((e) => (e.type === "stress" ? { ...e, amount: 2 } : e)),
+        };
         return {
-          ...rest,
+          ...skill,
           rules: {
-            ...rulesRest,
-            ...(Object.keys(targetRest).length ? { target: targetRest } : {}),
+            ...skill.rules,
+            target: { ...skill.rules!.target, stress: annotation },
+            effects: changedPlan,
           },
-          verified_target_stress: { ...skill.verified_target_stress!, amount: 2 },
+          verified_monster_effects: changedPlan,
+          verified_target_stress: annotation,
         };
       }),
     };

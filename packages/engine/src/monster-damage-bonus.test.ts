@@ -31,21 +31,15 @@ function withBonus(amount: number): MonsterCardView {
     ...arbalist,
     skills: arbalist.skills.map((skill) => {
       if (skill.slot !== 1) return skill;
-      const { verified_monster_effects, rules, ...rest } = skill;
-      const {
-        effects: _planEffects,
-        damage: _ruleDamage,
-        damageBonuses: _ruleDamageBonuses,
-        ...rulesWithoutPlan
-      } = rules ?? {};
-      void verified_monster_effects;
-      void _planEffects;
-      void _ruleDamage;
-      void _ruleDamageBonuses;
+      const { verified_monster_effects: _plan, rules, ...rest } = skill;
+      const { effects: _effects, ...rulesRest } = rules ?? {};
+      void _plan;
+      void _effects;
+      const annotation = { ...rules!.damage!, amount };
       return {
         ...rest,
-        rules: rulesWithoutPlan,
-        verified_damage_bonus: { ...skill.verified_damage_bonus!, amount },
+        rules: { ...rulesRest, damage: annotation },
+        verified_damage_bonus: annotation,
       };
     }),
   };

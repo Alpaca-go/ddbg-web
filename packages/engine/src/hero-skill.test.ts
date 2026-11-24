@@ -68,15 +68,16 @@ const legacyIcons = createIconLookup(
 const cards = new Map<string, FixtureCard>();
 for (const entry of file.cards) {
   if (!isFixtureCard(entry)) throw new Error("英雄技能卡形状对不上");
-  // 这组历史测试覆盖没有逐卡 Nt 注解的视图，确保 null 仍不会被默认填值。
-  // 当前已核实状态卡的完整输入另由 skill-status.test.ts 覆盖。
+  // R3 后只走 rules；Rage I/II 是已核实卡，保留完整 rules 供压力断言使用。
+  if (["hero_skill:core:h11:p226", "hero_skill:core:h11:p227"].includes(entry.id)) {
+    cards.set(entry.id, entry);
+    continue;
+  }
   const legacy = { ...entry };
   delete legacy.rules;
-  delete legacy.verified_status_effects;
-  delete legacy.verified_range;
-  delete legacy.verified_damage_bonus;
-  delete legacy.verified_damage_bonuses;
-  delete legacy.verified_target_support;
+  for (const key of Object.keys(legacy)) {
+    if (key.startsWith("verified_")) delete (legacy as Record<string, unknown>)[key];
+  }
   if (["hero_skill:core:h02:p038", "hero_skill:core:h02:p039"].includes(entry.id)) {
     legacy.stats_line = null;
     legacy.effect_lines = resolveLines(

@@ -45,7 +45,7 @@ export function playWhiteCellReconstitute(
   const destination = b.areas.find((a) => a.id === target.areaId);
   const lower =
     !!origin && !!destination && heights[origin.elevation] > heights[destination.elevation];
-  const effects = (skill.rules?.effects ?? skill.verified_monster_effects)?.effects;
+  const effects = skill.rules?.effects?.effects;
   const heal = effects?.find((e) => e.type === "heal" && e.scope === "target");
   const buff = effects?.find(
     (e) => e.type === "status" && e.kind === "buff" && e.scope === "target",

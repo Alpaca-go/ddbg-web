@@ -147,21 +147,31 @@ export function projectAbominationSkill(
         if (!found) throw new Error(`Missing verified icon ${key}`);
         return found;
       });
+  const {
+    statuses: _baseStatuses,
+    self: _baseSelf,
+    alliesStress: _baseAllies,
+    ...baseRules
+  } = skill.rules ?? {};
+  void _baseStatuses;
+  void _baseSelf;
+  void _baseAllies;
   const self = {
-    ...(faceRow.selfRange ? { range: true as const } : {}),
+    ...(skill.rules?.self?.range || faceRow.selfRange ? { range: true as const } : {}),
     ...(faceRow.selfStress
       ? { stress: { ...faceRow.selfStress, source: "print_front" as const } }
       : {}),
     ...(faceRow.selfHeal ? { heal: { ...faceRow.selfHeal, source: "print_front" as const } } : {}),
   };
   const rules = {
+    ...baseRules,
     ...(faceRow.statuses ? { statuses: faceRow.statuses } : {}),
     ...(Object.keys(self).length ? { self } : {}),
     ...(faceRow.alliesStress !== undefined ? { alliesStress: faceRow.alliesStress } : {}),
   };
   return {
     ...skill,
-    rules,
+    rules: rules as NonNullable<HeroSkillCardView["rules"]>,
     ...(faceRow.lines ? { effect_lines: faceRow.lines.map(line) } : {}),
     ...(faceRow.statsLine === null ? { stats_line: null } : {}),
     ...(faceRow.printedLabels ? { printed_labels: [] } : {}),

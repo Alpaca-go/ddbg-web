@@ -25,7 +25,7 @@ export function readMonsterSelfStatuses(
   const refuse = (reason: string) => ({ status: "refused" as const, reason });
   if (matches.length !== 1 || !skill) return refuse("怪物技能编号不唯一");
   if (skill.target !== "Self") return { status: "notSelf" };
-  const plan = skill.rules?.effects ?? skill.verified_monster_effects;
+  const plan = skill.rules?.effects;
   if (
     card.verification.unverified ||
     !Number.isSafeInteger(card.life) ||

@@ -15,7 +15,7 @@ export function beginResolveTurn(result: ApplyResult, actorId: string): ApplyRes
   const actor = battle.entities.find((entity) => entity.id === actorId)!;
   if (actor.side !== "hero" || !actor.resolveCardId) return completeTurnStart(result, actorId);
   const card = battle.resolveCards?.find((card) => card.id === actor.resolveCardId);
-  const trigger = card?.rules?.turnStart ?? card?.verified_turn_start;
+  const trigger = card?.rules?.turnStart;
   if (
     !card ||
     card.verification.unverified ||

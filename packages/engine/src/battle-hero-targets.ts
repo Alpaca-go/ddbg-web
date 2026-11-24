@@ -220,7 +220,7 @@ export function playHeroSkillTargets(
   const actorWounds = projectActorWounds(
     actor.id,
     current.entities.find((entry) => entry.id === actor.id)!.wounds,
-    (skill.rules?.target?.support ?? skill.verified_target_support)
+    skill.rules?.target?.support
       ? healthEffects.filter((e) => e.source !== "targetHeal")
       : healthEffects,
   );

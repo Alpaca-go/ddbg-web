@@ -68,7 +68,7 @@ describe("Weald R-230 已确认技能的独立结算", () => {
     [L, 2, 9, 3],
   ] as const)("%s 技能 %i / roll %i 的伤害是 %i", (id, slot, roll, damage) => {
     const monster = fixture(id);
-    const range = monster.skills.find((skill) => skill.slot === slot)!.verified_weald_attack!.range;
+    const range = monster.skills.find((skill) => skill.slot === slot)!.rules!.wealdAttack!.range;
     const result = resolveMonsterSkill(monster, slot, combat(range), roll);
     expect(result).toMatchObject({
       status: "resolved",
@@ -184,14 +184,15 @@ describe("Weald R-230 已确认技能的独立结算", () => {
     const source = card(L);
     const altered = {
       ...source,
-      skills: source.skills.map((skill) =>
-        skill.slot !== 2
-          ? skill
-          : {
-              ...skill,
-              verified_weald_attack: { ...skill.verified_weald_attack!, targets: 1 },
-            },
-      ),
+      skills: source.skills.map((skill) => {
+        if (skill.slot !== 2) return skill;
+        const attack = { ...skill.rules!.wealdAttack!, targets: 1 };
+        return {
+          ...skill,
+          verified_weald_attack: attack,
+          rules: { ...skill.rules, wealdAttack: attack },
+        };
+      }),
     };
     expect(readMonsterAttackView(altered, 2).status).toBe("refused");
     const original = card(A);

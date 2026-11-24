@@ -914,7 +914,7 @@ type ConditionRemoval = {
  */
 function readImmediateStress(skill: HeroSkillCardView): ImmediateStress {
   const none: ImmediateStress = { self: 0, target: 0, lineCount: 0 };
-  const explicit = rulesOf(skill).self?.stress ?? skill.verified_self_stress;
+  const explicit = rulesOf(skill).self?.stress;
   if (explicit) {
     const line = skill.effect_lines[explicit.lineIndex];
     const text = line
@@ -968,7 +968,7 @@ function readImmediateStress(skill: HeroSkillCardView): ImmediateStress {
  */
 export function readSelfHeal(skill: HeroSkillCardView): SelfHeal {
   const none: SelfHeal = { amount: 0, lineCount: 0 };
-  const confirmed = rulesOf(skill).self?.heal ?? skill.verified_self_heal;
+  const confirmed = rulesOf(skill).self?.heal;
   if (confirmed)
     return confirmed.source === "print_front" &&
       nonNegativeInteger(confirmed.amount) &&
@@ -1908,8 +1908,8 @@ function selectFace(
  */
 function readsAsSelfTarget(skill: HeroSkillCardView): boolean {
   const rules = rulesOf(skill);
-  const statuses = rules.statuses ?? skill.verified_status_effects;
-  const selfRange = rules.self?.range ?? skill.verified_self_range;
+  const statuses = rules.statuses;
+  const selfRange = rules.self?.range;
   const line = skill.stats_line;
   if (line === null) {
     const hasSelfRangeHeader = skill.effect_lines.some(
@@ -2145,7 +2145,7 @@ type PrintedRange =
 export function readPrintedRange(
   skill: Pick<HeroSkillCardView, "unlabeled_numbers" | "verified_range" | "rules">,
 ): PrintedRange {
-  const annotatedRange = rulesOf(skill).range ?? skill.verified_range;
+  const annotatedRange = rulesOf(skill).range;
   if (annotatedRange) {
     const range = annotatedRange;
     const numbers = skill.unlabeled_numbers.filter(
@@ -2195,8 +2195,8 @@ export function readPrintedRange(
 function rangeProblem(skill: HeroSkillCardView, combat: SkillCombatState): string | null {
   if (combat.areaDistance === undefined) return null;
   const rules = rulesOf(skill);
-  const selfRange = rules.self?.range ?? skill.verified_self_range;
-  const statuses = rules.statuses ?? skill.verified_status_effects;
+  const selfRange = rules.self?.range;
+  const statuses = rules.statuses;
   if ((skill as HeroSkillCardView & { readonly target?: string }).target === "Special") {
     return null;
   }
@@ -2291,9 +2291,9 @@ function readTargetIconCounts(skill: HeroSkillCardView): {
   // 已逐卡核实的无Acc卡：提取器将射程0/单英雄目标行放入effect_lines[0]。
   // 明确注解才读取；不从其他效果行或未核实卡推断目标。
   const rules = rulesOf(skill);
-  const headerAnn = rules.target?.header ?? skill.verified_target_header;
-  const targetHealAnn = rules.target?.heal ?? skill.verified_target_heal;
-  const statusesAnn = rules.statuses ?? skill.verified_status_effects;
+  const headerAnn = rules.target?.header;
+  const targetHealAnn = rules.target?.heal;
+  const statusesAnn = rules.statuses;
   if (headerAnn !== undefined) {
     const header = headerAnn;
     const line = skill.effect_lines[0];
@@ -2316,14 +2316,14 @@ function readTargetIconCounts(skill: HeroSkillCardView): {
     return countNamedTargets(lineTargetIcons(line!));
   }
   // p019 的射程 / 目标行被提取到 effect_lines；只读逐卡复核注解对应的已确认行。
-  if ((rules.rallyingFlare ?? skill.verified_rallying_flare) !== undefined) {
+  if (rules.rallyingFlare !== undefined) {
     const heroOrMonster = (skill.front_icons ?? []).filter(
       (icon) => NAMED.has(icon.naming) && icon.key === "target_hero_or_monster",
     ).length;
     if (heroOrMonster > 0) return { hero: 0, monster: 0, heroOrMonster };
     return { hero: 0, monster: 0, heroOrMonster: 0 };
   }
-  if ((rules.target?.support ?? skill.verified_target_support) !== undefined) {
+  if (rules.target?.support !== undefined) {
     const line = skill.effect_lines[0];
     const text = line
       ?.map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
@@ -2382,8 +2382,8 @@ export function readPrintedTargets(skill: HeroSkillCardView): PrintedTargets {
 function targetCountProblem(skill: HeroSkillCardView, combat: SkillCombatState): string | null {
   if (combat.targetsInArea === undefined) return null;
   const rules = rulesOf(skill);
-  const selfRange = rules.self?.range ?? skill.verified_self_range;
-  const statuses = rules.statuses ?? skill.verified_status_effects;
+  const selfRange = rules.self?.range;
+  const statuses = rules.statuses;
   if ((skill as HeroSkillCardView & { readonly target?: string }).target === "Special") return null;
   if ((selfRange || statuses?.length) && readsAsSelfTarget(skill))
     return combat.targetsInArea === 1 && combat.actor?.id === combat.target.id
@@ -2693,7 +2693,7 @@ function resolveSkill(
   if (!selected.ok) return refuse(skill, combat, selected.reason);
   const active = selected.skill;
   const activeRules = rulesOf(active);
-  const alliesStressAnn = activeRules.alliesStress ?? active.verified_allies_stress;
+  const alliesStressAnn = activeRules.alliesStress;
   const allies = alliesStressAnn === undefined ? null : readAreaHeroes(combat.allies, "所有队友");
   if (
     allies &&
@@ -2713,7 +2713,7 @@ function resolveSkill(
 
   const target = combat.target;
   let effectLineReceiptCount = 0;
-  const actorBonus = activeRules.actorDamage ?? active.verified_actor_damage_bonus;
+  const actorBonus = activeRules.actorDamage;
   if (actorBonus) {
     const line = active.effect_lines[actorBonus.lineIndex];
     const text = line
@@ -2733,7 +2733,7 @@ function resolveSkill(
     )
       return refuse(skill, combat, "使用者条件伤害注解与已确认卡面不符（Q-172，R-048）");
   }
-  const statusTransfer = activeRules.transfer ?? active.verified_bleed_blight_transfer;
+  const statusTransfer = activeRules.transfer;
   if (statusTransfer) {
     const line = active.effect_lines[statusTransfer.lineIndex];
     const text = line
@@ -2755,7 +2755,7 @@ function resolveSkill(
     if (!Array.isArray(target.statusStacks) || statusStackProblem(target.statusStacks))
       return refuse(skill, combat, "流血/腐蚀转移缺少合法的队友状态堆（Q-173）");
   }
-  for (const receipt of activeRules.receipts ?? active.verified_effect_line_receipts ?? []) {
+  for (const receipt of activeRules.receipts ?? []) {
     const line = active.effect_lines[receipt.lineIndex];
     const sig = line
       ?.map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
@@ -2773,7 +2773,7 @@ function resolveSkill(
       return refuse(skill, combat, "效果行签收与已确认卡面不符（R-048）");
     effectLineReceiptCount += 1;
   }
-  const targetHealAnn = activeRules.target?.heal ?? active.verified_target_heal;
+  const targetHealAnn = activeRules.target?.heal;
   if (targetHealAnn) {
     const line = active.effect_lines[targetHealAnn.lineIndex];
     const text = line
@@ -2796,7 +2796,7 @@ function resolveSkill(
       return refuse(skill, combat, "友方治疗缺少英雄伤口轨");
     }
   }
-  const support = activeRules.target?.support ?? active.verified_target_support;
+  const support = activeRules.target?.support;
   if (support) {
     const line = active.effect_lines[support.lineIndex];
     const text = line
@@ -2828,7 +2828,7 @@ function resolveSkill(
       return refuse(skill, combat, "目标支持效果缺少光照或压力轨");
   }
   const stress = support ? { self: 0, target: 0, lineCount: 0 } : readImmediateStress(active);
-  const extraStress = activeRules.target?.stress ?? active.verified_target_stress;
+  const extraStress = activeRules.target?.stress;
   if (extraStress) {
     const line = active.effect_lines[extraStress.lineIndex];
     const text = line
@@ -2849,8 +2849,8 @@ function resolveSkill(
     )
       return refuse(skill, combat, "目标压力注解与已确认卡面不符（R-048）");
   }
-  const damageBonusesAnn = activeRules.damageBonuses ?? active.verified_damage_bonuses;
-  const damageBonusAnn = activeRules.damage ?? active.verified_damage_bonus;
+  const damageBonusesAnn = activeRules.damageBonuses;
+  const damageBonusAnn = activeRules.damage;
   if (
     damageBonusesAnn !== undefined &&
     (damageBonusAnn !== undefined ||
@@ -2939,7 +2939,7 @@ function resolveSkill(
   };
   const ignoresProtection = readIgnoresProtection(active);
   const ignoresGuard = readIgnoresGuard(active);
-  const rallyingFlare = activeRules.rallyingFlare ?? active.verified_rallying_flare;
+  const rallyingFlare = activeRules.rallyingFlare;
   if (rallyingFlare) {
     const cleanup = active.effect_lines[rallyingFlare.cleanupLineIndex];
     const monsterLine = active.effect_lines[rallyingFlare.monsterDebuffLineIndex];
@@ -3617,7 +3617,7 @@ function resolveSkill(
         (statusTransfer ? 1 : 0) +
         (rallyingFlare ? 1 : 0) +
         (extraStress ? 1 : 0) +
-        ((activeRules.target?.header ?? active.verified_target_header) ? 1 : 0) +
+        (activeRules.target?.header ? 1 : 0) +
         (support ? 2 : 0) +
         effectLineReceiptCount +
         (targetHealAnn ? 1 : 0) +

@@ -65,9 +65,7 @@ export function readWealdMonsterAttack(
   skill: MonsterSkillView,
 ): WealdMonsterAttackReady | { readonly status: "refused"; readonly reason: string } {
   const refuse = (reason: string) => ({ status: "refused" as const, reason });
-  const parsed = wealdMonsterAttackSchema.safeParse(
-    skill.rules?.wealdAttack ?? skill.verified_weald_attack,
-  );
+  const parsed = wealdMonsterAttackSchema.safeParse(skill.rules?.wealdAttack);
   const entry = WEALD_MONSTER_ATTACKS.find(
     (entry) => entry.cardId === monster.id && entry.slot === skill.slot,
   );

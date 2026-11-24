@@ -120,9 +120,7 @@ export function playMonsterSkillTargets(
             {
               ...e.resolution,
               targetStatusEffects:
-                (attack.view.rules?.statuses ?? attack.view.verified_status_effects)?.filter(
-                  (s) => s.scope === "target",
-                ) ??
+                attack.view.rules?.statuses?.filter((s) => s.scope === "target") ??
                 e.resolution.targetStatusEffects ??
                 [],
             },

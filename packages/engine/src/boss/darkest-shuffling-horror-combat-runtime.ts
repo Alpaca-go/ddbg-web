@@ -103,7 +103,7 @@ function applyEchoingDisassemblyTargetEffects(
   const skill = card.skills.find(
     (entry) => entry.slot === SHUFFLING_HORROR_ECHOING_DISASSEMBLY_SKILL_SLOT,
   );
-  if (!(skill?.rules?.effects ?? skill?.verified_monster_effects)) return { battle };
+  if (!skill?.rules?.effects) return { battle };
   const targetPick = selectEchoingDisassemblyPrimaryTarget(state, battle, actor);
   if ("events" in targetPick) return targetPick;
   const attack = readMonsterAttackView(card, SHUFFLING_HORROR_ECHOING_DISASSEMBLY_SKILL_SLOT);

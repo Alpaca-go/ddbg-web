@@ -201,7 +201,7 @@ export function applyHamletAction(state: GameState, command: HamletActionCommand
           continue;
         }
         const targetStat = d.battleCatalog!.heroStats.find((s) => s.id === target.heroStatId);
-        const buff = targetStat?.rules?.buffDefence ?? targetStat?.verified_buff_defence;
+        const buff = targetStat?.rules?.buffDefence;
         if (
           command.skill === "chant" &&
           (!target.attributesVerified ||
