@@ -9,7 +9,6 @@ export function applySupportEffects(
 ): NormalizedHeroSkillCard[] {
   const byId = new Map(entries.map((entry) => [entry.id, entry]));
   return cards.map((card) => {
-    if (card.rules?.target?.support) return card;
     const entry = byId.get(legacyHeroSkillId(card));
     if (!entry) return card;
     const line = card.effect_lines[entry.lineIndex];
@@ -41,6 +40,7 @@ export function applySupportEffects(
       )
     )
       throw new Error(`${card.id} 已复核支持效果与印刷数据不匹配`);
+    if (card.rules?.target?.support) return card;
     return {
       ...card,
       verified_target_support: {
