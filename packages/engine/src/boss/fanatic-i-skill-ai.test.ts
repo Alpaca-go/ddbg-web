@@ -279,17 +279,18 @@ describe("C-017 · Fanatic I 卡面技能 AI（R20–24、R-015/024/048）", () 
             ? card
             : {
                 ...card,
-                skills: card.skills.map((skill) =>
-                  skill.slot !== 2
-                    ? skill
-                    : {
-                        ...skill,
-                        verified_monster_effects: {
-                          ...skill.verified_monster_effects!,
-                          effects: skill.verified_monster_effects!.effects.slice(1),
-                        },
-                      },
-                ),
+                skills: card.skills.map((skill) => {
+                  if (skill.slot !== 2) return skill;
+                  const plan = {
+                    ...skill.verified_monster_effects!,
+                    effects: skill.verified_monster_effects!.effects.slice(1),
+                  };
+                  return {
+                    ...skill,
+                    verified_monster_effects: plan,
+                    rules: { ...skill.rules, effects: plan },
+                  };
+                }),
               },
         ),
       },

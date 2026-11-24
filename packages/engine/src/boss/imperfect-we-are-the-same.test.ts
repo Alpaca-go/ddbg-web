@@ -59,7 +59,16 @@ it("效果数值或签名漂移拒绝，Perfect Reflection 不外推", () => {
   ])
     expect(
       readMonsterAttackView(
-        { ...card, skills: [{ ...skill, verified_monster_effects: changed }] },
+        {
+          ...card,
+          skills: [
+            {
+              ...skill,
+              verified_monster_effects: changed,
+              rules: { ...skill.rules, effects: changed },
+            },
+          ],
+        },
         2,
       ).status,
     ).toBe("refused");

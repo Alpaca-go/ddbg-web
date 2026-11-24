@@ -359,9 +359,11 @@ describe("Collector I · deployCollectorI · Collected 技能闭环", () => {
                 ...entry,
                 skills: entry.skills.map((skill) => {
                   if (skill.slot !== 1) return skill;
-                  const { verified_monster_effects: _removed, ...rest } = skill;
+                  const { verified_monster_effects: _removed, rules, ...rest } = skill;
+                  const { effects: _plan, ...rulesWithoutPlan } = rules ?? {};
                   void _removed;
-                  return rest;
+                  void _plan;
+                  return { ...rest, rules: rulesWithoutPlan };
                 }),
               }
             : entry,

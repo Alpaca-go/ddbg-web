@@ -44,6 +44,10 @@ it("落空无状态，超出印刷射程拒绝", () => {
 it("计划持续时间漂移拒绝", () => {
   const skill = card.skills.find((s) => s.slot === 1)!;
   const plan = skill.verified_monster_effects!;
+  const changed = {
+    ...plan,
+    effects: plan.effects.map((e) => (e.type === "status" ? { ...e, duration: 9 } : e)),
+  };
   expect(
     readMonsterAttackView(
       {
@@ -51,10 +55,8 @@ it("计划持续时间漂移拒绝", () => {
         skills: [
           {
             ...skill,
-            verified_monster_effects: {
-              ...plan,
-              effects: plan.effects.map((e) => (e.type === "status" ? { ...e, duration: 9 } : e)),
-            },
+            verified_monster_effects: changed,
+            rules: { ...skill.rules, effects: changed },
           },
         ],
       },
