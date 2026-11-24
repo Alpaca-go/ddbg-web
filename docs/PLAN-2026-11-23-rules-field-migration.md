@@ -40,6 +40,9 @@ web 3、docs 若干）。因此作为独立迁移分支，不夹在 A2 里做。
 > 不再声明旧字段，Boss / Weald 投影与 monster effect plan 只写 `rules`。
 > 引擎验收 735 项、Boss 1136 项、data 313 项通过；engine 全量 3870 通过，
 > 剩余 5 项为并发超时，单独运行均通过。Playwright 因本机缺少 Chromium 未执行。
+> **R3d 已完成（2026-11-24）**：data 注解层内部字段由 `verified_*` 改名为
+> `annotation_*`，代码库（packages/apps/tools）旧名引用清零。
+> 补齐 Playwright Chromium 后 e2e **89 项通过 / 1 跳过**。
 
 ## 1. 终态形状
 
