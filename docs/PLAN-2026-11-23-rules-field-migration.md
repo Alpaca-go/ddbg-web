@@ -26,8 +26,10 @@ web 3、docs 若干）。因此作为独立迁移分支，不夹在 A2 里做。
 > **R3b1 已完成（2026-11-24）**：build 在写盘前剥离全部 `verified_*`，
 > 7 个 normalized JSON 已重生成且旧字段清零；注解 applier 在已有 `rules` 时幂等，
 > data 83 文件 / 313 项、engine 验收 735 项、Boss 154 文件 / 1136 项通过。
-> **仍待 R3b2**：schema 中的 `verified_*` 定义与注解层内部字段尚未删除；
-> 引擎类型、pipeline/web 与历史测试的最终清理归 R3c/R3d。
+> **R3b2 部分完成（2026-11-24）**：英雄属性五个构建器与 schema 已删除
+> `verified_buff_defence` / `verified_condition_defence` /
+> `verified_higher_condition_defence`，直接产出 `rules`；美德/折磨已删除
+> `verified_turn_start`。**仍待**：hero_skill / monster schema 的旧字段与注解层内部字段。
 
 ## 1. 终态形状
 
