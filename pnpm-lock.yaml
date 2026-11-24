@@ -190,9 +190,6 @@ importers:
 
   apps/web:
     dependencies:
-      '@ddbg/engine':
-        specifier: workspace:*
-        version: link:../../packages/engine
       react:
         specifier: 19.3.0
         version: 19.3.0
@@ -245,10 +242,6 @@ importers:
         version: 24.19.1
 
   tools/pipeline:
-    dependencies:
-      '@ddbg/data':
-        specifier: workspace:*
-        version: link:../../packages/data
     devDependencies:
       '@types/node':
         specifier: 24.19.1

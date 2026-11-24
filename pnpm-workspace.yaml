@@ -6,3 +6,4 @@ packages:
 # 1 天。显式写出时 pnpm 12 默认 strict：未满等待期的版本直接失败，不写入排除名单。
 minimumReleaseAge: 1440
 minimumReleaseAgeStrict: true
+hoistWorkspacePackages: false

@@ -6,9 +6,7 @@
   "exports": {
     ".": "./src/index.ts"
   },
-  "dependencies": {
-    "@ddbg/data": "workspace:*"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/node": "24.19.1"
   },

@@ -13,6 +13,10 @@ export const DEV_SERVER_PORT = 8080;
 
 export default defineConfig({
   plugins: [battleDataPlugin(), cardArtCachePlugin(repoRoot), react(), tailwindcss()],
+  resolve: {
+    // 直接用源码路径代替 workspace 链接，避免 node_modules 里出现第二份 engine 路径。
+    alias: { "@ddbg/engine": resolve(repoRoot, "packages/engine/src/index.ts") },
+  },
   build: {
     rolldownOptions: {
       output: {
