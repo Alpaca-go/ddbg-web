@@ -56,7 +56,6 @@ export const coveHeroStatCardSchema = coveAttributesSchema
     }),
     attributesVerified: z.literal(true),
     approval: z.literal("kyries_review_2026-10-24"),
-    verified_higher_condition_defence: higherHeroDefenceSchema.optional(),
     /** 规则语义（新命名空间）：只放引擎要执行的解释，不放印刷原文。 */
     rules: coveHeroStatRulesSchema.optional(),
     lines: z.array(z.string()),
@@ -65,7 +64,7 @@ export const coveHeroStatCardSchema = coveAttributesSchema
   })
   .strict()
   .superRefine((card, ctx) => {
-    if (card.verified_higher_condition_defence && !readHigherHeroDefence(card))
+    if (card.rules?.higherConditionDefence && !readHigherHeroDefence(card))
       ctx.addIssue({ code: "custom", message: "英雄防御超出逐卡核准（R-215）" });
   });
 
@@ -156,7 +155,7 @@ export function buildCoveHeroStats(
       source: { file: face.file, page: face.page },
       attributesVerified: true,
       approval: "kyries_review_2026-10-24",
-      ...(higherDefence ? { verified_higher_condition_defence: higherDefence } : {}),
+      ...(higherDefence ? { rules: { higherConditionDefence: higherDefence } } : {}),
       lines: face.lines.map((line) => line.text),
       icons: icons.map((entry) => {
         const { bbox, ...icon } = entry;

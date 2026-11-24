@@ -74,8 +74,6 @@ export const warrensHeroStatCardSchema = warrensAttributesSchema
     }),
     attributesVerified: z.literal(true),
     approval: z.enum(["kyries_review_2026-10-24", "kyries_review_2026-11-08"]),
-    verified_condition_defence: warrensConditionDefenceSchema.optional(),
-    verified_higher_condition_defence: higherHeroDefenceSchema.optional(),
     /** 规则语义（新命名空间）：只放引擎要执行的解释，不放印刷原文。 */
     rules: warrensHeroStatRulesSchema.optional(),
     lines: z.array(z.string()),
@@ -83,16 +81,16 @@ export const warrensHeroStatCardSchema = warrensAttributesSchema
     verification: verificationSchema,
   })
   .superRefine((card, ctx) => {
-    if (card.verified_higher_condition_defence && !readHigherHeroDefence(card))
+    if (card.rules?.higherConditionDefence && !readHigherHeroDefence(card))
       ctx.addIssue({ code: "custom", message: "英雄防御超出逐卡核准（R-215）" });
     const defence = approvedWarrensConditionDefences[card.id];
-    if (defence && !card.verified_higher_condition_defence) {
+    if (defence && !card.rules?.higherConditionDefence) {
       if (
         card.face !== "front" ||
         card.level !== 1 ||
         card.name !== defence.name ||
-        !card.verified_condition_defence ||
-        card.verified_condition_defence.resistances[0] !== defence.kind
+        !card.rules?.conditionDefence ||
+        card.rules.conditionDefence.resistances[0] !== defence.kind
       )
         ctx.addIssue({ code: "custom", message: "Warrens I 级条件防御与 R-104 不一致" });
     }
@@ -186,6 +184,19 @@ export function buildWarrensHeroStats(
       if (!joined.includes(`{icon:${defence.iconId}}`))
         throw new Error("Warrens 条件防御图标漂移（R-048）");
     }
+    const rules = {
+      ...(defence && !higherDefence
+        ? {
+            conditionDefence: {
+              resistances: [defence.kind] as const,
+              immunities: [] as const,
+              source: "print_front" as const,
+              approval: "kyries_review_2026-10-24",
+            },
+          }
+        : {}),
+      ...(higherDefence ? { higherConditionDefence: higherDefence } : {}),
+    };
     return warrensHeroStatCardSchema.parse({
       ...attributes,
       id: `${attributes.rawId}:${attributes.face}`,
@@ -195,17 +206,7 @@ export function buildWarrensHeroStats(
         attributes.name === "ANTIQUARIAN" && attributes.level === 3
           ? "kyries_review_2026-11-08"
           : "kyries_review_2026-10-24",
-      ...(defence && !higherDefence
-        ? {
-            verified_condition_defence: {
-              resistances: [defence.kind],
-              immunities: [],
-              source: "print_front",
-              approval: "kyries_review_2026-10-24",
-            },
-          }
-        : {}),
-      ...(higherDefence ? { verified_higher_condition_defence: higherDefence } : {}),
+      ...(Object.keys(rules).length ? { rules } : {}),
       lines: face.lines.map((line) => line.text),
       icons: icons.map((entry) => {
         const { bbox, ...icon } = entry;

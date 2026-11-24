@@ -79,8 +79,6 @@ export const wealdHeroStatCardSchema = wealdAttributesSchema
     }),
     attributesVerified: z.literal(true),
     approval: z.literal("kyries_review_2026-10-24"),
-    verified_condition_defence: wealdConditionDefenceSchema.optional(),
-    verified_higher_condition_defence: higherHeroDefenceSchema.optional(),
     /** 规则语义（新命名空间）：只放引擎要执行的解释，不放印刷原文。 */
     rules: wealdHeroStatRulesSchema.optional(),
     lines: z.array(z.string()),
@@ -88,7 +86,7 @@ export const wealdHeroStatCardSchema = wealdAttributesSchema
     verification: verificationSchema,
   })
   .superRefine((card, ctx) => {
-    if (card.verified_higher_condition_defence && !readHigherHeroDefence(card))
+    if (card.rules?.higherConditionDefence && !readHigherHeroDefence(card))
       ctx.addIssue({ code: "custom", message: "英雄防御超出逐卡核准（R-215）" });
     const defence = approvedWealdConditionDefences[card.id];
     if (defence) {
@@ -96,8 +94,8 @@ export const wealdHeroStatCardSchema = wealdAttributesSchema
         card.face !== "front" ||
         card.level !== 1 ||
         card.name !== defence.name ||
-        !card.verified_condition_defence ||
-        card.verified_condition_defence.resistances[0] !== defence.kind
+        !card.rules?.conditionDefence ||
+        card.rules.conditionDefence.resistances[0] !== defence.kind
       )
         ctx.addIssue({ code: "custom", message: "Weald I 级条件防御与 R-106 不一致" });
     }
@@ -192,23 +190,26 @@ export function buildWealdHeroStats(
         throw new Error("Weald 条件防御图标漂移（R-048）");
     }
     const higherDefence = buildHigherHeroDefence(`${attributes.rawId}:${attributes.face}`, face);
+    const rules = {
+      ...(defence
+        ? {
+            conditionDefence: {
+              resistances: [defence.kind] as const,
+              immunities: [] as const,
+              source: "print_front" as const,
+              approval: "kyries_review_2026-10-24" as const,
+            },
+          }
+        : {}),
+      ...(higherDefence ? { higherConditionDefence: higherDefence } : {}),
+    };
     return wealdHeroStatCardSchema.parse({
       ...attributes,
       id: `${attributes.rawId}:${attributes.face}`,
       source: { file: face.file, page: face.page },
       attributesVerified: true,
       approval: "kyries_review_2026-10-24",
-      ...(defence
-        ? {
-            verified_condition_defence: {
-              resistances: [defence.kind],
-              immunities: [],
-              source: "print_front",
-              approval: "kyries_review_2026-10-24",
-            },
-          }
-        : {}),
-      ...(higherDefence ? { verified_higher_condition_defence: higherDefence } : {}),
+      ...(Object.keys(rules).length ? { rules } : {}),
       lines: face.lines.map((line) => line.text),
       icons: icons.map((entry) => {
         const { bbox, ...icon } = entry;

@@ -139,16 +139,6 @@ export const normalizedHeroStatCardSchema = attributesSchema
       "kyries_review_2026-10-18",
       "kyries_review_2026-10-24",
     ]),
-    /** 原有 Buff 专项注解保留兼容；完整条件防御按具体 I 级 id 限定审批。 */
-    verified_buff_defence: z
-      .strictObject({
-        resistant: z.boolean(),
-        immune: z.boolean(),
-        source: z.literal("print_front"),
-      })
-      .optional(),
-    verified_condition_defence: heroConditionDefenceSchema.optional(),
-    verified_higher_condition_defence: higherHeroDefenceSchema.optional(),
     /** 规则语义（新命名空间）：只放引擎要执行的解释，不放印刷原文。 */
     rules: heroStatRulesSchema.optional(),
     /** 其他卡面文字只保留，不解释村庄效果、抗性或免疫。 */
@@ -174,17 +164,17 @@ export const normalizedHeroStatCardSchema = attributesSchema
       )
         ctx.addIssue({ code: "custom", message: "英雄属性超出三面限定审批（R-088/R-094/R-095）" });
     }
-    if (card.verified_higher_condition_defence && !readHigherHeroDefence(card))
+    if (card.rules?.higherConditionDefence && !readHigherHeroDefence(card))
       ctx.addIssue({ code: "custom", message: "高等级英雄防御超出限定审批（R-081/R-088/R-095）" });
-    if (card.verified_condition_defence) {
+    if (card.rules?.conditionDefence) {
       const expected = approvedHeroConditionDefences[card.id];
       if (
         !expected ||
         card.face !== "front" ||
         card.level !== 1 ||
         card.name !== expected.name ||
-        card.verified_condition_defence.resistances[0] !== expected.kind ||
-        card.verified_condition_defence.approval !==
+        card.rules.conditionDefence.resistances[0] !== expected.kind ||
+        card.rules.conditionDefence.approval !==
           (laterHeroApprovals[expected.name] ?? "kyries_review_2026-10-12")
       )
         ctx.addIssue({ code: "custom", message: "英雄条件防御超出 I 级限定审批" });
@@ -216,15 +206,6 @@ export const canonicalHeroStatCardSchema = attributesSchema
     source: z.strictObject({ file: z.string().min(1), page: z.int().positive() }),
     attributesVerified: z.literal(true),
     approval: z.string().min(1),
-    verified_buff_defence: z
-      .strictObject({
-        resistant: z.boolean(),
-        immune: z.boolean(),
-        source: z.literal("print_front"),
-      })
-      .optional(),
-    verified_condition_defence: heroConditionDefenceSchema.optional(),
-    verified_higher_condition_defence: higherHeroDefenceSchema.optional(),
     /** 规则语义（新命名空间）：只放引擎要执行的解释，不放印刷原文。 */
     rules: heroStatRulesSchema.optional(),
     lines: z.array(z.string()),
@@ -405,26 +386,29 @@ export function buildHeroStats(
     }
     const defence = approvedHeroConditionDefences[`${attributes.rawId}:${attributes.face}`];
     const higher = buildHigherHeroDefence(`${attributes.rawId}:${attributes.face}`, face);
+    const rules = {
+      ...(higher ? { higherConditionDefence: higher } : {}),
+      ...(buffReviewed
+        ? { buffDefence: { resistant: false, immune: false, source: "print_front" as const } }
+        : {}),
+      ...(defence && buffReviewed
+        ? {
+            conditionDefence: {
+              resistances: [defence.kind] as const,
+              immunities: [] as const,
+              source: "print_front" as const,
+              approval: laterHeroApprovals[attributes.name] ?? "kyries_review_2026-10-12",
+            },
+          }
+        : {}),
+    };
     return normalizedHeroStatCardSchema.parse({
       ...attributes,
       id: `${attributes.rawId}:${attributes.face}`,
       source: { file: face.file, page: face.page },
       attributesVerified: true,
       approval: laterHeroApprovals[attributes.name] ?? "kyries_review_2026-10-10",
-      ...(higher ? { verified_higher_condition_defence: higher } : {}),
-      ...(buffReviewed
-        ? { verified_buff_defence: { resistant: false, immune: false, source: "print_front" } }
-        : {}),
-      ...(defence && buffReviewed
-        ? {
-            verified_condition_defence: {
-              resistances: [defence.kind],
-              immunities: [],
-              source: "print_front",
-              approval: laterHeroApprovals[attributes.name] ?? "kyries_review_2026-10-12",
-            },
-          }
-        : {}),
+      ...(Object.keys(rules).length ? { rules } : {}),
       lines: face.lines.map((line) => line.text),
       icons,
       verification: finishVerification(reasons),
