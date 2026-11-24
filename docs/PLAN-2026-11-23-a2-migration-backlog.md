@@ -21,9 +21,9 @@
 
 总体原则：
 
-- 规则只读 `verified_*`；文本规则（Push/Pull、Ignores）保留文本解析，只去掉对「用 `icon.key` 找 self/target 侧」的依赖；
+- 规则只读 `rules.*`；文本规则（Push/Pull、Ignores）保留文本解析，只去掉对「用 `icon.key` 找 self/target 侧」的依赖；
 - 每个单元独立 PR，带行为快照与既有测试；
-- 不要求 normalized 零 diff（A2 可能改读取路径），但 `verified_*` 数据与引擎行为要可解释。
+- 不要求 normalized 零 diff（A2 可能改读取路径），但 `rules.*` 数据与引擎行为要可解释。
 
 ## 单元 1：hero 自身治疗 / 压力 / 射程 / 形态
 
@@ -36,8 +36,8 @@
 
 做法：
 
-1. 先给所有需要这些语义的卡补 `verified_self_heal` / `verified_self_stress` /
-   `verified_self_range` / `verified_required_form`（A0.5 已确认 432 张，缺的按卡补）；
+1. 先给所有需要这些语义的卡补 `rules.self.heal` / `rules.self.stress` /
+   `rules.self.range` / `requiredForm`（A0.5 已确认 432 张，缺的按卡补）；
 2. 读取函数优先读字段，文本解析只作为「未注解卡」的 fallback；
 3. 全部卡都注解后删除 fallback。
 
@@ -51,9 +51,9 @@ Toxin Trickery p187–p189；Adrenaline Rush 的 Remove 与 Buff 同一行，继
 行数：5 + 3 + 2（`readConditionRemoval`、`removeBleedBlightKind`、
 `readSelfBleedRemoval`、`selfRemoveBleedLine`）。
 
-现状：没有 `verified_removal` 字段；Suffer 用 `verified_effect_line_receipts` 签收。
+现状：没有 `rules.removal` 字段；Suffer 用 `rules.receipts` 签收。
 
-建议：新增 `verified_removal`（lineIndex + kinds + scope）或扩展 receipts；
+建议：新增 `rules.removal`（lineIndex + kinds + scope）或扩展 receipts；
 数据从 A0.5 已核的卡补；然后删除文本解析。
 
 风险：中。需要 schema 扩展与逐卡数据。
@@ -65,7 +65,7 @@ Toxin Trickery p187–p189；Adrenaline Rush 的 Remove 与 Buff 同一行，继
 
 行数：11（`countNamedTargets`、`readTargetIconCounts`）。
 
-做法：用 `verified_target_header` + stats 的结构化目标（hero/monster/hero_or_monster 计数）
+做法：用 `rules.target.header` + stats 的结构化目标（hero/monster/hero_or_monster 计数）
 替代从 `front_icons` / `stats_line` 数图标；数据从 A0.5 已核卡补。
 
 风险：中。多数卡只有 0–2 个目标，可先做核心 11 人。
@@ -88,7 +88,7 @@ stats 主效果改为 `rules.effect`（4a，267 张卡）。剩余 `{icon.key}` 
 行数：7（Push/Pull）+ 5（Ignores）。
 
 做法：保留文本解析；把「从 `self_effects`/`target_effects` 判断作用侧」改为读注解的
-`scope`（`verified_status_effects` 已有 scope，其他效果按需补）。
+`scope`（`rules.statuses` 已有 scope，其他效果按需补）。
 
 风险：低。行为不变，只是去掉对图标 key 的依赖。
 
@@ -96,11 +96,11 @@ stats 主效果改为 `rules.effect`（4a，267 张卡）。剩余 `{icon.key}` 
 
 **状态：已完成（2026-11-24）**。21 张卡的投影结果冻结在
 [`hero-annotations/abomination-projection-data.ts`](../../packages/data/src/normalize/hero-annotations/abomination-projection-data.ts)；
-`projectAbominationSkill` 只保留身份 / 签名断言、行与图标的解析，不再在运行时合成 `verified_*`。
+`projectAbominationSkill` 只保留身份 / 签名断言、行与图标的解析，不再在运行时合成 `rules.*`。
 
 行数：8（`abomination-skills.ts`）。
 
-现状：Absolution/Rake/Rage/Slam 的效果由引擎模块运行时合成 `verified_*`，不在 normalized 数据里。
+现状：Absolution/Rake/Rage/Slam 的效果由引擎模块运行时合成 `rules.*`，不在 normalized 数据里。
 
 做法：把合成结果迁回 `hero-annotations/h11-abomination.ts` 的数据表；
 `projectAbominationSkill` 只保留签名断言与必要的结构转换。
@@ -110,15 +110,15 @@ stats 主效果改为 `rules.effect`（4a，267 张卡）。剩余 `{icon.key}` 
 ## 单元 7：怪物效果
 
 **状态：核心盒普通怪物已完成（2026-11-24）**。所有可归入 EffectPlan 的普通怪物技能都已读取
-`verified_monster_effects`；7a/7b 补了 14 个简单位移 / 压力 / 条件伤害 / 状态计划。
+`rules.effects`；7a/7b 补了 14 个简单位移 / 压力 / 条件伤害 / 状态计划。
 Summon、All Allies、Rearrange 等仍由现有专用运行时处理，未在计划里猜；Weald 攻击已由
-`verified_weald_attack` 覆盖。
+`rules.wealdAttack` 覆盖。
 
 行数：6（`monster-effect-plan`）+ 7（`monster-skill`）+ 5（`weald-monster-attack`）
 
 - 1（`darkest-monster-support`）。
 
-做法：怪物效果已有 `verified_monster_effects` 计划字段；把文本解析改为读计划，
+做法：怪物效果已有 `rules.effects` 计划字段；把文本解析改为读计划，
 文本只用于签名。先做核心盒怪物，再做 Weald/扩展。
 
 风险：中。怪物数据量大，按卡池分批。
@@ -134,7 +134,7 @@ Summon、All Allies、Rearrange 等仍由现有专用运行时处理，未在计
 
 现状：引擎在 `card.resistances` 里按 `icon.key` 找 `shuffle_resist`。
 
-做法：抗性/免疫改为结构化枚举（`verified_condition_defence` 已有数据），
+做法：抗性/免疫改为结构化枚举（`rules.conditionDefence` 已有数据），
 引擎读枚举，不再读 icon key。
 
 风险：低。数据已存在，只是读取方式。
@@ -157,7 +157,7 @@ Fortunate Armlet 的独立使用效果写入 `trinket.rules.useStress`，引擎�
 
 ## 缺口与待复核
 
-- `readSelfWound`（2 行）：无 `verified_self_wound` 字段；暂保留文本解析，
+- `readSelfWound`（2 行）：无 `rules.self.wound（当前无字段）` 字段；暂保留文本解析，
   待决定是否新增字段（Bleed Out 3/4/5）。
 - 「待复核」2 行（`amountBesideLabel` 注释、`SHUFFLE_CHOICE_TEXT` 注释）：确认是注释后归入文档。
 - 所有单元开工前，先把对应行的「初分」改为复核后的分类（审计表里逐行确认）。
