@@ -24,7 +24,7 @@ Life **250**；Dodge **3**（卡面 footer）。
 - **Acc/Crit/伤害**：经 `playMonsterSkill` + `resolveMonsterSkill`；`monster-skill.ts` 对 `p020` 无 `verified_monster_effects` 时剥离 `effect_lines`（同 `p018` / `p003` slot 3 Acc-only 门），只结算攻击骰。
 - 卡面射程 **0–10**（numeric 为 null）已写入三招 `verified_range`（`print_front` min/max 0/10），使区间射程可核对而不自造距离整数。
 - 成功后经 `recordMonsterSkill` → `finishTurn`（含 #451 Impending Doom 行动后落骰钩子）。
-- **Impending Doom d10→技能**：见 **R-139** 与 [phase5-final-heart-impending-doom-skill-map-2026-11-01.md](phase5-final-heart-impending-doom-skill-map-2026-11-01.md)（`applyHeartOfDarknessImpendingDoomSkill`）。
+- **Impending Doom d10→技能**：见 **R-139** 与 [phase5-final-heart-impending-doom-skill-map-2026-11-01.md](./phase5-final-heart-impending-doom-skill-map-2026-11-01.md)（`applyHeartOfDarknessImpendingDoomSkill`）。
 - **未**改各形态 `combatReady`。
 
 ## 仍 hold

@@ -10,7 +10,7 @@
    - `battle-monster.ts`、`battle-monster-targets.ts`、`prophet-i-combat-runtime.ts`、`swine-prince-i-combat-runtime.ts` 的怪物战斗上下文都带 `stygianBossCrit`；
    - `resolveSkill` 的暴击阈值在 Stygian Boss 上 +1。
 4. **入口与补给**：Ruins Boss 部署守卫、`dungeon-starting-provisions` 都接受 Stygian。补给和探索骰沿用标准模式数量（探索每英雄 2 颗，侦察后 1 颗）。
-5. **房间效果**：遗迹 9 张与最暗地牢 8 张按 R-036 替换同名卡，Boss 房按对应专用流程部署。效果及结算顺序见[逐卡审核表](phase6-stygian-rooms-review-2026-11-08.md)。
+5. **房间效果**：遗迹 9 张与最暗地牢 8 张按 R-036 替换同名卡，Boss 房按对应专用流程部署。效果及结算顺序见[逐卡审核表](./phase6-stygian-rooms-review-2026-11-08.md)。
 6. **存档**：新战役在起点记录 `stygianRoomRules: "full"`。`r229` 回放三张房间，`r227` 回放首批两张房间，缺省值回放标准房间。
 
 ## 测试

@@ -41,4 +41,4 @@ pnpm typecheck
 
 ## 后续（2026-11-06）
 
-已补失败终局面板与「开新战役」入口，见[战役失败 → 开新战役入口](phase5-campaign-defeat-new-campaign-2026-11-06.md)。
+已补失败终局面板与「开新战役」入口，见[战役失败 → 开新战役入口](./phase5-campaign-defeat-new-campaign-2026-11-06.md)。

@@ -7,7 +7,7 @@
 - 板块：`DD_COREBOX_TILES_BACK.pdf` **PDF p5 / BACK / 遗迹编号8**；raw `dungeon_tile:p005.faces.back`。
 - 配套卡：`02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf` **PDF p8 / room:p008 / Invocation Chamber**，非Boss。
 - FRONT p5是遗迹9 / Old Abbey，不能按相同PDF页共用身份或几何。已查看完整板块和完整卡页，小图的出生、两宝箱、中央红星与大图一致。
-- 印刷根目录沿用[VQ队列](kyries-verify-queue-2026-10-12.md)；渲染图只在 `node_modules/.cache/phase3/tile-coverage/DD_COREBOX_TILES_BACK-05.png`、`room-08.png`，不提交PDF或图像。
+- 印刷根目录沿用[VQ队列](../../kyries-verify-queue-2026-10-12.md)；渲染图只在 `node_modules/.cache/phase3/tile-coverage/DD_COREBOX_TILES_BACK-05.png`、`room-08.png`，不提交PDF或图像。
 - 依据规格书 §6.2 / §6.8 / §6.9（官方R16–18 / R24–25）、R-021 / R-048。以下是待审核印刷观察，不是规则裁定。
 
 ## 区域与容量

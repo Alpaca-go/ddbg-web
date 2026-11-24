@@ -1,6 +1,6 @@
 # 最终战 Ancestor 2 · Swift Teleportation
 
-相对 #451（Heart · Impending Doom `finishTurn` 钩子）与 [final-battle-deploy](phase5-final-battle-deploy-2026-10-31.md) 占位姿态区：只接通 **boss_ability:p035** 首段 **Swift Teleportation**，不做 Absolute Nothingness、完整 Acc 结算、Pit Toss、Room Tile 几何、Phase 6，不改 `combatReady`。
+相对 #451（Heart · Impending Doom `finishTurn` 钩子）与 [final-battle-deploy](./phase5-final-battle-deploy-2026-10-31.md) 占位姿态区：只接通 **boss_ability:p035** 首段 **Swift Teleportation**，不做 Absolute Nothingness、完整 Acc 结算、Pit Toss、Room Tile 几何、Phase 6，不改 `combatReady`。
 
 ## 规则来源
 

@@ -25,7 +25,7 @@
 | 牌堆过滤                                | `prepareDungeonMonsters` / 战后守恒                                                  | `dungeon-monsters.ts`、`monster-pool-runtime.ts`（`dungeonMonsterPoolThrough`）    |
 | 击败 Boss 清除威胁                      | `finishDungeonBattle` + `clearedBossThreatScriptIdAfterVictory`                      | spec §2.3「Boss 被击败前持续生效」                                                 |
 
-详见 [`docs/phase5-threat-passive-runtime-2026-10-28.md`](phase5-threat-passive-runtime-2026-10-28.md)。
+详见 [`docs/phase5-threat-passive-runtime-2026-10-28.md`](./phase5-threat-passive-runtime-2026-10-28.md)。
 
 ## 命令
 

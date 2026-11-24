@@ -19,7 +19,7 @@ Kyries 在印刷导出 manifest 上人工核对；本批仅包含核心盒 **mon
 
 ## 本机缓存依赖
 
-1. 安装 Python 依赖并导出（见 [phase4-print-art-pipeline-2026-10-19.md](phase4-print-art-pipeline-2026-10-19.md)）：
+1. 安装 Python 依赖并导出（见 [phase4-print-art-pipeline-2026-10-19.md](./phase4-print-art-pipeline-2026-10-19.md)）：
 
    ```bash
    node tools/pipeline/scripts/export-print-card-art.mjs \
@@ -40,7 +40,7 @@ Kyries 在印刷导出 manifest 上人工核对；本批仅包含核心盒 **mon
 
 组件：`MonsterCardFace`（`BattleStanceTrack` 怪物 chip、`BattleView` 怪物回合侧栏）。
 
-英雄技能卡面已切印刷（见 [phase4-print-hero-skill-art-map-2026-10-19.md](phase4-print-hero-skill-art-map-2026-10-19.md)）；探索房间牌、QuestMap、房间代币见 [phase4-print-exploration-art-map-2026-10-19.md](phase4-print-exploration-art-map-2026-10-19.md) 与 [phase4-print-room-token-art-2026-10-19.md](phase4-print-room-token-art-2026-10-19.md)；战斗站位见印刷 Monster Stance / 英雄立牌 map。怪物与英雄技能 Face **仅**认印刷映射与 `pngRel`（无 TTS 回退）。
+英雄技能卡面已切印刷（见 [phase4-print-hero-skill-art-map-2026-10-19.md](./phase4-print-hero-skill-art-map-2026-10-19.md)）；探索房间牌、QuestMap、房间代币见 [phase4-print-exploration-art-map-2026-10-19.md](./phase4-print-exploration-art-map-2026-10-19.md) 与 [phase4-print-room-token-art-2026-10-19.md](./phase4-print-room-token-art-2026-10-19.md)；战斗站位见印刷 Monster Stance / 英雄立牌 map。怪物与英雄技能 Face **仅**认印刷映射与 `pngRel`（无 TTS 回退）。
 
 ## R-048
 
@@ -54,7 +54,7 @@ Kyries 在印刷导出 manifest 上人工核对；本批仅包含核心盒 **mon
 
 ## ADD_014 别名（2026-10-20 Kyries）
 
-`monster_medium` normalized 含 ADD_014 补页 2 张（Perfect / Imperfect Reflection），与基础版同名、正面文字相同，仅怪物标记颜色小图标不同；TrimBox 均为 198.425×340.157 pt（见 `packages/data/extract/corebox/reports/reconciliation.md`）。ADD_014 不进当前怪物池（[phase3-monster-pool-2026-10-12.md](phase3-monster-pool-2026-10-12.md)）。
+`monster_medium` normalized 含 ADD_014 补页 2 张（Perfect / Imperfect Reflection），与基础版同名、正面文字相同，仅怪物标记颜色小图标不同；TrimBox 均为 198.425×340.157 pt（见 `packages/data/extract/corebox/reports/reconciliation.md`）。ADD_014 不进当前怪物池（[phase3-monster-pool-2026-10-12.md](../phase3/phase3-monster-pool-2026-10-12.md)）。
 
 **不单独导出 ADD PDF**；`build-print-monster-art-map.mjs` 的 `PRINT_MONSTER_ART_ALIASES` 将：
 

@@ -11,7 +11,7 @@
 | Supply Run 等    | —   | `d712688f15` 等未审  | unreviewed                     | 继续停点 |
 | The Feast        | p10 | `d9009c6f91` 未审    | stress 已确认，伤口图标未审    | 继续停点 |
 
-本主题只接 In Good Spirits；其余 5 张仍保留真实抽牌停点。Q-79 后续已由 R-099 裁定（见 [R-099 接线](phase4-graveyard-q79-r099-2026-10-18.md)）；Q-80 不裁定。
+本主题只接 In Good Spirits；其余 5 张仍保留真实抽牌停点。Q-79 后续已由 R-099 裁定（见 [R-099 接线](./phase4-graveyard-q79-r099-2026-10-18.md)）；Q-80 不裁定。
 
 ## 改动
 

@@ -19,7 +19,7 @@
 
 - **结算**：`playPyreSkill`（`packages/engine/src/boss/pyre-skill.ts`）校验已核实卡面签名与同区英雄；99 伤害走 `resolveAttackDamage`、饰品、被动、反击与死门；**不**消费攻击 RNG。
 - **怪物回合**：Pyre 先攻轮到后走公开命令链 **`prepareMonsterAction` →（必要时 `moveMonsterToRange`）→ `playMonsterSkill`**；`battle-monster.ts` 对 Pyre 卡 id 转调 `playPyreSkill`。目标 **Closest** 与 Fanatic 本体共用 `selectMonsterTarget`；射程 0 时仅同区可结算。
-- **Fanatic I–III**：I 开战 Pyre 仍由 `applyFanaticIPyreBattleStart`；II/III 行为见 [phase5-ruins-boss-ii-iii-2026-10-31.md](phase5-ruins-boss-ii-iii-2026-10-31.md) §Pyre。本刀不新增显式 `applyFanaticPyreBurn` 命令（对标 Collected Vestal / 无 Acc 壳，非 HoD Acc 切片）。
+- **Fanatic I–III**：I 开战 Pyre 仍由 `applyFanaticIPyreBattleStart`；II/III 行为见 [phase5-ruins-boss-ii-iii-2026-10-31.md](./phase5-ruins-boss-ii-iii-2026-10-31.md) §Pyre。本刀不新增显式 `applyFanaticPyreBurn` 命令（对标 Collected Vestal / 无 Acc 壳，非 HoD Acc 切片）。
 - **`fanatic-i.ts`**：脚本 `notes` 移除 Pyre Burn hold 文案。
 
 ## 仍 hold

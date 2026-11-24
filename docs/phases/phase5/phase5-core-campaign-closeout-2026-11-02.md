@@ -46,7 +46,7 @@ PR 原按依赖堆叠；#531–#538 已依次合入 main（最终合并提交 `6
 
 ## 剩余阻塞与后续代码
 
-R-143 后续更新：最暗普通池9种怪物的 Speed 与 stanceGroups 已逐卡确认入库，`missingBattleFields` 现均为空；见 [字段核图与接线](phase5-darkest-monster-fields-review-2026-11-02.md)。正式房间几何尚未批准，`battleReady:false` 仍保留，字段齐全不代表生产随机遭遇已经可玩。
+R-143 后续更新：最暗普通池9种怪物的 Speed 与 stanceGroups 已逐卡确认入库，`missingBattleFields` 现均为空；见 [字段核图与接线](./phase5-darkest-monster-fields-review-2026-11-02.md)。正式房间几何尚未批准，`battleReady:false` 仍保留，字段齐全不代表生产随机遭遇已经可玩。
 
 中途Boss及White Cell/Reflection还缺部分获批战斗字段；Ruins Boss房间、最暗房间与Ancestor Room的正式几何、Pit Toss/Teleport落点仍是R-048停点。不能用逻辑夹具、占位areaId或默认Speed将这些遭遇标记为生产可战。
 

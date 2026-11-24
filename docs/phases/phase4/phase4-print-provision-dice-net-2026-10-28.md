@@ -2,7 +2,7 @@
 
 状态：**待 Kyries 批面序**。引擎语义六面 + Wild 已接；**展开图 panel → 引擎 key → PNG 裁切** 未绑，不接生产 map / UI 骰面图。
 
-关联：[phase4-print-provision-player-aid-2026-10-28.md](phase4-print-provision-player-aid-2026-10-28.md)（AID-Prov 整卡 reference 已 enabled）；探索骰先例见 [phase3-corridor-empty-2026-10-11.md](phase3-corridor-empty-2026-10-11.md) 与 `exploration_die.json`（仅录语义面集合 + 软件抽样序，**不**绑展开图格）。
+关联：[phase4-print-provision-player-aid-2026-10-28.md](./phase4-print-provision-player-aid-2026-10-28.md)（AID-Prov 整卡 reference 已 enabled）；探索骰先例见 [phase3-corridor-empty-2026-10-11.md](../phase3/phase3-corridor-empty-2026-10-11.md) 与 `exploration_die.json`（仅录语义面集合 + 软件抽样序，**不**绑展开图格）。
 
 ## 规则与裁定（语义已批，几何未批）
 

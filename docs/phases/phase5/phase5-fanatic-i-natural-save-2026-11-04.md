@@ -1,6 +1,6 @@
 # Fanatic I 自然任务与严格存档
 
-基线：main @ R-178（#583）、R-179（#584）。依据 R-178、R-169、R-122、R-044 与核心 R39、规格书 §14.5。生产入口见 [phase5-fanatic-i-production-entry-review-2026-11-04.md](phase5-fanatic-i-production-entry-review-2026-11-04.md)。
+基线：main @ R-178（#583）、R-179（#584）。依据 R-178、R-169、R-122、R-044 与核心 R39、规格书 §14.5。生产入口见 [phase5-fanatic-i-production-entry-review-2026-11-04.md](./phase5-fanatic-i-production-entry-review-2026-11-04.md)。
 
 `naturalQuest` 在 `room:p013` 且威胁为 `boss:ruins:fanatic:1` 时选择公开 `deployFanaticI`，与 Necromancer / Prophet / Collector 专用分支一致，仅 test-helpers 驱动。
 

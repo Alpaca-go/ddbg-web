@@ -8,7 +8,7 @@
 ## 依据
 
 - 核心 **R9**：第 4 幕击败最终 Boss（Heart of Darkness）= 胜利。
-- 规格书 [§14.7](spec/core-rules-spec-v0.2.md#L984-L994)：「Heart of Darkness … 击败 = 赢得游戏」；[§1](spec/core-rules-spec-v0.2.md#L74) 胜利定义。
+- 规格书 [§14.7](../../spec/core-rules-spec-v0.2.md#L984-L994)：「Heart of Darkness … 击败 = 赢得游戏」；[§1](../../spec/core-rules-spec-v0.2.md#L74) 胜利定义。
 - Kyries 2026-11-04：打完 ancestor 形态即通关，游戏结束；回村不做，只要新战役入口（R-188 补充）。
 
 ## B1 接通

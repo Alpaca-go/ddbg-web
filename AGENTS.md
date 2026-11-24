@@ -1,15 +1,15 @@
 # 编码代理工作约定
 
-本文件给在本仓库里写代码的代理。内容摘自 [docs/plan.md](docs/plan.md)（开发大纲 v0.2）。大纲没有写的流程，不要自行添加。
+本文件给在本仓库里写代码的代理。内容摘自 [docs/plan.md](./docs/plan.md)（开发大纲 v0.2）。大纲没有写的流程，不要自行添加。
 
 ## 当前开发入口
 
-Weald 扩展按 Kyries 已确认的 [开发计划](docs/weald-development-plan.md) 顺序推进。新 session 先读该文档的“当前进度与下一步”，核对工作区后接续最早未完成步骤；结束前更新进度、待确认项、下一步和验证结果。
+Weald 扩展按 Kyries 已确认的 [开发计划](./docs/plans/weald-development-plan.md) 顺序推进。新 session 先读该文档的“当前进度与下一步”，核对工作区后接续最早未完成步骤；结束前更新进度、待确认项、下一步和验证结果。
 
 ## 命名规范（必读）
 
 新增或修改任何 `packages/data` 的 raw / normalized / engine ID 前，先读
-[docs/id-naming-rules.md](docs/id-naming-rules.md)。这是必读规范，不是建议：
+[docs/id-naming-rules.md](./docs/id-naming-rules.md)。这是必读规范，不是建议：
 
 - 房间族（`room` / `room_tile` / `stygian_room`）按房间号命名：
   `room:weald:06`、`room_tile:darkest:01`；不写 `:front` / `:back`。
@@ -42,15 +42,30 @@ Weald 扩展按 Kyries 已确认的 [开发计划](docs/weald-development-plan.m
 
 ```
 packages/engine/     # 纯 TypeScript 规则引擎，不依赖 React / DOM
+  src/shared/        # 与包无关的机制（rng、command、battle、dungeon、hamlet、quest、trinkets）
+  src/core/          # 核心盒内容（ruins、darkest、heroes、bosses）
+  src/weald|cove|warrens/  # 各扩展包内容（含 bosses/）
+  tests/             # 与 src 镜像的测试目录
 packages/data/       # Zod schema + 规范化游戏数据 JSON
+  src/<pack>/<type>/ # schema 用原名，构建器用 *.build.ts
+  src/shared/        # 跨包基础设施（build、write、extract、dictionary）
+  src/core/heroes/annotations/  # hNN 英雄注解表
+  tests/             # 与 src 镜像的测试目录
+  extract/ normalized/  # 原始与归一化 JSON（按 corebox / extension/<pack> 分）
 apps/web/            # React + Tailwind UI
+  e2e/core|weald/    # Playwright 冒烟按包分组
 tools/pipeline/      # 印刷 PDF 导出与切图、转录辅助、校验、抽检页
-docs/rules-spec/     # 规则规格书（中英术语对照，标页码）
+docs/spec/           # 规则规格书（中英术语对照，标页码）
+docs/phases|handoffs|plans|reviews/  # 批次记录、交接、计划、审阅
 docs/rulings.md      # 本项目裁定
 docs/data-legend.md  # 卡面图标图例
 ```
 
-核心规则说明书现行稿为 [docs/spec/core-rules-spec-v0.3.md](docs/spec/core-rules-spec-v0.3.md)（v0.3，已按现行裁定更新，**已复核 2026-11-22**；检查点 ① 已结案）。v0.2 历史快照见 [docs/spec/core-rules-spec-v0.2.md](docs/spec/core-rules-spec-v0.2.md)。大纲 §3.2 中的 `docs/rules-spec/` 指的是同一份规格书；正式稿放在 `docs/spec/`。
+目录约定：**包是第一层，包内按类型分目录**（heroes / monsters / rooms / tiles / quests / curios / trinkets / bosses / hamlet）；
+与包无关的机制放 `shared/`。**测试一律放 `packages/<pkg>/tests/`，不进 `src`**；移动测试后要确认
+`tsconfig.json` 的 `include` 同时含 `src` 与 `tests`。详见 [docs/repo-layout.md](./docs/repo-layout.md)。
+
+核心规则说明书现行稿为 [docs/spec/core-rules-spec-v0.3.md](./docs/spec/core-rules-spec-v0.3.md)（v0.3，已按现行裁定更新，**已复核 2026-11-22**；检查点 ① 已结案）。v0.2 历史快照见 [docs/spec/core-rules-spec-v0.2.md](./docs/spec/core-rules-spec-v0.2.md)。大纲 §3.2 中的 `docs/rules-spec/` 指的是同一份规格书；正式稿放在 `docs/spec/`。
 
 ## 规则引擎
 
@@ -63,10 +78,10 @@ docs/data-legend.md  # 卡面图标图例
 
 ## 规则来源
 
-按大纲 §2.3、§7，并经 [docs/rulings.md](docs/rulings.md) 的 R-001 修订，优先级为：
+按大纲 §2.3、§7，并经 [docs/rulings.md](./docs/rulings.md) 的 R-001 修订，优先级为：
 
 1. 官方规则书（核心盒与各扩展 PDF）。规格书写条目时标页码，并对照页面图像；文字提取会丢掉图标。
-2. [docs/rulings.md](docs/rulings.md) 里 Kyries 拍板的本项目裁定。
+2. [docs/rulings.md](./docs/rulings.md) 里 Kyries 拍板的本项目裁定。
 
 不使用模组 FAQ 或设计师 FAQ（R-001）。
 
@@ -80,7 +95,7 @@ docs/data-legend.md  # 卡面图标图例
 
 ## 旧仓库
 
-`Alpaca-go/darkest-dungeon-boardgame` 只作参考，不复制代码，也不在它上面重构。大纲 §1.6 点名的定义，以及种子化先攻、`PendingChoice`、存档回放，可以交叉核对。不要搬它的 evidence / proof 证据链。规则来源以 [docs/rulings.md](docs/rulings.md) 的 R-001 为准：只认官方规则书，不使用 FAQ。
+`Alpaca-go/darkest-dungeon-boardgame` 只作参考，不复制代码，也不在它上面重构。大纲 §1.6 点名的定义，以及种子化先攻、`PendingChoice`、存档回放，可以交叉核对。不要搬它的 evidence / proof 证据链。规则来源以 [docs/rulings.md](./docs/rulings.md) 的 R-001 为准：只认官方规则书，不使用 FAQ。
 
 ## 开发命令
 

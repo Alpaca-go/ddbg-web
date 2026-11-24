@@ -12,7 +12,7 @@
 - 普通房间是 p1–9，各一张；p10 Hag、p11 Shrieker、p12 Brigand Pounder 为 Boss 房，留给步骤 6，不混入普通九张目录。
 - p1 背面为红门；raw 中 p1–9 背面感知哈希相同，仅作一致性线索，不用背面哈希推断房间效果。
 
-图像在本地 `node_modules/.cache/weald-review/cards/`，总览页 `index.html`；本批另生成私有 `node_modules/.cache/weald-review/room-contact.png`。图像和 PDF 不提交。缓存重建按[导入记录](weald-location-intake-2026-11-11.md)执行。
+图像在本地 `node_modules/.cache/weald-review/cards/`，总览页 `index.html`；本批另生成私有 `node_modules/.cache/weald-review/room-contact.png`。图像和 PDF 不提交。缓存重建按[导入记录](../weald-location-intake-2026-11-11.md)执行。
 
 ## 九张普通房间与效果转录
 

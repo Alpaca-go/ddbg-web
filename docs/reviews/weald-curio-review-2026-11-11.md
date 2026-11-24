@@ -39,7 +39,7 @@ Blight 中文统一为腐蚀（R-231）。基础结算沿用官方核心 R14–1
 
 ## 本地图片
 
-`node_modules/.cache/weald-review/cards/index.html#curio`。每张图可按 `curio-weald-pNNN-front.png` 查看原尺寸，来源与重建命令见 [导入记录](weald-location-intake-2026-11-11.md)。图片不提交仓库。
+`node_modules/.cache/weald-review/cards/index.html#curio`。每张图可按 `curio-weald-pNNN-front.png` 查看原尺寸，来源与重建命令见 [导入记录](../weald-location-intake-2026-11-11.md)。图片不提交仓库。
 
 ## 接入状态
 

@@ -1,6 +1,6 @@
 # Phase 4 · 探索 Face 印刷 PNG 映射（房间牌 + QuestMap）
 
-状态：**本刀**——地牢探索 UI 的房间牌与 QuestMap 底图仅认 Kyries 拍板的印刷页序 PNG。房间代币见 [phase4-print-room-token-art-2026-10-19.md](phase4-print-room-token-art-2026-10-19.md)。美术二进制不入库。
+状态：**本刀**——地牢探索 UI 的房间牌与 QuestMap 底图仅认 Kyries 拍板的印刷页序 PNG。房间代币见 [phase4-print-room-token-art-2026-10-19.md](./phase4-print-room-token-art-2026-10-19.md)。美术二进制不入库。
 
 ## 拍板（2026-10-19）
 
@@ -42,4 +42,4 @@ node tools/pipeline/scripts/build-print-room-token-art-map.mjs
 
 ## 范围外
 
-战斗 Room Tile 板块、走廊段、curio/trinket/quest 卡面 UI、Phase 5。见 [phase4-exploration-art-2026-10-19.md](phase4-exploration-art-2026-10-19.md)。
+战斗 Room Tile 板块、走廊段、curio/trinket/quest 卡面 UI、Phase 5。见 [phase4-exploration-art-2026-10-19.md](./phase4-exploration-art-2026-10-19.md)。

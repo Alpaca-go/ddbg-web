@@ -16,11 +16,11 @@
 - **关联待确认**：`Q-xx`（如有）
 - **状态**：已裁定 / 已取代；R-002 起还使用「依据规则书」「依据印刷件」「暂定（规则书未写明）」「延后」「需 Kyries 决定（非规则问题）」「Kyries 已确认（2026-10-06）」
 
-R-002~R-052 是 2026-10-06 授权下的暂定结论，Kyries 推翻前按这些结论写说明书。理由、被否决的备选，以及和说明书 v0.1 原推荐不同的地方，见 [docs/rulings-notes.md](rulings-notes.md)。R-053 是 2026-10-08 Kyries 在聊天中的裁定，不属于那批暂定结论。
+R-002~R-052 是 2026-10-06 授权下的暂定结论，Kyries 推翻前按这些结论写说明书。理由、被否决的备选，以及和说明书 v0.1 原推荐不同的地方，见 [docs/rulings-notes.md](./rulings-notes.md)。R-053 是 2026-10-08 Kyries 在聊天中的裁定，不属于那批暂定结论。
 
 ## 流程
 
-Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定；这些裁定可以随时推翻。推翻时在对应条目改状态，并回改 [核心规则说明书](spec/core-rules-spec-v0.2.md)。
+Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定；这些裁定可以随时推翻。推翻时在对应条目改状态，并回改 [核心规则说明书](./spec/core-rules-spec-v0.2.md)。
 
 ## 已裁定
 
@@ -194,7 +194,7 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **裁定**：①【依据规则书】只有实际**受到来自敌人的伤害**（命中或暴击，且减免后仍 ≥ 1）才触发；落空不触发（辅助卡「When attacked」与规则书冲突，以规则书为准）。②【依据规则书】反弹量 = ⌈D / 2⌉，D 为 **Protection 减半之前**、其他修正之后的伤害（「先 Riposte 后 Protection」），顺序见 R-026。③【暂定】反弹伤害不是「攻击」：不会再触发对方的 Riposte，不被 Protection 减半，不算暴击；但它是「伤害」，会触发受害者「受到伤害时」类怪癖 / 疾病，并照常引起死亡或死门判定。
 - **依据 / 出处**：R21 Riposte 与 Protection 条
 - **关联待确认**：Q-16
-- **理由与备选**：见 [docs/rulings-notes.md](rulings-notes.md)
+- **理由与备选**：见 [docs/rulings-notes.md](./rulings-notes.md)
 - **状态**：暂定（规则书未写明）
 
 ### R-018
@@ -227,7 +227,7 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **依据 / 出处**：R21 Shuffle 条；R22 例；R24（多个可选区域时由被选为目标的玩家决定，类推）
 - **关联待确认**：无（Q-19 已由 R-199 补充 ③ 的让位/截断细节）。
 - **补充（R-271）**：Push／Pull 挤压不能执行完毕时，区域仍按本条走到满员前截断；此情形不采用本条 ④「区域截断时姿态轨照常移动」，被位移者姿态轨不变。腾出空间必须挤走位移免疫且棋子不能被挤离的单位时，亦判定挤压不能执行完毕。详见 R-271。
-- **理由与备选**：见 [docs/rulings-notes.md](rulings-notes.md)
+- **理由与备选**：见 [docs/rulings-notes.md](./rulings-notes.md)
 - **状态**：暂定（规则书未写明）
 
 ### R-021
@@ -238,7 +238,7 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **裁定**：① 相邻 = 两个区域共享一段边界，且中间没有黑色墙体；只有角点相接不算相邻。② 距离 = 区域邻接图上的最短步数（射程、Speed、Closest / Furthest 都用它）。③【依据规则书】移动途中可以穿过满员区域和有敌人的区域，只是回合结束时不能停在满员区域。④ 房间板块上的黑色矩形不是区域，不可进入，按墙处理（等同 Crimson Court 规则书所称的 Impassable Walls）。Phase 1 标注 schema：每块房间板块显式标注区域节点、容量、高低地、英雄 / 怪物起始区、「!」标记、邻接边；每条边带一个「仅角点相接」标志，以便以后改判时只改数据。
 - **依据 / 出处**：R18（只禁止「end their turn」在满员区域；第 1 个移动行动可以停在满员区域、再用第 2 个行动离开）；R19「spaces away」；R24；TILES；DD_EN_CRIMSONCourt_RULES.pdf p4
 - **关联待确认**：Q-20
-- **理由与备选**：见 [docs/rulings-notes.md](rulings-notes.md)
+- **理由与备选**：见 [docs/rulings-notes.md](./rulings-notes.md)
 - **状态**：暂定（规则书未写明）
 
 ### R-022
@@ -249,7 +249,7 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **裁定**：攻击者所在区域比目标所在区域高（高地 > 普通 > 低地）时：Acc +1；并且对这类更低的区域，射程上限 +1（射程 a–b 变为 a–(b+1)），原射程照样可选。从低打高没有惩罚。对友方（例如治疗）同样适用。
 - **依据 / 出处**：R25「When a character targets a creature in an area with lower elevation than theirs, they gain Range +1 (optional) and +1 Acc」
 - **关联待确认**：Q-21
-- **理由与备选**：见 [docs/rulings-notes.md](rulings-notes.md)
+- **理由与备选**：见 [docs/rulings-notes.md](./rulings-notes.md)
 - **状态**：暂定（规则书未写明）
 
 ### R-023
@@ -261,7 +261,7 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **补充裁定（2026-10-10，Kyries 确认 Q-22 边角）**：① 与任何几何出手位置都不连通（含 E-F 黑墙）时，怪物原地不动并跳过本回合剩余部分；不发明跨墙距离，也不因断图拒绝命令卡住回合。② 所有射程内可停落点都满员时，在 Speed / 容量允许的落点中，仍按到「几何上的出手位置」的最少步数靠近，再跳过剩余回合；几何出手位置不因满员从评分中排除。多个同等最优落点由目标玩家选择，不跨黑墙。③ Closest / Furthest 只在区域距离为有限值的英雄中排序，同距按姿态；不连通英雄不进入该排序候选。Guard 继续按 R-024 必须优先，不能改换可达目标，够不到按本补充移动或原地跳过。
 - **依据 / 出处**：R24 第 3 步「positioning itself in order to take its action according to the Skill's Range」「the targeted player(s) decide where it goes」；OR24-p7、p8「already in range and doesn't need to move」
 - **关联待确认**：Q-22（2026-10-10 边角补充已确认）
-- **理由与备选**：见 [docs/rulings-notes.md](rulings-notes.md)
+- **理由与备选**：见 [docs/rulings-notes.md](./rulings-notes.md)
 - **状态**：原条暂定（规则书未写明）；2026-10-10 边角补充由 Kyries 确认。
 
 ### R-024
@@ -272,7 +272,7 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **裁定**：① Crowded 平手（几个区域英雄数相同）→ 选包含姿态优先级最高英雄的那个区域。② Guard：只要场上有 Guard 英雄，怪物不以友方为目标的技能必须选 Guard 英雄（多名时按姿态顺序）；够不到就按 R-023 移动，仍够不到就跳过。英雄对有 Guard 的怪物同理：不以友方为目标的技能必须把 Guard 敌人选为目标之一，做不到就不能使用该技能。③【依据规则书】Closest / Furthest 按区域距离，同距离多人按姿态顺序。
 - **依据 / 出处**：R19；R21「Characters must always target Guard enemies when using Skills that don't target allies」；R24「a character with the Guard status must be targeted first」「prioritize by Stance」
 - **关联待确认**：Q-23
-- **理由与备选**：见 [docs/rulings-notes.md](rulings-notes.md)
+- **理由与备选**：见 [docs/rulings-notes.md](./rulings-notes.md)
 - **状态**：暂定（规则书未写明）
 
 ### R-025
@@ -283,7 +283,7 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **裁定**：只有「掷了骰且**所有**目标都落空」才算没成功（可以本回合再用）。其余都算成功、本回合不能再用：至少命中 1 个目标；技能没有 Acc（不掷骰直接生效）；选了空区域（没有目标可落空）。
 - **依据 / 出处**：R19「if the Skill is used successfully (it didn't miss its target) then the Hero cannot use that Skill again during the same turn」
 - **关联待确认**：Q-24
-- **理由与备选**：见 [docs/rulings-notes.md](rulings-notes.md)
+- **理由与备选**：见 [docs/rulings-notes.md](./rulings-notes.md)
 - **状态**：暂定（规则书未写明）
 
 ### R-026
@@ -294,7 +294,7 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **裁定**：①「伤害（Damage）」只指**攻击**造成的伤害：英雄 / 怪物技能的命中和暴击、探索陷阱攻击、Riposte 反弹（R-017）。Bleed / Blight、Hunger、Rubble、Trap Room、Curio、怪癖和疾病自己造成的伤口（Light Sensitive、Syphilis 的追加伤口等）都是「伤口（Wound）」：不触发「takes Damage」类效果（Clumsy、Fragile、Off Guard、On Guard、Spotted Fever、Syphilis），不被 Protection 减半。任何来源的伤口都触发死门判定。② 一次伤害的结算顺序：基础值（命中值或暴击值）+ 类型加成（+X vs …）+ 攻击方修正 → 防御方加减（On Guard −1 等）→ 暴击减半类（Hard Skinned）→ 计算 Riposte 反弹量 → Protection 减半 → 结果 ≥ 1 才算「受到伤害」→ 结算 Fragile 的额外 1 Damage（R-222）→ 放本次伤害转换出的伤口，并同批放 Syphilis 的追加伤口。所有减半向上取整；同一时刻的伤口只掷一次死门骰。**建议做成可配置项** `damageIncludesAllWounds`（默认 false）。
 - **依据 / 出处**：R19「apply Wound on the Target equal to the Damage」；R21 Protection「half Damage … from attacks」、Riposte、Bleed「suffers Wounds」；R14；R15 Trap Room「Wounds and/or Stress」；R26–R28 怪癖疾病措辞；R29
 - **关联待确认**：Q-25
-- **理由与备选**：见 [docs/rulings-notes.md](rulings-notes.md)
+- **理由与备选**：见 [docs/rulings-notes.md](./rulings-notes.md)
 - **状态**：暂定（规则书未写明）
 
 ### R-222
@@ -314,7 +314,7 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **裁定**：任何英雄都可以在以下时点把补给作为免费行动使用：任一回合抽先攻卡之前；抽出先攻卡后、结算回合开始效果之前；英雄回合里每个行动之前或之后；怪物回合中「定好技能、目标并移动之后，掷骰之前」。**不能**插在掷骰之后、结算完成之前（饰品例外，见 R-028）。效果作用于被选定的英雄（Stress Eater 等算在该英雄身上）。
 - **依据 / 出处**：R12「They can be used any time by any Hero … as a free action during Battle」；R18
 - **关联待确认**：Q-26
-- **理由与备选**：见 [docs/rulings-notes.md](rulings-notes.md)
+- **理由与备选**：见 [docs/rulings-notes.md](./rulings-notes.md)
 - **状态**：暂定（规则书未写明）
 
 ### R-028
@@ -325,7 +325,7 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **裁定**：① 战斗中每件饰品在**任意一个角色的回合**里至多用一次（包括敌人的回合），不限于持有者自己的回合。②【依据规则书】可以在看到掷骰结果之后、结算之前决定使用；引擎在「掷骰后、结算前」给持有适用饰品的英雄开一个可选窗口。③【依据规则书】战斗外没有每回合次数限制，但仍按正面 → 反面 → 正面交替，且只在效果适用时使用；反面也由玩家在适用时机自行选择使用。
 - **依据 / 出处**：R26 正文「In battle, a Trinket can be used only once per turn」和 Critical Stone 例
 - **关联待确认**：Q-27
-- **理由与备选**：见 [docs/rulings-notes.md](rulings-notes.md)
+- **理由与备选**：见 [docs/rulings-notes.md](./rulings-notes.md)
 - **状态**：暂定（规则书未写明）
 
 ### R-029
@@ -336,7 +336,7 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **裁定**：抽到的大型怪**放不下**时（不论场上已有几只怪），弃掉最后生成的那只非大型怪，放入大型怪，必要时把怪物往 Aggressive 方向挪。后排大型怪从后往前找到第一个空位后，再占它前面（朝 Aggressive）的一格。被弃掉的那张怪物卡算本场战斗用过的卡，战斗结束时一并洗回。
 - **依据 / 出处**：R17 大型怪条（「If there are already three Monsters in play and you draw a large Monster that can't fit…」）
 - **关联待确认**：Q-28
-- **理由与备选**：见 [docs/rulings-notes.md](rulings-notes.md)
+- **理由与备选**：见 [docs/rulings-notes.md](./rulings-notes.md)
 - **状态**：暂定（规则书未写明）
 
 ### R-030
@@ -357,7 +357,7 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **裁定**：①【暂定】一次技能使用中：每名被暴击的英雄 +1；同区域里没被选为目标的英雄只 +1 一次，不论这次暴击了几名英雄。英雄打出暴击同理：一次技能使用不论暴击了几个目标，该英雄和同区英雄只 −1 一次。②【依据规则书】治疗暴击也算「打出暴击」，同区英雄压力 −1。③【依据规则书】探索陷阱暴击算「承受暴击」：**只有掷骰的英雄**压力 +1（并触发 Weak Grip、Shocker、Hard Skinned）；探索中没有区域，其他英雄不受影响。
 - **依据 / 出处**：R20 暴击条；R20 例 2（治疗暴击称为 Critical Hit）；OR24-p8（Divine Grace）；OR24-p3（陷阱暴击：「your Hero also raises their Stress by 1」）；R14「Life or Stress losses only apply to the Hero you roll the dice for」
 - **关联待确认**：Q-30
-- **理由与备选**：见 [docs/rulings-notes.md](rulings-notes.md)
+- **理由与备选**：见 [docs/rulings-notes.md](./rulings-notes.md)
 - **状态**：暂定（规则书未写明）
 
 ### R-032
@@ -399,7 +399,7 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **裁定**：只指**形态切换之间**：形态之间不能休息、不能恢复 Life 或压力、不能自由重排姿态。战斗进行中，技能治疗、补给、Gestating Heart 的 Ichor 治疗都照常有效。
 - **依据 / 出处**：R40（该句位于「the next phase begins」与「A new Initiative Deck is created」之间）；R36「There is no pause to rest, change Stances, etc when changing Boss forms」；R41 Gestating Heart
 - **关联待确认**：Q-34
-- **理由与备选**：见 [docs/rulings-notes.md](rulings-notes.md)
+- **理由与备选**：见 [docs/rulings-notes.md](./rulings-notes.md)
 - **状态**：暂定（规则书未写明）
 
 ### R-036
@@ -420,7 +420,7 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **裁定**：①【依据规则书】怪物牌堆累加：进入 II 级加入 II 级怪物，进入 III 级再加入 III 级怪物 → I + II + III。被永久移出游戏的怪物（例如 Necromancer I 的威胁）不回来。进入 III 级时，II 级饰品也改为只在 Nomad Wagon 使用，地牢里只抽 III 级饰品。②【暂定】已经进行过的任务卡（不论完成多少）不洗回任务堆；没选的那张永久弃掉；换等级时把旧等级任务堆整个移除。
 - **依据 / 出处**：R35「Add the Level 2 Monsters … do the same thing for the Level 3 cards」；R11；R32 第 a 步洗回清单（不含任务卡）
 - **关联待确认**：Q-36
-- **理由与备选**：见 [docs/rulings-notes.md](rulings-notes.md)
+- **理由与备选**：见 [docs/rulings-notes.md](./rulings-notes.md)
 - **状态**：暂定（规则书未写明）
 
 ### R-038
@@ -461,7 +461,7 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **裁定**：在下一个任务的「掷补给」步骤中**掷出**（掷到 Wild 照常转面），不是自选面。先掷常规的每人 2 颗，再逐颗加入奖励骰，公共池到 16 颗即停，多出的作废。Radiant 模式下奖励骰不受「1 颗掷、1 颗选」影响。
 - **依据 / 出处**：R34 Survivalist / Blacksmith「gain a Provision Die」；R12（上限 16，规则书明文）；R37 Radiant「for bonus dice provided by other effects, follow their rules as normal」；QUEST-p10「if possible」
 - **关联待确认**：Q-40
-- **理由与备选**：见 [docs/rulings-notes.md](rulings-notes.md)
+- **理由与备选**：见 [docs/rulings-notes.md](./rulings-notes.md)
 - **状态**：暂定（规则书未写明）
 
 ### R-042
@@ -472,7 +472,7 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **裁定**：① Zealous Speech：只能由当天**第一个**行动的英雄使用（姿态顺序最前、当天还没人行动）；当天立即结束，这就是那一天的消耗（天数轨照常 −1），**不另外再扣 1 天**。②【依据规则书】当天其他英雄不能再访问建筑或使用村庄技能。③ Hellion「Intimidate: Remove the Caretaker from play」只在**当天**有效：看守人离开所占建筑，当天之后行动的英雄可以去；下一天开始照常掷看守人。
 - **依据 / 出处**：R10 / R11 / R13 图例（「(Only as the first action of a day) Preparation Days -1 (Day ends immediately)」）；R33；HERO-F p1–2（印刷卡面只写「(Only as the first action of a day) (Day ends immediately)」，**没有**「Preparation Days -1」）；HERO-F p3–4（Hellion）
 - **关联待确认**：Q-41
-- **理由与备选**：见 [docs/rulings-notes.md](rulings-notes.md)
+- **理由与备选**：见 [docs/rulings-notes.md](./rulings-notes.md)
 - **状态**：暂定（规则书未写明）
 
 ### R-043
@@ -590,7 +590,7 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **裁定**：生成怪物时牌堆抽空 → 停止生成，剩下的姿态位留空；如果一只怪都没生成，战斗立即以英雄胜利结束（照常清理房间、拿奖励）。不另外洗回任何卡。
 - **依据 / 出处**：R17；R25（每场战斗结束都把用过的怪物卡洗回，地牢内没有另外的怪物弃牌堆）；R11 Necromancer I 威胁
 - **关联待确认**：Q-51
-- **理由与备选**：见 [docs/rulings-notes.md](rulings-notes.md)
+- **理由与备选**：见 [docs/rulings-notes.md](./rulings-notes.md)
 - **状态**：暂定（规则书未写明）
 
 ### R-053
@@ -678,7 +678,7 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **日期**：2026-10-11
 - **问题**：已确认 Wound 与 Bleed Out 等卡上的黑心红光图标被提取成不同 hash，后者仍为 needs_review。
 - **裁定**：Kyries 确认同类黑心红光图标统一为已有 `wound`（Wound / 创伤）。本次完整印刷对照后将 `8466c441ea`、`2c1824ea21`、`6888d0cf12`、`d42d7955d3`、`48ca9f366e` 并入该语义，保留各 iconId，不造新词条、不填图标内数值。
-- **依据 / 出处**：Kyries 本对话明确批准；已有 Wound `163b31751a`（player aid / Core p.27）、`ccade5e7ad`；核对范围与受影响卡见 [四核心整批接线清单](phase2-four-core-skills-2026-10-11.md)。其他未确认图标分别保留原因。
+- **依据 / 出处**：Kyries 本对话明确批准；已有 Wound `163b31751a`（player aid / Core p.27）、`ccade5e7ad`；核对范围与受影响卡见 [四核心整批接线清单](./phases/phase2/phase2-four-core-skills-2026-10-11.md)。其他未确认图标分别保留原因。
 - **关联待确认**：Q-47，仅结清上述五个 hash。
 - **状态**：Kyries 已确认（2026-10-11）。
 
@@ -715,7 +715,7 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **日期**：2026-10-12
 - **问题**：Q-60 的 Curio 效果行图标、面具 / 插画误分类与 01 口头记录冲突。
 - **裁定**：Kyries 对照 CURIO_FRONT_V2 与手打 01–24 效果行批准：`ae45f5bcb3` = `roll_for_provisions`（R18）；`9b6a2b779d` / `12b6af97f2` = Bleed（并 `be17b4ee09`）；`e546d025cd` = Disease（并 `b4627031be`，非 Blight）；`449d2d43ed` / `382acc9dc4` / `3fe634e723` / `7b1a554877` = 抽负面怪癖；`3a7dfcb577` / `3ae4312868` / `3e2792bc5b` / `8b7f872f77` = 抽正面怪癖；`85e094f269` / `1d9ad90d4a` = 抽饰品卡（覆盖 curio_picture）；`40c4cc438c` = Debuff 2t；`73ea0990dd` / `3cd8b97ff0` = Buff 2t。面具不得继续当 decor。01 最早口头“美德 / 折磨”作废，以“抽负面怪癖”为准。只确认上述 hash 与已核对效果行，不发明未列含义，不裁定同卡效果的新收尾顺序。
-- **依据 / 出处**：Kyries 本对话明确批准；[图标复核清单与 01–24 手打对照](ddbg-icon-review.md)，印刷件仅提供卡面数据。Torch 抑制负面效果仍依据官方 R14，状态依据 R21；Q-62 / Q-68 等已有规则停点保留。
+- **依据 / 出处**：Kyries 本对话明确批准；[图标复核清单与 01–24 手打对照](./reviews/ddbg-icon-review.md)，印刷件仅提供卡面数据。Torch 抑制负面效果仍依据官方 R14，状态依据 R21；Q-62 / Q-68 等已有规则停点保留。
 - **关联待确认**：Q-60（已解决）。
 
 ### R-220
@@ -729,7 +729,7 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 
 - **编号**：R-065
 - **日期**：2026-10-13（UTC+8）
-- **批准**：Kyries/Grok逐项目视批准VQ-06、VQ-13–18与QuestMap FRONT仅p1。对应审核稿及本轮回传记录见[批准入库交付](phase3-approved-data-2026-10-13.md)。Treasure Chamber T4–T5修正为黑墙/blocked，非通行。Spiked Pit最终逐对分类后续明确为R-066。
+- **批准**：Kyries/Grok逐项目视批准VQ-06、VQ-13–18与QuestMap FRONT仅p1。对应审核稿及本轮回传记录见[批准入库交付](./phases/phase3/phase3-approved-data-2026-10-13.md)。Treasure Chamber T4–T5修正为黑墙/blocked，非通行。Spiked Pit最终逐对分类后续明确为R-066。
 - **地图范围**：p1八房A–H与起点S；连接S–G、G–F、F–C、G–H、G–D、D–E、D–A、A–B；无灰点X/Y。只将p1升级为confirmed，不批准其他页，也不裁定Q-59起点侦察或Q-63返回。
 - **板块范围**：明确回传的容量、地形、部署、宝箱、特殊区域位置和已命名图标/卡文数据可入库。usable仍须等完整运行时；Spiked Pit触发图标、Treasure移除图标、Ancestor's Glory两项未知图标未获语义批准。Torture既有候选边界不因本次批准撤销。不将局部星形对应推广为全局图标语义。
 - **状态**：Kyries已确认。只记录数据批准，不关闭现有Q项、不宣称Phase3试玩验收。
@@ -782,14 +782,14 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **编号 / 日期**：R-072，2026-10-14（UTC+8）。
 - **裁定（本项目，Kyries 本对话确认）**：同次 Shuffle 实际落到 Spiked Pit（S8/S9，含截断）且英雄带 Vertigo 时，先完整结算 Spiked Pit（伤害 3，然后 Bleed 1·3t；内部行序沿 R-069），再结算 Vertigo 的压力 +2（含 Soft／The Worries 等压力相关追加伤口，以及随之而来的死门／意志／心脏病）。不开放每次由玩家选择顺序。
 - **关联**：Q-74；R-071（落点范围不变），R-069（各自内部行序与死亡取消）。
-- **状态**：confirmed；是项目范围裁定，不是规则书原文。边界例见[专题](phase3-spiked-vertigo-order-review-2026-10-14.md)。
+- **状态**：confirmed；是项目范围裁定，不是规则书原文。边界例见[专题](./phases/phase3/phase3-spiked-vertigo-order-review-2026-10-14.md)。
 
 ### R-073
 
 - **编号 / 日期**：R-073，2026-10-14（UTC+8）。
 - **裁定（本项目，Kyries 本对话选择 A）**：Treasure Chamber T6 Hide and Heal 支付1行动及压力+2，沿R-069先完整结算压力、追加伤口、死门及意志／心脏病；仍存活时直接移除全部伤口，不应用Infirm／Fast Healer的治疗数值修正。移除伤口不另掷死门，已死亡者不复活。
 - **关联 / 边界**：Q-73；R-065/067卡文、位置及图标不变。一般禁疗仍沿R-067，主动交互在支付前拒绝，不批准绕过禁疗。
-- **状态**：confirmed；是本项目裁定，不写成官方规则书原文。见[专题](phase3-treasure-wound-removal-review-2026-10-14.md)。
+- **状态**：confirmed；是本项目裁定，不写成官方规则书原文。见[专题](./phases/phase3/phase3-treasure-wound-removal-review-2026-10-14.md)。
 
 ### R-074
 
@@ -838,19 +838,19 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 ### R-081
 
 - **编号 / 日期**：R-081，2026-10-15（UTC+8）。
-- **裁定 / 限定批准**：Kyries本轮明确“批准这八张卡的表格”。四核心II/III级完整抗性/免疫按[核对表](hero-higher-defence-review-2026-10-15.md)读取：Crusader II抗Stun/Shuffle，III抗Stun/Debuff且免疫Shuffle；Hellion II抗Bleed/Blight，III抗Stun/Bleed/Blight；Highwayman II抗Stun/Bleed，III抗Stun/Bleed/Blight；Vestal II抗Stun/Bleed，III抗Stun/Bleed且免疫Disease；其余免疫栏为空。
+- **裁定 / 限定批准**：Kyries本轮明确“批准这八张卡的表格”。四核心II/III级完整抗性/免疫按[核对表](./reviews/hero-higher-defence-review-2026-10-15.md)读取：Crusader II抗Stun/Shuffle，III抗Stun/Debuff且免疫Shuffle；Hellion II抗Bleed/Blight，III抗Stun/Bleed/Blight；Highwayman II抗Stun/Bleed，III抗Stun/Bleed/Blight；Vestal II抗Stun/Bleed，III抗Stun/Bleed且免疫Disease；其余免疫栏为空。
 - **依据 / 边界**：当前版Hero STAT FRONT p2/4/8/10及BACK p1/3/7/9完整左右栏，R21/R27术语。只限这八张卡，不改全局词典、不外推其他卡；原始未命名图标/整卡unverified原因保留。数据批准不等于高等级战斗/疾病/位移运行时已完成。Q-84，confirmed。
 
 ### R-082
 
 - **编号 / 日期**：R-082，2026-10-15（UTC+8）。
 - **限定批准**：Kyries明确回复“批准这一条”：Bone Spearman II（`monster_medium:p013`，实体M13–15）Speed=2；Aggressive/Defensive共用d10选招表，1–5用技能2，6–10用技能1；Ranged/Support共用固定技能1。
-- **依据 / 边界**：当前版monsters_medium_FRONT完整M13–15、官方R24、R-015/R-048，见[核对记录](phase4-ii-monster-review-2026-10-15.md)。仅此卡Speed/选招，不批准其余II级卡，不改全局图标词典；完整技能及入场另行验证，不自动进入Phase5。Q-85，confirmed。
+- **依据 / 边界**：当前版monsters_medium_FRONT完整M13–15、官方R24、R-015/R-048，见[核对记录](./phases/phase4/phase4-ii-monster-review-2026-10-15.md)。仅此卡Speed/选招，不批准其余II级卡，不改全局图标词典；完整技能及入场另行验证，不自动进入Phase5。Q-85，confirmed。
 
 ### R-083
 
 - **编号 / 日期**：R-083，2026-10-15（UTC+8）。
-- **限定批准**：Kyries对[四卡限定表](phase4-remaining-ii-review-2026-10-15.md)明确回复“批准四卡限定表”：Bone Captain II（大型L1、抽牌M12）Speed1，A/D骰表1(1–6)/2(7–10)，R/S固定2，无常驻Protection；Gargoyle II（M50–52）Speed3，A/D/R骰表1(1–6)/2(7–10)，S固定2，有常驻Protection；Rattler II（M53–55）Speed3，A/D/R骰表2(1–5)/1(6–10)，S骰表1(1–5)/3(6–10)，无常驻Protection；Ghoul II（大型L3、抽牌M49）Speed2，A/D/R骰表1(1–4)/2(5–7)/3(8–10)，S骰表2(1–5)/3(6–10)，有常驻Protection。 Ghoul 的姿态分组以 R-214 更正为准。
+- **限定批准**：Kyries对[四卡限定表](./phases/phase4/phase4-remaining-ii-review-2026-10-15.md)明确回复“批准四卡限定表”：Bone Captain II（大型L1、抽牌M12）Speed1，A/D骰表1(1–6)/2(7–10)，R/S固定2，无常驻Protection；Gargoyle II（M50–52）Speed3，A/D/R骰表1(1–6)/2(7–10)，S固定2，有常驻Protection；Rattler II（M53–55）Speed3，A/D/R骰表2(1–5)/1(6–10)，S骰表1(1–5)/3(6–10)，无常驻Protection；Ghoul II（大型L3、抽牌M49）Speed2，A/D/R骰表1(1–4)/2(5–7)/3(8–10)，S骰表2(1–5)/3(6–10)，有常驻Protection。 Ghoul 的姿态分组以 R-214 更正为准。
 - **依据 / 边界**：官方R24完整页面与上述当前版完整卡面。只限四个具体战斗卡id/等级/页组的Speed、完整选招和头部常驻Protection有无；不全局改词典、不外推其他等级，不等于完整技能均可执行。Rattler自身状态与Ghoul复合效果须另接运行时。Q-86，confirmed。
 
 ### R-084
@@ -891,7 +891,7 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **编号**：R-088
 - **日期**：2026-10-16
 - **问题**：死亡补人前置的赏金猎人属性与完整防御。
-- **裁定（本项目限定审批）**：Kyries 明确回复“批准三行属性与限定防御”。仅批准[核对表](phase4-replacement-hero-review-2026-10-16.md) §2 三面：I/II/III 的 Life 14/18/23、Dodge 1/2/3、Speed 均为 2；抗性依次为 Stun、Stun+Debuff、Stun+Debuff+Bleed，免疫均为空。`c07ea0c507` 只在 `hero_stat:p006:front` 左侧抗性栏按 Debuff 解释，保留图标原 ID、全局词典未确认状态和整卡未验证原因。
+- **裁定（本项目限定审批）**：Kyries 明确回复“批准三行属性与限定防御”。仅批准[核对表](./phases/phase4/phase4-replacement-hero-review-2026-10-16.md) §2 三面：I/II/III 的 Life 14/18/23、Dodge 1/2/3、Speed 均为 2；抗性依次为 Stun、Stun+Debuff、Stun+Debuff+Bleed，免疫均为空。`c07ea0c507` 只在 `hero_stat:p006:front` 左侧抗性栏按 Debuff 解释，保留图标原 ID、全局词典未确认状态和整卡未验证原因。
 - **依据 / 边界**：官方 R10/R21/R29/R31、当前版 Hero STAT FRONT p5/p6、BACK p5 的完整页面图像及本轮明确批准。独立于旧四英雄 R-081，不批准其他英雄、技能效果、村庄 Scout Ahead 或死亡替换运行时。
 - **关联待确认**：Q-90，confirmed。
 
@@ -900,7 +900,7 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **编号**：R-089
 - **日期**：2026-10-16
 - **裁定（本项目限定审批）**：Kyries 明确回复“批准两行限定修正及完整效果”。仅在 `hero_skill:p046` Mark for Death I 与 `hero_skill:p061` Caltrops I 的目标框，将橙色图标 `763ad8e857` 解释为 Debuff。Mark for Death I：射程0–2，目标 Mark3t＋Debuff2t，自身仍 Buff2t；Caltrops I：保留 Crit1→2、Acc9→1、射程2，目标 Bleed2·3t＋Debuff1t。目标状态按命中施加，自身效果沿规则不受是否命中影响。
-- **依据 / 边界**：当前版技能 FRONT p46/p61 完整卡面、官方 R19–21 与[核图表](phase4-bounty-skills-2026-10-16.md)。p46 自身蓝色 `d4329c2a97` 仍是 Buff；保留原图标 ID、raw/parsed、全局词典与其他卡。只批准上述两张 I 级技能，不扩大到 II/III 或其余技能。
+- **依据 / 边界**：当前版技能 FRONT p46/p61 完整卡面、官方 R19–21 与[核图表](./phases/phase4/phase4-bounty-skills-2026-10-16.md)。p46 自身蓝色 `d4329c2a97` 仍是 Buff；保留原图标 ID、raw/parsed、全局词典与其他卡。只批准上述两张 I 级技能，不扩大到 II/III 或其余技能。
 - **关联待确认**：Q-91，confirmed。
 
 ### R-090
@@ -919,7 +919,7 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **问题**：R31要求移除死者全部卡牌，但未说明疾病、怪癖、美德和苦难的回收时点与去向。
 - **裁定（本项目）**：Kyries本轮明确选择“所有共享卡均立即洗回对应堆”。死者持有的疾病、正负怪癖、美德和苦难立即洗回各自对应牌堆；保留存活者持牌，不把死者意志转换成怪癖，不等待回村。饰品仍按R31先由存活队友接收或弃置，不能洗回代替饰品选择。
 - **依据 / 边界**：已对照官方R31、R26、R28完整页面图像；具体回收去向是本项目裁定。仅回收死者持牌，不额外回收既有弃牌，不改变Q-79、R-078出售饰品或R32回村回收；Q-80 另见 R-100。
-- **关联待确认**：Q-93，confirmed；实现见[死亡共享卡回收](phase4-death-card-release-2026-10-16.md)。
+- **关联待确认**：Q-93，confirmed；实现见[死亡共享卡回收](./phases/phase4/phase4-death-card-release-2026-10-16.md)。
 
 ### R-092
 
@@ -928,7 +928,7 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **问题**：R31补人后继续探索时，死者未结算的个人探索骰/Trap房间分配是否转交替补。
 - **裁定（本项目）**：Kyries本轮明确选择“取消死者剩余个人项，其他英雄继续”。死者未结算的个人探索骰和Trap分配取消，替补不承接、不补掷、不重付已完成效果；其他原英雄照常继续剩余个人项。
 - **依据 / 边界**：官方R31、R14–15；具体个人项归属是本项目裁定，不作为其他未规定效果的新通则。入队时间、初始状态和空姿态沿R-039；共享卡回收沿R-091。
-- **关联待确认**：Q-94，confirmed；实现见[替补入队续接](phase4-replacement-join-2026-10-16.md)。
+- **关联待确认**：Q-94，confirmed；实现见[替补入队续接](./phases/phase4/phase4-replacement-join-2026-10-16.md)。
 
 ### R-093
 
@@ -937,7 +937,7 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **问题**：R32允许村庄随时换姿态；R33按姿态行动，但未说明日中换位如何更新余下队列。
 - **裁定（本项目）**：Kyries回复“这个交由玩家自行商量决定”。不固定为一种队列策略；页面在日中换位时提供“按新姿态重排余下英雄”“保留当天原行动队列”及取消，协商确认前不生效。
 - **依据 / 边界**：官方R32–33、规格书§4.1。协商仅选择剩余顺序；已行动者、建筑访问和资源支出保留，不重置一天或让替补额外行动。次日仍按当时姿态生成队列。
-- **关联待确认**：Q-95，confirmed；见[村庄换位记录](phase4-hamlet-stances-2026-10-16.md)。
+- **关联待确认**：Q-95，confirmed；见[村庄换位记录](./phases/phase4/phase4-hamlet-stances-2026-10-16.md)。
 
 ### R-094
 
@@ -946,20 +946,20 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **问题**：扩充死亡补人的候选目录，核对瘟疫医生三等级属性与完整防御；III级右栏`8510428636`在词典中尚未命名。
 - **裁定 / 数据批准**：Kyries本轮回复“批准三行属性与限定防御”。Plague Doctor I为Life11/Dodge0/Speed3，抗性Blight、无免疫；II为15/1/3，抗性Blight、免疫Disease；III为19/2/3，无抗性、免疫Blight和Disease。仅在`hero_stat:p014:front`右侧免疫栏将`8510428636`解释为Blight，不改全局词典或其他卡。
 - **依据 / 边界**：完整Hero STAT FRONT p13/p14、BACK p13，官方R10/R21/R29/R31/R33、规格书§2.4/§4.6/§6.5/§7/§9.4。批准限三属性面与左右防御栏，不覆盖七技能、村庄能力、开局选择或完整候选可用性；整卡其他未验证原因保留。
-- **关联待确认**：Q-96，confirmed；见[限定核对表](phase4-plague-doctor-review-2026-10-17.md) §2–3。
+- **关联待确认**：Q-96，confirmed；见[限定核对表](./phases/phase4/phase4-plague-doctor-review-2026-10-17.md) §2–3。
 
 ### R-095
 
 - **编号**：R-095
 - **日期**：2026-10-18
 - **问题**：Grave Robber / Occultist 六面属性与完整左右防御栏；三枚词典 unreviewed 图标需按 R-088/R-094 模式做**具体卡面位置**限定命名，不改全局词典。
-- **裁定 / 数据批准**：Kyries 于 2026-10-18 在聊天确认 Q-97 为 LIMITED per-card mappings（同 R-088/R-094 风格），不是全局词典升级。印刷 Life/Dodge/Speed 见[核对表](phase4-grave-occultist-stat-review-2026-10-18.md) §2。限定映射仅如下：
+- **裁定 / 数据批准**：Kyries 于 2026-10-18 在聊天确认 Q-97 为 LIMITED per-card mappings（同 R-088/R-094 风格），不是全局词典升级。印刷 Life/Dodge/Speed 见[核对表](./phases/phase4/phase4-grave-occultist-stat-review-2026-10-18.md) §2。限定映射仅如下：
   - `e61ed317de` = Blight 抗性，仅 `hero_stat:p017:back` 左栏 #1（GR II）、`hero_stat:p018:front` 左栏 #2（GR III）、`hero_stat:p020:front` 左栏 #2（Occ III）。
   - `8cbe7d6703` = Debuff 抗性，仅 `hero_stat:p019:front` 左栏唯一抗性（Occ I）。**同 hash 在 Jester I（`hero_stat:p011:front`）另见 R-101 分卡批准。**
   - `a8c4b25b4e` = Debuff 抗性，仅 `hero_stat:p019:back` 左栏 #2（Occ II，Bleed 之后）。
   其余已 confirmed 图标按既有词典读取：GR I 左栏 Blight；GR II/III、Occ II/III 的 Debuff/Bleed 等同栏 confirmed 图标。六面右栏均为空。
 - **依据 / 边界**：官方 R10/R21/R29/R31/R33、规格书 §2.4/§4.6/§6.5/§7/§9.4、R-001/R-048；Kyries 聊天确认。批准限六属性面与上表位置的防御解释；不改全局词典、不清除整卡未验证原因；不覆盖 I 级技能效果接线、Dark Ritual 村庄能力，也不把 Jester 或其他英雄同 hash 图标一并命名。Pilfer 图标命名另见 R-096。
-- **关联待确认**：Q-97，confirmed；见[核对表](phase4-grave-occultist-stat-review-2026-10-18.md)。
+- **关联待确认**：Q-97，confirmed；见[核对表](./phases/phase4/phase4-grave-occultist-stat-review-2026-10-18.md)。
 
 ### R-096
 
@@ -980,7 +980,7 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
   - 同 hash 已知第二处印刷：`hero_stat:p010:front` Vestal Pray/Chant 目标行末 `{icon:4f7549c1b8} 3t`——**仅作 LIMITED 命名诚实记录（R-048）**，不因此批准或改写 Vestal III 村庄技能行为（Pray/Chant 仍仅 I 级已接）。
   不是全局词典升级；不合并、不改写 `icon-dictionary-v1.8`；整卡 `verification.reasons` 仍可保留 `icon:4f7549c1b8`。
 - **依据 / 边界**：官方 R33（村庄技能）、规格书 §4.1/§6.5、R-001/R-048/R-095/R-096；Kyries 聊天确认。批准只覆盖上表印刷行的图标命名，以及 Dark Ritual III 与 I/II 同路径的效果接线（Self 压力 +1 → 目标治疗 5 / 压力 −2 / Buff 3t；目标须有获批 `verified_buff_defence`）。不批准全局词典升级、不清除无关卡的未验证原因、不发明 Vestal III 技能数值或等级门控；Q-79／Q-80 另见 R-099／R-100。Pilfer 抽取边另见 R-098。
-- **关联待确认**：Q-100，confirmed；见[Occ 技能记录](phase4-occultist-skills-2026-10-18.md)。
+- **关联待确认**：Q-100，confirmed；见[Occ 技能记录](./phases/phase4/phase4-occultist-skills-2026-10-18.md)。
 
 ### R-098
 
@@ -1361,7 +1361,7 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 
 - **编号**：R-123
 - **日期**：2026-10-28（Asia/Shanghai / UTC+8）
-- **批准**：Kyries 当面批准 **VQ-07**（QuestMap 八槽图布局读数）；对照已录入的 `dungeon_layouts.json` 与 [全套标注表](phase3-scout-pressure-maps-2026-10-11.md) 连接清单，无修正。
+- **批准**：Kyries 当面批准 **VQ-07**（QuestMap 八槽图布局读数）；对照已录入的 `dungeon_layouts.json` 与 [全套标注表](./phases/phase3/phase3-scout-pressure-maps-2026-10-11.md) 连接清单，无修正。
 - **范围**（仅布局几何读数，`review: confirmed`）：
   - **FRONT p2–p10、p13–p14**（八房间槽 + 起点 S + 连接段 + 灰点 X/Y 段数与边列表，见标注表各行）。
   - **不含**：p1（已由 **R-065** 批准）、p11/p12 十六槽（已由 **R-118** / **R-119** 批准）。
@@ -1529,7 +1529,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 ### Q-60（已由 R-064 解决）
 
 - **问题**：Curio 的效果栏中，17 个图标 ID 尚无获批语义，或词典将实际效果位置的图标归为 decor / curio_picture；是否修正这些卡面限定条目？
-- **来源**：核心盒 Curio 印刷 FRONT p1–24，词典 v1.8，R-048。逐页行表及 ID / 页码见 [Curio 交付](phase3-curio-2026-10-11.md)。
+- **来源**：核心盒 Curio 印刷 FRONT p1–24，词典 v1.8，R-048。逐页行表及 ID / 页码见 [Curio 交付](./phases/phase3/phase3-curio-2026-10-11.md)。
 - **处理**：完整 24 张入库并保留正常抽牌概率；未知行的 `effect=null`。抽到后保留原牌与抽前 Torch 决定，整卡不结算、不视为空白；不把未知图标推定为负面而被 Torch 消除。
 - **状态**：2026-10-12 Kyries 明确批准全部 17 个 hash 与 Curio 01–24 手打效果行，见 R-064；以下未知行处理仅保留为此前记录。图标已知不等于运行时所有奖惩接口已接通。
 
@@ -1576,7 +1576,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **暂定处理**（见 R-046）：规则层面已定的部分——灰点是必须停留的走廊节点，经过灰点要分两次探索（R14）；离开地牢在任何位置都可以，只要还没掷这一次的探索骰（R14）。板块槽数、走廊和 Boss 位等数据延后。占位假设：普通板块 8 槽、最暗地牢 16 槽；起点和灰点不能休息。
 - **状态**：延后（等 Phase 1 地牢板块标注）
 
-- **Phase 3 进展（2026-10-11）**：QuestMap FRONT / BACK p1–14 已对照并录入待审核布局，见[全套标注表](phase3-scout-pressure-maps-2026-10-11.md)。实际灰点有两段、三岔、四岔连接；按印刷图修正 schema，不新增规则裁定。全部标注仍为 pending；p11 / p12 特殊图案槽语义见 **R-115** / **R-117**（2026-10-27 起）。
+- **Phase 3 进展（2026-10-11）**：QuestMap FRONT / BACK p1–14 已对照并录入待审核布局，见[全套标注表](./phases/phase3/phase3-scout-pressure-maps-2026-10-11.md)。实际灰点有两段、三岔、四岔连接；按印刷图修正 schema，不新增规则裁定。全部标注仍为 pending；p11 / p12 特殊图案槽语义见 **R-115** / **R-117**（2026-10-27 起）。
 - **Phase 3 进展（2026-10-26）**：Kyries 当面确认 QuestMap FRONT **p011** 标注名「红点 X」= R14 走廊灰点（dot），见 **R-114**。VQ-08 仅该点语义可升 confirmed；其它页仍 pending / hold。此前「p11 红点未解释」措辞以本条为准作废。
 - **Phase 3 进展（2026-10-27）**：Kyries 当面确认 p011 特殊图案槽 **A/B/G** = Objective 房槽，见 **R-115**。VQ-08 就 A/B/G 亦可升 confirmed；p012 特殊槽 **A/C/D** 见 **R-117**；其它页特殊槽仍 pending / hold。
 - **Phase 3 进展（2026-10-27）**：Kyries 当面确认 p012 特殊图案槽 **A/C/D** = Objective 房槽，见 **R-117**。VQ-09 就 A/C/D 亦可升 confirmed（仅此语义）。
@@ -1613,7 +1613,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 
 - **问题**：Treasure Chamber T6 Hide and Heal的“remove all Wounds”是直接全部移除，还是一次会受Infirm／Fast Healer修正的治疗事件？
 - **来源**：ROOMS FRONT p6完整卡图；核心R26／R27恢复怪癖与R29死门恢复。R-065/067已确认几何、卡文与Wound图标，R-069已确认压力先行及死亡取消，未明确此事件类型。
-- **具体选项**：A存活后全部伤口置0，不套治疗数值修正；B以压力和追加伤口后的当前伤口为基础治疗量，Infirm／Fast Healer各一次。具体7伤口＋Infirm的结果分别为0／1，见[专题](phase3-treasure-wound-removal-review-2026-10-14.md)。
+- **具体选项**：A存活后全部伤口置0，不套治疗数值修正；B以压力和追加伤口后的当前伤口为基础治疗量，Infirm／Fast Healer各一次。具体7伤口＋Infirm的结果分别为0／1，见[专题](./phases/phase3/phase3-treasure-wound-removal-review-2026-10-14.md)。
 - **处理**：R-073确认A：存活后直接移除全部伤口，不应用Infirm／Fast Healer修正；压力先行、死亡取消与一般禁疗保持原裁定。
 - **状态**：confirmed（R-073，2026-10-14，本对话选择A）。
 
@@ -1621,7 +1621,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 
 - **问题**：同次 Shuffle 实际落到 Spiked Pit 时，房间伤害／Bleed 与 Vertigo 压力先后如何处理？R-071 的位置范围不变。
 - **来源**：R21／R28／R29及ROOMS FRONT p4；未找到跨房间／疾病卡同时触发的优先级。R-069确认各自内部行序，未规定此跨卡顺序。
-- **具体选项**：A先Vertigo、B先Spiked Pit、C玩家选择。Life17／14伤口／Soft＋Vertigo的实际差异见[专题](phase3-spiked-vertigo-order-review-2026-10-14.md)。
+- **具体选项**：A先Vertigo、B先Spiked Pit、C玩家选择。Life17／14伤口／Soft＋Vertigo的实际差异见[专题](./phases/phase3/phase3-spiked-vertigo-order-review-2026-10-14.md)。
 - **处理**：R-072 确认先结算 Spiked Pit（伤害 3 → Bleed 1·3t，行序沿 R-069），再结算 Vertigo 压力（+2，并触发 Soft 等压力相关追加伤口／死门／意志）。不因同次触发让玩家选顺序。
 - **状态**：confirmed（R-072，2026-10-14，本对话批准）。
 
@@ -1689,7 +1689,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 
 ### Q-86
 
-- **问题 / 来源**：其余四种II级怪物尚无获批Speed/姿态表及头部常驻Protection入场字段；R-082只覆盖Spearman。已对照官方R24完整页面及当前版印刷中型M12/M49/M50–55、大型L1/L3，具体候选见[四卡核对表](phase4-remaining-ii-review-2026-10-15.md)。
+- **问题 / 来源**：其余四种II级怪物尚无获批Speed/姿态表及头部常驻Protection入场字段；R-082只覆盖Spearman。已对照官方R24完整页面及当前版印刷中型M12/M49/M50–55、大型L1/L3，具体候选见[四卡核对表](./phases/phase4/phase4-remaining-ii-review-2026-10-15.md)。
 - **处理 / 状态**：confirmed（R-083，2026-10-15），Kyries明确回复“批准四卡限定表”；仅四卡基础字段获批，完整效果运行时仍须逐张接入。原送审状态保留在核对表历史说明中。
 
 ### Q-88
@@ -1704,12 +1704,12 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 
 ### Q-90
 
-- **问题 / 来源**：死亡补人当前缺少第五名已核实英雄。已目视当前版 Hero STAT FRONT p5/p6、BACK p5 及官方 R10/R21/R29/R31，赏金猎人三等级 Life/Dodge/Speed 和完整防御候选见[限定三行核对表](phase4-replacement-hero-review-2026-10-16.md) §2–3。III 级左栏 `c07ea0c507` 仍为 unreviewed，提出只在 `hero_stat:p006:front` 抗性栏解释为 Debuff 的候选，不能扩大 R-081 或改全局词典。
+- **问题 / 来源**：死亡补人当前缺少第五名已核实英雄。已目视当前版 Hero STAT FRONT p5/p6、BACK p5 及官方 R10/R21/R29/R31，赏金猎人三等级 Life/Dodge/Speed 和完整防御候选见[限定三行核对表](./phases/phase4/phase4-replacement-hero-review-2026-10-16.md) §2–3。III 级左栏 `c07ea0c507` 仍为 unreviewed，提出只在 `hero_stat:p006:front` 抗性栏解释为 Debuff 的候选，不能扩大 R-081 或改全局词典。
 - **处理 / 状态**：confirmed（R-088，2026-10-16）。Kyries 回复“批准三行属性与限定防御”，按 §2 三面单独入库；III 图标仅本卡左栏限定映射，不改词典或清除整卡未验证。技能、村庄能力和实际补人另开主题。
 
 ### Q-91
 
-- **问题 / 来源**：当前版技能 FRONT p46 Mark for Death I、p61 Caltrops I 目标框橙色下双箭头 `763ad8e857` 与官方 R21 Debuff 图例一致，但词典 v1.8 为 buff。已查看七张 I 级技能完整卡面，具体两行限定修正与完整状态/时长见[核图表](phase4-bounty-skills-2026-10-16.md)。
+- **问题 / 来源**：当前版技能 FRONT p46 Mark for Death I、p61 Caltrops I 目标框橙色下双箭头 `763ad8e857` 与官方 R21 Debuff 图例一致，但词典 v1.8 为 buff。已查看七张 I 级技能完整卡面，具体两行限定修正与完整状态/时长见[核图表](./phases/phase4/phase4-bounty-skills-2026-10-16.md)。
 - **处理 / 状态**：confirmed（R-089，2026-10-16）。Kyries 回复“批准两行限定修正及完整效果”。仅上述两个 id 的目标框按 Debuff 解释；p46 自身蓝色箭头仍是 Buff，不改 raw/parsed、全局词典或其他卡，完整效果按核图表接线。
 
 ### Q-92
@@ -1734,12 +1734,12 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 
 ### Q-96
 
-- **问题 / 来源**：正式网页仅一名额外候选，继续核对瘟疫医生三等级属性及防御。已检查当前版Hero STAT FRONT p13/p14、BACK p13及完整官方R10/R21/R29/R31/R33；三行Life/Dodge/Speed和左右栏见[限定核对表](phase4-plague-doctor-review-2026-10-17.md) §2–3。III级右栏第一枚`8510428636`仍为unreviewed，候选只在`hero_stat:p014:front`免疫栏解释为Blight，不改全局词典。
+- **问题 / 来源**：正式网页仅一名额外候选，继续核对瘟疫医生三等级属性及防御。已检查当前版Hero STAT FRONT p13/p14、BACK p13及完整官方R10/R21/R29/R31/R33；三行Life/Dodge/Speed和左右栏见[限定核对表](./phases/phase4/phase4-plague-doctor-review-2026-10-17.md) §2–3。III级右栏第一枚`8510428636`仍为unreviewed，候选只在`hero_stat:p014:front`免疫栏解释为Blight，不改全局词典。
 - **处理 / 状态**：confirmed（R-094，2026-10-17）。Kyries回复“批准三行属性与限定防御”；按§2三面单独入库，III图标只在本卡右栏解释为Blight免疫，不改词典或清除整卡未验证。七技能与Experimental Vapours另行接线，不以转录验证代替完整英雄可用。
 
 ### Q-97
 
-- **问题 / 来源**：Kyries选定Grave Robber与Occultist为下一批替补属性/防御候选。印刷raw已核实六面Life/Dodge/Speed（见[核对表](phase4-grave-occultist-stat-review-2026-10-18.md) §2）；完整左右防御栏仍有三枚词典unreviewed图标：`e61ed317de`（GR II/III、Occ III左栏）、`8cbe7d6703`（Occ I唯一抗性）、`a8c4b25b4e`（Occ II左栏第二枚）。需按R-088/R-094模式做**具体卡面位置**限定命名，不改全局词典。云环境无印刷页图像，不能目视提出候选含义。
+- **问题 / 来源**：Kyries选定Grave Robber与Occultist为下一批替补属性/防御候选。印刷raw已核实六面Life/Dodge/Speed（见[核对表](./phases/phase4/phase4-grave-occultist-stat-review-2026-10-18.md) §2）；完整左右防御栏仍有三枚词典unreviewed图标：`e61ed317de`（GR II/III、Occ III左栏）、`8cbe7d6703`（Occ I唯一抗性）、`a8c4b25b4e`（Occ II左栏第二枚）。需按R-088/R-094模式做**具体卡面位置**限定命名，不改全局词典。云环境无印刷页图像，不能目视提出候选含义。
 - **处理 / 状态**：confirmed（R-095，2026-10-18）。Kyries 在聊天确认 LIMITED per-card mappings：`e61ed317de`→Blight（GR II 左#1、GR III 左#2、Occ III 左#2）；`8cbe7d6703`→Debuff（仅 Occ I）；`a8c4b25b4e`→Debuff（Occ II 左#2）。Jester I 同 hash 不在批准范围。不改全局词典。
 
 ### Q-98
@@ -1890,7 +1890,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
   - **边界**：三招卡面 **range 0–10** 是**射程**（`verified_range`），不是 Impending Doom 映射表；**勿**与 Ancestor2 · Swift Teleportation（`boss_ability:p035`）行动内 d10→姿态传送（1–3/4–6/7–9/10 不传送）混用。
   - **引擎**：开战与 Heart 每次行动结束覆盖 `battle.impendingDoomDie`（#451）；Heart 怪物回合用 `applyHeartOfDarknessImpendingDoomSkill` 读落位骰并调用 #456 Acc 命令；无骰或非法面值拒绝。
 - **依据 / 出处**：Kyries 2026-10-31 批准确认；印刷 `boss_ability:p037`、`monster_large:p020` 页脚、规则书 p41；R-001、R-015、R-048。
-- **关联**：#451、#456；[phase5-final-heart-impending-doom-skill-map-2026-11-01.md](phase5-final-heart-impending-doom-skill-map-2026-11-01.md)。
+- **关联**：#451、#456；[phase5-final-heart-impending-doom-skill-map-2026-11-01.md](./phases/phase5/phase5-final-heart-impending-doom-skill-map-2026-11-01.md)。
 - **状态**：Kyries 已确认。
 ### R-140
 
@@ -1926,7 +1926,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 
 - **编号**：R-143
 - **日期**：2026-11-02（Asia/Shanghai）
-- **裁定**：Kyries 明确回复“确认以上九张字段”。最暗普通怪 monster_medium:p063/p066/p069/p072/p075/p078/p080/p083/p086 的 Speed、四姿态选招分组及 d10 区间，按 [逐卡核图表](phase5-darkest-monster-fields-review-2026-11-02.md) 入库。p063 的远程姿态选招见 R-214 更正；Speed依次为2/2/3/2/1/3/3/2/2，不把黄色Dodge数字当Speed。
+- **裁定**：Kyries 明确回复“确认以上九张字段”。最暗普通怪 monster_medium:p063/p066/p069/p072/p075/p078/p080/p083/p086 的 Speed、四姿态选招分组及 d10 区间，按 [逐卡核图表](./phases/phase5/phase5-darkest-monster-fields-review-2026-11-02.md) 入库。p063 的远程姿态选招见 R-214 更正；Speed依次为2/2/3/2/1/3/3/2/2，不把黄色Dodge数字当Speed。
 - **依据**：当前版怪物FRONT M63–88，九种身份首张完整卡与26份Speed栏/页脚核图；官方规则书R24、R-015、R-001 / R-048。
 - **边界**：只批准九种怪物的上述字段，不批准房间几何，不解除battleReady:false，不将占位部署视为生产随机遭遇，不外推其它卡。
 - **状态**：Kyries 已确认。
@@ -1935,7 +1935,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 
 - **编号**：R-144
 - **日期**：2026-11-02（Asia/Shanghai）
-- **裁定**：Kyries 明确回复“确认本面几何和部署”。批准 Pool of Rebirth（room:p014；最暗编号1）当前版 TILES FRONT p9 的12区容量、G高地、14条通路、9组仅角点及八姿态部署，具体按[核对表](phase5-pool-of-rebirth-geometry-review-2026-11-02.md)入库。
+- **裁定**：Kyries 明确回复“确认本面几何和部署”。批准 Pool of Rebirth（room:p014；最暗编号1）当前版 TILES FRONT p9 的12区容量、G高地、14条通路、9组仅角点及八姿态部署，具体按[核对表](./phases/phase5/phase5-pool-of-rebirth-geometry-review-2026-11-02.md)入库。
 - **依据**：当前印刷整页及A–L区域标字核图；R16/R17部署、R18容量、R25高地、R-021邻接；R-001 / R-048。
 - **边界**：仅批准本面几何与部署。F区星形标记4591aebebd语义仍未确认，不套用其它房间的cornered；usable保持false。房间特殊效果、清理后复活、最暗遭遇生产准入及其它板块未随本次批准。
 - **状态**：Kyries 已确认。
@@ -2053,7 +2053,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 
 - **编号**：R-153
 - **日期**：2026-11-02（Asia/Shanghai）
-- **裁定**：Kyries逐项确认Hall of Ascension（最暗编号2，room:p015；TILES BACK p9）几何、部署与宝箱，唯一修正为L区容量3，其余按[核对表](phase5-hall-of-ascension-geometry-review-2026-11-02.md)。E/K为高地，13条通路、3组仅角点，A一个/C两个宝箱。
+- **裁定**：Kyries逐项确认Hall of Ascension（最暗编号2，room:p015；TILES BACK p9）几何、部署与宝箱，唯一修正为L区容量3，其余按[核对表](./phases/phase5/phase5-hall-of-ascension-geometry-review-2026-11-02.md)。E/K为高地，13条通路、3组仅角点，A一个/C两个宝箱。
 - **效果来源**：Kyries截图与ROOMS FRONT p15对应；B区绿色星标：英雄可在此花费2行动并承受压力+3，立即升级自身或一项技能。只绑定本卡，不改全局图标词典。
 - **边界**：几何及效果卡文对应获批；升级运行时尚未接通，usable=false、runtimeReady=false。未批准额外使用次数、升级限制或压力后中断顺序，也不解除其它板块停点。
 - **状态**：已确认，Q-134已解决。
@@ -2081,7 +2081,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 
 - **日期**：2026-11-03（Asia/Shanghai）
 - **问题**：Eldritch Vault（最暗地牢3，TILES FRONT p10 / ROOMS FRONT p16）的逐面几何、部署与绿色星标对应核对。
-- **候选**：见 [完整审核稿](phase5-eldritch-vault-geometry-review-2026-11-03.md)：A–I共9区，外侧4区容量4、内侧4区及中央容量2；内侧与中央为高地。英雄与怪物四姿态分区部署，8条通路；未见额外角点、阻挡与宝箱，E区绿色星标对应卡上抽III级饰品及装备压力+2的文字。
+- **候选**：见 [完整审核稿](./phases/phase5/phase5-eldritch-vault-geometry-review-2026-11-03.md)：A–I共9区，外侧4区容量4、内侧4区及中央容量2；内侧与中央为高地。英雄与怪物四姿态分区部署，8条通路；未见额外角点、阻挡与宝箱，E区绿色星标对应卡上抽III级饰品及装备压力+2的文字。
 - **状态**：Kyries已确认，见R-156。
 
 ### R-156
@@ -2089,7 +2089,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **编号**：R-156
 - **日期**：2026-11-03（Asia/Shanghai）
 - **裁定**：批准Eldritch Vault（最暗地牢3，TILES FRONT p10，ROOMS FRONT p16）的完整审核稿：A/C/F/I容量4、普通；B/D/E/G/H容量2、高地。英雄Support A、Aggressive C、Defensive F、Ranged I；怪物Defensive B、Ranged D、Support G、Aggressive H。通路A-B、B-E、C-D、D-E、E-G、E-H、F-G、H-I；无额外角点、阻挡或宝箱。E绿色星标对应本房卡花费2行动、按在场英雄人数抽III级饰品、装备其中一张承受压力+2的卡文。
-- **依据**：Kyries在查看本面标字图、容量/部署表、连接表与星标效果后明确回复“通过”；详见[审核稿](phase5-eldritch-vault-geometry-review-2026-11-03.md)。
+- **依据**：Kyries在查看本面标字图、容量/部署表、连接表与星标效果后明确回复“通过”；详见[审核稿](./phases/phase5/phase5-eldritch-vault-geometry-review-2026-11-03.md)。
 - **边界**：仅批准本面图面与效果来源，不外推其它面或补充饰品分配、装备时机、重复使用等规则。几何可入库，特殊效果运行时未完成前保持不可参战。
 - **状态**：Q-138已解决。
 
@@ -2097,7 +2097,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 
 - **日期**：2026-11-03（Asia/Shanghai）
 - **问题**：Toxic Chamber（最暗地牢4，TILES BACK p10 / ROOMS FRONT p17）的逐面几何、部署和Toxic Vapors区域对应。
-- **候选**：见[审核稿](phase5-toxic-chamber-geometry-review-2026-11-03.md)：10区，仅F高地；10条通路、4组仅角点，B/E各两个宝箱；A/B/C/E橙色星标对应英雄站立时Acc −3。容量与八姿态部署按完整表核对。
+- **候选**：见[审核稿](./phases/phase5/phase5-toxic-chamber-geometry-review-2026-11-03.md)：10区，仅F高地；10条通路、4组仅角点，B/E各两个宝箱；A/B/C/E橙色星标对应英雄站立时Acc −3。容量与八姿态部署按完整表核对。
 - **状态**：Kyries修正D/F部署后确认其余正确，见R-157。
 
 ### R-157
@@ -2105,7 +2105,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **编号**：R-157
 - **日期**：2026-11-03（Asia/Shanghai）
 - **裁定**：批准Toxic Chamber（最暗地牢4，TILES BACK p10 / ROOMS FRONT p17）的完整审核稿，修正怪物部署为Aggressive D、Defensive G、Ranged F、Support F；英雄Aggressive/Ranged J、Defensive/Support H。A–J容量依次2、4、2、4、2、2、4、2、3、2，仅F高地。通路A-B、A-D、B-C、C-G、D-H、E-F、F-I、G-J、H-I、I-J；仅角点B-D、B-G、D-I、G-I，无额外阻挡。宝箱B/E各两个；橙星A/B/C/E对应Toxic Vapors：站在此处的英雄Acc −3。
-- **依据**：Kyries明确回复“D应该是怪物Aggressive，F应该是怪物Ranged／Support，其他正确”；见[本面审核稿](phase5-toxic-chamber-geometry-review-2026-11-03.md)。
+- **依据**：Kyries明确回复“D应该是怪物Aggressive，F应该是怪物Ranged／Support，其他正确”；见[本面审核稿](./phases/phase5/phase5-toxic-chamber-geometry-review-2026-11-03.md)。
 - **边界**：本次批准图面与效果来源，不外推其它面或未决运行时边界。Toxic Vapors完整运行时未接通前，几何可入库但不可参战。
 - **状态**：Q-139已解决。
 
@@ -2120,7 +2120,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **编号**：R-158
 - **日期**：2026-11-03（Asia/Shanghai）
 - **裁定**：批准 Eldritch Power Chamber 完整审核稿：A–H容量依次2、3、4、3、3、4、4、3，均普通地形。英雄Aggressive/Defensive G、Ranged/Support C；怪物Aggressive/Defensive E、Ranged A、Support F。通路A-B、A-D、B-C、B-E、C-E、C-F、D-E、D-G、E-F、F-H、G-H；仅角点A-E、B-D，无额外阻挡；A有两个独立宝箱。C橙星对应：怪物需要移动至射程距离时朝橙星区域移动；怪物在橙星区域结束其回合，每名英雄受到5点伤害。
-- **依据**：Kyries 查看标字图及[审核稿](phase5-eldritch-power-chamber-geometry-review-2026-11-03.md)后回复“审核结果通过”；R-001 / R-048、核心规则R16–18、R25与R-021。
+- **依据**：Kyries 查看标字图及[审核稿](./phases/phase5/phase5-eldritch-power-chamber-geometry-review-2026-11-03.md)后回复“审核结果通过”；R-001 / R-048、核心规则R16–18、R25与R-021。
 - **边界**：批准本面图面及卡文来源，不外推其它面或未决路径选择、伤害减免等运行时细节。特殊效果完整运行时未接通前保持不可参战。
 - **状态**：Q-140 已解决。
 
@@ -2128,7 +2128,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 
 - **日期**：2026-11-03（Asia/Shanghai）
 - **问题**：Eldritch Vault 按人数抽多张 III 级饰品时，是否必须全部处置、可否重复交互、压力 +2 是否仅作用于装备者？
-- **状态**：待 Kyries 确认；运行时先按 R-156 卡文接通逐张饰品获得流，仅 `equip` 对装备者 +2 压力，见 [phase5-vault-toxic-runtime-2026-11-03.md](phase5-vault-toxic-runtime-2026-11-03.md)。
+- **状态**：待 Kyries 确认；运行时先按 R-156 卡文接通逐张饰品获得流，仅 `equip` 对装备者 +2 压力，见 [phase5-vault-toxic-runtime-2026-11-03.md](./phases/phase5/phase5-vault-toxic-runtime-2026-11-03.md)。
 
 ### Q-142
 
@@ -2141,7 +2141,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **编号**：R-159
 - **日期**：2026-11-03（Asia/Shanghai）
 - **裁定**：批准 Teleporters 完整审核稿：A–H容量依次3、2、3、2、2、3、2、3，均普通地形。英雄Aggressive G、Defensive D、Ranged B、Support E；怪物Aggressive A、Defensive F、Ranged H、Support C。实体通路A-D、B-C、E-H、F-G，无仅角点或额外阻挡；C/F各一宝箱。A/C/F/H橙星对应房间卡文：角色可在橙星区域之间移动和攻击；英雄穿过橙星区域承受压力+1。
-- **依据**：Kyries 查看标字图及[审核稿](phase5-teleporters-geometry-review-2026-11-03.md)后回复“核对通过”；R-001 / R-048、核心规则R16–18、R25与R-021。
+- **依据**：Kyries 查看标字图及[审核稿](./phases/phase5/phase5-teleporters-geometry-review-2026-11-03.md)后回复“核对通过”；R-001 / R-048、核心规则R16–18、R25与R-021。
 - **边界**：橙星卡文对应不混为实体通路；不在本次几何批准中补移动消耗、射程、视线或压力触发次数等未决运行时细节。特殊效果完整运行时未接通前保持不可参战。
 - **状态**：Q-142 已解决。
 
@@ -2149,7 +2149,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 
 - **日期**：2026-11-03（Asia/Shanghai）
 - **问题**：Teleporters（R-159）「Heroes moving through」橙星区的压力触发次数与路径边界：是否含落点、是否含非 `moveHero` 位移、同区重复经过是否合并。
-- **状态**：运行时采用最小可测解释（见 [phase5-teleporters-runtime-2026-11-03.md](phase5-teleporters-runtime-2026-11-03.md)）；待 Kyries 确认。
+- **状态**：运行时采用最小可测解释（见 [phase5-teleporters-runtime-2026-11-03.md](./phases/phase5/phase5-teleporters-runtime-2026-11-03.md)）；待 Kyries 确认。
 
 ### Q-143
 
@@ -2162,7 +2162,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **编号**：R-160
 - **日期**：2026-11-03（Asia/Shanghai）
 - **裁定**：批准 Evil Eye 完整审核稿：A–I容量依次2、3、4、2、3、3、4、4、2，均普通地形。英雄四姿态G、怪物四姿态C；通路A-B、A-D、B-C、B-E、C-F、D-E、D-G、E-F、E-H、F-I、G-H、H-I；仅角点A-E、B-D、B-F、C-E、D-H、E-G、E-I、F-H，无额外阻挡；A/I各一宝箱。E的印刷A橙星对应Evil Gaze：英雄在此结束回合获得负面怪癖；英雄可花2行动摧毁眼睛，执行者获正面怪癖，全体英雄压力−5。A/D/H/I的印刷B橙星对应Staring Eyes：英雄在此结束回合压力+2。定位区域字母与印刷效果字母分别记录。
-- **依据**：Kyries 查看标字图及[审核稿](phase5-evil-eye-geometry-review-2026-11-03.md)后回复“核对通过”；R-001 / R-048、核心规则R16–18、R25与R-021。
+- **依据**：Kyries 查看标字图及[审核稿](./phases/phase5/phase5-evil-eye-geometry-review-2026-11-03.md)后回复“核对通过”；R-001 / R-048、核心规则R16–18、R25与R-021。
 - **边界**：批准图面与卡文来源，不补摧毁后的效果移除、重复交互、怪癖抽取/替换等运行时细节；完整特殊效果运行时未接通前保持不可参战。
 - **状态**：Q-143 已解决。
 
@@ -2177,7 +2177,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **编号**：R-161
 - **日期**：2026-11-03（Asia/Shanghai）
 - **裁定**：批准 Temple of the Chosen 完整审核稿：A–H容量依次4、4、3、4、3、4、4、3，仅A高地，其余普通。英雄四姿态F；怪物Support A、Ranged C、Aggressive E、Defensive G。通路A-B、A-C、A-D、B-C、B-F、C-D、C-E、D-H、E-G、F-G、G-H；仅角点B-E、D-E、E-F、E-H，无额外阻挡；E两个独立宝箱。A橙星对应Rite of the Chosen：一名怪物在此结束其回合时，所有怪物治疗5；英雄压力+1，另按负面怪癖追加压力+1 / Negative Quirk。
-- **依据**：Kyries 查看标字图及[审核稿](phase5-temple-of-the-chosen-geometry-review-2026-11-03.md)后回复“核对通过”；R-001 / R-048、核心规则R16–18、R25与R-021。
+- **依据**：Kyries 查看标字图及[审核稿](./phases/phase5/phase5-temple-of-the-chosen-geometry-review-2026-11-03.md)后回复“核对通过”；R-001 / R-048、核心规则R16–18、R25与R-021。
 - **边界**：批准本面图面与卡文来源，不补负面怪癖计数范围、治疗上限、触发顺序等运行时细节。特殊效果完整运行时未接通前保持不可参战。
 - **状态**：Q-144 已解决。
 
@@ -2192,7 +2192,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 
 - **编号**：R-162
 - **日期**：2026-11-03（Asia/Shanghai）
-- **裁定**：批准[Templars Room审核稿](phase5-templars-room-geometry-review-2026-11-03.md)，A–N容量依次2、1、2、4、1、4、2、1、3、4、1、4、2、1，均普通地形，无宝箱。英雄Aggressive I、Defensive F、Ranged G、Support F；怪物Aggressive M、Defensive M、Ranged C、Support C。22条共享边与4组仅角点按审核稿，无额外阻挡。B/E/H/K/N五个尖刺区分别保留印刷编号1–2、3–4、5–6、7–8、9–10，并关联Spikes原文。
+- **裁定**：批准[Templars Room审核稿](./phases/phase5/phase5-templars-room-geometry-review-2026-11-03.md)，A–N容量依次2、1、2、4、1、4、2、1、3、4、1、4、2、1，均普通地形，无宝箱。英雄Aggressive I、Defensive F、Ranged G、Support F；怪物Aggressive M、Defensive M、Ranged C、Support C。22条共享边与4组仅角点按审核稿，无额外阻挡。B/E/H/K/N五个尖刺区分别保留印刷编号1–2、3–4、5–6、7–8、9–10，并关联Spikes原文。
 - **依据**：Kyries明确修正C/G/I/M部署并确认“其他正确”；R-001 / R-048、核心规则R16–18、R25。
 - **边界**：仅批准图面与卡文来源；不推定数字区间的掷骰用途，不开放Boss参战或Pit Toss。尖刺触发与Boss运行时准入另行核实。
 - **状态**：Q-145 已解决。
@@ -2208,7 +2208,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 
 - **编号**：R-163
 - **日期**：2026-11-03（Asia/Shanghai）
-- **裁定**：批准[Shuffling Horror Room完整审核稿](phase5-shuffling-horror-room-geometry-review-2026-11-03.md)：A–I容量2、3、2、3、3、3、3、3、3，仅A/C高地。英雄Aggressive G、Defensive I、Ranged I、Support B；怪物Aggressive H、Defensive H、Ranged D、Support C。通路A-D、B-E、C-F、D-E、D-G、E-F、F-I、G-H、H-I；仅角点B-D、B-F、D-H、F-H，无额外阻挡、宝箱或特殊交互标记；配套room卡无额外效果文字。
+- **裁定**：批准[Shuffling Horror Room完整审核稿](./phases/phase5/phase5-shuffling-horror-room-geometry-review-2026-11-03.md)：A–I容量2、3、2、3、3、3、3、3、3，仅A/C高地。英雄Aggressive G、Defensive I、Ranged I、Support B；怪物Aggressive H、Defensive H、Ranged D、Support C。通路A-D、B-E、C-F、D-E、D-G、E-F、F-I、G-H、H-I；仅角点B-D、B-F、D-H、F-H，无额外阻挡、宝箱或特殊交互标记；配套room卡无额外效果文字。
 - **依据**：Kyries查看审核稿与原图后回复“核对通过”；R-001 / R-048，核心规则R16–18、R25。
 - **边界**：几何批准不代表Boss技能、召唤或完整运行时已获准参战；保持usable=false，准入另行核实。
 - **状态**：Q-146 已解决。
@@ -2224,7 +2224,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 
 - **编号**：R-164
 - **日期**：2026-11-03（Asia/Shanghai）
-- **裁定**：批准[Mammoth Cyst Room审核稿](phase5-mammoth-cyst-room-geometry-review-2026-11-03.md)，J/L容量修正为2；A–L最终容量2、3、2、3、4、3、2、5、2、2、4、2，均普通地形。英雄四姿态K；怪物Aggressive/Defensive H、Ranged/Support E。13条通路按审核稿，无仅角点、额外阻挡或宝箱。紫星A=1–2、C=3–4、B=5–6、G=7–8、I=9–10。
+- **裁定**：批准[Mammoth Cyst Room审核稿](./phases/phase5/phase5-mammoth-cyst-room-geometry-review-2026-11-03.md)，J/L容量修正为2；A–L最终容量2、3、2、3、4、3、2、5、2、2、4、2，均普通地形。英雄四姿态K；怪物Aggressive/Defensive H、Ranged/Support E。13条通路按审核稿，无仅角点、额外阻挡或宝箱。紫星A=1–2、C=3–4、B=5–6、G=7–8、I=9–10。
 - **依据**：Kyries明确回复“J容量是2，L容量是2，其他都核对通过”；R-001 / R-048，核心规则R16–18、R25。
 - **边界**：仅批准图面与room卡无额外效果文字的来源；不推定紫星效果或数字掷骰用途，不开放Boss参战、召唤或传送运行时。
 - **状态**：Q-147已解决。
@@ -2240,7 +2240,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 
 - **编号**：R-165
 - **日期**：2026-11-03（Asia/Shanghai）
-- **裁定**：批准[Ancestor Room完整审核稿](phase5-ancestor-room-geometry-review-2026-11-03.md)：A–K容量3、4、2、3、3、3、3、3、2、4、3，均普通地形。英雄Aggressive K、Defensive I、Ranged K、Support C；怪物Aggressive E、Defensive B、Ranged A、Support J。18条通路按审核稿，D-E及H-J为共享边；仅角点B-D、E-J，无额外阻挡、宝箱或特殊标记；room卡无额外效果文字。
+- **裁定**：批准[Ancestor Room完整审核稿](./phases/phase5/phase5-ancestor-room-geometry-review-2026-11-03.md)：A–K容量3、4、2、3、3、3、3、3、2、4、3，均普通地形。英雄Aggressive K、Defensive I、Ranged K、Support C；怪物Aggressive E、Defensive B、Ranged A、Support J。18条通路按审核稿，D-E及H-J为共享边；仅角点B-D、E-J，无额外阻挡、宝箱或特殊标记；room卡无额外效果文字。
 - **依据**：Kyries查看审核稿及原图后回复“核对通过”；R-001 / R-048，核心规则R16–18、R25。
 - **边界**：仅批准图面，不批准最终战形态切换、召唤、战斗开局或先攻处理；Boss运行时准入另行核实，保持usable=false。
 - **状态**：Q-148已解决。
@@ -2248,14 +2248,14 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 ### Q-149
 
 - **日期**：2026-11-03（Asia/Shanghai）
-- **问题**：Necromancer Room（遗迹10，TILES BACK p6 / ROOMS FRONT p10）逐面几何、容量、地形与部署，见[审核稿](phase5-necromancer-room-geometry-review-2026-11-03.md)。
+- **问题**：Necromancer Room（遗迹10，TILES BACK p6 / ROOMS FRONT p10）逐面几何、容量、地形与部署，见[审核稿](./phases/phase5/phase5-necromancer-room-geometry-review-2026-11-03.md)。
 - **状态**：Kyries修正E容量为3，其余审核通过，见R-166。
 
 ### R-166
 
 - **编号**：R-166
 - **日期**：2026-11-03（Asia/Shanghai）
-- **裁定**：批准[Necromancer Room审核稿](phase5-necromancer-room-geometry-review-2026-11-03.md)，E容量修正为3；A–H容量3、4、3、4、3、2、4、2。A为高地，其余普通；英雄四姿态G，怪物仅Aggressive A。11条共享边、6组角点按审核稿；无额外阻挡、宝箱或星标，room卡无额外效果文字。
+- **裁定**：批准[Necromancer Room审核稿](./phases/phase5/phase5-necromancer-room-geometry-review-2026-11-03.md)，E容量修正为3；A–H容量3、4、3、4、3、2、4、2。A为高地，其余普通；英雄四姿态G，怪物仅Aggressive A。11条共享边、6组角点按审核稿；无额外阻挡、宝箱或星标，room卡无额外效果文字。
 - **依据**：Kyries明确回复“E容量是3，其他审核通过”；R-001、R-048、R-021，核心规则R16–18、R25。
 - **边界**：只批准图面，不补造怪物其余三姿态部署；Boss运行时准入另行核实，保持usable=false。
 - **状态**：Q-149已解决。
@@ -2263,14 +2263,14 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 ### Q-150
 
 - **日期**：2026-11-03（Asia/Shanghai）
-- **问题**：Prophet Room（遗迹11，TILES FRONT p6 / ROOMS FRONT p11）几何、容量与部署，见[审核稿](phase5-prophet-room-geometry-review-2026-11-03.md)。
+- **问题**：Prophet Room（遗迹11，TILES FRONT p6 / ROOMS FRONT p11）几何、容量与部署，见[审核稿](./phases/phase5/phase5-prophet-room-geometry-review-2026-11-03.md)。
 - **状态**：Kyries回复“审核通过”，见R-167。
 
 ### R-167
 
 - **编号**：R-167
 - **日期**：2026-11-03（Asia/Shanghai）
-- **裁定**：批准[Prophet Room审核稿](phase5-prophet-room-geometry-review-2026-11-03.md)：A–H容量4、3、3、3、3、4、3、3，均普通地形。英雄Aggressive C、Support D、Ranged/Defensive H；怪物仅Aggressive E。12条共享边含D-H及F-H；仅角点A-E、B-F、C-E。橙色标记A=1–2、B=3、C=4、D=5、E=6、F=7–8、G=9、H=10；无宝箱或额外阻挡，room卡无额外效果文字。
+- **裁定**：批准[Prophet Room审核稿](./phases/phase5/phase5-prophet-room-geometry-review-2026-11-03.md)：A–H容量4、3、3、3、3、4、3、3，均普通地形。英雄Aggressive C、Support D、Ranged/Defensive H；怪物仅Aggressive E。12条共享边含D-H及F-H；仅角点A-E、B-F、C-E。橙色标记A=1–2、B=3、C=4、D=5、E=6、F=7–8、G=9、H=10；无宝箱或额外阻挡，room卡无额外效果文字。
 - **依据**：Kyries回复“审核通过”；R-001、R-048、R-021，核心规则R16–18、R25。
 - **边界**：只批准图面，不补其余怪物姿态；不批准落石、掷骰表或Boss运行时准入，保持usable=false。
 - **状态**：Q-150已解决。
@@ -2278,14 +2278,14 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 ### Q-151
 
 - **日期**：2026-11-03（Asia/Shanghai）
-- **问题**：Collector Room（遗迹12，TILES BACK p7 / ROOMS FRONT p12）几何、容量、部署与三宝箱，见[审核稿](phase5-collector-room-geometry-review-2026-11-03.md)。
+- **问题**：Collector Room（遗迹12，TILES BACK p7 / ROOMS FRONT p12）几何、容量、部署与三宝箱，见[审核稿](./phases/phase5/phase5-collector-room-geometry-review-2026-11-03.md)。
 - **状态**：Kyries回复“核对通过”，见R-168。
 
 ### R-168
 
 - **编号**：R-168
 - **日期**：2026-11-03（Asia/Shanghai）
-- **裁定**：批准[Collector Room审核稿](phase5-collector-room-geometry-review-2026-11-03.md)：A–H容量2、3、3、2、2、2、2、3，均普通地形。英雄Aggressive/Support H、Ranged/Defensive B；怪物Aggressive C、Defensive G、Ranged E、Support A。7条共享边、3组角点按审核稿；F有三个独立宝箱标记，各带白色叹号；无额外阻挡或星标，room卡无额外效果文字。
+- **裁定**：批准[Collector Room审核稿](./phases/phase5/phase5-collector-room-geometry-review-2026-11-03.md)：A–H容量2、3、3、2、2、2、2、3，均普通地形。英雄Aggressive/Support H、Ranged/Defensive B；怪物Aggressive C、Defensive G、Ranged E、Support A。7条共享边、3组角点按审核稿；F有三个独立宝箱标记，各带白色叹号；无额外阻挡或星标，room卡无额外效果文字。
 - **依据**：Kyries回复“核对通过”；R-001、R-048、R-021，核心规则R16–18、R25。
 - **边界**：仅批准图面与宝箱数量，不推定叹号特殊奖励含义；Boss 准入仍另行核实，保持 usable=false。F 区宝箱交互与奖励见 R-177。
 - **状态**：Q-151已解决。
@@ -2293,14 +2293,14 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 ### Q-152
 
 - **日期**：2026-11-03（Asia/Shanghai）
-- **问题**：Fanatic Room（遗迹13，TILES FRONT p7 / ROOMS FRONT p13）几何、容量、高地与部署，见[审核稿](phase5-fanatic-room-geometry-review-2026-11-03.md)。
+- **问题**：Fanatic Room（遗迹13，TILES FRONT p7 / ROOMS FRONT p13）几何、容量、高地与部署，见[审核稿](./phases/phase5/phase5-fanatic-room-geometry-review-2026-11-03.md)。
 - **状态**：Kyries回复“核对通过”，见R-169。
 
 ### R-169
 
 - **编号**：R-169
 - **日期**：2026-11-03（Asia/Shanghai）
-- **裁定**：批准[Fanatic Room审核稿](phase5-fanatic-room-geometry-review-2026-11-03.md)：A–I容量3、3、3、4、3、4、3、3、3；B为高地，其余普通。英雄Aggressive/Ranged H、Defensive A、Support C；怪物Aggressive/Defensive B、Ranged/Support E。12条共享边及6组角点按审核稿；D/F保持独立折区，A-E及C-E不相连也非仅角点；无宝箱、星标、编号标记或额外阻挡，room卡无额外效果文字。
+- **裁定**：批准[Fanatic Room审核稿](./phases/phase5/phase5-fanatic-room-geometry-review-2026-11-03.md)：A–I容量3、3、3、4、3、4、3、3、3；B为高地，其余普通。英雄Aggressive/Ranged H、Defensive A、Support C；怪物Aggressive/Defensive B、Ranged/Support E。12条共享边及6组角点按审核稿；D/F保持独立折区，A-E及C-E不相连也非仅角点；无宝箱、星标、编号标记或额外阻挡，room卡无额外效果文字。
 - **依据**：Kyries回复“核对通过”；R-001、R-048、R-021，核心规则R16–18、R25。
 - **边界**：仅批准图面，不据篝火或囚笼插画推定效果；Fanatic/Pyre、Boss部署及准入另行核实，保持usable=false。
 - **状态**：Q-152已解决，核心盒25张Room均已获批几何。
@@ -2329,7 +2329,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 ### Q-153
 
 - **日期**：2026-11-04（Asia/Shanghai）
-- **问题**：是否批准 Prophet I 在 R-167 真实几何上的专用部署（Boss 进攻/E；英雄 Aggressive/C、Support/D、Ranged 与 Defensive/H），并将橙色编号映射为现有放长椅/落石运行时的骰点表：1–2/A、3/B、4/C、5/D、6/E、7–8/F、9/G、10/H？详见[具体方案](phase5-prophet-i-production-entry-review-2026-11-04.md)。
+- **问题**：是否批准 Prophet I 在 R-167 真实几何上的专用部署（Boss 进攻/E；英雄 Aggressive/C、Support/D、Ranged 与 Defensive/H），并将橙色编号映射为现有放长椅/落石运行时的骰点表：1–2/A、3/B、4/C、5/D、6/E、7–8/F、9/G、10/H？详见[具体方案](./phases/phase5/phase5-prophet-i-production-entry-review-2026-11-04.md)。
 - **依据**：R-167 仅批准图面，明确保留掷骰表与 Boss 运行时准入；规格书 §14.5、核心 R38–R39 已记载先知三次行动及长椅/落石流程。
 - **状态**：Kyries 回复“确认”，见 R-173。
 
@@ -2358,7 +2358,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 
 - **日期**：2026-11-04（Asia/Shanghai）
 - **裁定**：Collector I 战斗卡 `monster_medium:p092` 的 Speed 为 2。四姿态共用 d10 选招表，1–5 为 Show Collection（slot 1），6–10 为 Life Steal（slot 2）。
-- **依据**：Kyries 对 Q-154 回复“确认”。核心 R24、印刷 COREBOX 怪物中卡正面第 92 页及[字段核对稿](phase5-collector-i-page-entry-review-2026-11-04.md)。
+- **依据**：Kyries 对 Q-154 回复“确认”。核心 R24、印刷 COREBOX 怪物中卡正面第 92 页及[字段核对稿](./phases/phase5/phase5-collector-i-page-entry-review-2026-11-04.md)。
 - **边界**：仅此卡字段与正式目录。Collect All 仍按核心 R39 与规格书 §14.5 接管相应行动。
 
 ### R-177
@@ -2372,7 +2372,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 
 - **日期**：2026-11-04（Asia/Shanghai）
 - **裁定**：批准 Fanatic I 在 R-169 房间（`room:p013` / `room_tile:p007:front`）的专用部署与生产胜负交接。公开命令 **`deployFanaticI`**：Boss 初始进攻/B，四英雄按 R-169 获批姿态区部署；保留英雄状态与 RNG 游标，部署不掷骰。显式 **`startBattle`** 时经 **`monsterStanceAreas.ranged`** 将 Pyre 落 **E**（R39 开战布置）。**`finishDungeonBattle`** 沿用遗迹 I 级共用交接，清除威胁、记录 Fanatic 击败并清理目标房；英雄全灭仍走 R-044。
-- **依据**：Kyries 确认 [#583](https://github.com/Alpaca-go/ddbg-web/pull/583) 与 R-178；R-169 图面、[审核稿](phase5-fanatic-i-production-entry-review-2026-11-04.md)、核心 R39、规格书 §14.5、对标 R-175。
+- **依据**：Kyries 确认 [#583](https://github.com/Alpaca-go/ddbg-web/pull/583) 与 R-178；R-169 图面、[审核稿](./phases/phase5/phase5-fanatic-i-production-entry-review-2026-11-04.md)、核心 R39、规格书 §14.5、对标 R-175。
 - **边界**：限 I 级 Face the Threat 的实际 Fanatic 威胁与专属目标房；不修改 `combatReady`、任务白名单或 `room:p013` / 获批 tile 的 `usable=false`；不经 `selectRoomTile` 进 Boss 房；Fanatic II/III 与其余 Boss 分切片。
 
 ### R-186
@@ -2380,7 +2380,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **日期**：2026-11-04（Asia/Shanghai）
 - **裁定**：批准最终战在 R-165 房间（`room:p025` / `room_tile:p014:back`）的 **`deployFinalBattleForm`** 生产部署与形态间续接。四英雄按 R-165 落 **K/I/K/C**，各形态 Boss 与支持卡按目录 stance 落 **E/B/A/J**；十一区邻接经 `roomTileBattleAreas` 写入 BattleState，**不**经 `selectRoomTile` 或探索 tile 白名单。保留英雄状态与 RNG 游标，部署不掷骰；显式 **`startBattle`** 仍洗先攻。`room_tile` 与 `darkest_boss_content` 的 **`usable` / `combatReady` 保持 false**（无 `ancestorGlory` 等特殊区运行时）。
 - **补记**：Ancestor 首形态的三只 Reflection 与随机姿态部署见 R-217。
-- **依据**：Kyries 确认 [#595](https://github.com/Alpaca-go/ddbg-web/pull/595) 与 R-186；R-165 图面、[审核稿](phase5-ancestor-room-geometry-review-2026-11-03.md)、[生产入口审核稿](phase5-final-battle-production-entry-review-2026-11-04.md)、核心 R36/R-035、对标 R-184 / R-182。
+- **依据**：Kyries 确认 [#595](https://github.com/Alpaca-go/ddbg-web/pull/595) 与 R-186；R-165 图面、[审核稿](./phases/phase5/phase5-ancestor-room-geometry-review-2026-11-03.md)、[生产入口审核稿](./phases/phase5/phase5-final-battle-production-entry-review-2026-11-04.md)、核心 R36/R-035、对标 R-184 / R-182。
 - **边界**：限最终战形态流程（`finalBattleProvisions` + `finalFormSequence`）；不修改任务白名单、自然战役严格存档、形态技能完整 AI、Stygian、扩展包。
 
 ### R-187
@@ -2393,14 +2393,14 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
   - **Ancestor 2** `monster_large:p018`：Speed **3**；四姿态 **1–2 / 3–6 / 7–10 → slot 1–3**（与既有 verified 一致）。
   - **Gestating Heart** `monster_large:p019`：卡面**无**移动靴印，Speed **0**；四姿态固定 **slot 1**（Dispersion）；Ichor 与随机召唤走 `boss_ability:p036` 与专用运行时。
   - **Heart of Darkness** `monster_large:p020`：卡面**无**移动靴印，Speed **0**；四姿态 footer **1–4 / 5–7 / 8–10 → slot 1–3**（与 **R-139** Impending Doom 映射一致；Impending Doom 仍走专用落骰）。
-- **依据**：Kyries 确认 [#596](https://github.com/Alpaca-go/ddbg-web/pull/596)；核心 R24、R-015、R-139；[字段核对稿](phase5-final-battle-page-entry-review-2026-11-04.md)；部署 R-186（[#595](https://github.com/Alpaca-go/ddbg-web/pull/595)）。自然任务与严格存档边界见 [phase5-final-battle-natural-save-2026-11-04.md](phase5-final-battle-natural-save-2026-11-04.md)（**Q-xxx 待确认**）。
+- **依据**：Kyries 确认 [#596](https://github.com/Alpaca-go/ddbg-web/pull/596)；核心 R24、R-015、R-139；[字段核对稿](./phases/phase5/phase5-final-battle-page-entry-review-2026-11-04.md)；部署 R-186（[#595](https://github.com/Alpaca-go/ddbg-web/pull/595)）。自然任务与严格存档边界见 [phase5-final-battle-natural-save-2026-11-04.md](./phases/phase5/phase5-final-battle-natural-save-2026-11-04.md)（**Q-xxx 待确认**）。
 - **边界**：仅此六张卡字段与正式 `bossMonsters` 目录及 `preFinalBattleBossCatalogTaskSources` 迁移。不修改 `combatReady`、任务白名单或 R-186 部署几何；Absolute Nothingness / 完整 AI / 自然存档分切片。
 
 ### R-188
 
 - **日期**：2026-11-04（Asia/Shanghai）
 - **裁定**：最终战第 4 形态 **Heart of Darkness** 被击败（`finishDungeonBattle` → `finishFinalBattleForm` 完成全部形态）= **战役胜利**（R9、R41；规格书 §14.7「击败 = 赢得游戏」）。`dungeon.campaignVictory: true` 为终局态：此后 `applyCommand` 一律拒绝，不再接受部署、战斗、结算或回村命令。存档沿用「起点 + 命令日志 + 快照校验」，终局由回放派生，**不新增存档字段**；快照伪造 `campaignVictory` 由严格校验拒绝。网页在终局整屏显示战役胜利面板，不进入村庄，也不开放新战役。
-- **依据**：Kyries 点名「开 B1」（[#600](https://github.com/Alpaca-go/ddbg-web/pull/600)）；核心 R9 / R41；规格书 §1 胜利定义、§14.7；[切片记录](phase5-final-battle-victory-2026-11-04.md)。
+- **依据**：Kyries 点名「开 B1」（[#600](https://github.com/Alpaca-go/ddbg-web/pull/600)）；核心 R9 / R41；规格书 §1 胜利定义、§14.7；[切片记录](./phases/phase5/phase5-final-battle-victory-2026-11-04.md)。
 - **边界**：仅终局态与结局面板。胜利后回村（R32）或新战役、`combatReady`、`ancestorGlory`、完整 Boss AI、Stygian 与扩展包均不在本裁定内（**Q-xxx 待确认**）。
 - **补充（2026-11-04，Kyries）**：打完最终 BOSS 游戏即结束，胜利**不回村**；结局面板改为提供「开新战役」入口（回到出征设置页）。边界中的「新战役」一项自此解除，回村仍不开放。
 
@@ -2409,7 +2409,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **日期**：2026-11-04（Asia/Shanghai）
 - **裁定**：Kyries 授权把最暗 / 最终战相关 **17 处 `combatReady` 改为 `true`**（`darkest_boss_content` 7 条：三条遭遇 + 最终战四形态；`darkest_boss_abilities` 9 张；`absolute_nothingness_support` 1 张），并移除「`combatReady` 为 true 时拒绝部署」的旧反守卫；schema 由 `z.literal(false)` 改为 `z.boolean()`，保留发现问题后回退 false 的能力。理由：核心包开发完毕后由 Kyries 做大量实测，再按实际表现修正。
 - **范围**：仅准入声明、schema 与部署守卫；不改 `usable`、任务白名单、生产几何、技能效果线或 AI 行为。`ancestorGlory` 属 Tomb of Ancestor（`room:p007`，已实现并有测试），不在本裁定内。
-- **依据**：Kyries 2026-11-04 指示（[#602](https://github.com/Alpaca-go/ddbg-web/pull/602)）；R-048 的准入原则；[切片记录](phase5-combatready-2026-11-04.md)。
+- **依据**：Kyries 2026-11-04 指示（[#602](https://github.com/Alpaca-go/ddbg-web/pull/602)）；R-048 的准入原则；[切片记录](./phases/phase5/phase5-combatready-2026-11-04.md)。
 - **边界**：`combatReady: true` 表示「允许进入生产战斗」，**不等于**四形态 AI 已全部自动。Ancestor 1 的三招与 Gestating Heart 的召唤目前仍需显式命令，按切片文档的后续 PR 补；本裁定不批准 Phase 6、Stygian 或扩展包。
 
 ### R-190
@@ -2424,49 +2424,49 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 
 - **日期**：2026-11-04（Asia/Shanghai）
 - **裁定**：Mammoth Cyst 战斗卡 `monster_large:p016` 的 Speed 为 1。四姿态共用 d10 选招表：1–4 为 slot 1（Bulging Gaze），5–8 为 slot 2（Digestion），9–10 为 slot 3（Revivify）。slot 3 虽为 Self 技能，但卡面 footer 与 Fanatic 同型分段表写入姿态骰表；White Cell 召唤与 boss_ability 替换行动仍走专用运行时，不另改表。
-- **依据**：Kyries 确认 [#593](https://github.com/Alpaca-go/ddbg-web/pull/593)；核心 R24、印刷 COREBOX 怪物大卡 FRONT p016 及[字段核对稿](phase5-mammoth-cyst-page-entry-review-2026-11-04.md)；部署 R-184（[#592](https://github.com/Alpaca-go/ddbg-web/pull/592)）。自然任务与严格存档见 [phase5-mammoth-cyst-natural-save-2026-11-04.md](phase5-mammoth-cyst-natural-save-2026-11-04.md)。
+- **依据**：Kyries 确认 [#593](https://github.com/Alpaca-go/ddbg-web/pull/593)；核心 R24、印刷 COREBOX 怪物大卡 FRONT p016 及[字段核对稿](./phases/phase5/phase5-mammoth-cyst-page-entry-review-2026-11-04.md)；部署 R-184（[#592](https://github.com/Alpaca-go/ddbg-web/pull/592)）。自然任务与严格存档见 [phase5-mammoth-cyst-natural-save-2026-11-04.md](./phases/phase5/phase5-mammoth-cyst-natural-save-2026-11-04.md)。
 - **边界**：仅此卡字段与正式 `bossMonsters` 目录及 `preMammothCystTaskSources` 迁移。White Cell Teleport / 紫星运行时 / 完整 AI 与其余最暗 Boss 分切片。
 
 ### R-184
 
 - **日期**：2026-11-04（Asia/Shanghai）
 - **裁定**：批准 Mammoth Cyst（quest:p018）在 R-164 房间（`room:p024` / `room_tile:p014:front`）的专用部署与生产胜负交接。公开命令 **`deployMammothCystI`**：`monster_large:p016` 初始进攻/**H**，四英雄按 R-164 均落 **K**；保留英雄状态与 RNG 游标，部署不掷骰。显式 **`startBattle`** 洗先攻（目录 `initiativeCards: 2`、单 Boss 实体，经 `expandDarkestMidBossInitiativeDeckSides` 补全 monster 侧张数；开战不预置 `monster_medium:p104` White Cell）。**`finishDungeonBattle`** 沿用最暗中途 Boss 共用交接（`finishDarkestDungeonBattle`），记录 `bossQuestVictory` 与目标房清理；英雄全灭仍走 R-048 停点。
-- **依据**：Kyries 确认 [#592](https://github.com/Alpaca-go/ddbg-web/pull/592) 与 R-184；R-164 图面、[审核稿](phase5-mammoth-cyst-production-entry-review-2026-11-04.md)、核心 R36/R39、规格书 §14.x、对标 R-182 / R-180。
+- **依据**：Kyries 确认 [#592](https://github.com/Alpaca-go/ddbg-web/pull/592) 与 R-184；R-164 图面、[审核稿](./phases/phase5/phase5-mammoth-cyst-production-entry-review-2026-11-04.md)、核心 R36/R39、规格书 §14.x、对标 R-182 / R-180。
 - **边界**：限 quest:p018 最暗目标房；不修改 `darkest_boss_content.combatReady`、任务白名单或 `room_tile` 的 `usable=false`；不经 `selectRoomTile` 或 `prepareDungeonMonsters` 占位 `darkest-mid-boss-*` 进 Mammoth Cyst 战；White Cell Teleport / 紫星运行时 / 完整 AI 与其余 Boss 分切片。
 
 ### R-183
 
 - **日期**：2026-11-04（Asia/Shanghai）
 - **裁定**：Shuffling Horror 战斗卡 `monster_large:p017` 的 Speed 为 1。四姿态共用 d10 选招表：1–7 为 slot 1（Lacerate），8–10 为 slot 2（Undulations）。slot 3（Echoing Disassembly）由 `boss_ability:p033` 与专用运行时处理，不写入姿态骰表。
-- **依据**：Kyries 确认 [#590](https://github.com/Alpaca-go/ddbg-web/pull/590)；核心 R24、印刷 COREBOX 怪物大卡 FRONT p017 及[字段核对稿](phase5-shuffling-horror-page-entry-review-2026-11-04.md)；部署 R-182（[#589](https://github.com/Alpaca-go/ddbg-web/pull/589)）。
+- **依据**：Kyries 确认 [#590](https://github.com/Alpaca-go/ddbg-web/pull/590)；核心 R24、印刷 COREBOX 怪物大卡 FRONT p017 及[字段核对稿](./phases/phase5/phase5-shuffling-horror-page-entry-review-2026-11-04.md)；部署 R-182（[#589](https://github.com/Alpaca-go/ddbg-web/pull/589)）。
 - **边界**：仅此卡字段与正式 `bossMonsters` 目录及 `preShufflingHorrorTaskSources` 迁移。Echoing / Undulations 深化、Mammoth / Templars 与其余 Boss 分切片。
 
 ### R-182
 
 - **日期**：2026-11-04（Asia/Shanghai）
 - **裁定**：批准 Shuffling Horror（quest:p016）在 R-163 房间（`room:p023` / `room_tile:p013:back`）的专用部署与生产胜负交接。公开命令 **`deployShufflingHorrorI`**：`monster_large:p017` 初始进攻/**H**，四英雄按 R-163 获批姿态区部署；保留英雄状态与 RNG 游标，部署不掷骰。显式 **`startBattle`** 洗先攻（目录 `initiativeCards: 2`、单 Boss 实体，经 `expandDarkestMidBossInitiativeDeckSides` 补全 monster 侧张数；开战不预置 support 召唤物）。**`finishDungeonBattle`** 沿用最暗中途 Boss 共用交接（`finishDarkestDungeonBattle`），记录 `bossQuestVictory` 与目标房清理；英雄全灭仍走 R-048 停点。
-- **依据**：Kyries 确认 [#589](https://github.com/Alpaca-go/ddbg-web/pull/589) 与 R-182；R-163 图面、[审核稿](phase5-shuffling-horror-room-geometry-review-2026-11-03.md)、核心 R36/R39、规格书 §14.x、对标 R-180 / R-178。
+- **依据**：Kyries 确认 [#589](https://github.com/Alpaca-go/ddbg-web/pull/589) 与 R-182；R-163 图面、[审核稿](./phases/phase5/phase5-shuffling-horror-room-geometry-review-2026-11-03.md)、核心 R36/R39、规格书 §14.x、对标 R-180 / R-178。
 - **边界**：限 quest:p016 最暗目标房；不修改 `darkest_boss_content.combatReady`、任务白名单或 `room_tile` 的 `usable=false`；不经 `selectRoomTile` 或 `prepareDungeonMonsters` 占位 `darkest-mid-boss-*` 进 Shuffling Horror 战；Echoing / Undulations 完整生产、Mammoth / Templars 与其余 Boss 分切片。
 
 ### R-181
 
 - **日期**：2026-11-04（Asia/Shanghai）
 - **裁定**：Templar Warlord `monster_large:p014` 与 Templar Impaler `monster_large:p015` 的 Speed 均为 2。两卡共用姿态选招表：进攻姿态 d10 1–2 → slot 1（Torment），3–4 → slot 2（Body Slam / Stinger Shot），5–10 → slot 3（Revelation）；防御、远程、辅助姿态 d10 1–5 → slot 1，6–10 → slot 2。 两卡选招表以 R-214 各自的映射为准。
-- **依据**：Kyries 待确认本 PR；核心 R24、印刷 COREBOX 怪物大卡 FRONT p014–p015 及[字段核对稿](phase5-templars-page-entry-review-2026-11-04.md)；部署 R-180。
+- **依据**：Kyries 待确认本 PR；核心 R24、印刷 COREBOX 怪物大卡 FRONT p014–p015 及[字段核对稿](./phases/phase5/phase5-templars-page-entry-review-2026-11-04.md)；部署 R-180。
 - **边界**：仅此两卡字段与正式 `bossMonsters` 目录及 `preTemplarsTaskSources` 迁移。Pit Toss / Spikes / 完整 AI 与其余最暗 Boss 分切片。
 
 ### R-180
 
 - **日期**：2026-11-04（Asia/Shanghai）
 - **裁定**：批准 Templars（quest:p017）在 R-162 房间（`room:p022` / `room_tile:p013:front`）的专用部署与生产胜负交接。公开命令 **`deployTemplarsI`**：Templar Impaler 进攻/M、Templar Warlord 远程/C，四英雄按 R-162 获批姿态区部署；保留英雄状态与 RNG 游标，部署不掷骰。显式 **`startBattle`** 洗先攻（两只 Templar 各 2 张实体先攻，共 8 monster 侧，沿用 `expandDarkestMidBossInitiativeDeckSides`）。**`finishDungeonBattle`** 沿用最暗中途 Boss 共用交接（`finishDarkestDungeonBattle`），记录 `bossQuestVictory` 与目标房清理；英雄全灭仍走 R-048 停点。
-- **依据**：Kyries 确认 [#586](https://github.com/Alpaca-go/ddbg-web/pull/586) 与 R-180；R-162 图面、[审核稿](phase5-templars-room-geometry-review-2026-11-03.md)、核心 R36/R39、规格书 §14.x、对标 R-178 / R-175。
+- **依据**：Kyries 确认 [#586](https://github.com/Alpaca-go/ddbg-web/pull/586) 与 R-180；R-162 图面、[审核稿](./phases/phase5/phase5-templars-room-geometry-review-2026-11-03.md)、核心 R36/R39、规格书 §14.x、对标 R-178 / R-175。
 - **边界**：限 quest:p017 最暗目标房；不修改 `darkest_boss_content.combatReady`、任务白名单或 `room_tile` 的 `usable=false`；不经 `selectRoomTile` 或 `prepareDungeonMonsters` 占位 `darkest-mid-boss-*` 进 Templars 战；Pit Toss / Spikes / Shuffling Horror / Mammoth 与其余 Boss 分切片。
 
 ### R-179
 
 - **日期**：2026-11-04（Asia/Shanghai）
 - **裁定**：Fanatic I 战斗卡 `monster_large:p008` 的 Speed 为 2。四姿态共用 d10 选招表：1–2 为 slot 1（Righteous Condemnation），3–6 为 slot 2（Strike the Heretic），7–10 为 slot 3（Fury of the Righteous）。
-- **依据**：Kyries 确认 [#584](https://github.com/Alpaca-go/ddbg-web/pull/584) 与 R-179。C-017、核心 R24、印刷 COREBOX 怪物大卡正面第 8 页及[字段核对稿](phase5-fanatic-i-page-entry-review-2026-11-04.md)。
+- **依据**：Kyries 确认 [#584](https://github.com/Alpaca-go/ddbg-web/pull/584) 与 R-179。C-017、核心 R24、印刷 COREBOX 怪物大卡正面第 8 页及[字段核对稿](./phases/phase5/phase5-fanatic-i-page-entry-review-2026-11-04.md)。
 - **边界**：仅此卡字段与正式目录。Pyre 仍仅开战布置；Sentence / Pit Toss / 先攻 4 沿用既有运行时。
 
 ### Q-154
@@ -2485,8 +2485,8 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
   2. 抽到的那张决定最终战取消哪个形态（p016→Ancestor 2、p017→Ancestor 1、p018→Gestating Heart）；第 IV 形态不能跳过。
   3. 本切片先接线**入口**并**固定提供 p016**：公开命令 `enterDarkestDungeon` 只在 Act III Boss 胜利、3 XP 已发、回村完成且该次村庄阶段结束后可用；确认后仍走 `chooseNextQuest` 的出征校验与最暗布置（16 房、3 Boss 位、最暗怪物池、III 级房间/饰品）。固定提供不抽卡、不消耗 RNG；自然战役的最暗布置续接既有 RNG 游标（`placeDarkestRooms` 的 `startCursor`），不回到 0 重放。
   4. 固定提供期间，Act III Boss 完成后 `offerNextQuest` 必须拒绝，不得回落到 III 级剩余普通任务的 2 选 1 池。
-- **依据**：Kyries 2026-11-05 明确选择「单任务 + 本刀固定 p016」（本对话）；核心 R35–R36；规格书 §2.1「Act IV：① 最暗地牢任务（3 选 1，随机抽）→ ② 最终战」、§14.7.1–.3、§15 L1 QuestSelect；[docs/plan.md](plan.md) 第 4 幕；R-120（p016–p018 不进普通池）、R-121（Boss 位布置）。
-- **切片**：[phase5-darkest-act-entry-2026-11-05.md](phase5-darkest-act-entry-2026-11-05.md)。
+- **依据**：Kyries 2026-11-05 明确选择「单任务 + 本刀固定 p016」（本对话）；核心 R35–R36；规格书 §2.1「Act IV：① 最暗地牢任务（3 选 1，随机抽）→ ② 最终战」、§14.7.1–.3、§15 L1 QuestSelect；[docs/plan.md](./plan.md) 第 4 幕；R-120（p016–p018 不进普通池）、R-121（Boss 位布置）。
+- **切片**：[phase5-darkest-act-entry-2026-11-05.md](./phases/phase5/phase5-darkest-act-entry-2026-11-05.md)。
 - **边界**：不实现随机 1/3 抽签（Q-155）、p017/p018 生产入口、最暗中途 Boss 特殊机制、最终准备门槛修正或战役级严格存档；不改 `usable` / `combatReady` / 任务白名单。
 - **补充（2026-11-06）**：第 3 条「固定提供 p016」已由 **R-192** 取代为随机 1/3 抽签；「只打 1 张、无三连」的结构不变。
 - **确认（2026-11-21，Asia/Shanghai；§22.C 第 5 项）**：与 **R-192** 一并确认为正式战役流程。第 4 幕只随机抽 1 张最暗任务（p016／p017／p018），只打这一张，不是 2 选 1，不能重抽，不存在三连。最终战四形态顺序见 R-192 确认注；打完最暗任务后还有最后一次村庄（固定 4 天、不抽村庄事件），再进最终战。
@@ -2501,7 +2501,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
   3. **明示**：抽到的任务卡按公开抽卡处理；待选与事件文案同时给出它将取消的最终形态（p016→Ancestor 2nd Form、p017→Ancestor 1st Form、p018→Gestating Heart；第 IV 形态不能跳过，§14.7.3）。
   4. 本裁定取代 R-191 第 3 条的「固定提供 p016」与 Q-155 的暂定；R-191 的「第 4 幕只打 1 张、无三连」结构不变。
 - **依据**：Kyries 2026-11-06 指示「合入，然后继续」；规格书 §14.7.3 / §15 L1 QuestSelect；R-191；Q-155 关闭。
-- **切片**：[phase5-darkest-quest-draw-2026-11-06.md](phase5-darkest-quest-draw-2026-11-06.md)。
+- **切片**：[phase5-darkest-quest-draw-2026-11-06.md](./phases/phase5/phase5-darkest-quest-draw-2026-11-06.md)。
 - **边界**：不改最暗任务数据、最终战形态流程或存档模型；p017/p018 的目标 Boss 特殊机制中 Mammoth White Cell Teleport 等仍 hold；Templars 尖刺/Pit Toss 见 **R-193**。
 - **确认（2026-11-21，Asia/Shanghai；§22.C 第 5 项）**：
   1. 与 **R-191** 一并确认为正式战役流程：随机抽 1／明示取消形态；不是 2 选 1、不能重抽、无三连。
@@ -2525,7 +2525,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
   2. **等级记在存档上**：`QuestSave.campaignLevel`（1–3）由 `createQuestSave` 从保存时状态写入；`loadQuestSave` 必须与回放结果一致，否则拒绝。旧档缺省该字段时按回放结果解释，不强制迁移。
   3. 因此 II/III（含 III→最暗）严格存档**在模型上可用**：只要日志从战役起点录起，`advanceRuinsAct` / `enterDarkestDungeon` 都是可回放公开命令；等级由回放派生，`campaignLevel` 只做声明校验。
 - **依据**：AGENTS「存档 = 初始种子 + 命令日志」；大纲 §3.3 / Phase 4；规格书 §2.1–2.2、§14.7；交接稿第 12/13 条；R-190（不调策略/种子）。
-- **切片**：[phase5-campaign-save-model-2026-11-06.md](phase5-campaign-save-model-2026-11-06.md)。
+- **切片**：[phase5-campaign-save-model-2026-11-06.md](./phases/phase5/phase5-campaign-save-model-2026-11-06.md)。
 - **边界**：本裁定不改变回放语义、不新增快照信任、不实现按任务分段存档；II/III 的**验收**仍需一条完整 Act I 自然链，当前自然策略在 R-190 下会因驿站替补耗尽而输，属后续工作。
 
 ### R-193
@@ -2564,7 +2564,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **待确认**：① 核心盒 v1 是否要求中途 Boss「自动选招」（按姿态 d10 表自动执行），还是保持显式命令；② Echoing 召唤的完整范围（姿态轨未满时的召唤次数、召唤物落区、先攻洗入）是否已由 R-183 / R-034 覆盖，还是另有卡面细节待核。
 - **暂定**：保持显式命令；`combatReady: true` 只表示允许进入生产战斗，不等于 AI 已完成（R-189）。
 - **决定（2026-11-07，Kyries）**：**核心盒 v1 保持显式命令**驱动中途 Boss 技能与召唤，不做自动选招/AI；自动选招归 Phase 6（后续阶段）。Echoing 召唤的「先攻卡洗入」已按 R-034 #5 接线（`phase5-shuffling-horror-echoing-initiative-2026-11-07.md`），其余选招仍由玩家/测试驱动。
-- **Phase 6 补记（2026-11-08）**：新增 `autoMonsterTurn` 命令，按已批准的姿态 d10 表自动选招、定位、按卡面目标优先级选目标并施放；玩家该做的选择（怪物落点、位移方向）以 `pendingChoice` 返回，不替玩家选。覆盖 Templars I / Shuffling Horror / Mammoth Cyst，显式 `apply*` 命令保留。切片：[phase6-boss-auto-turn-2026-11-08.md](phase6-boss-auto-turn-2026-11-08.md)。
+- **Phase 6 补记（2026-11-08）**：新增 `autoMonsterTurn` 命令，按已批准的姿态 d10 表自动选招、定位、按卡面目标优先级选目标并施放；玩家该做的选择（怪物落点、位移方向）以 `pendingChoice` 返回，不替玩家选。覆盖 Templars I / Shuffling Horror / Mammoth Cyst，显式 `apply*` 命令保留。切片：[phase6-boss-auto-turn-2026-11-08.md](./phases/phase6/phase6-boss-auto-turn-2026-11-08.md)。
 - **状态**：已确认（2026-11-07）→ 核心盒 v1 显式命令；AI 归 Phase 6。
 
 ### Q-159
@@ -2573,7 +2573,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **问题**：DL3 三张普通怪 Brigand Raider、Brigand Hunter、Adder 仍缺 `speed` / `stanceGroups`（`monster_pool.json`）。
 - **待确认**：请 Kyries 逐卡核对印刷面的 Speed 与四姿态选招分组/d10 区间；确认后按 R-048 入库，不猜数值。
 - **暂定**：保持缺失；相关遭遇不进入生产随机池，也不补默认值。
-- **核对稿**：[phase5-dl3-monster-fields-review-2026-11-07.md](phase5-dl3-monster-fields-review-2026-11-07.md)。
+- **核对稿**：[phase5-dl3-monster-fields-review-2026-11-07.md](./phases/phase5/phase5-dl3-monster-fields-review-2026-11-07.md)。
 - **状态**：已裁定 → **R-196**（2026-11-07，Kyries 逐卡确认）。
 
 ### Q-160
@@ -2582,7 +2582,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **问题**：任务 SPECIAL 仍有 hold：Rising Threat 只有分布数据、没有运行时；Purify 的圣水图标/交互待核实；Dem Bones 的绿区/目标标记几何按交接停点。
 - **待确认**：三项是否纳入核心盒 v1，以及各自的卡文/图标含义与几何；确认前不实现。
 - **暂定**：保持 hold；任务卡可出征，但 SPECIAL 不结算。
-- **核对稿**：[phase5-task-special-review-2026-11-07.md](phase5-task-special-review-2026-11-07.md)。
+- **核对稿**：[phase5-task-special-review-2026-11-07.md](./phases/phase5/phase5-task-special-review-2026-11-07.md)。
 - **答复（2026-11-07，Kyries）**：
   - **Rising Threat**：① Curio 房战斗等价于现有 Curio 守卫战路径；② 是，抽 **1 只 II 级怪**；③ 先抽怪开战，再结算 Curio。
   - **Purify**：① `dd2d2467ec` 待确认（我方识别：**Potion 药水补给**，见核对稿）；② 补给池满时仍先拿 3 个任务道具，再丢弃超出上限的部分；这 3 个是**初始携带、不可丢弃**的任务补给，否则目标房无法净化；③ 净化复用现有行动计数/交互；④ 旁置「需要」（现有 `room:p003` 旁置实现）。
@@ -2603,7 +2603,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **依据 / 出处**：Kyries 2026-11-07 聊天确认；QUEST p4 / p5 / p10；规格书 §5.2；R-065（Tomb of Ancestor A4 / Ancestor's Glory）、R-048。
 - **关联待确认**：无（Q-160 关闭）。
 - **状态**：已裁定。
-- **切片**：[phase5-task-special-review-2026-11-07.md](phase5-task-special-review-2026-11-07.md)、[phase5-rising-threat-2026-11-07.md](phase5-rising-threat-2026-11-07.md)、[phase5-purify-fountains-2026-11-07.md](phase5-purify-fountains-2026-11-07.md)。
+- **切片**：[phase5-task-special-review-2026-11-07.md](./phases/phase5/phase5-task-special-review-2026-11-07.md)、[phase5-rising-threat-2026-11-07.md](./phases/phase5/phase5-rising-threat-2026-11-07.md)、[phase5-purify-fountains-2026-11-07.md](./phases/phase5/phase5-purify-fountains-2026-11-07.md)。
 - **实现状态**：Rising Threat（Curio 房强制守卫 + 1 只 II 级怪）与 Purify（3 个任务药水 + 净化耗 1 个）已接线；Dem Bones 既有「2 行动、任意英雄、完成后清理」已符合，绿区 A4 与 Ancestor's Glory 同区已记录，无需改代码。
 - **后续裁定**：Purify 补给超出 16 时，由玩家逐个选择丢弃既有补给，任务药水不可丢弃，见 R-205。
 - **补（2026-11-07，Kyries 确认）**：目标房里的 **Healing Fountain 净化前不生效**——`startDungeonBattle` 用 `objectiveRoomBattleAreas` 裁掉本任务旁置目标房的 `endTurnHeal`，普通房间的同一板块仍按 R-065 触发 `Healing Waters`（治疗 3）。「常规效果是否整体重做」不在本裁定范围，保持 R-065 现状。
@@ -2615,7 +2615,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **问题**：9 张走廊板块 `geometryVerified=false`，`corridor_layout_bindings` 为空。
 - **待确认**：逐面几何标注与绑定审核（与房间板块同流程）；确认前走廊只沿用现有布局，不改绑定。
 - **暂定**：保持 `geometryVerified=false`，不自行推定走廊形状/连接。
-- **核对稿**：[phase5-corridor-tiles-review-2026-11-07.md](phase5-corridor-tiles-review-2026-11-07.md)。
+- **核对稿**：[phase5-corridor-tiles-review-2026-11-07.md](./phases/phase5/phase5-corridor-tiles-review-2026-11-07.md)。
 - **查清（2026-11-07，Kyries）**：`corridor_tile:p006`、`p007`、`p009`–`p014`（TILES FRONT 对应页）实际是 **8 页 Boss 房间板块**（16 面，属已核实的 25 面；R-054 / R-065 / R-066 / R-144 / R-153 / R-156–R-169）；`ports` 数字 1-2、3、4、5、6、7-8、9、10 是 Prophet Room 的 **Wooden Pews d10 区域标记**（词典 `096ea91bb9`），不是走廊出口。p006 Prophet Room 复核：容量/部署/11 条共享边/3 条角点与 R-167 数据一致，D–H 共享边存在。
 - **定性（2026-11-07，Kyries）**：`TILES_FRONT p8` 与 `TILES_BACK p8` 是 **PvP 地形**（首版不做）；`TILES_BACK p1` 是 **Old Road 教程地图**（不做）。两个 PDF 共 **28 页**，减去这 3 页 = **25 页 = 25 张任务/房间板块**，与 `room_tile_geometry.json` 的 25 面一一对应。**核心盒没有走廊板块**。
 - **处置**：Q-161 关闭；`corridor_tile_geometry.json` 全部作废（8 页误标 + p008 为 PvP），引擎未使用；`corridor_layout_bindings` 不建，探索仍用抽象边（R-116 只批了 QuestMap）。**清理已完成**：移除 `corridor_tile_geometry.json`、corridor-tile 生成器与测试、engine catalog 的数据读取（仅保留 QuestMap 绑定查询）、web corridor art 映射/解析器与 `dungeon-data` 引用。
@@ -2635,7 +2635,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **依据 / 出处**：`boss_ability:p031`「Teleport: When it hits a Hero with the Teleport Skill, roll a d10 to see where they'll land.」；`monster_medium` FRONT p104（射程 2 / Furthest / Acc 12 / `{stress}+2, Teleport`）；`ROOMS FRONT p24`（紫星）；规格书 §6.7 / §6.8（R-021）、R-164；Kyries 2026-11-07「继续推 Q-157」。
 - **关联待确认**：无（Q-157 关闭）。
 - **状态**：已裁定。
-- **切片**：[phase5-mammoth-teleport-2026-11-07.md](phase5-mammoth-teleport-2026-11-07.md)。
+- **切片**：[phase5-mammoth-teleport-2026-11-07.md](./phases/phase5/phase5-mammoth-teleport-2026-11-07.md)。
 - **边界**：不实现完整 AI / 自动选招；`usable` 仍为 false，生产仍经 `deployMammothCystI`；不改 `combatReady`、任务白名单或其它紫星效果。
 
 ### Q-162
@@ -2659,7 +2659,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **依据 / 出处**：Kyries 2026-11-07 聊天逐卡确认；COREBOX 怪物中卡 FRONT p056–61、怪物大卡 FRONT p4；R24、R-001、R-048。
 - **关联待确认**：无（Q-159 关闭）。
 - **状态**：已裁定。
-- **切片**：[phase5-dl3-monster-fields-review-2026-11-07.md](phase5-dl3-monster-fields-review-2026-11-07.md)（核对稿已按确认值填表）。
+- **切片**：[phase5-dl3-monster-fields-review-2026-11-07.md](./phases/phase5/phase5-dl3-monster-fields-review-2026-11-07.md)（核对稿已按确认值填表）。
 - **边界**：只补三张卡的 Speed/选招与 `monster_pool` 的 `missingBattleFields`；不改遭遇几何、生产准入白名单或其它卡，不解除 Boss/房间停点。**字段齐全不等于可进半场战斗**：三张卡的技能效果尚未逐招接入，`startDungeonBattle` 仍按 R-048 拒战。
 
 ### Q-163
@@ -2695,7 +2695,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **依据 / 出处**：COREBOX 怪物中卡 FRONT p056–61、怪物大卡 FRONT p4；规格书 §6.5；R21、R-140、R-196、R-048；Kyries 2026-11-07「方案 2、数值不变」。
 - **关联待确认**：无（Q-163 关闭）。
 - **状态**：已裁定。
-- **切片**：[phase5-dl3-monster-effects-2026-11-07.md](phase5-dl3-monster-effects-2026-11-07.md)。
+- **切片**：[phase5-dl3-monster-effects-2026-11-07.md](./phases/phase5/phase5-dl3-monster-effects-2026-11-07.md)。
 - **实现状态**：`verified-monster-effects.ts` 写入 8 条并重生成 `normalized/corebox/*.json`；`monster-effect-plan.ts` 增加 `{self_plate}` 与 Remove 行签名归一、cleanse 编译；`monster-self-status.ts` 允许自身治疗 / Remove；`battle-monster-action.ts` 结算自身治疗与清空堆叠；`dungeon-battle-l2-admission.test.ts` 的 DL3 用例改为断言 admitted，新增 `dl3-monster-effects.test.ts`。
 - **边界**：不实现完整 AI / 自动选招；cleanse 只支持自身 Bleed+Blight 同一条 Remove 行（缺一项即拒绝）；不改自然策略或种子（R-190），不改遭遇几何、生产准入白名单或其它卡。
 
@@ -2712,7 +2712,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **关联待确认**：无（Q-19 关闭；R-020 其余条款仍为暂定）。
 - **状态**：已裁定（补充 R-020 ③ 的让位细节）。
 - **补充（R-271）**：Push／Pull 的区域连锁挤占与「位移无效时姿态轨不变」见 R-271。若其他单位挤压了具有位移免疫的单位，该单位棋子不被挤离所在区域，但姿态轨仍可变化。抗性／免疫仍只作用于被位移者本人。若腾出空间必须挤走此类单位，则这次挤压判定为不能执行完毕，不改挤其他可挤的单位。
-- **切片**：[phase5-q19-large-monster-stance-shift-2026-11-07.md](phase5-q19-large-monster-stance-shift-2026-11-07.md)。
+- **切片**：[phase5-q19-large-monster-stance-shift-2026-11-07.md](./phases/phase5/phase5-q19-large-monster-stance-shift-2026-11-07.md)。
 - **实现状态**：`shuffle.ts` 由「整条拒绝」改为块级让位 + 同向级联 + 边界截断（`stanceSteps: 0`）；`shuffle.test.ts` 改写 Q-19 用例并新增级联截断用例；`b09-curio-natural-paths.test.ts` 去掉 `Q-19` 容忍（p001 / p005 各 100 种子自然路径全通过）。
 - **边界**：不实现「位移途中绕开大型怪」等未裁定细节；不改自然策略或种子（R-190）。
 
@@ -2932,7 +2932,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **编号**：Q-186
 - **日期**：2026-11-11
 - **问题**：Weald 地点组件已按核心包管线提取，尚需核对本批图标语义与核心词典映射、12 面板块几何和真菌放置位置，以及任务/奇物/房间/Boss 的印刷效果。感知聚类和文字解析不作为语义核准。
-- **材料**：[导入记录](weald-location-intake-2026-11-11.md)、[Weald 规则规格书](spec/weald-rules-spec-v0.1.md)。私有正反面审阅页可用导入脚本 `--review` 重建；图片不入库。
+- **材料**：[导入记录](./weald-location-intake-2026-11-11.md)、[Weald 规则规格书](./spec/weald-rules-spec-v0.1.md)。私有正反面审阅页可用导入脚本 `--review` 重建；图片不入库。
 - **边界**：遵守 R-001、R-048；不修改全局图标词典。I 级七张普通怪物目录可继续 `verification.unverified`。正式 Stygian 出征入口见 **R-272**；PvP 不进主线。
 - **状态**：核准通过（2026-11-18，「Weald 任务规则」群，Kyries）。原文要核的字段、12 面板块几何与真菌放置、任务／奇物／房间／Boss 印刷效果已核准（R-230、R-232–R-239、R-240 以降至 R-270 等）；九张 Stygian 房间效果同日核准。不是整条全部结清：词典／目录门与 PvP 边界仍保留；Stygian 正式出征由 R-272 另载工程边界。
 
@@ -2947,7 +2947,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
   - II／III：须 `wealdHigherQuestOffers: "tasks-v1"` 与 R-264／R-265 十卡；Stygian 无 `mode` 专属出征拒绝。
   - 未选 Weald、缺 `stygianRoomRules`、无版本旧档：行为不变。`pounderDungeonThreats` 单独试验仍拒 Stygian。
   - **验收口径**：自然全胜不作流程门槛；II→III 由受控夹具／公开命令覆盖升幕与存档回放；人工实机由 Kyries 组织（见 2026-11-19 状态补充）。
-- **依据**：R-001、R-036、R-048；[weald-stygian-room-review-2026-11-17.md](weald-stygian-room-review-2026-11-17.md)；Q-186（2026-11-18）。
+- **依据**：R-001、R-036、R-048；[weald-stygian-room-review-2026-11-17.md](./reviews/weald-stygian-room-review-2026-11-17.md)；Q-186（2026-11-18）。
 - **2026-11-19 状态补充**：Stygian I→II 自然链已由 #786（seed 20）验收；混合 II→III 由 `wealdMixedActReadyFixture` 受控夹具覆盖；按 Kyries 口径，Boss 胜负属玩家决策，自然全胜不再作流程门槛。人工实机由 Kyries 组织，不在自动化门槛内。
 
 ### R-273：跨地点迫近威胁的地牢侧能力边界
@@ -2975,7 +2975,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
   1. 自然链/存档自动化验收覆盖 p018 自然路径至**首形态部署与开战**，并对检查点做严格回放；
   2. **四形态连续胜利**不纳入自动化验收：Boss 输赢与战斗过程是玩家的决策，自动化只保证流程没有引擎拒绝/卡死/存档不一致（R-190）；
   3. 不为此调整自然策略、种子或数值；需要时另开「最终战多形态自然链」切片。
-- **依据 / 出处**：R-190（不为绿灯调策略/种子）、Kyries 2026-11-07「Boss 输赢不是测试目标」、[phase5-final-battle-natural-save-2026-11-04.md](phase5-final-battle-natural-save-2026-11-04.md)。
+- **依据 / 出处**：R-190（不为绿灯调策略/种子）、Kyries 2026-11-07「Boss 输赢不是测试目标」、[phase5-final-battle-natural-save-2026-11-04.md](./phases/phase5/phase5-final-battle-natural-save-2026-11-04.md)。
 - **关联待确认**：无（原 Q-xxx 关闭）。
 - **状态**：已裁定
 - **实现状态**：无代码改动；`final-battle-natural-save.test.ts` 保持首形态边界。
@@ -3138,7 +3138,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **编号**：R-219
 - **日期**：2026-11-10
 - **裁定（本项目）**：Dark Crown（`trinket:p028`）倒置面在意志骰点数公开后、结果提交前，若光照 **≥3**，持有者可使用它，使本次美德阈值 −2 并翻回直立面。光照 3 包含在内。
-- **依据**：Kyries 确认通过的《饰品逐卡核对稿》Dark Crown 倒置效果格。[K-011](phase5-k011-crown-result-window-2026-11-02.md) 记录意志结果窗口。TRINKETS FRONT p28 的倒置印刷条件在核对稿另记为 ≤3。
+- **依据**：Kyries 确认通过的《饰品逐卡核对稿》Dark Crown 倒置效果格。[K-011](./phases/phase5/phase5-k011-crown-result-window-2026-11-02.md) 记录意志结果窗口。TRINKETS FRONT p28 的倒置印刷条件在核对稿另记为 ≤3。
 - **修订**：Dark Crown 倒置面的光照条件以 R-225 为准。
 
 ### R-225
@@ -3180,7 +3180,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **伤害**：Crit / Acc 左侧标签数字分别是暴击/命中阈值，旁数分别是暴击/普通伤害。d10 不大于对应阈值时读取对应伤害；仍沿用核心规则对 Dodge、光照等修正和暴击优先的处理。
 - **召唤**：Ectoplasm Cytokinesis：Closest、召唤 1 Ectoplasm。Ectoplasmic Profusion：Crowded、召唤 1 Large Ectoplasm，并给全体命中目标压力 +1。Large Ectoplasm Cytokinesis：Closest、召唤 1 Large Ectoplasm。不能按击中目标数量重复召唤；部署位置和容量处理未接线前整招停点，不省略召唤而仅结算伤害。
 - **其他技能**：Large Ectoplasm Slime Smack 为射程 1、最多 2 目标，Crowded、眩晕 1t。Rabid Rush：Furthest、自身 Pull 2、目标流血 1/3t 并给予疾病。Rend the Marked：先选被 Mark 的英雄，无人被 Mark 才选 Closest；对 Mark 单位伤害 +3。Mark Prey：Closest、目标 Mark 2t 与 Debuff 2t。Rain of Blight：Crowded、目标腐蚀 2/2t 并给予疾病。Escape Cloud：Closest、自身 Push 2、目标腐蚀 1/3t。
-- **依据**：Kyries 本次逐项更正；当前印刷 medium FRONT p1–14、large FRONT p1–2；[首批审阅记录](weald-level-one-monster-review-2026-11-11.md)。只批准本批具体卡牌，不修改全局图标词典语义，也不自动解除整卡待审门。
+- **依据**：Kyries 本次逐项更正；当前印刷 medium FRONT p1–14、large FRONT p1–2；[首批审阅记录](./reviews/weald-level-one-monster-review-2026-11-11.md)。只批准本批具体卡牌，不修改全局图标词典语义，也不自动解除整卡待审门。
 
 ### R-231
 
@@ -3200,21 +3200,21 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 ### R-233
 
 - **日期**：2026-11-11
-- **裁定**：Kyries 核对并确认 [Weald 奇物逐卡审阅表](weald-curio-review-2026-11-11.md) 无误。批准当前 Curio FRONT p1–16 的 16 张卡、按印刷顺序的 64 行效果；同名卡保留独立身份。压力均 +1，流血／腐蚀均 1/3t，怪癖／疾病／饰品均抽 1 张，补给骰均掷 1 次，金币按表为 5 或 10。
+- **裁定**：Kyries 核对并确认 [Weald 奇物逐卡审阅表](./reviews/weald-curio-review-2026-11-11.md) 无误。批准当前 Curio FRONT p1–16 的 16 张卡、按印刷顺序的 64 行效果；同名卡保留独立身份。压力均 +1，流血／腐蚀均 1/3t，怪癖／疾病／饰品均抽 1 张，补给骰均掷 1 次，金币按表为 5 或 10。
 - **范围**：逐卡核准，不修改全局图标词典；Q-186 的其他卡面与几何仍待核实。Torch 按核心 R14 及 R-064／R-065 抑制负面效果，既有复合效果结算与停点仍遵守 R-069。当地 16 张不是完整出征牌堆，地点与通用卡的组合在开发步骤 2 接入。
 - **依据**：Kyries 本次明确确认“奇物卡我核对过了，没有问题”；当前印刷 Weald Curio FRONT p1–16、核心 R14–15。
 
 ### R-234
 
 - **日期**：2026-11-12
-- **核准**：Kyries 已直接修改并核准 [Weald 普通房间审阅表](weald-room-review-2026-11-12.md)。九张普通房间效果、1 号板块 A–H 的容量与部署标记以本次修改后的表格为准。p4 两项增益 2t 分别保留，不合成 4t；p9 恢复项为恢复 1 压力。
+- **核准**：Kyries 已直接修改并核准 [Weald 普通房间审阅表](./reviews/weald-room-review-2026-11-12.md)。九张普通房间效果、1 号板块 A–H 的容量与部署标记以本次修改后的表格为准。p4 两项增益 2t 分别保留，不合成 4t；p9 恢复项为恢复 1 压力。
 - **范围**：只批准表格已有字段；不推定未登记的邻接、墙、高低地、真菌坐标或其他八张板块几何。效果中的「这里」仍须绑定核准区域，橙星不自动视为真菌。Q-186 剩余项及三项召唤部署停点保留，不修改全局图标词典。
 - **依据**：Kyries 本次说明已在审阅文档核准修改；Weald rooms FRONT p1–9、TILES FRONT p1，核心 R15–R17、Weald W3–W4。
 
 ### R-235
 
 - **日期**：2026-11-12
-- **核准**：Kyries 修改核准 [房间审阅表的几何接续部分](weald-room-review-2026-11-12.md)。1 号板块 C–D、E–G 标为角点，从此前共边候选中移出，其他共边登记保留；角点不生成通行边（R-021）。
+- **核准**：Kyries 修改核准 [房间审阅表的几何接续部分](./reviews/weald-room-review-2026-11-12.md)。1 号板块 C–D、E–G 标为角点，从此前共边候选中移出，其他共边登记保留；角点不生成通行边（R-021）。
 - **2 号板块**：A–I 容量依次为 4、2、3、4、6、4、5、3、5；部署与宝箱按表。白色山形／三角图标为高地（B），橙色向下菱形／三角图标为低地（H），结算沿用 R-022。
 - **范围**：不补写未登记的完整邻接、墙或其他板块几何；未开放出征。
 - **依据**：Kyries 本次在文档直接修改并明确核准，补充角点及两个图标含义；TILES FRONT p1、BACK p1，核心 R18、R25。
@@ -3222,7 +3222,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 ### R-236
 
 - **日期**：2026-11-12
-- **核准**：Kyries 已修改并确认 [房间审阅表](weald-room-review-2026-11-12.md) 的 3–9 号板块信息正确，容量、部署、宝箱、高低地按表。圆形真菌图案表示 Necrotic Fungus（坏死真菌）放置标记，每个标记区域放一枚：3 号 B／G，6 号 A／C／D，8 号 C／E。8 号 E 为一个放置标记，不是旧稿推测的两个。
+- **核准**：Kyries 已修改并确认 [房间审阅表](./reviews/weald-room-review-2026-11-12.md) 的 3–9 号板块信息正确，容量、部署、宝箱、高低地按表。圆形真菌图案表示 Necrotic Fungus（坏死真菌）放置标记，每个标记区域放一枚：3 号 B／G，6 号 A／C／D，8 号 C／E。8 号 E 为一个放置标记，不是旧稿推测的两个。
 - **真菌**：按官方 Weald W3／W-04：场上存在真菌时英雄不能被治疗；真菌为合法技能目标，Dodge 0、Life 1、无抗性和免疫，技能命中且造成至少 1 点伤害才移除。不自动视为怪物。
 - **零容量**：5 号中央无容量树冠区为可穿过、不能停留的零容量区域（审阅标签 I）；回合结束限制按 W-03，不改为禁止结束单次移动。7 号裂隙尚未单独核准，不类推其容量。
 - **范围与依据**：Kyries 本次直接修改审阅表并明确其余信息无误；TILES FRONT／BACK p2–4、FRONT p5，Weald 官方规则书第 3 页。完整邻接与墙仍待登记，尚未开放地点出征。
@@ -3230,14 +3230,14 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 ### R-237
 
 - **日期**：2026-11-12
-- **核准**：Kyries 明确确认 2–4 号板块通行几何通过，批准[房间审阅表](weald-room-review-2026-11-12.md)所列 32 对通路、8 对仅角点与黑色矩形墙定位。2 号为 10 通路／3 角点，3 号为 12 通路／3 角点，4 号为 10 通路／2 角点。未列出的区域对不补边，角点不通行，墙不作为零容量区域。
+- **核准**：Kyries 明确确认 2–4 号板块通行几何通过，批准[房间审阅表](./reviews/weald-room-review-2026-11-12.md)所列 32 对通路、8 对仅角点与黑色矩形墙定位。2 号为 10 通路／3 角点，3 号为 12 通路／3 角点，4 号为 10 通路／2 角点。未列出的区域对不补边，角点不通行，墙不作为零容量区域。
 - **效果区域**：4 号 D 橙星对应 Precious，效果文字及其他怪物受益范围沿用 R-234。
 - **依据与范围**：Kyries 本次核准；TILES BACK p1、FRONT p2、BACK p2，R-021／R-022。只批准本批所列几何，不扩到 5–9 号未核准通路；尚未开放出征。
 
 ### R-238
 
 - **日期**：2026-11-12
-- **核准**：Kyries 明确确认 5–9 号本轮审阅通过，批准[房间审阅表](weald-room-review-2026-11-12.md)已列通路、角点、墙定位及效果区域。5／6／8／9 号分别为 12／9／11／6 对通路、8／2／4／4 对仅角点；7 号已列 4 对通路、1 对角点。未列对不补边。
+- **核准**：Kyries 明确确认 5–9 号本轮审阅通过，批准[房间审阅表](./reviews/weald-room-review-2026-11-12.md)已列通路、角点、墙定位及效果区域。5／6／8／9 号分别为 12／9／11／6 对通路、8／2／4／4 对仅角点；7 号已列 4 对通路、1 对角点。未列对不补边。
 - **效果与零容量**：5 号零容量 I 连接 B／D／E／G；橙星 B／D／E／G 对应 Poisonous Roots，I 不扩大适用。9 号 B 绿星对应 Clearing，Ours! 不缩为仅在 B 拾取触发。8 号真菌被摧毁的全房间效果沿用 R-234／R-236。
 - **剩余边界**：7 号原稿明确未给结论的裂隙分类与连接仍待确认，不能用本次核准生成缺失区域或边；1 号最终通行和效果绑定待接续。
 - **依据**：Kyries 本次核准；TILES FRONT／BACK p3–4、FRONT p5，R-021、R-234、R-236、Weald W3。尚未开放正式出征。
@@ -3245,7 +3245,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 ### R-239
 
 - **日期**：2026-11-13
-- **核准**：Kyries 明确核准[房间审阅表](weald-room-review-2026-11-12.md)「接续：1 号最终通行与 7 号裂隙补全待审」所列 1 号最终通行、普通地形、C／E／F／G 的 Toxic Mushrooms 效果绑定，以及 7 号 H／I／J 零容量区域、15 对通路、4 对仅角点。7 号不得补 D–G，须经 J。1 号为 11 通路／2 角点；保留 R-235 的 C–D、E–G 仅角点。
+- **核准**：Kyries 明确核准[房间审阅表](./reviews/weald-room-review-2026-11-12.md)「接续：1 号最终通行与 7 号裂隙补全待审」所列 1 号最终通行、普通地形、C／E／F／G 的 Toxic Mushrooms 效果绑定，以及 7 号 H／I／J 零容量区域、15 对通路、4 对仅角点。7 号不得补 D–G，须经 J。1 号为 11 通路／2 角点；保留 R-235 的 C–D、E–G 仅角点。
 - **零容量**：7 号 H／I／J 容量 0，标记方式与 5 号零容量 I（R-236／R-238）一致；W-03 回合结束限制留待步骤 4 运行时接线。
 - **范围**：仅批准本节所列几何与效果区域绑定；不开放出征、不接真菌禁疗或召唤部署；2–6、8–9 号沿用 R-237／R-238，不重复送审。
 - **依据**：Kyries 2026-11-13 核准；TILES FRONT p1、FRONT p4，rooms FRONT p1，R-021、R-234、R-235、R-238、Weald W3。
@@ -3424,7 +3424,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 ### R-253
 
 - **日期**：2026-11-13
-- **核准**：Kyries 对 [Crone 审阅稿](weald-crone-review-2026-11-13.md) 的三项确认请求回复「三项全部核准」。
+- **核准**：Kyries 对 [Crone 审阅稿](./reviews/weald-crone-review-2026-11-13.md) 的三项确认请求回复「三项全部核准」。
 - **属性与防御**：II Crone 闪避 3；腐蚀、减益抗性；无免疫。Human / Back、Life 12、Speed 3 沿用 R-244。
 - **选招**：Aggressive／Defensive：1–2 技能 1，3–8 技能 2，9–10 技能 3；Ranged／Support：1–5 技能 1，6–10 技能 3。
 - **技能 1 Curse of Vulnerability**：Crowded，射程 2／最多 2 目标；Crit 1／伤害 4，Acc 9／伤害 2；命中目标 Mark 2t、减益 2t。
@@ -3436,7 +3436,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 ### R-254
 
 - **日期**：2026-11-14
-- **核准**：Kyries 更正并核准 [Hag I 印刷接线审阅](weald-hag-i-review-2026-11-14.md)。先更正速度／闪避、B–F 与内置 Protection，再明确「10 号板块没有高地低地，其他部分核准通过」。本条按更正后的审阅表结案，不将未描述的规则或其它等级类推获批。
+- **核准**：Kyries 更正并核准 [Hag I 印刷接线审阅](./reviews/weald-hag-i-review-2026-11-14.md)。先更正速度／闪避、B–F 与内置 Protection，再明确「10 号板块没有高地低地，其他部分核准通过」。本条按更正后的审阅表结案，不将未描述的规则或其它等级类推获批。
 - **读法与数值**：生命上方脚印表示 Speed；绿色等级 I 右侧数字表示 Dodge。Hag I 为 Speed **2**、Dodge **1**；Cauldron Empty I／Full I 的 Speed 均 **0**。表中其它属性、技能、免疫／抗性、威胁与已列能力条文按本次核准采用；旧单测人工数值不构成卡面来源。
 - **内置 Protection**：Cauldron Empty 生命旁胸甲表示 built-in Protection，不是可移除的防护代币或额外可累加减伤次数；它始终生效、不可移除。沿用 **R-019**：来自攻击的伤害减半、向上取整，另叠防护代币也只减半一次；Bleed／Blight 伤口不减半。翻面后按对应卡面字段处理，不能把 Empty 的胸甲默认继承到无胸甲的 Full 面。
 - **10 号板块**：审阅表 A–K 区域容量与部署、17 对通路及其余图面记录核准；**B–F 是仅角点**，与 E–K、H–J 一同列为仅角点，不可作为通路。F 左上和 G 右上的黑色凹口为墙体，不当作容量 0 的区域；不能再把 B–F 写成墙阻隔的区域对。
@@ -3478,7 +3478,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 ### R-258
 
 - **日期**：2026-11-15。
-- **核准范围**：Kyries 填写并续核 [Brigand Pounder I 审阅稿](weald-pounder-i-review-2026-11-15.md) 的战斗卡字段、触发条件、增援及 12 号板块。地牢／村庄威胁尚待查看原卡后确认，不纳入本条核准。
+- **核准范围**：Kyries 填写并续核 [Brigand Pounder I 审阅稿](./reviews/weald-pounder-i-review-2026-11-15.md) 的战斗卡字段、触发条件、增援及 12 号板块。地牢／村庄威胁尚待查看原卡后确认，不纳入本条核准。
 - **战斗卡**：Pounder I Life 55、Speed 0、Dodge 0、无类型、内置 Protection；无抗性，免疫眩晕／流血／腐蚀／减益／位移。Matchman I Life 7、Speed 1、Dodge 2、Human；抗性眩晕／位移，无免疫，四姿态均使用技能 1。其它已填技能字段按更正后审阅表采用，不将原候选误读保留为规则。
 - **炮击触发**：Pounder 不自行使用 BOOOOOOM!；Matchman 的 Fire in the Hole! 立即触发该技能，无 Crit／Acc 掷骰行。Matchman 与 Pounder 必须在同一 **Area 区域**，不是仅在同一房间板块；不另加区域内距离或格位限制。炮击命中对象压力 +2。
 - **增援**：仅当场上没有 Matchman 时，Pounder 的 Reinforcements 才发动；Matchman 仍在时，即使 Fusilier 阵亡也不发动。发动时按该等级能力要求补足满员，I 级为 1 名 Matchman＋2 名 Fusiliers；已有 Fusilier 计入数量，不另额外生成两名。其它等级的实际组成仍须单独核对卡面。
@@ -3503,7 +3503,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 ### R-261
 
 - **日期**：2026-11-15。
-- **核准范围**：Kyries 已编辑 [Shrieker I 审阅稿](weald-shrieker-i-review-2026-11-15.md)，并明确“没改的地方都核准通过”。按更正后的具体卡面字段与几何采用，不沿用初稿抗性误读，不推及 II／III 级。
+- **核准范围**：Kyries 已编辑 [Shrieker I 审阅稿](./reviews/weald-shrieker-i-review-2026-11-15.md)，并明确“没改的地方都核准通过”。按更正后的具体卡面字段与几何采用，不沿用初稿抗性误读，不推及 II／III 级。
 - **Shrieker I**：Life 49、Speed 3、Dodge 2；Eldritch／Beast／Large，占两格；抗性眩晕、流血、位移，免疫腐蚀。Nest I：Life 20、Speed 0、Dodge 0，Large，占两格；无抗性，免疫眩晕、流血、腐蚀、减益、位移；无普通技能与选招，不伪造主动攻击。
 - **技能与行动**：Shrieker 每轮 3 行动；左选招 1–5／6–9／10 对应技能 1／2／3，右侧灰栏不作第二组选招。Peck：射程 1、Closest 1，Crit 2／伤害 11，Acc 9／伤害 8，Self Pull 1、目标流血 2·2t。Call the Murder：射程 1、Crowded 4，Crit 1／伤害 4，Acc 10／伤害 2，Self Push 2、目标压力 +1。Regurgitate：射程 2、Crowded 2，Crit 1／伤害 2，Acc 9／伤害 1，目标减益 2t、疾病。
 - **能力与威胁文字**：Nest 在场时只有 Shrieker 可进入其所在区域；Call the Murder 替代 Self Push 2，飞往 Nest 区并有印刷治疗 2。地牢获得 Provision 后由玩家选择弃一枚公共补给；村庄所有英雄掷完 supply dice 后从 reserve 选一枚弃置。原稿明确标为待核对、且尚未给出具体规则答案的治疗归属／时点、飞行移动限制和多枚／满池顺序仍须依据规则核对，不凭“核准”补造不存在的细则。
@@ -3521,7 +3521,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 ### R-263：Weald II／III 级普通怪物
 
 - **日期**：2026-11-16。
-- **核准依据**：Kyries 修改 [高等级普通怪物审阅表](weald-higher-monster-review-2026-11-16.md) 后明确“没改的部分全部核准”。Virago III 更正为 Dodge 4、Speed 3；其它属性、防御、姿态、五项技能与实体对应按表采用。
+- **核准依据**：Kyries 修改 [高等级普通怪物审阅表](./reviews/weald-higher-monster-review-2026-11-16.md) 后明确“没改的部分全部核准”。Virago III 更正为 Dodge 4、Speed 3；其它属性、防御、姿态、五项技能与实体对应按表采用。
 - **Giant II**：Life 60、Dodge 1、Speed 1，Human／Beast／Front／Large；眩晕、腐蚀、位移抗性，无免疫。medium p17 是实体参考，large p3 是战斗板，不额外增加副本。
 - **Virago III**：Life 39、Dodge 4、Speed 3，Human／Back；腐蚀、减益抗性，眩晕免疫。medium p18–19 两实体。
 - **范围**：同等级当地组池 II 为 Crone 两实体（沿用 R-253）和 Giant 一实体，III 为 Virago 两实体，再按 W3 加入通用同等级来源。不修改 I 级 14 实体池与 Circle of Witches 例外；不因此核准高等级任务、Boss 或 Stygian。
@@ -3531,7 +3531,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 ### R-264：Weald II／III 级普通任务数据与专项裁定
 
 - **日期**：2026-11-16。
-- **核准依据**：Kyries 修改 [高等级任务审阅表](weald-higher-quest-review-2026-11-16.md)，明确未改部分全部核准；具体数值／分布／卡文按修改后表格采用，开放式问句不视为已有具体答案。
+- **核准依据**：Kyries 修改 [高等级任务审阅表](./reviews/weald-higher-quest-review-2026-11-16.md)，明确未改部分全部核准；具体数值／分布／卡文按修改后表格采用，开放式问句不视为已有具体答案。
 - **p008**：Searching in the Dark 固定 Lair×3，其余五槽随机，其他类型数量可为 0；不采用此前误记的 Trap×3。随机展开方式及专属池的运行细节按后续接线核实，不擅套核心五类常量。
 - **通用来源**：已对照官方 Weald W3 How to Use 3／4 页面图像；Weald 地点怪物加入相应等级通用怪物，奇物为当地 16＋通用 8。p008 巢穴限定当地按该卡 SPECIAL 处理，不把限定扩成全部 Weald 场合。
 - **p010 Lost Supplies**：XP 白底补给骰表示带回补给，每两枚 1 XP，全局上限 3。只取消出征每英雄两颗补给骰，不取消 Survivalist／其它技能、事件或游商等来源。只用带箱子放置点的板块；摸箱改掷两份随机补给，只替代箱子代币自身战利品，不替代 Treasure 清场 20 金或房间其它奖励。Wild／满池 16 等复用既有处理；回村每枚未用补给仍换 1 金。
@@ -3566,7 +3566,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 ### R-267
 
 - **日期**：2026-11-16。
-- **核准**：Kyries 审核修改 [Hag II／III 审阅稿](weald-hag-higher-review-2026-11-16.md) 后通知已审核修改。采用修改后的属性与技能表；Meat Tenderizer II／III 最多 **4** 目标，不采用初稿的 3。
+- **核准**：Kyries 审核修改 [Hag II／III 审阅稿](./reviews/weald-hag-higher-review-2026-11-16.md) 后通知已审核修改。采用修改后的属性与技能表；Meat Tenderizer II／III 最多 **4** 目标，不采用初稿的 3。
 - **属性**：Hag II／III Life 75／95，Speed 2、Dodge 1；Empty II／III Life 100／136，Full II／III Life 14／19，锅两面 Speed／Dodge 均 0。Empty 有内置 Protection，Full 无；免疫／抗性与技能各项数值见本次核准表。大型占两格依 R-015，不当作另印字段。
 - **锅内英雄**：英雄入锅后不再是可互动单位，只有锅可以互动；Boil 不能选择锅内英雄。此结论适用于 II／III，不由 Closest／射程 0 推定例外。
 - **能力**：本次审阅稿能力四条全部核准。II／III Hag 每轮两行动，每次轮到且锅内无英雄，先 Into the Pot 再另一招；锅每轮一行动、开场 Empty，入锅翻 Full 并清伤口，锅内不可移动或 Shuffle。锅受伤达到 Life 或锅内英雄到死门，英雄放到邻接合法区域，锅翻 Empty 并清伤口。R-255／R-256 的生命周期和心脏病死亡翻锅口径扩至本批 II／III；死亡英雄不放回板块。
@@ -3582,7 +3582,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **Pounder 取卡**：II用Matchman II＋Bloodletter I；III用Matchman III＋两张Raider III。Matchman为Weald medium FRONT p23／24／25，Bloodletter为核心唯一印制I级（large FRONT p2、medium FRONT p30），Raider为核心唯一印制III级（medium FRONT p56–58）。不发明Bloodletter II或Raider I／II；同名大／中参考不增加实体副本。
 - **Pounder 行为**：按审阅稿建议延续R-258：只有Matchman缺失才触发，补足该等级印刷组成，已有附属怪计数；同区点炮，Pounder不自行炮击，姿态S不写成技能1。R-259时序与Caretaker例外沿用，II／III Buff＋Riposte分别2t／3t，轰炸7／9伤口。
 - **Shrieker先行历史口径（II已由R-270修订，保留用于旧日志）**：II忽略随机补给时仍完整掷骰／完成Wild选面，再忽略且不入池；III逐枚加入，先处理R-266容量，再选择弃两枚；不足两枚时全弃。II村庄reserve弃三枚，不足全弃。III每英雄只减常规两颗中的一颗，其它技能／事件额外骰照常。以上由本次“按当前建议先做、完成后复核”接线，不追溯改写I级或历史日志。
-- **字段**：按用户修订后的[高等级三Boss审阅稿](weald-higher-boss-review-2026-11-17.md)先行采用实际卡面数字；Pounder未印Speed为0，Nest未印Speed／Dodge为0。Hag数值仍依R-267；Shrieker Call the Murder三个等级飞行治疗依R-262。
+- **字段**：按用户修订后的[高等级三Boss审阅稿](./reviews/weald-higher-boss-review-2026-11-17.md)先行采用实际卡面数字；Pounder未印Speed为0，Nest未印Speed／Dodge为0。Hag数值仍依R-267；Shrieker Call the Murder三个等级飞行治疗依R-262。
 - **边界**：本批工程验证、自然养成与最终人工核对分别记录；数据／运行时接线通过不代表完整战役或人工实机已验收。
 
 
@@ -3628,7 +3628,7 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
 - **依据 / 出处**：核心规则书第 31 页 Monster Summoning；R-034（其余条款）；R-021；R-029；R-060／第 24 页；Kyries 2026-11-17 在 Weald 任务规则对话中的原话（四条程序、六点答复、示例与后续补充，含第二优先为剩余容量最大、Push／Pull 例外，以及同日对区域截断、位移无效时姿态不变、抗性／免疫只作用于被位移者、被挤免疫单位不移离区域但姿态轨仍可变，以及「腾出空间必须挤走位移免疫且棋子不能被挤离的单位时，挤压判定为不成功、不改挤其他单位」的补裁）。
 - **关联待确认**：无。
 - **状态**：已裁定（项目裁定；结清 Q-189）。
-- **实现状态**：已接 `chainCrowding:true` 显式版本：召唤连锁预演、失败召唤无效及 Push／Pull 补裁；无标记历史日志保留旧行为，已有待选完成后切换。当前批次验证见 [Weald 开发计划](weald-development-plan.md)。
+- **实现状态**：已接 `chainCrowding:true` 显式版本：召唤连锁预演、失败召唤无效及 Push／Pull 补裁；无标记历史日志保留旧行为，已有待选完成后切换。当前批次验证见 [Weald 开发计划](./plans/weald-development-plan.md)。
 - **确认（2026-11-21，Asia/Shanghai）**：Kyries 核准规格 §22.C 第 4 项。召唤区域挤占按本条链式驱逐；**不取消** R-034 其余条款。本条语义不变。
 
 ### R-274：Stygian 房间可玩性（无未确认部分即可玩）
@@ -3642,6 +3642,6 @@ Q-53 见 R-055（区域表批准，三处图标已对照完整印刷面复核，
   3. **废止／取代**：废止 R-011／Q-10 的「转录完成前，引擎不开放 Stygian 模式」整模式封锁占位；废止把「尚未核准的 Stygian 房间仍延后」当成默认整模式政策的写法。R-011／Q-10 历史记录保留，并指向本条。
   4. **已批切片与入口不变**：R-036（替换与 Boss Crit）、R-227–R-229（Torture／Pool／Evil Eye 等）、R-272（核心＋Weald 出征入口）继续有效。**不是**把 Weald 专属规则并入核心默认；Weald Stygian 仍按内容包勾选 + R-272 入口，只是政策改为「已确认的可玩」。
   5. **不扩围**：不进入 Phase 5；不翻 `usable`／`runtimeReady`；不开 Weald 规格整稿；不为未确认房间编造效果。
-- **依据 / 出处**：Kyries 2026-11-21 对核心规格 §22.C 第 6 项的核准与措辞更正；R-001；R-036；R-048；R-011／Q-10（被本条修订）；R-227–R-229；R-272；[phase6-stygian-rooms-review-2026-11-08.md](phase6-stygian-rooms-review-2026-11-08.md)；[weald-stygian-room-review-2026-11-17.md](weald-stygian-room-review-2026-11-17.md)。
+- **依据 / 出处**：Kyries 2026-11-21 对核心规格 §22.C 第 6 项的核准与措辞更正；R-001；R-036；R-048；R-011／Q-10（被本条修订）；R-227–R-229；R-272；[phase6-stygian-rooms-review-2026-11-08.md](./phases/phase6/phase6-stygian-rooms-review-2026-11-08.md)；[weald-stygian-room-review-2026-11-17.md](./reviews/weald-stygian-room-review-2026-11-17.md)。
 - **关联待确认**：Q-10（仅余「仍有未确认部分的个别房间」跟踪；整模式封锁已结清）。
 - **状态**：已裁定。

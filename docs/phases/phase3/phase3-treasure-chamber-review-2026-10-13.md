@@ -7,7 +7,7 @@
 - 板块：`DD_COREBOX_TILES_BACK.pdf` **PDF p4 / BACK / 遗迹编号6**，raw `dungeon_tile:p004.faces.back`。
 - 配套卡：`02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf` **PDF p6 / room:p006 / Treasure Chamber**，非 Boss。
 - FRONT p4 是遗迹7 / Tomb of Ancestor，不共用区域、部署或身份。已看完整板块及完整配套卡，小图的分区、出生、A/B绿星和宝箱与大图一致。
-- 印刷根目录沿用[VQ队列](kyries-verify-queue-2026-10-12.md)。本地渲染缓存：`node_modules/.cache/phase3/tile-coverage/DD_COREBOX_TILES_BACK-04.png`、`room-06.png`；不提交PDF或图像。
+- 印刷根目录沿用[VQ队列](../../kyries-verify-queue-2026-10-12.md)。本地渲染缓存：`node_modules/.cache/phase3/tile-coverage/DD_COREBOX_TILES_BACK-04.png`、`room-06.png`；不提交PDF或图像。
 - 依据规格书 §6.2 / §6.8 / §6.9（官方R16–18 / R24–25）、R-021 / R-048。以下均为待审核观察，印刷件不补规则。
 
 ## 区域与容量

@@ -1,6 +1,6 @@
 # Collector I 自然任务与严格存档
 
-基线：main @ [#577](https://github.com/Alpaca-go/ddbg-web/pull/577) / [#578](https://github.com/Alpaca-go/ddbg-web/pull/578)。依据 R-175/R-176/R-177、R-168、R-122、R-044 与核心 R39、规格书 §14.5。总览 [HANDOFF-2026-11-04-collector-i.md](HANDOFF-2026-11-04-collector-i.md)。
+基线：main @ [#577](https://github.com/Alpaca-go/ddbg-web/pull/577) / [#578](https://github.com/Alpaca-go/ddbg-web/pull/578)。依据 R-175/R-176/R-177、R-168、R-122、R-044 与核心 R39、规格书 §14.5。总览 [HANDOFF-2026-11-04-collector-i.md](../../handoffs/HANDOFF-2026-11-04-collector-i.md)。
 
 `naturalQuest` 在 `room:p012` 且威胁为 `boss:ruins:collector:1` 时选择公开 `deployCollectorI`，与 Prophet / Necromancer 专用分支一致，仅 test-helpers 驱动。
 

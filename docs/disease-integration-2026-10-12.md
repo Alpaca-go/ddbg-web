@@ -2,7 +2,7 @@
 
 ## 当前接续
 
-#115 已合并到 main `c50226b`。后续在 `codex/phase3-disease-runtime` 接入感染、被动、有限牌池与回传，详见[运行时范围与停点](phase3-disease-runtime-2026-10-12.md)。下文为 #115 的疾病目录阶段记录，不代表后续分支当前状态。
+#115 已合并到 main `c50226b`。后续在 `codex/phase3-disease-runtime` 接入感染、被动、有限牌池与回传，详见[运行时范围与停点](./phases/phase3/phase3-disease-runtime-2026-10-12.md)。下文为 #115 的疾病目录阶段记录，不代表后续分支当前状态。
 
 ## 历史：#115 目录阶段
 

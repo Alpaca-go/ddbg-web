@@ -7,7 +7,7 @@
 - 板块：`DD_COREBOX_TILES_FRONT.pdf` PDF **p3 / FRONT / 遗迹编号5**；raw `dungeon_tile:p003.faces.front`。
 - 配套卡：`02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf` PDF **p5 / FRONT / room:p005 / Beacon of Light**。
 - BACK p3 是遗迹4 / Spiked Pit，不能共用几何或按 PDF 页码匹配房间。完整板块页和完整卡图已查看，小图的各区、出生及红绿星形与大图一致。
-- 印刷根目录见 [VQ 队列](kyries-verify-queue-2026-10-12.md)。本地渲染缓存：`node_modules/.cache/phase3/tile-coverage/DD_COREBOX_TILES_FRONT-03.png`、`room-05.png`，不提交图像或 PDF。
+- 印刷根目录见 [VQ 队列](../../kyries-verify-queue-2026-10-12.md)。本地渲染缓存：`node_modules/.cache/phase3/tile-coverage/DD_COREBOX_TILES_FRONT-03.png`、`room-05.png`，不提交图像或 PDF。
 - 判读依据：规格书 §6.2 / §6.8 / §6.9（官方 R16–18 / R24–25）、R-021 / R-048。以下都是待审核的印刷观察，不是生产几何。
 
 ## 区域与容量

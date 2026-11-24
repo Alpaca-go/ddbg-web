@@ -1,10 +1,10 @@
 # 执行计划：图标语义解耦（A + C）
 
 日期：2026-11-23。交给 Codex 执行的长期计划。
-前置阅读：[AGENTS.md](../../AGENTS.md)、[docs/id-naming-rules.md](id-naming-rules.md)、
-[docs/rulings.md](rulings.md)（R-048、R-200）、
-[hero-annotations/README.md](../../packages/data/src/normalize/hero-annotations/README.md)、
-[HANDOFF-2026-11-23-hero-annotations.md](HANDOFF-2026-11-23-hero-annotations.md)。
+前置阅读：[AGENTS.md](../../AGENTS.md)、[docs/id-naming-rules.md](../id-naming-rules.md)、
+[docs/rulings.md](../rulings.md)（R-048、R-200）、
+[hero-annotations/README.md](../../packages/data/src/core/heroes/annotations/README.md)、
+[HANDOFF-2026-11-23-hero-annotations.md](../handoffs/HANDOFF-2026-11-23-hero-annotations.md)。
 
 ## 0. 问题与决策
 
@@ -226,10 +226,10 @@ Leper 已经暴露过三类问题：图标误聚（heal）、提取错位（Reve
 
 ### Phase A2：引擎迁移（按技能族，小步）
 
-> 具体迁移单元、行数与顺序见 [PLAN-2026-11-23-a2-migration-backlog.md](PLAN-2026-11-23-a2-migration-backlog.md)（由 A1 的 168 条规则语义归组）。
+> 具体迁移单元、行数与顺序见 [PLAN-2026-11-23-a2-migration-backlog.md](./PLAN-2026-11-23-a2-migration-backlog.md)（由 A1 的 168 条规则语义归组）。
 
 > 字段命名调整：erified_* 将迁移为嵌套
-> ules 对象，见 [PLAN-2026-11-23-rules-field-migration.md](PLAN-2026-11-23-rules-field-migration.md)。该迁移先于 A2 执行。
+> ules 对象，见 [PLAN-2026-11-23-rules-field-migration.md](./PLAN-2026-11-23-rules-field-migration.md)。该迁移先于 A2 执行。
 
 1. 每次只迁移一个技能族（如「四核心基础技能」→「II/III」→「扩展英雄」→「Boss 技能」）。
 2. 迁移后：

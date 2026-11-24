@@ -14,7 +14,7 @@
 | `p014`–`p015`  | Torment / Stinger / Body Slam 等 | 多效果 / Pit Toss                                    | hold        |
 | `p017`–`p020`  | 各 Acc 壳三招                    | 组合效果                                             | hold        |
 
-依据：`monster_large` FRONT **p016**、[phase5-darkest-mid-boss-skills-acc-2026-11-01.md](phase5-darkest-mid-boss-skills-acc-2026-11-01.md)、[phase5-a01-impaler-revelation-effects-2026-11-01.md](phase5-a01-impaler-revelation-effects-2026-11-01.md) 同模式；规则 R-001 / R-048。
+依据：`monster_large` FRONT **p016**、[phase5-darkest-mid-boss-skills-acc-2026-11-01.md](./phase5-darkest-mid-boss-skills-acc-2026-11-01.md)、[phase5-a01-impaler-revelation-effects-2026-11-01.md](./phase5-a01-impaler-revelation-effects-2026-11-01.md) 同模式；规则 R-001 / R-048。
 
 ## 本刀接通
 

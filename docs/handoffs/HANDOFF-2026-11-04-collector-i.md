@@ -5,21 +5,21 @@
 ## 已接通
 
 - R-168 / R-175：`room:p012` / `room_tile:p007:back` 图面绑定；I 级 Face the Threat 的实际威胁与出征计划须一致。专用 **`deployCollectorI`**（[`ruins-i-deploy.ts`](../../packages/engine/src/core/bosses/ruins-i-deploy.ts)）按获批八区落点部署，保留英雄和 RNG 状态；显式 `startBattle` 在 F 摆三个独立宝箱。Collect All 的防御、远程、辅助召唤物分别落 G、E、A，并洗入当前轮三张先攻。
-- **R-177**：F 区三宝箱已接通 `interactLoot` 与 R-047 / R-059 翻开奖励；白色叹号仅图面外观（R-168）。详见 [phase5-collector-i-loot-interaction-2026-11-04.md](phase5-collector-i-loot-interaction-2026-11-04.md)。
+- **R-177**：F 区三宝箱已接通 `interactLoot` 与 R-047 / R-059 翻开奖励；白色叹号仅图面外观（R-168）。详见 [phase5-collector-i-loot-interaction-2026-11-04.md](../phases/phase5/phase5-collector-i-loot-interaction-2026-11-04.md)。
 - `finishDungeonBattle` 使用遗迹 I 级共用交接。存活敌人阻止胜利回传。胜利归还未拾取宝箱、清除威胁、记录 Collector 击败，按 R-122 回村支付一次 3 XP。英雄全灭走 R-044。
 - **R-176**（#577）：印刷第 92 页的 Speed 2 和四姿态共用选招表写入正式目录。1–5 为 Show Collection，6–10 为 Life Steal。三个 Collected 原已在正式目录。
 - 正式目标房可 **`deployCollectorI` 部署**并开始战斗，战后可返回地图；战斗中可在 F 区同区翻开拾取宝箱（与引擎一致）。加入 Collector I 前的 `preCollectorTaskSources` 只用于旧档完整重放，验证成功后才升级目录。更早的 Prophet、Necromancer 和 Darkest 目录继续按各自基线重放。
-- **R-176 战斗深化（Show Collection / Life Steal）**：场上无 Collected 仍 Collect All；有 Collected 时走 d10 选招并经 `playMonsterSkill` 结算 Acc/Crit/伤害/Crowded 与 `verified_monster_effects`。验收见 [phase5-collector-i-skills-acc-2026-11-04.md](phase5-collector-i-skills-acc-2026-11-04.md) 与 `collector-i-skills-acc.test.ts`。
-- **Collected I 三技能闭环（p098/p095/p101）**：Collect All 后 G/E/A 真实目录卡经 `prepareMonsterAction` / `moveMonsterToRange` / `playMonsterSkill`（Headache 友方无攻击骰）可结算；G/E/A 挤占与三枚 Collected 先攻侧推进见 [phase5-collector-i-collected-skills-acc-2026-11-04.md](phase5-collector-i-collected-skills-acc-2026-11-04.md) 与 `collector-i-collected-skills-acc.test.ts`。
-- 自然任务：种子 467、p019、Radiant，从任务起点经 `establishImminentThreat` 抽到 Collector，公开命令探索至部署/开战/胜利回村；部署与开战检查点及回村存档严格回放。详见 [phase5-collector-i-natural-save-2026-11-04.md](phase5-collector-i-natural-save-2026-11-04.md)。
+- **R-176 战斗深化（Show Collection / Life Steal）**：场上无 Collected 仍 Collect All；有 Collected 时走 d10 选招并经 `playMonsterSkill` 结算 Acc/Crit/伤害/Crowded 与 `verified_monster_effects`。验收见 [phase5-collector-i-skills-acc-2026-11-04.md](../phases/phase5/phase5-collector-i-skills-acc-2026-11-04.md) 与 `collector-i-skills-acc.test.ts`。
+- **Collected I 三技能闭环（p098/p095/p101）**：Collect All 后 G/E/A 真实目录卡经 `prepareMonsterAction` / `moveMonsterToRange` / `playMonsterSkill`（Headache 友方无攻击骰）可结算；G/E/A 挤占与三枚 Collected 先攻侧推进见 [phase5-collector-i-collected-skills-acc-2026-11-04.md](../phases/phase5/phase5-collector-i-collected-skills-acc-2026-11-04.md) 与 `collector-i-collected-skills-acc.test.ts`。
+- 自然任务：种子 467、p019、Radiant，从任务起点经 `establishImminentThreat` 抽到 Collector，公开命令探索至部署/开战/胜利回村；部署与开战检查点及回村存档严格回放。详见 [phase5-collector-i-natural-save-2026-11-04.md](../phases/phase5/phase5-collector-i-natural-save-2026-11-04.md)。
 
 ## Boss 目标房绑定与入口（文档对齐）
 
 Face the Threat **目标房**经 `prepareDungeonBattle` → `prepareBossObjectiveRoom` 写入专属房间牌（如 `room:p012`）并绑定 script / 战斗卡；**下一步**走专用 `deployCollectorI`（Necromancer / Prophet 同理 `deployNecromancerI` / `deployProphetI`），再 `startBattle`。绑定后 `blockedReason` 提示上述 deploy 命令，不再写「几何/交接尚未获批」类旧停点（I 级已接通部分）。
 
-**不是**靠翻 `combatReady`、`usable`、扩任务白名单或 `selectRoomTile` 进 Boss 房。`room:p012` 仍 `boss:true`，普通 tile 入口拒令；F 区 `usable=false` 不变。Fanatic I 已接 **`deployFanaticI`**（R-178，见 [phase5-fanatic-i-production-entry-review-2026-11-04.md](phase5-fanatic-i-production-entry-review-2026-11-04.md)）；Collector II/III 等无 deploy 切片仍停生产战斗未获批。
+**不是**靠翻 `combatReady`、`usable`、扩任务白名单或 `selectRoomTile` 进 Boss 房。`room:p012` 仍 `boss:true`，普通 tile 入口拒令；F 区 `usable=false` 不变。Fanatic I 已接 **`deployFanaticI`**（R-178，见 [phase5-fanatic-i-production-entry-review-2026-11-04.md](../phases/phase5/phase5-fanatic-i-production-entry-review-2026-11-04.md)）；Collector II/III 等无 deploy 切片仍停生产战斗未获批。
 
-详见 [phase5-boss-objective-room-entry-2026-10-31.md](phase5-boss-objective-room-entry-2026-10-31.md)。
+详见 [phase5-boss-objective-room-entry-2026-10-31.md](../phases/phase5/phase5-boss-objective-room-entry-2026-10-31.md)。
 
 ## 仍 hold（文档刀不改运行时准入）
 
@@ -36,7 +36,7 @@ R-168 白色叹号**不推定额外规则语义**；F 区交互与有限堆奖�
 
 ## 接手入口
 
-- [R-168、R-175、R-176、R-177](rulings.md) 和[卡面核对](phase5-collector-i-page-entry-review-2026-11-04.md)。
+- [R-168、R-175、R-176、R-177](../rulings.md) 和[卡面核对](../phases/phase5/phase5-collector-i-page-entry-review-2026-11-04.md)。
 - [专用部署](../../packages/engine/src/core/bosses/ruins-i-deploy.ts)、[胜负交接](../../packages/engine/src/core/bosses/ruins-i-finish.ts)、[Collector 场景](../../packages/engine/tests/core/bosses/collector-i-deploy.test.ts)、[Show Collection / Life Steal 验收](../../packages/engine/tests/core/bosses/collector-i-skills-acc.test.ts)、[Collected 三技能闭环](../../packages/engine/tests/core/bosses/collector-i-collected-skills-acc.test.ts)、[宝箱运行时](../../packages/engine/tests/core/bosses/collector-i-room-runtime.test.ts)。
 - [正式目录及兼容来源](../../apps/web/src/dungeon-sandbox/task-sources.ts)、[目录和迁移测试](../../apps/web/src/dungeon-sandbox/task-sources.test.ts)、[页面冒烟](../../apps/web/e2e/core/collector-i.spec.ts)。
 

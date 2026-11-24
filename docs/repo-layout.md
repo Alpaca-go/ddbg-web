@@ -6,21 +6,26 @@
 
 ## 四层数据
 
-| 路径                                    | 性质                                                        | 运行时要读 | 部署要带              |
-| --------------------------------------- | ----------------------------------------------------------- | ---------- | --------------------- |
-| `packages/data/extract/**/*.json`       | 从印刷 PDF/图片提取的源数据（raw/parsed）                   | 否         | 否                    |
-| `packages/data/normalized/**/*.json`    | 归一化后的游戏数据，由 `packages/data/src/normalize/*` 生成 | **是**     | **是**（会被打进 JS） |
-| `packages/data/src/normalize/*.test.ts` | 逐卡/逐房间的黄金测试与审批测试                             | 否         | 否                    |
-| `apps/web/src/**/*.test.tsx`            | UI/卡图/沙盒测试                                            | 否         | 否                    |
-| `apps/web/src/card-art/*.json`          | 卡图与印刷面映射                                            | **是**     | **是**（会被打进 JS） |
-| `apps/web/dist/`                        | Vite 构建产物                                               | **是**     | **是**                |
-| `deploy/web/`                           | 本仓库生成的干净部署目录                                    | **是**     | **是**                |
+| 路径                                                 | 性质                                                          | 运行时要读 | 部署要带              |
+| ---------------------------------------------------- | ------------------------------------------------------------- | ---------- | --------------------- |
+| `packages/data/extract/**/*.json`                    | 从印刷 PDF/图片提取的源数据（raw/parsed）                     | 否         | 否                    |
+| `packages/data/normalized/**/*.json`                 | 归一化后的游戏数据，由 `packages/data/src/**/*.build.ts` 生成 | **是**     | **是**（会被打进 JS） |
+| `packages/data/tests/**`、`packages/engine/tests/**` | 逐卡/逐房间的黄金测试与审批测试                               | 否         | 否                    |
+| `apps/web/src/**/*.test.tsx`、`apps/web/e2e/**`      | UI/卡图/沙盒测试与 Playwright 冒烟                            | 否         | 否                    |
+| `apps/web/src/card-art/*.json`                       | 卡图与印刷面映射                                              | **是**     | **是**（会被打进 JS） |
+| `apps/web/dist/`                                     | Vite 构建产物                                                 | **是**     | **是**                |
+| `deploy/web/`                                        | 本仓库生成的干净部署目录                                      | **是**     | **是**                |
 
 `normalized` 不能删：引擎和 Web 直接 import 这些 JSON；Vite 会把它们转成 JS 模块打进 `battle-catalogs` / `index` 等 chunk。`extract` 不是运行时数据，删除不会影响构建产物，但会失去重新生成 `normalized` 和审计卡面的能力。
 
-## 测试为什么和源码放在一起
+## 测试为什么单独放在 `tests/`
 
-Vitest 默认就近查找 `*.test.ts` / `*.test.tsx`；测试大量使用相对路径 import 同目录的 schema、builder 和 JSON。把 600 多个测试文件搬到单独的 `tests/` 目录，需要重写大量相对路径，收益只是“目录看起来更整齐”，风险远大于收益。
+2026-11-25 的 P2–P7 重组把测试从 `src` 移出：
+
+- `packages/engine/tests/**`、`packages/data/tests/**` 镜像各自 `src` 的目录结构；
+- `apps/web/e2e/{core,weald}/**` 按包分组，`apps/web/src` 内的测试保持就近；
+- 两个包的 `tsconfig.json` 都要 `include: ["src", "tests"]`，否则搬出去的测试不会被 typecheck；
+- Vitest 的 `include` 是 `packages/**/*.test.ts`，子目录仍会被收集。
 
 测试文件不会被 Vite 打包：构建从 `apps/web/index.html` 出发，只追踪实际 import；测试没有被 import，所以不会进入 `dist/`。
 

@@ -5,14 +5,14 @@
 ## 范围
 
 - **本刀**：I 级 Face the Threat、`room:p013` + `deployFanaticI` → 显式 `startBattle`（R39 开战 Pyre）→ `finishDungeonBattle` 最小胜负回村；对标 Collector I 的 R-175 专用部署模式。
-- **不做**：Fanatic II/III、翻 `room:p013` / `room_tile` 的 `usable`、扩大 `createCoreDungeonQuest` 白名单、`combatReady`、自然任务 Playwright（正式目录见 `phase5-fanatic-i-page-entry-review-2026-11-04.md`）。自然任务严格存档见 [phase5-fanatic-i-natural-save-2026-11-04.md](phase5-fanatic-i-natural-save-2026-11-04.md)（本 PR 另刀）。
+- **不做**：Fanatic II/III、翻 `room:p013` / `room_tile` 的 `usable`、扩大 `createCoreDungeonQuest` 白名单、`combatReady`、自然任务 Playwright（正式目录见 `phase5-fanatic-i-page-entry-review-2026-11-04.md`）。自然任务严格存档见 [phase5-fanatic-i-natural-save-2026-11-04.md](./phase5-fanatic-i-natural-save-2026-11-04.md)（本 PR 另刀）。
 
 ## 证据
 
 | 项                             | 来源                                                                |
 | ------------------------------ | ------------------------------------------------------------------- |
 | 房间几何九区、B 高地、部署落点 | R-169、`packages/data/src/normalize/fanatic-room.ts`                |
-| 专用部署与生产 finish          | **R-178**、[rulings.md](rulings.md#r-178)                           |
+| 专用部署与生产 finish          | **R-178**、[rulings.md](../../rulings.md#r-178)                     |
 | Fanatic 进攻 / Pyre 远程开局   | R39、规格书 §14.5、`fanatic-i.ts` · `summon(battleStartPyre)`       |
 | 先攻 4（Fanatic 3 + Pyre 1）   | `fanatic-i-combat-runtime.ts` · `expandFanaticIInitiativeDeckSides` |
 | 专用命令与存档 schema          | `deployFanaticI`、`quest-save.ts`                                   |
@@ -32,5 +32,5 @@
 
 ## 已知限制
 
-- 正式目录 / 页面部署冒烟见 #583 对标 #577；自然任务严格存档见 [phase5-fanatic-i-natural-save-2026-11-04.md](phase5-fanatic-i-natural-save-2026-11-04.md)。
+- 正式目录 / 页面部署冒烟见 #583 对标 #577；自然任务严格存档见 [phase5-fanatic-i-natural-save-2026-11-04.md](./phase5-fanatic-i-natural-save-2026-11-04.md)。
 - Fanatic II/III 仍走 higher ruins 夹具，不经 `deployFanaticI`。

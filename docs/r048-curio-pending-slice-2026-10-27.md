@@ -12,7 +12,7 @@ Kyries 批准清 **B09 §3** 三项停点（见 `docs/b09-curio-verified-breakpo
 
 ## §4 停点（饰品 verification，2026-10-28）
 
-详见 [`docs/r048-curio-remaining-2026-10-28.md`](r048-curio-remaining-2026-10-28.md)。
+详见 [`docs/r048-curio-remaining-2026-10-28.md`](./r048-curio-remaining-2026-10-28.md)。
 
 - **生产数据**：核心盒 38 张饰品均已 `verification.unverified=false`（`5fbb752` / Q-47 词典批）。Curio 抽到的 I 级饰品待选可走装备 / 转交；R-048 仍挡夹具或未核实卡（仅 `discard-new`）。
 - **自然路径**：`naturalQuest` 对 `dungeon-trinket:` 优先 `equip:*`，与上述一致。

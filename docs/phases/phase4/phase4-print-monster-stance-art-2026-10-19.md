@@ -1,6 +1,6 @@
 # Phase 4 · 战斗站位板印刷整板（Monster Stance）
 
-状态：**已接线**——战斗界面英雄/怪物四格站位轨道以印刷 `DD_COREBOX_BOARD_Monster_Stance_FRONT.pdf`（及 BACK 映射）TrimBox 整页 PNG 为底图；四姿态列用 UI 叠层高亮与实体芯片，**不**裁切色条、**不**回退 TTS `stance-color-tile-*`。八英雄立牌走印刷 DH 冲压板（见 [phase4-print-hero-standee-art-2026-10-20.md](phase4-print-hero-standee-art-2026-10-20.md)）。
+状态：**已接线**——战斗界面英雄/怪物四格站位轨道以印刷 `DD_COREBOX_BOARD_Monster_Stance_FRONT.pdf`（及 BACK 映射）TrimBox 整页 PNG 为底图；四姿态列用 UI 叠层高亮与实体芯片，**不**裁切色条、**不**回退 TTS `stance-color-tile-*`。八英雄立牌走印刷 DH 冲压板（见 [phase4-print-hero-standee-art-2026-10-20.md](./phase4-print-hero-standee-art-2026-10-20.md)）。
 
 ## 为何整板（R-048）
 

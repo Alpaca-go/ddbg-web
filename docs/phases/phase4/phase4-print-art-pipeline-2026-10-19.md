@@ -8,7 +8,7 @@
 
 ## 出血与裁切（R-048）
 
-依据 [docs/plan.md](plan.md) §印刷 PDF：
+依据 [docs/plan.md](../../plan.md) §印刷 PDF：
 
 - **优先**使用 PDF **TrimBox**（裁切框 = 卡面）。
 - 若仅有 MediaBox（Trim 与 Media 重合、无有效裁切框），从 MediaBox **四边内缩 3 mm**（PDF 用户空间：1 pt = 1/72 in，3 mm ≈ 8.504 pt）。
@@ -60,7 +60,7 @@ python3 tools/pipeline/print-card-art/run.py \
 | `maps/*-print-art-map.json`              | 其它品类 **scaffold**（已导出页列表，`engineId` 待补）                             |
 | `run-meta.json`                          | 本次运行摘要                                                                       |
 
-怪物与英雄技能 **Kyries 审阅 CSV** 已提升为 `apps/web/src/card-art/monster-print-art-map.json`、`hero-skill-print-art-map.json`（见 [phase4-print-monster-art-map-2026-10-19.md](phase4-print-monster-art-map-2026-10-19.md)、[phase4-print-hero-skill-art-map-2026-10-19.md](phase4-print-hero-skill-art-map-2026-10-19.md)）；亦可从 `maps/*-print-art-map.json` 手工对照。战斗 UI 怪物与英雄技能 Face 仅 `/print-card-art/png/…`（无 TTS 回退）。
+怪物与英雄技能 **Kyries 审阅 CSV** 已提升为 `apps/web/src/card-art/monster-print-art-map.json`、`hero-skill-print-art-map.json`（见 [phase4-print-monster-art-map-2026-10-19.md](./phase4-print-monster-art-map-2026-10-19.md)、[phase4-print-hero-skill-art-map-2026-10-19.md](./phase4-print-hero-skill-art-map-2026-10-19.md)）；亦可从 `maps/*-print-art-map.json` 手工对照。战斗 UI 怪物与英雄技能 Face 仅 `/print-card-art/png/…`（无 TTS 回退）。
 
 ## 运行时 UI 与对照源
 

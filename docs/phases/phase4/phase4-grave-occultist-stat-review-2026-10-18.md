@@ -1,6 +1,6 @@
 # Phase 4：Grave Robber / Occultist 属性与防御（R-095 / Q-97 confirmed）
 
-状态：**Kyries 于 2026-10-18 在聊天确认 Q-97 为 LIMITED per-card mappings（同 R-088/R-094）。六面属性与限定防御已入库；正式白名单/网页目录已扩至四名额外替补。GR I 级七战斗技能与 Pilfer 抽取已另接（R-096）；Occ I 级七战斗技能与 Dark Ritual I–III 已另接（R-097；见[Occ 技能记录](phase4-occultist-skills-2026-10-18.md)）；Pilfer 抽取边见 R-098。**
+状态：**Kyries 于 2026-10-18 在聊天确认 Q-97 为 LIMITED per-card mappings（同 R-088/R-094）。六面属性与限定防御已入库；正式白名单/网页目录已扩至四名额外替补。GR I 级七战斗技能与 Pilfer 抽取已另接（R-096）；Occ I 级七战斗技能与 Dark Ritual I–III 已另接（R-097；见[Occ 技能记录](./phase4-occultist-skills-2026-10-18.md)）；Pilfer 抽取边见 R-098。**
 
 ## 1. 基线与来源
 

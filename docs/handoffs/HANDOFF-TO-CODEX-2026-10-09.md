@@ -1,55 +1,55 @@
 # DDBG → Codex 交接说明（2026-10-09，UTC+8）
 
-> 2026-10-13 最新入口：#137准确head两项CI成功后已合并main `1036a3b`。本轮 `codex/phase3-fundraiser` 接第三张任务的明确分支：Lair胜利10金币 / 任务结束后明确捐献0–60金币 / 同额待发XP；Q-70未达最低目标退出保持停点。823项测试与六条冒烟通过，远端最新head CI另核。回村发放及Phase3验收未完成，新板块与全部Q / VQ保持。接手读[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)与[Fundraiser交付](phase3-fundraiser-2026-10-13.md)。
-> 2026-10-13 最新入口：#136准确head两项CI成功后已合并main `36bca29`。本轮 `codex/phase3-wipe-em-out` 接第二张基础任务Wipe ‘Em Out I，完整分布 / 巢穴计分 / 12点休息 / 真实守卫退场与0XP摘要；807项测试和六条冒烟通过。第三张任务、回村发放与Phase3验收未完成，新板块与Q / VQ（含Q-69）边界保持，不跳Phase4。接手读[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)与[任务交付](phase3-wipe-em-out-2026-10-13.md)。
+> 2026-10-13 最新入口：#137准确head两项CI成功后已合并main `1036a3b`。本轮 `codex/phase3-fundraiser` 接第三张任务的明确分支：Lair胜利10金币 / 任务结束后明确捐献0–60金币 / 同额待发XP；Q-70未达最低目标退出保持停点。823项测试与六条冒烟通过，远端最新head CI另核。回村发放及Phase3验收未完成，新板块与全部Q / VQ保持。接手读[总交接顶部](./HANDOFF-FROM-CODEX-2026-10-09.md)与[Fundraiser交付](../phases/phase3/phase3-fundraiser-2026-10-13.md)。
+> 2026-10-13 最新入口：#136准确head两项CI成功后已合并main `36bca29`。本轮 `codex/phase3-wipe-em-out` 接第二张基础任务Wipe ‘Em Out I，完整分布 / 巢穴计分 / 12点休息 / 真实守卫退场与0XP摘要；807项测试和六条冒烟通过。第三张任务、回村发放与Phase3验收未完成，新板块与Q / VQ（含Q-69）边界保持，不跳Phase4。接手读[总交接顶部](./HANDOFF-FROM-CODEX-2026-10-09.md)与[任务交付](../phases/phase3/phase3-wipe-em-out-2026-10-13.md)。
 
-> 2026-10-13 最新入口：#135 准确head两项CI成功后已合并main `8694df5`。本轮 `codex/phase3-scout-rest` 接Scout Ahead 8点基础休息，全员同意 / 共同或均分 / 八点原子恢复 / 弃柴火；Q-69的三项恢复怪癖分组保持停点，不猜测。其他任务与Phase3验收仍未完成，不跳Phase4，新板块审批与既有排除项保持。接手看[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)与[休息交付](phase3-scout-rest-2026-10-13.md)。
+> 2026-10-13 最新入口：#135 准确head两项CI成功后已合并main `8694df5`。本轮 `codex/phase3-scout-rest` 接Scout Ahead 8点基础休息，全员同意 / 共同或均分 / 八点原子恢复 / 弃柴火；Q-69的三项恢复怪癖分组保持停点，不猜测。其他任务与Phase3验收仍未完成，不跳Phase4，新板块审批与既有排除项保持。接手看[总交接顶部](./HANDOFF-FROM-CODEX-2026-10-09.md)与[休息交付](../phases/phase3/phase3-scout-rest-2026-10-13.md)。
 
-> 2026-10-13 最新入口：#134 准确head两项CI成功后已合并为main `0cef7ac`。本轮 `codex/phase3-scout-quest-summary` 接退出后 Scout Ahead 清理数与待发XP，不发放英雄 / 驿站XP；严格核任务身份 / 代币 / 清理记录，不兜底旧状态，修正走廊沙盒的Trap伪清理。Phase3未验收，新板块与Q / VQ边界保持。接手读[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)与[摘要交付](phase3-scout-quest-summary-2026-10-13.md)。
+> 2026-10-13 最新入口：#134 准确head两项CI成功后已合并为main `0cef7ac`。本轮 `codex/phase3-scout-quest-summary` 接退出后 Scout Ahead 清理数与待发XP，不发放英雄 / 驿站XP；严格核任务身份 / 代币 / 清理记录，不兜底旧状态，修正走廊沙盒的Trap伪清理。Phase3未验收，新板块与Q / VQ边界保持。接手读[总交接顶部](./HANDOFF-FROM-CODEX-2026-10-09.md)与[摘要交付](../phases/phase3/phase3-scout-quest-summary-2026-10-13.md)。
 
-> 2026-10-13 最新入口：#133 准确 head 两项 CI 成功后已按用户授权合并为 main `49a5a8b`。本轮 `codex/phase3-dungeon-exit` 接掷探索骰前全员离开、取消恢复与终止状态；保留资源，不越过已开始结算，不发任务 XP / 不接回村。775 项测试与六条冒烟通过，远端 CI 另核 head；Phase 3 / 新板块审批仍未完成。接手看[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)与[离开交付](phase3-dungeon-exit-2026-10-13.md)。
+> 2026-10-13 最新入口：#133 准确 head 两项 CI 成功后已按用户授权合并为 main `49a5a8b`。本轮 `codex/phase3-dungeon-exit` 接掷探索骰前全员离开、取消恢复与终止状态；保留资源，不越过已开始结算，不发任务 XP / 不接回村。775 项测试与六条冒烟通过，远端 CI 另核 head；Phase 3 / 新板块审批仍未完成。接手看[总交接顶部](./HANDOFF-FROM-CODEX-2026-10-09.md)与[离开交付](../phases/phase3/phase3-dungeon-exit-2026-10-13.md)。
 
-> 2026-10-13 最新入口：#132准确head两项CI成功后已合并为main `cc0537d`。当前 `codex/phase3-room-tile-selection` 接公共板块选择入口，三条引擎路径及UI按生产目录身份 / usable守卫；Ritual新增显式roomId / location / number。未批准或开放新面，Torture排除项、Fountain及其他面待审核与未决Q保持，实际可用仍1/28。接手看[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)与[本轮交付](phase3-room-tile-selection-2026-10-13.md)。
+> 2026-10-13 最新入口：#132准确head两项CI成功后已合并为main `cc0537d`。当前 `codex/phase3-room-tile-selection` 接公共板块选择入口，三条引擎路径及UI按生产目录身份 / usable守卫；Ritual新增显式roomId / location / number。未批准或开放新面，Torture排除项、Fountain及其他面待审核与未决Q保持，实际可用仍1/28。接手看[总交接顶部](./HANDOFF-FROM-CODEX-2026-10-09.md)与[本轮交付](../phases/phase3/phase3-room-tile-selection-2026-10-13.md)。
 
-> 2026-10-13 最新入口：#131准确head两项CI成功后按用户授权合并为main `323cec1`。当前 `codex/phase3-ruins8-9-verify-drafts` 新增Invocation Chamber / Old Abbey及VQ-17/18；普通遗迹1–9审核材料已齐，但实际可用仍1/28。没有批准新面或接运行时，Fountain、Torture候选排除项及全部未决Q保持。接手看[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)和[VQ队列](kyries-verify-queue-2026-10-12.md)。
+> 2026-10-13 最新入口：#131准确head两项CI成功后按用户授权合并为main `323cec1`。当前 `codex/phase3-ruins8-9-verify-drafts` 新增Invocation Chamber / Old Abbey及VQ-17/18；普通遗迹1–9审核材料已齐，但实际可用仍1/28。没有批准新面或接运行时，Fountain、Torture候选排除项及全部未决Q保持。接手看[总交接顶部](./HANDOFF-FROM-CODEX-2026-10-09.md)和[VQ队列](../kyries-verify-queue-2026-10-12.md)。
 
-> 2026-10-13 最新入口：#130 最新head两项CI成功后按用户授权已合并为main `675c389`，本地ff-only同步。当前 `codex/phase3-ruins6-7-verify-drafts` 新增 Treasure Chamber / Tomb of Ancestor 独立审核稿及VQ-15/16，尚未批准数据或写生产几何。未知图标、Fountain待审核、Torture仅候选及全部未决Q保持。接手读[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)与[VQ队列](kyries-verify-queue-2026-10-12.md)。
+> 2026-10-13 最新入口：#130 最新head两项CI成功后按用户授权已合并为main `675c389`，本地ff-only同步。当前 `codex/phase3-ruins6-7-verify-drafts` 新增 Treasure Chamber / Tomb of Ancestor 独立审核稿及VQ-15/16，尚未批准数据或写生产几何。未知图标、Fountain待审核、Torture仅候选及全部未决Q保持。接手读[总交接顶部](./HANDOFF-FROM-CODEX-2026-10-09.md)与[VQ队列](../kyries-verify-queue-2026-10-12.md)。
 
-> 2026-10-13 最新入口：#129 最新head两项CI成功后按用户授权已合并为 main `64b6e94`。Kyries 明确“Fountain 尚未审核，先继续准备其他板块”；本轮新增遗迹4/5的 Spiked Pit / Beacon of Light 独立草稿与 VQ-13/14，未批准、未写生产几何或运行时。实际可用仍1/28，Torture 候选排除项、Fountain 与未决Q边界不改。接手读[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)与[VQ队列](kyries-verify-queue-2026-10-12.md)。
+> 2026-10-13 最新入口：#129 最新head两项CI成功后按用户授权已合并为 main `64b6e94`。Kyries 明确“Fountain 尚未审核，先继续准备其他板块”；本轮新增遗迹4/5的 Spiked Pit / Beacon of Light 独立草稿与 VQ-13/14，未批准、未写生产几何或运行时。实际可用仍1/28，Torture 候选排除项、Fountain 与未决Q边界不改。接手读[总交接顶部](./HANDOFF-FROM-CODEX-2026-10-09.md)与[VQ队列](../kyries-verify-queue-2026-10-12.md)。
 
-> 2026-10-13 最新入口：#128 最新 head 两项 CI 成功后已按用户授权合并为 main `d0bfadb`，本地 ff-only 同步。当前 `codex/phase3-curio-composite-rewards` 接通 Torch 后余下 05 / 07 / 24 的正面复合，获得选择覆盖 24 / 24；本主题尚未合并。未知饰品装备、Torture / Fountain、VQ 与未决 Q 边界不改，Phase 3 未完成。接手看[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)与[本轮交付](phase3-curio-composite-rewards-2026-10-13.md)。
+> 2026-10-13 最新入口：#128 最新 head 两项 CI 成功后已按用户授权合并为 main `d0bfadb`，本地 ff-only 同步。当前 `codex/phase3-curio-composite-rewards` 接通 Torch 后余下 05 / 07 / 24 的正面复合，获得选择覆盖 24 / 24；本主题尚未合并。未知饰品装备、Torture / Fountain、VQ 与未决 Q 边界不改，Phase 3 未完成。接手看[总交接顶部](./HANDOFF-FROM-CODEX-2026-10-09.md)与[本轮交付](../phases/phase3/phase3-curio-composite-rewards-2026-10-13.md)。
 
-> 2026-10-13 最新入口：#127 最新 head 两项 CI 成功后已按用户授权合并为 main `ff9c557`，本地已 ff-only 同步。当前 `codex/phase3-curio-trinket-acquisition` 新接单一饰品获得的 12 / 18 / 22：完整等级牌堆、携带容量、转交 / 弃牌待选；未知卡不装备，可明确弃新卡或保留复核停点。使用 / 翻面仍留 Phase 4，Torture / Fountain 和 Q 边界不改。接手看[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)与[本轮交付](phase3-curio-trinket-acquisition-2026-10-12.md)。
+> 2026-10-13 最新入口：#127 最新 head 两项 CI 成功后已按用户授权合并为 main `ff9c557`，本地已 ff-only 同步。当前 `codex/phase3-curio-trinket-acquisition` 新接单一饰品获得的 12 / 18 / 22：完整等级牌堆、携带容量、转交 / 弃牌待选；未知卡不装备，可明确弃新卡或保留复核停点。使用 / 翻面仍留 Phase 4，Torture / Fountain 和 Q 边界不改。接手看[总交接顶部](./HANDOFF-FROM-CODEX-2026-10-09.md)与[本轮交付](../phases/phase3/phase3-curio-trinket-acquisition-2026-10-12.md)。
 
-> 2026-10-12 最新入口：#122～125 已依用户本次“合并”授权、最新 head 两项 CI 成功后顺序合并，main 为 `b7a4cbe`；本地已 ff-only 同步。当前 `codex/phase3-curio-positive-quirk` 新接单一正面怪癖奖励，Torch 后 06 / 11 新增可完成，合计 16 / 24 张；未合并。Torture 的 Unholy Aura 仍仅候选、不接运行时、usable=false；Fountain 待 VQ 批准，Q 裁定不改。接手看[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)和[本轮交付](phase3-curio-positive-quirk-2026-10-12.md)。下方旧未合并状态为历史记录。
+> 2026-10-12 最新入口：#122～125 已依用户本次“合并”授权、最新 head 两项 CI 成功后顺序合并，main 为 `b7a4cbe`；本地已 ff-only 同步。当前 `codex/phase3-curio-positive-quirk` 新接单一正面怪癖奖励，Torch 后 06 / 11 新增可完成，合计 16 / 24 张；未合并。Torture 的 Unholy Aura 仍仅候选、不接运行时、usable=false；Fountain 待 VQ 批准，Q 裁定不改。接手看[总交接顶部](./HANDOFF-FROM-CODEX-2026-10-09.md)和[本轮交付](../phases/phase3/phase3-curio-positive-quirk-2026-10-12.md)。下方旧未合并状态为历史记录。
 
-> 2026-10-12 步骤 2 续接：当前分支 `codex/phase3-curio-provisions` 基于 #122 的 `124bbb3`，新接 Curio 补给骰 / Wild；Torch 路径由十张增至十四张，仍有十张怪癖 / 饰品停点。已准备核心盒 28 面索引及 Torture Chamber BACK p2 的逐项审核草稿，未批准新几何。接手看[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)、[补给交付](phase3-curio-provisions-2026-10-12.md)与[逐面审核](phase3-tile-face-review-2026-10-12.md)。步骤 2 / Phase 3 未完成，#122 仍未合并。
+> 2026-10-12 步骤 2 续接：当前分支 `codex/phase3-curio-provisions` 基于 #122 的 `124bbb3`，新接 Curio 补给骰 / Wild；Torch 路径由十张增至十四张，仍有十张怪癖 / 饰品停点。已准备核心盒 28 面索引及 Torture Chamber BACK p2 的逐项审核草稿，未批准新几何。接手看[总交接顶部](./HANDOFF-FROM-CODEX-2026-10-09.md)、[补给交付](../phases/phase3/phase3-curio-provisions-2026-10-12.md)与[逐面审核](../phases/phase3/phase3-tile-face-review-2026-10-12.md)。步骤 2 / Phase 3 未完成，#122 仍未合并。
 
 > 本轮 PR 入口：Q-60 实现 `4788477`，开放草稿 [PR #122](https://github.com/Alpaca-go/ddbg-web/pull/122)，尚未合并；后续核对最新 head 的两项 CI，不把本地验证写成 PR CI 通过。
 
-> 2026-10-12 最新入口：步骤 2 的 Q-60 批次在 `codex/phase3-q60-curio-icons`，基于 main `5714846`，尚未合并。Kyries 批准 17 个 hash / 01–24 效果行（R-064），词典 JSON / CSV 与全部 Curio 效果数据已同步；抽前 Torch 下十张可结算，其他十四张是奖励运行时代码依赖，已非 Q-60 图标停点。接手读[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)与[完整交付](phase3-q60-curio-icons-2026-10-12.md)。步骤 2 仍欠奖励接口和板块覆盖，Phase 3 未验收。
+> 2026-10-12 最新入口：步骤 2 的 Q-60 批次在 `codex/phase3-q60-curio-icons`，基于 main `5714846`，尚未合并。Kyries 批准 17 个 hash / 01–24 效果行（R-064），词典 JSON / CSV 与全部 Curio 效果数据已同步；抽前 Torch 下十张可结算，其他十四张是奖励运行时代码依赖，已非 Q-60 图标停点。接手读[总交接顶部](./HANDOFF-FROM-CODEX-2026-10-09.md)与[完整交付](../phases/phase3/phase3-q60-curio-icons-2026-10-12.md)。步骤 2 仍欠奖励接口和板块覆盖，Phase 3 未验收。
 
 > 2026-10-12 合并完成：#120 已合并为 `d50a823`；#121 最新 head `44c190b` 的质量与 Playwright 两项 CI 成功，已按授权合并为 main `fe0de21`，本地 main 已同步。第一步完成，下一块为板块与 Curio 覆盖；下方等待 CI / 合并的描述为历史状态，Phase 3 仍未验收。
 
-> 2026-10-12 最新入口：Kyries 授权第一步并要求合并。依赖 #120 最新 head 两项 CI 成功，已合并为 main `d50a823`；`codex/phase3-low-light-exploration` 已同步该基线，实现 `bacf3ac`，对应 [PR #121](https://github.com/Alpaca-go/ddbg-web/pull/121)，等待最新 head CI 成功后合并。已接 Darkness 降光、光照 0–5 探索与低光 Trap 房间。接手先读[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)与[本轮交付](phase3-low-light-exploration-2026-10-12.md)，下方旧合并状态及“低光照未接线”为历史记录。Q 停点保留，下一块为板块与 Curio 覆盖，Phase 3 未完成。
+> 2026-10-12 最新入口：Kyries 授权第一步并要求合并。依赖 #120 最新 head 两项 CI 成功，已合并为 main `d50a823`；`codex/phase3-low-light-exploration` 已同步该基线，实现 `bacf3ac`，对应 [PR #121](https://github.com/Alpaca-go/ddbg-web/pull/121)，等待最新 head CI 成功后合并。已接 Darkness 降光、光照 0–5 探索与低光 Trap 房间。接手先读[总交接顶部](./HANDOFF-FROM-CODEX-2026-10-09.md)与[本轮交付](../phases/phase3/phase3-low-light-exploration-2026-10-12.md)，下方旧合并状态及“低光照未接线”为历史记录。Q 停点保留，下一块为板块与 Curio 覆盖，Phase 3 未完成。
 
-> 2026-10-12 最新入口：#119 含交接入口的 `a9caf2b` 已通过两项 CI，并按本次授权合并为 main `5681196`，本地 main 已 ff-only 同步。当前主题分支 `codex/phase3-exploration-trap`，代码 `83c6533`、开放草稿 [PR #120](https://github.com/Alpaca-go/ddbg-web/pull/120)，接探索骰 Trap 攻击，尚未合并；本次 PR 入口补记随同分支提交。本地 typecheck、lint、75 文件 / 725 项测试、build 与六条冒烟通过，最后中文提示修正另复核类型、lint 与新增场景；合并前须核对最新 head 两项 CI。接手先读[总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)与[探索 Trap 交付](phase3-exploration-trap-2026-10-12.md)。下一块为 Darkness 降光与低光照探索接线；Q-66 / Q-67 / Q-68 不变，Phase 3 未完成。下方旧入口与未合并状态均为历史记录。
+> 2026-10-12 最新入口：#119 含交接入口的 `a9caf2b` 已通过两项 CI，并按本次授权合并为 main `5681196`，本地 main 已 ff-only 同步。当前主题分支 `codex/phase3-exploration-trap`，代码 `83c6533`、开放草稿 [PR #120](https://github.com/Alpaca-go/ddbg-web/pull/120)，接探索骰 Trap 攻击，尚未合并；本次 PR 入口补记随同分支提交。本地 typecheck、lint、75 文件 / 725 项测试、build 与六条冒烟通过，最后中文提示修正另复核类型、lint 与新增场景；合并前须核对最新 head 两项 CI。接手先读[总交接顶部](./HANDOFF-FROM-CODEX-2026-10-09.md)与[探索 Trap 交付](../phases/phase3/phase3-exploration-trap-2026-10-12.md)。下一块为 Darkness 降光与低光照探索接线；Q-66 / Q-67 / Q-68 不变，Phase 3 未完成。下方旧入口与未合并状态均为历史记录。
 
-> 2026-10-12 最新入口：#118 含总交接补记的 `a641f45` 已通过两项 CI，并按 Kyries 本次授权合并为 main `1e701a7`，本地 main 已 ff-only 同步。当前主题为 `codex/phase3-dark-room` 的 Dark 房间与地图 Torch，代码 `6a817ec`、开放草稿 [PR #119](https://github.com/Alpaca-go/ddbg-web/pull/119)，未合并；接手先读 [总交接顶部](HANDOFF-FROM-CODEX-2026-10-09.md)与 [Dark 交付](phase3-dark-room-2026-10-12.md)。低光照探索 / Trap 仍是实现边界，Q-66 / Q-67 / Q-68 继续保持待定，Phase 3 尚未完成。下方入口与 PR 状态均为历史记录。
+> 2026-10-12 最新入口：#118 含总交接补记的 `a641f45` 已通过两项 CI，并按 Kyries 本次授权合并为 main `1e701a7`，本地 main 已 ff-only 同步。当前主题为 `codex/phase3-dark-room` 的 Dark 房间与地图 Torch，代码 `6a817ec`、开放草稿 [PR #119](https://github.com/Alpaca-go/ddbg-web/pull/119)，未合并；接手先读 [总交接顶部](./HANDOFF-FROM-CODEX-2026-10-09.md)与 [Dark 交付](../phases/phase3/phase3-dark-room-2026-10-12.md)。低光照探索 / Trap 仍是实现边界，Q-66 / Q-67 / Q-68 继续保持待定，Phase 3 尚未完成。下方入口与 PR 状态均为历史记录。
 
 > 2026-10-12 当前接手入口（补齐最近提交）：#115 / #116 / #117 已合并，远端与本地 main 均为 `3407f38`。当前检出 `codex/phase3-empty-area-vertigo`，代码提交 `7f8323d`，对应开放草稿 [PR #118](https://github.com/Alpaca-go/ddbg-web/pull/118)，尚未合并；该代码 head 的质量与 Playwright 两项 CI 均通过。本次总交接补记在同分支追加并随 #118 提交。
 >
 > 已交付：真实房间战斗与地图回传、完整 42 张 I 级怪物池和获批参战字段、四核心 I 级英雄完整防御、疾病 / 负面怪癖运行时，以及 Balanced 可选减位移。#118 新增空区域技能的 Vertigo 位移压力到 10 收尾，尚不能视为 main 已交付。Phase 2 按批准范围验收通过，Phase 3 仍未形成完整任务，Phase 4–6 未完成。
 >
-> 接手先读 [Codex 总交接顶部补记](HANDOFF-FROM-CODEX-2026-10-09.md)、[Balanced 交付](phase3-balanced-shuffle-2026-10-12.md)和[空区域 Vertigo 交付](phase3-empty-area-vertigo-2026-10-12.md)。下一块先审阅 #118；合并后同步 main，再继续已明确规则的复合事件或下一张遗迹 Room Tile 核对准备。Q-66 / Q-67 / Q-68 继续保持待定，涉及真实目标攻击 / 反击或追加伤口的压力复合仍保留停点。下文的旧 tip、待办、#114 / #115 未合并及数据未获批叙述均是历史基线，不覆盖本段。
+> 接手先读 [Codex 总交接顶部补记](./HANDOFF-FROM-CODEX-2026-10-09.md)、[Balanced 交付](../phases/phase3/phase3-balanced-shuffle-2026-10-12.md)和[空区域 Vertigo 交付](../phases/phase3/phase3-empty-area-vertigo-2026-10-12.md)。下一块先审阅 #118；合并后同步 main，再继续已明确规则的复合事件或下一张遗迹 Room Tile 核对准备。Q-66 / Q-67 / Q-68 继续保持待定，涉及真实目标攻击 / 反击或追加伤口的压力复合仍保留停点。下文的旧 tip、待办、#114 / #115 未合并及数据未获批叙述均是历史基线，不覆盖本段。
 
 ## 历史交接基线（以下保留各轮原记录，当前入口见上方）
 
-> 2026-10-12 当前进度：#114 已合并到 main `202a14e`。Kyries 要求后续作为一次重型任务推进；`codex/phase3-guarded-battle-loop` 已接真实房间战斗、胜利 / 四轮撤退回传与 Small 挤占，仍待审 / 未合并。九种新怪物核图确认请求尚未收到回复，疾病 / 新增完整效果仍待继续，整个重型任务与 Phase 3 尚未完成。接手先读 [Codex 最新交接](HANDOFF-FROM-CODEX-2026-10-09.md)、[本轮交付与限制](phase3-guarded-battle-loop-2026-10-12.md)和[待审表](monster-battle-review-2026-10-12.md)；下文“怪物池尚未合并”是历史状态。
+> 2026-10-12 当前进度：#114 已合并到 main `202a14e`。Kyries 要求后续作为一次重型任务推进；`codex/phase3-guarded-battle-loop` 已接真实房间战斗、胜利 / 四轮撤退回传与 Small 挤占，仍待审 / 未合并。九种新怪物核图确认请求尚未收到回复，疾病 / 新增完整效果仍待继续，整个重型任务与 Phase 3 尚未完成。接手先读 [Codex 最新交接](./HANDOFF-FROM-CODEX-2026-10-09.md)、[本轮交付与限制](../phases/phase3/phase3-guarded-battle-loop-2026-10-12.md)和[待审表](../reviews/monster-battle-review-2026-10-12.md)；下文“怪物池尚未合并”是历史状态。
 
-> 2026-10-12 最新交接：#113 已合并为 main `258459e`，Phase 3 守卫房间抽牌 / 板块匹配已交付；完整 42 张 I 级怪物池与真实部署记录在 `codex/phase3-monster-pool`，尚未合并。接手先读 [Codex 最新交接](HANDOFF-FROM-CODEX-2026-10-09.md) 与 [怪物牌池交付](phase3-monster-pool-2026-10-12.md)。Phase 3 未形成完整任务；下文阶段状态、tip 与合并准备属于历史记录。
+> 2026-10-12 最新交接：#113 已合并为 main `258459e`，Phase 3 守卫房间抽牌 / 板块匹配已交付；完整 42 张 I 级怪物池与真实部署记录在 `codex/phase3-monster-pool`，尚未合并。接手先读 [Codex 最新交接](./HANDOFF-FROM-CODEX-2026-10-09.md) 与 [怪物牌池交付](../phases/phase3/phase3-monster-pool-2026-10-12.md)。Phase 3 未形成完整任务；下文阶段状态、tip 与合并准备属于历史记录。
 
-> 2026-10-10 持续开发授权：Kyries 要求按四步推进，每个独立主题提交、CI 通过后合并，并更新交接。#92 已合并（`6853d9b`）；人工检查点③已通过，四步按批准范围完成；最新批准及印刷复核见 R-055–R-060。最新状态与下一块见 [Codex 接线交接](HANDOFF-FROM-CODEX-2026-10-09.md)。下文 2026-10-09 的 tip / 完成情况是历史基线，不覆盖最新进度。缺 duration 仍不补默认值。
+> 2026-10-10 持续开发授权：Kyries 要求按四步推进，每个独立主题提交、CI 通过后合并，并更新交接。#92 已合并（`6853d9b`）；人工检查点③已通过，四步按批准范围完成；最新批准及印刷复核见 R-055–R-060。最新状态与下一块见 [Codex 接线交接](./HANDOFF-FROM-CODEX-2026-10-09.md)。下文 2026-10-09 的 tip / 完成情况是历史基线，不覆盖最新进度。缺 duration 仍不补默认值。
 
 > **读者**：即将接手的 Codex（或其他本地编码代理），以及之后再接回 Cursor /「DDBG·开发 2」的人。  
 > **作者**：DDBG·开发 2（Cursor 侧协调机器人）。  

@@ -1,7 +1,7 @@
 # 核心规则说明书 v0.3 变更说明（给 Kyries）
 
 > **读者**：Kyries。这是核心规则说明书 v0.3 草稿的**按章复核入口**。  
-> **对应正文**：[core-rules-spec-v0.3.md](core-rules-spec-v0.3.md)  
+> **对应正文**：[core-rules-spec-v0.3.md](./core-rules-spec-v0.3.md)  
 > **裁定真源**：[docs/rulings.md](../rulings.md) 各 `### R-xxx` **正文**（索引表与正文冲突时以正文为准）  
 > **日期**：2026-11-20（Asia/Shanghai）；**§22.C 八项确认补记** 2026-11-21（Asia/Shanghai）
 

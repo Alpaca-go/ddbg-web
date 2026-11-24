@@ -12,7 +12,7 @@
 | 项                                                                    | 来源                                                                     |
 | --------------------------------------------------------------------- | ------------------------------------------------------------------------ |
 | 九区与部署落点                                                        | R-163、`packages/data/src/normalize/shuffling-horror-room.ts`            |
-| 专用 deploy 与 finish                                                 | **R-182**、[rulings.md](rulings.md#r-182)                                |
+| 专用 deploy 与 finish                                                 | **R-182**、[rulings.md](../../rulings.md#r-182)                          |
 | Boss 进攻 / 目录卡                                                    | `darkest_boss_content.json` quest:p016 · `monster_large:p017` aggressive |
 | 先攻 6（4 英雄 + 1 Boss 实体 + 目录 2 张 printed 补 1 张 monster 侧） | `expandDarkestMidBossInitiativeDeckSides` · `initiativeCards: 2`         |
 | 命令与存档 schema                                                     | `deployShufflingHorrorI`、`quest-save.ts`                                |

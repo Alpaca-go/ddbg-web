@@ -2,9 +2,16 @@
 
 Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 开发入口。
 本计划是开发安排，不新增规则裁定；规则来源仍遵守 AGENTS.md、R-001、R-048。
-新增或修改任何内容 ID 前，先读 [ID 命名规范](id-naming-rules.md)（v1.1，必读；AGENTS.md 已钉死）。
+新增或修改任何内容 ID 前，先读 [ID 命名规范](../id-naming-rules.md)（v1.1，必读；AGENTS.md 已钉死）。
 
 ## 当前进度与下一步
+
+- **2026-11-25 仓库文件重组（P2–P8，无规则/数据改动）**：engine 与 data 的 `src` 改为「包为第一层、包内按类型分目录」，
+  与包无关的机制进 `shared/`；测试全部移到 `packages/<pkg>/tests/`（镜像 `src`），data 构建器统一 `*.build.ts`
+  后缀；`apps/web/e2e` 按 `core`／`weald` 分组；`docs/` 的 503 个 md 归入 `phases/`、`handoffs/`、`plans/`、`reviews/`。
+  同时把 pnpm 的 workspace 链接去掉（`hoistWorkspacePackages: false` + `@ddbg/*` 改路径别名），仓库内不再有指向
+  `packages/*` 的 junction。目录约定见 [仓库数据、测试与部署边界](../repo-layout.md) 与 `AGENTS.md`。
+  `packages/data/extract` 与 `normalized` 的 JSON 目录保持原位：raw 路径字符串嵌在 normalized JSON 里，移动会改数据内容。
 
 - **I 幕三 Boss 连续战役已自动验收（Radiant，seed 7／13／56）**：同一明亮战役驱动（保守战斗＋明亮侦察＋战斗补给＋正式新战役）从正式核心＋Weald 开局，完成两趟普通任务后经村庄接 `Face the Threat`，按 R30 布置边缘房，分别击败 Pounder I（seed 7）、Hag I（seed 13）与 Shrieker I（seed 56），回村领取 3 XP；随后从同一末态执行 `advanceRuinsAct`，以 `tasks-v1` 抽选并出征 Weald II 级任务。三份完整 JSON 存档均从第一次出征入口严格回放。见 [Boss 连续战役回归](../../packages/engine/tests/weald/weald-face-the-threat-natural-boss-campaign.test.ts) 与 [Hag 回放](../../packages/engine/tests/weald/weald-face-the-threat-natural-replay.test.ts)。
 - **驱动与种子**：`WEALD_NATURAL_ACT_ONE_RADIANT_CAMPAIGN_DRIVE` 固化了该驱动；0–127 扫描另得 Shrieker seed 60／83／91／97 同样全胜可读回，seed 0／73／115 击败 Shrieker 后因 `noWaitingHeroes` 未能回村，保留为反例。Pounder／Hag 本驱动下仅 seed 7／13 全胜；普通任务或 p019 探索仍会耗尽替补。跨幕判定由 `wealdBossVictory` 统一读取，不再只认 Hag。
@@ -13,7 +20,7 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 - **扫描记录**：R-273 后重扫 Standard 0–127，seed 7／8／47／90 自然全胜（Pounder／Shrieker）；原 seed 49／111 不再全胜，因为跨地点威胁过滤改变了对应战斗。Stygian 0–127 中仍仅 seed 20 击败 Hag I 且回村可读回。主要停点仍是 `noWaitingHeroes`（旧扫描 Standard 76、Stygian 81 个种子；R-273 后未重扫计数），其余为英雄全灭、村庄无可用建筑服务与未接线压力／危险结算接口。既有 seed 3 Stygian 夹具回归不受影响。
 - **本轮验证（#786）**：typecheck、lint、build 通过；Boss 连续战役 4 测（Radiant 2、Standard 1、Stygian 1）与 Stygian 自然回放 7 测通过。
 - **e2e 夹具修复（#787）**：R-271 的 `chainCrowding` 由页面 dispatch 写入，但 zero-capacity／monster-zero-capacity／poisonous-roots 夹具未带该版本标记，导致 #783 起 CI 的 3 条 Playwright 深比较用例失败。补齐夹具后本机 3 条用例通过；仅测试夹具，不改引擎、页面行为或日志版本语义。
-- **R-273 跨地点威胁边界（#788，Shrieker 已收口）**：核心＋Weald 混合战役按 W3 混洗所有启用地点 Boss，遗迹 Boss 的威胁会在 Weald 任务生效。Necromancer II 的 Army of the Dead 要求首战生成 Bone Captain，而 Weald 池没有该卡，引擎整场拒绝开战。Kyries 指示“不要出现遗迹的 boss 在 weald 的任务里”，登记 [R-273](rulings.md)：**地牢侧威胁只在该 Boss 所属地点的地牢生效，村庄侧不变**。已接入遗迹 Boss 的 Army of the Dead、higher ruins、威胁压力／战斗开始状态与战后池移除，以及 Weald Boss 的 Hag／Pounder／**Shrieker（I 的补给盗取、II／III 的跳补给骰与高等级盗取）**入口。新增 `threat-location-scope.test.ts`；受影响 Boss 场景夹具改用真实 Weald 任务分布或生产地点标记。
+- **R-273 跨地点威胁边界（#788，Shrieker 已收口）**：核心＋Weald 混合战役按 W3 混洗所有启用地点 Boss，遗迹 Boss 的威胁会在 Weald 任务生效。Necromancer II 的 Army of the Dead 要求首战生成 Bone Captain，而 Weald 池没有该卡，引擎整场拒绝开战。Kyries 指示“不要出现遗迹的 boss 在 weald 的任务里”，登记 [R-273](../rulings.md)：**地牢侧威胁只在该 Boss 所属地点的地牢生效，村庄侧不变**。已接入遗迹 Boss 的 Army of the Dead、higher ruins、威胁压力／战斗开始状态与战后池移除，以及 Weald Boss 的 Hag／Pounder／**Shrieker（I 的补给盗取、II／III 的跳补给骰与高等级盗取）**入口。新增 `threat-location-scope.test.ts`；受影响 Boss 场景夹具改用真实 Weald 任务分布或生产地点标记。
 - **本轮验证（#788／#790）**：`packages/engine/src/boss` 与 `expansions/weald` 共 158 文件／1145 测通过（1 跳过）；Shrieker 收口后新增共享夹具修正，`core-trinkets`、`dungeon-curio`、`shrieker-i-entry-save`、`shrieker-skip-provision-rolls` 等 97 测通过。全量 `pnpm test` 本轮超过 40 分钟未跑完，已中止并以定向验证＋CI 为准（不是通过）。
 - **范围口径（X1，Kyries 2026-11-19）**：Musketeer 已完成并进入英雄选池；Warrens／Cove 尚未开始，当前只在游戏开始的拓展包条目中登记选项与数据，地点战役未开放。`AGENTS.md` 中“Musketeer 首版不纳入（R-008）”按 R-200 更新。
 - **Act II 探测与 V1 基线（历史，已入库）**：`weald-act-two-probe.test.ts`（P1 第一趟 II 级任务）与 `weald-act-two-journey.test.ts`（V1 5-seed 基线）已入库；V1 于 2026-11-19 停止，自然全胜不再作为流程门槛。旧“本地临时探测、未入库”说法已作废。现有回归覆盖到受控/公开命令的阶段推进与存档回放，不再要求特定种子打通 II Boss。
@@ -21,7 +28,7 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 - **I 幕 Hag 连续战役已自动验收（Radiant，seed 13）**：从正式核心＋Weald 新战役抽选开局，完成两趟普通任务，经村庄准备接 `Face the Threat`，按 R30 布置边缘房，击败 Hag I 并回村领取 3 XP。随后从同一末态执行 `advanceRuinsAct`，以 `tasks-v1` 抽选并出征 Weald II 级任务。完整 JSON 存档从第一次出征入口严格回放。见 [连续战役回归](../../packages/engine/tests/weald/weald-face-the-threat-natural-replay.test.ts)。
 - **定位及修正**：部分样本在普通任务或 p019 探索时耗尽替补。seed 13 在旧驱动下走完 p019，选任务时漏传正式页面已有的 `bossEdgeRooms: true`。补上后发现 R-255 入锅会让战斗持牌校验漏掉锅内英雄。现将锅内英雄计入疾病／怪癖与饰品守恒；出锅和正常战场选目标沿用原入口。回村完成后先升幕再抽村庄事件（R35）。
 - **本轮验证（#784）**：typecheck、lint、build 通过；定向 Vitest 23 文件／219 测与全量 `pnpm test` 均通过。Playwright 的 Hag I 部署／先攻／释放以及 Stygian 正式出征两条冒烟通过（本机 Edge）。
-- **P1 盘点（2026-11-19，已拍板；部分状态已被后续收口取代）**：见 [P1 未确认项盘点](weald-p1-open-items-2026-11-19.md)。Q-186 三项边界（全局图标词典、I 级目录验证标记、PvP）确认为“保留边界”；`usable/runtimeReady=false` 保持到整稿复核；**R-272 状态：Stygian I→II 已验收，混合 II→III 由受控夹具覆盖，自然全胜不作门槛**；Act II 5-seed 基线已入库；8 个扩展英雄 higher-skill 测试覆盖、无 unwired 标记。**V1 已停止**（Boss 胜负属玩家决策）。P1 文档本身为 2026-11-19 历史快照，U3／U4 的“待做”“需要 V1”以本文件为准。
+- **P1 盘点（2026-11-19，已拍板；部分状态已被后续收口取代）**：见 [P1 未确认项盘点](../reviews/weald-p1-open-items-2026-11-19.md)。Q-186 三项边界（全局图标词典、I 级目录验证标记、PvP）确认为“保留边界”；`usable/runtimeReady=false` 保持到整稿复核；**R-272 状态：Stygian I→II 已验收，混合 II→III 由受控夹具覆盖，自然全胜不作门槛**；Act II 5-seed 基线已入库；8 个扩展英雄 higher-skill 测试覆盖、无 unwired 标记。**V1 已停止**（Boss 胜负属玩家决策）。P1 文档本身为 2026-11-19 历史快照，U3／U4 的“待做”“需要 V1”以本文件为准。
 - **V1 续 3（2026-11-19）**：继续尝试治疗优先（`emergencyHeal`）、游商饰品与铁匠 III 团队升级；三者在 seed 7 均未改变 II Boss 结果（治疗版本反而拖慢清场，游商占用村庄行动导致更早失败，铁匠 III 升级 2 次但技能/结果不变）。另测 seed 60／83／91／97 也都在 II 幕更早停。当前瓶颈是 **II Boss 的爆发伤害与当前自然队伍/策略不匹配**，不是单一资源项。
 - **V1 停止（2026-11-19，Kyries）**：Boss 胜负是玩家决策，不是流程缺陷；只要公开命令不违反规则，就**不再把“自然全胜”作为 II 幕门槛**。II→III 继续用受控夹具／公开命令覆盖阶段推进与存档回放；不再继续调测试玩家。V1 诊断基线保留，但明确不是验收。
 - **P2 文档收口（2026-11-19）**：X2 Weald 规格书状态与 Q-186 章节更新为“已核准”，并注明批次运行说明为历史；X5 步骤 7 改为“内容已接线，验收中”；X6 明确 `usable=false`／`runtimeReady=false` 是保留标记而非未实现；X3 旧交接文档加历史横幅并继续保持未跟踪。X1、X4 已随 P0 关闭。
@@ -53,7 +60,7 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 - **当前批次（第三刀续）**：Whispering Woods 与 `tasks-v1` 十张 II／III 普通任务在 Stygian 下接通出征／村庄选任务／专属效果（R-264／R-265），沿用九房 Stygian 替换与 0 起始金；旧版无 `tasks-v1` 日志不变。
 - **当前批次（第五刀）**：村庄跨幕高等级走 **`tasks-v1` 正式路径**（新战役页面与 `createCampaignQuest` 一致）；**不**把旧 `wealdHigherQuestOffers:true` 扩成 II 级池（该版本仍仅 III 级 p015，与 R-264／R-265 十卡栈无关）。引擎 `#769` 已移除 Stygian 闸门，本刀以村庄 II 级抽选／出征回归与清单更新为主。
 - **当前批次（第六刀）**：出征准备 `locationBosses`／七位 Boss 迫近威胁在 Stygian＋核心＋Weald 与 standard／radiant 同 UI；`establishImminentThreat` 仅在接受完整 `pounderBossBattles` 生产命令时允许 Stygian 携带两段威胁标记，单独试验命令仍拒。
-- **当前批次（第七刀）**：规则书只读复核：**无 Stygian 升幕抽牌专属拒绝**；原「引擎仍拒（W3）」为**计划误述**（实为 `!wealdHigherBosses` 版本守卫）。`drawImminentThreatAfterActAdvance` 生产路径已回归。p008 普通一项／Stygian 两项 2t 已目视结清。见 [升幕抽威胁核查](weald-stygian-act-threat-review-2026-11-17.md)。
+- **当前批次（第七刀）**：规则书只读复核：**无 Stygian 升幕抽牌专属拒绝**；原「引擎仍拒（W3）」为**计划误述**（实为 `!wealdHigherBosses` 版本守卫）。`drawImminentThreatAfterActAdvance` 生产路径已回归。p008 普通一项／Stygian 两项 2t 已目视结清。见 [升幕抽威胁核查](../reviews/weald-stygian-act-threat-review-2026-11-17.md)。
 - **当前批次（第八刀，2026-11-17 规则书结论）**：Weald 地点战役与遗迹共用 **`quest:p019`** 与 `advanceRuinsAct` 命令；`readRuinsActTransitionReadiness`／`switchWealdActPools` 按生产路径（`locationBossThreats`＋`wealdHigherBosses`＋`bossLocationSources`＋`bossExpeditionRegion:weald`，II／III 须 `tasks-v1`）读回并提交升幕。不新加 Weald Boss 任务卡、不改 p019 触发。**未验收**：自然跨幕养成日志、步骤 8 整幕实机；夹具≠自然日志。
 - **当前批次（第九刀）**：`advanceRuinsAct` 在 **`wealdLocationActAdvanceEnabled`**（显式 `wealdHigherBosses` 等）升幕写入 **`wealdHigherQuestOffers:tasks-v1`**；遗迹升幕不写。生产 Boss 标记仅经 **`establishImminentThreat` 显式命令**守恒至出征，**不**在 `chooseNextQuest` 隐式补齐（旧版 strict replay 不变）。回归：`weald-face-the-threat-act-chain.test.ts`、`weald-act-advance`、`advance-ruins-act`、`hamlet-embark` p019 旧版／生产分测。**仍缺**：自然全链命令日志；不宣称步骤 8 自然跨幕验收。
 - **当前批次（第十刀，生产衔接）**：在 `d46d6ab4`（#774）起点上于 `origin/main` 核查并闭合三处接线缺口（夹具受控回归，**不是**步骤 8／自然日志验收）：
@@ -78,7 +85,7 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 - Houndmaster、Shieldbreaker 已接入，沿用现有英雄实现，不重做。
 - Hag I 与 Brigand Pounder I 的已核准运行时、页面和日志入口已接；两者跨任务养成／自然胜利验收仍有缺口。Shrieker I 的核准数据、技能／三行动、Nest 生命周期、双威胁、正式出征／交接、日志和页面已接齐；完整版本开放开战，旧无标记命令保留旧停点。三个 Boss 的自然养成／实机验收仍不结案。
 - 普通九张房间与板块几何批已结案（R-239）；Boss 房、Stygian 与其余扩展仍按各自审阅批次推进，不按本批类推。
-- 奇物批次 `40b2617f` 与步骤 2 首批组池改动已合入 `main`：16 张、64 行由 Kyries 确认（R-233），独立目录与 Torch 效果规划已接入。见 [奇物审阅记录](weald-curio-review-2026-11-11.md)。第十四批已在 I 级换任务时按地点重建当地＋通用奇物来源，整体可玩验收仍随后进行。
+- 奇物批次 `40b2617f` 与步骤 2 首批组池改动已合入 `main`：16 张、64 行由 Kyries 确认（R-233），独立目录与 Torch 效果规划已接入。见 [奇物审阅记录](../reviews/weald-curio-review-2026-11-11.md)。第十四批已在 I 级换任务时按地点重建当地＋通用奇物来源，整体可玩验收仍随后进行。
 - 首批更正见 R-230；Blight 中文统一为腐蚀（R-231）；抗性/免疫和大型卡灰栏见 R-232。技能选区已结案，不再送审。原始图标命名状态与实际部署能力分别记录。
 
 ## 开发顺序与完成标准
@@ -125,7 +132,7 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 
 ### 普通房间效果的实际接线状态
 
-卡面语义沿用 [R-234–R-239](rulings.md)及[房间审阅稿](weald-room-review-2026-11-12.md)，不新增规则。核对 [房间生成器](../../packages/data/src/weald/rooms/weald-rooms.build.ts)、[区域投影](../../packages/engine/src/weald/weald-mechanics.ts)与[数据 schema](../../packages/data/src/weald/rooms/weald-room.ts)：区域投影仍只接 `poisonousRoots`；Toxic Mushrooms 按核准房间身份与星区独立结算，schema 已允许 1 号 Toxic Mushrooms 与 4 号 Precious 的区域效果开启 `runtimeReady`。2／8 号是全房间触发，不能因 `specialRegions` 为空误记为没有效果。
+卡面语义沿用 [R-234–R-239](../rulings.md)及[房间审阅稿](../reviews/weald-room-review-2026-11-12.md)，不新增规则。核对 [房间生成器](../../packages/data/src/weald/rooms/weald-rooms.build.ts)、[区域投影](../../packages/engine/src/weald/weald-mechanics.ts)与[数据 schema](../../packages/data/src/weald/rooms/weald-room.ts)：区域投影仍只接 `poisonousRoots`；Toxic Mushrooms 按核准房间身份与星区独立结算，schema 已允许 1 号 Toxic Mushrooms 与 4 号 Precious 的区域效果开启 `runtimeReady`。2／8 号是全房间触发，不能因 `specialRegions` 为空误记为没有效果。
 
 | 房间                 | 已核准效果       | 当前状态／后续触发位置                                                                                                                                                                                                                      |
 | -------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -157,10 +164,10 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 
 ## 资料入口
 
-- [Weald 规则规格书](spec/weald-rules-spec-v0.1.md)：W1–W4，含 W-01–W-05。
-- [导入记录与解析停点](weald-location-intake-2026-11-11.md)。
-- [内容包隔离约定](content-pack-isolation-2026-11-11.md)。
-- [裁定与 Q-186](rulings.md)。
+- [Weald 规则规格书](../spec/weald-rules-spec-v0.1.md)：W1–W4，含 W-01–W-05。
+- [导入记录与解析停点](../weald-location-intake-2026-11-11.md)。
+- [内容包隔离约定](../content-pack-isolation-2026-11-11.md)。
+- [裁定与 Q-186](../rulings.md)。
 - 原始资料目录：`C:\Users\kyrie\Desktop\新建文件夹\DARKEST DUNGEON EN_FILES\DARKEST_DUNGEON_PRINT_EN_WAVE 2\MG_DD_06_EN_WEALD`。
 - 已导入数据：`packages/data/extract/extension/weald/`。
 - 本地私有审阅页：`node_modules/.cache/weald-review/cards/index.html`；可按导入记录用 `--review` 重建，页面与图片不提交。
@@ -242,7 +249,7 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 ### 步骤 3 首批：房间与板块审阅入口
 
 - 来源重建批已提交、合入并推送 main（`2e387fdd`）。本批在 `codex/weald-room-review` 接续。
-- 新增[普通房间首批审阅](weald-room-review-2026-11-12.md)：对照房间卡图像，登记九张普通房间名称、效果候选及与六张双面板块的印刷编号关系；将三个 Boss 房单独留给步骤 6。
+- 新增[普通房间首批审阅](../reviews/weald-room-review-2026-11-12.md)：对照房间卡图像，登记九张普通房间名称、效果候选及与六张双面板块的印刷编号关系；将三个 Boss 房单独留给步骤 6。
 - 1 号板块记录八个可见区域的容量点数候选及部署／效果标记；尚未核准容量、邻接、墙、高低地或真菌落点，其他八张普通板块几何仍待逐格核对。
 - Q-186 延续本批卡面及几何审阅，不新增裁定；九张房间效果及 1 号板块容量／标记已由 Kyries 修改核准（R-234）；其余几何仍待审。未将候选写入 normalized，没有开放 Weald 出征，三项召唤继续整招停点。
 - 下一刀：核实九张房间效果图标并逐张补板块几何，已确认字段再接运行目录；步骤 2 正式日志存档闭环待房间与任务登记后回补。本批文档及 R-234 一并提交合入 main，提交可用本文件 git log 定位。
@@ -355,14 +362,14 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 
 - 起点 main `8b92693d`（步骤 4 战斗创建批）。本批在 `cursor/weald-l1-quest-review-1478` 接续。
 - 对照 `packages/data/extract/extension/weald/raw/quest.json`（`MG_DD_06_EN_WEALD` 任务 PDF p1–15），列出 **Quest I 背面五张**普通任务候选表：名称、Rest、SPECIAL、XP、卡底分布行（图标 hash 保留）、与 Weald 房间编号交叉引用；**不含** II／III、Boss、Stygian。
-- 盘点村庄选任务、出征、探索／战斗、回村、选包隔离、存档回放依赖；结论见 [I 级任务审阅稿](weald-level-one-quest-review-2026-11-13.md)。**未**写 normalized、**未**改 `usable`、**未**开放出征。
+- 盘点村庄选任务、出征、探索／战斗、回村、选包隔离、存档回放依赖；结论见 [I 级任务审阅稿](../reviews/weald-level-one-quest-review-2026-11-13.md)。**未**写 normalized、**未**改 `usable`、**未**开放出征。
 - 待确认：Q-186 延续（任务分布图标、`p002` Crone LvL 2 部署、`p001` 真菌目标等）；核准前不接 `basicQuests`／`rebuildLocationQuestDecks` 任务侧。
 - 验证：两份 Markdown 的 Prettier 检查与 `git diff --check`；未重跑运行代码质量闸门。
 
 ### 步骤 5 第二批：Kyries 2026-11-13 口头确认登记（仅文档）
 
 - 起点 main `4c62bb34`。分支 `cursor/weald-l1-quest-kyries-2026-11-13-beef`。
-- 登记 **R-240**（六项分布 hash）、**R-241**（p004 地点图标与巢穴 SPECIAL）、**R-242**（p005 先攻 d10 与分布构成）；更新 [I 级任务审阅稿](weald-level-one-quest-review-2026-11-13.md) 误归（`56ea9289ab` 非地点旗帜、`d3a3e38ee9` 非报酬图标、重叠检出）。
+- 登记 **R-240**（六项分布 hash）、**R-241**（p004 地点图标与巢穴 SPECIAL）、**R-242**（p005 先攻 d10 与分布构成）；更新 [I 级任务审阅稿](../reviews/weald-level-one-quest-review-2026-11-13.md) 误归（`56ea9289ab` 非地点旗帜、`d3a3e38ee9` 非报酬图标、重叠检出）。
 - Kyries 明确「先审这些，剩下的我还在查」：p001–p003 目标、`1154a8a4d4` 等未点名 hash、顶端徽章／蜡封、p004 巢穴抽牌法仍 **待确认**。
 - **未**写 normalized、**未**改 `usable`、**未**开放出征；步骤 5 规范化仍待其余项审完后。
 - 验证：三份 Markdown 的 Prettier 与 `git diff --check`；未重跑运行代码质量闸门。
@@ -465,7 +472,7 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 ### 步骤 5 第十二批：Crone 战斗字段审阅（Q-186）
 
 - Kyries 同意按接续建议顺序推进；当前先补 Circle of Witches 的 II 级 Crone，不重做已完成的部署。
-- 新增 [Crone 审阅稿](weald-crone-review-2026-11-13.md)，逐页核对印刷 FRONT p15／p16，核对缓存 BACK p15；原始 PDF 只读，图片只存忽略缓存。
+- 新增 [Crone 审阅稿](../reviews/weald-crone-review-2026-11-13.md)，逐页核对印刷 FRONT p15／p16，核对缓存 BACK p15；原始 PDF 只读，图片只存忽略缓存。
 - 已登记属性、防御、三个技能和姿态表的候选值。核心第 19 页无 Acc 直接生效有现有规格书及 R-025 依据；本卡闪避／效果图标语义与技能 3 光照结算仍在 Q-186 待核准。
 - 未改 normalized／运行时，combatReady 仍为 false，未开放 II 级随机池或提前进入 Boss。
 - 下一步：核准 Crone 审阅表，明确技能 3 光照结算后接独立任务例外战斗目录及场景测试；随后继续正式日志存档闭环。
@@ -589,7 +596,7 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 
 - 起点 main `5035038a`（#661 已 squash 合入）；分支 `codex/weald-hag-entry-review`。合入时 #661 代码完整 CI 已成功，末次纯文档补跑仍在进行中，不记作已完成。
 - I 级收尾核对：五任务的固定种子自然场景、XP／回村与日志已补齐；普通九房经独立选择器运行，但 schema 的 usable 仍显式 false，泛用地点开放、Boss／Stygian 与同一完整战役验收不是本批顺带放行项。步骤 1–5 不一并标为完成，步骤 6 仅标前置审阅。
-- 使用当前官方 Weald 印刷源逐页渲染核对 W4、Hag／Cauldron I 能力与战斗卡、10 号房间及板块全图，图片仅存忽略缓存。新增 [Hag I 印刷接线审阅](weald-hag-i-review-2026-11-14.md)，记录真实 raw 页序、旧别名、卡面候选与独立待审边界；沿用 Q-186，不发明新裁定、不将候选写入 normalized。旧 Phase 5 Hag 记录加历史说明，避免继续当作已核准数据。
+- 使用当前官方 Weald 印刷源逐页渲染核对 W4、Hag／Cauldron I 能力与战斗卡、10 号房间及板块全图，图片仅存忽略缓存。新增 [Hag I 印刷接线审阅](../reviews/weald-hag-i-review-2026-11-14.md)，记录真实 raw 页序、旧别名、卡面候选与独立待审边界；沿用 Q-186，不发明新裁定、不将候选写入 normalized。旧 Phase 5 Hag 记录加历史说明，避免继续当作已核准数据。
 - 官方 W4 已明确空锅位于 Ranged，修正旧 Aggressive 声明；部署须来自显式 monsterStanceAreas，并检查区域实际存在，移除从同姿态英雄位置推断区域的回退（R-048）。受控测试把怪物部署区与英雄所在区明确分开；缺映射或区域不存在时保持原状态并拒绝。不把受控区域当作已批准的 10 号几何。
 - Hag 两次行动与整场三张怪物先攻分开：printedInitiativeCards=2 是旧 Hag 自身声明，不能直接改成 3 后另加锅一张。完整 Hag＋锅先攻适配、空锅跳过、英雄入锅／释放、移除锅、正式任务入口与清场仍待接线；锅 Full 背面身份及迁移策略待定。旧测试 100／120 Life 等人工数值不作为印刷来源。
 - 本地 Hag 两文件 20 项、核心威胁／遭遇／Necromancer／Prophet 四文件 43 项通过，合计六文件 63 项；typecheck、lint、build 通过。既有 Weald 首趟抽选／锁定抽法／出征刷新恢复 Playwright 一条通过（12.8 秒，未启用重试）；未新增伪造的 Hag 浏览器场景，正式 Boss 闭环尚未到阶段验收。Node 24.20.0 低于约定 24.21.0，pnpm 12.9.1；代码 `e6db26c6` 的 [完整 CI](https://github.com/Alpaca-go/ddbg-web/actions/runs/43563088729) 全绿：typecheck、lint、完整单测、build、完整 Playwright 均成功；日志核实 **523 文件、3,902 项通过、1 项沿用跳过**（878.34 秒）。PR #662 已转待审，不启动本地重复全量。
@@ -645,7 +652,7 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 ### 步骤 6 第七批：W4 空锅清场与 R-255 入锅／释放状态原语
 
 - 起点 main `4ba1fb3a`（#666 已 squash 合入、本机同步并删除远端分支）；分支 `codex/weald-hag-empty-clear`。#666 代码完整 CI 全绿；合入时末次纯文档补跑仍进行中，不将其写作已完成。
-- 复核官方 W4、Hag／锅能力与 Into the Pot 卡面图像后提出三项 Q-186 问题。Kyries 本次逐项确认，已登记 R-255 并同步 [Hag 审阅表](weald-hag-i-review-2026-11-14.md)：英雄离板上锅卡、无原姿态／先攻且不可操作或选中；每次 Hag 空锅回合先入锅再同回合第二招；Full 打翻或 Hag 清场时释放到邻接合法区，英雄 Aggressive、其余后移。不再将这三项列为待确认，不使用 FAQ。
+- 复核官方 W4、Hag／锅能力与 Into the Pot 卡面图像后提出三项 Q-186 问题。Kyries 本次逐项确认，已登记 R-255 并同步 [Hag 审阅表](../reviews/weald-hag-i-review-2026-11-14.md)：英雄离板上锅卡、无原姿态／先攻且不可操作或选中；每次 Hag 空锅回合先入锅再同回合第二招；Full 打翻或 Hag 清场时释放到邻接合法区，英雄 Aggressive、其余后移。不再将这三项列为待确认，不使用 FAQ。
 - 先接 W4 无歧义的空锅清场：在明确 Hag 本次死亡的 Boss 遭遇交接中移出仍存活的 Empty，沿用既有伴战角色保留日志身份和死亡标志的实现，伤口与 Life 不变，不追加 RNG／战利品。随后由共用死亡交接与胜利检测收尾。未发生本次死亡、非 Boss 遭遇或 Full 均不类推处理；不把该空锅受控场景写成锅完整生命周期。
 - 新增 R-255 入锅／释放状态原语：英雄从棋盘实体列表移入锅内记录，不保存原区域或姿态；移除尚未用掉的一张英雄先攻，后方英雄前移。Full 按核准 Life／Protection 翻面清伤。释放通过公开 resolveChoice 选择合法邻区，英雄 Aggressive、其余后移，Empty 恢复 Life／Protection 并清伤，不补先攻、不抢用其他英雄剩余先攻。重复请求保留原待选；无合法容量、非法选择与重复释放原子拒绝，不提供猜测落点。
 - 修正强制选招由每轮首次改为每次 Hag 空锅回合，钩子契约同步更名，避免保留误导的 firstActionEachRound。技能自身拉近／命中、同回合第二招、Boil 与自动释放触发尚未连接这些状态原语，正式投影卡的 Into the Pot 拒绝仍保留；不把可调用的状态原语写成完整技能或战役已完成。
@@ -755,7 +762,7 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 ### Brigand Pounder I 审阅准备（2026-11-15）
 
 - #677 已合入 `0de65e6d`，合入时 CI 仍在运行，不记全绿。Kyries 明确选择保留 Hag 跨任务自然抵达缺口，先准备 Pounder 审阅资料；这不等于 Hag 结案或批准 Pounder 运行时。
-- 分支 `codex/weald-pounder-review`：新增 [候选审阅稿](weald-pounder-i-review-2026-11-15.md)，逐图查看 W4、描述 p7／能力 p10 正反面、medium p20／p23 正反面、room p12 与 tile p6 背面。重新渲染 W4 和旋转后的村庄威胁，图像只留忽略缓存。
+- 分支 `codex/weald-pounder-review`：新增 [候选审阅稿](../reviews/weald-pounder-i-review-2026-11-15.md)，逐图查看 W4、描述 p7／能力 p10 正反面、medium p20／p23 正反面、room p12 与 tile p6 背面。重新渲染 W4 和旋转后的村庄威胁，图像只留忽略缓存。
 - 记录已由 W4 明确的 1 怪物／4 英雄初始先攻及击败后移除 Brigands；候选转录 Pounder／Matchman 属性、技能、增援、Ranged 进入威胁、村庄轰炸，并列 12 区容量／共边／墙待核对表。I 区未读到容量点，不填 0；特殊页脚、未标签图标、增援缺失判定、触发时序保留待审，沿用 Q-186。
 - 玩家日志文件入口另在草稿 PR #678：导出／严格导入已完成，存储单元 3 项、typecheck、lint、build 与既有浏览器冒烟扩展 1 项通过；不将它混入本次纯审阅文档 PR。
 - 下一步：Kyries 核准卡面与几何后才接独立 Boss 数据；Hag 缺口及原败局保留，不自动批准高等级、Shrieker 或 Stygian。验证：本批仅文档，执行格式、相对链接及 diff 空白检查，不重复跑引擎全量。旧未跟踪交接文档保留、不提交。
@@ -1494,7 +1501,7 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 | 远端                        | #746／#747及重接后的多个中间PR完整CI成功；#758／#759的旧文案断言修正已接续，最新PR轮仍在运行。不将主动取消的重复push轮记作通过 |
 
 - 当前分支 `codex/weald-shrieker-theft-turn-resume`，PR #759；其前按主题串接#746–#758。每批改动均在建议600行以内，提交保留中文说明与PR／裁定编号。主线仍止于已合入的#745；本批PR留待复核。
-- [高等级三Boss审阅稿](weald-higher-boss-review-2026-11-17.md)保留实际卡面表、先行口径、PR对应与逐项复核清单。Hag用R-267，房间／Pounder／Shrieker程序用R-268；先行采用不等于最终逐项核准。高等级目录的combatReady=false仍保留，不用它冒充最终人工验收或否定已经完成的显式版本接线。
+- [高等级三Boss审阅稿](../reviews/weald-higher-boss-review-2026-11-17.md)保留实际卡面表、先行口径、PR对应与逐项复核清单。Hag用R-267，房间／Pounder／Shrieker程序用R-268；先行采用不等于最终逐项核准。高等级目录的combatReady=false仍保留，不用它冒充最终人工验收或否定已经完成的显式版本接线。
 - **规则缺口：Q-189**。Kyries已澄清不能确认逐名挤占，不将R24／R-060的暂时超容量套到R31召唤。单次挤占后仍不足时的后续未定义，当前整次命令原子拒绝仅为技术停点，不判定召唤失败／无效；#750仍为草稿。
 - **下一步**：用户逐项复核R-268及本稿数值／程序，明确Q-189后补齐该支路；再按原步骤8处理真实跨幕来源／养成和人工实机。现有升幕准备仍有遗迹专用假设，不把六个受控高等级入口称作自然跨幕战役已通。
 - 旧未跟踪交接稿未改动。私有图片／PDF未提交；两轮在代码调整期间载入混合版本的本地全量尝试已停止，最终结果仅采用上表冻结版。
@@ -1526,7 +1533,7 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 
 ### Weald Stygian 九房审阅入库首刀（2026-11-17）
 
-- 对照 `DD_EN_WEALD_CARDS_63x88_rooms_Stygian_FRONT.pdf` 九页与 [审阅稿](weald-stygian-room-review-2026-11-17.md)；`stygian_room:weald:p001`–`p009` 替换同名普通房，各 1 份。结构化记录 p008 两项增益 2t、p009 Ours! 仅增益 3t；3／6／7 无效果段。
+- 对照 `DD_EN_WEALD_CARDS_63x88_rooms_Stygian_FRONT.pdf` 九页与 [审阅稿](../reviews/weald-stygian-room-review-2026-11-17.md)；`stygian_room:weald:p001`–`p009` 替换同名普通房，各 1 份。结构化记录 p008 两项增益 2t、p009 Ours! 仅增益 3t；3／6／7 无效果段。
 - 扩展 schema `ddbg-weald-stygian-rooms-v1` 与核心 `ddbg-stygian-rooms-v1` 隔离；当时引擎出征未接线。
 
 ### Weald Stygian 出征替换与效果接线（2026-11-17，步骤 7 第二刀）

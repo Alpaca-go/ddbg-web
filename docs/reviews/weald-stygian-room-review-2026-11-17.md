@@ -11,7 +11,7 @@
 | 印刷 FRONT | `MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_rooms_Stygian_FRONT.pdf`（9 页）                    |
 | 印刷 BACK  | 提取 metadata 登记 `...Stygian_BACK.pdf`；当前印刷包无可用 BACK OCR 正文，**不发明背面效果**   |
 | Raw        | `packages/data/extract/extension/weald/raw/stygian_room.json`（`n_unique=9`）                  |
-| 普通对照   | [普通房间审阅（R-234–R-239）](weald-room-review-2026-11-12.md) 已核准文本                      |
+| 普通对照   | [普通房间审阅（R-234–R-239）](./weald-room-review-2026-11-12.md) 已核准文本                    |
 | 规范化输出 | `packages/data/normalized/extension/weald/stygian_rooms.json`（`ddbg-weald-stygian-rooms-v1`） |
 
 本批**不做**：Stygian 战役出征时按地点替换房间、效果 `runtimeReady`、板块字母／容量／墙／高低地核准、Boss 房（p10–p12）、核心盒 17 张 Stygian 查询语义。星标与效果区域绑定仍待后续对照 R-239 普通房，审阅稿只写「待对照，不在本批核准」。

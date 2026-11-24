@@ -1,6 +1,6 @@
 # A-7 Warm Up the Halls 开局改 Torch
 
-相对 #427 / [暗房点亮切片](phase5-warm-up-dark-room-2026-10-31.md)，本刀只接 QUEST FRONT **p11** SPECIAL 前半句：「After rolling for Provisions, each Hero may turn one of them into a [Torch]」。暗房点亮 / 清理 / 待发 XP 仍由 #427 交付，不重复。
+相对 #427 / [暗房点亮切片](./phase5-warm-up-dark-room-2026-10-31.md)，本刀只接 QUEST FRONT **p11** SPECIAL 前半句：「After rolling for Provisions, each Hero may turn one of them into a [Torch]」。暗房点亮 / 清理 / 待发 XP 仍由 #427 交付，不重复。
 
 ## 已接
 
@@ -14,7 +14,7 @@
 
 ## 未接 / 仍属 A-7
 
-- 从首次出征到 II/III 幕末的 **完整自然 Boss 战役命令日志** 写入 `quest:p019` 正式存档（#413 升幕段仍以回村边界夹具 + 命令重放验收；见 [A-08 切片](phase5-a08-warm-up-natural-iii-replay-2026-11-01.md)）。
+- 从首次出征到 II/III 幕末的 **完整自然 Boss 战役命令日志** 写入 `quest:p019` 正式存档（#413 升幕段仍以回村边界夹具 + 命令重放验收；见 [A-08 切片](./phase5-a08-warm-up-natural-iii-replay-2026-11-01.md)）。
 - 网页专用 UI（沿用通用 `pendingChoice` 即可操作）。
 
 ## 待确认（未自行裁定）

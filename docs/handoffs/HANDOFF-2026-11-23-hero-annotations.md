@@ -1,8 +1,8 @@
 # HANDOFF 2026-11-23：英雄技能注解层整理（第二步交接给 Codex）
 
 新 session 先读本文件，再读 [AGENTS.md](../../AGENTS.md) 与
-[docs/id-naming-rules.md](id-naming-rules.md)。规则裁定以
-[docs/rulings.md](rulings.md) 为准（R-048、R-200 与本批强相关）。
+[docs/id-naming-rules.md](../id-naming-rules.md)。规则裁定以
+[docs/rulings.md](../rulings.md) 为准（R-048、R-200 与本批强相关）。
 
 ## 0. 一句话现状
 
@@ -13,7 +13,7 @@
 
 > **2026-11-23 方向调整（优先读）**：Kyries 已拍板走 A+C 方案
 > （规则只读逐卡注解、图标降级为显示层；提取器一形一 ID），见
-> [PLAN-2026-11-23-icon-semantics-decoupling.md](PLAN-2026-11-23-icon-semantics-decoupling.md)。
+> [PLAN-2026-11-23-icon-semantics-decoupling.md](../plans/PLAN-2026-11-23-icon-semantics-decoupling.md)。
 > 本文 §3–§4 的「把剩余 6 个改成 patch 表」**暂停**：先做该计划的 Phase A1/A2，
 > A3 会直接删掉 h12–h18 的 rekey/重建类代码。本文保留作为当前结构的说明。
 
@@ -23,7 +23,7 @@
 ## 1. 目标结构
 
 文件骨架与两种文件形态见
-[hero-annotations/README.md](../../packages/data/src/normalize/hero-annotations/README.md)：
+[hero-annotations/README.md](../../packages/data/src/core/heroes/annotations/README.md)：
 h01–h11 是纯数据表，h12–h18 是「数据 + 逐卡补丁」；**前 11 个不需要改**，
 它们的注解本来就由共享 applier 消费。改写 h12–h18 时按 README 的统一顺序排版
 （imports → 数据 → 工厂 → patch 表 → 模块导出），h14 是参考实现。
@@ -90,7 +90,7 @@ packages/data/src/normalize/hero-annotations/
 ## 4. 单个英雄的改写配方（照抄 h14）
 
 参考 [h14-leper.ts](../../packages/data/src/core/heroes/annotations/h14-leper.ts)，
-文件顺序按 [hero-annotations/README.md](../../packages/data/src/normalize/hero-annotations/README.md)：
+文件顺序按 [hero-annotations/README.md](../../packages/data/src/core/heroes/annotations/README.md)：
 imports → 数据导出（若有）→ 工厂函数 → patch 表 → 模块导出。
 
 1. **删掉** `switch (card.id)` 与 `assertXxx`。

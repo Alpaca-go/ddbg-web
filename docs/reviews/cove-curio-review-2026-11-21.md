@@ -30,4 +30,4 @@
 - ID 为 `curio:cove:p001`–`p016`，16 张实体卡，共 64 行，不按同名合并。
 - 仅 `12438e9a49`（压力 +1）与 `ae45f5bcb3`（补给骰）写入效果；其余行的 Cove 专有图标 hash 不在全局词典，按 R-048 保留 `effect: null` 与 **Q-186**。
 - 未开放 Cove 地点出征；`locationCurioPool` / `curioPoolSchemaForLocation("cove")` 仅登记目录，供内容包过滤测试。
-- 提取命令：`python3 tools/pipeline/extract-print/scripts/extract_cove_location.py --input <EN_FILES 根目录>`（Curio 默认；房间加 `--categories room`）。普通房间审阅见 [cove-room-review-2026-11-22.md](cove-room-review-2026-11-22.md)。
+- 提取命令：`python3 tools/pipeline/extract-print/scripts/extract_cove_location.py --input <EN_FILES 根目录>`（Curio 默认；房间加 `--categories room`）。普通房间审阅见 [cove-room-review-2026-11-22.md](./cove-room-review-2026-11-22.md)。

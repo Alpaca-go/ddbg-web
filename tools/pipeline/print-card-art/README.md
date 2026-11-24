@@ -57,4 +57,4 @@ node ../../scripts/build-print-hamlet-board-art-map.mjs
 
 房间代币刀线说明：[docs/phase4-print-room-token-art-2026-10-19.md](../../../docs/phases/phase4/phase4-print-room-token-art-2026-10-19.md)。
 
-审阅 CSV 与 Web 映射说明：[怪物](docs/phase4-print-monster-art-map-2026-10-19.md)、[英雄技能](docs/phase4-print-hero-skill-art-map-2026-10-19.md)、[Monster Stance 站位板](../../../docs/phases/phase4/phase4-print-monster-stance-art-2026-10-19.md)、[英雄立牌](../../../docs/phases/phase4/phase4-print-hero-standee-art-2026-10-20.md)（相对仓库根 `docs/`）。
+审阅 CSV 与 Web 映射说明：[怪物](./docs/phase4-print-monster-art-map-2026-10-19.md)、[英雄技能](./docs/phase4-print-hero-skill-art-map-2026-10-19.md)、[Monster Stance 站位板](../../../docs/phases/phase4/phase4-print-monster-stance-art-2026-10-19.md)、[英雄立牌](../../../docs/phases/phase4/phase4-print-hero-standee-art-2026-10-20.md)（相对仓库根 `docs/`）。

@@ -2,11 +2,11 @@
 
 《暗黑地牢桌游》（Darkest Dungeon: The Board Game，简称 DDBG）网页客户端的私有仓库。先做核心盒（遗迹 Ruins 与最暗地牢），用单设备、1–4 人轮流操作（hot-seat）走通战役，再按地点扩展。
 
-仓库保持私有，是因为卡图和版图的美术版权属于原游戏与桌游发行方。**本地印刷 PDF 是卡牌文字、数字与美术的唯一来源**：从 PDF 导出的 PNG 只留在 gitignored 的本地缓存，不进仓库；TTS 创意工坊资源已不再使用。规划见 [docs/plan.md](docs/plan.md)（大纲 v0.2，2026-10-06 由 Kyries 确认），给编码代理的约定见 [AGENTS.md](AGENTS.md)，命名规范见 [docs/id-naming-rules.md](docs/id-naming-rules.md)（必读），规则歧义见 [docs/rulings.md](docs/rulings.md)。核心规则说明书 v0.2 在 [docs/spec/](docs/spec/README.md)。图标图例在 [docs/data-legend.md](docs/data-legend.md)（词典 v1.8 已入库，见 R-048 / Q-47）。
+仓库保持私有，是因为卡图和版图的美术版权属于原游戏与桌游发行方。**本地印刷 PDF 是卡牌文字、数字与美术的唯一来源**：从 PDF 导出的 PNG 只留在 gitignored 的本地缓存，不进仓库；TTS 创意工坊资源已不再使用。规划见 [docs/plan.md](./docs/plan.md)（大纲 v0.2，2026-10-06 由 Kyries 确认），给编码代理的约定见 [AGENTS.md](./AGENTS.md)，命名规范见 [docs/id-naming-rules.md](./docs/id-naming-rules.md)（必读），规则歧义见 [docs/rulings.md](./docs/rulings.md)。核心规则说明书 v0.2 在 [docs/spec/](./docs/spec/README.md)。图标图例在 [docs/data-legend.md](./docs/data-legend.md)（词典 v1.8 已入库，见 R-048 / Q-47）。
 
 ## 开发
 
-当前核心盒处于 Phase 6 打磨收尾阶段。已接通内容、本地修复及尚未验收项见 [2026-11-11 收尾状态](docs/core-pack-closeout-2026-11-11.md)。下方较早日期的进度补记保留为历史，不覆盖这份记录。
+当前核心盒处于 Phase 6 打磨收尾阶段。已接通内容、本地修复及尚未验收项见 [2026-11-11 收尾状态](./docs/core-pack-closeout-2026-11-11.md)。下方较早日期的进度补记保留为历史，不覆盖这份记录。
 
 Node.js `24.21.0`（`.nvmrc`）和 pnpm `12.9.1`（根目录 `packageManager`）。
 
@@ -25,7 +25,7 @@ pnpm build
 
 ### 本地卡图缓存（可选）
 
-运行时卡图均为**印刷 PNG**（不入库）：英雄技能、怪物、探索房间牌 / QuestMap、房间代币、Monster Stance 整板、八英雄立牌等映射见 `apps/web/src/card-art/*-print-art-map.json`（及 `hero-standee-print-art-map.json`），导出到 gitignored `.cache/print-card-art/`（见 [phase4-print-art-pipeline-2026-10-19.md](docs/phase4-print-art-pipeline-2026-10-19.md)）。无本地缓存或加载失败时 UI **占位**，不回退任何外部图源。
+运行时卡图均为**印刷 PNG**（不入库）：英雄技能、怪物、探索房间牌 / QuestMap、房间代币、Monster Stance 整板、八英雄立牌等映射见 `apps/web/src/card-art/*-print-art-map.json`（及 `hero-standee-print-art-map.json`），导出到 gitignored `.cache/print-card-art/`（见 [phase4-print-art-pipeline-2026-10-19.md](./docs/phases/phase4/phase4-print-art-pipeline-2026-10-19.md)）。无本地缓存或加载失败时 UI **占位**，不回退任何外部图源。
 
 ```bash
 node tools/pipeline/scripts/export-print-card-art.mjs --input /path/to/EN_FILES --out .cache/print-card-art
@@ -34,24 +34,24 @@ node tools/pipeline/scripts/export-print-card-art.mjs --input /path/to/EN_FILES 
 
 **美术唯一真实来源是本地印刷 PDF**，TTS 创意工坊不再作为美术资产的核对参照。2026-11-23 已移除 `apps/web/src/card-art/hero-skill-face-map.json`、`build-tts-hero-skill-face-map.mjs`、`build-tts-battle-position-art-map.mjs`、`build-tts-exploration-art-map.mjs` 与 `cache-tts-card-art.mjs`，`pnpm dev` 不再挂载 `/tts-card-art/`。需要生成或更新映射时，只用 `tools/pipeline/scripts/` 下的 `build-print-*.mjs`。
 
-说明见 [docs/phase4-print-hero-skill-art-map-2026-10-19.md](docs/phase4-print-hero-skill-art-map-2026-10-19.md)、[docs/phase4-print-monster-art-map-2026-10-19.md](docs/phase4-print-monster-art-map-2026-10-19.md)、[docs/phase4-print-exploration-art-map-2026-10-19.md](docs/phase4-print-exploration-art-map-2026-10-19.md)、[docs/phase4-print-room-token-art-2026-10-19.md](docs/phase4-print-room-token-art-2026-10-19.md) 与 [docs/phase4-exploration-art-2026-10-19.md](docs/phase4-exploration-art-2026-10-19.md)。**不要把印刷 PNG 提交进仓库。**
+说明见 [docs/phase4-print-hero-skill-art-map-2026-10-19.md](./docs/phases/phase4/phase4-print-hero-skill-art-map-2026-10-19.md)、[docs/phase4-print-monster-art-map-2026-10-19.md](./docs/phases/phase4/phase4-print-monster-art-map-2026-10-19.md)、[docs/phase4-print-exploration-art-map-2026-10-19.md](./docs/phases/phase4/phase4-print-exploration-art-map-2026-10-19.md)、[docs/phase4-print-room-token-art-2026-10-19.md](./docs/phases/phase4/phase4-print-room-token-art-2026-10-19.md) 与 [docs/phase4-exploration-art-2026-10-19.md](./docs/phases/phase4/phase4-exploration-art-2026-10-19.md)。**不要把印刷 PNG 提交进仓库。**
 
-2026-10-18最新进度：基线 #247 / `42b9620`。当前确认 Q-80→R-100（recycle_discard_fill）：游商首次陈列可抽不足时将该级弃牌洗回再抽满额；真耗尽才拒绝。见[rulings](docs/rulings.md) R-100与[接线记录](docs/phase4-nomad-q80-r100-2026-10-18.md)。正式Boss与人工试玩继续保留，保持Phase4。以下段落为历史进度。
+2026-10-18最新进度：基线 #247 / `42b9620`。当前确认 Q-80→R-100（recycle_discard_fill）：游商首次陈列可抽不足时将该级弃牌洗回再抽满额；真耗尽才拒绝。见[rulings](./docs/rulings.md) R-100与[接线记录](./docs/phases/phase4/phase4-nomad-q80-r100-2026-10-18.md)。正式Boss与人工试玩继续保留，保持Phase4。以下段落为历史进度。
 
-2026-10-18进度：基线 #246 / `acc3c8c`。当时确认 Q-79→R-099（replace-reshuffle）；Q-80 仍 pending（现已见 R-100）。见[rulings](docs/rulings.md) R-099与[接线记录](docs/phase4-graveyard-q79-r099-2026-10-18.md)。
+2026-10-18进度：基线 #246 / `acc3c8c`。当时确认 Q-79→R-099（replace-reshuffle）；Q-80 仍 pending（现已见 R-100）。见[rulings](./docs/rulings.md) R-099与[接线记录](./docs/phases/phase4/phase4-graveyard-q79-r099-2026-10-18.md)。
 
-2026-10-18进度：#246已合并，main `acc3c8c`。Q-99→R-098锁定Pilfer当前行为；#245合并时 tip `5c5a182`。Occultist I级七技能与Dark Ritual I–III已接（R-097）。见[rulings](docs/rulings.md) R-098与[GR技能记录](docs/phase4-grave-robber-skills-2026-10-18.md)。当时 Q-79/Q-80 仍 pending。
+2026-10-18进度：#246已合并，main `acc3c8c`。Q-99→R-098锁定Pilfer当前行为；#245合并时 tip `5c5a182`。Occultist I级七技能与Dark Ritual I–III已接（R-097）。见[rulings](./docs/rulings.md) R-098与[GR技能记录](./docs/phases/phase4/phase4-grave-robber-skills-2026-10-18.md)。当时 Q-79/Q-80 仍 pending。
 
-2026-10-16最新进度：#219已合并Scout Ahead及R-090村庄意志次数裁定；当前继续战役死亡名单与死者饰品接收/弃置，见[开发记录](docs/phase4-death-estate-2026-10-16.md)。驿站替换与完整死亡补人仍未完成，保持Phase4。
+2026-10-16最新进度：#219已合并Scout Ahead及R-090村庄意志次数裁定；当前继续战役死亡名单与死者饰品接收/弃置，见[开发记录](./docs/phases/phase4/phase4-death-estate-2026-10-16.md)。驿站替换与完整死亡补人仍未完成，保持Phase4。
 
-2026-10-16最新进度：#218已合并，赏金猎人七张I级技能接通；当前继续Scout Ahead村庄能力与R-090压力裁定，见[开发记录](docs/phase4-scout-ahead-2026-10-16.md)。村庄事件16/16；正式英雄入口/死亡补人、高等级正式战役存档和人工验收仍待完成，仍在Phase4。
+2026-10-16最新进度：#218已合并，赏金猎人七张I级技能接通；当前继续Scout Ahead村庄能力与R-090压力裁定，见[开发记录](./docs/phases/phase4/phase4-scout-ahead-2026-10-16.md)。村庄事件16/16；正式英雄入口/死亡补人、高等级正式战役存档和人工验收仍待完成，仍在Phase4。
 
-2026-10-15进度：Phase 3三张基础任务自然命令路径已贯通，普通遗迹9/9可战、核心盒9/28，仅QuestMap p1获批；人工试玩验收仍待Kyries确认。Phase 4存读档、回村结算、完整16张村庄事件池及首日看守人已合并（#170–#173）。三栋I级恢复建筑、Intimidate/Zealous Speech与逐日准备已合并；恢复建筑升级与II/III级服务已合并（#174）；修道院正面怪癖及第四怪癖存档续接已合并（#175）；Vestal I的Pray/Chant已合并（#176）；Survivalist服务/升级与下次任务奖励骰记录已合并（#177）；Medical Breakthrough疾病选择与三天准备已合并（#178）；Caregivers Convention逐英雄免费移除怪癖与两天准备已合并（#179）；Town Fair全体减压/治疗与一天准备已合并（#180）；村庄减压的Resilient修正已合并（#181）；驿站等待英雄代币与升级已合并（#182）；Labor Force免费升级/整周禁访/永久弃牌与铁匠/游商10金升级已合并（#183）；墓地首次免费获得美德已合并（#184），重复来访仍保留Q-79待确认；Hellion I的Sharpen Spear已合并（#185）；游商I陈列/4金购买已合并（#186）；游商I出售洗回/继续购买已合并（#187）；铁匠I–III服务已合并（#188）；Guild技能永久升级已合并（#189），R-080铁匠归还卡随永久升级更新；R-081四英雄II/III防御数据前置已合并（#190）；高等级防御运行时已合并（#191）；Guild英雄等级升级与技能/饰品槽已合并（#192）；下一任务出征循环、临时技能应用/归还与奖励补给骰已合并（#193）；自然两任务4XP→Guild升II验收已合并（#194）；高等级英雄出征与地牢战斗交接已合并（#195）；Guild Training / Unsettling Darkness / Traveling Merchants已合并（#196）；In Good Spirits已合并（#197）；沙盒I→II牌堆预览与Reduce to Rubble II出征已合并（#198）；Clear the Path II及两张II级任务退出摘要已合并（#199）；当前按R-082接Bone Spearman II限定获批字段与完整53张池入场，其余II级仍停点；正式升幕仍待Boss胜利/新威胁流程，预览不进入正式存档，见[当前开发记录](docs/phase4-ii-monster-review-2026-10-15.md)。出征要求技能槽=2+HL（I–III）。事件已实现11/16，其他5张事件保留真实抽牌停点（含未审图标或天数`?`）；剩余事件与驿站死亡补人（需扩展英雄池）继续后续，尚不是完整连续战役，未进入Phase 5。
+2026-10-15进度：Phase 3三张基础任务自然命令路径已贯通，普通遗迹9/9可战、核心盒9/28，仅QuestMap p1获批；人工试玩验收仍待Kyries确认。Phase 4存读档、回村结算、完整16张村庄事件池及首日看守人已合并（#170–#173）。三栋I级恢复建筑、Intimidate/Zealous Speech与逐日准备已合并；恢复建筑升级与II/III级服务已合并（#174）；修道院正面怪癖及第四怪癖存档续接已合并（#175）；Vestal I的Pray/Chant已合并（#176）；Survivalist服务/升级与下次任务奖励骰记录已合并（#177）；Medical Breakthrough疾病选择与三天准备已合并（#178）；Caregivers Convention逐英雄免费移除怪癖与两天准备已合并（#179）；Town Fair全体减压/治疗与一天准备已合并（#180）；村庄减压的Resilient修正已合并（#181）；驿站等待英雄代币与升级已合并（#182）；Labor Force免费升级/整周禁访/永久弃牌与铁匠/游商10金升级已合并（#183）；墓地首次免费获得美德已合并（#184），重复来访仍保留Q-79待确认；Hellion I的Sharpen Spear已合并（#185）；游商I陈列/4金购买已合并（#186）；游商I出售洗回/继续购买已合并（#187）；铁匠I–III服务已合并（#188）；Guild技能永久升级已合并（#189），R-080铁匠归还卡随永久升级更新；R-081四英雄II/III防御数据前置已合并（#190）；高等级防御运行时已合并（#191）；Guild英雄等级升级与技能/饰品槽已合并（#192）；下一任务出征循环、临时技能应用/归还与奖励补给骰已合并（#193）；自然两任务4XP→Guild升II验收已合并（#194）；高等级英雄出征与地牢战斗交接已合并（#195）；Guild Training / Unsettling Darkness / Traveling Merchants已合并（#196）；In Good Spirits已合并（#197）；沙盒I→II牌堆预览与Reduce to Rubble II出征已合并（#198）；Clear the Path II及两张II级任务退出摘要已合并（#199）；当前按R-082接Bone Spearman II限定获批字段与完整53张池入场，其余II级仍停点；正式升幕仍待Boss胜利/新威胁流程，预览不进入正式存档，见[当前开发记录](./docs/phases/phase4/phase4-ii-monster-review-2026-10-15.md)。出征要求技能槽=2+HL（I–III）。事件已实现11/16，其他5张事件保留真实抽牌停点（含未审图标或天数`?`）；剩余事件与驿站死亡补人（需扩展英雄池）继续后续，尚不是完整连续战役，未进入Phase 5。
 
-接手开发先读 [Codex 总交接](docs/HANDOFF-FROM-CODEX-2026-10-09.md) 顶部的当前入口与最近提交补记；跨代理背景见 [交给 Codex 的说明](docs/HANDOFF-TO-CODEX-2026-10-09.md)。历史段落中的分支 / 合并状态不覆盖当前入口。
+接手开发先读 [Codex 总交接](./docs/handoffs/HANDOFF-FROM-CODEX-2026-10-09.md) 顶部的当前入口与最近提交补记；跨代理背景见 [交给 Codex 的说明](./docs/handoffs/HANDOFF-TO-CODEX-2026-10-09.md)。历史段落中的分支 / 合并状态不覆盖当前入口。
 
-当前进度（2026-10-16）：#217 已合并（main `d724efd`），村庄事件 16/16。当前接通 [Collect Bounty I 双条件伤害](docs/phase4-collect-bounty-2026-10-16.md)；赏金猎人七张 I 级技能已分别接线，下一主题 Scout Ahead 与死亡补人，正式页面仍保留原四英雄。II 级两张任务、五种怪物已接通；Q-79/Q-80、正式高等级战役存档与人工验收仍未完成，未进入 Phase 5。下段为历史记录。
+当前进度（2026-10-16）：#217 已合并（main `d724efd`），村庄事件 16/16。当前接通 [Collect Bounty I 双条件伤害](./docs/phases/phase4/phase4-collect-bounty-2026-10-16.md)；赏金猎人七张 I 级技能已分别接线，下一主题 Scout Ahead 与死亡补人，正式页面仍保留原四英雄。II 级两张任务、五种怪物已接通；Q-79/Q-80、正式高等级战役存档与人工验收仍未完成，未进入 Phase 5。下段为历史记录。
 
-最新补记：#200/#201已合并（main `46ff57a`）；跨等级饰品弃装与旧池回收已接。#202按R-083接四种II级怪物获批基础字段及Captain/Gargoyle完整入场（含常驻Protection），Rattler/Ghoul额外运行时仍停点，见[当前开发记录](docs/phase4-remaining-ii-review-2026-10-15.md)。正式升幕及高等级存档仍未开放。
+最新补记：#200/#201已合并（main `46ff57a`）；跨等级饰品弃装与旧池回收已接。#202按R-083接四种II级怪物获批基础字段及Captain/Gargoyle完整入场（含常驻Protection），Rattler/Ghoul额外运行时仍停点，见[当前开发记录](./docs/phases/phase4/phase4-remaining-ii-review-2026-10-15.md)。正式升幕及高等级存档仍未开放。
 
-24张Curio已按R-069完成印刷行序结算及待选续接；早期[Q-60交付](docs/phase3-q60-curio-icons-2026-10-12.md)中的未完成数量是历史基线。当前验收边界见[Phase 3复核](docs/phase3-acceptance-gap-2026-10-13.md)。
+24张Curio已按R-069完成印刷行序结算及待选续接；早期[Q-60交付](./docs/phases/phase3/phase3-q60-curio-icons-2026-10-12.md)中的未完成数量是历史基线。当前验收边界见[Phase 3复核](./docs/phases/phase3/phase3-acceptance-gap-2026-10-13.md)。

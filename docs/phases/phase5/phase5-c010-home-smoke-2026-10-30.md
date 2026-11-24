@@ -2,7 +2,7 @@
 
 基线 main `a8a9c86`：#388 已按 Kyries“合入，然后继续”合并，精确 head `e92f1de` 无未解决审查，本地 ff-only 同步。其远端主检查仍止于既有 Swine / Flesh 五项 lint 错误，浏览器检查也已失败，不是绿色基线。
 
-`home.spec.ts` 在“前往出征准备”后要求英雄详情自动打开。本机复现了与 #387 远端相同的失败。现有 `createTabletopInitialState` 默认未选中详情，`TabletopFormalShell` 通过点击队伍行调用 `selectHero` 后才显示；[UX-01](ux01-formal-shell-2026-10-22.md) 的约定也是未选中时不占右栏。因此改为先确认没有详情，再在 1280×800、1920×1080 两个尺寸逐一点击英雄，确认英雄详情和视口可见。
+`home.spec.ts` 在“前往出征准备”后要求英雄详情自动打开。本机复现了与 #387 远端相同的失败。现有 `createTabletopInitialState` 默认未选中详情，`TabletopFormalShell` 通过点击队伍行调用 `selectHero` 后才显示；[UX-01](../../ux01-formal-shell-2026-10-22.md) 的约定也是未选中时不占右栏。因此改为先确认没有详情，再在 1280×800、1920×1080 两个尺寸逐一点击英雄，确认英雄详情和视口可见。
 
 通过首处断言后，又复现旧测试按任务名寻找 heading 的失败。当前准备视图的标题为“出征准备”，任务名由 `QuestCardField` 的只读卡片显示；改用现有 `quest-card-readonly-name` 精确比对出征前下拉选中的任务名称，与 `formal-reembark.spec.ts` 的现有约定一致。
 

@@ -1,6 +1,6 @@
 # Templars I 自然任务与严格存档
 
-基线：main @ R-180（[#586](https://github.com/Alpaca-go/ddbg-web/pull/586)）、R-181（[#587](https://github.com/Alpaca-go/ddbg-web/pull/587)）。依据 R-180、R-181、R-162、R-122、R-044 与核心 R36/R39、规格书 §14.x。生产入口见 [phase5-templars-production-entry-review-2026-11-04.md](phase5-templars-production-entry-review-2026-11-04.md)。
+基线：main @ R-180（[#586](https://github.com/Alpaca-go/ddbg-web/pull/586)）、R-181（[#587](https://github.com/Alpaca-go/ddbg-web/pull/587)）。依据 R-180、R-181、R-162、R-122、R-044 与核心 R36/R39、规格书 §14.x。生产入口见 [phase5-templars-production-entry-review-2026-11-04.md](./phase5-templars-production-entry-review-2026-11-04.md)。
 
 `naturalQuest` 在 `room:p022` 且 `bossEncounterPlan` 为 `boss:darkest:templars` 时选择公开 `deployTemplarsI`，与 Ruins I 级 Boss 专用分支一致，仅 test-helpers 驱动。Boss 定额任务（含 quest:p017）在 `bossQuestVictory` 后不再进入 `room()` 内循环，避免替补停点阻塞离开摘要。最暗回村 R32 房间牌池按出征区域校验子集守恒（含 Boss 房入弃牌堆），与遗迹九房全量守恒区分。
 

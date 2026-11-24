@@ -5,9 +5,9 @@
 
 ## 依据
 
-- [phase5-a5-remaining-a-candidates-2026-11-01.md](phase5-a5-remaining-a-candidates-2026-11-01.md) **A-11**
-- [phase5-darkest-mid-boss-skills-acc-2026-11-01.md](phase5-darkest-mid-boss-skills-acc-2026-11-01.md) · `boss_ability:p033`
-- [phase5-a10-clear-icon-8707-unverified-2026-11-01.md](phase5-a10-clear-icon-8707-unverified-2026-11-01.md) 建议下一刀
+- [phase5-a5-remaining-a-candidates-2026-11-01.md](./phase5-a5-remaining-a-candidates-2026-11-01.md) **A-11**
+- [phase5-darkest-mid-boss-skills-acc-2026-11-01.md](./phase5-darkest-mid-boss-skills-acc-2026-11-01.md) · `boss_ability:p033`
+- [phase5-a10-clear-icon-8707-unverified-2026-11-01.md](./phase5-a10-clear-icon-8707-unverified-2026-11-01.md) 建议下一刀
 
 ## 卡面（`monster_large:p017` slot 1）
 

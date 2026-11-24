@@ -41,7 +41,7 @@ parsed 的 `issues` 和 `failures` 显式保留失败；成功解析也只表示
 
 ## 解析停点
 
-后续 I 级普通怪物的规范化范围和 Life 定位修正见[首批审阅稿](weald-level-one-monster-review-2026-11-11.md)。
+后续 I 级普通怪物的规范化范围和 Life 定位修正见[首批审阅稿](./reviews/weald-level-one-monster-review-2026-11-11.md)。
 
 - medium p1–3 Ectoplasm 的重复 slot 1 已修复：Weald 使用 14pt 的技能徽章定位下限，区别 17.46pt 徽章与 11pt 召唤数量。核心提取器保留原有默认参数。只修版面定位，不改变印刷效果。
 - medium p20–22 Brigand Pounder：未取得类型/位置行。不得自填标签。
@@ -51,7 +51,7 @@ parsed 的 `issues` 和 `failures` 显式保留失败；成功解析也只表示
 
 ## 后续顺序与 Q-186
 
-后续执行以 Kyries 已确认的 [Weald 开发计划](weald-development-plan.md) 为准；本记录保留导入批的范围与停点。
+后续执行以 Kyries 已确认的 [Weald 开发计划](./plans/weald-development-plan.md) 为准；本记录保留导入批的范围与停点。
 
 沿用核心包 raw → 图标/卡面/几何审阅 → normalized → 引擎 → UI 的顺序。
 
@@ -62,7 +62,7 @@ parsed 的 `issues` 和 `failures` 显式保留失败；成功解析也只表示
 5. 完成三 Boss 各等级数据、能力与附属单位脚本，加入启用地点的 Boss 池。
 6. 最后开放任务选择、出征、回村、升级与存档回放，并增加 1–3 条关键路径浏览器冒烟。
 
-Q-186 是这批卡面与几何的待审项，未新增 Kyries 裁定。规则依据见 [Weald 规格书](spec/weald-rules-spec-v0.1.md) W-01–W-05、R-001、R-048。
+Q-186 是这批卡面与几何的待审项，未新增 Kyries 裁定。规则依据见 [Weald 规格书](./spec/weald-rules-spec-v0.1.md) W-01–W-05、R-001、R-048。
 
 本批只涉及提取数据与 schema 校验，没有新增 UI 或战斗行为，因此未为其添加浏览器用例。
 

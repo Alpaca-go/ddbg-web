@@ -1,164 +1,164 @@
 # Codex 接线交接（2026-10-09）
 
-> 当前入口（2026-10-18）：基线 #247 / main `42b9620`。当前分支确认 Q-80→R-100（recycle_discard_fill）：游商首次陈列可抽不足时将该级弃牌洗回再抽满额；真耗尽才拒绝。见[rulings](rulings.md) R-100与[接线记录](phase4-nomad-q80-r100-2026-10-18.md)。不重开 Q-79／R-099，不进 Phase5。下文为历史记录。
+> 当前入口（2026-10-18）：基线 #247 / main `42b9620`。当前分支确认 Q-80→R-100（recycle_discard_fill）：游商首次陈列可抽不足时将该级弃牌洗回再抽满额；真耗尽才拒绝。见[rulings](../rulings.md) R-100与[接线记录](../phases/phase4/phase4-nomad-q80-r100-2026-10-18.md)。不重开 Q-79／R-099，不进 Phase5。下文为历史记录。
 >
-> 历史入口（2026-10-18）：基线 #246 / main `acc3c8c`。当时确认 Q-79→R-099（replace-reshuffle）；Q-80 仍 pending（现已见 R-100）。见[接线记录](phase4-graveyard-q79-r099-2026-10-18.md)。
+> 历史入口（2026-10-18）：基线 #246 / main `acc3c8c`。当时确认 Q-79→R-099（replace-reshuffle）；Q-80 仍 pending（现已见 R-100）。见[接线记录](../phases/phase4/phase4-graveyard-q79-r099-2026-10-18.md)。
 >
 > 历史入口（2026-10-18）：#246已合并为main `acc3c8c`；此前 #245 tip `5c5a182` 确认Q-99→R-098（Pilfer抽取不翻面等）。Occ Dark Ritual I–III已接（R-097）。当时不裁定Q-79/Q-80。
 >
-> 当前入口（2026-10-18）：#244已合并为main `b759e7c`。当时确认Q-100→R-097 LIMITED（`4f7549c1b8`→Buff）并接通Dark Ritual III（治疗5、Buff 3t，同I/II路径）；词典全局条目可仍unreviewed；p010仅记命名诚实不接线Vestal III。`FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS`已清空。Q-99（Pilfer翻面）当时仍待确认（现已见R-098）。见[Occ技能记录](phase4-occultist-skills-2026-10-18.md)。不裁定Q-79/Q-80，不进Phase5。下文为历史记录。
+> 当前入口（2026-10-18）：#244已合并为main `b759e7c`。当时确认Q-100→R-097 LIMITED（`4f7549c1b8`→Buff）并接通Dark Ritual III（治疗5、Buff 3t，同I/II路径）；词典全局条目可仍unreviewed；p010仅记命名诚实不接线Vestal III。`FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS`已清空。Q-99（Pilfer翻面）当时仍待确认（现已见R-098）。见[Occ技能记录](../phases/phase4/phase4-occultist-skills-2026-10-18.md)。不裁定Q-79/Q-80，不进Phase5。下文为历史记录。
 >
 > 历史入口（2026-10-18）：#243已合并为main `947cbec`。当时`cursor/phase4-occultist-skills-c7e9`接Occultist I级七战斗技能与Dark Ritual I/II；条件伤新增`eldritch`；Dark Ritual III因图标`4f7549c1b8`记Q-100待确认并拒绝。
 
-> 当前入口（2026-10-18）：#242已合并为main `6a8a87b`。当前`cursor/phase4-pilfer-q98-3df7`记R-096/Q-98 confirmed（LIMITED：Pilfer文案中`79084a2922`=Loot Token），接通`useHamletSkill/pilfer`抽取一枚入claimed；翻面结算/补给去向/空堆记Q-99待确认；`FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS`仅余OCCULTIST。不改全局词典。Occ未动。见[GR技能记录](phase4-grave-robber-skills-2026-10-18.md)。不裁定Q-79/Q-80，不进Phase5。下文为历史记录。
+> 当前入口（2026-10-18）：#242已合并为main `6a8a87b`。当前`cursor/phase4-pilfer-q98-3df7`记R-096/Q-98 confirmed（LIMITED：Pilfer文案中`79084a2922`=Loot Token），接通`useHamletSkill/pilfer`抽取一枚入claimed；翻面结算/补给去向/空堆记Q-99待确认；`FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS`仅余OCCULTIST。不改全局词典。Occ未动。见[GR技能记录](../phases/phase4/phase4-grave-robber-skills-2026-10-18.md)。不裁定Q-79/Q-80，不进Phase5。下文为历史记录。
 
-> 当前入口（2026-10-18）：#241已合并为main `034f95d`。当前`cursor/phase4-grave-robber-skills-b049`接Grave Robber I级七战斗技能（含`blighted`条件伤、Shadow Fade无Acc自身位移）；Pilfer因Draw图标`79084a2922`仍unverified记Q-98待确认，不新增命令/不改存档schema；`FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS`仍含GR。Occ未动。见[GR技能记录](phase4-grave-robber-skills-2026-10-18.md)。不裁定Q-79/Q-80，不进Phase5。下文为历史记录。
+> 当前入口（2026-10-18）：#241已合并为main `034f95d`。当前`cursor/phase4-grave-robber-skills-b049`接Grave Robber I级七战斗技能（含`blighted`条件伤、Shadow Fade无Acc自身位移）；Pilfer因Draw图标`79084a2922`仍unverified记Q-98待确认，不新增命令/不改存档schema；`FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS`仍含GR。Occ未动。见[GR技能记录](../phases/phase4/phase4-grave-robber-skills-2026-10-18.md)。不裁定Q-79/Q-80，不进Phase5。下文为历史记录。
 
-> 当前入口（2026-10-18）：#240已合并为main `1921801`。当前`cursor/phase4-eight-hero-roster-ebfe`开放正式开局八英雄名录：`createCoreDungeonQuest`与网页`DungeonQuest`从`FORMAL_HERO_NAMES`任选四人；GR/Occ可编队但标明I级技能效果未接线（R-048拒绝、不发明）。见[八英雄开局](phase4-eight-hero-roster-2026-10-18.md)。Jester/Arbalest/Abomination仍排除；不裁定Q-79/Q-80，不进Phase5。下文为历史记录。
+> 当前入口（2026-10-18）：#240已合并为main `1921801`。当前`cursor/phase4-eight-hero-roster-ebfe`开放正式开局八英雄名录：`createCoreDungeonQuest`与网页`DungeonQuest`从`FORMAL_HERO_NAMES`任选四人；GR/Occ可编队但标明I级技能效果未接线（R-048拒绝、不发明）。见[八英雄开局](../phases/phase4/phase4-eight-hero-roster-2026-10-18.md)。Jester/Arbalest/Abomination仍排除；不裁定Q-79/Q-80，不进Phase5。下文为历史记录。
 
-> 当前入口（2026-10-18）：#239已合并为main `438f7da`。分支`cursor/phase4-natural-wipeout-save-3a36`（remote HEAD）补自然全灭正式存档：Fundraiser seed2→驿站III余额4→Scout Ahead preferWipeout 公开命令至 heroesDefeated→准备四名已核实额外（BH/PD/GR/Occ）并入队，createQuestSave/loadQuestSave往返。机制夹具 wipeoutBoundary 仍仅作边界测试、不冒充自然击杀。GR/Occ技能效果与Pilfer/Dark Ritual仍未接线。见[全灭交接](phase4-wipeout-handoff-2026-10-18.md)与[候选盘点](phase4-replacement-candidates-2026-10-18.md)。不裁定Q-79/Q-80，不进Phase5。下文为历史记录。
+> 当前入口（2026-10-18）：#239已合并为main `438f7da`。分支`cursor/phase4-natural-wipeout-save-3a36`（remote HEAD）补自然全灭正式存档：Fundraiser seed2→驿站III余额4→Scout Ahead preferWipeout 公开命令至 heroesDefeated→准备四名已核实额外（BH/PD/GR/Occ）并入队，createQuestSave/loadQuestSave往返。机制夹具 wipeoutBoundary 仍仅作边界测试、不冒充自然击杀。GR/Occ技能效果与Pilfer/Dark Ritual仍未接线。见[全灭交接](../phases/phase4/phase4-wipeout-handoff-2026-10-18.md)与[候选盘点](../phases/phase4/phase4-replacement-candidates-2026-10-18.md)。不裁定Q-79/Q-80，不进Phase5。下文为历史记录。
 
-> 当前入口（2026-10-18）：#238已合并为main `87e9773`。Kyries确认Q-97 LIMITED映射（R-095）：`e61ed317de`=Blight（GR II/III、Occ III左栏指定位）、`8cbe7d6703`=Debuff（仅Occ I；Jester同hash不覆盖）、`a8c4b25b4e`=Debuff（Occ II左#2）。六面属性/防御已入库；正式目录与白名单扩至八英雄/四名额外替补（24属性/112技能）；全灭余额4可准备四人并入队。技能效果与Pilfer/Dark Ritual仍未接线。见[核对表](phase4-grave-occultist-stat-review-2026-10-18.md)与[候选盘点](phase4-replacement-candidates-2026-10-18.md)。不裁定Q-79/Q-80，不进Phase5。下文为历史记录。
+> 当前入口（2026-10-18）：#238已合并为main `87e9773`。Kyries确认Q-97 LIMITED映射（R-095）：`e61ed317de`=Blight（GR II/III、Occ III左栏指定位）、`8cbe7d6703`=Debuff（仅Occ I；Jester同hash不覆盖）、`a8c4b25b4e`=Debuff（Occ II左#2）。六面属性/防御已入库；正式目录与白名单扩至八英雄/四名额外替补（24属性/112技能）；全灭余额4可准备四人并入队。技能效果与Pilfer/Dark Ritual仍未接线。见[核对表](../phases/phase4/phase4-grave-occultist-stat-review-2026-10-18.md)与[候选盘点](../phases/phase4/phase4-replacement-candidates-2026-10-18.md)。不裁定Q-79/Q-80，不进Phase5。下文为历史记录。
 
-> 当前入口（2026-10-18）：#237已合并为main `c09b94a`。当前`cursor/phase4-grave-occultist-attrs-8671`按Kyries选定Grave Robber+Occultist核对属性/防御：印刷raw六面Life/Dodge/Speed已齐，但防御栏三枚unreviewed图标（`e61ed317de`/`8cbe7d6703`/`a8c4b25b4e`）缺限定映射（Q-97），按R-048不入库、不扩可用池；正式额外仍仅赏金猎人+瘟疫医生。见[核对表](phase4-grave-occultist-stat-review-2026-10-18.md)。不发明图标含义，不裁定Q-79/Q-80，不进Phase5。下文为历史记录。
+> 当前入口（2026-10-18）：#237已合并为main `c09b94a`。当前`cursor/phase4-grave-occultist-attrs-8671`按Kyries选定Grave Robber+Occultist核对属性/防御：印刷raw六面Life/Dodge/Speed已齐，但防御栏三枚unreviewed图标（`e61ed317de`/`8cbe7d6703`/`a8c4b25b4e`）缺限定映射（Q-97），按R-048不入库、不扩可用池；正式额外仍仅赏金猎人+瘟疫医生。见[核对表](../phases/phase4/phase4-grave-occultist-stat-review-2026-10-18.md)。不发明图标含义，不裁定Q-79/Q-80，不进Phase5。下文为历史记录。
 
-> 当前入口（2026-10-18）：#236已合并为main `e0b8f6b`。当前`cursor/phase4-replacement-candidates-1adf`盘点核心盒替补候选：正式可用池仍仅六名（开局四人+赏金猎人+瘟疫医生），全灭后只够准备两名已核实替补；Jester/Arbalest/Grave Robber/Occultist/Abomination无`attributesVerified`，未进可用池，见Kyries审批清单与[本轮记录](phase4-replacement-candidates-2026-10-18.md)。不发明属性/图标，不裁定Q-79/Q-80，不进Phase5。下文为历史记录。
+> 当前入口（2026-10-18）：#236已合并为main `e0b8f6b`。当前`cursor/phase4-replacement-candidates-1adf`盘点核心盒替补候选：正式可用池仍仅六名（开局四人+赏金猎人+瘟疫医生），全灭后只够准备两名已核实替补；Jester/Arbalest/Grave Robber/Occultist/Abomination无`attributesVerified`，未进可用池，见Kyries审批清单与[本轮记录](../phases/phase4/phase4-replacement-candidates-2026-10-18.md)。不发明属性/图标，不裁定Q-79/Q-80，不进Phase5。下文为历史记录。
 
-> 当前入口（2026-10-18）：#235已合并为main `924c60d`。当前`codex/phase4-wipeout-handoff`按R9/R25/R31/R33接普通任务四英雄全灭与驿站人数/战后逃跑交接；新增内部失败原因区分“等待人数不足”与原“代币耗尽”。见[本轮记录](phase4-wipeout-handoff-2026-10-18.md)。R-068双方全灭仍停场，无奖励/自动战役失败。正式目录仅两名额外候选，下一主题核对补齐四人替补所缺候选数据，不伪造英雄或提前入队；Q-79/Q-80、Boss与人工试玩保留。下文为历史记录。
+> 当前入口（2026-10-18）：#235已合并为main `924c60d`。当前`codex/phase4-wipeout-handoff`按R9/R25/R31/R33接普通任务四英雄全灭与驿站人数/战后逃跑交接；新增内部失败原因区分“等待人数不足”与原“代币耗尽”。见[本轮记录](../phases/phase4/phase4-wipeout-handoff-2026-10-18.md)。R-068双方全灭仍停场，无奖励/自动战役失败。正式目录仅两名额外候选，下一主题核对补齐四人替补所缺候选数据，不伪造英雄或提前入队；Q-79/Q-80、Boss与人工试玩保留。下文为历史记录。
 
-> 当前入口（2026-10-18）：#234已合并为main `2efca2f`。当前`codex/phase4-natural-guild-save`补自然4XP后四初始英雄分别升II、补四技能槽及正式存档；另验永久技能I→II→III，移除准备结束夹具退路，现有村庄冒烟补真实升级/刷新。见[本轮记录](phase4-natural-guild-save-2026-10-18.md)。英雄等级与战役等级分开，未跳Boss升幕；下一主题优先全灭/双方全灭与既有死亡替补接口衔接，Q-79/Q-80及人工试玩保留。下文为历史记录。
+> 当前入口（2026-10-18）：#234已合并为main `2efca2f`。当前`codex/phase4-natural-guild-save`补自然4XP后四初始英雄分别升II、补四技能槽及正式存档；另验永久技能I→II→III，移除准备结束夹具退路，现有村庄冒烟补真实升级/刷新。见[本轮记录](../phases/phase4/phase4-natural-guild-save-2026-10-18.md)。英雄等级与战役等级分开，未跳Boss升幕；下一主题优先全灭/双方全灭与既有死亡替补接口衔接，Q-79/Q-80及人工试玩保留。下文为历史记录。
 
-> 当前入口（2026-10-18）：#233已合并为main `c1870d0`。当前`codex/phase4-replacement-journey`补正式瘟疫医生死亡入队、村庄能力、两张后续任务自然战斗/再次回村及战斗停点存档实际续接，仅改测试与测试驱动。详见[本轮记录](phase4-replacement-journey-2026-10-18.md)。下一主题优先自然4XP→Guild升级后的正式存档；战役升幕仍留Phase5，Q-79/Q-80、全灭及人工试玩边界保留。下文为历史记录。
+> 当前入口（2026-10-18）：#233已合并为main `c1870d0`。当前`codex/phase4-replacement-journey`补正式瘟疫医生死亡入队、村庄能力、两张后续任务自然战斗/再次回村及战斗停点存档实际续接，仅改测试与测试驱动。详见[本轮记录](../phases/phase4/phase4-replacement-journey-2026-10-18.md)。下一主题优先自然4XP→Guild升级后的正式存档；战役升幕仍留Phase5，Q-79/Q-80、全灭及人工试玩边界保留。下文为历史记录。
 
-> 当前入口（2026-10-18）：#232已合并为main `639e45b`，当前`codex/phase4-plague-catalog`开放瘟疫医生正式第六名替补候选，接旧四/五英雄目录与候选待选迁移。详见[本轮记录](phase4-plague-catalog-2026-10-18.md)。保持Phase4，下一主题优先补正式替补战斗/村庄跨任务验收与高等级正式存档；不跳Boss阶段，Q-79/Q-80及全灭边界、人工试玩保留。下文为历史记录。
+> 当前入口（2026-10-18）：#232已合并为main `639e45b`，当前`codex/phase4-plague-catalog`开放瘟疫医生正式第六名替补候选，接旧四/五英雄目录与候选待选迁移。详见[本轮记录](../phases/phase4/phase4-plague-catalog-2026-10-18.md)。保持Phase4，下一主题优先补正式替补战斗/村庄跨任务验收与高等级正式存档；不跳Boss阶段，Q-79/Q-80及全灭边界、人工试玩保留。下文为历史记录。
 
-> 当前入口（2026-10-17）：#231已合并为main `58eb6a7`。当前`codex/phase4-experimental-vapours`接瘟疫医生三等级村庄能力：指定英雄治疗4/7/9、除病、压力+3，一次村庄行动；含压力待选/死亡补人续接与combat同步。见[本轮记录](phase4-experimental-vapours-2026-10-17.md)。七张I级技能与村庄能力已接，尚未开放候选；下一主题正式第六名候选、网页目录与旧档兼容、多次死亡验收。保持Phase4，Q-79/Q-80等边界保留。下文为历史记录。
+> 当前入口（2026-10-17）：#231已合并为main `58eb6a7`。当前`codex/phase4-experimental-vapours`接瘟疫医生三等级村庄能力：指定英雄治疗4/7/9、除病、压力+3，一次村庄行动；含压力待选/死亡补人续接与combat同步。见[本轮记录](../phases/phase4/phase4-experimental-vapours-2026-10-17.md)。七张I级技能与村庄能力已接，尚未开放候选；下一主题正式第六名候选、网页目录与旧档兼容、多次死亡验收。保持Phase4，Q-79/Q-80等边界保留。下文为历史记录。
 
-> 当前入口（2026-10-17）：#230已合并为main `8dcf03a`。当前`codex/phase4-disorienting-blast`按完整p145接Disorienting Blast I的Push2/Pull2与Stun1t，保留原两行并附限定scopeLineIndex；复用掷前方向/落点待选与一次RNG/行动，缺状态注解不再部分执行位移。见[本轮记录](phase4-disorienting-blast-2026-10-17.md)。瘟疫医生七张I级技能已接；下一主题Experimental Vapours村庄能力，随后正式候选目录与旧档兼容，尚未开放候选。保持Phase4，Q-79/Q-80等边界保留。下文为历史记录。
+> 当前入口（2026-10-17）：#230已合并为main `8dcf03a`。当前`codex/phase4-disorienting-blast`按完整p145接Disorienting Blast I的Push2/Pull2与Stun1t，保留原两行并附限定scopeLineIndex；复用掷前方向/落点待选与一次RNG/行动，缺状态注解不再部分执行位移。见[本轮记录](../phases/phase4/phase4-disorienting-blast-2026-10-17.md)。瘟疫医生七张I级技能已接；下一主题Experimental Vapours村庄能力，随后正式候选目录与旧档兼容，尚未开放候选。保持Phase4，Q-79/Q-80等边界保留。下文为历史记录。
 
-> 当前入口（2026-10-17）：#229已合并为main `8a05fd5`。当前`codex/phase4-plague-support-skills`接Emboldening Vapours I完整Buff3t及已核目标行，并验收Battlefield Medicine I公开治疗/清状态命令。p142完整卡面为四姿态可用，修正旧核对表的R/S转写，原数据/词典正确。见[本轮记录](phase4-plague-support-skills-2026-10-17.md)。瘟疫医生六张I级技能已接；下一主题Disorienting Blast I位移/Stun，再接Experimental Vapours村庄能力后才开放候选。Phase4及Q-79/Q-80等边界保留。下文为历史记录。
+> 当前入口（2026-10-17）：#229已合并为main `8a05fd5`。当前`codex/phase4-plague-support-skills`接Emboldening Vapours I完整Buff3t及已核目标行，并验收Battlefield Medicine I公开治疗/清状态命令。p142完整卡面为四姿态可用，修正旧核对表的R/S转写，原数据/词典正确。见[本轮记录](../phases/phase4/phase4-plague-support-skills-2026-10-17.md)。瘟疫医生六张I级技能已接；下一主题Disorienting Blast I位移/Stun，再接Experimental Vapours村庄能力后才开放候选。Phase4及Q-79/Q-80等边界保留。下文为历史记录。
 
-> 当前入口（2026-10-17）：#228已合并为main `fdabb88`。当前`codex/phase4-plague-multi-target`接Plague Grenade I的Blight3·2t与Blinding Gas I的1–2射程/Stun1t，复用公开双目标共享骰与逐名结算；毒气无伤害栏，不填零伤害。见[本轮记录](phase4-plague-multi-target-2026-10-17.md)。瘟疫医生四张I级技能已接，剩三技能完整命令验收与Experimental Vapours，齐备后再开放第六名候选；下一主题优先Battlefield Medicine / Emboldening Vapours。事件16/16，Q-79/Q-80、全灭、高等级正式战役存档和人工验收边界保留，保持Phase4。下文为历史记录。
+> 当前入口（2026-10-17）：#228已合并为main `fdabb88`。当前`codex/phase4-plague-multi-target`接Plague Grenade I的Blight3·2t与Blinding Gas I的1–2射程/Stun1t，复用公开双目标共享骰与逐名结算；毒气无伤害栏，不填零伤害。见[本轮记录](../phases/phase4/phase4-plague-multi-target-2026-10-17.md)。瘟疫医生四张I级技能已接，剩三技能完整命令验收与Experimental Vapours，齐备后再开放第六名候选；下一主题优先Battlefield Medicine / Emboldening Vapours。事件16/16，Q-79/Q-80、全灭、高等级正式战役存档和人工验收边界保留，保持Phase4。下文为历史记录。
 
-> 当前入口（2026-10-17）：#227已合并为main `8b37268`；当前`codex/phase4-plague-dot-skills`仅为Noxious Blast I与Incision I增加严格的完整状态注解，原有Blight/Debuff/Bleed运行时消费。技能姿态核对表按既有词典修正为左至右S/R/D/A，不改引擎规则。见[本轮记录](phase4-plague-dot-skills-2026-10-17.md)。剩五张I级技能和Experimental Vapours，未开放第六名候选；后续优先Plague Grenade I / Blinding Gas I双目标，保持Phase4。已批准R-094属性不重复问。
+> 当前入口（2026-10-17）：#227已合并为main `8b37268`；当前`codex/phase4-plague-dot-skills`仅为Noxious Blast I与Incision I增加严格的完整状态注解，原有Blight/Debuff/Bleed运行时消费。技能姿态核对表按既有词典修正为左至右S/R/D/A，不改引擎规则。见[本轮记录](../phases/phase4/phase4-plague-dot-skills-2026-10-17.md)。剩五张I级技能和Experimental Vapours，未开放第六名候选；后续优先Plague Grenade I / Blinding Gas I双目标，保持Phase4。已批准R-094属性不重复问。
 
-> 当前入口（2026-10-17）：#226已合并为main `d88607d`；当前`codex/phase4-plague-doctor-review`按Kyries“批准三行属性与限定防御”记录R-094/Q-96 confirmed，入库瘟疫医生三等级属性及完整左右防御栏。III右栏`8510428636`只限该卡读Blight免疫，不改词典；原十五面保持不变。候选筛选增加完整接通名单，防止属性/转录批准误开放新英雄。见[本轮记录](phase4-plague-doctor-review-2026-10-17.md)。下一主题接完整七张I级技能与Experimental Vapours，再开放第六名候选；不重问已获批的三行属性，保持Phase4。
+> 当前入口（2026-10-17）：#226已合并为main `d88607d`；当前`codex/phase4-plague-doctor-review`按Kyries“批准三行属性与限定防御”记录R-094/Q-96 confirmed，入库瘟疫医生三等级属性及完整左右防御栏。III右栏`8510428636`只限该卡读Blight免疫，不改词典；原十五面保持不变。候选筛选增加完整接通名单，防止属性/转录批准误开放新英雄。见[本轮记录](../phases/phase4/phase4-plague-doctor-review-2026-10-17.md)。下一主题接完整七张I级技能与Experimental Vapours，再开放第六名候选；不重问已获批的三行属性，保持Phase4。
 
-> 当前入口（2026-10-16）：#225已合并为main `e25f9d3`。当前`codex/phase4-web-replacement-catalog`修复正式网页仍使用四人沙盒目录的问题；任务目录接五英雄获批属性与赏金猎人七张I级技能，旧存档先按固定旧目录验证，再严格比较目录外状态。见[本轮记录](phase4-web-replacement-catalog-2026-10-16.md)。开局仍四英雄，多人死亡目录不足、全灭、Q-79/Q-80、正式高等级战役存档和人工验收继续保留，未进入Phase5。下文为历史记录。
+> 当前入口（2026-10-16）：#225已合并为main `e25f9d3`。当前`codex/phase4-web-replacement-catalog`修复正式网页仍使用四人沙盒目录的问题；任务目录接五英雄获批属性与赏金猎人七张I级技能，旧存档先按固定旧目录验证，再严格比较目录外状态。见[本轮记录](../phases/phase4/phase4-web-replacement-catalog-2026-10-16.md)。开局仍四英雄，多人死亡目录不足、全灭、Q-79/Q-80、正式高等级战役存档和人工验收继续保留，未进入Phase5。下文为历史记录。
 
-> 当前入口（2026-10-16）：#224已合并为main `846d81c`。当前`codex/phase4-hamlet-stances`按R32–33和Kyries“这个交由玩家自行商量决定”的R-093/Q-95接村庄免费换位与日中队列协商；保留已行动者/建筑/费用，不给死亡替补额外行动。见[本轮记录](phase4-hamlet-stances-2026-10-16.md)。Phase4剩余目录、全灭、Q-79/Q-80、高等级正式存档和人工验收边界保留，未进Phase5。下文为历史记录。
+> 当前入口（2026-10-16）：#224已合并为main `846d81c`。当前`codex/phase4-hamlet-stances`按R32–33和Kyries“这个交由玩家自行商量决定”的R-093/Q-95接村庄免费换位与日中队列协商；保留已行动者/建筑/费用，不给死亡替补额外行动。见[本轮记录](../phases/phase4/phase4-hamlet-stances-2026-10-16.md)。Phase4剩余目录、全灭、Q-79/Q-80、高等级正式存档和人工验收边界保留，未进Phase5。下文为历史记录。
 
-> 当前入口（2026-10-16）：#223已合并为main `5e336a1`。当前`codex/phase4-exploration-stances`按官方R14、R-039接探索导航就绪/掷骰前免费调整四英雄姿态，替补可离开默认支援位；只同步combat姿态、不移动旧棋子或重掷骰。见[本轮记录](phase4-exploration-stances-2026-10-16.md)。村庄及结算中换位未扩入，目录不足/全灭、Q-79/Q-80、高等级正式存档和人工验收边界保留，未进Phase5。下文为历史记录。
+> 当前入口（2026-10-16）：#223已合并为main `5e336a1`。当前`codex/phase4-exploration-stances`按官方R14、R-039接探索导航就绪/掷骰前免费调整四英雄姿态，替补可离开默认支援位；只同步combat姿态、不移动旧棋子或重掷骰。见[本轮记录](../phases/phase4/phase4-exploration-stances-2026-10-16.md)。村庄及结算中换位未扩入，目录不足/全灭、Q-79/Q-80、高等级正式存档和人工验收边界保留，未进Phase5。下文为历史记录。
 
-> 当前入口（2026-10-16）：#222已合并为main `662b976`。当前`codex/phase4-replacement-join`接替补正式入队、移除死者实体、姿态补位和流程续接；本轮Kyries确认R-092/Q-94“取消死者剩余个人项，其他英雄继续”，不让替补接个人探索骰/Trap分配。详见[本轮记录](phase4-replacement-join-2026-10-16.md)。事件16/16，目录不足及全灭停点、Q-79/Q-80、高等级正式存档和人工验收保留，未进Phase5。下文为历史记录。
+> 当前入口（2026-10-16）：#222已合并为main `662b976`。当前`codex/phase4-replacement-join`接替补正式入队、移除死者实体、姿态补位和流程续接；本轮Kyries确认R-092/Q-94“取消死者剩余个人项，其他英雄继续”，不让替补接个人探索骰/Trap分配。详见[本轮记录](../phases/phase4/phase4-replacement-join-2026-10-16.md)。事件16/16，目录不足及全灭停点、Q-79/Q-80、高等级正式存档和人工验收保留，未进Phase5。下文为历史记录。
 
-> 当前入口（2026-10-16）：#221已合并为main `830d9d2`；当前`codex/phase4-death-card-release`按本轮Kyries“所有共享卡均立即洗回对应堆”确认R-091/Q-93，接通死者共享卡回收与牌池守恒。详见[本轮记录](phase4-death-card-release-2026-10-16.md)。暂存替补尚未正式入队；姿态补位、战后/探索/回村及Scout Ahead死亡续接仍是下一主题。事件16/16，Q-79/Q-80、高等级正式存档和人工验收边界保留，Phase4未完成。下文为历史记录。
+> 当前入口（2026-10-16）：#221已合并为main `830d9d2`；当前`codex/phase4-death-card-release`按本轮Kyries“所有共享卡均立即洗回对应堆”确认R-091/Q-93，接通死者共享卡回收与牌池守恒。详见[本轮记录](../phases/phase4/phase4-death-card-release-2026-10-16.md)。暂存替补尚未正式入队；姿态补位、战后/探索/回村及Scout Ahead死亡续接仍是下一主题。事件16/16，Q-79/Q-80、高等级正式存档和人工验收边界保留，Phase4未完成。下文为历史记录。
 
-> 当前入口（2026-10-16）：#220已合并，main `976273d`。当前`codex/phase4-replacement-preparation`接驿站候选、确认才扣一枚等待代币、继承全部XP但不扣驿站余额、最多两项免费升级和自选初始技能，见[本轮记录](phase4-replacement-preparation-2026-10-16.md)。准备好只暂存，未正式入队；下一主题接死者其他卡释放、姿态补位、战后/探索/回村及Scout Ahead死亡续接。目录不足保持停点，真实代币耗尽才失败。Q-79/Q-80、高等级正式存档和人工验收不变，Phase4未完成，未进Phase5。下段为历史进度。
+> 当前入口（2026-10-16）：#220已合并，main `976273d`。当前`codex/phase4-replacement-preparation`接驿站候选、确认才扣一枚等待代币、继承全部XP但不扣驿站余额、最多两项免费升级和自选初始技能，见[本轮记录](../phases/phase4/phase4-replacement-preparation-2026-10-16.md)。准备好只暂存，未正式入队；下一主题接死者其他卡释放、姿态补位、战后/探索/回村及Scout Ahead死亡续接。目录不足保持停点，真实代币耗尽才失败。Q-79/Q-80、高等级正式存档和人工验收不变，Phase4未完成，未进Phase5。下段为历史进度。
 
-> 当前入口（2026-10-16）：#219已审查合并，main `ca3eada`。当前`codex/phase4-death-estate`接战役死亡名单、死者饰品逐卡接收/弃置和后续候选过滤，见[本轮记录](phase4-death-estate-2026-10-16.md)。战斗内读取实时实体，独立待选保留原战斗/探索选择；满槽可弃原装备后接收，接收立即翻正、弃置按原等级。尚未扣代币或创建替补，死者其他卡清理、继承XP/免费升级、技能选择和入队续接仍下一主题。事件16/16，R-090已合入；Q-79/Q-80、正式高等级存档与人工验收不变，Phase4未完成，未进Phase5。下段为历史进度。
+> 当前入口（2026-10-16）：#219已审查合并，main `ca3eada`。当前`codex/phase4-death-estate`接战役死亡名单、死者饰品逐卡接收/弃置和后续候选过滤，见[本轮记录](../phases/phase4/phase4-death-estate-2026-10-16.md)。战斗内读取实时实体，独立待选保留原战斗/探索选择；满槽可弃原装备后接收，接收立即翻正、弃置按原等级。尚未扣代币或创建替补，死者其他卡清理、继承XP/免费升级、技能选择和入队续接仍下一主题。事件16/16，R-090已合入；Q-79/Q-80、正式高等级存档与人工验收不变，Phase4未完成，未进Phase5。下段为历史进度。
 
-> 当前入口（2026-10-16）：#218已审查合并，main `643ea1e`。当前`codex/phase4-scout-ahead`接赏金猎人I村庄能力、压力与下次地牢逐房揭示；Kyries已裁定村庄到10沿R28且计入下一任务，记R-090/Q-92。见[本轮记录](phase4-scout-ahead-2026-10-16.md)。正式入口仍保留原四英雄，死亡停在待补人；下一主题继续死亡名单、饰品让渡、驿站继承XP/免费升级与入队续接。事件16/16，Q-79/Q-80、正式高等级存档与人工验收边界不变，Phase4未完成，未进Phase5。下段为历史进度。
+> 当前入口（2026-10-16）：#218已审查合并，main `643ea1e`。当前`codex/phase4-scout-ahead`接赏金猎人I村庄能力、压力与下次地牢逐房揭示；Kyries已裁定村庄到10沿R28且计入下一任务，记R-090/Q-92。见[本轮记录](../phases/phase4/phase4-scout-ahead-2026-10-16.md)。正式入口仍保留原四英雄，死亡停在待补人；下一主题继续死亡名单、饰品让渡、驿站继承XP/免费升级与入队续接。事件16/16，Q-79/Q-80、正式高等级存档与人工验收边界不变，Phase4未完成，未进Phase5。下段为历史进度。
 
-> 当前入口（2026-10-16）：#217 已审查合并，main `d724efd`。当前 `codex/phase4-collect-bounty` 接 Collect Bounty I 的同框 Humans / Mark 双条件伤害，见[本轮记录](phase4-collect-bounty-2026-10-16.md)。赏金猎人七张 I 级技能分别已接，下一主题核对/接通 Scout Ahead，再接正式补人；仍未开放完整英雄入口，网页保留原四英雄。事件16/16，Q-79/Q-80、正式高等级战役存档和人工验收边界不变，未进 Phase 5。下段为历史进度。
+> 当前入口（2026-10-16）：#217 已审查合并，main `d724efd`。当前 `codex/phase4-collect-bounty` 接 Collect Bounty I 的同框 Humans / Mark 双条件伤害，见[本轮记录](../phases/phase4/phase4-collect-bounty-2026-10-16.md)。赏金猎人七张 I 级技能分别已接，下一主题核对/接通 Scout Ahead，再接正式补人；仍未开放完整英雄入口，网页保留原四英雄。事件16/16，Q-79/Q-80、正式高等级战役存档和人工验收边界不变，未进 Phase 5。下段为历史进度。
 
-> 当前入口（2026-10-16）：#216 已审查合并，main `75a3992`。当前 `codex/phase4-flashbang` 接 Flashbang I 的1–2射程、Stun1t与掷前Push/Pull选择及落点待选续接，见[本轮记录](phase4-flashbang-2026-10-16.md)。赏金猎人六张 I 级技能已接，剩 Collect Bounty 双条件伤害；Scout Ahead 与死亡替换仍后续，网页保留原四英雄。事件16/16，Q-79/Q-80、正式高等级战役存档和人工验收边界不变，未进 Phase 5。下段为历史进度。
+> 当前入口（2026-10-16）：#216 已审查合并，main `75a3992`。当前 `codex/phase4-flashbang` 接 Flashbang I 的1–2射程、Stun1t与掷前Push/Pull选择及落点待选续接，见[本轮记录](../phases/phase4/phase4-flashbang-2026-10-16.md)。赏金猎人六张 I 级技能已接，剩 Collect Bounty 双条件伤害；Scout Ahead 与死亡替换仍后续，网页保留原四英雄。事件16/16，Q-79/Q-80、正式高等级战役存档和人工验收边界不变，未进 Phase 5。下段为历史进度。
 
-> 当前入口（2026-10-16）：#215 已审查合并，main `7a83675`。当前 `codex/phase4-finish-him` 接 Finish Him I 的0–1射程及对真实Stun堆一次+2伤害，见[本轮记录](phase4-finish-him-2026-10-16.md)。赏金猎人五张 I 级技能已接，Collect Bounty / Flashbang 两张、Scout Ahead 与死亡替换仍后续；网页保留原四英雄。事件16/16，Q-79/Q-80、正式高等级战役存档和人工验收边界不变，未进 Phase 5。下段为历史进度。
+> 当前入口（2026-10-16）：#215 已审查合并，main `7a83675`。当前 `codex/phase4-finish-him` 接 Finish Him I 的0–1射程及对真实Stun堆一次+2伤害，见[本轮记录](../phases/phase4/phase4-finish-him-2026-10-16.md)。赏金猎人五张 I 级技能已接，Collect Bounty / Flashbang 两张、Scout Ahead 与死亡替换仍后续；网页保留原四英雄。事件16/16，Q-79/Q-80、正式高等级战役存档和人工验收边界不变，未进 Phase 5。下段为历史进度。
 
-> 当前入口（2026-10-16）：#214 已审查合并，main `1d738c0`，1215 项测试及三条战斗冒烟通过。当前 `codex/phase4-bounty-target-shuffles` 接 Come Hither I / Uppercut I 的完整目标状态与同行 Pull/Push，见[本轮记录](phase4-bounty-target-shuffles-2026-10-16.md)。赏金猎人四张 I 级技能已接，Collect Bounty / Finish Him / Flashbang 三张、Scout Ahead 与死亡替换仍后续；网页保留原四英雄。事件16/16，Q-79/Q-80、正式高等级战役存档和人工验收边界不变，未进 Phase 5。下段为历史进度。
+> 当前入口（2026-10-16）：#214 已审查合并，main `1d738c0`，1215 项测试及三条战斗冒烟通过。当前 `codex/phase4-bounty-target-shuffles` 接 Come Hither I / Uppercut I 的完整目标状态与同行 Pull/Push，见[本轮记录](../phases/phase4/phase4-bounty-target-shuffles-2026-10-16.md)。赏金猎人四张 I 级技能已接，Collect Bounty / Finish Him / Flashbang 三张、Scout Ahead 与死亡替换仍后续；网页保留原四英雄。事件16/16，Q-79/Q-80、正式高等级战役存档和人工验收边界不变，未进 Phase 5。下段为历史进度。
 
-> 当前入口（2026-10-16）：#213 已合并，main `f21a8d4`。当前 `codex/phase4-bounty-skill-review` 按 Kyries“批准两行限定修正及完整效果”记录 R-089/Q-91 confirmed，接通 Mark for Death I / Caltrops I 的完整状态、射程及伤害；只在两卡目标框将 `763ad8e857` 解释为 Debuff，不改全局词典。见[本轮记录](phase4-bounty-skills-2026-10-16.md)。其余五张 I 级技能、Scout Ahead 与死亡替换仍待接，网页保留四英雄。事件16/16、Q-79/Q-80、高等级正式存档与人工验收边界不变，未进 Phase 5。下段为历史进度。
+> 当前入口（2026-10-16）：#213 已合并，main `f21a8d4`。当前 `codex/phase4-bounty-skill-review` 按 Kyries“批准两行限定修正及完整效果”记录 R-089/Q-91 confirmed，接通 Mark for Death I / Caltrops I 的完整状态、射程及伤害；只在两卡目标框将 `763ad8e857` 解释为 Debuff，不改全局词典。见[本轮记录](../phases/phase4/phase4-bounty-skills-2026-10-16.md)。其余五张 I 级技能、Scout Ahead 与死亡替换仍待接，网页保留四英雄。事件16/16、Q-79/Q-80、高等级正式存档与人工验收边界不变，未进 Phase 5。下段为历史进度。
 
-> 当前入口（2026-10-16）：#212 已合并，main `e300c47`，游商 II/III 已进入主线。Kyries 本轮“批准三行属性与限定防御”，R-088/Q-90 confirmed；当前 `codex/phase4-replacement-hero-review` 已入库赏金猎人三等级属性与完整防御，III 级 `c07ea0c507` 只在该卡抗性栏读 Debuff，不改词典或清整卡未验证。见[本轮记录与补人接线缺口](phase4-replacement-hero-review-2026-10-16.md)。网页仍保留四名已完整接通的英雄；下一主题逐卡核对赏金猎人完整技能，再接死亡替换。事件 16/16，Q-79/Q-80 和其余 Phase 4 验收缺口保留，未进 Phase 5。下段为历史进度。
+> 当前入口（2026-10-16）：#212 已合并，main `e300c47`，游商 II/III 已进入主线。Kyries 本轮“批准三行属性与限定防御”，R-088/Q-90 confirmed；当前 `codex/phase4-replacement-hero-review` 已入库赏金猎人三等级属性与完整防御，III 级 `c07ea0c507` 只在该卡抗性栏读 Debuff，不改词典或清整卡未验证。见[本轮记录与补人接线缺口](../phases/phase4/phase4-replacement-hero-review-2026-10-16.md)。网页仍保留四名已完整接通的英雄；下一主题逐卡核对赏金猎人完整技能，再接死亡替换。事件 16/16，Q-79/Q-80 和其余 Phase 4 验收缺口保留，未进 Phase 5。下段为历史进度。
 
-> 当前入口（2026-10-16）：#211 已合并，main `2c21f23`。当前 `codex/phase4-nomad-higher-levels` 接游商 II/III 分级陈列、4/6/8 金购买、2/3/4 金出售与 Gypsy Trail、跨级归池及正式 I 级战役中的高等级游商存档。事件 16/16；见[本轮记录](phase4-nomad-higher-levels-2026-10-16.md)。Q-79/Q-80、死亡补人/英雄池、正式高等级战役存档与人工验收仍未完成，未进 Phase 5。下段为历史进度。
+> 当前入口（2026-10-16）：#211 已合并，main `2c21f23`。当前 `codex/phase4-nomad-higher-levels` 接游商 II/III 分级陈列、4/6/8 金购买、2/3/4 金出售与 Gypsy Trail、跨级归池及正式 I 级战役中的高等级游商存档。事件 16/16；见[本轮记录](../phases/phase4/phase4-nomad-higher-levels-2026-10-16.md)。Q-79/Q-80、死亡补人/英雄池、正式高等级战役存档与人工验收仍未完成，未进 Phase 5。下段为历史进度。
 
-> 当前入口（2026-10-16）：#210已合并，main `b8e4f03`。当前`codex/phase4-lost-shipment`按Kyries本轮A裁定（R-087/Q-88）接Lost Shipment掷前由队伍从常规8颗任意取消2颗（可含Radiant自选）、建筑奖励照常及正式存档，事件16/16。见[本轮记录](phase4-lost-shipment-2026-10-16.md)。下一主题梳理游商II/III；Q-79/Q-80、死亡补人、高等级正式存档和人工验收仍未完成，未进Phase5。下段为历史进度。
+> 当前入口（2026-10-16）：#210已合并，main `b8e4f03`。当前`codex/phase4-lost-shipment`按Kyries本轮A裁定（R-087/Q-88）接Lost Shipment掷前由队伍从常规8颗任意取消2颗（可含Radiant自选）、建筑奖励照常及正式存档，事件16/16。见[本轮记录](../phases/phase4/phase4-lost-shipment-2026-10-16.md)。下一主题梳理游商II/III；Q-79/Q-80、死亡补人、高等级正式存档和人工验收仍未完成，未进Phase5。下段为历史进度。
 
-> 当前入口（2026-10-16）：#209已合并，main `b9c0af4`。当前`codex/phase4-feast`按Kyries本轮A裁定（R-086/Q-89）接The Feast逐英雄压力/伤口完全恢复或放弃、最后洗回/一天准备与正式存档，事件15/16。见[本轮记录](phase4-feast-2026-10-16.md)。剩余Lost Shipment待Q-88；Q-79/Q-80、死亡补人、高等级正式存档和人工验收仍未完成，未进Phase5。下段为历史进度。
+> 当前入口（2026-10-16）：#209已合并，main `b9c0af4`。当前`codex/phase4-feast`按Kyries本轮A裁定（R-086/Q-89）接The Feast逐英雄压力/伤口完全恢复或放弃、最后洗回/一天准备与正式存档，事件15/16。见[本轮记录](../phases/phase4/phase4-feast-2026-10-16.md)。剩余Lost Shipment待Q-88；Q-79/Q-80、死亡补人、高等级正式存档和人工验收仍未完成，未进Phase5。下段为历史进度。
 
-> 当前入口（2026-10-15）：#208已合并，main `565cf71`。当前`codex/phase4-gypsy-trail`接Gypsy Trail两天准备内出售加5金（游商I实际7金）、真实选项/支付/溢出与存档，事件14/16。见[本轮记录](phase4-gypsy-trail-2026-10-15.md)。Lost Shipment继续Q-88 pending；下一主题The Feast完整恢复效果核对。Q-79/Q-80、死亡补人、高等级正式存档和人工验收仍未完成，未进Phase5。下段为历史进度。
+> 当前入口（2026-10-15）：#208已合并，main `565cf71`。当前`codex/phase4-gypsy-trail`接Gypsy Trail两天准备内出售加5金（游商I实际7金）、真实选项/支付/溢出与存档，事件14/16。见[本轮记录](../phases/phase4/phase4-gypsy-trail-2026-10-15.md)。Lost Shipment继续Q-88 pending；下一主题The Feast完整恢复效果核对。Q-79/Q-80、死亡补人、高等级正式存档和人工验收仍未完成，未进Phase5。下段为历史进度。
 
-> 当前入口（2026-10-15）：#207已合并，main `70aa113`。当前`codex/phase4-supply-run`接通Supply Run队伍下次任务+2实际补给骰、Wild待选、16颗上限及正式存档，事件13/16。见[本轮记录](phase4-supply-run-2026-10-15.md)。Lost Shipment减骰分摊/Radiant处理记Q-88 pending；下一主题可独立接Gypsy Trail。Phase4死亡补人/高等级正式存档/人工验收仍未完成，未进Phase5。下段为历史进度。
+> 当前入口（2026-10-15）：#207已合并，main `70aa113`。当前`codex/phase4-supply-run`接通Supply Run队伍下次任务+2实际补给骰、Wild待选、16颗上限及正式存档，事件13/16。见[本轮记录](../phases/phase4/phase4-supply-run-2026-10-15.md)。Lost Shipment减骰分摊/Radiant处理记Q-88 pending；下一主题可独立接Gypsy Trail。Phase4死亡补人/高等级正式存档/人工验收仍未完成，未进Phase5。下段为历史进度。
 
-> 当前入口（2026-10-15）：#206已合并，main `d0f7767`。当前`codex/phase4-militia-training`沿既有R-077接Militia Training全员I级技能免费永久升级、0/3天及待选正式存档；事件12/16。本轮Kyries批准剩余四卡三组限定图标，记R-085，不改全局词典；四卡运行时仍停点。见[本轮记录](phase4-militia-training-2026-10-15.md)。下一主题Supply Run/Lost Shipment队伍奖励/减骰与出征存档，再接Gypsy Trail/The Feast。Q-79/Q-80 pending，未进Phase5。下段为历史进度。
+> 当前入口（2026-10-15）：#206已合并，main `d0f7767`。当前`codex/phase4-militia-training`沿既有R-077接Militia Training全员I级技能免费永久升级、0/3天及待选正式存档；事件12/16。本轮Kyries批准剩余四卡三组限定图标，记R-085，不改全局词典；四卡运行时仍停点。见[本轮记录](../phases/phase4/phase4-militia-training-2026-10-15.md)。下一主题Supply Run/Lost Shipment队伍奖励/减骰与出征存档，再接Gypsy Trail/The Feast。Q-79/Q-80 pending，未进Phase5。下段为历史进度。
 
-> 当前入口（2026-10-15）：#205已合并，main `bfb5221`。当前`codex/phase4-ii-natural-replay`补两张II级任务seed14混合遭遇胜利/提前退出/一次回村，以及seed2真实Howl后回村第四负面死亡停点，命令检查点重放与正式存档拒绝预览均验收，见[本轮记录](phase4-ii-natural-replay-2026-10-15.md)。仍含明确准备天数夹具和Boss跳过，不代表自然升幕或II级正式存档；未进Phase5。下一主题剩余5张村庄事件核对/限定审批，Q-79/Q-80仍pending。下段为历史进度。
+> 当前入口（2026-10-15）：#205已合并，main `bfb5221`。当前`codex/phase4-ii-natural-replay`补两张II级任务seed14混合遭遇胜利/提前退出/一次回村，以及seed2真实Howl后回村第四负面死亡停点，命令检查点重放与正式存档拒绝预览均验收，见[本轮记录](../phases/phase4/phase4-ii-natural-replay-2026-10-15.md)。仍含明确准备天数夹具和Boss跳过，不代表自然升幕或II级正式存档；未进Phase5。下一主题剩余5张村庄事件核对/限定审批，Q-79/Q-80仍pending。下段为历史进度。
 
-> 当前入口（2026-10-15）：#204已合并，main `cafde91`。当前`codex/phase4-ghoul-howl`按本轮批准R-084接Howl逐名光照/压力/疾病与死亡取消、连续第四怪癖待选续接，并开放Ghoul完整入场，见[本轮记录](phase4-ghoul-howl-2026-10-15.md)。II级五种完整可战、事件11/16，Q-79/Q-80 pending；下一主题II级自然混合遭遇/退出回村/日志存档验收。正式Boss升幕/高等级正式存档验收未完成，未进入Phase5。下段为历史进度。
+> 当前入口（2026-10-15）：#204已合并，main `cafde91`。当前`codex/phase4-ghoul-howl`按本轮批准R-084接Howl逐名光照/压力/疾病与死亡取消、连续第四怪癖待选续接，并开放Ghoul完整入场，见[本轮记录](../phases/phase4/phase4-ghoul-howl-2026-10-15.md)。II级五种完整可战、事件11/16，Q-79/Q-80 pending；下一主题II级自然混合遭遇/退出回村/日志存档验收。正式Boss升幕/高等级正式存档验收未完成，未进入Phase5。下段为历史进度。
 
-> 当前入口（2026-10-15）：#203已审查合并，main `b2352a5`。当前`codex/phase4-ghoul-attacks`接Ghoul Rend/Skull Toss完整复合效果及死亡/压力回放测试，见[本轮记录](phase4-ghoul-attacks-2026-10-15.md)。Howl仍未接，整张Ghoul不开放入场；下一主题零伤害多目标、光照/压力/疾病与死亡取消。II级四种可战、事件11/16，Q-79/Q-80 pending，正式Boss升幕/高等级正式存档验收未完成，未进入Phase5。下段为历史进度。
+> 当前入口（2026-10-15）：#203已审查合并，main `b2352a5`。当前`codex/phase4-ghoul-attacks`接Ghoul Rend/Skull Toss完整复合效果及死亡/压力回放测试，见[本轮记录](../phases/phase4/phase4-ghoul-attacks-2026-10-15.md)。Howl仍未接，整张Ghoul不开放入场；下一主题零伤害多目标、光照/压力/疾病与死亡取消。II级四种可战、事件11/16，Q-79/Q-80 pending，正式Boss升幕/高等级正式存档验收未完成，未进入Phase5。下段为历史进度。
 
-> 当前入口（2026-10-15）：#202已合并，main `e22d421`。当前`codex/phase4-rattler-self-status`完成Rattler纯自身Warning Rattle、另两招完整计划与真实53张池入场；只消费选招骰，无假英雄目标/射程/攻击骰，沿既有回合收尾。见[本轮记录](phase4-rattler-self-status-2026-10-15.md)。R-083不重开审批；下一主题Ghoul复合效果，现II级四种可入场/一种仍停点。事件11/16，Q-79/Q-80 pending，未进入Phase5。
+> 当前入口（2026-10-15）：#202已合并，main `e22d421`。当前`codex/phase4-rattler-self-status`完成Rattler纯自身Warning Rattle、另两招完整计划与真实53张池入场；只消费选招骰，无假英雄目标/射程/攻击骰，沿既有回合收尾。见[本轮记录](../phases/phase4/phase4-rattler-self-status-2026-10-15.md)。R-083不重开审批；下一主题Ghoul复合效果，现II级四种可入场/一种仍停点。事件11/16，Q-79/Q-80 pending，未进入Phase5。
 
-> 最新进展（2026-10-15）：Kyries已明确“批准四卡限定表”，记R-083/Q-86 confirmed；#202由送审文档扩展为获批入库与Captain/Gargoyle完整入场。四卡基础Speed/骰表/常驻Protection已生成，Captain/Gargoyle真实53张池部署可战，Rattler/Ghoul仍因完整效果未接原样停场。见[本轮记录](phase4-remaining-ii-review-2026-10-15.md)，后续只需继续各自额外运行时，不重开基础字段审批。下段pending为送审时的历史状态。
+> 最新进展（2026-10-15）：Kyries已明确“批准四卡限定表”，记R-083/Q-86 confirmed；#202由送审文档扩展为获批入库与Captain/Gargoyle完整入场。四卡基础Speed/骰表/常驻Protection已生成，Captain/Gargoyle真实53张池部署可战，Rattler/Ghoul仍因完整效果未接原样停场。见[本轮记录](../phases/phase4/phase4-remaining-ii-review-2026-10-15.md)，后续只需继续各自额外运行时，不重开基础字段审批。下段pending为送审时的历史状态。
 
-> 当前入口（2026-10-15）：#201已合并，main `46ff57a`。当前`codex/phase4-remaining-ii-review`完成Captain/Gargoyle/Rattler/Ghoul的逐面核对及四卡限定审批表（Q-86，pending），见[待审表](phase4-remaining-ii-review-2026-10-15.md)。候选未入生产数据；现有II级仍仅Spearman获批入场。优先等待具体数据批准后逐张补完整运行时，不把Speed/选招批准扩大为全卡自动可用。事件11/16、Q-79/Q-80 pending，未进入Phase5。
+> 当前入口（2026-10-15）：#201已合并，main `46ff57a`。当前`codex/phase4-remaining-ii-review`完成Captain/Gargoyle/Rattler/Ghoul的逐面核对及四卡限定审批表（Q-86，pending），见[待审表](../phases/phase4/phase4-remaining-ii-review-2026-10-15.md)。候选未入生产数据；现有II级仍仅Spearman获批入场。优先等待具体数据批准后逐张补完整运行时，不把Speed/选招批准扩大为全卡自动可用。事件11/16、Q-79/Q-80 pending，未进入Phase5。
 
-> 当前入口（2026-10-15）：#200已审查合并，main `63b3a4e`。当前`codex/phase4-cross-level-trinket`补跨等级旧饰品弃装腾位、独立旧池守恒与回村洗回；完整开发进度及限制见[本轮记录](phase4-cross-level-trinket-2026-10-15.md)。II级仍仅两任务/一种获批怪物，事件11/16，Q-79/Q-80 pending，正式Boss升幕未接，人工试玩未代签，未进入Phase 5。下段为历史交付记录。
+> 当前入口（2026-10-15）：#200已审查合并，main `63b3a4e`。当前`codex/phase4-cross-level-trinket`补跨等级旧饰品弃装腾位、独立旧池守恒与回村洗回；完整开发进度及限制见[本轮记录](../phases/phase4/phase4-cross-level-trinket-2026-10-15.md)。II级仍仅两任务/一种获批怪物，事件11/16，Q-79/Q-80 pending，正式Boss升幕未接，人工试玩未代签，未进入Phase 5。下段为历史交付记录。
 
-> 当前入口（2026-10-15）：#199已合并，head `ca416e3`，main `4122971`。当前 `codex/phase4-ii-monster-entry` 接Kyries本轮仅批准的Bone Spearman II（M13–15）Speed2、A/D骰表2(1–5)/1(6–10)、R/S固定1，记R-082/Q-85；已复核三副本并接完整53张池混合入场，见[核对/开发记录](phase4-ii-monster-review-2026-10-15.md)。其余四种II级仍停点，未筛掉/重抽未批卡；II级任务p7/p8、事件11/16，Q-79/Q-80 pending，正式Boss升幕/新威胁未接，人工试玩未代签，未进入Phase5。下段#199为已交付基线。
+> 当前入口（2026-10-15）：#199已合并，head `ca416e3`，main `4122971`。当前 `codex/phase4-ii-monster-entry` 接Kyries本轮仅批准的Bone Spearman II（M13–15）Speed2、A/D骰表2(1–5)/1(6–10)、R/S固定1，记R-082/Q-85；已复核三副本并接完整53张池混合入场，见[核对/开发记录](../phases/phase4/phase4-ii-monster-review-2026-10-15.md)。其余四种II级仍停点，未筛掉/重抽未批卡；II级任务p7/p8、事件11/16，Q-79/Q-80 pending，正式Boss升幕/新威胁未接，人工试玩未代签，未进入Phase5。下段#199为已交付基线。
 
-> 当前入口（2026-10-15）：#198已审查修正并合并，最终head `6f74c4c`，main `8f57bd7`。正式页面/存档不开放跳过Boss的升幕预览，跨级弃旧饰品仍停点。当前 `codex/phase4-clear-the-path-ii` 按完整QUEST p7及官方R15具名图例核对后接Clear the Path II（含Treasure2，非Empty2），并补两张II级任务退出摘要schema，见[开发记录](phase4-clear-the-path-ii-2026-10-15.md)。两张II级抽选只限沙盒预览，未接II级怪物完整入场、正式升幕/Boss/新威胁；事件11/16，Q-79/Q-80 pending，人工试玩未代签，未进入Phase5。下段#198是已交付基线。
+> 当前入口（2026-10-15）：#198已审查修正并合并，最终head `6f74c4c`，main `8f57bd7`。正式页面/存档不开放跳过Boss的升幕预览，跨级弃旧饰品仍停点。当前 `codex/phase4-clear-the-path-ii` 按完整QUEST p7及官方R15具名图例核对后接Clear the Path II（含Treasure2，非Empty2），并补两张II级任务退出摘要schema，见[开发记录](../phases/phase4/phase4-clear-the-path-ii-2026-10-15.md)。两张II级抽选只限沙盒预览，未接II级怪物完整入场、正式升幕/Boss/新威胁；事件11/16，Q-79/Q-80 pending，人工试玩未代签，未进入Phase5。下段#198是已交付基线。
 
-> 当前入口（2026-10-15）：#197已合并，main `7b66eeb`。当前 `cursor/phase4-ii-embark-4483` 接沙盒I→II牌堆预览与Reduce to Rubble II出征（正式升幕/Boss仍未接，预览不进入正式存档）（QUEST p8；Clear the Path等其余II级未接），见[开发记录](phase4-ii-embark-2026-10-15.md)。剩余5张事件（未审图标/天数`?`）与驿站死亡补人（需扩展英雄池）继续后续；Q-79/Q-80 pending，人工试玩未代签，未进入Phase5。下段In Good Spirits已交付。
+> 当前入口（2026-10-15）：#197已合并，main `7b66eeb`。当前 `cursor/phase4-ii-embark-4483` 接沙盒I→II牌堆预览与Reduce to Rubble II出征（正式升幕/Boss仍未接，预览不进入正式存档）（QUEST p8；Clear the Path等其余II级未接），见[开发记录](../phases/phase4/phase4-ii-embark-2026-10-15.md)。剩余5张事件（未审图标/天数`?`）与驿站死亡补人（需扩展英雄池）继续后续；Q-79/Q-80 pending，人工试玩未代签，未进入Phase5。下段In Good Spirits已交付。
 
-> 当前入口（2026-10-15）：#191–#196已合并，main `c47b1d1`。当前 `cursor/phase4-in-good-spirits-eca2` 接通 In Good Spirits（卡面p14、d10 `94bfa4dde4` confirmed，事件11/16），见[开发记录](phase4-in-good-spirits-2026-10-15.md)。Militia Training（天数`?`）与含未审图标事件仍停点。下一主题剩余事件（待图标/天数批准）或驿站死亡补人（需扩展英雄池）；Q-79/Q-80 pending，人工试玩未代签，未进入Phase5。下段事件批次已交付。
+> 当前入口（2026-10-15）：#191–#196已合并，main `c47b1d1`。当前 `cursor/phase4-in-good-spirits-eca2` 接通 In Good Spirits（卡面p14、d10 `94bfa4dde4` confirmed，事件11/16），见[开发记录](../phases/phase4/phase4-in-good-spirits-2026-10-15.md)。Militia Training（天数`?`）与含未审图标事件仍停点。下一主题剩余事件（待图标/天数批准）或驿站死亡补人（需扩展英雄池）；Q-79/Q-80 pending，人工试玩未代签，未进入Phase5。下段事件批次已交付。
 
-> 当前入口（2026-10-15）：#191–#195已合并，main `f75cac8`。当前 `cursor/phase4-hamlet-events-batch-f133` 接通无未审图标的 Guild Training / Unsettling Darkness / Traveling Merchants（事件10/16），见[开发记录](phase4-hamlet-events-batch-2026-10-15.md)。含未审图标的 Supply Run 等仍停点。下一主题剩余事件（如 In Good Spirits）或驿站死亡补人（需扩展英雄池）；Q-79/Q-80 pending，人工试玩未代签，未进入Phase5。下段高等级出征已交付。
+> 当前入口（2026-10-15）：#191–#195已合并，main `f75cac8`。当前 `cursor/phase4-hamlet-events-batch-f133` 接通无未审图标的 Guild Training / Unsettling Darkness / Traveling Merchants（事件10/16），见[开发记录](../phases/phase4/phase4-hamlet-events-batch-2026-10-15.md)。含未审图标的 Supply Run 等仍停点。下一主题剩余事件（如 In Good Spirits）或驿站死亡补人（需扩展英雄池）；Q-79/Q-80 pending，人工试玩未代签，未进入Phase5。下段高等级出征已交付。
 
-> 当前入口（2026-10-15）：#191–#194已合并，main `6b99c11`。当前 `cursor/phase4-higher-embark-5b82` 接高等级英雄出征与地牢战斗交接（I–III、技能槽=2+HL），见[开发记录](phase4-higher-embark-2026-10-15.md)。优先调查驿站死亡补人：#182仅代币/升级，补人流程仍缺；但仅四名核实英雄且正式入口队满，无可用补员池，故改切本主题。下一主题剩余村庄事件或死亡补人（需扩展英雄池）；事件7/16，Q-79/Q-80 pending，人工试玩未代签，未进入Phase5。下段自然4XP Guild验收已交付。
+> 当前入口（2026-10-15）：#191–#194已合并，main `6b99c11`。当前 `cursor/phase4-higher-embark-5b82` 接高等级英雄出征与地牢战斗交接（I–III、技能槽=2+HL），见[开发记录](../phases/phase4/phase4-higher-embark-2026-10-15.md)。优先调查驿站死亡补人：#182仅代币/升级，补人流程仍缺；但仅四名核实英雄且正式入口队满，无可用补员池，故改切本主题。下一主题剩余村庄事件或死亡补人（需扩展英雄池）；事件7/16，Q-79/Q-80 pending，人工试玩未代签，未进入Phase5。下段自然4XP Guild验收已交付。
 
-> 当前入口（2026-10-15）：#191/#192/#193已合并，main `c6a0567`。当前 `cursor/phase4-natural-4xp-guild-6df4` 接连续两任务自然命令路径攒满4XP→Guild英雄升II验收（seed14 Scout四房2XP→Wipe两巢穴2XP），见[开发记录](phase4-natural-4xp-guild-2026-10-15.md)。正式地牢仍仅I级。下一主题剩余村庄事件/驿站死亡补人或高等级出征；事件7/16，Q-79/Q-80 pending，人工试玩未代签，未进入Phase5。下段出征循环已交付。
+> 当前入口（2026-10-15）：#191/#192/#193已合并，main `c6a0567`。当前 `cursor/phase4-natural-4xp-guild-6df4` 接连续两任务自然命令路径攒满4XP→Guild英雄升II验收（seed14 Scout四房2XP→Wipe两巢穴2XP），见[开发记录](../phases/phase4/phase4-natural-4xp-guild-2026-10-15.md)。正式地牢仍仅I级。下一主题剩余村庄事件/驿站死亡补人或高等级出征；事件7/16，Q-79/Q-80 pending，人工试玩未代签，未进入Phase5。下段出征循环已交付。
 
-> 当前入口（2026-10-15）：#191/#192已合并，main `b1c225c`。当前 `cursor/phase4-next-quest-loop-1c30` 接准备结束后抽选下一任务、出征应用铁匠临时技能、R-041奖励补给骰掷出与任务结束归还，见[开发记录](phase4-next-quest-loop-2026-10-15.md)。正式地牢仍仅I级；自然两任务4XP未验收。下一主题优先连续两任务自然XP路径/Guild英雄升级验收，或剩余村庄事件与驿站死亡补人；事件7/16，Q-79/Q-80 pending，人工试玩未代签，未进入Phase5。下段Guild英雄升级已交付。
+> 当前入口（2026-10-15）：#191/#192已合并，main `b1c225c`。当前 `cursor/phase4-next-quest-loop-1c30` 接准备结束后抽选下一任务、出征应用铁匠临时技能、R-041奖励补给骰掷出与任务结束归还，见[开发记录](../phases/phase4/phase4-next-quest-loop-2026-10-15.md)。正式地牢仍仅I级；自然两任务4XP未验收。下一主题优先连续两任务自然XP路径/Guild英雄升级验收，或剩余村庄事件与驿站死亡补人；事件7/16，Q-79/Q-80 pending，人工试玩未代签，未进入Phase5。下段Guild英雄升级已交付。
 
-> 当前入口（2026-10-15）：#191防御运行时仍为独立 tip；当前 `cursor/phase4-guild-hero-upgrade-3c8e` 接Guild英雄等级升级（4XP+2金）、未装备拥有技能永久升级、`setEquippedSkills`（2+HL）与饰品槽随HL，见[开发记录](phase4-guild-hero-upgrade-2026-10-15.md)。正式地牢仍仅I级；自然两任务4XP未验收。下一主题出征循环/临时技能应用/奖励骰与连续任务；事件7/16，Q-79/Q-80 pending，人工试玩未代签，未进入Phase5。下段防御运行时已交付。
+> 当前入口（2026-10-15）：#191防御运行时仍为独立 tip；当前 `cursor/phase4-guild-hero-upgrade-3c8e` 接Guild英雄等级升级（4XP+2金）、未装备拥有技能永久升级、`setEquippedSkills`（2+HL）与饰品槽随HL，见[开发记录](../phases/phase4/phase4-guild-hero-upgrade-2026-10-15.md)。正式地牢仍仅I级；自然两任务4XP未验收。下一主题出征循环/临时技能应用/奖励骰与连续任务；事件7/16，Q-79/Q-80 pending，人工试玩未代签，未进入Phase5。下段防御运行时已交付。
 
-> 当前入口（2026-10-15）：#190已合并，main `9d0cd8d`。当前 `codex/phase4-hero-defence-runtime` 接R-081八卡持续状态防御、Crusader目标Shuffle抗性/免疫及Vestal III怪物/Curio疾病免疫，见[运行时开发记录](phase4-hero-defence-runtime-2026-10-15.md)。已有疾病/状态不因新免疫清除，自身效果保持R20。正式地牢仍仅I级，下一主题Guild英雄升级与装备槽，再接连续任务自然4XP路径；事件7/16，Q-79/Q-80 pending，人工试玩未代签，未进入Phase5。下段数据前置已交付。
+> 当前入口（2026-10-15）：#190已合并，main `9d0cd8d`。当前 `codex/phase4-hero-defence-runtime` 接R-081八卡持续状态防御、Crusader目标Shuffle抗性/免疫及Vestal III怪物/Curio疾病免疫，见[运行时开发记录](../phases/phase4/phase4-hero-defence-runtime-2026-10-15.md)。已有疾病/状态不因新免疫清除，自身效果保持R20。正式地牢仍仅I级，下一主题Guild英雄升级与装备槽，再接连续任务自然4XP路径；事件7/16，Q-79/Q-80 pending，人工试玩未代签，未进入Phase5。下段数据前置已交付。
 
-> 当前入口（2026-10-15）：#189已合并，main `8b8b5e0`。推进英雄升级时先补高等级防御前置；Kyries已批准八卡完整左右栏，R-081/Q-84 confirmed，当前独立数据/schema/读取器主题，见[核对与开发记录](hero-higher-defence-review-2026-10-15.md)。I级防御/词典不变，尚未启用II/III战斗或Shuffle/Disease运行时，Guild英雄升级及装备槽仍后续；付4XP的自然路径需连续任务接口。事件7/16，Q-79/Q-80 pending，人工试玩未代签，未进入Phase5。下段技能Guild已交付。
+> 当前入口（2026-10-15）：#189已合并，main `8b8b5e0`。推进英雄升级时先补高等级防御前置；Kyries已批准八卡完整左右栏，R-081/Q-84 confirmed，当前独立数据/schema/读取器主题，见[核对与开发记录](../reviews/hero-higher-defence-review-2026-10-15.md)。I级防御/词典不变，尚未启用II/III战斗或Shuffle/Disease运行时，Guild英雄升级及装备槽仍后续；付4XP的自然路径需连续任务接口。事件7/16，Q-79/Q-80 pending，人工试玩未代签，未进入Phase5。下段技能Guild已交付。
 
-> 当前入口（2026-10-15）：#188已合并，main `c470560`。当前 `codex/phase4-guild-skills` 接Guild技能永久升级、个人2XP/共享1金、单次最多两项、原卡永久移除与待选存档，并按本轮批准R-080更新铁匠归还卡，见[开发记录](phase4-guild-skills-2026-10-15.md)。真实seed64 Scout四房间获得2XP后访问，不注入资源。英雄等级/槽位管理及下一任务循环仍待接入；事件7/16，Q-79/Q-80 pending，人工试玩未代签，未进入Phase5。下段铁匠已交付。
+> 当前入口（2026-10-15）：#188已合并，main `c470560`。当前 `codex/phase4-guild-skills` 接Guild技能永久升级、个人2XP/共享1金、单次最多两项、原卡永久移除与待选存档，并按本轮批准R-080更新铁匠归还卡，见[开发记录](../phases/phase4/phase4-guild-skills-2026-10-15.md)。真实seed64 Scout四房间获得2XP后访问，不注入资源。英雄等级/槽位管理及下一任务循环仍待接入；事件7/16，Q-79/Q-80 pending，人工试玩未代签，未进入Phase5。下段铁匠已交付。
 
-> 当前入口（2026-10-14）：#187已合并，main `3b0b825`。当前 `codex/phase4-blacksmith` 接铁匠I–III服务付款/当前行动、下次任务临时技能与III奖励骰记录、保存刷新；依据用户条件核对R29后接R-079重复付费覆盖，Q-82 confirmed，见[开发记录](phase4-blacksmith-2026-10-14.md)。实际出征应用和任务后还原仍等任务循环；事件7/16，Q-79/Q-80仍pending，下一主题Guild。只验证本机，人工试玩未代签，未进入Phase5。下段游商出售已交付。
+> 当前入口（2026-10-14）：#187已合并，main `3b0b825`。当前 `codex/phase4-blacksmith` 接铁匠I–III服务付款/当前行动、下次任务临时技能与III奖励骰记录、保存刷新；依据用户条件核对R29后接R-079重复付费覆盖，Q-82 confirmed，见[开发记录](../phases/phase4/phase4-blacksmith-2026-10-14.md)。实际出征应用和任务后还原仍等任务循环；事件7/16，Q-79/Q-80仍pending，下一主题Guild。只验证本机，人工试玩未代签，未进入Phase5。下段游商出售已交付。
 
-> 当前入口（2026-10-14）：#186已合并，main `4eb2ca4`。当前 `codex/phase4-nomad-sale` 按Kyries批准的R-078接游商I出售2金、立即种子洗回与同次继续购买，含真实跨日持牌日志、待选保存刷新及旧购买待选兼容，见[开发记录](phase4-nomad-sale-2026-10-14.md)。事件保持7/16；Q-79/Q-80仍pending，II/III游商、Guild/铁匠及连续任务继续后续。只验证本机，Phase3人工试玩未代签，未进入Phase5。下段陈列/购买已交付。
+> 当前入口（2026-10-14）：#186已合并，main `4eb2ca4`。当前 `codex/phase4-nomad-sale` 按Kyries批准的R-078接游商I出售2金、立即种子洗回与同次继续购买，含真实跨日持牌日志、待选保存刷新及旧购买待选兼容，见[开发记录](../phases/phase4/phase4-nomad-sale-2026-10-14.md)。事件保持7/16；Q-79/Q-80仍pending，II/III游商、Guild/铁匠及连续任务继续后续。只验证本机，Phase3人工试玩未代签，未进入Phase5。下段陈列/购买已交付。
 
-> 当前入口（2026-10-14）：#185已合并，main `89d2c7a`。当前 `codex/phase4-nomad-wagon` 接游商I首次陈列/4金购买、R26获得饰品待选与存档，见[开发记录](phase4-nomad-wagon-2026-10-14.md)。牌堆不足三张保留Q-80待确认；II/III陈列和出售继续后续，事件保持7/16。沿用户指令只验证本机，不检查远端Actions。Q-79仍pending，连续任务未完成，Phase3人工试玩未代签，未进入Phase5。下段Sharpen Spear已交付。
+> 当前入口（2026-10-14）：#185已合并，main `89d2c7a`。当前 `codex/phase4-nomad-wagon` 接游商I首次陈列/4金购买、R26获得饰品待选与存档，见[开发记录](../phases/phase4/phase4-nomad-wagon-2026-10-14.md)。牌堆不足三张保留Q-80待确认；II/III陈列和出售继续后续，事件保持7/16。沿用户指令只验证本机，不检查远端Actions。Q-79仍pending，连续任务未完成，Phase3人工试玩未代签，未进入Phase5。下段Sharpen Spear已交付。
 
-> 当前入口（2026-10-14）：#184已合并，main `a7def6b`。当前 `codex/phase4-sharpen-spear` 补齐Hellion I的Self Buff5t、当天行动与存档回放，见[开发记录](phase4-sharpen-spear-2026-10-14.md)。按Kyries最新指令，后续只验证本机质量闸门，不再检查远端Actions。事件保持7/16，Clean Guns仍含未确认图标；Q-79仍pending，其余服务与连续任务继续后续。Phase3人工试玩未代签，未进入Phase5。下段墓地已交付。
+> 当前入口（2026-10-14）：#184已合并，main `a7def6b`。当前 `codex/phase4-sharpen-spear` 补齐Hellion I的Self Buff5t、当天行动与存档回放，见[开发记录](../phases/phase4/phase4-sharpen-spear-2026-10-14.md)。按Kyries最新指令，后续只验证本机质量闸门，不再检查远端Actions。事件保持7/16，Clean Guns仍含未确认图标；Q-79仍pending，其余服务与连续任务继续后续。Phase3人工试玩未代签，未进入Phase5。下段墓地已交付。
 
-> 当前入口（2026-10-14）：#183已合并，main `1c5d68a`。当前 `codex/phase4-graveyard` 接墓地免费抽美德、当前行动/建筑占用、跨日保存回放与压力10死亡，见[开发记录](phase4-graveyard-2026-10-14.md)。已有意志卡重复来访保留Q-79待确认；事件保持7/16，其余村庄服务、死亡补人和连续任务继续后续。Phase3人工试玩未代签，未进入Phase5。下段Labor Force已交付。
+> 当前入口（2026-10-14）：#183已合并，main `1c5d68a`。当前 `codex/phase4-graveyard` 接墓地免费抽美德、当前行动/建筑占用、跨日保存回放与压力10死亡，见[开发记录](../phases/phase4/phase4-graveyard-2026-10-14.md)。已有意志卡重复来访保留Q-79待确认；事件保持7/16，其余村庄服务、死亡补人和连续任务继续后续。Phase3人工试玩未代签，未进入Phase5。下段Labor Force已交付。
 
-> 当前入口（2026-10-14）：#182已合并，main `6ebe581`。当前 `codex/phase4-labor-force` 接通 Labor Force 免费升级/放弃、整周禁访、永久弃牌与待选存档，并补铁匠/游商每级10金升级，见[开发记录](phase4-labor-force-2026-10-14.md)。事件7/16；临时技能/饰品交易、死亡补人及连续任务仍未完成，下一主题继续村庄服务。Phase3人工试玩未代签，未进入Phase5。下段驿站主题已交付。
+> 当前入口（2026-10-14）：#182已合并，main `6ebe581`。当前 `codex/phase4-labor-force` 接通 Labor Force 免费升级/放弃、整周禁访、永久弃牌与待选存档，并补铁匠/游商每级10金升级，见[开发记录](../phases/phase4/phase4-labor-force-2026-10-14.md)。事件7/16；临时技能/饰品交易、死亡补人及连续任务仍未完成，下一主题继续村庄服务。Phase3人工试玩未代签，未进入Phase5。下段驿站主题已交付。
 
-> 当前入口（2026-10-14）：#181已合并，main `04f9de9`。当前 `codex/phase4-stagecoach-tokens` 接通驿站I级默认2枚等待英雄代币、每级20金升级及+1枚余额、保存刷新，见[开发记录](phase4-stagecoach-tokens-2026-10-14.md)。死亡补人/消费/英雄池尚未接通，下一主题继续；事件保持6/16，连续任务未完成。Phase3人工试玩未代签，未进入Phase5。下段Resilient已交付。
+> 当前入口（2026-10-14）：#181已合并，main `04f9de9`。当前 `codex/phase4-stagecoach-tokens` 接通驿站I级默认2枚等待英雄代币、每级20金升级及+1枚余额、保存刷新，见[开发记录](../phases/phase4/phase4-stagecoach-tokens-2026-10-14.md)。死亡补人/消费/英雄池尚未接通，下一主题继续；事件保持6/16，连续任务未完成。Phase3人工试玩未代签，未进入Phase5。下段Resilient已交付。
 
-> 当前入口（2026-10-14）：#180已合并，main `99c7d0c`。当前 `codex/phase4-hamlet-resilient` 修复村庄减压服务、Chant/Pray/Zealous Speech漏掉Resilient额外恢复1，见[开发记录](phase4-hamlet-resilient-2026-10-14.md)。事件保持6/16；其余村庄服务、驿站和连续任务继续后续，未知图标不命名。Phase3人工试玩未代签，未进入Phase5。下段Town Fair已交付。
+> 当前入口（2026-10-14）：#180已合并，main `99c7d0c`。当前 `codex/phase4-hamlet-resilient` 修复村庄减压服务、Chant/Pray/Zealous Speech漏掉Resilient额外恢复1，见[开发记录](../phases/phase4/phase4-hamlet-resilient-2026-10-14.md)。事件保持6/16；其余村庄服务、驿站和连续任务继续后续，未知图标不命名。Phase3人工试玩未代签，未进入Phase5。下段Town Fair已交付。
 
-> 当前入口（2026-10-14）：#179已合并，main `4b7f44a`。当前 `codex/phase4-town-fair` 接通Town Fair全体减压/按英雄等级治疗、怪癖修正和一天准备，见[开发记录](phase4-town-fair-2026-10-14.md)。事件已实现6/16；其他10张保留真实停点，未批准图标仍不命名。村庄服务、驿站和连续任务继续后续，Phase3人工试玩未代签，未进入Phase5。下段Caregivers已交付。
+> 当前入口（2026-10-14）：#179已合并，main `4b7f44a`。当前 `codex/phase4-town-fair` 接通Town Fair全体减压/按英雄等级治疗、怪癖修正和一天准备，见[开发记录](../phases/phase4/phase4-town-fair-2026-10-14.md)。事件已实现6/16；其他10张保留真实停点，未批准图标仍不命名。村庄服务、驿站和连续任务继续后续，Phase3人工试玩未代签，未进入Phase5。下段Caregivers已交付。
 
-> 当前入口（2026-10-14）：#178已合并，main `9b6b5e0`。当前 `codex/phase4-caregivers-convention` 接通逐英雄免费移除怪癖/放弃、待选存档和两天准备，见[开发记录](phase4-caregivers-convention-2026-10-14.md)。事件已实现5/16，其余11张保留真实停点；村庄服务、驿站和连续任务继续后续，Phase3人工试玩未代签，未进入Phase5。下段Medical Breakthrough已交付。
+> 当前入口（2026-10-14）：#178已合并，main `9b6b5e0`。当前 `codex/phase4-caregivers-convention` 接通逐英雄免费移除怪癖/放弃、待选存档和两天准备，见[开发记录](../phases/phase4/phase4-caregivers-convention-2026-10-14.md)。事件已实现5/16，其余11张保留真实停点；村庄服务、驿站和连续任务继续后续，Phase3人工试玩未代签，未进入Phase5。下段Medical Breakthrough已交付。
 
-> 当前入口（2026-10-14）：#177已合并，main `143be42`。当前 `codex/phase4-medical-breakthrough` 接通 Medical Breakthrough 疾病选人/结算/洗回及三天准备，见[开发记录](phase4-medical-breakthrough-2026-10-14.md)。事件已实现4/16，其余12张保留真实停点。Phase4仍缺其余村庄服务、驿站和连续下一任务；Phase3人工试玩未代签，不提前进入Phase5。下段Survivalist主题已交付。
+> 当前入口（2026-10-14）：#177已合并，main `143be42`。当前 `codex/phase4-medical-breakthrough` 接通 Medical Breakthrough 疾病选人/结算/洗回及三天准备，见[开发记录](../phases/phase4/phase4-medical-breakthrough-2026-10-14.md)。事件已实现4/16，其余12张保留真实停点。Phase4仍缺其余村庄服务、驿站和连续下一任务；Phase3人工试玩未代签，不提前进入Phase5。下段Survivalist主题已交付。
 
-> 当前入口（2026-10-14）：#176已合并，main `1c295db`。当前 `codex/phase4-survivalist` 接Survivalist I–III服务/升级及下次任务奖励骰记录，见[开发记录](phase4-survivalist-2026-10-14.md)。下段Vestal已交付；奖励实际掷出仍需下一次出征接口，Phase4未完成，不提前开放Boss。
+> 当前入口（2026-10-14）：#176已合并，main `1c295db`。当前 `codex/phase4-survivalist` 接Survivalist I–III服务/升级及下次任务奖励骰记录，见[开发记录](../phases/phase4/phase4-survivalist-2026-10-14.md)。下段Vestal已交付；奖励实际掷出仍需下一次出征接口，Phase4未完成，不提前开放Boss。
 
-> 当前入口（2026-10-14）：#175已合并，main `8045dfd`。当前 `codex/phase4-vestal-hamlet-skills` 接 Vestal I 的 Pray / Chant、状态堆与保存回放，见[开发记录](phase4-vestal-hamlet-skills-2026-10-14.md)。下段修道院正面怪癖是已交付基线；Phase4仍未完成，下一任务/Boss不提前开放，未知图标不外推。
+> 当前入口（2026-10-14）：#175已合并，main `8045dfd`。当前 `codex/phase4-vestal-hamlet-skills` 接 Vestal I 的 Pray / Chant、状态堆与保存回放，见[开发记录](../phases/phase4/phase4-vestal-hamlet-skills-2026-10-14.md)。下段修道院正面怪癖是已交付基线；Phase4仍未完成，下一任务/Boss不提前开放，未知图标不外推。
 
-> 当前入口（2026-10-14）：#174已合并，main `198e13f`。当前 `codex/phase4-abbey-positive-quirk` 补齐修道院II/III的3金正面怪癖服务、第四怪癖待选与保存刷新，见[开发记录](phase4-abbey-positive-quirk-2026-10-14.md)。下段“当前恢复建筑升级”是已交付基线；Phase4仍未完成，下一任务/Boss不提前开放，Phase3人工试玩仍待确认。
+> 当前入口（2026-10-14）：#174已合并，main `198e13f`。当前 `codex/phase4-abbey-positive-quirk` 补齐修道院II/III的3金正面怪癖服务、第四怪癖待选与保存刷新，见[开发记录](../phases/phase4/phase4-abbey-positive-quirk-2026-10-14.md)。下段“当前恢复建筑升级”是已交付基线；Phase4仍未完成，下一任务/Boss不提前开放，Phase3人工试玩仍待确认。
 
-> 当前入口续块（2026-10-14）：#173已合并，main `6b216cc`。当前`codex/phase4-hamlet-building-upgrades`接三栋恢复建筑升级及II/III级恢复选项，见[开发记录](phase4-hamlet-building-upgrades-2026-10-14.md)。下段“当前主题hamlet-actions”已交付；Phase4未完成，未开放下一任务或Boss。账户Actions未启动限制保持。
+> 当前入口续块（2026-10-14）：#173已合并，main `6b216cc`。当前`codex/phase4-hamlet-building-upgrades`接三栋恢复建筑升级及II/III级恢复选项，见[开发记录](../phases/phase4/phase4-hamlet-building-upgrades-2026-10-14.md)。下段“当前主题hamlet-actions”已交付；Phase4未完成，未开放下一任务或Boss。账户Actions未启动限制保持。
 
-> 当前入口（2026-10-14）：#170单任务存档、#171回村结算和#172村庄事件/首日看守人均已合并，main为`5bb2d27`。当前主题`codex/phase4-hamlet-actions`接I级三栋恢复建筑、两项英雄村庄技能与逐日准备，详见[开发记录](phase4-hamlet-actions-2026-10-14.md)。Phase3三基础任务自然路径已通、普通遗迹9/9可战；人工试玩仍待Kyries确认，其他13图和Phase5不提前开放。下文“Treasure/Q-73未完成”等为历史基线，R-073已落地。远端Actions因账户付款/额度未启动，本机闸门通过不称CI全绿。
+> 当前入口（2026-10-14）：#170单任务存档、#171回村结算和#172村庄事件/首日看守人均已合并，main为`5bb2d27`。当前主题`codex/phase4-hamlet-actions`接I级三栋恢复建筑、两项英雄村庄技能与逐日准备，详见[开发记录](../phases/phase4/phase4-hamlet-actions-2026-10-14.md)。Phase3三基础任务自然路径已通、普通遗迹9/9可战；人工试玩仍待Kyries确认，其他13图和Phase5不提前开放。下文“Treasure/Q-73未完成”等为历史基线，R-073已落地。远端Actions因账户付款/额度未启动，本机闸门通过不称CI全绿。
 
-> 三任务自然路径续块（2026-10-14）：Scout I／Wipe I种子1、Fundraiser I种子3从真实起点完整命令走到摘要；Fundraiser包含Ritual四轮撤退、Torture巢穴胜利、真实25金捐20，不注入状态或缩减牌池。实际死亡与0巢穴提前离开也有回放。Kyries人工试玩仍待确认，Treasure／Q-73未完成。详见[自然路径](phase3-natural-quest-paths-2026-10-14.md)。
+> 三任务自然路径续块（2026-10-14）：Scout I／Wipe I种子1、Fundraiser I种子3从真实起点完整命令走到摘要；Fundraiser包含Ritual四轮撤退、Torture巢穴胜利、真实25金捐20，不注入状态或缩减牌池。实际死亡与0巢穴提前离开也有回放。Kyries人工试玩仍待确认，Treasure／Q-73未完成。详见[自然路径](../phases/phase3/phase3-natural-quest-paths-2026-10-14.md)。
 
-> 真实任务入口续块（2026-10-14）：三张基础任务均可从任务卡、已批p1起点S和真实八颗开局补给开始，四英雄各三技能可选，完整牌池不缩减，正式页面隐藏调试布置。完整三任务自然流程验收仍继续；Treasure／Q-73未解锁。详见[任务入口](phase3-quest-entry-2026-10-14.md)。
+> 真实任务入口续块（2026-10-14）：三张基础任务均可从任务卡、已批p1起点S和真实八颗开局补给开始，四英雄各三技能可选，完整牌池不缩减，正式页面隐藏调试布置。完整三任务自然流程验收仍继续；Treasure／Q-73未解锁。详见[任务入口](../phases/phase3/phase3-quest-entry-2026-10-14.md)。
 
-> Invocation续块（2026-10-14）：The Invokers的最后怪物Step2替代移动和Invoking Abyss轮末单次压力已接，普通遗迹8/9可战。Treasure及Q-73、正式任务入口和真实三任务完整验收继续，检查点③仍需用户实际确认。详见[本面实现](phase3-invocation-runtime-2026-10-14.md)。
+> Invocation续块（2026-10-14）：The Invokers的最后怪物Step2替代移动和Invoking Abyss轮末单次压力已接，普通遗迹8/9可战。Treasure及Q-73、正式任务入口和真实三任务完整验收继续，检查点③仍需用户实际确认。详见[本面实现](../phases/phase3/phase3-invocation-runtime-2026-10-14.md)。
 
 > 2026-10-14 Spiked Pit续块：英雄／怪物自身前缀及R20目标Shuffle顺序已合并；本面落坑、Bleed、Circle of Power与回合结束完整接通，R-071断图／范围和R-072先坑后Vertigo保持批准。七面可战，Treasure与Invocation及真实三任务完整验收继续；Q-73仍待用户裁定，其他已确认数据不重复询问。
 
@@ -174,53 +174,53 @@
 
 ## 最新交接：压力／追加伤口／死门／意志（2026-10-13，UTC+8）
 
-#154最终head `a9f4123`两项CI成功，合并main `4cee30e`。按R-069/Q-66移除普通压力追加伤口到10的旧拒绝守卫，先生命与死门，死亡不检定意志，空白存活才意志。Food/Torch/降光/暴击、原骰回放和缺意志资料付款一次有验证。详见[压力交付](phase3-pressure-order-2026-10-13.md)。Q-67、Trap、Curio逐行、自身Shuffle先后和剩余特殊区域继续分块；R-071已confirmed无外部待答项。
+#154最终head `a9f4123`两项CI成功，合并main `4cee30e`。按R-069/Q-66移除普通压力追加伤口到10的旧拒绝守卫，先生命与死门，死亡不检定意志，空白存活才意志。Food/Torch/降光/暴击、原骰回放和缺意志资料付款一次有验证。详见[压力交付](../phases/phase3/phase3-pressure-order-2026-10-13.md)。Q-67、Trap、Curio逐行、自身Shuffle先后和剩余特殊区域继续分块；R-071已confirmed无外部待答项。
 
 ## 最新交接：其余五面批准几何（2026-10-13，UTC+8）
 
-#153最终head `2cc3ddc`两项CI成功，合并main `411ad72`。R-065/066/067其余五面几何、部署、特殊区域印刷绑定独立入库，普通遗迹9/9几何齐、仅4/9可战；五面usable/runtimeReady仍false。R-071再次确认Spiked S1断图保持、有怪物实际位于S1时不可清场走第4轮撤退；Shuffle按实际S8/S9落点触发（含截断），经过／移出／起点不另触发，Q-72已confirmed。完整运行时未齐仍不开放。详见[几何交付](phase3-approved-ruins-geometry-2026-10-13.md)。随后继续公共压力顺序、各面完整运行时与真实三任务路径。
+#153最终head `2cc3ddc`两项CI成功，合并main `411ad72`。R-065/066/067其余五面几何、部署、特殊区域印刷绑定独立入库，普通遗迹9/9几何齐、仅4/9可战；五面usable/runtimeReady仍false。R-071再次确认Spiked S1断图保持、有怪物实际位于S1时不可清场走第4轮撤退；Shuffle按实际S8/S9落点触发（含截断），经过／移出／起点不另触发，Q-72已confirmed。完整运行时未齐仍不开放。详见[几何交付](../phases/phase3/phase3-approved-ruins-geometry-2026-10-13.md)。随后继续公共压力顺序、各面完整运行时与真实三任务路径。
 
 ## 最新交接：mutualWipeout（2026-10-13，UTC+8）
 
-#152最终head `f881349`两项CI成功，合并main `4e45b38`。R-068 / Q-52接入双方同次全灭独立停场原因与事件，UI明确无胜利／撤退奖励；保留死亡和已有金币，不自动判战役失败。详见[全灭交付](phase3-mutual-wipeout-2026-10-13.md)。继续公共压力顺序与其余特殊板块，三任务尚未整体验收。
+#152最终head `f881349`两项CI成功，合并main `4e45b38`。R-068 / Q-52接入双方同次全灭独立停场原因与事件，UI明确无胜利／撤退奖励；保留死亡和已有金币，不自动判战役失败。详见[全灭交付](../phases/phase3/phase3-mutual-wipeout-2026-10-13.md)。继续公共压力顺序与其余特殊板块，三任务尚未整体验收。
 
 ## 最新交接：休息恢复总量（2026-10-13，UTC+8）
 
-#151最终head `899053c`两项CI成功，合并main `9091467`。R-070 / Q-69移除旧停点，同一英雄同次休息Life／压力各按总量一次恢复，怪癖各一次，零分配不触发；HL2合并怪癖和目录守恒公共命令已验证。详见[休息交付](phase3-rest-runtime-2026-10-13.md)。随后继续压力复合顺序与其余板块，三任务尚未整体验收。
+#151最终head `899053c`两项CI成功，合并main `9091467`。R-070 / Q-69移除旧停点，同一英雄同次休息Life／压力各按总量一次恢复，怪癖各一次，零分配不触发；HL2合并怪癖和目录守恒公共命令已验证。详见[休息交付](../phases/phase3/phase3-rest-runtime-2026-10-13.md)。随后继续压力复合顺序与其余板块，三任务尚未整体验收。
 
 ## 最新交接：导航／提前退出（2026-10-13，UTC+8）
 
-#150两项CI成功，合并main `fd7fea1`。按R-068接入每边返回（含灰点／起点／岔路）、起点禁侦察、Curio本次抽空不洗回、Fundraiser最低目标未达仍可R14退出并生成零捐献摘要；R25 Curio撤退重进不保留旧守卫骰。详见[导航交付](phase3-navigation-runtime-2026-10-13.md)。公共复合压力、休息与其余板块继续，三任务尚未整体验收。
+#150两项CI成功，合并main `fd7fea1`。按R-068接入每边返回（含灰点／起点／岔路）、起点禁侦察、Curio本次抽空不洗回、Fundraiser最低目标未达仍可R14退出并生成零捐献摘要；R25 Curio撤退重进不保留旧守卫骰。详见[导航交付](../phases/phase3/phase3-navigation-runtime-2026-10-13.md)。公共复合压力、休息与其余板块继续，三任务尚未整体验收。
 
 ## 最新交接：Torture禁疗（2026-10-13，UTC+8）
 
-#149两项CI成功，合并main `2b9f55b`。R-067的Torture H禁疗接入主动单／多目标技能、补给、附带自疗、被动与意志治疗，自动治疗被阻止后继续其他效果与回合；验证后本面开放。详见[禁疗交付](phase3-unholy-aura-runtime-2026-10-13.md)。普通遗迹4/9可战、核心盒4/28，其余实现继续逐块。
+#149两项CI成功，合并main `2b9f55b`。R-067的Torture H禁疗接入主动单／多目标技能、补给、附带自疗、被动与意志治疗，自动治疗被阻止后继续其他效果与回合；验证后本面开放。详见[禁疗交付](../phases/phase3/phase3-unholy-aura-runtime-2026-10-13.md)。普通遗迹4/9可战、核心盒4/28，其余实现继续逐块。
 
 ## 最新交接：Beacon区域压力（2026-10-13，UTC+8）
 
-#148最新head `07931e1`两项CI成功，合并main `ec62703`。R-065/VQ-14 Beacon FRONT p3/遗迹5入库并接五红星结束回合压力+1、L2恢复1压力；低光/怪癖/意志沿公共模块，详见[Beacon交付](phase3-beacon-runtime-2026-10-13.md)。普通遗迹3/9可战、核心盒3/28；全部本轮裁定已批准，其余实现继续逐块。真实seed1完整池入场与UI展示有验证，入口注明注入代币，三任务未验收。
+#148最新head `07931e1`两项CI成功，合并main `ec62703`。R-065/VQ-14 Beacon FRONT p3/遗迹5入库并接五红星结束回合压力+1、L2恢复1压力；低光/怪癖/意志沿公共模块，详见[Beacon交付](../phases/phase3/phase3-beacon-runtime-2026-10-13.md)。普通遗迹3/9可战、核心盒3/28；全部本轮裁定已批准，其余实现继续逐块。真实seed1完整池入场与UI展示有验证，入口注明注入代币，三任务未验收。
 
 ## 最新交接：R-066–070补充批准（2026-10-13，UTC+8）
 
-#147两项CI成功，合并main `dc7f201`。Kyries已批准Spiked最终邻接、三hash语义、Torture print confirmed，以及全部本轮Q-52/59/61–64/66–71项目裁定；准确范围见R-066–070和[运行时实施步骤](phase3-runtime-rulings-2026-10-13.md)。本块同步词典JSON/CSV/source/计数与Torture confirmed，但禁疗运行时未齐仍不可用；已裁定不等于代码已解除所有旧守卫。随后逐块接线，不能继续把这些Q说成等待用户，也不能先删守卫开放半张卡。普通遗迹2/9可战，三任务贯通与试玩仍待实现。
+#147两项CI成功，合并main `dc7f201`。Kyries已批准Spiked最终邻接、三hash语义、Torture print confirmed，以及全部本轮Q-52/59/61–64/66–71项目裁定；准确范围见R-066–070和[运行时实施步骤](../phases/phase3/phase3-runtime-rulings-2026-10-13.md)。本块同步词典JSON/CSV/source/计数与Torture confirmed，但禁疗运行时未齐仍不可用；已裁定不等于代码已解除所有旧守卫。随后逐块接线，不能继续把这些Q说成等待用户，也不能先删守卫开放半张卡。普通遗迹2/9可战，三任务贯通与试玩仍待实现。
 
 ## 最新交接：Healing Fountain运行时（2026-10-13，UTC+8）
 
-#146最新head `40a9f99`两项CI成功，合并main `f47eae2`。按R-065/VQ-06入库Fountain FRONT p2/遗迹3并接G英雄结束回合治疗3，详见[Healing Waters交付](phase3-healing-waters-2026-10-13.md)。普通遗迹2/9可战、核心盒2/28；Torture候选与其他面运行时未齐保持，p1confirmed/其他13图pending，三任务未验收。完整九房间/42怪物池自然seed10入场有场景回放，UI标注注入代币；不冒充真实任务。
+#146最新head `40a9f99`两项CI成功，合并main `f47eae2`。按R-065/VQ-06入库Fountain FRONT p2/遗迹3并接G英雄结束回合治疗3，详见[Healing Waters交付](../phases/phase3/phase3-healing-waters-2026-10-13.md)。普通遗迹2/9可战、核心盒2/28；Torture候选与其他面运行时未齐保持，p1confirmed/其他13图pending，三任务未验收。完整九房间/42怪物池自然seed10入场有场景回放，UI标注注入代币；不冒充真实任务。
 
 ## 最新交接：R-065数据批准与p1（2026-10-13，UTC+8）
 
-#145最新head `7f9e15e`两项CI成功，已合并main `6da84fd`。Kyries/Grok逐项批准七面VQ与QuestMap仅FRONT p1，记录R-065及[批准入库顺序](phase3-approved-data-2026-10-13.md)；本块只升级p1，两份布局同步、其他13图pending。Treasure T4–T5须blocked；Spiked接触候选仍需明确。逐面几何与完整运行时各自推进，不擅自批未知图标/复合顺序，普通遗迹仍1/9可战，三任务未验收。
+#145最新head `7f9e15e`两项CI成功，已合并main `6da84fd`。Kyries/Grok逐项批准七面VQ与QuestMap仅FRONT p1，记录R-065及[批准入库顺序](../phases/phase3/phase3-approved-data-2026-10-13.md)；本块只升级p1，两份布局同步、其他13图pending。Treasure T4–T5须blocked；Spiked接触候选仍需明确。逐面几何与完整运行时各自推进，不擅自批未知图标/复合顺序，普通遗迹仍1/9可战，三任务未验收。
 
 ## 最新交接：Phase 3 批量推进 / Curio 房间（2026-10-13，UTC+8）
 
-用户要求核对进度、逐步提交并合并剩余 Phase 3；数据仍须 Kyries 逐项确认，不能自行将 pending 升级。main 基线 `9ac1068`，#144 已合并。第一块详见[Curio 房间专题](phase3-curio-room-2026-10-13.md)：规则书 R15 已看完整页，接守卫骰、真实战斗入口、战后奖励与无守卫流程；Torch先决定、抽卡后选英雄、复用24张完整池及现有复合守卫。普通遗迹1/9、地图pending、三任务未验收保持；其他未跟踪文件保留。后续先接无需新数据批准的明确功能，VQ批准后再逐面接线。
+用户要求核对进度、逐步提交并合并剩余 Phase 3；数据仍须 Kyries 逐项确认，不能自行将 pending 升级。main 基线 `9ac1068`，#144 已合并。第一块详见[Curio 房间专题](../phases/phase3/phase3-curio-room-2026-10-13.md)：规则书 R15 已看完整页，接守卫骰、真实战斗入口、战后奖励与无守卫流程；Torch先决定、抽卡后选英雄、复用24张完整池及现有复合守卫。普通遗迹1/9、地图pending、三任务未验收保持；其他未跟踪文件保留。后续先接无需新数据批准的明确功能，VQ批准后再逐面接线。
 
 ## 最新交接：共用负面怪癖获得接口（2026-10-13，UTC+8）
 
 实现 `6df3e85`，对应 [PR #144](https://github.com/Alpaca-go/ddbg-web/pull/144)。本地验证已通过，合并前核最新head两项CI；下列main是开工基线。
 
-#143最新head `5a2ee26`两项CI均成功，已按授权合并为main `95c8644`，本地同步。下方#143合并前待核是历史状态。本轮从该基线建立 `codex/phase3-negative-quirk-acquisition`，详见[专题交付](phase3-negative-quirk-acquisition-2026-10-13.md)。
+#143最新head `5a2ee26`两项CI均成功，已按授权合并为main `95c8644`，本地同步。下方#143合并前待核是历史状态。本轮从该基线建立 `codex/phase3-negative-quirk-acquisition`，详见[专题交付](../phases/phase3/phase3-negative-quirk-acquisition-2026-10-13.md)。
 
 依据官方R26/R27–28、规格书§10.1–10.2/10.4和R-048，重新看R26完整页。新增并导出纯 `gainNegativeQuirk`：完整18张负面堆、三卡上限、第四卡仅替换正面或三负面发疯、实体守恒、共享RNG与堆空拒绝；重复感染疾病复用同一入口，保持原有抽牌/选择/结果，不新增UI或命令。
 
@@ -232,11 +232,11 @@
 
 实现提交 `47a55c6`，对应 [PR #143](https://github.com/Alpaca-go/ddbg-web/pull/143)。本地验证全部通过，合并前核PR最新head两项CI；下列main基线是开工位置，不是本主题合并提交。
 
-#142文档补记已在两项CI成功后按授权合并为main `722a222`，本地同步。从该基线建立 `codex/phase3-curio-negative-status`，继续验收差距表的Curio奖惩缺口；本主题范围/测试/后续见[专题交付](phase3-curio-negative-status-2026-10-13.md)。
+#142文档补记已在两项CI成功后按授权合并为main `722a222`，本地同步。从该基线建立 `codex/phase3-curio-negative-status`，继续验收差距表的Curio奖惩缺口；本主题范围/测试/后续见[专题交付](../phases/phase3/phase3-curio-negative-status-2026-10-13.md)。
 
 依据官方R14/R21/R26–29、R-064/R-063/R-002/R-048及已看完整Curio FRONT p4。Heirloom Chest未用Torch时新增压力+1、Blight 1/3t、Debuff 2t与金币5的完整明确分支；实际seed46从完整24张池抽p4，压力/状态/金币/弃牌一次提交并续接剩余骰。Torch对照保留；金币同步地图和战利品池，旧池漂移停点不发半张奖励。状态追加伤口、压力到10、死亡后奖惩续接仍整卡停场，不推定顺序，不新增裁定。
 
-新增七项场景，本地849项/87文件测试、typecheck、lint、build、diff与六条冒烟通过；第一条修正完成后按钮消失的断言后重跑通过，截图已看；PR CI另核最新提交；旧的Buff事件文案保持，第一条既有Phase3冒烟续接p4，不增加阶段测试条数。统一入口与[验收差距表](phase3-acceptance-gap-2026-10-13.md)随实现维护，不再遗漏。
+新增七项场景，本地849项/87文件测试、typecheck、lint、build、diff与六条冒烟通过；第一条修正完成后按钮消失的断言后重跑通过，截图已看；PR CI另核最新提交；旧的Buff事件文案保持，第一条既有Phase3冒烟续接p4，不增加阶段测试条数。统一入口与[验收差距表](../phases/phase3/phase3-acceptance-gap-2026-10-13.md)随实现维护，不再遗漏。
 
 仍处Phase3，五组剩余工作未收口，本次只补第二组的一张负面卡。三任务完整验收、QuestMap审核、普通遗迹其余八面、Curio房间/Objective和其余负面复合待推进；实际可战仍1/9普通遗迹、1/28核心盒。全部Q/VQ、Torture候选/usable=false、Phase4/Boss边界不变。原有未跟踪文件保持不提交。
 
@@ -244,18 +244,18 @@
 
 此前 #139–141 各有专题交付文档，但遗漏更新本统一入口；本段补齐，并覆盖下方“#138 合并结果以 PR 状态为准”的历史状态。当前功能基线 main 为 `30e16b1`，本地已 ff-only 同步；截至本次补记，#138–141 均已合并，没有遗留开放的功能 PR。
 
-| PR                                                     | 实现 / 最终 head      | 合并提交  | 交付与边界                                                                                                                                                                 |
-| ------------------------------------------------------ | --------------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [#138](https://github.com/Alpaca-go/ddbg-web/pull/138) | `330f94a` / `5d8b19e` | `02b0892` | [Fundraiser](phase3-fundraiser-2026-10-13.md)：完整分布、8点休息、Lair胜利10金币、达标后捐献与待发XP；未达最低目标仍Q-70停点。                                             |
-| [#139](https://github.com/Alpaca-go/ddbg-web/pull/139) | `2f1eeaa`             | `c562a60` | [开局补给](phase3-starting-provisions-2026-10-13.md)：标准八骰、Radiant四骰加自选、Wild对应英雄PendingChoice；选面不重掷，完成才开放探索。                                 |
-| [#140](https://github.com/Alpaca-go/ddbg-web/pull/140) | `e6a8f16`             | `f87f71e` | [探索间补给](phase3-navigation-provisions-2026-10-13.md)：Food/Bandage治疗、Potion减压、移除全部Bleed/Blight、怪癖/疾病被动与压力续接、战斗快照同步；只接导航就绪窗口。    |
-| [#141](https://github.com/Alpaca-go/ddbg-web/pull/141) | `5ce1ac7`             | `30e16b1` | [补给接探索](phase3-provision-exploration-integration-2026-10-13.md)：修复Bandage/Potion导致探索拒绝；固定种子75跑标准/Radiant真实开局→首段危险→G Empty→恢复，锁完整回放。 |
+| PR                                                     | 实现 / 最终 head      | 合并提交  | 交付与边界                                                                                                                                                                                  |
+| ------------------------------------------------------ | --------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [#138](https://github.com/Alpaca-go/ddbg-web/pull/138) | `330f94a` / `5d8b19e` | `02b0892` | [Fundraiser](../phases/phase3/phase3-fundraiser-2026-10-13.md)：完整分布、8点休息、Lair胜利10金币、达标后捐献与待发XP；未达最低目标仍Q-70停点。                                             |
+| [#139](https://github.com/Alpaca-go/ddbg-web/pull/139) | `2f1eeaa`             | `c562a60` | [开局补给](../phases/phase3/phase3-starting-provisions-2026-10-13.md)：标准八骰、Radiant四骰加自选、Wild对应英雄PendingChoice；选面不重掷，完成才开放探索。                                 |
+| [#140](https://github.com/Alpaca-go/ddbg-web/pull/140) | `e6a8f16`             | `f87f71e` | [探索间补给](../phases/phase3/phase3-navigation-provisions-2026-10-13.md)：Food/Bandage治疗、Potion减压、移除全部Bleed/Blight、怪癖/疾病被动与压力续接、战斗快照同步；只接导航就绪窗口。    |
+| [#141](https://github.com/Alpaca-go/ddbg-web/pull/141) | `5ce1ac7`             | `30e16b1` | [补给接探索](../phases/phase3/phase3-provision-exploration-integration-2026-10-13.md)：修复Bandage/Potion导致探索拒绝；固定种子75跑标准/Radiant真实开局→首段危险→G Empty→恢复，锁完整回放。 |
 
 四个 PR 各自最新 head 的质量与 Playwright CI 均成功后按用户授权 GitHub merge。#139 本地830项/84文件，#140为839项/85文件，#141为842项/86文件；各次typecheck、lint、build、diff与六条冒烟通过。#140首次并行负载下既有牌池遍历测试超时，全量重跑通过且未修改时限；#141明确补了此前开局冒烟未实际掷探索骰的覆盖缺口。原三个阶段/六个总冒烟不增加条数，缓存Chromium临时配置未提交。现有Vite配置与bundle提示保留。
 
 当前仍是 Phase 3：三张基础任务已有明确身份/构成/目标与待发摘要，尚无三张完整从入口到战斗、退出、结算的检查点③验收记录。实际可战Room Tile为核心盒1/28；普通遗迹九面仅Ritual可用（1/9），Torture几何/部署已入库但Unholy Aura仅候选、usable=false，Fountain及遗迹4–9草稿待审核。14张QuestMap全部pending。完整卡池保留，不筛掉未可用牌改变概率。
 
-下一步及分类后的剩余项见[Phase 3验收差距](phase3-acceptance-gap-2026-10-13.md)。优先接明确逐面审批后的房间几何/部署/完整效果，再补Curio房间守卫、负面Curio与未决规则获裁定后的续接，最后安排三任务完整试玩验收。Q-52/59/61–64/66–70不自行裁定；不能以“继续”批准草稿，不跳Phase4/Boss。回村实发XP、英雄替换/驿站、村庄和正式存档仍是Phase4任务，不把整套村庄作为Phase3剩余工作。
+下一步及分类后的剩余项见[Phase 3验收差距](../phases/phase3/phase3-acceptance-gap-2026-10-13.md)。优先接明确逐面审批后的房间几何/部署/完整效果，再补Curio房间守卫、负面Curio与未决规则获裁定后的续接，最后安排三任务完整试玩验收。Q-52/59/61–64/66–70不自行裁定；不能以“继续”批准草稿，不跳Phase4/Boss。回村实发XP、英雄替换/驿站、村庄和正式存档仍是Phase4任务，不把整套村庄作为Phase3剩余工作。
 
 当前本次补记只改文档，不改规则/代码/数据批准，也不新建证据JSON。开工前`.uploads/`、`tmp-verify/`、`docs/_q52-search*.txt`保持不提交。旧段落按时间保留；接手时以本段和各编号裁定的最新状态为准。
 
@@ -265,7 +265,7 @@
 
 #137准确head `80addfe`两项CI成功，已按授权合并为main `1036a3b`，本地同步。本轮 `codex/phase3-fundraiser` 接第三张I级任务的完整分布 / 8点休息、Lair清理10金币奖励、达成最低巢穴目标后退出捐献；依据官方R14–15 / R29、R-038 / R-048与已看完整QUEST FRONT p3。
 
-任务结束后明确捐献整数0–可用金币、最多60，整20换1XP；取消不扣费，确认同步地图 / 战利品金币并保存同额英雄 / 驿站待发XP，不发放。新增Q-70：未达一间Lair最低目标的提前退出与R14 / R15如何协调尚待裁定，该分支停点，不猜测失败 / 强制留场。Q-69与其余Q / VQ保持。详见[本轮交付](phase3-fundraiser-2026-10-13.md)。
+任务结束后明确捐献整数0–可用金币、最多60，整20换1XP；取消不扣费，确认同步地图 / 战利品金币并保存同额英雄 / 驿站待发XP，不发放。新增Q-70：未达一间Lair最低目标的提前退出与R14 / R15如何协调尚待裁定，该分支停点，不猜测失败 / 强制留场。Q-69与其余Q / VQ保持。详见[本轮交付](../phases/phase3/phase3-fundraiser-2026-10-13.md)。
 
 三张任务已接明确入口及摘要，但特殊房间 / 回村发放 / 未达目标退出与Phase3完整验收未完成；不进入Phase4 / Boss。实际可参战板块仍1/28，新板块审批与Torture Unholy Aura候选排除项保持。
 Node24.21.0 / pnpm12.9.1：typecheck、lint、83文件 / 823项测试、build与diff检查通过。六条冒烟均通过：第一条修正捐献控件的可访问名称后单独重跑，其余五条已通过；已查看捐献完成截图。缓存Chromium1234临时配置不改正式配置，PR最新head CI另核，既有Vite / bundle提示保留。
@@ -276,7 +276,7 @@ Node24.21.0 / pnpm12.9.1：typecheck、lint、83文件 / 823项测试、build与
 
 #136准确head `1c4f418`两项CI成功并按授权合并为main `36bca29`，本地同步。本轮 `codex/phase3-wipe-em-out` 新接第二张I级基础任务：完整八枚分布、仅巢穴清理计1XP、12点休息 / 每人3点，仍只记录待发英雄 / 驿站XP。已看QUEST FRONT p2完整卡面，依据官方R15 / R29、R-038 / R-048。
 
-任务ID与构成唯一匹配，不借Scout兜底；摘要schema、清理守恒、休息预算与柴火身份统一。中文沙盒新增完整分布与自然首个巢穴待入场入口，不删牌、不改代币、不清理房间或发奖；自然种子1885走生产抽牌 / 部署 / 真实四轮退场，离开后摘要0XP。见[本轮交付](phase3-wipe-em-out-2026-10-13.md)。
+任务ID与构成唯一匹配，不借Scout兜底；摘要schema、清理守恒、休息预算与柴火身份统一。中文沙盒新增完整分布与自然首个巢穴待入场入口，不删牌、不改代币、不清理房间或发奖；自然种子1885走生产抽牌 / 部署 / 真实四轮退场，离开后摘要0XP。见[本轮交付](../phases/phase3/phase3-wipe-em-out-2026-10-13.md)。
 
 本地Node24.21.0 / pnpm12.9.1：typecheck、lint、82文件 / 807项测试、build、六条冒烟与diff检查通过，已看退场摘要截图。新增9项场景，原Scout与Q-69回归保留；PR最新head CI另核，本地缓存Chromium1234配置不改正式配置。
 
@@ -288,7 +288,7 @@ Phase3仍欠第三张任务、特殊目标、回村发放与完整验收；不�
 
 #135 准确 head `239b774` 两项CI成功，已按授权合并为main `8694df5`，本地同步。本轮 `codex/phase3-scout-rest` 接Scout Ahead的8点柴火休息，依据官方R15 / QUEST p1；已看完整规则页和卡面。退出摘要保留待发，不接村庄。
 
-休息须已清理房间与四名存活英雄、全员同意；取消保留柴火，共同分配或意见不一时每人2点。分配完成前冻结其他命令、不恢复；全8点完成后原子恢复、弃柴火，支持死门治疗且同步战斗回传记录。新增待裁定Q-69，Infirm / Fast Healer的Life分配和Resilient的压力分配保持停点，不猜测多点恢复事件分组。见[本轮交付](phase3-scout-rest-2026-10-13.md)。
+休息须已清理房间与四名存活英雄、全员同意；取消保留柴火，共同分配或意见不一时每人2点。分配完成前冻结其他命令、不恢复；全8点完成后原子恢复、弃柴火，支持死门治疗且同步战斗回传记录。新增待裁定Q-69，Infirm / Fast Healer的Life分配和Resilient的压力分配保持停点，不猜测多点恢复事件分组。见[本轮交付](../phases/phase3/phase3-scout-rest-2026-10-13.md)。
 
 Node24.21.0 / pnpm12.9.1：typecheck、lint、81文件 / 798项测试、build、六条Playwright冒烟与diff检查通过，已查看休息完成截图。本地沿用缓存Chromium1234临时配置，正式配置不改；PR最新head两项CI另核，既有Vite配置 / bundle提示保留。
 
@@ -300,7 +300,7 @@ Phase3其他任务与完整验收未完成；不跳Phase4。Fountain / 遗迹4�
 
 #134 准确 head `b7af47a` 的质量与 Playwright 两项 CI 成功，已按授权合并为 main `0cef7ac`，本地同步。本轮从该基线建立 `codex/phase3-scout-quest-summary`，接退出后的清理记录 / 待发 XP 摘要。下方“合并前核 #134”属于历史记录。
 
-保存初始任务身份与代币构成，只接 Scout Ahead I，每两间清理房间计1 XP、最多3；每名英雄与驿站同额，awarded=false。完整校验清理记录，旧状态 / 未知任务 / 错构成不兜底；全员退出后只生成一次，英雄与驿站尚不发放 XP。已修正走廊 seed31 沙盒把Trap标清理的注入，G / E代币互换，构成与RNG守恒。见[本轮交付](phase3-scout-quest-summary-2026-10-13.md)。
+保存初始任务身份与代币构成，只接 Scout Ahead I，每两间清理房间计1 XP、最多3；每名英雄与驿站同额，awarded=false。完整校验清理记录，旧状态 / 未知任务 / 错构成不兜底；全员退出后只生成一次，英雄与驿站尚不发放 XP。已修正走廊 seed31 沙盒把Trap标清理的注入，G / E代币互换，构成与RNG守恒。见[本轮交付](../phases/phase3/phase3-scout-quest-summary-2026-10-13.md)。
 
 本地 Node24.21.0 / pnpm12.9.1：typecheck、lint、80文件 / 788项测试、build、六条冒烟与diff检查通过，已查看结算摘要截图。新增13项场景；第一条Phase3冒烟续接摘要，仍三条阶段 / 六条总冒烟，缓存Chromium1234配置不改正式配置。PR最新head两项CI另核。
 
@@ -312,7 +312,7 @@ Phase3其他任务与完整验收未完成；不跳Phase4。Fountain / 遗迹4�
 
 #133 准确 head `cb7adde` 的质量与 Playwright 两项 CI 成功，已按用户授权合并为 main `49a5a8b`，本地 ff-only 同步。本轮从该基线建立 `codex/phase3-dungeon-exit`，继续 Phase 3 的撤离入口；不跳 Phase 4。
 
-新增探索掷骰前的全员离开 PendingChoice、取消恢复与 `exited` 终止状态，保留金币 / 英雄 / 牌池 / RNG；起点、灰点、房间及选路后未掷骰窗口均可使用，危险、死亡、房间和战斗停点不跳过。任务 XP 与回村尚未接线，具体见[本轮交付](phase3-dungeon-exit-2026-10-13.md)。
+新增探索掷骰前的全员离开 PendingChoice、取消恢复与 `exited` 终止状态，保留金币 / 英雄 / 牌池 / RNG；起点、灰点、房间及选路后未掷骰窗口均可使用，危险、死亡、房间和战斗停点不跳过。任务 XP 与回村尚未接线，具体见[本轮交付](../phases/phase3/phase3-dungeon-exit-2026-10-13.md)。
 
 Node 24.21.0 / pnpm 12.9.1 下 typecheck、lint、79 文件 / 775 项测试、build、六条冒烟及 diff 检查通过，已查看离开完成截图。冒烟使用本地缓存 Chromium 1234 配置，正式配置不改；远端 CI 另核准确 head。
 
@@ -324,7 +324,7 @@ Phase 2 按批准范围完成，Phase 3 未验收，实际可参战板块仍 1/2
 
 #132准确head `de7659d` 两项CI均成功，按用户授权合并为main `cc0537d`，本地ff-only同步。下方#132未合并状态为历史记录；未收到任何新增逐面目视批准，Fountain及遗迹4–9继续待审核，Torture运行时排除项不变。
 
-当前 `codex/phase3-room-tile-selection` 新接按roomId / location / number唯一匹配的公共入口，显式补Ritual既有身份字段，抽房间、部署怪物、正式入场和UI匹配提示使用同一生产目录。schema、usable和部署审核分别守卫，不按页码 / 名称兜底；错配或过期活动房间拒绝，不重抽 / 推进RNG。具体范围见[本轮交付](phase3-room-tile-selection-2026-10-13.md)。
+当前 `codex/phase3-room-tile-selection` 新接按roomId / location / number唯一匹配的公共入口，显式补Ritual既有身份字段，抽房间、部署怪物、正式入场和UI匹配提示使用同一生产目录。schema、usable和部署审核分别守卫，不按页码 / 名称兜底；错配或过期活动房间拒绝，不重抽 / 推进RNG。具体范围见[本轮交付](../phases/phase3/phase3-room-tile-selection-2026-10-13.md)。
 
 新增5项场景；typecheck、lint、78文件/767测试、build、六条冒烟与diff检查通过。尚未开放新面，实际可用仍1/28，VQ和全部未决Q不改。下一块依明确逐面批准入库 / 接特殊效果；不能因“继续推进”批准草稿，不跳Phase4。
 
@@ -334,7 +334,7 @@ Phase 2 按批准范围完成，Phase 3 未验收，实际可参战板块仍 1/2
 
 #131最新head `062d8a0` 的质量与Playwright两项CI均成功，按用户“合并，继续推进”授权合并为main `323cec1`，本地ff-only同步。下方#131未合并状态是历史记录；合并文档不等于批准草稿数据。
 
-本轮从main建立 `codex/phase3-ruins8-9-verify-drafts`，准备[Invocation Chamber VQ-17](phase3-invocation-chamber-review-2026-10-13.md)（BACK p5 / room:p008）与[Old Abbey VQ-18](phase3-old-abbey-review-2026-10-13.md)（FRONT p5 / room:p009）。完整板块和配套卡均已看，身份、容量、边界 / 角点、部署、宝箱、星形及卡文各自记录，图像仅在忽略缓存。
+本轮从main建立 `codex/phase3-ruins8-9-verify-drafts`，准备[Invocation Chamber VQ-17](../phases/phase3/phase3-invocation-chamber-review-2026-10-13.md)（BACK p5 / room:p008）与[Old Abbey VQ-18](../phases/phase3/phase3-old-abbey-review-2026-10-13.md)（FRONT p5 / room:p009）。完整板块和配套卡均已看，身份、容量、边界 / 角点、部署、宝箱、星形及卡文各自记录，图像仅在忽略缓存。
 
 Invocation十区，专属卡文是每轮最后怪物的step 2行动替换与轮末四英雄图标 / 压力+2；Old Abbey九区，两红星为结束回合按正负怪癖压力 / 治疗候选。不推定AI平手、死亡 / 压力与治疗复合顺序，不复用Cornered或省略卡面效果。VQ-17/18加入队列，生产几何、词典、引擎及usable不改。
 
@@ -348,7 +348,7 @@ Invocation十区，专属卡文是每轮最后怪物的step 2行动替换与轮�
 
 #130 最新 head `fb99a78` 的质量与Playwright两项CI均成功，已按用户“合并，继续推进”授权合并为main `675c389`，本地ff-only同步；下方#130未合并状态是历史记录。合并审核文档不等于批准其中数据。
 
-本轮从main建立 `codex/phase3-ruins6-7-verify-drafts`，继续用户此前“Fountain尚未审核，先准备其他板块”范围。已看BACK/FRONT p4完整板块及rooms FRONT p6/p7完整卡，分别准备[遗迹6 Treasure Chamber VQ-15](phase3-treasure-chamber-review-2026-10-13.md)与[遗迹7 Tomb of Ancestor VQ-16](phase3-tomb-of-ancestor-review-2026-10-13.md)。两面均九区，容量和部署各自数点核图，不共用几何；原图只在忽略缓存。
+本轮从main建立 `codex/phase3-ruins6-7-verify-drafts`，继续用户此前“Fountain尚未审核，先准备其他板块”范围。已看BACK/FRONT p4完整板块及rooms FRONT p6/p7完整卡，分别准备[遗迹6 Treasure Chamber VQ-15](../phases/phase3/phase3-treasure-chamber-review-2026-10-13.md)与[遗迹7 Tomb of Ancestor VQ-16](../phases/phase3/phase3-tomb-of-ancestor-review-2026-10-13.md)。两面均九区，容量和部署各自数点核图，不共用几何；原图只在忽略缓存。
 
 Treasure区A动作交互与普通宝箱分列，B的“remove all”目标 `5c9604da90` 仍未知；Tomb六项免疫中 `ce2f57ed90` / `8c4c3c2ec2` 仍未知，不命名、不删去未知项后开放。standing here不替换成结束回合触发。生产几何 / 词典 / 引擎及usable均不改，实际可用仍1/28；VQ和全部未决Q、Torture候选排除项不变。
 
@@ -360,7 +360,7 @@ Treasure区A动作交互与普通宝箱分列，B的“remove all”目标 `5c96
 
 #129 最新 head `f1e6244` 的质量与 Playwright 两项 CI 均成功，已按用户“合并”授权合并为 main `64b6e94`；本地 ff-only 同步。下方 #129 尚未合并状态是历史记录。Torch 的24张奖励路径已接通，未用Torch的负面复合仍保留规则停点，不视为完整Phase3。
 
-用户随后要求继续推进，并明确回传“Fountain 尚未审核，先继续准备其他板块”。本轮仅准备遗迹4 / BACK p3 / room:p004 的 [Spiked Pit VQ-13](phase3-spiked-pit-review-2026-10-13.md) 与遗迹5 / FRONT p3 / room:p005 的 [Beacon of Light VQ-14](phase3-beacon-of-light-review-2026-10-13.md) 独立草稿；已看两张完整板块和配套卡、核raw位置及词典状态。图像仅在忽略缓存，不提交；没有生产几何 / 词典 / 引擎改动或新批准。
+用户随后要求继续推进，并明确回传“Fountain 尚未审核，先继续准备其他板块”。本轮仅准备遗迹4 / BACK p3 / room:p004 的 [Spiked Pit VQ-13](../phases/phase3/phase3-spiked-pit-review-2026-10-13.md) 与遗迹5 / FRONT p3 / room:p005 的 [Beacon of Light VQ-14](../phases/phase3/phase3-beacon-of-light-review-2026-10-13.md) 独立草稿；已看两张完整板块和配套卡、核raw位置及词典状态。图像仅在忽略缓存，不提交；没有生产几何 / 词典 / 引擎改动或新批准。
 
 Spiked Pit 的12区容量观察、两宝箱、A/B区和全部部署已列；黑带边界单列待分类，`8c4c3c2ec2` 仍未知，不命名或删触发分支。Beacon 的9区、8条边候选、五红星 / 一绿星、宝箱及部署已列，卡文仅支持结束回合压力增减候选，不借名称改变光照。VQ-13/14 已加入队列，实际可用仍1/28。Torture Unholy Aura 排除项、Fountain 待审核及全部未决Q不变。
 
@@ -372,7 +372,7 @@ Spiked Pit 的12区容量观察、两宝箱、A/B区和全部部署已列；黑�
 
 #128 最新 head `8bab41d` 的质量与 Playwright 两项 CI 均成功，审阅后按用户本次授权合并为 main `d0bfadb`，本地 ff-only 同步。当前主题 `codex/phase3-curio-composite-rewards` 从该基线开始，下方 #128 未合并状态是历史记录。
 
-新增 Torch 后 05 / 07 / 24 的 Buff / 饰品 / 正面怪癖复合，按获批卡面行序逐项保存续接游标。整卡预检全部池，待选不重抽 / 重施加、腾位不提前抽下一奖励，最后只支付一次金币并弃一次 Curio。Torch 获得选择覆盖 24 / 24，仍不保证未知饰品可装备，不代表未用 Torch 的负面复合可完成。种子 230 的真实 Strongbox → Accuracy Stone → Clotter 与命令回放见[本轮交付](phase3-curio-composite-rewards-2026-10-13.md)。
+新增 Torch 后 05 / 07 / 24 的 Buff / 饰品 / 正面怪癖复合，按获批卡面行序逐项保存续接游标。整卡预检全部池，待选不重抽 / 重施加、腾位不提前抽下一奖励，最后只支付一次金币并弃一次 Curio。Torch 获得选择覆盖 24 / 24，仍不保证未知饰品可装备，不代表未用 Torch 的负面复合可完成。种子 230 的真实 Strongbox → Accuracy Stone → Clotter 与命令回放见[本轮交付](../phases/phase3/phase3-curio-composite-rewards-2026-10-13.md)。
 
 typecheck、lint、77 文件 / 762 项测试、build、六条冒烟与 diff 检查通过，已看完成截图；PR CI 另核准确 head。本主题尚未合并。Torture Unholy Aura 候选 / usable=false、Fountain 待批准、VQ 与 Q-52 / Q-59 / Q-61–68 保持。步骤 2 / Phase 3 未完成，继续板块逐面审核 / 接线，再推进任务闭环；不跳 Phase 4。
 
@@ -382,7 +382,7 @@ typecheck、lint、77 文件 / 762 项测试、build、六条冒烟与 diff 检�
 
 #127 最新 head `6eb4669` 两项 CI 成功后按用户本次授权合并为 main `ff9c557`，本地已 ff-only 同步。下方 #127 未合并状态是历史记录。当前主题 `codex/phase3-curio-trinket-acquisition` 从已合并 main 开始。
 
-新接完整等级饰品堆（14 / 12 / 12）、共享 RNG、获得 / 携带上限 / 转交 / 弃牌待选，只开放 Torch 后单一饰品的 12 / 18 / 22。未复核卡不删出概率池、不装备，玩家可明确弃新卡或保持待选等待复核。现 21 / 24 张 Torch 路径可完成获得选择，仍不保证可装备每一张；05 / 07 / 24 的复合停点保留。完整边界与种子 921 入口见[本轮交付](phase3-curio-trinket-acquisition-2026-10-12.md)。
+新接完整等级饰品堆（14 / 12 / 12）、共享 RNG、获得 / 携带上限 / 转交 / 弃牌待选，只开放 Torch 后单一饰品的 12 / 18 / 22。未复核卡不删出概率池、不装备，玩家可明确弃新卡或保持待选等待复核。现 21 / 24 张 Torch 路径可完成获得选择，仍不保证可装备每一张；05 / 07 / 24 的复合停点保留。完整边界与种子 921 入口见[本轮交付](../phases/phase3/phase3-curio-trinket-acquisition-2026-10-12.md)。
 
 装备仅记录持有者与正反面，不执行主动能力；使用 / 翻面和跨等级战役携带留 Phase 4。普通地牢等级与饰品池等级不符时不抽牌。VQ / rulings 不变：Torture Unholy Aura 仅候选、不接运行时、usable=false；Fountain 待批准；Q-52 / Q-59 / Q-61–68 保持。步骤 2 / Phase 3 未完成。
 
@@ -392,7 +392,7 @@ typecheck、lint、77 文件 / 762 项测试、build、六条冒烟与 diff 检�
 
 #126 最新 head `32748f1` 两项 CI 成功后，按用户本次“合并，然后继续推进下一步”授权合并为 main `722045d`；本地已 ff-only 同步。下方 #126 未合并状态属于历史记录。当前主题 `codex/phase3-curio-positive-provisions` 从已合并 main 开始。
 
-新增 p10 / p16 的 Torch 后正面怪癖 + 金币 + 补给路径：遵循本卡怪癖先于补给的印刷顺序，先解决怪癖满额选择，再掷补给 / Wild，保留已抽入牌与骰，全部待选完成后付金币并弃 Curio。仅这类不带压力 / 状态 / 疾病 / 饰品的奖励组合开放；18 / 24 张可完成，剩余 05 / 07 / 12 / 18 / 22 / 24 保留完整饰品接口停点。交付与真实种子 317 入口见[本轮续接](phase3-curio-positive-provisions-2026-10-12.md)。
+新增 p10 / p16 的 Torch 后正面怪癖 + 金币 + 补给路径：遵循本卡怪癖先于补给的印刷顺序，先解决怪癖满额选择，再掷补给 / Wild，保留已抽入牌与骰，全部待选完成后付金币并弃 Curio。仅这类不带压力 / 状态 / 疾病 / 饰品的奖励组合开放；18 / 24 张可完成，剩余 05 / 07 / 12 / 18 / 22 / 24 保留完整饰品接口停点。交付与真实种子 317 入口见[本轮续接](../phases/phase3/phase3-curio-positive-provisions-2026-10-12.md)。
 
 VQ / rulings 边界不变：Torture 的 Unholy Aura 仅候选、不接运行时、usable=false；Fountain 未批准；Q-52 / Q-59 / Q-61–68 不裁定、不跳 Phase 4。步骤 2 / Phase 3 未完成。
 
@@ -402,7 +402,7 @@ VQ / rulings 边界不变：Torture 的 Unholy Aura 仅候选、不接运行时�
 
 Kyries 要求“合并，然后继续推进下一步”。已核四个 PR 的最新 head 两项 CI 均成功，依次将 #122 / #123 / #124 / #125 转待审并合并到 main，末次 main `b7a4cbe`；本地已 ff-only 同步。下方“尚未合并 / 以主题分支为 base”全部是当轮历史状态。当前新主题 `codex/phase3-curio-positive-quirk` 从已合并 main 开始。
 
-本轮接正面怪癖完整 17 张有限堆、共享 RNG、第四个为正面时的替换 / 弃新卡待选；Curio 仅开放 Torch 后只剩一项正面怪癖奖励的 06 / 11，现 16 / 24 张可完成。10 / 16 等多奖励组合仍整卡停点；不推定新被动参与同卡效果。范围与真实种子 85 入口见[单一正面怪癖交付](phase3-curio-positive-quirk-2026-10-12.md)。
+本轮接正面怪癖完整 17 张有限堆、共享 RNG、第四个为正面时的替换 / 弃新卡待选；Curio 仅开放 Torch 后只剩一项正面怪癖奖励的 06 / 11，现 16 / 24 张可完成。10 / 16 等多奖励组合仍整卡停点；不推定新被动参与同卡效果。范围与真实种子 85 入口见[单一正面怪癖交付](../phases/phase3/phase3-curio-positive-quirk-2026-10-12.md)。
 
 Torture 仍按用户明确限制：本面部署已批准 / 入库，Unholy Aura 仅候选，不接运行时，usable=false；Fountain VQ-06 尚未批准。Q-52 / Q-59 / Q-61–68 不改，不问已批准 Torture / BACK p2，不跳 Phase 4。步骤 2 / Phase 3 未完成。
 
@@ -410,9 +410,9 @@ Torture 仍按用户明确限制：本面部署已批准 / 入库，Unholy Aura 
 
 实现 `90a2c93`，开放草稿 [PR #125](https://github.com/Alpaca-go/ddbg-web/pull/125)，以尚未合并的 #124 主题分支为 base；本地入库不等于 main 已交付。typecheck、lint、747 项测试、build、六条冒烟与 diff 检查通过；合并前另核最新 head 两项 CI。创建 PR 后本入口补记随主题提交。
 
-Kyries 已回传 Kyries/Grok 的 Torture Chamber BACK p2（遗迹 2）VQ-01、02、03、04、05 目视批准，**无修正**。本轮明确只入库；H 的 Unholy Aura 仅候选，不接运行时，不复用 Cornered，`usable` 待治疗拒绝路径就绪。批准记录与状态已更新至[verify-queue](kyries-verify-queue-2026-10-12.md)，用户本轮明确提供的批准是入库依据，不需要再询问 Torture / BACK p2；没有批准 Fountain FRONT p2。
+Kyries 已回传 Kyries/Grok 的 Torture Chamber BACK p2（遗迹 2）VQ-01、02、03、04、05 目视批准，**无修正**。本轮明确只入库；H 的 Unholy Aura 仅候选，不接运行时，不复用 Cornered，`usable` 待治疗拒绝路径就绪。批准记录与状态已更新至[verify-queue](../kyries-verify-queue-2026-10-12.md)，用户本轮明确提供的批准是入库依据，不需要再询问 Torture / BACK p2；没有批准 Fountain FRONT p2。
 
-当前主题 `codex/phase3-torture-verified-data`，基于 #124 的 `1f1f7c6`。新增 `room_tile:p002:back` / `room:p002`，锁 BACK 来源，记录八区容量、十条通行边、三角点、黑墙、四英雄 / 四怪物和三宝箱的本面 confirmed 部署；H 候选独立保存，强制 `runtimeReady=false` / `usable=false`。规范化生成器现在输出两面，仅 Ritual Chamber 可用；引擎 / UI 不开放新板块。字段与限制见[本轮入库交付](phase3-torture-verified-data-2026-10-12.md)。
+当前主题 `codex/phase3-torture-verified-data`，基于 #124 的 `1f1f7c6`。新增 `room_tile:p002:back` / `room:p002`，锁 BACK 来源，记录八区容量、十条通行边、三角点、黑墙、四英雄 / 四怪物和三宝箱的本面 confirmed 部署；H 候选独立保存，强制 `runtimeReady=false` / `usable=false`。规范化生成器现在输出两面，仅 Ritual Chamber 可用；引擎 / UI 不开放新板块。字段与限制见[本轮入库交付](../phases/phase3/phase3-torture-verified-data-2026-10-12.md)。
 
 本轮仅将用户提供的 verify-queue 按批准更新并纳入主题；两份 `_q52-search*.txt`、`.uploads/`、`tmp-verify/` 和美术缓存保留不提交。Q-52 / Q-59 / Q-61–68 全部继续由 rulings 管理；步骤 2 / Phase 3 未完成，不跳 Phase 4。下方“VQ-01～05 全部待确认”是批准前记录，不覆盖本段。
 
@@ -422,7 +422,7 @@ Kyries 已回传 Kyries/Grok 的 Torture Chamber BACK p2（遗迹 2）VQ-01、02
 
 Kyries 本轮要求严格按 `AGENTS.md` / `rulings.md` 和本顶部，以 `docs/kyries-verify-queue-2026-10-12.md` 的 VQ 目视批准为后续入库 / 接线依据。读取时 VQ-01～05 仍全部为待确认，没有 Torture 的新批准；已通过异步问题请求现有审核结果，同时准备不依赖批准的 VQ-06。不得把本轮指令视为全队列批准。用户提供的队列文件与两份 `_q52-search*.txt` 保留在本地，不随本主题提交。
 
-当前分支 `codex/phase3-fountain-verify-draft`，基于 #123 分支 `5d92d24`；本轮只交付[Healing Fountain VQ-06 草稿](phase3-healing-fountain-review-2026-10-12.md)与索引 / 交接更新。已查看 FRONT p2 的完整页和配套 room:p003 完整卡，逐项记录十区容量、十条通行邻接、四个角点候选、黑墙、四英雄 / 四怪物部署、未见宝箱，以及绿色星形 / Heal 图标与明确印刷数字 3。已核相应词典状态，不命名未确认 hash、不补 duration、不写生产几何 / 部署，不增加 usable；完整图与缓存仍不提交。
+当前分支 `codex/phase3-fountain-verify-draft`，基于 #123 分支 `5d92d24`；本轮只交付[Healing Fountain VQ-06 草稿](../phases/phase3/phase3-healing-fountain-review-2026-10-12.md)与索引 / 交接更新。已查看 FRONT p2 的完整页和配套 room:p003 完整卡，逐项记录十区容量、十条通行邻接、四个角点候选、黑墙、四英雄 / 四怪物部署、未见宝箱，以及绿色星形 / Heal 图标与明确印刷数字 3。已核相应词典状态，不命名未确认 hash、不补 duration、不写生产几何 / 部署，不增加 usable；完整图与缓存仍不提交。
 
 下一块优先接收 VQ-01～05 批准或修正，按 Torture → Fountain → 其余面入库及接线。Torture 与 Fountain 的草稿都不等于已批准；几何 / 部署 / 特殊效果齐全且运行时完成才考虑开放整面。Q-52 / Q-59 / Q-61–68 仍由 rulings 管理，不在 VQ，不自行裁定。步骤 2 / Phase 3 未完成，Curio 奖励接口沿 #123 的边界推进，不跳 Phase 4。
 
@@ -432,15 +432,15 @@ Kyries 本轮要求严格按 `AGENTS.md` / `rulings.md` 和本顶部，以 `docs
 
 当前分支 `codex/phase3-curio-provisions`，基于 `124bbb3`，包含尚未合并的 #122；未将本主题称为 main 已交付。用户本轮再次确认 Q-60 全部 17 个 hash，核对与 R-064 一致，未重复修改词典。用户明确步骤 2 同时包含板块容量 / 邻接 / 出生 / 交互逐面审核与 Curio 图标 / 效果接线，不以代码复用替代数据核实。
 
-- Curio `rollProvision` 新接共享种子骰、Wild PendingChoice 与一次奖励提交；抽前 Torch、完整资料及未满补给池时可完成 14 张，新增 03 / 08 / 15 / 20。其余十张仍被正面怪癖 / 饰品接口挡住；Q-62 / Q-68 等未裁定组合保留。具体列表与验证见[补给奖励交付](phase3-curio-provisions-2026-10-12.md)。
-- 已查看核心盒印刷两份 TILES 的 28 面联系表与第 2 页正反完整页；遗迹 2 / Torture Chamber 实际在 BACK p2，FRONT p2 是遗迹 3 / Healing Fountain。完成 Torture Chamber 八区容量、邻接、出生和交互的待批准表；没有把新板块设为 usable。完整索引与审核草稿见[板块逐面核对](phase3-tile-face-review-2026-10-12.md)。
+- Curio `rollProvision` 新接共享种子骰、Wild PendingChoice 与一次奖励提交；抽前 Torch、完整资料及未满补给池时可完成 14 张，新增 03 / 08 / 15 / 20。其余十张仍被正面怪癖 / 饰品接口挡住；Q-62 / Q-68 等未裁定组合保留。具体列表与验证见[补给奖励交付](../phases/phase3/phase3-curio-provisions-2026-10-12.md)。
+- 已查看核心盒印刷两份 TILES 的 28 面联系表与第 2 页正反完整页；遗迹 2 / Torture Chamber 实际在 BACK p2，FRONT p2 是遗迹 3 / Healing Fountain。完成 Torture Chamber 八区容量、邻接、出生和交互的待批准表；没有把新板块设为 usable。完整索引与审核草稿见[板块逐面核对](../phases/phase3/phase3-tile-face-review-2026-10-12.md)。
 - typecheck、lint、744 项测试、build 与六条冒烟通过；已看补给完成截图。板块生产可用仍 1 / 28 面，步骤 2 及 Phase 3 未完成。下一块继续怪癖 / 饰品完整奖励接口，以及 Torture Chamber 表获批后的独立入库与 Unholy Aura 治疗边界，随后逐面推进其他遗迹板块。不跳 Phase 4；原 `docs/_q52-search.txt` 保留不提交。
 
 ## 最新交接：Q-60 全图标批准与 Curio 覆盖（2026-10-12，UTC+8）
 
 实现 `4788477`，对应开放草稿 [PR #122](https://github.com/Alpaca-go/ddbg-web/pull/122)，尚未合并。创建 PR 后入口补记与本主题一并提交；后续合并前须核对最新 head 的质量与 Playwright 两项 CI。
 
-Kyries 授权步骤 2 并明确批准 17 个 Q-60 hash / 01–24 手打效果行，记录为 R-064。当前 `codex/phase3-q60-curio-icons` 基于 main `5714846`；本主题尚未合并。范围、17 个 hash 与真实可结算表见[本轮交付](phase3-q60-curio-icons-2026-10-12.md)，批准来源见[手打对照](ddbg-icon-review.md)。下方 Q-60 未确认及只 p21 数据完整的叙述为历史状态。
+Kyries 授权步骤 2 并明确批准 17 个 Q-60 hash / 01–24 手打效果行，记录为 R-064。当前 `codex/phase3-q60-curio-icons` 基于 main `5714846`；本主题尚未合并。范围、17 个 hash 与真实可结算表见[本轮交付](../phases/phase3/phase3-q60-curio-icons-2026-10-12.md)，批准来源见[手打对照](../reviews/ddbg-icon-review.md)。下方 Q-60 未确认及只 p21 数据完整的叙述为历史状态。
 
 - 词典现有 10 条更新、7 条新增，JSON / CSV 同步；只改获批 hash，不推广同组。24 张 Curio 已无未知效果行，01 口头“美德 / 折磨”作废；Disease 不命名为 Blight。
 - Torch 改为只过滤负面效果，正面怪癖、Buff、饰品与补给保持真实效果。p02 的 Buff 2t 已接原状态结算；抽前 Torch 且完整英雄资料下，01 / 02 / 04 / 09 / 13 / 14 / 17 / 19 / 21 / 23 共十张可完成。
@@ -451,7 +451,7 @@ Kyries 授权步骤 2 并明确批准 17 个 Q-60 hash / 01–24 手打效果行
 
 合并完成：#121 最新 head `44c190b` 的质量与 Playwright 两项 CI 均成功，已按 Kyries 本次授权合并为 main `fe0de21`；本地 main 已 ff-only 同步。依赖 #120 已先合并为 `d50a823`。下方等待 CI 的描述是合并前记录，当前接手从 main 继续第二步的板块与 Curio 覆盖。
 
-Kyries 授权开始第一步并随后要求“合并”。依赖 #120 最新 head `0d86402` 的质量与 Playwright 两项 CI 成功，已合并为 main `d50a823`。分支 `codex/phase3-low-light-exploration` 已同步该基线，实现 `bacf3ac`，对应 [PR #121](https://github.com/Alpaca-go/ddbg-web/pull/121)，等待最新 head CI 成功后按本次授权合并。当前开发入口见[低光照探索交付](phase3-low-light-exploration-2026-10-12.md)，下方 #120 未合并及低光照未接线的叙述为历史状态。
+Kyries 授权开始第一步并随后要求“合并”。依赖 #120 最新 head `0d86402` 的质量与 Playwright 两项 CI 成功，已合并为 main `d50a823`。分支 `codex/phase3-low-light-exploration` 已同步该基线，实现 `bacf3ac`，对应 [PR #121](https://github.com/Alpaca-go/ddbg-web/pull/121)，等待最新 head CI 成功后按本次授权合并。当前开发入口见[低光照探索交付](../phases/phase3/phase3-low-light-exploration-2026-10-12.md)，下方 #120 未合并及低光照未接线的叙述为历史状态。
 
 - 按官方 R14 / R29、规格书 §5.5 / §5.7 / §5.10 与 R-002 / R-003 接 Darkness 降光、全队被动、意志恢复和光照 0–5 探索；复用现有危险 / 环境 Trap 结算，不重掷或提前移动。低光 Trap 房间同步开放，混合分配按实际压力预检 Q-64。
 - 新增 14 项场景；既有第一条 Phase 3 冒烟延伸至降光 4 后完成 Empty、再次选路并掷八骰。Q-64 / Q-66 / Q-67 / Q-68 保持停点，Phase 3 未验收。验证与本机限制见交付文档。
@@ -463,14 +463,14 @@ Kyries 授权开始第一步并随后要求“合并”。依赖 #120 最新 hea
 
 - 按官方 R14 / R27、规格书 §5.5 / G-06 与 R-003 / R-026 / R-031，接固定 Acc 8 / Crit 2、DL 伤害、英雄 Dodge、Protection、具名被动、同批伤口与死门；技能和陷阱共享减伤函数。不制造怪物 / 反弹对象，不提前移动或重复掷骰。
 - 十二项新场景及既有第一条 Phase 3 冒烟扩展 Trap 暴击；typecheck、lint、75 文件 / 725 项测试、build、六条冒烟与 diff 检查通过，已检查 Trap 完整截图。最后中文伤害来源提示修正另复核类型、lint 与新增场景。压力缺资料时保存已付伤害，补齐后继续剩余骰；Q-66 / Q-67 原子拒绝，Q-68 不变。
-- 接手先读本节与[探索 Trap 交付](phase3-exploration-trap-2026-10-12.md)。下一块优先探索骰 Darkness 降光与低光照探索的已明确规则接线；完整任务 / XP、休息、撤离与其他房间仍未完成，Phase 3 未验收，不跳 Phase 4。原有 `docs/_q52-search.txt` 保留且不提交。
+- 接手先读本节与[探索 Trap 交付](../phases/phase3/phase3-exploration-trap-2026-10-12.md)。下一块优先探索骰 Darkness 降光与低光照探索的已明确规则接线；完整任务 / XP、休息、撤离与其他房间仍未完成，Phase 3 未验收，不跳 Phase 4。原有 `docs/_q52-search.txt` 保留且不提交。
 
 ## 最新交接：Dark 房间与地图 Torch（2026-10-12，UTC+8）
 
 用户要求“合并，然后继续推进下一步”：#118 最新 head `a641f45` 的质量与 Playwright 两项 CI 均成功，草稿转为待审后按本次授权合并为 main `1e701a7`，本地 main 已 ff-only 同步。当前主题分支 `codex/phase3-dark-room`，代码提交 `6a817ec`，对应开放草稿 [PR #119](https://github.com/Alpaca-go/ddbg-web/pull/119)，尚未合并；本次 PR 入口补记随同分支追加。下方 #118 尚未合并的叙述为此前历史补记。
 
 - 官方 R12 / R15 完整页面核对后，接通 Dark 每次进入光照 −1、保留代币，以及导航就绪时消费真实 Torch 提升光照 +1。`dungeon-light.ts` 复用全队光照被动、压力、生命与 RNG；无实际变化不触发被动。`roomResolution.kind=dark` 与 `pressureSource=provision` 分别续接房间和补给收尾，避免重扣或误走侦察 / Trap 分配。
-- 中文地牢沙盒增加 Dark 布置与操作；八项新增场景验证重复进房、Torch、边界、被动、意志、恢复及拒绝。typecheck、lint、74 文件 / 713 项测试、build、`git diff --check` 与六条本地冒烟通过，并检查 Dark 完整截图。第二条 Phase 3 冒烟扩展 Dark → Torch → 往返，仍维持三条 Phase 3 / 六条总冒烟。选路前保留 Torch 窗口的补充后，全量测试和其他质量检查、六条冒烟再次通过。范围见 [Dark 房间交付](phase3-dark-room-2026-10-12.md)。
+- 中文地牢沙盒增加 Dark 布置与操作；八项新增场景验证重复进房、Torch、边界、被动、意志、恢复及拒绝。typecheck、lint、74 文件 / 713 项测试、build、`git diff --check` 与六条本地冒烟通过，并检查 Dark 完整截图。第二条 Phase 3 冒烟扩展 Dark → Torch → 往返，仍维持三条 Phase 3 / 六条总冒烟。选路前保留 Torch 窗口的补充后，全量测试和其他质量检查、六条冒烟再次通过。范围见 [Dark 房间交付](../phases/phase3/phase3-dark-room-2026-10-12.md)。
 - 非 5 光照的有骰探索与 Trap 房间仍保留实现边界，有骰探索在选路前拒绝以保留 Torch 使用窗口，可先恢复光照 5；Radiant 侦察后的零骰路径沿用既有行为。R-002 / R-003 已有依据，不把代码未接线冒称规则尚未裁定。Q-66 / Q-67 / Q-68 不变，完整任务 / XP、其他房间、休息和撤离仍未完成。
 - 接手先看本节及主题交付文档，从当前主题分支 / 待审 PR 继续。后续优先低光照探索与陷阱攻击的已有规则接线，或下一张遗迹 Room Tile 核对准备；Phase 3 仍需三张核心任务卡验收，不跳到 Phase 4。原有 `docs/_q52-search.txt` 保留且不提交。
 
@@ -478,12 +478,12 @@ Kyries 授权开始第一步并随后要求“合并”。依赖 #120 最新 hea
 
 本节补齐 `da054da` / #117 与 `7f8323d` / #118 未同步到总交接的记录，并更新 #115 / #116 的合并状态。接手以本节为准，后文旧的“草稿 / 未合并 / 沿原分支继续”为当轮历史状态。
 
-| 主题                                           | 代码提交与 PR                                                                           | 当前状态                                                                          |
-| ---------------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
-| 守卫房间战斗、获批怪物字段与英雄防御、疾病目录 | `77983d1`、`773875b`、`a9eeff6`；[#115](https://github.com/Alpaca-go/ddbg-web/pull/115) | 已合并到 main `c50226b`                                                           |
-| 疾病与负面怪癖运行时                           | [#116](https://github.com/Alpaca-go/ddbg-web/pull/116)                                  | 已合并到 main `4c891bf`；范围见[运行时交付](phase3-disease-runtime-2026-10-12.md) |
-| Balanced 可选减位移                            | `da054da`；[#117](https://github.com/Alpaca-go/ddbg-web/pull/117)                       | 用户授权、PR CI 通过后已合并到 main `3407f38`                                     |
-| 空区域 Vertigo 位移压力收尾                    | `7f8323d`；[#118](https://github.com/Alpaca-go/ddbg-web/pull/118)                       | 开放草稿、尚未合并；代码 head 的质量与 Playwright 两项 CI 均成功                  |
+| 主题                                           | 代码提交与 PR                                                                           | 当前状态                                                                                           |
+| ---------------------------------------------- | --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| 守卫房间战斗、获批怪物字段与英雄防御、疾病目录 | `77983d1`、`773875b`、`a9eeff6`；[#115](https://github.com/Alpaca-go/ddbg-web/pull/115) | 已合并到 main `c50226b`                                                                            |
+| 疾病与负面怪癖运行时                           | [#116](https://github.com/Alpaca-go/ddbg-web/pull/116)                                  | 已合并到 main `4c891bf`；范围见[运行时交付](../phases/phase3/phase3-disease-runtime-2026-10-12.md) |
+| Balanced 可选减位移                            | `da054da`；[#117](https://github.com/Alpaca-go/ddbg-web/pull/117)                       | 用户授权、PR CI 通过后已合并到 main `3407f38`                                                      |
+| 空区域 Vertigo 位移压力收尾                    | `7f8323d`；[#118](https://github.com/Alpaca-go/ddbg-web/pull/118)                       | 开放草稿、尚未合并；代码 head 的质量与 Playwright 两项 CI 均成功                                   |
 
 已重新 fetch 核对：远端与本地 main 均为 `3407f38`；本地当前检出 `codex/phase3-empty-area-vertigo`，代码提交为 `7f8323d`，此次文档补记在同分支追加并随 #118 提交。原有未跟踪文件 `docs/_q52-search.txt` 保留且不提交。#118 是当前待审入口，不再从 #115 或 #116 的旧开发分支继续。
 
@@ -495,7 +495,7 @@ Kyries 授权开始第一步并随后要求“合并”。依赖 #120 最新 hea
 - 五项新增场景覆盖真实 Point Blank Shot 的零位移、保持距离后分岔、Vertigo 一次触发、行动 / RNG / 回放、满员截断、原子拒绝，以及派生怪物多目标位移的独立持有者选择和一次回合结束。多步距离与派生 Push 行是明确测试布置，没有写入真实卡牌。
 - 本地 Node 24.21.0 / pnpm 12.9.1：typecheck、lint、73 文件 / 700 项测试、build、`git diff --check` 与六条 Playwright 冒烟通过；#117 的 PR CI 两项成功后按用户“合并，然后继续推进下一步”指令合并，本地 main 已 ff-only 同步。
 
-完整范围和限制见 [Balanced 位移选择](phase3-balanced-shuffle-2026-10-12.md)。这次合并不代表 Phase 3 完成，也没有新增正面怪癖抽牌入口。
+完整范围和限制见 [Balanced 位移选择](../phases/phase3/phase3-balanced-shuffle-2026-10-12.md)。这次合并不代表 Phase 3 完成，也没有新增正面怪癖抽牌入口。
 
 ### 补记二：空区域 Vertigo 位移压力收尾（#118）
 
@@ -505,7 +505,7 @@ Kyries 授权开始第一步并随后要求“合并”。依赖 #120 最新 hea
 - 五项新增场景用真实 Duelist’s Advance I、HIGHWAYMAN I 与完整疾病 / 怪癖 / 意志目录覆盖美德和苦难、心脏病、Balanced 零位移、缺资料修复续接及 Vertigo + Soft / Nervous 拒绝。四区域分岔是显式引擎测试布置；既有真实目标 Vertigo 停点回归保留。
 - 本地 Node 24.21.0 / pnpm 12.9.1：typecheck、lint、73 文件 / 705 项测试、build、`git diff --check` 和六条 Playwright 冒烟通过。首轮并行检查时原有 Room Tile 生成一致性测试超过默认 5 秒；单独重跑全套后 705 项通过，未修改测试超时。`7f8323d` 的 PR CI 质量与 Playwright 两项也均成功。
 
-完整范围见 [空区域 Vertigo 收尾](phase3-empty-area-vertigo-2026-10-12.md)。当前尚无专用网页测试布置入口；复现与回归入口为 `packages/engine/src/conditions-scenario.test.ts` 中“空区域 Vertigo”系列场景，网页沿用现有战斗界面。不能把测试布置写成完整任务默认开局。
+完整范围见 [空区域 Vertigo 收尾](../phases/phase3/phase3-empty-area-vertigo-2026-10-12.md)。当前尚无专用网页测试布置入口；复现与回归入口为 `packages/engine/src/conditions-scenario.test.ts` 中“空区域 Vertigo”系列场景，网页沿用现有战斗界面。不能把测试布置写成完整任务默认开局。
 
 ### 保留边界、环境与下一块
 
@@ -517,7 +517,7 @@ Kyries 授权开始第一步并随后要求“合并”。依赖 #120 最新 hea
 
 ## 最新交接：疾病与负面怪癖运行时（2026-10-12，UTC+8）
 
-#115 已合并为 main `c50226b`；本轮 `codex/phase3-disease-runtime` 也已通过 #116 合并为 main `4c891bf`。本节保留当轮实现与验证记录；后续 Balanced / 空区域 Vertigo 和当前分支状态以本文顶部补记为准。范围见[疾病运行时接线](phase3-disease-runtime-2026-10-12.md)。
+#115 已合并为 main `c50226b`；本轮 `codex/phase3-disease-runtime` 也已通过 #116 合并为 main `4c891bf`。本节保留当轮实现与验证记录；后续 Balanced / 空区域 Vertigo 和当前分支状态以本文顶部补记为准。范围见[疾病运行时接线](../phases/phase3/phase3-disease-runtime-2026-10-12.md)。
 
 - 已接入完整 11 张疾病 / 35 张怪癖目录的有限实体池、真实 Maggot 感染、重复感染、负面抽牌、正面替换 PendingChoice 与第四张负面永久死亡；目录 / 持牌 / 余牌 / 弃牌保持守恒，不过滤未知卡面图标。
 - 实际命令触发伤害 / 反击、治疗、压力、状态施加、Food、移动、位移完成、意志骰、光照与探索；同次追加伤口按 R-026 合并死门，Bad Gambler 先于技能效果，状态与牌池随战斗回传。
@@ -536,7 +536,7 @@ Kyries 要求“**不用拆分成3个任务，一次重型任务，先合并，�
 - 九种新增 I 级怪物的 Speed / 选招已按 Kyries 两次明确批准全部入库，四处纠错采用修正版；十五种 / 42 张基础字段完整。M43 Accusation 的标签误过滤已修复，Bloodletter 只读 L2 战斗卡、不改 M30 参考卡。复合效果原语经整行和内容守门接入已有结算器，单 / 多目标命令应用状态与光照；四核心 I 级完整防御已获限定审批并入库：Stun / Bleed 分别减 Nt 1，免疫空，词典与其他等级不动。全部 11 张疾病已按官方 R27–28 生成规范化目录，但完整触发与重复感染的负面怪癖运行时尚未接入，Maggot 技能继续拒绝。Phase 3 尚未完成。
 - 本地 typecheck、lint、Vitest 71 文件 / 674 项、build、Playwright 6 条通过，已检查战斗 / 撤退截图；PR CI 以 #115 的最新 head 为准。
 
-接手先读[本轮接入与限制](phase3-guarded-battle-loop-2026-10-12.md)及[九种怪物获批表](monster-battle-review-2026-10-12.md)，沿同一分支 / PR 继续，不拆成新任务，不把代理核图写成 Kyries 已批准。工作区原有 `docs/_q52-search.txt` 保留且不提交。
+接手先读[本轮接入与限制](../phases/phase3/phase3-guarded-battle-loop-2026-10-12.md)及[九种怪物获批表](../reviews/monster-battle-review-2026-10-12.md)，沿同一分支 / PR 继续，不拆成新任务，不把代理核图写成 Kyries 已批准。工作区原有 `docs/_q52-search.txt` 保留且不提交。
 
 ## 最新交接：完整怪物牌池与守卫部署记录（2026-10-12，UTC+8）
 
@@ -547,11 +547,11 @@ Kyries 要求“**不用拆分成3个任务，一次重型任务，先合并，�
 - `/?phase=3` 的种子 11 布置可进入真实 42 张池，抽到 Rabble / Pliskin / Rabble / Spitter；保存原牌与缺字段停点。九种 I 级怪物仍缺获批 Speed / 姿态选招，六种已有基础字段也不等于本轮完成正式战斗。
 - 验证：typecheck、lint、Vitest 65 文件 / 636 项、build、Playwright 6 条通过，截图已检查。本轮没有提交资料库图像 / PDF，没有改变规则裁定或未确认数值；原有 `docs/_q52-search.txt` 保留。
 
-Phase 2 按批准范围完成；Phase 3 仍未形成完整任务，Phase 4–6 未完成。下一块优先复核缺失 I 级怪物字段，然后接地牢英雄状态、房间效果、先攻、正式战斗与胜利 / 四轮退场回传。其余房间、休息、撤离、任务奖励 / XP 及现有 Q 停点不变。完整资料分堆、复现与限制见 [本轮交付](phase3-monster-pool-2026-10-12.md)。
+Phase 2 按批准范围完成；Phase 3 仍未形成完整任务，Phase 4–6 未完成。下一块优先复核缺失 I 级怪物字段，然后接地牢英雄状态、房间效果、先攻、正式战斗与胜利 / 四轮退场回传。其余房间、休息、撤离、任务奖励 / XP 及现有 Q 停点不变。完整资料分堆、复现与限制见 [本轮交付](../phases/phase3/phase3-monster-pool-2026-10-12.md)。
 
 ## 最新交接：Phase 3 地牢探索（2026-10-12，UTC+8）
 
-本节补齐 Phase 3 开始以来遗漏的主交接记录。此前各刀已写独立交付文档，但本文件没有同步更新。**接手以本节为准；下文 Phase 2 的“待合并 / 下一块”均为历史记录。** 阶段目标仍按 [开发大纲 §5](plan.md)：Phase 3 要交付完整单任务流程，并跑通至少三张不同核心任务卡；当前尚未达到验收。
+本节补齐 Phase 3 开始以来遗漏的主交接记录。此前各刀已写独立交付文档，但本文件没有同步更新。**接手以本节为准；下文 Phase 2 的“待合并 / 下一块”均为历史记录。** 阶段目标仍按 [开发大纲 §5](../plan.md)：Phase 3 要交付完整单任务流程，并跑通至少三张不同核心任务卡；当前尚未达到验收。
 
 ### 仓库与合并状态
 
@@ -565,15 +565,15 @@ Phase 2 按批准范围完成；Phase 3 仍未形成完整任务，Phase 4–6 �
 
 下表按实际开发顺序列出 2026-10-11 至 2026-10-12 的交付。测试数量是各刀当时的验证记录；历史文档中的“下一刀 / 未实现”不覆盖后续已接入功能。
 
-| 切片                      | 实现提交 / 合并状态                          | 交付与边界                                                                                                                    | 验证与详细记录                                                                      |
-| ------------------------- | -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| 布局、分布与侦察首切片    | `49c2611`，已进入 main                       | Scout Ahead 八槽代币分布、p1 图、侦察同意 / 取消、一次探索减骰和选择路线；初版危险 / 压力停点                                 | 569 项测试、4 条冒烟；[首切片](phase3-layout-scouting-2026-10-11.md)                |
-| 侦察压力恢复与 14 页地图  | `7f759e6`，随后续切片快进进入 main           | 意志有限牌堆、美德 / 苦难、压力清零、心脏病与缺数据恢复；全部地图保持 pending，p11 / p12 仅预览                               | 580 项测试、6 条冒烟；[压力与地图](phase3-scout-pressure-maps-2026-10-11.md)        |
-| 探索骰、单走廊与 Empty    | `baaa607`，已进入 main                       | 六面探索骰、姿态顺序、逐英雄选骰与补给、生命 / 压力续接；全部结算后移动，Empty 清理；光照降低与陷阱攻击仍停点                 | 595 项测试、6 条冒烟；[走廊与 Empty](phase3-corridor-empty-2026-10-11.md)           |
-| 完整 Curio 堆与抽前 Torch | `60eeb04`，已进入 main                       | 全 24 张，不删未确认卡；抽前 Torch、保存原牌、整卡预检、弃牌 / 守恒与探索续接；仅 p21 全行已核实，无 Torch 时疾病接口仍阻塞   | 605 项测试、6 条冒烟；[Curio](phase3-curio-2026-10-11.md)                           |
-| 普通走廊返回              | `3bacbc0`；#111 合并为 `84f4129`             | 只沿实际走过的直接房间边返回，全员压力 +1，无探索骰；保留已清理状态；压力检定后续接，灰点 / 起点返回未接                      | 615 项测试、6 条冒烟；[返回与进度](phase3-backtracking-2026-10-11.md)               |
-| Trap 房间                 | `a1606b1` / `1c95fa7`；#112 合并为 `1a211bf` | 每英雄分配总计 DL 伤口 / 压力，PendingChoice、意志 / 死门恢复；全员结算后可离开，保留代币，再入重结算；Q-64 组合原子拒绝      | 626 项测试、6 条冒烟；[Trap](phase3-trap-room-2026-10-11.md)                        |
-| 守卫房间抽牌与板块匹配    | `4380e82`；#113 草稿未合并                   | 核心盒 25 张目录，完整 9 张遗迹普通牌堆；Lair / Treasure 抽顶牌且不能重抽，只有 Ritual Chamber 匹配获批板块；尚未创建正式战斗 | 631 项测试、6 条冒烟、实现 head CI 全绿；[房间牌堆](phase3-room-deck-2026-10-11.md) |
+| 切片                      | 实现提交 / 合并状态                          | 交付与边界                                                                                                                    | 验证与详细记录                                                                                       |
+| ------------------------- | -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| 布局、分布与侦察首切片    | `49c2611`，已进入 main                       | Scout Ahead 八槽代币分布、p1 图、侦察同意 / 取消、一次探索减骰和选择路线；初版危险 / 压力停点                                 | 569 项测试、4 条冒烟；[首切片](../phases/phase3/phase3-layout-scouting-2026-10-11.md)                |
+| 侦察压力恢复与 14 页地图  | `7f759e6`，随后续切片快进进入 main           | 意志有限牌堆、美德 / 苦难、压力清零、心脏病与缺数据恢复；全部地图保持 pending，p11 / p12 仅预览                               | 580 项测试、6 条冒烟；[压力与地图](../phases/phase3/phase3-scout-pressure-maps-2026-10-11.md)        |
+| 探索骰、单走廊与 Empty    | `baaa607`，已进入 main                       | 六面探索骰、姿态顺序、逐英雄选骰与补给、生命 / 压力续接；全部结算后移动，Empty 清理；光照降低与陷阱攻击仍停点                 | 595 项测试、6 条冒烟；[走廊与 Empty](../phases/phase3/phase3-corridor-empty-2026-10-11.md)           |
+| 完整 Curio 堆与抽前 Torch | `60eeb04`，已进入 main                       | 全 24 张，不删未确认卡；抽前 Torch、保存原牌、整卡预检、弃牌 / 守恒与探索续接；仅 p21 全行已核实，无 Torch 时疾病接口仍阻塞   | 605 项测试、6 条冒烟；[Curio](../phases/phase3/phase3-curio-2026-10-11.md)                           |
+| 普通走廊返回              | `3bacbc0`；#111 合并为 `84f4129`             | 只沿实际走过的直接房间边返回，全员压力 +1，无探索骰；保留已清理状态；压力检定后续接，灰点 / 起点返回未接                      | 615 项测试、6 条冒烟；[返回与进度](../phases/phase3/phase3-backtracking-2026-10-11.md)               |
+| Trap 房间                 | `a1606b1` / `1c95fa7`；#112 合并为 `1a211bf` | 每英雄分配总计 DL 伤口 / 压力，PendingChoice、意志 / 死门恢复；全员结算后可离开，保留代币，再入重结算；Q-64 组合原子拒绝      | 626 项测试、6 条冒烟；[Trap](../phases/phase3/phase3-trap-room-2026-10-11.md)                        |
+| 守卫房间抽牌与板块匹配    | `4380e82`；#113 草稿未合并                   | 核心盒 25 张目录，完整 9 张遗迹普通牌堆；Lair / Treasure 抽顶牌且不能重抽，只有 Ritual Chamber 匹配获批板块；尚未创建正式战斗 | 631 项测试、6 条冒烟、实现 head CI 全绿；[房间牌堆](../phases/phase3/phase3-room-deck-2026-10-11.md) |
 
 ### 当前可运行范围与代码入口
 
@@ -599,7 +599,7 @@ Phase 2 按批准范围完成；Phase 3 仍未形成完整任务，Phase 4–6 �
 
 ### 待确认、数据依赖与未完成项
 
-沿用 [rulings.md](rulings.md) 与 [核心规格书](spec/core-rules-spec-v0.2.md)，不把合并当作批准未知规则。只认官方 PDF 与 Kyries 裁定；印刷件仅作卡牌文字 / 数字来源，未知图标保持原 ID。
+沿用 [rulings.md](../rulings.md) 与 [核心规格书](../spec/core-rules-spec-v0.2.md)，不把合并当作批准未知规则。只认官方 PDF 与 Kyries 裁定；印刷件仅作卡牌文字 / 数字来源，未知图标保持原 ID。
 
 | 项目                                | 当前处理                                                                                                                 |
 | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
@@ -627,13 +627,13 @@ Node 24.21.0 / pnpm 12.9.1。运行 `pnpm typecheck`、`pnpm lint`、`pnpm test`
 
 按 Kyries 本轮要求复查 Phase 2：批准范围内无未完成项，四核心英雄全部 84 张技能可沙盒选用。#99 补给 / 宝箱历史快照日志与 #103 技能要求提示已整合到 #110，#107 的 Iron Swan 公共命令黄金回归已保留，其接线由整批实现覆盖。最终质量闸门通过后统一合并 #110 并关闭被覆盖草稿；不新增碎 PR。
 
-Kyries 明确选择：Q-52 保持待定，沿用现有记录双方死亡事实并停场的处理作为 Phase 2 验收边界。不实现未确认的双方全灭胜负优先级，不发胜利奖励。未知图标及后续阶段边界不变。当前核对结果见[缺口盘点最终复查](phase2-gaps-2026-10-11.md)，下文历史待审状态以本节为准。
+Kyries 明确选择：Q-52 保持待定，沿用现有记录双方死亡事实并停场的处理作为 Phase 2 验收边界。不实现未确认的双方全灭胜负优先级，不发胜利奖励。未知图标及后续阶段边界不变。当前核对结果见[缺口盘点最终复查](../phases/phase2/phase2-gaps-2026-10-11.md)，下文历史待审状态以本节为准。
 
 本地统一验证：Node 24.21.0 / pnpm 12.9.1，typecheck、lint、52 文件 562 项测试、build 与 diff 检查通过；既有三条 Playwright 冒烟通过（1.1 分钟），含补给 / 宝箱日志与技能要求提示。浏览器沿用本机 Chromium v1234 临时忽略配置；最终提交另由 CI 默认浏览器验证。
 
 ## 最新进度：Phase 2 四核心 I / II / III 整批接线（2026-10-11）
 
-按 Kyries 本轮批量交付要求，将现有[草稿 PR #110](https://github.com/Alpaca-go/ddbg-web/pull/110)扩展为四英雄全部 84 张技能的同一主题，分支仍为 `codex/phase2-inspiring-cry`，不继续单卡开 PR。完整可用卡表、印刷核对、Wound 合并、验证与独立待确认原因见[整批清单](phase2-four-core-skills-2026-10-11.md)。本批技能 blocked 清单为空；没有 Phase 3 或 UI 大改。
+按 Kyries 本轮批量交付要求，将现有[草稿 PR #110](https://github.com/Alpaca-go/ddbg-web/pull/110)扩展为四英雄全部 84 张技能的同一主题，分支仍为 `codex/phase2-inspiring-cry`，不继续单卡开 PR。完整可用卡表、印刷核对、Wound 合并、验证与独立待确认原因见[整批清单](../phases/phase2/phase2-four-core-skills-2026-10-11.md)。本批技能 blocked 清单为空；没有 Phase 3 或 UI 大改。
 
 - R-061 记录 Kyries 的黑心红光 = Wound 批准，五个待审 hash 并入已有词条；JSON / CSV 同步，规范化批量清理，仅保留与 Wound 无关的未确认原因。
 - 按效果族补齐射程、条件伤、39 张状态卡与 Inspiring Cry 三等级支持注解。修正 Adrenaline Rush II / III 左右效果框的提取混行，接自身 / 友方清状态与 Buff；Bleed Out 自身创伤接有序生命层及死门。
@@ -700,7 +700,7 @@ Kyries 本轮授权合并并继续。#104 准确 head `fd055ce` 的 PR / push CI
 
 ## 最新进度：Phase 2 空区域英雄技能（2026-10-11）
 
-本轮 Kyries 要求检查进度并继续下一步，未授权合并或 Phase 3。已合并基线 main `85f6373`；远端核实 #99 与 #103 仍为开放草稿。本块从 origin/main 独立分支 `codex/phase2-empty-area-skill` 开发，不混入两个待审阅主题。完整盘点见 [Phase 2 缺口记录](phase2-gaps-2026-10-11.md)。
+本轮 Kyries 要求检查进度并继续下一步，未授权合并或 Phase 3。已合并基线 main `85f6373`；远端核实 #99 与 #103 仍为开放草稿。本块从 origin/main 独立分支 `codex/phase2-empty-area-skill` 开发，不混入两个待审阅主题。完整盘点见 [Phase 2 缺口记录](../phases/phase2/phase2-gaps-2026-10-11.md)。
 
 - 自行查本机只读官方规则书第 19 页完整页面图像及既有规范化技能数据，依规格书 §6.5（R19–20）、R-022 / R-024 / R-025 补真正空区域使用；遵守 R-001 / R-048。
 - 新增命令核对区域、连通、姿态、射程、Guard 和完整效果后，执行一次自身效果；有 Acc 仍掷一次，不虚构目标命中 / 暴击或暴击压力。扣行动并锁定重用，沿用生命与回合收尾、确定性回放。空投影只供卡面校验，不创建实体或借用角色，不给未核实数字补值。
@@ -783,7 +783,7 @@ Kyries 本轮明确授权「合并 #94 并同步本地；不授权 Phase 3；下
 
 接手基线为 #93 合并后的 main `9b9c5a5`，工作区干净且与 origin/main 一致。Phase 2 四步及人工检查点③已完成。本轮 Kyries 已明确不授权 Phase 3，继续在 Phase 2 补一个真实数据缺口。
 
-- 分支 `codex/phase2-arbalist-mark-damage`：完整印刷 monsters_medium_FRONT p007–009 的 Quarrel 均明确对 Mark 伤害 +1，图标沿用已确认词典。仅为 p007 技能 1 附逐卡注解，管线核对身份、页码、技能、整行签名和命名状态；原始数字列表不补标签，不跨等级推断。详见 [复核记录](arbalist-damage-review-2026-10-10.md)。
+- 分支 `codex/phase2-arbalist-mark-damage`：完整印刷 monsters_medium_FRONT p007–009 的 Quarrel 均明确对 Mark 伤害 +1，图标沿用已确认词典。仅为 p007 技能 1 附逐卡注解，管线核对身份、页码、技能、整行签名和命名状态；原始数字列表不补标签，不跨等级推断。详见 [复核记录](../reviews/arbalist-damage-review-2026-10-10.md)。
 - 怪物技能接收已有 `verified_damage_bonus` 原语，复用命中、暴击、Protection / Riposte 结算；多堆 Mark 仍只加一次伤害。公共命令覆盖选目标、Speed 定位、一次攻击骰及回合结束，漂移拒绝且不消耗 RNG，回放结果一致。
 - UI 卡池保持原批准范围。本块不是 Phase 3 开始；缺 duration、未核实图标和 Q-52 不变。新规则实现 PR 按原交接 §5.6 / §11 待 Kyries 审阅确认后合并，上一轮四步的合并授权不扩展为无限自动合并。
 
@@ -800,7 +800,7 @@ Kyries 本轮明确授权「合并 #94 并同步本地；不授权 Phase 3；下
 | 3 状态 / 单场机制 | 已核实 Nt、叠加、回合钩子、十张美德 / 苦难、心脏病、生成 / 正式部署、宝箱、补给、Large 挤占；Q-53–Q-58 均已落实或印刷复核 |
 | 4 验收            | 四核心英雄 / 三正式组合，人工检查点③「没有问题」；八个 Phase 2 黄金候选通过，阶段三条浏览器冒烟通过                       |
 
-最后实现块本地质量闸门：typecheck、lint、45 文件 424 测试、build、三条 Chrome 冒烟成功；#92 的 GitHub Actions 两套质量 / 冒烟共四项成功。验收细目见 [Phase 2 核对表](phase2-acceptance-2026-10-10.md)。
+最后实现块本地质量闸门：typecheck、lint、45 文件 424 测试、build、三条 Chrome 冒烟成功；#92 的 GitHub Actions 两套质量 / 冒烟共四项成功。验收细目见 [Phase 2 核对表](../phases/phase2/phase2-acceptance-2026-10-10.md)。
 
 保留未完成内容：G-05 Boss、G-06 探索陷阱、G-10 饰品、G-12 怪癖按用户批准留对应阶段；未核实卡牌不开放，缺 duration 不补默认值，F 仍孤立；Q-52 双方同次全灭不推定赢家或发奖励。此次任务在四步完成处结束；后续阶段按大纲推进，但原交接限定「只允许 Phase 2」，需 Kyries 另行书面扩大范围。
 
@@ -891,7 +891,7 @@ Kyries 本轮明确授权「合并 #94 并同步本地；不授权 Phase 3；下
 
 - 原第二条冒烟扩展三个正式四怪组合，从八补给 / Wild 选择、真实部署、先攻前补给窗口、宝箱、怪物 AI 到四轮撤退，日志无规则拒绝、无停滞；撤退清理所有未拾取宝箱。英雄主要换姿态与拾取，实际移动 / 技能 / Breakthrough / 多目标治疗 / 胜利由原既有流程覆盖，不夸大为三个组合的完整人工技能验收。
 - 当前阶段维持三条浏览器冒烟，没有增加全量回归墙。为三个组合保存末态截图；UI 修正旧“奖励尚未接入”说明，正式布局显示已接宝箱 / 补给，战役留后续。
-- 新增 [Phase 2 验收核对表](phase2-acceptance-2026-10-10.md)，列四步事实、三种组合、人工操作与 G-01–G-12 逐项缺口。检查点③已经向 Kyries 请求，不能代签；黄金“全部”与大纲后续阶段候选的范围已经提问，回复前独立推进 Phase 2 相关项。
+- 新增 [Phase 2 验收核对表](../phases/phase2/phase2-acceptance-2026-10-10.md)，列四步事实、三种组合、人工操作与 G-01–G-12 逐项缺口。检查点③已经向 Kyries 请求，不能代签；黄金“全部”与大纲后续阶段候选的范围已经提问，回复前独立推进 Phase 2 相关项。
 - 下一块明确修复 Zealous Accusation：已复核完整印刷 p004，解析器错误用子串 Acc 命中技能名 Accusation，导致 stats_line 是技能名；这是抽取错误，不补规则。然后核对 G-01 / G-04 / G-08 / G-09 整场例子。Large UI 与 Q-52、后续阶段候选保持真实未完成。
 
 验证：三条冒烟首次扩展 42 秒通过；文字 / 截图调整后补质量检查，准确 head 四项 CI 成功后合并。四步尚未全部完成，不能把表写成最终 Phase 2 验收。
@@ -1551,7 +1551,7 @@ Kyries 要求继续下一步。开工时工作区干净，GitHub 核对 [PR #56]
 
 PR #55 当前代码的 typecheck、lint、267 项 Vitest（20 文件）与 build 已重新通过，没有代为合并。原 PR 的提交与分支保留。本次不向其中混入后续主题，从 `origin/main` 单独建立 `codex/phase2-hero-stat-review`，仅做可独立推进的资料核对准备。
 
-新增 [四名英雄属性核对表](hero-stat-review-2026-10-10.md)：Crusader、Hellion、Highwayman、Vestal 三等级共 12 个属性面，候选 Life / Dodge / Speed、raw id + face / 页码、词典状态与毫米定位全部可复核。已对照当前版官方规则书 R10、R19、R29 完整页面图像及当前版印刷属性卡正背面，不用 FAQ、PvP、重印或旧版资料；本机原始资料只读，图像仅留忽略缓存。
+新增 [四名英雄属性核对表](../reviews/hero-stat-review-2026-10-10.md)：Crusader、Hellion、Highwayman、Vestal 三等级共 12 个属性面，候选 Life / Dodge / Speed、raw id + face / 页码、词典状态与毫米定位全部可复核。已对照当前版官方规则书 R10、R19、R29 完整页面图像及当前版印刷属性卡正背面，不用 FAQ、PvP、重印或旧版资料；本机原始资料只读，图像仅留忽略缓存。
 
 依据：R-001、R-006、R-007、R-048，说明书 §2.4、§6.5、§9.1–9.2。本表候选仍待 Kyries 确认；没有入库数值，没有改词典 / raw / parsed / normalized / schema / 引擎 / UI，也没有新增裁定。当前仍在 Phase 2：英雄 Life / 死门、状态代币计时、多目标、英雄移动与战斗 UI 均未完成，不能宣布战斗 MVP 已可玩。
 

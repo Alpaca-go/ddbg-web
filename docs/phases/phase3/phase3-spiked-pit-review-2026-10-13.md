@@ -1,6 +1,6 @@
 # VQ-13：Spiked Pit 逐面核对草稿
 
-> 2026-10-14更新：R-066确认最终邻接，R-067已确认Shuffle图标，R-071保留S1断图并确认实际落点范围，R-072确认先坑后Vertigo；完整特殊运行时见[交付记录](phase3-spiked-pit-runtime-2026-10-14.md)。下文保留批准前的视觉审核基线，不再把已确认项目作为新问题。
+> 2026-10-14更新：R-066确认最终邻接，R-067已确认Shuffle图标，R-071保留S1断图并确认实际落点范围，R-072确认先坑后Vertigo；完整特殊运行时见[交付记录](./phase3-spiked-pit-runtime-2026-10-14.md)。下文保留批准前的视觉审核基线，不再把已确认项目作为新问题。
 
 2026-10-13（UTC+8）。Kyries 本轮选择“尚未审核，先继续准备其他板块”；本稿用于后续 Kyries/Grok 目视批准。未入库生产几何、未改词典、未接运行时，不增加 `usable`。
 
@@ -9,7 +9,7 @@
 - 板块：`DD_COREBOX_TILES_BACK.pdf` PDF **p3 / BACK / 遗迹编号 4**；raw `dungeon_tile:p003.faces.back`。
 - 配套卡：`02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_63x88_rooms_FRONT.pdf` PDF **p4 / FRONT / room:p004 / Spiked Pit**。
 - 同一 PDF p3 的 FRONT 是遗迹 5 / Beacon of Light，不是本面。两张均已查看完整板块页和完整配套卡页，小图的布局、出生、两个 B 星形与大图一致。
-- 印刷根目录沿用 [VQ 队列](kyries-verify-queue-2026-10-12.md)。本地渲染缓存：`node_modules/.cache/phase3/tile-coverage/DD_COREBOX_TILES_BACK-03.png`、`room-04.png`；不提交图像或 PDF。
+- 印刷根目录沿用 [VQ 队列](../../kyries-verify-queue-2026-10-12.md)。本地渲染缓存：`node_modules/.cache/phase3/tile-coverage/DD_COREBOX_TILES_BACK-03.png`、`room-04.png`；不提交图像或 PDF。
 - 判读依据：规格书 §6.2 / §6.8 / §6.9（官方 R16–18 / R24–25）、R-021 / R-048。印刷件只提供板块数据和卡文；下面均为待审核观察。
 
 ## 区域与容量

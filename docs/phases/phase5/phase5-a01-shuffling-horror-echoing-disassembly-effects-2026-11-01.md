@@ -13,7 +13,7 @@
 | `p017` Shuffling Horror | Lacerate                          | `{target_effects}3{bleed}3t`                                      | #478 已合                                                      |
 | summon 名单 / 姿态占位  | Cultist Priest + Malignant Growth | boss_ability:p033                                                 | **保留**既有 `applyShufflingHorrorEchoingDisassembly` 召唤逻辑 |
 
-依据：`monster_large` FRONT **p017**、[phase5-a11-shuffling-horror-lacerate-acc-2026-11-01.md](phase5-a11-shuffling-horror-lacerate-acc-2026-11-01.md)、[phase5-a01-hod-know-this-effects-2026-11-01.md](phase5-a01-hod-know-this-effects-2026-11-01.md)（Crowded 压力 + 全局 Torch）；规则 R-001 / R-048。
+依据：`monster_large` FRONT **p017**、[phase5-a11-shuffling-horror-lacerate-acc-2026-11-01.md](./phase5-a11-shuffling-horror-lacerate-acc-2026-11-01.md)、[phase5-a01-hod-know-this-effects-2026-11-01.md](./phase5-a01-hod-know-this-effects-2026-11-01.md)（Crowded 压力 + 全局 Torch）；规则 R-001 / R-048。
 
 ## 本刀接通
 

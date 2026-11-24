@@ -5,7 +5,7 @@
 > **仓库 tip**：main **`b051c9b`**（合并 [PR #279](https://github.com/Alpaca-go/ddbg-web/pull/279) 之后）。  
 > **本地检出**：Kyries 电脑 `D:\ddbg-web`（hostname `DESKTOP-50QHUR1`，machineId `b56e2651-c5ab-4795-bff7-f7d49993b1f4`），应用 `git pull --ff-only` 对齐。  
 > **交接原因**：Kyries 要求后续桌面 UI 交由 Codex 推进。本文覆盖 **桌面化 UI 切片 S2–S11**（S0/S1 已合）。  
-> **旧交接**：同日早些时候的 [HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21.md](HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21.md) 停在 T0–T3 / tip `0e72e33`，**以本文为准**。
+> **旧交接**：同日早些时候的 [HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21.md](./HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21.md) 停在 T0–T3 / tip `0e72e33`，**以本文为准**。
 
 ---
 
@@ -13,8 +13,8 @@
 
 1. 本文件全文。
 2. 仓库根目录 [`AGENTS.md`](../../AGENTS.md)。
-3. [`docs/plan.md`](plan.md) —— 尤其 **「桌面化 UI 切片（2026-10-21 Kyries 拍板）」**。
-4. [`docs/rulings.md`](rulings.md) —— **R-001、R-048** 尤其重要。
+3. [`docs/plan.md`](../plan.md) —— 尤其 **「桌面化 UI 切片（2026-10-21 Kyries 拍板）」**。
+4. [`docs/rulings.md`](../rulings.md) —— **R-001、R-048** 尤其重要。
 5. UI 原型规划（**不在仓库里**，共享工作区）：
    - `/workspace/ddbg-ui-prototype-plan.md` —— 设计稿五区映射、原 T0–T14、V-01..V-16。
    - `/workspace/ddbg-ui-flow-plan.md` —— 更早的 P1–P16 / U-01..U-15。

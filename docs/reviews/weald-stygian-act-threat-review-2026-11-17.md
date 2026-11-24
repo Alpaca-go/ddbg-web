@@ -44,4 +44,4 @@
 
 ## p008 Stygian 房（同批次文档）
 
-见 [weald-stygian-room-review-2026-11-17.md](weald-stygian-room-review-2026-11-17.md)：**普通一项 2t、Stygian 两项 2t** 已目视结清；不改普通房、不改已合运行时。
+见 [weald-stygian-room-review-2026-11-17.md](./weald-stygian-room-review-2026-11-17.md)：**普通一项 2t、Stygian 两项 2t** 已目视结清；不改普通房、不改已合运行时。

@@ -2,7 +2,7 @@
 
 > **必读**：新增或修改 `packages/data` 的 raw / normalized / engine ID 前先读本文件。
 > 本文件只定义 ID 形状、包段、编号和引用；规则数值与效果仍以
-> [rulings.md](rulings.md) 和规格书为准（R-001 / R-048）。
+> [rulings.md](./rulings.md) 和规格书为准（R-001 / R-048）。
 >
 > **执行原则**：新内容一律按本规范命名；旧 ID 按 §8 分批迁移。迁移完成前，
 > 不得新增旧形式 ID。违反本规范的 PR 不合入。

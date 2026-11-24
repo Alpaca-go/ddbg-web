@@ -1,6 +1,6 @@
 # Kyries → Codex：视觉核对队列（verify-queue）2026-10-12
 
-> 2026-10-13最新回传：Kyries/Grok已逐项批准VQ-06、VQ-13–18和QuestMap仅FRONT p1，见R-065及[本轮批准记录](phase3-approved-data-2026-10-13.md)。Treasure T4–T5必须blocked；Spiked接触候选分类正在明确。下表“草稿/待审核”为历史进度，不覆盖本段新批准。几何入库不等于usable，未知图标与所有Q项另行裁定。
+> 2026-10-13最新回传：Kyries/Grok已逐项批准VQ-06、VQ-13–18和QuestMap仅FRONT p1，见R-065及[本轮批准记录](./phases/phase3/phase3-approved-data-2026-10-13.md)。Treasure T4–T5必须blocked；Spiked接触候选分类正在明确。下表“草稿/待审核”为历史进度，不覆盖本段新批准。几何入库不等于usable，未知图标与所有Q项另行裁定。
 
 UTC+8。本文件供 Kyries 粘贴给 Codex 作为 **next-dev 接手入口**。
 
@@ -22,16 +22,16 @@ UTC+8。本文件供 Kyries 粘贴给 Codex 作为 **next-dev 接手入口**。
 
 参考核对材料（批准范围以各 VQ 的状态和下方记录为准，未列批准项仍保持待确认）：
 
-- [板块逐面核对](phase3-tile-face-review-2026-10-12.md) — Torture Chamber BACK p2，VQ-01–05 已批准；Unholy Aura 仅候选
-- [Healing Fountain VQ-06 草稿](phase3-healing-fountain-review-2026-10-12.md) — FRONT p2 / room:p003，未批准
-- [Spiked Pit VQ-13 草稿](phase3-spiked-pit-review-2026-10-13.md) — BACK p3 / room:p004，未批准；触发图标仍未知
-- [Beacon of Light VQ-14 草稿](phase3-beacon-of-light-review-2026-10-13.md) — FRONT p3 / room:p005，未批准
-- [Treasure Chamber VQ-15 草稿](phase3-treasure-chamber-review-2026-10-13.md) — BACK p4 / room:p006，未批准
-- [Tomb of Ancestor VQ-16 草稿](phase3-tomb-of-ancestor-review-2026-10-13.md) — FRONT p4 / room:p007，未批准
-- [Invocation Chamber VQ-17 草稿](phase3-invocation-chamber-review-2026-10-13.md) — BACK p5 / room:p008，未批准
-- [Old Abbey VQ-18 草稿](phase3-old-abbey-review-2026-10-13.md) — FRONT p5 / room:p009，未批准
-- [QuestMap 全套标注](phase3-scout-pressure-maps-2026-10-11.md) — p1–14 布局草稿
-- [Ritual Chamber 几何](ruins-room-tile-review-2026-10-10.md) / R-054、R-055（已批，仅作对照模板）
+- [板块逐面核对](./phases/phase3/phase3-tile-face-review-2026-10-12.md) — Torture Chamber BACK p2，VQ-01–05 已批准；Unholy Aura 仅候选
+- [Healing Fountain VQ-06 草稿](./phases/phase3/phase3-healing-fountain-review-2026-10-12.md) — FRONT p2 / room:p003，未批准
+- [Spiked Pit VQ-13 草稿](./phases/phase3/phase3-spiked-pit-review-2026-10-13.md) — BACK p3 / room:p004，未批准；触发图标仍未知
+- [Beacon of Light VQ-14 草稿](./phases/phase3/phase3-beacon-of-light-review-2026-10-13.md) — FRONT p3 / room:p005，未批准
+- [Treasure Chamber VQ-15 草稿](./phases/phase3/phase3-treasure-chamber-review-2026-10-13.md) — BACK p4 / room:p006，未批准
+- [Tomb of Ancestor VQ-16 草稿](./phases/phase3/phase3-tomb-of-ancestor-review-2026-10-13.md) — FRONT p4 / room:p007，未批准
+- [Invocation Chamber VQ-17 草稿](./phases/phase3/phase3-invocation-chamber-review-2026-10-13.md) — BACK p5 / room:p008，未批准
+- [Old Abbey VQ-18 草稿](./phases/phase3/phase3-old-abbey-review-2026-10-13.md) — FRONT p5 / room:p009，未批准
+- [QuestMap 全套标注](./phases/phase3/phase3-scout-pressure-maps-2026-10-11.md) — p1–14 布局草稿
+- [Ritual Chamber 几何](./reviews/ruins-room-tile-review-2026-10-10.md) / R-054、R-055（已批，仅作对照模板）
 - 总交接：`HANDOFF-FROM-CODEX-2026-10-09.md` 顶部；`AGENTS.md` + `rulings.md` 为准
 
 印刷根目录（本机只读）：  

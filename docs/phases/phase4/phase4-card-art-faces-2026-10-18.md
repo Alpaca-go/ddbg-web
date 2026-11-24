@@ -1,6 +1,6 @@
 # Phase 4 · 卡图接入切片：英雄技能 / 手牌 Face 展示
 
-状态：**英雄技能 Face 已切印刷 PNG**（见 [phase4-print-hero-skill-art-map-2026-10-19.md](phase4-print-hero-skill-art-map-2026-10-19.md)）。**2026-11-23 起 TTS 路线整体移除**：本地印刷 PDF 是美术资产的唯一真实来源；`hero-skill-face-map.json`、`build-tts-*.mjs`、`cache-tts-card-art.mjs` 已删除，`pnpm dev` 不再挂载 `/tts-card-art/`。
+状态：**英雄技能 Face 已切印刷 PNG**（见 [phase4-print-hero-skill-art-map-2026-10-19.md](./phase4-print-hero-skill-art-map-2026-10-19.md)）。**2026-11-23 起 TTS 路线整体移除**：本地印刷 PDF 是美术资产的唯一真实来源；`hero-skill-face-map.json`、`build-tts-*.mjs`、`cache-tts-card-art.mjs` 已删除，`pnpm dev` 不再挂载 `/tts-card-art/`。
 
 ## 当前权威来源（英雄技能 Face）
 
@@ -20,4 +20,4 @@
 
 ## 范围外
 
-探索：房间牌 + QuestMap + 房间代币印刷见 [phase4-print-exploration-art-map-2026-10-19.md](phase4-print-exploration-art-map-2026-10-19.md)、[phase4-print-room-token-art-2026-10-19.md](phase4-print-room-token-art-2026-10-19.md)；总览 [phase4-exploration-art-2026-10-19.md](phase4-exploration-art-2026-10-19.md)。战斗 Room Tile 板块、走廊段、Boss 全量、Stygian、R-048 效果图标切图仍在本文件范围外。
+探索：房间牌 + QuestMap + 房间代币印刷见 [phase4-print-exploration-art-map-2026-10-19.md](./phase4-print-exploration-art-map-2026-10-19.md)、[phase4-print-room-token-art-2026-10-19.md](./phase4-print-room-token-art-2026-10-19.md)；总览 [phase4-exploration-art-2026-10-19.md](./phase4-exploration-art-2026-10-19.md)。战斗 Room Tile 板块、走廊段、Boss 全量、Stygian、R-048 效果图标切图仍在本文件范围外。

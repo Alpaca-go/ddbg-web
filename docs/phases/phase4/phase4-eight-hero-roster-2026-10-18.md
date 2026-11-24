@@ -39,4 +39,4 @@
 - `formal-roster-entry.test.ts`：名录 8；BH/PD 与 GR/Occ 开局；存档往返；目录外拒绝
 - `dungeon-quest-entry.test.ts`：额外四人开局编队
 
-Pilfer 边已由 R-098 锁定。见[GR 技能记录](phase4-grave-robber-skills-2026-10-18.md)与[Occ 技能记录](phase4-occultist-skills-2026-10-18.md)。Q-79/Q-80、正式 Boss 与人工试玩继续保留。
+Pilfer 边已由 R-098 锁定。见[GR 技能记录](./phase4-grave-robber-skills-2026-10-18.md)与[Occ 技能记录](./phase4-occultist-skills-2026-10-18.md)。Q-79/Q-80、正式 Boss 与人工试玩继续保留。

@@ -2,7 +2,7 @@
 
 **日期**：2026-11-04  
 **基线**：main @ [#577](https://github.com/Alpaca-go/ddbg-web/pull/577)（R-176 正式目录）  
-**裁定**：[R-176](rulings.md#r-176)、Collect All 边界见 [HANDOFF-2026-11-04-collector-i.md](HANDOFF-2026-11-04-collector-i.md)
+**裁定**：[R-176](../../rulings.md#r-176)、Collect All 边界见 [HANDOFF-2026-11-04-collector-i.md](../../handoffs/HANDOFF-2026-11-04-collector-i.md)
 
 ## 范围
 
@@ -31,4 +31,4 @@ pnpm lint
 
 ## 仍 hold
 
-与 [HANDOFF-2026-11-04-collector-i.md](HANDOFF-2026-11-04-collector-i.md) 一致：`combatReady`、任务白名单、Collector II/III、Fanatic 等未改。Show Collection / Life Steal 见 [phase5-collector-i-skills-acc-2026-11-04.md](phase5-collector-i-skills-acc-2026-11-04.md)。Collected 三技能见 [phase5-collector-i-collected-skills-acc-2026-11-04.md](phase5-collector-i-collected-skills-acc-2026-11-04.md)。
+与 [HANDOFF-2026-11-04-collector-i.md](../../handoffs/HANDOFF-2026-11-04-collector-i.md) 一致：`combatReady`、任务白名单、Collector II/III、Fanatic 等未改。Show Collection / Life Steal 见 [phase5-collector-i-skills-acc-2026-11-04.md](./phase5-collector-i-skills-acc-2026-11-04.md)。Collected 三技能见 [phase5-collector-i-collected-skills-acc-2026-11-04.md](./phase5-collector-i-collected-skills-acc-2026-11-04.md)。

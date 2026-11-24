@@ -252,10 +252,10 @@ ddbg/
 - **工期**：**1.5–2.5 周**（原 2–3.5 周）。村庄和存档只依赖战役状态模型，可以和 Phase 3 重叠约 1 周，两者合计约 3–4.5 周。
 - **进度摘记（2026-10-18）**：正式八英雄开局已开；Grave Robber I 级七战斗技能与 Pilfer 抽取已接（R-096、R-098）；Occultist I 级七战斗技能与 Dark Ritual I–III 已接（R-097 LIMITED Buff）。不进 Phase 5。详见 `docs/phase4-occultist-skills-2026-10-18.md`。
 - **进度摘记（2026-10-24）**：`FORMAL_HERO_NAMES` 扩至十八名；开局建队可选全员并展示印刷技能卡（#286 map）。十名扩展／未核实 STAT 用占位属性 + art-only 技能，标待确认；缺 token/icon 降级不阻塞。不进 Phase 5。
-- **进度摘记（2026-10-24）**：Kyries 批准 Jester / Arbalest / Abomination 九面 STAT 入库；核心 trio 各七张 I 级战斗技能已核实接线（R-102 Dirk Stab 无视守护、R-103 Rallying Flare 混阵营目标），Jester / Arbalest / Abomination 均可替补。见 [核心 trio 技能记录](phase4-core-trio-skills-2026-10-24.md)。
-- **进度摘记（2026-10-24，Warrens）**：R-104：Antiquarian / Leper STAT（TDH p28–31）与 I 级七技能（印刷 p274–315，Q-103）入库接线；两人移出未接线名单并纳入替补白名单。见 [Warrens 两人记录](phase4-warrens-antiquarian-leper-2026-10-24.md)。
-- **进度摘记（2026-10-24，Cove）**：R-105：Man-at-Arms / Flagellant STAT（Cove p1–4）与 I 级七技能（TDH p232–273，Q-105）入库接线；两人移出未接线名单并纳入替补白名单。见 [Cove 两人记录](phase4-cove-maa-flagellant-2026-10-24.md)。
-- **进度摘记（2026-10-24，Weald）**：R-106：Houndmaster / Shieldbreaker STAT（Weald p1–4）与 I 级七技能（TDH p316–357，Q-106）入库接线；`FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS` 仅余 Musketeer。见 [Weald 两人记录](phase4-weald-houndmaster-shieldbreaker-2026-10-24.md)。
+- **进度摘记（2026-10-24）**：Kyries 批准 Jester / Arbalest / Abomination 九面 STAT 入库；核心 trio 各七张 I 级战斗技能已核实接线（R-102 Dirk Stab 无视守护、R-103 Rallying Flare 混阵营目标），Jester / Arbalest / Abomination 均可替补。见 [核心 trio 技能记录](./phases/phase4/phase4-core-trio-skills-2026-10-24.md)。
+- **进度摘记（2026-10-24，Warrens）**：R-104：Antiquarian / Leper STAT（TDH p28–31）与 I 级七技能（印刷 p274–315，Q-103）入库接线；两人移出未接线名单并纳入替补白名单。见 [Warrens 两人记录](./phases/phase4/phase4-warrens-antiquarian-leper-2026-10-24.md)。
+- **进度摘记（2026-10-24，Cove）**：R-105：Man-at-Arms / Flagellant STAT（Cove p1–4）与 I 级七技能（TDH p232–273，Q-105）入库接线；两人移出未接线名单并纳入替补白名单。见 [Cove 两人记录](./phases/phase4/phase4-cove-maa-flagellant-2026-10-24.md)。
+- **进度摘记（2026-10-24，Weald）**：R-106：Houndmaster / Shieldbreaker STAT（Weald p1–4）与 I 级七技能（TDH p316–357，Q-106）入库接线；`FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS` 仅余 Musketeer。见 [Weald 两人记录](./phases/phase4/phase4-weald-houndmaster-shieldbreaker-2026-10-24.md)。
 - **进度摘记（2026-10-20）**：Curio / Trinket / Quest 三类卡 UI 已接印刷 TrimBox PNG（`docs/phase4-print-curio-trinket-quest-art-2026-10-20.md`）；Quest 19 页均已入 map（14 张 art-only，任务池仍仅 `basic-quests.ts` 五张）。
 - **进度摘记（2026-10-20）**：ADD_014 两张中型怪物卡（Perfect / Imperfect Reflection）印刷图复用基础版 `p106` / `p109` PNG，不导 ADD PDF；见 `docs/phase4-print-monster-art-map-2026-10-19.md`。
 - **进度摘记（2026-10-20）**：印刷导出管线修复 EN_FILES 过滤、Rubine 刀线（PyMuPDF 1.28）、Windows Python 解析与一键脚本；见 `docs/phase4-print-art-pipeline-2026-10-19.md` §本机一键导出。
@@ -276,7 +276,7 @@ ddbg/
 - **工期**：**1.5–2.5 周**（原 2–3 周）。Kyries 试玩时间充足，问题发现得更快，但修复速度仍取决于代理吞吐。
 
 ### Phase 7：地点扩展（按 Weald → Warrens → Cove → Crimson Court 的顺序，顺序可调）
-- **当前执行入口**：[Weald 开发计划](weald-development-plan.md)（Kyries 2026-11-11 确认；含跨 session 进度、顺序与完成标准）。
+- **当前执行入口**：[Weald 开发计划](./plans/weald-development-plan.md)（Kyries 2026-11-11 确认；含跨 session 进度、顺序与完成标准）。
 - **目标**：逐个接入地点扩展，并支持混搭。
 - **每个扩展的任务**：数据转录与抽检（约 110 张牌面 + 6 个房间板块 + 任务）；新英雄（Weald/Warrens/Cove 各 2 名）；新机制（禁疗真菌、零容量区域、Impassable Walls 等）；3–4 个 Boss 脚本；多地点牌堆组成。
 - **验收标准**：每个扩展都能单独跑一个完整战役，并能和核心盒混搭。
@@ -546,12 +546,12 @@ ddbg/
 
 **待确认**：第二轮及以后是否仍经过出征准备页（当前村庄内 `chooseNextQuest` 可直接进地牢；属流程层，S0 不改）。
 
-**2026-10-22 调整**：S3 经 Kyries 本聊天确认后合并。原 S4 及后续功能路线暂缓，先按用户提供的 UI 信息精简规划分 UX-00～UX-06 推进；本次仅做 [UX-00 基线冻结与信息审计](ux00-ui-baseline-audit-2026-10-22.md)，交付双尺寸截图与 UX-01 范围，等待审核再实施 UX-01。仅整理 Web UI，不改引擎、数据、随机结算或存档，保留 S3 全部功能。
+**2026-10-22 调整**：S3 经 Kyries 本聊天确认后合并。原 S4 及后续功能路线暂缓，先按用户提供的 UI 信息精简规划分 UX-00～UX-06 推进；本次仅做 [UX-00 基线冻结与信息审计](./reviews/ux00-ui-baseline-audit-2026-10-22.md)，交付双尺寸截图与 UX-01 范围，等待审核再实施 UX-01。仅整理 Web UI，不改引擎、数据、随机结算或存档，保留 S3 全部功能。
 
-**UX-01**：Kyries 已批准 UX-00 与 PR #283，核验仅两份文档后合并至 `5ed06a9`。以此为基线完成正式外壳整理，见 [UX-01 交付与回归说明](ux01-formal-shell-2026-10-22.md)；待人工截图验收，不自动合并，不进入 UX-02，S4–S11 继续暂停。
+**UX-01**：Kyries 已批准 UX-00 与 PR #283，核验仅两份文档后合并至 `5ed06a9`。以此为基线完成正式外壳整理，见 [UX-01 交付与回归说明](./ux01-formal-shell-2026-10-22.md)；待人工截图验收，不自动合并，不进入 UX-02，S4–S11 继续暂停。
 
-**UX-02A**：在 `main` @ `1b05f376` 上整理正式地牢探索中央桌面（地图优先、信息精简、Curio 当前/历史分离），见 [UX-02A 交付说明](ux02a-dungeon-map-info-2026-10-22.md)。Draft PR 待截图验收；**不**含 UX-02B 底栏迁移，S4–S11 继续暂停。
+**UX-02A**：在 `main` @ `1b05f376` 上整理正式地牢探索中央桌面（地图优先、信息精简、Curio 当前/历史分离），见 [UX-02A 交付说明](./ux02a-dungeon-map-info-2026-10-22.md)。Draft PR 待截图验收；**不**含 UX-02B 底栏迁移，S4–S11 继续暂停。
 
-交接与验收细节见 [docs/HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21.md](HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21.md)（T0–T3 / S0 前背景，已过时）。
+交接与验收细节见 [docs/HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21.md](./handoffs/HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21.md)（T0–T3 / S0 前背景，已过时）。
 
-**Codex 接手（S2 起）**：[docs/HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21-S2.md](HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21-S2.md)（tip `b051c9b`）。
+**Codex 接手（S2 起）**：[docs/HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21-S2.md](./handoffs/HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21-S2.md)（tip `b051c9b`）。

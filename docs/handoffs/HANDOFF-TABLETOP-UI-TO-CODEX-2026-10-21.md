@@ -1,6 +1,6 @@
 # DDBG · Tabletop UI 交接给 Codex（2026-10-21，Asia/Shanghai）
 
-> **已被 [HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21-S2.md](HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21-S2.md) 取代（tip `b051c9b`）。** 下文仅作 T0–T3 时期背景留存。
+> **已被 [HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21-S2.md](./HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21-S2.md) 取代（tip `b051c9b`）。** 下文仅作 T0–T3 时期背景留存。
 
 > **读者**：即将接手的 Codex（或其他本地编码代理）。  
 > **作者**：DDBG·桌游 UI（Grok Bot 侧 UI 协调）。  
@@ -14,8 +14,8 @@
 
 1. 本文件全文。
 2. 仓库根目录 [`AGENTS.md`](../../AGENTS.md)。
-3. [`docs/plan.md`](plan.md)（开发大纲 v0.2）。
-4. [`docs/rulings.md`](rulings.md)——**R-001（只认官方规则书）、R-048（不自创印刷几何）尤其重要**。
+3. [`docs/plan.md`](../plan.md)（开发大纲 v0.2）。
+4. [`docs/rulings.md`](../rulings.md)——**R-001（只认官方规则书）、R-048（不自创印刷几何）尤其重要**。
 5. UI 原型规划（**不在仓库里**，在共享工作区）：
    - `/workspace/ddbg-ui-prototype-plan.md` —— 设计稿五区映射、切片 **T0–T14**、待确认 **V-01..V-16**。
    - `/workspace/ddbg-ui-flow-plan.md` —— 更早的 P1–P16 / U-01..U-15 流程规划。

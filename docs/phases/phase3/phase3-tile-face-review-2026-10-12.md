@@ -1,12 +1,12 @@
 # 步骤 2：核心盒板块逐面覆盖与 Torture Chamber 核对草稿
 
-> 2026-10-13 本批：遗迹8 / BACK p5 的 [Invocation Chamber](phase3-invocation-chamber-review-2026-10-13.md) 与遗迹9 / FRONT p5 的 [Old Abbey](phase3-old-abbey-review-2026-10-13.md) 独立草稿已准备，列入VQ-17/18。普通遗迹1–9均已有逐面材料：Ritual可用、Torture获批入库但运行时排除、3–9待审核。这不是九面可玩或Phase3完成；实际可用仍1/28。
+> 2026-10-13 本批：遗迹8 / BACK p5 的 [Invocation Chamber](./phase3-invocation-chamber-review-2026-10-13.md) 与遗迹9 / FRONT p5 的 [Old Abbey](./phase3-old-abbey-review-2026-10-13.md) 独立草稿已准备，列入VQ-17/18。普通遗迹1–9均已有逐面材料：Ritual可用、Torture获批入库但运行时排除、3–9待审核。这不是九面可玩或Phase3完成；实际可用仍1/28。
 
-> 2026-10-13 续接：遗迹6 / BACK p4 的 [Treasure Chamber](phase3-treasure-chamber-review-2026-10-13.md) 和遗迹7 / FRONT p4 的 [Tomb of Ancestor](phase3-tomb-of-ancestor-review-2026-10-13.md) 独立审核草稿已准备，列入VQ-15/16。#130文档PR已合并，但没有把任何草稿当数据批准；实际可用仍1/28。
+> 2026-10-13 续接：遗迹6 / BACK p4 的 [Treasure Chamber](./phase3-treasure-chamber-review-2026-10-13.md) 和遗迹7 / FRONT p4 的 [Tomb of Ancestor](./phase3-tomb-of-ancestor-review-2026-10-13.md) 独立审核草稿已准备，列入VQ-15/16。#130文档PR已合并，但没有把任何草稿当数据批准；实际可用仍1/28。
 
-> 2026-10-13：Kyries 明确 Fountain 尚未审核，先准备其他板块。遗迹4 / BACK p3 的 [Spiked Pit](phase3-spiked-pit-review-2026-10-13.md) 和遗迹5 / FRONT p3 的 [Beacon of Light](phase3-beacon-of-light-review-2026-10-13.md) 已完成独立目视草稿，分别列入 VQ-13 / VQ-14；未批准、未入库，实际可用仍1/28。
+> 2026-10-13：Kyries 明确 Fountain 尚未审核，先准备其他板块。遗迹4 / BACK p3 的 [Spiked Pit](./phase3-spiked-pit-review-2026-10-13.md) 和遗迹5 / FRONT p3 的 [Beacon of Light](./phase3-beacon-of-light-review-2026-10-13.md) 已完成独立目视草稿，分别列入 VQ-13 / VQ-14；未批准、未入库，实际可用仍1/28。
 
-> 2026-10-12 最新批准：Kyries/Grok 已目视确认 Torture BACK p2 / 遗迹 2 的 VQ-01～05，**无修正**。本面容量、邻接、部署、宝箱与 H 星形 / 卡文对应已获批，已按 BACK p2 + room:p002 独立入库；H 的 Unholy Aura 仅候选，不接运行时、不复用 Cornered，`usable=false` 待治疗拒绝路径就绪。F–H 同时记录角点与中下段黑墙标志，仍不是通行边。下方“待批 / 拟议”表格保留原审核稿，不覆盖本段批准状态；Fountain 及其余面未因此获批。记录见[verify-queue](kyries-verify-queue-2026-10-12.md)。
+> 2026-10-12 最新批准：Kyries/Grok 已目视确认 Torture BACK p2 / 遗迹 2 的 VQ-01～05，**无修正**。本面容量、邻接、部署、宝箱与 H 星形 / 卡文对应已获批，已按 BACK p2 + room:p002 独立入库；H 的 Unholy Aura 仅候选，不接运行时、不复用 Cornered，`usable=false` 待治疗拒绝路径就绪。F–H 同时记录角点与中下段黑墙标志，仍不是通行边。下方“待批 / 拟议”表格保留原审核稿，不覆盖本段批准状态；Fountain 及其余面未因此获批。记录见[verify-queue](../../kyries-verify-queue-2026-10-12.md)。
 
 2026-10-12，UTC+8。按 Kyries 本轮澄清：板块逐面核容量、邻接、出生与交互；Curio 确认图标并接效果。代码复用不替代数据核实。本表是印刷目视核对草稿，不批准新板块，不改生产几何或词典。
 
@@ -73,6 +73,6 @@
 
 请 Kyries 按完整 BACK p2 核对上述八区容量、十条通行边、角点 / 黑墙、四英雄 / 四怪物出生位、三个宝箱，以及 H 的 Unholy Aura。若有修正，以修正表入库。本表不是一次批准全部 28 面的请求。
 
-批准后还需扩展当前只接受 R-055 固定放置的 Room Tile schema，显式记录 `source.face=back` 与房间身份；不能继续用“页码相同”匹配。Healing Fountain FRONT p2 的独立区域表、绿色星形及治疗图标核对已整理为 [VQ-06 草稿](phase3-healing-fountain-review-2026-10-12.md)，仍待 Kyries / Grok 目视确认。本轮没有批准任何未知 hash，也没有更改两面的 usable。
+批准后还需扩展当前只接受 R-055 固定放置的 Room Tile schema，显式记录 `source.face=back` 与房间身份；不能继续用“页码相同”匹配。Healing Fountain FRONT p2 的独立区域表、绿色星形及治疗图标核对已整理为 [VQ-06 草稿](./phase3-healing-fountain-review-2026-10-12.md)，仍待 Kyries / Grok 目视确认。本轮没有批准任何未知 hash，也没有更改两面的 usable。
 
 完整页、配套卡与联系表在忽略缓存 `node_modules/.cache/phase3/tile-coverage/`，不提交 PDF、卡图或截图。探索 QuestMap 是另一种板块数据，本表不能替代其走廊 / 起点审核。

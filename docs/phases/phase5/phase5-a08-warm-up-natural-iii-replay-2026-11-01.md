@@ -24,7 +24,7 @@
 
 ## Q-WARM / 规则
 
-- Q-WARM-01–05：沿用 [phase5-warm-up-provision-torch-2026-10-31.md](phase5-warm-up-provision-torch-2026-10-31.md) 表内默认实现；本 PR 未裁定变更。
+- Q-WARM-01–05：沿用 [phase5-warm-up-provision-torch-2026-10-31.md](./phase5-warm-up-provision-torch-2026-10-31.md) 表内默认实现；本 PR 未裁定变更。
 
 ## 验证
 

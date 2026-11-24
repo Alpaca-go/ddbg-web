@@ -29,12 +29,12 @@
 
 ## 3. §3 停点（已由 R-048 切片接线，2026-10-27）
 
-详见 [`docs/r048-curio-pending-slice-2026-10-27.md`](r048-curio-pending-slice-2026-10-27.md)。
+详见 [`docs/r048-curio-pending-slice-2026-10-27.md`](./r048-curio-pending-slice-2026-10-27.md)。
 
 - **`rows[].effect === null`**：Q-60 停点模板，`blockedReason` 标明 R-048，不结算、不弃牌。
 - **未核实饰品**：仅 `discard-new` 完成 Curio；不提供装备 / 转交选项。
 - **Curio 抽空（Q-61）**：R-068 拒抽 + 地牢内不洗回；扣 Torch 前拒绝。
-- **§4 饰品 verification（2026-10-28）**：见 [`r048-curio-remaining-2026-10-28.md`](r048-curio-remaining-2026-10-28.md)；自然路径优先装备已核实饰品。
+- **§4 饰品 verification（2026-10-28）**：见 [`r048-curio-remaining-2026-10-28.md`](./r048-curio-remaining-2026-10-28.md)；自然路径优先装备已核实饰品。
 
 仍可能因 **新** 未批准印刷 / 词典项出现 `effect: null` 停点，或 **无 Torch 疾病复合（Q-68）** 整卡停场；需数据或裁定，本引擎不伪造 `effect`。
 

@@ -1,6 +1,6 @@
 # Weald Boss 玩家日志交接
 
-本说明只使用已有页面与完整命令日志入口，不新增规则、胜利门槛或种子筛选。依据 [开发计划步骤 6](weald-development-plan.md)、[R-190](rulings.md#r-190)。
+本说明只使用已有页面与完整命令日志入口，不新增规则、胜利门槛或种子筛选。依据 [开发计划步骤 6](./plans/weald-development-plan.md)、[R-190](./rulings.md#r-190)。
 
 ## 操作与导出
 

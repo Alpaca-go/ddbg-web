@@ -1,6 +1,6 @@
 # Collector Room 宝箱交互与翻开奖励（R-177）
 
-日期：2026-11-04。基线：main @ [#578](https://github.com/Alpaca-go/ddbg-web/pull/578)（R-177）合入后。Kyries 令接通 R-168 F 区三宝箱交互，裁定见 **R-177**。总览见 [HANDOFF-2026-11-04-collector-i.md](HANDOFF-2026-11-04-collector-i.md)。
+日期：2026-11-04。基线：main @ [#578](https://github.com/Alpaca-go/ddbg-web/pull/578)（R-177）合入后。Kyries 令接通 R-168 F 区三宝箱交互，裁定见 **R-177**。总览见 [HANDOFF-2026-11-04-collector-i.md](../../handoffs/HANDOFF-2026-11-04-collector-i.md)。
 
 ## 范围
 

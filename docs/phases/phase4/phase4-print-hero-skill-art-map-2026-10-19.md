@@ -15,7 +15,7 @@ Kyries 在印刷导出 manifest 上人工核对 **SKILLS_FRONT** 页序；引擎
 
 ## 本机缓存依赖
 
-1. 安装 Python 依赖并导出（见 [phase4-print-art-pipeline-2026-10-19.md](phase4-print-art-pipeline-2026-10-19.md)）：
+1. 安装 Python 依赖并导出（见 [phase4-print-art-pipeline-2026-10-19.md](./phase4-print-art-pipeline-2026-10-19.md)）：
 
    ```bash
    node tools/pipeline/scripts/export-print-card-art.mjs \
@@ -56,7 +56,7 @@ Kyries 在印刷导出 manifest 上人工核对 **SKILLS_FRONT** 页序；引擎
 
 - 不改规则数值与引擎行为；不进 Phase 5。
 - 英雄技能 BACK 面、效果图标切格仍不在本刀。
-- 探索与战斗站位美术见印刷 map（[phase4-exploration-art-2026-10-19.md](phase4-exploration-art-2026-10-19.md)、[phase4-print-monster-stance-art-2026-10-19.md](phase4-print-monster-stance-art-2026-10-19.md)、[phase4-print-hero-standee-art-2026-10-20.md](phase4-print-hero-standee-art-2026-10-20.md)）；运行时无 TTS 回退。
+- 探索与战斗站位美术见印刷 map（[phase4-exploration-art-2026-10-19.md](./phase4-exploration-art-2026-10-19.md)、[phase4-print-monster-stance-art-2026-10-19.md](./phase4-print-monster-stance-art-2026-10-19.md)、[phase4-print-hero-standee-art-2026-10-20.md](./phase4-print-hero-standee-art-2026-10-20.md)）；运行时无 TTS 回退。
 
 ## 历史 TTS 映射（已移除）
 

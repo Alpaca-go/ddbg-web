@@ -1,12 +1,12 @@
 # 核心规则说明书
 
-地点扩展：[Weald 规则规格书 v0.1](weald-rules-spec-v0.1.md)（W1–W4 已逐页核对；Q-186 主体已核准，Weald 地点已开放；**已复核 2026-11-22**）。
+地点扩展：[Weald 规则规格书 v0.1](./weald-rules-spec-v0.1.md)（W1–W4 已逐页核对；Q-186 主体已核准，Weald 地点已开放；**已复核 2026-11-22**）。
 
-**现行稿**：[核心规则说明书 v0.3](core-rules-spec-v0.3.md)。状态：**已复核（Kyries 2026-11-22）**；检查点 ① 已结案。
+**现行稿**：[核心规则说明书 v0.3](./core-rules-spec-v0.3.md)。状态：**已复核（Kyries 2026-11-22）**；检查点 ① 已结案。
 
-按章变更说明（复核入口）：[core-rules-spec-v0.3-changelog.md](core-rules-spec-v0.3-changelog.md)。
+按章变更说明（复核入口）：[core-rules-spec-v0.3-changelog.md](./core-rules-spec-v0.3-changelog.md)。
 
-v0.3（2026-11-20，Asia/Shanghai）按 [docs/rulings.md](../rulings.md) 现行裁定（含 R-053 及之后）更新规则正文。历史快照：[v0.2](core-rules-spec-v0.2.md)（2026-10-06，R-002~R-052）。v0.1 初稿的历史留在 git 记录里。Kyries 可随时推翻任何一条裁定。
+v0.3（2026-11-20，Asia/Shanghai）按 [docs/rulings.md](../rulings.md) 现行裁定（含 R-053 及之后）更新规则正文。历史快照：[v0.2](./core-rules-spec-v0.2.md)（2026-10-06，R-002~R-052）。v0.1 初稿的历史留在 git 记录里。Kyries 可随时推翻任何一条裁定。
 
 大纲 Phase 0 要求它覆盖战役、村庄、地牢、战斗、状态、压力、死亡和 Boss 通用流程，条目标页码，并附中英术语对照。大纲 §3.2 里的计划路径写的是 `docs/rules-spec/core.md`；正式稿放在本目录。
 

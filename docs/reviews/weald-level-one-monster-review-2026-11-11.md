@@ -52,7 +52,7 @@ R-230：Crit 标签是暴击阈值，旁数为暴击伤害；Acc 标签是命中
 
 ## 核对材料与确认范围
 
-整卡正反面与图标裁切：本地 `node_modules/.cache/weald-review/cards/index.html`，重建方式见[导入记录](weald-location-intake-2026-11-11.md)。
+整卡正反面与图标裁切：本地 `node_modules/.cache/weald-review/cards/index.html`，重建方式见[导入记录](../weald-location-intake-2026-11-11.md)。
 本批直接图像为 `monster_medium-weald-p001`、`p004`、`p005`、`p006`、`p009`、`p012` 和 `monster_large-weald-p001` 的 front/back PNG；副本还需对照原 PDF 对应页。
 
 本批属性与技能按 R-230 接入，抗性/免疫及大型卡灰栏按 R-232 确认。召唤语义已确认，但落点、容量、可用单位与战役部署链未接线前整招停点，不只执行其中的伤害或压力。

@@ -47,5 +47,5 @@ Vite 经 `DDBG_PRINT_CARD_ART_CACHE` 或默认 `.cache/print-card-art` 提供 `/
 
 ## 相关
 
-- 站位板底图：[phase4-print-monster-stance-art-2026-10-19.md](phase4-print-monster-stance-art-2026-10-19.md)
-- 房间代币 Rubine 小圆牌：[phase4-print-room-token-art-2026-10-19.md](phase4-print-room-token-art-2026-10-19.md)
+- 站位板底图：[phase4-print-monster-stance-art-2026-10-19.md](./phase4-print-monster-stance-art-2026-10-19.md)
+- 房间代币 Rubine 小圆牌：[phase4-print-room-token-art-2026-10-19.md](./phase4-print-room-token-art-2026-10-19.md)

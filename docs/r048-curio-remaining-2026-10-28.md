@@ -13,7 +13,7 @@
 
 ## 2. 引擎 §3 停点（#318，2026-10-27）
 
-见 [`r048-curio-pending-slice-2026-10-27.md`](r048-curio-pending-slice-2026-10-27.md)。三项均已接线：`effect === null` 停点、未核实饰品仅 `discard-new`、Q-61 抽空不洗回。
+见 [`r048-curio-pending-slice-2026-10-27.md`](./r048-curio-pending-slice-2026-10-27.md)。三项均已接线：`effect === null` 停点、未核实饰品仅 `discard-new`、Q-61 抽空不洗回。
 
 ## 3. 本 PR 新接：饰品 verification 与 Curio 奖励（有证据）
 

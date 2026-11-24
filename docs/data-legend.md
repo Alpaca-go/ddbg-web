@@ -1,6 +1,6 @@
 # 卡面图标图例
 
-核心盒图标含义在 [`packages/data/dictionary/`](../packages/data/dictionary/)。本仓库不放卡图，本文件也不贴图、不链外部图片。规范化数据在 [`packages/data/normalized/`](../packages/data/normalized/)，按词典回填含义；未确认的图标标成未验证（R-048）。
+核心盒图标含义在 [`packages/data/dictionary/`](../packages/data/dictionary)。本仓库不放卡图，本文件也不贴图、不链外部图片。规范化数据在 [`packages/data/normalized/`](../packages/data/normalized)，按词典回填含义；未确认的图标标成未验证（R-048）。
 
 `iconId` 是 10 位 hex，与 `packages/data/extract/corebox/raw/` 里的图标聚类 id 相同。
 
@@ -12,7 +12,7 @@
 - 规则书页码在每条的 `rulebook_refs`。`confirmed_rulebook` 是 Kyries 原先标成装饰、2026-10-07 改成规则书含义并批准的条目。页码主要来自核心规则书第 16 页（房间起始位置、战利品）和第 18 页（容纳标记）。
 - 规则来源只认官方规则书（R-001）。词典 `rule_sources` 还列了 Old Road（OR24）和 Color of Madness 规则书，只用于图标对照。
 
-裁定见 [docs/rulings.md](rulings.md) 的 R-048 / Q-47。
+裁定见 [docs/rulings.md](./rulings.md) 的 R-048 / Q-47。
 
 ## status
 
@@ -41,4 +41,4 @@
 
 Musketeer 不在这批词典里（R-008）。
 
-2026-10-11：rank 544 / 668 / 693 / 731 / 793 已按 R-061 并入 Wound（`wound`）；上述批次的留下记录为历史状态。当前合并范围、卡片剩余原因见 [四核心整批接线清单](phase2-four-core-skills-2026-10-11.md)。
+2026-10-11：rank 544 / 668 / 693 / 731 / 793 已按 R-061 并入 Wound（`wound`）；上述批次的留下记录为历史状态。当前合并范围、卡片剩余原因见 [四核心整批接线清单](./phases/phase2/phase2-four-core-skills-2026-10-11.md)。

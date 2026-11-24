@@ -1,10 +1,10 @@
 # A2 迁移清单（由 A1 审计生成）— 2026-11-23
 
 > 字段命名先迁移为嵌套
-> ules 对象（见 [PLAN-2026-11-23-rules-field-migration.md](PLAN-2026-11-23-rules-field-migration.md)）；本清单里的 erified_* 在 R3 后改名为
+> ules 对象（见 [PLAN-2026-11-23-rules-field-migration.md](./PLAN-2026-11-23-rules-field-migration.md)）；本清单里的 erified_* 在 R3 后改名为
 > ules.*。
 
-来源：[audit-2026-11-23-icon-semantics.md](audit-2026-11-23-icon-semantics.md) 的 223 行，
+来源：[audit-2026-11-23-icon-semantics.md](../reviews/audit-2026-11-23-icon-semantics.md) 的 223 行，
 其中「规则语义」168 行按目标字段归成以下迁移单元。分类是初分，开工前逐行复核。
 
 > **2026-11-24 进展**：R1（`rules` 双写）已完成；单元 1 的 Inspiring Tune 目标压力补注解并修掉回归；

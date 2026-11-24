@@ -15,10 +15,10 @@
 
 - **`usable: false`**：`ancestorGlory` 等特殊区运行时仍不激活（见 R-165 / R-186 边界）。
 - 各形态 Boss 技能 AI、特殊能力、`startBattle` 后的完整回合验收仍 hold；未审核能力目录不打开。
-- 形态间先攻重洗、Stygian、自然战役全程存档验收、扩展 Boss：未接（先攻 / 第 1 轮见 [initiative 切片](phase5-final-battle-initiative-2026-10-31.md)）。
+- 形态间先攻重洗、Stygian、自然战役全程存档验收、扩展 Boss：未接（先攻 / 第 1 轮见 [initiative 切片](./phase5-final-battle-initiative-2026-10-31.md)）。
 
 ## 验证
 
 - `pnpm typecheck`
 - `pnpm exec vitest run packages/engine/src/boss/final-battle-deploy.test.ts packages/engine/src/boss/final-form-sequence.test.ts`
-- 生产入口审核：[phase5-final-battle-production-entry-review-2026-11-04.md](phase5-final-battle-production-entry-review-2026-11-04.md)
+- 生产入口审核：[phase5-final-battle-production-entry-review-2026-11-04.md](./phase5-final-battle-production-entry-review-2026-11-04.md)

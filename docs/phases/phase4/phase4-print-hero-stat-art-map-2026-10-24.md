@@ -41,7 +41,7 @@ node tools/pipeline/scripts/check-print-art-map-refs.mjs --cache .cache/print-ca
 
 `hero-skill-print-art-map.json` 在既有 231 条 Kyries CSV 之外追加 **147** 条 `hero_skill:art:*`（TDH 技能页 + Musketeer 包），`dataStatus: art-only`。正式战斗仍只使用 normalized `hero_skill:pNNN` id。
 
-详见 [phase4-print-hero-skill-art-map-2026-10-19.md](phase4-print-hero-skill-art-map-2026-10-19.md)。
+详见 [phase4-print-hero-skill-art-map-2026-10-19.md](./phase4-print-hero-skill-art-map-2026-10-19.md)。
 
 ## 范围外
 

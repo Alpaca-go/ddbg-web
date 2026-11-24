@@ -1,6 +1,6 @@
 # Mammoth Cyst I 自然任务与严格存档
 
-基线：main @ R-184（[#592](https://github.com/Alpaca-go/ddbg-web/pull/592)）、R-185（[#593](https://github.com/Alpaca-go/ddbg-web/pull/593)）。依据 R-184、R-185、R-164、R-122、R-048 与核心 R36/R39、规格书 §14.x。生产入口见 [phase5-mammoth-cyst-production-entry-review-2026-11-04.md](phase5-mammoth-cyst-production-entry-review-2026-11-04.md)。
+基线：main @ R-184（[#592](https://github.com/Alpaca-go/ddbg-web/pull/592)）、R-185（[#593](https://github.com/Alpaca-go/ddbg-web/pull/593)）。依据 R-184、R-185、R-164、R-122、R-048 与核心 R36/R39、规格书 §14.x。生产入口见 [phase5-mammoth-cyst-production-entry-review-2026-11-04.md](./phase5-mammoth-cyst-production-entry-review-2026-11-04.md)。
 
 `naturalQuest` 在 `room:p024` 且 `bossEncounterPlan` 为 `boss:darkest:mammoth-cyst` 时选择公开 `deployMammothCystI`，与 Shuffling Horror / Templars / Ruins I 级 Boss 专用分支一致，仅 test-helpers 驱动。Boss 定额任务（含 quest:p018）在 `bossQuestVictory` 后不再进入 `room()` 内循环，避免替补停点阻塞离开摘要。R-185 姿态骰表 slot 3（Revivify）在 `prepareMonsterAction` 经既有 `applyMammothCystRevivify` 接入选招路径，不另改 deploy 几何。最暗回村 R32 房间牌池按出征区域校验子集守恒（含 Boss 房入弃牌堆），与遗迹九房全量守恒区分。
 

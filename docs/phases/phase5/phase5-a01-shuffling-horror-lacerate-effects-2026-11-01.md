@@ -22,7 +22,7 @@
 
 图标 `target_effects`（a38154c523）、`bleed`（784ec4fe7a）均为 **confirmed**。
 
-依据：`monster_large` FRONT **p017**、[phase5-a11-shuffling-horror-lacerate-acc-2026-11-01.md](phase5-a11-shuffling-horror-lacerate-acc-2026-11-01.md)；对照 Ghoul / Ancestor2 Refashion / HoD Puncture 同型 bleed 条目；规则 R-001 / R-048。
+依据：`monster_large` FRONT **p017**、[phase5-a11-shuffling-horror-lacerate-acc-2026-11-01.md](./phase5-a11-shuffling-horror-lacerate-acc-2026-11-01.md)；对照 Ghoul / Ancestor2 Refashion / HoD Puncture 同型 bleed 条目；规则 R-001 / R-048。
 
 ## 本刀接通
 

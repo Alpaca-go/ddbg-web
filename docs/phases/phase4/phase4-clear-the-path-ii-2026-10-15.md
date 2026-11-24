@@ -1,6 +1,6 @@
 # Phase 4：Clear the Path II 与两张II级任务摘要
 
-先审并合#198，最终head `6f74c4c`，main `8f57bd7`。审查修正正式页面升幕按钮/正式存档的预览边界、跨级旧饰品弃置守恒停点及坏牌堆预检；127文件/1115项测试完整重跑、typecheck、ESLint、构建和1条既有村庄Playwright冒烟通过。根lint仅因本机未跟踪HANDOFF-BOT格式失败，保留用户文件，排除它后的Prettier全仓检查通过。详见[审查记录](phase4-ii-embark-2026-10-15.md)。
+先审并合#198，最终head `6f74c4c`，main `8f57bd7`。审查修正正式页面升幕按钮/正式存档的预览边界、跨级旧饰品弃置守恒停点及坏牌堆预检；127文件/1115项测试完整重跑、typecheck、ESLint、构建和1条既有村庄Playwright冒烟通过。根lint仅因本机未跟踪HANDOFF-BOT格式失败，保留用户文件，排除它后的Prettier全仓检查通过。详见[审查记录](./phase4-ii-embark-2026-10-15.md)。
 
 随后从用户限定的三个方向中选择下一张II级任务。剩余5张事件仍缺图标/天数批准，II级怪物仍缺获批Speed/姿态分组等前置；本刀不绕过这些停点。
 

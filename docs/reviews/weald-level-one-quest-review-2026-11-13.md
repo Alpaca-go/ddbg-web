@@ -11,7 +11,7 @@
 | Parsed     | **无** `extract/extension/weald/parsed/quest.json`                                                                   |
 | Normalized | **有** `normalized/extension/weald/quest_cards.json`（I 级五张）与 `basicQuests` `quest:weald:p001`–`p005`；出征仍关 |
 | 印刷 PDF   | 路径仅见于 raw `sources`（仓库不提交 PDF）；本机未声称打开不可用的 PDF                                               |
-| 私有审阅图 | 可按 [导入记录](weald-location-intake-2026-11-11.md) `--review` 重建；本刀未新增缓存                                 |
+| 私有审阅图 | 可按 [导入记录](../weald-location-intake-2026-11-11.md) `--review` 重建；本刀未新增缓存                              |
 
 任务正面 PDF：`DD_EN_WEALD_CARDS_70_120_quests_FRONT.pdf` p1–15。
 背面 PDF：`DD_EN_WEALD_CARDS_70_120_quests_BACK.pdf` p1–15（背面仅见 `Quest` + 等级罗马数字，无房间分布行）。
@@ -133,7 +133,7 @@
 
 ## 与 W-02 的包属及任务地点绑定（仅文档结论）
 
-- **牌堆归属**：15 张均属 `MG_DD_06_EN_WEALD` 任务 PDF；战役混洗时按 W-02 应进入 **Weald 对应等级任务牌堆**，与核心遗迹任务牌堆分离（见 [内容包隔离](content-pack-isolation-2026-11-11.md)）。
+- **牌堆归属**：15 张均属 `MG_DD_06_EN_WEALD` 任务 PDF；战役混洗时按 W-02 应进入 **Weald 对应等级任务牌堆**，与核心遗迹任务牌堆分离（见 [内容包隔离](../content-pack-isolation-2026-11-11.md)）。
 - **出征地点**：印刷包属与任务登记字段应指向 **weald**；`{icon:56ea9289ab}` 为正面 I 级等级徽（**R-249**），不能当作地点旗帜反推。
 - **内容包**：未选 Weald 包时，上述五张不得进入村庄任务池或存档重建来源（与 `sourcesForContentPacks` 行为一致）。
 - **房间牌堆**：W-02 §6 要求使用 Weald 自有房间牌堆；九张普通房间已在 normalized，**`usable: false`**，出征未开。

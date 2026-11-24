@@ -6,7 +6,7 @@
 
 ## 结论（短）
 
-正式网页任务目录、开局入口与引擎候选白名单当前共**八名**已核实身份（`FORMAL_HERO_NAMES`）。开局可从八名中任选四人；某身份开局已用则死后不可再替补。四人同死后，未用过的额外身份仍可替补。Jester / Arbalest / Abomination 仍无 `attributesVerified`，未进可用池。开局门控见 [八英雄开局](phase4-eight-hero-roster-2026-10-18.md)。
+正式网页任务目录、开局入口与引擎候选白名单当前共**八名**已核实身份（`FORMAL_HERO_NAMES`）。开局可从八名中任选四人；某身份开局已用则死后不可再替补。四人同死后，未用过的额外身份仍可替补。Jester / Arbalest / Abomination 仍无 `attributesVerified`，未进可用池。开局门控见 [八英雄开局](./phase4-eight-hero-roster-2026-10-18.md)。
 
 ## 正式可用池（已核实属性；技能效果另列）
 

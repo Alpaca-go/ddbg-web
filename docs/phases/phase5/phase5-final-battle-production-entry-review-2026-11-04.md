@@ -12,7 +12,7 @@
 | 项                          | 来源                                                  |
 | --------------------------- | ----------------------------------------------------- |
 | 十一区与部署落点            | R-165、`packages/data/src/normalize/ancestor-room.ts` |
-| 生产 deploy                 | **R-186**、[rulings.md](rulings.md#r-186)             |
+| 生产 deploy                 | **R-186**、[rulings.md](../../rulings.md#r-186)       |
 | 命令与存档                  | `deployFinalBattleForm`、`quest-save.ts`              |
 | Summon / Nothingness 姿态区 | `FINAL_BATTLE_MONSTER_STANCE_AREAS`（E/B/A/J）        |
 

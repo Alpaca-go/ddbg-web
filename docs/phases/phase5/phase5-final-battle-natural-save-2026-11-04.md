@@ -1,6 +1,6 @@
 ﻿# 最终战自然任务与严格存档
 
-基线：main @ R-186（[#595](https://github.com/Alpaca-go/ddbg-web/pull/595)）、R-187（Kyries 确认 [#596](https://github.com/Alpaca-go/ddbg-web/pull/596)）。依据 R-186、R-187、R-122、R-048 与核心 R36/R39、规格书 §14.x。生产入口见 [phase5-final-battle-production-entry-review-2026-11-04.md](phase5-final-battle-production-entry-review-2026-11-04.md)。
+基线：main @ R-186（[#595](https://github.com/Alpaca-go/ddbg-web/pull/595)）、R-187（Kyries 确认 [#596](https://github.com/Alpaca-go/ddbg-web/pull/596)）。依据 R-186、R-187、R-122、R-048 与核心 R36/R39、规格书 §14.x。生产入口见 [phase5-final-battle-production-entry-review-2026-11-04.md](./phase5-final-battle-production-entry-review-2026-11-04.md)。
 
 `naturalFinalBattle`（`test-helpers/natural-final-battle.ts`）在 `naturalQuest` 完成最暗 **quest:p018**（种子 **3279**）并经 `beginReturnToHamlet` / `finishReturnToHamlet` 后，按村庄 UI 同序驱动 `beginFinalPreparation` → 四天看守人/英雄行动（首行动 Crusader 可用 Zealous Speech，其余走 `hamletActionOptions`）→ `beginFinalBattleProvisions` → `rollDungeonProvisions` / `resolveChoice` → `prepareFinalBattleForms`，停在 **awaitingDeployment**；检查点再执行公开 `deployFinalBattleForm` 与 `startBattle`。不伪造形态胜利、不翻 `combatReady`。
 

@@ -1,6 +1,6 @@
 # 最终战 Heart of Darkness · Impending Doom 骰子落位
 
-相对 #450（Imperfect Reproduction）与 [final-battle initiative 切片](phase5-final-battle-initiative-2026-10-31.md)：接通 **boss_ability:p037** 的 **d10 落位**；**d10→技能映射**见 [Impending Doom 技能映射](phase5-final-heart-impending-doom-skill-map-2026-11-01.md) 与 **R-139**。不改 `combatReady`。
+相对 #450（Imperfect Reproduction）与 [final-battle initiative 切片](./phase5-final-battle-initiative-2026-10-31.md)：接通 **boss_ability:p037** 的 **d10 落位**；**d10→技能映射**见 [Impending Doom 技能映射](./phase5-final-heart-impending-doom-skill-map-2026-11-01.md) 与 **R-139**。不改 `combatReady`。
 
 ## 规则来源
 
@@ -22,7 +22,7 @@
 ## hold / 未接
 
 - 三招 **效果线**（压力/光照等）至 `verified_monster_effects` 入库前不结算。
-- ~~**d10 → 技能映射**~~ → 已接（R-139、[技能映射文档](phase5-final-heart-impending-doom-skill-map-2026-11-01.md)）。
+- ~~**d10 → 技能映射**~~ → 已接（R-139、[技能映射文档](./phase5-final-heart-impending-doom-skill-map-2026-11-01.md)）。
 - Absolute Nothingness、Swift Teleportation、Pit Toss、Room Tile 几何、Phase 6、完整 Heart AI（`combatReady: true` 前）。
 
 ## 待确认

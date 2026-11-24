@@ -30,4 +30,4 @@
 
 Node 24.21.0 / pnpm 12.9.1：typecheck、lint、76 文件 / 744 项单元与场景测试、build 和六条 Playwright 冒烟通过；浏览器沿用本机忽略配置 Chromium 1234，正式配置不改。新增三项场景覆盖六面 RNG / Wild、冻结 / 重复 / 陈旧选择、15→16 上限、满池不消费 RNG、资料修复续接及未实现怪癖不漏奖。第一条既有 Phase 3 冒烟扩展真实种子 370，阶段仍三条。首轮冒烟因新增按钮定位文案错误超时，改为真实 UI 文案后六条通过，未放宽超时。
 
-步骤 2 的另一半是板块数据：[逐面覆盖与 Torture Chamber 草稿](phase3-tile-face-review-2026-10-12.md)已核本地印刷正反页索引，指出 PDF 页码 ≠ 房间号；遗迹 2 在 BACK p2，FRONT p2 是遗迹 3。新几何 / 出生仍待逐面批准，生产可用板块仍仅 Ritual Chamber FRONT p1。步骤 2 及 Phase 3 尚未完成，不跳任务闭环或 Phase 4。
+步骤 2 的另一半是板块数据：[逐面覆盖与 Torture Chamber 草稿](./phase3-tile-face-review-2026-10-12.md)已核本地印刷正反页索引，指出 PDF 页码 ≠ 房间号；遗迹 2 在 BACK p2，FRONT p2 是遗迹 3。新几何 / 出生仍待逐面批准，生产可用板块仍仅 Ritual Chamber FRONT p1。步骤 2 及 Phase 3 尚未完成，不跳任务闭环或 Phase 4。

@@ -6,7 +6,7 @@
 
 ## 问题
 
-[最终战全灭切片](phase5-final-battle-defeat-2026-11-05.md) 记录：失败后只有战斗页内的一条文案，**没有「开新战役」入口**（胜利面板有）；玩家必须刷新页面才能重开。`campaignFailure` 置位后 `applyCommand` 一律拒绝，是终局态。
+[最终战全灭切片](./phase5-final-battle-defeat-2026-11-05.md) 记录：失败后只有战斗页内的一条文案，**没有「开新战役」入口**（胜利面板有）；玩家必须刷新页面才能重开。`campaignFailure` 置位后 `applyCommand` 一律拒绝，是终局态。
 
 ## 改动
 
