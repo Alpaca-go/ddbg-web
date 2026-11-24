@@ -217,8 +217,6 @@ describe("已选怪物攻击的纯结算（R19–21）", () => {
             target: { ...skill.rules!.target, stress: annotation },
             effects: changedPlan,
           },
-          verified_monster_effects: changedPlan,
-          verified_target_stress: annotation,
         };
       }),
     };

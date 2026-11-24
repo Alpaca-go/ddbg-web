@@ -75,9 +75,6 @@ for (const entry of file.cards) {
   }
   const legacy = { ...entry };
   delete legacy.rules;
-  for (const key of Object.keys(legacy)) {
-    if (key.startsWith("verified_")) delete (legacy as Record<string, unknown>)[key];
-  }
   if (["hero_skill:core:h02:p038", "hero_skill:core:h02:p039"].includes(entry.id)) {
     legacy.stats_line = null;
     legacy.effect_lines = resolveLines(

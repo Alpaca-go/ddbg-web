@@ -97,10 +97,12 @@ it("Self不套目标Buff抗性/免疫；状态由战斗回合计时，不按村�
           s.name === "HELLION"
             ? {
                 ...s,
-                verified_buff_defence: {
-                  resistant: true,
-                  immune: true,
-                  source: "print_front" as const,
+                rules: {
+                  buffDefence: {
+                    resistant: true,
+                    immune: true,
+                    source: "print_front" as const,
+                  },
                 },
               }
             : s,

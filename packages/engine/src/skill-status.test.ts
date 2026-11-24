@@ -216,7 +216,6 @@ describe("完整 Nt 注解的技能状态接线（R19–21 / R-048）", () => {
     const invalid = {
       ...stun,
       rules: { ...stun.rules, statuses: [drifted] },
-      verified_status_effects: [drifted],
     };
     expect(
       resolveHeroSkill(

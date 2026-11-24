@@ -47,23 +47,20 @@ const textOf = (line) =>
 const iconKeysOf = (line) =>
   line.filter((s) => s.type === "icon").map((s) => s.icon.key ?? s.icon.iconId);
 
-const hasAny = (card, keys) => keys.some((k) => card[k] !== undefined);
-
 function flagsForSkill(card) {
   const flags = [];
-  const annotations = Object.keys(card).filter((k) => k.startsWith("verified_"));
-  const statuses = card.verified_status_effects ?? [];
-  const healAnno = hasAny(card, [
-    "verified_target_heal",
-    "verified_self_heal",
-    "verified_target_support",
-    "verified_self_stress",
-  ]);
-  const damageAnno = hasAny(card, [
-    "verified_damage_bonus",
-    "verified_damage_bonuses",
-    "verified_actor_damage_bonus",
-  ]);
+  const rules = card.rules ?? {};
+  const annotations = card.rules ? ["rules"] : [];
+  const statuses = rules.statuses ?? [];
+  const healAnno =
+    rules.self?.heal !== undefined ||
+    rules.target?.heal !== undefined ||
+    rules.target?.support !== undefined ||
+    rules.self?.stress !== undefined;
+  const damageAnno =
+    rules.damage !== undefined ||
+    rules.damageBonuses !== undefined ||
+    rules.actorDamage !== undefined;
 
   card.effect_lines.forEach((line, lineIndex) => {
     const text = textOf(line);
@@ -101,9 +98,7 @@ function digestSkill(card) {
     })),
     stats: card.stats_line ? textOf(card.stats_line) : null,
     printed_labels: card.printed_labels,
-    annotations: Object.fromEntries(
-      Object.entries(card).filter(([k]) => k.startsWith("verified_")),
-    ),
+    annotations: card.rules ?? {},
   };
 }
 
@@ -115,9 +110,7 @@ function digestStat(card) {
       speed: card.speed,
       level: card.level,
     },
-    annotations: Object.fromEntries(
-      Object.entries(card).filter(([k]) => k.startsWith("verified_")),
-    ),
+    annotations: card.rules ?? {},
   };
 }
 
@@ -167,7 +160,7 @@ for (const card of stats) {
     date: null,
     qid: null,
     notes: null,
-    annotationKeys: Object.keys(card).filter((k) => k.startsWith("verified_")),
+    annotationKeys: card.rules ? ["rules"] : [],
     flags,
     digest: digestStat(card),
   });

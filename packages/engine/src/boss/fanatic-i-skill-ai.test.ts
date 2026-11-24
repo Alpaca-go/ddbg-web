@@ -287,7 +287,6 @@ describe("C-017 · Fanatic I 卡面技能 AI（R20–24、R-015/024/048）", () 
                   };
                   return {
                     ...skill,
-                    verified_monster_effects: plan,
                     rules: { ...skill.rules, effects: plan },
                   };
                 }),

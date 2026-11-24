@@ -418,7 +418,7 @@ describe("Collector I · deployCollectorI 路径 · R-176 选招与结算", () =
     ]);
   });
 
-  it("verified_monster_effects 漂移时 prepare 后 play 整次拒绝", () => {
+  it("rules.effects 漂移时 prepare 后 play 整次拒绝", () => {
     const withCollected = afterCollectAll(fightingDeployed());
     const turn = onCollectorSkillTurn(withCollected, 4, crowdedPatchForRange(withCollected, 1));
     const drifted = {

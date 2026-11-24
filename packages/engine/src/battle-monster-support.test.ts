@@ -119,7 +119,6 @@ it("错误阵营、射程与效果签名漂移均原子拒绝，R-143字段不�
   const driftedSkill = drifted.battle!.monsters![0]!.skills[0]!;
   const badPlan = { ...driftedSkill.rules!.effects!, signatures: ["bad"] };
   Object.assign(driftedSkill, {
-    verified_monster_effects: badPlan,
     rules: { ...driftedSkill.rules, effects: badPlan },
   });
   for (const [game, cmd] of [

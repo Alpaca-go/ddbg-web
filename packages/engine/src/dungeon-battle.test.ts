@@ -999,7 +999,6 @@ it("缺失或伪造条件防御的任一英雄阻止实际负面状态房间入�
             void _condition;
             return {
               ...h,
-              verified_condition_defence: override,
               rules: override ? { ...rulesRest, conditionDefence: override as never } : rulesRest,
             };
           }),

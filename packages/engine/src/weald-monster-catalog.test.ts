@@ -56,12 +56,11 @@ describe("Weald R-232 已核准战斗目录", () => {
       if (mutation === "dodge") first.dodge = 99;
       if (mutation === "resistance") first.resistances = [];
       if (mutation === "profile") {
+        const holder = first as unknown as { rules?: Record<string, unknown> };
         const mutated = {
-          ...(first.verified_weald_profile as Record<string, unknown>),
+          ...(holder.rules?.wealdProfile as Record<string, unknown>),
           resistance: "stun",
         };
-        first.verified_weald_profile = mutated as typeof first.verified_weald_profile;
-        const holder = first as unknown as { rules?: Record<string, unknown> };
         holder.rules = { ...(holder.rules ?? {}), wealdProfile: mutated };
       }
       if (mutation === "missing") source.medium.cards.shift();

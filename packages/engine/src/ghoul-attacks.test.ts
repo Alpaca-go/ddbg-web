@@ -263,7 +263,6 @@ it("计划签名、原语数值及作用域漂移均原子拒绝，保留骰序�
                 s.slot === slot
                   ? {
                       ...s,
-                      verified_monster_effects: changed,
                       rules: { ...s.rules, effects: changed },
                     }
                   : s,
@@ -319,7 +318,6 @@ it("Howl完整计划逐名续接，未知签名仍整次拒绝", () => {
             const changed = { ...s.rules!.effects!, signatures: ["wrong"] };
             return {
               ...s,
-              verified_monster_effects: changed,
               rules: { ...s.rules, effects: changed },
             };
           }),

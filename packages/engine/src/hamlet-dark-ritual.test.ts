@@ -171,7 +171,7 @@ it("目标缺 Buff 防御或死亡拒绝；压力10走意志续接", () => {
     life: 14,
     attributesVerified: true,
   });
-  // Occ II 无 verified_buff_defence → 作目标拒绝
+  // Occ II 无 rules.buffDefence → 作目标拒绝
   expect(refused(noBuff).events[0]).toMatchObject({ type: "commandRefused" });
   const dead = patch(fixture(1), "hero-1", { dead: true });
   expect(refused(dead).events[0]).toMatchObject({ type: "commandRefused" });

@@ -346,7 +346,7 @@ describe("Collector I · deployCollectorI · Collected 技能闭环", () => {
     expect(state.battle!.encounter!.turn.type).not.toBe("monster");
   });
 
-  it("verified_monster_effects 漂移时 playMonsterSkill 整次拒绝", () => {
+  it("rules.effects 漂移时 playMonsterSkill 整次拒绝", () => {
     const base = afterCollectAll(fightingDeployed());
     const turnBase = monsterTurn(base, "collected:highwayman");
     const drifted = {
