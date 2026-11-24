@@ -112,7 +112,7 @@ export function applyBountyStatuses(
               : s,
           ),
     );
-    const verified_status_effects = row.effects.map((effect) => {
+    const annotation_status_effects = row.effects.map((effect) => {
       const line = effect_lines[effect.lineIndex]!;
       const found = line.flatMap((s, i) =>
         s.type === "icon" && s.icon.key === effect.kind ? [i] : [],
@@ -137,8 +137,8 @@ export function applyBountyStatuses(
     return parseAnnotatedHeroSkillCard({
       ...card,
       effect_lines,
-      verified_status_effects,
-      ...(isMarkForDeath ? { verified_range: { min: 0, max: 2, source: "print_front" } } : {}),
+      annotation_status_effects,
+      ...(isMarkForDeath ? { annotation_range: { min: 0, max: 2, source: "print_front" } } : {}),
     });
   });
 }

@@ -5,7 +5,7 @@ import type { SelfEffectEntry } from "./types";
 
 /**
  * 自身治疗 / 压力 applier：
- * 按行断言 self_effects + heal/stress 图标存在、印刷数字与数据一致，再写 verified_self_*。
+ * 按行断言 self_effects + heal/stress 图标存在、印刷数字与数据一致，再写 annotation_self_*。
  */
 export function applySelfEffects(
   cards: readonly NormalizedHeroSkillCard[],
@@ -41,7 +41,7 @@ export function applySelfEffects(
         entry.kind === "heal"
           ? {
               ...fields,
-              verified_self_heal: {
+              annotation_self_heal: {
                 lineIndex: entry.lineIndex,
                 amount: entry.amount,
                 source: "print_front",
@@ -49,7 +49,7 @@ export function applySelfEffects(
             }
           : {
               ...fields,
-              verified_self_stress: {
+              annotation_self_stress: {
                 lineIndex: entry.lineIndex,
                 amount: entry.amount,
                 source: "print_front",

@@ -24,7 +24,7 @@ function pick(
   return hit;
 }
 
-it("Q-185：Musketeer 与 Arbalest 七族 L1–III 效果与 verified_* 对齐", () => {
+it("Q-185：Musketeer 与 Arbalest 七族 L1–III 效果与 annotation_* 对齐", () => {
   const cards = loadNormalizedCorebox().hero_skill.cards;
   for (const [arbName, mskName] of PAIRS) {
     for (const level of [1, 2, 3] as const) {

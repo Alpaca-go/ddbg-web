@@ -28,51 +28,51 @@ function read(relative: string): unknown {
 type Mapping = readonly (readonly [string, readonly string[]])[];
 
 const HERO_SKILL: Mapping = [
-  ["verified_status_effects", ["statuses"]],
-  ["verified_damage_bonus", ["damage"]],
-  ["verified_damage_bonuses", ["damageBonuses"]],
-  ["verified_actor_damage_bonus", ["actorDamage"]],
-  ["verified_range", ["range"]],
-  ["verified_self_range", ["self", "range"]],
-  ["verified_self_heal", ["self", "heal"]],
-  ["verified_self_stress", ["self", "stress"]],
-  ["verified_target_header", ["target", "header"]],
-  ["verified_target_heal", ["target", "heal"]],
-  ["verified_target_stress", ["target", "stress"]],
-  ["verified_target_support", ["target", "support"]],
-  ["verified_allies_stress", ["alliesStress"]],
-  ["verified_rallying_flare", ["rallyingFlare"]],
-  ["verified_effect_line_receipts", ["receipts"]],
-  ["verified_bleed_blight_transfer", ["transfer"]],
+  ["annotation_status_effects", ["statuses"]],
+  ["annotation_damage_bonus", ["damage"]],
+  ["annotation_damage_bonuses", ["damageBonuses"]],
+  ["annotation_actor_damage_bonus", ["actorDamage"]],
+  ["annotation_range", ["range"]],
+  ["annotation_self_range", ["self", "range"]],
+  ["annotation_self_heal", ["self", "heal"]],
+  ["annotation_self_stress", ["self", "stress"]],
+  ["annotation_target_header", ["target", "header"]],
+  ["annotation_target_heal", ["target", "heal"]],
+  ["annotation_target_stress", ["target", "stress"]],
+  ["annotation_target_support", ["target", "support"]],
+  ["annotation_allies_stress", ["alliesStress"]],
+  ["annotation_rallying_flare", ["rallyingFlare"]],
+  ["annotation_effect_line_receipts", ["receipts"]],
+  ["annotation_bleed_blight_transfer", ["transfer"]],
 ];
 
 const MONSTER_SKILL: Mapping = [
-  ["verified_damage_bonus", ["damage"]],
-  ["verified_actor_damage_bonus", ["actorDamage"]],
-  ["verified_effect_line_receipts", ["receipts"]],
-  ["verified_bleed_blight_transfer", ["transfer"]],
-  ["verified_range", ["range"]],
-  ["verified_self_range", ["self", "range"]],
-  ["verified_self_heal", ["self", "heal"]],
-  ["verified_self_stress", ["self", "stress"]],
-  ["verified_target_header", ["target", "header"]],
-  ["verified_target_heal", ["target", "heal"]],
-  ["verified_target_stress", ["target", "stress"]],
-  ["verified_target_support", ["target", "support"]],
-  ["verified_allies_stress", ["alliesStress"]],
-  ["verified_monster_effects", ["effects"]],
-  ["verified_weald_attack", ["wealdAttack"]],
+  ["annotation_damage_bonus", ["damage"]],
+  ["annotation_actor_damage_bonus", ["actorDamage"]],
+  ["annotation_effect_line_receipts", ["receipts"]],
+  ["annotation_bleed_blight_transfer", ["transfer"]],
+  ["annotation_range", ["range"]],
+  ["annotation_self_range", ["self", "range"]],
+  ["annotation_self_heal", ["self", "heal"]],
+  ["annotation_self_stress", ["self", "stress"]],
+  ["annotation_target_header", ["target", "header"]],
+  ["annotation_target_heal", ["target", "heal"]],
+  ["annotation_target_stress", ["target", "stress"]],
+  ["annotation_target_support", ["target", "support"]],
+  ["annotation_allies_stress", ["alliesStress"]],
+  ["annotation_monster_effects", ["effects"]],
+  ["annotation_weald_attack", ["wealdAttack"]],
 ];
 
-const MONSTER_CARD: Mapping = [["verified_weald_profile", ["wealdProfile"]]];
+const MONSTER_CARD: Mapping = [["annotation_weald_profile", ["wealdProfile"]]];
 
 const HERO_STAT: Mapping = [
-  ["verified_buff_defence", ["buffDefence"]],
-  ["verified_condition_defence", ["conditionDefence"]],
-  ["verified_higher_condition_defence", ["higherConditionDefence"]],
+  ["annotation_buff_defence", ["buffDefence"]],
+  ["annotation_condition_defence", ["conditionDefence"]],
+  ["annotation_higher_condition_defence", ["higherConditionDefence"]],
 ];
 
-const VIRTUE: Mapping = [["verified_turn_start", ["turnStart"]]];
+const VIRTUE: Mapping = [["annotation_turn_start", ["turnStart"]]];
 
 function valueAt(node: unknown, path: readonly string[]): unknown {
   let current = node;
@@ -85,8 +85,8 @@ function valueAt(node: unknown, path: readonly string[]): unknown {
 
 /**
  * 1) `projectRules(card)` 必须等于 `card.rules`；
- * 2) 每个存在的 `verified_*` 必须在 `rules` 的对应路径上逐值相等；
- * 3) 不允许出现没进映射表的新 `verified_*` 字段（防止只加旧字段不加 rules）。
+ * 2) 每个存在的 `annotation_*` 必须在 `rules` 的对应路径上逐值相等；
+ * 3) 不允许出现没进映射表的新 `annotation_*` 字段（防止只加旧字段不加 rules）。
  */
 function assertDualWrite(
   card: { readonly rules?: unknown },
@@ -97,7 +97,7 @@ function assertDualWrite(
   expect(project()).toEqual(loose.rules);
   const known = new Set(mapping.map(([key]) => key));
   for (const key of Object.keys(loose)) {
-    if (key.startsWith("verified_")) expect(known, `${key} 缺少 rules 映射`).toContain(key);
+    if (key.startsWith("annotation_")) expect(known, `${key} 缺少 rules 映射`).toContain(key);
   }
   for (const [verifiedKey, path] of mapping) {
     const value = loose[verifiedKey];
@@ -106,7 +106,7 @@ function assertDualWrite(
   }
 }
 
-describe("R1：rules 与 verified_* 双写一致", () => {
+describe("R1：rules 与 annotation_* 双写一致", () => {
   it("hero_skill：16 个字段全部投影到 rules", () => {
     const file = normalizedHeroSkillFileSchema.parse(read("normalized/corebox/hero_skill.json"));
     expect(file.cards).toHaveLength(378);

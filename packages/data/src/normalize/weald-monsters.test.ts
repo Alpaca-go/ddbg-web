@@ -75,9 +75,9 @@ describe("Weald I 级普通怪物规范化（W3 / 核心 R24 / Q-186）", () => 
       expect(card.speed).toBeGreaterThan(0);
       expect(card.stanceGroups).toBeDefined();
       for (const skill of card.skills) {
-        expect(skill).not.toHaveProperty("verified_damage");
-        expect(skill).not.toHaveProperty("verified_range");
-        expect(skill).not.toHaveProperty("verified_monster_effects");
+        expect(skill).not.toHaveProperty("annotation_damage");
+        expect(skill).not.toHaveProperty("annotation_range");
+        expect(skill).not.toHaveProperty("annotation_monster_effects");
         expect(skill.rules?.wealdAttack?.ruling).toBe("R-230");
       }
     }

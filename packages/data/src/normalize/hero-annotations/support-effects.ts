@@ -43,7 +43,7 @@ export function applySupportEffects(
     if (card.rules?.target?.support) return card;
     return {
       ...card,
-      verified_target_support: {
+      annotation_target_support: {
         lineIndex: entry.lineIndex,
         heal: entry.effects.heal,
         stress: entry.effects.stress,

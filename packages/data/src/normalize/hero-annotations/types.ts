@@ -20,11 +20,11 @@ export type HeroAnnotationModule = {
 export type CoreHigherSkillFlags = Partial<
   Pick<
     NormalizedHeroSkillCard,
-    | "verified_damage_bonus"
-    | "verified_damage_bonuses"
-    | "verified_status_effects"
-    | "verified_range"
-    | "verified_target_header"
+    | "annotation_damage_bonus"
+    | "annotation_damage_bonuses"
+    | "annotation_status_effects"
+    | "annotation_range"
+    | "annotation_target_header"
   >
 >;
 

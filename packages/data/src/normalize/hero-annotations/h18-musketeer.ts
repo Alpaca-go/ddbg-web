@@ -219,7 +219,7 @@ function fixAimedShot(
   if (level > 1) {
     return parseAnnotatedHeroSkillCard({
       ...parsed,
-      verified_damage_bonus: {
+      annotation_damage_bonus: {
         lineIndex: 0,
         amount: bonus,
         condition: "marked",
@@ -258,8 +258,8 @@ function fixSmokescreenDebuff(
   if (level > 1) {
     return {
       ...parsed,
-      verified_range: { min: 1, max: 2, source: "print_front" as const },
-      verified_status_effects: [
+      annotation_range: { min: 1, max: 2, source: "print_front" as const },
+      annotation_status_effects: [
         {
           lineIndex: 0,
           segmentIndex: 2,
@@ -299,8 +299,8 @@ function fixCallTheShot(
   if (level > 1) {
     return {
       ...parsed,
-      verified_range: { min: 1, max: 2, source: "print_front" as const },
-      verified_status_effects: [
+      annotation_range: { min: 1, max: 2, source: "print_front" as const },
+      annotation_status_effects: [
         {
           lineIndex: 0,
           segmentIndex: 2,
@@ -377,7 +377,7 @@ function fixSidearm(
     ],
   });
   if (level > 1) {
-    return { ...parsed, verified_range: { min: 0, max: 2, source: "print_front" as const } };
+    return { ...parsed, annotation_range: { min: 0, max: 2, source: "print_front" as const } };
   }
   return parsed;
 }
@@ -402,8 +402,8 @@ function fixPatchUp(
   const higher =
     level > 1
       ? {
-          verified_range: { min: 0, max: 1, source: "print_front" as const },
-          verified_status_effects: [
+          annotation_range: { min: 0, max: 1, source: "print_front" as const },
+          annotation_status_effects: [
             {
               lineIndex: 0,
               segmentIndex: 2,
@@ -470,13 +470,13 @@ function fixSkeetEffectLines(
       ],
       [targetMonster, text(" : "), debuff, text(" 2t")],
     ],
-    verified_range: { min: 1, max: 2, source: "print_front" },
+    annotation_range: { min: 1, max: 2, source: "print_front" },
   });
 }
 
 /**
  * R-200 / Q-185（Kyries 真确认）：Musketeer 与 Arbalest 七技能族数值/效果完全一致，仅图标与名称不同。
- * II/III 十四张 + L1 同族 OCR 洗净；效果/verified_* 对照 Suppressive Fire / Sniper's Mark 等已核实 Arbalest 卡。
+ * II/III 十四张 + L1 同族 OCR 洗净；效果/annotation_* 对照 Suppressive Fire / Sniper's Mark 等已核实 Arbalest 卡。
  */
 function applyMusketeerAnnotations(
   cards: readonly NormalizedHeroSkillCard[],

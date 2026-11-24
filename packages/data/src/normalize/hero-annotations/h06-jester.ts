@@ -17,7 +17,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     original: ["{target_effects} 2 {bleed} 3t"],
     lines: ["{target_effects} 2 {bleed} 3t"],
     flags: {
-      verified_status_effects: [
+      annotation_status_effects: [
         {
           lineIndex: 0,
           segmentIndex: 2,
@@ -36,7 +36,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     original: ["{target_effects} 3 {bleed} 3t"],
     lines: ["{target_effects} 3 {bleed} 3t"],
     flags: {
-      verified_status_effects: [
+      annotation_status_effects: [
         {
           lineIndex: 0,
           segmentIndex: 2,
@@ -55,7 +55,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     original: ["{target_effects} {stun} 1t", "{self_effects} Self {buff} 2t, {shuffle} Pull 2"],
     lines: ["{target_effects} {stun} 1t", "{self_effects} Self {buff} 2t, {shuffle} Pull 2"],
     flags: {
-      verified_status_effects: [
+      annotation_status_effects: [
         {
           lineIndex: 0,
           segmentIndex: 2,
@@ -80,7 +80,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     original: ["{target_effects} {stun} 2t", "{self_effects} Self {buff} 3t, {shuffle} Pull 2"],
     lines: ["{target_effects} {stun} 2t", "{self_effects} Self {buff} 3t, {shuffle} Pull 2"],
     flags: {
-      verified_status_effects: [
+      annotation_status_effects: [
         {
           lineIndex: 0,
           segmentIndex: 2,
@@ -113,7 +113,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
       "{target_effects} {buff} 3t",
     ],
     flags: {
-      verified_status_effects: [
+      annotation_status_effects: [
         {
           lineIndex: 1,
           segmentIndex: 2,
@@ -129,7 +129,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
           duration: 3,
         },
       ],
-      verified_target_header: {
+      annotation_target_header: {
         lineIndex: 0,
         source: "print_front",
       },
@@ -150,7 +150,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
       "{target_effects} {buff} 4t",
     ],
     flags: {
-      verified_status_effects: [
+      annotation_status_effects: [
         {
           lineIndex: 1,
           segmentIndex: 2,
@@ -166,7 +166,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
           duration: 4,
         },
       ],
-      verified_target_header: {
+      annotation_target_header: {
         lineIndex: 0,
         source: "print_front",
       },
@@ -179,7 +179,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     original: ["{target_effects} 3 {bleed} 2t"],
     lines: ["{target_effects} 3 {bleed} 2t"],
     flags: {
-      verified_status_effects: [
+      annotation_status_effects: [
         {
           lineIndex: 0,
           segmentIndex: 2,
@@ -198,7 +198,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     original: ["{target_effects} 3 {bleed} 3t"],
     lines: ["{target_effects} 3 {bleed} 3t"],
     flags: {
-      verified_status_effects: [
+      annotation_status_effects: [
         {
           lineIndex: 0,
           segmentIndex: 2,

@@ -5,7 +5,7 @@ import type { TargetStressEntry } from "./types";
 
 /**
  * 目标压力 applier：
- * 按行断言 target_effects + stress 图标存在、印刷数字与数据一致，再写 verified_target_stress。
+ * 按行断言 target_effects + stress 图标存在、印刷数字与数据一致，再写 annotation_target_stress。
  * 与自身压力是两条独立注解；同一张卡可以同时有两侧压力。
  */
 export function applyTargetStress(
@@ -40,7 +40,7 @@ export function applyTargetStress(
         throw new Error(`${card.id} 目标压力数字不符（R-048）`);
       fields = {
         ...fields,
-        verified_target_stress: {
+        annotation_target_stress: {
           lineIndex: entry.lineIndex,
           amount: entry.amount,
           source: "print_front",

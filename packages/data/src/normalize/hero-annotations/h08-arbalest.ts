@@ -16,7 +16,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     original: ["{target_effects} {damage} +5 vs {mark}"],
     lines: ["{target_effects} {damage} +5 vs {mark}"],
     flags: {
-      verified_damage_bonus: {
+      annotation_damage_bonus: {
         lineIndex: 0,
         amount: 5,
         condition: "marked",
@@ -31,7 +31,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     original: ["{target_effects} {damage} +9 vs {mark}"],
     lines: ["{target_effects} {damage} +9 vs {mark}"],
     flags: {
-      verified_damage_bonus: {
+      annotation_damage_bonus: {
         lineIndex: 0,
         amount: 9,
         condition: "marked",
@@ -46,7 +46,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     original: ["{target_effects} {debuff} 2t"],
     lines: ["{target_effects} {debuff} 2t"],
     flags: {
-      verified_status_effects: [
+      annotation_status_effects: [
         {
           lineIndex: 0,
           segmentIndex: 2,
@@ -55,7 +55,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
           duration: 2,
         },
       ],
-      verified_range: {
+      annotation_range: {
         min: 1,
         max: 2,
         source: "print_front",
@@ -69,7 +69,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     original: ["{target_effects} {debuff} 3t"],
     lines: ["{target_effects} {debuff} 3t"],
     flags: {
-      verified_status_effects: [
+      annotation_status_effects: [
         {
           lineIndex: 0,
           segmentIndex: 2,
@@ -78,7 +78,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
           duration: 3,
         },
       ],
-      verified_range: {
+      annotation_range: {
         min: 1,
         max: 2,
         source: "print_front",
@@ -92,7 +92,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     original: ["{target_effects} {mark} 3t"],
     lines: ["{target_effects} {mark} 3t"],
     flags: {
-      verified_status_effects: [
+      annotation_status_effects: [
         {
           lineIndex: 0,
           segmentIndex: 2,
@@ -101,7 +101,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
           duration: 3,
         },
       ],
-      verified_range: {
+      annotation_range: {
         min: 1,
         max: 2,
         source: "print_front",
@@ -115,7 +115,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     original: ["{target_effects} {mark} 4t"],
     lines: ["{target_effects} {mark} 4t"],
     flags: {
-      verified_status_effects: [
+      annotation_status_effects: [
         {
           lineIndex: 0,
           segmentIndex: 2,
@@ -124,7 +124,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
           duration: 4,
         },
       ],
-      verified_range: {
+      annotation_range: {
         min: 1,
         max: 2,
         source: "print_front",
@@ -138,7 +138,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     original: ["{self_effects} Self {shuffle} Push 2"],
     lines: ["{self_effects} Self {shuffle} Push 2"],
     flags: {
-      verified_range: {
+      annotation_range: {
         min: 0,
         max: 2,
         source: "print_front",
@@ -152,7 +152,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     original: ["{self_effects} Self {shuffle} Push 2"],
     lines: ["{self_effects} Self {shuffle} Push 2"],
     flags: {
-      verified_range: {
+      annotation_range: {
         min: 0,
         max: 2,
         source: "print_front",
@@ -166,7 +166,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     original: ["{self_effects} Self {buff} 2t"],
     lines: ["{self_effects} Self {buff} 2t"],
     flags: {
-      verified_status_effects: [
+      annotation_status_effects: [
         {
           lineIndex: 0,
           segmentIndex: 2,
@@ -175,7 +175,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
           duration: 2,
         },
       ],
-      verified_range: {
+      annotation_range: {
         min: 0,
         max: 1,
         source: "print_front",
@@ -189,7 +189,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     original: ["{self_effects} Self {buff} 2t"],
     lines: ["{self_effects} Self {buff} 2t"],
     flags: {
-      verified_status_effects: [
+      annotation_status_effects: [
         {
           lineIndex: 0,
           segmentIndex: 2,
@@ -198,7 +198,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
           duration: 2,
         },
       ],
-      verified_range: {
+      annotation_range: {
         min: 0,
         max: 1,
         source: "print_front",
@@ -218,7 +218,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
       "{target_monster} : {debuff} 2t",
     ],
     flags: {
-      verified_range: {
+      annotation_range: {
         min: 1,
         max: 2,
         source: "print_front",
@@ -238,7 +238,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
       "{target_monster} : {debuff} 2t",
     ],
     flags: {
-      verified_range: {
+      annotation_range: {
         min: 1,
         max: 2,
         source: "print_front",

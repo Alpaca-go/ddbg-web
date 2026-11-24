@@ -48,7 +48,7 @@ export function applyRallyingFlare(
       throw new Error(`${card.id} Rallying Flare 复核与印刷数据不匹配`);
     return {
       ...card,
-      verified_rallying_flare: {
+      annotation_rallying_flare: {
         cleanupLineIndex: 0,
         cleanupSignature: CLEANUP_SIGNATURE,
         monsterDebuffLineIndex: 1,

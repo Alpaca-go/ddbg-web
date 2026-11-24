@@ -84,7 +84,7 @@ export function applyDamage(
       )
         throw new Error(`${dual.label}完整伤害字段漂移（R-048）`);
       if (card.rules?.damageBonuses) return card;
-      return { ...card, verified_damage_bonuses: dual.bonuses };
+      return { ...card, annotation_damage_bonuses: dual.bonuses };
     }
     const entry = entries.find((e) => e.id === legacyId);
     if (!entry) return card;
@@ -126,7 +126,7 @@ export function applyDamage(
     if (card.rules?.damage) return card;
     return {
       ...card,
-      verified_damage_bonus: {
+      annotation_damage_bonus: {
         lineIndex: entry.lineIndex,
         amount: entry.amount,
         condition: entry.condition,

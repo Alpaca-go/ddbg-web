@@ -37,7 +37,7 @@ function lineIcons(
 /**
  * 与引擎 `readTargetIconCounts` 的非特殊分支一致：
  * stats 行优先；效果行已有英雄/怪物目标图标时不改用正面图标；都没有时读 front_icons。
- * 目标框（`verified_target_header`）、Rallying Flare、支援卡不在这里重复计算。
+ * 目标框（`annotation_target_header`）、Rallying Flare、支援卡不在这里重复计算。
  */
 export function expectedTargetCounts(card: NormalizedHeroSkillCard): TargetCounts {
   if (

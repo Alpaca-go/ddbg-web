@@ -15,7 +15,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     original: ["{target_effects} {stun} 1t"],
     lines: ["{target_effects} {stun} 1t"],
     flags: {
-      verified_status_effects: [
+      annotation_status_effects: [
         {
           lineIndex: 0,
           segmentIndex: 2,
@@ -33,7 +33,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     original: ["{target_effects} {stun} 1t"],
     lines: ["{target_effects} {stun} 1t"],
     flags: {
-      verified_status_effects: [
+      annotation_status_effects: [
         {
           lineIndex: 0,
           segmentIndex: 2,
@@ -51,7 +51,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     original: ["{target_effects} 2 {blight} 3t"],
     lines: ["{target_effects} 2 {blight} 3t"],
     flags: {
-      verified_status_effects: [
+      annotation_status_effects: [
         {
           lineIndex: 0,
           segmentIndex: 2,
@@ -61,7 +61,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
           amount: 2,
         },
       ],
-      verified_range: {
+      annotation_range: {
         min: 1,
         max: 2,
         source: "print_front",
@@ -75,7 +75,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     original: ["{target_effects} 3 {blight} 3t"],
     lines: ["{target_effects} 3 {blight} 3t"],
     flags: {
-      verified_status_effects: [
+      annotation_status_effects: [
         {
           lineIndex: 0,
           segmentIndex: 2,
@@ -85,7 +85,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
           amount: 3,
         },
       ],
-      verified_range: {
+      annotation_range: {
         min: 1,
         max: 2,
         source: "print_front",

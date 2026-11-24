@@ -13,7 +13,7 @@ export function applyStatusEffects(
 ): NormalizedHeroSkillCard[] {
   const annotations = new Map<
     string,
-    NonNullable<NormalizedHeroSkillCard["verified_status_effects"]>
+    NonNullable<NormalizedHeroSkillCard["annotation_status_effects"]>
   >();
   for (const entry of entries) {
     const page = Number(entry.id.slice(-3));
@@ -100,9 +100,9 @@ export function applyStatusEffects(
     return effects
       ? parseAnnotatedHeroSkillCard({
           ...card,
-          verified_status_effects: effects,
+          annotation_status_effects: effects,
           ...(entries.some((e) => e.id === card.id && e.headerSignature !== undefined)
-            ? { verified_target_header: { lineIndex: 0, source: "print_front" } }
+            ? { annotation_target_header: { lineIndex: 0, source: "print_front" } }
             : {}),
         })
       : card;

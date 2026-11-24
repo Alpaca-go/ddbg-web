@@ -92,9 +92,9 @@ describe("八名英雄24面获批属性（R10/19/29；R-006/007/048/088/094/095�
     const hellion = built.cards.find((c) => c.id === "hero_stat:core:h02:p003:front")!;
     const annotation = hellion.rules!.conditionDefence!;
     for (const card of [
-      { ...hellion, verified_condition_defence: { ...annotation, resistances: ["stun"] } },
-      { ...hellion, verified_condition_defence: { ...annotation, immunities: ["bleed"] } },
-      { ...built.cards[1], verified_condition_defence: annotation },
+      { ...hellion, annotation_condition_defence: { ...annotation, resistances: ["stun"] } },
+      { ...hellion, annotation_condition_defence: { ...annotation, immunities: ["bleed"] } },
+      { ...built.cards[1], annotation_condition_defence: annotation },
     ])
       expect(normalizedHeroStatCardSchema.safeParse(withLegacyId(card)).success).toBe(false);
     const originalIcon = createIconLookup(dictionary).resolve("d29a868ed8");

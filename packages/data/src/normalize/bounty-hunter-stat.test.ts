@@ -143,7 +143,7 @@ it("限定审批不可换英雄、等级、数字、源页或日期，不能把�
     expect(
       normalizedHeroStatCardSchema.safeParse({
         ...third,
-        verified_higher_condition_defence: {
+        annotation_higher_condition_defence: {
           ...third.rules!.higherConditionDefence!,
           ...patch,
         },
@@ -152,7 +152,7 @@ it("限定审批不可换英雄、等级、数字、源页或日期，不能把�
   expect(
     normalizedHeroStatCardSchema.safeParse({
       ...cards[0]!,
-      verified_condition_defence: {
+      annotation_condition_defence: {
         ...cards[0]!.rules!.conditionDefence!,
         approval: "kyries_review_2026-10-12",
       },
@@ -169,7 +169,7 @@ it("限定审批不可换英雄、等级、数字、源页或日期，不能把�
     readHigherHeroDefence({
       ...old,
       rules: { ...old.rules, higherConditionDefence: third.rules!.higherConditionDefence! },
-      verified_higher_condition_defence: third.rules!.higherConditionDefence!,
+      annotation_higher_condition_defence: third.rules!.higherConditionDefence!,
     }),
   ).toBeUndefined();
 });

@@ -96,7 +96,7 @@ function fixPuncture(
     ],
     ...(rangeInterval
       ? {
-          verified_range: { min: 1, max: 2, source: "print_front" as const },
+          annotation_range: { min: 1, max: 2, source: "print_front" as const },
         }
       : {}),
   });
@@ -131,7 +131,7 @@ function fixAddersKiss(
       [selfEffects, text(" Self "), cloneKey(pushMis, "shuffle"), text(" Push 1")],
       [targetEffects, text(" 2 "), blight, text(` ${duration}t`)],
     ],
-    verified_status_effects: [
+    annotation_status_effects: [
       {
         lineIndex: 1,
         segmentIndex: 2,
@@ -178,7 +178,7 @@ function fixImpale(
       [selfEffects, text(" Self "), cloneKey(pushMis, "shuffle"), text(" Push 1")],
       [targetEffects, debuff, text(` ${debuffT}t`)],
     ],
-    verified_status_effects: [
+    annotation_status_effects: [
       {
         lineIndex: 1,
         segmentIndex: 1,
@@ -218,7 +218,7 @@ function fixExpose(
       [selfEffects, text(" Self "), cloneKey(pushMis, "shuffle"), text(" Push 1")],
       [targetEffects, debuff, text(` ${debuffT}t`)],
     ],
-    verified_status_effects: [
+    annotation_status_effects: [
       {
         lineIndex: 1,
         segmentIndex: 1,
@@ -261,13 +261,13 @@ function fixCaptivate(
       [targetEffects, damage, text(`+${bonus}vs`), mark],
       [targetEffects, text(` ${blightAmt} `), blight, text(` ${blightT}t`)],
     ],
-    verified_damage_bonus: {
+    annotation_damage_bonus: {
       lineIndex: 0,
       amount: bonus,
       condition: "marked",
       source: "print_front",
     },
-    verified_status_effects: [
+    annotation_status_effects: [
       {
         lineIndex: 1,
         segmentIndex: 2,
@@ -306,8 +306,8 @@ function fixSerpentSwaySelf(
       [selfEffects, text(" Self "), shuffle, text(" Pull 1")],
     ],
     unlabeled_numbers: [rangeZeroUnlabeled(rangeIcon), ...card.unlabeled_numbers],
-    verified_self_range: true,
-    verified_status_effects: [
+    annotation_self_range: true,
+    annotation_status_effects: [
       {
         lineIndex: 1,
         segmentIndex: 2,
@@ -347,7 +347,7 @@ function fixSerpentSwayIii(
       [selfEffects, text(" Self "), shuffle, text(" Pull 1")],
       [cloneKey(segmentOnCard(card, "1e762d801a"), "target_effects"), protection, text(" 2t")],
     ],
-    verified_status_effects: [
+    annotation_status_effects: [
       {
         lineIndex: 0,
         segmentIndex: 2,

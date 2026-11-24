@@ -55,14 +55,14 @@ it("完整来源/版面漂移拒绝，schema拒绝重复或冲突伤害注解", 
   expect(
     normalizedHeroSkillCardSchema.safeParse({
       ...card,
-      verified_damage_bonus: card.rules?.damageBonuses![0],
-      verified_damage_bonuses: [card.rules?.damageBonuses![0]],
+      annotation_damage_bonus: card.rules?.damageBonuses![0],
+      annotation_damage_bonuses: [card.rules?.damageBonuses![0]],
     }).success,
   ).toBe(false);
   expect(
     normalizedHeroSkillCardSchema.safeParse({
       ...card,
-      verified_damage_bonuses: [card.rules?.damageBonuses![0], card.rules?.damageBonuses![0]],
+      annotation_damage_bonuses: [card.rules?.damageBonuses![0], card.rules?.damageBonuses![0]],
     }).success,
   ).toBe(false);
 });

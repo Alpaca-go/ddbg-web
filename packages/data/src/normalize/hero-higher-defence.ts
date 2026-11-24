@@ -307,11 +307,11 @@ export function readHigherHeroDefence(
         level?: number;
         attributesVerified: boolean;
         rules?: { higherConditionDefence?: HigherHeroDefence | undefined } | undefined;
-        verified_higher_condition_defence?: HigherHeroDefence | undefined;
+        annotation_higher_condition_defence?: HigherHeroDefence | undefined;
       }
     | undefined,
 ) {
-  const got = card?.rules?.higherConditionDefence ?? card?.verified_higher_condition_defence;
+  const got = card?.rules?.higherConditionDefence ?? card?.annotation_higher_condition_defence;
   if (!card?.attributesVerified || !higherHeroDefenceSchema.safeParse(got).success)
     return undefined;
   const key =

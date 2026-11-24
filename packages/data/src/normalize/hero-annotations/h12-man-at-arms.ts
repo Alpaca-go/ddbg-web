@@ -65,7 +65,7 @@ function fixRampart(
       [targetEffects, text(" "), stun, text(" 1t, "), shuffle, text(` ${pushDist}`)],
       [selfEffects, text(" Self "), cloneKey(pullMis, "shuffle"), text(" Pull 1")],
     ],
-    verified_status_effects: [
+    annotation_status_effects: [
       {
         lineIndex: 0,
         segmentIndex: 2,
@@ -101,7 +101,7 @@ function fixBellow(
     stats_line: card.stats_line!.map((segment) =>
       segment.type === "icon" && segment.icon.key === "target_hero" ? targetMonster : segment,
     ),
-    verified_status_effects: [
+    annotation_status_effects: [
       {
         lineIndex: 0,
         segmentIndex: 2,
@@ -144,8 +144,8 @@ function fixDefender(
       [selfEffects, text(" Self "), cloneKey(shuffleMis, "protection"), text(` ${protectionT}t`)],
     ],
     unlabeled_numbers: [rangeZeroUnlabeled(rangeIcon), ...card.unlabeled_numbers],
-    verified_self_range: true,
-    verified_status_effects: [
+    annotation_self_range: true,
+    annotation_status_effects: [
       {
         lineIndex: 1,
         segmentIndex: 2,
@@ -184,8 +184,8 @@ function fixRetribution(
       [selfEffects, text(" Self "), cloneKey(stressMis, "mark"), text(` ${markT}t`)],
       [selfEffects, text(" Self "), cloneKey(markMis, "riposte"), text(` ${riposteT}t`)],
     ],
-    verified_range: { min: 1, max: 2, source: "print_front" },
-    verified_status_effects: [
+    annotation_range: { min: 1, max: 2, source: "print_front" },
+    annotation_status_effects: [
       {
         lineIndex: 0,
         segmentIndex: 2,
@@ -239,8 +239,8 @@ function fixCommand(
       [selfEffects, text(" Self "), buff, text(` ${stunT}t`)],
       [targetEffects, text(" "), buff, text(` ${stunT}t`)],
     ],
-    verified_target_header: { lineIndex: 0, source: "print_front" },
-    verified_status_effects: [
+    annotation_target_header: { lineIndex: 0, source: "print_front" },
+    annotation_status_effects: [
       {
         lineIndex: 1,
         segmentIndex: 2,
@@ -292,8 +292,8 @@ function fixBolster(
         [targetEffects, text(" "), cloneKey(stressMis, "stress"), text(" -1")],
       ],
       unlabeled_numbers: [...card.unlabeled_numbers, ...anchors],
-      verified_self_stress: { lineIndex: 0, amount: -1, source: "print_front" },
-      verified_target_stress: { lineIndex: 1, amount: -1, source: "print_front" },
+      annotation_self_stress: { lineIndex: 0, amount: -1, source: "print_front" },
+      annotation_target_stress: { lineIndex: 1, amount: -1, source: "print_front" },
     });
   }
   if (level === 3) {
@@ -313,8 +313,8 @@ function fixBolster(
         [targetEffects, text(" "), cloneKey(stressMis, "stress"), text(" -1")],
       ],
       unlabeled_numbers: [...card.unlabeled_numbers, ...anchors],
-      verified_self_stress: { lineIndex: 0, amount: -1, source: "print_front" },
-      verified_target_stress: { lineIndex: 1, amount: -1, source: "print_front" },
+      annotation_self_stress: { lineIndex: 0, amount: -1, source: "print_front" },
+      annotation_target_stress: { lineIndex: 1, amount: -1, source: "print_front" },
     });
   }
 
@@ -332,8 +332,8 @@ function fixBolster(
       [targetEffects, text(" "), cloneKey(stressMis, "stress"), text(" -1")],
     ],
     unlabeled_numbers: [...card.unlabeled_numbers, ...anchors],
-    verified_self_stress: { lineIndex: 0, amount: -1, source: "print_front" },
-    verified_target_stress: { lineIndex: 1, amount: -1, source: "print_front" },
+    annotation_self_stress: { lineIndex: 0, amount: -1, source: "print_front" },
+    annotation_target_stress: { lineIndex: 1, amount: -1, source: "print_front" },
   });
 }
 

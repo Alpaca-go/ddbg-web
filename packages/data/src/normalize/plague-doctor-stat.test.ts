@@ -134,7 +134,7 @@ it("身份/属性/日期/来源漂移拒绝；两项免疫只允许精确获批I
     expect(
       normalizedHeroStatCardSchema.safeParse({
         ...third,
-        verified_higher_condition_defence: {
+        annotation_higher_condition_defence: {
           ...third.rules!.higherConditionDefence!,
           ...patch,
         },
@@ -147,7 +147,7 @@ it("身份/属性/日期/来源漂移拒绝；两项免疫只允许精确获批I
         ...cards[1]!.rules,
         higherConditionDefence: third.rules!.higherConditionDefence!,
       },
-      verified_higher_condition_defence: third.rules!.higherConditionDefence!,
+      annotation_higher_condition_defence: third.rules!.higherConditionDefence!,
     }),
   ).toBeUndefined();
   expect(built.cards.some((c) => c.id === "hero_stat:p014:back")).toBe(false);

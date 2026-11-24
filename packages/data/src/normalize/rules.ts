@@ -22,14 +22,14 @@ type VirtueRules = NonNullable<NormalizedVirtueAfflictionCard["rules"]>;
 
 /** 英雄属性卡在 rules 投影里只读这些已核字段；各包的条件防御结构各自校验。 */
 export type HeroStatRuleSource = {
-  readonly verified_buff_defence?:
+  readonly annotation_buff_defence?:
     | {
         readonly resistant: boolean;
         readonly immune: boolean;
         readonly source: "print_front";
       }
     | undefined;
-  readonly verified_condition_defence?:
+  readonly annotation_condition_defence?:
     | {
         readonly resistances: readonly ("stun" | "bleed" | "blight" | "debuff")[];
         readonly immunities: readonly never[];
@@ -37,7 +37,7 @@ export type HeroStatRuleSource = {
         readonly approval: string;
       }
     | undefined;
-  readonly verified_higher_condition_defence?: HigherHeroDefence | undefined;
+  readonly annotation_higher_condition_defence?: HigherHeroDefence | undefined;
   readonly rules?:
     | {
         readonly buffDefence?: HeroStatRules["buffDefence"] | undefined;
@@ -48,8 +48,8 @@ export type HeroStatRuleSource = {
 };
 
 export type HeroStatRules = {
-  buffDefence?: HeroStatRuleSource["verified_buff_defence"];
-  conditionDefence?: HeroStatRuleSource["verified_condition_defence"];
+  buffDefence?: HeroStatRuleSource["annotation_buff_defence"];
+  conditionDefence?: HeroStatRuleSource["annotation_condition_defence"];
   higherConditionDefence?: HigherHeroDefence;
 };
 
@@ -58,40 +58,41 @@ function compact<T extends object>(rules: T): T | undefined {
 }
 
 /**
- * R1 双写：`rules` 由旧 `verified_*` 派生，`verified_*` 仍保留给引擎读取。
+ * R1 双写：`rules` 由旧 `annotation_*` 派生，`annotation_*` 仍保留给引擎读取。
  * 投影只重命名 / 分组字段，不改任何数值、行号或来源。
  */
 export function projectHeroSkillRules(card: NormalizedHeroSkillCard): HeroSkillRules | undefined {
   const rules: HeroSkillRules = { ...(card.rules ?? {}) };
-  if (card.verified_status_effects) rules.statuses = card.verified_status_effects;
-  if (card.verified_damage_bonus) rules.damage = card.verified_damage_bonus;
-  if (card.verified_damage_bonuses) rules.damageBonuses = card.verified_damage_bonuses;
-  if (card.verified_actor_damage_bonus) rules.actorDamage = card.verified_actor_damage_bonus;
-  if (card.verified_range) rules.range = card.verified_range;
-  if (card.verified_self_range || card.verified_self_heal || card.verified_self_stress) {
+  if (card.annotation_status_effects) rules.statuses = card.annotation_status_effects;
+  if (card.annotation_damage_bonus) rules.damage = card.annotation_damage_bonus;
+  if (card.annotation_damage_bonuses) rules.damageBonuses = card.annotation_damage_bonuses;
+  if (card.annotation_actor_damage_bonus) rules.actorDamage = card.annotation_actor_damage_bonus;
+  if (card.annotation_range) rules.range = card.annotation_range;
+  if (card.annotation_self_range || card.annotation_self_heal || card.annotation_self_stress) {
     const self: NonNullable<HeroSkillRules["self"]> = { ...(card.rules?.self ?? {}) };
-    if (card.verified_self_range) self.range = true;
-    if (card.verified_self_heal) self.heal = card.verified_self_heal;
-    if (card.verified_self_stress) self.stress = card.verified_self_stress;
+    if (card.annotation_self_range) self.range = true;
+    if (card.annotation_self_heal) self.heal = card.annotation_self_heal;
+    if (card.annotation_self_stress) self.stress = card.annotation_self_stress;
     rules.self = self;
   }
   if (
-    card.verified_target_header ||
-    card.verified_target_heal ||
-    card.verified_target_stress ||
-    card.verified_target_support
+    card.annotation_target_header ||
+    card.annotation_target_heal ||
+    card.annotation_target_stress ||
+    card.annotation_target_support
   ) {
     const target: NonNullable<HeroSkillRules["target"]> = { ...(card.rules?.target ?? {}) };
-    if (card.verified_target_header) target.header = card.verified_target_header;
-    if (card.verified_target_heal) target.heal = card.verified_target_heal;
-    if (card.verified_target_stress) target.stress = card.verified_target_stress;
-    if (card.verified_target_support) target.support = card.verified_target_support;
+    if (card.annotation_target_header) target.header = card.annotation_target_header;
+    if (card.annotation_target_heal) target.heal = card.annotation_target_heal;
+    if (card.annotation_target_stress) target.stress = card.annotation_target_stress;
+    if (card.annotation_target_support) target.support = card.annotation_target_support;
     rules.target = target;
   }
-  if (card.verified_allies_stress !== undefined) rules.alliesStress = card.verified_allies_stress;
-  if (card.verified_rallying_flare) rules.rallyingFlare = card.verified_rallying_flare;
-  if (card.verified_effect_line_receipts) rules.receipts = card.verified_effect_line_receipts;
-  if (card.verified_bleed_blight_transfer) rules.transfer = card.verified_bleed_blight_transfer;
+  if (card.annotation_allies_stress !== undefined)
+    rules.alliesStress = card.annotation_allies_stress;
+  if (card.annotation_rallying_flare) rules.rallyingFlare = card.annotation_rallying_flare;
+  if (card.annotation_effect_line_receipts) rules.receipts = card.annotation_effect_line_receipts;
+  if (card.annotation_bleed_blight_transfer) rules.transfer = card.annotation_bleed_blight_transfer;
   return compact(rules);
 }
 
@@ -105,10 +106,10 @@ export function projectMonsterCardRules(card: MonsterFighterCard): MonsterCardRu
 
 export function projectHeroStatRules(card: HeroStatRuleSource): HeroStatRules | undefined {
   const rules = { ...(card.rules ?? {}) } as HeroStatRules;
-  if (card.verified_buff_defence) rules.buffDefence = card.verified_buff_defence;
-  if (card.verified_condition_defence) rules.conditionDefence = card.verified_condition_defence;
-  if (card.verified_higher_condition_defence)
-    rules.higherConditionDefence = card.verified_higher_condition_defence;
+  if (card.annotation_buff_defence) rules.buffDefence = card.annotation_buff_defence;
+  if (card.annotation_condition_defence) rules.conditionDefence = card.annotation_condition_defence;
+  if (card.annotation_higher_condition_defence)
+    rules.higherConditionDefence = card.annotation_higher_condition_defence;
   return compact(rules);
 }
 
@@ -117,13 +118,13 @@ export function projectVirtueRules(card: NormalizedVirtueAfflictionCard): Virtue
 }
 
 /**
- * 用投影结果替换卡上的 rules，并删除仅供注解层使用的 `verified_*` 字段。
+ * 用投影结果替换卡上的 rules，并删除仅供注解层使用的 `annotation_*` 字段。
  * 这样 schema / normalized 只暴露 `rules`，旧字段不会落盘。
  */
 function withRules<T extends object>(card: T, rules: object | undefined): T {
   const next = { ...card } as Record<string, unknown>;
   for (const key of Object.keys(next)) {
-    if (key.startsWith("verified_")) delete next[key];
+    if (key.startsWith("annotation_")) delete next[key];
   }
   if (rules === undefined) {
     delete next.rules;

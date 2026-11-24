@@ -18,7 +18,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     original: ["{self_effects} Self {shuffle} Pull 2", "{target_effects} {damage} +4 vs {blight}"],
     lines: ["{self_effects} Self {shuffle} Pull 2", "{target_effects} {damage} +4 vs {blight}"],
     flags: {
-      verified_damage_bonus: {
+      annotation_damage_bonus: {
         lineIndex: 1,
         amount: 4,
         condition: "blighted",
@@ -33,7 +33,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     original: ["{self_effects} Self {shuffle} Pull 2", "{target_effects} {damage} +6 vs {blight}"],
     lines: ["{self_effects} Self {shuffle} Pull 2", "{target_effects} {damage} +6 vs {blight}"],
     flags: {
-      verified_damage_bonus: {
+      annotation_damage_bonus: {
         lineIndex: 1,
         amount: 6,
         condition: "blighted",
@@ -48,7 +48,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     original: ["{target_effects} {debuff} 1t"],
     lines: ["{target_effects} {debuff} 1t"],
     flags: {
-      verified_status_effects: [
+      annotation_status_effects: [
         {
           lineIndex: 0,
           segmentIndex: 2,
@@ -66,7 +66,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     original: ["{target_effects} {debuff} 2t"],
     lines: ["{target_effects} {debuff} 2t"],
     flags: {
-      verified_status_effects: [
+      annotation_status_effects: [
         {
           lineIndex: 0,
           segmentIndex: 2,
@@ -84,7 +84,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     original: ["{range} Self", "{self_effects} Self {buff} 3t, {shuffle} Push 2"],
     lines: ["{range} Self", "{self_effects} Self {buff} 3t, {shuffle} Push 2"],
     flags: {
-      verified_status_effects: [
+      annotation_status_effects: [
         {
           lineIndex: 1,
           segmentIndex: 2,
@@ -102,7 +102,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     original: ["{range} Self", "{self_effects} Self {buff} 4t, {shuffle} Push 2"],
     lines: ["{range} Self", "{self_effects} Self {buff} 4t, {shuffle} Push 2"],
     flags: {
-      verified_status_effects: [
+      annotation_status_effects: [
         {
           lineIndex: 1,
           segmentIndex: 2,
@@ -120,7 +120,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     original: ["{target_effects} {damage} +2 vs {blight}", "{damage} +3 vs {mark}"],
     lines: ["{target_effects} {damage} +2 vs {blight}", "{target_effects} {damage} +3 vs {mark}"],
     flags: {
-      verified_damage_bonuses: [
+      annotation_damage_bonuses: [
         {
           lineIndex: 0,
           amount: 2,
@@ -134,7 +134,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
           source: "print_front",
         },
       ],
-      verified_range: {
+      annotation_range: {
         min: 1,
         max: 2,
         source: "print_front",
@@ -148,7 +148,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     original: ["{target_effects} {damage} +3 vs {blight}", "{damage} +4 vs {mark}"],
     lines: ["{target_effects} {damage} +3 vs {blight}", "{target_effects} {damage} +4 vs {mark}"],
     flags: {
-      verified_damage_bonuses: [
+      annotation_damage_bonuses: [
         {
           lineIndex: 0,
           amount: 3,
@@ -162,7 +162,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
           source: "print_front",
         },
       ],
-      verified_range: {
+      annotation_range: {
         min: 1,
         max: 2,
         source: "print_front",
@@ -176,7 +176,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     original: ["{target_effects} 3 {blight} 3t"],
     lines: ["{target_effects} 3 {blight} 3t"],
     flags: {
-      verified_status_effects: [
+      annotation_status_effects: [
         {
           lineIndex: 0,
           segmentIndex: 2,
@@ -186,7 +186,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
           amount: 3,
         },
       ],
-      verified_range: {
+      annotation_range: {
         min: 1,
         max: 2,
         source: "print_front",
@@ -200,7 +200,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     original: ["{target_effects} 4 {blight} 3t"],
     lines: ["{target_effects} 4 {blight} 3t"],
     flags: {
-      verified_status_effects: [
+      annotation_status_effects: [
         {
           lineIndex: 0,
           segmentIndex: 2,
@@ -210,7 +210,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
           amount: 4,
         },
       ],
-      verified_range: {
+      annotation_range: {
         min: 1,
         max: 2,
         source: "print_front",
@@ -236,7 +236,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
       "Remove {bleed} {blight}",
     ],
     flags: {
-      verified_status_effects: [
+      annotation_status_effects: [
         {
           lineIndex: 1,
           segmentIndex: 2,
@@ -252,7 +252,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
           duration: 2,
         },
       ],
-      verified_target_header: {
+      annotation_target_header: {
         lineIndex: 0,
         source: "print_front",
       },
@@ -277,7 +277,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
       "Remove {bleed} {blight}",
     ],
     flags: {
-      verified_status_effects: [
+      annotation_status_effects: [
         {
           lineIndex: 1,
           segmentIndex: 2,
@@ -293,7 +293,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
           duration: 2,
         },
       ],
-      verified_target_header: {
+      annotation_target_header: {
         lineIndex: 0,
         source: "print_front",
       },

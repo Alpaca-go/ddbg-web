@@ -67,7 +67,7 @@ function fixHoundsRush(
       [selfArrow, text(" Self "), cloneKey(markMis, "buff"), text(` ${markT}t`)],
       [targetEffects, text(` ${bleedAmt} `), bleed, text(` ${bleedT}t`)],
     ],
-    verified_status_effects: [
+    annotation_status_effects: [
       { lineIndex: 0, segmentIndex: 2, scope: "self", kind: "buff", duration: markT },
       {
         lineIndex: 1,
@@ -106,7 +106,7 @@ function fixHoundsHarry(
       segment.type === "icon" && segment.icon.key === "target_hero" ? targetMonster : segment,
     ),
     effect_lines: [[targetEffects, text(` ${bleedAmt} `), bleed, text(` ${bleedT}t`)]],
-    verified_status_effects: [
+    annotation_status_effects: [
       {
         lineIndex: 0,
         segmentIndex: 2,
@@ -169,11 +169,11 @@ function fixTargetWhistle(
         },
       },
     ],
-    verified_range: { min: 0, max: 2, source: "print_front" },
+    annotation_range: { min: 0, max: 2, source: "print_front" },
     effect_lines: [
       [targetEffects, text(" "), mark, text(` ${markT}t, `), debuff, text(` ${debuffT}t`)],
     ],
-    verified_status_effects: [
+    annotation_status_effects: [
       { lineIndex: 0, segmentIndex: 2, scope: "target", kind: "mark", duration: markT },
       { lineIndex: 0, segmentIndex: 4, scope: "target", kind: "debuff", duration: debuffT },
     ],
@@ -226,8 +226,8 @@ function fixCryHavoc(
         },
       },
     ],
-    verified_self_stress: { lineIndex: 1, amount: selfStress, source: "print_front" },
-    verified_target_stress: { lineIndex: 0, amount: -1, source: "print_front" },
+    annotation_self_stress: { lineIndex: 1, amount: selfStress, source: "print_front" },
+    annotation_target_stress: { lineIndex: 0, amount: -1, source: "print_front" },
   });
 }
 
@@ -266,8 +266,8 @@ function fixGuardDog(
         },
       },
     ],
-    verified_self_range: true,
-    verified_status_effects: [
+    annotation_self_range: true,
+    annotation_status_effects: [
       {
         lineIndex: 1,
         segmentIndex: 2,
@@ -306,7 +306,7 @@ function fixLickWounds(
       text(` ${accHeal}`),
     ],
     effect_lines: [],
-    verified_self_range: true,
+    annotation_self_range: true,
   });
 }
 
@@ -328,7 +328,7 @@ function fixBlackjack(
   return parseAnnotatedHeroSkillCard({
     ...card,
     effect_lines: [[targetEffects, text(" "), cloneKey(stunMis, "stun"), text(" 1t")]],
-    verified_status_effects: [
+    annotation_status_effects: [
       { lineIndex: 0, segmentIndex: 2, scope: "target", kind: "stun", duration: 1 },
     ],
   });

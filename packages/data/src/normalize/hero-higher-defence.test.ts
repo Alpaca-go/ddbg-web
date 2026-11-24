@@ -100,7 +100,7 @@ it("规范化schema与读取拒绝伪造审批/卡级别/免疫栏，不以同�
     return {
       ...card,
       rules: { ...card.rules, higherConditionDefence: higher },
-      verified_higher_condition_defence: higher,
+      annotation_higher_condition_defence: higher,
     };
   };
   for (const bad of [

@@ -699,60 +699,60 @@ type HeroSkillTargetRules = NonNullable<HeroSkillRules["target"]>;
  * 由 build 的 `withRules` 在写盘前剥离。类型只用于 data 内部，不进入 normalized。
  */
 export type NormalizedHeroSkillCard = NormalizedHeroSkillCardBase & {
-  verified_status_effects?: HeroSkillRules["statuses"];
-  verified_damage_bonus?: HeroSkillRules["damage"];
-  verified_damage_bonuses?: HeroSkillRules["damageBonuses"];
-  verified_actor_damage_bonus?: HeroSkillRules["actorDamage"];
-  verified_range?: HeroSkillRules["range"];
-  verified_self_range?: HeroSkillSelfRules["range"];
-  verified_self_heal?: HeroSkillSelfRules["heal"];
-  verified_self_stress?: HeroSkillSelfRules["stress"];
-  verified_target_header?: HeroSkillTargetRules["header"];
-  verified_target_heal?: HeroSkillTargetRules["heal"];
-  verified_target_stress?: HeroSkillTargetRules["stress"];
-  verified_target_support?: HeroSkillTargetRules["support"];
-  verified_allies_stress?: HeroSkillRules["alliesStress"];
-  verified_rallying_flare?: HeroSkillRules["rallyingFlare"];
-  verified_effect_line_receipts?: HeroSkillRules["receipts"];
-  verified_bleed_blight_transfer?: HeroSkillRules["transfer"];
+  annotation_status_effects?: HeroSkillRules["statuses"];
+  annotation_damage_bonus?: HeroSkillRules["damage"];
+  annotation_damage_bonuses?: HeroSkillRules["damageBonuses"];
+  annotation_actor_damage_bonus?: HeroSkillRules["actorDamage"];
+  annotation_range?: HeroSkillRules["range"];
+  annotation_self_range?: HeroSkillSelfRules["range"];
+  annotation_self_heal?: HeroSkillSelfRules["heal"];
+  annotation_self_stress?: HeroSkillSelfRules["stress"];
+  annotation_target_header?: HeroSkillTargetRules["header"];
+  annotation_target_heal?: HeroSkillTargetRules["heal"];
+  annotation_target_stress?: HeroSkillTargetRules["stress"];
+  annotation_target_support?: HeroSkillTargetRules["support"];
+  annotation_allies_stress?: HeroSkillRules["alliesStress"];
+  annotation_rallying_flare?: HeroSkillRules["rallyingFlare"];
+  annotation_effect_line_receipts?: HeroSkillRules["receipts"];
+  annotation_bleed_blight_transfer?: HeroSkillRules["transfer"];
 };
 
 /** applier 输出解析：把内部旧字段就地折成 rules，schema 只校验 rules 形状。 */
 export function parseAnnotatedHeroSkillCard(input: unknown): NormalizedHeroSkillCard {
   const raw = input as Record<string, unknown>;
   const annotations = Object.fromEntries(
-    Object.entries(raw).filter(([key]) => key.startsWith("verified_")),
+    Object.entries(raw).filter(([key]) => key.startsWith("annotation_")),
   );
   const rest = Object.fromEntries(
-    Object.entries(raw).filter(([key]) => !key.startsWith("verified_")),
+    Object.entries(raw).filter(([key]) => !key.startsWith("annotation_")),
   );
   const parsed = normalizedHeroSkillCardSchema.parse(rest);
   const rules = { ...(parsed.rules ?? {}) } as Record<string, unknown>;
   const a = annotations as Record<string, unknown>;
   const map: Record<string, string> = {
-    verified_status_effects: "statuses",
-    verified_damage_bonus: "damage",
-    verified_damage_bonuses: "damageBonuses",
-    verified_actor_damage_bonus: "actorDamage",
-    verified_range: "range",
-    verified_allies_stress: "alliesStress",
-    verified_rallying_flare: "rallyingFlare",
-    verified_effect_line_receipts: "receipts",
-    verified_bleed_blight_transfer: "transfer",
+    annotation_status_effects: "statuses",
+    annotation_damage_bonus: "damage",
+    annotation_damage_bonuses: "damageBonuses",
+    annotation_actor_damage_bonus: "actorDamage",
+    annotation_range: "range",
+    annotation_allies_stress: "alliesStress",
+    annotation_rallying_flare: "rallyingFlare",
+    annotation_effect_line_receipts: "receipts",
+    annotation_bleed_blight_transfer: "transfer",
   };
   for (const [from, to] of Object.entries(map)) {
     if (a[from] !== undefined) rules[to] = a[from];
   }
   const self = { ...((rules.self as Record<string, unknown>) ?? {}) };
-  if (a.verified_self_range !== undefined) self.range = a.verified_self_range;
-  if (a.verified_self_heal !== undefined) self.heal = a.verified_self_heal;
-  if (a.verified_self_stress !== undefined) self.stress = a.verified_self_stress;
+  if (a.annotation_self_range !== undefined) self.range = a.annotation_self_range;
+  if (a.annotation_self_heal !== undefined) self.heal = a.annotation_self_heal;
+  if (a.annotation_self_stress !== undefined) self.stress = a.annotation_self_stress;
   if (Object.keys(self).length) rules.self = self;
   const target = { ...((rules.target as Record<string, unknown>) ?? {}) };
-  if (a.verified_target_header !== undefined) target.header = a.verified_target_header;
-  if (a.verified_target_heal !== undefined) target.heal = a.verified_target_heal;
-  if (a.verified_target_stress !== undefined) target.stress = a.verified_target_stress;
-  if (a.verified_target_support !== undefined) target.support = a.verified_target_support;
+  if (a.annotation_target_header !== undefined) target.header = a.annotation_target_header;
+  if (a.annotation_target_heal !== undefined) target.heal = a.annotation_target_heal;
+  if (a.annotation_target_stress !== undefined) target.stress = a.annotation_target_stress;
+  if (a.annotation_target_support !== undefined) target.support = a.annotation_target_support;
   if (Object.keys(target).length) rules.target = target;
   return { ...parsed, rules } as NormalizedHeroSkillCard;
 }

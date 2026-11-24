@@ -302,7 +302,7 @@ function fixGetDown(
   return parseAnnotatedHeroSkillCard({
     ...card,
     stats_line: null,
-    verified_self_range: true,
+    annotation_self_range: true,
     effect_lines: [
       [rangeIcon, text(" Self")],
       [selfEffects, text(" Self "), buff, text(` ${buffT}t, `), shuffle, text(` ${pushText}`)],
@@ -414,7 +414,7 @@ function applyAntiquarianAnnotations(
         return parseAnnotatedHeroSkillCard({
           ...card,
           stats_line: stats,
-          verified_self_heal: { lineIndex: 0, amount: 1, source: "print_front" },
+          annotation_self_heal: { lineIndex: 0, amount: 1, source: "print_front" },
           effect_lines: [
             [selfEffects, text(" Self "), healIcon, text(" 1")],
             [selfEffects, text(" Self "), buff, text(" 2t")],
@@ -577,7 +577,7 @@ function applyAntiquarianAnnotations(
         return parseAnnotatedHeroSkillCard({
           ...card,
           stats_line: stats,
-          verified_self_heal: { lineIndex: 0, amount: selfHeal, source: "print_front" },
+          annotation_self_heal: { lineIndex: 0, amount: selfHeal, source: "print_front" },
           effect_lines: [
             [selfEffects, text(" Self "), healIcon, text(` ${selfHeal}`)],
             [selfEffects, text(" Self "), buff, text(` ${buffT}t`)],

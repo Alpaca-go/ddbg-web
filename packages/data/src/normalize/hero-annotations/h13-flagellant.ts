@@ -286,7 +286,7 @@ function fixPunishFamily(
       actorBonusLine(pool, actorBonus),
       [targetEffects, text(` ${bleedAmount} `), bleed, text(` ${bleedT}t, `), debuff, text(" 1t")],
     ],
-    verified_actor_damage_bonus: { lineIndex: 0, amount: actorBonus, source: "print_front" },
+    annotation_actor_damage_bonus: { lineIndex: 0, amount: actorBonus, source: "print_front" },
   });
 }
 
@@ -313,7 +313,7 @@ function fixRainFamily(
       actorBonusLine(pool, actorBonus),
       [targetEffects, text(` ${blightAmount} `), blight, text(` ${blightT}t`)],
     ],
-    verified_actor_damage_bonus: { lineIndex: 0, amount: actorBonus, source: "print_front" },
+    annotation_actor_damage_bonus: { lineIndex: 0, amount: actorBonus, source: "print_front" },
   });
 }
 
@@ -347,7 +347,7 @@ function fixExsanguinate(
       [selfEffects, text(" Self "), heal, text(` ${selfHeal}, `), debuff, text(" 1t")],
       [targetEffects, text(` ${targetBleed} `), bleed, text(` ${targetT}t`)],
     ],
-    verified_self_heal: { lineIndex: 0, amount: selfHeal, source: "print_front" },
+    annotation_self_heal: { lineIndex: 0, amount: selfHeal, source: "print_front" },
   });
 }
 
@@ -395,7 +395,7 @@ function fixReclaim(
     effect_lines: [
       [selfEffects, text(" Self "), heal, text(" 5, 1 "), cloneKey(bleedMis, "bleed"), text(" 3t")],
     ],
-    verified_self_heal: { lineIndex: 0, amount: 5, source: "print_front" },
+    annotation_self_heal: { lineIndex: 0, amount: 5, source: "print_front" },
   });
 }
 
@@ -436,10 +436,10 @@ function fixEndure(
       [selfEffects, text(" Self "), cloneKey(artMis, "stress"), text(" -1")],
       [iconFromPool(pool, "target_effects"), text(" "), stressIcon, text(" -1")],
     ],
-    verified_self_stress: { lineIndex: 0, amount: -1, source: "print_front" },
-    verified_target_stress: { lineIndex: 1, amount: -1, source: "print_front" },
+    annotation_self_stress: { lineIndex: 0, amount: -1, source: "print_front" },
+    annotation_target_stress: { lineIndex: 1, amount: -1, source: "print_front" },
     ...(spec.interval
-      ? { verified_range: { ...spec.interval, source: "print_front" as const } }
+      ? { annotation_range: { ...spec.interval, source: "print_front" as const } }
       : {}),
   });
 }
@@ -467,10 +467,10 @@ function fixRedeem(
       [targetEffects, heal, text(String(healAmount))],
       [selfEffects, text(" Self "), debuff, text(" 1t")],
     ],
-    verified_self_heal: { lineIndex: 1, amount: healAmount, source: "print_front" },
-    verified_target_heal: { lineIndex: 2, amount: healAmount, source: "print_front" },
-    verified_target_header: { lineIndex: 0, source: "print_front" },
-    verified_status_effects: [
+    annotation_self_heal: { lineIndex: 1, amount: healAmount, source: "print_front" },
+    annotation_target_heal: { lineIndex: 2, amount: healAmount, source: "print_front" },
+    annotation_target_header: { lineIndex: 0, source: "print_front" },
+    annotation_status_effects: [
       { lineIndex: 3, segmentIndex: 2, scope: "self", kind: "debuff", duration: 1 },
     ],
   });
@@ -511,13 +511,13 @@ function fixSuffer(
       [selfEffects, text(" Self "), mark, text(` ${markT}t, `), buff, text(` ${buffT}t`)],
       [text("to the Flagellant.")],
     ],
-    verified_target_header: { lineIndex: 0, source: "print_front" },
-    verified_bleed_blight_transfer: {
+    annotation_target_header: { lineIndex: 0, source: "print_front" },
+    annotation_bleed_blight_transfer: {
       lineIndex: 1,
       signature: transferSignature,
       source: "print_front",
     },
-    verified_effect_line_receipts: [
+    annotation_effect_line_receipts: [
       { lineIndex: 2, signature: lineSignature(card.effect_lines[2]!), source: "print_front" },
       { lineIndex: 4, signature: "to the Flagellant.", source: "print_front" },
     ],
