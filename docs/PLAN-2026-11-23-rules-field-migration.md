@@ -15,6 +15,12 @@ web 3、docs 若干）。因此作为独立迁移分支，不夹在 A2 里做。
 > 引擎已优先读取；单元 3 的 `rules.targets`（18 名英雄 346 张非特殊目标卡）也已上线；
 > 单元 8 的怪物 `rules.resistances` / `rules.immunities` / `rules.shuffleResist` /
 > `rules.shuffleImmune` 已上线（核心盒 69 张卡）。
+> **2026-11-24 进展：R2 已完成。** 引擎按文件改读 `rules`：hero-skill / skill-status /
+> hero_stat 防御 / monster-skill / monster-effect-plan / monster-self-status /
+> weald-monster-attack / battle 目标与状态 / 美德触发 / Boss 与 Weald 投影 / trinket 使用效果。
+> 旧 `verified_*` 仅作为无 `rules` 卡的 fallback；剩余命中是引擎内部字段
+> （`verified_required_form`、`verified_hag_into_pot`、shrieker 标记等）与测试夹具。
+> R3（删旧字段）尚未开始。
 
 ## 1. 终态形状
 
