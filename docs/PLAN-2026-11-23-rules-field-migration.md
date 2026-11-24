@@ -22,8 +22,12 @@ web 3、docs 若干）。因此作为独立迁移分支，不夹在 A2 里做。
 > （`verified_required_form`、`verified_hag_into_pot`、shrieker 标记等）与测试夹具。
 > **R3a 已完成（2026-11-24）**：引擎删除全部 fallback，只读 `rules`；
 > `requiredForm` / `targetDisease` / `hagIntoPot` / `shriekerFlight` /
-> `shriekerNestFlight` 已去掉 `verified_` 前缀。引擎仍写旧 `verified_*` 字段、
-> schema / normalized / 注解层尚未删除，留给 **R3b**。
+> `shriekerNestFlight` 已去掉 `verified_` 前缀。
+> **R3b1 已完成（2026-11-24）**：build 在写盘前剥离全部 `verified_*`，
+> 7 个 normalized JSON 已重生成且旧字段清零；注解 applier 在已有 `rules` 时幂等，
+> data 83 文件 / 313 项、engine 验收 735 项、Boss 154 文件 / 1136 项通过。
+> **仍待 R3b2**：schema 中的 `verified_*` 定义与注解层内部字段尚未删除；
+> 引擎类型、pipeline/web 与历史测试的最终清理归 R3c/R3d。
 
 ## 1. 终态形状
 
