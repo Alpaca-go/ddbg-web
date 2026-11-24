@@ -180,13 +180,17 @@ it.each(skills)("$id 两次真实回合开始消费DOT并死亡，不把伤口�
 
 it.each(skills)("$id 缺值、重复或不完整注解、坏射程/姿态和未知防御均原子拒绝", (skill) => {
   const { game, command } = setup(skill);
-  const annotations = skill.verified_status_effects!;
+  const annotations = skill.rules!.statuses!;
+  const withStatuses = (statuses: unknown) => ({
+    ...skill,
+    rules: { ...skill.rules, statuses: statuses as typeof annotations },
+  });
   for (const changed of [
-    { ...skill, verified_status_effects: [{ ...annotations[0]!, duration: undefined }] },
-    { ...skill, verified_status_effects: [...annotations, annotations[0]!] },
-    { ...skill, verified_status_effects: [{ ...annotations[0]!, amount: undefined }] },
-    { ...skill, verified_status_effects: [{ ...annotations[0]!, amount: 9 }] },
-    { ...skill, verified_status_effects: annotations.slice(1) },
+    withStatuses([{ ...annotations[0]!, duration: undefined }]),
+    withStatuses([...annotations, annotations[0]!]),
+    withStatuses([{ ...annotations[0]!, amount: undefined }]),
+    withStatuses([{ ...annotations[0]!, amount: 9 }]),
+    withStatuses(annotations.slice(1)),
   ]) {
     const bad = { ...game, battle: { ...game.battle!, skills: [changed] } } as GameState;
     expect(applyCommand(bad, command).state).toBe(bad);

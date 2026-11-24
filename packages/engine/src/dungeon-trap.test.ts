@@ -231,9 +231,9 @@ it("R-069追加伤口后意志与暴击合并；缺属性 / 抗性仍原子拒�
       battleCatalog: {
         ...missing.dungeon!.battleCatalog!,
         heroStats: stats.map((s) => {
-          const copy = { ...s };
-          delete copy.verified_condition_defence;
-          return copy;
+          const { conditionDefence: _condition, ...rules } = s.rules ?? {};
+          void _condition;
+          return { ...s, rules };
         }),
       },
     },

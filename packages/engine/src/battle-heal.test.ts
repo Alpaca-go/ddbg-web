@@ -129,10 +129,12 @@ describe("Battle Heal I 逐卡复核（SKILLS_FRONT p13、R19–20、R-022 / R-0
             distance <= (lower ? 2 : 1) && !(lower && distance === 0) ? "resolved" : "refused",
           );
         }
-    const { verified_range, ...without } = heal;
-    expect(verified_range).toEqual({ min: 0, max: 1, source: "print_front" });
+    const { range: _range, ...rules } = heal.rules!;
+    void _range;
+    const without = { ...heal, rules };
+    expect(heal.rules?.range).toEqual({ min: 0, max: 1, source: "print_front" });
     expect(readPrintedRange(without)).toEqual({ kind: "null_numeric" });
-    expect(cards.find((c) => c.id === "hero_skill:core:h01:p014")!.verified_range).toMatchObject({
+    expect(cards.find((c) => c.id === "hero_skill:core:h01:p014")!.rules?.range).toMatchObject({
       min: 0,
       max: 1,
     });
@@ -217,8 +219,9 @@ describe("Battle Heal I 逐卡复核（SKILLS_FRONT p13、R19–20、R-022 / R-0
 
   it("错误射程、非英雄、未装备、未验证与无射程注解在 RNG 前原子拒绝", () => {
     const state = ready();
-    const { verified_range: _range, ...unreviewed } = heal;
+    const { range: _range, ...rules } = heal.rules!;
     void _range;
+    const unreviewed = { ...heal, rules };
     for (const blocked of [
       ready(3, 2),
       { ...state, battle: { ...state.battle!, skills: [unreviewed] } },

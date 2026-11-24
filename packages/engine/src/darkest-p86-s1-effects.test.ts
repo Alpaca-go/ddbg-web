@@ -11,14 +11,17 @@ const cards: MonsterCardView[] = JSON.parse(
 it("Defensive Growth Bolster 完整印刷计划，拒绝效果漂移", () => {
   const card = cards.find((c) => c.id === "monster_medium:p086")!;
   const skill = card.skills.find((s) => s.slot === 1)!;
-  expect(skill.verified_monster_effects?.effects).toEqual([
+  expect(skill.rules!.effects?.effects).toEqual([
     { type: "status", scope: "target", kind: "buff", duration: 3 },
   ]);
   expect(readMonsterAttackView(card, 1).status).toBe("ready");
-  const plan = skill.verified_monster_effects!;
+  const plan = skill.rules!.effects!;
   expect(
     readMonsterAttackView(
-      { ...card, skills: [{ ...skill, verified_monster_effects: { ...plan, effects: [] } }] },
+      {
+        ...card,
+        skills: [{ ...skill, rules: { ...skill.rules, effects: { ...plan, effects: [] } } }],
+      },
       1,
     ).status,
   ).toBe("refused");

@@ -215,11 +215,14 @@ it.each(skills)("$id姿态/射程/目标/未知防御/不完整注解原子拒�
     ...[
       undefined,
       [],
-      [...skill.verified_status_effects!, ...skill.verified_status_effects!],
-      [{ ...skill.verified_status_effects![0]!, duration: 9 }],
-    ].map((verified_status_effects) => ({
+      [...skill.rules!.statuses!, ...skill.rules!.statuses!],
+      [{ ...skill.rules!.statuses![0]!, duration: 9 }],
+    ].map((statuses) => ({
       ...game,
-      battle: { ...game.battle!, skills: [{ ...skill, verified_status_effects }] },
+      battle: {
+        ...game.battle!,
+        skills: [{ ...skill, rules: { ...skill.rules, statuses } }],
+      },
     })),
   ] as GameState[];
   for (const bad of badStates) expect(applyCommand(bad, command).state).toBe(bad);

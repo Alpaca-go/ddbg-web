@@ -213,8 +213,10 @@ describe("Holy Lance I 完整效果（SKILLS_FRONT p16、R20–21、R-017 / R-02
       },
     };
     expect(applyCommand(human, play).events[0]).toMatchObject({ resolution: { damageDealt: 7 } });
-    const { verified_damage_bonus, ...legacy } = lance;
-    expect(verified_damage_bonus).toBeDefined();
+    const { damage: _bonus, ...rules } = lance.rules!;
+    void _bonus;
+    const legacy = { ...lance, rules };
+    expect(lance.rules?.damage).toBeDefined();
     expect(
       resolveHeroSkill(
         legacy,
@@ -267,7 +269,11 @@ describe("Holy Lance I 完整效果（SKILLS_FRONT p16、R20–21、R-017 / R-02
     for (const amount of [0, 2, NaN])
       expect(
         resolveHeroSkill(
-          { ...lance, verified_damage_bonus: { ...lance.verified_damage_bonus!, amount } },
+          {
+            ...lance,
+            rules: { ...lance.rules, damage: { ...lance.rules!.damage!, amount } },
+            verified_damage_bonus: { ...lance.verified_damage_bonus!, amount },
+          },
           { ...combat, target: { ...combat.target, monsterTypeTags: ["Unholy"] } },
           2,
         ).status,

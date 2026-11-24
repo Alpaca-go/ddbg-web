@@ -163,8 +163,11 @@ describe("战斗技能生命命令沙盒（R20、R29、R-005、R-048）", () => 
   });
 
   it("Battle Heal 未附逐卡射程注解时仍拒绝，生命接线不绕过 R-048", () => {
-    const { verified_range, ...card } = skill("p013");
-    expect(verified_range).toBeDefined();
+    const original = skill("p013");
+    const { range: _range, ...rules } = original.rules!;
+    void _range;
+    const card = { ...original, rules };
+    expect(original.rules?.range).toBeDefined();
     const initial = patch(setup(card), "hero", { wounds: crusader.life, stance: "support" });
     const result = applyCommand(initial, {
       type: "playHeroSkill",

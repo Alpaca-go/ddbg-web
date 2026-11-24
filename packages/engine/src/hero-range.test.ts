@@ -92,9 +92,9 @@ describe("逐页复核的英雄区间射程 / G-08", () => {
           distance >= 1 && distance <= (lower ? 3 : 2) ? "resolved" : "refused",
         );
       }
-    const { verified_range, ...without } = judgement;
-    expect(verified_range).toBeDefined();
-    expect(readPrintedRange(without)).toEqual({ kind: "null_numeric" });
+    const { range: _range, ...rules } = judgement.rules!;
+    void _range;
+    expect(readPrintedRange({ ...judgement, rules })).toEqual({ kind: "null_numeric" });
   });
   it("真实 Judgement 公共命令全骰面自疗一次，命中锁定、落空可再用；原骰回放一致", () => {
     for (let roll = 1; roll <= 10; roll++) {
@@ -146,8 +146,9 @@ describe("逐页复核的英雄区间射程 / G-08", () => {
         expect(repeated.state.battle!.rngCursor).toBe(2);
         expect(repeated.state.battle!.entities[0]!.wounds).toBe(1);
       }
-      const { verified_range: _range, ...unreviewed } = judgement;
+      const { range: _range, ...rules } = judgement.rules!;
       void _range;
+      const unreviewed = { ...judgement, rules };
       const blocked = { ...state, battle: { ...state.battle!, skills: [unreviewed] } };
       expect(applyCommand(blocked, command).state).toBe(blocked);
     }
@@ -172,11 +173,14 @@ describe("逐页复核的英雄区间射程 / G-08", () => {
         );
       }
     expect(
-      readPrintedRange({ ...pistol, verified_range: { min: 0, max: 3, source: "print_front" } }),
+      readPrintedRange({
+        ...pistol,
+        rules: { ...pistol.rules!, range: { min: 0, max: 3, source: "print_front" } },
+      }),
     ).toEqual({ kind: "null_numeric" });
-    const { verified_range, ...without } = pistol;
-    expect(verified_range).toBeDefined();
-    expect(readPrintedRange(without)).toEqual({ kind: "null_numeric" });
+    const { range: _range, ...rules } = pistol.rules!;
+    void _range;
+    expect(readPrintedRange({ ...pistol, rules })).toEqual({ kind: "null_numeric" });
   });
   it("G-08 / OR24-p7：真实 Tracking I 先放 Buff 3t，再 Pistol I，暴击阈值 3，全骰面续接不额外掷骰", () => {
     for (let roll = 1; roll <= 10; roll++) {

@@ -236,7 +236,7 @@ it("攻击死门致死后取消状态，不复活英雄；Rend和Skull Toss均�
 it("计划签名、原语数值及作用域漂移均原子拒绝，保留骰序与当前回合", () => {
   for (const slot of [1, 2]) {
     const skill = card.skills.find((s) => s.slot === slot)!,
-      plan = skill.verified_monster_effects!;
+      plan = skill.rules!.effects!;
     for (const changed of [
       { ...plan, signatures: ["wrong"] },
       { ...plan, effects: plan.effects.slice(1) },
@@ -260,7 +260,13 @@ it("计划签名、原语数值及作用域漂移均原子拒绝，保留骰序�
             {
               ...card,
               skills: card.skills.map((s) =>
-                s.slot === slot ? { ...s, verified_monster_effects: changed } : s,
+                s.slot === slot
+                  ? {
+                      ...s,
+                      verified_monster_effects: changed,
+                      rules: { ...s.rules, effects: changed },
+                    }
+                  : s,
               ),
             },
           ],
@@ -297,7 +303,7 @@ it("规范化映射限定Ghoul II p3身份与完整原始行，不接受重命�
 });
 
 it("Howl完整计划逐名续接，未知签名仍整次拒绝", () => {
-  expect(card.skills.find((s) => s.slot === 3)!.verified_monster_effects).toBeDefined();
+  expect(card.skills.find((s) => s.slot === 3)!.rules!.effects).toBeDefined();
   const attack = readMonsterAttackView(card, 3);
   expect(attack.status).toBe("ready");
   const initial = setup(3);
@@ -308,17 +314,15 @@ it("Howl完整计划逐名续接，未知签名仍整次拒绝", () => {
       monsters: [
         {
           ...card,
-          skills: card.skills.map((s) =>
-            s.slot === 3
-              ? {
-                  ...s,
-                  verified_monster_effects: {
-                    ...s.verified_monster_effects!,
-                    signatures: ["wrong"],
-                  },
-                }
-              : s,
-          ),
+          skills: card.skills.map((s) => {
+            if (s.slot !== 3) return s;
+            const changed = { ...s.rules!.effects!, signatures: ["wrong"] };
+            return {
+              ...s,
+              verified_monster_effects: changed,
+              rules: { ...s.rules, effects: changed },
+            };
+          }),
         },
       ],
     },

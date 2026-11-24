@@ -120,9 +120,12 @@ it("Chant缺任何目标Buff防御或状态损坏时原子拒绝，不留下部�
         ...d,
         battleCatalog: {
           ...d.battleCatalog!,
-          heroStats: d.battleCatalog!.heroStats.map((s) =>
-            s.name === "HIGHWAYMAN" ? { ...s, verified_buff_defence: undefined } : s,
-          ),
+          heroStats: d.battleCatalog!.heroStats.map((s) => {
+            if (s.name !== "HIGHWAYMAN") return s;
+            const { buffDefence: _buff, ...rules } = s.rules ?? {};
+            void _buff;
+            return { ...s, rules };
+          }),
         },
       },
     } as GameState,

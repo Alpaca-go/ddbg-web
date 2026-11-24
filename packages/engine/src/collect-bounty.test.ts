@@ -173,8 +173,9 @@ it("缺真实种族、重复/冲突/畸变注解均原子拒绝；无注解保�
       markStacks: 1,
     },
   };
-  const { verified_damage_bonuses: _bonuses, ...legacy } = skill;
+  const { damageBonuses: _bonuses, ...rules } = skill.rules!;
   void _bonuses;
+  const legacy = { ...skill, rules };
   expect(resolveHeroSkill(legacy, combat, 5)).toMatchObject({
     status: "resolved",
     damageDealt: 6,
@@ -190,13 +191,19 @@ it("缺真实种族、重复/冲突/畸变注解均原子拒绝；无注解保�
   ]) {
     const bad = clean<GameState>({
       ...game,
-      battle: { ...game.battle!, skills: [{ ...skill, verified_damage_bonuses: bonuses }] },
+      battle: {
+        ...game.battle!,
+        skills: [{ ...skill, rules: { ...skill.rules, damageBonuses: bonuses } }],
+      },
     });
     expect(applyCommand(bad, command).state).toBe(bad);
   }
   const both = {
     ...game,
-    battle: { ...game.battle!, skills: [{ ...skill, verified_damage_bonus: base[0]! }] },
+    battle: {
+      ...game.battle!,
+      skills: [{ ...skill, rules: { ...skill.rules, damage: base[0]! } }],
+    },
   };
   expect(applyCommand(both, command).state).toBe(both);
   const missing = clean<GameState>({

@@ -345,13 +345,15 @@ it("高等级防御缺失/伪造时真实攻击整次拒绝，不以Buff专项�
   const initial = higherHero(setup(), "VESTAL", 3),
     b = initial.battle!;
   for (const change of [
-    { verified_higher_condition_defence: undefined },
+    { rules: {} },
     { name: "CRUSADER" },
     { level: 2 },
     {
-      verified_higher_condition_defence: {
-        ...b.heroStats!.at(-1)!.verified_higher_condition_defence!,
-        immunities: [],
+      rules: {
+        higherConditionDefence: {
+          ...b.heroStats!.at(-1)!.rules!.higherConditionDefence!,
+          immunities: [],
+        },
       },
     },
   ]) {

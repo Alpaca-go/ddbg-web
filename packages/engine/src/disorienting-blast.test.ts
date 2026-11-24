@@ -284,11 +284,12 @@ it("D/R/S可用，A与距离0/2拒绝；缺注解、坏作用域/整行、未知
     const bad = clean<GameState>(game),
       b = bad.battle!;
     const changed = clean<Record<string, unknown>>(skill);
-    if (field === "missing") delete changed.verified_status_effects;
+    const changedRules = { ...(changed.rules as Record<string, unknown>) };
+    if (field === "missing") delete changedRules.statuses;
     if (field === "scope" || field === "duration" || field === "parent")
-      changed.verified_status_effects = [
+      changedRules.statuses = [
         {
-          ...skill.verified_status_effects![0]!,
+          ...skill.rules!.statuses![0]!,
           ...(field === "scope"
             ? { scopeLineIndex: undefined }
             : field === "duration"
@@ -296,6 +297,7 @@ it("D/R/S可用，A与距离0/2拒绝；缺注解、坏作用域/整行、未知
               : { scopeLineIndex: 1 }),
         },
       ];
+    changed.rules = changedRules;
     if (field === "direction" || field === "extra")
       changed.effect_lines = skill.effect_lines.map((l, i) =>
         field === "extra" && i === 1

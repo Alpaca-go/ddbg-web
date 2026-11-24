@@ -302,8 +302,11 @@ describe("空区域英雄技能（R19–20、R-025、R-048）", () => {
       }),
     );
     refused(setup(card("p010")));
-    const { verified_range: range, ...unreviewed } = card("p088");
-    expect(range).toBeDefined();
+    const p088 = card("p088");
+    const { range: _range, ...rules } = p088.rules!;
+    void _range;
+    const unreviewed = { ...p088, rules };
+    expect(p088.rules?.range).toBeDefined();
     expect(refused(setup(unreviewed)).events[0]?.message).toContain("numeric 为 null");
     const stun = card("p007");
     const stunState = setup(stun);
@@ -324,7 +327,10 @@ describe("空区域英雄技能（R19–20、R-025、R-048）", () => {
     expect(valid.state.battle!.entities).toEqual(inRange.battle!.entities);
     const missingDuration = {
       ...inRange,
-      battle: { ...inRange.battle!, skills: [{ ...stun, verified_status_effects: [] }] },
+      battle: {
+        ...inRange.battle!,
+        skills: [{ ...stun, rules: { ...stun.rules, statuses: [] } }],
+      },
     };
     expect(refused(missingDuration).events[0]?.message).toContain("未完整支持");
     const badStance = setup();

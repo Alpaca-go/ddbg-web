@@ -268,9 +268,13 @@ it("Vapours缺失或篡改目标行注解、射程/目标图标或状态行均�
   ] as const) {
     const skill = structuredClone(skills[1]!);
     const changed = clean<Record<string, unknown>>(skill);
-    if (field === "missing") delete changed.verified_target_header;
-    if (field === "source") changed.verified_target_header = { lineIndex: 0, source: "guess" };
-    if (field === "index") changed.verified_target_header = { lineIndex: 1, source: "print_front" };
+    const changedRules = { ...(changed.rules as Record<string, unknown>) };
+    const changedTarget = { ...(changedRules.target as Record<string, unknown>) };
+    if (field === "missing") delete changedTarget.header;
+    if (field === "source") changedTarget.header = { lineIndex: 0, source: "guess" };
+    if (field === "index") changedTarget.header = { lineIndex: 1, source: "print_front" };
+    changedRules.target = changedTarget;
+    changed.rules = changedRules;
     const lines = structuredClone(skill.effect_lines).map((l) => [...l]);
     if (field === "range") lines[0]![1] = { type: "text", text: " 9 " };
     if (field === "target" || field === "naming") {
@@ -284,8 +288,11 @@ it("Vapours缺失或篡改目标行注解、射程/目标图标或状态行均�
           },
         };
     }
-    if (field === "scope")
-      changed.verified_status_effects = [{ ...skill.verified_status_effects![0]!, scope: "self" }];
+    if (field === "scope") {
+      const changedRules = { ...(changed.rules as Record<string, unknown>) };
+      changedRules.statuses = [{ ...skill.rules!.statuses![0]!, scope: "self" }];
+      changed.rules = changedRules;
+    }
     changed.effect_lines = lines;
     const bad = { ...game, battle: { ...game.battle!, skills: [changed] } } as unknown as GameState;
     expect(applyCommand(bad, command).state, field).toBe(bad);
@@ -311,22 +318,26 @@ it.each(skills.slice(0, 2))(
         ...game,
         battle: {
           ...game.battle!,
-          heroStats: stats.map((s) => ({
-            ...s,
-            verified_buff_defence: undefined,
-            verified_condition_defence: undefined,
-          })),
+          heroStats: stats.map((s) => {
+            const { buffDefence: _buff, conditionDefence: _condition, ...rules } = s.rules ?? {};
+            void _buff;
+            void _condition;
+            return { ...s, rules };
+          }),
         },
       } as unknown as GameState);
-      for (const annotations of [
+      for (const statuses of [
         undefined,
         [],
-        [{ ...skill.verified_status_effects![0]!, duration: 9 }],
-        [...skill.verified_status_effects!, ...skill.verified_status_effects!],
+        [{ ...skill.rules!.statuses![0]!, duration: 9 }],
+        [...skill.rules!.statuses!, ...skill.rules!.statuses!],
       ])
         invalid.push({
           ...game,
-          battle: { ...game.battle!, skills: [{ ...skill, verified_status_effects: annotations }] },
+          battle: {
+            ...game.battle!,
+            skills: [{ ...skill, rules: { ...skill.rules, statuses } }],
+          },
         } as unknown as GameState);
     }
     for (const bad of invalid) expect(applyCommand(bad, command).state).toBe(bad);

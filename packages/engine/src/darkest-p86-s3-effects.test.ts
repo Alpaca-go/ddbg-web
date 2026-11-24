@@ -30,14 +30,15 @@ it("Unbearable Tremors 按 Acc 判定纯压力，不虚构 Crit 或伤害", () =
 it("Defensive Growth Unbearable Tremors 完整印刷计划，拒绝效果漂移", () => {
   const card = cards.find((c) => c.id === "monster_medium:p086")!;
   const skill = card.skills.find((s) => s.slot === 3)!;
-  expect(skill.verified_monster_effects?.effects).toEqual([
-    { type: "stress", scope: "target", amount: 2 },
-  ]);
+  expect(skill.rules!.effects?.effects).toEqual([{ type: "stress", scope: "target", amount: 2 }]);
   expect(readMonsterAttackView(card, 3).status).toBe("ready");
-  const plan = skill.verified_monster_effects!;
+  const plan = skill.rules!.effects!;
   expect(
     readMonsterAttackView(
-      { ...card, skills: [{ ...skill, verified_monster_effects: { ...plan, effects: [] } }] },
+      {
+        ...card,
+        skills: [{ ...skill, rules: { ...skill.rules, effects: { ...plan, effects: [] } } }],
+      },
       3,
     ).status,
   ).toBe("refused");

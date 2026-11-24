@@ -43,7 +43,7 @@ it("不外推其它身份或槽位，错误原语数值拒绝", () => {
   expect(readMonsterAttackView({ ...card, skills: [{ ...skill, slot: 1 }] }, 1).status).toBe(
     "refused",
   );
-  const plan = skill.verified_monster_effects!;
+  const plan = skill.rules!.effects!;
   expect(
     readMonsterAttackView(
       {
@@ -57,6 +57,16 @@ it("不外推其它身份或槽位，错误原语数值拒绝", () => {
                 { type: "shuffle", scope: "target", direction: "pull", distance: 3 },
                 { type: "stress", scope: "target", amount: 1 },
               ],
+            },
+            rules: {
+              ...skill.rules,
+              effects: {
+                ...plan,
+                effects: [
+                  { type: "shuffle", scope: "target", direction: "pull", distance: 3 },
+                  { type: "stress", scope: "target", amount: 1 },
+                ],
+              },
             },
           },
         ],

@@ -267,8 +267,9 @@ it("攻击分支仍保存正常英雄目标和选招骰，不施加Warning Rattl
 });
 it("缺计划、伪造范围/Acc、签名漂移或未验证卡原子拒绝，不消耗选招RNG", () => {
   const skill = card.skills[0]!;
-  const { verified_monster_effects: _plan, ...withoutPlan } = skill;
+  const { effects: _plan, ...rules } = skill.rules!;
   void _plan;
+  const withoutPlan = { ...skill, rules };
   for (const changed of [
     withoutPlan,
     { ...skill, printed_labels: [{ label: "Acc" as const, value: 9, raw: "Acc 9" }] },

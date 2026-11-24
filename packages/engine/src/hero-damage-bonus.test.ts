@@ -116,8 +116,10 @@ describe("已复核 Pistol I 对 Mark +2（R19–21、R-017、R-019、R-048）",
     const combat = {
       target: { id: "m", side: "monster" as const, wounds: 0, dodge: 0, markStacks: 1 },
     };
-    const { verified_damage_bonus, ...legacy } = pistol;
-    expect(verified_damage_bonus).toBeDefined();
+    const { damage: _bonus, ...rules } = pistol.rules!;
+    void _bonus;
+    const legacy = { ...pistol, rules };
+    expect(pistol.rules?.damage).toBeDefined();
     expect(resolveHeroSkill(legacy, combat, 4)).toMatchObject({
       damageDealt: 5,
       skipped: [{ code: "effect_lines" }],
@@ -125,7 +127,7 @@ describe("已复核 Pistol I 对 Mark +2（R19–21、R-017、R-019、R-048）",
     for (const amount of [0, 3, NaN])
       expect(
         resolveHeroSkill(
-          { ...pistol, verified_damage_bonus: { ...verified_damage_bonus!, amount } },
+          { ...pistol, rules: { ...pistol.rules, damage: { ...pistol.rules!.damage!, amount } } },
           combat,
           4,
         ).status,

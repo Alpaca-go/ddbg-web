@@ -11,14 +11,15 @@ const cards: MonsterCardView[] = JSON.parse(
 it("Rapturous Cultist Flesh to Flesh 完整印刷计划，拒绝效果漂移", () => {
   const card = cards.find((c) => c.id === "monster_medium:p069")!;
   const skill = card.skills.find((s) => s.slot === 2)!;
-  expect(skill.verified_monster_effects?.effects).toEqual([
-    { type: "heal", scope: "target", amount: 9 },
-  ]);
+  expect(skill.rules!.effects?.effects).toEqual([{ type: "heal", scope: "target", amount: 9 }]);
   expect(readMonsterAttackView(card, 2).status).toBe("ready");
-  const plan = skill.verified_monster_effects!;
+  const plan = skill.rules!.effects!;
   expect(
     readMonsterAttackView(
-      { ...card, skills: [{ ...skill, verified_monster_effects: { ...plan, effects: [] } }] },
+      {
+        ...card,
+        skills: [{ ...skill, rules: { ...skill.rules, effects: { ...plan, effects: [] } } }],
+      },
       2,
     ).status,
   ).toBe("refused");

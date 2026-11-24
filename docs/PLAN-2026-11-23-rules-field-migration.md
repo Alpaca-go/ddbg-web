@@ -20,7 +20,10 @@ web 3、docs 若干）。因此作为独立迁移分支，不夹在 A2 里做。
 > weald-monster-attack / battle 目标与状态 / 美德触发 / Boss 与 Weald 投影 / trinket 使用效果。
 > 旧 `verified_*` 仅作为无 `rules` 卡的 fallback；剩余命中是引擎内部字段
 > （`verified_required_form`、`verified_hag_into_pot`、shrieker 标记等）与测试夹具。
-> R3（删旧字段）尚未开始。
+> **R3a 已完成（2026-11-24）**：引擎删除全部 fallback，只读 `rules`；
+> `requiredForm` / `targetDisease` / `hagIntoPot` / `shriekerFlight` /
+> `shriekerNestFlight` 已去掉 `verified_` 前缀。引擎仍写旧 `verified_*` 字段、
+> schema / normalized / 注解层尚未删除，留给 **R3b**。
 
 ## 1. 终态形状
 

@@ -193,10 +193,9 @@ it("DL3 牌堆：八招接入后主怪部署可 admitted，合成缺字段仍拒
         (card) => card.id === cardId,
       );
       expect(catalogCard, cardId).toBeDefined();
-      expect(
-        catalogCard!.skills.filter((skill) => skill.verified_monster_effects).length,
-        cardId,
-      ).toBe(skills);
+      expect(catalogCard!.skills.filter((skill) => skill.rules?.effects).length, cardId).toBe(
+        skills,
+      );
     }
     // 合成缺字段（从全部已部署怪移除 speed）：仍按 R-048 拒战并保留真实部署，不重抽。
     const deployedIds = new Set(

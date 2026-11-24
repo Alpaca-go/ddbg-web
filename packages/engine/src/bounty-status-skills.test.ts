@@ -185,7 +185,10 @@ it("射程/缺目标防御/不完整状态行非法时整次原子拒绝，不�
       skills: [
         {
           ...mark,
-          verified_status_effects: mark.verified_status_effects!.filter((e) => e.kind !== "debuff"),
+          rules: {
+            ...mark.rules,
+            statuses: mark.rules!.statuses!.filter((e) => e.kind !== "debuff"),
+          },
         },
       ],
     },

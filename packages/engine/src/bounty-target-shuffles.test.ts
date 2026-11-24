@@ -174,7 +174,10 @@ it.each(skills)("$id 未完整核实的同行内容和缺防御在掷骰前原�
     },
     {
       ...skill,
-      verified_status_effects: skill.verified_status_effects!.map((e) => ({ ...e, duration: 9 })),
+      rules: {
+        ...skill.rules,
+        statuses: skill.rules!.statuses!.map((e) => ({ ...e, duration: 9 })),
+      },
     },
     { ...skill, effect_lines: [...skill.effect_lines, skill.effect_lines[0]!] },
   ];
