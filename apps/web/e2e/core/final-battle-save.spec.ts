@@ -20,7 +20,7 @@ test("自然最暗路线存档：真实停止点或最终战首形态可读取�
   try {
     const load = (relative: string) =>
       server.ssrLoadModule(fileURLToPath(new URL(relative, import.meta.url)));
-    const { taskSources } = await load("../src/dungeon-sandbox/task-sources.ts");
+    const { taskSources } = await load("../../src/dungeon-sandbox/task-sources.ts");
     const { naturalFinalBattle } = await load(
       "../../../packages/engine/src/test-helpers/natural-final-battle.ts",
     );

@@ -15,7 +15,7 @@ test("Fungal Research：三目标取得、带回 4 封顶 3 XP，保存刷新一
   try {
     const load = (path: string) =>
       server.ssrLoadModule(fileURLToPath(new URL(path, import.meta.url)));
-    const { taskSources } = await load("../src/dungeon-sandbox/task-sources.ts");
+    const { taskSources } = await load("../../src/dungeon-sandbox/task-sources.ts");
     const { fungalResearchThreeObjectives } = await load(
       "../../../packages/engine/src/test-helpers/fungal-research-three-objectives.ts",
     );

@@ -12,7 +12,7 @@ import type { HeroSkillCardView, HeroSkillResolution, SkillCombatState } from ".
 
 const DATA_DIR = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
-  "../../data/normalized/corebox",
+  "../../../../data/normalized/corebox",
 );
 const SKILL_FILE = path.join(DATA_DIR, "hero_skill.json");
 const MONSTER_FILE = path.join(DATA_DIR, "monster_medium.json");

@@ -19,7 +19,7 @@ test("自然Necromancer I任务存档：页面读取、开战、保存刷新后�
   try {
     const load = (relative: string) =>
       server.ssrLoadModule(fileURLToPath(new URL(relative, import.meta.url)));
-    const { taskSources } = await load("../src/dungeon-sandbox/task-sources.ts");
+    const { taskSources } = await load("../../src/dungeon-sandbox/task-sources.ts");
     const { naturalQuest, naturalParty } = await load(
       "../../../packages/engine/src/test-helpers/natural-quest.ts",
     );

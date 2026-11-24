@@ -20,7 +20,7 @@ test("重生池：真实战斗存档返回清场→复活→免费补位入队�
   try {
     const module = (path: string) =>
       server.ssrLoadModule(fileURLToPath(new URL(path, import.meta.url)));
-    const plugin = await module("../battle-data-plugin.ts");
+    const plugin = await module("../../battle-data-plugin.ts");
     const code = plugin.battleDataPlugin().load("\0virtual:quest-battle-data");
     const catalog = JSON.parse(code.slice("export const battleData = ".length, -1));
     catalog.monsters = [...catalog.monsters, ...(catalog.bossMonsters ?? [])];

@@ -15,7 +15,7 @@ test("Patrol the Woods：六房清理、混池与 3 XP 保存刷新一致", asyn
   try {
     const load = (path: string) =>
       server.ssrLoadModule(fileURLToPath(new URL(path, import.meta.url)));
-    const { taskSources } = await load("../src/dungeon-sandbox/task-sources.ts");
+    const { taskSources } = await load("../../src/dungeon-sandbox/task-sources.ts");
     const { patrolTheWoodsJourney } = await load(
       "../../../packages/engine/src/test-helpers/patrol-the-woods-quest.ts",
     );

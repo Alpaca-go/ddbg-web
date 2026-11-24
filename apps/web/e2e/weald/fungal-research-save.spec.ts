@@ -17,7 +17,7 @@ test("Fungal Research：保留／全砸目标与带回 XP 分开展示，保存�
   try {
     const load = (path: string) =>
       server.ssrLoadModule(fileURLToPath(new URL(path, import.meta.url)));
-    const { taskSources } = await load("../src/dungeon-sandbox/task-sources.ts");
+    const { taskSources } = await load("../../src/dungeon-sandbox/task-sources.ts");
     const { fungalResearchJourney } = await load(
       "../../../packages/engine/src/test-helpers/fungal-research-quest.ts",
     );

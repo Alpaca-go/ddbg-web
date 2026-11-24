@@ -17,7 +17,7 @@ test("Disinfection：三房清理／仅两房清理均按三棵消毒计 XP，�
   try {
     const load = (path: string) =>
       server.ssrLoadModule(fileURLToPath(new URL(path, import.meta.url)));
-    const { taskSources } = await load("../src/dungeon-sandbox/task-sources.ts");
+    const { taskSources } = await load("../../src/dungeon-sandbox/task-sources.ts");
     const { disinfectionThreeTargets } = await load(
       "../../../packages/engine/src/test-helpers/disinfection-three-targets.ts",
     );

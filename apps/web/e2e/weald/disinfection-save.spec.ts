@@ -16,7 +16,7 @@ test("真实公开日志停点：点击消毒、保存刷新恢复，资源只�
   try {
     const load = (path: string) =>
       server.ssrLoadModule(fileURLToPath(new URL(path, import.meta.url)));
-    const { taskSources } = await load("../src/dungeon-sandbox/task-sources.ts");
+    const { taskSources } = await load("../../src/dungeon-sandbox/task-sources.ts");
     const { disinfectionJourney } = await load(
       "../../../packages/engine/src/test-helpers/disinfection-quest.ts",
     );
