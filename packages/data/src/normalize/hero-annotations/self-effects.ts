@@ -1,4 +1,4 @@
-import { normalizedHeroSkillCardSchema } from "../schema";
+import { parseAnnotatedHeroSkillCard } from "../schema";
 import type { NormalizedHeroSkillCard } from "../schema";
 import { heroSkillId } from "../../hero-registry";
 import type { SelfEffectEntry } from "./types";
@@ -56,6 +56,6 @@ export function applySelfEffects(
               },
             };
     }
-    return normalizedHeroSkillCardSchema.parse({ ...card, ...fields });
+    return parseAnnotatedHeroSkillCard({ ...card, ...fields });
   });
 }

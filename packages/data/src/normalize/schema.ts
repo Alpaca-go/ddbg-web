@@ -222,6 +222,10 @@ const skillStatFields = {
   printed_labels: z.array(printedLabelSchema),
   unlabeled_numbers: z.array(normalizedUnlabeledNumberSchema),
   effect_lines: lineListSchema,
+};
+
+/** 仅 monster 注解层仍使用的旧字段；hero skill 已直接写 rules。 */
+const legacySkillStatFields = {
   verified_damage_bonus: damageBonusRuleSchema.optional(),
   verified_target_header: targetHeaderRuleSchema.optional(),
   verified_target_support: targetSupportRuleSchema.optional(),
@@ -370,11 +374,6 @@ export const monsterCardRulesSchema = z.strictObject({
 });
 
 const heroSkillShared = {
-  verified_damage_bonuses: z
-    .array(damageBonusRuleSchema)
-    .min(2)
-    .refine((bonuses) => new Set(bonuses.map((b) => b.lineIndex)).size === bonuses.length)
-    .optional(),
   id: z.string().min(1),
   pages: pageListSchema,
   copies: z.int().positive(),
@@ -383,12 +382,9 @@ const heroSkillShared = {
   /** v1.1 英雄 SKILL 的物理来源；旧数据可缺省。 */
   source: z.strictObject({ file: z.string().min(1), page: z.int().positive() }).optional(),
   ...skillStatFields,
-  verified_status_effects: z.array(statusEffectRuleSchema).min(1).optional(),
   top_row_icons: z.array(normalizedIconSchema),
   name_row_icons: z.array(normalizedIconSchema),
   stats_line: z.array(segmentSchema).nullable(),
-  verified_range: rangeRuleSchema.optional(),
-  verified_rallying_flare: rallyingFlareRuleSchema.optional(),
   /** 规则语义（新命名空间）：只放引擎要执行的解释，不放印刷原文。 */
   rules: heroSkillRulesSchema.optional(),
   front_icons: z.array(normalizedIconSchema),
@@ -416,12 +412,10 @@ const doubleFacedHeroSkillSchema = z.strictObject({
   }),
 });
 
-export const normalizedHeroSkillCardSchema = z
-  .union([standardHeroSkillSchema, doubleFacedHeroSkillSchema])
-  .refine(
-    (card) => !(card.verified_damage_bonus && card.verified_damage_bonuses),
-    "单条与多条伤害注解不能同时存在",
-  );
+export const normalizedHeroSkillCardSchema = z.union([
+  standardHeroSkillSchema,
+  doubleFacedHeroSkillSchema,
+]);
 
 const normalizedMonsterSkillSchema = z.strictObject({
   verified_weald_attack: wealdMonsterAttackSchema.optional(),
@@ -429,6 +423,7 @@ const normalizedMonsterSkillSchema = z.strictObject({
   name: z.string().min(1),
   target: z.string().min(1).nullable(),
   ...skillStatFields,
+  ...legacySkillStatFields,
   verified_range: rangeRuleSchema.optional(),
   lines: lineListSchema,
   verified_monster_effects: monsterEffectPlanSchema.optional(),
@@ -715,7 +710,47 @@ export const normalizedVirtueAfflictionFileSchema = normalizedFileSchema(
   normalizedVirtueAfflictionCardSchema,
 );
 
-export type NormalizedHeroSkillCard = z.infer<typeof normalizedHeroSkillCardSchema>;
+type NormalizedHeroSkillCardBase = z.infer<typeof normalizedHeroSkillCardSchema>;
+type HeroSkillRules = NonNullable<NormalizedHeroSkillCardBase["rules"]>;
+type HeroSkillSelfRules = NonNullable<HeroSkillRules["self"]>;
+type HeroSkillTargetRules = NonNullable<HeroSkillRules["target"]>;
+
+/**
+ * 注解层内部形状：schema 只落 `rules`，但 applier 仍先用旧字段做中间产物，
+ * 由 build 的 `withRules` 在写盘前剥离。类型只用于 data 内部，不进入 normalized。
+ */
+export type NormalizedHeroSkillCard = NormalizedHeroSkillCardBase & {
+  verified_status_effects?: HeroSkillRules["statuses"];
+  verified_damage_bonus?: HeroSkillRules["damage"];
+  verified_damage_bonuses?: HeroSkillRules["damageBonuses"];
+  verified_actor_damage_bonus?: HeroSkillRules["actorDamage"];
+  verified_range?: HeroSkillRules["range"];
+  verified_self_range?: HeroSkillSelfRules["range"];
+  verified_self_heal?: HeroSkillSelfRules["heal"];
+  verified_self_stress?: HeroSkillSelfRules["stress"];
+  verified_target_header?: HeroSkillTargetRules["header"];
+  verified_target_heal?: HeroSkillTargetRules["heal"];
+  verified_target_stress?: HeroSkillTargetRules["stress"];
+  verified_target_support?: HeroSkillTargetRules["support"];
+  verified_allies_stress?: HeroSkillRules["alliesStress"];
+  verified_rallying_flare?: HeroSkillRules["rallyingFlare"];
+  verified_effect_line_receipts?: HeroSkillRules["receipts"];
+  verified_bleed_blight_transfer?: HeroSkillRules["transfer"];
+};
+
+/** applier 输出解析：先摘掉内部旧字段，schema 只校验 rules 形状。 */
+export function parseAnnotatedHeroSkillCard(input: unknown): NormalizedHeroSkillCard {
+  const raw = input as Record<string, unknown>;
+  const annotations = Object.fromEntries(
+    Object.entries(raw).filter(([key]) => key.startsWith("verified_")),
+  );
+  const rest = Object.fromEntries(
+    Object.entries(raw).filter(([key]) => !key.startsWith("verified_")),
+  );
+  const parsed = normalizedHeroSkillCardSchema.parse(rest);
+  return { ...parsed, ...annotations } as NormalizedHeroSkillCard;
+}
+
 export type NormalizedHeroSkillFile = z.infer<typeof normalizedHeroSkillFileSchema>;
 export type NormalizedMonsterMediumCard = z.infer<typeof normalizedMonsterMediumCardSchema>;
 export type NormalizedMonsterMediumFile = z.infer<typeof normalizedMonsterMediumFileSchema>;

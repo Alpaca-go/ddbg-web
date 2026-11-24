@@ -1,4 +1,4 @@
-import { normalizedHeroSkillCardSchema } from "../schema";
+import { parseAnnotatedHeroSkillCard } from "../schema";
 import type { NormalizedHeroSkillCard } from "../schema";
 import { heroSkillId } from "../../hero-registry";
 import type { IgnoresEntry, ShuffleEntry } from "./types";
@@ -72,6 +72,6 @@ export function applyTextRules(
         ];
       }
     }
-    return normalizedHeroSkillCardSchema.parse({ ...card, rules });
+    return parseAnnotatedHeroSkillCard({ ...card, rules });
   });
 }

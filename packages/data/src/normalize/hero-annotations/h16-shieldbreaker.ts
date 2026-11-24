@@ -1,7 +1,7 @@
+import { parseAnnotatedHeroSkillCard } from "../schema";
 import type { HeroAnnotationModule, ShuffleEntry, IgnoresEntry } from "./types";
 import { lineSignature } from "./shared";
 import type { NormalizedHeroSkillCard } from "../schema";
-import { normalizedHeroSkillCardSchema } from "../schema";
 import { cloneKey, iconFromCard, iconFromPool, segmentOnCard, text } from "./patch-helpers";
 import type { IconSegment } from "./patch-helpers";
 
@@ -50,7 +50,7 @@ function fixPierce(
   const shuffleMis = segmentOnCard(card, "d4329c2a97");
   const protection = iconFromCard(card, "protection");
   const healMis = segmentOnCard(card, "20ffe98e2d");
-  return normalizedHeroSkillCardSchema.parse({
+  return parseAnnotatedHeroSkillCard({
     ...card,
     effect_lines: [
       [selfEffects, text(" Self "), cloneKey(shuffleMis, "shuffle"), text(" Pull 1")],
@@ -87,7 +87,7 @@ function fixPuncture(
     (s): s is IconSegment => s.type === "icon" && s.icon.iconId === "b6afaa4d7b",
   );
   if (targetIcons.length < 2) throw new Error(`${card.id} Puncture Ignores/Pull 段缺失（R-048）`);
-  return normalizedHeroSkillCardSchema.parse({
+  return parseAnnotatedHeroSkillCard({
     ...card,
     effect_lines: [
       [selfEffects, text(" Self "), cloneKey(selfPullMis, "shuffle"), text(" Pull 1")],
@@ -125,7 +125,7 @@ function fixAddersKiss(
   const pushMis = segmentOnCard(card, "d4329c2a97");
   const targetEffects = iconFromCard(card, "target_effects");
   const blight = iconFromPool(cards, "blight");
-  return normalizedHeroSkillCardSchema.parse({
+  return parseAnnotatedHeroSkillCard({
     ...card,
     effect_lines: [
       [selfEffects, text(" Self "), cloneKey(pushMis, "shuffle"), text(" Push 1")],
@@ -171,7 +171,7 @@ function fixImpale(
   const pushMis = segmentOnCard(card, "d4329c2a97");
   const targetEffects = iconFromCard(card, "target_effects");
   const debuff = iconFromCard(card, "debuff");
-  return normalizedHeroSkillCardSchema.parse({
+  return parseAnnotatedHeroSkillCard({
     ...card,
     stats_line: statsLine,
     effect_lines: [
@@ -212,7 +212,7 @@ function fixExpose(
   const pushMis = segmentOnCard(card, "d4329c2a97");
   const targetEffects = iconFromCard(card, "target_effects");
   const debuff = iconFromCard(card, "debuff");
-  return normalizedHeroSkillCardSchema.parse({
+  return parseAnnotatedHeroSkillCard({
     ...card,
     effect_lines: [
       [selfEffects, text(" Self "), cloneKey(pushMis, "shuffle"), text(" Push 1")],
@@ -254,7 +254,7 @@ function fixCaptivate(
   const stats = card.stats_line!.map((segment) =>
     segment.type === "icon" && segment.icon.iconId === "b6afaa4d7b" ? damage : segment,
   );
-  return normalizedHeroSkillCardSchema.parse({
+  return parseAnnotatedHeroSkillCard({
     ...card,
     stats_line: stats,
     effect_lines: [
@@ -297,7 +297,7 @@ function fixSerpentSwaySelf(
   const selfEffects = iconFromCard(card, "self_effects");
   const protection = iconFromCard(card, "protection");
   const shuffle = iconFromPool(cards, "shuffle");
-  return normalizedHeroSkillCardSchema.parse({
+  return parseAnnotatedHeroSkillCard({
     ...card,
     stats_line: null,
     effect_lines: [
@@ -339,7 +339,7 @@ function fixSerpentSwayIii(
   const selfEffects = iconFromCard(card, "self_effects");
   const protection = iconFromCard(card, "protection");
   const shuffle = iconFromPool(cards, "shuffle");
-  return normalizedHeroSkillCardSchema.parse({
+  return parseAnnotatedHeroSkillCard({
     ...card,
     stats_line: header,
     effect_lines: [

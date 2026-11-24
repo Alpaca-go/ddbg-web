@@ -1,7 +1,7 @@
+import { parseAnnotatedHeroSkillCard } from "../schema";
 import type { HeroAnnotationModule, ShuffleEntry } from "./types";
 import { lineSignature } from "./shared";
 import type { NormalizedHeroSkillCard, Segment } from "../schema";
-import { normalizedHeroSkillCardSchema } from "../schema";
 import { cloneKey, iconFromCard, iconFromPool, segmentOnCardAll, text } from "./patch-helpers";
 import type { IconSegment } from "./patch-helpers";
 
@@ -59,7 +59,7 @@ function fixRampart(
   const shuffle = iconFromCard(card, "shuffle");
   const selfEffects = iconFromCard(card, "self_effects");
   const pullMis = segmentOnCardAll(card, "d4329c2a97");
-  return normalizedHeroSkillCardSchema.parse({
+  return parseAnnotatedHeroSkillCard({
     ...card,
     effect_lines: [
       [targetEffects, text(" "), stun, text(" 1t, "), shuffle, text(` ${pushDist}`)],
@@ -96,7 +96,7 @@ function fixBellow(
   if (effSig !== `{target_effects}{debuff}${debuffT}t`)
     throw new Error(`${card.id} Bellow 效果行漂移`);
   const targetMonster = iconFromPool(cards, "target_monster");
-  return normalizedHeroSkillCardSchema.parse({
+  return parseAnnotatedHeroSkillCard({
     ...card,
     stats_line: card.stats_line!.map((segment) =>
       segment.type === "icon" && segment.icon.key === "target_hero" ? targetMonster : segment,
@@ -135,7 +135,7 @@ function fixDefender(
   const riposteMis = segmentOnCardAll(card, "a0290ad4ce");
   const shuffleMis = segmentOnCardAll(card, "ac56561b87");
   iconFromPool(cards, "protection");
-  return normalizedHeroSkillCardSchema.parse({
+  return parseAnnotatedHeroSkillCard({
     ...card,
     stats_line: null,
     effect_lines: [
@@ -178,7 +178,7 @@ function fixRetribution(
   const selfEffects = iconFromCard(card, "self_effects");
   const stressMis = segmentOnCardAll(card, "9d58d3d431");
   const markMis = segmentOnCardAll(card, "1ce58a493c");
-  return normalizedHeroSkillCardSchema.parse({
+  return parseAnnotatedHeroSkillCard({
     ...card,
     effect_lines: [
       [selfEffects, text(" Self "), cloneKey(stressMis, "mark"), text(` ${markT}t`)],
@@ -231,7 +231,7 @@ function fixCommand(
     if (i > 0) header.push(text(" "));
     header.push(targetHero);
   }
-  return normalizedHeroSkillCardSchema.parse({
+  return parseAnnotatedHeroSkillCard({
     ...card,
     stats_line: null,
     effect_lines: [
@@ -285,7 +285,7 @@ function fixBolster(
       rawSigs[1] !== "{shuffle}{skill_art}-1"
     )
       throw new Error(`${card.id} Bolster II 效果行漂移（R-048）`);
-    return normalizedHeroSkillCardSchema.parse({
+    return parseAnnotatedHeroSkillCard({
       ...card,
       effect_lines: [
         [selfEffects, text(" Self "), stressIcon, text(" -1")],
@@ -306,7 +306,7 @@ function fixBolster(
       rawSigs[1] !== "{shuffle}{skill_art}-1"
     )
       throw new Error(`${card.id} Bolster III 效果行漂移（R-048）`);
-    return normalizedHeroSkillCardSchema.parse({
+    return parseAnnotatedHeroSkillCard({
       ...card,
       effect_lines: [
         [selfEffects, text(" Self "), stressIcon, text(" -1")],
@@ -324,7 +324,7 @@ function fixBolster(
     rawSigs[1] !== "{shuffle}{skill_art}-1"
   )
     throw new Error(`${card.id} Bolster I 效果行漂移（R-048）`);
-  return normalizedHeroSkillCardSchema.parse({
+  return parseAnnotatedHeroSkillCard({
     ...card,
     stats_line: card.stats_line,
     effect_lines: [

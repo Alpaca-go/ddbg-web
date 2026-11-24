@@ -1,7 +1,7 @@
+import { parseAnnotatedHeroSkillCard } from "../schema";
 import type { HeroAnnotationModule, StatusEffectEntry, RangeEntry } from "./types";
 import { lineSignature } from "./shared";
 import type { NormalizedHeroSkillCard, Segment } from "../schema";
-import { normalizedHeroSkillCardSchema } from "../schema";
 import { cloneKey, iconFromCard, iconFromPool, segmentOnCard, text } from "./patch-helpers";
 
 /** 完整印刷逐页核对的状态效果行（docs/phase2-four-core-skills-2026-10-11.md）。 */
@@ -279,7 +279,7 @@ function fixPunishFamily(
   const targetEffects = iconFromPool(pool, "target_effects");
   const bleed = iconFromPool(pool, "bleed");
   const debuff = iconFromPool(pool, "debuff");
-  return normalizedHeroSkillCardSchema.parse({
+  return parseAnnotatedHeroSkillCard({
     ...card,
     stats_line: fixStatsDamageBuff(card, expectedStats),
     effect_lines: [
@@ -306,7 +306,7 @@ function fixRainFamily(
   const condSig = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
   if (condSig !== `{blight}{buff}+${actorBonus}ifFlagellanthas{stun}{mark},`)
     throw new Error(`${card.id} Rain 条件行漂移（R-048）`);
-  return normalizedHeroSkillCardSchema.parse({
+  return parseAnnotatedHeroSkillCard({
     ...card,
     stats_line: fixStatsDamageBuff(card, expectedStats),
     effect_lines: [
@@ -341,7 +341,7 @@ function fixExsanguinate(
   const bleed = iconFromPool(pool, "bleed");
   const debuff = iconFromPool(pool, "debuff");
   const targetEffects = iconFromPool(pool, "target_effects");
-  return normalizedHeroSkillCardSchema.parse({
+  return parseAnnotatedHeroSkillCard({
     ...card,
     effect_lines: [
       [selfEffects, text(" Self "), heal, text(` ${selfHeal}, `), debuff, text(" 1t")],
@@ -382,14 +382,14 @@ function fixReclaim(
   const selfEffects = iconFromCard(card, "self_effects");
   if (!selfHeal) {
     const bleed = iconFromPool(pool, "bleed");
-    return normalizedHeroSkillCardSchema.parse({
+    return parseAnnotatedHeroSkillCard({
       ...card,
       stats_line: stats,
       effect_lines: [[selfEffects, text(" Self 1 "), bleed, text(" 3t")]],
     });
   }
   const bleedMis = segmentOnCard(card, "ac56561b87");
-  return normalizedHeroSkillCardSchema.parse({
+  return parseAnnotatedHeroSkillCard({
     ...card,
     stats_line: stats,
     effect_lines: [
@@ -425,7 +425,7 @@ function fixEndure(
     targetHero,
     text(` Crit ${spec.crit} Acc ${spec.acc}`),
   ];
-  return normalizedHeroSkillCardSchema.parse({
+  return parseAnnotatedHeroSkillCard({
     ...card,
     printed_labels: [
       { label: "Crit", raw: `Crit ${spec.crit}`, value: spec.crit },
@@ -458,7 +458,7 @@ function fixRedeem(
   const heal = iconFromPool(pool, "heal");
   const targetEffects = iconFromCard(card, "target_effects");
   const debuff = iconFromPool(pool, "debuff");
-  return normalizedHeroSkillCardSchema.parse({
+  return parseAnnotatedHeroSkillCard({
     ...card,
     stats_line: null,
     effect_lines: [
@@ -501,7 +501,7 @@ function fixSuffer(
     blight,
   ];
   const transferSignature = lineSignature(transferLine).replace(/\s+/g, "");
-  return normalizedHeroSkillCardSchema.parse({
+  return parseAnnotatedHeroSkillCard({
     ...card,
     stats_line: null,
     effect_lines: [

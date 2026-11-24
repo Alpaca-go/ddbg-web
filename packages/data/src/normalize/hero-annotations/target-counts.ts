@@ -1,4 +1,4 @@
-import { normalizedHeroSkillCardSchema } from "../schema";
+import { parseAnnotatedHeroSkillCard } from "../schema";
 import type { NormalizedHeroSkillCard } from "../schema";
 import { heroSkillId } from "../../hero-registry";
 import type { TargetCountEntry } from "./types";
@@ -92,6 +92,6 @@ export function applyTargetCounts(
         heroOrMonster: entry.heroOrMonster,
       },
     };
-    return normalizedHeroSkillCardSchema.parse({ ...card, rules });
+    return parseAnnotatedHeroSkillCard({ ...card, rules });
   });
 }

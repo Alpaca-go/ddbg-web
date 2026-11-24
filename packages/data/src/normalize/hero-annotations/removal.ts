@@ -1,4 +1,4 @@
-import { normalizedHeroSkillCardSchema } from "../schema";
+import { parseAnnotatedHeroSkillCard } from "../schema";
 import type { NormalizedHeroSkillCard } from "../schema";
 import { heroSkillId } from "../../hero-registry";
 import type { RemovalEntry } from "./types";
@@ -129,6 +129,6 @@ export function applyRemoval(
         kinds: [...entry.kinds],
       })),
     };
-    return normalizedHeroSkillCardSchema.parse({ ...card, rules });
+    return parseAnnotatedHeroSkillCard({ ...card, rules });
   });
 }

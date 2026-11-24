@@ -1,4 +1,4 @@
-import { normalizedHeroSkillCardSchema } from "../schema";
+import { parseAnnotatedHeroSkillCard } from "../schema";
 import type { NormalizedHeroSkillCard, Segment } from "../schema";
 import { legacyHeroSkillId } from "../../hero-registry";
 import type { BountyStatusRow } from "./types";
@@ -44,7 +44,7 @@ export function applyBountyStatuses(
             n.anchor.inside_icon?.key === "damage")),
     );
     if (hit.length !== 1) throw new Error("Collect Bounty II 命中伤害来源漂移（R-141）");
-    return normalizedHeroSkillCardSchema.parse({
+    return parseAnnotatedHeroSkillCard({
       ...card,
       printed_labels: card.printed_labels.map((l) => (l.label === "Acc" ? { ...l, value: 10 } : l)),
       unlabeled_numbers: card.unlabeled_numbers.map((n) =>
@@ -134,7 +134,7 @@ export function applyBountyStatuses(
         throw new Error("Mark for Death I区间射程漂移（R-089）");
     }
     if (card.rules?.statuses) return card;
-    return normalizedHeroSkillCardSchema.parse({
+    return parseAnnotatedHeroSkillCard({
       ...card,
       effect_lines,
       verified_status_effects,

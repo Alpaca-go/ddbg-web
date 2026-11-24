@@ -1,7 +1,7 @@
+import { parseAnnotatedHeroSkillCard } from "../schema";
 import type { HeroAnnotationModule, StatusEffectEntry, ShuffleEntry } from "./types";
 import { lineSignature } from "./shared";
 import type { NormalizedHeroSkillCard } from "../schema";
-import { normalizedHeroSkillCardSchema } from "../schema";
 import { cloneKey, iconFromCard, iconFromPool, segmentOnCardAll, text } from "./patch-helpers";
 import type { IconSegment } from "./patch-helpers";
 
@@ -299,7 +299,7 @@ function fixGetDown(
   const selfEffects = iconFromCard(card, "self_effects");
   const buff = iconFromCard(card, "buff");
   const shuffle = iconFromCard(card, "shuffle");
-  return normalizedHeroSkillCardSchema.parse({
+  return parseAnnotatedHeroSkillCard({
     ...card,
     stats_line: null,
     verified_self_range: true,
@@ -350,7 +350,7 @@ function applyAntiquarianAnnotations(
         const amount = level === 3 ? 3 : 2;
         const duration = level === 1 ? 2 : 3;
         const debuffDuration = level === 1 ? 1 : 2;
-        return normalizedHeroSkillCardSchema.parse({
+        return parseAnnotatedHeroSkillCard({
           ...card,
           effect_lines: [
             [
@@ -384,7 +384,7 @@ function applyAntiquarianAnnotations(
         const misDebuff = line.find((s) => s.type === "icon" && s.icon.key === "buff");
         if (misStun?.type !== "icon" || misDebuff?.type !== "icon")
           throw new Error(`${card.id} Flashpowder I 状态段漂移`);
-        return normalizedHeroSkillCardSchema.parse({
+        return parseAnnotatedHeroSkillCard({
           ...card,
           effect_lines: [
             [
@@ -411,7 +411,7 @@ function applyAntiquarianAnnotations(
         });
         const selfEffects = iconFromCard(card, "self_effects");
         const buff = iconFromCard(card, "buff");
-        return normalizedHeroSkillCardSchema.parse({
+        return parseAnnotatedHeroSkillCard({
           ...card,
           stats_line: stats,
           verified_self_heal: { lineIndex: 0, amount: 1, source: "print_front" },
@@ -447,7 +447,7 @@ function applyAntiquarianAnnotations(
         )
           throw new Error(`${card.id} Invigorating I 效果行漂移（R-048）`);
         const buff = iconFromCard(card, "buff");
-        return normalizedHeroSkillCardSchema.parse({
+        return parseAnnotatedHeroSkillCard({
           ...card,
           stats_line: null,
           effect_lines: [
@@ -465,7 +465,7 @@ function applyAntiquarianAnnotations(
         const mark = iconFromCard(card, "mark");
         const lightMis = segmentOnCardAll(card, "9ffbd6087a");
         const dmgMis = segmentOnCardAll(card, "8d4bbe5e11");
-        return normalizedHeroSkillCardSchema.parse({
+        return parseAnnotatedHeroSkillCard({
           ...card,
           stats_line: null,
           effect_lines: [
@@ -513,7 +513,7 @@ function applyAntiquarianAnnotations(
         const misDebuff = line.find((s) => s.type === "icon" && s.icon.key === "buff");
         if (misStun?.type !== "icon" || misDebuff?.type !== "icon")
           throw new Error(`${card.id} Flashpowder II 状态段漂移`);
-        return normalizedHeroSkillCardSchema.parse({
+        return parseAnnotatedHeroSkillCard({
           ...card,
           effect_lines: [
             [
@@ -539,7 +539,7 @@ function applyAntiquarianAnnotations(
         const misDebuff = line.find((s) => s.type === "icon" && s.icon.key === "buff");
         if (dupes.length < 1 || misDebuff?.type !== "icon")
           throw new Error(`${card.id} Flashpowder III 行漂移`);
-        return normalizedHeroSkillCardSchema.parse({
+        return parseAnnotatedHeroSkillCard({
           ...card,
           effect_lines: [
             [
@@ -574,7 +574,7 @@ function applyAntiquarianAnnotations(
         });
         const selfEffects = iconFromCard(card, "self_effects");
         const buff = iconFromCard(card, "buff");
-        return normalizedHeroSkillCardSchema.parse({
+        return parseAnnotatedHeroSkillCard({
           ...card,
           stats_line: stats,
           verified_self_heal: { lineIndex: 0, amount: selfHeal, source: "print_front" },
@@ -608,7 +608,7 @@ function applyAntiquarianAnnotations(
         if (JSON.stringify(rawSigs) !== JSON.stringify(expected))
           throw new Error(`${card.id} Invigorating II 效果行漂移（R-048）`);
         const buff = iconFromCard(card, "buff");
-        return normalizedHeroSkillCardSchema.parse({
+        return parseAnnotatedHeroSkillCard({
           ...card,
           stats_line: null,
           effect_lines: [
@@ -629,7 +629,7 @@ function applyAntiquarianAnnotations(
         if (JSON.stringify(rawSigs) !== JSON.stringify(expected))
           throw new Error(`${card.id} Invigorating III 效果行漂移（R-048）`);
         const buff = iconFromCard(card, "buff");
-        return normalizedHeroSkillCardSchema.parse({
+        return parseAnnotatedHeroSkillCard({
           ...card,
           stats_line: null,
           effect_lines: [
@@ -656,7 +656,7 @@ function applyAntiquarianAnnotations(
         const lightMis = segmentOnCardAll(card, "9ffbd6087a");
         const dmgMis = segmentOnCardAll(card, "8d4bbe5e11");
         const targetEffects = iconFromCard(card, "target_effects");
-        return normalizedHeroSkillCardSchema.parse({
+        return parseAnnotatedHeroSkillCard({
           ...card,
           stats_line: null,
           effect_lines: [
@@ -687,7 +687,7 @@ function applyAntiquarianAnnotations(
         const lightMis = segmentOnCardAll(card, "9ffbd6087a");
         const markMis = segmentOnCardAll(card, "9d58d3d431");
         const targetEffects = iconFromCard(card, "target_effects");
-        return normalizedHeroSkillCardSchema.parse({
+        return parseAnnotatedHeroSkillCard({
           ...card,
           stats_line: null,
           effect_lines: [

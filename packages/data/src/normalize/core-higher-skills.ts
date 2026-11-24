@@ -1,5 +1,5 @@
+import { parseAnnotatedHeroSkillCard } from "./schema";
 import { CORE_HIGHER_SKILL_ROWS } from "./hero-annotations";
-import { normalizedHeroSkillCardSchema } from "./schema";
 import type { NormalizedHeroSkillCard } from "./schema";
 import { legacyHeroSkillId } from "../hero-registry";
 import { lineSignature } from "./hero-annotations/shared";
@@ -29,6 +29,6 @@ export function attachCoreHigherSkills(cards: readonly NormalizedHeroSkillCard[]
         );
       return [card.effect_lines[0]![0]!, { type: "text" as const, text: " " }, ...line];
     });
-    return normalizedHeroSkillCardSchema.parse({ ...card, ...row.flags, effect_lines });
+    return parseAnnotatedHeroSkillCard({ ...card, ...row.flags, effect_lines });
   });
 }

@@ -1,3 +1,4 @@
+import { parseAnnotatedHeroSkillCard } from "../schema";
 import type {
   HeroAnnotationModule,
   HeroSkillPatch,
@@ -16,7 +17,6 @@ import {
 import type { IconSegment } from "./patch-helpers";
 import { lineSignature } from "./shared";
 import type { NormalizedHeroSkillCard } from "../schema";
-import { normalizedHeroSkillCardSchema } from "../schema";
 
 /** 完整印刷逐页核对的状态效果行（docs/phase2-four-core-skills-2026-10-11.md）。 */
 export const statusEntries: readonly StatusEffectEntry[] = [
@@ -197,12 +197,12 @@ function purge(page: number): HeroSkillPatch {
         ...card,
         effect_lines: [[selfEffects, text(" Self "), buff, text(" 2t")], card.effect_lines[1]!],
       };
-      if (page !== 282) return normalizedHeroSkillCardSchema.parse(base);
+      if (page !== 282) return parseAnnotatedHeroSkillCard(base);
       const stats = card.stats_line;
       const statsSig = stats ? lineSignature(stats).replace(/\s+/g, "") : "";
       if (statsSig !== "{range}0{target_monster}Crit0{heal}19Acc11{heal}12")
         throw new Error(`${card.id} Purge III stats_line 漂移（R-048）`);
-      return normalizedHeroSkillCardSchema.parse({
+      return parseAnnotatedHeroSkillCard({
         ...base,
         stats_line: stats!.map((segment) =>
           segment.type === "icon" && segment.icon.key === "heal"
@@ -230,7 +230,7 @@ function revenge(page: number): HeroSkillPatch {
       const leadHeal = line[0];
       if (leadHeal?.type !== "icon" || leadHeal.icon.iconId !== "20ffe98e2d")
         throw new Error(`${card.id} Revenge 行首误 heal 段漂移（R-048）`);
-      return normalizedHeroSkillCardSchema.parse({
+      return parseAnnotatedHeroSkillCard({
         ...card,
         effect_lines: [[cloneKey(leadHeal, "target_effects"), ...line.slice(1)]],
       });
@@ -255,7 +255,7 @@ function withstand(cards: readonly NormalizedHeroSkillCard[], page: number): Her
       const protection = iconFromCard(card, "protection");
       const mark = iconFromCard(card, "mark");
       const rangeIcon = iconFromPool(cards, "range");
-      return normalizedHeroSkillCardSchema.parse({
+      return parseAnnotatedHeroSkillCard({
         ...card,
         stats_line: null,
         verified_self_range: true,
@@ -288,7 +288,7 @@ function solemnity(cards: readonly NormalizedHeroSkillCard[], page: number): Her
       const shuffleMisread = segmentOnCardInEffects(card, "f18923574c");
       const rangeIcon = iconFromPool(cards, "range");
       const stressIcon = iconFromPool(cards, "stress");
-      return normalizedHeroSkillCardSchema.parse({
+      return parseAnnotatedHeroSkillCard({
         ...card,
         stats_line: [rangeIcon, text(" Self")],
         verified_self_heal: { lineIndex: 0, amount: heal, source: "print_front" },
@@ -356,7 +356,7 @@ function intimidate(cards: readonly NormalizedHeroSkillCard[], page: number): He
       const debuff = iconFromPool(cards, "debuff");
       const targetEffectsIcon = iconFromPool(cards, "target_effects");
       // 印刷签名闸仍用提取键 `{light}`（9ffbd6087a）；折角箭头非光照，不入结算段（Q-164）。
-      return normalizedHeroSkillCardSchema.parse({
+      return parseAnnotatedHeroSkillCard({
         ...card,
         effect_lines: [
           [selfEffects, text(" Self "), cloneKey(markMisread, "mark"), text(` ${markT}t`)],

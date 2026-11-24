@@ -1,3 +1,4 @@
+import { parseAnnotatedHeroSkillCard } from "../schema";
 import type {
   HeroAnnotationModule,
   StatusEffectEntry,
@@ -8,7 +9,6 @@ import type {
 } from "./types";
 import { lineSignature } from "./shared";
 import type { NormalizedHeroSkillCard } from "../schema";
-import { normalizedHeroSkillCardSchema } from "../schema";
 import { cloneKey, iconFromCard, iconFromPool, segmentOnCard, text } from "./patch-helpers";
 
 /** 完整印刷逐页核对的状态效果行（docs/phase2-four-core-skills-2026-10-11.md）。 */
@@ -204,7 +204,7 @@ function fixAimedShot(
   const damageMis = segmentOnCard(card, "f18923574c");
   iconFromPool(cards, "damage");
   const markMis = segmentOnCard(card, "98edfaca0a");
-  const parsed = normalizedHeroSkillCardSchema.parse({
+  const parsed = parseAnnotatedHeroSkillCard({
     ...card,
     effect_lines: [
       [
@@ -217,7 +217,7 @@ function fixAimedShot(
     ],
   });
   if (level > 1) {
-    return normalizedHeroSkillCardSchema.parse({
+    return parseAnnotatedHeroSkillCard({
       ...parsed,
       verified_damage_bonus: {
         lineIndex: 0,
@@ -251,7 +251,7 @@ function fixSmokescreenDebuff(
   const targetEffects = iconFromPool(cards, "target_effects");
   const debuff = iconFromPool(cards, "debuff");
   segmentOnCard(card, misIconId);
-  const parsed = normalizedHeroSkillCardSchema.parse({
+  const parsed = parseAnnotatedHeroSkillCard({
     ...card,
     effect_lines: [[targetEffects, text(" "), debuff, text(` ${debuffT}t`)]],
   });
@@ -292,7 +292,7 @@ function fixCallTheShot(
   const targetEffects = iconFromPool(cards, "target_effects");
   const markMis = segmentOnCard(card, "f70a42e51f");
   iconFromPool(cards, "mark");
-  const parsed = normalizedHeroSkillCardSchema.parse({
+  const parsed = parseAnnotatedHeroSkillCard({
     ...card,
     effect_lines: [[targetEffects, text(" "), cloneKey(markMis, "mark"), text(` ${markT}t`)]],
   });
@@ -341,7 +341,7 @@ function fixBuckshot(
   iconFromPool(cards, "shuffle");
   const targetEffects = iconFromPool(cards, "target_effects");
   const targetShuffle = segmentOnCard(card, "1fd9f6ec6d");
-  return normalizedHeroSkillCardSchema.parse({
+  return parseAnnotatedHeroSkillCard({
     ...card,
     effect_lines: [
       [selfEffects, text(" Self "), cloneKey(pushMis, "shuffle"), text(` Push ${selfPush}`)],
@@ -370,7 +370,7 @@ function fixSidearm(
   const selfEffects = iconFromCard(card, "self_effects");
   const shuffleMis = segmentOnCard(card, "f18923574c");
   iconFromPool(cards, "shuffle");
-  const parsed = normalizedHeroSkillCardSchema.parse({
+  const parsed = parseAnnotatedHeroSkillCard({
     ...card,
     effect_lines: [
       [selfEffects, text(" Self "), cloneKey(shuffleMis, "shuffle"), text(` Push ${push}`)],
@@ -414,7 +414,7 @@ function fixPatchUp(
           ],
         }
       : {};
-  return normalizedHeroSkillCardSchema.parse({
+  return parseAnnotatedHeroSkillCard({
     ...card,
     stats_line: statsLine,
     effect_lines: [[selfEffects, text(" Self "), cloneKey(buffMis, "buff"), text(" 2t")]],
@@ -450,7 +450,7 @@ function fixSkeetEffectLines(
   iconFromPool(cards, "shuffle");
   const targetMonster = iconFromPool(cards, "target_monster");
   const debuff = iconFromPool(cards, "debuff");
-  return normalizedHeroSkillCardSchema.parse({
+  return parseAnnotatedHeroSkillCard({
     ...card,
     effect_lines: [
       [

@@ -1,5 +1,5 @@
+import { parseAnnotatedHeroSkillCard } from "../schema";
 import type { NormalizedHeroSkillCard } from "../schema";
-import { normalizedHeroSkillCardSchema } from "../schema";
 import { lineSignature } from "./shared";
 import type { StatusEffectEntry } from "./types";
 
@@ -98,7 +98,7 @@ export function applyStatusEffects(
     if (card.rules?.statuses) return card;
     const effects = annotations.get(card.id);
     return effects
-      ? normalizedHeroSkillCardSchema.parse({
+      ? parseAnnotatedHeroSkillCard({
           ...card,
           verified_status_effects: effects,
           ...(entries.some((e) => e.id === card.id && e.headerSignature !== undefined)

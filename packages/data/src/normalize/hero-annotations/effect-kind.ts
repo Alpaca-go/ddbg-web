@@ -1,4 +1,4 @@
-import { normalizedHeroSkillCardSchema } from "../schema";
+import { parseAnnotatedHeroSkillCard } from "../schema";
 import type { NormalizedHeroSkillCard } from "../schema";
 import { heroSkillId } from "../../hero-registry";
 
@@ -41,6 +41,6 @@ export function applyEffectKind(
     if (expected === null || expected !== entry.effect)
       throw new Error(`${card.id} 主效果与已确认 stats 图标不符（R-048）`);
     const rules = { ...(card.rules ?? {}), effect: entry.effect };
-    return normalizedHeroSkillCardSchema.parse({ ...card, rules });
+    return parseAnnotatedHeroSkillCard({ ...card, rules });
   });
 }

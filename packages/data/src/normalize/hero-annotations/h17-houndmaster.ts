@@ -1,7 +1,7 @@
+import { parseAnnotatedHeroSkillCard } from "../schema";
 import type { HeroAnnotationModule } from "./types";
 import { lineSignature } from "./shared";
 import type { NormalizedHeroSkillCard, Segment } from "../schema";
-import { normalizedHeroSkillCardSchema } from "../schema";
 import { cloneKey, iconFromCard, iconFromPool, segmentOnCard, text } from "./patch-helpers";
 import type { IconSegment } from "./patch-helpers";
 
@@ -61,7 +61,7 @@ function fixHoundsRush(
   const selfArrow = cloneKey(segmentOnCard(card, "1ff34c908b"), "self_effects");
   const targetEffects = iconFromCard(card, "target_effects");
   const bleed = iconFromPool([card], "bleed");
-  return normalizedHeroSkillCardSchema.parse({
+  return parseAnnotatedHeroSkillCard({
     ...card,
     effect_lines: [
       [selfArrow, text(" Self "), cloneKey(markMis, "buff"), text(` ${markT}t`)],
@@ -100,7 +100,7 @@ function fixHoundsHarry(
   const targetEffects = iconFromCard(card, "target_effects");
   const bleed = iconFromPool([card], "bleed");
   const targetMonster = iconFromPool(cards, "target_monster");
-  return normalizedHeroSkillCardSchema.parse({
+  return parseAnnotatedHeroSkillCard({
     ...card,
     stats_line: card.stats_line!.map((segment) =>
       segment.type === "icon" && segment.icon.key === "target_hero" ? targetMonster : segment,
@@ -145,7 +145,7 @@ function fixTargetWhistle(
       ? cloneKey(lead, "target_effects")
       : iconFromCard(card, "target_effects");
   const accValue = card.printed_labels.find((l) => l.label === "Acc")?.value;
-  return normalizedHeroSkillCardSchema.parse({
+  return parseAnnotatedHeroSkillCard({
     ...card,
     stats_line: [
       rangeIcon,
@@ -206,7 +206,7 @@ function fixCryHavoc(
   }
   statsHeader.push(text(` ${accRaw}`));
   const anchors = [stressDeltaAnchor(stressIcon, -1), stressDeltaAnchor(stressIcon, selfStress)];
-  return normalizedHeroSkillCardSchema.parse({
+  return parseAnnotatedHeroSkillCard({
     ...card,
     stats_line: statsHeader,
     effect_lines: [
@@ -247,7 +247,7 @@ function fixGuardDog(
   const rangeIcon = iconFromCard(card, "range");
   const selfEffects = iconFromCard(card, "self_effects");
   const protection = iconFromCard(card, "protection");
-  return normalizedHeroSkillCardSchema.parse({
+  return parseAnnotatedHeroSkillCard({
     ...card,
     stats_line: null,
     effect_lines: [
@@ -295,7 +295,7 @@ function fixLickWounds(
   const heal = iconFromPool([card], "heal");
   const critValue = card.printed_labels.find((l) => l.label === "Crit")?.value ?? 2;
   const accValue = card.printed_labels.find((l) => l.label === "Acc")?.value ?? 20;
-  return normalizedHeroSkillCardSchema.parse({
+  return parseAnnotatedHeroSkillCard({
     ...card,
     stats_line: [
       rangeIcon,
@@ -325,7 +325,7 @@ function fixBlackjack(
     throw new Error(`${card.id} Blackjack 效果行漂移（R-048）`);
   const targetEffects = iconFromCard(card, "target_effects");
   const stunMis = segmentOnCard(card, "763ad8e857");
-  return normalizedHeroSkillCardSchema.parse({
+  return parseAnnotatedHeroSkillCard({
     ...card,
     effect_lines: [[targetEffects, text(" "), cloneKey(stunMis, "stun"), text(" 1t")]],
     verified_status_effects: [

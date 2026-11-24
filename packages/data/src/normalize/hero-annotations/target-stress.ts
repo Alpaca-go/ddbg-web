@@ -1,4 +1,4 @@
-import { normalizedHeroSkillCardSchema } from "../schema";
+import { parseAnnotatedHeroSkillCard } from "../schema";
 import type { NormalizedHeroSkillCard } from "../schema";
 import { heroSkillId } from "../../hero-registry";
 import type { TargetStressEntry } from "./types";
@@ -47,6 +47,6 @@ export function applyTargetStress(
         },
       };
     }
-    return normalizedHeroSkillCardSchema.parse({ ...card, ...fields });
+    return parseAnnotatedHeroSkillCard({ ...card, ...fields });
   });
 }
