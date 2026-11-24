@@ -31,11 +31,11 @@ it("Q-185：Musketeer 与 Arbalest 七族 L1–III 效果与 verified_* 对齐",
       const arb = pick(cards, "ARBALEST", arbName, level);
       const msk = pick(cards, "MUSKETEER", mskName, level);
       expect(msk.effect_lines.map(lineSignature)).toEqual(arb.effect_lines.map(lineSignature));
-      expect(msk.verified_range ?? null).toEqual(arb.verified_range ?? null);
-      expect(msk.verified_damage_bonus ?? null).toEqual(arb.verified_damage_bonus ?? null);
-      expect(msk.verified_status_effects ?? null).toEqual(arb.verified_status_effects ?? null);
-      const arbFlare = arb.verified_rallying_flare ?? null;
-      const mskFlare = msk.verified_rallying_flare ?? null;
+      expect(msk.rules?.range ?? null).toEqual(arb.rules?.range ?? null);
+      expect(msk.rules?.damage ?? null).toEqual(arb.rules?.damage ?? null);
+      expect(msk.rules?.statuses ?? null).toEqual(arb.rules?.statuses ?? null);
+      const arbFlare = arb.rules?.rallyingFlare ?? null;
+      const mskFlare = msk.rules?.rallyingFlare ?? null;
       if (arbFlare) {
         expect(mskFlare).toMatchObject({
           cleanupSignature: arbFlare.cleanupSignature,

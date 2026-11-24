@@ -70,15 +70,15 @@ describe("Weald I 级普通怪物规范化（W3 / 核心 R24 / Q-186）", () => 
       expect(card.verification.unverified).toBe(true);
       expect(card.verification.reasons.length).toBeGreaterThan(0);
       if (!("skills" in card)) continue;
-      expect(card.verified_weald_profile?.ruling).toBe("R-232");
-      expect(card.verified_weald_profile?.immunities).toEqual([]);
+      expect(card.rules?.wealdProfile?.ruling).toBe("R-232");
+      expect(card.rules?.wealdProfile?.immunities).toEqual([]);
       expect(card.speed).toBeGreaterThan(0);
       expect(card.stanceGroups).toBeDefined();
       for (const skill of card.skills) {
         expect(skill).not.toHaveProperty("verified_damage");
         expect(skill).not.toHaveProperty("verified_range");
         expect(skill).not.toHaveProperty("verified_monster_effects");
-        expect(skill.verified_weald_attack?.ruling).toBe("R-230");
+        expect(skill.rules?.wealdAttack?.ruling).toBe("R-230");
       }
     }
   });

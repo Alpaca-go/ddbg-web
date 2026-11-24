@@ -17,7 +17,7 @@ const adder = card("monster_large:p004");
 
 /** Q-163：R-196 补齐 Speed/选招后，DL3 三张普通怪八招按 FRONT 面逐招接入。 */
 it("DL3 三怪八招效果计划与印刷整行一致", () => {
-  expect(raider.skills.map((skill) => skill.verified_monster_effects?.effects)).toEqual([
+  expect(raider.skills.map((skill) => skill.rules?.effects?.effects)).toEqual([
     [{ type: "status", scope: "target", kind: "debuff", duration: 2 }],
     [{ type: "status", scope: "target", kind: "bleed", amount: 3, duration: 2 }],
     [
@@ -25,14 +25,14 @@ it("DL3 三怪八招效果计划与印刷整行一致", () => {
       { type: "shuffle", scope: "self", direction: "pull", distance: 1 },
     ],
   ]);
-  expect(hunter.skills.map((skill) => skill.verified_monster_effects?.effects)).toEqual([
+  expect(hunter.skills.map((skill) => skill.rules?.effects?.effects)).toEqual([
     [
       { type: "status", scope: "target", kind: "debuff", duration: 2 },
       { type: "stress", scope: "target", amount: 1 },
     ],
     [{ type: "shuffle", scope: "self", direction: "push", distance: 1 }],
   ]);
-  expect(adder.skills.map((skill) => skill.verified_monster_effects?.effects)).toEqual([
+  expect(adder.skills.map((skill) => skill.rules?.effects?.effects)).toEqual([
     [{ type: "status", scope: "target", kind: "blight", amount: 3, duration: 4 }],
     [{ type: "status", scope: "target", kind: "stun", duration: 1 }],
     [

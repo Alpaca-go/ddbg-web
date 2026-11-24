@@ -92,8 +92,8 @@ describe("Mammoth Cyst Acc 最小结算", () => {
       (entry) => entry.id === MAMMOTH_CYST_COMBAT_MONSTER_CARD_ID,
     )!;
     expect(
-      card.skills.find((skill) => skill.slot === MAMMOTH_BULGING_GAZE_SKILL_SLOT)
-        ?.verified_monster_effects?.effects,
+      card.skills.find((skill) => skill.slot === MAMMOTH_BULGING_GAZE_SKILL_SLOT)?.rules?.effects
+        ?.effects,
     ).toEqual([
       { type: "status", scope: "target", kind: "debuff", duration: 1 },
       { type: "stress", scope: "target", amount: 1 },
@@ -200,8 +200,8 @@ describe("Mammoth Cyst Acc 最小结算", () => {
       (entry) => entry.id === MAMMOTH_CYST_COMBAT_MONSTER_CARD_ID,
     )!;
     expect(
-      card.skills.find((skill) => skill.slot === MAMMOTH_DIGESTION_SKILL_SLOT)
-        ?.verified_monster_effects?.effects,
+      card.skills.find((skill) => skill.slot === MAMMOTH_DIGESTION_SKILL_SLOT)?.rules?.effects
+        ?.effects,
     ).toEqual([{ type: "status", scope: "target", kind: "blight", amount: 3, duration: 2 }]);
 
     let cursor = 0;
@@ -290,8 +290,8 @@ describe("Mammoth Cyst Acc 最小结算", () => {
       (entry) => entry.id === MAMMOTH_CYST_COMBAT_MONSTER_CARD_ID,
     )!;
     expect(
-      card.skills.find((skill) => skill.slot === MAMMOTH_REVIVIFY_SKILL_SLOT)
-        ?.verified_monster_effects?.effects,
+      card.skills.find((skill) => skill.slot === MAMMOTH_REVIVIFY_SKILL_SLOT)?.rules?.effects
+        ?.effects,
     ).toEqual([
       { type: "status", scope: "self", kind: "buff", duration: 2 },
       { type: "heal", scope: "self", amount: 15 },

@@ -182,11 +182,10 @@ describe("已选怪物攻击的纯结算（R19–21）", () => {
     const legacy = {
       ...original,
       skills: original.skills.map((skill) => {
-        const { verified_target_stress, verified_monster_effects, rules, ...without } = skill;
+        const { rules, ...without } = skill;
         const { effects: _planEffects, target, ...rulesRest } = rules ?? {};
         const { stress: _ruleStress, ...targetRest } = target ?? {};
-        if (skill.slot === 1) expect(verified_target_stress).toBeDefined();
-        void verified_monster_effects;
+        if (skill.slot === 1) expect(skill.rules?.target?.stress).toBeDefined();
         void _planEffects;
         void _ruleStress;
         return {

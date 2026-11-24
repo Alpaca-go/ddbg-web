@@ -17,11 +17,11 @@ it("R-200：Houndmaster 高等级逐卡覆盖签名", () => {
     expect(lineSignature(card.effect_lines[line]!)).toBe(sig);
   }
   const havoc = data.hero_skill.cards.find((c) => c.id === "hero_skill:weald:h17:p348")!;
-  expect(havoc.verified_target_stress).toEqual({
+  expect(havoc.rules?.target?.stress).toEqual({
     lineIndex: 0,
     amount: -1,
     source: "print_front",
   });
-  expect(havoc.verified_allies_stress).toBeUndefined();
-  expect(havoc.verified_self_stress).toMatchObject({ amount: -2, lineIndex: 1 });
+  expect(havoc.rules?.alliesStress).toBeUndefined();
+  expect(havoc.rules?.self?.stress).toMatchObject({ amount: -2, lineIndex: 1 });
 });

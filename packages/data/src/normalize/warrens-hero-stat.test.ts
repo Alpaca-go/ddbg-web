@@ -21,7 +21,7 @@ it("R-215 + Q-104：Leper / Antiquarian I–III 黄金值；Antiquarian III 免�
       c.dodge,
       c.speed,
       c.verification.unverified,
-      c.verified_higher_condition_defence?.resistances,
+      c.rules?.higherConditionDefence?.resistances,
     ]),
   ).toEqual([
     ["hero_stat:warrens:h14:p028:front", 1, 18, 0, 1, false, ["debuff"]],
@@ -31,10 +31,7 @@ it("R-215 + Q-104：Leper / Antiquarian I–III 黄金值；Antiquarian III 免�
     ["hero_stat:warrens:h15:p030:back", 2, 12, 2, 2, true, ["stun", "shuffle"]],
     ["hero_stat:warrens:h15:p031:front", 3, 15, 3, 2, true, ["stun"]],
   ]);
-  expect(built.at(-1)?.verified_higher_condition_defence?.immunities).toEqual([
-    "shuffle",
-    "disease",
-  ]);
+  expect(built.at(-1)?.rules?.higherConditionDefence?.immunities).toEqual(["shuffle", "disease"]);
   for (const card of built) expect(canonicalHeroStatCardSchema.safeParse(card).success).toBe(true);
 });
 

@@ -60,5 +60,5 @@ it("Madman两技能和独立效果行保留，不把转录修复当作完整战�
   expect(text(1)).toContain("+1");
   expect(text(1)).not.toContain("+2");
   expect(text(2)).toContain("+2");
-  expect(card.skills[0]!.verified_target_stress).toBeUndefined();
+  expect(card.skills[0]!.rules?.target?.stress).toBeUndefined();
 });

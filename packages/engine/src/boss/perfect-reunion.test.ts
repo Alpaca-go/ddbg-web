@@ -37,7 +37,7 @@ it("Reunion 两行完整结算：Marked 加伤 3，bleed 2/3t，stress +1", () =
 });
 it("跨行签名顺序、第二行未确认图标或原语数值漂移拒绝", () => {
   const skill = card.skills[0]!;
-  const plan = skill.verified_monster_effects!;
+  const plan = skill.rules!.effects!;
   for (const changed of [
     { ...plan, signatures: [...plan.signatures].reverse() },
     { ...plan, effects: plan.effects.slice(0, -1) },

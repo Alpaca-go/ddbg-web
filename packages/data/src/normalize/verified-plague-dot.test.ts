@@ -19,13 +19,13 @@ const rows = [
 
 it.each(rows)("%s完整状态黄金值；Nt原numeric保留null，II/III已有独立注解", (id, expected) => {
   const card = cards.find((c) => c.id === id)!;
-  expect(card.verified_status_effects).toEqual(expected);
+  expect(card.rules?.statuses).toEqual(expected);
   expect(
     card.unlabeled_numbers.filter((n) => /^\d+t$/.test(n.text)).every((n) => n.numeric === null),
   ).toBe(true);
   for (const offset of [1, 2])
     expect(
-      cards.find((c) => c.pages[0] === card.pages[0]! + offset)!.verified_status_effects,
+      cards.find((c) => c.pages[0] === card.pages[0]! + offset)!.rules?.statuses,
     ).toBeDefined();
 });
 

@@ -38,6 +38,13 @@ export type HeroStatRuleSource = {
       }
     | undefined;
   readonly verified_higher_condition_defence?: HigherHeroDefence | undefined;
+  readonly rules?:
+    | {
+        readonly buffDefence?: HeroStatRules["buffDefence"] | undefined;
+        readonly conditionDefence?: HeroStatRules["conditionDefence"] | undefined;
+        readonly higherConditionDefence?: HigherHeroDefence | undefined;
+      }
+    | undefined;
 };
 
 export type HeroStatRules = {
@@ -55,23 +62,14 @@ function compact<T extends object>(rules: T): T | undefined {
  * 投影只重命名 / 分组字段，不改任何数值、行号或来源。
  */
 export function projectHeroSkillRules(card: NormalizedHeroSkillCard): HeroSkillRules | undefined {
-  const rules: HeroSkillRules = {};
-  // 单元 5 已写入的文本规则不属于 verified_*，投影时原样保留。
-  if (card.rules?.shuffle) rules.shuffle = card.rules.shuffle;
-  if (card.rules?.ignores) rules.ignores = card.rules.ignores;
-  // A2 单元 2 的条件移除规则同样直接写在 rules 下。
-  if (card.rules?.removal) rules.removal = card.rules.removal;
-  // A2 单元 3 的区域目标数同样直接写在 rules 下。
-  if (card.rules?.targets) rules.targets = card.rules.targets;
-  // A2 单元 4 的主效果类型。
-  if (card.rules?.effect) rules.effect = card.rules.effect;
+  const rules: HeroSkillRules = { ...(card.rules ?? {}) };
   if (card.verified_status_effects) rules.statuses = card.verified_status_effects;
   if (card.verified_damage_bonus) rules.damage = card.verified_damage_bonus;
   if (card.verified_damage_bonuses) rules.damageBonuses = card.verified_damage_bonuses;
   if (card.verified_actor_damage_bonus) rules.actorDamage = card.verified_actor_damage_bonus;
   if (card.verified_range) rules.range = card.verified_range;
   if (card.verified_self_range || card.verified_self_heal || card.verified_self_stress) {
-    const self: NonNullable<HeroSkillRules["self"]> = {};
+    const self: NonNullable<HeroSkillRules["self"]> = { ...(card.rules?.self ?? {}) };
     if (card.verified_self_range) self.range = true;
     if (card.verified_self_heal) self.heal = card.verified_self_heal;
     if (card.verified_self_stress) self.stress = card.verified_self_stress;
@@ -83,7 +81,7 @@ export function projectHeroSkillRules(card: NormalizedHeroSkillCard): HeroSkillR
     card.verified_target_stress ||
     card.verified_target_support
   ) {
-    const target: NonNullable<HeroSkillRules["target"]> = {};
+    const target: NonNullable<HeroSkillRules["target"]> = { ...(card.rules?.target ?? {}) };
     if (card.verified_target_header) target.header = card.verified_target_header;
     if (card.verified_target_heal) target.heal = card.verified_target_heal;
     if (card.verified_target_stress) target.stress = card.verified_target_stress;
@@ -98,14 +96,14 @@ export function projectHeroSkillRules(card: NormalizedHeroSkillCard): HeroSkillR
 }
 
 export function projectMonsterSkillRules(skill: MonsterSkill): MonsterSkillRules | undefined {
-  const rules: MonsterSkillRules = {};
+  const rules: MonsterSkillRules = { ...(skill.rules ?? {}) };
   if (skill.verified_damage_bonus) rules.damage = skill.verified_damage_bonus;
   if (skill.verified_actor_damage_bonus) rules.actorDamage = skill.verified_actor_damage_bonus;
   if (skill.verified_effect_line_receipts) rules.receipts = skill.verified_effect_line_receipts;
   if (skill.verified_bleed_blight_transfer) rules.transfer = skill.verified_bleed_blight_transfer;
   if (skill.verified_range) rules.range = skill.verified_range;
   if (skill.verified_self_range || skill.verified_self_heal || skill.verified_self_stress) {
-    const self: NonNullable<MonsterSkillRules["self"]> = {};
+    const self: NonNullable<MonsterSkillRules["self"]> = { ...(skill.rules?.self ?? {}) };
     if (skill.verified_self_range) self.range = true;
     if (skill.verified_self_heal) self.heal = skill.verified_self_heal;
     if (skill.verified_self_stress) self.stress = skill.verified_self_stress;
@@ -117,7 +115,7 @@ export function projectMonsterSkillRules(skill: MonsterSkill): MonsterSkillRules
     skill.verified_target_stress ||
     skill.verified_target_support
   ) {
-    const target: NonNullable<MonsterSkillRules["target"]> = {};
+    const target: NonNullable<MonsterSkillRules["target"]> = { ...(skill.rules?.target ?? {}) };
     if (skill.verified_target_header) target.header = skill.verified_target_header;
     if (skill.verified_target_heal) target.heal = skill.verified_target_heal;
     if (skill.verified_target_stress) target.stress = skill.verified_target_stress;
@@ -131,7 +129,7 @@ export function projectMonsterSkillRules(skill: MonsterSkill): MonsterSkillRules
 }
 
 export function projectMonsterCardRules(card: MonsterFighterCard): MonsterCardRules | undefined {
-  const rules: MonsterCardRules = {};
+  const rules: MonsterCardRules = { ...(card.rules ?? {}) };
   if (card.verified_weald_profile) rules.wealdProfile = card.verified_weald_profile;
   // A2 单元 8 的抗性规则直接写在 rules 下，投影时原样保留。
   if (card.rules?.resistances) rules.resistances = card.rules.resistances;
@@ -142,7 +140,7 @@ export function projectMonsterCardRules(card: MonsterFighterCard): MonsterCardRu
 }
 
 export function projectHeroStatRules(card: HeroStatRuleSource): HeroStatRules | undefined {
-  const rules: HeroStatRules = {};
+  const rules = { ...(card.rules ?? {}) } as HeroStatRules;
   if (card.verified_buff_defence) rules.buffDefence = card.verified_buff_defence;
   if (card.verified_condition_defence) rules.conditionDefence = card.verified_condition_defence;
   if (card.verified_higher_condition_defence)
@@ -151,26 +149,34 @@ export function projectHeroStatRules(card: HeroStatRuleSource): HeroStatRules | 
 }
 
 export function projectVirtueRules(card: NormalizedVirtueAfflictionCard): VirtueRules | undefined {
-  return card.verified_turn_start ? { turnStart: card.verified_turn_start } : undefined;
+  const rules: VirtueRules = { ...(card.rules ?? {}) };
+  if (card.verified_turn_start) rules.turnStart = card.verified_turn_start;
+  return compact(rules);
 }
 
-/** 用投影结果替换卡上的 rules；没有规则时删掉空对象，保持 JSON 干净。 */
+/**
+ * 用投影结果替换卡上的 rules，并删除仅供注解层使用的 `verified_*` 字段。
+ * 这样 schema / normalized 只暴露 `rules`，旧字段不会落盘。
+ */
 function withRules<T extends object>(card: T, rules: object | undefined): T {
+  const next = { ...card } as Record<string, unknown>;
+  for (const key of Object.keys(next)) {
+    if (key.startsWith("verified_")) delete next[key];
+  }
   if (rules === undefined) {
-    if (!("rules" in card)) return card;
-    const next: Record<string, unknown> = { ...card };
     delete next.rules;
     return next as T;
   }
-  return { ...card, rules } as T;
+  next.rules = rules;
+  return next as T;
 }
 
 export function withHeroSkillRules(card: NormalizedHeroSkillCard): NormalizedHeroSkillCard {
   return withRules(card, projectHeroSkillRules(card));
 }
 
-export function withHeroStatRules<T extends HeroStatRuleSource>(card: T): T {
-  return withRules(card, projectHeroStatRules(card));
+export function withHeroStatRules<T extends object>(card: T): T {
+  return withRules(card, projectHeroStatRules(card as HeroStatRuleSource));
 }
 
 export function withVirtueRules<T extends NormalizedVirtueAfflictionCard>(card: T): T {
@@ -202,7 +208,7 @@ export type RuleSourceCard =
 /** 一致性测试入口：按卡类别分派到对应投影。 */
 export function projectRules(card: RuleSourceCard): object | undefined {
   if ("role" in card) return projectVirtueRules(card);
-  if ("face" in card) return projectHeroStatRules(card);
+  if ("face" in card) return projectHeroStatRules(card as unknown as HeroStatRuleSource);
   if ("skills" in card) return projectMonsterCardRules(card);
   if ("card_kind" in card && card.card_kind === "large_monster_reference") return undefined;
   return projectHeroSkillRules(card);

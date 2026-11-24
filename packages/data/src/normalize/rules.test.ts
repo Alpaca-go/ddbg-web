@@ -218,9 +218,9 @@ describe("R1：rules 与 verified_* 双写一致", () => {
     let special = 0;
     for (const card of file.cards) {
       if (
-        card.verified_target_header !== undefined ||
-        card.verified_rallying_flare !== undefined ||
-        card.verified_target_support !== undefined
+        card.rules?.target?.header !== undefined ||
+        card.rules?.rallyingFlare !== undefined ||
+        card.rules?.target?.support !== undefined
       ) {
         expect(card.rules?.targets, card.id).toBeUndefined();
         special += 1;

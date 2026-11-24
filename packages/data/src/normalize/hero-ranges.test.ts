@@ -14,7 +14,7 @@ describe("逐卡复核的区间来源", () => {
       attached
         .filter(
           (card) =>
-            card.verified_range &&
+            card.rules?.range &&
             ([167, 168].includes(card.pages[0]!) ||
               (card.level === 1 && !card.id.startsWith("hero_skill:musketeer:")) ||
               ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"].includes(card.hero ?? "")),
@@ -25,7 +25,7 @@ describe("逐卡复核的区间来源", () => {
       101, 102, 133, 151, 154, 160, 163, 166, 167, 168, 181, 184, 196, 199, 202, 214, 244, 262, 343,
     ]);
     const heal = attached.find((card) => card.id === "hero_skill:core:h01:p013")!;
-    expect(heal.verified_range).toEqual({ min: 0, max: 1, source: "print_front" });
+    expect(heal.rules?.range).toEqual({ min: 0, max: 1, source: "print_front" });
     expect(heal.unlabeled_numbers.find((number) => number.text === "0-1")?.numeric).toBeNull();
     for (const id of [
       "hero_skill:core:h04:p067",
@@ -34,7 +34,7 @@ describe("逐卡复核的区间来源", () => {
     ]) {
       const card = attached.find((card) => card.id === id)!;
       expect(card.unlabeled_numbers.find((number) => number.text === "1-2")?.numeric).toBeNull();
-      expect(card.verified_range).toEqual({ min: 1, max: 2, source: "print_front" });
+      expect(card.rules?.range).toEqual({ min: 1, max: 2, source: "print_front" });
     }
   });
   it.each([

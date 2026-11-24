@@ -52,7 +52,7 @@ it("印刷 Acc 12、Crit 1、射程 2，错误距离拒绝", () => {
 
 it("效果数值或签名漂移拒绝，Perfect Reflection 不外推", () => {
   const skill = card.skills.find((s) => s.slot === 2)!;
-  const plan = skill.verified_monster_effects!;
+  const plan = skill.rules!.effects!;
   for (const changed of [
     { ...plan, effects: [{ type: "stress" as const, scope: "target" as const, amount: 9 }] },
     { ...plan, signatures: ["{target_effects}{stress}+9"] },

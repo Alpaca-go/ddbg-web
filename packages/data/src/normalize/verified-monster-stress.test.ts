@@ -10,7 +10,7 @@ const cards = normalizedMonsterMediumFileSchema.parse(
 describe("Courtier I 逐卡压力复核", () => {
   it("只有 p004 技能 1 受注解，原数字列表不补标签", () => {
     const annotated = attachVerifiedMonsterStress(cards).filter(
-      (card) => "skills" in card && card.skills.some((skill) => skill.verified_target_stress),
+      (card) => "skills" in card && card.skills.some((skill) => skill.rules?.target?.stress),
     );
     expect(annotated.map((card) => card.id)).toEqual(["monster_medium:p004"]);
     const card = annotated[0]!;

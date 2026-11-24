@@ -13,7 +13,7 @@ describe("逐卡复核条件伤害", () => {
       applyHeroDamage(cards)
         .filter(
           (card) =>
-            card.verified_damage_bonus &&
+            card.rules?.damage &&
             ((card.level === 1 && !card.id.startsWith("hero_skill:musketeer:")) ||
               ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"].includes(card.hero ?? "")),
         )
@@ -22,7 +22,7 @@ describe("逐卡复核条件伤害", () => {
       1, 2, 3, 16, 17, 18, 58, 67, 68, 69, 85, 86, 87, 103, 104, 105, 148, 172, 190, 193, 331,
     ]);
     const lance = cards.find((card) => card.id === "hero_skill:core:h01:p016")!;
-    expect(lance.verified_damage_bonus).toEqual({
+    expect(lance.rules?.damage).toEqual({
       lineIndex: 1,
       amount: 1,
       condition: "unholy",
@@ -74,20 +74,20 @@ describe("逐卡复核条件伤害", () => {
 
   it("Finish Him仅I级完整面入库，原始数字不变；身份/条件/图标漂移拒绝", () => {
     const card = cards.find((c) => c.id === "hero_skill:core:h03:p058")!;
-    expect(card.verified_damage_bonus).toEqual({
+    expect(card.rules?.damage).toEqual({
       lineIndex: 0,
       amount: 2,
       condition: "stunned",
       source: "print_front",
     });
-    expect(card.verified_range).toEqual({ min: 0, max: 1, source: "print_front" });
+    expect(card.rules?.range).toEqual({ min: 0, max: 1, source: "print_front" });
     expect(card.unlabeled_numbers.find((n) => n.text === "+2")?.numeric).toBeNull();
     expect(card.unlabeled_numbers.find((n) => n.text === "0-1")?.numeric).toBeNull();
     const before = structuredClone(cards);
     expect(applyHeroDamage(cards)).toEqual(cards);
     expect(cards).toEqual(before);
     for (const id of ["hero_skill:core:h03:p059", "hero_skill:core:h03:p060"])
-      expect(cards.find((c) => c.id === id)!.verified_damage_bonus).toBeDefined();
+      expect(cards.find((c) => c.id === id)!.rules?.damage).toBeDefined();
     for (const mutate of [
       (c: typeof card) => {
         c.hero = "VESTAL";

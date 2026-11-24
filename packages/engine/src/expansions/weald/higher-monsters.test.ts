@@ -126,7 +126,7 @@ describe("R-263 高等级 Weald 独立目录与组池", () => {
       [virago(), 2],
     ] as const) {
       const skill = card.skills.find((skill) => skill.slot === slot)!;
-      expect(skill.verified_monster_effects?.effects).toContainEqual({
+      expect(skill.rules?.effects?.effects).toContainEqual({
         type: "shuffle",
         scope: "target",
         direction: "push",

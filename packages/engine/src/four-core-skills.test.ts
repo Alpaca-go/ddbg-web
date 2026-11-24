@@ -105,7 +105,7 @@ function setup(card = skill(1), seed = 1, maxTargets = readPrintedTargets(card))
   const own = heroSkillUsesSelfTarget(card);
   const friendly =
     card.stats_line?.some((s) => s.type === "icon" && s.icon.key === "target_hero") ||
-    card.verified_target_support;
+    card.rules?.target?.support;
   const count = maxTargets.kind === "exact" ? maxTargets.max : 1;
   const ids = own
     ? ["h0"]

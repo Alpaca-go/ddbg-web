@@ -26,8 +26,7 @@ const cases = [
   },
 ].filter(
   (entry) =>
-    cards.find((c) => c.id === entry.id)!.skills.find((s) => s.slot === entry.slot)!
-      .verified_monster_effects,
+    cards.find((c) => c.id === entry.id)!.skills.find((s) => s.slot === entry.slot)!.rules!.effects,
 );
 it.each(cases)(
   "$id / $slot 友方最小纯结算、越界与漂移原子拒绝",
@@ -59,7 +58,7 @@ it.each(cases)(
     const changed = structuredClone(card);
     const skill = changed.skills.find((s) => s.slot === slot)!;
     const bad = {
-      ...(skill.rules?.effects ?? skill.verified_monster_effects!),
+      ...(skill.rules?.effects ?? skill.rules!.effects!),
       signatures: ["bad"],
     };
     Object.assign(skill, {

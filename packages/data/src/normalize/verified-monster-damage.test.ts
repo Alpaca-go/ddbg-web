@@ -17,9 +17,7 @@ describe("逐卡复核 Arbalist I 对 Mark +1（R-048）", () => {
     expect(
       annotated.flatMap((card) =>
         "skills" in card
-          ? card.skills
-              .filter((skill) => skill.verified_damage_bonus)
-              .map((skill) => [card.id, skill.slot])
+          ? card.skills.filter((skill) => skill.rules?.damage).map((skill) => [card.id, skill.slot])
           : [],
       ),
     ).toEqual([["monster_medium:p007", 1]]);
@@ -28,7 +26,7 @@ describe("逐卡复核 Arbalist I 对 Mark +1（R-048）", () => {
       ["5", 5],
       ["2", 2],
     ]);
-    expect(arbalist.skills[1]!.verified_damage_bonus).toBeUndefined();
+    expect(arbalist.skills[1]!.rules?.damage).toBeUndefined();
   });
   it("身份、页码、整行文字、技能编号、未知图标漂移均拒绝", () => {
     for (const patch of [

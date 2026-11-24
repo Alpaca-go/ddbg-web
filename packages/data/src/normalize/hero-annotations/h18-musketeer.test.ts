@@ -38,7 +38,7 @@ it("R-200：Musketeer 高等级逐卡覆盖签名", () => {
   const patch = data.hero_skill.cards.find((c) => c.id === "hero_skill:musketeer:h18:p374")!;
   expect(patch.stats_line?.some((s) => s.type === "icon" && s.icon.key === "heal")).toBe(true);
   const skeet = data.hero_skill.cards.find((c) => c.id === "hero_skill:musketeer:h18:p377")!;
-  expect(skeet.verified_rallying_flare).toBeDefined();
+  expect(skeet.rules?.rallyingFlare).toBeDefined();
   const smoke = data.hero_skill.cards.find((c) => c.id === "hero_skill:musketeer:h18:p362")!;
-  expect(smoke.verified_status_effects?.[0]?.segmentIndex).toBe(2);
+  expect(smoke.rules?.statuses?.[0]?.segmentIndex).toBe(2);
 });

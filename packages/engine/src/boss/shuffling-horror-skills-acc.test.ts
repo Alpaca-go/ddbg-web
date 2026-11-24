@@ -129,7 +129,7 @@ it("Lacerate slot 1：Closest · range 1 · Acc 11 · verified bleed 3/3t", () =
   const skill = card.skills.find((entry) => entry.slot === SHUFFLING_HORROR_LACERATE_SKILL_SLOT)!;
   expect(skill.name).toBe("Lacerate");
   expect(skill.target).toBe("Closest");
-  expect(skill.verified_monster_effects).toEqual({
+  expect(skill.rules!.effects).toEqual({
     source: "print_front",
     signatures: ["{target_effects}3{bleed}3t"],
     effects: [{ type: "status", scope: "target", kind: "bleed", amount: 3, duration: 3 }],
@@ -169,8 +169,8 @@ describe("Shuffling Horror Lacerate Acc 最小结算", () => {
       (entry) => entry.id === SHUFFLING_HORROR_COMBAT_MONSTER_CARD_ID,
     )!;
     expect(
-      card.skills.find((skill) => skill.slot === SHUFFLING_HORROR_LACERATE_SKILL_SLOT)
-        ?.verified_monster_effects?.effects,
+      card.skills.find((skill) => skill.slot === SHUFFLING_HORROR_LACERATE_SKILL_SLOT)?.rules
+        ?.effects?.effects,
     ).toEqual([{ type: "status", scope: "target", kind: "bleed", amount: 3, duration: 3 }]);
 
     let cursor = 0;

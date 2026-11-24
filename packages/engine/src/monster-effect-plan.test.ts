@@ -24,7 +24,7 @@ describe("怪物复合效果原语（R20–21 / R27–28）", () => {
   it("White Cell Displace 命中减益 2t / Push2；Teleport 命中 +2 压力（落点走专用运行时）", () => {
     const card = byId("monster_medium:p104");
     const context = { ...combat, areaDistance: 1 };
-    expect(card.skills.find((s) => s.slot === 2)?.verified_monster_effects?.effects).toEqual([
+    expect(card.skills.find((s) => s.slot === 2)?.rules?.effects?.effects).toEqual([
       { type: "status", scope: "target", kind: "debuff", duration: 2 },
       { type: "shuffle", scope: "target", direction: "push", distance: 2 },
     ]);
@@ -51,7 +51,7 @@ describe("怪物复合效果原语（R20–21 / R27–28）", () => {
       status: "resolved",
       resolution: { outcome: "miss", targetStatusEffects: [] },
     });
-    expect(card.skills.find((s) => s.slot === 3)?.verified_monster_effects?.effects).toEqual([
+    expect(card.skills.find((s) => s.slot === 3)?.rules?.effects?.effects).toEqual([
       { type: "stress", scope: "target", amount: 2 },
     ]);
     expect(resolveMonsterSkill(card, 3, { ...context, areaDistance: 2 }, 5)).toMatchObject({
@@ -66,11 +66,11 @@ describe("怪物复合效果原语（R20–21 / R27–28）", () => {
     for (const card of cards)
       for (const skill of card.skills ?? []) {
         if (
-          !skill.verified_monster_effects ||
+          !skill.rules?.effects ||
           skill.target === "Self" ||
           skill.lines.flat().some((s) => s.type === "icon" && s.icon.key === "target_monster") ||
-          skill.verified_monster_effects.effects.some((e) => e.type === "disease") ||
-          skill.verified_monster_effects.effects.every(
+          skill.rules!.effects!.effects.some((e) => e.type === "disease") ||
+          skill.rules!.effects!.effects.every(
             (e) =>
               e.type === "heal" ||
               (e.type === "status" && e.kind === "buff" && e.scope === "target"),
@@ -107,7 +107,7 @@ describe("怪物复合效果原语（R20–21 / R27–28）", () => {
     const card = byId("monster_large:p016");
     const skill = card.skills.find((entry) => entry.slot === 3)!;
     expect(skill.target).toBe("Self");
-    expect(skill.verified_monster_effects?.effects).toEqual([
+    expect(skill.rules?.effects?.effects).toEqual([
       { type: "status", scope: "self", kind: "buff", duration: 2 },
       { type: "heal", scope: "self", amount: 15 },
     ]);
@@ -117,13 +117,12 @@ describe("怪物复合效果原语（R20–21 / R27–28）", () => {
   it("注解数值 / 范围或原始行漂移原子拒绝，不能靠更新签名放行", () => {
     const card = structuredClone(byId("monster_medium:p034"));
     const skill = card.skills[0]!;
-    const plan = skill.verified_monster_effects!;
+    const plan = skill.rules!.effects!;
     const withPlan = (changed: typeof plan) => ({
       ...card,
       skills: [
         {
           ...skill,
-          verified_monster_effects: changed,
           rules: { ...skill.rules, effects: changed },
         },
       ],

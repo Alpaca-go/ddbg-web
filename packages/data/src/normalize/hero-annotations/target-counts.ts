@@ -41,9 +41,9 @@ function lineIcons(
  */
 export function expectedTargetCounts(card: NormalizedHeroSkillCard): TargetCounts {
   if (
-    card.verified_target_header !== undefined ||
-    card.verified_rallying_flare !== undefined ||
-    card.verified_target_support !== undefined
+    card.rules?.target?.header !== undefined ||
+    card.rules?.rallyingFlare !== undefined ||
+    card.rules?.target?.support !== undefined
   )
     throw new Error(`${card.id} 目标计数不覆盖特殊目标卡（R-048）`);
   const stats = countsOfIcons(lineIcons(card.stats_line ?? []));
@@ -70,6 +70,7 @@ export function applyTargetCounts(
   const byId = new Map<string, TargetCountEntry>();
   for (const entry of entries) byId.set(entry.id, entry);
   return cards.map((card) => {
+    if (card.rules?.targets) return card;
     const page = card.pages[0]!;
     const hero = card.hero ?? "ABOMINATION";
     const globalPage = card.id.startsWith("hero_skill:musketeer:") ? 357 + page : page;

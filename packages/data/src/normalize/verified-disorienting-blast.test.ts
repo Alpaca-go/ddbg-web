@@ -6,7 +6,7 @@ const id = "hero_skill:core:h07:p145";
 
 it("Disorienting Blast I保留原始两行与Nt null，限定目标续行黄金注解，高等级由独立注解覆盖", () => {
   const card = cards.find((c) => c.id === id)!;
-  expect(card.verified_status_effects).toEqual([
+  expect(card.rules?.statuses).toEqual([
     {
       lineIndex: 1,
       segmentIndex: 0,
@@ -27,7 +27,7 @@ it("Disorienting Blast I保留原始两行与Nt null，限定目标续行黄金�
   ).toEqual(["{target_effects} {shuffle} Push 2 or Pull 2", "{stun} 1t"]);
   expect(card.unlabeled_numbers.find((n) => n.text === "1t")?.numeric).toBeNull();
   for (const p of [146, 147])
-    expect(cards.find((c) => c.pages[0] === p)!.verified_status_effects).toBeDefined();
+    expect(cards.find((c) => c.pages[0] === p)!.rules?.statuses).toBeDefined();
   const before = structuredClone(cards);
   expect(applyHeroStatuses(cards)).toEqual(cards);
   expect(cards).toEqual(before);

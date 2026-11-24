@@ -23,19 +23,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-10",
-   "verified_buff_defence": {
-    "resistant": false,
-    "immune": false,
-    "source": "print_front"
-   },
-   "verified_condition_defence": {
-    "resistances": [
-     "stun"
-    ],
-    "immunities": [],
-    "source": "print_front",
-    "approval": "kyries_review_2026-10-12"
-   },
    "rules": {
     "buffDefence": {
      "resistant": false,
@@ -216,15 +203,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-10",
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "stun",
-     "shuffle"
-    ],
-    "immunities": [],
-    "source": "print_back",
-    "approval": "kyries_review_2026-10-15"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [
@@ -428,17 +406,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-10",
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "stun",
-     "debuff"
-    ],
-    "immunities": [
-     "shuffle"
-    ],
-    "source": "print_front",
-    "approval": "kyries_review_2026-10-15"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [
@@ -664,19 +631,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-10",
-   "verified_buff_defence": {
-    "resistant": false,
-    "immune": false,
-    "source": "print_front"
-   },
-   "verified_condition_defence": {
-    "resistances": [
-     "bleed"
-    ],
-    "immunities": [],
-    "source": "print_front",
-    "approval": "kyries_review_2026-10-12"
-   },
    "rules": {
     "buffDefence": {
      "resistant": false,
@@ -827,15 +781,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-10",
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "bleed",
-     "blight"
-    ],
-    "immunities": [],
-    "source": "print_back",
-    "approval": "kyries_review_2026-10-15"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [
@@ -1006,16 +951,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-10",
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "stun",
-     "bleed",
-     "blight"
-    ],
-    "immunities": [],
-    "source": "print_front",
-    "approval": "kyries_review_2026-10-15"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [
@@ -1208,19 +1143,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-10",
-   "verified_buff_defence": {
-    "resistant": false,
-    "immune": false,
-    "source": "print_front"
-   },
-   "verified_condition_defence": {
-    "resistances": [
-     "stun"
-    ],
-    "immunities": [],
-    "source": "print_front",
-    "approval": "kyries_review_2026-10-12"
-   },
    "rules": {
     "buffDefence": {
      "resistant": false,
@@ -1369,15 +1291,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-10",
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "stun",
-     "bleed"
-    ],
-    "immunities": [],
-    "source": "print_back",
-    "approval": "kyries_review_2026-10-15"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [
@@ -1546,16 +1459,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-10",
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "stun",
-     "bleed",
-     "blight"
-    ],
-    "immunities": [],
-    "source": "print_front",
-    "approval": "kyries_review_2026-10-15"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [
@@ -1757,19 +1660,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-10",
-   "verified_buff_defence": {
-    "resistant": false,
-    "immune": false,
-    "source": "print_front"
-   },
-   "verified_condition_defence": {
-    "resistances": [
-     "bleed"
-    ],
-    "immunities": [],
-    "source": "print_front",
-    "approval": "kyries_review_2026-10-12"
-   },
    "rules": {
     "buffDefence": {
      "resistant": false,
@@ -1986,15 +1876,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-10",
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "stun",
-     "bleed"
-    ],
-    "immunities": [],
-    "source": "print_back",
-    "approval": "kyries_review_2026-10-15"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [
@@ -2229,17 +2110,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-10",
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "stun",
-     "bleed"
-    ],
-    "immunities": [
-     "disease"
-    ],
-    "source": "print_front",
-    "approval": "kyries_review_2026-10-15"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [
@@ -2512,19 +2382,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-16",
-   "verified_buff_defence": {
-    "resistant": false,
-    "immune": false,
-    "source": "print_front"
-   },
-   "verified_condition_defence": {
-    "resistances": [
-     "stun"
-    ],
-    "immunities": [],
-    "source": "print_front",
-    "approval": "kyries_review_2026-10-16"
-   },
    "rules": {
     "buffDefence": {
      "resistant": false,
@@ -2671,15 +2528,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-16",
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "stun",
-     "debuff"
-    ],
-    "immunities": [],
-    "source": "print_back",
-    "approval": "kyries_review_2026-10-16"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [
@@ -2846,16 +2694,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-16",
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "stun",
-     "debuff",
-     "bleed"
-    ],
-    "immunities": [],
-    "source": "print_front",
-    "approval": "kyries_review_2026-10-16"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [
@@ -3046,19 +2884,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-17",
-   "verified_buff_defence": {
-    "resistant": false,
-    "immune": false,
-    "source": "print_front"
-   },
-   "verified_condition_defence": {
-    "resistances": [
-     "blight"
-    ],
-    "immunities": [],
-    "source": "print_front",
-    "approval": "kyries_review_2026-10-17"
-   },
    "rules": {
     "buffDefence": {
      "resistant": false,
@@ -3260,16 +3085,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-17",
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "blight"
-    ],
-    "immunities": [
-     "disease"
-    ],
-    "source": "print_back",
-    "approval": "kyries_review_2026-10-17"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [
@@ -3492,15 +3307,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-17",
-   "verified_higher_condition_defence": {
-    "resistances": [],
-    "immunities": [
-     "blight",
-     "disease"
-    ],
-    "source": "print_front",
-    "approval": "kyries_review_2026-10-17"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [],
@@ -3735,19 +3541,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-18",
-   "verified_buff_defence": {
-    "resistant": false,
-    "immune": false,
-    "source": "print_front"
-   },
-   "verified_condition_defence": {
-    "resistances": [
-     "blight"
-    ],
-    "immunities": [],
-    "source": "print_front",
-    "approval": "kyries_review_2026-10-18"
-   },
    "rules": {
     "buffDefence": {
      "resistant": false,
@@ -3907,15 +3700,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-18",
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "blight",
-     "debuff"
-    ],
-    "immunities": [],
-    "source": "print_back",
-    "approval": "kyries_review_2026-10-18"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [
@@ -4095,16 +3879,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-18",
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "bleed",
-     "blight",
-     "debuff"
-    ],
-    "immunities": [],
-    "source": "print_front",
-    "approval": "kyries_review_2026-10-18"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [
@@ -4308,19 +4082,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-18",
-   "verified_buff_defence": {
-    "resistant": false,
-    "immune": false,
-    "source": "print_front"
-   },
-   "verified_condition_defence": {
-    "resistances": [
-     "debuff"
-    ],
-    "immunities": [],
-    "source": "print_front",
-    "approval": "kyries_review_2026-10-18"
-   },
    "rules": {
     "buffDefence": {
      "resistant": false,
@@ -4525,15 +4286,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-18",
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "bleed",
-     "debuff"
-    ],
-    "immunities": [],
-    "source": "print_back",
-    "approval": "kyries_review_2026-10-18"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [
@@ -4758,16 +4510,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-18",
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "bleed",
-     "blight",
-     "debuff"
-    ],
-    "immunities": [],
-    "source": "print_front",
-    "approval": "kyries_review_2026-10-18"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [
@@ -5027,19 +4769,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
-   "verified_buff_defence": {
-    "resistant": false,
-    "immune": false,
-    "source": "print_front"
-   },
-   "verified_condition_defence": {
-    "resistances": [
-     "debuff"
-    ],
-    "immunities": [],
-    "source": "print_front",
-    "approval": "kyries_review_2026-10-24"
-   },
    "rules": {
     "buffDefence": {
      "resistant": false,
@@ -5232,15 +4961,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "debuff",
-     "bleed"
-    ],
-    "immunities": [],
-    "source": "print_back",
-    "approval": "kyries_review_2026-11-10"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [
@@ -5452,16 +5172,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "debuff",
-     "bleed",
-     "blight"
-    ],
-    "immunities": [],
-    "source": "print_front",
-    "approval": "kyries_review_2026-11-10"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [
@@ -5697,19 +5407,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
-   "verified_buff_defence": {
-    "resistant": false,
-    "immune": false,
-    "source": "print_front"
-   },
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "shuffle"
-    ],
-    "immunities": [],
-    "source": "print_front",
-    "approval": "kyries_review_2026-11-10"
-   },
    "rules": {
     "buffDefence": {
      "resistant": false,
@@ -5912,15 +5609,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "stun",
-     "shuffle"
-    ],
-    "immunities": [],
-    "source": "print_back",
-    "approval": "kyries_review_2026-10-24"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [
@@ -6143,16 +5831,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "stun"
-    ],
-    "immunities": [
-     "shuffle"
-    ],
-    "source": "print_front",
-    "approval": "kyries_review_2026-10-24"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [
@@ -6399,19 +6077,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
-   "verified_buff_defence": {
-    "resistant": false,
-    "immune": false,
-    "source": "print_front"
-   },
-   "verified_condition_defence": {
-    "resistances": [
-     "blight"
-    ],
-    "immunities": [],
-    "source": "print_front",
-    "approval": "kyries_review_2026-10-24"
-   },
    "rules": {
     "buffDefence": {
      "resistant": false,
@@ -6692,15 +6357,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "stun",
-     "blight"
-    ],
-    "immunities": [],
-    "source": "print_front",
-    "approval": "kyries_review_2026-10-24"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [
@@ -7011,16 +6667,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "stun"
-    ],
-    "immunities": [
-     "blight"
-    ],
-    "source": "print_front",
-    "approval": "kyries_review_2026-10-24"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [
@@ -7345,14 +6991,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "debuff"
-    ],
-    "immunities": [],
-    "source": "print_front",
-    "approval": "kyries_review_2026-11-10"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [
@@ -7573,15 +7211,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "shuffle",
-     "debuff"
-    ],
-    "immunities": [],
-    "source": "print_back",
-    "approval": "kyries_review_2026-11-10"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [
@@ -7827,16 +7456,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "stun",
-     "shuffle",
-     "debuff"
-    ],
-    "immunities": [],
-    "source": "print_front",
-    "approval": "kyries_review_2026-11-10"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [
@@ -8104,14 +7723,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "shuffle"
-    ],
-    "immunities": [],
-    "source": "print_front",
-    "approval": "kyries_review_2026-11-10"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [
@@ -8292,15 +7903,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "stun",
-     "shuffle"
-    ],
-    "immunities": [],
-    "source": "print_back",
-    "approval": "kyries_review_2026-11-10"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [
@@ -8507,17 +8109,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-11-08",
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "stun"
-    ],
-    "immunities": [
-     "shuffle",
-     "disease"
-    ],
-    "source": "print_front",
-    "approval": "kyries_review_2026-11-10"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [
@@ -8752,14 +8343,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "bleed"
-    ],
-    "immunities": [],
-    "source": "print_front",
-    "approval": "kyries_review_2026-11-10"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [
@@ -8957,15 +8540,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "shuffle",
-     "bleed"
-    ],
-    "immunities": [],
-    "source": "print_back",
-    "approval": "kyries_review_2026-11-10"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [
@@ -9200,16 +8774,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "stun",
-     "shuffle",
-     "bleed"
-    ],
-    "immunities": [],
-    "source": "print_front",
-    "approval": "kyries_review_2026-11-10"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [
@@ -9465,14 +9029,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "shuffle"
-    ],
-    "immunities": [],
-    "source": "print_front",
-    "approval": "kyries_review_2026-11-10"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [
@@ -9684,15 +9240,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "shuffle",
-     "bleed"
-    ],
-    "immunities": [],
-    "source": "print_back",
-    "approval": "kyries_review_2026-11-10"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [
@@ -9930,16 +9477,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "stun",
-     "shuffle",
-     "bleed"
-    ],
-    "immunities": [],
-    "source": "print_front",
-    "approval": "kyries_review_2026-11-10"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [
@@ -10209,14 +9746,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
-   "verified_condition_defence": {
-    "resistances": [
-     "stun"
-    ],
-    "immunities": [],
-    "source": "print_front",
-    "approval": "kyries_review_2026-10-24"
-   },
    "rules": {
     "conditionDefence": {
      "resistances": [
@@ -10374,15 +9903,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "stun",
-     "bleed"
-    ],
-    "immunities": [],
-    "source": "print_back",
-    "approval": "kyries_review_2026-11-10"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [
@@ -10564,16 +10084,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "stun",
-     "bleed",
-     "blight"
-    ],
-    "immunities": [],
-    "source": "print_front",
-    "approval": "kyries_review_2026-11-10"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [
@@ -10779,14 +10289,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
-   "verified_condition_defence": {
-    "resistances": [
-     "stun"
-    ],
-    "immunities": [],
-    "source": "print_front",
-    "approval": "kyries_review_2026-10-24"
-   },
    "rules": {
     "conditionDefence": {
      "resistances": [
@@ -11020,15 +10522,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "stun",
-     "shuffle"
-    ],
-    "immunities": [],
-    "source": "print_back",
-    "approval": "kyries_review_2026-11-10"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [
@@ -11286,16 +10779,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "stun"
-    ],
-    "immunities": [
-     "shuffle"
-    ],
-    "source": "print_front",
-    "approval": "kyries_review_2026-11-10"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [
@@ -11578,14 +11061,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "shuffle"
-    ],
-    "immunities": [],
-    "source": "print_front",
-    "approval": "kyries_review_2026-11-10"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [
@@ -11807,15 +11282,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "stun",
-     "shuffle"
-    ],
-    "immunities": [],
-    "source": "print_back",
-    "approval": "kyries_review_2026-11-10"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [
@@ -12063,16 +11529,6 @@
    },
    "attributesVerified": true,
    "approval": "kyries_review_2026-10-24",
-   "verified_higher_condition_defence": {
-    "resistances": [
-     "stun"
-    ],
-    "immunities": [
-     "shuffle"
-    ],
-    "source": "print_front",
-    "approval": "kyries_review_2026-11-10"
-   },
    "rules": {
     "higherConditionDefence": {
      "resistances": [

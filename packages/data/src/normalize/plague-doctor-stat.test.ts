@@ -20,8 +20,8 @@ it("R-094三面独立黄金值；III从Blight抗性变为Blight/Disease双免疫
       c.life,
       c.dodge,
       c.speed,
-      (c.verified_condition_defence ?? readHigherHeroDefence(c))!.resistances,
-      (c.verified_condition_defence ?? readHigherHeroDefence(c))!.immunities,
+      (c.rules?.conditionDefence ?? readHigherHeroDefence(c))!.resistances,
+      (c.rules?.conditionDefence ?? readHigherHeroDefence(c))!.immunities,
       c.approval,
     ]),
   ).toEqual([
@@ -50,7 +50,7 @@ it("R-094三面独立黄金值；III从Blight抗性变为Blight/Disease双免疫
   expect(
     cards.every(
       (c) =>
-        (c.verified_condition_defence ?? readHigherHeroDefence(c))!.approval ===
+        (c.rules?.conditionDefence ?? readHigherHeroDefence(c))!.approval ===
         "kyries_review_2026-10-17",
     ),
   ).toBe(true);
@@ -61,7 +61,7 @@ it("R-094三面独立黄金值；III从Blight抗性变为Blight/Disease双免疫
       .filter((c) => c.name !== "PLAGUE DOCTOR")
       .every((c) => c.approval !== "kyries_review_2026-10-17"),
   ).toBe(true);
-  expect(cards[0]!.verified_buff_defence).toEqual({
+  expect(cards[0]!.rules?.buffDefence).toEqual({
     resistant: false,
     immune: false,
     source: "print_front",
@@ -135,7 +135,7 @@ it("身份/属性/日期/来源漂移拒绝；两项免疫只允许精确获批I
       normalizedHeroStatCardSchema.safeParse({
         ...third,
         verified_higher_condition_defence: {
-          ...third.verified_higher_condition_defence!,
+          ...third.rules!.higherConditionDefence!,
           ...patch,
         },
       }).success,
@@ -143,7 +143,11 @@ it("身份/属性/日期/来源漂移拒绝；两项免疫只允许精确获批I
   expect(
     readHigherHeroDefence({
       ...cards[1]!,
-      verified_higher_condition_defence: third.verified_higher_condition_defence!,
+      rules: {
+        ...cards[1]!.rules,
+        higherConditionDefence: third.rules!.higherConditionDefence!,
+      },
+      verified_higher_condition_defence: third.rules!.higherConditionDefence!,
     }),
   ).toBeUndefined();
   expect(built.cards.some((c) => c.id === "hero_stat:p014:back")).toBe(false);

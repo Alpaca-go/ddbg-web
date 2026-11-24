@@ -6,15 +6,15 @@ import { verifiedResolveTriggerSchema } from "./schema";
 const cards = loadNormalizedCorebox().virtue_affliction.cards;
 describe("完整页核实的十张意志卡触发（R28 / R-048 / R-053 / R-056）", () => {
   it("五美德五苦难附注，不用卡背箭头判角色", () => {
-    const verified = cards.filter((card) => card.verified_turn_start !== undefined);
+    const verified = cards.filter((card) => card.rules?.turnStart !== undefined);
     expect(verified).toHaveLength(10);
     expect(verified.filter((card) => card.role === "virtue")).toHaveLength(5);
-    expect(cards.find((card) => card.name === "Focused")!.verified_turn_start).toEqual({
+    expect(cards.find((card) => card.name === "Focused")!.rules?.turnStart).toEqual({
       rollMin: 1,
       rollMax: 5,
       effect: { type: "buff", scope: "self", duration: 2 },
     });
-    expect(cards.find((card) => card.name === "Vigorous")!.verified_turn_start!.effect).toEqual({
+    expect(cards.find((card) => card.name === "Vigorous")!.rules?.turnStart!.effect).toEqual({
       type: "heal",
       scope: "self",
       amount: 3,
@@ -22,17 +22,17 @@ describe("完整页核实的十张意志卡触发（R28 / R-048 / R-053 / R-056�
     });
     for (const name of ["Masochistic", "Irrational"]) {
       const card = cards.find((card) => card.name === name)!;
-      expect(card.verified_turn_start).toBeDefined();
+      expect(card.rules?.turnStart).toBeDefined();
       expect(card.verification.unverified).toBe(false);
     }
     expect(cards).toHaveLength(10);
-    expect(cards.find((card) => card.name === "Masochistic")!.verified_turn_start!.effect).toEqual({
+    expect(cards.find((card) => card.name === "Masochistic")!.rules?.turnStart!.effect).toEqual({
       type: "wounds",
       scope: "self",
       amount: 2,
       perHeroLevel: true,
     });
-    expect(cards.find((card) => card.name === "Irrational")!.verified_turn_start).toEqual({
+    expect(cards.find((card) => card.name === "Irrational")!.rules?.turnStart).toEqual({
       rollMin: 1,
       rollMax: 10,
       effect: { type: "stanceMove", forwardThrough: 5, distance: 1 },

@@ -175,7 +175,7 @@ describe("R-176 · monster_medium:p092 卡面（R-048）", () => {
       { label: "Crit", raw: "Crit 0", value: 0 },
       { label: "Acc", raw: "Acc 9", value: 9 },
     ]);
-    expect(skill.verified_monster_effects).toEqual({
+    expect(skill.rules!.effects).toEqual({
       source: "print_front",
       signatures: ["{target_effects}{stress}+1"],
       effects: [{ type: "stress", scope: "target", amount: 1 }],
@@ -196,7 +196,7 @@ describe("R-176 · monster_medium:p092 卡面（R-048）", () => {
       { label: "Crit", raw: "Crit 1", value: 1 },
       { label: "Acc", raw: "Acc 8", value: 8 },
     ]);
-    expect(skill.verified_monster_effects).toEqual({
+    expect(skill.rules!.effects).toEqual({
       source: "print_front",
       signatures: ["{self_effects}Self{heal}{heal}9{target_effects}2{bleed}2t,{mark}2t"],
       effects: [

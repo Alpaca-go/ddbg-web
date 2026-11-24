@@ -306,28 +306,26 @@ export function readHigherHeroDefence(
         name: string;
         level?: number;
         attributesVerified: boolean;
+        rules?: { higherConditionDefence?: HigherHeroDefence | undefined } | undefined;
         verified_higher_condition_defence?: HigherHeroDefence | undefined;
       }
     | undefined,
 ) {
-  if (
-    !card?.attributesVerified ||
-    !higherHeroDefenceSchema.safeParse(card.verified_higher_condition_defence).success
-  )
+  const got = card?.rules?.higherConditionDefence ?? card?.verified_higher_condition_defence;
+  if (!card?.attributesVerified || !higherHeroDefenceSchema.safeParse(got).success)
     return undefined;
-  const got = card.verified_higher_condition_defence!;
   const key =
     "rawId" in card && "face" in card ? `${String(card.rawId)}:${String(card.face)}` : card.id;
-  const reviewed = got.approval === "kyries_review_2026-11-10";
+  const reviewed = got!.approval === "kyries_review_2026-11-10";
   const row = reviewed
     ? reviewedHeroDefences.get(key)
     : higherHeroDefenceApprovals.find((entry) => entry.id === key);
   if (!row || card.name !== row.name || card.level !== row.level) return undefined;
   const expected = (reviewed ? approvedHigherDefence(key) : originalHigherDefence(key))!;
-  return got.source === expected.source &&
-    got.approval === expected.approval &&
-    JSON.stringify(got.resistances) === JSON.stringify(expected.resistances) &&
-    JSON.stringify(got.immunities) === JSON.stringify(expected.immunities)
+  return got!.source === expected.source &&
+    got!.approval === expected.approval &&
+    JSON.stringify(got!.resistances) === JSON.stringify(expected.resistances) &&
+    JSON.stringify(got!.immunities) === JSON.stringify(expected.immunities)
     ? got
     : undefined;
 }

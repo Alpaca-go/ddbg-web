@@ -6,11 +6,11 @@ const cards = loadNormalizedCorebox().hero_skill.cards;
 const id = "hero_skill:core:h07:p142";
 it("Emboldening Vapours I完整黄金注解，四姿态、无Acc/Crit，保留原始null与高等级边界", () => {
   const card = cards.find((c) => c.id === id)!;
-  expect(card.verified_status_effects).toEqual([
+  expect(card.rules?.statuses).toEqual([
     { lineIndex: 1, segmentIndex: 2, scope: "target", kind: "buff", duration: 3 },
   ]);
   expect(card.stats_line).toBeNull();
-  expect(card.verified_target_header).toEqual({ lineIndex: 0, source: "print_front" });
+  expect(card.rules?.target?.header).toEqual({ lineIndex: 0, source: "print_front" });
   expect(card.printed_labels).toEqual([]);
   expect(card.top_row_icons.map((i) => i.key)).toEqual([
     "stance_support_lit",
@@ -20,7 +20,7 @@ it("Emboldening Vapours I完整黄金注解，四姿态、无Acc/Crit，保留�
   ]);
   expect(card.unlabeled_numbers.find((n) => n.text === "3t")?.numeric).toBeNull();
   for (const p of [143, 144])
-    expect(cards.find((c) => c.pages[0] === p)!.verified_status_effects).toBeDefined();
+    expect(cards.find((c) => c.pages[0] === p)!.rules?.statuses).toBeDefined();
   const before = structuredClone(cards);
   expect(applyHeroStatuses(cards)).toEqual(cards);
   expect(cards).toEqual(before);

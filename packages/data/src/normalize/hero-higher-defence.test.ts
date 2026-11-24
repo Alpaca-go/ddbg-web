@@ -16,8 +16,8 @@ it("R-081八卡独立黄金表：完整左右栏，不把Shuffle/Disease当作�
     cards
       .filter(
         (c) =>
-          c.verified_higher_condition_defence &&
-          c.verified_higher_condition_defence.approval !== "kyries_review_2026-11-10" &&
+          c.rules?.higherConditionDefence &&
+          c.rules?.higherConditionDefence.approval !== "kyries_review_2026-11-10" &&
           !["BOUNTY HUNTER", "PLAGUE DOCTOR", "GRAVE ROBBER", "OCCULTIST"].includes(c.name),
       )
       .map((c) => [
@@ -41,13 +41,13 @@ it("R-081八卡独立黄金表：完整左右栏，不把Shuffle/Disease当作�
   ]);
   expect(
     cards
-      .filter((c) => c.level === 1 && c.verified_higher_condition_defence)
+      .filter((c) => c.level === 1 && c.rules?.higherConditionDefence)
       .map((c) => [c.id, readHigherHeroDefence(c)?.resistances]),
   ).toEqual([["hero_stat:core:h08:p015:front", ["shuffle"]]]);
   expect(
     cards.filter(
       (c) =>
-        c.verified_condition_defence &&
+        c.rules?.conditionDefence &&
         ![
           "PLAGUE DOCTOR",
           "GRAVE ROBBER",
@@ -95,30 +95,20 @@ it("生成确定/不突变，图标缺失/重复/跨左右栏/标题漂移及身
 });
 it("规范化schema与读取拒绝伪造审批/卡级别/免疫栏，不以同名卡或attrsVerified覆盖限定范围", () => {
   const card = cards.find((c) => c.id === "hero_stat:core:h05:p010:front")!;
+  const withHigher = (patch: Record<string, unknown>) => {
+    const higher = { ...card.rules!.higherConditionDefence!, ...patch };
+    return {
+      ...card,
+      rules: { ...card.rules, higherConditionDefence: higher },
+      verified_higher_condition_defence: higher,
+    };
+  };
   for (const bad of [
     { ...card, name: "CRUSADER" },
     { ...card, level: 2 },
-    {
-      ...card,
-      verified_higher_condition_defence: {
-        ...card.verified_higher_condition_defence!,
-        source: "print_back",
-      },
-    },
-    {
-      ...card,
-      verified_higher_condition_defence: {
-        ...card.verified_higher_condition_defence!,
-        approval: "kyries_review_2026-10-12",
-      },
-    },
-    {
-      ...card,
-      verified_higher_condition_defence: {
-        ...card.verified_higher_condition_defence!,
-        immunities: ["shuffle"],
-      },
-    },
+    withHigher({ source: "print_back" }),
+    withHigher({ approval: "kyries_review_2026-10-12" }),
+    withHigher({ immunities: ["shuffle"] }),
   ]) {
     expect(normalizedHeroStatCardSchema.safeParse(bad).success).toBe(false);
     expect(readHigherHeroDefence(bad as typeof card)).toBeUndefined();

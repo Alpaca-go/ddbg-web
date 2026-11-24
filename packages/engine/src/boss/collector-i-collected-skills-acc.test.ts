@@ -181,7 +181,7 @@ describe("Collected I · 正式目录卡面（monster_medium:p098/p095/p101 · R
     const skill = card.skills.find((entry) => entry.slot === slot)!;
     expect(skill.name).toBe(name);
     expect(skill.target).toBe(target);
-    expect(skill.verified_monster_effects?.effects).toEqual(effects);
+    expect(skill.rules?.effects?.effects).toEqual(effects);
     expect(
       selectMonsterSkill(
         card,
@@ -219,7 +219,7 @@ describe("Collector I · deployCollectorI · Collected 技能闭环", () => {
       [COLLECTOR_I_COLLECTED_VESTAL_CARD_ID, "A"],
     ]);
     for (const cardId of COLLECTED_IDS) {
-      expect(catalogCard(collected, cardId).skills[0]?.verified_monster_effects).toBeDefined();
+      expect(catalogCard(collected, cardId).skills[0]?.rules?.effects).toBeDefined();
     }
     expect(collected.battle!.encounter!.deck.filter((side) => side === "monster")).toHaveLength(3);
   });

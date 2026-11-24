@@ -13,6 +13,7 @@ export function applyRallyingFlare(
 ): NormalizedHeroSkillCard[] {
   const byId = new Map(entries.map((entry) => [entry.id, entry]));
   return cards.map((card) => {
+    if (card.rules?.rallyingFlare) return card;
     const entry = byId.get(card.id);
     if (!entry) return card;
     const page = Number(card.id.slice(-3));

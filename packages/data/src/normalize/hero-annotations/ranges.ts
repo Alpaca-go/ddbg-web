@@ -31,6 +31,7 @@ export function applyRangeEntries(
       ranges[0].numeric !== null
     )
       throw new Error(`${card.id} 已复核区间与印刷数据不匹配`);
+    if (card.rules?.range) return card;
     return { ...card, verified_range: { min: range.min, max: range.max, source: "print_front" } };
   });
 }

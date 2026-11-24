@@ -127,7 +127,7 @@ export function battleDataPlugin(): Plugin {
       ).cards;
       if (
         resolveCards.length !== 10 ||
-        resolveCards.some((card) => card.verification.unverified || !card.verified_turn_start)
+        resolveCards.some((card) => card.verification.unverified || !card.rules?.turnStart)
       )
         throw new Error("意志牌堆必须完整且效果已核实（R-048）");
       // 已逐页核实的四核心 I/II/III：印刷 p001–042、p064–105，共 84 张。

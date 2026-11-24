@@ -9,7 +9,7 @@ const file = loadNormalizedCorebox().hero_skill,
 const mark = cards.find((c) => c.id === "hero_skill:core:h03:p046")!;
 const caltrops = cards.find((c) => c.id === "hero_skill:core:h03:p061")!;
 const effects = (card: typeof mark) =>
-  card.verified_status_effects!.map(({ scope, kind, duration, ...rest }) => [
+  card.rules?.statuses!.map(({ scope, kind, duration, ...rest }) => [
     scope,
     kind,
     duration,
@@ -46,7 +46,7 @@ it("R-089两卡完整状态黄金值；Mark射程0–2、Caltrops伤害数字不
     ["target", "bleed", 3, 2],
     ["target", "debuff", 1, null],
   ]);
-  expect(mark.verified_range).toEqual({ min: 0, max: 2, source: "print_front" });
+  expect(mark.rules?.range).toEqual({ min: 0, max: 2, source: "print_front" });
   expect(caltrops.printed_labels.map((l) => [l.label, l.value])).toEqual([
     ["Crit", 1],
     ["Acc", 9],

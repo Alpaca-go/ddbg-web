@@ -21,9 +21,7 @@ it("C-017：Fanatic I 生成结果与提交数据一致，三招完整效果均�
   );
   const generated = built.monster_large.cards.find((c) => c.id === "monster_large:p008")!;
   expect(generated).toEqual(committed.cards.find((c: { id: string }) => c.id === generated.id));
-  expect(generated.skills.map((s) => s.verified_monster_effects?.effects.length)).toEqual([
-    2, 3, 1,
-  ]);
+  expect(generated.skills.map((s) => s.rules?.effects?.effects.length)).toEqual([2, 3, 1]);
 });
 it("R-185：Mammoth Cyst 生成结果与提交数据一致", () => {
   const committed = JSON.parse(

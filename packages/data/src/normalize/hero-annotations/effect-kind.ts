@@ -31,6 +31,7 @@ export function applyEffectKind(
   const byId = new Map<string, EffectKindEntry>();
   for (const entry of entries) byId.set(entry.id, entry);
   return cards.map((card) => {
+    if (card.rules?.effect) return card;
     const page = card.pages[0]!;
     const hero = card.hero ?? "ABOMINATION";
     const globalPage = card.id.startsWith("hero_skill:musketeer:") ? 357 + page : page;

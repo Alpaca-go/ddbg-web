@@ -858,20 +858,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{target_effects}{shuffle}Push1"
-      ],
-      "effects": [
-       {
-        "type": "shuffle",
-        "scope": "target",
-        "direction": "push",
-        "distance": 1
-       }
-      ]
-     },
      "rules": {
       "effects": {
        "source": "print_front",
@@ -1170,20 +1156,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{target_effects}{stun}2t"
-      ],
-      "effects": [
-       {
-        "type": "status",
-        "scope": "target",
-        "kind": "stun",
-        "duration": 2
-       }
-      ]
-     },
      "rules": {
       "effects": {
        "source": "print_front",
@@ -2606,26 +2578,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{target_effects}1{bleed}3t,{stress}+1"
-      ],
-      "effects": [
-       {
-        "type": "status",
-        "scope": "target",
-        "kind": "bleed",
-        "duration": 3,
-        "amount": 1
-       },
-       {
-        "type": "stress",
-        "scope": "target",
-        "amount": 1
-       }
-      ]
-     },
      "rules": {
       "effects": {
        "source": "print_front",
@@ -2912,26 +2864,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{target_effects}2{bleed}2t,{stress}+1"
-      ],
-      "effects": [
-       {
-        "type": "status",
-        "scope": "target",
-        "kind": "bleed",
-        "duration": 2,
-        "amount": 2
-       },
-       {
-        "type": "stress",
-        "scope": "target",
-        "amount": 1
-       }
-      ]
-     },
      "rules": {
       "effects": {
        "source": "print_front",
@@ -3272,26 +3204,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{self_effects}Self{debuff}2t{target_effects}{shuffle}Push1"
-      ],
-      "effects": [
-       {
-        "type": "status",
-        "scope": "self",
-        "kind": "debuff",
-        "duration": 2
-       },
-       {
-        "type": "shuffle",
-        "scope": "target",
-        "direction": "push",
-        "distance": 1
-       }
-      ]
-     },
      "rules": {
       "effects": {
        "source": "print_front",
@@ -5085,32 +4997,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{target_effects}3{bleed}2t,{debuff}2t,{stress}+1"
-      ],
-      "effects": [
-       {
-        "type": "status",
-        "scope": "target",
-        "kind": "bleed",
-        "duration": 2,
-        "amount": 3
-       },
-       {
-        "type": "status",
-        "scope": "target",
-        "kind": "debuff",
-        "duration": 2
-       },
-       {
-        "type": "stress",
-        "scope": "target",
-        "amount": 1
-       }
-      ]
-     },
      "rules": {
       "effects": {
        "source": "print_front",
@@ -5403,25 +5289,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{target_effects}{stun}2t,{stress}+1"
-      ],
-      "effects": [
-       {
-        "type": "status",
-        "scope": "target",
-        "kind": "stun",
-        "duration": 2
-       },
-       {
-        "type": "stress",
-        "scope": "target",
-        "amount": 1
-       }
-      ]
-     },
      "rules": {
       "effects": {
        "source": "print_front",
@@ -5789,28 +5656,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{target_effects}{light}-1,{stress}+2,{disease}"
-      ],
-      "effects": [
-       {
-        "type": "light",
-        "scope": "target",
-        "amount": -1
-       },
-       {
-        "type": "stress",
-        "scope": "target",
-        "amount": 2
-       },
-       {
-        "type": "disease",
-        "scope": "target"
-       }
-      ]
-     },
      "rules": {
       "effects": {
        "source": "print_front",
@@ -7280,21 +7125,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{target_effects}3{blight}4t"
-      ],
-      "effects": [
-       {
-        "type": "status",
-        "scope": "target",
-        "kind": "blight",
-        "duration": 4,
-        "amount": 3
-       }
-      ]
-     },
      "rules": {
       "effects": {
        "source": "print_front",
@@ -7540,20 +7370,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{target_effects}{stun}1t"
-      ],
-      "effects": [
-       {
-        "type": "status",
-        "scope": "target",
-        "kind": "stun",
-        "duration": 1
-       }
-      ]
-     },
      "rules": {
       "effects": {
        "source": "print_front",
@@ -7813,33 +7629,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{self_effects}Self{buff}2t,{damage_or_heal_combined_marker}{heal}9,Remove:{blight_resist}{bleed}"
-      ],
-      "effects": [
-       {
-        "type": "status",
-        "scope": "self",
-        "kind": "buff",
-        "duration": 2
-       },
-       {
-        "type": "heal",
-        "scope": "self",
-        "amount": 9
-       },
-       {
-        "type": "cleanse",
-        "scope": "self",
-        "kinds": [
-         "bleed",
-         "blight"
-        ]
-       }
-      ]
-     },
      "rules": {
       "effects": {
        "source": "print_front",
@@ -9269,25 +9058,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{target_effects}{stun}2t,{stress}+1"
-      ],
-      "effects": [
-       {
-        "type": "status",
-        "scope": "target",
-        "kind": "stun",
-        "duration": 2
-       },
-       {
-        "type": "stress",
-        "scope": "target",
-        "amount": 1
-       }
-      ]
-     },
      "rules": {
       "effects": {
        "source": "print_front",
@@ -9591,21 +9361,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{target_effects}1{blight}3t"
-      ],
-      "effects": [
-       {
-        "type": "status",
-        "scope": "target",
-        "kind": "blight",
-        "duration": 3,
-        "amount": 1
-       }
-      ]
-     },
      "rules": {
       "effects": {
        "source": "print_front",
@@ -11032,25 +10787,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{target_effects}{stun}2t,{stress}+1"
-      ],
-      "effects": [
-       {
-        "type": "status",
-        "scope": "target",
-        "kind": "stun",
-        "duration": 2
-       },
-       {
-        "type": "stress",
-        "scope": "target",
-        "amount": 1
-       }
-      ]
-     },
      "rules": {
       "effects": {
        "source": "print_front",
@@ -11354,21 +11090,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{target_effects}2{blight}3t"
-      ],
-      "effects": [
-       {
-        "type": "status",
-        "scope": "target",
-        "kind": "blight",
-        "duration": 3,
-        "amount": 2
-       }
-      ]
-     },
      "rules": {
       "effects": {
        "source": "print_front",
@@ -12795,25 +12516,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{target_effects}{stun}2t,{stress}+1"
-      ],
-      "effects": [
-       {
-        "type": "status",
-        "scope": "target",
-        "kind": "stun",
-        "duration": 2
-       },
-       {
-        "type": "stress",
-        "scope": "target",
-        "amount": 1
-       }
-      ]
-     },
      "rules": {
       "effects": {
        "source": "print_front",
@@ -13117,21 +12819,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{target_effects}3{blight}3t"
-      ],
-      "effects": [
-       {
-        "type": "status",
-        "scope": "target",
-        "kind": "blight",
-        "duration": 3,
-        "amount": 3
-       }
-      ]
-     },
      "rules": {
       "effects": {
        "source": "print_front",
@@ -14798,25 +14485,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{self_effects}Self{buff}3t{target_effects}{stress}+2"
-      ],
-      "effects": [
-       {
-        "type": "status",
-        "scope": "self",
-        "kind": "buff",
-        "duration": 3
-       },
-       {
-        "type": "stress",
-        "scope": "target",
-        "amount": 2
-       }
-      ]
-     },
      "rules": {
       "effects": {
        "source": "print_front",
@@ -15156,31 +14824,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{target_effects}{stun}1t,{shuffle}Push2,{stress}+1"
-      ],
-      "effects": [
-       {
-        "type": "status",
-        "scope": "target",
-        "kind": "stun",
-        "duration": 1
-       },
-       {
-        "type": "shuffle",
-        "scope": "target",
-        "direction": "push",
-        "distance": 2
-       },
-       {
-        "type": "stress",
-        "scope": "target",
-        "amount": 1
-       }
-      ]
-     },
      "rules": {
       "effects": {
        "source": "print_front",
@@ -15490,19 +15133,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{target_effects}{stress}+1"
-      ],
-      "effects": [
-       {
-        "type": "stress",
-        "scope": "target",
-        "amount": 1
-       }
-      ]
-     },
      "rules": {
       "effects": {
        "source": "print_front",
@@ -17110,25 +16740,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{self_effects}Self{buff}3t{target_effects}{stress}+2"
-      ],
-      "effects": [
-       {
-        "type": "status",
-        "scope": "self",
-        "kind": "buff",
-        "duration": 3
-       },
-       {
-        "type": "stress",
-        "scope": "target",
-        "amount": 2
-       }
-      ]
-     },
      "rules": {
       "effects": {
        "source": "print_front",
@@ -17468,31 +17079,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{target_effects}{stun}1t,{shuffle}Push2,{stress}+1"
-      ],
-      "effects": [
-       {
-        "type": "status",
-        "scope": "target",
-        "kind": "stun",
-        "duration": 1
-       },
-       {
-        "type": "shuffle",
-        "scope": "target",
-        "direction": "push",
-        "distance": 2
-       },
-       {
-        "type": "stress",
-        "scope": "target",
-        "amount": 1
-       }
-      ]
-     },
      "rules": {
       "effects": {
        "source": "print_front",
@@ -17802,19 +17388,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{target_effects}{stress}+1"
-      ],
-      "effects": [
-       {
-        "type": "stress",
-        "scope": "target",
-        "amount": 1
-       }
-      ]
-     },
      "rules": {
       "effects": {
        "source": "print_front",
@@ -19433,25 +19006,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{self_effects}Self{buff}3t{target_effects}{stress}+2"
-      ],
-      "effects": [
-       {
-        "type": "status",
-        "scope": "self",
-        "kind": "buff",
-        "duration": 3
-       },
-       {
-        "type": "stress",
-        "scope": "target",
-        "amount": 2
-       }
-      ]
-     },
      "rules": {
       "effects": {
        "source": "print_front",
@@ -19791,31 +19345,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{target_effects}{stun}1t,{shuffle}Push2,{stress}+1"
-      ],
-      "effects": [
-       {
-        "type": "status",
-        "scope": "target",
-        "kind": "stun",
-        "duration": 1
-       },
-       {
-        "type": "shuffle",
-        "scope": "target",
-        "direction": "push",
-        "distance": 2
-       },
-       {
-        "type": "stress",
-        "scope": "target",
-        "amount": 1
-       }
-      ]
-     },
      "rules": {
       "effects": {
        "source": "print_front",
@@ -20125,19 +19654,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{target_effects}{stress}+1"
-      ],
-      "effects": [
-       {
-        "type": "stress",
-        "scope": "target",
-        "amount": 1
-       }
-      ]
-     },
      "rules": {
       "effects": {
        "source": "print_front",
@@ -24039,27 +23555,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{target_effects}3{blight}3t,{debuff}2t"
-      ],
-      "effects": [
-       {
-        "type": "status",
-        "scope": "target",
-        "kind": "blight",
-        "duration": 3,
-        "amount": 3
-       },
-       {
-        "type": "status",
-        "scope": "target",
-        "kind": "debuff",
-        "duration": 2
-       }
-      ]
-     },
      "rules": {
       "effects": {
        "source": "print_front",
@@ -24311,19 +23806,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{target_effects}{stress}+2"
-      ],
-      "effects": [
-       {
-        "type": "stress",
-        "scope": "target",
-        "amount": 2
-       }
-      ]
-     },
      "rules": {
       "effects": {
        "source": "print_front",
@@ -25930,20 +25412,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{target_effects}{stun}2t,PitToss"
-      ],
-      "effects": [
-       {
-        "type": "status",
-        "scope": "target",
-        "kind": "stun",
-        "duration": 2
-       }
-      ]
-     },
      "rules": {
       "effects": {
        "source": "print_front",
@@ -26188,19 +25656,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{target_effects}{stress}+2"
-      ],
-      "effects": [
-       {
-        "type": "stress",
-        "scope": "target",
-        "amount": 2
-       }
-      ]
-     },
      "rules": {
       "effects": {
        "source": "print_front",
@@ -27695,25 +27150,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{target_effects}{debuff}1t,{stress}+1"
-      ],
-      "effects": [
-       {
-        "type": "status",
-        "scope": "target",
-        "kind": "debuff",
-        "duration": 1
-       },
-       {
-        "type": "stress",
-        "scope": "target",
-        "amount": 1
-       }
-      ]
-     },
      "rules": {
       "effects": {
        "source": "print_front",
@@ -27981,21 +27417,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{target_effects}3{blight}2t"
-      ],
-      "effects": [
-       {
-        "type": "status",
-        "scope": "target",
-        "kind": "blight",
-        "duration": 2,
-        "amount": 3
-       }
-      ]
-     },
      "rules": {
       "effects": {
        "source": "print_front",
@@ -28202,25 +27623,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{self_effects}Self{buff}2t,{damage_or_heal_combined_marker}15{heal}"
-      ],
-      "effects": [
-       {
-        "type": "status",
-        "scope": "self",
-        "kind": "buff",
-        "duration": 2
-       },
-       {
-        "type": "heal",
-        "scope": "self",
-        "amount": 15
-       }
-      ]
-     },
      "rules": {
       "effects": {
        "source": "print_front",
@@ -29631,21 +29033,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{target_effects}3{bleed}3t"
-      ],
-      "effects": [
-       {
-        "type": "status",
-        "scope": "target",
-        "kind": "bleed",
-        "duration": 3,
-        "amount": 3
-       }
-      ]
-     },
      "rules": {
       "effects": {
        "source": "print_front",
@@ -30255,24 +29642,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{target_effects}{stress}+2,{light}-1,{summon}"
-      ],
-      "effects": [
-       {
-        "type": "stress",
-        "scope": "target",
-        "amount": 2
-       },
-       {
-        "type": "light",
-        "scope": "target",
-        "amount": -1
-       }
-      ]
-     },
      "rules": {
       "effects": {
        "source": "print_front",
@@ -31716,31 +31085,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{target_effects}3{bleed}3t,{stress}+1,{light}-1"
-      ],
-      "effects": [
-       {
-        "type": "status",
-        "scope": "target",
-        "kind": "bleed",
-        "duration": 3,
-        "amount": 3
-       },
-       {
-        "type": "stress",
-        "scope": "target",
-        "amount": 1
-       },
-       {
-        "type": "light",
-        "scope": "target",
-        "amount": -1
-       }
-      ]
-     },
      "rules": {
       "effects": {
        "source": "print_front",
@@ -32032,26 +31376,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{target_effects}2{bleed}4t,{stress}+1"
-      ],
-      "effects": [
-       {
-        "type": "status",
-        "scope": "target",
-        "kind": "bleed",
-        "duration": 4,
-        "amount": 2
-       },
-       {
-        "type": "stress",
-        "scope": "target",
-        "amount": 1
-       }
-      ]
-     },
      "rules": {
       "effects": {
        "source": "print_front",
@@ -32374,31 +31698,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{target_effects}{debuff}2t,{stress}+2,{shuffle}Push2"
-      ],
-      "effects": [
-       {
-        "type": "status",
-        "scope": "target",
-        "kind": "debuff",
-        "duration": 2
-       },
-       {
-        "type": "stress",
-        "scope": "target",
-        "amount": 2
-       },
-       {
-        "type": "shuffle",
-        "scope": "target",
-        "direction": "push",
-        "distance": 2
-       }
-      ]
-     },
      "rules": {
       "effects": {
        "source": "print_front",
@@ -34426,11 +33725,6 @@
        }
       ]
      ],
-     "verified_range": {
-      "min": 0,
-      "max": 10,
-      "source": "print_front"
-     },
      "lines": [
       [
        {
@@ -34637,24 +33931,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{target_effects}{stress}+3,{light}-1"
-      ],
-      "effects": [
-       {
-        "type": "stress",
-        "scope": "target",
-        "amount": 3
-       },
-       {
-        "type": "light",
-        "scope": "target",
-        "amount": -1
-       }
-      ]
-     },
      "rules": {
       "range": {
        "min": 0,
@@ -34792,11 +34068,6 @@
        }
       ]
      ],
-     "verified_range": {
-      "min": 0,
-      "max": 10,
-      "source": "print_front"
-     },
      "lines": [
       [
        {
@@ -34949,26 +34220,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{target_effects}3{bleed}3t,{stress}+1"
-      ],
-      "effects": [
-       {
-        "type": "status",
-        "scope": "target",
-        "kind": "bleed",
-        "duration": 3,
-        "amount": 3
-       },
-       {
-        "type": "stress",
-        "scope": "target",
-        "amount": 1
-       }
-      ]
-     },
      "rules": {
       "range": {
        "min": 0,
@@ -35126,11 +34377,6 @@
        }
       ]
      ],
-     "verified_range": {
-      "min": 0,
-      "max": 10,
-      "source": "print_front"
-     },
      "lines": [
       [
        {
@@ -35301,32 +34547,6 @@
        }
       ]
      ],
-     "verified_monster_effects": {
-      "source": "print_front",
-      "signatures": [
-       "{target_effects}{stun}1t,3{blight}3t,{stress}+1"
-      ],
-      "effects": [
-       {
-        "type": "status",
-        "scope": "target",
-        "kind": "stun",
-        "duration": 1
-       },
-       {
-        "type": "status",
-        "scope": "target",
-        "kind": "blight",
-        "duration": 3,
-        "amount": 3
-       },
-       {
-        "type": "stress",
-        "scope": "target",
-        "amount": 1
-       }
-      ]
-     },
      "rules": {
       "range": {
        "min": 0,

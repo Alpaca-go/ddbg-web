@@ -118,8 +118,7 @@ it("Refashion Them · Crowded 选最拥挤区英雄 · 命中 3 流血 3t + 1 �
     (entry) => entry.id === ANCESTOR_2_MONSTER_CARD_ID,
   )!;
   expect(
-    card.skills.find((skill) => skill.slot === REFASHION_THEM_SKILL_SLOT)?.verified_monster_effects
-      ?.effects,
+    card.skills.find((skill) => skill.slot === REFASHION_THEM_SKILL_SLOT)?.rules?.effects?.effects,
   ).toEqual([
     { type: "status", scope: "target", kind: "bleed", amount: 3, duration: 3 },
     { type: "stress", scope: "target", amount: 1 },
@@ -269,8 +268,7 @@ it("Unmake Them All · Furthest 选最远英雄 · 命中 2 流血 4t + 1 压力
     (entry) => entry.id === ANCESTOR_2_MONSTER_CARD_ID,
   )!;
   expect(
-    card.skills.find((skill) => skill.slot === UNMAKE_THEM_ALL_SKILL_SLOT)?.verified_monster_effects
-      ?.effects,
+    card.skills.find((skill) => skill.slot === UNMAKE_THEM_ALL_SKILL_SLOT)?.rules?.effects?.effects,
   ).toEqual([
     { type: "status", scope: "target", kind: "bleed", amount: 2, duration: 4 },
     { type: "stress", scope: "target", amount: 1 },
@@ -373,8 +371,8 @@ it("Embrace Futility · Closest 0 同区命中 · debuff 2t + 2 压力 + Push 2"
     (entry) => entry.id === ANCESTOR_2_MONSTER_CARD_ID,
   )!;
   expect(
-    card.skills.find((skill) => skill.slot === EMBRACE_FUTILITY_SKILL_SLOT)
-      ?.verified_monster_effects?.effects,
+    card.skills.find((skill) => skill.slot === EMBRACE_FUTILITY_SKILL_SLOT)?.rules?.effects
+      ?.effects,
   ).toEqual([
     { type: "status", scope: "target", kind: "debuff", duration: 2 },
     { type: "stress", scope: "target", amount: 2 },

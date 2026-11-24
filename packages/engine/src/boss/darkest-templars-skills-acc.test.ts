@@ -118,12 +118,12 @@ describe("Templars Acc 最小结算", () => {
       (entry) => entry.id === TEMPLAR_IMPALER_MONSTER_CARD_ID,
     )!;
     expect(
-      card.skills.find((skill) => skill.slot === TEMPLAR_BODY_SLAM_SKILL_SLOT)
-        ?.verified_monster_effects?.effects,
+      card.skills.find((skill) => skill.slot === TEMPLAR_BODY_SLAM_SKILL_SLOT)?.rules?.effects
+        ?.effects,
     ).toEqual([{ type: "status", scope: "target", kind: "stun", duration: 2 }]);
     expect(
-      card.skills.find((skill) => skill.slot === TEMPLAR_BODY_SLAM_SKILL_SLOT)
-        ?.verified_monster_effects?.signatures,
+      card.skills.find((skill) => skill.slot === TEMPLAR_BODY_SLAM_SKILL_SLOT)?.rules?.effects
+        ?.signatures,
     ).toEqual(["{target_effects}{stun}2t,PitToss"]);
 
     let cursor = 0;
@@ -174,8 +174,8 @@ describe("Templars Acc 最小结算", () => {
       (entry) => entry.id === TEMPLAR_WARLORD_MONSTER_CARD_ID,
     )!;
     expect(
-      card.skills.find((skill) => skill.slot === TEMPLAR_STINGER_SHOT_SKILL_SLOT)
-        ?.verified_monster_effects?.effects,
+      card.skills.find((skill) => skill.slot === TEMPLAR_STINGER_SHOT_SKILL_SLOT)?.rules?.effects
+        ?.effects,
     ).toEqual([
       { type: "status", scope: "target", kind: "blight", amount: 3, duration: 3 },
       { type: "status", scope: "target", kind: "debuff", duration: 2 },
@@ -267,8 +267,8 @@ describe("Templars Acc 最小结算", () => {
       (entry) => entry.id === TEMPLAR_WARLORD_MONSTER_CARD_ID,
     )!;
     expect(
-      card.skills.find((skill) => skill.slot === TEMPLAR_REVELATION_SKILL_SLOT)
-        ?.verified_monster_effects?.effects,
+      card.skills.find((skill) => skill.slot === TEMPLAR_REVELATION_SKILL_SLOT)?.rules?.effects
+        ?.effects,
     ).toEqual([{ type: "stress", scope: "target", amount: 2 }]);
 
     let cursor = 0;
@@ -355,8 +355,8 @@ describe("Templars Acc 最小结算", () => {
       (entry) => entry.id === TEMPLAR_IMPALER_MONSTER_CARD_ID,
     )!;
     expect(
-      card.skills.find((skill) => skill.slot === TEMPLAR_REVELATION_SKILL_SLOT)
-        ?.verified_monster_effects?.effects,
+      card.skills.find((skill) => skill.slot === TEMPLAR_REVELATION_SKILL_SLOT)?.rules?.effects
+        ?.effects,
     ).toEqual([{ type: "stress", scope: "target", amount: 2 }]);
 
     let cursor = 0;

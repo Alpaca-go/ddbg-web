@@ -31,7 +31,7 @@ describe("八名英雄24面获批属性（R10/19/29；R-006/007/048/088/094/095�
       built.cards
         .filter(
           (c) =>
-            c.verified_condition_defence &&
+            c.rules?.conditionDefence &&
             ![
               "PLAGUE DOCTOR",
               "GRAVE ROBBER",
@@ -41,7 +41,7 @@ describe("八名英雄24面获批属性（R10/19/29；R-006/007/048/088/094/095�
               "ABOMINATION",
             ].includes(c.name),
         )
-        .map((c) => [c.id, c.verified_condition_defence]),
+        .map((c) => [c.id, c.rules?.conditionDefence]),
     ).toEqual([
       [
         "hero_stat:core:h01:p001:front",
@@ -90,7 +90,7 @@ describe("八名英雄24面获批属性（R10/19/29；R-006/007/048/088/094/095�
       ],
     ]);
     const hellion = built.cards.find((c) => c.id === "hero_stat:core:h02:p003:front")!;
-    const annotation = hellion.verified_condition_defence!;
+    const annotation = hellion.rules!.conditionDefence!;
     for (const card of [
       { ...hellion, verified_condition_defence: { ...annotation, resistances: ["stun"] } },
       { ...hellion, verified_condition_defence: { ...annotation, immunities: ["bleed"] } },
@@ -115,7 +115,7 @@ describe("八名英雄24面获批属性（R10/19/29；R-006/007/048/088/094/095�
     }
   });
   it("只核获批 I 级 Buff 抗性栏；栏位漂移拒绝，其他图标仍保留未验证", () => {
-    expect(built.cards.filter((c) => c.verified_buff_defence).map((c) => c.id)).toEqual([
+    expect(built.cards.filter((c) => c.rules?.buffDefence).map((c) => c.id)).toEqual([
       "hero_stat:core:h01:p001:front",
       "hero_stat:core:h02:p003:front",
       "hero_stat:core:h04:p007:front",
@@ -129,7 +129,7 @@ describe("八名英雄24面获批属性（R10/19/29；R-006/007/048/088/094/095�
       "hero_stat:core:h11:p021:front",
     ]);
     expect(built.cards.find((c) => c.id === "hero_stat:core:h02:p003:front")).toMatchObject({
-      verified_buff_defence: { resistant: false, immune: false, source: "print_front" },
+      rules: { buffDefence: { resistant: false, immune: false, source: "print_front" } },
       verification: { unverified: true, reasons: expect.arrayContaining(["icon:d29a868ed8"]) },
     });
     const changed = structuredClone(raw);

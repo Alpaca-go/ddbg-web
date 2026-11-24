@@ -77,7 +77,7 @@ it("九面限定 I 级 / 高等级防御与印刷一致；Jester II/III 按 R-21
       .filter((c) => c.name === "JESTER")
       .map((c) => [
         c.id,
-        c.verified_condition_defence?.resistances ?? null,
+        c.rules?.conditionDefence?.resistances ?? null,
         readHigherHeroDefence(c)?.resistances ?? null,
       ]),
   ).toEqual([
@@ -90,7 +90,7 @@ it("九面限定 I 级 / 高等级防御与印刷一致；Jester II/III 按 R-21
       .filter((c) => c.name === "ARBALEST")
       .map((c) => [
         c.id,
-        c.verified_condition_defence?.resistances ?? null,
+        c.rules?.conditionDefence?.resistances ?? null,
         readHigherHeroDefence(c)?.resistances ?? null,
         readHigherHeroDefence(c)?.immunities ?? null,
       ]),
@@ -104,7 +104,7 @@ it("九面限定 I 级 / 高等级防御与印刷一致；Jester II/III 按 R-21
       .filter((c) => c.name === "ABOMINATION")
       .map((c) => [
         c.id,
-        c.verified_condition_defence?.resistances ?? null,
+        c.rules?.conditionDefence?.resistances ?? null,
         readHigherHeroDefence(c)?.resistances ?? null,
         readHigherHeroDefence(c)?.immunities ?? null,
       ]),

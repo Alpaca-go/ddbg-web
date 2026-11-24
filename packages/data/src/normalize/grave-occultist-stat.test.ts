@@ -21,8 +21,8 @@ it("R-095六面独立黄金值与限定防御；旧批准日期不重写", () =>
       c.life,
       c.dodge,
       c.speed,
-      (c.verified_condition_defence ?? readHigherHeroDefence(c))!.resistances,
-      (c.verified_condition_defence ?? readHigherHeroDefence(c))!.immunities,
+      (c.rules?.conditionDefence ?? readHigherHeroDefence(c))!.resistances,
+      (c.rules?.conditionDefence ?? readHigherHeroDefence(c))!.immunities,
       c.approval,
     ]),
   ).toEqual([

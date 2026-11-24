@@ -133,6 +133,7 @@ export function applyBountyStatuses(
       if (ranges.length !== 1 || ranges[0]!.text !== "0-2" || ranges[0]!.numeric !== null)
         throw new Error("Mark for Death I区间射程漂移（R-089）");
     }
+    if (card.rules?.statuses) return card;
     return normalizedHeroSkillCardSchema.parse({
       ...card,
       effect_lines,

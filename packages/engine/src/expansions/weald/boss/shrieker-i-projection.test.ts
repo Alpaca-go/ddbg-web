@@ -101,11 +101,11 @@ it.each([
 
 it("R-261 Peck／Regurgitate 的效果计划不丢流血、减益或疾病；Nest 替代能力显式拒绝", () => {
   const [base] = buildShriekerICombatCatalog({ nestInPlay: false });
-  expect(base!.skills[0]!.verified_monster_effects!.effects).toEqual([
+  expect(base!.skills[0]!.rules!.effects!.effects).toEqual([
     { type: "shuffle", scope: "self", direction: "pull", distance: 1 },
     { type: "status", scope: "target", kind: "bleed", amount: 2, duration: 2 },
   ]);
-  expect(base!.skills[2]!.verified_monster_effects!.effects).toEqual([
+  expect(base!.skills[2]!.rules!.effects!.effects).toEqual([
     { type: "status", scope: "target", kind: "debuff", duration: 2 },
     { type: "disease", scope: "target" },
   ]);

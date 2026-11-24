@@ -95,6 +95,7 @@ export function applyStatusEffects(
     annotations.set(entry.id, [...previous, ...effects]);
   }
   return cards.map((card) => {
+    if (card.rules?.statuses) return card;
     const effects = annotations.get(card.id);
     return effects
       ? normalizedHeroSkillCardSchema.parse({

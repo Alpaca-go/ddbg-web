@@ -276,7 +276,7 @@ describe("Shuffling Horror · Echoing Disassembly", () => {
     expect(
       horrorCard.skills.find(
         (skill) => skill.slot === SHUFFLING_HORROR_ECHOING_DISASSEMBLY_SKILL_SLOT,
-      )?.verified_monster_effects?.effects,
+      )?.rules?.effects?.effects,
     ).toEqual([
       { type: "stress", scope: "target", amount: SHUFFLING_HORROR_ECHOING_STRESS_AMOUNT },
       { type: "light", scope: "target", amount: SHUFFLING_HORROR_ECHOING_LIGHT_DELTA },

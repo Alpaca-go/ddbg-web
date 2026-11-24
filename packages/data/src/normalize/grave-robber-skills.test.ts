@@ -8,13 +8,13 @@ import { applyHeroStatuses } from "./hero-annotations";
 const cards = loadNormalizedCorebox().hero_skill.cards;
 
 it("Poison Dart I / Shadow Fade I / Toxin Trickery I 完整状态黄金值；II/III已有独立注解", () => {
-  expect(cards.find((c) => c.id === "hero_skill:core:h09:p184")!.verified_status_effects).toEqual([
+  expect(cards.find((c) => c.id === "hero_skill:core:h09:p184")!.rules?.statuses).toEqual([
     { lineIndex: 0, segmentIndex: 2, scope: "target", kind: "blight", amount: 2, duration: 3 },
   ]);
-  expect(cards.find((c) => c.id === "hero_skill:core:h09:p178")!.verified_status_effects).toEqual([
+  expect(cards.find((c) => c.id === "hero_skill:core:h09:p178")!.rules?.statuses).toEqual([
     { lineIndex: 1, segmentIndex: 2, scope: "self", kind: "buff", duration: 2 },
   ]);
-  expect(cards.find((c) => c.id === "hero_skill:core:h09:p187")!.verified_status_effects).toEqual([
+  expect(cards.find((c) => c.id === "hero_skill:core:h09:p187")!.rules?.statuses).toEqual([
     { lineIndex: 1, segmentIndex: 2, scope: "self", kind: "buff", duration: 2 },
   ]);
   for (const id of [
@@ -22,26 +22,26 @@ it("Poison Dart I / Shadow Fade I / Toxin Trickery I 完整状态黄金值；II/
     "hero_skill:core:h09:p179",
     "hero_skill:core:h09:p188",
   ] as const)
-    expect(cards.find((c) => c.id === id)!.verified_status_effects).toBeDefined();
+    expect(cards.find((c) => c.id === id)!.rules?.statuses).toBeDefined();
   expect(applyHeroStatuses(cards)).toEqual(cards);
 });
 
 it("Throw Dagger I 同框双条件与 1–2 射程；Lunge I 对 Blight +2；区间原 numeric 仍 null", () => {
   const dagger = cards.find((c) => c.id === "hero_skill:core:h09:p181")!;
-  expect(dagger.verified_damage_bonuses).toEqual([
+  expect(dagger.rules?.damageBonuses).toEqual([
     { lineIndex: 0, amount: 1, condition: "blighted", source: "print_front" },
     { lineIndex: 1, amount: 2, condition: "marked", source: "print_front" },
   ]);
-  expect(dagger.verified_range).toEqual({ min: 1, max: 2, source: "print_front" });
+  expect(dagger.rules?.range).toEqual({ min: 1, max: 2, source: "print_front" });
   expect(dagger.unlabeled_numbers.find((n) => n.text === "1-2")?.numeric).toBeNull();
   const lunge = cards.find((c) => c.id === "hero_skill:core:h09:p172")!;
-  expect(lunge.verified_damage_bonus).toEqual({
+  expect(lunge.rules?.damage).toEqual({
     lineIndex: 1,
     amount: 2,
     condition: "blighted",
     source: "print_front",
   });
-  expect(cards.find((c) => c.id === "hero_skill:core:h09:p184")!.verified_range).toEqual({
+  expect(cards.find((c) => c.id === "hero_skill:core:h09:p184")!.rules?.range).toEqual({
     min: 1,
     max: 2,
     source: "print_front",
@@ -62,8 +62,8 @@ it("Throw Dagger / Lunge 身份或效果行漂移拒绝；Pick to the Face / Fla
   ).toThrow();
   for (const id of ["hero_skill:core:h09:p169", "hero_skill:core:h09:p175"] as const) {
     const card = cards.find((c) => c.id === id)!;
-    expect(card.verified_damage_bonus).toBeUndefined();
-    expect(card.verified_damage_bonuses).toBeUndefined();
-    expect(card.verified_status_effects).toBeUndefined();
+    expect(card.rules?.damage).toBeUndefined();
+    expect(card.rules?.damageBonuses).toBeUndefined();
+    expect(card.rules?.statuses).toBeUndefined();
   }
 });

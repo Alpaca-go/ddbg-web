@@ -21,7 +21,7 @@ it("R-088三面独立黄金值、完整防御与实际批准日期；旧批准�
       c.dodge,
       c.speed,
       c.approval,
-      c.verified_condition_defence ?? readHigherHeroDefence(c),
+      c.rules?.conditionDefence ?? readHigherHeroDefence(c),
     ]),
   ).toEqual([
     [
@@ -84,7 +84,7 @@ it("R-088三面独立黄金值、完整防御与实际批准日期；旧批准�
       )
       .every((c) => c.approval === "kyries_review_2026-10-10"),
   ).toBe(true);
-  expect(cards[0]!.verified_buff_defence).toEqual({
+  expect(cards[0]!.rules?.buffDefence).toEqual({
     resistant: false,
     immune: false,
     source: "print_front",
@@ -144,7 +144,7 @@ it("限定审批不可换英雄、等级、数字、源页或日期，不能把�
       normalizedHeroStatCardSchema.safeParse({
         ...third,
         verified_higher_condition_defence: {
-          ...third.verified_higher_condition_defence!,
+          ...third.rules!.higherConditionDefence!,
           ...patch,
         },
       }).success,
@@ -153,7 +153,7 @@ it("限定审批不可换英雄、等级、数字、源页或日期，不能把�
     normalizedHeroStatCardSchema.safeParse({
       ...cards[0]!,
       verified_condition_defence: {
-        ...cards[0]!.verified_condition_defence!,
+        ...cards[0]!.rules!.conditionDefence!,
         approval: "kyries_review_2026-10-12",
       },
     }).success,
@@ -168,7 +168,8 @@ it("限定审批不可换英雄、等级、数字、源页或日期，不能把�
   expect(
     readHigherHeroDefence({
       ...old,
-      verified_higher_condition_defence: third.verified_higher_condition_defence!,
+      rules: { ...old.rules, higherConditionDefence: third.rules!.higherConditionDefence! },
+      verified_higher_condition_defence: third.rules!.higherConditionDefence!,
     }),
   ).toBeUndefined();
 });

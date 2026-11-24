@@ -135,8 +135,7 @@ it("Know This · Crowded 选最拥挤区英雄 · 命中 +3 压力与光照 −1
     (entry) => entry.id === HEART_OF_DARKNESS_MONSTER_CARD_ID,
   )!;
   expect(
-    card.skills.find((skill) => skill.slot === KNOW_THIS_SKILL_SLOT)?.verified_monster_effects
-      ?.effects,
+    card.skills.find((skill) => skill.slot === KNOW_THIS_SKILL_SLOT)?.rules?.effects?.effects,
   ).toEqual([
     { type: "stress", scope: "target", amount: 3 },
     { type: "light", scope: "target", amount: -1 },
@@ -273,8 +272,7 @@ it("Puncture · Closest 须同区 · 命中 3 流血 3t + 1 压力", () => {
     (entry) => entry.id === HEART_OF_DARKNESS_MONSTER_CARD_ID,
   )!;
   expect(
-    card.skills.find((skill) => skill.slot === PUNCTURE_SKILL_SLOT)?.verified_monster_effects
-      ?.effects,
+    card.skills.find((skill) => skill.slot === PUNCTURE_SKILL_SLOT)?.rules?.effects?.effects,
   ).toEqual([
     { type: "status", scope: "target", kind: "bleed", amount: 3, duration: 3 },
     { type: "stress", scope: "target", amount: 1 },
@@ -363,8 +361,7 @@ it("Dissolution · Furthest 选最远英雄 · 命中 Stun 1t + 3 Blight 3t + 1 
     (entry) => entry.id === HEART_OF_DARKNESS_MONSTER_CARD_ID,
   )!;
   expect(
-    card.skills.find((skill) => skill.slot === DISSOLUTION_SKILL_SLOT)?.verified_monster_effects
-      ?.effects,
+    card.skills.find((skill) => skill.slot === DISSOLUTION_SKILL_SLOT)?.rules?.effects?.effects,
   ).toEqual([
     { type: "status", scope: "target", kind: "stun", duration: 1 },
     { type: "status", scope: "target", kind: "blight", amount: 3, duration: 3 },

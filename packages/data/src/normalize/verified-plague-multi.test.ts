@@ -10,21 +10,21 @@ const rows = [
 
 it.each(rows)("%s完整卡面黄金值，保留Nt null及高等级边界", (id, effect) => {
   const card = cards.find((c) => c.id === id)!;
-  expect(card.verified_status_effects).toEqual([
+  expect(card.rules?.statuses).toEqual([
     { ...effect, scope: "target", lineIndex: 0, segmentIndex: 2 },
   ]);
   expect(card.unlabeled_numbers.find((n) => n.text === `${effect.duration}t`)?.numeric).toBeNull();
   if (id.endsWith("133")) {
-    expect(card.verified_range).toEqual({ min: 1, max: 2, source: "print_front" });
+    expect(card.rules?.range).toEqual({ min: 1, max: 2, source: "print_front" });
     expect(card.printed_labels).toEqual([{ label: "Acc", raw: "Acc 9", value: 9 }]);
     expect(card.stats_line).toEqual([{ type: "text", text: "Acc 9" }]);
   }
   for (const offset of [1, 2]) {
     const higher = cards.find((c) => c.pages[0] === card.pages[0]! + offset)!;
-    expect(higher.verified_status_effects).toBeDefined();
+    expect(higher.rules?.statuses).toBeDefined();
     if (id.endsWith("133"))
-      expect(higher.verified_range).toEqual({ min: 1, max: 2, source: "print_front" });
-    else expect(higher.verified_range).toBeUndefined();
+      expect(higher.rules?.range).toEqual({ min: 1, max: 2, source: "print_front" });
+    else expect(higher.rules?.range).toBeUndefined();
   }
 });
 

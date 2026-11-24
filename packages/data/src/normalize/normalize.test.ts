@@ -160,7 +160,7 @@ describe("规范化核心盒", () => {
     for (const icon of pending) expect(icon.naming).toBe("unverified");
     const flare = built.hero_skill.cards.find((card) => card.id === "hero_skill:core:h08:p166");
     expect(flare?.verification.unverified).toBe(false);
-    expect(flare?.verified_rallying_flare?.source).toBe("print_front");
+    expect(flare?.rules?.rallyingFlare?.source).toBe("print_front");
     const dirk = built.hero_skill.cards.find((card) => card.id === "hero_skill:core:h06:p106");
     expect(dirk?.verification.unverified).toBe(false);
 

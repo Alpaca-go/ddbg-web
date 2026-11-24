@@ -19,6 +19,7 @@ export function applyTargetStress(
     byId.set(entry.id, list);
   }
   return cards.map((card) => {
+    if (card.rules?.target?.stress) return card;
     const page = card.pages[0]!;
     const hero = card.hero ?? "ABOMINATION";
     const globalPage = card.id.startsWith("hero_skill:musketeer:") ? 357 + page : page;

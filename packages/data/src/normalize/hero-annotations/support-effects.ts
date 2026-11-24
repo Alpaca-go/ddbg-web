@@ -9,6 +9,7 @@ export function applySupportEffects(
 ): NormalizedHeroSkillCard[] {
   const byId = new Map(entries.map((entry) => [entry.id, entry]));
   return cards.map((card) => {
+    if (card.rules?.target?.support) return card;
     const entry = byId.get(legacyHeroSkillId(card));
     if (!entry) return card;
     const line = card.effect_lines[entry.lineIndex];
