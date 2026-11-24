@@ -29,7 +29,7 @@ Hag 仍需实际跨任务养成抵达与回村；Pounder 仍需实际养成及�
 
 ## 已有回归入口
 
-- [Hag 文件交接冒烟](../apps/web/e2e/hag-log-files.spec.ts)：seed6 单任务完整日志、释放待选、导出／导入、篡改拒绝、刷新恢复及继续释放。
-- [Pounder 文件交接冒烟](../apps/web/e2e/pounder-log-files.spec.ts)：seed17 实际回合检查点完整日志、导出／导入、版本篡改拒绝及刷新恢复。
+- [Hag 文件交接冒烟](../apps/web/e2e/weald/hag-log-files.spec.ts)：seed6 单任务完整日志、释放待选、导出／导入、篡改拒绝、刷新恢复及继续释放。
+- [Pounder 文件交接冒烟](../apps/web/e2e/weald/pounder-log-files.spec.ts)：seed17 实际回合检查点完整日志、导出／导入、版本篡改拒绝及刷新恢复。
 
 以上是自动回归入口，均不代表已有玩家实测日志。

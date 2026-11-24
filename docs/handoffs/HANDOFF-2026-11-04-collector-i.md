@@ -38,7 +38,7 @@ R-168 白色叹号**不推定额外规则语义**；F 区交互与有限堆奖�
 
 - [R-168、R-175、R-176、R-177](rulings.md) 和[卡面核对](phase5-collector-i-page-entry-review-2026-11-04.md)。
 - [专用部署](../../packages/engine/src/core/bosses/ruins-i-deploy.ts)、[胜负交接](../../packages/engine/src/core/bosses/ruins-i-finish.ts)、[Collector 场景](../../packages/engine/tests/core/bosses/collector-i-deploy.test.ts)、[Show Collection / Life Steal 验收](../../packages/engine/tests/core/bosses/collector-i-skills-acc.test.ts)、[Collected 三技能闭环](../../packages/engine/tests/core/bosses/collector-i-collected-skills-acc.test.ts)、[宝箱运行时](../../packages/engine/tests/core/bosses/collector-i-room-runtime.test.ts)。
-- [正式目录及兼容来源](../../apps/web/src/dungeon-sandbox/task-sources.ts)、[目录和迁移测试](../../apps/web/src/dungeon-sandbox/task-sources.test.ts)、[页面冒烟](../../apps/web/e2e/collector-i.spec.ts)。
+- [正式目录及兼容来源](../../apps/web/src/dungeon-sandbox/task-sources.ts)、[目录和迁移测试](../../apps/web/src/dungeon-sandbox/task-sources.test.ts)、[页面冒烟](../../apps/web/e2e/core/collector-i.spec.ts)。
 
 ## 验证
 
