@@ -1,14 +1,14 @@
-import { ruinsMonsterPoolThrough } from "../../../../data/src/monster-pool";
+import { ruinsMonsterPoolThrough } from "../../../../data/src/core/monsters/monster-pool";
 import {
   monsterPoolCatalogSchema,
   ruinsMonsterPool,
   type MonsterPoolCard,
-} from "../../../../data/src/monster-pool";
+} from "../../../../data/src/core/monsters/monster-pool";
 import {
   wealdLevelOneMonsterInstancesSchema,
   wealdHigherMonsterInstancesSchema,
   type WealdLevelOneMonsterInstance,
-} from "../../../../data/src/weald-monster-pool";
+} from "../../../../data/src/weald/monsters/weald-monster-pool";
 
 /** R-248：整场任务抽怪范围；未设时 Weald 仍为 W3 通用+当地混池。 */
 export type MonsterDrawScope = "wealdLocalOnly";

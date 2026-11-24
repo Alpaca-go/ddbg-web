@@ -7,10 +7,10 @@ import {
 import type { FreeTrinketId } from "../../../src/shared/battle/battle-free-trinkets";
 import { expect, it } from "vitest";
 import rawTrinkets from "../../../../data/normalized/corebox/trinket.json";
-import { normalizedTrinketFileSchema } from "../../../../data/src/normalize/schema";
-import { HERO_SKILL_TRINKET_IDS } from "../../../../data/src/hero-skill-trinkets";
-import type { HeroSkillTrinketId } from "../../../../data/src/hero-skill-trinkets";
-import { savedCommandSchema } from "../../../../data/src/quest-save";
+import { normalizedTrinketFileSchema } from "../../../../data/src/shared/schema";
+import { HERO_SKILL_TRINKET_IDS } from "../../../../data/src/core/heroes/hero-skill-trinkets";
+import type { HeroSkillTrinketId } from "../../../../data/src/core/heroes/hero-skill-trinkets";
+import { savedCommandSchema } from "../../../../data/src/shared/quest-save";
 import { applyCommand } from "../../../src/shared/core/command";
 import type { ApplyResult, GameState, Command } from "../../../src/shared/core/command";
 import { createBattleState } from "../../../src/shared/battle/battle";

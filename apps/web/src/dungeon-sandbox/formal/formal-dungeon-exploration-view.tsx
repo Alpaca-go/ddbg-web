@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { readBasicQuest } from "../../../../../packages/data/src/basic-quests";
+import { readBasicQuest } from "../../../../../packages/data/src/core/quests/basic-quests";
 import {
   cachedPrintExplorationUrl,
   lookupRoomCardArt,

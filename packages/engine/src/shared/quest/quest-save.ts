@@ -3,16 +3,16 @@ import { RUINS_BOSS_CATALOG_CARD_IDS } from "../../core/bosses/ruins-combat-leve
 import darkestPool from "../../../../data/normalized/corebox/darkest_monster_pool.json";
 import { upgradeTrinketR127Metadata } from "../trinkets/trinket-save-upgrade";
 import { upgradeFallenHeroSnapshot } from "../../core/heroes/fallen-heroes";
-import { questSaveSchema, questStartSchema } from "../../../../data/src/quest-save";
-import type { QuestSave, QuestStart } from "../../../../data/src/quest-save";
+import { questSaveSchema, questStartSchema } from "../../../../data/src/shared/quest-save";
+import type { QuestSave, QuestStart } from "../../../../data/src/shared/quest-save";
 import { createCoreDungeonQuest } from "../dungeon/dungeon-quest-entry";
 import type { CoreQuestSources } from "../dungeon/dungeon-quest-entry";
 import { readCampaignLevel } from "../hamlet/hamlet-campaign";
 import { applyCommand } from "../core/command";
 import { FUNDRAISER_PROMPT } from "../dungeon/dungeon-quest";
 import type { Command, GameEvent, GameState } from "../core/command";
-import { normalizeContentPacks } from "../../../../data/src/content-packs";
-import { basicQuestEnabledForContentPacks } from "../../../../data/src/basic-quests";
+import { normalizeContentPacks } from "../../../../data/src/shared/content-packs";
+import { basicQuestEnabledForContentPacks } from "../../../../data/src/core/quests/basic-quests";
 
 /** 忽略JSON键顺序及不可序列化的undefined；保留数组/牌堆顺序。 */
 function canonical(value: unknown): string {

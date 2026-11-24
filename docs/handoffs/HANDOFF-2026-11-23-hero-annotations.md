@@ -89,7 +89,7 @@ packages/data/src/normalize/hero-annotations/
 
 ## 4. 单个英雄的改写配方（照抄 h14）
 
-参考 [h14-leper.ts](../../packages/data/src/normalize/hero-annotations/h14-leper.ts)，
+参考 [h14-leper.ts](../../packages/data/src/core/heroes/annotations/h14-leper.ts)，
 文件顺序按 [hero-annotations/README.md](../../packages/data/src/normalize/hero-annotations/README.md)：
 imports → 数据导出（若有）→ 工厂函数 → patch 表 → 模块导出。
 
@@ -221,7 +221,7 @@ h12 Man-at-Arms 改为统一 patch 表
 
 1. `git status` 干净；`git log --oneline -3` 能看到 `ff007a4c`（或更新）。
 2. `pnpm install` 已装（Node 24、pnpm 12.9.1）。
-3. 读 [h14-leper.ts](../../packages/data/src/normalize/hero-annotations/h14-leper.ts)
-   与 [patch-helpers.ts](../../packages/data/src/normalize/hero-annotations/patch-helpers.ts)。
+3. 读 [h14-leper.ts](../../packages/data/src/core/heroes/annotations/h14-leper.ts)
+   与 [patch-helpers.ts](../../packages/data/src/core/heroes/annotations/patch-helpers.ts)。
 4. 选 `h12-man-at-arms.ts`，按 §4 改写，按 §5 验收，按 §7 提交。
 5. 每完成一个，把本文件 §3 表格的状态改为「已改写」，并更新 §0。

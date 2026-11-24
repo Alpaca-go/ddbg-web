@@ -2,7 +2,7 @@ import { expect, it } from "vitest";
 import {
   formalWealdProductionEmbarkAllowed,
   sandboxExpeditionEmbarkBlockReason,
-} from "../../../data/src/quest-map-pairing";
+} from "../../../data/src/core/quests/quest-map-pairing";
 import { createCampaignQuest } from "../../src/shared/hamlet/campaign-entry";
 import {
   drawInitialQuestOffers,
@@ -13,7 +13,7 @@ import { coreParty, coreQuestSources } from "../helpers/core-quest";
 import medium from "../../../data/normalized/extension/weald/monster_medium.json";
 import large from "../../../data/normalized/extension/weald/monster_large.json";
 import curios from "../../../data/normalized/extension/weald/curio.json";
-import { wealdCurioFileSchema } from "../../../data/src/curio";
+import { wealdCurioFileSchema } from "../../../data/src/core/curios/curio";
 import { createQuestSave, loadQuestSave } from "../../src/shared/quest/quest-save";
 
 const packs = ["core", "weald"] as const;

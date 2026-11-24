@@ -2,7 +2,7 @@ import type { Command, GameState } from "../../src/shared/core/command";
 import { createCoreDungeonQuest } from "../../src/shared/dungeon/dungeon-quest-entry";
 import { naturalParty, naturalQuest } from "./natural-quest";
 import { disinfectionSources as sources } from "./disinfection-quest";
-import type { QuestStart } from "../../../data/src/quest-save";
+import type { QuestStart } from "../../../data/src/shared/quest-save";
 
 /** 普通房间采样 seed2–5 后固定 seed4；不改玩家策略、站位或骰序。 */
 export function toxicMushroomsQuest() {

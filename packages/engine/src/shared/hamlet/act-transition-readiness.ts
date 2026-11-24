@@ -1,4 +1,4 @@
-import { bossFlatQuestSummarySchema } from "../../../../data/src/quest-summary";
+import { bossFlatQuestSummarySchema } from "../../../../data/src/shared/quest-summary";
 import { buildRuinsActTransitionPlan, buildWealdActTransitionPlan } from "./act-transition-plan";
 import type { GameState } from "../core/command";
 import type { DungeonState } from "../dungeon/dungeon";

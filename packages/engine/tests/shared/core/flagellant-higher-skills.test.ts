@@ -1,5 +1,5 @@
 import { expect, it } from "vitest";
-import { loadNormalizedCorebox } from "../../../../data/src/normalize/write";
+import { loadNormalizedCorebox } from "../../../../data/src/shared/write";
 import {
   resolveHeroSkillEffects,
   readPrintedRange,

@@ -4,8 +4,8 @@ import type { Command, GameState } from "../../../src/shared/core/command";
 import { hamletActionOptions } from "../../../src/shared/hamlet/hamlet-actions";
 import { coreQuestSources } from "../../helpers/core-quest";
 import { naturalAbbeyQuest } from "../../helpers/abbey-quest";
-import { savedCommandSchema } from "../../../../data/src/quest-save";
-import { diseaseRules } from "../../../../data/src/disease";
+import { savedCommandSchema } from "../../../../data/src/shared/quest-save";
+import { diseaseRules } from "../../../../data/src/core/hamlet/disease";
 import { prepareTestReplacement } from "../../helpers/replacement";
 
 let baseline: ReturnType<typeof naturalAbbeyQuest>;

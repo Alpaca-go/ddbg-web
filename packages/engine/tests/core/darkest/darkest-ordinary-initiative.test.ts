@@ -208,7 +208,7 @@ describe("最暗普通房 deployDarkestOrdinaryEncounter / startBattle", () => {
   });
 
   it("存档白名单包含 deployDarkestOrdinaryEncounter", async () => {
-    const { savedCommandSchema } = await import("../../../../data/src/quest-save");
+    const { savedCommandSchema } = await import("../../../../data/src/shared/quest-save");
     expect(savedCommandSchema.safeParse({ type: "deployDarkestOrdinaryEncounter" }).success).toBe(
       true,
     );

@@ -1,5 +1,5 @@
-import { CORE_TRINKET_BINDINGS } from "../../../../data/src/core-trinket-bindings";
-import type { CoreTrinketId } from "../../../../data/src/core-trinket-bindings";
+import { CORE_TRINKET_BINDINGS } from "../../../../data/src/core/trinkets/core-trinket-bindings";
+import type { CoreTrinketId } from "../../../../data/src/core/trinkets/core-trinket-bindings";
 import type { ApplyResult, Command, GameState, PendingChoice, GameEvent } from "../core/command";
 import type { BattleState } from "../battle/battle";
 import type { DungeonState } from "../dungeon/dungeon";

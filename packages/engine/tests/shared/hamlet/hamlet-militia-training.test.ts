@@ -8,12 +8,12 @@ import { ownedHeroSkills } from "../../../src/core/heroes/hero-loadout";
 import { createRng } from "../../../src/shared/core/rng";
 import events from "../../../../data/normalized/corebox/hamlet_event.json";
 import raw from "../../../../data/extract/corebox/raw/hamlet_event.json";
-import { rawFileSchema } from "../../../../data/src/extract/raw";
-import { buildHamletEvents } from "../../../../data/src/normalize/hamlet-event";
+import { rawFileSchema } from "../../../../data/src/shared/extract/raw";
+import { buildHamletEvents } from "../../../../data/src/core/hamlet/hamlet-event.build";
 import {
   hamletEventFileSchema,
   approvedHamletEffectIcons,
-} from "../../../../data/src/hamlet-event";
+} from "../../../../data/src/core/hamlet/hamlet-event";
 
 const cards = hamletEventFileSchema.parse(events).cards;
 const seed = Array.from({ length: 300 }, (_, i) => i + 1).find((seed) => {

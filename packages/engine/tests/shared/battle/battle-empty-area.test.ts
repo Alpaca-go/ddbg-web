@@ -7,7 +7,7 @@ import type {
   HeroSkillCardView,
   PlayHeroSkillEmptyAreaCommand,
 } from "../../../src/index";
-import { heroSkillIdForPage } from "../../../../data/src/hero-registry";
+import { heroSkillIdForPage } from "../../../../data/src/core/heroes/hero-registry";
 
 const cards = JSON.parse(
   readFileSync(

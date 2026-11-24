@@ -1,6 +1,6 @@
 import { expect, it } from "vitest";
 import rooms from "../../../../data/normalized/corebox/stygian_rooms.json";
-import { basicQuests } from "../../../../data/src/basic-quests";
+import { basicQuests } from "../../../../data/src/core/quests/basic-quests";
 import type { BattleArea, BattleEntity } from "../../../src/shared/battle/battle";
 import { applySpikedPit } from "../../../src/shared/battle/battle-spiked-pit";
 import { endRoundInvocation } from "../../../src/shared/battle/battle-invocation";

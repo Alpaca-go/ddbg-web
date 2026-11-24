@@ -1,5 +1,5 @@
 import rawStygianRooms from "../../../../data/normalized/corebox/stygian_rooms.json";
-import { stygianRoomsSchema } from "../../../../data/src/stygian-rooms";
+import { stygianRoomsSchema } from "../../../../data/src/core/rooms/stygian-rooms";
 import { rejectBattleCommand } from "../battle/battle";
 import type { BattleArea } from "../battle/battle";
 import type { ApplyResult, GameEvent, GameState } from "./command";

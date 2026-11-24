@@ -42,8 +42,8 @@ declare module "virtual:battle-data" {
       readonly speed: number;
       readonly attributesVerified: boolean;
       readonly rules?: {
-        readonly conditionDefence?: import("../../../packages/data/src/normalize/hero-stat").HeroConditionDefence;
-        readonly higherConditionDefence?: import("../../../packages/data/src/normalize/hero-higher-defence").HigherHeroDefence;
+        readonly conditionDefence?: import("../../../packages/data/src/core/heroes/hero-stat.build").HeroConditionDefence;
+        readonly higherConditionDefence?: import("../../../packages/data/src/core/heroes/hero-higher-defence.build").HigherHeroDefence;
         readonly buffDefence?: {
           readonly resistant: boolean;
           readonly immune: boolean;

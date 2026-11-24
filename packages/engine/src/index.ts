@@ -179,7 +179,7 @@ export { createQuestSave, loadQuestSave } from "./shared/quest/quest-save";
 export { currentHamletEvent, caretakerBuilding } from "./shared/hamlet/hamlet-event";
 export { warmUpDarkRoomNeedsTorch } from "./shared/dungeon/dungeon-light";
 export { readFinalFormSequence } from "./core/bosses/final-form-sequence";
-export type { QuestStart } from "../../data/src/quest-save";
+export type { QuestStart } from "../../data/src/shared/quest-save";
 export { currentHamletHero, hamletActionOptions } from "./shared/hamlet/hamlet-actions";
 export { visitNomadWagon } from "./shared/hamlet/hamlet-nomad";
 export { blacksmithOptions } from "./shared/hamlet/hamlet-blacksmith";
@@ -348,7 +348,7 @@ export {
   combatCardIdForPoolInstance,
 } from "./shared/core/monster-pool-runtime";
 export { isHauntedGraveyardGuard } from "./core/bosses/necromancer-ii-graveyard";
-export { HERO_SKILL_TRINKET_IDS } from "../../data/src/hero-skill-trinkets";
+export { HERO_SKILL_TRINKET_IDS } from "../../data/src/core/heroes/hero-skill-trinkets";
 
 export {
   FREE_TRINKET_IDS,

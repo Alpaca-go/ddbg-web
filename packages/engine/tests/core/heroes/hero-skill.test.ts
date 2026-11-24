@@ -5,9 +5,9 @@ import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 
 import { createRng, resolveHeroSkill, rollD10 } from "../../../src/index";
-import { heroSkillIdForPage } from "../../../../data/src/hero-registry";
-import { createIconLookup, resolveLines } from "../../../../data/src/normalize/icons";
-import { iconDictionarySchema } from "../../../../data/src/dictionary/schema";
+import { heroSkillIdForPage } from "../../../../data/src/core/heroes/hero-registry";
+import { createIconLookup, resolveLines } from "../../../../data/src/shared/icons";
+import { iconDictionarySchema } from "../../../../data/src/shared/dictionary/schema";
 import type { HeroSkillCardView, HeroSkillResolution, SkillCombatState } from "../../../src/index";
 
 const DATA_DIR = path.resolve(

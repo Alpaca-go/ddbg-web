@@ -1,5 +1,8 @@
 import type { PendingChoice } from "@ddbg/engine";
-import { questPrintedXpCap, readBasicQuest } from "../../../../../packages/data/src/basic-quests";
+import {
+  questPrintedXpCap,
+  readBasicQuest,
+} from "../../../../../packages/data/src/core/quests/basic-quests";
 import {
   upgradableBuildings,
   recoveryBuildingLevel,

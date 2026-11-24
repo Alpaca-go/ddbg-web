@@ -1,9 +1,9 @@
 import { readFileSync } from "node:fs";
 import { expect, it } from "vitest";
-import { approvedTeleporters as tile } from "../../../../data/src/normalize/teleporters";
+import { approvedTeleporters as tile } from "../../../../data/src/core/misc/teleporters.build";
 import rooms from "../../../../data/normalized/corebox/room.json";
 import catalog from "../../../../data/normalized/corebox/room_tile_geometry.json";
-import { selectRoomTile } from "../../../../data/src/normalize/room-tile-selection";
+import { selectRoomTile } from "../../../../data/src/core/rooms/room-tile-selection.build";
 import { applyCommand, createBattleState } from "../../../src/index";
 import type { BattleArea, BattleEntity, GameState, MonsterCardView } from "../../../src/index";
 import { distance } from "../../../src/shared/battle/battle";

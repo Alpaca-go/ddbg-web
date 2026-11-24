@@ -1,5 +1,5 @@
 import trinketData from "../../../../data/normalized/corebox/trinket.json";
-import { normalizedTrinketFileSchema } from "../../../../data/src/normalize/schema";
+import { normalizedTrinketFileSchema } from "../../../../data/src/shared/schema";
 import { createTrinketPool } from "../../../src/shared/trinkets/trinket-acquisition";
 import { wealdSuppliesLootFixture, wealdTaskSources } from "../../helpers/weald-task-battle";
 import { describe, expect, it } from "vitest";

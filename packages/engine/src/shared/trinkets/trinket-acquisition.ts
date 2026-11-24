@@ -1,5 +1,5 @@
-import { normalizedTrinketCardSchema } from "../../../../data/src/normalize/schema";
-import type { NormalizedTrinketCard } from "../../../../data/src/normalize/schema";
+import { normalizedTrinketCardSchema } from "../../../../data/src/shared/schema";
+import type { NormalizedTrinketCard } from "../../../../data/src/shared/schema";
 import { createRng } from "../core/rng";
 
 type Hero = { readonly id: string; readonly level?: number; readonly dead?: boolean };

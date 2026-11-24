@@ -4,7 +4,7 @@ import { readBossCombatEntry } from "./combat-entry";
 import { readDarkestMidBossDeployedCardIds } from "./darkest-mid-boss-runtime";
 import { readDarkestMidBossRequiredCombatCardIds } from "./darkest-mid-boss-scripts";
 import { ensureCampaignBossScriptsRegistered } from "../../shared/core/registry";
-import { bossEnabledForPacks } from "../../../../data/src/content-packs";
+import { bossEnabledForPacks } from "../../../../data/src/shared/content-packs";
 import { getBossScript } from "./registry";
 import { encounterRoundRetreatLimit } from "./rules";
 import { isBossQuestId, resolveBossScriptIdForQuest } from "./quest-bridge";

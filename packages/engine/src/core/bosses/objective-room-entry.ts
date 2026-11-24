@@ -10,7 +10,7 @@ import {
   prepareHagIObjectiveRoom,
   prepareHagHigherObjectiveRoom,
 } from "../../weald/bosses/hag-i-deploy";
-import { roomCatalogSchema } from "../../../../data/src/room";
+import { roomCatalogSchema } from "../../../../data/src/core/rooms/room";
 import type { ApplyResult, GameState } from "../../shared/core/command";
 import { rejectBattleCommand } from "../../shared/battle/battle";
 import { resolveBossScriptIdForQuest, FACE_THE_THREAT_QUEST_ID } from "./quest-bridge";

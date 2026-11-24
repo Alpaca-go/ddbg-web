@@ -3,7 +3,7 @@ import { lookupQuestMapArt, lookupRoomTokenArt } from "../../card-art/resolve-ex
 import { resolveQuestMapEdgeCorridor } from "@ddbg/engine";
 import { roomKindLabels } from "../labels";
 import type { GameState } from "@ddbg/engine";
-import type { DungeonLayout } from "../../../../../packages/data/src/dungeon-layout";
+import type { DungeonLayout } from "../../../../../packages/data/src/core/tiles/dungeon-layout";
 
 export function DungeonQuestMapFrame({
   game,

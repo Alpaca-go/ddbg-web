@@ -2,7 +2,10 @@ import { describe, expect, it } from "vitest";
 import coreRaw from "../../../data/normalized/corebox/monster_pool.json";
 import medium from "../../../data/normalized/extension/weald/monster_medium.json";
 import large from "../../../data/normalized/extension/weald/monster_large.json";
-import { monsterPoolFileSchema, ruinsMonsterPoolThrough } from "../../../data/src/monster-pool";
+import {
+  monsterPoolFileSchema,
+  ruinsMonsterPoolThrough,
+} from "../../../data/src/core/monsters/monster-pool";
 import {
   createWealdLevelOneMonsterPoolState,
   buildWealdLevelOneMonsterPool,

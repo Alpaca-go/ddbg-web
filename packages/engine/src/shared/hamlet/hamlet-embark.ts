@@ -1,8 +1,8 @@
 import { WEALD_HIGHER_BOSS_ENTRIES } from "../../weald/bosses/higher-boss-entries";
 import { skillBelongsToFormalHero } from "../core/formal-roster-catalog";
-import { asQuestMapPairingQuest, basicQuests } from "../../../../data/src/basic-quests";
-import { pickEmbarkQuestMapLayout } from "../../../../data/src/quest-map-pairing";
-import { sandboxExpeditionEmbarkBlockReason } from "../../../../data/src/quest-map-pairing";
+import { asQuestMapPairingQuest, basicQuests } from "../../../../data/src/core/quests/basic-quests";
+import { pickEmbarkQuestMapLayout } from "../../../../data/src/core/quests/quest-map-pairing";
+import { sandboxExpeditionEmbarkBlockReason } from "../../../../data/src/core/quests/quest-map-pairing";
 import {
   executeHamletQuestDrawMode,
   shuffleIds,
@@ -12,11 +12,11 @@ import {
   remainingQuestIdsSinglePool,
   type HamletQuestDrawOptionId,
 } from "./hamlet-location-quest-draw";
-import type { BasicQuestId } from "../../../../data/src/basic-quests";
+import type { BasicQuestId } from "../../../../data/src/core/quests/basic-quests";
 import {
   roomDistributionEmbarkBlockReason,
   roomDistributionSchema,
-} from "../../../../data/src/dungeon-layout";
+} from "../../../../data/src/core/tiles/dungeon-layout";
 import type { ApplyResult, GameState } from "../core/command";
 import { rejectBattleCommand } from "../battle/battle";
 import type { DungeonState } from "../dungeon/dungeon";

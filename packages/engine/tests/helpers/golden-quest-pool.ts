@@ -1,4 +1,4 @@
-import type { CampaignLevel } from "../../../data/src/basic-quests";
+import type { CampaignLevel } from "../../../data/src/core/quests/basic-quests";
 import { setCampaignQuestPoolTestFilter } from "../../src/shared/hamlet/campaign-quest-pool";
 
 /**

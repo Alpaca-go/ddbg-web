@@ -2,7 +2,7 @@ import { expect, it } from "vitest";
 import {
   SANDBOX_WEALD_EMBARK_QUEST_IDS,
   questsForCampaignLevel,
-} from "../../../../data/src/basic-quests";
+} from "../../../../data/src/core/quests/basic-quests";
 import { applyCommand } from "../../../src/shared/core/command";
 import type { GameState } from "../../../src/shared/core/command";
 import {

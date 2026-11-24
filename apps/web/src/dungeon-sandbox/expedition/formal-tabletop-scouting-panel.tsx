@@ -14,8 +14,8 @@ import {
   warmUpDarkRoomNeedsTorch,
 } from "@ddbg/engine";
 import type { DungeonState, GameState, PendingChoice } from "@ddbg/engine";
-import { readBasicQuest } from "../../../../../packages/data/src/basic-quests";
-import { restPoints } from "../../../../../packages/data/src/scout-rest";
+import { readBasicQuest } from "../../../../../packages/data/src/core/quests/basic-quests";
+import { restPoints } from "../../../../../packages/data/src/core/misc/scout-rest";
 import { CoreboxPrintCardFace } from "../../card-art/corebox-print-card-face";
 import { MonsterCardFace } from "../../card-art/monster-card-face";
 import { RoomCardFace } from "../../card-art/room-card-face";
@@ -32,7 +32,7 @@ import {
   isNegativeCurioEffect,
   type CurioCard,
   type CurioEffect,
-} from "../../../../../packages/data/src/curio";
+} from "../../../../../packages/data/src/core/curios/curio";
 import type { DungeonViewProps } from "../view-props";
 import { dungeonFlowStep } from "../../tabletop/phase/dungeon-flow-step";
 import { ReplacementHeroActions } from "./replacement-hero-actions";

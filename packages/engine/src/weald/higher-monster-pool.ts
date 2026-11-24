@@ -1,11 +1,11 @@
-import { normalizeContentPacks, type ContentPackId } from "../../../data/src/content-packs";
+import { normalizeContentPacks, type ContentPackId } from "../../../data/src/shared/content-packs";
 import {
   monsterPoolCatalogSchema,
   ruinsMonsterPool,
   type MonsterPoolCard,
-} from "../../../data/src/monster-pool";
+} from "../../../data/src/core/monsters/monster-pool";
 import { buildWealdHigherMonsterCatalog } from "./higher-monster-catalog";
-import { wealdHigherMonsterInstancesSchema } from "../../../data/src/weald-monster-pool";
+import { wealdHigherMonsterInstancesSchema } from "../../../data/src/weald/monsters/weald-monster-pool";
 import type { DungeonState } from "../shared/dungeon/dungeon";
 
 /** W3／R-263：同等级当地＋通用的独立组池；正式任务／存档入口随后接入。 */

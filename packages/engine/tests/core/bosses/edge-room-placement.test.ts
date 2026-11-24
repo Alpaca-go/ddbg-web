@@ -1,5 +1,5 @@
 import { expect, it } from "vitest";
-import { coreQuestMapLayouts } from "../../../../data/src/quest-map-pairing";
+import { coreQuestMapLayouts } from "../../../../data/src/core/quests/quest-map-pairing";
 import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "../../helpers/core-quest";
 import { prepareObjectiveRoomBattle } from "../../../src/shared/dungeon/dungeon-objective";
@@ -8,7 +8,7 @@ import {
   edgeRoomNodeIds,
   placeFaceTheThreatRooms,
 } from "../../../src/core/bosses/edge-room-placement";
-import type { RoomTokenKind } from "../../../../data/src/dungeon-layout";
+import type { RoomTokenKind } from "../../../../data/src/core/tiles/dungeon-layout";
 
 const kinds: RoomTokenKind[] = [
   "objective",

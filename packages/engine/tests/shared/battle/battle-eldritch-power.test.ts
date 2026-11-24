@@ -1,9 +1,9 @@
 import { readFileSync } from "node:fs";
 import { expect, it } from "vitest";
-import { approvedEldritchPowerChamber as tile } from "../../../../data/src/normalize/eldritch-power-chamber";
+import { approvedEldritchPowerChamber as tile } from "../../../../data/src/core/misc/eldritch-power-chamber.build";
 import rooms from "../../../../data/normalized/corebox/room.json";
 import catalog from "../../../../data/normalized/corebox/room_tile_geometry.json";
-import { selectRoomTile } from "../../../../data/src/normalize/room-tile-selection";
+import { selectRoomTile } from "../../../../data/src/core/rooms/room-tile-selection.build";
 import { applyCommand, createBattleState } from "../../../src/index";
 import type {
   BattleArea,

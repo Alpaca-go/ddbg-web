@@ -1,9 +1,9 @@
 import resolveFile from "../../../../data/normalized/corebox/virtue_affliction.json";
 import { expect, it } from "vitest";
-import { approvedTempleOfTheChosen as tile } from "../../../../data/src/normalize/temple-of-the-chosen";
+import { approvedTempleOfTheChosen as tile } from "../../../../data/src/core/misc/temple-of-the-chosen.build";
 import rooms from "../../../../data/normalized/corebox/room.json";
 import catalog from "../../../../data/normalized/corebox/room_tile_geometry.json";
-import { selectRoomTile } from "../../../../data/src/normalize/room-tile-selection";
+import { selectRoomTile } from "../../../../data/src/core/rooms/room-tile-selection.build";
 import { roomTileBattleAreas } from "../../../src/shared/battle/battle-monster-movement";
 import { roomEffectFixture } from "../../helpers/room-effects";
 import { applyCommand } from "../../../src/shared/core/command";

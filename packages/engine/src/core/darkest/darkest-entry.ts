@@ -1,4 +1,4 @@
-import { basicQuests } from "../../../../data/src/basic-quests";
+import { basicQuests } from "../../../../data/src/core/quests/basic-quests";
 import type { ApplyResult, GameState } from "../../shared/core/command";
 import { rejectBattleCommand } from "../../shared/battle/battle";
 import type { DungeonState } from "../../shared/dungeon/dungeon";

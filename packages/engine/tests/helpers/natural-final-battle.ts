@@ -1,7 +1,7 @@
 import { applyCommand } from "../../src/shared/core/command";
 import type { Command, GameEvent, PendingChoice } from "../../src/shared/core/command";
 import type { CoreQuestSources } from "../../src/shared/dungeon/dungeon-quest-entry";
-import type { BasicQuestId } from "../../../data/src/basic-quests";
+import type { BasicQuestId } from "../../../data/src/core/quests/basic-quests";
 import { currentHamletHero, hamletActionOptions } from "../../src/shared/hamlet/hamlet-actions";
 import { naturalQuest, type NaturalQuestOptions } from "./natural-quest";
 import { playNaturalBattle } from "./natural-battle";

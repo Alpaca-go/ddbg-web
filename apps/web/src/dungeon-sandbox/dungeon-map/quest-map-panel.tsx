@@ -1,5 +1,5 @@
 import type { GameState } from "@ddbg/engine";
-import type { DungeonLayout } from "../../../../../packages/data/src/dungeon-layout";
+import type { DungeonLayout } from "../../../../../packages/data/src/core/tiles/dungeon-layout";
 import { layouts } from "../dungeon-data";
 import type { Fixture } from "../fixture-types";
 import { DungeonQuestMapFrame } from "./dungeon-quest-map-frame";

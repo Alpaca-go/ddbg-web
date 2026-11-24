@@ -1,8 +1,8 @@
 import { applyCommand } from "../../src/shared/core/command";
 import type { Command, GameEvent, GameState, PendingChoice } from "../../src/shared/core/command";
 import { createCoreDungeonQuest } from "../../src/shared/dungeon/dungeon-quest-entry";
-import { basicQuests } from "../../../data/src/basic-quests";
-import type { BasicQuestId } from "../../../data/src/basic-quests";
+import { basicQuests } from "../../../data/src/core/quests/basic-quests";
+import type { BasicQuestId } from "../../../data/src/core/quests/basic-quests";
 import { coreParty, coreQuestSources } from "./core-quest";
 import { canRestDungeon } from "../../src/shared/dungeon/dungeon-rest";
 import { nextNaturalRoute } from "./natural-route";

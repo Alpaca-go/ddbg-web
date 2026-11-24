@@ -1,4 +1,4 @@
-import type { BasicQuestId, CampaignLevel } from "../../../../data/src/basic-quests";
+import type { BasicQuestId, CampaignLevel } from "../../../../data/src/core/quests/basic-quests";
 import { readBossCombatEntry } from "./combat-entry";
 import {
   FACE_THE_THREAT_QUEST_ID,

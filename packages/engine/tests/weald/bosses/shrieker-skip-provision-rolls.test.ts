@@ -5,7 +5,7 @@ import { wealdSuppliesLootFixture, wealdTaskSources } from "../../helpers/weald-
 import { coreParty, coreQuestSources } from "../../helpers/core-quest";
 import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
 import { createQuestSave, loadQuestSave } from "../../../src/shared/quest/quest-save";
-import { savedCommandSchema } from "../../../../data/src/quest-save";
+import { savedCommandSchema } from "../../../../data/src/shared/quest-save";
 
 function fixture(lost = false): GameState {
   const source = wealdSuppliesLootFixture(),

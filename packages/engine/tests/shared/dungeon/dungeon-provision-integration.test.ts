@@ -2,7 +2,7 @@ import { expect, it } from "vitest";
 import layout from "../../../../data/normalized/corebox/dungeon_layout_p001.json";
 import distribution from "../../../../data/normalized/corebox/scout_ahead_distribution.json";
 import statData from "../../../../data/normalized/corebox/hero_stat.json";
-import { normalizedHeroStatFileSchema } from "../../../../data/src/normalize/hero-stat";
+import { normalizedHeroStatFileSchema } from "../../../../data/src/core/heroes/hero-stat.build";
 import { createDungeonSandbox } from "../../../src/shared/dungeon/dungeon";
 import { applyCommand } from "../../../src/shared/core/command";
 import type { Command, GameState } from "../../../src/shared/core/command";

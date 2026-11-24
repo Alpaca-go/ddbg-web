@@ -1,4 +1,4 @@
-import { basicQuests } from "../../../../data/src/basic-quests";
+import { basicQuests } from "../../../../data/src/core/quests/basic-quests";
 import type { ApplyResult, GameState, GameEvent } from "../core/command";
 import { resolveHolders } from "./stagecoach-holdings";
 import type { DungeonState } from "../dungeon/dungeon";
@@ -8,7 +8,7 @@ import { gainNegativeQuirk, gainPositiveQuirk, replaceConditionQuirk } from "../
 import { statusProjection } from "../core/status";
 import { readDungeonQuestProgress } from "../dungeon/dungeon-quest";
 import { createRng } from "../core/rng";
-import { dungeonQuestSummarySchema } from "../../../../data/src/quest-summary";
+import { dungeonQuestSummarySchema } from "../../../../data/src/shared/quest-summary";
 import { PROVISION_FACES } from "../trinkets/loot";
 import { useDungeonProvision } from "../dungeon/dungeon-provision-use";
 import type { UseProvisionCommand } from "../core/provision-use";

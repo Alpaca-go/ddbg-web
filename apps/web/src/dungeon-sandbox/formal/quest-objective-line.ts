@@ -1,5 +1,8 @@
 import type { GameState } from "@ddbg/engine";
-import { questPrintedXpCap, readBasicQuest } from "../../../../../packages/data/src/basic-quests";
+import {
+  questPrintedXpCap,
+  readBasicQuest,
+} from "../../../../../packages/data/src/core/quests/basic-quests";
 
 /** 任务目标进度文案（只读引擎与任务表，缺字段用「—」）。 */
 export function questObjectiveProgressLine(game: GameState): string {

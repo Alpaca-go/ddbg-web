@@ -6,7 +6,7 @@ import { coreParty, coreQuestSources } from "./core-quest";
 import medium from "../../../data/normalized/extension/weald/monster_medium.json";
 import large from "../../../data/normalized/extension/weald/monster_large.json";
 import curios from "../../../data/normalized/extension/weald/curio.json";
-import { wealdCurioFileSchema } from "../../../data/src/curio";
+import { wealdCurioFileSchema } from "../../../data/src/core/curios/curio";
 export const wealdTaskSources = {
   ...coreQuestSources,
   weald: { medium, large, curios: wealdCurioFileSchema.parse(curios).cards },
@@ -14,7 +14,7 @@ export const wealdTaskSources = {
 
 /** 已部署机制检查点，不伪装自然任务日志。 */
 export function wealdTaskBattleFixture(
-  id: import("../../../data/src/basic-quests").BasicQuestId,
+  id: import("../../../data/src/core/quests/basic-quests").BasicQuestId,
 ): GameState {
   let state = createCoreDungeonQuest(
     0,

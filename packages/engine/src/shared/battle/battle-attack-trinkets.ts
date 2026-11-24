@@ -1,7 +1,7 @@
 import { battleTrinketHolders } from "./battle-hero-card-holders";
-import { HERO_SKILL_TRINKET_IDS } from "../../../../data/src/hero-skill-trinkets";
-import type { HeroSkillTrinketId } from "../../../../data/src/hero-skill-trinkets";
-import type { NormalizedTrinketCard } from "../../../../data/src/normalize/schema";
+import { HERO_SKILL_TRINKET_IDS } from "../../../../data/src/core/heroes/hero-skill-trinkets";
+import type { HeroSkillTrinketId } from "../../../../data/src/core/heroes/hero-skill-trinkets";
+import type { NormalizedTrinketCard } from "../../../../data/src/shared/schema";
 import { playHeroSkill, rejectBattleCommand } from "./battle";
 import type { PlayHeroSkillCommand } from "./battle";
 import { playHeroSkillTargets } from "./battle-hero-targets";

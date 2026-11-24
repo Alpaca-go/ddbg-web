@@ -3,7 +3,7 @@ import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-ques
 import type { CoreQuestSources } from "../../../src/shared/dungeon/dungeon-quest-entry";
 import { createQuestSave, loadQuestSave } from "../../../src/shared/quest/quest-save";
 import { coreParty, coreQuestSources } from "../../helpers/core-quest";
-import type { QuestStart } from "../../../../data/src/quest-save";
+import type { QuestStart } from "../../../../data/src/shared/quest-save";
 import type { GameState } from "../../../src/shared/core/command";
 
 const previousTerm = "\u67af\u840e";

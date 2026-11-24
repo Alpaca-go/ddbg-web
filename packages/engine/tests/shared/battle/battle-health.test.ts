@@ -9,7 +9,7 @@ import type {
   HeroSkillCardView,
   MonsterCardView,
 } from "../../../src/index";
-import { heroSkillIdForPage } from "../../../../data/src/hero-registry";
+import { heroSkillIdForPage } from "../../../../data/src/core/heroes/hero-registry";
 
 function cards<T>(file: string): T[] {
   return (

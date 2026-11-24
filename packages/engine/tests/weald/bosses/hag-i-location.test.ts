@@ -12,7 +12,7 @@ import { dungeonCurioCatalogValid } from "../../../src/shared/dungeon/dungeon-cu
 import { recoverHamletPools } from "../../../src/shared/hamlet/hamlet-return-pools";
 import { applyCommand } from "../../../src/shared/core/command";
 import { createQuestSave, loadQuestSave } from "../../../src/shared/quest/quest-save";
-import type { QuestStart } from "../../../../data/src/quest-save";
+import type { QuestStart } from "../../../../data/src/shared/quest-save";
 
 const packs = ["core", "weald"] as const;
 function initial(seed = 17) {

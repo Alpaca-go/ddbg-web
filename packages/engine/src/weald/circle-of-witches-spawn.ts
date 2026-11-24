@@ -1,4 +1,4 @@
-import { readBasicQuest } from "../../../data/src/basic-quests";
+import { readBasicQuest } from "../../../data/src/core/quests/basic-quests";
 import exceptionFile from "../../../data/normalized/extension/weald/quest_exception_monsters.json";
 import type { ApplyResult, GameState } from "../shared/core/command";
 import type { DungeonState } from "../shared/dungeon/dungeon";

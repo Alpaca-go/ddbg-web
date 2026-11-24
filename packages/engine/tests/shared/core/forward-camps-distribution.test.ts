@@ -1,17 +1,20 @@
 import { expect, it } from "vitest";
 import forwardCamps from "../../../../data/normalized/corebox/forward_camps_distribution.json";
-import { basicQuests, storedDistributionMatchesQuest } from "../../../../data/src/basic-quests";
+import {
+  basicQuests,
+  storedDistributionMatchesQuest,
+} from "../../../../data/src/core/quests/basic-quests";
 import {
   randomNonObjectiveRoomKinds,
   roomDistributionEmbarkBlockReason,
   roomDistributionSchema,
   roomDistributionTokenTotal,
-} from "../../../../data/src/dungeon-layout";
+} from "../../../../data/src/core/tiles/dungeon-layout";
 import {
   buildNonObjectiveRoomTokenPool,
   drawAndMaterializeRoomDistribution,
   nonObjectiveRoomTokenPoolCopiesPerKind,
-} from "../../../../data/src/room-distribution-expand";
+} from "../../../../data/src/core/rooms/room-distribution-expand";
 import layout from "../../../../data/normalized/corebox/dungeon_layout_p001.json";
 import { createDungeonSandbox } from "../../../src/shared/dungeon/dungeon";
 import { expandRoomDistributionForEmbark } from "../../../src/shared/core/room-distribution-expand";

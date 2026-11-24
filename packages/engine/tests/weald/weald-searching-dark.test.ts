@@ -78,8 +78,11 @@ it.each(["quest:weald:p008"] as const)(
   60000,
 );
 
-import { basicQuests, storedDistributionMatchesQuest } from "../../../data/src/basic-quests";
-import { drawAndMaterializeRoomDistribution } from "../../../data/src/room-distribution-expand";
+import {
+  basicQuests,
+  storedDistributionMatchesQuest,
+} from "../../../data/src/core/quests/basic-quests";
+import { drawAndMaterializeRoomDistribution } from "../../../data/src/core/rooms/room-distribution-expand";
 import { createRng } from "../../src/shared/core/rng";
 it("p008 建局五格无放回，不增巢穴或目标，模板不变", () => {
   const template = basicQuests.find((q) => q.id === "quest:weald:p008")!.distribution;

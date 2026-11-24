@@ -1,0 +1,268 @@
+import { expect, it } from "vitest";
+import { readFileSync } from "node:fs";
+import { loadNormalizedCorebox } from "../../../src/shared/write";
+import {
+  attachVerifiedLargeMonsterFields,
+  verifiedLargeMonsterFields,
+} from "../../../src/core/monsters/verified-large-monster-fields.build";
+import { selectMonsterSkill } from "../../../../engine/src/shared/core/monster-stance";
+import type { MonsterStanceCardView } from "../../../../engine/src/shared/core/monster-stance";
+
+const built = loadNormalizedCorebox();
+const originals = built.monster_large.cards.map((card) => {
+  const copy = structuredClone(card);
+  delete copy.speed;
+  delete copy.stanceGroups;
+  return copy;
+});
+it("C-017：Fanatic I 生成结果与提交数据一致，三招完整效果均有计划", () => {
+  const committed = JSON.parse(
+    readFileSync(
+      new URL("../../../normalized/corebox/monster_large.json", import.meta.url),
+      "utf8",
+    ),
+  );
+  const generated = built.monster_large.cards.find((c) => c.id === "monster_large:p008")!;
+  expect(generated).toEqual(committed.cards.find((c: { id: string }) => c.id === generated.id));
+  expect(generated.skills.map((s) => s.rules?.effects?.effects.length)).toEqual([2, 3, 1]);
+});
+it("R-185：Mammoth Cyst 生成结果与提交数据一致", () => {
+  const committed = JSON.parse(
+    readFileSync(
+      new URL("../../../normalized/corebox/monster_large.json", import.meta.url),
+      "utf8",
+    ),
+  );
+  const generated = built.monster_large.cards.find((c) => c.id === "monster_large:p016")!;
+  expect(generated).toEqual(committed.cards.find((c: { id: string }) => c.id === generated.id));
+  expect(generated.speed).toBe(1);
+});
+it("R-183：Shuffling Horror 生成结果与提交数据一致", () => {
+  const committed = JSON.parse(
+    readFileSync(
+      new URL("../../../normalized/corebox/monster_large.json", import.meta.url),
+      "utf8",
+    ),
+  );
+  const generated = built.monster_large.cards.find((c) => c.id === "monster_large:p017")!;
+  expect(generated).toEqual(committed.cards.find((c: { id: string }) => c.id === generated.id));
+  expect(generated.speed).toBe(1);
+});
+it("R-214：Templar Warlord / Impaler 各有独立骰表", () => {
+  const committed = JSON.parse(
+    readFileSync(
+      new URL("../../../normalized/corebox/monster_large.json", import.meta.url),
+      "utf8",
+    ),
+  );
+  for (const id of ["monster_large:p014", "monster_large:p015"] as const) {
+    const generated = built.monster_large.cards.find((c) => c.id === id)!;
+    expect(generated).toEqual(committed.cards.find((c: { id: string }) => c.id === id));
+    expect(generated.speed).toBe(2);
+    const twoSkills = [1, 1, 1, 1, 1, 3, 3, 3, 3, 3];
+    const threeSkills = [1, 1, 3, 3, 2, 2, 2, 2, 2, 2];
+    const view = { ...generated, stanceGroups: generated.stanceGroups! };
+    const expected =
+      id === "monster_large:p014"
+        ? [twoSkills, twoSkills, threeSkills, threeSkills]
+        : [threeSkills, threeSkills, threeSkills, twoSkills];
+    const stances = ["aggressive", "defensive", "ranged", "support"] as const;
+    stances.forEach((stance, index) => {
+      for (let roll = 1; roll <= 10; roll++)
+        expect(selectMonsterSkill(view, [stance], roll)).toMatchObject({
+          status: "selected",
+          skillSlot: expected[index]![roll - 1],
+        });
+    });
+  }
+});
+it("只附加已核实大型卡，参考卡与其他卡不补值；不修改输入或其他字段", () => {
+  const before = structuredClone(originals),
+    actual = attachVerifiedLargeMonsterFields(originals);
+  expect(actual).toEqual(built.monster_large.cards);
+  expect(originals).toEqual(before);
+  expect(attachVerifiedLargeMonsterFields(actual)).toEqual(actual);
+  expect(attachVerifiedLargeMonsterFields(originals, [])).toEqual(originals);
+  expect(actual.filter((c) => c.speed !== undefined).map((c) => c.id)).toEqual([
+    "monster_large:p001",
+    "monster_large:p002",
+    "monster_large:p003",
+    "monster_large:p004",
+    "monster_large:p005",
+    "monster_large:p006",
+    "monster_large:p007",
+    "monster_large:p008",
+    "monster_large:p009",
+    "monster_large:p010",
+    "monster_large:p011",
+    "monster_large:p012",
+    "monster_large:p013",
+    "monster_large:p014",
+    "monster_large:p015",
+    "monster_large:p016",
+    "monster_large:p017",
+    "monster_large:p018",
+    "monster_large:p019",
+    "monster_large:p020",
+  ]);
+  const reference = built.monster_medium.cards.find((c) => c.id === "monster_medium:p030")!;
+  expect("speed" in reference).toBe(false);
+  expect("stanceGroups" in reference).toBe(false);
+  expect(
+    actual.map((c) => {
+      const copy = structuredClone(c);
+      delete copy.speed;
+      delete copy.stanceGroups;
+      return copy;
+    }),
+  ).toEqual(before);
+});
+it("L2全部姿态/d10按印刷表选招，大型两格取高优先姿态", () => {
+  const card = built.monster_large.cards.find((c) => c.id === "monster_large:p002")!;
+  const expected = {
+    aggressive: [1, 1, 1, 1, 2, 2, 2, 2, 3, 3],
+    defensive: [1, 1, 1, 1, 1, 2, 2, 2, 2, 2],
+    ranged: Array(10).fill(2),
+    support: Array(10).fill(2),
+  };
+  expect(card.speed).toBe(1);
+  const view = JSON.parse(JSON.stringify(card)) as MonsterStanceCardView;
+  for (const stance of ["aggressive", "defensive", "ranged", "support"] as const)
+    for (let roll = 1; roll <= 10; roll++)
+      expect(selectMonsterSkill(view, [stance], roll)).toMatchObject({
+        status: "selected",
+        skillSlot: expected[stance][roll - 1],
+      });
+  expect(selectMonsterSkill(view, ["aggressive", "defensive"], 9)).toMatchObject({
+    status: "selected",
+    skillSlot: 3,
+  });
+});
+it("R-083、R-214 Captain/Ghoul四姿态全部骰面符合独立印刷表，大型取占用前姿态", () => {
+  for (const [id, speed, a, s] of [
+    ["monster_large:p001", 1, [1, 1, 1, 1, 1, 1, 2, 2, 2, 2], Array(10).fill(2)],
+    ["monster_large:p003", 2, [1, 1, 1, 1, 2, 2, 2, 3, 3, 3], [2, 2, 2, 2, 2, 3, 3, 3, 3, 3]],
+  ] as const) {
+    const card = built.monster_large.cards.find((c) => c.id === id)!;
+    const view = { ...card, stanceGroups: card.stanceGroups! };
+    expect(card.speed).toBe(speed);
+    for (const stance of ["aggressive", "defensive", "ranged", "support"] as const)
+      for (let roll = 1; roll <= 10; roll++) {
+        const expected = stance === "ranged" || stance === "support" ? s : a;
+        expect(selectMonsterSkill(view, [stance], roll)).toMatchObject({
+          status: "selected",
+          skillSlot: expected[roll - 1],
+        });
+      }
+    expect(selectMonsterSkill(view, ["support", "ranged"], 1)).toMatchObject({
+      status: "selected",
+      skillSlot: 2,
+    });
+  }
+});
+it("R-196 Adder（大卡 p004）Speed 1 与三组选招表已入库", () => {
+  const card = built.monster_large.cards.find((c) => c.id === "monster_large:p004")!;
+  expect(card.speed).toBe(1);
+  expect(card.stanceGroups).toEqual([
+    {
+      stances: ["aggressive"],
+      rollTable: [
+        { min: 1, max: 5, skill: 1 },
+        { min: 6, max: 10, skill: 2 },
+      ],
+    },
+    {
+      stances: ["defensive", "ranged"],
+      rollTable: [
+        { min: 1, max: 3, skill: 1 },
+        { min: 4, max: 7, skill: 2 },
+        { min: 8, max: 10, skill: 3 },
+      ],
+    },
+    { stances: ["support"], skill: 1 },
+  ]);
+});
+it("身份漂移、重复映射、脏Speed、冲突与缺技能引用原子拒绝", () => {
+  const entry = verifiedLargeMonsterFields.find((e) => e.id === "monster_large:p002")!;
+  for (const entries of [
+    [entry, entry],
+    [{ ...entry, id: "monster_large:p999" }],
+    [{ ...entry, name: "wrong" }],
+    [{ ...entry, level: 2 }],
+    [{ ...entry, pages: [1] }],
+    [{ ...entry, speed: null }],
+  ])
+    expect(() => attachVerifiedLargeMonsterFields(originals, entries)).toThrow();
+  expect(() =>
+    attachVerifiedLargeMonsterFields(
+      originals.map((c) => (c.id === entry.id ? { ...c, speed: 2 } : c)),
+    ),
+  ).toThrow("冲突");
+  expect(() =>
+    attachVerifiedLargeMonsterFields(
+      originals.map((c) =>
+        c.id === entry.id ? { ...c, skills: c.skills.filter((s) => s.slot !== 3) } : c,
+      ),
+    ),
+  ).toThrow("唯一存在");
+});
+
+it("R-185：Mammoth Cyst Speed1、四姿态十骰面", () => {
+  const card = built.monster_large.cards.find((c) => c.id === "monster_large:p016")!;
+  expect(card.speed).toBe(1);
+  for (const stance of ["aggressive", "defensive", "ranged", "support"] as const) {
+    for (let roll = 1; roll <= 10; roll++) {
+      const slot = roll <= 4 ? 1 : roll <= 8 ? 2 : 3;
+      expect(selectMonsterSkill(card as MonsterStanceCardView, [stance], roll)).toMatchObject({
+        status: "selected",
+        skillSlot: slot,
+      });
+    }
+  }
+});
+it("R-183：Shuffling Horror Speed1、四姿态十骰面", () => {
+  const card = built.monster_large.cards.find((c) => c.id === "monster_large:p017")!;
+  expect(card.speed).toBe(1);
+  for (const stance of ["aggressive", "defensive", "ranged", "support"] as const) {
+    for (let roll = 1; roll <= 10; roll++)
+      expect(selectMonsterSkill(card as MonsterStanceCardView, [stance], roll)).toMatchObject({
+        status: "selected",
+        skillSlot: roll <= 7 ? 1 : 2,
+      });
+  }
+});
+it("R-187：Gestating Heart Speed0、四姿态固定 Dispersion", () => {
+  const card = built.monster_large.cards.find((c) => c.id === "monster_large:p019")!;
+  expect(card.speed).toBe(0);
+  for (const stance of ["aggressive", "defensive", "ranged", "support"] as const) {
+    for (let roll = 1; roll <= 10; roll++)
+      expect(selectMonsterSkill(card as MonsterStanceCardView, [stance], roll)).toMatchObject({
+        status: "selected",
+        skillSlot: 1,
+      });
+  }
+});
+it("R-187：Heart of Darkness Speed0、四姿态十骰面", () => {
+  const card = built.monster_large.cards.find((c) => c.id === "monster_large:p020")!;
+  expect(card.speed).toBe(0);
+  for (const stance of ["aggressive", "defensive", "ranged", "support"] as const) {
+    for (let roll = 1; roll <= 10; roll++) {
+      const slot = roll <= 4 ? 1 : roll <= 7 ? 2 : 3;
+      expect(selectMonsterSkill(card as MonsterStanceCardView, [stance], roll)).toMatchObject({
+        status: "selected",
+        skillSlot: slot,
+      });
+    }
+  }
+});
+it("R-174：Prophet I Speed1、四姿态十骰面及审批漂移守卫", () => {
+  const card = built.monster_large.cards.find((c) => c.id === "monster_large:p005")!;
+  expect(card.speed).toBe(1);
+  for (const stance of ["aggressive", "defensive", "ranged", "support"] as const) {
+    for (let roll = 1; roll <= 10; roll++)
+      expect(selectMonsterSkill(card as MonsterStanceCardView, [stance], roll)).toMatchObject({
+        status: "selected",
+        skillSlot: roll <= 5 ? 1 : 2,
+      });
+  }
+});

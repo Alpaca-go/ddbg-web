@@ -4,7 +4,7 @@ import type { ApplyResult, Command, GameState } from "../../../src/shared/core/c
 import { createBattleState } from "../../../src/shared/battle/battle";
 import type { BattleEntity, PlayHeroSkillCommand } from "../../../src/shared/battle/battle";
 import { coreQuestSources } from "../../helpers/core-quest";
-import { savedCommandSchema } from "../../../../data/src/quest-save";
+import { savedCommandSchema } from "../../../../data/src/shared/quest-save";
 
 const STONE = "trinket:p006";
 // R26 黄金场景：Hellion I 的 Crit 1 + 已有一堆 Buff = Crit 2；seed18 掷出 4。

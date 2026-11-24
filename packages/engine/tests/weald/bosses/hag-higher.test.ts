@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import statData from "../../../../data/normalized/corebox/hero_stat.json";
-import { normalizedHeroStatFileSchema } from "../../../../data/src/normalize/hero-stat";
+import { normalizedHeroStatFileSchema } from "../../../../data/src/core/heroes/hero-stat.build";
 import { createBattleState, type BattleEntity } from "../../../src/shared/battle/battle";
 import { applyCommand } from "../../../src/shared/core/command";
 import type { GameState } from "../../../src/shared/core/command";

@@ -1,6 +1,6 @@
 import { DARKEST_BOSS_CATALOG_CARD_IDS } from "../../packages/engine/src/core/bosses/darkest-boss-catalog";
 import { RUINS_BOSS_CATALOG_CARD_IDS } from "../../packages/engine/src/core/bosses/ruins-combat-levels";
-import { darkestMonsterPoolFileSchema } from "../../packages/data/src/darkest-monster-pool";
+import { darkestMonsterPoolFileSchema } from "../../packages/data/src/core/monsters/darkest-monster-pool";
 import { coreHigherSkillAvailable } from "../../packages/engine/src/core/heroes/core-higher-skill-catalog";
 import { readFileSync } from "node:fs";
 import type { Plugin } from "vite";
@@ -11,18 +11,18 @@ import {
   formalRosterPendingHeroStats,
   skillBelongsToFormalHero,
 } from "../../packages/engine/src/index";
-import { diseaseFileSchema } from "../../packages/data/src/disease";
-import { normalizedHeroStatFileSchema } from "../../packages/data/src/normalize/hero-stat";
-import { heroSkillIdForPage } from "../../packages/data/src/hero-registry";
+import { diseaseFileSchema } from "../../packages/data/src/core/hamlet/disease";
+import { normalizedHeroStatFileSchema } from "../../packages/data/src/core/heroes/hero-stat.build";
+import { heroSkillIdForPage } from "../../packages/data/src/core/heroes/hero-registry";
 import { shareBattleCatalogs } from "./battle-data-shared";
-import { roomTileGeometryFileSchema } from "../../packages/data/src/normalize/room-tile";
+import { roomTileGeometryFileSchema } from "../../packages/data/src/core/rooms/room-tile.build";
 import {
   normalizedHeroSkillFileSchema,
   normalizedMonsterMediumFileSchema,
   normalizedMonsterLargeFileSchema,
   normalizedVirtueAfflictionFileSchema,
   normalizedQuirkFileSchema,
-} from "../../packages/data/src/normalize/schema";
+} from "../../packages/data/src/shared/schema";
 
 /** 构建时校验并只打包沙盒所需卡牌；不复制数据、不打包整盒或美术。 */
 export function battleDataPlugin(): Plugin {

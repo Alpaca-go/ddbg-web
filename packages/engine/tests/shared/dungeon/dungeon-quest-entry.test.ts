@@ -1,6 +1,6 @@
 import { expect, it } from "vitest";
-import { basicQuests } from "../../../../data/src/basic-quests";
-import { ruinsMonsterPool } from "../../../../data/src/monster-pool";
+import { basicQuests } from "../../../../data/src/core/quests/basic-quests";
+import { ruinsMonsterPool } from "../../../../data/src/core/monsters/monster-pool";
 import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "../../helpers/core-quest";
 import { applyCommand } from "../../../src/shared/core/command";

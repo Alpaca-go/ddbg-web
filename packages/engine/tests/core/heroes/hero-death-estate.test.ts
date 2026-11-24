@@ -11,7 +11,7 @@ import {
   trinketPoolProblem,
   switchTrinketDungeonLevel,
 } from "../../../src/shared/trinkets/trinket-acquisition";
-import { normalizedTrinketFileSchema } from "../../../../data/src/normalize/schema";
+import { normalizedTrinketFileSchema } from "../../../../data/src/shared/schema";
 import cards from "../../../../data/normalized/corebox/trinket.json";
 import { createBattleState } from "../../../src/shared/battle/battle";
 import { readHeroPassiveDefence } from "../../../src/shared/battle/battle-skill-status";

@@ -16,7 +16,7 @@ import {
   trinketPoolProblem,
   switchTrinketDungeonLevel,
 } from "../../../src/shared/trinkets/trinket-acquisition";
-import { normalizedTrinketFileSchema } from "../../../../data/src/normalize/schema";
+import { normalizedTrinketFileSchema } from "../../../../data/src/shared/schema";
 import rawTrinkets from "../../../../data/normalized/corebox/trinket.json";
 import { resolveDungeonPressure } from "../../../src/shared/dungeon/dungeon-pressure";
 import { grantGraveyardVirtue } from "../../../src/shared/hamlet/hamlet-graveyard";

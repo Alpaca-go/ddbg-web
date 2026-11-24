@@ -6,9 +6,9 @@ import { applyCommand } from "../../../src/shared/core/command";
 import type { Command, GameState } from "../../../src/shared/core/command";
 import { nextBattleRoll } from "../../../src/shared/dungeon/encounter";
 import { readMonsterAttackView, resolveMonsterSkill } from "../../../src/shared/core/monster-skill";
-import { attachVerifiedMonsterEffects } from "../../../../data/src/normalize/verified-monster-effects";
+import { attachVerifiedMonsterEffects } from "../../../../data/src/core/monsters/verified-monster-effects.build";
 import large from "../../../../data/normalized/corebox/monster_large.json";
-import { normalizedMonsterLargeFileSchema } from "../../../../data/src/normalize/schema";
+import { normalizedMonsterLargeFileSchema } from "../../../../data/src/shared/schema";
 
 const card = sources.catalog.monsters.find((c) => c.id === "monster_large:p003")!;
 const seedFor = (roll: number) =>

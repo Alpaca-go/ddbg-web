@@ -1,4 +1,4 @@
-import { ruinsMonsterPool } from "../../../../data/src/monster-pool";
+import { ruinsMonsterPool } from "../../../../data/src/core/monsters/monster-pool";
 import { dungeonMonsterPoolCatalogValid } from "./monster-pool-validation";
 import type { ApplyResult, GameState } from "./command";
 import type { SkillStance } from "../../core/heroes/hero-skill";

@@ -1,4 +1,4 @@
-import { readWealdHigherMonsters } from "../../../data/src/weald-higher-monsters";
+import { readWealdHigherMonsters } from "../../../data/src/weald/monsters/weald-higher-monsters";
 import type { DungeonBattleCatalog } from "../shared/dungeon/dungeon";
 import type { SkillSegment } from "../core/heroes/hero-skill";
 import type { MonsterSkillView } from "../shared/core/monster-skill";

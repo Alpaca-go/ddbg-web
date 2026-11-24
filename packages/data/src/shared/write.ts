@@ -1,0 +1,119 @@
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+import { iconDictionarySchema } from "./dictionary/schema";
+import {
+  heroSkillFileSchema,
+  monsterLargeFileSchema,
+  monsterMediumFileSchema,
+  trinketFileSchema,
+} from "./extract/parsed";
+import { rawFileSchema } from "./extract/raw";
+import { buildNormalizedCorebox } from "./build";
+import type { NormalizedCorebox } from "./build";
+
+const DATA_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
+
+function readJson(relativePath: string): unknown {
+  return JSON.parse(readFileSync(path.join(DATA_ROOT, relativePath), "utf8")) as unknown;
+}
+
+/** 读词典、parsed 和 raw，生成卡牌与独立的获批板块几何。 */
+export function loadNormalizedCorebox(): NormalizedCorebox {
+  return buildNormalizedCorebox({
+    questsRaw: rawFileSchema.parse(readJson("extract/corebox/raw/quest.json")),
+    bossAbilitiesRaw: rawFileSchema.parse(readJson("extract/corebox/raw/boss_ability.json")),
+    hamletEvents: rawFileSchema.parse(readJson("extract/corebox/raw/hamlet_event.json")),
+    diseases: rawFileSchema.parse(readJson("extract/corebox/raw/disease.json")),
+    rooms: rawFileSchema.parse(readJson("extract/corebox/raw/room.json")),
+    stygianRooms: rawFileSchema.parse(readJson("extract/corebox/raw/stygian_room.json")),
+    curios: rawFileSchema.parse(readJson("extract/corebox/raw/curio.json")),
+    heroStats: rawFileSchema.parse(readJson("extract/corebox/raw/hero_stat.json")),
+    roomTiles: rawFileSchema.parse(readJson("extract/corebox/raw/dungeon_tile.json")),
+    dictionary: iconDictionarySchema.parse(readJson("dictionary/icon-dictionary-v1.8.json")),
+    heroSkills: heroSkillFileSchema.parse(readJson("extract/corebox/parsed/hero_skill.json")),
+    heroSkillRaw: rawFileSchema.parse(readJson("extract/corebox/raw/hero_skill.json")),
+    monsterMedium: monsterMediumFileSchema.parse(
+      readJson("extract/corebox/parsed/monster_medium.json"),
+    ),
+    monsterMediumRaw: rawFileSchema.parse(readJson("extract/corebox/raw/monster_medium.json")),
+    monsterLarge: monsterLargeFileSchema.parse(
+      readJson("extract/corebox/parsed/monster_large.json"),
+    ),
+    monsterLargeRaw: rawFileSchema.parse(readJson("extract/corebox/raw/monster_large.json")),
+    trinkets: trinketFileSchema.parse(readJson("extract/corebox/parsed/trinket.json")),
+    trinketRaw: rawFileSchema.parse(readJson("extract/corebox/raw/trinket.json")),
+    quirks: rawFileSchema.parse(readJson("extract/corebox/raw/quirk.json")),
+    virtues: rawFileSchema.parse(readJson("extract/corebox/raw/virtue_affliction.json")),
+    extensionWarrensHeroSkills: heroSkillFileSchema.parse(
+      readJson("extract/extension/warrens/parsed/hero_skill.json"),
+    ),
+    extensionWarrensHeroSkillRaw: rawFileSchema.parse(
+      readJson("extract/extension/warrens/raw/hero_skill.json"),
+    ),
+    extensionWarrensHeroStatRaw: rawFileSchema.parse(
+      readJson("extract/extension/warrens/raw/hero_stat.json"),
+    ),
+    extensionCoveHeroSkills: heroSkillFileSchema.parse(
+      readJson("extract/extension/cove/parsed/hero_skill.json"),
+    ),
+    extensionCoveHeroSkillRaw: rawFileSchema.parse(
+      readJson("extract/extension/cove/raw/hero_skill.json"),
+    ),
+    extensionCoveHeroStatRaw: rawFileSchema.parse(
+      readJson("extract/extension/cove/raw/hero_stat.json"),
+    ),
+    extensionWealdHeroSkills: heroSkillFileSchema.parse(
+      readJson("extract/extension/weald/parsed/hero_skill.json"),
+    ),
+    extensionWealdHeroSkillRaw: rawFileSchema.parse(
+      readJson("extract/extension/weald/raw/hero_skill.json"),
+    ),
+    extensionWealdHeroStatRaw: rawFileSchema.parse(
+      readJson("extract/extension/weald/raw/hero_stat.json"),
+    ),
+    extensionMusketeerHeroSkills: heroSkillFileSchema.parse(
+      readJson("extract/extension/musketeer/parsed/hero_skill.json"),
+    ),
+    extensionMusketeerHeroSkillRaw: rawFileSchema.parse(
+      readJson("extract/extension/musketeer/raw/hero_skill.json"),
+    ),
+    extensionMusketeerHeroStatRaw: rawFileSchema.parse(
+      readJson("extract/extension/musketeer/raw/hero_stat.json"),
+    ),
+  });
+}
+
+export function writeNormalizedCorebox(
+  outputDir = path.join(DATA_ROOT, "normalized/corebox"),
+): NormalizedCorebox {
+  const built = loadNormalizedCorebox();
+  mkdirSync(outputDir, { recursive: true });
+  const files: [string, unknown][] = [
+    ["hamlet_event.json", built.hamlet_event],
+    ["disease.json", built.disease],
+    ["monster_pool.json", built.monster_pool],
+    ["darkest_monster_pool.json", built.darkest_monster_pool],
+    ["darkest_boss_content.json", built.darkest_boss_content],
+    ["absolute_nothingness_support.json", built.absolute_nothingness_support],
+    ["darkest_boss_abilities.json", built.darkest_boss_abilities],
+    ["ruins_boss_abilities.json", built.ruins_boss_abilities],
+    ["quest_cards.json", built.quest_cards],
+    ["stygian_rooms.json", built.stygian_rooms],
+    ["room.json", built.room],
+    ["curio.json", built.curio],
+    ["hero_stat.json", built.hero_stat],
+    ["room_tile_geometry.json", built.room_tile_geometry],
+    ["hero_skill.json", built.hero_skill],
+    ["monster_medium.json", built.monster_medium],
+    ["monster_large.json", built.monster_large],
+    ["trinket.json", built.trinket],
+    ["quirk.json", built.quirk],
+    ["virtue_affliction.json", built.virtue_affliction],
+  ];
+  for (const [name, file] of files) {
+    writeFileSync(path.join(outputDir, name), `${JSON.stringify(file, null, 1)}\n`);
+  }
+  return built;
+}

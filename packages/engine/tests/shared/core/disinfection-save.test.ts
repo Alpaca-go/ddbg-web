@@ -1,5 +1,5 @@
 import { expect, it } from "vitest";
-import { savedCommandSchema } from "../../../../data/src/quest-save";
+import { savedCommandSchema } from "../../../../data/src/shared/quest-save";
 import { createQuestSave, loadQuestSave } from "../../../src/shared/quest/quest-save";
 import { disinfectionJourney, disinfectionSources } from "../../helpers/disinfection-quest";
 import { applyCommand } from "../../../src/shared/core/command";

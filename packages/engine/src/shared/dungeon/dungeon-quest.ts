@@ -1,4 +1,4 @@
-import { dungeonLayoutSchema } from "../../../../data/src/dungeon-layout";
+import { dungeonLayoutSchema } from "../../../../data/src/core/tiles/dungeon-layout";
 import {
   questRoomsSchema,
   dungeonQuestSummarySchema,
@@ -10,12 +10,12 @@ import {
   circleOfWitchesQuestSummarySchema,
   disinfectionQuestSummarySchema,
   wealdSpecialTaskSummarySchema,
-} from "../../../../data/src/quest-summary";
+} from "../../../../data/src/shared/quest-summary";
 import {
   matchesQuestCounts,
   readBasicQuest,
   storedDistributionMatchesQuest,
-} from "../../../../data/src/basic-quests";
+} from "../../../../data/src/core/quests/basic-quests";
 import type { ApplyResult, GameState } from "../core/command";
 import type { DungeonState } from "./dungeon";
 import { fungalResearchXpFromBroughtBack } from "../../weald/fungal-research-quest";

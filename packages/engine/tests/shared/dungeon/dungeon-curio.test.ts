@@ -3,22 +3,22 @@ import layout from "../../../../data/normalized/corebox/dungeon_layout_p001.json
 import distribution from "../../../../data/normalized/corebox/scout_ahead_distribution.json";
 import rawCurios from "../../../../data/normalized/corebox/curio.json";
 import stats from "../../../../data/normalized/corebox/hero_stat.json";
-import { curioFileSchema } from "../../../../data/src/curio";
+import { curioFileSchema } from "../../../../data/src/core/curios/curio";
 import { createDungeonSandbox } from "../../../src/shared/dungeon/dungeon";
 import { applyCommand } from "../../../src/shared/core/command";
 import type { Command, GameState } from "../../../src/shared/core/command";
 import type { DungeonBattleCatalog } from "../../../src/shared/dungeon/dungeon";
-import { normalizedHeroStatFileSchema } from "../../../../data/src/normalize/hero-stat";
+import { normalizedHeroStatFileSchema } from "../../../../data/src/core/heroes/hero-stat.build";
 import { nextProvisionFace, PROVISION_FACES } from "../../../src/shared/trinkets/loot";
 import diseases from "../../../../data/normalized/corebox/disease.json";
 import quirks from "../../../../data/normalized/corebox/quirk.json";
-import { diseaseFileSchema } from "../../../../data/src/disease";
-import { normalizedQuirkFileSchema } from "../../../../data/src/normalize/schema";
+import { diseaseFileSchema } from "../../../../data/src/core/hamlet/disease";
+import { normalizedQuirkFileSchema } from "../../../../data/src/shared/schema";
 import { createConditionPool, conditionPoolProblem } from "../../../src/shared/core/conditions";
 import trinkets from "../../../../data/normalized/corebox/trinket.json";
 import resolveData from "../../../../data/normalized/corebox/virtue_affliction.json";
 import type { ResolveCard } from "../../../src/shared/core/pressure";
-import { normalizedTrinketFileSchema } from "../../../../data/src/normalize/schema";
+import { normalizedTrinketFileSchema } from "../../../../data/src/shared/schema";
 import {
   createTrinketPool,
   trinketPoolProblem,

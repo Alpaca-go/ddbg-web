@@ -8,7 +8,7 @@ import {
 } from "../../../src/shared/trinkets/trinket-acquisition";
 import { restoreTemporarySkillUpgrades } from "../../../src/shared/hamlet/hamlet-embark";
 import raw from "../../../../data/normalized/corebox/trinket.json";
-import { normalizedTrinketFileSchema } from "../../../../data/src/normalize/schema";
+import { normalizedTrinketFileSchema } from "../../../../data/src/shared/schema";
 
 /** 四天已完成/已付铁匠计划/游商陈列的明示机制夹具，不表示自然最暗胜利。 */
 function fixture(level: 1 | 3 = 1): GameState {

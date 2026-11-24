@@ -1,5 +1,5 @@
 import type { DungeonState } from "@ddbg/engine";
-import { readBasicQuest } from "../../../../packages/data/src/basic-quests";
+import { readBasicQuest } from "../../../../packages/data/src/core/quests/basic-quests";
 
 /** New Ruins campaigns only. Existing provision rolls and returning campaigns retain their logs. */
 export function needsInitialThreat(d: DungeonState): boolean {

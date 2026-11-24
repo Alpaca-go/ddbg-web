@@ -5,17 +5,17 @@ import monsterFile from "../../../../data/normalized/corebox/monster_medium.json
 import quirkFile from "../../../../data/normalized/corebox/quirk.json";
 import diseaseFile from "../../../../data/normalized/corebox/disease.json";
 import resolveFile from "../../../../data/normalized/corebox/virtue_affliction.json";
-import { normalizedHeroStatFileSchema } from "../../../../data/src/normalize/hero-stat";
+import { normalizedHeroStatFileSchema } from "../../../../data/src/core/heroes/hero-stat.build";
 import {
   normalizedHeroSkillFileSchema,
   normalizedMonsterMediumFileSchema,
   normalizedQuirkFileSchema,
-} from "../../../../data/src/normalize/schema";
-import { diseaseFileSchema } from "../../../../data/src/disease";
+} from "../../../../data/src/shared/schema";
+import { diseaseFileSchema } from "../../../../data/src/core/hamlet/disease";
 import {
   approvedExtraRuinsTiles,
   approvedExtraRuinsTileSchema,
-} from "../../../../data/src/normalize/approved-ruins-tiles";
+} from "../../../../data/src/core/tiles/approved-ruins-tiles.build";
 import { createBattleState } from "../../../src/shared/battle/battle";
 import type { BattleEntity, BattleSetup } from "../../../src/shared/battle/battle";
 import { applyCommand } from "../../../src/shared/core/command";

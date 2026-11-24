@@ -2,7 +2,7 @@
 
 范围：`hero_skill:warrens:h15:p295`–`p315`，共 21 张（7 技能 × I–III）。
 依据：Q-167–Q-171、R-209、`docs/phase7-hero-expansion-verification-2026-11-08.md`、
-[warrens-antiquarian-higher.test.ts](../../packages/data/src/normalize/hero-annotations/h15-antiquarian.test.ts)。
+[warrens-antiquarian-higher.test.ts](../../packages/data/tests/core/heroes/annotations/h15-antiquarian.test.ts)。
 
 ## 逐族结论
 

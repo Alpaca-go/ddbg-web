@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { applyCommand } from "@ddbg/engine";
 import type { QuestStart, Command, GameEvent, GameState, DungeonState } from "@ddbg/engine";
-import type { DungeonLayout } from "../../../../packages/data/src/dungeon-layout";
+import type { DungeonLayout } from "../../../../packages/data/src/core/tiles/dungeon-layout";
 import { loadQuestSave } from "@ddbg/engine";
 import { setup } from "./fixture-setup";
 import type { Fixture } from "./fixture-types";

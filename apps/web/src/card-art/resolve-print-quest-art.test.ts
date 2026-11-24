@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { basicQuests } from "../../../../packages/data/src/basic-quests";
+import { basicQuests } from "../../../../packages/data/src/core/quests/basic-quests";
 import printMap from "./quest-print-art-map.json";
 import {
   cachedPrintQuestUrl,

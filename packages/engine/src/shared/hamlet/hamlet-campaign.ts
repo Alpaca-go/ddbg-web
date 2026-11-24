@@ -1,11 +1,11 @@
 import { monsterPoolCatalogValidForLocation } from "../core/monster-pool-validation";
 import trinketFile from "../../../../data/normalized/corebox/trinket.json";
-import { basicQuests } from "../../../../data/src/basic-quests";
+import { basicQuests } from "../../../../data/src/core/quests/basic-quests";
 import { questsForCampaignLevel } from "./campaign-quest-pool";
 import { remainingWealdQuestIdsForCampaignDiscard } from "./hamlet-location-quest-draw";
-import type { CampaignLevel } from "../../../../data/src/basic-quests";
-import { ruinsMonsterPool } from "../../../../data/src/monster-pool";
-import { normalizedTrinketFileSchema } from "../../../../data/src/normalize/schema";
+import type { CampaignLevel } from "../../../../data/src/core/quests/basic-quests";
+import { ruinsMonsterPool } from "../../../../data/src/core/monsters/monster-pool";
+import { normalizedTrinketFileSchema } from "../../../../data/src/shared/schema";
 import type { ApplyResult, GameState } from "../core/command";
 import { rejectBattleCommand } from "../battle/battle";
 import { createRng } from "../core/rng";

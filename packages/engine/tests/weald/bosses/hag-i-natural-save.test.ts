@@ -4,7 +4,7 @@ import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-ques
 import { coreParty, coreQuestSources } from "../../helpers/core-quest";
 import { naturalQuest } from "../../helpers/natural-quest";
 import { createQuestSave, loadQuestSave } from "../../../src/shared/quest/quest-save";
-import type { QuestStart } from "../../../../data/src/quest-save";
+import type { QuestStart } from "../../../../data/src/shared/quest-save";
 
 // 事先固定完整 0–6 序列，保留全部输入的真实结果；不按输赢筛选或换种子。
 it.each([0, 1, 2, 3, 4, 5, 6])(

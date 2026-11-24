@@ -2,8 +2,8 @@ import { describe, expect, it } from "vitest";
 import forwardCamps from "../../../../data/normalized/corebox/forward_camps_distribution.json";
 import layout from "../../../../data/normalized/corebox/dungeon_layout_p001.json";
 import scoutDistribution from "../../../../data/normalized/corebox/scout_ahead_distribution.json";
-import { forwardCampsQuestSummarySchema } from "../../../../data/src/quest-summary";
-import { roomDistributionSchema } from "../../../../data/src/dungeon-layout";
+import { forwardCampsQuestSummarySchema } from "../../../../data/src/shared/quest-summary";
+import { roomDistributionSchema } from "../../../../data/src/core/tiles/dungeon-layout";
 import { applyCommand } from "../../../src/shared/core/command";
 import type { GameState } from "../../../src/shared/core/command";
 import {

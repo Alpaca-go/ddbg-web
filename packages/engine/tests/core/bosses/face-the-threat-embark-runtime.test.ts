@@ -5,7 +5,7 @@ import { chooseNextQuest } from "../../../src/shared/hamlet/hamlet-embark";
 import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "../../helpers/core-quest";
 import trinkets from "../../../../data/normalized/corebox/trinket.json";
-import { normalizedTrinketFileSchema } from "../../../../data/src/normalize/schema";
+import { normalizedTrinketFileSchema } from "../../../../data/src/shared/schema";
 import { createTrinketPool } from "../../../src/shared/trinkets/trinket-acquisition";
 import {
   countCompletedRegularQuestsAtCampaignLevel,

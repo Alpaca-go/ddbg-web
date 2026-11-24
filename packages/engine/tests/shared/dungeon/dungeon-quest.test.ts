@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
 import layout from "../../../../data/normalized/corebox/dungeon_layout_p001.json";
 import distribution from "../../../../data/normalized/corebox/scout_ahead_distribution.json";
-import { scoutQuestSummarySchema } from "../../../../data/src/quest-summary";
-import { roomDistributionSchema } from "../../../../data/src/dungeon-layout";
+import { scoutQuestSummarySchema } from "../../../../data/src/shared/quest-summary";
+import { roomDistributionSchema } from "../../../../data/src/core/tiles/dungeon-layout";
 import { applyCommand } from "../../../src/shared/core/command";
 import type { Command, GameState } from "../../../src/shared/core/command";
 import { createDungeonSandbox } from "../../../src/shared/dungeon/dungeon";

@@ -4,7 +4,7 @@ import coreMedium from "../../../../data/normalized/corebox/monster_medium.json"
 import coreLarge from "../../../../data/normalized/corebox/monster_large.json";
 import type { GameState } from "../../shared/core/command";
 import type { MonsterCardView } from "../../shared/core/monster-skill";
-import { bossEnabledForPacks } from "../../../../data/src/content-packs";
+import { bossEnabledForPacks } from "../../../../data/src/shared/content-packs";
 import { WEALD_POUNDER_I_CONTENT as ordinary } from "./pounder-i-data";
 import { projectPounderCombatFaces } from "./pounder-i-projection";
 import { resolveEncounterBossScriptId } from "../../core/bosses/encounter-rules";

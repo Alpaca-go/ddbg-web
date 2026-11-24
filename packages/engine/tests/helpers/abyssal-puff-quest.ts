@@ -3,7 +3,7 @@ import type { Command, GameState } from "../../src/shared/core/command";
 import { createCoreDungeonQuest } from "../../src/shared/dungeon/dungeon-quest-entry";
 import { naturalParty, naturalQuest } from "./natural-quest";
 import { disinfectionSources as sources } from "./disinfection-quest";
-import type { QuestStart } from "../../../data/src/quest-save";
+import type { QuestStart } from "../../../data/src/shared/quest-save";
 
 /** seed1 Fungal Research 的 destroy-all 玩家偏好；只执行公开命令。 */
 export function abyssalPuffQuest() {

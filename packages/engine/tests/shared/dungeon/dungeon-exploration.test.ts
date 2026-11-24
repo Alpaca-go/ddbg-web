@@ -4,7 +4,7 @@ import distribution from "../../../../data/normalized/corebox/scout_ahead_distri
 import stats from "../../../../data/normalized/corebox/hero_stat.json";
 import catalog from "../../../../data/normalized/corebox/virtue_affliction.json";
 import layouts from "../../../../data/normalized/corebox/dungeon_layouts.json";
-import type { ExplorationFace } from "../../../../data/src/exploration";
+import type { ExplorationFace } from "../../../../data/src/shared/exploration";
 import { applyCommand } from "../../../src/shared/core/command";
 import type { Command, GameState } from "../../../src/shared/core/command";
 import { createDungeonSandbox } from "../../../src/shared/dungeon/dungeon";

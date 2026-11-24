@@ -95,7 +95,7 @@ stats 主效果改为 `rules.effect`（4a，267 张卡）。剩余 `{icon.key}` 
 ## 单元 6：Abomination 运行时合成
 
 **状态：已完成（2026-11-24）**。21 张卡的投影结果冻结在
-[`hero-annotations/abomination-projection-data.ts`](../../packages/data/src/normalize/hero-annotations/abomination-projection-data.ts)；
+[`hero-annotations/abomination-projection-data.ts`](../../packages/data/src/core/heroes/annotations/abomination-projection-data.ts)；
 `projectAbominationSkill` 只保留身份 / 签名断言、行与图标的解析，不再在运行时合成 `rules.*`。
 
 行数：8（`abomination-skills.ts`）。

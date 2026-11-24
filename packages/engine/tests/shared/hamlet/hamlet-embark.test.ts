@@ -6,7 +6,7 @@ import layout from "../../../../data/normalized/corebox/dungeon_layout_p001.json
 import distribution from "../../../../data/normalized/corebox/scout_ahead_distribution.json";
 import { nextProvisionFace } from "../../../src/shared/trinkets/loot";
 import { naturalAbbeyQuest } from "../../helpers/abbey-quest";
-import { basicQuests } from "../../../../data/src/basic-quests";
+import { basicQuests } from "../../../../data/src/core/quests/basic-quests";
 import { coreParty, coreQuestSources } from "../../helpers/core-quest";
 import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
 import {

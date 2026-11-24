@@ -1,4 +1,4 @@
-import type { CampaignLevel } from "../../../../data/src/basic-quests";
+import type { CampaignLevel } from "../../../../data/src/core/quests/basic-quests";
 import { RUINS_COMBAT_LEVELS } from "../../core/bosses/ruins-combat-levels";
 import type { RuinsBossIdentity } from "../../core/bosses/threat-description-catalog";
 import { RUINS_BOSS_IDENTITIES } from "../../core/bosses/threat-description-catalog";

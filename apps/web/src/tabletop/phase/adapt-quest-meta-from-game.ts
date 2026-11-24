@@ -1,5 +1,5 @@
 import type { GameState } from "@ddbg/engine";
-import { basicQuests } from "../../../../../packages/data/src/basic-quests";
+import { basicQuests } from "../../../../../packages/data/src/core/quests/basic-quests";
 import { questXpProgressShort } from "../../dungeon-sandbox/formal/quest-objective-line";
 import type { TabletopQuestMeta } from "../tabletop-types";
 

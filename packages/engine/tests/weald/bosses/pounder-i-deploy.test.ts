@@ -1,6 +1,6 @@
 import { clearBossScriptsForTest } from "../../../src/core/bosses/registry";
 import { expect, it } from "vitest";
-import { savedCommandSchema } from "../../../../data/src/quest-save";
+import { savedCommandSchema } from "../../../../data/src/shared/quest-save";
 import { applyCommand, type GameState, type Command } from "../../../src/shared/core/command";
 import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "../../helpers/core-quest";

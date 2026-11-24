@@ -3,7 +3,7 @@ import { describe, expect, it, beforeEach } from "vitest";
 import { createBattleState, type BattleEntity } from "../../../src/shared/battle/battle";
 import { applyCommand, type GameState } from "../../../src/shared/core/command";
 import { applyEncounterCommand } from "../../../src/shared/dungeon/encounter";
-import { normalizedMonsterLargeFileSchema } from "../../../../data/src/normalize/schema";
+import { normalizedMonsterLargeFileSchema } from "../../../../data/src/shared/schema";
 import type { MonsterCardView } from "../../../src/shared/core/monster-skill";
 import type { HeroSkillCardView, SkillStance } from "../../../src/core/heroes/hero-skill";
 import { createLootState } from "../../../src/shared/trinkets/loot";

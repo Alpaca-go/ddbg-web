@@ -6,7 +6,7 @@ import { naturalAbbeyQuest } from "../../helpers/abbey-quest";
 import { coreQuestSources } from "../../helpers/core-quest";
 import { createConditionPool } from "../../../src/shared/core/conditions";
 import { prepareTestReplacement } from "../../helpers/replacement";
-import { savedCommandSchema } from "../../../../data/src/quest-save";
+import { savedCommandSchema } from "../../../../data/src/shared/quest-save";
 
 let baseline: ReturnType<typeof naturalAbbeyQuest>;
 beforeAll(() => {

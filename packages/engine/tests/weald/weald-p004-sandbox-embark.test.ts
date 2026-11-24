@@ -2,17 +2,17 @@ import { describe, expect, it } from "vitest";
 import medium from "../../../data/normalized/extension/weald/monster_medium.json";
 import large from "../../../data/normalized/extension/weald/monster_large.json";
 import curio from "../../../data/normalized/extension/weald/curio.json";
-import { wealdCurioFileSchema } from "../../../data/src/curio";
+import { wealdCurioFileSchema } from "../../../data/src/core/curios/curio";
 import {
   questsForCampaignLevel,
   questsForContentPacks,
   sandboxEmbarkQuestsForPacks,
-} from "../../../data/src/basic-quests";
+} from "../../../data/src/core/quests/basic-quests";
 import {
   pickEmbarkQuestMapLayout,
   sandboxExpeditionEmbarkBlockReason,
-} from "../../../data/src/quest-map-pairing";
-import { asQuestMapPairingQuest, basicQuests } from "../../../data/src/basic-quests";
+} from "../../../data/src/core/quests/quest-map-pairing";
+import { asQuestMapPairingQuest, basicQuests } from "../../../data/src/core/quests/basic-quests";
 import { createCoreDungeonQuest } from "../../src/shared/dungeon/dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "../helpers/core-quest";
 import { applyCommand } from "../../src/shared/core/command";

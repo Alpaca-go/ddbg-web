@@ -1,10 +1,10 @@
 import { beforeAll, expect, it } from "vitest";
-import { ruinsMonsterPoolThrough } from "../../../../data/src/monster-pool";
+import { ruinsMonsterPoolThrough } from "../../../../data/src/core/monsters/monster-pool";
 import reduceDistribution from "../../../../data/normalized/corebox/reduce_to_rubble_distribution.json";
-import { savedCommandSchema } from "../../../../data/src/quest-save";
+import { savedCommandSchema } from "../../../../data/src/shared/quest-save";
 import clearDistribution from "../../../../data/normalized/corebox/clear_the_path_distribution.json";
-import { basicQuests, questsForCampaignLevel } from "../../../../data/src/basic-quests";
-import { dungeonQuestSummarySchema } from "../../../../data/src/quest-summary";
+import { basicQuests, questsForCampaignLevel } from "../../../../data/src/core/quests/basic-quests";
+import { dungeonQuestSummarySchema } from "../../../../data/src/shared/quest-summary";
 import { applyCommand } from "../../../src/shared/core/command";
 import type { Command, GameState } from "../../../src/shared/core/command";
 import { naturalAbbeyQuest } from "../../helpers/abbey-quest";

@@ -1,9 +1,9 @@
-import type { WealdHagContent } from "../../../../data/src/weald-hag";
+import type { WealdHagContent } from "../../../../data/src/weald/misc/weald-hag";
 import { monsterShuffleImmune } from "../../shared/core/monster-defence";
 import type { BattleEntity } from "../../shared/battle/battle";
 import type { MonsterCardView, MonsterSkillView } from "../../shared/core/monster-skill";
 import type { SkillSegment } from "../../core/heroes/hero-skill";
-import type { MonsterEffectPlan } from "../../../../data/src/monster-effects";
+import type { MonsterEffectPlan } from "../../../../data/src/core/monsters/monster-effects";
 import { WEALD_HAG_I_CONTENT, hagIApprovedBattleAreas } from "./hag-i-content";
 import {
   HAG_I_COMBAT_MONSTER_CARD_ID,

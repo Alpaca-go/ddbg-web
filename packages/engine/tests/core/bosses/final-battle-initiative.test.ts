@@ -3,7 +3,7 @@ import { finishTurn } from "../../../src/shared/dungeon/encounter";
 import { applyCommand, type GameState } from "../../../src/shared/core/command";
 import { readFinalFormSequence } from "../../../src/core/bosses/final-form-sequence";
 import { finalPreparationFixture } from "../../helpers/final-preparation";
-import { savedCommandSchema } from "../../../../data/src/quest-save";
+import { savedCommandSchema } from "../../../../data/src/shared/quest-save";
 
 function prepared(questId: "quest:p016" | "quest:p017" | "quest:p018" = "quest:p016") {
   const base = finalPreparationFixture(questId);

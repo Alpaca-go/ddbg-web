@@ -2,7 +2,7 @@ import { expect, it } from "vitest";
 import { applyCommand, type GameState } from "../../../src/shared/core/command";
 import { finalPreparationFixture } from "../../helpers/final-preparation";
 import { readFinalFormSequence } from "../../../src/core/bosses/final-form-sequence";
-import { savedCommandSchema } from "../../../../data/src/quest-save";
+import { savedCommandSchema } from "../../../../data/src/shared/quest-save";
 
 it("补给未完成不能开始形态；已建立流程不能重复创建或改写进度", () => {
   const base = finalPreparationFixture();

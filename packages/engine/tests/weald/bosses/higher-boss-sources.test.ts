@@ -4,7 +4,7 @@ import { applyCommand, type GameState } from "../../../src/shared/core/command";
 import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "../../helpers/core-quest";
 import { createQuestSave, loadQuestSave } from "../../../src/shared/quest/quest-save";
-import { savedCommandSchema, type QuestStart } from "../../../../data/src/quest-save";
+import { savedCommandSchema, type QuestStart } from "../../../../data/src/shared/quest-save";
 import { clearBossScriptsForTest } from "../../../src/core/bosses/registry";
 
 const command = {

@@ -6,7 +6,7 @@ import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-ques
 import { coreParty, coreQuestSources } from "../../helpers/core-quest";
 import { prepareTestReplacement, replacementStep as ok } from "../../helpers/replacement";
 import { conditionPoolProblem } from "../../../src/shared/core/conditions";
-import { savedCommandSchema } from "../../../../data/src/quest-save";
+import { savedCommandSchema } from "../../../../data/src/shared/quest-save";
 
 const join = { type: "joinPreparedReplacements" } as const;
 /** 明示已结算G房间/压力夹具；公开侦察产生死亡，再以公开命令准备替补。 */

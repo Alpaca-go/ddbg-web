@@ -17,7 +17,7 @@ import { createWealdHigherMonsterPoolState } from "../../src/weald/higher-monste
 import { createWealdLevelOneMonsterPoolState } from "../../src/weald/monster-pool";
 import { dungeonMonsterPoolThrough } from "../../src/shared/core/monster-pool-runtime";
 import trinketSource from "../../../data/normalized/corebox/trinket.json";
-import { normalizedTrinketFileSchema } from "../../../data/src/normalize/schema";
+import { normalizedTrinketFileSchema } from "../../../data/src/shared/schema";
 import { switchTrinketDungeonLevel } from "../../src/shared/trinkets/trinket-acquisition";
 
 const trinketCatalog = normalizedTrinketFileSchema.parse(trinketSource).cards;

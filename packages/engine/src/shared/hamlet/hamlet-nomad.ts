@@ -11,7 +11,7 @@ import {
 } from "../trinkets/trinket-acquisition";
 import type { TrinketPool } from "../trinkets/trinket-acquisition";
 import trinketFile from "../../../../data/normalized/corebox/trinket.json";
-import { normalizedTrinketFileSchema } from "../../../../data/src/normalize/schema";
+import { normalizedTrinketFileSchema } from "../../../../data/src/shared/schema";
 import { createRng } from "../core/rng";
 
 function problem(state: GameState) {

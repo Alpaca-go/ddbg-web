@@ -7,7 +7,7 @@ import { requireFaceTheThreatEmbarkPlanForSandbox } from "../../../src/core/boss
 import { nextExpeditionLocationDecks } from "../../../src/shared/hamlet/hamlet-location-embark";
 import { resolveBossScriptIdForQuest } from "../../../src/core/bosses/quest-bridge";
 import { clearBossScriptsForTest } from "../../../src/core/bosses/registry";
-import { savedCommandSchema } from "../../../../data/src/quest-save";
+import { savedCommandSchema } from "../../../../data/src/shared/quest-save";
 
 const run = (state: GameState, command: Command) => {
   const result = applyCommand(state, command);

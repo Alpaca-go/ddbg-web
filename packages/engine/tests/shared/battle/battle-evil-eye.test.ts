@@ -1,9 +1,9 @@
 import { expect, it } from "vitest";
-import { approvedEvilEye as tile } from "../../../../data/src/normalize/evil-eye";
+import { approvedEvilEye as tile } from "../../../../data/src/core/misc/evil-eye.build";
 import rooms from "../../../../data/normalized/corebox/room.json";
 import catalog from "../../../../data/normalized/corebox/room_tile_geometry.json";
-import { selectRoomTile } from "../../../../data/src/normalize/room-tile-selection";
-import { savedCommandSchema } from "../../../../data/src/quest-save";
+import { selectRoomTile } from "../../../../data/src/core/rooms/room-tile-selection.build";
+import { savedCommandSchema } from "../../../../data/src/shared/quest-save";
 import { roomTileBattleAreas } from "../../../src/shared/battle/battle-monster-movement";
 import { applyCommand } from "../../../src/shared/core/command";
 import type { GameState } from "../../../src/shared/core/command";

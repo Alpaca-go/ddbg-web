@@ -1,12 +1,12 @@
-import { wealdLevelOneMonsterInstancesSchema } from "../../../data/src/weald-monster-pool";
+import { wealdLevelOneMonsterInstancesSchema } from "../../../data/src/weald/monsters/weald-monster-pool";
 import type { DungeonState } from "../shared/dungeon/dungeon";
-import { normalizeContentPacks, type ContentPackId } from "../../../data/src/content-packs";
+import { normalizeContentPacks, type ContentPackId } from "../../../data/src/shared/content-packs";
 import {
   monsterPoolCatalogSchema,
   ruinsMonsterPool,
   type MonsterPoolCard,
-} from "../../../data/src/monster-pool";
-import { normalizedMonsterMediumFileSchema } from "../../../data/src/normalize/schema";
+} from "../../../data/src/core/monsters/monster-pool";
+import { normalizedMonsterMediumFileSchema } from "../../../data/src/shared/schema";
 import { buildWealdMonsterCatalog } from "./monster-catalog";
 
 /** R9–R10、W3、R-230/R-232：仅构造 I 级目录，不开放地点出征或绕过召唤停点。 */

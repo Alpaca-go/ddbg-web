@@ -1,0 +1,287 @@
+import { z } from "zod";
+import { basicQuests } from "../core/quests/basic-quests";
+
+export const questRoomsSchema = z.array(
+  z.strictObject({
+    id: z.string().min(1),
+    kind: z.enum(["empty", "dark", "curio", "lair", "trap", "treasure", "objective"]),
+    revealed: z.boolean(),
+    cleared: z.boolean().optional(),
+  }),
+);
+
+/** R14–15 / R29 / R-038：退出后保存待发奖励；回村前不写英雄或驿站 XP。 */
+export const scoutQuestSummarySchema = z
+  .strictObject({
+    questId: z.literal("quest:p001"),
+    name: z.literal("Scout Ahead I"),
+    clearedRoomIds: z.array(z.string().min(1)).max(6),
+    xpPerHero: z.int().min(0).max(3),
+    stagecoachXp: z.int().min(0).max(3),
+    awarded: z.boolean(),
+  })
+  .superRefine((summary, ctx) => {
+    if (
+      new Set(summary.clearedRoomIds).size !== summary.clearedRoomIds.length ||
+      summary.xpPerHero !== Math.floor(summary.clearedRoomIds.length / 2) ||
+      summary.stagecoachXp !== summary.xpPerHero
+    )
+      ctx.addIssue({ code: "custom", message: "Scout Ahead 清理记录 / 待发 XP 不一致" });
+  });
+export type ScoutQuestSummary = z.infer<typeof scoutQuestSummarySchema>;
+export const wipeQuestSummarySchema = z
+  .strictObject({
+    questId: z.literal("quest:p002"),
+    name: z.literal("Wipe ‘Em Out I"),
+    clearedRoomIds: z.array(z.string().min(1)).max(3),
+    xpPerHero: z.int().min(0).max(3),
+    stagecoachXp: z.int().min(0).max(3),
+    awarded: z.boolean(),
+  })
+  .superRefine((s, ctx) => {
+    if (
+      new Set(s.clearedRoomIds).size !== s.clearedRoomIds.length ||
+      s.xpPerHero !== s.clearedRoomIds.length ||
+      s.stagecoachXp !== s.xpPerHero
+    )
+      ctx.addIssue({ code: "custom", message: "Wipe ‘Em Out巢穴记录 / 待发XP不一致" });
+  });
+/** R-038、R-216：限制任务 XP，捐献可以超过换取 3 XP 所需的金币。 */
+export function fundraiserDonationXp(gold: number): number {
+  return Math.min(3, Math.floor(gold / 20));
+}
+export const fundraiserQuestSummarySchema = z
+  .strictObject({
+    questId: z.literal("quest:p003"),
+    name: z.literal("Fundraiser I"),
+    clearedRoomIds: z.array(z.string().min(1)).max(2),
+    earlyLeave: z.boolean(),
+    objectiveMet: z.boolean(),
+    lairClearedCount: z.int().min(0).max(2),
+    donatedGold: z.int().nonnegative(),
+    xpPerHero: z.int().min(0).max(3),
+    stagecoachXp: z.int().min(0).max(3),
+    awarded: z.boolean(),
+  })
+  .superRefine((s, ctx) => {
+    if (
+      new Set(s.clearedRoomIds).size !== s.clearedRoomIds.length ||
+      s.lairClearedCount !== s.clearedRoomIds.length ||
+      s.objectiveMet !== s.lairClearedCount >= 1 ||
+      s.earlyLeave === s.objectiveMet ||
+      (!s.objectiveMet && s.donatedGold !== 0) ||
+      s.xpPerHero !== fundraiserDonationXp(s.donatedGold) ||
+      s.stagecoachXp !== s.xpPerHero
+    )
+      ctx.addIssue({ code: "custom", message: "Fundraiser捐献 / 巢穴 / 待发XP不一致" });
+  });
+/** QUEST p7–8、R15/R29、R-038：仅接受已核对的两张II级任务，不放宽I级schema。 */
+export const forwardCampsQuestSummarySchema = z
+  .strictObject({
+    questId: z.literal("quest:p012"),
+    name: z.literal("Forward Camps III"),
+    clearedRoomIds: z.array(z.string().min(1)),
+    forwardCampSetups: z.int().min(0),
+    xpPerHero: z.int().min(0).max(3),
+    stagecoachXp: z.int().min(0).max(3),
+    awarded: z.boolean(),
+  })
+  .superRefine((s, ctx) => {
+    if (
+      new Set(s.clearedRoomIds).size !== s.clearedRoomIds.length ||
+      s.xpPerHero !== Math.min(3, s.forwardCampSetups) ||
+      s.stagecoachXp !== s.xpPerHero
+    )
+      ctx.addIssue({
+        code: "custom",
+        message: "Forward Camps 设营次数 / 清理记录 / 待发 XP 不一致",
+      });
+  });
+
+export const level2QuestSummarySchema = z
+  .strictObject({
+    questId: z.enum(["quest:p007", "quest:p008"]),
+    name: z.string(),
+    clearedRoomIds: z.array(z.string().min(1)).max(6),
+    xpPerHero: z.int().min(0).max(3),
+    stagecoachXp: z.int().min(0).max(3),
+    awarded: z.boolean(),
+  })
+  .superRefine((s, ctx) => {
+    const quest = basicQuests.find((q) => q.id === s.questId)!;
+    if (!("roomsPerXp" in quest) || !("maxRooms" in quest)) {
+      ctx.addIssue({ code: "custom", message: "II级任务身份无效" });
+      return;
+    }
+    if (
+      s.name !== quest.name ||
+      new Set(s.clearedRoomIds).size !== s.clearedRoomIds.length ||
+      s.clearedRoomIds.length > quest.maxRooms ||
+      s.xpPerHero !== Math.floor(s.clearedRoomIds.length / quest.roomsPerXp) ||
+      s.stagecoachXp !== s.xpPerHero
+    )
+      ctx.addIssue({ code: "custom", message: "II级任务身份 / 清理记录 / 待发XP不一致" });
+  });
+
+const LEGACY_QUEST_SUMMARY_IDS = new Set([
+  "quest:p001",
+  "quest:p002",
+  "quest:p003",
+  "quest:p007",
+  "quest:p008",
+]);
+
+/** 2026-10-25 非 Boss 任务卡：标准 XP 公式（不含 Fundraiser 捐献）。 */
+export const standardBasicQuestSummarySchema = z
+  .strictObject({
+    questId: z.string().min(1),
+    name: z.string().min(1),
+    clearedRoomIds: z.array(z.string().min(1)),
+    xpPerHero: z.int().min(0).max(3),
+    stagecoachXp: z.int().min(0).max(3),
+    awarded: z.boolean(),
+  })
+  .superRefine((s, ctx) => {
+    const quest = basicQuests.find((q) => q.id === s.questId);
+    if (
+      !quest ||
+      LEGACY_QUEST_SUMMARY_IDS.has(s.questId) ||
+      quest.xpKind === "gold" ||
+      quest.xpKind === "camp" ||
+      quest.xpKind === "flat" ||
+      quest.xpKind === "broughtBack"
+    ) {
+      ctx.addIssue({ code: "custom", message: "非标准任务摘要身份" });
+      return;
+    }
+    if (!("roomsPerXp" in quest) || !("maxRooms" in quest)) {
+      ctx.addIssue({ code: "custom", message: "任务身份无效" });
+      return;
+    }
+    if (
+      s.name !== quest.name ||
+      new Set(s.clearedRoomIds).size !== s.clearedRoomIds.length ||
+      s.clearedRoomIds.length > quest.maxRooms ||
+      s.xpPerHero !== Math.min(3, Math.floor(s.clearedRoomIds.length / quest.roomsPerXp)) ||
+      s.stagecoachXp !== s.xpPerHero
+    )
+      ctx.addIssue({ code: "custom", message: "任务身份 / 清理记录 / 待发 XP 不一致" });
+  });
+
+/** Fungal Research：brought back 计数，R-038 封顶 3（R-246、R-252）。 */
+export const fungalResearchQuestSummarySchema = z
+  .strictObject({
+    questId: z.literal("quest:weald:p001"),
+    name: z.literal("Fungal Research"),
+    clearedRoomIds: z.array(z.string().min(1)),
+    broughtBackCount: z.int().min(0),
+    objectiveMet: z.boolean(),
+    xpPerHero: z.int().min(0).max(3),
+    stagecoachXp: z.int().min(0).max(3),
+    awarded: z.boolean(),
+  })
+  .superRefine((s, ctx) => {
+    if (
+      new Set(s.clearedRoomIds).size !== s.clearedRoomIds.length ||
+      s.xpPerHero !== Math.min(3, s.broughtBackCount) ||
+      s.stagecoachXp !== s.xpPerHero
+    )
+      ctx.addIssue({
+        code: "custom",
+        message: "Fungal Research brought back / 待发 XP 不一致（R-246、R-038）",
+      });
+  });
+
+/** R-245：`quest:weald:p003` 按消毒橡树计 XP，不按清目标房数。 */
+export const disinfectionQuestSummarySchema = z
+  .strictObject({
+    questId: z.literal("quest:weald:p003"),
+    name: z.literal("Disinfection"),
+    clearedRoomIds: z.array(z.string().min(1)),
+    oaksDisinfected: z.int().min(0).max(3),
+    xpPerHero: z.int().min(0).max(3),
+    stagecoachXp: z.int().min(0).max(3),
+    awarded: z.boolean(),
+  })
+  .superRefine((s, ctx) => {
+    if (
+      s.xpPerHero !== Math.min(3, s.oaksDisinfected) ||
+      s.stagecoachXp !== s.xpPerHero ||
+      new Set(s.clearedRoomIds).size !== s.clearedRoomIds.length
+    )
+      ctx.addIssue({ code: "custom", message: "Disinfection 摘要 XP 与消毒计数不一致（R-245）" });
+  });
+
+/** R-244：`quest:weald:p002` 按击杀 Crone 计 XP，不按清目标房数。 */
+export const circleOfWitchesQuestSummarySchema = z
+  .strictObject({
+    questId: z.literal("quest:weald:p002"),
+    name: z.literal("Circle of Witches"),
+    clearedRoomIds: z.array(z.string().min(1)),
+    croneKills: z.int().min(0).max(3),
+    xpPerHero: z.int().min(0).max(3),
+    stagecoachXp: z.int().min(0).max(3),
+    awarded: z.boolean(),
+  })
+  .superRefine((s, ctx) => {
+    if (
+      s.xpPerHero !== Math.min(3, s.croneKills) ||
+      s.stagecoachXp !== s.xpPerHero ||
+      new Set(s.clearedRoomIds).size !== s.clearedRoomIds.length ||
+      s.clearedRoomIds.length > 3
+    )
+      ctx.addIssue({ code: "custom", message: "Circle of Witches 摘要 XP 与击杀不一致" });
+  });
+
+/** Boss / 最暗定额任务（R-122）；击败后固定 3 XP；回村发放走 `finishReturnToHamlet`。 */
+export const bossFlatQuestSummarySchema = z
+  .strictObject({
+    questId: z.enum(["quest:p016", "quest:p017", "quest:p018", "quest:p019"]),
+    name: z.string().min(1),
+    clearedRoomIds: z.array(z.string().min(1)),
+    xpPerHero: z.literal(3),
+    stagecoachXp: z.literal(3),
+    awarded: z.boolean(),
+  })
+  .superRefine((s, ctx) => {
+    const quest = basicQuests.find((q) => q.id === s.questId);
+    if (!quest || quest.xpKind !== "flat" || quest.flatXp !== 3 || s.name !== quest.name)
+      ctx.addIssue({ code: "custom", message: "Boss 定额任务身份不一致" });
+  });
+
+export const wealdSpecialTaskSummarySchema = z
+  .strictObject({
+    questId: z.enum(["quest:weald:p006", "quest:weald:p010", "quest:weald:p011"]),
+    name: z.string(),
+    clearedRoomIds: z.array(z.string()),
+    taskProgress: z.int().nonnegative(),
+    xpPerHero: z.int().min(0).max(3),
+    stagecoachXp: z.int().min(0).max(3),
+    awarded: z.boolean(),
+  })
+  .superRefine((s, ctx) => {
+    const q = basicQuests.find((q) => q.id === s.questId);
+    if (
+      !q ||
+      s.name !== q.name ||
+      s.xpPerHero !==
+        Math.min(3, Math.floor(s.taskProgress / (s.questId === "quest:weald:p010" ? 2 : 1))) ||
+      s.stagecoachXp !== s.xpPerHero ||
+      new Set(s.clearedRoomIds).size !== s.clearedRoomIds.length
+    )
+      ctx.addIssue({ code: "custom", message: "Weald 专属任务进度／XP不一致" });
+  });
+export const dungeonQuestSummarySchema = z.union([
+  wealdSpecialTaskSummarySchema,
+  scoutQuestSummarySchema,
+  wipeQuestSummarySchema,
+  fundraiserQuestSummarySchema,
+  forwardCampsQuestSummarySchema,
+  level2QuestSummarySchema,
+  circleOfWitchesQuestSummarySchema,
+  disinfectionQuestSummarySchema,
+  standardBasicQuestSummarySchema,
+  fungalResearchQuestSummarySchema,
+  bossFlatQuestSummarySchema,
+]);
+export type DungeonQuestSummary = z.infer<typeof dungeonQuestSummarySchema>;

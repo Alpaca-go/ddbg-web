@@ -2,8 +2,8 @@ import { expect, it } from "vitest";
 import { applyCommand } from "../../../src/shared/core/command";
 import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
 import { createDungeonSandbox } from "../../../src/shared/dungeon/dungeon";
-import { asQuestMapPairingQuest, basicQuests } from "../../../../data/src/basic-quests";
-import { pickEmbarkQuestMapLayout } from "../../../../data/src/quest-map-pairing";
+import { asQuestMapPairingQuest, basicQuests } from "../../../../data/src/core/quests/basic-quests";
+import { pickEmbarkQuestMapLayout } from "../../../../data/src/core/quests/quest-map-pairing";
 import { coreParty, coreQuestSources } from "../../helpers/core-quest";
 import type { GameState } from "../../../src/shared/core/command";
 import {

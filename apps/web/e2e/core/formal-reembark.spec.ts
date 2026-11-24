@@ -2,7 +2,7 @@ import { expect } from "@playwright/test";
 import { ssrTest } from "./ssr-test";
 import { createServer } from "vite";
 import { fileURLToPath } from "node:url";
-import type { QuestSave } from "../../../../packages/data/src/quest-save";
+import type { QuestSave } from "../../../../packages/data/src/shared/quest-save";
 
 const test = ssrTest(import.meta.url);
 

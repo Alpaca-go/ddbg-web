@@ -1,6 +1,6 @@
 import { explorationTrinketReaction } from "../trinkets/trinket-exploration-reactions";
 import die from "../../../../data/normalized/corebox/exploration_die.json";
-import { explorationDieSchema } from "../../../../data/src/exploration";
+import { explorationDieSchema } from "../../../../data/src/shared/exploration";
 import type { ApplyResult, GameState } from "../core/command";
 import type { DungeonCommand, DungeonState } from "./dungeon";
 import { createRng } from "../core/rng";
@@ -11,7 +11,7 @@ import { applyBossThreatStressOnProvisionUse } from "../../core/bosses/threat-pa
 import { resolveDungeonTrap } from "./dungeon-trap";
 import { changeDungeonLight } from "./dungeon-light";
 import { PROVISION_FACES } from "../trinkets/loot";
-import { readBasicQuest } from "../../../../data/src/basic-quests";
+import { readBasicQuest } from "../../../../data/src/core/quests/basic-quests";
 
 const faces = explorationDieSchema.parse(die).faces;
 const stances = ["aggressive", "defensive", "ranged", "support"] as const;

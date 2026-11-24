@@ -1,5 +1,5 @@
 import { expect, it } from "vitest";
-import { basicQuests } from "../../../../data/src/basic-quests";
+import { basicQuests } from "../../../../data/src/core/quests/basic-quests";
 import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "../../helpers/core-quest";
 import { createQuestSave, loadQuestSave } from "../../../src/shared/quest/quest-save";

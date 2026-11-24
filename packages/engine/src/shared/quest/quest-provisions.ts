@@ -1,4 +1,4 @@
-import { readBasicQuest } from "../../../../data/src/basic-quests";
+import { readBasicQuest } from "../../../../data/src/core/quests/basic-quests";
 import type { DungeonState } from "../dungeon/dungeon";
 import type { ProvisionFace } from "../trinkets/loot";
 

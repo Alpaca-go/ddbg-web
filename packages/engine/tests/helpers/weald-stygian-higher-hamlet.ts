@@ -3,7 +3,7 @@ import { coreQuestSources } from "./core-quest";
 import { switchTrinketDungeonLevel } from "../../src/shared/trinkets/trinket-acquisition";
 import type { GameState } from "../../src/shared/core/command";
 import trinketFile from "../../../data/normalized/corebox/trinket.json";
-import { normalizedTrinketFileSchema } from "../../../data/src/normalize/schema";
+import { normalizedTrinketFileSchema } from "../../../data/src/shared/schema";
 
 /** 受控 II 级 Stygian 村庄；正式路径为 tasks-v1，不是自然跨幕养成。 */
 export function wealdStygianTasksHamletFixture(): GameState {

@@ -3,7 +3,7 @@ import {
   corridorLayoutBindingFileSchema,
   resolveCorridorLayoutBinding,
   type CorridorLayoutBinding,
-} from "../../../../data/src/corridor-layout-bindings";
+} from "../../../../data/src/core/tiles/corridor-layout-bindings";
 
 /** 核心盒无走廊板块（Q-161）；只保留 QuestMap 边 → 走廊实例绑定的查询。 */
 const parsedBindings = corridorLayoutBindingFileSchema.parse(bindings);

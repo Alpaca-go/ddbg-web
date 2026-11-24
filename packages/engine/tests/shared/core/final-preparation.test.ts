@@ -1,7 +1,7 @@
 import { expect, it } from "vitest";
 import { applyCommand, type GameState, type Command } from "../../../src/shared/core/command";
 import { finalPreparationFixture } from "../../helpers/final-preparation";
-import { questSaveSchema } from "../../../../data/src/quest-save";
+import { questSaveSchema } from "../../../../data/src/shared/quest-save";
 import { currentHamletEvent } from "../../../src/shared/hamlet/hamlet-event";
 
 function ok(state: GameState, command: Command) {

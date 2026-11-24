@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import type { BasicQuestId } from "../../../../data/src/basic-quests";
+import type { BasicQuestId } from "../../../../data/src/core/quests/basic-quests";
 import type { GameState } from "../../../src/shared/core/command";
 import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
 import { ensureCampaignBossScriptsRegistered } from "../../../src/shared/core/registry";

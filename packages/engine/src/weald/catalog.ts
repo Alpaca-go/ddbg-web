@@ -1,4 +1,4 @@
-import type { CampaignLevel } from "../../../data/src/basic-quests";
+import type { CampaignLevel } from "../../../data/src/core/quests/basic-quests";
 /** Weald 扩展 三 Boss（spec 扩展 §2.3；迫近威胁池已接线）。 */
 export type WealdBossIdentity = "hag" | "brigandPounder" | "shrieker";
 

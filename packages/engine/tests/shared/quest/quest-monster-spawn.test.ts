@@ -1,6 +1,6 @@
 import { expect, it } from "vitest";
-import { asQuestMapPairingQuest, basicQuests } from "../../../../data/src/basic-quests";
-import { pickEmbarkQuestMapLayout } from "../../../../data/src/quest-map-pairing";
+import { asQuestMapPairingQuest, basicQuests } from "../../../../data/src/core/quests/basic-quests";
+import { pickEmbarkQuestMapLayout } from "../../../../data/src/core/quests/quest-map-pairing";
 import { applyCommand, type GameState } from "../../../src/shared/core/command";
 import { createDungeonSandbox } from "../../../src/shared/dungeon/dungeon";
 import { readRoomTile } from "../../../src/shared/core/room-tile-selection";

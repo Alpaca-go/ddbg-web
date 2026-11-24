@@ -11,7 +11,7 @@ import {
   switchTrinketDungeonLevel,
 } from "../../../src/shared/trinkets/trinket-acquisition";
 import raw from "../../../../data/normalized/corebox/trinket.json";
-import { normalizedTrinketFileSchema } from "../../../../data/src/normalize/schema";
+import { normalizedTrinketFileSchema } from "../../../../data/src/shared/schema";
 
 const cards = normalizedTrinketFileSchema.parse(raw).cards;
 let journeys: Record<2 | 3, ReturnType<typeof nomadUpgradeQuest>>;

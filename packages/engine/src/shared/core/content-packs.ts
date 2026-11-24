@@ -3,11 +3,15 @@ import {
   normalizeContentPacks,
   packEnabled,
   type ContentPackId,
-} from "../../../../data/src/content-packs";
+} from "../../../../data/src/shared/content-packs";
 import type { CoreQuestSources } from "../dungeon/dungeon-quest-entry";
 
-export { CONTENT_PACKS, CONTENT_PACK_IDS, packEnabled } from "../../../../data/src/content-packs";
-export type { ContentPackId } from "../../../../data/src/content-packs";
+export {
+  CONTENT_PACKS,
+  CONTENT_PACK_IDS,
+  packEnabled,
+} from "../../../../data/src/shared/content-packs";
+export type { ContentPackId } from "../../../../data/src/shared/content-packs";
 
 /** 在创建牌堆之前过滤，升级、替补、技能购买复用同一份战役目录。 */
 export function sourcesForContentPacks(

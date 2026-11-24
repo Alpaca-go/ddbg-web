@@ -2,7 +2,7 @@ import source from "../../../../data/normalized/corebox/darkest_boss_content.jso
 import {
   darkestBossContentSchema,
   finalBattlePlanForQuest,
-} from "../../../../data/src/darkest-boss-content";
+} from "../../../../data/src/core/bosses/darkest-boss-content";
 import type { GameState } from "../../shared/core/command";
 import type { DungeonState } from "../../shared/dungeon/dungeon";
 

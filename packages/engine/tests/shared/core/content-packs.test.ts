@@ -14,13 +14,13 @@ import type { ContentPackId } from "../../../src/shared/core/content-packs";
 import { replacementHeroCandidates } from "../../../src/core/heroes/hero-death-estate";
 import { skillBelongsToFormalHero } from "../../../src/shared/core/formal-roster-catalog";
 import { naturalHamletStart } from "../../helpers/guild-quest";
-import { cardContentPack } from "../../../../data/src/content-packs";
+import { cardContentPack } from "../../../../data/src/shared/content-packs";
 import { resolveScriptIdForDescriptionCard } from "../../../src/core/bosses/threat-description-catalog";
 import { HAG_I_DESCRIPTION_ABILITY_CARD_ID } from "../../../src/weald/bosses/hag-i";
 import coveCurio from "../../../../data/normalized/extension/cove/curio.json";
 import coveRoom from "../../../../data/normalized/extension/cove/room.json";
-import { coveCurioFileSchema } from "../../../../data/src/curio";
-import { coveRoomFileSchema } from "../../../../data/src/cove-room";
+import { coveCurioFileSchema } from "../../../../data/src/core/curios/curio";
+import { coveRoomFileSchema } from "../../../../data/src/cove/rooms/cove-room";
 
 beforeEach(clearBossScriptsForTest);
 const start = {

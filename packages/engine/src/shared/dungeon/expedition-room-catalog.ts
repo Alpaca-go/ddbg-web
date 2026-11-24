@@ -1,6 +1,6 @@
-import { basicQuests, readBasicQuest } from "../../../../data/src/basic-quests";
-import { roomCatalogSchema } from "../../../../data/src/room";
-import { wealdRoomCatalogSchema } from "../../../../data/src/weald-room";
+import { basicQuests, readBasicQuest } from "../../../../data/src/core/quests/basic-quests";
+import { roomCatalogSchema } from "../../../../data/src/core/rooms/room";
+import { wealdRoomCatalogSchema } from "../../../../data/src/weald/rooms/weald-room";
 import type { DungeonState } from "./dungeon";
 
 export type ExpeditionRoomRegion = "ruins" | "weald";

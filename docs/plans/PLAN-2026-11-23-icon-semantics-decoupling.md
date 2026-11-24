@@ -200,7 +200,7 @@ Leper 已经暴露过三类问题：图标误聚（heal）、提取错位（Reve
 
 **先明确一个事实**：`verification.unverified === false`
 只表示「这张卡上的图标命名都已确认」（见
-[icons.ts](../../packages/data/src/normalize/icons.ts) 的 `noteIcon`），
+[icons.ts](../../packages/data/src/shared/icons.ts) 的 `noteIcon`），
 **不代表效果语义核对过**。不能拿它当正确性保证。
 
 要做的事：

@@ -8,7 +8,7 @@ import {
   restoreTemporarySkillUpgrades,
   applyTemporarySkillUpgrades,
 } from "../../../src/shared/hamlet/hamlet-embark";
-import { savedCommandSchema } from "../../../../data/src/quest-save";
+import { savedCommandSchema } from "../../../../data/src/shared/quest-save";
 const actor = (s: GameState) => s.battle!.entities.find((e) => e.id === "hero-0")!;
 function open(s: GameState) {
   return applyCommand(s, { type: "hallAscension", actorId: "hero-0" });

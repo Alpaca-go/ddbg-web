@@ -3,11 +3,11 @@ import {
   basicQuests,
   questPrintedXpCap,
   questsForContentPacks,
-} from "../../../data/src/basic-quests";
+} from "../../../data/src/core/quests/basic-quests";
 import {
   expeditionLocationEmbarkBlockReason,
   sandboxExpeditionEmbarkBlockReason,
-} from "../../../data/src/quest-map-pairing";
+} from "../../../data/src/core/quests/quest-map-pairing";
 import { chooseNextQuest } from "../../src/shared/hamlet/hamlet-embark";
 import { naturalHamletStart } from "../helpers/guild-quest";
 import { coreQuestSources } from "../helpers/core-quest";

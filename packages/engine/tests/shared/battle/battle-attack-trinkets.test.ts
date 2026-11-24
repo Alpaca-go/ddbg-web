@@ -1,12 +1,12 @@
-import type { CoreTrinketId } from "../../../../data/src/core-trinket-bindings";
+import type { CoreTrinketId } from "../../../../data/src/core/trinkets/core-trinket-bindings";
 import { nextBattleRoll } from "../../../src/shared/battle/battle-roll";
 import type { PlayMonsterSkillCommand } from "../../../src/shared/battle/battle-monster";
 import { expect, it } from "vitest";
 import rawTrinkets from "../../../../data/normalized/corebox/trinket.json";
-import { normalizedTrinketFileSchema } from "../../../../data/src/normalize/schema";
-import { HERO_SKILL_TRINKET_IDS } from "../../../../data/src/hero-skill-trinkets";
-import type { HeroSkillTrinketId } from "../../../../data/src/hero-skill-trinkets";
-import { savedCommandSchema } from "../../../../data/src/quest-save";
+import { normalizedTrinketFileSchema } from "../../../../data/src/shared/schema";
+import { HERO_SKILL_TRINKET_IDS } from "../../../../data/src/core/heroes/hero-skill-trinkets";
+import type { HeroSkillTrinketId } from "../../../../data/src/core/heroes/hero-skill-trinkets";
+import { savedCommandSchema } from "../../../../data/src/shared/quest-save";
 import { applyCommand } from "../../../src/shared/core/command";
 import type { ApplyResult, GameState } from "../../../src/shared/core/command";
 import { createBattleState } from "../../../src/shared/battle/battle";

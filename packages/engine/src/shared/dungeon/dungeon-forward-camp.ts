@@ -1,5 +1,5 @@
 import type { ApplyResult, GameState } from "../core/command";
-import { readBasicQuest } from "../../../../data/src/basic-quests";
+import { readBasicQuest } from "../../../../data/src/core/quests/basic-quests";
 import { dungeonProvisionWindow } from "./dungeon-provision-window";
 import { rejectBattleCommand } from "../battle/battle";
 

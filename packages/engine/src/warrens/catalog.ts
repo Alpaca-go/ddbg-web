@@ -1,4 +1,4 @@
-import type { CampaignLevel } from "../../../data/src/basic-quests";
+import type { CampaignLevel } from "../../../data/src/core/quests/basic-quests";
 import { SWINE_PRINCE_I_DESCRIPTION_ABILITY_CARD_ID } from "./bosses/swine-prince-i";
 import { FLESH_I_DESCRIPTION_ABILITY_CARD_ID } from "./bosses/flesh-i";
 /** Warrens 三 Boss（spec 扩展 §2.3；迫近威胁池接线仍 hold）。 */

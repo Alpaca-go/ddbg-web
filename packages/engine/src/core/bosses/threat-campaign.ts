@@ -5,7 +5,7 @@ import { combatCardIdForPoolInstance } from "../../shared/core/monster-pool-runt
 import { readExpeditionRoomRegion } from "../../shared/dungeon/expedition-room-catalog";
 import { readBossCombatEntry } from "./combat-entry";
 import { ensureCampaignBossScriptsRegistered } from "../../shared/core/registry";
-import { bossEnabledForPacks } from "../../../../data/src/content-packs";
+import { bossEnabledForPacks } from "../../../../data/src/shared/content-packs";
 import { getBossScript } from "./registry";
 import {
   cardIdsPermanentlyRemovedAfterBattle,

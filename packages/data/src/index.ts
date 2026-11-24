@@ -4,13 +4,13 @@ export {
   monsterPoolFileSchema,
   ruinsMonsterPool,
   ruinsMonsterPoolThrough,
-} from "./monster-pool";
-export type { MonsterPoolCard } from "./monster-pool";
+} from "./core/monsters/monster-pool";
+export type { MonsterPoolCard } from "./core/monsters/monster-pool";
 export {
   darkestMonsterPoolFileSchema,
   darkestDungeonMonsterInstances,
-} from "./darkest-monster-pool";
-export type { DarkestMonsterPoolFile } from "./darkest-monster-pool";
+} from "./core/monsters/darkest-monster-pool";
+export type { DarkestMonsterPoolFile } from "./core/monsters/darkest-monster-pool";
 export {
   curioCardSchema,
   curioCatalogSchema,
@@ -20,13 +20,13 @@ export {
   coveCurioCatalogSchema,
   coveCurioFileSchema,
   planCurioEffects,
-} from "./curio";
-export type { CurioCard, CurioEffect } from "./curio";
-export { diseaseCardSchema, diseaseFileSchema, diseaseRuleSchema } from "./disease";
-export type { DiseaseCard, DiseaseFile, DiseaseRule } from "./disease";
-export { buildDiseases } from "./normalize/disease";
-export { explorationFaceSchema, explorationDieSchema } from "./exploration";
-export type { ExplorationFace } from "./exploration";
+} from "./core/curios/curio";
+export type { CurioCard, CurioEffect } from "./core/curios/curio";
+export { diseaseCardSchema, diseaseFileSchema, diseaseRuleSchema } from "./core/hamlet/disease";
+export type { DiseaseCard, DiseaseFile, DiseaseRule } from "./core/hamlet/disease";
+export { buildDiseases } from "./core/hamlet/disease.build";
+export { explorationFaceSchema, explorationDieSchema } from "./shared/exploration";
+export type { ExplorationFace } from "./shared/exploration";
 export {
   dungeonLayoutSchema,
   dungeonLayoutFileSchema,
@@ -34,8 +34,8 @@ export {
   roomDistributionEmbarkBlockReason,
   roomDistributionSchema,
   roomDistributionTokenTotal,
-} from "./dungeon-layout";
-export type { DungeonLayout, RoomDistribution, RoomTokenKind } from "./dungeon-layout";
+} from "./core/tiles/dungeon-layout";
+export type { DungeonLayout, RoomDistribution, RoomTokenKind } from "./core/tiles/dungeon-layout";
 export {
   asQuestMapPairingQuest,
   basicQuestExpeditionRegion,
@@ -43,7 +43,7 @@ export {
   sandboxEmbarkQuestsForPacks,
   isSandboxWealdEmbarkQuest,
   SANDBOX_WEALD_EMBARK_QUEST_IDS,
-} from "./basic-quests";
+} from "./core/quests/basic-quests";
 export {
   compatibleQuestMapLayouts,
   coreQuestMapLayouts,
@@ -59,15 +59,15 @@ export {
   questMapLayoutPageNumber,
   formalWealdProductionEmbarkAllowed,
   sandboxExpeditionEmbarkBlockReason,
-} from "./quest-map-pairing";
-export type { QuestExpeditionRegion, QuestMapPairingInput } from "./quest-map-pairing";
+} from "./core/quests/quest-map-pairing";
+export type { QuestExpeditionRegion, QuestMapPairingInput } from "./core/quests/quest-map-pairing";
 export {
   buildNonObjectiveRoomTokenPool,
   drawAndMaterializeRoomDistribution,
   drawRoomKindsWithoutReplacement,
   materializeRoomDistribution,
   nonObjectiveRoomTokenPoolCopiesPerKind,
-} from "./room-distribution-expand";
+} from "./core/rooms/room-distribution-expand";
 
 /** 早期占位。卡牌数据用 normalize 里的 schema。 */
 export const placeholderRecordSchema = z.object({
@@ -85,9 +85,9 @@ export {
   pageListSchema,
   quarterTurnSchema,
   unlabeledNumberSchema,
-} from "./extract/common";
-export { RAW_CARD_CATEGORIES, RAW_SHEET_CATEGORIES, rawFileSchema } from "./extract/raw";
-export type { RawFile } from "./extract/raw";
+} from "./shared/extract/common";
+export { RAW_CARD_CATEGORIES, RAW_SHEET_CATEGORIES, rawFileSchema } from "./shared/extract/raw";
+export type { RawFile } from "./shared/extract/raw";
 export {
   heroSkillCardSchema,
   heroSkillFileSchema,
@@ -97,7 +97,7 @@ export {
   monsterMediumFileSchema,
   trinketCardSchema,
   trinketFileSchema,
-} from "./extract/parsed";
+} from "./shared/extract/parsed";
 export type {
   HeroSkillCard,
   HeroSkillFile,
@@ -107,34 +107,37 @@ export type {
   MonsterMediumFile,
   TrinketCard,
   TrinketFile,
-} from "./extract/parsed";
-export { extractSummarySchema, reconciliationReportSchema } from "./extract/reports";
-export type { ExtractSummary, ReconciliationReport } from "./extract/reports";
+} from "./shared/extract/parsed";
+export { extractSummarySchema, reconciliationReportSchema } from "./shared/extract/reports";
+export type { ExtractSummary, ReconciliationReport } from "./shared/extract/reports";
 export {
   ICON_STATUSES,
   iconDictionarySchema,
   iconEntrySchema,
   iconKeyConventionIssues,
   iconStatusSchema,
-} from "./dictionary/schema";
-export type { IconDictionary, IconEntry, IconStatus } from "./dictionary/schema";
-export { buildNormalizedCorebox } from "./normalize/build";
-export { monsterStanceGroupsSchema } from "./normalize/monster-stance";
-export type { MonsterStanceGroups } from "./normalize/monster-stance";
-export type { NormalizedCorebox, NormalizedCoreboxInput } from "./normalize/build";
-export { loadNormalizedCorebox, writeNormalizedCorebox } from "./normalize/write";
-export { roomTileGeometrySchema, roomTileGeometryFileSchema } from "./normalize/room-tile";
-export type { RoomTileGeometryFile } from "./normalize/room-tile";
+} from "./shared/dictionary/schema";
+export type { IconDictionary, IconEntry, IconStatus } from "./shared/dictionary/schema";
+export { buildNormalizedCorebox } from "./shared/build";
+export { monsterStanceGroupsSchema } from "./core/monsters/monster-stance.build";
+export type { MonsterStanceGroups } from "./core/monsters/monster-stance.build";
+export type { NormalizedCorebox, NormalizedCoreboxInput } from "./shared/build";
+export { loadNormalizedCorebox, writeNormalizedCorebox } from "./shared/write";
+export { roomTileGeometrySchema, roomTileGeometryFileSchema } from "./core/rooms/room-tile.build";
+export type { RoomTileGeometryFile } from "./core/rooms/room-tile.build";
 export {
   corridorLayoutBindingFileSchema,
   corridorLayoutBindingSchema,
   lookupCorridorLayoutBinding,
   resolveCorridorLayoutBinding,
   corridorBindingKey,
-} from "./corridor-layout-bindings";
-export type { CorridorLayoutBinding } from "./corridor-layout-bindings";
-export { normalizedHeroStatCardSchema, normalizedHeroStatFileSchema } from "./normalize/hero-stat";
-export type { NormalizedHeroStatCard, NormalizedHeroStatFile } from "./normalize/hero-stat";
+} from "./core/tiles/corridor-layout-bindings";
+export type { CorridorLayoutBinding } from "./core/tiles/corridor-layout-bindings";
+export {
+  normalizedHeroStatCardSchema,
+  normalizedHeroStatFileSchema,
+} from "./core/heroes/hero-stat.build";
+export type { NormalizedHeroStatCard, NormalizedHeroStatFile } from "./core/heroes/hero-stat.build";
 export {
   NAMINGS,
   namingSchema,
@@ -153,7 +156,7 @@ export {
   normalizedVirtueAfflictionCardSchema,
   normalizedVirtueAfflictionFileSchema,
   verificationSchema,
-} from "./normalize/schema";
+} from "./shared/schema";
 export type {
   NormalizedHeroSkillCard,
   NormalizedHeroSkillFile,
@@ -169,41 +172,50 @@ export type {
   NormalizedVirtueAfflictionCard,
   NormalizedVirtueAfflictionFile,
   Segment,
-} from "./normalize/schema";
+} from "./shared/schema";
 
-export * from "./room";
-export { buildRooms } from "./normalize/room";
+export * from "./core/rooms/room";
+export { buildRooms } from "./core/rooms/room.build";
 export {
   wealdRoomCardSchema,
   wealdRoomFileSchema,
   wealdRoomTileGeometryFileSchema,
   wealdRoomTileSchema,
-} from "./weald-room";
-export type { WealdRoomCard, WealdRoomTile } from "./weald-room";
-export { wealdHagContentSchema, wealdHagTileSchema } from "./weald-hag";
-export type { WealdHagContent } from "./weald-hag";
-export { wealdHagHigherContentSchema } from "./weald-hag-higher";
-export type { WealdHagHigherContent } from "./weald-hag-higher";
+} from "./weald/rooms/weald-room";
+export type { WealdRoomCard, WealdRoomTile } from "./weald/rooms/weald-room";
+export { wealdHagContentSchema, wealdHagTileSchema } from "./weald/misc/weald-hag";
+export type { WealdHagContent } from "./weald/misc/weald-hag";
+export { wealdHagHigherContentSchema } from "./weald/misc/weald-hag-higher";
+export type { WealdHagHigherContent } from "./weald/misc/weald-hag-higher";
 
 export {
   absoluteNothingnessSupportSchema,
   buildAbsoluteNothingnessSupport,
   findAbsoluteNothingnessMonsterCards,
   readAbsoluteNothingnessSupport,
-} from "./absolute-nothingness-support";
-export type { AbsoluteNothingnessSupport } from "./absolute-nothingness-support";
-export { darkestBossContentSchema, finalBattlePlanForQuest } from "./darkest-boss-content";
-export type { DarkestBossContent } from "./darkest-boss-content";
-export { darkestBossAbilitiesSchema, readDarkestBossAbility } from "./darkest-boss-abilities";
-export type { DarkestBossAbilities } from "./darkest-boss-abilities";
-export { ruinsBossAbilitiesSchema, readRuinsBossAbility } from "./ruins-boss-abilities";
-export type { RuinsBossAbilities } from "./ruins-boss-abilities";
-export { questCardsSchema, readQuestCard } from "./quest-cards";
-export type { QuestCards } from "./quest-cards";
-export { readQuestMonsterPlan } from "./quest-monster-plan";
-export type { QuestMonsterPlan } from "./quest-monster-plan";
-export { stygianRoomsSchema, readStygianRoomReplacement } from "./stygian-rooms";
-export { wealdStygianRoomsSchema, readWealdStygianRoomReplacement } from "./weald-stygian-rooms";
+} from "./core/misc/absolute-nothingness-support";
+export type { AbsoluteNothingnessSupport } from "./core/misc/absolute-nothingness-support";
+export {
+  darkestBossContentSchema,
+  finalBattlePlanForQuest,
+} from "./core/bosses/darkest-boss-content";
+export type { DarkestBossContent } from "./core/bosses/darkest-boss-content";
+export {
+  darkestBossAbilitiesSchema,
+  readDarkestBossAbility,
+} from "./core/bosses/darkest-boss-abilities";
+export type { DarkestBossAbilities } from "./core/bosses/darkest-boss-abilities";
+export { ruinsBossAbilitiesSchema, readRuinsBossAbility } from "./core/bosses/ruins-boss-abilities";
+export type { RuinsBossAbilities } from "./core/bosses/ruins-boss-abilities";
+export { questCardsSchema, readQuestCard } from "./core/quests/quest-cards";
+export type { QuestCards } from "./core/quests/quest-cards";
+export { readQuestMonsterPlan } from "./core/monsters/quest-monster-plan";
+export type { QuestMonsterPlan } from "./core/monsters/quest-monster-plan";
+export { stygianRoomsSchema, readStygianRoomReplacement } from "./core/rooms/stygian-rooms";
+export {
+  wealdStygianRoomsSchema,
+  readWealdStygianRoomReplacement,
+} from "./weald/rooms/weald-stygian-rooms";
 export {
   coveBossRoomCardSchema,
   coveNormalRoomCardSchema,
@@ -212,13 +224,13 @@ export {
   coveRoomFileSchema,
   COVE_ROOM_BACK,
   COVE_ROOM_FRONT,
-} from "./cove-room";
-export type { CoveBossRoomCard, CoveRoomCard } from "./cove-room";
-export type { StygianRooms } from "./stygian-rooms";
-export { curioPoolIdentity, locationCurioPool } from "./curio-pool";
+} from "./cove/rooms/cove-room";
+export type { CoveBossRoomCard, CoveRoomCard } from "./cove/rooms/cove-room";
+export type { StygianRooms } from "./core/rooms/stygian-rooms";
+export { curioPoolIdentity, locationCurioPool } from "./core/curios/curio-pool";
 
-export { wealdPounderHigherContentSchema } from "./weald-pounder-higher";
-export type { WealdPounderHigherContent } from "./weald-pounder-higher";
+export { wealdPounderHigherContentSchema } from "./weald/misc/weald-pounder-higher";
+export type { WealdPounderHigherContent } from "./weald/misc/weald-pounder-higher";
 
-export { wealdShriekerHigherContentSchema } from "./weald-shrieker-higher";
-export type { WealdShriekerHigherContent } from "./weald-shrieker-higher";
+export { wealdShriekerHigherContentSchema } from "./weald/misc/weald-shrieker-higher";
+export type { WealdShriekerHigherContent } from "./weald/misc/weald-shrieker-higher";

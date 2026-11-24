@@ -1,4 +1,4 @@
-import type { QuestStart } from "../../../data/src/quest-save";
+import type { QuestStart } from "../../../data/src/shared/quest-save";
 import {
   createCoreDungeonQuest,
   type CoreQuestSources,

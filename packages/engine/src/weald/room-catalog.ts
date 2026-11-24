@@ -3,7 +3,7 @@ import {
   wealdRoomTileGeometryFileSchema,
   type WealdRoomCard,
   type WealdRoomTile,
-} from "../../../data/src/weald-room";
+} from "../../../data/src/weald/rooms/weald-room";
 import rooms from "../../../data/normalized/extension/weald/room.json";
 import tiles from "../../../data/normalized/extension/weald/room_tile_geometry.json";
 

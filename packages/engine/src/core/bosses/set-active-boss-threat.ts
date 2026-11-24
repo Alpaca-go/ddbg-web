@@ -1,4 +1,4 @@
-import { bossEnabledForPacks } from "../../../../data/src/content-packs";
+import { bossEnabledForPacks } from "../../../../data/src/shared/content-packs";
 import { ensureCampaignBossScriptsRegistered } from "../../shared/core/registry";
 import type { ApplyResult, GameState } from "../../shared/core/command";
 import { rejectBattleCommand } from "../../shared/battle/battle";

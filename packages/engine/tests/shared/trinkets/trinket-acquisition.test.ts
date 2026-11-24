@@ -1,6 +1,6 @@
 import { expect, it } from "vitest";
 import raw from "../../../../data/normalized/corebox/trinket.json";
-import { normalizedTrinketFileSchema } from "../../../../data/src/normalize/schema";
+import { normalizedTrinketFileSchema } from "../../../../data/src/shared/schema";
 import {
   createTrinketPool,
   drawTrinket,

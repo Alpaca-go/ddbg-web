@@ -1,7 +1,7 @@
 import diseases from "../../../../data/normalized/corebox/disease.json";
 import quirks from "../../../../data/normalized/corebox/quirk.json";
-import { diseaseFileSchema } from "../../../../data/src/disease";
-import { normalizedQuirkFileSchema } from "../../../../data/src/normalize/schema";
+import { diseaseFileSchema } from "../../../../data/src/core/hamlet/disease";
+import { normalizedQuirkFileSchema } from "../../../../data/src/shared/schema";
 import { createConditionPool } from "../../../src/shared/core/conditions";
 import { describe, expect, it } from "vitest";
 import layout from "../../../../data/normalized/corebox/dungeon_layout_p001.json";
@@ -11,7 +11,7 @@ import { applyCommand } from "../../../src/shared/core/command";
 import type { Command, GameState } from "../../../src/shared/core/command";
 import { createDungeonSandbox } from "../../../src/shared/dungeon/dungeon";
 import { canRestDungeon } from "../../../src/shared/dungeon/dungeon-rest";
-import { scoutRestSchema } from "../../../../data/src/scout-rest";
+import { scoutRestSchema } from "../../../../data/src/core/misc/scout-rest";
 import { QUIRK_NAMES } from "../../../src/shared/core/passive";
 
 function setup(): GameState {

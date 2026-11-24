@@ -1,12 +1,12 @@
 import {
   normalizedMonsterLargeFileSchema,
   normalizedMonsterMediumFileSchema,
-} from "../../../data/src/normalize/schema";
-import { WEALD_MONSTER_PROFILES } from "../../../data/src/normalize/verified-weald-monsters";
+} from "../../../data/src/shared/schema";
+import { WEALD_MONSTER_PROFILES } from "../../../data/src/core/monsters/verified-weald-monsters.build";
 import {
   WEALD_MONSTER_ATTACKS,
   wealdMonsterProfileSchema,
-} from "../../../data/src/weald-monster-rulings";
+} from "../../../data/src/weald/monsters/weald-monster-rulings";
 import type { MonsterCardView, MonsterSkillView } from "../shared/core/monster-skill";
 import { readMonsterAttackView } from "../shared/core/monster-skill";
 

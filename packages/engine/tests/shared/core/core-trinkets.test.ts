@@ -6,14 +6,14 @@ import { trinketBattle } from "../../helpers/trinket-battle";
 import { coreQuestSources } from "../../helpers/core-quest";
 import { applyCommand } from "../../../src/shared/core/command";
 import type { ApplyResult, GameState, Command } from "../../../src/shared/core/command";
-import type { CoreTrinketId } from "../../../../data/src/core-trinket-bindings";
+import type { CoreTrinketId } from "../../../../data/src/core/trinkets/core-trinket-bindings";
 import { nextBattleRoll } from "../../../src/shared/battle/battle-roll";
 import { createDungeonSandbox } from "../../../src/shared/dungeon/dungeon";
 import layout from "../../../../data/normalized/corebox/dungeon_layout_p001.json";
 import distribution from "../../../../data/normalized/corebox/scout_ahead_distribution.json";
 import trinkets from "../../../../data/normalized/corebox/trinket.json";
-import { normalizedTrinketFileSchema } from "../../../../data/src/normalize/schema";
-import { savedCommandSchema } from "../../../../data/src/quest-save";
+import { normalizedTrinketFileSchema } from "../../../../data/src/shared/schema";
+import { savedCommandSchema } from "../../../../data/src/shared/quest-save";
 const allCards = normalizedTrinketFileSchema.parse(trinkets).cards;
 function ok(r: ApplyResult) {
   expect(

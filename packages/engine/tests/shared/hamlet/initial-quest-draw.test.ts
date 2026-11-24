@@ -2,9 +2,9 @@ import { afterEach, expect, it } from "vitest";
 import medium from "../../../../data/normalized/extension/weald/monster_medium.json";
 import large from "../../../../data/normalized/extension/weald/monster_large.json";
 import curios from "../../../../data/normalized/extension/weald/curio.json";
-import { wealdCurioFileSchema } from "../../../../data/src/curio";
-import { basicQuests, asQuestMapPairingQuest } from "../../../../data/src/basic-quests";
-import { pickEmbarkQuestMapLayout } from "../../../../data/src/quest-map-pairing";
+import { wealdCurioFileSchema } from "../../../../data/src/core/curios/curio";
+import { basicQuests, asQuestMapPairingQuest } from "../../../../data/src/core/quests/basic-quests";
+import { pickEmbarkQuestMapLayout } from "../../../../data/src/core/quests/quest-map-pairing";
 import { coreParty, coreQuestSources } from "../../helpers/core-quest";
 import {
   initialQuestDrawModes,

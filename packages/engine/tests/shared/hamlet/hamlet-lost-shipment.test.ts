@@ -8,8 +8,8 @@ import { nextProvisionFace } from "../../../src/shared/trinkets/loot";
 import { createRng } from "../../../src/shared/core/rng";
 import events from "../../../../data/normalized/corebox/hamlet_event.json";
 import raw from "../../../../data/extract/corebox/raw/hamlet_event.json";
-import { rawFileSchema } from "../../../../data/src/extract/raw";
-import { buildHamletEvents } from "../../../../data/src/normalize/hamlet-event";
+import { rawFileSchema } from "../../../../data/src/shared/extract/raw";
+import { buildHamletEvents } from "../../../../data/src/core/hamlet/hamlet-event.build";
 
 const ids = ["aggressive", "defensive", "ranged", "support"].flatMap((s) =>
   [0, 1].map((i) => `dungeon-starting-provision:${s}:${i}`),

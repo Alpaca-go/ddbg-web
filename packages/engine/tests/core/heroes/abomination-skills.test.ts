@@ -1,7 +1,7 @@
 import { expect, it } from "vitest";
-import { loadNormalizedCorebox } from "../../../../data/src/normalize/write";
-import { heroSkillIdForPage } from "../../../../data/src/hero-registry";
-import { savedCommandSchema } from "../../../../data/src/quest-save";
+import { loadNormalizedCorebox } from "../../../../data/src/shared/write";
+import { heroSkillIdForPage } from "../../../../data/src/core/heroes/hero-registry";
+import { savedCommandSchema } from "../../../../data/src/shared/quest-save";
 import { createBattleState } from "../../../src/shared/battle/battle";
 import type { BattleEntity, BattleSetup } from "../../../src/shared/battle/battle";
 import { applyCommand } from "../../../src/shared/core/command";

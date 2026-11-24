@@ -1,5 +1,5 @@
-import type { RoomDistribution } from "../../../../data/src/dungeon-layout";
-import { drawAndMaterializeRoomDistribution } from "../../../../data/src/room-distribution-expand";
+import type { RoomDistribution } from "../../../../data/src/core/tiles/dungeon-layout";
+import { drawAndMaterializeRoomDistribution } from "../../../../data/src/core/rooms/room-distribution-expand";
 import { createRng } from "./rng";
 
 /** 建局：自模板展开 ? 槽（Q-112b），并推进 RNG 游标。 */

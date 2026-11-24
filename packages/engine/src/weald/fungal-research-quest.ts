@@ -1,4 +1,4 @@
-import { readBasicQuest } from "../../../data/src/basic-quests";
+import { readBasicQuest } from "../../../data/src/core/quests/basic-quests";
 import type { BattleState } from "../shared/battle/battle";
 import type { DungeonState } from "../shared/dungeon/dungeon";
 import { isNecroticFungusEntity, livingNecroticFungus } from "./necrotic-fungus";

@@ -3,7 +3,7 @@ import { createBattleState, type BattleEntity } from "../../../src/shared/battle
 import { applyCommand, type GameState } from "../../../src/shared/core/command";
 import { createLootState, type LootKind } from "../../../src/shared/trinkets/loot";
 import { coreQuestSources } from "../../helpers/core-quest";
-import { savedCommandSchema } from "../../../../data/src/quest-save";
+import { savedCommandSchema } from "../../../../data/src/shared/quest-save";
 
 const card = coreQuestSources.catalog.monsters.find((c) => c.id === "monster_medium:p001")!;
 function setup(kind: LootKind = "doubleGold", version = true): GameState {

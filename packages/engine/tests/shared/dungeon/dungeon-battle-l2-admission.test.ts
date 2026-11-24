@@ -1,8 +1,8 @@
 import { expect, it } from "vitest";
 import { applyCommand } from "../../../src/shared/core/command";
 import type { GameState } from "../../../src/shared/core/command";
-import type { BasicQuestId } from "../../../../data/src/basic-quests";
-import { questsForCampaignLevel } from "../../../../data/src/basic-quests";
+import type { BasicQuestId } from "../../../../data/src/core/quests/basic-quests";
+import { questsForCampaignLevel } from "../../../../data/src/core/quests/basic-quests";
 import {
   isSkillAdmissionRefusal,
   isLevelApprovalAdmissionRefusal,
@@ -15,7 +15,7 @@ import reduceDistribution from "../../../../data/normalized/corebox/reduce_to_ru
 import { createDungeonSandbox } from "../../../src/shared/dungeon/dungeon";
 import { createTrinketPool } from "../../../src/shared/trinkets/trinket-acquisition";
 import trinkets from "../../../../data/normalized/corebox/trinket.json";
-import { normalizedTrinketFileSchema } from "../../../../data/src/normalize/schema";
+import { normalizedTrinketFileSchema } from "../../../../data/src/shared/schema";
 
 const GUARDED_KINDS = ["treasure", "lair", "objective"] as const;
 type GuardedKind = (typeof GUARDED_KINDS)[number] | "curio";

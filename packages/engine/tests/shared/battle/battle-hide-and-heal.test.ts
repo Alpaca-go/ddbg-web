@@ -5,7 +5,7 @@ import { createBattleState } from "../../../src/shared/battle/battle";
 import type { BattleEntity } from "../../../src/shared/battle/battle";
 import { applyCommand } from "../../../src/shared/core/command";
 import type { GameState } from "../../../src/shared/core/command";
-import { approvedExtraRuinsTiles } from "../../../../data/src/normalize/approved-ruins-tiles";
+import { approvedExtraRuinsTiles } from "../../../../data/src/core/tiles/approved-ruins-tiles.build";
 import { roomTileBattleAreas } from "../../../src/shared/battle/battle-monster-movement";
 import { QUIRK_NAMES } from "../../../src/shared/core/passive";
 const tile = approvedExtraRuinsTiles.find((t) => t.number === 6)!;

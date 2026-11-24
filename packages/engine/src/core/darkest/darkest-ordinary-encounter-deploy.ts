@@ -6,7 +6,7 @@ import {
   type BattleEntity,
 } from "../../shared/battle/battle";
 import { createLootState } from "../../shared/trinkets/loot";
-import type { DarkestMonsterPoolFile } from "../../../../data/src/darkest-monster-pool";
+import type { DarkestMonsterPoolFile } from "../../../../data/src/core/monsters/darkest-monster-pool";
 import type { MonsterCardView } from "../../shared/core/monster-skill";
 import { skillBelongsToFormalHero } from "../../shared/core/formal-roster-catalog";
 import { questHeroSkillCount } from "../heroes/hero-loadout";

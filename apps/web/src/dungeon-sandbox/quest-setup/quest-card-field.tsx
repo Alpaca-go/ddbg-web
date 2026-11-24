@@ -1,5 +1,5 @@
 import { CoreboxPrintCardFace } from "../../card-art/corebox-print-card-face";
-import type { BasicQuestId } from "../../../../../packages/data/src/basic-quests";
+import type { BasicQuestId } from "../../../../../packages/data/src/core/quests/basic-quests";
 
 export type QuestCardOption = {
   readonly id: BasicQuestId;

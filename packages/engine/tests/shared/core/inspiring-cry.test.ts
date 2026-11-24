@@ -2,8 +2,8 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { applyCommand, createBattleState, resolveHeroSkill } from "../../../src/index";
 import type { BattleEntity, BattleSetup, HeroSkillCardView } from "../../../src/index";
-import { applyHeroSupport } from "../../../../data/src/normalize/hero-annotations";
-import type { NormalizedHeroSkillCard } from "../../../../data/src/normalize/schema";
+import { applyHeroSupport } from "../../../../data/src/core/heroes/annotations";
+import type { NormalizedHeroSkillCard } from "../../../../data/src/shared/schema";
 
 const cards = JSON.parse(
   readFileSync(

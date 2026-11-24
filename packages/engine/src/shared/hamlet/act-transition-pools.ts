@@ -1,8 +1,8 @@
-import type { ContentPackId } from "../../../../data/src/content-packs";
+import type { ContentPackId } from "../../../../data/src/shared/content-packs";
 import { monsterPoolCatalogValidForLocation } from "../core/monster-pool-validation";
 import trinketSource from "../../../../data/normalized/corebox/trinket.json";
-import { ruinsMonsterPoolThrough } from "../../../../data/src/monster-pool";
-import { normalizedTrinketFileSchema } from "../../../../data/src/normalize/schema";
+import { ruinsMonsterPoolThrough } from "../../../../data/src/core/monsters/monster-pool";
+import { normalizedTrinketFileSchema } from "../../../../data/src/shared/schema";
 import type { DungeonState } from "../dungeon/dungeon";
 import { dungeonMonsterPoolThrough } from "../core/monster-pool-runtime";
 import { createWealdHigherMonsterPoolState } from "../../weald/higher-monster-pool";

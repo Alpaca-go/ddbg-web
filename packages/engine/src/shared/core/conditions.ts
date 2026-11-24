@@ -1,9 +1,9 @@
 import { availableTrinket, spendTrinket, trinketChoice } from "../trinkets/trinket-reactions";
 import type { TrinketScope } from "../trinkets/trinket-reactions";
-import { diseaseCardSchema } from "../../../../data/src/disease";
-import type { DiseaseCard } from "../../../../data/src/disease";
-import { normalizedQuirkCardSchema } from "../../../../data/src/normalize/schema";
-import type { NormalizedQuirkCard } from "../../../../data/src/normalize/schema";
+import { diseaseCardSchema } from "../../../../data/src/core/hamlet/disease";
+import type { DiseaseCard } from "../../../../data/src/core/hamlet/disease";
+import { normalizedQuirkCardSchema } from "../../../../data/src/shared/schema";
+import type { NormalizedQuirkCard } from "../../../../data/src/shared/schema";
 import { createRng } from "./rng";
 import { QUIRK_NAMES } from "./passive";
 import type { PassiveHolder } from "./passive";

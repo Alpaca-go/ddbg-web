@@ -1,6 +1,6 @@
 import { planSummonCrowding } from "../../shared/core/summon-crowding";
 import poolFile from "../../../../data/normalized/corebox/darkest_monster_pool.json";
-import { darkestMonsterPoolFileSchema } from "../../../../data/src/darkest-monster-pool";
+import { darkestMonsterPoolFileSchema } from "../../../../data/src/core/monsters/darkest-monster-pool";
 import {
   rejectBattleCommand,
   type BattleEntity,

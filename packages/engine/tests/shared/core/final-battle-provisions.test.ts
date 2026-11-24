@@ -1,7 +1,7 @@
 import { expect, it } from "vitest";
 import { applyCommand, type Command, type GameState } from "../../../src/shared/core/command";
 import { finalPreparationFixture } from "../../helpers/final-preparation";
-import { savedCommandSchema } from "../../../../data/src/quest-save";
+import { savedCommandSchema } from "../../../../data/src/shared/quest-save";
 
 function ok(game: GameState, command: Command) {
   const result = applyCommand(game, command);

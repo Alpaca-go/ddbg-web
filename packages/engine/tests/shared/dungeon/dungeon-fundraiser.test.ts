@@ -5,7 +5,7 @@ import { createDungeonSandbox } from "../../../src/shared/dungeon/dungeon";
 import { applyCommand } from "../../../src/shared/core/command";
 import type { Command, GameState } from "../../../src/shared/core/command";
 import { canLeaveDungeon } from "../../../src/shared/dungeon/dungeon-exit";
-import { dungeonQuestSummarySchema } from "../../../../data/src/quest-summary";
+import { dungeonQuestSummarySchema } from "../../../../data/src/shared/quest-summary";
 
 function setup(gold = 80, cleared = true): GameState {
   const s = createDungeonSandbox(1, layout, distribution);

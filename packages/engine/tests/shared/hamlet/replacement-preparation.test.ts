@@ -4,7 +4,7 @@ import type { GameState, Command } from "../../../src/shared/core/command";
 import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "../../helpers/core-quest";
 import { replacementHeroCandidates } from "../../../src/core/heroes/hero-death-estate";
-import { savedCommandSchema } from "../../../../data/src/quest-save";
+import { savedCommandSchema } from "../../../../data/src/shared/quest-save";
 import { naturalQuest, naturalParty } from "../../helpers/natural-quest";
 import { createQuestSave, loadQuestSave } from "../../../src/shared/quest/quest-save";
 import {

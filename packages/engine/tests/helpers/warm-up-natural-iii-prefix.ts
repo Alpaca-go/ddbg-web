@@ -5,14 +5,14 @@ import {
   RUINS_BOSS_IDENTITIES,
   type RuinsBossIdentity,
 } from "../../src/core/bosses/threat-description-catalog";
-import { basicQuests, type BasicQuestId } from "../../../data/src/basic-quests";
+import { basicQuests, type BasicQuestId } from "../../../data/src/core/quests/basic-quests";
 import { coreParty, coreQuestSources } from "./core-quest";
 import { guildQuest } from "./guild-quest";
 import { ruinsActInitial, ruinsActReadyFixture } from "./ruins-act";
 import { switchRuinsActPools } from "../../src/shared/hamlet/act-transition-pools";
 import { naturalParty } from "./natural-quest";
 import { createQuestSave } from "../../src/shared/quest/quest-save";
-import type { QuestStart } from "../../../data/src/quest-save";
+import type { QuestStart } from "../../../data/src/shared/quest-save";
 
 /** 与 II 自然重放 / hamlet-ii-embark 相同的准备日收束；不进命令日志。 */
 export function preparationReadyForEmbark(game: GameState): GameState {

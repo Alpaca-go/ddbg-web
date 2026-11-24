@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it, beforeEach } from "vitest";
 import { createBattleState, type BattleEntity } from "../../../src/shared/battle/battle";
 import { applyCommand, type GameState } from "../../../src/shared/core/command";
-import { normalizedMonsterMediumFileSchema } from "../../../../data/src/normalize/schema";
+import { normalizedMonsterMediumFileSchema } from "../../../../data/src/shared/schema";
 import type { MonsterCardView } from "../../../src/shared/core/monster-skill";
 import type { SkillStance } from "../../../src/core/heroes/hero-skill";
 import { createLootState } from "../../../src/shared/trinkets/loot";

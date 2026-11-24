@@ -5,7 +5,7 @@ import { createBattleState } from "../../../src/shared/battle/battle";
 import type { BattleEntity } from "../../../src/shared/battle/battle";
 import { applyCommand } from "../../../src/shared/core/command";
 import type { ApplyResult, Command, GameState } from "../../../src/shared/core/command";
-import { approvedExtraRuinsTiles } from "../../../../data/src/normalize/approved-ruins-tiles";
+import { approvedExtraRuinsTiles } from "../../../../data/src/core/tiles/approved-ruins-tiles.build";
 import { roomTileBattleAreas } from "../../../src/shared/battle/battle-monster-movement";
 import {
   drawTrinket,
@@ -13,7 +13,7 @@ import {
   trinketPoolProblem,
 } from "../../../src/shared/trinkets/trinket-acquisition";
 import trinketFile from "../../../../data/normalized/corebox/trinket.json";
-import { normalizedTrinketFileSchema } from "../../../../data/src/normalize/schema";
+import { normalizedTrinketFileSchema } from "../../../../data/src/shared/schema";
 import type { TrinketPool } from "../../../src/shared/trinkets/trinket-acquisition";
 const tile = approvedExtraRuinsTiles.find((t) => t.number === 6)!;
 const basePool = coreQuestSources.catalog.trinkets!;

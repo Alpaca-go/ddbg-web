@@ -1,12 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { bossFlatQuestSummarySchema } from "../../../../data/src/quest-summary";
+import { bossFlatQuestSummarySchema } from "../../../../data/src/shared/quest-summary";
 import { applyCommand, type GameState } from "../../../src/shared/core/command";
 import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "../../helpers/core-quest";
 import { readDungeonQuestProgress } from "../../../src/shared/dungeon/dungeon-quest";
 import { createTrinketPool } from "../../../src/shared/trinkets/trinket-acquisition";
 import trinkets from "../../../../data/normalized/corebox/trinket.json";
-import { normalizedTrinketFileSchema } from "../../../../data/src/normalize/schema";
+import { normalizedTrinketFileSchema } from "../../../../data/src/shared/schema";
 
 function exitedFaceTheThreat(seed = 71, extra: Partial<GameState["dungeon"]> = {}): GameState {
   const base = createCoreDungeonQuest(seed, "quest:p019", "radiant", coreParty, coreQuestSources);

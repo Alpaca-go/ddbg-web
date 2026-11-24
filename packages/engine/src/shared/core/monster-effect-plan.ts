@@ -1,5 +1,5 @@
-import { monsterEffectPlanSchema } from "../../../../data/src/monster-effects";
-import type { MonsterEffectPlan } from "../../../../data/src/monster-effects";
+import { monsterEffectPlanSchema } from "../../../../data/src/core/monsters/monster-effects";
+import type { MonsterEffectPlan } from "../../../../data/src/core/monsters/monster-effects";
 import type { HeroSkillCardView, SkillSegment } from "../../core/heroes/hero-skill";
 
 /** R21、Q-163：cleanse 的 Remove 行按卡面顺序归一为 bleed、blight 两枚图标。 */

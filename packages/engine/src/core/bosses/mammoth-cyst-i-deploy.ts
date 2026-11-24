@@ -1,6 +1,6 @@
 import geometry from "../../../../data/normalized/corebox/room_tile_geometry.json";
-import { mammothCystRoomSchema } from "../../../../data/src/normalize/mammoth-cyst-room";
-import { roomCatalogSchema } from "../../../../data/src/room";
+import { mammothCystRoomSchema } from "../../../../data/src/core/rooms/mammoth-cyst-room.build";
+import { roomCatalogSchema } from "../../../../data/src/core/rooms/room";
 import { createBattleState, rejectBattleCommand } from "../../shared/battle/battle";
 import type { BattleEntity } from "../../shared/battle/battle";
 import type { ApplyResult, GameState } from "../../shared/core/command";

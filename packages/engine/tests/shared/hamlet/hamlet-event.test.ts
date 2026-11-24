@@ -1,10 +1,10 @@
 import { expect, it } from "vitest";
 import events from "../../../../data/normalized/corebox/hamlet_event.json";
 import dictionary from "../../../../data/dictionary/icon-dictionary-v1.8.json";
-import { hamletEventFileSchema } from "../../../../data/src/hamlet-event";
-import { buildHamletEvents } from "../../../../data/src/normalize/hamlet-event";
+import { hamletEventFileSchema } from "../../../../data/src/core/hamlet/hamlet-event";
+import { buildHamletEvents } from "../../../../data/src/core/hamlet/hamlet-event.build";
 import raw from "../../../../data/extract/corebox/raw/hamlet_event.json";
-import { rawFileSchema } from "../../../../data/src/extract/raw";
+import { rawFileSchema } from "../../../../data/src/shared/extract/raw";
 import { applyCommand } from "../../../src/shared/core/command";
 import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "../../helpers/core-quest";

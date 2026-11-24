@@ -2,7 +2,7 @@ import { expect, it } from "vitest";
 import medium from "../../../../data/normalized/extension/weald/monster_medium.json";
 import large from "../../../../data/normalized/extension/weald/monster_large.json";
 import curio from "../../../../data/normalized/extension/weald/curio.json";
-import { wealdCurioFileSchema } from "../../../../data/src/curio";
+import { wealdCurioFileSchema } from "../../../../data/src/core/curios/curio";
 import { coreParty, coreQuestSources } from "../../helpers/core-quest";
 import { rebuildLocationQuestDecks } from "../../../src/shared/quest/location-quest-sources";
 import { sourcesForContentPacks } from "../../../src/shared/core/content-packs";

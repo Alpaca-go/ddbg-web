@@ -1,4 +1,4 @@
-import { diseaseRules } from "../../../../data/src/disease";
+import { diseaseRules } from "../../../../data/src/core/hamlet/disease";
 import type { StatusEffect } from "./status";
 
 /** 官方 R26–28 的具名条目；ID 对应已核对印刷页，不解释未命名卡面图标。 */

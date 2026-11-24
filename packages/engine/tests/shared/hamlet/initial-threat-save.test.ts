@@ -2,7 +2,7 @@ import { expect, it } from "vitest";
 import { applyCommand, type Command } from "../../../src/shared/core/command";
 import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
 import { createQuestSave, loadQuestSave } from "../../../src/shared/quest/quest-save";
-import { savedCommandSchema, type QuestStart } from "../../../../data/src/quest-save";
+import { savedCommandSchema, type QuestStart } from "../../../../data/src/shared/quest-save";
 import { coreQuestSources } from "../../helpers/core-quest";
 import { naturalParty, naturalQuest } from "../../helpers/natural-quest";
 

@@ -7,7 +7,7 @@ import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-ques
 import { coreParty, coreQuestSources } from "../../helpers/core-quest";
 import { replacementStep as ok } from "../../helpers/replacement";
 import { createQuestSave, loadQuestSave } from "../../../src/shared/quest/quest-save";
-import { savedCommandSchema } from "../../../../data/src/quest-save";
+import { savedCommandSchema } from "../../../../data/src/shared/quest-save";
 
 function ready() {
   let game = createCoreDungeonQuest(31, "quest:p001", "standard", coreParty, coreQuestSources);

@@ -7,7 +7,7 @@ import {
 } from "../../../src/shared/battle/battle";
 import { applyCommand, type GameState } from "../../../src/shared/core/command";
 import { finishTurn } from "../../../src/shared/dungeon/encounter";
-import { normalizedMonsterLargeFileSchema } from "../../../../data/src/normalize/schema";
+import { normalizedMonsterLargeFileSchema } from "../../../../data/src/shared/schema";
 import { createLootState } from "../../../src/shared/trinkets/loot";
 import { nextBattleRoll } from "../../../src/shared/battle/battle-roll";
 import type { SkillStance } from "../../../src/core/heroes/hero-skill";

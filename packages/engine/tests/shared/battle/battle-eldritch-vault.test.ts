@@ -1,8 +1,8 @@
 import { expect, it } from "vitest";
-import { approvedEldritchVault as tile } from "../../../../data/src/normalize/eldritch-vault";
+import { approvedEldritchVault as tile } from "../../../../data/src/core/misc/eldritch-vault.build";
 import rooms from "../../../../data/normalized/corebox/room.json";
 import catalog from "../../../../data/normalized/corebox/room_tile_geometry.json";
-import { selectRoomTile } from "../../../../data/src/normalize/room-tile-selection";
+import { selectRoomTile } from "../../../../data/src/core/rooms/room-tile-selection.build";
 import { coreQuestSources, coreParty } from "../../helpers/core-quest";
 import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
 import { createBattleState } from "../../../src/shared/battle/battle";
@@ -11,7 +11,7 @@ import { applyCommand } from "../../../src/shared/core/command";
 import type { GameState } from "../../../src/shared/core/command";
 import { roomTileBattleAreas } from "../../../src/shared/battle/battle-monster-movement";
 import { readRoomTile } from "../../../src/shared/core/room-tile-selection";
-import { savedCommandSchema } from "../../../../data/src/quest-save";
+import { savedCommandSchema } from "../../../../data/src/shared/quest-save";
 
 function vaultFixture(seed = 3): GameState {
   const d = createCoreDungeonQuest(

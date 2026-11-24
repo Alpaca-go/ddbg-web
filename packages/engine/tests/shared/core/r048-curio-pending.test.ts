@@ -1,6 +1,6 @@
 import { expect, it } from "vitest";
 import rawCurios from "../../../../data/normalized/corebox/curio.json";
-import { curioFileSchema } from "../../../../data/src/curio";
+import { curioFileSchema } from "../../../../data/src/core/curios/curio";
 import { applyCommand } from "../../../src/shared/core/command";
 import type { GameState } from "../../../src/shared/core/command";
 import { createDungeonSandbox } from "../../../src/shared/dungeon/dungeon";

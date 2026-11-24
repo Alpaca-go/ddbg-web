@@ -1,6 +1,6 @@
-import { readBasicQuest } from "../../../../../packages/data/src/basic-quests";
+import { readBasicQuest } from "../../../../../packages/data/src/core/quests/basic-quests";
 import type { GameState } from "@ddbg/engine";
-import type { DungeonLayout } from "../../../../../packages/data/src/dungeon-layout";
+import type { DungeonLayout } from "../../../../../packages/data/src/core/tiles/dungeon-layout";
 import type { Fixture } from "../fixture-types";
 
 export function DungeonHeader({

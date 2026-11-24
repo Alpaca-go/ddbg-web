@@ -9,7 +9,7 @@ import {
 } from "../../../src/shared/trinkets/trinket-acquisition";
 import type { FallenHero } from "../../../src/core/heroes/fallen-heroes";
 import rawTrinkets from "../../../../data/normalized/corebox/trinket.json";
-import { normalizedTrinketFileSchema } from "../../../../data/src/normalize/schema";
+import { normalizedTrinketFileSchema } from "../../../../data/src/shared/schema";
 import { resolvePressure } from "../../../src/shared/core/pressure";
 import type { BattleEntity } from "../../../src/shared/battle/battle";
 

@@ -1,5 +1,5 @@
 import { prepareBossObjectiveRoom } from "../../core/bosses/objective-room-entry";
-import { basicQuests, readBasicQuest } from "../../../../data/src/basic-quests";
+import { basicQuests, readBasicQuest } from "../../../../data/src/core/quests/basic-quests";
 import type { ApplyResult, GameState } from "../core/command";
 import type { BattleArea } from "../battle/battle";
 import type { DungeonState } from "./dungeon";

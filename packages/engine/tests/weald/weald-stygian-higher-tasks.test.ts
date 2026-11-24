@@ -15,7 +15,7 @@ import { nextExpeditionLocationDecks } from "../../src/shared/hamlet/hamlet-loca
 import medium from "../../../data/normalized/extension/weald/monster_medium.json";
 import large from "../../../data/normalized/extension/weald/monster_large.json";
 import curios from "../../../data/normalized/extension/weald/curio.json";
-import { wealdCurioFileSchema } from "../../../data/src/curio";
+import { wealdCurioFileSchema } from "../../../data/src/core/curios/curio";
 import { rebuildLocationQuestDecks } from "../../src/shared/quest/location-quest-sources";
 import { createBattleState } from "../../src/shared/battle/battle";
 import { readActiveWealdStygianRoom } from "../../src/weald/rooms/stygian-room-effects";

@@ -5,14 +5,14 @@ import heroData from "../../../../data/normalized/corebox/hero_stat.json";
 import skillData from "../../../../data/normalized/corebox/hero_skill.json";
 import monsterData from "../../../../data/normalized/corebox/monster_medium.json";
 import resolveData from "../../../../data/normalized/corebox/virtue_affliction.json";
-import { diseaseFileSchema } from "../../../../data/src/disease";
+import { diseaseFileSchema } from "../../../../data/src/core/hamlet/disease";
 import {
   normalizedQuirkFileSchema,
   normalizedHeroSkillFileSchema,
   normalizedMonsterMediumFileSchema,
   normalizedVirtueAfflictionFileSchema,
-} from "../../../../data/src/normalize/schema";
-import { normalizedHeroStatFileSchema } from "../../../../data/src/normalize/hero-stat";
+} from "../../../../data/src/shared/schema";
+import { normalizedHeroStatFileSchema } from "../../../../data/src/core/heroes/hero-stat.build";
 import { applyCommand } from "../../../src/shared/core/command";
 import type { ApplyResult, GameState } from "../../../src/shared/core/command";
 import { createBattleState } from "../../../src/shared/battle/battle";

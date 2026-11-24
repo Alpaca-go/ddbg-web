@@ -1,5 +1,5 @@
 import { applyCommand } from "../../src/shared/core/command";
-import type { QuestStart } from "../../../data/src/quest-save";
+import type { QuestStart } from "../../../data/src/shared/quest-save";
 import { distance } from "../../src/shared/battle/battle";
 import type { Command, GameState } from "../../src/shared/core/command";
 import { createCoreDungeonQuest } from "../../src/shared/dungeon/dungeon-quest-entry";

@@ -6,10 +6,10 @@ import trinketFile from "../../../../data/normalized/corebox/trinket.json";
 import {
   darkestMonsterPoolFileSchema,
   darkestDungeonMonsterInstances,
-} from "../../../../data/src/darkest-monster-pool";
-import { coreQuestMapLayouts } from "../../../../data/src/quest-map-pairing";
-import type { DungeonLayout, RoomTokenKind } from "../../../../data/src/dungeon-layout";
-import { normalizedTrinketFileSchema } from "../../../../data/src/normalize/schema";
+} from "../../../../data/src/core/monsters/darkest-monster-pool";
+import { coreQuestMapLayouts } from "../../../../data/src/core/quests/quest-map-pairing";
+import type { DungeonLayout, RoomTokenKind } from "../../../../data/src/core/tiles/dungeon-layout";
+import { normalizedTrinketFileSchema } from "../../../../data/src/shared/schema";
 import { R121_BOSS_SLOT_LAYOUTS } from "../bosses/default-boss-hooks";
 import { switchTrinketDungeonLevel } from "../../shared/trinkets/trinket-acquisition";
 import { createRng } from "../../shared/core/rng";

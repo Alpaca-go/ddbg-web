@@ -1,8 +1,8 @@
 import { expect, it } from "vitest";
 import mediumFile from "../../../../data/normalized/corebox/monster_medium.json";
 import poolFile from "../../../../data/normalized/corebox/darkest_monster_pool.json";
-import { normalizedMonsterMediumFileSchema } from "../../../../data/src/normalize/schema";
-import { hasApprovedHigherMonsterFields } from "../../../../data/src/normalize/verified-monster-entry";
+import { normalizedMonsterMediumFileSchema } from "../../../../data/src/shared/schema";
+import { hasApprovedHigherMonsterFields } from "../../../../data/src/core/monsters/verified-monster-entry.build";
 import { selectMonsterSkill } from "../../../src/shared/core/monster-stance";
 
 const cards = normalizedMonsterMediumFileSchema.parse(mediumFile).cards;

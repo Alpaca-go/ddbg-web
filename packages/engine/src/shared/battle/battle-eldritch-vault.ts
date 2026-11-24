@@ -1,7 +1,7 @@
 import { rejectBattleCommand } from "./battle";
 import type { ApplyResult, GameState } from "../core/command";
 import trinketFile from "../../../../data/normalized/corebox/trinket.json";
-import { normalizedTrinketFileSchema } from "../../../../data/src/normalize/schema";
+import { normalizedTrinketFileSchema } from "../../../../data/src/shared/schema";
 import { drawTrinketAtLevel } from "../trinkets/trinket-acquisition";
 import { openBattleTrinketChoice, payRoomTrinketCost } from "./battle-trinket";
 import { endAfterCasualties, finishTurn } from "../dungeon/encounter";

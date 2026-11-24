@@ -3,8 +3,8 @@ import { resolveAttackDamage } from "../core/attack-damage";
 import { passiveDamageWounds } from "../core/passive";
 import { gainNegativeQuirk, replaceConditionQuirk } from "../core/conditions";
 import { trinketChoice } from "./trinket-reactions";
-import { CORE_TRINKET_BINDINGS } from "../../../../data/src/core-trinket-bindings";
-import type { CoreTrinketId } from "../../../../data/src/core-trinket-bindings";
+import { CORE_TRINKET_BINDINGS } from "../../../../data/src/core/trinkets/core-trinket-bindings";
+import type { CoreTrinketId } from "../../../../data/src/core/trinkets/core-trinket-bindings";
 import type { GameState, ApplyResult, GameEvent } from "../core/command";
 import { rejectBattleCommand } from "../battle/battle";
 import {

@@ -4,7 +4,7 @@ import { ensurePounderIBossScriptRegistered } from "../../weald/bosses/pounder-i
 import { wealdThreatPool } from "../../weald/bosses/threat-pool";
 import { ensureCampaignBossScriptsRegistered } from "../../shared/core/registry";
 import { requireFaceTheThreatEmbarkPlanForSandbox } from "./face-the-threat-embark-runtime";
-import type { CampaignLevel } from "../../../../data/src/basic-quests";
+import type { CampaignLevel } from "../../../../data/src/core/quests/basic-quests";
 import type { ApplyResult, GameState } from "../../shared/core/command";
 import { rejectBattleCommand } from "../../shared/battle/battle";
 import { readCampaignLevel } from "../../shared/hamlet/hamlet-campaign";

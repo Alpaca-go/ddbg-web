@@ -2,7 +2,7 @@
 
 范围：`hero_skill:weald:h16:p316`–`p336`，共 21 张（7 技能 × I–III）。
 依据：Q-181–Q-184、R-209、`docs/phase7-hero-expansion-verification-2026-11-08.md`、
-[h16-shieldbreaker.test.ts](../../packages/data/src/normalize/hero-annotations/h16-shieldbreaker.test.ts)。
+[h16-shieldbreaker.test.ts](../../packages/data/tests/core/heroes/annotations/h16-shieldbreaker.test.ts)。
 
 ## 逐族结论
 

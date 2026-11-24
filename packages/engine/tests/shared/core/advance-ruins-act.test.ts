@@ -2,7 +2,7 @@ import { expect, it } from "vitest";
 import { applyCommand } from "../../../src/shared/core/command";
 import { ruinsActReadyFixture } from "../../helpers/ruins-act";
 import { RUINS_BOSS_IDENTITIES } from "../../../src/core/bosses/threat-description-catalog";
-import { savedCommandSchema } from "../../../../data/src/quest-save";
+import { savedCommandSchema } from "../../../../data/src/shared/quest-save";
 import { switchRuinsActPools } from "../../../src/shared/hamlet/act-transition-pools";
 import { drawImminentThreatAfterActAdvance } from "../../../src/core/bosses/establish-imminent-threat";
 import type { DungeonState } from "../../../src/shared/dungeon/dungeon";

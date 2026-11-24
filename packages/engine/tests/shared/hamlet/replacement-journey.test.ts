@@ -1,5 +1,5 @@
 import { expect, it } from "vitest";
-import { questsForCampaignLevel } from "../../../../data/src/basic-quests";
+import { questsForCampaignLevel } from "../../../../data/src/core/quests/basic-quests";
 import { battleDataPlugin } from "../../../../../apps/web/battle-data-plugin";
 import { applyCommand } from "../../../src/shared/core/command";
 import type { Command, GameState } from "../../../src/shared/core/command";

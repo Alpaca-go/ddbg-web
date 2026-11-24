@@ -1,4 +1,4 @@
-import { roomCatalogSchema } from "../../../../data/src/room";
+import { roomCatalogSchema } from "../../../../data/src/core/rooms/room";
 import type { ApplyResult, GameState } from "../../shared/core/command";
 import { rejectBattleCommand } from "../../shared/battle/battle";
 import type { DungeonState } from "../../shared/dungeon/dungeon";

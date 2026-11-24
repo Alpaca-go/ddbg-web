@@ -14,8 +14,8 @@ import {
   warmUpDarkRoomNeedsTorch,
 } from "@ddbg/engine";
 import type { PendingChoice } from "@ddbg/engine";
-import { readBasicQuest } from "../../../../../packages/data/src/basic-quests";
-import { restPoints } from "../../../../../packages/data/src/scout-rest";
+import { readBasicQuest } from "../../../../../packages/data/src/core/quests/basic-quests";
+import { restPoints } from "../../../../../packages/data/src/core/misc/scout-rest";
 import { CoreboxPrintCardFace } from "../../card-art/corebox-print-card-face";
 import { RoomCardFace } from "../../card-art/room-card-face";
 import { DungeonStanceOrder } from "../../dungeon-stance-order";
@@ -31,7 +31,7 @@ import { HamletEventSection } from "../hamlet/hamlet-event-section";
 import { QuestSummaryPanel } from "../quest-return/quest-summary-panel";
 import type { DungeonViewProps } from "../view-props";
 import type { DungeonState } from "@ddbg/engine";
-import { isNegativeCurioEffect } from "../../../../../packages/data/src/curio";
+import { isNegativeCurioEffect } from "../../../../../packages/data/src/core/curios/curio";
 import { QuestCardField } from "../quest-setup/quest-card-field";
 import { dungeonFlowStep } from "../../tabletop/phase/dungeon-flow-step";
 import { FormalTabletopScoutingPanel } from "./formal-tabletop-scouting-panel";

@@ -1,6 +1,9 @@
 import { describe, expect, it } from "vitest";
 import coreFile from "../../../data/normalized/corebox/monster_pool.json";
-import { monsterPoolFileSchema, ruinsMonsterPool } from "../../../data/src/monster-pool";
+import {
+  monsterPoolFileSchema,
+  ruinsMonsterPool,
+} from "../../../data/src/core/monsters/monster-pool";
 import { buildWealdHigherMonsterCatalog } from "../../src/weald/higher-monster-catalog";
 import { buildWealdHigherMonsterPool } from "../../src/weald/higher-monster-pool";
 import { resolveMonsterSkill, readMonsterAttackView } from "../../src/shared/core/monster-skill";

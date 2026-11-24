@@ -2,8 +2,8 @@ import { describe, expect, it } from "vitest";
 import { applyCommand } from "../../../src/shared/core/command";
 import type { Command, GameState } from "../../../src/shared/core/command";
 import { createDungeonSandbox } from "../../../src/shared/dungeon/dungeon";
-import { basicQuests, asQuestMapPairingQuest } from "../../../../data/src/basic-quests";
-import { pickEmbarkQuestMapLayout } from "../../../../data/src/quest-map-pairing";
+import { basicQuests, asQuestMapPairingQuest } from "../../../../data/src/core/quests/basic-quests";
+import { pickEmbarkQuestMapLayout } from "../../../../data/src/core/quests/quest-map-pairing";
 
 const heroes = (["aggressive", "defensive", "ranged", "support"] as const).map((stance, i) => ({
   id: `h${i}`,

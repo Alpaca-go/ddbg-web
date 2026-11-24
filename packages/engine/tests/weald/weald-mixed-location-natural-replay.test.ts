@@ -1,7 +1,7 @@
 import { beforeAll, describe, expect, it } from "vitest";
 import { applyCommand, type Command, type GameState } from "../../src/shared/core/command";
 import { createCoreDungeonQuest } from "../../src/shared/dungeon/dungeon-quest-entry";
-import type { BasicQuestId } from "../../../data/src/basic-quests";
+import type { BasicQuestId } from "../../../data/src/core/quests/basic-quests";
 import { loadQuestSave } from "../../src/shared/quest/quest-save";
 import { coreParty } from "../helpers/core-quest";
 import { wealdTaskSources } from "../helpers/weald-task-battle";

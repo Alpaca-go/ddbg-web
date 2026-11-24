@@ -3,7 +3,7 @@ import {
   readWealdStygianRoomReplacement,
   wealdStygianRoomsSchema,
   type WealdStygianReviewedEffect,
-} from "../../../../data/src/weald-stygian-rooms";
+} from "../../../../data/src/weald/rooms/weald-stygian-rooms";
 import type { GameState } from "../../shared/core/command";
 import type { DungeonState } from "../../shared/dungeon/dungeon";
 import { wealdPackSelected } from "../weald-mechanics";

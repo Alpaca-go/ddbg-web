@@ -1,8 +1,11 @@
 import monsterSource from "../../../../data/normalized/corebox/monster_pool.json";
 import trinketSource from "../../../../data/normalized/corebox/trinket.json";
-import { basicQuests, questsForCampaignLevel } from "../../../../data/src/basic-quests";
-import { monsterPoolFileSchema, ruinsMonsterPool } from "../../../../data/src/monster-pool";
-import { normalizedTrinketFileSchema } from "../../../../data/src/normalize/schema";
+import { basicQuests, questsForCampaignLevel } from "../../../../data/src/core/quests/basic-quests";
+import {
+  monsterPoolFileSchema,
+  ruinsMonsterPool,
+} from "../../../../data/src/core/monsters/monster-pool";
+import { normalizedTrinketFileSchema } from "../../../../data/src/shared/schema";
 import {
   RUINS_BOSS_IDENTITIES,
   imminentThreatPoolForCampaign,

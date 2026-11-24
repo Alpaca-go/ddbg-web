@@ -4,8 +4,11 @@ import {
   dungeonLayoutSchema,
   roomDistributionEmbarkBlockReason,
   roomDistributionSchema,
-} from "../../../../data/src/dungeon-layout";
-import type { DungeonLayout, RoomDistribution } from "../../../../data/src/dungeon-layout";
+} from "../../../../data/src/core/tiles/dungeon-layout";
+import type {
+  DungeonLayout,
+  RoomDistribution,
+} from "../../../../data/src/core/tiles/dungeon-layout";
 import type { ApplyResult, GameState, PendingChoice, GameEvent } from "../core/command";
 import { createRng } from "../core/rng";
 import { expandRoomDistributionForEmbark } from "../core/room-distribution-expand";
@@ -13,21 +16,21 @@ import type { ResolveCard } from "../core/pressure";
 import { resolveDungeonPressure } from "./dungeon-pressure";
 import { applyDungeonBacktracking } from "./dungeon-backtracking";
 import { applyDungeonExploration, continueDungeonExploration } from "./dungeon-exploration";
-import type { ExplorationFace } from "../../../../data/src/exploration";
+import type { ExplorationFace } from "../../../../data/src/shared/exploration";
 import type { SkillStance } from "../../core/heroes/hero-skill";
 import type { BuildingLevels } from "../hamlet/hamlet-buildings";
-import { roomCatalogSchema } from "../../../../data/src/room";
-import { wealdRoomCatalogSchema } from "../../../../data/src/weald-room";
+import { roomCatalogSchema } from "../../../../data/src/core/rooms/room";
+import { wealdRoomCatalogSchema } from "../../../../data/src/weald/rooms/weald-room";
 import { expeditionRegionForQuestId, expeditionRoomCatalogParses } from "./expedition-room-catalog";
-import type { RoomCard } from "../../../../data/src/room";
-import type { WealdRoomCard } from "../../../../data/src/weald-room";
+import type { RoomCard } from "../../../../data/src/core/rooms/room";
+import type { WealdRoomCard } from "../../../../data/src/weald/rooms/weald-room";
 import { prepareDungeonBattle } from "./dungeon-battle-preparation";
 import { prepareDungeonMonsters } from "./dungeon-monsters";
-import { monsterPoolCatalogSchema } from "../../../../data/src/monster-pool";
-import type { MonsterPoolCard } from "../../../../data/src/monster-pool";
+import { monsterPoolCatalogSchema } from "../../../../data/src/core/monsters/monster-pool";
+import type { MonsterPoolCard } from "../../../../data/src/core/monsters/monster-pool";
 import type { SpawnPlacement } from "../core/spawn";
 import { questCurioCatalogSchema } from "./dungeon-curio-catalog";
-import type { CurioCard } from "../../../../data/src/curio";
+import type { CurioCard } from "../../../../data/src/core/curios/curio";
 import { resolveDungeonCurio } from "./dungeon-curio";
 import { beginDungeonRoom, chooseDungeonTrap } from "./dungeon-room";
 import { chooseDungeonRoomCurio } from "./dungeon-curio-room";
@@ -40,9 +43,9 @@ import type { PassiveHero } from "../core/passive-runtime";
 import { triggerDungeonPassive } from "./dungeon-passive";
 import type { TrinketPool } from "../trinkets/trinket-acquisition";
 import { leaveDungeon } from "./dungeon-exit";
-import type { DungeonQuestSummary } from "../../../../data/src/quest-summary";
-import { readBasicQuest } from "../../../../data/src/basic-quests";
-import type { ScoutRest } from "../../../../data/src/scout-rest";
+import type { DungeonQuestSummary } from "../../../../data/src/shared/quest-summary";
+import { readBasicQuest } from "../../../../data/src/core/quests/basic-quests";
+import type { ScoutRest } from "../../../../data/src/core/misc/scout-rest";
 
 export type DungeonCurioDraw = {
   readonly effectIndex?: number;
@@ -95,11 +98,11 @@ export type DungeonBattleCatalog = {
 
 export type DungeonState = {
   readonly inventoryOverflow?: true;
-  readonly initialQuestDrawMode?: import("../../../../data/src/quest-save").QuestStart["initialQuestDrawMode"];
+  readonly initialQuestDrawMode?: import("../../../../data/src/shared/quest-save").QuestStart["initialQuestDrawMode"];
   /** 开局固定的包选择；缺省仅用于旧档/历史沙盒，英雄不受限。 */
-  readonly contentPacks?: readonly import("../../../../data/src/content-packs").ContentPackId[];
+  readonly contentPacks?: readonly import("../../../../data/src/shared/content-packs").ContentPackId[];
   readonly darkest?: {
-    readonly monsterPool: import("../../../../data/src/darkest-monster-pool").DarkestMonsterPoolFile;
+    readonly monsterPool: import("../../../../data/src/core/monsters/darkest-monster-pool").DarkestMonsterPoolFile;
     readonly monsterDeck: readonly string[];
     readonly excavation?: import("../../core/darkest/darkest-excavation").Excavation;
     /** 目标房 prepareDungeonBattle 后：专属房间 + Boss 脚本身份（A-4）。 */
@@ -211,7 +214,7 @@ export type DungeonState = {
   /** 新地点战役：只记录已完成回村 XP 结算的普通任务，未选卡不计。 */
   readonly completedRegularQuests?: readonly {
     readonly questId: string;
-    readonly campaignLevel: import("../../../../data/src/basic-quests").CampaignLevel;
+    readonly campaignLevel: import("../../../../data/src/core/quests/basic-quests").CampaignLevel;
   }[];
   /** W3：本趟 p019 的地点，威胁清除后仍供回村守恒读取。 */
   readonly bossExpeditionRegion?: "weald";
@@ -283,7 +286,7 @@ export type DungeonState = {
   readonly layout: DungeonLayout;
   readonly mode: "standard" | "radiant" | "stygian";
   /** 固定整条战役的 Stygian 房间效果，旧日志缺省时仍用标准卡。 */
-  readonly stygianRoomRules?: import("../../../../data/src/quest-save").QuestStart["stygianRoomRules"];
+  readonly stygianRoomRules?: import("../../../../data/src/shared/quest-save").QuestStart["stygianRoomRules"];
   readonly cursor: number;
   readonly position: string;
   readonly heroes: readonly (PassiveHero & {

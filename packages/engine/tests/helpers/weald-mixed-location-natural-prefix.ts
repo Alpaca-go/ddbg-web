@@ -11,9 +11,9 @@ import { CURRENT_WEALD_ROOM_VERSIONS, naturalQuest } from "./natural-quest";
 import { coreParty } from "./core-quest";
 import { wealdTaskSources as productionQuestSources } from "./weald-task-battle";
 import { createQuestSave } from "../../src/shared/quest/quest-save";
-import type { QuestStart } from "../../../data/src/quest-save";
+import type { QuestStart } from "../../../data/src/shared/quest-save";
 import { createCoreDungeonQuest } from "../../src/shared/dungeon/dungeon-quest-entry";
-import type { BasicQuestId } from "../../../data/src/basic-quests";
+import type { BasicQuestId } from "../../../data/src/core/quests/basic-quests";
 import {
   WEALD_PRODUCTION_ESTABLISH_THREAT,
   type WealdNaturalActOneDriveOptions,

@@ -5,7 +5,7 @@ import {
 } from "../trinkets/trinket-reactions";
 import { applyPassiveStatus } from "../core/passive-runtime";
 import { readHeroPassiveDefence } from "../battle/battle-skill-status";
-import { approvedHeroStats } from "../../../../data/src/normalize/hero-stat";
+import { approvedHeroStats } from "../../../../data/src/core/heroes/hero-stat.build";
 import type { ApplyResult, GameEvent, GameState } from "../core/command";
 import { resolveAttackDamage } from "../core/attack-damage";
 import { completeDungeonHazard } from "./dungeon-exploration";

@@ -1,5 +1,5 @@
 import { expect, it } from "vitest";
-import { loadNormalizedCorebox } from "../../../../data/src/normalize/write";
+import { loadNormalizedCorebox } from "../../../../data/src/shared/write";
 import { applyCommand, createBattleState } from "../../../src/index";
 import type { BattleSetup, Command, GameState, HeroSkillCardView } from "../../../src/index";
 import { needsHeroSkillShufflePushDistance } from "../../../src/core/heroes/hero-skill";

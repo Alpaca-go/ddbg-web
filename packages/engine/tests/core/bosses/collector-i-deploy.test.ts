@@ -1,5 +1,5 @@
 import { expect, it } from "vitest";
-import { savedCommandSchema } from "../../../../data/src/quest-save";
+import { savedCommandSchema } from "../../../../data/src/shared/quest-save";
 import { applyCommand } from "../../../src/shared/core/command";
 import { nextBattleRoll } from "../../../src/shared/battle/battle-roll";
 import { endAfterCasualties } from "../../../src/shared/dungeon/encounter";

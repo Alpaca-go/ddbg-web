@@ -1,8 +1,8 @@
 import { applyCommand } from "../../src/shared/core/command";
 import type { GameState } from "../../src/shared/core/command";
 import type { Command } from "../../src/shared/core/command";
-import { basicQuests } from "../../../data/src/basic-quests";
-import type { BasicQuestId } from "../../../data/src/basic-quests";
+import { basicQuests } from "../../../data/src/core/quests/basic-quests";
+import type { BasicQuestId } from "../../../data/src/core/quests/basic-quests";
 import { currentHamletHero } from "../../src/shared/hamlet/hamlet-actions";
 import { naturalParty, naturalQuest } from "./natural-quest";
 import type { CoreQuestSources } from "../../src/shared/dungeon/dungeon-quest-entry";

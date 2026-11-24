@@ -1,5 +1,5 @@
-import { basicQuests, asQuestMapPairingQuest } from "../../../data/src/basic-quests";
-import { pickEmbarkQuestMapLayout } from "../../../data/src/quest-map-pairing";
+import { basicQuests, asQuestMapPairingQuest } from "../../../data/src/core/quests/basic-quests";
+import { pickEmbarkQuestMapLayout } from "../../../data/src/core/quests/quest-map-pairing";
 import { createCoreDungeonQuest } from "../../src/shared/dungeon/dungeon-quest-entry";
 import { createDungeonSandbox } from "../../src/shared/dungeon/dungeon";
 import { coreParty, coreQuestSources } from "./core-quest";

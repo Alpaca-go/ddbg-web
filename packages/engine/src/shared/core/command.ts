@@ -20,7 +20,7 @@ import {
   applyPounderIRangedEntry,
   pounderDungeonThreatActive,
 } from "../../weald/bosses/pounder-i-dungeon-threat";
-import { bossEnabledForPacks } from "../../../../data/src/content-packs";
+import { bossEnabledForPacks } from "../../../../data/src/shared/content-packs";
 import { chooseHagIRelease } from "../../weald/bosses/hag-i-release";
 import type { MonsterSupportResolvedEvent } from "../battle/battle-monster-support";
 import { stagecoachHoldingsProblem } from "../hamlet/stagecoach-holdings";

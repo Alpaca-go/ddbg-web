@@ -142,7 +142,7 @@ describe("最暗中途 Boss 专用 deploy / startBattle", () => {
   });
 
   it("存档白名单包含 deployDarkestMidBoss", async () => {
-    const { savedCommandSchema } = await import("../../../../data/src/quest-save");
+    const { savedCommandSchema } = await import("../../../../data/src/shared/quest-save");
     expect(savedCommandSchema.safeParse({ type: "deployDarkestMidBoss" }).success).toBe(true);
   });
 });

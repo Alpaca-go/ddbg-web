@@ -1,11 +1,11 @@
 import { dungeonMonsterPoolCatalogValid } from "../core/monster-pool-validation";
 import questCards from "../../../../data/normalized/corebox/quest_cards.json";
-import { readBasicQuest } from "../../../../data/src/basic-quests";
-import type { MonsterPoolCard } from "../../../../data/src/monster-pool";
-import { ruinsMonsterPool } from "../../../../data/src/monster-pool";
-import { questCardsSchema } from "../../../../data/src/quest-cards";
-import type { QuestMonsterPlan } from "../../../../data/src/quest-monster-plan";
-import { readQuestMonsterPlan } from "../../../../data/src/quest-monster-plan";
+import { readBasicQuest } from "../../../../data/src/core/quests/basic-quests";
+import type { MonsterPoolCard } from "../../../../data/src/core/monsters/monster-pool";
+import { ruinsMonsterPool } from "../../../../data/src/core/monsters/monster-pool";
+import { questCardsSchema } from "../../../../data/src/core/quests/quest-cards";
+import type { QuestMonsterPlan } from "../../../../data/src/core/monsters/quest-monster-plan";
+import { readQuestMonsterPlan } from "../../../../data/src/core/monsters/quest-monster-plan";
 import type { ApplyResult, GameState } from "../core/command";
 import type { DungeonState } from "../dungeon/dungeon";
 import { dungeonMonsterPoolThrough } from "../core/monster-pool-runtime";

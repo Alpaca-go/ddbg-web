@@ -1,4 +1,4 @@
-import { ABOMINATION_PROJECTIONS } from "../../../../data/src/normalize/hero-annotations/abomination-projection-data";
+import { ABOMINATION_PROJECTIONS } from "../../../../data/src/core/heroes/annotations/abomination-projection-data";
 import type { HeroSkillCardView, SkillSegment } from "./hero-skill";
 
 const signatures: Record<number, string[]> = {

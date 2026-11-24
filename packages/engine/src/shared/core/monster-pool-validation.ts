@@ -1,5 +1,5 @@
 import { readExpeditionRoomRegion } from "../dungeon/expedition-room-catalog";
-import { monsterPoolCatalogSchema } from "../../../../data/src/monster-pool";
+import { monsterPoolCatalogSchema } from "../../../../data/src/core/monsters/monster-pool";
 import type { DungeonState } from "../dungeon/dungeon";
 import { dungeonMonsterPoolThrough, type MonsterPoolDeckState } from "./monster-pool-runtime";
 

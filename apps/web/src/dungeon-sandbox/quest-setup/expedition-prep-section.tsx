@@ -1,4 +1,4 @@
-import type { BasicQuestId } from "../../../../../packages/data/src/basic-quests";
+import type { BasicQuestId } from "../../../../../packages/data/src/core/quests/basic-quests";
 import type { QuestCardOption } from "./quest-card-field";
 import { QuestCardField } from "./quest-card-field";
 import type { ReactNode } from "react";

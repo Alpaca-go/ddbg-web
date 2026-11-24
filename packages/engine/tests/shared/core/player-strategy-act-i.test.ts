@@ -4,7 +4,7 @@ import type { Command, GameState } from "../../../src/shared/core/command";
 import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
 import { hamletActionOptions } from "../../../src/shared/hamlet/hamlet-actions";
 import { ensureCoreBossScriptsRegistered } from "../../../src/core/bosses/ensure-core-boss-scripts";
-import type { BasicQuestId } from "../../../../data/src/basic-quests";
+import type { BasicQuestId } from "../../../../data/src/core/quests/basic-quests";
 import { coreQuestSources as sources } from "../../helpers/core-quest";
 import { naturalParty, naturalQuest } from "../../helpers/natural-quest";
 

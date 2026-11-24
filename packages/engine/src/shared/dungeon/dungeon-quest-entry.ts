@@ -5,16 +5,16 @@ import {
   asQuestMapPairingQuest,
   basicQuestEnabledForContentPacks,
   basicQuests,
-} from "../../../../data/src/basic-quests";
-import { sandboxExpeditionEmbarkBlockReason } from "../../../../data/src/quest-map-pairing";
-import { isSandboxWealdEmbarkQuest } from "../../../../data/src/basic-quests";
+} from "../../../../data/src/core/quests/basic-quests";
+import { sandboxExpeditionEmbarkBlockReason } from "../../../../data/src/core/quests/quest-map-pairing";
+import { isSandboxWealdEmbarkQuest } from "../../../../data/src/core/quests/basic-quests";
 import { rebuildLocationQuestDecks } from "../quest/location-quest-sources";
 import { WEALD_APPROVED_ROOM_CARDS } from "../../weald/room-catalog";
-import { pickEmbarkQuestMapLayout } from "../../../../data/src/quest-map-pairing";
-import type { BasicQuestId } from "../../../../data/src/basic-quests";
-import type { CurioCard } from "../../../../data/src/curio";
-import type { RoomCard } from "../../../../data/src/room";
-import type { MonsterPoolCard } from "../../../../data/src/monster-pool";
+import { pickEmbarkQuestMapLayout } from "../../../../data/src/core/quests/quest-map-pairing";
+import type { BasicQuestId } from "../../../../data/src/core/quests/basic-quests";
+import type { CurioCard } from "../../../../data/src/core/curios/curio";
+import type { RoomCard } from "../../../../data/src/core/rooms/room";
+import type { MonsterPoolCard } from "../../../../data/src/core/monsters/monster-pool";
 import { createDungeonSandbox } from "./dungeon";
 import type { DungeonBattleCatalog, DungeonState } from "./dungeon";
 import type { ResolveCard } from "../core/pressure";
@@ -34,12 +34,15 @@ import { placeFaceTheThreatRooms } from "../../core/bosses/edge-room-placement";
 import { setupDarkestDungeon, isDarkestQuest } from "../../core/darkest/darkest-setup";
 import type { GameState } from "../core/command";
 import { sourcesForContentPacks } from "../core/content-packs";
-import { normalizeContentPacks, type ContentPackId } from "../../../../data/src/content-packs";
+import {
+  normalizeContentPacks,
+  type ContentPackId,
+} from "../../../../data/src/shared/content-packs";
 
 export type CoveQuestSources = {
   readonly curios: readonly CurioCard[];
-  readonly rooms: readonly import("../../../../data/src/cove-room").CoveRoomCard[];
-  readonly bossRoomSources: readonly import("../../../../data/src/cove-room").CoveBossRoomCard[];
+  readonly rooms: readonly import("../../../../data/src/cove/rooms/cove-room").CoveRoomCard[];
+  readonly bossRoomSources: readonly import("../../../../data/src/cove/rooms/cove-room").CoveBossRoomCard[];
 };
 
 export type CoreQuestSources = {

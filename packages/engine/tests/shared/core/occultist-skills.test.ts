@@ -1,5 +1,5 @@
 import { expect, it } from "vitest";
-import { loadNormalizedCorebox } from "../../../../data/src/normalize/write";
+import { loadNormalizedCorebox } from "../../../../data/src/shared/write";
 import { createBattleState } from "../../../src/shared/battle/battle";
 import type { BattleEntity, BattleSetup } from "../../../src/shared/battle/battle";
 import { applyCommand } from "../../../src/shared/core/command";
@@ -9,7 +9,7 @@ import { resolveHeroSkillEffects, readPrintedRange } from "../../../src/core/her
 import type { HeroSkillCardView } from "../../../src/core/heroes/hero-skill";
 import { resolveTurnStartStatus } from "../../../src/shared/battle/battle-status";
 import { FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS } from "../../../src/core/heroes/formal-heroes";
-import { savedCommandSchema } from "../../../../data/src/quest-save";
+import { savedCommandSchema } from "../../../../data/src/shared/quest-save";
 
 const data = loadNormalizedCorebox();
 const clean = <T>(value: unknown): T => JSON.parse(JSON.stringify(value));

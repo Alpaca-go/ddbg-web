@@ -2,10 +2,10 @@ import {
   asQuestMapPairingQuest,
   basicQuests,
   type BasicQuestId,
-} from "../../../data/src/basic-quests";
-import { pickEmbarkQuestMapLayout } from "../../../data/src/quest-map-pairing";
+} from "../../../data/src/core/quests/basic-quests";
+import { pickEmbarkQuestMapLayout } from "../../../data/src/core/quests/quest-map-pairing";
 import trinkets from "../../../data/normalized/corebox/trinket.json";
-import { normalizedTrinketFileSchema } from "../../../data/src/normalize/schema";
+import { normalizedTrinketFileSchema } from "../../../data/src/shared/schema";
 import { createDungeonSandbox } from "../../src/shared/dungeon/dungeon";
 import type { GameState } from "../../src/shared/core/command";
 import { createTrinketPool } from "../../src/shared/trinkets/trinket-acquisition";

@@ -2,7 +2,7 @@ import type { Command, GameState } from "../../src/shared/core/command";
 import { createCoreDungeonQuest } from "../../src/shared/dungeon/dungeon-quest-entry";
 import { naturalParty, naturalQuest } from "./natural-quest";
 import { disinfectionSources as sources } from "./disinfection-quest";
-import type { QuestStart } from "../../../data/src/quest-save";
+import type { QuestStart } from "../../../data/src/shared/quest-save";
 
 /** 与严格日志共用的 seed2 Patrol 真实检查点，不改状态、牌序或策略。 */
 export function unpreparedQuest() {

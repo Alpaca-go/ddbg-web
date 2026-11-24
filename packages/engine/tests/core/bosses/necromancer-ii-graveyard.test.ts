@@ -4,7 +4,7 @@ import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-ques
 import { coreParty, coreQuestSources } from "../../helpers/core-quest";
 import { nextBattleRoll } from "../../../src/shared/battle/battle-roll";
 import { hamletActionOptions } from "../../../src/shared/hamlet/hamlet-actions";
-import { savedCommandSchema } from "../../../../data/src/quest-save";
+import { savedCommandSchema } from "../../../../data/src/shared/quest-save";
 import { NECROMANCER_II_SCRIPT_ID } from "../../../src/core/bosses/necromancer-ii";
 import { isHauntedGraveyardGuard } from "../../../src/core/bosses/necromancer-ii-graveyard";
 

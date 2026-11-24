@@ -3,8 +3,11 @@ import layout from "../../../../data/normalized/corebox/dungeon_layout_p001.json
 import distribution from "../../../../data/normalized/corebox/scout_ahead_distribution.json";
 import roomData from "../../../../data/normalized/corebox/room.json";
 import poolData from "../../../../data/normalized/corebox/monster_pool.json";
-import { roomFileSchema } from "../../../../data/src/room";
-import { monsterPoolFileSchema, ruinsMonsterPool } from "../../../../data/src/monster-pool";
+import { roomFileSchema } from "../../../../data/src/core/rooms/room";
+import {
+  monsterPoolFileSchema,
+  ruinsMonsterPool,
+} from "../../../../data/src/core/monsters/monster-pool";
 import { createDungeonSandbox } from "../../../src/shared/dungeon/dungeon";
 import type { GameState } from "../../../src/shared/core/command";
 import { applyCommand } from "../../../src/shared/core/command";

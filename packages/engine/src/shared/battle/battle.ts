@@ -67,7 +67,7 @@ import type { HeroTrinketAttack } from "./battle-trinket-ability";
 import type {
   HeroSkillTrinketWindow,
   HeroSkillTrinketId,
-} from "../../../../data/src/hero-skill-trinkets";
+} from "../../../../data/src/core/heroes/hero-skill-trinkets";
 
 /** Phase 2 沙盒输入，由已核实数据或测试夹具提供；不是正式存档协议。 */
 export type BattleEntity = PassiveHolder &
@@ -202,8 +202,8 @@ export type BattleSetup = {
     readonly level?: number;
     /** 英雄属性规则：防御 / 高等级防御 / Buff 抗性。 */
     readonly rules?: {
-      readonly conditionDefence?: import("../../../../data/src/normalize/hero-stat").HeroConditionDefence;
-      readonly higherConditionDefence?: import("../../../../data/src/normalize/hero-higher-defence").HigherHeroDefence;
+      readonly conditionDefence?: import("../../../../data/src/core/heroes/hero-stat.build").HeroConditionDefence;
+      readonly higherConditionDefence?: import("../../../../data/src/core/heroes/hero-higher-defence.build").HigherHeroDefence;
       readonly buffDefence?: {
         readonly resistant: boolean;
         readonly immune: boolean;

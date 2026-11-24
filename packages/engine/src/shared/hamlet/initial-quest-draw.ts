@@ -1,5 +1,5 @@
-import type { ContentPackId } from "../../../../data/src/content-packs";
-import { basicQuests } from "../../../../data/src/basic-quests";
+import type { ContentPackId } from "../../../../data/src/shared/content-packs";
+import { basicQuests } from "../../../../data/src/core/quests/basic-quests";
 import type { PendingChoice } from "../core/command";
 import {
   executeHamletQuestDrawMode,

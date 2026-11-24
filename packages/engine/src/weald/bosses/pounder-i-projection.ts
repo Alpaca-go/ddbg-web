@@ -1,4 +1,4 @@
-import type { WealdPounderContent } from "../../../../data/src/weald-pounder";
+import type { WealdPounderContent } from "../../../../data/src/weald/misc/weald-pounder";
 import type { BattleEntity } from "../../shared/battle/battle";
 import type { MonsterCardView, MonsterSkillView } from "../../shared/core/monster-skill";
 import type { SkillSegment, SkillStance } from "../../core/heroes/hero-skill";

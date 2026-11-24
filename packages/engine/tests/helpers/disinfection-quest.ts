@@ -1,9 +1,9 @@
 import medium from "../../../data/normalized/extension/weald/monster_medium.json";
 import large from "../../../data/normalized/extension/weald/monster_large.json";
 import curios from "../../../data/normalized/extension/weald/curio.json";
-import { wealdCurioFileSchema } from "../../../data/src/curio";
+import { wealdCurioFileSchema } from "../../../data/src/core/curios/curio";
 import { coreQuestSources } from "./core-quest";
-import type { QuestStart } from "../../../data/src/quest-save";
+import type { QuestStart } from "../../../data/src/shared/quest-save";
 import { naturalParty, naturalQuest } from "./natural-quest";
 import {
   createCoreDungeonQuest,

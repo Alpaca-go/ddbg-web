@@ -2,7 +2,7 @@ import { afterAll, expect, it } from "vitest";
 import { applyCommand } from "../../../src/shared/core/command";
 import type { GameState } from "../../../src/shared/core/command";
 import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
-import type { BasicQuestId } from "../../../../data/src/basic-quests";
+import type { BasicQuestId } from "../../../../data/src/core/quests/basic-quests";
 import { coreQuestSources } from "../../helpers/core-quest";
 import { naturalParty } from "../../helpers/natural-quest";
 import { isSkillAdmissionRefusal } from "../../../src/shared/dungeon/dungeon-battle-admission";

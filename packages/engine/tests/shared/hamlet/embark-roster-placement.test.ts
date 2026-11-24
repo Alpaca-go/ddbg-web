@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { loadNormalizedCorebox } from "../../../../data/src/normalize/write";
+import { loadNormalizedCorebox } from "../../../../data/src/shared/write";
 import type { HeroSkillCardView } from "../../../src/core/heroes/hero-skill";
 import {
   embarkRosterSlotIndexForStance,

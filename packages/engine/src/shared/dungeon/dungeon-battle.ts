@@ -98,10 +98,10 @@ import {
 } from "../../weald/disinfection-quest";
 import { readDungeonQuestProgress } from "./dungeon-quest";
 import { readCampaignLevel } from "../hamlet/hamlet-campaign";
-import { hasApprovedHigherMonsterFields } from "../../../../data/src/normalize/verified-monster-entry";
+import { hasApprovedHigherMonsterFields } from "../../../../data/src/core/monsters/verified-monster-entry.build";
 import { createBattleState, rejectBattleCommand, skillTargetView } from "../battle/battle";
 import type { BattleEntity, BattleSetup } from "../battle/battle";
-import type { WealdRoomTile } from "../../../../data/src/weald-room";
+import type { WealdRoomTile } from "../../../../data/src/weald/rooms/weald-room";
 import { roomTileBattleAreas } from "../battle/battle-monster-movement";
 import { readActiveStygianRoom, stygianRoomBattleAreas } from "../core/stygian-room-effects";
 import { createLootState } from "../trinkets/loot";
@@ -129,7 +129,7 @@ import {
 import { heroSkillSlotCount, questHeroSkillCount } from "../../core/heroes/hero-loadout";
 import { readMonsterSelfStatuses } from "../core/monster-self-status";
 import type { StatusEffect } from "../core/status";
-import { readBasicQuest } from "../../../../data/src/basic-quests";
+import { readBasicQuest } from "../../../../data/src/core/quests/basic-quests";
 import { stagecoachWaitingTokens, recoveryBuildingLevel } from "../hamlet/hamlet-buildings";
 import { ownedHeroSkills } from "../../core/heroes/hero-loadout";
 import { isBoneBearerRally, boneBearerRallyProblem } from "../../core/bosses/collected-vestal";

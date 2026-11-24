@@ -1,4 +1,4 @@
-import type { CurioEffect } from "../../../../packages/data/src/curio";
+import type { CurioEffect } from "../../../../packages/data/src/core/curios/curio";
 
 export function curioEffectLabel(effect: CurioEffect) {
   if (effect.type === "gold") return `金币 +${effect.amount}`;

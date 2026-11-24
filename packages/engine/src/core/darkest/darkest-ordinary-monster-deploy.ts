@@ -1,8 +1,8 @@
 import {
   darkestDungeonMonsterInstances,
   type DarkestMonsterPoolFile,
-} from "../../../../data/src/darkest-monster-pool";
-import { roomCatalogSchema } from "../../../../data/src/room";
+} from "../../../../data/src/core/monsters/darkest-monster-pool";
+import { roomCatalogSchema } from "../../../../data/src/core/rooms/room";
 import type { ApplyResult, GameState } from "../../shared/core/command";
 import type { DungeonState } from "../../shared/dungeon/dungeon";
 import { isDarkestQuest } from "./darkest-setup";

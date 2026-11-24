@@ -6,7 +6,7 @@ import { resolveCurioRows } from "./dungeon-curio-effects";
 import { resolveDungeonPressure } from "./dungeon-pressure";
 import { completeDungeonDarkRoom } from "./dungeon-room";
 import type { UseProvisionCommand } from "../core/provision-use";
-import { readBasicQuest } from "../../../../data/src/basic-quests";
+import { readBasicQuest } from "../../../../data/src/core/quests/basic-quests";
 import type { DungeonState } from "./dungeon";
 
 /** QUEST p11 / R-045：光照已满也可点亮尚未清理的任务暗房。 */

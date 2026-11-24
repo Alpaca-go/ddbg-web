@@ -1,4 +1,4 @@
-import type { QuestStart } from "../../../data/src/quest-save";
+import type { QuestStart } from "../../../data/src/shared/quest-save";
 import { applyCommand, type Command, type GameState } from "../../src/shared/core/command";
 import { createCoreDungeonQuest } from "../../src/shared/dungeon/dungeon-quest-entry";
 import { heroMovePathLimit } from "../../src/shared/battle/battle-hero-movement";

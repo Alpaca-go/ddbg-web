@@ -9,7 +9,7 @@ import {
 } from "../../../src/weald/necrotic-fungus";
 import { wealdRoomTileBattleAreas } from "../../../src/weald/weald-mechanics";
 import { withAbyssalPuff } from "../../../src/shared/battle/battle-abyssal-puff";
-import { savedCommandSchema } from "../../../../data/src/quest-save";
+import { savedCommandSchema } from "../../../../data/src/shared/quest-save";
 
 const tile = WEALD_APPROVED_ROOM_TILES.find((t) => t.number === 8)!;
 const stat = coreQuestSources.catalog.heroStats.find(

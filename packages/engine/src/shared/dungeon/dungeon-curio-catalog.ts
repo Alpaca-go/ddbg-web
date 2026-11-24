@@ -1,6 +1,6 @@
 import { readExpeditionRoomRegion } from "./expedition-room-catalog";
-import { basicQuests } from "../../../../data/src/basic-quests";
-import { curioPoolSchemaForLocation } from "../../../../data/src/curio-pool";
+import { basicQuests } from "../../../../data/src/core/quests/basic-quests";
+import { curioPoolSchemaForLocation } from "../../../../data/src/core/curios/curio-pool";
 import type { DungeonState } from "./dungeon";
 
 /** 由已登记任务决定地点；不由牌的命名空间或已选扩展推断目标地点。 */

@@ -1,0 +1,16 @@
+import { expect, it } from "vitest";
+import { loadNormalizedCorebox } from "../../../../src/shared/write";
+import { lineSignature } from "../../../../src/core/heroes/annotations/shared";
+
+it("R-200：Cove Flagellant 高等级逐卡覆盖签名", () => {
+  const data = loadNormalizedCorebox();
+  const cases: Array<{ id: string; line: number; sig: string }> = [
+    { id: "hero_skill:cove:h13:p261", line: 1, sig: "{target_effects} 3 {bleed} 4t" },
+    { id: "hero_skill:cove:h13:p268", line: 0, sig: "{self_effects} Self {stress} -1" },
+    { id: "hero_skill:cove:h13:p265", line: 0, sig: "{range} 1 {target_hero}" },
+  ];
+  for (const { id, line, sig } of cases) {
+    const card = data.hero_skill.cards.find((c) => c.id === id)!;
+    expect(lineSignature(card.effect_lines[line]!)).toBe(sig);
+  }
+});

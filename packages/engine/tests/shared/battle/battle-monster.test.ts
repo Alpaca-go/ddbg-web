@@ -1,4 +1,4 @@
-import { savedCommandSchema } from "../../../../data/src/quest-save";
+import { savedCommandSchema } from "../../../../data/src/shared/quest-save";
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { applyCommand, createBattleState } from "../../../src/index";

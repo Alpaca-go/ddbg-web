@@ -3,9 +3,9 @@ import coreRaw from "../../../../data/normalized/corebox/curio.json";
 import wealdRaw from "../../../../data/normalized/extension/weald/curio.json";
 import layout from "../../../../data/normalized/corebox/dungeon_layout_p001.json";
 import distribution from "../../../../data/normalized/corebox/scout_ahead_distribution.json";
-import { curioFileSchema, wealdCurioFileSchema } from "../../../../data/src/curio";
-import { locationCurioPool } from "../../../../data/src/curio-pool";
-import { basicQuests } from "../../../../data/src/basic-quests";
+import { curioFileSchema, wealdCurioFileSchema } from "../../../../data/src/core/curios/curio";
+import { locationCurioPool } from "../../../../data/src/core/curios/curio-pool";
+import { basicQuests } from "../../../../data/src/core/quests/basic-quests";
 import { createDungeonSandbox } from "../../../src/shared/dungeon/dungeon";
 import {
   dungeonCurioCatalogValid,

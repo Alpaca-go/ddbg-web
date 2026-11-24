@@ -8,7 +8,7 @@ import { drawInitialQuestOffers } from "../../../src/shared/hamlet/initial-quest
 import { currentHamletHero, hamletActionOptions } from "../../../src/shared/hamlet/hamlet-actions";
 import { countCompletedRegularQuestsAtCampaignLevel } from "../../../src/core/bosses/face-the-threat-embark-runtime";
 import { createQuestSave, loadQuestSave } from "../../../src/shared/quest/quest-save";
-import type { QuestStart } from "../../../../data/src/quest-save";
+import type { QuestStart } from "../../../../data/src/shared/quest-save";
 import { expect, it } from "vitest";
 
 it("新地点版本只按实际回村普通任务计数，未选卡不计，Weald 与遗迹同计", () => {

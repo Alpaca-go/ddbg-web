@@ -1,5 +1,5 @@
 import { expect, it } from "vitest";
-import { coreQuestMapLayouts } from "../../../data/src/quest-map-pairing";
+import { coreQuestMapLayouts } from "../../../data/src/core/quests/quest-map-pairing";
 import type { DungeonState } from "../../src/shared/dungeon/dungeon";
 import { nextNaturalRoute } from "./natural-route";
 

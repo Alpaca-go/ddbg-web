@@ -1,12 +1,12 @@
 import { WEALD_HIGHER_BOSS_ENTRIES } from "../../weald/bosses/higher-boss-entries";
 import { ensureCampaignBossScriptsRegistered } from "../../shared/core/registry";
-import { bossEnabledForPacks } from "../../../../data/src/content-packs";
+import { bossEnabledForPacks } from "../../../../data/src/shared/content-packs";
 import { RUINS_COMBAT_LEVELS } from "./ruins-combat-levels";
 import {
   basicQuests,
   type BasicQuestId,
   type CampaignLevel,
-} from "../../../../data/src/basic-quests";
+} from "../../../../data/src/core/quests/basic-quests";
 import { readCampaignLevel } from "../../shared/hamlet/hamlet-campaign";
 import { ensureCoreBossScriptsRegistered } from "./ensure-core-boss-scripts";
 import {
@@ -65,7 +65,7 @@ export function isFaceTheThreatQuestId(
 }
 
 export type BossQuestScriptContext = {
-  readonly contentPacks?: readonly import("../../../../data/src/content-packs").ContentPackId[];
+  readonly contentPacks?: readonly import("../../../../data/src/shared/content-packs").ContentPackId[];
   readonly wealdHigherBosses?: true;
   readonly campaignLevel?: CampaignLevel;
   readonly activeBossThreatScriptId?: BossScriptId;

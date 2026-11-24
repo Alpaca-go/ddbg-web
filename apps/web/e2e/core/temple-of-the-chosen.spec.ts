@@ -25,7 +25,10 @@ test("Temple of the Chosen：怪物技能结束触发治疗及全体压力", asy
     game = fixture.hallAscensionFixture();
     const { approvedTempleOfTheChosen: tile } = await server.ssrLoadModule(
       fileURLToPath(
-        new URL("../../../../packages/data/src/normalize/temple-of-the-chosen.ts", import.meta.url),
+        new URL(
+          "../../../../packages/data/src/core/misc/temple-of-the-chosen.build.ts",
+          import.meta.url,
+        ),
       ),
     );
     const { roomTileBattleAreas } = await server.ssrLoadModule(

@@ -1,5 +1,5 @@
-import type { CampaignLevel } from "../../../../data/src/basic-quests";
-import { bossEnabledForPacks, type ContentPackId } from "../../../../data/src/content-packs";
+import type { CampaignLevel } from "../../../../data/src/core/quests/basic-quests";
+import { bossEnabledForPacks, type ContentPackId } from "../../../../data/src/shared/content-packs";
 import { ensureCoreBossScriptsRegistered } from "./necromancer-i";
 import {
   NECROMANCER_I_DESCRIPTION_ABILITY_CARD_ID,

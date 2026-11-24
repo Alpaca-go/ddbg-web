@@ -4,7 +4,7 @@ import { resolveShuffle } from "../../../src/shared/core/shuffle";
 import type { BattleArea, BattleEntity } from "../../../src/shared/battle/battle";
 import { createBattleState } from "../../../src/shared/battle/battle";
 import { applyCommand } from "../../../src/shared/core/command";
-import { savedCommandSchema } from "../../../../data/src/quest-save";
+import { savedCommandSchema } from "../../../../data/src/shared/quest-save";
 
 const area = (id: string, adjacent: string[], capacity: number): BattleArea => ({
   id,

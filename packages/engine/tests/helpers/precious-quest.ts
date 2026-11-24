@@ -4,7 +4,7 @@ import type { Command, GameState } from "../../src/shared/core/command";
 import { createCoreDungeonQuest } from "../../src/shared/dungeon/dungeon-quest-entry";
 import { naturalParty, naturalQuest } from "./natural-quest";
 import { disinfectionSources as sources } from "./disinfection-quest";
-import type { QuestStart } from "../../../data/src/quest-save";
+import type { QuestStart } from "../../../data/src/shared/quest-save";
 
 /** 固定 seed22；Stash 玩家用公开移动趋向 D，空闲时换姿态，不注入状态或骰序。 */
 export function preciousQuest() {

@@ -5,17 +5,17 @@ import creepingDarkness from "../../../../data/normalized/corebox/creeping_darkn
 import forwardCamps from "../../../../data/normalized/corebox/forward_camps_distribution.json";
 import weAreTheFlame from "../../../../data/normalized/corebox/we_are_the_flame_distribution.json";
 import faceTheThreat from "../../../../data/normalized/corebox/face_the_threat_distribution.json";
-import { roomDistributionTokenTotal } from "../../../../data/src/dungeon-layout";
+import { roomDistributionTokenTotal } from "../../../../data/src/core/tiles/dungeon-layout";
 import {
   asQuestMapPairingQuest,
   basicQuests,
   questsForCampaignLevel,
-} from "../../../../data/src/basic-quests";
-import { pickEmbarkQuestMapLayout } from "../../../../data/src/quest-map-pairing";
+} from "../../../../data/src/core/quests/basic-quests";
+import { pickEmbarkQuestMapLayout } from "../../../../data/src/core/quests/quest-map-pairing";
 import {
   bossFlatQuestSummarySchema,
   standardBasicQuestSummarySchema,
-} from "../../../../data/src/quest-summary";
+} from "../../../../data/src/shared/quest-summary";
 
 const GOLDEN: Record<
   string,

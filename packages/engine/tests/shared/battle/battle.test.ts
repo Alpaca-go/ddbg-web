@@ -2,8 +2,8 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { applyCommand, createBattleState, resolveHeroSkill } from "../../../src/index";
 import type { BattleEntity, BattleSetup, Command, HeroSkillCardView } from "../../../src/index";
-import { loadNormalizedCorebox } from "../../../../data/src/normalize/write";
-import { heroSkillIdForPage } from "../../../../data/src/hero-registry";
+import { loadNormalizedCorebox } from "../../../../data/src/shared/write";
+import { heroSkillIdForPage } from "../../../../data/src/core/heroes/hero-registry";
 
 const file = JSON.parse(
   readFileSync(

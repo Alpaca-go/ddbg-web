@@ -1,10 +1,13 @@
-import { normalizeContentPacks, type ContentPackId } from "../../../../data/src/content-packs";
+import {
+  normalizeContentPacks,
+  type ContentPackId,
+} from "../../../../data/src/shared/content-packs";
 import {
   createCoreDungeonQuest,
   type CoreQuestSources,
   type QuestParty,
 } from "../dungeon/dungeon-quest-entry";
-import type { BasicQuestId } from "../../../../data/src/basic-quests";
+import type { BasicQuestId } from "../../../../data/src/core/quests/basic-quests";
 import type { DungeonState } from "../dungeon/dungeon";
 import type { HamletQuestDrawOptionId } from "./hamlet-location-quest-draw";
 

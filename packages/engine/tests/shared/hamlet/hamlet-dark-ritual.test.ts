@@ -5,7 +5,7 @@ import { hamletActionOptions } from "../../../src/shared/hamlet/hamlet-actions";
 import { naturalAbbeyQuest } from "../../helpers/abbey-quest";
 import { coreQuestSources } from "../../helpers/core-quest";
 import { createConditionPool } from "../../../src/shared/core/conditions";
-import { savedCommandSchema } from "../../../../data/src/quest-save";
+import { savedCommandSchema } from "../../../../data/src/shared/quest-save";
 import { FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS } from "../../../src/core/heroes/formal-heroes";
 
 let baseline: ReturnType<typeof naturalAbbeyQuest>;

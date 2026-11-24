@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { applyCommand, createBattleState, resolveHeroSkill } from "../../../src/index";
 import type { BattleEntity, GameState, HeroSkillCardView } from "../../../src/index";
 import { nextBattleRoll } from "../../../src/shared/dungeon/encounter";
-import { heroSkillIdForPage } from "../../../../data/src/hero-registry";
+import { heroSkillIdForPage } from "../../../../data/src/core/heroes/hero-registry";
 const cards: HeroSkillCardView[] = JSON.parse(
   readFileSync(
     new URL("../../../../data/normalized/corebox/hero_skill.json", import.meta.url),

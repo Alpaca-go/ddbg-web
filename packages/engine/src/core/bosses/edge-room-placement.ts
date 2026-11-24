@@ -1,4 +1,4 @@
-import type { DungeonLayout, RoomTokenKind } from "../../../../data/src/dungeon-layout";
+import type { DungeonLayout, RoomTokenKind } from "../../../../data/src/core/tiles/dungeon-layout";
 import { createRng } from "../../shared/core/rng";
 
 /** R30 / spec §5.1：边缘房只有一条相连走廊；灰点仍计作该走廊的邻点。 */

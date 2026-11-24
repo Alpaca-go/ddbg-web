@@ -1,4 +1,4 @@
-import type { CampaignLevel } from "../../../data/src/basic-quests";
+import type { CampaignLevel } from "../../../data/src/core/quests/basic-quests";
 import { SIREN_I_DESCRIPTION_ABILITY_CARD_ID } from "./bosses/siren-i";
 /** Cove 三 Boss（spec 扩展 §2.3；迫近威胁池接线仍 hold）。 */
 export type CoveBossIdentity = "siren" | "shambler" | "drownedCrew";

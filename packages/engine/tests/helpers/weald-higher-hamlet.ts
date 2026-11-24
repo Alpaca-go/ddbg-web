@@ -3,7 +3,7 @@ import { coreQuestSources } from "./core-quest";
 import { switchTrinketDungeonLevel } from "../../src/shared/trinkets/trinket-acquisition";
 import type { GameState } from "../../src/shared/core/command";
 import trinketFile from "../../../data/normalized/corebox/trinket.json";
-import { normalizedTrinketFileSchema } from "../../../data/src/normalize/schema";
+import { normalizedTrinketFileSchema } from "../../../data/src/shared/schema";
 
 /** 受控 III 级已准备村庄检查点；不是自然跨幕养成或初始日志。 */
 export function wealdHigherHamletFixture(): GameState {

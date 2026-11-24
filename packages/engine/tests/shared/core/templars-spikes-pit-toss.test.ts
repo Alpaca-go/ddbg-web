@@ -1,6 +1,6 @@
 import { expect, it, describe } from "vitest";
 import geometry from "../../../../data/normalized/corebox/room_tile_geometry.json";
-import { templarsRoomSchema } from "../../../../data/src/normalize/templars-room";
+import { templarsRoomSchema } from "../../../../data/src/core/rooms/templars-room.build";
 import { roomTileBattleAreas } from "../../../src/shared/battle/battle-monster-movement";
 import { applyCommand, type Command, type GameState } from "../../../src/shared/core/command";
 import { templarsPitTossTargetArea } from "../../../src/core/bosses/templars-pit-toss";

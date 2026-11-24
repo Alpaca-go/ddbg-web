@@ -13,9 +13,9 @@ import { battleData as questBattleData } from "virtual:quest-battle-data";
 import {
   asQuestMapPairingQuest,
   sandboxEmbarkQuestsForPacks,
-} from "../../../../../packages/data/src/basic-quests";
-import { pickQuestMapLayoutId } from "../../../../../packages/data/src/quest-map-pairing";
-import type { BasicQuestId } from "../../../../../packages/data/src/basic-quests";
+} from "../../../../../packages/data/src/core/quests/basic-quests";
+import { pickQuestMapLayoutId } from "../../../../../packages/data/src/core/quests/quest-map-pairing";
+import type { BasicQuestId } from "../../../../../packages/data/src/core/quests/basic-quests";
 import { EmbarkPartyRosterBar } from "./embark-party-roster-bar";
 import { EmbarkSkillIconPicker } from "./embark-skill-icon-picker";
 import { DungeonSandbox } from "../dungeon-sandbox";

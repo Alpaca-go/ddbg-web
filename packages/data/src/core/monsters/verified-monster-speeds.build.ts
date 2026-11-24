@@ -1,0 +1,118 @@
+import { z } from "zod";
+import { normalizedMonsterMediumCardSchema } from "../../shared/schema";
+import type { NormalizedMonsterMediumCard } from "../../shared/schema";
+
+const entrySchema = z.strictObject({
+  id: z.string().min(1),
+  name: z.string().min(1),
+  level: z.union([z.literal(1), z.literal(2), z.literal(3)]),
+  pages: z.array(z.int().positive()).min(1),
+  speed: z.int().nonnegative(),
+});
+
+// 首批六条：Kyries 2026-10-10；新增八张中型战斗卡：Kyries 2026-10-12 两批批准。
+// docs/monster-speed-review-2026-10-09.md §2–3、§6；R24、R-001、R-048。
+// 只按获批 id 附加，不统计图标、不填图标 null、不跨同名 / 等级推断。
+export const verifiedMonsterSpeeds = z.array(entrySchema).parse([
+  // R-143：2026-11-02 九种最暗普通怪字段逐卡确认；不解除生产几何停点。
+  { id: "monster_medium:p063", name: "Ascended Brawler", level: 3, pages: [63, 64, 65], speed: 2 },
+  { id: "monster_medium:p066", name: "Ascended Witch", level: 3, pages: [66, 67, 68], speed: 2 },
+  { id: "monster_medium:p069", name: "Rapturous Cultist", level: 3, pages: [69, 70, 71], speed: 3 },
+  { id: "monster_medium:p072", name: "Cultist Priest", level: 3, pages: [72, 73, 74], speed: 2 },
+  { id: "monster_medium:p075", name: "Malignant Growth", level: 3, pages: [75, 76, 77], speed: 1 },
+  { id: "monster_medium:p078", name: "Flesh Hound", level: 3, pages: [78, 79], speed: 3 },
+  { id: "monster_medium:p080", name: "Polyp", level: 3, pages: [80, 81, 82], speed: 3 },
+  { id: "monster_medium:p083", name: "Antibody", level: 3, pages: [83, 84, 85], speed: 2 },
+  { id: "monster_medium:p086", name: "Defensive Growth", level: 3, pages: [86, 87, 88], speed: 2 },
+  // R-142：两枚脚印；黄色3是Dodge，不是Speed。
+  { id: "monster_medium:p016", name: "Bone Bearer", level: 3, pages: [16, 17], speed: 2 },
+  { id: "monster_medium:p001", name: "Bone Soldier", level: 1, pages: [1, 2, 3], speed: 1 },
+  { id: "monster_medium:p004", name: "Bone Courtier", level: 1, pages: [4, 5, 6], speed: 3 },
+  { id: "monster_medium:p007", name: "Bone Arbalist", level: 1, pages: [7, 8, 9], speed: 2 },
+  { id: "monster_medium:p010", name: "Bone Defender", level: 1, pages: [10, 11], speed: 1 },
+  { id: "monster_medium:p040", name: "Bone Rabble", level: 1, pages: [40, 41, 42], speed: 1 },
+  { id: "monster_medium:p021", name: "Cultist Acolyte", level: 1, pages: [21, 22, 23], speed: 3 },
+  // docs/monster-battle-review-2026-10-12.md：第一批部分批准。
+  { id: "monster_medium:p027", name: "Brigand Fusilier", level: 1, pages: [27, 28, 29], speed: 2 },
+  { id: "monster_medium:p031", name: "Maggot", level: 1, pages: [31, 32, 33], speed: 1 },
+  { id: "monster_medium:p043", name: "Madman", level: 1, pages: [43, 44, 45], speed: 3 },
+  { id: "monster_medium:p046", name: "Pliskin", level: 1, pages: [46, 47, 48], speed: 2 },
+  // Kyries 2026-10-12 再审批准四条修正版；头部靴印数量，不是 Dodge 数字。
+  { id: "monster_medium:p018", name: "Cultist Brawler", level: 1, pages: [18, 19, 20], speed: 2 },
+  { id: "monster_medium:p024", name: "Brigand Cutthroat", level: 1, pages: [24, 25, 26], speed: 1 },
+  { id: "monster_medium:p034", name: "Webber", level: 1, pages: [34, 35, 36], speed: 2 },
+  { id: "monster_medium:p037", name: "Spitter", level: 1, pages: [37, 38, 39], speed: 1 },
+  // R-082：Kyries 2026-10-15仅批准Bone Spearman II，完整M13–15已核图。
+  { id: "monster_medium:p013", name: "Bone Spearman", level: 2, pages: [13, 14, 15], speed: 2 },
+  // R-083：2026-10-15四卡限定表获批。
+  { id: "monster_medium:p050", name: "Gargoyle", level: 2, pages: [50, 51, 52], speed: 3 },
+  { id: "monster_medium:p053", name: "Rattler", level: 2, pages: [53, 54, 55], speed: 3 },
+  // C-012：当前版核心盒 FRONT p089，三枚脚印；仅 Necromancer I。
+  { id: "monster_medium:p089", name: "Necromancer", level: 1, pages: [89], speed: 3 },
+  // C-019：单独核对当前版 FRONT p090，三枚脚印；不向 III 推断。
+  { id: "monster_medium:p090", name: "Necromancer", level: 2, pages: [90], speed: 3 },
+  // 当前版 FRONT p091 独立核图：III 级三枚脚印。
+  { id: "monster_medium:p091", name: "Necromancer", level: 3, pages: [91], speed: 3 },
+  // Ruins Boss II/III 与 Collected：逐页完整核图。
+  { id: "monster_medium:p092", name: "The Collector", level: 1, pages: [92], speed: 2 },
+  { id: "monster_medium:p093", name: "The Collector", level: 2, pages: [93], speed: 2 },
+  { id: "monster_medium:p094", name: "The Collector", level: 3, pages: [94], speed: 2 },
+  { id: "monster_medium:p095", name: "Collected Highwayman", level: 1, pages: [95], speed: 1 },
+  { id: "monster_medium:p096", name: "Collected Highwayman", level: 2, pages: [96], speed: 1 },
+  { id: "monster_medium:p097", name: "Collected Highwayman", level: 3, pages: [97], speed: 1 },
+  { id: "monster_medium:p098", name: "Collected Man-at-Arms", level: 1, pages: [98], speed: 1 },
+  { id: "monster_medium:p099", name: "Collected Man-at-Arms", level: 2, pages: [99], speed: 1 },
+  { id: "monster_medium:p100", name: "Collected Man-at-Arms", level: 3, pages: [100], speed: 1 },
+  { id: "monster_medium:p101", name: "Collected Vestal", level: 1, pages: [101], speed: 2 },
+  { id: "monster_medium:p102", name: "Collected Vestal", level: 2, pages: [102], speed: 2 },
+  { id: "monster_medium:p103", name: "Collected Vestal", level: 3, pages: [103], speed: 2 },
+  // R-187：最终战 Ancestor 1 / Reflections · FRONT p105 / p106 / p109。
+  { id: "monster_medium:p105", name: "Ancestor 1", level: 3, pages: [105], speed: 3 },
+  {
+    id: "monster_medium:p106",
+    name: "Perfect Reflection",
+    level: 3,
+    pages: [106, 107, 108],
+    speed: 2,
+  },
+  {
+    id: "monster_medium:p109",
+    name: "Imperfect Reflection",
+    level: 3,
+    pages: [109, 110, 111],
+    speed: 1,
+  },
+  // R-196：DL3 Brigand Raider / Brigand Hunter（Kyries 2026-11-07 逐卡确认；三页同卡，按页范围记录）。
+  { id: "monster_medium:p056", name: "Brigand Raider", level: 3, pages: [56, 57, 58], speed: 2 },
+  { id: "monster_medium:p059", name: "Brigand Hunter", level: 3, pages: [59, 60, 61], speed: 2 },
+]);
+
+/** 仅生成管线加载人工获批映射；schema 可表达的值不代表已获批准。 */
+export function attachVerifiedMonsterSpeeds(
+  cards: readonly NormalizedMonsterMediumCard[],
+  entries: unknown = verifiedMonsterSpeeds,
+): NormalizedMonsterMediumCard[] {
+  const approved = z.array(entrySchema).parse(entries);
+  const seen = new Set<string>();
+  for (const entry of approved) {
+    if (seen.has(entry.id)) throw new Error(`重复的 Speed 映射 id：${entry.id}`);
+    seen.add(entry.id);
+    const matches = cards.filter((card) => card.id === entry.id);
+    if (matches.length !== 1) throw new Error(`Speed 映射 id 必须唯一存在：${entry.id}`);
+    const card = matches[0]!;
+    if (!("skills" in card)) throw new Error(`Speed 映射不能用于大型参考卡：${entry.id}`);
+    if (
+      card.name !== entry.name ||
+      card.level !== entry.level ||
+      JSON.stringify(card.pages) !== JSON.stringify(entry.pages)
+    )
+      throw new Error(`Speed 映射的卡名 / 等级 / 页码不符：${entry.id}`);
+    if (card.speed !== undefined && card.speed !== entry.speed)
+      throw new Error(`Speed 映射与既有数值冲突：${entry.id}`);
+  }
+  const byId = new Map(approved.map((entry) => [entry.id, entry.speed]));
+  return cards.map((card) => {
+    const speed = byId.get(card.id);
+    return speed !== undefined ? normalizedMonsterMediumCardSchema.parse({ ...card, speed }) : card;
+  });
+}

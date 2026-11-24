@@ -4,7 +4,7 @@ import type { Command, GameState } from "../../src/shared/core/command";
 import { createCoreDungeonQuest } from "../../src/shared/dungeon/dungeon-quest-entry";
 import { naturalParty, naturalQuest } from "./natural-quest";
 import { disinfectionSources as sources } from "./disinfection-quest";
-import type { QuestStart } from "../../../data/src/quest-save";
+import type { QuestStart } from "../../../data/src/shared/quest-save";
 
 /** 固定 seed21；9 号房玩家优先移动至 B 并换姿态结束回合，不注入状态、牌序或骰序。 */
 export function clearingQuest(kind: "monster" | "hero" | "next-room" = "monster") {

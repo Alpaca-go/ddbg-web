@@ -1,5 +1,5 @@
 import { dungeonCurioCatalogValid } from "./dungeon-curio-catalog";
-import { readBasicQuest } from "../../../../data/src/basic-quests";
+import { readBasicQuest } from "../../../../data/src/core/quests/basic-quests";
 import type { ApplyResult, GameState } from "../core/command";
 import type { DungeonState } from "./dungeon";
 import { createRng, rollD10 } from "../core/rng";

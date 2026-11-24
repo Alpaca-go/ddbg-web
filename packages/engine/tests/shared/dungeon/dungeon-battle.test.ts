@@ -8,7 +8,7 @@ import {
   chooseTrinket,
 } from "../../../src/shared/trinkets/trinket-acquisition";
 import rawCurios from "../../../../data/normalized/corebox/curio.json";
-import { curioFileSchema } from "../../../../data/src/curio";
+import { curioFileSchema } from "../../../../data/src/core/curios/curio";
 import { expect, it } from "vitest";
 import layout from "../../../../data/normalized/corebox/dungeon_layout_p001.json";
 import distribution from "../../../../data/normalized/corebox/scout_ahead_distribution.json";
@@ -23,13 +23,13 @@ import monsterFile from "../../../../data/normalized/corebox/monster_medium.json
 import diseases from "../../../../data/normalized/corebox/disease.json";
 import quirks from "../../../../data/normalized/corebox/quirk.json";
 import largeMonsters from "../../../../data/normalized/corebox/monster_large.json";
-import { diseaseFileSchema } from "../../../../data/src/disease";
+import { diseaseFileSchema } from "../../../../data/src/core/hamlet/disease";
 import {
   createConditionPool,
   gainDisease,
   conditionPoolProblem,
 } from "../../../src/shared/core/conditions";
-import { normalizedHeroStatFileSchema } from "../../../../data/src/normalize/hero-stat";
+import { normalizedHeroStatFileSchema } from "../../../../data/src/core/heroes/hero-stat.build";
 import {
   normalizedTrinketFileSchema,
   normalizedHeroSkillFileSchema,
@@ -37,9 +37,9 @@ import {
   normalizedMonsterMediumFileSchema,
   normalizedQuirkFileSchema,
   normalizedMonsterLargeFileSchema,
-} from "../../../../data/src/normalize/schema";
-import { roomFileSchema } from "../../../../data/src/room";
-import { monsterPoolFileSchema } from "../../../../data/src/monster-pool";
+} from "../../../../data/src/shared/schema";
+import { roomFileSchema } from "../../../../data/src/core/rooms/room";
+import { monsterPoolFileSchema } from "../../../../data/src/core/monsters/monster-pool";
 import { createDungeonSandbox } from "../../../src/shared/dungeon/dungeon";
 import type { DungeonBattleCatalog } from "../../../src/shared/dungeon/dungeon";
 import { applyCommand } from "../../../src/shared/core/command";

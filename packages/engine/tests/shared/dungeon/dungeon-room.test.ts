@@ -4,8 +4,8 @@ import distribution from "../../../../data/normalized/corebox/scout_ahead_distri
 import catalog from "../../../../data/normalized/corebox/virtue_affliction.json";
 import diseaseData from "../../../../data/normalized/corebox/disease.json";
 import quirkData from "../../../../data/normalized/corebox/quirk.json";
-import { diseaseFileSchema } from "../../../../data/src/disease";
-import { normalizedQuirkFileSchema } from "../../../../data/src/normalize/schema";
+import { diseaseFileSchema } from "../../../../data/src/core/hamlet/disease";
+import { normalizedQuirkFileSchema } from "../../../../data/src/shared/schema";
 import { createConditionPool } from "../../../src/shared/core/conditions";
 import { applyCommand } from "../../../src/shared/core/command";
 import type { Command, GameState } from "../../../src/shared/core/command";

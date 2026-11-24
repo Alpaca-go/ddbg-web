@@ -1,0 +1,434 @@
+import { z } from "zod";
+import type { RawFile } from "../../shared/extract/raw";
+import { levelSchema } from "../../shared/extract/common";
+import { normalizedIconSchema, verificationSchema } from "../../shared/schema";
+import { createIconLookup, finishVerification, noteIcon, resolveLines } from "../../shared/icons";
+import type { IconDictionary } from "../../shared/dictionary/schema";
+import {
+  higherHeroDefenceSchema,
+  buildHigherHeroDefence,
+  readHigherHeroDefence,
+} from "./hero-higher-defence.build";
+import { warrensHeroStatCardSchema } from "../../warrens/misc/warrens-hero-stat.build";
+import { coveHeroStatCardSchema } from "../../cove/misc/cove-hero-stat.build";
+import { wealdHeroStatCardSchema } from "../../weald/misc/weald-hero-stat.build";
+import { musketeerHeroStatCardSchema } from "./musketeer-hero-stat.build";
+import { heroStatId } from "./hero-registry";
+import { withHeroStatRules } from "../../shared/rules";
+
+const FRONT = "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_FRONT.pdf";
+const BACK = "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_BACK.pdf";
+/** R-048/R-088/R-094/R-095：按具体front/I卡限定审批，不改词典；新旧批准日期分别保留。 */
+export const approvedHeroConditionDefences: Readonly<
+  Record<string, { name: string; iconId: string; kind: "stun" | "bleed" | "blight" | "debuff" }>
+> = {
+  "hero_stat:p001:front": { name: "CRUSADER", iconId: "8db71542d2", kind: "stun" },
+  "hero_stat:p003:front": { name: "HELLION", iconId: "d29a868ed8", kind: "bleed" },
+  "hero_stat:p007:front": { name: "HIGHWAYMAN", iconId: "8db71542d2", kind: "stun" },
+  "hero_stat:p009:front": { name: "VESTAL", iconId: "d29a868ed8", kind: "bleed" },
+  "hero_stat:p005:front": { name: "BOUNTY HUNTER", iconId: "8db71542d2", kind: "stun" },
+  "hero_stat:p013:front": { name: "PLAGUE DOCTOR", iconId: "40bb356305", kind: "blight" },
+  "hero_stat:p017:front": { name: "GRAVE ROBBER", iconId: "40bb356305", kind: "blight" },
+  /** R-095 / 核心三英雄 2026-10-24：Occ I 与 Jester I 同 hash `8cbe7d6703` 分卡批准。 */
+  "hero_stat:p019:front": { name: "OCCULTIST", iconId: "8cbe7d6703", kind: "debuff" },
+  "hero_stat:p011:front": { name: "JESTER", iconId: "8cbe7d6703", kind: "debuff" },
+  "hero_stat:p021:front": { name: "ABOMINATION", iconId: "40bb356305", kind: "blight" },
+};
+export const heroConditionDefenceSchema = z.strictObject({
+  resistances: z.array(z.enum(["stun", "bleed", "blight", "debuff"])).length(1),
+  immunities: z.array(z.never()).length(0),
+  source: z.literal("print_front"),
+  approval: z.enum([
+    "kyries_review_2026-10-12",
+    "kyries_review_2026-10-16",
+    "kyries_review_2026-10-17",
+    "kyries_review_2026-10-18",
+    "kyries_review_2026-10-24",
+  ]),
+});
+export type HeroConditionDefence = z.infer<typeof heroConditionDefenceSchema>;
+
+/** 核心盒英雄属性的规则语义（与技能 rules 同一命名空间）。 */
+export const heroStatRulesSchema = z.strictObject({
+  buffDefence: z
+    .strictObject({
+      resistant: z.boolean(),
+      immune: z.boolean(),
+      source: z.literal("print_front"),
+    })
+    .optional(),
+  conditionDefence: heroConditionDefenceSchema.optional(),
+  higherConditionDefence: higherHeroDefenceSchema.optional(),
+});
+const attributesSchema = z.strictObject({
+  rawId: z.string().regex(/^hero_stat:p\d{3}$/),
+  face: z.enum(["front", "back"]),
+  name: z.string().min(1),
+  level: levelSchema,
+  life: z.int().positive(),
+  dodge: z.int().nonnegative(),
+  speed: z.int().nonnegative(),
+});
+
+/** 原四英雄、R-088赏金猎人、R-094瘟疫医生与R-095盗墓者/神秘学者分批获批，不外推同名卡。 */
+export const approvedHeroStats = [
+  ["hero_stat:p001", "front", "CRUSADER", 1, 17, 0, 1],
+  ["hero_stat:p001", "back", "CRUSADER", 2, 24, 1, 1],
+  ["hero_stat:p002", "front", "CRUSADER", 3, 32, 2, 1],
+  ["hero_stat:p003", "front", "HELLION", 1, 14, 1, 2],
+  ["hero_stat:p003", "back", "HELLION", 2, 18, 2, 2],
+  ["hero_stat:p004", "front", "HELLION", 3, 24, 3, 2],
+  ["hero_stat:p007", "front", "HIGHWAYMAN", 1, 12, 1, 2],
+  ["hero_stat:p007", "back", "HIGHWAYMAN", 2, 17, 2, 2],
+  ["hero_stat:p008", "front", "HIGHWAYMAN", 3, 22, 3, 3],
+  ["hero_stat:p009", "front", "VESTAL", 1, 12, 0, 1],
+  ["hero_stat:p009", "back", "VESTAL", 2, 17, 1, 1],
+  ["hero_stat:p010", "front", "VESTAL", 3, 22, 2, 2],
+  ["hero_stat:p005", "front", "BOUNTY HUNTER", 1, 14, 1, 2],
+  ["hero_stat:p005", "back", "BOUNTY HUNTER", 2, 18, 2, 2],
+  ["hero_stat:p006", "front", "BOUNTY HUNTER", 3, 23, 3, 2],
+  ["hero_stat:p013", "front", "PLAGUE DOCTOR", 1, 11, 0, 3],
+  ["hero_stat:p013", "back", "PLAGUE DOCTOR", 2, 15, 1, 3],
+  ["hero_stat:p014", "front", "PLAGUE DOCTOR", 3, 19, 2, 3],
+  ["hero_stat:p017", "front", "GRAVE ROBBER", 1, 11, 1, 3],
+  ["hero_stat:p017", "back", "GRAVE ROBBER", 2, 15, 2, 3],
+  ["hero_stat:p018", "front", "GRAVE ROBBER", 3, 19, 3, 3],
+  ["hero_stat:p019", "front", "OCCULTIST", 1, 10, 1, 2],
+  ["hero_stat:p019", "back", "OCCULTIST", 2, 14, 2, 2],
+  ["hero_stat:p020", "front", "OCCULTIST", 3, 18, 3, 3],
+  ["hero_stat:p011", "front", "JESTER", 1, 10, 2, 3],
+  ["hero_stat:p011", "back", "JESTER", 2, 14, 3, 3],
+  ["hero_stat:p012", "front", "JESTER", 3, 18, 4, 3],
+  ["hero_stat:p015", "front", "ARBALEST", 1, 14, 0, 1],
+  ["hero_stat:p015", "back", "ARBALEST", 2, 19, 1, 1],
+  ["hero_stat:p016", "front", "ARBALEST", 3, 24, 2, 2],
+  ["hero_stat:p021", "front", "ABOMINATION", 1, 13, 1, 2],
+  ["hero_stat:p022", "front", "ABOMINATION", 2, 18, 2, 3],
+  ["hero_stat:p023", "front", "ABOMINATION", 3, 23, 3, 3],
+].map(([rawId, face, name, level, life, dodge, speed]) =>
+  attributesSchema.parse({ rawId, face, name, level, life, dodge, speed }),
+);
+
+const laterHeroApprovals: Readonly<
+  Record<
+    string,
+    | "kyries_review_2026-10-16"
+    | "kyries_review_2026-10-17"
+    | "kyries_review_2026-10-18"
+    | "kyries_review_2026-10-24"
+  >
+> = {
+  "BOUNTY HUNTER": "kyries_review_2026-10-16",
+  "PLAGUE DOCTOR": "kyries_review_2026-10-17",
+  "GRAVE ROBBER": "kyries_review_2026-10-18",
+  OCCULTIST: "kyries_review_2026-10-18",
+  JESTER: "kyries_review_2026-10-24",
+  ARBALEST: "kyries_review_2026-10-24",
+  ABOMINATION: "kyries_review_2026-10-24",
+};
+
+export const normalizedHeroStatCardSchema = attributesSchema
+  .extend({
+    id: z.string().min(1),
+    source: z.strictObject({ file: z.enum([FRONT, BACK]), page: z.int().positive() }),
+    attributesVerified: z.literal(true),
+    approval: z.enum([
+      "kyries_review_2026-10-10",
+      "kyries_review_2026-10-16",
+      "kyries_review_2026-10-17",
+      "kyries_review_2026-10-18",
+      "kyries_review_2026-10-24",
+    ]),
+    /** 规则语义（新命名空间）：只放引擎要执行的解释，不放印刷原文。 */
+    rules: heroStatRulesSchema.optional(),
+    /** 其他卡面文字只保留，不解释村庄效果、抗性或免疫。 */
+    lines: z.array(z.string()),
+    icons: z.array(normalizedIconSchema),
+    verification: verificationSchema,
+  })
+  .superRefine((card, ctx) => {
+    const reviewed = approvedHeroStats.find(
+      (s) => laterHeroApprovals[s.name] && `${s.rawId}:${s.face}` === card.id,
+    );
+    if (
+      laterHeroApprovals[card.name] ||
+      Object.values(laterHeroApprovals).some((date) => date === card.approval) ||
+      reviewed
+    ) {
+      if (
+        !reviewed ||
+        card.approval !== laterHeroApprovals[reviewed.name] ||
+        (Object.keys(reviewed) as (keyof typeof reviewed)[]).some(
+          (key) => card[key] !== reviewed[key],
+        )
+      )
+        ctx.addIssue({ code: "custom", message: "英雄属性超出三面限定审批（R-088/R-094/R-095）" });
+    }
+    if (card.rules?.higherConditionDefence && !readHigherHeroDefence(card))
+      ctx.addIssue({ code: "custom", message: "高等级英雄防御超出限定审批（R-081/R-088/R-095）" });
+    if (card.rules?.conditionDefence) {
+      const expected = approvedHeroConditionDefences[card.id];
+      if (
+        !expected ||
+        card.face !== "front" ||
+        card.level !== 1 ||
+        card.name !== expected.name ||
+        card.rules.conditionDefence.resistances[0] !== expected.kind ||
+        card.rules.conditionDefence.approval !==
+          (laterHeroApprovals[expected.name] ?? "kyries_review_2026-10-12")
+      )
+        ctx.addIssue({ code: "custom", message: "英雄条件防御超出 I 级限定审批" });
+    }
+    if (
+      card.id !== `${card.rawId}:${card.face}` ||
+      card.source.file !== (card.face === "front" ? FRONT : BACK) ||
+      card.source.page !== Number(card.rawId.slice(-3))
+    )
+      ctx.addIssue({ code: "custom", message: "英雄属性身份 / 文件 / 页码不一致" });
+    if (
+      card.verification.unverified !== card.verification.reasons.length > 0 ||
+      card.icons.some(
+        (icon) =>
+          icon.naming === "unverified" &&
+          !card.verification.reasons.includes(`icon:${icon.iconId}`),
+      )
+    )
+      ctx.addIssue({ code: "custom", message: "未确认图标必须保留整卡未验证原因（R-048）" });
+  });
+
+/** v1.1 canonical：全英雄 STAT ID（pack + hNN + 全局页）；构建器先按旧来源校验，再映射到此形状。 */
+export const canonicalHeroStatCardSchema = attributesSchema
+  .extend({
+    rawId: z.string().regex(/^hero_stat:(?:[a-z-]+:)*p\d{3}$/),
+    id: z
+      .string()
+      .regex(/^hero_stat:(?:core|cove|warrens|weald|musketeer):h\d{2}:p\d{3}:(?:front|back)$/),
+    source: z.strictObject({ file: z.string().min(1), page: z.int().positive() }),
+    attributesVerified: z.literal(true),
+    approval: z.string().min(1),
+    /** 规则语义（新命名空间）：只放引擎要执行的解释，不放印刷原文。 */
+    rules: heroStatRulesSchema.optional(),
+    lines: z.array(z.string()),
+    icons: z.array(normalizedIconSchema),
+    verification: verificationSchema,
+  })
+  .superRefine((card, ctx) => {
+    if (card.id !== heroStatId(card.name, card.level, card.face))
+      ctx.addIssue({ code: "custom", message: "英雄 STAT canonical ID 与英雄编号/等级/面不符" });
+  });
+
+export const normalizedHeroStatFileSchema = z
+  .strictObject({
+    schema: z.literal("ddbg-normalized-v0"),
+    dictionary_version: z.literal("1.8"),
+    category: z.literal("hero_stat"),
+    sources: z.strictObject({
+      parsed: z.null(),
+      raw: z.literal("extract/corebox/raw/hero_stat.json"),
+      dictionary: z.literal("dictionary/icon-dictionary-v1.8.json"),
+    }),
+    cards: z.array(
+      z.union([
+        normalizedHeroStatCardSchema,
+        warrensHeroStatCardSchema,
+        coveHeroStatCardSchema,
+        wealdHeroStatCardSchema,
+        musketeerHeroStatCardSchema,
+        canonicalHeroStatCardSchema,
+      ]),
+    ),
+  })
+  .superRefine((file, ctx) => {
+    if (new Set(file.cards.map((card) => card.id)).size !== file.cards.length)
+      ctx.addIssue({ code: "custom", message: "英雄属性 raw id + face 重复" });
+  });
+
+export type NormalizedHeroStatCard = z.infer<typeof normalizedHeroStatCardSchema>;
+export type NormalizedHeroStatFile = z.infer<typeof normalizedHeroStatFileSchema>;
+
+const coreHeroStatFileSchema = z
+  .strictObject({
+    schema: z.literal("ddbg-normalized-v0"),
+    dictionary_version: z.literal("1.8"),
+    category: z.literal("hero_stat"),
+    sources: z.strictObject({
+      parsed: z.null(),
+      raw: z.literal("extract/corebox/raw/hero_stat.json"),
+      dictionary: z.literal("dictionary/icon-dictionary-v1.8.json"),
+    }),
+    cards: z.array(normalizedHeroStatCardSchema),
+  })
+  .superRefine((file, ctx) => {
+    if (new Set(file.cards.map((card) => card.id)).size !== file.cards.length)
+      ctx.addIssue({ code: "custom", message: "英雄属性 raw id + face 重复" });
+  });
+
+/** 获批属性单独入库，其他图标仍由词典决定验证状态；纯函数，不修改 raw / 词典。 */
+export function buildHeroStats(
+  raw: RawFile,
+  dictionary: IconDictionary,
+  approved = approvedHeroStats,
+): z.infer<typeof coreHeroStatFileSchema> {
+  if (raw.category !== "hero_stat" || raw.kind !== "card") throw new Error("英雄属性来源类别错误");
+  const lookup = createIconLookup(dictionary);
+  const cards = approved.map((entry) => {
+    const attributes = attributesSchema.parse(entry);
+    const sources = raw.cards.filter((card) => card.id === attributes.rawId);
+    if (sources.length !== 1) throw new Error("获批英雄 raw id 必须唯一存在");
+    const source = sources[0]!;
+    const face = source.faces[attributes.face];
+    const expectedFile = attributes.face === "front" ? FRONT : BACK;
+    if (
+      source.source_set !== "base" ||
+      !face ||
+      face.file !== expectedFile ||
+      source.pages.length !== 1 ||
+      face.page !== source.pages[0] ||
+      face.page !== Number(attributes.rawId.slice(-3)) ||
+      !face.spans.some((span) => span.t === attributes.name) ||
+      !face.spans.some((span) => span.t === ["I", "II", "III"][attributes.level - 1])
+    )
+      throw new Error("获批英雄属性来源身份漂移 / 卡背不可入库");
+    const printedNumber = (iconId: string, expected: number) => {
+      const placements = face.icons.filter((icon) => icon.iconId === iconId && !icon.decor);
+      if (placements.length !== 1) throw new Error("英雄属性数字定位不唯一");
+      const [left, top, right, bottom] = placements[0]!.bbox;
+      const numbers = face.spans.filter((span) => {
+        const x = (span.bbox[0] + span.bbox[2]) / 2;
+        const y = (span.bbox[1] + span.bbox[3]) / 2;
+        return /^\d+$/.test(span.t) && x >= left && x <= right && y >= top && y <= bottom;
+      });
+      if (numbers.length !== 1 || numbers[0]!.t !== String(expected))
+        throw new Error("获批英雄属性与原始卡面数字冲突");
+      return placements[0]!.bbox;
+    };
+    const lifeBox = printedNumber("9534ad5184", attributes.life);
+    printedNumber("7a472f5d6f", attributes.dodge);
+    const speedCount = face.icons.filter((icon) => {
+      const y = (icon.bbox[1] + icon.bbox[3]) / 2;
+      return (
+        icon.iconId === "4648c9e5ec" &&
+        !icon.decor &&
+        icon.bbox[0] >= lifeBox[2] &&
+        y >= lifeBox[1] &&
+        y <= lifeBox[3]
+      );
+    }).length;
+    if (speedCount !== attributes.speed) throw new Error("获批 Speed 与移动栏图标数量冲突");
+    const reasons = new Set<string>();
+    resolveLines(
+      face.lines.map((line) => line.text),
+      lookup,
+      reasons,
+    );
+    const icons = face.icons
+      .filter((placement) => !placement.decor)
+      .map((placement) => {
+        const icon = lookup.resolve(placement.iconId);
+        noteIcon(icon, reasons);
+        return icon;
+      });
+    // 三个字段的语义仍必须由已确认的原图标支持，不能用审批绕过词典退回待定。
+    for (const [iconId, key] of [
+      ["9534ad5184", "life"],
+      ["7a472f5d6f", "dodge"],
+      ["4648c9e5ec", "speed"],
+    ]) {
+      const icon = icons.find((icon) => icon.iconId === iconId);
+      if (!icon || icon.key !== key || !["confirmed", "confirmed_rulebook"].includes(icon.naming))
+        throw new Error("获批属性缺少已确认图标（R-048）");
+    }
+    const reviewedBuffDefence: Record<string, string> = {
+      "hero_stat:p001": "8db71542d2",
+      "hero_stat:p003": "d29a868ed8",
+      "hero_stat:p007": "8db71542d2",
+      "hero_stat:p009": "d29a868ed8",
+      "hero_stat:p005": "8db71542d2",
+      "hero_stat:p013": "40bb356305",
+      "hero_stat:p017": "40bb356305",
+      "hero_stat:p019": "8cbe7d6703",
+      "hero_stat:p011": "8cbe7d6703",
+      "hero_stat:p015": "df4eb1ac47",
+      "hero_stat:p021": "40bb356305",
+    };
+    const buffReviewed =
+      attributes.level === 1 &&
+      attributes.face === "front" &&
+      reviewedBuffDefence[attributes.rawId] !== undefined;
+    if (buffReviewed) {
+      const lines = face.lines.map((line) => line.text);
+      const start = lines.indexOf("Resistances        Immunities");
+      const end = lines.findIndex((line) => line.startsWith("Hamlet Skill:"));
+      if (
+        start < 0 ||
+        end !== start + 2 ||
+        lines[start + 1] !== `{icon:${reviewedBuffDefence[attributes.rawId]}}`
+      )
+        throw new Error("已复核 Buff 抗性 / 免疫框漂移（R-048）");
+      const label = face.spans.filter((s) => s.t === "Resistances        Immunities");
+      const hamlet = face.spans.filter((s) => s.t === "Hamlet Skill:");
+      if (label.length !== 1 || hamlet.length !== 1) throw new Error("条件防御完整框定位不唯一");
+      const [left, , right, bottom] = label[0]!.bbox;
+      const frameIcons = face.icons.filter(
+        (i) =>
+          !i.decor &&
+          (i.bbox[0] + i.bbox[2]) / 2 >= left &&
+          (i.bbox[0] + i.bbox[2]) / 2 <= right &&
+          (i.bbox[1] + i.bbox[3]) / 2 > bottom &&
+          (i.bbox[1] + i.bbox[3]) / 2 < hamlet[0]!.bbox[1],
+      );
+      if (
+        frameIcons.length !== 1 ||
+        frameIcons[0]!.iconId !== reviewedBuffDefence[attributes.rawId] ||
+        (frameIcons[0]!.bbox[0] + frameIcons[0]!.bbox[2]) / 2 >= (left + right) / 2
+      )
+        throw new Error("条件防御抗性 / 空免疫完整框漂移（R-048）");
+    }
+    const defence = approvedHeroConditionDefences[`${attributes.rawId}:${attributes.face}`];
+    const higher = buildHigherHeroDefence(`${attributes.rawId}:${attributes.face}`, face);
+    const rules = {
+      ...(higher ? { higherConditionDefence: higher } : {}),
+      ...(buffReviewed
+        ? { buffDefence: { resistant: false, immune: false, source: "print_front" as const } }
+        : {}),
+      ...(defence && buffReviewed
+        ? {
+            conditionDefence: {
+              resistances: [defence.kind] as const,
+              immunities: [] as const,
+              source: "print_front" as const,
+              approval: laterHeroApprovals[attributes.name] ?? "kyries_review_2026-10-12",
+            },
+          }
+        : {}),
+    };
+    return normalizedHeroStatCardSchema.parse({
+      ...attributes,
+      id: `${attributes.rawId}:${attributes.face}`,
+      source: { file: face.file, page: face.page },
+      attributesVerified: true,
+      approval: laterHeroApprovals[attributes.name] ?? "kyries_review_2026-10-10",
+      ...(Object.keys(rules).length ? { rules } : {}),
+      lines: face.lines.map((line) => line.text),
+      icons,
+      verification: finishVerification(reasons),
+    });
+  });
+  const file = coreHeroStatFileSchema.parse({
+    schema: "ddbg-normalized-v0",
+    dictionary_version: "1.8",
+    category: "hero_stat",
+    sources: {
+      parsed: null,
+      raw: "extract/corebox/raw/hero_stat.json",
+      dictionary: "dictionary/icon-dictionary-v1.8.json",
+    },
+    cards,
+  });
+  return {
+    ...file,
+    cards: file.cards.map((card) =>
+      withHeroStatRules({ ...card, id: heroStatId(card.name, card.level, card.face) }),
+    ),
+  };
+}

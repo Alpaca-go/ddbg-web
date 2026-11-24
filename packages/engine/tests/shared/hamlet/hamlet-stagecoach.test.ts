@@ -8,7 +8,7 @@ import {
 import { paidUpgradeQuest } from "../../helpers/natural-scout-return";
 import { coreQuestSources } from "../../helpers/core-quest";
 import { createQuestSave, loadQuestSave } from "../../../src/shared/quest/quest-save";
-import { savedCommandSchema } from "../../../../data/src/quest-save";
+import { savedCommandSchema } from "../../../../data/src/shared/quest-save";
 
 let baseline: ReturnType<typeof paidUpgradeQuest>;
 beforeAll(() => {

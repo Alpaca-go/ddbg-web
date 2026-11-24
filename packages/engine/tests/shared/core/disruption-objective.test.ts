@@ -1,6 +1,6 @@
 import { disruptionRoomFixture as fixture } from "../../helpers/disruption-room";
 import { expect, it } from "vitest";
-import { basicQuests } from "../../../../data/src/basic-quests";
+import { basicQuests } from "../../../../data/src/core/quests/basic-quests";
 import { applyCommand } from "../../../src/shared/core/command";
 import type { GameState } from "../../../src/shared/core/command";
 import {

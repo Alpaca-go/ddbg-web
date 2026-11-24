@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { loadNormalizedCorebox } from "../../../../data/src/normalize/write";
-import { heroSkillIdForPage } from "../../../../data/src/hero-registry";
+import { loadNormalizedCorebox } from "../../../../data/src/shared/write";
+import { heroSkillIdForPage } from "../../../../data/src/core/heroes/hero-registry";
 import {
   applyCommand,
   createBattleState,

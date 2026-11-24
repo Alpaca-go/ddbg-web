@@ -6,7 +6,7 @@ import { coreParty, coreQuestSources } from "../../helpers/core-quest";
 import { createQuestSave, loadQuestSave } from "../../../src/shared/quest/quest-save";
 import { createRng } from "../../../src/shared/core/rng";
 import events from "../../../../data/normalized/corebox/hamlet_event.json";
-import { hamletEventFileSchema } from "../../../../data/src/hamlet-event";
+import { hamletEventFileSchema } from "../../../../data/src/core/hamlet/hamlet-event";
 import dictionary from "../../../../data/dictionary/icon-dictionary-v1.8.json";
 
 const cards = hamletEventFileSchema.parse(events).cards;

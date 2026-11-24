@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { savedCommandSchema } from "../../../../data/src/quest-save";
+import { savedCommandSchema } from "../../../../data/src/shared/quest-save";
 import { applyCommand, type Command, type GameState } from "../../../src/shared/core/command";
 import {
   DARKEST_QUEST_IDS,

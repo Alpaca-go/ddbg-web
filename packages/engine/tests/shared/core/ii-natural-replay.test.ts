@@ -2,14 +2,14 @@ import { beforeAll, expect, it } from "vitest";
 import { applyCommand } from "../../../src/shared/core/command";
 import type { Command, GameEvent, GameState } from "../../../src/shared/core/command";
 import { createQuestSave, loadQuestSave } from "../../../src/shared/quest/quest-save";
-import { savedCommandSchema } from "../../../../data/src/quest-save";
-import { ruinsMonsterPoolThrough } from "../../../../data/src/monster-pool";
+import { savedCommandSchema } from "../../../../data/src/shared/quest-save";
+import { ruinsMonsterPoolThrough } from "../../../../data/src/core/monsters/monster-pool";
 import { conditionPoolProblem } from "../../../src/shared/core/conditions";
 import { trinketPoolProblem } from "../../../src/shared/trinkets/trinket-acquisition";
 import { coreQuestSources as sources } from "../../helpers/core-quest";
 import { guildQuest } from "../../helpers/guild-quest";
 import { naturalQuest } from "../../helpers/natural-quest";
-import { questsForCampaignLevel } from "../../../../data/src/basic-quests";
+import { questsForCampaignLevel } from "../../../../data/src/core/quests/basic-quests";
 
 const prefixes = new Map<number, ReturnType<typeof guildQuest>>();
 beforeAll(() => {

@@ -125,7 +125,7 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 
 ### 普通房间效果的实际接线状态
 
-卡面语义沿用 [R-234–R-239](rulings.md)及[房间审阅稿](weald-room-review-2026-11-12.md)，不新增规则。核对 [房间生成器](../../packages/data/src/normalize/weald-rooms.ts)、[区域投影](../../packages/engine/src/weald/weald-mechanics.ts)与[数据 schema](../../packages/data/src/weald-room.ts)：区域投影仍只接 `poisonousRoots`；Toxic Mushrooms 按核准房间身份与星区独立结算，schema 已允许 1 号 Toxic Mushrooms 与 4 号 Precious 的区域效果开启 `runtimeReady`。2／8 号是全房间触发，不能因 `specialRegions` 为空误记为没有效果。
+卡面语义沿用 [R-234–R-239](rulings.md)及[房间审阅稿](weald-room-review-2026-11-12.md)，不新增规则。核对 [房间生成器](../../packages/data/src/weald/rooms/weald-rooms.build.ts)、[区域投影](../../packages/engine/src/weald/weald-mechanics.ts)与[数据 schema](../../packages/data/src/weald/rooms/weald-room.ts)：区域投影仍只接 `poisonousRoots`；Toxic Mushrooms 按核准房间身份与星区独立结算，schema 已允许 1 号 Toxic Mushrooms 与 4 号 Precious 的区域效果开启 `runtimeReady`。2／8 号是全房间触发，不能因 `specialRegions` 为空误记为没有效果。
 
 | 房间                 | 已核准效果       | 当前状态／后续触发位置                                                                                                                                                                                                                      |
 | -------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

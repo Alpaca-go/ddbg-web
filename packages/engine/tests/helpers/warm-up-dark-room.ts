@@ -2,8 +2,8 @@ import type { GameState } from "../../src/shared/core/command";
 import { createCoreDungeonQuest } from "../../src/shared/dungeon/dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "./core-quest";
 import { createDungeonSandbox } from "../../src/shared/dungeon/dungeon";
-import { basicQuests, asQuestMapPairingQuest } from "../../../data/src/basic-quests";
-import { pickEmbarkQuestMapLayout } from "../../../data/src/quest-map-pairing";
+import { basicQuests, asQuestMapPairingQuest } from "../../../data/src/core/quests/basic-quests";
+import { pickEmbarkQuestMapLayout } from "../../../data/src/core/quests/quest-map-pairing";
 
 /** 明示III级任务暗房入口/补给夹具，不表示自然升幕或完整任务日志。 */
 export function warmUpDarkRoomFixture(

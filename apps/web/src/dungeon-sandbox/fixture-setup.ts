@@ -5,12 +5,12 @@ import distribution from "../../../../packages/data/normalized/corebox/scout_ahe
 import wipeDistribution from "../../../../packages/data/normalized/corebox/wipe_em_out_distribution.json";
 import fundraiserDistribution from "../../../../packages/data/normalized/corebox/fundraiser_distribution.json";
 import rawRooms from "../../../../packages/data/normalized/corebox/room.json";
-import { roomFileSchema } from "../../../../packages/data/src/room";
+import { roomFileSchema } from "../../../../packages/data/src/core/rooms/room";
 import rawMonsterPool from "../../../../packages/data/normalized/corebox/monster_pool.json";
-import { monsterPoolFileSchema } from "../../../../packages/data/src/monster-pool";
+import { monsterPoolFileSchema } from "../../../../packages/data/src/core/monsters/monster-pool";
 import rawTrinkets from "../../../../packages/data/normalized/corebox/trinket.json";
-import { normalizedTrinketFileSchema } from "../../../../packages/data/src/normalize/schema";
-import { roomDistributionTokenTotal } from "../../../../packages/data/src/dungeon-layout";
+import { normalizedTrinketFileSchema } from "../../../../packages/data/src/shared/schema";
+import { roomDistributionTokenTotal } from "../../../../packages/data/src/core/tiles/dungeon-layout";
 import { curios, layouts } from "./dungeon-data";
 import type { Fixture } from "./fixture-types";
 

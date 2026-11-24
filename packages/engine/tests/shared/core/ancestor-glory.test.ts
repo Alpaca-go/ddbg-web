@@ -2,15 +2,15 @@ import { expect, it } from "vitest";
 import statsFile from "../../../../data/normalized/corebox/hero_stat.json";
 import skillsFile from "../../../../data/normalized/corebox/hero_skill.json";
 import monstersFile from "../../../../data/normalized/corebox/monster_medium.json";
-import { normalizedHeroStatFileSchema } from "../../../../data/src/normalize/hero-stat";
+import { normalizedHeroStatFileSchema } from "../../../../data/src/core/heroes/hero-stat.build";
 import {
   normalizedHeroSkillFileSchema,
   normalizedMonsterMediumFileSchema,
-} from "../../../../data/src/normalize/schema";
+} from "../../../../data/src/shared/schema";
 import {
   approvedExtraRuinsTiles,
   approvedExtraRuinsTileSchema,
-} from "../../../../data/src/normalize/approved-ruins-tiles";
+} from "../../../../data/src/core/tiles/approved-ruins-tiles.build";
 import { roomTileBattleAreas } from "../../../src/shared/battle/battle-monster-movement";
 import { createBattleState } from "../../../src/shared/battle/battle";
 import type { BattleEntity, BattleSetup } from "../../../src/shared/battle/battle";
@@ -23,8 +23,8 @@ import { readHeroPassiveDefence } from "../../../src/shared/battle/battle-skill-
 import { nextBattleRoll } from "../../../src/shared/dungeon/encounter";
 import diseaseData from "../../../../data/normalized/corebox/disease.json";
 import quirkData from "../../../../data/normalized/corebox/quirk.json";
-import { diseaseFileSchema } from "../../../../data/src/disease";
-import { normalizedQuirkFileSchema } from "../../../../data/src/normalize/schema";
+import { diseaseFileSchema } from "../../../../data/src/core/hamlet/disease";
+import { normalizedQuirkFileSchema } from "../../../../data/src/shared/schema";
 import { createConditionPool } from "../../../src/shared/core/conditions";
 import type { StatusStack } from "../../../src/shared/core/status";
 

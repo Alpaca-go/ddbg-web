@@ -9,7 +9,7 @@ import trinkets from "../../../data/normalized/corebox/trinket.json";
 import rooms from "../../../data/normalized/corebox/room.json";
 import monsters from "../../../data/normalized/corebox/monster_pool.json";
 import curios from "../../../data/normalized/corebox/curio.json";
-import { normalizedHeroStatFileSchema } from "../../../data/src/normalize/hero-stat";
+import { normalizedHeroStatFileSchema } from "../../../data/src/core/heroes/hero-stat.build";
 import {
   normalizedHeroSkillFileSchema,
   normalizedMonsterMediumFileSchema,
@@ -17,11 +17,11 @@ import {
   normalizedQuirkFileSchema,
   normalizedTrinketFileSchema,
   normalizedVirtueAfflictionFileSchema,
-} from "../../../data/src/normalize/schema";
-import { diseaseFileSchema } from "../../../data/src/disease";
-import { roomFileSchema } from "../../../data/src/room";
-import { monsterPoolFileSchema } from "../../../data/src/monster-pool";
-import { curioFileSchema } from "../../../data/src/curio";
+} from "../../../data/src/shared/schema";
+import { diseaseFileSchema } from "../../../data/src/core/hamlet/disease";
+import { roomFileSchema } from "../../../data/src/core/rooms/room";
+import { monsterPoolFileSchema } from "../../../data/src/core/monsters/monster-pool";
+import { curioFileSchema } from "../../../data/src/core/curios/curio";
 import { createConditionPool } from "../../src/shared/core/conditions";
 import { createTrinketPool } from "../../src/shared/trinkets/trinket-acquisition";
 import type { CoreQuestSources, QuestParty } from "../../src/shared/dungeon/dungeon-quest-entry";

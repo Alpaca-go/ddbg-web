@@ -1,4 +1,4 @@
-import type { BasicQuestId, CampaignLevel } from "../../../../data/src/basic-quests";
+import type { BasicQuestId, CampaignLevel } from "../../../../data/src/core/quests/basic-quests";
 
 /** 引擎内 Boss 脚本标识；与印刷 monster id 分离，避免未核实卡面硬编码。 */
 export type BossScriptId = `boss:${string}`;
@@ -467,7 +467,7 @@ export type BossSlotPlacementPlan = {
 export type BossSlotPlacementResult = BossHookOk<BossSlotPlacementPlan> | BossHookStubResult;
 
 export type BossFaceTheThreatContext = {
-  readonly contentPacks?: readonly import("../../../../data/src/content-packs").ContentPackId[];
+  readonly contentPacks?: readonly import("../../../../data/src/shared/content-packs").ContentPackId[];
   readonly wealdHigherBosses?: true;
   readonly pounderBossBattles?: true;
   readonly shriekerBossBattles?: true;
@@ -487,7 +487,7 @@ export type BossSlotPlacementContext = {
 
 /** 引擎层 Face the Threat 解析输入（不绑定单一脚本钩子）。 */
 export type FaceTheThreatQuestContext = {
-  readonly contentPacks?: readonly import("../../../../data/src/content-packs").ContentPackId[];
+  readonly contentPacks?: readonly import("../../../../data/src/shared/content-packs").ContentPackId[];
   readonly wealdHigherBosses?: true;
   readonly pounderBossBattles?: true;
   readonly shriekerBossBattles?: true;

@@ -1,8 +1,8 @@
 import rawTrinkets from "../../../data/normalized/corebox/trinket.json";
-import { normalizedTrinketFileSchema } from "../../../data/src/normalize/schema";
-import { HERO_SKILL_TRINKET_IDS } from "../../../data/src/hero-skill-trinkets";
-import type { HeroSkillTrinketId } from "../../../data/src/hero-skill-trinkets";
-import type { CoreTrinketId } from "../../../data/src/core-trinket-bindings";
+import { normalizedTrinketFileSchema } from "../../../data/src/shared/schema";
+import { HERO_SKILL_TRINKET_IDS } from "../../../data/src/core/heroes/hero-skill-trinkets";
+import type { HeroSkillTrinketId } from "../../../data/src/core/heroes/hero-skill-trinkets";
+import type { CoreTrinketId } from "../../../data/src/core/trinkets/core-trinket-bindings";
 import { createBattleState } from "../../src/shared/battle/battle";
 import type { BattleEntity, PlayHeroSkillCommand } from "../../src/shared/battle/battle";
 import type { SkillStance } from "../../src/core/heroes/hero-skill";

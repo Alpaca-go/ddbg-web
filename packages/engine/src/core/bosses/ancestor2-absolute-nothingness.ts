@@ -2,7 +2,7 @@ import supportFile from "../../../../data/normalized/corebox/absolute_nothingnes
 import {
   absoluteNothingnessSupportSchema,
   readAbsoluteNothingnessSupport,
-} from "../../../../data/src/absolute-nothingness-support";
+} from "../../../../data/src/core/misc/absolute-nothingness-support";
 import {
   rejectBattleCommand,
   type BattleEntity,

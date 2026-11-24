@@ -1,8 +1,8 @@
 import { expect, it } from "vitest";
 import diseases from "../../../../data/normalized/corebox/disease.json";
 import quirks from "../../../../data/normalized/corebox/quirk.json";
-import { diseaseFileSchema } from "../../../../data/src/disease";
-import { normalizedQuirkFileSchema } from "../../../../data/src/normalize/schema";
+import { diseaseFileSchema } from "../../../../data/src/core/hamlet/disease";
+import { normalizedQuirkFileSchema } from "../../../../data/src/shared/schema";
 import {
   conditionPoolProblem,
   createConditionPool,

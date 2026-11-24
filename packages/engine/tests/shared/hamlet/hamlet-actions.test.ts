@@ -251,7 +251,7 @@ it("Zealous Speech非首个行动原子拒绝；Busy Week逐日仍不掷骰且�
   expect(game.dungeon!.hamlet!.remainingDays).toBe(0);
 });
 
-import { normalizedTrinketFileSchema } from "../../../../data/src/normalize/schema";
+import { normalizedTrinketFileSchema } from "../../../../data/src/shared/schema";
 import rawTrinkets from "../../../../data/normalized/corebox/trinket.json";
 import { coreTrinketFreeProblem } from "../../../src/shared/trinkets/core-trinket-free";
 import { prepareTestReplacement } from "../../helpers/replacement";

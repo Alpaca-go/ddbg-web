@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { applyCommand, createBattleState, resolveHeroSkill } from "../../../src/index";
 import type { BattleEntity, HeroSkillCardView, MonsterCardView } from "../../../src/index";
-import { heroSkillIdForPage } from "../../../../data/src/hero-registry";
+import { heroSkillIdForPage } from "../../../../data/src/core/heroes/hero-registry";
 
 const skills = (
   JSON.parse(

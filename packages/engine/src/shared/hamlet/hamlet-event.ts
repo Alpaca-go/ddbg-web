@@ -1,6 +1,6 @@
 import rawEvents from "../../../../data/normalized/corebox/hamlet_event.json";
-import { hamletEventFileSchema } from "../../../../data/src/hamlet-event";
-import type { HamletEventCard } from "../../../../data/src/hamlet-event";
+import { hamletEventFileSchema } from "../../../../data/src/core/hamlet/hamlet-event";
+import type { HamletEventCard } from "../../../../data/src/core/hamlet/hamlet-event";
 import type { ApplyResult, GameState } from "../core/command";
 import { rejectBattleCommand } from "../battle/battle";
 import { createRng } from "../core/rng";

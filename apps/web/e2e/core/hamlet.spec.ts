@@ -7,7 +7,7 @@ import type {
   naturalGraveyardQuest,
 } from "../../../../packages/engine/tests/helpers/abbey-quest";
 import type { ApplyResult, Command } from "../../../../packages/engine/src/shared/core/command";
-import type { QuestSave } from "../../../../packages/data/src/quest-save";
+import type { QuestSave } from "../../../../packages/data/src/shared/quest-save";
 import type { caregiversQuest } from "../../../../packages/engine/tests/helpers/caregivers-quest";
 import type { townFairQuest } from "../../../../packages/engine/tests/helpers/town-fair-quest";
 import type { paidUpgradeQuest } from "../../../../packages/engine/tests/helpers/natural-scout-return";

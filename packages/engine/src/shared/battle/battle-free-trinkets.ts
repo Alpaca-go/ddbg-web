@@ -1,6 +1,6 @@
 import { battleTrinketHolders } from "./battle-hero-card-holders";
 import type { GameState, ApplyResult, GameEvent } from "../core/command";
-import type { NormalizedTrinketCard } from "../../../../data/src/normalize/schema";
+import type { NormalizedTrinketCard } from "../../../../data/src/shared/schema";
 import { rejectBattleCommand } from "./battle";
 import { triggerBattlePassive } from "./battle-passive";
 import { trinketPoolProblem } from "../trinkets/trinket-acquisition";

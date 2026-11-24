@@ -6,7 +6,7 @@
 
 范围：`hero_skill:musketeer:h18:p358`–`p378`，共 21 张（7 技能 × I–III）。
 依据：Q-185 裁定（Musketeer 与 Arbalest 效果完全一致，仅图标与技能名不同）、
-[musketeer-arbalest-parity.test.ts](../../packages/data/src/normalize/musketeer-arbalest-parity.test.ts)。
+[musketeer-arbalest-parity.test.ts](../../packages/data/tests/core/heroes/musketeer-arbalest-parity.build.test.ts)。
 
 ## 方法
 

@@ -5,9 +5,9 @@ import scout from "../../../../data/normalized/corebox/scout_ahead_distribution.
 import roomData from "../../../../data/normalized/corebox/room.json";
 import curioData from "../../../../data/normalized/corebox/curio.json";
 import poolData from "../../../../data/normalized/corebox/monster_pool.json";
-import { roomFileSchema } from "../../../../data/src/room";
-import { curioFileSchema } from "../../../../data/src/curio";
-import { monsterPoolFileSchema } from "../../../../data/src/monster-pool";
+import { roomFileSchema } from "../../../../data/src/core/rooms/room";
+import { curioFileSchema } from "../../../../data/src/core/curios/curio";
+import { monsterPoolFileSchema } from "../../../../data/src/core/monsters/monster-pool";
 import { createDungeonSandbox } from "../../../src/shared/dungeon/dungeon";
 import { applyCommand, type GameState } from "../../../src/shared/core/command";
 import { readCurioRoomAlwaysGuarded } from "../../../src/shared/dungeon/dungeon-curio-room";

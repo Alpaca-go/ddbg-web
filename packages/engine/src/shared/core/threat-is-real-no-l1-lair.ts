@@ -1,4 +1,4 @@
-import type { MonsterPoolCard } from "../../../../data/src/monster-pool";
+import type { MonsterPoolCard } from "../../../../data/src/core/monsters/monster-pool";
 import type { DungeonState } from "../dungeon/dungeon";
 import type { SpawnCard } from "./spawn";
 

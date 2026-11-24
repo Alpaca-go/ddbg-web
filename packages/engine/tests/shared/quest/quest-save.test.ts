@@ -3,8 +3,8 @@ import { createQuestSave, loadQuestSave } from "../../../src/shared/quest/quest-
 import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
 import { applyCommand } from "../../../src/shared/core/command";
 import type { Command, GameState } from "../../../src/shared/core/command";
-import type { QuestStart } from "../../../../data/src/quest-save";
-import { HERO_SKILL_TRINKET_IDS } from "../../../../data/src/hero-skill-trinkets";
+import type { QuestStart } from "../../../../data/src/shared/quest-save";
+import { HERO_SKILL_TRINKET_IDS } from "../../../../data/src/core/heroes/hero-skill-trinkets";
 import { coreParty, coreQuestSources } from "../../helpers/core-quest";
 import { naturalParty, naturalQuest } from "../../helpers/natural-quest";
 

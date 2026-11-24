@@ -9,8 +9,8 @@ import { createRng } from "../../../src/shared/core/rng";
 import { caretakerBuilding } from "../../../src/shared/hamlet/hamlet-event";
 import events from "../../../../data/normalized/corebox/hamlet_event.json";
 import raw from "../../../../data/extract/corebox/raw/hamlet_event.json";
-import { rawFileSchema } from "../../../../data/src/extract/raw";
-import { buildHamletEvents } from "../../../../data/src/normalize/hamlet-event";
+import { rawFileSchema } from "../../../../data/src/shared/extract/raw";
+import { buildHamletEvents } from "../../../../data/src/core/hamlet/hamlet-event.build";
 
 // 从完整牌池固定搜索自然起点；选不会封锁两次游商/首日疗养院的种子，不改产品牌序。
 const seed = Array.from({ length: 300 }, (_, i) => i + 1).find((seed) => {

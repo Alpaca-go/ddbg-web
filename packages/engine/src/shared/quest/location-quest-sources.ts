@@ -1,5 +1,5 @@
-import { type CurioCard } from "../../../../data/src/curio";
-import { locationCurioPool } from "../../../../data/src/curio-pool";
+import { type CurioCard } from "../../../../data/src/core/curios/curio";
+import { locationCurioPool } from "../../../../data/src/core/curios/curio-pool";
 import { rebuildCoreQuestDecks } from "./core-quest-decks";
 import type { CoreQuestSources } from "../dungeon/dungeon-quest-entry";
 import type { ContentPackId } from "../core/content-packs";
