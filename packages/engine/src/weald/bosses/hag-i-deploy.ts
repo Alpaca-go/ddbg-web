@@ -1,13 +1,13 @@
-import type { ApplyResult, GameState } from "../../command";
-import { createBattleState, rejectBattleCommand } from "../../battle";
+import type { ApplyResult, GameState } from "../../shared/core/command";
+import { createBattleState, rejectBattleCommand } from "../../shared/battle/battle";
 import { buildBossHeroEntities } from "../../core/bosses/deploy-heroes";
 import { resolveBossScriptIdForQuest } from "../../core/bosses/quest-bridge";
 import { getBossScript } from "../../core/bosses/registry";
-import { createLootState } from "../../loot";
-import { ensureCampaignBossScriptsRegistered } from "../../registry";
+import { createLootState } from "../../shared/trinkets/loot";
+import { ensureCampaignBossScriptsRegistered } from "../../shared/core/registry";
 import { hagDeploymentContext } from "./hag-deployment-context";
 import { WEALD_HAG_I_CONTENT } from "./hag-i-content";
-import { isCampaignExpeditionMode } from "../../campaign-expedition-mode";
+import { isCampaignExpeditionMode } from "../../shared/hamlet/campaign-expedition-mode";
 
 /** R30／W4／R-254：Boss 房使用独立核准目录，不占普通房间牌堆。 */
 export function prepareHagIObjectiveRoom(state: GameState): ApplyResult {

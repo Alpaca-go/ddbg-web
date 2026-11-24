@@ -1,10 +1,10 @@
-import type { GameState } from "../../command";
-import type { DungeonState } from "../../dungeon";
-import type { HamletEventState } from "../../hamlet-event";
-import { combatCardIdForPoolInstance } from "../../monster-pool-runtime";
-import { readExpeditionRoomRegion } from "../../expedition-room-catalog";
+import type { GameState } from "../../shared/core/command";
+import type { DungeonState } from "../../shared/dungeon/dungeon";
+import type { HamletEventState } from "../../shared/hamlet/hamlet-event";
+import { combatCardIdForPoolInstance } from "../../shared/core/monster-pool-runtime";
+import { readExpeditionRoomRegion } from "../../shared/dungeon/expedition-room-catalog";
 import { readBossCombatEntry } from "./combat-entry";
-import { ensureCampaignBossScriptsRegistered } from "../../registry";
+import { ensureCampaignBossScriptsRegistered } from "../../shared/core/registry";
 import { bossEnabledForPacks } from "../../../../data/src/content-packs";
 import { getBossScript } from "./registry";
 import {

@@ -1,13 +1,13 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it, beforeEach } from "vitest";
-import { createBattleState, type BattleEntity } from "../../../src/battle";
-import { applyCommand, type GameState } from "../../../src/command";
-import { applyEncounterCommand } from "../../../src/encounter";
+import { createBattleState, type BattleEntity } from "../../../src/shared/battle/battle";
+import { applyCommand, type GameState } from "../../../src/shared/core/command";
+import { applyEncounterCommand } from "../../../src/shared/dungeon/encounter";
 import { normalizedMonsterLargeFileSchema } from "../../../../data/src/normalize/schema";
-import type { MonsterCardView } from "../../../src/monster-skill";
-import type { HeroSkillCardView, SkillStance } from "../../../src/hero-skill";
-import { createLootState } from "../../../src/loot";
-import { nextBattleRoll } from "../../../src/battle-roll";
+import type { MonsterCardView } from "../../../src/shared/core/monster-skill";
+import type { HeroSkillCardView, SkillStance } from "../../../src/core/heroes/hero-skill";
+import { createLootState } from "../../../src/shared/trinkets/loot";
+import { nextBattleRoll } from "../../../src/shared/battle/battle-roll";
 import { clearFanaticIPyre } from "../../../src/core/bosses/fanatic-i-combat-runtime";
 import {
   FANATIC_I_COMBAT_MONSTER_CARD_ID,

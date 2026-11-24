@@ -1,1 +1,1 @@
-export { clearingQuest } from "../../../../packages/engine/src/test-helpers/clearing-quest";
+export { clearingQuest } from "../../../../packages/engine/tests/helpers/clearing-quest";

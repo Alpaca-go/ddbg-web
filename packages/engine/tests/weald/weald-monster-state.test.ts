@@ -10,7 +10,7 @@ import {
 import {
   dungeonMonsterPoolThrough,
   combatCardIdForPoolInstance,
-} from "../../src/monster-pool-runtime";
+} from "../../src/shared/core/monster-pool-runtime";
 
 const core = monsterPoolFileSchema.parse(coreRaw).cards;
 const input = () => ({ core, medium, large, contentPacks: ["core", "weald"] as const });

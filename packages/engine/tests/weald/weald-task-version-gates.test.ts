@@ -1,8 +1,8 @@
 import { expect, it } from "vitest";
-import { remainingQuestIdsForLocationDeck } from "../../src/hamlet-location-quest-draw";
-import { createCoreDungeonQuest } from "../../src/dungeon-quest-entry";
-import { coreParty } from "../../src/test-helpers/core-quest";
-import { wealdTaskSources } from "../../src/test-helpers/weald-task-battle";
+import { remainingQuestIdsForLocationDeck } from "../../src/shared/hamlet/hamlet-location-quest-draw";
+import { createCoreDungeonQuest } from "../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty } from "../helpers/core-quest";
+import { wealdTaskSources } from "../helpers/weald-task-battle";
 const ids = [
   "quest:weald:p006",
   "quest:weald:p007",

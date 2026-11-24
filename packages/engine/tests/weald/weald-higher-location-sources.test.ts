@@ -3,13 +3,13 @@ import medium from "../../../data/normalized/extension/weald/monster_medium.json
 import large from "../../../data/normalized/extension/weald/monster_large.json";
 import curios from "../../../data/normalized/extension/weald/curio.json";
 import { wealdCurioFileSchema } from "../../../data/src/curio";
-import { coreQuestSources } from "../../src/test-helpers/core-quest";
-import { rebuildLocationQuestDecks } from "../../src/location-quest-sources";
+import { coreQuestSources } from "../helpers/core-quest";
+import { rebuildLocationQuestDecks } from "../../src/shared/quest/location-quest-sources";
 import {
   combatCardIdForPoolInstance,
   dungeonMonsterPoolThrough,
-} from "../../src/monster-pool-runtime";
-import { monsterPoolCatalogValidForLocation } from "../../src/monster-pool-validation";
+} from "../../src/shared/core/monster-pool-runtime";
+import { monsterPoolCatalogValidForLocation } from "../../src/shared/core/monster-pool-validation";
 import type { createWealdHigherMonsterPoolState } from "../../src/weald/higher-monster-pool";
 type TestPool = Omit<ReturnType<typeof createWealdHigherMonsterPoolState>, "wealdSourceVersion"> & {
   wealdSourceVersion?: "higher-v1";

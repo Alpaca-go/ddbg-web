@@ -1,8 +1,8 @@
-import { applyCommand } from "../../src/command";
+import { applyCommand } from "../../src/shared/core/command";
 import { expect, it } from "vitest";
-import { clearingQuest } from "../../src/test-helpers/clearing-quest";
-import { createQuestSave, loadQuestSave } from "../../src/quest-save";
-import { createLootState } from "../../src/loot";
+import { clearingQuest } from "../helpers/clearing-quest";
+import { createQuestSave, loadQuestSave } from "../../src/shared/quest/quest-save";
+import { createLootState } from "../../src/shared/trinkets/loot";
 
 it("R-260 Clearing 回池后自然结束战斗、下一房部署及严格恢复", () => {
   const f = clearingQuest("next-room");

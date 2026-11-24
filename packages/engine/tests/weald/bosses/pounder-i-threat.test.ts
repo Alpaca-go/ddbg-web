@@ -1,10 +1,10 @@
 import { afterEach, expect, it } from "vitest";
 import { clearBossScriptsForTest, getBossScript } from "../../../src/core/bosses/registry";
 import { runBossHook } from "../../../src/core/bosses/hooks";
-import { ensureCampaignBossScriptsRegistered } from "../../../src/registry";
+import { ensureCampaignBossScriptsRegistered } from "../../../src/shared/core/registry";
 import { resolveScriptIdForDescriptionCard } from "../../../src/core/bosses/threat-description-catalog";
-import { caretakerBuilding } from "../../../src/hamlet-event";
-import { statusProjection, type StatusStack } from "../../../src/status";
+import { caretakerBuilding } from "../../../src/shared/hamlet/hamlet-event";
+import { statusProjection, type StatusStack } from "../../../src/shared/core/status";
 import {
   POUNDER_I_SCRIPT_ID,
   ensurePounderIBossScriptRegistered,

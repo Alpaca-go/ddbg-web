@@ -1,8 +1,13 @@
-import { distance, rejectBattleCommand, type BattleEntity, type BattleState } from "../../battle";
-import type { ApplyResult, GameState } from "../../command";
-import { finishTurn } from "../../encounter";
-import type { SkillStance } from "../../hero-skill";
-import { selectMonsterTarget, type MonsterTargetHero } from "../../monster-target";
+import {
+  distance,
+  rejectBattleCommand,
+  type BattleEntity,
+  type BattleState,
+} from "../../shared/battle/battle";
+import type { ApplyResult, GameState } from "../../shared/core/command";
+import { finishTurn } from "../../shared/dungeon/encounter";
+import type { SkillStance } from "../heroes/hero-skill";
+import { selectMonsterTarget, type MonsterTargetHero } from "../../shared/core/monster-target";
 import { readFinalFormSequence } from "./final-form-sequence";
 
 export const ANCESTOR_1_MONSTER_CARD_ID = "monster_medium:p105";

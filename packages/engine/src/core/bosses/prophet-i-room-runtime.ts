@@ -1,6 +1,6 @@
 import { ruinsCombatForScript, isRuinsCombatCard } from "./ruins-combat-levels";
-import type { BattleState } from "../../battle";
-import type { GameState } from "../../command";
+import type { BattleState } from "../../shared/battle/battle";
+import type { GameState } from "../../shared/core/command";
 import { resolveEncounterBossScriptId } from "./encounter-rules";
 import { PROPHET_ROOM_CARD_ID, PROPHET_ROOM_D10_MARKERS } from "./prophet-i";
 

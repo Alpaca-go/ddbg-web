@@ -1,11 +1,8 @@
-import { applyCommand, type GameState } from "../../../../packages/engine/src/command";
-import { createCoreDungeonQuest } from "../../../../packages/engine/src/dungeon-quest-entry";
-import {
-  coreParty,
-  coreQuestSources,
-} from "../../../../packages/engine/src/test-helpers/core-quest";
+import { applyCommand, type GameState } from "../../../../packages/engine/src/shared/core/command";
+import { createCoreDungeonQuest } from "../../../../packages/engine/src/shared/dungeon/dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "../../../../packages/engine/tests/helpers/core-quest";
 import { requireFaceTheThreatEmbarkPlanForSandbox } from "../../../../packages/engine/src/core/bosses/face-the-threat-embark-runtime";
-import { nextExpeditionLocationDecks } from "../../../../packages/engine/src/hamlet-location-embark";
+import { nextExpeditionLocationDecks } from "../../../../packages/engine/src/shared/hamlet/hamlet-location-embark";
 /** 受控目标房检查点；不冒称初始战役自然抵达或人工实机验收。 */
 export function higherBossUiFixture(
   identity: "hag" | "brigandPounder" | "shrieker",

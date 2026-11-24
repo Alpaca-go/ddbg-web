@@ -1,5 +1,5 @@
-import type { ApplyResult, GameState } from "../../command";
-import { rejectBattleCommand } from "../../battle";
+import type { ApplyResult, GameState } from "../../shared/core/command";
+import { rejectBattleCommand } from "../../shared/battle/battle";
 import { readFinalBattlePlanAfterDarkestVictory } from "./darkest-content";
 
 export type FinalFormId = "ancestor1" | "ancestor2" | "gestatingHeart" | "heartOfDarkness";

@@ -1,17 +1,17 @@
 import { expect, it } from "vitest";
 import { savedCommandSchema } from "../../../../data/src/quest-save";
-import { applyCommand } from "../../../src/command";
-import { nextBattleRoll } from "../../../src/battle-roll";
-import { endAfterCasualties } from "../../../src/encounter";
-import type { Command, GameState } from "../../../src/command";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
+import { applyCommand } from "../../../src/shared/core/command";
+import { nextBattleRoll } from "../../../src/shared/battle/battle-roll";
+import { endAfterCasualties } from "../../../src/shared/dungeon/encounter";
+import type { Command, GameState } from "../../../src/shared/core/command";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "../../helpers/core-quest";
 import { requireFaceTheThreatEmbarkPlanForSandbox } from "../../../src/core/bosses/face-the-threat-embark-runtime";
 import {
   COLLECTOR_I_SCRIPT_ID,
   COLLECTOR_I_DESCRIPTION_ABILITY_CARD_ID,
 } from "../../../src/core/bosses/collector-i";
-import { closeBattleLoot } from "../../../src/loot";
+import { closeBattleLoot } from "../../../src/shared/trinkets/loot";
 
 function apply(state: GameState, command: Command) {
   const result = applyCommand(state, command);

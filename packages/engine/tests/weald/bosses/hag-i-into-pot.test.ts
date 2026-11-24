@@ -1,15 +1,24 @@
 import { readFileSync } from "node:fs";
 import { beforeEach, expect, it } from "vitest";
-import { createBattleState, type BattleEntity, type BattleSetup } from "../../../src/battle";
-import { applyCommand, type ApplyResult, type GameState, type Command } from "../../../src/command";
+import {
+  createBattleState,
+  type BattleEntity,
+  type BattleSetup,
+} from "../../../src/shared/battle/battle";
+import {
+  applyCommand,
+  type ApplyResult,
+  type GameState,
+  type Command,
+} from "../../../src/shared/core/command";
 import {
   hagIInitialDeployment,
   buildHagICombatCatalog,
 } from "../../../src/weald/bosses/hag-i-projection";
 import { ensureHagIBossScriptRegistered, HAG_I_SCRIPT_ID } from "../../../src/weald/bosses/hag-i";
 import { FACE_THE_THREAT_QUEST_ID } from "../../../src/core/bosses/quest-bridge";
-import { readMonsterAttackView, resolveMonsterSkill } from "../../../src/monster-skill";
-import { endAfterCasualties } from "../../../src/encounter";
+import { readMonsterAttackView, resolveMonsterSkill } from "../../../src/shared/core/monster-skill";
+import { endAfterCasualties } from "../../../src/shared/dungeon/encounter";
 
 beforeEach(() => ensureHagIBossScriptRegistered());
 

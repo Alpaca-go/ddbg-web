@@ -1,7 +1,7 @@
 import { readShriekerRuntimeContext } from "./shrieker-runtime-context";
-import type { BattleEntity, BattleState } from "../../battle";
-import type { GameState } from "../../command";
-import type { SkillTargetSide } from "../../hero-skill";
+import type { BattleEntity, BattleState } from "../../shared/battle/battle";
+import type { GameState } from "../../shared/core/command";
+import type { SkillTargetSide } from "../../core/heroes/hero-skill";
 import { WEALD_SHRIEKER_I_CONTENT as content } from "./shrieker-i-content";
 
 export function shriekerICombatActive(state: GameState): boolean {

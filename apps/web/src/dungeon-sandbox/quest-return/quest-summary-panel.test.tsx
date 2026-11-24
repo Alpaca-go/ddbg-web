@@ -1,7 +1,7 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { expect, it, vi } from "vitest";
 import { QuestSummaryPanel } from "./quest-summary-panel";
-import { ruinsActReadyFixture } from "../../../../../packages/engine/src/test-helpers/ruins-act";
+import { ruinsActReadyFixture } from "../../../../../packages/engine/tests/helpers/ruins-act";
 import { useDungeonStore } from "../store";
 import { dungeonFlowStep } from "../../tabletop/phase/dungeon-flow-step";
 

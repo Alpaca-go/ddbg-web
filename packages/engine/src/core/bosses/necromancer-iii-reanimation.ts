@@ -1,9 +1,9 @@
-import type { ApplyResult } from "../../command";
-import { monsterShuffleResist } from "../../monster-defence";
-import type { BattleEntity } from "../../battle";
-import { rejectBattleCommand } from "../../battle";
+import type { ApplyResult } from "../../shared/core/command";
+import { monsterShuffleResist } from "../../shared/core/monster-defence";
+import type { BattleEntity } from "../../shared/battle/battle";
+import { rejectBattleCommand } from "../../shared/battle/battle";
 import { higherRuinsThreat } from "./higher-ruins-threat";
-import { createRng } from "../../rng";
+import { createRng } from "../../shared/core/rng";
 
 /** 本聊天确认：清除伤口/条件，同卡重新生成；对应姿态区，无空间忽略，洗入先攻。 */
 export function applyNecromancerIIIReanimation(

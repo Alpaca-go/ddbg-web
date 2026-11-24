@@ -1,10 +1,10 @@
 import { describe, expect, it, beforeEach } from "vitest";
 import { readFileSync } from "node:fs";
-import { createBattleState, type BattleEntity } from "../../../src/battle";
-import type { GameState } from "../../../src/command";
-import type { HeroSkillCardView } from "../../../src/hero-skill";
-import type { MonsterCardView } from "../../../src/monster-skill";
-import { createLootState } from "../../../src/loot";
+import { createBattleState, type BattleEntity } from "../../../src/shared/battle/battle";
+import type { GameState } from "../../../src/shared/core/command";
+import type { HeroSkillCardView } from "../../../src/core/heroes/hero-skill";
+import type { MonsterCardView } from "../../../src/shared/core/monster-skill";
+import { createLootState } from "../../../src/shared/trinkets/loot";
 import {
   SIREN_I_COMBAT_MONSTER_CARD_ID,
   SIREN_I_HIGH_TIDE_SKILL_SLOT,
@@ -55,7 +55,7 @@ const smite = cards<HeroSkillCardView>("hero_skill").find(
   (card) => card.id === "hero_skill:core:h01:p001",
 )!;
 const heroProfiles = cards<
-  NonNullable<import("../../../src/battle").BattleSetup["heroStats"]>[number]
+  NonNullable<import("../../../src/shared/battle/battle").BattleSetup["heroStats"]>[number]
 >("hero_stat").filter((card) => card.attributesVerified && card.level === 1);
 const crusader = heroProfiles.find((card) => card.name === "CRUSADER")!;
 

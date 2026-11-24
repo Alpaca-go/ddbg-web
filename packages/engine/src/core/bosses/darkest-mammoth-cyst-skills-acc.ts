@@ -1,4 +1,4 @@
-import type { ApplyResult, GameState } from "../../command";
+import type { ApplyResult, GameState } from "../../shared/core/command";
 import { DARKEST_MAMMOTH_CYST_SCRIPT_ID } from "./darkest-mid-boss-scripts";
 import { MAMMOTH_CYST_COMBAT_MONSTER_CARD_ID } from "./darkest-mammoth-cyst-combat-runtime";
 import { runDarkestMidBossSkillAcc } from "./darkest-mid-boss-skill-acc-core";

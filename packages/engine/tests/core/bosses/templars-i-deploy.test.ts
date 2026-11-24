@@ -1,9 +1,9 @@
 import { expect, it } from "vitest";
 import { savedCommandSchema } from "../../../../data/src/quest-save";
-import { applyCommand } from "../../../src/command";
-import type { Command, GameState } from "../../../src/command";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
+import { applyCommand } from "../../../src/shared/core/command";
+import type { Command, GameState } from "../../../src/shared/core/command";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "../../helpers/core-quest";
 import {
   DARKEST_TEMPLARS_SCRIPT_ID,
   ensureDarkestMidBossScriptsRegistered,

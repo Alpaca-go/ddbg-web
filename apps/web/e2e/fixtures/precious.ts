@@ -1,1 +1,1 @@
-export { preciousQuest } from "../../../../packages/engine/src/test-helpers/precious-quest";
+export { preciousQuest } from "../../../../packages/engine/tests/helpers/precious-quest";

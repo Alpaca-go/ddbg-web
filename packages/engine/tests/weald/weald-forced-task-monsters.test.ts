@@ -1,10 +1,14 @@
 import { expect, it } from "vitest";
-import { createCoreDungeonQuest } from "../../src/dungeon-quest-entry";
-import { coreParty } from "../../src/test-helpers/core-quest";
-import { wealdTaskSources } from "../../src/test-helpers/weald-task-battle";
-import { applyCommand, type GameState } from "../../src/command";
-import { removeCasualties, endAfterCasualties, finishTurn } from "../../src/encounter";
-import { dungeonMonsterPoolThrough } from "../../src/monster-pool-runtime";
+import { createCoreDungeonQuest } from "../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty } from "../helpers/core-quest";
+import { wealdTaskSources } from "../helpers/weald-task-battle";
+import { applyCommand, type GameState } from "../../src/shared/core/command";
+import {
+  removeCasualties,
+  endAfterCasualties,
+  finishTurn,
+} from "../../src/shared/dungeon/encounter";
+import { dungeonMonsterPoolThrough } from "../../src/shared/core/monster-pool-runtime";
 
 it.each(["quest:weald:p006", "quest:weald:p009", "quest:weald:p012"] as const)(
   "%s 受控抵达三目标房，公开部署与组件回收",

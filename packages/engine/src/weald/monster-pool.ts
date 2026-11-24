@@ -1,5 +1,5 @@
 import { wealdLevelOneMonsterInstancesSchema } from "../../../data/src/weald-monster-pool";
-import type { DungeonState } from "../dungeon";
+import type { DungeonState } from "../shared/dungeon/dungeon";
 import { normalizeContentPacks, type ContentPackId } from "../../../data/src/content-packs";
 import {
   monsterPoolCatalogSchema,

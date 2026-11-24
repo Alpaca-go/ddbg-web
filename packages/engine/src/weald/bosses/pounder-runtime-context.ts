@@ -2,13 +2,13 @@ import { WEALD_POUNDER_HIGHER_CONTENT as higher } from "./pounder-higher-content
 import corePool from "../../../../data/normalized/corebox/monster_pool.json";
 import coreMedium from "../../../../data/normalized/corebox/monster_medium.json";
 import coreLarge from "../../../../data/normalized/corebox/monster_large.json";
-import type { GameState } from "../../command";
-import type { MonsterCardView } from "../../monster-skill";
+import type { GameState } from "../../shared/core/command";
+import type { MonsterCardView } from "../../shared/core/monster-skill";
 import { bossEnabledForPacks } from "../../../../data/src/content-packs";
 import { WEALD_POUNDER_I_CONTENT as ordinary } from "./pounder-i-data";
 import { projectPounderCombatFaces } from "./pounder-i-projection";
 import { resolveEncounterBossScriptId } from "../../core/bosses/encounter-rules";
-import { isCampaignExpeditionMode } from "../../campaign-expedition-mode";
+import { isCampaignExpeditionMode } from "../../shared/hamlet/campaign-expedition-mode";
 
 export function pounderContextForLevel(level: 1 | 2 | 3) {
   const card = level === 1 ? ordinary : higher.cards.find((c) => c.level === level)!;

@@ -11,8 +11,8 @@ import {
   prepareHagHigherObjectiveRoom,
 } from "../../weald/bosses/hag-i-deploy";
 import { roomCatalogSchema } from "../../../../data/src/room";
-import type { ApplyResult, GameState } from "../../command";
-import { rejectBattleCommand } from "../../battle";
+import type { ApplyResult, GameState } from "../../shared/core/command";
+import { rejectBattleCommand } from "../../shared/battle/battle";
 import { resolveBossScriptIdForQuest, FACE_THE_THREAT_QUEST_ID } from "./quest-bridge";
 import { getBossScript } from "./registry";
 import { RUINS_COMBAT_LEVELS } from "./ruins-combat-levels";

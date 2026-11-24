@@ -1,8 +1,8 @@
-import type { ApplyResult, Command, GameState } from "../command";
-import { rejectBattleCommand } from "../battle";
-import { triggerBattlePassive } from "../battle-passive";
-import { pressureCasualties, resolveBattlePressure } from "../pressure";
-import { endAfterCasualties, removeCasualties } from "../encounter";
+import type { ApplyResult, Command, GameState } from "../shared/core/command";
+import { rejectBattleCommand } from "../shared/battle/battle";
+import { triggerBattlePassive } from "../shared/battle/battle-passive";
+import { pressureCasualties, resolveBattlePressure } from "../shared/core/pressure";
+import { endAfterCasualties, removeCasualties } from "../shared/dungeon/encounter";
 
 function active(state: GameState): boolean {
   const d = state.dungeon;

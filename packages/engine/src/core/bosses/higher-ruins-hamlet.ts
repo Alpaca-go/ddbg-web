@@ -1,13 +1,20 @@
-import { discardHeldTrinket } from "../../trinket-acquisition";
-import type { ApplyResult, Command, GameState } from "../../command";
-import type { DungeonState } from "../../dungeon";
-import { rejectBattleCommand } from "../../battle";
+import { discardHeldTrinket } from "../../shared/trinkets/trinket-acquisition";
+import type { ApplyResult, Command, GameState } from "../../shared/core/command";
+import type { DungeonState } from "../../shared/dungeon/dungeon";
+import { rejectBattleCommand } from "../../shared/battle/battle";
 import { higherRuinsThreat } from "./higher-ruins-threat";
-import { nextBattleRoll } from "../../battle-roll";
-import { caretakerBuilding } from "../../hamlet-event";
-import { graveyardServices, recoveryServices, survivalistServices } from "../../hamlet-buildings";
-import { applyHamletThreatDebuff, triggerDungeonPassive } from "../../dungeon-passive";
-import { resolveDungeonPressure } from "../../dungeon-pressure";
+import { nextBattleRoll } from "../../shared/battle/battle-roll";
+import { caretakerBuilding } from "../../shared/hamlet/hamlet-event";
+import {
+  graveyardServices,
+  recoveryServices,
+  survivalistServices,
+} from "../../shared/hamlet/hamlet-buildings";
+import {
+  applyHamletThreatDebuff,
+  triggerDungeonPassive,
+} from "../../shared/dungeon/dungeon-passive";
+import { resolveDungeonPressure } from "../../shared/dungeon/dungeon-pressure";
 
 export function hamletBuildingForCommand(state: GameState, command: Command): string | undefined {
   if (command.type === "visitGuild") return "guild";

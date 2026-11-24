@@ -1,13 +1,13 @@
 import { readFileSync } from "node:fs";
 import { beforeEach, describe, expect, it } from "vitest";
-import { applyCommand } from "../../../src/command";
-import type { ApplyResult, Command, GameState } from "../../../src/command";
-import { createBattleState } from "../../../src/battle";
-import type { BattleEntity } from "../../../src/battle";
-import type { MonsterCardView } from "../../../src/monster-skill";
-import type { HeroSkillCardView } from "../../../src/hero-skill";
-import { createLootState } from "../../../src/loot";
-import { nextBattleRoll } from "../../../src/battle-roll";
+import { applyCommand } from "../../../src/shared/core/command";
+import type { ApplyResult, Command, GameState } from "../../../src/shared/core/command";
+import { createBattleState } from "../../../src/shared/battle/battle";
+import type { BattleEntity } from "../../../src/shared/battle/battle";
+import type { MonsterCardView } from "../../../src/shared/core/monster-skill";
+import type { HeroSkillCardView } from "../../../src/core/heroes/hero-skill";
+import { createLootState } from "../../../src/shared/trinkets/loot";
+import { nextBattleRoll } from "../../../src/shared/battle/battle-roll";
 import { NECROMANCER_I_SCRIPT_ID } from "../../../src/core/bosses/necromancer-i";
 import {
   NECROMANCER_II_SCRIPT_ID,

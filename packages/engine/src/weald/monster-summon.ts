@@ -1,9 +1,9 @@
-import { planSummonCrowding } from "../summon-crowding";
-import { distance, rejectBattleCommand } from "../battle";
-import type { BattleEntity, BattleState } from "../battle";
-import type { ApplyResult, GameState, MonsterSkillResolvedEvent } from "../command";
-import { recordMonsterSkill } from "../encounter";
-import type { MonsterCardView } from "../monster-skill";
+import { planSummonCrowding } from "../shared/core/summon-crowding";
+import { distance, rejectBattleCommand } from "../shared/battle/battle";
+import type { BattleEntity, BattleState } from "../shared/battle/battle";
+import type { ApplyResult, GameState, MonsterSkillResolvedEvent } from "../shared/core/command";
+import { recordMonsterSkill } from "../shared/dungeon/encounter";
+import type { MonsterCardView } from "../shared/core/monster-skill";
 import { insertMonsterInitiative } from "../core/bosses/monster-initiative";
 import { buildWealdMonsterCatalog } from "./monster-catalog";
 import { wealdMechanicsActive, wealdPackSelected } from "./weald-mechanics";

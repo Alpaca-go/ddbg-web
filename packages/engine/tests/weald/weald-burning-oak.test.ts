@@ -1,8 +1,8 @@
 import { expect, it } from "vitest";
-import { applyCommand, type GameState } from "../../src/command";
-import { wealdOakBattleFixture } from "../../src/test-helpers/weald-oak-battle";
-import { endAfterCasualties, removeCasualties } from "../../src/encounter";
-import { dungeonMonsterPoolThrough } from "../../src/monster-pool-runtime";
+import { applyCommand, type GameState } from "../../src/shared/core/command";
+import { wealdOakBattleFixture } from "../helpers/weald-oak-battle";
+import { endAfterCasualties, removeCasualties } from "../../src/shared/dungeon/encounter";
+import { dungeonMonsterPoolThrough } from "../../src/shared/core/monster-pool-runtime";
 function step(game: GameState, cmd: Parameters<typeof applyCommand>[1]) {
   const r = applyCommand(game, cmd);
   expect(r.events.filter((e) => e.type === "commandRefused")).toEqual([]);

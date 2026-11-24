@@ -1,6 +1,6 @@
 import { readShriekerRuntimeContext } from "./shrieker-runtime-context";
 import { buildShriekerICombatCatalog } from "./shrieker-i-projection";
-import type { ApplyResult } from "../../command";
+import type { ApplyResult } from "../../shared/core/command";
 import { WEALD_SHRIEKER_I_CONTENT as content } from "./shrieker-i-content";
 import { shriekerINestRemovalIds } from "./shrieker-i-nest";
 

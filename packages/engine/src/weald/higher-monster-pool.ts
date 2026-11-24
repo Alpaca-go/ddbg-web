@@ -6,7 +6,7 @@ import {
 } from "../../../data/src/monster-pool";
 import { buildWealdHigherMonsterCatalog } from "./higher-monster-catalog";
 import { wealdHigherMonsterInstancesSchema } from "../../../data/src/weald-monster-pool";
-import type { DungeonState } from "../dungeon";
+import type { DungeonState } from "../shared/dungeon/dungeon";
 
 /** W3／R-263：同等级当地＋通用的独立组池；正式任务／存档入口随后接入。 */
 export function buildWealdHigherMonsterPool(input: {

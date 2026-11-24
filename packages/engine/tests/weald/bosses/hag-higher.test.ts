@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
 import statData from "../../../../data/normalized/corebox/hero_stat.json";
 import { normalizedHeroStatFileSchema } from "../../../../data/src/normalize/hero-stat";
-import { createBattleState, type BattleEntity } from "../../../src/battle";
-import { applyCommand } from "../../../src/command";
-import type { GameState } from "../../../src/command";
+import { createBattleState, type BattleEntity } from "../../../src/shared/battle/battle";
+import { applyCommand } from "../../../src/shared/core/command";
+import type { GameState } from "../../../src/shared/core/command";
 import { FACE_THE_THREAT_QUEST_ID } from "../../../src/core/bosses/quest-bridge";
 import { getBossScript } from "../../../src/core/bosses/registry";
 import { stressOnHeroProvisionUseFromBossThreat } from "../../../src/core/bosses/threat-passive";
@@ -19,7 +19,7 @@ import {
   releaseHagHigherHero,
   hagHigherContext,
 } from "../../../src/weald/bosses/hag-higher";
-import { ensureCampaignBossScriptsRegistered } from "../../../src/registry";
+import { ensureCampaignBossScriptsRegistered } from "../../../src/shared/core/registry";
 
 function fixture(level: 2 | 3): GameState {
   const stat = normalizedHeroStatFileSchema

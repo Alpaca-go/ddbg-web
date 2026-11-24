@@ -1,9 +1,9 @@
 import { expect, it } from "vitest";
-import { applyCommand, type GameState } from "../../../src/command";
-import { finishTurn } from "../../../src/encounter";
-import { nextBattleRoll } from "../../../src/battle-roll";
+import { applyCommand, type GameState } from "../../../src/shared/core/command";
+import { finishTurn } from "../../../src/shared/dungeon/encounter";
+import { nextBattleRoll } from "../../../src/shared/battle/battle-roll";
 import { readFinalFormSequence } from "../../../src/core/bosses/final-form-sequence";
-import { finalPreparationFixture } from "../../../src/test-helpers/final-preparation";
+import { finalPreparationFixture } from "../../helpers/final-preparation";
 import {
   applyHeartOfDarknessImpendingDoomRoll,
   HEART_OF_DARKNESS_MONSTER_CARD_ID,

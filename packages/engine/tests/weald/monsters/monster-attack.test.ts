@@ -1,12 +1,12 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { readPrintedTargets } from "../../../src/hero-skill";
-import { readMonsterAttackView, resolveMonsterSkill } from "../../../src/monster-skill";
-import type { MonsterCombatState } from "../../../src/monster-skill";
+import { readPrintedTargets } from "../../../src/core/heroes/hero-skill";
+import { readMonsterAttackView, resolveMonsterSkill } from "../../../src/shared/core/monster-skill";
+import type { MonsterCombatState } from "../../../src/shared/core/monster-skill";
 import { buildWealdMonsterCatalog } from "../../../src/weald/monster-catalog";
-import { selectMonsterSkill } from "../../../src/monster-stance";
-import { selectMonsterTarget } from "../../../src/monster-target";
-import type { MonsterTargetHero } from "../../../src/monster-target";
+import { selectMonsterSkill } from "../../../src/shared/core/monster-stance";
+import { selectMonsterTarget } from "../../../src/shared/core/monster-target";
+import type { MonsterTargetHero } from "../../../src/shared/core/monster-target";
 
 const read = (name: string): unknown =>
   JSON.parse(

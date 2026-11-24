@@ -1,15 +1,19 @@
-import { newlyDefeatedIds, removeCasualties, endAfterCasualties } from "../../encounter";
-import type { ApplyResult, GameState } from "../../command";
-import type { DungeonState } from "../../dungeon";
-import type { BattleEntity } from "../../battle";
-import { rejectBattleCommand } from "../../battle";
+import {
+  newlyDefeatedIds,
+  removeCasualties,
+  endAfterCasualties,
+} from "../../shared/dungeon/encounter";
+import type { ApplyResult, GameState } from "../../shared/core/command";
+import type { DungeonState } from "../../shared/dungeon/dungeon";
+import type { BattleEntity } from "../../shared/battle/battle";
+import { rejectBattleCommand } from "../../shared/battle/battle";
 import { readActiveBossThreatScript, readDungeonBossThreatScript } from "./threat-passive-runtime";
 import { runBossHook } from "./hooks";
-import { nextBattleRoll } from "../../battle-roll";
-import { readHeroPassiveDefence } from "../../battle-skill-status";
-import { addStatusStack, statusProjection } from "../../status";
-import { triggerBattlePassive } from "../../battle-passive";
-import { resolveBattlePressure } from "../../pressure";
+import { nextBattleRoll } from "../../shared/battle/battle-roll";
+import { readHeroPassiveDefence } from "../../shared/battle/battle-skill-status";
+import { addStatusStack, statusProjection } from "../../shared/core/status";
+import { triggerBattlePassive } from "../../shared/battle/battle-passive";
+import { resolveBattlePressure } from "../../shared/core/pressure";
 
 export function higherRuinsThreat(d: DungeonState | undefined, side: "dungeon" | "hamlet") {
   const script =

@@ -1,4 +1,4 @@
-import type { ApplyResult, GameState } from "../../command";
+import type { ApplyResult, GameState } from "../../shared/core/command";
 import { finishRuinsIBattle, ruinsIRealCombatActive } from "./ruins-i-finish";
 
 export function prophetIIIRealCombatActive(state: GameState): boolean {

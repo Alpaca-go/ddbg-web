@@ -1,7 +1,7 @@
-import type { ApplyResult, GameState } from "../command";
-import { rejectBattleCommand } from "../battle";
-import { applyBattleSkillStatuses } from "../battle-skill-status";
-import { fixedDamageResolution } from "../battle-spiked-pit";
+import type { ApplyResult, GameState } from "../shared/core/command";
+import { rejectBattleCommand } from "../shared/battle/battle";
+import { applyBattleSkillStatuses } from "../shared/battle/battle-skill-status";
+import { fixedDamageResolution } from "../shared/battle/battle-spiked-pit";
 import { isNecroticFungusEntity } from "./necrotic-fungus";
 
 export function wealdTaskActive(state: GameState, page: number): boolean {

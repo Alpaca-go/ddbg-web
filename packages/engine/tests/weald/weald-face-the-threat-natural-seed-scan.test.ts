@@ -5,7 +5,7 @@ import {
   assertWealdNaturalActOneSeedScanBounds,
   scanWealdNaturalActOneSeeds,
   summarizeWealdNaturalActOneSeedScan,
-} from "../../src/test-helpers/weald-face-the-threat-natural-seed-scan";
+} from "../helpers/weald-face-the-threat-natural-seed-scan";
 
 describe("Weald I 幕自然前缀种子扫描（生产路径，有界）", () => {
   const baselineOptions = { skillFallback: true, handleDeaths: true } as const;

@@ -2,7 +2,7 @@ import { expect } from "@playwright/test";
 import { ssrTest } from "./ssr-test";
 import { createServer } from "vite";
 import { fileURLToPath } from "node:url";
-import type { GameState, Command } from "../../../packages/engine/src/command";
+import type { GameState, Command } from "../../../packages/engine/src/shared/core/command";
 
 const test = ssrTest(import.meta.url);
 test("seed1 Abyssal Puff：页面技能摧毁真菌与全房间增益", async ({ page }) => {

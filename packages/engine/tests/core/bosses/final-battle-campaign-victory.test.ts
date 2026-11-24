@@ -1,7 +1,12 @@
 import { expect, it } from "vitest";
-import { applyCommand, type Command, type GameEvent, type GameState } from "../../../src/command";
-import { endgameFinalBattleReady } from "../../../src/test-helpers/endgame-party";
-import { playNaturalBattle } from "../../../src/test-helpers/natural-battle";
+import {
+  applyCommand,
+  type Command,
+  type GameEvent,
+  type GameState,
+} from "../../../src/shared/core/command";
+import { endgameFinalBattleReady } from "../../helpers/endgame-party";
+import { playNaturalBattle } from "../../helpers/natural-battle";
 import { readFinalFormSequence } from "../../../src/core/bosses/final-form-sequence";
 
 function playToCampaignEnd(): {

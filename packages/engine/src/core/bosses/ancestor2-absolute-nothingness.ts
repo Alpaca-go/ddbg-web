@@ -3,10 +3,14 @@ import {
   absoluteNothingnessSupportSchema,
   readAbsoluteNothingnessSupport,
 } from "../../../../data/src/absolute-nothingness-support";
-import { rejectBattleCommand, type BattleEntity, type BattleState } from "../../battle";
-import type { ApplyResult, GameState } from "../../command";
-import type { SkillStance } from "../../hero-skill";
-import type { MonsterCardView } from "../../monster-skill";
+import {
+  rejectBattleCommand,
+  type BattleEntity,
+  type BattleState,
+} from "../../shared/battle/battle";
+import type { ApplyResult, GameState } from "../../shared/core/command";
+import type { SkillStance } from "../heroes/hero-skill";
+import type { MonsterCardView } from "../../shared/core/monster-skill";
 import { FINAL_BATTLE_MONSTER_STANCE_AREAS } from "./final-battle-deploy";
 import { readFinalFormSequence } from "./final-form-sequence";
 

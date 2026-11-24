@@ -14,12 +14,12 @@ import {
   pickEmbarkQuestMapLayout,
   sandboxExpeditionEmbarkBlockReason,
 } from "../../../data/src/quest-map-pairing";
-import { createCoreDungeonQuest } from "../../src/dungeon-quest-entry";
-import { coreParty, coreQuestSources } from "../../src/test-helpers/core-quest";
-import { applyCommand, type Command, type GameState } from "../../src/command";
-import { recoverHamletPools } from "../../src/hamlet-return-pools";
-import { dungeonMonsterPoolThrough } from "../../src/monster-pool-runtime";
-import { isQuestProvisionId } from "../../src/quest-provisions";
+import { createCoreDungeonQuest } from "../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "../helpers/core-quest";
+import { applyCommand, type Command, type GameState } from "../../src/shared/core/command";
+import { recoverHamletPools } from "../../src/shared/hamlet/hamlet-return-pools";
+import { dungeonMonsterPoolThrough } from "../../src/shared/core/monster-pool-runtime";
+import { isQuestProvisionId } from "../../src/shared/quest/quest-provisions";
 
 const wealdSources = {
   ...coreQuestSources,

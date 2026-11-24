@@ -27,12 +27,12 @@ test("B12：回村结算后抽取下一任务并进入第二任务开局补给",
     delete battleData.bossMonsters;
     const sourceHelpers = await server.ssrLoadModule(
       fileURLToPath(
-        new URL("../../../packages/engine/src/test-helpers/core-quest.ts", import.meta.url),
+        new URL("../../../packages/engine/tests/helpers/core-quest.ts", import.meta.url),
       ),
     );
     const offerHelper = await server.ssrLoadModule(
       fileURLToPath(
-        new URL("../../../packages/engine/src/test-helpers/quest-offer-seed.ts", import.meta.url),
+        new URL("../../../packages/engine/tests/helpers/quest-offer-seed.ts", import.meta.url),
       ),
     );
     const sources = {

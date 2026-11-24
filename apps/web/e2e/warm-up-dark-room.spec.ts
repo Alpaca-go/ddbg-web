@@ -2,7 +2,7 @@ import { expect } from "@playwright/test";
 import { ssrTest } from "./ssr-test";
 import { createServer } from "vite";
 import { fileURLToPath } from "node:url";
-import type { GameState } from "../../../packages/engine/src/command";
+import type { GameState } from "../../../packages/engine/src/shared/core/command";
 
 const test = ssrTest(import.meta.url);
 
@@ -19,11 +19,13 @@ test("Warm Up暗房光照5仍提供Torch清理入口", async ({ page }) => {
   try {
     const fixture = await server.ssrLoadModule(
       fileURLToPath(
-        new URL("../../../packages/engine/src/test-helpers/warm-up-dark-room.ts", import.meta.url),
+        new URL("../../../packages/engine/tests/helpers/warm-up-dark-room.ts", import.meta.url),
       ),
     );
     const engine = await server.ssrLoadModule(
-      fileURLToPath(new URL("../../../packages/engine/src/command.ts", import.meta.url)),
+      fileURLToPath(
+        new URL("../../../packages/engine/src/shared/core/command.ts", import.meta.url),
+      ),
     );
     const result = engine.applyCommand(fixture.warmUpDarkRoomFixture(), {
       type: "resolveDungeonRoom",

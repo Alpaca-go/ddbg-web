@@ -1,7 +1,7 @@
-import type { ApplyResult, Command, GameState } from "../../command";
-import type { DungeonState } from "../../dungeon";
-import { rejectBattleCommand } from "../../battle";
-import { nextBattleRoll } from "../../battle-roll";
+import type { ApplyResult, Command, GameState } from "../../shared/core/command";
+import type { DungeonState } from "../../shared/dungeon/dungeon";
+import { rejectBattleCommand } from "../../shared/battle/battle";
+import { nextBattleRoll } from "../../shared/battle/battle-roll";
 import { readActiveBossThreatScript } from "./threat-passive-runtime";
 import { runBossHook } from "./hooks";
 

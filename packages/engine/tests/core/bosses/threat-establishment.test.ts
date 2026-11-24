@@ -1,6 +1,6 @@
 import { describe, expect, it, beforeEach } from "vitest";
-import { applyCommand } from "../../../src/command";
-import type { Command, GameState } from "../../../src/command";
+import { applyCommand } from "../../../src/shared/core/command";
+import type { Command, GameState } from "../../../src/shared/core/command";
 import {
   NECROMANCER_I_DESCRIPTION_ABILITY_CARD_ID,
   NECROMANCER_I_SCRIPT_ID,
@@ -43,8 +43,8 @@ import {
   sanitariumHealLifeDeltaFromBossThreat,
   skipCurioDrawInCurioRoomsFromBossThreat,
 } from "../../../src/core/bosses/threat-passive";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "../../helpers/core-quest";
 
 function ok(game: GameState, command: Command) {
   const result = applyCommand(game, command);

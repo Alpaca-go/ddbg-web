@@ -1,5 +1,5 @@
 import { DISINFECTION_QUEST_ID, INFECTION_OAK_ROOM_CARD_ID } from "./disinfection-constants";
-import type { DungeonState } from "../dungeon";
+import type { DungeonState } from "../shared/dungeon/dungeon";
 
 export { DISINFECTION_QUEST_ID, INFECTION_OAK_ROOM_CARD_ID };
 

@@ -1,9 +1,9 @@
-import type { ApplyResult, GameState } from "../../command";
-import { distance, rejectBattleCommand } from "../../battle";
-import { readMonsterAttackView } from "../../monster-skill";
-import { finishTurn } from "../../encounter";
-import { addStatusStack, statusProjection } from "../../status";
-import type { MonsterCardView } from "../../monster-skill";
+import type { ApplyResult, GameState } from "../../shared/core/command";
+import { distance, rejectBattleCommand } from "../../shared/battle/battle";
+import { readMonsterAttackView } from "../../shared/core/monster-skill";
+import { finishTurn } from "../../shared/dungeon/encounter";
+import { addStatusStack, statusProjection } from "../../shared/core/status";
+import type { MonsterCardView } from "../../shared/core/monster-skill";
 
 export function isCollectedVestalCard(id: string | undefined): boolean {
   return ["monster_medium:p101", "monster_medium:p102", "monster_medium:p103"].includes(id ?? "");

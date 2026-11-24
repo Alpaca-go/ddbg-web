@@ -1,5 +1,5 @@
-import { monsterZeroCapacityQuest as original } from "../../../../packages/engine/src/test-helpers/monster-zero-capacity-quest";
-import { applyCommand } from "../../../../packages/engine/src/command";
+import { monsterZeroCapacityQuest as original } from "../../../../packages/engine/tests/helpers/monster-zero-capacity-quest";
+import { applyCommand } from "../../../../packages/engine/src/shared/core/command";
 /** 仅更新页面命令版本，非法机制检查点仍保持原状态。 */
 export function monsterZeroCapacityQuest() {
   const fixture = original(),

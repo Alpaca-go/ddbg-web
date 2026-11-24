@@ -1,18 +1,18 @@
 import { expect, it } from "vitest";
-import { applyCommand, type GameState } from "../../src/command";
-import { readRuinsActTransitionReadiness } from "../../src/act-transition-readiness";
+import { applyCommand, type GameState } from "../../src/shared/core/command";
+import { readRuinsActTransitionReadiness } from "../../src/shared/hamlet/act-transition-readiness";
 import {
   legalHamletQuestDrawModes,
   questIdsForLocationDeck,
-} from "../../src/hamlet-location-quest-draw";
-import { createCoreDungeonQuest } from "../../src/dungeon-quest-entry";
-import { drawInitialQuestOffers } from "../../src/initial-quest-draw";
-import { coreParty, coreQuestSources } from "../../src/test-helpers/core-quest";
-import { wealdActReadyFixture } from "../../src/test-helpers/weald-act";
+} from "../../src/shared/hamlet/hamlet-location-quest-draw";
+import { createCoreDungeonQuest } from "../../src/shared/dungeon/dungeon-quest-entry";
+import { drawInitialQuestOffers } from "../../src/shared/hamlet/initial-quest-draw";
+import { coreParty, coreQuestSources } from "../helpers/core-quest";
+import { wealdActReadyFixture } from "../helpers/weald-act";
 import {
   wealdChainHamletPreparationReady,
   wealdChainOfferNextQuest,
-} from "../../src/test-helpers/weald-face-the-threat-chain";
+} from "../helpers/weald-face-the-threat-chain";
 
 const packs = ["core", "weald"] as const;
 const drawMode = "hamlet-quest-draw:ruins-two" as const;

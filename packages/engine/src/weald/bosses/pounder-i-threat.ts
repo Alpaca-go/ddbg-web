@@ -1,6 +1,6 @@
-import type { BattleEntity } from "../../battle";
-import { caretakerBuilding } from "../../hamlet-event";
-import { addStatusStack, type StatusStack } from "../../status";
+import type { BattleEntity } from "../../shared/battle/battle";
+import { caretakerBuilding } from "../../shared/hamlet/hamlet-event";
+import { addStatusStack, type StatusStack } from "../../shared/core/status";
 import { WEALD_POUNDER_I_CONTENT as content } from "./pounder-i-content";
 
 /** 命令接线层负责威胁权限及原子回滚；这里不读注册表、不隐式消耗 RNG。 */

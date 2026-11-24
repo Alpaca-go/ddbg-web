@@ -1,18 +1,18 @@
-import type { ApplyResult, GameState } from "../../command";
-import { distance, rejectBattleCommand, skillTargetView } from "../../battle";
-import { fixedDamageResolution } from "../../battle-spiked-pit";
-import { resolveAttackDamage } from "../../attack-damage";
-import { passiveDamageWounds } from "../../passive";
-import { applySkillHealth } from "../../battle-health";
-import { applyBattleSkillStatuses } from "../../battle-skill-status";
-import { defenceTrinketReaction } from "../../trinket-reactions";
+import type { ApplyResult, GameState } from "../../shared/core/command";
+import { distance, rejectBattleCommand, skillTargetView } from "../../shared/battle/battle";
+import { fixedDamageResolution } from "../../shared/battle/battle-spiked-pit";
+import { resolveAttackDamage } from "../../shared/core/attack-damage";
+import { passiveDamageWounds } from "../../shared/core/passive";
+import { applySkillHealth } from "../../shared/battle/battle-health";
+import { applyBattleSkillStatuses } from "../../shared/battle/battle-skill-status";
+import { defenceTrinketReaction } from "../../shared/trinkets/trinket-reactions";
 import {
   finishTurn,
   endAfterCasualties,
   removeCasualties,
   newlyDefeatedIds,
-} from "../../encounter";
-import { resolveBattlePressure } from "../../pressure";
+} from "../../shared/dungeon/encounter";
+import { resolveBattlePressure } from "../../shared/core/pressure";
 
 export function isPyreCard(id: string | undefined): boolean {
   return ["monster_large:p011", "monster_large:p012", "monster_large:p013"].includes(id ?? "");

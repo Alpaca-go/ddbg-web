@@ -1,7 +1,7 @@
-import { rejectBattleCommand } from "../../battle";
-import type { ApplyResult, GameState } from "../../command";
-import type { MonsterSkillResolvedEvent } from "../../command";
-import { nextBattleRoll } from "../../encounter";
+import { rejectBattleCommand } from "../../shared/battle/battle";
+import type { ApplyResult, GameState } from "../../shared/core/command";
+import type { MonsterSkillResolvedEvent } from "../../shared/core/command";
+import { nextBattleRoll } from "../../shared/dungeon/encounter";
 import { MAMMOTH_CYST_WHITE_CELL_SUMMON_CARD_ID } from "./darkest-mammoth-cyst-combat-runtime";
 import { mammothCystProductionCombatActive } from "./mammoth-cyst-i-deploy";
 

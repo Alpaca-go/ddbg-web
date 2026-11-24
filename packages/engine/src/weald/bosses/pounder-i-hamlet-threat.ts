@@ -1,18 +1,18 @@
-import type { DungeonState } from "../../dungeon";
-import type { ApplyResult, Command, GameState } from "../../command";
-import { rejectBattleCommand } from "../../battle";
+import type { DungeonState } from "../../shared/dungeon/dungeon";
+import type { ApplyResult, Command, GameState } from "../../shared/core/command";
+import { rejectBattleCommand } from "../../shared/battle/battle";
 import { hamletBuildingForCommand } from "../../core/bosses/higher-ruins-hamlet";
-import { nextBattleRoll } from "../../battle-roll";
-import { caretakerBuilding } from "../../hamlet-event";
+import { nextBattleRoll } from "../../shared/battle/battle-roll";
+import { caretakerBuilding } from "../../shared/hamlet/hamlet-event";
 import {
   buildingLevelsProblem,
   recoveryBuildingLevel,
   upgradableBuildings,
-} from "../../hamlet-buildings";
-import { triggerDungeonPassive } from "../../dungeon-passive";
-import { resolveDungeonPressure } from "../../dungeon-pressure";
-import { statusProjection } from "../../status";
-import { passiveDamageWounds } from "../../passive";
+} from "../../shared/hamlet/hamlet-buildings";
+import { triggerDungeonPassive } from "../../shared/dungeon/dungeon-passive";
+import { resolveDungeonPressure } from "../../shared/dungeon/dungeon-pressure";
+import { statusProjection } from "../../shared/core/status";
+import { passiveDamageWounds } from "../../shared/core/passive";
 import { pounderDungeonThreatActive, readPounderThreatContext } from "./pounder-i-dungeon-threat";
 import { resolvePounderIBombardment } from "./pounder-i-threat";
 

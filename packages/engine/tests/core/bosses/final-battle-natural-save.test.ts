@@ -1,12 +1,12 @@
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import type { CoreQuestSources } from "../../../src/dungeon-quest-entry";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import type { CoreQuestSources } from "../../../src/shared/dungeon/dungeon-quest-entry";
 import { expect, it } from "vitest";
-import { applyCommand } from "../../../src/command";
-import type { Command, GameState } from "../../../src/command";
-import { coreQuestSources } from "../../../src/test-helpers/core-quest";
-import { naturalParty } from "../../../src/test-helpers/natural-quest";
-import { naturalFinalBattle } from "../../../src/test-helpers/natural-final-battle";
-import { createQuestSave, loadQuestSave } from "../../../src/quest-save";
+import { applyCommand } from "../../../src/shared/core/command";
+import type { Command, GameState } from "../../../src/shared/core/command";
+import { coreQuestSources } from "../../helpers/core-quest";
+import { naturalParty } from "../../helpers/natural-quest";
+import { naturalFinalBattle } from "../../helpers/natural-final-battle";
+import { createQuestSave, loadQuestSave } from "../../../src/shared/quest/quest-save";
 import { ANCESTOR_1_MONSTER_CARD_ID } from "../../../src/core/bosses/ancestor1-time-heals-all";
 import { FINAL_BATTLE_BOSS_CATALOG_CARD_IDS } from "../../../src/core/bosses/darkest-boss-catalog";
 

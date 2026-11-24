@@ -1,13 +1,17 @@
 import { describe, expect, it, beforeEach } from "vitest";
 import { readFileSync } from "node:fs";
-import { createBattleState, type BattleEntity, type BattleSetup } from "../../../src/battle";
-import { applyCommand } from "../../../src/command";
-import type { GameState } from "../../../src/command";
-import type { HeroSkillCardView } from "../../../src/hero-skill";
-import { applyEncounterCommand } from "../../../src/encounter";
-import type { MonsterCardView } from "../../../src/monster-skill";
-import type { SkillStance } from "../../../src/hero-skill";
-import { createLootState } from "../../../src/loot";
+import {
+  createBattleState,
+  type BattleEntity,
+  type BattleSetup,
+} from "../../../src/shared/battle/battle";
+import { applyCommand } from "../../../src/shared/core/command";
+import type { GameState } from "../../../src/shared/core/command";
+import type { HeroSkillCardView } from "../../../src/core/heroes/hero-skill";
+import { applyEncounterCommand } from "../../../src/shared/dungeon/encounter";
+import type { MonsterCardView } from "../../../src/shared/core/monster-skill";
+import type { SkillStance } from "../../../src/core/heroes/hero-skill";
+import { createLootState } from "../../../src/shared/trinkets/loot";
 import {
   SWINE_PRINCE_I_COMBAT_MONSTER_CARD_ID,
   SWINE_PRINCE_I_ENRAGED_DESTRUCTION_SKILL_SLOT,

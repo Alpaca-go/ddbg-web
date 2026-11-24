@@ -1,24 +1,29 @@
 import { ruinsCombatForScript, isRuinsCombatCard } from "./ruins-combat-levels";
 import { stygianBossCritApplies } from "./stygian-boss-crit";
-import { applyBattleSkillStatuses } from "../../battle-skill-status";
-import type { BattleEntity, BattleState } from "../../battle";
+import { applyBattleSkillStatuses } from "../../shared/battle/battle-skill-status";
+import type { BattleEntity, BattleState } from "../../shared/battle/battle";
 import type {
   ApplyResult,
   GameEvent,
   GameState,
   MonsterSkillTargetsResolvedEvent,
-} from "../../command";
-import { applySkillHealth } from "../../battle-health";
-import { skillTargetView, writeResolution, distance, rejectBattleCommand } from "../../battle";
+} from "../../shared/core/command";
+import { applySkillHealth } from "../../shared/battle/battle-health";
+import {
+  skillTargetView,
+  writeResolution,
+  distance,
+  rejectBattleCommand,
+} from "../../shared/battle/battle";
 import {
   nextBattleRoll,
   finishTurn,
   newlyDefeatedIds,
   removeCasualties,
   endAfterCasualties,
-} from "../../encounter";
-import { resolveBattlePressure } from "../../pressure";
-import { multiTargetHealthEffects, projectActorWounds } from "../../skill-actor-health";
+} from "../../shared/dungeon/encounter";
+import { resolveBattlePressure } from "../../shared/core/pressure";
+import { multiTargetHealthEffects, projectActorWounds } from "../heroes/skill-actor-health";
 import { runBossHook } from "./hooks";
 import { resolveEncounterBossScriptId } from "./encounter-rules";
 import {
@@ -31,8 +36,8 @@ import { readBossCombatEntry } from "./combat-entry";
 import { getBossScript } from "./registry";
 import { defaultMonsterTurnActionCount } from "./hooks";
 import type { BossScriptDefinition, BossSummonOk, ProphetWoodenPewIndex } from "./types";
-import type { SkillStance } from "../../hero-skill";
-import { resolveMonsterSkillEffects } from "../../monster-skill";
+import type { SkillStance } from "../heroes/hero-skill";
+import { resolveMonsterSkillEffects } from "../../shared/core/monster-skill";
 import { monsterCombatThreatDamageBonus } from "./threat-passive-runtime";
 import { readProphetIRoomD10Binding } from "./prophet-i-room-runtime";
 

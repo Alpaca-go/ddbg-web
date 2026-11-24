@@ -1,12 +1,12 @@
 import { expect, it } from "vitest";
-import { applyCommand, type GameState } from "../../../src/command";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
-import { createQuestSave, loadQuestSave } from "../../../src/quest-save";
-import { createBattleState } from "../../../src/battle";
+import { applyCommand, type GameState } from "../../../src/shared/core/command";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "../../helpers/core-quest";
+import { createQuestSave, loadQuestSave } from "../../../src/shared/quest/quest-save";
+import { createBattleState } from "../../../src/shared/battle/battle";
 import { POUNDER_I_SCRIPT_ID } from "../../../src/weald/bosses/pounder-i";
-import { naturalQuest } from "../../../src/test-helpers/natural-quest";
-import { wealdTaskSources } from "../../../src/test-helpers/weald-task-battle";
+import { naturalQuest } from "../../helpers/natural-quest";
+import { wealdTaskSources } from "../../helpers/weald-task-battle";
 
 const packs = ["core", "weald"] as const;
 const start: Parameters<typeof createQuestSave>[0] = {

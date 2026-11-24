@@ -1,10 +1,10 @@
 import { expect, it } from "vitest";
-import { createCoreDungeonQuest } from "../../src/dungeon-quest-entry";
-import { coreParty } from "../../src/test-helpers/core-quest";
-import { wealdTaskSources } from "../../src/test-helpers/weald-task-battle";
-import { applyCommand, type GameState } from "../../src/command";
-import { removeCasualties, endAfterCasualties } from "../../src/encounter";
-import { dungeonMonsterPoolThrough } from "../../src/monster-pool-runtime";
+import { createCoreDungeonQuest } from "../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty } from "../helpers/core-quest";
+import { wealdTaskSources } from "../helpers/weald-task-battle";
+import { applyCommand, type GameState } from "../../src/shared/core/command";
+import { removeCasualties, endAfterCasualties } from "../../src/shared/dungeon/encounter";
+import { dungeonMonsterPoolThrough } from "../../src/shared/core/monster-pool-runtime";
 
 it.each(["quest:weald:p008"] as const)(
   "%s 受控抵达巢穴只部署当地怪，普通牌池守恒",
@@ -80,7 +80,7 @@ it.each(["quest:weald:p008"] as const)(
 
 import { basicQuests, storedDistributionMatchesQuest } from "../../../data/src/basic-quests";
 import { drawAndMaterializeRoomDistribution } from "../../../data/src/room-distribution-expand";
-import { createRng } from "../../src/rng";
+import { createRng } from "../../src/shared/core/rng";
 it("p008 建局五格无放回，不增巢穴或目标，模板不变", () => {
   const template = basicQuests.find((q) => q.id === "quest:weald:p008")!.distribution;
   const before = JSON.stringify(template);

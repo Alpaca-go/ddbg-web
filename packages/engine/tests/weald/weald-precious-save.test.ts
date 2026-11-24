@@ -1,7 +1,7 @@
 import { expect, it } from "vitest";
-import { applyCommand } from "../../src/command";
-import { createQuestSave, loadQuestSave } from "../../src/quest-save";
-import { preciousQuest } from "../../src/test-helpers/precious-quest";
+import { applyCommand } from "../../src/shared/core/command";
+import { createQuestSave, loadQuestSave } from "../../src/shared/quest/quest-save";
+import { preciousQuest } from "../helpers/precious-quest";
 it("seed22 定向玩家路径 Precious 前后严格恢复，删版本拒绝（R-234／R-237）", () => {
   const { start, before, after, attack, commands, sources } = preciousQuest();
   expect(before.battle!.wealdPrecious).toBe(true);

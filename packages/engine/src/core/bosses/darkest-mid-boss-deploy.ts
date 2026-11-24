@@ -1,19 +1,19 @@
-import type { ApplyResult, GameState } from "../../command";
+import type { ApplyResult, GameState } from "../../shared/core/command";
 import {
   createBattleState,
   rejectBattleCommand,
   type BattleArea,
   type BattleEntity,
   type BattleState,
-} from "../../battle";
-import { createLootState } from "../../loot";
-import type { SkillTargetSide } from "../../hero-skill";
-import type { MonsterCardView } from "../../monster-skill";
-import { skillBelongsToFormalHero } from "../../formal-roster-catalog";
-import { questHeroSkillCount } from "../../hero-loadout";
-import { ownedHeroSkills } from "../../hero-loadout";
-import { statusProjection } from "../../status";
-import type { SpawnPlacement } from "../../spawn";
+} from "../../shared/battle/battle";
+import { createLootState } from "../../shared/trinkets/loot";
+import type { SkillTargetSide } from "../heroes/hero-skill";
+import type { MonsterCardView } from "../../shared/core/monster-skill";
+import { skillBelongsToFormalHero } from "../../shared/core/formal-roster-catalog";
+import { questHeroSkillCount } from "../heroes/hero-loadout";
+import { ownedHeroSkills } from "../heroes/hero-loadout";
+import { statusProjection } from "../../shared/core/status";
+import type { SpawnPlacement } from "../../shared/core/spawn";
 import { readDarkestBossEncounter } from "./darkest-content";
 import { readBossCombatEntry } from "./combat-entry";
 import { resolveEncounterBossScriptId } from "./encounter-rules";

@@ -1,12 +1,12 @@
-import { continueDeathEstates } from "../../../src/hero-death-estate";
+import { continueDeathEstates } from "../../../src/core/heroes/hero-death-estate";
 import { expect, it } from "vitest";
-import { applyCommand } from "../../../src/command";
-import type { Command, GameState } from "../../../src/command";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
+import { applyCommand } from "../../../src/shared/core/command";
+import type { Command, GameState } from "../../../src/shared/core/command";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "../../helpers/core-quest";
 import { requireFaceTheThreatEmbarkPlanForSandbox } from "../../../src/core/bosses/face-the-threat-embark-runtime";
 import { PROPHET_I_SCRIPT_ID } from "../../../src/core/bosses/prophet-i";
-import { nextBattleRoll } from "../../../src/battle-roll";
+import { nextBattleRoll } from "../../../src/shared/battle/battle-roll";
 
 function ok(state: GameState, command: Command) {
   const r = applyCommand(state, command);

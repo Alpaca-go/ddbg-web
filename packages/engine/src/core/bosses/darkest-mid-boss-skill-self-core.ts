@@ -1,7 +1,11 @@
-import { rejectBattleCommand, type BattleEntity, type BattleState } from "../../battle";
-import { playMonsterSkill } from "../../battle-monster";
-import type { ApplyResult, GameState } from "../../command";
-import { readMonsterAttackView } from "../../monster-skill";
+import {
+  rejectBattleCommand,
+  type BattleEntity,
+  type BattleState,
+} from "../../shared/battle/battle";
+import { playMonsterSkill } from "../../shared/battle/battle-monster";
+import type { ApplyResult, GameState } from "../../shared/core/command";
+import { readMonsterAttackView } from "../../shared/core/monster-skill";
 import { resolveEncounterBossScriptId } from "./encounter-rules";
 import type { DarkestMidBossSkillAccContext } from "./darkest-mid-boss-skill-acc-core";
 

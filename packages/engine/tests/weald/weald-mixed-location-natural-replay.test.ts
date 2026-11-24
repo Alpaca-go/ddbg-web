@@ -1,16 +1,16 @@
 import { beforeAll, describe, expect, it } from "vitest";
-import { applyCommand, type Command, type GameState } from "../../src/command";
-import { createCoreDungeonQuest } from "../../src/dungeon-quest-entry";
+import { applyCommand, type Command, type GameState } from "../../src/shared/core/command";
+import { createCoreDungeonQuest } from "../../src/shared/dungeon/dungeon-quest-entry";
 import type { BasicQuestId } from "../../../data/src/basic-quests";
-import { loadQuestSave } from "../../src/quest-save";
-import { coreParty } from "../../src/test-helpers/core-quest";
-import { wealdTaskSources } from "../../src/test-helpers/weald-task-battle";
-import { WEALD_PRODUCTION_ESTABLISH_THREAT } from "../../src/test-helpers/weald-face-the-threat-natural-prefix";
+import { loadQuestSave } from "../../src/shared/quest/quest-save";
+import { coreParty } from "../helpers/core-quest";
+import { wealdTaskSources } from "../helpers/weald-task-battle";
+import { WEALD_PRODUCTION_ESTABLISH_THREAT } from "../helpers/weald-face-the-threat-natural-prefix";
 import {
   WEALD_MIXED_LOCATION_NATURAL_SEED,
   wealdMixedLocationNaturalCrossActJourney,
   type WealdMixedLocationCrossActJourney,
-} from "../../src/test-helpers/weald-mixed-location-natural-prefix";
+} from "../helpers/weald-mixed-location-natural-prefix";
 
 function ok(state: GameState, command: Command) {
   const result = applyCommand(state, command);

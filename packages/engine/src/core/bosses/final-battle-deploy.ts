@@ -1,20 +1,23 @@
-import type { ApplyResult, GameState } from "../../command";
+import type { ApplyResult, GameState } from "../../shared/core/command";
 import {
   createBattleState,
   rejectBattleCommand,
   type BattleEntity,
   type BattleState,
-} from "../../battle";
-import { roomTileBattleAreas } from "../../battle-monster-movement";
-import { createLootState } from "../../loot";
-import { createRng } from "../../rng";
-import type { SkillStance } from "../../hero-skill";
-import type { MonsterCardView } from "../../monster-skill";
-import { skillBelongsToFormalHero } from "../../formal-roster-catalog";
-import { questHeroSkillCount } from "../../hero-loadout";
-import { ownedHeroSkills } from "../../hero-loadout";
-import { applyTemporarySkillUpgrades, restoreTemporarySkillUpgrades } from "../../hamlet-embark";
-import { statusProjection } from "../../status";
+} from "../../shared/battle/battle";
+import { roomTileBattleAreas } from "../../shared/battle/battle-monster-movement";
+import { createLootState } from "../../shared/trinkets/loot";
+import { createRng } from "../../shared/core/rng";
+import type { SkillStance } from "../heroes/hero-skill";
+import type { MonsterCardView } from "../../shared/core/monster-skill";
+import { skillBelongsToFormalHero } from "../../shared/core/formal-roster-catalog";
+import { questHeroSkillCount } from "../heroes/hero-loadout";
+import { ownedHeroSkills } from "../heroes/hero-loadout";
+import {
+  applyTemporarySkillUpgrades,
+  restoreTemporarySkillUpgrades,
+} from "../../shared/hamlet/hamlet-embark";
+import { statusProjection } from "../../shared/core/status";
 import { readFinalFormSequence } from "./final-form-sequence";
 import {
   isAncestor1ReflectionMonsterCardId,

@@ -127,15 +127,15 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 
 卡面语义沿用 [R-234–R-239](rulings.md)及[房间审阅稿](weald-room-review-2026-11-12.md)，不新增规则。核对 [房间生成器](../packages/data/src/normalize/weald-rooms.ts)、[区域投影](../packages/engine/src/weald/weald-mechanics.ts)与[数据 schema](../packages/data/src/weald-room.ts)：区域投影仍只接 `poisonousRoots`；Toxic Mushrooms 按核准房间身份与星区独立结算，schema 已允许 1 号 Toxic Mushrooms 与 4 号 Precious 的区域效果开启 `runtimeReady`。2／8 号是全房间触发，不能因 `specialRegions` 为空误记为没有效果。
 
-| 房间                 | 已核准效果       | 当前状态／后续触发位置                                                                                                                                                                                                   |
-| -------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| 1．Fungal Spores     | Toxic Mushrooms  | 新标记命令已接；怪物攻击未命中后，仅目标所在 C／E／F／G 星区活英雄腐蚀 1·2t；旧命令不触发；seed4 自然触发／严格日志及页面位移续接已验收                                                                                  |
-| 2．Ambush            | Unprepared!      | 新 startBattle 显式标记已接；所有活英雄减益 2t，抗性／免疫沿用既有规则；seed2 自然严格日志及页面开始按钮冒烟通过                                                                                                         |
-| 3／6／7              | 无独立卡面效果段 | 不新增特效；几何、部署及 7 号零容量规则仍适用                                                                                                                                                                            |
-| 4．Stash             | Precious         | 新战斗版本已接共用结束回合钩子；怪物在 D 结束回合时作用于所有其他活怪物，两项增益各为 2t；seed22 定向玩家完整严格日志／页面移动待选续接已验证                                                                            |
-| 5．Infected Oak      | Poisonous Roots  | 已接 B／D／E／G 的回合结束腐蚀；seed2 完整日志及页面结束回合已验收；见 [运行时及测试](../packages/engine/src/battle-infected-oak.test.ts)。房间卡 `verifiedEffect.runtimeReady=false` 为早期元数据，不能据此否认实际接线 |
-| 8．Fungal Overgrowth | Abyssal Puff     | 新战斗版本已接；每枚新摧毁真菌分别使全房间活战斗怪物增益 2t；seed1 destroy-all 完整严格日志与页面摧毁检查点通过                                                                                                          |
-| 9．The Clearing      | Clearing／Ours!  | Ours! 新版本已接：任意区域成功拾箱后全房间活怪物减益 1t／增益 2t，seed21 完整日志与页面奖励续接已验证；Clearing 英雄恢复压力与怪物随机移箱已接新版本（R-260），seed21 两类完整日志／页面及有限池跨房间恢复已验收         |
+| 房间                 | 已核准效果       | 当前状态／后续触发位置                                                                                                                                                                                                                   |
+| -------------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1．Fungal Spores     | Toxic Mushrooms  | 新标记命令已接；怪物攻击未命中后，仅目标所在 C／E／F／G 星区活英雄腐蚀 1·2t；旧命令不触发；seed4 自然触发／严格日志及页面位移续接已验收                                                                                                  |
+| 2．Ambush            | Unprepared!      | 新 startBattle 显式标记已接；所有活英雄减益 2t，抗性／免疫沿用既有规则；seed2 自然严格日志及页面开始按钮冒烟通过                                                                                                                         |
+| 3／6／7              | 无独立卡面效果段 | 不新增特效；几何、部署及 7 号零容量规则仍适用                                                                                                                                                                                            |
+| 4．Stash             | Precious         | 新战斗版本已接共用结束回合钩子；怪物在 D 结束回合时作用于所有其他活怪物，两项增益各为 2t；seed22 定向玩家完整严格日志／页面移动待选续接已验证                                                                                            |
+| 5．Infected Oak      | Poisonous Roots  | 已接 B／D／E／G 的回合结束腐蚀；seed2 完整日志及页面结束回合已验收；见 [运行时及测试](../packages/engine/tests/shared/battle/battle-infected-oak.test.ts)。房间卡 `verifiedEffect.runtimeReady=false` 为早期元数据，不能据此否认实际接线 |
+| 8．Fungal Overgrowth | Abyssal Puff     | 新战斗版本已接；每枚新摧毁真菌分别使全房间活战斗怪物增益 2t；seed1 destroy-all 完整严格日志与页面摧毁检查点通过                                                                                                                          |
+| 9．The Clearing      | Clearing／Ours!  | Ours! 新版本已接：任意区域成功拾箱后全房间活怪物减益 1t／增益 2t，seed21 完整日志与页面奖励续接已验证；Clearing 英雄恢复压力与怪物随机移箱已接新版本（R-260），seed21 两类完整日志／页面及有限池跨房间恢复已验收                         |
 
 当前页面版本的 I 级独立任务与机制阶段验收已完成；旧命令／日志仍保持兼容。步骤 1／2 涉及高等级内容而保留进行中；步骤 6／7／8 另按原计划推进，不把本批 I 级结论扩大为完整战役完成。
 

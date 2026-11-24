@@ -4,11 +4,11 @@ import large from "../../../data/normalized/extension/weald/monster_large.json";
 import curios from "../../../data/normalized/extension/weald/curio.json";
 import { wealdCurioFileSchema } from "../../../data/src/curio";
 import { savedCommandSchema } from "../../../data/src/quest-save";
-import { applyCommand, type GameState } from "../../src/command";
-import { createBattleState } from "../../src/battle";
-import { createCoreDungeonQuest } from "../../src/dungeon-quest-entry";
-import { coreParty, coreQuestSources } from "../../src/test-helpers/core-quest";
-import { rebuildLocationQuestDecks } from "../../src/location-quest-sources";
+import { applyCommand, type GameState } from "../../src/shared/core/command";
+import { createBattleState } from "../../src/shared/battle/battle";
+import { createCoreDungeonQuest } from "../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "../helpers/core-quest";
+import { rebuildLocationQuestDecks } from "../../src/shared/quest/location-quest-sources";
 
 const sources = {
   ...coreQuestSources,

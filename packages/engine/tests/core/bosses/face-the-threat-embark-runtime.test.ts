@@ -1,12 +1,12 @@
 import { edgeRoomNodeIds } from "../../../src/core/bosses/edge-room-placement";
 import { beforeEach, describe, expect, it } from "vitest";
-import { applyCommand, type Command, type GameState } from "../../../src/command";
-import { chooseNextQuest } from "../../../src/hamlet-embark";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
+import { applyCommand, type Command, type GameState } from "../../../src/shared/core/command";
+import { chooseNextQuest } from "../../../src/shared/hamlet/hamlet-embark";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "../../helpers/core-quest";
 import trinkets from "../../../../data/normalized/corebox/trinket.json";
 import { normalizedTrinketFileSchema } from "../../../../data/src/normalize/schema";
-import { createTrinketPool } from "../../../src/trinket-acquisition";
+import { createTrinketPool } from "../../../src/shared/trinkets/trinket-acquisition";
 import {
   countCompletedRegularQuestsAtCampaignLevel,
   ensureNecromancerIBossScriptRegistered,

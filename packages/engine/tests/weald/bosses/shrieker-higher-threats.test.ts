@@ -1,14 +1,11 @@
 import trinketData from "../../../../data/normalized/corebox/trinket.json";
 import { normalizedTrinketFileSchema } from "../../../../data/src/normalize/schema";
-import { createTrinketPool } from "../../../src/trinket-acquisition";
-import {
-  wealdSuppliesLootFixture,
-  wealdTaskSources,
-} from "../../../src/test-helpers/weald-task-battle";
+import { createTrinketPool } from "../../../src/shared/trinkets/trinket-acquisition";
+import { wealdSuppliesLootFixture, wealdTaskSources } from "../../helpers/weald-task-battle";
 import { describe, expect, it } from "vitest";
-import { applyCommand, type ApplyResult, type GameState } from "../../../src/command";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { coreParty } from "../../../src/test-helpers/core-quest";
+import { applyCommand, type ApplyResult, type GameState } from "../../../src/shared/core/command";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty } from "../../helpers/core-quest";
 import { beginHigherShriekerGain } from "../../../src/weald/bosses/shrieker-i-provisions";
 const item = (id: string) => ({ id, face: "food" as const });
 function fixture(level: 2 | 3): GameState {

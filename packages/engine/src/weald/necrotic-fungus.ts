@@ -1,4 +1,4 @@
-import type { BattleEntity, BattleSetup, BattleState } from "../battle";
+import type { BattleEntity, BattleSetup, BattleState } from "../shared/battle/battle";
 import type { WealdRoomTile } from "../../../data/src/weald-room";
 
 export const NECROTIC_FUNGUS_MONSTER_CARD_ID = "weald:necrotic-fungus";

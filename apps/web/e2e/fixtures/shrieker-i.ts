@@ -1,12 +1,12 @@
-import { shriekerMechanismFixture } from "../../../../packages/engine/src/test-helpers/shrieker-i";
+import { shriekerMechanismFixture } from "../../../../packages/engine/tests/helpers/shrieker-i";
 import {
   createCoreDungeonQuest,
   type CoreQuestSources,
-} from "../../../../packages/engine/src/dungeon-quest-entry";
-import { coreParty } from "../../../../packages/engine/src/test-helpers/core-quest";
-import { drawInitialQuestOffers } from "../../../../packages/engine/src/initial-quest-draw";
-import { applyCommand, type Command } from "../../../../packages/engine/src/command";
-import { createQuestSave } from "../../../../packages/engine/src/quest-save";
+} from "../../../../packages/engine/src/shared/dungeon/dungeon-quest-entry";
+import { coreParty } from "../../../../packages/engine/tests/helpers/core-quest";
+import { drawInitialQuestOffers } from "../../../../packages/engine/src/shared/hamlet/initial-quest-draw";
+import { applyCommand, type Command } from "../../../../packages/engine/src/shared/core/command";
+import { createQuestSave } from "../../../../packages/engine/src/shared/quest/quest-save";
 
 export function shriekerUiFixture(sources: CoreQuestSources) {
   const packs = ["core", "weald"] as const,

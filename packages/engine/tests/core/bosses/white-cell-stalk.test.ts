@@ -1,9 +1,9 @@
 import { readFileSync } from "node:fs";
 import { expect, it } from "vitest";
-import { createBattleState, type BattleEntity } from "../../../src/battle";
-import { applyCommand } from "../../../src/command";
-import { finishTurn } from "../../../src/encounter";
-import type { MonsterCardView } from "../../../src/monster-skill";
+import { createBattleState, type BattleEntity } from "../../../src/shared/battle/battle";
+import { applyCommand } from "../../../src/shared/core/command";
+import { finishTurn } from "../../../src/shared/dungeon/encounter";
+import type { MonsterCardView } from "../../../src/shared/core/monster-skill";
 
 const cards: MonsterCardView[] = ["medium", "large"].flatMap(
   (kind) =>

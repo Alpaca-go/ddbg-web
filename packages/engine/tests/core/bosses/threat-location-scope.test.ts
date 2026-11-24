@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest";
 import type { BasicQuestId } from "../../../../data/src/basic-quests";
-import type { GameState } from "../../../src/command";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { ensureCampaignBossScriptsRegistered } from "../../../src/registry";
-import { coreParty } from "../../../src/test-helpers/core-quest";
-import { wealdTaskSources } from "../../../src/test-helpers/weald-task-battle";
+import type { GameState } from "../../../src/shared/core/command";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { ensureCampaignBossScriptsRegistered } from "../../../src/shared/core/registry";
+import { coreParty } from "../../helpers/core-quest";
+import { wealdTaskSources } from "../../helpers/weald-task-battle";
 import { firstBattleThreatDeck } from "../../../src/core/bosses/necromancer-ii-army";
 import {
   shriekerHigherThreatLevel,

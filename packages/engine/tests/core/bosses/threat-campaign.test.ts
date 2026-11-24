@@ -1,6 +1,6 @@
 import { describe, expect, it, beforeEach } from "vitest";
-import { applyCommand } from "../../../src/command";
-import type { Command, GameState } from "../../../src/command";
+import { applyCommand } from "../../../src/shared/core/command";
+import type { Command, GameState } from "../../../src/shared/core/command";
 import {
   NECROMANCER_I_COMBAT_MONSTER_CARD_ID,
   NECROMANCER_I_SCRIPT_ID,
@@ -11,10 +11,10 @@ import {
   setActiveBossThreat,
   syncHamletBlockedBuildingsForBossThreat,
 } from "../../../src/index";
-import { coreQuestSources } from "../../../src/test-helpers/core-quest";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { coreParty } from "../../../src/test-helpers/core-quest";
-import { rollHamletCaretaker } from "../../../src/hamlet-event";
+import { coreQuestSources } from "../../helpers/core-quest";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty } from "../../helpers/core-quest";
+import { rollHamletCaretaker } from "../../../src/shared/hamlet/hamlet-event";
 
 function hamletJourney(seed = 40) {
   let game = createCoreDungeonQuest(seed, "quest:p001", "radiant", coreParty, coreQuestSources);
@@ -130,7 +130,7 @@ describe("Boss 威胁被动战役接线（Necromancer I）", () => {
       {
         activeBossThreatScriptId: NECROMANCER_I_SCRIPT_ID,
         battleCatalog: coreQuestSources.catalog,
-      } as unknown as import("../../../src/dungeon").DungeonState,
+      } as unknown as import("../../../src/shared/dungeon/dungeon").DungeonState,
       pool,
       [{ cardId: humanId }, { cardId: unholyId }],
       ["monster-deck:p018", "monster-deck:p001"],
@@ -193,7 +193,7 @@ describe("Boss 威胁被动战役接线（Necromancer I）", () => {
     const d = {
       activeBossThreatScriptId: NECROMANCER_I_SCRIPT_ID,
       hamlet,
-    } as unknown as import("../../../src/dungeon").DungeonState;
+    } as unknown as import("../../../src/shared/dungeon/dungeon").DungeonState;
     const twice = syncHamletBlockedBuildingsForBossThreat(
       d,
       syncHamletBlockedBuildingsForBossThreat(d, hamlet),

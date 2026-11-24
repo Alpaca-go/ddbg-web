@@ -1,9 +1,9 @@
 import { expect, it } from "vitest";
 import { buildShriekerICombatCatalog } from "../../../src/weald/bosses/shrieker-i-projection";
 import { WEALD_SHRIEKER_I_CONTENT as content } from "../../../src/weald/bosses/shrieker-i-content";
-import { readMonsterAttackView, resolveMonsterSkill } from "../../../src/monster-skill";
-import { selectMonsterSkill } from "../../../src/monster-stance";
-import { readPrintedRange, readPrintedTargets } from "../../../src/hero-skill";
+import { readMonsterAttackView, resolveMonsterSkill } from "../../../src/shared/core/monster-skill";
+import { selectMonsterSkill } from "../../../src/shared/core/monster-stance";
+import { readPrintedRange, readPrintedTargets } from "../../../src/core/heroes/hero-skill";
 
 it("R-261 核准属性／抗性与全姿态十面选招，Nest 不伪造主动技能", () => {
   const before = structuredClone(content);

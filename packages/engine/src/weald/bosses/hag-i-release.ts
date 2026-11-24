@@ -4,13 +4,13 @@ import type {
   HeroSkillResolvedEvent,
   HeroSkillEmptyAreaResolvedEvent,
   MonsterSkillResolvedEvent,
-} from "../../command";
+} from "../../shared/core/command";
 import {
   recordEncounterSkill,
   recordMonsterSkill,
   finishTurnStartAfterStatus,
-} from "../../encounter";
-import { rejectBattleCommand } from "../../battle";
+} from "../../shared/dungeon/encounter";
+import { rejectBattleCommand } from "../../shared/battle/battle";
 import { readHagRuntimeContext } from "./hag-runtime-context";
 import { releaseHagHero } from "./hag-i-captive";
 

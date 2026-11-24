@@ -2,7 +2,7 @@ import { expect } from "@playwright/test";
 import { ssrTest } from "./ssr-test";
 import { createServer } from "vite";
 import { fileURLToPath } from "node:url";
-import type { GameState } from "../../../packages/engine/src/command";
+import type { GameState } from "../../../packages/engine/src/shared/core/command";
 const test = ssrTest(import.meta.url);
 test("剩余任务页面：点火与等待轮末；双补给宝箱Wild选择", async ({ page }) => {
   test.setTimeout(180000);

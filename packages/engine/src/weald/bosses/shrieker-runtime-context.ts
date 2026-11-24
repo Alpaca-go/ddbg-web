@@ -1,8 +1,8 @@
-import type { GameState } from "../../command";
+import type { GameState } from "../../shared/core/command";
 import { WEALD_SHRIEKER_I_CONTENT as base } from "./shrieker-i-content";
 import { WEALD_SHRIEKER_HIGHER_CONTENT as higher } from "./shrieker-higher-content";
 import { projectShriekerCombatFaces } from "./shrieker-i-projection";
-import { isCampaignExpeditionMode } from "../../campaign-expedition-mode";
+import { isCampaignExpeditionMode } from "../../shared/hamlet/campaign-expedition-mode";
 export function shriekerContextForLevel(level: 1 | 2 | 3) {
   const card = level === 1 ? base : higher.cards.find((c) => c.level === level)!;
   return {

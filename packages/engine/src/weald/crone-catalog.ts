@@ -1,7 +1,7 @@
 import { readWealdCroneProfile } from "../../../data/src/weald-crone";
-import type { DungeonBattleCatalog } from "../dungeon";
-import type { MonsterSkillView } from "../monster-skill";
-import type { SkillSegment } from "../hero-skill";
+import type { DungeonBattleCatalog } from "../shared/dungeon/dungeon";
+import type { MonsterSkillView } from "../shared/core/monster-skill";
+import type { SkillSegment } from "../core/heroes/hero-skill";
 import type { MonsterEffectPlan } from "../../../data/src/monster-effects";
 
 export const CRONE_CARD_ID = "monster_medium:weald:p015";

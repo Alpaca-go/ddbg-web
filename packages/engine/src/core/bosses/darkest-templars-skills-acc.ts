@@ -1,4 +1,4 @@
-import type { ApplyResult, GameState } from "../../command";
+import type { ApplyResult, GameState } from "../../shared/core/command";
 import { DARKEST_TEMPLARS_SCRIPT_ID } from "./darkest-mid-boss-scripts";
 import { runDarkestMidBossSkillAcc } from "./darkest-mid-boss-skill-acc-core";
 

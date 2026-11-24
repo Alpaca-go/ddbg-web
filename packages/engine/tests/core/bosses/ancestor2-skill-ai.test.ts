@@ -1,9 +1,14 @@
 import { expect, it } from "vitest";
-import { applyCommand, type ApplyResult, type Command, type GameState } from "../../../src/command";
-import { nextBattleRoll } from "../../../src/battle-roll";
-import { selectMonsterSkill } from "../../../src/monster-stance";
+import {
+  applyCommand,
+  type ApplyResult,
+  type Command,
+  type GameState,
+} from "../../../src/shared/core/command";
+import { nextBattleRoll } from "../../../src/shared/battle/battle-roll";
+import { selectMonsterSkill } from "../../../src/shared/core/monster-stance";
 import { readFinalFormSequence } from "../../../src/core/bosses/final-form-sequence";
-import { finalPreparationFixture } from "../../../src/test-helpers/final-preparation";
+import { finalPreparationFixture } from "../../helpers/final-preparation";
 import { ANCESTOR_2_MONSTER_CARD_ID } from "../../../src/core/bosses/ancestor2-swift-teleportation";
 import { isAbsoluteNothingnessEntity } from "../../../src/core/bosses/ancestor2-absolute-nothingness";
 import { applyAncestor2SkillFromStanceSelection } from "../../../src/core/bosses/ancestor2-skill-ai";

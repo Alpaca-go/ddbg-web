@@ -1,12 +1,12 @@
-import { applyCommand, type Command } from "../../src/command";
+import { applyCommand, type Command } from "../../src/shared/core/command";
 import { it, expect } from "vitest";
-import { fungalResearchThreeObjectives } from "../../src/test-helpers/fungal-research-three-objectives";
-import { disinfectionThreeTargets } from "../../src/test-helpers/disinfection-three-targets";
-import { circleOfWitchesJourney } from "../../src/test-helpers/circle-of-witches-quest";
-import { purgeTheWoodsJourney } from "../../src/test-helpers/purge-the-woods-quest";
-import { patrolTheWoodsJourney } from "../../src/test-helpers/patrol-the-woods-quest";
-import { disinfectionSources as sources } from "../../src/test-helpers/disinfection-quest";
-import { createQuestSave, loadQuestSave } from "../../src/quest-save";
+import { fungalResearchThreeObjectives } from "../helpers/fungal-research-three-objectives";
+import { disinfectionThreeTargets } from "../helpers/disinfection-three-targets";
+import { circleOfWitchesJourney } from "../helpers/circle-of-witches-quest";
+import { purgeTheWoodsJourney } from "../helpers/purge-the-woods-quest";
+import { patrolTheWoodsJourney } from "../helpers/patrol-the-woods-quest";
+import { disinfectionSources as sources } from "../helpers/disinfection-quest";
+import { createQuestSave, loadQuestSave } from "../../src/shared/quest/quest-save";
 const scenarios = [
   ["p001 seed1", () => fungalResearchThreeObjectives(sources, true)],
   ["p002 seed2", () => circleOfWitchesJourney(3, sources, true)],

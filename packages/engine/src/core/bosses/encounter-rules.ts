@@ -1,14 +1,14 @@
 import { ensureShriekerIBossScriptRegistered } from "../../weald/bosses/shrieker-i";
-import type { GameState } from "../../command";
+import type { GameState } from "../../shared/core/command";
 import { readBossCombatEntry } from "./combat-entry";
 import { readDarkestMidBossDeployedCardIds } from "./darkest-mid-boss-runtime";
 import { readDarkestMidBossRequiredCombatCardIds } from "./darkest-mid-boss-scripts";
-import { ensureCampaignBossScriptsRegistered } from "../../registry";
+import { ensureCampaignBossScriptsRegistered } from "../../shared/core/registry";
 import { bossEnabledForPacks } from "../../../../data/src/content-packs";
 import { getBossScript } from "./registry";
 import { encounterRoundRetreatLimit } from "./rules";
 import { isBossQuestId, resolveBossScriptIdForQuest } from "./quest-bridge";
-import { isDarkestQuest } from "../../darkest-setup";
+import { isDarkestQuest } from "../darkest/darkest-setup";
 import type { BossBattleRules, BossScriptId } from "./types";
 
 function deployedMonsterCardIds(state: GameState): readonly string[] {

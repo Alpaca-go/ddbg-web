@@ -5,8 +5,8 @@ import {
   attachVerifiedLargeMonsterFields,
   verifiedLargeMonsterFields,
 } from "./verified-large-monster-fields";
-import { selectMonsterSkill } from "../../../engine/src/monster-stance";
-import type { MonsterStanceCardView } from "../../../engine/src/monster-stance";
+import { selectMonsterSkill } from "../../../engine/src/shared/core/monster-stance";
+import type { MonsterStanceCardView } from "../../../engine/src/shared/core/monster-stance";
 
 const built = loadNormalizedCorebox();
 const originals = built.monster_large.cards.map((card) => {

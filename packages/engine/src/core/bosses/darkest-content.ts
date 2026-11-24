@@ -3,8 +3,8 @@ import {
   darkestBossContentSchema,
   finalBattlePlanForQuest,
 } from "../../../../data/src/darkest-boss-content";
-import type { GameState } from "../../command";
-import type { DungeonState } from "../../dungeon";
+import type { GameState } from "../../shared/core/command";
+import type { DungeonState } from "../../shared/dungeon/dungeon";
 
 const content = darkestBossContentSchema.parse(source);
 

@@ -1,6 +1,6 @@
 import medium from "../../../../data/normalized/corebox/monster_medium.json";
 import large from "../../../../data/normalized/corebox/monster_large.json";
-import type { ApplyResult } from "../../command";
+import type { ApplyResult } from "../../shared/core/command";
 import { WEALD_POUNDER_I_CONTENT as content } from "./pounder-i-content";
 import { readPounderRuntimeContext } from "./pounder-runtime-context";
 

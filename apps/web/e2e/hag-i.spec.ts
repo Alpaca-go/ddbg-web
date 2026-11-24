@@ -2,7 +2,7 @@ import { expect } from "@playwright/test";
 import { ssrTest } from "./ssr-test";
 import { createServer } from "vite";
 import { fileURLToPath } from "node:url";
-import type { GameState } from "../../../packages/engine/src/command";
+import type { GameState } from "../../../packages/engine/src/shared/core/command";
 
 const test = ssrTest(import.meta.url);
 test("Hag 真实自然检查点：页面部署、3 张怪物先攻与释放选择", async ({ page }) => {

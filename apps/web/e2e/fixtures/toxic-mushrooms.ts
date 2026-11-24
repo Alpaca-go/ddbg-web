@@ -1,1 +1,1 @@
-export { toxicMushroomsQuest } from "../../../../packages/engine/src/test-helpers/toxic-mushrooms-quest";
+export { toxicMushroomsQuest } from "../../../../packages/engine/tests/helpers/toxic-mushrooms-quest";

@@ -1,10 +1,7 @@
 import { expect, it } from "vitest";
-import { applyCommand, type GameState } from "../../../src/command";
-import { nextBattleRoll } from "../../../src/battle-roll";
-import {
-  finalPreparationFixture,
-  withoutSupportReflection,
-} from "../../../src/test-helpers/final-preparation";
+import { applyCommand, type GameState } from "../../../src/shared/core/command";
+import { nextBattleRoll } from "../../../src/shared/battle/battle-roll";
+import { finalPreparationFixture, withoutSupportReflection } from "../../helpers/final-preparation";
 import { readFinalFormSequence } from "../../../src/core/bosses/final-form-sequence";
 import { ANCESTOR_1_MONSTER_CARD_ID } from "../../../src/core/bosses/ancestor1-time-heals-all";
 import {

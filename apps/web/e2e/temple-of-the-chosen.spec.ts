@@ -2,7 +2,7 @@ import { expect } from "@playwright/test";
 import { ssrTest } from "./ssr-test";
 import { createServer } from "vite";
 import { fileURLToPath } from "node:url";
-import type { GameState } from "../../../packages/engine/src/command";
+import type { GameState } from "../../../packages/engine/src/shared/core/command";
 
 const test = ssrTest(import.meta.url);
 
@@ -19,7 +19,7 @@ test("Temple of the Chosen：怪物技能结束触发治疗及全体压力", asy
   try {
     const fixture = await server.ssrLoadModule(
       fileURLToPath(
-        new URL("../../../packages/engine/src/test-helpers/hall-ascension.ts", import.meta.url),
+        new URL("../../../packages/engine/tests/helpers/hall-ascension.ts", import.meta.url),
       ),
     );
     game = fixture.hallAscensionFixture();
@@ -30,7 +30,10 @@ test("Temple of the Chosen：怪物技能结束触发治疗及全体压力", asy
     );
     const { roomTileBattleAreas } = await server.ssrLoadModule(
       fileURLToPath(
-        new URL("../../../packages/engine/src/battle-monster-movement.ts", import.meta.url),
+        new URL(
+          "../../../packages/engine/src/shared/battle/battle-monster-movement.ts",
+          import.meta.url,
+        ),
       ),
     );
     game = {

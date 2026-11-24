@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { applyCommand, type Command, type GameState } from "../../../src/command";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
-import { nextBattleRoll } from "../../../src/battle-roll";
-import { hamletActionOptions } from "../../../src/hamlet-actions";
+import { applyCommand, type Command, type GameState } from "../../../src/shared/core/command";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "../../helpers/core-quest";
+import { nextBattleRoll } from "../../../src/shared/battle/battle-roll";
+import { hamletActionOptions } from "../../../src/shared/hamlet/hamlet-actions";
 import { savedCommandSchema } from "../../../../data/src/quest-save";
 import { NECROMANCER_II_SCRIPT_ID } from "../../../src/core/bosses/necromancer-ii";
 import { isHauntedGraveyardGuard } from "../../../src/core/bosses/necromancer-ii-graveyard";

@@ -1,6 +1,6 @@
-import { wealdSuppliesLootFixture } from "../../../../packages/engine/src/test-helpers/weald-task-battle";
-import { createLootState } from "../../../../packages/engine/src/loot";
-import type { GameState } from "../../../../packages/engine/src/command";
+import { wealdSuppliesLootFixture } from "../../../../packages/engine/tests/helpers/weald-task-battle";
+import { createLootState } from "../../../../packages/engine/src/shared/trinkets/loot";
+import type { GameState } from "../../../../packages/engine/src/shared/core/command";
 /** 受控普通战斗页面检查点，核对旧版本进入新口径，不是自然养成日志。 */
 export function shriekerSkipRollsUiFixture(): GameState {
   const source = wealdSuppliesLootFixture(),

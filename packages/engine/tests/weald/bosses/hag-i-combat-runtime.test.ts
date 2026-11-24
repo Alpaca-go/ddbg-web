@@ -1,17 +1,17 @@
 import { describe, expect, it, beforeEach } from "vitest";
 import { readFileSync } from "node:fs";
-import { createBattleState, type BattleEntity } from "../../../src/battle";
-import { applyCommand } from "../../../src/command";
+import { createBattleState, type BattleEntity } from "../../../src/shared/battle/battle";
+import { applyCommand } from "../../../src/shared/core/command";
 import {
   applyEncounterCommand,
   finishTurn,
   removeCasualties,
   endAfterCasualties,
-} from "../../../src/encounter";
-import type { GameState } from "../../../src/command";
-import type { MonsterCardView } from "../../../src/monster-skill";
-import type { SkillStance } from "../../../src/hero-skill";
-import { createLootState } from "../../../src/loot";
+} from "../../../src/shared/dungeon/encounter";
+import type { GameState } from "../../../src/shared/core/command";
+import type { MonsterCardView } from "../../../src/shared/core/monster-skill";
+import type { SkillStance } from "../../../src/core/heroes/hero-skill";
+import { createLootState } from "../../../src/shared/trinkets/loot";
 import {
   HAG_I_CAULDRON_EMPTY_MONSTER_CARD_ID,
   HAG_I_CAULDRON_FULL_MONSTER_CARD_ID,
@@ -47,7 +47,7 @@ function cards<T>(file: string): T[] {
 }
 
 const heroProfiles = cards<
-  NonNullable<import("../../../src/battle").BattleSetup["heroStats"]>[number]
+  NonNullable<import("../../../src/shared/battle/battle").BattleSetup["heroStats"]>[number]
 >("hero_stat").filter((card) => card.attributesVerified && card.level === 1);
 
 function verifiedMonsterCard(id: string, life: number, width: 1 | 2 = 1): MonsterCardView {

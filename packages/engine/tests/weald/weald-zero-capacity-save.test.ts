@@ -1,7 +1,7 @@
 import { expect, it } from "vitest";
-import { applyCommand } from "../../src/command";
-import { createQuestSave, loadQuestSave } from "../../src/quest-save";
-import { zeroCapacityQuest } from "../../src/test-helpers/zero-capacity-quest";
+import { applyCommand } from "../../src/shared/core/command";
+import { createQuestSave, loadQuestSave } from "../../src/shared/quest/quest-save";
+import { zeroCapacityQuest } from "../helpers/zero-capacity-quest";
 it("W-03 seed2 零容量暂留、穿过与移出均可严格恢复，最后行动原地移动拒绝", () => {
   const f = zeroCapacityQuest();
   const turn = f.paused.battle!.encounter!.turn;

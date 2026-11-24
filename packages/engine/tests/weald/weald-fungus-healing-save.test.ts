@@ -1,7 +1,7 @@
 import { expect, it } from "vitest";
-import { applyCommand } from "../../src/command";
-import { createQuestSave, loadQuestSave } from "../../src/quest-save";
-import { fungusHealingQuest } from "../../src/test-helpers/fungus-healing-quest";
+import { applyCommand } from "../../src/shared/core/command";
+import { createQuestSave, loadQuestSave } from "../../src/shared/quest/quest-save";
+import { fungusHealingQuest } from "../helpers/fungus-healing-quest";
 it("W-04 seed1 活真菌阻止治疗，完整日志恢复后仍原子拒绝", () => {
   const f = fungusHealingQuest();
   const save = createQuestSave(f.start, f.commands, f.before, f.sources);

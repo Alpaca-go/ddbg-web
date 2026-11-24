@@ -1,8 +1,8 @@
 import { expect, it } from "vitest";
-import { loadQuestSave } from "../../src/quest-save";
-import { WEALD_NATURAL_ACT_ONE_RADIANT_CAMPAIGN_DRIVE } from "../../src/test-helpers/weald-face-the-threat-natural-seed-scan";
-import { wealdTaskSources } from "../../src/test-helpers/weald-task-battle";
-import { wealdFaceTheThreatNaturalCrossActJourney } from "../../src/test-helpers/weald-face-the-threat-natural-prefix";
+import { loadQuestSave } from "../../src/shared/quest/quest-save";
+import { WEALD_NATURAL_ACT_ONE_RADIANT_CAMPAIGN_DRIVE } from "../helpers/weald-face-the-threat-natural-seed-scan";
+import { wealdTaskSources } from "../helpers/weald-task-battle";
+import { wealdFaceTheThreatNaturalCrossActJourney } from "../helpers/weald-face-the-threat-natural-prefix";
 import type { WealdBossIdentity } from "../../src/weald/catalog";
 
 function expectBossCampaign(

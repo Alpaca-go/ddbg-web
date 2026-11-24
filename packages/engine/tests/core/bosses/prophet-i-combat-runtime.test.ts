@@ -1,13 +1,17 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it, beforeEach } from "vitest";
-import { createBattleState, type BattleEntity, type BattleState } from "../../../src/battle";
-import { applyCommand, type GameState } from "../../../src/command";
-import { finishTurn } from "../../../src/encounter";
+import {
+  createBattleState,
+  type BattleEntity,
+  type BattleState,
+} from "../../../src/shared/battle/battle";
+import { applyCommand, type GameState } from "../../../src/shared/core/command";
+import { finishTurn } from "../../../src/shared/dungeon/encounter";
 import { normalizedMonsterLargeFileSchema } from "../../../../data/src/normalize/schema";
-import { createLootState } from "../../../src/loot";
-import { nextBattleRoll } from "../../../src/battle-roll";
-import type { SkillStance } from "../../../src/hero-skill";
-import type { MonsterCardView } from "../../../src/monster-skill";
+import { createLootState } from "../../../src/shared/trinkets/loot";
+import { nextBattleRoll } from "../../../src/shared/battle/battle-roll";
+import type { SkillStance } from "../../../src/core/heroes/hero-skill";
+import type { MonsterCardView } from "../../../src/shared/core/monster-skill";
 import {
   PROPHET_I_COMBAT_MONSTER_CARD_ID,
   PROPHET_I_SCRIPT_ID,

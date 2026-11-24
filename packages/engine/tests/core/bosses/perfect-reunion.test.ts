@@ -4,7 +4,7 @@ import {
   readMonsterAttackView,
   resolveMonsterSkill,
   type MonsterCardView,
-} from "../../../src/monster-skill";
+} from "../../../src/shared/core/monster-skill";
 const cards: MonsterCardView[] = JSON.parse(
   readFileSync(
     new URL("../../../../data/normalized/corebox/monster_medium.json", import.meta.url),

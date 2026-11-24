@@ -1,11 +1,11 @@
-import { ordinaryRoomCardsInCatalog } from "../../src/expedition-room-catalog";
-import { readExpeditionRoomTile } from "../../src/expedition-room-tile";
+import { ordinaryRoomCardsInCatalog } from "../../src/shared/dungeon/expedition-room-catalog";
+import { readExpeditionRoomTile } from "../../src/shared/dungeon/expedition-room-tile";
 import { expect, it } from "vitest";
-import { createCoreDungeonQuest } from "../../src/dungeon-quest-entry";
-import { coreParty } from "../../src/test-helpers/core-quest";
-import { wealdTaskSources, wealdTaskBattleFixture } from "../../src/test-helpers/weald-task-battle";
-import { applyCommand, type GameState } from "../../src/command";
-import { createLootState, nextProvisionFace } from "../../src/loot";
+import { createCoreDungeonQuest } from "../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty } from "../helpers/core-quest";
+import { wealdTaskSources, wealdTaskBattleFixture } from "../helpers/weald-task-battle";
+import { applyCommand, type GameState } from "../../src/shared/core/command";
+import { createLootState, nextProvisionFace } from "../../src/shared/trinkets/loot";
 
 function initial() {
   return createCoreDungeonQuest(

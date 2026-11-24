@@ -2,7 +2,7 @@ import { expect } from "@playwright/test";
 import { ssrTest } from "./ssr-test";
 import { createServer } from "vite";
 import { fileURLToPath } from "node:url";
-import type { GameState } from "../../../packages/engine/src/command";
+import type { GameState } from "../../../packages/engine/src/shared/core/command";
 
 const test = ssrTest(import.meta.url);
 test("Shrieker 机制检查点：页面部署与三先攻；真实 reserve 日志导入刷新恢复并继续", async ({

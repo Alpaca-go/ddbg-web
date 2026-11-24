@@ -1,9 +1,9 @@
 import { clearBossScriptsForTest } from "../../../src/core/bosses/registry";
 import { expect, it } from "vitest";
 import { savedCommandSchema } from "../../../../data/src/quest-save";
-import { applyCommand, type GameState, type Command } from "../../../src/command";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
+import { applyCommand, type GameState, type Command } from "../../../src/shared/core/command";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "../../helpers/core-quest";
 import { requireFaceTheThreatEmbarkPlanForSandbox } from "../../../src/core/bosses/face-the-threat-embark-runtime";
 import {
   ensureHagIBossScriptRegistered,

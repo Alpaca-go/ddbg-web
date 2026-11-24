@@ -1,11 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { applyCommand, type Command, type GameState } from "../../../src/command";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
-import { wealdTaskSources } from "../../../src/test-helpers/weald-task-battle";
-import { caretakerBuilding } from "../../../src/hamlet-event";
-import { nextBattleRoll } from "../../../src/battle-roll";
-import { createBattleState, type BattleEntity } from "../../../src/battle";
+import { applyCommand, type Command, type GameState } from "../../../src/shared/core/command";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "../../helpers/core-quest";
+import { wealdTaskSources } from "../../helpers/weald-task-battle";
+import { caretakerBuilding } from "../../../src/shared/hamlet/hamlet-event";
+import { nextBattleRoll } from "../../../src/shared/battle/battle-roll";
+import { createBattleState, type BattleEntity } from "../../../src/shared/battle/battle";
 import { applyPounderIRangedEntry } from "../../../src/weald/bosses/pounder-i-dungeon-threat";
 import { pounderContextForLevel } from "../../../src/weald/bosses/pounder-runtime-context";
 

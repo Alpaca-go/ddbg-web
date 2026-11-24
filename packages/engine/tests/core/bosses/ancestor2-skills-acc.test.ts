@@ -1,10 +1,10 @@
 import { expect, it } from "vitest";
-import { applyCommand, type GameState } from "../../../src/command";
-import { nextBattleRoll } from "../../../src/battle-roll";
-import { distance } from "../../../src/battle";
-import { selectMonsterTarget } from "../../../src/monster-target";
+import { applyCommand, type GameState } from "../../../src/shared/core/command";
+import { nextBattleRoll } from "../../../src/shared/battle/battle-roll";
+import { distance } from "../../../src/shared/battle/battle";
+import { selectMonsterTarget } from "../../../src/shared/core/monster-target";
 import { readFinalFormSequence } from "../../../src/core/bosses/final-form-sequence";
-import { finalPreparationFixture } from "../../../src/test-helpers/final-preparation";
+import { finalPreparationFixture } from "../../helpers/final-preparation";
 import { FINAL_BATTLE_MONSTER_STANCE_AREAS } from "../../../src/core/bosses/final-battle-deploy";
 import { ANCESTOR_2_MONSTER_CARD_ID } from "../../../src/core/bosses/ancestor2-swift-teleportation";
 import { isAbsoluteNothingnessEntity } from "../../../src/core/bosses/ancestor2-absolute-nothingness";

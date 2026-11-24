@@ -1,14 +1,14 @@
 import {
   dungeonMonsterPoolCatalogValid,
   restingMonsterPoolValid,
-} from "../../monster-pool-validation";
-import { dungeonCurioCatalogValid } from "../../dungeon-curio-catalog";
-import type { ApplyResult, GameState } from "../../command";
-import { rejectBattleCommand } from "../../battle";
+} from "../../shared/core/monster-pool-validation";
+import { dungeonCurioCatalogValid } from "../../shared/dungeon/dungeon-curio-catalog";
+import type { ApplyResult, GameState } from "../../shared/core/command";
+import { rejectBattleCommand } from "../../shared/battle/battle";
 import { clearedBossThreatScriptIdAfterVictory } from "../../core/bosses/threat-campaign";
 import { shriekerDeploymentContext } from "./shrieker-deployment-context";
 import { WEALD_SHRIEKER_I_CONTENT as content } from "./shrieker-i-content";
-import { isCampaignExpeditionMode } from "../../campaign-expedition-mode";
+import { isCampaignExpeditionMode } from "../../shared/hamlet/campaign-expedition-mode";
 
 export function shriekerIRealCombatActive(state: GameState): boolean {
   return shriekerRealCombatActive(state, 1);

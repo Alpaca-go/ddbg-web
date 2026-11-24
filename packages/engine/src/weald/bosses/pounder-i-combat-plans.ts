@@ -1,4 +1,4 @@
-import type { BattleEntity } from "../../battle";
+import type { BattleEntity } from "../../shared/battle/battle";
 import { WEALD_POUNDER_I_CONTENT as content } from "./pounder-i-content";
 
 type Participant = Pick<BattleEntity, "id" | "side" | "dead" | "areaId" | "monsterCardId">;

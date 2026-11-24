@@ -1,8 +1,8 @@
 import { readFileSync } from "node:fs";
 import { expect, it } from "vitest";
-import { applyCommand, type GameState } from "../../../src/command";
+import { applyCommand, type GameState } from "../../../src/shared/core/command";
 import { readFinalFormSequence } from "../../../src/core/bosses/final-form-sequence";
-import { finalPreparationFixture } from "../../../src/test-helpers/final-preparation";
+import { finalPreparationFixture } from "../../helpers/final-preparation";
 import { FINAL_BATTLE_MONSTER_STANCE_AREAS } from "../../../src/core/bosses/final-battle-deploy";
 import { GESTATING_HEART_MONSTER_CARD_ID } from "../../../src/core/bosses/gestating-heart-ichor";
 import { applyGestatingHeartSummon } from "../../../src/core/bosses/gestating-heart-summon";

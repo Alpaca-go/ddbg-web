@@ -1,21 +1,24 @@
-import type { ApplyResult, GameState } from "../../command";
-import type { DungeonState } from "../../dungeon";
-import { nextBattleRoll } from "../../battle-roll";
-import { passiveStress } from "../../passive";
-import { resolveHeroHealth } from "../../hero-health";
-import { resolveBattlePressure } from "../../pressure";
-import { applyHamletThreatDebuff, triggerDungeonPassive } from "../../dungeon-passive";
-import { resolveDungeonPressure } from "../../dungeon-pressure";
-import type { MonsterCardView } from "../../monster-skill";
-import { readHeroPassiveDefence } from "../../battle-skill-status";
-import { addStatusStack, STATUS_KINDS, statusProjection } from "../../status";
-import type { StatusKind, StatusStack } from "../../status";
+import type { ApplyResult, GameState } from "../../shared/core/command";
+import type { DungeonState } from "../../shared/dungeon/dungeon";
+import { nextBattleRoll } from "../../shared/battle/battle-roll";
+import { passiveStress } from "../../shared/core/passive";
+import { resolveHeroHealth } from "../heroes/hero-health";
+import { resolveBattlePressure } from "../../shared/core/pressure";
+import {
+  applyHamletThreatDebuff,
+  triggerDungeonPassive,
+} from "../../shared/dungeon/dungeon-passive";
+import { resolveDungeonPressure } from "../../shared/dungeon/dungeon-pressure";
+import type { MonsterCardView } from "../../shared/core/monster-skill";
+import { readHeroPassiveDefence } from "../../shared/battle/battle-skill-status";
+import { addStatusStack, STATUS_KINDS, statusProjection } from "../../shared/core/status";
+import type { StatusKind, StatusStack } from "../../shared/core/status";
 import {
   monsterStatusImmunities,
   monsterStatusResistances,
   type MonsterDefenceCard,
-} from "../../monster-defence";
-import { ensureCampaignBossScriptsRegistered } from "../../registry";
+} from "../../shared/core/monster-defence";
+import { ensureCampaignBossScriptsRegistered } from "../../shared/core/registry";
 import { getBossScript } from "./registry";
 import {
   activeBossThreatMatchesDungeonLocation,

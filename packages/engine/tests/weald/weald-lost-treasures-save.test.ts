@@ -4,12 +4,12 @@ import medium from "../../../data/normalized/extension/weald/monster_medium.json
 import large from "../../../data/normalized/extension/weald/monster_large.json";
 import curios from "../../../data/normalized/extension/weald/curio.json";
 import { wealdCurioFileSchema } from "../../../data/src/curio";
-import { createCoreDungeonQuest } from "../../src/dungeon-quest-entry";
-import { createQuestSave, loadQuestSave } from "../../src/quest-save";
-import { coreQuestSources } from "../../src/test-helpers/core-quest";
-import { naturalParty, naturalQuest } from "../../src/test-helpers/natural-quest";
-import { dungeonMonsterPoolThrough } from "../../src/monster-pool-runtime";
-import { remainingQuestIdsForLocationDeck } from "../../src/hamlet-location-quest-draw";
+import { createCoreDungeonQuest } from "../../src/shared/dungeon/dungeon-quest-entry";
+import { createQuestSave, loadQuestSave } from "../../src/shared/quest/quest-save";
+import { coreQuestSources } from "../helpers/core-quest";
+import { naturalParty, naturalQuest } from "../helpers/natural-quest";
+import { dungeonMonsterPoolThrough } from "../../src/shared/core/monster-pool-runtime";
+import { remainingQuestIdsForLocationDeck } from "../../src/shared/hamlet/hamlet-location-quest-draw";
 
 it("Lost Treasures 固定seed0完整日志；II级当地＋通用限制及旧版本隔离", () => {
   const sources = {

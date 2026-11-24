@@ -1,9 +1,9 @@
 import { expect, it } from "vitest";
-import { createBattleState, type BattleEntity } from "../../../src/battle";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
-import type { GameState } from "../../../src/command";
-import type { DungeonState } from "../../../src/dungeon";
+import { createBattleState, type BattleEntity } from "../../../src/shared/battle/battle";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "../../helpers/core-quest";
+import type { GameState } from "../../../src/shared/core/command";
+import type { DungeonState } from "../../../src/shared/dungeon/dungeon";
 import {
   darkestBossVictoryAfterEncounter,
   readDarkestBossEncounter,

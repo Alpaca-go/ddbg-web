@@ -1,8 +1,8 @@
-import { applyCommand, type Command } from "../../src/command";
+import { applyCommand, type Command } from "../../src/shared/core/command";
 import { expect, it } from "vitest";
-import { fungalResearchThreeObjectives } from "../../src/test-helpers/fungal-research-three-objectives";
-import { disinfectionSources as sources } from "../../src/test-helpers/disinfection-quest";
-import { createQuestSave, loadQuestSave } from "../../src/quest-save";
+import { fungalResearchThreeObjectives } from "../helpers/fungal-research-three-objectives";
+import { disinfectionSources as sources } from "../helpers/disinfection-quest";
+import { createQuestSave, loadQuestSave } from "../../src/shared/quest/quest-save";
 it("seed1 当前版本独立保全全部真菌策略：真实结果与完整日志", () => {
   const { start, run, clearedBattles } = fungalResearchThreeObjectives(sources, true, "retain-all");
   expect({

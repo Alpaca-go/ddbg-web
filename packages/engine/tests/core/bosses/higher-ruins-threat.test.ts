@@ -1,11 +1,11 @@
 import { expect, it } from "vitest";
-import { applyCommand, type Command, type GameState } from "../../../src/command";
-import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { nextBattleRoll } from "../../../src/battle-roll";
-import { resolveCurioRows } from "../../../src/dungeon-curio-effects";
+import { applyCommand, type Command, type GameState } from "../../../src/shared/core/command";
+import { coreParty, coreQuestSources } from "../../helpers/core-quest";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { nextBattleRoll } from "../../../src/shared/battle/battle-roll";
+import { resolveCurioRows } from "../../../src/shared/dungeon/dungeon-curio-effects";
 import { scoutRestSchema } from "../../../../data/src/scout-rest";
-import { trinketPoolProblem } from "../../../src/trinket-acquisition";
+import { trinketPoolProblem } from "../../../src/shared/trinkets/trinket-acquisition";
 
 function ok(state: GameState, command: Command) {
   const result = applyCommand(state, command);

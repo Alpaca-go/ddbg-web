@@ -3,7 +3,7 @@ import { describe, expect, it } from "vitest";
 import { monsterPoolFileSchema, ruinsMonsterPool } from "../../../data/src/monster-pool";
 import { buildWealdLevelOneMonsterPool } from "../../src/weald/monster-pool";
 import { buildWealdMonsterCatalog } from "../../src/weald/monster-catalog";
-import { readMonsterAttackView } from "../../src/monster-skill";
+import { readMonsterAttackView } from "../../src/shared/core/monster-skill";
 
 const read = (path: string): unknown =>
   JSON.parse(

@@ -1,8 +1,13 @@
-import { distance, rejectBattleCommand, type BattleEntity, type BattleState } from "../../battle";
-import { playMonsterSkill } from "../../battle-monster";
-import type { ApplyResult, GameState } from "../../command";
-import { selectMonsterTarget, type MonsterTargetHero } from "../../monster-target";
-import { readMonsterAttackView } from "../../monster-skill";
+import {
+  distance,
+  rejectBattleCommand,
+  type BattleEntity,
+  type BattleState,
+} from "../../shared/battle/battle";
+import { playMonsterSkill } from "../../shared/battle/battle-monster";
+import type { ApplyResult, GameState } from "../../shared/core/command";
+import { selectMonsterTarget, type MonsterTargetHero } from "../../shared/core/monster-target";
+import { readMonsterAttackView } from "../../shared/core/monster-skill";
 import { ANCESTOR_2_MONSTER_CARD_ID } from "./ancestor2-swift-teleportation";
 import { readFinalFormSequence } from "./final-form-sequence";
 

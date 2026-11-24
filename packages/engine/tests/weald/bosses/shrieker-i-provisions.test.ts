@@ -1,9 +1,9 @@
-import { shriekerMechanismFixture } from "../../../src/test-helpers/shrieker-i";
+import { shriekerMechanismFixture } from "../../helpers/shrieker-i";
 import { expect, it } from "vitest";
-import { applyCommand, type GameState } from "../../../src/command";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { coreParty } from "../../../src/test-helpers/core-quest";
-import { wealdTaskSources } from "../../../src/test-helpers/weald-task-battle";
+import { applyCommand, type GameState } from "../../../src/shared/core/command";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty } from "../../helpers/core-quest";
+import { wealdTaskSources } from "../../helpers/weald-task-battle";
 import {
   beginShriekerDungeonTheft,
   beginShriekerReserveTheft,

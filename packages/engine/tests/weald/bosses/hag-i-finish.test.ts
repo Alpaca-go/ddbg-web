@@ -1,9 +1,9 @@
 import { captureHagIHero } from "../../../src/weald/bosses/hag-i-captive";
-import { nextBattleRoll } from "../../../src/battle-roll";
+import { nextBattleRoll } from "../../../src/shared/battle/battle-roll";
 import { expect, it } from "vitest";
-import { applyCommand, type GameState, type Command } from "../../../src/command";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
+import { applyCommand, type GameState, type Command } from "../../../src/shared/core/command";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "../../helpers/core-quest";
 import { requireFaceTheThreatEmbarkPlanForSandbox } from "../../../src/core/bosses/face-the-threat-embark-runtime";
 import {
   ensureHagIBossScriptRegistered,

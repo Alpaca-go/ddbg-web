@@ -1,16 +1,16 @@
 import { expect, it } from "vitest";
-import { wealdHigherHamletFixture } from "../../src/test-helpers/weald-higher-hamlet";
-import { applyCommand, type GameState } from "../../src/command";
+import { wealdHigherHamletFixture } from "../helpers/weald-higher-hamlet";
+import { applyCommand, type GameState } from "../../src/shared/core/command";
 import {
   remainingQuestIdsForLocationDeck,
   legalHamletQuestDrawModes,
   executeHamletQuestDrawMode,
   HAMLET_QUEST_DRAW_OPTION as modes,
-} from "../../src/hamlet-location-quest-draw";
-import { nextExpeditionLocationDecks } from "../../src/hamlet-location-embark";
-import { createCampaignQuest } from "../../src/campaign-entry";
-import { coreParty, coreQuestSources } from "../../src/test-helpers/core-quest";
-import { createQuestSave, loadQuestSave } from "../../src/quest-save";
+} from "../../src/shared/hamlet/hamlet-location-quest-draw";
+import { nextExpeditionLocationDecks } from "../../src/shared/hamlet/hamlet-location-embark";
+import { createCampaignQuest } from "../../src/shared/hamlet/campaign-entry";
+import { coreParty, coreQuestSources } from "../helpers/core-quest";
+import { createQuestSave, loadQuestSave } from "../../src/shared/quest/quest-save";
 
 const packs = ["core", "weald"] as const;
 it("新战役起点保存抽选版本，旧起点RNG与目录不变，去版本快照拒绝", () => {

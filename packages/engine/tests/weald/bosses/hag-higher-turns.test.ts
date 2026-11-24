@@ -1,7 +1,16 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { createBattleState, type BattleEntity, type BattleSetup } from "../../../src/battle";
-import { applyCommand, type ApplyResult, type GameState, type Command } from "../../../src/command";
+import {
+  createBattleState,
+  type BattleEntity,
+  type BattleSetup,
+} from "../../../src/shared/battle/battle";
+import {
+  applyCommand,
+  type ApplyResult,
+  type GameState,
+  type Command,
+} from "../../../src/shared/core/command";
 import { hagIInitialDeployment } from "../../../src/weald/bosses/hag-i-projection";
 import { hagHigherContext } from "../../../src/weald/bosses/hag-higher";
 import {
@@ -9,7 +18,7 @@ import {
   resolveBossScriptIdForQuest,
 } from "../../../src/core/bosses/quest-bridge";
 import { beginHagIRelease } from "../../../src/weald/bosses/hag-i-release";
-import { applyEncounterCommand, removeCasualties } from "../../../src/encounter";
+import { applyEncounterCommand, removeCasualties } from "../../../src/shared/dungeon/encounter";
 import { readHagRuntimeContext } from "../../../src/weald/bosses/hag-runtime-context";
 
 // 受控的已开始战斗，不注入伤害／骰面；不冒充正式任务入口或自然日志验收。

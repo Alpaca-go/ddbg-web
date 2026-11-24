@@ -1,8 +1,8 @@
 import { expect, it, describe } from "vitest";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
-import { applyCommand, type Command, type GameState } from "../../../src/command";
-import { nextBattleRoll } from "../../../src/battle-roll";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "../../helpers/core-quest";
+import { applyCommand, type Command, type GameState } from "../../../src/shared/core/command";
+import { nextBattleRoll } from "../../../src/shared/battle/battle-roll";
 import {
   applyMammothCystBulgingGaze,
   applyMammothCystDigestion,
@@ -14,7 +14,7 @@ import {
 import { MAMMOTH_CYST_COMBAT_MONSTER_CARD_ID } from "../../../src/core/bosses/darkest-mammoth-cyst-combat-runtime";
 import { readDarkestBossEncounter } from "../../../src/core/bosses/darkest-content";
 import { ensureDarkestMidBossScriptsRegistered } from "../../../src/core/bosses/darkest-mid-boss-scripts";
-import { readMonsterAttackView, resolveMonsterSkill } from "../../../src/monster-skill";
+import { readMonsterAttackView, resolveMonsterSkill } from "../../../src/shared/core/monster-skill";
 
 const HERO_SUP = "K";
 

@@ -1,7 +1,7 @@
 import { beforeAll, expect, it } from "vitest";
 import { renderToStaticMarkup } from "react-dom/server";
 import type { GameState } from "@ddbg/engine";
-import { disinfectionJourney } from "../../../packages/engine/src/test-helpers/disinfection-quest";
+import { disinfectionJourney } from "../../../packages/engine/tests/helpers/disinfection-quest";
 import { InfectedOakAction } from "./infected-oak-action";
 
 let game: GameState;

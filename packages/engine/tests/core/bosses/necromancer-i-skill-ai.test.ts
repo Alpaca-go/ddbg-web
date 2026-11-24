@@ -1,10 +1,19 @@
 import { readFileSync } from "node:fs";
 import { beforeEach, describe, expect, it } from "vitest";
-import { createBattleState, type BattleEntity, type BattleSetup } from "../../../src/battle";
-import { applyCommand, type ApplyResult, type Command, type GameState } from "../../../src/command";
-import { nextBattleRoll } from "../../../src/battle-roll";
-import { selectMonsterSkill } from "../../../src/monster-stance";
-import type { MonsterCardView } from "../../../src/monster-skill";
+import {
+  createBattleState,
+  type BattleEntity,
+  type BattleSetup,
+} from "../../../src/shared/battle/battle";
+import {
+  applyCommand,
+  type ApplyResult,
+  type Command,
+  type GameState,
+} from "../../../src/shared/core/command";
+import { nextBattleRoll } from "../../../src/shared/battle/battle-roll";
+import { selectMonsterSkill } from "../../../src/shared/core/monster-stance";
+import type { MonsterCardView } from "../../../src/shared/core/monster-skill";
 import { NECROMANCER_I_SCRIPT_ID } from "../../../src/core/bosses/necromancer-i";
 import {
   NECROMANCER_II_SCRIPT_ID,

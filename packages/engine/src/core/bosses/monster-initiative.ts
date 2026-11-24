@@ -1,5 +1,5 @@
-import type { GameState } from "../../command";
-import { createRng } from "../../rng";
+import type { GameState } from "../../shared/core/command";
+import { createRng } from "../../shared/core/rng";
 
 /** R31 / spec §6：召唤成功后，将一张怪物先攻卡洗入当前剩余牌堆。 */
 export function insertMonsterInitiative(state: GameState): GameState {

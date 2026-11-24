@@ -5,9 +5,9 @@ import {
   wealdMonsterAttackSchema,
 } from "../../../../data/src/weald-monster-rulings";
 import type { MonsterEffectPlan } from "../../../../data/src/monster-effects";
-import type { HeroSkillCardView, SkillSegment } from "../../hero-skill";
-import type { MonsterCardView, MonsterSkillView } from "../../monster-skill";
-import { compileMonsterEffectPlan } from "../../monster-effect-plan";
+import type { HeroSkillCardView, SkillSegment } from "../../core/heroes/hero-skill";
+import type { MonsterCardView, MonsterSkillView } from "../../shared/core/monster-skill";
+import { compileMonsterEffectPlan } from "../../shared/core/monster-effect-plan";
 
 const icon = (key: string): SkillSegment => ({ type: "icon", icon: { key, naming: "confirmed" } });
 const text = (text: string): SkillSegment => ({ type: "text", text });

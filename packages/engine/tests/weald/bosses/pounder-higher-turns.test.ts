@@ -1,13 +1,17 @@
 import { describe, expect, it } from "vitest";
 import stats from "../../../../data/normalized/corebox/hero_stat.json";
-import { createBattleState, type BattleEntity, type BattleSetup } from "../../../src/battle";
-import { applyCommand, type GameState, type Command } from "../../../src/command";
+import {
+  createBattleState,
+  type BattleEntity,
+  type BattleSetup,
+} from "../../../src/shared/battle/battle";
+import { applyCommand, type GameState, type Command } from "../../../src/shared/core/command";
 import {
   pounderIInitialDeployment,
   createPounderIEntity,
 } from "../../../src/weald/bosses/pounder-i-projection";
 import { pounderContextForLevel } from "../../../src/weald/bosses/pounder-runtime-context";
-import { removeCasualties } from "../../../src/encounter";
+import { removeCasualties } from "../../../src/shared/dungeon/encounter";
 
 function fixture(level: 2 | 3, matchman = false): GameState {
   const context = pounderContextForLevel(level);

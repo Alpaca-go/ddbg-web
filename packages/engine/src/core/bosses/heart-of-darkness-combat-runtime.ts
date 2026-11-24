@@ -1,4 +1,4 @@
-import type { ApplyResult, GameState } from "../../command";
+import type { ApplyResult, GameState } from "../../shared/core/command";
 import { HEART_OF_DARKNESS_MONSTER_CARD_ID } from "./heart-of-darkness-impending-doom";
 import { readFinalFormSequence } from "./final-form-sequence";
 import { applyHeartOfDarknessImpendingDoomSkill } from "./heart-of-darkness-skills-acc";

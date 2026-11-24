@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { buildWealdMonsterCatalog } from "../../src/weald/monster-catalog";
-import { selectMonsterSkill } from "../../src/monster-stance";
+import { selectMonsterSkill } from "../../src/shared/core/monster-stance";
 
 function sources() {
   const read = (name: string) =>

@@ -1,9 +1,9 @@
-import { tickStatusStacks } from "../../src/status";
+import { tickStatusStacks } from "../../src/shared/core/status";
 import { expect, it } from "vitest";
-import { applyCommand } from "../../src/command";
-import { removeCasualties, endAfterCasualties } from "../../src/encounter";
+import { applyCommand } from "../../src/shared/core/command";
+import { removeCasualties, endAfterCasualties } from "../../src/shared/dungeon/encounter";
 import { applyFinalSwipeSpawn } from "../../src/weald/higher-task-effects";
-import { wealdTaskBattleFixture } from "../../src/test-helpers/weald-task-battle";
+import { wealdTaskBattleFixture } from "../helpers/weald-task-battle";
 
 it("Final Swipe 初始一只一次，后续新生成再触发，重复处理结果不叠加", () => {
   const before = wealdTaskBattleFixture("quest:weald:p013");

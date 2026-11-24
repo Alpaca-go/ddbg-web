@@ -1,11 +1,11 @@
 import type { QuestStart } from "../../../../data/src/quest-save";
-import { naturalQuest } from "../../../src/test-helpers/natural-quest";
+import { naturalQuest } from "../../helpers/natural-quest";
 import { expect, it } from "vitest";
 import { wealdThreatPool } from "../../../src/weald/bosses/threat-pool";
-import { applyCommand, type Command } from "../../../src/command";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
-import { createQuestSave, loadQuestSave } from "../../../src/quest-save";
+import { applyCommand, type Command } from "../../../src/shared/core/command";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "../../helpers/core-quest";
+import { createQuestSave, loadQuestSave } from "../../../src/shared/quest/quest-save";
 import { savedCommandSchema } from "../../../../data/src/quest-save";
 import { clearBossScriptsForTest } from "../../../src/core/bosses/registry";
 

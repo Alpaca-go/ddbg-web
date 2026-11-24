@@ -1,11 +1,11 @@
 import { expect, it } from "vitest";
-import { applyCommand, type Command } from "../../../src/command";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
-import { drawInitialQuestOffers } from "../../../src/initial-quest-draw";
-import { createQuestSave, loadQuestSave } from "../../../src/quest-save";
-import { naturalQuest, CURRENT_WEALD_ROOM_VERSIONS } from "../../../src/test-helpers/natural-quest";
-import { wealdTaskSources } from "../../../src/test-helpers/weald-task-battle";
+import { applyCommand, type Command } from "../../../src/shared/core/command";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "../../helpers/core-quest";
+import { drawInitialQuestOffers } from "../../../src/shared/hamlet/initial-quest-draw";
+import { createQuestSave, loadQuestSave } from "../../../src/shared/quest/quest-save";
+import { naturalQuest, CURRENT_WEALD_ROOM_VERSIONS } from "../../helpers/natural-quest";
+import { wealdTaskSources } from "../../helpers/weald-task-battle";
 
 const packs = ["core", "weald"] as const;
 /** R-273：Weald Boss 的地牢侧威胁只在 Weald 任务生效；seed18 的 Weald 抽选实际抽到 Shrieker I。 */

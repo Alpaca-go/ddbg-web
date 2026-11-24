@@ -1,6 +1,6 @@
-import type { GameState } from "../../../../packages/engine/src/command";
-import { createCoreDungeonQuest } from "../../../../packages/engine/src/dungeon-quest-entry";
-import { coreParty } from "../../../../packages/engine/src/test-helpers/core-quest";
+import type { GameState } from "../../../../packages/engine/src/shared/core/command";
+import { createCoreDungeonQuest } from "../../../../packages/engine/src/shared/dungeon/dungeon-quest-entry";
+import { coreParty } from "../../../../packages/engine/tests/helpers/core-quest";
 import { taskSources } from "../../src/dungeon-sandbox/task-sources";
 import { requireFaceTheThreatEmbarkPlanForSandbox } from "../../../../packages/engine/src/core/bosses/face-the-threat-embark-runtime";
 

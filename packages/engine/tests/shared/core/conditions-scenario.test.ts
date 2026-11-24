@@ -1,0 +1,1482 @@
+import { expect, it } from "vitest";
+import diseaseData from "../../../../data/normalized/corebox/disease.json";
+import quirkData from "../../../../data/normalized/corebox/quirk.json";
+import heroData from "../../../../data/normalized/corebox/hero_stat.json";
+import skillData from "../../../../data/normalized/corebox/hero_skill.json";
+import monsterData from "../../../../data/normalized/corebox/monster_medium.json";
+import resolveData from "../../../../data/normalized/corebox/virtue_affliction.json";
+import { diseaseFileSchema } from "../../../../data/src/disease";
+import {
+  normalizedQuirkFileSchema,
+  normalizedHeroSkillFileSchema,
+  normalizedMonsterMediumFileSchema,
+  normalizedVirtueAfflictionFileSchema,
+} from "../../../../data/src/normalize/schema";
+import { normalizedHeroStatFileSchema } from "../../../../data/src/normalize/hero-stat";
+import { applyCommand } from "../../../src/shared/core/command";
+import type { ApplyResult, GameState } from "../../../src/shared/core/command";
+import { createBattleState } from "../../../src/shared/battle/battle";
+import type { BattleEntity, BattleSetup } from "../../../src/shared/battle/battle";
+import type { HeroSkillCardView } from "../../../src/core/heroes/hero-skill";
+import type { MonsterCardView } from "../../../src/shared/core/monster-skill";
+import type { ResolveCard } from "../../../src/shared/core/pressure";
+import { createConditionPool, conditionPoolProblem } from "../../../src/shared/core/conditions";
+import { nextBattleRoll } from "../../../src/shared/dungeon/encounter";
+import { readMonsterAttackView } from "../../../src/shared/core/monster-skill";
+import { readPrintedRange } from "../../../src/core/heroes/hero-skill";
+import { skillTargetView } from "../../../src/shared/battle/battle";
+import {
+  applyBattleSkillStatuses,
+  readHeroPassiveDefence,
+} from "../../../src/shared/battle/battle-skill-status";
+import { resolveMonsterSkill } from "../../../src/shared/core/monster-skill";
+
+const clean = <T>(value: unknown): T => JSON.parse(JSON.stringify(value)) as T;
+const stats = clean<
+  (NonNullable<BattleSetup["heroStats"]>[number] & { level: number; dodge: number })[]
+>(
+  normalizedHeroStatFileSchema
+    .parse(heroData)
+    .cards.filter(
+      (s) =>
+        s.attributesVerified &&
+        s.level === 1 &&
+        ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"].includes(s.name),
+    ),
+);
+const skills = clean<(HeroSkillCardView & { name: string; level: number })[]>(
+  normalizedHeroSkillFileSchema.parse(skillData).cards,
+);
+const monsters = clean<MonsterCardView[]>(
+  normalizedMonsterMediumFileSchema.parse(monsterData).cards.filter((c) => "skills" in c),
+);
+const pool = () =>
+  createConditionPool(
+    diseaseFileSchema.parse(diseaseData).cards,
+    normalizedQuirkFileSchema.parse(quirkData).cards,
+  );
+const hitSeed = Array.from({ length: 200 }, (_, i) => i).find(
+  (seed) => nextBattleRoll(seed, 0) <= 2 && nextBattleRoll(seed, 1) <= 2,
+)!;
+function setup(cardId = "monster_medium:p031", seed = hitSeed): GameState {
+  const monster = monsters.find((c) => c.id === cardId)!;
+  const attack = readMonsterAttackView(monster, 1);
+  if (attack.status !== "ready") throw new Error(attack.reason);
+  const range = readPrintedRange(attack.view);
+  if (range.kind !== "exact") throw new Error("缺少射程");
+  const heroes: BattleEntity[] = stats.map((stat, i) => ({
+    id: `h${i}`,
+    hero: stat.name,
+    heroStatId: stat.id,
+    heroLevel: 1,
+    side: "hero",
+    areaId: "a",
+    stance: (["aggressive", "defensive", "ranged", "support"] as const)[i]!,
+    life: stat.life,
+    wounds: 0,
+    stress: 0,
+    dodge: stat.dodge,
+    guard: false,
+    dead: false,
+    bleed: [],
+    blight: [],
+    skillIds: skills.filter((s) => s.hero === stat.name && s.level === 1).map((s) => s.id),
+  }));
+  const p = pool();
+  return createBattleState(seed, {
+    heroStats: stats,
+    entities: [
+      ...heroes,
+      {
+        id: "m",
+        hero: null,
+        side: "monster",
+        areaId: range.distance === 0 ? "a" : "b",
+        stance: "aggressive",
+        stanceSlots: 1,
+        monsterCardId: monster.id,
+        life: monster.life,
+        wounds: 0,
+        dodge: 0,
+        guard: false,
+        dead: false,
+        bleed: [],
+        blight: [],
+        skillIds: [],
+      },
+    ],
+    skills,
+    monsters: [monster],
+    light: 5,
+    conditions: {
+      ...p,
+      diseaseDeck: p.diseases.map((c) => c.id),
+      negativeDeck: p.quirks.filter((q) => q.polarity === "negative").map((q) => q.id),
+    },
+    areas: [
+      { id: "a", adjacent: ["b", "c"], capacity: 8, elevation: "normal" },
+      { id: "b", adjacent: ["a"], capacity: 8, elevation: "normal" },
+      { id: "c", adjacent: ["a"], capacity: 8, elevation: "normal" },
+    ],
+    resolveCards: clean<ResolveCard[]>(
+      normalizedVirtueAfflictionFileSchema.parse(resolveData).cards,
+    ),
+    provisions: [
+      { id: "food", face: "food" },
+      { id: "spare", face: "food" },
+    ],
+  });
+}
+function patch(state: GameState, changes: Partial<BattleEntity>): GameState {
+  const b = state.battle!,
+    p = b.conditions!;
+  const entities = b.entities.map((e) => (e.id === "h0" ? { ...e, ...changes } : e));
+  const heldDiseases = entities.flatMap((e) => (e.diseaseId ? [e.diseaseId] : [])),
+    heldQuirks = entities.flatMap((e) => e.quirkIds ?? []);
+  return {
+    ...state,
+    battle: {
+      ...b,
+      entities,
+      conditions: {
+        ...p,
+        diseaseDeck: p.diseases.filter((d) => !heldDiseases.includes(d.id)).map((d) => d.id),
+        negativeDeck: p.quirks
+          .filter((q) => q.polarity === "negative" && !heldQuirks.includes(q.id))
+          .map((q) => q.id),
+      },
+    },
+  };
+}
+function hero(state: GameState) {
+  return state.battle!.entities.find((e) => e.id === "h0")!;
+}
+function successful(result: ApplyResult) {
+  expect(result.events.find((e) => e.type === "commandRefused")).toBeUndefined();
+  expect(
+    conditionPoolProblem(
+      result.state.battle!.conditions!,
+      result.state.battle!.entities.filter((e) => e.side === "hero"),
+    ),
+  ).toBeNull();
+  return result.state;
+}
+const attack = { type: "playMonsterSkill", actorId: "m", targetId: "h0", skillSlot: 1 } as const;
+/** 服务/战斗夹具：只替换获批属性面，不冒称自然战役升级。 */
+function higherHero(state: GameState, name: string, level: number): GameState {
+  const stat = clean<NonNullable<BattleSetup["heroStats"]>[number] & { dodge: number }>(
+    normalizedHeroStatFileSchema
+      .parse(heroData)
+      .cards.find((card) => card.name === name && card.level === level)!,
+  );
+  return {
+    ...state,
+    battle: {
+      ...state.battle!,
+      heroStats: [...state.battle!.heroStats!, stat],
+      entities: state.battle!.entities.map((entity) =>
+        entity.id === "h0"
+          ? {
+              ...entity,
+              hero: name,
+              heroStatId: stat.id,
+              heroLevel: level,
+              life: stat.life,
+              dodge: stat.dodge,
+              skillIds: skills
+                .filter((card) => card.hero === name && card.level === 1)
+                .map((card) => card.id),
+            }
+          : entity,
+      ),
+    },
+  };
+}
+it("R-081、R-215：目标状态仅缩短Nt、自身忽略防御，已有堆保留", () => {
+  const cases = [
+    ["CRUSADER", 2, ["stun"]],
+    ["CRUSADER", 3, ["stun", "debuff"]],
+    ["HELLION", 2, ["bleed", "blight"]],
+    ["HELLION", 3, ["stun", "bleed", "blight"]],
+    ["HIGHWAYMAN", 2, ["stun", "bleed"]],
+    ["HIGHWAYMAN", 3, ["stun", "bleed", "blight"]],
+    ["VESTAL", 2, ["stun", "bleed"]],
+    ["VESTAL", 3, ["stun", "bleed"]],
+    ["FLAGELLANT", 1, ["bleed"]],
+    ["LEPER", 1, ["debuff"]],
+    ["JESTER", 3, ["debuff", "bleed", "blight"]],
+  ] as const;
+  for (const [name, level, resisted] of cases) {
+    const state = higherHero(
+        patch(setup(), {
+          guard: true,
+          statusStacks: [{ kind: "guard", remaining: 3 }],
+        }),
+        name,
+        level,
+      ),
+      b = state.battle!,
+      h = hero(state);
+    const probe = resolveMonsterSkill(
+      b.monsters![0]!,
+      1,
+      {
+        actor: b.entities.find((e) => e.id === "m")!,
+        target: skillTargetView(h, b),
+        areaDistance: b.entities.find((e) => e.id === "m")!.areaId === h.areaId ? 0 : 1,
+      },
+      1,
+    );
+    if (probe.status !== "resolved") throw new Error(probe.reason);
+    const effects = (["stun", "bleed", "blight", "debuff"] as const).map((kind) => ({
+      kind,
+      duration: 2,
+      ...(kind === "bleed" || kind === "blight" ? { amount: 2 } : {}),
+    }));
+    const before = structuredClone(state);
+    for (const self of [false, true]) {
+      const result = applyBattleSkillStatuses(b, b.entities, self ? h.id : "m", [
+        {
+          ...probe.resolution,
+          targetId: h.id,
+          actorStatusEffects: self ? effects : [],
+          targetStatusEffects: self ? [] : effects,
+        },
+      ]);
+      expect(result.status).toBe("resolved");
+      if (result.status !== "resolved") throw new Error(result.reason);
+      expect(result.entities.find((e) => e.id === h.id)!.statusStacks).toEqual([
+        { kind: "guard", remaining: 3 },
+        ...effects.map((e) => ({
+          kind: e.kind,
+          remaining: 2 - Number(!self && (resisted as readonly string[]).includes(e.kind)),
+          ...(e.amount === undefined ? {} : { amount: e.amount }),
+        })),
+      ]);
+      expect(result.rngCursor).toBe(b.rngCursor);
+    }
+    expect(state).toEqual(before);
+    expect([...readHeroPassiveDefence(b, h)!.resistances].sort()).toEqual([...resisted].sort());
+  }
+});
+it("R-215：按逐卡批注读取 I 级位移抗性与 III 级位移免疫", () => {
+  for (const [name, level, shuffleResistant, shuffleImmune] of [
+    ["ARBALEST", 1, true, false],
+    ["MUSKETEER", 3, false, true],
+    ["SHIELDBREAKER", 3, false, true],
+  ] as const) {
+    const state = higherHero(setup(), name, level);
+    expect(readHeroPassiveDefence(state.battle!, hero(state))).toMatchObject({
+      shuffleResistant,
+      shuffleImmune,
+    });
+  }
+});
+it("Vestal III真实Maggot免疫新感染：不抽牌/怪癖、不重洗，已有病保留", () => {
+  for (const diseaseId of [null, "disease:p011"]) {
+    const initial = higherHero(patch(setup(), { diseaseId }), "VESTAL", 3);
+    const before = structuredClone(initial),
+      result = applyCommand(initial, attack);
+    const done = successful(result);
+    expect(hero(done).diseaseId).toBe(diseaseId);
+    expect(done.battle!.conditions).toEqual(initial.battle!.conditions);
+    expect(done.battle!.rngCursor).toBe(1); // 仅技能骰
+    expect(result.events.filter((e) => e.type === "diseaseAcquired")).toEqual([]);
+    expect(
+      result.events.some((e) => e.type === "passiveTriggered" && e.trigger === "diseaseImmunity"),
+    ).toBe(true);
+    expect(applyCommand(initial, attack)).toEqual(result);
+    expect(initial).toEqual(before);
+  }
+});
+it("Crusader II抵抗真实Push2后接Balanced与区域分岔，各选择不重复减距或掷骰", () => {
+  const seed = Array.from({ length: 100 }, (_, i) => i).find((s) => nextBattleRoll(s, 0) === 3)!;
+  const base = higherHero(
+    patch(setup("monster_medium:p021", seed), {
+      diseaseId: "disease:p007",
+      quirkIds: ["quirk:p014"],
+    }),
+    "CRUSADER",
+    2,
+  );
+  const b = base.battle!;
+  const initial: GameState = {
+    ...base,
+    battle: {
+      ...b,
+      areas: [
+        ...b.areas.map((a) => (a.id === "a" ? { ...a, adjacent: [...a.adjacent, "d"] } : a)),
+        { id: "d", adjacent: ["a"], capacity: 8, elevation: "normal" },
+      ],
+    },
+  };
+  const rolled = applyCommand(initial, { ...attack, skillSlot: 3 });
+  successful(rolled);
+  expect(rolled.state.battle!.shuffleIntents[0]!.move.distance).toBe(1);
+  const balanced = applyCommand(rolled.state, { type: "resolveShuffles" });
+  expect(balanced.pendingChoice?.id).toContain("shuffle-reduction");
+  for (const reduce of [false, true]) {
+    const kept = applyCommand(balanced.state, {
+      type: "resolveChoice",
+      choiceId: balanced.pendingChoice!.id,
+      optionId: reduce ? "reduce" : "keep",
+    });
+    if (reduce) {
+      expect(kept.pendingChoice).toBeUndefined();
+      expect(hero(kept.state)).toMatchObject({ areaId: "a", stance: "aggressive", stress: 0 });
+    } else {
+      expect(kept.pendingChoice?.options.map((o) => o.id)).toEqual(["c", "d"]);
+      const done = applyCommand(kept.state, {
+        type: "resolveChoice",
+        choiceId: kept.pendingChoice!.id,
+        optionId: "c",
+      });
+      successful(done);
+      expect(hero(done.state)).toMatchObject({ areaId: "c", stance: "defensive", stress: 2 });
+      expect(done.state.battle!.rngCursor).toBe(rolled.state.battle!.rngCursor);
+      expect(
+        applyCommand(kept.state, {
+          type: "resolveChoice",
+          choiceId: kept.pendingChoice!.id,
+          optionId: "c",
+        }),
+      ).toEqual(done);
+    }
+  }
+});
+it("高等级防御缺失/伪造时真实攻击整次拒绝，不以Buff专项或I级防御回退", () => {
+  const initial = higherHero(setup(), "VESTAL", 3),
+    b = initial.battle!;
+  for (const change of [
+    { rules: {} },
+    { name: "CRUSADER" },
+    { level: 2 },
+    {
+      rules: {
+        higherConditionDefence: {
+          ...b.heroStats!.at(-1)!.rules!.higherConditionDefence!,
+          immunities: [],
+        },
+      },
+    },
+  ]) {
+    const changed = {
+      ...initial,
+      battle: {
+        ...b,
+        heroStats: clean<NonNullable<BattleSetup["heroStats"]>>(
+          b.heroStats!.map((card) =>
+            card.id === hero(initial).heroStatId ? { ...card, ...change } : card,
+          ),
+        ),
+      },
+    };
+    const result = applyCommand(changed, attack);
+    expect(result.state).toBe(changed);
+    expect(result.events.some((e) => e.type === "commandRefused")).toBe(true);
+  }
+});
+const turn = (state: GameState, actor: "hero" | "monster" = "hero"): GameState => ({
+  ...state,
+  battle: {
+    ...state.battle!,
+    encounter: {
+      round: 1,
+      deck: ["hero", "hero", "hero"],
+      actedIds: [],
+      turn:
+        actor === "hero"
+          ? { type: "hero", actorId: "h0", actions: 2, usedSkillIds: [] }
+          : { type: "monster", actorId: "m" },
+    },
+  },
+});
+
+it("真实 Maggot 命中 / 再感染：完整目录、共享 RNG、旧病弃置与负面怪癖；无目录整次回滚", () => {
+  const initial = setup(),
+    before = structuredClone(initial);
+  const first = applyCommand(initial, attack),
+    firstState = successful(first);
+  expect(hero(firstState).diseaseId).toBe("disease:p001");
+  expect(firstState.battle!.rngCursor).toBe(1);
+  expect(first.events.filter((e) => e.type === "diseaseAcquired")).toHaveLength(1);
+  const second = successful(applyCommand(firstState, attack));
+  expect(hero(second)).toMatchObject({ diseaseId: "disease:p002", quirkIds: ["quirk:p018"] });
+  expect(second.battle!.conditions!.diseaseDiscard).toEqual(["disease:p001"]);
+  expect(applyCommand(initial, attack)).toEqual(first);
+  expect(initial).toEqual(before);
+  const { conditions: _conditions, ...bare } = initial.battle!;
+  void _conditions;
+  const missing = { ...initial, battle: bare };
+  const refused = applyCommand(missing, attack);
+  expect(refused.state).toBe(missing);
+  expect(refused.events).toMatchObject([
+    { type: "commandRefused", message: expect.stringContaining("疾病") },
+  ]);
+});
+it("第四张怪癖待选冻结回合；非法 / 过期选择不重掷，合法选择仅一次收尾", () => {
+  const initial = turn(
+    patch(setup(), {
+      diseaseId: "disease:p011",
+      quirkIds: ["quirk:p001", "quirk:p002", "quirk:p020"],
+    }),
+    "monster",
+  );
+  const result = applyCommand(initial, attack);
+  successful(result);
+  expect(result.pendingChoice?.options.map((o) => o.id)).toEqual(["quirk:p001", "quirk:p002"]);
+  expect(result.state.battle!.encounter!.turn.type).toBe("monster");
+  const blocked = applyCommand(result.state, { type: "ping", message: "不能绕过选择" });
+  expect(blocked.state).toBe(result.state);
+  const invalid = applyCommand(result.state, {
+    type: "resolveChoice",
+    choiceId: result.pendingChoice!.id,
+    optionId: "quirk:p020",
+  });
+  expect(invalid.state).toBe(result.state);
+  const finished = successful(
+    applyCommand(result.state, {
+      type: "resolveChoice",
+      choiceId: result.pendingChoice!.id,
+      optionId: "quirk:p002",
+    }),
+  );
+  expect(hero(finished).quirkIds).toEqual(["quirk:p001", "quirk:p018", "quirk:p020"]);
+  expect(finished.battle!.rngCursor).toBe(result.state.battle!.rngCursor);
+  expect(finished.battle!.encounter!.turn.type).toBe("awaitingInitiative");
+  expect(
+    applyCommand(finished, {
+      type: "resolveChoice",
+      choiceId: result.pendingChoice!.id,
+      optionId: "quirk:p002",
+    }).state,
+  ).toBe(finished);
+});
+it("再感染第四张负面永久死亡，死亡补位与怪物收尾仍由真实命令执行", () => {
+  const initial = turn(
+    patch(setup(), {
+      diseaseId: "disease:p011",
+      quirkIds: ["quirk:p018", "quirk:p019", "quirk:p020"],
+    }),
+    "monster",
+  );
+  const next = successful(applyCommand(initial, attack));
+  expect(hero(next)).toMatchObject({ dead: true, deathReason: "madness" });
+  expect(next.battle!.entities.find((h) => h.id === "h1")!.stance).toBe("aggressive");
+  expect(next.battle!.encounter!.turn.type).toBe("awaitingInitiative");
+});
+it("Syphilis + Fragile 和攻击同刻合并一次死门；DoT / Food 治疗不触发 takes Damage", () => {
+  const initial = setup("monster_medium:p001");
+  const atDoor = patch(initial, {
+    diseaseId: "disease:p006",
+    quirkIds: ["quirk:p031"],
+    wounds: hero(initial).life!,
+  });
+  const result = applyCommand(atDoor, attack);
+  successful(result);
+  const healthEvents = result.events.filter(
+    (e) => e.type === "heroHealthResolved" && e.entityId === "h0",
+  );
+  expect(healthEvents).toHaveLength(1);
+  expect(result.state.battle!.rngCursor).toBe(2);
+  expect(healthEvents[0]).toMatchObject({
+    effect: { type: "wounds", amounts: [expect.any(Number), 1, 1] },
+  });
+  const healed = successful(
+    applyCommand(turn(atDoor), {
+      type: "useProvision",
+      provisionId: "food",
+      targetId: "h0",
+      effect: "heal",
+    }),
+  );
+  expect(hero(healed).wounds).toBe(hero(initial).life! - 1);
+  expect(healed.battle!.rngCursor).toBe(0);
+});
+it("真实 Food 先治疗、消耗后触发被动；追加伤口后才意志检定（R-069）", () => {
+  const initial = turn(
+    patch(setup(), { diseaseId: "disease:p002", quirkIds: ["quirk:p029"], wounds: 3 }),
+  );
+  const next = successful(
+    applyCommand(initial, {
+      type: "useProvision",
+      provisionId: "food",
+      targetId: "h0",
+      effect: "heal",
+    }),
+  );
+  expect(hero(next)).toMatchObject({ wounds: 2, stress: 2 });
+  expect(next.battle!.provisions).toEqual([]);
+  const boundary = turn(
+    patch(setup(), { diseaseId: "disease:p008", quirkIds: ["quirk:p029"], wounds: 3, stress: 8 }),
+  );
+  const refused = applyCommand(boundary, {
+    type: "useProvision",
+    provisionId: "food",
+    targetId: "h0",
+    effect: "heal",
+  });
+  const recovered = successful(refused);
+  expect(hero(recovered)).toMatchObject({ wounds: 4, stress: 0, resolveTested: true });
+  expect(recovered.battle!.provisions).toEqual([{ id: "spare", face: "food" }]);
+  expect(
+    refused.events.findIndex((e) => e.type === "heroHealthResolved" && e.effect.type === "wounds"),
+  ).toBeLessThan(refused.events.findIndex((e) => e.type === "resolveTested"));
+  expect(
+    applyCommand(boundary, {
+      type: "useProvision",
+      provisionId: "food",
+      targetId: "h0",
+      effect: "heal",
+    }),
+  ).toEqual(refused);
+});
+it("Lethargy 移动在死门死亡，消费移动后只补位 / 收尾一次，不攻击怪物", () => {
+  const initial = setup();
+  const state = turn(patch(initial, { diseaseId: "disease:p005", wounds: hero(initial).life! }));
+  const result = applyCommand(state, { type: "moveHero", actorId: "h0", path: ["b"] });
+  const next = successful(result);
+  expect(hero(next)).toMatchObject({ dead: true, areaId: "b" });
+  expect(next.battle!.rngCursor).toBe(1);
+  expect(
+    result.events.filter((e) => e.type === "casualtyRemoved" && e.actorId === "h0"),
+  ).toHaveLength(1);
+  expect(next.battle!.entities.find((e) => e.id === "m")!.wounds).toBe(0);
+});
+it("Spotted Fever / Clumsy 来自真实攻击；追加状态受获批防御，落空不触发", () => {
+  const initial = patch(setup("monster_medium:p001"), {
+    diseaseId: "disease:p011",
+    quirkIds: ["quirk:p020"],
+  });
+  const next = successful(applyCommand(initial, attack));
+  expect(hero(next).statusStacks).toEqual([
+    { kind: "debuff", remaining: 1 },
+    { kind: "blight", remaining: 2, amount: 1 },
+  ]);
+  const missSeed = Array.from({ length: 200 }, (_, i) => i).find(
+    (seed) => nextBattleRoll(seed, 0) === 10,
+  )!;
+  const missed = successful(applyCommand({ ...initial, seed: missSeed }, attack));
+  expect(hero(missed).statusStacks).toBeUndefined();
+});
+it("Bad Gambler 掷 10 死门死亡时中止技能，不执行随后治疗 / 攻击", () => {
+  const seed = Array.from({ length: 1000 }, (_, i) => i).find(
+    (s) => nextBattleRoll(s, 0) === 10 && nextBattleRoll(s, 1) <= 3,
+  )!;
+  const initial = setup("monster_medium:p001", seed);
+  const patched = patch(initial, { wounds: hero(initial).life!, quirkIds: ["quirk:p034"] });
+  const state: GameState = {
+    ...patched,
+    battle: {
+      ...patched.battle!,
+      entities: patched.battle!.entities.map((e) => (e.id === "m" ? { ...e, areaId: "a" } : e)),
+    },
+  };
+  const smite = skills.find((s) => s.id === "hero_skill:core:h01:p001")!;
+  const result = applyCommand(state, {
+    type: "playHeroSkill",
+    actorId: "h0",
+    targetId: "m",
+    skillId: smite.id,
+  });
+  const next = successful(result);
+  expect(hero(next).dead).toBe(true);
+  expect(next.battle!.entities.find((e) => e.id === "m")!.wounds).toBe(0);
+  expect(result.events.some((e) => e.type === "heroSkillResolved")).toBe(false);
+  expect(next.battle!.rngCursor).toBe(2);
+});
+
+it("Vertigo 在位移区域选择完成后触发一次，沿用原技能骰，不被暴击区域压力重算覆盖", () => {
+  const initial = setup("monster_medium:p001");
+  const stat = stats.find((s) => s.name === "HIGHWAYMAN")!;
+  const pointBlank = skills.find(
+    (s) => s.hero === stat.name && s.name.startsWith("Point Blank Shot") && s.level === 1,
+  )!;
+  const patched = patch(initial, {
+    hero: stat.name,
+    heroStatId: stat.id,
+    life: stat.life,
+    dodge: stat.dodge,
+    diseaseId: "disease:p007",
+    quirkIds: ["quirk:p028"],
+    stress: 1,
+    skillIds: [pointBlank.id],
+  });
+  const state: GameState = {
+    ...patched,
+    battle: {
+      ...patched.battle!,
+      entities: patched.battle!.entities.map((e) => (e.id === "m" ? { ...e, areaId: "a" } : e)),
+    },
+  };
+  const played = applyCommand(state, {
+    type: "playHeroSkill",
+    actorId: "h0",
+    targetId: "m",
+    skillId: pointBlank.id,
+  });
+  successful(played);
+  const moved = applyCommand(played.state, { type: "resolveShuffles" });
+  expect(moved.pendingChoice?.options.map((o) => o.id)).toEqual(["b", "c"]);
+  expect(hero(moved.state).stress).toBe(hero(played.state).stress);
+  const finished = successful(
+    applyCommand(moved.state, {
+      type: "resolveChoice",
+      choiceId: moved.pendingChoice!.id,
+      optionId: "b",
+    }),
+  );
+  expect(hero(finished)).toMatchObject({ areaId: "b", stress: 3 });
+  expect(finished.battle!.rngCursor).toBe(played.state.battle!.rngCursor);
+});
+function balancedShot(vertigo = false): GameState {
+  const initial = setup("monster_medium:p001");
+  const stat = stats.find((s) => s.name === "HIGHWAYMAN")!;
+  const skill = skills.find((s) => s.id === "hero_skill:core:h04:p070")!;
+  const patched = patch(initial, {
+    hero: stat.name,
+    heroStatId: stat.id,
+    life: stat.life,
+    dodge: stat.dodge,
+    quirkIds: ["quirk:p014"],
+    ...(vertigo ? { diseaseId: "disease:p007" } : {}),
+    skillIds: [skill.id],
+  });
+  const state = turn({
+    ...patched,
+    battle: {
+      ...patched.battle!,
+      entities: patched.battle!.entities.map((e) =>
+        e.id === "m" ? { ...e, areaId: "a", life: 100 } : e,
+      ),
+    },
+  });
+  return successful(
+    applyCommand(state, {
+      type: "playHeroSkill",
+      actorId: "h0",
+      targetId: "m",
+      skillId: skill.id,
+    }),
+  );
+}
+function balancedChoice(state: GameState, optionId: string): ApplyResult {
+  return applyCommand(state, {
+    type: "resolveChoice",
+    choiceId: state.battle!.pending!.choice.id,
+    optionId,
+  });
+}
+it("Balanced 自身位移可减到零：冻结待选、一次扣行动、不触发 Vertigo 且可确定性回放", () => {
+  const played = balancedShot(true);
+  const snapshot = structuredClone(played);
+  const waiting = applyCommand(played, { type: "resolveShuffles" });
+  successful(waiting);
+  expect(waiting.pendingChoice).toMatchObject({ actorId: "h0" });
+  expect(waiting.pendingChoice!.options.map((o) => o.id)).toEqual(["keep", "reduce"]);
+  expect(waiting.state.battle!.entities).toEqual(played.battle!.entities);
+  expect(waiting.state.battle!.rngCursor).toBe(played.battle!.rngCursor);
+  expect(waiting.state.battle!.encounter!.turn).toMatchObject({ actions: 2, usedSkillIds: [] });
+  for (const command of [
+    { type: "resolveShuffles" },
+    { type: "drawInitiative" },
+    { type: "useProvision", actorId: "h0", targetId: "h0", provisionId: "food", effect: "heal" },
+    { type: "resolveChoice", choiceId: waiting.pendingChoice!.id, optionId: "bogus" },
+  ] as const)
+    expect(applyCommand(waiting.state, command).state).toBe(waiting.state);
+  const reduced = balancedChoice(waiting.state, "reduce");
+  successful(reduced);
+  // Point Blank Shot 还带目标位移；自身减到零后仍须完成该独立意图。
+  expect(reduced.state.battle!.pending?.type).toBe("shuffleArea");
+  expect(reduced.state.battle!.shuffleIntents[0]!.entityId).toBe("m");
+  expect(reduced.events.filter((e) => e.type === "shuffleResolved")).toMatchObject([
+    { path: [], stanceSteps: 0 },
+  ]);
+  expect(reduced.events.filter((e) => e.type === "passiveTriggered")).toHaveLength(1);
+  const done = balancedChoice(reduced.state, "b");
+  successful(done);
+  expect(hero(done.state)).toMatchObject({ areaId: "a", stance: "aggressive" });
+  expect(hero(done.state).stress).toBe(hero(played).stress);
+  expect(done.state.battle!.rngCursor).toBe(played.battle!.rngCursor);
+  expect(done.state.battle!.encounter!.turn).toMatchObject({
+    actions: 1,
+    usedSkillIds: ["hero_skill:core:h04:p070"],
+  });
+  expect(done.state.battle!.shuffleIntents).toEqual([]);
+  expect(done.events.filter((e) => e.type === "passiveTriggered")).toHaveLength(0);
+  expect(balancedChoice(waiting.state, "reduce")).toEqual(reduced);
+  expect(
+    applyCommand(done.state, {
+      type: "resolveChoice",
+      choiceId: waiting.pendingChoice!.id,
+      optionId: "reduce",
+    }).state,
+  ).toBe(done.state);
+  expect(played).toEqual(snapshot);
+});
+it("Balanced 保持距离后进入区域分岔，选择不再询问减距或重复触发疾病", () => {
+  const played = balancedShot(true);
+  const waiting = applyCommand(played, { type: "resolveShuffles" });
+  const area = balancedChoice(waiting.state, "keep");
+  successful(area);
+  expect(area.state.battle!.pending?.type).toBe("shuffleArea");
+  expect(area.pendingChoice!.options.map((o) => o.id)).toEqual(["b", "c"]);
+  expect(area.pendingChoice!.id).not.toBe(waiting.pendingChoice!.id);
+  expect(hero(area.state).stress).toBe(hero(played).stress);
+  expect(
+    applyCommand(area.state, {
+      type: "resolveChoice",
+      choiceId: waiting.pendingChoice!.id,
+      optionId: "reduce",
+    }).state,
+  ).toBe(area.state);
+  const done = balancedChoice(area.state, "b");
+  successful(done);
+  expect(hero(done.state)).toMatchObject({ areaId: "b", stance: "defensive" });
+  // Vertigo先结算；目标攻击暴击随后减压一次。
+  expect(hero(done.state).stress).toBe(hero(played).stress! + 1);
+  expect(
+    done.events.filter((e) => e.type === "passiveTriggered" && e.trigger === "shuffled"),
+  ).toHaveLength(1);
+  expect(done.state.battle!.rngCursor).toBe(played.battle!.rngCursor);
+  expect(done.state.battle!.encounter!.turn).toMatchObject({ actions: 1 });
+});
+it("Balanced 多步意图只减一次，满员截断仍按减少后的距离移动姿态", () => {
+  // 意图层测试布置：不改变真实 Point Blank Shot 卡上的距离。
+  const played = balancedShot();
+  for (const blocked of [false, true]) {
+    const state: GameState = {
+      ...played,
+      battle: {
+        ...played.battle!,
+        areas: played.battle!.areas.map((a) =>
+          blocked && a.id !== "a" ? { ...a, capacity: 0 } : a,
+        ),
+        shuffleIntents: played.battle!.shuffleIntents.map((i) => ({
+          ...i,
+          move: { ...i.move, distance: 2 },
+        })),
+      },
+    };
+    const waiting = applyCommand(state, { type: "resolveShuffles" });
+    const reduced = balancedChoice(waiting.state, "reduce");
+    successful(reduced);
+    const done = blocked ? reduced : balancedChoice(reduced.state, "c");
+    successful(done);
+    expect(hero(done.state)).toMatchObject({
+      areaId: blocked ? "a" : "c",
+      stance: "defensive",
+    });
+    expect(done.state.battle!.rngCursor).toBe(played.battle!.rngCursor);
+  }
+});
+it("Balanced 选择后遇到未核实几何时原子拒绝，保留原选择和距离", () => {
+  const played = balancedShot();
+  const state: GameState = {
+    ...played,
+    battle: {
+      ...played.battle!,
+      areas: played.battle!.areas.map((a) => {
+        if (a.id !== "b") return a;
+        const { capacity: _capacity, ...unverified } = a;
+        void _capacity;
+        return unverified;
+      }),
+    },
+  };
+  const waiting = applyCommand(state, { type: "resolveShuffles" });
+  const snapshot = structuredClone(waiting.state);
+  const refused = balancedChoice(waiting.state, "keep");
+  expect(refused.state).toBe(waiting.state);
+  expect(refused.events).toMatchObject([{ type: "commandRefused" }]);
+  expect(waiting.state).toEqual(snapshot);
+});
+it("怪物多目标位移：Balanced 只属于持有者，续接另一目标后结束一次怪物回合", () => {
+  const initial = patch(setup("monster_medium:p013"), { quirkIds: ["quirk:p014"] });
+  const card = initial.battle!.monsters![0]!;
+  // 路由测试沿用真实 Impale 的目标 / 命中栏，仅派生 Push 行；不入库卡牌数值。
+  const effect = [
+    { type: "icon" as const, icon: { key: "target_effects", naming: "confirmed" as const } },
+    { type: "icon" as const, icon: { key: "shuffle", naming: "confirmed" as const } },
+    { type: "text" as const, text: "Push 1" },
+  ];
+  const state = turn(
+    {
+      ...initial,
+      battle: {
+        ...initial.battle!,
+        entities: initial.battle!.entities.map((e) => (e.id === "m" ? { ...e, areaId: "b" } : e)),
+        monsters: [
+          {
+            ...card,
+            skills: card.skills.map((s) =>
+              s.slot === 2 ? { ...s, lines: [...s.lines, effect], effect_lines: [effect] } : s,
+            ),
+          },
+        ],
+      },
+    },
+    "monster",
+  );
+  const played = applyCommand(state, {
+    type: "playMonsterSkill",
+    actorId: "m",
+    targetId: "h0",
+    skillSlot: 2,
+  });
+  successful(played);
+  const waiting = applyCommand(played.state, { type: "resolveShuffles" });
+  successful(waiting);
+  expect(waiting.pendingChoice?.actorId).toBe("h0");
+  expect(waiting.state.battle!.encounter!.turn.type).toBe("monster");
+  const completed = balancedChoice(waiting.state, "reduce");
+  successful(completed);
+  expect(completed.pendingChoice).toBeUndefined();
+  expect(hero(completed.state)).toMatchObject({ areaId: "a", stance: "aggressive" });
+  expect(completed.state.battle!.entities.find((e) => e.id === "h1")).toMatchObject({
+    areaId: "c",
+  });
+  expect(
+    completed.events.filter((e) => e.type === "shuffleResolved" && e.entityId === "h1"),
+  ).toMatchObject([{ path: ["c"], stanceSteps: 1 }]);
+  expect(completed.state.battle!.rngCursor).toBe(played.state.battle!.rngCursor);
+  expect(completed.events.filter((e) => e.type === "turnEnded")).toHaveLength(1);
+  expect(completed.state.battle!.encounter!.turn.type).toBe("awaitingInitiative");
+  expect(
+    applyCommand(completed.state, {
+      type: "resolveChoice",
+      choiceId: waiting.pendingChoice!.id,
+      optionId: "reduce",
+    }).state,
+  ).toBe(completed.state);
+});
+it("Ennui 的 -1 美德几率作用于公共命令的真实意志检定（同骰 2：普通为美德，疾病为苦难）", () => {
+  const seed = Array.from({ length: 200 }, (_, i) => i).find((s) => nextBattleRoll(s, 0) === 2)!;
+  const ready = (diseaseId?: string): GameState => {
+    const s = turn(
+      patch(setup("monster_medium:p001", seed), { stress: 9, ...(diseaseId ? { diseaseId } : {}) }),
+    );
+    return {
+      ...s,
+      battle: {
+        ...s.battle!,
+        areas: s.battle!.areas.map((a) => (a.id === "a" ? { ...a, endTurnStress: 1 } : a)),
+        encounter: {
+          ...s.battle!.encounter!,
+          turn: { type: "hero", actorId: "h0", actions: 1, usedSkillIds: [] },
+        },
+      },
+    };
+  };
+  for (const [disease, role] of [
+    [undefined, "virtue"],
+    ["disease:p003", "affliction"],
+  ] as const) {
+    const result = successful(
+      applyCommand(ready(disease), { type: "changeStance", actorId: "h0", direction: "backward" }),
+    );
+    expect(hero(result).stress).toBe(0);
+    expect(
+      result.battle!.resolveCards!.find((c) => c.id === hero(result).resolveCardId)!.role,
+    ).toBe(role);
+  }
+});
+it("暴击的压力追加伤口先于意志；实际落空不触发复合事件（R-069）", () => {
+  const initial = patch(setup("monster_medium:p001"), { diseaseId: "disease:p008", stress: 8 });
+  const critSeed = Array.from({ length: 200 }, (_, i) => i).find(
+    (s) => nextBattleRoll(s, 0) === 1,
+  )!;
+  const critical = turn({ ...initial, seed: critSeed }, "monster");
+  const refused = applyCommand(critical, attack);
+  const resolved = successful(refused);
+  expect(hero(resolved)).toMatchObject({ stress: 0, resolveTested: true });
+  expect(
+    refused.events.findIndex(
+      (e) =>
+        e.type === "heroHealthResolved" &&
+        e.effect.type === "wounds" &&
+        e.effect.amounts.length === 1 &&
+        e.effect.amounts[0] === 2,
+    ),
+  ).toBeLessThan(refused.events.findIndex((e) => e.type === "resolveTested"));
+  const missSeed = Array.from({ length: 200 }, (_, i) => i).find(
+    (s) => nextBattleRoll(s, 0) === 10,
+  )!;
+  const missed = successful(applyCommand({ ...initial, seed: missSeed }, attack));
+  expect(hero(missed)).toMatchObject({ wounds: 0, stress: 8 });
+});
+it("自身 Vertigo 位移先完成意志，再沿原骰攻击，不预付目标伤害", () => {
+  const initial = setup("monster_medium:p001");
+  const stat = stats.find((s) => s.name === "HIGHWAYMAN")!;
+  const skill = skills.find(
+    (s) => s.hero === stat.name && s.name.startsWith("Point Blank Shot") && s.level === 1,
+  )!;
+  const patched = patch(initial, {
+    hero: stat.name,
+    heroStatId: stat.id,
+    life: stat.life,
+    dodge: stat.dodge,
+    diseaseId: "disease:p007",
+    stress: 8,
+    skillIds: [skill.id],
+  });
+  const state: GameState = {
+    ...patched,
+    battle: {
+      ...patched.battle!,
+      entities: patched.battle!.entities.map((e) => (e.id === "m" ? { ...e, areaId: "a" } : e)),
+    },
+  };
+  const declared = applyCommand(state, {
+    type: "playHeroSkill",
+    actorId: "h0",
+    targetId: "m",
+    skillId: skill.id,
+  });
+  successful(declared);
+  expect(declared.state.battle!.entities.find((entry) => entry.id === "m")!.wounds).toBe(0);
+  let result = applyCommand(declared.state, { type: "resolveShuffles" });
+  for (let step = 0; step < 10 && result.pendingChoice; step++)
+    result = balancedChoice(result.state, result.pendingChoice.options[0]!.id);
+  successful(result);
+  expect(result.state.battle!.shuffleIntents).toEqual([]);
+  expect(hero(result.state).resolveTested).toBe(true);
+  expect(result.events.filter((event) => event.type === "resolveTested")).toHaveLength(1);
+  expect(result.events.findIndex((event) => event.type === "resolveTested")).toBeLessThan(
+    result.events.findIndex(
+      (event) => event.type === "heroSkillResolved" && event.phase !== "ownPending",
+    ),
+  );
+  expect(declared.state.battle!.rngCursor).toBe(state.battle!.rngCursor + 1);
+  expect(
+    applyCommand(state, { type: "playHeroSkill", actorId: "h0", targetId: "m", skillId: skill.id }),
+  ).toEqual(declared);
+});
+it.each([false, true])(
+  "R20：暴击压力在目标Stun／Shuffle前收尾（已有意志=%s）",
+  (resolvedBefore) => {
+    const seed = Array.from({ length: 200 }, (_, index) => index).find(
+      (seed) => nextBattleRoll(seed, 0) === 1,
+    )!;
+    const base = setup("monster_medium:p010", seed),
+      card = base.battle!.monsters![0]!;
+    const attack = readMonsterAttackView(card, 2);
+    if (attack.status !== "ready") throw new Error(attack.reason);
+    const range = readPrintedRange(attack.view);
+    if (range.kind !== "exact") throw new Error("缺少射程");
+    const held = patch(base, {
+      stress: 9,
+      ...(resolvedBefore
+        ? { resolveTested: true, resolveCardId: base.battle!.resolveCards![0]!.id }
+        : {}),
+    });
+    const state = turn(
+      {
+        ...held,
+        battle: {
+          ...held.battle!,
+          entities: held.battle!.entities.map((entry) =>
+            entry.id === "m" ? { ...entry, areaId: range.distance === 0 ? "a" : "b" } : entry,
+          ),
+        },
+      },
+      "monster",
+    );
+    const command = {
+      type: "playMonsterSkill" as const,
+      actorId: "m",
+      targetId: "h0",
+      skillSlot: 2,
+    };
+    const snapshot = structuredClone(state);
+    const declared = applyCommand(state, command);
+    successful(declared);
+    expect(hero(declared.state).areaId).toBe("a");
+    expect(hero(declared.state).dead).toBe(resolvedBefore);
+    expect(declared.events.filter((event) => event.type === "resolveTested")).toHaveLength(
+      resolvedBefore ? 0 : 1,
+    );
+    expect(declared.events.filter((event) => event.type === "heartAttack")).toHaveLength(
+      resolvedBefore ? 1 : 0,
+    );
+    if (resolvedBefore)
+      expect(hero(declared.state).statusStacks?.some((stack) => stack.kind === "stun")).toBeFalsy();
+    let moved = applyCommand(declared.state, { type: "resolveShuffles" });
+    for (let step = 0; step < 4 && moved.pendingChoice; step++)
+      moved = balancedChoice(moved.state, moved.pendingChoice.options[0]!.id);
+    successful(moved);
+    expect(
+      moved.events.some((event) => event.type === "resolveTested" || event.type === "heartAttack"),
+    ).toBe(false);
+    expect(moved.events.filter((event) => event.type === "shuffleResolved")).toHaveLength(
+      resolvedBefore ? 0 : 1,
+    );
+    expect(moved.state.battle!.rngCursor).toBe(declared.state.battle!.rngCursor);
+    expect(applyCommand(state, command)).toEqual(declared);
+    expect(state).toEqual(snapshot);
+  },
+);
+
+it.each([
+  ["monster_medium:p001", 2],
+  ["monster_medium:p007", 2],
+  ["monster_medium:p010", 3],
+  ["monster_medium:p018", 1],
+  ["monster_medium:p018", 2],
+  ["monster_medium:p024", 3],
+  ["monster_medium:p027", 2],
+  ["monster_medium:p040", 2],
+] as const)("R20：真实怪物%s技能%s自身先行，目标生命／状态后付且只掷一次", (cardId, slot) => {
+  const seed = Array.from({ length: 200 }, (_, index) => index).find(
+    (seed) => nextBattleRoll(seed, 0) === 1,
+  )!;
+  const base = setup(cardId, seed),
+    card = base.battle!.monsters![0]!;
+  const attack = readMonsterAttackView(card, slot);
+  if (attack.status !== "ready") throw new Error(attack.reason);
+  const range = readPrintedRange(attack.view);
+  if (range.kind !== "exact") throw new Error("缺少已核实射程");
+  const areas = Array.from({ length: range.distance + 3 }, (_, index) => ({
+    id: `p${index}`,
+    elevation: "normal" as const,
+    capacity: 8,
+    adjacent: [index - 1, index + 1]
+      .filter((next) => next >= 0 && next < range.distance + 3)
+      .map((next) => `p${next}`),
+  }));
+  const state = turn(
+    {
+      ...base,
+      battle: {
+        ...base.battle!,
+        areas,
+        entities: base.battle!.entities.map((entry) =>
+          entry.id === "m"
+            ? { ...entry, areaId: `p${range.distance}`, stance: "ranged" as const }
+            : { ...entry, areaId: "p0" },
+        ),
+      },
+    },
+    "monster",
+  );
+  const snapshot = structuredClone(state);
+  const command = {
+    type: "playMonsterSkill" as const,
+    actorId: "m",
+    targetId: "h0",
+    skillSlot: slot,
+  };
+  const declared = applyCommand(state, command);
+  successful(declared);
+  expect(declared.events[0]).toMatchObject({
+    type: "monsterSkillResolved",
+    phase: "ownPending",
+    roll: 1,
+  });
+  expect(declared.state.battle!.entities.filter((entry) => entry.side === "hero")).toEqual(
+    state.battle!.entities.filter((entry) => entry.side === "hero"),
+  );
+  const ownStatuses = declared.state.battle!.entities.find(
+    (entry) => entry.id === "m",
+  )!.statusStacks;
+  const done = applyCommand(declared.state, { type: "resolveShuffles" });
+  successful(done);
+  expect(done.state.battle!.shuffleIntents).toEqual([]);
+  expect(done.state.battle!.skillPrefix).toBeNull();
+  expect(done.state.battle!.rngCursor).toBe(1);
+  expect(hero(done.state).wounds).toBeGreaterThan(0);
+  expect(done.state.battle!.entities.find((entry) => entry.id === "m")!.statusStacks).toEqual(
+    ownStatuses,
+  );
+  expect(done.events.filter((event) => event.type === "turnEnded")).toHaveLength(1);
+  expect(applyCommand(declared.state, { type: "resolveShuffles" })).toEqual(done);
+  expect(state).toEqual(snapshot);
+});
+
+it.each([false, true])("R20：自身Bleed Out创伤致死取消目标伤害与Bleed（多选=%s）", (multiple) => {
+  const stat = stats.find((stat) => stat.name === "HELLION")!;
+  const skill = skills.find((skill) => skill.id === "hero_skill:core:h02:p040")!;
+  const seed = Array.from({ length: 500 }, (_, index) => index).find(
+    (seed) => nextBattleRoll(seed, 0) === 4 && nextBattleRoll(seed, 1) <= 3,
+  )!;
+  const held = patch(setup("monster_medium:p001", seed), {
+    hero: stat.name,
+    heroStatId: stat.id,
+    life: stat.life,
+    wounds: stat.life,
+    skillIds: [skill.id],
+  });
+  const state = turn({
+    ...held,
+    battle: {
+      ...held.battle!,
+      entities: held.battle!.entities.map((entry) =>
+        entry.id === "m" ? { ...entry, areaId: "a" } : entry,
+      ),
+    },
+  });
+  const command = multiple
+    ? { type: "playHeroSkillTargets" as const, actorId: "h0", targetIds: ["m"], skillId: skill.id }
+    : { type: "playHeroSkill" as const, actorId: "h0", targetId: "m", skillId: skill.id };
+  const snapshot = structuredClone(state);
+  const result = applyCommand(state, command);
+  expect(
+    result.events.find((event) => event.type === "commandRefused"),
+    JSON.stringify(result.events),
+  ).toBeUndefined();
+  successful(result);
+  expect(hero(result.state).dead).toBe(true);
+  expect(result.state.battle!.entities.find((entry) => entry.id === "m")).toMatchObject({
+    wounds: 0,
+    dead: false,
+  });
+  expect(result.events.filter((event) => event.type === "heroHealthResolved")).toHaveLength(1);
+  expect(result.events.filter((event) => event.type === "turnEnded")).toHaveLength(1);
+  expect(result.state.battle!.rngCursor).toBe(2);
+  expect(result.state.battle!.skillPrefix).toBeFalsy();
+  expect(applyCommand(state, command)).toEqual(result);
+  expect(state).toEqual(snapshot);
+});
+
+it.each([false, true])(
+  "R20：自身Vertigo心脏病死亡早于暴击恢复，取消伤害／反击（多选=%s）",
+  (multiple) => {
+    const original = balancedShot(true).battle!.skillPrefix!.original;
+    const held = patch(
+      { seed: hitSeed, notes: [], battle: original },
+      {
+        stress: 8,
+        resolveTested: true,
+        resolveCardId: original.resolveCards![0]!.id,
+      },
+    );
+    const state = {
+      ...held,
+      battle: {
+        ...held.battle!,
+        entities: held.battle!.entities.map((entry) =>
+          entry.id === "m" ? { ...entry, riposte: true } : entry,
+        ),
+      },
+    };
+    const command = multiple
+      ? {
+          type: "playHeroSkillTargets" as const,
+          actorId: "h0",
+          targetIds: ["m"],
+          skillId: "hero_skill:core:h04:p070",
+        }
+      : {
+          type: "playHeroSkill" as const,
+          actorId: "h0",
+          targetId: "m",
+          skillId: "hero_skill:core:h04:p070",
+        };
+    const declared = applyCommand(state, command);
+    const waiting = applyCommand(declared.state, { type: "resolveShuffles" });
+    const kept = balancedChoice(waiting.state, "keep");
+    const done = balancedChoice(kept.state, "b");
+    successful(done);
+    expect(hero(done.state)).toMatchObject({ dead: true, areaId: "b", stress: 10 });
+    expect(done.state.battle!.entities.find((entry) => entry.id === "m")).toMatchObject({
+      wounds: 0,
+      dead: false,
+      areaId: "a",
+    });
+    expect(done.events.filter((event) => event.type === "heartAttack")).toHaveLength(1);
+    expect(done.events.filter((event) => event.type === "turnEnded")).toHaveLength(1);
+    expect(
+      done.events.some(
+        (event) => event.type === "heroSkillResolved" && event.phase !== "ownPending",
+      ),
+    ).toBe(false);
+    expect(done.state.battle!.rngCursor).toBe(declared.state.battle!.rngCursor);
+    expect(done.state.battle!.skillPrefix).toBeNull();
+  },
+);
+
+it("自身位移待选遇缺意志资料原子拒绝；补回后只续接一次，不重复原技能骰", () => {
+  const original = balancedShot(true).battle!.skillPrefix!.original;
+  const full = patch({ seed: hitSeed, notes: [], battle: original }, { stress: 8 });
+  const command = {
+    type: "playHeroSkill" as const,
+    actorId: "h0",
+    targetId: "m",
+    skillId: "hero_skill:core:h04:p070",
+  };
+  const declared = applyCommand(full, command);
+  const reduction = applyCommand(declared.state, { type: "resolveShuffles" });
+  const area = balancedChoice(reduction.state, "keep");
+  const missing = { ...area.state, battle: { ...area.state.battle!, resolveCards: [] } };
+  const refused = balancedChoice(missing, "b");
+  expect(refused.events[0]).toMatchObject({ type: "commandRefused" });
+  expect(refused.state).toBe(missing);
+  expect(hero(refused.state)).toMatchObject({ areaId: "a", stress: 8 });
+  expect(refused.state.battle!.entities.find((entry) => entry.id === "m")!.wounds).toBe(0);
+  const restored = {
+    ...missing,
+    battle: { ...missing.battle, resolveCards: full.battle!.resolveCards! },
+  };
+  const done = balancedChoice(restored, "b");
+  expect(done).toEqual(balancedChoice(area.state, "b"));
+  successful(done);
+  expect(done.events.filter((event) => event.type === "resolveTested")).toHaveLength(1);
+  expect(done.state.battle!.entities.find((entry) => entry.id === "m")!.wounds).toBeGreaterThan(0);
+});
+
+function emptyVertigo(changes: Partial<BattleEntity> = {}, seed = hitSeed): GameState {
+  const initial = setup("monster_medium:p001", seed);
+  const stat = stats.find((s) => s.name === "HIGHWAYMAN")!;
+  const patched = patch(initial, {
+    hero: stat.name,
+    heroStatId: stat.id,
+    life: stat.life,
+    dodge: stat.dodge,
+    diseaseId: "disease:p007",
+    stress: 8,
+    stance: "support",
+    skillIds: ["hero_skill:core:h04:p079"],
+    ...changes,
+  });
+  return turn({
+    ...patched,
+    battle: {
+      ...patched.battle!,
+      entities: patched.battle!.entities.map((e) =>
+        e.id === "m" ? { ...e, areaId: "a" } : e.id === "h3" ? { ...e, stance: "aggressive" } : e,
+      ),
+      areas: [
+        { id: "a", adjacent: ["b", "c"], capacity: 8, elevation: "high" },
+        { id: "b", adjacent: ["a", "d"], capacity: 8, elevation: "normal" },
+        { id: "c", adjacent: ["a", "d"], capacity: 8, elevation: "normal" },
+        { id: "d", adjacent: ["b", "c"], capacity: 8, elevation: "normal" },
+      ],
+    },
+  });
+}
+const emptyAdvance = {
+  type: "playHeroSkillEmptyArea",
+  actorId: "h0",
+  skillId: "hero_skill:core:h04:p079",
+  areaId: "d",
+} as const;
+it("空区域 Vertigo：完成自身分岔后接首次意志检定，自身 Riposte / 技能骰 / 行动只结算一次", () => {
+  for (const [pressureRoll, role] of [
+    [2, "virtue"],
+    [5, "affliction"],
+  ] as const) {
+    const seed = Array.from({ length: 300 }, (_, i) => i).find(
+      (s) => nextBattleRoll(s, 0) === 3 && nextBattleRoll(s, 1) === pressureRoll,
+    )!;
+    const initial = emptyVertigo({}, seed);
+    const snapshot = structuredClone(initial);
+    const used = applyCommand(initial, emptyAdvance);
+    successful(used);
+    expect(used.events[0]).toMatchObject({ type: "heroSkillEmptyAreaResolved", roll: 3 });
+    expect(hero(used.state).statusStacks).toMatchObject([{ kind: "riposte", remaining: 2 }]);
+    const waiting = applyCommand(used.state, { type: "resolveShuffles" });
+    successful(waiting);
+    expect(waiting.pendingChoice!.options.map((o) => o.id)).toEqual(["b", "c"]);
+    expect(hero(waiting.state)).toMatchObject({ areaId: "a", stress: 8 });
+    expect(waiting.state.battle!.rngCursor).toBe(1);
+    expect(waiting.state.battle!.encounter!.turn).toMatchObject({ actions: 2 });
+    expect(applyCommand(waiting.state, { type: "drawInitiative" }).state).toBe(waiting.state);
+    const done = balancedChoice(waiting.state, "b");
+    successful(done);
+    expect(hero(done.state)).toMatchObject({ areaId: "b", stress: 0, resolveTested: true });
+    expect(
+      done.state.battle!.resolveCards!.find((c) => c.id === hero(done.state).resolveCardId)!.role,
+    ).toBe(role);
+    expect(done.events.filter((e) => e.type === "resolveTested")).toMatchObject([
+      { entityId: "h0", roll: pressureRoll },
+    ]);
+    expect(done.events.map((e) => e.type)).toEqual([
+      "shuffleResolved",
+      "passiveTriggered",
+      "resolveTested",
+    ]);
+    expect(done.state.battle!.rngCursor).toBe(6);
+    expect(hero(done.state).statusStacks).toEqual(hero(used.state).statusStacks);
+    expect(done.state.battle!.encounter!.turn).toMatchObject({
+      actions: 1,
+      usedSkillIds: ["hero_skill:core:h04:p079"],
+    });
+    expect(done.state.battle!.entities.find((e) => e.id === "m")).toEqual(
+      initial.battle!.entities.find((e) => e.id === "m"),
+    );
+    expect(balancedChoice(waiting.state, "b")).toEqual(done);
+    expect(applyCommand(done.state, { type: "resolveShuffles" }).state).toBe(done.state);
+    expect(initial).toEqual(snapshot);
+  }
+});
+it("空区域 Vertigo：已有意志卡时心脏病只补位一次，不掷第二次意志骰或伤害目标", () => {
+  const initial = emptyVertigo({ resolveTested: true, resolveCardId: "virtue_affliction:p001" });
+  const used = applyCommand(initial, emptyAdvance);
+  successful(used);
+  const waiting = applyCommand(used.state, { type: "resolveShuffles" });
+  const done = balancedChoice(waiting.state, "c");
+  successful(done);
+  expect(hero(done.state)).toMatchObject({ areaId: "c", stress: 10, dead: true, wounds: 0 });
+  expect(done.state.battle!.rngCursor).toBe(used.state.battle!.rngCursor);
+  expect(done.events.filter((e) => e.type === "heartAttack")).toHaveLength(1);
+  expect(done.events.filter((e) => e.type === "resolveTested")).toHaveLength(0);
+  expect(done.events.filter((e) => e.type === "casualtyRemoved")).toHaveLength(1);
+  expect(done.events.filter((e) => e.type === "turnEnded")).toHaveLength(1);
+  expect(done.state.battle!.encounter!.turn.type).toBe("awaitingInitiative");
+  expect(
+    done.state.battle!.entities.filter((e) => e.side === "hero" && !e.dead).map((e) => e.stance),
+  ).toEqual(["defensive", "ranged", "aggressive"]);
+});
+it("空区域 Vertigo 与 Balanced：少移到零时不增加压力、不检定意志，仍完成一次技能使用", () => {
+  const initial = emptyVertigo({ quirkIds: ["quirk:p014"] });
+  const used = applyCommand(initial, emptyAdvance);
+  successful(used);
+  const waiting = applyCommand(used.state, { type: "resolveShuffles" });
+  expect(waiting.state.battle!.pending?.type).toBe("shuffleReduction");
+  const done = balancedChoice(waiting.state, "reduce");
+  successful(done);
+  expect(hero(done.state)).toMatchObject({ areaId: "a", stance: "support", stress: 8 });
+  expect(hero(done.state).resolveCardId).toBeUndefined();
+  expect(done.state.battle!.rngCursor).toBe(used.state.battle!.rngCursor);
+  expect(done.state.battle!.encounter!.turn).toMatchObject({
+    actions: 1,
+    usedSkillIds: ["hero_skill:core:h04:p079"],
+  });
+  expect(
+    done.events.filter((e) => e.type === "resolveTested" || e.type === "heartAttack"),
+  ).toHaveLength(0);
+});
+it("空区域 Vertigo 意志资料不足时保留位移待选；补齐资料后续接不重掷技能骰", () => {
+  const used = applyCommand(emptyVertigo(), emptyAdvance);
+  successful(used);
+  const waiting = applyCommand(used.state, { type: "resolveShuffles" });
+  const missing: GameState = {
+    ...waiting.state,
+    battle: {
+      ...waiting.state.battle!,
+      resolveCards: waiting.state.battle!.resolveCards!.slice(1),
+    },
+  };
+  const refused = balancedChoice(missing, "b");
+  expect(refused.state).toBe(missing);
+  expect(refused.events).toMatchObject([
+    { type: "commandRefused", message: expect.stringContaining("意志检定") },
+  ]);
+  expect(hero(refused.state)).toMatchObject({ areaId: "a", stress: 8 });
+  expect(refused.state.battle!.rngCursor).toBe(1);
+  const restored: GameState = {
+    ...refused.state,
+    battle: { ...refused.state.battle!, resolveCards: waiting.state.battle!.resolveCards! },
+  };
+  expect(balancedChoice(restored, "b")).toEqual(balancedChoice(waiting.state, "b"));
+});
+it("空区域的Vertigo同样先结算追加伤口，再为存活者处理压力10", () => {
+  for (const quirkIds of [["quirk:p035"], ["quirk:p028", "quirk:p035"]]) {
+    const initial = emptyVertigo({ quirkIds });
+    const declared = applyCommand(initial, emptyAdvance);
+    successful(declared);
+    const waiting = applyCommand(declared.state, { type: "resolveShuffles" });
+    const done = waiting.pendingChoice
+      ? balancedChoice(waiting.state, waiting.pendingChoice.options[0]!.id)
+      : waiting;
+    successful(done);
+    expect(hero(done.state)).toMatchObject({ wounds: 1, stress: 0, resolveTested: true });
+    expect(done.events.findIndex((event) => event.type === "heroHealthResolved")).toBeLessThan(
+      done.events.findIndex((event) => event.type === "resolveTested"),
+    );
+  }
+});
+it("R-069/Q-67：同次暴击基础与怪癖压力合并；普通命中仍单独触发 Off Guard", () => {
+  const criticalSeed = Array.from({ length: 200 }, (_, i) => i).find(
+    (s) => nextBattleRoll(s, 0) === 1,
+  )!;
+  const state = patch(setup("monster_medium:p001", criticalSeed), {
+    quirkIds: ["quirk:p021", "quirk:p026", "quirk:p028"],
+  });
+  const snapshot = structuredClone(state);
+  const critical = applyCommand(state, attack);
+  expect(hero(successful(critical))).toMatchObject({ stress: 4, wounds: 9 });
+  expect(applyCommand(state, attack)).toEqual(critical);
+  expect(state).toEqual(snapshot);
+  for (const light of [0, 2, 5]) {
+    const held = patch(state, {
+      diseaseId: "disease:p008",
+      quirkIds: ["quirk:p021", "quirk:p026", "quirk:p035"],
+    });
+    const modified = { ...held, battle: { ...held.battle!, light } };
+    // 基础1 + Off Guard1 + Weak Grip1；Worries及低光各加一次，Soft/Worries伤口各一次。
+    expect(hero(successful(applyCommand(modified, attack)))).toMatchObject({
+      stress: 4 + Number(light <= 2),
+      wounds: 12,
+    });
+  }
+  const pressured = turn(
+    patch(state, {
+      stress: 8,
+      diseaseId: "disease:p008",
+      quirkIds: ["quirk:p021", "quirk:p026", "quirk:p035"],
+    }),
+    "monster",
+  );
+  const completed = applyCommand(pressured, attack);
+  expect(hero(successful(completed))).toMatchObject({ wounds: 12, stress: 0, resolveTested: true });
+  expect(
+    completed.events.filter(
+      (e) =>
+        e.type === "heroHealthResolved" &&
+        e.effect.type === "wounds" &&
+        e.effect.amounts.join(",") === "1,2",
+    ),
+  ).toHaveLength(1);
+  expect(
+    completed.events.findIndex(
+      (e) => e.type === "heroHealthResolved" && e.effect.type === "wounds",
+    ),
+  ).toBeLessThan(completed.events.findIndex((e) => e.type === "resolveTested"));
+  const hit = Array.from({ length: 200 }, (_, i) => i).find((s) => nextBattleRoll(s, 0) === 4)!;
+  const normal = successful(applyCommand({ ...state, seed: hit }, attack));
+  expect(hero(normal).stress).toBe(2);
+});
+
+it("压力追加伤口在死门死亡后取消意志；空白存活才掷意志，原骰可回放（R-069）", () => {
+  for (const dies of [true, false]) {
+    const seed = Array.from({ length: 100 }, (_, i) => i).find(
+      (s) => nextBattleRoll(s, 0) <= 3 === dies,
+    )!;
+    const base = setup("monster_medium:p001", seed);
+    const held = turn(
+      patch(base, {
+        diseaseId: "disease:p008",
+        quirkIds: ["quirk:p019", "quirk:p035"],
+        stress: 9,
+        wounds: hero(base).life!,
+      }),
+    );
+    const state = {
+      ...held,
+      battle: { ...held.battle!, light: 4, provisions: [{ id: "torch", face: "torch" as const }] },
+    };
+    const before = structuredClone(state);
+    const command = {
+      type: "useProvision",
+      provisionId: "torch",
+      targetId: "h0",
+      effect: "raiseLight",
+    } as const;
+    const result = applyCommand(state, command);
+    const done = successful(result);
+    expect(hero(done).dead).toBe(dies);
+    expect(done.battle!.provisions).toEqual([]);
+    expect(result.events.filter((e) => e.type === "resolveTested")).toHaveLength(dies ? 0 : 1);
+    expect(done.battle!.rngCursor).toBe(dies ? 1 : 6);
+    expect(hero(done).stress).toBe(dies ? 10 : 0);
+    expect(
+      result.events.find((e) => e.type === "heroHealthResolved" && e.effect.type === "wounds"),
+    ).toMatchObject({
+      effect: { type: "wounds", amounts: [1, 2] },
+      resolution: { deathblow: dies },
+    });
+    expect(result).toEqual(applyCommand(state, command));
+    expect(state).toEqual(before);
+  }
+});

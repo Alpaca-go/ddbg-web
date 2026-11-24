@@ -1,11 +1,11 @@
-import type { DungeonState } from "../../dungeon";
-import type { SpawnCard } from "../../spawn";
+import type { DungeonState } from "../../shared/dungeon/dungeon";
+import type { SpawnCard } from "../../shared/core/spawn";
 import { readDungeonBossThreatScript } from "./threat-passive-runtime";
 import { runBossHook } from "./hooks";
-import type { ApplyResult, GameState } from "../../command";
-import type { BattleEntity } from "../../battle";
-import { rejectBattleCommand } from "../../battle";
-import type { MonsterCardView } from "../../monster-skill";
+import type { ApplyResult, GameState } from "../../shared/core/command";
+import type { BattleEntity } from "../../shared/battle/battle";
+import { rejectBattleCommand } from "../../shared/battle/battle";
+import type { MonsterCardView } from "../../shared/core/monster-skill";
 import { NECROMANCER_II_COMBAT_MONSTER_CARD_ID } from "./necromancer-ii";
 
 const STANCES = ["aggressive", "defensive", "ranged", "support"] as const;

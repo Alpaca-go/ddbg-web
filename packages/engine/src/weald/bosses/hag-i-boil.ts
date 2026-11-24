@@ -1,9 +1,9 @@
-import { rejectBattleCommand, skillTargetView, writeResolution } from "../../battle";
-import type { ApplyResult, GameState, MonsterSkillResolvedEvent } from "../../command";
-import { resolveMonsterSkillEffects } from "../../monster-skill";
-import { applySkillHealth } from "../../battle-health";
-import { resolveBattlePressure } from "../../pressure";
-import { nextBattleRoll, recordMonsterSkill } from "../../encounter";
+import { rejectBattleCommand, skillTargetView, writeResolution } from "../../shared/battle/battle";
+import type { ApplyResult, GameState, MonsterSkillResolvedEvent } from "../../shared/core/command";
+import { resolveMonsterSkillEffects } from "../../shared/core/monster-skill";
+import { applySkillHealth } from "../../shared/battle/battle-health";
+import { resolveBattlePressure } from "../../shared/core/pressure";
+import { nextBattleRoll, recordMonsterSkill } from "../../shared/dungeon/encounter";
 import { resolveEncounterBossScriptId } from "../../core/bosses/encounter-rules";
 import { buildHagICombatCatalog } from "./hag-i-projection";
 import { HAG_I_SCRIPT_ID, HAG_I_CAULDRON_EMPTY_MONSTER_CARD_ID } from "./hag-i";

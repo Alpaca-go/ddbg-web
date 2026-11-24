@@ -3,15 +3,15 @@ import medium from "../../../data/normalized/extension/weald/monster_medium.json
 import large from "../../../data/normalized/extension/weald/monster_large.json";
 import curios from "../../../data/normalized/extension/weald/curio.json";
 import { wealdCurioFileSchema } from "../../../data/src/curio";
-import { applyCommand, type Command } from "../../src/command";
-import { createCoreDungeonQuest } from "../../src/dungeon-quest-entry";
-import { coreQuestSources } from "../../src/test-helpers/core-quest";
-import { naturalParty, naturalQuest } from "../../src/test-helpers/natural-quest";
-import { currentHamletHero, hamletActionOptions } from "../../src/hamlet-actions";
-import { createQuestSave, loadQuestSave } from "../../src/quest-save";
-import { dungeonMonsterPoolThrough } from "../../src/monster-pool-runtime";
-import { nextExpeditionLocationDecks } from "../../src/hamlet-location-embark";
-import { recoverHamletPools } from "../../src/hamlet-return-pools";
+import { applyCommand, type Command } from "../../src/shared/core/command";
+import { createCoreDungeonQuest } from "../../src/shared/dungeon/dungeon-quest-entry";
+import { coreQuestSources } from "../helpers/core-quest";
+import { naturalParty, naturalQuest } from "../helpers/natural-quest";
+import { currentHamletHero, hamletActionOptions } from "../../src/shared/hamlet/hamlet-actions";
+import { createQuestSave, loadQuestSave } from "../../src/shared/quest/quest-save";
+import { dungeonMonsterPoolThrough } from "../../src/shared/core/monster-pool-runtime";
+import { nextExpeditionLocationDecks } from "../../src/shared/hamlet/hamlet-location-embark";
+import { recoverHamletPools } from "../../src/shared/hamlet/hamlet-return-pools";
 
 const sources = {
   ...coreQuestSources,

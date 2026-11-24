@@ -1,9 +1,9 @@
-import { distance, rejectBattleCommand } from "../../battle";
-import type { ApplyResult, GameState } from "../../command";
-import { playMonsterSkill } from "../../battle-monster";
-import { selectMonsterTarget } from "../../monster-target";
+import { distance, rejectBattleCommand } from "../../shared/battle/battle";
+import type { ApplyResult, GameState } from "../../shared/core/command";
+import { playMonsterSkill } from "../../shared/battle/battle-monster";
+import { selectMonsterTarget } from "../../shared/core/monster-target";
 import { readPounderRuntimeContext } from "./pounder-runtime-context";
-import { isCampaignExpeditionMode } from "../../campaign-expedition-mode";
+import { isCampaignExpeditionMode } from "../../shared/hamlet/campaign-expedition-mode";
 import { planPounderIFireInTheHole } from "./pounder-i-combat-plans";
 
 /** 战斗结束时不遗留已消费的触发上下文；生命／压力待选期间继续保留。 */

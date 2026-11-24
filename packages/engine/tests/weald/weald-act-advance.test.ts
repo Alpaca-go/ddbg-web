@@ -1,16 +1,16 @@
 import { expect, it } from "vitest";
-import { applyCommand } from "../../src/command";
+import { applyCommand } from "../../src/shared/core/command";
 import { drawImminentThreatAfterActAdvance } from "../../src/core/bosses/establish-imminent-threat";
 import { clearBossScriptsForTest } from "../../src/core/bosses/registry";
 import {
   readRuinsActTransitionReadiness,
   requiresRuinsActAdvance,
   wealdLocationActAdvanceEnabled,
-} from "../../src/act-transition-readiness";
-import { switchWealdActPools } from "../../src/act-transition-pools";
+} from "../../src/shared/hamlet/act-transition-readiness";
+import { switchWealdActPools } from "../../src/shared/hamlet/act-transition-pools";
 import { wealdThreatPool } from "../../src/weald/bosses/threat-pool";
 import { WEALD_BOSS_IDENTITIES } from "../../src/weald/catalog";
-import { wealdActReadyFixture } from "../../src/test-helpers/weald-act";
+import { wealdActReadyFixture } from "../helpers/weald-act";
 
 const command = { type: "advanceRuinsAct" } as const;
 

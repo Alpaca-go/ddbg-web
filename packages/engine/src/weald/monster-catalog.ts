@@ -7,8 +7,8 @@ import {
   WEALD_MONSTER_ATTACKS,
   wealdMonsterProfileSchema,
 } from "../../../data/src/weald-monster-rulings";
-import type { MonsterCardView, MonsterSkillView } from "../monster-skill";
-import { readMonsterAttackView } from "../monster-skill";
+import type { MonsterCardView, MonsterSkillView } from "../shared/core/monster-skill";
+import { readMonsterAttackView } from "../shared/core/monster-skill";
 
 export type WealdBattleMonster = MonsterCardView & {
   readonly skills: readonly (MonsterSkillView & { readonly target: string })[];

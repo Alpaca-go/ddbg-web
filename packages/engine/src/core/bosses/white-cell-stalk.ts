@@ -1,9 +1,9 @@
-import { distance, rejectBattleCommand } from "../../battle";
-import type { ApplyResult, GameState } from "../../command";
-import { finishTurn } from "../../encounter";
-import { readPrintedRange } from "../../hero-skill";
-import { readMonsterAttackView } from "../../monster-skill";
-import { addStatusStack, statusProjection } from "../../status";
+import { distance, rejectBattleCommand } from "../../shared/battle/battle";
+import type { ApplyResult, GameState } from "../../shared/core/command";
+import { finishTurn } from "../../shared/dungeon/encounter";
+import { readPrintedRange } from "../heroes/hero-skill";
+import { readMonsterAttackView } from "../../shared/core/monster-skill";
+import { addStatusStack, statusProjection } from "../../shared/core/status";
 
 /** FRONT p104 / R20–24：指定 Mammoth Cyst 的无 Acc 友方技能。 */
 export function playWhiteCellReconstitute(

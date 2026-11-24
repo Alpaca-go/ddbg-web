@@ -1,0 +1,28 @@
+import { readFileSync } from "node:fs";
+import { expect, it } from "vitest";
+import { readMonsterAttackView } from "../../../src/shared/core/monster-skill";
+import type { MonsterCardView } from "../../../src/shared/core/monster-skill";
+const cards: MonsterCardView[] = JSON.parse(
+  readFileSync(
+    new URL("../../../../data/normalized/corebox/monster_medium.json", import.meta.url),
+    "utf8",
+  ),
+).cards;
+it("Antibody Stunning Secretion 完整印刷计划，拒绝效果漂移", () => {
+  const card = cards.find((c) => c.id === "monster_medium:p083")!;
+  const skill = card.skills.find((s) => s.slot === 1)!;
+  expect(skill.rules!.effects?.effects).toEqual([
+    { type: "status", scope: "target", kind: "stun", duration: 1 },
+  ]);
+  expect(readMonsterAttackView(card, 1).status).toBe("ready");
+  const plan = skill.rules!.effects!;
+  expect(
+    readMonsterAttackView(
+      {
+        ...card,
+        skills: [{ ...skill, rules: { ...skill.rules, effects: { ...plan, effects: [] } } }],
+      },
+      1,
+    ).status,
+  ).toBe("refused");
+});

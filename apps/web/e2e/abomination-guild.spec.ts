@@ -2,7 +2,7 @@ import { expect } from "@playwright/test";
 import { ssrTest } from "./ssr-test";
 import { createServer } from "vite";
 import { fileURLToPath } from "node:url";
-import type { GameState } from "../../../packages/engine/src/command";
+import type { GameState } from "../../../packages/engine/src/shared/core/command";
 
 const test = ssrTest(import.meta.url);
 
@@ -19,7 +19,7 @@ test("憎恶公会机制夹具：变身卡连续永久升级并记录命令", as
   try {
     const fixture = await server.ssrLoadModule(
       fileURLToPath(
-        new URL("../../../packages/engine/src/test-helpers/abomination-hamlet.ts", import.meta.url),
+        new URL("../../../packages/engine/tests/helpers/abomination-hamlet.ts", import.meta.url),
       ),
     );
     game = fixture.abominationHamletFixture();

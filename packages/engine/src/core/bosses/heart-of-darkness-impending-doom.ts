@@ -1,6 +1,6 @@
-import type { ApplyResult, GameEvent, GameState } from "../../command";
-import { rejectBattleCommand, type BattleState } from "../../battle";
-import { nextBattleRoll } from "../../battle-roll";
+import type { ApplyResult, GameEvent, GameState } from "../../shared/core/command";
+import { rejectBattleCommand, type BattleState } from "../../shared/battle/battle";
+import { nextBattleRoll } from "../../shared/battle/battle-roll";
 import { readFinalFormSequence } from "./final-form-sequence";
 
 /** boss_ability:p037 · Heart of Darkness 主体。 */

@@ -1,10 +1,13 @@
 import { expect, it } from "vitest";
 import { battleDataPlugin } from "../../../../../apps/web/battle-data-plugin";
-import { coreQuestSources, coreParty } from "../../../src/test-helpers/core-quest";
-import { naturalQuest, naturalParty } from "../../../src/test-helpers/natural-quest";
-import { createCoreDungeonQuest, type CoreQuestSources } from "../../../src/dungeon-quest-entry";
-import { createQuestSave, loadQuestSave } from "../../../src/quest-save";
-import type { GameState, Command } from "../../../src/command";
+import { coreQuestSources, coreParty } from "../../helpers/core-quest";
+import { naturalQuest, naturalParty } from "../../helpers/natural-quest";
+import {
+  createCoreDungeonQuest,
+  type CoreQuestSources,
+} from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { createQuestSave, loadQuestSave } from "../../../src/shared/quest/quest-save";
+import type { GameState, Command } from "../../../src/shared/core/command";
 import { DARKEST_BOSS_CATALOG_CARD_IDS } from "../../../src/core/bosses/darkest-boss-catalog";
 import { RUINS_BOSS_CATALOG_CARD_IDS } from "../../../src/core/bosses/ruins-combat-levels";
 

@@ -5,9 +5,9 @@ import {
   pounderIInitialDeployment,
 } from "../../../src/weald/bosses/pounder-i-projection";
 import { WEALD_POUNDER_I_CONTENT as content } from "../../../src/weald/bosses/pounder-i-content";
-import { readMonsterAttackView, resolveMonsterSkill } from "../../../src/monster-skill";
-import { readPrintedRange, readPrintedTargets } from "../../../src/hero-skill";
-import { selectMonsterSkill } from "../../../src/monster-stance";
+import { readMonsterAttackView, resolveMonsterSkill } from "../../../src/shared/core/monster-skill";
+import { readPrintedRange, readPrintedTargets } from "../../../src/core/heroes/hero-skill";
+import { selectMonsterSkill } from "../../../src/shared/core/monster-stance";
 import { planPounderIFireInTheHole } from "../../../src/weald/bosses/pounder-i-combat-plans";
 
 it("R-258 两面属性、类型、抗性免疫保留；Pounder 不自行选招", () => {

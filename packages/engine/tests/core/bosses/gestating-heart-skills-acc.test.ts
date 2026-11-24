@@ -5,7 +5,7 @@ import {
   readMonsterAttackView,
   resolveMonsterSkill,
   type MonsterCardView,
-} from "../../../src/monster-skill";
+} from "../../../src/shared/core/monster-skill";
 
 function loadLargeCards(): MonsterCardView[] {
   const large = JSON.parse(

@@ -1,10 +1,10 @@
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
 import { expect, it } from "vitest";
-import { applyCommand } from "../../../src/command";
-import type { Command, GameState } from "../../../src/command";
-import { coreQuestSources } from "../../../src/test-helpers/core-quest";
-import { naturalParty, naturalQuest } from "../../../src/test-helpers/natural-quest";
-import { createQuestSave, loadQuestSave } from "../../../src/quest-save";
+import { applyCommand } from "../../../src/shared/core/command";
+import type { Command, GameState } from "../../../src/shared/core/command";
+import { coreQuestSources } from "../../helpers/core-quest";
+import { naturalParty, naturalQuest } from "../../helpers/natural-quest";
+import { createQuestSave, loadQuestSave } from "../../../src/shared/quest/quest-save";
 
 it("Necromancer I从任务起点自然探索、击败与回村；战斗中及回村存档严格回放", () => {
   const start = {

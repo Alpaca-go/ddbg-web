@@ -1,7 +1,7 @@
 import { expect, it } from "vitest";
-import { applyCommand } from "../../src/command";
-import { createQuestSave, loadQuestSave } from "../../src/quest-save";
-import { toxicMushroomsQuest } from "../../src/test-helpers/toxic-mushrooms-quest";
+import { applyCommand } from "../../src/shared/core/command";
+import { createQuestSave, loadQuestSave } from "../../src/shared/quest/quest-save";
+import { toxicMushroomsQuest } from "../helpers/toxic-mushrooms-quest";
 
 it("seed4 Patrol 自然触发前后严格回放，删版本标记拒绝（R-234／R-239）", () => {
   const { start, before, after, attack, commands, sources } = toxicMushroomsQuest();

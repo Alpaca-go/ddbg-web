@@ -1,17 +1,17 @@
 import { expect, it } from "vitest";
 import { loadNormalizedCorebox } from "../../../data/src/normalize/write";
-import type { BattleSetup } from "../../src/battle";
-import { heroHasUnwiredCombatSkills } from "../../src/formal-heroes";
+import type { BattleSetup } from "../../src/shared/battle/battle";
+import { heroHasUnwiredCombatSkills } from "../../src/core/heroes/formal-heroes";
 import {
   embarkSkillAllowed,
   verifiedLevel1CombatSkillsForHero,
-} from "../../src/formal-roster-catalog";
-import type { HeroSkillCardView } from "../../src/hero-skill";
-import { replacementHeroCandidates } from "../../src/hero-death-estate";
+} from "../../src/shared/core/formal-roster-catalog";
+import type { HeroSkillCardView } from "../../src/core/heroes/hero-skill";
+import { replacementHeroCandidates } from "../../src/core/heroes/hero-death-estate";
 import { battleDataPlugin } from "../../../../apps/web/battle-data-plugin";
-import { createCoreDungeonQuest } from "../../src/dungeon-quest-entry";
-import type { CoreQuestSources } from "../../src/dungeon-quest-entry";
-import { coreParty, coreQuestSources } from "../../src/test-helpers/core-quest";
+import { createCoreDungeonQuest } from "../../src/shared/dungeon/dungeon-quest-entry";
+import type { CoreQuestSources } from "../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "../helpers/core-quest";
 
 const data = loadNormalizedCorebox();
 const clean = <T>(value: unknown): T => JSON.parse(JSON.stringify(value));

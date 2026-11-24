@@ -1,9 +1,9 @@
 import { expect, it } from "vitest";
 import { coreQuestMapLayouts } from "../../../../data/src/quest-map-pairing";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
-import { prepareObjectiveRoomBattle } from "../../../src/dungeon-objective";
-import { createQuestSave, loadQuestSave } from "../../../src/quest-save";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "../../helpers/core-quest";
+import { prepareObjectiveRoomBattle } from "../../../src/shared/dungeon/dungeon-objective";
+import { createQuestSave, loadQuestSave } from "../../../src/shared/quest/quest-save";
 import {
   edgeRoomNodeIds,
   placeFaceTheThreatRooms,

@@ -5,18 +5,18 @@ import { fileURLToPath } from "node:url";
 import type {
   naturalAbbeyQuest,
   naturalGraveyardQuest,
-} from "../../../packages/engine/src/test-helpers/abbey-quest";
-import type { ApplyResult, Command } from "../../../packages/engine/src/command";
+} from "../../../packages/engine/tests/helpers/abbey-quest";
+import type { ApplyResult, Command } from "../../../packages/engine/src/shared/core/command";
 import type { QuestSave } from "../../../packages/data/src/quest-save";
-import type { caregiversQuest } from "../../../packages/engine/src/test-helpers/caregivers-quest";
-import type { townFairQuest } from "../../../packages/engine/src/test-helpers/town-fair-quest";
-import type { paidUpgradeQuest } from "../../../packages/engine/src/test-helpers/natural-scout-return";
-import type { laborQuest } from "../../../packages/engine/src/test-helpers/labor-quest";
-import type { nomadQuest } from "../../../packages/engine/src/test-helpers/nomad-quest";
-import type { nomadSaleQuest } from "../../../packages/engine/src/test-helpers/nomad-sale-quest";
-import type { guildQuest } from "../../../packages/engine/src/test-helpers/guild-quest";
-import type { twoQuestGuildPath } from "../../../packages/engine/src/test-helpers/two-quest-guild";
-import type { nomadUpgradeQuest } from "../../../packages/engine/src/test-helpers/nomad-upgrade-quest";
+import type { caregiversQuest } from "../../../packages/engine/tests/helpers/caregivers-quest";
+import type { townFairQuest } from "../../../packages/engine/tests/helpers/town-fair-quest";
+import type { paidUpgradeQuest } from "../../../packages/engine/tests/helpers/natural-scout-return";
+import type { laborQuest } from "../../../packages/engine/tests/helpers/labor-quest";
+import type { nomadQuest } from "../../../packages/engine/tests/helpers/nomad-quest";
+import type { nomadSaleQuest } from "../../../packages/engine/tests/helpers/nomad-sale-quest";
+import type { guildQuest } from "../../../packages/engine/tests/helpers/guild-quest";
+import type { twoQuestGuildPath } from "../../../packages/engine/tests/helpers/two-quest-guild";
+import type { nomadUpgradeQuest } from "../../../packages/engine/tests/helpers/nomad-upgrade-quest";
 
 const test = ssrTest(import.meta.url);
 
@@ -49,11 +49,13 @@ test.beforeAll(async () => {
   try {
     const helpers = await server.ssrLoadModule(
       fileURLToPath(
-        new URL("../../../packages/engine/src/test-helpers/abbey-quest.ts", import.meta.url),
+        new URL("../../../packages/engine/tests/helpers/abbey-quest.ts", import.meta.url),
       ),
     );
     const engine = await server.ssrLoadModule(
-      fileURLToPath(new URL("../../../packages/engine/src/command.ts", import.meta.url)),
+      fileURLToPath(
+        new URL("../../../packages/engine/src/shared/core/command.ts", import.meta.url),
+      ),
     );
     const plugin = await server.ssrLoadModule(
       fileURLToPath(new URL("../battle-data-plugin.ts", import.meta.url)),
@@ -66,7 +68,7 @@ test.beforeAll(async () => {
     // 同一正式网页目录：只读取获批卡，不把引擎测试的更大目录写入浏览器存档。
     const sourceHelpers = await server.ssrLoadModule(
       fileURLToPath(
-        new URL("../../../packages/engine/src/test-helpers/core-quest.ts", import.meta.url),
+        new URL("../../../packages/engine/tests/helpers/core-quest.ts", import.meta.url),
       ),
     );
     journey = helpers.naturalAbbeyQuest({
@@ -79,7 +81,7 @@ test.beforeAll(async () => {
     });
     const medical = await server.ssrLoadModule(
       fileURLToPath(
-        new URL("../../../packages/engine/src/test-helpers/medical-quest.ts", import.meta.url),
+        new URL("../../../packages/engine/tests/helpers/medical-quest.ts", import.meta.url),
       ),
     );
     medicalSave = medical.medicalQuest({
@@ -88,7 +90,7 @@ test.beforeAll(async () => {
     }).save;
     const caregiversHelper = await server.ssrLoadModule(
       fileURLToPath(
-        new URL("../../../packages/engine/src/test-helpers/caregivers-quest.ts", import.meta.url),
+        new URL("../../../packages/engine/tests/helpers/caregivers-quest.ts", import.meta.url),
       ),
     );
     caregivers = caregiversHelper.caregiversQuest({
@@ -97,7 +99,7 @@ test.beforeAll(async () => {
     });
     const fairHelper = await server.ssrLoadModule(
       fileURLToPath(
-        new URL("../../../packages/engine/src/test-helpers/town-fair-quest.ts", import.meta.url),
+        new URL("../../../packages/engine/tests/helpers/town-fair-quest.ts", import.meta.url),
       ),
     );
     townFair = fairHelper.townFairQuest({
@@ -119,7 +121,7 @@ test.beforeAll(async () => {
     });
     const laborHelper = await server.ssrLoadModule(
       fileURLToPath(
-        new URL("../../../packages/engine/src/test-helpers/labor-quest.ts", import.meta.url),
+        new URL("../../../packages/engine/tests/helpers/labor-quest.ts", import.meta.url),
       ),
     );
     labor = laborHelper.laborQuest({
@@ -128,7 +130,7 @@ test.beforeAll(async () => {
     });
     const nomadHelper = await server.ssrLoadModule(
       fileURLToPath(
-        new URL("../../../packages/engine/src/test-helpers/nomad-quest.ts", import.meta.url),
+        new URL("../../../packages/engine/tests/helpers/nomad-quest.ts", import.meta.url),
       ),
     );
     nomad = nomadHelper.nomadQuest({
@@ -137,7 +139,7 @@ test.beforeAll(async () => {
     });
     const saleHelper = await server.ssrLoadModule(
       fileURLToPath(
-        new URL("../../../packages/engine/src/test-helpers/nomad-sale-quest.ts", import.meta.url),
+        new URL("../../../packages/engine/tests/helpers/nomad-sale-quest.ts", import.meta.url),
       ),
     );
     nomadSale = saleHelper.nomadSaleQuest({
@@ -157,7 +159,9 @@ test.beforeAll(async () => {
       trinkets: sourceHelpers.coreQuestSources.catalog.trinkets,
     });
     const saveModule = await server.ssrLoadModule(
-      fileURLToPath(new URL("../../../packages/engine/src/quest-save.ts", import.meta.url)),
+      fileURLToPath(
+        new URL("../../../packages/engine/src/shared/quest/quest-save.ts", import.meta.url),
+      ),
     );
     higherNomadSave = saveModule.createQuestSave(
       higherNomad.start,
@@ -170,7 +174,7 @@ test.beforeAll(async () => {
     );
     const guildHelper = await server.ssrLoadModule(
       fileURLToPath(
-        new URL("../../../packages/engine/src/test-helpers/guild-quest.ts", import.meta.url),
+        new URL("../../../packages/engine/tests/helpers/guild-quest.ts", import.meta.url),
       ),
     );
     guild = guildHelper.guildQuest({
@@ -179,7 +183,7 @@ test.beforeAll(async () => {
     });
     const naturalGuildHelper = await server.ssrLoadModule(
       fileURLToPath(
-        new URL("../../../packages/engine/src/test-helpers/two-quest-guild.ts", import.meta.url),
+        new URL("../../../packages/engine/tests/helpers/two-quest-guild.ts", import.meta.url),
       ),
     );
     naturalGuild = naturalGuildHelper.twoQuestGuildPath({
@@ -188,7 +192,7 @@ test.beforeAll(async () => {
     });
     const natural = await server.ssrLoadModule(
       fileURLToPath(
-        new URL("../../../packages/engine/src/test-helpers/natural-quest.ts", import.meta.url),
+        new URL("../../../packages/engine/tests/helpers/natural-quest.ts", import.meta.url),
       ),
     );
     const legacyCode = plugin.battleDataPlugin().load("\0virtual:quest-battle-data-v1");
@@ -198,13 +202,15 @@ test.beforeAll(async () => {
       catalog: { ...legacyBattleData, trinkets: sourceHelpers.coreQuestSources.catalog.trinkets },
     };
     const death = natural.naturalQuest(14, "quest:p001", true, replacementSources, 2, {
-      observe(game: import("../../../packages/engine/src/command").GameState) {
+      observe(game: import("../../../packages/engine/src/shared/core/command").GameState) {
         if (!game.battle && game.dungeon!.phase === "ready" && game.dungeon!.position !== "S")
           throw new Error("observed-room");
       },
     });
     expect(death.stopReason).toBe("observed-room");
-    const deathStep = (command: import("../../../packages/engine/src/command").Command) => {
+    const deathStep = (
+      command: import("../../../packages/engine/src/shared/core/command").Command,
+    ) => {
       const r = engine.applyCommand(death.state, command);
       expect(r.events.some((e: { type: string }) => e.type === "commandRefused")).toBe(false);
       death.state = r.state;

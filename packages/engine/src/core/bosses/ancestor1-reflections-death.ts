@@ -1,4 +1,4 @@
-import type { ApplyResult } from "../../command";
+import type { ApplyResult } from "../../shared/core/command";
 import { IMPERFECT_REFLECTION_MONSTER_CARD_ID } from "./ancestor1-reflections-guard";
 import { readFinalFormSequence } from "./final-form-sequence";
 

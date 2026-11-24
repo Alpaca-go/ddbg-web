@@ -1,15 +1,15 @@
 import { beforeAll, describe, expect, it } from "vitest";
-import { applyCommand, type Command, type GameState } from "../../src/command";
-import { createCampaignQuest } from "../../src/campaign-entry";
+import { applyCommand, type Command, type GameState } from "../../src/shared/core/command";
+import { createCampaignQuest } from "../../src/shared/hamlet/campaign-entry";
 import type { BasicQuestId } from "../../../data/src/basic-quests";
-import { loadQuestSave } from "../../src/quest-save";
-import { coreParty } from "../../src/test-helpers/core-quest";
-import { wealdTaskSources } from "../../src/test-helpers/weald-task-battle";
+import { loadQuestSave } from "../../src/shared/quest/quest-save";
+import { coreParty } from "../helpers/core-quest";
+import { wealdTaskSources } from "../helpers/weald-task-battle";
 import {
   WEALD_PRODUCTION_ESTABLISH_THREAT,
   wealdFaceTheThreatNaturalCrossActJourney,
   type WealdFaceTheThreatCrossActJourney,
-} from "../../src/test-helpers/weald-face-the-threat-natural-prefix";
+} from "../helpers/weald-face-the-threat-natural-prefix";
 import { readActiveWealdStygianRoom } from "../../src/weald/rooms/stygian-room-effects";
 
 /** 第十五刀：Stygian 固定种子（生产 weald-two + tasks-v1；I 幕跨幕仍夹具接续）。 */

@@ -1,9 +1,9 @@
-import type { SkillStance } from "../../hero-skill";
-import { rejectBattleCommand } from "../../battle";
-import type { BattleState } from "../../battle";
-import type { ApplyResult, GameState } from "../../command";
-import { nextBattleRoll } from "../../battle-roll";
-import { selectMonsterSkill } from "../../monster-stance";
+import type { SkillStance } from "../heroes/hero-skill";
+import { rejectBattleCommand } from "../../shared/battle/battle";
+import type { BattleState } from "../../shared/battle/battle";
+import type { ApplyResult, GameState } from "../../shared/core/command";
+import { nextBattleRoll } from "../../shared/battle/battle-roll";
+import { selectMonsterSkill } from "../../shared/core/monster-stance";
 import { applyAncestor1PerfectReplication } from "./ancestor1-perfect-replication";
 import { applyAncestor1ImperfectReproduction } from "./ancestor1-imperfect-reproduction";
 import { ANCESTOR_1_MONSTER_CARD_ID, applyAncestor1TimeHealsAll } from "./ancestor1-time-heals-all";

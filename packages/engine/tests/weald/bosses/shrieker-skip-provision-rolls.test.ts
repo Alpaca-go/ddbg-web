@@ -1,13 +1,10 @@
 import { expect, it } from "vitest";
-import { applyCommand, type GameState } from "../../../src/command";
-import { createLootState } from "../../../src/loot";
-import {
-  wealdSuppliesLootFixture,
-  wealdTaskSources,
-} from "../../../src/test-helpers/weald-task-battle";
-import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { createQuestSave, loadQuestSave } from "../../../src/quest-save";
+import { applyCommand, type GameState } from "../../../src/shared/core/command";
+import { createLootState } from "../../../src/shared/trinkets/loot";
+import { wealdSuppliesLootFixture, wealdTaskSources } from "../../helpers/weald-task-battle";
+import { coreParty, coreQuestSources } from "../../helpers/core-quest";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { createQuestSave, loadQuestSave } from "../../../src/shared/quest/quest-save";
 import { savedCommandSchema } from "../../../../data/src/quest-save";
 
 function fixture(lost = false): GameState {

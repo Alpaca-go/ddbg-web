@@ -1,9 +1,9 @@
 import { expect, it } from "vitest";
-import type { Command, GameState } from "../../src/command";
-import { createCoreDungeonQuest } from "../../src/dungeon-quest-entry";
-import { naturalParty, naturalQuest } from "../../src/test-helpers/natural-quest";
-import { disinfectionSources as sources } from "../../src/test-helpers/disinfection-quest";
-import { createQuestSave, loadQuestSave } from "../../src/quest-save";
+import type { Command, GameState } from "../../src/shared/core/command";
+import { createCoreDungeonQuest } from "../../src/shared/dungeon/dungeon-quest-entry";
+import { naturalParty, naturalQuest } from "../helpers/natural-quest";
+import { disinfectionSources as sources } from "../helpers/disinfection-quest";
+import { createQuestSave, loadQuestSave } from "../../src/shared/quest/quest-save";
 import { selectWealdRoomTile } from "../../src/weald/room-tile-selection";
 import type { QuestStart } from "../../../data/src/quest-save";
 

@@ -1,14 +1,14 @@
 import { buildShriekerICombatCatalog } from "../../../src/weald/bosses/shrieker-i-projection";
 import { registerBossScript } from "../../../src/core/bosses/registry";
 import { DEFAULT_BOSS_BATTLE_RULES } from "../../../src/core/bosses/rules";
-import { finishTurn, removeCasualties } from "../../../src/encounter";
+import { finishTurn, removeCasualties } from "../../../src/shared/dungeon/encounter";
 import { expect, it } from "vitest";
 import { savedCommandSchema } from "../../../../data/src/quest-save";
-import { applyCommand, type GameState, type Command } from "../../../src/command";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
+import { applyCommand, type GameState, type Command } from "../../../src/shared/core/command";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "../../helpers/core-quest";
 
-import { nextExpeditionLocationDecks } from "../../../src/hamlet-location-embark";
+import { nextExpeditionLocationDecks } from "../../../src/shared/hamlet/hamlet-location-embark";
 
 import {
   SHRIEKER_I_DEPLOYMENT_ENTRY,

@@ -1,12 +1,17 @@
-import { distance, rejectBattleCommand, type BattleEntity, type BattleState } from "../../battle";
-import { readHeroPassiveDefence } from "../../battle-skill-status";
-import type { ApplyResult, GameState } from "../../command";
-import { finishTurn } from "../../encounter";
-import type { SkillStance } from "../../hero-skill";
-import type { MonsterCardView } from "../../monster-skill";
-import { selectMonsterTarget, type MonsterTargetHero } from "../../monster-target";
-import { applyPassiveHero } from "../../passive-runtime";
-import { resolveBattlePressure } from "../../pressure";
+import {
+  distance,
+  rejectBattleCommand,
+  type BattleEntity,
+  type BattleState,
+} from "../../shared/battle/battle";
+import { readHeroPassiveDefence } from "../../shared/battle/battle-skill-status";
+import type { ApplyResult, GameState } from "../../shared/core/command";
+import { finishTurn } from "../../shared/dungeon/encounter";
+import type { SkillStance } from "../heroes/hero-skill";
+import type { MonsterCardView } from "../../shared/core/monster-skill";
+import { selectMonsterTarget, type MonsterTargetHero } from "../../shared/core/monster-target";
+import { applyPassiveHero } from "../../shared/core/passive-runtime";
+import { resolveBattlePressure } from "../../shared/core/pressure";
 import {
   IMPERFECT_REFLECTION_MONSTER_CARD_ID,
   withAncestor1ReflectionsGuardState,

@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { applyCommand, type GameState } from "../../../src/command";
-import { shriekerMechanismFixture } from "../../../src/test-helpers/shrieker-i";
+import { applyCommand, type GameState } from "../../../src/shared/core/command";
+import { shriekerMechanismFixture } from "../../helpers/shrieker-i";
 import { shriekerContextForLevel } from "../../../src/weald/bosses/shrieker-runtime-context";
 import { shriekerINestAllowsEntry } from "../../../src/weald/bosses/shrieker-i-nest";
-import { removeCasualties, finishTurn } from "../../../src/encounter";
+import { removeCasualties, finishTurn } from "../../../src/shared/dungeon/encounter";
 function fixture(level: 2 | 3) {
   const state = shriekerMechanismFixture().started,
     c = shriekerContextForLevel(level);

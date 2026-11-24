@@ -1,7 +1,7 @@
 import { bossEnabledForPacks } from "../../../../data/src/content-packs";
-import { ensureCampaignBossScriptsRegistered } from "../../registry";
-import type { ApplyResult, GameState } from "../../command";
-import { rejectBattleCommand } from "../../battle";
+import { ensureCampaignBossScriptsRegistered } from "../../shared/core/registry";
+import type { ApplyResult, GameState } from "../../shared/core/command";
+import { rejectBattleCommand } from "../../shared/battle/battle";
 import { applyActiveBossThreatToDungeon } from "./apply-active-boss-threat";
 import { getBossScript } from "./registry";
 import { bossThreatClearHoldReason, readActiveBossThreatScriptId } from "./threat-campaign";

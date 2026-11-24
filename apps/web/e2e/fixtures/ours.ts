@@ -1,1 +1,1 @@
-export { oursQuest } from "../../../../packages/engine/src/test-helpers/ours-quest";
+export { oursQuest } from "../../../../packages/engine/tests/helpers/ours-quest";

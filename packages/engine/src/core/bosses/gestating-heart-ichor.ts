@@ -1,12 +1,16 @@
-import type { ApplyResult, GameEvent, GameState } from "../../command";
-import { rejectBattleCommand, type BattleEntity, type BattleState } from "../../battle";
-import { healingForbidden } from "../../battle-healing";
-import { readHeroPassiveDefence } from "../../battle-skill-status";
-import { resolveSeededHeroHealth } from "../../hero-health";
-import type { HeroSkillResolution } from "../../hero-skill";
-import { passiveHeal } from "../../passive";
-import { applyPassiveStatus } from "../../passive-runtime";
-import { statusProjection } from "../../status";
+import type { ApplyResult, GameEvent, GameState } from "../../shared/core/command";
+import {
+  rejectBattleCommand,
+  type BattleEntity,
+  type BattleState,
+} from "../../shared/battle/battle";
+import { healingForbidden } from "../../shared/battle/battle-healing";
+import { readHeroPassiveDefence } from "../../shared/battle/battle-skill-status";
+import { resolveSeededHeroHealth } from "../heroes/hero-health";
+import type { HeroSkillResolution } from "../heroes/hero-skill";
+import { passiveHeal } from "../../shared/core/passive";
+import { applyPassiveStatus } from "../../shared/core/passive-runtime";
+import { statusProjection } from "../../shared/core/status";
 import { readFinalFormSequence } from "./final-form-sequence";
 
 /** boss_ability:p036 · Gestating Heart 主体。 */

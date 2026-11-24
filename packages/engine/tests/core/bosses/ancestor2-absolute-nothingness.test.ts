@@ -1,8 +1,8 @@
 import { expect, it } from "vitest";
-import { applyCommand, type GameState } from "../../../src/command";
-import { playHeroSkill } from "../../../src/battle";
+import { applyCommand, type GameState } from "../../../src/shared/core/command";
+import { playHeroSkill } from "../../../src/shared/battle/battle";
 import { readFinalFormSequence } from "../../../src/core/bosses/final-form-sequence";
-import { finalPreparationFixture } from "../../../src/test-helpers/final-preparation";
+import { finalPreparationFixture } from "../../helpers/final-preparation";
 import { FINAL_BATTLE_MONSTER_STANCE_AREAS } from "../../../src/core/bosses/final-battle-deploy";
 import {
   ABSOLUTE_NOTHINGNESS_DODGE,

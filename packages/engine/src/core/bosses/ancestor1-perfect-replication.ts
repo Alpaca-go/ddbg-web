@@ -1,8 +1,12 @@
-import { rejectBattleCommand, type BattleEntity, type BattleState } from "../../battle";
-import type { ApplyResult, GameState } from "../../command";
-import { finishTurn } from "../../encounter";
-import type { SkillStance } from "../../hero-skill";
-import type { MonsterCardView } from "../../monster-skill";
+import {
+  rejectBattleCommand,
+  type BattleEntity,
+  type BattleState,
+} from "../../shared/battle/battle";
+import type { ApplyResult, GameState } from "../../shared/core/command";
+import { finishTurn } from "../../shared/dungeon/encounter";
+import type { SkillStance } from "../heroes/hero-skill";
+import type { MonsterCardView } from "../../shared/core/monster-skill";
 import {
   PERFECT_REFLECTION_MONSTER_CARD_ID,
   withAncestor1ReflectionsGuardState,

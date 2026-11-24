@@ -1,0 +1,163 @@
+import { dungeonMonsterPoolCatalogValid } from "../core/monster-pool-validation";
+import { dungeonMonsterPoolThrough } from "../core/monster-pool-runtime";
+import {
+  expeditionRoomCatalogParses,
+  ordinaryRoomCardsInCatalog,
+  ORDINARY_EXPEDITION_ROOM_COUNT,
+  readExpeditionRoomRegion,
+} from "./expedition-room-catalog";
+import { readExpeditionRoomTile } from "./expedition-room-tile";
+import type { ApplyResult, GameState } from "../core/command";
+import { createRng } from "../core/rng";
+import { spawnMonsters } from "../core/spawn";
+import { curioRoomGuardBattleActive, isGuardedDungeonRoom } from "./dungeon-curio-room";
+import { prepareCurioRoomGuardMonsters } from "../core/curio-room-guard";
+import { allRuinsRoomCardIds } from "./dungeon-objective";
+import { readCampaignLevel } from "../hamlet/hamlet-campaign";
+import { firstBattleThreatDeck } from "../../core/bosses/necromancer-ii-army";
+import {
+  darkestMidBossDeploymentHold,
+  prepareDarkestMidBossDeployment,
+} from "../../core/bosses/darkest-mid-boss-runtime";
+import {
+  darkestOrdinaryDeploymentHold,
+  prepareDarkestOrdinaryMonsterDeployment,
+} from "../../core/darkest/darkest-ordinary-monster-deploy";
+import { questMonsterDeploymentHold } from "../quest/quest-monster-deployment";
+import { prepareQuestMonsterDeployment } from "../quest/quest-monster-spawn";
+import { threatIsRealNoL1LairSkipSpawn } from "../core/threat-is-real-no-l1-lair";
+import { prepareWealdQuestExceptionMonsterDeployment } from "../../weald/circle-of-witches-spawn";
+import { prepareForcedWealdTaskMonsters } from "../../weald/task-forced-monsters";
+
+/** R10、R16–17：完整 Common + Ruins（1..DL 累加）一次洗牌，真实抽牌后记录部署，不筛掉缺战斗字段的卡。 */
+export function prepareDungeonMonsters(state: GameState): ApplyResult {
+  const d = state.dungeon!;
+  const pool = d.monsterPool;
+  const active = d.roomCards?.active;
+  const selected = readExpeditionRoomTile(
+    d.roomCards?.cards.find((c) => c.id === active?.cardId),
+    d,
+    active?.tileId,
+  );
+  const room = d.rooms.find((r) => r.id === d.position);
+  const refuse = (message: string): ApplyResult => ({
+    state,
+    events: [{ type: "commandRefused", message }],
+  });
+  if (d.darkest) {
+    const darkestDeploy = prepareDarkestMidBossDeployment(state);
+    if (darkestDeploy) return darkestDeploy;
+    const ordinaryDeploy = prepareDarkestOrdinaryMonsterDeployment(state);
+    if (ordinaryDeploy) return ordinaryDeploy;
+    const hold = darkestMidBossDeploymentHold(d) ?? darkestOrdinaryDeploymentHold(d);
+    if (hold) return refuse(hold);
+    return refuse(
+      "最暗普通房间怪物部署与 Room Tile 几何仍 hold；目标房须先 prepareDungeonBattle（R-048）",
+    );
+  }
+  if (
+    d.phase !== "awaitingRoom" ||
+    d.pending ||
+    room?.cleared ||
+    !isGuardedDungeonRoom(d) ||
+    active?.roomId !== d.position ||
+    !active?.tileId ||
+    selected.status !== "matched" ||
+    !expeditionRoomCatalogParses(d.roomCards?.cards, readExpeditionRoomRegion(d))
+  )
+    return refuse("需要已抽房间与可用板块的获批部署；不能替换房间或提前抽怪物（R-048）");
+  const { deployment } = selected;
+  if (curioRoomGuardBattleActive(d)) {
+    return prepareCurioRoomGuardMonsters(state, deployment.monsters);
+  }
+  const wealdException = prepareWealdQuestExceptionMonsterDeployment(state, deployment.monsters);
+  const taskForced = prepareForcedWealdTaskMonsters(state, deployment.monsters);
+  if (taskForced) return taskForced;
+  if (wealdException) return wealdException;
+  const questSpawn = prepareQuestMonsterDeployment(state, deployment.monsters);
+  if (questSpawn) return questSpawn;
+  const questHold = questMonsterDeploymentHold(d);
+  if (questHold) return refuse(questHold);
+  const roomRegion = readExpeditionRoomRegion(d);
+  const roomIds = allRuinsRoomCardIds(d, active.cardId);
+  if (
+    roomIds.length !== ORDINARY_EXPEDITION_ROOM_COUNT ||
+    new Set(roomIds).size !== ORDINARY_EXPEDITION_ROOM_COUNT ||
+    roomIds.some(
+      (id) => !ordinaryRoomCardsInCatalog(d.roomCards!.cards, roomRegion).some((c) => c.id === id),
+    )
+  )
+    return refuse("房间牌堆不守恒，不能推进怪物部署");
+  const dungeonLevel = d.explorationSetup?.dungeonLevel;
+  const campaignLevel = readCampaignLevel(d);
+  if (
+    !dungeonLevel ||
+    dungeonLevel !== campaignLevel ||
+    ![1, 2, 3].includes(dungeonLevel) ||
+    !pool ||
+    !dungeonMonsterPoolCatalogValid(d)
+  )
+    return refuse("本入口需要完整 Common + Ruins 目录，且地牢等级等于战役等级（R35）");
+  if (pool.active || pool.discarded.length)
+    return refuse("本场怪物已记录或牌堆状态不一致；不能重抽 / 重洗 / 发奖励");
+  if (!Number.isSafeInteger(d.cursor) || d.cursor < 0) return refuse("RNG 游标无效");
+  const catalog = dungeonMonsterPoolThrough(pool, dungeonLevel);
+  const ids = pool.remaining ?? catalog.map((card) => card.instanceId);
+  if (
+    ids.length !== catalog.length ||
+    new Set(ids).size !== catalog.length ||
+    ids.some((id) => !catalog.some((c) => c.instanceId === id))
+  )
+    return refuse("怪物牌堆不守恒，不能重新抽牌");
+  const deck = ids.map((id) => catalog.find((card) => card.instanceId === id)!);
+  const rng = createRng(state.seed);
+  for (let i = 0; i < d.cursor; i++) rng.next();
+  for (let i = pool.remaining === null ? deck.length - 1 : 0; i > 0; i--) {
+    const j = Math.floor(rng.next() * (i + 1));
+    [deck[i], deck[j]] = [deck[j]!, deck[i]!];
+  }
+  const threatDeck = firstBattleThreatDeck(d, deck);
+  if (threatDeck.status === "refused") return refuse(threatDeck.reason);
+  const threatSkip = threatIsRealNoL1LairSkipSpawn(d, room, pool.cards);
+  const localLair =
+    d.wealdHigherQuestOffers === "tasks-v1" &&
+    d.questDistribution?.questId === "quest:weald:p008" &&
+    room?.kind === "lair";
+  const skipSpawn = (card: import("../core/spawn").SpawnCard) =>
+    (localLair && !card.cardId.includes(":weald:")) || Boolean(threatSkip?.(card));
+  const spawned = spawnMonsters(threatDeck.deck, deployment.monsters, { skipSpawn });
+  if (spawned.type === "refused") return refuse(spawned.reason);
+  if (spawned.monsters.reduce((n, m) => n + m.stanceSlots, 0) !== 4)
+    return refuse("牌堆未填满四姿态，不提交半场部署");
+  const missing = spawned.monsters.flatMap((m) => {
+    const card = pool.cards.find((c) => c.combatCardId === m.cardId);
+    if (!card) return [];
+    const labels = { speed: "移动值", stanceGroups: "姿态选招", unverifiedIcons: "未确认图标" };
+    return card.missingBattleFields.length
+      ? [`${card.name}：${card.missingBattleFields.map((field) => labels[field]).join(" / ")}`]
+      : [];
+  });
+  const blockedReason = `${missing.length ? `待核实战斗字段：${missing.join("；")}。` : "本场怪物基础字段齐全；入场还需校验完整技能效果。"}部署顺序已记录；进入前校验英雄装备与全部参战卡，不重抽，房间未清理，未发奖励。`;
+  return {
+    state: {
+      ...state,
+      dungeon: {
+        ...d,
+        cursor: d.cursor + (pool.remaining === null ? deck.length - 1 : 0),
+        monsterPool: {
+          ...pool,
+          remaining: spawned.remaining.map((m) => m.instanceId),
+          discarded: spawned.discarded.map((m) => m.instanceId),
+          active: { roomId: d.position, monsters: spawned.monsters, blockedReason },
+        },
+        roomCards: { ...d.roomCards!, active: { ...active, blockedReason } },
+      },
+    },
+    events: [
+      {
+        type: "dungeonUpdated",
+        message: `完整 ${catalog.length} 张怪物池（DL${dungeonLevel}）已抽 ${spawned.drawn} 张${threatDeck.forced ? "；Army of the Dead 首位生成 Bone Captain" : ""}：${blockedReason}`,
+      },
+    ],
+  };
+}

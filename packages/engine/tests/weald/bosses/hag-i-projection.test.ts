@@ -3,9 +3,9 @@ import {
   buildHagICombatCatalog,
   hagIInitialDeployment,
 } from "../../../src/weald/bosses/hag-i-projection";
-import { readMonsterAttackView, resolveMonsterSkill } from "../../../src/monster-skill";
-import { readPrintedRange, readPrintedTargets } from "../../../src/hero-skill";
-import { selectMonsterSkill } from "../../../src/monster-stance";
+import { readMonsterAttackView, resolveMonsterSkill } from "../../../src/shared/core/monster-skill";
+import { readPrintedRange, readPrintedTargets } from "../../../src/core/heroes/hero-skill";
+import { selectMonsterSkill } from "../../../src/shared/core/monster-stance";
 import { WEALD_HAG_I_CONTENT } from "../../../src/weald/bosses/hag-i-content";
 
 it("R-254 运行卡面保留三面属性、核准选招及 Into the Pot 的空伤害", () => {

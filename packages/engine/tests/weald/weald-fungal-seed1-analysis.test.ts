@@ -1,8 +1,8 @@
 import { expect, it } from "vitest";
-import { applyCommand, type Command } from "../../src/command";
-import { createQuestSave, loadQuestSave } from "../../src/quest-save";
-import { fungalResearchThreeObjectives } from "../../src/test-helpers/fungal-research-three-objectives";
-import { disinfectionSources as sources } from "../../src/test-helpers/disinfection-quest";
+import { applyCommand, type Command } from "../../src/shared/core/command";
+import { createQuestSave, loadQuestSave } from "../../src/shared/quest/quest-save";
+import { fungalResearchThreeObjectives } from "../helpers/fungal-research-three-objectives";
+import { disinfectionSources as sources } from "../helpers/disinfection-quest";
 function plain(command: Command) {
   const {
     allTrinkets,

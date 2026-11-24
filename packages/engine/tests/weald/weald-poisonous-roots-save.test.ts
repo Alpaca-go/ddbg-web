@@ -1,7 +1,7 @@
 import { expect, it } from "vitest";
-import { applyCommand } from "../../src/command";
-import { createQuestSave, loadQuestSave } from "../../src/quest-save";
-import { poisonousRootsQuest } from "../../src/test-helpers/poisonous-roots-quest";
+import { applyCommand } from "../../src/shared/core/command";
+import { createQuestSave, loadQuestSave } from "../../src/shared/quest/quest-save";
+import { poisonousRootsQuest } from "../helpers/poisonous-roots-quest";
 it("R-245 seed2 Poisonous Roots 公开结束回合、腐蚀及严格恢复", () => {
   const f = poisonousRootsQuest();
   const r = applyCommand(f.before, f.action);

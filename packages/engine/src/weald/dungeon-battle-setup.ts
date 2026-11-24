@@ -1,6 +1,6 @@
 import { basicQuests } from "../../../data/src/basic-quests";
-import type { BattleSetup } from "../battle";
-import type { DungeonState } from "../dungeon";
+import type { BattleSetup } from "../shared/battle/battle";
+import type { DungeonState } from "../shared/dungeon/dungeon";
 import type { WealdRoomTile } from "../../../data/src/weald-room";
 import {
   NECROTIC_FUNGUS_MONSTER_CARD,

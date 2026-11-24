@@ -6,7 +6,7 @@ import {
 } from "../../src/weald/dungeon-battle-setup";
 import { NECROTIC_FUNGUS_MONSTER_CARD_ID } from "../../src/weald/necrotic-fungus";
 import { WEALD_APPROVED_ROOM_TILES } from "../../src/weald/room-catalog";
-import type { BattleSetup } from "../../src/battle";
+import type { BattleSetup } from "../../src/shared/battle/battle";
 
 const tileOne = WEALD_APPROVED_ROOM_TILES.find((t) => t.number === 1)!;
 const tileThree = WEALD_APPROVED_ROOM_TILES.find((t) => t.number === 3)!;
@@ -68,7 +68,7 @@ describe("wealdBattleCreationEnabled", () => {
     monsterPool: { location: "weald" as const },
     questDistribution: { questId: "quest:p001" },
   } as unknown as Pick<
-    import("../../src/dungeon").DungeonState,
+    import("../../src/shared/dungeon/dungeon").DungeonState,
     "contentPacks" | "monsterPool" | "questDistribution"
   >;
 
@@ -89,7 +89,7 @@ describe("wealdBattleCreationEnabled", () => {
           contentPacks: ["core", "weald"],
           questDistribution: { questId: "quest:p001" },
         } as unknown as Pick<
-          import("../../src/dungeon").DungeonState,
+          import("../../src/shared/dungeon/dungeon").DungeonState,
           "contentPacks" | "monsterPool" | "questDistribution"
         >,
         tileThree,

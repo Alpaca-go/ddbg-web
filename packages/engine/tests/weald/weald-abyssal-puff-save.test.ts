@@ -1,7 +1,7 @@
 import { expect, it } from "vitest";
-import { applyCommand } from "../../src/command";
-import { createQuestSave, loadQuestSave } from "../../src/quest-save";
-import { abyssalPuffQuest } from "../../src/test-helpers/abyssal-puff-quest";
+import { applyCommand } from "../../src/shared/core/command";
+import { createQuestSave, loadQuestSave } from "../../src/shared/quest/quest-save";
+import { abyssalPuffQuest } from "../helpers/abyssal-puff-quest";
 it("seed1 Fungal Research 摧毁前后严格恢复，删版本拒绝（R-234／R-236）", () => {
   const { start, before, after, attack, uiAttack, commands, sources } = abyssalPuffQuest();
   expect(before.battle!.wealdAbyssalPuff).toBe(true);

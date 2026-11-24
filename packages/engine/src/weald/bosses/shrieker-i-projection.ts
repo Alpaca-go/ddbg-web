@@ -1,5 +1,5 @@
-import type { MonsterCardView, MonsterSkillView } from "../../monster-skill";
-import type { SkillSegment } from "../../hero-skill";
+import type { MonsterCardView, MonsterSkillView } from "../../shared/core/monster-skill";
+import type { SkillSegment } from "../../core/heroes/hero-skill";
 import type { MonsterEffectPlan } from "../../../../data/src/monster-effects";
 import { WEALD_SHRIEKER_I_CONTENT as content } from "./shrieker-i-content";
 

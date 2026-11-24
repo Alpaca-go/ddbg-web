@@ -1,14 +1,14 @@
 import geometry from "../../../../data/normalized/corebox/room_tile_geometry.json";
 import { necromancerRoomSchema } from "../../../../data/src/normalize/necromancer-room";
 import { roomCatalogSchema } from "../../../../data/src/room";
-import { createBattleState, rejectBattleCommand } from "../../battle";
-import type { BattleEntity } from "../../battle";
-import type { ApplyResult, GameState } from "../../command";
-import { roomTileBattleAreas } from "../../battle-monster-movement";
-import { skillBelongsToFormalHero } from "../../formal-roster-catalog";
-import { ownedHeroSkills, questHeroSkillCount } from "../../hero-loadout";
-import { statusProjection } from "../../status";
-import { createLootState } from "../../loot";
+import { createBattleState, rejectBattleCommand } from "../../shared/battle/battle";
+import type { BattleEntity } from "../../shared/battle/battle";
+import type { ApplyResult, GameState } from "../../shared/core/command";
+import { roomTileBattleAreas } from "../../shared/battle/battle-monster-movement";
+import { skillBelongsToFormalHero } from "../../shared/core/formal-roster-catalog";
+import { ownedHeroSkills, questHeroSkillCount } from "../heroes/hero-loadout";
+import { statusProjection } from "../../shared/core/status";
+import { createLootState } from "../../shared/trinkets/loot";
 import { getBossScript } from "./registry";
 import { resolveBossScriptIdForQuest } from "./quest-bridge";
 import {

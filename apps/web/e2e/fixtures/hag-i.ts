@@ -1,13 +1,10 @@
-import { createQuestSave } from "../../../../packages/engine/src/quest-save";
-import type { CoreQuestSources } from "../../../../packages/engine/src/dungeon-quest-entry";
-import type { Command } from "../../../../packages/engine/src/command";
-import { createCoreDungeonQuest } from "../../../../packages/engine/src/dungeon-quest-entry";
-import {
-  coreParty,
-  coreQuestSources,
-} from "../../../../packages/engine/src/test-helpers/core-quest";
-import { naturalQuest } from "../../../../packages/engine/src/test-helpers/natural-quest";
-import type { GameState } from "../../../../packages/engine/src/command";
+import { createQuestSave } from "../../../../packages/engine/src/shared/quest/quest-save";
+import type { CoreQuestSources } from "../../../../packages/engine/src/shared/dungeon/dungeon-quest-entry";
+import type { Command } from "../../../../packages/engine/src/shared/core/command";
+import { createCoreDungeonQuest } from "../../../../packages/engine/src/shared/dungeon/dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "../../../../packages/engine/tests/helpers/core-quest";
+import { naturalQuest } from "../../../../packages/engine/tests/helpers/natural-quest";
+import type { GameState } from "../../../../packages/engine/src/shared/core/command";
 
 /** 真实 seed 6 公开命令的 UI 检查点，不注入伤口、战斗结局或 RNG。 */
 export function hagUiFixture(sources: CoreQuestSources = coreQuestSources) {

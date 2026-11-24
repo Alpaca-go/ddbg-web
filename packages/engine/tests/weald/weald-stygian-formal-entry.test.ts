@@ -3,15 +3,18 @@ import {
   formalWealdProductionEmbarkAllowed,
   sandboxExpeditionEmbarkBlockReason,
 } from "../../../data/src/quest-map-pairing";
-import { createCampaignQuest } from "../../src/campaign-entry";
-import { drawInitialQuestOffers, initialQuestDrawModes } from "../../src/initial-quest-draw";
+import { createCampaignQuest } from "../../src/shared/hamlet/campaign-entry";
+import {
+  drawInitialQuestOffers,
+  initialQuestDrawModes,
+} from "../../src/shared/hamlet/initial-quest-draw";
 import { readActiveWealdStygianRoom } from "../../src/weald/rooms/stygian-room-effects";
-import { coreParty, coreQuestSources } from "../../src/test-helpers/core-quest";
+import { coreParty, coreQuestSources } from "../helpers/core-quest";
 import medium from "../../../data/normalized/extension/weald/monster_medium.json";
 import large from "../../../data/normalized/extension/weald/monster_large.json";
 import curios from "../../../data/normalized/extension/weald/curio.json";
 import { wealdCurioFileSchema } from "../../../data/src/curio";
-import { createQuestSave, loadQuestSave } from "../../src/quest-save";
+import { createQuestSave, loadQuestSave } from "../../src/shared/quest/quest-save";
 
 const packs = ["core", "weald"] as const;
 const sources = {

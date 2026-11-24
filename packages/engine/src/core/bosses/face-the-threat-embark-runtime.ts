@@ -1,9 +1,9 @@
 import type { CampaignLevel } from "../../../../data/src/basic-quests";
-import type { ApplyResult, GameState } from "../../command";
-import { rejectBattleCommand } from "../../battle";
-import type { DungeonState } from "../../dungeon";
-import { questsForCampaignLevel } from "../../campaign-quest-pool";
-import { readCampaignLevel } from "../../hamlet-campaign";
+import type { ApplyResult, GameState } from "../../shared/core/command";
+import { rejectBattleCommand } from "../../shared/battle/battle";
+import type { DungeonState } from "../../shared/dungeon/dungeon";
+import { questsForCampaignLevel } from "../../shared/hamlet/campaign-quest-pool";
+import { readCampaignLevel } from "../../shared/hamlet/hamlet-campaign";
 import { FACE_EMBARK_WIRING_HOLD } from "./default-boss-hooks";
 import { runFaceTheThreatEmbarkForQuest } from "./face-the-threat-hooks";
 import { FACE_THE_THREAT_QUEST_ID, isFaceTheThreatQuestId } from "./quest-bridge";

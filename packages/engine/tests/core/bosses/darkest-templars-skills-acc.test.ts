@@ -1,9 +1,9 @@
 import { expect, it, describe } from "vitest";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
-import { applyCommand, type Command, type GameState } from "../../../src/command";
-import { nextBattleRoll } from "../../../src/battle-roll";
-import { selectMonsterTarget } from "../../../src/monster-target";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "../../helpers/core-quest";
+import { applyCommand, type Command, type GameState } from "../../../src/shared/core/command";
+import { nextBattleRoll } from "../../../src/shared/battle/battle-roll";
+import { selectMonsterTarget } from "../../../src/shared/core/monster-target";
 import {
   applyTemplarImpalerBodySlam,
   applyTemplarImpalerRevelation,

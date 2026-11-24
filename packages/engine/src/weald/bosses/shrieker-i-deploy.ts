@@ -1,21 +1,21 @@
 import { shriekerDeploymentContext } from "./shrieker-deployment-context";
-import { ensureCampaignBossScriptsRegistered } from "../../registry";
+import { ensureCampaignBossScriptsRegistered } from "../../shared/core/registry";
 import { resolveBossScriptIdForQuest } from "../../core/bosses/quest-bridge";
 export { SHRIEKER_I_SCRIPT_ID, SHRIEKER_I_DEPLOYMENT_ENTRY } from "./shrieker-i-content";
 import { buildShriekerICombatCatalog } from "./shrieker-i-projection";
-import type { ApplyResult, GameState } from "../../command";
-import { createBattleState, rejectBattleCommand } from "../../battle";
+import type { ApplyResult, GameState } from "../../shared/core/command";
+import { createBattleState, rejectBattleCommand } from "../../shared/battle/battle";
 import { buildBossHeroEntities } from "../../core/bosses/deploy-heroes";
 
-import { createLootState } from "../../loot";
+import { createLootState } from "../../shared/trinkets/loot";
 import {
   dungeonMonsterPoolCatalogValid,
   restingMonsterPoolValid,
-} from "../../monster-pool-validation";
-import { dungeonCurioCatalogValid } from "../../dungeon-curio-catalog";
+} from "../../shared/core/monster-pool-validation";
+import { dungeonCurioCatalogValid } from "../../shared/dungeon/dungeon-curio-catalog";
 
 import { WEALD_SHRIEKER_I_CONTENT } from "./shrieker-i-content";
-import { isCampaignExpeditionMode } from "../../campaign-expedition-mode";
+import { isCampaignExpeditionMode } from "../../shared/hamlet/campaign-expedition-mode";
 
 /** R30／W3／R-261：Boss 房使用独立核准目录，不占普通房间牌堆。 */
 export function prepareShriekerIObjectiveRoom(state: GameState): ApplyResult {

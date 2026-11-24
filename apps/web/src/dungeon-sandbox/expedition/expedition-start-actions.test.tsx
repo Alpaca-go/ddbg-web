@@ -5,7 +5,7 @@ import type { Command } from "@ddbg/engine";
 import {
   coreParty,
   coreQuestSources,
-} from "../../../../../packages/engine/src/test-helpers/core-quest";
+} from "../../../../../packages/engine/tests/helpers/core-quest";
 import { ExpeditionStartActions } from "./expedition-start-actions";
 import { needsInitialThreat } from "../initial-threat";
 const initial = (seed = 1) =>

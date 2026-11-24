@@ -3,7 +3,7 @@ import { ssrTest } from "./ssr-test";
 import { createServer } from "vite";
 import { fileURLToPath } from "node:url";
 import type { QuestSave } from "../../../packages/data/src/quest-save";
-import type { Command, GameState } from "../../../packages/engine/src/command";
+import type { Command, GameState } from "../../../packages/engine/src/shared/core/command";
 import { decodeLocalQuestSave } from "../src/dungeon-sandbox/quest-save-storage";
 
 const test = ssrTest(import.meta.url);

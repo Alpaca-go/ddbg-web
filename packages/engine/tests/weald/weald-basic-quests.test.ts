@@ -8,9 +8,9 @@ import {
   expeditionLocationEmbarkBlockReason,
   sandboxExpeditionEmbarkBlockReason,
 } from "../../../data/src/quest-map-pairing";
-import { chooseNextQuest } from "../../src/hamlet-embark";
-import { naturalHamletStart } from "../../src/test-helpers/guild-quest";
-import { coreQuestSources } from "../../src/test-helpers/core-quest";
+import { chooseNextQuest } from "../../src/shared/hamlet/hamlet-embark";
+import { naturalHamletStart } from "../helpers/guild-quest";
+import { coreQuestSources } from "../helpers/core-quest";
 
 const WEALD_IDS = [
   "quest:weald:p001",

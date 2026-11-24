@@ -1,5 +1,5 @@
 import { ruinsCombatForScript, isRuinsCombatCard } from "./ruins-combat-levels";
-import type { GameState } from "../../command";
+import type { GameState } from "../../shared/core/command";
 import { resolveEncounterBossScriptId } from "./encounter-rules";
 
 /** R39 / room:ruins:12：三个宝箱在同一个指定区域；不是 Collect All 的三种召唤落区。 */

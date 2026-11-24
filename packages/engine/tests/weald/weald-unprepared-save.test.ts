@@ -1,6 +1,6 @@
 import { expect, it } from "vitest";
-import { createQuestSave, loadQuestSave } from "../../src/quest-save";
-import { unpreparedQuest } from "../../src/test-helpers/unprepared-quest";
+import { createQuestSave, loadQuestSave } from "../../src/shared/quest/quest-save";
+import { unpreparedQuest } from "../helpers/unprepared-quest";
 
 it("seed2 Patrol 自然 Ambush 战斗开始前后严格恢复，删标记拒绝（R-234）", () => {
   const { start, before, after, attack, commands, sources } = unpreparedQuest();

@@ -1,10 +1,10 @@
 import { describe, expect, it, beforeEach } from "vitest";
-import { createBattleState, type BattleEntity } from "../../../src/battle";
-import type { GameState } from "../../../src/command";
-import { applyEncounterCommand } from "../../../src/encounter";
-import type { MonsterCardView } from "../../../src/monster-skill";
-import type { SkillStance } from "../../../src/hero-skill";
-import { createLootState } from "../../../src/loot";
+import { createBattleState, type BattleEntity } from "../../../src/shared/battle/battle";
+import type { GameState } from "../../../src/shared/core/command";
+import { applyEncounterCommand } from "../../../src/shared/dungeon/encounter";
+import type { MonsterCardView } from "../../../src/shared/core/monster-skill";
+import type { SkillStance } from "../../../src/core/heroes/hero-skill";
+import { createLootState } from "../../../src/shared/trinkets/loot";
 import {
   FLESH_I_HEAD_MONSTER_CARD_ID,
   FLESH_I_ONE_BODY_POOL_ID,

@@ -1,13 +1,13 @@
 import { describe, expect, it, beforeEach } from "vitest";
 import layout from "../../../../data/normalized/corebox/dungeon_layout_p001.json";
 import distribution from "../../../../data/normalized/corebox/scout_ahead_distribution.json";
-import { applyCommand } from "../../../src/command";
-import type { Command, GameState } from "../../../src/command";
-import { createBattleState } from "../../../src/battle";
-import { createDungeonSandbox } from "../../../src/dungeon";
-import { nextBattleRoll } from "../../../src/encounter";
-import { resolveMonsterSkillEffects } from "../../../src/monster-skill";
-import type { MonsterCardView } from "../../../src/monster-skill";
+import { applyCommand } from "../../../src/shared/core/command";
+import type { Command, GameState } from "../../../src/shared/core/command";
+import { createBattleState } from "../../../src/shared/battle/battle";
+import { createDungeonSandbox } from "../../../src/shared/dungeon/dungeon";
+import { nextBattleRoll } from "../../../src/shared/dungeon/encounter";
+import { resolveMonsterSkillEffects } from "../../../src/shared/core/monster-skill";
+import type { MonsterCardView } from "../../../src/shared/core/monster-skill";
 import {
   HAG_I_SCRIPT_ID,
   PROPHET_I_SCRIPT_ID,
@@ -23,10 +23,10 @@ import {
   shouldSkipCurioDrawInCurioRoom,
   withLargeMonsterSpawnGuard,
 } from "../../../src/core/bosses/index";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
-import { rollHamletCaretaker } from "../../../src/hamlet-event";
-import { currentHamletHero } from "../../../src/hamlet-actions";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "../../helpers/core-quest";
+import { rollHamletCaretaker } from "../../../src/shared/hamlet/hamlet-event";
+import { currentHamletHero } from "../../../src/shared/hamlet/hamlet-actions";
 import { readFileSync } from "node:fs";
 
 const arbalist: MonsterCardView = JSON.parse(

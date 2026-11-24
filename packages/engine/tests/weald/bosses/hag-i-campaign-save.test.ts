@@ -1,13 +1,13 @@
 import { ensureHagIBossScriptRegistered } from "../../../src/weald/bosses/hag-i";
 import { resolveFaceTheThreatOfferAtNextQuest } from "../../../src/core/bosses/face-the-threat-embark-runtime";
-import { applyCommand, type Command } from "../../../src/command";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
-import { naturalQuest } from "../../../src/test-helpers/natural-quest";
-import { drawInitialQuestOffers } from "../../../src/initial-quest-draw";
-import { currentHamletHero, hamletActionOptions } from "../../../src/hamlet-actions";
+import { applyCommand, type Command } from "../../../src/shared/core/command";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "../../helpers/core-quest";
+import { naturalQuest } from "../../helpers/natural-quest";
+import { drawInitialQuestOffers } from "../../../src/shared/hamlet/initial-quest-draw";
+import { currentHamletHero, hamletActionOptions } from "../../../src/shared/hamlet/hamlet-actions";
 import { countCompletedRegularQuestsAtCampaignLevel } from "../../../src/core/bosses/face-the-threat-embark-runtime";
-import { createQuestSave, loadQuestSave } from "../../../src/quest-save";
+import { createQuestSave, loadQuestSave } from "../../../src/shared/quest/quest-save";
 import type { QuestStart } from "../../../../data/src/quest-save";
 import { expect, it } from "vitest";
 

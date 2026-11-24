@@ -1,6 +1,6 @@
 import { beforeEach, expect, it } from "vitest";
-import { createBattleState, type BattleEntity } from "../../../src/battle";
-import { applyCommand, type GameState } from "../../../src/command";
+import { createBattleState, type BattleEntity } from "../../../src/shared/battle/battle";
+import { applyCommand, type GameState } from "../../../src/shared/core/command";
 import { hagIInitialDeployment } from "../../../src/weald/bosses/hag-i-projection";
 import {
   captureHagIHero,
@@ -9,8 +9,8 @@ import {
 } from "../../../src/weald/bosses/hag-i-captive";
 import { ensureHagIBossScriptRegistered, HAG_I_SCRIPT_ID } from "../../../src/weald/bosses/hag-i";
 import { FACE_THE_THREAT_QUEST_ID } from "../../../src/core/bosses/quest-bridge";
-import { gainDisease } from "../../../src/conditions";
-import { coreQuestSources } from "../../../src/test-helpers/core-quest";
+import { gainDisease } from "../../../src/shared/core/conditions";
+import { coreQuestSources } from "../../helpers/core-quest";
 
 beforeEach(() => ensureHagIBossScriptRegistered());
 

@@ -1,10 +1,10 @@
 import { roomCatalogSchema } from "../../../../data/src/room";
-import type { ApplyResult, GameState } from "../../command";
-import { rejectBattleCommand } from "../../battle";
-import type { DungeonState } from "../../dungeon";
-import type { SkillStance } from "../../hero-skill";
-import type { SpawnPlacement } from "../../spawn";
-import { isDarkestQuest } from "../../darkest-setup";
+import type { ApplyResult, GameState } from "../../shared/core/command";
+import { rejectBattleCommand } from "../../shared/battle/battle";
+import type { DungeonState } from "../../shared/dungeon/dungeon";
+import type { SkillStance } from "../heroes/hero-skill";
+import type { SpawnPlacement } from "../../shared/core/spawn";
+import { isDarkestQuest } from "../darkest/darkest-setup";
 import { readDarkestBossEncounter } from "./darkest-content";
 import {
   darkestMidBossScriptIdForQuest,

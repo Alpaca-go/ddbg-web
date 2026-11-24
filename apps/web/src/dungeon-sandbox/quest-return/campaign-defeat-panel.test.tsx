@@ -1,7 +1,7 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { expect, it, vi } from "vitest";
 import { CampaignDefeatPanel, campaignFailureText } from "./campaign-defeat-panel";
-import { finalPreparationFixture } from "../../../../../packages/engine/src/test-helpers/final-preparation";
+import { finalPreparationFixture } from "../../../../../packages/engine/tests/helpers/final-preparation";
 
 type Failure = "bossQuestHeroesDefeated" | "insufficientWaitingHeroes" | "noWaitingHeroes";
 

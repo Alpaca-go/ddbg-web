@@ -1,8 +1,8 @@
-import type { BattleEntity } from "../../battle";
-import type { ApplyResult, GameState } from "../../command";
-import { skillBelongsToFormalHero } from "../../formal-roster-catalog";
-import { ownedHeroSkills, questHeroSkillCount } from "../../hero-loadout";
-import { statusProjection } from "../../status";
+import type { BattleEntity } from "../../shared/battle/battle";
+import type { ApplyResult, GameState } from "../../shared/core/command";
+import { skillBelongsToFormalHero } from "../../shared/core/formal-roster-catalog";
+import { ownedHeroSkills, questHeroSkillCount } from "../heroes/hero-loadout";
+import { statusProjection } from "../../shared/core/status";
 export function buildBossHeroEntities(
   state: GameState,
   refuse: (message: string) => ApplyResult,

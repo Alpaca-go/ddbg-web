@@ -2,7 +2,7 @@ import { expect } from "@playwright/test";
 import { ssrTest } from "./ssr-test";
 import { createServer } from "vite";
 import { fileURLToPath } from "node:url";
-import type { GameState } from "../../../packages/engine/src/command";
+import type { GameState } from "../../../packages/engine/src/shared/core/command";
 
 const test = ssrTest(import.meta.url);
 test("Disruption II room-entry fixture: seeded Objective card selection is logged and cannot reroll", async ({
@@ -20,7 +20,7 @@ test("Disruption II room-entry fixture: seeded Objective card selection is logge
   try {
     const fixture = await server.ssrLoadModule(
       fileURLToPath(
-        new URL("../../../packages/engine/src/test-helpers/disruption-room.ts", import.meta.url),
+        new URL("../../../packages/engine/tests/helpers/disruption-room.ts", import.meta.url),
       ),
     );
     game = fixture.disruptionRoomFixture(1);

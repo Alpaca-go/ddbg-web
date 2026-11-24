@@ -1,8 +1,8 @@
 import { readWealdHigherMonsters } from "../../../data/src/weald-higher-monsters";
-import type { DungeonBattleCatalog } from "../dungeon";
-import type { SkillSegment } from "../hero-skill";
-import type { MonsterSkillView } from "../monster-skill";
-import { readMonsterAttackView } from "../monster-skill";
+import type { DungeonBattleCatalog } from "../shared/dungeon/dungeon";
+import type { SkillSegment } from "../core/heroes/hero-skill";
+import type { MonsterSkillView } from "../shared/core/monster-skill";
+import { readMonsterAttackView } from "../shared/core/monster-skill";
 import { buildWealdCroneCatalog } from "./crone-catalog";
 
 const icon = (key: string): SkillSegment => ({ type: "icon", icon: { key, naming: "confirmed" } });

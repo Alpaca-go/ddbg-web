@@ -1,16 +1,16 @@
-import type { BattleEntity, BattleState } from "../../battle";
-import { monsterShuffleResist } from "../../monster-defence";
+import type { BattleEntity, BattleState } from "../../shared/battle/battle";
+import { monsterShuffleResist } from "../../shared/core/monster-defence";
 import { stygianBossCritApplies } from "../../core/bosses/stygian-boss-crit";
-import type { ApplyResult, GameState, MonsterSkillResolvedEvent } from "../../command";
-import { skillTargetView, writeResolution, distance } from "../../battle";
-import { applySkillHealth } from "../../battle-health";
-import { nextBattleRoll } from "../../encounter";
-import type { MonsterCardView } from "../../monster-skill";
+import type { ApplyResult, GameState, MonsterSkillResolvedEvent } from "../../shared/core/command";
+import { skillTargetView, writeResolution, distance } from "../../shared/battle/battle";
+import { applySkillHealth } from "../../shared/battle/battle-health";
+import { nextBattleRoll } from "../../shared/dungeon/encounter";
+import type { MonsterCardView } from "../../shared/core/monster-skill";
 import {
   readMonsterAttackView,
   resolveMonsterSkill,
   resolveMonsterSkillEffects,
-} from "../../monster-skill";
+} from "../../shared/core/monster-skill";
 import { runBossHook } from "../../core/bosses/hooks";
 import { resolveEncounterBossScriptId } from "../../core/bosses/encounter-rules";
 import {

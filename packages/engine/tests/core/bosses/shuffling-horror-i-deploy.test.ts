@@ -1,10 +1,10 @@
 import { expect, it } from "vitest";
 import { savedCommandSchema } from "../../../../data/src/quest-save";
-import { applyCommand } from "../../../src/command";
-import type { Command, GameState } from "../../../src/command";
-import { nextBattleRoll } from "../../../src/battle-roll";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
+import { applyCommand } from "../../../src/shared/core/command";
+import type { Command, GameState } from "../../../src/shared/core/command";
+import { nextBattleRoll } from "../../../src/shared/battle/battle-roll";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "../../helpers/core-quest";
 import {
   DARKEST_SHUFFLING_HORROR_SCRIPT_ID,
   ensureDarkestMidBossScriptsRegistered,

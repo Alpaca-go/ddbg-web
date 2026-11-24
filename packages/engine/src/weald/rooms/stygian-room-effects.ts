@@ -4,8 +4,8 @@ import {
   wealdStygianRoomsSchema,
   type WealdStygianReviewedEffect,
 } from "../../../../data/src/weald-stygian-rooms";
-import type { GameState } from "../../command";
-import type { DungeonState } from "../../dungeon";
+import type { GameState } from "../../shared/core/command";
+import type { DungeonState } from "../../shared/dungeon/dungeon";
 import { wealdPackSelected } from "../weald-mechanics";
 
 const wealdStygianRooms = wealdStygianRoomsSchema.parse(rawWealdStygianRooms);

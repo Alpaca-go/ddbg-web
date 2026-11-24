@@ -1,5 +1,5 @@
-import { rejectBattleCommand } from "../../battle";
-import type { ApplyResult, GameState, PendingChoice } from "../../command";
+import { rejectBattleCommand } from "../../shared/battle/battle";
+import type { ApplyResult, GameState, PendingChoice } from "../../shared/core/command";
 import { resolveEncounterBossScriptId } from "../../core/bosses/encounter-rules";
 import {
   HAG_I_SCRIPT_ID,
@@ -9,7 +9,7 @@ import {
 } from "./hag-i";
 import { buildHagICombatCatalog } from "./hag-i-projection";
 
-import type { MonsterCardView } from "../../monster-skill";
+import type { MonsterCardView } from "../../shared/core/monster-skill";
 
 export interface HagCaptiveContext {
   readonly scriptId: string;

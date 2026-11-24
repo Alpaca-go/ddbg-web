@@ -1,7 +1,11 @@
-import type { ApplyResult, GameEvent, GameState } from "../../command";
-import { rejectBattleCommand, type BattleEntity, type BattleState } from "../../battle";
-import { nextBattleRoll } from "../../battle-roll";
-import type { SkillStance } from "../../hero-skill";
+import type { ApplyResult, GameEvent, GameState } from "../../shared/core/command";
+import {
+  rejectBattleCommand,
+  type BattleEntity,
+  type BattleState,
+} from "../../shared/battle/battle";
+import { nextBattleRoll } from "../../shared/battle/battle-roll";
+import type { SkillStance } from "../heroes/hero-skill";
 import { FINAL_BATTLE_MONSTER_STANCE_AREAS } from "./final-battle-deploy";
 import { readFinalFormSequence } from "./final-form-sequence";
 

@@ -1,8 +1,8 @@
 import { expect, it } from "vitest";
-import { wealdTaskSources } from "../../src/test-helpers/weald-task-battle";
-import { naturalParty, naturalQuest } from "../../src/test-helpers/natural-quest";
-import { createCoreDungeonQuest } from "../../src/dungeon-quest-entry";
-import { createQuestSave, loadQuestSave } from "../../src/quest-save";
+import { wealdTaskSources } from "../helpers/weald-task-battle";
+import { naturalParty, naturalQuest } from "../helpers/natural-quest";
+import { createCoreDungeonQuest } from "../../src/shared/dungeon/dungeon-quest-entry";
+import { createQuestSave, loadQuestSave } from "../../src/shared/quest/quest-save";
 
 it.each([
   "quest:weald:p006",

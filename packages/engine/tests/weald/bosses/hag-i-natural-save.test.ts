@@ -1,9 +1,9 @@
-import { applyCommand, type Command, type GameState } from "../../../src/command";
+import { applyCommand, type Command, type GameState } from "../../../src/shared/core/command";
 import { expect, it } from "vitest";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
-import { naturalQuest } from "../../../src/test-helpers/natural-quest";
-import { createQuestSave, loadQuestSave } from "../../../src/quest-save";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "../../helpers/core-quest";
+import { naturalQuest } from "../../helpers/natural-quest";
+import { createQuestSave, loadQuestSave } from "../../../src/shared/quest/quest-save";
 import type { QuestStart } from "../../../../data/src/quest-save";
 
 // 事先固定完整 0–6 序列，保留全部输入的真实结果；不按输赢筛选或换种子。

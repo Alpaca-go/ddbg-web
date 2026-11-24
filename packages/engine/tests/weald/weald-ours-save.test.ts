@@ -1,7 +1,7 @@
 import { expect, it } from "vitest";
-import { applyCommand } from "../../src/command";
-import { createQuestSave, loadQuestSave } from "../../src/quest-save";
-import { oursQuest } from "../../src/test-helpers/ours-quest";
+import { applyCommand } from "../../src/shared/core/command";
+import { createQuestSave, loadQuestSave } from "../../src/shared/quest/quest-save";
+import { oursQuest } from "../helpers/ours-quest";
 it("seed21 公开拾箱路径 Ours! 前后严格恢复，删版本拒绝（R-234／R-238）", () => {
   const {
     start,

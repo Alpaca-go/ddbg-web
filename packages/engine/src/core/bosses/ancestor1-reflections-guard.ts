@@ -1,5 +1,5 @@
-import type { BattleEntity } from "../../battle";
-import type { GameState } from "../../command";
+import type { BattleEntity } from "../../shared/battle/battle";
+import type { GameState } from "../../shared/core/command";
 import { readFinalFormSequence } from "./final-form-sequence";
 
 export const PERFECT_REFLECTION_MONSTER_CARD_ID = "monster_medium:p106";

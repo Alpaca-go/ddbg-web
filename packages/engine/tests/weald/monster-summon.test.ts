@@ -1,9 +1,9 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { applyCommand, type Command, type GameState } from "../../src/command";
-import { createBattleState } from "../../src/battle";
-import type { BattleEntity } from "../../src/battle";
-import type { HeroSkillCardView } from "../../src/hero-skill";
+import { applyCommand, type Command, type GameState } from "../../src/shared/core/command";
+import { createBattleState } from "../../src/shared/battle/battle";
+import type { BattleEntity } from "../../src/shared/battle/battle";
+import type { HeroSkillCardView } from "../../src/core/heroes/hero-skill";
 import { buildWealdMonsterCatalog } from "../../src/weald/monster-catalog";
 import { mergeWealdBattleMonsters } from "../../src/weald/monster-summon";
 import { wealdRoomTileBattleAreas } from "../../src/weald/weald-mechanics";

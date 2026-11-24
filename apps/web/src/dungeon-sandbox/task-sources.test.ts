@@ -34,8 +34,8 @@ import {
 import {
   naturalParty,
   naturalQuest,
-} from "../../../../packages/engine/src/test-helpers/natural-quest";
-import { coreParty } from "../../../../packages/engine/src/test-helpers/core-quest";
+} from "../../../../packages/engine/tests/helpers/natural-quest";
+import { coreParty } from "../../../../packages/engine/tests/helpers/core-quest";
 it("R-215 仅在旧目录回放和新目录结果都匹配时更新旧存档", () => {
   const start = {
     seed: 1,

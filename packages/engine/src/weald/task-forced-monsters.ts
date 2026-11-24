@@ -1,10 +1,10 @@
-import type { ApplyResult, GameState } from "../command";
-import type { DungeonState } from "../dungeon";
-import type { SkillStance } from "../hero-skill";
-import { spawnMonsters, type SpawnCard } from "../spawn";
-import { createRng } from "../rng";
-import { dungeonMonsterPoolThrough } from "../monster-pool-runtime";
-import { dungeonMonsterPoolCatalogValid } from "../monster-pool-validation";
+import type { ApplyResult, GameState } from "../shared/core/command";
+import type { DungeonState } from "../shared/dungeon/dungeon";
+import type { SkillStance } from "../core/heroes/hero-skill";
+import { spawnMonsters, type SpawnCard } from "../shared/core/spawn";
+import { createRng } from "../shared/core/rng";
+import { dungeonMonsterPoolThrough } from "../shared/core/monster-pool-runtime";
+import { dungeonMonsterPoolCatalogValid } from "../shared/core/monster-pool-validation";
 
 export function forcedWealdTaskCards(d: DungeonState): SpawnCard[] {
   if (

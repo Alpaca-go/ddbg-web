@@ -1,14 +1,14 @@
 import { describe, expect, it, beforeEach } from "vitest";
-import { applyCommand } from "../../../src/command";
-import type { GameState } from "../../../src/command";
+import { applyCommand } from "../../../src/shared/core/command";
+import type { GameState } from "../../../src/shared/core/command";
 import {
   COLLECTOR_I_SCRIPT_ID,
   NECROMANCER_I_SCRIPT_ID,
   ensureCoreBossScriptsRegistered,
   setActiveBossThreat,
 } from "../../../src/core/bosses/index";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "../../helpers/core-quest";
 
 function hamletAfterCaretaker(seed = 41) {
   let game = createCoreDungeonQuest(seed, "quest:p001", "radiant", coreParty, coreQuestSources);

@@ -1,11 +1,11 @@
 import { expect, it } from "vitest";
-import { WEALD_NATURAL_ACT_ONE_RADIANT_CAMPAIGN_DRIVE } from "../../src/test-helpers/weald-face-the-threat-natural-seed-scan";
+import { WEALD_NATURAL_ACT_ONE_RADIANT_CAMPAIGN_DRIVE } from "../helpers/weald-face-the-threat-natural-seed-scan";
 import {
   useCombatProvisions,
   wealdFaceTheThreatNaturalCrossActJourney,
-} from "../../src/test-helpers/weald-face-the-threat-natural-prefix";
-import { CURRENT_WEALD_ROOM_VERSIONS, naturalQuest } from "../../src/test-helpers/natural-quest";
-import { wealdTaskSources } from "../../src/test-helpers/weald-task-battle";
+} from "../helpers/weald-face-the-threat-natural-prefix";
+import { CURRENT_WEALD_ROOM_VERSIONS, naturalQuest } from "../helpers/natural-quest";
+import { wealdTaskSources } from "../helpers/weald-task-battle";
 
 /**
  * P1 基线探测：从已验收的 I→II 末态继续跑第一趟 II 级任务，记录停点。

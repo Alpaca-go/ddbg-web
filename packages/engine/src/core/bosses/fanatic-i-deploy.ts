@@ -1,12 +1,12 @@
-import type { ApplyResult, GameState } from "../../command";
-import { monsterShuffleResist } from "../../monster-defence";
+import type { ApplyResult, GameState } from "../../shared/core/command";
+import { monsterShuffleResist } from "../../shared/core/monster-defence";
 import { buildBossHeroEntities } from "./deploy-heroes";
 import geometry from "../../../../data/normalized/corebox/room_tile_geometry.json";
 import { fanaticRoomSchema } from "../../../../data/src/normalize/fanatic-room";
 import { roomCatalogSchema } from "../../../../data/src/room";
-import { createBattleState, rejectBattleCommand } from "../../battle";
-import { roomTileBattleAreas } from "../../battle-monster-movement";
-import { createLootState } from "../../loot";
+import { createBattleState, rejectBattleCommand } from "../../shared/battle/battle";
+import { roomTileBattleAreas } from "../../shared/battle/battle-monster-movement";
+import { createLootState } from "../../shared/trinkets/loot";
 import { getBossScript } from "./registry";
 import { resolveBossScriptIdForQuest } from "./quest-bridge";
 import { RUINS_COMBAT_LEVELS } from "./ruins-combat-levels";

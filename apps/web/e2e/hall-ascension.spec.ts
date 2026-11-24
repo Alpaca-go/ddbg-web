@@ -2,7 +2,7 @@ import { expect } from "@playwright/test";
 import { ssrTest } from "./ssr-test";
 import { createServer } from "vite";
 import { fileURLToPath } from "node:url";
-import type { GameState } from "../../../packages/engine/src/command";
+import type { GameState } from "../../../packages/engine/src/shared/core/command";
 
 const test = ssrTest(import.meta.url);
 
@@ -19,7 +19,7 @@ test("升华大厅B区选择英雄升级：扣XP金币、压力结算、空槽�
   try {
     const fixture = await server.ssrLoadModule(
       fileURLToPath(
-        new URL("../../../packages/engine/src/test-helpers/hall-ascension.ts", import.meta.url),
+        new URL("../../../packages/engine/tests/helpers/hall-ascension.ts", import.meta.url),
       ),
     );
     game = fixture.hallAscensionFixture();

@@ -1,17 +1,17 @@
-import { naturalQuest } from "../../../src/test-helpers/natural-quest";
+import { naturalQuest } from "../../helpers/natural-quest";
 import { expect, it } from "vitest";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
-import { nextExpeditionLocationDecks } from "../../../src/hamlet-location-embark";
-import { readExpeditionRoomRegion } from "../../../src/expedition-room-catalog";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "../../helpers/core-quest";
+import { nextExpeditionLocationDecks } from "../../../src/shared/hamlet/hamlet-location-embark";
+import { readExpeditionRoomRegion } from "../../../src/shared/dungeon/expedition-room-catalog";
 import {
   dungeonMonsterPoolCatalogValid,
   restingMonsterPoolValid,
-} from "../../../src/monster-pool-validation";
-import { dungeonCurioCatalogValid } from "../../../src/dungeon-curio-catalog";
-import { recoverHamletPools } from "../../../src/hamlet-return-pools";
-import { applyCommand } from "../../../src/command";
-import { createQuestSave, loadQuestSave } from "../../../src/quest-save";
+} from "../../../src/shared/core/monster-pool-validation";
+import { dungeonCurioCatalogValid } from "../../../src/shared/dungeon/dungeon-curio-catalog";
+import { recoverHamletPools } from "../../../src/shared/hamlet/hamlet-return-pools";
+import { applyCommand } from "../../../src/shared/core/command";
+import { createQuestSave, loadQuestSave } from "../../../src/shared/quest/quest-save";
 import type { QuestStart } from "../../../../data/src/quest-save";
 
 const packs = ["core", "weald"] as const;

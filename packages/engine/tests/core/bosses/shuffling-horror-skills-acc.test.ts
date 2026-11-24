@@ -1,14 +1,14 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
-import { applyCommand, type Command, type GameState } from "../../../src/command";
-import { nextBattleRoll } from "../../../src/battle-roll";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "../../helpers/core-quest";
+import { applyCommand, type Command, type GameState } from "../../../src/shared/core/command";
+import { nextBattleRoll } from "../../../src/shared/battle/battle-roll";
 import {
   readMonsterAttackView,
   resolveMonsterSkill,
   type MonsterCardView,
-} from "../../../src/monster-skill";
+} from "../../../src/shared/core/monster-skill";
 import { SHUFFLING_HORROR_COMBAT_MONSTER_CARD_ID } from "../../../src/core/bosses/darkest-shuffling-horror-combat-runtime";
 import {
   applyShufflingHorrorLacerate,

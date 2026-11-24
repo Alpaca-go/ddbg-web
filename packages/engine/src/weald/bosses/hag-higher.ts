@@ -11,8 +11,8 @@ import { projectHagCombatFaces } from "./hag-i-projection";
 import { captureHagHero, releaseHagHero } from "./hag-i-captive";
 import { bossEnabledForPacks } from "../../../../data/src/content-packs";
 import { FACE_THE_THREAT_QUEST_ID } from "../../core/bosses/quest-bridge";
-import { rejectBattleCommand } from "../../battle";
-import type { GameState } from "../../command";
+import { rejectBattleCommand } from "../../shared/battle/battle";
+import type { GameState } from "../../shared/core/command";
 
 const content = wealdHagHigherContentSchema.parse(printed);
 export function hagHigherContext(level: 2 | 3) {

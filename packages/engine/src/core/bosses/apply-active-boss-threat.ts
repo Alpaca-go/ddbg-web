@@ -1,4 +1,4 @@
-import type { DungeonState } from "../../dungeon";
+import type { DungeonState } from "../../shared/dungeon/dungeon";
 import { syncHamletBlockedBuildingsForBossThreat } from "./threat-campaign";
 import type { BossScriptId } from "./types";
 

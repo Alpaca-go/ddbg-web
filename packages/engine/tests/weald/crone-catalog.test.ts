@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
 import { buildWealdCroneCatalog } from "../../src/weald/crone-catalog";
-import { resolveMonsterSkill, readMonsterAttackView } from "../../src/monster-skill";
-import { selectMonsterSkill } from "../../src/monster-stance";
-import { applyCommand } from "../../src/command";
-import { createBattleState, type BattleEntity } from "../../src/battle";
+import { resolveMonsterSkill, readMonsterAttackView } from "../../src/shared/core/monster-skill";
+import { selectMonsterSkill } from "../../src/shared/core/monster-stance";
+import { applyCommand } from "../../src/shared/core/command";
+import { createBattleState, type BattleEntity } from "../../src/shared/battle/battle";
 
 const card = buildWealdCroneCatalog();
 const combat = (distance = 0) => ({

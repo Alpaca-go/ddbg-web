@@ -1,13 +1,13 @@
 import { performance } from "node:perf_hooks";
-import { applyCommand } from "../../../packages/engine/src/command";
-import type { Command, GameState } from "../../../packages/engine/src/command";
-import { createQuestSave, loadQuestSave } from "../../../packages/engine/src/quest-save";
-import { createCoreDungeonQuest } from "../../../packages/engine/src/dungeon-quest-entry";
-import { coreQuestSources } from "../../../packages/engine/src/test-helpers/core-quest";
+import { applyCommand } from "../../../packages/engine/src/shared/core/command";
+import type { Command, GameState } from "../../../packages/engine/src/shared/core/command";
 import {
-  naturalParty,
-  naturalQuest,
-} from "../../../packages/engine/src/test-helpers/natural-quest";
+  createQuestSave,
+  loadQuestSave,
+} from "../../../packages/engine/src/shared/quest/quest-save";
+import { createCoreDungeonQuest } from "../../../packages/engine/src/shared/dungeon/dungeon-quest-entry";
+import { coreQuestSources } from "../../../packages/engine/tests/helpers/core-quest";
+import { naturalParty, naturalQuest } from "../../../packages/engine/tests/helpers/natural-quest";
 
 // 保留现有种子与策略；观测不改变命令、数值或 RNG。
 let count = 0;

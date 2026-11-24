@@ -1,11 +1,8 @@
 import { expect, it } from "vitest";
-import { applyCommand, type ApplyResult, type GameState } from "../../../src/command";
-import { removeCasualties } from "../../../src/encounter";
+import { applyCommand, type ApplyResult, type GameState } from "../../../src/shared/core/command";
+import { removeCasualties } from "../../../src/shared/dungeon/encounter";
 import { readFinalFormSequence } from "../../../src/core/bosses/final-form-sequence";
-import {
-  finalPreparationFixture,
-  withoutSupportReflection,
-} from "../../../src/test-helpers/final-preparation";
+import { finalPreparationFixture, withoutSupportReflection } from "../../helpers/final-preparation";
 import {
   ANCESTOR_1_MONSTER_CARD_ID,
   applyAncestor1TimeHealsAll,

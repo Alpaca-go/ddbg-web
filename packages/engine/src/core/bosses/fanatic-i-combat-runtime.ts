@@ -1,14 +1,14 @@
-import { monsterShuffleResist } from "../../monster-defence";
+import { monsterShuffleResist } from "../../shared/core/monster-defence";
 import {
   RUINS_COMBAT_LEVELS,
   ruinsCombatForScript,
   isRuinsCombatCard,
 } from "./ruins-combat-levels";
-import { distance, type BattleEntity, type BattleState } from "../../battle";
-import type { ApplyResult, GameState } from "../../command";
-import { finishTurn } from "../../encounter";
-import type { SkillTargetSide } from "../../hero-skill";
-import type { MonsterCardView } from "../../monster-skill";
+import { distance, type BattleEntity, type BattleState } from "../../shared/battle/battle";
+import type { ApplyResult, GameState } from "../../shared/core/command";
+import { finishTurn } from "../../shared/dungeon/encounter";
+import type { SkillTargetSide } from "../heroes/hero-skill";
+import type { MonsterCardView } from "../../shared/core/monster-skill";
 import { defaultMonsterTurnActionCount, runBossHook } from "./hooks";
 import { readBossCombatEntry } from "./combat-entry";
 import { resolveEncounterBossScriptId } from "./encounter-rules";

@@ -1,11 +1,14 @@
-import { settleInventoryOverflow, type InventoryOverflowResume } from "../../inventory-overflow";
-import { finishTurn } from "../../encounter";
+import {
+  settleInventoryOverflow,
+  type InventoryOverflowResume,
+} from "../../shared/core/inventory-overflow";
+import { finishTurn } from "../../shared/dungeon/encounter";
 import { readShriekerRuntimeContext } from "./shrieker-runtime-context";
-import type { ApplyResult, GameState, PendingChoice } from "../../command";
-import type { BattleState } from "../../battle";
-import { rejectBattleCommand } from "../../battle";
-import { isQuestProvisionId } from "../../quest-provisions";
-import { PROVISION_LABELS, type ProvisionFace } from "../../loot";
+import type { ApplyResult, GameState, PendingChoice } from "../../shared/core/command";
+import type { BattleState } from "../../shared/battle/battle";
+import { rejectBattleCommand } from "../../shared/battle/battle";
+import { isQuestProvisionId } from "../../shared/quest/quest-provisions";
+import { PROVISION_LABELS, type ProvisionFace } from "../../shared/trinkets/loot";
 import { activeBossThreatMatchesDungeonLocation } from "../../core/bosses/threat-campaign";
 
 type Provision = { readonly id: string; readonly face: ProvisionFace };

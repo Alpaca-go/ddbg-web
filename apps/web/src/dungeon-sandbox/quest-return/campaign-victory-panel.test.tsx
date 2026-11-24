@@ -1,7 +1,7 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { expect, it, vi } from "vitest";
 import { CampaignVictoryPanel, campaignRestartUrl } from "./campaign-victory-panel";
-import { finalPreparationFixture } from "../../../../../packages/engine/src/test-helpers/final-preparation";
+import { finalPreparationFixture } from "../../../../../packages/engine/tests/helpers/final-preparation";
 
 function victoryGame() {
   const base = finalPreparationFixture("quest:p016");

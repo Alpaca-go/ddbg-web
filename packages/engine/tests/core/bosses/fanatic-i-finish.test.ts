@@ -1,15 +1,15 @@
 import { expect, it } from "vitest";
-import { applyCommand } from "../../../src/command";
-import type { Command, GameState } from "../../../src/command";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
+import { applyCommand } from "../../../src/shared/core/command";
+import type { Command, GameState } from "../../../src/shared/core/command";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "../../helpers/core-quest";
 import { requireFaceTheThreatEmbarkPlanForSandbox } from "../../../src/core/bosses/face-the-threat-embark-runtime";
 import {
   FANATIC_I_SCRIPT_ID,
   FANATIC_I_DESCRIPTION_ABILITY_CARD_ID,
 } from "../../../src/core/bosses/fanatic-i";
-import { nextBattleRoll } from "../../../src/battle-roll";
-import { endAfterCasualties } from "../../../src/encounter";
+import { nextBattleRoll } from "../../../src/shared/battle/battle-roll";
+import { endAfterCasualties } from "../../../src/shared/dungeon/encounter";
 
 function ok(state: GameState, command: Command) {
   const r = applyCommand(state, command);

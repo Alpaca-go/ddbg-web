@@ -1,9 +1,9 @@
 import { readHagRuntimeContext } from "./hag-runtime-context";
-import { monsterShuffleResist } from "../../monster-defence";
-import type { BattleEntity, BattleState } from "../../battle";
-import type { ApplyResult, GameState, MonsterSkillResolvedEvent } from "../../command";
-import type { MonsterCardView } from "../../monster-skill";
-import type { SkillTargetSide } from "../../hero-skill";
+import { monsterShuffleResist } from "../../shared/core/monster-defence";
+import type { BattleEntity, BattleState } from "../../shared/battle/battle";
+import type { ApplyResult, GameState, MonsterSkillResolvedEvent } from "../../shared/core/command";
+import type { MonsterCardView } from "../../shared/core/monster-skill";
+import type { SkillTargetSide } from "../../core/heroes/hero-skill";
 import { runBossHook } from "../../core/bosses/hooks";
 import { resolveEncounterBossScriptId } from "../../core/bosses/encounter-rules";
 import {

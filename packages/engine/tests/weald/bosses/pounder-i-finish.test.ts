@@ -1,10 +1,10 @@
 import { expect, it } from "vitest";
-import { applyCommand, type GameState, type Command } from "../../../src/command";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
+import { applyCommand, type GameState, type Command } from "../../../src/shared/core/command";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "../../helpers/core-quest";
 import { getBossScript } from "../../../src/core/bosses/registry";
-import { nextExpeditionLocationDecks } from "../../../src/hamlet-location-embark";
-import { recoverHamletPools } from "../../../src/hamlet-return-pools";
+import { nextExpeditionLocationDecks } from "../../../src/shared/hamlet/hamlet-location-embark";
+import { recoverHamletPools } from "../../../src/shared/hamlet/hamlet-return-pools";
 import {
   ensurePounderIBossScriptRegistered,
   POUNDER_I_SCRIPT_ID,

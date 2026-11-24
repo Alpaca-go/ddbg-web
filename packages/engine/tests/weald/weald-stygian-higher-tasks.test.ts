@@ -1,23 +1,23 @@
 import { expect, it } from "vitest";
-import { createCoreDungeonQuest } from "../../src/dungeon-quest-entry";
-import { createCampaignQuest } from "../../src/campaign-entry";
-import { coreParty, coreQuestSources } from "../../src/test-helpers/core-quest";
-import { wealdTaskSources } from "../../src/test-helpers/weald-task-battle";
-import { wealdStygianTasksHamletFixture } from "../../src/test-helpers/weald-stygian-higher-hamlet";
-import { applyCommand, type GameState } from "../../src/command";
-import { createQuestSave, loadQuestSave } from "../../src/quest-save";
+import { createCoreDungeonQuest } from "../../src/shared/dungeon/dungeon-quest-entry";
+import { createCampaignQuest } from "../../src/shared/hamlet/campaign-entry";
+import { coreParty, coreQuestSources } from "../helpers/core-quest";
+import { wealdTaskSources } from "../helpers/weald-task-battle";
+import { wealdStygianTasksHamletFixture } from "../helpers/weald-stygian-higher-hamlet";
+import { applyCommand, type GameState } from "../../src/shared/core/command";
+import { createQuestSave, loadQuestSave } from "../../src/shared/quest/quest-save";
 import {
   legalHamletQuestDrawModes,
   remainingQuestIdsForLocationDeck,
   HAMLET_QUEST_DRAW_OPTION as modes,
-} from "../../src/hamlet-location-quest-draw";
-import { nextExpeditionLocationDecks } from "../../src/hamlet-location-embark";
+} from "../../src/shared/hamlet/hamlet-location-quest-draw";
+import { nextExpeditionLocationDecks } from "../../src/shared/hamlet/hamlet-location-embark";
 import medium from "../../../data/normalized/extension/weald/monster_medium.json";
 import large from "../../../data/normalized/extension/weald/monster_large.json";
 import curios from "../../../data/normalized/extension/weald/curio.json";
 import { wealdCurioFileSchema } from "../../../data/src/curio";
-import { rebuildLocationQuestDecks } from "../../src/location-quest-sources";
-import { createBattleState } from "../../src/battle";
+import { rebuildLocationQuestDecks } from "../../src/shared/quest/location-quest-sources";
+import { createBattleState } from "../../src/shared/battle/battle";
 import { readActiveWealdStygianRoom } from "../../src/weald/rooms/stygian-room-effects";
 
 const packs = ["core", "weald"] as const;

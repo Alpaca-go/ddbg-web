@@ -2,7 +2,7 @@ import { expect } from "@playwright/test";
 import { ssrTest } from "./ssr-test";
 import { createServer } from "vite";
 import { fileURLToPath } from "node:url";
-import type { GameState } from "../../../packages/engine/src/command";
+import type { GameState } from "../../../packages/engine/src/shared/core/command";
 const test = ssrTest(import.meta.url);
 test("Shrieker II页面旧检查点切换新口径：拾箱不掷补给骰或选Wild", async ({ page }) => {
   const errors: string[] = [];

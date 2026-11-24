@@ -1,51 +1,63 @@
-export { applyCommand, createInitialState } from "./command";
+export { applyCommand, createInitialState } from "./shared/core/command";
 export { readWealdOakAction } from "./weald/burning-oak";
-export { readInfectedOakAction } from "./battle-infected-oak";
+export { readInfectedOakAction } from "./shared/battle/battle-infected-oak";
 export { buildWealdMonsterCatalog } from "./weald/monster-catalog";
 export { buildWealdHigherMonsterCatalog } from "./weald/higher-monster-catalog";
 export { buildWealdHigherMonsterPool } from "./weald/higher-monster-pool";
 export type { WealdBattleMonster } from "./weald/monster-catalog";
-export { canSetDungeonStances, DUNGEON_HERO_STANCES } from "./dungeon-stances";
-export { canSetHamletStances } from "./hamlet-stances";
-export { readRoomTile } from "./room-tile-selection";
-export { resolveQuestMapEdgeCorridor } from "./corridor-tile-catalog";
-export type { CorridorLayoutBinding } from "./corridor-tile-catalog";
-export { createTrinketPool } from "./trinket-acquisition";
-export { fortunateArmletUseProblem, FORTUNATE_ARMLET_ID } from "./battle-fortunate-armlet";
-export type { TrinketPool } from "./trinket-acquisition";
-export { createDungeonSandbox, startingGoldForMode } from "./dungeon";
+export { canSetDungeonStances, DUNGEON_HERO_STANCES } from "./shared/dungeon/dungeon-stances";
+export { canSetHamletStances } from "./shared/hamlet/hamlet-stances";
+export { readRoomTile } from "./shared/core/room-tile-selection";
+export { resolveQuestMapEdgeCorridor } from "./shared/dungeon/corridor-tile-catalog";
+export type { CorridorLayoutBinding } from "./shared/dungeon/corridor-tile-catalog";
+export { createTrinketPool } from "./shared/trinkets/trinket-acquisition";
+export {
+  fortunateArmletUseProblem,
+  FORTUNATE_ARMLET_ID,
+} from "./shared/battle/battle-fortunate-armlet";
+export type { TrinketPool } from "./shared/trinkets/trinket-acquisition";
+export { createDungeonSandbox, startingGoldForMode } from "./shared/dungeon/dungeon";
 export type {
   DungeonState,
   DungeonCommand,
   DungeonExplorationSetup,
   DungeonCurioState,
   DungeonBattleCatalog,
-} from "./dungeon";
-export { createBattleState } from "./battle";
-export { createConditionPool, gainNegativeQuirk } from "./conditions";
-export type { ConditionPool } from "./conditions";
-export type { PlayHeroSkillTargetsCommand } from "./battle-hero-targets";
-export type { PlayHeroSkillEmptyAreaCommand } from "./battle-empty-area";
-export type { HeroSkillTargetsResolvedEvent } from "./command";
-export type { MoveHeroCommand, HeroMovedEvent } from "./battle-hero-movement";
-export { roomTileBattleAreas } from "./battle-monster-movement";
-export { readActiveStygianRoom } from "./stygian-room-effects";
-export type { MoveMonsterToRangeCommand, MonsterPositionedEvent } from "./battle-monster-movement";
-export type { EncounterCommand, EncounterEvent, EncounterState } from "./encounter";
-export type { PlayMonsterSkillCommand } from "./battle-monster";
+} from "./shared/dungeon/dungeon";
+export { createBattleState } from "./shared/battle/battle";
+export { createConditionPool, gainNegativeQuirk } from "./shared/core/conditions";
+export type { ConditionPool } from "./shared/core/conditions";
+export type { PlayHeroSkillTargetsCommand } from "./shared/battle/battle-hero-targets";
+export type { PlayHeroSkillEmptyAreaCommand } from "./shared/battle/battle-empty-area";
+export type { HeroSkillTargetsResolvedEvent } from "./shared/core/command";
+export type { MoveHeroCommand, HeroMovedEvent } from "./shared/battle/battle-hero-movement";
+export { roomTileBattleAreas } from "./shared/battle/battle-monster-movement";
+export { readActiveStygianRoom } from "./shared/core/stygian-room-effects";
+export type {
+  MoveMonsterToRangeCommand,
+  MonsterPositionedEvent,
+} from "./shared/battle/battle-monster-movement";
+export type { EncounterCommand, EncounterEvent, EncounterState } from "./shared/dungeon/encounter";
+export type { PlayMonsterSkillCommand } from "./shared/battle/battle-monster";
 export type {
   PrepareMonsterActionCommand,
   PreparedMonsterAction,
   MonsterActionPreparedEvent,
-} from "./battle-monster-action";
+} from "./shared/battle/battle-monster-action";
 export type {
   BattleArea,
   BattleEntity,
   BattleSetup,
   BattleState,
   PlayHeroSkillCommand,
-} from "./battle";
-export type { ApplyResult, Command, GameEvent, GameState, PendingChoice } from "./command";
+} from "./shared/battle/battle";
+export type {
+  ApplyResult,
+  Command,
+  GameEvent,
+  GameState,
+  PendingChoice,
+} from "./shared/core/command";
 export {
   resolveHeroSkill,
   resolveHeroSkillEffects,
@@ -55,7 +67,7 @@ export {
   readHeroSkillStanceMarks,
   aggregateLitHeroSkillStanceCounts,
   HERO_SKILL_STANCE_DISPLAY_ORDER,
-} from "./hero-skill";
+} from "./core/heroes/hero-skill";
 export {
   EMBARK_FRONT_STANCE_PRIORITY,
   EMBARK_ROSTER_SLOT_STANCES,
@@ -65,32 +77,36 @@ export {
   preferredEmbarkStanceFromSelectedSkills,
   resolveEmbarkRosterSlotIndex,
   moveEmbarkRosterSeatToSlot,
-} from "./embark-roster-placement";
-export type { EmbarkRosterSlotIndex } from "./embark-roster-placement";
-export { resolveSkillHeroHealth } from "./skill-hero-health";
-export type { SkillHeroHealth, SkillHeroHealthResult } from "./skill-hero-health";
-export type { SkillHealthEffect, SkillEffectsResolution, HeroSkillStanceMark } from "./hero-skill";
-export { resolveMonsterSkill, resolveMonsterSkillEffects } from "./monster-skill";
-export { selectMonsterTarget } from "./monster-target";
-export { selectMonsterSkill } from "./monster-stance";
+} from "./shared/hamlet/embark-roster-placement";
+export type { EmbarkRosterSlotIndex } from "./shared/hamlet/embark-roster-placement";
+export { resolveSkillHeroHealth } from "./core/heroes/skill-hero-health";
+export type { SkillHeroHealth, SkillHeroHealthResult } from "./core/heroes/skill-hero-health";
+export type {
+  SkillHealthEffect,
+  SkillEffectsResolution,
+  HeroSkillStanceMark,
+} from "./core/heroes/hero-skill";
+export { resolveMonsterSkill, resolveMonsterSkillEffects } from "./shared/core/monster-skill";
+export { selectMonsterTarget } from "./shared/core/monster-target";
+export { selectMonsterSkill } from "./shared/core/monster-stance";
 export type {
   MonsterStanceGroup,
   MonsterStanceCardView,
   MonsterSkillSelection,
-} from "./monster-stance";
+} from "./shared/core/monster-stance";
 export type {
   MonsterTargetCardView,
   MonsterTargetHero,
   MonsterTargetSelection,
-} from "./monster-target";
-export { resolveShuffle } from "./shuffle";
-export type { ShuffleIntent, ShuffleResolution } from "./shuffle";
+} from "./shared/core/monster-target";
+export { resolveShuffle } from "./shared/core/shuffle";
+export type { ShuffleIntent, ShuffleResolution } from "./shared/core/shuffle";
 export type {
   MonsterCardView,
   MonsterCombatState,
   MonsterSkillResolution,
   MonsterSkillView,
-} from "./monster-skill";
+} from "./shared/core/monster-skill";
 export type {
   HeroSkillCardView,
   HeroSkillResolution,
@@ -105,42 +121,42 @@ export type {
   SkillTargetSide,
   SkillTargetState,
   SkippedSkillEffect,
-} from "./hero-skill";
-export { createRng, rollD10 } from "./rng";
-export type { Rng } from "./rng";
-export { resolvePressure } from "./pressure";
-export type { ResolveCard } from "./pressure";
-export { spawnMonsters } from "./spawn";
-export type { SpawnCard, SpawnPlacement } from "./spawn";
-export { createLootState, nextProvisionFace } from "./loot";
-export { PROVISION_EFFECTS } from "./provision-use";
-export type { ProvisionEffect } from "./provision-use";
-export type { LootState, LootKind, LootToken, ProvisionFace } from "./loot";
-export { addStatusStack, tickStatusStacks, statusProjection } from "./status";
-export type { StatusKind, StatusStack, StatusEffect } from "./status";
-export { resolveHeroHealth, resolveSeededHeroHealth } from "./hero-health";
+} from "./core/heroes/hero-skill";
+export { createRng, rollD10 } from "./shared/core/rng";
+export type { Rng } from "./shared/core/rng";
+export { resolvePressure } from "./shared/core/pressure";
+export type { ResolveCard } from "./shared/core/pressure";
+export { spawnMonsters } from "./shared/core/spawn";
+export type { SpawnCard, SpawnPlacement } from "./shared/core/spawn";
+export { createLootState, nextProvisionFace } from "./shared/trinkets/loot";
+export { PROVISION_EFFECTS } from "./shared/core/provision-use";
+export type { ProvisionEffect } from "./shared/core/provision-use";
+export type { LootState, LootKind, LootToken, ProvisionFace } from "./shared/trinkets/loot";
+export { addStatusStack, tickStatusStacks, statusProjection } from "./shared/core/status";
+export type { StatusKind, StatusStack, StatusEffect } from "./shared/core/status";
+export { resolveHeroHealth, resolveSeededHeroHealth } from "./core/heroes/hero-health";
 export type {
   HeroHealthState,
   HeroHealthEffect,
   HeroHealthResolution,
   DeathDoorFace,
-} from "./hero-health";
-export { canLeaveDungeon } from "./dungeon-exit";
-export { canRestDungeon } from "./dungeon-rest";
-export { canSetupForwardCamp, setupForwardCamp } from "./dungeon-forward-camp";
-export { dungeonProvisionWindow } from "./dungeon-provision-window";
+} from "./core/heroes/hero-health";
+export { canLeaveDungeon } from "./shared/dungeon/dungeon-exit";
+export { canRestDungeon } from "./shared/dungeon/dungeon-rest";
+export { canSetupForwardCamp, setupForwardCamp } from "./shared/dungeon/dungeon-forward-camp";
+export { dungeonProvisionWindow } from "./shared/dungeon/dungeon-provision-window";
 
-export { isInvokingMonster } from "./battle-invocation";
+export { isInvokingMonster } from "./shared/battle/battle-invocation";
 
-export { createCoreDungeonQuest } from "./dungeon-quest-entry";
-export type { CoreQuestSources, QuestParty } from "./dungeon-quest-entry";
+export { createCoreDungeonQuest } from "./shared/dungeon/dungeon-quest-entry";
+export type { CoreQuestSources, QuestParty } from "./shared/dungeon/dungeon-quest-entry";
 export {
   FORMAL_HERO_NAMES,
   FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS,
   isFormalHeroName,
   heroHasUnwiredCombatSkills,
-} from "./formal-heroes";
-export type { FormalHeroName } from "./formal-heroes";
+} from "./core/heroes/formal-heroes";
+export type { FormalHeroName } from "./core/heroes/formal-heroes";
 export {
   FORMAL_HEROES_VERIFIED_ATTRIBUTES,
   FORMAL_HEROES_PARTIAL_CORE_SKILLS,
@@ -158,50 +174,53 @@ export {
   WEALD_VERIFIED_SKILL_PAGE_BLOCKS,
   MUSKETEER_VERIFIED_SKILL_PAGE_BLOCKS,
   ABOMINATION_DOUBLE_FACED_SKILL_IDS,
-} from "./formal-roster-catalog";
-export { createQuestSave, loadQuestSave } from "./quest-save";
-export { currentHamletEvent, caretakerBuilding } from "./hamlet-event";
-export { warmUpDarkRoomNeedsTorch } from "./dungeon-light";
+} from "./shared/core/formal-roster-catalog";
+export { createQuestSave, loadQuestSave } from "./shared/quest/quest-save";
+export { currentHamletEvent, caretakerBuilding } from "./shared/hamlet/hamlet-event";
+export { warmUpDarkRoomNeedsTorch } from "./shared/dungeon/dungeon-light";
 export { readFinalFormSequence } from "./core/bosses/final-form-sequence";
 export type { QuestStart } from "../../data/src/quest-save";
-export { currentHamletHero, hamletActionOptions } from "./hamlet-actions";
-export { visitNomadWagon } from "./hamlet-nomad";
-export { blacksmithOptions } from "./hamlet-blacksmith";
-export { offerNextQuest } from "./hamlet-embark";
-export { advanceCampaignLevel, readCampaignLevel } from "./hamlet-campaign";
-export { buildRuinsActTransitionPlan, buildWealdActTransitionPlan } from "./act-transition-plan";
-export { switchWealdActPools } from "./act-transition-pools";
-export { wealdLocationActAdvanceEnabled } from "./act-transition-readiness";
+export { currentHamletHero, hamletActionOptions } from "./shared/hamlet/hamlet-actions";
+export { visitNomadWagon } from "./shared/hamlet/hamlet-nomad";
+export { blacksmithOptions } from "./shared/hamlet/hamlet-blacksmith";
+export { offerNextQuest } from "./shared/hamlet/hamlet-embark";
+export { advanceCampaignLevel, readCampaignLevel } from "./shared/hamlet/hamlet-campaign";
+export {
+  buildRuinsActTransitionPlan,
+  buildWealdActTransitionPlan,
+} from "./shared/hamlet/act-transition-plan";
+export { switchWealdActPools } from "./shared/hamlet/act-transition-pools";
+export { wealdLocationActAdvanceEnabled } from "./shared/hamlet/act-transition-readiness";
 export {
   readRuinsActTransitionReadiness,
   requiresRuinsActAdvance,
-} from "./act-transition-readiness";
-export type { RuinsActTransitionReadiness } from "./act-transition-readiness";
-export { switchRuinsActPools } from "./act-transition-pools";
-export type { ActPoolSwitch } from "./act-transition-pools";
-export { advanceRuinsAct } from "./advance-ruins-act";
+} from "./shared/hamlet/act-transition-readiness";
+export type { RuinsActTransitionReadiness } from "./shared/hamlet/act-transition-readiness";
+export { switchRuinsActPools } from "./shared/hamlet/act-transition-pools";
+export type { ActPoolSwitch } from "./shared/hamlet/act-transition-pools";
+export { advanceRuinsAct } from "./shared/core/advance-ruins-act";
 export {
   DARKEST_QUEST_IDS,
   darkestActEntryPending,
   enterDarkestDungeon,
   readDarkestDungeonEntryReadiness,
-} from "./darkest-entry";
-export type { DarkestDungeonEntryReadiness, DarkestQuestId } from "./darkest-entry";
-export { visitGuild } from "./hamlet-guild";
+} from "./core/darkest/darkest-entry";
+export type { DarkestDungeonEntryReadiness, DarkestQuestId } from "./core/darkest/darkest-entry";
+export { visitGuild } from "./shared/hamlet/hamlet-guild";
 export {
   setEquippedSkills,
   ownedHeroSkills,
   unequippedHeroSkills,
   heroSkillSlotCount,
   heroTrinketSlotCount,
-} from "./hero-loadout";
+} from "./core/heroes/hero-loadout";
 export {
   recoveryBuildings,
   upgradableBuildings,
   recoveryBuildingLevel,
   stagecoachWaitingTokens,
   upgradeHamletBuilding,
-} from "./hamlet-buildings";
+} from "./shared/hamlet/hamlet-buildings";
 export {
   bossQuestScriptId,
   faceTheThreatBossScriptByCampaignLevel,
@@ -324,7 +343,10 @@ export type {
   WealdBossIdentity,
   WarrensBossIdentity,
 } from "./core/bosses/index";
-export { dungeonMonsterPoolThrough, combatCardIdForPoolInstance } from "./monster-pool-runtime";
+export {
+  dungeonMonsterPoolThrough,
+  combatCardIdForPoolInstance,
+} from "./shared/core/monster-pool-runtime";
 export { isHauntedGraveyardGuard } from "./core/bosses/necromancer-ii-graveyard";
 export { HERO_SKILL_TRINKET_IDS } from "../../data/src/hero-skill-trinkets";
 
@@ -334,21 +356,28 @@ export {
   FREE_TRINKET_INVERTED_DEFENCE_REACTION,
   isFreeTrinketId,
   freeTrinketUseProblem,
-} from "./battle-free-trinkets";
+} from "./shared/battle/battle-free-trinkets";
 
-export { coreTrinketFreeActions, coreTrinketFreeProblem } from "./core-trinket-free";
+export {
+  coreTrinketFreeActions,
+  coreTrinketFreeProblem,
+} from "./shared/trinkets/core-trinket-free";
 
-export { heroMovePathLimit } from "./battle-hero-movement";
+export { heroMovePathLimit } from "./shared/battle/battle-hero-movement";
 
 export {
   darkestBossVictoryAfterEncounter,
   readFinalBattlePlanAfterDarkestVictory,
 } from "./core/bosses/darkest-content";
-export { sourcesForContentPacks, CONTENT_PACKS, CONTENT_PACK_IDS } from "./content-packs";
-export { createCampaignQuest } from "./campaign-entry";
-export { initialQuestDrawModes, drawInitialQuestOffers } from "./initial-quest-draw";
-export type { HamletQuestDrawOptionId } from "./hamlet-location-quest-draw";
-export type { ContentPackId } from "./content-packs";
+export {
+  sourcesForContentPacks,
+  CONTENT_PACKS,
+  CONTENT_PACK_IDS,
+} from "./shared/core/content-packs";
+export { createCampaignQuest } from "./shared/hamlet/campaign-entry";
+export { initialQuestDrawModes, drawInitialQuestOffers } from "./shared/hamlet/initial-quest-draw";
+export type { HamletQuestDrawOptionId } from "./shared/hamlet/hamlet-location-quest-draw";
+export type { ContentPackId } from "./shared/core/content-packs";
 export {
   buildWealdLevelOneMonsterPool,
   createWealdLevelOneMonsterPoolState,
@@ -366,4 +395,4 @@ export {
   wealdRoomTileBattleAreas,
   wealdZeroCapacityEndTurnRefusal,
 } from "./weald/weald-mechanics";
-export { rebuildLocationQuestDecks } from "./location-quest-sources";
+export { rebuildLocationQuestDecks } from "./shared/quest/location-quest-sources";

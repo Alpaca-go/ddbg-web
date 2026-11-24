@@ -1,0 +1,28 @@
+import { readFileSync } from "node:fs";
+import { expect, it } from "vitest";
+import { readMonsterAttackView } from "../../../src/shared/core/monster-skill";
+import type { MonsterCardView } from "../../../src/shared/core/monster-skill";
+const cards: MonsterCardView[] = JSON.parse(
+  readFileSync(
+    new URL("../../../../data/normalized/corebox/monster_medium.json", import.meta.url),
+    "utf8",
+  ),
+).cards;
+it("Polyp Unholy Rally 完整印刷计划，拒绝效果漂移", () => {
+  const card = cards.find((c) => c.id === "monster_medium:p080")!;
+  const skill = card.skills.find((s) => s.slot === 3)!;
+  expect(skill.rules!.effects?.effects).toEqual([
+    { type: "shuffle", scope: "target", direction: "push", distance: 2 },
+  ]);
+  expect(readMonsterAttackView(card, 3).status).toBe("ready");
+  const plan = skill.rules!.effects!;
+  expect(
+    readMonsterAttackView(
+      {
+        ...card,
+        skills: [{ ...skill, rules: { ...skill.rules, effects: { ...plan, effects: [] } } }],
+      },
+      3,
+    ).status,
+  ).toBe("refused");
+});

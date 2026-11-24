@@ -1,5 +1,5 @@
 import type { CampaignLevel } from "../../../../data/src/basic-quests";
-import type { DungeonState } from "../../dungeon";
+import type { DungeonState } from "../../shared/dungeon/dungeon";
 import {
   imminentThreatPoolForCampaign,
   RUINS_BOSS_IDENTITIES,

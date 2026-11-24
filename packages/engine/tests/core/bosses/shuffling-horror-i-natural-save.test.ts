@@ -1,11 +1,11 @@
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import type { CoreQuestSources } from "../../../src/dungeon-quest-entry";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import type { CoreQuestSources } from "../../../src/shared/dungeon/dungeon-quest-entry";
 import { expect, it } from "vitest";
-import { applyCommand } from "../../../src/command";
-import type { Command, GameState } from "../../../src/command";
-import { coreQuestSources } from "../../../src/test-helpers/core-quest";
-import { naturalParty, naturalQuest } from "../../../src/test-helpers/natural-quest";
-import { createQuestSave, loadQuestSave } from "../../../src/quest-save";
+import { applyCommand } from "../../../src/shared/core/command";
+import type { Command, GameState } from "../../../src/shared/core/command";
+import { coreQuestSources } from "../../helpers/core-quest";
+import { naturalParty, naturalQuest } from "../../helpers/natural-quest";
+import { createQuestSave, loadQuestSave } from "../../../src/shared/quest/quest-save";
 import { SHUFFLING_HORROR_COMBAT_MONSTER_CARD_ID } from "../../../src/core/bosses/darkest-shuffling-horror-combat-runtime";
 
 const preShufflingSources = (): CoreQuestSources => ({

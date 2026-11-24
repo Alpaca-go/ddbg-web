@@ -1,11 +1,11 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it, beforeEach } from "vitest";
-import { createBattleState, type BattleEntity } from "../../../src/battle";
-import { applyCommand, type GameState } from "../../../src/command";
+import { createBattleState, type BattleEntity } from "../../../src/shared/battle/battle";
+import { applyCommand, type GameState } from "../../../src/shared/core/command";
 import { normalizedMonsterMediumFileSchema } from "../../../../data/src/normalize/schema";
-import type { MonsterCardView } from "../../../src/monster-skill";
-import type { SkillStance } from "../../../src/hero-skill";
-import { createLootState } from "../../../src/loot";
+import type { MonsterCardView } from "../../../src/shared/core/monster-skill";
+import type { SkillStance } from "../../../src/core/heroes/hero-skill";
+import { createLootState } from "../../../src/shared/trinkets/loot";
 import {
   COLLECTOR_I_COLLECTED_HIGHWAYMAN_CARD_ID,
   COLLECTOR_I_COLLECTED_MAN_AT_ARMS_CARD_ID,

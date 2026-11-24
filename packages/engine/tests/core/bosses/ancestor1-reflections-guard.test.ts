@@ -1,13 +1,13 @@
 import { expect, it } from "vitest";
-import { applyCommand, type ApplyResult, type GameState } from "../../../src/command";
-import { removeCasualties } from "../../../src/encounter";
+import { applyCommand, type ApplyResult, type GameState } from "../../../src/shared/core/command";
+import { removeCasualties } from "../../../src/shared/dungeon/encounter";
 import { readFinalFormSequence } from "../../../src/core/bosses/final-form-sequence";
 import { ANCESTOR_1_MONSTER_CARD_ID } from "../../../src/core/bosses/ancestor1-time-heals-all";
 import {
   IMPERFECT_REFLECTION_MONSTER_CARD_ID,
   PERFECT_REFLECTION_MONSTER_CARD_ID,
 } from "../../../src/core/bosses/ancestor1-reflections-guard";
-import { finalPreparationFixture } from "../../../src/test-helpers/final-preparation";
+import { finalPreparationFixture } from "../../helpers/final-preparation";
 
 const ANCESTOR = ANCESTOR_1_MONSTER_CARD_ID;
 

@@ -3,20 +3,29 @@ import { clearedBossThreatScriptIdAfterVictory } from "../../../src/core/bosses/
 import { requireFaceTheThreatEmbarkPlanForSandbox } from "../../../src/core/bosses/face-the-threat-embark-runtime";
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { createBattleState, type BattleEntity, type BattleSetup } from "../../../src/battle";
-import { applyCommand, type ApplyResult, type Command, type GameState } from "../../../src/command";
-import type { MonsterCardView } from "../../../src/monster-skill";
-import { nextBattleRoll } from "../../../src/battle-roll";
-import { createLootState } from "../../../src/loot";
+import {
+  createBattleState,
+  type BattleEntity,
+  type BattleSetup,
+} from "../../../src/shared/battle/battle";
+import {
+  applyCommand,
+  type ApplyResult,
+  type Command,
+  type GameState,
+} from "../../../src/shared/core/command";
+import type { MonsterCardView } from "../../../src/shared/core/monster-skill";
+import { nextBattleRoll } from "../../../src/shared/battle/battle-roll";
+import { createLootState } from "../../../src/shared/trinkets/loot";
 import { RUINS_COMBAT_LEVELS } from "../../../src/core/bosses/ruins-combat-levels";
 import { ensureCoreBossScriptsRegistered } from "../../../src/core/bosses/ensure-core-boss-scripts";
 import { getBossScript } from "../../../src/core/bosses/registry";
 import { resolveScriptIdForDescriptionCard } from "../../../src/core/bosses/threat-description-catalog";
 import { resolveBossScriptIdForQuest } from "../../../src/core/bosses/quest-bridge";
 import { PROPHET_ROOM_D10_MARKERS } from "../../../src/core/bosses/prophet-i";
-import { selectMonsterSkill } from "../../../src/monster-stance";
+import { selectMonsterSkill } from "../../../src/shared/core/monster-stance";
 import { applyNecromancerIIIReanimation } from "../../../src/core/bosses/necromancer-iii-reanimation";
-import { removeCasualties, endAfterCasualties } from "../../../src/encounter";
+import { removeCasualties, endAfterCasualties } from "../../../src/shared/dungeon/encounter";
 import { applyHigherRuinsBattleSpawn } from "../../../src/core/bosses/higher-ruins-threat";
 
 function cards<T>(file: string): T[] {

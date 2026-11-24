@@ -2,7 +2,7 @@ import { expect } from "@playwright/test";
 import { ssrTest } from "./ssr-test";
 import { createServer } from "vite";
 import { fileURLToPath } from "node:url";
-import type { GameState } from "../../../packages/engine/src/command";
+import type { GameState } from "../../../packages/engine/src/shared/core/command";
 
 const test = ssrTest(import.meta.url);
 test("受控III级村庄页面抽选p015；真实起点版本文件导入和刷新恢复", async ({ page }) => {
@@ -25,14 +25,18 @@ test("受控III级村庄页面抽选p015；真实起点版本文件导入和刷�
     );
     checkpoint = wealdHigherHamletFixture();
     const { createCampaignQuest } = await server.ssrLoadModule(
-      fileURLToPath(new URL("../../../packages/engine/src/campaign-entry.ts", import.meta.url)),
+      fileURLToPath(
+        new URL("../../../packages/engine/src/shared/hamlet/campaign-entry.ts", import.meta.url),
+      ),
     );
     const { createQuestSave } = await server.ssrLoadModule(
-      fileURLToPath(new URL("../../../packages/engine/src/quest-save.ts", import.meta.url)),
+      fileURLToPath(
+        new URL("../../../packages/engine/src/shared/quest/quest-save.ts", import.meta.url),
+      ),
     );
     const { coreParty } = await server.ssrLoadModule(
       fileURLToPath(
-        new URL("../../../packages/engine/src/test-helpers/core-quest.ts", import.meta.url),
+        new URL("../../../packages/engine/tests/helpers/core-quest.ts", import.meta.url),
       ),
     );
     const { taskSources } = await server.ssrLoadModule(

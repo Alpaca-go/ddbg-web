@@ -1,13 +1,13 @@
 import { expect, it } from "vitest";
-import { applyCommand, type Command, type GameState } from "../../../src/command";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
-import { caretakerBuilding } from "../../../src/hamlet-event";
-import { nextBattleRoll } from "../../../src/battle-roll";
+import { applyCommand, type Command, type GameState } from "../../../src/shared/core/command";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "../../helpers/core-quest";
+import { caretakerBuilding } from "../../../src/shared/hamlet/hamlet-event";
+import { nextBattleRoll } from "../../../src/shared/battle/battle-roll";
 import { POUNDER_I_SCRIPT_ID } from "../../../src/weald/bosses/pounder-i";
-import { naturalQuest } from "../../../src/test-helpers/natural-quest";
-import { createQuestSave, loadQuestSave } from "../../../src/quest-save";
-import { currentHamletHero, hamletActionOptions } from "../../../src/hamlet-actions";
+import { naturalQuest } from "../../helpers/natural-quest";
+import { createQuestSave, loadQuestSave } from "../../../src/shared/quest/quest-save";
+import { currentHamletHero, hamletActionOptions } from "../../../src/shared/hamlet/hamlet-actions";
 
 const packs = ["core", "weald"] as const;
 const initial = (seed = 17) =>

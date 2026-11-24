@@ -1,19 +1,19 @@
 import { readBasicQuest } from "../../../data/src/basic-quests";
 import exceptionFile from "../../../data/normalized/extension/weald/quest_exception_monsters.json";
-import type { ApplyResult, GameState } from "../command";
-import type { DungeonState } from "../dungeon";
-import { allRuinsRoomCardIds, readSetAsideRoomCardId } from "../dungeon-objective";
+import type { ApplyResult, GameState } from "../shared/core/command";
+import type { DungeonState } from "../shared/dungeon/dungeon";
+import { allRuinsRoomCardIds, readSetAsideRoomCardId } from "../shared/dungeon/dungeon-objective";
 import {
   expeditionRoomCatalogParses,
   ordinaryRoomCardsInCatalog,
   ORDINARY_EXPEDITION_ROOM_COUNT,
   readExpeditionRoomRegion,
-} from "../expedition-room-catalog";
-import { dungeonMonsterPoolCatalogValid } from "../monster-pool-validation";
-import { dungeonMonsterPoolThrough } from "../monster-pool-runtime";
-import type { SkillStance } from "../hero-skill";
-import { createRng } from "../rng";
-import { spawnMonsters, type SpawnCard } from "../spawn";
+} from "../shared/dungeon/expedition-room-catalog";
+import { dungeonMonsterPoolCatalogValid } from "../shared/core/monster-pool-validation";
+import { dungeonMonsterPoolThrough } from "../shared/core/monster-pool-runtime";
+import type { SkillStance } from "../core/heroes/hero-skill";
+import { createRng } from "../shared/core/rng";
+import { spawnMonsters, type SpawnCard } from "../shared/core/spawn";
 
 export const WEALD_CRONE_EXCEPTION_CARD_ID = "monster_medium:weald:p015" as const;
 export const WEALD_CRONE_EXCEPTION_INSTANCE_ID = "quest-exception:weald:crone:0" as const;

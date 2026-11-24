@@ -1,6 +1,6 @@
 import { readBasicQuest } from "../../../data/src/basic-quests";
-import type { BattleState } from "../battle";
-import type { DungeonState } from "../dungeon";
+import type { BattleState } from "../shared/battle/battle";
+import type { DungeonState } from "../shared/dungeon/dungeon";
 import { isNecroticFungusEntity, livingNecroticFungus } from "./necrotic-fungus";
 
 export const FUNGAL_RESEARCH_QUEST_ID = "quest:weald:p001" as const;

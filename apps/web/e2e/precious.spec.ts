@@ -2,7 +2,7 @@ import { expect } from "@playwright/test";
 import { ssrTest } from "./ssr-test";
 import { createServer } from "vite";
 import { fileURLToPath } from "node:url";
-import type { GameState, Command } from "../../../packages/engine/src/command";
+import type { GameState, Command } from "../../../packages/engine/src/shared/core/command";
 
 const test = ssrTest(import.meta.url);
 test("seed22 定向 Precious：页面开始版本与 D 区回合结束双增益", async ({ page }) => {

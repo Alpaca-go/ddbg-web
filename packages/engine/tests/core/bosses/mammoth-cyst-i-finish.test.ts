@@ -1,11 +1,11 @@
 import { expect, it } from "vitest";
-import { applyCommand } from "../../../src/command";
-import type { Command, GameState } from "../../../src/command";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
+import { applyCommand } from "../../../src/shared/core/command";
+import type { Command, GameState } from "../../../src/shared/core/command";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "../../helpers/core-quest";
 import { ensureDarkestMidBossScriptsRegistered } from "../../../src/core/bosses/darkest-mid-boss-scripts";
 import { readDarkestMidBossRequiredCombatCardIds } from "../../../src/core/bosses/darkest-mid-boss-scripts";
-import { closeBattleLoot } from "../../../src/loot";
+import { closeBattleLoot } from "../../../src/shared/trinkets/loot";
 
 function ok(state: GameState, command: Command) {
   const r = applyCommand(state, command);

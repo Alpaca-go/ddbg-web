@@ -2,7 +2,7 @@ import { expect } from "@playwright/test";
 import { ssrTest } from "./ssr-test";
 import { createServer } from "vite";
 import { fileURLToPath } from "node:url";
-import type { GameState } from "../../../packages/engine/src/command";
+import type { GameState } from "../../../packages/engine/src/shared/core/command";
 const test = ssrTest(import.meta.url);
 for (const identity of ["hag", "brigandPounder", "shrieker"] as const) {
   test(`${identity} II／III 页面部署、开战与检查点恢复`, async ({ page }) => {

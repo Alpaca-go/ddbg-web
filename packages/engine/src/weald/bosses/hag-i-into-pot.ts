@@ -1,6 +1,6 @@
-import type { MonsterCardView, MonsterSkillView } from "../../monster-skill";
-import type { ApplyResult, GameState, MonsterSkillResolvedEvent } from "../../command";
-import { compileMonsterEffectPlan } from "../../monster-effect-plan";
+import type { MonsterCardView, MonsterSkillView } from "../../shared/core/monster-skill";
+import type { ApplyResult, GameState, MonsterSkillResolvedEvent } from "../../shared/core/command";
+import { compileMonsterEffectPlan } from "../../shared/core/monster-effect-plan";
 import { buildHagICombatCatalog } from "./hag-i-projection";
 import { captureHagHero } from "./hag-i-captive";
 import { beginHagIRelease } from "./hag-i-release";

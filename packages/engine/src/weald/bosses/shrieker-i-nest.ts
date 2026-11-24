@@ -1,4 +1,4 @@
-import type { BattleEntity } from "../../battle";
+import type { BattleEntity } from "../../shared/battle/battle";
 import { WEALD_SHRIEKER_I_CONTENT as content } from "./shrieker-i-content";
 import { WEALD_SHRIEKER_HIGHER_CONTENT as higher } from "./shrieker-higher-content";
 

@@ -1,9 +1,9 @@
-import type { ApplyResult, GameState } from "../command";
-import { monsterShuffleResist } from "../monster-defence";
-import { rejectBattleCommand } from "../battle";
-import { advanceAfterRound, finishTurn } from "../encounter";
-import { spawnMonsters, type SpawnPlacement } from "../spawn";
-import { dungeonMonsterPoolThrough } from "../monster-pool-runtime";
+import type { ApplyResult, GameState } from "../shared/core/command";
+import { monsterShuffleResist } from "../shared/core/monster-defence";
+import { rejectBattleCommand } from "../shared/battle/battle";
+import { advanceAfterRound, finishTurn } from "../shared/dungeon/encounter";
+import { spawnMonsters, type SpawnPlacement } from "../shared/core/spawn";
+import { dungeonMonsterPoolThrough } from "../shared/core/monster-pool-runtime";
 import { resolveWealdSummonAreaPlacement } from "./monster-summon";
 import { isLivingCombatMonster } from "./necrotic-fungus";
 import { wealdTaskActive } from "./higher-task-effects";

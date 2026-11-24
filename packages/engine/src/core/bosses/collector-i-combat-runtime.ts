@@ -1,17 +1,17 @@
-import { planSummonCrowding } from "../../summon-crowding";
-import { monsterShuffleResist } from "../../monster-defence";
+import { planSummonCrowding } from "../../shared/core/summon-crowding";
+import { monsterShuffleResist } from "../../shared/core/monster-defence";
 import {
   RUINS_COMBAT_LEVELS,
   ruinsCombatForScript,
   isRuinsCombatCard,
 } from "./ruins-combat-levels";
-import type { BattleEntity, BattleState } from "../../battle";
-import { distance, rejectBattleCommand } from "../../battle";
-import type { ApplyResult, GameState } from "../../command";
-import { finishTurn } from "../../encounter";
-import type { SkillTargetSide } from "../../hero-skill";
-import type { MonsterCardView } from "../../monster-skill";
-import { createRng } from "../../rng";
+import type { BattleEntity, BattleState } from "../../shared/battle/battle";
+import { distance, rejectBattleCommand } from "../../shared/battle/battle";
+import type { ApplyResult, GameState } from "../../shared/core/command";
+import { finishTurn } from "../../shared/dungeon/encounter";
+import type { SkillTargetSide } from "../heroes/hero-skill";
+import type { MonsterCardView } from "../../shared/core/monster-skill";
+import { createRng } from "../../shared/core/rng";
 import { runBossHook } from "./hooks";
 import { resolveEncounterBossScriptId } from "./encounter-rules";
 import {

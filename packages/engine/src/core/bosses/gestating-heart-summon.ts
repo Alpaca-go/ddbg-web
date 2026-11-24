@@ -1,13 +1,17 @@
-import { planSummonCrowding } from "../../summon-crowding";
+import { planSummonCrowding } from "../../shared/core/summon-crowding";
 import poolFile from "../../../../data/normalized/corebox/darkest_monster_pool.json";
 import { darkestMonsterPoolFileSchema } from "../../../../data/src/darkest-monster-pool";
-import { rejectBattleCommand, type BattleEntity, type BattleState } from "../../battle";
-import type { ApplyResult, GameState } from "../../command";
-import { finishTurn } from "../../encounter";
+import {
+  rejectBattleCommand,
+  type BattleEntity,
+  type BattleState,
+} from "../../shared/battle/battle";
+import type { ApplyResult, GameState } from "../../shared/core/command";
+import { finishTurn } from "../../shared/dungeon/encounter";
 import { insertMonsterInitiative } from "./monster-initiative";
-import type { SkillStance } from "../../hero-skill";
-import type { MonsterCardView } from "../../monster-skill";
-import { createRng } from "../../rng";
+import type { SkillStance } from "../heroes/hero-skill";
+import type { MonsterCardView } from "../../shared/core/monster-skill";
+import { createRng } from "../../shared/core/rng";
 import { FINAL_BATTLE_MONSTER_STANCE_AREAS } from "./final-battle-deploy";
 import { GESTATING_HEART_MONSTER_CARD_ID } from "./gestating-heart-ichor";
 import { readFinalFormSequence } from "./final-form-sequence";

@@ -1,10 +1,10 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import layout from "../../../../data/normalized/corebox/dungeon_layout_p001.json";
 import distribution from "../../../../data/normalized/corebox/clear_the_path_distribution.json";
-import { createDungeonSandbox } from "../../../src/dungeon";
-import { applyCommand, type Command, type GameState } from "../../../src/command";
-import { coreParty, coreQuestSources as sources } from "../../../src/test-helpers/core-quest";
-import { dungeonMonsterPoolThrough } from "../../../src/monster-pool-runtime";
+import { createDungeonSandbox } from "../../../src/shared/dungeon/dungeon";
+import { applyCommand, type Command, type GameState } from "../../../src/shared/core/command";
+import { coreParty, coreQuestSources as sources } from "../../helpers/core-quest";
+import { dungeonMonsterPoolThrough } from "../../../src/shared/core/monster-pool-runtime";
 import {
   ensureNecromancerIIBossScriptRegistered,
   NECROMANCER_II_SCRIPT_ID,

@@ -1,10 +1,10 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it, beforeEach } from "vitest";
-import { createBattleState, type BattleEntity } from "../../../src/battle";
-import { applyCommand, type GameState } from "../../../src/command";
-import { createLootState } from "../../../src/loot";
-import type { SkillStance } from "../../../src/hero-skill";
-import type { MonsterCardView } from "../../../src/monster-skill";
+import { createBattleState, type BattleEntity } from "../../../src/shared/battle/battle";
+import { applyCommand, type GameState } from "../../../src/shared/core/command";
+import { createLootState } from "../../../src/shared/trinkets/loot";
+import type { SkillStance } from "../../../src/core/heroes/hero-skill";
+import type { MonsterCardView } from "../../../src/shared/core/monster-skill";
 import {
   DARKEST_SHUFFLING_HORROR_SCRIPT_ID,
   ensureDarkestMidBossScriptsRegistered,

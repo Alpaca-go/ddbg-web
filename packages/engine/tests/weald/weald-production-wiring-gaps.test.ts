@@ -1,19 +1,22 @@
 import { expect, it } from "vitest";
-import { applyCommand, type GameState } from "../../src/command";
+import { applyCommand, type GameState } from "../../src/shared/core/command";
 import {
   readRuinsActTransitionReadiness,
   wealdLocationActAdvanceEnabled,
-} from "../../src/act-transition-readiness";
-import { campaignActIIIBossesComplete } from "../../src/campaign-boss-defeats";
+} from "../../src/shared/hamlet/act-transition-readiness";
+import { campaignActIIIBossesComplete } from "../../src/shared/hamlet/campaign-boss-defeats";
 import { RUINS_COMBAT_LEVELS } from "../../src/core/bosses/ruins-combat-levels";
 import { getBossScript } from "../../src/core/bosses/registry";
-import { darkestActEntryPending, readDarkestDungeonEntryReadiness } from "../../src/darkest-entry";
+import {
+  darkestActEntryPending,
+  readDarkestDungeonEntryReadiness,
+} from "../../src/core/darkest/darkest-entry";
 import { shriekerSkipsProvisionRolls } from "../../src/weald/bosses/shrieker-provision-version";
-import { wealdSuppliesLootFixture } from "../../src/test-helpers/weald-task-battle";
-import { wealdActReadyFixture, wealdMixedActReadyFixture } from "../../src/test-helpers/weald-act";
-import { wealdActThreeCompleteFixture } from "../../src/test-helpers/weald-act-three-complete";
-import { actThreeCompleteFixture } from "../../src/test-helpers/act-three-complete";
-import { ruinsActReadyFixture } from "../../src/test-helpers/ruins-act";
+import { wealdSuppliesLootFixture } from "../helpers/weald-task-battle";
+import { wealdActReadyFixture, wealdMixedActReadyFixture } from "../helpers/weald-act";
+import { wealdActThreeCompleteFixture } from "../helpers/weald-act-three-complete";
+import { actThreeCompleteFixture } from "../helpers/act-three-complete";
+import { ruinsActReadyFixture } from "../helpers/ruins-act";
 import type { RuinsBossIdentity } from "../../src/core/bosses/threat-description-catalog";
 import type { WealdBossIdentity } from "../../src/weald/catalog";
 

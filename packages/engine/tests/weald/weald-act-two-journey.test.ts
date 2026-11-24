@@ -1,6 +1,6 @@
 import { expect, it } from "vitest";
-import { WEALD_NATURAL_ACT_TWO_CAMPAIGN_DRIVE } from "../../src/test-helpers/weald-face-the-threat-natural-seed-scan";
-import { wealdNaturalActTwoJourney } from "../../src/test-helpers/weald-face-the-threat-natural-prefix";
+import { WEALD_NATURAL_ACT_TWO_CAMPAIGN_DRIVE } from "../helpers/weald-face-the-threat-natural-seed-scan";
+import { wealdNaturalActTwoJourney } from "../helpers/weald-face-the-threat-natural-prefix";
 
 /**
  * V1 基线：从已验收的 I 幕末态继续跑完整 II 幕（两趟 II 级任务 + p019）。

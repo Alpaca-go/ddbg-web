@@ -1,13 +1,18 @@
-import { distance, rejectBattleCommand, type BattleEntity, type BattleState } from "../../battle";
-import type { ApplyResult, GameState } from "../../command";
-import { finishTurn } from "../../encounter";
-import type { SkillStance } from "../../hero-skill";
-import { readPrintedTargets } from "../../hero-skill";
-import type { MonsterCardView } from "../../monster-skill";
-import { readMonsterAttackView } from "../../monster-skill";
-import { selectMonsterTarget, type MonsterTargetHero } from "../../monster-target";
-import { passiveStress } from "../../passive";
-import { createRng } from "../../rng";
+import {
+  distance,
+  rejectBattleCommand,
+  type BattleEntity,
+  type BattleState,
+} from "../../shared/battle/battle";
+import type { ApplyResult, GameState } from "../../shared/core/command";
+import { finishTurn } from "../../shared/dungeon/encounter";
+import type { SkillStance } from "../heroes/hero-skill";
+import { readPrintedTargets } from "../heroes/hero-skill";
+import type { MonsterCardView } from "../../shared/core/monster-skill";
+import { readMonsterAttackView } from "../../shared/core/monster-skill";
+import { selectMonsterTarget, type MonsterTargetHero } from "../../shared/core/monster-target";
+import { passiveStress } from "../../shared/core/passive";
+import { createRng } from "../../shared/core/rng";
 import { readBossCombatEntry } from "./combat-entry";
 import { resolveEncounterBossScriptId } from "./encounter-rules";
 import { getBossScript } from "./registry";

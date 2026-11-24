@@ -1,9 +1,9 @@
 import { expect, it } from "vitest";
 import coreMedium from "../../../../data/normalized/corebox/monster_medium.json";
 import { savedCommandSchema } from "../../../../data/src/quest-save";
-import type { MonsterCardView } from "../../../src/monster-skill";
-import { createBattleState, type BattleEntity } from "../../../src/battle";
-import { applyCommand, type GameState } from "../../../src/command";
+import type { MonsterCardView } from "../../../src/shared/core/monster-skill";
+import { createBattleState, type BattleEntity } from "../../../src/shared/battle/battle";
+import { applyCommand, type GameState } from "../../../src/shared/core/command";
 import {
   ensurePounderIBossScriptRegistered,
   POUNDER_I_SCRIPT_ID,

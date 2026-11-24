@@ -1,7 +1,7 @@
 import { expect, it } from "vitest";
-import { monsterZeroCapacityQuest } from "../../src/test-helpers/monster-zero-capacity-quest";
-import { applyCommand } from "../../src/command";
-import { createQuestSave, loadQuestSave } from "../../src/quest-save";
+import { monsterZeroCapacityQuest } from "../helpers/monster-zero-capacity-quest";
+import { applyCommand } from "../../src/shared/core/command";
+import { createQuestSave, loadQuestSave } from "../../src/shared/quest/quest-save";
 it("W-03 seed3 怪物公开移动必经零容量区，完整日志恢复", () => {
   const f = monsterZeroCapacityQuest();
   const result = applyCommand(f.before, f.action);

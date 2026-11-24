@@ -2,7 +2,7 @@ import { expect } from "@playwright/test";
 import { ssrTest } from "./ssr-test";
 import { createServer } from "vite";
 import { fileURLToPath } from "node:url";
-import type { GameState, Command } from "../../../packages/engine/src/command";
+import type { GameState, Command } from "../../../packages/engine/src/shared/core/command";
 
 const test = ssrTest(import.meta.url);
 test("W-03 seed2：页面穿过零容量区、暂留后必须移出", async ({ page }) => {

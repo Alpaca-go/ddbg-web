@@ -1,14 +1,14 @@
 import geometry from "../../../../data/normalized/corebox/room_tile_geometry.json";
 import { templarsRoomSchema } from "../../../../data/src/normalize/templars-room";
 import { roomCatalogSchema } from "../../../../data/src/room";
-import { createBattleState, rejectBattleCommand } from "../../battle";
-import type { BattleEntity } from "../../battle";
-import type { ApplyResult, GameState } from "../../command";
-import { roomTileBattleAreas } from "../../battle-monster-movement";
-import { skillBelongsToFormalHero } from "../../formal-roster-catalog";
-import { ownedHeroSkills, questHeroSkillCount } from "../../hero-loadout";
-import { statusProjection } from "../../status";
-import { createLootState } from "../../loot";
+import { createBattleState, rejectBattleCommand } from "../../shared/battle/battle";
+import type { BattleEntity } from "../../shared/battle/battle";
+import type { ApplyResult, GameState } from "../../shared/core/command";
+import { roomTileBattleAreas } from "../../shared/battle/battle-monster-movement";
+import { skillBelongsToFormalHero } from "../../shared/core/formal-roster-catalog";
+import { ownedHeroSkills, questHeroSkillCount } from "../heroes/hero-loadout";
+import { statusProjection } from "../../shared/core/status";
+import { createLootState } from "../../shared/trinkets/loot";
 import { readDarkestBossEncounter } from "./darkest-content";
 import { DARKEST_TEMPLARS_SCRIPT_ID } from "./darkest-mid-boss-scripts";
 import {
@@ -16,7 +16,7 @@ import {
   TEMPLAR_WARLORD_MONSTER_CARD_ID,
 } from "./darkest-templars-skills-acc";
 import type { StoredDarkestBossEncounterPlan } from "./darkest-mid-boss-runtime";
-import type { MonsterCardView } from "../../monster-skill";
+import type { MonsterCardView } from "../../shared/core/monster-skill";
 
 const ROOM_CARD_ID = "room:darkest:09";
 const TILE_ID = "room_tile:darkest:09";

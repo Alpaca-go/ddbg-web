@@ -1,16 +1,16 @@
 import { describe, expect, it } from "vitest";
-import { applyCommand, type Command, type GameState } from "../../../src/command";
-import { nextBattleRoll } from "../../../src/battle-roll";
-import { distance } from "../../../src/battle";
-import { readPrintedRange, readPrintedTargets } from "../../../src/hero-skill";
+import { applyCommand, type Command, type GameState } from "../../../src/shared/core/command";
+import { nextBattleRoll } from "../../../src/shared/battle/battle-roll";
+import { distance } from "../../../src/shared/battle/battle";
+import { readPrintedRange, readPrintedTargets } from "../../../src/core/heroes/hero-skill";
 import {
   readMonsterAttackView,
   resolveMonsterSkill,
   type MonsterCardView,
-} from "../../../src/monster-skill";
-import { selectMonsterSkill } from "../../../src/monster-stance";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
+} from "../../../src/shared/core/monster-skill";
+import { selectMonsterSkill } from "../../../src/shared/core/monster-stance";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "../../helpers/core-quest";
 import { requireFaceTheThreatEmbarkPlanForSandbox } from "../../../src/core/bosses/face-the-threat-embark-runtime";
 import {
   COLLECTOR_I_COMBAT_MONSTER_CARD_ID,

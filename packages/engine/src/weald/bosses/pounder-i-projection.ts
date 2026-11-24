@@ -1,7 +1,7 @@
 import type { WealdPounderContent } from "../../../../data/src/weald-pounder";
-import type { BattleEntity } from "../../battle";
-import type { MonsterCardView, MonsterSkillView } from "../../monster-skill";
-import type { SkillSegment, SkillStance } from "../../hero-skill";
+import type { BattleEntity } from "../../shared/battle/battle";
+import type { MonsterCardView, MonsterSkillView } from "../../shared/core/monster-skill";
+import type { SkillSegment, SkillStance } from "../../core/heroes/hero-skill";
 import {
   WEALD_POUNDER_I_CONTENT as content,
   pounderIApprovedBattleAreas,

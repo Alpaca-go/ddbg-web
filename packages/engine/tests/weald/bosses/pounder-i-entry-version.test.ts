@@ -1,10 +1,10 @@
-import { currentHamletHero, hamletActionOptions } from "../../../src/hamlet-actions";
+import { currentHamletHero, hamletActionOptions } from "../../../src/shared/hamlet/hamlet-actions";
 import { expect, it } from "vitest";
-import { applyCommand, type Command } from "../../../src/command";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
-import { createQuestSave, loadQuestSave } from "../../../src/quest-save";
-import { naturalQuest } from "../../../src/test-helpers/natural-quest";
+import { applyCommand, type Command } from "../../../src/shared/core/command";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "../../helpers/core-quest";
+import { createQuestSave, loadQuestSave } from "../../../src/shared/quest/quest-save";
+import { naturalQuest } from "../../helpers/natural-quest";
 import { resolveFaceTheThreatEmbarkForChoose } from "../../../src/core/bosses/face-the-threat-embark-runtime";
 
 const packs = ["core", "weald"] as const;

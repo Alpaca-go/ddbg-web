@@ -1,9 +1,9 @@
-import type { ApplyResult, GameState } from "../../command";
-import { rejectBattleCommand } from "../../battle";
+import type { ApplyResult, GameState } from "../../shared/core/command";
+import { rejectBattleCommand } from "../../shared/battle/battle";
 import { clearedBossThreatScriptIdAfterVictory } from "../../core/bosses/threat-campaign";
 import { hagDeploymentContext } from "./hag-deployment-context";
 import { WEALD_HAG_I_CONTENT } from "./hag-i-content";
-import { isCampaignExpeditionMode } from "../../campaign-expedition-mode";
+import { isCampaignExpeditionMode } from "../../shared/hamlet/campaign-expedition-mode";
 
 export function hagIRealCombatActive(state: GameState): boolean {
   return hagRealCombatActive(state, 1);

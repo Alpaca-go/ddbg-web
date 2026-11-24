@@ -1,4 +1,4 @@
-import type { ApplyResult } from "../../command";
+import type { ApplyResult } from "../../shared/core/command";
 import { resolveEncounterBossScriptId } from "./encounter-rules";
 import { RUINS_COMBAT_LEVELS, ruinsCombatForScript } from "./ruins-combat-levels";
 

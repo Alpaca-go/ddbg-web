@@ -1,4 +1,4 @@
-import type { GameState } from "../../command";
+import type { GameState } from "../../shared/core/command";
 import { resolveEncounterBossScriptId } from "../../core/bosses/encounter-rules";
 import {
   HAG_I_SCRIPT_ID,

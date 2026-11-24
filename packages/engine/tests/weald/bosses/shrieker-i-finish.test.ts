@@ -1,9 +1,9 @@
-import { playNaturalBattle } from "../../../src/test-helpers/natural-battle";
-import { closeBattleLoot } from "../../../src/loot";
+import { playNaturalBattle } from "../../helpers/natural-battle";
+import { closeBattleLoot } from "../../../src/shared/trinkets/loot";
 import { expect, it } from "vitest";
-import { applyCommand, type GameState, type Command } from "../../../src/command";
-import { shriekerMechanismFixture } from "../../../src/test-helpers/shrieker-i";
-import { removeCasualties } from "../../../src/encounter";
+import { applyCommand, type GameState, type Command } from "../../../src/shared/core/command";
+import { shriekerMechanismFixture } from "../../helpers/shrieker-i";
+import { removeCasualties } from "../../../src/shared/dungeon/encounter";
 
 it("R-262 正式版本可开战、移除 Nest 后切回印刷 Push 2；Boss 死亡后交接不额外消费牌池", () => {
   const { started } = shriekerMechanismFixture();

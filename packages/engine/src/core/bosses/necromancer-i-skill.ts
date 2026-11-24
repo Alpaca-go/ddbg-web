@@ -1,4 +1,4 @@
-import type { HeroSkillCardView } from "../../hero-skill";
+import type { HeroSkillCardView } from "../heroes/hero-skill";
 import { NECROMANCER_I_COMBAT_MONSTER_CARD_ID } from "./necromancer-i";
 import { NECROMANCER_II_COMBAT_MONSTER_CARD_ID } from "./necromancer-ii";
 import { NECROMANCER_III_COMBAT_MONSTER_CARD_ID } from "./necromancer-iii";

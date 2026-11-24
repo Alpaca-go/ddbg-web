@@ -1,7 +1,7 @@
-import type { BattleEntity, BattleState } from "../../battle";
-import { monsterShuffleResist } from "../../monster-defence";
-import type { ApplyResult, GameState } from "../../command";
-import type { MonsterCardView } from "../../monster-skill";
+import type { BattleEntity, BattleState } from "../../shared/battle/battle";
+import { monsterShuffleResist } from "../../shared/core/monster-defence";
+import type { ApplyResult, GameState } from "../../shared/core/command";
+import type { MonsterCardView } from "../../shared/core/monster-skill";
 import { runBossHook } from "../../core/bosses/hooks";
 import { resolveEncounterBossScriptId } from "../../core/bosses/encounter-rules";
 import {

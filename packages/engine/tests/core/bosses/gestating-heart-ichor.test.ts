@@ -1,14 +1,14 @@
 import { expect, it } from "vitest";
-import { applyCommand, type ApplyResult, type GameState } from "../../../src/command";
+import { applyCommand, type ApplyResult, type GameState } from "../../../src/shared/core/command";
 import { readFinalFormSequence } from "../../../src/core/bosses/final-form-sequence";
-import { finalPreparationFixture } from "../../../src/test-helpers/final-preparation";
-import { coreQuestSources } from "../../../src/test-helpers/core-quest";
+import { finalPreparationFixture } from "../../helpers/final-preparation";
+import { coreQuestSources } from "../../helpers/core-quest";
 import {
   GESTATING_HEART_MONSTER_CARD_ID,
   applyGestatingHeartIchor,
   chainGestatingHeartIchorAfterHeroSkill,
 } from "../../../src/core/bosses/gestating-heart-ichor";
-import type { HeroSkillResolution } from "../../../src/hero-skill";
+import type { HeroSkillResolution } from "../../../src/core/heroes/hero-skill";
 
 const smite = coreQuestSources.catalog.skills.find(
   (skill) => skill.hero === "CRUSADER" && skill.level === 1 && skill.name === "Smite",

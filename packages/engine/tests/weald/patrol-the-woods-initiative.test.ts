@@ -3,7 +3,7 @@ import {
   applyPatrolTheWoodsRoundOneInitiative,
   patrolTheWoodsInitiativeTriggered,
 } from "../../src/weald/patrol-the-woods-initiative";
-import type { GameState } from "../../src/command";
+import type { GameState } from "../../src/shared/core/command";
 
 const state = (light: number, questId = "quest:weald:p005"): GameState =>
   ({

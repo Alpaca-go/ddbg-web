@@ -1,6 +1,6 @@
-import { rejectBattleCommand } from "../../battle";
-import type { ApplyResult, GameState } from "../../command";
-import { finishTurn } from "../../encounter";
+import { rejectBattleCommand } from "../../shared/battle/battle";
+import type { ApplyResult, GameState } from "../../shared/core/command";
+import { finishTurn } from "../../shared/dungeon/encounter";
 import { readPounderRuntimeContext } from "./pounder-runtime-context";
 import { applyPounderIReinforcements } from "./pounder-i-reinforcements";
 

@@ -1,5 +1,5 @@
 import { WEALD_HIGHER_BOSS_ENTRIES } from "../../weald/bosses/higher-boss-entries";
-import { ensureCampaignBossScriptsRegistered } from "../../registry";
+import { ensureCampaignBossScriptsRegistered } from "../../shared/core/registry";
 import { bossEnabledForPacks } from "../../../../data/src/content-packs";
 import { RUINS_COMBAT_LEVELS } from "./ruins-combat-levels";
 import {
@@ -7,7 +7,7 @@ import {
   type BasicQuestId,
   type CampaignLevel,
 } from "../../../../data/src/basic-quests";
-import { readCampaignLevel } from "../../hamlet-campaign";
+import { readCampaignLevel } from "../../shared/hamlet/hamlet-campaign";
 import { ensureCoreBossScriptsRegistered } from "./ensure-core-boss-scripts";
 import {
   DARKEST_MAMMOTH_CYST_SCRIPT_ID,

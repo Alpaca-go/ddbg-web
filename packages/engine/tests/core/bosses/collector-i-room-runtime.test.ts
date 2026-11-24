@@ -1,11 +1,11 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { createBattleState } from "../../../src/battle";
-import type { BattleEntity } from "../../../src/battle";
-import { applyCommand } from "../../../src/command";
-import type { ApplyResult, Command, GameState } from "../../../src/command";
-import { closeBattleLoot, createLootState } from "../../../src/loot";
-import type { MonsterCardView } from "../../../src/monster-skill";
+import { createBattleState } from "../../../src/shared/battle/battle";
+import type { BattleEntity } from "../../../src/shared/battle/battle";
+import { applyCommand } from "../../../src/shared/core/command";
+import type { ApplyResult, Command, GameState } from "../../../src/shared/core/command";
+import { closeBattleLoot, createLootState } from "../../../src/shared/trinkets/loot";
+import type { MonsterCardView } from "../../../src/shared/core/monster-skill";
 import {
   COLLECTOR_I_COMBAT_MONSTER_CARD_ID,
   COLLECTOR_I_SCRIPT_ID,

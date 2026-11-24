@@ -1,7 +1,7 @@
 import { readPounderRuntimeContext } from "./pounder-runtime-context";
-import { rejectBattleCommand, type BattleEntity } from "../../battle";
-import type { ApplyResult, GameState } from "../../command";
-import { finishTurn } from "../../encounter";
+import { rejectBattleCommand, type BattleEntity } from "../../shared/battle/battle";
+import type { ApplyResult, GameState } from "../../shared/core/command";
+import { finishTurn } from "../../shared/dungeon/encounter";
 import { insertMonsterInitiative } from "../../core/bosses/monster-initiative";
 import { resolveWealdSummonAreaPlacement } from "../monster-summon";
 import { createPounderIEntity } from "./pounder-i-projection";

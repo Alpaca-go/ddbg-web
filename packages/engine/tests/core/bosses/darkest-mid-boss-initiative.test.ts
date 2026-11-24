@@ -1,8 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { finishTurn } from "../../../src/encounter";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
-import { applyCommand, type Command, type GameState } from "../../../src/command";
+import { finishTurn } from "../../../src/shared/dungeon/encounter";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "../../helpers/core-quest";
+import { applyCommand, type Command, type GameState } from "../../../src/shared/core/command";
 import {
   DARKEST_MAMMOTH_CYST_SCRIPT_ID,
   DARKEST_SHUFFLING_HORROR_SCRIPT_ID,

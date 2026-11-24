@@ -1,18 +1,18 @@
 import { describe, expect, it } from "vitest";
 import coreStygian from "../../../../data/normalized/corebox/stygian_rooms.json";
 import wealdStygian from "../../../../data/normalized/extension/weald/stygian_rooms.json";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { createBattleState, type BattleEntity } from "../../../src/battle";
-import { applyUnprepared } from "../../../src/battle-unprepared";
-import { resolveToxicMushrooms } from "../../../src/battle-toxic-mushrooms";
-import { fixedDamageResolution } from "../../../src/battle-spiked-pit";
-import { readActiveStygianRoom } from "../../../src/stygian-room-effects";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { createBattleState, type BattleEntity } from "../../../src/shared/battle/battle";
+import { applyUnprepared } from "../../../src/shared/battle/battle-unprepared";
+import { resolveToxicMushrooms } from "../../../src/shared/battle/battle-toxic-mushrooms";
+import { fixedDamageResolution } from "../../../src/shared/battle/battle-spiked-pit";
+import { readActiveStygianRoom } from "../../../src/shared/core/stygian-room-effects";
 import { readActiveWealdStygianRoom } from "../../../src/weald/rooms/stygian-room-effects";
-import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
-import { endTurnPoisonousRoots } from "../../../src/battle-infected-oak";
-import { resolveOurs } from "../../../src/battle-ours";
-import { withAbyssalPuff } from "../../../src/battle-abyssal-puff";
-import type { GameState } from "../../../src/command";
+import { coreParty, coreQuestSources } from "../../helpers/core-quest";
+import { endTurnPoisonousRoots } from "../../../src/shared/battle/battle-infected-oak";
+import { resolveOurs } from "../../../src/shared/battle/battle-ours";
+import { withAbyssalPuff } from "../../../src/shared/battle/battle-abyssal-puff";
+import type { GameState } from "../../../src/shared/core/command";
 
 const monsterCard = coreQuestSources.catalog.monsters.find((c) => c.id === "monster_medium:p001")!;
 const stat = coreQuestSources.catalog.heroStats.find(

@@ -1,11 +1,11 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it, beforeEach } from "vitest";
-import { createBattleState, type BattleEntity } from "../../../src/battle";
-import { applyCommand, type GameState } from "../../../src/command";
-import { applyEncounterCommand } from "../../../src/encounter";
-import { finalPreparationFixture } from "../../../src/test-helpers/final-preparation";
-import type { SkillStance, HeroSkillCardView } from "../../../src/hero-skill";
-import type { EncounterCommand } from "../../../src/encounter";
+import { createBattleState, type BattleEntity } from "../../../src/shared/battle/battle";
+import { applyCommand, type GameState } from "../../../src/shared/core/command";
+import { applyEncounterCommand } from "../../../src/shared/dungeon/encounter";
+import { finalPreparationFixture } from "../../helpers/final-preparation";
+import type { SkillStance, HeroSkillCardView } from "../../../src/core/heroes/hero-skill";
+import type { EncounterCommand } from "../../../src/shared/dungeon/encounter";
 import {
   bossQuestScriptId,
   clearBossScriptsForTest,

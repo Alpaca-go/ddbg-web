@@ -1,8 +1,8 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { readMonsterAttackView, resolveMonsterSkill } from "../../src/monster-skill";
-import type { MonsterCardView } from "../../src/monster-skill";
-import { selectMonsterSkill } from "../../src/monster-stance";
+import { readMonsterAttackView, resolveMonsterSkill } from "../../src/shared/core/monster-skill";
+import type { MonsterCardView } from "../../src/shared/core/monster-skill";
+import { selectMonsterSkill } from "../../src/shared/core/monster-stance";
 
 describe("Weald 普通怪物审阅边界（R-048 / Q-186）", () => {
   it("真实规范化卡在完成图标和效果核实前，所有技能都拒绝运行", () => {

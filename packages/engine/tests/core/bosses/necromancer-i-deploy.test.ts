@@ -1,13 +1,13 @@
-import { nextBattleRoll } from "../../../src/battle-roll";
+import { nextBattleRoll } from "../../../src/shared/battle/battle-roll";
 import { expect, it } from "vitest";
 import geometry from "../../../../data/normalized/corebox/room_tile_geometry.json";
 import rooms from "../../../../data/normalized/corebox/room.json";
 import { selectRoomTile } from "../../../../data/src/normalize/room-tile-selection";
 import { savedCommandSchema } from "../../../../data/src/quest-save";
-import { applyCommand } from "../../../src/command";
-import type { Command, GameState } from "../../../src/command";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
+import { applyCommand } from "../../../src/shared/core/command";
+import type { Command, GameState } from "../../../src/shared/core/command";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "../../helpers/core-quest";
 import { requireFaceTheThreatEmbarkPlanForSandbox } from "../../../src/core/bosses/face-the-threat-embark-runtime";
 import {
   resolveEncounterBossScriptId,

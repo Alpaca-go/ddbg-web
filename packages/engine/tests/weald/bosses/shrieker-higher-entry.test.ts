@@ -1,10 +1,10 @@
-import { closeBattleLoot } from "../../../src/loot";
+import { closeBattleLoot } from "../../../src/shared/trinkets/loot";
 import { describe, expect, it } from "vitest";
-import { applyCommand, type Command, type GameState } from "../../../src/command";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
+import { applyCommand, type Command, type GameState } from "../../../src/shared/core/command";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "../../helpers/core-quest";
 import { requireFaceTheThreatEmbarkPlanForSandbox } from "../../../src/core/bosses/face-the-threat-embark-runtime";
-import { nextExpeditionLocationDecks } from "../../../src/hamlet-location-embark";
+import { nextExpeditionLocationDecks } from "../../../src/shared/hamlet/hamlet-location-embark";
 import { resolveBossScriptIdForQuest } from "../../../src/core/bosses/quest-bridge";
 import { clearBossScriptsForTest } from "../../../src/core/bosses/registry";
 import { savedCommandSchema } from "../../../../data/src/quest-save";

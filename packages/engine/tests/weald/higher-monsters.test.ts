@@ -3,9 +3,9 @@ import coreFile from "../../../data/normalized/corebox/monster_pool.json";
 import { monsterPoolFileSchema, ruinsMonsterPool } from "../../../data/src/monster-pool";
 import { buildWealdHigherMonsterCatalog } from "../../src/weald/higher-monster-catalog";
 import { buildWealdHigherMonsterPool } from "../../src/weald/higher-monster-pool";
-import { resolveMonsterSkill, readMonsterAttackView } from "../../src/monster-skill";
-import { selectMonsterSkill } from "../../src/monster-stance";
-import { readPrintedTargets } from "../../src/hero-skill";
+import { resolveMonsterSkill, readMonsterAttackView } from "../../src/shared/core/monster-skill";
+import { selectMonsterSkill } from "../../src/shared/core/monster-stance";
+import { readPrintedTargets } from "../../src/core/heroes/hero-skill";
 
 const core = monsterPoolFileSchema.parse(coreFile).cards;
 const giant = () =>

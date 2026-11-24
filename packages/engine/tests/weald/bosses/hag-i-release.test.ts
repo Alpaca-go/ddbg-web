@@ -1,9 +1,18 @@
 import { applyHagIBoil } from "../../../src/weald/bosses/hag-i-boil";
 import { readFileSync } from "node:fs";
 import { beforeEach, expect, it } from "vitest";
-import { createBattleState, type BattleSetup, type BattleEntity } from "../../../src/battle";
-import type { HeroSkillCardView } from "../../../src/hero-skill";
-import { applyCommand, type Command, type GameState, type ApplyResult } from "../../../src/command";
+import {
+  createBattleState,
+  type BattleSetup,
+  type BattleEntity,
+} from "../../../src/shared/battle/battle";
+import type { HeroSkillCardView } from "../../../src/core/heroes/hero-skill";
+import {
+  applyCommand,
+  type Command,
+  type GameState,
+  type ApplyResult,
+} from "../../../src/shared/core/command";
 import { hagIInitialDeployment } from "../../../src/weald/bosses/hag-i-projection";
 import { captureHagIHero } from "../../../src/weald/bosses/hag-i-captive";
 import { ensureHagIBossScriptRegistered, HAG_I_SCRIPT_ID } from "../../../src/weald/bosses/hag-i";

@@ -1,16 +1,13 @@
-import { createCoreDungeonQuest } from "../../../../packages/engine/src/dungeon-quest-entry";
-import {
-  coreParty,
-  coreQuestSources,
-} from "../../../../packages/engine/src/test-helpers/core-quest";
-import { naturalQuest } from "../../../../packages/engine/src/test-helpers/natural-quest";
+import { createCoreDungeonQuest } from "../../../../packages/engine/src/shared/dungeon/dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "../../../../packages/engine/tests/helpers/core-quest";
+import { naturalQuest } from "../../../../packages/engine/tests/helpers/natural-quest";
 import {
   applyCommand,
   type Command,
   type GameState,
-} from "../../../../packages/engine/src/command";
-import type { CoreQuestSources } from "../../../../packages/engine/src/dungeon-quest-entry";
-import { createQuestSave } from "../../../../packages/engine/src/quest-save";
+} from "../../../../packages/engine/src/shared/core/command";
+import type { CoreQuestSources } from "../../../../packages/engine/src/shared/dungeon/dungeon-quest-entry";
+import { createQuestSave } from "../../../../packages/engine/src/shared/quest/quest-save";
 
 /** 固定seed17原补员路径的真实页面检查点，不改伤口、站位或骰序。 */
 export function pounderUiFixture(sources: CoreQuestSources = coreQuestSources) {

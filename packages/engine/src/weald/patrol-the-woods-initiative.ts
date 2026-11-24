@@ -1,6 +1,6 @@
-import type { SkillTargetSide } from "../hero-skill";
-import type { GameState } from "../command";
-import { createRng } from "../rng";
+import type { SkillTargetSide } from "../core/heroes/hero-skill";
+import type { GameState } from "../shared/core/command";
+import { createRng } from "../shared/core/rng";
 
 /** R-242：Patrol the Woods 首轮怪物先攻置顶（仅第 1 轮；打平不触发）。 */
 export function patrolTheWoodsInitiativeTriggered(gameState: GameState, roll: number): boolean {

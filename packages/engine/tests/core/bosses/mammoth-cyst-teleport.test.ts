@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
-import type { BattleEntity } from "../../../src/battle";
-import { applyCommand, type Command, type GameState } from "../../../src/command";
-import { nextBattleRoll } from "../../../src/encounter";
-import { createCoreDungeonQuest } from "../../../src/dungeon-quest-entry";
-import { coreParty, coreQuestSources } from "../../../src/test-helpers/core-quest";
+import type { BattleEntity } from "../../../src/shared/battle/battle";
+import { applyCommand, type Command, type GameState } from "../../../src/shared/core/command";
+import { nextBattleRoll } from "../../../src/shared/dungeon/encounter";
+import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
+import { coreParty, coreQuestSources } from "../../helpers/core-quest";
 import { MAMMOTH_CYST_WHITE_CELL_SUMMON_CARD_ID } from "../../../src/core/bosses/darkest-mammoth-cyst-combat-runtime";
 import { ensureDarkestMidBossScriptsRegistered } from "../../../src/core/bosses/darkest-mid-boss-scripts";
 import {
