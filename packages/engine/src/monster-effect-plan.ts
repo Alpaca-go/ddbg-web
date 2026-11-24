@@ -119,10 +119,13 @@ export function compileMonsterEffectPlan(
     icons.set("shuffle", { ...original, icon: { ...original.icon, key: "shuffle" } });
   }
   const lines: SkillSegment[][] = [];
-  const statuses: NonNullable<HeroSkillCardView["verified_status_effects"]>[number][] = [];
-  let stress: HeroSkillCardView["verified_target_stress"];
-  let selfHeal: HeroSkillCardView["verified_self_heal"];
-  let bonus: HeroSkillCardView["verified_damage_bonus"];
+  type Rules = NonNullable<HeroSkillCardView["rules"]>;
+  type SelfRules = NonNullable<Rules["self"]>;
+  type TargetRules = NonNullable<Rules["target"]>;
+  const statuses: NonNullable<Rules["statuses"]>[number][] = [];
+  let stress: TargetRules["stress"];
+  let selfHeal: SelfRules["heal"];
+  let bonus: Rules["damage"];
   let selfLight = 0,
     targetLight = 0;
   let disease = false;
@@ -217,15 +220,7 @@ export function compileMonsterEffectPlan(
   } catch (error) {
     return refuse(error instanceof Error ? error.message : String(error));
   }
-  const {
-    verified_target_stress: _stress,
-    verified_damage_bonus: _bonus,
-    verified_status_effects: _statuses,
-    ...base
-  } = view;
-  void _stress;
-  void _bonus;
-  void _statuses;
+  const base = view;
   const {
     statuses: _oldStatuses,
     damage: _oldDamage,
@@ -258,11 +253,7 @@ export function compileMonsterEffectPlan(
       ...base,
       rules,
       effect_lines: lines,
-      verified_status_effects: statuses,
-      ...(selfHeal ? { verified_self_heal: selfHeal } : {}),
       ...(disease ? { targetDisease: true as const } : {}),
-      ...(stress ? { verified_target_stress: stress } : {}),
-      ...(bonus ? { verified_damage_bonus: bonus } : {}),
     },
   };
 }

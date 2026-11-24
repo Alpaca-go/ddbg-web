@@ -51,7 +51,7 @@ it("真实攻击经共用结算器读取范围、目标、伤害、压力和减�
     expect(result.resolution).toMatchObject({ outcome: "hit", damageDealt: damage });
     if (slot === 3 || card === full) expect(result.resolution.targetStress).toBe(1);
     if (slot === 3)
-      expect(attack.view.verified_status_effects).toEqual([
+      expect(attack.view.rules?.statuses).toEqual([
         expect.objectContaining({ kind: "debuff", duration: 2 }),
       ]);
   }

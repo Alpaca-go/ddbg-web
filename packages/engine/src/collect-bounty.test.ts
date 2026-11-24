@@ -162,7 +162,7 @@ it("Mark for Death→Collect Bounty真实Human+Mark合计9伤害并收尾胜利�
 
 it("缺真实种族、重复/冲突/畸变注解均原子拒绝；无注解保留旧效果边界", () => {
   const { game, command } = setup();
-  const base = skill.verified_damage_bonuses!;
+  const base = skill.rules!.damageBonuses!;
   const combat = {
     target: {
       id: "m",

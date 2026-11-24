@@ -200,14 +200,7 @@ export type BattleSetup = {
     readonly speed?: number | null;
     readonly attributesVerified: boolean;
     readonly level?: number;
-    readonly verified_condition_defence?: import("../../data/src/normalize/hero-stat").HeroConditionDefence;
-    readonly verified_higher_condition_defence?: import("../../data/src/normalize/hero-higher-defence").HigherHeroDefence;
-    readonly verified_buff_defence?: {
-      readonly resistant: boolean;
-      readonly immune: boolean;
-      readonly source: "print_front";
-    };
-    /** R1 起的规则命名空间；读取方优先用 rules，旧字段保留 fallback。 */
+    /** 英雄属性规则：防御 / 高等级防御 / Buff 抗性。 */
     readonly rules?: {
       readonly conditionDefence?: import("../../data/src/normalize/hero-stat").HeroConditionDefence;
       readonly higherConditionDefence?: import("../../data/src/normalize/hero-higher-defence").HigherHeroDefence;

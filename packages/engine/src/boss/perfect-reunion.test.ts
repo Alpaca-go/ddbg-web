@@ -49,7 +49,6 @@ it("跨行签名顺序、第二行未确认图标或原语数值漂移拒绝", (
           skills: [
             {
               ...skill,
-              verified_monster_effects: changed,
               rules: { ...skill.rules, effects: changed },
             },
           ],

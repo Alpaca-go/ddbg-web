@@ -431,9 +431,8 @@ describe("Collector I · deployCollectorI 路径 · R-176 选招与结算", () =
                 ...entry,
                 skills: entry.skills.map((skill) => {
                   if (skill.slot !== SHOW_COLLECTION_SLOT) return skill;
-                  const { verified_monster_effects: _removed, rules, ...rest } = skill;
+                  const { rules, ...rest } = skill;
                   const { effects: _plan, ...rulesWithoutPlan } = rules ?? {};
-                  void _removed;
                   void _plan;
                   return { ...rest, rules: rulesWithoutPlan };
                 }),

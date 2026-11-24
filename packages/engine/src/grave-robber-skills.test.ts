@@ -172,7 +172,7 @@ it("Lunge I：自身 Pull 2 不看命中；对真实 Blight 堆 +2；缺状态�
 it("Flashing Daggers I：双目标共享骰、逐名伤害；无额外效果行", () => {
   const card = skill(175);
   expect(card.effect_lines).toEqual([]);
-  expect(card.verified_status_effects).toBeUndefined();
+  expect(card.rules?.statuses).toBeUndefined();
   const seed = Array.from({ length: 300 }, (_, i) => i).find((s) => nextBattleRoll(s, 0) === 5)!;
   const common = { wounds: 0, guard: false, dead: false, bleed: [], blight: [], statusStacks: [] };
   const game = createBattleState(seed, {

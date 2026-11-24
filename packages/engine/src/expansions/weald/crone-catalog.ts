@@ -74,7 +74,6 @@ export function buildWealdCroneCatalog(): DungeonBattleCatalog["monsters"][numbe
       ],
       lines: [stats, ...effect_lines],
       effect_lines,
-      verified_monster_effects: plan,
       rules: { effects: plan },
     };
   };

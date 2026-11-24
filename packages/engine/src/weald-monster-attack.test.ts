@@ -97,7 +97,7 @@ describe("Weald R-230 已确认技能的独立结算", () => {
     expect(smack.status).toBe("ready");
     if (smack.status === "ready") {
       expect(readPrintedTargets(smack.view)).toEqual({ kind: "exact", max: 2 });
-      expect(smack.view.verified_status_effects).toContainEqual(
+      expect(smack.view.rules?.statuses).toContainEqual(
         expect.objectContaining({ kind: "stun", duration: 1 }),
       );
     }
@@ -106,9 +106,7 @@ describe("Weald R-230 已确认技能的独立结算", () => {
     if (rush.status === "ready") expect(rush.view.targetDisease).toBe(true);
     const prey = readMonsterAttackView(card(A), 1);
     if (prey.status !== "ready") throw new Error(prey.reason);
-    expect(
-      prey.view.verified_status_effects?.map((effect) => [effect.kind, effect.duration]),
-    ).toEqual([
+    expect(prey.view.rules?.statuses?.map((effect) => [effect.kind, effect.duration])).toEqual([
       ["mark", 2],
       ["debuff", 2],
     ]);
@@ -118,7 +116,7 @@ describe("Weald R-230 已确认技能的独立结算", () => {
     ]) {
       const attack = readMonsterAttackView(card(A), slot!);
       if (attack.status !== "ready") throw new Error(attack.reason);
-      expect(attack.view.verified_status_effects).toContainEqual(
+      expect(attack.view.rules?.statuses).toContainEqual(
         expect.objectContaining({ kind: "blight", amount, duration }),
       );
       if (slot === 2) expect(attack.view.targetDisease).toBe(true);
@@ -173,7 +171,7 @@ describe("Weald R-230 已确认技能的独立结算", () => {
     }
     const profusion = readMonsterAttackView(card(E), 3);
     if (profusion.status !== "ready") throw new Error(profusion.reason);
-    expect(profusion.view.verified_target_stress).toEqual(expect.objectContaining({ amount: 1 }));
+    expect(profusion.view.rules?.target?.stress).toEqual(expect.objectContaining({ amount: 1 }));
     expect(resolveMonsterSkill(card(E), 2, combat(1), 9)).toMatchObject({
       status: "resolved",
       resolution: { damageDealt: 1 },
@@ -189,7 +187,6 @@ describe("Weald R-230 已确认技能的独立结算", () => {
         const attack = { ...skill.rules!.wealdAttack!, targets: 1 };
         return {
           ...skill,
-          verified_weald_attack: attack,
           rules: { ...skill.rules, wealdAttack: attack },
         };
       }),

@@ -88,7 +88,7 @@ const play = { type: "playHeroSkill", actorId: "c", targetId: "h0", skillId: cry
 describe("Inspiring Cry I（印刷 p19、规则书 R19–21、R-025 / R-048）", () => {
   it("独立注解保留原始 null；数据漂移不得生成注解", () => {
     expect(cry.unlabeled_numbers.find((n) => n.text === "+1")?.numeric).toBeNull();
-    expect(cry.verified_target_support).toEqual({
+    expect(cry.rules?.target?.support).toEqual({
       lineIndex: 1,
       heal: 1,
       stress: -1,
@@ -152,7 +152,6 @@ describe("Inspiring Cry I（印刷 p19、规则书 R19–21、R-025 / R-048）",
         ...cry.rules,
         target: { ...cry.rules!.target!, support: { ...cry.rules!.target!.support!, light: 2 } },
       },
-      verified_target_support: { ...cry.verified_target_support!, light: 2 },
     };
     expect(resolveHeroSkill(forged, context, 1).status).toBe("refused");
   });

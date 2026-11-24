@@ -117,7 +117,7 @@ describe("R-263 高等级 Weald 独立目录与组池", () => {
     for (const [card, slot, effects] of cases) {
       const attack = readMonsterAttackView(card, slot);
       if (attack.status !== "ready") throw new Error(attack.reason);
-      expect(attack.view.verified_status_effects).toEqual(
+      expect(attack.view.rules?.statuses).toEqual(
         effects.map((effect) => expect.objectContaining(effect)),
       );
     }

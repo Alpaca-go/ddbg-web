@@ -212,7 +212,7 @@ export function readVerifiedStatusEffects(
       )
         return {
           status: "refused",
-          reason: "状态同行剩余治疗与 verified_self_heal 不符（R-048）",
+          reason: "状态同行剩余治疗与 rules.self.heal 不符（R-048）",
         };
     } else if (rest !== "")
       return { status: "refused", reason: "状态同行尚未完整支持，整次拒绝（R-048）" };

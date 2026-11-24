@@ -272,7 +272,6 @@ describe("Holy Lance I 完整效果（SKILLS_FRONT p16、R20–21、R-017 / R-02
           {
             ...lance,
             rules: { ...lance.rules, damage: { ...lance.rules!.damage!, amount } },
-            verified_damage_bonus: { ...lance.verified_damage_bonus!, amount },
           },
           { ...combat, target: { ...combat.target, monsterTypeTags: ["Unholy"] } },
           2,

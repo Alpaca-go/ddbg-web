@@ -79,8 +79,10 @@ export function playNaturalBattle(
       bestGain = 0;
     for (const skillId of actor.skillIds) {
       const skill = b.skills?.find((entry) => entry.id === skillId);
-      if (!skill?.verified_target_heal && !skill?.verified_self_heal) continue;
-      const selfOnly = !!skill.verified_self_heal && !skill.verified_target_heal;
+      const targetHeal = skill?.rules?.target?.heal;
+      const selfHeal = skill?.rules?.self?.heal;
+      if (!targetHeal && !selfHeal) continue;
+      const selfOnly = !!selfHeal && !targetHeal;
       const targetId = selfOnly ? actor.id : target.id;
       for (const face of ["front", "back"] as const) {
         const command: PlayHeroSkillCommand = {

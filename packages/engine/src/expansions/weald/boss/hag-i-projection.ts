@@ -129,11 +129,7 @@ export function projectHagCombatFaces(
         ],
         lines: [stats, ...effectLines],
         effect_lines: effectLines,
-        ...(intoPot
-          ? { hagIntoPot: true }
-          : plan
-            ? { verified_monster_effects: plan, rules: { effects: plan } }
-            : {}),
+        ...(intoPot ? { hagIntoPot: true } : plan ? { rules: { effects: plan } } : {}),
       };
     }),
   }));

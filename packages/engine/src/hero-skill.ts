@@ -294,7 +294,7 @@ type StatusAnnotation = StatusEffect & {
   readonly scope: "self" | "target";
 };
 
-/** R1 起规则输入的唯一定义；`rulesOf(card)` 读取，未迁移的卡仍回退旧 `verified_*`。 */
+/** R1 起规则输入的唯一定义；`rulesOf(card)` 读取。 */
 export type SkillRules = {
   readonly statuses?: readonly StatusAnnotation[];
   readonly damage?: DamageBonusAnnotation;
@@ -346,14 +346,7 @@ export function rulesOf(card: { readonly rules?: SkillRules }): SkillRules {
 /** 规范化英雄技能里这一层会读的字段。多出来的字段可以留在对象上。 */
 export type HeroSkillCardView = {
   readonly rules?: SkillRules;
-  readonly verified_self_range?: true;
   readonly requiredForm?: SkillForm;
-  readonly verified_allies_stress?: number;
-  readonly verified_self_stress?: {
-    readonly lineIndex: number;
-    readonly amount: number;
-    readonly source: "print_front";
-  };
   readonly targetDisease?: true;
   readonly id: string;
   readonly hero: string | null;
@@ -372,78 +365,7 @@ export type HeroSkillCardView = {
         };
   }[];
   readonly stats_line: readonly SkillSegment[] | null;
-  readonly verified_range?: {
-    readonly min: number;
-    readonly max: number;
-    readonly source: "print_front";
-  };
   readonly effect_lines: readonly (readonly SkillSegment[])[];
-  readonly verified_self_heal?: {
-    readonly lineIndex: number;
-    readonly amount: number;
-    readonly source: "print_front";
-  };
-  readonly verified_target_stress?: {
-    readonly lineIndex: number;
-    readonly amount: number;
-    readonly source: "print_front";
-  };
-  readonly verified_target_support?: {
-    readonly lineIndex: number;
-    readonly heal: number;
-    readonly stress: number;
-    readonly light: number;
-    readonly source: "print_front";
-  };
-  readonly verified_target_heal?: {
-    readonly lineIndex: number;
-    readonly amount: number;
-    readonly source: "print_front";
-  };
-  readonly verified_effect_line_receipts?: readonly {
-    readonly lineIndex: number;
-    readonly signature: string;
-    readonly source: "print_front";
-  }[];
-  readonly verified_target_header?: {
-    readonly lineIndex: 0;
-    readonly source: "print_front";
-  };
-  readonly verified_damage_bonus?: {
-    readonly lineIndex: number;
-    readonly amount: number;
-    readonly condition: "marked" | "unholy" | "stunned" | "human" | "blighted" | "eldritch";
-    readonly source: "print_front";
-  };
-  readonly verified_damage_bonuses?: readonly NonNullable<
-    HeroSkillCardView["verified_damage_bonus"]
-  >[];
-  /** Q-172 Punish：使用者自身有流血或腐蚀时额外伤害（卡面同行 +N）。 */
-  readonly verified_actor_damage_bonus?: {
-    readonly lineIndex: number;
-    readonly amount: number;
-    readonly source: "print_front";
-  };
-  /** Q-173 Suffer：将目标队友的流血/腐蚀堆转移到使用者。 */
-  readonly verified_bleed_blight_transfer?: {
-    readonly lineIndex: number;
-    readonly signature: string;
-    readonly source: "print_front";
-  };
-  readonly verified_status_effects?: readonly (StatusEffect & {
-    readonly scopeLineIndex?: number;
-    readonly lineIndex: number;
-    readonly segmentIndex: number;
-    readonly scope: "self" | "target";
-  })[];
-  readonly verified_rallying_flare?: {
-    readonly cleanupLineIndex: 0;
-    readonly cleanupSignature: string;
-    readonly monsterDebuffLineIndex: 1;
-    readonly monsterDebuffSignature: string;
-    readonly debuffDuration: number;
-    readonly source: "print_front";
-  };
   /**
    * 技能卡顶行。点亮的姿态图标表示能从那个姿态使用（规则书第 19 页）。
    * 不传就无法在调用方给出当前姿态时核对。
@@ -2143,7 +2065,7 @@ type PrintedRange =
  * 原 numeric=null 不改；无注解区间、图标内数字、Self / All Allies 都不补距离。
  */
 export function readPrintedRange(
-  skill: Pick<HeroSkillCardView, "unlabeled_numbers" | "verified_range" | "rules">,
+  skill: Pick<HeroSkillCardView, "unlabeled_numbers" | "rules">,
 ): PrintedRange {
   const annotatedRange = rulesOf(skill).range;
   if (annotatedRange) {

@@ -44,18 +44,11 @@ function rulesWithoutCompiledEffects(rules: SkillRules | undefined): SkillRules 
 
 export type MonsterSkillView = Pick<
   HeroSkillCardView,
-  | "printed_labels"
-  | "unlabeled_numbers"
-  | "effect_lines"
-  | "verified_target_stress"
-  | "verified_range"
-  | "verified_damage_bonus"
+  "printed_labels" | "unlabeled_numbers" | "effect_lines"
 > & {
   readonly slot: number;
   readonly name?: string;
-  readonly verified_monster_effects?: MonsterEffectPlan;
-  readonly verified_weald_attack?: WealdMonsterAttack;
-  /** R1 起的规则命名空间；读取方优先用 rules。 */
+  /** 规则命名空间；effect plan / Weald 攻击都放在 rules 下。 */
   readonly rules?: SkillRules & {
     readonly effects?: MonsterEffectPlan;
     readonly wealdAttack?: WealdMonsterAttack;
@@ -134,10 +127,7 @@ export function needsMonsterSkillShuffleChoice(monster: MonsterCardView, slot: n
   const skill = monster.skills.find((entry) => entry.slot === slot);
   const wealdAttack = skill?.rules?.wealdAttack;
   if (wealdAttack) {
-    const attack = readWealdMonsterAttack(monster, {
-      ...skill!,
-      verified_weald_attack: wealdAttack,
-    });
+    const attack = readWealdMonsterAttack(monster, skill!);
     return attack.status === "ready" && needsHeroSkillShuffleChoice(attack.view);
   }
   return (
@@ -188,8 +178,7 @@ export function readMonsterAttackView(
       reason: "Call the Murder：Nest 在场的飞行与治疗细则待裁定（R-261／Q-186）",
     };
   if (skill.hagIntoPot) return readHagIIntoPotAttack(monster, skill);
-  if (wealdAttack !== undefined)
-    return readWealdMonsterAttack(monster, { ...skill, verified_weald_attack: wealdAttack });
+  if (wealdAttack !== undefined) return readWealdMonsterAttack(monster, skill);
   const excluded = new Set<number>();
   for (const effectLine of skill.effect_lines) {
     const key = lineKey(effectLine);
@@ -290,12 +279,9 @@ function resolveMonsterSkillInternal(
   // 完整计划已由readMonsterAttackView校验；R-084先只结算攻击/暴击压力。
   let view = attack.view;
   if (ordered) {
-    const { verified_target_stress: _stress, ...base } = view;
-    void _stress;
     view = {
-      ...base,
+      ...view,
       effect_lines: [],
-      verified_status_effects: [],
       rules: rulesWithoutCompiledEffects(view.rules),
     };
   }
@@ -310,21 +296,11 @@ function resolveMonsterSkillInternal(
   const bossAccOnlyEffectHold =
     bossAccOnlyCardIds.has(monster.id) && skillSlot >= 1 && skillSlot <= 3 && !skillPlan;
   if (bossAccOnlyEffectHold) {
-    const {
-      verified_target_stress: _stress,
-      verified_status_effects: _status,
-      targetDisease: _disease,
-      verified_damage_bonus: _bonus,
-      ...base
-    } = view;
-    void _stress;
-    void _status;
+    const { targetDisease: _disease, ...base } = view;
     void _disease;
-    void _bonus;
     view = {
       ...base,
       effect_lines: [],
-      verified_status_effects: [],
       rules: rulesWithoutCompiledEffects(view.rules),
     };
   }

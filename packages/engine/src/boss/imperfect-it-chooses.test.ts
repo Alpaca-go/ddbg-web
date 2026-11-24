@@ -55,7 +55,6 @@ it("计划持续时间漂移拒绝", () => {
         skills: [
           {
             ...skill,
-            verified_monster_effects: changed,
             rules: { ...skill.rules, effects: changed },
           },
         ],

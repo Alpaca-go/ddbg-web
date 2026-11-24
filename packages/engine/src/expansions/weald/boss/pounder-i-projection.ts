@@ -55,9 +55,7 @@ export function projectPounderCombatFaces(faces: readonly PounderPrintedFace[]):
       slot: skill.slot,
       name: skill.name,
       target: pounder ? "Crowded" : "Pounder",
-      ...(pounder && range && plan
-        ? { verified_range: range, verified_monster_effects: plan, rules: { range, effects: plan } }
-        : {}),
+      ...(pounder && range && plan ? { rules: { range, effects: plan } } : {}),
       printed_labels: pounder
         ? [
             { label: "Crit", value: cannon.crit },

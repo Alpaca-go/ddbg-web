@@ -61,27 +61,34 @@ export const preHeroStatReviewTaskSources: CoreQuestSources = {
   catalog: {
     ...taskSources.catalog,
     heroStats: taskSources.catalog.heroStats.map((stat) => {
-      if (stat.verified_higher_condition_defence?.approval !== "kyries_review_2026-11-10")
-        return stat;
-      const { verified_higher_condition_defence: reviewed, ...old } = stat;
+      if (stat.rules?.higherConditionDefence?.approval !== "kyries_review_2026-11-10") return stat;
+      const { higherConditionDefence: reviewed, ...rulesRest } = stat.rules ?? {};
+      const old = { ...stat, rules: rulesRest };
       if (stat.id === "hero_stat:warrens:h14:p028:front")
         return {
           ...old,
-          verified_condition_defence: {
-            resistances: ["stun"],
-            immunities: [],
-            source: "print_front",
-            approval: "kyries_review_2026-10-24",
+          rules: {
+            ...rulesRest,
+            conditionDefence: {
+              resistances: ["stun"],
+              immunities: [],
+              source: "print_front",
+              approval: "kyries_review_2026-10-24",
+            },
           },
         };
       if (stat.id === "hero_stat:warrens:h15:p031:front")
         return {
           ...old,
           speed: 0,
-          verified_higher_condition_defence: {
-            ...reviewed,
-            resistances: ["blight"],
-            approval: "kyries_review_2026-11-08",
+          rules: {
+            ...rulesRest,
+            higherConditionDefence: {
+              resistances: ["blight"],
+              immunities: reviewed?.immunities ?? [],
+              source: reviewed?.source ?? "print_front",
+              approval: "kyries_review_2026-11-08",
+            },
           },
         };
       if (stat.name === "ANTIQUARIAN" || stat.name === "FLAGELLANT") return { ...old, speed: 0 };

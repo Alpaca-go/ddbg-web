@@ -149,7 +149,6 @@ function buildCatalog(
           ...lines,
         ],
         effect_lines: lines,
-        verified_monster_effects: plan,
         rules: { effects: plan },
         ...(skill.slot === 2 && context.nestInPlay && !context.nestFlightApproved
           ? { shriekerNestFlight: true as const }

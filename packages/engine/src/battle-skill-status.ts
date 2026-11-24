@@ -29,10 +29,7 @@ export function readHeroPassiveDefence(
   const hero = battle.heroStats?.find((h) => h.id === entity.heroStatId);
   const higherAnn = hero?.rules?.higherConditionDefence;
   if (hero && (higherAnn || hero.level !== 1)) {
-    const higher = readHigherHeroDefence({
-      ...hero,
-      verified_higher_condition_defence: higherAnn,
-    });
+    const higher = readHigherHeroDefence(hero);
     if (!higher) return undefined;
     const persistent = (kinds: readonly string[]) =>
       STATUS_KINDS.filter((kind) => kinds.includes(kind));

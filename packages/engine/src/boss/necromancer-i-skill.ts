@@ -54,7 +54,6 @@ export function readNecromancerISkillEffects(view: HeroSkillCardView): HeroSkill
     return {
       ...view,
       effect_lines: [self, [line[target]!, ...stress]],
-      verified_target_stress: { lineIndex: 1, amount: 2, source: "print_front" },
       rules: {
         ...view.rules,
         target: {

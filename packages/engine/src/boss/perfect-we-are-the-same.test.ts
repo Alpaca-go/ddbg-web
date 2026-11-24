@@ -64,7 +64,6 @@ it("效果数值或签名漂移拒绝，Perfect Reflection 不外推", () => {
           skills: [
             {
               ...skill,
-              verified_monster_effects: changed,
               rules: { ...skill.rules, effects: changed },
             },
           ],

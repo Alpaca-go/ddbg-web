@@ -28,7 +28,6 @@ export type ResolveCard = {
   readonly role: "virtue" | "affliction";
   readonly verification: { readonly unverified: boolean };
   readonly name?: string;
-  readonly verified_turn_start?: TurnStartTrigger;
   readonly rules?: { readonly turnStart?: TurnStartTrigger };
 };
 

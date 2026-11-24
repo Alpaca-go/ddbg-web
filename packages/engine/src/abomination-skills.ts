@@ -184,15 +184,6 @@ export function projectAbominationSkill(
           }),
         }
       : {}),
-    ...(faceRow.statuses ? { verified_status_effects: faceRow.statuses } : {}),
-    ...(faceRow.selfStress
-      ? { verified_self_stress: { ...faceRow.selfStress, source: "print_front" as const } }
-      : {}),
-    ...(faceRow.selfHeal
-      ? { verified_self_heal: { ...faceRow.selfHeal, source: "print_front" as const } }
-      : {}),
-    ...(faceRow.selfRange ? { verified_self_range: true as const } : {}),
-    ...(faceRow.alliesStress !== undefined ? { verified_allies_stress: faceRow.alliesStress } : {}),
     ...(faceRow.requiredForm ? { requiredForm: faceRow.requiredForm } : {}),
   };
 }

@@ -96,7 +96,6 @@ export function buildWealdMonsterCatalog(
           unlabeled_numbers: skill.unlabeled_numbers,
           lines: skill.lines,
           effect_lines: skill.effect_lines,
-          verified_weald_attack: attack,
           rules: { wealdAttack: attack },
         };
       },
