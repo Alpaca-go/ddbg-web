@@ -149,9 +149,7 @@ export function projectHeroStatRules(card: HeroStatRuleSource): HeroStatRules | 
 }
 
 export function projectVirtueRules(card: NormalizedVirtueAfflictionCard): VirtueRules | undefined {
-  const rules: VirtueRules = { ...(card.rules ?? {}) };
-  if (card.verified_turn_start) rules.turnStart = card.verified_turn_start;
-  return compact(rules);
+  return compact(card.rules ?? {});
 }
 
 /**

@@ -616,7 +616,6 @@ export const normalizedVirtueAfflictionCardSchema = z
     back_has_data: z.literal(false),
     lines: lineListSchema,
     icons: z.array(normalizedIconSchema),
-    verified_turn_start: verifiedResolveTriggerSchema.optional(),
     /** 规则语义（新命名空间）：只放引擎要执行的解释，不放印刷原文。 */
     rules: virtueRulesSchema.optional(),
     verification: verificationSchema,

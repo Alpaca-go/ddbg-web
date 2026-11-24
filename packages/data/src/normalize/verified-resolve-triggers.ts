@@ -1,7 +1,7 @@
 import { normalizedVirtueAfflictionCardSchema } from "./schema";
 import type { NormalizedVirtueAfflictionCard } from "./schema";
 
-type Trigger = NonNullable<NormalizedVirtueAfflictionCard["verified_turn_start"]>;
+type Trigger = NonNullable<NonNullable<NormalizedVirtueAfflictionCard["rules"]>["turnStart"]>;
 type Entry = {
   id: string;
   name: string;
@@ -141,7 +141,10 @@ export function attachVerifiedResolveTriggers(
   return cards.map((card) => {
     const trigger = byId.get(card.id);
     return trigger
-      ? normalizedVirtueAfflictionCardSchema.parse({ ...card, verified_turn_start: trigger })
+      ? normalizedVirtueAfflictionCardSchema.parse({
+          ...card,
+          rules: { ...card.rules, turnStart: trigger },
+        })
       : card;
   });
 }
