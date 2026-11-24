@@ -3,8 +3,8 @@ import { createCoreDungeonQuest, type CoreQuestSources } from "../dungeon-quest-
 import type { Command, GameState } from "../command";
 import { naturalParty, naturalQuest, CURRENT_WEALD_ROOM_VERSIONS } from "./natural-quest";
 import { disinfectionSources } from "./disinfection-quest";
-import { livingNecroticFungus } from "../expansions/weald/necrotic-fungus";
-import { destroyedNecroticFungusCount } from "../expansions/weald/fungal-research-quest";
+import { livingNecroticFungus } from "../weald/necrotic-fungus";
+import { destroyedNecroticFungusCount } from "../weald/fungal-research-quest";
 
 /** R-246/R-252：seed 1，保留真菌取得三目标；只执行公开命令。 */
 export function fungalResearchThreeObjectives(

@@ -5,8 +5,8 @@ import type { DungeonState } from "./dungeon";
 import { RUINS_COMBAT_LEVELS } from "./boss/ruins-combat-levels";
 import { RUINS_BOSS_IDENTITIES } from "./boss/threat-description-catalog";
 import { countCompletedRegularQuestsAtCampaignLevel } from "./boss/face-the-threat-embark-runtime";
-import { WEALD_HIGHER_BOSS_ENTRIES } from "./expansions/weald/boss/higher-boss-entries";
-import { WEALD_BOSS_IDENTITIES, type WealdBossIdentity } from "./expansions/weald/catalog";
+import { WEALD_HIGHER_BOSS_ENTRIES } from "./weald/bosses/higher-boss-entries";
+import { WEALD_BOSS_IDENTITIES, type WealdBossIdentity } from "./weald/catalog";
 import {
   allDefeatedBossIdentityKeys,
   bossActEntryFromCeasedScript,

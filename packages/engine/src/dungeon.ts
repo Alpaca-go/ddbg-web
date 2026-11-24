@@ -215,7 +215,7 @@ export type DungeonState = {
   }[];
   /** W3：本趟 p019 的地点，威胁清除后仍供回村守恒读取。 */
   readonly bossExpeditionRegion?: "weald";
-  readonly defeatedWealdBossIdentities?: readonly import("./expansions/weald/catalog").WealdBossIdentity[];
+  readonly defeatedWealdBossIdentities?: readonly import("./weald/catalog").WealdBossIdentity[];
   /** 本战役已击败的 Ruins Boss（升幕抽下一张威胁时排除，spec §2.2）。 */
   readonly defeatedRuinsBossIdentities?: readonly import("./boss/threat-description-catalog").RuinsBossIdentity[];
   /** 准备结束后抽到的下一任务候选项，选定后清除。 */
@@ -239,7 +239,7 @@ export type DungeonState = {
   /** 当前开局已取消的常规骰id；Wild/Radiant待选完成后清除。 */
   readonly startingProvisionOmittedIds?: readonly string[];
   readonly shriekerBossBattles?: true;
-  readonly shriekerTheft?: import("./expansions/weald/boss/shrieker-i-provisions").ShriekerTheft;
+  readonly shriekerTheft?: import("./weald/bosses/shrieker-i-provisions").ShriekerTheft;
   /** Traveling Merchants 进行中：尚未改骰的英雄顺序。 */
   readonly provisionFaceChoiceRemaining?: readonly string[];
   /** Warm Up the Halls（quest:p011）：开局补给掷完后每名英雄可改一颗为 Torch。 */

@@ -15,7 +15,7 @@ import {
   monsterStatusResistances,
   type MonsterDefenceCard,
 } from "../monster-defence";
-import { ensureCampaignBossScriptsRegistered } from "../expansions/register";
+import { ensureCampaignBossScriptsRegistered } from "../registry";
 import { getBossScript } from "./registry";
 import {
   activeBossThreatMatchesDungeonLocation,

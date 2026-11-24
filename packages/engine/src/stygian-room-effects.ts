@@ -10,7 +10,7 @@ import { readCampaignLevel } from "./hamlet-campaign";
 import { applyBattleSkillStatuses } from "./battle-skill-status";
 import { fixedDamageResolution } from "./battle-spiked-pit";
 import { removeAncestorConditions } from "./battle-ancestor";
-import { readActiveWealdStygianRoom } from "./weald-stygian-room-effects";
+import { readActiveWealdStygianRoom } from "./weald/rooms/stygian-room-effects";
 
 const reviewedRooms = stygianRoomsSchema.parse(rawStygianRooms).cards;
 

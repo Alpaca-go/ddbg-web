@@ -4,24 +4,24 @@ import {
   withInventoryOverflow,
   finishInventoryOverflowTurn,
 } from "./inventory-overflow";
-import { igniteWealdOak, chooseWealdOakRefill } from "./expansions/weald/burning-oak";
+import { igniteWealdOak, chooseWealdOakRefill } from "./weald/burning-oak";
 import {
   beginShriekerDungeonTheft,
   chooseShriekerTheft,
-} from "./expansions/weald/boss/shrieker-i-provisions";
-import { deployShriekerI, deployShriekerHigher } from "./expansions/weald/boss/shrieker-i-deploy";
+} from "./weald/bosses/shrieker-i-provisions";
+import { deployShriekerI, deployShriekerHigher } from "./weald/bosses/shrieker-i-deploy";
 import { withAbyssalPuff } from "./battle-abyssal-puff";
-import { applyWhisperingWoodsRoundStart } from "./expansions/weald/whispering-woods";
-import { applyFinalSwipeSpawn } from "./expansions/weald/higher-task-effects";
-import { deployPounderI, deployPounderHigher } from "./expansions/weald/boss/pounder-i-deploy";
-import { deployHagI, deployHagHigher } from "./expansions/weald/boss/hag-i-deploy";
-import { applyPounderIHamletThreat } from "./expansions/weald/boss/pounder-i-hamlet-threat";
+import { applyWhisperingWoodsRoundStart } from "./weald/whispering-woods";
+import { applyFinalSwipeSpawn } from "./weald/higher-task-effects";
+import { deployPounderI, deployPounderHigher } from "./weald/bosses/pounder-i-deploy";
+import { deployHagI, deployHagHigher } from "./weald/bosses/hag-i-deploy";
+import { applyPounderIHamletThreat } from "./weald/bosses/pounder-i-hamlet-threat";
 import {
   applyPounderIRangedEntry,
   pounderDungeonThreatActive,
-} from "./expansions/weald/boss/pounder-i-dungeon-threat";
+} from "./weald/bosses/pounder-i-dungeon-threat";
 import { bossEnabledForPacks } from "../../data/src/content-packs";
-import { chooseHagIRelease } from "./expansions/weald/boss/hag-i-release";
+import { chooseHagIRelease } from "./weald/bosses/hag-i-release";
 import type { MonsterSupportResolvedEvent } from "./battle-monster-support";
 import { stagecoachHoldingsProblem } from "./stagecoach-holdings";
 import { continuePoolRebirth, choosePoolRebirth } from "./pool-rebirth-flow";
@@ -131,12 +131,12 @@ import { chooseNecromancerISummon } from "./boss/necromancer-i-combat-runtime";
 import {
   applyPounderIReinforcements,
   choosePounderIReinforcements,
-} from "./expansions/weald/boss/pounder-i-reinforcements";
+} from "./weald/bosses/pounder-i-reinforcements";
 import {
   applyPounderIFireInTheHole,
   settlePounderIFireContext,
-} from "./expansions/weald/boss/pounder-i-fire";
-import { chooseWealdMonsterSummon } from "./expansions/weald/monster-summon";
+} from "./weald/bosses/pounder-i-fire";
+import { chooseWealdMonsterSummon } from "./weald/monster-summon";
 import { chooseCollectorISummon } from "./boss/collector-i-combat-runtime";
 import {
   applyShufflingHorrorEchoingDisassembly,

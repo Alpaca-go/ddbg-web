@@ -1,7 +1,7 @@
 import type { QuestStart } from "../../../data/src/quest-save";
 import { applyCommand, type Command, type GameState } from "../command";
 import { createCoreDungeonQuest } from "../dungeon-quest-entry";
-import { livingNecroticFungus } from "../expansions/weald/necrotic-fungus";
+import { livingNecroticFungus } from "../weald/necrotic-fungus";
 import { naturalParty, naturalQuest } from "./natural-quest";
 import { disinfectionSources as sources } from "./disinfection-quest";
 

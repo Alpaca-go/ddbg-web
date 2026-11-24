@@ -3,7 +3,7 @@ import type { Command, GameState } from "../command";
 import { createCoreDungeonQuest, type CoreQuestSources } from "../dungeon-quest-entry";
 import { disinfectionSources } from "./disinfection-quest";
 import { naturalParty, naturalQuest, CURRENT_WEALD_ROOM_VERSIONS } from "./natural-quest";
-import { WEALD_CRONE_EXCEPTION_INSTANCE_ID } from "../expansions/weald/circle-of-witches-spawn";
+import { WEALD_CRONE_EXCEPTION_INSTANCE_ID } from "../weald/circle-of-witches-spawn";
 
 /** R-244/R-247：固定 seed 2，按公开命令完成一／三目标，不注入房间或伤害。 */
 export function circleOfWitchesJourney(

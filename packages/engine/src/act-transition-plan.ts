@@ -8,10 +8,10 @@ import {
   imminentThreatPoolForCampaign,
   type RuinsBossIdentity,
 } from "./boss/threat-description-catalog";
-import { wealdThreatPool } from "./expansions/weald/boss/threat-pool";
-import { WEALD_BOSS_IDENTITIES, type WealdBossIdentity } from "./expansions/weald/catalog";
+import { wealdThreatPool } from "./weald/bosses/threat-pool";
+import { WEALD_BOSS_IDENTITIES, type WealdBossIdentity } from "./weald/catalog";
 import { questIdsForLocationDeck } from "./hamlet-location-quest-draw";
-import { buildWealdHigherMonsterPool } from "./expansions/weald/higher-monster-pool";
+import { buildWealdHigherMonsterPool } from "./weald/higher-monster-pool";
 
 const monsters = monsterPoolFileSchema.parse(monsterSource).cards;
 const trinkets = normalizedTrinketFileSchema.parse(trinketSource).cards;

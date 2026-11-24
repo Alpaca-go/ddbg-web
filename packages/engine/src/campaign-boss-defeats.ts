@@ -3,8 +3,8 @@ import { RUINS_COMBAT_LEVELS } from "./boss/ruins-combat-levels";
 import type { RuinsBossIdentity } from "./boss/threat-description-catalog";
 import { RUINS_BOSS_IDENTITIES } from "./boss/threat-description-catalog";
 import type { DungeonState } from "./dungeon";
-import { wealdBossActEntry } from "./expansions/weald/boss/weald-boss-act-entry";
-import { WEALD_BOSS_IDENTITIES, type WealdBossIdentity } from "./expansions/weald/catalog";
+import { wealdBossActEntry } from "./weald/bosses/weald-boss-act-entry";
+import { WEALD_BOSS_IDENTITIES, type WealdBossIdentity } from "./weald/catalog";
 export type BossActCombatEntry = {
   readonly script: string;
   readonly description: string;

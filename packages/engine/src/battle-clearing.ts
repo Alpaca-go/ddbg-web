@@ -2,9 +2,9 @@ import type { ApplyResult, GameEvent, GameState } from "./command";
 import { rejectBattleCommand } from "./battle";
 import { createLootState } from "./loot";
 import { createRng } from "./rng";
-import { isLivingCombatMonster } from "./expansions/weald/necrotic-fungus";
-import { wealdMechanicsActive } from "./expansions/weald/weald-mechanics";
-import { wealdOrdinaryRoomEffectActive } from "./weald-stygian-room-effects";
+import { isLivingCombatMonster } from "./weald/necrotic-fungus";
+import { wealdMechanicsActive } from "./weald/weald-mechanics";
+import { wealdOrdinaryRoomEffectActive } from "./weald/rooms/stygian-room-effects";
 
 /** R-234／R-238：B 区英雄压力恢复，复用共用结束回合原语。 */
 export function enableClearingHeroes(state: GameState): GameState {

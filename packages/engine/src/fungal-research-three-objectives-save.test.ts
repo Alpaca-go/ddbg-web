@@ -4,7 +4,7 @@ import { disinfectionSources as sources } from "./test-helpers/disinfection-ques
 import { createQuestSave, loadQuestSave } from "./quest-save";
 import { applyCommand } from "./command";
 import { prepareObjectiveRoomBattle } from "./dungeon-objective";
-import { livingNecroticFungus } from "./expansions/weald/necrotic-fungus";
+import { livingNecroticFungus } from "./weald/necrotic-fungus";
 
 it("R-246/R-252：三目标旁置牌 secured 后不再抽，带回 4 封顶 3 XP 并严格回放", () => {
   const { start, run, points, clearedBattles } = fungalResearchThreeObjectives();

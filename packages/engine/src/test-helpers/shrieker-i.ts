@@ -2,8 +2,8 @@ import { createCoreDungeonQuest } from "../dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "./core-quest";
 import { nextExpeditionLocationDecks } from "../hamlet-location-embark";
 import { applyCommand, type Command, type GameState } from "../command";
-import { ensureShriekerIBossScriptRegistered } from "../expansions/weald/boss/shrieker-i";
-import { SHRIEKER_I_DEPLOYMENT_ENTRY } from "../expansions/weald/boss/shrieker-i-content";
+import { ensureShriekerIBossScriptRegistered } from "../weald/bosses/shrieker-i";
+import { SHRIEKER_I_DEPLOYMENT_ENTRY } from "../weald/bosses/shrieker-i-content";
 
 /** 受控部署夹具，不是自然抵达或战役日志。 */
 export function shriekerMechanismFixture() {

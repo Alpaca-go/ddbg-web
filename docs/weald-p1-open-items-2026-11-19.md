@@ -33,7 +33,7 @@ Q-186 主体（卡面、12 面几何、真菌位置、任务／奇物／房间�
 
 ## U4 Act II 停点探测（5 seed，仅第一趟 II 级任务）
 
-方法：从 `wealdFaceTheThreatNaturalCrossActJourney` 的 II 幕出征末态继续，用现有 Weald 自然驱动（含 `useCombatProvisions`）跑第一趟 II 级任务；不访问公会，不调策略。基线已入库为 [weald-act-two-probe.test.ts](../packages/engine/src/weald-act-two-probe.test.ts)（快照，非验收，V1 会替换）。记录如下（**探测记录，不是验收**）：
+方法：从 `wealdFaceTheThreatNaturalCrossActJourney` 的 II 幕出征末态继续，用现有 Weald 自然驱动（含 `useCombatProvisions`）跑第一趟 II 级任务；不访问公会，不调策略。基线已入库为 [weald-act-two-probe.test.ts](../packages/engine/tests/weald/weald-act-two-probe.test.ts)（快照，非验收，V1 会替换）。记录如下（**探测记录，不是验收**）：
 
 | seed | 模式     | II 级任务          | 结果                                               |
 | ---- | -------- | ------------------ | -------------------------------------------------- |

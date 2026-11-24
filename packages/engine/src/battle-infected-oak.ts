@@ -1,15 +1,15 @@
 import { rejectBattleCommand } from "./battle";
 import type { ApplyResult, GameEvent, GameState } from "./command";
-import { isLivingCombatMonster } from "./expansions/weald/necrotic-fungus";
+import { isLivingCombatMonster } from "./weald/necrotic-fungus";
 import {
   DISINFECTION_QUEST_ID,
   INFECTION_OAK_ROOM_CARD_ID,
   isDisinfectionQuest,
-} from "./expansions/weald/disinfection-quest";
+} from "./weald/disinfection-quest";
 import { fixedDamageResolution } from "./battle-spiked-pit";
 import { applyBattleSkillStatuses } from "./battle-skill-status";
 import { endAfterCasualties, finishTurn, newlyDefeatedIds, removeCasualties } from "./encounter";
-import { wealdStygianEffect } from "./weald-stygian-room-effects";
+import { wealdStygianEffect } from "./weald/rooms/stygian-room-effects";
 
 function disinfectionBattleContext(state: GameState): string | null {
   const d = state.dungeon;

@@ -2,8 +2,11 @@ import { rejectBattleCommand } from "./battle";
 import type { ApplyResult, GameEvent, GameState } from "./command";
 import { applyBattleSkillStatuses } from "./battle-skill-status";
 import { fixedDamageResolution } from "./battle-spiked-pit";
-import { wealdMechanicsActive } from "./expansions/weald/weald-mechanics";
-import { wealdOrdinaryRoomEffectActive, wealdStygianEffect } from "./weald-stygian-room-effects";
+import { wealdMechanicsActive } from "./weald/weald-mechanics";
+import {
+  wealdOrdinaryRoomEffectActive,
+  wealdStygianEffect,
+} from "./weald/rooms/stygian-room-effects";
 
 function stashActive(state: GameState): boolean {
   return (

@@ -1,4 +1,4 @@
-import { shriekerINestAllowsEntry } from "./expansions/weald/boss/shrieker-i-nest";
+import { shriekerINestAllowsEntry } from "./weald/bosses/shrieker-i-nest";
 import { speedTrinketReaction } from "./trinket-reactions";
 import { rejectBattleCommand } from "./battle";
 import type { ApplyResult, GameState } from "./command";

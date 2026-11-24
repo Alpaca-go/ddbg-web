@@ -3,9 +3,9 @@ import type { ApplyResult, GameEvent, GameState } from "./command";
 import type { HeroSkillResolution } from "./hero-skill";
 import { applyBattleSkillStatuses } from "./battle-skill-status";
 import { fixedDamageResolution } from "./battle-spiked-pit";
-import { WEALD_APPROVED_ROOM_TILES } from "./expansions/weald/room-catalog";
-import { wealdMechanicsActive } from "./expansions/weald/weald-mechanics";
-import { wealdStygianEffect } from "./weald-stygian-room-effects";
+import { WEALD_APPROVED_ROOM_TILES } from "./weald/room-catalog";
+import { wealdMechanicsActive } from "./weald/weald-mechanics";
+import { wealdStygianEffect } from "./weald/rooms/stygian-room-effects";
 
 /** R-234／R-239：房间结算原语；正式攻击由 withToxicMushrooms 按命令版本启用。
  * 输入须为攻击位移前的状态；每次未命中分别影响目标当时所在星区。

@@ -9,9 +9,9 @@ import { applyCommand, type GameState } from "./command";
 import { createBattleState, type BattleEntity } from "./battle";
 import { coreQuestSources } from "./test-helpers/core-quest";
 import type { ResolveCard } from "./pressure";
-import { WEALD_APPROVED_ROOM_TILES } from "./expansions/weald/room-catalog";
-import { wealdRoomTileBattleAreas } from "./expansions/weald/weald-mechanics";
-import { INFECTION_OAK_ROOM_CARD_ID } from "./expansions/weald/disinfection-constants";
+import { WEALD_APPROVED_ROOM_TILES } from "./weald/room-catalog";
+import { wealdRoomTileBattleAreas } from "./weald/weald-mechanics";
+import { INFECTION_OAK_ROOM_CARD_ID } from "./weald/disinfection-constants";
 import distribution from "../../data/normalized/extension/weald/disinfection_distribution.json";
 import {
   disinfectInfectedOak,

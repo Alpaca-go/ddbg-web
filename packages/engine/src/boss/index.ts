@@ -183,7 +183,7 @@ export {
   HAG_I_SCRIPT_ID,
   hagIBossScript,
   hagICauldronBattleStartStance,
-} from "../expansions/weald/boss/hag-i";
+} from "../weald/bosses/hag-i";
 export {
   applyHagICauldronBattleStart,
   applyHagICauldronEmptyToFullMorph,
@@ -195,7 +195,7 @@ export {
   readHagICauldronFullMorphPlan,
   readHagIIntoThePotEnabled,
   readHagIIntoThePotSkillSlot,
-} from "../expansions/weald/boss/hag-i-combat-runtime";
+} from "../weald/bosses/hag-i-combat-runtime";
 export {
   ensureSwinePrinceIBossScriptRegistered,
   SWINE_PRINCE_I_COMBAT_ABILITY_CARD_ID,
@@ -207,7 +207,7 @@ export {
   SWINE_PRINCE_I_WILBUR_MONSTER_CARD_ID,
   swinePrinceIBossScript,
   swinePrinceIWilburBattleStartStance,
-} from "../expansions/warrens/boss/swine-prince-i";
+} from "../warrens/bosses/swine-prince-i";
 export {
   applySwinePrinceIWilburBattleStart,
   applySwinePrinceIEnragedDestruction,
@@ -218,7 +218,7 @@ export {
   readSwinePrinceIWilburMarkEnabled,
   readSwinePrinceIWilburMarkSkillSlot,
   swinePrinceIWilburMarkShouldForceSkill,
-} from "../expansions/warrens/boss/swine-prince-i-combat-runtime";
+} from "../warrens/bosses/swine-prince-i-combat-runtime";
 export {
   ensureSirenIBossScriptRegistered,
   SIREN_I_COMBAT_ABILITY_CARD_ID,
@@ -229,14 +229,14 @@ export {
   SIREN_I_SCRIPT_ID,
   sirenIBossScript,
   sirenIPelagicHighTideStance,
-} from "../expansions/cove/boss/siren-i";
+} from "../cove/bosses/siren-i";
 export {
   applySirenIHighTidePelagicSummon,
   chainSirenIHighTidePelagicAfterMonsterSkill,
   readSirenIHighTidePelagicPlan,
   readSirenIHighTideSkillSlot,
   sirenIHighTideShouldSummonPelagic,
-} from "../expansions/cove/boss/siren-i-combat-runtime";
+} from "../cove/bosses/siren-i-combat-runtime";
 export {
   ensureFleshIBossScriptRegistered,
   FLESH_I_COMBAT_ABILITY_CARD_ID,
@@ -252,7 +252,7 @@ export {
   fleshIBossScript,
   fleshOneBodyPartCardId,
   fleshOneBodyPartStance,
-} from "../expansions/warrens/boss/flesh-i";
+} from "../warrens/bosses/flesh-i";
 export {
   ensureCollectorIBossScriptRegistered,
   COLLECTOR_I_COMBAT_ABILITY_CARD_ID,
@@ -353,7 +353,7 @@ export {
   readFleshIOneBodyPartBattleStartPlan,
   reconcileFleshOneBodyPools,
   withFleshOneBodyPoolState,
-} from "../expansions/warrens/boss/flesh-i-combat-runtime";
+} from "../warrens/bosses/flesh-i-combat-runtime";
 export {
   bossQuestScriptId,
   faceTheThreatBossScriptByCampaignLevel,

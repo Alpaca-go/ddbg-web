@@ -1,4 +1,4 @@
-import { resumeShriekerAfterOverflow } from "./expansions/weald/boss/shrieker-i-provisions";
+import { resumeShriekerAfterOverflow } from "./weald/bosses/shrieker-i-provisions";
 import { runTrinketCommand } from "./trinket-reactions";
 import type { ApplyResult, Command, GameState, PendingChoice } from "./command";
 import type { BattleState } from "./battle";

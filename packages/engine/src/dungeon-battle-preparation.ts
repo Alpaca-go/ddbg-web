@@ -1,4 +1,4 @@
-import { wealdTaskActive } from "./expansions/weald/higher-task-effects";
+import { wealdTaskActive } from "./weald/higher-task-effects";
 import { prepareDarkestRoom } from "./darkest-setup";
 import {
   expeditionRoomCatalogParses,

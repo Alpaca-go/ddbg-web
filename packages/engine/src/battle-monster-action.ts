@@ -1,8 +1,8 @@
-import { readHagRuntimeContext } from "./expansions/weald/boss/hag-runtime-context";
-import { preparePounderITurn } from "./expansions/weald/boss/pounder-i-turn";
-import { applyHagIBoil } from "./expansions/weald/boss/hag-i-boil";
+import { readHagRuntimeContext } from "./weald/bosses/hag-runtime-context";
+import { preparePounderITurn } from "./weald/bosses/pounder-i-turn";
+import { applyHagIBoil } from "./weald/bosses/hag-i-boil";
 import { isDarkestSupportSkill } from "./battle-monster-support";
-import { HAG_I_CAULDRON_FULL_MONSTER_CARD_ID } from "./expansions/weald/boss/hag-i";
+import { HAG_I_CAULDRON_FULL_MONSTER_CARD_ID } from "./weald/bosses/hag-i";
 import { isCollectedVestalCard, isBoneBearerRally } from "./boss/collected-vestal";
 import { isInvokingMonster, moveInvokingMonster } from "./battle-invocation";
 import { distance, rejectBattleCommand } from "./battle";
@@ -38,11 +38,11 @@ import {
 import {
   readSwinePrinceIWilburMarkSkillSlot,
   swinePrinceIWilburMarkShouldForceSkill,
-} from "./expansions/warrens/boss/swine-prince-i-combat-runtime";
+} from "./warrens/bosses/swine-prince-i-combat-runtime";
 import {
   hagIntoThePotShouldForceSkill,
   readHagIIntoThePotSkillSlot,
-} from "./expansions/weald/boss/hag-i-combat-runtime";
+} from "./weald/bosses/hag-i-combat-runtime";
 import {
   applyHeartOfDarknessImpendingDoomFromEncounter,
   heartOfDarknessImpendingDoomShouldReplaceSkill,

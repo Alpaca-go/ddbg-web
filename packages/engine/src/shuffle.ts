@@ -1,5 +1,5 @@
 import { planCrowding } from "./crowding";
-import { shriekerINestAllowsEntry } from "./expansions/weald/boss/shrieker-i-nest";
+import { shriekerINestAllowsEntry } from "./weald/bosses/shrieker-i-nest";
 import type { BattleArea, BattleEntity } from "./battle";
 import type { SkillShuffle, SkillStance } from "./hero-skill";
 

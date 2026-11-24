@@ -18,8 +18,8 @@ import {
 } from "../../data/src/basic-quests";
 import type { ApplyResult, GameState } from "./command";
 import type { DungeonState } from "./dungeon";
-import { fungalResearchXpFromBroughtBack } from "./expansions/weald/fungal-research-quest";
-import { disinfectionXpFromOakCount } from "./expansions/weald/disinfection-quest";
+import { fungalResearchXpFromBroughtBack } from "./weald/fungal-research-quest";
+import { disinfectionXpFromOakCount } from "./weald/disinfection-quest";
 
 export const FUNDRAISER_PROMPT =
   "Fundraiser：可捐献任意不超过余额的整数金币。每 20 金币得 1 XP，最多 3 XP。0 金币表示不捐献（R-216）。";

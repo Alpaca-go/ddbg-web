@@ -1,9 +1,9 @@
-import { ensureShriekerIBossScriptRegistered } from "../expansions/weald/boss/shrieker-i";
+import { ensureShriekerIBossScriptRegistered } from "../weald/bosses/shrieker-i";
 import type { GameState } from "../command";
 import { readBossCombatEntry } from "./combat-entry";
 import { readDarkestMidBossDeployedCardIds } from "./darkest-mid-boss-runtime";
 import { readDarkestMidBossRequiredCombatCardIds } from "./darkest-mid-boss-scripts";
-import { ensureCampaignBossScriptsRegistered } from "../expansions/register";
+import { ensureCampaignBossScriptsRegistered } from "../registry";
 import { bossEnabledForPacks } from "../../../data/src/content-packs";
 import { getBossScript } from "./registry";
 import { encounterRoundRetreatLimit } from "./rules";

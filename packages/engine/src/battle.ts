@@ -48,8 +48,8 @@ import type { LootState, LootToken } from "./loot";
 import type { ConditionPool } from "./conditions";
 import type { PassiveHolder } from "./passive";
 import { cancelSkillAfterRoll } from "./battle-passive";
-import { withFleshOneBodyPoolState } from "./expansions/warrens/boss/flesh-i-combat-runtime";
-import { chainSwinePrinceIEnragedDestructionAfterHeroSkill } from "./expansions/warrens/boss/swine-prince-i-combat-runtime";
+import { withFleshOneBodyPoolState } from "./warrens/bosses/flesh-i-combat-runtime";
+import { chainSwinePrinceIEnragedDestructionAfterHeroSkill } from "./warrens/bosses/swine-prince-i-combat-runtime";
 import { chainGestatingHeartIchorAfterHeroSkill } from "./boss/gestating-heart-ichor";
 import { withAncestor1ReflectionsGuardEntities } from "./boss/ancestor1-reflections-guard";
 import {
@@ -58,7 +58,7 @@ import {
   absoluteNothingnessTargetRefusal,
   isAbsoluteNothingnessMonsterCardId,
 } from "./boss/ancestor2-absolute-nothingness";
-import { NECROTIC_FUNGUS_MONSTER_CARD_ID } from "./expansions/weald/necrotic-fungus";
+import { NECROTIC_FUNGUS_MONSTER_CARD_ID } from "./weald/necrotic-fungus";
 import { beginSkillOwnEffects, afterHeroOwnCombat } from "./battle-own-effects";
 import type { SkillPrefix } from "./battle-own-effects";
 import { beforeTargetShuffle } from "./battle-target-pressure";
@@ -310,7 +310,7 @@ export type BattleState = BattleSetup & {
     | {
         readonly type: "hagRelease";
         readonly choice: PendingChoice;
-        readonly resume?: import("./expansions/weald/boss/hag-i-release").HagReleaseResume;
+        readonly resume?: import("./weald/bosses/hag-i-release").HagReleaseResume;
       }
     | { readonly type: "allTrinkets"; readonly choice: PendingChoice }
     | {

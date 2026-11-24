@@ -1,5 +1,5 @@
-import { WEALD_HIGHER_BOSS_ENTRIES } from "../expansions/weald/boss/higher-boss-entries";
-import { ensureCampaignBossScriptsRegistered } from "../expansions/register";
+import { WEALD_HIGHER_BOSS_ENTRIES } from "../weald/bosses/higher-boss-entries";
+import { ensureCampaignBossScriptsRegistered } from "../registry";
 import { bossEnabledForPacks } from "../../../data/src/content-packs";
 import { RUINS_COMBAT_LEVELS } from "./ruins-combat-levels";
 import { basicQuests, type BasicQuestId, type CampaignLevel } from "../../../data/src/basic-quests";

@@ -1,5 +1,5 @@
-import { shriekerINestAllowsEntry } from "./expansions/weald/boss/shrieker-i-nest";
-import { isPounderMatchmanAction } from "./expansions/weald/boss/pounder-i-turn";
+import { shriekerINestAllowsEntry } from "./weald/bosses/shrieker-i-nest";
+import { isPounderMatchmanAction } from "./weald/bosses/pounder-i-turn";
 import { withTeleporterAdjacency } from "./battle-teleporters";
 import { isDarkestSupportSkill } from "./battle-monster-support";
 import { isPyreCard } from "./boss/pyre-skill";

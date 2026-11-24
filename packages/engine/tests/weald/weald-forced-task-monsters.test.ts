@@ -1,0 +1,138 @@
+import { expect, it } from "vitest";
+import { createCoreDungeonQuest } from "../../src/dungeon-quest-entry";
+import { coreParty } from "../../src/test-helpers/core-quest";
+import { wealdTaskSources } from "../../src/test-helpers/weald-task-battle";
+import { applyCommand, type GameState } from "../../src/command";
+import { removeCasualties, endAfterCasualties, finishTurn } from "../../src/encounter";
+import { dungeonMonsterPoolThrough } from "../../src/monster-pool-runtime";
+
+it.each(["quest:weald:p006", "quest:weald:p009", "quest:weald:p012"] as const)(
+  "%s 受控抵达三目标房，公开部署与组件回收",
+  (id) => {
+    let game = createCoreDungeonQuest(
+      0,
+      id,
+      "radiant",
+      coreParty,
+      wealdTaskSources,
+      true,
+      "full",
+      ["core", "weald"],
+      undefined,
+      undefined,
+      "tasks-v1",
+    );
+    const step = (command: Parameters<typeof applyCommand>[1]) => {
+      const result = applyCommand(game, command);
+      expect(result.events.filter((e) => e.type === "commandRefused")).toEqual([]);
+      game = result.state;
+    };
+    step({ type: "rollDungeonProvisions" });
+    for (let i = 0; game.dungeon!.pending && i < 100; i++) {
+      const p = game.dungeon!.pending!;
+      step({ type: "resolveChoice", choiceId: p.id, optionId: p.options[0]!.id });
+    }
+    const objectives = game.dungeon!.rooms.filter((r) => r.kind === "objective").map((r) => r.id);
+    const usedCards: string[] = [];
+    for (const roomId of objectives) {
+      game = {
+        ...game,
+        dungeon: {
+          ...game.dungeon!,
+          phase: "awaitingRoom",
+          position: roomId,
+          visited: [...(game.dungeon!.visited ?? []), roomId],
+          rooms: game.dungeon!.rooms.map((r) => (r.id === roomId ? { ...r, revealed: true } : r)),
+        },
+      };
+      step({ type: "prepareDungeonBattle" });
+      usedCards.push(game.dungeon!.roomCards!.active!.cardId);
+      if (id === "quest:weald:p006") {
+        // 固定两张大型先行的真实牌序，覆盖 R-029 挤掉首放 Virago 后的 R-265 随机替换。
+        const catalog = dungeonMonsterPoolThrough(game.dungeon!.monsterPool!, 2);
+        expect(catalog.filter((c) => c.stanceSlots === 2).length).toBeGreaterThanOrEqual(2);
+        game = {
+          ...game,
+          dungeon: {
+            ...game.dungeon!,
+            monsterPool: {
+              ...game.dungeon!.monsterPool!,
+              remaining: [...catalog]
+                .sort((a, b) => b.stanceSlots - a.stanceSlots)
+                .map((c) => c.instanceId),
+            },
+          },
+        };
+      }
+      step({ type: "prepareDungeonMonsters" });
+      const active = game.dungeon!.monsterPool!.active!;
+      expect(
+        active.monsters.some(
+          (m) =>
+            m.cardId ===
+            (id.endsWith("006")
+              ? "monster_medium:weald:p018"
+              : id.endsWith("009")
+                ? "monster_medium:weald:p006"
+                : "monster_large:weald:p003"),
+        ),
+      ).toBe(true);
+      expect(active.monsters.reduce((sum, m) => sum + m.stanceSlots, 0)).toBe(
+        id.endsWith("009") ? 3 : 4,
+      );
+      step({ type: "startDungeonBattle" });
+      step({ type: "startBattle" });
+      if (id.endsWith("012"))
+        expect(game.battle!.encounter!.deck.filter((side) => side === "monster")).toHaveLength(
+          active.monsters.length + 1,
+        );
+      if (id === "quest:weald:p012") {
+        const giant = "monster-deck:weald:p017";
+        game = {
+          ...game,
+          battle: {
+            ...game.battle!,
+            encounter: {
+              ...game.battle!.encounter!,
+              deck: ["monster", "monster", "hero"],
+              actedIds: [],
+              turn: { type: "monster", actorId: giant },
+            },
+          },
+        };
+        game = finishTurn(game, giant, []).state;
+        expect(game.battle!.encounter!.actedIds).not.toContain(giant);
+        step({ type: "drawInitiative" });
+        for (let i = 0; game.battle!.pending && i < 10; i++) {
+          const p = game.battle!.pending!.choice;
+          step({ type: "resolveChoice", choiceId: p.id, optionId: p.options[0]!.id });
+        }
+        expect(game.battle!.encounter!.turn).toMatchObject({ type: "monster", actorId: giant });
+        game = finishTurn(game, giant, []).state;
+        expect(game.battle!.encounter!.actedIds).toContain(giant);
+      }
+      // 受控终局仅核对组件复用，不冒充自然胜利。
+      const ids = game.battle!.entities.filter((e) => e.side === "monster").map((e) => e.id);
+      const terminal: GameState = {
+        ...game,
+        battle: {
+          ...game.battle!,
+          entities: game.battle!.entities.map((e) =>
+            e.side === "monster" ? { ...e, dead: true, wounds: e.life! } : e,
+          ),
+        },
+      };
+      game = endAfterCasualties(removeCasualties({ state: terminal, events: [] }, ids))!.state;
+      step({ type: "finishDungeonBattle" });
+      expect(game.dungeon!.monsterPool!.remaining).toHaveLength(
+        dungeonMonsterPoolThrough(
+          game.dungeon!.monsterPool!,
+          game.dungeon!.explorationSetup!.dungeonLevel,
+        ).length,
+      );
+    }
+    if (id.endsWith("009")) expect(new Set(usedCards).size).toBe(3);
+    if (id.endsWith("006")) expect(game.dungeon!.wealdViragoKills).toBe(3);
+  },
+  60000,
+);

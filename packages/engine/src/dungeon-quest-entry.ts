@@ -9,7 +9,7 @@ import {
 import { sandboxExpeditionEmbarkBlockReason } from "../../data/src/quest-map-pairing";
 import { isSandboxWealdEmbarkQuest } from "../../data/src/basic-quests";
 import { rebuildLocationQuestDecks } from "./location-quest-sources";
-import { WEALD_APPROVED_ROOM_CARDS } from "./expansions/weald/room-catalog";
+import { WEALD_APPROVED_ROOM_CARDS } from "./weald/room-catalog";
 import { pickEmbarkQuestMapLayout } from "../../data/src/quest-map-pairing";
 import type { BasicQuestId } from "../../data/src/basic-quests";
 import type { CurioCard } from "../../data/src/curio";

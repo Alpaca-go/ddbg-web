@@ -1,10 +1,7 @@
 import type { DungeonState } from "./dungeon";
 import { readExpeditionRoomRegion } from "./expedition-room-catalog";
 import { readRoomTile } from "./room-tile-selection";
-import {
-  selectWealdRoomTile,
-  wealdRoomCardFromUnknown,
-} from "./expansions/weald/room-tile-selection";
+import { selectWealdRoomTile, wealdRoomCardFromUnknown } from "./weald/room-tile-selection";
 
 /** 按出征地点选择房间板块校验（Weald 走 `selectWealdRoomTile`，遗迹走核心目录）。 */
 export function readExpeditionRoomTile(

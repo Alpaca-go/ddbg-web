@@ -1,10 +1,10 @@
-import { readHagRuntimeContext } from "./expansions/weald/boss/hag-runtime-context";
+import { readHagRuntimeContext } from "./weald/bosses/hag-runtime-context";
 import { withToxicMushrooms } from "./battle-toxic-mushrooms";
-import { isPounderMatchmanAction } from "./expansions/weald/boss/pounder-i-turn";
-import { applyPounderIFireInTheHole } from "./expansions/weald/boss/pounder-i-fire";
+import { isPounderMatchmanAction } from "./weald/bosses/pounder-i-turn";
+import { applyPounderIFireInTheHole } from "./weald/bosses/pounder-i-fire";
 import { isDarkestSupportSkill, playDarkestSupportSkill } from "./battle-monster-support";
-import { captureHagHero } from "./expansions/weald/boss/hag-i-captive";
-import { HAG_I_CAULDRON_FULL_MONSTER_CARD_ID } from "./expansions/weald/boss/hag-i";
+import { captureHagHero } from "./weald/bosses/hag-i-captive";
+import { HAG_I_CAULDRON_FULL_MONSTER_CARD_ID } from "./weald/bosses/hag-i";
 import { isPyreCard, playPyreSkill } from "./boss/pyre-skill";
 import {
   isCollectedVestalCard,
@@ -28,7 +28,7 @@ import { readPrintedTargets } from "./hero-skill";
 import type { ApplyResult, GameState, MonsterSkillResolvedEvent, PendingChoice } from "./command";
 import { nextBattleRoll, newlyDefeatedIds, recordMonsterSkill } from "./encounter";
 import { monsterCombatThreatDamageBonus } from "./boss/threat-passive-runtime";
-import { chainSirenIHighTidePelagicAfterMonsterSkill } from "./expansions/cove/boss/siren-i-combat-runtime";
+import { chainSirenIHighTidePelagicAfterMonsterSkill } from "./cove/bosses/siren-i-combat-runtime";
 import {
   TEMPLAR_BODY_SLAM_SKILL_SLOT,
   TEMPLAR_IMPALER_MONSTER_CARD_ID,

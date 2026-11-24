@@ -2,12 +2,12 @@ import { describe, expect, it } from "vitest";
 import { applyCommand, type GameState } from "./command";
 import { createBattleState, type BattleEntity } from "./battle";
 import { coreQuestSources } from "./test-helpers/core-quest";
-import { WEALD_APPROVED_ROOM_TILES } from "./expansions/weald/room-catalog";
+import { WEALD_APPROVED_ROOM_TILES } from "./weald/room-catalog";
 import {
   necroticFungusEntitiesForTile,
   NECROTIC_FUNGUS_MONSTER_CARD,
-} from "./expansions/weald/necrotic-fungus";
-import { wealdRoomTileBattleAreas } from "./expansions/weald/weald-mechanics";
+} from "./weald/necrotic-fungus";
+import { wealdRoomTileBattleAreas } from "./weald/weald-mechanics";
 import { withAbyssalPuff } from "./battle-abyssal-puff";
 import { savedCommandSchema } from "../../data/src/quest-save";
 

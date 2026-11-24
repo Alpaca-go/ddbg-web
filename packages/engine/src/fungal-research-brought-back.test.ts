@@ -4,7 +4,7 @@ import {
   destroyedNecroticFungusCount,
   fungalResearchProgressFromBattle,
   fungalResearchXpFromBroughtBack,
-} from "./expansions/weald/fungal-research-quest";
+} from "./weald/fungal-research-quest";
 
 const fungusEntity = (id: string, dead: boolean, wounds = 0) => ({
   id,

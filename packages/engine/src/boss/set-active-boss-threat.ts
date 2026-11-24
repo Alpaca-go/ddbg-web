@@ -1,5 +1,5 @@
 import { bossEnabledForPacks } from "../../../data/src/content-packs";
-import { ensureCampaignBossScriptsRegistered } from "../expansions/register";
+import { ensureCampaignBossScriptsRegistered } from "../registry";
 import type { ApplyResult, GameState } from "../command";
 import { rejectBattleCommand } from "../battle";
 import { applyActiveBossThreatToDungeon } from "./apply-active-boss-threat";

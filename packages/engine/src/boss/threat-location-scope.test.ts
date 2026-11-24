@@ -2,15 +2,15 @@ import { describe, expect, it } from "vitest";
 import type { BasicQuestId } from "../../../data/src/basic-quests";
 import type { GameState } from "../command";
 import { createCoreDungeonQuest } from "../dungeon-quest-entry";
-import { ensureCampaignBossScriptsRegistered } from "../expansions/register";
+import { ensureCampaignBossScriptsRegistered } from "../registry";
 import { coreParty } from "../test-helpers/core-quest";
 import { wealdTaskSources } from "../test-helpers/weald-task-battle";
 import { firstBattleThreatDeck } from "./necromancer-ii-army";
 import {
   shriekerHigherThreatLevel,
   shriekerIThreatActive,
-} from "../expansions/weald/boss/shrieker-i-provisions";
-import { shriekerSkipsProvisionRolls } from "../expansions/weald/boss/shrieker-provision-version";
+} from "../weald/bosses/shrieker-i-provisions";
+import { shriekerSkipsProvisionRolls } from "../weald/bosses/shrieker-provision-version";
 import {
   activeBossThreatMatchesDungeonLocation,
   bossThreatHamletBlockedBuildings,

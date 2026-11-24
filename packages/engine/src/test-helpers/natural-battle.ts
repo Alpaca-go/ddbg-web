@@ -5,7 +5,7 @@ import type { PlayHeroSkillCommand } from "../battle";
 import type { PlayHeroSkillTargetsCommand } from "../battle-hero-targets";
 import type { ApplyResult, Command, GameState } from "../command";
 import { templarsProductionCombatActive } from "../boss/templars-i-deploy";
-import { livingNecroticFungus } from "../expansions/weald/necrotic-fungus";
+import { livingNecroticFungus } from "../weald/necrotic-fungus";
 
 export type NaturalBattleDriver = {
   readonly state: () => GameState;

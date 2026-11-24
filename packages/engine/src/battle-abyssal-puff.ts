@@ -2,9 +2,12 @@ import { rejectBattleCommand } from "./battle";
 import type { ApplyResult, GameState } from "./command";
 import { applyBattleSkillStatuses } from "./battle-skill-status";
 import { fixedDamageResolution } from "./battle-spiked-pit";
-import { isLivingCombatMonster, isNecroticFungusEntity } from "./expansions/weald/necrotic-fungus";
-import { wealdMechanicsActive } from "./expansions/weald/weald-mechanics";
-import { wealdOrdinaryRoomEffectActive, wealdStygianEffect } from "./weald-stygian-room-effects";
+import { isLivingCombatMonster, isNecroticFungusEntity } from "./weald/necrotic-fungus";
+import { wealdMechanicsActive } from "./weald/weald-mechanics";
+import {
+  wealdOrdinaryRoomEffectActive,
+  wealdStygianEffect,
+} from "./weald/rooms/stygian-room-effects";
 
 function active(state: GameState): boolean {
   return (

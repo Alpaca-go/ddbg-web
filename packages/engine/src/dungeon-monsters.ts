@@ -26,8 +26,8 @@ import {
 import { questMonsterDeploymentHold } from "./quest-monster-deployment";
 import { prepareQuestMonsterDeployment } from "./quest-monster-spawn";
 import { threatIsRealNoL1LairSkipSpawn } from "./threat-is-real-no-l1-lair";
-import { prepareWealdQuestExceptionMonsterDeployment } from "./expansions/weald/circle-of-witches-spawn";
-import { prepareForcedWealdTaskMonsters } from "./expansions/weald/task-forced-monsters";
+import { prepareWealdQuestExceptionMonsterDeployment } from "./weald/circle-of-witches-spawn";
+import { prepareForcedWealdTaskMonsters } from "./weald/task-forced-monsters";
 
 /** R10、R16–17：完整 Common + Ruins（1..DL 累加）一次洗牌，真实抽牌后记录部署，不筛掉缺战斗字段的卡。 */
 export function prepareDungeonMonsters(state: GameState): ApplyResult {

@@ -6,19 +6,13 @@ import {
   NECROMANCER_I_SCRIPT_ID,
 } from "./necromancer-i";
 import { PROPHET_I_DESCRIPTION_ABILITY_CARD_ID, PROPHET_I_SCRIPT_ID } from "./prophet-i";
-import { HAG_I_DESCRIPTION_ABILITY_CARD_ID, HAG_I_SCRIPT_ID } from "../expansions/weald/boss/hag-i";
+import { HAG_I_DESCRIPTION_ABILITY_CARD_ID, HAG_I_SCRIPT_ID } from "../weald/bosses/hag-i";
 import {
   SWINE_PRINCE_I_DESCRIPTION_ABILITY_CARD_ID,
   SWINE_PRINCE_I_SCRIPT_ID,
-} from "../expansions/warrens/boss/swine-prince-i";
-import {
-  FLESH_I_DESCRIPTION_ABILITY_CARD_ID,
-  FLESH_I_SCRIPT_ID,
-} from "../expansions/warrens/boss/flesh-i";
-import {
-  SIREN_I_DESCRIPTION_ABILITY_CARD_ID,
-  SIREN_I_SCRIPT_ID,
-} from "../expansions/cove/boss/siren-i";
+} from "../warrens/bosses/swine-prince-i";
+import { FLESH_I_DESCRIPTION_ABILITY_CARD_ID, FLESH_I_SCRIPT_ID } from "../warrens/bosses/flesh-i";
+import { SIREN_I_DESCRIPTION_ABILITY_CARD_ID, SIREN_I_SCRIPT_ID } from "../cove/bosses/siren-i";
 import { COLLECTOR_I_DESCRIPTION_ABILITY_CARD_ID, COLLECTOR_I_SCRIPT_ID } from "./collector-i";
 import { FANATIC_I_DESCRIPTION_ABILITY_CARD_ID, FANATIC_I_SCRIPT_ID } from "./fanatic-i";
 import { getBossScript, listBossScripts } from "./registry";
@@ -65,21 +59,21 @@ import {
   WEALD_BOSS_IDENTITIES,
   WEALD_BOSS_DESCRIPTION_CARD_ID,
   type WealdBossIdentity,
-} from "../expansions/weald/catalog";
+} from "../weald/catalog";
 export { WEALD_BOSS_IDENTITIES, WEALD_BOSS_DESCRIPTION_CARD_ID };
 export type { WealdBossIdentity };
 import {
   WARRENS_BOSS_IDENTITIES,
   WARRENS_BOSS_DESCRIPTION_CARD_ID,
   type WarrensBossIdentity,
-} from "../expansions/warrens/catalog";
+} from "../warrens/catalog";
 export { WARRENS_BOSS_IDENTITIES, WARRENS_BOSS_DESCRIPTION_CARD_ID };
 export type { WarrensBossIdentity };
 import {
   COVE_BOSS_IDENTITIES,
   COVE_BOSS_DESCRIPTION_CARD_ID,
   type CoveBossIdentity,
-} from "../expansions/cove/catalog";
+} from "../cove/catalog";
 export { COVE_BOSS_IDENTITIES, COVE_BOSS_DESCRIPTION_CARD_ID };
 export type { CoveBossIdentity };
 

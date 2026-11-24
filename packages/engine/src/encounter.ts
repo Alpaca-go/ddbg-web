@@ -1,16 +1,13 @@
-import { endRoundWealdOak, waitingForWealdOak } from "./expansions/weald/burning-oak";
+import { endRoundWealdOak, waitingForWealdOak } from "./weald/burning-oak";
 import {
   expandShriekerIInitiative,
   shriekerINestHasNoInitiative,
   bumpShriekerIActionCount,
   shriekerIActionQuotaReached,
-} from "./expansions/weald/boss/shrieker-i-actions";
-import { clearShriekerINest } from "./expansions/weald/boss/shrieker-i-cleanup";
-import {
-  applyInfectedDeaths,
-  recordTaskViragoDeaths,
-} from "./expansions/weald/higher-task-effects";
-import { elderGiantActive } from "./expansions/weald/task-forced-monsters";
+} from "./weald/bosses/shrieker-i-actions";
+import { clearShriekerINest } from "./weald/bosses/shrieker-i-cleanup";
+import { applyInfectedDeaths, recordTaskViragoDeaths } from "./weald/higher-task-effects";
+import { elderGiantActive } from "./weald/task-forced-monsters";
 import {
   enableClearingHeroes,
   enableClearingMonsters,
@@ -20,10 +17,10 @@ import { enableOurs } from "./battle-ours";
 import { enableAbyssalPuff } from "./battle-abyssal-puff";
 import { enablePrecious, endTurnPrecious } from "./battle-precious";
 import { applyUnprepared } from "./battle-unprepared";
-import { clearPounderIBrigands } from "./expansions/weald/boss/pounder-i-cleanup";
+import { clearPounderIBrigands } from "./weald/bosses/pounder-i-cleanup";
 import { readFinalFormSequence } from "./boss/final-form-sequence";
-import { beginHagIRelease } from "./expansions/weald/boss/hag-i-release";
-import { continueHagIIntoPot, finishHagISkillTurn } from "./expansions/weald/boss/hag-i-into-pot";
+import { beginHagIRelease } from "./weald/bosses/hag-i-release";
+import { continueHagIIntoPot, finishHagISkillTurn } from "./weald/bosses/hag-i-into-pot";
 import { applyAncestor1ImperfectReflectionDeath } from "./boss/ancestor1-reflections-death";
 import { withAncestor1ReflectionsGuardState } from "./boss/ancestor1-reflections-guard";
 import { clearRuinsBossCompanions } from "./boss/ruins-boss-death";
@@ -74,11 +71,11 @@ import {
 } from "./boss/heart-of-darkness-impending-doom";
 import { bumpAncestor2SwiftTeleportationAfterAction } from "./boss/ancestor2-swift-teleportation";
 import { isAbsoluteNothingnessEntity } from "./boss/ancestor2-absolute-nothingness";
-import { isLivingCombatMonster, isNecroticFungusEntity } from "./expansions/weald/necrotic-fungus";
-import { rejectIfWealdZeroCapacityEndTurn } from "./expansions/weald/weald-mechanics";
+import { isLivingCombatMonster, isNecroticFungusEntity } from "./weald/necrotic-fungus";
+import { rejectIfWealdZeroCapacityEndTurn } from "./weald/weald-mechanics";
 import { applyFanaticIPyreBattleStart } from "./boss/fanatic-i-combat-runtime";
-import { applyFleshIOneBodyBattleStart } from "./expansions/warrens/boss/flesh-i-combat-runtime";
-import { applySwinePrinceIWilburBattleStart } from "./expansions/warrens/boss/swine-prince-i-combat-runtime";
+import { applyFleshIOneBodyBattleStart } from "./warrens/bosses/flesh-i-combat-runtime";
+import { applySwinePrinceIWilburBattleStart } from "./warrens/bosses/swine-prince-i-combat-runtime";
 import { applyNecromancerIIArmyBattleStart } from "./boss/necromancer-ii-army";
 import {
   applyHagICauldronBattleStart,
@@ -88,7 +85,7 @@ import {
   expandHagIInitiativeDeckSides,
   hagShouldEnterActedIdsAfterTurn,
   hagIEmptyCauldronSkipsAction,
-} from "./expansions/weald/boss/hag-i-combat-runtime";
+} from "./weald/bosses/hag-i-combat-runtime";
 import {
   bumpProphetIActionRoundCount,
   expandProphetIInitiativeDeckSides,
@@ -100,12 +97,12 @@ import {
   clearNecromancerICompanions,
   continueNecromancerISummon,
 } from "./boss/necromancer-i-combat-runtime";
-import { continueWealdMonsterSummon } from "./expansions/weald/monster-summon";
+import { continueWealdMonsterSummon } from "./weald/monster-summon";
 import {
   applyPatrolTheWoodsRoundOneInitiative,
   patrolTheWoodsInitiativeTriggered,
   rollPatrolTheWoodsBattleStartD10,
-} from "./expansions/weald/patrol-the-woods-initiative";
+} from "./weald/patrol-the-woods-initiative";
 import {
   bumpFanaticIActionRoundCount,
   clearFanaticIPyre,

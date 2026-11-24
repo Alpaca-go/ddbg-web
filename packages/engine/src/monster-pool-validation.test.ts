@@ -3,7 +3,7 @@ import medium from "../../data/normalized/extension/weald/monster_medium.json";
 import large from "../../data/normalized/extension/weald/monster_large.json";
 import { createCoreDungeonQuest } from "./dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "./test-helpers/core-quest";
-import { createWealdLevelOneMonsterPoolState } from "./expansions/weald/monster-pool";
+import { createWealdLevelOneMonsterPoolState } from "./weald/monster-pool";
 import { dungeonMonsterPoolThrough } from "./monster-pool-runtime";
 import {
   dungeonMonsterPoolCatalogValid,

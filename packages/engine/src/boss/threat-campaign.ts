@@ -4,7 +4,7 @@ import type { HamletEventState } from "../hamlet-event";
 import { combatCardIdForPoolInstance } from "../monster-pool-runtime";
 import { readExpeditionRoomRegion } from "../expedition-room-catalog";
 import { readBossCombatEntry } from "./combat-entry";
-import { ensureCampaignBossScriptsRegistered } from "../expansions/register";
+import { ensureCampaignBossScriptsRegistered } from "../registry";
 import { bossEnabledForPacks } from "../../../data/src/content-packs";
 import { getBossScript } from "./registry";
 import {

@@ -1,4 +1,4 @@
-import { WEALD_HIGHER_BOSS_ENTRIES } from "./expansions/weald/boss/higher-boss-entries";
+import { WEALD_HIGHER_BOSS_ENTRIES } from "./weald/bosses/higher-boss-entries";
 import { skillBelongsToFormalHero } from "./formal-roster-catalog";
 import { asQuestMapPairingQuest, basicQuests } from "../../data/src/basic-quests";
 import { pickEmbarkQuestMapLayout } from "../../data/src/quest-map-pairing";

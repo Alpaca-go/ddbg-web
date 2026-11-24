@@ -1,10 +1,10 @@
 export { applyCommand, createInitialState } from "./command";
-export { readWealdOakAction } from "./expansions/weald/burning-oak";
+export { readWealdOakAction } from "./weald/burning-oak";
 export { readInfectedOakAction } from "./battle-infected-oak";
-export { buildWealdMonsterCatalog } from "./expansions/weald/monster-catalog";
-export { buildWealdHigherMonsterCatalog } from "./expansions/weald/higher-monster-catalog";
-export { buildWealdHigherMonsterPool } from "./expansions/weald/higher-monster-pool";
-export type { WealdBattleMonster } from "./expansions/weald/monster-catalog";
+export { buildWealdMonsterCatalog } from "./weald/monster-catalog";
+export { buildWealdHigherMonsterCatalog } from "./weald/higher-monster-catalog";
+export { buildWealdHigherMonsterPool } from "./weald/higher-monster-pool";
+export type { WealdBattleMonster } from "./weald/monster-catalog";
 export { canSetDungeonStances, DUNGEON_HERO_STANCES } from "./dungeon-stances";
 export { canSetHamletStances } from "./hamlet-stances";
 export { readRoomTile } from "./room-tile-selection";
@@ -352,7 +352,7 @@ export type { ContentPackId } from "./content-packs";
 export {
   buildWealdLevelOneMonsterPool,
   createWealdLevelOneMonsterPoolState,
-} from "./expansions/weald/monster-pool";
+} from "./weald/monster-pool";
 export {
   NECROTIC_FUNGUS_MONSTER_CARD,
   NECROTIC_FUNGUS_MONSTER_CARD_ID,
@@ -360,10 +360,10 @@ export {
   isNecroticFungusEntity,
   necroticFungusBlocksHealing,
   necroticFungusEntitiesForTile,
-} from "./expansions/weald/necrotic-fungus";
+} from "./weald/necrotic-fungus";
 export {
   wealdMechanicsActive,
   wealdRoomTileBattleAreas,
   wealdZeroCapacityEndTurnRefusal,
-} from "./expansions/weald/weald-mechanics";
+} from "./weald/weald-mechanics";
 export { rebuildLocationQuestDecks } from "./location-quest-sources";

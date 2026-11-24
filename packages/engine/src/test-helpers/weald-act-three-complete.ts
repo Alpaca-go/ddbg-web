@@ -1,8 +1,8 @@
 import { switchWealdActPools } from "../act-transition-pools";
 import type { GameState } from "../command";
 import type { DungeonState } from "../dungeon";
-import { WEALD_BOSS_IDENTITIES, type WealdBossIdentity } from "../expansions/weald/catalog";
-import { wealdBossActEntry } from "../expansions/weald/boss/weald-boss-act-entry";
+import { WEALD_BOSS_IDENTITIES, type WealdBossIdentity } from "../weald/catalog";
+import { wealdBossActEntry } from "../weald/bosses/weald-boss-act-entry";
 import { getBossScript } from "../boss/registry";
 import { wealdActInitial, wealdActReadyFixture } from "./weald-act";
 

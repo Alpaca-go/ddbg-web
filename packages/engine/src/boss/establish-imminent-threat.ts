@@ -1,8 +1,8 @@
-import { ensureShriekerIBossScriptRegistered } from "../expansions/weald/boss/shrieker-i";
+import { ensureShriekerIBossScriptRegistered } from "../weald/bosses/shrieker-i";
 import { nextExpeditionLocationDecks } from "../hamlet-location-embark";
-import { ensurePounderIBossScriptRegistered } from "../expansions/weald/boss/pounder-i";
-import { wealdThreatPool } from "../expansions/weald/boss/threat-pool";
-import { ensureCampaignBossScriptsRegistered } from "../expansions/register";
+import { ensurePounderIBossScriptRegistered } from "../weald/bosses/pounder-i";
+import { wealdThreatPool } from "../weald/bosses/threat-pool";
+import { ensureCampaignBossScriptsRegistered } from "../registry";
 import { requireFaceTheThreatEmbarkPlanForSandbox } from "./face-the-threat-embark-runtime";
 import type { CampaignLevel } from "../../../data/src/basic-quests";
 import type { ApplyResult, GameState } from "../command";

@@ -1,7 +1,7 @@
 import { expect, it } from "vitest";
 import { createQuestSave, loadQuestSave } from "./quest-save";
 import { applyCommand } from "./command";
-import { livingNecroticFungus } from "./expansions/weald/necrotic-fungus";
+import { livingNecroticFungus } from "./weald/necrotic-fungus";
 import { fungalResearchJourney } from "./test-helpers/fungal-research-quest";
 import { disinfectionSources as sources } from "./test-helpers/disinfection-quest";
 

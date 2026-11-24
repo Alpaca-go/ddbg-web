@@ -1,4 +1,4 @@
-import { WEALD_HIGHER_BOSS_ENTRIES } from "./expansions/weald/boss/higher-boss-entries";
+import { WEALD_HIGHER_BOSS_ENTRIES } from "./weald/bosses/higher-boss-entries";
 import { readExpeditionRoomRegion, expeditionRegionForQuestId } from "./expedition-room-catalog";
 import coreCurios from "../../data/normalized/corebox/curio.json";
 import coreRooms from "../../data/normalized/corebox/room.json";
@@ -9,7 +9,7 @@ import { curioFileSchema, wealdCurioFileSchema } from "../../data/src/curio";
 import { roomFileSchema } from "../../data/src/room";
 import { basicQuests } from "../../data/src/basic-quests";
 import { rebuildLocationQuestDecks } from "./location-quest-sources";
-import { WEALD_APPROVED_ROOM_CARDS } from "./expansions/weald/room-catalog";
+import { WEALD_APPROVED_ROOM_CARDS } from "./weald/room-catalog";
 import type { DungeonState } from "./dungeon";
 
 /** W-02 / R9–10：地点来源来自随程序交付的数据；不把上一趟活动堆当新地点来源。 */

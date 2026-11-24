@@ -23,11 +23,11 @@ import { wealdMixedActReadyFixture } from "./weald-act";
 import { RUINS_COMBAT_LEVELS } from "../boss/ruins-combat-levels";
 import { getBossScript } from "../boss/registry";
 import type { RuinsBossIdentity } from "../boss/threat-description-catalog";
-import type { WealdBossIdentity } from "../expansions/weald/catalog";
-import { ensureHagIBossScriptRegistered } from "../expansions/weald/boss/hag-i";
-import { ensurePounderIBossScriptRegistered } from "../expansions/weald/boss/pounder-i";
-import { ensureShriekerIBossScriptRegistered } from "../expansions/weald/boss/shrieker-i";
-import { ensureCampaignBossScriptsRegistered } from "../expansions/register";
+import type { WealdBossIdentity } from "../weald/catalog";
+import { ensureHagIBossScriptRegistered } from "../weald/bosses/hag-i";
+import { ensurePounderIBossScriptRegistered } from "../weald/bosses/pounder-i";
+import { ensureShriekerIBossScriptRegistered } from "../weald/bosses/shrieker-i";
+import { ensureCampaignBossScriptsRegistered } from "../registry";
 import { hamletActionOptions } from "../hamlet-actions";
 
 const packs = ["core", "weald"] as const;

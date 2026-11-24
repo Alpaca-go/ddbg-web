@@ -1,4 +1,4 @@
-import { shriekerINestAllowsEntry } from "./expansions/weald/boss/shrieker-i-nest";
+import { shriekerINestAllowsEntry } from "./weald/bosses/shrieker-i-nest";
 import type { BattleEntity, BattleState } from "./battle";
 import type { ApplyResult, GameEvent, GameState } from "./command";
 import { rejectBattleCommand } from "./battle";

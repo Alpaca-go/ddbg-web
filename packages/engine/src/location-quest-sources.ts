@@ -4,12 +4,12 @@ import { rebuildCoreQuestDecks } from "./core-quest-decks";
 import type { CoreQuestSources } from "./dungeon-quest-entry";
 import type { ContentPackId } from "./content-packs";
 import { sourcesForContentPacks } from "./content-packs";
-import { buildWealdMonsterCatalog } from "./expansions/weald/monster-catalog";
-import { buildWealdCroneCatalog } from "./expansions/weald/crone-catalog";
-import { createWealdLevelOneMonsterPoolState } from "./expansions/weald/monster-pool";
-import { createWealdHigherMonsterPoolState } from "./expansions/weald/higher-monster-pool";
-import { buildWealdHigherMonsterCatalog } from "./expansions/weald/higher-monster-catalog";
-import { buildWealdTaskMonsterCatalog } from "./expansions/weald/task-monster-catalog";
+import { buildWealdMonsterCatalog } from "./weald/monster-catalog";
+import { buildWealdCroneCatalog } from "./weald/crone-catalog";
+import { createWealdLevelOneMonsterPoolState } from "./weald/monster-pool";
+import { createWealdHigherMonsterPoolState } from "./weald/higher-monster-pool";
+import { buildWealdHigherMonsterCatalog } from "./weald/higher-monster-catalog";
+import { buildWealdTaskMonsterCatalog } from "./weald/task-monster-catalog";
 
 export type WealdQuestSources = {
   readonly medium: unknown;

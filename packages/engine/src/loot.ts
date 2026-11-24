@@ -1,7 +1,7 @@
-import { shriekerSkipsProvisionRolls } from "./expansions/weald/boss/shrieker-provision-version";
-import { beginHigherShriekerGain } from "./expansions/weald/boss/shrieker-i-provisions";
+import { shriekerSkipsProvisionRolls } from "./weald/bosses/shrieker-provision-version";
+import { beginHigherShriekerGain } from "./weald/bosses/shrieker-i-provisions";
 import { settleInventoryOverflow } from "./inventory-overflow";
-import { wealdTaskActive } from "./expansions/weald/higher-task-effects";
+import { wealdTaskActive } from "./weald/higher-task-effects";
 import { resolveOurs } from "./battle-ours";
 import { rejectBattleCommand } from "./battle";
 import type { BattleState } from "./battle";
