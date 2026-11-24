@@ -52,7 +52,7 @@ export function resolveDarkestMonsterSupport(
     context.areaDistance > range.distance + Number(context.targetAreaLower === true)
   )
     return refuse("友方目标不在印刷射程内（R24）");
-  const plan = skill.verified_monster_effects;
+  const plan = skill.rules?.effects ?? skill.verified_monster_effects;
   if (!plan) return refuse("缺少已核实的友方效果计划（R-048）");
   let wounds = context.targetWounds;
   const statuses: StatusEffect[] = [];

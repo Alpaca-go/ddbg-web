@@ -70,7 +70,7 @@ export function runDarkestMidBossSkillSelf(
       },
     },
   };
-  const skillPlan = skill.verified_monster_effects;
+  const skillPlan = skill.rules?.effects ?? skill.verified_monster_effects;
   const played = playMonsterSkill(prepared, {
     type: "playMonsterSkill",
     actorId: actor.id,

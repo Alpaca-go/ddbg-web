@@ -410,7 +410,9 @@ export function startDungeonBattle(state: GameState): ApplyResult {
         resolution: {
           ...probe.resolution,
           targetStatusEffects:
-            attack.view.verified_status_effects?.filter((e) => e.scope === "target") ??
+            (attack.view.rules?.statuses ?? attack.view.verified_status_effects)?.filter(
+              (e) => e.scope === "target",
+            ) ??
             probe.resolution.targetStatusEffects ??
             [],
         },

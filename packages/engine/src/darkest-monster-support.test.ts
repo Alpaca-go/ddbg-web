@@ -58,7 +58,14 @@ it.each(cases)(
     );
     const changed = structuredClone(card);
     const skill = changed.skills.find((s) => s.slot === slot)!;
-    Object.assign(skill.verified_monster_effects!, { signatures: ["bad"] });
+    const bad = {
+      ...(skill.rules?.effects ?? skill.verified_monster_effects!),
+      signatures: ["bad"],
+    };
+    Object.assign(skill, {
+      verified_monster_effects: bad,
+      rules: { ...skill.rules, effects: bad },
+    });
     expect(resolveDarkestMonsterSupport(changed, slot, context).status).toBe("refused");
     expect(card).toEqual(before);
     if (move)

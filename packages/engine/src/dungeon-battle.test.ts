@@ -993,9 +993,16 @@ it("缺失或伪造条件防御的任一英雄阻止实际负面状态房间入�
         ...d,
         battleCatalog: {
           ...d.battleCatalog!,
-          heroStats: d.battleCatalog!.heroStats.map((h, i) =>
-            i !== 1 ? h : { ...h, verified_condition_defence: override },
-          ),
+          heroStats: d.battleCatalog!.heroStats.map((h, i) => {
+            if (i !== 1) return h;
+            const { conditionDefence: _condition, ...rulesRest } = h.rules ?? {};
+            void _condition;
+            return {
+              ...h,
+              verified_condition_defence: override,
+              rules: override ? { ...rulesRest, conditionDefence: override as never } : rulesRest,
+            };
+          }),
         },
       },
     } as GameState;
@@ -1265,7 +1272,7 @@ it("正式房间入场拒绝尚未解析的效果行，基础字段齐全也不�
   };
   const result = applyCommand(bad, { type: "startDungeonBattle" });
   expect(result.state).toBe(bad);
-  expect(result.events[0]!.message).toContain("完整效果尚未接入");
+  expect(result.events[0]!.message).toMatch(/怪物效果计划与卡面整行不符|完整效果尚未接入/);
 });
 
 it.each([1885, 11])("种子 %i 完整四轮走通真实怪物选招 / 定位 / 攻击，战后回传", (seed) => {

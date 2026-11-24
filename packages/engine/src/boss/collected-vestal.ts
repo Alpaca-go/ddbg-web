@@ -78,7 +78,7 @@ export function playCollectedVestalSkill(
   const bearer = isBoneBearerRally(card.id, slot);
   if (bearer && boneBearerRallyProblem(card))
     return rejectBattleCommand(state, boneBearerRallyProblem(card)!);
-  const plan = card.skills[0]?.verified_monster_effects;
+  const plan = card.skills[0]?.rules?.effects ?? card.skills[0]?.verified_monster_effects;
   const heal = plan?.effects.find((e) => e.type === "heal");
   if (
     attack.status !== "ready" ||
