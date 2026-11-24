@@ -7,7 +7,7 @@ import {
   approvedTeleporters as tile,
   teleportersSchema,
   assertTeleportersEffectSource,
-} from "../../../src/core/misc/teleporters.build";
+} from "../../../src/core/curios/teleporters.build";
 import { buildRoomTileGeometry } from "../../../src/core/rooms/room-tile.build";
 import { selectRoomTile } from "../../../src/core/rooms/room-tile-selection.build";
 

@@ -4,7 +4,7 @@ import { coreParty, coreQuestSources } from "../../../helpers/core-quest";
 import { createCoreDungeonQuest } from "../../../../src/shared/dungeon/dungeon-quest-entry";
 import { nextBattleRoll } from "../../../../src/shared/battle/battle-roll";
 import { resolveCurioRows } from "../../../../src/shared/dungeon/dungeon-curio-effects";
-import { scoutRestSchema } from "../../../../../data/src/core/misc/scout-rest";
+import { scoutRestSchema } from "../../../../../data/src/core/quests/scout-rest";
 import { trinketPoolProblem } from "../../../../src/shared/trinkets/trinket-acquisition";
 
 function ok(state: GameState, command: Command) {

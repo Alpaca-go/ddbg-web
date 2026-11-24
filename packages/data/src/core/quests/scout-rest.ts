@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { basicQuests } from "../quests/basic-quests";
-import type { BasicQuestId } from "../quests/basic-quests";
+import { basicQuests } from "./basic-quests";
+import type { BasicQuestId } from "./basic-quests";
 
 /** QUEST：已接通任务的休息点数；R15休息后弃柴火。 */
 export const SCOUT_REST_POINTS = 8;

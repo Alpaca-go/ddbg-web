@@ -15,7 +15,7 @@ import {
 } from "@ddbg/engine";
 import type { DungeonState, GameState, PendingChoice } from "@ddbg/engine";
 import { readBasicQuest } from "../../../../../packages/data/src/core/quests/basic-quests";
-import { restPoints } from "../../../../../packages/data/src/core/misc/scout-rest";
+import { restPoints } from "../../../../../packages/data/src/core/quests/scout-rest";
 import { CoreboxPrintCardFace } from "../../card-art/corebox-print-card-face";
 import { MonsterCardFace } from "../../card-art/monster-card-face";
 import { RoomCardFace } from "../../card-art/room-card-face";

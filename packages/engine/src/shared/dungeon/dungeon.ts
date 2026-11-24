@@ -45,7 +45,7 @@ import type { TrinketPool } from "../trinkets/trinket-acquisition";
 import { leaveDungeon } from "./dungeon-exit";
 import type { DungeonQuestSummary } from "../../../../data/src/shared/quest-summary";
 import { readBasicQuest } from "../../../../data/src/core/quests/basic-quests";
-import type { ScoutRest } from "../../../../data/src/core/misc/scout-rest";
+import type { ScoutRest } from "../../../../data/src/core/quests/scout-rest";
 
 export type DungeonCurioDraw = {
   readonly effectIndex?: number;

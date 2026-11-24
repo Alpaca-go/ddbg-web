@@ -4,10 +4,10 @@ import geometry from "../../../normalized/corebox/room_tile_geometry.json";
 import rooms from "../../../normalized/corebox/room.json";
 import { rawFileSchema } from "../../../src/shared/extract/raw";
 import {
-  approvedEldritchPowerChamber as tile,
-  eldritchPowerChamberSchema,
-  assertEldritchPowerChamberEffectSource,
-} from "../../../src/core/misc/eldritch-power-chamber.build";
+  approvedToxicChamber as tile,
+  toxicChamberSchema,
+  assertToxicChamberEffectSource,
+} from "../../../src/core/curios/toxic-chamber.build";
 import { buildRoomTileGeometry } from "../../../src/core/rooms/room-tile.build";
 import { selectRoomTile } from "../../../src/core/rooms/room-tile-selection.build";
 
@@ -18,66 +18,69 @@ const raw = (name: string) =>
     ),
   );
 
-it("R-158：FRONT p11完整几何与八姿态部署可确定性生成", () => {
+it("R-157：BACK p10独立面、10区容量/高地、修正D/F部署与四个宝箱", () => {
   const source = raw("dungeon_tile");
   const before = structuredClone(source);
   expect(buildRoomTileGeometry(source)).toEqual(geometry);
   expect(source).toEqual(before);
-  expect(tile.source).toEqual({ file: "DD_COREBOX_TILES_FRONT.pdf", page: 11, face: "front" });
-  expect(tile.areas.map((a) => a.capacity)).toEqual([2, 3, 4, 3, 3, 4, 4, 3]);
-  expect(tile.areas.every((a) => a.elevation === "normal")).toBe(true);
+  expect(tile.source).toEqual({ file: "DD_COREBOX_TILES_BACK.pdf", page: 10, face: "back" });
+  expect(tile.areas.map((a) => a.capacity)).toEqual([2, 4, 2, 4, 2, 2, 4, 2, 3, 2]);
+  expect(tile.areas.filter((a) => a.elevation === "high").map((a) => a.id)).toEqual(["F"]);
   expect(tile.edges.filter((e) => !e.cornerOnly).map((e) => e.from + "-" + e.to)).toEqual([
     "A-B",
     "A-D",
     "B-C",
-    "B-E",
-    "C-E",
-    "C-F",
-    "D-E",
-    "D-G",
+    "C-G",
+    "D-H",
     "E-F",
-    "F-H",
-    "G-H",
+    "F-I",
+    "G-J",
+    "H-I",
+    "I-J",
   ]);
   expect(tile.edges.filter((e) => e.cornerOnly).map((e) => e.from + "-" + e.to)).toEqual([
-    "A-E",
     "B-D",
+    "B-G",
+    "D-I",
+    "G-I",
   ]);
   expect(tile.edges.some((e) => e.blocked)).toBe(false);
   expect(tile.deployment.heroes).toEqual({
-    aggressive: "G",
-    defensive: "G",
-    ranged: "C",
-    support: "C",
+    aggressive: "J",
+    defensive: "H",
+    ranged: "J",
+    support: "H",
   });
   expect(tile.deployment.monsters).toEqual({
-    aggressive: "E",
-    defensive: "E",
-    ranged: "A",
+    aggressive: "D",
+    defensive: "G",
+    ranged: "F",
     support: "F",
   });
-  expect(tile.deployment.lootAreas).toEqual(["A", "A"]);
-  expect(tile.specialRegions.map((r) => r.areaId)).toEqual(["C"]);
-  expect(tile.specialRegions[0]!.printedText).toContain("Heroes take {icon:8d4bbe5e11} 5 each.");
+  expect(
+    tile.deployment.markers
+      .filter((m) => m.semantic.startsWith("monster_"))
+      .map((m) => [m.areaId, m.semantic]),
+  ).toEqual([
+    ["D", "monster_aggressive_start"],
+    ["G", "monster_defensive_start"],
+    ["F", "monster_ranged_start"],
+    ["F", "monster_support_start"],
+  ]);
+  expect(tile.deployment.lootAreas).toEqual(["B", "B", "E", "E"]);
+  expect(tile.specialRegions.map((r) => r.areaId)).toEqual(["A", "B", "C", "E"]);
 });
 
-it("R-158：完整运行时开放参战；容量、部署、边和来源漂移拒绝", () => {
+it("R-157：Toxic Vapors 就绪后 selectRoomTile 返回 matched；几何漂移仍拒绝", () => {
   expect(tile.usable).toBe(true);
-  expect(tile.specialRegions[0]).toMatchObject({
-    areaId: "C",
-    effect: "eldritchPower",
-    status: "confirmed",
-    runtimeReady: true,
-  });
+  expect(tile.specialRegions.every((r) => r.runtimeReady)).toBe(true);
   expect(
     selectRoomTile(
-      rooms.cards.find((c) => c.id === "room:darkest:05"),
+      rooms.cards.find((c) => c.id === "room:darkest:04"),
       geometry,
     ),
   ).toMatchObject({ status: "matched" });
   for (const patch of [
-    { usable: false },
-    { specialRegions: [{ ...tile.specialRegions[0], runtimeReady: false }] },
     { areas: tile.areas.map((a) => (a.id === "E" ? { ...a, capacity: 4 } : a)) },
     { edges: tile.edges.slice(1) },
     {
@@ -86,37 +89,37 @@ it("R-158：完整运行时开放参战；容量、部署、边和来源漂移�
         monsters: { ...tile.deployment.monsters, aggressive: "F", support: "D" },
       },
     },
-    { deployment: { ...tile.deployment, lootAreas: ["A"] } },
+    { deployment: { ...tile.deployment, lootAreas: ["B", "E"] } },
     { specialRegions: tile.specialRegions.slice(1) },
-    { source: { ...tile.source, face: "back" } },
+    { source: { ...tile.source, face: "front" } },
     { deployment: { ...tile.deployment, heroes: { ...tile.deployment.heroes, support: "E" } } },
   ])
-    expect(eldritchPowerChamberSchema.safeParse({ ...tile, ...patch }).success).toBe(false);
+    expect(toxicChamberSchema.safeParse({ ...tile, ...patch }).success).toBe(false);
 });
 
-it("Room p18来源、星标、卡文漂移拒绝", () => {
+it("Room p17来源、星标、卡文漂移拒绝", () => {
   const source = raw("room");
-  expect(() => assertEldritchPowerChamberEffectSource(source)).not.toThrow();
+  expect(() => assertToxicChamberEffectSource(source)).not.toThrow();
   for (const kind of ["page", "file", "text", "star", "identity"] as const) {
     const changed = structuredClone(source);
-    const card = changed.cards.find((c) => c.id === "room:p018")!;
+    const card = changed.cards.find((c) => c.id === "room:p017")!;
     const face = card.faces.front;
     if (kind === "page") face.page = 16;
     if (kind === "file") face.file = "wrong.pdf";
     if (kind === "text") face.lines.at(-1)!.text += " changed";
     if (kind === "star") face.icons = face.icons.filter((i) => i.iconId !== "a74b9dc080");
     if (kind === "identity") card.id = "room:p016";
-    expect(() => assertEldritchPowerChamberEffectSource(changed)).toThrow();
+    expect(() => assertToxicChamberEffectSource(changed)).toThrow();
   }
 });
 
-it("Tile p11来源、编号、部署或星标缺失时拒绝生成", () => {
+it("Tile p10来源、编号、部署或星标缺失时拒绝生成", () => {
   for (const kind of ["page", "file", "number", "star", "deployment"] as const) {
     const changed = raw("dungeon_tile");
-    const face = changed.cards.find((c) => c.id === "dungeon_tile:p011")!.faces.front;
+    const face = changed.cards.find((c) => c.id === "dungeon_tile:p010")!.faces.back!;
     if (kind === "page") face.page = 9;
     if (kind === "file") face.file = "wrong.pdf";
-    if (kind === "number") face.spans = face.spans.filter((s) => s.t !== "5");
+    if (kind === "number") face.spans = face.spans.filter((s) => s.t !== "4");
     if (kind === "star") face.icons = face.icons.filter((i) => i.iconId !== "4591aebebd");
     if (kind === "deployment") face.icons = face.icons.filter((i) => i.iconId !== "39d6ddf024");
     expect(() => buildRoomTileGeometry(changed)).toThrow();

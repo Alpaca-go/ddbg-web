@@ -1,6 +1,6 @@
 import { expect, it } from "vitest";
 import printed from "../../../normalized/extension/weald/shrieker_higher.json";
-import { wealdShriekerHigherContentSchema as schema } from "../../../src/weald/misc/weald-shrieker-higher";
+import { wealdShriekerHigherContentSchema as schema } from "../../../src/weald/bosses/weald-shrieker-higher";
 it("R-270：两级本体、Nest、三技能和不同补给威胁", () => {
   const data = schema.parse(printed);
   expect(

@@ -4,7 +4,7 @@ import { placeBattleLoot } from "../../src/shared/trinkets/loot";
 import { createBattleState } from "../../src/shared/battle/battle";
 import type { BattleEntity } from "../../src/shared/battle/battle";
 import type { GameState } from "../../src/shared/core/command";
-import { approvedHallOfAscension as tile } from "../../../data/src/core/misc/hall-of-ascension.build";
+import { approvedHallOfAscension as tile } from "../../../data/src/core/hamlet/hall-of-ascension.build";
 import { roomTileBattleAreas } from "../../src/shared/battle/battle-monster-movement";
 
 const basePool = coreQuestSources.catalog.trinkets!;

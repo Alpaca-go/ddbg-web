@@ -25,7 +25,7 @@ test("Evil Eye毁眼：两行动、正面怪癖、全体减压与按钮关闭", 
     game = fixture.hallAscensionFixture();
     const { approvedEvilEye: tile } = await server.ssrLoadModule(
       fileURLToPath(
-        new URL("../../../../packages/data/src/core/misc/evil-eye.build.ts", import.meta.url),
+        new URL("../../../../packages/data/src/core/curios/evil-eye.build.ts", import.meta.url),
       ),
     );
     const { roomTileBattleAreas } = await server.ssrLoadModule(

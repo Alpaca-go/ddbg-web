@@ -1,5 +1,5 @@
 import type { ApplyResult, GameState } from "../../shared/core/command";
-import type { ScoutRest } from "../../../../data/src/core/misc/scout-rest";
+import type { ScoutRest } from "../../../../data/src/core/quests/scout-rest";
 import {
   nextProvisionFace,
   PROVISION_FACES,

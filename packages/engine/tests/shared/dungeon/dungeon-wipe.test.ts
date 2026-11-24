@@ -8,7 +8,7 @@ import type { GameState } from "../../../src/shared/core/command";
 import { createDungeonSandbox } from "../../../src/shared/dungeon/dungeon";
 import { readBasicQuest } from "../../../../data/src/core/quests/basic-quests";
 import { dungeonQuestSummarySchema } from "../../../../data/src/shared/quest-summary";
-import { scoutRestSchema } from "../../../../data/src/core/misc/scout-rest";
+import { scoutRestSchema } from "../../../../data/src/core/quests/scout-rest";
 
 function setup(count = 0): GameState {
   const heroes = ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"].map((name, i) => {

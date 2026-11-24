@@ -6,7 +6,7 @@ import {
   buildAbsoluteNothingnessSupport,
   findAbsoluteNothingnessMonsterCards,
   readAbsoluteNothingnessSupport,
-} from "../../../src/core/misc/absolute-nothingness-support";
+} from "../../../src/core/bosses/absolute-nothingness-support";
 import { rawFileSchema } from "../../../src/shared/extract/raw";
 import {
   normalizedMonsterLargeFileSchema,

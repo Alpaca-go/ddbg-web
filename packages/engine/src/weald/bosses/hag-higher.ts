@@ -3,7 +3,7 @@ import {
   defaultFaceTheThreatEmbarkHook,
 } from "../../core/bosses/default-boss-hooks";
 import printed from "../../../../data/normalized/extension/weald/hag_higher.json";
-import { wealdHagHigherContentSchema } from "../../../../data/src/weald/misc/weald-hag-higher";
+import { wealdHagHigherContentSchema } from "../../../../data/src/weald/bosses/weald-hag-higher";
 import { getBossScript, registerBossScript } from "../../core/bosses/registry";
 import { DEFAULT_BOSS_BATTLE_RULES } from "../../core/bosses/rules";
 import type { BossScriptDefinition } from "../../core/bosses/types";

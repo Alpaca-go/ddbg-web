@@ -11,7 +11,7 @@ import {
   approvedPoolOfRebirth,
   poolOfRebirthSchema,
   assertPoolOfRebirthEffectSource,
-} from "../../../src/core/misc/pool-of-rebirth.build";
+} from "../../../src/core/hamlet/pool-of-rebirth.build";
 import { selectRoomTile } from "../../../src/core/rooms/room-tile-selection.build";
 
 const raw = rawFileSchema.parse(

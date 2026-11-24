@@ -6,21 +6,21 @@ import { assertAncestorRoomSource } from "../core/rooms/ancestor-room.build";
 import { assertMammothCystRoomSource } from "../core/rooms/mammoth-cyst-room.build";
 import { assertShufflingHorrorRoomSource } from "../core/rooms/shuffling-horror-room.build";
 import { assertTemplarsRoomEffectSource } from "../core/rooms/templars-room.build";
-import { assertTempleOfTheChosenEffectSource } from "../core/misc/temple-of-the-chosen.build";
-import { assertEvilEyeEffectSource } from "../core/misc/evil-eye.build";
-import { assertTeleportersEffectSource } from "../core/misc/teleporters.build";
-import { assertEldritchPowerChamberEffectSource } from "../core/misc/eldritch-power-chamber.build";
-import { assertToxicChamberEffectSource } from "../core/misc/toxic-chamber.build";
-import { assertEldritchVaultEffectSource } from "../core/misc/eldritch-vault.build";
+import { assertTempleOfTheChosenEffectSource } from "../core/curios/temple-of-the-chosen.build";
+import { assertEvilEyeEffectSource } from "../core/curios/evil-eye.build";
+import { assertTeleportersEffectSource } from "../core/curios/teleporters.build";
+import { assertEldritchPowerChamberEffectSource } from "../core/curios/eldritch-power-chamber.build";
+import { assertToxicChamberEffectSource } from "../core/curios/toxic-chamber.build";
+import { assertEldritchVaultEffectSource } from "../core/curios/eldritch-vault.build";
 import { attachCoreHigherSkills } from "../core/heroes/core-higher-skills.build";
 import { buildDarkestBossContent } from "../core/bosses/darkest-boss-content.build";
-import { buildAbsoluteNothingnessSupport } from "../core/misc/absolute-nothingness-support.build";
+import { buildAbsoluteNothingnessSupport } from "../core/bosses/absolute-nothingness-support.build";
 import { buildDarkestBossAbilities } from "../core/bosses/darkest-boss-abilities.build";
 import { buildRuinsBossAbilities } from "../core/bosses/ruins-boss-abilities.build";
 import { buildQuestCards } from "../core/quests/quest-cards.build";
 import { buildStygianRooms } from "../core/rooms/stygian-rooms.build";
 import { buildDarkestMonsterPool } from "../core/monsters/darkest-monster-pool.build";
-import { attachVerifiedCollectedLife } from "../core/misc/verified-collected-life.build";
+import { attachVerifiedCollectedLife } from "../core/bosses/verified-collected-life.build";
 import type { IconDictionary } from "./dictionary/schema";
 import type {
   HeroSkillCard,
@@ -42,10 +42,10 @@ import { attachVerifiedMonsterSpeeds } from "../core/monsters/verified-monster-s
 import { attachVerifiedLargeMonsterFields } from "../core/monsters/verified-large-monster-fields.build";
 import { attachVerifiedMonsterProtection } from "../core/monsters/verified-monster-protection.build";
 import { attachVerifiedMonsterEffects } from "../core/monsters/verified-monster-effects.build";
-import { attachVerifiedHeartOfDarknessSkillRanges } from "../core/misc/verified-heart-of-darkness-ranges.build";
+import { attachVerifiedHeartOfDarknessSkillRanges } from "../core/bosses/verified-heart-of-darkness-ranges.build";
 import { attachVerifiedMonsterStress } from "../core/monsters/verified-monster-stress.build";
 import { attachVerifiedMonsterDamage } from "../core/monsters/verified-monster-damage.build";
-import { attachReviewedHeroStances } from "../core/misc/reviewed-hero-stances.build";
+import { attachReviewedHeroStances } from "../core/heroes/reviewed-hero-stances.build";
 import {
   applyHeroAnnotations,
   applyHeroBountyStatuses,
@@ -62,21 +62,21 @@ import {
   applyHeroStatuses,
   applyHeroSupport,
 } from "../core/heroes/annotations";
-import { attachVerifiedResolveTriggers } from "../core/misc/verified-resolve-triggers.build";
+import { attachVerifiedResolveTriggers } from "../core/quests/verified-resolve-triggers.build";
 import { applyMonsterResistances } from "../core/monsters/monster-resistances.build";
 import { MONSTER_RESISTANCES } from "../core/monsters/monster-resistances-data.build";
 import { TRINKET_RULES } from "../core/trinkets/trinket-rules-data.build";
 import { withHeroSkillRules, withMonsterCardRules, withVirtueRules } from "./rules";
-import { approvedResolveLookup } from "../core/misc/approved-resolve-icons.build";
+import { approvedResolveLookup } from "../core/quests/approved-resolve-icons.build";
 import { buildRoomTileGeometry } from "../core/rooms/room-tile.build";
-import { assertHallOfAscensionEffectSource } from "../core/misc/hall-of-ascension.build";
-import { assertPoolOfRebirthEffectSource } from "../core/misc/pool-of-rebirth.build";
+import { assertHallOfAscensionEffectSource } from "../core/hamlet/hall-of-ascension.build";
+import { assertPoolOfRebirthEffectSource } from "../core/hamlet/pool-of-rebirth.build";
 import type { RoomTileGeometryFile } from "../core/rooms/room-tile.build";
 import { buildHeroStats, normalizedHeroStatFileSchema } from "../core/heroes/hero-stat.build";
 import { heroSkillId } from "../core/heroes/hero-registry";
-import { buildWarrensHeroStats } from "../warrens/misc/warrens-hero-stat.build";
-import { buildCoveHeroStats } from "../cove/misc/cove-hero-stat.build";
-import { buildWealdHeroStats } from "../weald/misc/weald-hero-stat.build";
+import { buildWarrensHeroStats } from "../warrens/heroes/warrens-hero-stat.build";
+import { buildCoveHeroStats } from "../cove/heroes/cove-hero-stat.build";
+import { buildWealdHeroStats } from "../weald/heroes/weald-hero-stat.build";
 import { buildMusketeerHeroStats } from "../core/heroes/musketeer-hero-stat.build";
 import { buildRooms } from "../core/rooms/room.build";
 import { buildMonsterPool } from "../core/monsters/monster-pool.build";

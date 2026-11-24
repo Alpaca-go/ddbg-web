@@ -1,7 +1,7 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { expect, it } from "vitest";
 import { loadNormalizedCorebox } from "../../../src/shared/write";
-import { attachVerifiedCollectedLife } from "../../../src/core/misc/verified-collected-life.build";
+import { attachVerifiedCollectedLife } from "../../../src/core/bosses/verified-collected-life.build";
 
 const built = loadNormalizedCorebox();
 const ids = {

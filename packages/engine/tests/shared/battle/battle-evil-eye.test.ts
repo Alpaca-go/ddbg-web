@@ -1,5 +1,5 @@
 import { expect, it } from "vitest";
-import { approvedEvilEye as tile } from "../../../../data/src/core/misc/evil-eye.build";
+import { approvedEvilEye as tile } from "../../../../data/src/core/curios/evil-eye.build";
 import rooms from "../../../../data/normalized/corebox/room.json";
 import catalog from "../../../../data/normalized/corebox/room_tile_geometry.json";
 import { selectRoomTile } from "../../../../data/src/core/rooms/room-tile-selection.build";

@@ -4,8 +4,8 @@ import { fileURLToPath } from "node:url";
 
 import { describe, expect, it } from "vitest";
 
-import { virtueRole } from "../../../src/core/hamlet/virtue-role.build";
-import { loadNormalizedCorebox, writeNormalizedCorebox } from "../../../src/shared/write";
+import { virtueRole } from "../../src/core/hamlet/virtue-role.build";
+import { loadNormalizedCorebox, writeNormalizedCorebox } from "../../src/shared/write";
 
 if (process.env.WRITE_NORMALIZED === "1") {
   writeNormalizedCorebox();
@@ -13,7 +13,7 @@ if (process.env.WRITE_NORMALIZED === "1") {
 
 const NORMALIZED_ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
-  "../../../normalized/corebox",
+  "../../normalized/corebox",
 );
 
 const FILES = [

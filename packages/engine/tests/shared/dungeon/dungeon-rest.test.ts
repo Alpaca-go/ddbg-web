@@ -11,7 +11,7 @@ import { applyCommand } from "../../../src/shared/core/command";
 import type { Command, GameState } from "../../../src/shared/core/command";
 import { createDungeonSandbox } from "../../../src/shared/dungeon/dungeon";
 import { canRestDungeon } from "../../../src/shared/dungeon/dungeon-rest";
-import { scoutRestSchema } from "../../../../data/src/core/misc/scout-rest";
+import { scoutRestSchema } from "../../../../data/src/core/quests/scout-rest";
 import { QUIRK_NAMES } from "../../../src/shared/core/passive";
 
 function setup(): GameState {

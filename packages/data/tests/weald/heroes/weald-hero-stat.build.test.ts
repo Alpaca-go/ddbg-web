@@ -5,28 +5,28 @@ import { fileURLToPath } from "node:url";
 import { iconDictionarySchema } from "../../../src/shared/dictionary/schema";
 import { rawFileSchema } from "../../../src/shared/extract/raw";
 import {
-  approvedCoveHeroStats,
-  buildCoveHeroStats,
-} from "../../../src/cove/misc/cove-hero-stat.build";
+  approvedWealdHeroStats,
+  buildWealdHeroStats,
+} from "../../../src/weald/heroes/weald-hero-stat.build";
 import { loadNormalizedCorebox } from "../../../src/shared/write";
 import { canonicalHeroStatCardSchema } from "../../../src/core/heroes/hero-stat.build";
 
 const DATA_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../..");
 const json = (rel: string) => JSON.parse(readFileSync(path.join(DATA_ROOT, rel), "utf8"));
 
-const raw = rawFileSchema.parse(json("extract/extension/cove/raw/hero_stat.json"));
+const raw = rawFileSchema.parse(json("extract/extension/weald/raw/hero_stat.json"));
 const dictionary = iconDictionarySchema.parse(json("dictionary/icon-dictionary-v1.8.json"));
 
-it("Cove：六面获批 STAT 与 raw 一致", () => {
-  const built = buildCoveHeroStats(raw, dictionary);
-  expect(built).toHaveLength(approvedCoveHeroStats.length);
+it("Weald：六面获批 STAT 与 raw 一致", () => {
+  const built = buildWealdHeroStats(raw, dictionary);
+  expect(built).toHaveLength(approvedWealdHeroStats.length);
   const cases: [string, number, number, number, number][] = [
-    ["hero_stat:cove:h13:p026:front", 1, 12, 2, 2],
-    ["hero_stat:cove:h13:p026:back", 2, 16, 3, 3],
-    ["hero_stat:cove:h13:p027:front", 3, 22, 3, 3],
-    ["hero_stat:cove:h12:p024:front", 1, 16, 1, 1],
-    ["hero_stat:cove:h12:p024:back", 2, 22, 2, 1],
-    ["hero_stat:cove:h12:p025:front", 3, 28, 3, 2],
+    ["hero_stat:weald:h17:p034:front", 1, 11, 1, 2],
+    ["hero_stat:weald:h17:p034:back", 2, 15, 2, 2],
+    ["hero_stat:weald:h17:p035:front", 3, 19, 3, 2],
+    ["hero_stat:weald:h16:p032:front", 1, 11, 1, 2],
+    ["hero_stat:weald:h16:p032:back", 2, 15, 2, 2],
+    ["hero_stat:weald:h16:p033:front", 3, 19, 3, 3],
   ];
   for (const [id, level, life, dodge, speed] of cases) {
     const card = built.find((c) => c.id === id)!;
@@ -38,6 +38,6 @@ it("Cove：六面获批 STAT 与 raw 一致", () => {
     expect(canonicalHeroStatCardSchema.safeParse(card).success).toBe(true);
   }
   const file = loadNormalizedCorebox().hero_stat;
-  const cove = file.cards.filter((c: { id: string }) => c.id.startsWith("hero_stat:cove:"));
-  expect(built).toEqual(cove);
+  const weald = file.cards.filter((c: { id: string }) => c.id.startsWith("hero_stat:weald:"));
+  expect(built).toEqual(weald);
 });

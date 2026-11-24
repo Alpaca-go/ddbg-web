@@ -9,9 +9,9 @@ import {
   buildHigherHeroDefence,
   readHigherHeroDefence,
 } from "./hero-higher-defence.build";
-import { warrensHeroStatCardSchema } from "../../warrens/misc/warrens-hero-stat.build";
-import { coveHeroStatCardSchema } from "../../cove/misc/cove-hero-stat.build";
-import { wealdHeroStatCardSchema } from "../../weald/misc/weald-hero-stat.build";
+import { warrensHeroStatCardSchema } from "../../warrens/heroes/warrens-hero-stat.build";
+import { coveHeroStatCardSchema } from "../../cove/heroes/cove-hero-stat.build";
+import { wealdHeroStatCardSchema } from "../../weald/heroes/weald-hero-stat.build";
 import { musketeerHeroStatCardSchema } from "./musketeer-hero-stat.build";
 import { heroStatId } from "./hero-registry";
 import { withHeroStatRules } from "../../shared/rules";

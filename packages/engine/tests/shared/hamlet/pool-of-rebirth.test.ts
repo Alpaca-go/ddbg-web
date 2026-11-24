@@ -6,7 +6,7 @@ import resolveFile from "../../../../data/normalized/corebox/virtue_affliction.j
 import { normalizedHeroStatFileSchema } from "../../../../data/src/core/heroes/hero-stat.build";
 import { normalizedQuirkFileSchema } from "../../../../data/src/shared/schema";
 import { diseaseFileSchema } from "../../../../data/src/core/hamlet/disease";
-import { approvedPoolOfRebirth as tile } from "../../../../data/src/core/misc/pool-of-rebirth.build";
+import { approvedPoolOfRebirth as tile } from "../../../../data/src/core/hamlet/pool-of-rebirth.build";
 import { createBattleState } from "../../../src/shared/battle/battle";
 import type { BattleEntity, BattleSetup } from "../../../src/shared/battle/battle";
 import { applyCommand } from "../../../src/shared/core/command";

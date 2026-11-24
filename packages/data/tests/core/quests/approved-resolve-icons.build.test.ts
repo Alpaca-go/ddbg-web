@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { approvedResolveLookup } from "../../../src/core/misc/approved-resolve-icons.build";
+import { approvedResolveLookup } from "../../../src/core/quests/approved-resolve-icons.build";
 import { createIconLookup } from "../../../src/shared/icons";
 import { iconDictionarySchema } from "../../../src/shared/dictionary/schema";
 import { readFileSync } from "node:fs";

@@ -1,6 +1,6 @@
 import monsterPoolFile from "../../../normalized/corebox/monster_pool.json";
-import { monsterPoolFileSchema, ruinsMonsterPoolThrough } from "../monsters/monster-pool";
-import { hasApprovedHigherMonsterFields } from "../monsters/verified-monster-entry.build";
+import { monsterPoolFileSchema, ruinsMonsterPoolThrough } from "./monster-pool";
+import { hasApprovedHigherMonsterFields } from "./verified-monster-entry.build";
 
 const poolCards = monsterPoolFileSchema.parse(monsterPoolFile).cards;
 

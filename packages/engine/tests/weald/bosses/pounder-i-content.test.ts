@@ -2,7 +2,7 @@ import { expect, it } from "vitest";
 import corePool from "../../../../data/normalized/corebox/monster_pool.json";
 import raw from "../../../../data/extract/extension/weald/raw/monster_medium.json";
 import printed from "../../../../data/normalized/extension/weald/pounder_i.json";
-import { wealdPounderContentSchema } from "../../../../data/src/weald/misc/weald-pounder";
+import { wealdPounderContentSchema } from "../../../../data/src/weald/bosses/weald-pounder";
 import { wealdRoomTileSchema } from "../../../../data/src/weald/rooms/weald-room";
 import { findWealdRoomTile } from "../../../src/weald/room-catalog";
 import { resolveScriptIdForDescriptionCard } from "../../../src/core/bosses/threat-description-catalog";

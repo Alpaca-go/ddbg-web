@@ -183,18 +183,18 @@ export {
   wealdRoomTileSchema,
 } from "./weald/rooms/weald-room";
 export type { WealdRoomCard, WealdRoomTile } from "./weald/rooms/weald-room";
-export { wealdHagContentSchema, wealdHagTileSchema } from "./weald/misc/weald-hag";
-export type { WealdHagContent } from "./weald/misc/weald-hag";
-export { wealdHagHigherContentSchema } from "./weald/misc/weald-hag-higher";
-export type { WealdHagHigherContent } from "./weald/misc/weald-hag-higher";
+export { wealdHagContentSchema, wealdHagTileSchema } from "./weald/bosses/weald-hag";
+export type { WealdHagContent } from "./weald/bosses/weald-hag";
+export { wealdHagHigherContentSchema } from "./weald/bosses/weald-hag-higher";
+export type { WealdHagHigherContent } from "./weald/bosses/weald-hag-higher";
 
 export {
   absoluteNothingnessSupportSchema,
   buildAbsoluteNothingnessSupport,
   findAbsoluteNothingnessMonsterCards,
   readAbsoluteNothingnessSupport,
-} from "./core/misc/absolute-nothingness-support";
-export type { AbsoluteNothingnessSupport } from "./core/misc/absolute-nothingness-support";
+} from "./core/bosses/absolute-nothingness-support";
+export type { AbsoluteNothingnessSupport } from "./core/bosses/absolute-nothingness-support";
 export {
   darkestBossContentSchema,
   finalBattlePlanForQuest,
@@ -229,8 +229,8 @@ export type { CoveBossRoomCard, CoveRoomCard } from "./cove/rooms/cove-room";
 export type { StygianRooms } from "./core/rooms/stygian-rooms";
 export { curioPoolIdentity, locationCurioPool } from "./core/curios/curio-pool";
 
-export { wealdPounderHigherContentSchema } from "./weald/misc/weald-pounder-higher";
-export type { WealdPounderHigherContent } from "./weald/misc/weald-pounder-higher";
+export { wealdPounderHigherContentSchema } from "./weald/bosses/weald-pounder-higher";
+export type { WealdPounderHigherContent } from "./weald/bosses/weald-pounder-higher";
 
-export { wealdShriekerHigherContentSchema } from "./weald/misc/weald-shrieker-higher";
-export type { WealdShriekerHigherContent } from "./weald/misc/weald-shrieker-higher";
+export { wealdShriekerHigherContentSchema } from "./weald/bosses/weald-shrieker-higher";
+export type { WealdShriekerHigherContent } from "./weald/bosses/weald-shrieker-higher";

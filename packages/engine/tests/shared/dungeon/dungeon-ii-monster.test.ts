@@ -3,7 +3,7 @@ import layout from "../../../../data/normalized/corebox/dungeon_layout_p001.json
 import distribution from "../../../../data/normalized/corebox/clear_the_path_distribution.json";
 import trinkets from "../../../../data/normalized/corebox/trinket.json";
 import { normalizedTrinketFileSchema } from "../../../../data/src/shared/schema";
-import { RUINS_DL2_APPROVED_HIGHER_COMBAT_IDS } from "../../../../data/src/core/misc/ruins-pool-admission.build";
+import { RUINS_DL2_APPROVED_HIGHER_COMBAT_IDS } from "../../../../data/src/core/monsters/ruins-pool-admission.build";
 import { hasApprovedHigherMonsterFields } from "../../../../data/src/core/monsters/verified-monster-entry.build";
 import { ruinsMonsterPoolThrough } from "../../../../data/src/core/monsters/monster-pool";
 import { coreParty, coreQuestSources as sources } from "../../helpers/core-quest";

@@ -8,7 +8,7 @@ import {
 import {
   RUINS_DL2_APPROVED_HIGHER_COMBAT_IDS,
   ruinsPoolAdmissionRows,
-} from "../../../src/core/misc/ruins-pool-admission.build";
+} from "../../../src/core/monsters/ruins-pool-admission.build";
 
 const monsters = [
   ...normalizedMonsterMediumFileSchema.parse(medium).cards,
