@@ -29,7 +29,12 @@ web 3、docs 若干）。因此作为独立迁移分支，不夹在 A2 里做。
 > **R3b2 部分完成（2026-11-24）**：英雄属性五个构建器与 schema 已删除
 > `verified_buff_defence` / `verified_condition_defence` /
 > `verified_higher_condition_defence`，直接产出 `rules`；美德/折磨已删除
-> `verified_turn_start`。**仍待**：hero_skill / monster schema 的旧字段与注解层内部字段。
+> `verified_turn_start`。
+> **R3b 已完成（2026-11-24）**：hero_skill / monster schema 的 `verified_*`
+> 定义清零；hero skill 注解解析 helper 在 applier 边界把旧字段折成 `rules`，
+> monster 效果/压力/伤害/Weald/Heart 注解直接写 `rules`。normalized 7 个文件
+> 重生成后旧字段仍为 0。注解数据文件里仍有旧字段名作为内部输入 DSL，
+> 由 build 边界统一转换；引擎类型 / pipeline / 历史测试的最终改名留给 R3c。
 
 ## 1. 终态形状
 
