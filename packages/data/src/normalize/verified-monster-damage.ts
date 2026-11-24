@@ -35,11 +35,14 @@ export function attachVerifiedMonsterDamage(
         skill.slot === 1
           ? {
               ...skill,
-              verified_damage_bonus: {
-                lineIndex: 0,
-                amount: 1,
-                condition: "marked" as const,
-                source: "print_front" as const,
+              rules: {
+                ...skill.rules,
+                damage: {
+                  lineIndex: 0,
+                  amount: 1,
+                  condition: "marked" as const,
+                  source: "print_front" as const,
+                },
               },
             }
           : skill,

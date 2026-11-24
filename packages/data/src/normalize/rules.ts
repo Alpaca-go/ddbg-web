@@ -96,47 +96,11 @@ export function projectHeroSkillRules(card: NormalizedHeroSkillCard): HeroSkillR
 }
 
 export function projectMonsterSkillRules(skill: MonsterSkill): MonsterSkillRules | undefined {
-  const rules: MonsterSkillRules = { ...(skill.rules ?? {}) };
-  if (skill.verified_damage_bonus) rules.damage = skill.verified_damage_bonus;
-  if (skill.verified_actor_damage_bonus) rules.actorDamage = skill.verified_actor_damage_bonus;
-  if (skill.verified_effect_line_receipts) rules.receipts = skill.verified_effect_line_receipts;
-  if (skill.verified_bleed_blight_transfer) rules.transfer = skill.verified_bleed_blight_transfer;
-  if (skill.verified_range) rules.range = skill.verified_range;
-  if (skill.verified_self_range || skill.verified_self_heal || skill.verified_self_stress) {
-    const self: NonNullable<MonsterSkillRules["self"]> = { ...(skill.rules?.self ?? {}) };
-    if (skill.verified_self_range) self.range = true;
-    if (skill.verified_self_heal) self.heal = skill.verified_self_heal;
-    if (skill.verified_self_stress) self.stress = skill.verified_self_stress;
-    rules.self = self;
-  }
-  if (
-    skill.verified_target_header ||
-    skill.verified_target_heal ||
-    skill.verified_target_stress ||
-    skill.verified_target_support
-  ) {
-    const target: NonNullable<MonsterSkillRules["target"]> = { ...(skill.rules?.target ?? {}) };
-    if (skill.verified_target_header) target.header = skill.verified_target_header;
-    if (skill.verified_target_heal) target.heal = skill.verified_target_heal;
-    if (skill.verified_target_stress) target.stress = skill.verified_target_stress;
-    if (skill.verified_target_support) target.support = skill.verified_target_support;
-    rules.target = target;
-  }
-  if (skill.verified_allies_stress !== undefined) rules.alliesStress = skill.verified_allies_stress;
-  if (skill.verified_monster_effects) rules.effects = skill.verified_monster_effects;
-  if (skill.verified_weald_attack) rules.wealdAttack = skill.verified_weald_attack;
-  return compact(rules);
+  return compact({ ...(skill.rules ?? {}) });
 }
 
 export function projectMonsterCardRules(card: MonsterFighterCard): MonsterCardRules | undefined {
-  const rules: MonsterCardRules = { ...(card.rules ?? {}) };
-  if (card.verified_weald_profile) rules.wealdProfile = card.verified_weald_profile;
-  // A2 单元 8 的抗性规则直接写在 rules 下，投影时原样保留。
-  if (card.rules?.resistances) rules.resistances = card.rules.resistances;
-  if (card.rules?.immunities) rules.immunities = card.rules.immunities;
-  if (card.rules?.shuffleResist !== undefined) rules.shuffleResist = card.rules.shuffleResist;
-  if (card.rules?.shuffleImmune !== undefined) rules.shuffleImmune = card.rules.shuffleImmune;
-  return compact(rules);
+  return compact({ ...(card.rules ?? {}) });
 }
 
 export function projectHeroStatRules(card: HeroStatRuleSource): HeroStatRules | undefined {

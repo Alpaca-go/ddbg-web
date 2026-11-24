@@ -24,7 +24,7 @@ export function attachVerifiedHeartOfDarknessSkillRanges(
             item.numeric === null,
         )?.text;
         if (rangeText !== "0-10") throw new Error(`Heart of Darkness slot ${skill.slot} 射程漂移`);
-        return { ...skill, verified_range: RANGE };
+        return { ...skill, rules: { ...skill.rules, range: RANGE } };
       }),
     });
   });

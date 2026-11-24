@@ -34,7 +34,13 @@ export function attachVerifiedMonsterStress(
         skill.slot === 1
           ? {
               ...skill,
-              verified_target_stress: { lineIndex: 0, amount: 1, source: "print_front" },
+              rules: {
+                ...skill.rules,
+                target: {
+                  ...skill.rules?.target,
+                  stress: { lineIndex: 0, amount: 1, source: "print_front" },
+                },
+              },
             }
           : skill,
       ),

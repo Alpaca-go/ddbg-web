@@ -1428,11 +1428,14 @@ export function attachVerifiedMonsterEffects(
         return entry
           ? {
               ...skill,
-              verified_monster_effects: {
-                source: "print_front" as const,
-                signatures:
-                  typeof entry.signature === "string" ? [entry.signature] : [...entry.signature],
-                effects: entry.effects,
+              rules: {
+                ...skill.rules,
+                effects: {
+                  source: "print_front" as const,
+                  signatures:
+                    typeof entry.signature === "string" ? [entry.signature] : [...entry.signature],
+                  effects: entry.effects,
+                },
               },
             }
           : skill;

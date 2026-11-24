@@ -224,22 +224,6 @@ const skillStatFields = {
   effect_lines: lineListSchema,
 };
 
-/** 仅 monster 注解层仍使用的旧字段；hero skill 已直接写 rules。 */
-const legacySkillStatFields = {
-  verified_damage_bonus: damageBonusRuleSchema.optional(),
-  verified_target_header: targetHeaderRuleSchema.optional(),
-  verified_target_support: targetSupportRuleSchema.optional(),
-  verified_target_stress: targetStressRuleSchema.optional(),
-  verified_target_heal: targetHealRuleSchema.optional(),
-  verified_effect_line_receipts: z.array(effectLineReceiptRuleSchema).min(1).optional(),
-  verified_self_heal: selfHealRuleSchema.optional(),
-  verified_self_stress: selfStressRuleSchema.optional(),
-  verified_allies_stress: z.int().optional(),
-  verified_self_range: z.literal(true).optional(),
-  verified_actor_damage_bonus: actorDamageRuleSchema.optional(),
-  verified_bleed_blight_transfer: transferRuleSchema.optional(),
-};
-
 /** 状态种类；抗性 / 免疫规则共用同一枚举。 */
 export const statusKindSchema = z.enum([
   "bleed",
@@ -418,15 +402,11 @@ export const normalizedHeroSkillCardSchema = z.union([
 ]);
 
 const normalizedMonsterSkillSchema = z.strictObject({
-  verified_weald_attack: wealdMonsterAttackSchema.optional(),
   slot: z.int().min(1).max(3),
   name: z.string().min(1),
   target: z.string().min(1).nullable(),
   ...skillStatFields,
-  ...legacySkillStatFields,
-  verified_range: rangeRuleSchema.optional(),
   lines: lineListSchema,
-  verified_monster_effects: monsterEffectPlanSchema.optional(),
   /** 规则语义（新命名空间）：只放引擎要执行的解释，不放印刷原文。 */
   rules: monsterSkillRulesSchema.optional(),
 });
@@ -464,7 +444,6 @@ const monsterCardSchema = z
     ...monsterShared,
     life: z.int().positive(),
     life_icon: normalizedIconSchema,
-    verified_weald_profile: wealdMonsterProfileSchema.optional(),
     /** 规则语义（新命名空间）：只放引擎要执行的解释，不放印刷原文。 */
     rules: monsterCardRulesSchema.optional(),
     /** R-230：逐卡确认的 Dodge；不覆盖原始图标旁数字。 */
@@ -738,7 +717,7 @@ export type NormalizedHeroSkillCard = NormalizedHeroSkillCardBase & {
   verified_bleed_blight_transfer?: HeroSkillRules["transfer"];
 };
 
-/** applier 输出解析：先摘掉内部旧字段，schema 只校验 rules 形状。 */
+/** applier 输出解析：把内部旧字段就地折成 rules，schema 只校验 rules 形状。 */
 export function parseAnnotatedHeroSkillCard(input: unknown): NormalizedHeroSkillCard {
   const raw = input as Record<string, unknown>;
   const annotations = Object.fromEntries(
@@ -748,7 +727,34 @@ export function parseAnnotatedHeroSkillCard(input: unknown): NormalizedHeroSkill
     Object.entries(raw).filter(([key]) => !key.startsWith("verified_")),
   );
   const parsed = normalizedHeroSkillCardSchema.parse(rest);
-  return { ...parsed, ...annotations } as NormalizedHeroSkillCard;
+  const rules = { ...(parsed.rules ?? {}) } as Record<string, unknown>;
+  const a = annotations as Record<string, unknown>;
+  const map: Record<string, string> = {
+    verified_status_effects: "statuses",
+    verified_damage_bonus: "damage",
+    verified_damage_bonuses: "damageBonuses",
+    verified_actor_damage_bonus: "actorDamage",
+    verified_range: "range",
+    verified_allies_stress: "alliesStress",
+    verified_rallying_flare: "rallyingFlare",
+    verified_effect_line_receipts: "receipts",
+    verified_bleed_blight_transfer: "transfer",
+  };
+  for (const [from, to] of Object.entries(map)) {
+    if (a[from] !== undefined) rules[to] = a[from];
+  }
+  const self = { ...((rules.self as Record<string, unknown>) ?? {}) };
+  if (a.verified_self_range !== undefined) self.range = a.verified_self_range;
+  if (a.verified_self_heal !== undefined) self.heal = a.verified_self_heal;
+  if (a.verified_self_stress !== undefined) self.stress = a.verified_self_stress;
+  if (Object.keys(self).length) rules.self = self;
+  const target = { ...((rules.target as Record<string, unknown>) ?? {}) };
+  if (a.verified_target_header !== undefined) target.header = a.verified_target_header;
+  if (a.verified_target_heal !== undefined) target.heal = a.verified_target_heal;
+  if (a.verified_target_stress !== undefined) target.stress = a.verified_target_stress;
+  if (a.verified_target_support !== undefined) target.support = a.verified_target_support;
+  if (Object.keys(target).length) rules.target = target;
+  return { ...parsed, rules } as NormalizedHeroSkillCard;
 }
 
 export type NormalizedHeroSkillFile = z.infer<typeof normalizedHeroSkillFileSchema>;

@@ -137,7 +137,7 @@ export function attachVerifiedWealdMonster(
     throw new Error(`Weald R-230 卡身份不符：${card.id}`);
   return {
     ...card,
-    verified_weald_profile: profile,
+    rules: { ...card.rules, wealdProfile: profile },
     dodge: profile.dodge,
     speed: profile.speed,
     stanceGroups: profile.stanceGroups,
@@ -167,7 +167,11 @@ export function attachVerifiedWealdMonster(
           JSON.stringify(entry.effectSignatures)
       )
         throw new Error(`Weald R-230 技能卡面漂移：${card.id} / ${skill.slot}`);
-      return { ...skill, target: entry.target, verified_weald_attack: entry };
+      return {
+        ...skill,
+        target: entry.target,
+        rules: { ...skill.rules, wealdAttack: entry },
+      };
     }),
   };
 }
