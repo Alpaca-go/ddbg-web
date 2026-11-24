@@ -2,7 +2,7 @@
 
 > **日期**：2026-10-30（UTC）  
 > **仓库 tip**：`391c411`（分支自 `main`）  
-> **性质**：盘点文档，**不**接线运行时；与 [`HANDOFF-2026-10-29-codex-core-pack-remaining.md`](./HANDOFF-2026-10-29-codex-core-pack-remaining.md)、[`phase5-remaining-hold-inventory-2026-10-29.md`](./phase5-remaining-hold-inventory-2026-10-29.md) 互补。
+> **性质**：盘点文档，**不**接线运行时；与 [`HANDOFF-2026-10-29-codex-core-pack-remaining.md`](./handoffs/HANDOFF-2026-10-29-codex-core-pack-remaining.md)、[`phase5-remaining-hold-inventory-2026-10-29.md`](./phases/phase5/phase5-remaining-hold-inventory-2026-10-29.md) 互补。
 
 ## 范围
 
@@ -18,10 +18,10 @@
 - [`docs/rulings.md`](./rulings.md) 全文及「待确认（未裁定）」节
 - [`docs/rulings-notes.md`](./rulings-notes.md)（暂定理由与复核优先级）
 - [`docs/spec/core-rules-spec-v0.2.md`](./spec/core-rules-spec-v0.2.md) §22 与文首状态
-- [`docs/phase5-remaining-hold-inventory-2026-10-29.md`](./phase5-remaining-hold-inventory-2026-10-29.md)
-- [`docs/HANDOFF-2026-10-29-codex-core-pack-remaining.md`](./HANDOFF-2026-10-29-codex-core-pack-remaining.md)
+- [`docs/phase5-remaining-hold-inventory-2026-10-29.md`](./phases/phase5/phase5-remaining-hold-inventory-2026-10-29.md)
+- [`docs/HANDOFF-2026-10-29-codex-core-pack-remaining.md`](./handoffs/HANDOFF-2026-10-29-codex-core-pack-remaining.md)
 - [`docs/r048-curio-remaining-2026-10-28.md`](./r048-curio-remaining-2026-10-28.md) §4（规则停点，非图标 map）
-- [`docs/phase3-approved-data-2026-10-13.md`](./phase3-approved-data-2026-10-13.md)（特殊房运行时边界）
+- [`docs/phase3-approved-data-2026-10-13.md`](./phases/phase3/phase3-approved-data-2026-10-13.md)（特殊房运行时边界）
 - [`packages/engine/src/dungeon-quest.ts`](../../packages/engine/src/dungeon-quest.ts)、[`dungeon.ts`](../../packages/engine/src/dungeon.ts) 内 hold 注释
 
 ---
@@ -109,13 +109,13 @@
 
 ## 5. 房间卡 / Room Tile / 走廊板块（`DD_COREBOX_TILES_*`、`ROOMS_*`）
 
-| 短标题                            | 冲突 / 不明点                                                                      | 证据                                                                                | 状态             | 已采纳摘要（若有）    |
-| --------------------------------- | ---------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ---------------- | --------------------- |
-| Torture Unholy Aura 语义          | H 区星形与卡文对照通过，**不**全局继承 Ritual Cornered；禁疗路径未齐则整面不可用。 | VQ-05；[`phase3-approved-data-2026-10-13.md`](./phase3-approved-data-2026-10-13.md) | 候选 / hold      | usable=false          |
-| Old Abbey 复合压力/治疗           | 全 O8 英雄压力+治疗；**压力到 10 等顺序**未明时保留停点。                          | VQ-18；approved-data 表                                                             | 待确认 / hold    | 几何已批，运行时未齐  |
-| Invocation Chamber 行动替换与轮末 | 怪物行动替换 + 轮末压力触发顺序未完整实现前不可用。                                | VQ-17；approved-data 表                                                             | hold             | —                     |
-| Treasure Chamber 特殊动作         | Hide and Heal 等：**Q-73 已裁定 A**，完整交互与禁疗边界仍 hold。                   | Q-73 → **R-073**；VQ-15                                                             | 部分已裁定       | 存活后移除全部 Wounds |
-| 走廊板块与探索实体                | 走廊段几何未接到探索布局（与 QuestMap 图分离）。                                   | HANDOFF C-001；`plan.md` Phase 3                                                    | 须 Kyries 批几何 | 非 Q-45 规则猜测      |
+| 短标题                            | 冲突 / 不明点                                                                      | 证据                                                                                              | 状态             | 已采纳摘要（若有）    |
+| --------------------------------- | ---------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | ---------------- | --------------------- |
+| Torture Unholy Aura 语义          | H 区星形与卡文对照通过，**不**全局继承 Ritual Cornered；禁疗路径未齐则整面不可用。 | VQ-05；[`phase3-approved-data-2026-10-13.md`](./phases/phase3/phase3-approved-data-2026-10-13.md) | 候选 / hold      | usable=false          |
+| Old Abbey 复合压力/治疗           | 全 O8 英雄压力+治疗；**压力到 10 等顺序**未明时保留停点。                          | VQ-18；approved-data 表                                                                           | 待确认 / hold    | 几何已批，运行时未齐  |
+| Invocation Chamber 行动替换与轮末 | 怪物行动替换 + 轮末压力触发顺序未完整实现前不可用。                                | VQ-17；approved-data 表                                                                           | hold             | —                     |
+| Treasure Chamber 特殊动作         | Hide and Heal 等：**Q-73 已裁定 A**，完整交互与禁疗边界仍 hold。                   | Q-73 → **R-073**；VQ-15                                                                           | 部分已裁定       | 存活后移除全部 Wounds |
+| 走廊板块与探索实体                | 走廊段几何未接到探索布局（与 QuestMap 图分离）。                                   | HANDOFF C-001；`plan.md` Phase 3                                                                  | 须 Kyries 批几何 | 非 Q-45 规则猜测      |
 
 ---
 
@@ -187,10 +187,10 @@
 
 ## 8. 其它 PDF 或无法归类
 
-| 短标题                                    | 冲突 / 不明点                                               | 证据                                                                           | 状态           |
-| ----------------------------------------- | ----------------------------------------------------------- | ------------------------------------------------------------------------------ | -------------- |
-| Phase 6：Stygian 模式与英雄 II/III 全战斗 | 须 Kyries 明示才开；与 Q-10/R-011 叠加。                    | HANDOFF；**R-011**                                                             | 须 Kyries 明示 |
-| Phase 3 三任务人工试玩签收                | 自然路径有回放；Kyries 人工试玩仍待确认（非规则条文本身）。 | [`phase3-acceptance-gap-2026-10-13.md`](./phase3-acceptance-gap-2026-10-13.md) | 待确认（验收） |
+| 短标题                                    | 冲突 / 不明点                                               | 证据                                                                                         | 状态           |
+| ----------------------------------------- | ----------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------- |
+| Phase 6：Stygian 模式与英雄 II/III 全战斗 | 须 Kyries 明示才开；与 Q-10/R-011 叠加。                    | HANDOFF；**R-011**                                                                           | 须 Kyries 明示 |
+| Phase 3 三任务人工试玩签收                | 自然路径有回放；Kyries 人工试玩仍待确认（非规则条文本身）。 | [`phase3-acceptance-gap-2026-10-13.md`](./phases/phase3/phase3-acceptance-gap-2026-10-13.md) | 待确认（验收） |
 
 ---
 

@@ -62,10 +62,10 @@
 ## 0. 开场必读（按这个顺序，不要跳）
 
 1. 本文件全文。
-2. 仓库根目录 [`AGENTS.md`](../AGENTS.md)（编码代理硬性约定；与本文冲突时以 **AGENTS.md + docs/rulings.md** 为准）。
-3. [`docs/plan.md`](../docs/plan.md)（开发大纲 v0.2，Kyries 已确认；阶段定义以此为准）。
-4. [`docs/rulings.md`](../docs/rulings.md)（本项目裁定；**R-001、R-048 尤其重要**）。
-5. [`docs/spec/`](../docs/spec/) 下核心规则说明书（初稿，检查点 ① 尚未逐条签完）。
+2. 仓库根目录 [`AGENTS.md`](../../AGENTS.md)（编码代理硬性约定；与本文冲突时以 **AGENTS.md + docs/rulings.md** 为准）。
+3. [`docs/plan.md`](../plan.md)（开发大纲 v0.2，Kyries 已确认；阶段定义以此为准）。
+4. [`docs/rulings.md`](../rulings.md)（本项目裁定；**R-001、R-048 尤其重要**）。
+5. [`docs/spec/`](../spec/) 下核心规则说明书（初稿，检查点 ① 尚未逐条签完）。
 6. 当前代码入口：`packages/engine/src/hero-skill.ts`、`packages/engine/src/command.ts`、`packages/engine/src/rng.ts`。
 
 读完再改代码。不要凭「别的桌游 / 电子游戏 Darkest Dungeon / 旧仓库」猜规则。

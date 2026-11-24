@@ -15,25 +15,25 @@ pnpm --filter @ddbg/pipeline normalize
 ## Weald 首批普通怪物
 
 同一 normalize 命令也生成 `extension/weald/monster_medium.json` 与 `monster_large.json`：I 级五种普通怪物，14 张牌堆实体卡，另有两张大型战斗卡，不混入 Boss、高等级卡或 Brigand Matchman。
-复用核心结构转换，来源指向 Weald；核心逐卡核准表只应用于核心。R-230、R-232 已确认的属性、抗性/免疫、姿态与 13 项技能记录已附加；原始图标命名状态继续保留。`buildWealdMonsterCatalog` 严格核对核准记录与源字段后构造纯战斗目录，不自动登记正式牌堆；三个召唤技能的部署继续停点。核对进度见 [首批审阅记录](../../../docs/weald-level-one-monster-review-2026-11-11.md)。Blight 中文统一为腐蚀（R-231）。
+复用核心结构转换，来源指向 Weald；核心逐卡核准表只应用于核心。R-230、R-232 已确认的属性、抗性/免疫、姿态与 13 项技能记录已附加；原始图标命名状态继续保留。`buildWealdMonsterCatalog` 严格核对核准记录与源字段后构造纯战斗目录，不自动登记正式牌堆；三个召唤技能的部署继续停点。核对进度见 [首批审阅记录](../../../docs/reviews/weald-level-one-monster-review-2026-11-11.md)。Blight 中文统一为腐蚀（R-231）。
 
 ## Weald 奇物
 
-同一 normalize 命令生成 `extension/weald/curio.json`，独立校验 16 张、64 行，R-233 逐卡核准，同名卡不合并。来源、图标和印刷数字漂移会使生成失败，不修改全局图标词典。核心 24 张目录约束保持不变；当地目录与通用卡组合在开发步骤 2 接入。效果按印刷顺序规划，Torch 只抑制负面效果，未知行继续整卡停点。见 [奇物审阅记录](../../../docs/weald-curio-review-2026-11-11.md)。
+同一 normalize 命令生成 `extension/weald/curio.json`，独立校验 16 张、64 行，R-233 逐卡核准，同名卡不合并。来源、图标和印刷数字漂移会使生成失败，不修改全局图标词典。核心 24 张目录约束保持不变；当地目录与通用卡组合在开发步骤 2 接入。效果按印刷顺序规划，Torch 只抑制负面效果，未知行继续整卡停点。见 [奇物审阅记录](../../../docs/reviews/weald-curio-review-2026-11-11.md)。
 
-`extension/cove/curio.json` 由 `buildCoveCurios` 生成，独立校验 16 张、64 行；仅词典已确认的压力与补给骰写入效果，其余行 **Q-186** 停点。见 [Cove 奇物审阅](../../../docs/cove-curio-review-2026-11-21.md)。
+`extension/cove/curio.json` 由 `buildCoveCurios` 生成，独立校验 16 张、64 行；仅词典已确认的压力与补给骰写入效果，其余行 **Q-186** 停点。见 [Cove 奇物审阅](../../../docs/reviews/cove-curio-review-2026-11-21.md)。
 
 ## Cove 普通房间（首批）
 
-`extension/cove/room.json`（`ddbg-cove-room-v0`）与 `boss_room_sources.json`（`ddbg-cove-boss-room-sources-v0`）由 `buildCoveRooms` / `buildCoveBossRoomSources` 生成：raw 12 面，普通 p1–p9 各 1 张入目录，Boss p10–p12 仅来源登记（`poolEligible: false`）。效果保留印刷行，全部 **Q-186** 停点；不开放出征。`WRITE_NORMALIZED=1` + `cove-rooms.test.ts` 可重写 JSON。见 [Cove 房间审阅](../../../docs/cove-room-review-2026-11-22.md)。
+`extension/cove/room.json`（`ddbg-cove-room-v0`）与 `boss_room_sources.json`（`ddbg-cove-boss-room-sources-v0`）由 `buildCoveRooms` / `buildCoveBossRoomSources` 生成：raw 12 面，普通 p1–p9 各 1 张入目录，Boss p10–p12 仅来源登记（`poolEligible: false`）。效果保留印刷行，全部 **Q-186** 停点；不开放出征。`WRITE_NORMALIZED=1` + `cove-rooms.test.ts` 可重写 JSON。见 [Cove 房间审阅](../../../docs/reviews/cove-room-review-2026-11-22.md)。
 
 ## Weald 普通房间与板块
 
-`extension/weald/room.json` 与 `room_tile_geometry.json` 使用独立 schema（`ddbg-weald-room-v1` / `ddbg-weald-room-tile-geometry-v0`），写入 R-234–R-239 已核准的九张普通房间与对应板块。含完整通行几何、容量、部署、真菌与星标效果区域；5 号零容量 I、7 号零容量 H／I／J；1 号 C／E／F／G 绑定 Toxic Mushrooms（R-239）。全部 `usable=false`，不开放出征；由 `pnpm --filter @ddbg/data test` 中 `weald-rooms.test.ts` 校验，可用 `WRITE_NORMALIZED=1` 重写 JSON。见 [房间审阅记录](../../../docs/weald-room-review-2026-11-12.md)。
+`extension/weald/room.json` 与 `room_tile_geometry.json` 使用独立 schema（`ddbg-weald-room-v1` / `ddbg-weald-room-tile-geometry-v0`），写入 R-234–R-239 已核准的九张普通房间与对应板块。含完整通行几何、容量、部署、真菌与星标效果区域；5 号零容量 I、7 号零容量 H／I／J；1 号 C／E／F／G 绑定 Toxic Mushrooms（R-239）。全部 `usable=false`，不开放出征；由 `pnpm --filter @ddbg/data test` 中 `weald-rooms.test.ts` 校验，可用 `WRITE_NORMALIZED=1` 重写 JSON。见 [房间审阅记录](../../../docs/reviews/weald-room-review-2026-11-12.md)。
 
 ## Weald Stygian 九张房间（审阅入库）
 
-`extension/weald/stygian_rooms.json`（`ddbg-weald-stygian-rooms-v1`）由 `buildWealdStygianRooms` 生成，九张各 1 份，替换同名 `room:weald:p001`–`p009`；与核心 17 张 `corebox/stygian_rooms.json` 隔离。六张有效果段 `reviewedEffect.runtimeReady=true`；Boss 房 p010–p012 不在替换范围（R-036）。`WRITE_NORMALIZED=1` 可重写；`weald-stygian-rooms.test.ts` 校验。见 [Stygian 房间审阅记录](../../../docs/weald-stygian-room-review-2026-11-17.md)。
+`extension/weald/stygian_rooms.json`（`ddbg-weald-stygian-rooms-v1`）由 `buildWealdStygianRooms` 生成，九张各 1 份，替换同名 `room:weald:p001`–`p009`；与核心 17 张 `corebox/stygian_rooms.json` 隔离。六张有效果段 `reviewedEffect.runtimeReady=true`；Boss 房 p010–p012 不在替换范围（R-036）。`WRITE_NORMALIZED=1` 可重写；`weald-stygian-rooms.test.ts` 校验。见 [Stygian 房间审阅记录](../../../docs/reviews/weald-stygian-room-review-2026-11-17.md)。
 
 ## Weald I 级普通任务
 

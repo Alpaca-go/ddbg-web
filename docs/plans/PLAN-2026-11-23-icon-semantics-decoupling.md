@@ -1,9 +1,9 @@
 # 执行计划：图标语义解耦（A + C）
 
 日期：2026-11-23。交给 Codex 执行的长期计划。
-前置阅读：[AGENTS.md](../AGENTS.md)、[docs/id-naming-rules.md](id-naming-rules.md)、
+前置阅读：[AGENTS.md](../../AGENTS.md)、[docs/id-naming-rules.md](id-naming-rules.md)、
 [docs/rulings.md](rulings.md)（R-048、R-200）、
-[hero-annotations/README.md](../packages/data/src/normalize/hero-annotations/README.md)、
+[hero-annotations/README.md](../../packages/data/src/normalize/hero-annotations/README.md)、
 [HANDOFF-2026-11-23-hero-annotations.md](HANDOFF-2026-11-23-hero-annotations.md)。
 
 ## 0. 问题与决策
@@ -200,7 +200,7 @@ Leper 已经暴露过三类问题：图标误聚（heal）、提取错位（Reve
 
 **先明确一个事实**：`verification.unverified === false`
 只表示「这张卡上的图标命名都已确认」（见
-[icons.ts](../packages/data/src/normalize/icons.ts) 的 `noteIcon`），
+[icons.ts](../../packages/data/src/normalize/icons.ts) 的 `noteIcon`），
 **不代表效果语义核对过**。不能拿它当正确性保证。
 
 要做的事：

@@ -64,7 +64,7 @@ Kyries 对照 CURIO_FRONT_V2 与手打 01–24 效果行批准全部 Q-60 hash�
 | Debuff（效果行 2t） | `40c4cc438c` |
 | Buff（效果行 2t） | `73ea0990dd`（新增）、`3cd8b97ff0`（新增，并 `73ea0990dd`） |
 
-01 的最早口头“美德 / 折磨”已作废，以“抽负面怪癖”为准。只更新这 17 个 hash，不扩大同组其他图标的批准范围。24 张 Curio 所有效果行已规范化；运行时可结算范围见 [Q-60 交付](../../../docs/phase3-q60-curio-icons-2026-10-12.md)。
+01 的最早口头“美德 / 折磨”已作废，以“抽负面怪癖”为准。只更新这 17 个 hash，不扩大同组其他图标的批准范围。24 张 Curio 所有效果行已规范化；运行时可结算范围见 [Q-60 交付](../../../docs/phases/phase3/phase3-q60-curio-icons-2026-10-12.md)。
 
 ## 2026-10-11 补充：Wound 同义图标合并（R-061）
 
@@ -72,7 +72,7 @@ Kyries 明确确认黑心红光 = Wound / 创伤。本次对照完整印刷后�
 
 基准为原有 `163b31751a`（player aid / Core p.27）与 `ccade5e7ad`。总条数 976 不变；confirmed 636 → 641、needs_review 37 → 32，其余计数不变。下文是 2026-10-08 的历史审批记录，其中 rank 544 已被本次批准解除。
 
-规范化层批量清理由这些 hash 单独造成的 unverified；Bad Gambler 另有 `adcab0541a`，仍单独保留该原因。详见 [四核心整批接线清单](../../../docs/phase2-four-core-skills-2026-10-11.md)。
+规范化层批量清理由这些 hash 单独造成的 unverified；Bad Gambler 另有 `adcab0541a`，仍单独保留该原因。详见 [四核心整批接线清单](../../../docs/phases/phase2/phase2-four-core-skills-2026-10-11.md)。
 
 Kyries 批准 batch-08 里 `proposed_action` 为 categorize 的 79 条。这些 rank 本来就在词典里。本版只改这 79 条，总条数仍是 976。只含含义，不含图片。
 

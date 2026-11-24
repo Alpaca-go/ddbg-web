@@ -12,7 +12,7 @@
 ## 0. 开场必读（按顺序，不要跳）
 
 1. 本文件全文。
-2. 仓库根目录 [`AGENTS.md`](../AGENTS.md)。
+2. 仓库根目录 [`AGENTS.md`](../../AGENTS.md)。
 3. [`docs/plan.md`](plan.md) —— 尤其 **「桌面化 UI 切片（2026-10-21 Kyries 拍板）」**。
 4. [`docs/rulings.md`](rulings.md) —— **R-001、R-048** 尤其重要。
 5. UI 原型规划（**不在仓库里**，共享工作区）：

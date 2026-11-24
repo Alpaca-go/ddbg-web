@@ -1,6 +1,6 @@
 # Weald 规则规格书 v0.1
 
-状态：官方规则书四页已逐页渲染核对；Q-186 主体已核准（R-230–R-274 等），本稿已复核（Kyries 2026-11-22）。Weald 地点已开放，II／III 任务与 Boss 已接线；按 Kyries 2026-11-19 口径，Boss 胜负属玩家决策，自然全胜不作流程门槛。文中按批次记录的历史运行状态可能已过时，最新进度以 [开发计划](../weald-development-plan.md) 与 [P1 盘点](../weald-p1-open-items-2026-11-19.md) 为准。
+状态：官方规则书四页已逐页渲染核对；Q-186 主体已核准（R-230–R-274 等），本稿已复核（Kyries 2026-11-22）。Weald 地点已开放，II／III 任务与 Boss 已接线；按 Kyries 2026-11-19 口径，Boss 胜负属玩家决策，自然全胜不作流程门槛。文中按批次记录的历史运行状态可能已过时，最新进度以 [开发计划](../plans/weald-development-plan.md) 与 [P1 盘点](../reviews/weald-p1-open-items-2026-11-19.md) 为准。
 来源仅为当前印刷 `DD_EN_WEALD_RULES.pdf`（页码 W1–W4）、核心规则书和本项目裁定。遵守 R-001、R-048；不使用 FAQ。
 
 ## W-01：组件（W1–W2）
@@ -54,17 +54,17 @@ R-255（Hag I 生命周期补充）：入锅英雄离开板块放到锅卡上，
 R-256：锅内英雄因心脏病直接死亡时移走英雄，不放邻接区域；锅翻 Empty 并清伤。只补该死亡路径，不改变 R-255 其它释放；Boil 专用结算已接；按 Kyries 2026-11-19 口径，自然全胜不作流程门槛。
 Boss 技能、威胁能力、附属单位规则以对应卡面单独转录核对，不从本表推断。
 
-Hag I 已按 W4 修正空锅 Ranged，并要求显式怪物部署区域，缺映射拒绝。[Hag I 审阅](../weald-hag-i-review-2026-11-14.md) 的卡面与 10 号板块经 R-254 更正后核准：Hag Speed 2／Dodge 1，Empty／Full Speed 0，Empty 胸甲为内置 Protection（R-019），B–F 仅角点，10 号全部区域为普通地形。独立 `hag_i.json`、完整技能、入锅／释放／锅内死亡、正式部署及胜负交接已接；seed6 的单任务自然胜利／回村与页面路径已有验证，Hag 的两普通任务→p019→回村→升 II 已在 Radiant seed13 自动验收（#785）。[Pounder I 审阅](../weald-pounder-i-review-2026-11-15.md)按 R-258／R-259 接入两段威胁、增援、炮击、清场与正式交接；seed17 的自然结果为败局，胜利／回村的受控夹具不作为自然胜利。Shrieker I 按 R-261／R-262 接入三行动、Nest 禁入／清场、飞行治疗、两段补给威胁、正式出征与胜负交接。三者均未使普通目录 `usable` 自动变更；Shrieker 独立内容 schema v2 的 combatReady 为 true，正式准入由显式版本校验。
+Hag I 已按 W4 修正空锅 Ranged，并要求显式怪物部署区域，缺映射拒绝。[Hag I 审阅](../reviews/weald-hag-i-review-2026-11-14.md) 的卡面与 10 号板块经 R-254 更正后核准：Hag Speed 2／Dodge 1，Empty／Full Speed 0，Empty 胸甲为内置 Protection（R-019），B–F 仅角点，10 号全部区域为普通地形。独立 `hag_i.json`、完整技能、入锅／释放／锅内死亡、正式部署及胜负交接已接；seed6 的单任务自然胜利／回村与页面路径已有验证，Hag 的两普通任务→p019→回村→升 II 已在 Radiant seed13 自动验收（#785）。[Pounder I 审阅](../reviews/weald-pounder-i-review-2026-11-15.md)按 R-258／R-259 接入两段威胁、增援、炮击、清场与正式交接；seed17 的自然结果为败局，胜利／回村的受控夹具不作为自然胜利。Shrieker I 按 R-261／R-262 接入三行动、Nest 禁入／清场、飞行治疗、两段补给威胁、正式出征与胜负交接。三者均未使普通目录 `usable` 自动变更；Shrieker 独立内容 schema v2 的 combatReady 为 true，正式准入由显式版本校验。
 
 ## Q-186：地点卡面与几何（已核准）
 
 Q-186 主体已由 Kyries 核准：卡面字段、12 面板块几何与真菌位置、任务／奇物／房间／Boss 印刷效果、九张 Stygian 房间效果（R-230、R-232–R-239、R-240 以降至 R-274 等；R-273 跨地点威胁边界与 R-274 Stygian 可玩性见核心 §17）。导入、解析停点与逐项审阅记录见 [导入记录](../weald-location-intake-2026-11-11.md)。
 
-保留边界三项——全局图标词典、I 级原目录验证标记、PvP 范围——已由 [P1 盘点](../weald-p1-open-items-2026-11-19.md) 确认为“保留边界”，不再作为待审问题。其中 `usable=false`／`runtimeReady=false` 是审阅标记，不是未实现：Weald 房间通过独立核准选择器部署，该口径保持到规格书整稿复核。
+保留边界三项——全局图标词典、I 级原目录验证标记、PvP 范围——已由 [P1 盘点](../reviews/weald-p1-open-items-2026-11-19.md) 确认为“保留边界”，不再作为待审问题。其中 `usable=false`／`runtimeReady=false` 是审阅标记，不是未实现：Weald 房间通过独立核准选择器部署，该口径保持到规格书整稿复核。
 
 ### 2026-11-15 开发优先级调整
 
-Kyries 要求先后置人工实机测试，优先完善 Weald 内容。Hag／Pounder 的真实养成与自然胜利缺口仍保留，但不再阻断 Shrieker 数据和机制开发。Shrieker I 已形成[卡面与 11 号板块审阅稿](../weald-shrieker-i-review-2026-11-15.md)；原未决三组细节已由 R-262 结案，I 级运行时与页面已接；高等级仍按原计划核实。此项仅调整开发顺序，不新增规则裁定，也不取消自动质量检查。
+Kyries 要求先后置人工实机测试，优先完善 Weald 内容。Hag／Pounder 的真实养成与自然胜利缺口仍保留，但不再阻断 Shrieker 数据和机制开发。Shrieker I 已形成[卡面与 11 号板块审阅稿](../reviews/weald-shrieker-i-review-2026-11-15.md)；原未决三组细节已由 R-262 结案，I 级运行时与页面已接；高等级仍按原计划核实。此项仅调整开发顺序，不新增规则裁定，也不取消自动质量检查。
 
 ### R-262：Shrieker I 自身能力与盗取顺序
 
