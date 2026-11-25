@@ -29,6 +29,17 @@
 
 测试文件不会被 Vite 打包：构建从 `apps/web/index.html` 出发，只追踪实际 import；测试没有被 import，所以不会进入 `dist/`。
 
+## 移动文件时的注意事项（2026-11-25 经验）
+
+`typecheck` 只能发现 **import 语句**里的路径错误；下面这些字符串路径错了不会报错，只会在运行时或 e2e 才暴露：
+
+- `new URL("../x", import.meta.url)`（含模板字符串形式，且可能带 `:行号` 后缀）；
+- 以字符串传给 `load()` / `read()` / `path.join(ROOT, ...)` 的路径；
+- `playwright` 动态 `import("../../../packages/...")`；
+- 测试里用 `ROOT` 常量拼出来的目录。
+
+移动目录后要额外跑一遍 e2e 或至少 `pnpm test:e2e -- <相关 spec>`，并确认没有残留的 `packages/<pkg>/src/<旧路径>` 字面量。
+
 ## 部署
 
 ```bash
