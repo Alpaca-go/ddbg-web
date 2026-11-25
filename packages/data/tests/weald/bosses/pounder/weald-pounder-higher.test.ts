@@ -1,16 +1,16 @@
 import { readFileSync } from "node:fs";
 import { expect, it } from "vitest";
-import printed from "../../../normalized/extension/weald/pounder_higher.json";
-import pool from "../../../normalized/corebox/monster_pool.json";
-import { wealdPounderHigherContentSchema } from "../../../src/weald/bosses/weald-pounder-higher";
-import { rawFileSchema } from "../../../src/shared/extract/raw";
+import printed from "../../../../normalized/extension/weald/pounder_higher.json";
+import pool from "../../../../normalized/corebox/monster_pool.json";
+import { wealdPounderHigherContentSchema } from "../../../../src/weald/bosses/pounder/weald-pounder-higher";
+import { rawFileSchema } from "../../../../src/shared/extract/raw";
 
 const content = wealdPounderHigherContentSchema.parse(printed);
 it("R-268：真实当地印刷等级与已印核心唯一等级，引用副本充足且不重复计数", () => {
   const raw = rawFileSchema.parse(
     JSON.parse(
       readFileSync(
-        new URL("../../../extract/extension/weald/raw/monster_medium.json", import.meta.url),
+        new URL("../../../../extract/extension/weald/raw/monster_medium.json", import.meta.url),
         "utf8",
       ),
     ),

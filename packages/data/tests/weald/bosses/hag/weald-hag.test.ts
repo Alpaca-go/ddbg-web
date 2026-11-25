@@ -1,18 +1,21 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import content from "../../../normalized/extension/weald/hag_i.json";
-import ordinaryTiles from "../../../normalized/extension/weald/room_tile_geometry.json";
-import { rawFileSchema } from "../../../src/shared/extract/raw";
-import { wealdHagContentSchema, wealdHagTileSchema } from "../../../src/weald/bosses/weald-hag";
-import { wealdRoomTileGeometryFileSchema } from "../../../src/weald/rooms/weald-room";
-import { loadNormalizedWealdLevelOneMonsters } from "../../../src/shared/write-weald";
+import content from "../../../../normalized/extension/weald/hag_i.json";
+import ordinaryTiles from "../../../../normalized/extension/weald/room_tile_geometry.json";
+import { rawFileSchema } from "../../../../src/shared/extract/raw";
+import {
+  wealdHagContentSchema,
+  wealdHagTileSchema,
+} from "../../../../src/weald/bosses/hag/weald-hag";
+import { wealdRoomTileGeometryFileSchema } from "../../../../src/weald/rooms/weald-room";
+import { loadNormalizedWealdLevelOneMonsters } from "../../../../src/shared/write-weald";
 
 const approved = wealdHagContentSchema.parse(content);
 const readRaw = (name: string) =>
   rawFileSchema.parse(
     JSON.parse(
       readFileSync(
-        new URL(`../../../extract/extension/weald/raw/${name}.json`, import.meta.url),
+        new URL(`../../../../extract/extension/weald/raw/${name}.json`, import.meta.url),
         "utf8",
       ),
     ),

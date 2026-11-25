@@ -1,5 +1,5 @@
 import printed from "../../../../data/normalized/extension/weald/hag_i.json";
-import { wealdHagContentSchema } from "../../../../data/src/weald/bosses/weald-hag";
+import { wealdHagContentSchema } from "../../../../data/src/weald/bosses/hag/weald-hag";
 import { wealdRoomTileBattleAreas } from "../weald-mechanics";
 import {
   HAG_I_COMBAT_MONSTER_CARD_ID,

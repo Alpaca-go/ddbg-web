@@ -1,7 +1,7 @@
 import { expect, it } from "vitest";
 import printed from "../../../../data/normalized/extension/weald/shrieker_i.json";
 import raw from "../../../../data/extract/extension/weald/raw/monster_large.json";
-import { wealdShriekerContentSchema } from "../../../../data/src/weald/bosses/weald-shrieker";
+import { wealdShriekerContentSchema } from "../../../../data/src/weald/bosses/shrieker/weald-shrieker";
 import { wealdRoomTileSchema } from "../../../../data/src/weald/rooms/weald-room";
 import { WEALD_SHRIEKER_I_CONTENT as content } from "../../../src/weald/bosses/shrieker-i-content";
 import { shriekerIApprovedBattleAreas } from "../../../src/weald/bosses/shrieker-i-geometry";

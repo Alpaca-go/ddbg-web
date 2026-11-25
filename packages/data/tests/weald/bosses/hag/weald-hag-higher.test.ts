@@ -1,16 +1,16 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import printed from "../../../normalized/extension/weald/hag_higher.json";
-import { wealdHagHigherContentSchema } from "../../../src/weald/bosses/weald-hag-higher";
-import { wealdHagContentSchema } from "../../../src/weald/bosses/weald-hag";
-import { rawFileSchema } from "../../../src/shared/extract/raw";
+import printed from "../../../../normalized/extension/weald/hag_higher.json";
+import { wealdHagHigherContentSchema } from "../../../../src/weald/bosses/hag/weald-hag-higher";
+import { wealdHagContentSchema } from "../../../../src/weald/bosses/hag/weald-hag";
+import { rawFileSchema } from "../../../../src/shared/extract/raw";
 
 const content = wealdHagHigherContentSchema.parse(printed);
 const raw = (kind: string) =>
   rawFileSchema.parse(
     JSON.parse(
       readFileSync(
-        new URL(`../../../extract/extension/weald/raw/${kind}.json`, import.meta.url),
+        new URL(`../../../../extract/extension/weald/raw/${kind}.json`, import.meta.url),
         "utf8",
       ),
     ),
