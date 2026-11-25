@@ -24,14 +24,17 @@ function heroNameFromRawCard(card) {
 }
 
 function loadVerifiedIds() {
-  const path = resolve(repoRoot, "packages/data/normalized/corebox/hero_stat.json");
+  const path = resolve(repoRoot, "../../../packages/data/normalized/corebox/hero_stat.json");
   const data = JSON.parse(readFileSync(path, "utf8"));
   return new Set(data.cards.map((c) => c.id));
 }
 
 function coreFaces() {
   const raw = JSON.parse(
-    readFileSync(resolve(repoRoot, "packages/data/extract/corebox/raw/hero_stat.json"), "utf8"),
+    readFileSync(
+      resolve(repoRoot, "../../../packages/data/extract/corebox/raw/hero_stat.json"),
+      "utf8",
+    ),
   );
   const verified = loadVerifiedIds();
   const faces = [];

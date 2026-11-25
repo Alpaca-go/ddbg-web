@@ -10,7 +10,7 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../..");
 const CE = process.env.DDB_CE_ROOT ?? "/tmp/ddb-ref/docs/data/complete-edition/heroes/c2b";
-const OUT = path.join(ROOT, "packages/data/extract/extension/musketeer");
+const OUT = path.join(ROOT, "../../../packages/data/extract/extension/musketeer");
 
 const L1 = [
   [1, "Aimed Shot"],

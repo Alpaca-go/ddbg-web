@@ -16,13 +16,15 @@ test("剩余任务页面：点火与等待轮末；双补给宝箱Wild选择", a
   try {
     const load = (p: string) => server.ssrLoadModule(fileURLToPath(new URL(p, import.meta.url)));
     const { wealdOakBattleFixture } = await load(
-      "../../../packages/engine/src/test-helpers/weald-oak-battle.ts",
+      "../../../../packages/engine/tests/helpers/weald-oak-battle.ts",
     );
     const { wealdSuppliesLootFixture } = await load(
-      "../../../packages/engine/src/test-helpers/weald-task-battle.ts",
+      "../../../../packages/engine/tests/helpers/weald-task-battle.ts",
     );
-    const { applyCommand } = await load("../../../packages/engine/src/command.ts");
-    const { removeCasualties } = await load("../../../packages/engine/src/encounter.ts");
+    const { applyCommand } = await load("../../../../packages/engine/src/shared/core/command.ts");
+    const { removeCasualties } = await load(
+      "../../../../packages/engine/src/shared/dungeon/encounter.ts",
+    );
     oak = wealdOakBattleFixture();
     supplies = wealdSuppliesLootFixture();
     let game = applyCommand(oak, {

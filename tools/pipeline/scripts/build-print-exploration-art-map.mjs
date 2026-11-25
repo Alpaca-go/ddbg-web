@@ -42,7 +42,7 @@ function parseCsv(text) {
 }
 
 function loadRuinsRoomMeta() {
-  const path = resolve(repoRoot, "packages/data/normalized/corebox/room.json");
+  const path = resolve(repoRoot, "../../../packages/data/normalized/corebox/room.json");
   const data = JSON.parse(readFileSync(path, "utf8"));
   const byId = new Map();
   for (const card of data.cards) {

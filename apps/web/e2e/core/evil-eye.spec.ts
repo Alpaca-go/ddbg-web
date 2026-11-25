@@ -31,7 +31,7 @@ test("Evil Eye毁眼：两行动、正面怪癖、全体减压与按钮关闭", 
     const { roomTileBattleAreas } = await server.ssrLoadModule(
       fileURLToPath(
         new URL(
-          "../../../packages/engine/src/shared/battle/battle-monster-movement.ts",
+          "../../../../packages/engine/src/shared/battle/battle-monster-movement.ts",
           import.meta.url,
         ),
       ),

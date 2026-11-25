@@ -7,10 +7,10 @@ const result = spawnSync(
   [
     fileURLToPath(new URL("node_modules/vitest/vitest.mjs", root)),
     "run",
-    "packages/data/src/normalize/normalize.test.ts",
-    "packages/data/src/normalize/weald-monsters.test.ts",
-    "packages/data/src/normalize/weald-curios.test.ts",
-    "packages/data/src/normalize/weald-higher-quests.test.ts",
+    "../../../packages/data/tests/core/misc/normalize.build.test.ts",
+    "../../../packages/data/tests/weald/monsters/weald-monsters.build.test.ts",
+    "../../../packages/data/tests/weald/curios/weald-curios.build.test.ts",
+    "../../../packages/data/tests/weald/quests/weald-higher-quests.build.test.ts",
   ],
   {
     cwd: fileURLToPath(root),

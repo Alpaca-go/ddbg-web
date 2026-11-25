@@ -21,9 +21,11 @@ test("自然Collector I任务存档：页面读取、开战、保存刷新后继
       server.ssrLoadModule(fileURLToPath(new URL(relative, import.meta.url)));
     const { taskSources } = await load("../../src/dungeon-sandbox/task-sources.ts");
     const { naturalQuest, naturalParty } = await load(
-      "../../../packages/engine/src/test-helpers/natural-quest.ts",
+      "../../../../packages/engine/tests/helpers/natural-quest.ts",
     );
-    const { createQuestSave } = await load("../../../packages/engine/src/quest-save.ts");
+    const { createQuestSave } = await load(
+      "../../../../packages/engine/src/shared/quest/quest-save.ts",
+    );
     let deployed: unknown;
     let count = 0,
       prefix = 0;

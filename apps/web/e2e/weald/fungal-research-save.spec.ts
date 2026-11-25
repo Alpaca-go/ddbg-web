@@ -19,9 +19,11 @@ test("Fungal Research：保留／全砸目标与带回 XP 分开展示，保存�
       server.ssrLoadModule(fileURLToPath(new URL(path, import.meta.url)));
     const { taskSources } = await load("../../src/dungeon-sandbox/task-sources.ts");
     const { fungalResearchJourney } = await load(
-      "../../../packages/engine/src/test-helpers/fungal-research-quest.ts",
+      "../../../../packages/engine/tests/helpers/fungal-research-quest.ts",
     );
-    const { createQuestSave } = await load("../../../packages/engine/src/quest-save.ts");
+    const { createQuestSave } = await load(
+      "../../../../packages/engine/src/shared/quest/quest-save.ts",
+    );
     for (const strategy of ["retain-one", "destroy-all"]) {
       const journey = fungalResearchJourney(strategy, taskSources);
       saves.push(

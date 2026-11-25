@@ -25,7 +25,7 @@ const TRIM = {
 };
 
 const curioData = JSON.parse(
-  readFileSync(resolve(repoRoot, "packages/data/normalized/corebox/curio.json"), "utf8"),
+  readFileSync(resolve(repoRoot, "../../../packages/data/normalized/corebox/curio.json"), "utf8"),
 );
 const normalizedById = new Map(curioData.cards.map((c) => [c.id, c]));
 

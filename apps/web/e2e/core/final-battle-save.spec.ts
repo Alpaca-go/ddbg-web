@@ -22,12 +22,14 @@ test("自然最暗路线存档：真实停止点或最终战首形态可读取�
       server.ssrLoadModule(fileURLToPath(new URL(relative, import.meta.url)));
     const { taskSources } = await load("../../src/dungeon-sandbox/task-sources.ts");
     const { naturalFinalBattle } = await load(
-      "../../../packages/engine/src/test-helpers/natural-final-battle.ts",
+      "../../../../packages/engine/tests/helpers/natural-final-battle.ts",
     );
     const { naturalParty } = await load(
-      "../../../packages/engine/src/test-helpers/natural-quest.ts",
+      "../../../../packages/engine/tests/helpers/natural-quest.ts",
     );
-    const { createQuestSave } = await load("../../../packages/engine/src/quest-save.ts");
+    const { createQuestSave } = await load(
+      "../../../../packages/engine/src/shared/quest/quest-save.ts",
+    );
     let deployed: unknown;
     let count = 0,
       prefix = 0;

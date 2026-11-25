@@ -19,9 +19,11 @@ test("Circle of Witches：一／三目标 Crone 击杀与 XP 摘要保存刷新�
       server.ssrLoadModule(fileURLToPath(new URL(path, import.meta.url)));
     const { taskSources } = await load("../../src/dungeon-sandbox/task-sources.ts");
     const { circleOfWitchesJourney } = await load(
-      "../../../packages/engine/src/test-helpers/circle-of-witches-quest.ts",
+      "../../../../packages/engine/tests/helpers/circle-of-witches-quest.ts",
     );
-    const { createQuestSave } = await load("../../../packages/engine/src/quest-save.ts");
+    const { createQuestSave } = await load(
+      "../../../../packages/engine/src/shared/quest/quest-save.ts",
+    );
     for (const kills of [1, 3]) {
       const journey = circleOfWitchesJourney(kills, taskSources);
       saves.push({

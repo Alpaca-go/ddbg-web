@@ -18,16 +18,18 @@ for (const quest of ["fungal", "patrol"] as const)
       const load = (path: string) =>
         server.ssrLoadModule(fileURLToPath(new URL(path, import.meta.url)));
       const { taskSources } = await load("../../src/dungeon-sandbox/task-sources.ts");
-      const { createQuestSave } = await load("../../../packages/engine/src/quest-save.ts");
+      const { createQuestSave } = await load(
+        "../../../../packages/engine/src/shared/quest/quest-save.ts",
+      );
       const journey =
         quest === "fungal"
           ? (
               await load(
-                "../../../packages/engine/src/test-helpers/fungal-research-three-objectives.ts",
+                "../../../../packages/engine/tests/helpers/fungal-research-three-objectives.ts",
               )
             ).fungalResearchThreeObjectives(taskSources, true, "retain-all")
           : (
-              await load("../../../packages/engine/src/test-helpers/patrol-the-woods-quest.ts")
+              await load("../../../../packages/engine/tests/helpers/patrol-the-woods-quest.ts")
             ).patrolTheWoodsJourney(taskSources, true);
       expect(journey.run.stopReason).toBeNull();
       save = createQuestSave(journey.start, journey.run.commands, journey.run.state, taskSources);

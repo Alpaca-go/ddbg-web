@@ -110,7 +110,7 @@ test.beforeAll(async () => {
     const fundedHelper = await server.ssrLoadModule(
       fileURLToPath(
         new URL(
-          "../../../packages/engine/src/test-helpers/natural-scout-return.ts",
+          "../../../../packages/engine/tests/helpers/natural-scout-return.ts",
           import.meta.url,
         ),
       ),
@@ -149,7 +149,7 @@ test.beforeAll(async () => {
     const higherHelper = await server.ssrLoadModule(
       fileURLToPath(
         new URL(
-          "../../../packages/engine/src/test-helpers/nomad-upgrade-quest.ts",
+          "../../../../packages/engine/tests/helpers/nomad-upgrade-quest.ts",
           import.meta.url,
         ),
       ),

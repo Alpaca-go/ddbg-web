@@ -17,9 +17,11 @@ test("Purge the Woods：三巢穴当地牌池与 3 XP 保存刷新一致", async
       server.ssrLoadModule(fileURLToPath(new URL(path, import.meta.url)));
     const { taskSources } = await load("../../src/dungeon-sandbox/task-sources.ts");
     const { purgeTheWoodsJourney } = await load(
-      "../../../packages/engine/src/test-helpers/purge-the-woods-quest.ts",
+      "../../../../packages/engine/tests/helpers/purge-the-woods-quest.ts",
     );
-    const { createQuestSave } = await load("../../../packages/engine/src/quest-save.ts");
+    const { createQuestSave } = await load(
+      "../../../../packages/engine/src/shared/quest/quest-save.ts",
+    );
     const journey = purgeTheWoodsJourney(taskSources);
     save = createQuestSave(journey.start, journey.run.commands, journey.run.state, taskSources);
   } finally {

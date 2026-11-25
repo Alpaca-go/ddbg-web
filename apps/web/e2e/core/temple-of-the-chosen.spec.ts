@@ -34,7 +34,7 @@ test("Temple of the Chosen：怪物技能结束触发治疗及全体压力", asy
     const { roomTileBattleAreas } = await server.ssrLoadModule(
       fileURLToPath(
         new URL(
-          "../../../packages/engine/src/shared/battle/battle-monster-movement.ts",
+          "../../../../packages/engine/src/shared/battle/battle-monster-movement.ts",
           import.meta.url,
         ),
       ),

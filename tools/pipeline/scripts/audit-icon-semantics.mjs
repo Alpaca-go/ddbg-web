@@ -12,7 +12,7 @@ import { dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
-const base = join(root, "packages/engine/src");
+const base = join(root, "../../../packages/engine/src");
 
 const HERO_SKILL_FN = {
   namedKeys: ["漂移断言", "signature only（改为文本 + 语义族序列）"],
@@ -121,7 +121,7 @@ for (const file of files) {
     const m = line.match(/^(?:export )?(?:function|const|async function) ([A-Za-z0-9_]+)/);
     if (m) fn = m[1];
     if (!/icon\.key|namedKeys\(|effect_lines/.test(line)) return;
-    const [category, target] = classify(rel.replace("packages/engine/src/", ""), fn);
+    const [category, target] = classify(rel.replace("../../../packages/engine/src", ""), fn);
     rows.push({
       loc: `${rel}:${index + 1}`,
       snippet: line.trim().slice(0, 160).replaceAll("|", "\\|"),

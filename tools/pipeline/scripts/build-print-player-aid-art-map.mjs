@@ -10,7 +10,7 @@ import { fileURLToPath } from "node:url";
 const here = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(here, "../../..");
 
-const rawPath = resolve(repoRoot, "packages/data/extract/corebox/raw/player_aid.json");
+const rawPath = resolve(repoRoot, "../../../packages/data/extract/corebox/raw/player_aid.json");
 const out = resolve(repoRoot, "apps/web/src/card-art/player-aid-print-art-map.json");
 
 const TRIM = {
@@ -86,7 +86,7 @@ const cards = ENABLED.map(({ id, design, reviewVerdict }) => {
 const map = {
   schema: "ddbg.print-player-aid-art-map.v1",
   source: {
-    raw: "packages/data/extract/corebox/raw/player_aid.json",
+    raw: "../../../packages/data/extract/corebox/raw/player_aid.json",
     geometry: "TrimBox 70×120mm = 198.43×340.16pt (same deck as 70×120 quest cards, R-048)",
     trimBoxPt: TRIM,
     exportScript: "tools/pipeline/scripts/export-print-card-art.mjs",

@@ -18,7 +18,7 @@ test("受控III级村庄页面抽选p015；真实起点版本文件导入和刷�
     const { wealdHigherHamletFixture } = await server.ssrLoadModule(
       fileURLToPath(
         new URL(
-          "../../../packages/engine/src/test-helpers/weald-higher-hamlet.ts",
+          "../../../../packages/engine/tests/helpers/weald-higher-hamlet.ts",
           import.meta.url,
         ),
       ),

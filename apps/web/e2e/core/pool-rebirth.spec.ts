@@ -25,11 +25,13 @@ test("重生池：真实战斗存档返回清场→复活→免费补位入队�
     const catalog = JSON.parse(code.slice("export const battleData = ".length, -1));
     catalog.monsters = [...catalog.monsters, ...(catalog.bossMonsters ?? [])];
     delete catalog.bossMonsters;
-    const core = await module("../../../packages/engine/src/test-helpers/core-quest.ts");
-    const natural = await module("../../../packages/engine/src/test-helpers/natural-quest.ts");
-    const engine = await module("../../../packages/engine/src/command.ts");
-    const entry = await module("../../../packages/engine/src/dungeon-quest-entry.ts");
-    const saves = await module("../../../packages/engine/src/quest-save.ts");
+    const core = await module("../../../../packages/engine/tests/helpers/core-quest.ts");
+    const natural = await module("../../../../packages/engine/tests/helpers/natural-quest.ts");
+    const engine = await module("../../../../packages/engine/src/shared/core/command.ts");
+    const entry = await module(
+      "../../../../packages/engine/src/shared/dungeon/dungeon-quest-entry.ts",
+    );
+    const saves = await module("../../../../packages/engine/src/shared/quest/quest-save.ts");
     const sources = {
       ...core.coreQuestSources,
       catalog: { ...catalog, trinkets: core.coreQuestSources.catalog.trinkets },

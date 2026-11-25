@@ -17,9 +17,11 @@ test("Fungal Research：三目标取得、带回 4 封顶 3 XP，保存刷新一
       server.ssrLoadModule(fileURLToPath(new URL(path, import.meta.url)));
     const { taskSources } = await load("../../src/dungeon-sandbox/task-sources.ts");
     const { fungalResearchThreeObjectives } = await load(
-      "../../../packages/engine/src/test-helpers/fungal-research-three-objectives.ts",
+      "../../../../packages/engine/tests/helpers/fungal-research-three-objectives.ts",
     );
-    const { createQuestSave } = await load("../../../packages/engine/src/quest-save.ts");
+    const { createQuestSave } = await load(
+      "../../../../packages/engine/src/shared/quest/quest-save.ts",
+    );
     const journey = fungalResearchThreeObjectives(taskSources);
     save = createQuestSave(journey.start, journey.run.commands, journey.run.state, taskSources);
   } finally {

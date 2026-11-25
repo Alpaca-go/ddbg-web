@@ -18,9 +18,11 @@ test("真实公开日志停点：点击消毒、保存刷新恢复，资源只�
       server.ssrLoadModule(fileURLToPath(new URL(path, import.meta.url)));
     const { taskSources } = await load("../../src/dungeon-sandbox/task-sources.ts");
     const { disinfectionJourney } = await load(
-      "../../../packages/engine/src/test-helpers/disinfection-quest.ts",
+      "../../../../packages/engine/tests/helpers/disinfection-quest.ts",
     );
-    const { createQuestSave } = await load("../../../packages/engine/src/quest-save.ts");
+    const { createQuestSave } = await load(
+      "../../../../packages/engine/src/shared/quest/quest-save.ts",
+    );
     const journey = disinfectionJourney(taskSources);
     save = createQuestSave(
       journey.start,

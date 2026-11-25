@@ -19,9 +19,11 @@ test("Disinfection：三房清理／仅两房清理均按三棵消毒计 XP，�
       server.ssrLoadModule(fileURLToPath(new URL(path, import.meta.url)));
     const { taskSources } = await load("../../src/dungeon-sandbox/task-sources.ts");
     const { disinfectionThreeTargets } = await load(
-      "../../../packages/engine/src/test-helpers/disinfection-three-targets.ts",
+      "../../../../packages/engine/tests/helpers/disinfection-three-targets.ts",
     );
-    const { createQuestSave } = await load("../../../packages/engine/src/quest-save.ts");
+    const { createQuestSave } = await load(
+      "../../../../packages/engine/src/shared/quest/quest-save.ts",
+    );
     for (const seed of [7, 2]) {
       const journey = disinfectionThreeTargets(seed, taskSources);
       saves.push({

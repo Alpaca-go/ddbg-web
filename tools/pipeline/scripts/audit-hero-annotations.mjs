@@ -115,10 +115,10 @@ function digestStat(card) {
 }
 
 const skills = JSON.parse(
-  readFileSync(resolve(root, "packages/data/normalized/corebox/hero_skill.json"), "utf8"),
+  readFileSync(resolve(root, "../../../packages/data/normalized/corebox/hero_skill.json"), "utf8"),
 ).cards;
 const stats = JSON.parse(
-  readFileSync(resolve(root, "packages/data/normalized/corebox/hero_stat.json"), "utf8"),
+  readFileSync(resolve(root, "../../../packages/data/normalized/corebox/hero_stat.json"), "utf8"),
 ).cards;
 
 const entries = [];
