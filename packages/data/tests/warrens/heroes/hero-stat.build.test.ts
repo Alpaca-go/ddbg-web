@@ -5,7 +5,7 @@ import { iconDictionarySchema } from "../../../src/shared/dictionary/schema";
 import {
   approvedWarrensHeroStats,
   buildWarrensHeroStats,
-} from "../../../src/warrens/heroes/warrens-hero-stat.build";
+} from "../../../src/warrens/heroes/hero-stat.build";
 import { canonicalHeroStatCardSchema } from "../../../src/core/heroes/hero-stat.build";
 
 const json = (path: string) =>

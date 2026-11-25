@@ -3,8 +3,8 @@ import { describe, expect, it } from "vitest";
 import { cardContentPack } from "../../../src/shared/content-packs";
 import { rawFileSchema } from "../../../src/shared/extract/raw";
 import { roomCatalogSchema } from "../../../src/core/rooms/room";
-import { coveRoomFileSchema } from "../../../src/cove/rooms/cove-room";
-import { buildCoveRooms } from "../../../src/cove/rooms/cove-rooms.build";
+import { coveRoomFileSchema } from "../../../src/cove/rooms/room";
+import { buildCoveRooms } from "../../../src/cove/rooms/rooms.build";
 import { loadNormalizedCoveRooms, writeNormalizedCoveRooms } from "../../../src/shared/write-cove";
 
 const read = (file: string): unknown =>

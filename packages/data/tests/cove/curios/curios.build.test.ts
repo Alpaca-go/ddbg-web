@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { rawFileSchema } from "../../../src/shared/extract/raw";
 import { coveCurioFileSchema, planCurioEffects } from "../../../src/core/curios/curio";
-import { buildCoveCurios } from "../../../src/cove/curios/cove-curios.build";
+import { buildCoveCurios } from "../../../src/cove/curios/curios.build";
 import {
   loadNormalizedCoveCurios,
   writeNormalizedCoveCurios,

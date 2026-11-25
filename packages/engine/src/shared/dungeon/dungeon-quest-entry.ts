@@ -41,8 +41,8 @@ import {
 
 export type CoveQuestSources = {
   readonly curios: readonly CurioCard[];
-  readonly rooms: readonly import("../../../../data/src/cove/rooms/cove-room").CoveRoomCard[];
-  readonly bossRoomSources: readonly import("../../../../data/src/cove/rooms/cove-room").CoveBossRoomCard[];
+  readonly rooms: readonly import("../../../../data/src/cove/rooms/room").CoveRoomCard[];
+  readonly bossRoomSources: readonly import("../../../../data/src/cove/rooms/room").CoveBossRoomCard[];
 };
 
 export type CoreQuestSources = {

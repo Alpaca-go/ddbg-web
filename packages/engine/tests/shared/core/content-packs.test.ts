@@ -20,7 +20,7 @@ import { HAG_I_DESCRIPTION_ABILITY_CARD_ID } from "../../../src/weald/bosses/hag
 import coveCurio from "../../../../data/normalized/extension/cove/curio.json";
 import coveRoom from "../../../../data/normalized/extension/cove/room.json";
 import { coveCurioFileSchema } from "../../../../data/src/core/curios/curio";
-import { coveRoomFileSchema } from "../../../../data/src/cove/rooms/cove-room";
+import { coveRoomFileSchema } from "../../../../data/src/cove/rooms/room";
 
 beforeEach(clearBossScriptsForTest);
 const start = {

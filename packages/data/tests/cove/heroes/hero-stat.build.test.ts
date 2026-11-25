@@ -7,7 +7,7 @@ import { rawFileSchema } from "../../../src/shared/extract/raw";
 import {
   approvedCoveHeroStats,
   buildCoveHeroStats,
-} from "../../../src/cove/heroes/cove-hero-stat.build";
+} from "../../../src/cove/heroes/hero-stat.build";
 import { loadNormalizedCorebox } from "../../../src/shared/write";
 import { canonicalHeroStatCardSchema } from "../../../src/core/heroes/hero-stat.build";
 

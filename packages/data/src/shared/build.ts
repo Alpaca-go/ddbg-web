@@ -74,8 +74,8 @@ import { assertPoolOfRebirthEffectSource } from "../core/hamlet/pool-of-rebirth.
 import type { RoomTileGeometryFile } from "../core/rooms/room-tile.build";
 import { buildHeroStats, normalizedHeroStatFileSchema } from "../core/heroes/hero-stat.build";
 import { heroSkillId } from "../core/heroes/hero-registry";
-import { buildWarrensHeroStats } from "../warrens/heroes/warrens-hero-stat.build";
-import { buildCoveHeroStats } from "../cove/heroes/cove-hero-stat.build";
+import { buildWarrensHeroStats } from "../warrens/heroes/hero-stat.build";
+import { buildCoveHeroStats } from "../cove/heroes/hero-stat.build";
 import { buildWealdHeroStats } from "../weald/heroes/hero-stat.build";
 import { buildMusketeerHeroStats } from "../core/heroes/musketeer-hero-stat.build";
 import { buildRooms } from "../core/rooms/room.build";

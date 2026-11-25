@@ -1,10 +1,5 @@
 import type { RawFile } from "../../shared/extract/raw";
-import {
-  COVE_ROOM_BACK,
-  COVE_ROOM_FRONT,
-  coveRoomFileSchema,
-  type CoveRoomCard,
-} from "./cove-room";
+import { COVE_ROOM_BACK, COVE_ROOM_FRONT, coveRoomFileSchema, type CoveRoomCard } from "./room";
 
 const PENDING = "Q-186：Cove 普通房间效果待 Kyries 逐卡核准";
 const BOSS_PENDING = "Cove Boss 房留待专属 Boss 刀核准；不得进入普通房间牌堆";

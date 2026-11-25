@@ -224,8 +224,8 @@ export {
   coveRoomFileSchema,
   COVE_ROOM_BACK,
   COVE_ROOM_FRONT,
-} from "./cove/rooms/cove-room";
-export type { CoveBossRoomCard, CoveRoomCard } from "./cove/rooms/cove-room";
+} from "./cove/rooms/room";
+export type { CoveBossRoomCard, CoveRoomCard } from "./cove/rooms/room";
 export type { StygianRooms } from "./core/rooms/stygian-rooms";
 export { curioPoolIdentity, locationCurioPool } from "./core/curios/curio-pool";
 
