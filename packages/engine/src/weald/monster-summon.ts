@@ -6,7 +6,7 @@ import { recordMonsterSkill } from "../shared/dungeon/encounter";
 import type { MonsterCardView } from "../shared/core/monster-skill";
 import { insertMonsterInitiative } from "../core/bosses/monster-initiative";
 import { buildWealdMonsterCatalog } from "./monster-catalog";
-import { wealdMechanicsActive, wealdPackSelected } from "./weald-mechanics";
+import { wealdMechanicsActive, wealdPackSelected } from "./mechanics";
 
 const STANCES = ["aggressive", "defensive", "ranged", "support"] as const;
 

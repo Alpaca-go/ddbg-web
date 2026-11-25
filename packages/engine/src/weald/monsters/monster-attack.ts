@@ -3,7 +3,7 @@ import {
   WEALD_RANGE_ICON_ID,
   wealdEffectSignatures,
   wealdMonsterAttackSchema,
-} from "../../../../data/src/weald/monsters/weald-monster-rulings";
+} from "../../../../data/src/weald/monsters/monster-rulings";
 import type { MonsterEffectPlan } from "../../../../data/src/core/monsters/monster-effects";
 import type { HeroSkillCardView, SkillSegment } from "../../core/heroes/hero-skill";
 import type { MonsterCardView, MonsterSkillView } from "../../shared/core/monster-skill";

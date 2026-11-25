@@ -3,7 +3,7 @@ import { rejectBattleCommand } from "./battle";
 import { createLootState } from "../trinkets/loot";
 import { createRng } from "../core/rng";
 import { isLivingCombatMonster } from "../../weald/necrotic-fungus";
-import { wealdMechanicsActive } from "../../weald/weald-mechanics";
+import { wealdMechanicsActive } from "../../weald/mechanics";
 import { wealdOrdinaryRoomEffectActive } from "../../weald/rooms/stygian-room-effects";
 
 /** R-234／R-238：B 区英雄压力恢复，复用共用结束回合原语。 */

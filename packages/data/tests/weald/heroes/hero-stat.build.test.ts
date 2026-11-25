@@ -7,7 +7,7 @@ import { rawFileSchema } from "../../../src/shared/extract/raw";
 import {
   approvedWealdHeroStats,
   buildWealdHeroStats,
-} from "../../../src/weald/heroes/weald-hero-stat.build";
+} from "../../../src/weald/heroes/hero-stat.build";
 import { loadNormalizedCorebox } from "../../../src/shared/write";
 import { canonicalHeroStatCardSchema } from "../../../src/core/heroes/hero-stat.build";
 

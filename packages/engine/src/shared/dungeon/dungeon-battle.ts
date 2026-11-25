@@ -81,7 +81,7 @@ import {
   wealdBattleCreationEnabled,
 } from "../../weald/dungeon-battle-setup";
 import { selectWealdRoomTile, wealdRoomCardFromUnknown } from "../../weald/room-tile-selection";
-import { wealdPackSelected } from "../../weald/weald-mechanics";
+import { wealdPackSelected } from "../../weald/mechanics";
 import {
   fungalResearchProgressFromBattle,
   isFungalResearchQuest,
@@ -101,7 +101,7 @@ import { readCampaignLevel } from "../hamlet/hamlet-campaign";
 import { hasApprovedHigherMonsterFields } from "../../../../data/src/core/monsters/verified-monster-entry.build";
 import { createBattleState, rejectBattleCommand, skillTargetView } from "../battle/battle";
 import type { BattleEntity, BattleSetup } from "../battle/battle";
-import type { WealdRoomTile } from "../../../../data/src/weald/rooms/weald-room";
+import type { WealdRoomTile } from "../../../../data/src/weald/rooms/room";
 import { roomTileBattleAreas } from "../battle/battle-monster-movement";
 import { readActiveStygianRoom, stygianRoomBattleAreas } from "../core/stygian-room-effects";
 import { createLootState } from "../trinkets/loot";

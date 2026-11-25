@@ -5,7 +5,7 @@ import {
   type MonsterPoolCard,
 } from "../../../data/src/core/monsters/monster-pool";
 import { buildWealdHigherMonsterCatalog } from "./higher-monster-catalog";
-import { wealdHigherMonsterInstancesSchema } from "../../../data/src/weald/monsters/weald-monster-pool";
+import { wealdHigherMonsterInstancesSchema } from "../../../data/src/weald/monsters/monster-pool";
 import type { DungeonState } from "../shared/dungeon/dungeon";
 
 /** W3／R-263：同等级当地＋通用的独立组池；正式任务／存档入口随后接入。 */

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { wealdRoomFileSchema } from "./weald-room";
+import { wealdRoomFileSchema } from "./room";
 
 export const WEALD_STYGIAN_ROOM_FRONT =
   "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/DD_EN_WEALD_CARDS_63x88_rooms_Stygian_FRONT.pdf";

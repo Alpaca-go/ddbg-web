@@ -8,7 +8,7 @@ import {
   wealdLevelOneMonsterInstancesSchema,
   wealdHigherMonsterInstancesSchema,
   type WealdLevelOneMonsterInstance,
-} from "../../../../data/src/weald/monsters/weald-monster-pool";
+} from "../../../../data/src/weald/monsters/monster-pool";
 
 /** R-248：整场任务抽怪范围；未设时 Weald 仍为 W3 通用+当地混池。 */
 export type MonsterDrawScope = "wealdLocalOnly";

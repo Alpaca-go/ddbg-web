@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { iconDictionarySchema } from "../../../src/shared/dictionary/schema";
 import { rawFileSchema } from "../../../src/shared/extract/raw";
-import { buildWealdLevelOneMonsters } from "../../../src/weald/monsters/weald-monsters.build";
+import { buildWealdLevelOneMonsters } from "../../../src/weald/monsters/monsters.build";
 import {
   loadNormalizedWealdLevelOneMonsters,
   writeNormalizedWealdLevelOneMonsters,

@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { roomTokenKindSchema } from "../../core/tiles/dungeon-layout";
-import { WEALD_QUEST_FRONT, WEALD_QUEST_BACK } from "./weald-quest-cards";
+import { WEALD_QUEST_FRONT, WEALD_QUEST_BACK } from "./quest-cards";
 
 export const wealdHigherQuestsSchema = z
   .strictObject({

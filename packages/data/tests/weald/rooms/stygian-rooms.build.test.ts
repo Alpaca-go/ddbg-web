@@ -6,10 +6,10 @@ import { stygianRoomsSchema } from "../../../src/core/rooms/stygian-rooms";
 import {
   readWealdStygianRoomReplacement,
   wealdStygianRoomsSchema,
-} from "../../../src/weald/rooms/weald-stygian-rooms";
-import { wealdRoomFileSchema } from "../../../src/weald/rooms/weald-room";
-import { buildWealdStygianRooms } from "../../../src/weald/rooms/weald-stygian-rooms.build";
-import { buildWealdRooms } from "../../../src/weald/rooms/weald-rooms.build";
+} from "../../../src/weald/rooms/stygian-rooms";
+import { wealdRoomFileSchema } from "../../../src/weald/rooms/room";
+import { buildWealdStygianRooms } from "../../../src/weald/rooms/stygian-rooms.build";
+import { buildWealdRooms } from "../../../src/weald/rooms/rooms.build";
 import { loadNormalizedCorebox } from "../../../src/shared/write";
 import {
   loadNormalizedWealdStygianRooms,

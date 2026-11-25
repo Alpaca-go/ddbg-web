@@ -2,7 +2,7 @@ import { switchWealdActPools } from "../../src/shared/hamlet/act-transition-pool
 import type { GameState } from "../../src/shared/core/command";
 import type { DungeonState } from "../../src/shared/dungeon/dungeon";
 import { WEALD_BOSS_IDENTITIES, type WealdBossIdentity } from "../../src/weald/catalog";
-import { wealdBossActEntry } from "../../src/weald/bosses/weald-boss-act-entry";
+import { wealdBossActEntry } from "../../src/weald/bosses/boss-act-entry";
 import { getBossScript } from "../../src/core/bosses/registry";
 import { wealdActInitial, wealdActReadyFixture } from "./weald-act";
 

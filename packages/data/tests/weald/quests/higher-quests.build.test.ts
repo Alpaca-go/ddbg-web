@@ -2,8 +2,8 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { rawFileSchema } from "../../../src/shared/extract/raw";
 import { basicQuests } from "../../../src/core/quests/basic-quests";
-import { wealdHigherQuestsSchema } from "../../../src/weald/quests/weald-higher-quests";
-import { buildWealdHigherQuests } from "../../../src/weald/quests/weald-higher-quests.build";
+import { wealdHigherQuestsSchema } from "../../../src/weald/quests/higher-quests";
+import { buildWealdHigherQuests } from "../../../src/weald/quests/higher-quests.build";
 import {
   loadNormalizedWealdHigherQuests,
   writeNormalizedWealdHigherQuests,

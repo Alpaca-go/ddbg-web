@@ -6,12 +6,12 @@ import {
   wealdRoomFileSchema,
   wealdRoomTileGeometryFileSchema,
   wealdRoomTileSchema,
-} from "../../../src/weald/rooms/weald-room";
+} from "../../../src/weald/rooms/room";
 import { cardContentPack } from "../../../src/shared/content-packs";
 import {
   assertWealdRoomsPackIsolated,
   buildWealdRooms,
-} from "../../../src/weald/rooms/weald-rooms.build";
+} from "../../../src/weald/rooms/rooms.build";
 import {
   loadNormalizedWealdRooms,
   writeNormalizedWealdRooms,

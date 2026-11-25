@@ -3,7 +3,7 @@ import { monsterEffectPlanSchema } from "../core/monsters/monster-effects";
 import {
   wealdMonsterAttackSchema,
   wealdMonsterProfileSchema,
-} from "../weald/monsters/weald-monster-rulings";
+} from "../weald/monsters/monster-rulings";
 
 import { iconStatusSchema } from "./dictionary/schema";
 import { iconIdSchema, levelSchema, pageListSchema } from "./extract/common";

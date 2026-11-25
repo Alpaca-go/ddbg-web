@@ -3,7 +3,7 @@ import {
   WEALD_RANGE_ICON_ID,
   wealdEffectSignatures,
   wealdMonsterProfileSchema,
-} from "../../weald/monsters/weald-monster-rulings";
+} from "../../weald/monsters/monster-rulings";
 import type { NormalizedMonsterMediumCard, NormalizedMonsterLargeCard } from "../../shared/schema";
 
 const all = ["aggressive", "defensive", "ranged", "support"] as const;

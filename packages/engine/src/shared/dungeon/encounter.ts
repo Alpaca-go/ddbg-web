@@ -75,7 +75,7 @@ import {
 import { bumpAncestor2SwiftTeleportationAfterAction } from "../../core/bosses/ancestor/ancestor2-swift-teleportation";
 import { isAbsoluteNothingnessEntity } from "../../core/bosses/ancestor/ancestor2-absolute-nothingness";
 import { isLivingCombatMonster, isNecroticFungusEntity } from "../../weald/necrotic-fungus";
-import { rejectIfWealdZeroCapacityEndTurn } from "../../weald/weald-mechanics";
+import { rejectIfWealdZeroCapacityEndTurn } from "../../weald/mechanics";
 import { applyFanaticIPyreBattleStart } from "../../core/bosses/fanatic/fanatic-i-combat-runtime";
 import { applyFleshIOneBodyBattleStart } from "../../warrens/bosses/flesh-i-combat-runtime";
 import { applySwinePrinceIWilburBattleStart } from "../../warrens/bosses/swine-prince-i-combat-runtime";

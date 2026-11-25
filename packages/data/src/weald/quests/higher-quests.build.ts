@@ -1,6 +1,6 @@
 import type { RawFile } from "../../shared/extract/raw";
-import { WEALD_QUEST_FRONT, WEALD_QUEST_BACK } from "./weald-quest-cards";
-import { wealdHigherQuestsSchema } from "./weald-higher-quests";
+import { WEALD_QUEST_FRONT, WEALD_QUEST_BACK } from "./quest-cards";
+import { wealdHigherQuestsSchema } from "./higher-quests";
 
 const rows = [
   [

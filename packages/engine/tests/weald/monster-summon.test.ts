@@ -6,7 +6,7 @@ import type { BattleEntity } from "../../src/shared/battle/battle";
 import type { HeroSkillCardView } from "../../src/core/heroes/hero-skill";
 import { buildWealdMonsterCatalog } from "../../src/weald/monster-catalog";
 import { mergeWealdBattleMonsters } from "../../src/weald/monster-summon";
-import { wealdRoomTileBattleAreas } from "../../src/weald/weald-mechanics";
+import { wealdRoomTileBattleAreas } from "../../src/weald/mechanics";
 import { WEALD_APPROVED_ROOM_TILES } from "../../src/weald/room-catalog";
 
 const read = (path: string): unknown =>

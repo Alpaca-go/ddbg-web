@@ -3,7 +3,7 @@ import type { ApplyResult, GameEvent, GameState } from "../core/command";
 import { applyBattleSkillStatuses } from "./battle-skill-status";
 import { fixedDamageResolution } from "./battle-spiked-pit";
 import { isLivingCombatMonster } from "../../weald/necrotic-fungus";
-import { wealdMechanicsActive } from "../../weald/weald-mechanics";
+import { wealdMechanicsActive } from "../../weald/mechanics";
 import {
   wealdOrdinaryRoomEffectActive,
   wealdStygianEffect,

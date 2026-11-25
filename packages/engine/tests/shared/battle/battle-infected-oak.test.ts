@@ -10,7 +10,7 @@ import { createBattleState, type BattleEntity } from "../../../src/shared/battle
 import { coreQuestSources } from "../../helpers/core-quest";
 import type { ResolveCard } from "../../../src/shared/core/pressure";
 import { WEALD_APPROVED_ROOM_TILES } from "../../../src/weald/room-catalog";
-import { wealdRoomTileBattleAreas } from "../../../src/weald/weald-mechanics";
+import { wealdRoomTileBattleAreas } from "../../../src/weald/mechanics";
 import { INFECTION_OAK_ROOM_CARD_ID } from "../../../src/weald/disinfection-constants";
 import distribution from "../../../../data/normalized/extension/weald/disinfection_distribution.json";
 import {

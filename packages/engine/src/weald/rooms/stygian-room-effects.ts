@@ -3,10 +3,10 @@ import {
   readWealdStygianRoomReplacement,
   wealdStygianRoomsSchema,
   type WealdStygianReviewedEffect,
-} from "../../../../data/src/weald/rooms/weald-stygian-rooms";
+} from "../../../../data/src/weald/rooms/stygian-rooms";
 import type { GameState } from "../../shared/core/command";
 import type { DungeonState } from "../../shared/dungeon/dungeon";
-import { wealdPackSelected } from "../weald-mechanics";
+import { wealdPackSelected } from "../mechanics";
 
 const wealdStygianRooms = wealdStygianRoomsSchema.parse(rawWealdStygianRooms);
 

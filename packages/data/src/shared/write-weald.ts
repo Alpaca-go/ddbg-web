@@ -3,12 +3,12 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { iconDictionarySchema } from "./dictionary/schema";
 import { rawFileSchema } from "./extract/raw";
-import { buildWealdLevelOneMonsters } from "../weald/monsters/weald-monsters.build";
-import { buildWealdCurios } from "../weald/curios/weald-curios.build";
-import { buildWealdRooms, buildWealdRoomTiles } from "../weald/rooms/weald-rooms.build";
-import { buildWealdStygianRooms } from "../weald/rooms/weald-stygian-rooms.build";
-import { buildWealdLevelOneQuestCards } from "../weald/quests/weald-quest-cards.build";
-import { buildWealdHigherQuests } from "../weald/quests/weald-higher-quests.build";
+import { buildWealdLevelOneMonsters } from "../weald/monsters/monsters.build";
+import { buildWealdCurios } from "../weald/curios/curios.build";
+import { buildWealdRooms, buildWealdRoomTiles } from "../weald/rooms/rooms.build";
+import { buildWealdStygianRooms } from "../weald/rooms/stygian-rooms.build";
+import { buildWealdLevelOneQuestCards } from "../weald/quests/quest-cards.build";
+import { buildWealdHigherQuests } from "../weald/quests/higher-quests.build";
 
 export function loadNormalizedWealdHigherQuests() {
   return buildWealdHigherQuests(

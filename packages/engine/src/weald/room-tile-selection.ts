@@ -2,7 +2,7 @@ import {
   wealdRoomCardSchema,
   type WealdRoomCard,
   type WealdRoomTile,
-} from "../../../data/src/weald/rooms/weald-room";
+} from "../../../data/src/weald/rooms/room";
 import { WEALD_APPROVED_ROOM_TILES } from "./room-catalog";
 
 /** R-048：Weald 板块参战校验；不要求 usable=true（出征入口仍关，步骤 5 前不放宽）。 */

@@ -7,7 +7,7 @@ import {
   necroticFungusEntitiesForTile,
   NECROTIC_FUNGUS_MONSTER_CARD,
 } from "../../../src/weald/necrotic-fungus";
-import { wealdRoomTileBattleAreas } from "../../../src/weald/weald-mechanics";
+import { wealdRoomTileBattleAreas } from "../../../src/weald/mechanics";
 import { withAbyssalPuff } from "../../../src/shared/battle/battle-abyssal-puff";
 import { savedCommandSchema } from "../../../../data/src/shared/quest-save";
 

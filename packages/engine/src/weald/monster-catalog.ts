@@ -6,7 +6,7 @@ import { WEALD_MONSTER_PROFILES } from "../../../data/src/core/monsters/verified
 import {
   WEALD_MONSTER_ATTACKS,
   wealdMonsterProfileSchema,
-} from "../../../data/src/weald/monsters/weald-monster-rulings";
+} from "../../../data/src/weald/monsters/monster-rulings";
 import type { MonsterCardView, MonsterSkillView } from "../shared/core/monster-skill";
 import { readMonsterAttackView } from "../shared/core/monster-skill";
 

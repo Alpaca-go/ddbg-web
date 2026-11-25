@@ -6,7 +6,7 @@ import {
   WEALD_QUEST_TOKEN_HASH,
   wealdQuestCardsSchema,
   type WealdQuestCards,
-} from "./weald-quest-cards";
+} from "./quest-cards";
 
 const BACK_LEVEL_I = /\{icon:0c9e989b70\}\s*I\b/;
 const FRONT_LEVEL_I = /\{icon:56ea9289ab\}\s*I\b/;

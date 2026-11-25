@@ -4,7 +4,7 @@ import type { HeroSkillResolution } from "../../core/heroes/hero-skill";
 import { applyBattleSkillStatuses } from "./battle-skill-status";
 import { fixedDamageResolution } from "./battle-spiked-pit";
 import { WEALD_APPROVED_ROOM_TILES } from "../../weald/room-catalog";
-import { wealdMechanicsActive } from "../../weald/weald-mechanics";
+import { wealdMechanicsActive } from "../../weald/mechanics";
 import { wealdStygianEffect } from "../../weald/rooms/stygian-room-effects";
 
 /** R-234／R-239：房间结算原语；正式攻击由 withToxicMushrooms 按命令版本启用。

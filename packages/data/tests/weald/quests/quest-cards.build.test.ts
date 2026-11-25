@@ -12,11 +12,11 @@ import {
   WEALD_QUEST_TOKEN_HASH,
   wealdQuestCardsSchema,
   wealdDistributionMatchesRegistry,
-} from "../../../src/weald/quests/weald-quest-cards";
+} from "../../../src/weald/quests/quest-cards";
 import {
   buildWealdLevelOneQuestCards,
   parseWealdQuestDistributionLines,
-} from "../../../src/weald/quests/weald-quest-cards.build";
+} from "../../../src/weald/quests/quest-cards.build";
 import {
   loadNormalizedWealdLevelOneQuestCards,
   writeNormalizedWealdLevelOneQuestCards,

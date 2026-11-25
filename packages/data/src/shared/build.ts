@@ -76,7 +76,7 @@ import { buildHeroStats, normalizedHeroStatFileSchema } from "../core/heroes/her
 import { heroSkillId } from "../core/heroes/hero-registry";
 import { buildWarrensHeroStats } from "../warrens/heroes/warrens-hero-stat.build";
 import { buildCoveHeroStats } from "../cove/heroes/cove-hero-stat.build";
-import { buildWealdHeroStats } from "../weald/heroes/weald-hero-stat.build";
+import { buildWealdHeroStats } from "../weald/heroes/hero-stat.build";
 import { buildMusketeerHeroStats } from "../core/heroes/musketeer-hero-stat.build";
 import { buildRooms } from "../core/rooms/room.build";
 import { buildMonsterPool } from "../core/monsters/monster-pool.build";

@@ -181,8 +181,8 @@ export {
   wealdRoomFileSchema,
   wealdRoomTileGeometryFileSchema,
   wealdRoomTileSchema,
-} from "./weald/rooms/weald-room";
-export type { WealdRoomCard, WealdRoomTile } from "./weald/rooms/weald-room";
+} from "./weald/rooms/room";
+export type { WealdRoomCard, WealdRoomTile } from "./weald/rooms/room";
 export { wealdHagContentSchema, wealdHagTileSchema } from "./weald/bosses/hag/hag";
 export type { WealdHagContent } from "./weald/bosses/hag/hag";
 export { wealdHagHigherContentSchema } from "./weald/bosses/hag/hag-higher";
@@ -215,7 +215,7 @@ export { stygianRoomsSchema, readStygianRoomReplacement } from "./core/rooms/sty
 export {
   wealdStygianRoomsSchema,
   readWealdStygianRoomReplacement,
-} from "./weald/rooms/weald-stygian-rooms";
+} from "./weald/rooms/stygian-rooms";
 export {
   coveBossRoomCardSchema,
   coveNormalRoomCardSchema,

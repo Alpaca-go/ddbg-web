@@ -7,7 +7,7 @@ import { ensureHagIBossScriptRegistered } from "../../src/weald/bosses/hag-i";
 import { ensurePounderIBossScriptRegistered } from "../../src/weald/bosses/pounder-i";
 import { ensureShriekerIBossScriptRegistered } from "../../src/weald/bosses/shrieker-i";
 import { getBossScript } from "../../src/core/bosses/registry";
-import { wealdBossActEntry } from "../../src/weald/bosses/weald-boss-act-entry";
+import { wealdBossActEntry } from "../../src/weald/bosses/boss-act-entry";
 import type { RuinsBossIdentity } from "../../src/core/bosses/threat-description-catalog";
 import { WEALD_BOSS_IDENTITIES, type WealdBossIdentity } from "../../src/weald/catalog";
 import { ruinsActReadyFixture } from "./ruins-act";

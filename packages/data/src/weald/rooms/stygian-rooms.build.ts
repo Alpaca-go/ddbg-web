@@ -6,9 +6,9 @@ import {
   wealdStygianReviewedEffects,
   wealdStygianRoomIdentity,
   wealdStygianRoomsSchema,
-} from "./weald-stygian-rooms";
+} from "./stygian-rooms";
 import type { z } from "zod";
-import { wealdRoomFileSchema } from "./weald-room";
+import { wealdRoomFileSchema } from "./room";
 
 type WealdRoomFile = z.infer<typeof wealdRoomFileSchema>;
 

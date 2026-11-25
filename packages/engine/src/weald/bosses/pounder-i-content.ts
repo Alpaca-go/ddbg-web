@@ -1,7 +1,7 @@
 import { WEALD_POUNDER_I_CONTENT } from "./pounder-i-data";
 export { WEALD_POUNDER_I_CONTENT } from "./pounder-i-data";
 import { monsterPoolCatalogSchema } from "../../../../data/src/core/monsters/monster-pool";
-import { wealdRoomTileBattleAreas } from "../weald-mechanics";
+import { wealdRoomTileBattleAreas } from "../mechanics";
 
 /** 独立核准目录；不导入 Boss 注册器，不改普通池或存档入口。 */
 

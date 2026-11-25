@@ -8,7 +8,7 @@ import {
   wealdRoomTileGeometryFileSchema,
   wealdRoomTileSchema,
   type WealdRoomTile,
-} from "./weald-room";
+} from "./room";
 
 const MARKER = {
   hero_aggressive_start: "7b8c742c86",

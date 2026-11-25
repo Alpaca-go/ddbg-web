@@ -394,5 +394,5 @@ export {
   wealdMechanicsActive,
   wealdRoomTileBattleAreas,
   wealdZeroCapacityEndTurnRefusal,
-} from "./weald/weald-mechanics";
+} from "./weald/mechanics";
 export { rebuildLocationQuestDecks } from "./shared/quest/location-quest-sources";

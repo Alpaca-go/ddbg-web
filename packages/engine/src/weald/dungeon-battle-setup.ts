@@ -1,13 +1,13 @@
 import { basicQuests } from "../../../data/src/core/quests/basic-quests";
 import type { BattleSetup } from "../shared/battle/battle";
 import type { DungeonState } from "../shared/dungeon/dungeon";
-import type { WealdRoomTile } from "../../../data/src/weald/rooms/weald-room";
+import type { WealdRoomTile } from "../../../data/src/weald/rooms/room";
 import {
   NECROTIC_FUNGUS_MONSTER_CARD,
   NECROTIC_FUNGUS_MONSTER_CARD_ID,
   necroticFungusEntitiesForTile,
 } from "./necrotic-fungus";
-import { wealdPackSelected, wealdRoomTileBattleAreas } from "./weald-mechanics";
+import { wealdPackSelected, wealdRoomTileBattleAreas } from "./mechanics";
 
 /** 与怪物池校验一致；步骤 5 任务未登记时可用 monsterPool.location 识别 Weald 出征（步骤 2 目录接线）。 */
 export function readDungeonExpeditionRegion(

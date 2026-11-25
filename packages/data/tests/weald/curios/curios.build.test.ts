@@ -7,7 +7,7 @@ import {
   wealdCurioFileSchema,
   planCurioEffects,
 } from "../../../src/core/curios/curio";
-import { buildWealdCurios } from "../../../src/weald/curios/weald-curios.build";
+import { buildWealdCurios } from "../../../src/weald/curios/curios.build";
 import {
   loadNormalizedWealdCurios,
   writeNormalizedWealdCurios,

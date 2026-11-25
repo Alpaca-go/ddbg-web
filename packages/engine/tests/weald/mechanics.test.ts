@@ -22,7 +22,7 @@ import {
 import {
   wealdRoomTileBattleAreas,
   wealdZeroCapacityEndTurnRefusal,
-} from "../../src/weald/weald-mechanics";
+} from "../../src/weald/mechanics";
 
 const crusaderStat = normalizedHeroStatFileSchema
   .parse(statsFile)
