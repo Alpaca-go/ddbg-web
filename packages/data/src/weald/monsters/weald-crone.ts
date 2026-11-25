@@ -1,6 +1,6 @@
 import { z } from "zod";
-import file from "../../../../normalized/extension/weald/quest_exception_monsters.json";
-import { monsterStanceGroupsSchema } from "../../../core/monsters/monster-stance.build";
+import file from "../../../normalized/extension/weald/quest_exception_monsters.json";
+import { monsterStanceGroupsSchema } from "../../core/monsters/monster-stance.build";
 
 export const CRONE_CARD_ID = "monster_medium:weald:p015";
 /** R-253：核准任务例外，不授予随机池资格。 */

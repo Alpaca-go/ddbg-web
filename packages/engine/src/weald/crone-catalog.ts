@@ -1,4 +1,4 @@
-import { readWealdCroneProfile } from "../../../data/src/weald/bosses/crone/weald-crone";
+import { readWealdCroneProfile } from "../../../data/src/weald/monsters/weald-crone";
 import type { DungeonBattleCatalog } from "../shared/dungeon/dungeon";
 import type { MonsterSkillView } from "../shared/core/monster-skill";
 import type { SkillSegment } from "../core/heroes/hero-skill";
