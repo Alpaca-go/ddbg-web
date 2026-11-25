@@ -1,6 +1,6 @@
 import { WEALD_SHRIEKER_HIGHER_CONTENT } from "./shrieker-higher-content";
 import hagPrinted from "../../../../data/normalized/extension/weald/hag_higher.json";
-import { wealdHagHigherContentSchema } from "../../../../data/src/weald/bosses/hag/weald-hag-higher";
+import { wealdHagHigherContentSchema } from "../../../../data/src/weald/bosses/hag/hag-higher";
 import { WEALD_POUNDER_HIGHER_CONTENT } from "./pounder-higher-content";
 const hag = wealdHagHigherContentSchema.parse(hagPrinted);
 /** 真正接过目录的角色才有引用；与注册表和旧日志版本权限分开。 */

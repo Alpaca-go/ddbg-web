@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { expect, it } from "vitest";
 import printed from "../../../../normalized/extension/weald/pounder_higher.json";
 import pool from "../../../../normalized/corebox/monster_pool.json";
-import { wealdPounderHigherContentSchema } from "../../../../src/weald/bosses/pounder/weald-pounder-higher";
+import { wealdPounderHigherContentSchema } from "../../../../src/weald/bosses/pounder/pounder-higher";
 import { rawFileSchema } from "../../../../src/shared/extract/raw";
 
 const content = wealdPounderHigherContentSchema.parse(printed);

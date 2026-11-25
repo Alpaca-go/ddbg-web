@@ -2,7 +2,7 @@ import { z } from "zod";
 import {
   wealdShriekerCombatFaceSchema as baseFace,
   wealdShriekerContentSchema as base,
-} from "./weald-shrieker";
+} from "./shrieker";
 const level = z.union([z.literal(2), z.literal(3)]);
 const face = baseFace.extend({
   level,

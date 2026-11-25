@@ -1,4 +1,4 @@
-import type { WealdHagContent } from "../../../../data/src/weald/bosses/hag/weald-hag";
+import type { WealdHagContent } from "../../../../data/src/weald/bosses/hag/hag";
 import { monsterShuffleImmune } from "../../shared/core/monster-defence";
 import type { BattleEntity } from "../../shared/battle/battle";
 import type { MonsterCardView, MonsterSkillView } from "../../shared/core/monster-skill";

@@ -2,7 +2,7 @@ import { z } from "zod";
 import {
   wealdPounderCombatFaceSchema as baseFace,
   wealdPounderContentSchema as base,
-} from "./weald-pounder";
+} from "./pounder";
 
 const face = baseFace.extend({
   rawId: z.enum([

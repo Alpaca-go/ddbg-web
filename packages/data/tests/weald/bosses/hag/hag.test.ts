@@ -3,10 +3,7 @@ import { describe, expect, it } from "vitest";
 import content from "../../../../normalized/extension/weald/hag_i.json";
 import ordinaryTiles from "../../../../normalized/extension/weald/room_tile_geometry.json";
 import { rawFileSchema } from "../../../../src/shared/extract/raw";
-import {
-  wealdHagContentSchema,
-  wealdHagTileSchema,
-} from "../../../../src/weald/bosses/hag/weald-hag";
+import { wealdHagContentSchema, wealdHagTileSchema } from "../../../../src/weald/bosses/hag/hag";
 import { wealdRoomTileGeometryFileSchema } from "../../../../src/weald/rooms/weald-room";
 import { loadNormalizedWealdLevelOneMonsters } from "../../../../src/shared/write-weald";
 

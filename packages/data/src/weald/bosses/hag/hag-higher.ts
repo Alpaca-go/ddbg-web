@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { wealdHagCombatFaceSchema, wealdHagContentSchema } from "./weald-hag";
+import { wealdHagCombatFaceSchema, wealdHagContentSchema } from "./hag";
 
 const face = wealdHagCombatFaceSchema.extend({
   level: z.union([z.literal(2), z.literal(3)]),
