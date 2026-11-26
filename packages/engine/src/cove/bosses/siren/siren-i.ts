@@ -16,35 +16,35 @@ export const SIREN_I_SCRIPT_ID = "boss:cove:siren:1" as const;
 
 /**
  * Boss Description I（风味面）。
- * Cove `DD_EN_COVE_CARDS_70_120_Boss_Abilities` 正面 p7；extract 占位 id。
+ * Cove `DD_EN_COVE_CARDS_70_120_Boss_Abilities` 正面 p7。
  */
-export const SIREN_I_DESCRIPTION_ABILITY_CARD_ID = "boss_ability:cove:siren:p001" as const;
+export const SIREN_I_DESCRIPTION_ABILITY_CARD_ID = "boss_ability:cove:p007" as const;
 
 /**
  * Boss Abilities 战斗面 + 威胁面背面 I（PDF 正面 p10 / 背面 p10）。
  * 地牢侧「Distressing Times I」、村庄侧「Captivating Call I」。
  */
-export const SIREN_I_COMBAT_ABILITY_CARD_ID = "boss_ability:cove:siren:p002" as const;
+export const SIREN_I_COMBAT_ABILITY_CARD_ID = "boss_ability:cove:p010" as const;
 
 /**
  * Siren I 战斗卡（Eldritch · Large · Cove）。
- * Cove `monster_large` PDF p5。
+ * Cove `monster_large` PDF p6。
  */
-export const SIREN_I_COMBAT_MONSTER_CARD_ID = "monster_large:cove:siren:p001" as const;
+export const SIREN_I_COMBAT_MONSTER_CARD_ID = "monster_large:cove:p006" as const;
 
 /**
- * Pelagic I（High Tide 召唤；不进 `combatEntry`）。
- * Cove `monster_medium` extract 入库前用占位 id。
+ * Pelagic Grouper I（印刷能力卡 p10 指名；不进 `combatEntry`）。
+ * Cove `monster_medium` PDF p7 为首印页。
  */
-export const SIREN_I_PELAGIC_MONSTER_CARD_ID = "monster_medium:cove:pelagic:p001" as const;
+export const SIREN_I_PELAGIC_MONSTER_CARD_ID = "monster_medium:cove:p007" as const;
 
 /**
  * Siren I · High Tide 技能 slot。
- * Cove Boss Abilities p10 / extract 入库前由常量 + 测试夹具对齐。
+ * 现有受控脚本称 High Tide；印刷 p10 和战斗卡称 Devour。
  */
 export const SIREN_I_HIGH_TIDE_SKILL_SLOT = 2 as const;
 
-/** High Tide 召唤 Pelagic 的怪物姿态；待 Kyries 对照卡面 / medium extract。 */
+/** High Tide 召唤 Pelagic 的怪物姿态；沿用当前受控脚本，完整姿态与技能语义待按印刷卡复核。 */
 export function sirenIPelagicHighTideStance(): "support" {
   return "support";
 }

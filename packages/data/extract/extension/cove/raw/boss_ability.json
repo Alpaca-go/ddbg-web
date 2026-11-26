@@ -1,0 +1,4713 @@
+{
+  "schema": "ddbg-raw-v1",
+  "extractor_version": "1.0.4",
+  "category": "boss_ability",
+  "kind": "card",
+  "units": {
+    "length": "mm",
+    "origin": "top-left corner of the PDF TrimBox (card face, bleed excluded)",
+    "y_axis": "down",
+    "font_size": "pt"
+  },
+  "sources": [
+    {
+      "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+      "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_BACK.pdf",
+      "source_set": "extension",
+      "kind": "card",
+      "front_pages": 18,
+      "back_pages": 18
+    }
+  ],
+  "n_pages": 18,
+  "n_unique": 18,
+  "n_copies_total": 18,
+  "cards": [
+    {
+      "id": "boss_ability:cove:p001",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [1],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+          "page": 1,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d43a2bc14f943f38",
+          "spans": [
+            {
+              "t": "I",
+              "bbox": [34.51, 5.35, 35.97, 12.29],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#94c23e"
+            },
+            {
+              "t": "In the damp recesses of the cove, a",
+              "bbox": [12.94, 50.18, 56.96, 54.42],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "tempting glint amid the gloom. The",
+              "bbox": [13.62, 54.42, 56.29, 58.66],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "gem nestled in the tight grip of this",
+              "bbox": [13.03, 58.65, 56.87, 62.89],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "altar’s sconce promises riches beyond",
+              "bbox": [10.92, 62.88, 58.98, 67.12],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "worldly compare. Yet the closer you",
+              "bbox": [12.28, 67.12, 57.61, 71.36],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "draw, the more you feel your temples",
+              "bbox": [11.36, 71.35, 58.53, 75.59],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "pulse. A blinding aura shimmers",
+              "bbox": [14.93, 75.58, 54.97, 79.83],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "near every source of light. The altar",
+              "bbox": [12.01, 79.82, 57.88, 84.06],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "beckons - a lucky find or a priceless",
+              "bbox": [11.95, 84.05, 57.94, 88.29],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "lure, the thread of which reaches into",
+              "bbox": [11.24, 88.29, 58.65, 92.53],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "the malefic dark between the stars.",
+              "bbox": [12.83, 92.52, 57.07, 96.76],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "What angler will sense your pull?",
+              "bbox": [14.04, 96.75, 55.86, 100.99],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Shambler",
+              "bbox": [25.38, 12.85, 44.63, 19.79],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "963f0628a8",
+              "bbox": [30.64, 3.84, 39.86, 13.37]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:963f0628a8} I",
+              "bbox": [30.64, 3.84, 39.86, 13.37]
+            },
+            {
+              "rot": 0,
+              "text": "Shambler",
+              "bbox": [25.38, 12.85, 44.63, 19.79]
+            },
+            {
+              "rot": 0,
+              "text": "In the damp recesses of the cove, a",
+              "bbox": [12.94, 50.18, 56.96, 54.42]
+            },
+            {
+              "rot": 0,
+              "text": "tempting glint amid the gloom. The",
+              "bbox": [13.62, 54.42, 56.29, 58.66]
+            },
+            {
+              "rot": 0,
+              "text": "gem nestled in the tight grip of this",
+              "bbox": [13.03, 58.65, 56.87, 62.89]
+            },
+            {
+              "rot": 0,
+              "text": "altar’s sconce promises riches beyond",
+              "bbox": [10.92, 62.88, 58.98, 67.12]
+            },
+            {
+              "rot": 0,
+              "text": "worldly compare. Yet the closer you",
+              "bbox": [12.28, 67.12, 57.61, 71.36]
+            },
+            {
+              "rot": 0,
+              "text": "draw, the more you feel your temples",
+              "bbox": [11.36, 71.35, 58.53, 75.59]
+            },
+            {
+              "rot": 0,
+              "text": "pulse. A blinding aura shimmers",
+              "bbox": [14.93, 75.58, 54.97, 79.83]
+            },
+            {
+              "rot": 0,
+              "text": "near every source of light. The altar",
+              "bbox": [12.01, 79.82, 57.88, 84.06]
+            },
+            {
+              "rot": 0,
+              "text": "beckons - a lucky find or a priceless",
+              "bbox": [11.95, 84.05, 57.94, 88.29]
+            },
+            {
+              "rot": 0,
+              "text": "lure, the thread of which reaches into",
+              "bbox": [11.24, 88.29, 58.65, 92.53]
+            },
+            {
+              "rot": 0,
+              "text": "the malefic dark between the stars.",
+              "bbox": [12.83, 92.52, 57.07, 96.76]
+            },
+            {
+              "rot": 0,
+              "text": "What angler will sense your pull?",
+              "bbox": [14.04, 96.75, 55.86, 100.99]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_BACK.pdf",
+          "page": 1,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "9496c2f36c6239ad",
+          "spans": [
+            {
+              "t": "I",
+              "bbox": [34.1, 107.17, 35.88, 115.62],
+              "font": "DwarvenAxeBB",
+              "size": 21.91,
+              "color": "#94c23e"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "56ea9289ab",
+              "bbox": [29.39, 105.34, 40.61, 116.94]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:56ea9289ab} I",
+              "bbox": [29.39, 105.34, 40.61, 116.94]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "boss_ability:cove:p002",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [2],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+          "page": 2,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d43a2bc14f943f38",
+          "spans": [
+            {
+              "t": "II",
+              "bbox": [33.78, 5.35, 36.7, 12.29],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#c98c3c"
+            },
+            {
+              "t": "Writhing tendrils, skin that shines with",
+              "bbox": [10.7, 49.98, 59.2, 54.22],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "the light of black stars rising over",
+              "bbox": [13.28, 54.21, 56.62, 58.46],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "worlds beyond our ken - through",
+              "bbox": [13.92, 58.45, 55.98, 62.69],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "happenstance or confidence, you",
+              "bbox": [14.79, 62.68, 55.1, 66.93],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "have triggered the trap. The few who",
+              "bbox": [11.63, 66.91, 58.26, 71.16],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "have crossed its path have nothing to",
+              "bbox": [11.62, 71.15, 58.28, 75.39],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "offer, none can even say whether the",
+              "bbox": [11.71, 75.39, 58.19, 79.63],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "shambler hunts with preternatural",
+              "bbox": [13.34, 79.62, 56.56, 83.86],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "guile or whether some unknown sect",
+              "bbox": [11.91, 83.85, 57.99, 88.09],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "has lured it here themselves. Theory",
+              "bbox": [12.02, 88.09, 57.87, 92.33],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "matters not in the heat of battle. Act",
+              "bbox": [12.39, 92.32, 57.5, 96.56],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "quickly, slay the thing before it drowns",
+              "bbox": [10.33, 96.55, 59.56, 100.79],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "you in the dark void which birthed it!",
+              "bbox": [11.49, 100.79, 58.4, 105.03],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Shambler",
+              "bbox": [25.38, 12.85, 44.63, 19.79],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "963f0628a8",
+              "bbox": [30.64, 3.84, 39.86, 13.37]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:963f0628a8} II",
+              "bbox": [30.64, 3.84, 39.86, 13.37]
+            },
+            {
+              "rot": 0,
+              "text": "Shambler",
+              "bbox": [25.38, 12.85, 44.63, 19.79]
+            },
+            {
+              "rot": 0,
+              "text": "Writhing tendrils, skin that shines with",
+              "bbox": [10.7, 49.98, 59.2, 54.22]
+            },
+            {
+              "rot": 0,
+              "text": "the light of black stars rising over",
+              "bbox": [13.28, 54.21, 56.62, 58.46]
+            },
+            {
+              "rot": 0,
+              "text": "worlds beyond our ken - through",
+              "bbox": [13.92, 58.45, 55.98, 62.69]
+            },
+            {
+              "rot": 0,
+              "text": "happenstance or confidence, you",
+              "bbox": [14.79, 62.68, 55.1, 66.93]
+            },
+            {
+              "rot": 0,
+              "text": "have triggered the trap. The few who",
+              "bbox": [11.63, 66.91, 58.26, 71.16]
+            },
+            {
+              "rot": 0,
+              "text": "have crossed its path have nothing to",
+              "bbox": [11.62, 71.15, 58.28, 75.39]
+            },
+            {
+              "rot": 0,
+              "text": "offer, none can even say whether the",
+              "bbox": [11.71, 75.39, 58.19, 79.63]
+            },
+            {
+              "rot": 0,
+              "text": "shambler hunts with preternatural",
+              "bbox": [13.34, 79.62, 56.56, 83.86]
+            },
+            {
+              "rot": 0,
+              "text": "guile or whether some unknown sect",
+              "bbox": [11.91, 83.85, 57.99, 88.09]
+            },
+            {
+              "rot": 0,
+              "text": "has lured it here themselves. Theory",
+              "bbox": [12.02, 88.09, 57.87, 92.33]
+            },
+            {
+              "rot": 0,
+              "text": "matters not in the heat of battle. Act",
+              "bbox": [12.39, 92.32, 57.5, 96.56]
+            },
+            {
+              "rot": 0,
+              "text": "quickly, slay the thing before it drowns",
+              "bbox": [10.33, 96.55, 59.56, 100.79]
+            },
+            {
+              "rot": 0,
+              "text": "you in the dark void which birthed it!",
+              "bbox": [11.49, 100.79, 58.4, 105.03]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_BACK.pdf",
+          "page": 2,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "9496c2f36c6239ad",
+          "spans": [
+            {
+              "t": "II",
+              "bbox": [33.21, 107.17, 36.77, 115.62],
+              "font": "DwarvenAxeBB",
+              "size": 21.91,
+              "color": "#c98c3c"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "56ea9289ab",
+              "bbox": [29.39, 105.34, 40.61, 116.94]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:56ea9289ab} II",
+              "bbox": [29.39, 105.34, 40.61, 116.94]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "boss_ability:cove:p003",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [3],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+          "page": 3,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d43b2bc14f943d38",
+          "spans": [
+            {
+              "t": "III",
+              "bbox": [33.05, 5.35, 37.43, 12.29],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "The chasms between the stars are",
+              "bbox": [13.59, 52.97, 56.31, 57.21],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "bottomless, and contained within them",
+              "bbox": [11.21, 57.2, 58.7, 61.44],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "is a callous cruelty humankind can",
+              "bbox": [13.4, 61.43, 56.5, 65.67],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "only guess at. Can a being beyond our",
+              "bbox": [11.22, 65.67, 58.68, 69.91],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "comprehension be said to hate? Is",
+              "bbox": [13.68, 69.9, 56.23, 74.14],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "it even aware of the mortal laments",
+              "bbox": [12.62, 74.13, 57.29, 78.37],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "caused by its rampant hunger? We",
+              "bbox": [13.36, 78.37, 56.54, 82.61],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "will never know the shambler’s",
+              "bbox": [15.26, 82.6, 54.64, 86.84],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "motivations, but we know it must be",
+              "bbox": [12.31, 86.83, 57.6, 91.08],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "stopped! You, confident fool who has",
+              "bbox": [12.28, 91.07, 57.63, 95.31],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "drawn it here, must banish this beast",
+              "bbox": [11.54, 95.3, 58.37, 99.54],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "to the alien couloir whence it crawled!",
+              "bbox": [10.93, 99.54, 58.98, 103.78],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Shambler",
+              "bbox": [25.38, 12.85, 44.63, 19.79],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "963f0628a8",
+              "bbox": [30.64, 3.84, 39.86, 13.37]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:963f0628a8} III",
+              "bbox": [30.64, 3.84, 39.86, 13.37]
+            },
+            {
+              "rot": 0,
+              "text": "Shambler",
+              "bbox": [25.38, 12.85, 44.63, 19.79]
+            },
+            {
+              "rot": 0,
+              "text": "The chasms between the stars are",
+              "bbox": [13.59, 52.97, 56.31, 57.21]
+            },
+            {
+              "rot": 0,
+              "text": "bottomless, and contained within them",
+              "bbox": [11.21, 57.2, 58.7, 61.44]
+            },
+            {
+              "rot": 0,
+              "text": "is a callous cruelty humankind can",
+              "bbox": [13.4, 61.43, 56.5, 65.67]
+            },
+            {
+              "rot": 0,
+              "text": "only guess at. Can a being beyond our",
+              "bbox": [11.22, 65.67, 58.68, 69.91]
+            },
+            {
+              "rot": 0,
+              "text": "comprehension be said to hate? Is",
+              "bbox": [13.68, 69.9, 56.23, 74.14]
+            },
+            {
+              "rot": 0,
+              "text": "it even aware of the mortal laments",
+              "bbox": [12.62, 74.13, 57.29, 78.37]
+            },
+            {
+              "rot": 0,
+              "text": "caused by its rampant hunger? We",
+              "bbox": [13.36, 78.37, 56.54, 82.61]
+            },
+            {
+              "rot": 0,
+              "text": "will never know the shambler’s",
+              "bbox": [15.26, 82.6, 54.64, 86.84]
+            },
+            {
+              "rot": 0,
+              "text": "motivations, but we know it must be",
+              "bbox": [12.31, 86.83, 57.6, 91.08]
+            },
+            {
+              "rot": 0,
+              "text": "stopped! You, confident fool who has",
+              "bbox": [12.28, 91.07, 57.63, 95.31]
+            },
+            {
+              "rot": 0,
+              "text": "drawn it here, must banish this beast",
+              "bbox": [11.54, 95.3, 58.37, 99.54]
+            },
+            {
+              "rot": 0,
+              "text": "to the alien couloir whence it crawled!",
+              "bbox": [10.93, 99.54, 58.98, 103.78]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_BACK.pdf",
+          "page": 3,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "9496c2f36c6239ad",
+          "spans": [
+            {
+              "t": "III",
+              "bbox": [32.33, 107.17, 37.66, 115.62],
+              "font": "DwarvenAxeBB",
+              "size": 21.91,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "56ea9289ab",
+              "bbox": [29.39, 105.34, 40.61, 116.94]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:56ea9289ab} III",
+              "bbox": [29.39, 105.34, 40.61, 116.94]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "boss_ability:cove:p004",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [4],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+          "page": 4,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d03e2ac06e4f3f85",
+          "spans": [
+            {
+              "t": "I",
+              "bbox": [58.76, 5.75, 60.22, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#94c23e"
+            },
+            {
+              "t": "Shambler",
+              "bbox": [25.32, 45.98, 44.58, 52.92],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "ACTIONS / Round: 1",
+              "bbox": [20.05, 64.6, 49.85, 69.99],
+              "font": "DwarvenAxeBB",
+              "size": 14.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Absolute Darkness:",
+              "bbox": [15.4, 74.27, 44.76, 78.03],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "At the",
+              "bbox": [45.53, 74.27, 54.5, 77.93],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "start of battle,",
+              "bbox": [14.51, 78.08, 35.44, 81.74],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "drops to 0.",
+              "bbox": [39.98, 78.08, 55.38, 81.74],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Summon",
+              "bbox": [13.4, 83.24, 26.39, 87.0],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": ": The Shambler",
+              "bbox": [30.82, 83.25, 52.07, 86.9],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "up to 2 Shambler Tentacles.",
+              "bbox": [15.14, 87.06, 54.76, 90.71],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "0c9e989b70",
+              "bbox": [54.89, 4.24, 64.11, 13.78]
+            },
+            {
+              "iconId": "c5731a729f",
+              "bbox": [35.98, 77.61, 39.16, 81.84],
+              "bbox_full": [35.4, 76.79, 39.97, 82.63]
+            },
+            {
+              "iconId": "ab045955ed",
+              "bbox": [27.13, 82.77, 30.82, 87.25]
+            },
+            {
+              "iconId": "ab045955ed",
+              "bbox": [52.81, 82.77, 56.49, 87.25]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:0c9e989b70} I",
+              "bbox": [54.89, 4.24, 64.11, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "Shambler",
+              "bbox": [25.32, 45.98, 44.58, 52.92]
+            },
+            {
+              "rot": 0,
+              "text": "ACTIONS / Round: 1",
+              "bbox": [20.05, 64.6, 49.85, 69.99]
+            },
+            {
+              "rot": 0,
+              "text": "Absolute Darkness: At the",
+              "bbox": [15.4, 74.27, 54.5, 78.03]
+            },
+            {
+              "rot": 0,
+              "text": "start of battle, {icon:c5731a729f} drops to 0.",
+              "bbox": [14.51, 77.61, 55.38, 81.84]
+            },
+            {
+              "rot": 0,
+              "text": "Summon {icon:ab045955ed} : The Shambler {icon:ab045955ed}",
+              "bbox": [13.4, 82.77, 56.49, 87.25]
+            },
+            {
+              "rot": 0,
+              "text": "up to 2 Shambler Tentacles.",
+              "bbox": [15.14, 87.06, 54.76, 90.71]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_BACK.pdf",
+          "page": 4,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "c5967a643e4c954e",
+          "spans": [
+            {
+              "t": "I",
+              "bbox": [59.36, 5.75, 60.82, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#94c23e"
+            },
+            {
+              "t": "When entering the Dungeon,",
+              "bbox": [14.64, 36.29, 56.36, 39.94],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "drop the",
+              "bbox": [23.65, 40.17, 36.09, 43.82],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "by 1.",
+              "bbox": [40.64, 40.17, 47.35, 43.82],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Thick Darkness",
+              "bbox": [25.0, 15.07, 51.57, 20.85],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "At the start of the week,",
+              "bbox": [17.91, 88.83, 53.09, 92.49],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "draw 2 Hamlet Event Cards.",
+              "bbox": [15.73, 84.96, 55.26, 88.61],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "Win the lowest number of",
+              "bbox": [16.82, 81.08, 54.18, 84.73],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "days and use the effect of",
+              "bbox": [16.88, 77.19, 54.12, 80.85],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "the other card. If both have",
+              "bbox": [15.92, 73.31, 55.08, 76.97],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "the same number, choose",
+              "bbox": [17.14, 69.43, 53.87, 73.09],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "which effect to apply.",
+              "bbox": [19.97, 65.56, 51.04, 69.21],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "Unfortunate Events",
+              "bbox": [18.74, 100.4, 51.26, 106.18],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#d12529",
+              "rot": 180
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "0c9e989b70",
+              "bbox": [55.49, 4.24, 64.71, 13.78]
+            },
+            {
+              "iconId": "c5731a729f",
+              "bbox": [36.69, 39.51, 39.86, 44.1],
+              "bbox_full": [36.05, 38.91, 40.63, 44.75]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:0c9e989b70} I",
+              "bbox": [55.49, 4.24, 64.71, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "Thick Darkness",
+              "bbox": [25.0, 15.07, 51.57, 20.85]
+            },
+            {
+              "rot": 0,
+              "text": "When entering the Dungeon,",
+              "bbox": [14.64, 36.29, 56.36, 39.94]
+            },
+            {
+              "rot": 0,
+              "text": "drop the {icon:c5731a729f} by 1.",
+              "bbox": [23.65, 39.51, 47.35, 44.1]
+            },
+            {
+              "rot": 180,
+              "text": "Unfortunate Events",
+              "bbox": [18.74, 100.4, 51.26, 106.18]
+            },
+            {
+              "rot": 180,
+              "text": "At the start of the week,",
+              "bbox": [17.91, 88.83, 53.09, 92.49]
+            },
+            {
+              "rot": 180,
+              "text": "draw 2 Hamlet Event Cards.",
+              "bbox": [15.73, 84.96, 55.26, 88.61]
+            },
+            {
+              "rot": 180,
+              "text": "Win the lowest number of",
+              "bbox": [16.82, 81.08, 54.18, 84.73]
+            },
+            {
+              "rot": 180,
+              "text": "days and use the effect of",
+              "bbox": [16.88, 77.19, 54.12, 80.85]
+            },
+            {
+              "rot": 180,
+              "text": "the other card. If both have",
+              "bbox": [15.92, 73.31, 55.08, 76.97]
+            },
+            {
+              "rot": 180,
+              "text": "the same number, choose",
+              "bbox": [17.14, 69.43, 53.87, 73.09]
+            },
+            {
+              "rot": 180,
+              "text": "which effect to apply.",
+              "bbox": [19.97, 65.56, 51.04, 69.21]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "boss_ability:cove:p005",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [5],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+          "page": 5,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d03e2ac06e4f3f85",
+          "spans": [
+            {
+              "t": "II",
+              "bbox": [58.03, 5.75, 60.95, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#c98c3c"
+            },
+            {
+              "t": "ACTIONS / Round: 1",
+              "bbox": [20.05, 64.6, 49.85, 69.99],
+              "font": "DwarvenAxeBB",
+              "size": 14.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Absolute Darkness:",
+              "bbox": [15.4, 74.27, 44.76, 78.03],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "At the",
+              "bbox": [45.53, 74.27, 54.5, 77.93],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "start of battle,",
+              "bbox": [14.51, 78.08, 35.44, 81.74],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "drops to 0.",
+              "bbox": [39.98, 78.08, 55.38, 81.74],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Summon",
+              "bbox": [13.4, 83.24, 26.39, 87.0],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": ": The Shambler",
+              "bbox": [30.82, 83.25, 52.07, 86.9],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "up to 2 Shambler Tentacles.",
+              "bbox": [15.14, 87.06, 54.76, 90.71],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Shambler",
+              "bbox": [25.32, 45.98, 44.58, 52.92],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "0c9e989b70",
+              "bbox": [54.89, 4.24, 64.11, 13.78]
+            },
+            {
+              "iconId": "c5731a729f",
+              "bbox": [35.98, 77.61, 39.16, 81.84],
+              "bbox_full": [35.4, 76.79, 39.97, 82.63]
+            },
+            {
+              "iconId": "ab045955ed",
+              "bbox": [27.13, 82.77, 30.82, 87.25]
+            },
+            {
+              "iconId": "ab045955ed",
+              "bbox": [52.81, 82.77, 56.49, 87.25]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:0c9e989b70} II",
+              "bbox": [54.89, 4.24, 64.11, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "Shambler",
+              "bbox": [25.32, 45.98, 44.58, 52.92]
+            },
+            {
+              "rot": 0,
+              "text": "ACTIONS / Round: 1",
+              "bbox": [20.05, 64.6, 49.85, 69.99]
+            },
+            {
+              "rot": 0,
+              "text": "Absolute Darkness: At the",
+              "bbox": [15.4, 74.27, 54.5, 78.03]
+            },
+            {
+              "rot": 0,
+              "text": "start of battle, {icon:c5731a729f} drops to 0.",
+              "bbox": [14.51, 77.61, 55.38, 81.84]
+            },
+            {
+              "rot": 0,
+              "text": "Summon {icon:ab045955ed} : The Shambler {icon:ab045955ed}",
+              "bbox": [13.4, 82.77, 56.49, 87.25]
+            },
+            {
+              "rot": 0,
+              "text": "up to 2 Shambler Tentacles.",
+              "bbox": [15.14, 87.06, 54.76, 90.71]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_BACK.pdf",
+          "page": 5,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "c5b67aa43a68954e",
+          "spans": [
+            {
+              "t": "When entering the Dungeon,",
+              "bbox": [14.64, 36.29, 56.36, 39.94],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "drop the",
+              "bbox": [23.65, 40.17, 36.09, 43.82],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "by 2.",
+              "bbox": [40.64, 40.17, 47.35, 43.82],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "II",
+              "bbox": [58.63, 5.75, 61.55, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#c98c3c"
+            },
+            {
+              "t": "Thick Darkness",
+              "bbox": [25.0, 15.07, 51.57, 20.85],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "Ignore the effects of the",
+              "bbox": [17.84, 81.57, 53.16, 85.23],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "events that give 1 or 2",
+              "bbox": [19.53, 77.69, 51.47, 81.35],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "preperation days.",
+              "bbox": [22.92, 73.82, 48.08, 77.47],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "Dreamlight",
+              "bbox": [25.66, 100.4, 44.34, 106.18],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#d12529",
+              "rot": 180
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "0c9e989b70",
+              "bbox": [55.49, 4.24, 64.71, 13.78]
+            },
+            {
+              "iconId": "c5731a729f",
+              "bbox": [36.69, 39.51, 39.86, 44.1],
+              "bbox_full": [36.05, 38.91, 40.63, 44.75]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:0c9e989b70} II",
+              "bbox": [55.49, 4.24, 64.71, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "Thick Darkness",
+              "bbox": [25.0, 15.07, 51.57, 20.85]
+            },
+            {
+              "rot": 0,
+              "text": "When entering the Dungeon,",
+              "bbox": [14.64, 36.29, 56.36, 39.94]
+            },
+            {
+              "rot": 0,
+              "text": "drop the {icon:c5731a729f} by 2.",
+              "bbox": [23.65, 39.51, 47.35, 44.1]
+            },
+            {
+              "rot": 180,
+              "text": "Dreamlight",
+              "bbox": [25.66, 100.4, 44.34, 106.18]
+            },
+            {
+              "rot": 180,
+              "text": "Ignore the effects of the",
+              "bbox": [17.84, 81.57, 53.16, 85.23]
+            },
+            {
+              "rot": 180,
+              "text": "events that give 1 or 2",
+              "bbox": [19.53, 77.69, 51.47, 81.35]
+            },
+            {
+              "rot": 180,
+              "text": "preperation days.",
+              "bbox": [22.92, 73.82, 48.08, 77.47]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "boss_ability:cove:p006",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [6],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+          "page": 6,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d03e2ac06e4f3f85",
+          "spans": [
+            {
+              "t": "III",
+              "bbox": [57.3, 5.75, 61.68, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "ACTIONS / Round: 1",
+              "bbox": [20.05, 64.6, 49.85, 69.99],
+              "font": "DwarvenAxeBB",
+              "size": 14.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Absolute Darkness:",
+              "bbox": [15.4, 74.27, 44.76, 78.03],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "At the",
+              "bbox": [45.53, 74.27, 54.5, 77.93],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "start of battle,",
+              "bbox": [14.51, 78.08, 35.44, 81.74],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "drops to 0.",
+              "bbox": [39.98, 78.08, 55.38, 81.74],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Summon",
+              "bbox": [13.4, 83.24, 26.39, 87.0],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": ": The Shambler",
+              "bbox": [30.82, 83.25, 52.07, 86.9],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "up to 2 Shambler Tentacles.",
+              "bbox": [15.14, 87.06, 54.76, 90.71],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Shambler",
+              "bbox": [25.32, 45.98, 44.58, 52.92],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "0c9e989b70",
+              "bbox": [54.89, 4.24, 64.11, 13.78]
+            },
+            {
+              "iconId": "c5731a729f",
+              "bbox": [35.98, 77.61, 39.16, 81.84],
+              "bbox_full": [35.4, 76.79, 39.97, 82.63]
+            },
+            {
+              "iconId": "ab045955ed",
+              "bbox": [27.13, 82.77, 30.82, 87.25]
+            },
+            {
+              "iconId": "ab045955ed",
+              "bbox": [52.81, 82.77, 56.49, 87.25]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:0c9e989b70} III",
+              "bbox": [54.89, 4.24, 64.11, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "Shambler",
+              "bbox": [25.32, 45.98, 44.58, 52.92]
+            },
+            {
+              "rot": 0,
+              "text": "ACTIONS / Round: 1",
+              "bbox": [20.05, 64.6, 49.85, 69.99]
+            },
+            {
+              "rot": 0,
+              "text": "Absolute Darkness: At the",
+              "bbox": [15.4, 74.27, 54.5, 78.03]
+            },
+            {
+              "rot": 0,
+              "text": "start of battle, {icon:c5731a729f} drops to 0.",
+              "bbox": [14.51, 77.61, 55.38, 81.84]
+            },
+            {
+              "rot": 0,
+              "text": "Summon {icon:ab045955ed} : The Shambler {icon:ab045955ed}",
+              "bbox": [13.4, 82.77, 56.49, 87.25]
+            },
+            {
+              "rot": 0,
+              "text": "up to 2 Shambler Tentacles.",
+              "bbox": [15.14, 87.06, 54.76, 90.71]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_BACK.pdf",
+          "page": 6,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "c5b67ba43a68954c",
+          "spans": [
+            {
+              "t": "When entering the Dungeon,",
+              "bbox": [14.64, 38.23, 56.36, 41.88],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "drop the",
+              "bbox": [23.65, 42.11, 36.09, 45.76],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "by 3.",
+              "bbox": [40.64, 42.11, 47.35, 45.76],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "III",
+              "bbox": [57.9, 5.75, 62.28, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "Thick Darkness",
+              "bbox": [25.0, 15.07, 51.57, 20.85],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "The party has -1",
+              "bbox": [24.09, 79.63, 46.91, 83.29],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "preperation day (min. 1)",
+              "bbox": [18.29, 75.75, 52.71, 79.41],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "Dark Sun",
+              "bbox": [27.17, 100.4, 42.83, 106.18],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#d12529",
+              "rot": 180
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "0c9e989b70",
+              "bbox": [55.49, 4.24, 64.71, 13.78]
+            },
+            {
+              "iconId": "c5731a729f",
+              "bbox": [36.69, 41.63, 39.86, 45.86],
+              "bbox_full": [36.05, 40.85, 40.63, 46.69]
+            },
+            {
+              "iconId": "28ff6e4fdb",
+              "bbox": [24.78, 99.1, 45.1, 107.35],
+              "decor": true
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:0c9e989b70} III",
+              "bbox": [55.49, 4.24, 64.71, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "Thick Darkness",
+              "bbox": [25.0, 15.07, 51.57, 20.85]
+            },
+            {
+              "rot": 0,
+              "text": "When entering the Dungeon,",
+              "bbox": [14.64, 38.23, 56.36, 41.88]
+            },
+            {
+              "rot": 0,
+              "text": "drop the {icon:c5731a729f} by 3.",
+              "bbox": [23.65, 41.63, 47.35, 45.86]
+            },
+            {
+              "rot": 180,
+              "text": "Dark Sun",
+              "bbox": [27.17, 100.4, 42.83, 106.18]
+            },
+            {
+              "rot": 180,
+              "text": "The party has -1",
+              "bbox": [24.09, 79.63, 46.91, 83.29]
+            },
+            {
+              "rot": 180,
+              "text": "preperation day (min. 1)",
+              "bbox": [18.29, 75.75, 52.71, 79.41]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "boss_ability:cove:p007",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [7],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+          "page": 7,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "c06b3a942f6c2fd2",
+          "spans": [
+            {
+              "t": "I",
+              "bbox": [34.51, 5.35, 35.97, 12.29],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#94c23e"
+            },
+            {
+              "t": "My lofty position wasn’t always",
+              "bbox": [14.44, 56.31, 55.46, 60.55],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "accompanied by the fear of office,",
+              "bbox": [13.06, 60.54, 56.84, 64.78],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "and there was a time I could walk the",
+              "bbox": [10.72, 64.77, 59.18, 69.02],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "streets or raise a glass in the tavern",
+              "bbox": [11.05, 69.01, 58.85, 73.25],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "without concern for molestation.",
+              "bbox": [13.91, 73.24, 55.99, 77.48],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Faithful as the tide, one precocious",
+              "bbox": [12.68, 77.48, 57.22, 81.72],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "village waif made it her hobby to",
+              "bbox": [13.66, 81.71, 56.24, 85.95],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "shadow my every errand. It was",
+              "bbox": [13.84, 85.94, 56.07, 90.18],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "charming then, troublesome later.",
+              "bbox": [13.14, 90.18, 56.76, 94.42],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Siren",
+              "bbox": [29.65, 12.85, 40.37, 19.79],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "0c9e989b70",
+              "bbox": [30.64, 3.84, 39.86, 13.37]
+            },
+            {
+              "iconId": "7d61eaf953",
+              "bbox": [27.44, 11.93, 42.68, 20.7],
+              "decor": true
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:0c9e989b70} I",
+              "bbox": [30.64, 3.84, 39.86, 13.37]
+            },
+            {
+              "rot": 0,
+              "text": "Siren",
+              "bbox": [29.65, 12.85, 40.37, 19.79]
+            },
+            {
+              "rot": 0,
+              "text": "My lofty position wasn’t always",
+              "bbox": [14.44, 56.31, 55.46, 60.55]
+            },
+            {
+              "rot": 0,
+              "text": "accompanied by the fear of office,",
+              "bbox": [13.06, 60.54, 56.84, 64.78]
+            },
+            {
+              "rot": 0,
+              "text": "and there was a time I could walk the",
+              "bbox": [10.72, 64.77, 59.18, 69.02]
+            },
+            {
+              "rot": 0,
+              "text": "streets or raise a glass in the tavern",
+              "bbox": [11.05, 69.01, 58.85, 73.25]
+            },
+            {
+              "rot": 0,
+              "text": "without concern for molestation.",
+              "bbox": [13.91, 73.24, 55.99, 77.48]
+            },
+            {
+              "rot": 0,
+              "text": "Faithful as the tide, one precocious",
+              "bbox": [12.68, 77.48, 57.22, 81.72]
+            },
+            {
+              "rot": 0,
+              "text": "village waif made it her hobby to",
+              "bbox": [13.66, 81.71, 56.24, 85.95]
+            },
+            {
+              "rot": 0,
+              "text": "shadow my every errand. It was",
+              "bbox": [13.84, 85.94, 56.07, 90.18]
+            },
+            {
+              "rot": 0,
+              "text": "charming then, troublesome later.",
+              "bbox": [13.14, 90.18, 56.76, 94.42]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_BACK.pdf",
+          "page": 7,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "9496c2f36c6239ad",
+          "spans": [
+            {
+              "t": "I",
+              "bbox": [34.1, 107.17, 35.88, 115.62],
+              "font": "DwarvenAxeBB",
+              "size": 21.91,
+              "color": "#94c23e"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "56ea9289ab",
+              "bbox": [29.39, 105.34, 40.61, 116.94]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:56ea9289ab} I",
+              "bbox": [29.39, 105.34, 40.61, 116.94]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "boss_ability:cove:p008",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [8],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+          "page": 8,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d06b3b942ec42d7a",
+          "spans": [
+            {
+              "t": "II",
+              "bbox": [33.78, 5.35, 36.7, 12.29],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#c98c3c"
+            },
+            {
+              "t": "In financial desperation, I struck",
+              "bbox": [14.02, 51.41, 55.88, 55.65],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "a bargain with the ancient things",
+              "bbox": [13.84, 55.65, 56.06, 59.89],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "that surfaced in search of sacrifice",
+              "bbox": [12.22, 59.88, 57.67, 64.12],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "when the moon was right. Their",
+              "bbox": [14.32, 64.11, 55.57, 68.36],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "price was the delivery of an obscure",
+              "bbox": [11.22, 68.35, 58.67, 72.59],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "idol and one other item of more",
+              "bbox": [14.51, 72.58, 55.38, 76.82],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "troubling portent. The pact struck,",
+              "bbox": [12.75, 76.82, 57.14, 81.06],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "my newfound accomplices slipped",
+              "bbox": [13.61, 81.05, 56.28, 85.29],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "silently beneath the brackish water.",
+              "bbox": [11.89, 85.28, 58.0, 89.52],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "A fearful stirring at the edge of the",
+              "bbox": [12.2, 89.52, 57.69, 93.76],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "torchlight betrayed a familiar witness,",
+              "bbox": [10.24, 93.75, 59.66, 97.99],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "and gifted me with malign inspiration.",
+              "bbox": [10.63, 97.98, 59.27, 102.23],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Siren",
+              "bbox": [29.65, 12.85, 40.37, 19.79],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "0c9e989b70",
+              "bbox": [30.64, 3.84, 39.86, 13.37]
+            },
+            {
+              "iconId": "7d61eaf953",
+              "bbox": [27.44, 11.93, 42.68, 20.7],
+              "decor": true
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:0c9e989b70} II",
+              "bbox": [30.64, 3.84, 39.86, 13.37]
+            },
+            {
+              "rot": 0,
+              "text": "Siren",
+              "bbox": [29.65, 12.85, 40.37, 19.79]
+            },
+            {
+              "rot": 0,
+              "text": "In financial desperation, I struck",
+              "bbox": [14.02, 51.41, 55.88, 55.65]
+            },
+            {
+              "rot": 0,
+              "text": "a bargain with the ancient things",
+              "bbox": [13.84, 55.65, 56.06, 59.89]
+            },
+            {
+              "rot": 0,
+              "text": "that surfaced in search of sacrifice",
+              "bbox": [12.22, 59.88, 57.67, 64.12]
+            },
+            {
+              "rot": 0,
+              "text": "when the moon was right. Their",
+              "bbox": [14.32, 64.11, 55.57, 68.36]
+            },
+            {
+              "rot": 0,
+              "text": "price was the delivery of an obscure",
+              "bbox": [11.22, 68.35, 58.67, 72.59]
+            },
+            {
+              "rot": 0,
+              "text": "idol and one other item of more",
+              "bbox": [14.51, 72.58, 55.38, 76.82]
+            },
+            {
+              "rot": 0,
+              "text": "troubling portent. The pact struck,",
+              "bbox": [12.75, 76.82, 57.14, 81.06]
+            },
+            {
+              "rot": 0,
+              "text": "my newfound accomplices slipped",
+              "bbox": [13.61, 81.05, 56.28, 85.29]
+            },
+            {
+              "rot": 0,
+              "text": "silently beneath the brackish water.",
+              "bbox": [11.89, 85.28, 58.0, 89.52]
+            },
+            {
+              "rot": 0,
+              "text": "A fearful stirring at the edge of the",
+              "bbox": [12.2, 89.52, 57.69, 93.76]
+            },
+            {
+              "rot": 0,
+              "text": "torchlight betrayed a familiar witness,",
+              "bbox": [10.24, 93.75, 59.66, 97.99]
+            },
+            {
+              "rot": 0,
+              "text": "and gifted me with malign inspiration.",
+              "bbox": [10.63, 97.98, 59.27, 102.23]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_BACK.pdf",
+          "page": 8,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "9496c2f36c6239ad",
+          "spans": [
+            {
+              "t": "II",
+              "bbox": [33.21, 107.17, 36.77, 115.62],
+              "font": "DwarvenAxeBB",
+              "size": 21.91,
+              "color": "#c98c3c"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "56ea9289ab",
+              "bbox": [29.39, 105.34, 40.61, 116.94]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:56ea9289ab} II",
+              "bbox": [29.39, 105.34, 40.61, 116.94]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "boss_ability:cove:p009",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [9],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+          "page": 9,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "c06b3a942f6d2dd2",
+          "spans": [
+            {
+              "t": "III",
+              "bbox": [33.05, 5.35, 37.43, 12.29],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "Under the blood moon, I lured my",
+              "bbox": [13.49, 56.45, 56.41, 60.69],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "wide-eyed prey to the pier’s edge.",
+              "bbox": [12.95, 60.68, 56.95, 64.93],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Before she could properly appreciate",
+              "bbox": [11.27, 64.92, 58.62, 69.16],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "her position, I clamped on a manacle,",
+              "bbox": [11.18, 69.15, 58.71, 73.39],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "chaining her to the leering idol. A",
+              "bbox": [13.47, 73.38, 56.42, 77.63],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "small push was sufficient to send",
+              "bbox": [13.57, 77.62, 56.32, 81.86],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "both into the icy waters. And when",
+              "bbox": [12.55, 81.85, 57.35, 86.09],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "at length the tide receded, jewels",
+              "bbox": [13.87, 86.08, 56.02, 90.33],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "of the most magnificent grandeur",
+              "bbox": [13.51, 90.32, 56.38, 94.56],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "lay scattered upon the shore.",
+              "bbox": [16.15, 94.55, 53.74, 98.8],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Siren",
+              "bbox": [29.65, 12.85, 40.37, 19.79],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "0c9e989b70",
+              "bbox": [30.64, 3.84, 39.86, 13.37]
+            },
+            {
+              "iconId": "7d61eaf953",
+              "bbox": [27.44, 11.93, 42.68, 20.7],
+              "decor": true
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:0c9e989b70} III",
+              "bbox": [30.64, 3.84, 39.86, 13.37]
+            },
+            {
+              "rot": 0,
+              "text": "Siren",
+              "bbox": [29.65, 12.85, 40.37, 19.79]
+            },
+            {
+              "rot": 0,
+              "text": "Under the blood moon, I lured my",
+              "bbox": [13.49, 56.45, 56.41, 60.69]
+            },
+            {
+              "rot": 0,
+              "text": "wide-eyed prey to the pier’s edge.",
+              "bbox": [12.95, 60.68, 56.95, 64.93]
+            },
+            {
+              "rot": 0,
+              "text": "Before she could properly appreciate",
+              "bbox": [11.27, 64.92, 58.62, 69.16]
+            },
+            {
+              "rot": 0,
+              "text": "her position, I clamped on a manacle,",
+              "bbox": [11.18, 69.15, 58.71, 73.39]
+            },
+            {
+              "rot": 0,
+              "text": "chaining her to the leering idol. A",
+              "bbox": [13.47, 73.38, 56.42, 77.63]
+            },
+            {
+              "rot": 0,
+              "text": "small push was sufficient to send",
+              "bbox": [13.57, 77.62, 56.32, 81.86]
+            },
+            {
+              "rot": 0,
+              "text": "both into the icy waters. And when",
+              "bbox": [12.55, 81.85, 57.35, 86.09]
+            },
+            {
+              "rot": 0,
+              "text": "at length the tide receded, jewels",
+              "bbox": [13.87, 86.08, 56.02, 90.33]
+            },
+            {
+              "rot": 0,
+              "text": "of the most magnificent grandeur",
+              "bbox": [13.51, 90.32, 56.38, 94.56]
+            },
+            {
+              "rot": 0,
+              "text": "lay scattered upon the shore.",
+              "bbox": [16.15, 94.55, 53.74, 98.8]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_BACK.pdf",
+          "page": 9,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "9496c2f36c6239ad",
+          "spans": [
+            {
+              "t": "III",
+              "bbox": [32.33, 107.17, 37.66, 115.62],
+              "font": "DwarvenAxeBB",
+              "size": 21.91,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "56ea9289ab",
+              "bbox": [29.39, 105.34, 40.61, 116.94]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:56ea9289ab} III",
+              "bbox": [29.39, 105.34, 40.61, 116.94]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "boss_ability:cove:p010",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [10],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+          "page": 10,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d07e2b816b2b3f90",
+          "spans": [
+            {
+              "t": "I",
+              "bbox": [58.76, 5.75, 60.22, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#94c23e"
+            },
+            {
+              "t": "Siren",
+              "bbox": [29.59, 45.98, 40.31, 52.92],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "ACTIONS / Round: 2",
+              "bbox": [19.79, 59.38, 50.11, 64.78],
+              "font": "DwarvenAxeBB",
+              "size": 14.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Song of Desire:",
+              "bbox": [12.7, 69.06, 35.62, 72.81],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Before its first",
+              "bbox": [36.35, 69.06, 57.19, 72.71],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "action each round, Siren forces",
+              "bbox": [12.82, 72.87, 57.08, 76.52],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "all Heroes to move 1 towards",
+              "bbox": [11.66, 76.68, 53.5, 80.33],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Area (following Stance order).",
+              "bbox": [13.42, 80.49, 56.48, 84.14],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Summon",
+              "bbox": [17.08, 85.65, 30.07, 89.41],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": ": When using",
+              "bbox": [34.52, 85.65, 52.82, 89.31],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Pressure Crash, Siren",
+              "bbox": [13.5, 89.46, 43.73, 93.12],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "a Sea",
+              "bbox": [48.88, 89.46, 56.4, 93.12],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Maggot. When using Devour,",
+              "bbox": [14.23, 93.27, 55.66, 96.93],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "she",
+              "bbox": [16.92, 97.08, 21.93, 100.74],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "a Pelagic Grouper.",
+              "bbox": [27.08, 97.08, 52.98, 100.74],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "0c9e989b70",
+              "bbox": [54.89, 4.24, 64.11, 13.78]
+            },
+            {
+              "iconId": "a8bc7e5bb5",
+              "bbox": [27.38, 45.07, 42.62, 53.83],
+              "decor": true
+            },
+            {
+              "iconId": "5ff4d1af7c",
+              "bbox": [53.09, 75.68, 59.0, 81.69]
+            },
+            {
+              "iconId": "ab045955ed",
+              "bbox": [30.83, 85.17, 34.52, 89.65]
+            },
+            {
+              "iconId": "ab045955ed",
+              "bbox": [44.46, 89.49, 48.15, 93.96]
+            },
+            {
+              "iconId": "ab045955ed",
+              "bbox": [22.66, 97.11, 26.35, 101.58]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:0c9e989b70} I",
+              "bbox": [54.89, 4.24, 64.11, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "Siren",
+              "bbox": [29.59, 45.98, 40.31, 52.92]
+            },
+            {
+              "rot": 0,
+              "text": "ACTIONS / Round: 2",
+              "bbox": [19.79, 59.38, 50.11, 64.78]
+            },
+            {
+              "rot": 0,
+              "text": "Song of Desire: Before its first",
+              "bbox": [12.7, 69.06, 57.19, 72.81]
+            },
+            {
+              "rot": 0,
+              "text": "action each round, Siren forces",
+              "bbox": [12.82, 72.87, 57.08, 76.52]
+            },
+            {
+              "rot": 0,
+              "text": "all Heroes to move 1 towards {icon:5ff4d1af7c}",
+              "bbox": [11.66, 75.68, 59.0, 81.69]
+            },
+            {
+              "rot": 0,
+              "text": "Area (following Stance order).",
+              "bbox": [13.42, 80.49, 56.48, 84.14]
+            },
+            {
+              "rot": 0,
+              "text": "Summon {icon:ab045955ed} : When using",
+              "bbox": [17.08, 85.17, 52.82, 89.65]
+            },
+            {
+              "rot": 0,
+              "text": "Pressure Crash, Siren {icon:ab045955ed} a Sea",
+              "bbox": [13.5, 89.46, 56.4, 93.96]
+            },
+            {
+              "rot": 0,
+              "text": "Maggot. When using Devour,",
+              "bbox": [14.23, 93.27, 55.66, 96.93]
+            },
+            {
+              "rot": 0,
+              "text": "she {icon:ab045955ed} a Pelagic Grouper.",
+              "bbox": [16.92, 97.08, 52.98, 101.58]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_BACK.pdf",
+          "page": 10,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "c5937a313a499579",
+          "spans": [
+            {
+              "t": "I",
+              "bbox": [59.36, 5.75, 60.82, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#94c23e"
+            },
+            {
+              "t": "When scouting, drop the",
+              "bbox": [12.21, 38.21, 47.53, 41.86],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "by 1.",
+              "bbox": [52.08, 38.21, 58.79, 41.86],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Songs in the Dark I",
+              "bbox": [21.66, 15.07, 54.92, 20.85],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "On the first preparation day,",
+              "bbox": [15.03, 89.33, 55.97, 92.99],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "one randomly chosen Hero",
+              "bbox": [16.21, 85.45, 54.79, 89.11],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "must roll to see which building",
+              "bbox": [13.56, 81.58, 57.44, 85.23],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "they visit. If the building is",
+              "bbox": [16.66, 77.7, 54.34, 81.35],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "blocked they will not visit",
+              "bbox": [17.22, 73.82, 53.77, 77.47],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "any building, though they can",
+              "bbox": [14.38, 69.93, 56.62, 73.59],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "still use their Hamlet Skill.",
+              "bbox": [16.86, 66.05, 54.14, 69.71],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "Luring Tunes I",
+              "bbox": [22.56, 100.4, 47.44, 106.18],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#d12529",
+              "rot": 180
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "0c9e989b70",
+              "bbox": [55.49, 4.24, 64.71, 13.78]
+            },
+            {
+              "iconId": "c5731a729f",
+              "bbox": [48.33, 37.75, 51.51, 41.98],
+              "bbox_full": [47.5, 36.95, 52.07, 42.79]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:0c9e989b70} I",
+              "bbox": [55.49, 4.24, 64.71, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "Songs in the Dark I",
+              "bbox": [21.66, 15.07, 54.92, 20.85]
+            },
+            {
+              "rot": 0,
+              "text": "When scouting, drop the {icon:c5731a729f} by 1.",
+              "bbox": [12.21, 37.75, 58.79, 41.98]
+            },
+            {
+              "rot": 180,
+              "text": "Luring Tunes I",
+              "bbox": [22.56, 100.4, 47.44, 106.18]
+            },
+            {
+              "rot": 180,
+              "text": "On the first preparation day,",
+              "bbox": [15.03, 89.33, 55.97, 92.99]
+            },
+            {
+              "rot": 180,
+              "text": "one randomly chosen Hero",
+              "bbox": [16.21, 85.45, 54.79, 89.11]
+            },
+            {
+              "rot": 180,
+              "text": "must roll to see which building",
+              "bbox": [13.56, 81.58, 57.44, 85.23]
+            },
+            {
+              "rot": 180,
+              "text": "they visit. If the building is",
+              "bbox": [16.66, 77.7, 54.34, 81.35]
+            },
+            {
+              "rot": 180,
+              "text": "blocked they will not visit",
+              "bbox": [17.22, 73.82, 53.77, 77.47]
+            },
+            {
+              "rot": 180,
+              "text": "any building, though they can",
+              "bbox": [14.38, 69.93, 56.62, 73.59]
+            },
+            {
+              "rot": 180,
+              "text": "still use their Hamlet Skill.",
+              "bbox": [16.86, 66.05, 54.14, 69.71]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "boss_ability:cove:p011",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [11],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+          "page": 11,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d07a2b816b2f3f90",
+          "spans": [
+            {
+              "t": "II",
+              "bbox": [58.03, 5.75, 60.95, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#c98c3c"
+            },
+            {
+              "t": "ACTIONS / Round: 2",
+              "bbox": [19.79, 59.38, 50.11, 64.78],
+              "font": "DwarvenAxeBB",
+              "size": 14.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Song of Desire:",
+              "bbox": [12.7, 69.06, 35.62, 72.81],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Before its first",
+              "bbox": [36.35, 69.06, 57.19, 72.71],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "action each round, Siren forces",
+              "bbox": [12.82, 72.87, 57.08, 76.52],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "all Heroes to move 1 towards",
+              "bbox": [11.66, 76.68, 53.5, 80.33],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Area (following Stance order).",
+              "bbox": [13.42, 80.49, 56.48, 84.14],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Summon",
+              "bbox": [17.08, 85.65, 30.07, 89.41],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": ":",
+              "bbox": [34.52, 85.65, 35.3, 89.41],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "When using",
+              "bbox": [36.03, 85.65, 52.82, 89.31],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Pressure Crash, Siren",
+              "bbox": [10.94, 89.46, 41.17, 93.12],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "a Pelagic",
+              "bbox": [46.32, 89.46, 58.96, 93.12],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Guardian. When using Devour,",
+              "bbox": [13.37, 93.27, 56.52, 96.93],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "she",
+              "bbox": [17.18, 97.08, 22.18, 100.74],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "a Drowned Thrall.",
+              "bbox": [27.34, 97.08, 52.72, 100.74],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Siren",
+              "bbox": [29.59, 45.98, 40.31, 52.92],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "0c9e989b70",
+              "bbox": [54.89, 4.24, 64.11, 13.78]
+            },
+            {
+              "iconId": "a8bc7e5bb5",
+              "bbox": [27.38, 45.07, 42.62, 53.83],
+              "decor": true
+            },
+            {
+              "iconId": "5ff4d1af7c",
+              "bbox": [53.09, 75.68, 59.0, 81.69]
+            },
+            {
+              "iconId": "ab045955ed",
+              "bbox": [30.83, 85.17, 34.52, 89.65]
+            },
+            {
+              "iconId": "ab045955ed",
+              "bbox": [41.9, 89.49, 45.59, 93.96]
+            },
+            {
+              "iconId": "ab045955ed",
+              "bbox": [22.92, 97.11, 26.6, 101.58]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:0c9e989b70} II",
+              "bbox": [54.89, 4.24, 64.11, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "Siren",
+              "bbox": [29.59, 45.98, 40.31, 52.92]
+            },
+            {
+              "rot": 0,
+              "text": "ACTIONS / Round: 2",
+              "bbox": [19.79, 59.38, 50.11, 64.78]
+            },
+            {
+              "rot": 0,
+              "text": "Song of Desire: Before its first",
+              "bbox": [12.7, 69.06, 57.19, 72.81]
+            },
+            {
+              "rot": 0,
+              "text": "action each round, Siren forces",
+              "bbox": [12.82, 72.87, 57.08, 76.52]
+            },
+            {
+              "rot": 0,
+              "text": "all Heroes to move 1 towards {icon:5ff4d1af7c}",
+              "bbox": [11.66, 75.68, 59.0, 81.69]
+            },
+            {
+              "rot": 0,
+              "text": "Area (following Stance order).",
+              "bbox": [13.42, 80.49, 56.48, 84.14]
+            },
+            {
+              "rot": 0,
+              "text": "Summon {icon:ab045955ed} : When using",
+              "bbox": [17.08, 85.17, 52.82, 89.65]
+            },
+            {
+              "rot": 0,
+              "text": "Pressure Crash, Siren {icon:ab045955ed} a Pelagic",
+              "bbox": [10.94, 89.46, 58.96, 93.96]
+            },
+            {
+              "rot": 0,
+              "text": "Guardian. When using Devour,",
+              "bbox": [13.37, 93.27, 56.52, 96.93]
+            },
+            {
+              "rot": 0,
+              "text": "she {icon:ab045955ed} a Drowned Thrall.",
+              "bbox": [17.18, 97.08, 52.72, 101.58]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_BACK.pdf",
+          "page": 11,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "c5936a313a699579",
+          "spans": [
+            {
+              "t": "When exploring, re-roll",
+              "bbox": [18.96, 33.55, 52.04, 37.2],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "any blanks on exploration",
+              "bbox": [17.07, 37.43, 53.93, 41.08],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "dice one time.",
+              "bbox": [25.39, 41.31, 45.61, 44.96],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "II",
+              "bbox": [58.63, 5.75, 61.55, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#c98c3c"
+            },
+            {
+              "t": "Songs in the Dark II",
+              "bbox": [21.05, 15.07, 55.52, 20.85],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "During the first preparation",
+              "bbox": [15.57, 89.33, 55.42, 92.99],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "day, Heroes must roll to see",
+              "bbox": [15.52, 85.45, 55.48, 89.11],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "which building they will visit.",
+              "bbox": [14.92, 81.58, 56.08, 85.23],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "If the building is blocked",
+              "bbox": [17.95, 77.7, 53.05, 81.35],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "then they will not visit any",
+              "bbox": [16.67, 73.82, 54.33, 77.47],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "building, though they can",
+              "bbox": [17.25, 69.93, 53.75, 73.59],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "still use their Hamlet Skill.",
+              "bbox": [16.86, 66.05, 54.14, 69.71],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "Luring Tunes II",
+              "bbox": [21.95, 100.4, 48.05, 106.18],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#d12529",
+              "rot": 180
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "0c9e989b70",
+              "bbox": [55.49, 4.24, 64.71, 13.78]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:0c9e989b70} II",
+              "bbox": [55.49, 4.24, 64.71, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "Songs in the Dark II",
+              "bbox": [21.05, 15.07, 55.52, 20.85]
+            },
+            {
+              "rot": 0,
+              "text": "When exploring, re-roll",
+              "bbox": [18.96, 33.55, 52.04, 37.2]
+            },
+            {
+              "rot": 0,
+              "text": "any blanks on exploration",
+              "bbox": [17.07, 37.43, 53.93, 41.08]
+            },
+            {
+              "rot": 0,
+              "text": "dice one time.",
+              "bbox": [25.39, 41.31, 45.61, 44.96]
+            },
+            {
+              "rot": 180,
+              "text": "Luring Tunes II",
+              "bbox": [21.95, 100.4, 48.05, 106.18]
+            },
+            {
+              "rot": 180,
+              "text": "During the first preparation",
+              "bbox": [15.57, 89.33, 55.42, 92.99]
+            },
+            {
+              "rot": 180,
+              "text": "day, Heroes must roll to see",
+              "bbox": [15.52, 85.45, 55.48, 89.11]
+            },
+            {
+              "rot": 180,
+              "text": "which building they will visit.",
+              "bbox": [14.92, 81.58, 56.08, 85.23]
+            },
+            {
+              "rot": 180,
+              "text": "If the building is blocked",
+              "bbox": [17.95, 77.7, 53.05, 81.35]
+            },
+            {
+              "rot": 180,
+              "text": "then they will not visit any",
+              "bbox": [16.67, 73.82, 54.33, 77.47]
+            },
+            {
+              "rot": 180,
+              "text": "building, though they can",
+              "bbox": [17.25, 69.93, 53.75, 73.59]
+            },
+            {
+              "rot": 180,
+              "text": "still use their Hamlet Skill.",
+              "bbox": [16.86, 66.05, 54.14, 69.71]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "boss_ability:cove:p012",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [12],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+          "page": 12,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d07a2b816b2f3f90",
+          "spans": [
+            {
+              "t": "III",
+              "bbox": [57.3, 5.75, 61.68, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "ACTIONS / Round: 2",
+              "bbox": [19.79, 59.38, 50.11, 64.78],
+              "font": "DwarvenAxeBB",
+              "size": 14.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Song of Desire:",
+              "bbox": [12.7, 69.06, 35.62, 72.81],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Before its first",
+              "bbox": [36.35, 69.06, 57.19, 72.71],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "action each round, Siren forces",
+              "bbox": [12.82, 72.87, 57.08, 76.52],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "all Heroes to move 1 towards",
+              "bbox": [11.66, 76.68, 53.5, 80.33],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Area (following Stance order).",
+              "bbox": [13.42, 80.49, 56.48, 84.14],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Summon",
+              "bbox": [17.08, 85.65, 30.07, 89.41],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": ":",
+              "bbox": [34.52, 85.65, 35.3, 89.41],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "When using",
+              "bbox": [36.03, 85.65, 52.82, 89.31],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Pressure Crash, Siren",
+              "bbox": [10.92, 89.46, 41.15, 93.12],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "a Squiffy",
+              "bbox": [46.3, 89.46, 58.98, 93.12],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Ghast. When using Devour,",
+              "bbox": [15.71, 93.27, 54.19, 96.93],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "she",
+              "bbox": [17.11, 97.08, 22.11, 100.74],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "a Pelagic Shaman.",
+              "bbox": [27.27, 97.08, 52.79, 100.74],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Siren",
+              "bbox": [29.59, 45.98, 40.31, 52.92],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "0c9e989b70",
+              "bbox": [54.89, 4.24, 64.11, 13.78]
+            },
+            {
+              "iconId": "a8bc7e5bb5",
+              "bbox": [27.38, 45.07, 42.62, 53.83],
+              "decor": true
+            },
+            {
+              "iconId": "5ff4d1af7c",
+              "bbox": [53.09, 75.68, 59.0, 81.69]
+            },
+            {
+              "iconId": "ab045955ed",
+              "bbox": [30.83, 85.17, 34.52, 89.65]
+            },
+            {
+              "iconId": "ab045955ed",
+              "bbox": [41.88, 89.49, 45.57, 93.96]
+            },
+            {
+              "iconId": "ab045955ed",
+              "bbox": [22.85, 97.11, 26.54, 101.58]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:0c9e989b70} III",
+              "bbox": [54.89, 4.24, 64.11, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "Siren",
+              "bbox": [29.59, 45.98, 40.31, 52.92]
+            },
+            {
+              "rot": 0,
+              "text": "ACTIONS / Round: 2",
+              "bbox": [19.79, 59.38, 50.11, 64.78]
+            },
+            {
+              "rot": 0,
+              "text": "Song of Desire: Before its first",
+              "bbox": [12.7, 69.06, 57.19, 72.81]
+            },
+            {
+              "rot": 0,
+              "text": "action each round, Siren forces",
+              "bbox": [12.82, 72.87, 57.08, 76.52]
+            },
+            {
+              "rot": 0,
+              "text": "all Heroes to move 1 towards {icon:5ff4d1af7c}",
+              "bbox": [11.66, 75.68, 59.0, 81.69]
+            },
+            {
+              "rot": 0,
+              "text": "Area (following Stance order).",
+              "bbox": [13.42, 80.49, 56.48, 84.14]
+            },
+            {
+              "rot": 0,
+              "text": "Summon {icon:ab045955ed} : When using",
+              "bbox": [17.08, 85.17, 52.82, 89.65]
+            },
+            {
+              "rot": 0,
+              "text": "Pressure Crash, Siren {icon:ab045955ed} a Squiffy",
+              "bbox": [10.92, 89.46, 58.98, 93.96]
+            },
+            {
+              "rot": 0,
+              "text": "Ghast. When using Devour,",
+              "bbox": [15.71, 93.27, 54.19, 96.93]
+            },
+            {
+              "rot": 0,
+              "text": "she {icon:ab045955ed} a Pelagic Shaman.",
+              "bbox": [17.11, 97.08, 52.79, 101.58]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_BACK.pdf",
+          "page": 12,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "c5937a313a49955b",
+          "spans": [
+            {
+              "t": "When scouting, drop the",
+              "bbox": [12.21, 38.21, 47.53, 41.86],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "by 2.",
+              "bbox": [52.08, 38.21, 58.79, 41.86],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "III",
+              "bbox": [57.9, 5.75, 62.28, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "Songs in the Dark III",
+              "bbox": [20.44, 15.07, 56.13, 20.85],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "During the first two preparation",
+              "bbox": [12.42, 89.33, 58.58, 92.99],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "days, Heroes must roll to",
+              "bbox": [17.66, 85.45, 53.34, 89.11],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "see which building they will",
+              "bbox": [15.79, 81.58, 55.21, 85.23],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "visit. If the building is blocked",
+              "bbox": [14.23, 77.7, 56.77, 81.35],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "then they will not visit any",
+              "bbox": [16.67, 73.82, 54.33, 77.47],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "building, though they can",
+              "bbox": [17.25, 69.93, 53.75, 73.59],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "still use their Hamlet Skill.",
+              "bbox": [16.86, 66.05, 54.14, 69.71],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "Luring Tunes III",
+              "bbox": [21.34, 100.4, 48.66, 106.18],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#d12529",
+              "rot": 180
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "0c9e989b70",
+              "bbox": [55.49, 4.24, 64.71, 13.78]
+            },
+            {
+              "iconId": "c5731a729f",
+              "bbox": [48.33, 37.75, 51.51, 41.98],
+              "bbox_full": [47.5, 36.95, 52.07, 42.79]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:0c9e989b70} III",
+              "bbox": [55.49, 4.24, 64.71, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "Songs in the Dark III",
+              "bbox": [20.44, 15.07, 56.13, 20.85]
+            },
+            {
+              "rot": 0,
+              "text": "When scouting, drop the {icon:c5731a729f} by 2.",
+              "bbox": [12.21, 37.75, 58.79, 41.98]
+            },
+            {
+              "rot": 180,
+              "text": "Luring Tunes III",
+              "bbox": [21.34, 100.4, 48.66, 106.18]
+            },
+            {
+              "rot": 180,
+              "text": "During the first two preparation",
+              "bbox": [12.42, 89.33, 58.58, 92.99]
+            },
+            {
+              "rot": 180,
+              "text": "days, Heroes must roll to",
+              "bbox": [17.66, 85.45, 53.34, 89.11]
+            },
+            {
+              "rot": 180,
+              "text": "see which building they will",
+              "bbox": [15.79, 81.58, 55.21, 85.23]
+            },
+            {
+              "rot": 180,
+              "text": "visit. If the building is blocked",
+              "bbox": [14.23, 77.7, 56.77, 81.35]
+            },
+            {
+              "rot": 180,
+              "text": "then they will not visit any",
+              "bbox": [16.67, 73.82, 54.33, 77.47]
+            },
+            {
+              "rot": 180,
+              "text": "building, though they can",
+              "bbox": [17.25, 69.93, 53.75, 73.59]
+            },
+            {
+              "rot": 180,
+              "text": "still use their Hamlet Skill.",
+              "bbox": [16.86, 66.05, 54.14, 69.71]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "boss_ability:cove:p013",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [13],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+          "page": 13,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d43e6bc11f943c68",
+          "spans": [
+            {
+              "t": "I",
+              "bbox": [34.51, 5.35, 35.97, 12.29],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#94c23e"
+            },
+            {
+              "t": "Prying eyes had become a nuisance",
+              "bbox": [12.55, 55.48, 57.35, 59.72],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "along the Old Road, and so I undertook",
+              "bbox": [10.21, 59.71, 59.68, 63.95],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "to receive my most curious deliveries",
+              "bbox": [10.67, 63.94, 59.23, 68.19],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "by way of marine shipments. A",
+              "bbox": [15.14, 68.18, 54.75, 72.42],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "sheltered jetty was accessible by a",
+              "bbox": [12.58, 72.41, 57.32, 76.66],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "narrow stone stair off the back of",
+              "bbox": [12.69, 76.65, 57.2, 80.89],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "the manor, and a discreet system",
+              "bbox": [13.56, 80.88, 56.34, 85.12],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "of pulleys could hoist even the",
+              "bbox": [15.52, 85.11, 54.38, 89.36],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "heaviest prizes up the rock face",
+              "bbox": [14.33, 89.35, 55.57, 93.59],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "from a securely tied dinghy below.",
+              "bbox": [12.6, 93.58, 57.31, 97.82],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Drowned Crew",
+              "bbox": [19.64, 12.85, 50.37, 19.79],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "963f0628a8",
+              "bbox": [30.64, 3.84, 39.86, 13.37]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:963f0628a8} I",
+              "bbox": [30.64, 3.84, 39.86, 13.37]
+            },
+            {
+              "rot": 0,
+              "text": "Drowned Crew",
+              "bbox": [19.64, 12.85, 50.37, 19.79]
+            },
+            {
+              "rot": 0,
+              "text": "Prying eyes had become a nuisance",
+              "bbox": [12.55, 55.48, 57.35, 59.72]
+            },
+            {
+              "rot": 0,
+              "text": "along the Old Road, and so I undertook",
+              "bbox": [10.21, 59.71, 59.68, 63.95]
+            },
+            {
+              "rot": 0,
+              "text": "to receive my most curious deliveries",
+              "bbox": [10.67, 63.94, 59.23, 68.19]
+            },
+            {
+              "rot": 0,
+              "text": "by way of marine shipments. A",
+              "bbox": [15.14, 68.18, 54.75, 72.42]
+            },
+            {
+              "rot": 0,
+              "text": "sheltered jetty was accessible by a",
+              "bbox": [12.58, 72.41, 57.32, 76.66]
+            },
+            {
+              "rot": 0,
+              "text": "narrow stone stair off the back of",
+              "bbox": [12.69, 76.65, 57.2, 80.89]
+            },
+            {
+              "rot": 0,
+              "text": "the manor, and a discreet system",
+              "bbox": [13.56, 80.88, 56.34, 85.12]
+            },
+            {
+              "rot": 0,
+              "text": "of pulleys could hoist even the",
+              "bbox": [15.52, 85.11, 54.38, 89.36]
+            },
+            {
+              "rot": 0,
+              "text": "heaviest prizes up the rock face",
+              "bbox": [14.33, 89.35, 55.57, 93.59]
+            },
+            {
+              "rot": 0,
+              "text": "from a securely tied dinghy below.",
+              "bbox": [12.6, 93.58, 57.31, 97.82]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_BACK.pdf",
+          "page": 13,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "9496c2f36c6239ad",
+          "spans": [
+            {
+              "t": "I",
+              "bbox": [34.1, 107.17, 35.88, 115.62],
+              "font": "DwarvenAxeBB",
+              "size": 21.91,
+              "color": "#94c23e"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "56ea9289ab",
+              "bbox": [29.39, 105.34, 40.61, 116.94]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:56ea9289ab} I",
+              "bbox": [29.39, 105.34, 40.61, 116.94]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "boss_ability:cove:p014",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [14],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+          "page": 14,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d43e6bc15b943c68",
+          "spans": [
+            {
+              "t": "II",
+              "bbox": [33.78, 5.35, 36.7, 12.29],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#c98c3c"
+            },
+            {
+              "t": "I employed a crew of particularly",
+              "bbox": [13.41, 55.23, 56.49, 59.47],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "unsavory mariners, who, for a time,",
+              "bbox": [11.42, 59.46, 58.48, 63.71],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "sailed the four corners at my behest",
+              "bbox": [11.44, 63.7, 58.46, 67.94],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "- retrieving many valuable artifacts,",
+              "bbox": [11.62, 67.93, 58.28, 72.17],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "relics and rare texts. Predictably,",
+              "bbox": [13.3, 72.17, 56.6, 76.41],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "they increased their tariffs to",
+              "bbox": [15.76, 76.4, 54.14, 80.64],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "counter my intense stipulations of",
+              "bbox": [13.2, 80.63, 56.69, 84.87],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "secrecy. Such resources had long",
+              "bbox": [13.32, 84.87, 56.56, 89.11],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "been exhausted, of course, and so I",
+              "bbox": [12.15, 89.1, 57.74, 93.34],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "prepared an... alternative payment.",
+              "bbox": [12.4, 93.33, 57.49, 97.57],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Drowned Crew",
+              "bbox": [19.64, 12.85, 50.37, 19.79],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "963f0628a8",
+              "bbox": [30.64, 3.84, 39.86, 13.37]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:963f0628a8} II",
+              "bbox": [30.64, 3.84, 39.86, 13.37]
+            },
+            {
+              "rot": 0,
+              "text": "Drowned Crew",
+              "bbox": [19.64, 12.85, 50.37, 19.79]
+            },
+            {
+              "rot": 0,
+              "text": "I employed a crew of particularly",
+              "bbox": [13.41, 55.23, 56.49, 59.47]
+            },
+            {
+              "rot": 0,
+              "text": "unsavory mariners, who, for a time,",
+              "bbox": [11.42, 59.46, 58.48, 63.71]
+            },
+            {
+              "rot": 0,
+              "text": "sailed the four corners at my behest",
+              "bbox": [11.44, 63.7, 58.46, 67.94]
+            },
+            {
+              "rot": 0,
+              "text": "- retrieving many valuable artifacts,",
+              "bbox": [11.62, 67.93, 58.28, 72.17]
+            },
+            {
+              "rot": 0,
+              "text": "relics and rare texts. Predictably,",
+              "bbox": [13.3, 72.17, 56.6, 76.41]
+            },
+            {
+              "rot": 0,
+              "text": "they increased their tariffs to",
+              "bbox": [15.76, 76.4, 54.14, 80.64]
+            },
+            {
+              "rot": 0,
+              "text": "counter my intense stipulations of",
+              "bbox": [13.2, 80.63, 56.69, 84.87]
+            },
+            {
+              "rot": 0,
+              "text": "secrecy. Such resources had long",
+              "bbox": [13.32, 84.87, 56.56, 89.11]
+            },
+            {
+              "rot": 0,
+              "text": "been exhausted, of course, and so I",
+              "bbox": [12.15, 89.1, 57.74, 93.34]
+            },
+            {
+              "rot": 0,
+              "text": "prepared an... alternative payment.",
+              "bbox": [12.4, 93.33, 57.49, 97.57]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_BACK.pdf",
+          "page": 14,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "9496c2f36c6239ad",
+          "spans": [
+            {
+              "t": "II",
+              "bbox": [33.21, 107.17, 36.77, 115.62],
+              "font": "DwarvenAxeBB",
+              "size": 21.91,
+              "color": "#c98c3c"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "56ea9289ab",
+              "bbox": [29.39, 105.34, 40.61, 116.94]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:56ea9289ab} II",
+              "bbox": [29.39, 105.34, 40.61, 116.94]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "boss_ability:cove:p015",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [15],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+          "page": 15,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d43e6bc14b943e2c",
+          "spans": [
+            {
+              "t": "III",
+              "bbox": [33.05, 5.35, 37.43, 12.29],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "While the greedy dogs slept off their",
+              "bbox": [11.54, 53.32, 58.36, 57.56],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "revelry, I hexed their anchor with",
+              "bbox": [12.96, 57.55, 56.93, 61.79],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "every twisted incantation I could",
+              "bbox": [13.98, 61.78, 55.92, 66.02],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "muster - imbuing it with the weight",
+              "bbox": [12.11, 66.02, 57.78, 70.26],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "of my ambition, and my contempt",
+              "bbox": [13.76, 70.25, 56.13, 74.49],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "for their crude extortion. At the",
+              "bbox": [14.35, 74.48, 55.54, 78.73],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "witching hour, the anchor pulled with",
+              "bbox": [10.84, 78.72, 59.05, 82.96],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "preternatural force, dragging craft",
+              "bbox": [12.31, 82.95, 57.59, 87.19],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "and crew down into the depths. They",
+              "bbox": [11.26, 87.19, 58.63, 91.43],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "must have cried out, but no sound",
+              "bbox": [13.02, 91.42, 56.87, 95.66],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "escaped the swirling black waters...",
+              "bbox": [11.69, 95.65, 58.21, 99.89],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Drowned Crew",
+              "bbox": [19.64, 12.85, 50.37, 19.79],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "963f0628a8",
+              "bbox": [30.64, 3.84, 39.86, 13.37]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:963f0628a8} III",
+              "bbox": [30.64, 3.84, 39.86, 13.37]
+            },
+            {
+              "rot": 0,
+              "text": "Drowned Crew",
+              "bbox": [19.64, 12.85, 50.37, 19.79]
+            },
+            {
+              "rot": 0,
+              "text": "While the greedy dogs slept off their",
+              "bbox": [11.54, 53.32, 58.36, 57.56]
+            },
+            {
+              "rot": 0,
+              "text": "revelry, I hexed their anchor with",
+              "bbox": [12.96, 57.55, 56.93, 61.79]
+            },
+            {
+              "rot": 0,
+              "text": "every twisted incantation I could",
+              "bbox": [13.98, 61.78, 55.92, 66.02]
+            },
+            {
+              "rot": 0,
+              "text": "muster - imbuing it with the weight",
+              "bbox": [12.11, 66.02, 57.78, 70.26]
+            },
+            {
+              "rot": 0,
+              "text": "of my ambition, and my contempt",
+              "bbox": [13.76, 70.25, 56.13, 74.49]
+            },
+            {
+              "rot": 0,
+              "text": "for their crude extortion. At the",
+              "bbox": [14.35, 74.48, 55.54, 78.73]
+            },
+            {
+              "rot": 0,
+              "text": "witching hour, the anchor pulled with",
+              "bbox": [10.84, 78.72, 59.05, 82.96]
+            },
+            {
+              "rot": 0,
+              "text": "preternatural force, dragging craft",
+              "bbox": [12.31, 82.95, 57.59, 87.19]
+            },
+            {
+              "rot": 0,
+              "text": "and crew down into the depths. They",
+              "bbox": [11.26, 87.19, 58.63, 91.43]
+            },
+            {
+              "rot": 0,
+              "text": "must have cried out, but no sound",
+              "bbox": [13.02, 91.42, 56.87, 95.66]
+            },
+            {
+              "rot": 0,
+              "text": "escaped the swirling black waters...",
+              "bbox": [11.69, 95.65, 58.21, 99.89]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_BACK.pdf",
+          "page": 15,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "9496c2f36c6239ad",
+          "spans": [
+            {
+              "t": "III",
+              "bbox": [32.33, 107.17, 37.66, 115.62],
+              "font": "DwarvenAxeBB",
+              "size": 21.91,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "56ea9289ab",
+              "bbox": [29.39, 105.34, 40.61, 116.94]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:56ea9289ab} III",
+              "bbox": [29.39, 105.34, 40.61, 116.94]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "boss_ability:cove:p016",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [16],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+          "page": 16,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d03a2ac16f0f3f94",
+          "spans": [
+            {
+              "t": "I",
+              "bbox": [58.76, 5.75, 60.22, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#94c23e"
+            },
+            {
+              "t": "Drowned Crew",
+              "bbox": [19.59, 45.98, 50.31, 52.92],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "ACTIONS / Round: 2",
+              "bbox": [19.79, 67.68, 50.11, 73.08],
+              "font": "DwarvenAxeBB",
+              "size": 14.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "All Hands On Deck:",
+              "bbox": [9.98, 77.35, 38.79, 81.11],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "At the start of",
+              "bbox": [39.52, 77.35, 59.92, 81.01],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "its turn, if no Drowned Anchorman",
+              "bbox": [10.15, 81.16, 59.75, 84.82],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "is in play, Drowned Crew will",
+              "bbox": [12.28, 84.97, 53.2, 88.63],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "one instead of using a Skill.",
+              "bbox": [15.53, 88.78, 54.37, 92.44],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "0c9e989b70",
+              "bbox": [54.89, 4.24, 64.11, 13.78]
+            },
+            {
+              "iconId": "ab045955ed",
+              "bbox": [53.93, 84.99, 57.62, 89.47]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:0c9e989b70} I",
+              "bbox": [54.89, 4.24, 64.11, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "Drowned Crew",
+              "bbox": [19.59, 45.98, 50.31, 52.92]
+            },
+            {
+              "rot": 0,
+              "text": "ACTIONS / Round: 2",
+              "bbox": [19.79, 67.68, 50.11, 73.08]
+            },
+            {
+              "rot": 0,
+              "text": "All Hands On Deck: At the start of",
+              "bbox": [9.98, 77.35, 59.92, 81.11]
+            },
+            {
+              "rot": 0,
+              "text": "its turn, if no Drowned Anchorman",
+              "bbox": [10.15, 81.16, 59.75, 84.82]
+            },
+            {
+              "rot": 0,
+              "text": "is in play, Drowned Crew will {icon:ab045955ed}",
+              "bbox": [12.28, 84.97, 57.62, 89.47]
+            },
+            {
+              "rot": 0,
+              "text": "one instead of using a Skill.",
+              "bbox": [15.53, 88.78, 54.37, 92.44]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_BACK.pdf",
+          "page": 16,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "c4937ab12e69956c",
+          "spans": [
+            {
+              "t": "I",
+              "bbox": [59.36, 5.75, 60.82, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#94c23e"
+            },
+            {
+              "t": "When battle starts, Unholy and",
+              "bbox": [13.23, 36.29, 57.78, 39.94],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Eldritch Monsters gain",
+              "bbox": [15.73, 40.17, 47.95, 43.82],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "2t",
+              "bbox": [51.84, 39.7, 54.49, 44.33],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#231f20"
+            },
+            {
+              "t": ".",
+              "bbox": [54.49, 40.17, 55.27, 43.82],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Merry Shanties",
+              "bbox": [24.89, 15.07, 51.68, 20.85],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "Building services cost",
+              "bbox": [24.49, 77.34, 55.37, 80.99],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "+1",
+              "bbox": [21.12, 76.83, 23.75, 81.46],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": ".",
+              "bbox": [15.63, 77.34, 16.41, 80.99],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "Repay",
+              "bbox": [30.09, 100.4, 39.91, 106.18],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#d12529",
+              "rot": 180
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "0c9e989b70",
+              "bbox": [55.49, 4.24, 64.71, 13.78]
+            },
+            {
+              "iconId": "96cac9ddad",
+              "bbox": [48.68, 40.57, 51.51, 43.74],
+              "bbox_full": [47.92, 39.69, 52.37, 44.39]
+            },
+            {
+              "iconId": "b95f235082",
+              "bbox": [16.23, 76.55, 20.81, 81.84]
+            },
+            {
+              "iconId": "907505198a",
+              "bbox": [27.7, 98.08, 42.31, 107.22],
+              "decor": true
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:0c9e989b70} I",
+              "bbox": [55.49, 4.24, 64.71, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "Merry Shanties",
+              "bbox": [24.89, 15.07, 51.68, 20.85]
+            },
+            {
+              "rot": 0,
+              "text": "When battle starts, Unholy and",
+              "bbox": [13.23, 36.29, 57.78, 39.94]
+            },
+            {
+              "rot": 0,
+              "text": "Eldritch Monsters gain {icon:96cac9ddad} 2t.",
+              "bbox": [15.73, 39.7, 55.27, 44.33]
+            },
+            {
+              "rot": 180,
+              "text": "Repay",
+              "bbox": [30.09, 100.4, 39.91, 106.18]
+            },
+            {
+              "rot": 180,
+              "text": "Building services cost +1 {icon:b95f235082} .",
+              "bbox": [15.63, 76.55, 55.37, 81.84]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "boss_ability:cove:p017",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [17],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+          "page": 17,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d03a2ac16f0f3f94",
+          "spans": [
+            {
+              "t": "II",
+              "bbox": [58.03, 5.75, 60.95, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#c98c3c"
+            },
+            {
+              "t": "ACTIONS / Round: 2",
+              "bbox": [19.79, 67.68, 50.11, 73.08],
+              "font": "DwarvenAxeBB",
+              "size": 14.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "All Hands On Deck:",
+              "bbox": [9.98, 77.35, 38.79, 81.11],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "At the start of",
+              "bbox": [39.52, 77.35, 59.92, 81.01],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "its turn, if no Drowned Anchorman",
+              "bbox": [10.15, 81.16, 59.75, 84.82],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "is in play, Drowned Crew will",
+              "bbox": [12.28, 84.97, 53.2, 88.63],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "one instead of using a Skill.",
+              "bbox": [15.53, 88.78, 54.37, 92.44],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Drowned Crew",
+              "bbox": [19.59, 45.98, 50.31, 52.92],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "0c9e989b70",
+              "bbox": [54.89, 4.24, 64.11, 13.78]
+            },
+            {
+              "iconId": "ab045955ed",
+              "bbox": [53.93, 84.99, 57.62, 89.47]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:0c9e989b70} II",
+              "bbox": [54.89, 4.24, 64.11, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "Drowned Crew",
+              "bbox": [19.59, 45.98, 50.31, 52.92]
+            },
+            {
+              "rot": 0,
+              "text": "ACTIONS / Round: 2",
+              "bbox": [19.79, 67.68, 50.11, 73.08]
+            },
+            {
+              "rot": 0,
+              "text": "All Hands On Deck: At the start of",
+              "bbox": [9.98, 77.35, 59.92, 81.11]
+            },
+            {
+              "rot": 0,
+              "text": "its turn, if no Drowned Anchorman",
+              "bbox": [10.15, 81.16, 59.75, 84.82]
+            },
+            {
+              "rot": 0,
+              "text": "is in play, Drowned Crew will {icon:ab045955ed}",
+              "bbox": [12.28, 84.97, 57.62, 89.47]
+            },
+            {
+              "rot": 0,
+              "text": "one instead of using a Skill.",
+              "bbox": [15.53, 88.78, 54.37, 92.44]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_BACK.pdf",
+          "page": 17,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "c4b36a913a69966e",
+          "spans": [
+            {
+              "t": "After spawning Monsters in",
+              "bbox": [15.7, 32.41, 55.3, 36.06],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "battle, give",
+              "bbox": [16.01, 36.29, 32.21, 39.94],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "3t",
+              "bbox": [36.64, 35.82, 39.35, 40.45],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "to the one",
+              "bbox": [40.09, 36.29, 54.99, 39.94],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "with the most Life among the",
+              "bbox": [14.29, 40.17, 56.72, 43.82],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Eldritch and Unholy ones.",
+              "bbox": [17.27, 44.05, 53.73, 47.7],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "II",
+              "bbox": [58.63, 5.75, 61.55, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#c98c3c"
+            },
+            {
+              "t": "Haunted Shanties",
+              "bbox": [23.79, 15.07, 52.78, 20.85],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "Building services cost",
+              "bbox": [24.71, 77.34, 55.59, 80.99],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "+2",
+              "bbox": [20.9, 76.83, 23.98, 81.46],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": ".",
+              "bbox": [15.41, 77.34, 16.19, 80.99],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "Repay More",
+              "bbox": [24.76, 100.4, 45.23, 106.18],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#d12529",
+              "rot": 180
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "0c9e989b70",
+              "bbox": [55.49, 4.24, 64.71, 13.78]
+            },
+            {
+              "iconId": "998c722828",
+              "bbox": [33.13, 36.43, 36.26, 39.95]
+            },
+            {
+              "iconId": "f51668b228",
+              "bbox": [16.23, 76.55, 20.81, 81.84]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:0c9e989b70} II",
+              "bbox": [55.49, 4.24, 64.71, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "Haunted Shanties",
+              "bbox": [23.79, 15.07, 52.78, 20.85]
+            },
+            {
+              "rot": 0,
+              "text": "After spawning Monsters in",
+              "bbox": [15.7, 32.41, 55.3, 36.06]
+            },
+            {
+              "rot": 0,
+              "text": "battle, give {icon:998c722828} 3t to the one",
+              "bbox": [16.01, 35.82, 54.99, 40.45]
+            },
+            {
+              "rot": 0,
+              "text": "with the most Life among the",
+              "bbox": [14.29, 40.17, 56.72, 43.82]
+            },
+            {
+              "rot": 0,
+              "text": "Eldritch and Unholy ones.",
+              "bbox": [17.27, 44.05, 53.73, 47.7]
+            },
+            {
+              "rot": 180,
+              "text": "Repay More",
+              "bbox": [24.76, 100.4, 45.23, 106.18]
+            },
+            {
+              "rot": 180,
+              "text": "Building services cost +2 {icon:f51668b228} .",
+              "bbox": [15.41, 76.55, 55.59, 81.84]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "boss_ability:cove:p018",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [18],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+          "page": 18,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d03a2ac16f0f3f94",
+          "spans": [
+            {
+              "t": "III",
+              "bbox": [57.3, 5.75, 61.68, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "ACTIONS / Round: 2",
+              "bbox": [19.79, 67.68, 50.11, 73.08],
+              "font": "DwarvenAxeBB",
+              "size": 14.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "All Hands On Deck:",
+              "bbox": [9.98, 77.35, 38.79, 81.11],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "At the start of",
+              "bbox": [39.52, 77.35, 59.92, 81.01],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "its turn, if no Drowned Anchorman",
+              "bbox": [10.15, 81.16, 59.75, 84.82],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "is in play, Drowned Crew will",
+              "bbox": [12.28, 84.97, 53.2, 88.63],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "one instead of using a Skill.",
+              "bbox": [15.53, 88.78, 54.37, 92.44],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Drowned Crew",
+              "bbox": [19.59, 45.98, 50.31, 52.92],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "0c9e989b70",
+              "bbox": [54.89, 4.24, 64.11, 13.78]
+            },
+            {
+              "iconId": "ab045955ed",
+              "bbox": [53.93, 84.99, 57.62, 89.47]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:0c9e989b70} III",
+              "bbox": [54.89, 4.24, 64.11, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "Drowned Crew",
+              "bbox": [19.59, 45.98, 50.31, 52.92]
+            },
+            {
+              "rot": 0,
+              "text": "ACTIONS / Round: 2",
+              "bbox": [19.79, 67.68, 50.11, 73.08]
+            },
+            {
+              "rot": 0,
+              "text": "All Hands On Deck: At the start of",
+              "bbox": [9.98, 77.35, 59.92, 81.11]
+            },
+            {
+              "rot": 0,
+              "text": "its turn, if no Drowned Anchorman",
+              "bbox": [10.15, 81.16, 59.75, 84.82]
+            },
+            {
+              "rot": 0,
+              "text": "is in play, Drowned Crew will {icon:ab045955ed}",
+              "bbox": [12.28, 84.97, 57.62, 89.47]
+            },
+            {
+              "rot": 0,
+              "text": "one instead of using a Skill.",
+              "bbox": [15.53, 88.78, 54.37, 92.44]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_BACK.pdf",
+          "page": 18,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "c4b37bb13e68944c",
+          "spans": [
+            {
+              "t": "When you spawn Unholy",
+              "bbox": [17.92, 34.35, 53.08, 38.0],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "and Eldritch Monsters",
+              "bbox": [19.77, 38.23, 51.23, 41.88],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "give them",
+              "bbox": [23.46, 42.11, 37.76, 45.76],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "2t",
+              "bbox": [44.1, 41.64, 46.76, 46.27],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#231f20"
+            },
+            {
+              "t": ".",
+              "bbox": [46.76, 42.11, 47.54, 45.76],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "III",
+              "bbox": [57.9, 5.75, 62.28, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "Eldritch Shanties",
+              "bbox": [23.82, 15.07, 52.76, 20.85],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "Building services cost",
+              "bbox": [24.74, 77.34, 55.62, 80.99],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "+3",
+              "bbox": [20.87, 76.83, 24.01, 81.46],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": ".",
+              "bbox": [15.38, 77.34, 16.16, 80.99],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "Repay All",
+              "bbox": [27.33, 100.4, 42.67, 106.18],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#d12529",
+              "rot": 180
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "0c9e989b70",
+              "bbox": [55.49, 4.24, 64.71, 13.78]
+            },
+            {
+              "iconId": "7382930ba2",
+              "bbox": [38.28, 41.58, 43.87, 46.53],
+              "decor": true,
+              "container": true
+            },
+            {
+              "iconId": "85f18f26f9",
+              "bbox": [38.16, 41.69, 43.42, 46.08]
+            },
+            {
+              "iconId": "5c791863e9",
+              "bbox": [38.73, 41.72, 43.42, 46.1],
+              "decor": true,
+              "container": true
+            },
+            {
+              "iconId": "b95f235082",
+              "bbox": [16.23, 76.55, 20.46, 81.84]
+            },
+            {
+              "iconId": "64ac3b820b",
+              "bbox": [25.04, 98.08, 45.1, 107.48],
+              "decor": true
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:0c9e989b70} III",
+              "bbox": [55.49, 4.24, 64.71, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "Eldritch Shanties",
+              "bbox": [23.82, 15.07, 52.76, 20.85]
+            },
+            {
+              "rot": 0,
+              "text": "When you spawn Unholy",
+              "bbox": [17.92, 34.35, 53.08, 38.0]
+            },
+            {
+              "rot": 0,
+              "text": "and Eldritch Monsters",
+              "bbox": [19.77, 38.23, 51.23, 41.88]
+            },
+            {
+              "rot": 0,
+              "text": "give them {icon:85f18f26f9} 2t.",
+              "bbox": [23.46, 41.64, 47.54, 46.27]
+            },
+            {
+              "rot": 180,
+              "text": "Repay All",
+              "bbox": [27.33, 100.4, 42.67, 106.18]
+            },
+            {
+              "rot": 180,
+              "text": "Building services cost +3 {icon:b95f235082} .",
+              "bbox": [15.38, 76.55, 55.62, 81.84]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -26,7 +26,7 @@
 - **文件**使用 `bosses/<boss>/<boss>.ts` 存首级或主体内容，已有高等级独立目录时沿用 `<boss>-higher.ts`。从提取记录构建目录时配套 `.build.ts`。多位 Boss 的印刷能力卡可聚合在 `boss-abilities.ts`／`boss-abilities.build.ts`。
 - **能力卡**使用 `boss_ability:<pack>:pNNN`，页码来自 Boss Abilities 印刷目录。保留身份、行动数、原始文字及可核对的印刷来源。双面独立核对的能力卡保留 `front`／`back`，当前核心盒双面能力目录还有 `bossId`、`level` 和 `sourcePage`。
 - **战斗内容**按 Boss 保存已核准记录，引用 `monster_medium`／`monster_large` 战斗卡、`boss_ability` 能力卡、对应 `room` 和 `room_tile`。能力卡、怪物卡各自只有一个正式实体。现有 Weald Boss 的能力卡身份直接登记在每个 Boss 的 `abilities` 中，包含印刷页专用字段，如 Shrieker 的 `descriptionCardId` 和 `combatCardId`。派生牌池可以重复引用正式战斗卡。Boss 房间归入房间目录，Boss 专属板块资料可随 Boss 内容保存。
-- **Cove／Warrens**须先录入对应印刷能力卡和怪物卡目录，再按真实印刷页迁移 14 个既有占位 ID 及其引用。当前占位清单见 [开发计划](plans/weald-development-plan.md)。
+- **Cove／Warrens**已分别录入 `raw/{boss_ability,monster_medium,monster_large}.json`，Siren／Swine Prince／Flesh 的 14 个占位 ID 已按首印页迁移。等级、页码与名称由印刷目录测试约束。地点战役及各卡的运行规则仍按相应核准流程接入。
 
 参考 [核心盒能力卡构建](../packages/data/src/core/bosses/ruins-boss-abilities.build.ts) 和 [Weald Hag 目录](../packages/data/src/weald/bosses/hag/hag.ts)。
 

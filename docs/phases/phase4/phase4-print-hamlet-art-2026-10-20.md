@@ -2,6 +2,8 @@
 
 状态：**村庄版图**自动 TrimBox 导出；**建筑 II/III 升级板**由 Kyries **手裁 PNG**（无自动裁切 pipeline）。
 
+**2026-11-26 本机补齐**：村庄正面重新按 FRONT p1 的 TrimBox 导出，14 张升级板取自核心盒 `DD_EN_COREBOX_PUNCHBOARD_300x300_FRONT.pdf` p1，沿印刷刀线裁切并按标题方向转正。带 `--include-manual` 的印刷卡图引用校验通过。
+
 ## 几何依据（R-048）
 
 | 部件                       | 来源                                                       | 说明                                                                     |

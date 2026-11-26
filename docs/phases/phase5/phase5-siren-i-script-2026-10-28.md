@@ -1,5 +1,7 @@
 # Phase 5：Siren I Boss 脚本（2026-10-28）
 
+**2026-11-26 印刷身份复核**：Siren I 战斗卡为大型怪物 FRONT p6（`monster_large:cove:p006`），能力卡 FRONT p7／p10（`boss_ability:cove:p007`／`boss_ability:cove:p010`）。能力卡 p10 指名 Devour 召唤 Pelagic Grouper I（中型怪物 FRONT p7，`monster_medium:cove:p007`）。下文保留历史脚本记录，正式语义复核见 [Q-190](../../plans/weald-development-plan.md#当前进度与下一步)。
+
 > 对齐 #331 Necromancer I / #336 Prophet I / #337 Hag I / #338 Swine Prince I，落地 `BossScriptDefinition`：`boss:cove:siren:1`。  
 > 规则来源：R-001（规则书 + `docs/rulings.md`）；卡面字面经 `DD_EN_COVE_CARDS_70_120_Boss_Abilities` / `monster_large` 印刷 PDF 核实（MG_DD_05 Cove）；引擎 id 为 Cove extract **占位**（待 `extract/extension/cove` Boss 入库后按页序对齐）。
 

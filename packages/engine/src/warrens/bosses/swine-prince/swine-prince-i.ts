@@ -18,27 +18,24 @@ export const SWINE_PRINCE_I_SCRIPT_ID = "boss:warrens:swine_prince:1" as const;
 
 /**
  * Boss Description I（风味面）。
- * Warrens `DD_EN_WARRENS_CARDS_70_120_Boss_Abilities` 正面 p7；extract 占位 id。
+ * Warrens `DD_EN_WARRENS_CARDS_70_120_Boss_Abilities` 正面 p7。
  */
-export const SWINE_PRINCE_I_DESCRIPTION_ABILITY_CARD_ID =
-  "boss_ability:warrens:swine_prince:p001" as const;
+export const SWINE_PRINCE_I_DESCRIPTION_ABILITY_CARD_ID = "boss_ability:warrens:p007" as const;
 
 /**
  * Boss Abilities 战斗面 + 威胁面背面 I（PDF 正面 p10 / 背面 p10）。
  * 地牢侧「Uneasy Times I」、村庄侧「Bestial Rage」。
  */
-export const SWINE_PRINCE_I_COMBAT_ABILITY_CARD_ID =
-  "boss_ability:warrens:swine_prince:p002" as const;
+export const SWINE_PRINCE_I_COMBAT_ABILITY_CARD_ID = "boss_ability:warrens:p010" as const;
 
 /**
  * Swine Prince I 战斗卡（Beast · Large · 84 Life · Warrens）。
  * Warrens `monster_large` PDF p5。
  */
-export const SWINE_PRINCE_I_COMBAT_MONSTER_CARD_ID =
-  "monster_large:warrens:swine_prince:p001" as const;
+export const SWINE_PRINCE_I_COMBAT_MONSTER_CARD_ID = "monster_large:warrens:p005" as const;
 
 /** Wilbur I（Beast · Small）；Boss 战伴，不进 `combatEntry`。Warrens medium PDF p20。 */
-export const SWINE_PRINCE_I_WILBUR_MONSTER_CARD_ID = "monster_medium:warrens:wilbur:p001" as const;
+export const SWINE_PRINCE_I_WILBUR_MONSTER_CARD_ID = "monster_medium:warrens:p020" as const;
 
 /**
  * Swine Prince I 战斗卡 · Enraged Destruction 技能 slot。

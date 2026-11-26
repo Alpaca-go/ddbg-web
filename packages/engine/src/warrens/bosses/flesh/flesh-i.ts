@@ -18,26 +18,26 @@ export const FLESH_I_SCRIPT_ID = "boss:warrens:flesh:1" as const;
 
 /**
  * Boss Description I（风味面）。
- * Warrens `DD_EN_WARRENS_CARDS_70_120_Boss_Abilities` 正面 p13；extract 占位 id。
+ * Warrens `DD_EN_WARRENS_CARDS_70_120_Boss_Abilities` 正面 p13。
  */
-export const FLESH_I_DESCRIPTION_ABILITY_CARD_ID = "boss_ability:warrens:flesh:p001" as const;
+export const FLESH_I_DESCRIPTION_ABILITY_CARD_ID = "boss_ability:warrens:p013" as const;
 
 /**
  * Boss Abilities 战斗面 + 威胁面背面 I（PDF 正面 p16 / 背面 p16）。
  * 地牢侧「Big Troubles I」、村庄侧「Creeping Sickness I」。
  */
-export const FLESH_I_COMBAT_ABILITY_CARD_ID = "boss_ability:warrens:flesh:p002" as const;
+export const FLESH_I_COMBAT_ABILITY_CARD_ID = "boss_ability:warrens:p016" as const;
 
 /**
  * Flesh 战代表卡（One Body；`combatEntry` 仅挂主引用）。
  * 四部位战斗卡不进 `combatEntry`（见部位 id 常量）。
  */
-export const FLESH_I_COMBAT_MONSTER_CARD_ID = "monster_medium:warrens:flesh_head:p001" as const;
+export const FLESH_I_COMBAT_MONSTER_CARD_ID = "monster_medium:warrens:p023" as const;
 
-export const FLESH_I_HEAD_MONSTER_CARD_ID = "monster_medium:warrens:flesh_head:p001" as const;
-export const FLESH_I_BONE_MONSTER_CARD_ID = "monster_medium:warrens:flesh_bone:p001" as const;
-export const FLESH_I_HEART_MONSTER_CARD_ID = "monster_medium:warrens:flesh_heart:p001" as const;
-export const FLESH_I_BUTT_MONSTER_CARD_ID = "monster_medium:warrens:flesh_butt:p001" as const;
+export const FLESH_I_HEAD_MONSTER_CARD_ID = "monster_medium:warrens:p023" as const;
+export const FLESH_I_BONE_MONSTER_CARD_ID = "monster_medium:warrens:p026" as const;
+export const FLESH_I_HEART_MONSTER_CARD_ID = "monster_medium:warrens:p029" as const;
+export const FLESH_I_BUTT_MONSTER_CARD_ID = "monster_medium:warrens:p032" as const;
 
 /** One Body 共享 Life 池（引擎 id）。 */
 export const FLESH_I_ONE_BODY_POOL_ID = "flesh-i-one-body-pool" as const;

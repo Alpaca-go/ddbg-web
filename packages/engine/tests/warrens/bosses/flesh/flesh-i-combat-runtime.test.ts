@@ -37,10 +37,10 @@ function verifiedFleshPartCard(id: string, life: number): MonsterCardView {
 
 const sharedLife = 30;
 const fleshCards = [
-  verifiedFleshPartCard("monster_medium:warrens:flesh_head:p001", sharedLife),
-  verifiedFleshPartCard("monster_medium:warrens:flesh_bone:p001", sharedLife),
-  verifiedFleshPartCard("monster_medium:warrens:flesh_heart:p001", sharedLife),
-  verifiedFleshPartCard("monster_medium:warrens:flesh_butt:p001", sharedLife),
+  verifiedFleshPartCard("monster_medium:warrens:p023", sharedLife),
+  verifiedFleshPartCard("monster_medium:warrens:p026", sharedLife),
+  verifiedFleshPartCard("monster_medium:warrens:p029", sharedLife),
+  verifiedFleshPartCard("monster_medium:warrens:p032", sharedLife),
 ];
 
 function fleshBossDungeon(): GameState["dungeon"] {

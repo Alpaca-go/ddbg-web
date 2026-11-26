@@ -1,0 +1,4482 @@
+{
+  "schema": "ddbg-raw-v1",
+  "extractor_version": "1.0.4",
+  "category": "boss_ability",
+  "kind": "card",
+  "units": {
+    "length": "mm",
+    "origin": "top-left corner of the PDF TrimBox (card face, bleed excluded)",
+    "y_axis": "down",
+    "font_size": "pt"
+  },
+  "sources": [
+    {
+      "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+      "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_BACK.pdf",
+      "source_set": "extension",
+      "kind": "card",
+      "front_pages": 18,
+      "back_pages": 18
+    }
+  ],
+  "n_pages": 18,
+  "n_unique": 18,
+  "n_copies_total": 18,
+  "cards": [
+    {
+      "id": "boss_ability:warrens:p001",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [1],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+          "page": 1,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "c06b2b940ed13f6b",
+          "spans": [
+            {
+              "t": "I",
+              "bbox": [34.51, 5.35, 35.97, 12.29],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#94c23e"
+            },
+            {
+              "t": "Flames on the horizon, sulfur in the",
+              "bbox": [12.87, 52.93, 57.03, 57.17],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "air. The wolves are at the door! In",
+              "bbox": [13.53, 57.16, 56.37, 61.41],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "lean times, some lean harder upon the",
+              "bbox": [11.62, 61.4, 58.28, 65.64],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "plow. Others take to the blade. Lured",
+              "bbox": [12.28, 65.63, 57.62, 69.87],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "by the promise of bounty and raucous",
+              "bbox": [11.45, 69.87, 58.46, 74.11],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "tales of raids past, lesser bandits",
+              "bbox": [14.33, 74.1, 55.57, 78.34],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "brawled for their place in the pack.",
+              "bbox": [13.15, 78.33, 56.75, 82.57],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Vvulf honed their blades and their",
+              "bbox": [14.11, 82.57, 55.79, 86.81],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "appetites both. Dispatch the bandit",
+              "bbox": [14.05, 86.8, 55.84, 91.04],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "leader or be held forever hostage by",
+              "bbox": [12.22, 91.03, 57.68, 95.27],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "his pack’s hunger for blood and lucre.",
+              "bbox": [11.32, 95.27, 58.58, 99.51],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Brigand Vvulf",
+              "bbox": [20.91, 12.85, 49.11, 19.79],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "b76a947dcb",
+              "bbox": [30.64, 3.84, 39.86, 13.37]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:b76a947dcb} I",
+              "bbox": [30.64, 3.84, 39.86, 13.37]
+            },
+            {
+              "rot": 0,
+              "text": "Brigand Vvulf",
+              "bbox": [20.91, 12.85, 49.11, 19.79]
+            },
+            {
+              "rot": 0,
+              "text": "Flames on the horizon, sulfur in the",
+              "bbox": [12.87, 52.93, 57.03, 57.17]
+            },
+            {
+              "rot": 0,
+              "text": "air. The wolves are at the door! In",
+              "bbox": [13.53, 57.16, 56.37, 61.41]
+            },
+            {
+              "rot": 0,
+              "text": "lean times, some lean harder upon the",
+              "bbox": [11.62, 61.4, 58.28, 65.64]
+            },
+            {
+              "rot": 0,
+              "text": "plow. Others take to the blade. Lured",
+              "bbox": [12.28, 65.63, 57.62, 69.87]
+            },
+            {
+              "rot": 0,
+              "text": "by the promise of bounty and raucous",
+              "bbox": [11.45, 69.87, 58.46, 74.11]
+            },
+            {
+              "rot": 0,
+              "text": "tales of raids past, lesser bandits",
+              "bbox": [14.33, 74.1, 55.57, 78.34]
+            },
+            {
+              "rot": 0,
+              "text": "brawled for their place in the pack.",
+              "bbox": [13.15, 78.33, 56.75, 82.57]
+            },
+            {
+              "rot": 0,
+              "text": "Vvulf honed their blades and their",
+              "bbox": [14.11, 82.57, 55.79, 86.81]
+            },
+            {
+              "rot": 0,
+              "text": "appetites both. Dispatch the bandit",
+              "bbox": [14.05, 86.8, 55.84, 91.04]
+            },
+            {
+              "rot": 0,
+              "text": "leader or be held forever hostage by",
+              "bbox": [12.22, 91.03, 57.68, 95.27]
+            },
+            {
+              "rot": 0,
+              "text": "his pack’s hunger for blood and lucre.",
+              "bbox": [11.32, 95.27, 58.58, 99.51]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_BACK.pdf",
+          "page": 1,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "9496c2f36c6239ad",
+          "spans": [
+            {
+              "t": "I",
+              "bbox": [34.1, 107.17, 35.88, 115.62],
+              "font": "DwarvenAxeBB",
+              "size": 21.91,
+              "color": "#94c23e"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "56ea9289ab",
+              "bbox": [29.39, 105.34, 40.61, 116.94]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:56ea9289ab} I",
+              "bbox": [29.39, 105.34, 40.61, 116.94]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "boss_ability:warrens:p002",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [2],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+          "page": 2,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "c02b3a946f7a3f48",
+          "spans": [
+            {
+              "t": "II",
+              "bbox": [33.78, 5.35, 36.7, 12.29],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#c98c3c"
+            },
+            {
+              "t": "The bandit pack grows ever bolder!",
+              "bbox": [11.96, 56.78, 57.94, 61.02],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Not yet satisfied with their plunder",
+              "bbox": [12.54, 61.02, 57.36, 65.26],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "from the roads, they encroached",
+              "bbox": [13.91, 65.25, 55.98, 69.49],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "ever-closer on the Hamlet’s borders.",
+              "bbox": [11.19, 69.48, 58.7, 73.72],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Those in the village slept uneasy,",
+              "bbox": [13.87, 73.72, 56.02, 77.96],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "knowing their meagre defenses could",
+              "bbox": [11.06, 77.95, 58.84, 82.19],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "never hold. And now, our worst",
+              "bbox": [14.32, 82.18, 55.58, 86.42],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "fears manifest - the raid is upon us.",
+              "bbox": [11.48, 86.42, 58.42, 90.66],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Drive Vvulf’s bandits back into the",
+              "bbox": [12.9, 90.65, 57.0, 94.89],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "prowling wilds. Cede them no ground!",
+              "bbox": [10.62, 94.88, 59.28, 99.13],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Brigand Vvulf",
+              "bbox": [20.91, 12.85, 49.11, 19.79],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "b76a947dcb",
+              "bbox": [30.64, 3.84, 39.86, 13.37]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:b76a947dcb} II",
+              "bbox": [30.64, 3.84, 39.86, 13.37]
+            },
+            {
+              "rot": 0,
+              "text": "Brigand Vvulf",
+              "bbox": [20.91, 12.85, 49.11, 19.79]
+            },
+            {
+              "rot": 0,
+              "text": "The bandit pack grows ever bolder!",
+              "bbox": [11.96, 56.78, 57.94, 61.02]
+            },
+            {
+              "rot": 0,
+              "text": "Not yet satisfied with their plunder",
+              "bbox": [12.54, 61.02, 57.36, 65.26]
+            },
+            {
+              "rot": 0,
+              "text": "from the roads, they encroached",
+              "bbox": [13.91, 65.25, 55.98, 69.49]
+            },
+            {
+              "rot": 0,
+              "text": "ever-closer on the Hamlet’s borders.",
+              "bbox": [11.19, 69.48, 58.7, 73.72]
+            },
+            {
+              "rot": 0,
+              "text": "Those in the village slept uneasy,",
+              "bbox": [13.87, 73.72, 56.02, 77.96]
+            },
+            {
+              "rot": 0,
+              "text": "knowing their meagre defenses could",
+              "bbox": [11.06, 77.95, 58.84, 82.19]
+            },
+            {
+              "rot": 0,
+              "text": "never hold. And now, our worst",
+              "bbox": [14.32, 82.18, 55.58, 86.42]
+            },
+            {
+              "rot": 0,
+              "text": "fears manifest - the raid is upon us.",
+              "bbox": [11.48, 86.42, 58.42, 90.66]
+            },
+            {
+              "rot": 0,
+              "text": "Drive Vvulf’s bandits back into the",
+              "bbox": [12.9, 90.65, 57.0, 94.89]
+            },
+            {
+              "rot": 0,
+              "text": "prowling wilds. Cede them no ground!",
+              "bbox": [10.62, 94.88, 59.28, 99.13]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_BACK.pdf",
+          "page": 2,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "9496c2f36c6239ad",
+          "spans": [
+            {
+              "t": "II",
+              "bbox": [33.21, 107.17, 36.77, 115.62],
+              "font": "DwarvenAxeBB",
+              "size": 21.91,
+              "color": "#c98c3c"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "56ea9289ab",
+              "bbox": [29.39, 105.34, 40.61, 116.94]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:56ea9289ab} II",
+              "bbox": [29.39, 105.34, 40.61, 116.94]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "boss_ability:warrens:p003",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [3],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+          "page": 3,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "c46b2b940fc13f6a",
+          "spans": [
+            {
+              "t": "III",
+              "bbox": [33.05, 5.35, 37.43, 12.29],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "The estate is free from any supernatural",
+              "bbox": [8.72, 52.66, 61.18, 56.91],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "influence, yet it still suffers under the",
+              "bbox": [10.53, 56.9, 59.37, 61.14],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "bandit rule. These wolves came in one",
+              "bbox": [10.45, 61.13, 59.45, 65.37],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "night, drawn by the promises of gold",
+              "bbox": [11.1, 65.37, 58.8, 69.61],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "and looting. The villagers have suffered",
+              "bbox": [9.38, 69.6, 60.52, 73.84],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "enough for far too long. Venture into",
+              "bbox": [11.23, 73.83, 58.67, 78.07],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "the bandit lair, deep in the warrens, and",
+              "bbox": [8.98, 78.07, 60.92, 82.31],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "dispatch their leader. Otherwise your",
+              "bbox": [10.86, 82.3, 59.03, 86.54],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "rear will always be flanked while you",
+              "bbox": [10.63, 86.53, 59.27, 90.78],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "venture deep in the dungeon. And even",
+              "bbox": [10.42, 90.77, 59.48, 95.01],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "if you come out of it alive, there might",
+              "bbox": [10.16, 95.0, 59.74, 99.24],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "not be an estate left to return to...",
+              "bbox": [12.73, 99.24, 57.17, 103.48],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Brigand Vvulf",
+              "bbox": [20.91, 12.85, 49.11, 19.79],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "b76a947dcb",
+              "bbox": [30.64, 3.84, 39.86, 13.37]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:b76a947dcb} III",
+              "bbox": [30.64, 3.84, 39.86, 13.37]
+            },
+            {
+              "rot": 0,
+              "text": "Brigand Vvulf",
+              "bbox": [20.91, 12.85, 49.11, 19.79]
+            },
+            {
+              "rot": 0,
+              "text": "The estate is free from any supernatural",
+              "bbox": [8.72, 52.66, 61.18, 56.91]
+            },
+            {
+              "rot": 0,
+              "text": "influence, yet it still suffers under the",
+              "bbox": [10.53, 56.9, 59.37, 61.14]
+            },
+            {
+              "rot": 0,
+              "text": "bandit rule. These wolves came in one",
+              "bbox": [10.45, 61.13, 59.45, 65.37]
+            },
+            {
+              "rot": 0,
+              "text": "night, drawn by the promises of gold",
+              "bbox": [11.1, 65.37, 58.8, 69.61]
+            },
+            {
+              "rot": 0,
+              "text": "and looting. The villagers have suffered",
+              "bbox": [9.38, 69.6, 60.52, 73.84]
+            },
+            {
+              "rot": 0,
+              "text": "enough for far too long. Venture into",
+              "bbox": [11.23, 73.83, 58.67, 78.07]
+            },
+            {
+              "rot": 0,
+              "text": "the bandit lair, deep in the warrens, and",
+              "bbox": [8.98, 78.07, 60.92, 82.31]
+            },
+            {
+              "rot": 0,
+              "text": "dispatch their leader. Otherwise your",
+              "bbox": [10.86, 82.3, 59.03, 86.54]
+            },
+            {
+              "rot": 0,
+              "text": "rear will always be flanked while you",
+              "bbox": [10.63, 86.53, 59.27, 90.78]
+            },
+            {
+              "rot": 0,
+              "text": "venture deep in the dungeon. And even",
+              "bbox": [10.42, 90.77, 59.48, 95.01]
+            },
+            {
+              "rot": 0,
+              "text": "if you come out of it alive, there might",
+              "bbox": [10.16, 95.0, 59.74, 99.24]
+            },
+            {
+              "rot": 0,
+              "text": "not be an estate left to return to...",
+              "bbox": [12.73, 99.24, 57.17, 103.48]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_BACK.pdf",
+          "page": 3,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "9496c2f36c6239ad",
+          "spans": [
+            {
+              "t": "III",
+              "bbox": [32.33, 107.17, 37.66, 115.62],
+              "font": "DwarvenAxeBB",
+              "size": 21.91,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "56ea9289ab",
+              "bbox": [29.39, 105.34, 40.61, 116.94]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:56ea9289ab} III",
+              "bbox": [29.39, 105.34, 40.61, 116.94]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "boss_ability:warrens:p004",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [4],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+          "page": 4,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d07a2f856f2b3ac0",
+          "spans": [
+            {
+              "t": "I",
+              "bbox": [58.76, 5.75, 60.22, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#94c23e"
+            },
+            {
+              "t": "Brigand Vvulf",
+              "bbox": [20.85, 45.98, 49.05, 52.92],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "ACTIONS / Round: 2",
+              "bbox": [19.79, 58.7, 50.11, 64.1],
+              "font": "DwarvenAxeBB",
+              "size": 14.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Time’s Up!:",
+              "bbox": [11.71, 68.38, 27.21, 72.13],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "If Barrel O’Bombs is in",
+              "bbox": [27.82, 68.38, 58.19, 72.03],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "play, instead of using a skill, Brigand",
+              "bbox": [10.26, 72.19, 59.64, 75.84],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Vvulf will remove it from play and",
+              "bbox": [11.85, 76.0, 58.05, 79.65],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "deal",
+              "bbox": [9.86, 79.81, 15.84, 83.46],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "10",
+              "bbox": [17.84, 79.77, 20.43, 83.84],
+              "font": "DwarvenAxeBB",
+              "size": 10.56,
+              "color": "#ffffff",
+              "dup": 2
+            },
+            {
+              "t": "to all characters in its Area.",
+              "bbox": [23.08, 79.81, 60.04, 83.46],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Get Them!:",
+              "bbox": [12.76, 84.97, 28.54, 88.73],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "a Brigand Fusilier",
+              "bbox": [33.5, 84.97, 57.14, 88.63],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "and a Barrel O’Bombs (if not already",
+              "bbox": [10.07, 88.78, 59.83, 92.44],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "in play) in the target Area.",
+              "bbox": [17.14, 92.59, 52.75, 96.25],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Tower Shield:",
+              "bbox": [9.61, 97.76, 29.81, 101.52],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "a Brigand Fusilier.",
+              "bbox": [34.96, 97.76, 60.29, 101.42],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "0c9e989b70",
+              "bbox": [54.89, 4.24, 64.11, 13.78]
+            },
+            {
+              "iconId": "08e0303bb9",
+              "bbox": [15.89, 78.7, 23.51, 85.3]
+            },
+            {
+              "iconId": "a71182369c",
+              "bbox": [29.15, 84.5, 32.83, 88.97]
+            },
+            {
+              "iconId": "a71182369c",
+              "bbox": [30.54, 97.28, 34.23, 101.76]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:0c9e989b70} I",
+              "bbox": [54.89, 4.24, 64.11, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "Brigand Vvulf",
+              "bbox": [20.85, 45.98, 49.05, 52.92]
+            },
+            {
+              "rot": 0,
+              "text": "ACTIONS / Round: 2",
+              "bbox": [19.79, 58.7, 50.11, 64.1]
+            },
+            {
+              "rot": 0,
+              "text": "Time’s Up!: If Barrel O’Bombs is in",
+              "bbox": [11.71, 68.38, 58.19, 72.13]
+            },
+            {
+              "rot": 0,
+              "text": "play, instead of using a skill, Brigand",
+              "bbox": [10.26, 72.19, 59.64, 75.84]
+            },
+            {
+              "rot": 0,
+              "text": "Vvulf will remove it from play and",
+              "bbox": [11.85, 76.0, 58.05, 79.65]
+            },
+            {
+              "rot": 0,
+              "text": "deal {icon:08e0303bb9} 10 to all characters in its Area.",
+              "bbox": [9.86, 78.7, 60.04, 85.3]
+            },
+            {
+              "rot": 0,
+              "text": "Get Them!: {icon:a71182369c} a Brigand Fusilier",
+              "bbox": [12.76, 84.5, 57.14, 88.97]
+            },
+            {
+              "rot": 0,
+              "text": "and a Barrel O’Bombs (if not already",
+              "bbox": [10.07, 88.78, 59.83, 92.44]
+            },
+            {
+              "rot": 0,
+              "text": "in play) in the target Area.",
+              "bbox": [17.14, 92.59, 52.75, 96.25]
+            },
+            {
+              "rot": 0,
+              "text": "Tower Shield: {icon:a71182369c} a Brigand Fusilier.",
+              "bbox": [9.61, 97.28, 60.29, 101.76]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_BACK.pdf",
+          "page": 4,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "c4a67ae43e689569",
+          "spans": [
+            {
+              "t": "I",
+              "bbox": [59.36, 5.75, 60.82, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#94c23e"
+            },
+            {
+              "t": "When a Brigand is spawned in",
+              "bbox": [14.19, 36.29, 56.81, 39.94],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "battle, each Hero suffers",
+              "bbox": [13.5, 40.17, 49.16, 43.82],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "1t",
+              "bbox": [54.51, 39.7, 56.72, 44.33],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#231f20"
+            },
+            {
+              "t": ".",
+              "bbox": [56.72, 40.17, 57.5, 43.82],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Brigand Ambush",
+              "bbox": [24.25, 15.07, 52.33, 20.85],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "Building upgrades cost",
+              "bbox": [23.81, 77.34, 56.62, 80.99],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "+4",
+              "bbox": [19.88, 76.83, 23.08, 81.46],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": ".",
+              "bbox": [14.38, 77.34, 15.17, 80.99],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "Stolen Material I",
+              "bbox": [20.57, 100.4, 49.43, 106.18],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#d12529",
+              "rot": 180
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "0c9e989b70",
+              "bbox": [55.49, 4.24, 64.71, 13.78]
+            },
+            {
+              "iconId": "1d2efcd8d4",
+              "bbox": [49.12, 38.95, 54.97, 44.92]
+            },
+            {
+              "iconId": "a51ce1e104",
+              "bbox": [15.17, 76.55, 19.76, 81.84]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:0c9e989b70} I",
+              "bbox": [55.49, 4.24, 64.71, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "Brigand Ambush",
+              "bbox": [24.25, 15.07, 52.33, 20.85]
+            },
+            {
+              "rot": 0,
+              "text": "When a Brigand is spawned in",
+              "bbox": [14.19, 36.29, 56.81, 39.94]
+            },
+            {
+              "rot": 0,
+              "text": "battle, each Hero suffers {icon:1d2efcd8d4} 1t.",
+              "bbox": [13.5, 38.95, 57.5, 44.92]
+            },
+            {
+              "rot": 180,
+              "text": "Stolen Material I",
+              "bbox": [20.57, 100.4, 49.43, 106.18]
+            },
+            {
+              "rot": 180,
+              "text": "Building upgrades cost +4 {icon:a51ce1e104} .",
+              "bbox": [14.38, 76.55, 56.62, 81.84]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "boss_ability:warrens:p005",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [5],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+          "page": 5,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d07e2f856f0b3ac0",
+          "spans": [
+            {
+              "t": "II",
+              "bbox": [58.03, 5.75, 60.95, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#c98c3c"
+            },
+            {
+              "t": "ACTIONS / Round: 2",
+              "bbox": [19.79, 58.7, 50.11, 64.1],
+              "font": "DwarvenAxeBB",
+              "size": 14.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Time’s Up!:",
+              "bbox": [11.71, 68.38, 27.21, 72.13],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "If Barrel O’Bombs is in",
+              "bbox": [27.82, 68.38, 58.19, 72.03],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "play, instead of using a skill, Brigand",
+              "bbox": [10.26, 72.19, 59.64, 75.84],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Vvulf will remove it from play and",
+              "bbox": [11.85, 76.0, 58.05, 79.65],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "deal",
+              "bbox": [9.86, 79.81, 15.84, 83.46],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "15",
+              "bbox": [17.86, 79.77, 20.41, 83.84],
+              "font": "DwarvenAxeBB",
+              "size": 10.56,
+              "color": "#ffffff",
+              "dup": 2
+            },
+            {
+              "t": "to all characters in its Area.",
+              "bbox": [23.08, 79.81, 60.04, 83.46],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Get Them!:",
+              "bbox": [9.94, 84.97, 26.3, 88.73],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "a Brigand Cutthroat",
+              "bbox": [31.45, 84.97, 59.95, 88.63],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "and a Barrel O’Bombs (if not already",
+              "bbox": [8.96, 88.78, 60.94, 92.44],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "in play) in the target Area.",
+              "bbox": [16.28, 92.59, 53.61, 96.25],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Tower Shield:",
+              "bbox": [7.61, 97.76, 27.81, 101.52],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "a Brigand Cutthroat.",
+              "bbox": [32.96, 97.76, 62.29, 101.42],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Brigand Vvulf",
+              "bbox": [20.85, 45.98, 49.05, 52.92],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "0c9e989b70",
+              "bbox": [54.89, 4.24, 64.11, 13.78]
+            },
+            {
+              "iconId": "08e0303bb9",
+              "bbox": [15.89, 78.7, 23.51, 85.3]
+            },
+            {
+              "iconId": "a71182369c",
+              "bbox": [27.03, 84.5, 30.72, 88.97]
+            },
+            {
+              "iconId": "a71182369c",
+              "bbox": [28.54, 97.28, 32.23, 101.76]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:0c9e989b70} II",
+              "bbox": [54.89, 4.24, 64.11, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "Brigand Vvulf",
+              "bbox": [20.85, 45.98, 49.05, 52.92]
+            },
+            {
+              "rot": 0,
+              "text": "ACTIONS / Round: 2",
+              "bbox": [19.79, 58.7, 50.11, 64.1]
+            },
+            {
+              "rot": 0,
+              "text": "Time’s Up!: If Barrel O’Bombs is in",
+              "bbox": [11.71, 68.38, 58.19, 72.13]
+            },
+            {
+              "rot": 0,
+              "text": "play, instead of using a skill, Brigand",
+              "bbox": [10.26, 72.19, 59.64, 75.84]
+            },
+            {
+              "rot": 0,
+              "text": "Vvulf will remove it from play and",
+              "bbox": [11.85, 76.0, 58.05, 79.65]
+            },
+            {
+              "rot": 0,
+              "text": "deal {icon:08e0303bb9} 15 to all characters in its Area.",
+              "bbox": [9.86, 78.7, 60.04, 85.3]
+            },
+            {
+              "rot": 0,
+              "text": "Get Them!: {icon:a71182369c} a Brigand Cutthroat",
+              "bbox": [9.94, 84.5, 59.95, 88.97]
+            },
+            {
+              "rot": 0,
+              "text": "and a Barrel O’Bombs (if not already",
+              "bbox": [8.96, 88.78, 60.94, 92.44]
+            },
+            {
+              "rot": 0,
+              "text": "in play) in the target Area.",
+              "bbox": [16.28, 92.59, 53.61, 96.25]
+            },
+            {
+              "rot": 0,
+              "text": "Tower Shield: {icon:a71182369c} a Brigand Cutthroat.",
+              "bbox": [7.61, 97.28, 62.29, 101.76]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_BACK.pdf",
+          "page": 5,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "c5a67ae43e689549",
+          "spans": [
+            {
+              "t": "When a Brigand is spawned",
+              "bbox": [15.87, 34.35, 55.13, 38.0],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "in battle, each Hero",
+              "bbox": [21.42, 38.23, 49.58, 41.88],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "suffers",
+              "bbox": [19.89, 42.11, 30.01, 45.76],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "2t",
+              "bbox": [35.36, 41.64, 38.01, 46.27],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "and",
+              "bbox": [38.75, 42.11, 44.1, 45.76],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "1t",
+              "bbox": [48.13, 41.64, 50.33, 46.27],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#231f20"
+            },
+            {
+              "t": ".",
+              "bbox": [50.33, 42.11, 51.11, 45.76],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "II",
+              "bbox": [58.63, 5.75, 61.55, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#c98c3c"
+            },
+            {
+              "t": "Brigand Assault",
+              "bbox": [24.72, 15.07, 51.86, 20.85],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "Building upgrades cost",
+              "bbox": [23.68, 77.34, 56.48, 80.99],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "+7",
+              "bbox": [20.01, 76.83, 22.94, 81.46],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": ".",
+              "bbox": [14.52, 77.34, 15.3, 80.99],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "Stolen Material II",
+              "bbox": [19.96, 100.4, 50.03, 106.18],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#d12529",
+              "rot": 180
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "0c9e989b70",
+              "bbox": [55.49, 4.24, 64.71, 13.78]
+            },
+            {
+              "iconId": "1d2efcd8d4",
+              "bbox": [29.97, 40.89, 35.81, 46.86]
+            },
+            {
+              "iconId": "f1447c7566",
+              "bbox": [44.8, 42.33, 47.98, 45.51],
+              "bbox_full": [44.06, 41.69, 48.51, 46.39]
+            },
+            {
+              "iconId": "a51ce1e104",
+              "bbox": [15.17, 76.55, 19.76, 81.84]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:0c9e989b70} II",
+              "bbox": [55.49, 4.24, 64.71, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "Brigand Assault",
+              "bbox": [24.72, 15.07, 51.86, 20.85]
+            },
+            {
+              "rot": 0,
+              "text": "When a Brigand is spawned",
+              "bbox": [15.87, 34.35, 55.13, 38.0]
+            },
+            {
+              "rot": 0,
+              "text": "in battle, each Hero",
+              "bbox": [21.42, 38.23, 49.58, 41.88]
+            },
+            {
+              "rot": 0,
+              "text": "suffers {icon:1d2efcd8d4} 2t and {icon:f1447c7566} 1t.",
+              "bbox": [19.89, 40.89, 51.11, 46.86]
+            },
+            {
+              "rot": 180,
+              "text": "Stolen Material II",
+              "bbox": [19.96, 100.4, 50.03, 106.18]
+            },
+            {
+              "rot": 180,
+              "text": "Building upgrades cost +7 {icon:a51ce1e104} .",
+              "bbox": [14.52, 76.55, 56.48, 81.84]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "boss_ability:warrens:p006",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [6],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+          "page": 6,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d07e2f852f0b3ac2",
+          "spans": [
+            {
+              "t": "III",
+              "bbox": [57.3, 5.75, 61.68, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "ACTIONS / Round: 2",
+              "bbox": [19.79, 58.7, 50.11, 64.1],
+              "font": "DwarvenAxeBB",
+              "size": 14.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Time’s Up!:",
+              "bbox": [11.37, 68.38, 26.88, 72.13],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "If Barrel O’Bombs is in",
+              "bbox": [28.15, 68.38, 58.53, 72.03],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "play, instead of using a skill, Brigand",
+              "bbox": [10.26, 72.19, 59.64, 75.84],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Vvulf will remove it from play and",
+              "bbox": [11.85, 76.0, 58.05, 79.65],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "deal",
+              "bbox": [9.86, 79.81, 15.84, 83.46],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "20",
+              "bbox": [17.64, 79.77, 20.63, 83.84],
+              "font": "DwarvenAxeBB",
+              "size": 10.56,
+              "color": "#ffffff",
+              "dup": 2
+            },
+            {
+              "t": "to all characters in its Area.",
+              "bbox": [23.08, 79.81, 60.04, 83.46],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Get Them!:",
+              "bbox": [9.3, 84.97, 25.65, 88.73],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "a Brigand Raider and",
+              "bbox": [30.81, 84.97, 60.6, 88.63],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "a Barrel O’Bombs (if not already",
+              "bbox": [12.0, 88.78, 57.9, 92.44],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "in play) in the target Area.",
+              "bbox": [16.28, 92.59, 53.61, 96.25],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Tower Shield:",
+              "bbox": [10.11, 97.76, 30.31, 101.52],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "a Brigand Raider.",
+              "bbox": [35.47, 97.76, 59.78, 101.42],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Brigand Vvulf",
+              "bbox": [20.85, 45.98, 49.05, 52.92],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "0c9e989b70",
+              "bbox": [54.89, 4.24, 64.11, 13.78]
+            },
+            {
+              "iconId": "08e0303bb9",
+              "bbox": [15.93, 78.63, 23.42, 85.37]
+            },
+            {
+              "iconId": "a71182369c",
+              "bbox": [26.39, 84.5, 30.07, 88.97]
+            },
+            {
+              "iconId": "a71182369c",
+              "bbox": [31.05, 97.28, 34.73, 101.76]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:0c9e989b70} III",
+              "bbox": [54.89, 4.24, 64.11, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "Brigand Vvulf",
+              "bbox": [20.85, 45.98, 49.05, 52.92]
+            },
+            {
+              "rot": 0,
+              "text": "ACTIONS / Round: 2",
+              "bbox": [19.79, 58.7, 50.11, 64.1]
+            },
+            {
+              "rot": 0,
+              "text": "Time’s Up!: If Barrel O’Bombs is in",
+              "bbox": [11.37, 68.38, 58.53, 72.13]
+            },
+            {
+              "rot": 0,
+              "text": "play, instead of using a skill, Brigand",
+              "bbox": [10.26, 72.19, 59.64, 75.84]
+            },
+            {
+              "rot": 0,
+              "text": "Vvulf will remove it from play and",
+              "bbox": [11.85, 76.0, 58.05, 79.65]
+            },
+            {
+              "rot": 0,
+              "text": "deal {icon:08e0303bb9} 20 to all characters in its Area.",
+              "bbox": [9.86, 78.63, 60.04, 85.37]
+            },
+            {
+              "rot": 0,
+              "text": "Get Them!: {icon:a71182369c} a Brigand Raider and",
+              "bbox": [9.3, 84.5, 60.6, 88.97]
+            },
+            {
+              "rot": 0,
+              "text": "a Barrel O’Bombs (if not already",
+              "bbox": [12.0, 88.78, 57.9, 92.44]
+            },
+            {
+              "rot": 0,
+              "text": "in play) in the target Area.",
+              "bbox": [16.28, 92.59, 53.61, 96.25]
+            },
+            {
+              "rot": 0,
+              "text": "Tower Shield: {icon:a71182369c} a Brigand Raider.",
+              "bbox": [10.11, 97.28, 59.78, 101.76]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_BACK.pdf",
+          "page": 6,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "c5a67ae43e689549",
+          "spans": [
+            {
+              "t": "When a Brigand is spawned",
+              "bbox": [15.87, 34.35, 55.13, 38.0],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "in battle, each Hero",
+              "bbox": [21.42, 38.23, 49.58, 41.88],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "suffers",
+              "bbox": [19.63, 42.11, 29.75, 45.76],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "3t",
+              "bbox": [35.1, 41.64, 37.82, 46.27],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "and",
+              "bbox": [38.55, 42.11, 43.9, 45.76],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "2t",
+              "bbox": [47.94, 41.64, 50.59, 46.27],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#231f20"
+            },
+            {
+              "t": ".",
+              "bbox": [50.58, 42.11, 51.37, 45.76],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "III",
+              "bbox": [57.9, 5.75, 62.28, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "Brigand Onslaught",
+              "bbox": [22.54, 15.07, 54.04, 20.85],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "Building upgrades cost",
+              "bbox": [24.58, 77.34, 57.38, 80.99],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "+10",
+              "bbox": [19.11, 76.83, 23.84, 81.46],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": ".",
+              "bbox": [13.62, 77.34, 14.4, 80.99],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "Stolen Material III",
+              "bbox": [19.35, 100.4, 50.64, 106.18],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#d12529",
+              "rot": 180
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "0c9e989b70",
+              "bbox": [55.49, 4.24, 64.71, 13.78]
+            },
+            {
+              "iconId": "1d2efcd8d4",
+              "bbox": [29.72, 40.89, 35.56, 46.86]
+            },
+            {
+              "iconId": "f1447c7566",
+              "bbox": [44.45, 42.33, 47.62, 45.51],
+              "bbox_full": [43.87, 41.69, 48.31, 46.39]
+            },
+            {
+              "iconId": "a51ce1e104",
+              "bbox": [14.46, 76.55, 19.05, 81.84]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:0c9e989b70} III",
+              "bbox": [55.49, 4.24, 64.71, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "Brigand Onslaught",
+              "bbox": [22.54, 15.07, 54.04, 20.85]
+            },
+            {
+              "rot": 0,
+              "text": "When a Brigand is spawned",
+              "bbox": [15.87, 34.35, 55.13, 38.0]
+            },
+            {
+              "rot": 0,
+              "text": "in battle, each Hero",
+              "bbox": [21.42, 38.23, 49.58, 41.88]
+            },
+            {
+              "rot": 0,
+              "text": "suffers {icon:1d2efcd8d4} 3t and {icon:f1447c7566} 2t.",
+              "bbox": [19.63, 40.89, 51.37, 46.86]
+            },
+            {
+              "rot": 180,
+              "text": "Stolen Material III",
+              "bbox": [19.35, 100.4, 50.64, 106.18]
+            },
+            {
+              "rot": 180,
+              "text": "Building upgrades cost +10 {icon:a51ce1e104} .",
+              "bbox": [13.62, 76.55, 57.38, 81.84]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "boss_ability:warrens:p007",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [7],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+          "page": 7,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "c06b2f943e6a3dc1",
+          "spans": [
+            {
+              "t": "I",
+              "bbox": [34.51, 5.35, 35.97, 12.29],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#94c23e"
+            },
+            {
+              "t": "The ways and rituals of blood",
+              "bbox": [15.71, 57.21, 54.19, 61.46],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "sacrifice are difficult to master.",
+              "bbox": [14.19, 61.45, 55.71, 65.69],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Those from beyond require",
+              "bbox": [17.35, 65.68, 52.55, 69.92],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "a physical vessel if they are",
+              "bbox": [16.96, 69.92, 52.93, 74.16],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "to make the crossing into our",
+              "bbox": [15.86, 74.15, 54.04, 78.39],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "reality. The timing of the chants",
+              "bbox": [14.43, 78.38, 55.48, 82.62],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "is imperative - without the proper",
+              "bbox": [12.96, 82.62, 56.95, 86.86],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "utterances at precise intervals, the",
+              "bbox": [12.57, 86.85, 57.33, 91.09],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "process can fail spectacularly.",
+              "bbox": [15.47, 91.08, 54.44, 95.32],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Swine Prince",
+              "bbox": [21.92, 12.85, 48.1, 19.79],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "b76a947dcb",
+              "bbox": [30.64, 3.84, 39.86, 13.37]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:b76a947dcb} I",
+              "bbox": [30.64, 3.84, 39.86, 13.37]
+            },
+            {
+              "rot": 0,
+              "text": "Swine Prince",
+              "bbox": [21.92, 12.85, 48.1, 19.79]
+            },
+            {
+              "rot": 0,
+              "text": "The ways and rituals of blood",
+              "bbox": [15.71, 57.21, 54.19, 61.46]
+            },
+            {
+              "rot": 0,
+              "text": "sacrifice are difficult to master.",
+              "bbox": [14.19, 61.45, 55.71, 65.69]
+            },
+            {
+              "rot": 0,
+              "text": "Those from beyond require",
+              "bbox": [17.35, 65.68, 52.55, 69.92]
+            },
+            {
+              "rot": 0,
+              "text": "a physical vessel if they are",
+              "bbox": [16.96, 69.92, 52.93, 74.16]
+            },
+            {
+              "rot": 0,
+              "text": "to make the crossing into our",
+              "bbox": [15.86, 74.15, 54.04, 78.39]
+            },
+            {
+              "rot": 0,
+              "text": "reality. The timing of the chants",
+              "bbox": [14.43, 78.38, 55.48, 82.62]
+            },
+            {
+              "rot": 0,
+              "text": "is imperative - without the proper",
+              "bbox": [12.96, 82.62, 56.95, 86.86]
+            },
+            {
+              "rot": 0,
+              "text": "utterances at precise intervals, the",
+              "bbox": [12.57, 86.85, 57.33, 91.09]
+            },
+            {
+              "rot": 0,
+              "text": "process can fail spectacularly.",
+              "bbox": [15.47, 91.08, 54.44, 95.32]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_BACK.pdf",
+          "page": 7,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "9496c2f36c6239ad",
+          "spans": [
+            {
+              "t": "I",
+              "bbox": [34.1, 107.17, 35.88, 115.62],
+              "font": "DwarvenAxeBB",
+              "size": 21.91,
+              "color": "#94c23e"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "56ea9289ab",
+              "bbox": [29.39, 105.34, 40.61, 116.94]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:56ea9289ab} I",
+              "bbox": [29.39, 105.34, 40.61, 116.94]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "boss_ability:warrens:p008",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [8],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+          "page": 8,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d02b2b956fc23d38",
+          "spans": [
+            {
+              "t": "II",
+              "bbox": [33.78, 5.35, 36.7, 12.29],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#c98c3c"
+            },
+            {
+              "t": "My first attempts at summoning were",
+              "bbox": [10.76, 55.02, 59.14, 59.26],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "crude and the results, disappointing.",
+              "bbox": [11.54, 59.25, 58.36, 63.49],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "I soon found however, that the type",
+              "bbox": [12.13, 63.48, 57.76, 67.72],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "and condition of the host’s meat",
+              "bbox": [14.4, 67.72, 55.49, 71.96],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "was a critical factor. The best",
+              "bbox": [15.52, 71.95, 54.37, 76.19],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "results came from pigs, whose",
+              "bbox": [15.16, 76.18, 54.72, 80.42],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "flesh is most like that of man.",
+              "bbox": [15.74, 80.42, 54.14, 84.66],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Swine Prince",
+              "bbox": [21.92, 12.85, 48.1, 19.79],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "b76a947dcb",
+              "bbox": [30.64, 3.84, 39.86, 13.37]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:b76a947dcb} II",
+              "bbox": [30.64, 3.84, 39.86, 13.37]
+            },
+            {
+              "rot": 0,
+              "text": "Swine Prince",
+              "bbox": [21.92, 12.85, 48.1, 19.79]
+            },
+            {
+              "rot": 0,
+              "text": "My first attempts at summoning were",
+              "bbox": [10.76, 55.02, 59.14, 59.26]
+            },
+            {
+              "rot": 0,
+              "text": "crude and the results, disappointing.",
+              "bbox": [11.54, 59.25, 58.36, 63.49]
+            },
+            {
+              "rot": 0,
+              "text": "I soon found however, that the type",
+              "bbox": [12.13, 63.48, 57.76, 67.72]
+            },
+            {
+              "rot": 0,
+              "text": "and condition of the host’s meat",
+              "bbox": [14.4, 67.72, 55.49, 71.96]
+            },
+            {
+              "rot": 0,
+              "text": "was a critical factor. The best",
+              "bbox": [15.52, 71.95, 54.37, 76.19]
+            },
+            {
+              "rot": 0,
+              "text": "results came from pigs, whose",
+              "bbox": [15.16, 76.18, 54.72, 80.42]
+            },
+            {
+              "rot": 0,
+              "text": "flesh is most like that of man.",
+              "bbox": [15.74, 80.42, 54.14, 84.66]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_BACK.pdf",
+          "page": 8,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "9496c2f36c6239ad",
+          "spans": [
+            {
+              "t": "II",
+              "bbox": [33.21, 107.17, 36.77, 115.62],
+              "font": "DwarvenAxeBB",
+              "size": 21.91,
+              "color": "#c98c3c"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "56ea9289ab",
+              "bbox": [29.39, 105.34, 40.61, 116.94]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:56ea9289ab} II",
+              "bbox": [29.39, 105.34, 40.61, 116.94]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "boss_ability:warrens:p009",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [9],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+          "page": 9,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "c06b3b942e7a2fc1",
+          "spans": [
+            {
+              "t": "III",
+              "bbox": [33.05, 5.35, 37.43, 12.29],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "The Great Thing I had managed to",
+              "bbox": [13.49, 55.48, 56.41, 59.72],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "bring through was brutish and stupid.",
+              "bbox": [10.31, 59.71, 59.59, 63.96],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Moreover, it required prodigious",
+              "bbox": [13.49, 63.95, 56.41, 68.19],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "amounts of meat to sustain itself, but",
+              "bbox": [11.09, 68.18, 58.81, 72.43],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "this was only a trifling concern –",
+              "bbox": [13.12, 72.41, 56.78, 76.66],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "after all, I had a village full of it.",
+              "bbox": [13.68, 76.65, 56.22, 80.89],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Swine Prince",
+              "bbox": [21.92, 12.85, 48.1, 19.79],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "b76a947dcb",
+              "bbox": [30.64, 3.84, 39.86, 13.37]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:b76a947dcb} III",
+              "bbox": [30.64, 3.84, 39.86, 13.37]
+            },
+            {
+              "rot": 0,
+              "text": "Swine Prince",
+              "bbox": [21.92, 12.85, 48.1, 19.79]
+            },
+            {
+              "rot": 0,
+              "text": "The Great Thing I had managed to",
+              "bbox": [13.49, 55.48, 56.41, 59.72]
+            },
+            {
+              "rot": 0,
+              "text": "bring through was brutish and stupid.",
+              "bbox": [10.31, 59.71, 59.59, 63.96]
+            },
+            {
+              "rot": 0,
+              "text": "Moreover, it required prodigious",
+              "bbox": [13.49, 63.95, 56.41, 68.19]
+            },
+            {
+              "rot": 0,
+              "text": "amounts of meat to sustain itself, but",
+              "bbox": [11.09, 68.18, 58.81, 72.43]
+            },
+            {
+              "rot": 0,
+              "text": "this was only a trifling concern –",
+              "bbox": [13.12, 72.41, 56.78, 76.66]
+            },
+            {
+              "rot": 0,
+              "text": "after all, I had a village full of it.",
+              "bbox": [13.68, 76.65, 56.22, 80.89]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_BACK.pdf",
+          "page": 9,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "9496c2f36c6239ad",
+          "spans": [
+            {
+              "t": "III",
+              "bbox": [32.33, 107.17, 37.66, 115.62],
+              "font": "DwarvenAxeBB",
+              "size": 21.91,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "56ea9289ab",
+              "bbox": [29.39, 105.34, 40.61, 116.94]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:56ea9289ab} III",
+              "bbox": [29.39, 105.34, 40.61, 116.94]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "boss_ability:warrens:p010",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [10],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+          "page": 10,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d06e2ac16b0f3f94",
+          "spans": [
+            {
+              "t": "I",
+              "bbox": [58.76, 5.75, 60.22, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#94c23e"
+            },
+            {
+              "t": "Swine Prince",
+              "bbox": [21.86, 45.98, 48.04, 52.92],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "ACTIONS / Round: 2",
+              "bbox": [19.79, 69.59, 50.11, 74.98],
+              "font": "DwarvenAxeBB",
+              "size": 14.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Enraged Destruction:",
+              "bbox": [14.34, 79.26, 46.46, 83.02],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "When",
+              "bbox": [47.2, 79.26, 55.56, 82.91],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Wilbur takes",
+              "bbox": [9.86, 83.07, 27.83, 86.72],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": ", Swine Prince will",
+              "bbox": [34.46, 83.07, 60.04, 86.72],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "retaliate, dealing",
+              "bbox": [9.53, 86.88, 33.95, 90.53],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "6",
+              "bbox": [36.58, 86.84, 38.17, 90.91],
+              "font": "DwarvenAxeBB",
+              "size": 10.56,
+              "color": "#840b01"
+            },
+            {
+              "t": "to all Heroes.",
+              "bbox": [41.32, 86.88, 60.37, 90.53],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "0c9e989b70",
+              "bbox": [54.89, 4.24, 64.11, 13.78]
+            },
+            {
+              "iconId": "08e0303bb9",
+              "bbox": [28.05, 81.9, 35.54, 88.63]
+            },
+            {
+              "iconId": "08e0303bb9",
+              "bbox": [34.17, 85.71, 41.67, 92.44]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:0c9e989b70} I",
+              "bbox": [54.89, 4.24, 64.11, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "Swine Prince",
+              "bbox": [21.86, 45.98, 48.04, 52.92]
+            },
+            {
+              "rot": 0,
+              "text": "ACTIONS / Round: 2",
+              "bbox": [19.79, 69.59, 50.11, 74.98]
+            },
+            {
+              "rot": 0,
+              "text": "Enraged Destruction: When",
+              "bbox": [14.34, 79.26, 55.56, 83.02]
+            },
+            {
+              "rot": 0,
+              "text": "Wilbur takes {icon:08e0303bb9} , Swine Prince will",
+              "bbox": [9.86, 81.9, 60.04, 88.63]
+            },
+            {
+              "rot": 0,
+              "text": "retaliate, dealing {icon:08e0303bb9} 6 to all Heroes.",
+              "bbox": [9.53, 85.71, 60.37, 92.44]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_BACK.pdf",
+          "page": 10,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "c5b67ae43a68954c",
+          "spans": [
+            {
+              "t": "I",
+              "bbox": [59.36, 5.75, 60.82, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#94c23e"
+            },
+            {
+              "t": "Beasts deal",
+              "bbox": [23.55, 38.57, 40.04, 42.22],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "+2",
+              "bbox": [42.1, 38.53, 44.81, 42.6],
+              "font": "DwarvenAxeBB",
+              "size": 10.56,
+              "color": "#ffffff",
+              "dup": 2
+            },
+            {
+              "t": ".",
+              "bbox": [46.67, 38.57, 47.45, 42.22],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "The Survivalist is blocked.",
+              "bbox": [17.15, 77.69, 53.85, 81.35],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "Uneasy Times I",
+              "bbox": [22.1, 100.4, 47.9, 106.18],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#d12529",
+              "rot": 180
+            },
+            {
+              "t": "Bestial Rage",
+              "bbox": [27.96, 15.07, 48.61, 20.85],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "0c9e989b70",
+              "bbox": [55.49, 4.24, 64.71, 13.78]
+            },
+            {
+              "iconId": "08e0303bb9",
+              "bbox": [40.25, 37.39, 47.74, 44.12]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:0c9e989b70} I",
+              "bbox": [55.49, 4.24, 64.71, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "Bestial Rage",
+              "bbox": [27.96, 15.07, 48.61, 20.85]
+            },
+            {
+              "rot": 0,
+              "text": "Beasts deal {icon:08e0303bb9} +2 .",
+              "bbox": [23.55, 37.39, 47.74, 44.12]
+            },
+            {
+              "rot": 180,
+              "text": "Uneasy Times I",
+              "bbox": [22.1, 100.4, 47.9, 106.18]
+            },
+            {
+              "rot": 180,
+              "text": "The Survivalist is blocked.",
+              "bbox": [17.15, 77.69, 53.85, 81.35]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "boss_ability:warrens:p011",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [11],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+          "page": 11,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d06e2b816b0f3f94",
+          "spans": [
+            {
+              "t": "II",
+              "bbox": [58.03, 5.75, 60.95, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#c98c3c"
+            },
+            {
+              "t": "ACTIONS / Round: 2",
+              "bbox": [19.79, 69.59, 50.11, 74.98],
+              "font": "DwarvenAxeBB",
+              "size": 14.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Enraged Destruction:",
+              "bbox": [14.34, 79.26, 46.46, 83.02],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "When",
+              "bbox": [47.2, 79.26, 55.56, 82.91],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Wilbur takes",
+              "bbox": [9.86, 83.07, 27.83, 86.72],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": ", Swine Prince will",
+              "bbox": [34.46, 83.07, 60.04, 86.72],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "retaliate, dealing",
+              "bbox": [9.53, 86.88, 33.95, 90.53],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "12",
+              "bbox": [36.15, 86.84, 38.6, 90.91],
+              "font": "DwarvenAxeBB",
+              "size": 10.56,
+              "color": "#ffffff",
+              "dup": 2
+            },
+            {
+              "t": "to all Heroes.",
+              "bbox": [41.32, 86.88, 60.37, 90.53],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Swine Prince",
+              "bbox": [21.86, 45.98, 48.04, 52.92],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "0c9e989b70",
+              "bbox": [54.89, 4.24, 64.11, 13.78]
+            },
+            {
+              "iconId": "08e0303bb9",
+              "bbox": [28.05, 81.9, 35.54, 88.63]
+            },
+            {
+              "iconId": "08e0303bb9",
+              "bbox": [34.17, 85.71, 41.67, 92.44]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:0c9e989b70} II",
+              "bbox": [54.89, 4.24, 64.11, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "Swine Prince",
+              "bbox": [21.86, 45.98, 48.04, 52.92]
+            },
+            {
+              "rot": 0,
+              "text": "ACTIONS / Round: 2",
+              "bbox": [19.79, 69.59, 50.11, 74.98]
+            },
+            {
+              "rot": 0,
+              "text": "Enraged Destruction: When",
+              "bbox": [14.34, 79.26, 55.56, 83.02]
+            },
+            {
+              "rot": 0,
+              "text": "Wilbur takes {icon:08e0303bb9} , Swine Prince will",
+              "bbox": [9.86, 81.9, 60.04, 88.63]
+            },
+            {
+              "rot": 0,
+              "text": "retaliate, dealing {icon:08e0303bb9} 12 to all Heroes.",
+              "bbox": [9.53, 85.71, 60.37, 92.44]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_BACK.pdf",
+          "page": 11,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "c4b67aa43b68956c",
+          "spans": [
+            {
+              "t": "Beasts deal",
+              "bbox": [23.55, 38.57, 40.04, 42.22],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "+4",
+              "bbox": [42.05, 38.53, 44.87, 42.6],
+              "font": "DwarvenAxeBB",
+              "size": 10.56,
+              "color": "#ffffff",
+              "dup": 2
+            },
+            {
+              "t": ".",
+              "bbox": [46.67, 38.57, 47.45, 42.22],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "II",
+              "bbox": [58.63, 5.75, 61.55, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#c98c3c"
+            },
+            {
+              "t": "The Survivalist provides",
+              "bbox": [22.91, 77.2, 56.95, 80.85],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "-1",
+              "bbox": [19.55, 76.69, 22.18, 81.32],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": ".",
+              "bbox": [14.05, 77.2, 14.83, 80.85],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "Uneasy Times II",
+              "bbox": [21.49, 100.4, 48.51, 106.18],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#d12529",
+              "rot": 180
+            },
+            {
+              "t": "Bestial Bloodlust",
+              "bbox": [23.94, 15.07, 52.63, 20.85],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "0c9e989b70",
+              "bbox": [55.49, 4.24, 64.71, 13.78]
+            },
+            {
+              "iconId": "08e0303bb9",
+              "bbox": [40.25, 37.39, 47.74, 44.12]
+            },
+            {
+              "iconId": "afd6985d1f",
+              "bbox": [14.83, 76.92, 18.82, 80.9],
+              "bbox_full": [13.83, 75.9, 19.92, 82.0]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:0c9e989b70} II",
+              "bbox": [55.49, 4.24, 64.71, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "Bestial Bloodlust",
+              "bbox": [23.94, 15.07, 52.63, 20.85]
+            },
+            {
+              "rot": 0,
+              "text": "Beasts deal {icon:08e0303bb9} +4 .",
+              "bbox": [23.55, 37.39, 47.74, 44.12]
+            },
+            {
+              "rot": 180,
+              "text": "Uneasy Times II",
+              "bbox": [21.49, 100.4, 48.51, 106.18]
+            },
+            {
+              "rot": 180,
+              "text": "The Survivalist provides -1 {icon:afd6985d1f} .",
+              "bbox": [14.05, 76.69, 56.95, 81.32]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "boss_ability:warrens:p012",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [12],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+          "page": 12,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d06e2b816b0f3f94",
+          "spans": [
+            {
+              "t": "III",
+              "bbox": [57.3, 5.75, 61.68, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "ACTIONS / Round: 2",
+              "bbox": [19.79, 69.59, 50.11, 74.98],
+              "font": "DwarvenAxeBB",
+              "size": 14.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Enraged Destruction:",
+              "bbox": [14.34, 79.26, 46.46, 83.02],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "When",
+              "bbox": [47.2, 79.26, 55.56, 82.91],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Wilbur takes",
+              "bbox": [9.86, 83.07, 27.83, 86.72],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": ", Swine Prince will",
+              "bbox": [34.46, 83.07, 60.04, 86.72],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "retaliate, dealing",
+              "bbox": [9.53, 86.88, 33.95, 90.53],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "18",
+              "bbox": [36.06, 86.84, 38.69, 90.91],
+              "font": "DwarvenAxeBB",
+              "size": 10.56,
+              "color": "#ffffff",
+              "dup": 2
+            },
+            {
+              "t": "to all Heroes.",
+              "bbox": [41.32, 86.88, 60.37, 90.53],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Swine Prince",
+              "bbox": [21.86, 45.98, 48.04, 52.92],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "0c9e989b70",
+              "bbox": [54.89, 4.24, 64.11, 13.78]
+            },
+            {
+              "iconId": "08e0303bb9",
+              "bbox": [28.05, 81.9, 35.54, 88.63]
+            },
+            {
+              "iconId": "08e0303bb9",
+              "bbox": [34.17, 85.71, 41.67, 92.44]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:0c9e989b70} III",
+              "bbox": [54.89, 4.24, 64.11, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "Swine Prince",
+              "bbox": [21.86, 45.98, 48.04, 52.92]
+            },
+            {
+              "rot": 0,
+              "text": "ACTIONS / Round: 2",
+              "bbox": [19.79, 69.59, 50.11, 74.98]
+            },
+            {
+              "rot": 0,
+              "text": "Enraged Destruction: When",
+              "bbox": [14.34, 79.26, 55.56, 83.02]
+            },
+            {
+              "rot": 0,
+              "text": "Wilbur takes {icon:08e0303bb9} , Swine Prince will",
+              "bbox": [9.86, 81.9, 60.04, 88.63]
+            },
+            {
+              "rot": 0,
+              "text": "retaliate, dealing {icon:08e0303bb9} 18 to all Heroes.",
+              "bbox": [9.53, 85.71, 60.37, 92.44]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_BACK.pdf",
+          "page": 12,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "c4b47aa43b68956e",
+          "spans": [
+            {
+              "t": "Beasts deal",
+              "bbox": [23.55, 38.04, 40.04, 41.69],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "+6",
+              "bbox": [42.02, 38.53, 44.89, 42.6],
+              "font": "DwarvenAxeBB",
+              "size": 10.56,
+              "color": "#ffffff",
+              "dup": 2
+            },
+            {
+              "t": ".",
+              "bbox": [46.67, 38.57, 47.45, 42.22],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "III",
+              "bbox": [57.9, 5.75, 62.28, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "The Survivalist provides",
+              "bbox": [23.13, 77.2, 57.18, 80.85],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "-2",
+              "bbox": [19.33, 76.69, 22.4, 81.32],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": ".",
+              "bbox": [13.82, 77.2, 14.6, 80.85],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "Uneasy Times III",
+              "bbox": [20.88, 100.4, 49.11, 106.18],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#d12529",
+              "rot": 180
+            },
+            {
+              "t": "Bestial Frenzy",
+              "bbox": [25.87, 15.07, 50.71, 20.85],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "0c9e989b70",
+              "bbox": [55.49, 4.24, 64.71, 13.78]
+            },
+            {
+              "iconId": "08e0303bb9",
+              "bbox": [40.25, 37.39, 47.74, 44.12]
+            },
+            {
+              "iconId": "afd6985d1f",
+              "bbox": [14.6, 76.92, 18.59, 80.9],
+              "bbox_full": [13.6, 75.9, 19.7, 82.0]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:0c9e989b70} III",
+              "bbox": [55.49, 4.24, 64.71, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "Bestial Frenzy",
+              "bbox": [25.87, 15.07, 50.71, 20.85]
+            },
+            {
+              "rot": 0,
+              "text": "Beasts deal {icon:08e0303bb9} +6 .",
+              "bbox": [23.55, 37.39, 47.74, 44.12]
+            },
+            {
+              "rot": 180,
+              "text": "Uneasy Times III",
+              "bbox": [20.88, 100.4, 49.11, 106.18]
+            },
+            {
+              "rot": 180,
+              "text": "The Survivalist provides -2 {icon:afd6985d1f} .",
+              "bbox": [13.82, 76.69, 57.18, 81.32]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "boss_ability:warrens:p013",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [13],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+          "page": 13,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d02b2b846e7a3dc5",
+          "spans": [
+            {
+              "t": "I",
+              "bbox": [34.51, 5.35, 35.97, 12.29],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#94c23e"
+            },
+            {
+              "t": "My zeal for blood rituals and",
+              "bbox": [16.46, 60.88, 53.44, 65.12],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "summoning rites had begun to ebb",
+              "bbox": [13.5, 65.12, 56.4, 69.36],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "as each attempt invariably brought",
+              "bbox": [13.23, 69.35, 56.67, 73.59],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "only failure, and disappointment.",
+              "bbox": [14.73, 73.58, 55.17, 77.82],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Progress was halting, and the rapidly",
+              "bbox": [11.64, 77.82, 58.26, 82.06],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "accumulating surplus of wasted",
+              "bbox": [15.22, 82.05, 54.67, 86.29],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "flesh had become... burdensome.",
+              "bbox": [14.55, 86.28, 55.34, 90.53],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "The Flesh",
+              "bbox": [25.36, 12.85, 44.65, 19.79],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "b76a947dcb",
+              "bbox": [30.64, 3.84, 39.86, 13.37]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:b76a947dcb} I",
+              "bbox": [30.64, 3.84, 39.86, 13.37]
+            },
+            {
+              "rot": 0,
+              "text": "The Flesh",
+              "bbox": [25.36, 12.85, 44.65, 19.79]
+            },
+            {
+              "rot": 0,
+              "text": "My zeal for blood rituals and",
+              "bbox": [16.46, 60.88, 53.44, 65.12]
+            },
+            {
+              "rot": 0,
+              "text": "summoning rites had begun to ebb",
+              "bbox": [13.5, 65.12, 56.4, 69.36]
+            },
+            {
+              "rot": 0,
+              "text": "as each attempt invariably brought",
+              "bbox": [13.23, 69.35, 56.67, 73.59]
+            },
+            {
+              "rot": 0,
+              "text": "only failure, and disappointment.",
+              "bbox": [14.73, 73.58, 55.17, 77.82]
+            },
+            {
+              "rot": 0,
+              "text": "Progress was halting, and the rapidly",
+              "bbox": [11.64, 77.82, 58.26, 82.06]
+            },
+            {
+              "rot": 0,
+              "text": "accumulating surplus of wasted",
+              "bbox": [15.22, 82.05, 54.67, 86.29]
+            },
+            {
+              "rot": 0,
+              "text": "flesh had become... burdensome.",
+              "bbox": [14.55, 86.28, 55.34, 90.53]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_BACK.pdf",
+          "page": 13,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "9496c2f36c6239ad",
+          "spans": [
+            {
+              "t": "I",
+              "bbox": [34.1, 107.17, 35.88, 115.62],
+              "font": "DwarvenAxeBB",
+              "size": 21.91,
+              "color": "#94c23e"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "56ea9289ab",
+              "bbox": [29.39, 105.34, 40.61, 116.94]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:56ea9289ab} I",
+              "bbox": [29.39, 105.34, 40.61, 116.94]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "boss_ability:warrens:p014",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [14],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+          "page": 14,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d03b2f846ed03d71",
+          "spans": [
+            {
+              "t": "II",
+              "bbox": [33.78, 5.35, 36.7, 12.29],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#c98c3c"
+            },
+            {
+              "t": "I could not store such a prodigious",
+              "bbox": [13.02, 49.93, 56.87, 54.17],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "amount of offal, nor could I rid",
+              "bbox": [15.43, 54.17, 54.47, 58.41],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "myself of it easily, possessed as",
+              "bbox": [14.88, 58.4, 55.03, 62.64],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "I was by unnameable things from",
+              "bbox": [14.16, 62.63, 55.74, 66.87],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "outer spheres. When excavations",
+              "bbox": [14.46, 66.87, 55.45, 71.11],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "beneath the Manor broke through",
+              "bbox": [13.82, 71.1, 56.09, 75.34],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "into an ancient network of aqueducts",
+              "bbox": [11.85, 75.33, 58.07, 79.58],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "and tunnels, I knew I had found a",
+              "bbox": [14.23, 79.57, 55.68, 83.81],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "solution to the problem of disposal.",
+              "bbox": [12.85, 83.8, 57.06, 88.04],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "The Flesh",
+              "bbox": [25.36, 12.85, 44.65, 19.79],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "b76a947dcb",
+              "bbox": [30.64, 3.84, 39.86, 13.37]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:b76a947dcb} II",
+              "bbox": [30.64, 3.84, 39.86, 13.37]
+            },
+            {
+              "rot": 0,
+              "text": "The Flesh",
+              "bbox": [25.36, 12.85, 44.65, 19.79]
+            },
+            {
+              "rot": 0,
+              "text": "I could not store such a prodigious",
+              "bbox": [13.02, 49.93, 56.87, 54.17]
+            },
+            {
+              "rot": 0,
+              "text": "amount of offal, nor could I rid",
+              "bbox": [15.43, 54.17, 54.47, 58.41]
+            },
+            {
+              "rot": 0,
+              "text": "myself of it easily, possessed as",
+              "bbox": [14.88, 58.4, 55.03, 62.64]
+            },
+            {
+              "rot": 0,
+              "text": "I was by unnameable things from",
+              "bbox": [14.16, 62.63, 55.74, 66.87]
+            },
+            {
+              "rot": 0,
+              "text": "outer spheres. When excavations",
+              "bbox": [14.46, 66.87, 55.45, 71.11]
+            },
+            {
+              "rot": 0,
+              "text": "beneath the Manor broke through",
+              "bbox": [13.82, 71.1, 56.09, 75.34]
+            },
+            {
+              "rot": 0,
+              "text": "into an ancient network of aqueducts",
+              "bbox": [11.85, 75.33, 58.07, 79.58]
+            },
+            {
+              "rot": 0,
+              "text": "and tunnels, I knew I had found a",
+              "bbox": [14.23, 79.57, 55.68, 83.81]
+            },
+            {
+              "rot": 0,
+              "text": "solution to the problem of disposal.",
+              "bbox": [12.85, 83.8, 57.06, 88.04]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_BACK.pdf",
+          "page": 14,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "9496c2f36c6239ad",
+          "spans": [
+            {
+              "t": "II",
+              "bbox": [33.21, 107.17, 36.77, 115.62],
+              "font": "DwarvenAxeBB",
+              "size": 21.91,
+              "color": "#c98c3c"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "56ea9289ab",
+              "bbox": [29.39, 105.34, 40.61, 116.94]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:56ea9289ab} II",
+              "bbox": [29.39, 105.34, 40.61, 116.94]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "boss_ability:warrens:p015",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [15],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+          "page": 15,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d12b2f946e5a3961",
+          "spans": [
+            {
+              "t": "III",
+              "bbox": [33.05, 5.35, 37.43, 12.29],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "The spasmodically squirming, braying,",
+              "bbox": [11.01, 54.18, 58.89, 58.42],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "and snorting half-corpses were heaped",
+              "bbox": [10.57, 58.42, 59.33, 62.66],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "each upon the other until at last I was",
+              "bbox": [11.22, 62.65, 58.68, 66.89],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "rid of them. The Warrens became",
+              "bbox": [14.06, 66.88, 55.84, 71.12],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "a landfill of snout and hoof, gristle",
+              "bbox": [13.29, 71.12, 56.61, 75.36],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "and bone – a mountainous, twitching",
+              "bbox": [11.89, 75.35, 58.01, 79.59],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "mass of misshapen carcasses fusing",
+              "bbox": [12.27, 79.58, 57.63, 83.82],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "themselves together in the darkness.",
+              "bbox": [12.05, 83.82, 57.85, 88.06],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "The Flesh",
+              "bbox": [25.36, 12.85, 44.65, 19.79],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "b76a947dcb",
+              "bbox": [30.64, 3.84, 39.86, 13.37]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:b76a947dcb} III",
+              "bbox": [30.64, 3.84, 39.86, 13.37]
+            },
+            {
+              "rot": 0,
+              "text": "The Flesh",
+              "bbox": [25.36, 12.85, 44.65, 19.79]
+            },
+            {
+              "rot": 0,
+              "text": "The spasmodically squirming, braying,",
+              "bbox": [11.01, 54.18, 58.89, 58.42]
+            },
+            {
+              "rot": 0,
+              "text": "and snorting half-corpses were heaped",
+              "bbox": [10.57, 58.42, 59.33, 62.66]
+            },
+            {
+              "rot": 0,
+              "text": "each upon the other until at last I was",
+              "bbox": [11.22, 62.65, 58.68, 66.89]
+            },
+            {
+              "rot": 0,
+              "text": "rid of them. The Warrens became",
+              "bbox": [14.06, 66.88, 55.84, 71.12]
+            },
+            {
+              "rot": 0,
+              "text": "a landfill of snout and hoof, gristle",
+              "bbox": [13.29, 71.12, 56.61, 75.36]
+            },
+            {
+              "rot": 0,
+              "text": "and bone – a mountainous, twitching",
+              "bbox": [11.89, 75.35, 58.01, 79.59]
+            },
+            {
+              "rot": 0,
+              "text": "mass of misshapen carcasses fusing",
+              "bbox": [12.27, 79.58, 57.63, 83.82]
+            },
+            {
+              "rot": 0,
+              "text": "themselves together in the darkness.",
+              "bbox": [12.05, 83.82, 57.85, 88.06]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_BACK.pdf",
+          "page": 15,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "9496c2f36c6239ad",
+          "spans": [
+            {
+              "t": "III",
+              "bbox": [32.33, 107.17, 37.66, 115.62],
+              "font": "DwarvenAxeBB",
+              "size": 21.91,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "56ea9289ab",
+              "bbox": [29.39, 105.34, 40.61, 116.94]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:56ea9289ab} III",
+              "bbox": [29.39, 105.34, 40.61, 116.94]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "boss_ability:warrens:p016",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [16],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+          "page": 16,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "c06e2e852f0f3fd0",
+          "spans": [
+            {
+              "t": "I",
+              "bbox": [58.76, 5.75, 60.22, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#94c23e"
+            },
+            {
+              "t": "The Flesh",
+              "bbox": [25.3, 45.98, 44.59, 52.92],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "ACTIONS / Round: 4",
+              "bbox": [19.72, 65.78, 50.18, 71.17],
+              "font": "DwarvenAxeBB",
+              "size": 14.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "One Body:",
+              "bbox": [12.36, 75.45, 27.85, 79.21],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "All Flesh Parts share",
+              "bbox": [28.59, 75.45, 57.53, 79.1],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "the same Life. Each Flesh Part has",
+              "bbox": [10.78, 79.26, 59.11, 82.91],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "one action per round. At the end",
+              "bbox": [11.57, 83.07, 58.33, 86.72],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "of a Flesh Part’s turn, all other",
+              "bbox": [13.35, 86.88, 56.55, 90.53],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Flesh Parts move 1 towards it.",
+              "bbox": [13.47, 90.69, 56.43, 94.34],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "0c9e989b70",
+              "bbox": [54.89, 4.24, 64.11, 13.78]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:0c9e989b70} I",
+              "bbox": [54.89, 4.24, 64.11, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "The Flesh",
+              "bbox": [25.3, 45.98, 44.59, 52.92]
+            },
+            {
+              "rot": 0,
+              "text": "ACTIONS / Round: 4",
+              "bbox": [19.72, 65.78, 50.18, 71.17]
+            },
+            {
+              "rot": 0,
+              "text": "One Body: All Flesh Parts share",
+              "bbox": [12.36, 75.45, 57.53, 79.21]
+            },
+            {
+              "rot": 0,
+              "text": "the same Life. Each Flesh Part has",
+              "bbox": [10.78, 79.26, 59.11, 82.91]
+            },
+            {
+              "rot": 0,
+              "text": "one action per round. At the end",
+              "bbox": [11.57, 83.07, 58.33, 86.72]
+            },
+            {
+              "rot": 0,
+              "text": "of a Flesh Part’s turn, all other",
+              "bbox": [13.35, 86.88, 56.55, 90.53]
+            },
+            {
+              "rot": 0,
+              "text": "Flesh Parts move 1 towards it.",
+              "bbox": [13.47, 90.69, 56.43, 94.34]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_BACK.pdf",
+          "page": 16,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "c5937a316a499579",
+          "spans": [
+            {
+              "t": "I",
+              "bbox": [59.36, 5.75, 60.82, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#94c23e"
+            },
+            {
+              "t": "When a large Monster is",
+              "bbox": [18.18, 36.29, 52.82, 39.94],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "spawned in battle, give it",
+              "bbox": [13.86, 40.17, 49.81, 43.82],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "2t",
+              "bbox": [53.7, 39.7, 56.35, 44.33],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#231f20"
+            },
+            {
+              "t": ".",
+              "bbox": [56.35, 40.17, 57.13, 43.82],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Big Troubles",
+              "bbox": [27.39, 15.07, 49.19, 20.85],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "At the end of each day place a",
+              "bbox": [16.35, 90.18, 59.38, 93.84],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "token on each building not visited",
+              "bbox": [11.23, 86.3, 59.77, 89.95],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "by Heroes. When a Hero visits",
+              "bbox": [14.2, 82.42, 56.8, 86.07],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "a building, remove any Wounds",
+              "bbox": [13.18, 78.54, 57.82, 82.19],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "from there and place them on the",
+              "bbox": [11.26, 74.66, 59.74, 78.31],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "Hero. When the Hamlet phase",
+              "bbox": [13.93, 70.78, 57.07, 74.44],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "ends, remove any remaining",
+              "bbox": [15.38, 66.9, 55.62, 70.56],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "Wounds from buildings.",
+              "bbox": [18.45, 63.02, 52.55, 66.67],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "Creeping Sickness I",
+              "bbox": [18.34, 100.4, 51.66, 106.18],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#d12529",
+              "rot": 180
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "0c9e989b70",
+              "bbox": [55.49, 4.24, 64.71, 13.78]
+            },
+            {
+              "iconId": "d0073a69ca",
+              "bbox": [50.45, 40.57, 53.62, 43.74],
+              "bbox_full": [49.78, 39.69, 54.23, 44.39]
+            },
+            {
+              "iconId": "1cd651343e",
+              "bbox": [11.62, 89.89, 15.62, 93.88],
+              "bbox_full": [10.62, 88.89, 16.71, 94.98]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:0c9e989b70} I",
+              "bbox": [55.49, 4.24, 64.71, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "Big Troubles",
+              "bbox": [27.39, 15.07, 49.19, 20.85]
+            },
+            {
+              "rot": 0,
+              "text": "When a large Monster is",
+              "bbox": [18.18, 36.29, 52.82, 39.94]
+            },
+            {
+              "rot": 0,
+              "text": "spawned in battle, give it {icon:d0073a69ca} 2t.",
+              "bbox": [13.86, 39.7, 57.13, 44.33]
+            },
+            {
+              "rot": 180,
+              "text": "Creeping Sickness I",
+              "bbox": [18.34, 100.4, 51.66, 106.18]
+            },
+            {
+              "rot": 180,
+              "text": "At the end of each day place a {icon:1cd651343e}",
+              "bbox": [11.62, 89.89, 59.38, 93.88]
+            },
+            {
+              "rot": 180,
+              "text": "token on each building not visited",
+              "bbox": [11.23, 86.3, 59.77, 89.95]
+            },
+            {
+              "rot": 180,
+              "text": "by Heroes. When a Hero visits",
+              "bbox": [14.2, 82.42, 56.8, 86.07]
+            },
+            {
+              "rot": 180,
+              "text": "a building, remove any Wounds",
+              "bbox": [13.18, 78.54, 57.82, 82.19]
+            },
+            {
+              "rot": 180,
+              "text": "from there and place them on the",
+              "bbox": [11.26, 74.66, 59.74, 78.31]
+            },
+            {
+              "rot": 180,
+              "text": "Hero. When the Hamlet phase",
+              "bbox": [13.93, 70.78, 57.07, 74.44]
+            },
+            {
+              "rot": 180,
+              "text": "ends, remove any remaining",
+              "bbox": [15.38, 66.9, 55.62, 70.56]
+            },
+            {
+              "rot": 180,
+              "text": "Wounds from buildings.",
+              "bbox": [18.45, 63.02, 52.55, 66.67]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "boss_ability:warrens:p017",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [17],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+          "page": 17,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "c06e2f852f0f3fc0",
+          "spans": [
+            {
+              "t": "II",
+              "bbox": [58.03, 5.75, 60.95, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#c98c3c"
+            },
+            {
+              "t": "ACTIONS / Round: 4",
+              "bbox": [19.72, 65.78, 50.18, 71.17],
+              "font": "DwarvenAxeBB",
+              "size": 14.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "One Body:",
+              "bbox": [12.36, 75.45, 27.85, 79.21],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "All Flesh Parts share",
+              "bbox": [28.59, 75.45, 57.53, 79.1],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "the same Life. Each Flesh Part has",
+              "bbox": [10.78, 79.26, 59.11, 82.91],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "one action per round. At the end",
+              "bbox": [11.57, 83.07, 58.33, 86.72],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "of a Flesh Part’s turn, all other",
+              "bbox": [13.35, 86.88, 56.55, 90.53],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Flesh Parts move 1 towards it.",
+              "bbox": [13.47, 90.69, 56.43, 94.34],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "The Flesh",
+              "bbox": [25.3, 45.98, 44.59, 52.92],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "0c9e989b70",
+              "bbox": [54.89, 4.24, 64.11, 13.78]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:0c9e989b70} II",
+              "bbox": [54.89, 4.24, 64.11, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "The Flesh",
+              "bbox": [25.3, 45.98, 44.59, 52.92]
+            },
+            {
+              "rot": 0,
+              "text": "ACTIONS / Round: 4",
+              "bbox": [19.72, 65.78, 50.18, 71.17]
+            },
+            {
+              "rot": 0,
+              "text": "One Body: All Flesh Parts share",
+              "bbox": [12.36, 75.45, 57.53, 79.21]
+            },
+            {
+              "rot": 0,
+              "text": "the same Life. Each Flesh Part has",
+              "bbox": [10.78, 79.26, 59.11, 82.91]
+            },
+            {
+              "rot": 0,
+              "text": "one action per round. At the end",
+              "bbox": [11.57, 83.07, 58.33, 86.72]
+            },
+            {
+              "rot": 0,
+              "text": "of a Flesh Part’s turn, all other",
+              "bbox": [13.35, 86.88, 56.55, 90.53]
+            },
+            {
+              "rot": 0,
+              "text": "Flesh Parts move 1 towards it.",
+              "bbox": [13.47, 90.69, 56.43, 94.34]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_BACK.pdf",
+          "page": 17,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "c5917a316a699573",
+          "spans": [
+            {
+              "t": "The first Monster you",
+              "bbox": [20.03, 34.35, 50.97, 38.0],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "spawn in each battle is",
+              "bbox": [19.29, 38.23, 51.71, 41.88],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "always a large Monster.",
+              "bbox": [18.73, 42.11, 52.27, 45.76],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "II",
+              "bbox": [58.63, 5.75, 61.55, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#c98c3c"
+            },
+            {
+              "t": "Bigger Troubles",
+              "bbox": [24.43, 15.07, 52.14, 20.85],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "At the end of each day place",
+              "bbox": [18.72, 90.18, 59.35, 93.84],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "2",
+              "bbox": [16.37, 89.68, 17.98, 94.3],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "tokens on each building not visited",
+              "bbox": [10.53, 86.3, 60.47, 89.95],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "by Heroes. When a Hero visits a",
+              "bbox": [13.01, 82.42, 57.99, 86.07],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "building, remove any Wounds from",
+              "bbox": [10.48, 78.54, 60.52, 82.19],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "there and place them on the Hero.",
+              "bbox": [10.84, 74.66, 60.15, 78.31],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "When the Hamlet phase ends,",
+              "bbox": [14.05, 70.78, 56.95, 74.44],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "remove any remaining Wounds",
+              "bbox": [13.38, 66.9, 57.63, 70.56],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "from buildings.",
+              "bbox": [24.66, 63.02, 46.34, 66.67],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "Creeping Sickness II",
+              "bbox": [17.73, 100.4, 52.27, 106.18],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#d12529",
+              "rot": 180
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "0c9e989b70",
+              "bbox": [55.49, 4.24, 64.71, 13.78]
+            },
+            {
+              "iconId": "1cd651343e",
+              "bbox": [11.65, 89.89, 15.64, 93.88],
+              "bbox_full": [10.64, 88.89, 16.74, 94.98]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:0c9e989b70} II",
+              "bbox": [55.49, 4.24, 64.71, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "Bigger Troubles",
+              "bbox": [24.43, 15.07, 52.14, 20.85]
+            },
+            {
+              "rot": 0,
+              "text": "The first Monster you",
+              "bbox": [20.03, 34.35, 50.97, 38.0]
+            },
+            {
+              "rot": 0,
+              "text": "spawn in each battle is",
+              "bbox": [19.29, 38.23, 51.71, 41.88]
+            },
+            {
+              "rot": 0,
+              "text": "always a large Monster.",
+              "bbox": [18.73, 42.11, 52.27, 45.76]
+            },
+            {
+              "rot": 180,
+              "text": "Creeping Sickness II",
+              "bbox": [17.73, 100.4, 52.27, 106.18]
+            },
+            {
+              "rot": 180,
+              "text": "At the end of each day place 2 {icon:1cd651343e}",
+              "bbox": [11.65, 89.68, 59.35, 94.3]
+            },
+            {
+              "rot": 180,
+              "text": "tokens on each building not visited",
+              "bbox": [10.53, 86.3, 60.47, 89.95]
+            },
+            {
+              "rot": 180,
+              "text": "by Heroes. When a Hero visits a",
+              "bbox": [13.01, 82.42, 57.99, 86.07]
+            },
+            {
+              "rot": 180,
+              "text": "building, remove any Wounds from",
+              "bbox": [10.48, 78.54, 60.52, 82.19]
+            },
+            {
+              "rot": 180,
+              "text": "there and place them on the Hero.",
+              "bbox": [10.84, 74.66, 60.15, 78.31]
+            },
+            {
+              "rot": 180,
+              "text": "When the Hamlet phase ends,",
+              "bbox": [14.05, 70.78, 56.95, 74.44]
+            },
+            {
+              "rot": 180,
+              "text": "remove any remaining Wounds",
+              "bbox": [13.38, 66.9, 57.63, 70.56]
+            },
+            {
+              "rot": 180,
+              "text": "from buildings.",
+              "bbox": [24.66, 63.02, 46.34, 66.67]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "boss_ability:warrens:p018",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [18],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+          "page": 18,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "c06e2f852f0f3fc0",
+          "spans": [
+            {
+              "t": "III",
+              "bbox": [57.3, 5.75, 61.68, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "ACTIONS / Round: 4",
+              "bbox": [19.72, 65.78, 50.18, 71.17],
+              "font": "DwarvenAxeBB",
+              "size": 14.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "One Body:",
+              "bbox": [12.36, 75.45, 27.85, 79.21],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "All Flesh Parts share",
+              "bbox": [28.59, 75.45, 57.53, 79.1],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "the same Life. Each Flesh Part has",
+              "bbox": [10.78, 79.26, 59.11, 82.91],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "one action per round. At the end",
+              "bbox": [11.57, 83.07, 58.33, 86.72],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "of a Flesh Part’s turn, all other",
+              "bbox": [13.35, 86.88, 56.55, 90.53],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Flesh Parts move 1 towards it.",
+              "bbox": [13.47, 90.69, 56.43, 94.34],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "The Flesh",
+              "bbox": [25.3, 45.98, 44.59, 52.92],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "0c9e989b70",
+              "bbox": [54.89, 4.24, 64.11, 13.78]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:0c9e989b70} III",
+              "bbox": [54.89, 4.24, 64.11, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "The Flesh",
+              "bbox": [25.3, 45.98, 44.59, 52.92]
+            },
+            {
+              "rot": 0,
+              "text": "ACTIONS / Round: 4",
+              "bbox": [19.72, 65.78, 50.18, 71.17]
+            },
+            {
+              "rot": 0,
+              "text": "One Body: All Flesh Parts share",
+              "bbox": [12.36, 75.45, 57.53, 79.21]
+            },
+            {
+              "rot": 0,
+              "text": "the same Life. Each Flesh Part has",
+              "bbox": [10.78, 79.26, 59.11, 82.91]
+            },
+            {
+              "rot": 0,
+              "text": "one action per round. At the end",
+              "bbox": [11.57, 83.07, 58.33, 86.72]
+            },
+            {
+              "rot": 0,
+              "text": "of a Flesh Part’s turn, all other",
+              "bbox": [13.35, 86.88, 56.55, 90.53]
+            },
+            {
+              "rot": 0,
+              "text": "Flesh Parts move 1 towards it.",
+              "bbox": [13.47, 90.69, 56.43, 94.34]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_BACK.pdf",
+          "page": 18,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "c5b16ab16a699569",
+          "spans": [
+            {
+              "t": "By entering the Dungeon,",
+              "bbox": [17.01, 28.53, 53.99, 32.18],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "remove all Level 1 large",
+              "bbox": [18.53, 32.41, 52.47, 36.06],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Monsters from the deck until",
+              "bbox": [14.62, 36.29, 56.38, 39.94],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "the end of the quest. The first",
+              "bbox": [13.99, 40.16, 57.01, 43.82],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Monster you spawn in each",
+              "bbox": [16.07, 44.04, 54.94, 47.7],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "battle is always a large Monster.",
+              "bbox": [12.53, 47.92, 58.48, 51.58],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "III",
+              "bbox": [57.9, 5.75, 62.28, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "Huge Troubles",
+              "bbox": [26.02, 15.07, 50.55, 20.85],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "At the end of each day place",
+              "bbox": [18.75, 90.18, 59.39, 93.84],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "3",
+              "bbox": [16.34, 89.68, 18.02, 94.3],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "tokens on each building not",
+              "bbox": [15.64, 86.3, 55.35, 89.95],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "visited by Heroes. When a Hero",
+              "bbox": [13.1, 82.42, 57.89, 86.07],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "visits a building, remove any",
+              "bbox": [15.37, 78.54, 55.63, 82.19],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "Wounds from there and place",
+              "bbox": [14.23, 74.66, 56.77, 78.31],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "them on the Hero. When the",
+              "bbox": [15.03, 70.78, 55.97, 74.44],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "Hamlet phase ends, remove any",
+              "bbox": [12.72, 66.9, 58.28, 70.56],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "remaining Wounds from buildings.",
+              "bbox": [10.9, 63.02, 60.1, 66.67],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20",
+              "rot": 180
+            },
+            {
+              "t": "Creeping Sickness III",
+              "bbox": [17.12, 100.4, 52.87, 106.18],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#d12529",
+              "rot": 180
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "0c9e989b70",
+              "bbox": [55.49, 4.24, 64.71, 13.78]
+            },
+            {
+              "iconId": "1cd651343e",
+              "bbox": [11.61, 89.89, 15.61, 93.88],
+              "bbox_full": [10.61, 88.89, 16.71, 94.98]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:0c9e989b70} III",
+              "bbox": [55.49, 4.24, 64.71, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "Huge Troubles",
+              "bbox": [26.02, 15.07, 50.55, 20.85]
+            },
+            {
+              "rot": 0,
+              "text": "By entering the Dungeon,",
+              "bbox": [17.01, 28.53, 53.99, 32.18]
+            },
+            {
+              "rot": 0,
+              "text": "remove all Level 1 large",
+              "bbox": [18.53, 32.41, 52.47, 36.06]
+            },
+            {
+              "rot": 0,
+              "text": "Monsters from the deck until",
+              "bbox": [14.62, 36.29, 56.38, 39.94]
+            },
+            {
+              "rot": 0,
+              "text": "the end of the quest. The first",
+              "bbox": [13.99, 40.16, 57.01, 43.82]
+            },
+            {
+              "rot": 0,
+              "text": "Monster you spawn in each",
+              "bbox": [16.07, 44.04, 54.94, 47.7]
+            },
+            {
+              "rot": 0,
+              "text": "battle is always a large Monster.",
+              "bbox": [12.53, 47.92, 58.48, 51.58]
+            },
+            {
+              "rot": 180,
+              "text": "Creeping Sickness III",
+              "bbox": [17.12, 100.4, 52.87, 106.18]
+            },
+            {
+              "rot": 180,
+              "text": "At the end of each day place 3 {icon:1cd651343e}",
+              "bbox": [11.61, 89.68, 59.39, 94.3]
+            },
+            {
+              "rot": 180,
+              "text": "tokens on each building not",
+              "bbox": [15.64, 86.3, 55.35, 89.95]
+            },
+            {
+              "rot": 180,
+              "text": "visited by Heroes. When a Hero",
+              "bbox": [13.1, 82.42, 57.89, 86.07]
+            },
+            {
+              "rot": 180,
+              "text": "visits a building, remove any",
+              "bbox": [15.37, 78.54, 55.63, 82.19]
+            },
+            {
+              "rot": 180,
+              "text": "Wounds from there and place",
+              "bbox": [14.23, 74.66, 56.77, 78.31]
+            },
+            {
+              "rot": 180,
+              "text": "them on the Hero. When the",
+              "bbox": [15.03, 70.78, 55.97, 74.44]
+            },
+            {
+              "rot": 180,
+              "text": "Hamlet phase ends, remove any",
+              "bbox": [12.72, 66.9, 58.28, 70.56]
+            },
+            {
+              "rot": 180,
+              "text": "remaining Wounds from buildings.",
+              "bbox": [10.9, 63.02, 60.1, 66.67]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
