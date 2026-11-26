@@ -1,3 +1,4 @@
+import { matchesCoreTrinketPrint } from "../../../../data/src/core/trinkets/core-trinket-bindings";
 import { battleTrinketHolders } from "./battle-hero-card-holders";
 import { isFreeTrinketId, useFreeTrinket } from "./battle-free-trinkets";
 import type { FreeTrinketId } from "./battle-free-trinkets";
@@ -18,34 +19,12 @@ export type UseTrinketCommand = {
 
 /** R26 / 印刷 p025：逐半面绑定，不由 verification 推断能力。 */
 export function isFortunateArmlet(card: NormalizedTrinketCard): boolean {
-  const front = card.upright_half,
-    back = card.inverted_half;
-  const line = back.effect_lines[0],
-    glyph = line?.[0],
-    text = line?.[1];
+  const glyph = card.inverted_half.effect_lines[0]?.[0];
   return (
-    card.id === FORTUNATE_ARMLET_ID &&
-    card.name === "Fortunate Armlet" &&
-    card.level === 2 &&
     card.rules?.useStress === 1 &&
-    !card.verification.unverified &&
-    front.name === card.name &&
-    back.name === card.name &&
-    front.level === 2 &&
-    back.level === 2 &&
-    front.printed_rotation === 0 &&
-    back.printed_rotation === 180 &&
-    JSON.stringify(front.effect_lines) ===
-      JSON.stringify([[{ type: "text", text: "Acc+1 and Crit+1" }]]) &&
-    back.effect_lines.length === 1 &&
-    line?.length === 2 &&
+    matchesCoreTrinketPrint(card, FORTUNATE_ARMLET_ID) &&
     glyph?.type === "icon" &&
-    glyph.icon.key === "stress" &&
-    glyph.icon.iconId === "dd86508746" &&
-    glyph.icon.status === "confirmed" &&
-    ["confirmed", "confirmed_rulebook"].includes(glyph.icon.naming) &&
-    text?.type === "text" &&
-    text.text === " +1"
+    glyph.icon.status === "confirmed"
   );
 }
 

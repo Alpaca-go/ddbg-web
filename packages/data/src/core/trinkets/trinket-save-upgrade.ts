@@ -1,5 +1,5 @@
-import raw from "../../../../data/normalized/corebox/trinket.json";
-import { normalizedTrinketFileSchema } from "../../../../data/src/shared/schema";
+import raw from "../../../normalized/corebox/trinket.json";
+import { normalizedTrinketFileSchema } from "../../shared/schema";
 /** R-127只修正明确批准的卡面元数据；绝不替换持牌、牌序、选择、RNG或英雄数据。 */
 const cards = normalizedTrinketFileSchema.parse(raw).cards;
 function canonical(value: unknown): string {

@@ -1,3 +1,5 @@
+import type { NormalizedTrinketCard } from "../../shared/schema";
+
 // R-127：完整印刷双面绑定；verification通过不等于无需逐项解释图标。
 export const CORE_TRINKET_BINDINGS = {
   "trinket:p001": {
@@ -85,6 +87,7 @@ export const CORE_TRINKET_BINDINGS = {
     name: "Warrior’s Bracer",
     level: 1,
     faces: ['[["Acc+2 Acc when in"]]', '[["Acc-1"]]'],
+    frontStance: { iconId: "fe18ec5b80", key: "stance_aggressive_lit" },
   },
   "trinket:p014": {
     name: "Warrior’s Cap",
@@ -268,3 +271,45 @@ export const CORE_TRINKET_BINDINGS = {
 } as const;
 export type CoreTrinketId = keyof typeof CORE_TRINKET_BINDINGS;
 export const CORE_TRINKET_IDS = Object.keys(CORE_TRINKET_BINDINGS) as CoreTrinketId[];
+
+const confirmed = (naming: string) => naming === "confirmed" || naming === "confirmed_rulebook";
+
+/** R-127／R-048：校验印刷面与逐卡核准内容。 */
+export function matchesCoreTrinketPrint(card: NormalizedTrinketCard, id: CoreTrinketId): boolean {
+  const binding = CORE_TRINKET_BINDINGS[id];
+  return (
+    card.id === id &&
+    !card.verification.unverified &&
+    card.name === binding.name &&
+    card.level === binding.level &&
+    [card.upright_half, card.inverted_half].every(
+      (half, index) =>
+        half.name === card.name &&
+        half.level === card.level &&
+        half.printed_rotation === (index ? 180 : 0) &&
+        half.effect_lines.every((line) =>
+          line.every((segment) => segment.type === "text" || confirmed(segment.icon.naming)),
+        ) &&
+        JSON.stringify(
+          half.effect_lines.map((line) =>
+            line.map((segment) =>
+              segment.type === "text"
+                ? segment.text
+                : "@" + segment.icon.iconId + ":" + segment.icon.key,
+            ),
+          ),
+        ) === binding.faces[index],
+    )
+  );
+}
+
+/** p013 的姿态图标没有进入印刷效果行，需单独核对正面图标。 */
+export function matchesBracerFrontStance(card: NormalizedTrinketCard): boolean {
+  const { iconId, key } = CORE_TRINKET_BINDINGS["trinket:p013"].frontStance;
+  return (
+    card.front_icons.filter((icon) => icon.key?.startsWith("stance_")).length === 1 &&
+    card.front_icons.some(
+      (icon) => icon.iconId === iconId && icon.key === key && confirmed(icon.naming),
+    )
+  );
+}

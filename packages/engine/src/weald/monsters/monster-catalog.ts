@@ -7,6 +7,7 @@ import {
   WEALD_MONSTER_ATTACKS,
   wealdMonsterProfileSchema,
 } from "../../../../data/src/weald/monsters/monster-rulings";
+import { matchesWealdDefencePrint } from "../../../../data/src/weald/monsters/monster-print";
 import type { MonsterCardView, MonsterSkillView } from "../../shared/core/monster-skill";
 import { readMonsterAttackView } from "../../shared/core/monster-skill";
 
@@ -73,9 +74,7 @@ export function buildWealdMonsterCatalog(
       JSON.stringify(source.pages) !== JSON.stringify(profile.pages) ||
       JSON.stringify(source.stanceGroups) !== JSON.stringify(profile.stanceGroups) ||
       source.type_position_tags.includes("Large") !== (profile.stanceSlots === 2) ||
-      source.resistances.length !== 1 ||
-      source.resistances[0]?.iconId !== profile.resistanceIcon ||
-      source.immunities.length !== 0
+      !matchesWealdDefencePrint(source, profile)
     )
       throw new Error(`Weald R-232 属性或来源漂移：${source.id}`);
     const expected = WEALD_MONSTER_ATTACKS.filter((entry) => entry.cardId === source.id);

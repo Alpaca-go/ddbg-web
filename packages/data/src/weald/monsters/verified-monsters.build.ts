@@ -1,8 +1,5 @@
-import {
-  WEALD_MONSTER_ATTACKS,
-  WEALD_RANGE_ICON_ID,
-  wealdEffectSignatures,
-} from "./monster-rulings";
+import { WEALD_MONSTER_ATTACKS } from "./monster-rulings";
+import { matchesWealdAttackPrint, matchesWealdDefencePrint } from "./monster-print";
 import { WEALD_MONSTER_PROFILES } from "./monster-profiles";
 import type { NormalizedMonsterMediumCard } from "../../shared/schema";
 
@@ -19,9 +16,7 @@ export function attachVerifiedWealdMonster(
     card.level !== 1 ||
     card.life !== profile.life ||
     JSON.stringify(card.pages) !== JSON.stringify(profile.pages) ||
-    card.resistances.length !== 1 ||
-    card.resistances[0]?.iconId !== profile.resistanceIcon ||
-    card.immunities.length !== 0 ||
+    !matchesWealdDefencePrint(card, profile) ||
     card.skills.length !== attacks.length
   )
     throw new Error(`Weald R-230 卡身份不符：${card.id}`);
@@ -33,29 +28,7 @@ export function attachVerifiedWealdMonster(
     stanceGroups: profile.stanceGroups,
     skills: card.skills.map((skill) => {
       const entry = attacks.find((entry) => entry.slot === skill.slot);
-      const number = (label: string) =>
-        skill.unlabeled_numbers.find(
-          (n) => n.anchor.type === "printed_label" && n.anchor.label === label,
-        )?.numeric;
-      const ranges = skill.unlabeled_numbers.filter(
-        (n) =>
-          n.anchor.type === "beside_icon" &&
-          n.anchor.left_icon?.iconId === WEALD_RANGE_ICON_ID &&
-          n.anchor.inside_icon === null,
-      );
-      if (
-        !entry ||
-        entry.name !== skill.name ||
-        skill.printed_labels.find((label) => label.label === "Crit")?.value !== entry.crit ||
-        skill.printed_labels.find((label) => label.label === "Acc")?.value !== entry.acc ||
-        number("Crit") !== entry.criticalDamage ||
-        number("Acc") !== entry.damage ||
-        ranges.length !== 1 ||
-        ranges[0]?.numeric !== entry.range ||
-        skill.target?.replace(/\s+/g, "") !== entry.target.replace(/\s+/g, "") ||
-        JSON.stringify(wealdEffectSignatures(skill.effect_lines)) !==
-          JSON.stringify(entry.effectSignatures)
-      )
+      if (!entry || !matchesWealdAttackPrint(skill, entry))
         throw new Error(`Weald R-230 技能卡面漂移：${card.id} / ${skill.slot}`);
       return {
         ...skill,

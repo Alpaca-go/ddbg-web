@@ -96,7 +96,6 @@ const FILE_MAP = {
   "shared/core/monster-skill.ts": ["规则语义", "rules.monster_effects + signature"],
   "shared/core/skill-status.ts": ["漂移断言", "signature only（文本 + 族）"],
   "shared/trinkets/trinket-reactions.ts": ["规则语义", "饰品条件：语义族签名"],
-  "shared/trinkets/trinket-save-upgrade.ts": ["漂移断言", "signature only"],
 };
 
 const files = [];

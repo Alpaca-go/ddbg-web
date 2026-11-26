@@ -34,7 +34,7 @@ export function withTeleporterAdjacency(areas: readonly BattleArea[]): readonly 
 }
 
 /**
- * R-159：英雄移动路径上每步橙星区压力 +1（df38279161）。
+ * R-159：英雄移动路径上每步橙星区压力 +1。
  * 最小解释：只统计 `moveHero.path` 中的区域，不含起点；逐步分别触发（Q-145）。
  */
 export function applyHeroTeleporterMoveStress(

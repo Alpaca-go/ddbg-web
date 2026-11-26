@@ -40,7 +40,7 @@ export const PROPHET_I_WOODEN_PEW_SUMMON_TOKEN_ID = "room:ruins:11:wooden_pew" a
 export const PROPHET_ROOM_CARD_ID = "room:ruins:11" as const;
 
 /**
- * `room:ruins:11` 上 `{icon:096ea91bb9}` 标记的印刷数字/范围（顺序同 normalized `printedLines`）。
+ * `room:ruins:11` 的 d10 标记和印刷数字范围（顺序同 normalized `printedLines`）。
  * R-167/173批准真实区域绑定；运行时依赖 `prophetRoomD10AreaTable` 绑定。
  */
 export const PROPHET_ROOM_D10_MARKERS = ["4", "3", "1-2", "6", "5", "7-8", "10", "9"] as const;

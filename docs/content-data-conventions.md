@@ -16,6 +16,7 @@
 - **提取和发布各有入口。** 扩展提取放 `extract/extension/<pack>/{raw,parsed}/`，发布文件放 `normalized/extension/<pack>/`。核心盒对应 `extract/corebox/` 和 `normalized/corebox/`。JSON 文件名沿用 snake_case，如 `boss_ability.json`、`quest_cards.json` 和 `room_tile_geometry.json`。英雄使用下文的共享发布目录。
 - **沿用同类目录的顶层结构。** 使用现有 `schema` 标识、`cards` 或 `tiles` 容器、来源字段、字段名和空值约定。通用卡牌目录已有 `dictionary_version`、`category`、`sources`、`stats` 的按 schema 填写。Curio 使用 `dictionaryVersion`。包级数量、页段和身份校验按对应印刷目录扩展。
 - **印刷身份、审核状态和运行时准入分别记录。** 保留原印刷文字、来源文件、页码及必要的面。未确认数据按该类 schema 记录原因或停点。已有 `usable`、`combatReady`、`runtimeReady` 或 `poolEligible` 时按对应准入条件设置。规则结算放在 `packages/engine`。
+- **图标指纹归所属内容的数据层。** 印刷核准以现有卡牌 ID、面和行定位，复用该类型的校验入口。经核准的效果用有语义的规则字段表达。运行时需要防止卡面漂移时调用数据层校验函数，引擎源码中读取 `iconId` 或写入十六进制指纹会触发 ESLint。已发布目录保留用作印刷校验和旧档回放的字段。
 - **引用只用 canonical ID。** 页码型实体使用印刷页，怪物重复印刷用首印页和 `pages`。房间族使用地点与房间号。若现有目录将来源分布在页数组、分面字段或文件级 `sources`，沿用该类 schema 的来源形状。历史 `rawId` 仅追溯提取实体。
 
 完整的读写与发布边界见 [仓库布局](repo-layout.md)。当前暴露的读写入口见 [write.ts](../packages/data/src/write.ts)。

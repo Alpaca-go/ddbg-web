@@ -1,4 +1,7 @@
-import { CORE_TRINKET_BINDINGS } from "../../../../data/src/core/trinkets/core-trinket-bindings";
+import {
+  CORE_TRINKET_BINDINGS,
+  matchesCoreTrinketPrint,
+} from "../../../../data/src/core/trinkets/core-trinket-bindings";
 import type { CoreTrinketId } from "../../../../data/src/core/trinkets/core-trinket-bindings";
 import type { ApplyResult, Command, GameState, PendingChoice, GameEvent } from "../core/command";
 import type { BattleState } from "../battle/battle";
@@ -94,32 +97,9 @@ export function availableTrinket(
         }),
   );
   if (problem) throw new InvalidTrinket(problem);
-  const c = pool.cards.find((c) => c.id === id),
-    d = CORE_TRINKET_BINDINGS[id];
-  if (
-    !c ||
-    c.verification.unverified ||
-    c.name !== d.name ||
-    c.level !== d.level ||
-    [c.upright_half, c.inverted_half].some(
-      (h, i) =>
-        h.name !== c.name ||
-        h.level !== c.level ||
-        h.printed_rotation !== (i ? 180 : 0) ||
-        h.effect_lines
-          .flat()
-          .some(
-            (s) =>
-              s.type === "icon" && !["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
-          ) ||
-        JSON.stringify(
-          h.effect_lines.map((l) =>
-            l.map((s) => (s.type === "text" ? s.text : "@" + s.icon.iconId + ":" + s.icon.key)),
-          ),
-        ) !== d.faces[i],
-    )
-  )
-    throw new InvalidTrinket("饰品卡面变化（R-048）：" + d.name);
+  const card = pool.cards.find((card) => card.id === id);
+  if (!card || !matchesCoreTrinketPrint(card, id))
+    throw new InvalidTrinket("饰品卡面变化（R-048）：" + CORE_TRINKET_BINDINGS[id].name);
   return true;
 }
 export function spendTrinket(scope: Scope, heroId: string, id: CoreTrinketId): void {

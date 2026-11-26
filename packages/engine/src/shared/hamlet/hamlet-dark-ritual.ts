@@ -52,7 +52,7 @@ function sync(hero: Hero): Hero {
  * Hero STAT：Hamlet Skill Dark Ritual —
  * Self {stress} +1,
  * {target_hero} : {heal} N , {stress} -2, {buff} 3t.
- * I/II Buff 图标 confirmed（`2af41c1ca4`）；III 的 `4f7549c1b8` 按 R-097 LIMITED 解释为 Buff。
+ * I／II 的 Buff 图标已核实。III 按 R-097 的逐卡裁定解释为 Buff。
  */
 export function useDarkRitual(state: GameState, actor: Hero, targetId: string): ApplyResult {
   const d = state.dungeon!;

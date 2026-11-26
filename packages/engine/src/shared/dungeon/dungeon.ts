@@ -223,7 +223,7 @@ export type DungeonState = {
   readonly defeatedRuinsBossIdentities?: readonly import("../../core/bosses/threat-description-catalog").RuinsBossIdentity[];
   /** 准备结束后抽到的下一任务候选项，选定后清除。 */
   readonly nextQuestOffers?: readonly string[];
-  /** Unsettling Darkness：下次出征起始光照（印刷 Light 4，图标 d13c8b76af 已确认）。 */
+  /** Unsettling Darkness：下次出征起始光照（印刷 Light 4）。 */
   readonly nextQuestStartingLight?: 4;
   /** Traveling Merchants：下次开局补给掷完后，每名英雄可改一颗己方骰面。 */
   readonly nextQuestProvisionFaceChoice?: true;

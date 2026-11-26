@@ -42,7 +42,6 @@ export const wealdMonsterAttackSchema = z.strictObject({
     .optional(),
 });
 export type WealdMonsterAttack = z.infer<typeof wealdMonsterAttackSchema>;
-export const WEALD_RANGE_ICON_ID = "73863d0313";
 
 const E = "monster_medium:weald:p001";
 const G = "monster_medium:weald:p006";
@@ -169,23 +168,3 @@ export const WEALD_MONSTER_ATTACKS = [
     L,
   ),
 ] as const;
-
-/** 原始图标 ID 与文本的签名，独立于词典更新，保留顺序和标点。 */
-export function wealdEffectSignatures(
-  lines: readonly (readonly (
-    | { readonly type: "text"; readonly text: string }
-    | {
-        readonly type: "icon";
-        readonly icon: { readonly iconId?: string; readonly key?: string | null };
-      }
-  )[])[],
-) {
-  return lines.map((line) =>
-    line
-      .map((segment) =>
-        segment.type === "text" ? segment.text : `{${segment.icon.iconId ?? "missing"}}`,
-      )
-      .join("")
-      .replace(/\s+/g, ""),
-  );
-}

@@ -1,9 +1,8 @@
 import {
   WEALD_MONSTER_ATTACKS,
-  WEALD_RANGE_ICON_ID,
-  wealdEffectSignatures,
   wealdMonsterAttackSchema,
 } from "../../../../data/src/weald/monsters/monster-rulings";
+import { matchesWealdAttackPrint } from "../../../../data/src/weald/monsters/monster-print";
 import type { MonsterEffectPlan } from "../../../../data/src/core/monsters/monster-effects";
 import type { HeroSkillCardView, SkillSegment } from "../../core/heroes/hero-skill";
 import type { MonsterCardView, MonsterSkillView } from "../../shared/core/monster-skill";
@@ -71,28 +70,7 @@ export function readWealdMonsterAttack(
   );
   if (!parsed.success || !entry || JSON.stringify(parsed.data) !== JSON.stringify(entry))
     return refuse("Weald 技能核准记录与 R-230 不符");
-  const number = (label: string) =>
-    skill.unlabeled_numbers.find(
-      (item) => item.anchor.type === "printed_label" && item.anchor.label === label,
-    )?.numeric;
-  const ranges = skill.unlabeled_numbers.filter(
-    (item) =>
-      item.anchor.type === "beside_icon" &&
-      item.anchor.left_icon?.iconId === WEALD_RANGE_ICON_ID &&
-      item.anchor.inside_icon === null,
-  );
-  if (
-    skill.name !== entry.name ||
-    skill.target !== entry.target ||
-    skill.printed_labels.find((label) => label.label === "Crit")?.value !== entry.crit ||
-    skill.printed_labels.find((label) => label.label === "Acc")?.value !== entry.acc ||
-    number("Crit") !== entry.criticalDamage ||
-    number("Acc") !== entry.damage ||
-    ranges.length !== 1 ||
-    ranges[0]?.numeric !== entry.range ||
-    JSON.stringify(wealdEffectSignatures(skill.effect_lines)) !==
-      JSON.stringify(entry.effectSignatures)
-  )
+  if (skill.target !== entry.target || !matchesWealdAttackPrint(skill, entry))
     return refuse("Weald 技能原始卡面与 R-230 不符");
 
   const rangeIcon = { key: "range", naming: "confirmed" };

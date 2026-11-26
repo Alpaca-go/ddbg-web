@@ -1,3 +1,4 @@
+import { matchesBracerFrontStance } from "../../../../data/src/core/trinkets/core-trinket-bindings";
 import { battleTrinketHolders } from "./battle-hero-card-holders";
 import { HERO_SKILL_TRINKET_IDS } from "../../../../data/src/core/heroes/hero-skill-trinkets";
 import type { HeroSkillTrinketId } from "../../../../data/src/core/heroes/hero-skill-trinkets";
@@ -26,7 +27,7 @@ type Definition = {
   invertedNotInStance?: SkillStance;
   icon?: string;
   /** p013 姿态图标在 raw 行的 rot 误归，仍须完整卡面与已确认 front_icons 对应。 */
-  frontIconId?: string;
+  frontStanceIcon?: true;
   light?: "dark" | "solar";
   freeInverted?: true;
   damage?: number;
@@ -113,7 +114,7 @@ const definitions: Record<HeroSkillTrinketId, Definition> = {
     penalty: -1,
     stance: "aggressive",
     icon: "stance_aggressive_lit",
-    frontIconId: "fe18ec5b80",
+    frontStanceIcon: true,
   },
   "trinket:p031": {
     name: "Sniper’s Ring",
@@ -330,16 +331,9 @@ function readOffers(
             : exactLine(
                 card.upright_half.effect_lines,
                 rule.positive,
-                rule.frontIconId ? undefined : rule.icon,
+                rule.frontStanceIcon ? undefined : rule.icon,
               ) &&
-              (!rule.frontIconId ||
-                (card.front_icons.filter((i) => i.key?.startsWith("stance_")).length === 1 &&
-                  card.front_icons.some(
-                    (i) =>
-                      i.iconId === rule.frontIconId &&
-                      i.key === rule.icon &&
-                      ["confirmed", "confirmed_rulebook"].includes(i.naming),
-                  ))) &&
+              (!rule.frontStanceIcon || matchesBracerFrontStance(card)) &&
               exactLine(
                 card.inverted_half.effect_lines,
                 rule.negative,

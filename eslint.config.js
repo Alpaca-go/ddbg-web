@@ -48,5 +48,22 @@ export default tseslint.config(
       ],
     },
   },
+  {
+    files: ["packages/engine/src/**/*.ts"],
+    rules: {
+      "no-restricted-syntax": [
+        "error",
+        {
+          selector:
+            "MemberExpression[computed=false][property.name=iconId], MemberExpression[computed=true][property.value=iconId], ObjectPattern > Property[key.name=iconId], ObjectPattern > Property[key.value=iconId]",
+          message: "图标指纹由数据层校验。引擎使用已核准的 rules 或数据层校验函数。",
+        },
+        {
+          selector: String.raw`Literal[value=/\b[0-9a-f]{10}\b/], TemplateElement[value.raw=/\b[0-9a-f]{10}\b/]`,
+          message: "10 位十六进制印刷指纹请登记在对应内容的数据层。",
+        },
+      ],
+    },
+  },
   prettier,
 );

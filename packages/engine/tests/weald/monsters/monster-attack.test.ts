@@ -217,5 +217,28 @@ describe("Weald R-230 已确认技能的独立结算", () => {
       ),
     };
     expect(readMonsterAttackView(wrongRange, 2).status).toBe("refused");
+    const wrongGlyph = {
+      ...rangeSource,
+      skills: rangeSource.skills.map((skill) =>
+        skill.slot !== 2
+          ? skill
+          : {
+              ...skill,
+              unlabeled_numbers: skill.unlabeled_numbers.map((number) => {
+                const anchor = number.anchor;
+                return anchor.type === "beside_icon" && anchor.left_icon
+                  ? {
+                      ...number,
+                      anchor: {
+                        ...anchor,
+                        left_icon: { ...anchor.left_icon, iconId: "0000000000" },
+                      },
+                    }
+                  : number;
+              }),
+            },
+      ),
+    };
+    expect(readMonsterAttackView(wrongGlyph, 2).status).toBe("refused");
   });
 });

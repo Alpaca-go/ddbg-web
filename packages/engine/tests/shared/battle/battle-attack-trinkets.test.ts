@@ -450,6 +450,18 @@ it("Fortunate Armlet正反面卡面漂移均拒绝，不消费骰、翻面或压
           ...card.inverted_half,
           effect_lines: [
             [
+              { ...glyph, icon: { ...glyph.icon, iconId: "0000000000" } },
+              { type: "text" as const, text: " +1" },
+            ],
+          ],
+        },
+      },
+      {
+        ...card,
+        inverted_half: {
+          ...card.inverted_half,
+          effect_lines: [
+            [
               { ...glyph, icon: { ...glyph.icon, naming: "unverified" as const } },
               { type: "text" as const, text: " +1" },
             ],
