@@ -1,19 +1,5 @@
-import { parseAnnotatedHeroSkillCard } from "../../../shared/schema";
-import type { EffectLineFixEntry, HeroAnnotationEntries, ShuffleEntry } from "./types";
-import { lineSignature } from "./shared";
-import type { NormalizedHeroSkillCard, Segment } from "../../../shared/schema";
-import {
-  assertCardMeta,
-  defineHeroModule,
-  cloneKey,
-  iconFromCard,
-  iconFromPool,
-  rangeZeroUnlabeled,
-  segmentOnCardAll,
-  stressDeltaAnchor,
-  text,
-} from "./patch-helpers";
-import type { CardFix } from "./patch-helpers";
+import type { HeroAnnotationEntries, ShuffleEntry, SkillCorrection } from "./types";
+import { defineHeroModule } from "./patch-helpers";
 
 /** 文本位移规则（scope + Push/Pull 原文）。 */
 const shuffleEntries: readonly ShuffleEntry[] = [
@@ -67,57 +53,463 @@ const shuffleEntries: readonly ShuffleEntry[] = [
   },
 ];
 
-const rampartSelfLine = [
-  { icon: "self_effects" },
-  " Self ",
-  { iconId: "d4329c2a97", relabelAs: "shuffle" },
-  " Pull 1",
-] as const;
-const rampartStatuses = [
-  { lineIndex: 0, segmentIndex: 2, scope: "target", kind: "stun", duration: 1 },
-] as const;
-
-const rampartEffectLineFixes: readonly EffectLineFixEntry[] = [
+/**
+ * R-200：Man-at-Arms L1–III 技能族（TDH p232–252）逐卡覆盖；II/III 共 14 张 + 同族 L1 OCR 洗净。
+ * Retribution / Defender 见 Q-176 / Q-177（Mark+Riposte、Guard+Protection）。
+ */
+const fixes: readonly SkillCorrection[] = [
   {
     id: "hero_skill:cove:h12:p235",
     name: "Rampart",
     page: 235,
     level: 1,
-    expected: ["{target_effects}{stun}1t,{shuffle}Push1", "{self_effects}{buff}Self{buff}Pull1"],
-    output: [
-      [{ icon: "target_effects" }, " ", { icon: "stun" }, " 1t, ", { icon: "shuffle" }, " Push 1"],
-      rampartSelfLine,
+    expectedEffects: [
+      "{target_effects}{stun}1t,{shuffle}Push1",
+      "{self_effects}{buff}Self{buff}Pull1",
     ],
-    statuses: [...rampartStatuses],
+    expectedStats: "{range}1{target_monster}Crit1{damage}7Acc9{damage}4",
+    effects: [
+      [{ icon: "target_effects" }, " ", { icon: "stun" }, " 1t, ", { icon: "shuffle" }, " Push 1"],
+      [
+        { icon: "self_effects" },
+        " Self ",
+        { iconId: "d4329c2a97", relabelAs: "shuffle" },
+        " Pull 1",
+      ],
+    ],
+    annotations: {
+      annotation_status_effects: [
+        { lineIndex: 0, segmentIndex: 2, scope: "target", kind: "stun", duration: 1 },
+      ],
+    },
   },
   {
     id: "hero_skill:cove:h12:p236",
     name: "Rampart",
     page: 236,
     level: 2,
-    expected: ["{target_effects}{stun}1t,{shuffle}Push2", "{self_effects}{buff}Self{buff}Pull1"],
-    output: [
-      [{ icon: "target_effects" }, " ", { icon: "stun" }, " 1t, ", { icon: "shuffle" }, " Push 2"],
-      rampartSelfLine,
+    expectedEffects: [
+      "{target_effects}{stun}1t,{shuffle}Push2",
+      "{self_effects}{buff}Self{buff}Pull1",
     ],
-    statuses: [...rampartStatuses],
+    expectedStats: "{range}1{target_monster}Crit1{damage}9Acc10{damage}5",
+    effects: [
+      [{ icon: "target_effects" }, " ", { icon: "stun" }, " 1t, ", { icon: "shuffle" }, " Push 2"],
+      [
+        { icon: "self_effects" },
+        " Self ",
+        { iconId: "d4329c2a97", relabelAs: "shuffle" },
+        " Pull 1",
+      ],
+    ],
+    annotations: {
+      annotation_status_effects: [
+        { lineIndex: 0, segmentIndex: 2, scope: "target", kind: "stun", duration: 1 },
+      ],
+    },
   },
   {
     id: "hero_skill:cove:h12:p237",
     name: "Rampart",
     page: 237,
     level: 3,
-    expected: ["{target_effects}{stun}1t,{shuffle}Push2", "{self_effects}{buff}Self{buff}Pull1"],
-    output: [
-      [{ icon: "target_effects" }, " ", { icon: "stun" }, " 1t, ", { icon: "shuffle" }, " Push 2"],
-      rampartSelfLine,
+    expectedEffects: [
+      "{target_effects}{stun}1t,{shuffle}Push2",
+      "{self_effects}{buff}Self{buff}Pull1",
     ],
-    statuses: [...rampartStatuses],
+    expectedStats: "{range}1{target_monster}Crit1{damage}10Acc11{damage}6",
+    effects: [
+      [{ icon: "target_effects" }, " ", { icon: "stun" }, " 1t, ", { icon: "shuffle" }, " Push 2"],
+      [
+        { icon: "self_effects" },
+        " Self ",
+        { iconId: "d4329c2a97", relabelAs: "shuffle" },
+        " Pull 1",
+      ],
+    ],
+    annotations: {
+      annotation_status_effects: [
+        { lineIndex: 0, segmentIndex: 2, scope: "target", kind: "stun", duration: 1 },
+      ],
+    },
+  },
+  {
+    id: "hero_skill:cove:h12:p238",
+    name: "Bellow",
+    page: 238,
+    level: 1,
+    expectedEffects: ["{target_effects}{debuff}1t"],
+    expectedStats: "{range}1{target_hero}{target_hero}{target_hero}{target_hero}Crit0Acc9",
+    stats: [
+      { line: "stats", segment: 0, iconId: "3ab7e7544c" },
+      " 1 ",
+      { icon: "target_monster", from: "pool" },
+      " ",
+      { icon: "target_monster", from: "pool" },
+      " ",
+      { icon: "target_monster", from: "pool" },
+      " ",
+      { icon: "target_monster", from: "pool" },
+      " Crit 0 Acc 9",
+    ],
+    annotations: {
+      annotation_status_effects: [
+        { lineIndex: 0, segmentIndex: 2, scope: "target", kind: "debuff", duration: 1 },
+      ],
+    },
+  },
+  {
+    id: "hero_skill:cove:h12:p239",
+    name: "Bellow",
+    page: 239,
+    level: 2,
+    expectedEffects: ["{target_effects}{debuff}2t"],
+    expectedStats: "{range}1{target_hero}{target_hero}{target_hero}{target_hero}Crit0Acc10",
+    stats: [
+      { line: "stats", segment: 0, iconId: "3ab7e7544c" },
+      " 1 ",
+      { icon: "target_monster", from: "pool" },
+      " ",
+      { icon: "target_monster", from: "pool" },
+      " ",
+      { icon: "target_monster", from: "pool" },
+      " ",
+      { icon: "target_monster", from: "pool" },
+      " Crit 0 Acc 10",
+    ],
+    annotations: {
+      annotation_status_effects: [
+        { lineIndex: 0, segmentIndex: 2, scope: "target", kind: "debuff", duration: 2 },
+      ],
+    },
+  },
+  {
+    id: "hero_skill:cove:h12:p240",
+    name: "Bellow",
+    page: 240,
+    level: 3,
+    expectedEffects: ["{target_effects}{debuff}3t"],
+    expectedStats: "{range}1{target_hero}{target_hero}{target_hero}{target_hero}Crit1Acc11",
+    stats: [
+      { line: "stats", segment: 0, iconId: "3ab7e7544c" },
+      " 1 ",
+      { icon: "target_monster", from: "pool" },
+      " ",
+      { icon: "target_monster", from: "pool" },
+      " ",
+      { icon: "target_monster", from: "pool" },
+      " ",
+      { icon: "target_monster", from: "pool" },
+      " Crit 1 Acc 11",
+    ],
+    annotations: {
+      annotation_status_effects: [
+        { lineIndex: 0, segmentIndex: 2, scope: "target", kind: "debuff", duration: 3 },
+      ],
+    },
+  },
+  {
+    id: "hero_skill:cove:h12:p241",
+    name: "Defender",
+    page: 241,
+    level: 1,
+    expectedEffects: ["{range}{buff}Self", "{self_effects}{buff}Self{riposte}1t,{shuffle}2t"],
+    expectedStats: null,
+    requireIcons: [{ icon: "protection", from: "pool" }],
+    effects: [
+      [{ icon: "range" }, " Self"],
+      [{ icon: "self_effects" }, " Self ", { iconId: "a0290ad4ce", relabelAs: "guard" }, " 1t"],
+      [
+        { icon: "self_effects" },
+        " Self ",
+        { iconId: "ac56561b87", relabelAs: "protection" },
+        " 2t",
+      ],
+    ],
+    numbers: { prepend: [{ text: "0", numeric: 0, left: { icon: "range" } }] },
+    annotations: {
+      annotation_self_range: true,
+      annotation_status_effects: [
+        { lineIndex: 1, segmentIndex: 2, scope: "self", kind: "guard", duration: 1 },
+        { lineIndex: 2, segmentIndex: 2, scope: "self", kind: "protection", duration: 2 },
+      ],
+    },
+  },
+  {
+    id: "hero_skill:cove:h12:p242",
+    name: "Defender",
+    page: 242,
+    level: 2,
+    expectedEffects: ["{range}{buff}Self", "{self_effects}{buff}Self{riposte}2t,{shuffle}2t"],
+    expectedStats: null,
+    requireIcons: [{ icon: "protection", from: "pool" }],
+    effects: [
+      [{ icon: "range" }, " Self"],
+      [{ icon: "self_effects" }, " Self ", { iconId: "a0290ad4ce", relabelAs: "guard" }, " 2t"],
+      [
+        { icon: "self_effects" },
+        " Self ",
+        { iconId: "ac56561b87", relabelAs: "protection" },
+        " 2t",
+      ],
+    ],
+    numbers: { prepend: [{ text: "0", numeric: 0, left: { icon: "range" } }] },
+    annotations: {
+      annotation_self_range: true,
+      annotation_status_effects: [
+        { lineIndex: 1, segmentIndex: 2, scope: "self", kind: "guard", duration: 2 },
+        { lineIndex: 2, segmentIndex: 2, scope: "self", kind: "protection", duration: 2 },
+      ],
+    },
+  },
+  {
+    id: "hero_skill:cove:h12:p243",
+    name: "Defender",
+    page: 243,
+    level: 3,
+    expectedEffects: ["{range}{buff}Self", "{self_effects}{buff}Self{riposte}2t,{shuffle}3t"],
+    expectedStats: null,
+    requireIcons: [{ icon: "protection", from: "pool" }],
+    effects: [
+      [{ icon: "range" }, " Self"],
+      [{ icon: "self_effects" }, " Self ", { iconId: "a0290ad4ce", relabelAs: "guard" }, " 2t"],
+      [
+        { icon: "self_effects" },
+        " Self ",
+        { iconId: "ac56561b87", relabelAs: "protection" },
+        " 3t",
+      ],
+    ],
+    numbers: { prepend: [{ text: "0", numeric: 0, left: { icon: "range" } }] },
+    annotations: {
+      annotation_self_range: true,
+      annotation_status_effects: [
+        { lineIndex: 1, segmentIndex: 2, scope: "self", kind: "guard", duration: 2 },
+        { lineIndex: 2, segmentIndex: 2, scope: "self", kind: "protection", duration: 3 },
+      ],
+    },
+  },
+  {
+    id: "hero_skill:cove:h12:p244",
+    name: "Retribution",
+    page: 244,
+    level: 1,
+    expectedEffects: ["{self_effects}{buff}Self{stress}2t,{mark}2t"],
+    expectedStats: "{range}1-2{target_monster}Crit1{damage}5Acc8{damage}3",
+    effects: [
+      [{ icon: "self_effects" }, " Self ", { iconId: "9d58d3d431", relabelAs: "mark" }, " 2t"],
+      [{ icon: "self_effects" }, " Self ", { iconId: "1ce58a493c", relabelAs: "riposte" }, " 2t"],
+    ],
+    annotations: {
+      annotation_status_effects: [
+        { lineIndex: 0, segmentIndex: 2, scope: "self", kind: "mark", duration: 2 },
+        { lineIndex: 1, segmentIndex: 2, scope: "self", kind: "riposte", duration: 2 },
+      ],
+      annotation_range: { min: 1, max: 2, source: "print_front" },
+    },
+  },
+  {
+    id: "hero_skill:cove:h12:p245",
+    name: "Retribution",
+    page: 245,
+    level: 2,
+    expectedEffects: ["{self_effects}{buff}Self{stress}2t,{mark}3t"],
+    expectedStats: "{range}1-2{target_monster}Crit2{damage}7Acc9{damage}4",
+    effects: [
+      [{ icon: "self_effects" }, " Self ", { iconId: "9d58d3d431", relabelAs: "mark" }, " 2t"],
+      [{ icon: "self_effects" }, " Self ", { iconId: "1ce58a493c", relabelAs: "riposte" }, " 3t"],
+    ],
+    annotations: {
+      annotation_status_effects: [
+        { lineIndex: 0, segmentIndex: 2, scope: "self", kind: "mark", duration: 2 },
+        { lineIndex: 1, segmentIndex: 2, scope: "self", kind: "riposte", duration: 3 },
+      ],
+      annotation_range: { min: 1, max: 2, source: "print_front" },
+    },
+  },
+  {
+    id: "hero_skill:cove:h12:p246",
+    name: "Retribution",
+    page: 246,
+    level: 3,
+    expectedEffects: ["{self_effects}{buff}Self{stress}2t,{mark}3t"],
+    expectedStats: "{range}1-2{target_monster}Crit2{damage}9Acc10{damage}5",
+    effects: [
+      [{ icon: "self_effects" }, " Self ", { iconId: "9d58d3d431", relabelAs: "mark" }, " 2t"],
+      [{ icon: "self_effects" }, " Self ", { iconId: "1ce58a493c", relabelAs: "riposte" }, " 3t"],
+    ],
+    annotations: {
+      annotation_status_effects: [
+        { lineIndex: 0, segmentIndex: 2, scope: "self", kind: "mark", duration: 2 },
+        { lineIndex: 1, segmentIndex: 2, scope: "self", kind: "riposte", duration: 3 },
+      ],
+      annotation_range: { min: 1, max: 2, source: "print_front" },
+    },
+  },
+  {
+    id: "hero_skill:cove:h12:p247",
+    name: "Command",
+    page: 247,
+    level: 1,
+    expectedEffects: [
+      "{range}1{target_hero}",
+      "{self_effects}{buff}Self{stun}2t",
+      "{target_effects}{stun}2t",
+    ],
+    expectedStats: null,
+    effects: [
+      [{ icon: "range" }, " 1 ", { icon: "target_hero" }],
+      [{ icon: "self_effects" }, " Self ", { icon: "stun", relabelAs: "buff" }, " 2t"],
+      [{ icon: "target_effects" }, " ", { icon: "stun", relabelAs: "buff" }, " 2t"],
+    ],
+    annotations: {
+      annotation_status_effects: [
+        { lineIndex: 1, segmentIndex: 2, scope: "self", kind: "buff", duration: 2 },
+        { lineIndex: 2, segmentIndex: 2, scope: "target", kind: "buff", duration: 2 },
+      ],
+      annotation_target_header: { lineIndex: 0, source: "print_front" },
+    },
+  },
+  {
+    id: "hero_skill:cove:h12:p248",
+    name: "Command",
+    page: 248,
+    level: 2,
+    expectedEffects: [
+      "{range}1{target_hero}{target_hero}",
+      "{self_effects}{buff}Self{stun}2t",
+      "{target_effects}{stun}2t",
+    ],
+    expectedStats: null,
+    effects: [
+      [{ icon: "range" }, " 1 ", { icon: "target_hero" }, " ", { icon: "target_hero" }],
+      [{ icon: "self_effects" }, " Self ", { icon: "stun", relabelAs: "buff" }, " 2t"],
+      [{ icon: "target_effects" }, " ", { icon: "stun", relabelAs: "buff" }, " 2t"],
+    ],
+    annotations: {
+      annotation_status_effects: [
+        { lineIndex: 1, segmentIndex: 2, scope: "self", kind: "buff", duration: 2 },
+        { lineIndex: 2, segmentIndex: 2, scope: "target", kind: "buff", duration: 2 },
+      ],
+      annotation_target_header: { lineIndex: 0, source: "print_front" },
+    },
+  },
+  {
+    id: "hero_skill:cove:h12:p249",
+    name: "Command",
+    page: 249,
+    level: 3,
+    expectedEffects: [
+      "{range}1{target_hero}{target_hero}{target_hero}",
+      "{self_effects}{buff}Self{stun}3t",
+      "{target_effects}{stun}3t",
+    ],
+    expectedStats: null,
+    effects: [
+      [
+        { icon: "range" },
+        " 1 ",
+        { icon: "target_hero" },
+        " ",
+        { icon: "target_hero" },
+        " ",
+        { icon: "target_hero" },
+      ],
+      [{ icon: "self_effects" }, " Self ", { icon: "stun", relabelAs: "buff" }, " 3t"],
+      [{ icon: "target_effects" }, " ", { icon: "stun", relabelAs: "buff" }, " 3t"],
+    ],
+    annotations: {
+      annotation_status_effects: [
+        { lineIndex: 1, segmentIndex: 2, scope: "self", kind: "buff", duration: 3 },
+        { lineIndex: 2, segmentIndex: 2, scope: "target", kind: "buff", duration: 3 },
+      ],
+      annotation_target_header: { lineIndex: 0, source: "print_front" },
+    },
+  },
+  {
+    id: "hero_skill:cove:h12:p250",
+    name: "Bolster",
+    page: 250,
+    level: 1,
+    expectedEffects: ["{self_effects}{buff}Self{skill_art}-1", "{shuffle}{skill_art}-1"],
+    expectedStats: "Crit1Acc12",
+    effects: [
+      [{ icon: "self_effects" }, " Self ", { icon: "stress", from: "pool" }, " -1"],
+      [
+        { icon: "target_effects", from: "pool" },
+        " ",
+        { iconId: "f18923574c", relabelAs: "stress" },
+        " -1",
+      ],
+    ],
+    numbers: {
+      append: [
+        { text: "-1", numeric: -1, left: { icon: "stress", from: "pool" } },
+        { text: "-1", numeric: -1, left: { icon: "stress", from: "pool" } },
+      ],
+    },
+    annotations: {
+      annotation_self_stress: { lineIndex: 0, amount: -1, source: "print_front" },
+      annotation_target_stress: { lineIndex: 1, amount: -1, source: "print_front" },
+    },
+  },
+  {
+    id: "hero_skill:cove:h12:p251",
+    name: "Bolster",
+    page: 251,
+    level: 2,
+    expectedEffects: ["{self_effects}{buff}Self{skill_art}-1", "{shuffle}{skill_art}-1"],
+    expectedStats: "Crit1Acc14",
+    effects: [
+      [{ icon: "self_effects" }, " Self ", { icon: "stress", from: "pool" }, " -1"],
+      [
+        { icon: "target_effects", from: "pool" },
+        " ",
+        { iconId: "f18923574c", relabelAs: "stress" },
+        " -1",
+      ],
+    ],
+    numbers: {
+      append: [
+        { text: "-1", numeric: -1, left: { icon: "stress", from: "pool" } },
+        { text: "-1", numeric: -1, left: { icon: "stress", from: "pool" } },
+      ],
+    },
+    annotations: {
+      annotation_self_stress: { lineIndex: 0, amount: -1, source: "print_front" },
+      annotation_target_stress: { lineIndex: 1, amount: -1, source: "print_front" },
+    },
+  },
+  {
+    id: "hero_skill:cove:h12:p252",
+    name: "Bolster",
+    page: 252,
+    level: 3,
+    expectedEffects: ["{self_effects}{buff}Self{skill_art}-1", "{shuffle}{skill_art}-1"],
+    expectedStats: "{range}1{target_hero}{target_hero}{target_hero}Crit2Acc16",
+    effects: [
+      [{ icon: "self_effects" }, " Self ", { icon: "stress", from: "pool" }, " -1"],
+      [
+        { icon: "target_effects", from: "pool" },
+        " ",
+        { iconId: "f18923574c", relabelAs: "stress" },
+        " -1",
+      ],
+    ],
+    numbers: {
+      append: [
+        { text: "-1", numeric: -1, left: { icon: "stress", from: "pool" } },
+        { text: "-1", numeric: -1, left: { icon: "stress", from: "pool" } },
+      ],
+    },
+    annotations: {
+      annotation_self_stress: { lineIndex: 0, amount: -1, source: "print_front" },
+      annotation_target_stress: { lineIndex: 1, amount: -1, source: "print_front" },
+    },
   },
 ];
 
 const entries: HeroAnnotationEntries = {
-  effectLineFixes: rampartEffectLineFixes,
   shuffle: shuffleEntries,
   targetCount: [
     { id: "hero_skill:cove:h12:p232", hero: 0, monster: 1, heroOrMonster: 0 },
@@ -151,293 +543,6 @@ const entries: HeroAnnotationEntries = {
     { id: "hero_skill:cove:h12:p246", effect: "damage" },
   ],
 };
-
-function fixBellow(
-  cards: readonly NormalizedHeroSkillCard[],
-  card: NormalizedHeroSkillCard,
-  page: number,
-  level: number,
-  debuffT: number,
-) {
-  assertCardMeta(card, "MAN-AT-ARMS", page, "Bellow", level);
-  const statsSig = card.stats_line ? lineSignature(card.stats_line).replace(/\s+/g, "") : "";
-  const effSig = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
-  const expectedStats: Record<number, string> = {
-    1: "{range}1{target_hero}{target_hero}{target_hero}{target_hero}Crit0Acc9",
-    2: "{range}1{target_hero}{target_hero}{target_hero}{target_hero}Crit0Acc10",
-    3: "{range}1{target_hero}{target_hero}{target_hero}{target_hero}Crit1Acc11",
-  };
-  if (statsSig !== expectedStats[level]) throw new Error(`${card.id} Bellow stats 漂移`);
-  if (effSig !== `{target_effects}{debuff}${debuffT}t`)
-    throw new Error(`${card.id} Bellow 效果行漂移`);
-  const targetMonster = iconFromPool(cards, "target_monster");
-  return parseAnnotatedHeroSkillCard({
-    ...card,
-    stats_line: card.stats_line!.map((segment) =>
-      segment.type === "icon" && segment.icon.key === "target_hero" ? targetMonster : segment,
-    ),
-    annotation_status_effects: [
-      {
-        lineIndex: 0,
-        segmentIndex: 2,
-        scope: "target",
-        kind: "debuff",
-        duration: debuffT,
-      },
-    ],
-  });
-}
-
-function fixDefender(
-  cards: readonly NormalizedHeroSkillCard[],
-  card: NormalizedHeroSkillCard,
-  page: number,
-  level: number,
-  rawRiposteT: number,
-  rawShuffleT: number,
-  guardT: number,
-  protectionT: number,
-) {
-  assertCardMeta(card, "MAN-AT-ARMS", page, "Defender", level);
-  const rawSigs = card.effect_lines.map((line) => lineSignature(line).replace(/\s+/g, ""));
-  if (
-    rawSigs[0] !== "{range}{buff}Self" ||
-    rawSigs[1] !== `{self_effects}{buff}Self{riposte}${rawRiposteT}t,{shuffle}${rawShuffleT}t`
-  )
-    throw new Error(`${card.id} Defender 效果行漂移（R-048）`);
-  const rangeIcon = iconFromCard(card, "range");
-  const selfEffects = iconFromCard(card, "self_effects");
-  const riposteMis = segmentOnCardAll(card, "a0290ad4ce");
-  const shuffleMis = segmentOnCardAll(card, "ac56561b87");
-  iconFromPool(cards, "protection");
-  return parseAnnotatedHeroSkillCard({
-    ...card,
-    stats_line: null,
-    effect_lines: [
-      [rangeIcon, text(" Self")],
-      [selfEffects, text(" Self "), cloneKey(riposteMis, "guard"), text(` ${guardT}t`)],
-      [selfEffects, text(" Self "), cloneKey(shuffleMis, "protection"), text(` ${protectionT}t`)],
-    ],
-    unlabeled_numbers: [rangeZeroUnlabeled(rangeIcon), ...card.unlabeled_numbers],
-    annotation_self_range: true,
-    annotation_status_effects: [
-      {
-        lineIndex: 1,
-        segmentIndex: 2,
-        scope: "self",
-        kind: "guard",
-        duration: guardT,
-      },
-      {
-        lineIndex: 2,
-        segmentIndex: 2,
-        scope: "self",
-        kind: "protection",
-        duration: protectionT,
-      },
-    ],
-  });
-}
-
-function fixRetribution(
-  card: NormalizedHeroSkillCard,
-  page: number,
-  level: number,
-  markT: number,
-  riposteT: number,
-  expectedSelfRaw: string,
-) {
-  assertCardMeta(card, "MAN-AT-ARMS", page, "Retribution", level);
-  const raw = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
-  if (raw !== expectedSelfRaw) throw new Error(`${card.id} Retribution 效果行漂移（R-048）`);
-  const selfEffects = iconFromCard(card, "self_effects");
-  const stressMis = segmentOnCardAll(card, "9d58d3d431");
-  const markMis = segmentOnCardAll(card, "1ce58a493c");
-  return parseAnnotatedHeroSkillCard({
-    ...card,
-    effect_lines: [
-      [selfEffects, text(" Self "), cloneKey(stressMis, "mark"), text(` ${markT}t`)],
-      [selfEffects, text(" Self "), cloneKey(markMis, "riposte"), text(` ${riposteT}t`)],
-    ],
-    annotation_range: { min: 1, max: 2, source: "print_front" },
-    annotation_status_effects: [
-      {
-        lineIndex: 0,
-        segmentIndex: 2,
-        scope: "self",
-        kind: "mark",
-        duration: markT,
-      },
-      {
-        lineIndex: 1,
-        segmentIndex: 2,
-        scope: "self",
-        kind: "riposte",
-        duration: riposteT,
-      },
-    ],
-  });
-}
-
-function fixCommand(
-  card: NormalizedHeroSkillCard,
-  page: number,
-  level: number,
-  targetCount: number,
-  stunT: number,
-) {
-  assertCardMeta(card, "MAN-AT-ARMS", page, "Command", level);
-  const expectedHeader = `{range}1${"{target_hero}".repeat(targetCount)}`;
-  const rawSigs = card.effect_lines.map((line) => lineSignature(line).replace(/\s+/g, ""));
-  if (
-    rawSigs[0] !== expectedHeader ||
-    rawSigs[1] !== `{self_effects}{buff}Self{stun}${stunT}t` ||
-    rawSigs[2] !== `{target_effects}{stun}${stunT}t`
-  )
-    throw new Error(`${card.id} Command 效果行漂移（R-048）`);
-  const rangeIcon = iconFromCard(card, "range");
-  const targetHero = iconFromPool([card], "target_hero");
-  const selfEffects = iconFromCard(card, "self_effects");
-  const targetEffects = iconFromCard(card, "target_effects");
-  const stun = iconFromCard(card, "stun");
-  const buff = cloneKey(stun, "buff");
-  const header: Segment[] = [rangeIcon, text(" 1 ")];
-  for (let i = 0; i < targetCount; i += 1) {
-    if (i > 0) header.push(text(" "));
-    header.push(targetHero);
-  }
-  return parseAnnotatedHeroSkillCard({
-    ...card,
-    stats_line: null,
-    effect_lines: [
-      header,
-      [selfEffects, text(" Self "), buff, text(` ${stunT}t`)],
-      [targetEffects, text(" "), buff, text(` ${stunT}t`)],
-    ],
-    annotation_target_header: { lineIndex: 0, source: "print_front" },
-    annotation_status_effects: [
-      {
-        lineIndex: 1,
-        segmentIndex: 2,
-        scope: "self",
-        kind: "buff",
-        duration: stunT,
-      },
-      {
-        lineIndex: 2,
-        segmentIndex: 2,
-        scope: "target",
-        kind: "buff",
-        duration: stunT,
-      },
-    ],
-  });
-}
-
-function fixBolster(
-  cards: readonly NormalizedHeroSkillCard[],
-  card: NormalizedHeroSkillCard,
-  page: number,
-  level: number,
-) {
-  assertCardMeta(card, "MAN-AT-ARMS", page, "Bolster", level);
-  const stressIcon = iconFromPool(cards, "stress");
-  const selfEffects = iconFromCard(card, "self_effects");
-  const targetEffects = iconFromPool(cards, "target_effects");
-  const stressMis = card.effect_lines.some((line) =>
-    line.some((s) => s.type === "icon" && s.icon.iconId === "f18923574c"),
-  )
-    ? segmentOnCardAll(card, "f18923574c")
-    : stressIcon;
-
-  const anchors = [stressDeltaAnchor(stressIcon, -1), stressDeltaAnchor(stressIcon, -1)];
-  if (level === 2) {
-    const statsSig = card.stats_line ? lineSignature(card.stats_line).replace(/\s+/g, "") : "";
-    if (statsSig !== "Crit1Acc14") throw new Error(`${card.id} Bolster stats 漂移（R-048）`);
-    const rawSigs = card.effect_lines.map((line) => lineSignature(line).replace(/\s+/g, ""));
-    if (
-      rawSigs[0] !== "{self_effects}{buff}Self{skill_art}-1" ||
-      rawSigs[1] !== "{shuffle}{skill_art}-1"
-    )
-      throw new Error(`${card.id} Bolster II 效果行漂移（R-048）`);
-    return parseAnnotatedHeroSkillCard({
-      ...card,
-      effect_lines: [
-        [selfEffects, text(" Self "), stressIcon, text(" -1")],
-        [targetEffects, text(" "), cloneKey(stressMis, "stress"), text(" -1")],
-      ],
-      unlabeled_numbers: [...card.unlabeled_numbers, ...anchors],
-      annotation_self_stress: { lineIndex: 0, amount: -1, source: "print_front" },
-      annotation_target_stress: { lineIndex: 1, amount: -1, source: "print_front" },
-    });
-  }
-  if (level === 3) {
-    const statsSig = card.stats_line ? lineSignature(card.stats_line).replace(/\s+/g, "") : "";
-    if (statsSig !== "{range}1{target_hero}{target_hero}{target_hero}Crit2Acc16")
-      throw new Error(`${card.id} Bolster stats 漂移（R-048）`);
-    const rawSigs = card.effect_lines.map((line) => lineSignature(line).replace(/\s+/g, ""));
-    if (
-      rawSigs[0] !== "{self_effects}{buff}Self{skill_art}-1" ||
-      rawSigs[1] !== "{shuffle}{skill_art}-1"
-    )
-      throw new Error(`${card.id} Bolster III 效果行漂移（R-048）`);
-    return parseAnnotatedHeroSkillCard({
-      ...card,
-      effect_lines: [
-        [selfEffects, text(" Self "), stressIcon, text(" -1")],
-        [targetEffects, text(" "), cloneKey(stressMis, "stress"), text(" -1")],
-      ],
-      unlabeled_numbers: [...card.unlabeled_numbers, ...anchors],
-      annotation_self_stress: { lineIndex: 0, amount: -1, source: "print_front" },
-      annotation_target_stress: { lineIndex: 1, amount: -1, source: "print_front" },
-    });
-  }
-
-  const rawSigs = card.effect_lines.map((line) => lineSignature(line).replace(/\s+/g, ""));
-  if (
-    rawSigs[0] !== "{self_effects}{buff}Self{skill_art}-1" ||
-    rawSigs[1] !== "{shuffle}{skill_art}-1"
-  )
-    throw new Error(`${card.id} Bolster I 效果行漂移（R-048）`);
-  return parseAnnotatedHeroSkillCard({
-    ...card,
-    stats_line: card.stats_line,
-    effect_lines: [
-      [selfEffects, text(" Self "), stressIcon, text(" -1")],
-      [targetEffects, text(" "), cloneKey(stressMis, "stress"), text(" -1")],
-    ],
-    unlabeled_numbers: [...card.unlabeled_numbers, ...anchors],
-    annotation_self_stress: { lineIndex: 0, amount: -1, source: "print_front" },
-    annotation_target_stress: { lineIndex: 1, amount: -1, source: "print_front" },
-  });
-}
-
-/**
- * R-200：Man-at-Arms L1–III 技能族（TDH p232–252）逐卡覆盖；II/III 共 14 张 + 同族 L1 OCR 洗净。
- * Retribution / Defender 见 Q-176 / Q-177（Mark+Riposte、Guard+Protection）。
- */
-function fixes(cards: readonly NormalizedHeroSkillCard[]): Readonly<Record<string, CardFix>> {
-  return {
-    "hero_skill:cove:h12:p238": (card) => fixBellow(cards, card, 238, 1, 1),
-    "hero_skill:cove:h12:p239": (card) => fixBellow(cards, card, 239, 2, 2),
-    "hero_skill:cove:h12:p240": (card) => fixBellow(cards, card, 240, 3, 3),
-    "hero_skill:cove:h12:p241": (card) => fixDefender(cards, card, 241, 1, 1, 2, 1, 2),
-    "hero_skill:cove:h12:p242": (card) => fixDefender(cards, card, 242, 2, 2, 2, 2, 2),
-    "hero_skill:cove:h12:p243": (card) => fixDefender(cards, card, 243, 3, 2, 3, 2, 3),
-    "hero_skill:cove:h12:p244": (card) =>
-      fixRetribution(card, 244, 1, 2, 2, "{self_effects}{buff}Self{stress}2t,{mark}2t"),
-    "hero_skill:cove:h12:p245": (card) =>
-      fixRetribution(card, 245, 2, 2, 3, "{self_effects}{buff}Self{stress}2t,{mark}3t"),
-    "hero_skill:cove:h12:p246": (card) =>
-      fixRetribution(card, 246, 3, 2, 3, "{self_effects}{buff}Self{stress}2t,{mark}3t"),
-    "hero_skill:cove:h12:p247": (card) => fixCommand(card, 247, 1, 1, 2),
-    "hero_skill:cove:h12:p248": (card) => fixCommand(card, 248, 2, 2, 2),
-    "hero_skill:cove:h12:p249": (card) => fixCommand(card, 249, 3, 3, 3),
-    "hero_skill:cove:h12:p250": (card) => fixBolster(cards, card, 250, 1),
-    "hero_skill:cove:h12:p251": (card) => fixBolster(cards, card, 251, 2),
-    "hero_skill:cove:h12:p252": (card) => fixBolster(cards, card, 252, 3),
-  };
-}
 
 export const h12 = defineHeroModule({
   id: "h12",

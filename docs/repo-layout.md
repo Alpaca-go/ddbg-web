@@ -52,16 +52,16 @@ export const hNN = defineHeroModule({
   id: "hNN",
   hero: "...",
   entries: { status, range, shuffle, targetCount, effectKind, ... },
-  fixes, // 纯数据英雄写 fixes: null
+  fixes, // 没有逐卡修正时写 null
 });
 ```
 
 - 一个英雄一个文件、一个模块；数据表只放在 `entries`，不再单独 `export`。
 - 所有 entry / fix key 用 canonical ID；不写 `switch (card.id)`、不写各英雄自己的 `assertX`。
-- 共享 runner 在 `patch-helpers.ts`：`applyCardFixes` 要求每个 key 唯一命中一张卡，
+- 共享 runner 在 `patch-helpers.ts`，要求每条记录的 ID 唯一命中一张卡，
   `assertCardMeta` 统一断言英雄 / 卡名 / 等级 / 页码 / 验证状态。
 - `TARGET_COUNTS` / `EFFECT_KINDS` 已并入各英雄 `entries`；不要再新增跨英雄中央表。
-- 每个模块都声明 `fixes`。纯数据英雄用 `null`，有逐卡修正的英雄用同名函数返回修正表。
+- 每个模块都声明 `fixes`。有逐卡修正时声明修正表，其余模块用 `null`。18 个英雄模块都只声明数据。
 - 验收：`normalized/**` 逐字节不变；`pnpm test` 全绿。
 
 ## 测试为什么单独放在 `tests/`

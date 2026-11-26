@@ -52,7 +52,6 @@ export type {
   RemovalEntry,
   TargetCountEntry,
 } from "./types";
-export type { CardFix } from "./patch-helpers";
 
 /** 18 名英雄的注解模块，按 hNN 升序应用。数据型模块的 apply 是 no-op。 */
 export const HERO_ANNOTATIONS: readonly HeroAnnotationModule[] = [

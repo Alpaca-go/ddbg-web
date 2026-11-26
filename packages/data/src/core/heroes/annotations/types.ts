@@ -18,7 +18,6 @@ export type HeroAnnotationEntries = {
   readonly self?: readonly SelfEffectEntry[];
   readonly targetStress?: readonly TargetStressEntry[];
   readonly layout?: readonly LayoutEntry[];
-  readonly effectLineFixes?: readonly EffectLineFixEntry[];
   readonly bounty?: readonly BountyStatusRow[];
   readonly rallyingFlare?: readonly RallyingFlareEntry[];
   readonly shuffle?: readonly ShuffleEntry[];
@@ -160,18 +159,61 @@ export type LayoutEntry =
       readonly expected: readonly string[];
       readonly output: readonly [string, string];
     };
-type EffectLineFixSegment =
-  string | { readonly icon: string } | { readonly iconId: string; readonly relabelAs: string };
+export type CorrectionIcon =
+  | { readonly icon: string; readonly from?: "pool"; readonly relabelAs?: string }
+  | {
+      readonly iconId: string;
+      readonly from?: "lines" | "effects";
+      readonly relabelAs?: string;
+    }
+  | {
+      readonly line: number | "stats";
+      readonly segment: number;
+      readonly iconId: string;
+      readonly relabelAs?: string;
+    };
 
-/** 按原始行签名校验，使用卡上图标重建效果行（R-048）。 */
-export type EffectLineFixEntry = {
+type CorrectionLine = readonly (string | CorrectionIcon)[];
+
+type NumberAnchor = {
+  readonly text: string;
+  readonly numeric: number | null;
+  readonly left?: CorrectionIcon;
+  readonly inside?: CorrectionIcon;
+};
+
+type NumberMatch = {
+  readonly text?: string;
+  readonly numeric?: number;
+  readonly beside?: true;
+  readonly leftKeys?: readonly string[];
+  readonly insideId?: string | null;
+};
+
+export type NumberCorrection = {
+  readonly prepend?: readonly NumberAnchor[];
+  readonly append?: readonly NumberAnchor[];
+  readonly remove?: readonly NumberMatch[];
+  readonly replaceLeft?: { readonly text: string; readonly icon: CorrectionIcon };
+};
+
+/** 核对印刷输入后，仅覆盖列出的技能卡字段（R-048）。 */
+export type SkillCorrection = {
   readonly id: string;
   readonly name: string;
   readonly page: number;
   readonly level: number;
-  readonly expected: readonly string[];
-  readonly output: readonly (readonly EffectLineFixSegment[])[];
-  readonly statuses?: NormalizedHeroSkillCard["annotation_status_effects"];
+  readonly expectedEffects: readonly string[];
+  readonly expectedStats: string | null;
+  readonly expectedLabels?: NormalizedHeroSkillCard["printed_labels"];
+  readonly requireIcons?: readonly CorrectionIcon[];
+  readonly effects?: readonly (CorrectionLine | number)[];
+  readonly stats?: CorrectionLine | null;
+  readonly numbers?: NumberCorrection;
+  readonly annotations?: Pick<
+    NormalizedHeroSkillCard,
+    Extract<keyof NormalizedHeroSkillCard, `annotation_${string}`>
+  >;
 };
 
 /** 已复核条件伤害：只录已命名 damage 图标与明文条件。 */

@@ -6,6 +6,12 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 
 ## 当前进度与下一步
 
+- **2026-11-26 h12–h18 技能修正数据化**：135 张技能卡的修正集中在七个英雄的 `fixes` 表，18 个英雄文件统一为数据模块。共享处理器负责核对原始签名，按原顺序重建行、图标和数字锚点，并写入注解。Cove／Warrens Boss 迁移的前置条件和 Weald 待确认项见下方。
+  验证：通过 `@ddbg/data/write` 重建核心盒，9 项通过。核心盒 43 个规范化文件逐字节一致，`extract` 与 `normalized` 均零 diff。数据包与相关引擎测试 429 项通过，typecheck、lint、build 通过。全量 Vitest 632 个文件通过，共 4438 项通过、1 项跳过。
+
+- **2026-11-26 h12 效果行修正续批**：Retribution 和 Command 的 I–III 级迁入 Rampart 已用的效果行修正表，共用原始签名校验与图标重标，保留原阶段的射程、状态和目标栏注解。h12 目前有 9 张卡由该表处理。Bellow、Defender、Bolster 涉及跨卡取图标、stats 行修正或数字锚点，仍由原函数处理。下一步评估这些操作在其他英雄间的复用，再决定迁移范围。
+  验证：核心盒重建 9 项、英雄及 Cove 定向测试 87 项通过，typecheck、lint、build 通过。`extract` 与 `normalized` 均零 diff。本批未重跑全量 Vitest。
+
 - **2026-11-26 Rampart 数据化试点**：h12 的 Rampart I–III 改为三条效果行修正数据。共享逐卡修正 runner 保留卡名、等级、页码和印刷行签名校验，仍在原构建阶段组装效果行、重标图标并写入眩晕注解。下一步按试点的可读性决定 h12 其余技能的迁移范围。
   验证：核心盒重建与英雄定向测试 94 项、Cove 技能引擎回归 2 项通过，typecheck、lint、build 通过。本次试点未重跑全量 Vitest。重建后 `extract` 与 `normalized` 均零 diff。
 

@@ -17,19 +17,25 @@ const entries: HeroAnnotationEntries = {
   // 只写该英雄实际有的表
 };
 
-function fixes(cards: readonly NormalizedHeroSkillCard[]): Readonly<Record<string, CardFix>> {
-  return {
-    "hero_skill:<pack>:hNN:pNNN": (card) => { ... },
-  };
-}
+const fixes: readonly SkillCorrection[] = [
+  {
+    id: "hero_skill:<pack>:hNN:pNNN",
+    name: "...",
+    page: 1,
+    level: 1,
+    expectedEffects: ["..."],
+    expectedStats: null,
+    effects: [["..."]],
+  },
+];
 
 export const hNN = defineHeroModule({ id: "hNN", hero: "...", entries, fixes });
 ```
 
 统一约定：
 
-- 文件依次写 imports、注解数据表与 `entries`、逐卡修正函数与 `fixes`，最后导出 `hNN`。数据表由 `entries` 汇总。
-- **所有 entry / fix key 都是 canonical ID**：`hero_skill:<pack>:hNN:pNNN`。
+- 文件依次写 imports、注解数据表与 `entries`、逐卡修正表 `fixes`，最后导出 `hNN`。数据表由 `entries` 汇总。
+- **所有 entry / fix 的 ID 都是 canonical ID**：`hero_skill:<pack>:hNN:pNNN`。
   不再从 ID 尾巴读页码；需要页码时用 `card.pages[0]` 或 `printedPageOf(id)`。
 - **一个 fix runner**：[patch-helpers.ts](./patch-helpers.ts) 的 `applyCardFixes`。
   它检查每个 key 唯一命中一张卡，并断言英雄与验证状态；元数据断言用 `assertCardMeta`。
@@ -41,33 +47,33 @@ export const hNN = defineHeroModule({ id: "hNN", hero: "...", entries, fixes });
 
 `entries` 的 key 与消费方一一对应：
 
-| key               | 消费方                                                          |
-| ----------------- | --------------------------------------------------------------- |
-| `status`          | [status-effects.ts](./status-effects.ts)                        |
-| `range`           | [ranges.ts](./ranges.ts)                                        |
-| `self`            | [self-effects.ts](./self-effects.ts)                            |
-| `targetStress`    | [target-stress.ts](./target-stress.ts)                          |
-| `removal`         | [removal.ts](./removal.ts)                                      |
-| `targetCount`     | [target-counts.ts](./target-counts.ts)                          |
-| `support`         | [support-effects.ts](./support-effects.ts)                      |
-| `layout`          | [layout.ts](./layout.ts)                                        |
-| `effectLineFixes` | [patch-helpers.ts](./patch-helpers.ts)                          |
-| `damage`          | [damage.ts](./damage.ts)                                        |
-| `rallyingFlare`   | [rallying-flare.ts](./rallying-flare.ts)                        |
-| `bounty`          | [bounty-statuses.ts](./bounty-statuses.ts)                      |
-| `shuffle`         | [text-rules.ts](./text-rules.ts)                                |
-| `ignores`         | [text-rules.ts](./text-rules.ts)                                |
-| `higher`          | [../core-higher-skills.build.ts](./core-higher-skills.build.ts) |
+| key             | 消费方                                                          |
+| --------------- | --------------------------------------------------------------- |
+| `status`        | [status-effects.ts](./status-effects.ts)                        |
+| `range`         | [ranges.ts](./ranges.ts)                                        |
+| `self`          | [self-effects.ts](./self-effects.ts)                            |
+| `targetStress`  | [target-stress.ts](./target-stress.ts)                          |
+| `removal`       | [removal.ts](./removal.ts)                                      |
+| `targetCount`   | [target-counts.ts](./target-counts.ts)                          |
+| `support`       | [support-effects.ts](./support-effects.ts)                      |
+| `layout`        | [layout.ts](./layout.ts)                                        |
+| `damage`        | [damage.ts](./damage.ts)                                        |
+| `rallyingFlare` | [rallying-flare.ts](./rallying-flare.ts)                        |
+| `bounty`        | [bounty-statuses.ts](./bounty-statuses.ts)                      |
+| `shuffle`       | [text-rules.ts](./text-rules.ts)                                |
+| `ignores`       | [text-rules.ts](./text-rules.ts)                                |
+| `higher`        | [../core-higher-skills.build.ts](./core-higher-skills.build.ts) |
 
 `index.ts` 只做泛型聚合：`HERO_ANNOTATIONS` 是 18 个模块，`entriesOf(key)` 拼出各 applier 的输入。
 
-## 效果行修正
+## 逐卡修正表
 
-Rampart I–III 的 `entries.effectLineFixes` 每张卡一行记录。
-`expected` 记录原始效果行签名，比较时忽略空白。
-`output` 按顺序保留文字段、按已确认 key 取出的卡面图标，以及按印刷 iconId 取出后重新标记的图标。
-需要随修正写入的状态记录在 `statuses`。
-共享 runner 在原逐卡修正阶段处理这些条目，一个 canonical ID 只允许一种修正。
+- `expectedEffects` 和 `expectedStats` 保存修正前的效果行与 stats 行签名，比较时忽略空白。依赖印刷标签的记录同时声明 `expectedLabels`。
+- `effects` 和 `stats` 按输出顺序列出文字和图标。效果行里的数字引用原效果行的索引，`stats: null` 清除旧 stats 行。
+- 图标可按确认键、印刷 ID 或原行位置引用。`from: "pool"` 沿用跨卡取图标；`relabelAs` 覆盖取出的图标键。
+- `numbers` 声明数字锚点的增删与重标。`annotations` 声明随修正写入的状态、射程等注解。省略的字段由原卡保留。
+
+共享处理器在原逐卡修正阶段执行。修正表内每张卡只允许一条记录。
 
 ## 规则
 

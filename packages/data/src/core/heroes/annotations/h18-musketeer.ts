@@ -1,24 +1,13 @@
-import { parseAnnotatedHeroSkillCard } from "../../../shared/schema";
 import type {
-  StatusEffectEntry,
-  RangeEntry,
-  RallyingFlareEntry,
   DamageEntry,
+  HeroAnnotationEntries,
+  RallyingFlareEntry,
+  RangeEntry,
   ShuffleEntry,
+  SkillCorrection,
+  StatusEffectEntry,
 } from "./types";
-import type { HeroAnnotationEntries } from "./types";
-import { lineSignature } from "./shared";
-import type { NormalizedHeroSkillCard } from "../../../shared/schema";
-import {
-  assertCardMeta,
-  defineHeroModule,
-  cloneKey,
-  iconFromCard,
-  iconFromPool,
-  segmentOnCard,
-  text,
-} from "./patch-helpers";
-import type { CardFix } from "./patch-helpers";
+import { defineHeroModule } from "./patch-helpers";
 
 /** 完整印刷逐页核对的状态效果行（docs/phase2-four-core-skills-2026-10-11.md）。 */
 const statusEntries: readonly StatusEffectEntry[] = [
@@ -231,6 +220,523 @@ const shuffleEntries: readonly ShuffleEntry[] = [
   },
 ];
 
+/**
+ * R-200 / Q-185（Kyries 真确认）：Musketeer 与 Arbalest 七技能族数值/效果完全一致，仅图标与名称不同。
+ * II/III 十四张 + L1 同族 OCR 洗净；效果/annotation_* 对照 Suppressive Fire / Sniper's Mark 等已核实 Arbalest 卡。
+ */
+const fixes: readonly SkillCorrection[] = [
+  {
+    id: "hero_skill:musketeer:h18:p358",
+    name: "Aimed Shot",
+    page: 1,
+    level: 1,
+    expectedEffects: ["{target_effects}{shuffle}+3vs{blight}"],
+    expectedStats: "{range}2{target_monster}Crit1{damage}9Acc9{damage}6",
+    requireIcons: [{ icon: "damage", from: "pool" }],
+    effects: [
+      [
+        { icon: "target_effects", from: "pool" },
+        " ",
+        { iconId: "f18923574c", from: "lines", relabelAs: "damage" },
+        " +3 vs ",
+        { iconId: "98edfaca0a", from: "lines", relabelAs: "mark" },
+      ],
+    ],
+  },
+  {
+    id: "hero_skill:musketeer:h18:p359",
+    name: "Aimed Shot",
+    page: 2,
+    level: 2,
+    expectedEffects: ["{target_effects}{shuffle}+5vs{blight}"],
+    expectedStats: "{range}2{target_monster}Crit1{damage}12Acc10{damage}8",
+    requireIcons: [{ icon: "damage", from: "pool" }],
+    effects: [
+      [
+        { icon: "target_effects", from: "pool" },
+        " ",
+        { iconId: "f18923574c", from: "lines", relabelAs: "damage" },
+        " +5 vs ",
+        { iconId: "98edfaca0a", from: "lines", relabelAs: "mark" },
+      ],
+    ],
+    annotations: {
+      annotation_damage_bonus: {
+        lineIndex: 0,
+        amount: 5,
+        condition: "marked",
+        source: "print_front",
+      },
+    },
+  },
+  {
+    id: "hero_skill:musketeer:h18:p360",
+    name: "Aimed Shot",
+    page: 3,
+    level: 3,
+    expectedEffects: ["{target_effects}{shuffle}+9vs{blight}"],
+    expectedStats: "{range}2{target_monster}Crit1{damage}16Acc11{damage}10",
+    requireIcons: [{ icon: "damage", from: "pool" }],
+    effects: [
+      [
+        { icon: "target_effects", from: "pool" },
+        " ",
+        { iconId: "f18923574c", from: "lines", relabelAs: "damage" },
+        " +9 vs ",
+        { iconId: "98edfaca0a", from: "lines", relabelAs: "mark" },
+      ],
+    ],
+    annotations: {
+      annotation_damage_bonus: {
+        lineIndex: 0,
+        amount: 9,
+        condition: "marked",
+        source: "print_front",
+      },
+    },
+  },
+  {
+    id: "hero_skill:musketeer:h18:p361",
+    name: "Smokescreen",
+    page: 4,
+    level: 1,
+    expectedEffects: ["{mark}{protection}1t"],
+    expectedStats: "{range}1-2{target_monster}{target_monster}Crit0{damage}4Acc9{damage}2",
+    requireIcons: [{ iconId: "b2e9d87127", from: "lines" }],
+    effects: [
+      [{ icon: "target_effects", from: "pool" }, " ", { icon: "debuff", from: "pool" }, " 1t"],
+    ],
+  },
+  {
+    id: "hero_skill:musketeer:h18:p362",
+    name: "Smokescreen",
+    page: 5,
+    level: 2,
+    expectedEffects: ["{skill_art}{protection}2t"],
+    expectedStats: "{range}1-2{target_monster}{target_monster}Crit0{damage}6Acc10{damage}3",
+    requireIcons: [{ iconId: "462bd48a91", from: "lines" }],
+    effects: [
+      [{ icon: "target_effects", from: "pool" }, " ", { icon: "debuff", from: "pool" }, " 2t"],
+    ],
+    annotations: {
+      annotation_range: { min: 1, max: 2, source: "print_front" },
+      annotation_status_effects: [
+        { lineIndex: 0, segmentIndex: 2, scope: "target", kind: "debuff", duration: 2 },
+      ],
+    },
+  },
+  {
+    id: "hero_skill:musketeer:h18:p363",
+    name: "Smokescreen",
+    page: 6,
+    level: 3,
+    expectedEffects: ["{skill_art}{bleed}3t"],
+    expectedStats: "{range}1-2{target_monster}{target_monster}Crit0{damage}7Acc11{damage}4",
+    requireIcons: [{ iconId: "462bd48a91", from: "lines" }],
+    effects: [
+      [{ icon: "target_effects", from: "pool" }, " ", { icon: "debuff", from: "pool" }, " 3t"],
+    ],
+    annotations: {
+      annotation_range: { min: 1, max: 2, source: "print_front" },
+      annotation_status_effects: [
+        { lineIndex: 0, segmentIndex: 2, scope: "target", kind: "debuff", duration: 3 },
+      ],
+    },
+  },
+  {
+    id: "hero_skill:musketeer:h18:p364",
+    name: "Call the Shot",
+    page: 7,
+    level: 1,
+    expectedEffects: ["{target_effects}{debuff}2t"],
+    expectedStats: "Acc10",
+    expectedLabels: [{ label: "Acc", raw: "Acc 10", value: 10 }],
+    requireIcons: [{ icon: "mark", from: "pool" }],
+    effects: [
+      [
+        { icon: "target_effects", from: "pool" },
+        " ",
+        { iconId: "f70a42e51f", from: "lines", relabelAs: "mark" },
+        " 2t",
+      ],
+    ],
+  },
+  {
+    id: "hero_skill:musketeer:h18:p365",
+    name: "Call the Shot",
+    page: 8,
+    level: 2,
+    expectedEffects: ["{target_effects}{debuff}3t"],
+    expectedStats: "Acc11",
+    expectedLabels: [{ label: "Acc", raw: "Acc 11", value: 11 }],
+    requireIcons: [{ icon: "mark", from: "pool" }],
+    effects: [
+      [
+        { icon: "target_effects", from: "pool" },
+        " ",
+        { iconId: "f70a42e51f", from: "lines", relabelAs: "mark" },
+        " 3t",
+      ],
+    ],
+    annotations: {
+      annotation_range: { min: 1, max: 2, source: "print_front" },
+      annotation_status_effects: [
+        { lineIndex: 0, segmentIndex: 2, scope: "target", kind: "mark", duration: 3 },
+      ],
+    },
+  },
+  {
+    id: "hero_skill:musketeer:h18:p366",
+    name: "Call the Shot",
+    page: 9,
+    level: 3,
+    expectedEffects: ["{target_effects}{debuff}4t"],
+    expectedStats: "Acc12",
+    expectedLabels: [{ label: "Acc", raw: "Acc 12", value: 12 }],
+    requireIcons: [{ icon: "mark", from: "pool" }],
+    effects: [
+      [
+        { icon: "target_effects", from: "pool" },
+        " ",
+        { iconId: "f70a42e51f", from: "lines", relabelAs: "mark" },
+        " 4t",
+      ],
+    ],
+    annotations: {
+      annotation_range: { min: 1, max: 2, source: "print_front" },
+      annotation_status_effects: [
+        { lineIndex: 0, segmentIndex: 2, scope: "target", kind: "mark", duration: 4 },
+      ],
+    },
+  },
+  {
+    id: "hero_skill:musketeer:h18:p367",
+    name: "Buckshot",
+    page: 10,
+    level: 1,
+    expectedEffects: ["{self_effects}{buff}Self{buff}Push1", "{stun}{target_effects}Push2"],
+    expectedStats: "{range}1{target_monster}{target_monster}Crit1{damage}6Acc10{damage}3",
+    requireIcons: [{ icon: "shuffle", from: "pool" }],
+    effects: [
+      [
+        { icon: "self_effects" },
+        " Self ",
+        { iconId: "d4329c2a97", from: "lines", relabelAs: "shuffle" },
+        " Push 1",
+      ],
+      [
+        { icon: "target_effects", from: "pool" },
+        " ",
+        { iconId: "1fd9f6ec6d", from: "lines", relabelAs: "shuffle" },
+        " Push 2",
+      ],
+    ],
+  },
+  {
+    id: "hero_skill:musketeer:h18:p368",
+    name: "Buckshot",
+    page: 11,
+    level: 2,
+    expectedEffects: ["{self_effects}{buff}Self{buff}Push2", "{stun}{target_effects}Push2"],
+    expectedStats: "{range}1{target_monster}{target_monster}Crit1{damage}8Acc11{damage}4",
+    requireIcons: [{ icon: "shuffle", from: "pool" }],
+    effects: [
+      [
+        { icon: "self_effects" },
+        " Self ",
+        { iconId: "d4329c2a97", from: "lines", relabelAs: "shuffle" },
+        " Push 2",
+      ],
+      [
+        { icon: "target_effects", from: "pool" },
+        " ",
+        { iconId: "1fd9f6ec6d", from: "lines", relabelAs: "shuffle" },
+        " Push 2",
+      ],
+    ],
+  },
+  {
+    id: "hero_skill:musketeer:h18:p369",
+    name: "Buckshot",
+    page: 12,
+    level: 3,
+    expectedEffects: ["{self_effects}{buff}Self{buff}Push2", "{stun}{target_effects}Push2"],
+    expectedStats: "{range}1{target_monster}{target_monster}Crit1{damage}9Acc12{damage}5",
+    requireIcons: [{ icon: "shuffle", from: "pool" }],
+    effects: [
+      [
+        { icon: "self_effects" },
+        " Self ",
+        { iconId: "d4329c2a97", from: "lines", relabelAs: "shuffle" },
+        " Push 2",
+      ],
+      [
+        { icon: "target_effects", from: "pool" },
+        " ",
+        { iconId: "1fd9f6ec6d", from: "lines", relabelAs: "shuffle" },
+        " Push 2",
+      ],
+    ],
+  },
+  {
+    id: "hero_skill:musketeer:h18:p370",
+    name: "Sidearm",
+    page: 13,
+    level: 1,
+    expectedEffects: ["{self_effects}{buff}Self{shuffle}Push1"],
+    expectedStats: "{range}0-2{target_monster}Crit0{damage}8Acc8{damage}5",
+    requireIcons: [{ icon: "shuffle", from: "pool" }],
+    effects: [
+      [
+        { icon: "self_effects" },
+        " Self ",
+        { iconId: "f18923574c", from: "lines", relabelAs: "shuffle" },
+        " Push 1",
+      ],
+    ],
+  },
+  {
+    id: "hero_skill:musketeer:h18:p371",
+    name: "Sidearm",
+    page: 14,
+    level: 2,
+    expectedEffects: ["{self_effects}{buff}Self{shuffle}Push2"],
+    expectedStats: "{range}0-2{target_monster}Crit0{damage}11Acc9{damage}6",
+    requireIcons: [{ icon: "shuffle", from: "pool" }],
+    effects: [
+      [
+        { icon: "self_effects" },
+        " Self ",
+        { iconId: "f18923574c", from: "lines", relabelAs: "shuffle" },
+        " Push 2",
+      ],
+    ],
+    annotations: { annotation_range: { min: 0, max: 2, source: "print_front" } },
+  },
+  {
+    id: "hero_skill:musketeer:h18:p372",
+    name: "Sidearm",
+    page: 15,
+    level: 3,
+    expectedEffects: ["{self_effects}{buff}Self{shuffle}Push2"],
+    expectedStats: "{range}0-2{target_monster}Crit0{damage}14Acc10{damage}8",
+    requireIcons: [{ icon: "shuffle", from: "pool" }],
+    effects: [
+      [
+        { icon: "self_effects" },
+        " Self ",
+        { iconId: "f18923574c", from: "lines", relabelAs: "shuffle" },
+        " Push 2",
+      ],
+    ],
+    annotations: { annotation_range: { min: 0, max: 2, source: "print_front" } },
+  },
+  {
+    id: "hero_skill:musketeer:h18:p373",
+    name: "Patch Up",
+    page: 16,
+    level: 1,
+    expectedEffects: ["{self_effects}{buff}Self{buff}2t"],
+    expectedStats:
+      "{range}0-1{target_hero}Crit0{damage_or_heal_combined_marker}{damage}6Acc8{damage_or_heal_combined_marker}{damage}4",
+    requireIcons: [{ icon: "buff", from: "pool" }],
+    effects: [
+      [
+        { icon: "self_effects" },
+        " Self ",
+        { iconId: "d4329c2a97", from: "lines", relabelAs: "buff" },
+        " 2t",
+      ],
+    ],
+    stats: [
+      { line: "stats", segment: 0, iconId: "3ab7e7544c" },
+      " 0-1 ",
+      { icon: "target_hero" },
+      " Crit 0 ",
+      { icon: "heal", from: "pool" },
+      " ",
+      { icon: "heal", from: "pool" },
+      " 6 Acc 8 ",
+      { icon: "heal", from: "pool" },
+      " ",
+      { icon: "heal", from: "pool" },
+      " 4",
+    ],
+  },
+  {
+    id: "hero_skill:musketeer:h18:p374",
+    name: "Patch Up",
+    page: 17,
+    level: 2,
+    expectedEffects: ["{self_effects}{buff}Self{buff}2t"],
+    expectedStats:
+      "{range}0-1{target_hero}Crit0{damage_or_heal_combined_marker}{damage}8Acc9{damage_or_heal_combined_marker}{damage}5",
+    requireIcons: [{ icon: "buff", from: "pool" }],
+    effects: [
+      [
+        { icon: "self_effects" },
+        " Self ",
+        { iconId: "d4329c2a97", from: "lines", relabelAs: "buff" },
+        " 2t",
+      ],
+    ],
+    stats: [
+      { line: "stats", segment: 0, iconId: "3ab7e7544c" },
+      " 0-1 ",
+      { icon: "target_hero" },
+      " Crit 0 ",
+      { icon: "heal", from: "pool" },
+      " ",
+      { icon: "heal", from: "pool" },
+      " 8 Acc 9 ",
+      { icon: "heal", from: "pool" },
+      " ",
+      { icon: "heal", from: "pool" },
+      " 5",
+    ],
+    annotations: {
+      annotation_range: { min: 0, max: 1, source: "print_front" },
+      annotation_status_effects: [
+        { lineIndex: 0, segmentIndex: 2, scope: "self", kind: "buff", duration: 2 },
+      ],
+    },
+  },
+  {
+    id: "hero_skill:musketeer:h18:p375",
+    name: "Patch Up",
+    page: 18,
+    level: 3,
+    expectedEffects: ["{self_effects}{buff}Self{buff}2t"],
+    expectedStats:
+      "{range}0-1{target_hero}Crit0{damage_or_heal_combined_marker}10{damage}Acc10{damage_or_heal_combined_marker}{damage}7",
+    requireIcons: [{ icon: "buff", from: "pool" }],
+    effects: [
+      [
+        { icon: "self_effects" },
+        " Self ",
+        { iconId: "d4329c2a97", from: "lines", relabelAs: "buff" },
+        " 2t",
+      ],
+    ],
+    stats: [
+      { line: "stats", segment: 0, iconId: "3ab7e7544c" },
+      " 0-1 ",
+      { icon: "target_hero" },
+      " Crit 0 ",
+      { icon: "heal", from: "pool" },
+      " 10 ",
+      { icon: "heal", from: "pool" },
+      " Acc 10 ",
+      { icon: "heal", from: "pool" },
+      " ",
+      { icon: "heal", from: "pool" },
+      " 7",
+    ],
+    annotations: {
+      annotation_range: { min: 0, max: 1, source: "print_front" },
+      annotation_status_effects: [
+        { lineIndex: 0, segmentIndex: 2, scope: "self", kind: "buff", duration: 2 },
+      ],
+    },
+  },
+  {
+    id: "hero_skill:musketeer:h18:p376",
+    name: "Skeet Shot",
+    page: 19,
+    level: 1,
+    expectedEffects: [
+      "{self_effects}{blight}SelfRemove{stun}{mark}{target_effects}{target_effects}:Remove{stun}{mark}",
+      "{target_monster}:{debuff}2t",
+    ],
+    expectedStats: "Acc10",
+    expectedLabels: [{ label: "Acc", raw: "Acc 10", value: 10 }],
+    requireIcons: [{ icon: "shuffle", from: "pool" }],
+    effects: [
+      [
+        { icon: "self_effects" },
+        " Self Remove ",
+        { icon: "stun", from: "pool" },
+        " ",
+        { icon: "mark", from: "pool" },
+        " ",
+        { icon: "target_effects", from: "pool" },
+        " ",
+        { icon: "target_hero", from: "pool" },
+        " : Remove ",
+        { icon: "stun", from: "pool" },
+        " ",
+        { icon: "mark", from: "pool" },
+      ],
+      [{ icon: "target_monster", from: "pool" }, " : ", { icon: "debuff", from: "pool" }, " 2t"],
+    ],
+    annotations: { annotation_range: { min: 1, max: 2, source: "print_front" } },
+  },
+  {
+    id: "hero_skill:musketeer:h18:p377",
+    name: "Skeet Shot",
+    page: 20,
+    level: 2,
+    expectedEffects: [
+      "{self_effects}{blight}SelfRemove{stun}{mark}{target_effects}{target_effects}:Remove{stun}{mark}",
+      "{target_monster}:{debuff}2t",
+    ],
+    expectedStats: "Acc11",
+    expectedLabels: [{ label: "Acc", raw: "Acc 11", value: 11 }],
+    requireIcons: [{ icon: "shuffle", from: "pool" }],
+    effects: [
+      [
+        { icon: "self_effects" },
+        " Self Remove ",
+        { icon: "stun", from: "pool" },
+        " ",
+        { icon: "mark", from: "pool" },
+        " ",
+        { icon: "target_effects", from: "pool" },
+        " ",
+        { icon: "target_hero", from: "pool" },
+        " : Remove ",
+        { icon: "stun", from: "pool" },
+        " ",
+        { icon: "mark", from: "pool" },
+      ],
+      [{ icon: "target_monster", from: "pool" }, " : ", { icon: "debuff", from: "pool" }, " 2t"],
+    ],
+    annotations: { annotation_range: { min: 1, max: 2, source: "print_front" } },
+  },
+  {
+    id: "hero_skill:musketeer:h18:p378",
+    name: "Skeet Shot",
+    page: 21,
+    level: 3,
+    expectedEffects: [
+      "{self_effects}{blight}SelfRemove{stun}{mark}{target_effects}{target_effects}:Remove{stun}{mark}",
+      "{target_monster}:{debuff}2t",
+    ],
+    expectedStats: "Acc12",
+    expectedLabels: [{ label: "Acc", raw: "Acc 12", value: 12 }],
+    requireIcons: [{ icon: "shuffle", from: "pool" }],
+    effects: [
+      [
+        { icon: "self_effects" },
+        " Self Remove ",
+        { icon: "stun", from: "pool" },
+        " ",
+        { icon: "mark", from: "pool" },
+        " ",
+        { icon: "target_effects", from: "pool" },
+        " ",
+        { icon: "target_hero", from: "pool" },
+        " : Remove ",
+        { icon: "stun", from: "pool" },
+        " ",
+        { icon: "mark", from: "pool" },
+      ],
+      [{ icon: "target_monster", from: "pool" }, " : ", { icon: "debuff", from: "pool" }, " 2t"],
+    ],
+    annotations: { annotation_range: { min: 1, max: 2, source: "print_front" } },
+  },
+];
+
 const entries: HeroAnnotationEntries = {
   status: statusEntries,
   range: rangeEntries,
@@ -275,507 +781,6 @@ const entries: HeroAnnotationEntries = {
     { id: "hero_skill:musketeer:h18:p375", effect: "heal" },
   ],
 };
-
-function fixHealStatsLine(
-  cards: readonly NormalizedHeroSkillCard[],
-  card: NormalizedHeroSkillCard,
-  expectedStats: string,
-): NonNullable<NormalizedHeroSkillCard["stats_line"]> {
-  const stats = card.stats_line;
-  const sig = stats ? lineSignature(stats).replace(/\s+/g, "") : "";
-  if (sig !== expectedStats.replace(/\s+/g, ""))
-    throw new Error(`${card.id} stats_line 漂移（R-048）`);
-  const heal = iconFromPool(cards, "heal");
-  return stats!.map((segment) => {
-    if (segment.type !== "icon") return segment;
-    if (segment.icon.key === "damage" || segment.icon.key === "damage_or_heal_combined_marker")
-      return heal;
-    if (segment.icon.iconId === "7616568d52") return iconFromCard(card, "target_hero");
-    return segment;
-  });
-}
-
-function fixAimedShot(
-  cards: readonly NormalizedHeroSkillCard[],
-  card: NormalizedHeroSkillCard,
-  level: number,
-  page: number,
-  expectedStats: string,
-  expectedEffRaw: string,
-  bonus: number,
-) {
-  assertCardMeta(card, "MUSKETEER", page, "Aimed Shot", level);
-  const statsSig = card.stats_line ? lineSignature(card.stats_line).replace(/\s+/g, "") : "";
-  if (statsSig !== expectedStats.replace(/\s+/g, ""))
-    throw new Error(`${card.id} Aimed Shot stats 漂移（R-048）`);
-  const effSig = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
-  if (effSig !== expectedEffRaw.replace(/\s+/g, ""))
-    throw new Error(`${card.id} Aimed Shot 效果行漂移（R-048）`);
-  const targetEffects = iconFromPool(cards, "target_effects");
-  const damageMis = segmentOnCard(card, "f18923574c");
-  iconFromPool(cards, "damage");
-  const markMis = segmentOnCard(card, "98edfaca0a");
-  const parsed = parseAnnotatedHeroSkillCard({
-    ...card,
-    effect_lines: [
-      [
-        targetEffects,
-        text(" "),
-        cloneKey(damageMis, "damage"),
-        text(` +${bonus} vs `),
-        cloneKey(markMis, "mark"),
-      ],
-    ],
-  });
-  if (level > 1) {
-    return parseAnnotatedHeroSkillCard({
-      ...parsed,
-      annotation_damage_bonus: {
-        lineIndex: 0,
-        amount: bonus,
-        condition: "marked",
-        source: "print_front",
-      },
-    });
-  }
-  return parsed;
-}
-
-function fixSmokescreenDebuff(
-  cards: readonly NormalizedHeroSkillCard[],
-  card: NormalizedHeroSkillCard,
-  level: number,
-  page: number,
-  expectedStats: string,
-  expectedEffRaw: string,
-  misIconId: string,
-  debuffT: number,
-) {
-  assertCardMeta(card, "MUSKETEER", page, "Smokescreen", level);
-  const statsSig = card.stats_line ? lineSignature(card.stats_line).replace(/\s+/g, "") : "";
-  if (statsSig !== expectedStats.replace(/\s+/g, ""))
-    throw new Error(`${card.id} Smokescreen stats 漂移（R-048）`);
-  const effSig = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
-  if (effSig !== expectedEffRaw.replace(/\s+/g, ""))
-    throw new Error(`${card.id} Smokescreen 效果行漂移（R-048）`);
-  const targetEffects = iconFromPool(cards, "target_effects");
-  const debuff = iconFromPool(cards, "debuff");
-  segmentOnCard(card, misIconId);
-  const parsed = parseAnnotatedHeroSkillCard({
-    ...card,
-    effect_lines: [[targetEffects, text(" "), debuff, text(` ${debuffT}t`)]],
-  });
-  if (level > 1) {
-    return {
-      ...parsed,
-      annotation_range: { min: 1, max: 2, source: "print_front" as const },
-      annotation_status_effects: [
-        {
-          lineIndex: 0,
-          segmentIndex: 2,
-          scope: "target" as const,
-          kind: "debuff" as const,
-          duration: debuffT,
-        },
-      ],
-    };
-  }
-  return parsed;
-}
-
-function fixCallTheShot(
-  cards: readonly NormalizedHeroSkillCard[],
-  card: NormalizedHeroSkillCard,
-  level: number,
-  page: number,
-  acc: number,
-  expectedEffRaw: string,
-  markT: number,
-) {
-  assertCardMeta(card, "MUSKETEER", page, "Call the Shot", level);
-  if (card.printed_labels.find((l) => l.label === "Acc")?.value !== acc)
-    throw new Error(`${card.id} Call the Shot Acc 漂移（R-048）`);
-  const effSig = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
-  if (effSig !== expectedEffRaw.replace(/\s+/g, ""))
-    throw new Error(`${card.id} Call the Shot 效果行漂移（R-048）`);
-  const targetEffects = iconFromPool(cards, "target_effects");
-  const markMis = segmentOnCard(card, "f70a42e51f");
-  iconFromPool(cards, "mark");
-  const parsed = parseAnnotatedHeroSkillCard({
-    ...card,
-    effect_lines: [[targetEffects, text(" "), cloneKey(markMis, "mark"), text(` ${markT}t`)]],
-  });
-  if (level > 1) {
-    return {
-      ...parsed,
-      annotation_range: { min: 1, max: 2, source: "print_front" as const },
-      annotation_status_effects: [
-        {
-          lineIndex: 0,
-          segmentIndex: 2,
-          scope: "target" as const,
-          kind: "mark" as const,
-          duration: markT,
-        },
-      ],
-    };
-  }
-  return parsed;
-}
-
-function fixBuckshot(
-  cards: readonly NormalizedHeroSkillCard[],
-  card: NormalizedHeroSkillCard,
-  level: number,
-  page: number,
-  expectedStats: string,
-  selfPush: number,
-  expectedSelfRaw: string,
-  expectedTargetRaw: string,
-) {
-  assertCardMeta(card, "MUSKETEER", page, "Buckshot", level);
-  const statsSig = card.stats_line ? lineSignature(card.stats_line).replace(/\s+/g, "") : "";
-  if (statsSig !== expectedStats.replace(/\s+/g, ""))
-    throw new Error(`${card.id} Buckshot stats 漂移（R-048）`);
-  const selfSig = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
-  const tgtSig = lineSignature(card.effect_lines[1]!).replace(/\s+/g, "");
-  if (
-    selfSig !== expectedSelfRaw.replace(/\s+/g, "") ||
-    tgtSig !== expectedTargetRaw.replace(/\s+/g, "")
-  )
-    throw new Error(`${card.id} Buckshot 效果行漂移（R-048）`);
-  const selfEffects = iconFromCard(card, "self_effects");
-  const pushMis = segmentOnCard(card, "d4329c2a97");
-  iconFromPool(cards, "shuffle");
-  const targetEffects = iconFromPool(cards, "target_effects");
-  const targetShuffle = segmentOnCard(card, "1fd9f6ec6d");
-  return parseAnnotatedHeroSkillCard({
-    ...card,
-    effect_lines: [
-      [selfEffects, text(" Self "), cloneKey(pushMis, "shuffle"), text(` Push ${selfPush}`)],
-      [targetEffects, text(" "), cloneKey(targetShuffle, "shuffle"), text(" Push 2")],
-    ],
-  });
-}
-
-function fixSidearm(
-  cards: readonly NormalizedHeroSkillCard[],
-  card: NormalizedHeroSkillCard,
-  level: number,
-  page: number,
-  expectedStats: string,
-  expectedEffRaw: string,
-  push: number,
-) {
-  assertCardMeta(card, "MUSKETEER", page, "Sidearm", level);
-  const statsSig = card.stats_line ? lineSignature(card.stats_line).replace(/\s+/g, "") : "";
-  if (statsSig !== expectedStats.replace(/\s+/g, ""))
-    throw new Error(`${card.id} Sidearm stats 漂移（R-048）`);
-  const effSig = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
-  if (effSig !== expectedEffRaw.replace(/\s+/g, ""))
-    throw new Error(`${card.id} Sidearm 效果行漂移（R-048）`);
-  const selfEffects = iconFromCard(card, "self_effects");
-  const shuffleMis = segmentOnCard(card, "f18923574c");
-  iconFromPool(cards, "shuffle");
-  const parsed = parseAnnotatedHeroSkillCard({
-    ...card,
-    effect_lines: [
-      [selfEffects, text(" Self "), cloneKey(shuffleMis, "shuffle"), text(` Push ${push}`)],
-    ],
-  });
-  if (level > 1) {
-    return { ...parsed, annotation_range: { min: 0, max: 2, source: "print_front" as const } };
-  }
-  return parsed;
-}
-
-function fixPatchUp(
-  cards: readonly NormalizedHeroSkillCard[],
-  card: NormalizedHeroSkillCard,
-  level: number,
-  page: number,
-  expectedStats: string,
-  expectedEffRaw: string,
-) {
-  assertCardMeta(card, "MUSKETEER", page, "Patch Up", level);
-  const effSig = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
-  if (effSig !== expectedEffRaw.replace(/\s+/g, ""))
-    throw new Error(`${card.id} Patch Up 效果行漂移（R-048）`);
-  const selfEffects = iconFromCard(card, "self_effects");
-  const buffMis = segmentOnCard(card, "d4329c2a97");
-  iconFromPool(cards, "buff");
-  const statsLine = fixHealStatsLine(cards, card, expectedStats);
-  const higher =
-    level > 1
-      ? {
-          annotation_range: { min: 0, max: 1, source: "print_front" as const },
-          annotation_status_effects: [
-            {
-              lineIndex: 0,
-              segmentIndex: 2,
-              scope: "self" as const,
-              kind: "buff" as const,
-              duration: 2,
-            },
-          ],
-        }
-      : {};
-  return parseAnnotatedHeroSkillCard({
-    ...card,
-    stats_line: statsLine,
-    effect_lines: [[selfEffects, text(" Self "), cloneKey(buffMis, "buff"), text(" 2t")]],
-    ...higher,
-  });
-}
-
-function fixSkeetEffectLines(
-  cards: readonly NormalizedHeroSkillCard[],
-  card: NormalizedHeroSkillCard,
-  level: number,
-  page: number,
-  acc: number,
-  expectedSelfRaw: string,
-  expectedMonsterRaw: string,
-) {
-  assertCardMeta(card, "MUSKETEER", page, "Skeet Shot", level);
-  if (card.printed_labels.find((l) => l.label === "Acc")?.value !== acc)
-    throw new Error(`${card.id} Skeet Shot Acc 漂移（R-048）`);
-  const selfSig = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
-  const monsterSig = lineSignature(card.effect_lines[1]!).replace(/\s+/g, "");
-  if (
-    selfSig !== expectedSelfRaw.replace(/\s+/g, "") ||
-    monsterSig !== expectedMonsterRaw.replace(/\s+/g, "")
-  )
-    throw new Error(`${card.id} Skeet Shot 效果行漂移（R-048）`);
-  const selfEffects = iconFromCard(card, "self_effects");
-  const stun = iconFromPool(cards, "stun");
-  const mark = iconFromPool(cards, "mark");
-  const targetEffects = iconFromPool(cards, "target_effects");
-  const targetHero = iconFromPool(cards, "target_hero");
-  iconFromPool(cards, "shuffle");
-  const targetMonster = iconFromPool(cards, "target_monster");
-  const debuff = iconFromPool(cards, "debuff");
-  return parseAnnotatedHeroSkillCard({
-    ...card,
-    effect_lines: [
-      [
-        selfEffects,
-        text(" Self Remove "),
-        stun,
-        text(" "),
-        mark,
-        text(" "),
-        targetEffects,
-        text(" "),
-        targetHero,
-        text(" : Remove "),
-        stun,
-        text(" "),
-        mark,
-      ],
-      [targetMonster, text(" : "), debuff, text(" 2t")],
-    ],
-    annotation_range: { min: 1, max: 2, source: "print_front" },
-  });
-}
-
-/**
- * R-200 / Q-185（Kyries 真确认）：Musketeer 与 Arbalest 七技能族数值/效果完全一致，仅图标与名称不同。
- * II/III 十四张 + L1 同族 OCR 洗净；效果/annotation_* 对照 Suppressive Fire / Sniper's Mark 等已核实 Arbalest 卡。
- */
-function fixes(cards: readonly NormalizedHeroSkillCard[]): Readonly<Record<string, CardFix>> {
-  return {
-    "hero_skill:musketeer:h18:p358": (card) =>
-      fixAimedShot(
-        cards,
-        card,
-        1,
-        1,
-        "{range} 2 {target_monster} Crit 1 {damage} 9 Acc 9 {damage} 6",
-        "{target_effects}{shuffle}+3vs{blight}",
-        3,
-      ),
-    "hero_skill:musketeer:h18:p359": (card) =>
-      fixAimedShot(
-        cards,
-        card,
-        2,
-        2,
-        "{range} 2 {target_monster} Crit 1 {damage} 12 Acc 10 {damage} 8",
-        "{target_effects}{shuffle}+5vs{blight}",
-        5,
-      ),
-    "hero_skill:musketeer:h18:p360": (card) =>
-      fixAimedShot(
-        cards,
-        card,
-        3,
-        3,
-        "{range} 2 {target_monster} Crit 1 {damage} 16 Acc 11 {damage} 10",
-        "{target_effects}{shuffle}+9vs{blight}",
-        9,
-      ),
-    "hero_skill:musketeer:h18:p361": (card) =>
-      fixSmokescreenDebuff(
-        cards,
-        card,
-        1,
-        4,
-        "{range} 1-2 {target_monster} {target_monster} Crit 0 {damage} 4 Acc 9 {damage} 2",
-        "{mark}{protection}1t",
-        "b2e9d87127",
-        1,
-      ),
-    "hero_skill:musketeer:h18:p362": (card) =>
-      fixSmokescreenDebuff(
-        cards,
-        card,
-        2,
-        5,
-        "{range} 1-2 {target_monster} {target_monster} Crit 0 {damage} 6 Acc 10 {damage} 3",
-        "{skill_art}{protection}2t",
-        "462bd48a91",
-        2,
-      ),
-    "hero_skill:musketeer:h18:p363": (card) =>
-      fixSmokescreenDebuff(
-        cards,
-        card,
-        3,
-        6,
-        "{range} 1-2 {target_monster} {target_monster} Crit 0 {damage} 7 Acc 11 {damage} 4",
-        "{skill_art}{bleed}3t",
-        "462bd48a91",
-        3,
-      ),
-    "hero_skill:musketeer:h18:p364": (card) =>
-      fixCallTheShot(cards, card, 1, 7, 10, "{target_effects}{debuff}2t", 2),
-    "hero_skill:musketeer:h18:p365": (card) =>
-      fixCallTheShot(cards, card, 2, 8, 11, "{target_effects}{debuff}3t", 3),
-    "hero_skill:musketeer:h18:p366": (card) =>
-      fixCallTheShot(cards, card, 3, 9, 12, "{target_effects}{debuff}4t", 4),
-    "hero_skill:musketeer:h18:p367": (card) =>
-      fixBuckshot(
-        cards,
-        card,
-        1,
-        10,
-        "{range} 1 {target_monster} {target_monster} Crit 1 {damage} 6 Acc 10 {damage} 3",
-        1,
-        "{self_effects}{buff}Self{buff}Push1",
-        "{stun}{target_effects}Push2",
-      ),
-    "hero_skill:musketeer:h18:p368": (card) =>
-      fixBuckshot(
-        cards,
-        card,
-        2,
-        11,
-        "{range} 1 {target_monster} {target_monster} Crit 1 {damage} 8 Acc 11 {damage} 4",
-        2,
-        "{self_effects}{buff}Self{buff}Push2",
-        "{stun}{target_effects}Push2",
-      ),
-    "hero_skill:musketeer:h18:p369": (card) =>
-      fixBuckshot(
-        cards,
-        card,
-        3,
-        12,
-        "{range} 1 {target_monster} {target_monster} Crit 1 {damage} 9 Acc 12 {damage} 5",
-        2,
-        "{self_effects}{buff}Self{buff}Push2",
-        "{stun}{target_effects}Push2",
-      ),
-    "hero_skill:musketeer:h18:p370": (card) =>
-      fixSidearm(
-        cards,
-        card,
-        1,
-        13,
-        "{range} 0-2 {target_monster} Crit 0 {damage} 8 Acc 8 {damage} 5",
-        "{self_effects}{buff}Self{shuffle}Push1",
-        1,
-      ),
-    "hero_skill:musketeer:h18:p371": (card) =>
-      fixSidearm(
-        cards,
-        card,
-        2,
-        14,
-        "{range} 0-2 {target_monster} Crit 0 {damage} 11 Acc 9 {damage} 6",
-        "{self_effects}{buff}Self{shuffle}Push2",
-        2,
-      ),
-    "hero_skill:musketeer:h18:p372": (card) =>
-      fixSidearm(
-        cards,
-        card,
-        3,
-        15,
-        "{range} 0-2 {target_monster} Crit 0 {damage} 14 Acc 10 {damage} 8",
-        "{self_effects}{buff}Self{shuffle}Push2",
-        2,
-      ),
-    "hero_skill:musketeer:h18:p373": (card) =>
-      fixPatchUp(
-        cards,
-        card,
-        1,
-        16,
-        "{range} 0-1 {target_hero} Crit 0 {damage_or_heal_combined_marker} {damage} 6 Acc 8 {damage_or_heal_combined_marker} {damage} 4",
-        "{self_effects}{buff}Self{buff}2t",
-      ),
-    "hero_skill:musketeer:h18:p374": (card) =>
-      fixPatchUp(
-        cards,
-        card,
-        2,
-        17,
-        "{range} 0-1 {target_hero} Crit 0 {damage_or_heal_combined_marker} {damage} 8 Acc 9 {damage_or_heal_combined_marker} {damage} 5",
-        "{self_effects}{buff}Self{buff}2t",
-      ),
-    "hero_skill:musketeer:h18:p375": (card) =>
-      fixPatchUp(
-        cards,
-        card,
-        3,
-        18,
-        "{range} 0-1 {target_hero} Crit 0 {damage_or_heal_combined_marker} 10 {damage} Acc 10 {damage_or_heal_combined_marker} {damage} 7",
-        "{self_effects}{buff}Self{buff}2t",
-      ),
-    "hero_skill:musketeer:h18:p376": (card) =>
-      fixSkeetEffectLines(
-        cards,
-        card,
-        1,
-        19,
-        10,
-        "{self_effects}{blight}SelfRemove{stun}{mark}{target_effects}{target_effects}:Remove{stun}{mark}",
-        "{target_monster}:{debuff}2t",
-      ),
-    "hero_skill:musketeer:h18:p377": (card) =>
-      fixSkeetEffectLines(
-        cards,
-        card,
-        2,
-        20,
-        11,
-        "{self_effects}{blight}SelfRemove{stun}{mark}{target_effects}{target_effects}:Remove{stun}{mark}",
-        "{target_monster}:{debuff}2t",
-      ),
-    "hero_skill:musketeer:h18:p378": (card) =>
-      fixSkeetEffectLines(
-        cards,
-        card,
-        3,
-        21,
-        12,
-        "{self_effects}{blight}SelfRemove{stun}{mark}{target_effects}{target_effects}:Remove{stun}{mark}",
-        "{target_monster}:{debuff}2t",
-      ),
-  };
-}
 
 export const h18 = defineHeroModule({
   id: "h18",

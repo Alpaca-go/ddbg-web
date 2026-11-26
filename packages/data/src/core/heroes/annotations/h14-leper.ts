@@ -1,17 +1,11 @@
-import { parseAnnotatedHeroSkillCard } from "../../../shared/schema";
-import type { HeroAnnotationEntries, StatusEffectEntry, ShuffleEntry, IgnoresEntry } from "./types";
-import {
-  assertCardMeta,
-  cloneKey,
-  defineHeroModule,
-  iconFromCard,
-  iconFromPool,
-  segmentOnCardInEffects,
-  text,
-} from "./patch-helpers";
-import type { CardFix, IconSegment } from "./patch-helpers";
-import { lineSignature } from "./shared";
-import type { NormalizedHeroSkillCard } from "../../../shared/schema";
+import type {
+  HeroAnnotationEntries,
+  IgnoresEntry,
+  ShuffleEntry,
+  SkillCorrection,
+  StatusEffectEntry,
+} from "./types";
+import { defineHeroModule } from "./patch-helpers";
 
 /** 完整印刷逐页核对的状态效果行（docs/phase2-four-core-skills-2026-10-11.md）。 */
 const statusEntries: readonly StatusEffectEntry[] = [
@@ -48,6 +42,7 @@ const statusEntries: readonly StatusEffectEntry[] = [
       { kind: "mark", duration: 2 },
     ],
   },
+  // Q-164：签名保留提取键 {light}（9ffbd6087a）。折角箭头不表示光照。
   {
     id: "hero_skill:warrens:h14:p292",
     name: "Intimidate",
@@ -227,6 +222,329 @@ const ignoresEntries: readonly IgnoresEntry[] = [
   { id: "hero_skill:warrens:h14:p294", name: "Intimidate", level: 3, lineIndex: 2, kind: "guard" },
 ];
 
+/**
+ * R-200 / Q-163～Q-166：Leper II–III 逐卡印刷覆盖（签名断言 + 必要 icon key 修正，不改全局词典）。
+ * 每张卡一条 patch；hero / 卡名 / 等级 / 页码由 applyCardFixes + assertCardMeta 统一断言。
+ */
+const fixes: readonly SkillCorrection[] = [
+  {
+    id: "hero_skill:warrens:h14:p280",
+    name: "Purge",
+    page: 280,
+    level: 1,
+    expectedEffects: ["{self_effects}{buff}Self{buff}2t", "{target_effects}{shuffle}Push2"],
+    expectedStats: "{range}0{target_monster}Crit0{damage}11Acc9{damage}7",
+    effects: [[{ icon: "self_effects" }, " Self ", { icon: "buff" }, " 2t"], 1],
+  },
+  {
+    id: "hero_skill:warrens:h14:p281",
+    name: "Purge",
+    page: 281,
+    level: 2,
+    expectedEffects: ["{self_effects}{buff}Self{buff}2t", "{target_effects}{shuffle}Push2"],
+    expectedStats: "{range}0{target_monster}Crit0{damage}14Acc10{damage}10",
+    effects: [[{ icon: "self_effects" }, " Self ", { icon: "buff" }, " 2t"], 1],
+  },
+  {
+    id: "hero_skill:warrens:h14:p282",
+    name: "Purge",
+    page: 282,
+    level: 3,
+    expectedEffects: ["{self_effects}{buff}Self{buff}2t", "{target_effects}{shuffle}Push2"],
+    expectedStats: "{range}0{target_monster}Crit0{heal}19Acc11{heal}12",
+    effects: [[{ icon: "self_effects" }, " Self ", { icon: "buff" }, " 2t"], 1],
+    stats: [
+      { line: "stats", segment: 0, iconId: "3ab7e7544c" },
+      " 0 ",
+      { line: "stats", segment: 2, iconId: "a396e95c00" },
+      " Crit 0 ",
+      { line: "stats", segment: 4, iconId: "20ffe98e2d", relabelAs: "damage" },
+      " 19 Acc 11 ",
+      { line: "stats", segment: 6, iconId: "20ffe98e2d", relabelAs: "damage" },
+      " 12",
+    ],
+  },
+  {
+    id: "hero_skill:warrens:h14:p283",
+    name: "Revenge",
+    page: 283,
+    level: 1,
+    expectedEffects: ["{heal}{mark}2t,{debuff}1t"],
+    expectedStats: "Crit1Acc10",
+    effects: [
+      [
+        { line: 0, segment: 0, iconId: "20ffe98e2d", relabelAs: "target_effects" },
+        " ",
+        { line: 0, segment: 2, iconId: "b2102a1a20" },
+        " 2t, ",
+        { line: 0, segment: 4, iconId: "c3fb3612ce" },
+        " 1t",
+      ],
+    ],
+  },
+  {
+    id: "hero_skill:warrens:h14:p284",
+    name: "Revenge",
+    page: 284,
+    level: 2,
+    expectedEffects: ["{heal}{mark}2t,{debuff}2t"],
+    expectedStats: "Crit1Acc11",
+    effects: [
+      [
+        { line: 0, segment: 0, iconId: "20ffe98e2d", relabelAs: "target_effects" },
+        " ",
+        { line: 0, segment: 2, iconId: "b2102a1a20" },
+        " 2t, ",
+        { line: 0, segment: 4, iconId: "c3fb3612ce" },
+        " 2t",
+      ],
+    ],
+  },
+  {
+    id: "hero_skill:warrens:h14:p285",
+    name: "Revenge",
+    page: 285,
+    level: 3,
+    expectedEffects: ["{heal}{mark}3t,{debuff}3t"],
+    expectedStats: "Crit1Acc12",
+    effects: [
+      [
+        { line: 0, segment: 0, iconId: "20ffe98e2d", relabelAs: "target_effects" },
+        " ",
+        { line: 0, segment: 2, iconId: "b2102a1a20" },
+        " 3t, ",
+        { line: 0, segment: 4, iconId: "c3fb3612ce" },
+        " 3t",
+      ],
+    ],
+  },
+  {
+    id: "hero_skill:warrens:h14:p286",
+    name: "Withstand",
+    page: 286,
+    level: 1,
+    expectedEffects: ["{self_effects}{buff}Self{protection}2t,{mark}2t"],
+    expectedStats: "Crit1Acc12",
+    effects: [
+      [{ icon: "range", from: "pool" }, " Self"],
+      [
+        { icon: "self_effects" },
+        " Self ",
+        { icon: "protection" },
+        " 2t, ",
+        { icon: "mark" },
+        " 2t",
+      ],
+    ],
+    stats: null,
+    annotations: { annotation_self_range: true },
+  },
+  {
+    id: "hero_skill:warrens:h14:p287",
+    name: "Withstand",
+    page: 287,
+    level: 2,
+    expectedEffects: ["{self_effects}{buff}Self{protection}2t,{mark}1t"],
+    expectedStats: "Crit1Acc14",
+    effects: [
+      [{ icon: "range", from: "pool" }, " Self"],
+      [
+        { icon: "self_effects" },
+        " Self ",
+        { icon: "protection" },
+        " 2t, ",
+        { icon: "mark" },
+        " 1t",
+      ],
+    ],
+    stats: null,
+    annotations: { annotation_self_range: true },
+  },
+  {
+    id: "hero_skill:warrens:h14:p288",
+    name: "Withstand",
+    page: 288,
+    level: 3,
+    expectedEffects: ["{self_effects}{buff}Self{protection}3t,{mark}1t"],
+    expectedStats: "Crit1Acc16",
+    effects: [
+      [{ icon: "range", from: "pool" }, " Self"],
+      [
+        { icon: "self_effects" },
+        " Self ",
+        { icon: "protection" },
+        " 3t, ",
+        { icon: "mark" },
+        " 1t",
+      ],
+    ],
+    stats: null,
+    annotations: { annotation_self_range: true },
+  },
+  {
+    id: "hero_skill:warrens:h14:p289",
+    name: "Solemnity",
+    page: 289,
+    level: 1,
+    expectedEffects: ["{self_effects}{buff}Self{buff}{heal}6,{shuffle}-1"],
+    expectedStats: "Crit1Acc12",
+    requireIcons: [{ icon: "stress", from: "pool" }],
+    effects: [
+      [
+        { icon: "self_effects" },
+        " Self ",
+        { icon: "heal" },
+        " 6",
+        { iconId: "f18923574c", from: "effects", relabelAs: "stress" },
+        "-1",
+      ],
+    ],
+    stats: [{ icon: "range", from: "pool" }, " Self"],
+    numbers: {
+      prepend: [{ text: "0", numeric: 0, left: { icon: "range", from: "pool" } }],
+      replaceLeft: { text: "-1", icon: { icon: "stress", from: "pool" } },
+    },
+    annotations: {
+      annotation_self_heal: { lineIndex: 0, amount: 6, source: "print_front" },
+      annotation_self_stress: { lineIndex: 0, amount: -1, source: "print_front" },
+    },
+  },
+  {
+    id: "hero_skill:warrens:h14:p290",
+    name: "Solemnity",
+    page: 290,
+    level: 2,
+    expectedEffects: ["{self_effects}{buff}Self{buff}{heal}9,{shuffle}-1"],
+    expectedStats: "Crit1Acc14",
+    requireIcons: [{ icon: "stress", from: "pool" }],
+    effects: [
+      [
+        { icon: "self_effects" },
+        " Self ",
+        { icon: "heal" },
+        " 9",
+        { iconId: "f18923574c", from: "effects", relabelAs: "stress" },
+        "-1",
+      ],
+    ],
+    stats: [{ icon: "range", from: "pool" }, " Self"],
+    numbers: {
+      prepend: [{ text: "0", numeric: 0, left: { icon: "range", from: "pool" } }],
+      replaceLeft: { text: "-1", icon: { icon: "stress", from: "pool" } },
+    },
+    annotations: {
+      annotation_self_heal: { lineIndex: 0, amount: 9, source: "print_front" },
+      annotation_self_stress: { lineIndex: 0, amount: -1, source: "print_front" },
+    },
+  },
+  {
+    id: "hero_skill:warrens:h14:p291",
+    name: "Solemnity",
+    page: 291,
+    level: 3,
+    expectedEffects: ["{self_effects}{buff}Self{buff}12{heal},{shuffle}-1"],
+    expectedStats: "Crit1Acc16",
+    requireIcons: [{ icon: "stress", from: "pool" }],
+    effects: [
+      [
+        { icon: "self_effects" },
+        " Self ",
+        { icon: "heal" },
+        " 12",
+        { iconId: "f18923574c", from: "effects", relabelAs: "stress" },
+        "-1",
+      ],
+    ],
+    stats: [{ icon: "range", from: "pool" }, " Self"],
+    numbers: {
+      prepend: [{ text: "0", numeric: 0, left: { icon: "range", from: "pool" } }],
+      replaceLeft: { text: "-1", icon: { icon: "stress", from: "pool" } },
+    },
+    annotations: {
+      annotation_self_heal: { lineIndex: 0, amount: 12, source: "print_front" },
+      annotation_self_stress: { lineIndex: 0, amount: -1, source: "print_front" },
+    },
+  },
+  {
+    id: "hero_skill:warrens:h14:p292",
+    name: "Intimidate",
+    page: 292,
+    level: 1,
+    expectedEffects: [
+      "{self_effects}{buff}Self{buff}2t",
+      "{light}Ignores{target_effects}{target_effects},{light}1t",
+    ],
+    expectedStats: "{range}2{target_monster}Crit0{damage}7Acc9{damage}4",
+    effects: [
+      [
+        { icon: "self_effects" },
+        " Self ",
+        { iconId: "d4329c2a97", from: "effects", relabelAs: "mark" },
+        " 2t",
+      ],
+      [
+        { icon: "target_effects", from: "pool" },
+        " Ignores ",
+        { line: 1, segment: 2, iconId: "b6afaa4d7b", relabelAs: "protection" },
+      ],
+      ["Ignores ", { line: 1, segment: 4, iconId: "b6afaa4d7b", relabelAs: "guard" }],
+      [{ icon: "target_effects", from: "pool" }, " ", { icon: "debuff", from: "pool" }, " 1t"],
+    ],
+  },
+  {
+    id: "hero_skill:warrens:h14:p293",
+    name: "Intimidate",
+    page: 293,
+    level: 2,
+    expectedEffects: [
+      "{self_effects}{buff}Self{buff}2t",
+      "{light}Ignores{target_effects}{target_effects},{debuff}2t",
+    ],
+    expectedStats: "{range}2{target_monster}Crit1{damage}10Acc10{damage}6",
+    effects: [
+      [
+        { icon: "self_effects" },
+        " Self ",
+        { iconId: "d4329c2a97", from: "effects", relabelAs: "mark" },
+        " 2t",
+      ],
+      [
+        { icon: "target_effects", from: "pool" },
+        " Ignores ",
+        { line: 1, segment: 2, iconId: "b6afaa4d7b", relabelAs: "protection" },
+      ],
+      ["Ignores ", { line: 1, segment: 4, iconId: "b6afaa4d7b", relabelAs: "guard" }],
+      [{ icon: "target_effects", from: "pool" }, " ", { icon: "debuff", from: "pool" }, " 2t"],
+    ],
+  },
+  {
+    id: "hero_skill:warrens:h14:p294",
+    name: "Intimidate",
+    page: 294,
+    level: 3,
+    expectedEffects: [
+      "{self_effects}{buff}Self{buff}1t",
+      "{light}Ignores{target_effects}{target_effects},{debuff}3t",
+    ],
+    expectedStats: "{range}2{target_monster}Crit1{damage}12Acc11{damage}8",
+    effects: [
+      [
+        { icon: "self_effects" },
+        " Self ",
+        { iconId: "d4329c2a97", from: "effects", relabelAs: "mark" },
+        " 1t",
+      ],
+      [
+        { icon: "target_effects", from: "pool" },
+        " Ignores ",
+        { line: 1, segment: 2, iconId: "b6afaa4d7b", relabelAs: "protection" },
+      ],
+      ["Ignores ", { line: 1, segment: 4, iconId: "b6afaa4d7b", relabelAs: "guard" }],
+      [{ icon: "target_effects", from: "pool" }, " ", { icon: "debuff", from: "pool" }, " 3t"],
+    ],
+  },
+];
+
 const entries: HeroAnnotationEntries = {
   status: statusEntries,
   shuffle: shuffleEntries,
@@ -269,194 +587,6 @@ const entries: HeroAnnotationEntries = {
     { id: "hero_skill:warrens:h14:p294", effect: "damage" },
   ],
 };
-
-/**
- * R-200 / Q-163～Q-166：Leper II–III 逐卡印刷覆盖（签名断言 + 必要 icon key 修正，不改全局词典）。
- * 每张卡一条 patch；hero / 卡名 / 等级 / 页码由 applyCardFixes + assertCardMeta 统一断言。
- */
-function purge(page: number): CardFix {
-  const level = page - 279;
-  return (card) => {
-    assertCardMeta(card, "LEPER", page, "Purge", level);
-    const rawSig = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
-    if (rawSig !== "{self_effects}{buff}Self{buff}2t")
-      throw new Error(`${card.id} Purge Buff 行漂移（R-048）`);
-    const buff = iconFromCard(card, "buff");
-    const selfEffects = iconFromCard(card, "self_effects");
-    const base = {
-      ...card,
-      effect_lines: [[selfEffects, text(" Self "), buff, text(" 2t")], card.effect_lines[1]!],
-    };
-    if (page !== 282) return parseAnnotatedHeroSkillCard(base);
-    const stats = card.stats_line;
-    const statsSig = stats ? lineSignature(stats).replace(/\s+/g, "") : "";
-    if (statsSig !== "{range}0{target_monster}Crit0{heal}19Acc11{heal}12")
-      throw new Error(`${card.id} Purge III stats_line 漂移（R-048）`);
-    return parseAnnotatedHeroSkillCard({
-      ...base,
-      stats_line: stats!.map((segment) =>
-        segment.type === "icon" && segment.icon.key === "heal"
-          ? cloneKey(segment, "damage")
-          : segment,
-      ),
-    });
-  };
-}
-
-function revenge(page: number): CardFix {
-  const level = page - 282;
-  return (card) => {
-    assertCardMeta(card, "LEPER", page, "Revenge", level);
-    const markT = Math.max(2, level);
-    const rawSig = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
-    if (rawSig !== `{heal}{mark}${markT}t,{debuff}${level}t`)
-      throw new Error(`${card.id} Revenge 效果行漂移（R-048）`);
-    const line = card.effect_lines[0]!;
-    const leadHeal = line[0];
-    if (leadHeal?.type !== "icon" || leadHeal.icon.iconId !== "20ffe98e2d")
-      throw new Error(`${card.id} Revenge 行首误 heal 段漂移（R-048）`);
-    return parseAnnotatedHeroSkillCard({
-      ...card,
-      effect_lines: [[cloneKey(leadHeal, "target_effects"), ...line.slice(1)]],
-    });
-  };
-}
-
-function withstand(cards: readonly NormalizedHeroSkillCard[], page: number): CardFix {
-  const level = page - 285;
-  const protT = page === 288 ? 3 : 2;
-  const markT = page === 286 ? 2 : 1;
-  return (card) => {
-    assertCardMeta(card, "LEPER", page, "Withstand", level);
-    const rawSig = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
-    if (rawSig !== `{self_effects}{buff}Self{protection}${protT}t,{mark}${markT}t`)
-      throw new Error(`${card.id} Withstand 效果行漂移（R-048）`);
-    const selfEffects = iconFromCard(card, "self_effects");
-    const protection = iconFromCard(card, "protection");
-    const mark = iconFromCard(card, "mark");
-    const rangeIcon = iconFromPool(cards, "range");
-    return parseAnnotatedHeroSkillCard({
-      ...card,
-      stats_line: null,
-      annotation_self_range: true,
-      effect_lines: [
-        [rangeIcon, text(" Self")],
-        [selfEffects, text(" Self "), protection, text(` ${protT}t, `), mark, text(` ${markT}t`)],
-      ],
-    });
-  };
-}
-
-function solemnity(cards: readonly NormalizedHeroSkillCard[], page: number): CardFix {
-  const level = page - 288;
-  const heal = 3 + level * 3;
-  return (card) => {
-    assertCardMeta(card, "LEPER", page, "Solemnity", level);
-    const raw = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
-    const expected =
-      page !== 291
-        ? `{self_effects}{buff}Self{buff}{heal}${heal},{shuffle}-1`
-        : "{self_effects}{buff}Self{buff}12{heal},{shuffle}-1";
-    if (raw !== expected) throw new Error(`${card.id} Solemnity 效果行漂移（R-048）`);
-    const selfEffects = iconFromCard(card, "self_effects");
-    const healIcon = iconFromCard(card, "heal");
-    const shuffleMisread = segmentOnCardInEffects(card, "f18923574c");
-    const rangeIcon = iconFromPool(cards, "range");
-    const stressIcon = iconFromPool(cards, "stress");
-    return parseAnnotatedHeroSkillCard({
-      ...card,
-      stats_line: [rangeIcon, text(" Self")],
-      annotation_self_heal: { lineIndex: 0, amount: heal, source: "print_front" },
-      annotation_self_stress: { lineIndex: 0, amount: -1, source: "print_front" },
-      effect_lines: [
-        [
-          selfEffects,
-          text(" Self "),
-          healIcon,
-          text(` ${heal}`),
-          cloneKey(shuffleMisread, "stress"),
-          text("-1"),
-        ],
-      ],
-      unlabeled_numbers: [
-        {
-          text: "0",
-          numeric: 0,
-          anchor: {
-            type: "beside_icon" as const,
-            left_icon: rangeIcon.icon,
-            inside_icon: null,
-          },
-        },
-        ...card.unlabeled_numbers.map((item) => {
-          if (item.text !== "-1" || item.anchor.type !== "beside_icon") return item;
-          return {
-            ...item,
-            anchor: {
-              type: "beside_icon" as const,
-              left_icon: { ...stressIcon.icon },
-              inside_icon: item.anchor.inside_icon,
-            },
-          };
-        }),
-      ],
-    });
-  };
-}
-
-function intimidate(cards: readonly NormalizedHeroSkillCard[], page: number): CardFix {
-  const markT = page === 294 ? 1 : 2;
-  const debuffT = page - 291;
-  return (card) => {
-    assertCardMeta(card, "LEPER", page, "Intimidate", debuffT);
-    const rawSigs = card.effect_lines.map((line) => lineSignature(line).replace(/\s+/g, ""));
-    const expected = [
-      `{self_effects}{buff}Self{buff}${markT}t`,
-      `{light}Ignores{target_effects}{target_effects},{${page === 292 ? "light" : "debuff"}}${debuffT}t`,
-    ];
-    if (JSON.stringify(rawSigs) !== JSON.stringify(expected))
-      throw new Error(`${card.id} Intimidate 效果行漂移（R-048）`);
-    const selfEffects = iconFromCard(card, "self_effects");
-    const markMisread = segmentOnCardInEffects(card, "d4329c2a97");
-    const targetDupes = card.effect_lines[1]!.filter(
-      (s): s is IconSegment => s.type === "icon" && s.icon.iconId === "b6afaa4d7b",
-    );
-    if (targetDupes.length < 2)
-      throw new Error(`${card.id} Intimidate Ignores 行 target_effects 漂移（R-048）`);
-    const debuff = iconFromPool(cards, "debuff");
-    const targetEffectsIcon = iconFromPool(cards, "target_effects");
-    // 印刷签名闸仍用提取键 `{light}`（9ffbd6087a）；折角箭头非光照，不入结算段（Q-164）。
-    return parseAnnotatedHeroSkillCard({
-      ...card,
-      effect_lines: [
-        [selfEffects, text(" Self "), cloneKey(markMisread, "mark"), text(` ${markT}t`)],
-        [targetEffectsIcon, text(" Ignores "), cloneKey(targetDupes[0]!, "protection")],
-        [text("Ignores "), cloneKey(targetDupes[1]!, "guard")],
-        [targetEffectsIcon, text(" "), debuff, text(` ${debuffT}t`)],
-      ],
-    });
-  };
-}
-
-function fixes(cards: readonly NormalizedHeroSkillCard[]): Readonly<Record<string, CardFix>> {
-  return {
-    "hero_skill:warrens:h14:p280": purge(280),
-    "hero_skill:warrens:h14:p281": purge(281),
-    "hero_skill:warrens:h14:p282": purge(282),
-    "hero_skill:warrens:h14:p283": revenge(283),
-    "hero_skill:warrens:h14:p284": revenge(284),
-    "hero_skill:warrens:h14:p285": revenge(285),
-    "hero_skill:warrens:h14:p286": withstand(cards, 286),
-    "hero_skill:warrens:h14:p287": withstand(cards, 287),
-    "hero_skill:warrens:h14:p288": withstand(cards, 288),
-    "hero_skill:warrens:h14:p289": solemnity(cards, 289),
-    "hero_skill:warrens:h14:p290": solemnity(cards, 290),
-    "hero_skill:warrens:h14:p291": solemnity(cards, 291),
-    "hero_skill:warrens:h14:p292": intimidate(cards, 292),
-    "hero_skill:warrens:h14:p293": intimidate(cards, 293),
-    "hero_skill:warrens:h14:p294": intimidate(cards, 294),
-  };
-}
 
 export const h14 = defineHeroModule({
   id: "h14",
