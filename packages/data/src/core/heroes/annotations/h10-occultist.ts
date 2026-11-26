@@ -248,7 +248,7 @@ const coreHigherRows: readonly CoreHigherSkillRow[] = [
   },
 ];
 
-/** 完整印刷逐页核对的状态效果行（docs/phase2-four-core-skills-2026-10-11.md）。 */
+/** 完整印刷逐页核对的状态效果行（docs/phases/phase2/phase2-four-core-skills-2026-10-11.md）。 */
 const statusEntries: readonly StatusEffectEntry[] = [
   // 完整 FRONT p196/p199/p202/p205；仅 Occ I，不向 II/III 外推。
   {

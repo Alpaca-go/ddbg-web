@@ -24,5 +24,5 @@
 
 ```bash
 pnpm typecheck
-pnpm exec vitest run packages/engine/src/boss/final-battle-initiative.test.ts packages/engine/src/boss/final-battle-deploy.test.ts packages/engine/src/boss/final-form-sequence.test.ts
+pnpm exec vitest run packages/engine/tests/core/bosses/final/final-battle-initiative.test.ts packages/engine/tests/core/bosses/final/final-battle-deploy.test.ts packages/engine/tests/core/bosses/final/final-form-sequence.test.ts
 ```

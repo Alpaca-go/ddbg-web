@@ -22,10 +22,10 @@
 
 ```bash
 pnpm exec vitest run \
-  packages/engine/src/boss/collector-higher-deploy.test.ts \
-  packages/engine/src/boss/collector-higher-finish.test.ts \
-  packages/engine/src/boss/collector-i-deploy.test.ts \
-  packages/engine/src/boss/objective-room-entry.test.ts
+  packages/engine/tests/core/bosses/collector/collector-higher-deploy.test.ts \
+  packages/engine/tests/core/bosses/collector/collector-higher-finish.test.ts \
+  packages/engine/tests/core/bosses/collector/collector-i-deploy.test.ts \
+  packages/engine/tests/core/bosses/objective-room-entry.test.ts
 pnpm typecheck
 ```
 

@@ -19,7 +19,7 @@
 
 ## 实现
 
-- `packages/engine/src/shuffle.ts`：
+- `packages/engine/src/shared/core/shuffle.ts`：
   - 保留既有「被穿过 / 落点上的同阵营角色按 `delta × 宽度` 基准顺移」；
   - 基准顺移后仍与插入块重叠的（只可能是跨在插入点上的 2 格大型怪），按块沿同一方向逐格让位，并对后续同阵营块级联；
   - 任一块越出 0–4 即回滚整次姿态位移（`stanceSteps: 0`），区域 `path` / `areaId` 照常写回；
@@ -28,8 +28,8 @@
 
 ## 测试
 
-- `packages/engine/src/shuffle.test.ts`：Q-19 用例改为三条断言（Push 1 截断、Push 2 整块顺移、Pull 1 向后让两格），并新增「级联顶到轨道边界整次截断」用例。
-- `packages/engine/src/b09-curio-natural-paths.test.ts`：去掉 `KNOWN_HOLDS = ["Q-19"]`；`quest:p001` / `quest:p005` 各 100 个种子的自然路径无 `commandRefused`、无停点。
+- `packages/engine/tests/shared/core/shuffle.test.ts`：Q-19 用例改为三条断言（Push 1 截断、Push 2 整块顺移、Pull 1 向后让两格），并新增「级联顶到轨道边界整次截断」用例。
+- `packages/engine/tests/shared/core/b09-curio-natural-paths.test.ts`：去掉 `KNOWN_HOLDS = ["Q-19"]`；`quest:p001` / `quest:p005` 各 100 个种子的自然路径无 `commandRefused`、无停点。
 
 ## 边界
 

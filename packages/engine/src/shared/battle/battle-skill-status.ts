@@ -17,8 +17,8 @@ import { hasQuirk, passivePlan, passiveStress } from "../core/passive";
 import {
   approvedHeroConditionDefences,
   heroConditionDefenceSchema,
-} from "../../../../data/src/core/heroes/hero-stat.build";
-import { readHigherHeroDefence } from "../../../../data/src/core/heroes/hero-higher-defence.build";
+} from "../../../../data/src/core/heroes/hero-stat";
+import { readHigherHeroDefence } from "../../../../data/src/core/heroes/hero-higher-defence";
 
 type HeroRuntimeDefence = PassiveDefence & {
   readonly shuffleResistant?: boolean;

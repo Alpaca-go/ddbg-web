@@ -9,12 +9,12 @@
 
 ## 证据
 
-| 项                          | 来源                                                  |
-| --------------------------- | ----------------------------------------------------- |
-| 十一区与部署落点            | R-165、`packages/data/src/normalize/ancestor-room.ts` |
-| 生产 deploy                 | **R-186**、[rulings.md](../../rulings.md#r-186)       |
-| 命令与存档                  | `deployFinalBattleForm`、`quest-save.ts`              |
-| Summon / Nothingness 姿态区 | `FINAL_BATTLE_MONSTER_STANCE_AREAS`（E/B/A/J）        |
+| 项                          | 来源                                                         |
+| --------------------------- | ------------------------------------------------------------ |
+| 十一区与部署落点            | R-165、`packages/data/src/core/rooms/ancestor-room.build.ts` |
+| 生产 deploy                 | **R-186**、[rulings.md](../../rulings.md#r-186)              |
+| 命令与存档                  | `deployFinalBattleForm`、`quest-save.ts`                     |
+| Summon / Nothingness 姿态区 | `FINAL_BATTLE_MONSTER_STANCE_AREAS`（E/B/A/J）               |
 
 ## 实现要点
 
@@ -26,9 +26,9 @@
 
 ```bash
 pnpm exec vitest run \
-  packages/engine/src/boss/final-battle-deploy.test.ts \
-  packages/engine/src/boss/gestating-heart-summon.test.ts \
-  packages/engine/src/boss/ancestor2-absolute-nothingness.test.ts
+  packages/engine/tests/core/bosses/final/final-battle-deploy.test.ts \
+  packages/engine/tests/core/bosses/final/gestating-heart-summon.test.ts \
+  packages/engine/tests/core/bosses/ancestor/ancestor2-absolute-nothingness.test.ts
 ```
 
 ## 已知限制

@@ -16,7 +16,7 @@
 | 房间门控 | 仅 `room.kind === "lair"`                                                                                            |
 | 等级判定 | 怪物池卡 `MonsterPoolCard.level`（`instanceId` 页码 → 池卡，R17）                                                    |
 | 生成路径 | `prepareDungeonMonsters` → `spawnMonsters` 的 `skipSpawn`：跳过 Level 1 实例不落位，牌序仍前进（守恒进 `remaining`） |
-| 接线     | `packages/engine/src/threat-is-real-no-l1-lair.ts`；`dungeon-monsters.ts` 传入 skip                                  |
+| 接线     | `packages/engine/src/core/quests/threat-is-real-no-l1-lair.ts`；`dungeon-monsters.ts` 传入 skip                      |
 
 ## 未接 / 范围外
 
@@ -35,7 +35,7 @@
 ## 验证
 
 ```bash
-pnpm exec vitest run packages/engine/src/threat-is-real-no-l1-lair.test.ts
+pnpm exec vitest run packages/engine/tests/core/quests/threat-is-real-no-l1-lair.test.ts
 ```
 
 覆盖：p015 lair 部署无 L1；p015 非 lair 仍可 L1；非 p015 lair 回归；`skipSpawn` 守恒。

@@ -13,8 +13,8 @@
 验证：
 
 ```bash
-pnpm exec vitest run packages/engine/src/boss/shuffling-horror-i-natural-save.test.ts
-pnpm exec vitest run apps/web/e2e/shuffling-horror-i-save.spec.ts
+pnpm exec vitest run packages/engine/tests/core/bosses/shuffling-horror/shuffling-horror-i-natural-save.test.ts
+pnpm exec vitest run apps/web/e2e/core/shuffling-horror-i-save.spec.ts
 pnpm typecheck && pnpm lint && pnpm test && pnpm build
 ```
 

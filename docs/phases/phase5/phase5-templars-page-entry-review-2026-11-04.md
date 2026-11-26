@@ -2,7 +2,7 @@
 
 **R-181 待 Kyries 确认**（本 PR）。Templars 的真实部署见 **R-180**（[#586](https://github.com/Alpaca-go/ddbg-web/pull/586)），战后交接同 #586。Acc 最小运行时与卡面效果见既有 `darkest-templars-skills-acc` 验收，本刀只接正式网页战斗目录与 `preTemplarsTaskSources` 迁移。
 
-目视核对本地印刷缓存 COREBOX `monster_large_FRONT.pdf` 第 14–15 页（与 [mid-boss Acc 盘点](./phase5-darkest-mid-boss-skills-acc-2026-11-01.md)、[Torment 核图](./phase5-k018-templar-torment-2026-11-03.md) 一致）。按核心规则 R24 已确认的 Speed 栏位置，头部右侧有两枚蓝框靴印，提案为 Speed 2。底部姿态栏：进攻姿态单独 d10 表，防御/远程/辅助共用另一表。
+目视核对本地印刷缓存 COREBOX `monster_large_FRONT.pdf` 第 14–15 页（与 [mid-boss Acc 盘点](./phase5-darkest-mid-boss-skills-acc-2026-11-01.md)、[Torment 核图](./phase5-k018-templar-torment-2026-11-02.md) 一致）。按核心规则 R24 已确认的 Speed 栏位置，头部右侧有两枚蓝框靴印，提案为 Speed 2。底部姿态栏：进攻姿态单独 d10 表，防御/远程/辅助共用另一表。
 
 | 姿态             | d10 分段         | 技能 slot                                                |
 | ---------------- | ---------------- | -------------------------------------------------------- |

@@ -12,7 +12,7 @@
 | `p018` Ancestor 2                               | Refashion Them / Unmake Them All | 多效果                                                                     | 已接（前两刀） |
 | `p020` HoD 余招 / Gestating Heart / Pit Toss 等 | —                                | —                                                                          | hold           |
 
-依据：`monster_large` FRONT **p018**、`docs/phase5-a01-ancestor2-refashion-them-effects-2026-11-01.md`；规则 R-001 / R-048。
+依据：`monster_large` FRONT **p018**、`docs/phases/phase5/phase5-a01-ancestor2-refashion-them-effects-2026-11-01.md`；规则 R-001 / R-048。
 
 ## 本刀接通
 
@@ -34,11 +34,11 @@
 ```bash
 pnpm typecheck
 pnpm exec vitest run \
-  packages/data/src/normalize/normalize.test.ts \
-  packages/engine/src/monster-effect-plan.test.ts \
-  packages/engine/src/boss/ancestor2-skills-acc.test.ts
+  packages/data/tests/shared/normalize.build.test.ts \
+  packages/engine/tests/shared/core/monster-effect-plan.test.ts \
+  packages/engine/tests/core/bosses/ancestor/ancestor2-skills-acc.test.ts
 ```
 
 ## 建议下一刀
 
-- 盘点 A-01 剩余最终战单招（见 `docs/phase5-a5-remaining-a-candidates-2026-11-01.md`）；`p018` 三招效果线已全部接通，可转其他 Boss 卡或停。
+- 盘点 A-01 剩余最终战单招（见 `docs/phases/phase5/phase5-a5-remaining-a-candidates-2026-11-01.md`）；`p018` 三招效果线已全部接通，可转其他 Boss 卡或停。

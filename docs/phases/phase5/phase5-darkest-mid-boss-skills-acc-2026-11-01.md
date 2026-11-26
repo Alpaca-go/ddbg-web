@@ -50,7 +50,7 @@ Summon White Cell 仍用 `applyMammothCystSummonWhiteCell`。
 ```bash
 pnpm typecheck
 pnpm exec vitest run \
-  packages/engine/src/boss/darkest-templars-skills-acc.test.ts \
-  packages/engine/src/boss/darkest-mammoth-cyst-skills-acc.test.ts \
-  packages/engine/src/boss/shuffling-horror-skills-acc.test.ts
+  packages/engine/tests/core/bosses/templars/darkest-templars-skills-acc.test.ts \
+  packages/engine/tests/core/bosses/mammoth-cyst/darkest-mammoth-cyst-skills-acc.test.ts \
+  packages/engine/tests/core/bosses/shuffling-horror/shuffling-horror-skills-acc.test.ts
 ```

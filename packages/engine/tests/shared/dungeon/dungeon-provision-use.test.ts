@@ -5,7 +5,7 @@ import statData from "../../../../data/normalized/corebox/hero_stat.json";
 import diseaseData from "../../../../data/normalized/corebox/disease.json";
 import quirkData from "../../../../data/normalized/corebox/quirk.json";
 import resolveData from "../../../../data/normalized/corebox/virtue_affliction.json";
-import { normalizedHeroStatFileSchema } from "../../../../data/src/core/heroes/hero-stat.build";
+import { normalizedHeroStatFileSchema } from "../../../../data/src/core/heroes/hero-stat";
 import { normalizedQuirkFileSchema } from "../../../../data/src/shared/schema";
 import { diseaseFileSchema } from "../../../../data/src/core/hamlet/disease";
 import { createConditionPool } from "../../../src/shared/core/conditions";

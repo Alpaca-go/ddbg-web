@@ -10,7 +10,7 @@
 
 ### 1.1 战役出征池（`questsForCampaignLevel(1)`）
 
-引擎与数据层对 **I 级普通任务** 的正式池定义在 `packages/data/src/basic-quests.ts`（`questsForCampaignLevel` 排除 `bossQuest`）。当前 **5 张**：
+引擎与数据层对 **I 级普通任务** 的正式池定义在 `packages/data/src/core/quests/basic-quests.ts`（`questsForCampaignLevel` 排除 `bossQuest`）。当前 **5 张**：
 
 | 任务 ID      | 名称            | 数据/印刷                             | 战役池 | 自然命令路径测试                                | 备注                                     |
 | ------------ | --------------- | ------------------------------------- | ------ | ----------------------------------------------- | ---------------------------------------- |
@@ -85,7 +85,7 @@ flowchart LR
 | #   | 严重度                  | 断点摘要                                                                                                                                                                                                         | 位置（文件 / 符号）                                                                                                    | 复现路径（要点）                                                                     | 影响闭环段                                   | 触及 hold                         |
 | --- | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ | -------------------------------------------- | --------------------------------- |
 | B01 | **已缓解**（#310）      | **Objective 房间运行时**：`resolveDungeonRoom` / Objective 代币回收已接线；Dem Bones I 自然路径 seed1 在 `natural-quest-paths.test.ts`                                                                           | `dungeon-objective.ts`、`dungeon-room.ts`；`natural-quest-paths.test.ts` `quest:p004`                                  | 正式入口 **Dem Bones I** → Objective 房可走公开命令清房                              | 探索 → 战斗/清房 → 摘要 XP                   | 否                                |
-| B02 | **已缓解**（I 级实测）  | **守卫战 `startDungeonBattle` 技能硬拒**：Scout Ahead 类部署扫 5000 seed 未见「怪物技能/完整效果尚未接入」类拒战；回归锁 `dungeon-battle-l1-admission.test.ts`（五任务 × treasure/lair/objective/curio × seeds） | `dungeon-battle.ts`；`packages/engine/src/dungeon-battle-l1-admission.test.ts`                                         | 任意 I 级 → `prepareDungeonBattle` → `prepareDungeonMonsters` → `startDungeonBattle` | 探索 → 战斗                                  | 否                                |
+| B02 | **已缓解**（I 级实测）  | **守卫战 `startDungeonBattle` 技能硬拒**：Scout Ahead 类部署扫 5000 seed 未见「怪物技能/完整效果尚未接入」类拒战；回归锁 `dungeon-battle-l1-admission.test.ts`（五任务 × treasure/lair/objective/curio × seeds） | `dungeon-battle.ts`；`packages/engine/tests/shared/dungeon/dungeon-battle-l1-admission.test.ts`                        | 任意 I 级 → `prepareDungeonBattle` → `prepareDungeonMonsters` → `startDungeonBattle` | 探索 → 战斗                                  | 否                                |
 | B03 | **可绕过**              | **正式 UI 回村/村庄阶段未用探索桌游布局**：`formal && (hamletReturn \|\| exited \|\| hamlet)` 时走 `ScoutingPanel` 宽栏，非 `FormalDungeonExplorationView`                                                       | `apps/web/src/dungeon-sandbox/dungeon-sandbox.tsx`；`scouting-panel.tsx` `quest-return-center` / `hamlet-phase-center` | p001 完整回村后：顶栏阶段为「回村结算/村庄」，中央为旧 panel 而非地图桌              | 回村结算 → 村庄 → 再出征（**功能按钮仍在**） | 否                                |
 | B04 | **可绕过**              | **出征准备 UI 混入 Boss 任务（p016–p019）**：`sandboxEmbarkQuests()` 含 Boss；`createCoreDungeonQuest` 允许 Boss 出征                                                                                            | `basic-quests.ts` `sandboxEmbarkQuests`；`dungeon-quest.tsx`                                                           | 出征准备下拉选 We Are The Flame 等 → 可能进入未实现的 Boss 流程/地图                 | 建队/出征（若选 Boss）                       | **是**（Boss 战/专属板/幕触发等） |
 | B05 | **已缓解**（#310/#311） | **p004/p005 自然路径**：`natural-quest-paths.test.ts` 已含 Dem Bones / Rising Threat seed1；`golden-quest-pool.ts` 夹具仍可能收窄                                                                                | `natural-quest-paths.test.ts`                                                                                          | CI 已覆盖五张 I 级单 seed 全流程                                                     | 全闭环（多 seed / Curio 边缘仍见 B09）       | 否                                |
@@ -93,7 +93,7 @@ flowchart LR
 | B07 | **内容缺口**            | **文案称「下一次出征尚未接通」**：`hamlet-event-section` 已有 `offerNextQuest`                                                                                                                                   | `quest-summary-panel.tsx` `data-testid="next-quest-provisions"` 段落                                                   | 村庄准备完成 → 可见「抽取下一任务」按钮                                              | 再出征（误导）                               | 否                                |
 | B08 | **可绕过**              | **死亡后补位 UI 不完整**：引擎有 `prepareReplacementHero` / `joinPreparedReplacements`；面板仍写「死亡补人流程继续开发」                                                                                         | `formal-tabletop-scouting-panel.tsx`；`quest-summary-panel.tsx` stagecoach 文案                                        | 战斗中阵亡 → `awaitingReplacement` → 依赖探索 panel 上替补按钮                       | 失败/全灭 → 续玩                             | 否                                |
 | B09 | **可绕过**              | **Curio 行序/复合仍有停点**：未接线组合 `commandRefused`（R-048）                                                                                                                                                | `dungeon-curio.ts` / `dungeon-curio-effects.ts`                                                                        | Rising Threat 等多 Curio 任务 → 抽到特定 Curio                                       | 探索（p005 风险高于 p001）                   | 否                                |
-| B10 | **内容缺口**            | **Kyries 检查点③无记录**：三任务自然路径已测，人工试玩未签                                                                                                                                                       | `docs/phase3-natural-quest-paths-2026-10-14.md` 等                                                                     | 产品验收层面                                                                         | 全流程验收                                   | 否                                |
+| B10 | **内容缺口**            | **Kyries 检查点③无记录**：三任务自然路径已测，人工试玩未签                                                                                                                                                       | `docs/phases/phase3/phase3-natural-quest-paths-2026-10-14.md` 等                                                       | 产品验收层面                                                                         | 全流程验收                                   | 否                                |
 | B11 | **可绕过**              | **战役升 II 仅非 formal 沙盒按钮**：`advanceCampaignLevel` 标注不支持正式存档                                                                                                                                    | `hamlet-event-section.tsx` `advance-campaign-level`（`!formal`）                                                       | formal 主路径 I 级循环不依赖此按钮                                                   | 升幕（非本清单 I 级主路径）                  | **是**（Boss 胜利升幕 hold）      |
 | B12 | **内容缺口**            | **E2E 不覆盖「再出征」与完整第二趟**：`formal-exploration` 只到进入探索；`hamlet.spec` 用引擎注入存档                                                                                                            | `apps/web/e2e/*.spec.ts`                                                                                               | 浏览器回归漏检 `offerNextQuest` UI 与第二任务 `awaitingProvisions`                   | 存档读档 → 再出征                            | 否                                |
 
@@ -140,18 +140,18 @@ flowchart LR
 
 ## 6. 测试与路由索引（排查用）
 
-| 类型             | 路径                                                                                                 |
-| ---------------- | ---------------------------------------------------------------------------------------------------- |
-| 路由             | `apps/web/src/App.tsx`                                                                               |
-| 正式任务         | `apps/web/src/dungeon-sandbox/quest-setup/dungeon-quest.tsx`                                         |
-| 阶段机           | `packages/engine/src/dungeon.ts`、`command.ts`                                                       |
-| 任务 XP/摘要     | `packages/engine/src/dungeon-quest.ts`                                                               |
-| 回村             | `packages/engine/src/hamlet-return.ts`                                                               |
-| 再出征           | `packages/engine/src/hamlet-embark.ts`                                                               |
-| 存档             | `packages/engine/src/quest-save.ts`、`packages/data/src/quest-save.ts`                               |
-| 五任务自然路径   | `packages/engine/src/natural-quest-paths.test.ts`                                                    |
-| B02 战斗入场回归 | `packages/engine/src/dungeon-battle-l1-admission.test.ts`                                            |
-| Playwright       | `apps/web/e2e/home.spec.ts`、`formal-exploration.spec.ts`、`formal-battle.spec.ts`、`hamlet.spec.ts` |
+| 类型             | 路径                                                                                                      |
+| ---------------- | --------------------------------------------------------------------------------------------------------- |
+| 路由             | `apps/web/src/App.tsx`                                                                                    |
+| 正式任务         | `apps/web/src/dungeon-sandbox/quest-setup/dungeon-quest.tsx`                                              |
+| 阶段机           | `packages/engine/src/shared/dungeon/dungeon.ts`、`command.ts`                                             |
+| 任务 XP/摘要     | `packages/engine/src/shared/dungeon/dungeon-quest.ts`                                                     |
+| 回村             | `packages/engine/src/shared/hamlet/hamlet-return.ts`                                                      |
+| 再出征           | `packages/engine/src/shared/hamlet/hamlet-embark.ts`                                                      |
+| 存档             | `packages/engine/src/shared/quest/quest-save.ts`、`packages/data/src/shared/quest-save.ts`                |
+| 五任务自然路径   | `packages/engine/tests/shared/core/natural-quest-paths.test.ts`                                           |
+| B02 战斗入场回归 | `packages/engine/tests/shared/dungeon/dungeon-battle-l1-admission.test.ts`                                |
+| Playwright       | `apps/web/e2e/core/home.spec.ts`、`formal-exploration.spec.ts`、`formal-battle.spec.ts`、`hamlet.spec.ts` |
 
 ---
 

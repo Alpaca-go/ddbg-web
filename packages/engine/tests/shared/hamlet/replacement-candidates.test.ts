@@ -1,7 +1,7 @@
 import { expect, it } from "vitest";
 import { battleDataPlugin } from "../../../../../apps/web/battle-data-plugin";
 import statsFile from "../../../../data/normalized/corebox/hero_stat.json";
-import { normalizedHeroStatFileSchema } from "../../../../data/src/core/heroes/hero-stat.build";
+import { normalizedHeroStatFileSchema } from "../../../../data/src/core/heroes/hero-stat";
 import { applyCommand } from "../../../src/shared/core/command";
 import type { Command, GameState } from "../../../src/shared/core/command";
 import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";

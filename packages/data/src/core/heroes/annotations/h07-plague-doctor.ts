@@ -309,7 +309,7 @@ const coreHigherRows: readonly CoreHigherSkillRow[] = [
   },
 ];
 
-/** 完整印刷逐页核对的状态效果行（docs/phase2-four-core-skills-2026-10-11.md）。 */
+/** 完整印刷逐页核对的状态效果行（docs/phases/phase2/phase2-four-core-skills-2026-10-11.md）。 */
 const statusEntries: readonly StatusEffectEntry[] = [
   // 完整FRONT p145：目标标记/可选位移在第一行，Stun续行不重复印目标标记。
   {

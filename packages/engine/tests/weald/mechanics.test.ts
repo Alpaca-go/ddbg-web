@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import statsFile from "../../../data/normalized/corebox/hero_stat.json";
 import skillsFile from "../../../data/normalized/corebox/hero_skill.json";
 import resolveFile from "../../../data/normalized/corebox/virtue_affliction.json";
-import { normalizedHeroStatFileSchema } from "../../../data/src/core/heroes/hero-stat.build";
+import { normalizedHeroStatFileSchema } from "../../../data/src/core/heroes/hero-stat";
 import {
   applyCommand,
   createBattleState,

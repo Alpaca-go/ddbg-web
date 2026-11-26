@@ -44,7 +44,7 @@ web 3、docs 若干）。因此作为独立迁移分支，不夹在 A2 里做。
 > `annotation_*`，代码库（packages/apps/tools）旧名引用清零。
 > 补齐 Playwright Chromium 后 e2e **89 项通过 / 1 跳过**。
 > **R4 已完成（2026-11-24）**：重新生成
-> `docs/audit-2026-11-23-icon-semantics.md`（219 行，目标字段全部为 `rules.*`），
+> `docs/reviews/audit-2026-11-23-icon-semantics.md`（219 行，目标字段全部为 `rules.*`），
 > A2 清单目标字段改为 `rules.*`；`normalized/README`、
 > `hero-annotations/README` 已无旧字段名。历史 `docs/phase*` / `docs/reviews`
 > 按计划保持原样。

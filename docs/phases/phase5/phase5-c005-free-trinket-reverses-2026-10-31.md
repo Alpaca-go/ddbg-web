@@ -34,8 +34,8 @@
 ## 测试
 
 ```bash
-pnpm exec vitest run packages/engine/src/battle-free-trinkets.test.ts
-pnpm exec vitest run packages/engine/src/core-trinkets.test.ts -t "Book of Holiness|Book of Relaxation|Book of Sanity|p015"
+pnpm exec vitest run packages/engine/tests/shared/battle/battle-free-trinkets.test.ts
+pnpm exec vitest run packages/engine/tests/shared/core/core-trinkets.test.ts -t "Book of Holiness|Book of Relaxation|Book of Sanity|p015"
 pnpm typecheck
 ```
 

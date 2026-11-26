@@ -6,11 +6,11 @@
 
 ## 已接（本 PR）
 
-- 引擎夹具 `packages/engine/src/test-helpers/warm-up-natural-iii-prefix.ts`：
+- 引擎夹具 `packages/engine/tests/helpers/warm-up-natural-iii-prefix.ts`：
   - 明示 **II 幕末回村边界** `ruinsActReadyForAdvance(2, boss)`（与 `advance-ruins-act.test.ts` 同级池补丁，不冒称自然 Boss 部署）；
   - 公开命令链：`advanceRuinsAct` → 升幕后首次 `drawHamletEvent` 与准备日收束 → `offerNextQuest` → 选 **`quest:p011`** → 开局补给 → **Warm Up 改 Torch**；
   - 固定 **seed + boss** 搜索（默认 `0..511` × 四 Boss），使 III 级候选项含 `p011`。
-- 引擎测试 `packages/engine/src/warm-up-natural-iii-replay.test.ts`：
+- 引擎测试 `packages/engine/tests/shared/core/warm-up-natural-iii-replay.test.ts`：
   - 从 `actReady` 边界 **严格命令重放** 与终态一致；
   - 选同批候选项中的 **非 p011** 时不写 `warmUpStartingProvisionTorchChoice`（与 #428 无标记回归不冲突）；
   - **自然 I 级** `guildQuest` 前缀 `createQuestSave` / `loadQuestSave` 仍可加载；
@@ -30,10 +30,10 @@
 
 ```bash
 pnpm exec vitest run \
-  packages/engine/src/warm-up-natural-iii-replay.test.ts \
-  packages/engine/src/warm-up-starting-provisions.test.ts \
-  packages/engine/src/warm-up-dark-room.test.ts \
-  packages/engine/src/advance-ruins-act.test.ts
+  packages/engine/tests/shared/core/warm-up-natural-iii-replay.test.ts \
+  packages/engine/tests/shared/core/warm-up-starting-provisions.test.ts \
+  packages/engine/tests/shared/core/warm-up-dark-room.test.ts \
+  packages/engine/tests/shared/core/advance-ruins-act.test.ts
 ```
 
 本刀跑通上述 vitest；不声称全库 CI 全绿。

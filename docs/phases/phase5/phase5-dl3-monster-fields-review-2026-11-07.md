@@ -16,7 +16,7 @@
 
 ## 入库位置
 
-- Speed：`packages/data/src/normalize/verified-monster-speeds.ts`（p056、p059）；Adder 在 `verified-large-monster-fields.ts`。
+- Speed：`packages/data/src/core/monsters/verified-monster-speeds.build.ts`（p056、p059）；Adder 在 `verified-large-monster-fields.ts`。
 - 选招：`verified-monster-stances.ts`（p056、p059）；Adder 在 `verified-large-monster-fields.ts`（大型卡同时带 speed + stanceGroups）。
 - `monster_pool.json`：三行 `missingBattleFields` 已从 `["speed","stanceGroups"]` 清空。
 - 回归测试：`monster-speed.test.ts`、`verified-monster-stances.test.ts`、`verified-large-monster-fields.test.ts`、`ruins-pool-admission.test.ts` 已按 R-196 更新并新增定向断言。

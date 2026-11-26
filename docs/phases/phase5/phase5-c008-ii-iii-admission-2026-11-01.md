@@ -44,9 +44,9 @@
 
 ## 代码触点
 
-- 闸门：`packages/engine/src/dungeon-battle.ts`（`hasApprovedHigherMonsterFields` + 技能探针）
-- 盘点：`packages/data/src/normalize/ruins-pool-admission.ts`
-- 拒战分类：`packages/engine/src/dungeon-battle-admission.ts`
+- 闸门：`packages/engine/src/shared/dungeon/dungeon-battle.ts`（`hasApprovedHigherMonsterFields` + 技能探针）
+- 盘点：`packages/data/src/core/monsters/ruins-pool-admission.build.ts`
+- 拒战分类：`packages/engine/src/shared/dungeon/dungeon-battle-admission.ts`
 - 回归：`dungeon-battle-l1-admission.test.ts`（不回退）、`dungeon-battle-l2-admission.test.ts`
 
 ## 验证
@@ -54,12 +54,12 @@
 ```bash
 pnpm typecheck
 pnpm exec vitest run \
-  packages/engine/src/dungeon-battle-l1-admission.test.ts \
-  packages/engine/src/dungeon-battle-l2-admission.test.ts \
-  packages/data/src/normalize/ruins-pool-admission.test.ts
+  packages/engine/tests/shared/dungeon/dungeon-battle-l1-admission.test.ts \
+  packages/engine/tests/shared/dungeon/dungeon-battle-l2-admission.test.ts \
+  packages/data/tests/core/monsters/ruins-pool-admission.build.test.ts
 ```
 
-可选：`pnpm exec vitest run packages/engine/src/dungeon-ii-monster.test.ts packages/engine/src/ii-natural-replay.test.ts`（DL2 自然回放夹具，与本刀直接相关）。
+可选：`pnpm exec vitest run packages/engine/tests/shared/dungeon/dungeon-ii-monster.test.ts packages/engine/tests/shared/core/ii-natural-replay.test.ts`（DL2 自然回放夹具，与本刀直接相关）。
 
 ## 建议下一刀
 

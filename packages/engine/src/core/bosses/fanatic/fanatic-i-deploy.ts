@@ -2,7 +2,7 @@ import type { ApplyResult, GameState } from "../../../shared/core/command";
 import { monsterShuffleResist } from "../../../shared/core/monster-defence";
 import { buildBossHeroEntities } from "../deploy-heroes";
 import geometry from "../../../../../data/normalized/corebox/room_tile_geometry.json";
-import { fanaticRoomSchema } from "../../../../../data/src/core/rooms/fanatic-room.build";
+import { fanaticRoomSchema } from "../../../../../data/src/core/rooms/fanatic-room";
 import { roomCatalogSchema } from "../../../../../data/src/core/rooms/room";
 import { createBattleState, rejectBattleCommand } from "../../../shared/battle/battle";
 import { roomTileBattleAreas } from "../../../shared/battle/battle-monster-movement";

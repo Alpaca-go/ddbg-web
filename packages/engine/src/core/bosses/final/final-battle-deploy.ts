@@ -29,7 +29,7 @@ import roomCatalog from "../../../../../data/normalized/corebox/room_tile_geomet
 import {
   ancestorRoomSchema,
   approvedAncestorRoom,
-} from "../../../../../data/src/core/rooms/ancestor-room.build";
+} from "../../../../../data/src/core/rooms/ancestor-room";
 import { roomTileGeometryFileSchema } from "../../../../../data/src/core/tiles/room-tile";
 
 const ANCESTOR_ROOM_TILE_ID = "room_tile:darkest:12" as const;

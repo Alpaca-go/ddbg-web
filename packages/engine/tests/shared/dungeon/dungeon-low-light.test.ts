@@ -7,7 +7,7 @@ import diseaseData from "../../../../data/normalized/corebox/disease.json";
 import quirkData from "../../../../data/normalized/corebox/quirk.json";
 import { diseaseFileSchema } from "../../../../data/src/core/hamlet/disease";
 import { normalizedQuirkFileSchema } from "../../../../data/src/shared/schema";
-import { normalizedHeroStatFileSchema } from "../../../../data/src/core/heroes/hero-stat.build";
+import { normalizedHeroStatFileSchema } from "../../../../data/src/core/heroes/hero-stat";
 import { applyCommand } from "../../../src/shared/core/command";
 import type { ApplyResult, Command, GameState } from "../../../src/shared/core/command";
 import { createDungeonSandbox } from "../../../src/shared/dungeon/dungeon";

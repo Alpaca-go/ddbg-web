@@ -7,7 +7,7 @@
 ## 0. 一句话现状
 
 英雄技能的**逐卡注解**已经从散落的 `verified-*` 文件收进
-`packages/data/src/normalize/hero-annotations/`，按 `hNN-*.ts` 一英雄一份。
+`packages/data/src/core/heroes/annotations/`，按 `hNN-*.ts` 一英雄一份。
 其中 h01–h11 是纯数据表，h14 已改成统一 patch 表（参考实现）；
 **还剩 h12、h13、h15、h16、h17、h18 六个代码模块待按同一模式改写**。
 
@@ -29,7 +29,7 @@ h01–h11 是纯数据表，h12–h18 是「数据 + 逐卡补丁」；**前 11 
 （imports → 数据 → 工厂 → patch 表 → 模块导出），h14 是参考实现。
 
 ```text
-packages/data/src/normalize/hero-annotations/
+packages/data/src/core/heroes/annotations/
   README.md          文件骨架、两种形态、数据表与 applier 对应表
   shared.ts          lineSignature（唯一实现）
   patch-helpers.ts   text / cloneKey / iconFromPool / iconFromCard /
@@ -153,17 +153,17 @@ git grep -n "applyManAtArmsAnnotations"
 ```powershell
 # 1) 零 diff 验收：重生成 normalized，必须没有 diff
 $env:WRITE_NORMALIZED='1'
-pnpm exec vitest run packages/data/src/normalize/normalize.test.ts
+pnpm exec vitest run packages/data/tests/shared/normalize.build.test.ts
 git diff --stat -- packages/data/normalized   # 必须为空
 
 # 2) 类型 / 格式 / 构建
 pnpm typecheck
-pnpm exec prettier --write packages/data/src/normalize/hero-annotations
+pnpm exec prettier --write packages/data/src/core/heroes/annotations
 pnpm lint
 pnpm build
 
 # 3) 该英雄的签名测试 + normalize 全套
-pnpm exec vitest run packages/data/src/normalize/hero-annotations/h12-man-at-arms.test.ts
+pnpm exec vitest run packages/engine/tests/shared/core/cove-skills.test.ts packages/engine/tests/shared/core/man-at-arms-higher-skills.test.ts
 pnpm exec vitest run packages/data/src/normalize --maxWorkers=2
 ```
 

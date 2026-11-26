@@ -9,7 +9,7 @@ import {
   buildMusketeerHeroStats,
 } from "../../../src/core/heroes/musketeer-hero-stat.build";
 import { loadNormalizedCorebox } from "../../../src/core/write";
-import { canonicalHeroStatCardSchema } from "../../../src/core/heroes/hero-stat.build";
+import { canonicalHeroStatCardSchema } from "../../../src/core/heroes/hero-stat";
 
 const DATA_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../..");
 const json = (rel: string) => JSON.parse(readFileSync(path.join(DATA_ROOT, rel), "utf8"));

@@ -3,7 +3,7 @@ import statsFile from "../../../../data/normalized/corebox/hero_stat.json";
 import quirkFile from "../../../../data/normalized/corebox/quirk.json";
 import diseaseFile from "../../../../data/normalized/corebox/disease.json";
 import resolveFile from "../../../../data/normalized/corebox/virtue_affliction.json";
-import { normalizedHeroStatFileSchema } from "../../../../data/src/core/heroes/hero-stat.build";
+import { normalizedHeroStatFileSchema } from "../../../../data/src/core/heroes/hero-stat";
 import { normalizedQuirkFileSchema } from "../../../../data/src/shared/schema";
 import { diseaseFileSchema } from "../../../../data/src/core/hamlet/disease";
 import { approvedPoolOfRebirth as tile } from "../../../../data/src/core/rooms/pool-of-rebirth.build";

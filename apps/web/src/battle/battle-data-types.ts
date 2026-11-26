@@ -42,8 +42,8 @@ export type BattleData = {
     readonly speed: number;
     readonly attributesVerified: boolean;
     readonly rules?: {
-      readonly conditionDefence?: import("../../../../packages/data/src/core/heroes/hero-stat.build").HeroConditionDefence;
-      readonly higherConditionDefence?: import("../../../../packages/data/src/core/heroes/hero-higher-defence.build").HigherHeroDefence;
+      readonly conditionDefence?: import("../../../../packages/data/src/core/heroes/hero-stat").HeroConditionDefence;
+      readonly higherConditionDefence?: import("../../../../packages/data/src/core/heroes/hero-higher-defence").HigherHeroDefence;
       readonly buffDefence?: {
         readonly resistant: boolean;
         readonly immune: boolean;

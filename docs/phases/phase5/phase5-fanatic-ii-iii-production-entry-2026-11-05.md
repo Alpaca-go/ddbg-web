@@ -22,11 +22,11 @@
 
 ```bash
 pnpm exec vitest run \
-  packages/engine/src/boss/fanatic-higher-deploy.test.ts \
-  packages/engine/src/boss/fanatic-higher-finish.test.ts \
-  packages/engine/src/boss/fanatic-i-deploy.test.ts \
-  packages/engine/src/boss/fanatic-i-finish.test.ts \
-  packages/engine/src/boss/objective-room-entry.test.ts
+  packages/engine/tests/core/bosses/fanatic/fanatic-higher-deploy.test.ts \
+  packages/engine/tests/core/bosses/fanatic/fanatic-higher-finish.test.ts \
+  packages/engine/tests/core/bosses/fanatic/fanatic-i-deploy.test.ts \
+  packages/engine/tests/core/bosses/fanatic/fanatic-i-finish.test.ts \
+  packages/engine/tests/core/bosses/objective-room-entry.test.ts
 pnpm typecheck
 ```
 

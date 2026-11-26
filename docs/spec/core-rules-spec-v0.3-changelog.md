@@ -43,7 +43,7 @@ Kyries 于 2026-11-21 **先**核准第 1／3／4／6 项，**后**核准剩余�
 ### 引擎／数据核对（本补记）
 
 - **Musketeer**：正式选池已按 R-200 接入（`formal-roster-entry` 等）；本刀不改代码。
-- **Dark／Solar Crown**：`packages/data/src/core-trinket-bindings.ts` 与 `packages/engine/src/battle-free-trinkets.ts`／`trinket-reactions.ts`／`core-trinket-free.ts` 已按正位与逆位同一门槛（Dark ≤3、Solar ≥3）实现；**与 R-225 一致，未改代码**。
+- **Dark／Solar Crown**：`packages/data/src/core/trinkets/core-trinket-bindings.ts` 与 `packages/engine/src/shared/battle/battle-free-trinkets.ts`／`trinket-reactions.ts`／`core-trinket-free.ts` 已按正位与逆位同一门槛（Dark ≤3、Solar ≥3）实现；**与 R-225 一致，未改代码**。
 - **R-271**：链式驱逐已接线；本刀不改语义或代码。
 - **Stygian**：生产路径已用 `stygianRoomRules: "full"`；未见仍按旧 R-011 整模式封锁已确认房间的闸门。本刀**不**为未确认房间编造效果。
 - **R-121／R-191／R-192**：规格与裁定措辞澄清（p30 vs p36、三槽一真、四形态命名与取消对照）；未发现与现行实现明显不一致，**未改玩法代码**。

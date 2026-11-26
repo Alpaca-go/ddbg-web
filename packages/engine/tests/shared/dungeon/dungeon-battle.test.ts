@@ -29,7 +29,7 @@ import {
   gainDisease,
   conditionPoolProblem,
 } from "../../../src/shared/core/conditions";
-import { normalizedHeroStatFileSchema } from "../../../../data/src/core/heroes/hero-stat.build";
+import { normalizedHeroStatFileSchema } from "../../../../data/src/core/heroes/hero-stat";
 import {
   normalizedTrinketFileSchema,
   normalizedHeroSkillFileSchema,

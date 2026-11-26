@@ -8,7 +8,7 @@
 - 最暗 quest:p018 中途 Boss 战于 Mammoth 怪物回合显式命令 `applyMammothCystSummonWhiteCell`（actorId = `monster_large:p016` 实体）；Life/Dodge 从战斗目录读取，姿态占位沿用 `darkest-mid-boss-*`（与部署骨架同构，**非** Room Tile 印刷几何）。
 - 成功后 `finishTurn` 消耗行动（「instead of using a Skill」）。
 - 更新 p018 `wiringHold`：Summon White Cell 已接；White Cell Teleport / Pit Toss / Room Tile / `combatReady` / 完整 AI 仍 hold。
-- 单测：`packages/engine/src/boss/darkest-mammoth-cyst-combat-runtime.test.ts`。
+- 单测：`packages/engine/tests/core/bosses/mammoth-cyst/darkest-mammoth-cyst-combat-runtime.test.ts`。
 
 ## 仍 hold
 
@@ -19,5 +19,5 @@
 
 ```bash
 pnpm typecheck
-pnpm exec vitest run packages/engine/src/boss/darkest-mammoth-cyst-combat-runtime.test.ts packages/engine/src/boss/darkest-mid-boss-runtime.test.ts
+pnpm exec vitest run packages/engine/tests/core/bosses/mammoth-cyst/darkest-mammoth-cyst-combat-runtime.test.ts packages/engine/tests/core/bosses/darkest/darkest-mid-boss-runtime.test.ts
 ```

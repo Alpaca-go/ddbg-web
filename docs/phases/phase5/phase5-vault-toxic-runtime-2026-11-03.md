@@ -17,11 +17,11 @@
 
 ```bash
 pnpm exec vitest run \
-  packages/data/src/normalize/eldritch-vault.test.ts \
-  packages/data/src/normalize/toxic-chamber.test.ts \
-  packages/data/src/normalize/room-tile-selection.test.ts \
-  packages/engine/src/battle-toxic-vapors.test.ts \
-  packages/engine/src/battle-eldritch-vault.test.ts
+  packages/data/tests/core/rooms/eldritch-vault.build.test.ts \
+  packages/data/tests/core/rooms/toxic-chamber.build.test.ts \
+  packages/data/tests/core/rooms/room-tile-selection.test.ts \
+  packages/engine/tests/core/rooms/battle-toxic-vapors.test.ts \
+  packages/engine/tests/core/rooms/battle-eldritch-vault.test.ts
 ```
 
 与 #551 / #552 关系：几何已在 `main`（Toxic #551、Power Chamber #552）；本 PR 仅补 Vault/Toxic 运行时与 `usable` 闸门。

@@ -41,7 +41,7 @@
 | room:p024 | Mammoth Cyst Room      | FRONT p14        | R-164    | false  |
 | room:p025 | Ancestor Room          | BACK p14         | R-165    | false  |
 
-生产目录：packages/data/normalized/corebox/room_tile_geometry.json；Room卡目录：packages/data/normalized/corebox/room.json。几何生成与union入口：packages/data/src/normalize/room-tile.ts；Room来源断言由normalize/build.ts统一调用。不要手改生成JSON代替修改规范化来源。
+生产目录：packages/data/normalized/corebox/room_tile_geometry.json；Room卡目录：packages/data/normalized/corebox/room.json。几何生成与union入口：packages/data/src/core/tiles/room-tile.ts；Room来源断言由normalize/build.ts统一调用。不要手改生成JSON代替修改规范化来源。
 
 ## 本轮获批事实与实现位置
 
@@ -61,7 +61,7 @@
 
 1. 四张最暗普通房仍不可用：p018 Eldritch Power Chamber、p019 Teleporters、p020 Evil Eye、p021 Temple of the Chosen。各面几何已获批，接手时先查各独立模块与运行时，再按已有官方规则/R裁定完成效果，遇未裁定问题停为Q项；不能直接把usable改为true。
 2. 八张Boss房仍不可用：p010–p013、p022–p025。逐Boss核查部署、技能/选招、召唤/位移、胜负与后续流程及生产入口。尤其Prophet落石/掷骰、Collector三宝箱奖励、Fanatic/Pyre、最暗中Boss与最终战，不能用几何批准替代规则/准入审核。
-3. 最终战packages/engine/src/boss/final-battle-deploy.ts已按usable等条件读取Ancestor生产几何；本轮Ancestor维持false，所以占位区域fallback仍存在。该文件“几何未批准”的旧注释已过时，但不能只修注释就宣称生产部署已接通。其它Boss同样先查实际入口，不只看旧文档标题。
+3. 最终战packages/engine/src/core/bosses/final/final-battle-deploy.ts已按usable等条件读取Ancestor生产几何；本轮Ancestor维持false，所以占位区域fallback仍存在。该文件“几何未批准”的旧注释已过时，但不能只修注释就宣称生产部署已接通。其它Boss同样先查实际入口，不只看旧文档标题。
 4. 不修改combatReady总开关、不扩大任务白名单、不自动启动Phase 6。本轮用户只批准图面并要求合入/交接。后续以用户新指令、官方规则和docs/rulings.md为准。
 
 ## 合入前质量闸门修复

@@ -8,7 +8,7 @@ import { createDungeonSandbox } from "../../../src/shared/dungeon/dungeon";
 import { applyCommand } from "../../../src/shared/core/command";
 import type { Command, GameState } from "../../../src/shared/core/command";
 import type { DungeonBattleCatalog } from "../../../src/shared/dungeon/dungeon";
-import { normalizedHeroStatFileSchema } from "../../../../data/src/core/heroes/hero-stat.build";
+import { normalizedHeroStatFileSchema } from "../../../../data/src/core/heroes/hero-stat";
 import { nextProvisionFace, PROVISION_FACES } from "../../../src/shared/trinkets/loot";
 import diseases from "../../../../data/normalized/corebox/disease.json";
 import quirks from "../../../../data/normalized/corebox/quirk.json";

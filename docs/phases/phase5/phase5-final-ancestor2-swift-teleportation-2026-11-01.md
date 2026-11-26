@@ -28,5 +28,5 @@
 
 ```bash
 pnpm typecheck
-pnpm exec vitest run packages/engine/src/boss/ancestor2-swift-teleportation.test.ts
+pnpm exec vitest run packages/engine/tests/core/bosses/ancestor/ancestor2-swift-teleportation.test.ts
 ```

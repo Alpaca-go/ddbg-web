@@ -29,7 +29,7 @@
 
 ```bash
 pnpm exec vitest run \
-  packages/engine/src/boss/quest-bridge.test.ts \
-  packages/engine/src/boss/encounter-rules.test.ts \
-  packages/engine/src/boss/boss-framework.test.ts
+  packages/engine/tests/core/bosses/quest-bridge.test.ts \
+  packages/engine/tests/core/bosses/encounter-rules.test.ts \
+  packages/engine/tests/core/bosses/boss-framework.test.ts
 ```

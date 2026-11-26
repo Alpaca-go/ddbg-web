@@ -66,7 +66,7 @@
 - **Leper II/III 首批 14 张**（PR #618）：Q-163～Q-166 已关闭；`verified-warrens-leper-higher` + `verified-hero-statuses` 接线；**d10 审计 14/14 绿**。
 - **Antiquarian II/III 14 张**（PR #619）：Q-167～Q-171 已关闭；`verified-warrens-antiquarian-higher` + 引擎 `shufflePushDistance`（Q-168）；**d10 审计 14/14 绿**。
 - **Flagellant II/III 14 张 + 同族 L1 洗净 7 张**（PR #620）：Q-172～Q-175 **Kyries 真确认**；`verified_actor_damage_bonus` / `verified_bleed_blight_transfer` / Endure stats（队友射程+Acc/Crit）；**d10 审计 21/21 绿**。
-- **Shieldbreaker II/III 14 张 + 同族 L1 洗净 7 张**：`verified-weald-shieldbreaker-higher`；Q-181～Q-184 **待 Kyries 确认**；**d10 审计 14/14 绿**（见 `docs/phase7-shieldbreaker-higher-2026-11-08.md`）。
+- **Shieldbreaker II/III 14 张 + 同族 L1 洗净 7 张**：`verified-weald-shieldbreaker-higher`；Q-181～Q-184 **待 Kyries 确认**；**d10 审计 14/14 绿**（见 `docs/phases/phase7/phase7-shieldbreaker-higher-2026-11-08.md`）。
 - **Man-at-Arms II/III 14 张**（PR #621）：`verified-cove-man-at-arms-higher`；Q-176/Q-177 已关闭（Retribution **Mark+Riposte**、Defender **Guard+Protection**）；**d10 审计 14/14 绿**。
 - **Houndmaster II/III 14 张 + L1 七族洗净**（PR #622）：`verified-weald-houndmaster-higher`；**d10 审计 14/14 绿**；**Q-178～Q-180** Kyries 真确认。
 - **Musketeer II/III 14 张 + L1 七族洗净**（PR #624）：`verified-musketeer-higher` + **Q-185 已确认**（与 Arbalest 完全一致）；`musketeer-arbalest-parity.test.ts`；d10 审计 14/14 绿（II/III）。
@@ -76,7 +76,7 @@
 
 ## 确认后怎么接
 
-1. 在 `packages/data/src/normalize/verified-hero-statuses.ts` / `verified-hero-support.ts` / `verified-hero-ranges.ts` 增加 Leper 条目（带签名断言，签名不符即拒绝）。
+1. 在 `packages/data/src/core/heroes/annotations/status-effects.ts` / `verified-hero-support.ts` / `verified-hero-ranges.ts` 增加 Leper 条目（带签名断言，签名不符即拒绝）。
 2. 对 p282/p284/p285/p290/p291 的 stats/效果行做逐卡修正（`verified_stat_line` 或等价覆盖），避免改动全局图标字典。
 3. 跑 `core-higher-skills` 审计（扩展为 18 名英雄的 II/III）。
 4. ~~通过后把目录切到「全部 18 名英雄 I–III」、清掉 84 张 art-only 占位、更新建队页文案。~~ **已完成（§7.4 统一切目录 PR）**。

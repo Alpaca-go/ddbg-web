@@ -2,7 +2,7 @@
   "schema": "ddbg.print-room-tile-art-map.v1",
   "source": {
     "geometry": "packages/data/normalized/corebox/room_tile_geometry.json",
-    "tileCount": 11,
+    "tileCount": 25,
     "exportScript": "tools/pipeline/print-card-art/export_room_tile_faces.py",
     "notes": [
       "facePngRel paths are relative to .cache/print-card-art/ (DDBG_PRINT_CARD_ART_CACHE).",
@@ -16,7 +16,7 @@
     {
       "tileId": "room_tile:ruins:01",
       "name": "Ritual Chamber",
-      "facePngRel": "manual/room-tile-faces/room_tile-p001.png",
+      "facePngRel": "manual/room-tile-faces/room_tile-ruins-01.png",
       "printPage": 1,
       "primaryPdf": "DD_COREBOX_TILES_FRONT.pdf",
       "face": "front",
@@ -27,7 +27,7 @@
     {
       "tileId": "room_tile:ruins:02",
       "name": "Torture Chamber",
-      "facePngRel": "manual/room-tile-faces/room_tile-p002-back.png",
+      "facePngRel": "manual/room-tile-faces/room_tile-ruins-02.png",
       "printPage": 2,
       "primaryPdf": "DD_COREBOX_TILES_BACK.pdf",
       "face": "back",
@@ -38,7 +38,7 @@
     {
       "tileId": "room_tile:ruins:03",
       "name": "Healing Fountain",
-      "facePngRel": "manual/room-tile-faces/room_tile-p002-front.png",
+      "facePngRel": "manual/room-tile-faces/room_tile-ruins-03.png",
       "printPage": 2,
       "primaryPdf": "DD_COREBOX_TILES_FRONT.pdf",
       "face": "front",
@@ -49,7 +49,7 @@
     {
       "tileId": "room_tile:ruins:05",
       "name": "Beacon of Light",
-      "facePngRel": "manual/room-tile-faces/room_tile-p003-front.png",
+      "facePngRel": "manual/room-tile-faces/room_tile-ruins-05.png",
       "printPage": 3,
       "primaryPdf": "DD_COREBOX_TILES_FRONT.pdf",
       "face": "front",
@@ -60,7 +60,7 @@
     {
       "tileId": "room_tile:ruins:04",
       "name": "Spiked Pit",
-      "facePngRel": "manual/room-tile-faces/room_tile-p003-back.png",
+      "facePngRel": "manual/room-tile-faces/room_tile-ruins-04.png",
       "printPage": 3,
       "primaryPdf": "DD_COREBOX_TILES_BACK.pdf",
       "face": "back",
@@ -71,7 +71,7 @@
     {
       "tileId": "room_tile:ruins:06",
       "name": "Treasure Chamber",
-      "facePngRel": "manual/room-tile-faces/room_tile-p004-back.png",
+      "facePngRel": "manual/room-tile-faces/room_tile-ruins-06.png",
       "printPage": 4,
       "primaryPdf": "DD_COREBOX_TILES_BACK.pdf",
       "face": "back",
@@ -82,7 +82,7 @@
     {
       "tileId": "room_tile:ruins:07",
       "name": "Tomb of Ancestor",
-      "facePngRel": "manual/room-tile-faces/room_tile-p004-front.png",
+      "facePngRel": "manual/room-tile-faces/room_tile-ruins-07.png",
       "printPage": 4,
       "primaryPdf": "DD_COREBOX_TILES_FRONT.pdf",
       "face": "front",
@@ -93,7 +93,7 @@
     {
       "tileId": "room_tile:ruins:08",
       "name": "Invocation Chamber",
-      "facePngRel": "manual/room-tile-faces/room_tile-p005-back.png",
+      "facePngRel": "manual/room-tile-faces/room_tile-ruins-08.png",
       "printPage": 5,
       "primaryPdf": "DD_COREBOX_TILES_BACK.pdf",
       "face": "back",
@@ -104,7 +104,7 @@
     {
       "tileId": "room_tile:ruins:09",
       "name": "Old Abbey",
-      "facePngRel": "manual/room-tile-faces/room_tile-p005-front.png",
+      "facePngRel": "manual/room-tile-faces/room_tile-ruins-09.png",
       "printPage": 5,
       "primaryPdf": "DD_COREBOX_TILES_FRONT.pdf",
       "face": "front",
@@ -115,7 +115,7 @@
     {
       "tileId": "room_tile:darkest:01",
       "name": "Pool of Rebirth",
-      "facePngRel": "manual/room-tile-faces/room_tile-p009-front.png",
+      "facePngRel": "manual/room-tile-faces/room_tile-darkest-01.png",
       "printPage": 9,
       "primaryPdf": "DD_COREBOX_TILES_FRONT.pdf",
       "face": "front",
@@ -126,17 +126,171 @@
     {
       "tileId": "room_tile:darkest:02",
       "name": "Hall of Ascension",
-      "facePngRel": "manual/room-tile-faces/room_tile-p009-back.png",
+      "facePngRel": "manual/room-tile-faces/room_tile-darkest-02.png",
       "printPage": 9,
       "primaryPdf": "DD_COREBOX_TILES_BACK.pdf",
       "face": "back",
       "matchMethod": "geometry_source_trim_page",
       "reviewVerdict": "R-153",
       "areaIds": ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"]
+    },
+    {
+      "tileId": "room_tile:darkest:03",
+      "name": "Eldritch Vault",
+      "facePngRel": "manual/room-tile-faces/room_tile-darkest-03.png",
+      "printPage": 10,
+      "primaryPdf": "DD_COREBOX_TILES_FRONT.pdf",
+      "face": "front",
+      "matchMethod": "geometry_source_trim_page",
+      "reviewVerdict": "R-156",
+      "areaIds": ["A", "B", "C", "D", "E", "F", "G", "H", "I"]
+    },
+    {
+      "tileId": "room_tile:darkest:04",
+      "name": "Toxic Chamber",
+      "facePngRel": "manual/room-tile-faces/room_tile-darkest-04.png",
+      "printPage": 10,
+      "primaryPdf": "DD_COREBOX_TILES_BACK.pdf",
+      "face": "back",
+      "matchMethod": "geometry_source_trim_page",
+      "reviewVerdict": "R-157",
+      "areaIds": ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
+    },
+    {
+      "tileId": "room_tile:darkest:05",
+      "name": "Eldritch Power Chamber",
+      "facePngRel": "manual/room-tile-faces/room_tile-darkest-05.png",
+      "printPage": 11,
+      "primaryPdf": "DD_COREBOX_TILES_FRONT.pdf",
+      "face": "front",
+      "matchMethod": "geometry_source_trim_page",
+      "reviewVerdict": "R-158",
+      "areaIds": ["A", "B", "C", "D", "E", "F", "G", "H"]
+    },
+    {
+      "tileId": "room_tile:darkest:06",
+      "name": "Teleporters",
+      "facePngRel": "manual/room-tile-faces/room_tile-darkest-06.png",
+      "printPage": 11,
+      "primaryPdf": "DD_COREBOX_TILES_BACK.pdf",
+      "face": "back",
+      "matchMethod": "geometry_source_trim_page",
+      "reviewVerdict": "R-159",
+      "areaIds": ["A", "B", "C", "D", "E", "F", "G", "H"]
+    },
+    {
+      "tileId": "room_tile:darkest:07",
+      "name": "Evil Eye",
+      "facePngRel": "manual/room-tile-faces/room_tile-darkest-07.png",
+      "printPage": 12,
+      "primaryPdf": "DD_COREBOX_TILES_FRONT.pdf",
+      "face": "front",
+      "matchMethod": "geometry_source_trim_page",
+      "reviewVerdict": "R-160",
+      "areaIds": ["A", "B", "C", "D", "E", "F", "G", "H", "I"]
+    },
+    {
+      "tileId": "room_tile:darkest:08",
+      "name": "Temple of the Chosen",
+      "facePngRel": "manual/room-tile-faces/room_tile-darkest-08.png",
+      "printPage": 12,
+      "primaryPdf": "DD_COREBOX_TILES_BACK.pdf",
+      "face": "back",
+      "matchMethod": "geometry_source_trim_page",
+      "reviewVerdict": "R-161",
+      "areaIds": ["A", "B", "C", "D", "E", "F", "G", "H"]
+    },
+    {
+      "tileId": "room_tile:darkest:09",
+      "name": "Templars Room",
+      "facePngRel": "manual/room-tile-faces/room_tile-darkest-09.png",
+      "printPage": 13,
+      "primaryPdf": "DD_COREBOX_TILES_FRONT.pdf",
+      "face": "front",
+      "matchMethod": "geometry_source_trim_page",
+      "reviewVerdict": "R-162",
+      "areaIds": ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"]
+    },
+    {
+      "tileId": "room_tile:darkest:10",
+      "name": "Shuffling Horror Room",
+      "facePngRel": "manual/room-tile-faces/room_tile-darkest-10.png",
+      "printPage": 13,
+      "primaryPdf": "DD_COREBOX_TILES_BACK.pdf",
+      "face": "back",
+      "matchMethod": "geometry_source_trim_page",
+      "reviewVerdict": "R-163",
+      "areaIds": ["A", "B", "C", "D", "E", "F", "G", "H", "I"]
+    },
+    {
+      "tileId": "room_tile:darkest:11",
+      "name": "Mammoth Cyst Room",
+      "facePngRel": "manual/room-tile-faces/room_tile-darkest-11.png",
+      "printPage": 14,
+      "primaryPdf": "DD_COREBOX_TILES_FRONT.pdf",
+      "face": "front",
+      "matchMethod": "geometry_source_trim_page",
+      "reviewVerdict": "R-164",
+      "areaIds": ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"]
+    },
+    {
+      "tileId": "room_tile:darkest:12",
+      "name": "Ancestor Room",
+      "facePngRel": "manual/room-tile-faces/room_tile-darkest-12.png",
+      "printPage": 14,
+      "primaryPdf": "DD_COREBOX_TILES_BACK.pdf",
+      "face": "back",
+      "matchMethod": "geometry_source_trim_page",
+      "reviewVerdict": "R-165",
+      "areaIds": ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"]
+    },
+    {
+      "tileId": "room_tile:ruins:10",
+      "name": "Necromancer Room",
+      "facePngRel": "manual/room-tile-faces/room_tile-ruins-10.png",
+      "printPage": 6,
+      "primaryPdf": "DD_COREBOX_TILES_BACK.pdf",
+      "face": "back",
+      "matchMethod": "geometry_source_trim_page",
+      "reviewVerdict": "R-166",
+      "areaIds": ["A", "B", "C", "D", "E", "F", "G", "H"]
+    },
+    {
+      "tileId": "room_tile:ruins:11",
+      "name": "Prophet Room",
+      "facePngRel": "manual/room-tile-faces/room_tile-ruins-11.png",
+      "printPage": 6,
+      "primaryPdf": "DD_COREBOX_TILES_FRONT.pdf",
+      "face": "front",
+      "matchMethod": "geometry_source_trim_page",
+      "reviewVerdict": "R-167",
+      "areaIds": ["A", "B", "C", "D", "E", "F", "G", "H"]
+    },
+    {
+      "tileId": "room_tile:ruins:12",
+      "name": "Collector Room",
+      "facePngRel": "manual/room-tile-faces/room_tile-ruins-12.png",
+      "printPage": 7,
+      "primaryPdf": "DD_COREBOX_TILES_BACK.pdf",
+      "face": "back",
+      "matchMethod": "geometry_source_trim_page",
+      "reviewVerdict": "R-168",
+      "areaIds": ["A", "B", "C", "D", "E", "F", "G", "H"]
+    },
+    {
+      "tileId": "room_tile:ruins:13",
+      "name": "Fanatic Room",
+      "facePngRel": "manual/room-tile-faces/room_tile-ruins-13.png",
+      "printPage": 7,
+      "primaryPdf": "DD_COREBOX_TILES_FRONT.pdf",
+      "face": "front",
+      "matchMethod": "geometry_source_trim_page",
+      "reviewVerdict": "R-169",
+      "areaIds": ["A", "B", "C", "D", "E", "F", "G", "H", "I"]
     }
   ],
   "pendingConfirmation": [
-    "Mapped: 11 geometryVerified faces from the approved room_tile_geometry catalog.",
+    "Mapped: 25 geometryVerified faces from the approved room_tile_geometry catalog.",
     "Other faces remain unmapped until their individual geometry is approved (R-048).",
     "PNG binaries gitignored; local cache required for battle underlay art."
   ]

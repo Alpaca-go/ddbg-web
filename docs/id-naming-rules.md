@@ -250,7 +250,7 @@ hero_skill:musketeer:h18:p358       // Aimed Shot I
   `questId`、`cardId`、`abilityCardId`、`tileId` 等全部写 canonical ID。
 - 每个 `roomId` 必须能解析到一张房间卡。Boss 房也必须如此：
   扩展 Boss 房统一为 `room:<location>:NN`，放在 `room.json` 并标 `boss: true`；
-  `boss_room_sources.json` 只保留来源/证据，不再作为第二套目录。
+  印刷来源记录在房间的 `source` 中。
 - 存档 / 命令日志只写 canonical ID。ID 改名必须同时提供：
   1. 旧 ID → 新 ID 的读取兼容（至少一个发布周期）；
   2. 或明确的存档版本迁移；不能静默回退。
@@ -287,7 +287,7 @@ hero_skill:musketeer:h18:p358       // Aimed Shot I
 
 ### 7.2 测试
 
-- **全局唯一性**：把所有 normalized 文件按 `id` 合并，重复即失败。
+- **全局唯一性**：按正式实体目录合并 `id`，同一 ID 重复定义即失败。派生牌池的引用可重复使用正式战斗卡 ID。
 - **房间族闭环**：每个 `room` 都有唯一 `room_tile`（有板块的盒），
   `NN`、`number`、`roomId`、`source.page` 互相一致。
 - **包段一致**：Weald 文件里只能出现 `weald` 包段；核心文件的其他类别不得出现包段

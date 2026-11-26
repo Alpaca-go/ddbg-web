@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 
 import { describe, expect, it } from "vitest";
 
-import { normalizedHeroStatFileSchema } from "../../src/core/heroes/hero-stat.build";
+import { normalizedHeroStatFileSchema } from "../../src/core/heroes/hero-stat";
 import { expectedTargetCounts } from "../../src/core/heroes/annotations/target-counts";
 import {
   projectHeroSkillRules,

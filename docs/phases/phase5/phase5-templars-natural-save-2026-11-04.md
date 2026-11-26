@@ -13,8 +13,8 @@
 验证：
 
 ```bash
-pnpm exec vitest run packages/engine/src/boss/templars-i-natural-save.test.ts
-pnpm exec vitest run apps/web/e2e/templars-i-save.spec.ts
+pnpm exec vitest run packages/engine/tests/core/bosses/templars/templars-i-natural-save.test.ts
+pnpm exec vitest run apps/web/e2e/core/templars-i-save.spec.ts
 pnpm typecheck && pnpm lint && pnpm test && pnpm build
 ```
 

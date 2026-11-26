@@ -39,10 +39,10 @@ Undulations（slot 2）/ Echoing Disassembly（slot 3）仍走 `applyShufflingHo
 ```bash
 pnpm typecheck
 pnpm exec vitest run \
-  packages/engine/src/boss/shuffling-horror-skills-acc.test.ts \
-  packages/engine/src/boss/darkest-mammoth-cyst-skills-acc.test.ts \
-  packages/engine/src/boss/darkest-templars-skills-acc.test.ts \
-  packages/engine/src/boss/darkest-mid-boss-runtime.test.ts
+  packages/engine/tests/core/bosses/shuffling-horror/shuffling-horror-skills-acc.test.ts \
+  packages/engine/tests/core/bosses/mammoth-cyst/darkest-mammoth-cyst-skills-acc.test.ts \
+  packages/engine/tests/core/bosses/templars/darkest-templars-skills-acc.test.ts \
+  packages/engine/tests/core/bosses/darkest/darkest-mid-boss-runtime.test.ts
 ```
 
 ## 建议下一刀

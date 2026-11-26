@@ -16,7 +16,7 @@
 
 ```bash
 pnpm exec vitest run \
-  packages/data/src/normalize/eldritch-power-chamber.test.ts \
-  packages/data/src/normalize/room-tile-selection.test.ts \
-  packages/engine/src/battle-eldritch-power.test.ts
+  packages/data/tests/core/rooms/eldritch-power-chamber.build.test.ts \
+  packages/data/tests/core/rooms/room-tile-selection.test.ts \
+  packages/engine/tests/core/rooms/battle-eldritch-power.test.ts
 ```

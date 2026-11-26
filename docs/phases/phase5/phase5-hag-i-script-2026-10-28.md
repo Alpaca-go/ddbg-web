@@ -18,7 +18,7 @@
 
 ## 引擎交付
 
-- 模块：`packages/engine/src/boss/hag-i.ts`（`ensureHagIBossScriptRegistered` / `ensureCoreBossScriptsRegistered`）。
+- 模块：`packages/engine/src/weald/bosses/hag/hag-i.ts`（`ensureHagIBossScriptRegistered` / `ensureCoreBossScriptsRegistered`）。
 - 威胁 helper：`stressOnHeroProvisionUseFromBossThreat`、`sanitariumHealLifeDeltaFromBossThreat`。
 - `threat-description-catalog.resolveScriptIdForDescriptionCard`：`boss_ability:weald:hag:p001` → `boss:weald:hag:1`；`WEALD_BOSS_DESCRIPTION_CARD_ID` 仅填 Hag I，其余 Boss 留 `undefined`。
 - 类型：`BossThreatPassiveDungeonOk` / `BossThreatPassiveHamletOk` 扩展 Hag 两种 `effect`。
@@ -50,6 +50,6 @@
 ## 测试
 
 ```bash
-pnpm exec vitest run packages/engine/src/boss/hag-i.test.ts packages/engine/src/boss/threat-establishment.test.ts packages/engine/src/boss/necromancer-i.test.ts packages/engine/src/boss/prophet-i.test.ts
+pnpm exec vitest run packages/engine/tests/weald/bosses/hag/hag-i.test.ts packages/engine/tests/core/bosses/threat-establishment.test.ts packages/engine/tests/core/bosses/necromancer/necromancer-i.test.ts packages/engine/tests/core/bosses/prophet/prophet-i.test.ts
 pnpm typecheck
 ```

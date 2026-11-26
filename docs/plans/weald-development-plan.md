@@ -6,6 +6,12 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 
 ## 当前进度与下一步
 
+- **2026-11-26 全仓名称与引用复核**：按[内容数据规范](../content-data-conventions.md)核对发布目录、引擎／Web 读入口及印刷工具。核心八个 Boss 房间与英雄属性的运行时 schema 已归入同名普通模块，构建器保留印刷核验。补齐批量归一的 Cove 两类及 Weald I 级任务、房间和 Stygian 写入。修复仓库相对路径、文档链接与复跑命令。房间板块卡图按 canonical ID 发布全部 25 个核准面，本机缓存逐页对齐印刷清单。
+  验证：临时目录运行完整归一命令，9 文件 64 项通过。对比 66 个发布 JSON，核心 43 个及 Weald 21 个逐字节一致，Cove 2 个解析内容一致。仓库 `extract` 和归一化 JSON 零 diff。印刷 Python 测试 29 项通过。 定向 Vitest 126 文件 520 项通过，typecheck、lint、build 通过。Temple of the Chosen 冒烟并发超时后在原预算下独立通过。 首轮全量 4 并发出现 4 项长场景超时后中止，涉及的 3 个文件用原预算串行复跑，6 项全部通过。本轮完整套件未跑完。
+  待确认与下一步：Weald 仍按下方既有计划推进。Cove／Warrens 的 14 个 Boss 占位 ID 等对应印刷目录入库后迁移。旧核心房间族及英雄 ID 的存档兼容见 [ID 规范 §8](../id-naming-rules.md#8-迁移)。本机缺村庄正面版图及 14 张手裁建筑 PNG，版图已补入自动导出入口。
+
+- **2026-11-26 内容数据规范**：Cove／Warrens 后续接入以[内容数据文件命名与结构规范](../content-data-conventions.md)为开发入口，覆盖九类文件、目录字段、印刷来源和跨目录引用。两包 Boss 占位迁移仍待印刷目录入库，Weald 的待确认项见下方。
+
 - **2026-11-26 按内容类型统一数据构建**：核对 bosses／curios／hamlet／monsters／quests／rooms／tiles／trinkets。核心盒总构建归入 core；通用怪物归一按类型独立；村庄卡牌、饰品、房间卡与板块各归其位。Boss 能力卡共用正面校验，Curio 共用印刷行格式，Weald 高等级任务的核准覆盖按页列成数据。三包写入仍经 `@ddbg/data/write`。后续开发继续遵循[仓库数据、测试与部署边界](../repo-layout.md)，Cove／Warrens Boss 印刷目录待录入，Weald 待确认项见下方。
   验证：临时目录重建 30 个文件，核心盒 20 个和 Weald 8 个逐字节相同，Cove 2 个仅现有文件格式有差异。仓库 `extract` 与 `normalized` 均零 diff。 数据包 410 项、归一化命令 36 项、两条 Playwright 冒烟通过。Weald 冒烟首次与重建并发时超时，重试及单跑通过。typecheck、lint、build 通过。全量 Vitest 632 个文件通过，共 4438 项通过、1 项跳过。
 
@@ -58,7 +64,7 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 - **本轮验证（#786）**：typecheck、lint、build 通过；Boss 连续战役 4 测（Radiant 2、Standard 1、Stygian 1）与 Stygian 自然回放 7 测通过。
 - **e2e 夹具修复（#787）**：R-271 的 `chainCrowding` 由页面 dispatch 写入，但 zero-capacity／monster-zero-capacity／poisonous-roots 夹具未带该版本标记，导致 #783 起 CI 的 3 条 Playwright 深比较用例失败。补齐夹具后本机 3 条用例通过；仅测试夹具，不改引擎、页面行为或日志版本语义。
 - **R-273 跨地点威胁边界（#788，Shrieker 已收口）**：核心＋Weald 混合战役按 W3 混洗所有启用地点 Boss，遗迹 Boss 的威胁会在 Weald 任务生效。Necromancer II 的 Army of the Dead 要求首战生成 Bone Captain，而 Weald 池没有该卡，引擎整场拒绝开战。Kyries 指示“不要出现遗迹的 boss 在 weald 的任务里”，登记 [R-273](../rulings.md)：**地牢侧威胁只在该 Boss 所属地点的地牢生效，村庄侧不变**。已接入遗迹 Boss 的 Army of the Dead、higher ruins、威胁压力／战斗开始状态与战后池移除，以及 Weald Boss 的 Hag／Pounder／**Shrieker（I 的补给盗取、II／III 的跳补给骰与高等级盗取）**入口。新增 `threat-location-scope.test.ts`；受影响 Boss 场景夹具改用真实 Weald 任务分布或生产地点标记。
-- **本轮验证（#788／#790）**：`packages/engine/src/boss` 与 `expansions/weald` 共 158 文件／1145 测通过（1 跳过）；Shrieker 收口后新增共享夹具修正，`core-trinkets`、`dungeon-curio`、`shrieker-i-entry-save`、`shrieker-skip-provision-rolls` 等 97 测通过。全量 `pnpm test` 本轮超过 40 分钟未跑完，已中止并以定向验证＋CI 为准（不是通过）。
+- **本轮验证（#788／#790）**：`packages/engine/tests/core/bosses` 与 `packages/engine/tests/weald` 共 158 文件／1145 测通过（1 跳过）；Shrieker 收口后新增共享夹具修正，`core-trinkets`、`dungeon-curio`、`shrieker-i-entry-save`、`shrieker-skip-provision-rolls` 等 97 测通过。全量 `pnpm test` 本轮超过 40 分钟未跑完，已中止并以定向验证＋CI 为准（不是通过）。
 - **范围口径（X1，Kyries 2026-11-19）**：Musketeer 已完成并进入英雄选池；Warrens／Cove 尚未开始，当前只在游戏开始的拓展包条目中登记选项与数据，地点战役未开放。`AGENTS.md` 中“Musketeer 首版不纳入（R-008）”按 R-200 更新。
 - **Act II 探测与 V1 基线（历史，已入库）**：`weald-act-two-probe.test.ts`（P1 第一趟 II 级任务）与 `weald-act-two-journey.test.ts`（V1 5-seed 基线）已入库；V1 于 2026-11-19 停止，自然全胜不再作为流程门槛。旧“本地临时探测、未入库”说法已作废。现有回归覆盖到受控/公开命令的阶段推进与存档回放，不再要求特定种子打通 II Boss。
 - **2026-11-18 本地盘点（`be24ef76`）**：普通内容已覆盖 15 张任务（I 级 5 张、II／III 级各 5 张）、16 张当地奇物、九张普通房及其九张 Stygian 替换、I–III 级当地怪物和同级通用组池。Hag／Pounder／Shrieker 各 I–III 级已接正式出征、战斗与结算。Q-186 已核准卡面、12 面几何与真菌位置，保留全局图标词典、I 级原目录验证标记与 PvP 范围边界。Q-188、Q-189 已分别由 R-266、R-271 结清；规则规格书 v0.1 仍标为待 Kyries 整稿复核。
@@ -189,7 +195,7 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 
 核心规则 R9：通用卡没有地点图标，地点专属卡有地点图标；R10 和 Weald W3 规定组合当地与通用牌堆。当前核心 Curio FRONT p1–8 的旗帜无地点图标，p9–24 为 Ruins 门形图标；raw 对应两个已确认的地点旗帜图标组（`3825ad46df` / `27fe03d7a2`），地点身份与独立奇物组池入口已建立（`a503b370`）。不可把核心全部 24 张加入 Weald。
 
-怪物可从既有 `packages/data/src/monster-pool.ts` 的 Common 身份及实体副本映射接续，结合 Weald 已核准目录，按等级过滤。正式接线前同时核对创建、守恒、回村和存档中现有核心专用目录校验，不能只放宽牌堆长度。
+怪物可从既有 `packages/data/src/core/monsters/monster-pool.ts` 的 Common 身份及实体副本映射接续，结合 Weald 已核准目录，按等级过滤。正式接线前同时核对创建、守恒、回村和存档中现有核心专用目录校验，不能只放宽牌堆长度。
 
 ## 跨 session 接续
 
@@ -211,12 +217,12 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 
 ## 接续记录
 
-| 日期       | 已完成                                                                                                                                                                                         | 下一步                                                                                       | 验证                                                                                                                                                              |
-| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 2026-11-11 | 步骤 0，提交 `e7fd17e1`；本计划获 Kyries 确认                                                                                                                                                  | 步骤 1：I 级普通怪物核实与接线                                                               | 导入批：Node 24.21.0；typecheck、lint、build 通过；481 个测试文件通过，3,674 测通过、1 测跳过                                                                     |
-| 2026-11-11 | 两批已合入并推送 main（`3be97c65`）；步骤 1 首批完成五种普通怪物待审规范化、Life 定位修正和 Windows 生成命令；代码与本记录在同一提交，可用 `git log -1 -- docs/weald-development-plan.md` 定位 | 等 Kyries 逐项更正属性与姿态候选，再核实技能、抗性/免疫并接战斗；尚未推进奇物                | Node 24.21.0；typecheck、lint、build 通过；483 个文件通过，3,685 测通过、1 测跳过；针对性 30 测通过                                                               |
-| 2026-11-11 | R-230–R-232 确认五种 I 级怪物属性、抗性/免疫与 13 项技能；大型卡灰栏结案。译名及旧档兼容 `97132ce3`，核准数据 `494356b1`；引擎目录与本记录同一提交（用本文件 git log 定位）                    | 继续当地奇物；房间/容量/单位部署链接通后完成三项召唤，不能省略召唤执行伤害。技能选区不再送审 | Node 24.21.0；typecheck、lint、build 全通过；487 文件、3,725 测通过、1 测跳过；68 项针对性检查及 2 项旧档兼容通过                                                 |
-| 2026-11-11 | R-233 确认 Weald 16 张奇物、64 行效果；独立规范化目录及 Torch 效果规划接入，当前记录与代码同一提交                                                                                             | 步骤 2：当地＋通用牌堆；召唤部署仍跟踪房间／容量依赖                                         | Node 24.21.0；typecheck、lint、build 通过；全量 487 文件通过、1 文件因既有 20 秒时限超时（3,736 通过、1 跳过），该存档文件单独复跑 9 项全通过；生成检查 31 项通过 |
+| 日期       | 已完成                                                                                                                                                                                               | 下一步                                                                                       | 验证                                                                                                                                                              |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-11-11 | 步骤 0，提交 `e7fd17e1`；本计划获 Kyries 确认                                                                                                                                                        | 步骤 1：I 级普通怪物核实与接线                                                               | 导入批：Node 24.21.0；typecheck、lint、build 通过；481 个测试文件通过，3,674 测通过、1 测跳过                                                                     |
+| 2026-11-11 | 两批已合入并推送 main（`3be97c65`）；步骤 1 首批完成五种普通怪物待审规范化、Life 定位修正和 Windows 生成命令；代码与本记录在同一提交，可用 `git log -1 -- docs/plans/weald-development-plan.md` 定位 | 等 Kyries 逐项更正属性与姿态候选，再核实技能、抗性/免疫并接战斗；尚未推进奇物                | Node 24.21.0；typecheck、lint、build 通过；483 个文件通过，3,685 测通过、1 测跳过；针对性 30 测通过                                                               |
+| 2026-11-11 | R-230–R-232 确认五种 I 级怪物属性、抗性/免疫与 13 项技能；大型卡灰栏结案。译名及旧档兼容 `97132ce3`，核准数据 `494356b1`；引擎目录与本记录同一提交（用本文件 git log 定位）                          | 继续当地奇物；房间/容量/单位部署链接通后完成三项召唤，不能省略召唤执行伤害。技能选区不再送审 | Node 24.21.0；typecheck、lint、build 全通过；487 文件、3,725 测通过、1 测跳过；68 项针对性检查及 2 项旧档兼容通过                                                 |
+| 2026-11-11 | R-233 确认 Weald 16 张奇物、64 行效果；独立规范化目录及 Torch 效果规划接入，当前记录与代码同一提交                                                                                                   | 步骤 2：当地＋通用牌堆；召唤部署仍跟踪房间／容量依赖                                         | Node 24.21.0；typecheck、lint、build 通过；全量 487 文件通过、1 文件因既有 20 秒时限超时（3,736 通过、1 跳过），该存档文件单独复跑 9 项全通过；生成检查 31 项通过 |
 
 ### 步骤 2 首批：奇物地点目录
 
@@ -225,7 +231,7 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 - 回归检查 raw 的两个旗帜图标组（`3825ad46df` / `27fe03d7a2`）、跨地点排除、副本守恒、乱序保序及缺卡／重复／混包拒绝。
 - 此入口仅供后续战役接线使用；现有引擎核心 24 张目录校验保持不变。未开放 Weald 出征；选包、种子洗牌、回村和存档回放一致性仍未完成，因此步骤 2 不能标为完成。
 - 待确认项：无新增规则问题；既有 Q-186 和三项召唤部署停点继续跟踪。
-- 本批验证：Node 24.20.0（本机实际版本，低于约定的 24.21.0）、pnpm 12.9.1；typecheck、lint、build 通过；全量 Vitest 489 文件通过，3,740 测通过、1 测跳过（1,135.11 秒）；新增针对性 3 测通过。构建保留既有 Vite 导入路径及大块文件提示。本批仅数据入口，步骤 2 未完成，尚未新增阶段末 Playwright 冒烟。本记录与组池代码同一提交，使用 `git log -1 -- docs/weald-development-plan.md` 定位；与 R-233 奇物批次一并合入 main。
+- 本批验证：Node 24.20.0（本机实际版本，低于约定的 24.21.0）、pnpm 12.9.1；typecheck、lint、build 通过；全量 Vitest 489 文件通过，3,740 测通过、1 测跳过（1,135.11 秒）；新增针对性 3 测通过。构建保留既有 Vite 导入路径及大块文件提示。本批仅数据入口，步骤 2 未完成，尚未新增阶段末 Playwright 冒烟。本记录与组池代码同一提交，使用 `git log -1 -- docs/plans/weald-development-plan.md` 定位；与 R-233 奇物批次一并合入 main。
 
 ### 步骤 2 第二批：I 级怪物地点目录
 
@@ -431,7 +437,7 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 ### 步骤 5 第五批：I 级五张任务数据刀（规范化 + basicQuests）
 
 - 起点 main `7da08d29`（#641 squash：R-240–R-249）。本批 `cursor/weald-l1-quest-normalize-eb25`。
-- `buildWealdLevelOneQuestCards`（`packages/data/src/normalize/weald-quest-cards.ts`）：仅 I 级五张（`quest:weald:p001`–`p005`）；分布 kind 按 **R-240**／**R-249**（含 `1154a8a4d4` 巢穴、重叠 hash）；raw 卡底行校验。
+- `buildWealdLevelOneQuestCards`（`packages/data/src/weald/quests/quest-cards.build.ts`）：仅 I 级五张（`quest:weald:p001`–`p005`）；分布 kind 按 **R-240**／**R-249**（含 `1154a8a4d4` 巢穴、重叠 hash）；raw 卡底行校验。
 - 产出 `normalized/extension/weald/quest_cards.json` 与五张 `*_distribution.json`；`basicQuests` 登记 **`expeditionRegion: weald`**、SPECIAL 数据字段（含 **R-248** `monsterDrawScope: wealdLocalOnly`）；**未**实现 Purge 运行时抽牌。
 - 包隔离：`questsForContentPacks`（未选 Weald 不进村庄 I 级池）；`basicQuestEnabledForContentPacks` 用于存档；选了包可读登记，但 `expeditionLocationEmbarkBlockReason`／`questsForCampaignLevel` 排除 weald，出征仍关；房间 `usable` 未改。
 - **待确认**：无新增玩法待确认；**R-248** 运行时、任务 SPECIAL 状态机、QuestMap Weald 图待接线 PR。

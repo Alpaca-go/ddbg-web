@@ -303,7 +303,7 @@ const coreHigherRows: readonly CoreHigherSkillRow[] = [
   },
 ];
 
-/** 完整印刷逐页核对的状态效果行（docs/phase2-four-core-skills-2026-10-11.md）。 */
+/** 完整印刷逐页核对的状态效果行（docs/phases/phase2/phase2-four-core-skills-2026-10-11.md）。 */
 const statusEntries: readonly StatusEffectEntry[] = [
   // 完整FRONT p184：目标 Blight 2·3t；仅 I 级。
   {

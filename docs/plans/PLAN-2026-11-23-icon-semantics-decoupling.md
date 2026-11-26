@@ -72,17 +72,17 @@
 - 与卡面外观相关的测试（golden 断言）；
 - 明确标注「仅为签名/显示」的辅助函数。
 
-`packages/engine/src/hero-skill.ts`（3469 行）是主战场；其它需要审计的文件至少包括：
+`packages/engine/src/core/heroes/hero-skill.ts`（3469 行）是主战场；其它需要审计的文件至少包括：
 
 ```text
-packages/engine/src/hero-skill.ts
-packages/engine/src/abomination-skills.ts
-packages/engine/src/battle-attack-trinkets.ts
-packages/engine/src/battle-free-trinkets.ts
-packages/engine/src/battle-fortunate-armlet.ts
-packages/engine/src/battle-empty-area.ts
-packages/engine/src/battle-hero-targets.ts
-packages/engine/src/battle-skill-status.ts
+packages/engine/src/core/heroes/hero-skill.ts
+packages/engine/src/core/heroes/abomination-skills.ts
+packages/engine/src/shared/battle/battle-attack-trinkets.ts
+packages/engine/src/shared/battle/battle-free-trinkets.ts
+packages/engine/src/shared/battle/battle-fortunate-armlet.ts
+packages/engine/src/shared/battle/battle-empty-area.ts
+packages/engine/src/shared/battle/battle-hero-targets.ts
+packages/engine/src/shared/battle/battle-skill-status.ts
 ```
 
 ### 1.4 显示
@@ -187,7 +187,7 @@ git grep -n "namedKeys(\|effect_lines" -- packages/engine/src ':!*.test.ts'
 | 漂移断言                                            | 改成文本 + iconId 序列                        |
 | 卡面外观测试                                        | 保留                                          |
 
-3. 产出 `docs/audit-2026-11-23-icon-semantics.md`：`file:line | 读取内容 | 目标字段 | 处理方式`。
+3. 产出 `docs/reviews/audit-2026-11-23-icon-semantics.md`：`file:line | 读取内容 | 目标字段 | 处理方式`。
    清单覆盖率必须是 100%。
 
 验收：审计表完整；新增/扩展的字段有 schema 与测试；不改变运行时行为（快照仍通过）。
@@ -259,7 +259,7 @@ pnpm build
 3. 注解层检查：
 
 ```powershell
-git grep -n "cloneKey\|segmentOnCard" -- packages/data/src/normalize/hero-annotations
+git grep -n "cloneKey\|segmentOnCard" -- packages/data/src/core/heroes/annotations
 ```
 
 只应剩下几何修复与工具函数。
@@ -328,7 +328,7 @@ alias 表覆盖全部旧 ID。
 
 ```powershell
 $env:WRITE_NORMALIZED='1'
-pnpm exec vitest run packages/data/src/normalize/normalize.test.ts
+pnpm exec vitest run packages/data/tests/shared/normalize.build.test.ts
 # 注意：只对 normalize.test.ts 设置 WRITE_NORMALIZED；
 # 对整个 normalize 目录设置会顺带重写 cove room/curio（格式不同），产生无关 diff。
 git diff --stat packages/data/normalized
@@ -352,7 +352,7 @@ pnpm test:e2e
 
 # 规范化数据重生成（每次改注解后）
 $env:WRITE_NORMALIZED='1'
-pnpm exec vitest run packages/data/src/normalize/normalize.test.ts
+pnpm exec vitest run packages/data/tests/shared/normalize.build.test.ts
 # 注意：只对 normalize.test.ts 设置 WRITE_NORMALIZED；
 # 对整个 normalize 目录设置会顺带重写 cove room/curio（格式不同），产生无关 diff。
 git diff --stat packages/data/normalized    # 语义整理阶段必须为空
@@ -403,10 +403,10 @@ bash 等价命令只需把 `$env:WRITE_NORMALIZED='1'` 换成
 
 ## 7. 给 Codex 的启动提示词
 
-> 读 `docs/PLAN-2026-11-23-icon-semantics-decoupling.md`，先执行 Phase 0（基线 + 3 条行为快照），
+> 读 `docs/plans/PLAN-2026-11-23-icon-semantics-decoupling.md`，先执行 Phase 0（基线 + 3 条行为快照），
 > 然后做 Phase A0.5（建复核工作台 + 432 张英雄技能/属性的全量语义复核矩阵），
 > 再做 Phase A1（`git grep -n "icon\.key" -- packages/engine/src ':!*.test.ts'` 审计并产出
-> `docs/audit-2026-11-23-icon-semantics.md`），随后做 A1.5（覆盖审计 + 双通道核对 +
+> `docs/reviews/audit-2026-11-23-icon-semantics.md`），随后做 A1.5（覆盖审计 + 双通道核对 +
 > `effects_reviewed` 字段）。A0.5/A1/A1.5 完成前不要改 h12–h18 的代码，也不要动提取器。
 > 每个阶段单独 commit，按文档 §4 验收；不确定的规则/图标含义按 R-048 停下问 Kyries。
 
@@ -426,6 +426,6 @@ A0.5 的 432 张全部复核完成后，再做一次**纯样式**整理（不与
 ### 8.1 终态验收（A3 后）
 
 - `hero-annotations/hNN-*.ts` 必须是**纯数据文件**：不再有工厂函数、patch 表或模块导出；
-  用 `git grep -n "function " packages/data/src/normalize/hero-annotations/h*.ts` 检查应为空。
+  用 `git grep -n "function " packages/data/src/core/heroes/annotations/h*.ts` 检查应为空。
 - 确实无法数据化的几何修复，移到 `hero-patches/hNN-*.ts`，文件头注明原因与 R/Q 编号。
 - 这一条与 A3 的「删除 rekey 代码」同时验收，不单独作为一个 PR。

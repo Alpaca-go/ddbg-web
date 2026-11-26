@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Verify pngRel paths in apps/web *-print-art-map.json exist under the print cache.
+ * Verify relative PNG paths in apps/web *-print-art-map.json exist under the print cache.
  */
 import { readFileSync, existsSync, globSync } from "node:fs";
 import { dirname, resolve } from "node:path";
@@ -14,7 +14,7 @@ function parseArgs(argv) {
   for (let i = 2; i < argv.length; i++) {
     if (argv[i] === "--cache" && argv[i + 1]) cache = resolve(repoRoot, argv[++i]);
   }
-  return { cache };
+  return { cache, includeManual: argv.includes("--include-manual") };
 }
 
 function collectPngRels(node, out) {
@@ -24,15 +24,15 @@ function collectPngRels(node, out) {
     return;
   }
   if (typeof node !== "object") return;
-  if (typeof node.pngRel === "string" && node.pngRel.startsWith("png/")) {
-    out.add(node.pngRel);
+  for (const rel of [node.pngRel, node.facePngRel]) {
+    if (typeof rel === "string" && /^(?:png|manual)\//.test(rel)) out.add(rel);
   }
   for (const value of Object.values(node)) {
     collectPngRels(value, out);
   }
 }
 
-const { cache } = parseArgs(process.argv);
+const { cache, includeManual } = parseArgs(process.argv);
 const mapDir = resolve(repoRoot, "apps/web/src/card-art");
 const maps = globSync("*-print-art-map.json", { cwd: mapDir }).map((f) => resolve(mapDir, f));
 
@@ -42,6 +42,7 @@ for (const mapPath of maps) {
   const pngRels = new Set();
   collectPngRels(data, pngRels);
   for (const pngRel of pngRels) {
+    if (!includeManual && pngRel.startsWith("manual/hamlet-building-tiles/")) continue;
     const abs = resolve(cache, pngRel);
     if (!existsSync(abs)) {
       missing.push({ map: mapPath.replace(repoRoot + "/", ""), pngRel });

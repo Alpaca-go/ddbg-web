@@ -6,10 +6,8 @@ import {
   buildHeroStats,
   normalizedHeroStatCardSchema,
 } from "../../../src/core/heroes/hero-stat.build";
-import {
-  readHigherHeroDefence,
-  buildHigherHeroDefence,
-} from "../../../src/core/heroes/hero-higher-defence.build";
+import { buildHigherHeroDefence } from "../../../src/core/heroes/hero-higher-defence.build";
+import { readHigherHeroDefence } from "../../../src/core/heroes/hero-higher-defence";
 
 const json = (path: string) =>
   JSON.parse(readFileSync(new URL(`../../../${path}`, import.meta.url), "utf8"));

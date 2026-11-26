@@ -12,7 +12,7 @@ const file = JSON.parse(
 const stances = ["aggressive", "defensive", "ranged", "support"] as const;
 
 // 独立列出经 Kyries 批准的卡面结果；数字数组按 d10 的 1–10 排列。
-// docs/monster-stance-review-2026-10-09.md §3–4、§7；R-015、R-048。
+// docs/reviews/monster-stance-review-2026-10-09.md §3–4、§7；R-015、R-048。
 // Bone Spearman II 单卡批准：R-082 / Q-85。
 const approved = [
   // C-012：当前版 Necromancer I p089；四姿态同一完整 d10 表。

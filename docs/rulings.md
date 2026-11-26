@@ -608,7 +608,7 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **编号**：R-054
 - **日期**：2026-10-10
 - **问题**：Ritual Chamber（Room Tile 1）中央高台 F 与中横区域 E 是否相邻
-- **裁定**（本项目裁定）：E-F 不相邻，黑墙阻隔，不可直接移动。容量与高台按已通过的 `docs/ruins-room-tile-review-2026-10-10.md` 入库，邻接图按此定稿；不补桥、路径或未命名数值。
+- **裁定**（本项目裁定）：E-F 不相邻，黑墙阻隔，不可直接移动。容量与高台按已通过的 `docs/reviews/ruins-room-tile-review-2026-10-10.md` 入库，邻接图按此定稿；不补桥、路径或未命名数值。
 - **依据 / 出处**：Kyries 在本对话通过核对表并明确裁定。区域标签只指核心盒 `DD_COREBOX_TILES_FRONT.pdf` 第 1 页 FRONT / 编号 1，raw id `dungeon_tile:p001`，不扩散到其他板块。
 - **关联待确认**：Q-20（R-021 的本板块具体边界补充）
 - **状态**：Kyries 已确认（2026-10-10）
@@ -1162,7 +1162,7 @@ Kyries 最终拍板。2026-10-06 授权助手先按规则书写下暂定裁定�
 - **编号**：R-108
 - **日期**：2026-10-25
 - **问题**：核心盒任务卡 FRONT 底部 quest_setup 小图标 `7d43c83ef2` 对应房间代币种类（Q-108）。
-- **裁定**：`{icon:7d43c83ef2}` 在任务分布行中表示 **Objective** 房代币（`kind: objective`），与冲压板 Rubine 刀线 objective / 绳绑卷轴图案一致（见 `docs/phase4-print-room-token-art-2026-10-19.md` xref 165）。用于 Dem Bones / Disruption / Break Them / Purify / They Are Back 等卡面分布行。
+- **裁定**：`{icon:7d43c83ef2}` 在任务分布行中表示 **Objective** 房代币（`kind: objective`），与冲压板 Rubine 刀线 objective / 绳绑卷轴图案一致（见 `docs/phases/phase4/phase4-print-room-token-art-2026-10-19.md` xref 165）。用于 Dem Bones / Disruption / Break Them / Purify / They Are Back 等卡面分布行。
 - **依据 / 边界**：`DD_EN_COREBOX_CARDS_70_120_quests_FRONT.pdf` 任务 p4/p6/p9/p10/p13 等；R15 房间代币图例；R-048 不猜未核实图标。数字角标 `a2e7f1dd7b` / `f698b6fd6c` 等仅为数量，不单独命名房间 kind。
 - **关联待确认**：Q-108
 - **状态**：Kyries 已确认（2026-10-25）

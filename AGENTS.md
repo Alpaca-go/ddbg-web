@@ -22,6 +22,8 @@ Weald 扩展按 Kyries 已确认的 [开发计划](./docs/plans/weald-developmen
 - 新内容必须按规范命名，并带 schema / 测试校验；不符合规范的 ID 不合入。
 - 旧 ID 按规范 §8 分批迁移；迁移完成前不要新增旧形式。
 
+Cove／Warrens 新增或调整内容数据时，先读并遵循[内容数据文件命名与结构规范](./docs/content-data-conventions.md)。
+
 ## 项目目标与范围
 
 - 从零做《暗黑地牢桌游》网页客户端。先做核心盒（遗迹 Ruins + 最暗地牢 Darkest Dungeon），走通完整战役，再按地点扩展。

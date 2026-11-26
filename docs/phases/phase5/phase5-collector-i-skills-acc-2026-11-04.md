@@ -21,11 +21,11 @@
 
 ## 测试
 
-`packages/engine/src/boss/collector-i-skills-acc.test.ts`：卡面断言 + 真实部署路径 Collect All / R-176 选招 / 两招命中结算 + 效果计划漂移拒绝。
+`packages/engine/tests/core/bosses/collector/collector-i-skills-acc.test.ts`：卡面断言 + 真实部署路径 Collect All / R-176 选招 / 两招命中结算 + 效果计划漂移拒绝。
 
 ```bash
 pnpm typecheck
-pnpm exec vitest run packages/engine/src/boss/collector-i-skills-acc.test.ts
+pnpm exec vitest run packages/engine/tests/core/bosses/collector/collector-i-skills-acc.test.ts
 pnpm lint
 ```
 

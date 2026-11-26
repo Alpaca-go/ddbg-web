@@ -1,7 +1,7 @@
 import { expect, it } from "vitest";
 import statsFile from "../../../../data/normalized/corebox/hero_stat.json";
 import resolveFile from "../../../../data/normalized/corebox/virtue_affliction.json";
-import { normalizedHeroStatFileSchema } from "../../../../data/src/core/heroes/hero-stat.build";
+import { normalizedHeroStatFileSchema } from "../../../../data/src/core/heroes/hero-stat";
 import { normalizedVirtueAfflictionFileSchema } from "../../../../data/src/shared/schema";
 import {
   approvedExtraRuinsTiles,

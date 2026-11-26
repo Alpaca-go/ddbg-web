@@ -14,9 +14,9 @@
 
 ## 验证
 
-- `packages/engine/src/boss/collector-i-deploy.test.ts`：真实部署 + F 区拾取一枚 + `closeBattleLoot` 九枚回池。
-- `packages/engine/src/boss/collector-i-room-runtime.test.ts`：机制夹具三箱逐枚拾取与有限堆。
-- `packages/data/src/normalize/collector-room.test.ts`：`runtimeReady` 与几何漂移闸门。
+- `packages/engine/tests/core/bosses/collector/collector-i-deploy.test.ts`：真实部署 + F 区拾取一枚 + `closeBattleLoot` 九枚回池。
+- `packages/engine/tests/core/bosses/collector/collector-i-room-runtime.test.ts`：机制夹具三箱逐枚拾取与有限堆。
+- `packages/data/tests/core/rooms/collector-room.build.test.ts`：`runtimeReady` 与几何漂移闸门。
 
 ```bash
 pnpm test --filter @ddbg/engine collector-i

@@ -4,13 +4,13 @@
 
 ## 证据来源
 
-| 英雄          | 依据                                                                                                                                        |
-| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| Jester        | `docs/phase4-core-trio-skills-2026-10-24.md`（I 级）+ core-higher 注解（II/III）+ `core-trio-skills.test.ts` / `core-higher-skills.test.ts` |
-| Plague Doctor | `docs/phase4-plague-*` 记录 + `plague-dot/-multi/-support` 测试 + core-higher                                                               |
-| Grave Robber  | `docs/phase4-grave-robber-skills-2026-10-18.md` + `grave-robber-skills.test.ts` + core-higher                                               |
-| Occultist     | `docs/phase4-occultist-skills-2026-10-18.md` + `occultist-skills.test.ts` + core-higher                                                     |
-| Abomination   | `docs/phase5-a6-abomination-skills-2026-10-31.md` + `abomination-skills.test.ts` + core-higher；变身卡双面                                  |
+| 英雄          | 依据                                                                                                                                                      |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Jester        | `docs/phases/phase4/phase4-core-trio-skills-2026-10-24.md`（I 级）+ core-higher 注解（II/III）+ `core-trio-skills.test.ts` / `core-higher-skills.test.ts` |
+| Plague Doctor | `docs/phase4-plague-*` 记录 + `plague-dot/-multi/-support` 测试 + core-higher                                                                             |
+| Grave Robber  | `docs/phases/phase4/phase4-grave-robber-skills-2026-10-18.md` + `grave-robber-skills.test.ts` + core-higher                                               |
+| Occultist     | `docs/phases/phase4/phase4-occultist-skills-2026-10-18.md` + `occultist-skills.test.ts` + core-higher                                                     |
+| Abomination   | `docs/phases/phase5/phase5-a6-abomination-skills-2026-10-31.md` + `abomination-skills.test.ts` + core-higher；变身卡双面                                  |
 
 ## 关键数据点
 

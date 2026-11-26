@@ -23,11 +23,11 @@
 
 ## 测试
 
-`packages/engine/src/boss/collector-i-collected-skills-acc.test.ts`：正式目录卡面 + Collect All 与 G/E/A 挤占 + 三技能命中/友方结算 + 三枚 Collected 先攻侧依次推进 + 效果漂移拒绝。
+`packages/engine/tests/core/bosses/collector/collector-i-collected-skills-acc.test.ts`：正式目录卡面 + Collect All 与 G/E/A 挤占 + 三技能命中/友方结算 + 三枚 Collected 先攻侧依次推进 + 效果漂移拒绝。
 
 ```bash
 pnpm typecheck
-pnpm exec vitest run packages/engine/src/boss/collector-i-collected-skills-acc.test.ts
+pnpm exec vitest run packages/engine/tests/core/bosses/collector/collector-i-collected-skills-acc.test.ts
 pnpm lint
 ```
 

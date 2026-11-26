@@ -33,5 +33,5 @@
 
 ```bash
 pnpm typecheck
-pnpm exec vitest run packages/engine/src/boss/heart-of-darkness-impending-doom.test.ts packages/engine/src/boss/final-battle-initiative.test.ts
+pnpm exec vitest run packages/engine/tests/core/bosses/final/heart-of-darkness-impending-doom.test.ts packages/engine/tests/core/bosses/final/final-battle-initiative.test.ts
 ```

@@ -36,9 +36,9 @@ R41 / `boss_ability:p036` 也只描述 **Ichor** 与 **Summon**，未列出对�
 
 ## 验证
 
-- `packages/engine/src/boss/gestating-heart-skills-acc.test.ts`（卡面 catalog + 拒绝门回归）
+- `packages/engine/tests/core/bosses/final/gestating-heart-skills-acc.test.ts`（卡面 catalog + 拒绝门回归）
 - 既有：`gestating-heart-summon.test.ts`、`gestating-heart-ichor.test.ts`
 
 ```bash
-pnpm exec vitest run packages/engine/src/boss/gestating-heart-skills-acc.test.ts
+pnpm exec vitest run packages/engine/tests/core/bosses/final/gestating-heart-skills-acc.test.ts
 ```

@@ -20,8 +20,8 @@
 ```bash
 pnpm typecheck
 pnpm exec vitest run \
-  packages/engine/src/boss/ancestor2-skill-ai.test.ts \
-  packages/engine/src/boss/ancestor2-skills-acc.test.ts \
-  packages/engine/src/boss/ancestor2-swift-teleportation.test.ts
-pnpm exec vitest run packages/data/src/normalize/verified-large-monster-fields.test.ts
+  packages/engine/tests/core/bosses/ancestor/ancestor2-skill-ai.test.ts \
+  packages/engine/tests/core/bosses/ancestor/ancestor2-skills-acc.test.ts \
+  packages/engine/tests/core/bosses/ancestor/ancestor2-swift-teleportation.test.ts
+pnpm exec vitest run packages/data/tests/core/monsters/verified-large-monster-fields.build.test.ts
 ```

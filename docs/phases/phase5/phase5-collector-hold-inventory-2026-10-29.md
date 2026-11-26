@@ -2,7 +2,7 @@
 
 > **已过时**：#341 时代快照；#343–#352 已合。请以 **[phase5-remaining-hold-inventory-2026-10-29.md](./phase5-remaining-hold-inventory-2026-10-29.md)**（tip `3b50f2e`）为准。下文保留作历史参考。
 
-> **范围**：Kyries 批准切片——盘点 Boss 脚本 hold + 落地 **Collector I**（`boss:ruins:collector:1`）；**Fanatic I** 见 [phase5-fanatic-i-script-2026-10-28.md](./phase5-fanatic-i-script-2026-10-28.md）。  
+> **范围**：Kyries 批准切片——盘点 Boss 脚本 hold + 落地 **Collector I**（`boss:ruins:collector:1`）；**Fanatic I** 见 [phase5-fanatic-i-script-2026-10-28.md](./phase5-fanatic-i-script-2026-10-28.md)。
 > **不做**：R-121/122 全面收、Phase 6、II/III 全量、扩展包 Boss。  
 > **规则来源**：R-001；卡面 id 以 `packages/data/extract/corebox/raw/boss_ability.json` / normalized monster 为准（R-048）。
 
@@ -118,7 +118,7 @@
 
 ## 9. 测试
 
-- `packages/engine/src/boss/collector-i.test.ts`
-- `packages/engine/src/boss/fanatic-i.test.ts`
-- `packages/engine/src/boss/threat-establishment.test.ts`（Collector / Fanatic 定威胁）
+- `packages/engine/tests/core/bosses/collector/collector-i.test.ts`
+- `packages/engine/tests/core/bosses/fanatic/fanatic-i.test.ts`
+- `packages/engine/tests/core/bosses/threat-establishment.test.ts`（Collector / Fanatic 定威胁）
 - `pnpm typecheck` + 上述 vitest

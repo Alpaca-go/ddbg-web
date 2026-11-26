@@ -16,9 +16,9 @@
 ## 验证
 
 ```bash
-pnpm exec vitest run packages/engine/src/curio-room-guard.test.ts
-pnpm exec vitest run packages/engine/src/natural-quest-paths.test.ts \
-  packages/engine/src/b09-curio-natural-paths.test.ts
+pnpm exec vitest run packages/engine/tests/shared/core/curio-room-guard.test.ts
+pnpm exec vitest run packages/engine/tests/shared/core/natural-quest-paths.test.ts \
+  packages/engine/tests/shared/core/b09-curio-natural-paths.test.ts
 pnpm typecheck
 ```
 

@@ -25,7 +25,7 @@ function backLevelForPage(page) {
 }
 
 const trinketData = JSON.parse(
-  readFileSync(resolve(repoRoot, "../../../packages/data/normalized/corebox/trinket.json"), "utf8"),
+  readFileSync(resolve(repoRoot, "packages/data/normalized/corebox/trinket.json"), "utf8"),
 );
 const normalizedById = new Map(trinketData.cards.map((c) => [c.id, c]));
 

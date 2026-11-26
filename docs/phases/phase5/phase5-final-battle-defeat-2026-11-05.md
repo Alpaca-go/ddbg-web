@@ -27,12 +27,12 @@
 ## 验证
 
 ```bash
-pnpm exec vitest run packages/engine/src/boss/final-battle-defeat.test.ts
-pnpm exec vitest run packages/engine/src/boss/final-form-sequence.test.ts \
-  packages/engine/src/boss/final-battle-deploy.test.ts \
-  packages/engine/src/boss/final-battle-dead-heroes.test.ts \
-  packages/engine/src/boss/final-battle-campaign-victory.test.ts \
-  packages/engine/src/boss/final-battle-natural-save.test.ts
+pnpm exec vitest run packages/engine/tests/core/bosses/final/final-battle-defeat.test.ts
+pnpm exec vitest run packages/engine/tests/core/bosses/final/final-form-sequence.test.ts \
+  packages/engine/tests/core/bosses/final/final-battle-deploy.test.ts \
+  packages/engine/tests/core/bosses/final/final-battle-dead-heroes.test.ts \
+  packages/engine/tests/core/bosses/final/final-battle-campaign-victory.test.ts \
+  packages/engine/tests/core/bosses/final/final-battle-natural-save.test.ts
 pnpm typecheck
 ```
 

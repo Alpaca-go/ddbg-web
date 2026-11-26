@@ -25,7 +25,7 @@
 ```bash
 pnpm typecheck
 pnpm exec vitest run \
-  packages/engine/src/darkest-finish-battle.test.ts \
-  packages/engine/src/darkest-ordinary-initiative.test.ts \
-  packages/engine/src/boss/darkest-mid-boss-initiative.test.ts
+  packages/engine/tests/core/darkest/darkest-finish-battle.test.ts \
+  packages/engine/tests/core/darkest/darkest-ordinary-initiative.test.ts \
+  packages/engine/tests/core/bosses/darkest/darkest-mid-boss-initiative.test.ts
 ```

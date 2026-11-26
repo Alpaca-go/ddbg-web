@@ -3,11 +3,11 @@ import { expect, it } from "vitest";
 import geometry from "../../../normalized/corebox/room_tile_geometry.json";
 import rooms from "../../../normalized/corebox/room.json";
 import { rawFileSchema } from "../../../src/shared/extract/raw";
+import { assertAncestorRoomSource } from "../../../src/core/rooms/ancestor-room.build";
 import {
   approvedAncestorRoom as tile,
   ancestorRoomSchema,
-  assertAncestorRoomSource,
-} from "../../../src/core/rooms/ancestor-room.build";
+} from "../../../src/core/rooms/ancestor-room";
 import { buildRoomTileGeometry } from "../../../src/core/tiles/room-tile.build";
 import { selectRoomTile } from "../../../src/core/rooms/room-tile-selection";
 

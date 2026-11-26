@@ -8,7 +8,7 @@ import quirks from "../../../../data/normalized/corebox/quirk.json";
 import resolveData from "../../../../data/normalized/corebox/virtue_affliction.json";
 import type { ResolveCard } from "../../../src/shared/core/pressure";
 import { curioFileSchema } from "../../../../data/src/core/curios/curio";
-import { normalizedHeroStatFileSchema } from "../../../../data/src/core/heroes/hero-stat.build";
+import { normalizedHeroStatFileSchema } from "../../../../data/src/core/heroes/hero-stat";
 import { diseaseFileSchema } from "../../../../data/src/core/hamlet/disease";
 import { normalizedQuirkFileSchema } from "../../../../data/src/shared/schema";
 import { createDungeonSandbox } from "../../../src/shared/dungeon/dungeon";

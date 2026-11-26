@@ -18,11 +18,11 @@
 - [`docs/rulings.md`](./rulings.md) 全文及「待确认（未裁定）」节
 - [`docs/rulings-notes.md`](./rulings-notes.md)（暂定理由与复核优先级）
 - [`docs/spec/core-rules-spec-v0.2.md`](./spec/core-rules-spec-v0.2.md) §22 与文首状态
-- [`docs/phase5-remaining-hold-inventory-2026-10-29.md`](./phases/phase5/phase5-remaining-hold-inventory-2026-10-29.md)
-- [`docs/HANDOFF-2026-10-29-codex-core-pack-remaining.md`](./handoffs/HANDOFF-2026-10-29-codex-core-pack-remaining.md)
+- [`docs/phases/phase5/phase5-remaining-hold-inventory-2026-10-29.md`](./phases/phase5/phase5-remaining-hold-inventory-2026-10-29.md)
+- [`docs/handoffs/HANDOFF-2026-10-29-codex-core-pack-remaining.md`](./handoffs/HANDOFF-2026-10-29-codex-core-pack-remaining.md)
 - [`docs/r048-curio-remaining-2026-10-28.md`](./r048-curio-remaining-2026-10-28.md) §4（规则停点，非图标 map）
-- [`docs/phase3-approved-data-2026-10-13.md`](./phases/phase3/phase3-approved-data-2026-10-13.md)（特殊房运行时边界）
-- [`packages/engine/src/dungeon-quest.ts`](../../packages/engine/src/dungeon-quest.ts)、[`dungeon.ts`](../../packages/engine/src/dungeon.ts) 内 hold 注释
+- [`docs/phases/phase3/phase3-approved-data-2026-10-13.md`](./phases/phase3/phase3-approved-data-2026-10-13.md)（特殊房运行时边界）
+- [`packages/engine/src/shared/dungeon/dungeon-quest.ts`](../packages/engine/src/shared/dungeon/dungeon-quest.ts)、[`dungeon.ts`](../packages/engine/src/shared/dungeon/dungeon.ts) 内 hold 注释
 
 ---
 
@@ -59,32 +59,32 @@
 
 ### 1.3 延后 / 部分 hold（规则数据或引擎未闭环）
 
-| 短标题                               | 冲突 / 不明点                                                                                                       | 证据                                                                                 | 状态                   | 已采纳摘要（若有）                                                           |
-| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ | ---------------------- | ---------------------------------------------------------------------------- |
-| Stygian 房间卡数值                   | 危险加强的具体数值以 17 张 Stygian 房间卡转录为准，规则层不另猜。                                                   | Q-10 → **R-011**；ROOMS-S                                                            | 延后                   | 转录完成前不开放 Stygian 模式                                                |
-| 地牢板块：边缘房与 Boss 位布置       | 灰点/休息/离开等规则层已定；**边缘房选图、Boss 三格 token 洗入 dungeon** 仍 hold。                                  | Q-45 → **R-046**；**R-121** §6；[`dungeon.ts`](../../packages/engine/src/dungeon.ts) | 延后 + 实现 hold       | QuestMap 14 页布局读数已 confirmed（R-065/118/119/123）；Boss 位语义见 R-121 |
-| 卷轴槽：Objective vs Boss 位历史冲突 | R-115/R-117 曾批 p011/p012 卷轴槽为 Objective；R-121 推翻并定为 Boss 位，数据已 `slotKind: boss`，布置接线仍 hold。 | **R-121** 修正注；**R-115**/**R-117**                                                | 已裁定；实现 hold      | 卷轴槽 = R36 Boss slots；Objective 代币洗入三格之一                          |
-| 最暗最终战 XP                        | 规则书未见 Heart of Darkness 单独发 XP 句。                                                                         | **R-122** §4                                                                         | 待确认（待发印刷反证） | Boss 任务 p016–p019 定额 3 XP 已批                                           |
-| Fundraiser 卡面 vs 规则书 XP         | 卡面「any amount」与 R29 封顶表述冲突。                                                                             | **R-038** / Q-37；[`rulings-notes.md`](./rulings-notes.md)                           | 已裁定                 | 以规则书为准，任务 XP 封顶 3                                                 |
-| Boss 任务失败 vs 说明书旧推荐        | 「Boss 任务中任何战斗全灭」vs 仅 Boss 战全灭。                                                                      | **R-044** / Q-43；rulings-notes                                                      | 已裁定                 | 任何一场战斗全灭即战役失败                                                   |
-| 辅助卡 vs 规则书（Debuff / Riposte） | AID-Cond 与 R21 措辞冲突。                                                                                          | **R-016**、**R-017**                                                                 | 已裁定                 | 以规则书为准                                                                 |
+| 短标题                               | 冲突 / 不明点                                                                                                       | 证据                                                                                             | 状态                   | 已采纳摘要（若有）                                                           |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ---------------------- | ---------------------------------------------------------------------------- |
+| Stygian 房间卡数值                   | 危险加强的具体数值以 17 张 Stygian 房间卡转录为准，规则层不另猜。                                                   | Q-10 → **R-011**；ROOMS-S                                                                        | 延后                   | 转录完成前不开放 Stygian 模式                                                |
+| 地牢板块：边缘房与 Boss 位布置       | 灰点/休息/离开等规则层已定；**边缘房选图、Boss 三格 token 洗入 dungeon** 仍 hold。                                  | Q-45 → **R-046**；**R-121** §6；[`dungeon.ts`](../packages/engine/src/shared/dungeon/dungeon.ts) | 延后 + 实现 hold       | QuestMap 14 页布局读数已 confirmed（R-065/118/119/123）；Boss 位语义见 R-121 |
+| 卷轴槽：Objective vs Boss 位历史冲突 | R-115/R-117 曾批 p011/p012 卷轴槽为 Objective；R-121 推翻并定为 Boss 位，数据已 `slotKind: boss`，布置接线仍 hold。 | **R-121** 修正注；**R-115**/**R-117**                                                            | 已裁定；实现 hold      | 卷轴槽 = R36 Boss slots；Objective 代币洗入三格之一                          |
+| 最暗最终战 XP                        | 规则书未见 Heart of Darkness 单独发 XP 句。                                                                         | **R-122** §4                                                                                     | 待确认（待发印刷反证） | Boss 任务 p016–p019 定额 3 XP 已批                                           |
+| Fundraiser 卡面 vs 规则书 XP         | 卡面「any amount」与 R29 封顶表述冲突。                                                                             | **R-038** / Q-37；[`rulings-notes.md`](./rulings-notes.md)                                       | 已裁定                 | 以规则书为准，任务 XP 封顶 3                                                 |
+| Boss 任务失败 vs 说明书旧推荐        | 「Boss 任务中任何战斗全灭」vs 仅 Boss 战全灭。                                                                      | **R-044** / Q-43；rulings-notes                                                                  | 已裁定                 | 任何一场战斗全灭即战役失败                                                   |
+| 辅助卡 vs 规则书（Debuff / Riposte） | AID-Cond 与 R21 措辞冲突。                                                                                          | **R-016**、**R-017**                                                                             | 已裁定                 | 以规则书为准                                                                 |
 
 ---
 
 ## 2. 任务卡（`DD_COREBOX_CARDS_*_Quest*.pdf` / QUEST 数据）
 
-| 短标题                               | 冲突 / 不明点                                                                                  | 证据                                                                                        | 状态                | 已采纳摘要（若有）            |
-| ------------------------------------ | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------------- | ----------------------------- |
-| R-121 Boss 位 RNG 写入               | 探针 ok，`bossSlotPlacement` 不洗 room token 入 dungeon；Face the Threat 仍走 R-116 普通选图。 | **R-121** §6；phase5 hold §3；HANDOFF C-020                                                 | 仍 hold             | 语义已批，接线待 Kyries 切片  |
-| QuestMap 其它页特殊槽                | p011/p012 外特殊图案槽语义仍 pending/hold。                                                    | **R-046** 进展；**R-123** 限定                                                              | 待确认 / hold       | 不扩散 R-115/117 以外页面     |
-| Rising Threat I SPECIAL              | 任务卡 SPECIAL 规则运行时未接。                                                                | quest:p005；phase5 hold；HANDOFF C-027                                                      | 仍 hold             | 自然路径有，SPECIAL 无        |
-| 最暗 p016–p018 击败判定              | R-122 摘要 schema 已接，**击败 Boss 判定**仍 hold，阻塞定额 XP 摘要生成。                      | **R-122** §5；[`dungeon-quest.ts`](../../packages/engine/src/dungeon-quest.ts)；phase5 hold | 仍 hold             | flatXp:3 数据已批             |
-| Boss 任务卡运行时总线                | p016–p019 enabled；Boss 战/多形态/SPECIAL 仅数据记录。                                         | **R-120**                                                                                   | 仍 hold             | 不做 Ancestor 终局等          |
-| II/III 迫近威胁未注册                | 升幕可抽到 II/III 描述卡，无脚本则 `unregisteredImminentThreatHold`。                          | phase5 §4；`threat-description-catalog.ts`                                                  | 仍 hold             | 死灵法师 II 已注册为例外      |
-| II/III Face the Threat 匹配          | 除 R-124/R-126 已批切片外，其它 II/III、错配仍拒绝。                                           | **R-124**、**R-126**；phase5 hold                                                           | 部分已裁定；仍 hold | II 两任务后仅 p002 匹配 offer |
-| III 幕末强制 p019                    | R-126 未扩展 III。                                                                             | **R-126** 范围；phase5 hold                                                                 | 仍 hold             | —                             |
-| 升幕与 `drawImminentThreat` 合并策略 | 正式升幕 §2.2 与存档闭环待批。                                                                 | phase5 §7.6；HANDOFF                                                                        | 须 Kyries 批        | —                             |
-| Lost Shipment「Party rolls -2」      | 队伍减 2 颗补给如何分配到英雄/Radiant（**已裁定**，列作任务卡相关索引）。                      | Q-88 → **R-087**                                                                            | 已裁定              | 掷前从常规 8 颗任选 2 颗取消  |
+| 短标题                               | 冲突 / 不明点                                                                                  | 证据                                                                                                    | 状态                | 已采纳摘要（若有）            |
+| ------------------------------------ | ---------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------- | ----------------------------- |
+| R-121 Boss 位 RNG 写入               | 探针 ok，`bossSlotPlacement` 不洗 room token 入 dungeon；Face the Threat 仍走 R-116 普通选图。 | **R-121** §6；phase5 hold §3；HANDOFF C-020                                                             | 仍 hold             | 语义已批，接线待 Kyries 切片  |
+| QuestMap 其它页特殊槽                | p011/p012 外特殊图案槽语义仍 pending/hold。                                                    | **R-046** 进展；**R-123** 限定                                                                          | 待确认 / hold       | 不扩散 R-115/117 以外页面     |
+| Rising Threat I SPECIAL              | 任务卡 SPECIAL 规则运行时未接。                                                                | quest:p005；phase5 hold；HANDOFF C-027                                                                  | 仍 hold             | 自然路径有，SPECIAL 无        |
+| 最暗 p016–p018 击败判定              | R-122 摘要 schema 已接，**击败 Boss 判定**仍 hold，阻塞定额 XP 摘要生成。                      | **R-122** §5；[`dungeon-quest.ts`](../packages/engine/src/shared/dungeon/dungeon-quest.ts)；phase5 hold | 仍 hold             | flatXp:3 数据已批             |
+| Boss 任务卡运行时总线                | p016–p019 enabled；Boss 战/多形态/SPECIAL 仅数据记录。                                         | **R-120**                                                                                               | 仍 hold             | 不做 Ancestor 终局等          |
+| II/III 迫近威胁未注册                | 升幕可抽到 II/III 描述卡，无脚本则 `unregisteredImminentThreatHold`。                          | phase5 §4；`threat-description-catalog.ts`                                                              | 仍 hold             | 死灵法师 II 已注册为例外      |
+| II/III Face the Threat 匹配          | 除 R-124/R-126 已批切片外，其它 II/III、错配仍拒绝。                                           | **R-124**、**R-126**；phase5 hold                                                                       | 部分已裁定；仍 hold | II 两任务后仅 p002 匹配 offer |
+| III 幕末强制 p019                    | R-126 未扩展 III。                                                                             | **R-126** 范围；phase5 hold                                                                             | 仍 hold             | —                             |
+| 升幕与 `drawImminentThreat` 合并策略 | 正式升幕 §2.2 与存档闭环待批。                                                                 | phase5 §7.6；HANDOFF                                                                                    | 须 Kyries 批        | —                             |
+| Lost Shipment「Party rolls -2」      | 队伍减 2 颗补给如何分配到英雄/Radiant（**已裁定**，列作任务卡相关索引）。                      | Q-88 → **R-087**                                                                                        | 已裁定              | 掷前从常规 8 颗任选 2 颗取消  |
 
 ---
 

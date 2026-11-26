@@ -147,7 +147,7 @@ R24「Check Target」要求多个目标同等满足条件时按姿态顺序选�
 ## 6. 核对准备阶段的验证与交接（历史记录）
 
 - 清单 / 来源与卡面核对阶段分别运行 `pnpm typecheck`、`pnpm lint`、`pnpm test`：均通过，224 项测试。
-- 本块新增 `packages/engine/src/monster-stance-data.test.ts`，直接读取六条真实规范化卡，在四种姿态及未给骰 / 1 / 5 / 10 下锁住缺分组拒绝，验证输入不变。拟议 JSON 未作为已核实测试夹具。
+- 本块新增 `packages/engine/tests/shared/core/monster-stance-data.test.ts`，直接读取六条真实规范化卡，在四种姿态及未给骰 / 1 / 5 / 10 下锁住缺分组拒绝，验证输入不变。拟议 JSON 未作为已核实测试夹具。
 - 最终检查结果见本日 `HANDOFF-FROM-CODEX-2026-10-09.md` 的“姿态数据核对准备块”。
 - 刻意没做：规范化分组入库、管线写入实现、图标重命名、补 null、规则裁定、寻路、多目标、死门、Boss、战斗 UI、提交 / 推送 / 合并。
 - 下一块：Kyries 确认本表后，只为获批 id 接人工映射、生成与校验；不要在同块串入自动移动。
@@ -156,7 +156,7 @@ R24「Check Target」要求多个目标同等满足条件时按姿态顺序选�
 
 Kyries 在审核本表后回复：“我看过了，建议六条都可以确认”。据此确认 §3–4 的全部六个 id，未批准其他怪物或卡面字段。
 
-- `packages/data/src/normalize/verified-monster-stances.ts` 保存本批人工映射、卡名、等级和印刷页码；按 id 精确匹配。`buildMonsterMedium` 在现有生成流程附加分组，最终交给已有规范化 schema。没有手改 raw / parsed，也不解析 footer。
+- `packages/data/src/core/monsters/verified-monster-stances.build.ts` 保存本批人工映射、卡名、等级和印刷页码；按 id 精确匹配。`buildMonsterMedium` 在现有生成流程附加分组，最终交给已有规范化 schema。没有手改 raw / parsed，也不解析 footer。
 - 除已有四姿态、相邻分组、完整骰面和唯一技能引用校验外，入库会拒绝未知 / 重复映射 id、卡池重复 id、大型参考卡，以及卡名 / 等级 / 页码漂移。
 - 重生成后，仅 `monster_medium.json` 的六条卡增加 `stanceGroups`；与提交 `9c00d78` 比较，移除新增字段后内容完全一致，全部其他规范化文件无差异。原 footer、null、图标、验证状态和统计保持原值。
 - 更新真实卡选招测试：获批六条在四姿态、全部 d10 骰面（含 4/5/7/8/10 边界）精确选招，固定技能不要求选招骰；未获批真实卡继续拒绝。已有命令拒绝测试显式移除分组，保留缺数据时不消费 RNG 的约束。

@@ -83,7 +83,7 @@ git worktree remove ..\ddbg-web-prNNN --force
 git pull --ff-only
 ```
 
-**已知 flaky**：`packages/engine/src/web-quest-catalog.test.ts` 全量跑偶发超时（约 65s+）；单独 `pnpm vitest run packages/engine/src/web-quest-catalog.test.ts` 能过。**UI PR 若未改 `packages/`，该失败可记在 PR 描述里，不当作本 PR 回归。** 真正属于 UI 的失败必须修。
+**已知 flaky**：`packages/engine/tests/shared/core/web-quest-catalog.test.ts` 全量跑偶发超时（约 65s+）；单独 `pnpm vitest run packages/engine/tests/shared/core/web-quest-catalog.test.ts` 能过。**UI PR 若未改 `packages/`，该失败可记在 PR 描述里，不当作本 PR 回归。** 真正属于 UI 的失败必须修。
 
 ---
 

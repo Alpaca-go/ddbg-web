@@ -16,7 +16,7 @@
 
 ## 引擎交付
 
-- 模块：`packages/engine/src/boss/siren-i.ts`（`ensureSirenIBossScriptRegistered` / `ensureCoreBossScriptsRegistered`）。
+- 模块：`packages/engine/src/cove/bosses/siren/siren-i.ts`（`ensureSirenIBossScriptRegistered` / `ensureCoreBossScriptsRegistered`）。
 - 威胁 helper：`eldritchMonsterDamageBonusFromBossThreat`；村庄封锁经 `hamletBuildingsBlockedByBossThreat`（`abbeyBlocked`）。
 - `threat-description-catalog`：`boss_ability:cove:siren:p001` → `boss:cove:siren:1`；`COVE_BOSS_DESCRIPTION_CARD_ID` 仅填 Siren I。
 - 类型：`BossThreatPassiveDungeonOk` / `BossThreatPassiveHamletOk` 扩展 `eldritchMonsterDamageBonus`、`abbeyBlocked`。
@@ -47,6 +47,6 @@
 ## 测试
 
 ```bash
-pnpm exec vitest run packages/engine/src/boss/siren-i.test.ts packages/engine/src/boss/threat-establishment.test.ts packages/engine/src/boss/swine-prince-i.test.ts packages/engine/src/boss/hag-i.test.ts packages/engine/src/boss/prophet-i.test.ts packages/engine/src/boss/necromancer-i.test.ts
+pnpm exec vitest run packages/engine/tests/cove/bosses/siren/siren-i.test.ts packages/engine/tests/core/bosses/threat-establishment.test.ts packages/engine/tests/warrens/bosses/swine-prince/swine-prince-i.test.ts packages/engine/tests/weald/bosses/hag/hag-i.test.ts packages/engine/tests/core/bosses/prophet/prophet-i.test.ts packages/engine/tests/core/bosses/necromancer/necromancer-i.test.ts
 pnpm typecheck
 ```

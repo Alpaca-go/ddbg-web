@@ -10,10 +10,7 @@ import { fileURLToPath } from "node:url";
 const here = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(here, "../../..");
 
-const geometryPath = resolve(
-  repoRoot,
-  "../../../packages/data/normalized/corebox/room_tile_geometry.json",
-);
+const geometryPath = resolve(repoRoot, "packages/data/normalized/corebox/room_tile_geometry.json");
 const out = resolve(repoRoot, "apps/web/src/card-art/room-tile-print-art-map.json");
 
 const FACE_DIR = "manual/room-tile-faces";
@@ -44,7 +41,7 @@ const tiles = geometry.tiles
 const map = {
   schema: "ddbg.print-room-tile-art-map.v1",
   source: {
-    geometry: "../../../packages/data/normalized/corebox/room_tile_geometry.json",
+    geometry: "packages/data/normalized/corebox/room_tile_geometry.json",
     tileCount: tiles.length,
     exportScript: "tools/pipeline/print-card-art/export_room_tile_faces.py",
     notes: [

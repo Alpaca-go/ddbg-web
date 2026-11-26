@@ -25,7 +25,7 @@
 ## 验证
 
 ```bash
-pnpm exec vitest run packages/engine/src/boss/gestating-heart-skill-ai.test.ts
+pnpm exec vitest run packages/engine/tests/core/bosses/final/gestating-heart-skill-ai.test.ts
 pnpm typecheck
 ```
 

@@ -18,9 +18,9 @@ RNG：位置的随机下标使用 `state.seed` + `battle.rngCursor`，按战斗�
 ## 验证
 
 ```bash
-pnpm exec vitest run packages/engine/src/boss/darkest-shuffling-horror-combat-runtime.test.ts \
-  packages/engine/src/boss/darkest-mid-boss-runtime.test.ts \
-  packages/engine/src/boss/shuffling-horror-i-natural-save.test.ts
+pnpm exec vitest run packages/engine/tests/core/bosses/shuffling-horror/darkest-shuffling-horror-combat-runtime.test.ts \
+  packages/engine/tests/core/bosses/darkest/darkest-mid-boss-runtime.test.ts \
+  packages/engine/tests/core/bosses/shuffling-horror/shuffling-horror-i-natural-save.test.ts
 pnpm typecheck
 ```
 

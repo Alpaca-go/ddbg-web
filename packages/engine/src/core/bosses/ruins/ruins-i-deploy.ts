@@ -1,6 +1,6 @@
 import geometry from "../../../../../data/normalized/corebox/room_tile_geometry.json";
-import { collectorRoomSchema } from "../../../../../data/src/core/rooms/collector-room.build";
-import { prophetRoomSchema } from "../../../../../data/src/core/rooms/prophet-room.build";
+import { collectorRoomSchema } from "../../../../../data/src/core/rooms/collector-room";
+import { prophetRoomSchema } from "../../../../../data/src/core/rooms/prophet-room";
 import { roomCatalogSchema } from "../../../../../data/src/core/rooms/room";
 import { createBattleState, rejectBattleCommand } from "../../../shared/battle/battle";
 import type { BattleEntity } from "../../../shared/battle/battle";

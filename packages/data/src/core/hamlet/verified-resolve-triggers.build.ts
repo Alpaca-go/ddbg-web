@@ -12,7 +12,7 @@ type Entry = {
   fullText?: string;
 };
 const heroes = "{target_hero}{target_hero}{target_hero}{target_hero}:";
-// 完整页人工核对，docs/phase2-resolve-review-2026-10-10.md；仅已确认图标。
+// 完整页人工核对，docs/phases/phase2/phase2-resolve-review-2026-10-10.md；仅已确认图标。
 const entries: readonly Entry[] = [
   {
     id: "virtue_affliction:p001",

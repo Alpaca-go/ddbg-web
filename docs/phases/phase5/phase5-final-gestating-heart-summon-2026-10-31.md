@@ -18,10 +18,10 @@
 
 ## 验证
 
-- `packages/engine/src/boss/gestating-heart-summon.test.ts`
-- `packages/engine/src/boss/gestating-heart-ichor.test.ts`（回归 Ichor）
+- `packages/engine/tests/core/bosses/final/gestating-heart-summon.test.ts`
+- `packages/engine/tests/core/bosses/final/gestating-heart-ichor.test.ts`（回归 Ichor）
 
 ```bash
 pnpm typecheck
-pnpm exec vitest run packages/engine/src/boss/gestating-heart-summon.test.ts packages/engine/src/boss/gestating-heart-ichor.test.ts
+pnpm exec vitest run packages/engine/tests/core/bosses/final/gestating-heart-summon.test.ts packages/engine/tests/core/bosses/final/gestating-heart-ichor.test.ts
 ```

@@ -25,7 +25,7 @@
 ## 验证
 
 ```bash
-pnpm exec vitest run packages/engine/src/boss/encounter-rules.test.ts
+pnpm exec vitest run packages/engine/tests/core/bosses/encounter-rules.test.ts
 pnpm typecheck
 ```
 

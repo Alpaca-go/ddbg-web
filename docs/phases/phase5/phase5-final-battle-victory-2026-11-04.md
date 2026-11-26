@@ -38,9 +38,9 @@
 
 ```bash
 pnpm exec vitest run \
-  packages/engine/src/boss/final-battle-victory.test.ts \
-  packages/engine/src/boss/final-form-sequence.test.ts \
-  packages/engine/src/boss/final-battle-natural-save.test.ts \
+  packages/engine/tests/core/bosses/final/final-battle-victory.test.ts \
+  packages/engine/tests/core/bosses/final/final-form-sequence.test.ts \
+  packages/engine/tests/core/bosses/final/final-battle-natural-save.test.ts \
   apps/web/src/dungeon-sandbox/quest-return/campaign-victory-panel.test.tsx
 pnpm typecheck
 ```

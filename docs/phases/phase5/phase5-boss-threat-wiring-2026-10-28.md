@@ -25,11 +25,11 @@
 | 牌堆过滤                                | `prepareDungeonMonsters` / 战后守恒                                                  | `dungeon-monsters.ts`、`monster-pool-runtime.ts`（`dungeonMonsterPoolThrough`）    |
 | 击败 Boss 清除威胁                      | `finishDungeonBattle` + `clearedBossThreatScriptIdAfterVictory`                      | spec §2.3「Boss 被击败前持续生效」                                                 |
 
-详见 [`docs/phase5-threat-passive-runtime-2026-10-28.md`](./phase5-threat-passive-runtime-2026-10-28.md)。
+详见 [`docs/phases/phase5/phase5-threat-passive-runtime-2026-10-28.md`](./phase5-threat-passive-runtime-2026-10-28.md)。
 
 ## 命令
 
-- `{ type: "establishImminentThreat" }` — spec §2.4 战役开局定威胁（见 `docs/phase5-imminent-threat-establishment-2026-10-28.md`）
+- `{ type: "establishImminentThreat" }` — spec §2.4 战役开局定威胁（见 `docs/phases/phase5/phase5-imminent-threat-establishment-2026-10-28.md`）
 - `{ type: "drawImminentThreatAfterActAdvance" }` — spec §2.2 升幕抽下一张威胁
 - `{ type: "setActiveBossThreat", scriptId }` — **沙盒已接**（测试 / 调试：写脚本 id + 村庄封锁；不洗描述卡、不耗 RNG；见 `set-active-boss-threat.test.ts`）
 
@@ -45,5 +45,5 @@
 总表：[phase5-remaining-hold-inventory-2026-10-29.md](./phase5-remaining-hold-inventory-2026-10-29.md)（tip `3b50f2e`）。
 
 ```bash
-pnpm exec vitest run packages/engine/src/boss/threat-campaign.test.ts packages/engine/src/boss/necromancer-i.test.ts packages/engine/src/boss/threat-establishment.test.ts packages/engine/src/boss/threat-passive-runtime.test.ts packages/engine/src/boss/set-active-boss-threat.test.ts
+pnpm exec vitest run packages/engine/tests/core/bosses/threat-campaign.test.ts packages/engine/tests/core/bosses/necromancer/necromancer-i.test.ts packages/engine/tests/core/bosses/threat-establishment.test.ts packages/engine/tests/core/bosses/threat-passive-runtime.test.ts packages/engine/tests/core/bosses/set-active-boss-threat.test.ts
 ```

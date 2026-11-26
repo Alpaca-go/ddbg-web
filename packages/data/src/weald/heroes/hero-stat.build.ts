@@ -4,11 +4,11 @@ import { levelSchema } from "../../shared/extract/common";
 import type { IconDictionary } from "../../shared/dictionary/schema";
 import { createIconLookup, finishVerification, noteIcon, resolveLines } from "../../shared/icons";
 import { normalizedIconSchema, verificationSchema } from "../../shared/schema";
+import { buildHigherHeroDefence } from "../../core/heroes/hero-higher-defence.build";
 import {
-  buildHigherHeroDefence,
   higherHeroDefenceSchema,
   readHigherHeroDefence,
-} from "../../core/heroes/hero-higher-defence.build";
+} from "../../core/heroes/hero-higher-defence";
 import { heroStatId } from "../../core/heroes/hero-registry";
 import { withHeroStatRules } from "../../shared/rules";
 

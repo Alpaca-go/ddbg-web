@@ -129,7 +129,7 @@
 
 ## 7. 定稿数据与人工映射
 
-原文档 JSON 是核对阶段草稿；获批容量、高低地和最终邻接改由 PR 中的 `packages/data/src/normalize/room-tile.ts` 人工映射与生成文件 `packages/data/normalized/corebox/room_tile_geometry.json` 表达，避免两份数值表漂移。仅本张 FRONT 页，规范化 id 为 `room_tile:p001`，仍保留来源 raw id。
+原文档 JSON 是核对阶段草稿；获批容量、高低地和最终邻接改由 PR 中的 `packages/data/src/core/tiles/room-tile.ts` 人工映射与生成文件 `packages/data/normalized/corebox/room_tile_geometry.json` 表达，避免两份数值表漂移。仅本张 FRONT 页，规范化 id 为 `room_tile:p001`，仍保留来源 raw id。
 
 - 区域 A-J 的容量按 §3；F 为 high，其余为 normal。
 - 通行边为 §4.1 的 11 对；3 对角点显式 `cornerOnly=true`，不通行。

@@ -17,7 +17,7 @@
 
 ## 引擎交付
 
-- 模块：`packages/engine/src/boss/flesh-i.ts`（`ensureFleshIBossScriptRegistered` / `ensureCoreBossScriptsRegistered`）。
+- 模块：`packages/engine/src/warrens/bosses/flesh/flesh-i.ts`（`ensureFleshIBossScriptRegistered` / `ensureCoreBossScriptsRegistered`）。
 - 地牢威胁 helper：`guardTurnsOnLargeMonsterSpawnFromBossThreat`（`guardOnLargeMonsterSpawn`）。
 - `threat-description-catalog`：`boss_ability:warrens:flesh:p001` → `boss:warrens:flesh:1`；`WARRENS_BOSS_DESCRIPTION_CARD_ID.flesh[1]` 已填。
 - 类型：`BossThreatPassiveDungeonOk` 扩展 `guardOnLargeMonsterSpawn`。
@@ -54,6 +54,6 @@
 ## 测试
 
 ```bash
-pnpm exec vitest run packages/engine/src/boss/flesh-i.test.ts packages/engine/src/boss/flesh-i-combat-runtime.test.ts packages/engine/src/boss/threat-establishment.test.ts
+pnpm exec vitest run packages/engine/tests/warrens/bosses/flesh/flesh-i.test.ts packages/engine/tests/warrens/bosses/flesh/flesh-i-combat-runtime.test.ts packages/engine/tests/core/bosses/threat-establishment.test.ts
 pnpm typecheck
 ```

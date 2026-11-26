@@ -41,5 +41,5 @@ R-041「if possible」与 16 颗上限：待图标确认后再与开局补给接
 ## 验证
 
 ```bash
-pnpm exec vitest run packages/engine/src/dungeon-objective.test.ts packages/engine/src/disruption-objective.test.ts
+pnpm exec vitest run packages/engine/tests/shared/dungeon/dungeon-objective.test.ts packages/engine/tests/shared/core/disruption-objective.test.ts
 ```

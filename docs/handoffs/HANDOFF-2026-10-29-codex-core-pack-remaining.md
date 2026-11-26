@@ -177,7 +177,7 @@ A-1 开工进展：首切片按 R30 接入 Boss 开战停止威胁面，保留�
 #### C-002 · Room Tile 遗迹 p006–p012 几何 + print map
 
 - [ ]
-- **现状**：仅 9 面 usable + map（`docs/phase4-print-room-tile-art-map-2026-10-28.md`）；p006–p012 无获批几何
+- **现状**：仅 9 面 usable + map（`docs/phases/phase4/phase4-print-room-tile-art-map-2026-10-28.md`）；p006–p012 无获批几何
 - **验收**：逐面 Kyries 批几何 → `room_tile_geometry` + `room-tile-print-art-map` + UI 可解析；无批不接
 - **依赖/阻塞**：印刷几何批（R-048）
 - **归口**：核心包（须 Kyries 批几何）
@@ -550,17 +550,17 @@ A-1 开工进展：首切片按 R30 接入 Boss 开战停止威胁面，保留�
 
 ## 证据索引（写 PR 前必读）
 
-| 文档                                                            | 用途                                                   |
-| --------------------------------------------------------------- | ------------------------------------------------------ |
-| `/workspace/ddbg-handoff/HANDOFF-2026-10-28-core-pack.md`       | 开工边界；半开口径（QuestMap 条已过时，以 R-123 为准） |
-| `docs/phase5-remaining-hold-inventory-2026-10-29.md`            | Boss hold 表（tip 可能滞后；以 `4b01696` 代码为准）    |
-| `docs/plan.md` Phase 3–6                                        | 核心 vs 扩展；Phase 5/6 目标                           |
-| `docs/rulings.md` R-001 / R-048 / R-116 / R-121 / R-122 / R-123 | 硬裁定                                                 |
-| `docs/r048-curio-remaining-2026-10-28.md`                       | Curio 停点                                             |
-| `docs/trinket-verification-2026-10-28.md`                       | 饰品 verification 已收、能力未接                       |
-| `docs/phase4-print-room-tile-art-map-2026-10-28.md`             | Room Tile map 范围                                     |
-| `docs/full-flow-l1-breakpoints-2026-10-27.md`                   | I 级流程残留                                           |
-| `packages/engine/src/boss/*-i*.ts`                              | Ruins 四 Boss 与 hold 文案                             |
+| 文档                                                               | 用途                                                   |
+| ------------------------------------------------------------------ | ------------------------------------------------------ |
+| `/workspace/ddbg-handoff/HANDOFF-2026-10-28-core-pack.md`          | 开工边界；半开口径（QuestMap 条已过时，以 R-123 为准） |
+| `docs/phases/phase5/phase5-remaining-hold-inventory-2026-10-29.md` | Boss hold 表（tip 可能滞后；以 `4b01696` 代码为准）    |
+| `docs/plan.md` Phase 3–6                                           | 核心 vs 扩展；Phase 5/6 目标                           |
+| `docs/rulings.md` R-001 / R-048 / R-116 / R-121 / R-122 / R-123    | 硬裁定                                                 |
+| `docs/r048-curio-remaining-2026-10-28.md`                          | Curio 停点                                             |
+| `docs/trinket-verification-2026-10-28.md`                          | 饰品 verification 已收、能力未接                       |
+| `docs/phases/phase4/phase4-print-room-tile-art-map-2026-10-28.md`  | Room Tile map 范围                                     |
+| `docs/full-flow-l1-breakpoints-2026-10-27.md`                      | I 级流程残留                                           |
+| `packages/engine/src/boss/*-i*.ts`                                 | Ruins 四 Boss 与 hold 文案                             |
 
 ## 同步副本
 

@@ -22,12 +22,12 @@
 
 ```bash
 pnpm exec vitest run \
-  packages/engine/src/boss/necromancer-ii-deploy.test.ts \
-  packages/engine/src/boss/necromancer-ii-finish.test.ts \
-  packages/engine/src/boss/objective-room-entry.test.ts \
-  packages/engine/src/boss/necromancer-i-deploy.test.ts \
-  packages/engine/src/boss/necromancer-i-finish.test.ts \
-  packages/engine/src/boss/necromancer-i-natural-save.test.ts
+  packages/engine/tests/core/bosses/necromancer/necromancer-ii-deploy.test.ts \
+  packages/engine/tests/core/bosses/necromancer/necromancer-ii-finish.test.ts \
+  packages/engine/tests/core/bosses/objective-room-entry.test.ts \
+  packages/engine/tests/core/bosses/necromancer/necromancer-i-deploy.test.ts \
+  packages/engine/tests/core/bosses/necromancer/necromancer-i-finish.test.ts \
+  packages/engine/tests/core/bosses/necromancer/necromancer-i-natural-save.test.ts
 pnpm typecheck
 ```
 

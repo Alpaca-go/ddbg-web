@@ -44,6 +44,6 @@ Ruins **II/III** 描述卡（`p002`/`p003` 等）仍无脚本 → 升幕抽牌�
 
 ## 4. 测试
 
-- `packages/engine/src/boss/fanatic-i.test.ts`
-- `packages/engine/src/boss/threat-establishment.test.ts`（Fanatic 定威胁不再 hold）
+- `packages/engine/tests/core/bosses/fanatic/fanatic-i.test.ts`
+- `packages/engine/tests/core/bosses/threat-establishment.test.ts`（Fanatic 定威胁不再 hold）
 - `pnpm typecheck` + 上述 vitest

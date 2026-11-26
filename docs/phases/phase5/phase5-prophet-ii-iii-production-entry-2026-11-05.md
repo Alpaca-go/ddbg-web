@@ -23,11 +23,11 @@
 
 ```bash
 pnpm exec vitest run \
-  packages/engine/src/boss/prophet-higher-deploy.test.ts \
-  packages/engine/src/boss/prophet-higher-finish.test.ts \
-  packages/engine/src/boss/prophet-i-deploy.test.ts \
-  packages/engine/src/boss/prophet-i-finish.test.ts \
-  packages/engine/src/boss/objective-room-entry.test.ts
+  packages/engine/tests/core/bosses/prophet/prophet-higher-deploy.test.ts \
+  packages/engine/tests/core/bosses/prophet/prophet-higher-finish.test.ts \
+  packages/engine/tests/core/bosses/prophet/prophet-i-deploy.test.ts \
+  packages/engine/tests/core/bosses/prophet/prophet-i-finish.test.ts \
+  packages/engine/tests/core/bosses/objective-room-entry.test.ts
 pnpm typecheck
 ```
 

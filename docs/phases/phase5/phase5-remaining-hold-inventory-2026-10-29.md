@@ -9,16 +9,16 @@
 
 ## 1. 已注册 I 级脚本（`ensureCoreBossScriptsRegistered`）
 
-| 脚本 id                       | 区域    | 描述卡（I）                              | 脚本模块                                    |
-| ----------------------------- | ------- | ---------------------------------------- | ------------------------------------------- |
-| `boss:ruins:necromancer:1`    | Ruins   | `boss_ability:p001`                      | `packages/engine/src/boss/necromancer-i.ts` |
-| `boss:ruins:prophet:1`        | Ruins   | `boss_ability:p007`                      | `prophet-i.ts`                              |
-| `boss:ruins:collector:1`      | Ruins   | `boss_ability:p013`                      | `collector-i.ts`                            |
-| `boss:ruins:fanatic:1`        | Ruins   | `boss_ability:p019`                      | `fanatic-i.ts`                              |
-| `boss:weald:hag:1`            | Weald   | `boss_ability:weald:hag:p001`            | `hag-i.ts`                                  |
-| `boss:warrens:swine_prince:1` | Warrens | `boss_ability:warrens:swine_prince:p001` | `swine-prince-i.ts`                         |
-| `boss:warrens:flesh:1`        | Warrens | `boss_ability:warrens:flesh:p001`        | `flesh-i.ts`                                |
-| `boss:cove:siren:1`           | Cove    | `boss_ability:cove:siren:p001`           | `siren-i.ts`                                |
+| 脚本 id                       | 区域    | 描述卡（I）                              | 脚本模块                                                       |
+| ----------------------------- | ------- | ---------------------------------------- | -------------------------------------------------------------- |
+| `boss:ruins:necromancer:1`    | Ruins   | `boss_ability:p001`                      | `packages/engine/src/core/bosses/necromancer/necromancer-i.ts` |
+| `boss:ruins:prophet:1`        | Ruins   | `boss_ability:p007`                      | `prophet-i.ts`                                                 |
+| `boss:ruins:collector:1`      | Ruins   | `boss_ability:p013`                      | `collector-i.ts`                                               |
+| `boss:ruins:fanatic:1`        | Ruins   | `boss_ability:p019`                      | `fanatic-i.ts`                                                 |
+| `boss:weald:hag:1`            | Weald   | `boss_ability:weald:hag:p001`            | `hag-i.ts`                                                     |
+| `boss:warrens:swine_prince:1` | Warrens | `boss_ability:warrens:swine_prince:p001` | `swine-prince-i.ts`                                            |
+| `boss:warrens:flesh:1`        | Warrens | `boss_ability:warrens:flesh:p001`        | `flesh-i.ts`                                                   |
+| `boss:cove:siren:1`           | Cove    | `boss_ability:cove:siren:p001`           | `siren-i.ts`                                                   |
 
 定威胁：`resolveScriptIdForDescriptionCard` → `activeBossThreatScriptId`（`establish-imminent-threat.ts`）；未注册描述卡仍写 `unregisteredImminentThreatHold`（`threat-description-catalog.ts`）。
 
@@ -73,7 +73,7 @@
 | Creeping Sickness 建筑伤口 | Flesh I                    | 日末 / 访问建筑 / 准备结束清代币                                    | `hamlet-actions.ts`；`flesh-i.test.ts`                             |
 | Big Troubles Guard 2t      | Flesh I                    | 遭遇 Large 生成                                                     | `withLargeMonsterSpawnGuard` · `dungeon-battle.ts`                 |
 
-集中模块：`packages/engine/src/boss/threat-passive-runtime.ts`。详见 [`phase5-threat-passive-runtime-2026-10-28.md`](./phase5-threat-passive-runtime-2026-10-28.md)、[`phase5-boss-threat-wiring-2026-10-28.md`](./phase5-boss-threat-wiring-2026-10-28.md)。
+集中模块：`packages/engine/src/core/bosses/threat-passive-runtime.ts`。详见 [`phase5-threat-passive-runtime-2026-10-28.md`](./phase5-threat-passive-runtime-2026-10-28.md)、[`phase5-boss-threat-wiring-2026-10-28.md`](./phase5-boss-threat-wiring-2026-10-28.md)。
 
 ### 2.5 Boss 战斗最小运行时（#347–#351）
 
@@ -188,14 +188,14 @@ Helper 汇总：`threat-passive.ts`（纯查询）；运行时：`threat-passive
 ```bash
 pnpm typecheck
 pnpm exec vitest run \
-  packages/engine/src/boss/threat-establishment.test.ts \
-  packages/engine/src/boss/threat-campaign.test.ts \
-  packages/engine/src/boss/threat-passive-runtime.test.ts \
-  packages/engine/src/boss/face-the-threat-hooks.test.ts \
-  packages/engine/src/boss/face-the-threat-embark-runtime.test.ts \
-  packages/engine/src/boss/set-active-boss-threat.test.ts \
-  packages/engine/src/boss/fanatic-i-combat-runtime.test.ts \
-  packages/engine/src/boss/flesh-i-combat-runtime.test.ts \
-  packages/engine/src/boss/collector-i-combat-runtime.test.ts \
-  packages/engine/src/boss/prophet-i-combat-runtime.test.ts
+  packages/engine/tests/core/bosses/threat-establishment.test.ts \
+  packages/engine/tests/core/bosses/threat-campaign.test.ts \
+  packages/engine/tests/core/bosses/threat-passive-runtime.test.ts \
+  packages/engine/tests/core/bosses/face-the-threat-hooks.test.ts \
+  packages/engine/tests/core/bosses/face-the-threat-embark-runtime.test.ts \
+  packages/engine/tests/core/bosses/set-active-boss-threat.test.ts \
+  packages/engine/tests/core/bosses/fanatic/fanatic-i-combat-runtime.test.ts \
+  packages/engine/tests/warrens/bosses/flesh/flesh-i-combat-runtime.test.ts \
+  packages/engine/tests/core/bosses/collector/collector-i-combat-runtime.test.ts \
+  packages/engine/tests/core/bosses/prophet/prophet-i-combat-runtime.test.ts
 ```

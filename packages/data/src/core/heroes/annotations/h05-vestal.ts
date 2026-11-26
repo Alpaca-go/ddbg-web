@@ -2,7 +2,7 @@ import type { StatusEffectEntry, RangeEntry, DamageEntry, SelfEffectEntry } from
 import type { HeroAnnotationEntries } from "./types";
 import { defineHeroModule } from "./patch-helpers";
 
-/** 完整印刷逐页核对的状态效果行（docs/phase2-four-core-skills-2026-10-11.md）。 */
+/** 完整印刷逐页核对的状态效果行（docs/phases/phase2/phase2-four-core-skills-2026-10-11.md）。 */
 const statusEntries: readonly StatusEffectEntry[] = [
   {
     id: "hero_skill:core:h05:p091",

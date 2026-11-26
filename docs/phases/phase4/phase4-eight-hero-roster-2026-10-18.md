@@ -22,7 +22,7 @@
 
 ## 实现
 
-- `packages/engine/src/formal-heroes.ts`：共享 `FORMAL_HERO_NAMES`、`FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS`
+- `packages/engine/src/core/heroes/formal-heroes.ts`：共享 `FORMAL_HERO_NAMES`、`FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS`
 - `createCoreDungeonQuest`：身份校验改为正式八名，不再限四核心
 - `replacementHeroCandidates`：复用同一 `isFormalHeroName`
 - 网页 `DungeonQuest`：每席可选正式八名；技能下拉改用 `questBattleData`；GR/Occ 标明未接线

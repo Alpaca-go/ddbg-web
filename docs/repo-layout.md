@@ -31,6 +31,8 @@
 核心盒、Weald 与 Cove 的文件写入入口位于各自包下的 `write.ts`。运行时共用的 schema 放在 `shared/`。
 `@ddbg/data` 根入口供运行时使用，Node 文件读写由 `@ddbg/data/write` 提供。
 
+九类内容的命名、字段与扩展接入约定见[内容数据文件命名与结构规范](content-data-conventions.md)。
+
 ### 普通卡牌、房间与板块
 
 - 包内 `<type>.build.ts` 接收已读取的 raw / parsed 数据，完成印刷校验、核准数据应用和 schema 解析。运行时 schema 与读取函数放在同类型的普通 `.ts` 文件。

@@ -1,5 +1,5 @@
-import type { HigherHeroDefence } from "../core/heroes/hero-higher-defence.build";
-import type { NormalizedHeroStatFile } from "../core/heroes/hero-stat.build";
+import type { HigherHeroDefence } from "../core/heroes/hero-higher-defence";
+import type { NormalizedHeroStatFile } from "../core/heroes/hero-stat";
 import type {
   NormalizedHeroSkillCard,
   NormalizedMonsterLargeCard,

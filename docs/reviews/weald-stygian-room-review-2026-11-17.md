@@ -43,7 +43,7 @@
 
 ## 本批验证
 
-- `packages/data/src/normalize/weald-stygian-rooms.test.ts`：九张可再生、替换关系、印刷漂移检测、p008／p009 结构化字段、包隔离、拒绝错映射。
+- `packages/data/tests/weald/rooms/stygian-rooms.build.test.ts`：九张可再生、替换关系、印刷漂移检测、p008／p009 结构化字段、包隔离、拒绝错映射。
 - 核心 `stygian-rooms.test.ts` 与 17 张 `corebox/stygian_rooms.json` 不受影响。
 
 ## Weald Boss 房与 Stygian（R-036）

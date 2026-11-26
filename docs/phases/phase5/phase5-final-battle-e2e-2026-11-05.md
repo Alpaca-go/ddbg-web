@@ -21,8 +21,8 @@
 ## 验证
 
 ```bash
-pnpm exec vitest run packages/engine/src/boss/final-battle-campaign-victory.test.ts
-pnpm exec vitest run packages/engine/src/boss packages/engine/src/natural-wipeout-save.test.ts packages/engine/src/quest-save.test.ts
+pnpm exec vitest run packages/engine/tests/core/bosses/final/final-battle-campaign-victory.test.ts
+pnpm exec vitest run packages/engine/src/boss packages/engine/tests/shared/core/natural-wipeout-save.test.ts packages/engine/tests/shared/quest/quest-save.test.ts
 pnpm typecheck
 ```
 

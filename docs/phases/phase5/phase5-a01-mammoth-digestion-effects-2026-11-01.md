@@ -36,7 +36,7 @@
 ```bash
 pnpm typecheck
 pnpm exec vitest run \
-  packages/data/src/normalize/normalize.test.ts \
-  packages/engine/src/monster-effect-plan.test.ts \
-  packages/engine/src/boss/darkest-mammoth-cyst-skills-acc.test.ts
+  packages/data/tests/shared/normalize.build.test.ts \
+  packages/engine/tests/shared/core/monster-effect-plan.test.ts \
+  packages/engine/tests/core/bosses/mammoth-cyst/darkest-mammoth-cyst-skills-acc.test.ts
 ```

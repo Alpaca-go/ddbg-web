@@ -42,9 +42,9 @@ Undulations（slot 2）/ Echoing Disassembly（slot 3）仍走专用几何命令
 ```bash
 pnpm typecheck
 pnpm exec vitest run \
-  packages/data/src/normalize/normalize.test.ts \
-  packages/engine/src/monster-effect-plan.test.ts \
-  packages/engine/src/boss/shuffling-horror-skills-acc.test.ts
+  packages/data/tests/shared/normalize.build.test.ts \
+  packages/engine/tests/shared/core/monster-effect-plan.test.ts \
+  packages/engine/tests/core/bosses/shuffling-horror/shuffling-horror-skills-acc.test.ts
 ```
 
 ## 建议下一刀

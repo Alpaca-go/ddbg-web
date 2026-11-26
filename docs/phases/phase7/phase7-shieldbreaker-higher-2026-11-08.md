@@ -3,7 +3,7 @@
 ## 范围
 
 - **21 张**：七技能族 × L1 洗净 + II/III 共 **14 张**（`hero_skill:p317`–`p318`、`p320`–`p321`、`p323`–`p324`、`p326`–`p327`、`p329`–`p330`、`p332`–`p333`、`p335`–`p336`）。
-- 数据：`packages/data/src/normalize/verified-weald-shieldbreaker-higher.ts`；引擎审计：`packages/engine/src/shieldbreaker-higher-skills.test.ts`。
+- 数据：`packages/data/src/core/heroes/annotations/h16-shieldbreaker.ts`；引擎审计：`packages/engine/tests/shared/core/shieldbreaker-higher-skills.test.ts`。
 
 ## 逐卡覆盖要点
 

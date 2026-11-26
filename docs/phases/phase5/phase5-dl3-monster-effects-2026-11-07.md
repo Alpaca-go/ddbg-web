@@ -19,22 +19,22 @@
 
 ## 实现位置
 
-- `packages/data/src/normalize/verified-monster-effects.ts`：新增 8 条（`monster_medium:p056` ×3、`p059` ×2、`monster_large:p004` ×3），原始整行签名逐字守门。
-- `packages/data/normalized/corebox/monster_medium.json`、`monster_large.json`：用 `$env:WRITE_NORMALIZED='1'; pnpm exec vitest run packages/data/src/normalize/normalize.test.ts` 重生成。
-- `packages/data/src/monster-effects.ts`：新增 `cleanse` 效果类型（`scope: "self"`、`kinds: ["bleed","blight"]`，去重校验）。
-- `packages/engine/src/monster-effect-plan.ts`：
+- `packages/data/src/core/monsters/verified-monster-effects.build.ts`：新增 8 条（`monster_medium:p056` ×3、`p059` ×2、`monster_large:p004` ×3），原始整行签名逐字守门。
+- `packages/data/normalized/corebox/monster_medium.json`、`monster_large.json`：用 `$env:WRITE_NORMALIZED='1'; pnpm exec vitest run packages/data/tests/shared/normalize.build.test.ts` 重生成。
+- `packages/data/src/core/monsters/monster-effects.ts`：新增 `cleanse` 效果类型（`scope: "self"`、`kinds: ["bleed","blight"]`，去重校验）。
+- `packages/engine/src/shared/core/monster-effect-plan.ts`：
   - 签名归一吃掉 `{self_plate}`（「Self」文字底板）与 `Remove:…` 尾段；
   - Remove 行的 `blight_resist` 变体图标归一回 Blight（R-140 同招上下文映射，保留原 `iconId` 与 `confirmed` 命名）；
   - cleanse 编译成同行 `Remove{bleed}{blight}`，交给既有 `readVerifiedStatusEffects` 的 `selfRemove`。
-- `packages/engine/src/monster-self-status.ts`：纯自身路径接受自身治疗与 Remove，并把治疗量 / 清除标记带出；自身位移 / 光照仍拒绝而不是静默丢弃。
-- `packages/engine/src/battle-monster-action.ts`：自身技能结算后按 `selfHeal` 减伤、按 R21 清空 Bleed / Blight 全部堆叠并同步投影；事件补 `selfHeal` / `cleanse`。
-- `packages/engine/src/hero-skill.ts`：导出既有 `readSelfHeal`，怪物自身技能复用同一份治疗校验，不另写一套。
+- `packages/engine/src/shared/core/monster-self-status.ts`：纯自身路径接受自身治疗与 Remove，并把治疗量 / 清除标记带出；自身位移 / 光照仍拒绝而不是静默丢弃。
+- `packages/engine/src/shared/battle/battle-monster-action.ts`：自身技能结算后按 `selfHeal` 减伤、按 R21 清空 Bleed / Blight 全部堆叠并同步投影；事件补 `selfHeal` / `cleanse`。
+- `packages/engine/src/core/heroes/hero-skill.ts`：导出既有 `readSelfHeal`，怪物自身技能复用同一份治疗校验，不另写一套。
 
 ## 测试
 
-- `packages/engine/src/dungeon-battle-l2-admission.test.ts`：DL3 用例从「断言仍拒战」改为断言 admitted（`startDungeonBattle` → `startBattle` → `awaitingInitiative`），并核对三张卡的计划条数（3 / 2 / 3）；合成缺 `speed` 的拒战断言保留。
-- `packages/engine/src/dl3-monster-effects.test.ts`（新增）：八招计划表、Adder 命中 / 落空状态、Molt 自身路径读取，以及 Molt 命令一次结算（Heal 9、Buff 2t、清空 Bleed/Blight、只消费一次选招骰、可回放）。
-- `packages/engine/src/monster-effect-plan.test.ts`：全量攻击技能完整结算计数 93 → 100（新增 7 招；Molt 为 Self 目标，走自身路径）。
+- `packages/engine/tests/shared/dungeon/dungeon-battle-l2-admission.test.ts`：DL3 用例从「断言仍拒战」改为断言 admitted（`startDungeonBattle` → `startBattle` → `awaitingInitiative`），并核对三张卡的计划条数（3 / 2 / 3）；合成缺 `speed` 的拒战断言保留。
+- `packages/engine/tests/shared/core/dl3-monster-effects.test.ts`（新增）：八招计划表、Adder 命中 / 落空状态、Molt 自身路径读取，以及 Molt 命令一次结算（Heal 9、Buff 2t、清空 Bleed/Blight、只消费一次选招骰、可回放）。
+- `packages/engine/tests/shared/core/monster-effect-plan.test.ts`：全量攻击技能完整结算计数 93 → 100（新增 7 招；Molt 为 Self 目标，走自身路径）。
 
 ## 边界
 

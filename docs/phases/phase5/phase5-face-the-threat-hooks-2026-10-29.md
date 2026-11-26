@@ -5,13 +5,13 @@
 
 ## 1. 模块与入口
 
-| 符号                                         | 路径                                                | 作用                                                  |
-| -------------------------------------------- | --------------------------------------------------- | ----------------------------------------------------- |
-| `defaultFaceTheThreatEmbarkHook`             | `packages/engine/src/boss/face-the-threat-hooks.ts` | 已注册脚本默认钩子：解析 quest + 威胁 → `combatEntry` |
-| `defaultBossSlotPlacementHook`               | 同上                                                | R-121 节点校验 + 布置算法语义                         |
-| `runFaceTheThreatEmbarkForQuest`             | 同上                                                | 读 `activeBossThreatScriptId` / CL，调用对应脚本钩子  |
-| `runBossSlotPlacementForScript`              | 同上                                                | 按 `scriptId` 探针 Boss 位钩子                        |
-| `resolveBossScriptIdForFaceTheThreatContext` | 同上                                                | 薄封装 `resolveBossScriptIdForQuest`                  |
+| 符号                                         | 路径                                                       | 作用                                                  |
+| -------------------------------------------- | ---------------------------------------------------------- | ----------------------------------------------------- |
+| `defaultFaceTheThreatEmbarkHook`             | `packages/engine/src/core/bosses/face-the-threat-hooks.ts` | 已注册脚本默认钩子：解析 quest + 威胁 → `combatEntry` |
+| `defaultBossSlotPlacementHook`               | 同上                                                       | R-121 节点校验 + 布置算法语义                         |
+| `runFaceTheThreatEmbarkForQuest`             | 同上                                                       | 读 `activeBossThreatScriptId` / CL，调用对应脚本钩子  |
+| `runBossSlotPlacementForScript`              | 同上                                                       | 按 `scriptId` 探针 Boss 位钩子                        |
+| `resolveBossScriptIdForFaceTheThreatContext` | 同上                                                       | 薄封装 `resolveBossScriptIdForQuest`                  |
 
 各 Ruins / Weald / Warrens / Cove I 脚本 `hooks` 改为引用上述默认实现；**per-boss override** 仍可在单脚本上替换同名钩子（fixture 测试脚本保留独立 stub）。
 
@@ -65,17 +65,17 @@
 
 ```bash
 pnpm exec vitest run \
-  packages/engine/src/boss/face-the-threat-hooks.test.ts \
-  packages/engine/src/boss/threat-establishment.test.ts \
-  packages/engine/src/boss/necromancer-i.test.ts \
-  packages/engine/src/boss/prophet-i.test.ts \
-  packages/engine/src/boss/collector-i.test.ts \
-  packages/engine/src/boss/fanatic-i.test.ts \
-  packages/engine/src/boss/hag-i.test.ts \
-  packages/engine/src/boss/swine-prince-i.test.ts \
-  packages/engine/src/boss/siren-i.test.ts \
-  packages/engine/src/boss/flesh-i.test.ts \
-  packages/engine/src/boss/boss-framework.test.ts
+  packages/engine/tests/core/bosses/face-the-threat-hooks.test.ts \
+  packages/engine/tests/core/bosses/threat-establishment.test.ts \
+  packages/engine/tests/core/bosses/necromancer/necromancer-i.test.ts \
+  packages/engine/tests/core/bosses/prophet/prophet-i.test.ts \
+  packages/engine/tests/core/bosses/collector/collector-i.test.ts \
+  packages/engine/tests/core/bosses/fanatic/fanatic-i.test.ts \
+  packages/engine/tests/weald/bosses/hag/hag-i.test.ts \
+  packages/engine/tests/warrens/bosses/swine-prince/swine-prince-i.test.ts \
+  packages/engine/tests/cove/bosses/siren/siren-i.test.ts \
+  packages/engine/tests/warrens/bosses/flesh/flesh-i.test.ts \
+  packages/engine/tests/core/bosses/boss-framework.test.ts
 ```
 
 ## 6. 下一刀（未做）

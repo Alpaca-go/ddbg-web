@@ -29,7 +29,7 @@
 ## 验证
 
 ```bash
-pnpm exec vitest run packages/engine/src/boss/ancestor1-skill-ai.test.ts
+pnpm exec vitest run packages/engine/tests/core/bosses/ancestor/ancestor1-skill-ai.test.ts
 pnpm exec vitest run packages/engine/src/boss
 pnpm typecheck
 ```

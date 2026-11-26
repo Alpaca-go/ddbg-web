@@ -21,8 +21,8 @@
 ## 验证
 
 ```bash
-pnpm exec vitest run packages/engine/src/boss/final-battle-dead-heroes.test.ts
-pnpm exec vitest run packages/engine/src/boss packages/engine/src/encounter.test.ts
+pnpm exec vitest run packages/engine/tests/core/bosses/final/final-battle-dead-heroes.test.ts
+pnpm exec vitest run packages/engine/src/boss packages/engine/tests/shared/dungeon/encounter.test.ts
 ```
 
 - 新增 2 测：形态间一名英雄阵亡仍可部署并开战（阵亡者保留、存活者伤口保留）/ 首形态仍拒绝已阵亡的地牢英雄。

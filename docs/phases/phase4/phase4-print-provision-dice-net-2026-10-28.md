@@ -46,18 +46,18 @@ node tools/pipeline/scripts/export-print-card-art.mjs --input "<EN_FILES>"
 | `tool`    | `ProvisionFace` | 同上                                                  |
 | `wild`    | 掷骰结果 / 待选 | **不在** `PROVISION_FACES`；Wild 落定后选上述五面之一 |
 
-- 定义：`packages/engine/src/loot.ts` — `PROVISION_FACES`、`nextProvisionFace`（R12：六面各一次采样；**数组顺序仅为软件 RNG 桶序**，注释写明「不当作印刷数字」）。
+- 定义：`packages/engine/src/shared/trinkets/loot.ts` — `PROVISION_FACES`、`nextProvisionFace`（R12：六面各一次采样；**数组顺序仅为软件 RNG 桶序**，注释写明「不当作印刷数字」）。
 - Wild 逻辑：开局 / Curio / 奖励骰等见 `dungeon-starting-provisions.ts`、`dungeon-curio-effects.ts`；UI 文案 `apps/web/src/provision-labels.ts`（无 `wild` 条目，Wild 走事件/待选文案）。
 
 ### 2.2 桌面 UI / map（未接骰面 raster）
 
-| 位置                                                          | 内容                                                     |
-| ------------------------------------------------------------- | -------------------------------------------------------- |
-| `apps/web/src/card-art/player-aid-print-art-map.json`         | `pendingConfirmation` 含 D6 Provision dice_net           |
-| `tools/pipeline/scripts/build-print-player-aid-art-map.mjs`   | 再生 map 时写入相同 pending 说明                         |
-| `docs/phase4-print-provision-player-aid-2026-10-28.md`        | 「待确认」表：展开图→桌面 PNG **未批**                   |
-| `apps/web/src/tabletop/sections/tabletop-control-rail.tsx` 等 | `AssetPlaceholder` `assetType="dice_net"`                |
-| `apps/web/src/card-art/resolve-print-player-aid-art.test.ts`  | 断言 pending 含 `D6_Provision`，且不含 `player_aid:p005` |
+| 位置                                                                 | 内容                                                     |
+| -------------------------------------------------------------------- | -------------------------------------------------------- |
+| `apps/web/src/card-art/player-aid-print-art-map.json`                | `pendingConfirmation` 含 D6 Provision dice_net           |
+| `tools/pipeline/scripts/build-print-player-aid-art-map.mjs`          | 再生 map 时写入相同 pending 说明                         |
+| `docs/phases/phase4/phase4-print-provision-player-aid-2026-10-28.md` | 「待确认」表：展开图→桌面 PNG **未批**                   |
+| `apps/web/src/tabletop/sections/tabletop-control-rail.tsx` 等        | `AssetPlaceholder` `assetType="dice_net"`                |
+| `apps/web/src/card-art/resolve-print-player-aid-art.test.ts`         | 断言 pending 含 `D6_Provision`，且不含 `player_aid:p005` |
 
 **不存在**：`provision-dice-print-art-map.json`、`resolve-print-provision-dice-art.ts`、`build-print-provision-dice-art-map.mjs`（Kyries 书面面序前不得添加）。
 

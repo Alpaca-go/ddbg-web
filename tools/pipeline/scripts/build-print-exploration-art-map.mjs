@@ -7,8 +7,9 @@
  *     --csv tools/pipeline/print-card-art/fixtures/print-exploration-review-ok-auto.csv
  */
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
-import { dirname, resolve } from "node:path";
+import { basename, dirname, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { parseCsv } from "./lib/print-exploration-csv.mjs";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(here, "../../..");
@@ -26,41 +27,29 @@ function parseArgs(argv) {
   return { csv, out };
 }
 
-function parseCsv(text) {
-  const lines = text.trim().split(/\r?\n/);
-  const header = lines[0].split(",");
-  const rows = [];
-  for (let i = 1; i < lines.length; i++) {
-    const cols = lines[i].split(",");
-    const row = {};
-    header.forEach((h, j) => {
-      row[h] = cols[j] ?? "";
-    });
-    rows.push(row);
-  }
-  return rows;
-}
-
-function loadRuinsRoomMeta() {
-  const path = resolve(repoRoot, "../../../packages/data/normalized/corebox/room.json");
+function loadRoomMeta() {
+  const path = resolve(repoRoot, "packages/data/normalized/corebox/room.json");
   const data = JSON.parse(readFileSync(path, "utf8"));
-  const byId = new Map();
-  for (const card of data.cards) {
-    if (card.location === "ruins") {
-      byId.set(card.id, { boss: Boolean(card.boss), page: card.source.page });
-    }
-  }
-  return byId;
+  return new Map(data.cards.map((card) => [card.source.page, card]));
 }
 
 const { csv, out } = parseArgs(process.argv);
-const rows = parseCsv(readFileSync(csv, "utf8")).filter((r) => r.verdict === "ok");
+const legacyQuestArtIds = new Set([
+  "quest:p001",
+  "quest:p002",
+  "quest:p003",
+  "quest:p007",
+  "quest:p008",
+]);
+const rows = parseCsv(readFileSync(csv, "utf8")).filter(
+  (row) =>
+    row.verdict === "ok" && (row.category !== "quest" || legacyQuestArtIds.has(row.engineId)),
+);
 if (rows.length !== 106) {
-  console.error(`Expected 106 verdict=ok rows, got ${rows.length}`);
-  process.exit(1);
+  throw new Error(`Expected 106 exploration rows, got ${rows.length}`);
 }
 
-const ruinsRooms = loadRuinsRoomMeta();
+const rooms = loadRoomMeta();
 
 const cards = rows.map((r) => {
   const card = {
@@ -74,8 +63,12 @@ const cards = rows.map((r) => {
     reviewVerdict: r.verdict,
   };
   if (r.category === "room") {
-    const meta = ruinsRooms.get(r.engineId);
-    if (meta) card.boss = meta.boss;
+    const room = rooms.get(card.printPage);
+    if (!room || room.name !== card.name || basename(room.source.front) !== card.primaryPdf) {
+      throw new Error(`Room art row does not match the room catalog: ${r.engineId}`);
+    }
+    card.id = room.id;
+    if (room.location === "ruins") card.boss = room.boss;
   }
   return card;
 });
@@ -90,7 +83,7 @@ if (uiCardCount !== 39) {
 const map = {
   schema: "ddbg.print-exploration-art-map.v1",
   source: {
-    csv: csv.replace(repoRoot + "/", "").replace(/\\/g, "/"),
+    csv: relative(repoRoot, csv).replace(/\\/g, "/"),
     verdictFilter: "ok",
     rowCount: cards.length,
     uiCardCount,
@@ -100,15 +93,15 @@ const map = {
       "pngRel paths are relative to .cache/print-card-art/ after export-print-card-art.mjs.",
       "Room cards + QuestMap UI use print PNG only (no TTS fallback); see resolve-exploration-art.ts.",
       "room_token: per-kind PNG via export_room_tokens.py + room-token-print-art-map.json.",
-      "curio / trinket / quest UI uses dedicated print art maps (see docs/phase4-print-curio-trinket-quest-art-2026-10-20.md).",
+      "curio / trinket / quest UI uses dedicated print art maps (see docs/phases/phase4/phase4-print-curio-trinket-quest-art-2026-10-20.md).",
       "R-048: raster uses TrimBox / 3 mm bleed from print pipeline; no invented crop in UI.",
     ],
   },
   cards,
   pendingConfirmation: [
     "room_token per-kind PNG: see room-token-print-art-map.json.",
-    "Battle Room Tile faces: see room-tile-print-art-map.json (9 approved Ruins faces only).",
-    "走廊段：连接口 catalog 见 corridor_tile_geometry.json（全页 geometryVerified=false）；印刷图 corridor-tile-print-art-map.json；QuestMap 边绑定 corridor_layout_bindings.json review=pending。",
+    "Battle Room Tile faces: see room-tile-print-art-map.json.",
+    "QuestMap 边绑定 corridor_layout_bindings.json review=pending；核心盒无走廊板块（Q-161）。",
   ],
 };
 

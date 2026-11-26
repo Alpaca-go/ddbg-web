@@ -20,11 +20,11 @@
 
 ## 本刀数据产出
 
-| 产物                                                   | 说明                                                                                                                                                                             |
-| ------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `normalized/corebox/absolute_nothingness_support.json` | 目录：`status: pending_monster_card`，`miniatureCount: 3`，`abilityCardId: boss_ability:p035`，`bossActorCardId: monster_large:p018`，`supportCardIds: []`，`combatReady: false` |
-| `packages/data/src/absolute-nothingness-support.ts`    | Zod schema、`buildAbsoluteNothingnessSupport`、`findAbsoluteNothingnessMonsterCards`、`readAbsoluteNothingnessSupport`                                                           |
-| `darkest_boss_content` ancestor2                       | `supportCardIds` 与上述目录同步（当前为空数组）                                                                                                                                  |
+| 产物                                                            | 说明                                                                                                                                                                             |
+| --------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `normalized/corebox/absolute_nothingness_support.json`          | 目录：`status: pending_monster_card`，`miniatureCount: 3`，`abilityCardId: boss_ability:p035`，`bossActorCardId: monster_large:p018`，`supportCardIds: []`，`combatReady: false` |
+| `packages/data/src/core/bosses/absolute-nothingness-support.ts` | Zod schema、`buildAbsoluteNothingnessSupport`、`findAbsoluteNothingnessMonsterCards`、`readAbsoluteNothingnessSupport`                                                           |
+| `darkest_boss_content` ancestor2                                | `supportCardIds` 与上述目录同步（当前为空数组）                                                                                                                                  |
 
 ## 与 p035 关系
 

@@ -15,7 +15,7 @@
 | `p016`–`p020`    | 各 Acc 壳余招 | 组合效果 / Revivify                                                | hold        |
 | `p017` Shuffling | Lacerate      | 卡级 unverified                                                    | A-10 / A-11 |
 
-依据：`monster_large` FRONT **p014**、`docs/phase5-a5-remaining-a-candidates-2026-11-01.md` §1 A-01；规则 R-001 / R-048。
+依据：`monster_large` FRONT **p014**、`docs/phases/phase5/phase5-a5-remaining-a-candidates-2026-11-01.md` §1 A-01；规则 R-001 / R-048。
 
 ## 本刀接通
 
@@ -37,7 +37,7 @@
 ```bash
 pnpm typecheck
 pnpm exec vitest run \
-  packages/data/src/normalize/normalize.test.ts \
-  packages/engine/src/monster-effect-plan.test.ts \
-  packages/engine/src/boss/darkest-templars-skills-acc.test.ts
+  packages/data/tests/shared/normalize.build.test.ts \
+  packages/engine/tests/shared/core/monster-effect-plan.test.ts \
+  packages/engine/tests/core/bosses/templars/darkest-templars-skills-acc.test.ts
 ```

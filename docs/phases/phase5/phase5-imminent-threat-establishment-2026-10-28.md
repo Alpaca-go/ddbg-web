@@ -48,7 +48,7 @@
 
 ```bash
 pnpm exec vitest run \
-  packages/engine/src/boss/threat-establishment.test.ts \
-  packages/engine/src/boss/threat-campaign.test.ts \
-  packages/engine/src/boss/quest-bridge.test.ts
+  packages/engine/tests/core/bosses/threat-establishment.test.ts \
+  packages/engine/tests/core/bosses/threat-campaign.test.ts \
+  packages/engine/tests/core/bosses/quest-bridge.test.ts
 ```

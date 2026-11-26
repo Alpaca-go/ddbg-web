@@ -53,7 +53,7 @@
 - `formal-roster-catalog.ts`：`skillBelongsToFormalHero` / `verifiedLevel1CombatSkillsForHero` / 双面 Transform id
 - `formal-heroes.ts`：`FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS` 移除 JESTER / ARBALEST / ABOMINATION（现 7 名扩展）
 - `apps/web/battle-data-plugin.ts`：战役目录打包已核实核心 trio I 级（含 p220）
-- `packages/engine/src/core-trio-skills.test.ts`：专项回归
+- `packages/engine/tests/shared/core/core-trio-skills.test.ts`：专项回归
 
 ## 5. 裁定
 

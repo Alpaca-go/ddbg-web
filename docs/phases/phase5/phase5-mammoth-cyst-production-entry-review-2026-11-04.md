@@ -11,7 +11,7 @@
 
 | 项                                                                    | 来源                                                                     |
 | --------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| 十二区与部署落点                                                      | R-164、`packages/data/src/normalize/mammoth-cyst-room.ts`                |
+| 十二区与部署落点                                                      | R-164、`packages/data/src/core/rooms/mammoth-cyst-room.build.ts`         |
 | 专用 deploy 与 finish                                                 | **R-184**、[rulings.md](../../rulings.md#r-184)                          |
 | Boss 进攻 / 目录卡                                                    | `darkest_boss_content.json` quest:p018 · `monster_large:p016` aggressive |
 | 先攻 6（4 英雄 + 1 Boss 实体 + 目录 2 张 printed 补 1 张 monster 侧） | `expandDarkestMidBossInitiativeDeckSides` · `initiativeCards: 2`         |
@@ -30,12 +30,12 @@
 
 ```bash
 pnpm exec vitest run \
-  packages/engine/src/boss/mammoth-cyst-i-deploy.test.ts \
-  packages/engine/src/boss/mammoth-cyst-i-finish.test.ts \
-  packages/engine/src/boss/darkest-mid-boss-runtime.test.ts \
-  packages/engine/src/boss/darkest-mid-boss-initiative.test.ts \
-  packages/engine/src/darkest-finish-battle.test.ts \
-  packages/engine/src/darkest-ordinary-monster-deploy.test.ts
+  packages/engine/tests/core/bosses/mammoth-cyst/mammoth-cyst-i-deploy.test.ts \
+  packages/engine/tests/core/bosses/mammoth-cyst/mammoth-cyst-i-finish.test.ts \
+  packages/engine/tests/core/bosses/darkest/darkest-mid-boss-runtime.test.ts \
+  packages/engine/tests/core/bosses/darkest/darkest-mid-boss-initiative.test.ts \
+  packages/engine/tests/core/darkest/darkest-finish-battle.test.ts \
+  packages/engine/tests/core/darkest/darkest-ordinary-monster-deploy.test.ts
 pnpm typecheck
 ```
 

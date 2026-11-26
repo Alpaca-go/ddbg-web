@@ -12,7 +12,7 @@ import {
   normalizedMonsterMediumFileSchema,
   normalizedVirtueAfflictionFileSchema,
 } from "../../../../data/src/shared/schema";
-import { normalizedHeroStatFileSchema } from "../../../../data/src/core/heroes/hero-stat.build";
+import { normalizedHeroStatFileSchema } from "../../../../data/src/core/heroes/hero-stat";
 import { applyCommand } from "../../../src/shared/core/command";
 import type { ApplyResult, GameState } from "../../../src/shared/core/command";
 import { createBattleState } from "../../../src/shared/battle/battle";

@@ -12,7 +12,7 @@
 | `createCoreDungeonQuest` · p019                          | 钩子 ok 时写入同名 plan（无 hamlet applyCommand）                                                                                                                                                              |
 | `resolveFaceTheThreatEmbarkForChoose`                    | 集中校验：R-35 饰品等级、p019 跳过 schema `level:3` 占位（R-120）                                                                                                                                              |
 
-模块：`packages/engine/src/boss/face-the-threat-embark-runtime.ts`（含 `shouldForceFaceTheThreatOfferAtNextQuest` / `countCompletedRegularQuestsAtCampaignLevel`）。
+模块：`packages/engine/src/core/bosses/face-the-threat-embark-runtime.ts`（含 `shouldForceFaceTheThreatOfferAtNextQuest` / `countCompletedRegularQuestsAtCampaignLevel`）。
 
 ## 仍 hold（任务卡 / 本刀不碰）
 
@@ -35,7 +35,7 @@
 ```bash
 pnpm typecheck
 pnpm exec vitest run \
-  packages/engine/src/boss/face-the-threat-embark-runtime.test.ts \
-  packages/engine/src/boss/face-the-threat-hooks.test.ts \
-  packages/engine/src/boss/threat-establishment.test.ts
+  packages/engine/tests/core/bosses/face-the-threat-embark-runtime.test.ts \
+  packages/engine/tests/core/bosses/face-the-threat-hooks.test.ts \
+  packages/engine/tests/core/bosses/threat-establishment.test.ts
 ```

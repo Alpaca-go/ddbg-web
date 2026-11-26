@@ -52,7 +52,8 @@ import { buildRoomTileGeometry } from "./tiles/room-tile.build";
 import { assertHallOfAscensionEffectSource } from "./rooms/hall-of-ascension.build";
 import { assertPoolOfRebirthEffectSource } from "./rooms/pool-of-rebirth.build";
 import type { RoomTileGeometryFile } from "./tiles/room-tile";
-import { buildHeroStats, normalizedHeroStatFileSchema } from "./heroes/hero-stat.build";
+import { buildHeroStats } from "./heroes/hero-stat.build";
+import { normalizedHeroStatFileSchema } from "./heroes/hero-stat";
 import { HERO_SOURCE_PACKS, heroSourcePaths } from "./heroes/hero-sources";
 import { buildWarrensHeroStats } from "../warrens/heroes/hero-stat.build";
 import { buildCoveHeroStats } from "../cove/heroes/hero-stat.build";
@@ -63,7 +64,7 @@ import { buildMonsterPool } from "./monsters/monster-pool.build";
 import { buildCurios } from "./curios/curio.build";
 import { buildHamletEvents } from "./hamlet/hamlet-event.build";
 import { buildDiseases } from "./hamlet/disease.build";
-import type { NormalizedHeroStatFile } from "./heroes/hero-stat.build";
+import type { NormalizedHeroStatFile } from "./heroes/hero-stat";
 import type {
   NormalizedHeroSkillFile,
   NormalizedMonsterLargeFile,

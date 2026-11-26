@@ -455,7 +455,7 @@ Kyries 授权开始第一步并随后要求“合并”。依赖 #120 最新 hea
 
 - 按官方 R14 / R29、规格书 §5.5 / §5.7 / §5.10 与 R-002 / R-003 接 Darkness 降光、全队被动、意志恢复和光照 0–5 探索；复用现有危险 / 环境 Trap 结算，不重掷或提前移动。低光 Trap 房间同步开放，混合分配按实际压力预检 Q-64。
 - 新增 14 项场景；既有第一条 Phase 3 冒烟延伸至降光 4 后完成 Empty、再次选路并掷八骰。Q-64 / Q-66 / Q-67 / Q-68 保持停点，Phase 3 未验收。验证与本机限制见交付文档。
-- 下一块按用户此前四步的第二步推进板块与 Curio 数据核对 / 接入，再做任务闭环；不跳 Phase 4。原有 `docs/_q52-search.txt`、`docs/ddbg-icon-review.md`、`docs/q60-icon-verification-2026-10-12.md` 保留且不提交。
+- 下一块按用户此前四步的第二步推进板块与 Curio 数据核对 / 接入，再做任务闭环；不跳 Phase 4。原有 `docs/_q52-search.txt`、`docs/reviews/ddbg-icon-review.md`、`docs/q60-icon-verification-2026-10-12.md` 保留且不提交。
 
 ## 最新交接：探索骰 Trap 攻击（2026-10-12，UTC+8）
 
@@ -490,7 +490,7 @@ Kyries 授权开始第一步并随后要求“合并”。依赖 #120 最新 hea
 ### 补记一：Balanced 可选减位移（#117）
 
 - 来源：规格书 §6.7（官方 R21、R27）、R-020 / R-021；已查看 R27 完整页面。只读取完整怪癖目录的具名 `quirk:p014`，没有改词典或批准其他卡面图标。
-- `shuffle.ts` 的当前意图保存 `balancedChosen`；`battle-shuffle.ts` / `command.ts` 接入 `shuffleReduction` PendingChoice，由持有者选择保持距离或少移 1，区域与姿态共用减少后的距离。中文提示由 `apps/web/src/battle-step.ts` 呈现，通用待选界面复用已有选项。
+- `shuffle.ts` 的当前意图保存 `balancedChosen`；`battle-shuffle.ts` / `command.ts` 接入 `shuffleReduction` PendingChoice，由持有者选择保持距离或少移 1，区域与姿态共用减少后的距离。中文提示由 `apps/web/src/battle/battle-step.ts` 呈现，通用待选界面复用已有选项。
 - 选择期间冻结其他操作；后续区域分岔不重复减距、不重掷技能骰，不重新施加伤口 / 状态或扣行动。减到零时不触发 Vertigo，技能中的其他位移意图仍须完成后再收尾。
 - 五项新增场景覆盖真实 Point Blank Shot 的零位移、保持距离后分岔、Vertigo 一次触发、行动 / RNG / 回放、满员截断、原子拒绝，以及派生怪物多目标位移的独立持有者选择和一次回合结束。多步距离与派生 Push 行是明确测试布置，没有写入真实卡牌。
 - 本地 Node 24.21.0 / pnpm 12.9.1：typecheck、lint、73 文件 / 700 项测试、build、`git diff --check` 与六条 Playwright 冒烟通过；#117 的 PR CI 两项成功后按用户“合并，然后继续推进下一步”指令合并，本地 main 已 ff-only 同步。
@@ -505,7 +505,7 @@ Kyries 授权开始第一步并随后要求“合并”。依赖 #120 最新 hea
 - 五项新增场景用真实 Duelist’s Advance I、HIGHWAYMAN I 与完整疾病 / 怪癖 / 意志目录覆盖美德和苦难、心脏病、Balanced 零位移、缺资料修复续接及 Vertigo + Soft / Nervous 拒绝。四区域分岔是显式引擎测试布置；既有真实目标 Vertigo 停点回归保留。
 - 本地 Node 24.21.0 / pnpm 12.9.1：typecheck、lint、73 文件 / 705 项测试、build、`git diff --check` 和六条 Playwright 冒烟通过。首轮并行检查时原有 Room Tile 生成一致性测试超过默认 5 秒；单独重跑全套后 705 项通过，未修改测试超时。`7f8323d` 的 PR CI 质量与 Playwright 两项也均成功。
 
-完整范围见 [空区域 Vertigo 收尾](../phases/phase3/phase3-empty-area-vertigo-2026-10-12.md)。当前尚无专用网页测试布置入口；复现与回归入口为 `packages/engine/src/conditions-scenario.test.ts` 中“空区域 Vertigo”系列场景，网页沿用现有战斗界面。不能把测试布置写成完整任务默认开局。
+完整范围见 [空区域 Vertigo 收尾](../phases/phase3/phase3-empty-area-vertigo-2026-10-12.md)。当前尚无专用网页测试布置入口；复现与回归入口为 `packages/engine/tests/shared/core/conditions-scenario.test.ts` 中“空区域 Vertigo”系列场景，网页沿用现有战斗界面。不能把测试布置写成完整任务默认开局。
 
 ### 保留边界、环境与下一块
 
@@ -543,7 +543,7 @@ Kyries 要求“**不用拆分成3个任务，一次重型任务，先合并，�
 #113 已按 Kyries 指示合并为 main `258459e`，本地 main 已同步。后续主题在 `codex/phase3-monster-pool`，实现提交 `ba8a854`，[PR #114](https://github.com/Alpaca-go/ddbg-web/pull/114) 为待合并草稿；下文 #113 待合并与三种沙盒怪物的描述属于历史状态。
 
 - 从本地官方 R10 / R16–17 与印刷件核对并生成完整 Common + Ruins 普通池：三等级共 62 张，I 级 42 张 / 15 种。按实际页创建唯一实例，大型引用映射战斗卡、不重复计份数，未过滤缺战斗数据的卡。
-- `packages/data/src/monster-pool.ts` / `normalize/monster-pool.ts` / `normalized/corebox/monster_pool.json` 提供校验与可再生目录；`packages/engine/src/dungeon-monsters.ts` 的 `prepareDungeonMonsters` 接获批 Ritual Chamber 抽怪和部署记录。共享 RNG 游标 +41，记录余牌 / 弃牌 / 活动怪物；重复操作及非法入口原子拒绝。
+- `packages/data/src/core/monsters/monster-pool.ts` / `normalize/monster-pool.ts` / `normalized/corebox/monster_pool.json` 提供校验与可再生目录；`packages/engine/src/shared/dungeon/dungeon-monsters.ts` 的 `prepareDungeonMonsters` 接获批 Ritual Chamber 抽怪和部署记录。共享 RNG 游标 +41，记录余牌 / 弃牌 / 活动怪物；重复操作及非法入口原子拒绝。
 - `/?phase=3` 的种子 11 布置可进入真实 42 张池，抽到 Rabble / Pliskin / Rabble / Spitter；保存原牌与缺字段停点。九种 I 级怪物仍缺获批 Speed / 姿态选招，六种已有基础字段也不等于本轮完成正式战斗。
 - 验证：typecheck、lint、Vitest 65 文件 / 636 项、build、Playwright 6 条通过，截图已检查。本轮没有提交资料库图像 / PDF，没有改变规则裁定或未确认数值；原有 `docs/_q52-search.txt` 保留。
 
@@ -579,16 +579,16 @@ Phase 2 按批准范围完成；Phase 3 仍未形成完整任务，Phase 4–6 �
 
 `pnpm dev` 默认打开普通遭遇战沙盒，首页链接或 `/?phase=3` 打开地牢探索沙盒。此沙盒注入起始位置、四英雄、等级、光照和补给；不是完整任务 / 战役开局。main 已具备前六刀；下列守卫房间抽牌布置只在 #113 分支具备。
 
-| 接续位置             | 文件 / 状态                                                                                                                                                                                   |
-| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 公共命令入口         | `packages/engine/src/command.ts` 的 `applyCommand`；地牢与战斗目前独立路由，不能直接同时挂状态就认为已接通                                                                                    |
-| 地牢状态、开局与导航 | `packages/engine/src/dungeon.ts`；保存 seed 对应 RNG 游标、位置、英雄、代币、通行边、探索、有限牌堆和 PendingChoice                                                                           |
-| 探索与压力恢复       | `dungeon-exploration.ts` / `dungeon-pressure.ts`；已提交效果必须恢复一次，不能重扣 / 重掷 / 误触发侦察揭示                                                                                    |
-| Curio、返回与 Trap   | `dungeon-curio.ts` / `dungeon-backtracking.ts` / `dungeon-room.ts`；保持抽前决定、真实通行与每人一次分配的约束                                                                                |
-| 守卫房间准备（#113） | `dungeon-battle-preparation.ts`；`roomCards.deck` + `active` 保存顶牌，保持 `awaitingRoom`，不清理 / 发奖励                                                                                   |
-| 网页与冒烟           | `apps/web/src/dungeon-sandbox.tsx`、`apps/web/e2e/dungeon.spec.ts`；Zustand 派发命令，不在 UI 算规则                                                                                          |
-| 地图 / 房间数据      | `packages/data/normalized/corebox/dungeon_layouts.json`、`scout_ahead_distribution.json`、`curio.json`；#113 新增 `room.json`，通过既有 normalize 管线再生                                    |
-| 战斗板块与怪物卡池   | `packages/data/src/normalize/room-tile.ts` / `room_tile_geometry.json` 只有获批 Ritual Chamber；`apps/web/battle-data-plugin.ts` 当前仅装入三种固定沙盒怪物，不能替代完整 Common + Ruins 牌堆 |
+| 接续位置             | 文件 / 状态                                                                                                                                                                                    |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 公共命令入口         | `packages/engine/src/shared/core/command.ts` 的 `applyCommand`；地牢与战斗目前独立路由，不能直接同时挂状态就认为已接通                                                                         |
+| 地牢状态、开局与导航 | `packages/engine/src/shared/dungeon/dungeon.ts`；保存 seed 对应 RNG 游标、位置、英雄、代币、通行边、探索、有限牌堆和 PendingChoice                                                             |
+| 探索与压力恢复       | `dungeon-exploration.ts` / `dungeon-pressure.ts`；已提交效果必须恢复一次，不能重扣 / 重掷 / 误触发侦察揭示                                                                                     |
+| Curio、返回与 Trap   | `dungeon-curio.ts` / `dungeon-backtracking.ts` / `dungeon-room.ts`；保持抽前决定、真实通行与每人一次分配的约束                                                                                 |
+| 守卫房间准备（#113） | `dungeon-battle-preparation.ts`；`roomCards.deck` + `active` 保存顶牌，保持 `awaitingRoom`，不清理 / 发奖励                                                                                    |
+| 网页与冒烟           | `apps/web/src/dungeon-sandbox/dungeon-sandbox.tsx`、`apps/web/e2e/core/dungeon.spec.ts`；Zustand 派发命令，不在 UI 算规则                                                                      |
+| 地图 / 房间数据      | `packages/data/normalized/corebox/dungeon_layouts.json`、`scout_ahead_distribution.json`、`curio.json`；#113 新增 `room.json`，通过既有 normalize 管线再生                                     |
+| 战斗板块与怪物卡池   | `packages/data/src/core/tiles/room-tile.ts` / `room_tile_geometry.json` 只有获批 Ritual Chamber；`apps/web/battle-data-plugin.ts` 当前仅装入三种固定沙盒怪物，不能替代完整 Common + Ruins 牌堆 |
 
 可复现关键路径（均用 p1 的“侦察测试布置”下拉框）：
 
@@ -981,7 +981,7 @@ Kyries 本轮明确授权「合并 #94 并同步本地；不授权 Phase 3；下
 #74 最新 head `88d8b22` 四项 CI 成功，已合并为 `e328713` 并同步 main。本块分支 `codex/phase2-resolve-data-review`，第 3 项意志数据切片。
 
 - 对照官方 R28 与当前版十张美德 / 苦难完整页，给五美德与三张已验证苦难附加 `verified_turn_start`：明确 d10 触发区间、Stress 数值、Buff Nt、Vigorous 的 3 × Hero Level 治疗、Selfish 消耗一补给。生成匹配完整文本 / 已确认图标、id / 名称 / 页码 / R-053 role，漂移拒绝；不根据箭头判角色，不改 raw / 词典。
-- Masochistic、Irrational 仍未验证，无触发注解，不从完整五张苦难牌堆删掉后再抽三张。`docs/phase2-resolve-review-2026-10-10.md` 与 Q-54 给出完整页面上的具体候选含义；r668 / r731 / r687 在此前审批中明确保留，已向 Kyries 请求确认。缺 Hero Level 不能补为 1，缺 Nt 不补默认。
+- Masochistic、Irrational 仍未验证，无触发注解，不从完整五张苦难牌堆删掉后再抽三张。`docs/phases/phase2/phase2-resolve-review-2026-10-10.md` 与 Q-54 给出完整页面上的具体候选含义；r668 / r731 / r687 在此前审批中明确保留，已向 Kyries 请求确认。缺 Hero Level 不能补为 1，缺 Nt 不补默认。
 - 八张的数据测试覆盖名称 / 页码 / 角色 / 文本 / 未确认图标 / 缺卡与重复 / schema 缺 duration 或倍率拒绝。意志与心脏病规则可独立开发，完整苦难抽牌 / 触发仍依 Q-54；正式部署依 Q-53，Q-52 保留。
 
 依据官方 R18 / R28 / R29、规格书 §8 / §9.3、R-001 / R-048 / R-053。typecheck、lint、377 项 Vitest（31 文件）、build 与 diff 检查通过，准确 head CI 成功后合并；本块不接 UI 苦难卡池、不实现触发选择，四步与人工检查点③仍未完成。
@@ -1024,7 +1024,7 @@ Kyries 本轮明确授权「合并 #94 并同步本地；不授权 Phase 3；下
 
 - 按当前版印刷 SKILLS FRONT 完整页 7 / 10 / 31 / 37 / 76 / 79 / 82 / 91，核实八张 I 级卡的 Stun、Protection、Mark、Bleed、Buff、Riposte 持续时间与流血面值。独立人工映射按卡 id / 名称 / 等级 / 页码 / 效果全文 / 已确认图标位置附加 `verified_status_effects`，原未命名数字的 null 不变；其他卡无注解，不补默认值。
 - 没有改变 raw / parsed / 词典，没有把这些卡直接纳入 UI，也没有拆开混合效果假称整行已支持。数据测试覆盖版本 / 文字 / 图标漂移、缺卡 / 重复卡、非法或缺 duration 拒绝。依据官方 R20–21、R-001 / R-018 / R-033 / R-048。
-- `docs/phase2-status-deployment-review-2026-10-10.md` 给出明确部署 / 宝箱 / Cornered 映射，Q-53 单独待 Kyries 确认；批准前继续保留空语义与 `usable=false`。已向 Kyries 请求精确确认，同时继续状态工作。Q-52 保留。
+- `docs/phases/phase2/phase2-status-deployment-review-2026-10-10.md` 给出明确部署 / 宝箱 / Cornered 映射，Q-53 单独待 Kyries 确认；批准前继续保留空语义与 `usable=false`。已向 Kyries 请求精确确认，同时继续状态工作。Q-52 保留。
 
 验证与合并：完成 typecheck、lint、Vitest、build 和 diff 检查后提交，准确 head CI 成功后按持续授权合并。下一块接独立状态堆叠与回合开始效果，再接意志 / 心脏病 / 生成 / 战利品；四步尚未完成，第 4 项与人工检查点③尚未验收。
 
@@ -1121,7 +1121,7 @@ Kyries 明确授权「提交git然后合并，继续推进下一步开发任务�
 - UI 经 Zustand 订阅引擎状态并派发命令，接开始 / 先攻、英雄路径移动、换姿态、单目标技能、普通怪选招 / 定位 / 攻击、位移续接与 PendingChoice。冻结期间只开放引擎返回的决策；未结算位移需显式续接。拒绝、骰面、未支持效果与胜负收尾均呈现在日志；种子重置和完整命令序列供调试，不新增正式存档格式。
 - 构建时从现有规范化文件读取，并用原有 Zod schema 校验，只打包四名 I 级获批英雄属性、六张已验证技能、Bone Soldier 与获批几何，缺项拒绝构建。起始英雄 A / 怪物 B、光照 5、无初始伤口 / 压力 / 状态是明确标出的手动测试布置；不使用 `usable=false` 板块的未核实出生 / 宝箱标记，不实现房间抽取 / 怪物生成 / 战利品。
 
-资料依据：已有获批规范化数据及 `docs/hero-stat-review-2026-10-10.md`、`docs/ruins-room-tile-review-2026-10-10.md`；官方 R18–25 对应规格书 §6，R-001、R-006、R-021、R-025、R-030、R-048、R-054。UI 不自行计算命中、伤害、AI 或补缺数值，不改规则引擎、原始资料、词典或卡牌数据。仍未完整实现状态 duration、多目标、压力检定、疾病 / 怪癖与正式部署，不能宣称 Phase 2 MVP 已验收。
+资料依据：已有获批规范化数据及 `docs/reviews/hero-stat-review-2026-10-10.md`、`docs/reviews/ruins-room-tile-review-2026-10-10.md`；官方 R18–25 对应规格书 §6，R-001、R-006、R-021、R-025、R-030、R-048、R-054。UI 不自行计算命中、伤害、AI 或补缺数值，不改规则引擎、原始资料、词典或卡牌数据。仍未完整实现状态 duration、多目标、压力检定、疾病 / 怪癖与正式部署，不能宣称 Phase 2 MVP 已验收。
 
 验证：Node 24.21.0 / pnpm 12.9.1；typecheck、lint、325 项 Vitest（26 文件）、build、git diff --check 通过。Playwright 保持三条关键路径：数据 / 区域加载，怪物完整回合，射程拒绝→移动→攻击→胜利及同种子回放。三项在本机 Chrome 临时配置通过，截图仅留忽略目录，已核对桌面布局。正式 CI 使用仓库默认 Chromium 配置，不修改为本机 Chrome。构建包约 372 KB；Vite 提示现有无扩展名的 TS import 不兼容未来 native config loader，当前 bundle loader 下构建与 smoke 通过，本块不做全仓库 import 重构。
 
@@ -1135,7 +1135,7 @@ Kyries 明确授权「提交git然后合并，继续推进下一步开发任务�
 - 容量按全部存活角色统计，英雄占一格，大型怪占两格，死者不占格。途中可穿过满员敌区；第一行动允许暂时停在无空间区域，随后以 `mustMove` 强制下一行动移动离开，禁止技能与换姿态；最后行动不能停在无空间区域。成功消耗一个行动，第二行动复用现有回合 / 轮末收尾。
 - 缺失 / null / 未核实 Speed、未知容量或落点怪物占格数均原子拒绝，不填默认值。待选决策和未结算位移继续冻结移动；非行动者、死者、战斗未开始 / 已结束不能移动。
 
-来源：已对照本机只读资料所渲染的官方核心规则书完整 R18 页面图像（Move 明确要求第一行动停在无空间区域后必须用下一行动离开）；规格书 §6.1、§6.4、§6.8，R-006、R-021、R-048；Speed 来自 `docs/hero-stat-review-2026-10-10.md` 已获批属性面，真实板块黑墙拒绝测试使用 R-054 的 Ritual Chamber 几何。没有改原始资料、数据 / 词典或 UI，没有提交图像，也没有放开 `usable=false` 板块的出生 / 交互标记。
+来源：已对照本机只读资料所渲染的官方核心规则书完整 R18 页面图像（Move 明确要求第一行动停在无空间区域后必须用下一行动离开）；规格书 §6.1、§6.4、§6.8，R-006、R-021、R-048；Speed 来自 `docs/reviews/hero-stat-review-2026-10-10.md` 已获批属性面，真实板块黑墙拒绝测试使用 R-054 的 Ritual Chamber 几何。没有改原始资料、数据 / 词典或 UI，没有提交图像，也没有放开 `usable=false` 板块的出生 / 交互标记。
 
 新增九项场景测试：移动确定性与输入不变、穿过满员敌区、强制第二移动、最后行动容量 / 死者过滤、非法路径与行动者、R-048 数据缺失、连续移动及换姿态共享行动、待选与遭遇战阶段门、轮末 / 第四轮撤退，以及真实 E-F 黑墙阻隔。
 
@@ -1388,10 +1388,10 @@ Kyries 已明确要求提交 Git。本次将位移纯函数、位移命令接线
 
 本块以本地 `git log -1` 的 `e0933a9` 为 tip，保留开始时已有的姿态结构 / 选招接线未提交改动。没有提交、推送、创建 PR 或合并；本块仅新增下面的核对文档与真实卡拒绝测试，并追加此笔记。
 
-- 新增 `docs/monster-stance-review-2026-10-09.md`：清单、卡 id / 技能号、卡面 footer、原始 footer token、拟议 `stanceGroups` JSON、逐卡页码、不确定项及确认后的最小入库路径。
+- 新增 `docs/reviews/monster-stance-review-2026-10-09.md`：清单、卡 id / 技能号、卡面 footer、原始 footer token、拟议 `stanceGroups` JSON、逐卡页码、不确定项及确认后的最小入库路径。
 - 首批六条均为核心盒 I 级：Bone Soldier、Bone Courtier、Bone Arbalist、Bone Defender、Bone Rabble、Cultist Acolyte。逐张查看当前版印刷 FRONT 的完整卡面，另核 17 个颜色副本页面的底栏，分组一致；对照官方规则书 R17、R21–24 的页面图像。没有用 Old_Version、FAQ、TTS 或旧仓库当来源。
 - 图示可读，Defender / Acolyte 与规则书示例一致；**六条全部仍标「待 Kyries 确认后才算核实」**。`verification.unverified: false` 不代表分组核实；拟议 JSON 只在 Markdown，不加载到卡池或运行时。没有新增规则裁定、图标命名或填补 null。
-- 新增 `packages/engine/src/monster-stance-data.test.ts`：直接读取本批六条真实规范化卡，锁住有 footer 且 `unverified=false`、但没有分组时，在全部姿态及未给骰 / 1 / 5 / 10 下仍返回缺分组拒绝、没有请求掷骰且输入不变。不把拟议分组当已核实夹具。
+- 新增 `packages/engine/tests/shared/core/monster-stance-data.test.ts`：直接读取本批六条真实规范化卡，锁住有 footer 且 `unverified=false`、但没有分组时，在全部姿态及未给骰 / 1 / 5 / 10 下仍返回缺分组拒绝、没有请求掷骰且输入不变。不把拟议分组当已核实夹具。
 - 最小入库路径只作说明：获批 id 人工映射 → `buildMonsterMedium` 附加 → 现有 schema 验证 → 现有生成入口输出；未知 / 重复 id、技能引用、姿态覆盖与骰表区间必须校验。不直接手改输出 JSON，不从 footer 自动推断，不靠整体验证标志越过审批。
 
 依据：R-001、R-015、R-024、R-048；官方规则书 R17、R21–24（说明书 §6.2、§6.10、G-04）。印刷 PDF 仅核卡面文字、数字与布局，不补规则。原始本机资料只读，渲染图均在忽略的 `node_modules/.cache/stance-review/`，未提交图像或 PDF。
@@ -1408,12 +1408,12 @@ Kyries 随后要求“提交git”。前置姿态选招结构、纯函数及准�
 
 本块从本地 tip `9c00d78` 继续，开始时工作区干净。Kyries 已审核对照表并回复“我看过了，建议六条都可以确认”；据此批准该表六个 id 的姿态分组。对照表已更新批准日期及实施记录，批准不扩散到其他怪物或卡面字段。Kyries 随后要求“提交git”，本块代码、生成数据、测试和交接更新纳入本次本地提交，未推送或合并。
 
-- 新增 `packages/data/src/normalize/verified-monster-stances.ts`：只含 Bone Soldier、Bone Courtier、Bone Arbalist、Bone Defender、Bone Rabble、Cultist Acolyte 的获批 id / 卡名 / I 级 / 印刷页码与分组。`buildMonsterMedium` 在现有生成路径按 id 附加，经过已有规范化 schema；不从 footer 自动解析，不手改输出 JSON。
+- 新增 `packages/data/src/core/monsters/verified-monster-stances.build.ts`：只含 Bone Soldier、Bone Courtier、Bone Arbalist、Bone Defender、Bone Rabble、Cultist Acolyte 的获批 id / 卡名 / I 级 / 印刷页码与分组。`buildMonsterMedium` 在现有生成路径按 id 附加，经过已有规范化 schema；不从 footer 自动解析，不手改输出 JSON。
 - 映射入口拒绝未知 / 重复 id、卡池重复 id、大型参考卡、卡名 / 等级 / 页码漂移；既有 schema 继续校验四姿态完整覆盖、相邻分组、骰表 1–10 完整无重叠 / 倒置，以及技能编号唯一存在。保留原来的整体验证标记，不把分组批准当作其他字段批准。
 - 沿 `writeNormalizedCorebox` 重生成规范化层。只在 `monster_medium.json` 六条记录增加分组；与 `9c00d78` 比较，删去这六个新增字段后完全相等，其他五类生成文件无差异。原 footer、null 数字、duration、词典、验证原因、统计与 raw / parsed 均不变。
 - 更新真实卡测试：六条获批卡逐一验证四姿态和全部 1–10 骰面，固定组选招不需骰；所有仍无分组且 `unverified=false` 的真实技能卡继续拒绝。既有命令缺分组拒绝夹具显式移除 Soldier 的分组，保留不消费 RNG 的安全门。新增四项入库测试，覆盖生成一致、重复生成、输入与其他字段不变、未知 / 重复 / 错卡 / 错技能等拒绝。
 
-依据：R-001、R-015、R-048；官方规则书 R17、R21–24 与 `docs/monster-stance-review-2026-10-09.md` §3–4、§7 的卡面核对和 Kyries 批准记录。本块没有另行补规则、图标语义或 null 默认值，没有读取或修改原始资料，没有提交资产。
+依据：R-001、R-015、R-048；官方规则书 R17、R21–24 与 `docs/reviews/monster-stance-review-2026-10-09.md` §3–4、§7 的卡面核对和 Kyries 批准记录。本块没有另行补规则、图标语义或 null 默认值，没有读取或修改原始资料，没有提交资产。
 
 刻意没做：更多怪物核实、Speed 补值、自动移动 / 寻路、多目标、死门、Boss、扩展、战役或战斗 UI。下一块建议先明确普通怪物单目标移动流程所需的已核实 Speed / 区域资料；缺数据继续拒绝，不因为本批分组获批就补默认数字。分组本身现在可供已有选招函数和准备命令读取，仍不代表完整怪物 AI 可玩。
 
@@ -1442,10 +1442,10 @@ A、B、C 已在两项 CI（质量检查和 Playwright smoke）均成功后合�
 
 从本地 tip `0d18f2c` 继续，开始时工作区干净。按“先核六条 Speed → Kyries 确认后入库”的下一块计划，完成核图与 schema 准备；尚未提交、推送或合并。
 
-- 新增 `docs/monster-speed-review-2026-10-09.md`：同批六个核心盒 I 级 id、卡面头部 Speed 图标数量、17 面颜色副本一致性、raw 代表页图标位置、规则页码、拟议数值及确认后的独立入库路径。拟议 Soldier 1、Courtier 3、Arbalist 2、Defender 1、Rabble 1、Acolyte 3，**全部待 Kyries 确认**。
+- 新增 `docs/reviews/monster-speed-review-2026-10-09.md`：同批六个核心盒 I 级 id、卡面头部 Speed 图标数量、17 面颜色副本一致性、raw 代表页图标位置、规则页码、拟议数值及确认后的独立入库路径。拟议 Soldier 1、Courtier 3、Arbalist 2、Defender 1、Rabble 1、Acolyte 3，**全部待 Kyries 确认**。
 - 查看官方规则书 R10、R18、R23、R24 的完整页面图像；R24 解剖图明确标注 Speed 栏，R24 移动正文定义用途，R23 Defender 示例使用 1 Speed。图标 `4648c9e5ec` 在词典 v1.8 为已确认的 speed，单图标 value 仍为 null；本表按已标注头部栏的出现数量提出数值，不补图标 null，也不统计整张卡的效果图标。
 - 普通怪物规范化 schema 新增可选非负整数 `speed`，无 default / coercion；不存在的字段保持缺省，null、负数、小数、字符串等拒绝。允许结构表达 0 不代表任何卡已核实为 0。没有新增引擎 Speed 读取或自动移动逻辑。
-- 新增 `packages/data/src/normalize/monster-speed.test.ts` 四项测试：六条卡即使获批 stanceGroups、`unverified=false` 且有已命名 Speed 图标，生成后仍缺 Speed 数值；所有怪物 / 大型卡不推断默认值，旧卡解析不添加属性；显式整数的结构夹具不写入卡池，脏值拒绝。现有生成一致测试继续通过，规范化 JSON / raw / parsed / 词典均无差异。
+- 新增 `packages/data/tests/core/monsters/monster-speed.build.test.ts` 四项测试：六条卡即使获批 stanceGroups、`unverified=false` 且有已命名 Speed 图标，生成后仍缺 Speed 数值；所有怪物 / 大型卡不推断默认值，旧卡解析不添加属性；显式整数的结构夹具不写入卡池，脏值拒绝。现有生成一致测试继续通过，规范化 JSON / raw / parsed / 词典均无差异。
 
 依据：R-001、R-048；核心规则书 R10、R18、R23、R24，说明书图例 I-18 仅作索引。沿用当前版印刷 FRONT，未用 Old_Version / FAQ / TTS / 旧仓库。原始资料只读，渲染和局部对照只留忽略目录，不入库。
 
@@ -1472,7 +1472,7 @@ A、B、C 已在两项 CI（质量检查和 Playwright smoke）均成功后合�
 
 Kyries 已确认远端同步，不要求重复查 PR。开工时本地工作区干净，在 `D:\ddbg-web` 的 `main` 执行 `pull --ff-only`，已同步至 `4d72d05`（合并 #52；六条姿态组与六条 Speed 均在 main）。上文 Speed 草稿 / 未合并状态是历史记录。随后建立 `codex/phase2-ruins-room-tile-review`，本块没有提交、推送或创建 PR。
 
-- 新增 `docs/ruins-room-tile-review-2026-10-10.md`，只核核心盒 `DD_COREBOX_TILES_FRONT.pdf` 第 1 页 FRONT / 编号 1，配套房间卡名 Ritual Chamber。已有 raw id 为 `dungeon_tile:p001`，类别命名不代表这面是探索地图；尚无规范化 Room Tile id。
+- 新增 `docs/reviews/ruins-room-tile-review-2026-10-10.md`，只核核心盒 `DD_COREBOX_TILES_FRONT.pdf` 第 1 页 FRONT / 编号 1，配套房间卡名 Ritual Chamber。已有 raw id 为 `dungeon_tile:p001`，类别命名不代表这面是探索地图；尚无规范化 Room Tile id。
 - 对照完整板块图、同张房间卡以及官方规则书 R16、R17、R18、R24、R25 的页面图像，记录 10 个区域、逐区圆点容量、高低地、11 对共享边候选、3 对角点候选、3 处黑空区、起始与两处宝箱放置点；45 对区域全部有覆盖索引。
 - 中央高地 E-F 边界可通过性单列待确认，结构草稿保留 `adjacent=null`；C 左金框的姿态、C/H 红色星形语义保留原始 ID / null，不用排除法补姿态。其他可读候选也仍需本次人工批准，不修改词典状态。
 - 文档内给出 JSON 草稿（`usable=false`）及确认后的最小人工映射 / Zod / 生成路径。没有创建几何 schema 或映射，没有重新生成数据；本表不能作为完整可用区域图。

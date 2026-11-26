@@ -47,22 +47,22 @@ export const hNN = defineHeroModule({ id: "hNN", hero: "...", entries, fixes });
 
 `entries` 的 key 与消费方一一对应：
 
-| key             | 消费方                                                          |
-| --------------- | --------------------------------------------------------------- |
-| `status`        | [status-effects.ts](./status-effects.ts)                        |
-| `range`         | [ranges.ts](./ranges.ts)                                        |
-| `self`          | [self-effects.ts](./self-effects.ts)                            |
-| `targetStress`  | [target-stress.ts](./target-stress.ts)                          |
-| `removal`       | [removal.ts](./removal.ts)                                      |
-| `targetCount`   | [target-counts.ts](./target-counts.ts)                          |
-| `support`       | [support-effects.ts](./support-effects.ts)                      |
-| `layout`        | [layout.ts](./layout.ts)                                        |
-| `damage`        | [damage.ts](./damage.ts)                                        |
-| `rallyingFlare` | [rallying-flare.ts](./rallying-flare.ts)                        |
-| `bounty`        | [bounty-statuses.ts](./bounty-statuses.ts)                      |
-| `shuffle`       | [text-rules.ts](./text-rules.ts)                                |
-| `ignores`       | [text-rules.ts](./text-rules.ts)                                |
-| `higher`        | [../core-higher-skills.build.ts](./core-higher-skills.build.ts) |
+| key             | 消费方                                                           |
+| --------------- | ---------------------------------------------------------------- |
+| `status`        | [status-effects.ts](./status-effects.ts)                         |
+| `range`         | [ranges.ts](./ranges.ts)                                         |
+| `self`          | [self-effects.ts](./self-effects.ts)                             |
+| `targetStress`  | [target-stress.ts](./target-stress.ts)                           |
+| `removal`       | [removal.ts](./removal.ts)                                       |
+| `targetCount`   | [target-counts.ts](./target-counts.ts)                           |
+| `support`       | [support-effects.ts](./support-effects.ts)                       |
+| `layout`        | [layout.ts](./layout.ts)                                         |
+| `damage`        | [damage.ts](./damage.ts)                                         |
+| `rallyingFlare` | [rallying-flare.ts](./rallying-flare.ts)                         |
+| `bounty`        | [bounty-statuses.ts](./bounty-statuses.ts)                       |
+| `shuffle`       | [text-rules.ts](./text-rules.ts)                                 |
+| `ignores`       | [text-rules.ts](./text-rules.ts)                                 |
+| `higher`        | [../core-higher-skills.build.ts](../core-higher-skills.build.ts) |
 
 `index.ts` 只做泛型聚合：`HERO_ANNOTATIONS` 是 18 个模块，`entriesOf(key)` 拼出各 applier 的输入。
 

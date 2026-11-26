@@ -18,7 +18,7 @@
 
 ## 引擎交付
 
-- 模块：`packages/engine/src/boss/swine-prince-i.ts`（`ensureSwinePrinceIBossScriptRegistered` / `ensureCoreBossScriptsRegistered`）。
+- 模块：`packages/engine/src/warrens/bosses/swine-prince/swine-prince-i.ts`（`ensureSwinePrinceIBossScriptRegistered` / `ensureCoreBossScriptsRegistered`）。
 - 威胁 helper：`beastMonsterDamageBonusFromBossThreat`；村庄封锁经 `hamletBuildingsBlockedByBossThreat`（`survivalistBlocked`）。
 - `threat-description-catalog`：`boss_ability:warrens:swine_prince:p001` → `boss:warrens:swine_prince:1`；`WARRENS_BOSS_DESCRIPTION_CARD_ID` 仅填 Swine Prince I。
 - 类型：`BossThreatPassiveDungeonOk` / `BossThreatPassiveHamletOk` 扩展 `beastMonsterDamageBonus`、`survivalistBlocked`。
@@ -35,7 +35,7 @@
 | quest / Face the Threat → Swine Prince                          | `defaultFaceTheThreatEmbarkHook` **ok**                                                                                                                                                                      |
 | **R-121** Boss 位                                               | `defaultBossSlotPlacementHook` 校验 **ok**；洗牌写入 hold                                                                                                                                                    |
 | Swine Prince II/III、Brigand Vvulf                              | 未注册                                                                                                                                                                                                       |
-| The Flesh I                                                     | 见 `docs/phase5-flesh-i-script-2026-10-28.md`                                                                                                                                                                |
+| The Flesh I                                                     | 见 `docs/phases/phase5/phase5-flesh-i-script-2026-10-28.md`                                                                                                                                                  |
 
 ## 印刷 / 数据映射
 
@@ -50,6 +50,6 @@
 ## 测试
 
 ```bash
-pnpm exec vitest run packages/engine/src/boss/swine-prince-i.test.ts packages/engine/src/boss/swine-prince-i-combat-runtime.test.ts packages/engine/src/boss/threat-establishment.test.ts packages/engine/src/boss/hag-i.test.ts packages/engine/src/boss/prophet-i.test.ts packages/engine/src/boss/necromancer-i.test.ts
+pnpm exec vitest run packages/engine/tests/warrens/bosses/swine-prince/swine-prince-i.test.ts packages/engine/tests/warrens/bosses/swine-prince/swine-prince-i-combat-runtime.test.ts packages/engine/tests/core/bosses/threat-establishment.test.ts packages/engine/tests/weald/bosses/hag/hag-i.test.ts packages/engine/tests/core/bosses/prophet/prophet-i.test.ts packages/engine/tests/core/bosses/necromancer/necromancer-i.test.ts
 pnpm typecheck
 ```

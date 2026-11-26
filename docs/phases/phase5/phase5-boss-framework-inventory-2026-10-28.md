@@ -9,7 +9,7 @@
 
 | 领域                 | 现状                                                                         | 位置 / 依据                                                                  |
 | -------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
-| Boss 任务卡数据      | p016–p019 已入库：`bossQuest`、`xpKind: flat` / `flatXp: 3`、区域与分布 JSON | `packages/data/src/basic-quests.ts`；R-120、R-122                            |
+| Boss 任务卡数据      | p016–p019 已入库：`bossQuest`、`xpKind: flat` / `flatXp: 3`、区域与分布 JSON | `packages/data/src/core/quests/basic-quests.ts`；R-120、R-122                |
 | Face the Threat 分布 | quest:p019 七类房间代币计数已 extract                                        | `face_the_threat_distribution.json`                                          |
 | Rising Threat 分布   | quest:p005 等普通 III 级任务用 rising threat 行（**非** Boss 战专用）        | `rising_threat_distribution.json`；与升幕后「迫近威胁」文案相关，运行时未接  |
 | QuestMap Boss 位语义 | p011 A/B/G、p012 A/C/D → `slotKind: boss`                                    | `dungeon_layouts.json`；R-121                                                |

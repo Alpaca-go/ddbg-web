@@ -1,6 +1,6 @@
 # HANDOFF 2026-11-08：18 名英雄核心化 —— 扩展英雄 II/III 技能逐卡核实
 
-给下一位代理（grok bot）的交接。当前 `main == origin/main == 6b880a08`。先读 `docs/rulings.md` 的 R-200 / Q-104 与 `docs/phase7-hero-expansion-verification-2026-11-08.md`。
+给下一位代理（grok bot）的交接。当前 `main == origin/main == 6b880a08`。先读 `docs/rulings.md` 的 R-200 / Q-104 与 `docs/phases/phase7/phase7-hero-expansion-verification-2026-11-08.md`。
 
 ## 1. 任务目标
 
@@ -16,7 +16,7 @@ Kyries 决定：**18 名正式英雄都按核心内容对待**（Musketeer 纳�
 - `hero_stat`：54 面，18 名英雄 `attributesVerified = true`；Antiquarian III 已在 `6b880a08` 入库（Life 15 / Dodge 3 / Speed 0；Blight 抗性；Shuffle + Disease 免疫）。
 - `hero_skill`：378 张，`verification.unverified` 全为 false（数据转录层）。
 - 战斗目录 `apps/web/battle-data-plugin.ts`：核心 11 名 I–III（231 张）+ 扩展 7 名 L1（49 张）；`core-higher-skill-catalog.ts` 的 `coreHigherSkillAvailable` 只放行 `hero_skill:p001–p231`。
-- 审计 `packages/engine/src/core-higher-skills.test.ts`：只覆盖核心 154 张高等级卡，逐 d10 面通过。
+- 审计 `packages/engine/tests/shared/core/core-higher-skills.test.ts`：只覆盖核心 154 张高等级卡，逐 d10 面通过。
 - 扩展 L1 测试：`cove-skills.test.ts`、`weald-skills.test.ts`、`warrens-skills.test.ts`、`musketeer-skills.test.ts`（都只测"七张 I 级"）。
 - 试切目录后的审计结果（2026-11-08）：98 张里 **只有 8 张直接通过**（Leper Chop/Hew L2–L3、Antiquarian Nervous Stab L2–L3、Man-at-Arms Crush L2–L3），90 张失败：26 张 `effect_lines` 未消费、16 张缺 damage/heal 目标注解、14 张 Musketeer（R-008，已由 R-200 覆盖）、13 张 Self/All Allies 缺射程、10 张区间射程 `numeric=null`、10 张缺目标图标、1 张目标图标混用。
 
@@ -43,8 +43,8 @@ Kyries 决定：**18 名正式英雄都按核心内容对待**（Musketeer 纳�
   5. `verified-hero-support.ts`（治疗/支援/Empty Area 等）
   6. `verified-bounty-statuses.ts`
 - **2026-11-23 目录调整（已完成）**：英雄技能的逐卡注解已全部按 hNN 收进 `normalize/hero-annotations/`：`CORE_HIGHER_SKILL_ROWS`、`STATUS_EFFECTS`、`RANGES`、`SUPPORT_EFFECTS`、`RALLYING_FLARE_ENTRIES`、`BOUNTY_STATUS_ROWS`、`LAYOUT_ENTRIES`、`DAMAGE_ENTRIES`，以及 `HERO_ANNOTATIONS`（扩展英雄补丁模块）。根目录的 `verified-hero-*` / `verified-rallying-flare` / `verified-bounty-statuses` 已全部删除；`build.ts` 统一经由 `hero-annotations` 的 apply 函数接线（`verified-resolve-triggers` 属于美德/折磨卡，不在本批）。
-- 生成入口：`packages/data/src/normalize/build.ts`（`hero_skill` 段）。
-- 重生成：`$env:WRITE_NORMALIZED='1'; pnpm exec vitest run packages/data/src/normalize/normalize.test.ts`
+- 生成入口：`packages/data/src/core/corebox.build.ts`（`hero_skill` 段）。
+- 重生成：`$env:WRITE_NORMALIZED='1'; pnpm exec vitest run packages/data/tests/shared/normalize.build.test.ts`
 - 卡面数字位置：raw 的 `spans`（文本）与 `icons`（图标 bbox）；核对时以印刷行为准。
 
 ## 5. 已知图标数据错配（逐卡，不要改全局字典）
@@ -87,9 +87,9 @@ Kyries 已给读数（2026-11-08）：
 1. **Leper**（14 张）：先把上面 4 点问清；给 p282/p284/p285/p290/p291 做 stats/效果行覆盖，补 `verified-hero-statuses/support` 条目；让 Leper 14 张全部通过 d10 审计。
 2. 其余 6 名按顺序：Antiquarian → Flagellant → Man-at-Arms → Houndmaster → Shieldbreaker → Musketeer（每名 14 张）。
 3. 每批都要：
-   - 扩展 `packages/engine/src/core-higher-skills.test.ts` 的卡集合（或新建审计测试）到对应英雄；
-   - 跑该英雄的 d10 审计 + `packages/engine/src/core-higher-skills.test.ts` + `packages/data` 相关测试；
-   - 更新 `docs/phase7-hero-expansion-verification-2026-11-08.md` 的记录。
+   - 扩展 `packages/engine/tests/shared/core/core-higher-skills.test.ts` 的卡集合（或新建审计测试）到对应英雄；
+   - 跑该英雄的 d10 审计 + `packages/engine/tests/shared/core/core-higher-skills.test.ts` + `packages/data` 相关测试；
+   - 更新 `docs/phases/phase7/phase7-hero-expansion-verification-2026-11-08.md` 的记录。
 4. 全部 98 张通过后统一切目录：
    - `core-higher-skill-catalog.ts`：把 `coreHigherSkillAvailable` 扩到 18 名英雄全部（`hero_skill:p001–p357` + `hero_skill:musketeer:p001–p021`）；
    - `battle-data-plugin.ts`：按 `catalogNames` 收全部已核实技能，去掉 `formalRosterArtOnlySkills()` 注入；更新 `expectedSkills` / `expectedHeroStats` 计数；
@@ -103,16 +103,16 @@ Kyries 已给读数（2026-11-08）：
 - 18 名英雄 × I–III 全部技能在战斗目录中可选；level 2/3 的扩展英雄能正常升级选招。
 - `core-higher-skills` 审计覆盖 252 张（154 核心 + 98 扩展）并全绿；每个 d10 面都不跳过任何 `effect_lines`。
 - 所有新增注解都带签名断言：卡面/来源漂移时**拒绝**，而不是静默补值（R-048）。
-- `pnpm typecheck`、`pnpm exec vitest run packages/data`、`packages/engine/src/core-higher-skills.test.ts`、web build 全绿。
+- `pnpm typecheck`、`pnpm exec vitest run packages/data`、`packages/engine/tests/shared/core/core-higher-skills.test.ts`、web build 全绿。
 - 不改自然策略/种子（R-190），不改全局词典，不提交美术/PDF。
 
 ## 9. 常用命令
 
 ```powershell
 pnpm typecheck
-pnpm exec vitest run packages/engine/src/core-higher-skills.test.ts
+pnpm exec vitest run packages/engine/tests/shared/core/core-higher-skills.test.ts
 pnpm exec vitest run packages/data
-$env:WRITE_NORMALIZED='1'; pnpm exec vitest run packages/data/src/normalize/normalize.test.ts
+$env:WRITE_NORMALIZED='1'; pnpm exec vitest run packages/data/tests/shared/normalize.build.test.ts
 pnpm --filter @ddbg/web build
 ```
 
@@ -120,7 +120,7 @@ pnpm --filter @ddbg/web build
 
 - 直接提交 `main`，中文提交信息，引用 `R-200` / `Q-xxx`；一个小批次一次提交。
 - 不提交：`docs/HANDOFF-2026-11-01-codex-core-pack-remaining.md`、`docs/HANDOFF-2026-11-03-*`、`docs/HANDOFF-2026-11-05-*`、`docs/manual-room-tile-survey.md`、`docs/screenshots/_p001-geom-export.json`、`.cache/**`。
-- 需要问 Kyries 的卡面歧义，先在 `docs/phase7-hero-expansion-verification-2026-11-08.md` 或 ruling 里记 `Q-xxx`，不要猜。
+- 需要问 Kyries 的卡面歧义，先在 `docs/phases/phase7/phase7-hero-expansion-verification-2026-11-08.md` 或 ruling 里记 `Q-xxx`，不要猜。
 
 ## 11. 不要做的事
 

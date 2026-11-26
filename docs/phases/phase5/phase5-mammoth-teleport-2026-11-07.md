@@ -18,10 +18,10 @@
 ## 验证
 
 ```bash
-pnpm exec vitest run packages/engine/src/boss/mammoth-cyst-teleport.test.ts
-pnpm exec vitest run packages/engine/src/monster-effect-plan.test.ts \
-  packages/engine/src/boss/darkest-mammoth-cyst-combat-runtime.test.ts \
-  packages/engine/src/boss/mammoth-cyst-i-deploy.test.ts
+pnpm exec vitest run packages/engine/tests/core/bosses/mammoth-cyst/mammoth-cyst-teleport.test.ts
+pnpm exec vitest run packages/engine/tests/shared/core/monster-effect-plan.test.ts \
+  packages/engine/tests/core/bosses/mammoth-cyst/darkest-mammoth-cyst-combat-runtime.test.ts \
+  packages/engine/tests/core/bosses/mammoth-cyst/mammoth-cyst-i-deploy.test.ts
 pnpm typecheck
 ```
 

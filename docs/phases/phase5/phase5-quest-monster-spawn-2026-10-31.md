@@ -20,9 +20,9 @@
 ```bash
 pnpm typecheck
 pnpm exec vitest run \
-  packages/engine/src/quest-monster-spawn.test.ts \
-  packages/engine/src/quest-monster-deployment.test.ts \
-  packages/data/src/quest-monster-plan.test.ts
+  packages/engine/tests/shared/quest/quest-monster-spawn.test.ts \
+  packages/engine/tests/shared/quest/quest-monster-deployment.test.ts \
+  packages/data/tests/core/monsters/quest-monster-plan.test.ts
 ```
 
 相对 #421/#422 只接生成执行器；不修改网页与存档 schema。

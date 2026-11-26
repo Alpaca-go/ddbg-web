@@ -18,11 +18,11 @@ RNG：任务补给不掷骰、不消耗游标；净化只消耗行动与库存�
 ## 验证
 
 ```bash
-pnpm exec vitest run packages/engine/src/quest-p010-purify.test.ts
-pnpm exec vitest run packages/engine/src/dungeon-objective.test.ts \
-  packages/engine/src/dungeon-starting-provisions.test.ts \
-  packages/engine/src/dungeon-quest-entry.test.ts \
-  packages/engine/src/dungeon-provision-use.test.ts
+pnpm exec vitest run packages/engine/tests/shared/quest/quest-p010-purify.test.ts
+pnpm exec vitest run packages/engine/tests/shared/dungeon/dungeon-objective.test.ts \
+  packages/engine/tests/shared/dungeon/dungeon-starting-provisions.test.ts \
+  packages/engine/tests/shared/dungeon/dungeon-quest-entry.test.ts \
+  packages/engine/tests/shared/dungeon/dungeon-provision-use.test.ts
 pnpm typecheck
 ```
 

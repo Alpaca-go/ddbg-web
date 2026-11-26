@@ -11,7 +11,7 @@
 
 | 项                          | 来源                                                                                         |
 | --------------------------- | -------------------------------------------------------------------------------------------- |
-| 十四区与部署落点            | R-162、`packages/data/src/normalize/templars-room.ts`                                        |
+| 十四区与部署落点            | R-162、`packages/data/src/core/rooms/templars-room.build.ts`                                 |
 | 专用 deploy 与 finish       | **R-180**、[rulings.md](../../rulings.md#r-180)                                              |
 | Impaler 进攻 / Warlord 远程 | `darkest_boss_content.json` quest:p017、`docs/spec` R39                                      |
 | 先攻 8（各 Templar 2×2）    | `darkest-mid-boss-deploy.ts` · `expandDarkestMidBossInitiativeDeckSides`                     |
@@ -31,12 +31,12 @@
 
 ```bash
 pnpm exec vitest run \
-  packages/engine/src/boss/templars-i-deploy.test.ts \
-  packages/engine/src/boss/templars-i-finish.test.ts \
-  packages/engine/src/boss/darkest-mid-boss-runtime.test.ts \
-  packages/engine/src/boss/darkest-mid-boss-initiative.test.ts \
-  packages/engine/src/darkest-finish-battle.test.ts \
-  packages/engine/src/darkest-ordinary-monster-deploy.test.ts
+  packages/engine/tests/core/bosses/templars/templars-i-deploy.test.ts \
+  packages/engine/tests/core/bosses/templars/templars-i-finish.test.ts \
+  packages/engine/tests/core/bosses/darkest/darkest-mid-boss-runtime.test.ts \
+  packages/engine/tests/core/bosses/darkest/darkest-mid-boss-initiative.test.ts \
+  packages/engine/tests/core/darkest/darkest-finish-battle.test.ts \
+  packages/engine/tests/core/darkest/darkest-ordinary-monster-deploy.test.ts
 pnpm typecheck
 ```
 

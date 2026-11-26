@@ -23,4 +23,4 @@
 
 ## 测试
 
-`pnpm typecheck && pnpm lint && pnpm test && pnpm build`；`packages/engine/src/musketeer-skills.test.ts`、`packages/data/src/normalize/musketeer-hero-stat.test.ts`。
+`pnpm typecheck && pnpm lint && pnpm test && pnpm build`；`packages/engine/tests/shared/core/musketeer-skills.test.ts`、`packages/data/tests/core/heroes/musketeer-hero-stat.build.test.ts`。

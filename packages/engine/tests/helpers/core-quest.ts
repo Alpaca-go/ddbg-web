@@ -9,7 +9,7 @@ import trinkets from "../../../data/normalized/corebox/trinket.json";
 import rooms from "../../../data/normalized/corebox/room.json";
 import monsters from "../../../data/normalized/corebox/monster_pool.json";
 import curios from "../../../data/normalized/corebox/curio.json";
-import { normalizedHeroStatFileSchema } from "../../../data/src/core/heroes/hero-stat.build";
+import { normalizedHeroStatFileSchema } from "../../../data/src/core/heroes/hero-stat";
 import {
   normalizedHeroSkillFileSchema,
   normalizedMonsterMediumFileSchema,

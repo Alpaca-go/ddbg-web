@@ -12,7 +12,7 @@ import {
   skillBelongsToFormalHero,
 } from "../../packages/engine/src/index";
 import { diseaseFileSchema } from "../../packages/data/src/core/hamlet/disease";
-import { normalizedHeroStatFileSchema } from "../../packages/data/src/core/heroes/hero-stat.build";
+import { normalizedHeroStatFileSchema } from "../../packages/data/src/core/heroes/hero-stat";
 import { heroSkillIdForPage } from "../../packages/data/src/core/heroes/hero-registry";
 import { shareBattleCatalogs } from "./battle-data-shared";
 import { roomTileGeometryFileSchema } from "../../packages/data/src/core/tiles/room-tile";

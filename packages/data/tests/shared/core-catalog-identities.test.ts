@@ -2,7 +2,18 @@ import { expect, it } from "vitest";
 import rooms from "../../normalized/corebox/room.json";
 import tiles from "../../normalized/corebox/room_tile_geometry.json";
 import stygian from "../../normalized/corebox/stygian_rooms.json";
+import coveCurios from "../../normalized/extension/cove/curio.json";
+import coveRooms from "../../normalized/extension/cove/room.json";
+import wealdMedium from "../../normalized/extension/weald/monster_medium.json";
+import wealdLarge from "../../normalized/extension/weald/monster_large.json";
+import wealdHigherMonsters from "../../normalized/extension/weald/higher_monsters.json";
+import wealdQuestExceptionMonsters from "../../normalized/extension/weald/quest_exception_monsters.json";
+import wealdCurios from "../../normalized/extension/weald/curio.json";
 import wealdRooms from "../../normalized/extension/weald/room.json";
+import wealdTiles from "../../normalized/extension/weald/room_tile_geometry.json";
+import wealdStygian from "../../normalized/extension/weald/stygian_rooms.json";
+import wealdQuests from "../../normalized/extension/weald/quest_cards.json";
+import wealdHigherQuests from "../../normalized/extension/weald/higher_quests.json";
 import heroStats from "../../normalized/corebox/hero_stat.json";
 import heroSkills from "../../normalized/corebox/hero_skill.json";
 import hamlet from "../../normalized/corebox/hamlet_event.json";
@@ -21,13 +32,13 @@ import darkestBosses from "../../normalized/corebox/darkest_boss_content.json";
 import {
   canonicalHeroStatCardSchema,
   normalizedHeroStatFileSchema,
-} from "../../src/core/heroes/hero-stat.build";
+} from "../../src/core/heroes/hero-stat";
 import { HERO_ORDER } from "../../src/core/heroes/hero-registry";
 import { basicQuests } from "../../src/core/quests/basic-quests";
 import { hamletEventCardSchema } from "../../src/core/hamlet/hamlet-event";
 import { canonicalHeroSkillFileSchema } from "../../src/shared/schema";
 
-it("核心正式目录的实体 ID 唯一，Boss 引用解析到对应目录", () => {
+it("核心和扩展正式目录的实体 ID 唯一，核心 Boss 引用解析到对应目录", () => {
   const cards = [
     ...rooms.cards,
     ...tiles.tiles,
@@ -46,6 +57,18 @@ it("核心正式目录的实体 ID 唯一，Boss 引用解析到对应目录", (
     ...trinkets.cards,
     ...ruinsAbilities.cards,
     ...darkestAbilities.cards,
+    ...coveCurios.cards,
+    ...coveRooms.cards,
+    ...wealdCurios.cards,
+    ...wealdRooms.cards,
+    ...wealdTiles.tiles,
+    ...wealdStygian.cards,
+    ...wealdQuests.cards,
+    ...wealdHigherQuests.cards,
+    ...wealdMedium.cards,
+    ...wealdLarge.cards,
+    ...wealdHigherMonsters.cards,
+    ...wealdQuestExceptionMonsters.cards,
   ];
   expect(new Set(cards.map((card) => card.id)).size).toBe(cards.length);
 
@@ -64,13 +87,18 @@ it("核心正式目录的实体 ID 唯一，Boss 引用解析到对应目录", (
 });
 
 it("房间、板块、替换牌和任务预留引用闭合", () => {
-  const standard = new Map(rooms.cards.map((room) => [room.id, room]));
-  expect(new Set(tiles.tiles.map((tile) => tile.roomId))).toEqual(new Set(standard.keys()));
-  for (const tile of tiles.tiles) {
+  const standard = new Map([...rooms.cards, ...wealdRooms.cards].map((room) => [room.id, room]));
+  expect(new Set(tiles.tiles.map((tile) => tile.roomId))).toEqual(
+    new Set(rooms.cards.map((room) => room.id)),
+  );
+  expect(new Set(wealdTiles.tiles.map((tile) => tile.roomId))).toEqual(
+    new Set(wealdRooms.cards.filter((room) => !room.boss).map((room) => room.id)),
+  );
+  for (const tile of [...tiles.tiles, ...wealdTiles.tiles]) {
     expect(standard.get(tile.roomId)?.number).toBe(tile.number);
     expect(tile.id.replace("room_tile:", "room:")).toBe(tile.roomId);
   }
-  for (const replacement of stygian.cards) {
+  for (const replacement of [...stygian.cards, ...wealdStygian.cards]) {
     expect(standard.get(replacement.replacesCardId)?.number).toBe(replacement.number);
     expect(replacement.id.replace("stygian_room:", "room:")).toBe(replacement.replacesCardId);
   }

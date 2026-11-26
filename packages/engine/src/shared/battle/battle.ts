@@ -202,8 +202,8 @@ export type BattleSetup = {
     readonly level?: number;
     /** 英雄属性规则：防御 / 高等级防御 / Buff 抗性。 */
     readonly rules?: {
-      readonly conditionDefence?: import("../../../../data/src/core/heroes/hero-stat.build").HeroConditionDefence;
-      readonly higherConditionDefence?: import("../../../../data/src/core/heroes/hero-higher-defence.build").HigherHeroDefence;
+      readonly conditionDefence?: import("../../../../data/src/core/heroes/hero-stat").HeroConditionDefence;
+      readonly higherConditionDefence?: import("../../../../data/src/core/heroes/hero-higher-defence").HigherHeroDefence;
       readonly buffDefence?: {
         readonly resistant: boolean;
         readonly immune: boolean;

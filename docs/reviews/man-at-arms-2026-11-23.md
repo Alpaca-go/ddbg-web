@@ -1,8 +1,8 @@
 # Man-at-Arms（h12）技能语义复核 — 2026-11-23
 
 范围：`hero_skill:cove:h12:p232`–`p252`，共 21 张（7 技能 × I–III）。
-依据：Q-176、Q-177、R-209、`docs/phase7-hero-expansion-verification-2026-11-08.md`、
-[h12-man-at-arms.test.ts](../../packages/data/src/normalize/hero-annotations/h12-man-at-arms.test.ts)。
+依据：Q-176、Q-177、R-209、`docs/phases/phase7/phase7-hero-expansion-verification-2026-11-08.md`、
+[Man-at-Arms II／III 技能回归](../../packages/engine/tests/shared/core/man-at-arms-higher-skills.test.ts)。
 
 ## 逐族结论
 

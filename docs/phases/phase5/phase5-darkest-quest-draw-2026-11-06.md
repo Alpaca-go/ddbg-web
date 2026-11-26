@@ -19,7 +19,7 @@
 ## 验证
 
 ```bash
-pnpm exec vitest run packages/engine/src/darkest-entry.test.ts
+pnpm exec vitest run packages/engine/tests/core/darkest/darkest-entry.test.ts
 pnpm exec vitest run apps/web/src/dungeon-sandbox/hamlet/hamlet-event-section.test.tsx
 pnpm typecheck
 ```

@@ -3,11 +3,11 @@ import { expect, it } from "vitest";
 import geometry from "../../../normalized/corebox/room_tile_geometry.json";
 import rooms from "../../../normalized/corebox/room.json";
 import { rawFileSchema } from "../../../src/shared/extract/raw";
+import { assertProphetRoomSource } from "../../../src/core/rooms/prophet-room.build";
 import {
   approvedProphetRoom as tile,
   prophetRoomSchema,
-  assertProphetRoomSource,
-} from "../../../src/core/rooms/prophet-room.build";
+} from "../../../src/core/rooms/prophet-room";
 import { buildRoomTileGeometry } from "../../../src/core/tiles/room-tile.build";
 import { selectRoomTile } from "../../../src/core/rooms/room-tile-selection";
 

@@ -31,8 +31,8 @@ Kyries 本聊天最新指令：**“写好交接文档，然后合并，接下�
 
 可从以下位置继续核对并实现，遇到未裁定语义继续提出待确认项，不自行猜测：
 
-- `packages/engine/src/dungeon-starting-provisions.ts`：普通8骰、Radiant/Wild选择、奖励骰与后续续接；保留原骰和RNG，不能重新掷骰或跳过其它既有待选。
-- `packages/engine/src/hamlet-traveling-merchants.ts`：已有逐英雄改骰模式可参考，但不要直接假定同任务规则的顺序、奖励骰归属或可选范围完全一致。
+- `packages/engine/src/shared/dungeon/dungeon-starting-provisions.ts`：普通8骰、Radiant/Wild选择、奖励骰与后续续接；保留原骰和RNG，不能重新掷骰或跳过其它既有待选。
+- `packages/engine/src/shared/hamlet/hamlet-traveling-merchants.ts`：已有逐英雄改骰模式可参考，但不要直接假定同任务规则的顺序、奖励骰归属或可选范围完全一致。
 - `packages/data/normalized/corebox/quest_cards.json` 的 `quest:p011`：已入库卡文；印刷文字仅作卡面数据，规则优先官方规则书 + 本项目裁定。
 - 当前 `createCoreDungeonQuest` 单任务沙盒入口不开放普通 II/III 任务；测试应使用明确机制夹具或真实战役续接，不为图方便扩大开局白名单。
 
@@ -67,7 +67,7 @@ Kyries 本聊天最新指令：**“写好交接文档，然后合并，接下�
 
 ```powershell
 pnpm typecheck
-pnpm exec vitest run packages/engine/src/warm-up-dark-room.test.ts packages/engine/src/dungeon-light.test.ts packages/engine/src/dungeon-quest.test.ts
+pnpm exec vitest run packages/engine/tests/shared/core/warm-up-dark-room.test.ts packages/engine/tests/shared/dungeon/dungeon-light.test.ts packages/engine/tests/shared/dungeon/dungeon-quest.test.ts
 pnpm --filter @ddbg/web exec playwright test e2e/warm-up-dark-room.spec.ts --workers=1
 pnpm build
 ```

@@ -1,17 +1,17 @@
-import { approvedFanaticRoom, assertFanaticTileLabels } from "../rooms/fanatic-room.build";
-import { approvedCollectorRoom, assertCollectorTileLabels } from "../rooms/collector-room.build";
-import { approvedProphetRoom, assertProphetTileLabels } from "../rooms/prophet-room.build";
-import { approvedNecromancerRoom } from "../rooms/necromancer-room.build";
-import { approvedAncestorRoom } from "../rooms/ancestor-room.build";
-import {
-  approvedMammothCystRoom,
-  assertMammothCystTileLabels,
-} from "../rooms/mammoth-cyst-room.build";
-import {
-  approvedShufflingHorrorRoom,
-  assertShufflingHorrorTileLabels,
-} from "../rooms/shuffling-horror-room.build";
-import { approvedTemplarsRoom, assertTemplarsRoomTileLabels } from "../rooms/templars-room.build";
+import { assertFanaticTileLabels } from "../rooms/fanatic-room.build";
+import { approvedFanaticRoom } from "../rooms/fanatic-room";
+import { assertCollectorTileLabels } from "../rooms/collector-room.build";
+import { approvedCollectorRoom } from "../rooms/collector-room";
+import { assertProphetTileLabels } from "../rooms/prophet-room.build";
+import { approvedProphetRoom } from "../rooms/prophet-room";
+import { approvedNecromancerRoom } from "../rooms/necromancer-room";
+import { approvedAncestorRoom } from "../rooms/ancestor-room";
+import { assertMammothCystTileLabels } from "../rooms/mammoth-cyst-room.build";
+import { approvedMammothCystRoom } from "../rooms/mammoth-cyst-room";
+import { assertShufflingHorrorTileLabels } from "../rooms/shuffling-horror-room.build";
+import { approvedShufflingHorrorRoom } from "../rooms/shuffling-horror-room";
+import { assertTemplarsRoomTileLabels } from "../rooms/templars-room.build";
+import { approvedTemplarsRoom } from "../rooms/templars-room";
 import { approvedTempleOfTheChosen } from "../rooms/temple-of-the-chosen.build";
 import { approvedEvilEye, assertEvilEyeTileLabels } from "../rooms/evil-eye.build";
 import { approvedTeleporters } from "../rooms/teleporters.build";

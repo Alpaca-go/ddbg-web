@@ -33,7 +33,7 @@
 
 ```bash
 pnpm typecheck
-pnpm exec vitest run packages/engine/src/warm-up-starting-provisions.test.ts packages/engine/src/dungeon-starting-provisions.test.ts packages/engine/src/hamlet-events-batch.test.ts packages/engine/src/warm-up-dark-room.test.ts
+pnpm exec vitest run packages/engine/tests/shared/core/warm-up-starting-provisions.test.ts packages/engine/tests/shared/dungeon/dungeon-starting-provisions.test.ts packages/engine/tests/shared/hamlet/hamlet-events-batch.test.ts packages/engine/tests/shared/core/warm-up-dark-room.test.ts
 ```
 
 本刀跑通上述 vitest；不声称全库 CI 全绿。

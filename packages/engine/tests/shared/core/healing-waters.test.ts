@@ -4,7 +4,7 @@ import {
   approvedExtraRuinsTileSchema,
 } from "../../../../data/src/core/tiles/approved-ruins-tiles.build";
 import statsFile from "../../../../data/normalized/corebox/hero_stat.json";
-import { normalizedHeroStatFileSchema } from "../../../../data/src/core/heroes/hero-stat.build";
+import { normalizedHeroStatFileSchema } from "../../../../data/src/core/heroes/hero-stat";
 import { roomTileBattleAreas } from "../../../src/shared/battle/battle-monster-movement";
 import { createBattleState } from "../../../src/shared/battle/battle";
 import type { BattleEntity } from "../../../src/shared/battle/battle";

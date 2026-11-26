@@ -14,7 +14,7 @@
 | `p020` HoD               | Know This        | 等同线 bleed+stress                                               | 建议下一刀 |
 | 中途 Boss / 其他最终战招 | —                | —                                                                 | hold       |
 
-依据：`monster_large` FRONT **p018**、`docs/phase5-final-ancestor2-skills-acc-2026-11-01.md`；规则 R-001 / R-048。
+依据：`monster_large` FRONT **p018**、`docs/phases/phase5/phase5-final-ancestor2-skills-acc-2026-11-01.md`；规则 R-001 / R-048。
 
 ## 本刀接通
 
@@ -36,7 +36,7 @@
 ```bash
 pnpm typecheck
 pnpm exec vitest run \
-  packages/data/src/normalize/normalize.test.ts \
-  packages/engine/src/monster-effect-plan.test.ts \
-  packages/engine/src/boss/ancestor2-skills-acc.test.ts
+  packages/data/tests/shared/normalize.build.test.ts \
+  packages/engine/tests/shared/core/monster-effect-plan.test.ts \
+  packages/engine/tests/core/bosses/ancestor/ancestor2-skills-acc.test.ts
 ```

@@ -4,7 +4,7 @@
 
 ## 已接
 
-1. **模式枚举**：`DungeonState["mode"]` 现在为 `"standard" | "radiant" | "stygian"`；`createCoreDungeonQuest` / `createDungeonSandbox` / 存档 schema（`packages/data/src/quest-save.ts`）都接受 Stygian。
+1. **模式枚举**：`DungeonState["mode"]` 现在为 `"standard" | "radiant" | "stygian"`；`createCoreDungeonQuest` / `createDungeonSandbox` / 存档 schema（`packages/data/src/shared/quest-save.ts`）都接受 Stygian。
 2. **起始金币**：`startingGoldForMode` Stygian = **0**（Standard 10 / Radiant 20，规格书 §16.1）。
 3. **Boss +1 Crit**（R-036 / R37）：新增 `boss/stygian-boss-crit.ts`，列出全部正式 Boss 卡（Ruins 四 Boss I–III、Templar Impaler/Warlord、Mammoth Cyst、White Cell Stalk、Shuffling Horror、Ancestor 1/2、Gestating Heart、Heart of Darkness）；不含 Reflections / Pyre / Collected / 召唤物。
    - `battle-monster.ts`、`battle-monster-targets.ts`、`prophet-i-combat-runtime.ts`、`swine-prince-i-combat-runtime.ts` 的怪物战斗上下文都带 `stygianBossCrit`；

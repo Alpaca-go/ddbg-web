@@ -10,7 +10,12 @@ const result = spawnSync(
     "packages/data/tests/shared/normalize.build.test.ts",
     "packages/data/tests/weald/monsters/monsters.build.test.ts",
     "packages/data/tests/weald/curios/curio.build.test.ts",
+    "packages/data/tests/weald/quests/quest-cards.build.test.ts",
     "packages/data/tests/weald/quests/higher-quests.build.test.ts",
+    "packages/data/tests/weald/rooms/room.build.test.ts",
+    "packages/data/tests/weald/rooms/stygian-rooms.build.test.ts",
+    "packages/data/tests/cove/curios/curio.build.test.ts",
+    "packages/data/tests/cove/rooms/room.build.test.ts",
   ],
   {
     cwd: fileURLToPath(root),

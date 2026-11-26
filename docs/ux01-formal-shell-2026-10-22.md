@@ -2,7 +2,7 @@
 
 ## 基线与范围
 
-- PR #283 远程 head 为已审核的 `d72611fb6f0ebed82ce3da835b9a826637c7d7e2`，文件仅 `docs/plan.md`、`docs/ux00-ui-baseline-audit-2026-10-22.md`；核验后已合并。
+- PR #283 远程 head 为已审核的 `d72611fb6f0ebed82ce3da835b9a826637c7d7e2`，文件仅 `docs/plan.md`、`docs/reviews/ux00-ui-baseline-audit-2026-10-22.md`；核验后已合并。
 - UX-01 基线 main：`5ed06a9fda9cd06bbdc82df7d321cdce497d26ce`；独立分支 `codex/ux01-formal-shell`。S3 基线运行时代码与 UX-00 截图相同。
 - 仅实施获批 UX-00 §6：正式外壳显示与布局、必要测试/文档。不改引擎、数据、随机结算、存档、业务命令或合法性判断。遵守 R-001、R-048。
 - S4、原 S5–S11 继续暂停；不启动 UX-02。本 PR 不自动合并，等待 Kyries 人工截图验收。

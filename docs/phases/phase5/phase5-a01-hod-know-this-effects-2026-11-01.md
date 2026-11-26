@@ -14,7 +14,7 @@
 | `p018` Ancestor 2        | Refashion Them / Embrace Futility | 多效果                                                          | hold   |
 | 中途 Boss / Revivify     | —                                 | —                                                               | hold   |
 
-依据：`monster_large` FRONT **p020**、`docs/phase5-final-heart-skills-acc-2026-11-01.md`；规则 R-001 / R-048。
+依据：`monster_large` FRONT **p020**、`docs/phases/phase5/phase5-final-heart-skills-acc-2026-11-01.md`；规则 R-001 / R-048。
 
 ## 本刀接通
 
@@ -37,7 +37,7 @@
 ```bash
 pnpm typecheck
 pnpm exec vitest run \
-  packages/data/src/normalize/normalize.test.ts \
-  packages/engine/src/monster-effect-plan.test.ts \
-  packages/engine/src/boss/heart-of-darkness-skills-acc.test.ts
+  packages/data/tests/shared/normalize.build.test.ts \
+  packages/engine/tests/shared/core/monster-effect-plan.test.ts \
+  packages/engine/tests/core/bosses/final/heart-of-darkness-skills-acc.test.ts
 ```

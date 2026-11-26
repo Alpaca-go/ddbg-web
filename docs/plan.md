@@ -250,16 +250,16 @@ ddbg/
 - **交付物**：可以连续玩第 1 幕两个普通任务的战役。
 - **验收标准**：存档后刷新能完整恢复；英雄死亡补充流程正确；Kyries 试玩第 1 幕前两个任务。
 - **工期**：**1.5–2.5 周**（原 2–3.5 周）。村庄和存档只依赖战役状态模型，可以和 Phase 3 重叠约 1 周，两者合计约 3–4.5 周。
-- **进度摘记（2026-10-18）**：正式八英雄开局已开；Grave Robber I 级七战斗技能与 Pilfer 抽取已接（R-096、R-098）；Occultist I 级七战斗技能与 Dark Ritual I–III 已接（R-097 LIMITED Buff）。不进 Phase 5。详见 `docs/phase4-occultist-skills-2026-10-18.md`。
+- **进度摘记（2026-10-18）**：正式八英雄开局已开；Grave Robber I 级七战斗技能与 Pilfer 抽取已接（R-096、R-098）；Occultist I 级七战斗技能与 Dark Ritual I–III 已接（R-097 LIMITED Buff）。不进 Phase 5。详见 `docs/phases/phase4/phase4-occultist-skills-2026-10-18.md`。
 - **进度摘记（2026-10-24）**：`FORMAL_HERO_NAMES` 扩至十八名；开局建队可选全员并展示印刷技能卡（#286 map）。十名扩展／未核实 STAT 用占位属性 + art-only 技能，标待确认；缺 token/icon 降级不阻塞。不进 Phase 5。
 - **进度摘记（2026-10-24）**：Kyries 批准 Jester / Arbalest / Abomination 九面 STAT 入库；核心 trio 各七张 I 级战斗技能已核实接线（R-102 Dirk Stab 无视守护、R-103 Rallying Flare 混阵营目标），Jester / Arbalest / Abomination 均可替补。见 [核心 trio 技能记录](./phases/phase4/phase4-core-trio-skills-2026-10-24.md)。
 - **进度摘记（2026-10-24，Warrens）**：R-104：Antiquarian / Leper STAT（TDH p28–31）与 I 级七技能（印刷 p274–315，Q-103）入库接线；两人移出未接线名单并纳入替补白名单。见 [Warrens 两人记录](./phases/phase4/phase4-warrens-antiquarian-leper-2026-10-24.md)。
 - **进度摘记（2026-10-24，Cove）**：R-105：Man-at-Arms / Flagellant STAT（Cove p1–4）与 I 级七技能（TDH p232–273，Q-105）入库接线；两人移出未接线名单并纳入替补白名单。见 [Cove 两人记录](./phases/phase4/phase4-cove-maa-flagellant-2026-10-24.md)。
 - **进度摘记（2026-10-24，Weald）**：R-106：Houndmaster / Shieldbreaker STAT（Weald p1–4）与 I 级七技能（TDH p316–357，Q-106）入库接线；`FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS` 仅余 Musketeer。见 [Weald 两人记录](./phases/phase4/phase4-weald-houndmaster-shieldbreaker-2026-10-24.md)。
-- **进度摘记（2026-10-20）**：Curio / Trinket / Quest 三类卡 UI 已接印刷 TrimBox PNG（`docs/phase4-print-curio-trinket-quest-art-2026-10-20.md`）；Quest 19 页均已入 map（14 张 art-only，任务池仍仅 `basic-quests.ts` 五张）。
-- **进度摘记（2026-10-20）**：ADD_014 两张中型怪物卡（Perfect / Imperfect Reflection）印刷图复用基础版 `p106` / `p109` PNG，不导 ADD PDF；见 `docs/phase4-print-monster-art-map-2026-10-19.md`。
-- **进度摘记（2026-10-20）**：印刷导出管线修复 EN_FILES 过滤、Rubine 刀线（PyMuPDF 1.28）、Windows Python 解析与一键脚本；见 `docs/phase4-print-art-pipeline-2026-10-19.md` §本机一键导出。
-- **进度摘记（2026-10-24）**：Kyries 方案 2：18 名英雄 STAT/SKILLS **印刷卡图**接线（`hero-stat-print-art-map.json`、技能 map 扩展 art-only 行）；玩法数据与 `FORMAL_HERO_NAMES` 不扩。见 `docs/phase4-print-hero-stat-art-map-2026-10-24.md`。
+- **进度摘记（2026-10-20）**：Curio / Trinket / Quest 三类卡 UI 已接印刷 TrimBox PNG（`docs/phases/phase4/phase4-print-curio-trinket-quest-art-2026-10-20.md`）；Quest 19 页均已入 map（14 张 art-only，任务池仍仅 `basic-quests.ts` 五张）。
+- **进度摘记（2026-10-20）**：ADD_014 两张中型怪物卡（Perfect / Imperfect Reflection）印刷图复用基础版 `p106` / `p109` PNG，不导 ADD PDF；见 `docs/phases/phase4/phase4-print-monster-art-map-2026-10-19.md`。
+- **进度摘记（2026-10-20）**：印刷导出管线修复 EN_FILES 过滤、Rubine 刀线（PyMuPDF 1.28）、Windows Python 解析与一键脚本；见 `docs/phases/phase4/phase4-print-art-pipeline-2026-10-19.md` §本机一键导出。
+- **进度摘记（2026-10-24）**：Kyries 方案 2：18 名英雄 STAT/SKILLS **印刷卡图**接线（`hero-stat-print-art-map.json`、技能 map 扩展 art-only 行）；玩法数据与 `FORMAL_HERO_NAMES` 不扩。见 `docs/phases/phase4/phase4-print-hero-stat-art-map-2026-10-24.md`。
 
 ### Phase 5：Boss 与第 4 幕（核心盒完结）
 - **目标**：核心盒战役能从头打到尾。
@@ -552,6 +552,6 @@ ddbg/
 
 **UX-02A**：在 `main` @ `1b05f376` 上整理正式地牢探索中央桌面（地图优先、信息精简、Curio 当前/历史分离），见 [UX-02A 交付说明](./ux02a-dungeon-map-info-2026-10-22.md)。Draft PR 待截图验收；**不**含 UX-02B 底栏迁移，S4–S11 继续暂停。
 
-交接与验收细节见 [docs/HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21.md](./handoffs/HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21.md)（T0–T3 / S0 前背景，已过时）。
+交接与验收细节见 [docs/handoffs/HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21.md](./handoffs/HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21.md)（T0–T3 / S0 前背景，已过时）。
 
-**Codex 接手（S2 起）**：[docs/HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21-S2.md](./handoffs/HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21-S2.md)（tip `b051c9b`）。
+**Codex 接手（S2 起）**：[docs/handoffs/HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21-S2.md](./handoffs/HANDOFF-TABLETOP-UI-TO-CODEX-2026-10-21-S2.md)（tip `b051c9b`）。

@@ -15,10 +15,10 @@
 
 ## 改动
 
-- `packages/data/src/quest-save.ts`：`questSaveSchema` 增加可选 `campaignLevel`（v1 旧档兼容）。
-- `packages/engine/src/quest-save.ts`：`createQuestSave` 写入保存时等级并校验；`loadQuestSave` 校验声明等级与回放一致。
-- `packages/engine/src/test-helpers/natural-quest.ts`：新增 `handleDeaths` 选项（默认关闭）。开启时按公开命令完成驿站替补（`prepareReplacementHero` → 选择 → `joinPreparedReplacements`），供跨任务战役回放使用；**不改战斗策略、不改种子**（R-190）。
-- 新增 `packages/engine/src/campaign-quest-save.test.ts`（3 测）。
+- `packages/data/src/shared/quest-save.ts`：`questSaveSchema` 增加可选 `campaignLevel`（v1 旧档兼容）。
+- `packages/engine/src/shared/quest/quest-save.ts`：`createQuestSave` 写入保存时等级并校验；`loadQuestSave` 校验声明等级与回放一致。
+- `packages/engine/tests/helpers/natural-quest.ts`：新增 `handleDeaths` 选项（默认关闭）。开启时按公开命令完成驿站替补（`prepareReplacementHero` → 选择 → `joinPreparedReplacements`），供跨任务战役回放使用；**不改战斗策略、不改种子**（R-190）。
+- 新增 `packages/engine/tests/shared/hamlet/campaign-quest-save.test.ts`（3 测）。
 
 ## 验收
 
@@ -27,7 +27,7 @@
 - **起点语义**：把当前任务（`quest:p002`）当 `start` 保存跨任务状态 → 拒绝。
 
 ```bash
-pnpm exec vitest run packages/engine/src/campaign-quest-save.test.ts
+pnpm exec vitest run packages/engine/tests/shared/hamlet/campaign-quest-save.test.ts
 pnpm typecheck
 ```
 

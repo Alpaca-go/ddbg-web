@@ -35,9 +35,9 @@
 ```bash
 pnpm typecheck
 pnpm exec vitest run \
-  packages/data/src/normalize/normalize.test.ts \
-  packages/engine/src/boss/gestating-heart-skills-acc.test.ts \
-  packages/engine/src/boss/shuffling-horror-skills-acc.test.ts
+  packages/data/tests/shared/normalize.build.test.ts \
+  packages/engine/tests/core/bosses/final/gestating-heart-skills-acc.test.ts \
+  packages/engine/tests/core/bosses/shuffling-horror/shuffling-horror-skills-acc.test.ts
 ```
 
 ## 建议下一刀

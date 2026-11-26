@@ -3,8 +3,8 @@
 范围：`hero_stat:*` 共 54 面（18 英雄 × 3 级；Abomination 三张均为 front）。
 依据：
 
-- `docs/hero-stat-review-2026-10-10.md`：I 级属性逐卡核对；
-- `docs/hero-higher-defence-review-2026-10-15.md`：II/III 抗性/免疫与高等级属性；
+- `docs/reviews/hero-stat-review-2026-10-10.md`：I 级属性逐卡核对；
+- `docs/reviews/hero-higher-defence-review-2026-10-15.md`：II/III 抗性/免疫与高等级属性；
 - 10 个测试文件、34 项断言：`hero-stat.test.ts`、`hero-higher-defence.test.ts` 及各英雄
   `*-stat.test.ts`（bounty-hunter / core-trio / cove / grave-occultist / musketeer /
   plague-doctor / warrens / weald）。

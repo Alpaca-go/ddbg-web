@@ -14,7 +14,7 @@
 
 ## 代码触点
 
-- `packages/engine/src/formal-heroes.ts`、`formal-roster-catalog.ts`
+- `packages/engine/src/core/heroes/formal-heroes.ts`、`formal-roster-catalog.ts`
 - `apps/web/battle-data-plugin.ts`：`virtual:quest-battle-data` = 40 属性面（33 核实 + 7 占位）+ 扩展技能目录
 - `apps/web/src/dungeon-sandbox/quest-setup/*`
 

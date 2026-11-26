@@ -1,5 +1,5 @@
 import geometry from "../../../../../data/normalized/corebox/room_tile_geometry.json";
-import { necromancerRoomSchema } from "../../../../../data/src/core/rooms/necromancer-room.build";
+import { necromancerRoomSchema } from "../../../../../data/src/core/rooms/necromancer-room";
 import { roomCatalogSchema } from "../../../../../data/src/core/rooms/room";
 import { createBattleState, rejectBattleCommand } from "../../../shared/battle/battle";
 import type { BattleEntity } from "../../../shared/battle/battle";

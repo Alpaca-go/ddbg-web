@@ -18,7 +18,7 @@
 
 新增 14 项场景：六档光照真实命令回放、输入不变、全队降光被动、新光照压力修正、0 光边界、Torch 抵消、低光 Rubble / Hunger、意志资料恢复、同伴心脏病、Q-64 / Q-66 / Q-67 原子拒绝。特殊危险组合是显式引擎测试布置，不作为真实开局默认值。
 
-Node 24.21.0 / pnpm 12.9.1 下 typecheck、76 文件 / 738 项测试、build 与 diff 检查通过；ESLint 通过，除原有两份未跟踪文档外的全仓 Prettier 检查通过。全仓 `pnpm lint` 仍受 `docs/ddbg-icon-review.md` / `docs/q60-icon-verification-2026-10-12.md` 的原有格式问题阻碍；本轮保留原文，使用临时忽略项核验其他文件，不修改仓库配置。
+Node 24.21.0 / pnpm 12.9.1 下 typecheck、76 文件 / 738 项测试、build 与 diff 检查通过；ESLint 通过，除原有两份未跟踪文档外的全仓 Prettier 检查通过。全仓 `pnpm lint` 仍受 `docs/reviews/ddbg-icon-review.md` / `docs/q60-icon-verification-2026-10-12.md` 的原有格式问题阻碍；本轮保留原文，使用临时忽略项核验其他文件，不修改仓库配置。
 
 本机浏览器使用既有忽略缓存配置（Chromium 1234），正式配置未改。首次同时跑全部检查时，既有 Room Tile 生成一致性测试超过默认 5 秒、战斗冒烟截图超过 30 秒；单独重跑后 738 项测试与六条冒烟全部通过，不增加测试超时。低光照完整截图已检查。
 

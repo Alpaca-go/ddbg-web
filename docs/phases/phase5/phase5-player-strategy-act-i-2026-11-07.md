@@ -17,9 +17,9 @@
 
 ## 实现
 
-- `packages/engine/src/test-helpers/natural-battle.ts`：新增 `survival` 打分选项（默认关闭，自然策略不变）。
-- `packages/engine/src/test-helpers/natural-quest.ts`：新增 `survival` 与 `restThreshold` 选项（默认关闭/12）；战役已失败时不再尝试准备替补。
-- `packages/engine/src/player-strategy-act-i.test.ts`：固定上述策略与 seed 2，断言两个普通任务后 p019 进入 offer、威胁持续，并跑到 p019 任务的合法终局且无引擎冲突。
+- `packages/engine/tests/helpers/natural-battle.ts`：新增 `survival` 打分选项（默认关闭，自然策略不变）。
+- `packages/engine/tests/helpers/natural-quest.ts`：新增 `survival` 与 `restThreshold` 选项（默认关闭/12）；战役已失败时不再尝试准备替补。
+- `packages/engine/tests/shared/core/player-strategy-act-i.test.ts`：固定上述策略与 seed 2，断言两个普通任务后 p019 进入 offer、威胁持续，并跑到 p019 任务的合法终局且无引擎冲突。
 
 ## 边界
 

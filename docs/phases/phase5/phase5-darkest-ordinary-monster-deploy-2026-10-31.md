@@ -23,7 +23,7 @@
 ```bash
 pnpm typecheck
 pnpm exec vitest run \
-  packages/engine/src/darkest-ordinary-monster-deploy.test.ts \
-  packages/engine/src/darkest-setup.test.ts \
-  packages/engine/src/boss/darkest-mid-boss-runtime.test.ts
+  packages/engine/tests/core/darkest/darkest-ordinary-monster-deploy.test.ts \
+  packages/engine/tests/core/darkest/darkest-setup.test.ts \
+  packages/engine/tests/core/bosses/darkest/darkest-mid-boss-runtime.test.ts
 ```

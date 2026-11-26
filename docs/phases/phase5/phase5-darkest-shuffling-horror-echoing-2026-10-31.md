@@ -8,7 +8,7 @@
 - 最暗 quest:p016 中途 Boss 战于 Horror 怪物回合显式命令 `applyShufflingHorrorEchoingDisassembly`（actorId = `monster_large:p017` 实体）；Life/Dodge 从战斗目录读取，姿态占位沿用 `darkest-mid-boss-*` PLACEHOLDER（与 `prepareDarkestMidBossDeployment` 支持怪骨架同构，**非** Room Tile 印刷几何）。
 - 成功后 `finishTurn` 消耗行动（对标 Undulations）。
 - 更新 p016 `wiringHold`：Undulations + Echoing 召唤已接；Room Tile 正式几何 / `combatReady` / 完整 AI 仍 hold。
-- 单测：`packages/engine/src/boss/darkest-shuffling-horror-combat-runtime.test.ts`。
+- 单测：`packages/engine/tests/core/bosses/shuffling-horror/darkest-shuffling-horror-combat-runtime.test.ts`。
 
 ## 仍 hold
 
@@ -19,5 +19,5 @@
 
 ```bash
 pnpm typecheck
-pnpm exec vitest run packages/engine/src/boss/darkest-shuffling-horror-combat-runtime.test.ts
+pnpm exec vitest run packages/engine/tests/core/bosses/shuffling-horror/darkest-shuffling-horror-combat-runtime.test.ts
 ```

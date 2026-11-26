@@ -34,12 +34,12 @@ Life **250**；Dodge **3**（卡面 footer）。
 
 ## 验证
 
-- `packages/engine/src/boss/heart-of-darkness-skills-acc.test.ts`
+- `packages/engine/tests/core/bosses/final/heart-of-darkness-skills-acc.test.ts`
 - 回归：`heart-of-darkness-impending-doom.test.ts`
 
 ```bash
 pnpm typecheck
 pnpm exec vitest run \
-  packages/engine/src/boss/heart-of-darkness-skills-acc.test.ts \
-  packages/engine/src/boss/heart-of-darkness-impending-doom.test.ts
+  packages/engine/tests/core/bosses/final/heart-of-darkness-skills-acc.test.ts \
+  packages/engine/tests/core/bosses/final/heart-of-darkness-impending-doom.test.ts
 ```

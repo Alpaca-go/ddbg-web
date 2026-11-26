@@ -4,7 +4,7 @@
 
 ## Bounty Hunter
 
-依据：`docs/phase4-collect-bounty-2026-10-16.md`、`bounty-status-skills.test.ts`、R-141。
+依据：`docs/phases/phase4/phase4-collect-bounty-2026-10-16.md`、`bounty-status-skills.test.ts`、R-141。
 
 | 技能                 | 数据                                                                          |
 | -------------------- | ----------------------------------------------------------------------------- |
@@ -20,7 +20,7 @@
 
 ## Arbalest
 
-依据：`docs/phase4-core-trio-skills-2026-10-24.md`（I 级）、core-higher 注解（II/III）、
+依据：`docs/phases/phase4/phase4-core-trio-skills-2026-10-24.md`（I 级）、core-higher 注解（II/III）、
 `core-trio-skills.test.ts`、`core-higher-skills.test.ts`。
 
 | 技能                      | 数据                                            |

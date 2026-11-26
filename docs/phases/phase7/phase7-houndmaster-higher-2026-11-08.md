@@ -3,7 +3,7 @@
 ## 范围
 
 - **21 张**：七技能族 × L1 洗净 + II/III 共 **14 张**（`hero_skill:p338`–`p339`、`p341`–`p342`、`p344`–`p345`、`p347`–`p348`、`p350`–`p351`、`p353`–`p354`、`p356`–`p357`）。
-- 数据：`packages/data/src/normalize/verified-weald-houndmaster-higher.ts`；引擎审计：`packages/engine/src/houndmaster-higher-skills.test.ts`。
+- 数据：`packages/data/src/core/heroes/annotations/h17-houndmaster.ts`；引擎审计：`packages/engine/tests/shared/core/houndmaster-higher-skills.test.ts`。
 
 ## 逐卡覆盖要点
 

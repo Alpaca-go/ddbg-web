@@ -25,4 +25,4 @@
 
 ## 测试
 
-`pnpm typecheck && pnpm lint && pnpm test && pnpm build`；`packages/engine/src/weald-skills.test.ts`。
+`pnpm typecheck && pnpm lint && pnpm test && pnpm build`；`packages/engine/tests/weald/skills.test.ts`。

@@ -1,10 +1,9 @@
-"""Room tile face export (synthetic PDF + patched geometry manifest)."""
+"""Room tile face export (synthetic PDF and normalized geometry fixture)."""
 
 import json
 import tempfile
 import unittest
 from pathlib import Path
-from unittest.mock import patch
 
 import pymupdf
 
@@ -18,8 +17,8 @@ from ddbg_print_art.room_tile_faces import (
 
 class RoomTileFacePathTest(unittest.TestCase):
     def test_sanitize_tile_id(self):
-        self.assertEqual(sanitize_tile_id_for_path("room_tile:p002:front"), "room_tile-p002-front")
-        self.assertEqual(face_png_rel("room_tile:p001"), "manual/room-tile-faces/room_tile-p001.png")
+        self.assertEqual(sanitize_tile_id_for_path("room_tile:ruins:03"), "room_tile-ruins-03")
+        self.assertEqual(face_png_rel("room_tile:ruins:01"), "manual/room-tile-faces/room_tile-ruins-01.png")
 
 
 class RoomTileFaceExportTest(unittest.TestCase):
@@ -36,7 +35,7 @@ class RoomTileFaceExportTest(unittest.TestCase):
     def test_export_single_tile_page(self):
         fake_tiles = [
             {
-                "id": "room_tile:p099:front",
+                "id": "room_tile:ruins:03",
                 "name": "Fixture Chamber",
                 "geometryVerified": True,
                 "source": {"file": "DD_COREBOX_TILES_FRONT.pdf", "page": 2, "face": "front"},
@@ -64,21 +63,18 @@ class RoomTileFaceExportTest(unittest.TestCase):
                 encoding="utf-8",
             )
 
-            with patch(
-                "ddbg_print_art.room_tile_faces.load_geometry_tiles",
-                return_value=fake_tiles,
-            ):
-                rows = run_room_tile_face_export(
-                    input_root,
-                    out_root,
-                    repo_root,
-                    dpi=72,
-                    dry_run=False,
-                )
+            rows = run_room_tile_face_export(
+                input_root,
+                out_root,
+                repo_root,
+                dpi=72,
+                dry_run=False,
+            )
 
             self.assertEqual(len(rows), 1)
-            self.assertEqual(rows[0].tile_id, "room_tile:p099:front")
+            self.assertEqual(rows[0].tile_id, "room_tile:ruins:03")
             png = out_root / rows[0].png_rel
+            self.assertEqual(rows[0].png_rel, "manual/room-tile-faces/room_tile-ruins-03.png")
             self.assertTrue(png.is_file())
             self.assertGreater(png.stat().st_size, 100)
 

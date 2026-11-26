@@ -14,7 +14,7 @@
 - **处理**：24 张入库并保留抽牌概率；未知行 `effect=null`；整卡不结算、不把未知图标推定为负面。
 - **状态**：待 Kyries 确认。
 
-`docs/phase3-curio-2026-10-11.md` 列出同一 17 个 ID；目前仅 `curio:p021` Sarcophagus 四行可结算，其余 23 张至少一行被 Q-60 阻塞。
+`docs/phases/phase3/phase3-curio-2026-10-11.md` 列出同一 17 个 ID；目前仅 `curio:p021` Sarcophagus 四行可结算，其余 23 张至少一行被 Q-60 阻塞。
 
 ## Kyries 确认表（17 个阻塞图标）
 

@@ -10,13 +10,13 @@
 
 ## 已接
 
-| 条目        | 实现                                                                                                                                                                 |
-| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 任务门控    | 仅 `dungeon.questDistribution.questId === quest:p014`                                                                                                                |
-| 触发点      | 战斗 `encounter` 存在时，比较命令前后怪物实体；初始 `startBattle` 与后续召唤均算 spawned（与 `higher-ruins-threat.ts` R11 注释一致，但走任务 SPECIAL，非 Boss 威胁） |
-| Unholy 判定 | `battle.monsters` 卡面 `type_position_tags` 含 `Unholy`（大小写不敏感）；**不按名字推断**（`hero-skill.ts` 注释）                                                    |
-| 压力        | 每只新生成 Unholy 各触发一次 `triggerBattlePassive` 全队 +1；经 `resolveBattlePressure` / 心脏病死亡共用路径                                                         |
-| 接线        | `packages/engine/src/creeping-darkness-unholy-stress.ts`；`command.ts` → `applyCreepingDarknessUnholySpawnStress` 包在 `applyHigherRuinsBattleSpawn` 外层            |
+| 条目        | 实现                                                                                                                                                                  |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 任务门控    | 仅 `dungeon.questDistribution.questId === quest:p014`                                                                                                                 |
+| 触发点      | 战斗 `encounter` 存在时，比较命令前后怪物实体；初始 `startBattle` 与后续召唤均算 spawned（与 `higher-ruins-threat.ts` R11 注释一致，但走任务 SPECIAL，非 Boss 威胁）  |
+| Unholy 判定 | `battle.monsters` 卡面 `type_position_tags` 含 `Unholy`（大小写不敏感）；**不按名字推断**（`hero-skill.ts` 注释）                                                     |
+| 压力        | 每只新生成 Unholy 各触发一次 `triggerBattlePassive` 全队 +1；经 `resolveBattlePressure` / 心脏病死亡共用路径                                                          |
+| 接线        | `packages/engine/src/core/quests/creeping-darkness-unholy-stress.ts`；`command.ts` → `applyCreepingDarknessUnholySpawnStress` 包在 `applyHigherRuinsBattleSpawn` 外层 |
 
 ## 未接 / 范围外
 
@@ -34,7 +34,7 @@
 ## 验证
 
 ```bash
-pnpm exec vitest run packages/engine/src/creeping-darkness-unholy-stress.test.ts
+pnpm exec vitest run packages/engine/tests/core/quests/creeping-darkness-unholy-stress.test.ts
 ```
 
 覆盖：p014 下 Unholy 初始部署与后续 spawn → 全队压力；非 Unholy 不涨；非 p014 回归；`startBattle` 公开命令路径。

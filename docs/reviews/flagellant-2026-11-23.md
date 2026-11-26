@@ -1,7 +1,7 @@
 # Flagellant（h13）技能语义复核 — 2026-11-23
 
 范围：`hero_skill:cove:h13:p253`–`p273`，共 21 张（7 技能 × I–III）。
-依据：Q-172–Q-175、R-208、`docs/phase7-hero-expansion-verification-2026-11-08.md`、
+依据：Q-172–Q-175、R-208、`docs/phases/phase7/phase7-hero-expansion-verification-2026-11-08.md`、
 [h13-flagellant.test.ts](../../packages/data/tests/core/heroes/annotations/h13-flagellant.test.ts)。
 
 ## 逐族结论

@@ -14,7 +14,7 @@
 | `p014` Warlord | Torment / Stinger              | 多效果 / 未入库                                                           | hold / #463 已接 Stinger |
 | Pit Toss 几何  | `boss_ability:p028` d10→尖刺坑 | 规则 R39                                                                  | **B hold**（本刀不位移） |
 
-依据：`monster_large` FRONT **p015**、[phase5-a01-impaler-revelation-effects-2026-11-01.md](./phase5-a01-impaler-revelation-effects-2026-11-01.md)、`docs/phase5-a5-remaining-a-candidates-2026-11-01.md` §1 A-01；规则 R-001 / R-048。
+依据：`monster_large` FRONT **p015**、[phase5-a01-impaler-revelation-effects-2026-11-01.md](./phase5-a01-impaler-revelation-effects-2026-11-01.md)、`docs/phases/phase5/phase5-a5-remaining-a-candidates-2026-11-01.md` §1 A-01；规则 R-001 / R-048。
 
 ## 本刀接通
 
@@ -37,9 +37,9 @@
 ```bash
 pnpm typecheck
 pnpm exec vitest run \
-  packages/data/src/normalize/normalize.test.ts \
-  packages/engine/src/monster-effect-plan.test.ts \
-  packages/engine/src/boss/darkest-templars-skills-acc.test.ts
+  packages/data/tests/shared/normalize.build.test.ts \
+  packages/engine/tests/shared/core/monster-effect-plan.test.ts \
+  packages/engine/tests/core/bosses/templars/darkest-templars-skills-acc.test.ts
 ```
 
 ## 建议下一刀

@@ -4,7 +4,7 @@
 
 ## 准备步骤
 
-1. 按 `tools/pipeline/scripts/export-print-card-art.mjs` 与各 `build-print-*-art-map.mjs` 从印刷 PDF 导出 PNG 到 `.cache/print-card-art/`（Kyries 本机已有流程，见 `docs/phase4-print-art-pipeline-2026-10-19.md` 等）。
+1. 按 `tools/pipeline/scripts/export-print-card-art.mjs` 与各 `build-print-*-art-map.mjs` 从印刷 PDF 导出 PNG 到 `.cache/print-card-art/`（Kyries 本机已有流程，见 `docs/phases/phase4/phase4-print-art-pipeline-2026-10-19.md` 等）。
 2. 在仓库根执行 `pnpm install` 后 `pnpm dev`，确认 `http://localhost:5173/print-card-art/...` 能打开样例 PNG。
 3. 无缓存时 UI 显示「无本地卡图」占位，不回退任何外部图源。TTS 对照路线已于 2026-11-23 移除：本地印刷 PDF 是美术资产的唯一真实来源。
 

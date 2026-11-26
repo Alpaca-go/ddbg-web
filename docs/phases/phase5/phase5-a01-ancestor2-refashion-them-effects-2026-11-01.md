@@ -13,7 +13,7 @@
 | `p018` Ancestor 2        | Embrace Futility | 含 Push                                                                        | hold           |
 | 中途 Boss / 其他最终战招 | —                | —                                                                              | hold           |
 
-依据：`monster_large` FRONT **p018**、`docs/phase5-a01-ancestor2-unmake-them-all-effects-2026-11-01.md`；规则 R-001 / R-048。卡面无 debuff（旧文档误写已废弃）。
+依据：`monster_large` FRONT **p018**、`docs/phases/phase5/phase5-a01-ancestor2-unmake-them-all-effects-2026-11-01.md`；规则 R-001 / R-048。卡面无 debuff（旧文档误写已废弃）。
 
 ## 本刀接通
 
@@ -35,9 +35,9 @@
 ```bash
 pnpm typecheck
 pnpm exec vitest run \
-  packages/data/src/normalize/normalize.test.ts \
-  packages/engine/src/monster-effect-plan.test.ts \
-  packages/engine/src/boss/ancestor2-skills-acc.test.ts
+  packages/data/tests/shared/normalize.build.test.ts \
+  packages/engine/tests/shared/core/monster-effect-plan.test.ts \
+  packages/engine/tests/core/bosses/ancestor/ancestor2-skills-acc.test.ts
 ```
 
 ## 建议下一刀

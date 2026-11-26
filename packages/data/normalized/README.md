@@ -1,6 +1,6 @@
-# 核心盒规范化数据
+# 规范化数据
 
-`ddbg-normalized-v0`。由 `packages/data/src/normalize/` 从 parsed（英雄技能、怪物、饰品）和 raw（怪癖、美德 / 折磨）生成，图标含义来自词典 v1.8。
+各类 JSON 的 schema、目录和来源字段见[内容数据文件命名与结构规范](../../../docs/content-data-conventions.md)。构建器位于 `packages/data/src/<pack>/<type>/`，写入入口是 `@ddbg/data/write`。
 
 重新生成：
 
@@ -10,7 +10,7 @@ pnpm --filter @ddbg/pipeline normalize
 
 印刷 PDF 和图标切图不在这里。
 
-18 名正式英雄一律按核心内容（R-200，Musketeer 纳入并覆盖 R-008）：`corebox/hero_skill.json` 收全部 378 张技能（5 个 pack 来源都在这一份里），`corebox/hero_stat.json` 收全部 54 面属性卡。ID 里的 pack 段（如 `hero_skill:weald:h17:p034`）只用于归类，不表示文件要放进 `extension/`；这些英雄卡不要按包拆出去。
+18 名正式英雄一律按核心内容（R-200，Musketeer 纳入并覆盖 R-008）：`corebox/hero_skill.json` 收全部 378 张技能（5 个 pack 来源都在这一份里），`corebox/hero_stat.json` 收全部 54 面属性卡。ID 里的 pack 段（如 `hero_skill:weald:h17:p337`）只用于归类，不表示文件要放进 `extension/`；这些英雄卡不要按包拆出去。
 
 ## Weald 首批普通怪物
 
@@ -19,25 +19,25 @@ pnpm --filter @ddbg/pipeline normalize
 
 ## Weald 奇物
 
-同一 normalize 命令生成 `extension/weald/curio.json`，独立校验 16 张、64 行，R-233 逐卡核准，同名卡不合并。来源、图标和印刷数字漂移会使生成失败，不修改全局图标词典。核心 24 张目录约束保持不变；当地目录与通用卡组合在开发步骤 2 接入。效果按印刷顺序规划，Torch 只抑制负面效果，未知行继续整卡停点。见 [奇物审阅记录](../../../docs/reviews/weald-curio-review-2026-11-11.md)。
+同一 normalize 命令生成 `extension/weald/curio.json`，独立校验 16 张、64 行，R-233 逐卡核准，同名卡不合并。来源、图标和印刷数字漂移会使生成失败，不修改全局图标词典。核心 24 张目录约束保持不变；当地目录与通用卡由地点牌堆组合。效果按印刷顺序规划，Torch 只抑制负面效果，未知行继续整卡停点。见 [奇物审阅记录](../../../docs/reviews/weald-curio-review-2026-11-11.md)。
 
 `extension/cove/curio.json` 由 `buildCoveCurios` 生成，独立校验 16 张、64 行；仅词典已确认的压力与补给骰写入效果，其余行 **Q-186** 停点。见 [Cove 奇物审阅](../../../docs/reviews/cove-curio-review-2026-11-21.md)。
 
-## Cove 普通房间（首批）
+## Cove 房间
 
-`extension/cove/room.json`（`ddbg-cove-room-v0`）与 `boss_room_sources.json`（`ddbg-cove-boss-room-sources-v0`）由 `buildCoveRooms` / `buildCoveBossRoomSources` 生成：raw 12 面，普通 p1–p9 各 1 张入目录，Boss p10–p12 仅来源登记（`poolEligible: false`）。效果保留印刷行，全部 **Q-186** 停点；不开放出征。`WRITE_NORMALIZED=1` + `cove-rooms.test.ts` 可重写 JSON。见 [Cove 房间审阅](../../../docs/reviews/cove-room-review-2026-11-22.md)。
+`extension/cove/room.json`（`ddbg-cove-room-v0`）由 `buildCoveRooms` 生成，包含普通房 `room:cove:01`–`09` 及 Boss 房 `room:cove:10`–`12`。Boss 房保留 `boss: true`、`poolEligible: false` 及各自的印刷来源。Cove 战役出征仍待接入。见 [Cove 房间审阅](../../../docs/reviews/cove-room-review-2026-11-22.md)。
 
 ## Weald 普通房间与板块
 
-`extension/weald/room.json` 与 `room_tile_geometry.json` 使用独立 schema（`ddbg-weald-room-v1` / `ddbg-weald-room-tile-geometry-v0`），写入 R-234–R-239 已核准的九张普通房间与对应板块。含完整通行几何、容量、部署、真菌与星标效果区域；5 号零容量 I、7 号零容量 H／I／J；1 号 C／E／F／G 绑定 Toxic Mushrooms（R-239）。全部 `usable=false`，不开放出征；由 `pnpm --filter @ddbg/data test` 中 `weald-rooms.test.ts` 校验，可用 `WRITE_NORMALIZED=1` 重写 JSON。见 [房间审阅记录](../../../docs/reviews/weald-room-review-2026-11-12.md)。
+`extension/weald/room.json` 与 `room_tile_geometry.json` 使用独立 schema（`ddbg-weald-room-v1` / `ddbg-weald-room-tile-geometry-v0`），写入 R-234–R-239 已核准的九张普通房间与对应板块。含完整通行几何、容量、部署、真菌与星标效果区域；5 号零容量 I、7 号零容量 H／I／J；1 号 C／E／F／G 绑定 Toxic Mushrooms（R-239）。`usable` 与正式出征的独立核准选择器分别校验；由 `pnpm --filter @ddbg/data test` 中 `packages/data/tests/weald/rooms/room.build.test.ts` 校验，可用 `WRITE_NORMALIZED=1` 重写 JSON。见 [房间审阅记录](../../../docs/reviews/weald-room-review-2026-11-12.md)。
 
 ## Weald Stygian 九张房间（审阅入库）
 
-`extension/weald/stygian_rooms.json`（`ddbg-weald-stygian-rooms-v1`）由 `buildWealdStygianRooms` 生成，九张各 1 份，替换同名 `room:weald:p001`–`p009`；与核心 17 张 `corebox/stygian_rooms.json` 隔离。六张有效果段 `reviewedEffect.runtimeReady=true`；Boss 房 p010–p012 不在替换范围（R-036）。`WRITE_NORMALIZED=1` 可重写；`weald-stygian-rooms.test.ts` 校验。见 [Stygian 房间审阅记录](../../../docs/reviews/weald-stygian-room-review-2026-11-17.md)。
+`extension/weald/stygian_rooms.json`（`ddbg-weald-stygian-rooms-v1`）由 `buildWealdStygianRooms` 生成，九张各 1 份，替换同名 `room:weald:01`–`09`；与核心 17 张 `corebox/stygian_rooms.json` 隔离。六张有效果段 `reviewedEffect.runtimeReady=true`；Boss 房 p010–p012 不在替换范围（R-036）。`WRITE_NORMALIZED=1` 可重写；`packages/data/tests/weald/rooms/stygian-rooms.build.test.ts` 校验。见 [Stygian 房间审阅记录](../../../docs/reviews/weald-stygian-room-review-2026-11-17.md)。
 
 ## Weald I 级普通任务
 
-`extension/weald/quest_cards.json`（`ddbg-weald-quest-cards-v1`，仅 I 级五张）与五张 `*_distribution.json` 由 `buildWealdLevelOneQuestCards` 生成，分布 kind 按 **R-240**–**R-249**；与 `basicQuests` 中 `quest:weald:p001`–`p005` 交叉核对。`WRITE_NORMALIZED=1` 可重写；`weald-quest-cards.test.ts` 校验。沙盒出征见 `quest:weald:p001`（**R-246** brought back + **R-252** 封顶）、`quest:weald:p004`（**R-248** 当地牌堆）、`quest:weald:p005`；村庄战役抽选仍关。
+`extension/weald/quest_cards.json`（`ddbg-weald-quest-cards-v1`，仅 I 级五张）与五张 `*_distribution.json` 由 `buildWealdLevelOneQuestCards` 生成，分布 kind 按 **R-240**–**R-249**；与 `basicQuests` 中 `quest:weald:p001`–`p005` 交叉核对。`WRITE_NORMALIZED=1` 可重写；`packages/data/tests/weald/quests/quest-cards.build.test.ts` 校验。沙盒出征见 `quest:weald:p001`（**R-246** brought back + **R-252** 封顶）、`quest:weald:p004`（**R-248** 当地牌堆）、`quest:weald:p005`；正式出征使用相应的地点任务版本，详见 [Weald 开发计划](../../../docs/plans/weald-development-plan.md)。
 
 ## 和 parsed 的差别
 
@@ -47,7 +47,7 @@ pnpm --filter @ddbg/pipeline normalize
 - Abomination 变身卡用 `back_face_skill`。背面名字可以和正面不同。
 - 怪癖的正负都来自 `Quirks_FRONT.pdf`，对照规则书 R26–R27。美德和折磨都来自 `virtue_afflictions_FRONT.pdf`。两个 BACK 文件只有卡背，没有文字或图标。卡面没有印 Virtue / Affliction。`role` 按 R-053 写成 `virtue` 或 `affliction`（Kyries 称这一边为折磨，字段仍叫 affliction）；对不上名单的留空，原因是 `role_not_printed`。其余未确认图标仍使卡未验证。不使用卡背箭头来分组（rank 108、138、327 仍未决）。
 
-疾病与其它扩展任务等尚未规范化（Weald I 级五张任务除外，见上节）。parsed 里大型怪物参考卡没有 `life`，数值在 `monster_large`。
+核心疾病见 `corebox/disease.json`，Weald II／III 级普通任务见 `extension/weald/higher_quests.json`。parsed 里大型怪物参考卡没有 `life`，数值在 `monster_large`。
 
 ## 单张获批战斗板块几何
 

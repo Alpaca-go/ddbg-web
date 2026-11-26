@@ -11,7 +11,7 @@ const entrySchema = z.strictObject({
 });
 
 // 首批六条：Kyries 2026-10-10；新增八张中型战斗卡：Kyries 2026-10-12 两批批准。
-// docs/monster-speed-review-2026-10-09.md §2–3、§6；R24、R-001、R-048。
+// docs/reviews/monster-speed-review-2026-10-09.md §2–3、§6；R24、R-001、R-048。
 // 只按获批 id 附加，不统计图标、不填图标 null、不跨同名 / 等级推断。
 export const verifiedMonsterSpeeds = z.array(entrySchema).parse([
   // R-143：2026-11-02 九种最暗普通怪字段逐卡确认；不解除生产几何停点。
@@ -32,7 +32,7 @@ export const verifiedMonsterSpeeds = z.array(entrySchema).parse([
   { id: "monster_medium:p010", name: "Bone Defender", level: 1, pages: [10, 11], speed: 1 },
   { id: "monster_medium:p040", name: "Bone Rabble", level: 1, pages: [40, 41, 42], speed: 1 },
   { id: "monster_medium:p021", name: "Cultist Acolyte", level: 1, pages: [21, 22, 23], speed: 3 },
-  // docs/monster-battle-review-2026-10-12.md：第一批部分批准。
+  // docs/reviews/monster-battle-review-2026-10-12.md：第一批部分批准。
   { id: "monster_medium:p027", name: "Brigand Fusilier", level: 1, pages: [27, 28, 29], speed: 2 },
   { id: "monster_medium:p031", name: "Maggot", level: 1, pages: [31, 32, 33], speed: 1 },
   { id: "monster_medium:p043", name: "Madman", level: 1, pages: [43, 44, 45], speed: 3 },

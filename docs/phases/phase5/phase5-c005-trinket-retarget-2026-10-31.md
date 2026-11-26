@@ -1,6 +1,6 @@
 # C-005：怪物已定目标死亡后的免费饰品重选续接（2026-10-31）
 
-依据：核心规则书 R26（完整效果间隙）、R-048；`docs/phase5-c005-all-trinkets-2026-10-30.md` 已点名的缺口。
+依据：核心规则书 R26（完整效果间隙）、R-048；`docs/phases/phase5/phase5-c005-all-trinkets-2026-10-30.md` 已点名的缺口。
 
 ## 行为
 
@@ -13,14 +13,14 @@
 
 ## 实现
 
-- `packages/engine/src/battle-monster-retarget.ts`：`finalizeFreeTrinketDuringMonsterTurn`、`chooseMonsterRetargetAfterFreeTrinket`、`legalMonsterRetargetHeroIds`。
-- 接入：`battle-free-trinkets.ts`、`core-trinket-free.ts`、`battle-fortunate-armlet.ts`；`command.ts` 的 `resolveChoice`；`battle.ts` pending 类型；`apps/web/src/battle-step.ts` 文案。
+- `packages/engine/src/shared/battle/battle-monster-retarget.ts`：`finalizeFreeTrinketDuringMonsterTurn`、`chooseMonsterRetargetAfterFreeTrinket`、`legalMonsterRetargetHeroIds`。
+- 接入：`battle-free-trinkets.ts`、`core-trinket-free.ts`、`battle-fortunate-armlet.ts`；`command.ts` 的 `resolveChoice`；`battle.ts` pending 类型；`apps/web/src/battle/battle-step.ts` 文案。
 
 ## 测试
 
 - `battle-monster-retarget.test.ts`：重选续接、固定骰面、无合法目标跳过、旧命令拒绝。
 - `battle-attack-trinkets.test.ts`：Fortunate Armlet 旧命令仍原子拒绝。
-- 专项：`pnpm exec vitest run packages/engine/src/battle-monster-retarget.test.ts packages/engine/src/battle-free-trinkets.test.ts`；`pnpm typecheck` 通过。
+- 专项：`pnpm exec vitest run packages/engine/tests/shared/battle/battle-monster-retarget.test.ts packages/engine/tests/shared/battle/battle-free-trinkets.test.ts`；`pnpm typecheck` 通过。
 
 ## 限制
 

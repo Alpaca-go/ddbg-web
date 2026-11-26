@@ -66,7 +66,7 @@
 3. [`docs/plan.md`](../plan.md)（开发大纲 v0.2，Kyries 已确认；阶段定义以此为准）。
 4. [`docs/rulings.md`](../rulings.md)（本项目裁定；**R-001、R-048 尤其重要**）。
 5. [`docs/spec/`](../spec/) 下核心规则说明书（初稿，检查点 ① 尚未逐条签完）。
-6. 当前代码入口：`packages/engine/src/hero-skill.ts`、`packages/engine/src/command.ts`、`packages/engine/src/rng.ts`。
+6. 当前代码入口：`packages/engine/src/core/heroes/hero-skill.ts`、`packages/engine/src/shared/core/command.ts`、`packages/engine/src/shared/core/rng.ts`。
 
 读完再改代码。不要凭「别的桌游 / 电子游戏 Darkest Dungeon / 旧仓库」猜规则。
 
@@ -189,8 +189,8 @@ CI：两个 job（`typecheck / lint / test / build` + Playwright smoke）。**�
 
 ### 4.2 引擎现状（代码事实）
 
-- **`resolveHeroSkill`**（`packages/engine/src/hero-skill.ts`）：纯函数。输入卡牌视图 + 战斗上下文 + 可选骰面 / 距离 / `shuffleChoice` 等，输出结算结果与跳过原因。**不修改**游戏状态，**不移动**区域/姿态轨实体（只「记下」位移意图等）。测试在 `hero-skill.test.ts`（体量大，改时务必跑全量）。
-- **`applyCommand`**（`packages/engine/src/command.ts`）：**仅骨架**。`GameState` 只有 `seed` + `notes`；唯一命令是 `ping` → `pong`。**这是 Phase 2 下一步的中心。**
+- **`resolveHeroSkill`**（`packages/engine/src/core/heroes/hero-skill.ts`）：纯函数。输入卡牌视图 + 战斗上下文 + 可选骰面 / 距离 / `shuffleChoice` 等，输出结算结果与跳过原因。**不修改**游戏状态，**不移动**区域/姿态轨实体（只「记下」位移意图等）。测试在 `hero-skill.test.ts`（体量大，改时务必跑全量）。
+- **`applyCommand`**（`packages/engine/src/shared/core/command.ts`）：**仅骨架**。`GameState` 只有 `seed` + `notes`；唯一命令是 `ping` → `pong`。**这是 Phase 2 下一步的中心。**
 - **`createRng` / `rollD10`**：已有可种子 RNG。
 - **UI**：`apps/web` 仍是壳 + 从 engine 导入的演示值，**没有**战斗板。
 
@@ -354,7 +354,7 @@ Cursor 侧会从「下一块」继续开云端代理或审 PR，而不是重做�
 | 副本             | 路径                                                     |
 | ---------------- | -------------------------------------------------------- |
 | 共享工作机       | `/workspace/ddbg-handoff/HANDOFF-TO-CODEX-2026-10-09.md` |
-| 仓库（建议提交） | `docs/HANDOFF-TO-CODEX-2026-10-09.md`                    |
+| 仓库（建议提交） | `docs/handoffs/HANDOFF-TO-CODEX-2026-10-09.md`           |
 | 本地             | `D:\ddbg-web\docs\HANDOFF-TO-CODEX-2026-10-09.md`        |
 
 提交本文件到 `main` 是可选但推荐的（便于任何代理只 clone 仓库就能读到）。若 Codex 先本地开干，至少保证本地 `docs/` 下有这份文件。

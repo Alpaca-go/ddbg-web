@@ -23,10 +23,10 @@
 
 ```bash
 pnpm typecheck
-pnpm --filter @ddbg/engine test packages/engine/src/dungeon-quest-entry.test.ts
-pnpm --filter @ddbg/engine test packages/engine/src/dungeon-starting-provisions.test.ts
-pnpm --filter @ddbg/engine test packages/engine/src/hamlet-embark.test.ts
-pnpm --filter @ddbg/engine test packages/engine/src/natural-quest-paths.test.ts
+pnpm --filter @ddbg/engine test packages/engine/tests/shared/dungeon/dungeon-quest-entry.test.ts
+pnpm --filter @ddbg/engine test packages/engine/tests/shared/dungeon/dungeon-starting-provisions.test.ts
+pnpm --filter @ddbg/engine test packages/engine/tests/shared/hamlet/hamlet-embark.test.ts
+pnpm --filter @ddbg/engine test packages/engine/tests/shared/core/natural-quest-paths.test.ts
 pnpm test
 ```
 

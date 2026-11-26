@@ -1,7 +1,7 @@
 # Houndmaster（h17）技能语义复核 — 2026-11-23
 
 范围：`hero_skill:weald:h17:p337`–`p357`，共 21 张（7 技能 × I–III）。
-依据：Q-178–Q-180、R-206、R-209、`docs/phase7-hero-expansion-verification-2026-11-08.md`、
+依据：Q-178–Q-180、R-206、R-209、`docs/phases/phase7/phase7-hero-expansion-verification-2026-11-08.md`、
 [h17-houndmaster.test.ts](../../packages/data/tests/core/heroes/annotations/h17-houndmaster.test.ts)。
 
 ## 逐族结论

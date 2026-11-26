@@ -18,13 +18,13 @@
 
 ## 验证
 
-- `packages/engine/src/boss/ancestor1-perfect-replication.test.ts`
+- `packages/engine/tests/core/bosses/ancestor/ancestor1-perfect-replication.test.ts`
 - 回归：`ancestor1-time-heals-all.test.ts`、`ancestor1-reflections-death.test.ts`、`ancestor1-reflections-guard.test.ts`
 
 ```bash
 pnpm exec vitest run \
-  packages/engine/src/boss/ancestor1-perfect-replication.test.ts \
-  packages/engine/src/boss/ancestor1-time-heals-all.test.ts \
-  packages/engine/src/boss/ancestor1-reflections-death.test.ts \
-  packages/engine/src/boss/ancestor1-reflections-guard.test.ts
+  packages/engine/tests/core/bosses/ancestor/ancestor1-perfect-replication.test.ts \
+  packages/engine/tests/core/bosses/ancestor/ancestor1-time-heals-all.test.ts \
+  packages/engine/tests/core/bosses/ancestor/ancestor1-reflections-death.test.ts \
+  packages/engine/tests/core/bosses/ancestor/ancestor1-reflections-guard.test.ts
 ```

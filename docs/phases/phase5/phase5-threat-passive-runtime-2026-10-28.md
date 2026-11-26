@@ -26,7 +26,7 @@ Hamlet 状态字段：`hamlet.buildingWounds`（Creeping Sickness 建筑伤口�
 
 **沙盒定威胁**：`setActiveBossThreat` 经 `applyActiveBossThreatToDungeon` 写入 `activeBossThreatScriptId` 并同步 `hamlet.blockedBuildings`（与 `establishImminentThreat` 挂接被动相同）；不写 `imminentThreatDescriptionCardId`、不洗牌、不耗 RNG。单测：`set-active-boss-threat.test.ts`。
 
-集中运行时 helper：`packages/engine/src/boss/threat-passive-runtime.ts`。
+集中运行时 helper：`packages/engine/src/core/bosses/threat-passive-runtime.ts`。
 
 Marked for Death 卡面 `{icon:192ea1fea9}` 在词典 v1.8 为 confirmed **Mark**（R-048）。先前 stub 写成「+2 压力」，本刀按卡面接 Mark 2t。I 级已批条件防御不含 Mark，不减回合。Big Troubles 的 Guard 按已确认抗性 / 免疫缩短或取消（R-018）。
 
@@ -52,9 +52,9 @@ Marked for Death 卡面 `{icon:192ea1fea9}` 在词典 v1.8 为 confirmed **Mark*
 ```bash
 pnpm typecheck
 pnpm exec vitest run \
-  packages/engine/src/boss/threat-passive-runtime.test.ts \
-  packages/engine/src/boss/threat-campaign.test.ts \
-  packages/engine/src/boss/threat-establishment.test.ts \
-  packages/engine/src/boss/fanatic-i.test.ts \
-  packages/engine/src/boss/flesh-i.test.ts
+  packages/engine/tests/core/bosses/threat-passive-runtime.test.ts \
+  packages/engine/tests/core/bosses/threat-campaign.test.ts \
+  packages/engine/tests/core/bosses/threat-establishment.test.ts \
+  packages/engine/tests/core/bosses/fanatic/fanatic-i.test.ts \
+  packages/engine/tests/warrens/bosses/flesh/flesh-i.test.ts
 ```

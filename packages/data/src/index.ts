@@ -132,12 +132,10 @@ export {
   corridorBindingKey,
 } from "./core/tiles/corridor-layout-bindings";
 export type { CorridorLayoutBinding } from "./core/tiles/corridor-layout-bindings";
-export {
-  canonicalHeroStatCardSchema,
-  normalizedHeroStatCardSchema,
-  normalizedHeroStatFileSchema,
-} from "./core/heroes/hero-stat.build";
-export type { NormalizedHeroStatCard, NormalizedHeroStatFile } from "./core/heroes/hero-stat.build";
+export { canonicalHeroStatCardSchema, normalizedHeroStatFileSchema } from "./core/heroes/hero-stat";
+export { normalizedHeroStatCardSchema } from "./core/heroes/hero-stat.build";
+export type { NormalizedHeroStatCard } from "./core/heroes/hero-stat.build";
+export type { NormalizedHeroStatFile } from "./core/heroes/hero-stat";
 export {
   NAMINGS,
   namingSchema,

@@ -12,7 +12,7 @@ const entrySchema = z.strictObject({
 });
 
 // 首批六条：Kyries 2026-10-09；新增八张中型卡：2026-10-12 两批批准。
-// docs/monster-stance-review-2026-10-09.md §3–4、§7；R-015、R-048。
+// docs/reviews/monster-stance-review-2026-10-09.md §3–4、§7；R-015、R-048。
 // 页码均为当前版核心盒 monsters_medium_FRONT.pdf，不跨同名 / 等级推断。
 export const verifiedMonsterStances = z.array(entrySchema).parse([
   // R-143：2026-11-02 九种最暗普通怪字段逐卡确认；不解除生产几何停点。
@@ -252,7 +252,7 @@ export const verifiedMonsterStances = z.array(entrySchema).parse([
       },
     ],
   },
-  // Kyries 2026-10-12 部分批准，见 docs/monster-battle-review-2026-10-12.md。
+  // Kyries 2026-10-12 部分批准，见 docs/reviews/monster-battle-review-2026-10-12.md。
   {
     id: "monster_medium:p027",
     name: "Brigand Fusilier",

@@ -6,7 +6,7 @@ import {
   approvedWarrensHeroStats,
   buildWarrensHeroStats,
 } from "../../../src/warrens/heroes/hero-stat.build";
-import { canonicalHeroStatCardSchema } from "../../../src/core/heroes/hero-stat.build";
+import { canonicalHeroStatCardSchema } from "../../../src/core/heroes/hero-stat";
 
 const json = (path: string) =>
   JSON.parse(readFileSync(new URL(`../../../${path}`, import.meta.url), "utf8"));

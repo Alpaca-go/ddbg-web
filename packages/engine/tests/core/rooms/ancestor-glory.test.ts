@@ -2,7 +2,7 @@ import { expect, it } from "vitest";
 import statsFile from "../../../../data/normalized/corebox/hero_stat.json";
 import skillsFile from "../../../../data/normalized/corebox/hero_skill.json";
 import monstersFile from "../../../../data/normalized/corebox/monster_medium.json";
-import { normalizedHeroStatFileSchema } from "../../../../data/src/core/heroes/hero-stat.build";
+import { normalizedHeroStatFileSchema } from "../../../../data/src/core/heroes/hero-stat";
 import {
   normalizedHeroSkillFileSchema,
   normalizedMonsterMediumFileSchema,

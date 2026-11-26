@@ -99,7 +99,7 @@ S3 特别保护：正式 BattleView 保持挂载；`battleActionHost` 真实 DOM
 - `apps/web/src/tabletop/sections/tabletop-control-rail.tsx`、`tabletop-action-dock.tsx`、必要的 initiative 容器：正式无动作占位不占固定高度；mock不受影响，不接通骰盘。
 - `apps/web/src/tabletop/tabletop.css`：限定`.tt-root--formal`，非战斗自动行高、右栏折叠/抽屉、1280/1920、焦点与内部滚动；战斗保持S3分页和操作高度。
 - 必要时在`tabletop/phase/`补充纯展示投影/数据存在标记；不修改`packages/engine`/`packages/data`/存档。
-- 定向展示单测、现有`apps/web/e2e/formal-battle.spec.ts`及`home.spec.ts`的必要断言；同步plan与前后截图说明。
+- 定向展示单测、现有`apps/web/e2e/core/formal-battle.spec.ts`及`home.spec.ts`的必要断言；同步plan与前后截图说明。
 
 不在 UX-01：地图重排、ScoutingPanel大拆分、探索动作搬到底栏、战斗正文重构、四席选卡重做、村庄版图/服务重做、持久日志系统、S4/S5功能。A06–A10分别留对应切片。
 

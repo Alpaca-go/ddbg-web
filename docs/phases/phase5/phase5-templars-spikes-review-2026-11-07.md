@@ -24,7 +24,7 @@
 - 覆盖了此前只测「满区 ignore」而缺失的成功落点与「Pit Toss 不触发尖刺」两条裁定语义。
 
 ```bash
-pnpm exec vitest run packages/engine/src/templars-spikes-pit-toss.test.ts
+pnpm exec vitest run packages/engine/tests/core/bosses/templars/templars-spikes-pit-toss.test.ts
 pnpm typecheck
 ```
 

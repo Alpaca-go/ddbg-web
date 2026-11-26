@@ -4,12 +4,14 @@ import { iconDictionarySchema } from "../../../src/shared/dictionary/schema";
 import { rawFileSchema } from "../../../src/shared/extract/raw";
 import { createIconLookup } from "../../../src/shared/icons";
 import {
-  approvedHeroStats,
   buildHeroStats,
-  canonicalHeroStatCardSchema,
   normalizedHeroStatCardSchema,
-  normalizedHeroStatFileSchema,
 } from "../../../src/core/heroes/hero-stat.build";
+import {
+  approvedHeroStats,
+  canonicalHeroStatCardSchema,
+  normalizedHeroStatFileSchema,
+} from "../../../src/core/heroes/hero-stat";
 import { loadNormalizedCorebox } from "../../../src/write";
 
 const json = (file: string) =>

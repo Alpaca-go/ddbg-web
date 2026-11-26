@@ -8,15 +8,14 @@
 
 - 房间：`MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_rooms_FRONT.pdf` p1–12，BACK 同页。
 - 原始数据：`packages/data/extract/extension/cove/raw/room.json`（12 页 / 12 张）。
-- 普通房间目录：`packages/data/normalized/extension/cove/room.json`（`ddbg-cove-room-v0`，p1–p9）。
-- Boss 来源登记：`packages/data/normalized/extension/cove/boss_room_sources.json`（`ddbg-cove-boss-room-sources-v0`，p10–p12，`poolEligible: false`）。
+- 房间目录：`packages/data/normalized/extension/cove/room.json`（`ddbg-cove-room-v0`）。普通房为 `room:cove:01`–`09`，Boss 房为 `room:cove:10`–`12`，记录 `boss: true` 与 `poolEligible: false`。
 
 重跑提取（本地 EN_FILES 根目录指向 Kyries 印刷包）：
 
 ```bash
 python3 tools/pipeline/extract-print/scripts/extract_cove_location.py \
   --input "<EN_FILES 根>" --categories room
-WRITE_NORMALIZED=1 pnpm --filter @ddbg/data test src/normalize/cove-rooms.test.ts
+pnpm --filter @ddbg/pipeline normalize
 ```
 
 ## 普通 / Boss 分类依据
@@ -36,7 +35,7 @@ WRITE_NORMALIZED=1 pnpm --filter @ddbg/data test src/normalize/cove-rooms.test.t
 | 11   | Shambler’s Room        | **Boss** | 独立一行 `BOSS` + 11—标题 |
 | 12   | Drowned Crew Room      | **Boss** | 独立一行 `BOSS` + 12—标题 |
 
-Boss 房仅写入 `boss_room_sources.json`，**不**进入 `room.json` 九张普通目录，不接 Boss 机制或普通牌堆。
+Boss 房与普通房共用 `room.json`，牌堆准入仍为 `poolEligible: false`。
 
 ## 效果转录与停点
 

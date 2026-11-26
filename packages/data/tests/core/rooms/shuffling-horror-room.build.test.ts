@@ -3,11 +3,11 @@ import { expect, it } from "vitest";
 import geometry from "../../../normalized/corebox/room_tile_geometry.json";
 import rooms from "../../../normalized/corebox/room.json";
 import { rawFileSchema } from "../../../src/shared/extract/raw";
+import { assertShufflingHorrorRoomSource } from "../../../src/core/rooms/shuffling-horror-room.build";
 import {
   approvedShufflingHorrorRoom as tile,
   shufflingHorrorRoomSchema,
-  assertShufflingHorrorRoomSource,
-} from "../../../src/core/rooms/shuffling-horror-room.build";
+} from "../../../src/core/rooms/shuffling-horror-room";
 import { buildRoomTileGeometry } from "../../../src/core/tiles/room-tile.build";
 import { selectRoomTile } from "../../../src/core/rooms/room-tile-selection";
 

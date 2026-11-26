@@ -18,10 +18,10 @@
 
 ## 验证
 
-- `packages/engine/src/boss/ancestor1-time-heals-all.test.ts`
-- `packages/engine/src/boss/ancestor1-reflections-death.test.ts`（回归）
+- `packages/engine/tests/core/bosses/ancestor/ancestor1-time-heals-all.test.ts`
+- `packages/engine/tests/core/bosses/ancestor/ancestor1-reflections-death.test.ts`（回归）
 
 ```bash
 pnpm typecheck
-pnpm exec vitest run packages/engine/src/boss/ancestor1-time-heals-all.test.ts packages/engine/src/boss/ancestor1-reflections-death.test.ts
+pnpm exec vitest run packages/engine/tests/core/bosses/ancestor/ancestor1-time-heals-all.test.ts packages/engine/tests/core/bosses/ancestor/ancestor1-reflections-death.test.ts
 ```

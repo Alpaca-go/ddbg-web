@@ -44,7 +44,7 @@
 | `996ff2f4`～`a82bdea9` | 英雄／怪物／Boss／村庄等卡面文档与审核工作簿                |
 | `#618`～`#625`（更早） | 扩展英雄 II/III 核实 + 十八英雄统一目录（`01425ba3`）       |
 
-上一版权威入口：`docs/HANDOFF-2026-11-07-core-pack-next-session.md`（机制细节仍有效；**缺口表以本文 §3 为准**）。
+上一版权威入口：`docs/handoffs/HANDOFF-2026-11-07-core-pack-next-session.md`（机制细节仍有效；**缺口表以本文 §3 为准**）。
 
 ## 2. 已完成，勿重做
 
@@ -86,10 +86,10 @@
 
 ### P1
 
-| id       | 项                         | 说明                                                           | 状态                     |
-| -------- | -------------------------- | -------------------------------------------------------------- | ------------------------ |
-| **P1-1** | Stygian 17 房间效果接线    | 骨架见 `docs/phase6-stygian-skeleton-2026-11-08.md`            | **待** Kyries 确认审核表 |
-| **P1-2** | Stygian 房间逐卡审核表确认 | `docs/phase6-stygian-rooms-review-2026-11-08.md`（`9c6f7d32`） | **等人**                 |
+| id       | 项                         | 说明                                                                         | 状态                     |
+| -------- | -------------------------- | ---------------------------------------------------------------------------- | ------------------------ |
+| **P1-1** | Stygian 17 房间效果接线    | 骨架见 `docs/phases/phase6/phase6-stygian-skeleton-2026-11-08.md`            | **待** Kyries 确认审核表 |
+| **P1-2** | Stygian 房间逐卡审核表确认 | `docs/phases/phase6/phase6-stygian-rooms-review-2026-11-08.md`（`9c6f7d32`） | **等人**                 |
 
 ### P2 / 已划定 hold
 
@@ -127,23 +127,23 @@ Playwright 本机：见 11-07 §2（`PLAYWRIGHT_CHROMIUM_EXECUTABLE` → chromiu
 数据重生成：
 
 ```powershell
-$env:WRITE_NORMALIZED='1'; pnpm exec vitest run packages/data/src/normalize/normalize.test.ts
+$env:WRITE_NORMALIZED='1'; pnpm exec vitest run packages/data/tests/shared/normalize.build.test.ts
 ```
 
 只提交有意的 `normalized/corebox/*.json` diff。
 
 ## 6. 关键文件地图
 
-| 主题                   | 路径                                                                                                                    |
-| ---------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| 本交接                 | `docs/HANDOFF-2026-11-09-core-pack-to-codex.md`                                                                         |
-| 上一版机制交接         | `docs/HANDOFF-2026-11-07-core-pack-next-session.md`                                                                     |
-| 裁定                   | `docs/rulings.md`（R-191～R-205、相关 Q）                                                                               |
-| Stygian                | `docs/phase6-stygian-skeleton-2026-11-08.md`、`phase6-stygian-rooms-review-2026-11-08.md`                               |
-| 英雄审核               | `docs/hero-skill-review-2026-11-08.xlsx`、`hero-skill-audit-vs-grok-doc-2026-11-08.md`                                  |
-| 战役存档               | `packages/engine/src/campaign-quest-save.test.ts`、`quest-save.ts`；策略见 `phase5-player-strategy-act-i-2026-11-07.md` |
-| 中途 Boss / 自动回合   | `battle-monster-auto.ts`、`docs/phase6-boss-auto-turn-2026-11-08.md`                                                    |
-| Purify / Rising Threat | 见 11-07 §5 表                                                                                                          |
+| 主题                   | 路径                                                                                                                                    |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| 本交接                 | `docs/handoffs/HANDOFF-2026-11-09-core-pack-to-codex.md`                                                                                |
+| 上一版机制交接         | `docs/handoffs/HANDOFF-2026-11-07-core-pack-next-session.md`                                                                            |
+| 裁定                   | `docs/rulings.md`（R-191～R-205、相关 Q）                                                                                               |
+| Stygian                | `docs/phases/phase6/phase6-stygian-skeleton-2026-11-08.md`、`phase6-stygian-rooms-review-2026-11-08.md`                                 |
+| 英雄审核               | `docs/hero-skill-review-2026-11-08.xlsx`、`hero-skill-audit-vs-grok-doc-2026-11-08.md`                                                  |
+| 战役存档               | `packages/engine/tests/shared/hamlet/campaign-quest-save.test.ts`、`quest-save.ts`；策略见 `phase5-player-strategy-act-i-2026-11-07.md` |
+| 中途 Boss / 自动回合   | `battle-monster-auto.ts`、`docs/phases/phase6/phase6-boss-auto-turn-2026-11-08.md`                                                      |
+| Purify / Rising Threat | 见 11-07 §5 表                                                                                                                          |
 
 ## 7. 未跟踪文件（保留，不要提交 / 删除）
 

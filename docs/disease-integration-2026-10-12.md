@@ -10,7 +10,7 @@
 
 ## 已完成的来源与目录
 
-已查看本地完整 `DD_EN_COREBOX_RULES.pdf` R26–28 和 `DD_EN_COREBOX_CARDS_44x68_Disease_FRONT.pdf` 全部 11 页。图片只留私有忽略缓存。`packages/data/src/disease.ts` 的触发 / 效果全部来自官方 R27–28 的具名明文条目，不按卡面未命名图标推理，不修改全局词典。
+已查看本地完整 `DD_EN_COREBOX_RULES.pdf` R26–28 和 `DD_EN_COREBOX_CARDS_44x68_Disease_FRONT.pdf` 全部 11 页。图片只留私有忽略缓存。`packages/data/src/core/hamlet/disease.ts` 的触发 / 效果全部来自官方 R27–28 的具名明文条目，不按卡面未命名图标推理，不修改全局词典。
 
 管线生成 `normalized/corebox/disease.json`：11 张唯一实体牌，保留原始规范化行、图标与未验证原因，另附官方规则来源 / 页码。核对身份、页码、卡名、正反面文件、份数、触发与效果；缺牌、重复卡、错误参数或错误规则页码拒绝。
 

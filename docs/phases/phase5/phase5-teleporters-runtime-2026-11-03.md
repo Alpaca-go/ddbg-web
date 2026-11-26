@@ -19,7 +19,7 @@
 
 ```bash
 pnpm exec vitest run \
-  packages/data/src/normalize/teleporters.test.ts \
-  packages/data/src/normalize/room-tile-selection.test.ts \
-  packages/engine/src/battle-teleporters.test.ts
+  packages/data/tests/core/rooms/teleporters.build.test.ts \
+  packages/data/tests/core/rooms/room-tile-selection.test.ts \
+  packages/engine/tests/core/rooms/battle-teleporters.test.ts
 ```

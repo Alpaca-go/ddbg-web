@@ -16,7 +16,7 @@
 
 ## 引擎交付
 
-- 模块：`packages/engine/src/boss/prophet-i.ts`（经 `ensureProphetIBossScriptRegistered` / `ensureCoreBossScriptsRegistered` 注册）。
+- 模块：`packages/engine/src/core/bosses/prophet/prophet-i.ts`（经 `ensureProphetIBossScriptRegistered` / `ensureCoreBossScriptsRegistered` 注册）。
 - 威胁 helper（纯函数，供后续进地牢 / 酒馆接线）：`stressOnDungeonEntryPerHeroFromBossThreat`、`tavernStressRecoveryDeltaFromBossThreat`。
 - `threat-description-catalog.resolveScriptIdForDescriptionCard`：`boss_ability:p007` → `boss:ruins:prophet:1`。
 - 类型：`BossThreatPassiveDungeonOk` / `BossThreatPassiveHamletOk` 扩展为判别联合（Necromancer 与 Prophet 各一种 `effect`）。
@@ -46,5 +46,5 @@
 ## 测试
 
 ```bash
-pnpm exec vitest run packages/engine/src/boss/prophet-i.test.ts packages/engine/src/boss/prophet-i-combat-runtime.test.ts packages/engine/src/boss/threat-establishment.test.ts packages/engine/src/boss/necromancer-i.test.ts
+pnpm exec vitest run packages/engine/tests/core/bosses/prophet/prophet-i.test.ts packages/engine/tests/core/bosses/prophet/prophet-i-combat-runtime.test.ts packages/engine/tests/core/bosses/threat-establishment.test.ts packages/engine/tests/core/bosses/necromancer/necromancer-i.test.ts
 ```

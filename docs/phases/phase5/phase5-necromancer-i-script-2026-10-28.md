@@ -17,7 +17,7 @@
 
 ## 引擎交付
 
-- 模块：`packages/engine/src/boss/necromancer-i.ts`（`registerBossScript` via `ensureNecromancerIBossScriptRegistered` / `ensureCoreBossScriptsRegistered`）。
+- 模块：`packages/engine/src/core/bosses/necromancer/necromancer-i.ts`（`registerBossScript` via `ensureNecromancerIBossScriptRegistered` / `ensureCoreBossScriptsRegistered`）。
 - 威胁 helper（纯函数，供后续战斗后 / 村庄日接线）：`cardIdsPermanentlyRemovedAfterBattle`、`hamletBuildingsBlockedByBossThreat`。
 - 战斗卡引用：`readBossCombatEntry` → `combatEntry` 字段（**不含** Boss 遭遇生成、先攻洗入、召唤 AI）。
 - 单测：`necromancer-i.test.ts`。
@@ -48,5 +48,5 @@
 ## 测试
 
 ```bash
-pnpm exec vitest run packages/engine/src/boss/necromancer-i.test.ts packages/engine/src/boss/boss-framework.test.ts
+pnpm exec vitest run packages/engine/tests/core/bosses/necromancer/necromancer-i.test.ts packages/engine/tests/core/bosses/boss-framework.test.ts
 ```
