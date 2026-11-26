@@ -212,6 +212,20 @@ hero_skill:weald:h17:p337           // Hound's Rush I
 hero_skill:musketeer:h18:p358       // Aimed Shot I
 ```
 
+### 4.6 英雄注解层（annotations）
+
+`packages/data/src/core/heroes/annotations/` 的逐卡审校数据也只用 canonical ID：
+
+- 文件固定为 `hNN-<hero>.ts`，每个文件只导出一个 `hNN` 模块
+  （`id: "hNN"`、`hero`、`entries`、可选 `fixes`）。
+- `entries` 里的 `status` / `range` / `damage` / `shuffle` / `ignores` 等表，
+  以及 `fixes` 的 key，全部写 `hero_skill:<pack>:hNN:pNNN`。
+- **禁止**在注解层新写 `hero_skill:pNNN` 或 `hero_skill:musketeer:pNNN`
+  这类旧形式；读取旧形式只允许出现在存档兼容代码里。
+- 需要页码时读 `card.pages[0]` 或用 `printedPageOf(canonicalId)`，
+  不要从 ID 末尾 `slice(-3)` 猜（Musketeer 的目录页是 358–378，本地页是 1–21）。
+- 文件内不再单独导出数据表；索引由 `index.ts` 从各模块的 `entries` 泛型聚合。
+
 ## 5. `NN` / `pNNN` / `number` 对照
 
 - **房间族**：`NN` = 房间号；`source.page` = 印刷页；`number` = `NN`。

@@ -49,7 +49,7 @@ packages/engine/     # 纯 TypeScript 规则引擎，不依赖 React / DOM
 packages/data/       # Zod schema + 规范化游戏数据 JSON
   src/<pack>/<type>/ # schema 用原名，构建器用 *.build.ts
   src/shared/        # 跨包基础设施（build、write、extract、dictionary）
-  src/core/heroes/annotations/  # hNN 英雄注解表
+  src/core/heroes/annotations/  # 一个 hNN 模块：entries + fixes，key 用 canonical ID
   tests/             # 与 src 镜像的测试目录
   extract/ normalized/  # 原始与归一化 JSON（按 corebox / extension/<pack> 分）
 apps/web/            # React + Tailwind UI
@@ -64,6 +64,11 @@ docs/data-legend.md  # 卡面图标图例
 目录约定：**包是第一层，包内按类型分目录**（heroes / monsters / rooms / tiles / quests / curios / trinkets / bosses / hamlet）；
 与包无关的机制放 `shared/`。**测试一律放 `packages/<pkg>/tests/`，不进 `src`**；移动测试后要确认
 `tsconfig.json` 的 `include` 同时含 `src` 与 `tests`。详见 [docs/repo-layout.md](./docs/repo-layout.md)。
+
+英雄注解层按 2026-11-26 目标模式：一个 `hNN-*.ts` 只导出一个 `hNN` 模块，数据放 `entries`，
+逐卡修正放 `fixes`；所有 entry / fix key 用 canonical `hero_skill:<pack>:hNN:pNNN`。
+不要新增 `switch (card.id)`、各英雄自己的 `assertX` 或跨英雄中央表；共享 runner 在
+`annotations/patch-helpers.ts`。详见 [annotations/README.md](./packages/data/src/core/heroes/annotations/README.md)。
 
 核心规则说明书现行稿为 [docs/spec/core-rules-spec-v0.3.md](./docs/spec/core-rules-spec-v0.3.md)（v0.3，已按现行裁定更新，**已复核 2026-11-22**；检查点 ① 已结案）。v0.2 历史快照见 [docs/spec/core-rules-spec-v0.2.md](./docs/spec/core-rules-spec-v0.2.md)。大纲 §3.2 中的 `docs/rules-spec/` 指的是同一份规格书；正式稿放在 `docs/spec/`。
 

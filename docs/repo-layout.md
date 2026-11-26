@@ -18,6 +18,38 @@
 
 `normalized` 不能删：引擎和 Web 直接 import 这些 JSON；Vite 会把它们转成 JS 模块打进 `battle-catalogs` / `index` 等 chunk。`extract` 不是运行时数据，删除不会影响构建产物，但会失去重新生成 `normalized` 和审计卡面的能力。
 
+## `src` 的两层分工
+
+| 路径                     | 性质                                                          | 运行时                                                                      |
+| ------------------------ | ------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `packages/data/src/**`   | Zod schema、构建器（`*.build.ts`）、目录/池读取函数           | 部分是：schema 与目录读取会被引擎/Web import；构建器只用于生成 `normalized` |
+| `packages/engine/src/**` | 纯 TypeScript 规则引擎：状态、命令、事件、Boss 脚本、存档回放 | 是                                                                          |
+
+`packages/data/src` 里通常一个类型一对文件：`<name>.ts` 放 schema/类型/读取函数，
+`<name>.build.ts` 放从 `extract/**` 构造规范化数据的构建器。不要把运行时状态或规则结算写进 `data`；
+也不要把卡面 schema 或构建逻辑写进 `engine`。
+
+### 英雄注解层（2026-11-26 定稿）
+
+`packages/data/src/core/heroes/annotations/` 的每个 `hNN-*.ts` 只导出一个模块：
+
+```ts
+export const hNN = defineHeroModule({
+  id: "hNN",
+  hero: "...",
+  entries: { status, range, shuffle, targetCount, effectKind, ... },
+  fixes, // 纯数据英雄不写
+});
+```
+
+- 一个英雄一个文件、一个模块；数据表只放在 `entries`，不再单独 `export`。
+- 所有 entry / fix key 用 canonical ID；不写 `switch (card.id)`、不写各英雄自己的 `assertX`。
+- 共享 runner 在 `patch-helpers.ts`：`applyCardFixes` 要求每个 key 唯一命中一张卡，
+  `assertCardMeta` 统一断言英雄 / 卡名 / 等级 / 页码 / 验证状态。
+- `TARGET_COUNTS` / `EFFECT_KINDS` 已并入各英雄 `entries`；不要再新增跨英雄中央表。
+- 纯数据英雄用 `defineHeroModule` 的 no-op `apply`；有逐卡修正的英雄用 `fixes` 表。
+- 验收：`normalized/**` 逐字节不变；`pnpm test` 全绿。
+
 ## 测试为什么单独放在 `tests/`
 
 2026-11-25 的 P2–P7 重组把测试从 `src` 移出：
