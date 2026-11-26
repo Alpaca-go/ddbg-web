@@ -3,9 +3,13 @@ import { describe, expect, it } from "vitest";
 import { cardContentPack } from "../../../src/shared/content-packs";
 import { rawFileSchema } from "../../../src/shared/extract/raw";
 import { roomCatalogSchema } from "../../../src/core/rooms/room";
-import { coveRoomFileSchema } from "../../../src/cove/rooms/room";
-import { buildCoveRooms } from "../../../src/cove/rooms/rooms.build";
-import { loadNormalizedCoveRooms, writeNormalizedCoveRooms } from "../../../src/shared/write-cove";
+import {
+  coveBossRoomCardSchema,
+  coveNormalRoomCardSchema,
+  coveRoomFileSchema,
+} from "../../../src/cove/rooms/room";
+import { buildCoveRooms } from "../../../src/cove/rooms/room.build";
+import { loadNormalizedCoveRooms, writeNormalizedCoveRooms } from "../../../src/cove/write";
 
 const read = (file: string): unknown =>
   JSON.parse(readFileSync(new URL(`../../../${file}`, import.meta.url), "utf8")) as unknown;
@@ -41,6 +45,24 @@ describe("Cove 十二张房间（R-001、R-048、包隔离）", () => {
     }
     const normalIds = new Set(builtRooms.cards.filter((c) => !c.boss).map((c) => c.id));
     for (const card of boss) expect(normalIds.has(card.id)).toBe(false);
+  });
+
+  it("拒绝交换普通房与 Boss 房分类，也拒绝单卡 ID 漂移", () => {
+    const normal = builtRooms.cards.find((card) => !card.boss)!;
+    const boss = builtRooms.cards.find((card) => card.boss)!;
+    const { classificationEvidence, poolEligible, ...bossWithoutClassification } = boss;
+    const swapped = builtRooms.cards.map((card) =>
+      card.id === normal.id
+        ? { ...normal, boss: true, classificationEvidence, poolEligible }
+        : card.id === boss.id
+          ? { ...bossWithoutClassification, boss: false }
+          : card,
+    );
+    expect(coveRoomFileSchema.safeParse({ ...builtRooms, cards: swapped }).success).toBe(false);
+    expect(coveNormalRoomCardSchema.safeParse({ ...normal, id: "room:cove:02" }).success).toBe(
+      false,
+    );
+    expect(coveBossRoomCardSchema.safeParse({ ...boss, number: 1 }).success).toBe(false);
   });
 
   it("名称与页码绑定；raw 页码或 BOSS 标签漂移会失败", () => {

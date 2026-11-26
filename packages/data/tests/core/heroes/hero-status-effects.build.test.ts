@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { loadNormalizedCorebox } from "../../../src/shared/write";
+import { loadNormalizedCorebox } from "../../../src/core/write";
 import { normalizedHeroSkillCardSchema } from "../../../src/shared/schema";
 import { applyHeroStatuses } from "../../../src/core/heroes/annotations";
 

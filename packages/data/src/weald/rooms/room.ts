@@ -203,6 +203,10 @@ export const wealdRoomTileBaseSchema = z
       tile.id !== `room_tile:weald:${String(tile.number).padStart(2, "0")}`
     )
       ctx.addIssue({ code: "custom", message: "板块 ID / roomId 必须与 number 一致" });
+    const sourceFile = tile.source.face === "front" ? WEALD_TILES_FRONT : WEALD_TILES_BACK;
+    const rawId = `dungeon_tile:weald:p${String(tile.source.page).padStart(3, "0")}`;
+    if (tile.source.file !== sourceFile || tile.rawId !== rawId)
+      ctx.addIssue({ code: "custom", message: "板块 rawId、印刷页或来源面不一致" });
     for (const region of tile.specialRegions) {
       if (
         region.runtimeReady &&
@@ -237,8 +241,13 @@ export const wealdRoomTileBaseSchema = z
       ctx.addIssue({ code: "custom", message: "Precious 仅 Stash 4 号板块可 runtimeReady" });
     const ids = new Set(tile.areas.map((a) => a.id));
     if (ids.size !== tile.areas.length) ctx.addIssue({ code: "custom", message: "区域 ID 重复" });
-    for (const areaId of [...tile.necroticFungusAreas, ...tile.zeroCapacityAreas])
-      if (!ids.has(areaId)) ctx.addIssue({ code: "custom", message: "真菌／零容量引用未知区域" });
+    for (const areaId of [
+      ...tile.necroticFungusAreas,
+      ...tile.zeroCapacityAreas,
+      ...tile.deployment.markers.map((marker) => marker.areaId),
+      ...tile.specialRegions.map((region) => region.areaId),
+    ])
+      if (!ids.has(areaId)) ctx.addIssue({ code: "custom", message: "板块标记或特效引用未知区域" });
     for (const edge of tile.edges) {
       if (!ids.has(edge.from) || !ids.has(edge.to) || edge.from === edge.to)
         ctx.addIssue({ code: "custom", message: "边引用未知区域" });
@@ -295,9 +304,11 @@ export const wealdRoomTileGeometryFileSchema = z
     const numbers = file.tiles.map((t) => t.number).sort((a, b) => a - b);
     if (numbers.join(",") !== "1,2,3,4,5,6,7,8,9")
       ctx.addIssue({ code: "custom", message: "必须覆盖 1–9 号板块" });
-    for (const tile of file.tiles)
-      if (tile.roomId !== `room:weald:${String(tile.number).padStart(2, "0")}`)
-        ctx.addIssue({ code: "custom", message: "板块与房间编号不一致" });
+    if (
+      new Set(file.tiles.map((tile) => `${tile.rawId}:${tile.source.face}`)).size !==
+      file.tiles.length
+    )
+      ctx.addIssue({ code: "custom", message: "不可重复使用同一印刷板块面" });
   });
 
 export type WealdRoomTile = z.infer<typeof wealdRoomTileSchema>;

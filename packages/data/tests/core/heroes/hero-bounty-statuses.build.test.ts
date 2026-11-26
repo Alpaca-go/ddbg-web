@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { expect, it } from "vitest";
-import { loadNormalizedCorebox } from "../../../src/shared/write";
+import { loadNormalizedCorebox } from "../../../src/core/write";
 import { applyHeroBountyStatuses } from "../../../src/core/heroes/annotations";
 import { iconDictionarySchema } from "../../../src/shared/dictionary/schema";
 

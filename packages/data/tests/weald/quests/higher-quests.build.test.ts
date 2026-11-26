@@ -7,7 +7,7 @@ import { buildWealdHigherQuests } from "../../../src/weald/quests/higher-quests.
 import {
   loadNormalizedWealdHigherQuests,
   writeNormalizedWealdHigherQuests,
-} from "../../../src/shared/write-weald";
+} from "../../../src/weald/write";
 
 const read = (path: string): unknown =>
   JSON.parse(readFileSync(new URL(`../../../${path}`, import.meta.url), "utf8")) as unknown;

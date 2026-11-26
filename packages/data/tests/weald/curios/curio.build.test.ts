@@ -7,11 +7,8 @@ import {
   wealdCurioFileSchema,
   planCurioEffects,
 } from "../../../src/core/curios/curio";
-import { buildWealdCurios } from "../../../src/weald/curios/curios.build";
-import {
-  loadNormalizedWealdCurios,
-  writeNormalizedWealdCurios,
-} from "../../../src/shared/write-weald";
+import { buildWealdCurios } from "../../../src/weald/curios/curio.build";
+import { loadNormalizedWealdCurios, writeNormalizedWealdCurios } from "../../../src/weald/write";
 
 const read = (file: string): unknown =>
   JSON.parse(readFileSync(new URL(`../../../${file}`, import.meta.url), "utf8")) as unknown;

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { loadNormalizedCorebox } from "../../../src/shared/write";
+import { loadNormalizedCorebox } from "../../../src/core/write";
 import { attachVerifiedResolveTriggers } from "../../../src/core/quests/verified-resolve-triggers.build";
 import { verifiedResolveTriggerSchema } from "../../../src/shared/schema";
 

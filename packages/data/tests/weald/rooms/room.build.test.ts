@@ -8,14 +8,8 @@ import {
   wealdRoomTileSchema,
 } from "../../../src/weald/rooms/room";
 import { cardContentPack } from "../../../src/shared/content-packs";
-import {
-  assertWealdRoomsPackIsolated,
-  buildWealdRooms,
-} from "../../../src/weald/rooms/rooms.build";
-import {
-  loadNormalizedWealdRooms,
-  writeNormalizedWealdRooms,
-} from "../../../src/shared/write-weald";
+import { assertWealdRoomsPackIsolated, buildWealdRooms } from "../../../src/weald/rooms/room.build";
+import { loadNormalizedWealdRooms, writeNormalizedWealdRooms } from "../../../src/weald/write";
 
 const read = (file: string): unknown =>
   JSON.parse(readFileSync(new URL(`../../../${file}`, import.meta.url), "utf8")) as unknown;
@@ -34,6 +28,32 @@ describe("Weald 普通房间与板块（R-234–R-239、包隔离）", () => {
         read("normalized/extension/weald/room_tile_geometry.json"),
       ),
     ).toEqual(builtTiles);
+  });
+
+  it("板块印刷面和区域引用必须真实且不重复", () => {
+    const front = builtTiles.tiles[0]!;
+    const back = builtTiles.tiles[1]!;
+    for (const change of [
+      { rawId: "dungeon_tile:weald:p002" },
+      { source: { ...front.source, file: back.source.file } },
+      { specialRegions: [{ ...front.specialRegions[0], areaId: "unknown" }] },
+      {
+        deployment: {
+          ...front.deployment,
+          markers: [{ ...front.deployment.markers[0], areaId: "unknown" }],
+        },
+      },
+    ]) {
+      expect(wealdRoomTileSchema.safeParse({ ...front, ...change }).success).toBe(false);
+    }
+    expect(
+      wealdRoomTileGeometryFileSchema.safeParse({
+        ...builtTiles,
+        tiles: builtTiles.tiles.map((tile) =>
+          tile.id === back.id ? { ...back, rawId: front.rawId, source: front.source } : tile,
+        ),
+      }).success,
+    ).toBe(false);
   });
 
   it("Precious 仅核准 Stash D 区标记可运行，不开放其他房间", () => {

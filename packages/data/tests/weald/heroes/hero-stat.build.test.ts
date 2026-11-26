@@ -8,7 +8,7 @@ import {
   approvedWealdHeroStats,
   buildWealdHeroStats,
 } from "../../../src/weald/heroes/hero-stat.build";
-import { loadNormalizedCorebox } from "../../../src/shared/write";
+import { loadNormalizedCorebox } from "../../../src/core/write";
 import { canonicalHeroStatCardSchema } from "../../../src/core/heroes/hero-stat.build";
 
 const DATA_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../../..");

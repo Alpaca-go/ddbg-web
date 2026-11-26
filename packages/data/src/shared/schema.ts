@@ -9,7 +9,7 @@ import {
 
 import { iconStatusSchema } from "./dictionary/schema";
 import { iconIdSchema, levelSchema, pageListSchema } from "./extract/common";
-import { monsterStanceGroupsSchema } from "../core/monsters/monster-stance.build";
+import { monsterStanceGroupsSchema } from "./monster-stance";
 
 /** 可以拿来命名的只有 confirmed / confirmed_rulebook。decor 不是游戏图标。其余按 R-048 标未验证。 */
 export const NAMINGS = ["confirmed", "confirmed_rulebook", "decor", "unverified"] as const;

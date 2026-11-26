@@ -6,7 +6,7 @@ import { buildWealdLevelOneMonsters } from "../../../src/weald/monsters/monsters
 import {
   loadNormalizedWealdLevelOneMonsters,
   writeNormalizedWealdLevelOneMonsters,
-} from "../../../src/shared/write-weald";
+} from "../../../src/weald/write";
 
 const root = new URL("../../../", import.meta.url);
 const read = (file: string): unknown =>

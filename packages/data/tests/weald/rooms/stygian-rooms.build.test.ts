@@ -9,12 +9,12 @@ import {
 } from "../../../src/weald/rooms/stygian-rooms";
 import { wealdRoomFileSchema } from "../../../src/weald/rooms/room";
 import { buildWealdStygianRooms } from "../../../src/weald/rooms/stygian-rooms.build";
-import { buildWealdRooms } from "../../../src/weald/rooms/rooms.build";
-import { loadNormalizedCorebox } from "../../../src/shared/write";
+import { buildWealdRooms } from "../../../src/weald/rooms/room.build";
+import { loadNormalizedCorebox } from "../../../src/core/write";
 import {
   loadNormalizedWealdStygianRooms,
   loadNormalizedWealdRooms,
-} from "../../../src/shared/write-weald";
+} from "../../../src/weald/write";
 
 const readRaw = (file: string) =>
   rawFileSchema.parse(

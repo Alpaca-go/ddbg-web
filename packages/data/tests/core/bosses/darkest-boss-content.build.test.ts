@@ -6,7 +6,7 @@ import {
 import { buildDarkestBossContent } from "../../../src/core/bosses/darkest-boss-content.build";
 import { readFileSync, writeFileSync } from "node:fs";
 import { expect, it } from "vitest";
-import { loadNormalizedCorebox } from "../../../src/shared/write";
+import { loadNormalizedCorebox } from "../../../src/core/write";
 import {
   darkestBossContentSchema,
   finalBattlePlanForQuest,

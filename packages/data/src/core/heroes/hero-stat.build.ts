@@ -9,10 +9,6 @@ import {
   buildHigherHeroDefence,
   readHigherHeroDefence,
 } from "./hero-higher-defence.build";
-import { warrensHeroStatCardSchema } from "../../warrens/heroes/hero-stat.build";
-import { coveHeroStatCardSchema } from "../../cove/heroes/hero-stat.build";
-import { wealdHeroStatCardSchema } from "../../weald/heroes/hero-stat.build";
-import { musketeerHeroStatCardSchema } from "./musketeer-hero-stat.build";
 import { heroStatId, isHeroName } from "./hero-registry";
 import { withHeroStatRules } from "../../shared/rules";
 
@@ -232,20 +228,14 @@ export const normalizedHeroStatFileSchema = z
       raw: z.literal("extract/corebox/raw/hero_stat.json"),
       dictionary: z.literal("dictionary/icon-dictionary-v1.8.json"),
     }),
-    cards: z.array(
-      z.union([
-        normalizedHeroStatCardSchema,
-        warrensHeroStatCardSchema,
-        coveHeroStatCardSchema,
-        wealdHeroStatCardSchema,
-        musketeerHeroStatCardSchema,
-        canonicalHeroStatCardSchema,
-      ]),
-    ),
+    cards: z.array(canonicalHeroStatCardSchema),
   })
   .superRefine((file, ctx) => {
-    if (new Set(file.cards.map((card) => card.id)).size !== file.cards.length)
-      ctx.addIssue({ code: "custom", message: "英雄属性 raw id + face 重复" });
+    if (
+      new Set(file.cards.map((card) => card.id)).size !== file.cards.length ||
+      new Set(file.cards.map((card) => `${card.rawId}:${card.face}`)).size !== file.cards.length
+    )
+      ctx.addIssue({ code: "custom", message: "英雄属性 canonical ID 或 rawId + face 重复" });
   });
 
 export type NormalizedHeroStatCard = z.infer<typeof normalizedHeroStatCardSchema>;

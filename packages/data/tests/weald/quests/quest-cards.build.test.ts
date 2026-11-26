@@ -10,6 +10,7 @@ import {
 } from "../../../src/core/quests/basic-quests";
 import {
   WEALD_QUEST_TOKEN_HASH,
+  wealdQuestCardSchema,
   wealdQuestCardsSchema,
   wealdDistributionMatchesRegistry,
 } from "../../../src/weald/quests/quest-cards";
@@ -20,7 +21,7 @@ import {
 import {
   loadNormalizedWealdLevelOneQuestCards,
   writeNormalizedWealdLevelOneQuestCards,
-} from "../../../src/shared/write-weald";
+} from "../../../src/weald/write";
 
 const read = (file: string): unknown =>
   JSON.parse(readFileSync(new URL(`../../../${file}`, import.meta.url), "utf8")) as unknown;
@@ -36,6 +37,15 @@ describe("Weald I 级五张任务规范化（R-240–R-249）", () => {
       wealdQuestCardsSchema.parse(read("normalized/extension/weald/quest_cards.json")),
     ).toEqual(built);
     expect(buildWealdLevelOneQuestCards(raw)).toEqual(built);
+  });
+
+  it("单卡拒绝印刷页与任务 ID 漂移，也拒绝引用其他任务的分布", () => {
+    const card = built.cards[0]!;
+    const other = built.cards[1]!;
+    expect(wealdQuestCardSchema.safeParse({ ...card, id: other.id }).success).toBe(false);
+    expect(
+      wealdQuestCardSchema.safeParse({ ...card, distribution: other.distribution }).success,
+    ).toBe(false);
   });
 
   it("分布 hash kind 覆盖五张已裁定组合", () => {

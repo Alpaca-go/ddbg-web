@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { monsterStanceGroupsSchema } from "./monster-stance.build";
+import { monsterStanceGroupsSchema } from "../../shared/monster-stance";
 import { normalizedMonsterMediumCardSchema } from "../../shared/schema";
 import type { NormalizedMonsterMediumCard } from "../../shared/schema";
 

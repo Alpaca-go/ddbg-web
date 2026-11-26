@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { loadNormalizedCorebox } from "../../../../data/src/shared/write";
+import { loadNormalizedCorebox } from "../../../../data/src/core/write";
 import { heroSkillIdForPage } from "../../../../data/src/core/heroes/hero-registry";
 import {
   applyCommand,

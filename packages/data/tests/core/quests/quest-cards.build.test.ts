@@ -4,7 +4,7 @@ import { rawFileSchema } from "../../../src/shared/extract/raw";
 import { questCardsSchema, readQuestCard } from "../../../src/core/quests/quest-cards";
 import { basicQuests } from "../../../src/core/quests/basic-quests";
 import { buildQuestCards } from "../../../src/core/quests/quest-cards.build";
-import { loadNormalizedCorebox } from "../../../src/shared/write";
+import { loadNormalizedCorebox } from "../../../src/core/write";
 
 const raw = rawFileSchema.parse(
   JSON.parse(

@@ -1,6 +1,6 @@
 import { expect, it } from "vitest";
 import { attachCoreHigherSkills } from "../../../src/core/heroes/core-higher-skills.build";
-import { loadNormalizedCorebox } from "../../../src/shared/write";
+import { loadNormalizedCorebox } from "../../../src/core/write";
 
 const card = loadNormalizedCorebox().hero_skill.cards.find(
   (c) => c.id === "hero_skill:core:h06:p110",

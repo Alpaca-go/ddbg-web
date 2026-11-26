@@ -119,10 +119,10 @@ export {
 } from "./shared/dictionary/schema";
 export type { IconDictionary, IconEntry, IconStatus } from "./shared/dictionary/schema";
 export { buildNormalizedCorebox } from "./shared/build";
-export { monsterStanceGroupsSchema } from "./core/monsters/monster-stance.build";
-export type { MonsterStanceGroups } from "./core/monsters/monster-stance.build";
+export { monsterStanceGroupsSchema } from "./shared/monster-stance";
+export type { MonsterStanceGroups } from "./shared/monster-stance";
 export type { NormalizedCorebox, NormalizedCoreboxInput } from "./shared/build";
-export { loadNormalizedCorebox, writeNormalizedCorebox } from "./shared/write";
+export { loadNormalizedCorebox, writeNormalizedCorebox } from "./core/write";
 export { roomTileGeometrySchema, roomTileGeometryFileSchema } from "./core/rooms/room-tile.build";
 export type { RoomTileGeometryFile } from "./core/rooms/room-tile.build";
 export {

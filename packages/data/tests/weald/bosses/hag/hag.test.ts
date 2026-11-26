@@ -5,7 +5,7 @@ import ordinaryTiles from "../../../../normalized/extension/weald/room_tile_geom
 import { rawFileSchema } from "../../../../src/shared/extract/raw";
 import { wealdHagContentSchema, wealdHagTileSchema } from "../../../../src/weald/bosses/hag/hag";
 import { wealdRoomTileGeometryFileSchema } from "../../../../src/weald/rooms/room";
-import { loadNormalizedWealdLevelOneMonsters } from "../../../../src/shared/write-weald";
+import { loadNormalizedWealdLevelOneMonsters } from "../../../../src/weald/write";
 
 const approved = wealdHagContentSchema.parse(content);
 const readRaw = (name: string) =>

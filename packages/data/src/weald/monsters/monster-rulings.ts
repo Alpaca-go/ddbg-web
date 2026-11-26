@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { monsterEffectPlanSchema } from "../../core/monsters/monster-effects";
 import type { MonsterEffectPlan } from "../../core/monsters/monster-effects";
-import { monsterStanceGroupsSchema } from "../../core/monsters/monster-stance.build";
+import { monsterStanceGroupsSchema } from "../../shared/monster-stance";
 
 /** R-232：已确认的完整战斗属性；原始图标命名状态单独保留。 */
 export const wealdMonsterProfileSchema = z.strictObject({

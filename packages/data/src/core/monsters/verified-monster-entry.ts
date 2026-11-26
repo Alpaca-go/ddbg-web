@@ -1,6 +1,6 @@
 import { verifiedMonsterSpeeds } from "./verified-monster-speeds.build";
 import { verifiedMonsterStances } from "./verified-monster-stances.build";
-import { monsterStanceGroupsSchema } from "./monster-stance.build";
+import { monsterStanceGroupsSchema } from "../../shared/monster-stance";
 import { verifiedLargeMonsterFields } from "./verified-large-monster-fields.build";
 import { verifiedMonsterProtection } from "./verified-monster-protection.build";
 

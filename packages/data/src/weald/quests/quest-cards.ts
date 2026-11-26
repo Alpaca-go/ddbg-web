@@ -23,22 +23,34 @@ export const WEALD_QUEST_TOKEN_HASH: Readonly<Record<string, RoomTokenKind>> = {
   "1154a8a4d4": "lair",
 };
 
-export const wealdQuestCardSchema = z.strictObject({
-  id: z.string().regex(/^quest:weald:p00[1-5]$/),
-  name: z.string().min(1),
-  level: z.literal(1),
-  restPoints: z.int().positive(),
-  printedLines: z.array(z.string()).min(1),
-  specialRuleLines: z.array(z.string()),
-  distribution: roomDistributionSchema,
-  source: z.strictObject({
-    front: z.literal(WEALD_QUEST_FRONT),
-    back: z.literal(WEALD_QUEST_BACK),
-    page: z.int().min(1).max(5),
-  }),
-  /** 数据层裁定摘要；不含未确认运行时状态机（R-246 等）。 */
-  verifiedRules: z.array(z.string()).min(1),
-});
+export const wealdQuestCardSchema = z
+  .strictObject({
+    id: z.string().regex(/^quest:weald:p00[1-5]$/),
+    name: z.string().min(1),
+    level: z.literal(1),
+    restPoints: z.int().positive(),
+    printedLines: z.array(z.string()).min(1),
+    specialRuleLines: z.array(z.string()),
+    distribution: roomDistributionSchema,
+    source: z.strictObject({
+      front: z.literal(WEALD_QUEST_FRONT),
+      back: z.literal(WEALD_QUEST_BACK),
+      page: z.int().min(1).max(5),
+    }),
+    /** 数据层裁定摘要；不含未确认运行时状态机（R-246 等）。 */
+    verifiedRules: z.array(z.string()).min(1),
+  })
+  .superRefine((card, ctx) => {
+    const expectedId = `quest:weald:p${String(card.source.page).padStart(3, "0")}`;
+    if (card.id !== expectedId)
+      ctx.addIssue({ code: "custom", path: ["id"], message: `${card.id} 与印刷页不一致` });
+    if (card.distribution.questId !== card.id)
+      ctx.addIssue({
+        code: "custom",
+        path: ["distribution", "questId"],
+        message: "Weald 房间分布必须引用所属任务的 canonical ID",
+      });
+  });
 
 export const wealdQuestCardsSchema = z
   .strictObject({
@@ -50,12 +62,6 @@ export const wealdQuestCardsSchema = z
     const pages = file.cards.map((c) => c.source.page).sort((a, b) => a - b);
     if (pages.join() !== "1,2,3,4,5") {
       ctx.addIssue({ code: "custom", message: "I 级五张须为 FRONT p1–p5" });
-    }
-    for (const card of file.cards) {
-      const expectedId = `quest:weald:p${String(card.source.page).padStart(3, "0")}`;
-      if (card.id !== expectedId) {
-        ctx.addIssue({ code: "custom", message: `${card.id} 与印刷页不一致` });
-      }
     }
   });
 

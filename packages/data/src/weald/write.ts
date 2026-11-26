@@ -1,14 +1,14 @@
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { iconDictionarySchema } from "./dictionary/schema";
-import { rawFileSchema } from "./extract/raw";
-import { buildWealdLevelOneMonsters } from "../weald/monsters/monsters.build";
-import { buildWealdCurios } from "../weald/curios/curios.build";
-import { buildWealdRooms, buildWealdRoomTiles } from "../weald/rooms/rooms.build";
-import { buildWealdStygianRooms } from "../weald/rooms/stygian-rooms.build";
-import { buildWealdLevelOneQuestCards } from "../weald/quests/quest-cards.build";
-import { buildWealdHigherQuests } from "../weald/quests/higher-quests.build";
+import { iconDictionarySchema } from "../shared/dictionary/schema";
+import { rawFileSchema } from "../shared/extract/raw";
+import { buildWealdLevelOneMonsters } from "./monsters/monsters.build";
+import { buildWealdCurios } from "./curios/curio.build";
+import { buildWealdRooms, buildWealdRoomTiles } from "./rooms/room.build";
+import { buildWealdStygianRooms } from "./rooms/stygian-rooms.build";
+import { buildWealdLevelOneQuestCards } from "./quests/quest-cards.build";
+import { buildWealdHigherQuests } from "./quests/higher-quests.build";
 
 export function loadNormalizedWealdHigherQuests() {
   return buildWealdHigherQuests(

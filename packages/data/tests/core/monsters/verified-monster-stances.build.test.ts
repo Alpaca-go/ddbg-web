@@ -4,7 +4,7 @@ import {
   attachVerifiedMonsterStances,
   verifiedMonsterStances,
 } from "../../../src/core/monsters/verified-monster-stances.build";
-import { loadNormalizedCorebox } from "../../../src/shared/write";
+import { loadNormalizedCorebox } from "../../../src/core/write";
 
 const built = loadNormalizedCorebox();
 const originals = built.monster_medium.cards.map((card) => {

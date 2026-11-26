@@ -2,16 +2,16 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { iconDictionarySchema } from "./dictionary/schema";
+import { iconDictionarySchema } from "../shared/dictionary/schema";
 import {
   heroSkillFileSchema,
   monsterLargeFileSchema,
   monsterMediumFileSchema,
   trinketFileSchema,
-} from "./extract/parsed";
-import { rawFileSchema } from "./extract/raw";
-import { buildNormalizedCorebox } from "./build";
-import type { NormalizedCorebox } from "./build";
+} from "../shared/extract/parsed";
+import { rawFileSchema } from "../shared/extract/raw";
+import { buildNormalizedCorebox } from "../shared/build";
+import type { NormalizedCorebox } from "../shared/build";
 
 const DATA_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 

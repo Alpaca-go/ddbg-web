@@ -6,7 +6,7 @@ import {
   ruinsBossAbilitiesSchema,
 } from "../../../src/core/bosses/ruins-boss-abilities";
 import { buildRuinsBossAbilities } from "../../../src/core/bosses/ruins-boss-abilities.build";
-import { loadNormalizedCorebox } from "../../../src/shared/write";
+import { loadNormalizedCorebox } from "../../../src/core/write";
 
 const raw = rawFileSchema.parse(
   JSON.parse(

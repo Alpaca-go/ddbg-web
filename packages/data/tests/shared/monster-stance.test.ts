@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { monsterStanceGroupsSchema } from "../../../src/core/monsters/monster-stance.build";
-import { normalizedMonsterMediumCardSchema } from "../../../src/shared/schema";
+import { monsterStanceGroupsSchema } from "../../src/shared/monster-stance";
+import { normalizedMonsterMediumCardSchema } from "../../src/shared/schema";
 
 const groups = [
   {
@@ -59,7 +59,7 @@ describe("姿态选招数据 schema（R-015）", () => {
   it("旧规范化卡保持兼容；新增分组必须引用卡上唯一存在的技能", () => {
     const file = JSON.parse(
       readFileSync(
-        new URL("../../../normalized/corebox/monster_medium.json", import.meta.url),
+        new URL("../../normalized/corebox/monster_medium.json", import.meta.url),
         "utf8",
       ),
     ) as { cards: Record<string, unknown>[] };

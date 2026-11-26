@@ -1,6 +1,6 @@
 import { z } from "zod";
 import file from "../../../normalized/extension/weald/higher_monsters.json";
-import { monsterStanceGroupsSchema } from "../../core/monsters/monster-stance.build";
+import { monsterStanceGroupsSchema } from "../../shared/monster-stance";
 import { monsterEffectPlanSchema } from "../../core/monsters/monster-effects";
 
 const skillSchema = z.strictObject({

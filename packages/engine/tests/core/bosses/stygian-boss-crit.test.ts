@@ -1,5 +1,5 @@
 ﻿import { expect, it } from "vitest";
-import { loadNormalizedCorebox } from "../../../../data/src/shared/write";
+import { loadNormalizedCorebox } from "../../../../data/src/core/write";
 import { resolveMonsterAttackEffects } from "../../../src/core/heroes/hero-skill";
 import { readMonsterAttackView } from "../../../src/shared/core/monster-skill";
 import { stygianBossCritApplies } from "../../../src/core/bosses/stygian-boss-crit";

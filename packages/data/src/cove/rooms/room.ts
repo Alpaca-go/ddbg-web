@@ -11,36 +11,41 @@ const sourceSchema = z.strictObject({
   page: z.int().min(1).max(12),
 });
 
-const coveRoomBase = z.strictObject({
-  id: z.string().regex(/^room:cove:\d{2}$/),
-  name: z.string().min(1),
-  copies: z.literal(1),
-  location: z.literal("cove"),
-  number: z.int().min(1).max(12),
-  printedLines: z.array(z.string()).min(1),
-  source: sourceSchema,
-  pendingReview: z.array(z.string()).min(1),
-});
-
-/** 九张普通房间：进入房间牌堆。 */
-export const coveNormalRoomCardSchema = coveRoomBase.extend({
-  boss: z.literal(false),
-});
-
-/** 三张 Boss 房：只作 Boss 部署来源，poolEligible=false，不进入房间牌堆。 */
-export const coveBossRoomCardSchema = coveRoomBase.extend({
-  boss: z.literal(true),
-  poolEligible: z.literal(false),
-  classificationEvidence: z.array(z.string()).min(1),
-});
-
-export const coveRoomCardSchema = z
-  .discriminatedUnion("boss", [coveNormalRoomCardSchema, coveBossRoomCardSchema])
+const coveRoomBase = z
+  .strictObject({
+    id: z.string().regex(/^room:cove:\d{2}$/),
+    name: z.string().min(1),
+    copies: z.literal(1),
+    location: z.literal("cove"),
+    number: z.int().min(1).max(12),
+    printedLines: z.array(z.string()).min(1),
+    source: sourceSchema,
+    pendingReview: z.array(z.string()).min(1),
+  })
   .superRefine((card, ctx) => {
     const expected = `room:cove:${String(card.number).padStart(2, "0")}`;
     if (card.id !== expected || card.number !== card.source.page)
       ctx.addIssue({ code: "custom", message: "Cove 房间身份与房间号/印刷页不一致" });
   });
+
+/** 九张普通房间：进入房间牌堆。 */
+export const coveNormalRoomCardSchema = coveRoomBase.safeExtend({
+  number: z.int().min(1).max(9),
+  boss: z.literal(false),
+});
+
+/** 三张 Boss 房：只作 Boss 部署来源，poolEligible=false，不进入房间牌堆。 */
+export const coveBossRoomCardSchema = coveRoomBase.safeExtend({
+  number: z.int().min(10).max(12),
+  boss: z.literal(true),
+  poolEligible: z.literal(false),
+  classificationEvidence: z.array(z.string()).min(1),
+});
+
+export const coveRoomCardSchema = z.discriminatedUnion("boss", [
+  coveNormalRoomCardSchema,
+  coveBossRoomCardSchema,
+]);
 
 export const coveRoomCatalogSchema = z
   .array(coveRoomCardSchema)

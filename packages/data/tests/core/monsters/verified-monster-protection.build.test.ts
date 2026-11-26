@@ -1,5 +1,5 @@
 import { expect, it } from "vitest";
-import { loadNormalizedCorebox } from "../../../src/shared/write";
+import { loadNormalizedCorebox } from "../../../src/core/write";
 import { attachVerifiedMonsterProtection } from "../../../src/core/monsters/verified-monster-protection.build";
 const data = loadNormalizedCorebox();
 it("R-083仅四具体战斗卡附加常驻Protection；不改词典、参考卡或其他卡", () => {

@@ -9,7 +9,7 @@ import {
   darkestDungeonMonsterInstances,
   darkestMonsterPoolFileSchema,
 } from "../../../src/core/monsters/darkest-monster-pool";
-import { loadNormalizedCorebox } from "../../../src/shared/write";
+import { loadNormalizedCorebox } from "../../../src/core/write";
 
 const raw = rawFileSchema.parse(
   JSON.parse(

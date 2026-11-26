@@ -3,7 +3,7 @@ import { expect, it } from "vitest";
 import { rawFileSchema } from "../../../src/shared/extract/raw";
 import { readDarkestBossAbility } from "../../../src/core/bosses/darkest-boss-abilities";
 import { buildDarkestBossAbilities } from "../../../src/core/bosses/darkest-boss-abilities.build";
-import { loadNormalizedCorebox } from "../../../src/shared/write";
+import { loadNormalizedCorebox } from "../../../src/core/write";
 
 const raw = rawFileSchema.parse(
   JSON.parse(

@@ -1,5 +1,5 @@
 import { expect, it } from "vitest";
-import { loadNormalizedCorebox } from "../../../../src/shared/write";
+import { loadNormalizedCorebox } from "../../../../src/core/write";
 import { lineSignature } from "../../../../src/core/heroes/annotations/shared";
 
 it("R-200：Houndmaster 高等级逐卡覆盖签名", () => {

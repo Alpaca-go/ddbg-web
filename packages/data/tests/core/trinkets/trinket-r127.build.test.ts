@@ -1,6 +1,6 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import { it, expect } from "vitest";
-import { loadNormalizedCorebox } from "../../../src/shared/write";
+import { loadNormalizedCorebox } from "../../../src/core/write";
 const path = new URL("../../../normalized/corebox/trinket.json", import.meta.url);
 const built = loadNormalizedCorebox().trinket;
 if (process.env.WRITE_TRINKET_R127 === "1")

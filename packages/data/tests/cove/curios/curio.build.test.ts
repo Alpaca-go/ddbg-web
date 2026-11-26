@@ -2,11 +2,8 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { rawFileSchema } from "../../../src/shared/extract/raw";
 import { coveCurioFileSchema, planCurioEffects } from "../../../src/core/curios/curio";
-import { buildCoveCurios } from "../../../src/cove/curios/curios.build";
-import {
-  loadNormalizedCoveCurios,
-  writeNormalizedCoveCurios,
-} from "../../../src/shared/write-cove";
+import { buildCoveCurios } from "../../../src/cove/curios/curio.build";
+import { loadNormalizedCoveCurios, writeNormalizedCoveCurios } from "../../../src/cove/write";
 
 const read = (file: string): unknown =>
   JSON.parse(readFileSync(new URL(`../../../${file}`, import.meta.url), "utf8")) as unknown;

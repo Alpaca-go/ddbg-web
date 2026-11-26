@@ -4,7 +4,7 @@ import { rawFileSchema } from "../../../src/shared/extract/raw";
 import { iconDictionarySchema } from "../../../src/shared/dictionary/schema";
 import { diseaseFileSchema } from "../../../src/core/hamlet/disease";
 import { buildDiseases } from "../../../src/core/hamlet/disease.build";
-import { loadNormalizedCorebox } from "../../../src/shared/write";
+import { loadNormalizedCorebox } from "../../../src/core/write";
 const read = (file: string) =>
   JSON.parse(readFileSync(new URL(`../../../${file}`, import.meta.url), "utf8"));
 const raw = rawFileSchema.parse(read("extract/corebox/raw/disease.json"));

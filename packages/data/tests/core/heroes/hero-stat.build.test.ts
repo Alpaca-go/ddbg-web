@@ -10,7 +10,7 @@ import {
   normalizedHeroStatCardSchema,
   normalizedHeroStatFileSchema,
 } from "../../../src/core/heroes/hero-stat.build";
-import { loadNormalizedCorebox } from "../../../src/shared/write";
+import { loadNormalizedCorebox } from "../../../src/core/write";
 
 const json = (file: string) =>
   JSON.parse(readFileSync(new URL(`../../../${file}`, import.meta.url), "utf8"));

@@ -4,7 +4,7 @@ import {
   attachVerifiedMonsterSpeeds,
   verifiedMonsterSpeeds,
 } from "../../../src/core/monsters/verified-monster-speeds.build";
-import { loadNormalizedCorebox } from "../../../src/shared/write";
+import { loadNormalizedCorebox } from "../../../src/core/write";
 
 const built = loadNormalizedCorebox();
 // 独立预期：首批六条 2026-10-10，新四张普通卡 2026-10-12 部分批准，不从映射反推。

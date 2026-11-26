@@ -1,5 +1,5 @@
 import { expect, it } from "vitest";
-import { loadNormalizedCorebox } from "../../../../data/src/shared/write";
+import { loadNormalizedCorebox } from "../../../../data/src/core/write";
 import { heroSkillIdForPage } from "../../../../data/src/core/heroes/hero-registry";
 import { savedCommandSchema } from "../../../../data/src/shared/quest-save";
 import { createBattleState } from "../../../src/shared/battle/battle";

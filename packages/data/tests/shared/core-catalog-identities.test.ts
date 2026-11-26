@@ -95,6 +95,24 @@ it("正式英雄目录逐英雄覆盖 STAT 和 SKILL，拒绝错误归属与缺�
     .parse(heroStats)
     .cards.map((card) => canonicalHeroStatCardSchema.parse(card));
   const skills = canonicalHeroSkillFileSchema.parse(heroSkills);
+  const [first, second, ...remaining] = stats;
+  expect(
+    normalizedHeroStatFileSchema.safeParse({
+      ...heroStats,
+      cards: [{ ...first, id: `${first!.rawId}:${first!.face}` }, second, ...remaining],
+    }).success,
+  ).toBe(false);
+  const sameFace = remaining.findIndex((card) => card.face === first!.face);
+  expect(
+    normalizedHeroStatFileSchema.safeParse({
+      ...heroStats,
+      cards: [
+        first,
+        second,
+        ...remaining.map((card, i) => (i === sameFace ? { ...card, rawId: first!.rawId } : card)),
+      ],
+    }).success,
+  ).toBe(false);
   expect(new Set(stats.map((card) => card.name))).toEqual(new Set(HERO_ORDER));
   expect(new Set(stats.map((card) => `${card.rawId}:${card.face}`)).size).toBe(stats.length);
   for (const hero of HERO_ORDER) {

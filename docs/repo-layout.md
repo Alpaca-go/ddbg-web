@@ -28,6 +28,7 @@
 `packages/data/src` 里通常一个类型一对文件：`<name>.ts` 放 schema/类型/读取函数，
 `<name>.build.ts` 放从 `extract/**` 构造规范化数据的构建器。不要把运行时状态或规则结算写进 `data`；
 也不要把卡面 schema 或构建逻辑写进 `engine`。
+核心盒、Weald 与 Cove 的文件写入入口位于各自包下的 `write.ts`。运行时共用的 schema 放在 `shared/`。
 
 ### 规则引擎目录
 

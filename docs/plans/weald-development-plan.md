@@ -6,6 +6,10 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 
 ## 当前进度与下一步
 
+- **2026-11-26 数据目录审计**：按包归位 Weald、Cove 和核心盒写入入口，统一单类构建器文件名。Weald I 级任务分布校验所属 ID，房间板块校验印刷面及区域引用。Cove 房间校验普通与 Boss 分类的页段。正式英雄 STAT 目录要求 canonical ID。
+  验证：定向 Vitest 17 文件、80 项通过；typecheck、lint、build 及两条 Weald Playwright 冒烟通过。全量 Vitest 631 个文件通过，4436 项通过、1 项跳过。核心盒 20 个、Weald 8 个重建文件逐字节相同，Cove 两个文件的解析结果相同，现有文件和生成器仅格式有差异。
+  既有 Weald 待确认项和下一步见下方。英雄聚合目录的文件级来源清单仍只登记核心盒，单卡来源已分别记录。
+
 - **2026-11-26 引擎目录审计**：Weald 的 Boss 按 Hag／Pounder／Shrieker 分目录，专属房间效果、怪物与任务规则按领域归位。核心通用伤害原语放入共享战斗目录。测试夹具及其路径与快照同步迁移。
   验证：typecheck、lint、build 通过；Temple of the Chosen、Hag、Shrieker 三条 Playwright 冒烟通过。运行时路径修正后，受影响的七组 Vitest 共 64 项通过，完整重跑 631 个文件通过，4433 项通过、1 项跳过。原始数据和规范化目录均为零 diff。
   Weald 既有待确认项和下一步见下方。Cove／Warrens 的 Boss 卡牌占位 ID 待对应印刷目录入库后统一迁移。
@@ -139,7 +143,7 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 
 ### 普通房间效果的实际接线状态
 
-卡面语义沿用 [R-234–R-239](../rulings.md)及[房间审阅稿](../reviews/weald-room-review-2026-11-12.md)，不新增规则。核对 [房间生成器](../../packages/data/src/weald/rooms/rooms.build.ts)、[区域投影](../../packages/engine/src/weald/mechanics.ts)与[数据 schema](../../packages/data/src/weald/rooms/room.ts)：区域投影仍只接 `poisonousRoots`；Toxic Mushrooms 按核准房间身份与星区独立结算，schema 已允许 1 号 Toxic Mushrooms 与 4 号 Precious 的区域效果开启 `runtimeReady`。2／8 号是全房间触发，不能因 `specialRegions` 为空误记为没有效果。
+卡面语义沿用 [R-234–R-239](../rulings.md)及[房间审阅稿](../reviews/weald-room-review-2026-11-12.md)，不新增规则。核对 [房间生成器](../../packages/data/src/weald/rooms/room.build.ts)、[区域投影](../../packages/engine/src/weald/mechanics.ts)与[数据 schema](../../packages/data/src/weald/rooms/room.ts)：区域投影仍只接 `poisonousRoots`；Toxic Mushrooms 按核准房间身份与星区独立结算，schema 已允许 1 号 Toxic Mushrooms 与 4 号 Precious 的区域效果开启 `runtimeReady`。2／8 号是全房间触发，不能因 `specialRegions` 为空误记为没有效果。
 
 | 房间                 | 已核准效果       | 当前状态／后续触发位置                                                                                                                                                                                                                    |
 | -------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |

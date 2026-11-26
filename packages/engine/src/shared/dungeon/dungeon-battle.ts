@@ -101,7 +101,7 @@ import {
 } from "../../weald/quests/disinfection-quest";
 import { readDungeonQuestProgress } from "./dungeon-quest";
 import { readCampaignLevel } from "../hamlet/hamlet-campaign";
-import { hasApprovedHigherMonsterFields } from "../../../../data/src/core/monsters/verified-monster-entry.build";
+import { hasApprovedHigherMonsterFields } from "../../../../data/src/core/monsters/verified-monster-entry";
 import { createBattleState, rejectBattleCommand, skillTargetView } from "../battle/battle";
 import type { BattleEntity, BattleSetup } from "../battle/battle";
 import type { WealdRoomTile } from "../../../../data/src/weald/rooms/room";

@@ -1,9 +1,9 @@
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { rawFileSchema } from "./extract/raw";
-import { buildCoveCurios } from "../cove/curios/curios.build";
-import { buildCoveRooms } from "../cove/rooms/rooms.build";
+import { rawFileSchema } from "../shared/extract/raw";
+import { buildCoveCurios } from "./curios/curio.build";
+import { buildCoveRooms } from "./rooms/room.build";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const read = (file: string): unknown =>

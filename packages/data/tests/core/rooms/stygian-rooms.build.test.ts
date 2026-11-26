@@ -7,7 +7,7 @@ import {
 } from "../../../src/core/rooms/stygian-rooms";
 import { buildStygianRooms } from "../../../src/core/rooms/stygian-rooms.build";
 import { buildRooms } from "../../../src/core/rooms/room.build";
-import { loadNormalizedCorebox } from "../../../src/shared/write";
+import { loadNormalizedCorebox } from "../../../src/core/write";
 
 function readRaw(name: string) {
   return rawFileSchema.parse(

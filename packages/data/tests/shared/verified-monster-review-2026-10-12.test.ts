@@ -1,5 +1,5 @@
 import { expect, it } from "vitest";
-import { loadNormalizedCorebox } from "../../src/shared/write";
+import { loadNormalizedCorebox } from "../../src/core/write";
 import { ruinsMonsterPool } from "../../src/core/monsters/monster-pool";
 
 it("2026-10-12先批五条再批四条修正版，全部九条入库且42实例保留", () => {

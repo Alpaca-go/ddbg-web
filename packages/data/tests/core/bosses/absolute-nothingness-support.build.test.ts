@@ -12,7 +12,7 @@ import {
   normalizedMonsterLargeFileSchema,
   normalizedMonsterMediumFileSchema,
 } from "../../../src/shared/schema";
-import { loadNormalizedCorebox } from "../../../src/shared/write";
+import { loadNormalizedCorebox } from "../../../src/core/write";
 
 const read = (path: string) => JSON.parse(readFileSync(new URL(path, import.meta.url), "utf8"));
 
