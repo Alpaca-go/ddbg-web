@@ -325,88 +325,39 @@ function antiquarianFixes(
   const healMarker = iconFromPool(cards, "damage_or_heal_combined_marker");
   const targetHeroIcon = iconFromPool(cards, "target_hero");
   const targetEffectsIcon = iconFromPool(cards, "target_effects");
+
+  const fixFesteringVapours: CardFix = (card) => {
+    const page = card.pages[0]!;
+    const level = page - 297;
+    assertCardMeta(card, "ANTIQUARIAN", page, "Festering Vapours", level);
+    const raw = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
+    const expected =
+      level === 1
+        ? "{damage}2{damage}2t,{bleed}1t"
+        : `{target_effects}${level}{bleed}3t,{debuff}2t`;
+    if (raw !== expected) throw new Error(`${card.id} Festering 效果行漂移（R-048）`);
+    const amount = level === 3 ? 3 : 2;
+    const duration = level === 1 ? 2 : 3;
+    const debuffDuration = level === 1 ? 1 : 2;
+    return parseAnnotatedHeroSkillCard({
+      ...card,
+      effect_lines: [
+        [
+          targetEffectsIcon,
+          text(` ${amount} `),
+          iconFromPool(cards, "blight"),
+          text(` ${duration}t, `),
+          iconFromPool(cards, "debuff"),
+          text(` ${debuffDuration}t`),
+        ],
+      ],
+    });
+  };
+
   return {
-    "hero_skill:warrens:h15:p298": (card) => {
-      const page = card.pages[0]!;
-      const level = page - 297;
-      assertCardMeta(card, "ANTIQUARIAN", page, "Festering Vapours", level);
-      const raw = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
-      const expected =
-        level === 1
-          ? "{damage}2{damage}2t,{bleed}1t"
-          : `{target_effects}${level}{bleed}3t,{debuff}2t`;
-      if (raw !== expected) throw new Error(`${card.id} Festering 效果行漂移（R-048）`);
-      const amount = level === 3 ? 3 : 2;
-      const duration = level === 1 ? 2 : 3;
-      const debuffDuration = level === 1 ? 1 : 2;
-      return parseAnnotatedHeroSkillCard({
-        ...card,
-        effect_lines: [
-          [
-            targetEffectsIcon,
-            text(` ${amount} `),
-            iconFromPool(cards, "blight"),
-            text(` ${duration}t, `),
-            iconFromPool(cards, "debuff"),
-            text(` ${debuffDuration}t`),
-          ],
-        ],
-      });
-    },
-    "hero_skill:warrens:h15:p299": (card) => {
-      const page = card.pages[0]!;
-      const level = page - 297;
-      assertCardMeta(card, "ANTIQUARIAN", page, "Festering Vapours", level);
-      const raw = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
-      const expected =
-        level === 1
-          ? "{damage}2{damage}2t,{bleed}1t"
-          : `{target_effects}${level}{bleed}3t,{debuff}2t`;
-      if (raw !== expected) throw new Error(`${card.id} Festering 效果行漂移（R-048）`);
-      const amount = level === 3 ? 3 : 2;
-      const duration = level === 1 ? 2 : 3;
-      const debuffDuration = level === 1 ? 1 : 2;
-      return parseAnnotatedHeroSkillCard({
-        ...card,
-        effect_lines: [
-          [
-            targetEffectsIcon,
-            text(` ${amount} `),
-            iconFromPool(cards, "blight"),
-            text(` ${duration}t, `),
-            iconFromPool(cards, "debuff"),
-            text(` ${debuffDuration}t`),
-          ],
-        ],
-      });
-    },
-    "hero_skill:warrens:h15:p300": (card) => {
-      const page = card.pages[0]!;
-      const level = page - 297;
-      assertCardMeta(card, "ANTIQUARIAN", page, "Festering Vapours", level);
-      const raw = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
-      const expected =
-        level === 1
-          ? "{damage}2{damage}2t,{bleed}1t"
-          : `{target_effects}${level}{bleed}3t,{debuff}2t`;
-      if (raw !== expected) throw new Error(`${card.id} Festering 效果行漂移（R-048）`);
-      const amount = level === 3 ? 3 : 2;
-      const duration = level === 1 ? 2 : 3;
-      const debuffDuration = level === 1 ? 1 : 2;
-      return parseAnnotatedHeroSkillCard({
-        ...card,
-        effect_lines: [
-          [
-            targetEffectsIcon,
-            text(` ${amount} `),
-            iconFromPool(cards, "blight"),
-            text(` ${duration}t, `),
-            iconFromPool(cards, "debuff"),
-            text(` ${debuffDuration}t`),
-          ],
-        ],
-      });
-    },
+    "hero_skill:warrens:h15:p298": fixFesteringVapours,
+    "hero_skill:warrens:h15:p299": fixFesteringVapours,
+    "hero_skill:warrens:h15:p300": fixFesteringVapours,
     "hero_skill:warrens:h15:p301": (card) =>
       fixGetDown(
         card,
