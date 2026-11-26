@@ -6,12 +6,12 @@ import { assertAncestorRoomSource } from "../core/rooms/ancestor-room.build";
 import { assertMammothCystRoomSource } from "../core/rooms/mammoth-cyst-room.build";
 import { assertShufflingHorrorRoomSource } from "../core/rooms/shuffling-horror-room.build";
 import { assertTemplarsRoomEffectSource } from "../core/rooms/templars-room.build";
-import { assertTempleOfTheChosenEffectSource } from "../core/curios/temple-of-the-chosen.build";
-import { assertEvilEyeEffectSource } from "../core/curios/evil-eye.build";
-import { assertTeleportersEffectSource } from "../core/curios/teleporters.build";
-import { assertEldritchPowerChamberEffectSource } from "../core/curios/eldritch-power-chamber.build";
-import { assertToxicChamberEffectSource } from "../core/curios/toxic-chamber.build";
-import { assertEldritchVaultEffectSource } from "../core/curios/eldritch-vault.build";
+import { assertTempleOfTheChosenEffectSource } from "../core/rooms/temple-of-the-chosen.build";
+import { assertEvilEyeEffectSource } from "../core/rooms/evil-eye.build";
+import { assertTeleportersEffectSource } from "../core/rooms/teleporters.build";
+import { assertEldritchPowerChamberEffectSource } from "../core/rooms/eldritch-power-chamber.build";
+import { assertToxicChamberEffectSource } from "../core/rooms/toxic-chamber.build";
+import { assertEldritchVaultEffectSource } from "../core/rooms/eldritch-vault.build";
 import { attachCoreHigherSkills } from "../core/heroes/core-higher-skills.build";
 import { buildDarkestBossContent } from "../core/bosses/darkest-boss-content.build";
 import { buildAbsoluteNothingnessSupport } from "../core/bosses/absolute-nothingness-support.build";
@@ -69,8 +69,8 @@ import { TRINKET_RULES } from "../core/trinkets/trinket-rules-data.build";
 import { withHeroSkillRules, withMonsterCardRules, withVirtueRules } from "./rules";
 import { approvedResolveLookup } from "../core/quests/approved-resolve-icons.build";
 import { buildRoomTileGeometry } from "../core/rooms/room-tile.build";
-import { assertHallOfAscensionEffectSource } from "../core/hamlet/hall-of-ascension.build";
-import { assertPoolOfRebirthEffectSource } from "../core/hamlet/pool-of-rebirth.build";
+import { assertHallOfAscensionEffectSource } from "../core/rooms/hall-of-ascension.build";
+import { assertPoolOfRebirthEffectSource } from "../core/rooms/pool-of-rebirth.build";
 import type { RoomTileGeometryFile } from "../core/rooms/room-tile.build";
 import { buildHeroStats, normalizedHeroStatFileSchema } from "../core/heroes/hero-stat.build";
 import { heroSkillId } from "../core/heroes/hero-registry";
@@ -95,6 +95,7 @@ import type {
   Segment,
 } from "./schema";
 import {
+  canonicalHeroSkillFileSchema,
   normalizedHeroSkillFileSchema,
   normalizedMonsterLargeFileSchema,
   normalizedMonsterMediumFileSchema,
@@ -792,7 +793,7 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
           ),
         ),
       );
-      return normalizedHeroSkillFileSchema.parse({
+      return canonicalHeroSkillFileSchema.parse({
         ...file,
         cards: cards.map((card) => withHeroSkillRules(card)),
       });

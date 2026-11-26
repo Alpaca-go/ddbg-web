@@ -17,7 +17,7 @@ import { heroSkillIdForPage } from "../../packages/data/src/core/heroes/hero-reg
 import { shareBattleCatalogs } from "./battle-data-shared";
 import { roomTileGeometryFileSchema } from "../../packages/data/src/core/rooms/room-tile.build";
 import {
-  normalizedHeroSkillFileSchema,
+  canonicalHeroSkillFileSchema,
   normalizedMonsterMediumFileSchema,
   normalizedMonsterLargeFileSchema,
   normalizedVirtueAfflictionFileSchema,
@@ -147,7 +147,7 @@ export function battleDataPlugin(): Plugin {
         for (let page = 169; page <= 187; page += 3) skillIds.add(heroSkillIdForPage(page));
         for (let page = 190; page <= 208; page += 3) skillIds.add(heroSkillIdForPage(page));
       }
-      const allHeroSkills = normalizedHeroSkillFileSchema.parse(read("hero_skill")).cards;
+      const allHeroSkills = canonicalHeroSkillFileSchema.parse(read("hero_skill")).cards;
       if (currentQuest)
         for (const card of allHeroSkills) if (coreHigherSkillAvailable(card)) skillIds.add(card.id);
       if (graveOccultist) {

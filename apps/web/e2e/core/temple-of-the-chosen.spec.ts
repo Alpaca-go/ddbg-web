@@ -26,7 +26,7 @@ test("Temple of the Chosen：怪物技能结束触发治疗及全体压力", asy
     const { approvedTempleOfTheChosen: tile } = await server.ssrLoadModule(
       fileURLToPath(
         new URL(
-          "../../../../packages/data/src/core/curios/temple-of-the-chosen.build.ts",
+          "../../../../packages/data/src/core/rooms/temple-of-the-chosen.build.ts",
           import.meta.url,
         ),
       ),

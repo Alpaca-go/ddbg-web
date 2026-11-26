@@ -7,7 +7,7 @@ import {
   approvedEvilEye as tile,
   evilEyeSchema,
   assertEvilEyeEffectSource,
-} from "../../../src/core/curios/evil-eye.build";
+} from "../../../src/core/rooms/evil-eye.build";
 import { buildRoomTileGeometry } from "../../../src/core/rooms/room-tile.build";
 import { selectRoomTile } from "../../../src/core/rooms/room-tile-selection.build";
 

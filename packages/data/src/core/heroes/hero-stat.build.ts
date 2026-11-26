@@ -13,7 +13,7 @@ import { warrensHeroStatCardSchema } from "../../warrens/heroes/hero-stat.build"
 import { coveHeroStatCardSchema } from "../../cove/heroes/hero-stat.build";
 import { wealdHeroStatCardSchema } from "../../weald/heroes/hero-stat.build";
 import { musketeerHeroStatCardSchema } from "./musketeer-hero-stat.build";
-import { heroStatId } from "./hero-registry";
+import { heroStatId, isHeroName } from "./hero-registry";
 import { withHeroStatRules } from "../../shared/rules";
 
 const FRONT = "02_DD_CARDS_COREBOX/DD_EN_COREBOX_CARDS_100x180_Hero_STAT_FRONT.pdf";
@@ -213,7 +213,12 @@ export const canonicalHeroStatCardSchema = attributesSchema
     verification: verificationSchema,
   })
   .superRefine((card, ctx) => {
-    if (card.id !== heroStatId(card.name, card.level, card.face))
+    const face = card.level === 2 && card.name !== "ABOMINATION" ? "back" : "front";
+    if (
+      !isHeroName(card.name) ||
+      card.face !== face ||
+      card.id !== heroStatId(card.name, card.level, face)
+    )
       ctx.addIssue({ code: "custom", message: "英雄 STAT canonical ID 与英雄编号/等级/面不符" });
   });
 

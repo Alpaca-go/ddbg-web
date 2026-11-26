@@ -30,28 +30,25 @@ import {
   templarsRoomSchema,
   assertTemplarsRoomTileLabels,
 } from "./templars-room.build";
-import {
-  approvedTempleOfTheChosen,
-  templeOfTheChosenSchema,
-} from "../curios/temple-of-the-chosen.build";
-import { approvedEvilEye, evilEyeSchema, assertEvilEyeTileLabels } from "../curios/evil-eye.build";
-import { approvedTeleporters, teleportersSchema } from "../curios/teleporters.build";
+import { approvedTempleOfTheChosen, templeOfTheChosenSchema } from "./temple-of-the-chosen.build";
+import { approvedEvilEye, evilEyeSchema, assertEvilEyeTileLabels } from "./evil-eye.build";
+import { approvedTeleporters, teleportersSchema } from "./teleporters.build";
 import {
   approvedEldritchPowerChamber,
   eldritchPowerChamberSchema,
-} from "../curios/eldritch-power-chamber.build";
-import { approvedToxicChamber, toxicChamberSchema } from "../curios/toxic-chamber.build";
-import { approvedEldritchVault, eldritchVaultSchema } from "../curios/eldritch-vault.build";
-import { approvedHallOfAscension, hallOfAscensionSchema } from "../hamlet/hall-of-ascension.build";
+} from "./eldritch-power-chamber.build";
+import { approvedToxicChamber, toxicChamberSchema } from "./toxic-chamber.build";
+import { approvedEldritchVault, eldritchVaultSchema } from "./eldritch-vault.build";
+import { approvedHallOfAscension, hallOfAscensionSchema } from "./hall-of-ascension.build";
 import { z } from "zod";
 import type { RawFile } from "../../shared/extract/raw";
 import { iconIdSchema } from "../../shared/extract/common";
-import { approvedTortureChamber, tortureChamberSchema } from "../curios/torture-chamber.build";
+import { approvedTortureChamber, tortureChamberSchema } from "./torture-chamber.build";
 import {
   approvedExtraRuinsTileSchema,
   approvedExtraRuinsTiles,
 } from "../tiles/approved-ruins-tiles.build";
-import { approvedPoolOfRebirth, poolOfRebirthSchema } from "../hamlet/pool-of-rebirth.build";
+import { approvedPoolOfRebirth, poolOfRebirthSchema } from "./pool-of-rebirth.build";
 
 /** 几何数据不是可用卡池；未命名图标只保留 ID，不补含义或数值（R-048）。 */
 const ritualChamberSchema = z

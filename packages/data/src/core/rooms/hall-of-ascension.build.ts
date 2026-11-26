@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { iconIdSchema } from "../../shared/extract/common";
 import type { RawFile } from "../../shared/extract/raw";
-import { ROOM_FRONT } from "../rooms/room";
+import { ROOM_FRONT } from "./room";
 
 export const hallOfAscensionEffectLines = [
   "{icon:0fd119772a} : Heroes can spend 2 actions here",

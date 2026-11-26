@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { iconIdSchema } from "../../shared/extract/common";
 import type { RawFile } from "../../shared/extract/raw";
-import { ROOM_FRONT } from "../rooms/room";
+import { ROOM_FRONT } from "./room";
 
 export const toxicChamberEffectLines = [
   "{icon:a74b9dc080} Toxic Vapors: Heroes",

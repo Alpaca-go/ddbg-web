@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { iconIdSchema } from "../../shared/extract/common";
 import type { RawFile } from "../../shared/extract/raw";
-import { ROOM_FRONT } from "../rooms/room";
+import { ROOM_FRONT } from "./room";
 
 export const evilEyeEffectLines = [
   "{icon:62d166a84f} A Evil Gaze: Heroes ending their turn here",

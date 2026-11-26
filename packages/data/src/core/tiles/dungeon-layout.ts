@@ -19,7 +19,7 @@ export type QuestMapSlotKind = z.infer<typeof questMapSlotKindSchema>;
 /** Q-45 / R-046：探索地图与战斗 Room Tile 分开；未批准标注只能进沙盒。 */
 export const dungeonLayoutSchema = z
   .strictObject({
-    id: z.string().min(1),
+    id: z.string().regex(/^quest_map:p\d{3}$/),
     source: z.strictObject({
       file: z.string().min(1),
       page: z.int().positive(),
@@ -46,6 +46,8 @@ export const dungeonLayoutSchema = z
   .superRefine((layout, ctx) => {
     const ids = new Set(layout.nodes.map((n) => n.id));
     const fail = (message: string) => ctx.addIssue({ code: "custom", message });
+    if (layout.id !== `quest_map:p${String(layout.source.page).padStart(3, "0")}`)
+      ctx.addIssue({ code: "custom", path: ["id"], message: "地图 ID 与印刷页不一致" });
     if (ids.size !== layout.nodes.length) fail("节点 ID 重复");
     if (layout.nodes.filter((n) => n.kind === "start").length !== 1) fail("必须有唯一起点");
     if (!layout.nodes.some((n) => n.kind === "room")) fail("没有房间槽");

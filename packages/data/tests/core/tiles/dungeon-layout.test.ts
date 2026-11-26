@@ -52,6 +52,12 @@ describe("QuestMap 14 页印刷标注（Q-45、R-048）", () => {
         .success,
     ).toBe(false);
   });
+  it("拒绝非 canonical 地图 ID 与印刷页漂移", () => {
+    const layout = parsed.layouts[0]!;
+    for (const id of ["quest_map:p1", "quest_map:p002", "quest_map:core:p001"])
+      expect(dungeonLayoutSchema.safeParse({ ...layout, id }).success).toBe(false);
+  });
+
   it("实际灰点连接 2、3、4 段均合法，不能把灰点压成一条边", () => {
     const degrees = parsed.layouts.flatMap((l) =>
       l.nodes

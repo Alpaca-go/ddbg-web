@@ -1,4 +1,6 @@
 import { z } from "zod";
+import { HERO_SKILL_BASE, heroSkillId, isHeroName } from "../core/heroes/hero-registry";
+import { CONTENT_PACK_IDS, isCoreMonsterSupplementId } from "./content-packs";
 import { monsterEffectPlanSchema } from "../core/monsters/monster-effects";
 import {
   wealdMonsterAttackSchema,
@@ -648,7 +650,21 @@ function normalizedFileSchema<T extends z.ZodType>(category: string, cardSchema:
       cards: z.array(cardSchema),
     })
     .superRefine((file, ctx) => {
-      const cards = file.cards as { verification: { unverified: boolean } }[];
+      const cards = file.cards as { id: string; verification: { unverified: boolean } }[];
+      if (new Set(cards.map((card) => card.id)).size !== cards.length)
+        ctx.addIssue({ code: "custom", message: "目录内的卡牌 ID 重复", path: ["cards"] });
+      if (category === "monster_medium" || category === "monster_large") {
+        const folder = CONTENT_PACK_IDS.find(
+          (pack) =>
+            pack !== "core" && file.sources.raw.startsWith(`extract/extension/${pack}/raw/`),
+        );
+        const matchesSource = (id: string) =>
+          folder
+            ? id.startsWith(`${category}:${folder}:`)
+            : id.startsWith(`${category}:p`) || isCoreMonsterSupplementId(id);
+        if (cards.some((card) => !matchesSource(card.id)))
+          ctx.addIssue({ code: "custom", message: "怪物 ID 与目录来源包不一致", path: ["cards"] });
+      }
       const unverified = cards.filter((card) => card.verification.unverified).length;
       if (file.stats.cards !== file.cards.length) {
         ctx.addIssue({
@@ -674,22 +690,76 @@ export const normalizedHeroSkillFileSchema = normalizedFileSchema(
   "hero_skill",
   normalizedHeroSkillCardSchema,
 );
+/** 构建前段仍按 raw ID 校对印刷，发布目录在构建末尾和读取时验证 canonical ID。 */
+export const canonicalHeroSkillFileSchema = normalizedHeroSkillFileSchema.superRefine(
+  (file, ctx) => {
+    for (const [index, card] of file.cards.entries()) {
+      const hero = card.hero ?? "ABOMINATION";
+      const printedPage = card.pages[0]!;
+      const catalogPage =
+        hero === "MUSKETEER" ? HERO_SKILL_BASE.MUSKETEER + printedPage - 1 : printedPage;
+      if (
+        !isHeroName(hero) ||
+        card.pages.length !== 1 ||
+        card.source?.page !== printedPage ||
+        catalogPage < HERO_SKILL_BASE[hero] ||
+        catalogPage > HERO_SKILL_BASE[hero] + 20 ||
+        card.id !== heroSkillId(hero, catalogPage)
+      )
+        ctx.addIssue({
+          code: "custom",
+          path: ["cards", index, "id"],
+          message: "英雄技能 ID、英雄或印刷页不符",
+        });
+    }
+  },
+);
+
+function pagedCardSchema<T extends z.ZodType<{ id: string; pages: number[] }>>(
+  cardSchema: T,
+  category: string,
+  extensions = false,
+) {
+  return cardSchema.refine(
+    (card) => {
+      const firstPage = card.pages[0]!;
+      if (firstPage > 999) return false;
+      const page = `p${String(firstPage).padStart(3, "0")}`;
+      if (card.id === `${category}:${page}`) return true;
+      if (!extensions) return false;
+      if (
+        category === "monster_medium" &&
+        isCoreMonsterSupplementId(card.id) &&
+        card.id.endsWith(`:${page}`)
+      )
+        return true;
+      return CONTENT_PACK_IDS.some(
+        (pack) => pack !== "core" && card.id === `${category}:${pack}:${page}`,
+      );
+    },
+    { path: ["id"], message: "卡牌 ID 与类别、印刷首页或内容包不一致" },
+  );
+}
+
 export const normalizedMonsterMediumFileSchema = normalizedFileSchema(
   "monster_medium",
-  normalizedMonsterMediumCardSchema,
+  pagedCardSchema(normalizedMonsterMediumCardSchema, "monster_medium", true),
 );
 export const normalizedMonsterLargeFileSchema = normalizedFileSchema(
   "monster_large",
-  normalizedMonsterLargeCardSchema,
+  pagedCardSchema(normalizedMonsterLargeCardSchema, "monster_large", true),
 );
 export const normalizedTrinketFileSchema = normalizedFileSchema(
   "trinket",
-  normalizedTrinketCardSchema,
+  pagedCardSchema(normalizedTrinketCardSchema, "trinket"),
 );
-export const normalizedQuirkFileSchema = normalizedFileSchema("quirk", normalizedQuirkCardSchema);
+export const normalizedQuirkFileSchema = normalizedFileSchema(
+  "quirk",
+  pagedCardSchema(normalizedQuirkCardSchema, "quirk"),
+);
 export const normalizedVirtueAfflictionFileSchema = normalizedFileSchema(
   "virtue_affliction",
-  normalizedVirtueAfflictionCardSchema,
+  pagedCardSchema(normalizedVirtueAfflictionCardSchema, "virtue_affliction"),
 );
 
 type NormalizedHeroSkillCardBase = z.infer<typeof normalizedHeroSkillCardSchema>;

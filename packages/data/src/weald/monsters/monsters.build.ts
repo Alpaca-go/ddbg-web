@@ -5,7 +5,7 @@ import type { RawFile } from "../../shared/extract/raw";
 import { rawFileSchema } from "../../shared/extract/raw";
 import { buildMonsterLarge, buildMonsterMedium } from "../../shared/build";
 import { createIconLookup } from "../../shared/icons";
-import { attachVerifiedWealdMonster } from "../../core/monsters/verified-weald-monsters.build";
+import { attachVerifiedWealdMonster } from "./verified-monsters.build";
 import { withMonsterCardRules } from "../../shared/rules";
 import {
   normalizedMonsterMediumFileSchema,

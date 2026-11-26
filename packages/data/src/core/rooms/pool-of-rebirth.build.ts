@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { iconIdSchema } from "../../shared/extract/common";
 import type { RawFile } from "../../shared/extract/raw";
-import { ROOM_FRONT } from "../rooms/room";
+import { ROOM_FRONT } from "./room";
 
 // R-145：区域星标按对应Room卡解释；保留原始图标签名，不改全局词典。
 export const poolOfRebirthEffectLines = [

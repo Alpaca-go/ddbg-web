@@ -6,41 +6,46 @@ export const approvedHamletEffectIcons = {
   "hamlet_event:p009": { "08a25c05cf": "gold" },
   "hamlet_event:p010": { d9009c6f91: "wound" },
 } as const;
-export const hamletEventCardSchema = z.strictObject({
-  id: z.string().regex(/^hamlet_event:p\d{3}$/),
-  name: z.string().min(1),
-  source: z.strictObject({ file: z.string().min(1), page: z.int().min(1).max(16) }),
-  dayBadge: z.strictObject({
-    iconId: z.string().regex(/^[a-f0-9]{10}$/),
-    printed: z.enum(["1", "2", "3", "4", "?"]),
-    status: z.enum(["pending", "confirmed"]),
-    ruling: z.string().nullable(),
-  }),
-  days: z.int().min(1).max(4).nullable(),
-  printedLines: z.array(z.string()).min(1),
-  effectLines: z.array(z.string()),
-  effectIconIds: z.array(z.string().regex(/^[a-f0-9]{10}$/)),
-  permanentlyRemoved: z.boolean(),
-  runtime: z.enum([
-    "none",
-    "noCaretaker",
-    "extraBlock",
-    "removeDisease",
-    "removeQuirks",
-    "townFair",
-    "laborForce",
-    "unsettlingDarkness",
-    "travelingMerchants",
-    "guildTraining",
-    "militiaTraining",
-    "inGoodSpirits",
-    "supplyRun",
-    "gypsyTrail",
-    "feast",
-    "lostShipment",
-    "unimplemented",
-  ]),
-});
+export const hamletEventCardSchema = z
+  .strictObject({
+    id: z.string().regex(/^hamlet_event:p\d{3}$/),
+    name: z.string().min(1),
+    source: z.strictObject({ file: z.string().min(1), page: z.int().min(1).max(16) }),
+    dayBadge: z.strictObject({
+      iconId: z.string().regex(/^[a-f0-9]{10}$/),
+      printed: z.enum(["1", "2", "3", "4", "?"]),
+      status: z.enum(["pending", "confirmed"]),
+      ruling: z.string().nullable(),
+    }),
+    days: z.int().min(1).max(4).nullable(),
+    printedLines: z.array(z.string()).min(1),
+    effectLines: z.array(z.string()),
+    effectIconIds: z.array(z.string().regex(/^[a-f0-9]{10}$/)),
+    permanentlyRemoved: z.boolean(),
+    runtime: z.enum([
+      "none",
+      "noCaretaker",
+      "extraBlock",
+      "removeDisease",
+      "removeQuirks",
+      "townFair",
+      "laborForce",
+      "unsettlingDarkness",
+      "travelingMerchants",
+      "guildTraining",
+      "militiaTraining",
+      "inGoodSpirits",
+      "supplyRun",
+      "gypsyTrail",
+      "feast",
+      "lostShipment",
+      "unimplemented",
+    ]),
+  })
+  .refine((card) => card.id === `hamlet_event:p${String(card.source.page).padStart(3, "0")}`, {
+    path: ["id"],
+    message: "村庄事件 ID 与印刷页不一致",
+  });
 export const hamletEventCatalogSchema = z
   .array(hamletEventCardSchema)
   .length(16)

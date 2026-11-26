@@ -2,7 +2,7 @@ import {
   normalizedMonsterLargeFileSchema,
   normalizedMonsterMediumFileSchema,
 } from "../../../data/src/shared/schema";
-import { WEALD_MONSTER_PROFILES } from "../../../data/src/core/monsters/verified-weald-monsters.build";
+import { WEALD_MONSTER_PROFILES } from "../../../data/src/weald/monsters/monster-profiles";
 import {
   WEALD_MONSTER_ATTACKS,
   wealdMonsterProfileSchema,

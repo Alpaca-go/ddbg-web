@@ -7,7 +7,7 @@ import {
   approvedToxicChamber as tile,
   toxicChamberSchema,
   assertToxicChamberEffectSource,
-} from "../../../src/core/curios/toxic-chamber.build";
+} from "../../../src/core/rooms/toxic-chamber.build";
 import { buildRoomTileGeometry } from "../../../src/core/rooms/room-tile.build";
 import { selectRoomTile } from "../../../src/core/rooms/room-tile-selection.build";
 

@@ -7,7 +7,7 @@ import {
   approvedEldritchPowerChamber as tile,
   eldritchPowerChamberSchema,
   assertEldritchPowerChamberEffectSource,
-} from "../../../src/core/curios/eldritch-power-chamber.build";
+} from "../../../src/core/rooms/eldritch-power-chamber.build";
 import { buildRoomTileGeometry } from "../../../src/core/rooms/room-tile.build";
 import { selectRoomTile } from "../../../src/core/rooms/room-tile-selection.build";
 

@@ -7,7 +7,7 @@ import {
   approvedEldritchVault as tile,
   eldritchVaultSchema,
   assertEldritchVaultEffectSource,
-} from "../../../src/core/curios/eldritch-vault.build";
+} from "../../../src/core/rooms/eldritch-vault.build";
 import { buildRoomTileGeometry } from "../../../src/core/rooms/room-tile.build";
 import { selectRoomTile } from "../../../src/core/rooms/room-tile-selection.build";
 

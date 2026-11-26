@@ -25,6 +25,16 @@ export const CONTENT_PACKS = [
   { id: "cove", name: "Cove", description: "Siren I；地点战役尚未开放" },
 ] as const;
 
+/** R-214：最终战的补印 Reflection 属于核心盒，只登记两张已核实的卡。 */
+const CORE_MONSTER_SUPPLEMENT_IDS: ReadonlySet<string> = new Set([
+  "monster_medium:ADD_014:p001",
+  "monster_medium:ADD_014:p003",
+]);
+
+export function isCoreMonsterSupplementId(id: string): boolean {
+  return CORE_MONSTER_SUPPLEMENT_IDS.has(id);
+}
+
 /** 非英雄内容按包命名空间归属；英雄和技能是跨包共享目录。 */
 export function cardContentPack(card: {
   readonly id: string;
@@ -35,9 +45,7 @@ export function cardContentPack(card: {
   if (CONTENT_PACK_IDS.includes(namespace as ContentPackId)) return namespace as ContentPackId;
   if (namespace === "ruins" || namespace === "darkest") return "core";
   if (/^p\d+$/.test(namespace ?? "")) return "core";
-  // R-214：最终战两张补印 Reflection，属于核心盒，不是独立扩展。
-  if (card.id === "monster_medium:ADD_014:p001" || card.id === "monster_medium:ADD_014:p003")
-    return "core";
+  if (isCoreMonsterSupplementId(card.id)) return "core";
   throw new Error(`未登记的内容包命名空间：${card.id}`);
 }
 

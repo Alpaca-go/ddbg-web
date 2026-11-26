@@ -7,7 +7,7 @@ import {
   approvedTempleOfTheChosen as tile,
   templeOfTheChosenSchema,
   assertTempleOfTheChosenEffectSource,
-} from "../../../src/core/curios/temple-of-the-chosen.build";
+} from "../../../src/core/rooms/temple-of-the-chosen.build";
 import { buildRoomTileGeometry } from "../../../src/core/rooms/room-tile.build";
 import { selectRoomTile } from "../../../src/core/rooms/room-tile-selection.build";
 

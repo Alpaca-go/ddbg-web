@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { iconIdSchema } from "../../shared/extract/common";
 import type { RawFile } from "../../shared/extract/raw";
-import { ROOM_FRONT } from "../rooms/room";
+import { ROOM_FRONT } from "./room";
 
 export const eldritchVaultEffectLines = [
   "{icon:0fd119772a} : A Hero can spend 2 actions",

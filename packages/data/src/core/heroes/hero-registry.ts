@@ -108,13 +108,16 @@ export function heroStatId(name: string, level: number, face: "front" | "back"):
   if (!isHeroName(name)) throw new Error(`未知英雄：${name}`);
   const page = HERO_STAT_PAGES[name][level - 1];
   if (page === undefined) throw new Error(`英雄 ${name} 没有等级 ${level}`);
+  if (face !== (level === 2 && name !== "ABOMINATION" ? "back" : "front"))
+    throw new Error(`英雄 ${name} 的 ${level} 级 STAT 卡面不符`);
   return `hero_stat:${HERO_PACK[name]}:${heroNumber(name)}:p${String(page).padStart(3, "0")}:${face}`;
 }
 
 export function heroSkillId(name: string, page: number): string {
   if (!isHeroName(name)) throw new Error(`未知英雄：${name}`);
   const base = HERO_SKILL_BASE[name];
-  if (page < base || page > base + 20) throw new Error(`英雄 ${name} 的 SKILL 页 ${page} 超出页段`);
+  if (!Number.isInteger(page) || page < base || page > base + 20)
+    throw new Error(`英雄 ${name} 的 SKILL 页 ${page} 超出页段`);
   return `hero_skill:${HERO_PACK[name]}:${heroNumber(name)}:p${String(page).padStart(3, "0")}`;
 }
 
@@ -129,25 +132,4 @@ export function heroNameForSkillPage(page: number): HeroName {
 
 export function heroSkillIdForPage(page: number): string {
   return heroSkillId(heroNameForSkillPage(page), page);
-}
-
-/** 旧版 SKILL ID（页号，Musketeer 单独命名空间）；审批表仍按它索引。 */
-export function legacyHeroSkillId(card: {
-  readonly id?: string;
-  readonly hero: string | null;
-  readonly pages: readonly number[];
-}): string {
-  const canonical = /^hero_skill:(musketeer|core|cove|warrens|weald):h\d{2}:p(\d{3})$/.exec(
-    card.id ?? "",
-  );
-  if (canonical) {
-    const page = Number(canonical[2]);
-    return canonical[1] === "musketeer"
-      ? `hero_skill:musketeer:p${String(page - 357).padStart(3, "0")}`
-      : `hero_skill:p${String(page).padStart(3, "0")}`;
-  }
-  const page = card.pages[0]!;
-  const musketeer =
-    card.hero === "MUSKETEER" || card.id?.startsWith("hero_skill:musketeer:") === true;
-  return `hero_skill:${musketeer ? "musketeer:" : ""}p${String(page).padStart(3, "0")}`;
 }
