@@ -3,7 +3,7 @@ import printMap from "./hero-stat-print-art-map.json";
 export type PrintHeroStatDataStatus = "verified-data" | "art-only";
 
 export type PrintHeroStatFaceEntry = {
-  readonly id: string;
+  readonly id: string | null;
   readonly rawId: string;
   readonly face: "front" | "back";
   readonly hero: string;
@@ -16,9 +16,9 @@ export type PrintHeroStatFaceEntry = {
   readonly reviewVerdict: string;
 };
 
-const byId = new Map<string, PrintHeroStatFaceEntry>(
-  (printMap.faces as PrintHeroStatFaceEntry[]).map((face) => [face.id, face]),
-);
+const faces = printMap.faces as readonly PrintHeroStatFaceEntry[];
+const byId = new Map<string, PrintHeroStatFaceEntry>();
+for (const face of faces) if (face.id !== null) byId.set(face.id, face);
 
 export const PRINT_CARD_ART_PUBLIC_PREFIX = "/print-card-art";
 
@@ -38,7 +38,6 @@ export function printHeroStatArtMapMeta(): {
   readonly artOnlyCount: number;
   readonly pendingConfirmation: readonly string[];
 } {
-  const faces = printMap.faces as PrintHeroStatFaceEntry[];
   return {
     schema: printMap.schema,
     faceCount: faces.length,

@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import printMap from "./hero-skill-print-art-map.json";
+import skills from "../../../../packages/data/normalized/corebox/hero_skill.json";
 import {
   cachedPrintHeroSkillUrl,
   lookupPrintHeroSkillFace,
@@ -7,16 +8,17 @@ import {
 } from "./resolve-print-hero-skill-art";
 
 describe("print hero skill art map (Kyries CSV)", () => {
-  it("covers 231 core + 147 extension art-only skills with pngRel under png/", () => {
+  it("covers every formal skill id once and preserves the reviewed core crop paths", () => {
     const meta = printHeroSkillArtMapMeta();
     expect(meta.schema).toBe("ddbg.print-hero-skill-art-map.v1");
     expect(meta.cardCount).toBe(378);
     expect(printMap.cards.length).toBe(378);
     expect(meta.uncoveredEngineIds).toEqual([]);
-    const core = printMap.cards.filter((c) => c.dataStatus === "verified-data");
-    const artOnly = printMap.cards.filter((c) => c.dataStatus === "art-only");
+    const ids = printMap.cards.map((card) => card.id);
+    expect(new Set(ids).size).toBe(ids.length);
+    expect(new Set(ids)).toEqual(new Set(skills.cards.map((card) => card.id)));
+    const core = printMap.cards.filter((c) => c.id.startsWith("hero_skill:core:"));
     expect(core).toHaveLength(231);
-    expect(artOnly).toHaveLength(147);
     for (const card of printMap.cards) {
       expect(card.pngRel).toMatch(/^png\/.+\.png$/);
       expect(lookupPrintHeroSkillFace(card.id)?.pngRel).toBe(card.pngRel);
@@ -28,15 +30,20 @@ describe("print hero skill art map (Kyries CSV)", () => {
     }
   });
 
-  it("binds extension art-only rows to TDH/Musketeer print pages (Q-103–Q-107)", () => {
-    expect(lookupPrintHeroSkillFace("hero_skill:art:leper:p274")?.printPage).toBe(274);
-    expect(lookupPrintHeroSkillFace("hero_skill:art:antiquarian:p295")?.printPage).toBe(295);
-    expect(lookupPrintHeroSkillFace("hero_skill:art:man-at-arms:p232")?.printPage).toBe(232);
-    expect(lookupPrintHeroSkillFace("hero_skill:art:flagellant:p253")?.printPage).toBe(253);
-    expect(lookupPrintHeroSkillFace("hero_skill:art:shieldbreaker:p316")?.printPage).toBe(316);
-    expect(lookupPrintHeroSkillFace("hero_skill:art:houndmaster:p337")?.printPage).toBe(337);
-    expect(lookupPrintHeroSkillFace("hero_skill:art:musketeer:p001")?.printPage).toBe(1);
-    expect(lookupPrintHeroSkillFace("hero_skill:art:flagellant:p274")).toBeUndefined();
+  it("matches the normalized physical print source including Musketeer local pages", () => {
+    for (const card of skills.cards) {
+      expect(lookupPrintHeroSkillFace(card.id)).toMatchObject({
+        name: card.name,
+        level: card.level,
+        hero: card.hero ?? "ABOMINATION",
+        printPage: card.source.page,
+        primaryPdf: card.source.file
+          .split("/")
+          .at(-1)!
+          .replace(/\.pdf$/, ""),
+      });
+    }
+    expect(lookupPrintHeroSkillFace("hero_skill:musketeer:h18:p358")?.printPage).toBe(1);
   });
 
   it("binds Smite I to SKILLS_FRONT p001", () => {

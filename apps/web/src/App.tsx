@@ -1,6 +1,6 @@
-import { DungeonSandbox, DungeonQuest } from "./dungeon-sandbox";
-import { BattleView } from "./battle-view";
-import { useBattleStore } from "./battle-store";
+import { DungeonSandbox, DungeonQuest } from "./dungeon-sandbox/index";
+import { BattleView } from "./battle/battle-view";
+import { useBattleStore } from "./battle/battle-store";
 import { TabletopView } from "./tabletop";
 
 export function App() {

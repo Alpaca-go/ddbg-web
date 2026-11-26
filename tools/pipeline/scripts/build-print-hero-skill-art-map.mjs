@@ -1,148 +1,99 @@
 #!/usr/bin/env node
-/**
- * Promote Kyries-reviewed print hero skill CSV → apps/web card-art JSON map.
- *
- * Usage (repo root):
- *   node tools/pipeline/scripts/build-print-hero-skill-art-map.mjs \
- *     --csv tools/pipeline/print-card-art/fixtures/print-hero-skill-review-ok-all.csv
- */
+/** Build the hero skill art map from the normalized catalog and reviewed core print crops. */
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
-import { dirname, resolve } from "node:path";
+import { basename, dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { EXTENSION_SKILL_BLOCKS } from "../print-card-art/fixtures/print-hero-18-art-catalog.mjs";
-import { pngRelFromPdf } from "./lib/print-png-rel.mjs";
+import { COREBOX_SKILLS_FRONT, pngRelFromPdf } from "./lib/print-png-rel.mjs";
 
-const here = dirname(fileURLToPath(import.meta.url));
-const repoRoot = resolve(here, "../../..");
+const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
 
 function parseArgs(argv) {
-  let csv = resolve(
-    repoRoot,
-    "tools/pipeline/print-card-art/fixtures/print-hero-skill-review-ok-all.csv",
-  );
-  let out = resolve(repoRoot, "apps/web/src/card-art/hero-skill-print-art-map.json");
-  for (let i = 2; i < argv.length; i++) {
-    if (argv[i] === "--csv" && argv[i + 1]) csv = resolve(repoRoot, argv[++i]);
-    else if (argv[i] === "--out" && argv[i + 1]) out = resolve(repoRoot, argv[++i]);
+  let csv = "tools/pipeline/print-card-art/fixtures/print-hero-skill-review-ok-all.csv";
+  let out = "apps/web/src/card-art/hero-skill-print-art-map.json";
+  for (let i = 0; i < argv.length; i++) {
+    if (argv[i] === "--csv" && argv[i + 1]) csv = argv[++i];
+    else if (argv[i] === "--out" && argv[i + 1]) out = argv[++i];
+    else throw new Error("未知或缺值的参数：" + argv[i]);
   }
-  return { csv, out };
+  return { csv: resolve(root, csv), out: resolve(root, out) };
 }
 
-function parseCsv(text) {
-  const lines = text.trim().split(/\r?\n/);
-  const header = lines[0].split(",");
-  const rows = [];
-  for (let i = 1; i < lines.length; i++) {
-    const cols = lines[i].split(",");
-    const row = {};
-    header.forEach((h, j) => {
-      row[h] = cols[j] ?? "";
-    });
-    rows.push(row);
+function reviewedCorePages(csv) {
+  const [header, ...lines] = readFileSync(csv, "utf8").trim().split(/\r?\n/);
+  const headings = header.split(",");
+  const pages = new Map();
+  for (const line of lines) {
+    const fields = line.split(",");
+    const row = Object.fromEntries(headings.map((name, i) => [name, fields[i]]));
+    if (row.verdict !== "ok") continue;
+    const page = Number(row.printPage);
+    if (!Number.isInteger(page) || page < 1 || pages.has(page))
+      throw new Error("审核表的印刷页缺失或重复：" + row.printPage);
+    pages.set(page, row);
   }
-  return rows;
+  return pages;
 }
 
-function loadNormalizedIds(category) {
-  const path = resolve(repoRoot, `packages/data/normalized/corebox/${category}.json`);
-  const data = JSON.parse(readFileSync(path, "utf8"));
-  return data.cards.map((c) => c.id);
-}
-
-const COREBOX_SKILL_ROW_COUNT = 231;
-
-const { csv, out } = parseArgs(process.argv);
-const normalizedIds = loadNormalizedIds("hero_skill");
-const coreNormalizedIds = normalizedIds.filter(
-  (id) => /^hero_skill:p\d{3}$/.test(id) && Number(id.slice(-3)) <= COREBOX_SKILL_ROW_COUNT,
+const { csv, out } = parseArgs(process.argv.slice(2));
+const { cards: catalog } = JSON.parse(
+  readFileSync(resolve(root, "packages/data/normalized/corebox/hero_skill.json"), "utf8"),
 );
-const rows = parseCsv(readFileSync(csv, "utf8")).filter((r) => r.verdict === "ok");
-if (rows.length !== COREBOX_SKILL_ROW_COUNT) {
-  console.error(
-    `Expected ${COREBOX_SKILL_ROW_COUNT} verdict=ok CSV rows (core SKILLS_FRONT), got ${rows.length}`,
-  );
-  process.exit(1);
-}
-
-const coreCards = rows.map((r) => ({
-  id: r.engineId,
-  name: r.name,
-  level: Number(r.level),
-  hero: r.hero,
-  dataStatus: "verified-data",
-  pngRel: r.pngRel,
-  printPage: Number(r.printPage),
-  primaryPdf: r.pdfBase,
-  matchMethod: r.matchMethod,
-  reviewVerdict: r.verdict,
-}));
-
-function extensionArtOnlyCards() {
-  const out = [];
-  for (const block of EXTENSION_SKILL_BLOCKS) {
-    for (let i = 0; i < block.count; i++) {
-      const printPage = block.startPage + i;
-      const level = (i % 3) + 1;
-      const skillSlot = Math.floor(i / 3) + 1;
-      const slug = block.hero.toLowerCase().replace(/\s+/g, "-");
-      out.push({
-        id: `hero_skill:art:${slug}:p${String(printPage).padStart(3, "0")}`,
-        name: `Skill ${skillSlot} (art-only)`,
-        level,
-        hero: block.hero,
-        dataStatus: "art-only",
-        pngRel: pngRelFromPdf(block.pdfRel, printPage),
-        printPage,
-        primaryPdf: block.pdfRel.split("/").pop()?.replace(".pdf", "") ?? "",
-        matchMethod: "extension_page_order_pending",
-        reviewVerdict: "art-only",
-      });
-    }
+const review = reviewedCorePages(csv);
+const corePdf = basename(COREBOX_SKILLS_FRONT, ".pdf");
+const seenIds = new Set();
+const cards = catalog.map((card) => {
+  const { id, source, name, level, verification } = card;
+  if (
+    !/^hero_skill:(?:core|cove|warrens|weald|musketeer):h\d{2}:p\d{3}$/.test(id) ||
+    seenIds.has(id)
+  )
+    throw new Error("英雄技能 ID 无效或重复：" + id);
+  seenIds.add(id);
+  const hero = card.hero ?? "ABOMINATION";
+  const primaryPdf = basename(source.file, ".pdf");
+  const isCore = primaryPdf === corePdf;
+  const row = isCore ? review.get(source.page) : undefined;
+  if (isCore) {
+    if (
+      !row ||
+      row.hero !== (card.hero ?? "") ||
+      Number(row.level) !== level ||
+      row.pdfBase !== primaryPdf
+    )
+      throw new Error("核心印刷审核与正式卡不一致：" + id);
+    review.delete(source.page);
   }
-  return out;
-}
-
-const extensionCards = extensionArtOnlyCards();
-const cards = [...coreCards, ...extensionCards];
-
-const covered = new Set(cards.map((c) => c.id));
-/** Extension combat skills use art-only ids until UI binds normalized `hero_skill:p###` rows. */
-const uncoveredEngineIds = coreNormalizedIds.filter((id) => !covered.has(id));
-if (uncoveredEngineIds.length) {
-  console.error("Uncovered normalized hero_skill ids:", uncoveredEngineIds.join(", "));
-  process.exit(1);
-}
+  return {
+    id,
+    name,
+    level,
+    hero,
+    dataStatus: verification.unverified ? "art-only" : "verified-data",
+    pngRel: row?.pngRel ?? pngRelFromPdf(source.file, source.page),
+    printPage: source.page,
+    primaryPdf,
+    matchMethod: row?.matchMethod ?? "normalized_source",
+    reviewVerdict: row?.verdict ?? "source-matched",
+  };
+});
+if (review.size) throw new Error("核心印刷审核存在未匹配页");
 
 const map = {
   schema: "ddbg.print-hero-skill-art-map.v1",
   source: {
-    csv: csv.replace(repoRoot + "/", "").replace(/\\/g, "/"),
-    verdictFilter: "ok",
-    coreRowCount: coreCards.length,
-    extensionArtOnlyCount: extensionCards.length,
+    buildScript: "tools/pipeline/scripts/build-print-hero-skill-art-map.mjs",
+    coreRowCount: cards.filter((card) => card.reviewVerdict === "ok").length,
     rowCount: cards.length,
     notes: [
-      "Human review CSV (Kyries); 231 core-box hero_skill cards on SKILLS_FRONT page order.",
-      "Extension / Musketeer rows are art-only synthetic ids (hero_skill:art:…) until normalized data lands.",
-      "pngRel paths are relative to .cache/print-card-art/ after export-print-card-art.mjs.",
-      "Hero skill UI uses print PNG only (no TTS fallback); see resolve-print-hero-skill-art.ts.",
-      "R-048: raster uses TrimBox / 3 mm bleed from print pipeline; no invented crop in UI.",
+      "Card IDs, names, levels and print sources come from the normalized hero skill catalog.",
+      "Core crop paths come from the approved CSV. Expansion crops follow the recorded print source.",
     ],
   },
   cards,
-  uncoveredEngineIds,
+  uncoveredEngineIds: [],
   pendingConfirmation: [
-    "Extension skill page blocks aligned to print (Q-103–Q-107); rows art-only, not Kyries CSV-reviewed.",
-    ...(uncoveredEngineIds.length
-      ? [
-          `${uncoveredEngineIds.length} normalized engine id(s) not in reviewed CSV (extension / out of scope).`,
-        ]
-      : []),
+    "Expansion crop alignment is based on the normalized PDF and page; the approved CSV covers core crops only.",
   ],
 };
-
 mkdirSync(dirname(out), { recursive: true });
-writeFileSync(out, JSON.stringify(map, null, 2) + "\n", "utf8");
-console.log(
-  `Wrote ${cards.length} cards (${coreCards.length} core + ${extensionCards.length} art-only ext) → ${out.replace(repoRoot + "/", "")}`,
-);
+writeFileSync(out, JSON.stringify(map, null, 2) + "\n");

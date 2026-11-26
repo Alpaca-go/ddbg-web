@@ -1,8 +1,8 @@
 import type { GameState, SkillStance } from "@ddbg/engine";
 import { battleData } from "virtual:battle-data";
-import { BattleEntityCardThumb } from "./card-art/battle-entity-card-thumb";
-import { MonsterStanceBoard } from "./card-art/monster-stance-board";
-import { listMonsterStanceSlots } from "./card-art/resolve-print-monster-stance-art";
+import { BattleEntityCardThumb } from "../card-art/battle-entity-card-thumb";
+import { MonsterStanceBoard } from "../card-art/monster-stance-board";
+import { listMonsterStanceSlots } from "../card-art/resolve-print-monster-stance-art";
 
 const stances: SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 

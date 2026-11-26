@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import printMap from "./hero-stat-print-art-map.json";
+import stats from "../../../../packages/data/normalized/corebox/hero_stat.json";
 import {
   cachedPrintHeroStatUrl,
   lookupPrintHeroStatFace,
@@ -38,7 +39,8 @@ describe("print hero stat art map (18 heroes)", () => {
     }
     for (const face of printMap.faces) {
       expect(face.pngRel).toMatch(/^png\/.+\.png$/);
-      expect(lookupPrintHeroStatFace(face.id)?.pngRel).toBe(face.pngRel);
+      if (face.id !== null) expect(lookupPrintHeroStatFace(face.id)?.pngRel).toBe(face.pngRel);
+      else expect(lookupPrintHeroStatFace(`${face.rawId}:${face.face}`)).toBeUndefined();
       expect(cachedPrintHeroStatUrl(face)).toBe(`/print-card-art/${face.pngRel}`);
     }
   });
@@ -53,10 +55,24 @@ describe("print hero stat art map (18 heroes)", () => {
     expect(crusader?.pngRel).toContain("_p001.png");
   });
 
-  it("marks Jester I as art-only until gameplay stat verified", () => {
-    const jester = lookupPrintHeroStatFace("hero_stat:core:h06:p011:front");
-    expect(jester?.dataStatus).toBe("art-only");
-    expect(jester?.hero).toBe("JESTER");
+  it("indexes only formal STAT ids and matches each normalized PDF and page", () => {
+    const ids = printMap.faces.flatMap((face) => (face.id === null ? [] : [face.id]));
+    expect(new Set(ids).size).toBe(ids.length);
+    expect(new Set(ids)).toEqual(new Set(stats.cards.map((card) => card.id)));
+    for (const card of stats.cards) {
+      expect(lookupPrintHeroStatFace(card.id)).toMatchObject({
+        hero: card.name,
+        rawId: card.rawId,
+        level: card.level,
+        face: card.face,
+        dataStatus: "verified-data",
+        printPage: card.source.page,
+        primaryPdf: card.source.file
+          .split("/")
+          .at(-1)!
+          .replace(/\.pdf$/, ""),
+      });
+    }
   });
 
   it("returns undefined for unknown ids", () => {

@@ -8,26 +8,23 @@ import { battleData } from "virtual:battle-data";
 import { battleData as questBattleData } from "virtual:quest-battle-data";
 import { battleData as previousQuestBattleData } from "virtual:quest-battle-data-v1";
 import { battleData as sixHeroQuestBattleData } from "virtual:quest-battle-data-v2";
-import rawRooms from "../../../../packages/data/normalized/corebox/room.json";
-import { roomFileSchema } from "../../../../packages/data/src/core/rooms/room";
 import { heroSkillIdForPage } from "../../../../packages/data/src/core/heroes/hero-registry";
-import rawMonsterPool from "../../../../packages/data/normalized/corebox/monster_pool.json";
-import { monsterPoolFileSchema } from "../../../../packages/data/src/core/monsters/monster-pool";
-import rawTrinkets from "../../../../packages/data/normalized/corebox/trinket.json";
-import { normalizedTrinketFileSchema } from "../../../../packages/data/src/shared/schema";
-import { curios } from "./dungeon-data";
+import { coreMonsterPool, coreRooms, coreTrinkets, curios } from "./dungeon-data";
 import darkestPool from "../../../../packages/data/normalized/corebox/darkest_monster_pool.json";
-const darkestIds = new Set(darkestPool.cards.map((c) => c.combatCardId));
+import { darkestMonsterPoolFileSchema } from "../../../../packages/data/src/core/monsters/darkest-monster-pool";
+const darkestIds = new Set(
+  darkestMonsterPoolFileSchema.parse(darkestPool).cards.map((c) => c.combatCardId),
+);
 
 export const legacyTaskSources: CoreQuestSources = {
   catalog: {
     ...battleData,
-    trinkets: createTrinketPool(normalizedTrinketFileSchema.parse(rawTrinkets).cards, 1),
+    trinkets: createTrinketPool(coreTrinkets, 1),
   },
   resolveCards: battleData.resolveCards,
-  curios: curios,
-  rooms: roomFileSchema.parse(rawRooms).cards,
-  monsters: monsterPoolFileSchema.parse(rawMonsterPool).cards,
+  curios,
+  rooms: coreRooms,
+  monsters: coreMonsterPool,
 };
 
 const { bossMonsters = [], ...preBossQuestBattleData } = questBattleData;

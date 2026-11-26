@@ -36,7 +36,10 @@ export function CardFace({
     (printEntry
       ? `${face === "back" ? printEntry.name.replace("Transform to Beast", "Transform to Human") : printEntry.name} ${LEVEL_ROMAN[printEntry.level - 1] ?? printEntry.level}`
       : skillId);
-  const [failed, setFailed] = useState(!printEntry);
+  const frontUrl = printEntry ? cachedPrintHeroSkillUrl(printEntry) : undefined;
+  const printUrl = face === "back" ? frontUrl?.replace("_FRONT.pdf_", "_BACK.pdf_") : frontUrl;
+  const [failedUrl, setFailedUrl] = useState<string>();
+  const failed = !printUrl || failedUrl === printUrl;
 
   const className = [
     "card-face",
@@ -48,16 +51,12 @@ export function CardFace({
     .join(" ");
 
   const body =
-    printEntry && !failed ? (
+    printUrl && !failed ? (
       <img
-        src={
-          face === "back"
-            ? cachedPrintHeroSkillUrl(printEntry).replace("_FRONT.pdf_", "_BACK.pdf_")
-            : cachedPrintHeroSkillUrl(printEntry)
-        }
+        src={printUrl}
         alt={caption}
         className="card-face__print"
-        onError={() => setFailed(true)}
+        onError={() => setFailedUrl(printUrl)}
       />
     ) : (
       <div className="card-face__placeholder" aria-hidden="true">

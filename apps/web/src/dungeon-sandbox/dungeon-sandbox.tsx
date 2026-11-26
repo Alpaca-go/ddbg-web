@@ -1,5 +1,5 @@
 import type { GameState } from "@ddbg/engine";
-import { BattleView } from "../battle-view";
+import { BattleView } from "../battle/battle-view";
 import { TabletopFormalShell } from "../tabletop/tabletop-formal-shell";
 import { QuestSaveControls } from "./quest-save-controls";
 import { useDungeonStore } from "./store";

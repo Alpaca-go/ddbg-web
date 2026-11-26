@@ -24,260 +24,265 @@ import {
   normalizedQuirkFileSchema,
 } from "../../packages/data/src/shared/schema";
 
-/** 构建时校验并只打包沙盒所需卡牌；不复制数据、不打包整盒或美术。 */
-export function battleDataPlugin(): Plugin {
-  const ids = ["battle-data", "quest-battle-data", "quest-battle-data-v1", "quest-battle-data-v2"];
-  const sharedId = "\0virtual:battle-shared-data";
-  let building = false;
-  let shared: ReturnType<typeof shareBattleCatalogs> | undefined;
-  const read = (name: string) =>
+import type { BattleData } from "./src/battle/battle-data-types";
+
+const catalogNames = [
+  "battle-data",
+  "quest-battle-data",
+  "quest-battle-data-v1",
+  "quest-battle-data-v2",
+] as const;
+type CatalogName = (typeof catalogNames)[number];
+const sharedName = "virtual:battle-shared-data";
+const virtualId = (name: CatalogName) => "virtual:" + name;
+const resolvedId = (name: CatalogName) => "\0" + virtualId(name);
+
+export function buildBattleCatalog(mode: CatalogName) {
+  const read = (name: string): unknown =>
     JSON.parse(
       readFileSync(
         new URL(`../../packages/data/normalized/corebox/${name}.json`, import.meta.url),
         "utf8",
       ),
     );
-  const plugin: Plugin = {
+  const questCatalog = mode !== "battle-data";
+  const currentQuest = mode === "quest-battle-data";
+  const sixHeroQuest = mode === "quest-battle-data-v2";
+  const fiveHeroQuest = mode === "quest-battle-data-v1";
+  const plagueDoctor = currentQuest || sixHeroQuest;
+  const graveOccultist = currentQuest;
+  const catalogNames = graveOccultist
+    ? FORMAL_HERO_NAMES
+    : plagueDoctor
+      ? FORMAL_HERO_NAMES.filter((n) => n !== "GRAVE ROBBER" && n !== "OCCULTIST")
+      : questCatalog
+        ? FORMAL_HERO_NAMES.filter(
+            (n) => n !== "PLAGUE DOCTOR" && n !== "GRAVE ROBBER" && n !== "OCCULTIST",
+          )
+        : FORMAL_HERO_NAMES.filter((n) =>
+            ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"].includes(n),
+          );
+  const verifiedHeroStats = normalizedHeroStatFileSchema
+    .parse(read("hero_stat"))
+    // R-081/088/094/095：战役使用获批属性；普通战斗沙盒保留原四英雄。
+    .cards.filter(
+      (card) =>
+        card.attributesVerified &&
+        (questCatalog || card.level === 1) &&
+        (catalogNames as readonly string[]).includes(card.name),
+    );
+  const heroStats = graveOccultist
+    ? [
+        ...verifiedHeroStats,
+        ...formalRosterPendingHeroStats().filter((card) =>
+          (catalogNames as readonly string[]).includes(card.name),
+        ),
+      ]
+    : verifiedHeroStats;
+  const conditions = createConditionPool(
+    diseaseFileSchema.parse(read("disease")).cards,
+    normalizedQuirkFileSchema.parse(read("quirk")).cards,
+  );
+  const resolveCards = normalizedVirtueAfflictionFileSchema.parse(read("virtue_affliction")).cards;
+  if (
+    resolveCards.length !== 10 ||
+    resolveCards.some(
+      (card) => card.role === null || card.verification.unverified || !card.rules?.turnStart,
+    )
+  )
+    throw new Error("意志牌堆必须完整且效果已核实（R-048）");
+  // 已逐页核实的四核心 I/II/III：印刷 p001–042、p064–105，共 84 张。
+  const skillIds = new Set(
+    [1, 64].flatMap((start) => Array.from({ length: 42 }, (_, i) => heroSkillIdForPage(start + i))),
+  );
+  // 赏金猎人仅七张I级技能已接通，不随属性批准开放II/III级技能。
+  if (questCatalog)
+    for (let page = 43; page <= 61; page += 3) skillIds.add(heroSkillIdForPage(page));
+  // R-094及后续七技能/村庄能力已接通；仍只开放I级技能。
+  if (plagueDoctor)
+    for (let page = 127; page <= 145; page += 3) skillIds.add(heroSkillIdForPage(page));
+  // R-095 / R-096 / R-097 / R-098：GR I级七技能与 Pilfer 抽取已接（抽取不翻面）；Occ I级七技能与 Dark Ritual I–III 已接。
+  if (graveOccultist) {
+    for (let page = 169; page <= 187; page += 3) skillIds.add(heroSkillIdForPage(page));
+    for (let page = 190; page <= 208; page += 3) skillIds.add(heroSkillIdForPage(page));
+  }
+  const allHeroSkills = canonicalHeroSkillFileSchema.parse(read("hero_skill")).cards;
+  if (currentQuest)
+    for (const card of allHeroSkills) if (coreHigherSkillAvailable(card)) skillIds.add(card.id);
+  if (graveOccultist) {
+    for (const card of allHeroSkills) {
+      if (card.verification.unverified) continue;
+      if (card.level !== 1 && !coreHigherSkillAvailable(card)) continue;
+      if (!(catalogNames as readonly string[]).some((hero) => skillBelongsToFormalHero(hero, card)))
+        continue;
+      skillIds.add(card.id);
+    }
+  }
+  const skills = allHeroSkills.filter(
+    (card) => skillIds.has(card.id) && !card.verification.unverified,
+  );
+  const monsterIds = new Set([
+    "monster_large:p003",
+    "monster_medium:p053",
+    "monster_large:p001",
+    "monster_medium:p050",
+    "monster_medium:p013",
+    "monster_medium:p001",
+    "monster_medium:p004",
+    "monster_medium:p040",
+    "monster_medium:p007",
+    "monster_medium:p010",
+    "monster_medium:p021",
+    "monster_medium:p027",
+    "monster_medium:p031",
+    "monster_medium:p043",
+    "monster_medium:p046",
+    "monster_large:p002",
+    "monster_medium:p018",
+    "monster_medium:p024",
+    "monster_medium:p034",
+    "monster_medium:p037",
+  ]);
+  if (currentQuest)
+    for (const card of darkestMonsterPoolFileSchema.parse(read("darkest_monster_pool")).cards)
+      monsterIds.add(card.combatCardId);
+  const monsters = [
+    ...normalizedMonsterMediumFileSchema.parse(read("monster_medium")).cards,
+    ...normalizedMonsterLargeFileSchema.parse(read("monster_large")).cards,
+  ]
+    .filter((card) => monsterIds.has(card.id) && !card.verification.unverified)
+    .map((card) => {
+      const edges = card.type_position_tags.filter((tag) => tag === "Front" || tag === "Back");
+      if (edges.length !== 1) throw new Error("怪物缺少唯一印刷 Front / Back（R-048）");
+      if (!("skills" in card) || card.speed === undefined || !card.stanceGroups)
+        throw new Error("怪物缺少已核实选招 / Speed（R-048）");
+      const dodge = card.header_unlabeled_numbers.filter(
+        (n) =>
+          n.anchor.type === "beside_icon" &&
+          n.anchor.inside_icon?.key === "dodge" &&
+          ["confirmed", "confirmed_rulebook"].includes(n.anchor.inside_icon.naming),
+      );
+      if (
+        dodge.length !== 1 ||
+        typeof dodge[0]?.numeric !== "number" ||
+        !Number.isSafeInteger(dodge[0].numeric) ||
+        dodge[0].numeric < 0
+      )
+        throw new Error("怪物缺少唯一已命名 Dodge 整数，不补默认值（R-048）");
+      return {
+        ...card,
+        dodge: dodge[0].numeric,
+        spawnEdge: edges[0] === "Front" ? "front" : "back",
+        stanceSlots: card.type_position_tags.includes("Large") ? 2 : 1,
+      };
+    });
+  const bossIds = new Set([...RUINS_BOSS_CATALOG_CARD_IDS, ...DARKEST_BOSS_CATALOG_CARD_IDS]);
+  const bossMonsters = currentQuest
+    ? [
+        ...normalizedMonsterMediumFileSchema.parse(read("monster_medium")).cards,
+        ...normalizedMonsterLargeFileSchema.parse(read("monster_large")).cards,
+      ]
+        .filter((c) => bossIds.has(c.id))
+        .map((c) => {
+          if (
+            !("skills" in c) ||
+            c.verification.unverified ||
+            c.speed === undefined ||
+            !c.stanceGroups
+          )
+            throw new Error(`Boss 战斗目录缺完整数据：${c.id}`);
+          const dodge = c.header_unlabeled_numbers.filter(
+            (n) =>
+              n.anchor.type === "beside_icon" &&
+              n.anchor.inside_icon?.key === "dodge" &&
+              n.anchor.inside_icon.naming === "confirmed",
+          );
+          if (
+            dodge.length !== 1 ||
+            typeof dodge[0]?.numeric !== "number" ||
+            !Number.isSafeInteger(dodge[0].numeric)
+          )
+            throw new Error(`Boss 缺 Dodge：${c.id}`);
+          return {
+            ...c,
+            dodge: dodge[0].numeric,
+            stanceSlots: c.type_position_tags.includes("Large") ? 2 : 1,
+          };
+        })
+    : [];
+  if (currentQuest && bossMonsters.length !== bossIds.size) throw new Error("Boss 目录身份不齐");
+  const tile = roomTileGeometryFileSchema
+    .parse(read("room_tile_geometry"))
+    .tiles.find(
+      (entry) => entry.id === "room_tile:ruins:01" && entry.rawId === "dungeon_tile:p001",
+    );
+  const expectedHeroStats = graveOccultist
+    ? 54
+    : sixHeroQuest
+      ? 48
+      : fiveHeroQuest
+        ? 45
+        : questCatalog
+          ? 35
+          : 4;
+  const expectedSkills = skillIds.size;
+  if (
+    !tile ||
+    !tile.usable ||
+    tile.deployment?.printReview !== "verified" ||
+    heroStats.length !== expectedHeroStats ||
+    skills.length !== expectedSkills ||
+    monsters.length !== monsterIds.size
+  )
+    throw new Error("战斗沙盒缺少获批卡牌，拒绝替换或补值（R-048）");
+  return {
+    conditions,
+    heroStats,
+    skills,
+    monsters,
+    ...(currentQuest ? { bossMonsters } : {}),
+    resolveCards,
+    deployment: tile.deployment,
+    areas: roomTileBattleAreas(tile),
+    tileName: tile.name,
+  } satisfies Pick<BattleData, "conditions" | "deployment" | "areas" | "tileName"> &
+    Record<string, unknown>;
+}
+
+/** 构建时校验目录并共享完全相同的条目。 */
+export function battleDataPlugin(): Plugin {
+  let building = false;
+  let shared: ReturnType<typeof shareBattleCatalogs> | undefined;
+  const readShared = () =>
+    (shared ??= shareBattleCatalogs(
+      Object.fromEntries(catalogNames.map((name) => [name, buildBattleCatalog(name)])),
+    ));
+
+  return {
     name: "battle-sandbox-data",
     configResolved(config) {
       building = config.command === "build";
       shared = undefined;
     },
-    transform(code, id) {
-      void code;
-      if (!building || !ids.some((name) => id === `\0virtual:${name}`)) return null;
-      if (!shared) {
-        const load = plugin.load as (id: string) => string;
-        shared = shareBattleCatalogs(
-          Object.fromEntries(
-            ids.map((name) => [
-              name,
-              JSON.parse(load(`\0virtual:${name}`).slice("export const battleData = ".length, -1)),
-            ]),
-          ),
-        );
-      }
-      return `import { entries } from "virtual:battle-shared-data"; export const battleData = ${shared.modules[id.slice("\0virtual:".length)]};`;
+    resolveId(id) {
+      if (id === sharedName || catalogNames.some((name) => virtualId(name) === id))
+        return "\0" + id;
+      return null;
     },
-    resolveId: (id) =>
-      id === "virtual:battle-shared-data"
-        ? sharedId
-        : [
-              "virtual:battle-data",
-              "virtual:quest-battle-data",
-              "virtual:quest-battle-data-v1",
-              "virtual:quest-battle-data-v2",
-            ].includes(id)
-          ? `\0${id}`
-          : null,
     load(id) {
-      if (id === sharedId) {
-        if (!shared) throw new Error("共享战斗目录尚未生成");
-        return `export const entries = ${JSON.stringify(shared.entries)};`;
-      }
-      if (
-        ![
-          "\0virtual:battle-data",
-          "\0virtual:quest-battle-data",
-          "\0virtual:quest-battle-data-v1",
-          "\0virtual:quest-battle-data-v2",
-        ].includes(id)
-      )
-        return null;
-      const questCatalog = id !== "\0virtual:battle-data";
-      const currentQuest = id === "\0virtual:quest-battle-data";
-      const sixHeroQuest = id === "\0virtual:quest-battle-data-v2";
-      const fiveHeroQuest = id === "\0virtual:quest-battle-data-v1";
-      const plagueDoctor = currentQuest || sixHeroQuest;
-      const graveOccultist = currentQuest;
-      const catalogNames = graveOccultist
-        ? FORMAL_HERO_NAMES
-        : plagueDoctor
-          ? FORMAL_HERO_NAMES.filter((n) => n !== "GRAVE ROBBER" && n !== "OCCULTIST")
-          : questCatalog
-            ? FORMAL_HERO_NAMES.filter(
-                (n) => n !== "PLAGUE DOCTOR" && n !== "GRAVE ROBBER" && n !== "OCCULTIST",
-              )
-            : FORMAL_HERO_NAMES.filter((n) =>
-                ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"].includes(n),
-              );
-      const verifiedHeroStats = normalizedHeroStatFileSchema
-        .parse(read("hero_stat"))
-        // R-081/088/094/095：战役使用获批属性；普通战斗沙盒保留原四英雄。
-        .cards.filter(
-          (card) =>
-            card.attributesVerified &&
-            (questCatalog || card.level === 1) &&
-            (catalogNames as readonly string[]).includes(card.name),
+      if (id === "\0" + sharedName)
+        return "export const entries = " + JSON.stringify(readShared().entries) + ";";
+      const name = catalogNames.find((candidate) => resolvedId(candidate) === id);
+      if (!name) return null;
+      if (building)
+        return (
+          "import { entries } from " +
+          JSON.stringify(sharedName) +
+          "; export const battleData = " +
+          readShared().modules[name] +
+          ";"
         );
-      const heroStats = graveOccultist
-        ? [
-            ...verifiedHeroStats,
-            ...formalRosterPendingHeroStats().filter((card) =>
-              (catalogNames as readonly string[]).includes(card.name),
-            ),
-          ]
-        : verifiedHeroStats;
-      const conditions = createConditionPool(
-        diseaseFileSchema.parse(read("disease")).cards,
-        normalizedQuirkFileSchema.parse(read("quirk")).cards,
-      );
-      const resolveCards = normalizedVirtueAfflictionFileSchema.parse(
-        read("virtue_affliction"),
-      ).cards;
-      if (
-        resolveCards.length !== 10 ||
-        resolveCards.some((card) => card.verification.unverified || !card.rules?.turnStart)
-      )
-        throw new Error("意志牌堆必须完整且效果已核实（R-048）");
-      // 已逐页核实的四核心 I/II/III：印刷 p001–042、p064–105，共 84 张。
-      const skillIds = new Set(
-        [1, 64].flatMap((start) =>
-          Array.from({ length: 42 }, (_, i) => heroSkillIdForPage(start + i)),
-        ),
-      );
-      // 赏金猎人仅七张I级技能已接通，不随属性批准开放II/III级技能。
-      if (questCatalog)
-        for (let page = 43; page <= 61; page += 3) skillIds.add(heroSkillIdForPage(page));
-      // R-094及后续七技能/村庄能力已接通；仍只开放I级技能。
-      if (plagueDoctor)
-        for (let page = 127; page <= 145; page += 3) skillIds.add(heroSkillIdForPage(page));
-      // R-095 / R-096 / R-097 / R-098：GR I级七技能与 Pilfer 抽取已接（抽取不翻面）；Occ I级七技能与 Dark Ritual I–III 已接。
-      if (graveOccultist) {
-        for (let page = 169; page <= 187; page += 3) skillIds.add(heroSkillIdForPage(page));
-        for (let page = 190; page <= 208; page += 3) skillIds.add(heroSkillIdForPage(page));
-      }
-      const allHeroSkills = canonicalHeroSkillFileSchema.parse(read("hero_skill")).cards;
-      if (currentQuest)
-        for (const card of allHeroSkills) if (coreHigherSkillAvailable(card)) skillIds.add(card.id);
-      if (graveOccultist) {
-        for (const card of allHeroSkills) {
-          if (card.verification.unverified) continue;
-          if (card.level !== 1 && !coreHigherSkillAvailable(card)) continue;
-          if (
-            !(catalogNames as readonly string[]).some((hero) =>
-              skillBelongsToFormalHero(hero, card),
-            )
-          )
-            continue;
-          skillIds.add(card.id);
-        }
-      }
-      const skills = allHeroSkills.filter(
-        (card) => skillIds.has(card.id) && !card.verification.unverified,
-      );
-      const monsterIds = new Set([
-        "monster_large:p003",
-        "monster_medium:p053",
-        "monster_large:p001",
-        "monster_medium:p050",
-        "monster_medium:p013",
-        "monster_medium:p001",
-        "monster_medium:p004",
-        "monster_medium:p040",
-        "monster_medium:p007",
-        "monster_medium:p010",
-        "monster_medium:p021",
-        "monster_medium:p027",
-        "monster_medium:p031",
-        "monster_medium:p043",
-        "monster_medium:p046",
-        "monster_large:p002",
-        "monster_medium:p018",
-        "monster_medium:p024",
-        "monster_medium:p034",
-        "monster_medium:p037",
-      ]);
-      if (currentQuest)
-        for (const card of darkestMonsterPoolFileSchema.parse(read("darkest_monster_pool")).cards)
-          monsterIds.add(card.combatCardId);
-      const monsters = [
-        ...normalizedMonsterMediumFileSchema.parse(read("monster_medium")).cards,
-        ...normalizedMonsterLargeFileSchema.parse(read("monster_large")).cards,
-      ]
-        .filter((card) => monsterIds.has(card.id) && !card.verification.unverified)
-        .map((card) => {
-          const edges = card.type_position_tags.filter((tag) => tag === "Front" || tag === "Back");
-          if (edges.length !== 1) throw new Error("怪物缺少唯一印刷 Front / Back（R-048）");
-          if (!("skills" in card) || card.speed === undefined || !card.stanceGroups)
-            throw new Error("怪物缺少已核实选招 / Speed（R-048）");
-          const dodge = card.header_unlabeled_numbers.filter(
-            (n) =>
-              n.anchor.type === "beside_icon" &&
-              n.anchor.inside_icon?.key === "dodge" &&
-              ["confirmed", "confirmed_rulebook"].includes(n.anchor.inside_icon.naming),
-          );
-          if (
-            dodge.length !== 1 ||
-            !Number.isSafeInteger(dodge[0]!.numeric) ||
-            dodge[0]!.numeric! < 0
-          )
-            throw new Error("怪物缺少唯一已命名 Dodge 整数，不补默认值（R-048）");
-          return {
-            ...card,
-            dodge: dodge[0]!.numeric,
-            spawnEdge: edges[0] === "Front" ? "front" : "back",
-            stanceSlots: card.type_position_tags.includes("Large") ? 2 : 1,
-          };
-        });
-      const bossIds = new Set([...RUINS_BOSS_CATALOG_CARD_IDS, ...DARKEST_BOSS_CATALOG_CARD_IDS]);
-      const bossMonsters = currentQuest
-        ? [
-            ...normalizedMonsterMediumFileSchema.parse(read("monster_medium")).cards,
-            ...normalizedMonsterLargeFileSchema.parse(read("monster_large")).cards,
-          ]
-            .filter((c) => bossIds.has(c.id))
-            .map((c) => {
-              if (
-                !("skills" in c) ||
-                c.verification.unverified ||
-                c.speed === undefined ||
-                !c.stanceGroups
-              )
-                throw new Error(`Boss 战斗目录缺完整数据：${c.id}`);
-              const dodge = c.header_unlabeled_numbers.filter(
-                (n) =>
-                  n.anchor.type === "beside_icon" &&
-                  n.anchor.inside_icon?.key === "dodge" &&
-                  n.anchor.inside_icon.naming === "confirmed",
-              );
-              if (dodge.length !== 1 || !Number.isSafeInteger(dodge[0]!.numeric))
-                throw new Error(`Boss 缺 Dodge：${c.id}`);
-              return {
-                ...c,
-                dodge: dodge[0]!.numeric,
-                stanceSlots: c.type_position_tags.includes("Large") ? 2 : 1,
-              };
-            })
-        : [];
-      if (currentQuest && bossMonsters.length !== bossIds.size)
-        throw new Error("Boss 目录身份不齐");
-      const tile = roomTileGeometryFileSchema
-        .parse(read("room_tile_geometry"))
-        .tiles.find(
-          (entry) => entry.id === "room_tile:ruins:01" && entry.rawId === "dungeon_tile:p001",
-        );
-      const expectedHeroStats = graveOccultist
-        ? 54
-        : sixHeroQuest
-          ? 48
-          : fiveHeroQuest
-            ? 45
-            : questCatalog
-              ? 35
-              : 4;
-      const expectedSkills = skillIds.size;
-      if (
-        !tile ||
-        !tile.usable ||
-        tile.deployment?.printReview !== "verified" ||
-        heroStats.length !== expectedHeroStats ||
-        skills.length !== expectedSkills ||
-        monsters.length !== monsterIds.size
-      )
-        throw new Error("战斗沙盒缺少获批卡牌，拒绝替换或补值（R-048）");
-      return `export const battleData = ${JSON.stringify({ conditions, heroStats, skills, monsters, ...(currentQuest ? { bossMonsters } : {}), resolveCards, deployment: tile.deployment, areas: roomTileBattleAreas(tile), tileName: tile.name })};`;
+      return "export const battleData = " + JSON.stringify(buildBattleCatalog(name)) + ";";
     },
   };
-  return plugin;
 }

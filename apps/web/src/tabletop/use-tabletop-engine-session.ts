@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import type { GameState } from "@ddbg/engine";
 import { battleData } from "virtual:battle-data";
-import { useBattleStore } from "../battle-store";
+import { useBattleStore } from "../battle/battle-store";
 import { useDungeonStore } from "../dungeon-sandbox/store";
 import {
   adaptGameStateToTabletopWorld,

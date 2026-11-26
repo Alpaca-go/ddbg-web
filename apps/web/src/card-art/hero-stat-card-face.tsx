@@ -19,7 +19,9 @@ export function HeroStatCardFace({
 }) {
   const mapped = heroStatId ? lookupPrintHeroStatFace(heroStatId) : undefined;
   const caption = label;
-  const [failed, setFailed] = useState(!mapped);
+  const printUrl = mapped ? cachedPrintHeroStatUrl(mapped) : undefined;
+  const [failedUrl, setFailedUrl] = useState<string>();
+  const failed = !printUrl || failedUrl === printUrl;
 
   const classNameMerged = [
     "card-face",
@@ -32,12 +34,12 @@ export function HeroStatCardFace({
     .join(" ");
 
   const body =
-    mapped && !failed ? (
+    printUrl && !failed ? (
       <img
-        src={cachedPrintHeroStatUrl(mapped)}
+        src={printUrl}
         alt={caption}
         className="card-face__print"
-        onError={() => setFailed(true)}
+        onError={() => setFailedUrl(printUrl)}
       />
     ) : (
       <div className="card-face__placeholder" aria-hidden="true">

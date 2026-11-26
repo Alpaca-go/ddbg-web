@@ -4,23 +4,18 @@ import { battleData } from "virtual:battle-data";
 import distribution from "../../../../packages/data/normalized/corebox/scout_ahead_distribution.json";
 import wipeDistribution from "../../../../packages/data/normalized/corebox/wipe_em_out_distribution.json";
 import fundraiserDistribution from "../../../../packages/data/normalized/corebox/fundraiser_distribution.json";
-import rawRooms from "../../../../packages/data/normalized/corebox/room.json";
-import { roomFileSchema } from "../../../../packages/data/src/core/rooms/room";
-import rawMonsterPool from "../../../../packages/data/normalized/corebox/monster_pool.json";
-import { monsterPoolFileSchema } from "../../../../packages/data/src/core/monsters/monster-pool";
-import rawTrinkets from "../../../../packages/data/normalized/corebox/trinket.json";
-import { normalizedTrinketFileSchema } from "../../../../packages/data/src/shared/schema";
-import { roomDistributionTokenTotal } from "../../../../packages/data/src/core/tiles/dungeon-layout";
-import { curios, layouts } from "./dungeon-data";
+import {
+  roomDistributionSchema,
+  roomDistributionTokenTotal,
+} from "../../../../packages/data/src/core/tiles/dungeon-layout";
+import { coreMonsterPool, coreRooms, coreTrinkets, curios, layouts } from "./dungeon-data";
 import type { Fixture } from "./fixture-types";
 
 export type { Fixture };
 
 export function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "neutral") {
   const selected = layouts.find((l) => l.source.page === page)!;
-  const scoutTokens = roomDistributionTokenTotal(
-    distribution as Parameters<typeof roomDistributionTokenTotal>[0],
-  );
+  const scoutTokens = roomDistributionTokenTotal(roomDistributionSchema.parse(distribution));
   const roomSlots = selected.nodes.filter((n) => n.kind === "room").length;
   const preview =
     selected.unresolvedMarkers?.length ||
@@ -161,14 +156,11 @@ export function setup(mode: DungeonState["mode"], page = 1, fixture: Fixture = "
               ],
     },
     curios,
-    roomFileSchema.parse(rawRooms).cards,
-    monsterPoolFileSchema.parse(rawMonsterPool).cards,
+    coreRooms,
+    coreMonsterPool,
     {
       ...battleData,
-      trinkets: createTrinketPool(
-        normalizedTrinketFileSchema.parse(rawTrinkets).cards,
-        fixture === "trap" ? 3 : 1,
-      ),
+      trinkets: createTrinketPool(coreTrinkets, fixture === "trap" ? 3 : 1),
     },
     fixture === "startingProvisions",
   );

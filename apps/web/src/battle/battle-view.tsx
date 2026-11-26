@@ -1,5 +1,5 @@
-import { CoreTrinketActions } from "./core-trinket-actions";
-import { InfectedOakAction } from "./infected-oak-action";
+import { CoreTrinketActions } from "../core-trinket-actions";
+import { InfectedOakAction } from "../infected-oak-action";
 import { useState } from "react";
 import {
   ABOMINATION_DOUBLE_FACED_SKILL_IDS,
@@ -15,23 +15,23 @@ import { battleData } from "virtual:battle-data";
 import { battleData as questBattleData } from "virtual:quest-battle-data";
 import type { SandboxLayout } from "./battle-store";
 import { battleStep } from "./battle-step";
-import { BattleEntityCardThumb } from "./card-art/battle-entity-card-thumb";
-import { CardFace } from "./card-art/card-face";
-import { MonsterCardFace } from "./card-art/monster-card-face";
+import { BattleEntityCardThumb } from "../card-art/battle-entity-card-thumb";
+import { CardFace } from "../card-art/card-face";
+import { MonsterCardFace } from "../card-art/monster-card-face";
 import { BattleStanceTrack } from "./battle-stance-track";
-import { SkillCardText } from "./skill-card-text";
-import { SkillRequirements } from "./skill-requirements";
-import { SkillResults } from "./skill-results";
-import { StateEventDetails } from "./state-event-details";
-import { MonsterActionDetails } from "./monster-action-details";
-import { ResolveEventDetails } from "./resolve-event-details";
-import { EncounterEventDetails } from "./encounter-event-details";
-import { humanizeChoiceOptionLabel } from "./choice-display-label";
-import { provisionLabels, provisionEffectLabels } from "./provision-labels";
-import { BattleActionsSurface } from "./tabletop/sections/battle-actions-surface";
-import { BattleAreaCell } from "./card-art/battle-area-tile";
-import { BattleRoomTileBoard } from "./card-art/battle-room-tile-board";
-import { resolveBattleRoomTileId } from "./battle/resolve-battle-room-tile-id";
+import { SkillCardText } from "../skill-card-text";
+import { SkillRequirements } from "../skill-requirements";
+import { SkillResults } from "../skill-results";
+import { StateEventDetails } from "../state-event-details";
+import { MonsterActionDetails } from "../monster-action-details";
+import { ResolveEventDetails } from "../resolve-event-details";
+import { EncounterEventDetails } from "../encounter-event-details";
+import { humanizeChoiceOptionLabel } from "../choice-display-label";
+import { provisionLabels, provisionEffectLabels } from "../provision-labels";
+import { BattleActionsSurface } from "../tabletop/sections/battle-actions-surface";
+import { BattleAreaCell } from "../card-art/battle-area-tile";
+import { BattleRoomTileBoard } from "../card-art/battle-room-tile-board";
+import { resolveBattleRoomTileId } from "./resolve-battle-room-tile-id";
 
 const stances: SkillStance[] = ["aggressive", "defensive", "ranged", "support"];
 export function BattleView({

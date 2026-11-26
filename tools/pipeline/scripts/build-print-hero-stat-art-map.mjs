@@ -1,134 +1,82 @@
 #!/usr/bin/env node
-/**
- * Build hero-stat-print-art-map.json (corebox raw ids + extension art-only ids).
- *
- * Usage:
- *   node tools/pipeline/scripts/build-print-hero-stat-art-map.mjs
- */
+/** Build the hero STAT art map from approved cards and the ancillary core print faces. */
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
-import { dirname, resolve } from "node:path";
+import { basename, dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import {
-  EXTENSION_STAT_PACKS,
-  PRINT_18_HERO_NAMES,
-  packStatPdfRel,
-} from "../print-card-art/fixtures/print-hero-18-art-catalog.mjs";
 import { COREBOX_STAT_BACK, COREBOX_STAT_FRONT, pngRelFromPdf } from "./lib/print-png-rel.mjs";
 
-const here = dirname(fileURLToPath(import.meta.url));
-const repoRoot = resolve(here, "../../..");
+const root = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
+const read = (file) => JSON.parse(readFileSync(resolve(root, file), "utf8"));
+const { cards } = read("packages/data/normalized/corebox/hero_stat.json");
+const { cards: rawCards } = read("packages/data/extract/corebox/raw/hero_stat.json");
 
-function heroNameFromRawCard(card) {
-  const spans = [...(card.faces?.front?.spans ?? []), ...(card.faces?.back?.spans ?? [])];
-  return spans.find((s) => /^[A-Z][A-Z -]+$/.test(s.t) && s.t.length > 4)?.t ?? "";
+function printFace(pdf, printPage) {
+  return { pngRel: pngRelFromPdf(pdf, printPage), printPage, primaryPdf: basename(pdf, ".pdf") };
 }
 
-function loadVerifiedIds() {
-  const path = resolve(repoRoot, "../../../packages/data/normalized/corebox/hero_stat.json");
-  const data = JSON.parse(readFileSync(path, "utf8"));
-  return new Set(data.cards.map((c) => c.id));
-}
+const corePdfForFace = { front: COREBOX_STAT_FRONT, back: COREBOX_STAT_BACK };
+const approvedFaces = new Set();
+const approvedIds = new Set();
+const faces = cards.map((card) => {
+  const { id, rawId, face, name, level, source } = card;
+  if (
+    !/^hero_stat:(?:core|cove|warrens|weald|musketeer):h\d{2}:p\d{3}:(?:front|back)$/.test(id) ||
+    approvedIds.has(id)
+  )
+    throw new Error("英雄 STAT ID 无效或重复：" + id);
+  approvedIds.add(id);
+  approvedFaces.add(rawId + ":" + face);
+  const corePdf = corePdfForFace[face];
+  const pdf = source.file.startsWith("02_DD_CARDS_COREBOX/") ? corePdf : source.file;
+  return {
+    id,
+    rawId,
+    face,
+    hero: name,
+    level,
+    dataStatus: "verified-data",
+    ...printFace(pdf, source.page),
+    matchMethod: "normalized_source",
+    reviewVerdict: "normalized",
+  };
+});
 
-function coreFaces() {
-  const raw = JSON.parse(
-    readFileSync(
-      resolve(repoRoot, "../../../packages/data/extract/corebox/raw/hero_stat.json"),
-      "utf8",
-    ),
-  );
-  const verified = loadVerifiedIds();
-  const faces = [];
-  for (const card of raw.cards) {
-    const hero = heroNameFromRawCard(card);
-    const rawId = card.id;
-    const page = card.faces?.front?.page ?? card.pages?.[0];
-    for (const face of ["front", "back"]) {
-      const id = `${rawId}:${face}`;
-      const pdf = face === "front" ? COREBOX_STAT_FRONT : COREBOX_STAT_BACK;
-      const dataStatus = verified.has(id) ? "verified-data" : "art-only";
-      faces.push({
-        id,
-        rawId,
-        face,
-        hero,
-        level: null,
-        dataStatus,
-        pngRel: pngRelFromPdf(pdf, page),
-        printPage: page,
-        primaryPdf: pdf.split("/").pop()?.replace(".pdf", "") ?? "",
-        matchMethod: "corebox_page_order+hero_name",
-        reviewVerdict: dataStatus === "verified-data" ? "normalized" : "art-only",
-      });
-    }
+for (const card of rawCards) {
+  for (const [face, pdf] of Object.entries(corePdfForFace)) {
+    if (approvedFaces.has(card.id + ":" + face)) continue;
+    const page = card.faces.front.page;
+    const hero =
+      card.faces.front.spans.find((span) => /^[A-Z][A-Z -]+$/.test(span.t) && span.t.length > 4)
+        ?.t ?? "";
+    faces.push({
+      id: null,
+      rawId: card.id,
+      face,
+      hero,
+      level: null,
+      dataStatus: "art-only",
+      ...printFace(pdf, page),
+      matchMethod: "corebox_page_order+hero_name",
+      reviewVerdict: "art-only",
+    });
   }
-  return faces;
 }
 
-function extensionFaces() {
-  const faces = [];
-  for (const pack of EXTENSION_STAT_PACKS) {
-    const frontPdf = packStatPdfRel(pack, "front");
-    const backPdf = packStatPdfRel(pack, "back");
-    for (const { hero, statPages } of pack.heroes) {
-      const [pI, pIII] = statPages;
-      const entries = [
-        { rawKey: "p001", page: pI, levels: { front: 1, back: 2 } },
-        { rawKey: "p002", page: pIII, levels: { front: 3 } },
-      ];
-      for (const row of entries) {
-        for (const face of Object.keys(row.levels)) {
-          const id = `hero_stat:${pack.pack}:${hero.toLowerCase().replace(/\s+/g, "-")}:${row.rawKey}:${face}`;
-          const pdf = face === "front" ? frontPdf : backPdf;
-          faces.push({
-            id,
-            rawId: `hero_stat:${pack.pack}:${row.rawKey}`,
-            face,
-            hero,
-            level: row.levels[face],
-            dataStatus: "art-only",
-            pngRel: pngRelFromPdf(pdf, row.page),
-            printPage: row.page,
-            primaryPdf: pdf.split("/").pop()?.replace(".pdf", "") ?? "",
-            matchMethod: "extension_page_order_pending",
-            reviewVerdict: "art-only",
-          });
-        }
-      }
-    }
-  }
-  return faces;
-}
-
-const faces = [...coreFaces(), ...extensionFaces()];
-const heroesMapped = new Set(faces.map((f) => f.hero));
-const missingHeroes = PRINT_18_HERO_NAMES.filter((h) => !heroesMapped.has(h));
-
-const out = resolve(repoRoot, "apps/web/src/card-art/hero-stat-print-art-map.json");
+const args = process.argv.slice(2);
+if (args.length && (args.length !== 2 || args[0] !== "--out" || !args[1]))
+  throw new Error("用法：build-print-hero-stat-art-map.mjs [--out PATH]");
+const out = resolve(root, args[1] ?? "apps/web/src/card-art/hero-stat-print-art-map.json");
 const map = {
   schema: "ddbg.print-hero-stat-art-map.v1",
   source: {
     buildScript: "tools/pipeline/scripts/build-print-hero-stat-art-map.mjs",
-    catalog: "tools/pipeline/print-card-art/fixtures/print-hero-18-art-catalog.mjs",
     notes: [
-      "Core faces use extract/corebox raw hero_stat page order (MG_DD_01 Hero_STAT).",
-      "dataStatus verified-data = normalized hero_stat.json id present; art-only = print raster only (R-048).",
-      "Extension paths: MG_DD_04/05/06 Warrens/Cove/Weald + MG_DD_08 Musketeer + MG_DD_10 TDH (flat package root, Kyries EN_FILES 2026-10-24).",
-      "pngRel paths relative to .cache/print-card-art/ (TrimBox full page, R-048).",
+      "Approved gameplay faces use canonical IDs and the normalized print source.",
+      "Ancillary core faces have no gameplay ID. Their rawId and face locate the original print.",
     ],
-    reviewedAt: "2026-10-24",
   },
   faces,
-  pendingConfirmation: [
-    "Extension STAT page order per pack not Kyries-reviewed in this PR (R-048).",
-    "Core Jester/Arbalest/Abomination STAT faces are art-only until attributesVerified gameplay data lands.",
-    ...(missingHeroes.length
-      ? [`Catalog heroes missing from map faces: ${missingHeroes.join(", ")}`]
-      : []),
-  ],
+  pendingConfirmation: [],
 };
-
 mkdirSync(dirname(out), { recursive: true });
-writeFileSync(out, JSON.stringify(map, null, 2) + "\n", "utf8");
-console.log(
-  `Wrote ${faces.length} hero stat faces (${faces.filter((f) => f.dataStatus === "verified-data").length} verified-data, ${faces.filter((f) => f.dataStatus === "art-only").length} art-only) → ${out.replace(repoRoot + "/", "")}`,
-);
+writeFileSync(out, JSON.stringify(map, null, 2) + "\n");
