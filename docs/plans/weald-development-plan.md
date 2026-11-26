@@ -6,6 +6,9 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 
 ## 当前进度与下一步
 
+- **2026-11-26 跨包入口审计**：`@ddbg/data` 根入口导出正式英雄目录校验，Node 文件读写由 `@ddbg/data/write` 提供。测试验证 engine → data 依赖方向及浏览器入口边界。英雄聚合文件级来源清单和 Cove／Warrens Boss 占位 ID 继续登记，Weald 待确认项见下方。
+  验证：两包入口可独立打包到浏览器。跨包定向 5 项、typecheck、lint、build 与两条生产预览冒烟通过。全量 Vitest 632 文件、4437 项通过、1 项跳过。`extract` 与 `normalized` 零 diff。
+
 - **2026-11-26 Web 目录审计**：战斗页面、状态和数据类型归入 `apps/web/src/battle/`。扩展英雄技能卡图迁到 canonical ID，卡图生成器按正式目录读取印刷来源。Weald 正常出征与真菌战斗页面冒烟通过，既有待确认项和下一步见下方。
   验证：typecheck、lint、build 通过；全量 Vitest 631 文件、4436 项通过、1 项跳过。核心正式战斗开发冒烟首次导航超时，重试通过；生产预览内容包冒烟通过。两张英雄卡图表可逐字节重建，`extract` 与 `normalized` 零 diff。
 

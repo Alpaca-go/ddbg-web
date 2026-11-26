@@ -122,7 +122,6 @@ export { buildNormalizedCorebox } from "./shared/build";
 export { monsterStanceGroupsSchema } from "./shared/monster-stance";
 export type { MonsterStanceGroups } from "./shared/monster-stance";
 export type { NormalizedCorebox, NormalizedCoreboxInput } from "./shared/build";
-export { loadNormalizedCorebox, writeNormalizedCorebox } from "./core/write";
 export { roomTileGeometrySchema, roomTileGeometryFileSchema } from "./core/rooms/room-tile.build";
 export type { RoomTileGeometryFile } from "./core/rooms/room-tile.build";
 export {
@@ -134,6 +133,7 @@ export {
 } from "./core/tiles/corridor-layout-bindings";
 export type { CorridorLayoutBinding } from "./core/tiles/corridor-layout-bindings";
 export {
+  canonicalHeroStatCardSchema,
   normalizedHeroStatCardSchema,
   normalizedHeroStatFileSchema,
 } from "./core/heroes/hero-stat.build";
@@ -142,6 +142,7 @@ export {
   NAMINGS,
   namingSchema,
   normalizedHeroSkillCardSchema,
+  canonicalHeroSkillFileSchema,
   normalizedHeroSkillFileSchema,
   normalizedIconSchema,
   normalizedMonsterLargeCardSchema,
