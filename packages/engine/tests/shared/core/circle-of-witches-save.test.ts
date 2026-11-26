@@ -3,7 +3,7 @@ import { circleOfWitchesJourney } from "../../helpers/circle-of-witches-quest";
 import { disinfectionSources as sources } from "../../helpers/disinfection-quest";
 import { createQuestSave, loadQuestSave } from "../../../src/shared/quest/quest-save";
 import { applyCommand } from "../../../src/shared/core/command";
-import { WEALD_CRONE_EXCEPTION_INSTANCE_ID as croneId } from "../../../src/weald/circle-of-witches-spawn";
+import { WEALD_CRONE_EXCEPTION_INSTANCE_ID as croneId } from "../../../src/weald/quests/circle-of-witches-spawn";
 import { dungeonMonsterPoolThrough } from "../../../src/shared/core/monster-pool-runtime";
 
 it.each([1, 3] as const)(

@@ -1,5 +1,5 @@
 import type { BattleState } from "./battle";
-import { necroticFungusBlocksHealing } from "../../weald/necrotic-fungus";
+import { necroticFungusBlocksHealing } from "../../weald/quests/necrotic-fungus";
 
 /** R-067: Unholy Aura follows the hero's current area. W-04: 场上真菌时全场禁疗。 */
 export function healingForbidden(battle: BattleState, heroId: string | undefined): boolean {

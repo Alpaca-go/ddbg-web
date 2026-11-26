@@ -10,7 +10,7 @@ import {
   type CoreQuestSources,
 } from "../../src/shared/dungeon/dungeon-quest-entry";
 import { applyCommand, type Command, type GameState } from "../../src/shared/core/command";
-import { readInfectedOakAction } from "../../src/shared/battle/battle-infected-oak";
+import { readInfectedOakAction } from "../../src/weald/rooms/battle-infected-oak";
 import { heroMovePathLimit } from "../../src/shared/battle/battle-hero-movement";
 
 export const disinfectionSources: CoreQuestSources = {

@@ -6,16 +6,19 @@ import {
   NECROMANCER_I_SCRIPT_ID,
 } from "./necromancer/necromancer-i";
 import { PROPHET_I_DESCRIPTION_ABILITY_CARD_ID, PROPHET_I_SCRIPT_ID } from "./prophet/prophet-i";
-import { HAG_I_DESCRIPTION_ABILITY_CARD_ID, HAG_I_SCRIPT_ID } from "../../weald/bosses/hag-i";
+import { HAG_I_DESCRIPTION_ABILITY_CARD_ID, HAG_I_SCRIPT_ID } from "../../weald/bosses/hag/hag-i";
 import {
   SWINE_PRINCE_I_DESCRIPTION_ABILITY_CARD_ID,
   SWINE_PRINCE_I_SCRIPT_ID,
-} from "../../warrens/bosses/swine-prince-i";
+} from "../../warrens/bosses/swine-prince/swine-prince-i";
 import {
   FLESH_I_DESCRIPTION_ABILITY_CARD_ID,
   FLESH_I_SCRIPT_ID,
-} from "../../warrens/bosses/flesh-i";
-import { SIREN_I_DESCRIPTION_ABILITY_CARD_ID, SIREN_I_SCRIPT_ID } from "../../cove/bosses/siren-i";
+} from "../../warrens/bosses/flesh/flesh-i";
+import {
+  SIREN_I_DESCRIPTION_ABILITY_CARD_ID,
+  SIREN_I_SCRIPT_ID,
+} from "../../cove/bosses/siren/siren-i";
 import {
   COLLECTOR_I_DESCRIPTION_ABILITY_CARD_ID,
   COLLECTOR_I_SCRIPT_ID,

@@ -1,6 +1,6 @@
 import type { ApplyResult, GameState } from "../../../shared/core/command";
 import { distance, rejectBattleCommand, skillTargetView } from "../../../shared/battle/battle";
-import { fixedDamageResolution } from "../../../shared/battle/battle-spiked-pit";
+import { fixedDamageResolution } from "../../../shared/battle/battle-fixed-damage";
 import { resolveAttackDamage } from "../../../shared/core/attack-damage";
 import { passiveDamageWounds } from "../../../shared/core/passive";
 import { applySkillHealth } from "../../../shared/battle/battle-health";

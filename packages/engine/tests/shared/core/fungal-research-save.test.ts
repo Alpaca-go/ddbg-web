@@ -1,7 +1,7 @@
 import { expect, it } from "vitest";
 import { createQuestSave, loadQuestSave } from "../../../src/shared/quest/quest-save";
 import { applyCommand } from "../../../src/shared/core/command";
-import { livingNecroticFungus } from "../../../src/weald/necrotic-fungus";
+import { livingNecroticFungus } from "../../../src/weald/quests/necrotic-fungus";
 import { fungalResearchJourney } from "../../helpers/fungal-research-quest";
 import { disinfectionSources as sources } from "../../helpers/disinfection-quest";
 

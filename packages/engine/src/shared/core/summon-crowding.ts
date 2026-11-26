@@ -1,7 +1,7 @@
 import type { GameState } from "./command";
 import { planCrowding } from "./crowding";
 import { createRng } from "./rng";
-import { shriekerINestAllowsEntry } from "../../weald/bosses/shrieker-i-nest";
+import { shriekerINestAllowsEntry } from "../../weald/bosses/shrieker/shrieker-i-nest";
 
 /** R-271：预演完成才提交位移和用于平局的 RNG；不占姿态、不洗先攻由调用方处理。 */
 export function planSummonCrowding(state: GameState, areaId: string, width: 1 | 2) {

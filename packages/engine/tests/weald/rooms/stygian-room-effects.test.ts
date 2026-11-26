@@ -3,15 +3,15 @@ import coreStygian from "../../../../data/normalized/corebox/stygian_rooms.json"
 import wealdStygian from "../../../../data/normalized/extension/weald/stygian_rooms.json";
 import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
 import { createBattleState, type BattleEntity } from "../../../src/shared/battle/battle";
-import { applyUnprepared } from "../../../src/shared/battle/battle-unprepared";
-import { resolveToxicMushrooms } from "../../../src/shared/battle/battle-toxic-mushrooms";
-import { fixedDamageResolution } from "../../../src/shared/battle/battle-spiked-pit";
+import { applyUnprepared } from "../../../src/weald/rooms/battle-unprepared";
+import { resolveToxicMushrooms } from "../../../src/weald/rooms/battle-toxic-mushrooms";
+import { fixedDamageResolution } from "../../../src/shared/battle/battle-fixed-damage";
 import { readActiveStygianRoom } from "../../../src/shared/core/stygian-room-effects";
 import { readActiveWealdStygianRoom } from "../../../src/weald/rooms/stygian-room-effects";
 import { coreParty, coreQuestSources } from "../../helpers/core-quest";
-import { endTurnPoisonousRoots } from "../../../src/shared/battle/battle-infected-oak";
-import { resolveOurs } from "../../../src/shared/battle/battle-ours";
-import { withAbyssalPuff } from "../../../src/shared/battle/battle-abyssal-puff";
+import { endTurnPoisonousRoots } from "../../../src/weald/rooms/battle-infected-oak";
+import { resolveOurs } from "../../../src/weald/rooms/battle-ours";
+import { withAbyssalPuff } from "../../../src/weald/rooms/battle-abyssal-puff";
 import type { GameState } from "../../../src/shared/core/command";
 
 const monsterCard = coreQuestSources.catalog.monsters.find((c) => c.id === "monster_medium:p001")!;
@@ -162,7 +162,7 @@ describe("Weald Stygian 房间效果数值", () => {
       dungeon: stygianWealdDungeon("room:weald:01"),
     };
     const miss = {
-      ...fixedDamageResolution(state.battle!.entities[0]!),
+      ...fixedDamageResolution(state.battle!.entities[0]!, "area:spikedPit"),
       outcome: "miss" as const,
     };
     const result = resolveToxicMushrooms(state, "m", [miss])!;

@@ -1,9 +1,9 @@
 import { settleInventoryOverflow } from "../core/inventory-overflow";
-import { wealdTaskActive } from "../../weald/higher-task-effects";
+import { wealdTaskActive } from "../../weald/quests/higher-task-effects";
 import {
   beginShriekerReserveTheft,
   shriekerHigherThreatLevel,
-} from "../../weald/bosses/shrieker-i-provisions";
+} from "../../weald/bosses/shrieker/shrieker-i-provisions";
 import type { ApplyResult, Command, GameEvent, GameState } from "../core/command";
 import type { DungeonState } from "./dungeon";
 import { nextProvisionFace, PROVISION_FACES, PROVISION_LABELS } from "../trinkets/loot";

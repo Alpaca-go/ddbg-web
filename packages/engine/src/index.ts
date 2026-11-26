@@ -1,10 +1,10 @@
 export { applyCommand, createInitialState } from "./shared/core/command";
-export { readWealdOakAction } from "./weald/burning-oak";
-export { readInfectedOakAction } from "./shared/battle/battle-infected-oak";
-export { buildWealdMonsterCatalog } from "./weald/monster-catalog";
-export { buildWealdHigherMonsterCatalog } from "./weald/higher-monster-catalog";
-export { buildWealdHigherMonsterPool } from "./weald/higher-monster-pool";
-export type { WealdBattleMonster } from "./weald/monster-catalog";
+export { readWealdOakAction } from "./weald/quests/burning-oak";
+export { readInfectedOakAction } from "./weald/rooms/battle-infected-oak";
+export { buildWealdMonsterCatalog } from "./weald/monsters/monster-catalog";
+export { buildWealdHigherMonsterCatalog } from "./weald/monsters/higher-monster-catalog";
+export { buildWealdHigherMonsterPool } from "./weald/monsters/higher-monster-pool";
+export type { WealdBattleMonster } from "./weald/monsters/monster-catalog";
 export { canSetDungeonStances, DUNGEON_HERO_STANCES } from "./shared/dungeon/dungeon-stances";
 export { canSetHamletStances } from "./shared/hamlet/hamlet-stances";
 export { readRoomTile } from "./shared/core/room-tile-selection";
@@ -146,7 +146,7 @@ export { canRestDungeon } from "./shared/dungeon/dungeon-rest";
 export { canSetupForwardCamp, setupForwardCamp } from "./shared/dungeon/dungeon-forward-camp";
 export { dungeonProvisionWindow } from "./shared/dungeon/dungeon-provision-window";
 
-export { isInvokingMonster } from "./shared/battle/battle-invocation";
+export { isInvokingMonster } from "./core/rooms/battle-invocation";
 
 export { createCoreDungeonQuest } from "./shared/dungeon/dungeon-quest-entry";
 export type { CoreQuestSources, QuestParty } from "./shared/dungeon/dungeon-quest-entry";
@@ -231,7 +231,6 @@ export {
   encounterForcesRetreatAfterRound,
   encounterRoundRetreatLimit,
   ensureCoreBossScriptsRegistered,
-  ensureFixtureBossScriptRegistered,
   ensureNecromancerIBossScriptRegistered,
   ensureProphetIBossScriptRegistered,
   ensureCollectorIBossScriptRegistered,
@@ -241,9 +240,6 @@ export {
   ensureSirenIBossScriptRegistered,
   ensureFleshIBossScriptRegistered,
   FACE_THE_THREAT_QUEST_ID,
-  FIXTURE_BOSS_COMBAT_MONSTER_CARD_ID,
-  FIXTURE_BOSS_SCRIPT_ID,
-  fixtureBossSkeletonScript,
   getBossScript,
   hamletBuildingsBlockedByBossThreat,
   beastMonsterDamageBonusFromBossThreat,
@@ -381,7 +377,7 @@ export type { ContentPackId } from "./shared/core/content-packs";
 export {
   buildWealdLevelOneMonsterPool,
   createWealdLevelOneMonsterPoolState,
-} from "./weald/monster-pool";
+} from "./weald/monsters/monster-pool";
 export {
   NECROTIC_FUNGUS_MONSTER_CARD,
   NECROTIC_FUNGUS_MONSTER_CARD_ID,
@@ -389,7 +385,7 @@ export {
   isNecroticFungusEntity,
   necroticFungusBlocksHealing,
   necroticFungusEntitiesForTile,
-} from "./weald/necrotic-fungus";
+} from "./weald/quests/necrotic-fungus";
 export {
   wealdMechanicsActive,
   wealdRoomTileBattleAreas,

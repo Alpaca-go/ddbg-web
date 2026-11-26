@@ -9,7 +9,7 @@ import {
   assertToxicChamberEffectSource,
 } from "../../../src/core/rooms/toxic-chamber.build";
 import { buildRoomTileGeometry } from "../../../src/core/rooms/room-tile.build";
-import { selectRoomTile } from "../../../src/core/rooms/room-tile-selection.build";
+import { selectRoomTile } from "../../../src/core/rooms/room-tile-selection";
 
 const raw = (name: string) =>
   rawFileSchema.parse(

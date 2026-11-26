@@ -3,7 +3,7 @@ import medium from "../../../../data/normalized/extension/weald/monster_medium.j
 import large from "../../../../data/normalized/extension/weald/monster_large.json";
 import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
 import { coreParty, coreQuestSources } from "../../helpers/core-quest";
-import { createWealdLevelOneMonsterPoolState } from "../../../src/weald/monster-pool";
+import { createWealdLevelOneMonsterPoolState } from "../../../src/weald/monsters/monster-pool";
 import { dungeonMonsterPoolThrough } from "../../../src/shared/core/monster-pool-runtime";
 import {
   dungeonMonsterPoolCatalogValid,

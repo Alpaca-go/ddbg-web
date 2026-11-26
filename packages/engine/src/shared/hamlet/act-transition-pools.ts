@@ -5,7 +5,7 @@ import { ruinsMonsterPoolThrough } from "../../../../data/src/core/monsters/mons
 import { normalizedTrinketFileSchema } from "../../../../data/src/shared/schema";
 import type { DungeonState } from "../dungeon/dungeon";
 import { dungeonMonsterPoolThrough } from "../core/monster-pool-runtime";
-import { createWealdHigherMonsterPoolState } from "../../weald/higher-monster-pool";
+import { createWealdHigherMonsterPoolState } from "../../weald/monsters/higher-monster-pool";
 import {
   switchTrinketDungeonLevel,
   trinketPoolProblem,

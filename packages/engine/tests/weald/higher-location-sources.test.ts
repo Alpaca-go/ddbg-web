@@ -10,7 +10,7 @@ import {
   dungeonMonsterPoolThrough,
 } from "../../src/shared/core/monster-pool-runtime";
 import { monsterPoolCatalogValidForLocation } from "../../src/shared/core/monster-pool-validation";
-import type { createWealdHigherMonsterPoolState } from "../../src/weald/higher-monster-pool";
+import type { createWealdHigherMonsterPoolState } from "../../src/weald/monsters/higher-monster-pool";
 type TestPool = Omit<ReturnType<typeof createWealdHigherMonsterPoolState>, "wealdSourceVersion"> & {
   wealdSourceVersion?: "higher-v1";
 };

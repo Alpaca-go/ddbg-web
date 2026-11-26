@@ -1,10 +1,13 @@
 import { describe, expect, it, beforeEach } from "vitest";
 import {
+  ensureFixtureBossScriptRegistered,
+  FIXTURE_BOSS_SCRIPT_ID,
+  fixtureBossSkeletonScript,
+} from "../../helpers/boss-fixture-skeleton";
+import {
   clearBossScriptsForTest,
   defaultMonsterTurnActionCount,
   encounterRoundRetreatLimit,
-  ensureFixtureBossScriptRegistered,
-  FIXTURE_BOSS_SCRIPT_ID,
   getBossScript,
   isBossQuestId,
   NECROMANCER_I_SCRIPT_ID,
@@ -12,7 +15,6 @@ import {
   resolveBossScriptIdForQuest,
   runBossHook,
   FACE_THE_THREAT_QUEST_ID,
-  fixtureBossSkeletonScript,
   DEFAULT_BOSS_BATTLE_RULES,
 } from "../../../src/core/bosses/index";
 

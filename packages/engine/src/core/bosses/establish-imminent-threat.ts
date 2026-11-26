@@ -1,6 +1,6 @@
-import { ensureShriekerIBossScriptRegistered } from "../../weald/bosses/shrieker-i";
+import { ensureShriekerIBossScriptRegistered } from "../../weald/bosses/shrieker/shrieker-i";
 import { nextExpeditionLocationDecks } from "../../shared/hamlet/hamlet-location-embark";
-import { ensurePounderIBossScriptRegistered } from "../../weald/bosses/pounder-i";
+import { ensurePounderIBossScriptRegistered } from "../../weald/bosses/pounder/pounder-i";
 import { wealdThreatPool } from "../../weald/bosses/threat-pool";
 import { ensureCampaignBossScriptsRegistered } from "../../shared/core/registry";
 import { requireFaceTheThreatEmbarkPlanForSandbox } from "./face-the-threat-embark-runtime";

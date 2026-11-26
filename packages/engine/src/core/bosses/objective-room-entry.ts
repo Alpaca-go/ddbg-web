@@ -1,15 +1,15 @@
 import {
   prepareShriekerIObjectiveRoom,
   prepareShriekerHigherObjectiveRoom,
-} from "../../weald/bosses/shrieker-i-deploy";
+} from "../../weald/bosses/shrieker/shrieker-i-deploy";
 import {
   preparePounderIObjectiveRoom,
   preparePounderHigherObjectiveRoom,
-} from "../../weald/bosses/pounder-i-deploy";
+} from "../../weald/bosses/pounder/pounder-i-deploy";
 import {
   prepareHagIObjectiveRoom,
   prepareHagHigherObjectiveRoom,
-} from "../../weald/bosses/hag-i-deploy";
+} from "../../weald/bosses/hag/hag-i-deploy";
 import { roomCatalogSchema } from "../../../../data/src/core/rooms/room";
 import type { ApplyResult, GameState } from "../../shared/core/command";
 import { rejectBattleCommand } from "../../shared/battle/battle";

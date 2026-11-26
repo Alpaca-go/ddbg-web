@@ -22,9 +22,9 @@ import {
   WEALD_CRONE_EXCEPTION_CARD_ID,
   WEALD_CRONE_EXCEPTION_INSTANCE_ID,
   spawnCircleOfWitchesEncounter,
-} from "../../src/weald/circle-of-witches-spawn";
-import { selectWealdRoomTile } from "../../src/weald/room-tile-selection";
-import { WEALD_APPROVED_ROOM_CARDS } from "../../src/weald/room-catalog";
+} from "../../src/weald/quests/circle-of-witches-spawn";
+import { selectWealdRoomTile } from "../../src/weald/rooms/room-tile-selection";
+import { WEALD_APPROVED_ROOM_CARDS } from "../../src/weald/rooms/room-catalog";
 import type { SpawnCard } from "../../src/shared/core/spawn";
 import { questMonsterOutsidePoolInstanceIds } from "../../src/shared/quest/quest-monster-spawn";
 

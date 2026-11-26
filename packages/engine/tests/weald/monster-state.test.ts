@@ -9,7 +9,7 @@ import {
 import {
   createWealdLevelOneMonsterPoolState,
   buildWealdLevelOneMonsterPool,
-} from "../../src/weald/monster-pool";
+} from "../../src/weald/monsters/monster-pool";
 import {
   dungeonMonsterPoolThrough,
   combatCardIdForPoolInstance,

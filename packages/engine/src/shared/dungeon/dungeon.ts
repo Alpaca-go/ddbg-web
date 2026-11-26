@@ -161,7 +161,7 @@ export type DungeonState = {
   readonly fallenHeroes?: readonly import("../../core/heroes/fallen-heroes").FallenHero[];
   /** R-147：复活后在驿站等待的完整英雄；不占当前四人队伍或等待代币。 */
   readonly stagecoachHeroes?: readonly DungeonState["heroes"][number][];
-  readonly poolRebirthRooms?: readonly import("../hamlet/pool-rebirth-flow").PoolRebirthRoom[];
+  readonly poolRebirthRooms?: readonly import("../../core/rooms/pool-rebirth-flow").PoolRebirthRoom[];
   /** 独立于原流程待选：处置死者饰品后恢复原待选。 */
   readonly deathTrinketChoice?: PendingChoice;
   readonly deathChoiceCursor?: number;
@@ -242,7 +242,7 @@ export type DungeonState = {
   /** 当前开局已取消的常规骰id；Wild/Radiant待选完成后清除。 */
   readonly startingProvisionOmittedIds?: readonly string[];
   readonly shriekerBossBattles?: true;
-  readonly shriekerTheft?: import("../../weald/bosses/shrieker-i-provisions").ShriekerTheft;
+  readonly shriekerTheft?: import("../../weald/bosses/shrieker/shrieker-i-provisions").ShriekerTheft;
   /** Traveling Merchants 进行中：尚未改骰的英雄顺序。 */
   readonly provisionFaceChoiceRemaining?: readonly string[];
   /** Warm Up the Halls（quest:p011）：开局补给掷完后每名英雄可改一颗为 Torch。 */

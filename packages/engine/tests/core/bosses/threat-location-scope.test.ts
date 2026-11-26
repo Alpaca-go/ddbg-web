@@ -9,8 +9,8 @@ import { firstBattleThreatDeck } from "../../../src/core/bosses/necromancer/necr
 import {
   shriekerHigherThreatLevel,
   shriekerIThreatActive,
-} from "../../../src/weald/bosses/shrieker-i-provisions";
-import { shriekerSkipsProvisionRolls } from "../../../src/weald/bosses/shrieker-provision-version";
+} from "../../../src/weald/bosses/shrieker/shrieker-i-provisions";
+import { shriekerSkipsProvisionRolls } from "../../../src/weald/bosses/shrieker/shrieker-provision-version";
 import {
   activeBossThreatMatchesDungeonLocation,
   bossThreatHamletBlockedBuildings,

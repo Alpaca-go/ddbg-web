@@ -1,6 +1,6 @@
-import { shriekerINestAllowsEntry } from "../../weald/bosses/shrieker-i-nest";
-import { isPounderMatchmanAction } from "../../weald/bosses/pounder-i-turn";
-import { withTeleporterAdjacency } from "./battle-teleporters";
+import { shriekerINestAllowsEntry } from "../../weald/bosses/shrieker/shrieker-i-nest";
+import { isPounderMatchmanAction } from "../../weald/bosses/pounder/pounder-i-turn";
+import { withTeleporterAdjacency } from "../../core/rooms/battle-teleporters";
 import { isDarkestSupportSkill } from "./battle-monster-support";
 import { isPyreCard } from "../../core/bosses/fanatic/pyre-skill";
 import {
@@ -14,11 +14,11 @@ import { applyEncounterCommand } from "../dungeon/encounter";
 import { readPrintedRange, readPrintedTargets } from "../../core/heroes/hero-skill";
 import { readMonsterAttackView, resolveMonsterSkill } from "../core/monster-skill";
 import { isSmallMonster } from "./battle-small";
-import { clearAncestorConditions } from "./battle-ancestor";
+import { clearAncestorConditions } from "../../core/rooms/battle-ancestor";
 import {
   preferEldritchPowerMoveOptions,
   scoreEldritchPowerApproachSteps,
-} from "./battle-eldritch-power";
+} from "../../core/rooms/battle-eldritch-power";
 
 export type MoveMonsterToRangeCommand = {
   readonly type: "moveMonsterToRange";

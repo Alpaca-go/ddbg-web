@@ -8,10 +8,10 @@ import { triggerBattlePassive } from "./battle-passive";
 import { monsterShuffleImmune } from "../core/monster-defence";
 import { newlyDefeatedIds } from "../dungeon/encounter";
 import { hasQuirk } from "../core/passive";
-import { ancestorGlory, clearAncestorConditions } from "./battle-ancestor";
+import { ancestorGlory, clearAncestorConditions } from "../../core/rooms/battle-ancestor";
 import { resumeSkillOwnEffects } from "./battle-own-effects";
-import { applySpikedPit } from "./battle-spiked-pit";
-import { applyTemplarsSpikes } from "./battle-templars-spikes";
+import { applySpikedPit } from "../../core/rooms/battle-spiked-pit";
+import { applyTemplarsSpikes } from "../../core/bosses/templars/battle-templars-spikes";
 import { readHeroPassiveDefence } from "./battle-skill-status";
 
 /** R27：持有 Balanced 的英雄决定是否少移 1；不改变原技能骰或其他位移意图。 */

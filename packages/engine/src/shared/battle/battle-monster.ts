@@ -1,10 +1,10 @@
-import { readHagRuntimeContext } from "../../weald/bosses/hag-runtime-context";
-import { withToxicMushrooms } from "./battle-toxic-mushrooms";
-import { isPounderMatchmanAction } from "../../weald/bosses/pounder-i-turn";
-import { applyPounderIFireInTheHole } from "../../weald/bosses/pounder-i-fire";
+import { readHagRuntimeContext } from "../../weald/bosses/hag/hag-runtime-context";
+import { withToxicMushrooms } from "../../weald/rooms/battle-toxic-mushrooms";
+import { isPounderMatchmanAction } from "../../weald/bosses/pounder/pounder-i-turn";
+import { applyPounderIFireInTheHole } from "../../weald/bosses/pounder/pounder-i-fire";
 import { isDarkestSupportSkill, playDarkestSupportSkill } from "./battle-monster-support";
-import { captureHagHero } from "../../weald/bosses/hag-i-captive";
-import { HAG_I_CAULDRON_FULL_MONSTER_CARD_ID } from "../../weald/bosses/hag-i";
+import { captureHagHero } from "../../weald/bosses/hag/hag-i-captive";
+import { HAG_I_CAULDRON_FULL_MONSTER_CARD_ID } from "../../weald/bosses/hag/hag-i";
 import { isPyreCard, playPyreSkill } from "../../core/bosses/fanatic/pyre-skill";
 import {
   isCollectedVestalCard,
@@ -13,7 +13,7 @@ import {
 } from "../../core/bosses/collector/collected-vestal";
 import { playWhiteCellReconstitute } from "../../core/bosses/mammoth-cyst/white-cell-stalk";
 import { beginDamageStoneWindow, damageStoneHealthEffects } from "./battle-damage-stone";
-import { isInvokingMonster } from "./battle-invocation";
+import { isInvokingMonster } from "../../core/rooms/battle-invocation";
 import {
   distance,
   rejectBattleCommand,
@@ -33,7 +33,7 @@ import type {
 } from "../core/command";
 import { nextBattleRoll, newlyDefeatedIds, recordMonsterSkill } from "../dungeon/encounter";
 import { monsterCombatThreatDamageBonus } from "../../core/bosses/threat-passive-runtime";
-import { chainSirenIHighTidePelagicAfterMonsterSkill } from "../../cove/bosses/siren-i-combat-runtime";
+import { chainSirenIHighTidePelagicAfterMonsterSkill } from "../../cove/bosses/siren/siren-i-combat-runtime";
 import {
   TEMPLAR_BODY_SLAM_SKILL_SLOT,
   TEMPLAR_IMPALER_MONSTER_CARD_ID,

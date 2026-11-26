@@ -9,7 +9,7 @@ import {
   assertHallOfAscensionEffectSource,
 } from "../../../src/core/rooms/hall-of-ascension.build";
 import { buildRoomTileGeometry } from "../../../src/core/rooms/room-tile.build";
-import { selectRoomTile } from "../../../src/core/rooms/room-tile-selection.build";
+import { selectRoomTile } from "../../../src/core/rooms/room-tile-selection";
 
 const loadRaw = (name: string) =>
   rawFileSchema.parse(

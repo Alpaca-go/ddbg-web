@@ -4,19 +4,19 @@ import {
   shriekerHigherRealCombatActive,
   finishShriekerHigherBattle,
   finishShriekerIBattle,
-} from "../../weald/bosses/shrieker-i-finish";
+} from "../../weald/bosses/shrieker/shrieker-i-finish";
 import {
   pounderIRealCombatActive,
   finishPounderIBattle,
   pounderHigherRealCombatActive,
   finishPounderHigherBattle,
-} from "../../weald/bosses/pounder-i-finish";
+} from "../../weald/bosses/pounder/pounder-i-finish";
 import {
   hagIRealCombatActive,
   finishHagIBattle,
   hagHigherRealCombatActive,
   finishHagHigherBattle,
-} from "../../weald/bosses/hag-i-finish";
+} from "../../weald/bosses/hag/hag-i-finish";
 import { dungeonMonsterPoolCatalogValid } from "../core/monster-pool-validation";
 import { ruinsIRealCombatActive, finishRuinsIBattle } from "../../core/bosses/ruins/ruins-i-finish";
 import {
@@ -79,23 +79,26 @@ import { readRoomTile } from "../core/room-tile-selection";
 import {
   applyWealdBattleSetup,
   wealdBattleCreationEnabled,
-} from "../../weald/dungeon-battle-setup";
-import { selectWealdRoomTile, wealdRoomCardFromUnknown } from "../../weald/room-tile-selection";
+} from "../../weald/battle/dungeon-battle-setup";
+import {
+  selectWealdRoomTile,
+  wealdRoomCardFromUnknown,
+} from "../../weald/rooms/room-tile-selection";
 import { wealdPackSelected } from "../../weald/mechanics";
 import {
   fungalResearchProgressFromBattle,
   isFungalResearchQuest,
-} from "../../weald/fungal-research-quest";
+} from "../../weald/quests/fungal-research-quest";
 import {
   recordWealdCroneKillOnBattleFinish,
   wealdCroneExceptionObjectiveActive,
   WEALD_CRONE_EXCEPTION_CARD_ID,
   WEALD_CRONE_EXCEPTION_INSTANCE_ID,
-} from "../../weald/circle-of-witches-spawn";
+} from "../../weald/quests/circle-of-witches-spawn";
 import {
   recordDisinfectionOakOnBattleFinish,
   isDisinfectionQuest,
-} from "../../weald/disinfection-quest";
+} from "../../weald/quests/disinfection-quest";
 import { readDungeonQuestProgress } from "./dungeon-quest";
 import { readCampaignLevel } from "../hamlet/hamlet-campaign";
 import { hasApprovedHigherMonsterFields } from "../../../../data/src/core/monsters/verified-monster-entry.build";
@@ -147,9 +150,9 @@ import {
   withLargeMonsterSpawnGuard,
 } from "../../core/bosses/threat-passive-runtime";
 import { recordRuinsBossDefeatOnThreatCleared } from "../../core/bosses/establish-imminent-threat";
-import { buildWealdHigherMonsterCatalog } from "../../weald/higher-monster-catalog";
-import { approvedWealdTaskMonster } from "../../weald/task-monster-catalog";
-import { forcedWealdTaskOutsideIds } from "../../weald/task-forced-monsters";
+import { buildWealdHigherMonsterCatalog } from "../../weald/monsters/higher-monster-catalog";
+import { approvedWealdTaskMonster } from "../../weald/monsters/task-monster-catalog";
+import { forcedWealdTaskOutsideIds } from "../../weald/quests/task-forced-monsters";
 import { resolveEncounterBossScriptId } from "../../core/bosses/encounter-rules";
 import { isBossQuestId } from "../../core/bosses/quest-bridge";
 import { firstBattleThreatEntry } from "../../core/bosses/necromancer/necromancer-ii-army";

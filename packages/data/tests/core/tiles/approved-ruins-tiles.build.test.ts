@@ -1,7 +1,7 @@
 import { expect, it } from "vitest";
 import file from "../../../normalized/corebox/room_tile_geometry.json";
 import { roomTileGeometrySchema } from "../../../src/core/rooms/room-tile.build";
-import { selectRoomTile } from "../../../src/core/rooms/room-tile-selection.build";
+import { selectRoomTile } from "../../../src/core/rooms/room-tile-selection";
 import rooms from "../../../normalized/corebox/room.json";
 
 it.each([[6, "back", 4, [2, 4, 3, 2, 4, 2, 2, 3, 3], 8, 0, 1]] as const)(

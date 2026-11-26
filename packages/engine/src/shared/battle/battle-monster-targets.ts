@@ -1,4 +1,4 @@
-import { withToxicMushrooms } from "./battle-toxic-mushrooms";
+import { withToxicMushrooms } from "../../weald/rooms/battle-toxic-mushrooms";
 import { beginDamageStoneWindow, damageStoneHealthEffects } from "./battle-damage-stone";
 import { distance, rejectBattleCommand, skillTargetView, writeResolution } from "./battle";
 import type { BattleEntity } from "./battle";

@@ -37,7 +37,7 @@ import type { PlayMonsterSkillCommand } from "./battle-monster";
 import type { PlayHeroSkillTargetsCommand } from "./battle-hero-targets";
 import type { PreparedMonsterAction } from "./battle-monster-action";
 import { healingForbidden, healingForbiddenMessage } from "./battle-healing";
-import { clearAncestorConditions } from "./battle-ancestor";
+import { clearAncestorConditions } from "../../core/rooms/battle-ancestor";
 import { applySkillHealth } from "./battle-health";
 import { applyBattleSkillStatuses, readHeroPassiveDefence } from "./battle-skill-status";
 import { finishHeroSkillStatuses } from "./battle-hero-light";
@@ -48,8 +48,8 @@ import type { LootState, LootToken } from "../trinkets/loot";
 import type { ConditionPool } from "../core/conditions";
 import type { PassiveHolder } from "../core/passive";
 import { cancelSkillAfterRoll } from "./battle-passive";
-import { withFleshOneBodyPoolState } from "../../warrens/bosses/flesh-i-combat-runtime";
-import { chainSwinePrinceIEnragedDestructionAfterHeroSkill } from "../../warrens/bosses/swine-prince-i-combat-runtime";
+import { withFleshOneBodyPoolState } from "../../warrens/bosses/flesh/flesh-i-combat-runtime";
+import { chainSwinePrinceIEnragedDestructionAfterHeroSkill } from "../../warrens/bosses/swine-prince/swine-prince-i-combat-runtime";
 import { chainGestatingHeartIchorAfterHeroSkill } from "../../core/bosses/final/gestating-heart-ichor";
 import { withAncestor1ReflectionsGuardEntities } from "../../core/bosses/ancestor/ancestor1-reflections-guard";
 import {
@@ -58,7 +58,7 @@ import {
   absoluteNothingnessTargetRefusal,
   isAbsoluteNothingnessMonsterCardId,
 } from "../../core/bosses/ancestor/ancestor2-absolute-nothingness";
-import { NECROTIC_FUNGUS_MONSTER_CARD_ID } from "../../weald/necrotic-fungus";
+import { NECROTIC_FUNGUS_MONSTER_CARD_ID } from "../../weald/quests/necrotic-fungus";
 import { beginSkillOwnEffects, afterHeroOwnCombat } from "./battle-own-effects";
 import type { SkillPrefix } from "./battle-own-effects";
 import { beforeTargetShuffle } from "./battle-target-pressure";
@@ -310,7 +310,7 @@ export type BattleState = BattleSetup & {
     | {
         readonly type: "hagRelease";
         readonly choice: PendingChoice;
-        readonly resume?: import("../../weald/bosses/hag-i-release").HagReleaseResume;
+        readonly resume?: import("../../weald/bosses/hag/hag-i-release").HagReleaseResume;
       }
     | { readonly type: "allTrinkets"; readonly choice: PendingChoice }
     | {

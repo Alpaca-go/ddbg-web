@@ -17,7 +17,7 @@ import { darkestOrdinaryCombatActive } from "./darkest-ordinary-encounter-deploy
 import { darkestOrdinaryDeploymentMatches } from "./darkest-ordinary-monster-deploy";
 import type { ApplyResult, GameState } from "../../shared/core/command";
 import type { DungeonState } from "../../shared/dungeon/dungeon";
-import { registerPoolRebirthClear } from "../../shared/hamlet/pool-rebirth-flow";
+import { registerPoolRebirthClear } from "../rooms/pool-rebirth-flow";
 
 function reject(state: GameState, message: string): ApplyResult {
   return rejectBattleCommand(state, message);

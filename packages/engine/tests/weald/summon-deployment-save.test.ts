@@ -4,7 +4,7 @@ import { createCoreDungeonQuest } from "../../src/shared/dungeon/dungeon-quest-e
 import { naturalParty, naturalQuest } from "../helpers/natural-quest";
 import { disinfectionSources as sources } from "../helpers/disinfection-quest";
 import { createQuestSave, loadQuestSave } from "../../src/shared/quest/quest-save";
-import { selectWealdRoomTile } from "../../src/weald/room-tile-selection";
+import { selectWealdRoomTile } from "../../src/weald/rooms/room-tile-selection";
 import type { QuestStart } from "../../../data/src/shared/quest-save";
 
 it("R-230/R-237/R-238：自然召唤使用核准房间部署，召唤前后日志严格回放", () => {

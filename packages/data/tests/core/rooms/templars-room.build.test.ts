@@ -9,7 +9,7 @@ import {
   assertTemplarsRoomEffectSource,
 } from "../../../src/core/rooms/templars-room.build";
 import { buildRoomTileGeometry } from "../../../src/core/rooms/room-tile.build";
-import { selectRoomTile } from "../../../src/core/rooms/room-tile-selection.build";
+import { selectRoomTile } from "../../../src/core/rooms/room-tile-selection";
 
 const raw = (name: string) =>
   rawFileSchema.parse(

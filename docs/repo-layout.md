@@ -29,6 +29,12 @@
 `<name>.build.ts` 放从 `extract/**` 构造规范化数据的构建器。不要把运行时状态或规则结算写进 `data`；
 也不要把卡面 schema 或构建逻辑写进 `engine`。
 
+### 规则引擎目录
+
+- 核心盒与各扩展包的专属规则放在对应包下。房间效果放 `rooms/`，任务特例放 `quests/`，怪物目录及机制放 `monsters/`。
+- Boss 专属脚本、部署和结算集中在 `<pack>/bosses/<boss>/`。多个 Boss 共用的接口与调度保留在 `bosses/`。
+- 可复用的状态结算原语留在 `shared/`。测试专用脚本和夹具放在 `packages/engine/tests/helpers/`。
+
 ### 英雄注解层（2026-11-26 定稿）
 
 `packages/data/src/core/heroes/annotations/` 的每个 `hNN-*.ts` 只导出一个模块：

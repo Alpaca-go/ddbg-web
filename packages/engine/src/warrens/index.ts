@@ -1,5 +1,5 @@
-import { ensureSwinePrinceIBossScriptRegistered } from "./bosses/swine-prince-i";
-import { ensureFleshIBossScriptRegistered } from "./bosses/flesh-i";
+import { ensureSwinePrinceIBossScriptRegistered } from "./bosses/swine-prince/swine-prince-i";
+import { ensureFleshIBossScriptRegistered } from "./bosses/flesh/flesh-i";
 export function registerWarrensBosses() {
   ensureSwinePrinceIBossScriptRegistered();
   ensureFleshIBossScriptRegistered();

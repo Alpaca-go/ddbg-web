@@ -1,4 +1,9 @@
 import { readFileSync } from "node:fs";
+import {
+  FIXTURE_BOSS_COMBAT_MONSTER_CARD_ID,
+  FIXTURE_BOSS_SCRIPT_ID,
+  fixtureBossSkeletonScript,
+} from "../../helpers/boss-fixture-skeleton";
 import { describe, expect, it, beforeEach } from "vitest";
 import { createBattleState, type BattleEntity } from "../../../src/shared/battle/battle";
 import { applyCommand, type GameState } from "../../../src/shared/core/command";
@@ -12,9 +17,6 @@ import {
   encounterForcesRetreatAfterRound,
   ensureCoreBossScriptsRegistered,
   FACE_THE_THREAT_QUEST_ID,
-  FIXTURE_BOSS_COMBAT_MONSTER_CARD_ID,
-  FIXTURE_BOSS_SCRIPT_ID,
-  fixtureBossSkeletonScript,
   isBossEncounter,
   NECROMANCER_I_COMBAT_MONSTER_CARD_ID,
   NECROMANCER_I_SCRIPT_ID,

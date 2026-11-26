@@ -6,8 +6,8 @@ import {
 import type { Command, GameState } from "../../src/shared/core/command";
 import { naturalParty, naturalQuest, CURRENT_WEALD_ROOM_VERSIONS } from "./natural-quest";
 import { disinfectionSources } from "./disinfection-quest";
-import { livingNecroticFungus } from "../../src/weald/necrotic-fungus";
-import { destroyedNecroticFungusCount } from "../../src/weald/fungal-research-quest";
+import { livingNecroticFungus } from "../../src/weald/quests/necrotic-fungus";
+import { destroyedNecroticFungusCount } from "../../src/weald/quests/fungal-research-quest";
 
 /** R-246/R-252：seed 1，保留真菌取得三目标；只执行公开命令。 */
 export function fungalResearchThreeObjectives(

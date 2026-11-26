@@ -1,4 +1,4 @@
-import { ensureShriekerIBossScriptRegistered } from "../../weald/bosses/shrieker-i";
+import { ensureShriekerIBossScriptRegistered } from "../../weald/bosses/shrieker/shrieker-i";
 import type { GameState } from "../../shared/core/command";
 import { readBossCombatEntry } from "./combat-entry";
 import { readDarkestMidBossDeployedCardIds } from "./darkest/darkest-mid-boss-runtime";

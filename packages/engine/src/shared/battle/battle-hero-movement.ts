@@ -1,4 +1,4 @@
-import { shriekerINestAllowsEntry } from "../../weald/bosses/shrieker-i-nest";
+import { shriekerINestAllowsEntry } from "../../weald/bosses/shrieker/shrieker-i-nest";
 import { speedTrinketReaction } from "../trinkets/trinket-reactions";
 import { rejectBattleCommand } from "./battle";
 import type { ApplyResult, GameState } from "../core/command";
@@ -8,12 +8,12 @@ import {
   endAfterCasualties,
   newlyDefeatedIds,
 } from "../dungeon/encounter";
-import { finishTurnWithTemplarsSpikes } from "./battle-templars-spikes";
+import { finishTurnWithTemplarsSpikes } from "../../core/bosses/templars/battle-templars-spikes";
 import { resolveBattlePressure } from "../core/pressure";
 import { triggerBattlePassive } from "./battle-passive";
 import { isSmallMonster } from "./battle-small";
-import { clearAncestorConditions } from "./battle-ancestor";
-import { applyHeroTeleporterMoveStress } from "./battle-teleporters";
+import { clearAncestorConditions } from "../../core/rooms/battle-ancestor";
+import { applyHeroTeleporterMoveStress } from "../../core/rooms/battle-teleporters";
 import { templarsProductionCombatActive } from "../../core/bosses/templars/templars-i-deploy";
 
 export type MoveHeroCommand = {

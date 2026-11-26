@@ -25,9 +25,9 @@ import {
 } from "../../core/darkest/darkest-ordinary-monster-deploy";
 import { questMonsterDeploymentHold } from "../quest/quest-monster-deployment";
 import { prepareQuestMonsterDeployment } from "../quest/quest-monster-spawn";
-import { threatIsRealNoL1LairSkipSpawn } from "../core/threat-is-real-no-l1-lair";
-import { prepareWealdQuestExceptionMonsterDeployment } from "../../weald/circle-of-witches-spawn";
-import { prepareForcedWealdTaskMonsters } from "../../weald/task-forced-monsters";
+import { threatIsRealNoL1LairSkipSpawn } from "../../core/quests/threat-is-real-no-l1-lair";
+import { prepareWealdQuestExceptionMonsterDeployment } from "../../weald/quests/circle-of-witches-spawn";
+import { prepareForcedWealdTaskMonsters } from "../../weald/quests/task-forced-monsters";
 
 /** R10、R16–17：完整 Common + Ruins（1..DL 累加）一次洗牌，真实抽牌后记录部署，不筛掉缺战斗字段的卡。 */
 export function prepareDungeonMonsters(state: GameState): ApplyResult {

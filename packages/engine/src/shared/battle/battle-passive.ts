@@ -3,7 +3,7 @@ import type { BattleState } from "./battle";
 import type { GameEvent } from "../core/command";
 import { readHeroPassiveDefence } from "./battle-skill-status";
 import { healingForbidden } from "./battle-healing";
-import { clearAncestorConditions } from "./battle-ancestor";
+import { clearAncestorConditions } from "../../core/rooms/battle-ancestor";
 import { applyPassiveHero } from "../core/passive-runtime";
 import type { PassiveInput } from "../core/passive-runtime";
 import type { ApplyResult, GameState } from "../core/command";

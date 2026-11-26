@@ -1,4 +1,4 @@
-import { ensureSirenIBossScriptRegistered } from "./bosses/siren-i";
+import { ensureSirenIBossScriptRegistered } from "./bosses/siren/siren-i";
 export function registerCoveBosses() {
   ensureSirenIBossScriptRegistered();
 }

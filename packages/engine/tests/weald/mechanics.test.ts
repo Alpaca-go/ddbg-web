@@ -13,12 +13,12 @@ import {
 import type { GameState } from "../../src/shared/core/command";
 import type { ResolveCard } from "../../src/shared/core/pressure";
 import { healingForbidden } from "../../src/shared/battle/battle-healing";
-import { WEALD_APPROVED_ROOM_TILES, findWealdRoomTile } from "../../src/weald/room-catalog";
+import { WEALD_APPROVED_ROOM_TILES, findWealdRoomTile } from "../../src/weald/rooms/room-catalog";
 import {
   NECROTIC_FUNGUS_MONSTER_CARD,
   isNecroticFungusEntity,
   necroticFungusEntitiesForTile,
-} from "../../src/weald/necrotic-fungus";
+} from "../../src/weald/quests/necrotic-fungus";
 import {
   wealdRoomTileBattleAreas,
   wealdZeroCapacityEndTurnRefusal,

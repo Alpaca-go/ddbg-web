@@ -26,7 +26,7 @@ import { beforeTargetShuffle } from "./battle-target-pressure";
 import { beginHeroTrinketWindow } from "./battle-trinket-ability";
 import type { HeroTrinketAttack } from "./battle-trinket-ability";
 import type { HeroSkillTrinketWindow } from "../../../../data/src/core/heroes/hero-skill-trinkets";
-import { chainSwinePrinceIEnragedDestructionAfterHeroSkill } from "../../warrens/bosses/swine-prince-i-combat-runtime";
+import { chainSwinePrinceIEnragedDestructionAfterHeroSkill } from "../../warrens/bosses/swine-prince/swine-prince-i-combat-runtime";
 import { chainGestatingHeartIchorAfterHeroSkill } from "../../core/bosses/final/gestating-heart-ichor";
 import { absoluteNothingnessTargetRefusal } from "../../core/bosses/ancestor/ancestor2-absolute-nothingness";
 

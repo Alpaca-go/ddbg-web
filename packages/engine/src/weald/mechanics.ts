@@ -1,7 +1,7 @@
 import type { GameState } from "../shared/core/command";
 import { rejectBattleCommand } from "../shared/battle/battle";
 import type { WealdRoomTile } from "../../../data/src/weald/rooms/room";
-import { withTeleporterAdjacency } from "../shared/battle/battle-teleporters";
+import { withTeleporterAdjacency } from "../core/rooms/battle-teleporters";
 import type { BattleArea } from "../shared/battle/battle";
 
 export function wealdPackSelected(packs: readonly string[] | undefined): boolean {

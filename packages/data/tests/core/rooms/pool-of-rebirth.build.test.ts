@@ -12,7 +12,7 @@ import {
   poolOfRebirthSchema,
   assertPoolOfRebirthEffectSource,
 } from "../../../src/core/rooms/pool-of-rebirth.build";
-import { selectRoomTile } from "../../../src/core/rooms/room-tile-selection.build";
+import { selectRoomTile } from "../../../src/core/rooms/room-tile-selection";
 
 const raw = rawFileSchema.parse(
   JSON.parse(

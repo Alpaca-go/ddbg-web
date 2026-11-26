@@ -12,7 +12,7 @@ import { curioFileSchema, wealdCurioFileSchema } from "../../../../data/src/core
 import { roomFileSchema } from "../../../../data/src/core/rooms/room";
 import { basicQuests } from "../../../../data/src/core/quests/basic-quests";
 import { rebuildLocationQuestDecks } from "../quest/location-quest-sources";
-import { WEALD_APPROVED_ROOM_CARDS } from "../../weald/room-catalog";
+import { WEALD_APPROVED_ROOM_CARDS } from "../../weald/rooms/room-catalog";
 import type { DungeonState } from "../dungeon/dungeon";
 
 /** W-02 / R9–10：地点来源来自随程序交付的数据；不把上一趟活动堆当新地点来源。 */

@@ -2,7 +2,7 @@ import { nextBattleRoll } from "../../../../src/shared/battle/battle-roll";
 import { expect, it } from "vitest";
 import geometry from "../../../../../data/normalized/corebox/room_tile_geometry.json";
 import rooms from "../../../../../data/normalized/corebox/room.json";
-import { selectRoomTile } from "../../../../../data/src/core/rooms/room-tile-selection.build";
+import { selectRoomTile } from "../../../../../data/src/core/rooms/room-tile-selection";
 import { savedCommandSchema } from "../../../../../data/src/shared/quest-save";
 import { applyCommand } from "../../../../src/shared/core/command";
 import type { Command, GameState } from "../../../../src/shared/core/command";

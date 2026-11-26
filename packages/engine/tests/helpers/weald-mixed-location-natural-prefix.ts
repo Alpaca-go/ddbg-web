@@ -24,9 +24,9 @@ import { RUINS_COMBAT_LEVELS } from "../../src/core/bosses/ruins/ruins-combat-le
 import { getBossScript } from "../../src/core/bosses/registry";
 import type { RuinsBossIdentity } from "../../src/core/bosses/threat-description-catalog";
 import type { WealdBossIdentity } from "../../src/weald/catalog";
-import { ensureHagIBossScriptRegistered } from "../../src/weald/bosses/hag-i";
-import { ensurePounderIBossScriptRegistered } from "../../src/weald/bosses/pounder-i";
-import { ensureShriekerIBossScriptRegistered } from "../../src/weald/bosses/shrieker-i";
+import { ensureHagIBossScriptRegistered } from "../../src/weald/bosses/hag/hag-i";
+import { ensurePounderIBossScriptRegistered } from "../../src/weald/bosses/pounder/pounder-i";
+import { ensureShriekerIBossScriptRegistered } from "../../src/weald/bosses/shrieker/shrieker-i";
 import { ensureCampaignBossScriptsRegistered } from "../../src/shared/core/registry";
 import { hamletActionOptions } from "../../src/shared/hamlet/hamlet-actions";
 

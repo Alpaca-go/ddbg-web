@@ -11,8 +11,8 @@ import type { DungeonState } from "../dungeon/dungeon";
 import { dungeonMonsterPoolThrough } from "../core/monster-pool-runtime";
 import type { SkillStance } from "../../core/heroes/hero-skill";
 import { spawnMonsters, type SpawnCard } from "../core/spawn";
-import { wealdCroneExceptionOutsidePoolIds } from "../../weald/circle-of-witches-spawn";
-import { forcedWealdTaskOutsideIds } from "../../weald/task-forced-monsters";
+import { wealdCroneExceptionOutsidePoolIds } from "../../weald/quests/circle-of-witches-spawn";
+import { forcedWealdTaskOutsideIds } from "../../weald/quests/task-forced-monsters";
 
 const cards = questCardsSchema.parse(questCards);
 

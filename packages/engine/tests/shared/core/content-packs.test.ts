@@ -16,7 +16,7 @@ import { skillBelongsToFormalHero } from "../../../src/shared/core/formal-roster
 import { naturalHamletStart } from "../../helpers/guild-quest";
 import { cardContentPack } from "../../../../data/src/shared/content-packs";
 import { resolveScriptIdForDescriptionCard } from "../../../src/core/bosses/threat-description-catalog";
-import { HAG_I_DESCRIPTION_ABILITY_CARD_ID } from "../../../src/weald/bosses/hag-i";
+import { HAG_I_DESCRIPTION_ABILITY_CARD_ID } from "../../../src/weald/bosses/hag/hag-i";
 import coveCurio from "../../../../data/normalized/extension/cove/curio.json";
 import coveRoom from "../../../../data/normalized/extension/cove/room.json";
 import { coveCurioFileSchema } from "../../../../data/src/core/curios/curio";

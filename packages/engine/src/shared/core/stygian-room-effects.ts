@@ -8,8 +8,8 @@ import { endAfterCasualties, removeCasualties } from "../dungeon/encounter";
 import { resolveSeededHeroHealth } from "../../core/heroes/hero-health";
 import { readCampaignLevel } from "../hamlet/hamlet-campaign";
 import { applyBattleSkillStatuses } from "../battle/battle-skill-status";
-import { fixedDamageResolution } from "../battle/battle-spiked-pit";
-import { removeAncestorConditions } from "../battle/battle-ancestor";
+import { fixedDamageResolution } from "../battle/battle-fixed-damage";
+import { removeAncestorConditions } from "../../core/rooms/battle-ancestor";
 import { readActiveWealdStygianRoom } from "../../weald/rooms/stygian-room-effects";
 
 const reviewedRooms = stygianRoomsSchema.parse(rawStygianRooms).cards;

@@ -11,7 +11,7 @@ import {
   darkestActEntryPending,
   readDarkestDungeonEntryReadiness,
 } from "../../src/core/darkest/darkest-entry";
-import { shriekerSkipsProvisionRolls } from "../../src/weald/bosses/shrieker-provision-version";
+import { shriekerSkipsProvisionRolls } from "../../src/weald/bosses/shrieker/shrieker-provision-version";
 import { wealdSuppliesLootFixture } from "../helpers/weald-task-battle";
 import { wealdActReadyFixture, wealdMixedActReadyFixture } from "../helpers/weald-act";
 import { wealdActThreeCompleteFixture } from "../helpers/weald-act-three-complete";

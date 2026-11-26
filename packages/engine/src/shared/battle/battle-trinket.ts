@@ -6,7 +6,10 @@ import { finishTurn } from "../dungeon/encounter";
 import { triggerBattlePassive } from "./battle-passive";
 import { pressureCasualties, resolveBattlePressure } from "../core/pressure";
 import { endAfterCasualties, removeCasualties } from "../dungeon/encounter";
-import { clearEldritchVaultReward, drawNextEldritchVaultTrinket } from "./battle-eldritch-vault";
+import {
+  clearEldritchVaultReward,
+  drawNextEldritchVaultTrinket,
+} from "../../core/rooms/battle-eldritch-vault";
 
 const heroes = (battle: BattleState) =>
   battle.entities

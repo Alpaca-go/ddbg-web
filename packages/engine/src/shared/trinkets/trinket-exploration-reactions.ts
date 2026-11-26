@@ -1,4 +1,4 @@
-import { shriekerSkipsProvisionRolls } from "../../weald/bosses/shrieker-provision-version";
+import { shriekerSkipsProvisionRolls } from "../../weald/bosses/shrieker/shrieker-provision-version";
 import type { DungeonState } from "../dungeon/dungeon";
 import type { GameEvent } from "../core/command";
 import { availableTrinket, spendTrinket, trinketChoice } from "./trinket-reactions";

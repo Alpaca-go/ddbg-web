@@ -8,7 +8,11 @@ import { applyPassiveHero, applyPassiveStatus } from "../core/passive-runtime";
 import { resolveSeededHeroHealth } from "../../core/heroes/hero-health";
 import type { GameEvent } from "../core/command";
 import type { PassiveDefence } from "../core/passive-runtime";
-import { ancestorGlory, ANCESTOR_CONDITIONS, clearAncestorConditions } from "./battle-ancestor";
+import {
+  ancestorGlory,
+  ANCESTOR_CONDITIONS,
+  clearAncestorConditions,
+} from "../../core/rooms/battle-ancestor";
 import { hasQuirk, passivePlan, passiveStress } from "../core/passive";
 import {
   approvedHeroConditionDefences,
