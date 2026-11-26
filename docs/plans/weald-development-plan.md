@@ -6,6 +6,9 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 
 ## 当前进度与下一步
 
+- **2026-11-26 按内容类型统一数据构建**：核对 bosses／curios／hamlet／monsters／quests／rooms／tiles／trinkets。核心盒总构建归入 core；通用怪物归一按类型独立；村庄卡牌、饰品、房间卡与板块各归其位。Boss 能力卡共用正面校验，Curio 共用印刷行格式，Weald 高等级任务的核准覆盖按页列成数据。三包写入仍经 `@ddbg/data/write`。后续开发继续遵循[仓库数据、测试与部署边界](../repo-layout.md)，Cove／Warrens Boss 印刷目录待录入，Weald 待确认项见下方。
+  验证：临时目录重建 30 个文件，核心盒 20 个和 Weald 8 个逐字节相同，Cove 2 个仅现有文件格式有差异。仓库 `extract` 与 `normalized` 均零 diff。 数据包 410 项、归一化命令 36 项、两条 Playwright 冒烟通过。Weald 冒烟首次与重建并发时超时，重试及单跑通过。typecheck、lint、build 通过。全量 Vitest 632 个文件通过，共 4438 项通过、1 项跳过。
+
 - **2026-11-26 h12–h18 技能修正数据化**：135 张技能卡的修正集中在七个英雄的 `fixes` 表，18 个英雄文件统一为数据模块。共享处理器负责核对原始签名，按原顺序重建行、图标和数字锚点，并写入注解。Cove／Warrens Boss 迁移的前置条件和 Weald 待确认项见下方。
   验证：通过 `@ddbg/data/write` 重建核心盒，9 项通过。核心盒 43 个规范化文件逐字节一致，`extract` 与 `normalized` 均零 diff。数据包与相关引擎测试 429 项通过，typecheck、lint、build 通过。全量 Vitest 632 个文件通过，共 4438 项通过、1 项跳过。
 

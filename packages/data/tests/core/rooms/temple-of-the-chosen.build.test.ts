@@ -8,7 +8,7 @@ import {
   templeOfTheChosenSchema,
   assertTempleOfTheChosenEffectSource,
 } from "../../../src/core/rooms/temple-of-the-chosen.build";
-import { buildRoomTileGeometry } from "../../../src/core/rooms/room-tile.build";
+import { buildRoomTileGeometry } from "../../../src/core/tiles/room-tile.build";
 import { selectRoomTile } from "../../../src/core/rooms/room-tile-selection";
 
 const raw = (name: string) =>

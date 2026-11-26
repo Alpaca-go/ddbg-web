@@ -1,9 +1,9 @@
+import { buildAbsoluteNothingnessSupport } from "../../../src/core/bosses/absolute-nothingness-support.build";
 import { readFileSync, writeFileSync } from "node:fs";
 import { expect, it } from "vitest";
 
 import {
   absoluteNothingnessSupportSchema,
-  buildAbsoluteNothingnessSupport,
   findAbsoluteNothingnessMonsterCards,
   readAbsoluteNothingnessSupport,
 } from "../../../src/core/bosses/absolute-nothingness-support";

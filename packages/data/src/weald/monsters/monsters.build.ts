@@ -3,7 +3,7 @@ import type { IconDictionary } from "../../shared/dictionary/schema";
 import { monsterLargeFileSchema, monsterMediumFileSchema } from "../../shared/extract/parsed";
 import type { RawFile } from "../../shared/extract/raw";
 import { rawFileSchema } from "../../shared/extract/raw";
-import { buildMonsterLarge, buildMonsterMedium } from "../../shared/build";
+import { buildMonsterLarge, buildMonsterMedium } from "../../shared/monsters/monster.build";
 import { createIconLookup } from "../../shared/icons";
 import { attachVerifiedWealdMonster } from "./verified-monsters.build";
 import { withMonsterCardRules } from "../../shared/rules";

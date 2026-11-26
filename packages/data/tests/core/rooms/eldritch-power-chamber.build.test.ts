@@ -8,7 +8,7 @@ import {
   eldritchPowerChamberSchema,
   assertEldritchPowerChamberEffectSource,
 } from "../../../src/core/rooms/eldritch-power-chamber.build";
-import { buildRoomTileGeometry } from "../../../src/core/rooms/room-tile.build";
+import { buildRoomTileGeometry } from "../../../src/core/tiles/room-tile.build";
 import { selectRoomTile } from "../../../src/core/rooms/room-tile-selection";
 
 const raw = (name: string) =>

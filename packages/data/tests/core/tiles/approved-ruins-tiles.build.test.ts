@@ -1,6 +1,6 @@
 import { expect, it } from "vitest";
 import file from "../../../normalized/corebox/room_tile_geometry.json";
-import { roomTileGeometrySchema } from "../../../src/core/rooms/room-tile.build";
+import { roomTileGeometrySchema } from "../../../src/core/tiles/room-tile";
 import { selectRoomTile } from "../../../src/core/rooms/room-tile-selection";
 import rooms from "../../../normalized/corebox/room.json";
 

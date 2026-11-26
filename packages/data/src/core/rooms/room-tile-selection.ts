@@ -1,5 +1,5 @@
 import { roomCardSchema } from "./room";
-import { roomTileGeometryFileSchema } from "./room-tile.build";
+import { roomTileGeometryFileSchema } from "../tiles/room-tile";
 
 /** R16 / R-048：按房间身份匹配独立面；入库与可参战分别校验，不按PDF页码或名称兜底。 */
 export function selectRoomTile(cardInput: unknown, catalogInput: unknown, expectedTileId?: string) {

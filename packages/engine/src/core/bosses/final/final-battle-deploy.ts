@@ -30,7 +30,7 @@ import {
   ancestorRoomSchema,
   approvedAncestorRoom,
 } from "../../../../../data/src/core/rooms/ancestor-room.build";
-import { roomTileGeometryFileSchema } from "../../../../../data/src/core/rooms/room-tile.build";
+import { roomTileGeometryFileSchema } from "../../../../../data/src/core/tiles/room-tile";
 
 const ANCESTOR_ROOM_TILE_ID = "room_tile:darkest:12" as const;
 

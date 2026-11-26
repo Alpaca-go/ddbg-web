@@ -3,7 +3,7 @@ import corePool from "../../../../../data/normalized/corebox/monster_pool.json";
 import raw from "../../../../../data/extract/extension/weald/raw/monster_medium.json";
 import printed from "../../../../../data/normalized/extension/weald/pounder_i.json";
 import { wealdPounderContentSchema } from "../../../../../data/src/weald/bosses/pounder/pounder";
-import { wealdRoomTileSchema } from "../../../../../data/src/weald/rooms/room";
+import { wealdRoomTileSchema } from "../../../../../data/src/weald/tiles/room-tile";
 import { findWealdRoomTile } from "../../../../src/weald/rooms/room-catalog";
 import { resolveScriptIdForDescriptionCard } from "../../../../src/core/bosses/threat-description-catalog";
 import {

@@ -1,6 +1,6 @@
 import type { GameState } from "../shared/core/command";
 import { rejectBattleCommand } from "../shared/battle/battle";
-import type { WealdRoomTile } from "../../../data/src/weald/rooms/room";
+import type { WealdRoomTile } from "../../../data/src/weald/tiles/room-tile";
 import { withTeleporterAdjacency } from "../core/rooms/battle-teleporters";
 import type { BattleArea } from "../shared/battle/battle";
 

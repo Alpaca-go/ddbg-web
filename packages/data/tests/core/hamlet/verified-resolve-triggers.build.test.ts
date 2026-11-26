@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { loadNormalizedCorebox } from "../../../src/core/write";
-import { attachVerifiedResolveTriggers } from "../../../src/core/quests/verified-resolve-triggers.build";
+import { attachVerifiedResolveTriggers } from "../../../src/core/hamlet/verified-resolve-triggers.build";
 import { verifiedResolveTriggerSchema } from "../../../src/shared/schema";
 
 const cards = loadNormalizedCorebox().virtue_affliction.cards;

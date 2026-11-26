@@ -1,3 +1,4 @@
+import { formatCurioPrintedRow } from "../../shared/curios/printed-row";
 import type { RawFile } from "../../shared/extract/raw";
 import { WEALD_CURIO_FRONT, WEALD_CURIO_BACK, wealdCurioFileSchema } from "../../core/curios/curio";
 import type { CurioEffect } from "../../core/curios/curio";
@@ -102,15 +103,9 @@ export function buildWealdCurios(raw: RawFile) {
           )
         )
           throw new Error(`Weald Curio 图标或数字漂移：${card.id} / ${iconId}`);
-        const token = `{icon:${iconId}}`;
         return {
           iconId,
-          printed:
-            printed === "+1"
-              ? `${token} +1`
-              : printed === "1 · 3t"
-                ? `1 ${token} 3t`
-                : `${printed} ${token}`.trim(),
+          printed: formatCurioPrintedRow(printed, iconId),
           effect,
           reason: null,
         };

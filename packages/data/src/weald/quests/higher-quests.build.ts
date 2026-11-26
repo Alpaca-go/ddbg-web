@@ -1,3 +1,4 @@
+import type { z } from "zod";
 import type { RawFile } from "../../shared/extract/raw";
 import { WEALD_QUEST_FRONT, WEALD_QUEST_BACK } from "./quest-cards";
 import { wealdHigherQuestsSchema } from "./higher-quests";
@@ -63,6 +64,41 @@ const rows = [
   ],
 ] as const;
 
+type HigherQuest = z.output<typeof wealdHigherQuestsSchema>["cards"][number];
+
+const approvedOverridesByPage: Partial<Record<number, HigherQuest["approvedOverrides"]>> = {
+  10: [
+    {
+      kind: "lostSupplies",
+      skipNormalEmbarkDice: true,
+      chestRolls: 2,
+      preserveOtherRewards: true,
+      returnedGoldPerProvision: 1,
+    },
+  ],
+  11: [
+    {
+      kind: "burnOakTiming",
+      waitThroughEmptyBattle: true,
+      refillAtIgnitionRoundEnd: true,
+      burnAfterRounds: 1,
+      burningDoesNotEndBattle: true,
+      retainObjectiveOnForcedRetreat: true,
+    },
+  ],
+  14: [{ kind: "lairDeathBlight", amount: 2, duration: 2, stacks: 2 }],
+};
+
+const additionalRulingsByPage: Partial<Record<number, readonly string[]>> = {
+  6: ["R-265"],
+  8: ["R-265"],
+  9: ["R-265"],
+  10: ["R-266"],
+  12: ["R-265"],
+  13: ["R-265"],
+  14: ["R-265"],
+};
+
 /** R-264：核准印刷数据批；未完成专属运行时的任务不进入 basicQuests。 */
 export function buildWealdHigherQuests(raw: RawFile) {
   if (raw.category !== "quest" || raw.cards.length !== 15)
@@ -104,36 +140,8 @@ export function buildWealdHigherQuests(raw: RawFile) {
         randomSlots: page === 8 ? 5 : 0,
       },
       xp: { subject, per, cap: 3 },
-      approvedOverrides:
-        page === 14
-          ? [{ kind: "lairDeathBlight", amount: 2, duration: 2, stacks: 2 }]
-          : page === 10
-            ? [
-                {
-                  kind: "lostSupplies",
-                  skipNormalEmbarkDice: true,
-                  chestRolls: 2,
-                  preserveOtherRewards: true,
-                  returnedGoldPerProvision: 1,
-                },
-              ]
-            : page === 11
-              ? [
-                  {
-                    kind: "burnOakTiming",
-                    waitThroughEmptyBattle: true,
-                    refillAtIgnitionRoundEnd: true,
-                    burnAfterRounds: 1,
-                    burningDoesNotEndBattle: true,
-                    retainObjectiveOnForcedRetreat: true,
-                  },
-                ]
-              : [],
-      verifiedRules: [
-        "R-264",
-        ...([6, 8, 9, 12, 13, 14].includes(page) ? ["R-265"] : []),
-        ...(page === 10 ? ["R-266"] : []),
-      ],
+      approvedOverrides: approvedOverridesByPage[page] ?? [],
+      verifiedRules: ["R-264", ...(additionalRulingsByPage[page] ?? [])],
       runtimeReady: true,
     };
   });

@@ -1,10 +1,8 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { rawFileSchema } from "../../../src/shared/extract/raw";
-import {
-  buildRoomTileGeometry,
-  roomTileGeometrySchema,
-} from "../../../src/core/rooms/room-tile.build";
+import { buildRoomTileGeometry } from "../../../src/core/tiles/room-tile.build";
+import { roomTileGeometrySchema } from "../../../src/core/tiles/room-tile";
 import { loadNormalizedCorebox } from "../../../src/core/write";
 
 const raw = rawFileSchema.parse(

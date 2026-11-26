@@ -104,7 +104,7 @@ import { readCampaignLevel } from "../hamlet/hamlet-campaign";
 import { hasApprovedHigherMonsterFields } from "../../../../data/src/core/monsters/verified-monster-entry";
 import { createBattleState, rejectBattleCommand, skillTargetView } from "../battle/battle";
 import type { BattleEntity, BattleSetup } from "../battle/battle";
-import type { WealdRoomTile } from "../../../../data/src/weald/rooms/room";
+import type { WealdRoomTile } from "../../../../data/src/weald/tiles/room-tile";
 import { roomTileBattleAreas } from "../battle/battle-monster-movement";
 import { readActiveStygianRoom, stygianRoomBattleAreas } from "../core/stygian-room-effects";
 import { createLootState } from "../trinkets/loot";

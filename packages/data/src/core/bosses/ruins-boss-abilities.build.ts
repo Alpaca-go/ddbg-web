@@ -1,3 +1,4 @@
+import { readBossAbilityFront } from "./boss-ability-source.build";
 import type { RawFile } from "../../shared/extract/raw";
 import { ruinsBossAbilitiesSchema, ruinsBossAbilityManifest } from "./ruins-boss-abilities";
 
@@ -8,21 +9,17 @@ export function buildRuinsBossAbilities(raw: RawFile) {
     schema: "ddbg-ruins-boss-abilities-v1",
     textOnly: true,
     cards: ruinsBossAbilityManifest.map(([page, bossId, name, level, actionsPerRound]) => {
-      const id = `boss_ability:p${String(page).padStart(3, "0")}`;
-      const matches = raw.cards.filter((c) => c.id === id);
-      const card = matches[0];
-      const front = card?.faces.front;
-      const back = card?.faces.back;
-      const lines = front?.lines.map((l) => l.text) ?? [];
-      const label = `ACTIONS / Round: ${actionsPerRound}`;
+      const { id, card, front, lines, textLines } = readBossAbilityFront(
+        raw,
+        page,
+        name,
+        actionsPerRound,
+        "遗迹能力卡身份/等级/双面页码漂移",
+      );
+      const back = card.faces.back;
       const roman = ["I", "II", "III"][level - 1];
       if (
-        matches.length !== 1 ||
-        card?.source_set !== "base" ||
-        front?.page !== page ||
         back?.page !== page ||
-        !lines.includes(name) ||
-        !lines.includes(label) ||
         !lines[0]?.endsWith(`} ${roman}`) ||
         !back.lines[0]?.text.endsWith(`} ${roman}`)
       )
@@ -34,7 +31,7 @@ export function buildRuinsBossAbilities(raw: RawFile) {
         level,
         actionsPerRound,
         sourcePage: page,
-        front: { sourceFile: front.file, textLines: lines.slice(lines.indexOf(label) + 1) },
+        front: { sourceFile: front.file, textLines },
         back: { sourceFile: back.file, textLines: back.lines.slice(1).map((l) => l.text) },
       };
     }),

@@ -1,3 +1,4 @@
+import { formatCurioPrintedRow } from "../../shared/curios/printed-row";
 import type { RawFile } from "../../shared/extract/raw";
 import type { IconDictionary } from "../../shared/dictionary/schema";
 import { CURIO_FRONT, CURIO_BACK, curioFileSchema } from "./curio";
@@ -130,18 +131,9 @@ export function buildCurios(raw: RawFile, dictionary: IconDictionary) {
           icon &&
           icon.key === key &&
           ["confirmed", "confirmed_rulebook"].includes(icon.status);
-        const token = `{icon:${iconId}}`;
-        const line =
-          printed === "+1"
-            ? `${token} +1`
-            : printed === "1 · 3t"
-              ? `1 ${token} 3t`
-              : printed === "2t"
-                ? `${token} 2t`
-                : `${printed} ${token}`.trim();
         return {
           iconId,
-          printed: line,
+          printed: formatCurioPrintedRow(printed, iconId),
           effect: verified ? effect : null,
           reason: verified
             ? null

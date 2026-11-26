@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { wealdRoomTileBaseSchema, WEALD_TILES_BACK } from "../../rooms/room";
+import { wealdRoomTileBaseSchema, WEALD_TILES_BACK } from "../../tiles/room-tile";
 
 const PRINT = "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_06_EN_WEALD/";
 const status = z.enum(["stun", "bleed", "blight", "debuff", "shuffle"]);

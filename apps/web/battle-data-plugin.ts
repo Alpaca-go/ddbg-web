@@ -15,7 +15,7 @@ import { diseaseFileSchema } from "../../packages/data/src/core/hamlet/disease";
 import { normalizedHeroStatFileSchema } from "../../packages/data/src/core/heroes/hero-stat.build";
 import { heroSkillIdForPage } from "../../packages/data/src/core/heroes/hero-registry";
 import { shareBattleCatalogs } from "./battle-data-shared";
-import { roomTileGeometryFileSchema } from "../../packages/data/src/core/rooms/room-tile.build";
+import { roomTileGeometryFileSchema } from "../../packages/data/src/core/tiles/room-tile";
 import {
   canonicalHeroSkillFileSchema,
   normalizedMonsterMediumFileSchema,

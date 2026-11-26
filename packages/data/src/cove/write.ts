@@ -1,36 +1,33 @@
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { DATA_ROOT, readDataJson, writeDataFiles } from "../shared/write-files";
 import { rawFileSchema } from "../shared/extract/raw";
 import { buildCoveCurios } from "./curios/curio.build";
 import { buildCoveRooms } from "./rooms/room.build";
 
-const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
-const read = (file: string): unknown =>
-  JSON.parse(readFileSync(path.join(ROOT, file), "utf8")) as unknown;
-
 export function loadNormalizedCoveCurios() {
-  return buildCoveCurios(rawFileSchema.parse(read("extract/extension/cove/raw/curio.json")));
+  return buildCoveCurios(
+    rawFileSchema.parse(readDataJson("extract/extension/cove/raw/curio.json")),
+  );
 }
 
 export function writeNormalizedCoveCurios(
-  outputDir = path.join(ROOT, "normalized/extension/cove"),
+  outputDir = path.join(DATA_ROOT, "normalized/extension/cove"),
 ) {
   const built = loadNormalizedCoveCurios();
-  mkdirSync(outputDir, { recursive: true });
-  writeFileSync(path.join(outputDir, "curio.json"), `${JSON.stringify(built, null, 1)}\n`);
+  writeDataFiles(outputDir, { "curio.json": built });
   return built;
 }
 
-const roomRaw = () => rawFileSchema.parse(read("extract/extension/cove/raw/room.json"));
+const roomRaw = () => rawFileSchema.parse(readDataJson("extract/extension/cove/raw/room.json"));
 
 export function loadNormalizedCoveRooms() {
   return buildCoveRooms(roomRaw());
 }
 
-export function writeNormalizedCoveRooms(outputDir = path.join(ROOT, "normalized/extension/cove")) {
+export function writeNormalizedCoveRooms(
+  outputDir = path.join(DATA_ROOT, "normalized/extension/cove"),
+) {
   const rooms = loadNormalizedCoveRooms();
-  mkdirSync(outputDir, { recursive: true });
-  writeFileSync(path.join(outputDir, "room.json"), `${JSON.stringify(rooms, null, 1)}\n`);
+  writeDataFiles(outputDir, { "room.json": rooms });
   return rooms;
 }

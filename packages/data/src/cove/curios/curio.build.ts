@@ -1,3 +1,4 @@
+import { formatCurioPrintedRow } from "../../shared/curios/printed-row";
 import type { RawFile } from "../../shared/extract/raw";
 import { COVE_CURIO_FRONT, COVE_CURIO_BACK, coveCurioFileSchema } from "../../core/curios/curio";
 import type { CurioEffect } from "../../core/curios/curio";
@@ -137,15 +138,6 @@ function effectIcons(rawCard: RawFile["cards"][number]) {
     .sort((a, b) => a.bbox[1] - b.bbox[1] || a.bbox[0] - b.bbox[0]);
 }
 
-function formatPrinted(printed: string, iconId: string): string {
-  const token = `{icon:${iconId}}`;
-  if (!printed) return token;
-  if (printed === "+1") return `${token} +1`;
-  if (printed === "1 · 3t") return `1 ${token} 3t`;
-  if (printed === "2t") return `${token} 2t`;
-  return `${printed} ${token}`.trim();
-}
-
 /** R-048：逐卡核对来源与印刷数字；未知效果行保留停点，不扩充全局词典。 */
 export function buildCoveCurios(raw: RawFile) {
   if (raw.category !== "curio" || raw.cards.length !== 16 || raw.n_copies_total !== 16)
@@ -201,7 +193,7 @@ export function buildCoveCurios(raw: RawFile) {
           throw new Error(`Cove Curio 印刷数字漂移：${card.id} / ${iconId}`);
         return {
           iconId,
-          printed: formatPrinted(printed, iconId),
+          printed: formatCurioPrintedRow(printed, iconId),
           effect,
           reason,
         };

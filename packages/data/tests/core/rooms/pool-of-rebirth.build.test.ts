@@ -3,10 +3,8 @@ import { expect, it } from "vitest";
 import roomFile from "../../../normalized/corebox/room.json";
 import geometryFile from "../../../normalized/corebox/room_tile_geometry.json";
 import { rawFileSchema } from "../../../src/shared/extract/raw";
-import {
-  buildRoomTileGeometry,
-  roomTileGeometryFileSchema,
-} from "../../../src/core/rooms/room-tile.build";
+import { buildRoomTileGeometry } from "../../../src/core/tiles/room-tile.build";
+import { roomTileGeometryFileSchema } from "../../../src/core/tiles/room-tile";
 import {
   approvedPoolOfRebirth,
   poolOfRebirthSchema,

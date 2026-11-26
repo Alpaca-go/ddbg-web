@@ -2,13 +2,14 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { rawFileSchema } from "../../../src/shared/extract/raw";
 import { roomCatalogSchema } from "../../../src/core/rooms/room";
+import { wealdRoomFileSchema } from "../../../src/weald/rooms/room";
 import {
-  wealdRoomFileSchema,
   wealdRoomTileGeometryFileSchema,
   wealdRoomTileSchema,
-} from "../../../src/weald/rooms/room";
+} from "../../../src/weald/tiles/room-tile";
 import { cardContentPack } from "../../../src/shared/content-packs";
-import { assertWealdRoomsPackIsolated, buildWealdRooms } from "../../../src/weald/rooms/room.build";
+import { buildWealdRooms } from "../../../src/weald/rooms/room.build";
+import { assertWealdRoomsPackIsolated } from "../../../src/weald/tiles/room-tile.build";
 import { loadNormalizedWealdRooms, writeNormalizedWealdRooms } from "../../../src/weald/write";
 
 const read = (file: string): unknown =>

@@ -118,12 +118,12 @@ export {
   iconStatusSchema,
 } from "./shared/dictionary/schema";
 export type { IconDictionary, IconEntry, IconStatus } from "./shared/dictionary/schema";
-export { buildNormalizedCorebox } from "./shared/build";
+export { buildNormalizedCorebox } from "./core/corebox.build";
 export { monsterStanceGroupsSchema } from "./shared/monster-stance";
 export type { MonsterStanceGroups } from "./shared/monster-stance";
-export type { NormalizedCorebox, NormalizedCoreboxInput } from "./shared/build";
-export { roomTileGeometrySchema, roomTileGeometryFileSchema } from "./core/rooms/room-tile.build";
-export type { RoomTileGeometryFile } from "./core/rooms/room-tile.build";
+export type { NormalizedCorebox, NormalizedCoreboxInput } from "./core/corebox.build";
+export { roomTileGeometrySchema, roomTileGeometryFileSchema } from "./core/tiles/room-tile";
+export type { RoomTileGeometryFile } from "./core/tiles/room-tile";
 export {
   corridorLayoutBindingFileSchema,
   corridorLayoutBindingSchema,
@@ -177,13 +177,10 @@ export type {
 
 export * from "./core/rooms/room";
 export { buildRooms } from "./core/rooms/room.build";
-export {
-  wealdRoomCardSchema,
-  wealdRoomFileSchema,
-  wealdRoomTileGeometryFileSchema,
-  wealdRoomTileSchema,
-} from "./weald/rooms/room";
-export type { WealdRoomCard, WealdRoomTile } from "./weald/rooms/room";
+export { wealdRoomCardSchema, wealdRoomFileSchema } from "./weald/rooms/room";
+export type { WealdRoomCard } from "./weald/rooms/room";
+export { wealdRoomTileGeometryFileSchema, wealdRoomTileSchema } from "./weald/tiles/room-tile";
+export type { WealdRoomTile } from "./weald/tiles/room-tile";
 export { wealdHagContentSchema, wealdHagTileSchema } from "./weald/bosses/hag/hag";
 export type { WealdHagContent } from "./weald/bosses/hag/hag";
 export { wealdHagHigherContentSchema } from "./weald/bosses/hag/hag-higher";
@@ -191,10 +188,10 @@ export type { WealdHagHigherContent } from "./weald/bosses/hag/hag-higher";
 
 export {
   absoluteNothingnessSupportSchema,
-  buildAbsoluteNothingnessSupport,
   findAbsoluteNothingnessMonsterCards,
   readAbsoluteNothingnessSupport,
 } from "./core/bosses/absolute-nothingness-support";
+export { buildAbsoluteNothingnessSupport } from "./core/bosses/absolute-nothingness-support.build";
 export type { AbsoluteNothingnessSupport } from "./core/bosses/absolute-nothingness-support";
 export {
   darkestBossContentSchema,
