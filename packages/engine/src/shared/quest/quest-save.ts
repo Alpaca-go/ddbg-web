@@ -1,3 +1,5 @@
+import { upgradeLegacyCatalogRules } from "./legacy-catalog-rules";
+import { migrateLegacyCardIds } from "./legacy-card-ids";
 import { DARKEST_BOSS_CATALOG_CARD_IDS } from "../../core/bosses/darkest/darkest-boss-catalog";
 import { RUINS_BOSS_CATALOG_CARD_IDS } from "../../core/bosses/ruins/ruins-combat-levels";
 import darkestPool from "../../../../data/normalized/corebox/darkest_monster_pool.json";
@@ -260,7 +262,15 @@ export function loadQuestSave(
 ) {
   const parsed = questSaveSchema.safeParse(input);
   if (!parsed.success) throw new Error("存档格式、版本或命令参数不受支持");
-  const save = parsed.data;
+  const skillSources = new Map(
+    sources.catalog.skills.flatMap((card) =>
+      "source" in card ? [[card.id, card.source] as const] : [],
+    ),
+  );
+  let oldIds = false;
+  const save = migrateLegacyCardIds(parsed.data, skillSources, () => {
+    oldIds = true;
+  }) as QuestSave;
   if (!basicQuestEnabledForContentPacks(save.start.questId, save.start.contentPacks))
     throw new Error("存档任务与开局内容包不一致");
   const commands = replayCommands(save.commands);
@@ -281,7 +291,15 @@ export function loadQuestSave(
   )
     throw new Error("存档声明的战役等级与回放不一致；未替换当前进度");
   const restoredKey = canonicalReplay(restored.game, legacySave);
-  const snapshot = upgradeFundraiserPrompt(save.snapshot);
+  const snapshot = upgradeFundraiserPrompt(
+    oldIds
+      ? upgradeLegacyCatalogRules(
+          save.snapshot,
+          restored.game,
+          (a, b) => canonical(a) === canonical(b),
+        )
+      : save.snapshot,
+  );
   let snapshotKey = canonical(
     upgradeFallenHeroSnapshot(upgradeNomadPrompt(snapshot, restored.game), restored.game),
   );

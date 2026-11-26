@@ -306,7 +306,7 @@ hero_skill:musketeer:h18:p358       // Aimed Shot I
 
 - 核心、Weald、Cove 的现行房间目录采用 v2。核心房间族由 `424c187b` 迁移。
 - 英雄 STAT 与 SKILL 已采用 v1.1，分别见 `d11fd8af` 与 `91b4bc6a`。
-- 核心房间族及英雄迁移前的旧 ID 存档兼容仍待补齐。以下条目保留批次范围和迁移要求。
+- v1 存档读入口识别迁移前核心房间族和英雄 STAT／SKILL ID，转换起点、日志及快照后严格回放。重存沿用 v1 格式并只写 canonical ID。历史目录中的 `verified_*` 字段按已核规则路径校验，规则结果或其他快照字段不符时拒绝。以下条目保留迁移批次范围。
 
 ### 8.2 Weald / Cove
 

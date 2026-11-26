@@ -19,6 +19,54 @@ const initial = () =>
 const roundTrip = (save: unknown) =>
   loadQuestSave(JSON.parse(JSON.stringify(save)), coreQuestSources);
 
+it("旧房间族与英雄卡 ID 在严格回放前升级，重存只写 canonical ID", () => {
+  const command = { type: "rollDungeonProvisions" } as const;
+  const game = applyCommand(initial(), command).state;
+  const save = createQuestSave(start, [command], game, coreQuestSources);
+  const replacements = [
+    ["room:ruins:01", "room:p001"],
+    ["room_tile:ruins:01", "room_tile:p001"],
+    ["stygian_room:ruins:01", "stygian_room:p001"],
+    ["hero_stat:core:h01:p001:front", "hero_stat:p001:front"],
+    ["hero_stat:musketeer:h18:p036:front", "hero_stat:musketeer:musketeer:p001:front"],
+    ["hero_skill:core:h01:p001", "hero_skill:p001"],
+    ["hero_skill:musketeer:h18:p358", "hero_skill:musketeer:p001"],
+  ] as const;
+  let legacyJson = JSON.stringify(save);
+  for (const [current, old] of replacements) legacyJson = legacyJson.replaceAll(current, old);
+  const legacy = JSON.parse(legacyJson) as typeof save;
+  const snapshot = legacy.snapshot as {
+    dungeon: {
+      battleCatalog: {
+        skills: {
+          id: string;
+          source?: unknown;
+          rules?: { damage?: { amount: number } };
+          verified_damage_bonus?: unknown;
+        }[];
+      };
+    };
+  };
+  const legacySmite = snapshot.dungeon.battleCatalog.skills.find(
+    (card) => card.id === "hero_skill:p001",
+  )!;
+  expect(legacySmite.rules?.damage).toBeDefined();
+  legacySmite.verified_damage_bonus = legacySmite.rules!.damage;
+  delete legacySmite.source;
+  delete legacySmite.rules;
+  const restored = roundTrip(legacy);
+  expect(restored.game).toEqual(game);
+  expect(restored.start).toEqual(save.start);
+  expect(
+    createQuestSave(restored.start, restored.commands, restored.game, coreQuestSources),
+  ).toEqual(save);
+  const altered = structuredClone(legacy);
+  altered.campaignLevel = 3;
+  expect(() => roundTrip(altered)).toThrow(/不一致/);
+  legacySmite.verified_damage_bonus = { amount: 999 };
+  expect(() => roundTrip(legacy)).toThrow(/快照与回放不一致/);
+});
+
 it("技能光照顺序保留新旧起点，旧快照严格回放", () => {
   const fresh = initial();
   const { skillLightBeforeCrit: _newOrder, ...old } = fresh;
