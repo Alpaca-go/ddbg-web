@@ -6,6 +6,9 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 
 ## 当前进度与下一步
 
+- **2026-11-26 核心数据目录审计**：Searching in the Dark（`quest:weald:p008`）的休息预算按卡面为 12 点。新 Web 休息命令记录印刷口径，既有无标记日志继续按 8 点分配。Weald I 级怪物核准表已归入 `packages/data/src/weald/monsters/`，运行时数据与构建器分开。既有 Weald 待确认项和下一步见下方。
+  验证：休息命令的新旧口径回归、typecheck、lint、build 与两条房间板块 Playwright 冒烟通过。全量 Vitest 631 个文件通过，4433 项通过、1 项跳过。核心盒重建的 20 个 JSON 逐字节相同。
+
 - **2026-11-25 仓库文件重组（P2–P8，无规则/数据改动）**：engine 与 data 的 `src` 改为「包为第一层、包内按类型分目录」，
   与包无关的机制进 `shared/`；测试全部移到 `packages/<pkg>/tests/`（镜像 `src`），data 构建器统一 `*.build.ts`
   后缀；`apps/web/e2e` 按 `core`／`weald` 分组；`docs/` 的 503 个 md 归入 `phases/`、`handoffs/`、`plans/`、`reviews/`。

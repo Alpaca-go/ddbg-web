@@ -81,7 +81,8 @@ stygian_room:<location>:NN
 - `room.number === room_tile.number === NN`。
 - `room_tile.roomId === room:<location>:NN`。
 - `stygian_room.replacesCardId === room:<location>:NN`。
-- `source.page` / `source.face` 必填；`source.page` 是实际印刷页，不参与 ID。
+- `source.page` 记录实际印刷页。板块按面记录 `source.file` 和 `source.face`，
+  房间卡和 Stygian 替换卡用 `source.front`、`source.back` 记录同一张卡的双面来源。
 - Boss 房和普通房同形：`room:<location>:NN`，`boss: true`；不另造 `boss_room` 类别。
 - `room_tile` 不再有 `:front` / `:back`；旧 ID 迁移见 §8。
 
@@ -291,16 +292,16 @@ hero_skill:musketeer:h18:p358       // Aimed Shot I
   `hero_stat.name` 找到；每个正式英雄至少有一张 STAT 和一套技能；
   `pack` 与英雄归属一致；英雄可用性不读 `pack`。
 - **任务一致**：`basicQuests` 的 `name` / `level` / `restPoints` 与
-  `quest_cards.json` / `higher_quests.json` 一致（当前 `quest:weald:p008` 会失败）。
+  `quest_cards.json` / `higher_quests.json` 一致，Boss 通用任务的印刷等级与战役等级分别记录。
 - **引用闭环**：所有 `roomId`、`setAsideRoomCardId(s)`、`replacesCardId` 都能解析。
 
 ## 8. 迁移
 
 ### 8.1 当前状态
 
-- 本规范 v1.1 已确认；**代码尚未执行 v2 房间族和 v1.1 英雄迁移**。
-- 工作区曾有一版 v1 页号 Weald 板块改动，已撤回；代码保持在 v2 之前的基线。
-- 迁移顺序：先 Weald / Cove（无已发布存档），再核心（带存档兼容），英雄独立一刀。
+- 核心、Weald、Cove 的现行房间目录采用 v2。核心房间族由 `424c187b` 迁移。
+- 英雄 STAT 与 SKILL 已采用 v1.1，分别见 `d11fd8af` 与 `91b4bc6a`。
+- 核心房间族及英雄迁移前的旧 ID 存档兼容仍待补齐。以下条目保留批次范围和迁移要求。
 
 ### 8.2 Weald / Cove
 
@@ -337,9 +338,8 @@ hero_skill:musketeer:h18:p358       // Aimed Shot I
 
 ### 8.5 其他
 
-- `quest:weald:p008` 的 `restPoints` 由 8 改为 12（卡面“12 Searching in the Dark”）。
-- `basic-quests.ts` 的 `name` 去掉罗马数字后缀，或明确“显示名”与卡面名分开；
-  加一致性测试。
+- `quest:weald:p008` 卡面为 12 点。新 Web 休息命令登记印刷口径，既有无标记日志沿用 8 点。
+- `basicQuests.name` 沿用界面和日志的显示名称，`printedName` 读取卡面目录。目录校验等级，休息点数直接读取卡面目录。
 - 全局唯一性测试上线后，清理 `ADD_014` 之外的非标准来源集。
 
 ## 9. 变更记录

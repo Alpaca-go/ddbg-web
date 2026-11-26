@@ -1,3 +1,6 @@
+import coreQuestCards from "../../../normalized/corebox/quest_cards.json";
+import wealdQuestCards from "../../../normalized/extension/weald/quest_cards.json";
+import wealdHigherQuestCards from "../../../normalized/extension/weald/higher_quests.json";
 import scout from "../../../normalized/corebox/scout_ahead_distribution.json";
 import wipe from "../../../normalized/corebox/wipe_em_out_distribution.json";
 import fundraiser from "../../../normalized/corebox/fundraiser_distribution.json";
@@ -62,13 +65,12 @@ export function asQuestMapPairingQuest(quest: (typeof basicQuests)[number]) {
   };
 }
 
-/** 官方R15 / R29、QUEST：已核对可出征任务；未决特殊规则或未审房间图标仍停点。 */
-export const basicQuests = [
+/** 官方R15 / R29、QUEST：已核对可出征任务；name 沿用界面与旧存档中的显示名称。 */
+const questDefinitions = [
   {
     id: "quest:p001",
     name: "Scout Ahead I",
     level: 1 as const,
-    restPoints: 8,
     xpKind: "all" as const,
     roomsPerXp: 2,
     maxRooms: 6,
@@ -79,7 +81,6 @@ export const basicQuests = [
     id: "quest:p002",
     name: "Wipe ‘Em Out I",
     level: 1 as const,
-    restPoints: 12,
     xpKind: "lair" as const,
     roomsPerXp: 1,
     maxRooms: 3,
@@ -90,7 +91,6 @@ export const basicQuests = [
     id: "quest:p003",
     name: "Fundraiser I",
     level: 1 as const,
-    restPoints: 8,
     xpKind: "gold" as const,
     roomsPerXp: 20,
     maxRooms: 2,
@@ -101,7 +101,6 @@ export const basicQuests = [
     id: "quest:p004",
     name: "Dem Bones I",
     level: 1 as const,
-    restPoints: 8,
     xpKind: "objective" as const,
     roomsPerXp: 1,
     maxRooms: 1,
@@ -117,7 +116,6 @@ export const basicQuests = [
     id: "quest:p005",
     name: "Rising Threat I",
     level: 1 as const,
-    restPoints: 12,
     xpKind: "curio" as const,
     roomsPerXp: 1,
     maxRooms: 3,
@@ -131,7 +129,6 @@ export const basicQuests = [
     id: "quest:weald:p001",
     name: "Fungal Research",
     level: 1 as const,
-    restPoints: 8,
     xpKind: "broughtBack" as const,
     roomsPerXp: 1,
     broughtBackSubject: "necroticFungus" as const,
@@ -144,7 +141,6 @@ export const basicQuests = [
     id: "quest:weald:p002",
     name: "Circle of Witches",
     level: 1 as const,
-    restPoints: 12,
     xpKind: "objective" as const,
     roomsPerXp: 1,
     maxRooms: 3,
@@ -162,7 +158,6 @@ export const basicQuests = [
     id: "quest:weald:p003",
     name: "Disinfection",
     level: 1 as const,
-    restPoints: 8,
     xpKind: "objective" as const,
     roomsPerXp: 1,
     maxRooms: 3,
@@ -176,7 +171,6 @@ export const basicQuests = [
     id: "quest:weald:p004",
     name: "Purge the Woods",
     level: 1 as const,
-    restPoints: 4,
     xpKind: "lair" as const,
     roomsPerXp: 1,
     maxRooms: 3,
@@ -190,7 +184,6 @@ export const basicQuests = [
     id: "quest:weald:p005",
     name: "Patrol the Woods",
     level: 1 as const,
-    restPoints: 8,
     xpKind: "all" as const,
     roomsPerXp: 2,
     maxRooms: 6,
@@ -204,7 +197,6 @@ export const basicQuests = [
     /** R15 / QUEST p6: pick one of these set-aside rooms on each Objective entry. */
     setAsideRoomCardIds: ["room:ruins:04", "room:ruins:08"] as const,
     level: 2 as const,
-    restPoints: 12,
     xpKind: "objective" as const,
     roomsPerXp: 1,
     maxRooms: 3,
@@ -215,7 +207,6 @@ export const basicQuests = [
     id: "quest:p007",
     name: "Clear the Path II",
     level: 2 as const,
-    restPoints: 8,
     xpKind: "all" as const,
     roomsPerXp: 2,
     maxRooms: 6,
@@ -226,7 +217,6 @@ export const basicQuests = [
     id: "quest:p008",
     name: "Reduce to Rubble II",
     level: 2 as const,
-    restPoints: 12,
     xpKind: "lair" as const,
     roomsPerXp: 1,
     maxRooms: 3,
@@ -237,7 +227,6 @@ export const basicQuests = [
     id: "quest:p009",
     name: "Break Them II",
     level: 2 as const,
-    restPoints: 8,
     xpKind: "objective" as const,
     roomsPerXp: 1,
     maxRooms: 3,
@@ -248,7 +237,6 @@ export const basicQuests = [
     id: "quest:p010",
     name: "Purify the Fountains II",
     level: 2 as const,
-    restPoints: 12,
     xpKind: "objective" as const,
     roomsPerXp: 1,
     maxRooms: 1,
@@ -267,7 +255,6 @@ export const basicQuests = [
     id: "quest:p011",
     name: "Warm Up the Halls III",
     level: 3 as const,
-    restPoints: 4,
     xpKind: "dark" as const,
     roomsPerXp: 1,
     maxRooms: 3,
@@ -278,7 +265,6 @@ export const basicQuests = [
     id: "quest:p012",
     name: "Forward Camps III",
     level: 3 as const,
-    restPoints: 8,
     xpKind: "camp" as const,
     roomsPerXp: 1,
     maxRooms: 3,
@@ -289,7 +275,6 @@ export const basicQuests = [
     id: "quest:p013",
     name: "They Are Back III",
     level: 3 as const,
-    restPoints: 8,
     xpKind: "objective" as const,
     roomsPerXp: 1,
     maxRooms: 3,
@@ -300,7 +285,6 @@ export const basicQuests = [
     id: "quest:p014",
     name: "Creeping Darkness III",
     level: 3 as const,
-    restPoints: 8,
     xpKind: "all" as const,
     roomsPerXp: 2,
     maxRooms: 6,
@@ -311,7 +295,6 @@ export const basicQuests = [
     id: "quest:p015",
     name: "The Threat is Real III",
     level: 3 as const,
-    restPoints: 8,
     xpKind: "lair" as const,
     roomsPerXp: 1,
     maxRooms: 3,
@@ -322,7 +305,6 @@ export const basicQuests = [
     id: "quest:p016",
     name: "We Are The Flame",
     level: 3 as const,
-    restPoints: 20,
     xpKind: "flat" as const,
     flatXp: 3 as const,
     expeditionRegion: "darkestDungeon" as const,
@@ -333,7 +315,6 @@ export const basicQuests = [
     id: "quest:p017",
     name: "Light the Way",
     level: 3 as const,
-    restPoints: 20,
     xpKind: "flat" as const,
     flatXp: 3 as const,
     expeditionRegion: "darkestDungeon" as const,
@@ -344,7 +325,6 @@ export const basicQuests = [
     id: "quest:p018",
     name: "Belly of the Beast",
     level: 3 as const,
-    restPoints: 20,
     xpKind: "flat" as const,
     flatXp: 3 as const,
     expeditionRegion: "darkestDungeon" as const,
@@ -355,7 +335,6 @@ export const basicQuests = [
     id: "quest:p019",
     name: "Face the Threat!",
     level: 3 as const,
-    restPoints: 12,
     xpKind: "flat" as const,
     flatXp: 3 as const,
     expeditionRegion: "ruins" as const,
@@ -366,7 +345,6 @@ export const basicQuests = [
     id: "quest:weald:p015",
     name: "Whispering Woods",
     level: 3 as const,
-    restPoints: 8,
     xpKind: "lair" as const,
     roomsPerXp: 1,
     maxRooms: 3,
@@ -389,7 +367,6 @@ export const basicQuests = [
     id: "quest:weald:p007",
     name: "Lost Treasures",
     level: 2 as const,
-    restPoints: 12,
     xpKind: "treasure" as const,
     roomsPerXp: 1,
     maxRooms: 3,
@@ -410,7 +387,6 @@ export const basicQuests = [
     id: "quest:weald:p013",
     name: "Final Swipe",
     level: 3 as const,
-    restPoints: 12,
     xpKind: "all" as const,
     roomsPerXp: 2,
     maxRooms: 6,
@@ -432,7 +408,6 @@ export const basicQuests = [
     id: "quest:weald:p014",
     name: "The Infected",
     level: 3 as const,
-    restPoints: 8,
     xpKind: "lair" as const,
     roomsPerXp: 1,
     maxRooms: 3,
@@ -453,7 +428,6 @@ export const basicQuests = [
     id: "quest:weald:p006",
     name: "Spreaders of Miasma",
     level: 2 as const,
-    restPoints: 12,
     xpKind: "objective" as const,
     roomsPerXp: 1,
     maxRooms: 3,
@@ -476,7 +450,6 @@ export const basicQuests = [
     id: "quest:weald:p009",
     name: "Hounds of the Woods",
     level: 2 as const,
-    restPoints: 8,
     xpKind: "objective" as const,
     roomsPerXp: 1,
     maxRooms: 3,
@@ -499,7 +472,6 @@ export const basicQuests = [
     id: "quest:weald:p012",
     name: "Great Unclean Ones",
     level: 3 as const,
-    restPoints: 12,
     xpKind: "objective" as const,
     roomsPerXp: 1,
     maxRooms: 3,
@@ -521,7 +493,6 @@ export const basicQuests = [
     id: "quest:weald:p008",
     name: "Searching in the Dark",
     level: 2 as const,
-    restPoints: 8,
     xpKind: "lair" as const,
     roomsPerXp: 1,
     maxRooms: 3,
@@ -538,7 +509,6 @@ export const basicQuests = [
     id: "quest:weald:p010",
     name: "Lost Supplies",
     level: 2 as const,
-    restPoints: 12,
     xpKind: "objective" as const,
     roomsPerXp: 1,
     maxRooms: 3,
@@ -560,7 +530,6 @@ export const basicQuests = [
     id: "quest:weald:p011",
     name: "No Other Way",
     level: 3 as const,
-    restPoints: 8,
     xpKind: "objective" as const,
     roomsPerXp: 1,
     maxRooms: 3,
@@ -579,6 +548,24 @@ export const basicQuests = [
     }),
   },
 ] as const;
+
+const printedQuestCards = new Map(
+  [...coreQuestCards.cards, ...wealdQuestCards.cards, ...wealdHigherQuestCards.cards].map(
+    (card) => [card.id, card] as const,
+  ),
+);
+
+export const basicQuests = questDefinitions.map((quest) => {
+  const card = printedQuestCards.get(quest.id);
+  if (
+    !card ||
+    (card.level !== quest.level &&
+      !(card.level === null && "bossQuest" in quest && quest.bossQuest))
+  )
+    throw new Error(`${quest.id} 任务目录缺印刷卡或等级不一致`);
+  return { ...quest, printedName: card.name, restPoints: card.restPoints };
+});
+
 export type BasicQuestId = (typeof basicQuests)[number]["id"];
 export type CampaignLevel = 1 | 2 | 3;
 

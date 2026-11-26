@@ -44,6 +44,9 @@ export const useDungeonStore = create<{
           !s.game.inventoryOverflowHold)
           ? { shriekerProvisionSkipRolls: true as const }
           : {}),
+        ...(command.type === "restDungeon" && s.game.dungeon?.rest?.questId === "quest:weald:p008"
+          ? { printedRestBudget: true as const }
+          : {}),
         ...(command.type === "resolveChoice" ? { bossEdgeRooms: true } : {}),
       };
       const result = applyCommand(s.game, recorded);

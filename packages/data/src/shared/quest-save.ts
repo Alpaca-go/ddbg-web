@@ -30,7 +30,6 @@ const noPayload = commandObject({
     "rollDungeonProvisions",
     "prepareReplacementHero",
     "joinPreparedReplacements",
-    "restDungeon",
     "summarizeDungeonQuest",
     "startDungeonBattle",
     "finishDungeonBattle",
@@ -55,6 +54,7 @@ const noPayload = commandObject({
 });
 /** 存档仅允许公开命令的完整参数，不接受状态注入或额外字段。 */
 export const savedCommandSchema = z.union([
+  commandObject({ type: z.literal("restDungeon"), printedRestBudget: z.literal(true).optional() }),
   commandObject({
     type: z.literal("startBattle"),
     wealdUnprepared: z.literal(true).optional(),

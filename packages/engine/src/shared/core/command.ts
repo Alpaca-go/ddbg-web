@@ -337,7 +337,7 @@ type BaseCommand =
   | HamletActionCommand
   | { readonly type: "visitNomadWagon"; readonly actorId: string }
   | { readonly type: "rollDungeonProvisions" }
-  | { readonly type: "restDungeon" }
+  | { readonly type: "restDungeon"; readonly printedRestBudget?: true | undefined }
   | { readonly type: "setupForwardCamp"; readonly provisionId: string }
   | { readonly type: "summarizeDungeonQuest" }
   | { readonly type: "startDungeonBattle" }

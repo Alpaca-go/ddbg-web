@@ -14,7 +14,10 @@ import { canRestDungeon } from "../../../src/shared/dungeon/dungeon-rest";
 import { scoutRestSchema } from "../../../../data/src/core/quests/scout-rest";
 import { QUIRK_NAMES } from "../../../src/shared/core/passive";
 
-function setup(): GameState {
+import { basicQuests } from "../../../../data/src/core/quests/basic-quests";
+import { savedCommandSchema } from "../../../../data/src/shared/quest-save";
+
+function setup(roomDistribution: unknown = distribution, dungeonLevel: 1 | 2 = 1): GameState {
   const heroes = ["CRUSADER", "HELLION", "HIGHWAYMAN", "VESTAL"].map((name, i) => {
     const stat = stats.cards.find((s) => s.name === name && s.level === 1)!;
     return {
@@ -26,16 +29,21 @@ function setup(): GameState {
       stress: 4,
     };
   });
-  const s = createDungeonSandbox(31, layout, distribution, "standard", "D", heroes, [], {
-    dungeonLevel: 1,
+  const s = createDungeonSandbox(31, layout, roomDistribution, "standard", "D", heroes, [], {
+    dungeonLevel,
     light: 5,
     provisions: [{ id: "food-1", face: "food" }],
   });
+  const dungeon = s.dungeon!;
+  const position = dungeonLevel === 1 ? "D" : dungeon.rooms.find((r) => r.kind === "lair")!.id;
   return {
     ...s,
     dungeon: {
-      ...s.dungeon!,
-      rooms: s.dungeon!.rooms.map((r) => (r.id === "D" ? { ...r, cleared: true } : r)),
+      ...dungeon,
+      position,
+      rooms: dungeon.rooms.map((r) =>
+        r.id === position ? { ...r, revealed: true, cleared: true } : r,
+      ),
     },
   };
 }
@@ -43,6 +51,29 @@ const choose = (s: GameState, optionId: string) =>
   applyCommand(s, { type: "resolveChoice", choiceId: s.dungeon!.pending!.id, optionId });
 const begin = (s: GameState, mode = "collective") =>
   choose(applyCommand(s, { type: "restDungeon" }).state, mode).state;
+
+it("Searching in the Dark：旧命令用 8 点，登记卡面点数的新命令用 12 点", () => {
+  const template = basicQuests.find((quest) => quest.id === "quest:weald:p008")!.distribution;
+  const game = setup(template, 2);
+  for (const [command, points] of [
+    [{ type: "restDungeon" }, 8],
+    [{ type: "restDungeon", printedRestBudget: true }, 12],
+  ] as const) {
+    const saved = savedCommandSchema.parse(JSON.parse(JSON.stringify(command)));
+    expect(saved).toEqual(command);
+    const pending = applyCommand(game, command);
+    expect(pending.pendingChoice?.options.find((option) => option.id === "equal")?.label).toContain(
+      `每人${points / 4}点`,
+    );
+    let allocating = choose(pending.state, "collective").state;
+    for (let i = 0; i < points; i++) {
+      expect(allocating.dungeon!.rest!.used).toBe(false);
+      allocating = choose(allocating, "stress:0").state;
+    }
+    expect(allocating.dungeon!.rest!.used).toBe(true);
+    expect(scoutRestSchema.safeParse(allocating.dungeon!.rest).success).toBe(true);
+  }
+});
 
 describe("Scout Ahead柴火休息（R15、QUEST p1、R-070）", () => {
   it("同意前取消不消耗；分配期间冻结导航、补给、退出和摘要，陈旧选择拒绝", () => {

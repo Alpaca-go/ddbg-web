@@ -2,6 +2,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { expect, it } from "vitest";
 import { rawFileSchema } from "../../../src/shared/extract/raw";
 import { questCardsSchema, readQuestCard } from "../../../src/core/quests/quest-cards";
+import { basicQuests } from "../../../src/core/quests/basic-quests";
 import { buildQuestCards } from "../../../src/core/quests/quest-cards.build";
 import { loadNormalizedCorebox } from "../../../src/shared/write";
 
@@ -41,6 +42,18 @@ it("十九张任务卡与出征定义核对后可再生，通用Boss任务没有
   const copy = readQuestCard(built, "quest:p004")!;
   copy.specialRuleLines.length = 0;
   expect(readQuestCard(built, copy.id)?.specialRuleLines.length).toBeGreaterThan(0);
+});
+
+it("运行目录单独保留印刷名称，并沿用现有显示名称", () => {
+  expect(basicQuests.find((quest) => quest.id === "quest:p001")).toMatchObject({
+    name: "Scout Ahead I",
+    printedName: "Scout Ahead",
+  });
+  expect(basicQuests.find((quest) => quest.id === "quest:weald:p008")).toMatchObject({
+    printedName: "Searching in the Dark",
+    level: 2,
+    restPoints: 12,
+  });
 });
 
 it("拒绝缺卡、重复、标题/点数/等级漂移、来源页码错误与损坏段落", () => {
