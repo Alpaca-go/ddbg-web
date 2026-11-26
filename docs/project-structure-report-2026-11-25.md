@@ -1,11 +1,12 @@
 # 项目结构与数据结构报告（2026-11-25）
 
-> 2026-11-26 补记：第 3.2 节描述的英雄注解层「两种文件形态」已在同日重构中统一为
-> 「一个 `hNN-*.ts` 一个模块，`entries` + 可选 `fixes`，全部 canonical ID」。
-> 最新结构以 [注解层 README](../packages/data/src/core/heroes/annotations/README.md) 和
-> [统一计划](plans/PLAN-2026-11-25-hero-annotations-unification.md) 为准。
+> **历史快照（2026-11-25，HEAD `ce06bd08`）**。目录、文件数与代码示例均按该提交记录。
+> 第 3.2 节的英雄注解层已于 2026-11-26 统一为每个 `hNN-*.ts` 一个模块，
+> 包含 `entries` 和可选的 `fixes`，两者均使用 canonical ID。现行说明见
+> [仓库结构规范](repo-layout.md#英雄注解层2026-11-26-定稿)和
+> [注解层 README](../packages/data/src/core/heroes/annotations/README.md)。
 
-本报告按当前工作区（HEAD `ce06bd08`，2026-11-25）逐目录说明：**每个文件夹、每个子文件夹里放的是什么、为什么这样分层、数据长什么样**。
+本报告逐目录记录当时的目录职责、分层原因和数据形态。
 统计口径：不含 `.git`、`node_modules`、`.cache`、`test-results`、`__pycache__` 与构建产物。
 
 ---
