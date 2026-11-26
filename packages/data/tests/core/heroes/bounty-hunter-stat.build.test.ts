@@ -181,6 +181,7 @@ it("生成数据含获批面，不生成III背面或Jester；数字/来源漂移
   const file = json("normalized/corebox/hero_stat.json");
   expect(built).toEqual({
     ...file,
+    sources: { ...file.sources, raw: "extract/corebox/raw/hero_stat.json" },
     cards: file.cards.filter(
       (c: { id: string }) =>
         !c.id.startsWith("hero_stat:warrens:") &&

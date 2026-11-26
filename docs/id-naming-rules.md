@@ -185,14 +185,19 @@ STAT 每个英雄两页对应三张卡：`pNNN:front` = I 级，`pNNN:back` = II
 - 前 17 名的 SKILL 页段已经是 1–357，按上表保持；只有 Musketeer 从
   `hero_skill:musketeer:p001`–`p021` 改为 `p358`–`p378`。
 
-规范来源：
+前 17 名的目录页序以 The Darkest Heroes（TDH）合计目录为基准。当前单卡的实际印刷来源如下。
 
-- `h01`–`h17`：`MG_DD_10_EN_The Darkest Heroes` 下的
-  `DD_EN_THE_DARKEST_HEROES_CARDS_100x180_Hero_STAT_{FRONT,BACK}.pdf` 与
-  `DD_EN_THE_DARKEST_HEROES_CARDS_44x68_SKILLS_{FRONT,BACK}.pdf`。
-- `h18`：`MG_DD_08_EN_MUSKETEER` 下的
-  `DD_EN_MUSKETEER_CARDS_100x180_Hero_STAT_{FRONT,BACK}.pdf` 与
-  `DD_EN_MUSKETEER_CARDS_44x68_SKILLS_{FRONT,BACK}.pdf`。
+| 英雄编号    | STAT 来源 | SKILL 来源 |
+| ----------- | --------- | ---------- |
+| `h01`–`h11` | 核心盒    | 核心盒     |
+| `h12`–`h13` | Cove      | TDH        |
+| `h14`–`h15` | TDH       | TDH        |
+| `h16`–`h17` | Weald     | TDH        |
+| `h18`       | Musketeer | Musketeer  |
+
+聚合目录的 `sources.raw` 列出核心盒及 Warrens、Cove、Weald、Musketeer 的提取文件。
+SKILL 的 `sources.parsed` 也列出这五份来源，STAT 的 `sources.parsed` 为 `null`。
+每张卡的 `source.file` 和 `source.page` 记录实际使用的印刷文件与页。
 
 ### 4.4 可用性
 
@@ -330,8 +335,8 @@ hero_skill:musketeer:h18:p358       // Aimed Shot I
   h01–h11 的 `pNNN` 维持 1–23；h12–h18 改为全局 `p024`–`p037`。
 - `hero_skill`：18 名全部改为 `<pack>:hNN:pNNN`。
   h01–h17 的 `pNNN` 维持 1–357；h18 从 `musketeer:p001`–`p021` 改为 `p358`–`p378`。
-- 给 `hero_skill` 补 `source: { file, page }`；修正 `hero_stat.json` /
-  `hero_skill.json` 的 `sources` 元数据（当前只写 corebox raw）。
+- 已给 `hero_skill` 补 `source: { file, page }`，并补齐 `hero_stat.json` /
+  `hero_skill.json` 的聚合提取文件清单，见 §4.3。
 - 英雄仍全部可选；`cardContentPack` 对英雄保持 `core`，不按 pack 段过滤。
 - 更新 `ROSTER_PENDING_STAT_IDS`、`ABOMINATION_DOUBLE_FACED_SKILL_IDS`、
   `WARRENS/COVE/WEALD_VERIFIED_SKILL_PAGE_BLOCKS` 和相关测试。

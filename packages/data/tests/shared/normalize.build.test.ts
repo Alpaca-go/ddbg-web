@@ -5,7 +5,10 @@ import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 
 import { virtueRole } from "../../src/core/hamlet/virtue-role.build";
-import { loadNormalizedCorebox, writeNormalizedCorebox } from "../../src/core/write";
+import { HERO_SKILL_BASE, heroSkillId } from "../../src/core/heroes/hero-registry";
+import { heroSkillFileSchema } from "../../src/shared/extract/parsed";
+import { rawFileSchema } from "../../src/shared/extract/raw";
+import { loadNormalizedCorebox, writeNormalizedCorebox } from "../../src/write";
 
 if (process.env.WRITE_NORMALIZED === "1") {
   writeNormalizedCorebox();
@@ -84,6 +87,52 @@ function iconsNamed(
 const built = loadNormalizedCorebox();
 
 describe("规范化核心盒", () => {
+  it("英雄聚合来源逐卡对应 raw 与 parsed 的实体和印刷来源", () => {
+    const readSource = (source: string) =>
+      JSON.parse(readFileSync(path.resolve(NORMALIZED_ROOT, "../..", source), "utf8")) as unknown;
+    const { hero_stat: stats, hero_skill: skills } = built;
+    expect(readSource("normalized/corebox/hero_stat.json")).toEqual(stats);
+
+    const rawStats = stats.sources.raw.flatMap((source) => {
+      const { cards } = rawFileSchema.parse(readSource(source));
+      expect(
+        cards.some(({ id }) => stats.cards.some((card) => card.rawId === id)),
+        source,
+      ).toBe(true);
+      return cards;
+    });
+    const statsByRawId = new Map(rawStats.map((card) => [card.id, card]));
+    expect(statsByRawId.size).toBe(rawStats.length);
+    for (const card of stats.cards) {
+      const face = statsByRawId.get(card.rawId)!.faces[card.face]!;
+      expect(card.source, card.id).toEqual({ file: face.file, page: face.page });
+    }
+
+    const rawSkills = new Map(
+      skills.sources.raw
+        .flatMap((source) => rawFileSchema.parse(readSource(source)).cards)
+        .map((card) => [card.id, card.faces.front]),
+    );
+    const parsedSkills = skills.sources.parsed.flatMap(
+      (source) => heroSkillFileSchema.parse(readSource(source)).cards,
+    );
+    const byCanonicalId = new Map(skills.cards.map((card) => [card.id, card]));
+    expect(rawSkills.size).toBe(skills.cards.length);
+    expect(parsedSkills).toHaveLength(skills.cards.length);
+    for (const card of parsedSkills) {
+      const hero = card.hero ?? "ABOMINATION";
+      const page = card.pages[0]!;
+      const id = heroSkillId(
+        hero,
+        hero === "MUSKETEER" ? HERO_SKILL_BASE.MUSKETEER + page - 1 : page,
+      );
+      const face = rawSkills.get(card.id)!;
+      expect(byCanonicalId.get(id)?.source, id).toEqual({ file: face.file, page: face.page });
+      byCanonicalId.delete(id);
+    }
+    expect(byCanonicalId.size).toBe(0);
+  });
+
   it("与已提交的 JSON 一致，且不含 crit_value / acc_value / hp", () => {
     for (const name of FILES) {
       const file = built[name];

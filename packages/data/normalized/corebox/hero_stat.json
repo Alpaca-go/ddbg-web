@@ -4,7 +4,13 @@
  "category": "hero_stat",
  "sources": {
   "parsed": null,
-  "raw": "extract/corebox/raw/hero_stat.json",
+  "raw": [
+   "extract/corebox/raw/hero_stat.json",
+   "extract/extension/warrens/raw/hero_stat.json",
+   "extract/extension/cove/raw/hero_stat.json",
+   "extract/extension/weald/raw/hero_stat.json",
+   "extract/extension/musketeer/raw/hero_stat.json"
+  ],
   "dictionary": "dictionary/icon-dictionary-v1.8.json"
  },
  "cards": [

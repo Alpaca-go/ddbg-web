@@ -160,6 +160,7 @@ const coreHeroStatFile = () => {
   const file = json("normalized/corebox/hero_stat.json");
   return {
     ...file,
+    sources: { ...file.sources, raw: "extract/corebox/raw/hero_stat.json" },
     cards: file.cards.filter(
       (c: { id: string }) =>
         !c.id.startsWith("hero_stat:warrens:") &&

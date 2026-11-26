@@ -3,8 +3,20 @@
  "dictionary_version": "1.8",
  "category": "hero_skill",
  "sources": {
-  "parsed": "extract/corebox/parsed/hero_skill.json",
-  "raw": "extract/corebox/raw/hero_skill.json",
+  "parsed": [
+   "extract/corebox/parsed/hero_skill.json",
+   "extract/extension/warrens/parsed/hero_skill.json",
+   "extract/extension/cove/parsed/hero_skill.json",
+   "extract/extension/weald/parsed/hero_skill.json",
+   "extract/extension/musketeer/parsed/hero_skill.json"
+  ],
+  "raw": [
+   "extract/corebox/raw/hero_skill.json",
+   "extract/extension/warrens/raw/hero_skill.json",
+   "extract/extension/cove/raw/hero_skill.json",
+   "extract/extension/weald/raw/hero_skill.json",
+   "extract/extension/musketeer/raw/hero_skill.json"
+  ],
   "dictionary": "dictionary/icon-dictionary-v1.8.json"
  },
  "stats": {

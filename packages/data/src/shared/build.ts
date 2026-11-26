@@ -73,6 +73,7 @@ import { assertHallOfAscensionEffectSource } from "../core/rooms/hall-of-ascensi
 import { assertPoolOfRebirthEffectSource } from "../core/rooms/pool-of-rebirth.build";
 import type { RoomTileGeometryFile } from "../core/rooms/room-tile.build";
 import { buildHeroStats, normalizedHeroStatFileSchema } from "../core/heroes/hero-stat.build";
+import { HERO_SOURCE_PACKS, heroSourcePaths } from "../core/heroes/hero-sources";
 import { heroSkillId } from "../core/heroes/hero-registry";
 import { buildWarrensHeroStats } from "../warrens/heroes/hero-stat.build";
 import { buildCoveHeroStats } from "../cove/heroes/hero-stat.build";
@@ -304,6 +305,7 @@ function buildHeroSkills(
   parsed: HeroSkillFile,
   raw: RawFile,
   lookup: IconLookup,
+  sources: NormalizedHeroSkillFile["sources"],
 ): NormalizedHeroSkillFile {
   const rawCards = rawIndex(raw);
   const cards = parsed.cards.map((card) => {
@@ -354,11 +356,7 @@ function buildHeroSkills(
     schema: "ddbg-normalized-v0",
     dictionary_version: "1.8",
     category: "hero_skill",
-    sources: {
-      parsed: "extract/corebox/parsed/hero_skill.json",
-      raw: "extract/corebox/raw/hero_skill.json",
-      dictionary: DICTIONARY_SOURCE,
-    },
+    sources,
     stats: cardStats(cards),
     cards,
   });
@@ -702,6 +700,33 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
     input.monsterLargeRaw,
     input.bossAbilitiesRaw,
   );
+  const heroInputs = {
+    core: { stat: input.heroStats, skillRaw: input.heroSkillRaw, skillParsed: input.heroSkills },
+    warrens: {
+      stat: input.extensionWarrensHeroStatRaw,
+      skillRaw: input.extensionWarrensHeroSkillRaw,
+      skillParsed: input.extensionWarrensHeroSkills,
+    },
+    cove: {
+      stat: input.extensionCoveHeroStatRaw,
+      skillRaw: input.extensionCoveHeroSkillRaw,
+      skillParsed: input.extensionCoveHeroSkills,
+    },
+    weald: {
+      stat: input.extensionWealdHeroStatRaw,
+      skillRaw: input.extensionWealdHeroSkillRaw,
+      skillParsed: input.extensionWealdHeroSkills,
+    },
+    musketeer: {
+      stat: input.extensionMusketeerHeroStatRaw,
+      skillRaw: input.extensionMusketeerHeroSkillRaw,
+      skillParsed: input.extensionMusketeerHeroSkills,
+    },
+  };
+  const heroPaths = (field: keyof typeof heroInputs.core) =>
+    HERO_SOURCE_PACKS.filter((pack) => heroInputs[pack][field]).map(
+      (pack) => heroSourcePaths(pack)[field],
+    );
   return {
     disease: buildDiseases(input.diseases, input.dictionary),
     hamlet_event: buildHamletEvents(input.hamletEvents),
@@ -723,47 +748,43 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
     curio: buildCurios(input.curios, input.dictionary),
     hero_stat: (() => {
       const core = buildHeroStats(input.heroStats, input.dictionary);
-      const warrens =
-        input.extensionWarrensHeroStatRaw && input.dictionary
-          ? buildWarrensHeroStats(input.extensionWarrensHeroStatRaw, input.dictionary)
-          : [];
-      const cove =
-        input.extensionCoveHeroStatRaw && input.dictionary
-          ? buildCoveHeroStats(input.extensionCoveHeroStatRaw, input.dictionary)
-          : [];
-      const weald =
-        input.extensionWealdHeroStatRaw && input.dictionary
-          ? buildWealdHeroStats(input.extensionWealdHeroStatRaw, input.dictionary)
-          : [];
-      const musketeer =
-        input.extensionMusketeerHeroStatRaw && input.dictionary
-          ? buildMusketeerHeroStats(input.extensionMusketeerHeroStatRaw, input.dictionary)
-          : [];
       return normalizedHeroStatFileSchema.parse({
         ...core,
-        cards: [...core.cards, ...warrens, ...cove, ...weald, ...musketeer],
+        sources: {
+          ...core.sources,
+          raw: heroPaths("stat"),
+        },
+        cards: [
+          ...core.cards,
+          ...(heroInputs.warrens.stat
+            ? buildWarrensHeroStats(heroInputs.warrens.stat, input.dictionary)
+            : []),
+          ...(heroInputs.cove.stat
+            ? buildCoveHeroStats(heroInputs.cove.stat, input.dictionary)
+            : []),
+          ...(heroInputs.weald.stat
+            ? buildWealdHeroStats(heroInputs.weald.stat, input.dictionary)
+            : []),
+          ...(heroInputs.musketeer.stat
+            ? buildMusketeerHeroStats(heroInputs.musketeer.stat, input.dictionary)
+            : []),
+        ],
       });
     })(),
     hero_skill: (() => {
       const parsed = {
         ...input.heroSkills,
-        cards: [
-          ...input.heroSkills.cards,
-          ...(input.extensionWarrensHeroSkills?.cards ?? []),
-          ...(input.extensionCoveHeroSkills?.cards ?? []),
-          ...(input.extensionWealdHeroSkills?.cards ?? []),
-          ...(input.extensionMusketeerHeroSkills?.cards ?? []),
-        ],
+        cards: HERO_SOURCE_PACKS.flatMap((pack) => heroInputs[pack].skillParsed?.cards ?? []),
       };
-      const rawCards = [
-        ...input.heroSkillRaw.cards,
-        ...(input.extensionWarrensHeroSkillRaw?.cards ?? []),
-        ...(input.extensionCoveHeroSkillRaw?.cards ?? []),
-        ...(input.extensionWealdHeroSkillRaw?.cards ?? []),
-        ...(input.extensionMusketeerHeroSkillRaw?.cards ?? []),
-      ];
-      const raw = { ...input.heroSkillRaw, cards: rawCards };
-      const file = buildHeroSkills(parsed, raw, lookup);
+      const raw = {
+        ...input.heroSkillRaw,
+        cards: HERO_SOURCE_PACKS.flatMap((pack) => heroInputs[pack].skillRaw?.cards ?? []),
+      };
+      const file = buildHeroSkills(parsed, raw, lookup, {
+        parsed: heroPaths("skillParsed"),
+        raw: heroPaths("skillRaw"),
+        dictionary: DICTIONARY_SOURCE,
+      });
       const reviewed = attachReviewedHeroStances(file.cards);
       const canonical = canonicalHeroSkillCards(reviewed);
       const cards = attachCoreHigherSkills(

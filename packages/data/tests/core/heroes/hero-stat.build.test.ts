@@ -10,7 +10,7 @@ import {
   normalizedHeroStatCardSchema,
   normalizedHeroStatFileSchema,
 } from "../../../src/core/heroes/hero-stat.build";
-import { loadNormalizedCorebox } from "../../../src/core/write";
+import { loadNormalizedCorebox } from "../../../src/write";
 
 const json = (file: string) =>
   JSON.parse(readFileSync(new URL(`../../../${file}`, import.meta.url), "utf8"));
@@ -246,9 +246,10 @@ describe("八名英雄24面获批属性（R10/19/29；R-006/007/048/088/094/095�
     }
     const card = built.cards[0]!;
     expect(canonicalHeroStatCardSchema.safeParse({ ...card, id: card.rawId }).success).toBe(false);
-    expect(normalizedHeroStatFileSchema.safeParse({ ...built, cards: [card, card] }).success).toBe(
-      false,
-    );
+    const published = normalizedHeroStatFileSchema.parse(json("normalized/corebox/hero_stat.json"));
+    expect(
+      normalizedHeroStatFileSchema.safeParse({ ...published, cards: [card, card] }).success,
+    ).toBe(false);
   });
 
   it("拒绝脏值、数字 / Speed 冲突及已确认属性图标退回未确认", () => {
@@ -274,6 +275,7 @@ describe("八名英雄24面获批属性（R10/19/29；R-006/007/048/088/094/095�
     const coreFile = json("normalized/corebox/hero_stat.json");
     const coreOnly = {
       ...coreFile,
+      sources: { ...coreFile.sources, raw: "extract/corebox/raw/hero_stat.json" },
       cards: coreFile.cards.filter(
         (c: { id: string }) =>
           !c.id.startsWith("hero_stat:warrens:") &&

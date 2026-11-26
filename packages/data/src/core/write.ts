@@ -2,6 +2,7 @@ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+import { heroSourcePaths } from "./heroes/hero-sources";
 import { iconDictionarySchema } from "../shared/dictionary/schema";
 import {
   heroSkillFileSchema,
@@ -29,11 +30,11 @@ export function loadNormalizedCorebox(): NormalizedCorebox {
     rooms: rawFileSchema.parse(readJson("extract/corebox/raw/room.json")),
     stygianRooms: rawFileSchema.parse(readJson("extract/corebox/raw/stygian_room.json")),
     curios: rawFileSchema.parse(readJson("extract/corebox/raw/curio.json")),
-    heroStats: rawFileSchema.parse(readJson("extract/corebox/raw/hero_stat.json")),
+    heroStats: rawFileSchema.parse(readJson(heroSourcePaths("core").stat)),
     roomTiles: rawFileSchema.parse(readJson("extract/corebox/raw/dungeon_tile.json")),
     dictionary: iconDictionarySchema.parse(readJson("dictionary/icon-dictionary-v1.8.json")),
-    heroSkills: heroSkillFileSchema.parse(readJson("extract/corebox/parsed/hero_skill.json")),
-    heroSkillRaw: rawFileSchema.parse(readJson("extract/corebox/raw/hero_skill.json")),
+    heroSkills: heroSkillFileSchema.parse(readJson(heroSourcePaths("core").skillParsed)),
+    heroSkillRaw: rawFileSchema.parse(readJson(heroSourcePaths("core").skillRaw)),
     monsterMedium: monsterMediumFileSchema.parse(
       readJson("extract/corebox/parsed/monster_medium.json"),
     ),
@@ -47,41 +48,29 @@ export function loadNormalizedCorebox(): NormalizedCorebox {
     quirks: rawFileSchema.parse(readJson("extract/corebox/raw/quirk.json")),
     virtues: rawFileSchema.parse(readJson("extract/corebox/raw/virtue_affliction.json")),
     extensionWarrensHeroSkills: heroSkillFileSchema.parse(
-      readJson("extract/extension/warrens/parsed/hero_skill.json"),
+      readJson(heroSourcePaths("warrens").skillParsed),
     ),
     extensionWarrensHeroSkillRaw: rawFileSchema.parse(
-      readJson("extract/extension/warrens/raw/hero_skill.json"),
+      readJson(heroSourcePaths("warrens").skillRaw),
     ),
-    extensionWarrensHeroStatRaw: rawFileSchema.parse(
-      readJson("extract/extension/warrens/raw/hero_stat.json"),
-    ),
+    extensionWarrensHeroStatRaw: rawFileSchema.parse(readJson(heroSourcePaths("warrens").stat)),
     extensionCoveHeroSkills: heroSkillFileSchema.parse(
-      readJson("extract/extension/cove/parsed/hero_skill.json"),
+      readJson(heroSourcePaths("cove").skillParsed),
     ),
-    extensionCoveHeroSkillRaw: rawFileSchema.parse(
-      readJson("extract/extension/cove/raw/hero_skill.json"),
-    ),
-    extensionCoveHeroStatRaw: rawFileSchema.parse(
-      readJson("extract/extension/cove/raw/hero_stat.json"),
-    ),
+    extensionCoveHeroSkillRaw: rawFileSchema.parse(readJson(heroSourcePaths("cove").skillRaw)),
+    extensionCoveHeroStatRaw: rawFileSchema.parse(readJson(heroSourcePaths("cove").stat)),
     extensionWealdHeroSkills: heroSkillFileSchema.parse(
-      readJson("extract/extension/weald/parsed/hero_skill.json"),
+      readJson(heroSourcePaths("weald").skillParsed),
     ),
-    extensionWealdHeroSkillRaw: rawFileSchema.parse(
-      readJson("extract/extension/weald/raw/hero_skill.json"),
-    ),
-    extensionWealdHeroStatRaw: rawFileSchema.parse(
-      readJson("extract/extension/weald/raw/hero_stat.json"),
-    ),
+    extensionWealdHeroSkillRaw: rawFileSchema.parse(readJson(heroSourcePaths("weald").skillRaw)),
+    extensionWealdHeroStatRaw: rawFileSchema.parse(readJson(heroSourcePaths("weald").stat)),
     extensionMusketeerHeroSkills: heroSkillFileSchema.parse(
-      readJson("extract/extension/musketeer/parsed/hero_skill.json"),
+      readJson(heroSourcePaths("musketeer").skillParsed),
     ),
     extensionMusketeerHeroSkillRaw: rawFileSchema.parse(
-      readJson("extract/extension/musketeer/raw/hero_skill.json"),
+      readJson(heroSourcePaths("musketeer").skillRaw),
     ),
-    extensionMusketeerHeroStatRaw: rawFileSchema.parse(
-      readJson("extract/extension/musketeer/raw/hero_stat.json"),
-    ),
+    extensionMusketeerHeroStatRaw: rawFileSchema.parse(readJson(heroSourcePaths("musketeer").stat)),
   });
 }
 

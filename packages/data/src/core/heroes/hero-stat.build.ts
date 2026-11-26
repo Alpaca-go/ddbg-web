@@ -1,3 +1,4 @@
+import { heroStatSourcesSchema } from "./hero-sources";
 import { z } from "zod";
 import type { RawFile } from "../../shared/extract/raw";
 import { levelSchema } from "../../shared/extract/common";
@@ -223,11 +224,7 @@ export const normalizedHeroStatFileSchema = z
     schema: z.literal("ddbg-normalized-v0"),
     dictionary_version: z.literal("1.8"),
     category: z.literal("hero_stat"),
-    sources: z.strictObject({
-      parsed: z.null(),
-      raw: z.literal("extract/corebox/raw/hero_stat.json"),
-      dictionary: z.literal("dictionary/icon-dictionary-v1.8.json"),
-    }),
+    sources: heroStatSourcesSchema,
     cards: z.array(canonicalHeroStatCardSchema),
   })
   .superRefine((file, ctx) => {

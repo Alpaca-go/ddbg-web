@@ -6,6 +6,10 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 
 ## 当前进度与下一步
 
+- **2026-11-26 英雄聚合来源核对**：逐张核对 54 张 STAT 和 378 张 SKILL 的提取记录，补齐两份聚合目录的 `sources`，按实际取材更新 ID 规范 §4.3。构建经 `@ddbg/data/write` 重建。与 `a0b818df` 对比，`extract` 零 diff，`normalized` 仅两份英雄目录的 `sources` 有 diff。
+  验证：数据包 102 个文件、410 项通过，最终调整后的英雄来源与怪物目录定向复测 33 项通过，typecheck、lint、build 通过。全量 Vitest 632 个文件、4438 项通过、1 项跳过。
+- **2026-11-26 Cove／Warrens Boss 占位核对**：共有 14 个唯一占位 ID。Cove 的 Siren 和 Pelagic 占 4 个，Warrens 的 Swine Prince 与 Wilbur 占 4 个，Flesh 占 6 个。两包对应的印刷能力卡与怪物卡目录尚未入库，下一步是目录入库后按印刷页统一迁移 ID 及引用。6 个 Boss 回归文件、42 项通过，本主题 `extract` 与 `normalized` 均零 diff。Weald 的待确认项和下一步见下方。
+
 - **2026-11-26 跨包入口审计**：`@ddbg/data` 根入口导出正式英雄目录校验，Node 文件读写由 `@ddbg/data/write` 提供。测试验证 engine → data 依赖方向及浏览器入口边界。英雄聚合文件级来源清单和 Cove／Warrens Boss 占位 ID 继续登记，Weald 待确认项见下方。
   验证：两包入口可独立打包到浏览器。跨包定向 5 项、typecheck、lint、build 与两条生产预览冒烟通过。全量 Vitest 632 文件、4437 项通过、1 项跳过。`extract` 与 `normalized` 零 diff。
 
