@@ -1,4 +1,5 @@
 import type {
+  HeroAnnotationEntries,
   StatusEffectEntry,
   RangeEntry,
   SupportEffectEntry,
@@ -6,11 +7,12 @@ import type {
   SelfEffectEntry,
   ShuffleEntry,
 } from "./types";
+import { defineHeroModule } from "./patch-helpers";
 
 /** 完整印刷逐页核对的状态效果行（docs/phase2-four-core-skills-2026-10-11.md）。 */
-export const statusEntries: readonly StatusEffectEntry[] = [
+const statusEntries: readonly StatusEffectEntry[] = [
   {
-    id: "hero_skill:p007",
+    id: "hero_skill:core:h01:p007",
     name: "Stunning Blow",
     level: 1,
     lineIndex: 0,
@@ -24,7 +26,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     ],
   },
   {
-    id: "hero_skill:p008",
+    id: "hero_skill:core:h01:p008",
     name: "Stunning Blow",
     level: 2,
     lineIndex: 0,
@@ -38,7 +40,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     ],
   },
   {
-    id: "hero_skill:p009",
+    id: "hero_skill:core:h01:p009",
     name: "Stunning Blow",
     level: 3,
     lineIndex: 0,
@@ -52,7 +54,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     ],
   },
   {
-    id: "hero_skill:p010",
+    id: "hero_skill:core:h01:p010",
     name: "Bulwark of Faith",
     level: 1,
     lineIndex: 1,
@@ -70,7 +72,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     ],
   },
   {
-    id: "hero_skill:p011",
+    id: "hero_skill:core:h01:p011",
     name: "Bulwark of Faith",
     level: 2,
     lineIndex: 1,
@@ -88,7 +90,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     ],
   },
   {
-    id: "hero_skill:p012",
+    id: "hero_skill:core:h01:p012",
     name: "Bulwark of Faith",
     level: 3,
     lineIndex: 1,
@@ -108,16 +110,16 @@ export const statusEntries: readonly StatusEffectEntry[] = [
 ];
 
 /** 已复核的印刷区间（R-048）：只附加已命名 range 图标旁的明确数字。 */
-export const rangeEntries: readonly RangeEntry[] = [
+const rangeEntries: readonly RangeEntry[] = [
   {
-    id: "hero_skill:p013",
+    id: "hero_skill:core:h01:p013",
     name: "Battle Heal",
     level: 1,
     min: 0,
     max: 1,
   },
   {
-    id: "hero_skill:p014",
+    id: "hero_skill:core:h01:p014",
     name: "Battle Heal",
     level: 2,
     min: 0,
@@ -126,9 +128,9 @@ export const rangeEntries: readonly RangeEntry[] = [
 ];
 
 /** 完整 SKILLS_FRONT p019–021：只附已复核数字，不改原始 numeric=null。 */
-export const supportEntries: readonly SupportEffectEntry[] = [
+const supportEntries: readonly SupportEffectEntry[] = [
   {
-    id: "hero_skill:p019",
+    id: "hero_skill:core:h01:p019",
     name: "Inspiring Cry",
     level: 1,
     page: 19,
@@ -138,7 +140,7 @@ export const supportEntries: readonly SupportEffectEntry[] = [
     effects: { heal: 1, stress: -1, light: 1 },
   },
   {
-    id: "hero_skill:p020",
+    id: "hero_skill:core:h01:p020",
     name: "Inspiring Cry",
     level: 2,
     page: 20,
@@ -148,7 +150,7 @@ export const supportEntries: readonly SupportEffectEntry[] = [
     effects: { heal: 1, stress: -1, light: 1 },
   },
   {
-    id: "hero_skill:p021",
+    id: "hero_skill:core:h01:p021",
     name: "Inspiring Cry",
     level: 3,
     page: 21,
@@ -160,9 +162,9 @@ export const supportEntries: readonly SupportEffectEntry[] = [
 ];
 
 /** 已复核条件伤害（只录已命名 damage 图标与明文条件）。 */
-export const damageEntries: readonly DamageEntry[] = [
+const damageEntries: readonly DamageEntry[] = [
   {
-    id: "hero_skill:p001",
+    id: "hero_skill:core:h01:p001",
     name: "Smite",
     level: 1,
     page: 1,
@@ -172,7 +174,7 @@ export const damageEntries: readonly DamageEntry[] = [
     suffix: "Unholy",
   },
   {
-    id: "hero_skill:p002",
+    id: "hero_skill:core:h01:p002",
     name: "Smite",
     level: 2,
     page: 2,
@@ -182,7 +184,7 @@ export const damageEntries: readonly DamageEntry[] = [
     suffix: "Unholy",
   },
   {
-    id: "hero_skill:p003",
+    id: "hero_skill:core:h01:p003",
     name: "Smite",
     level: 3,
     page: 3,
@@ -192,7 +194,7 @@ export const damageEntries: readonly DamageEntry[] = [
     suffix: "Unholy",
   },
   {
-    id: "hero_skill:p016",
+    id: "hero_skill:core:h01:p016",
     name: "Holy Lance",
     level: 1,
     page: 16,
@@ -202,7 +204,7 @@ export const damageEntries: readonly DamageEntry[] = [
     suffix: "Unholy",
   },
   {
-    id: "hero_skill:p017",
+    id: "hero_skill:core:h01:p017",
     name: "Holy Lance",
     level: 2,
     page: 17,
@@ -212,7 +214,7 @@ export const damageEntries: readonly DamageEntry[] = [
     suffix: "Unholy",
   },
   {
-    id: "hero_skill:p018",
+    id: "hero_skill:core:h01:p018",
     name: "Holy Lance",
     level: 3,
     page: 18,
@@ -224,7 +226,7 @@ export const damageEntries: readonly DamageEntry[] = [
 ];
 
 /** 自身治疗 / 压力行（lineIndex 指向 self_effects 行）。 */
-export const selfEffectEntries: readonly SelfEffectEntry[] = [
+const selfEffectEntries: readonly SelfEffectEntry[] = [
   {
     id: "hero_skill:core:h01:p015",
     name: "Battle Heal",
@@ -268,7 +270,7 @@ export const selfEffectEntries: readonly SelfEffectEntry[] = [
 ];
 
 /** 文本位移规则（scope + Push/Pull 原文）。 */
-export const shuffleEntries: readonly ShuffleEntry[] = [
+const shuffleEntries: readonly ShuffleEntry[] = [
   {
     id: "hero_skill:core:h01:p016",
     name: "Holy Lance",
@@ -294,3 +296,51 @@ export const shuffleEntries: readonly ShuffleEntry[] = [
     text: "Pull 1",
   },
 ];
+
+const entries: HeroAnnotationEntries = {
+  status: statusEntries,
+  range: rangeEntries,
+  support: supportEntries,
+  damage: damageEntries,
+  self: selfEffectEntries,
+  shuffle: shuffleEntries,
+  targetCount: [
+    { id: "hero_skill:core:h01:p001", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h01:p002", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h01:p003", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h01:p004", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:core:h01:p005", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:core:h01:p006", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:core:h01:p007", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h01:p008", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h01:p009", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h01:p010", hero: 0, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:core:h01:p011", hero: 0, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:core:h01:p012", hero: 0, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:core:h01:p013", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:core:h01:p014", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:core:h01:p015", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:core:h01:p016", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h01:p017", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h01:p018", hero: 0, monster: 1, heroOrMonster: 0 },
+  ],
+  effectKind: [
+    { id: "hero_skill:core:h01:p001", effect: "damage" },
+    { id: "hero_skill:core:h01:p002", effect: "damage" },
+    { id: "hero_skill:core:h01:p003", effect: "damage" },
+    { id: "hero_skill:core:h01:p004", effect: "damage" },
+    { id: "hero_skill:core:h01:p005", effect: "damage" },
+    { id: "hero_skill:core:h01:p006", effect: "damage" },
+    { id: "hero_skill:core:h01:p007", effect: "damage" },
+    { id: "hero_skill:core:h01:p008", effect: "damage" },
+    { id: "hero_skill:core:h01:p009", effect: "damage" },
+    { id: "hero_skill:core:h01:p013", effect: "heal" },
+    { id: "hero_skill:core:h01:p014", effect: "heal" },
+    { id: "hero_skill:core:h01:p015", effect: "heal" },
+    { id: "hero_skill:core:h01:p016", effect: "damage" },
+    { id: "hero_skill:core:h01:p017", effect: "damage" },
+    { id: "hero_skill:core:h01:p018", effect: "damage" },
+  ],
+};
+
+export const h01 = defineHeroModule({ id: "h01", hero: "CRUSADER", entries });

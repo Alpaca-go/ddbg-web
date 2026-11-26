@@ -6,11 +6,13 @@ import type {
   ShuffleEntry,
   RemovalEntry,
 } from "./types";
+import type { HeroAnnotationEntries } from "./types";
+import { defineHeroModule } from "./patch-helpers";
 
 /** 核心盒 Plague Doctor II/III 级逐卡注解（Kyries 审阅；R-048 签名断言由 core-higher-skills 执行）。 */
-export const coreHigherRows: readonly CoreHigherSkillRow[] = [
+const coreHigherRows: readonly CoreHigherSkillRow[] = [
   {
-    id: "hero_skill:p128",
+    id: "hero_skill:core:h07:p128",
     name: "Noxious Blast",
     level: 2,
     original: ["{target_effects} 4 {blight} 3t, {debuff} 1t"],
@@ -36,7 +38,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     },
   },
   {
-    id: "hero_skill:p129",
+    id: "hero_skill:core:h07:p129",
     name: "Noxious Blast",
     level: 3,
     original: ["{target_effects} 4 {blight} 3t, {debuff} 2t"],
@@ -62,7 +64,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     },
   },
   {
-    id: "hero_skill:p131",
+    id: "hero_skill:core:h07:p131",
     name: "Plague Grenade",
     level: 2,
     original: ["{target_effects} 3 {blight} 3t"],
@@ -81,7 +83,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     },
   },
   {
-    id: "hero_skill:p132",
+    id: "hero_skill:core:h07:p132",
     name: "Plague Grenade",
     level: 3,
     original: ["{target_effects} 3 {blight} 3t"],
@@ -100,7 +102,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     },
   },
   {
-    id: "hero_skill:p134",
+    id: "hero_skill:core:h07:p134",
     name: "Blinding Gas",
     level: 2,
     original: ["{target_effects} {stun} 1t"],
@@ -123,7 +125,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     },
   },
   {
-    id: "hero_skill:p135",
+    id: "hero_skill:core:h07:p135",
     name: "Blinding Gas",
     level: 3,
     original: ["{target_effects} {stun} 1t"],
@@ -146,7 +148,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     },
   },
   {
-    id: "hero_skill:p137",
+    id: "hero_skill:core:h07:p137",
     name: "Incision",
     level: 2,
     original: ["{target_effects} 2 {bleed} 3t"],
@@ -165,7 +167,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     },
   },
   {
-    id: "hero_skill:p138",
+    id: "hero_skill:core:h07:p138",
     name: "Incision",
     level: 3,
     original: ["{target_effects} 3 {bleed} 3t"],
@@ -184,7 +186,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     },
   },
   {
-    id: "hero_skill:p143",
+    id: "hero_skill:core:h07:p143",
     name: "Emboldening Vapours",
     level: 2,
     original: [
@@ -221,7 +223,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     },
   },
   {
-    id: "hero_skill:p144",
+    id: "hero_skill:core:h07:p144",
     name: "Emboldening Vapours",
     level: 3,
     original: [
@@ -258,7 +260,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     },
   },
   {
-    id: "hero_skill:p146",
+    id: "hero_skill:core:h07:p146",
     name: "Disorienting Blast",
     level: 2,
     original: ["{target_effects} {shuffle} Push 2 or Pull 2", "{stun} 1t"],
@@ -282,7 +284,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     },
   },
   {
-    id: "hero_skill:p147",
+    id: "hero_skill:core:h07:p147",
     name: "Disorienting Blast",
     level: 3,
     original: ["{target_effects} {shuffle} Push 2 or Pull 2", "{stun} 1t"],
@@ -308,10 +310,10 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
 ];
 
 /** 完整印刷逐页核对的状态效果行（docs/phase2-four-core-skills-2026-10-11.md）。 */
-export const statusEntries: readonly StatusEffectEntry[] = [
+const statusEntries: readonly StatusEffectEntry[] = [
   // 完整FRONT p145：目标标记/可选位移在第一行，Stun续行不重复印目标标记。
   {
-    id: "hero_skill:p145",
+    id: "hero_skill:core:h07:p145",
     hero: "PLAGUE DOCTOR",
     name: "Disorienting Blast",
     level: 1,
@@ -323,7 +325,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
   },
   // 完整FRONT p142：四姿态，无Acc；第一行为射程/目标，第二行为Buff。
   {
-    id: "hero_skill:p142",
+    id: "hero_skill:core:h07:p142",
     hero: "PLAGUE DOCTOR",
     name: "Emboldening Vapours",
     level: 1,
@@ -335,7 +337,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
   },
   // 完整FRONT p130/p133，R19–21；双目标共用骰、各自结算状态。
   {
-    id: "hero_skill:p130",
+    id: "hero_skill:core:h07:p130",
     hero: "PLAGUE DOCTOR",
     name: "Plague Grenade",
     level: 1,
@@ -345,7 +347,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     effects: [{ kind: "blight", amount: 3, duration: 2 }],
   },
   {
-    id: "hero_skill:p133",
+    id: "hero_skill:core:h07:p133",
     hero: "PLAGUE DOCTOR",
     name: "Blinding Gas",
     level: 1,
@@ -356,7 +358,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
   },
   // 完整FRONT p127/p136，R19–21；仅I级，不从未命名numeric推断时长。
   {
-    id: "hero_skill:p127",
+    id: "hero_skill:core:h07:p127",
     hero: "PLAGUE DOCTOR",
     name: "Noxious Blast",
     level: 1,
@@ -369,7 +371,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     ],
   },
   {
-    id: "hero_skill:p136",
+    id: "hero_skill:core:h07:p136",
     hero: "PLAGUE DOCTOR",
     name: "Incision",
     level: 1,
@@ -381,10 +383,10 @@ export const statusEntries: readonly StatusEffectEntry[] = [
 ];
 
 /** 已复核的印刷区间（R-048）：只附加已命名 range 图标旁的明确数字。 */
-export const rangeEntries: readonly RangeEntry[] = [
+const rangeEntries: readonly RangeEntry[] = [
   // 当前版完整FRONT p133；不向II/III级外推。
   {
-    id: "hero_skill:p133",
+    id: "hero_skill:core:h07:p133",
     name: "Blinding Gas",
     level: 1,
     min: 1,
@@ -393,7 +395,7 @@ export const rangeEntries: readonly RangeEntry[] = [
 ];
 
 /** 自身治疗 / 压力行（lineIndex 指向 self_effects 行）。 */
-export const selfEffectEntries: readonly SelfEffectEntry[] = [
+const selfEffectEntries: readonly SelfEffectEntry[] = [
   {
     id: "hero_skill:core:h07:p140",
     name: "Battlefield Medicine",
@@ -413,7 +415,7 @@ export const selfEffectEntries: readonly SelfEffectEntry[] = [
 ];
 
 /** 文本位移规则（scope + Push/Pull 原文）。 */
-export const shuffleEntries: readonly ShuffleEntry[] = [
+const shuffleEntries: readonly ShuffleEntry[] = [
   {
     id: "hero_skill:core:h07:p145",
     name: "Disorienting Blast",
@@ -441,7 +443,7 @@ export const shuffleEntries: readonly ShuffleEntry[] = [
 ];
 
 /** Battlefield Medicine 的 Remove Bleed/Blight 行；没有标记的行与同框治疗行配对。 */
-export const removalEntries: readonly RemovalEntry[] = [
+const removalEntries: readonly RemovalEntry[] = [
   {
     id: "hero_skill:core:h07:p139",
     name: "Battlefield Medicine",
@@ -483,3 +485,48 @@ export const removalEntries: readonly RemovalEntry[] = [
     kinds: ["bleed", "blight"],
   },
 ];
+
+const entries: HeroAnnotationEntries = {
+  higher: coreHigherRows,
+  status: statusEntries,
+  range: rangeEntries,
+  self: selfEffectEntries,
+  shuffle: shuffleEntries,
+  removal: removalEntries,
+  targetCount: [
+    { id: "hero_skill:core:h07:p127", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h07:p128", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h07:p129", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h07:p130", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:core:h07:p131", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:core:h07:p132", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:core:h07:p133", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:core:h07:p134", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:core:h07:p135", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:core:h07:p136", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h07:p137", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h07:p138", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h07:p139", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:core:h07:p140", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:core:h07:p141", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:core:h07:p145", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h07:p146", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h07:p147", hero: 0, monster: 1, heroOrMonster: 0 },
+  ],
+  effectKind: [
+    { id: "hero_skill:core:h07:p127", effect: "damage" },
+    { id: "hero_skill:core:h07:p128", effect: "damage" },
+    { id: "hero_skill:core:h07:p129", effect: "damage" },
+    { id: "hero_skill:core:h07:p130", effect: "damage" },
+    { id: "hero_skill:core:h07:p131", effect: "damage" },
+    { id: "hero_skill:core:h07:p132", effect: "damage" },
+    { id: "hero_skill:core:h07:p136", effect: "damage" },
+    { id: "hero_skill:core:h07:p137", effect: "damage" },
+    { id: "hero_skill:core:h07:p138", effect: "damage" },
+    { id: "hero_skill:core:h07:p139", effect: "heal" },
+    { id: "hero_skill:core:h07:p140", effect: "heal" },
+    { id: "hero_skill:core:h07:p141", effect: "heal" },
+  ],
+};
+
+export const h07 = defineHeroModule({ id: "h07", hero: "PLAGUE DOCTOR", entries });

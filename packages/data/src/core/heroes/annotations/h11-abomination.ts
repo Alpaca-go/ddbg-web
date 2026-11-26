@@ -5,11 +5,13 @@ import type {
   SelfEffectEntry,
   ShuffleEntry,
 } from "./types";
+import type { HeroAnnotationEntries } from "./types";
+import { defineHeroModule } from "./patch-helpers";
 
 /** 核心盒 Abomination II/III 级逐卡注解（Kyries 审阅；R-048 签名断言由 core-higher-skills 执行）。 */
-export const coreHigherRows: readonly CoreHigherSkillRow[] = [
+const coreHigherRows: readonly CoreHigherSkillRow[] = [
   {
-    id: "hero_skill:p212",
+    id: "hero_skill:core:h11:p212",
     name: "Manacles",
     level: 2,
     original: ["{target_effects} {stun} 1t"],
@@ -27,7 +29,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     },
   },
   {
-    id: "hero_skill:p213",
+    id: "hero_skill:core:h11:p213",
     name: "Manacles",
     level: 3,
     original: ["{target_effects} {stun} 1t"],
@@ -45,7 +47,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     },
   },
   {
-    id: "hero_skill:p215",
+    id: "hero_skill:core:h11:p215",
     name: "Beast’s Bile",
     level: 2,
     original: ["{target_effects} 2 {blight} 3t"],
@@ -69,7 +71,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     },
   },
   {
-    id: "hero_skill:p216",
+    id: "hero_skill:core:h11:p216",
     name: "Beast’s Bile",
     level: 3,
     original: ["{target_effects} 3 {blight} 3t"],
@@ -95,9 +97,9 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
 ];
 
 /** 完整印刷逐页核对的状态效果行（docs/phase2-four-core-skills-2026-10-11.md）。 */
-export const statusEntries: readonly StatusEffectEntry[] = [
+const statusEntries: readonly StatusEffectEntry[] = [
   {
-    id: "hero_skill:p211",
+    id: "hero_skill:core:h11:p211",
     name: "Manacles",
     level: 1,
     lineIndex: 0,
@@ -106,7 +108,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     effects: [{ kind: "stun", duration: 1 }],
   },
   {
-    id: "hero_skill:p214",
+    id: "hero_skill:core:h11:p214",
     name: "Beast’s Bile",
     level: 1,
     lineIndex: 0,
@@ -117,10 +119,10 @@ export const statusEntries: readonly StatusEffectEntry[] = [
 ];
 
 /** 已复核的印刷区间（R-048）：只附加已命名 range 图标旁的明确数字。 */
-export const rangeEntries: readonly RangeEntry[] = [
+const rangeEntries: readonly RangeEntry[] = [
   // R-207，已逐卡核对的 I 级区间。火枪手与弩手按 Q-185 对齐。
   {
-    id: "hero_skill:p214",
+    id: "hero_skill:core:h11:p214",
     name: "Beast’s Bile",
     level: 1,
     min: 1,
@@ -129,7 +131,7 @@ export const rangeEntries: readonly RangeEntry[] = [
 ];
 
 /** 自身治疗 / 压力行（lineIndex 指向 self_effects 行）。 */
-export const selfEffectEntries: readonly SelfEffectEntry[] = [
+const selfEffectEntries: readonly SelfEffectEntry[] = [
   {
     id: "hero_skill:core:h11:p217",
     name: "Absolution",
@@ -229,7 +231,7 @@ export const selfEffectEntries: readonly SelfEffectEntry[] = [
 ];
 
 /** 文本位移规则（scope + Push/Pull 原文）。 */
-export const shuffleEntries: readonly ShuffleEntry[] = [
+const shuffleEntries: readonly ShuffleEntry[] = [
   {
     id: "hero_skill:core:h11:p229",
     name: "Slam",
@@ -247,3 +249,56 @@ export const shuffleEntries: readonly ShuffleEntry[] = [
     text: "Push 2",
   },
 ];
+
+const entries: HeroAnnotationEntries = {
+  higher: coreHigherRows,
+  status: statusEntries,
+  range: rangeEntries,
+  self: selfEffectEntries,
+  shuffle: shuffleEntries,
+  targetCount: [
+    { id: "hero_skill:core:h11:p211", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h11:p212", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h11:p213", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h11:p214", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:core:h11:p215", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:core:h11:p216", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:core:h11:p217", hero: 0, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:core:h11:p218", hero: 0, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:core:h11:p219", hero: 0, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:core:h11:p220", hero: 0, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:core:h11:p221", hero: 0, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:core:h11:p222", hero: 0, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:core:h11:p223", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:core:h11:p224", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:core:h11:p225", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:core:h11:p226", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h11:p227", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h11:p228", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h11:p229", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h11:p230", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h11:p231", hero: 0, monster: 1, heroOrMonster: 0 },
+  ],
+  effectKind: [
+    { id: "hero_skill:core:h11:p211", effect: "damage" },
+    { id: "hero_skill:core:h11:p212", effect: "damage" },
+    { id: "hero_skill:core:h11:p213", effect: "damage" },
+    { id: "hero_skill:core:h11:p214", effect: "damage" },
+    { id: "hero_skill:core:h11:p215", effect: "damage" },
+    { id: "hero_skill:core:h11:p216", effect: "damage" },
+    { id: "hero_skill:core:h11:p217", effect: "heal" },
+    { id: "hero_skill:core:h11:p218", effect: "heal" },
+    { id: "hero_skill:core:h11:p219", effect: "heal" },
+    { id: "hero_skill:core:h11:p223", effect: "damage" },
+    { id: "hero_skill:core:h11:p224", effect: "damage" },
+    { id: "hero_skill:core:h11:p225", effect: "damage" },
+    { id: "hero_skill:core:h11:p226", effect: "damage" },
+    { id: "hero_skill:core:h11:p227", effect: "damage" },
+    { id: "hero_skill:core:h11:p228", effect: "damage" },
+    { id: "hero_skill:core:h11:p229", effect: "damage" },
+    { id: "hero_skill:core:h11:p230", effect: "damage" },
+    { id: "hero_skill:core:h11:p231", effect: "damage" },
+  ],
+};
+
+export const h11 = defineHeroModule({ id: "h11", hero: "ABOMINATION", entries });

@@ -1,130 +1,46 @@
 import type { NormalizedHeroSkillCard } from "../../../shared/schema";
-import {
-  rangeEntries as crusaderRanges,
-  selfEffectEntries as crusaderSelfEffects,
-  statusEntries as crusaderStatus,
-  supportEntries as crusaderSupport,
-  damageEntries as crusaderDamage,
-} from "./h01-crusader";
-import {
-  layoutEntries as hellionLayouts,
-  rangeEntries as hellionRanges,
-  statusEntries as hellionStatus,
-} from "./h02-hellion";
-import {
-  bountyStatusRows,
-  coreHigherRows as bountyHunterHigherRows,
-  layoutEntries as bountyHunterLayouts,
-  rangeEntries as bountyHunterRanges,
-  statusEntries as bountyHunterStatus,
-  damageEntries as bountyHunterDamage,
-} from "./h03-bounty-hunter";
-import {
-  rangeEntries as highwaymanRanges,
-  statusEntries as highwaymanStatus,
-  damageEntries as highwaymanDamage,
-} from "./h04-highwayman";
-import {
-  damageEntries as vestalDamage,
-  rangeEntries as vestalRanges,
-  selfEffectEntries as vestalSelfEffects,
-  statusEntries as vestalStatus,
-} from "./h05-vestal";
-import {
-  coreHigherRows as jesterHigherRows,
-  layoutEntries as jesterLayouts,
-  selfEffectEntries as jesterSelfEffects,
-  statusEntries as jesterStatus,
-  targetStressEntries as jesterTargetStress,
-} from "./h06-jester";
-import {
-  coreHigherRows as plagueDoctorHigherRows,
-  rangeEntries as plagueDoctorRanges,
-  selfEffectEntries as plagueDoctorSelfEffects,
-  statusEntries as plagueDoctorStatus,
-} from "./h07-plague-doctor";
-import {
-  coreHigherRows as arbalestHigherRows,
-  rallyingFlareEntries as arbalestRallyingFlare,
-  rangeEntries as arbalestRanges,
-  statusEntries as arbalestStatus,
-  damageEntries as arbalestDamage,
-} from "./h08-arbalest";
-import {
-  coreHigherRows as graveRobberHigherRows,
-  layoutEntries as graveRobberLayouts,
-  rangeEntries as graveRobberRanges,
-  statusEntries as graveRobberStatus,
-  damageEntries as graveRobberDamage,
-} from "./h09-grave-robber";
-import {
-  coreHigherRows as occultistHigherRows,
-  rangeEntries as occultistRanges,
-  statusEntries as occultistStatus,
-  damageEntries as occultistDamage,
-} from "./h10-occultist";
-import {
-  coreHigherRows as abominationHigherRows,
-  rangeEntries as abominationRanges,
-  selfEffectEntries as abominationSelfEffects,
-  statusEntries as abominationStatus,
-} from "./h11-abomination";
-import { manAtArmsAnnotations } from "./h12-man-at-arms";
-import {
-  flagellantAnnotations,
-  rangeEntries as flagellantRanges,
-  statusEntries as flagellantStatus,
-} from "./h13-flagellant";
-import { leperAnnotations, statusEntries as leperStatus } from "./h14-leper";
-import { antiquarianAnnotations, statusEntries as antiquarianStatus } from "./h15-antiquarian";
-import { shieldbreakerAnnotations } from "./h16-shieldbreaker";
-import { houndmasterAnnotations } from "./h17-houndmaster";
-import {
-  musketeerAnnotations,
-  rallyingFlareEntries as musketeerRallyingFlare,
-  rangeEntries as musketeerRanges,
-  statusEntries as musketeerStatus,
-  damageEntries as musketeerDamage,
-} from "./h18-musketeer";
+import { h01 } from "./h01-crusader";
+import { h02 } from "./h02-hellion";
+import { h03 } from "./h03-bounty-hunter";
+import { h04 } from "./h04-highwayman";
+import { h05 } from "./h05-vestal";
+import { h06 } from "./h06-jester";
+import { h07 } from "./h07-plague-doctor";
+import { h08 } from "./h08-arbalest";
+import { h09 } from "./h09-grave-robber";
+import { h10 } from "./h10-occultist";
+import { h11 } from "./h11-abomination";
+import { h12 } from "./h12-man-at-arms";
+import { h13 } from "./h13-flagellant";
+import { h14 } from "./h14-leper";
+import { h15 } from "./h15-antiquarian";
+import { h16 } from "./h16-shieldbreaker";
+import { h17 } from "./h17-houndmaster";
+import { h18 } from "./h18-musketeer";
 import { applyBountyStatuses } from "./bounty-statuses";
 import { applyDamage } from "./damage";
 import { applyEffectKind } from "./effect-kind";
-import { EFFECT_KINDS } from "./effect-kind-data";
 import { applyLayouts } from "./layout";
 import { applyRallyingFlare } from "./rallying-flare";
 import { applyRemoval } from "./removal";
-import { REMOVAL_RULES } from "./removal-data";
 import { applySelfEffects } from "./self-effects";
 import { applyTargetCounts } from "./target-counts";
-import { TARGET_COUNTS } from "./target-counts-data";
 import { applyTargetStress } from "./target-stress";
 import { applyTextRules } from "./text-rules";
-import { IGNORES_RULES, SHUFFLE_RULES } from "./text-rules-data";
 import { applyRangeEntries } from "./ranges";
 import { applyStatusEffects } from "./status-effects";
 import { applySupportEffects } from "./support-effects";
-import type {
-  BountyStatusRow,
-  DamageEntry,
-  CoreHigherSkillRow,
-  HeroAnnotationModule,
-  LayoutEntry,
-  RallyingFlareEntry,
-  RangeEntry,
-  SelfEffectEntry,
-  StatusEffectEntry,
-  SupportEffectEntry,
-  TargetStressEntry,
-  RemovalEntry,
-  TargetCountEntry,
-} from "./types";
+import type { HeroAnnotationEntries, HeroAnnotationModule } from "./types";
 
 export type {
   BountyStatusRow,
   DamageEntry,
   CoreHigherSkillFlags,
   CoreHigherSkillRow,
+  EffectKind,
+  EffectKindEntry,
   HeroAnnotationApplier,
+  HeroAnnotationEntries,
   HeroAnnotationModule,
   LayoutEntry,
   RallyingFlareEntry,
@@ -136,125 +52,85 @@ export type {
   RemovalEntry,
   TargetCountEntry,
 } from "./types";
+export type { CardFix } from "./patch-helpers";
+
+/** 18 名英雄的注解模块，按 hNN 升序应用。数据型模块的 apply 是 no-op。 */
+export const HERO_ANNOTATIONS: readonly HeroAnnotationModule[] = [
+  h01,
+  h02,
+  h03,
+  h04,
+  h05,
+  h06,
+  h07,
+  h08,
+  h09,
+  h10,
+  h11,
+  h12,
+  h13,
+  h14,
+  h15,
+  h16,
+  h17,
+  h18,
+];
+
+type EntryOf<K extends keyof HeroAnnotationEntries> = NonNullable<HeroAnnotationEntries[K]>[number];
+
+const entriesOf = <K extends keyof HeroAnnotationEntries>(key: K): EntryOf<K>[] =>
+  HERO_ANNOTATIONS.flatMap((module) => (module.entries[key] ?? []) as readonly EntryOf<K>[]);
 
 /**
  * 核心盒 II/III 级逐卡注解，按 hNN 拼接。
  * 同一张卡只会出现在一个英雄文件里，顺序不影响 `core-higher-skills` 的按 id 查找。
  */
-export const CORE_HIGHER_SKILL_ROWS: readonly CoreHigherSkillRow[] = [
-  ...bountyHunterHigherRows,
-  ...jesterHigherRows,
-  ...plagueDoctorHigherRows,
-  ...arbalestHigherRows,
-  ...graveRobberHigherRows,
-  ...occultistHigherRows,
-  ...abominationHigherRows,
-];
+export const CORE_HIGHER_SKILL_ROWS = entriesOf("higher");
 
 /**
  * 状态效果注解行，按 hNN 拼接。
  * 同一张卡的多行保持在同一份英雄文件里的原顺序，跨英雄顺序不影响结果。
  */
-export const STATUS_EFFECTS: readonly StatusEffectEntry[] = [
-  ...crusaderStatus,
-  ...hellionStatus,
-  ...bountyHunterStatus,
-  ...highwaymanStatus,
-  ...vestalStatus,
-  ...jesterStatus,
-  ...plagueDoctorStatus,
-  ...arbalestStatus,
-  ...graveRobberStatus,
-  ...occultistStatus,
-  ...abominationStatus,
-  ...flagellantStatus,
-  ...leperStatus,
-  ...antiquarianStatus,
-  ...musketeerStatus,
-];
+export const STATUS_EFFECTS = entriesOf("status");
 
 /** 已复核印刷区间行，按 hNN 拼接。 */
-export const RANGES: readonly RangeEntry[] = [
-  ...crusaderRanges,
-  ...hellionRanges,
-  ...bountyHunterRanges,
-  ...highwaymanRanges,
-  ...vestalRanges,
-  ...plagueDoctorRanges,
-  ...arbalestRanges,
-  ...graveRobberRanges,
-  ...occultistRanges,
-  ...abominationRanges,
-  ...flagellantRanges,
-  ...musketeerRanges,
-];
+export const RANGES = entriesOf("range");
 
 /** 自身治疗 / 压力行。 */
-export const SELF_EFFECTS: readonly SelfEffectEntry[] = [
-  ...crusaderSelfEffects,
-  ...vestalSelfEffects,
-  ...jesterSelfEffects,
-  ...plagueDoctorSelfEffects,
-  ...abominationSelfEffects,
-];
+export const SELF_EFFECTS = entriesOf("self");
 
 /** 目标压力行（目前只有 Jester 的 Inspiring Tune I–III）。 */
-export const TARGET_STRESS: readonly TargetStressEntry[] = [...jesterTargetStress];
+export const TARGET_STRESS = entriesOf("targetStress");
 
 /** 条件移除行（Battlefield Medicine、Toxin Trickery）。 */
-export const REMOVAL_ENTRIES: readonly RemovalEntry[] = [...REMOVAL_RULES];
+export const REMOVAL_ENTRIES = entriesOf("removal");
 
 /** 18 名英雄的区域目标数（A2 单元 3）。 */
-export const TARGET_COUNT_ENTRIES: readonly TargetCountEntry[] = [...TARGET_COUNTS];
+export const TARGET_COUNT_ENTRIES = entriesOf("targetCount");
 
 /** 18 名英雄 stats 行的主效果（A2 单元 4a）。 */
-export const EFFECT_KIND_ENTRIES = EFFECT_KINDS;
+export const EFFECT_KIND_ENTRIES = entriesOf("effectKind");
 
 /** 已复核支援效果行（当前只有 Crusader 的 Inspiring Cry I–III）。 */
-export const SUPPORT_EFFECTS: readonly SupportEffectEntry[] = [...crusaderSupport];
+export const SUPPORT_EFFECTS = entriesOf("support");
 
 /** Rallying Flare / Skeet Shot 逐卡行（Arbalest + Musketeer）。 */
-export const RALLYING_FLARE_ENTRIES: readonly RallyingFlareEntry[] = [
-  ...arbalestRallyingFlare,
-  ...musketeerRallyingFlare,
-];
+export const RALLYING_FLARE_ENTRIES = entriesOf("rallyingFlare");
 
 /** 赏金猎人限定状态卡行。 */
-export const BOUNTY_STATUS_ROWS: readonly BountyStatusRow[] = [...bountyStatusRows];
+export const BOUNTY_STATUS_ROWS = entriesOf("bounty");
 
 /** 逐卡效果框布局行。 */
-export const LAYOUT_ENTRIES: readonly LayoutEntry[] = [
-  ...hellionLayouts,
-  ...bountyHunterLayouts,
-  ...jesterLayouts,
-  ...graveRobberLayouts,
-];
+export const LAYOUT_ENTRIES = entriesOf("layout");
 
 /** 已复核条件伤害行。 */
-export const DAMAGE_ENTRIES: readonly DamageEntry[] = [
-  ...crusaderDamage,
-  ...bountyHunterDamage,
-  ...highwaymanDamage,
-  ...vestalDamage,
-  ...arbalestDamage,
-  ...graveRobberDamage,
-  ...occultistDamage,
-  ...musketeerDamage,
-];
+export const DAMAGE_ENTRIES = entriesOf("damage");
 
-/**
- * 已入库的逐卡审校模块，按 hNN 升序排列。
- * 每个模块只碰自己英雄的卡，顺序不影响结果；新增英雄时在对应位置插入。
- */
-export const HERO_ANNOTATIONS: readonly HeroAnnotationModule[] = [
-  manAtArmsAnnotations,
-  flagellantAnnotations,
-  leperAnnotations,
-  antiquarianAnnotations,
-  shieldbreakerAnnotations,
-  houndmasterAnnotations,
-  musketeerAnnotations,
-];
+/** 文本位移规则。 */
+export const SHUFFLE_ENTRIES = entriesOf("shuffle");
+
+/** Ignores Protection / Guard 规则。 */
+export const IGNORES_ENTRIES = entriesOf("ignores");
 
 export function applyHeroAnnotations(
   cards: readonly NormalizedHeroSkillCard[],
@@ -334,5 +210,5 @@ export function applyHeroEffectKind(
 export function applyHeroTextRules(
   cards: readonly NormalizedHeroSkillCard[],
 ): NormalizedHeroSkillCard[] {
-  return applyTextRules(cards, SHUFFLE_RULES, IGNORES_RULES);
+  return applyTextRules(cards, SHUFFLE_ENTRIES, IGNORES_ENTRIES);
 }

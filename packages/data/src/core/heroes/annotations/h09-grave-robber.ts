@@ -8,11 +8,13 @@ import type {
   IgnoresEntry,
   RemovalEntry,
 } from "./types";
+import type { HeroAnnotationEntries } from "./types";
+import { defineHeroModule } from "./patch-helpers";
 
 /** 核心盒 Grave Robber II/III 级逐卡注解（Kyries 审阅；R-048 签名断言由 core-higher-skills 执行）。 */
-export const coreHigherRows: readonly CoreHigherSkillRow[] = [
+const coreHigherRows: readonly CoreHigherSkillRow[] = [
   {
-    id: "hero_skill:p173",
+    id: "hero_skill:core:h09:p173",
     name: "Lunge",
     level: 2,
     original: ["{self_effects} Self {shuffle} Pull 2", "{target_effects} {damage} +4 vs {blight}"],
@@ -27,7 +29,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     },
   },
   {
-    id: "hero_skill:p174",
+    id: "hero_skill:core:h09:p174",
     name: "Lunge",
     level: 3,
     original: ["{self_effects} Self {shuffle} Pull 2", "{target_effects} {damage} +6 vs {blight}"],
@@ -42,7 +44,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     },
   },
   {
-    id: "hero_skill:p176",
+    id: "hero_skill:core:h09:p176",
     name: "Flashing Daggers",
     level: 2,
     original: ["{target_effects} {debuff} 1t"],
@@ -60,7 +62,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     },
   },
   {
-    id: "hero_skill:p177",
+    id: "hero_skill:core:h09:p177",
     name: "Flashing Daggers",
     level: 3,
     original: ["{target_effects} {debuff} 2t"],
@@ -78,7 +80,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     },
   },
   {
-    id: "hero_skill:p179",
+    id: "hero_skill:core:h09:p179",
     name: "Shadow Fade",
     level: 2,
     original: ["{range} Self", "{self_effects} Self {buff} 3t, {shuffle} Push 2"],
@@ -96,7 +98,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     },
   },
   {
-    id: "hero_skill:p180",
+    id: "hero_skill:core:h09:p180",
     name: "Shadow Fade",
     level: 3,
     original: ["{range} Self", "{self_effects} Self {buff} 4t, {shuffle} Push 2"],
@@ -114,7 +116,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     },
   },
   {
-    id: "hero_skill:p182",
+    id: "hero_skill:core:h09:p182",
     name: "Throw Dagger",
     level: 2,
     original: ["{target_effects} {damage} +2 vs {blight}", "{damage} +3 vs {mark}"],
@@ -142,7 +144,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     },
   },
   {
-    id: "hero_skill:p183",
+    id: "hero_skill:core:h09:p183",
     name: "Throw Dagger",
     level: 3,
     original: ["{target_effects} {damage} +3 vs {blight}", "{damage} +4 vs {mark}"],
@@ -170,7 +172,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     },
   },
   {
-    id: "hero_skill:p185",
+    id: "hero_skill:core:h09:p185",
     name: "Poison Dart",
     level: 2,
     original: ["{target_effects} 3 {blight} 3t"],
@@ -194,7 +196,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     },
   },
   {
-    id: "hero_skill:p186",
+    id: "hero_skill:core:h09:p186",
     name: "Poison Dart",
     level: 3,
     original: ["{target_effects} 4 {blight} 3t"],
@@ -218,7 +220,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     },
   },
   {
-    id: "hero_skill:p188",
+    id: "hero_skill:core:h09:p188",
     name: "Toxin Trickery",
     level: 2,
     original: [
@@ -259,7 +261,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     },
   },
   {
-    id: "hero_skill:p189",
+    id: "hero_skill:core:h09:p189",
     name: "Toxin Trickery",
     level: 3,
     original: [
@@ -302,10 +304,10 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
 ];
 
 /** 完整印刷逐页核对的状态效果行（docs/phase2-four-core-skills-2026-10-11.md）。 */
-export const statusEntries: readonly StatusEffectEntry[] = [
+const statusEntries: readonly StatusEffectEntry[] = [
   // 完整FRONT p184：目标 Blight 2·3t；仅 I 级。
   {
-    id: "hero_skill:p184",
+    id: "hero_skill:core:h09:p184",
     hero: "GRAVE ROBBER",
     name: "Poison Dart",
     level: 1,
@@ -316,7 +318,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
   },
   // 完整FRONT p178：无 Acc；射程 Self 行由 selfHeaders 计入，Buff 2t 与 Push 2 同行。
   {
-    id: "hero_skill:p178",
+    id: "hero_skill:core:h09:p178",
     hero: "GRAVE ROBBER",
     name: "Shadow Fade",
     level: 1,
@@ -327,7 +329,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
   },
   // 完整FRONT p187：无 Acc；Buff 与换行 Remove Bleed/Blight 分列，不套 hero 行数闸。
   {
-    id: "hero_skill:p187",
+    id: "hero_skill:core:h09:p187",
     name: "Toxin Trickery",
     level: 1,
     lineIndex: 1,
@@ -338,17 +340,17 @@ export const statusEntries: readonly StatusEffectEntry[] = [
 ];
 
 /** 已复核的印刷区间（R-048）：只附加已命名 range 图标旁的明确数字。 */
-export const rangeEntries: readonly RangeEntry[] = [
+const rangeEntries: readonly RangeEntry[] = [
   // 当前版完整FRONT p181/p184；不向II/III级外推。
   {
-    id: "hero_skill:p181",
+    id: "hero_skill:core:h09:p181",
     name: "Throw Dagger",
     level: 1,
     min: 1,
     max: 2,
   },
   {
-    id: "hero_skill:p184",
+    id: "hero_skill:core:h09:p184",
     name: "Poison Dart",
     level: 1,
     min: 1,
@@ -357,10 +359,10 @@ export const rangeEntries: readonly RangeEntry[] = [
 ];
 
 /** 逐卡已复核的效果框布局（R-048）。 */
-export const layoutEntries: readonly LayoutEntry[] = [
+const layoutEntries: readonly LayoutEntry[] = [
   {
     kind: "target-box",
-    id: "hero_skill:p181",
+    id: "hero_skill:core:h09:p181",
     hero: "GRAVE ROBBER",
     name: "Throw Dagger",
     page: 181,
@@ -371,9 +373,9 @@ export const layoutEntries: readonly LayoutEntry[] = [
 ];
 
 /** 已复核条件伤害（只录已命名 damage 图标与明文条件）。 */
-export const damageEntries: readonly DamageEntry[] = [
+const damageEntries: readonly DamageEntry[] = [
   {
-    id: "hero_skill:p172",
+    id: "hero_skill:core:h09:p172",
     name: "Lunge",
     level: 1,
     page: 172,
@@ -385,7 +387,7 @@ export const damageEntries: readonly DamageEntry[] = [
 ];
 
 /** 文本位移规则（scope + Push/Pull 原文）。 */
-export const shuffleEntries: readonly ShuffleEntry[] = [
+const shuffleEntries: readonly ShuffleEntry[] = [
   {
     id: "hero_skill:core:h09:p172",
     name: "Lunge",
@@ -437,7 +439,7 @@ export const shuffleEntries: readonly ShuffleEntry[] = [
 ];
 
 /** Ignores Protection / Guard 规则。 */
-export const ignoresEntries: readonly IgnoresEntry[] = [
+const ignoresEntries: readonly IgnoresEntry[] = [
   {
     id: "hero_skill:core:h09:p169",
     name: "Pick to the Face",
@@ -462,7 +464,7 @@ export const ignoresEntries: readonly IgnoresEntry[] = [
 ];
 
 /** Toxin Trickery 的 Remove Bleed/Blight 行；按卡面效果框顺序配对自身/目标。 */
-export const removalEntries: readonly RemovalEntry[] = [
+const removalEntries: readonly RemovalEntry[] = [
   {
     id: "hero_skill:core:h09:p187",
     name: "Toxin Trickery",
@@ -504,3 +506,54 @@ export const removalEntries: readonly RemovalEntry[] = [
     kinds: ["bleed", "blight"],
   },
 ];
+
+const entries: HeroAnnotationEntries = {
+  higher: coreHigherRows,
+  status: statusEntries,
+  range: rangeEntries,
+  layout: layoutEntries,
+  damage: damageEntries,
+  shuffle: shuffleEntries,
+  ignores: ignoresEntries,
+  removal: removalEntries,
+  targetCount: [
+    { id: "hero_skill:core:h09:p169", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h09:p170", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h09:p171", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h09:p172", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h09:p173", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h09:p174", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h09:p175", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:core:h09:p176", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:core:h09:p177", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:core:h09:p178", hero: 0, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:core:h09:p179", hero: 0, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:core:h09:p180", hero: 0, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:core:h09:p181", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h09:p182", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h09:p183", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h09:p184", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h09:p185", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h09:p186", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h09:p187", hero: 0, monster: 0, heroOrMonster: 0 },
+  ],
+  effectKind: [
+    { id: "hero_skill:core:h09:p169", effect: "damage" },
+    { id: "hero_skill:core:h09:p170", effect: "damage" },
+    { id: "hero_skill:core:h09:p171", effect: "damage" },
+    { id: "hero_skill:core:h09:p172", effect: "damage" },
+    { id: "hero_skill:core:h09:p173", effect: "damage" },
+    { id: "hero_skill:core:h09:p174", effect: "damage" },
+    { id: "hero_skill:core:h09:p175", effect: "damage" },
+    { id: "hero_skill:core:h09:p176", effect: "damage" },
+    { id: "hero_skill:core:h09:p177", effect: "damage" },
+    { id: "hero_skill:core:h09:p181", effect: "damage" },
+    { id: "hero_skill:core:h09:p182", effect: "damage" },
+    { id: "hero_skill:core:h09:p183", effect: "damage" },
+    { id: "hero_skill:core:h09:p184", effect: "damage" },
+    { id: "hero_skill:core:h09:p185", effect: "damage" },
+    { id: "hero_skill:core:h09:p186", effect: "damage" },
+  ],
+};
+
+export const h09 = defineHeroModule({ id: "h09", hero: "GRAVE ROBBER", entries });

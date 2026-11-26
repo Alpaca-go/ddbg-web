@@ -1,14 +1,24 @@
 import { parseAnnotatedHeroSkillCard } from "../../../shared/schema";
-import type { HeroAnnotationModule, StatusEffectEntry, RangeEntry } from "./types";
+import type { StatusEffectEntry, RangeEntry } from "./types";
+import type { HeroAnnotationEntries } from "./types";
 import { lineSignature } from "./shared";
 import type { NormalizedHeroSkillCard, Segment } from "../../../shared/schema";
-import { cloneKey, iconFromCard, iconFromPool, segmentOnCard, text } from "./patch-helpers";
+import {
+  assertCardMeta,
+  defineHeroModule,
+  cloneKey,
+  iconFromCard,
+  iconFromPool,
+  segmentOnCard,
+  text,
+} from "./patch-helpers";
+import type { CardFix } from "./patch-helpers";
 
 /** 完整印刷逐页核对的状态效果行（docs/phase2-four-core-skills-2026-10-11.md）。 */
-export const statusEntries: readonly StatusEffectEntry[] = [
+const statusEntries: readonly StatusEffectEntry[] = [
   // R-200 / Cove Flagellant I–III（TDH p253–p273，Q-172～175）。
   {
-    id: "hero_skill:p253",
+    id: "hero_skill:cove:h13:p253",
     name: "Punish",
     level: 1,
     lineIndex: 1,
@@ -20,7 +30,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     ],
   },
   {
-    id: "hero_skill:p254",
+    id: "hero_skill:cove:h13:p254",
     name: "Punish",
     level: 2,
     lineIndex: 1,
@@ -32,7 +42,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     ],
   },
   {
-    id: "hero_skill:p255",
+    id: "hero_skill:cove:h13:p255",
     name: "Punish",
     level: 3,
     lineIndex: 1,
@@ -44,7 +54,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     ],
   },
   {
-    id: "hero_skill:p256",
+    id: "hero_skill:cove:h13:p256",
     name: "Rain of Sorrows",
     level: 1,
     lineIndex: 1,
@@ -53,7 +63,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     effects: [{ kind: "blight", amount: 3, duration: 2 }],
   },
   {
-    id: "hero_skill:p257",
+    id: "hero_skill:cove:h13:p257",
     name: "Rain of Sorrows",
     level: 2,
     lineIndex: 1,
@@ -62,7 +72,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     effects: [{ kind: "blight", amount: 3, duration: 3 }],
   },
   {
-    id: "hero_skill:p258",
+    id: "hero_skill:cove:h13:p258",
     name: "Rain of Sorrows",
     level: 3,
     lineIndex: 1,
@@ -71,7 +81,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     effects: [{ kind: "blight", amount: 3, duration: 4 }],
   },
   {
-    id: "hero_skill:p259",
+    id: "hero_skill:cove:h13:p259",
     name: "Exsanguinate",
     level: 1,
     lineIndex: 0,
@@ -80,7 +90,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     effects: [{ kind: "debuff", duration: 1 }],
   },
   {
-    id: "hero_skill:p259",
+    id: "hero_skill:cove:h13:p259",
     name: "Exsanguinate",
     level: 1,
     lineIndex: 1,
@@ -89,7 +99,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     effects: [{ kind: "bleed", amount: 2, duration: 3 }],
   },
   {
-    id: "hero_skill:p260",
+    id: "hero_skill:cove:h13:p260",
     name: "Exsanguinate",
     level: 2,
     lineIndex: 0,
@@ -98,7 +108,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     effects: [{ kind: "debuff", duration: 1 }],
   },
   {
-    id: "hero_skill:p260",
+    id: "hero_skill:cove:h13:p260",
     name: "Exsanguinate",
     level: 2,
     lineIndex: 1,
@@ -107,7 +117,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     effects: [{ kind: "bleed", amount: 3, duration: 3 }],
   },
   {
-    id: "hero_skill:p261",
+    id: "hero_skill:cove:h13:p261",
     name: "Exsanguinate",
     level: 3,
     lineIndex: 0,
@@ -116,7 +126,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     effects: [{ kind: "debuff", duration: 1 }],
   },
   {
-    id: "hero_skill:p261",
+    id: "hero_skill:cove:h13:p261",
     name: "Exsanguinate",
     level: 3,
     lineIndex: 1,
@@ -125,7 +135,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     effects: [{ kind: "bleed", amount: 3, duration: 4 }],
   },
   {
-    id: "hero_skill:p262",
+    id: "hero_skill:cove:h13:p262",
     name: "Reclaim",
     level: 1,
     lineIndex: 0,
@@ -134,7 +144,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     effects: [{ kind: "bleed", amount: 1, duration: 3 }],
   },
   {
-    id: "hero_skill:p263",
+    id: "hero_skill:cove:h13:p263",
     name: "Reclaim",
     level: 2,
     lineIndex: 0,
@@ -143,7 +153,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     effects: [{ kind: "bleed", amount: 1, duration: 3 }],
   },
   {
-    id: "hero_skill:p264",
+    id: "hero_skill:cove:h13:p264",
     name: "Reclaim",
     level: 3,
     lineIndex: 0,
@@ -152,7 +162,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     effects: [{ kind: "bleed", amount: 1, duration: 3 }],
   },
   {
-    id: "hero_skill:p271",
+    id: "hero_skill:cove:h13:p271",
     name: "Suffer",
     level: 1,
     lineIndex: 3,
@@ -165,7 +175,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     ],
   },
   {
-    id: "hero_skill:p272",
+    id: "hero_skill:cove:h13:p272",
     name: "Suffer",
     level: 2,
     lineIndex: 3,
@@ -178,7 +188,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     ],
   },
   {
-    id: "hero_skill:p273",
+    id: "hero_skill:cove:h13:p273",
     name: "Suffer",
     level: 3,
     lineIndex: 3,
@@ -193,37 +203,37 @@ export const statusEntries: readonly StatusEffectEntry[] = [
 ];
 
 /** 已复核的印刷区间（R-048）：只附加已命名 range 图标旁的明确数字。 */
-export const rangeEntries: readonly RangeEntry[] = [
+const rangeEntries: readonly RangeEntry[] = [
   {
-    id: "hero_skill:p262",
+    id: "hero_skill:cove:h13:p262",
     name: "Reclaim",
     level: 1,
     min: 0,
     max: 1,
   },
   {
-    id: "hero_skill:p263",
+    id: "hero_skill:cove:h13:p263",
     name: "Reclaim",
     level: 2,
     min: 0,
     max: 1,
   },
   {
-    id: "hero_skill:p264",
+    id: "hero_skill:cove:h13:p264",
     name: "Reclaim",
     level: 3,
     min: 0,
     max: 1,
   },
   {
-    id: "hero_skill:p269",
+    id: "hero_skill:cove:h13:p269",
     name: "Endure",
     level: 2,
     min: 1,
     max: 2,
   },
   {
-    id: "hero_skill:p270",
+    id: "hero_skill:cove:h13:p270",
     name: "Endure",
     level: 3,
     min: 1,
@@ -237,15 +247,7 @@ function assertFlagellant(
   name: string,
   level: number,
 ) {
-  if (
-    card.id !== `hero_skill:p${page}` ||
-    card.hero !== "FLAGELLANT" ||
-    card.name !== name ||
-    card.level !== level ||
-    card.pages[0] !== page ||
-    card.verification.unverified
-  )
-    throw new Error(`${card.id} 元数据漂移（R-048）`);
+  assertCardMeta(card, "FLAGELLANT", page, name, level);
 }
 
 function fixStatsDamageBuff(card: NormalizedHeroSkillCard, expectedStats: string) {
@@ -527,136 +529,157 @@ function fixSuffer(
 /**
  * R-200 / Q-172～175：Flagellant I–III 逐卡印刷覆盖（签名断言 + 必要 icon key 修正，不改全局词典）。
  */
-function applyFlagellantAnnotations(
+function flagellantFixes(
   cards: readonly NormalizedHeroSkillCard[],
-): NormalizedHeroSkillCard[] {
-  return cards.map((card) => {
-    switch (card.id) {
-      case "hero_skill:p253":
-        return fixPunishFamily(
-          card,
-          cards,
-          253,
-          1,
-          "{range} 1 {target_monster} Crit 1 {buff} 7 Acc 10 {buff} 4",
-          2,
-          2,
-          2,
-        );
-      case "hero_skill:p254":
-        return fixPunishFamily(
-          card,
-          cards,
-          254,
-          2,
-          "{range} 1 {target_monster} Crit 1 {buff} 9 Acc 11 {buff} 6",
-          2,
-          3,
-          2,
-        );
-      case "hero_skill:p255":
-        return fixPunishFamily(
-          card,
-          cards,
-          255,
-          3,
-          "{range} 1 {target_monster} Crit 1 {buff} 12 Acc 12 {buff} 8",
-          3,
-          3,
-          2,
-        );
-      case "hero_skill:p256":
-        return fixRainFamily(
-          card,
-          cards,
-          256,
-          1,
-          "{range} 2 {target_monster} {target_monster} Crit 1 {buff} 5 Acc 10 {buff} 2",
-          3,
-          2,
-          2,
-        );
-      case "hero_skill:p257":
-        return fixRainFamily(
-          card,
-          cards,
-          257,
-          2,
-          "{range} 2 {target_monster} {target_monster} Crit 1 {buff} 6 Acc 11 {buff} 3",
-          3,
-          3,
-          3,
-        );
-      case "hero_skill:p258":
-        return fixRainFamily(
-          card,
-          cards,
-          258,
-          3,
-          "{range} 2 {target_monster} {target_monster} Crit 1 {buff} 8 Acc 12 {buff} 4",
-          3,
-          4,
-          4,
-        );
-      case "hero_skill:p259":
-        return fixExsanguinate(card, cards, 259, 1, 3, 2, 3);
-      case "hero_skill:p260":
-        return fixExsanguinate(card, cards, 260, 2, 5, 3, 3);
-      case "hero_skill:p261":
-        return fixExsanguinate(card, cards, 261, 3, 7, 3, 4);
-      case "hero_skill:p262":
-        return fixReclaim(
-          card,
-          cards,
-          262,
-          1,
-          "{range} 0-1 {target_hero} Crit 2 {damage_or_heal_combined_marker} {heal} 4 Acc 12 {damage_or_heal_combined_marker} {heal} 2",
-          false,
-        );
-      case "hero_skill:p263":
-        return fixReclaim(
-          card,
-          cards,
-          263,
-          2,
-          "{range} 0-1 {target_hero} Crit 2 {heal} {heal} 6 Acc 14 {heal} {heal} 3",
-          false,
-        );
-      case "hero_skill:p264":
-        return fixReclaim(
-          card,
-          cards,
-          264,
-          3,
-          "{range} 0-1 {target_hero} Crit 2 {heal} {heal} 8 Acc 16 {buff} {heal} 4",
-          true,
-        );
-      case "hero_skill:p265":
-        return fixRedeem(card, cards, 265, 1, 3);
-      case "hero_skill:p266":
-        return fixRedeem(card, cards, 266, 2, 5);
-      case "hero_skill:p267":
-        return fixRedeem(card, cards, 267, 3, 7);
-      case "hero_skill:p268":
-        return fixEndure(card, cards, 268, 1);
-      case "hero_skill:p269":
-        return fixEndure(card, cards, 269, 2);
-      case "hero_skill:p270":
-        return fixEndure(card, cards, 270, 3);
-      case "hero_skill:p271":
-        return fixSuffer(card, cards, 271, 1, 2, 2);
-      case "hero_skill:p272":
-        return fixSuffer(card, cards, 272, 2, 2, 3);
-      case "hero_skill:p273":
-        return fixSuffer(card, cards, 273, 3, 1, 4);
-      default:
-        return card;
-    }
-  });
+): Readonly<Record<string, CardFix>> {
+  return {
+    "hero_skill:cove:h13:p253": (card) =>
+      fixPunishFamily(
+        card,
+        cards,
+        253,
+        1,
+        "{range} 1 {target_monster} Crit 1 {buff} 7 Acc 10 {buff} 4",
+        2,
+        2,
+        2,
+      ),
+    "hero_skill:cove:h13:p254": (card) =>
+      fixPunishFamily(
+        card,
+        cards,
+        254,
+        2,
+        "{range} 1 {target_monster} Crit 1 {buff} 9 Acc 11 {buff} 6",
+        2,
+        3,
+        2,
+      ),
+    "hero_skill:cove:h13:p255": (card) =>
+      fixPunishFamily(
+        card,
+        cards,
+        255,
+        3,
+        "{range} 1 {target_monster} Crit 1 {buff} 12 Acc 12 {buff} 8",
+        3,
+        3,
+        2,
+      ),
+    "hero_skill:cove:h13:p256": (card) =>
+      fixRainFamily(
+        card,
+        cards,
+        256,
+        1,
+        "{range} 2 {target_monster} {target_monster} Crit 1 {buff} 5 Acc 10 {buff} 2",
+        3,
+        2,
+        2,
+      ),
+    "hero_skill:cove:h13:p257": (card) =>
+      fixRainFamily(
+        card,
+        cards,
+        257,
+        2,
+        "{range} 2 {target_monster} {target_monster} Crit 1 {buff} 6 Acc 11 {buff} 3",
+        3,
+        3,
+        3,
+      ),
+    "hero_skill:cove:h13:p258": (card) =>
+      fixRainFamily(
+        card,
+        cards,
+        258,
+        3,
+        "{range} 2 {target_monster} {target_monster} Crit 1 {buff} 8 Acc 12 {buff} 4",
+        3,
+        4,
+        4,
+      ),
+    "hero_skill:cove:h13:p259": (card) => fixExsanguinate(card, cards, 259, 1, 3, 2, 3),
+    "hero_skill:cove:h13:p260": (card) => fixExsanguinate(card, cards, 260, 2, 5, 3, 3),
+    "hero_skill:cove:h13:p261": (card) => fixExsanguinate(card, cards, 261, 3, 7, 3, 4),
+    "hero_skill:cove:h13:p262": (card) =>
+      fixReclaim(
+        card,
+        cards,
+        262,
+        1,
+        "{range} 0-1 {target_hero} Crit 2 {damage_or_heal_combined_marker} {heal} 4 Acc 12 {damage_or_heal_combined_marker} {heal} 2",
+        false,
+      ),
+    "hero_skill:cove:h13:p263": (card) =>
+      fixReclaim(
+        card,
+        cards,
+        263,
+        2,
+        "{range} 0-1 {target_hero} Crit 2 {heal} {heal} 6 Acc 14 {heal} {heal} 3",
+        false,
+      ),
+    "hero_skill:cove:h13:p264": (card) =>
+      fixReclaim(
+        card,
+        cards,
+        264,
+        3,
+        "{range} 0-1 {target_hero} Crit 2 {heal} {heal} 8 Acc 16 {buff} {heal} 4",
+        true,
+      ),
+    "hero_skill:cove:h13:p265": (card) => fixRedeem(card, cards, 265, 1, 3),
+    "hero_skill:cove:h13:p266": (card) => fixRedeem(card, cards, 266, 2, 5),
+    "hero_skill:cove:h13:p267": (card) => fixRedeem(card, cards, 267, 3, 7),
+    "hero_skill:cove:h13:p268": (card) => fixEndure(card, cards, 268, 1),
+    "hero_skill:cove:h13:p269": (card) => fixEndure(card, cards, 269, 2),
+    "hero_skill:cove:h13:p270": (card) => fixEndure(card, cards, 270, 3),
+    "hero_skill:cove:h13:p271": (card) => fixSuffer(card, cards, 271, 1, 2, 2),
+    "hero_skill:cove:h13:p272": (card) => fixSuffer(card, cards, 272, 2, 2, 3),
+    "hero_skill:cove:h13:p273": (card) => fixSuffer(card, cards, 273, 3, 1, 4),
+  };
 }
 
-export const flagellantAnnotations: HeroAnnotationModule = {
+const entries: HeroAnnotationEntries = {
+  status: statusEntries,
+  range: rangeEntries,
+  targetCount: [
+    { id: "hero_skill:cove:h13:p253", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h13:p254", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h13:p255", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h13:p256", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h13:p257", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h13:p258", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h13:p259", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h13:p260", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h13:p261", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h13:p262", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h13:p263", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h13:p264", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h13:p268", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h13:p269", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h13:p270", hero: 1, monster: 0, heroOrMonster: 0 },
+  ],
+  effectKind: [
+    { id: "hero_skill:cove:h13:p253", effect: "damage" },
+    { id: "hero_skill:cove:h13:p254", effect: "damage" },
+    { id: "hero_skill:cove:h13:p255", effect: "damage" },
+    { id: "hero_skill:cove:h13:p256", effect: "damage" },
+    { id: "hero_skill:cove:h13:p257", effect: "damage" },
+    { id: "hero_skill:cove:h13:p258", effect: "damage" },
+    { id: "hero_skill:cove:h13:p259", effect: "damage" },
+    { id: "hero_skill:cove:h13:p260", effect: "damage" },
+    { id: "hero_skill:cove:h13:p261", effect: "damage" },
+    { id: "hero_skill:cove:h13:p262", effect: "heal" },
+    { id: "hero_skill:cove:h13:p263", effect: "heal" },
+    { id: "hero_skill:cove:h13:p264", effect: "heal" },
+  ],
+};
+
+export const h13 = defineHeroModule({
   id: "h13",
   hero: "FLAGELLANT",
-  apply: applyFlagellantAnnotations,
-};
+  entries,
+  fixes: flagellantFixes,
+});

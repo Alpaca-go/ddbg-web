@@ -1,9 +1,11 @@
 import type { StatusEffectEntry, RangeEntry, LayoutEntry, ShuffleEntry } from "./types";
+import type { HeroAnnotationEntries } from "./types";
+import { defineHeroModule } from "./patch-helpers";
 
 /** 完整印刷逐页核对的状态效果行（docs/phase2-four-core-skills-2026-10-11.md）。 */
-export const statusEntries: readonly StatusEffectEntry[] = [
+const statusEntries: readonly StatusEffectEntry[] = [
   {
-    id: "hero_skill:p028",
+    id: "hero_skill:core:h02:p028",
     name: "Barbaric YAWP!",
     level: 1,
     lineIndex: 0,
@@ -17,7 +19,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     ],
   },
   {
-    id: "hero_skill:p029",
+    id: "hero_skill:core:h02:p029",
     name: "Barbaric YAWP!",
     level: 2,
     lineIndex: 0,
@@ -31,7 +33,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     ],
   },
   {
-    id: "hero_skill:p030",
+    id: "hero_skill:core:h02:p030",
     name: "Barbaric YAWP!",
     level: 3,
     lineIndex: 0,
@@ -45,7 +47,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     ],
   },
   {
-    id: "hero_skill:p031",
+    id: "hero_skill:core:h02:p031",
     name: "If It Bleeds",
     level: 1,
     lineIndex: 0,
@@ -60,7 +62,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     ],
   },
   {
-    id: "hero_skill:p032",
+    id: "hero_skill:core:h02:p032",
     name: "If It Bleeds",
     level: 2,
     lineIndex: 0,
@@ -75,7 +77,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     ],
   },
   {
-    id: "hero_skill:p033",
+    id: "hero_skill:core:h02:p033",
     name: "If It Bleeds",
     level: 3,
     lineIndex: 0,
@@ -90,7 +92,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     ],
   },
   {
-    id: "hero_skill:p037",
+    id: "hero_skill:core:h02:p037",
     name: "Adrenaline Rush",
     level: 1,
     lineIndex: 1,
@@ -104,7 +106,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     ],
   },
   {
-    id: "hero_skill:p038",
+    id: "hero_skill:core:h02:p038",
     name: "Adrenaline Rush",
     level: 2,
     lineIndex: 0,
@@ -118,7 +120,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     ],
   },
   {
-    id: "hero_skill:p038",
+    id: "hero_skill:core:h02:p038",
     name: "Adrenaline Rush",
     level: 2,
     lineIndex: 1,
@@ -132,7 +134,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     ],
   },
   {
-    id: "hero_skill:p039",
+    id: "hero_skill:core:h02:p039",
     name: "Adrenaline Rush",
     level: 3,
     lineIndex: 0,
@@ -146,7 +148,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     ],
   },
   {
-    id: "hero_skill:p039",
+    id: "hero_skill:core:h02:p039",
     name: "Adrenaline Rush",
     level: 3,
     lineIndex: 1,
@@ -160,7 +162,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     ],
   },
   {
-    id: "hero_skill:p040",
+    id: "hero_skill:core:h02:p040",
     name: "Bleed Out",
     level: 1,
     lineIndex: 1,
@@ -175,7 +177,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     ],
   },
   {
-    id: "hero_skill:p041",
+    id: "hero_skill:core:h02:p041",
     name: "Bleed Out",
     level: 2,
     lineIndex: 1,
@@ -190,7 +192,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     ],
   },
   {
-    id: "hero_skill:p042",
+    id: "hero_skill:core:h02:p042",
     name: "Bleed Out",
     level: 3,
     lineIndex: 1,
@@ -207,16 +209,16 @@ export const statusEntries: readonly StatusEffectEntry[] = [
 ];
 
 /** 已复核的印刷区间（R-048）：只附加已命名 range 图标旁的明确数字。 */
-export const rangeEntries: readonly RangeEntry[] = [
+const rangeEntries: readonly RangeEntry[] = [
   {
-    id: "hero_skill:p038",
+    id: "hero_skill:core:h02:p038",
     name: "Adrenaline Rush",
     level: 2,
     min: 0,
     max: 1,
   },
   {
-    id: "hero_skill:p039",
+    id: "hero_skill:core:h02:p039",
     name: "Adrenaline Rush",
     level: 3,
     min: 0,
@@ -225,10 +227,10 @@ export const rangeEntries: readonly RangeEntry[] = [
 ];
 
 /** 逐卡已复核的效果框布局（R-048）。 */
-export const layoutEntries: readonly LayoutEntry[] = [
+const layoutEntries: readonly LayoutEntry[] = [
   {
     kind: "rebuild-lines",
-    id: "hero_skill:p038",
+    id: "hero_skill:core:h02:p038",
     name: "Adrenaline Rush",
     level: 2,
     page: 38,
@@ -244,7 +246,7 @@ export const layoutEntries: readonly LayoutEntry[] = [
   },
   {
     kind: "rebuild-lines",
-    id: "hero_skill:p039",
+    id: "hero_skill:core:h02:p039",
     name: "Adrenaline Rush",
     level: 3,
     page: 39,
@@ -262,7 +264,7 @@ export const layoutEntries: readonly LayoutEntry[] = [
 ];
 
 /** 文本位移规则（scope + Push/Pull 原文）。 */
-export const shuffleEntries: readonly ShuffleEntry[] = [
+const shuffleEntries: readonly ShuffleEntry[] = [
   {
     id: "hero_skill:core:h02:p034",
     name: "Breakthrough",
@@ -288,3 +290,52 @@ export const shuffleEntries: readonly ShuffleEntry[] = [
     text: "Pull 1",
   },
 ];
+
+const entries: HeroAnnotationEntries = {
+  status: statusEntries,
+  range: rangeEntries,
+  layout: layoutEntries,
+  shuffle: shuffleEntries,
+  targetCount: [
+    { id: "hero_skill:core:h02:p022", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h02:p023", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h02:p024", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h02:p025", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h02:p026", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h02:p027", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h02:p028", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:core:h02:p029", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:core:h02:p030", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:core:h02:p031", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h02:p032", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h02:p033", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h02:p034", hero: 0, monster: 3, heroOrMonster: 0 },
+    { id: "hero_skill:core:h02:p035", hero: 0, monster: 3, heroOrMonster: 0 },
+    { id: "hero_skill:core:h02:p036", hero: 0, monster: 3, heroOrMonster: 0 },
+    { id: "hero_skill:core:h02:p037", hero: 0, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:core:h02:p038", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:core:h02:p039", hero: 2, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:core:h02:p040", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h02:p041", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h02:p042", hero: 0, monster: 1, heroOrMonster: 0 },
+  ],
+  effectKind: [
+    { id: "hero_skill:core:h02:p022", effect: "damage" },
+    { id: "hero_skill:core:h02:p023", effect: "damage" },
+    { id: "hero_skill:core:h02:p024", effect: "damage" },
+    { id: "hero_skill:core:h02:p025", effect: "damage" },
+    { id: "hero_skill:core:h02:p026", effect: "damage" },
+    { id: "hero_skill:core:h02:p027", effect: "damage" },
+    { id: "hero_skill:core:h02:p031", effect: "damage" },
+    { id: "hero_skill:core:h02:p032", effect: "damage" },
+    { id: "hero_skill:core:h02:p033", effect: "damage" },
+    { id: "hero_skill:core:h02:p034", effect: "damage" },
+    { id: "hero_skill:core:h02:p035", effect: "damage" },
+    { id: "hero_skill:core:h02:p036", effect: "damage" },
+    { id: "hero_skill:core:h02:p040", effect: "damage" },
+    { id: "hero_skill:core:h02:p041", effect: "damage" },
+    { id: "hero_skill:core:h02:p042", effect: "damage" },
+  ],
+};
+
+export const h02 = defineHeroModule({ id: "h02", hero: "HELLION", entries });

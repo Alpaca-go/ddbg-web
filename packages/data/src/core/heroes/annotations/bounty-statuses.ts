@@ -1,6 +1,5 @@
 import { parseAnnotatedHeroSkillCard } from "../../../shared/schema";
 import type { NormalizedHeroSkillCard, Segment } from "../../../shared/schema";
-import { legacyHeroSkillId } from "../hero-registry";
 import type { BountyStatusRow } from "./types";
 
 const signature = (line: readonly Segment[]) =>
@@ -19,7 +18,7 @@ export function applyBountyStatuses(
 ): NormalizedHeroSkillCard[] {
   // R-141：保留原始 Acc 1O 转录，只修正已核图的数值阈值。
   cards = cards.map((card) => {
-    if (legacyHeroSkillId(card) !== "hero_skill:p044") return card;
+    if (card.id !== "hero_skill:core:h03:p044") return card;
     const acc = card.printed_labels.filter((l) => l.label === "Acc");
     if (
       card.name !== "Collect Bounty" ||
@@ -53,10 +52,11 @@ export function applyBountyStatuses(
     });
   });
   for (const row of rows)
-    if (cards.filter((c) => legacyHeroSkillId(c) === row.id).length !== 1)
+    if (cards.filter((c) => c.id === row.id).length !== 1)
       throw new Error(`赏金猎人限定状态卡必须唯一存在（R-089）：${row.id}`);
+  const rowsById = new Map(rows.map((row) => [row.id, row]));
   return cards.map((card) => {
-    const row = rows.find((r) => r.id === legacyHeroSkillId(card));
+    const row = rowsById.get(card.id);
     if (!row) return card;
     if (
       card.hero !== "BOUNTY HUNTER" ||
@@ -121,8 +121,7 @@ export function applyBountyStatuses(
       return { ...effect, segmentIndex: found[0]! };
     });
     const isMarkForDeath =
-      legacyHeroSkillId(card) === "hero_skill:p046" ||
-      legacyHeroSkillId(card) === "hero_skill:p048";
+      card.id === "hero_skill:core:h03:p046" || card.id === "hero_skill:core:h03:p048";
     if (isMarkForDeath) {
       const ranges = card.unlabeled_numbers.filter(
         (n) =>

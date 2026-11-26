@@ -1,20 +1,22 @@
 import { parseAnnotatedHeroSkillCard } from "../../../shared/schema";
-import type { HeroAnnotationModule, ShuffleEntry } from "./types";
+import type { ShuffleEntry } from "./types";
+import type { HeroAnnotationEntries } from "./types";
 import { lineSignature } from "./shared";
 import type { NormalizedHeroSkillCard, Segment } from "../../../shared/schema";
-import { cloneKey, iconFromCard, iconFromPool, segmentOnCardAll, text } from "./patch-helpers";
+import {
+  assertCardMeta,
+  defineHeroModule,
+  cloneKey,
+  iconFromCard,
+  iconFromPool,
+  segmentOnCardAll,
+  text,
+} from "./patch-helpers";
+import type { CardFix } from "./patch-helpers";
 import type { IconSegment } from "./patch-helpers";
 
 function assertMaa(card: NormalizedHeroSkillCard, page: number, name: string, level: number) {
-  if (
-    card.id !== `hero_skill:p${page}` ||
-    card.hero !== "MAN-AT-ARMS" ||
-    card.name !== name ||
-    card.level !== level ||
-    card.pages[0] !== page ||
-    card.verification.unverified
-  )
-    throw new Error(`${card.id} 元数据漂移（R-048）`);
+  assertCardMeta(card, "MAN-AT-ARMS", page, name, level);
 }
 
 function rangeZeroUnlabeled(rangeIcon: IconSegment) {
@@ -341,82 +343,60 @@ function fixBolster(
  * R-200：Man-at-Arms L1–III 技能族（TDH p232–252）逐卡覆盖；II/III 共 14 张 + 同族 L1 OCR 洗净。
  * Retribution / Defender 见 Q-176 / Q-177（Mark+Riposte、Guard+Protection）。
  */
-function applyManAtArmsAnnotations(
+function manAtArmsFixes(
   cards: readonly NormalizedHeroSkillCard[],
-): NormalizedHeroSkillCard[] {
-  return cards.map((card) => {
-    switch (card.id) {
-      case "hero_skill:p235":
-        return fixRampart(
-          card,
-          235,
-          1,
-          "Push 1",
-          "{target_effects}{stun}1t,{shuffle}Push1",
-          "{self_effects}{buff}Self{buff}Pull1",
-        );
-      case "hero_skill:p236":
-        return fixRampart(
-          card,
-          236,
-          2,
-          "Push 2",
-          "{target_effects}{stun}1t,{shuffle}Push2",
-          "{self_effects}{buff}Self{buff}Pull1",
-        );
-      case "hero_skill:p237":
-        return fixRampart(
-          card,
-          237,
-          3,
-          "Push 2",
-          "{target_effects}{stun}1t,{shuffle}Push2",
-          "{self_effects}{buff}Self{buff}Pull1",
-        );
-      case "hero_skill:p238":
-        return fixBellow(cards, card, 238, 1, 1);
-      case "hero_skill:p239":
-        return fixBellow(cards, card, 239, 2, 2);
-      case "hero_skill:p240":
-        return fixBellow(cards, card, 240, 3, 3);
-      case "hero_skill:p241":
-        return fixDefender(cards, card, 241, 1, 1, 2, 1, 2);
-      case "hero_skill:p242":
-        return fixDefender(cards, card, 242, 2, 2, 2, 2, 2);
-      case "hero_skill:p243":
-        return fixDefender(cards, card, 243, 3, 2, 3, 2, 3);
-      case "hero_skill:p244":
-        return fixRetribution(card, 244, 1, 2, 2, "{self_effects}{buff}Self{stress}2t,{mark}2t");
-      case "hero_skill:p245":
-        return fixRetribution(card, 245, 2, 2, 3, "{self_effects}{buff}Self{stress}2t,{mark}3t");
-      case "hero_skill:p246":
-        return fixRetribution(card, 246, 3, 2, 3, "{self_effects}{buff}Self{stress}2t,{mark}3t");
-      case "hero_skill:p247":
-        return fixCommand(card, 247, 1, 1, 2);
-      case "hero_skill:p248":
-        return fixCommand(card, 248, 2, 2, 2);
-      case "hero_skill:p249":
-        return fixCommand(card, 249, 3, 3, 3);
-      case "hero_skill:p250":
-        return fixBolster(cards, card, 250, 1);
-      case "hero_skill:p251":
-        return fixBolster(cards, card, 251, 2);
-      case "hero_skill:p252":
-        return fixBolster(cards, card, 252, 3);
-      default:
-        return card;
-    }
-  });
+): Readonly<Record<string, CardFix>> {
+  return {
+    "hero_skill:cove:h12:p235": (card) =>
+      fixRampart(
+        card,
+        235,
+        1,
+        "Push 1",
+        "{target_effects}{stun}1t,{shuffle}Push1",
+        "{self_effects}{buff}Self{buff}Pull1",
+      ),
+    "hero_skill:cove:h12:p236": (card) =>
+      fixRampart(
+        card,
+        236,
+        2,
+        "Push 2",
+        "{target_effects}{stun}1t,{shuffle}Push2",
+        "{self_effects}{buff}Self{buff}Pull1",
+      ),
+    "hero_skill:cove:h12:p237": (card) =>
+      fixRampart(
+        card,
+        237,
+        3,
+        "Push 2",
+        "{target_effects}{stun}1t,{shuffle}Push2",
+        "{self_effects}{buff}Self{buff}Pull1",
+      ),
+    "hero_skill:cove:h12:p238": (card) => fixBellow(cards, card, 238, 1, 1),
+    "hero_skill:cove:h12:p239": (card) => fixBellow(cards, card, 239, 2, 2),
+    "hero_skill:cove:h12:p240": (card) => fixBellow(cards, card, 240, 3, 3),
+    "hero_skill:cove:h12:p241": (card) => fixDefender(cards, card, 241, 1, 1, 2, 1, 2),
+    "hero_skill:cove:h12:p242": (card) => fixDefender(cards, card, 242, 2, 2, 2, 2, 2),
+    "hero_skill:cove:h12:p243": (card) => fixDefender(cards, card, 243, 3, 2, 3, 2, 3),
+    "hero_skill:cove:h12:p244": (card) =>
+      fixRetribution(card, 244, 1, 2, 2, "{self_effects}{buff}Self{stress}2t,{mark}2t"),
+    "hero_skill:cove:h12:p245": (card) =>
+      fixRetribution(card, 245, 2, 2, 3, "{self_effects}{buff}Self{stress}2t,{mark}3t"),
+    "hero_skill:cove:h12:p246": (card) =>
+      fixRetribution(card, 246, 3, 2, 3, "{self_effects}{buff}Self{stress}2t,{mark}3t"),
+    "hero_skill:cove:h12:p247": (card) => fixCommand(card, 247, 1, 1, 2),
+    "hero_skill:cove:h12:p248": (card) => fixCommand(card, 248, 2, 2, 2),
+    "hero_skill:cove:h12:p249": (card) => fixCommand(card, 249, 3, 3, 3),
+    "hero_skill:cove:h12:p250": (card) => fixBolster(cards, card, 250, 1),
+    "hero_skill:cove:h12:p251": (card) => fixBolster(cards, card, 251, 2),
+    "hero_skill:cove:h12:p252": (card) => fixBolster(cards, card, 252, 3),
+  };
 }
 
-export const manAtArmsAnnotations: HeroAnnotationModule = {
-  id: "h12",
-  hero: "MAN-AT-ARMS",
-  apply: applyManAtArmsAnnotations,
-};
-
 /** 文本位移规则（scope + Push/Pull 原文）。 */
-export const shuffleEntries: readonly ShuffleEntry[] = [
+const shuffleEntries: readonly ShuffleEntry[] = [
   {
     id: "hero_skill:cove:h12:p235",
     name: "Rampart",
@@ -466,3 +446,45 @@ export const shuffleEntries: readonly ShuffleEntry[] = [
     text: "Pull 1",
   },
 ];
+
+const entries: HeroAnnotationEntries = {
+  shuffle: shuffleEntries,
+  targetCount: [
+    { id: "hero_skill:cove:h12:p232", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h12:p233", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h12:p234", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h12:p235", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h12:p236", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h12:p237", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h12:p238", hero: 0, monster: 4, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h12:p239", hero: 0, monster: 4, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h12:p240", hero: 0, monster: 4, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h12:p241", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h12:p242", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h12:p243", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h12:p244", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h12:p245", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h12:p246", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h12:p250", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h12:p251", hero: 2, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h12:p252", hero: 3, monster: 0, heroOrMonster: 0 },
+  ],
+  effectKind: [
+    { id: "hero_skill:cove:h12:p232", effect: "damage" },
+    { id: "hero_skill:cove:h12:p233", effect: "damage" },
+    { id: "hero_skill:cove:h12:p234", effect: "damage" },
+    { id: "hero_skill:cove:h12:p235", effect: "damage" },
+    { id: "hero_skill:cove:h12:p236", effect: "damage" },
+    { id: "hero_skill:cove:h12:p237", effect: "damage" },
+    { id: "hero_skill:cove:h12:p244", effect: "damage" },
+    { id: "hero_skill:cove:h12:p245", effect: "damage" },
+    { id: "hero_skill:cove:h12:p246", effect: "damage" },
+  ],
+};
+
+export const h12 = defineHeroModule({
+  id: "h12",
+  hero: "MAN-AT-ARMS",
+  entries,
+  fixes: manAtArmsFixes,
+});

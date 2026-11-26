@@ -1,11 +1,10 @@
 import { parseAnnotatedHeroSkillCard } from "../../../shared/schema";
 import type { NormalizedHeroSkillCard } from "../../../shared/schema";
-import { heroSkillId } from "../hero-registry";
+import type { EffectKind, EffectKindEntry } from "./types";
+
+export type { EffectKind, EffectKindEntry } from "./types";
 
 const NAMED = new Set(["confirmed", "confirmed_rulebook"]);
-
-export type EffectKind = "damage" | "heal";
-export type EffectKindEntry = { readonly id: string; readonly effect: EffectKind };
 
 export function statsEffect(card: NormalizedHeroSkillCard): EffectKind | null {
   const kinds = new Set<EffectKind>();
@@ -32,10 +31,7 @@ export function applyEffectKind(
   for (const entry of entries) byId.set(entry.id, entry);
   return cards.map((card) => {
     if (card.rules?.effect) return card;
-    const page = card.pages[0]!;
-    const hero = card.hero ?? "ABOMINATION";
-    const globalPage = card.id.startsWith("hero_skill:musketeer:") ? 357 + page : page;
-    const entry = byId.get(heroSkillId(hero, globalPage));
+    const entry = byId.get(card.id);
     const expected = statsEffect(card);
     if (!entry) return card;
     if (expected === null || expected !== entry.effect)

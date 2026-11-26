@@ -16,7 +16,7 @@ export function applyRallyingFlare(
     if (card.rules?.rallyingFlare) return card;
     const entry = byId.get(card.id);
     if (!entry) return card;
-    const page = Number(card.id.slice(-3));
+    const page = card.pages[0]!;
     const cleanup = card.effect_lines[0];
     const monster = card.effect_lines[1];
     const targetGlyphs = (card.front_icons ?? []).filter(

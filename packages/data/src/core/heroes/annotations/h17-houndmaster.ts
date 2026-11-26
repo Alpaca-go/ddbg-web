@@ -1,20 +1,21 @@
 import { parseAnnotatedHeroSkillCard } from "../../../shared/schema";
-import type { HeroAnnotationModule } from "./types";
+import type { HeroAnnotationEntries } from "./types";
 import { lineSignature } from "./shared";
 import type { NormalizedHeroSkillCard, Segment } from "../../../shared/schema";
-import { cloneKey, iconFromCard, iconFromPool, segmentOnCard, text } from "./patch-helpers";
+import {
+  assertCardMeta,
+  defineHeroModule,
+  cloneKey,
+  iconFromCard,
+  iconFromPool,
+  segmentOnCard,
+  text,
+} from "./patch-helpers";
+import type { CardFix } from "./patch-helpers";
 import type { IconSegment } from "./patch-helpers";
 
 function assertHm(card: NormalizedHeroSkillCard, page: number, name: string, level: number) {
-  if (
-    card.id !== `hero_skill:p${page}` ||
-    card.hero !== "HOUNDMASTER" ||
-    card.name !== name ||
-    card.level !== level ||
-    card.pages[0] !== page ||
-    card.verification.unverified
-  )
-    throw new Error(`${card.id} 元数据漂移（R-048）`);
+  assertCardMeta(card, "HOUNDMASTER", page, name, level);
 }
 
 function stressDeltaAnchor(stressIcon: IconSegment, amount: number) {
@@ -338,184 +339,200 @@ function fixBlackjack(
  * R-200：Houndmaster II–III（p338–p357 中 14 张）+ 同技能族 L1 OCR 洗净（p337–p355 七族）。
  * Q-178～Q-180 Kyries 已真确认：Rush 1ff34c908b=自身起效；Cry Havoc 压力行（非目标减益）；Blackjack=Stun。
  */
-function applyHoundmasterAnnotations(
+function houndmasterFixes(
   cards: readonly NormalizedHeroSkillCard[],
-): NormalizedHeroSkillCard[] {
-  return cards.map((card) => {
-    switch (card.id) {
-      case "hero_skill:p337":
-        return fixHoundsRush(
-          card,
-          337,
-          1,
-          2,
-          1,
-          3,
-          "{self_effects}{buff}Self{buff}2t",
-          "{target_effects}1{bleed}3t",
-        );
-      case "hero_skill:p338":
-        return fixHoundsRush(
-          card,
-          338,
-          2,
-          3,
-          2,
-          2,
-          "{self_effects}{buff}Self{buff}3t",
-          "{target_effects}2{bleed}2t",
-        );
-      case "hero_skill:p339":
-        return fixHoundsRush(
-          card,
-          339,
-          3,
-          3,
-          2,
-          3,
-          "{self_effects}{buff}Self{buff}3t",
-          "{target_effects}2{bleed}3t",
-        );
-      case "hero_skill:p340":
-        return fixHoundsHarry(
-          cards,
-          card,
-          340,
-          1,
-          1,
-          3,
-          "{range}1{target_hero}{target_hero}{target_hero}{target_hero}Crit0{damage}4Acc9{damage}2",
-          "{target_effects}1{bleed}3t",
-        );
-      case "hero_skill:p341":
-        return fixHoundsHarry(
-          cards,
-          card,
-          341,
-          2,
-          2,
-          2,
-          "{range}1{target_hero}{target_hero}{target_hero}{target_hero}Crit0{damage}5Acc10{damage}3",
-          "{target_effects}2{bleed}2t",
-        );
-      case "hero_skill:p342":
-        return fixHoundsHarry(
-          cards,
-          card,
-          342,
-          3,
-          3,
-          2,
-          "{range}1{target_hero}{target_hero}{target_hero}{target_hero}Crit0{damage}6Acc11{damage}4",
-          "{target_effects}3{bleed}2t",
-        );
-      case "hero_skill:p343":
-        return fixTargetWhistle(card, 343, 1, 2, 1, "Acc10", "{target_effects}{mark}2t,{debuff}1t");
-      case "hero_skill:p344":
-        return fixTargetWhistle(card, 344, 2, 3, 2, "Acc11", "{heal}{mark}3t,{debuff}2t");
-      case "hero_skill:p345":
-        return fixTargetWhistle(card, 345, 3, 3, 3, "Acc12", "{heal}{mark}3t,{debuff}3t");
-      case "hero_skill:p346":
-        return fixCryHavoc(cards, card, 346, 1, 2, -1, [
-          "{target_effects}{buff}-1",
-          "{self_effects}{buff}Self{buff}-1",
-        ]);
-      case "hero_skill:p347":
-        return fixCryHavoc(cards, card, 347, 2, 3, -1, [
-          "{target_effects}{buff}-1",
-          "{self_effects}{buff}Self{buff}-1",
-        ]);
-      case "hero_skill:p348":
-        return fixCryHavoc(cards, card, 348, 3, 3, -2, [
-          "{target_effects}{buff}-1",
-          "{self_effects}{buff}Self{buff}-2",
-        ]);
-      case "hero_skill:p349":
-        return fixGuardDog(
-          card,
-          349,
-          1,
-          2,
-          "{range}{buff}Self",
-          "{self_effects}{buff}Self{protection}2t",
-        );
-      case "hero_skill:p350":
-        return fixGuardDog(
-          card,
-          350,
-          2,
-          3,
-          "{range}{buff}Self",
-          "{self_effects}{buff}Self{protection}3t",
-        );
-      case "hero_skill:p351":
-        return fixGuardDog(
-          card,
-          351,
-          3,
-          4,
-          "{range}{buff}Self",
-          "{self_effects}{buff}Self{protection}4t",
-        );
-      case "hero_skill:p352":
-        return fixLickWounds(
-          card,
-          352,
-          1,
-          "{range}{target_hero}SelfCrit2{heal}{damage}5Acc20{heal}{damage}3",
-          5,
-          3,
-        );
-      case "hero_skill:p353":
-        return fixLickWounds(
-          card,
-          353,
-          2,
-          "{range}{target_hero}SelfCrit2{heal}{damage}6Acc20{heal}{damage}4",
-          6,
-          4,
-        );
-      case "hero_skill:p354":
-        return fixLickWounds(
-          card,
-          354,
-          3,
-          "{range}{target_hero}SelfCrit2{heal}{damage}8Acc20{heal}{damage}6",
-          8,
-          6,
-        );
-      case "hero_skill:p355":
-        return fixBlackjack(
-          card,
-          355,
-          1,
-          "{range}0{target_monster}Crit1{damage}5Acc10{damage}3",
-          "{target_effects}{buff}1t",
-        );
-      case "hero_skill:p356":
-        return fixBlackjack(
-          card,
-          356,
-          2,
-          "{range}0{target_monster}Crit2{damage}6Acc11{damage}4",
-          "{target_effects}{buff}1t",
-        );
-      case "hero_skill:p357":
-        return fixBlackjack(
-          card,
-          357,
-          3,
-          "{range}0{target_monster}Crit3{damage}7Acc12{damage}5",
-          "{target_effects}{buff}1t",
-        );
-      default:
-        return card;
-    }
-  });
+): Readonly<Record<string, CardFix>> {
+  return {
+    "hero_skill:weald:h17:p337": (card) =>
+      fixHoundsRush(
+        card,
+        337,
+        1,
+        2,
+        1,
+        3,
+        "{self_effects}{buff}Self{buff}2t",
+        "{target_effects}1{bleed}3t",
+      ),
+    "hero_skill:weald:h17:p338": (card) =>
+      fixHoundsRush(
+        card,
+        338,
+        2,
+        3,
+        2,
+        2,
+        "{self_effects}{buff}Self{buff}3t",
+        "{target_effects}2{bleed}2t",
+      ),
+    "hero_skill:weald:h17:p339": (card) =>
+      fixHoundsRush(
+        card,
+        339,
+        3,
+        3,
+        2,
+        3,
+        "{self_effects}{buff}Self{buff}3t",
+        "{target_effects}2{bleed}3t",
+      ),
+    "hero_skill:weald:h17:p340": (card) =>
+      fixHoundsHarry(
+        cards,
+        card,
+        340,
+        1,
+        1,
+        3,
+        "{range}1{target_hero}{target_hero}{target_hero}{target_hero}Crit0{damage}4Acc9{damage}2",
+        "{target_effects}1{bleed}3t",
+      ),
+    "hero_skill:weald:h17:p341": (card) =>
+      fixHoundsHarry(
+        cards,
+        card,
+        341,
+        2,
+        2,
+        2,
+        "{range}1{target_hero}{target_hero}{target_hero}{target_hero}Crit0{damage}5Acc10{damage}3",
+        "{target_effects}2{bleed}2t",
+      ),
+    "hero_skill:weald:h17:p342": (card) =>
+      fixHoundsHarry(
+        cards,
+        card,
+        342,
+        3,
+        3,
+        2,
+        "{range}1{target_hero}{target_hero}{target_hero}{target_hero}Crit0{damage}6Acc11{damage}4",
+        "{target_effects}3{bleed}2t",
+      ),
+    "hero_skill:weald:h17:p343": (card) =>
+      fixTargetWhistle(card, 343, 1, 2, 1, "Acc10", "{target_effects}{mark}2t,{debuff}1t"),
+    "hero_skill:weald:h17:p344": (card) =>
+      fixTargetWhistle(card, 344, 2, 3, 2, "Acc11", "{heal}{mark}3t,{debuff}2t"),
+    "hero_skill:weald:h17:p345": (card) =>
+      fixTargetWhistle(card, 345, 3, 3, 3, "Acc12", "{heal}{mark}3t,{debuff}3t"),
+    "hero_skill:weald:h17:p346": (card) =>
+      fixCryHavoc(cards, card, 346, 1, 2, -1, [
+        "{target_effects}{buff}-1",
+        "{self_effects}{buff}Self{buff}-1",
+      ]),
+    "hero_skill:weald:h17:p347": (card) =>
+      fixCryHavoc(cards, card, 347, 2, 3, -1, [
+        "{target_effects}{buff}-1",
+        "{self_effects}{buff}Self{buff}-1",
+      ]),
+    "hero_skill:weald:h17:p348": (card) =>
+      fixCryHavoc(cards, card, 348, 3, 3, -2, [
+        "{target_effects}{buff}-1",
+        "{self_effects}{buff}Self{buff}-2",
+      ]),
+    "hero_skill:weald:h17:p349": (card) =>
+      fixGuardDog(card, 349, 1, 2, "{range}{buff}Self", "{self_effects}{buff}Self{protection}2t"),
+    "hero_skill:weald:h17:p350": (card) =>
+      fixGuardDog(card, 350, 2, 3, "{range}{buff}Self", "{self_effects}{buff}Self{protection}3t"),
+    "hero_skill:weald:h17:p351": (card) =>
+      fixGuardDog(card, 351, 3, 4, "{range}{buff}Self", "{self_effects}{buff}Self{protection}4t"),
+    "hero_skill:weald:h17:p352": (card) =>
+      fixLickWounds(
+        card,
+        352,
+        1,
+        "{range}{target_hero}SelfCrit2{heal}{damage}5Acc20{heal}{damage}3",
+        5,
+        3,
+      ),
+    "hero_skill:weald:h17:p353": (card) =>
+      fixLickWounds(
+        card,
+        353,
+        2,
+        "{range}{target_hero}SelfCrit2{heal}{damage}6Acc20{heal}{damage}4",
+        6,
+        4,
+      ),
+    "hero_skill:weald:h17:p354": (card) =>
+      fixLickWounds(
+        card,
+        354,
+        3,
+        "{range}{target_hero}SelfCrit2{heal}{damage}8Acc20{heal}{damage}6",
+        8,
+        6,
+      ),
+    "hero_skill:weald:h17:p355": (card) =>
+      fixBlackjack(
+        card,
+        355,
+        1,
+        "{range}0{target_monster}Crit1{damage}5Acc10{damage}3",
+        "{target_effects}{buff}1t",
+      ),
+    "hero_skill:weald:h17:p356": (card) =>
+      fixBlackjack(
+        card,
+        356,
+        2,
+        "{range}0{target_monster}Crit2{damage}6Acc11{damage}4",
+        "{target_effects}{buff}1t",
+      ),
+    "hero_skill:weald:h17:p357": (card) =>
+      fixBlackjack(
+        card,
+        357,
+        3,
+        "{range}0{target_monster}Crit3{damage}7Acc12{damage}5",
+        "{target_effects}{buff}1t",
+      ),
+  };
 }
 
-export const houndmasterAnnotations: HeroAnnotationModule = {
+const entries: HeroAnnotationEntries = {
+  targetCount: [
+    { id: "hero_skill:weald:h17:p337", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h17:p338", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h17:p339", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h17:p340", hero: 0, monster: 4, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h17:p341", hero: 0, monster: 4, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h17:p342", hero: 0, monster: 4, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h17:p343", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h17:p344", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h17:p345", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h17:p346", hero: 2, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h17:p347", hero: 3, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h17:p348", hero: 3, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h17:p349", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h17:p350", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h17:p351", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h17:p352", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h17:p353", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h17:p354", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h17:p355", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h17:p356", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h17:p357", hero: 0, monster: 1, heroOrMonster: 0 },
+  ],
+  effectKind: [
+    { id: "hero_skill:weald:h17:p337", effect: "damage" },
+    { id: "hero_skill:weald:h17:p338", effect: "damage" },
+    { id: "hero_skill:weald:h17:p339", effect: "damage" },
+    { id: "hero_skill:weald:h17:p340", effect: "damage" },
+    { id: "hero_skill:weald:h17:p341", effect: "damage" },
+    { id: "hero_skill:weald:h17:p342", effect: "damage" },
+    { id: "hero_skill:weald:h17:p352", effect: "heal" },
+    { id: "hero_skill:weald:h17:p353", effect: "heal" },
+    { id: "hero_skill:weald:h17:p354", effect: "heal" },
+    { id: "hero_skill:weald:h17:p355", effect: "damage" },
+    { id: "hero_skill:weald:h17:p356", effect: "damage" },
+    { id: "hero_skill:weald:h17:p357", effect: "damage" },
+  ],
+};
+
+export const h17 = defineHeroModule({
   id: "h17",
   hero: "HOUNDMASTER",
-  apply: applyHoundmasterAnnotations,
-};
+  entries,
+  fixes: houndmasterFixes,
+});

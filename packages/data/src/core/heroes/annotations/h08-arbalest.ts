@@ -6,11 +6,13 @@ import type {
   DamageEntry,
   ShuffleEntry,
 } from "./types";
+import type { HeroAnnotationEntries } from "./types";
+import { defineHeroModule } from "./patch-helpers";
 
 /** 核心盒 Arbalest II/III 级逐卡注解（Kyries 审阅；R-048 签名断言由 core-higher-skills 执行）。 */
-export const coreHigherRows: readonly CoreHigherSkillRow[] = [
+const coreHigherRows: readonly CoreHigherSkillRow[] = [
   {
-    id: "hero_skill:p149",
+    id: "hero_skill:core:h08:p149",
     name: "Sniper Shot",
     level: 2,
     original: ["{target_effects} {damage} +5 vs {mark}"],
@@ -25,7 +27,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     },
   },
   {
-    id: "hero_skill:p150",
+    id: "hero_skill:core:h08:p150",
     name: "Sniper Shot",
     level: 3,
     original: ["{target_effects} {damage} +9 vs {mark}"],
@@ -40,7 +42,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     },
   },
   {
-    id: "hero_skill:p152",
+    id: "hero_skill:core:h08:p152",
     name: "Suppressive Fire",
     level: 2,
     original: ["{target_effects} {debuff} 2t"],
@@ -63,7 +65,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     },
   },
   {
-    id: "hero_skill:p153",
+    id: "hero_skill:core:h08:p153",
     name: "Suppressive Fire",
     level: 3,
     original: ["{target_effects} {debuff} 3t"],
@@ -86,7 +88,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     },
   },
   {
-    id: "hero_skill:p155",
+    id: "hero_skill:core:h08:p155",
     name: "Sniper’s Mark",
     level: 2,
     original: ["{target_effects} {mark} 3t"],
@@ -109,7 +111,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     },
   },
   {
-    id: "hero_skill:p156",
+    id: "hero_skill:core:h08:p156",
     name: "Sniper’s Mark",
     level: 3,
     original: ["{target_effects} {mark} 4t"],
@@ -132,7 +134,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     },
   },
   {
-    id: "hero_skill:p161",
+    id: "hero_skill:core:h08:p161",
     name: "Blindfire",
     level: 2,
     original: ["{self_effects} Self {shuffle} Push 2"],
@@ -146,7 +148,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     },
   },
   {
-    id: "hero_skill:p162",
+    id: "hero_skill:core:h08:p162",
     name: "Blindfire",
     level: 3,
     original: ["{self_effects} Self {shuffle} Push 2"],
@@ -160,7 +162,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     },
   },
   {
-    id: "hero_skill:p164",
+    id: "hero_skill:core:h08:p164",
     name: "Battlefield Bandage",
     level: 2,
     original: ["{self_effects} Self {buff} 2t"],
@@ -183,7 +185,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     },
   },
   {
-    id: "hero_skill:p165",
+    id: "hero_skill:core:h08:p165",
     name: "Battlefield Bandage",
     level: 3,
     original: ["{self_effects} Self {buff} 2t"],
@@ -206,7 +208,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     },
   },
   {
-    id: "hero_skill:p167",
+    id: "hero_skill:core:h08:p167",
     name: "Rallying Flare",
     level: 2,
     original: [
@@ -226,7 +228,7 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
     },
   },
   {
-    id: "hero_skill:p168",
+    id: "hero_skill:core:h08:p168",
     name: "Rallying Flare",
     level: 3,
     original: [
@@ -248,9 +250,9 @@ export const coreHigherRows: readonly CoreHigherSkillRow[] = [
 ];
 
 /** 完整印刷逐页核对的状态效果行（docs/phase2-four-core-skills-2026-10-11.md）。 */
-export const statusEntries: readonly StatusEffectEntry[] = [
+const statusEntries: readonly StatusEffectEntry[] = [
   {
-    id: "hero_skill:p151",
+    id: "hero_skill:core:h08:p151",
     name: "Suppressive Fire",
     level: 1,
     lineIndex: 0,
@@ -259,7 +261,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     effects: [{ kind: "debuff", duration: 1 }],
   },
   {
-    id: "hero_skill:p154",
+    id: "hero_skill:core:h08:p154",
     name: "Sniper’s Mark",
     level: 1,
     lineIndex: 0,
@@ -268,7 +270,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     effects: [{ kind: "mark", duration: 2 }],
   },
   {
-    id: "hero_skill:p163",
+    id: "hero_skill:core:h08:p163",
     name: "Battlefield Bandage",
     level: 1,
     lineIndex: 0,
@@ -277,7 +279,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     effects: [{ kind: "buff", duration: 2 }],
   },
   {
-    id: "hero_skill:p166",
+    id: "hero_skill:core:h08:p166",
     name: "Rallying Flare",
     level: 1,
     lineIndex: 1,
@@ -286,7 +288,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     effects: [{ kind: "debuff", duration: 2 }],
   },
   {
-    id: "hero_skill:p167",
+    id: "hero_skill:core:h08:p167",
     name: "Rallying Flare",
     level: 2,
     lineIndex: 1,
@@ -295,7 +297,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     effects: [{ kind: "debuff", duration: 2 }],
   },
   {
-    id: "hero_skill:p168",
+    id: "hero_skill:core:h08:p168",
     name: "Rallying Flare",
     level: 3,
     lineIndex: 1,
@@ -306,51 +308,51 @@ export const statusEntries: readonly StatusEffectEntry[] = [
 ];
 
 /** 已复核的印刷区间（R-048）：只附加已命名 range 图标旁的明确数字。 */
-export const rangeEntries: readonly RangeEntry[] = [
+const rangeEntries: readonly RangeEntry[] = [
   {
-    id: "hero_skill:p166",
+    id: "hero_skill:core:h08:p166",
     name: "Rallying Flare",
     level: 1,
     min: 1,
     max: 2,
   },
   {
-    id: "hero_skill:p167",
+    id: "hero_skill:core:h08:p167",
     name: "Rallying Flare",
     level: 2,
     min: 1,
     max: 2,
   },
   {
-    id: "hero_skill:p168",
+    id: "hero_skill:core:h08:p168",
     name: "Rallying Flare",
     level: 3,
     min: 1,
     max: 2,
   },
   {
-    id: "hero_skill:p151",
+    id: "hero_skill:core:h08:p151",
     name: "Suppressive Fire",
     level: 1,
     min: 1,
     max: 2,
   },
   {
-    id: "hero_skill:p154",
+    id: "hero_skill:core:h08:p154",
     name: "Sniper’s Mark",
     level: 1,
     min: 1,
     max: 2,
   },
   {
-    id: "hero_skill:p160",
+    id: "hero_skill:core:h08:p160",
     name: "Blindfire",
     level: 1,
     min: 0,
     max: 2,
   },
   {
-    id: "hero_skill:p163",
+    id: "hero_skill:core:h08:p163",
     name: "Battlefield Bandage",
     level: 1,
     min: 0,
@@ -359,9 +361,9 @@ export const rangeEntries: readonly RangeEntry[] = [
 ];
 
 /** Rallying Flare / Skeet Shot 逐卡复核（R-103）：混阵营目标与眩晕/标记清除行。 */
-export const rallyingFlareEntries: readonly RallyingFlareEntry[] = [
+const rallyingFlareEntries: readonly RallyingFlareEntry[] = [
   {
-    id: "hero_skill:p166",
+    id: "hero_skill:core:h08:p166",
     hero: "ARBALEST",
     name: "Rallying Flare",
     level: 1,
@@ -369,7 +371,7 @@ export const rallyingFlareEntries: readonly RallyingFlareEntry[] = [
     targetIcons: 2,
   },
   {
-    id: "hero_skill:p167",
+    id: "hero_skill:core:h08:p167",
     hero: "ARBALEST",
     name: "Rallying Flare",
     level: 2,
@@ -377,7 +379,7 @@ export const rallyingFlareEntries: readonly RallyingFlareEntry[] = [
     targetIcons: 3,
   },
   {
-    id: "hero_skill:p168",
+    id: "hero_skill:core:h08:p168",
     hero: "ARBALEST",
     name: "Rallying Flare",
     level: 3,
@@ -387,9 +389,9 @@ export const rallyingFlareEntries: readonly RallyingFlareEntry[] = [
 ];
 
 /** 已复核条件伤害（只录已命名 damage 图标与明文条件）。 */
-export const damageEntries: readonly DamageEntry[] = [
+const damageEntries: readonly DamageEntry[] = [
   {
-    id: "hero_skill:p148",
+    id: "hero_skill:core:h08:p148",
     name: "Sniper Shot",
     level: 1,
     page: 148,
@@ -401,7 +403,7 @@ export const damageEntries: readonly DamageEntry[] = [
 ];
 
 /** 文本位移规则（scope + Push/Pull 原文）。 */
-export const shuffleEntries: readonly ShuffleEntry[] = [
+const shuffleEntries: readonly ShuffleEntry[] = [
   {
     id: "hero_skill:core:h08:p157",
     name: "Bola",
@@ -475,3 +477,51 @@ export const shuffleEntries: readonly ShuffleEntry[] = [
     text: "Push 2",
   },
 ];
+
+const entries: HeroAnnotationEntries = {
+  higher: coreHigherRows,
+  status: statusEntries,
+  range: rangeEntries,
+  rallyingFlare: rallyingFlareEntries,
+  damage: damageEntries,
+  shuffle: shuffleEntries,
+  targetCount: [
+    { id: "hero_skill:core:h08:p148", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h08:p149", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h08:p150", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h08:p151", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:core:h08:p152", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:core:h08:p153", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:core:h08:p154", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h08:p155", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h08:p156", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h08:p157", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:core:h08:p158", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:core:h08:p159", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:core:h08:p160", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h08:p161", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h08:p162", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:core:h08:p163", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:core:h08:p164", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:core:h08:p165", hero: 1, monster: 0, heroOrMonster: 0 },
+  ],
+  effectKind: [
+    { id: "hero_skill:core:h08:p148", effect: "damage" },
+    { id: "hero_skill:core:h08:p149", effect: "damage" },
+    { id: "hero_skill:core:h08:p150", effect: "damage" },
+    { id: "hero_skill:core:h08:p151", effect: "damage" },
+    { id: "hero_skill:core:h08:p152", effect: "damage" },
+    { id: "hero_skill:core:h08:p153", effect: "damage" },
+    { id: "hero_skill:core:h08:p157", effect: "damage" },
+    { id: "hero_skill:core:h08:p158", effect: "damage" },
+    { id: "hero_skill:core:h08:p159", effect: "damage" },
+    { id: "hero_skill:core:h08:p160", effect: "damage" },
+    { id: "hero_skill:core:h08:p161", effect: "damage" },
+    { id: "hero_skill:core:h08:p162", effect: "damage" },
+    { id: "hero_skill:core:h08:p163", effect: "heal" },
+    { id: "hero_skill:core:h08:p164", effect: "heal" },
+    { id: "hero_skill:core:h08:p165", effect: "heal" },
+  ],
+};
+
+export const h08 = defineHeroModule({ id: "h08", hero: "ARBALEST", entries });

@@ -1,20 +1,17 @@
 import type { NormalizedHeroSkillCard } from "../../../shared/schema";
+import { printedPageOf } from "./shared";
 import type { RangeEntry } from "./types";
 
-/** 已复核印刷区间 applier：按页码（Musketeer 单独前缀）定位卡片并断言印刷数字。 */
+/** 已复核印刷区间 applier：按 canonical id 定位卡片并断言印刷数字。 */
 export function applyRangeEntries(
   cards: readonly NormalizedHeroSkillCard[],
   entries: readonly RangeEntry[],
 ): NormalizedHeroSkillCard[] {
-  const byPage = new Map(
-    entries.map((entry) => [
-      `${entry.id.startsWith("hero_skill:musketeer:") ? "M" : ""}${Number(entry.id.slice(-3))}`,
-      entry,
-    ]),
-  );
+  const byId = new Map(entries.map((entry) => [entry.id, entry]));
   return cards.map((card) => {
-    const range = byPage.get(`${card.hero === "MUSKETEER" ? "M" : ""}${card.pages[0]}`);
+    const range = byId.get(card.id);
     if (!range) return card;
+    const page = printedPageOf(range.id);
     const ranges = card.unlabeled_numbers.filter(
       (item) =>
         item.anchor.type === "beside_icon" &&
@@ -25,6 +22,8 @@ export function applyRangeEntries(
     if (
       card.name !== range.name ||
       card.level !== range.level ||
+      card.pages.length !== 1 ||
+      card.pages[0] !== page ||
       card.verification.unverified ||
       ranges.length !== 1 ||
       ranges[0]?.text !== `${range.min}-${range.max}` ||

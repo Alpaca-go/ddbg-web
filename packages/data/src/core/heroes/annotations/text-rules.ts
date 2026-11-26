@@ -1,14 +1,6 @@
 import { parseAnnotatedHeroSkillCard } from "../../../shared/schema";
 import type { NormalizedHeroSkillCard } from "../../../shared/schema";
-import { heroSkillId } from "../hero-registry";
 import type { IgnoresEntry, ShuffleEntry } from "./types";
-
-const canonicalId = (card: NormalizedHeroSkillCard): string => {
-  const page = card.pages[0]!;
-  const hero = card.hero ?? "ABOMINATION";
-  const globalPage = card.id.startsWith("hero_skill:musketeer:") ? 357 + page : page;
-  return heroSkillId(hero, globalPage);
-};
 
 const lineText = (line: readonly { type: string; text?: string }[]): string =>
   line.map((segment) => (segment.type === "text" ? (segment.text ?? "") : "")).join("");
@@ -37,7 +29,7 @@ export function applyTextRules(
     ignoresById.set(entry.id, list);
   }
   return cards.map((card) => {
-    const id = canonicalId(card);
+    const id = card.id;
     const shuffles = shuffleById.get(id);
     const ignores = ignoresById.get(id);
     if (!shuffles && !ignores) return card;

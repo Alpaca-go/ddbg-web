@@ -1,6 +1,5 @@
 import { parseAnnotatedHeroSkillCard } from "../../../shared/schema";
 import type { NormalizedHeroSkillCard } from "../../../shared/schema";
-import { heroSkillId } from "../hero-registry";
 import type { RemovalEntry } from "./types";
 
 const NAMED = new Set(["confirmed", "confirmed_rulebook"]);
@@ -82,10 +81,7 @@ export function applyRemoval(
   }
   return cards.map((card) => {
     if (card.rules?.removal) return card;
-    const page = card.pages[0]!;
-    const hero = card.hero ?? "ABOMINATION";
-    const globalPage = card.id.startsWith("hero_skill:musketeer:") ? 357 + page : page;
-    const rows = byId.get(heroSkillId(hero, globalPage));
+    const rows = byId.get(card.id);
     if (!rows) return card;
     const sorted = [...rows].sort((a, b) => a.lineIndex - b.lineIndex);
     const removeLines = new Set(sorted.map((entry) => entry.lineIndex));

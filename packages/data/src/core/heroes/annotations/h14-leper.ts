@@ -1,14 +1,15 @@
 import { parseAnnotatedHeroSkillCard } from "../../../shared/schema";
 import type {
-  HeroAnnotationModule,
+  HeroAnnotationEntries,
   HeroSkillPatch,
   StatusEffectEntry,
   ShuffleEntry,
   IgnoresEntry,
 } from "./types";
 import {
-  applyPatches,
+  assertCardMeta,
   cloneKey,
+  defineHeroModule,
   iconFromCard,
   iconFromPool,
   segmentOnCardInEffects,
@@ -19,9 +20,9 @@ import { lineSignature } from "./shared";
 import type { NormalizedHeroSkillCard } from "../../../shared/schema";
 
 /** 完整印刷逐页核对的状态效果行（docs/phase2-four-core-skills-2026-10-11.md）。 */
-export const statusEntries: readonly StatusEffectEntry[] = [
+const statusEntries: readonly StatusEffectEntry[] = [
   {
-    id: "hero_skill:p280",
+    id: "hero_skill:warrens:h14:p280",
     name: "Purge",
     level: 1,
     lineIndex: 0,
@@ -30,7 +31,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     effects: [{ kind: "buff", duration: 2 }],
   },
   {
-    id: "hero_skill:p283",
+    id: "hero_skill:warrens:h14:p283",
     name: "Revenge",
     level: 1,
     lineIndex: 0,
@@ -42,7 +43,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     ],
   },
   {
-    id: "hero_skill:p286",
+    id: "hero_skill:warrens:h14:p286",
     name: "Withstand",
     level: 1,
     lineIndex: 1,
@@ -54,7 +55,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     ],
   },
   {
-    id: "hero_skill:p292",
+    id: "hero_skill:warrens:h14:p292",
     name: "Intimidate",
     level: 1,
     lineIndex: 0,
@@ -63,7 +64,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     effects: [{ kind: "mark", duration: 2 }],
   },
   {
-    id: "hero_skill:p292",
+    id: "hero_skill:warrens:h14:p292",
     name: "Intimidate",
     level: 1,
     lineIndex: 3,
@@ -73,7 +74,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
   },
   // R-200：Leper Purge II/III 已确认读数（仅自身 Buff 2t；III 伤害见 hero-annotations/h14-leper stats 覆盖）。
   {
-    id: "hero_skill:p281",
+    id: "hero_skill:warrens:h14:p281",
     name: "Purge",
     level: 2,
     lineIndex: 0,
@@ -82,7 +83,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     effects: [{ kind: "buff", duration: 2 }],
   },
   {
-    id: "hero_skill:p282",
+    id: "hero_skill:warrens:h14:p282",
     name: "Purge",
     level: 3,
     lineIndex: 0,
@@ -91,7 +92,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     effects: [{ kind: "buff", duration: 2 }],
   },
   {
-    id: "hero_skill:p284",
+    id: "hero_skill:warrens:h14:p284",
     name: "Revenge",
     level: 2,
     lineIndex: 0,
@@ -103,7 +104,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     ],
   },
   {
-    id: "hero_skill:p285",
+    id: "hero_skill:warrens:h14:p285",
     name: "Revenge",
     level: 3,
     lineIndex: 0,
@@ -115,7 +116,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     ],
   },
   {
-    id: "hero_skill:p287",
+    id: "hero_skill:warrens:h14:p287",
     name: "Withstand",
     level: 2,
     lineIndex: 1,
@@ -127,7 +128,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     ],
   },
   {
-    id: "hero_skill:p288",
+    id: "hero_skill:warrens:h14:p288",
     name: "Withstand",
     level: 3,
     lineIndex: 1,
@@ -139,7 +140,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     ],
   },
   {
-    id: "hero_skill:p293",
+    id: "hero_skill:warrens:h14:p293",
     name: "Intimidate",
     level: 2,
     lineIndex: 0,
@@ -148,7 +149,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     effects: [{ kind: "mark", duration: 2 }],
   },
   {
-    id: "hero_skill:p293",
+    id: "hero_skill:warrens:h14:p293",
     name: "Intimidate",
     level: 2,
     lineIndex: 3,
@@ -157,7 +158,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     effects: [{ kind: "debuff", duration: 2 }],
   },
   {
-    id: "hero_skill:p294",
+    id: "hero_skill:warrens:h14:p294",
     name: "Intimidate",
     level: 3,
     lineIndex: 0,
@@ -166,7 +167,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     effects: [{ kind: "mark", duration: 1 }],
   },
   {
-    id: "hero_skill:p294",
+    id: "hero_skill:warrens:h14:p294",
     name: "Intimidate",
     level: 3,
     lineIndex: 3,
@@ -178,12 +179,12 @@ export const statusEntries: readonly StatusEffectEntry[] = [
 
 /**
  * R-200 / Q-163～Q-166：Leper II–III 逐卡印刷覆盖（签名断言 + 必要 icon key 修正，不改全局词典）。
- * 每张卡一条 patch；hero / 卡名 / 等级 / 页码由 applyPatches 统一断言。
+ * 每张卡一条 patch；hero / 卡名 / 等级 / 页码由 applyCardFixes + assertCardMeta 统一断言。
  */
 function purge(page: number): HeroSkillPatch {
   const level = page - 279;
   return {
-    id: `hero_skill:p${page}`,
+    id: `hero_skill:warrens:h14:p${page}`,
     name: "Purge",
     level,
     page,
@@ -217,7 +218,7 @@ function purge(page: number): HeroSkillPatch {
 function revenge(page: number): HeroSkillPatch {
   const level = page - 282;
   return {
-    id: `hero_skill:p${page}`,
+    id: `hero_skill:warrens:h14:p${page}`,
     name: "Revenge",
     level,
     page,
@@ -243,7 +244,7 @@ function withstand(cards: readonly NormalizedHeroSkillCard[], page: number): Her
   const protT = page === 288 ? 3 : 2;
   const markT = page === 286 ? 2 : 1;
   return {
-    id: `hero_skill:p${page}`,
+    id: `hero_skill:warrens:h14:p${page}`,
     name: "Withstand",
     level,
     page,
@@ -272,7 +273,7 @@ function solemnity(cards: readonly NormalizedHeroSkillCard[], page: number): Her
   const level = page - 288;
   const heal = 3 + level * 3;
   return {
-    id: `hero_skill:p${page}`,
+    id: `hero_skill:warrens:h14:p${page}`,
     name: "Solemnity",
     level,
     page,
@@ -334,7 +335,7 @@ function intimidate(cards: readonly NormalizedHeroSkillCard[], page: number): He
   const markT = page === 294 ? 1 : 2;
   const debuffT = page - 291;
   return {
-    id: `hero_skill:p${page}`,
+    id: `hero_skill:warrens:h14:p${page}`,
     name: "Intimidate",
     level: debuffT,
     page,
@@ -389,14 +390,8 @@ function leperPatches(cards: readonly NormalizedHeroSkillCard[]): readonly HeroS
   ];
 }
 
-export const leperAnnotations: HeroAnnotationModule = {
-  id: "h14",
-  hero: "LEPER",
-  apply: (cards) => applyPatches(cards, leperPatches(cards), "LEPER"),
-};
-
 /** 文本位移规则（scope + Push/Pull 原文）。 */
-export const shuffleEntries: readonly ShuffleEntry[] = [
+const shuffleEntries: readonly ShuffleEntry[] = [
   {
     id: "hero_skill:warrens:h14:p280",
     name: "Purge",
@@ -424,7 +419,7 @@ export const shuffleEntries: readonly ShuffleEntry[] = [
 ];
 
 /** Ignores Protection / Guard 规则。 */
-export const ignoresEntries: readonly IgnoresEntry[] = [
+const ignoresEntries: readonly IgnoresEntry[] = [
   {
     id: "hero_skill:warrens:h14:p292",
     name: "Intimidate",
@@ -450,3 +445,62 @@ export const ignoresEntries: readonly IgnoresEntry[] = [
   },
   { id: "hero_skill:warrens:h14:p294", name: "Intimidate", level: 3, lineIndex: 2, kind: "guard" },
 ];
+
+const entries: HeroAnnotationEntries = {
+  status: statusEntries,
+  shuffle: shuffleEntries,
+  ignores: ignoresEntries,
+  targetCount: [
+    { id: "hero_skill:warrens:h14:p274", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:warrens:h14:p275", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:warrens:h14:p276", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:warrens:h14:p277", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:warrens:h14:p278", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:warrens:h14:p279", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:warrens:h14:p280", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:warrens:h14:p281", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:warrens:h14:p282", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:warrens:h14:p283", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:warrens:h14:p284", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:warrens:h14:p285", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:warrens:h14:p286", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:warrens:h14:p287", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:warrens:h14:p288", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:warrens:h14:p289", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:warrens:h14:p290", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:warrens:h14:p291", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:warrens:h14:p292", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:warrens:h14:p293", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:warrens:h14:p294", hero: 0, monster: 1, heroOrMonster: 0 },
+  ],
+  effectKind: [
+    { id: "hero_skill:warrens:h14:p274", effect: "damage" },
+    { id: "hero_skill:warrens:h14:p275", effect: "damage" },
+    { id: "hero_skill:warrens:h14:p276", effect: "damage" },
+    { id: "hero_skill:warrens:h14:p277", effect: "damage" },
+    { id: "hero_skill:warrens:h14:p278", effect: "damage" },
+    { id: "hero_skill:warrens:h14:p279", effect: "damage" },
+    { id: "hero_skill:warrens:h14:p280", effect: "damage" },
+    { id: "hero_skill:warrens:h14:p281", effect: "damage" },
+    { id: "hero_skill:warrens:h14:p282", effect: "damage" },
+    { id: "hero_skill:warrens:h14:p292", effect: "damage" },
+    { id: "hero_skill:warrens:h14:p293", effect: "damage" },
+    { id: "hero_skill:warrens:h14:p294", effect: "damage" },
+  ],
+};
+
+export const h14 = defineHeroModule({
+  id: "h14",
+  hero: "LEPER",
+  entries,
+  fixes: (cards) =>
+    Object.fromEntries(
+      leperPatches(cards).map((patch) => [
+        patch.id,
+        (card: NormalizedHeroSkillCard) => {
+          assertCardMeta(card, "LEPER", patch.page, patch.name, patch.level);
+          return patch.apply(card);
+        },
+      ]),
+    ),
+});

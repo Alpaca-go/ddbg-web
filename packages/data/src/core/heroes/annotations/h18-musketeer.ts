@@ -1,20 +1,29 @@
 import { parseAnnotatedHeroSkillCard } from "../../../shared/schema";
 import type {
-  HeroAnnotationModule,
   StatusEffectEntry,
   RangeEntry,
   RallyingFlareEntry,
   DamageEntry,
   ShuffleEntry,
 } from "./types";
+import type { HeroAnnotationEntries } from "./types";
 import { lineSignature } from "./shared";
 import type { NormalizedHeroSkillCard } from "../../../shared/schema";
-import { cloneKey, iconFromCard, iconFromPool, segmentOnCard, text } from "./patch-helpers";
+import {
+  assertCardMeta,
+  defineHeroModule,
+  cloneKey,
+  iconFromCard,
+  iconFromPool,
+  segmentOnCard,
+  text,
+} from "./patch-helpers";
+import type { CardFix } from "./patch-helpers";
 
 /** 完整印刷逐页核对的状态效果行（docs/phase2-four-core-skills-2026-10-11.md）。 */
-export const statusEntries: readonly StatusEffectEntry[] = [
+const statusEntries: readonly StatusEffectEntry[] = [
   {
-    id: "hero_skill:musketeer:p004",
+    id: "hero_skill:musketeer:h18:p361",
     name: "Smokescreen",
     level: 1,
     lineIndex: 0,
@@ -23,7 +32,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     effects: [{ kind: "debuff", duration: 1 }],
   },
   {
-    id: "hero_skill:musketeer:p007",
+    id: "hero_skill:musketeer:h18:p364",
     name: "Call the Shot",
     level: 1,
     lineIndex: 0,
@@ -32,7 +41,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     effects: [{ kind: "mark", duration: 2 }],
   },
   {
-    id: "hero_skill:musketeer:p016",
+    id: "hero_skill:musketeer:h18:p373",
     name: "Patch Up",
     level: 1,
     lineIndex: 0,
@@ -41,7 +50,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     effects: [{ kind: "buff", duration: 2 }],
   },
   {
-    id: "hero_skill:musketeer:p019",
+    id: "hero_skill:musketeer:h18:p376",
     hero: "MUSKETEER",
     name: "Skeet Shot",
     level: 1,
@@ -51,7 +60,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     effects: [{ kind: "debuff", duration: 2 }],
   },
   {
-    id: "hero_skill:musketeer:p020",
+    id: "hero_skill:musketeer:h18:p377",
     hero: "MUSKETEER",
     name: "Skeet Shot",
     level: 2,
@@ -61,7 +70,7 @@ export const statusEntries: readonly StatusEffectEntry[] = [
     effects: [{ kind: "debuff", duration: 2 }],
   },
   {
-    id: "hero_skill:musketeer:p021",
+    id: "hero_skill:musketeer:h18:p378",
     hero: "MUSKETEER",
     name: "Skeet Shot",
     level: 3,
@@ -73,30 +82,30 @@ export const statusEntries: readonly StatusEffectEntry[] = [
 ];
 
 /** 已复核的印刷区间（R-048）：只附加已命名 range 图标旁的明确数字。 */
-export const rangeEntries: readonly RangeEntry[] = [
+const rangeEntries: readonly RangeEntry[] = [
   {
-    id: "hero_skill:musketeer:p004",
+    id: "hero_skill:musketeer:h18:p361",
     name: "Smokescreen",
     level: 1,
     min: 1,
     max: 2,
   },
   {
-    id: "hero_skill:musketeer:p007",
+    id: "hero_skill:musketeer:h18:p364",
     name: "Call the Shot",
     level: 1,
     min: 1,
     max: 2,
   },
   {
-    id: "hero_skill:musketeer:p013",
+    id: "hero_skill:musketeer:h18:p370",
     name: "Sidearm",
     level: 1,
     min: 0,
     max: 2,
   },
   {
-    id: "hero_skill:musketeer:p016",
+    id: "hero_skill:musketeer:h18:p373",
     name: "Patch Up",
     level: 1,
     min: 0,
@@ -105,9 +114,9 @@ export const rangeEntries: readonly RangeEntry[] = [
 ];
 
 /** Rallying Flare / Skeet Shot 逐卡复核（R-103）：混阵营目标与眩晕/标记清除行。 */
-export const rallyingFlareEntries: readonly RallyingFlareEntry[] = [
+const rallyingFlareEntries: readonly RallyingFlareEntry[] = [
   {
-    id: "hero_skill:musketeer:p019",
+    id: "hero_skill:musketeer:h18:p376",
     hero: "MUSKETEER",
     name: "Skeet Shot",
     level: 1,
@@ -115,7 +124,7 @@ export const rallyingFlareEntries: readonly RallyingFlareEntry[] = [
     targetIcons: 2,
   },
   {
-    id: "hero_skill:musketeer:p020",
+    id: "hero_skill:musketeer:h18:p377",
     hero: "MUSKETEER",
     name: "Skeet Shot",
     level: 2,
@@ -123,7 +132,7 @@ export const rallyingFlareEntries: readonly RallyingFlareEntry[] = [
     targetIcons: 3,
   },
   {
-    id: "hero_skill:musketeer:p021",
+    id: "hero_skill:musketeer:h18:p378",
     hero: "MUSKETEER",
     name: "Skeet Shot",
     level: 3,
@@ -133,9 +142,9 @@ export const rallyingFlareEntries: readonly RallyingFlareEntry[] = [
 ];
 
 /** 已复核条件伤害（只录已命名 damage 图标与明文条件）。 */
-export const damageEntries: readonly DamageEntry[] = [
+const damageEntries: readonly DamageEntry[] = [
   {
-    id: "hero_skill:musketeer:p001",
+    id: "hero_skill:musketeer:h18:p358",
     name: "Aimed Shot",
     level: 1,
     page: 1,
@@ -148,20 +157,12 @@ export const damageEntries: readonly DamageEntry[] = [
 
 function assertMus(
   card: NormalizedHeroSkillCard,
-  slug: string,
+  _slug: string,
   name: string,
   level: number,
   page: number,
 ) {
-  if (
-    card.id !== `hero_skill:musketeer:${slug}` ||
-    card.hero !== "MUSKETEER" ||
-    card.name !== name ||
-    card.level !== level ||
-    card.pages[0] !== page ||
-    card.verification.unverified
-  )
-    throw new Error(`${card.id} 元数据漂移（R-048）`);
+  assertCardMeta(card, "MUSKETEER", page, name, level);
 }
 
 function fixHealStatsLine(
@@ -478,232 +479,222 @@ function fixSkeetEffectLines(
  * R-200 / Q-185（Kyries 真确认）：Musketeer 与 Arbalest 七技能族数值/效果完全一致，仅图标与名称不同。
  * II/III 十四张 + L1 同族 OCR 洗净；效果/annotation_* 对照 Suppressive Fire / Sniper's Mark 等已核实 Arbalest 卡。
  */
-function applyMusketeerAnnotations(
+function musketeerFixes(
   cards: readonly NormalizedHeroSkillCard[],
-): NormalizedHeroSkillCard[] {
-  return cards.map((card) => {
-    switch (card.id) {
-      case "hero_skill:musketeer:p001":
-        return fixAimedShot(
-          cards,
-          card,
-          "p001",
-          1,
-          1,
-          "{range} 2 {target_monster} Crit 1 {damage} 9 Acc 9 {damage} 6",
-          "{target_effects}{shuffle}+3vs{blight}",
-          3,
-        );
-      case "hero_skill:musketeer:p002":
-        return fixAimedShot(
-          cards,
-          card,
-          "p002",
-          2,
-          2,
-          "{range} 2 {target_monster} Crit 1 {damage} 12 Acc 10 {damage} 8",
-          "{target_effects}{shuffle}+5vs{blight}",
-          5,
-        );
-      case "hero_skill:musketeer:p003":
-        return fixAimedShot(
-          cards,
-          card,
-          "p003",
-          3,
-          3,
-          "{range} 2 {target_monster} Crit 1 {damage} 16 Acc 11 {damage} 10",
-          "{target_effects}{shuffle}+9vs{blight}",
-          9,
-        );
-      case "hero_skill:musketeer:p004":
-        return fixSmokescreenDebuff(
-          cards,
-          card,
-          "p004",
-          1,
-          4,
-          "{range} 1-2 {target_monster} {target_monster} Crit 0 {damage} 4 Acc 9 {damage} 2",
-          "{mark}{protection}1t",
-          "b2e9d87127",
-          1,
-        );
-      case "hero_skill:musketeer:p005":
-        return fixSmokescreenDebuff(
-          cards,
-          card,
-          "p005",
-          2,
-          5,
-          "{range} 1-2 {target_monster} {target_monster} Crit 0 {damage} 6 Acc 10 {damage} 3",
-          "{skill_art}{protection}2t",
-          "462bd48a91",
-          2,
-        );
-      case "hero_skill:musketeer:p006":
-        return fixSmokescreenDebuff(
-          cards,
-          card,
-          "p006",
-          3,
-          6,
-          "{range} 1-2 {target_monster} {target_monster} Crit 0 {damage} 7 Acc 11 {damage} 4",
-          "{skill_art}{bleed}3t",
-          "462bd48a91",
-          3,
-        );
-      case "hero_skill:musketeer:p007":
-        return fixCallTheShot(cards, card, "p007", 1, 7, 10, "{target_effects}{debuff}2t", 2);
-      case "hero_skill:musketeer:p008":
-        return fixCallTheShot(cards, card, "p008", 2, 8, 11, "{target_effects}{debuff}3t", 3);
-      case "hero_skill:musketeer:p009":
-        return fixCallTheShot(cards, card, "p009", 3, 9, 12, "{target_effects}{debuff}4t", 4);
-      case "hero_skill:musketeer:p010":
-        return fixBuckshot(
-          cards,
-          card,
-          "p010",
-          1,
-          10,
-          "{range} 1 {target_monster} {target_monster} Crit 1 {damage} 6 Acc 10 {damage} 3",
-          1,
-          "{self_effects}{buff}Self{buff}Push1",
-          "{stun}{target_effects}Push2",
-        );
-      case "hero_skill:musketeer:p011":
-        return fixBuckshot(
-          cards,
-          card,
-          "p011",
-          2,
-          11,
-          "{range} 1 {target_monster} {target_monster} Crit 1 {damage} 8 Acc 11 {damage} 4",
-          2,
-          "{self_effects}{buff}Self{buff}Push2",
-          "{stun}{target_effects}Push2",
-        );
-      case "hero_skill:musketeer:p012":
-        return fixBuckshot(
-          cards,
-          card,
-          "p012",
-          3,
-          12,
-          "{range} 1 {target_monster} {target_monster} Crit 1 {damage} 9 Acc 12 {damage} 5",
-          2,
-          "{self_effects}{buff}Self{buff}Push2",
-          "{stun}{target_effects}Push2",
-        );
-      case "hero_skill:musketeer:p013":
-        return fixSidearm(
-          cards,
-          card,
-          "p013",
-          1,
-          13,
-          "{range} 0-2 {target_monster} Crit 0 {damage} 8 Acc 8 {damage} 5",
-          "{self_effects}{buff}Self{shuffle}Push1",
-          1,
-        );
-      case "hero_skill:musketeer:p014":
-        return fixSidearm(
-          cards,
-          card,
-          "p014",
-          2,
-          14,
-          "{range} 0-2 {target_monster} Crit 0 {damage} 11 Acc 9 {damage} 6",
-          "{self_effects}{buff}Self{shuffle}Push2",
-          2,
-        );
-      case "hero_skill:musketeer:p015":
-        return fixSidearm(
-          cards,
-          card,
-          "p015",
-          3,
-          15,
-          "{range} 0-2 {target_monster} Crit 0 {damage} 14 Acc 10 {damage} 8",
-          "{self_effects}{buff}Self{shuffle}Push2",
-          2,
-        );
-      case "hero_skill:musketeer:p016":
-        return fixPatchUp(
-          cards,
-          card,
-          "p016",
-          1,
-          16,
-          "{range} 0-1 {target_hero} Crit 0 {damage_or_heal_combined_marker} {damage} 6 Acc 8 {damage_or_heal_combined_marker} {damage} 4",
-          "{self_effects}{buff}Self{buff}2t",
-        );
-      case "hero_skill:musketeer:p017":
-        return fixPatchUp(
-          cards,
-          card,
-          "p017",
-          2,
-          17,
-          "{range} 0-1 {target_hero} Crit 0 {damage_or_heal_combined_marker} {damage} 8 Acc 9 {damage_or_heal_combined_marker} {damage} 5",
-          "{self_effects}{buff}Self{buff}2t",
-        );
-      case "hero_skill:musketeer:p018":
-        return fixPatchUp(
-          cards,
-          card,
-          "p018",
-          3,
-          18,
-          "{range} 0-1 {target_hero} Crit 0 {damage_or_heal_combined_marker} 10 {damage} Acc 10 {damage_or_heal_combined_marker} {damage} 7",
-          "{self_effects}{buff}Self{buff}2t",
-        );
-      case "hero_skill:musketeer:p019":
-        return fixSkeetEffectLines(
-          cards,
-          card,
-          "p019",
-          1,
-          19,
-          10,
-          "{self_effects}{blight}SelfRemove{stun}{mark}{target_effects}{target_effects}:Remove{stun}{mark}",
-          "{target_monster}:{debuff}2t",
-        );
-      case "hero_skill:musketeer:p020":
-        return fixSkeetEffectLines(
-          cards,
-          card,
-          "p020",
-          2,
-          20,
-          11,
-          "{self_effects}{blight}SelfRemove{stun}{mark}{target_effects}{target_effects}:Remove{stun}{mark}",
-          "{target_monster}:{debuff}2t",
-        );
-      case "hero_skill:musketeer:p021":
-        return fixSkeetEffectLines(
-          cards,
-          card,
-          "p021",
-          3,
-          21,
-          12,
-          "{self_effects}{blight}SelfRemove{stun}{mark}{target_effects}{target_effects}:Remove{stun}{mark}",
-          "{target_monster}:{debuff}2t",
-        );
-      default:
-        return card;
-    }
-  });
+): Readonly<Record<string, CardFix>> {
+  return {
+    "hero_skill:musketeer:h18:p358": (card) =>
+      fixAimedShot(
+        cards,
+        card,
+        "p001",
+        1,
+        1,
+        "{range} 2 {target_monster} Crit 1 {damage} 9 Acc 9 {damage} 6",
+        "{target_effects}{shuffle}+3vs{blight}",
+        3,
+      ),
+    "hero_skill:musketeer:h18:p359": (card) =>
+      fixAimedShot(
+        cards,
+        card,
+        "p002",
+        2,
+        2,
+        "{range} 2 {target_monster} Crit 1 {damage} 12 Acc 10 {damage} 8",
+        "{target_effects}{shuffle}+5vs{blight}",
+        5,
+      ),
+    "hero_skill:musketeer:h18:p360": (card) =>
+      fixAimedShot(
+        cards,
+        card,
+        "p003",
+        3,
+        3,
+        "{range} 2 {target_monster} Crit 1 {damage} 16 Acc 11 {damage} 10",
+        "{target_effects}{shuffle}+9vs{blight}",
+        9,
+      ),
+    "hero_skill:musketeer:h18:p361": (card) =>
+      fixSmokescreenDebuff(
+        cards,
+        card,
+        "p004",
+        1,
+        4,
+        "{range} 1-2 {target_monster} {target_monster} Crit 0 {damage} 4 Acc 9 {damage} 2",
+        "{mark}{protection}1t",
+        "b2e9d87127",
+        1,
+      ),
+    "hero_skill:musketeer:h18:p362": (card) =>
+      fixSmokescreenDebuff(
+        cards,
+        card,
+        "p005",
+        2,
+        5,
+        "{range} 1-2 {target_monster} {target_monster} Crit 0 {damage} 6 Acc 10 {damage} 3",
+        "{skill_art}{protection}2t",
+        "462bd48a91",
+        2,
+      ),
+    "hero_skill:musketeer:h18:p363": (card) =>
+      fixSmokescreenDebuff(
+        cards,
+        card,
+        "p006",
+        3,
+        6,
+        "{range} 1-2 {target_monster} {target_monster} Crit 0 {damage} 7 Acc 11 {damage} 4",
+        "{skill_art}{bleed}3t",
+        "462bd48a91",
+        3,
+      ),
+    "hero_skill:musketeer:h18:p364": (card) =>
+      fixCallTheShot(cards, card, "p007", 1, 7, 10, "{target_effects}{debuff}2t", 2),
+    "hero_skill:musketeer:h18:p365": (card) =>
+      fixCallTheShot(cards, card, "p008", 2, 8, 11, "{target_effects}{debuff}3t", 3),
+    "hero_skill:musketeer:h18:p366": (card) =>
+      fixCallTheShot(cards, card, "p009", 3, 9, 12, "{target_effects}{debuff}4t", 4),
+    "hero_skill:musketeer:h18:p367": (card) =>
+      fixBuckshot(
+        cards,
+        card,
+        "p010",
+        1,
+        10,
+        "{range} 1 {target_monster} {target_monster} Crit 1 {damage} 6 Acc 10 {damage} 3",
+        1,
+        "{self_effects}{buff}Self{buff}Push1",
+        "{stun}{target_effects}Push2",
+      ),
+    "hero_skill:musketeer:h18:p368": (card) =>
+      fixBuckshot(
+        cards,
+        card,
+        "p011",
+        2,
+        11,
+        "{range} 1 {target_monster} {target_monster} Crit 1 {damage} 8 Acc 11 {damage} 4",
+        2,
+        "{self_effects}{buff}Self{buff}Push2",
+        "{stun}{target_effects}Push2",
+      ),
+    "hero_skill:musketeer:h18:p369": (card) =>
+      fixBuckshot(
+        cards,
+        card,
+        "p012",
+        3,
+        12,
+        "{range} 1 {target_monster} {target_monster} Crit 1 {damage} 9 Acc 12 {damage} 5",
+        2,
+        "{self_effects}{buff}Self{buff}Push2",
+        "{stun}{target_effects}Push2",
+      ),
+    "hero_skill:musketeer:h18:p370": (card) =>
+      fixSidearm(
+        cards,
+        card,
+        "p013",
+        1,
+        13,
+        "{range} 0-2 {target_monster} Crit 0 {damage} 8 Acc 8 {damage} 5",
+        "{self_effects}{buff}Self{shuffle}Push1",
+        1,
+      ),
+    "hero_skill:musketeer:h18:p371": (card) =>
+      fixSidearm(
+        cards,
+        card,
+        "p014",
+        2,
+        14,
+        "{range} 0-2 {target_monster} Crit 0 {damage} 11 Acc 9 {damage} 6",
+        "{self_effects}{buff}Self{shuffle}Push2",
+        2,
+      ),
+    "hero_skill:musketeer:h18:p372": (card) =>
+      fixSidearm(
+        cards,
+        card,
+        "p015",
+        3,
+        15,
+        "{range} 0-2 {target_monster} Crit 0 {damage} 14 Acc 10 {damage} 8",
+        "{self_effects}{buff}Self{shuffle}Push2",
+        2,
+      ),
+    "hero_skill:musketeer:h18:p373": (card) =>
+      fixPatchUp(
+        cards,
+        card,
+        "p016",
+        1,
+        16,
+        "{range} 0-1 {target_hero} Crit 0 {damage_or_heal_combined_marker} {damage} 6 Acc 8 {damage_or_heal_combined_marker} {damage} 4",
+        "{self_effects}{buff}Self{buff}2t",
+      ),
+    "hero_skill:musketeer:h18:p374": (card) =>
+      fixPatchUp(
+        cards,
+        card,
+        "p017",
+        2,
+        17,
+        "{range} 0-1 {target_hero} Crit 0 {damage_or_heal_combined_marker} {damage} 8 Acc 9 {damage_or_heal_combined_marker} {damage} 5",
+        "{self_effects}{buff}Self{buff}2t",
+      ),
+    "hero_skill:musketeer:h18:p375": (card) =>
+      fixPatchUp(
+        cards,
+        card,
+        "p018",
+        3,
+        18,
+        "{range} 0-1 {target_hero} Crit 0 {damage_or_heal_combined_marker} 10 {damage} Acc 10 {damage_or_heal_combined_marker} {damage} 7",
+        "{self_effects}{buff}Self{buff}2t",
+      ),
+    "hero_skill:musketeer:h18:p376": (card) =>
+      fixSkeetEffectLines(
+        cards,
+        card,
+        "p019",
+        1,
+        19,
+        10,
+        "{self_effects}{blight}SelfRemove{stun}{mark}{target_effects}{target_effects}:Remove{stun}{mark}",
+        "{target_monster}:{debuff}2t",
+      ),
+    "hero_skill:musketeer:h18:p377": (card) =>
+      fixSkeetEffectLines(
+        cards,
+        card,
+        "p020",
+        2,
+        20,
+        11,
+        "{self_effects}{blight}SelfRemove{stun}{mark}{target_effects}{target_effects}:Remove{stun}{mark}",
+        "{target_monster}:{debuff}2t",
+      ),
+    "hero_skill:musketeer:h18:p378": (card) =>
+      fixSkeetEffectLines(
+        cards,
+        card,
+        "p021",
+        3,
+        21,
+        12,
+        "{self_effects}{blight}SelfRemove{stun}{mark}{target_effects}{target_effects}:Remove{stun}{mark}",
+        "{target_monster}:{debuff}2t",
+      ),
+  };
 }
 
-export const musketeerAnnotations: HeroAnnotationModule = {
-  id: "h18",
-  hero: "MUSKETEER",
-  apply: applyMusketeerAnnotations,
-};
-
 /** 文本位移规则（scope + Push/Pull 原文）。 */
-export const shuffleEntries: readonly ShuffleEntry[] = [
+const shuffleEntries: readonly ShuffleEntry[] = [
   {
     id: "hero_skill:musketeer:h18:p367",
     name: "Buckshot",
@@ -777,3 +768,55 @@ export const shuffleEntries: readonly ShuffleEntry[] = [
     text: "Push 2",
   },
 ];
+
+const entries: HeroAnnotationEntries = {
+  status: statusEntries,
+  range: rangeEntries,
+  rallyingFlare: rallyingFlareEntries,
+  damage: damageEntries,
+  shuffle: shuffleEntries,
+  targetCount: [
+    { id: "hero_skill:musketeer:h18:p358", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:musketeer:h18:p359", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:musketeer:h18:p360", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:musketeer:h18:p361", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:musketeer:h18:p362", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:musketeer:h18:p363", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:musketeer:h18:p364", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:musketeer:h18:p365", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:musketeer:h18:p366", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:musketeer:h18:p367", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:musketeer:h18:p368", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:musketeer:h18:p369", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:musketeer:h18:p370", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:musketeer:h18:p371", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:musketeer:h18:p372", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:musketeer:h18:p373", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:musketeer:h18:p374", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:musketeer:h18:p375", hero: 1, monster: 0, heroOrMonster: 0 },
+  ],
+  effectKind: [
+    { id: "hero_skill:musketeer:h18:p358", effect: "damage" },
+    { id: "hero_skill:musketeer:h18:p359", effect: "damage" },
+    { id: "hero_skill:musketeer:h18:p360", effect: "damage" },
+    { id: "hero_skill:musketeer:h18:p361", effect: "damage" },
+    { id: "hero_skill:musketeer:h18:p362", effect: "damage" },
+    { id: "hero_skill:musketeer:h18:p363", effect: "damage" },
+    { id: "hero_skill:musketeer:h18:p367", effect: "damage" },
+    { id: "hero_skill:musketeer:h18:p368", effect: "damage" },
+    { id: "hero_skill:musketeer:h18:p369", effect: "damage" },
+    { id: "hero_skill:musketeer:h18:p370", effect: "damage" },
+    { id: "hero_skill:musketeer:h18:p371", effect: "damage" },
+    { id: "hero_skill:musketeer:h18:p372", effect: "damage" },
+    { id: "hero_skill:musketeer:h18:p373", effect: "heal" },
+    { id: "hero_skill:musketeer:h18:p374", effect: "heal" },
+    { id: "hero_skill:musketeer:h18:p375", effect: "heal" },
+  ],
+};
+
+export const h18 = defineHeroModule({
+  id: "h18",
+  hero: "MUSKETEER",
+  entries,
+  fixes: musketeerFixes,
+});

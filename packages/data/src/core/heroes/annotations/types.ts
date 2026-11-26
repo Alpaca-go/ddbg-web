@@ -9,10 +9,30 @@ export type HeroAnnotationApplier = (
   cards: readonly NormalizedHeroSkillCard[],
 ) => NormalizedHeroSkillCard[];
 
+/** 一个英雄的全部逐卡注解数据。只写该英雄实际有的表，没有就不写。 */
+export type HeroAnnotationEntries = {
+  readonly status?: readonly StatusEffectEntry[];
+  readonly range?: readonly RangeEntry[];
+  readonly support?: readonly SupportEffectEntry[];
+  readonly damage?: readonly DamageEntry[];
+  readonly self?: readonly SelfEffectEntry[];
+  readonly targetStress?: readonly TargetStressEntry[];
+  readonly layout?: readonly LayoutEntry[];
+  readonly bounty?: readonly BountyStatusRow[];
+  readonly rallyingFlare?: readonly RallyingFlareEntry[];
+  readonly shuffle?: readonly ShuffleEntry[];
+  readonly ignores?: readonly IgnoresEntry[];
+  readonly removal?: readonly RemovalEntry[];
+  readonly higher?: readonly CoreHigherSkillRow[];
+  readonly targetCount?: readonly TargetCountEntry[];
+  readonly effectKind?: readonly EffectKindEntry[];
+};
+
 /** 每个英雄一个模块，按固定编号 hNN 升序应用（docs/id-naming-rules.md §4）。 */
 export type HeroAnnotationModule = {
   readonly id: `h${number}`;
   readonly hero: HeroName;
+  readonly entries: HeroAnnotationEntries;
   readonly apply: HeroAnnotationApplier;
 };
 
@@ -206,6 +226,10 @@ export type RemovalEntry = {
   readonly scope: "self" | "target";
   readonly kinds: readonly ("bleed" | "blight")[];
 };
+
+/** stats 行主效果（damage / heal）；无主效果的卡不写。 */
+export type EffectKind = "damage" | "heal";
+export type EffectKindEntry = { readonly id: string; readonly effect: EffectKind };
 
 /** 区域目标数：stats 行或卡面正面的已命名目标图标个数。 */
 export type TargetCountEntry = {

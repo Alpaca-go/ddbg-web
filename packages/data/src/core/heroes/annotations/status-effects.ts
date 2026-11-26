@@ -1,10 +1,10 @@
 import { parseAnnotatedHeroSkillCard } from "../../../shared/schema";
 import type { NormalizedHeroSkillCard } from "../../../shared/schema";
-import { lineSignature } from "./shared";
+import { lineSignature, printedPageOf } from "./shared";
 import type { StatusEffectEntry } from "./types";
 
 /**
- * 状态效果注解 applier：按页码 + 英雄定位卡片，逐卡断言卡名 / 等级 / 印刷行签名（R-048）。
+ * 状态效果注解 applier：按 canonical id 定位卡片，逐卡断言卡名 / 等级 / 页码 / 印刷行签名（R-048）。
  * 数据按英雄放在 hNN-*.ts，这里只保留算法。
  */
 export function applyStatusEffects(
@@ -16,17 +16,10 @@ export function applyStatusEffects(
     NonNullable<NormalizedHeroSkillCard["annotation_status_effects"]>
   >();
   for (const entry of entries) {
-    const page = Number(entry.id.slice(-3));
-    const musketeerEntry = entry.id.startsWith("hero_skill:musketeer:");
-    const matches = cards.filter(
-      (card) =>
-        card.pages.length === 1 &&
-        card.pages[0] === page &&
-        (musketeerEntry ? card.hero === "MUSKETEER" : card.hero !== "MUSKETEER") &&
-        (entry.hero === undefined || card.hero === entry.hero),
-    );
+    const matches = cards.filter((card) => card.id === entry.id);
     if (matches.length !== 1) throw new Error(`状态映射 id 必须唯一存在：${entry.id}`);
     const card = matches[0]!;
+    const page = printedPageOf(entry.id);
     if (
       card.name !== entry.name ||
       (entry.hero !== undefined &&

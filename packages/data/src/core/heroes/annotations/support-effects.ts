@@ -1,15 +1,14 @@
 import type { NormalizedHeroSkillCard } from "../../../shared/schema";
-import { legacyHeroSkillId } from "../hero-registry";
 import type { SupportEffectEntry } from "./types";
 
-/** 已复核支援效果 applier：按 legacy id 定位卡片，断言目标行与效果行签名。 */
+/** 已复核支援效果 applier：按 canonical id 定位卡片，断言目标行与效果行签名。 */
 export function applySupportEffects(
   cards: readonly NormalizedHeroSkillCard[],
   entries: readonly SupportEffectEntry[],
 ): NormalizedHeroSkillCard[] {
   const byId = new Map(entries.map((entry) => [entry.id, entry]));
   return cards.map((card) => {
-    const entry = byId.get(legacyHeroSkillId(card));
+    const entry = byId.get(card.id);
     if (!entry) return card;
     const line = card.effect_lines[entry.lineIndex];
     const text = line

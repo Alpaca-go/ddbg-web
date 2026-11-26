@@ -1,6 +1,6 @@
 import type { NormalizedHeroSkillCard, Segment } from "../../../shared/schema";
 import type { HeroName } from "../hero-registry";
-import type { HeroSkillPatch } from "./types";
+import type { HeroAnnotationEntries, HeroAnnotationModule } from "./types";
 
 export type IconSegment = Extract<Segment, { type: "icon" }>;
 
@@ -79,25 +79,61 @@ export function segmentOnCardInEffects(card: NormalizedHeroSkillCard, iconId: st
   }
   throw new Error(`${card.id} 缺少印刷段 iconId=${iconId}（R-048）`);
 }
-/** 逐卡补丁 runner：统一断言 hero / 卡名 / 等级 / 页码 / 验证状态，再执行该卡的 apply。 */
-export function applyPatches(
-  cards: readonly NormalizedHeroSkillCard[],
-  patches: readonly HeroSkillPatch[],
+/** 统一的逐卡元数据断言：英雄 / 卡名 / 等级 / 单页 / 页码 / 验证状态。 */
+export function assertCardMeta(
+  card: NormalizedHeroSkillCard,
   hero: HeroName,
+  page: number,
+  name: string,
+  level: number,
+): void {
+  if (
+    card.hero !== hero ||
+    card.name !== name ||
+    card.level !== level ||
+    card.pages.length !== 1 ||
+    card.pages[0] !== page ||
+    card.verification.unverified
+  )
+    throw new Error(`${card.id} 元数据漂移（R-048）`);
+}
+
+/** 单卡修正：key 为该卡的 canonical id，命中后执行。 */
+export type CardFix = (card: NormalizedHeroSkillCard) => NormalizedHeroSkillCard;
+
+/**
+ * 统一逐卡修正 runner：
+ * - 每个 key 必须唯一命中一张卡，否则构建失败（不再静默跳过）；
+ * - 只对命中卡断言英雄与验证状态；卡名 / 等级 / 页码由具体 fix 或数据测试负责。
+ */
+export function applyCardFixes(
+  cards: readonly NormalizedHeroSkillCard[],
+  hero: HeroName,
+  fixes: Readonly<Record<string, CardFix>>,
 ): NormalizedHeroSkillCard[] {
-  const byId = new Map(patches.map((patch) => [patch.id, patch]));
+  for (const id of Object.keys(fixes)) {
+    if (cards.filter((card) => card.id === id).length !== 1)
+      throw new Error(`${id} 注解必须唯一命中一张卡（R-048）`);
+  }
   return cards.map((card) => {
-    const patch = byId.get(card.id);
-    if (!patch) return card;
-    if (
-      card.hero !== hero ||
-      card.name !== patch.name ||
-      card.level !== patch.level ||
-      card.pages.length !== 1 ||
-      card.pages[0] !== patch.page ||
-      card.verification.unverified
-    )
+    const fix = fixes[card.id];
+    if (!fix) return card;
+    if (card.hero !== hero || card.verification.unverified)
       throw new Error(`${card.id} 元数据漂移（R-048）`);
-    return patch.apply(card);
+    return fix(card);
   });
+}
+
+/** 一个英雄一个模块的统一构造器；没有 fixes 的英雄是纯数据模块。 */
+export function defineHeroModule(config: {
+  readonly id: `h${number}`;
+  readonly hero: HeroName;
+  readonly entries: HeroAnnotationEntries;
+  readonly fixes?: (cards: readonly NormalizedHeroSkillCard[]) => Readonly<Record<string, CardFix>>;
+}): HeroAnnotationModule {
+  const apply = config.fixes
+    ? (cards: readonly NormalizedHeroSkillCard[]) =>
+        applyCardFixes(cards, config.hero, config.fixes!(cards))
+    : (cards: readonly NormalizedHeroSkillCard[]) => [...cards];
+  return { id: config.id, hero: config.hero, entries: config.entries, apply };
 }

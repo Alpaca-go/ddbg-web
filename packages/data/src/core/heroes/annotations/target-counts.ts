@@ -1,6 +1,5 @@
 import { parseAnnotatedHeroSkillCard } from "../../../shared/schema";
 import type { NormalizedHeroSkillCard } from "../../../shared/schema";
-import { heroSkillId } from "../hero-registry";
 import type { TargetCountEntry } from "./types";
 
 const NAMED = new Set(["confirmed", "confirmed_rulebook"]);
@@ -71,10 +70,7 @@ export function applyTargetCounts(
   for (const entry of entries) byId.set(entry.id, entry);
   return cards.map((card) => {
     if (card.rules?.targets) return card;
-    const page = card.pages[0]!;
-    const hero = card.hero ?? "ABOMINATION";
-    const globalPage = card.id.startsWith("hero_skill:musketeer:") ? 357 + page : page;
-    const entry = byId.get(heroSkillId(hero, globalPage));
+    const entry = byId.get(card.id);
     if (!entry) return card;
     if (card.verification.unverified) throw new Error(`${card.id} 目标计数来自未验证卡（R-048）`);
     const expected = expectedTargetCounts(card);

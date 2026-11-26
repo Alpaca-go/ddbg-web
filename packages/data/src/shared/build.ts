@@ -764,6 +764,7 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
       const raw = { ...input.heroSkillRaw, cards: rawCards };
       const file = buildHeroSkills(parsed, raw, lookup);
       const reviewed = attachReviewedHeroStances(file.cards);
+      const canonical = canonicalHeroSkillCards(reviewed);
       const cards = attachCoreHigherSkills(
         applyHeroRallyingFlare(
           applyHeroBountyStatuses(
@@ -777,7 +778,7 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
                           applyHeroEffectKind(
                             applyHeroRemoval(
                               applyHeroSelfEffects(
-                                applyHeroAnnotations(applyHeroLayouts(reviewed)),
+                                applyHeroAnnotations(applyHeroLayouts(canonical)),
                               ),
                             ),
                           ),
@@ -793,7 +794,7 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
       );
       return normalizedHeroSkillFileSchema.parse({
         ...file,
-        cards: canonicalHeroSkillCards(cards).map((card) => withHeroSkillRules(card)),
+        cards: cards.map((card) => withHeroSkillRules(card)),
       });
     })(),
     room_tile_geometry: (() => {

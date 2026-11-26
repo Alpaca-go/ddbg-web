@@ -1,5 +1,4 @@
 import type { NormalizedHeroSkillCard, Segment } from "../../../shared/schema";
-import { legacyHeroSkillId } from "../hero-registry";
 import { lineSignature } from "./shared";
 import type { LayoutEntry } from "./types";
 
@@ -16,7 +15,7 @@ export function applyLayouts(
 ): NormalizedHeroSkillCard[] {
   const byId = new Map(entries.map((entry) => [entry.id, entry]));
   return cards.map((card) => {
-    const entry = byId.get(legacyHeroSkillId(card));
+    const entry = byId.get(card.id);
     if (!entry) return card;
     if (entry.kind === "strip-trailing-comma") {
       const [move, guard] = card.effect_lines;

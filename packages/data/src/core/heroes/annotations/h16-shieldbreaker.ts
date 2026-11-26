@@ -1,20 +1,22 @@
 import { parseAnnotatedHeroSkillCard } from "../../../shared/schema";
-import type { HeroAnnotationModule, ShuffleEntry, IgnoresEntry } from "./types";
+import type { ShuffleEntry, IgnoresEntry } from "./types";
+import type { HeroAnnotationEntries } from "./types";
 import { lineSignature } from "./shared";
 import type { NormalizedHeroSkillCard } from "../../../shared/schema";
-import { cloneKey, iconFromCard, iconFromPool, segmentOnCard, text } from "./patch-helpers";
+import {
+  assertCardMeta,
+  defineHeroModule,
+  cloneKey,
+  iconFromCard,
+  iconFromPool,
+  segmentOnCard,
+  text,
+} from "./patch-helpers";
+import type { CardFix } from "./patch-helpers";
 import type { IconSegment } from "./patch-helpers";
 
 function assertSb(card: NormalizedHeroSkillCard, page: number, name: string, level: number) {
-  if (
-    card.id !== `hero_skill:p${page}` ||
-    card.hero !== "SHIELDBREAKER" ||
-    card.name !== name ||
-    card.level !== level ||
-    card.pages[0] !== page ||
-    card.verification.unverified
-  )
-    throw new Error(`${card.id} 元数据漂移（R-048）`);
+  assertCardMeta(card, "SHIELDBREAKER", page, name, level);
 }
 
 function rangeZeroUnlabeled(rangeIcon: IconSegment) {
@@ -367,246 +369,236 @@ function fixSerpentSwayIii(
 }
 
 /** R-200 / Q-181～Q-184：Shieldbreaker I–III 七技能族逐卡覆盖（含 L1 OCR 洗净）。 */
-function applyShieldbreakerAnnotations(
+function shieldbreakerFixes(
   cards: readonly NormalizedHeroSkillCard[],
-): NormalizedHeroSkillCard[] {
-  return cards.map((card) => {
-    switch (card.id) {
-      case "hero_skill:p316":
-        return fixPierce(
-          card,
-          316,
-          1,
-          "{range} 2 {target_monster} Crit 1 {damage} 10 Acc 9 {damage} 6",
-          "{self_effects}{buff}Self{buff}Pull1",
-          "{heal}Ignores{protection}",
-        );
-      case "hero_skill:p317":
-        return fixPierce(
-          card,
-          317,
-          2,
-          "{range} 2 {target_monster} Crit 1 {damage} 14 Acc 10 {damage} 9",
-          "{self_effects}{buff}Self{buff}Pull1",
-          "{heal}Ignores{protection}",
-        );
-      case "hero_skill:p318":
-        return fixPierce(
-          card,
-          318,
-          3,
-          "{range} 2 {target_monster} Crit 1 {damage} 17 Acc 11 {damage} 12",
-          "{self_effects}{buff}Self{buff}Pull1",
-          "{heal}Ignores{protection}",
-        );
-      case "hero_skill:p319":
-        return fixPuncture(
-          cards,
-          card,
-          319,
-          1,
-          "{range} 2 {target_monster} Crit 0 {damage} 7 Acc 9 {damage} 4",
-          "{self_effects}{buff}Self{target_effects}Pull1",
-          "{light}Ignores{target_effects},{target_effects}Pull1",
-          false,
-        );
-      case "hero_skill:p320":
-        return fixPuncture(
-          cards,
-          card,
-          320,
-          2,
-          "{range} 1-2 {target_monster} Crit 0 {damage} 8 Acc 10 {damage} 5",
-          "{self_effects}{buff}Self{target_effects}Pull1",
-          "{light}Ignores{target_effects},{target_effects}Pull1",
-          true,
-        );
-      case "hero_skill:p321":
-        return fixPuncture(
-          cards,
-          card,
-          321,
-          3,
-          "{range} 1-2 {target_monster} Crit 0 {damage} 10 Acc 11 {damage} 7",
-          "{self_effects}{buff}Self{target_effects}Pull1",
-          "{light}Ignores{target_effects},{target_effects}Pull1",
-          true,
-        );
-      case "hero_skill:p322":
-        return fixAddersKiss(
-          cards,
-          card,
-          322,
-          1,
-          "{range} 0 {target_monster} Crit 1 {damage} 11 Acc 9 {damage} 7",
-          "{self_effects}{buff}Self{buff}Push1",
-          "{target_effects}2{debuff}2t",
-          2,
-        );
-      case "hero_skill:p323":
-        return fixAddersKiss(
-          cards,
-          card,
-          323,
-          2,
-          "{range} 0 {target_monster} Crit 1 {damage} 16 Acc 10 {damage} 10",
-          "{self_effects}{buff}Self{buff}Push1",
-          "{target_effects}2{stun}3t",
-          3,
-        );
-      case "hero_skill:p324":
-        return fixAddersKiss(
-          cards,
-          card,
-          324,
-          3,
-          "{range} 0 {target_monster} Crit 1 {damage} 19 Acc 11 {damage} 14",
-          "{self_effects}{buff}Self{buff}Push1",
-          "{target_effects}2{stun}3t",
-          3,
-        );
-      case "hero_skill:p325":
-        return fixImpale(
-          cards,
-          card,
-          325,
-          1,
-          "{range} 1 {target_hero} {target_hero} {target_hero} {target_hero} Crit 0 {damage} 5 Acc 9 {damage} 3",
-          "{self_effects}{buff}Self{buff}Push1",
-          "{target_effects}{debuff}1t",
-          1,
-        );
-      case "hero_skill:p326":
-        return fixImpale(
-          cards,
-          card,
-          326,
-          2,
-          "{range} 1 {target_hero} {target_hero} {target_hero} {target_hero} Crit 0 {damage} 7 Acc 10 {damage} 4",
-          "{self_effects}{buff}Self{buff}Push1",
-          "{target_effects}{debuff}2t",
-          2,
-        );
-      case "hero_skill:p327":
-        return fixImpale(
-          cards,
-          card,
-          327,
-          3,
-          "{range} 1 {target_hero} {target_hero} {target_hero} {target_hero} Crit 0 {damage} 9 Acc 11 {damage} 6",
-          "{self_effects}{buff}Self{buff}Push1",
-          "{target_effects}{debuff}2t",
-          2,
-        );
-      case "hero_skill:p328":
-        return fixExpose(
-          card,
-          328,
-          1,
-          "{range} 1 {target_monster} Crit 1 {damage} 9 Acc 8 {damage} 5",
-          "{self_effects}{buff}Self{buff}Push1",
-          "{target_effects}{debuff}1t",
-          1,
-        );
-      case "hero_skill:p329":
-        return fixExpose(
-          card,
-          329,
-          2,
-          "{range} 1 {target_monster} Crit 1 {damage} 10 Acc 9 {damage} 6",
-          "{self_effects}{buff}Self{buff}Push1",
-          "{target_effects}{debuff}2t",
-          2,
-        );
-      case "hero_skill:p330":
-        return fixExpose(
-          card,
-          330,
-          3,
-          "{range} 1 {target_monster} Crit 1 {damage} 12 Acc 10 {damage} 8",
-          "{self_effects}{buff}Self{buff}Push1",
-          "{target_effects}{debuff}2t",
-          2,
-        );
-      case "hero_skill:p331":
-        return fixCaptivate(
-          cards,
-          card,
-          331,
-          1,
-          "{range} 1 {target_monster} Crit 1 {target_effects} 9 Acc 8 {target_effects} 6",
-          "{shuffle}{target_effects}+2vs{damage},2{bleed}2t",
-          2,
-          2,
-          2,
-        );
-      case "hero_skill:p332":
-        return fixCaptivate(
-          cards,
-          card,
-          332,
-          2,
-          "{range} 1 {target_monster} Crit 1 {target_effects} 12 Acc 9 {target_effects} 8",
-          "{shuffle}{target_effects}+4vs{damage},3{bleed}2t",
-          4,
-          3,
-          2,
-        );
-      case "hero_skill:p333":
-        return fixCaptivate(
-          cards,
-          card,
-          333,
-          3,
-          "{range} 1 {target_monster} Crit 1 {target_effects} 15 Acc 10 {target_effects} 10",
-          "{shuffle}{target_effects}+4vs{damage},3{bleed}2t",
-          4,
-          3,
-          2,
-        );
-      case "hero_skill:p334":
-        return fixSerpentSwaySelf(
-          cards,
-          card,
-          334,
-          1,
-          "{range}{buff}Self",
-          "{self_effects}{buff}Self{protection}2t,{mark}Pull1",
-          2,
-        );
-      case "hero_skill:p335":
-        return fixSerpentSwaySelf(
-          cards,
-          card,
-          335,
-          2,
-          "{range}{buff}Self",
-          "{self_effects}{buff}Self{protection}3t,{mark}Pull1",
-          3,
-        );
-      case "hero_skill:p336":
-        return fixSerpentSwayIii(
-          cards,
-          card,
-          336,
-          "{range} 1 {target_hero}",
-          "{self_effects}{buff}Self{mark}3t,{mark}Pull1",
-          "{shuffle}{mark}2t",
-        );
-      default:
-        return card;
-    }
-  });
+): Readonly<Record<string, CardFix>> {
+  return {
+    "hero_skill:weald:h16:p316": (card) =>
+      fixPierce(
+        card,
+        316,
+        1,
+        "{range} 2 {target_monster} Crit 1 {damage} 10 Acc 9 {damage} 6",
+        "{self_effects}{buff}Self{buff}Pull1",
+        "{heal}Ignores{protection}",
+      ),
+    "hero_skill:weald:h16:p317": (card) =>
+      fixPierce(
+        card,
+        317,
+        2,
+        "{range} 2 {target_monster} Crit 1 {damage} 14 Acc 10 {damage} 9",
+        "{self_effects}{buff}Self{buff}Pull1",
+        "{heal}Ignores{protection}",
+      ),
+    "hero_skill:weald:h16:p318": (card) =>
+      fixPierce(
+        card,
+        318,
+        3,
+        "{range} 2 {target_monster} Crit 1 {damage} 17 Acc 11 {damage} 12",
+        "{self_effects}{buff}Self{buff}Pull1",
+        "{heal}Ignores{protection}",
+      ),
+    "hero_skill:weald:h16:p319": (card) =>
+      fixPuncture(
+        cards,
+        card,
+        319,
+        1,
+        "{range} 2 {target_monster} Crit 0 {damage} 7 Acc 9 {damage} 4",
+        "{self_effects}{buff}Self{target_effects}Pull1",
+        "{light}Ignores{target_effects},{target_effects}Pull1",
+        false,
+      ),
+    "hero_skill:weald:h16:p320": (card) =>
+      fixPuncture(
+        cards,
+        card,
+        320,
+        2,
+        "{range} 1-2 {target_monster} Crit 0 {damage} 8 Acc 10 {damage} 5",
+        "{self_effects}{buff}Self{target_effects}Pull1",
+        "{light}Ignores{target_effects},{target_effects}Pull1",
+        true,
+      ),
+    "hero_skill:weald:h16:p321": (card) =>
+      fixPuncture(
+        cards,
+        card,
+        321,
+        3,
+        "{range} 1-2 {target_monster} Crit 0 {damage} 10 Acc 11 {damage} 7",
+        "{self_effects}{buff}Self{target_effects}Pull1",
+        "{light}Ignores{target_effects},{target_effects}Pull1",
+        true,
+      ),
+    "hero_skill:weald:h16:p322": (card) =>
+      fixAddersKiss(
+        cards,
+        card,
+        322,
+        1,
+        "{range} 0 {target_monster} Crit 1 {damage} 11 Acc 9 {damage} 7",
+        "{self_effects}{buff}Self{buff}Push1",
+        "{target_effects}2{debuff}2t",
+        2,
+      ),
+    "hero_skill:weald:h16:p323": (card) =>
+      fixAddersKiss(
+        cards,
+        card,
+        323,
+        2,
+        "{range} 0 {target_monster} Crit 1 {damage} 16 Acc 10 {damage} 10",
+        "{self_effects}{buff}Self{buff}Push1",
+        "{target_effects}2{stun}3t",
+        3,
+      ),
+    "hero_skill:weald:h16:p324": (card) =>
+      fixAddersKiss(
+        cards,
+        card,
+        324,
+        3,
+        "{range} 0 {target_monster} Crit 1 {damage} 19 Acc 11 {damage} 14",
+        "{self_effects}{buff}Self{buff}Push1",
+        "{target_effects}2{stun}3t",
+        3,
+      ),
+    "hero_skill:weald:h16:p325": (card) =>
+      fixImpale(
+        cards,
+        card,
+        325,
+        1,
+        "{range} 1 {target_hero} {target_hero} {target_hero} {target_hero} Crit 0 {damage} 5 Acc 9 {damage} 3",
+        "{self_effects}{buff}Self{buff}Push1",
+        "{target_effects}{debuff}1t",
+        1,
+      ),
+    "hero_skill:weald:h16:p326": (card) =>
+      fixImpale(
+        cards,
+        card,
+        326,
+        2,
+        "{range} 1 {target_hero} {target_hero} {target_hero} {target_hero} Crit 0 {damage} 7 Acc 10 {damage} 4",
+        "{self_effects}{buff}Self{buff}Push1",
+        "{target_effects}{debuff}2t",
+        2,
+      ),
+    "hero_skill:weald:h16:p327": (card) =>
+      fixImpale(
+        cards,
+        card,
+        327,
+        3,
+        "{range} 1 {target_hero} {target_hero} {target_hero} {target_hero} Crit 0 {damage} 9 Acc 11 {damage} 6",
+        "{self_effects}{buff}Self{buff}Push1",
+        "{target_effects}{debuff}2t",
+        2,
+      ),
+    "hero_skill:weald:h16:p328": (card) =>
+      fixExpose(
+        card,
+        328,
+        1,
+        "{range} 1 {target_monster} Crit 1 {damage} 9 Acc 8 {damage} 5",
+        "{self_effects}{buff}Self{buff}Push1",
+        "{target_effects}{debuff}1t",
+        1,
+      ),
+    "hero_skill:weald:h16:p329": (card) =>
+      fixExpose(
+        card,
+        329,
+        2,
+        "{range} 1 {target_monster} Crit 1 {damage} 10 Acc 9 {damage} 6",
+        "{self_effects}{buff}Self{buff}Push1",
+        "{target_effects}{debuff}2t",
+        2,
+      ),
+    "hero_skill:weald:h16:p330": (card) =>
+      fixExpose(
+        card,
+        330,
+        3,
+        "{range} 1 {target_monster} Crit 1 {damage} 12 Acc 10 {damage} 8",
+        "{self_effects}{buff}Self{buff}Push1",
+        "{target_effects}{debuff}2t",
+        2,
+      ),
+    "hero_skill:weald:h16:p331": (card) =>
+      fixCaptivate(
+        cards,
+        card,
+        331,
+        1,
+        "{range} 1 {target_monster} Crit 1 {target_effects} 9 Acc 8 {target_effects} 6",
+        "{shuffle}{target_effects}+2vs{damage},2{bleed}2t",
+        2,
+        2,
+        2,
+      ),
+    "hero_skill:weald:h16:p332": (card) =>
+      fixCaptivate(
+        cards,
+        card,
+        332,
+        2,
+        "{range} 1 {target_monster} Crit 1 {target_effects} 12 Acc 9 {target_effects} 8",
+        "{shuffle}{target_effects}+4vs{damage},3{bleed}2t",
+        4,
+        3,
+        2,
+      ),
+    "hero_skill:weald:h16:p333": (card) =>
+      fixCaptivate(
+        cards,
+        card,
+        333,
+        3,
+        "{range} 1 {target_monster} Crit 1 {target_effects} 15 Acc 10 {target_effects} 10",
+        "{shuffle}{target_effects}+4vs{damage},3{bleed}2t",
+        4,
+        3,
+        2,
+      ),
+    "hero_skill:weald:h16:p334": (card) =>
+      fixSerpentSwaySelf(
+        cards,
+        card,
+        334,
+        1,
+        "{range}{buff}Self",
+        "{self_effects}{buff}Self{protection}2t,{mark}Pull1",
+        2,
+      ),
+    "hero_skill:weald:h16:p335": (card) =>
+      fixSerpentSwaySelf(
+        cards,
+        card,
+        335,
+        2,
+        "{range}{buff}Self",
+        "{self_effects}{buff}Self{protection}3t,{mark}Pull1",
+        3,
+      ),
+    "hero_skill:weald:h16:p336": (card) =>
+      fixSerpentSwayIii(
+        cards,
+        card,
+        336,
+        "{range} 1 {target_hero}",
+        "{self_effects}{buff}Self{mark}3t,{mark}Pull1",
+        "{shuffle}{mark}2t",
+      ),
+  };
 }
 
-export const shieldbreakerAnnotations: HeroAnnotationModule = {
-  id: "h16",
-  hero: "SHIELDBREAKER",
-  apply: applyShieldbreakerAnnotations,
-};
-
 /** 文本位移规则（scope + Push/Pull 原文）。 */
-export const shuffleEntries: readonly ShuffleEntry[] = [
+const shuffleEntries: readonly ShuffleEntry[] = [
   {
     id: "hero_skill:weald:h16:p316",
     name: "Pierce",
@@ -778,7 +770,7 @@ export const shuffleEntries: readonly ShuffleEntry[] = [
 ];
 
 /** Ignores Protection / Guard 规则。 */
-export const ignoresEntries: readonly IgnoresEntry[] = [
+const ignoresEntries: readonly IgnoresEntry[] = [
   { id: "hero_skill:weald:h16:p316", name: "Pierce", level: 1, lineIndex: 1, kind: "protection" },
   { id: "hero_skill:weald:h16:p317", name: "Pierce", level: 2, lineIndex: 1, kind: "protection" },
   { id: "hero_skill:weald:h16:p318", name: "Pierce", level: 3, lineIndex: 1, kind: "protection" },
@@ -786,3 +778,58 @@ export const ignoresEntries: readonly IgnoresEntry[] = [
   { id: "hero_skill:weald:h16:p320", name: "Puncture", level: 2, lineIndex: 1, kind: "guard" },
   { id: "hero_skill:weald:h16:p321", name: "Puncture", level: 3, lineIndex: 1, kind: "guard" },
 ];
+
+const entries: HeroAnnotationEntries = {
+  shuffle: shuffleEntries,
+  ignores: ignoresEntries,
+  targetCount: [
+    { id: "hero_skill:weald:h16:p316", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h16:p317", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h16:p318", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h16:p319", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h16:p320", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h16:p321", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h16:p322", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h16:p323", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h16:p324", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h16:p325", hero: 0, monster: 4, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h16:p326", hero: 0, monster: 4, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h16:p327", hero: 0, monster: 4, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h16:p328", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h16:p329", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h16:p330", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h16:p331", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h16:p332", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h16:p333", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h16:p334", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h16:p335", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h16:p336", hero: 1, monster: 0, heroOrMonster: 0 },
+  ],
+  effectKind: [
+    { id: "hero_skill:weald:h16:p316", effect: "damage" },
+    { id: "hero_skill:weald:h16:p317", effect: "damage" },
+    { id: "hero_skill:weald:h16:p318", effect: "damage" },
+    { id: "hero_skill:weald:h16:p319", effect: "damage" },
+    { id: "hero_skill:weald:h16:p320", effect: "damage" },
+    { id: "hero_skill:weald:h16:p321", effect: "damage" },
+    { id: "hero_skill:weald:h16:p322", effect: "damage" },
+    { id: "hero_skill:weald:h16:p323", effect: "damage" },
+    { id: "hero_skill:weald:h16:p324", effect: "damage" },
+    { id: "hero_skill:weald:h16:p325", effect: "damage" },
+    { id: "hero_skill:weald:h16:p326", effect: "damage" },
+    { id: "hero_skill:weald:h16:p327", effect: "damage" },
+    { id: "hero_skill:weald:h16:p328", effect: "damage" },
+    { id: "hero_skill:weald:h16:p329", effect: "damage" },
+    { id: "hero_skill:weald:h16:p330", effect: "damage" },
+    { id: "hero_skill:weald:h16:p331", effect: "damage" },
+    { id: "hero_skill:weald:h16:p332", effect: "damage" },
+    { id: "hero_skill:weald:h16:p333", effect: "damage" },
+  ],
+};
+
+export const h16 = defineHeroModule({
+  id: "h16",
+  hero: "SHIELDBREAKER",
+  entries,
+  fixes: shieldbreakerFixes,
+});

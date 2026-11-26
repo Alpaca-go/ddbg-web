@@ -1,6 +1,5 @@
 import { parseAnnotatedHeroSkillCard } from "../../../shared/schema";
 import type { NormalizedHeroSkillCard } from "../../../shared/schema";
-import { heroSkillId } from "../hero-registry";
 import type { TargetStressEntry } from "./types";
 
 /**
@@ -20,10 +19,7 @@ export function applyTargetStress(
   }
   return cards.map((card) => {
     if (card.rules?.target?.stress) return card;
-    const page = card.pages[0]!;
-    const hero = card.hero ?? "ABOMINATION";
-    const globalPage = card.id.startsWith("hero_skill:musketeer:") ? 357 + page : page;
-    const rows = byId.get(heroSkillId(hero, globalPage));
+    const rows = byId.get(card.id);
     if (!rows) return card;
     let fields: Record<string, unknown> = {};
     for (const entry of rows) {
