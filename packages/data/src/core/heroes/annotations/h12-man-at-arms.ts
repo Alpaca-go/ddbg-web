@@ -9,35 +9,12 @@ import {
   cloneKey,
   iconFromCard,
   iconFromPool,
+  rangeZeroUnlabeled,
   segmentOnCardAll,
+  stressDeltaAnchor,
   text,
 } from "./patch-helpers";
 import type { CardFix } from "./patch-helpers";
-import type { IconSegment } from "./patch-helpers";
-
-function rangeZeroUnlabeled(rangeIcon: IconSegment) {
-  return {
-    text: "0",
-    numeric: 0,
-    anchor: {
-      type: "beside_icon" as const,
-      left_icon: rangeIcon.icon,
-      inside_icon: null,
-    },
-  };
-}
-
-function stressMinusOneAnchor(stressIcon: IconSegment, textValue = "-1") {
-  return {
-    text: textValue,
-    numeric: -1,
-    anchor: {
-      type: "beside_icon" as const,
-      left_icon: stressIcon.icon,
-      inside_icon: null,
-    },
-  };
-}
 
 function fixRampart(
   card: NormalizedHeroSkillCard,
@@ -273,7 +250,7 @@ function fixBolster(
     ? segmentOnCardAll(card, "f18923574c")
     : stressIcon;
 
-  const anchors = [stressMinusOneAnchor(stressIcon), stressMinusOneAnchor(stressIcon)];
+  const anchors = [stressDeltaAnchor(stressIcon, -1), stressDeltaAnchor(stressIcon, -1)];
   if (level === 2) {
     const statsSig = card.stats_line ? lineSignature(card.stats_line).replace(/\s+/g, "") : "";
     if (statsSig !== "Crit1Acc14") throw new Error(`${card.id} Bolster stats 漂移（R-048）`);

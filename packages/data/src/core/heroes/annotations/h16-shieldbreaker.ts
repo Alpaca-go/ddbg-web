@@ -10,22 +10,11 @@ import {
   iconFromCard,
   iconFromPool,
   segmentOnCard,
+  rangeZeroUnlabeled,
   text,
 } from "./patch-helpers";
 import type { CardFix } from "./patch-helpers";
 import type { IconSegment } from "./patch-helpers";
-
-function rangeZeroUnlabeled(rangeIcon: IconSegment) {
-  return {
-    text: "0",
-    numeric: 0,
-    anchor: {
-      type: "beside_icon" as const,
-      left_icon: rangeIcon.icon,
-      inside_icon: null,
-    },
-  };
-}
 
 function fixPierce(
   card: NormalizedHeroSkillCard,

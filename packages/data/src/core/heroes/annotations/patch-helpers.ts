@@ -4,6 +4,31 @@ import type { HeroAnnotationEntries, HeroAnnotationModule } from "./types";
 
 export type IconSegment = Extract<Segment, { type: "icon" }>;
 
+export function rangeZeroUnlabeled(rangeIcon: IconSegment) {
+  return {
+    text: "0",
+    numeric: 0,
+    anchor: {
+      type: "beside_icon" as const,
+      left_icon: rangeIcon.icon,
+      inside_icon: null,
+    },
+  };
+}
+
+export function stressDeltaAnchor(stressIcon: IconSegment, amount: number) {
+  const raw = amount > 0 ? `+${amount}` : String(amount);
+  return {
+    text: raw,
+    numeric: amount,
+    anchor: {
+      type: "beside_icon" as const,
+      left_icon: stressIcon.icon,
+      inside_icon: null,
+    },
+  };
+}
+
 export function text(value: string): Segment {
   return { type: "text", text: value };
 }

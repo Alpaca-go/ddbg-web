@@ -9,23 +9,10 @@ import {
   iconFromCard,
   iconFromPool,
   segmentOnCard,
+  stressDeltaAnchor,
   text,
 } from "./patch-helpers";
 import type { CardFix } from "./patch-helpers";
-import type { IconSegment } from "./patch-helpers";
-
-function stressDeltaAnchor(stressIcon: IconSegment, amount: number) {
-  const raw = amount > 0 ? `+${amount}` : String(amount);
-  return {
-    text: raw,
-    numeric: amount,
-    anchor: {
-      type: "beside_icon" as const,
-      left_icon: stressIcon.icon,
-      inside_icon: null,
-    },
-  };
-}
 
 /** 洗掉 OCR 射程/压力 beside 与 Rush 族误挂的 1ff34c908b，再由 verified 块重写。 */
 function stripHmOcrBesideNumbers(numbers: NormalizedHeroSkillCard["unlabeled_numbers"]) {
