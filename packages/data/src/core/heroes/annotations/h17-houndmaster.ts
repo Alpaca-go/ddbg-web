@@ -14,6 +14,46 @@ import {
 } from "./patch-helpers";
 import type { CardFix } from "./patch-helpers";
 
+const entries: HeroAnnotationEntries = {
+  targetCount: [
+    { id: "hero_skill:weald:h17:p337", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h17:p338", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h17:p339", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h17:p340", hero: 0, monster: 4, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h17:p341", hero: 0, monster: 4, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h17:p342", hero: 0, monster: 4, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h17:p343", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h17:p344", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h17:p345", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h17:p346", hero: 2, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h17:p347", hero: 3, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h17:p348", hero: 3, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h17:p349", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h17:p350", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h17:p351", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h17:p352", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h17:p353", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h17:p354", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h17:p355", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h17:p356", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:weald:h17:p357", hero: 0, monster: 1, heroOrMonster: 0 },
+  ],
+  effectKind: [
+    { id: "hero_skill:weald:h17:p337", effect: "damage" },
+    { id: "hero_skill:weald:h17:p338", effect: "damage" },
+    { id: "hero_skill:weald:h17:p339", effect: "damage" },
+    { id: "hero_skill:weald:h17:p340", effect: "damage" },
+    { id: "hero_skill:weald:h17:p341", effect: "damage" },
+    { id: "hero_skill:weald:h17:p342", effect: "damage" },
+    { id: "hero_skill:weald:h17:p352", effect: "heal" },
+    { id: "hero_skill:weald:h17:p353", effect: "heal" },
+    { id: "hero_skill:weald:h17:p354", effect: "heal" },
+    { id: "hero_skill:weald:h17:p355", effect: "damage" },
+    { id: "hero_skill:weald:h17:p356", effect: "damage" },
+    { id: "hero_skill:weald:h17:p357", effect: "damage" },
+  ],
+};
+
 /** 洗掉 OCR 射程/压力 beside 与 Rush 族误挂的 1ff34c908b，再由 verified 块重写。 */
 function stripHmOcrBesideNumbers(numbers: NormalizedHeroSkillCard["unlabeled_numbers"]) {
   return numbers.filter(
@@ -322,9 +362,7 @@ function fixBlackjack(
  * R-200：Houndmaster II–III（p338–p357 中 14 张）+ 同技能族 L1 OCR 洗净（p337–p355 七族）。
  * Q-178～Q-180 Kyries 已真确认：Rush 1ff34c908b=自身起效；Cry Havoc 压力行（非目标减益）；Blackjack=Stun。
  */
-function houndmasterFixes(
-  cards: readonly NormalizedHeroSkillCard[],
-): Readonly<Record<string, CardFix>> {
+function fixes(cards: readonly NormalizedHeroSkillCard[]): Readonly<Record<string, CardFix>> {
   return {
     "hero_skill:weald:h17:p337": (card) =>
       fixHoundsRush(
@@ -473,49 +511,9 @@ function houndmasterFixes(
   };
 }
 
-const entries: HeroAnnotationEntries = {
-  targetCount: [
-    { id: "hero_skill:weald:h17:p337", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:weald:h17:p338", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:weald:h17:p339", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:weald:h17:p340", hero: 0, monster: 4, heroOrMonster: 0 },
-    { id: "hero_skill:weald:h17:p341", hero: 0, monster: 4, heroOrMonster: 0 },
-    { id: "hero_skill:weald:h17:p342", hero: 0, monster: 4, heroOrMonster: 0 },
-    { id: "hero_skill:weald:h17:p343", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:weald:h17:p344", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:weald:h17:p345", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:weald:h17:p346", hero: 2, monster: 0, heroOrMonster: 0 },
-    { id: "hero_skill:weald:h17:p347", hero: 3, monster: 0, heroOrMonster: 0 },
-    { id: "hero_skill:weald:h17:p348", hero: 3, monster: 0, heroOrMonster: 0 },
-    { id: "hero_skill:weald:h17:p349", hero: 1, monster: 0, heroOrMonster: 0 },
-    { id: "hero_skill:weald:h17:p350", hero: 1, monster: 0, heroOrMonster: 0 },
-    { id: "hero_skill:weald:h17:p351", hero: 1, monster: 0, heroOrMonster: 0 },
-    { id: "hero_skill:weald:h17:p352", hero: 1, monster: 0, heroOrMonster: 0 },
-    { id: "hero_skill:weald:h17:p353", hero: 1, monster: 0, heroOrMonster: 0 },
-    { id: "hero_skill:weald:h17:p354", hero: 1, monster: 0, heroOrMonster: 0 },
-    { id: "hero_skill:weald:h17:p355", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:weald:h17:p356", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:weald:h17:p357", hero: 0, monster: 1, heroOrMonster: 0 },
-  ],
-  effectKind: [
-    { id: "hero_skill:weald:h17:p337", effect: "damage" },
-    { id: "hero_skill:weald:h17:p338", effect: "damage" },
-    { id: "hero_skill:weald:h17:p339", effect: "damage" },
-    { id: "hero_skill:weald:h17:p340", effect: "damage" },
-    { id: "hero_skill:weald:h17:p341", effect: "damage" },
-    { id: "hero_skill:weald:h17:p342", effect: "damage" },
-    { id: "hero_skill:weald:h17:p352", effect: "heal" },
-    { id: "hero_skill:weald:h17:p353", effect: "heal" },
-    { id: "hero_skill:weald:h17:p354", effect: "heal" },
-    { id: "hero_skill:weald:h17:p355", effect: "damage" },
-    { id: "hero_skill:weald:h17:p356", effect: "damage" },
-    { id: "hero_skill:weald:h17:p357", effect: "damage" },
-  ],
-};
-
 export const h17 = defineHeroModule({
   id: "h17",
   hero: "HOUNDMASTER",
   entries,
-  fixes: houndmasterFixes,
+  fixes,
 });

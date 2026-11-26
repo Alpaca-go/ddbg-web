@@ -18,6 +18,7 @@ export type HeroAnnotationEntries = {
   readonly self?: readonly SelfEffectEntry[];
   readonly targetStress?: readonly TargetStressEntry[];
   readonly layout?: readonly LayoutEntry[];
+  readonly effectLineFixes?: readonly EffectLineFixEntry[];
   readonly bounty?: readonly BountyStatusRow[];
   readonly rallyingFlare?: readonly RallyingFlareEntry[];
   readonly shuffle?: readonly ShuffleEntry[];
@@ -159,6 +160,20 @@ export type LayoutEntry =
       readonly expected: readonly string[];
       readonly output: readonly [string, string];
     };
+type EffectLineFixSegment =
+  string | { readonly icon: string } | { readonly iconId: string; readonly relabelAs: string };
+
+/** 按原始行签名校验，使用卡上图标重建效果行（R-048）。 */
+export type EffectLineFixEntry = {
+  readonly id: string;
+  readonly name: string;
+  readonly page: number;
+  readonly level: number;
+  readonly expected: readonly string[];
+  readonly output: readonly (readonly EffectLineFixSegment[])[];
+  readonly statuses?: NormalizedHeroSkillCard["annotation_status_effects"];
+};
+
 /** 已复核条件伤害：只录已命名 damage 图标与明文条件。 */
 export type DamageEntry = {
   readonly id: string;
@@ -169,17 +184,6 @@ export type DamageEntry = {
   readonly amount: number;
   readonly condition: "marked" | "unholy" | "stunned" | "blighted" | "eldritch";
   readonly suffix: string;
-};
-/**
- * 单张技能卡的逐卡补丁：元数据（name/level/page）由共享 runner 统一断言，
- * `apply` 只负责卡面修正本身。
- */
-export type HeroSkillPatch = {
-  readonly id: string;
-  readonly name: string;
-  readonly level: number;
-  readonly page: number;
-  readonly apply: (card: NormalizedHeroSkillCard) => NormalizedHeroSkillCard;
 };
 /** 自身治疗 / 压力行：lineIndex 指向含 self_effects + heal/stress 的那一行。 */
 export type SelfEffectEntry = {

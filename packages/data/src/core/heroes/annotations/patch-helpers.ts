@@ -1,6 +1,8 @@
+import { parseAnnotatedHeroSkillCard } from "../../../shared/schema";
 import type { NormalizedHeroSkillCard, Segment } from "../../../shared/schema";
 import type { HeroName } from "../hero-registry";
-import type { HeroAnnotationEntries, HeroAnnotationModule } from "./types";
+import { lineSignature } from "./shared";
+import type { EffectLineFixEntry, HeroAnnotationEntries, HeroAnnotationModule } from "./types";
 
 export type IconSegment = Extract<Segment, { type: "icon" }>;
 
@@ -149,16 +151,57 @@ export function applyCardFixes(
   });
 }
 
-/** 一个英雄一个模块的统一构造器；没有 fixes 的英雄是纯数据模块。 */
+function effectLineFix(hero: HeroName, entry: EffectLineFixEntry): CardFix {
+  return (card) => {
+    assertCardMeta(card, hero, entry.page, entry.name, entry.level);
+    if (
+      entry.expected.some((expected, index) => {
+        const line = card.effect_lines[index];
+        return !line || lineSignature(line).replace(/\s+/g, "") !== expected;
+      })
+    )
+      throw new Error(`${card.id} ${entry.name} 效果行漂移（R-048）`);
+
+    const effect_lines = entry.output.map((line) =>
+      line.map((segment) => {
+        if (typeof segment === "string") return text(segment);
+        if ("icon" in segment) return iconFromCard(card, segment.icon);
+        return cloneKey(segmentOnCardAll(card, segment.iconId), segment.relabelAs);
+      }),
+    );
+    return parseAnnotatedHeroSkillCard({
+      ...card,
+      effect_lines,
+      ...(entry.statuses ? { annotation_status_effects: entry.statuses } : {}),
+    });
+  };
+}
+
+/** 一个英雄一个模块的统一构造器 */
 export function defineHeroModule(config: {
   readonly id: `h${number}`;
   readonly hero: HeroName;
   readonly entries: HeroAnnotationEntries;
-  readonly fixes?: (cards: readonly NormalizedHeroSkillCard[]) => Readonly<Record<string, CardFix>>;
+  readonly fixes:
+    ((cards: readonly NormalizedHeroSkillCard[]) => Readonly<Record<string, CardFix>>) | null;
 }): HeroAnnotationModule {
-  const apply = config.fixes
-    ? (cards: readonly NormalizedHeroSkillCard[]) =>
-        applyCardFixes(cards, config.hero, config.fixes!(cards))
-    : (cards: readonly NormalizedHeroSkillCard[]) => [...cards];
+  const { hero, entries, fixes } = config;
+  const lineFixes: Record<string, CardFix> = {};
+  for (const entry of entries.effectLineFixes ?? []) {
+    if (Object.hasOwn(lineFixes, entry.id)) throw new Error(`${entry.id} 效果行修正重复（R-048）`);
+    lineFixes[entry.id] = effectLineFix(hero, entry);
+  }
+
+  const apply: HeroAnnotationModule["apply"] = (cards) => {
+    const customFixes = fixes?.(cards);
+    if (!Object.keys(lineFixes).length)
+      return customFixes ? applyCardFixes(cards, hero, customFixes) : [...cards];
+
+    for (const id of Object.keys(lineFixes)) {
+      if (customFixes && Object.hasOwn(customFixes, id))
+        throw new Error(`${id} 同时声明效果行修正和专用修正（R-048）`);
+    }
+    return applyCardFixes(cards, hero, { ...lineFixes, ...customFixes });
+  };
   return { id: config.id, hero: config.hero, entries: config.entries, apply };
 }

@@ -241,6 +241,42 @@ const rangeEntries: readonly RangeEntry[] = [
   },
 ];
 
+const entries: HeroAnnotationEntries = {
+  status: statusEntries,
+  range: rangeEntries,
+  targetCount: [
+    { id: "hero_skill:cove:h13:p253", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h13:p254", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h13:p255", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h13:p256", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h13:p257", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h13:p258", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h13:p259", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h13:p260", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h13:p261", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h13:p262", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h13:p263", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h13:p264", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h13:p268", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h13:p269", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h13:p270", hero: 1, monster: 0, heroOrMonster: 0 },
+  ],
+  effectKind: [
+    { id: "hero_skill:cove:h13:p253", effect: "damage" },
+    { id: "hero_skill:cove:h13:p254", effect: "damage" },
+    { id: "hero_skill:cove:h13:p255", effect: "damage" },
+    { id: "hero_skill:cove:h13:p256", effect: "damage" },
+    { id: "hero_skill:cove:h13:p257", effect: "damage" },
+    { id: "hero_skill:cove:h13:p258", effect: "damage" },
+    { id: "hero_skill:cove:h13:p259", effect: "damage" },
+    { id: "hero_skill:cove:h13:p260", effect: "damage" },
+    { id: "hero_skill:cove:h13:p261", effect: "damage" },
+    { id: "hero_skill:cove:h13:p262", effect: "heal" },
+    { id: "hero_skill:cove:h13:p263", effect: "heal" },
+    { id: "hero_skill:cove:h13:p264", effect: "heal" },
+  ],
+};
+
 function fixStatsDamageBuff(card: NormalizedHeroSkillCard, expectedStats: string) {
   const stats = card.stats_line;
   const sig = stats ? lineSignature(stats).replace(/\s+/g, "") : "";
@@ -520,9 +556,7 @@ function fixSuffer(
 /**
  * R-200 / Q-172～175：Flagellant I–III 逐卡印刷覆盖（签名断言 + 必要 icon key 修正，不改全局词典）。
  */
-function flagellantFixes(
-  cards: readonly NormalizedHeroSkillCard[],
-): Readonly<Record<string, CardFix>> {
+function fixes(cards: readonly NormalizedHeroSkillCard[]): Readonly<Record<string, CardFix>> {
   return {
     "hero_skill:cove:h13:p253": (card) =>
       fixPunishFamily(
@@ -632,45 +666,9 @@ function flagellantFixes(
   };
 }
 
-const entries: HeroAnnotationEntries = {
-  status: statusEntries,
-  range: rangeEntries,
-  targetCount: [
-    { id: "hero_skill:cove:h13:p253", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h13:p254", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h13:p255", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h13:p256", hero: 0, monster: 2, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h13:p257", hero: 0, monster: 2, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h13:p258", hero: 0, monster: 2, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h13:p259", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h13:p260", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h13:p261", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h13:p262", hero: 1, monster: 0, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h13:p263", hero: 1, monster: 0, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h13:p264", hero: 1, monster: 0, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h13:p268", hero: 1, monster: 0, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h13:p269", hero: 1, monster: 0, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h13:p270", hero: 1, monster: 0, heroOrMonster: 0 },
-  ],
-  effectKind: [
-    { id: "hero_skill:cove:h13:p253", effect: "damage" },
-    { id: "hero_skill:cove:h13:p254", effect: "damage" },
-    { id: "hero_skill:cove:h13:p255", effect: "damage" },
-    { id: "hero_skill:cove:h13:p256", effect: "damage" },
-    { id: "hero_skill:cove:h13:p257", effect: "damage" },
-    { id: "hero_skill:cove:h13:p258", effect: "damage" },
-    { id: "hero_skill:cove:h13:p259", effect: "damage" },
-    { id: "hero_skill:cove:h13:p260", effect: "damage" },
-    { id: "hero_skill:cove:h13:p261", effect: "damage" },
-    { id: "hero_skill:cove:h13:p262", effect: "heal" },
-    { id: "hero_skill:cove:h13:p263", effect: "heal" },
-    { id: "hero_skill:cove:h13:p264", effect: "heal" },
-  ],
-};
-
 export const h13 = defineHeroModule({
   id: "h13",
   hero: "FLAGELLANT",
   entries,
-  fixes: flagellantFixes,
+  fixes,
 });

@@ -276,6 +276,67 @@ const statusEntries: readonly StatusEffectEntry[] = [
   },
 ];
 
+/** 文本位移规则（scope + Push/Pull 原文）。 */
+const shuffleEntries: readonly ShuffleEntry[] = [
+  {
+    id: "hero_skill:warrens:h15:p301",
+    name: "Get Down!",
+    level: 1,
+    lineIndex: 1,
+    scope: "self",
+    text: "Push 2",
+  },
+  {
+    id: "hero_skill:warrens:h15:p302",
+    name: "Get Down!",
+    level: 2,
+    lineIndex: 1,
+    scope: "self",
+    text: "Push 2",
+  },
+  {
+    id: "hero_skill:warrens:h15:p303",
+    name: "Get Down!",
+    level: 3,
+    lineIndex: 1,
+    scope: "self",
+    text: "Push 1 or Push 2",
+  },
+];
+
+const entries: HeroAnnotationEntries = {
+  status: statusEntries,
+  shuffle: shuffleEntries,
+  targetCount: [
+    { id: "hero_skill:warrens:h15:p295", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:warrens:h15:p296", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:warrens:h15:p297", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:warrens:h15:p298", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:warrens:h15:p299", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:warrens:h15:p300", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:warrens:h15:p301", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:warrens:h15:p302", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:warrens:h15:p303", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:warrens:h15:p304", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:warrens:h15:p305", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:warrens:h15:p306", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:warrens:h15:p307", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:warrens:h15:p308", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:warrens:h15:p309", hero: 1, monster: 0, heroOrMonster: 0 },
+  ],
+  effectKind: [
+    { id: "hero_skill:warrens:h15:p295", effect: "damage" },
+    { id: "hero_skill:warrens:h15:p296", effect: "damage" },
+    { id: "hero_skill:warrens:h15:p297", effect: "damage" },
+    { id: "hero_skill:warrens:h15:p298", effect: "damage" },
+    { id: "hero_skill:warrens:h15:p299", effect: "damage" },
+    { id: "hero_skill:warrens:h15:p300", effect: "damage" },
+    { id: "hero_skill:warrens:h15:p307", effect: "heal" },
+    { id: "hero_skill:warrens:h15:p308", effect: "heal" },
+    { id: "hero_skill:warrens:h15:p309", effect: "heal" },
+  ],
+};
+
 function fixGetDown(
   card: NormalizedHeroSkillCard,
   page: number,
@@ -318,9 +379,7 @@ function fixGetDown(
 /**
  * R-200 / Q-167～Q-171：Antiquarian II–III 逐卡印刷覆盖（签名断言 + 必要 icon key 修正，不改全局词典）。
  */
-function antiquarianFixes(
-  cards: readonly NormalizedHeroSkillCard[],
-): Readonly<Record<string, CardFix>> {
+function fixes(cards: readonly NormalizedHeroSkillCard[]): Readonly<Record<string, CardFix>> {
   const rangeIcon = iconFromPool(cards, "range");
   const healMarker = iconFromPool(cards, "damage_or_heal_combined_marker");
   const targetHeroIcon = iconFromPool(cards, "target_hero");
@@ -743,70 +802,9 @@ function antiquarianFixes(
   };
 }
 
-/** 文本位移规则（scope + Push/Pull 原文）。 */
-const shuffleEntries: readonly ShuffleEntry[] = [
-  {
-    id: "hero_skill:warrens:h15:p301",
-    name: "Get Down!",
-    level: 1,
-    lineIndex: 1,
-    scope: "self",
-    text: "Push 2",
-  },
-  {
-    id: "hero_skill:warrens:h15:p302",
-    name: "Get Down!",
-    level: 2,
-    lineIndex: 1,
-    scope: "self",
-    text: "Push 2",
-  },
-  {
-    id: "hero_skill:warrens:h15:p303",
-    name: "Get Down!",
-    level: 3,
-    lineIndex: 1,
-    scope: "self",
-    text: "Push 1 or Push 2",
-  },
-];
-
-const entries: HeroAnnotationEntries = {
-  status: statusEntries,
-  shuffle: shuffleEntries,
-  targetCount: [
-    { id: "hero_skill:warrens:h15:p295", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:warrens:h15:p296", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:warrens:h15:p297", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:warrens:h15:p298", hero: 0, monster: 2, heroOrMonster: 0 },
-    { id: "hero_skill:warrens:h15:p299", hero: 0, monster: 2, heroOrMonster: 0 },
-    { id: "hero_skill:warrens:h15:p300", hero: 0, monster: 2, heroOrMonster: 0 },
-    { id: "hero_skill:warrens:h15:p301", hero: 1, monster: 0, heroOrMonster: 0 },
-    { id: "hero_skill:warrens:h15:p302", hero: 1, monster: 0, heroOrMonster: 0 },
-    { id: "hero_skill:warrens:h15:p303", hero: 1, monster: 0, heroOrMonster: 0 },
-    { id: "hero_skill:warrens:h15:p304", hero: 0, monster: 2, heroOrMonster: 0 },
-    { id: "hero_skill:warrens:h15:p305", hero: 0, monster: 2, heroOrMonster: 0 },
-    { id: "hero_skill:warrens:h15:p306", hero: 0, monster: 2, heroOrMonster: 0 },
-    { id: "hero_skill:warrens:h15:p307", hero: 1, monster: 0, heroOrMonster: 0 },
-    { id: "hero_skill:warrens:h15:p308", hero: 1, monster: 0, heroOrMonster: 0 },
-    { id: "hero_skill:warrens:h15:p309", hero: 1, monster: 0, heroOrMonster: 0 },
-  ],
-  effectKind: [
-    { id: "hero_skill:warrens:h15:p295", effect: "damage" },
-    { id: "hero_skill:warrens:h15:p296", effect: "damage" },
-    { id: "hero_skill:warrens:h15:p297", effect: "damage" },
-    { id: "hero_skill:warrens:h15:p298", effect: "damage" },
-    { id: "hero_skill:warrens:h15:p299", effect: "damage" },
-    { id: "hero_skill:warrens:h15:p300", effect: "damage" },
-    { id: "hero_skill:warrens:h15:p307", effect: "heal" },
-    { id: "hero_skill:warrens:h15:p308", effect: "heal" },
-    { id: "hero_skill:warrens:h15:p309", effect: "heal" },
-  ],
-};
-
 export const h15 = defineHeroModule({
   id: "h15",
   hero: "ANTIQUARIAN",
   entries,
-  fixes: antiquarianFixes,
+  fixes,
 });

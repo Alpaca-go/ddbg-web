@@ -524,4 +524,9 @@ const entries: HeroAnnotationEntries = {
   ],
 };
 
-export const h08 = defineHeroModule({ id: "h08", hero: "ARBALEST", entries });
+export const h08 = defineHeroModule({
+  id: "h08",
+  hero: "ARBALEST",
+  entries,
+  fixes: null,
+});

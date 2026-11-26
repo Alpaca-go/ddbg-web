@@ -155,6 +155,127 @@ const damageEntries: readonly DamageEntry[] = [
   },
 ];
 
+/** 文本位移规则（scope + Push/Pull 原文）。 */
+const shuffleEntries: readonly ShuffleEntry[] = [
+  {
+    id: "hero_skill:musketeer:h18:p367",
+    name: "Buckshot",
+    level: 1,
+    lineIndex: 0,
+    scope: "self",
+    text: "Push 1",
+  },
+  {
+    id: "hero_skill:musketeer:h18:p367",
+    name: "Buckshot",
+    level: 1,
+    lineIndex: 1,
+    scope: "target",
+    text: "Push 2",
+  },
+  {
+    id: "hero_skill:musketeer:h18:p368",
+    name: "Buckshot",
+    level: 2,
+    lineIndex: 0,
+    scope: "self",
+    text: "Push 2",
+  },
+  {
+    id: "hero_skill:musketeer:h18:p368",
+    name: "Buckshot",
+    level: 2,
+    lineIndex: 1,
+    scope: "target",
+    text: "Push 2",
+  },
+  {
+    id: "hero_skill:musketeer:h18:p369",
+    name: "Buckshot",
+    level: 3,
+    lineIndex: 0,
+    scope: "self",
+    text: "Push 2",
+  },
+  {
+    id: "hero_skill:musketeer:h18:p369",
+    name: "Buckshot",
+    level: 3,
+    lineIndex: 1,
+    scope: "target",
+    text: "Push 2",
+  },
+  {
+    id: "hero_skill:musketeer:h18:p370",
+    name: "Sidearm",
+    level: 1,
+    lineIndex: 0,
+    scope: "self",
+    text: "Push 1",
+  },
+  {
+    id: "hero_skill:musketeer:h18:p371",
+    name: "Sidearm",
+    level: 2,
+    lineIndex: 0,
+    scope: "self",
+    text: "Push 2",
+  },
+  {
+    id: "hero_skill:musketeer:h18:p372",
+    name: "Sidearm",
+    level: 3,
+    lineIndex: 0,
+    scope: "self",
+    text: "Push 2",
+  },
+];
+
+const entries: HeroAnnotationEntries = {
+  status: statusEntries,
+  range: rangeEntries,
+  rallyingFlare: rallyingFlareEntries,
+  damage: damageEntries,
+  shuffle: shuffleEntries,
+  targetCount: [
+    { id: "hero_skill:musketeer:h18:p358", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:musketeer:h18:p359", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:musketeer:h18:p360", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:musketeer:h18:p361", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:musketeer:h18:p362", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:musketeer:h18:p363", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:musketeer:h18:p364", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:musketeer:h18:p365", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:musketeer:h18:p366", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:musketeer:h18:p367", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:musketeer:h18:p368", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:musketeer:h18:p369", hero: 0, monster: 2, heroOrMonster: 0 },
+    { id: "hero_skill:musketeer:h18:p370", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:musketeer:h18:p371", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:musketeer:h18:p372", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:musketeer:h18:p373", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:musketeer:h18:p374", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:musketeer:h18:p375", hero: 1, monster: 0, heroOrMonster: 0 },
+  ],
+  effectKind: [
+    { id: "hero_skill:musketeer:h18:p358", effect: "damage" },
+    { id: "hero_skill:musketeer:h18:p359", effect: "damage" },
+    { id: "hero_skill:musketeer:h18:p360", effect: "damage" },
+    { id: "hero_skill:musketeer:h18:p361", effect: "damage" },
+    { id: "hero_skill:musketeer:h18:p362", effect: "damage" },
+    { id: "hero_skill:musketeer:h18:p363", effect: "damage" },
+    { id: "hero_skill:musketeer:h18:p367", effect: "damage" },
+    { id: "hero_skill:musketeer:h18:p368", effect: "damage" },
+    { id: "hero_skill:musketeer:h18:p369", effect: "damage" },
+    { id: "hero_skill:musketeer:h18:p370", effect: "damage" },
+    { id: "hero_skill:musketeer:h18:p371", effect: "damage" },
+    { id: "hero_skill:musketeer:h18:p372", effect: "damage" },
+    { id: "hero_skill:musketeer:h18:p373", effect: "heal" },
+    { id: "hero_skill:musketeer:h18:p374", effect: "heal" },
+    { id: "hero_skill:musketeer:h18:p375", effect: "heal" },
+  ],
+};
+
 function fixHealStatsLine(
   cards: readonly NormalizedHeroSkillCard[],
   card: NormalizedHeroSkillCard,
@@ -462,9 +583,7 @@ function fixSkeetEffectLines(
  * R-200 / Q-185（Kyries 真确认）：Musketeer 与 Arbalest 七技能族数值/效果完全一致，仅图标与名称不同。
  * II/III 十四张 + L1 同族 OCR 洗净；效果/annotation_* 对照 Suppressive Fire / Sniper's Mark 等已核实 Arbalest 卡。
  */
-function musketeerFixes(
-  cards: readonly NormalizedHeroSkillCard[],
-): Readonly<Record<string, CardFix>> {
+function fixes(cards: readonly NormalizedHeroSkillCard[]): Readonly<Record<string, CardFix>> {
   return {
     "hero_skill:musketeer:h18:p358": (card) =>
       fixAimedShot(
@@ -658,130 +777,9 @@ function musketeerFixes(
   };
 }
 
-/** 文本位移规则（scope + Push/Pull 原文）。 */
-const shuffleEntries: readonly ShuffleEntry[] = [
-  {
-    id: "hero_skill:musketeer:h18:p367",
-    name: "Buckshot",
-    level: 1,
-    lineIndex: 0,
-    scope: "self",
-    text: "Push 1",
-  },
-  {
-    id: "hero_skill:musketeer:h18:p367",
-    name: "Buckshot",
-    level: 1,
-    lineIndex: 1,
-    scope: "target",
-    text: "Push 2",
-  },
-  {
-    id: "hero_skill:musketeer:h18:p368",
-    name: "Buckshot",
-    level: 2,
-    lineIndex: 0,
-    scope: "self",
-    text: "Push 2",
-  },
-  {
-    id: "hero_skill:musketeer:h18:p368",
-    name: "Buckshot",
-    level: 2,
-    lineIndex: 1,
-    scope: "target",
-    text: "Push 2",
-  },
-  {
-    id: "hero_skill:musketeer:h18:p369",
-    name: "Buckshot",
-    level: 3,
-    lineIndex: 0,
-    scope: "self",
-    text: "Push 2",
-  },
-  {
-    id: "hero_skill:musketeer:h18:p369",
-    name: "Buckshot",
-    level: 3,
-    lineIndex: 1,
-    scope: "target",
-    text: "Push 2",
-  },
-  {
-    id: "hero_skill:musketeer:h18:p370",
-    name: "Sidearm",
-    level: 1,
-    lineIndex: 0,
-    scope: "self",
-    text: "Push 1",
-  },
-  {
-    id: "hero_skill:musketeer:h18:p371",
-    name: "Sidearm",
-    level: 2,
-    lineIndex: 0,
-    scope: "self",
-    text: "Push 2",
-  },
-  {
-    id: "hero_skill:musketeer:h18:p372",
-    name: "Sidearm",
-    level: 3,
-    lineIndex: 0,
-    scope: "self",
-    text: "Push 2",
-  },
-];
-
-const entries: HeroAnnotationEntries = {
-  status: statusEntries,
-  range: rangeEntries,
-  rallyingFlare: rallyingFlareEntries,
-  damage: damageEntries,
-  shuffle: shuffleEntries,
-  targetCount: [
-    { id: "hero_skill:musketeer:h18:p358", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:musketeer:h18:p359", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:musketeer:h18:p360", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:musketeer:h18:p361", hero: 0, monster: 2, heroOrMonster: 0 },
-    { id: "hero_skill:musketeer:h18:p362", hero: 0, monster: 2, heroOrMonster: 0 },
-    { id: "hero_skill:musketeer:h18:p363", hero: 0, monster: 2, heroOrMonster: 0 },
-    { id: "hero_skill:musketeer:h18:p364", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:musketeer:h18:p365", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:musketeer:h18:p366", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:musketeer:h18:p367", hero: 0, monster: 2, heroOrMonster: 0 },
-    { id: "hero_skill:musketeer:h18:p368", hero: 0, monster: 2, heroOrMonster: 0 },
-    { id: "hero_skill:musketeer:h18:p369", hero: 0, monster: 2, heroOrMonster: 0 },
-    { id: "hero_skill:musketeer:h18:p370", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:musketeer:h18:p371", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:musketeer:h18:p372", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:musketeer:h18:p373", hero: 1, monster: 0, heroOrMonster: 0 },
-    { id: "hero_skill:musketeer:h18:p374", hero: 1, monster: 0, heroOrMonster: 0 },
-    { id: "hero_skill:musketeer:h18:p375", hero: 1, monster: 0, heroOrMonster: 0 },
-  ],
-  effectKind: [
-    { id: "hero_skill:musketeer:h18:p358", effect: "damage" },
-    { id: "hero_skill:musketeer:h18:p359", effect: "damage" },
-    { id: "hero_skill:musketeer:h18:p360", effect: "damage" },
-    { id: "hero_skill:musketeer:h18:p361", effect: "damage" },
-    { id: "hero_skill:musketeer:h18:p362", effect: "damage" },
-    { id: "hero_skill:musketeer:h18:p363", effect: "damage" },
-    { id: "hero_skill:musketeer:h18:p367", effect: "damage" },
-    { id: "hero_skill:musketeer:h18:p368", effect: "damage" },
-    { id: "hero_skill:musketeer:h18:p369", effect: "damage" },
-    { id: "hero_skill:musketeer:h18:p370", effect: "damage" },
-    { id: "hero_skill:musketeer:h18:p371", effect: "damage" },
-    { id: "hero_skill:musketeer:h18:p372", effect: "damage" },
-    { id: "hero_skill:musketeer:h18:p373", effect: "heal" },
-    { id: "hero_skill:musketeer:h18:p374", effect: "heal" },
-    { id: "hero_skill:musketeer:h18:p375", effect: "heal" },
-  ],
-};
-
 export const h18 = defineHeroModule({
   id: "h18",
   hero: "MUSKETEER",
   entries,
-  fixes: musketeerFixes,
+  fixes,
 });

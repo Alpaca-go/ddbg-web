@@ -301,4 +301,9 @@ const entries: HeroAnnotationEntries = {
   ],
 };
 
-export const h11 = defineHeroModule({ id: "h11", hero: "ABOMINATION", entries });
+export const h11 = defineHeroModule({
+  id: "h11",
+  hero: "ABOMINATION",
+  entries,
+  fixes: null,
+});

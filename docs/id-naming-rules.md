@@ -223,7 +223,7 @@ hero_skill:musketeer:h18:p358       // Aimed Shot I
 `packages/data/src/core/heroes/annotations/` 的逐卡审校数据也只用 canonical ID：
 
 - 文件固定为 `hNN-<hero>.ts`，每个文件只导出一个 `hNN` 模块
-  （`id: "hNN"`、`hero`、`entries`、可选 `fixes`）。
+  （`id: "hNN"`、`hero`、`entries`、`fixes`）。纯数据模块的 `fixes` 为 `null`。
 - `entries` 里的 `status` / `range` / `damage` / `shuffle` / `ignores` 等表，
   以及 `fixes` 的 key，全部写 `hero_skill:<pack>:hNN:pNNN`。
 - **禁止**在注解层新写 `hero_skill:pNNN` 或 `hero_skill:musketeer:pNNN`

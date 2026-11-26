@@ -28,37 +28,46 @@ export const hNN = defineHeroModule({ id: "hNN", hero: "...", entries, fixes });
 
 统一约定：
 
-- **一个文件只导出一个 `hNN`**；数据表不再单独导出，只存在于 `entries`。
+- 文件依次写 imports、注解数据表与 `entries`、逐卡修正函数与 `fixes`，最后导出 `hNN`。数据表由 `entries` 汇总。
 - **所有 entry / fix key 都是 canonical ID**：`hero_skill:<pack>:hNN:pNNN`。
   不再从 ID 尾巴读页码；需要页码时用 `card.pages[0]` 或 `printedPageOf(id)`。
 - **一个 fix runner**：[patch-helpers.ts](./patch-helpers.ts) 的 `applyCardFixes`。
   它检查每个 key 唯一命中一张卡，并断言英雄与验证状态；元数据断言用 `assertCardMeta`。
-- 没有逐卡修正的英雄（纯数据）用 `defineHeroModule` 的 no-op `apply`；
-  有修正的英雄用 `fixes` 表，不要再写 `switch (card.id)` + 各自的 `assertX`。
+- 所有模块都声明 `id / hero / entries / fixes`。纯数据模块写 `fixes: null`，由构造器提供 no-op `apply`；
+  有修正的模块用同名 `fixes` 函数返回以 canonical ID 为键的表。
 - `TARGET_COUNTS` / `EFFECT_KINDS` 已拆进各英雄的 `entries.targetCount` / `entries.effectKind`。
 
 ## 数据表与 applier 的对应
 
 `entries` 的 key 与消费方一一对应：
 
-| key             | 消费方                                                          |
-| --------------- | --------------------------------------------------------------- |
-| `status`        | [status-effects.ts](./status-effects.ts)                        |
-| `range`         | [ranges.ts](./ranges.ts)                                        |
-| `self`          | [self-effects.ts](./self-effects.ts)                            |
-| `targetStress`  | [target-stress.ts](./target-stress.ts)                          |
-| `removal`       | [removal.ts](./removal.ts)                                      |
-| `targetCount`   | [target-counts.ts](./target-counts.ts)                          |
-| `support`       | [support-effects.ts](./support-effects.ts)                      |
-| `layout`        | [layout.ts](./layout.ts)                                        |
-| `damage`        | [damage.ts](./damage.ts)                                        |
-| `rallyingFlare` | [rallying-flare.ts](./rallying-flare.ts)                        |
-| `bounty`        | [bounty-statuses.ts](./bounty-statuses.ts)                      |
-| `shuffle`       | [text-rules.ts](./text-rules.ts)                                |
-| `ignores`       | [text-rules.ts](./text-rules.ts)                                |
-| `higher`        | [../core-higher-skills.build.ts](./core-higher-skills.build.ts) |
+| key               | 消费方                                                          |
+| ----------------- | --------------------------------------------------------------- |
+| `status`          | [status-effects.ts](./status-effects.ts)                        |
+| `range`           | [ranges.ts](./ranges.ts)                                        |
+| `self`            | [self-effects.ts](./self-effects.ts)                            |
+| `targetStress`    | [target-stress.ts](./target-stress.ts)                          |
+| `removal`         | [removal.ts](./removal.ts)                                      |
+| `targetCount`     | [target-counts.ts](./target-counts.ts)                          |
+| `support`         | [support-effects.ts](./support-effects.ts)                      |
+| `layout`          | [layout.ts](./layout.ts)                                        |
+| `effectLineFixes` | [patch-helpers.ts](./patch-helpers.ts)                          |
+| `damage`          | [damage.ts](./damage.ts)                                        |
+| `rallyingFlare`   | [rallying-flare.ts](./rallying-flare.ts)                        |
+| `bounty`          | [bounty-statuses.ts](./bounty-statuses.ts)                      |
+| `shuffle`         | [text-rules.ts](./text-rules.ts)                                |
+| `ignores`         | [text-rules.ts](./text-rules.ts)                                |
+| `higher`          | [../core-higher-skills.build.ts](./core-higher-skills.build.ts) |
 
 `index.ts` 只做泛型聚合：`HERO_ANNOTATIONS` 是 18 个模块，`entriesOf(key)` 拼出各 applier 的输入。
+
+## 效果行修正
+
+Rampart I–III 的 `entries.effectLineFixes` 每张卡一行记录。
+`expected` 记录原始效果行签名，比较时忽略空白。
+`output` 按顺序保留文字段、按已确认 key 取出的卡面图标，以及按印刷 iconId 取出后重新标记的图标。
+需要随修正写入的状态记录在 `statuses`。
+共享 runner 在原逐卡修正阶段处理这些条目，一个 canonical ID 只允许一种修正。
 
 ## 规则
 

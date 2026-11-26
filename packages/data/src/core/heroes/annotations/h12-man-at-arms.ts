@@ -1,6 +1,5 @@
 import { parseAnnotatedHeroSkillCard } from "../../../shared/schema";
-import type { ShuffleEntry } from "./types";
-import type { HeroAnnotationEntries } from "./types";
+import type { EffectLineFixEntry, HeroAnnotationEntries, ShuffleEntry } from "./types";
 import { lineSignature } from "./shared";
 import type { NormalizedHeroSkillCard, Segment } from "../../../shared/schema";
 import {
@@ -16,41 +15,142 @@ import {
 } from "./patch-helpers";
 import type { CardFix } from "./patch-helpers";
 
-function fixRampart(
-  card: NormalizedHeroSkillCard,
-  page: number,
-  level: number,
-  pushDist: string,
-  expectedTargetSig: string,
-  expectedSelfRaw: string,
-) {
-  assertCardMeta(card, "MAN-AT-ARMS", page, "Rampart", level);
-  const targetSig = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
-  const selfRaw = lineSignature(card.effect_lines[1]!).replace(/\s+/g, "");
-  if (targetSig !== expectedTargetSig || selfRaw !== expectedSelfRaw)
-    throw new Error(`${card.id} Rampart 效果行漂移（R-048）`);
-  const targetEffects = iconFromCard(card, "target_effects");
-  const stun = iconFromCard(card, "stun");
-  const shuffle = iconFromCard(card, "shuffle");
-  const selfEffects = iconFromCard(card, "self_effects");
-  const pullMis = segmentOnCardAll(card, "d4329c2a97");
-  return parseAnnotatedHeroSkillCard({
-    ...card,
-    effect_lines: [
-      [targetEffects, text(" "), stun, text(" 1t, "), shuffle, text(` ${pushDist}`)],
-      [selfEffects, text(" Self "), cloneKey(pullMis, "shuffle"), text(" Pull 1")],
+/** 文本位移规则（scope + Push/Pull 原文）。 */
+const shuffleEntries: readonly ShuffleEntry[] = [
+  {
+    id: "hero_skill:cove:h12:p235",
+    name: "Rampart",
+    level: 1,
+    lineIndex: 0,
+    scope: "target",
+    text: "Push 1",
+  },
+  {
+    id: "hero_skill:cove:h12:p235",
+    name: "Rampart",
+    level: 1,
+    lineIndex: 1,
+    scope: "self",
+    text: "Pull 1",
+  },
+  {
+    id: "hero_skill:cove:h12:p236",
+    name: "Rampart",
+    level: 2,
+    lineIndex: 0,
+    scope: "target",
+    text: "Push 2",
+  },
+  {
+    id: "hero_skill:cove:h12:p236",
+    name: "Rampart",
+    level: 2,
+    lineIndex: 1,
+    scope: "self",
+    text: "Pull 1",
+  },
+  {
+    id: "hero_skill:cove:h12:p237",
+    name: "Rampart",
+    level: 3,
+    lineIndex: 0,
+    scope: "target",
+    text: "Push 2",
+  },
+  {
+    id: "hero_skill:cove:h12:p237",
+    name: "Rampart",
+    level: 3,
+    lineIndex: 1,
+    scope: "self",
+    text: "Pull 1",
+  },
+];
+
+const rampartSelfLine = [
+  { icon: "self_effects" },
+  " Self ",
+  { iconId: "d4329c2a97", relabelAs: "shuffle" },
+  " Pull 1",
+] as const;
+const rampartStatuses = [
+  { lineIndex: 0, segmentIndex: 2, scope: "target", kind: "stun", duration: 1 },
+] as const;
+
+const rampartEffectLineFixes: readonly EffectLineFixEntry[] = [
+  {
+    id: "hero_skill:cove:h12:p235",
+    name: "Rampart",
+    page: 235,
+    level: 1,
+    expected: ["{target_effects}{stun}1t,{shuffle}Push1", "{self_effects}{buff}Self{buff}Pull1"],
+    output: [
+      [{ icon: "target_effects" }, " ", { icon: "stun" }, " 1t, ", { icon: "shuffle" }, " Push 1"],
+      rampartSelfLine,
     ],
-    annotation_status_effects: [
-      {
-        lineIndex: 0,
-        segmentIndex: 2,
-        scope: "target",
-        kind: "stun",
-        duration: 1,
-      },
+    statuses: [...rampartStatuses],
+  },
+  {
+    id: "hero_skill:cove:h12:p236",
+    name: "Rampart",
+    page: 236,
+    level: 2,
+    expected: ["{target_effects}{stun}1t,{shuffle}Push2", "{self_effects}{buff}Self{buff}Pull1"],
+    output: [
+      [{ icon: "target_effects" }, " ", { icon: "stun" }, " 1t, ", { icon: "shuffle" }, " Push 2"],
+      rampartSelfLine,
     ],
-  });
-}
+    statuses: [...rampartStatuses],
+  },
+  {
+    id: "hero_skill:cove:h12:p237",
+    name: "Rampart",
+    page: 237,
+    level: 3,
+    expected: ["{target_effects}{stun}1t,{shuffle}Push2", "{self_effects}{buff}Self{buff}Pull1"],
+    output: [
+      [{ icon: "target_effects" }, " ", { icon: "stun" }, " 1t, ", { icon: "shuffle" }, " Push 2"],
+      rampartSelfLine,
+    ],
+    statuses: [...rampartStatuses],
+  },
+];
+
+const entries: HeroAnnotationEntries = {
+  effectLineFixes: rampartEffectLineFixes,
+  shuffle: shuffleEntries,
+  targetCount: [
+    { id: "hero_skill:cove:h12:p232", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h12:p233", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h12:p234", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h12:p235", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h12:p236", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h12:p237", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h12:p238", hero: 0, monster: 4, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h12:p239", hero: 0, monster: 4, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h12:p240", hero: 0, monster: 4, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h12:p241", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h12:p242", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h12:p243", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h12:p244", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h12:p245", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h12:p246", hero: 0, monster: 1, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h12:p250", hero: 1, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h12:p251", hero: 2, monster: 0, heroOrMonster: 0 },
+    { id: "hero_skill:cove:h12:p252", hero: 3, monster: 0, heroOrMonster: 0 },
+  ],
+  effectKind: [
+    { id: "hero_skill:cove:h12:p232", effect: "damage" },
+    { id: "hero_skill:cove:h12:p233", effect: "damage" },
+    { id: "hero_skill:cove:h12:p234", effect: "damage" },
+    { id: "hero_skill:cove:h12:p235", effect: "damage" },
+    { id: "hero_skill:cove:h12:p236", effect: "damage" },
+    { id: "hero_skill:cove:h12:p237", effect: "damage" },
+    { id: "hero_skill:cove:h12:p244", effect: "damage" },
+    { id: "hero_skill:cove:h12:p245", effect: "damage" },
+    { id: "hero_skill:cove:h12:p246", effect: "damage" },
+  ],
+};
 
 function fixBellow(
   cards: readonly NormalizedHeroSkillCard[],
@@ -316,37 +416,8 @@ function fixBolster(
  * R-200：Man-at-Arms L1–III 技能族（TDH p232–252）逐卡覆盖；II/III 共 14 张 + 同族 L1 OCR 洗净。
  * Retribution / Defender 见 Q-176 / Q-177（Mark+Riposte、Guard+Protection）。
  */
-function manAtArmsFixes(
-  cards: readonly NormalizedHeroSkillCard[],
-): Readonly<Record<string, CardFix>> {
+function fixes(cards: readonly NormalizedHeroSkillCard[]): Readonly<Record<string, CardFix>> {
   return {
-    "hero_skill:cove:h12:p235": (card) =>
-      fixRampart(
-        card,
-        235,
-        1,
-        "Push 1",
-        "{target_effects}{stun}1t,{shuffle}Push1",
-        "{self_effects}{buff}Self{buff}Pull1",
-      ),
-    "hero_skill:cove:h12:p236": (card) =>
-      fixRampart(
-        card,
-        236,
-        2,
-        "Push 2",
-        "{target_effects}{stun}1t,{shuffle}Push2",
-        "{self_effects}{buff}Self{buff}Pull1",
-      ),
-    "hero_skill:cove:h12:p237": (card) =>
-      fixRampart(
-        card,
-        237,
-        3,
-        "Push 2",
-        "{target_effects}{stun}1t,{shuffle}Push2",
-        "{self_effects}{buff}Self{buff}Pull1",
-      ),
     "hero_skill:cove:h12:p238": (card) => fixBellow(cards, card, 238, 1, 1),
     "hero_skill:cove:h12:p239": (card) => fixBellow(cards, card, 239, 2, 2),
     "hero_skill:cove:h12:p240": (card) => fixBellow(cards, card, 240, 3, 3),
@@ -368,96 +439,9 @@ function manAtArmsFixes(
   };
 }
 
-/** 文本位移规则（scope + Push/Pull 原文）。 */
-const shuffleEntries: readonly ShuffleEntry[] = [
-  {
-    id: "hero_skill:cove:h12:p235",
-    name: "Rampart",
-    level: 1,
-    lineIndex: 0,
-    scope: "target",
-    text: "Push 1",
-  },
-  {
-    id: "hero_skill:cove:h12:p235",
-    name: "Rampart",
-    level: 1,
-    lineIndex: 1,
-    scope: "self",
-    text: "Pull 1",
-  },
-  {
-    id: "hero_skill:cove:h12:p236",
-    name: "Rampart",
-    level: 2,
-    lineIndex: 0,
-    scope: "target",
-    text: "Push 2",
-  },
-  {
-    id: "hero_skill:cove:h12:p236",
-    name: "Rampart",
-    level: 2,
-    lineIndex: 1,
-    scope: "self",
-    text: "Pull 1",
-  },
-  {
-    id: "hero_skill:cove:h12:p237",
-    name: "Rampart",
-    level: 3,
-    lineIndex: 0,
-    scope: "target",
-    text: "Push 2",
-  },
-  {
-    id: "hero_skill:cove:h12:p237",
-    name: "Rampart",
-    level: 3,
-    lineIndex: 1,
-    scope: "self",
-    text: "Pull 1",
-  },
-];
-
-const entries: HeroAnnotationEntries = {
-  shuffle: shuffleEntries,
-  targetCount: [
-    { id: "hero_skill:cove:h12:p232", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h12:p233", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h12:p234", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h12:p235", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h12:p236", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h12:p237", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h12:p238", hero: 0, monster: 4, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h12:p239", hero: 0, monster: 4, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h12:p240", hero: 0, monster: 4, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h12:p241", hero: 1, monster: 0, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h12:p242", hero: 1, monster: 0, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h12:p243", hero: 1, monster: 0, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h12:p244", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h12:p245", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h12:p246", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h12:p250", hero: 1, monster: 0, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h12:p251", hero: 2, monster: 0, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h12:p252", hero: 3, monster: 0, heroOrMonster: 0 },
-  ],
-  effectKind: [
-    { id: "hero_skill:cove:h12:p232", effect: "damage" },
-    { id: "hero_skill:cove:h12:p233", effect: "damage" },
-    { id: "hero_skill:cove:h12:p234", effect: "damage" },
-    { id: "hero_skill:cove:h12:p235", effect: "damage" },
-    { id: "hero_skill:cove:h12:p236", effect: "damage" },
-    { id: "hero_skill:cove:h12:p237", effect: "damage" },
-    { id: "hero_skill:cove:h12:p244", effect: "damage" },
-    { id: "hero_skill:cove:h12:p245", effect: "damage" },
-    { id: "hero_skill:cove:h12:p246", effect: "damage" },
-  ],
-};
-
 export const h12 = defineHeroModule({
   id: "h12",
   hero: "MAN-AT-ARMS",
   entries,
-  fixes: manAtArmsFixes,
+  fixes,
 });

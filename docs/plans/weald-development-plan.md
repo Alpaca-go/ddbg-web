@@ -6,6 +6,13 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 
 ## 当前进度与下一步
 
+- **2026-11-26 Rampart 数据化试点**：h12 的 Rampart I–III 改为三条效果行修正数据。共享逐卡修正 runner 保留卡名、等级、页码和印刷行签名校验，仍在原构建阶段组装效果行、重标图标并写入眩晕注解。下一步按试点的可读性决定 h12 其余技能的迁移范围。
+  验证：核心盒重建与英雄定向测试 94 项、Cove 技能引擎回归 2 项通过，typecheck、lint、build 通过。本次试点未重跑全量 Vitest。重建后 `extract` 与 `normalized` 均零 diff。
+
+- **2026-11-26 英雄技能注解结构统一**：18 个模块都声明 `id / hero / entries / fixes`。纯数据模块显式使用 `fixes: null`，有逐卡修正的模块统一用 `fixes` 函数返回按 canonical ID 索引的表。Leper 已直接生成该表。18 个文件都先定义注解数据，再定义逐卡修正，最后导出模块。核对 TDH 印刷文件，STAT 正反面 PDF 各 35 页，SKILL 正反面各 357 页。Weald 的待确认项和下一步见下方。
+  验证：通过 `@ddbg/data/write` 重建核心盒，9 项重建测试通过，`extract` 与 `normalized` 均零 diff。英雄定向测试 85 项通过，typecheck、lint、build 通过。四并发全量 Vitest 4435 项通过、1 项跳过、3 项超时，三个文件以单并发按原时限复测，9 项全部通过。
+  调整文件内顺序后，英雄与重建测试 94 项、引擎技能回归 17 项通过，typecheck、lint、build 通过，`extract` 与 `normalized` 均零 diff。
+
 - **2026-11-26 英雄聚合来源核对**：逐张核对 54 张 STAT 和 378 张 SKILL 的提取记录，补齐两份聚合目录的 `sources`，按实际取材更新 ID 规范 §4.3。构建经 `@ddbg/data/write` 重建。与 `a0b818df` 对比，`extract` 零 diff，`normalized` 仅两份英雄目录的 `sources` 有 diff。
   验证：数据包 102 个文件、410 项通过，最终调整后的英雄来源与怪物目录定向复测 33 项通过，typecheck、lint、build 通过。全量 Vitest 632 个文件、4438 项通过、1 项跳过。
 - **2026-11-26 Cove／Warrens Boss 占位核对**：共有 14 个唯一占位 ID。Cove 的 Siren 和 Pelagic 占 4 个，Warrens 的 Swine Prince 与 Wilbur 占 4 个，Flesh 占 6 个。两包对应的印刷能力卡与怪物卡目录尚未入库，下一步是目录入库后按印刷页统一迁移 ID 及引用。6 个 Boss 回归文件、42 项通过，本主题 `extract` 与 `normalized` 均零 diff。Weald 的待确认项和下一步见下方。

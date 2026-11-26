@@ -407,4 +407,9 @@ const entries: HeroAnnotationEntries = {
   ],
 };
 
-export const h04 = defineHeroModule({ id: "h04", hero: "HIGHWAYMAN", entries });
+export const h04 = defineHeroModule({
+  id: "h04",
+  hero: "HIGHWAYMAN",
+  entries,
+  fixes: null,
+});

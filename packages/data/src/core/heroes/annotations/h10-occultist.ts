@@ -424,4 +424,9 @@ const entries: HeroAnnotationEntries = {
   ],
 };
 
-export const h10 = defineHeroModule({ id: "h10", hero: "OCCULTIST", entries });
+export const h10 = defineHeroModule({
+  id: "h10",
+  hero: "OCCULTIST",
+  entries,
+  fixes: null,
+});
