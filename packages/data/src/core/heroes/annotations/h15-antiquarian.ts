@@ -276,15 +276,6 @@ const statusEntries: readonly StatusEffectEntry[] = [
   },
 ];
 
-function assertAntiquarian(
-  card: NormalizedHeroSkillCard,
-  page: number,
-  name: string,
-  level: number,
-) {
-  assertCardMeta(card, "ANTIQUARIAN", page, name, level);
-}
-
 function fixGetDown(
   card: NormalizedHeroSkillCard,
   page: number,
@@ -294,7 +285,7 @@ function fixGetDown(
   rawExpected: [string, string],
   rangeIcon: IconSegment,
 ) {
-  assertAntiquarian(card, page, "Get Down!", level);
+  assertCardMeta(card, "ANTIQUARIAN", page, "Get Down!", level);
   const rawSigs = card.effect_lines.map((line) => lineSignature(line).replace(/\s+/g, ""));
   if (JSON.stringify(rawSigs) !== JSON.stringify(rawExpected))
     throw new Error(`${card.id} Get Down 效果行漂移（R-048）`);
@@ -338,7 +329,7 @@ function antiquarianFixes(
     "hero_skill:warrens:h15:p298": (card) => {
       const page = card.pages[0]!;
       const level = page - 297;
-      assertAntiquarian(card, page, "Festering Vapours", level);
+      assertCardMeta(card, "ANTIQUARIAN", page, "Festering Vapours", level);
       const raw = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
       const expected =
         level === 1
@@ -365,7 +356,7 @@ function antiquarianFixes(
     "hero_skill:warrens:h15:p299": (card) => {
       const page = card.pages[0]!;
       const level = page - 297;
-      assertAntiquarian(card, page, "Festering Vapours", level);
+      assertCardMeta(card, "ANTIQUARIAN", page, "Festering Vapours", level);
       const raw = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
       const expected =
         level === 1
@@ -392,7 +383,7 @@ function antiquarianFixes(
     "hero_skill:warrens:h15:p300": (card) => {
       const page = card.pages[0]!;
       const level = page - 297;
-      assertAntiquarian(card, page, "Festering Vapours", level);
+      assertCardMeta(card, "ANTIQUARIAN", page, "Festering Vapours", level);
       const raw = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
       const expected =
         level === 1
@@ -427,7 +418,7 @@ function antiquarianFixes(
         rangeIcon,
       ),
     "hero_skill:warrens:h15:p304": (card) => {
-      assertAntiquarian(card, 304, "Flashpowder", 1);
+      assertCardMeta(card, "ANTIQUARIAN", 304, "Flashpowder", 1);
       const raw = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
       if (raw !== "{target_effects}{blight}1t,{buff}1t")
         throw new Error(`${card.id} Flashpowder I 效果行漂移（R-048）`);
@@ -451,7 +442,7 @@ function antiquarianFixes(
       });
     },
     "hero_skill:warrens:h15:p307": (card) => {
-      assertAntiquarian(card, 307, "Fortifying Vapours", 1);
+      assertCardMeta(card, "ANTIQUARIAN", 307, "Fortifying Vapours", 1);
       const statsSig = card.stats_line ? lineSignature(card.stats_line).replace(/\s+/g, "") : "";
       if (statsSig !== "{range}1{target_hero}Crit0{buff}{heal}2Acc12{buff}{heal}1")
         throw new Error(`${card.id} Fortifying I stats_line 漂移（R-048）`);
@@ -487,7 +478,7 @@ function antiquarianFixes(
       });
     },
     "hero_skill:warrens:h15:p310": (card) => {
-      assertAntiquarian(card, 310, "Invigorating Vapours", 1);
+      assertCardMeta(card, "ANTIQUARIAN", 310, "Invigorating Vapours", 1);
       const rawSigs = card.effect_lines.map((line) => lineSignature(line).replace(/\s+/g, ""));
       if (
         JSON.stringify(rawSigs) !==
@@ -510,7 +501,7 @@ function antiquarianFixes(
       });
     },
     "hero_skill:warrens:h15:p313": (card) => {
-      assertAntiquarian(card, 313, "Protect Me", 1);
+      assertCardMeta(card, "ANTIQUARIAN", 313, "Protect Me", 1);
       const raw = lineSignature(card.effect_lines[1]!).replace(/\s+/g, "");
       if (raw !== "{light}{shuffle}2t,{damage}2t,{mark}3t")
         throw new Error(`${card.id} Protect Me I 效果行漂移（R-048）`);
@@ -556,7 +547,7 @@ function antiquarianFixes(
         rangeIcon,
       ),
     "hero_skill:warrens:h15:p305": (card) => {
-      assertAntiquarian(card, 305, "Flashpowder", 2);
+      assertCardMeta(card, "ANTIQUARIAN", 305, "Flashpowder", 2);
       const raw = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
       if (raw !== "{target_effects}{bleed}1t,{buff}2t")
         throw new Error(`${card.id} Flashpowder II 效果行漂移（R-048）`);
@@ -580,7 +571,7 @@ function antiquarianFixes(
       });
     },
     "hero_skill:warrens:h15:p306": (card) => {
-      assertAntiquarian(card, 306, "Flashpowder", 3);
+      assertCardMeta(card, "ANTIQUARIAN", 306, "Flashpowder", 3);
       const raw = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
       if (raw !== "{target_effects}{target_effects}2t,{buff}2t")
         throw new Error(`${card.id} Flashpowder III 效果行漂移（R-048）`);
@@ -609,7 +600,7 @@ function antiquarianFixes(
       const page = card.id === "hero_skill:warrens:h15:p308" ? 308 : 309;
       const selfHeal = page === 308 ? 2 : 4;
       const buffT = page === 308 ? 3 : 3;
-      assertAntiquarian(card, page, "Fortifying Vapours", page === 308 ? 2 : 3);
+      assertCardMeta(card, "ANTIQUARIAN", page, "Fortifying Vapours", page === 308 ? 2 : 3);
       const statsSig = card.stats_line ? lineSignature(card.stats_line).replace(/\s+/g, "") : "";
       const expectedStats =
         page === 308
@@ -652,7 +643,7 @@ function antiquarianFixes(
       const page = card.id === "hero_skill:warrens:h15:p308" ? 308 : 309;
       const selfHeal = page === 308 ? 2 : 4;
       const buffT = page === 308 ? 3 : 3;
-      assertAntiquarian(card, page, "Fortifying Vapours", page === 308 ? 2 : 3);
+      assertCardMeta(card, "ANTIQUARIAN", page, "Fortifying Vapours", page === 308 ? 2 : 3);
       const statsSig = card.stats_line ? lineSignature(card.stats_line).replace(/\s+/g, "") : "";
       const expectedStats =
         page === 308
@@ -692,7 +683,7 @@ function antiquarianFixes(
       });
     },
     "hero_skill:warrens:h15:p311": (card) => {
-      assertAntiquarian(card, 311, "Invigorating Vapours", 2);
+      assertCardMeta(card, "ANTIQUARIAN", 311, "Invigorating Vapours", 2);
       const rawSigs = card.effect_lines.map((line) => lineSignature(line).replace(/\s+/g, ""));
       const expected = [
         "{range}0{target_hero}{target_hero}",
@@ -713,7 +704,7 @@ function antiquarianFixes(
       });
     },
     "hero_skill:warrens:h15:p312": (card) => {
-      assertAntiquarian(card, 312, "Invigorating Vapours", 3);
+      assertCardMeta(card, "ANTIQUARIAN", 312, "Invigorating Vapours", 3);
       const rawSigs = card.effect_lines.map((line) => lineSignature(line).replace(/\s+/g, ""));
       const expected = [
         "{range}0{target_hero_or_monster}{target_hero_or_monster}{target_hero_or_monster}",
@@ -742,7 +733,7 @@ function antiquarianFixes(
       });
     },
     "hero_skill:warrens:h15:p314": (card) => {
-      assertAntiquarian(card, 314, "Protect Me", 2);
+      assertCardMeta(card, "ANTIQUARIAN", 314, "Protect Me", 2);
       const raw = lineSignature(card.effect_lines[1]!).replace(/\s+/g, "");
       if (raw !== "{light}{shuffle}3t,{damage}2t,{mark}2t")
         throw new Error(`${card.id} Protect Me II 效果行漂移（R-048）`);
@@ -769,7 +760,7 @@ function antiquarianFixes(
       });
     },
     "hero_skill:warrens:h15:p315": (card) => {
-      assertAntiquarian(card, 315, "Protect Me", 3);
+      assertCardMeta(card, "ANTIQUARIAN", 315, "Protect Me", 3);
       const raw = lineSignature(card.effect_lines[1]!).replace(/\s+/g, "");
       if (raw !== "{light}{target_effects}3t,{target_effects}3t,{stress}1t")
         throw new Error(`${card.id} Protect Me III 效果行漂移（R-048）`);

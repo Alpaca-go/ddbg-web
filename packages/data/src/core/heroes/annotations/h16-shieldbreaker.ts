@@ -15,10 +15,6 @@ import {
 import type { CardFix } from "./patch-helpers";
 import type { IconSegment } from "./patch-helpers";
 
-function assertSb(card: NormalizedHeroSkillCard, page: number, name: string, level: number) {
-  assertCardMeta(card, "SHIELDBREAKER", page, name, level);
-}
-
 function rangeZeroUnlabeled(rangeIcon: IconSegment) {
   return {
     text: "0",
@@ -39,7 +35,7 @@ function fixPierce(
   expectedSelfRaw: string,
   expectedIgnoresRaw: string,
 ) {
-  assertSb(card, page, "Pierce", level);
+  assertCardMeta(card, "SHIELDBREAKER", page, "Pierce", level);
   const statsSig = card.stats_line ? lineSignature(card.stats_line).replace(/\s+/g, "") : "";
   if (statsSig !== expectedStats.replace(/\s+/g, ""))
     throw new Error(`${card.id} Pierce stats 漂移（R-048）`);
@@ -71,7 +67,7 @@ function fixPuncture(
   expectedTailRaw: string,
   rangeInterval: boolean,
 ) {
-  assertSb(card, page, "Puncture", level);
+  assertCardMeta(card, "SHIELDBREAKER", page, "Puncture", level);
   const statsSig = card.stats_line ? lineSignature(card.stats_line).replace(/\s+/g, "") : "";
   if (statsSig !== expectedStats.replace(/\s+/g, ""))
     throw new Error(`${card.id} Puncture stats 漂移（R-048）`);
@@ -114,7 +110,7 @@ function fixAddersKiss(
   expectedTargetRaw: string,
   duration: number,
 ) {
-  assertSb(card, page, "Adder’s Kiss", level);
+  assertCardMeta(card, "SHIELDBREAKER", page, "Adder’s Kiss", level);
   const statsSig = card.stats_line ? lineSignature(card.stats_line).replace(/\s+/g, "") : "";
   if (statsSig !== expectedStats.replace(/\s+/g, ""))
     throw new Error(`${card.id} Adder's Kiss stats 漂移（R-048）`);
@@ -156,7 +152,7 @@ function fixImpale(
   expectedTargetRaw: string,
   debuffT: number,
 ) {
-  assertSb(card, page, "Impale", level);
+  assertCardMeta(card, "SHIELDBREAKER", page, "Impale", level);
   const statsSig = card.stats_line ? lineSignature(card.stats_line).replace(/\s+/g, "") : "";
   if (statsSig !== expectedStats.replace(/\s+/g, ""))
     throw new Error(`${card.id} Impale stats 漂移（R-048）`);
@@ -201,7 +197,7 @@ function fixExpose(
   expectedTargetRaw: string,
   debuffT: number,
 ) {
-  assertSb(card, page, "Expose", level);
+  assertCardMeta(card, "SHIELDBREAKER", page, "Expose", level);
   const statsSig = card.stats_line ? lineSignature(card.stats_line).replace(/\s+/g, "") : "";
   if (statsSig !== expectedStats.replace(/\s+/g, ""))
     throw new Error(`${card.id} Expose stats 漂移（R-048）`);
@@ -243,7 +239,7 @@ function fixCaptivate(
   blightAmt: number,
   blightT: number,
 ) {
-  assertSb(card, page, "Captivate", level);
+  assertCardMeta(card, "SHIELDBREAKER", page, "Captivate", level);
   const statsSig = card.stats_line ? lineSignature(card.stats_line).replace(/\s+/g, "") : "";
   if (statsSig !== expectedStats.replace(/\s+/g, ""))
     throw new Error(`${card.id} Captivate stats 漂移（R-048）`);
@@ -291,7 +287,7 @@ function fixSerpentSwaySelf(
   expectedSelfRaw: string,
   protectionT: number,
 ) {
-  assertSb(card, page, "Serpent Sway", level);
+  assertCardMeta(card, "SHIELDBREAKER", page, "Serpent Sway", level);
   const rawSigs = card.effect_lines.map((line) => lineSignature(line).replace(/\s+/g, ""));
   if (rawSigs[0] !== expectedHeaderRaw || rawSigs[1] !== expectedSelfRaw)
     throw new Error(`${card.id} Serpent Sway 效果行漂移（R-048）`);
@@ -329,7 +325,7 @@ function fixSerpentSwayIii(
   expectedSelfRaw: string,
   expectedAllyRaw: string,
 ) {
-  assertSb(card, page, "Serpent Sway", 3);
+  assertCardMeta(card, "SHIELDBREAKER", page, "Serpent Sway", 3);
   const rawSigs = card.effect_lines.map((line) => lineSignature(line).replace(/\s+/g, ""));
   if (
     rawSigs[0] !== expectedHeaderRaw.replace(/\s+/g, "") ||

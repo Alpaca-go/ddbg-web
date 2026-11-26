@@ -155,16 +155,6 @@ const damageEntries: readonly DamageEntry[] = [
   },
 ];
 
-function assertMus(
-  card: NormalizedHeroSkillCard,
-  _slug: string,
-  name: string,
-  level: number,
-  page: number,
-) {
-  assertCardMeta(card, "MUSKETEER", page, name, level);
-}
-
 function fixHealStatsLine(
   cards: readonly NormalizedHeroSkillCard[],
   card: NormalizedHeroSkillCard,
@@ -187,14 +177,13 @@ function fixHealStatsLine(
 function fixAimedShot(
   cards: readonly NormalizedHeroSkillCard[],
   card: NormalizedHeroSkillCard,
-  slug: string,
   level: number,
   page: number,
   expectedStats: string,
   expectedEffRaw: string,
   bonus: number,
 ) {
-  assertMus(card, slug, "Aimed Shot", level, page);
+  assertCardMeta(card, "MUSKETEER", page, "Aimed Shot", level);
   const statsSig = card.stats_line ? lineSignature(card.stats_line).replace(/\s+/g, "") : "";
   if (statsSig !== expectedStats.replace(/\s+/g, ""))
     throw new Error(`${card.id} Aimed Shot stats 漂移（R-048）`);
@@ -234,7 +223,6 @@ function fixAimedShot(
 function fixSmokescreenDebuff(
   cards: readonly NormalizedHeroSkillCard[],
   card: NormalizedHeroSkillCard,
-  slug: string,
   level: number,
   page: number,
   expectedStats: string,
@@ -242,7 +230,7 @@ function fixSmokescreenDebuff(
   misIconId: string,
   debuffT: number,
 ) {
-  assertMus(card, slug, "Smokescreen", level, page);
+  assertCardMeta(card, "MUSKETEER", page, "Smokescreen", level);
   const statsSig = card.stats_line ? lineSignature(card.stats_line).replace(/\s+/g, "") : "";
   if (statsSig !== expectedStats.replace(/\s+/g, ""))
     throw new Error(`${card.id} Smokescreen stats 漂移（R-048）`);
@@ -277,14 +265,13 @@ function fixSmokescreenDebuff(
 function fixCallTheShot(
   cards: readonly NormalizedHeroSkillCard[],
   card: NormalizedHeroSkillCard,
-  slug: string,
   level: number,
   page: number,
   acc: number,
   expectedEffRaw: string,
   markT: number,
 ) {
-  assertMus(card, slug, "Call the Shot", level, page);
+  assertCardMeta(card, "MUSKETEER", page, "Call the Shot", level);
   if (card.printed_labels.find((l) => l.label === "Acc")?.value !== acc)
     throw new Error(`${card.id} Call the Shot Acc 漂移（R-048）`);
   const effSig = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
@@ -318,7 +305,6 @@ function fixCallTheShot(
 function fixBuckshot(
   cards: readonly NormalizedHeroSkillCard[],
   card: NormalizedHeroSkillCard,
-  slug: string,
   level: number,
   page: number,
   expectedStats: string,
@@ -326,7 +312,7 @@ function fixBuckshot(
   expectedSelfRaw: string,
   expectedTargetRaw: string,
 ) {
-  assertMus(card, slug, "Buckshot", level, page);
+  assertCardMeta(card, "MUSKETEER", page, "Buckshot", level);
   const statsSig = card.stats_line ? lineSignature(card.stats_line).replace(/\s+/g, "") : "";
   if (statsSig !== expectedStats.replace(/\s+/g, ""))
     throw new Error(`${card.id} Buckshot stats 漂移（R-048）`);
@@ -354,14 +340,13 @@ function fixBuckshot(
 function fixSidearm(
   cards: readonly NormalizedHeroSkillCard[],
   card: NormalizedHeroSkillCard,
-  slug: string,
   level: number,
   page: number,
   expectedStats: string,
   expectedEffRaw: string,
   push: number,
 ) {
-  assertMus(card, slug, "Sidearm", level, page);
+  assertCardMeta(card, "MUSKETEER", page, "Sidearm", level);
   const statsSig = card.stats_line ? lineSignature(card.stats_line).replace(/\s+/g, "") : "";
   if (statsSig !== expectedStats.replace(/\s+/g, ""))
     throw new Error(`${card.id} Sidearm stats 漂移（R-048）`);
@@ -386,13 +371,12 @@ function fixSidearm(
 function fixPatchUp(
   cards: readonly NormalizedHeroSkillCard[],
   card: NormalizedHeroSkillCard,
-  slug: string,
   level: number,
   page: number,
   expectedStats: string,
   expectedEffRaw: string,
 ) {
-  assertMus(card, slug, "Patch Up", level, page);
+  assertCardMeta(card, "MUSKETEER", page, "Patch Up", level);
   const effSig = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
   if (effSig !== expectedEffRaw.replace(/\s+/g, ""))
     throw new Error(`${card.id} Patch Up 效果行漂移（R-048）`);
@@ -426,14 +410,13 @@ function fixPatchUp(
 function fixSkeetEffectLines(
   cards: readonly NormalizedHeroSkillCard[],
   card: NormalizedHeroSkillCard,
-  slug: string,
   level: number,
   page: number,
   acc: number,
   expectedSelfRaw: string,
   expectedMonsterRaw: string,
 ) {
-  assertMus(card, slug, "Skeet Shot", level, page);
+  assertCardMeta(card, "MUSKETEER", page, "Skeet Shot", level);
   if (card.printed_labels.find((l) => l.label === "Acc")?.value !== acc)
     throw new Error(`${card.id} Skeet Shot Acc 漂移（R-048）`);
   const selfSig = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
@@ -487,7 +470,6 @@ function musketeerFixes(
       fixAimedShot(
         cards,
         card,
-        "p001",
         1,
         1,
         "{range} 2 {target_monster} Crit 1 {damage} 9 Acc 9 {damage} 6",
@@ -498,7 +480,6 @@ function musketeerFixes(
       fixAimedShot(
         cards,
         card,
-        "p002",
         2,
         2,
         "{range} 2 {target_monster} Crit 1 {damage} 12 Acc 10 {damage} 8",
@@ -509,7 +490,6 @@ function musketeerFixes(
       fixAimedShot(
         cards,
         card,
-        "p003",
         3,
         3,
         "{range} 2 {target_monster} Crit 1 {damage} 16 Acc 11 {damage} 10",
@@ -520,7 +500,6 @@ function musketeerFixes(
       fixSmokescreenDebuff(
         cards,
         card,
-        "p004",
         1,
         4,
         "{range} 1-2 {target_monster} {target_monster} Crit 0 {damage} 4 Acc 9 {damage} 2",
@@ -532,7 +511,6 @@ function musketeerFixes(
       fixSmokescreenDebuff(
         cards,
         card,
-        "p005",
         2,
         5,
         "{range} 1-2 {target_monster} {target_monster} Crit 0 {damage} 6 Acc 10 {damage} 3",
@@ -544,7 +522,6 @@ function musketeerFixes(
       fixSmokescreenDebuff(
         cards,
         card,
-        "p006",
         3,
         6,
         "{range} 1-2 {target_monster} {target_monster} Crit 0 {damage} 7 Acc 11 {damage} 4",
@@ -553,16 +530,15 @@ function musketeerFixes(
         3,
       ),
     "hero_skill:musketeer:h18:p364": (card) =>
-      fixCallTheShot(cards, card, "p007", 1, 7, 10, "{target_effects}{debuff}2t", 2),
+      fixCallTheShot(cards, card, 1, 7, 10, "{target_effects}{debuff}2t", 2),
     "hero_skill:musketeer:h18:p365": (card) =>
-      fixCallTheShot(cards, card, "p008", 2, 8, 11, "{target_effects}{debuff}3t", 3),
+      fixCallTheShot(cards, card, 2, 8, 11, "{target_effects}{debuff}3t", 3),
     "hero_skill:musketeer:h18:p366": (card) =>
-      fixCallTheShot(cards, card, "p009", 3, 9, 12, "{target_effects}{debuff}4t", 4),
+      fixCallTheShot(cards, card, 3, 9, 12, "{target_effects}{debuff}4t", 4),
     "hero_skill:musketeer:h18:p367": (card) =>
       fixBuckshot(
         cards,
         card,
-        "p010",
         1,
         10,
         "{range} 1 {target_monster} {target_monster} Crit 1 {damage} 6 Acc 10 {damage} 3",
@@ -574,7 +550,6 @@ function musketeerFixes(
       fixBuckshot(
         cards,
         card,
-        "p011",
         2,
         11,
         "{range} 1 {target_monster} {target_monster} Crit 1 {damage} 8 Acc 11 {damage} 4",
@@ -586,7 +561,6 @@ function musketeerFixes(
       fixBuckshot(
         cards,
         card,
-        "p012",
         3,
         12,
         "{range} 1 {target_monster} {target_monster} Crit 1 {damage} 9 Acc 12 {damage} 5",
@@ -598,7 +572,6 @@ function musketeerFixes(
       fixSidearm(
         cards,
         card,
-        "p013",
         1,
         13,
         "{range} 0-2 {target_monster} Crit 0 {damage} 8 Acc 8 {damage} 5",
@@ -609,7 +582,6 @@ function musketeerFixes(
       fixSidearm(
         cards,
         card,
-        "p014",
         2,
         14,
         "{range} 0-2 {target_monster} Crit 0 {damage} 11 Acc 9 {damage} 6",
@@ -620,7 +592,6 @@ function musketeerFixes(
       fixSidearm(
         cards,
         card,
-        "p015",
         3,
         15,
         "{range} 0-2 {target_monster} Crit 0 {damage} 14 Acc 10 {damage} 8",
@@ -631,7 +602,6 @@ function musketeerFixes(
       fixPatchUp(
         cards,
         card,
-        "p016",
         1,
         16,
         "{range} 0-1 {target_hero} Crit 0 {damage_or_heal_combined_marker} {damage} 6 Acc 8 {damage_or_heal_combined_marker} {damage} 4",
@@ -641,7 +611,6 @@ function musketeerFixes(
       fixPatchUp(
         cards,
         card,
-        "p017",
         2,
         17,
         "{range} 0-1 {target_hero} Crit 0 {damage_or_heal_combined_marker} {damage} 8 Acc 9 {damage_or_heal_combined_marker} {damage} 5",
@@ -651,7 +620,6 @@ function musketeerFixes(
       fixPatchUp(
         cards,
         card,
-        "p018",
         3,
         18,
         "{range} 0-1 {target_hero} Crit 0 {damage_or_heal_combined_marker} 10 {damage} Acc 10 {damage_or_heal_combined_marker} {damage} 7",
@@ -661,7 +629,6 @@ function musketeerFixes(
       fixSkeetEffectLines(
         cards,
         card,
-        "p019",
         1,
         19,
         10,
@@ -672,7 +639,6 @@ function musketeerFixes(
       fixSkeetEffectLines(
         cards,
         card,
-        "p020",
         2,
         20,
         11,
@@ -683,7 +649,6 @@ function musketeerFixes(
       fixSkeetEffectLines(
         cards,
         card,
-        "p021",
         3,
         21,
         12,

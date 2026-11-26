@@ -14,10 +14,6 @@ import {
 import type { CardFix } from "./patch-helpers";
 import type { IconSegment } from "./patch-helpers";
 
-function assertHm(card: NormalizedHeroSkillCard, page: number, name: string, level: number) {
-  assertCardMeta(card, "HOUNDMASTER", page, name, level);
-}
-
 function stressDeltaAnchor(stressIcon: IconSegment, amount: number) {
   const raw = amount > 0 ? `+${amount}` : String(amount);
   return {
@@ -53,7 +49,7 @@ function fixHoundsRush(
   expectedSelfRaw: string,
   expectedTargetRaw: string,
 ) {
-  assertHm(card, page, "Hound’s Rush", level);
+  assertCardMeta(card, "HOUNDMASTER", page, "Hound’s Rush", level);
   if (lineSignature(card.effect_lines[0]!).replace(/\s+/g, "") !== expectedSelfRaw)
     throw new Error(`${card.id} Hound's Rush 自身行漂移（R-048）`);
   if (lineSignature(card.effect_lines[1]!).replace(/\s+/g, "") !== expectedTargetRaw)
@@ -92,7 +88,7 @@ function fixHoundsHarry(
   expectedStats: string,
   expectedEff: string,
 ) {
-  assertHm(card, page, "Hound’s Harry", level);
+  assertCardMeta(card, "HOUNDMASTER", page, "Hound’s Harry", level);
   const statsSig = card.stats_line ? lineSignature(card.stats_line).replace(/\s+/g, "") : "";
   if (statsSig !== expectedStats.replace(/\s+/g, ""))
     throw new Error(`${card.id} Hound's Harry stats 漂移（R-048）`);
@@ -129,7 +125,7 @@ function fixTargetWhistle(
   expectedStats: string,
   expectedRaw: string,
 ) {
-  assertHm(card, page, "Target Whistle", level);
+  assertCardMeta(card, "HOUNDMASTER", page, "Target Whistle", level);
   const statsSig = card.stats_line ? lineSignature(card.stats_line).replace(/\s+/g, "") : "";
   if (statsSig !== expectedStats.replace(/\s+/g, ""))
     throw new Error(`${card.id} Target Whistle stats 漂移（R-048）`);
@@ -190,7 +186,7 @@ function fixCryHavoc(
   selfStress: number,
   rawSigs: readonly [string, string],
 ) {
-  assertHm(card, page, "Cry Havoc", level);
+  assertCardMeta(card, "HOUNDMASTER", page, "Cry Havoc", level);
   const observed = card.effect_lines.map((line) => lineSignature(line).replace(/\s+/g, ""));
   if (JSON.stringify(observed) !== JSON.stringify(rawSigs))
     throw new Error(`${card.id} Cry Havoc 效果行漂移（R-048）`);
@@ -240,7 +236,7 @@ function fixGuardDog(
   rawHeader: string,
   rawSelf: string,
 ) {
-  assertHm(card, page, "Guard Dog", level);
+  assertCardMeta(card, "HOUNDMASTER", page, "Guard Dog", level);
   if (lineSignature(card.effect_lines[0]!).replace(/\s+/g, "") !== rawHeader)
     throw new Error(`${card.id} Guard Dog 射程行漂移（R-048）`);
   if (lineSignature(card.effect_lines[1]!).replace(/\s+/g, "") !== rawSelf)
@@ -288,7 +284,7 @@ function fixLickWounds(
   critHeal: number,
   accHeal: number,
 ) {
-  assertHm(card, page, "Lick Wounds", level);
+  assertCardMeta(card, "HOUNDMASTER", page, "Lick Wounds", level);
   const statsSig = card.stats_line ? lineSignature(card.stats_line).replace(/\s+/g, "") : "";
   if (statsSig !== expectedRawStats.replace(/\s+/g, ""))
     throw new Error(`${card.id} Lick Wounds stats 漂移（R-048）`);
@@ -318,7 +314,7 @@ function fixBlackjack(
   expectedStats: string,
   expectedEff: string,
 ) {
-  assertHm(card, page, "Blackjack", level);
+  assertCardMeta(card, "HOUNDMASTER", page, "Blackjack", level);
   const statsSig = card.stats_line ? lineSignature(card.stats_line).replace(/\s+/g, "") : "";
   if (statsSig !== expectedStats.replace(/\s+/g, ""))
     throw new Error(`${card.id} Blackjack stats 漂移（R-048）`);

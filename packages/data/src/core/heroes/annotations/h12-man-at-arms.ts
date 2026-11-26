@@ -15,10 +15,6 @@ import {
 import type { CardFix } from "./patch-helpers";
 import type { IconSegment } from "./patch-helpers";
 
-function assertMaa(card: NormalizedHeroSkillCard, page: number, name: string, level: number) {
-  assertCardMeta(card, "MAN-AT-ARMS", page, name, level);
-}
-
 function rangeZeroUnlabeled(rangeIcon: IconSegment) {
   return {
     text: "0",
@@ -51,7 +47,7 @@ function fixRampart(
   expectedTargetSig: string,
   expectedSelfRaw: string,
 ) {
-  assertMaa(card, page, "Rampart", level);
+  assertCardMeta(card, "MAN-AT-ARMS", page, "Rampart", level);
   const targetSig = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
   const selfRaw = lineSignature(card.effect_lines[1]!).replace(/\s+/g, "");
   if (targetSig !== expectedTargetSig || selfRaw !== expectedSelfRaw)
@@ -86,7 +82,7 @@ function fixBellow(
   level: number,
   debuffT: number,
 ) {
-  assertMaa(card, page, "Bellow", level);
+  assertCardMeta(card, "MAN-AT-ARMS", page, "Bellow", level);
   const statsSig = card.stats_line ? lineSignature(card.stats_line).replace(/\s+/g, "") : "";
   const effSig = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
   const expectedStats: Record<number, string> = {
@@ -125,7 +121,7 @@ function fixDefender(
   guardT: number,
   protectionT: number,
 ) {
-  assertMaa(card, page, "Defender", level);
+  assertCardMeta(card, "MAN-AT-ARMS", page, "Defender", level);
   const rawSigs = card.effect_lines.map((line) => lineSignature(line).replace(/\s+/g, ""));
   if (
     rawSigs[0] !== "{range}{buff}Self" ||
@@ -174,7 +170,7 @@ function fixRetribution(
   riposteT: number,
   expectedSelfRaw: string,
 ) {
-  assertMaa(card, page, "Retribution", level);
+  assertCardMeta(card, "MAN-AT-ARMS", page, "Retribution", level);
   const raw = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
   if (raw !== expectedSelfRaw) throw new Error(`${card.id} Retribution 效果行漂移（R-048）`);
   const selfEffects = iconFromCard(card, "self_effects");
@@ -213,7 +209,7 @@ function fixCommand(
   targetCount: number,
   stunT: number,
 ) {
-  assertMaa(card, page, "Command", level);
+  assertCardMeta(card, "MAN-AT-ARMS", page, "Command", level);
   const expectedHeader = `{range}1${"{target_hero}".repeat(targetCount)}`;
   const rawSigs = card.effect_lines.map((line) => lineSignature(line).replace(/\s+/g, ""));
   if (
@@ -267,7 +263,7 @@ function fixBolster(
   page: number,
   level: number,
 ) {
-  assertMaa(card, page, "Bolster", level);
+  assertCardMeta(card, "MAN-AT-ARMS", page, "Bolster", level);
   const stressIcon = iconFromPool(cards, "stress");
   const selfEffects = iconFromCard(card, "self_effects");
   const targetEffects = iconFromPool(cards, "target_effects");

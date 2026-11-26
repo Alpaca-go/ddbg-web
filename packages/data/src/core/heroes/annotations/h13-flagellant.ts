@@ -241,15 +241,6 @@ const rangeEntries: readonly RangeEntry[] = [
   },
 ];
 
-function assertFlagellant(
-  card: NormalizedHeroSkillCard,
-  page: number,
-  name: string,
-  level: number,
-) {
-  assertCardMeta(card, "FLAGELLANT", page, name, level);
-}
-
 function fixStatsDamageBuff(card: NormalizedHeroSkillCard, expectedStats: string) {
   const stats = card.stats_line;
   const sig = stats ? lineSignature(stats).replace(/\s+/g, "") : "";
@@ -277,7 +268,7 @@ function fixPunishFamily(
   bleedT: number,
   actorBonus: number,
 ) {
-  assertFlagellant(card, page, "Punish", level);
+  assertCardMeta(card, "FLAGELLANT", page, "Punish", level);
   const targetEffects = iconFromPool(pool, "target_effects");
   const bleed = iconFromPool(pool, "bleed");
   const debuff = iconFromPool(pool, "debuff");
@@ -302,7 +293,7 @@ function fixRainFamily(
   blightT: number,
   actorBonus: number,
 ) {
-  assertFlagellant(card, page, "Rain of Sorrows", level);
+  assertCardMeta(card, "FLAGELLANT", page, "Rain of Sorrows", level);
   const targetEffects = iconFromPool(pool, "target_effects");
   const blight = iconFromPool(pool, "blight");
   const condSig = lineSignature(card.effect_lines[0]!).replace(/\s+/g, "");
@@ -328,7 +319,7 @@ function fixExsanguinate(
   targetBleed: number,
   targetT: number,
 ) {
-  assertFlagellant(card, page, "Exsanguinate", level);
+  assertCardMeta(card, "FLAGELLANT", page, "Exsanguinate", level);
   const statsSig = lineSignature(card.stats_line!)!.replace(/\s+/g, "");
   const expectedStats = `{range} 1 {target_monster} Crit 1 {damage} ${
     level === 1
@@ -361,7 +352,7 @@ function fixReclaim(
   expectedStats: string,
   selfHeal: boolean,
 ) {
-  assertFlagellant(card, page, "Reclaim", level);
+  assertCardMeta(card, "FLAGELLANT", page, "Reclaim", level);
   const statsSig = lineSignature(card.stats_line!)!.replace(/\s+/g, "");
   if (statsSig !== expectedStats.replace(/\s+/g, "")) {
     if (!statsSig.startsWith("{range}0-1{target_hero}Crit2"))
@@ -407,7 +398,7 @@ function fixEndure(
   page: number,
   level: 1 | 2 | 3,
 ) {
-  assertFlagellant(card, page, "Endure", level);
+  assertCardMeta(card, "FLAGELLANT", page, "Endure", level);
   const spec = {
     1: { crit: 0, acc: 12, range: "1" as const, interval: undefined },
     2: { crit: 0, acc: 14, range: "1-2" as const, interval: { min: 1, max: 2 } as const },
@@ -453,7 +444,7 @@ function fixRedeem(
   level: number,
   healAmount: number,
 ) {
-  assertFlagellant(card, page, "Redeem", level);
+  assertCardMeta(card, "FLAGELLANT", page, "Redeem", level);
   const rangeIcon = iconFromPool(pool, "range");
   const targetHero = iconFromPool(pool, "target_hero");
   const selfEffects = iconFromCard(card, "self_effects");
@@ -486,7 +477,7 @@ function fixSuffer(
   markT: number,
   buffT: number,
 ) {
-  assertFlagellant(card, page, "Suffer", level);
+  assertCardMeta(card, "FLAGELLANT", page, "Suffer", level);
   const rangeIcon = iconFromPool(pool, "range");
   const targetHero = iconFromPool(pool, "target_hero");
   const selfEffects = iconFromCard(card, "self_effects");
