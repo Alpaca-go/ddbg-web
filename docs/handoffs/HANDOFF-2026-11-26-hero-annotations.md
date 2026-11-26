@@ -29,7 +29,10 @@
    `stressDeltaAnchor` 是同类变体，可提到 `patch-helpers.ts`。
 3. h12/h13/h15/h16/h17/h18 仍保留一行 `assertXxx` 包装，内部只调 `assertCardMeta`；
    删掉包装并改调用点可以进一步统一，但纯属清理。
-4. `abomination-projection-data.ts`（520 行）当前没有被任何模块引用，需确认删除或接线。
+4. 调查确认 `abomination-projection-data.ts` 仍被引擎使用。P6（`2889843b`）
+   移动数据表时同步更新了 [abomination-skills.ts](../../packages/engine/src/core/heroes/abomination-skills.ts)
+   的导入路径。该模块的 `projectAbominationSkill` 按技能 ID 查询 `ABOMINATION_PROJECTIONS`，
+   [hero-skill.ts](../../packages/engine/src/core/heroes/hero-skill.ts) 仍调用该入口。数据表应保留。
 5. `docs/project-structure-report-2026-11-25.md` 的注解层描述已加补记；其余章节仍是
    2026-11-25 快照。
 
