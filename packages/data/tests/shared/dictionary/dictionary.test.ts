@@ -564,9 +564,8 @@ describe("图标词典 v1.8", () => {
     }
   });
 
-  it("词典文件不含 Musketeer", () => {
-    for (const name of readdirSync(DICT_ROOT)) {
-      if (name === "README.md") continue;
+  it("v1.8 核心盒快照不含 Musketeer，后续印刷映射另行登记", () => {
+    for (const name of ["icon-dictionary-v1.8.json", "icon-dictionary-v1.8.csv"]) {
       const text = readFileSync(path.join(DICT_ROOT, name), "utf8");
       expect(text.toLowerCase()).not.toContain("musketeer");
     }

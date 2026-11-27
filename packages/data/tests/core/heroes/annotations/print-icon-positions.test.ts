@@ -3,7 +3,7 @@ import allSkills from "../../../../normalized/corebox/hero_skill.json";
 import { defineHeroModule } from "../../../../src/core/heroes/annotations/patch-helpers";
 import { normalizedHeroSkillCardSchema } from "../../../../src/shared/schema";
 
-it("R-048：按段引用射程仍拒绝错误段位、语义和同名印刷变体", () => {
+it("R-048：按段引用射程仍拒绝错误段位、语义和伪造的同名图标", () => {
   const bellow = normalizedHeroSkillCardSchema.parse(
     allSkills.cards.find(
       (card) => card.name === "Bellow" && card.level === 1 && card.hero === "MAN-AT-ARMS",
