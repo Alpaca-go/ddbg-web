@@ -1,3 +1,4 @@
+import { printIcon, printSourceIcon } from "../../shared/print-icons";
 import { z } from "zod";
 import { iconIdSchema } from "../../shared/extract/common";
 
@@ -57,7 +58,7 @@ export const tortureChamberSchema = z
     specialRegions: z.tuple([
       z.strictObject({
         areaId: z.literal("H"),
-        iconId: z.literal("4591aebebd"),
+        iconId: z.literal(printSourceIcon("corebox/raw/room.json:room:p002:front:22")),
         effect: z.literal("unholyAura"),
         status: z.literal("confirmed"),
         printedText: z.literal("Unholy Aura: Heroes in this Area can't heal or be healed."),
@@ -98,15 +99,51 @@ export const tortureChamberSchema = z
   });
 
 const approvedTorturePlacements = [
-  { areaId: "H", iconId: "39d6ddf024", semantic: "hero_support_start" },
-  { areaId: "H", iconId: "7ab26866fc", semantic: "hero_ranged_start" },
-  { areaId: "H", iconId: "1a71d94723", semantic: "hero_defensive_start" },
-  { areaId: "H", iconId: "7b8c742c86", semantic: "hero_aggressive_start" },
-  { areaId: "C", iconId: "293f170eab", semantic: "monster_support_start" },
-  { areaId: "E", iconId: "643d396fef", semantic: "monster_ranged_start" },
-  { areaId: "D", iconId: "1f26dc63eb", semantic: "monster_defensive_start" },
-  { areaId: "D", iconId: "8787ebb1b2", semantic: "monster_aggressive_start" },
-  ...["A", "B", "E"].map((areaId) => ({ areaId, iconId: "f9f205b9e1", semantic: "loot_chest" })),
+  {
+    areaId: "H",
+    iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:25"),
+    semantic: "hero_support_start",
+  },
+  {
+    areaId: "H",
+    iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:53"),
+    semantic: "hero_ranged_start",
+  },
+  {
+    areaId: "H",
+    iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:26"),
+    semantic: "hero_defensive_start",
+  },
+  {
+    areaId: "H",
+    iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:54"),
+    semantic: "hero_aggressive_start",
+  },
+  {
+    areaId: "C",
+    iconId: printIcon("stance_support_monster_slot", 216),
+    semantic: "monster_support_start",
+  },
+  {
+    areaId: "E",
+    iconId: printIcon("stance_ranged_monster_slot", 808),
+    semantic: "monster_ranged_start",
+  },
+  {
+    areaId: "D",
+    iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:38"),
+    semantic: "monster_defensive_start",
+  },
+  {
+    areaId: "D",
+    iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:55"),
+    semantic: "monster_aggressive_start",
+  },
+  ...["A", "B", "E"].map((areaId) => ({
+    areaId,
+    iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:20"),
+    semantic: "loot_chest",
+  })),
 ];
 
 export const approvedTortureChamber = tortureChamberSchema.parse({
@@ -131,7 +168,7 @@ export const approvedTortureChamber = tortureChamberSchema.parse({
   specialRegions: [
     {
       areaId: "H",
-      iconId: "4591aebebd",
+      iconId: printSourceIcon("corebox/raw/room.json:room:p002:front:22"),
       effect: "unholyAura",
       status: "confirmed",
       printedText: "Unholy Aura: Heroes in this Area can't heal or be healed.",

@@ -1,3 +1,4 @@
+import { printIcon, printSourceIcon } from "../../shared/print-icons";
 import { z } from "zod";
 import { iconIdSchema } from "../../shared/extract/common";
 import { ROOM_FRONT } from "./room";
@@ -88,14 +89,38 @@ export const approvedFanaticRoom = tileShape.parse({
     monsters: { aggressive: "B", defensive: "B", ranged: "E", support: "E" },
     lootAreas: [],
     markers: [
-      ["H", "7b8c742c86", "hero_aggressive_start"],
-      ["A", "1a71d94723", "hero_defensive_start"],
-      ["H", "7ab26866fc", "hero_ranged_start"],
-      ["C", "39d6ddf024", "hero_support_start"],
-      ["B", "8787ebb1b2", "monster_aggressive_start"],
-      ["B", "1f26dc63eb", "monster_defensive_start"],
-      ["E", "643d396fef", "monster_ranged_start"],
-      ["E", "293f170eab", "monster_support_start"],
+      [
+        "H",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:54"),
+        "hero_aggressive_start",
+      ],
+      [
+        "A",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:26"),
+        "hero_defensive_start",
+      ],
+      [
+        "H",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:53"),
+        "hero_ranged_start",
+      ],
+      [
+        "C",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:25"),
+        "hero_support_start",
+      ],
+      [
+        "B",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:55"),
+        "monster_aggressive_start",
+      ],
+      [
+        "B",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:38"),
+        "monster_defensive_start",
+      ],
+      ["E", printIcon("stance_ranged_monster_slot", 808), "monster_ranged_start"],
+      ["E", printIcon("stance_support_monster_slot", 216), "monster_support_start"],
     ].map(([areaId, iconId, semantic]) => ({ areaId, iconId, semantic, status: "confirmed" })),
   },
   areas: [3, 3, 3, 4, 3, 4, 3, 3, 3].map((capacity, i) => ({

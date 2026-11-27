@@ -1,3 +1,4 @@
+import { printSourceIcon } from "../../shared/print-icons";
 import { z } from "zod";
 import { iconIdSchema } from "../../shared/extract/common";
 import { ROOM_FRONT } from "./room";
@@ -88,11 +89,31 @@ export const approvedNecromancerRoom = tileShape.parse({
     monsters: { aggressive: "A" },
     lootAreas: [],
     markers: [
-      ["G", "7b8c742c86", "hero_aggressive_start"],
-      ["G", "1a71d94723", "hero_defensive_start"],
-      ["G", "7ab26866fc", "hero_ranged_start"],
-      ["G", "39d6ddf024", "hero_support_start"],
-      ["A", "8787ebb1b2", "monster_aggressive_start"],
+      [
+        "G",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:54"),
+        "hero_aggressive_start",
+      ],
+      [
+        "G",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:26"),
+        "hero_defensive_start",
+      ],
+      [
+        "G",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:53"),
+        "hero_ranged_start",
+      ],
+      [
+        "G",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:25"),
+        "hero_support_start",
+      ],
+      [
+        "A",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:55"),
+        "monster_aggressive_start",
+      ],
     ].map(([areaId, iconId, semantic]) => ({ areaId, iconId, semantic, status: "confirmed" })),
   },
   areas: [3, 4, 3, 4, 3, 2, 4, 2].map((capacity, i) => ({

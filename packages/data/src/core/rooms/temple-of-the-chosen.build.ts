@@ -1,13 +1,14 @@
+import { printIcon, printLine, printSourceIcon } from "../../shared/print-icons";
 import { z } from "zod";
 import { iconIdSchema } from "../../shared/extract/common";
 import type { RawFile } from "../../shared/extract/raw";
 import { ROOM_FRONT } from "./room";
 
 export const templeOfTheChosenEffectLines = [
-  "{icon:62d166a84f} Rite of the Chosen: When",
+  printLine("{print:area_marker@223} Rite of the Chosen: When"),
   "a Monster ends its turn here, all",
-  "Monsters {icon:731f6665d0} 5 and Heroes {icon:df38279161} +1 plus an",
-  "additional {icon:9b00e692ba} +1 / Negative Quirk.",
+  printLine("Monsters {print:heal@225} 5 and Heroes {print:stress@305} +1 plus an"),
+  printLine("additional {print:stress@145} +1 / Negative Quirk."),
 ] as const;
 
 export function assertTempleOfTheChosenEffectSource(rooms: RawFile): void {
@@ -21,9 +22,12 @@ export function assertTempleOfTheChosenEffectSource(rooms: RawFile): void {
     card.faces.front.page !== 21 ||
     JSON.stringify(card.faces.front.lines.slice(-4).map((l) => l.text)) !==
       JSON.stringify(templeOfTheChosenEffectLines) ||
-    ["62d166a84f", "731f6665d0", "df38279161", "9b00e692ba"].some(
-      (id) => !card.faces.front.icons.some((i) => i.iconId === id),
-    )
+    [
+      printIcon("area_marker", 223),
+      printIcon("heal", 225),
+      printIcon("stress", 305),
+      printIcon("stress", 145),
+    ].some((id) => !card.faces.front.icons.some((i) => i.iconId === id))
   )
     throw new Error("Temple of the Chosen Room p21来源或效果行漂移（R-161）");
 }
@@ -58,7 +62,7 @@ const tileShape = z.strictObject({
   specialRegions: z.array(
     z.strictObject({
       areaId: z.literal("A"),
-      iconId: z.literal("4591aebebd"),
+      iconId: z.literal(printSourceIcon("corebox/raw/room.json:room:p002:front:22")),
       effect: z.literal("riteOfTheChosen"),
       status: z.literal("confirmed"),
       printedText: z.string(),
@@ -128,11 +132,12 @@ export const approvedTempleOfTheChosen = tileShape.parse({
   specialRegions: [
     {
       areaId: "A",
-      iconId: "4591aebebd",
+      iconId: printSourceIcon("corebox/raw/room.json:room:p002:front:22"),
       effect: "riteOfTheChosen",
       status: "confirmed",
-      printedText:
-        "{icon:62d166a84f} Rite of the Chosen: When a Monster ends its turn here, all Monsters {icon:731f6665d0} 5 and Heroes {icon:df38279161} +1 plus an additional {icon:9b00e692ba} +1 / Negative Quirk.",
+      printedText: printLine(
+        "{print:area_marker@223} Rite of the Chosen: When a Monster ends its turn here, all Monsters {print:heal@225} 5 and Heroes {print:stress@305} +1 plus an additional {print:stress@145} +1 / Negative Quirk.",
+      ),
       runtimeReady: true,
     },
   ],
@@ -152,14 +157,38 @@ export const approvedTempleOfTheChosen = tileShape.parse({
     },
     lootAreas: ["E", "E"],
     markers: [
-      ["F", "7b8c742c86", "hero_aggressive_start"],
-      ["F", "1a71d94723", "hero_defensive_start"],
-      ["F", "7ab26866fc", "hero_ranged_start"],
-      ["F", "39d6ddf024", "hero_support_start"],
-      ["E", "8787ebb1b2", "monster_aggressive_start"],
-      ["G", "1f26dc63eb", "monster_defensive_start"],
-      ["C", "643d396fef", "monster_ranged_start"],
-      ["A", "293f170eab", "monster_support_start"],
+      [
+        "F",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:54"),
+        "hero_aggressive_start",
+      ],
+      [
+        "F",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:26"),
+        "hero_defensive_start",
+      ],
+      [
+        "F",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:53"),
+        "hero_ranged_start",
+      ],
+      [
+        "F",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:25"),
+        "hero_support_start",
+      ],
+      [
+        "E",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:55"),
+        "monster_aggressive_start",
+      ],
+      [
+        "G",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:38"),
+        "monster_defensive_start",
+      ],
+      ["C", printIcon("stance_ranged_monster_slot", 808), "monster_ranged_start"],
+      ["A", printIcon("stance_support_monster_slot", 216), "monster_support_start"],
     ].map(([areaId, iconId, semantic]) => ({ areaId, iconId, semantic, status: "confirmed" })),
   },
   areas: [

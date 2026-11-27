@@ -1,3 +1,4 @@
+import { printLine } from "../../shared/print-icons";
 import type { RawFile } from "../../shared/extract/raw";
 import {
   stygianRoomIdentity,
@@ -34,15 +35,23 @@ export function buildStygianRooms(raw: RawFile, standardRaw: RawFile) {
         if (
           (page === 2 &&
             !printed.includes(
-              "can’t heal or be healed. Heroes ending their turn here suffer 1 {icon:d4c2a095b5} /Hero Level.",
+              printLine(
+                "can’t heal or be healed. Heroes ending their turn here suffer 1 {extract:corebox/raw/stygian_room.json:stygian_room:p002:front:43} /Hero Level.",
+              ),
             )) ||
           (page === 10 &&
             !printed.includes(
-              "{icon:1e36d5379b} +2 and {icon:10365b3e0f} 3 per Negative Quirk. Special Room Effect: Once the Room is cleared, Heroes can suffer {icon:1e36d5379b} +4 each, to revive a dead Hero and place them in the Stagecoach.",
+              printLine(
+                "{print:stress@273} +2 and {extract:corebox/raw/stygian_room.json:stygian_room:p004:front:45} 3 per Negative Quirk. Special Room Effect: Once the Room is cleared, Heroes can suffer {print:stress@273} +4 each, to revive a dead Hero and place them in the Stagecoach.",
+              ),
             )) ||
           (page === 16 &&
-            (!printed.includes("take a Negative Quirk and a {icon:f50b9f6892}") ||
-              !printed.includes("their turn here suffer {icon:abf095b29d} +3.")))
+            (!printed.includes(
+              printLine(
+                "take a Negative Quirk and a {extract:corebox/raw/stygian_room.json:stygian_room:p016:front:34}",
+              ),
+            ) ||
+              !printed.includes(printLine("their turn here suffer {print:stress@248} +3."))))
         )
           throw new Error(`Stygian 房间核准效果的来源文字漂移（R-227～R-229）：${card.id}`);
         return {

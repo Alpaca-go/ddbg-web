@@ -1,3 +1,4 @@
+import { printIcon, printSourceIcon } from "../../shared/print-icons";
 import { z } from "zod";
 import { iconIdSchema } from "../../shared/extract/common";
 import { ROOM_FRONT } from "./room";
@@ -88,14 +89,38 @@ export const approvedShufflingHorrorRoom = tileShape.parse({
     monsters: { aggressive: "H", defensive: "H", ranged: "D", support: "C" },
     lootAreas: [],
     markers: [
-      ["G", "7b8c742c86", "hero_aggressive_start"],
-      ["I", "1a71d94723", "hero_defensive_start"],
-      ["I", "7ab26866fc", "hero_ranged_start"],
-      ["B", "39d6ddf024", "hero_support_start"],
-      ["H", "8787ebb1b2", "monster_aggressive_start"],
-      ["H", "1f26dc63eb", "monster_defensive_start"],
-      ["D", "643d396fef", "monster_ranged_start"],
-      ["C", "293f170eab", "monster_support_start"],
+      [
+        "G",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:54"),
+        "hero_aggressive_start",
+      ],
+      [
+        "I",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:26"),
+        "hero_defensive_start",
+      ],
+      [
+        "I",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:53"),
+        "hero_ranged_start",
+      ],
+      [
+        "B",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:25"),
+        "hero_support_start",
+      ],
+      [
+        "H",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:55"),
+        "monster_aggressive_start",
+      ],
+      [
+        "H",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:38"),
+        "monster_defensive_start",
+      ],
+      ["D", printIcon("stance_ranged_monster_slot", 808), "monster_ranged_start"],
+      ["C", printIcon("stance_support_monster_slot", 216), "monster_support_start"],
     ].map(([areaId, iconId, semantic]) => ({ areaId, iconId, semantic, status: "confirmed" })),
   },
   areas: [2, 3, 2, 3, 3, 3, 3, 3, 3].map((capacity, i) => ({

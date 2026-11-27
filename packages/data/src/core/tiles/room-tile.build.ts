@@ -1,3 +1,4 @@
+import { printIcon, printSourceIcon } from "../../shared/print-icons";
 import { assertFanaticTileLabels } from "../rooms/fanatic-room.build";
 import { approvedFanaticRoom } from "../rooms/fanatic-room";
 import { assertCollectorTileLabels } from "../rooms/collector-room.build";
@@ -48,15 +49,30 @@ export const approvedRoomTileGeometry = ritualChamberSchema.parse({
     monsters: { aggressive: "J", defensive: "D", support: "D", ranged: "F" },
     lootAreas: ["C", "H"],
     markers: [
-      { areaId: "C", iconId: "39d6ddf024", semantic: "hero_support_start", status: "confirmed" },
+      {
+        areaId: "C",
+        iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:25"),
+        semantic: "hero_support_start",
+        status: "confirmed",
+      },
       {
         areaId: "D",
-        iconId: "293f170eab",
+        iconId: printIcon("stance_support_monster_slot", 216),
         semantic: "monster_support_start",
         status: "confirmed",
       },
-      { areaId: "C", iconId: "4591aebebd", semantic: "cornered", status: "confirmed" },
-      { areaId: "H", iconId: "4591aebebd", semantic: "cornered", status: "confirmed" },
+      {
+        areaId: "C",
+        iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:3"),
+        semantic: "cornered",
+        status: "confirmed",
+      },
+      {
+        areaId: "H",
+        iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:3"),
+        semantic: "cornered",
+        status: "confirmed",
+      },
     ],
   },
   areas: [

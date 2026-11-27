@@ -1,3 +1,4 @@
+import { printIcon, printLine, printSourceIcon } from "../../shared/print-icons";
 import { z } from "zod";
 import { iconIdSchema } from "../../shared/extract/common";
 import { ROOM_FRONT } from "./room";
@@ -32,7 +33,9 @@ const tileShape = z.strictObject({
   specialRegions: z.array(
     z.strictObject({
       areaId: z.enum(["B", "E", "H", "K", "N"]),
-      iconId: z.literal("6e67687564"),
+      iconId: z.literal(
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p013:front:14"),
+      ),
       effect: z.literal("spikes"),
       status: z.literal("confirmed"),
       printedText: z.string(),
@@ -103,51 +106,56 @@ export const approvedTemplarsRoom = tileShape.parse({
   specialRegions: [
     {
       areaId: "B",
-      iconId: "6e67687564",
+      iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p013:front:14"),
       effect: "spikes",
       status: "confirmed",
-      printedText:
-        "{icon:62d166a84f} Spikes: Heroes {icon:8c4c3c2ec2} or ending their move here take {icon:0453c84dbc} 5 and Bleed 3 {icon:784ec4fe7a} 3t.",
+      printedText: printLine(
+        "{print:area_marker@223} Spikes: Heroes {print:shuffle@548} or ending their move here take {print:damage@434} 5 and Bleed 3 {print:bleed@48} 3t.",
+      ),
       printedRange: "1-2",
       runtimeReady: true,
     },
     {
       areaId: "E",
-      iconId: "6e67687564",
+      iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p013:front:14"),
       effect: "spikes",
       status: "confirmed",
-      printedText:
-        "{icon:62d166a84f} Spikes: Heroes {icon:8c4c3c2ec2} or ending their move here take {icon:0453c84dbc} 5 and Bleed 3 {icon:784ec4fe7a} 3t.",
+      printedText: printLine(
+        "{print:area_marker@223} Spikes: Heroes {print:shuffle@548} or ending their move here take {print:damage@434} 5 and Bleed 3 {print:bleed@48} 3t.",
+      ),
       printedRange: "3-4",
       runtimeReady: true,
     },
     {
       areaId: "H",
-      iconId: "6e67687564",
+      iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p013:front:14"),
       effect: "spikes",
       status: "confirmed",
-      printedText:
-        "{icon:62d166a84f} Spikes: Heroes {icon:8c4c3c2ec2} or ending their move here take {icon:0453c84dbc} 5 and Bleed 3 {icon:784ec4fe7a} 3t.",
+      printedText: printLine(
+        "{print:area_marker@223} Spikes: Heroes {print:shuffle@548} or ending their move here take {print:damage@434} 5 and Bleed 3 {print:bleed@48} 3t.",
+      ),
       printedRange: "5-6",
       runtimeReady: true,
     },
     {
       areaId: "K",
-      iconId: "6e67687564",
+      iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p013:front:14"),
       effect: "spikes",
       status: "confirmed",
-      printedText:
-        "{icon:62d166a84f} Spikes: Heroes {icon:8c4c3c2ec2} or ending their move here take {icon:0453c84dbc} 5 and Bleed 3 {icon:784ec4fe7a} 3t.",
+      printedText: printLine(
+        "{print:area_marker@223} Spikes: Heroes {print:shuffle@548} or ending their move here take {print:damage@434} 5 and Bleed 3 {print:bleed@48} 3t.",
+      ),
       printedRange: "7-8",
       runtimeReady: true,
     },
     {
       areaId: "N",
-      iconId: "6e67687564",
+      iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p013:front:14"),
       effect: "spikes",
       status: "confirmed",
-      printedText:
-        "{icon:62d166a84f} Spikes: Heroes {icon:8c4c3c2ec2} or ending their move here take {icon:0453c84dbc} 5 and Bleed 3 {icon:784ec4fe7a} 3t.",
+      printedText: printLine(
+        "{print:area_marker@223} Spikes: Heroes {print:shuffle@548} or ending their move here take {print:damage@434} 5 and Bleed 3 {print:bleed@48} 3t.",
+      ),
       printedRange: "9-10",
       runtimeReady: true,
     },
@@ -170,49 +178,49 @@ export const approvedTemplarsRoom = tileShape.parse({
     markers: [
       {
         areaId: "I",
-        iconId: "7b8c742c86",
+        iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:54"),
         semantic: "hero_aggressive_start",
         status: "confirmed",
       },
       {
         areaId: "F",
-        iconId: "1a71d94723",
+        iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:26"),
         semantic: "hero_defensive_start",
         status: "confirmed",
       },
       {
         areaId: "G",
-        iconId: "7ab26866fc",
+        iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:53"),
         semantic: "hero_ranged_start",
         status: "confirmed",
       },
       {
         areaId: "F",
-        iconId: "39d6ddf024",
+        iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:25"),
         semantic: "hero_support_start",
         status: "confirmed",
       },
       {
         areaId: "M",
-        iconId: "8787ebb1b2",
+        iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:55"),
         semantic: "monster_aggressive_start",
         status: "confirmed",
       },
       {
         areaId: "M",
-        iconId: "1f26dc63eb",
+        iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:38"),
         semantic: "monster_defensive_start",
         status: "confirmed",
       },
       {
         areaId: "C",
-        iconId: "643d396fef",
+        iconId: printIcon("stance_ranged_monster_slot", 808),
         semantic: "monster_ranged_start",
         status: "confirmed",
       },
       {
         areaId: "C",
-        iconId: "293f170eab",
+        iconId: printIcon("stance_support_monster_slot", 216),
         semantic: "monster_support_start",
         status: "confirmed",
       },

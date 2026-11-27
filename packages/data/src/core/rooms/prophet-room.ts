@@ -1,3 +1,4 @@
+import { printSourceIcon } from "../../shared/print-icons";
 import { z } from "zod";
 import { iconIdSchema } from "../../shared/extract/common";
 import { ROOM_FRONT } from "./room";
@@ -33,7 +34,9 @@ const tileShape = z.strictObject({
   printedMarkers: z.array(
     z.strictObject({
       areaId: z.string(),
-      iconId: z.literal("99be282315"),
+      iconId: z.literal(
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p006:front:14"),
+      ),
       color: z.literal("orange"),
       printedRange: z.string(),
       status: z.literal("confirmed"),
@@ -94,24 +97,60 @@ export const approvedProphetRoom = tileShape.parse({
   printedMarkers: [
     {
       areaId: "A",
-      iconId: "99be282315",
+      iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p006:front:14"),
       color: "orange",
       printedRange: "1-2",
       status: "confirmed",
     },
-    { areaId: "B", iconId: "99be282315", color: "orange", printedRange: "3", status: "confirmed" },
-    { areaId: "C", iconId: "99be282315", color: "orange", printedRange: "4", status: "confirmed" },
-    { areaId: "D", iconId: "99be282315", color: "orange", printedRange: "5", status: "confirmed" },
-    { areaId: "E", iconId: "99be282315", color: "orange", printedRange: "6", status: "confirmed" },
+    {
+      areaId: "B",
+      iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p006:front:14"),
+      color: "orange",
+      printedRange: "3",
+      status: "confirmed",
+    },
+    {
+      areaId: "C",
+      iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p006:front:14"),
+      color: "orange",
+      printedRange: "4",
+      status: "confirmed",
+    },
+    {
+      areaId: "D",
+      iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p006:front:14"),
+      color: "orange",
+      printedRange: "5",
+      status: "confirmed",
+    },
+    {
+      areaId: "E",
+      iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p006:front:14"),
+      color: "orange",
+      printedRange: "6",
+      status: "confirmed",
+    },
     {
       areaId: "F",
-      iconId: "99be282315",
+      iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p006:front:14"),
       color: "orange",
       printedRange: "7-8",
       status: "confirmed",
     },
-    { areaId: "G", iconId: "99be282315", color: "orange", printedRange: "9", status: "confirmed" },
-    { areaId: "H", iconId: "99be282315", color: "orange", printedRange: "10", status: "confirmed" },
+    {
+      areaId: "G",
+      iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p006:front:14"),
+      color: "orange",
+      printedRange: "9",
+      status: "confirmed",
+    },
+    {
+      areaId: "H",
+      iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p006:front:14"),
+      color: "orange",
+      printedRange: "10",
+      status: "confirmed",
+    },
   ],
   deployment: {
     printReview: "verified",
@@ -119,11 +158,31 @@ export const approvedProphetRoom = tileShape.parse({
     monsters: { aggressive: "E" },
     lootAreas: [],
     markers: [
-      ["C", "7b8c742c86", "hero_aggressive_start"],
-      ["H", "1a71d94723", "hero_defensive_start"],
-      ["H", "7ab26866fc", "hero_ranged_start"],
-      ["D", "39d6ddf024", "hero_support_start"],
-      ["E", "8787ebb1b2", "monster_aggressive_start"],
+      [
+        "C",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:54"),
+        "hero_aggressive_start",
+      ],
+      [
+        "H",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:26"),
+        "hero_defensive_start",
+      ],
+      [
+        "H",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:53"),
+        "hero_ranged_start",
+      ],
+      [
+        "D",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:25"),
+        "hero_support_start",
+      ],
+      [
+        "E",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:55"),
+        "monster_aggressive_start",
+      ],
     ].map(([areaId, iconId, semantic]) => ({ areaId, iconId, semantic, status: "confirmed" })),
   },
   areas: [4, 3, 3, 3, 3, 4, 3, 3].map((capacity, i) => ({

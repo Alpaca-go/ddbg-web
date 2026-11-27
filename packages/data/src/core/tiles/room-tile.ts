@@ -1,3 +1,4 @@
+import { printIcon, printSourceIcon } from "../../shared/print-icons";
 import { fanaticRoomSchema } from "../rooms/fanatic-room";
 import { collectorRoomSchema } from "../rooms/collector-room";
 import { prophetRoomSchema } from "../rooms/prophet-room";
@@ -108,10 +109,10 @@ export const ritualChamberSchema = z
     if (tile.deployment?.markers.some((marker) => !ids.has(marker.areaId)))
       ctx.addIssue({ code: "custom", message: "部署标记引用未知区域" });
     const placements = new Set([
-      "C:39d6ddf024:hero_support_start",
-      "D:293f170eab:monster_support_start",
-      "C:4591aebebd:cornered",
-      "H:4591aebebd:cornered",
+      `C:${printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:25")}:hero_support_start`,
+      `D:${printIcon("stance_support_monster_slot", 216)}:monster_support_start`,
+      `C:${printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:3")}:cornered`,
+      `H:${printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:3")}:cornered`,
     ]);
     if (
       tile.deployment &&

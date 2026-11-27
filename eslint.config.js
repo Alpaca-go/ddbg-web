@@ -66,7 +66,11 @@ export default tseslint.config(
     },
   },
   {
-    files: ["packages/data/src/core/heroes/annotations/**/*.ts"],
+    files: [
+      "packages/data/src/core/heroes/annotations/**/*.ts",
+      "packages/data/src/core/rooms/**/*.ts",
+      "packages/data/src/core/tiles/**/*.ts",
+    ],
     rules: {
       "no-restricted-syntax": [
         "error",

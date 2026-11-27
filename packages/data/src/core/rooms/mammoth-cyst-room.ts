@@ -1,3 +1,4 @@
+import { printIcon, printSourceIcon } from "../../shared/print-icons";
 import { z } from "zod";
 import { iconIdSchema } from "../../shared/extract/common";
 import { ROOM_FRONT } from "./room";
@@ -33,7 +34,9 @@ const tileShape = z.strictObject({
   printedMarkers: z.array(
     z.strictObject({
       areaId: z.string(),
-      iconId: z.literal("9454efcf19"),
+      iconId: z.literal(
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p014:front:11"),
+      ),
       color: z.literal("purple"),
       printedRange: z.string(),
       status: z.literal("confirmed"),
@@ -99,7 +102,7 @@ export const approvedMammothCystRoom = tileShape.parse({
     ["I", "9-10"],
   ].map(([areaId, printedRange]) => ({
     areaId,
-    iconId: "9454efcf19",
+    iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p014:front:11"),
     color: "purple",
     printedRange,
     status: "confirmed",
@@ -110,14 +113,38 @@ export const approvedMammothCystRoom = tileShape.parse({
     monsters: { aggressive: "H", defensive: "H", ranged: "E", support: "E" },
     lootAreas: [],
     markers: [
-      ["K", "7b8c742c86", "hero_aggressive_start"],
-      ["K", "1a71d94723", "hero_defensive_start"],
-      ["K", "7ab26866fc", "hero_ranged_start"],
-      ["K", "39d6ddf024", "hero_support_start"],
-      ["H", "8787ebb1b2", "monster_aggressive_start"],
-      ["H", "1f26dc63eb", "monster_defensive_start"],
-      ["E", "643d396fef", "monster_ranged_start"],
-      ["E", "293f170eab", "monster_support_start"],
+      [
+        "K",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:54"),
+        "hero_aggressive_start",
+      ],
+      [
+        "K",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:26"),
+        "hero_defensive_start",
+      ],
+      [
+        "K",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:53"),
+        "hero_ranged_start",
+      ],
+      [
+        "K",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:25"),
+        "hero_support_start",
+      ],
+      [
+        "H",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:55"),
+        "monster_aggressive_start",
+      ],
+      [
+        "H",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:38"),
+        "monster_defensive_start",
+      ],
+      ["E", printIcon("stance_ranged_monster_slot", 808), "monster_ranged_start"],
+      ["E", printIcon("stance_support_monster_slot", 216), "monster_support_start"],
     ].map(([areaId, iconId, semantic]) => ({ areaId, iconId, semantic, status: "confirmed" })),
   },
   areas: [2, 3, 2, 3, 4, 3, 2, 5, 2, 2, 4, 2].map((capacity, i) => ({

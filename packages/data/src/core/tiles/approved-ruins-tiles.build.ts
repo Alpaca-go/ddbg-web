@@ -1,3 +1,4 @@
+import { printIcon, printSourceIcon } from "../../shared/print-icons";
 import { z } from "zod";
 import { iconIdSchema } from "../../shared/extract/common";
 
@@ -80,15 +81,21 @@ const tileShape = z.strictObject({
 });
 type ApprovedTile = z.infer<typeof tileShape>;
 const markerIds = {
-  hero_aggressive_start: "7b8c742c86",
-  hero_defensive_start: "1a71d94723",
-  hero_ranged_start: "7ab26866fc",
-  hero_support_start: "39d6ddf024",
-  monster_aggressive_start: "8787ebb1b2",
-  monster_defensive_start: "1f26dc63eb",
-  monster_ranged_start: "643d396fef",
-  monster_support_start: "293f170eab",
-  loot_chest: "f9f205b9e1",
+  hero_aggressive_start: printSourceIcon(
+    "corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:54",
+  ),
+  hero_defensive_start: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:26"),
+  hero_ranged_start: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:53"),
+  hero_support_start: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:25"),
+  monster_aggressive_start: printSourceIcon(
+    "corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:55",
+  ),
+  monster_defensive_start: printSourceIcon(
+    "corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:38",
+  ),
+  monster_ranged_start: printIcon("stance_ranged_monster_slot", 808),
+  monster_support_start: printIcon("stance_support_monster_slot", 216),
+  loot_chest: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:20"),
 } as const;
 function placements(
   heroes: ApprovedTile["deployment"]["heroes"],
@@ -210,7 +217,7 @@ export const approvedExtraRuinsTiles: readonly ApprovedTile[] = [
     specialRegions: [
       {
         areaId: "G",
-        iconId: "0d13b745be",
+        iconId: printIcon("area_marker", 435),
         effect: "healingWaters",
         status: "confirmed",
         printedText: "Healing Waters: Heroes ending their turn here heal 3.",
@@ -255,7 +262,7 @@ export const approvedExtraRuinsTiles: readonly ApprovedTile[] = [
     specialRegions: [
       ...["L1", "L3", "L6", "L7", "L9"].map((areaId) => ({
         areaId,
-        iconId: "4591aebebd",
+        iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:3"),
         effect: "stressfulDarkness",
         status: "confirmed",
         printedText: "Stressful Darkness: Heroes ending their turn here suffer +1 Stress.",
@@ -263,7 +270,7 @@ export const approvedExtraRuinsTiles: readonly ApprovedTile[] = [
       })),
       {
         areaId: "L2",
-        iconId: "0d13b745be",
+        iconId: printIcon("area_marker", 435),
         effect: "beaconOfLight",
         status: "confirmed",
         printedText: "Beacon of Light: Heroes ending their turn here recover 1 Stress.",
@@ -313,13 +320,13 @@ export const approvedExtraRuinsTiles: readonly ApprovedTile[] = [
     specialRegions: [
       {
         areaId: "S5",
-        iconId: "4591aebebd",
+        iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:3"),
         effect: "circleOfPower",
         printedText: "Circle of Power: Monsters ending their turn here heal 4.",
       },
       ...["S8", "S9"].map((areaId) => ({
         areaId,
-        iconId: "4591aebebd",
+        iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:3"),
         effect: "spikedPit" as const,
         printedText:
           "Spiked Pit: Heroes and Monsters that are Shuffled or standing here at the end of their turn take Damage 3 and suffer Bleed 1 / 3t.",
@@ -343,13 +350,13 @@ export const approvedExtraRuinsTiles: readonly ApprovedTile[] = [
     specialRegions: [
       {
         areaId: "T5",
-        iconId: "e2fc407791",
+        iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p004:front:18"),
         effect: "lootTheChest",
         printedText: "Loot the Chest: Spend 2 actions here to draw a Trinket. Once per battle.",
       },
       {
         areaId: "T6",
-        iconId: "e2fc407791",
+        iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p004:front:18"),
         effect: "hideAndHeal",
         printedText:
           "Hide and Heal: If there are no Monsters in this Area, spend 1 action here and suffer Stress +2 to remove all Wounds.",
@@ -373,7 +380,7 @@ export const approvedExtraRuinsTiles: readonly ApprovedTile[] = [
     specialRegions: [
       {
         areaId: "A4",
-        iconId: "e2fc407791",
+        iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p004:front:18"),
         effect: "ancestorGlory",
         printedText:
           "Ancestor's Glory: Heroes standing here are immune to Blight, Bleed, Debuff, Stun, Mark and Shuffle. Remove any of these Conditions if already applied.",
@@ -397,14 +404,14 @@ export const approvedExtraRuinsTiles: readonly ApprovedTile[] = [
     specialRegions: [
       {
         areaId: "I4",
-        iconId: "4591aebebd",
+        iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:3"),
         effect: "theInvokers",
         printedText:
           "The Invokers: The last Monster each round always moves towards this Area instead of step 2 of the Monster's turn.",
       },
       {
         areaId: "I4",
-        iconId: "4591aebebd",
+        iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:3"),
         effect: "invokingAbyss",
         printedText:
           "Invoking Abyss: At the end of a round, if there are Monsters in this Area, all four Heroes suffer Stress +2.",
@@ -439,7 +446,7 @@ export const approvedExtraRuinsTiles: readonly ApprovedTile[] = [
     ],
     specialRegions: ["O1", "O5"].map((areaId) => ({
       areaId,
-      iconId: "4591aebebd",
+      iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:3"),
       effect: "feelingThePresence" as const,
       printedText:
         "Feeling the Presence: Heroes ending their turn here suffer Stress +1 per Negative Quirk and heal 1 / Hero Level per Positive Quirk.",

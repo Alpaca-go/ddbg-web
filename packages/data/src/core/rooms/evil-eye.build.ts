@@ -1,15 +1,16 @@
+import { printIcon, printLine, printSourceIcon } from "../../shared/print-icons";
 import { z } from "zod";
 import { iconIdSchema } from "../../shared/extract/common";
 import type { RawFile } from "../../shared/extract/raw";
 import { ROOM_FRONT } from "./room";
 
 export const evilEyeEffectLines = [
-  "{icon:62d166a84f} A Evil Gaze: Heroes ending their turn here",
+  printLine("{print:area_marker@223} A Evil Gaze: Heroes ending their turn here"),
   "take a Negative Quirk. A Hero can spend",
   "2 actions here to destroy the Eye to gain a",
-  "Positive Quirk and all Heroes also gain {icon:9d58d3d431} -5.",
-  "{icon:62d166a84f} B Staring Eyes: Heroes ending",
-  "their turn here suffer {icon:9d58d3d431} +2.",
+  printLine("Positive Quirk and all Heroes also gain {print:stress@29} -5."),
+  printLine("{print:area_marker@223} B Staring Eyes: Heroes ending"),
+  printLine("their turn here suffer {print:stress@29} +2."),
 ] as const;
 
 export function assertEvilEyeEffectSource(rooms: RawFile): void {
@@ -23,8 +24,8 @@ export function assertEvilEyeEffectSource(rooms: RawFile): void {
     card.faces.front.page !== 20 ||
     JSON.stringify(card.faces.front.lines.slice(-6).map((l) => l.text)) !==
       JSON.stringify(evilEyeEffectLines) ||
-    card.faces.front.icons.filter((i) => i.iconId === "62d166a84f").length !== 2 ||
-    card.faces.front.icons.filter((i) => i.iconId === "9d58d3d431").length !== 2
+    card.faces.front.icons.filter((i) => i.iconId === printIcon("area_marker", 223)).length !== 2 ||
+    card.faces.front.icons.filter((i) => i.iconId === printIcon("stress", 29)).length !== 2
   )
     throw new Error("EvilEye Room p20来源或效果行漂移（R-160）");
 }
@@ -32,11 +33,13 @@ export function assertEvilEyeEffectSource(rooms: RawFile): void {
 export function assertEvilEyeTileLabels(raw: RawFile): void {
   const face = raw.cards.find((c) => c.id === "dungeon_tile:p012")?.faces.front;
   const labels = face?.lines
-    .filter((l) => l.text.includes("{icon:4591aebebd}"))
+    .filter((l) => l.text.includes(printLine("{extract:corebox/raw/room.json:room:p002:front:22}")))
     .map((l) => l.text.at(-1));
   if (
     JSON.stringify(labels) !== JSON.stringify(["B", "B", "A", "B", "B"]) ||
-    face?.icons.filter((i) => i.iconId === "4591aebebd").length !== 5
+    face?.icons.filter(
+      (i) => i.iconId === printSourceIcon("corebox/raw/room.json:room:p002:front:22"),
+    ).length !== 5
   )
     throw new Error("R-160：Evil Eye印刷A/B星标来源漂移");
 }
@@ -71,7 +74,7 @@ const tileShape = z.strictObject({
   specialRegions: z.array(
     z.strictObject({
       areaId: z.enum(["A", "D", "E", "H", "I"]),
-      iconId: z.literal("4591aebebd"),
+      iconId: z.literal(printSourceIcon("corebox/raw/room.json:room:p002:front:22")),
       printedLabel: z.enum(["A", "B"]),
       effect: z.enum(["evilGaze", "staringEyes"]),
       status: z.literal("confirmed"),
@@ -142,52 +145,57 @@ export const approvedEvilEye = tileShape.parse({
   specialRegions: [
     {
       areaId: "E",
-      iconId: "4591aebebd",
+      iconId: printSourceIcon("corebox/raw/room.json:room:p002:front:22"),
       printedLabel: "A",
       effect: "evilGaze",
       status: "confirmed",
-      printedText:
-        "{icon:62d166a84f} A Evil Gaze: Heroes ending their turn here take a Negative Quirk. A Hero can spend 2 actions here to destroy the Eye to gain a Positive Quirk and all Heroes also gain {icon:9d58d3d431} -5.",
+      printedText: printLine(
+        "{print:area_marker@223} A Evil Gaze: Heroes ending their turn here take a Negative Quirk. A Hero can spend 2 actions here to destroy the Eye to gain a Positive Quirk and all Heroes also gain {print:stress@29} -5.",
+      ),
       runtimeReady: true,
     },
     {
       areaId: "A",
-      iconId: "4591aebebd",
+      iconId: printSourceIcon("corebox/raw/room.json:room:p002:front:22"),
       printedLabel: "B",
       effect: "staringEyes",
       status: "confirmed",
-      printedText:
-        "{icon:62d166a84f} B Staring Eyes: Heroes ending their turn here suffer {icon:9d58d3d431} +2.",
+      printedText: printLine(
+        "{print:area_marker@223} B Staring Eyes: Heroes ending their turn here suffer {print:stress@29} +2.",
+      ),
       runtimeReady: true,
     },
     {
       areaId: "D",
-      iconId: "4591aebebd",
+      iconId: printSourceIcon("corebox/raw/room.json:room:p002:front:22"),
       printedLabel: "B",
       effect: "staringEyes",
       status: "confirmed",
-      printedText:
-        "{icon:62d166a84f} B Staring Eyes: Heroes ending their turn here suffer {icon:9d58d3d431} +2.",
+      printedText: printLine(
+        "{print:area_marker@223} B Staring Eyes: Heroes ending their turn here suffer {print:stress@29} +2.",
+      ),
       runtimeReady: true,
     },
     {
       areaId: "H",
-      iconId: "4591aebebd",
+      iconId: printSourceIcon("corebox/raw/room.json:room:p002:front:22"),
       printedLabel: "B",
       effect: "staringEyes",
       status: "confirmed",
-      printedText:
-        "{icon:62d166a84f} B Staring Eyes: Heroes ending their turn here suffer {icon:9d58d3d431} +2.",
+      printedText: printLine(
+        "{print:area_marker@223} B Staring Eyes: Heroes ending their turn here suffer {print:stress@29} +2.",
+      ),
       runtimeReady: true,
     },
     {
       areaId: "I",
-      iconId: "4591aebebd",
+      iconId: printSourceIcon("corebox/raw/room.json:room:p002:front:22"),
       printedLabel: "B",
       effect: "staringEyes",
       status: "confirmed",
-      printedText:
-        "{icon:62d166a84f} B Staring Eyes: Heroes ending their turn here suffer {icon:9d58d3d431} +2.",
+      printedText: printLine(
+        "{print:area_marker@223} B Staring Eyes: Heroes ending their turn here suffer {print:stress@29} +2.",
+      ),
       runtimeReady: true,
     },
   ],
@@ -207,14 +215,38 @@ export const approvedEvilEye = tileShape.parse({
     },
     lootAreas: ["A", "I"],
     markers: [
-      ["G", "7b8c742c86", "hero_aggressive_start"],
-      ["G", "1a71d94723", "hero_defensive_start"],
-      ["G", "7ab26866fc", "hero_ranged_start"],
-      ["G", "39d6ddf024", "hero_support_start"],
-      ["C", "8787ebb1b2", "monster_aggressive_start"],
-      ["C", "1f26dc63eb", "monster_defensive_start"],
-      ["C", "643d396fef", "monster_ranged_start"],
-      ["C", "293f170eab", "monster_support_start"],
+      [
+        "G",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:54"),
+        "hero_aggressive_start",
+      ],
+      [
+        "G",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:26"),
+        "hero_defensive_start",
+      ],
+      [
+        "G",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:53"),
+        "hero_ranged_start",
+      ],
+      [
+        "G",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:25"),
+        "hero_support_start",
+      ],
+      [
+        "C",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:55"),
+        "monster_aggressive_start",
+      ],
+      [
+        "C",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:38"),
+        "monster_defensive_start",
+      ],
+      ["C", printIcon("stance_ranged_monster_slot", 808), "monster_ranged_start"],
+      ["C", printIcon("stance_support_monster_slot", 216), "monster_support_start"],
     ].map(([areaId, iconId, semantic]) => ({ areaId, iconId, semantic, status: "confirmed" })),
   },
   areas: [

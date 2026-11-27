@@ -1,20 +1,21 @@
+import { printLine } from "../../shared/print-icons";
 import type { RawFile } from "../../shared/extract/raw";
 import { ROOM_FRONT } from "./room";
 const approvedRoomLines = [
-  "{icon:51a56b9bb3} 12—Ancestor Room",
-  "{icon:4da7b87bf8}",
-  "{icon:3b95c5fc7a}",
-  "{icon:6cc69f00ff} {icon:e0c8d4381a} 12",
-  "{icon:4cd99e2a5c} {icon:812394dcdd}",
-  "{icon:7992756c4a}",
-  "{icon:ec5b6362c8}",
-  "{icon:d176185d66}",
-  "{icon:0591dde355}",
-  "{icon:3b95c5fc7a}",
-  "{icon:812394dcdd}",
-  "{icon:5867540e37}",
-  "{icon:38668d05ef}",
-  "{icon:d6bd70c31a} {icon:90da148d08}",
+  printLine("{print:location@131} 12—Ancestor Room"),
+  printLine("{extract:corebox/raw/room.json:room:p013:front:5}"),
+  printLine("{print:occupancy_pips@204}"),
+  printLine("{print:occupancy_pips@100} {print:decor@121} 12"),
+  printLine("{print:start_monster_ranged@105} {print:occupancy_pips@46}"),
+  printLine("{print:start_monster_defensive@142}"),
+  printLine("{print:start_hero_support@306}"),
+  printLine("{print:occupancy_pips@343}"),
+  printLine("{print:start_monster_aggressive@107}"),
+  printLine("{print:occupancy_pips@204}"),
+  printLine("{print:occupancy_pips@46}"),
+  printLine("{print:start_hero_defensive@221}"),
+  printLine("{print:start_monster_support@364}"),
+  printLine("{extract:corebox/raw/room.json:room:p011:front:23} {print:start_hero_aggressive@184}"),
   "BOSS",
 ];
 export function assertAncestorRoomSource(rooms: RawFile): void {

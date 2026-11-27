@@ -1,13 +1,14 @@
+import { printIcon, printLine, printSourceIcon } from "../../shared/print-icons";
 import { z } from "zod";
 import { iconIdSchema } from "../../shared/extract/common";
 import type { RawFile } from "../../shared/extract/raw";
 import { ROOM_FRONT } from "./room";
 
 export const eldritchVaultEffectLines = [
-  "{icon:0fd119772a} : A Hero can spend 2 actions",
+  printLine("{print:area_marker@312} : A Hero can spend 2 actions"),
   "here and draw one Level 3 Trinket",
   "per Hero in play. Equipping one of",
-  "those Trinkets causes {icon:df38279161} +2.",
+  printLine("those Trinkets causes {print:stress@305} +2."),
 ] as const;
 
 export function assertEldritchVaultEffectSource(rooms: RawFile): void {
@@ -21,8 +22,8 @@ export function assertEldritchVaultEffectSource(rooms: RawFile): void {
     card.faces.front.page !== 16 ||
     JSON.stringify(card.faces.front.lines.slice(-4).map((l) => l.text)) !==
       JSON.stringify(eldritchVaultEffectLines) ||
-    !card.faces.front.icons.some((i) => i.iconId === "df38279161") ||
-    !card.faces.front.icons.some((i) => i.iconId === "0fd119772a")
+    !card.faces.front.icons.some((i) => i.iconId === printIcon("stress", 305)) ||
+    !card.faces.front.icons.some((i) => i.iconId === printIcon("area_marker", 312))
   )
     throw new Error("Eldritch Vault Room p16来源或效果行漂移（R-156）");
 }
@@ -57,7 +58,7 @@ const tileShape = z.strictObject({
   specialRegions: z.array(
     z.strictObject({
       areaId: z.literal("E"),
-      iconId: z.literal("0d13b745be"),
+      iconId: z.literal(printIcon("area_marker", 435)),
       effect: z.literal("eldritchVaultTrinkets"),
       status: z.literal("confirmed"),
       printedText: z.string(),
@@ -127,11 +128,12 @@ export const approvedEldritchVault = tileShape.parse({
   specialRegions: [
     {
       areaId: "E",
-      iconId: "0d13b745be",
+      iconId: printIcon("area_marker", 435),
       effect: "eldritchVaultTrinkets",
       status: "confirmed",
-      printedText:
-        "{icon:0fd119772a} : A Hero can spend 2 actions here and draw one Level 3 Trinket per Hero in play. Equipping one of those Trinkets causes {icon:df38279161} +2.",
+      printedText: printLine(
+        "{print:area_marker@312} : A Hero can spend 2 actions here and draw one Level 3 Trinket per Hero in play. Equipping one of those Trinkets causes {print:stress@305} +2.",
+      ),
       runtimeReady: true,
     },
   ],
@@ -151,14 +153,38 @@ export const approvedEldritchVault = tileShape.parse({
     },
     lootAreas: [],
     markers: [
-      ["C", "7b8c742c86", "hero_aggressive_start"],
-      ["F", "1a71d94723", "hero_defensive_start"],
-      ["I", "7ab26866fc", "hero_ranged_start"],
-      ["A", "39d6ddf024", "hero_support_start"],
-      ["H", "8787ebb1b2", "monster_aggressive_start"],
-      ["B", "1f26dc63eb", "monster_defensive_start"],
-      ["D", "643d396fef", "monster_ranged_start"],
-      ["G", "293f170eab", "monster_support_start"],
+      [
+        "C",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:54"),
+        "hero_aggressive_start",
+      ],
+      [
+        "F",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:26"),
+        "hero_defensive_start",
+      ],
+      [
+        "I",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:53"),
+        "hero_ranged_start",
+      ],
+      [
+        "A",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:25"),
+        "hero_support_start",
+      ],
+      [
+        "H",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:55"),
+        "monster_aggressive_start",
+      ],
+      [
+        "B",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:38"),
+        "monster_defensive_start",
+      ],
+      ["D", printIcon("stance_ranged_monster_slot", 808), "monster_ranged_start"],
+      ["G", printIcon("stance_support_monster_slot", 216), "monster_support_start"],
     ].map(([areaId, iconId, semantic]) => ({ areaId, iconId, semantic, status: "confirmed" })),
   },
   areas: "ABCDEFGHI".split("").map((id) => ({

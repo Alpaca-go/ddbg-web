@@ -1,3 +1,4 @@
+import { printIcon, printLine, printSourceIcon } from "../../shared/print-icons";
 import { z } from "zod";
 import { iconIdSchema } from "../../shared/extract/common";
 import type { RawFile } from "../../shared/extract/raw";
@@ -6,8 +7,8 @@ import { ROOM_FRONT } from "./room";
 export const eldritchPowerChamberEffectLines = [
   "When Monsters need to move into range",
   "distance, they always move towards",
-  "Area {icon:a74b9dc080} . If a Monster ends its turn in",
-  "{icon:a74b9dc080} Area, Heroes take {icon:8d4bbe5e11} 5 each.",
+  printLine("Area {print:area_marker@337} . If a Monster ends its turn in"),
+  printLine("{print:area_marker@337} Area, Heroes take {print:damage@1} 5 each."),
 ] as const;
 
 export function assertEldritchPowerChamberEffectSource(rooms: RawFile): void {
@@ -21,7 +22,7 @@ export function assertEldritchPowerChamberEffectSource(rooms: RawFile): void {
     card.faces.front.page !== 18 ||
     JSON.stringify(card.faces.front.lines.slice(-4).map((l) => l.text)) !==
       JSON.stringify(eldritchPowerChamberEffectLines) ||
-    !card.faces.front.icons.some((i) => i.iconId === "a74b9dc080")
+    !card.faces.front.icons.some((i) => i.iconId === printIcon("area_marker", 337))
   )
     throw new Error("Eldritch Power Chamber Room p18来源或效果行漂移（R-158）");
 }
@@ -56,7 +57,7 @@ const tileShape = z.strictObject({
   specialRegions: z.array(
     z.strictObject({
       areaId: z.literal("C"),
-      iconId: z.literal("4591aebebd"),
+      iconId: z.literal(printSourceIcon("corebox/raw/room.json:room:p002:front:22")),
       effect: z.literal("eldritchPower"),
       status: z.literal("confirmed"),
       printedText: z.string(),
@@ -126,11 +127,12 @@ export const approvedEldritchPowerChamber = tileShape.parse({
   specialRegions: [
     {
       areaId: "C",
-      iconId: "4591aebebd",
+      iconId: printSourceIcon("corebox/raw/room.json:room:p002:front:22"),
       effect: "eldritchPower",
       status: "confirmed",
-      printedText:
-        "When Monsters need to move into range distance, they always move towards Area {icon:a74b9dc080} . If a Monster ends its turn in {icon:a74b9dc080} Area, Heroes take {icon:8d4bbe5e11} 5 each.",
+      printedText: printLine(
+        "When Monsters need to move into range distance, they always move towards Area {print:area_marker@337} . If a Monster ends its turn in {print:area_marker@337} Area, Heroes take {print:damage@1} 5 each.",
+      ),
       runtimeReady: true,
     },
   ],
@@ -150,14 +152,38 @@ export const approvedEldritchPowerChamber = tileShape.parse({
     },
     lootAreas: ["A", "A"],
     markers: [
-      ["G", "7b8c742c86", "hero_aggressive_start"],
-      ["G", "1a71d94723", "hero_defensive_start"],
-      ["C", "7ab26866fc", "hero_ranged_start"],
-      ["C", "39d6ddf024", "hero_support_start"],
-      ["E", "8787ebb1b2", "monster_aggressive_start"],
-      ["E", "1f26dc63eb", "monster_defensive_start"],
-      ["A", "643d396fef", "monster_ranged_start"],
-      ["F", "293f170eab", "monster_support_start"],
+      [
+        "G",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:54"),
+        "hero_aggressive_start",
+      ],
+      [
+        "G",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:26"),
+        "hero_defensive_start",
+      ],
+      [
+        "C",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:53"),
+        "hero_ranged_start",
+      ],
+      [
+        "C",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:25"),
+        "hero_support_start",
+      ],
+      [
+        "E",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:55"),
+        "monster_aggressive_start",
+      ],
+      [
+        "E",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:38"),
+        "monster_defensive_start",
+      ],
+      ["A", printIcon("stance_ranged_monster_slot", 808), "monster_ranged_start"],
+      ["F", printIcon("stance_support_monster_slot", 216), "monster_support_start"],
     ].map(([areaId, iconId, semantic]) => ({ areaId, iconId, semantic, status: "confirmed" })),
   },
   areas: [

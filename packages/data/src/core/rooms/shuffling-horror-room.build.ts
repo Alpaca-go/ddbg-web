@@ -1,20 +1,21 @@
+import { printLine, printSourceIcon } from "../../shared/print-icons";
 import type { RawFile } from "../../shared/extract/raw";
 import { ROOM_FRONT } from "./room";
 const approvedRoomLines = [
-  "{icon:51a56b9bb3} 10—Shuffling Horror Room",
-  "{icon:812394dcdd}",
-  "{icon:9723c561c8} {icon:e0c8d4381a} 10",
-  "{icon:102bef3eff} {icon:61b5b2809b}",
-  "{icon:56f5edfaf7}",
-  "{icon:3c35c71d73}",
-  "{icon:d18c59a65d}",
-  "{icon:812394dcdd}",
-  "{icon:812394dcdd}",
-  "{icon:4cd99e2a5c}",
-  "{icon:812394dcdd}",
-  "{icon:3b32f5de34}",
-  "{icon:0591dde355} {icon:71cd10f39d}",
-  "{icon:67c08f463c} {icon:71cd10f39d}",
+  printLine("{print:location@131} 10—Shuffling Horror Room"),
+  printLine("{print:occupancy_pips@46}"),
+  printLine("{print:decor@125} {print:decor@121} 10"),
+  printLine("{extract:corebox/raw/room.json:room:p023:front:5} {print:decor@239}"),
+  printLine("{extract:corebox/raw/room.json:room:p011:front:19}"),
+  printLine("{print:start_monster_support@477}"),
+  printLine("{print:occupancy_pips@79}"),
+  printLine("{print:occupancy_pips@46}"),
+  printLine("{print:occupancy_pips@46}"),
+  printLine("{print:start_monster_ranged@105}"),
+  printLine("{print:occupancy_pips@46}"),
+  printLine("{print:start_hero_aggressive@218}"),
+  printLine("{print:start_monster_aggressive@107} {print:start_any_defensive}"),
+  printLine("{print:start_hero_ranged@88} {print:start_any_defensive}"),
   "BOSS",
 ];
 export function assertShufflingHorrorRoomSource(rooms: RawFile): void {
@@ -32,6 +33,12 @@ export function assertShufflingHorrorRoomSource(rooms: RawFile): void {
 }
 export function assertShufflingHorrorTileLabels(raw: RawFile): void {
   const face = raw.cards.find((c) => c.id === "dungeon_tile:p013")?.faces.back;
-  if (!face || face.icons.filter((i) => i.iconId === "78197bdba8").length !== 2)
+  if (
+    !face ||
+    face.icons.filter(
+      (i) =>
+        i.iconId === printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:30"),
+    ).length !== 2
+  )
     throw new Error("R-163：Shuffling Horror Room两个高地图标漂移");
 }

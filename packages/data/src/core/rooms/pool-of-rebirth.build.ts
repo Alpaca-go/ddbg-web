@@ -1,3 +1,4 @@
+import { printIcon, printLine, printSourceIcon } from "../../shared/print-icons";
 import { z } from "zod";
 import { iconIdSchema } from "../../shared/extract/common";
 import type { RawFile } from "../../shared/extract/raw";
@@ -5,10 +6,10 @@ import { ROOM_FRONT } from "./room";
 
 // R-145：区域星标按对应Room卡解释；保留原始图标签名，不改全局词典。
 export const poolOfRebirthEffectLines = [
-  "{icon:62d166a84f} : Heroes ending their turn here suffer",
-  "{icon:9b00e692ba} +1 and {icon:731f6665d0} 3 per Negative Quirk.",
+  printLine("{print:area_marker@223} : Heroes ending their turn here suffer"),
+  printLine("{print:stress@145} +1 and {print:heal@225} 3 per Negative Quirk."),
   "Special Room Effect: Once the Room",
-  "is cleared, Heroes can suffer {icon:df38279161} +4 each,",
+  printLine("is cleared, Heroes can suffer {print:stress@305} +4 each,"),
   "to revive a dead Hero and place them",
   "in the Stagecoach.",
 ] as const;
@@ -24,10 +25,13 @@ export function assertPoolOfRebirthEffectSource(rooms: RawFile): void {
     card.faces.front.page !== 14 ||
     card.pages.length !== 1 ||
     card.pages[0] !== 14 ||
-    card.faces.front.lines[0]?.text !== "{icon:51a56b9bb3} 1—Pool of Rebirth" ||
-    ["62d166a84f", "9b00e692ba", "731f6665d0", "df38279161"].some(
-      (iconId) => !card.faces.front.icons.some((icon) => icon.iconId === iconId),
-    ) ||
+    card.faces.front.lines[0]?.text !== printLine("{print:location@131} 1—Pool of Rebirth") ||
+    [
+      printIcon("area_marker", 223),
+      printIcon("stress", 145),
+      printIcon("heal", 225),
+      printIcon("stress", 305),
+    ].some((iconId) => !card.faces.front.icons.some((icon) => icon.iconId === iconId)) ||
     JSON.stringify(card.faces.front.lines.slice(-6).map((line) => line.text)) !==
       JSON.stringify(poolOfRebirthEffectLines)
   )
@@ -64,7 +68,7 @@ const tileShape = z.strictObject({
   specialRegions: z.array(
     z.strictObject({
       areaId: z.literal("F"),
-      iconId: z.literal("4591aebebd"),
+      iconId: z.literal(printSourceIcon("corebox/raw/room.json:room:p002:front:22")),
       effect: z.literal("poolOfRebirth"),
       status: z.literal("confirmed"),
       printedText: z.string(),
@@ -126,7 +130,7 @@ export const approvedPoolOfRebirth = tileShape.parse({
   specialRegions: [
     {
       areaId: "F",
-      iconId: "4591aebebd",
+      iconId: printSourceIcon("corebox/raw/room.json:room:p002:front:22"),
       effect: "poolOfRebirth",
       status: "confirmed",
       printedText: poolOfRebirthEffectLines.slice(0, 2).join(" "),
@@ -143,14 +147,38 @@ export const approvedPoolOfRebirth = tileShape.parse({
     monsters: { aggressive: "E", defensive: "K", ranged: "G", support: "I" },
     lootAreas: [],
     markers: [
-      ["L", "7b8c742c86", "hero_aggressive_start"],
-      ["J", "1a71d94723", "hero_defensive_start"],
-      ["C", "7ab26866fc", "hero_ranged_start"],
-      ["A", "39d6ddf024", "hero_support_start"],
-      ["E", "8787ebb1b2", "monster_aggressive_start"],
-      ["K", "1f26dc63eb", "monster_defensive_start"],
-      ["G", "643d396fef", "monster_ranged_start"],
-      ["I", "293f170eab", "monster_support_start"],
+      [
+        "L",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:54"),
+        "hero_aggressive_start",
+      ],
+      [
+        "J",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:26"),
+        "hero_defensive_start",
+      ],
+      [
+        "C",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:53"),
+        "hero_ranged_start",
+      ],
+      [
+        "A",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:25"),
+        "hero_support_start",
+      ],
+      [
+        "E",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:55"),
+        "monster_aggressive_start",
+      ],
+      [
+        "K",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:38"),
+        "monster_defensive_start",
+      ],
+      ["G", printIcon("stance_ranged_monster_slot", 808), "monster_ranged_start"],
+      ["I", printIcon("stance_support_monster_slot", 216), "monster_support_start"],
     ].map(([areaId, iconId, semantic]) => ({ areaId, iconId, semantic, status: "confirmed" })),
   },
   areas: [2, 3, 2, 2, 2, 6, 2, 3, 3, 2, 3, 3].map((capacity, index) => ({

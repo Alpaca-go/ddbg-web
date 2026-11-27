@@ -1,10 +1,11 @@
+import { printIcon, printLine, printSourceIcon } from "../../shared/print-icons";
 import { z } from "zod";
 import { iconIdSchema } from "../../shared/extract/common";
 import type { RawFile } from "../../shared/extract/raw";
 import { ROOM_FRONT } from "./room";
 
 export const toxicChamberEffectLines = [
-  "{icon:a74b9dc080} Toxic Vapors: Heroes",
+  printLine("{print:area_marker@337} Toxic Vapors: Heroes"),
   "standing here suffer -3 Acc.",
 ] as const;
 
@@ -19,7 +20,7 @@ export function assertToxicChamberEffectSource(rooms: RawFile): void {
     card.faces.front.page !== 17 ||
     JSON.stringify(card.faces.front.lines.slice(-2).map((l) => l.text)) !==
       JSON.stringify(toxicChamberEffectLines) ||
-    !card.faces.front.icons.some((i) => i.iconId === "a74b9dc080")
+    !card.faces.front.icons.some((i) => i.iconId === printIcon("area_marker", 337))
   )
     throw new Error("Toxic Chamber Room p17来源或效果行漂移（R-157）");
 }
@@ -54,7 +55,7 @@ const tileShape = z.strictObject({
   specialRegions: z.array(
     z.strictObject({
       areaId: z.enum(["A", "B", "C", "E"]),
-      iconId: z.literal("4591aebebd"),
+      iconId: z.literal(printSourceIcon("corebox/raw/room.json:room:p002:front:22")),
       effect: z.literal("toxicVapors"),
       status: z.literal("confirmed"),
       printedText: z.string(),
@@ -124,34 +125,42 @@ export const approvedToxicChamber = tileShape.parse({
   specialRegions: [
     {
       areaId: "A",
-      iconId: "4591aebebd",
+      iconId: printSourceIcon("corebox/raw/room.json:room:p002:front:22"),
       effect: "toxicVapors",
       status: "confirmed",
-      printedText: "{icon:a74b9dc080} Toxic Vapors: Heroes standing here suffer -3 Acc.",
+      printedText: printLine(
+        "{print:area_marker@337} Toxic Vapors: Heroes standing here suffer -3 Acc.",
+      ),
       runtimeReady: true,
     },
     {
       areaId: "B",
-      iconId: "4591aebebd",
+      iconId: printSourceIcon("corebox/raw/room.json:room:p002:front:22"),
       effect: "toxicVapors",
       status: "confirmed",
-      printedText: "{icon:a74b9dc080} Toxic Vapors: Heroes standing here suffer -3 Acc.",
+      printedText: printLine(
+        "{print:area_marker@337} Toxic Vapors: Heroes standing here suffer -3 Acc.",
+      ),
       runtimeReady: true,
     },
     {
       areaId: "C",
-      iconId: "4591aebebd",
+      iconId: printSourceIcon("corebox/raw/room.json:room:p002:front:22"),
       effect: "toxicVapors",
       status: "confirmed",
-      printedText: "{icon:a74b9dc080} Toxic Vapors: Heroes standing here suffer -3 Acc.",
+      printedText: printLine(
+        "{print:area_marker@337} Toxic Vapors: Heroes standing here suffer -3 Acc.",
+      ),
       runtimeReady: true,
     },
     {
       areaId: "E",
-      iconId: "4591aebebd",
+      iconId: printSourceIcon("corebox/raw/room.json:room:p002:front:22"),
       effect: "toxicVapors",
       status: "confirmed",
-      printedText: "{icon:a74b9dc080} Toxic Vapors: Heroes standing here suffer -3 Acc.",
+      printedText: printLine(
+        "{print:area_marker@337} Toxic Vapors: Heroes standing here suffer -3 Acc.",
+      ),
       runtimeReady: true,
     },
   ],
@@ -171,14 +180,38 @@ export const approvedToxicChamber = tileShape.parse({
     },
     lootAreas: ["B", "B", "E", "E"],
     markers: [
-      ["J", "7b8c742c86", "hero_aggressive_start"],
-      ["H", "1a71d94723", "hero_defensive_start"],
-      ["J", "7ab26866fc", "hero_ranged_start"],
-      ["H", "39d6ddf024", "hero_support_start"],
-      ["D", "8787ebb1b2", "monster_aggressive_start"],
-      ["G", "1f26dc63eb", "monster_defensive_start"],
-      ["F", "643d396fef", "monster_ranged_start"],
-      ["F", "293f170eab", "monster_support_start"],
+      [
+        "J",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:54"),
+        "hero_aggressive_start",
+      ],
+      [
+        "H",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:26"),
+        "hero_defensive_start",
+      ],
+      [
+        "J",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:53"),
+        "hero_ranged_start",
+      ],
+      [
+        "H",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:25"),
+        "hero_support_start",
+      ],
+      [
+        "D",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:55"),
+        "monster_aggressive_start",
+      ],
+      [
+        "G",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:38"),
+        "monster_defensive_start",
+      ],
+      ["F", printIcon("stance_ranged_monster_slot", 808), "monster_ranged_start"],
+      ["F", printIcon("stance_support_monster_slot", 216), "monster_support_start"],
     ].map(([areaId, iconId, semantic]) => ({ areaId, iconId, semantic, status: "confirmed" })),
   },
   areas: [

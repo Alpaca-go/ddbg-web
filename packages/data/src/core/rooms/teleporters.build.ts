@@ -1,3 +1,4 @@
+import { printIcon, printLine, printSourceIcon } from "../../shared/print-icons";
 import { z } from "zod";
 import { iconIdSchema } from "../../shared/extract/common";
 import type { RawFile } from "../../shared/extract/raw";
@@ -5,8 +6,10 @@ import { ROOM_FRONT } from "./room";
 
 export const teleportersEffectLines = [
   "Characters can move and attack",
-  "between {icon:f9fbe7ebd2} Areas. Heroes moving",
-  "through a {icon:340d4a530a} Area suffer {icon:df38279161} +1.",
+  printLine("between {extract:corebox/raw/room.json:room:p019:front:27} Areas. Heroes moving"),
+  printLine(
+    "through a {extract:corebox/raw/room.json:room:p019:front:28} Area suffer {print:stress@305} +1.",
+  ),
 ] as const;
 
 export function assertTeleportersEffectSource(rooms: RawFile): void {
@@ -20,9 +23,13 @@ export function assertTeleportersEffectSource(rooms: RawFile): void {
     card.faces.front.page !== 19 ||
     JSON.stringify(card.faces.front.lines.slice(-3).map((l) => l.text)) !==
       JSON.stringify(teleportersEffectLines) ||
-    !card.faces.front.icons.some((i) => i.iconId === "f9fbe7ebd2") ||
-    !card.faces.front.icons.some((i) => i.iconId === "340d4a530a") ||
-    !card.faces.front.icons.some((i) => i.iconId === "df38279161")
+    !card.faces.front.icons.some(
+      (i) => i.iconId === printSourceIcon("corebox/raw/room.json:room:p019:front:27"),
+    ) ||
+    !card.faces.front.icons.some(
+      (i) => i.iconId === printSourceIcon("corebox/raw/room.json:room:p019:front:28"),
+    ) ||
+    !card.faces.front.icons.some((i) => i.iconId === printIcon("stress", 305))
   )
     throw new Error("Teleporters Room p19来源或效果行漂移（R-159）");
 }
@@ -57,7 +64,7 @@ const tileShape = z.strictObject({
   specialRegions: z.array(
     z.strictObject({
       areaId: z.enum(["A", "C", "F", "H"]),
-      iconId: z.literal("4591aebebd"),
+      iconId: z.literal(printSourceIcon("corebox/raw/room.json:room:p002:front:22")),
       effect: z.literal("teleporters"),
       status: z.literal("confirmed"),
       printedText: z.string(),
@@ -127,38 +134,42 @@ export const approvedTeleporters = tileShape.parse({
   specialRegions: [
     {
       areaId: "A",
-      iconId: "4591aebebd",
+      iconId: printSourceIcon("corebox/raw/room.json:room:p002:front:22"),
       effect: "teleporters",
       status: "confirmed",
-      printedText:
-        "Characters can move and attack between {icon:f9fbe7ebd2} Areas. Heroes moving through a {icon:340d4a530a} Area suffer {icon:df38279161} +1.",
+      printedText: printLine(
+        "Characters can move and attack between {extract:corebox/raw/room.json:room:p019:front:27} Areas. Heroes moving through a {extract:corebox/raw/room.json:room:p019:front:28} Area suffer {print:stress@305} +1.",
+      ),
       runtimeReady: true,
     },
     {
       areaId: "C",
-      iconId: "4591aebebd",
+      iconId: printSourceIcon("corebox/raw/room.json:room:p002:front:22"),
       effect: "teleporters",
       status: "confirmed",
-      printedText:
-        "Characters can move and attack between {icon:f9fbe7ebd2} Areas. Heroes moving through a {icon:340d4a530a} Area suffer {icon:df38279161} +1.",
+      printedText: printLine(
+        "Characters can move and attack between {extract:corebox/raw/room.json:room:p019:front:27} Areas. Heroes moving through a {extract:corebox/raw/room.json:room:p019:front:28} Area suffer {print:stress@305} +1.",
+      ),
       runtimeReady: true,
     },
     {
       areaId: "F",
-      iconId: "4591aebebd",
+      iconId: printSourceIcon("corebox/raw/room.json:room:p002:front:22"),
       effect: "teleporters",
       status: "confirmed",
-      printedText:
-        "Characters can move and attack between {icon:f9fbe7ebd2} Areas. Heroes moving through a {icon:340d4a530a} Area suffer {icon:df38279161} +1.",
+      printedText: printLine(
+        "Characters can move and attack between {extract:corebox/raw/room.json:room:p019:front:27} Areas. Heroes moving through a {extract:corebox/raw/room.json:room:p019:front:28} Area suffer {print:stress@305} +1.",
+      ),
       runtimeReady: true,
     },
     {
       areaId: "H",
-      iconId: "4591aebebd",
+      iconId: printSourceIcon("corebox/raw/room.json:room:p002:front:22"),
       effect: "teleporters",
       status: "confirmed",
-      printedText:
-        "Characters can move and attack between {icon:f9fbe7ebd2} Areas. Heroes moving through a {icon:340d4a530a} Area suffer {icon:df38279161} +1.",
+      printedText: printLine(
+        "Characters can move and attack between {extract:corebox/raw/room.json:room:p019:front:27} Areas. Heroes moving through a {extract:corebox/raw/room.json:room:p019:front:28} Area suffer {print:stress@305} +1.",
+      ),
       runtimeReady: true,
     },
   ],
@@ -178,14 +189,38 @@ export const approvedTeleporters = tileShape.parse({
     },
     lootAreas: ["C", "F"],
     markers: [
-      ["G", "7b8c742c86", "hero_aggressive_start"],
-      ["D", "1a71d94723", "hero_defensive_start"],
-      ["B", "7ab26866fc", "hero_ranged_start"],
-      ["E", "39d6ddf024", "hero_support_start"],
-      ["A", "8787ebb1b2", "monster_aggressive_start"],
-      ["F", "1f26dc63eb", "monster_defensive_start"],
-      ["H", "643d396fef", "monster_ranged_start"],
-      ["C", "293f170eab", "monster_support_start"],
+      [
+        "G",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:54"),
+        "hero_aggressive_start",
+      ],
+      [
+        "D",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:26"),
+        "hero_defensive_start",
+      ],
+      [
+        "B",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:53"),
+        "hero_ranged_start",
+      ],
+      [
+        "E",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:25"),
+        "hero_support_start",
+      ],
+      [
+        "A",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:55"),
+        "monster_aggressive_start",
+      ],
+      [
+        "F",
+        printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:38"),
+        "monster_defensive_start",
+      ],
+      ["H", printIcon("stance_ranged_monster_slot", 808), "monster_ranged_start"],
+      ["C", printIcon("stance_support_monster_slot", 216), "monster_support_start"],
     ].map(([areaId, iconId, semantic]) => ({ areaId, iconId, semantic, status: "confirmed" })),
   },
   areas: [

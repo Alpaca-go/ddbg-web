@@ -1,11 +1,12 @@
+import { printIcon, printLine, printSourceIcon } from "../../shared/print-icons";
 import { z } from "zod";
 import { iconIdSchema } from "../../shared/extract/common";
 import type { RawFile } from "../../shared/extract/raw";
 import { ROOM_FRONT } from "./room";
 
 export const hallOfAscensionEffectLines = [
-  "{icon:0fd119772a} : Heroes can spend 2 actions here",
-  "and suffer {icon:9b00e692ba} +3 to instantly upgrade",
+  printLine("{print:area_marker@312} : Heroes can spend 2 actions here"),
+  printLine("and suffer {print:stress@145} +3 to instantly upgrade"),
   "themselves or one of their Skills.",
 ] as const;
 
@@ -20,8 +21,8 @@ export function assertHallOfAscensionEffectSource(rooms: RawFile): void {
     card.faces.front.page !== 15 ||
     JSON.stringify(card.faces.front.lines.slice(-3).map((l) => l.text)) !==
       JSON.stringify(hallOfAscensionEffectLines) ||
-    !card.faces.front.icons.some((i) => i.iconId === "9b00e692ba") ||
-    !card.faces.front.icons.some((i) => i.iconId === "0fd119772a")
+    !card.faces.front.icons.some((i) => i.iconId === printIcon("stress", 145)) ||
+    !card.faces.front.icons.some((i) => i.iconId === printIcon("area_marker", 312))
   )
     throw new Error("Hall of Ascension Room p15来源或效果行漂移（R-153）");
 }
@@ -56,7 +57,7 @@ const tileShape = z.strictObject({
   specialRegions: z.array(
     z.strictObject({
       areaId: z.literal("B"),
-      iconId: z.literal("0d13b745be"),
+      iconId: z.literal(printIcon("area_marker", 435)),
       effect: z.literal("hallOfAscensionUpgrade"),
       status: z.literal("confirmed"),
       printedText: z.string(),
@@ -126,11 +127,12 @@ export const approvedHallOfAscension = tileShape.parse({
   specialRegions: [
     {
       areaId: "B",
-      iconId: "0d13b745be",
+      iconId: printIcon("area_marker", 435),
       effect: "hallOfAscensionUpgrade",
       status: "confirmed",
-      printedText:
-        "{icon:0fd119772a} : Heroes can spend 2 actions here and suffer {icon:9b00e692ba} +3 to instantly upgrade themselves or one of their Skills.",
+      printedText: printLine(
+        "{print:area_marker@312} : Heroes can spend 2 actions here and suffer {print:stress@145} +3 to instantly upgrade themselves or one of their Skills.",
+      ),
       runtimeReady: true,
     },
   ],
@@ -152,49 +154,49 @@ export const approvedHallOfAscension = tileShape.parse({
     markers: [
       {
         areaId: "L",
-        iconId: "7b8c742c86",
+        iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:54"),
         semantic: "hero_aggressive_start",
         status: "confirmed",
       },
       {
         areaId: "J",
-        iconId: "1a71d94723",
+        iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:26"),
         semantic: "hero_defensive_start",
         status: "confirmed",
       },
       {
         areaId: "L",
-        iconId: "7ab26866fc",
+        iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:53"),
         semantic: "hero_ranged_start",
         status: "confirmed",
       },
       {
         areaId: "J",
-        iconId: "39d6ddf024",
+        iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:25"),
         semantic: "hero_support_start",
         status: "confirmed",
       },
       {
         areaId: "H",
-        iconId: "8787ebb1b2",
+        iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:55"),
         semantic: "monster_aggressive_start",
         status: "confirmed",
       },
       {
         areaId: "G",
-        iconId: "1f26dc63eb",
+        iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:38"),
         semantic: "monster_defensive_start",
         status: "confirmed",
       },
       {
         areaId: "E",
-        iconId: "643d396fef",
+        iconId: printIcon("stance_ranged_monster_slot", 808),
         semantic: "monster_ranged_start",
         status: "confirmed",
       },
       {
         areaId: "K",
-        iconId: "293f170eab",
+        iconId: printIcon("stance_support_monster_slot", 216),
         semantic: "monster_support_start",
         status: "confirmed",
       },

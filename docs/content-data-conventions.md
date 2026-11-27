@@ -19,6 +19,10 @@
 - **图标指纹归所属内容的数据层。** 印刷核准以现有卡牌 ID、面和行定位，复用该类型的校验入口。经核准的效果用有语义的规则字段表达。运行时需要防止卡面漂移时调用数据层校验函数，引擎源码中读取 `iconId` 或写入十六进制指纹会触发 ESLint。已发布目录保留用作印刷校验和旧档回放的字段。
 - **引用只用 canonical ID。** 页码型实体使用印刷页，怪物重复印刷用首印页和 `pages`。房间族使用地点与房间号。若现有目录将来源分布在页数组、分面字段或文件级 `sources`，沿用该类 schema 的来源形状。历史 `rawId` 仅追溯提取实体。
 
+手写印刷行用 `printLine` 展开核准图标，如 `{print:range}`。同名变体加词典序号，如 `{print:stress@29}`。
+尚未核准含义的图标用原始提取文件、卡、面和图标段位定位。
+词典及来源索引由 `node tools/pipeline/scripts/build-print-icon-index.mjs` 在复核后重建，`--check` 可验证索引是否与仓库提取来源一致。
+
 完整的读写与发布边界见 [仓库布局](repo-layout.md)。当前暴露的读写入口见 [write.ts](../packages/data/src/write.ts)。
 
 ## bosses
