@@ -6,6 +6,11 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 
 ## 当前进度与下一步
 
+- **2026-11-27 效果词典续批。** Noxious Blast 和 Plague Grenade I–III 接入 `rules.directAttack`，累计 24 张英雄直攻卡。核心 38 张饰品的整面核对统一移到构建，攻击修正和 Damage Stone 反面伤口由逐卡规则提供，旧 Critical Stone 命令、主动使用和反应窗口继续走原结算。Weald 五种 I 级怪物的 13 招从 R-230 核准参数构造攻击，印刷签名只在构建时比对。Fanatic 的 Pyre I–III 按 R-136 的固定数值结算。展示和来源数据保留，原始提取未改，发布 JSON 仅更新英雄技能目录。现有待裁定停点沿用，本批无新增 Q 项。
+  验证覆盖公开命令清空印刷行、图标和数字锚点后的状态、事件、待选、骰序和规则参数拒绝。从 `ae38096c` 实际生成的 7 份核心任务、饰品、Weald 召唤和 Fanatic 存档严格重放通过。Fanatic 历史快照缺布局说明时，仅在其他出征计划字段与回放一致时补入说明。
+  定稿 `bdf5e362` 在工作树稳定期间完成全量 Vitest。637 个文件中 636 个通过，共 4,490 项通过、1 项跳过，II 级守卫战 1 项触及原 240 秒时限。同一提交下按原时限串行复跑该文件，4 项均通过，合计覆盖 4,491 个通过用例和 1 个跳过用例。typecheck、lint、build 及 Temple of the Chosen、Weald 首趟出征两条 Playwright 冒烟通过。本机验证使用 Node 24.20.0、pnpm 12.9.1。
+  剩余依赖包括其余英雄技能的姿态、射程、目标、数字锚点及效果行识别，Weald I 级怪物的防御图标准入，核心与高等级怪物的通用攻击视图和效果签名，以及 Hag Into the Pot、Necromancer I 和 Bone Bearer Unholy Rally 等专用结算。下一批沿用英雄现有注解，优先迁移仍在运行时核对效果行的已核准技能，再接续其余怪物与 Boss。
+
 - **2026-11-27 效果词典首批迁移。** If It Bleeds、Caltrops、Open Vein、Harvest、Slice Off、Incision 共 18 张卡改用独立攻击规则。Bleed Charm、Blight Charm、Debuff Charm、Stun Charm 和 Fortunate Armlet 的已核准效果直接结算，印刷面在构建时核对。
   18 张逐卡比较全部骰面、射程及目标上限。实战测试去掉录入字段后，流血、饰品翻面与骰序保持一致。迁移前存档只补入回放可验证的新增规则字段。本批无新增规则待确认项。其余英雄、饰品、怪物与 Boss 的卡面结算依赖仍待按批迁移。
   typecheck、lint、build 与两条浏览器冒烟通过。全量运行期间有源码变更，模块版本混用，结果未作为最终闸门。使用定稿代码复跑数据包 416 项以及原全量报告失败的引擎文件，均通过。旧注解负例继续覆盖兼容路径，新词条缺失必填效果参数时拒绝结算。
