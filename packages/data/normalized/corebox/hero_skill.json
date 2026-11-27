@@ -7057,6 +7057,31 @@
      "condition": "unholy",
      "source": "print_front"
     },
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 9,
+      "damage": 7
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 13
+     },
+     "onHit": [],
+     "damageBonus": {
+      "amount": 1,
+      "condition": "unholy"
+     },
+     "selfShuffle": {
+      "direction": "pull",
+      "distance": 1
+     }
+    },
     "shuffle": [
      {
       "lineIndex": 0,
@@ -7590,6 +7615,31 @@
      "condition": "unholy",
      "source": "print_front"
     },
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 10,
+      "damage": 9
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 16
+     },
+     "onHit": [],
+     "damageBonus": {
+      "amount": 2,
+      "condition": "unholy"
+     },
+     "selfShuffle": {
+      "direction": "pull",
+      "distance": 1
+     }
+    },
     "shuffle": [
      {
       "lineIndex": 0,
@@ -8122,6 +8172,31 @@
      "amount": 3,
      "condition": "unholy",
      "source": "print_front"
+    },
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 11,
+      "damage": 11
+     },
+     "critical": {
+      "threshold": 2,
+      "damage": 19
+     },
+     "onHit": [],
+     "damageBonus": {
+      "amount": 3,
+      "condition": "unholy"
+     },
+     "selfShuffle": {
+      "direction": "pull",
+      "distance": 1
+     }
     },
     "shuffle": [
      {

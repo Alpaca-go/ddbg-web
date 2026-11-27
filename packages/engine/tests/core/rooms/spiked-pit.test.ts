@@ -531,15 +531,68 @@ it("最后一个行动自身落坑且仍站立：Shuffle与结束回合各触发
     "h0",
     1,
   );
-  const declared = success(
-    applyCommand(state, {
-      type: "playHeroSkill",
-      actorId: "h0",
-      targetId: "m",
-      skillId: "hero_skill:core:h01:p016",
-    }),
+  const command = {
+    type: "playHeroSkill",
+    actorId: "h0",
+    targetId: "m",
+    skillId: "hero_skill:core:h01:p016",
+  } as const;
+  const battle = state.battle!;
+  const card = battle.skills.find((skill) => skill.id === command.skillId)!;
+  const { directAttack, ...legacyRules } = card.rules!;
+  const legacySkills = battle.skills.map((skill) =>
+    skill.id === card.id ? { ...skill, rules: legacyRules } : skill,
   );
+  const stripped = {
+    ...card,
+    rules: { directAttack: directAttack! },
+    printed_labels: [],
+    unlabeled_numbers: [],
+    top_row_icons: [],
+    front_icons: [],
+    stats_line: null,
+    effect_lines: [],
+  };
+  const onlyRules = battle.skills.map((skill) => (skill.id === card.id ? stripped : skill));
+  const previous = success(
+    applyCommand({ ...state, battle: { ...battle, skills: legacySkills } }, command),
+  );
+  const declared = success(
+    applyCommand({ ...state, battle: { ...battle, skills: onlyRules } }, command),
+  );
+  expect(declared.events).toEqual(previous.events);
+  expect(declared.pendingChoice).toEqual(previous.pendingChoice);
+  expect(declared.state.battle!.shuffleIntents).toEqual(previous.state.battle!.shuffleIntents);
+  expect(declared.state.battle!.rngCursor).toBe(previous.state.battle!.rngCursor);
+  expect(declared.state.battle!.skillPrefix?.roll).toBe(previous.state.battle!.skillPrefix?.roll);
+  const oldDone = finishShuffle(previous, "S8");
   const done = finishShuffle(declared, "S8");
+  expect(done).toEqual({
+    ...oldDone,
+    state: { ...oldDone.state, battle: { ...oldDone.state.battle!, skills: onlyRules } },
+  });
+  const invalid = {
+    ...state,
+    battle: {
+      ...battle,
+      skills: onlyRules.map((skill) =>
+        skill.id === card.id
+          ? {
+              ...stripped,
+              rules: {
+                directAttack: {
+                  ...directAttack!,
+                  selfShuffle: { direction: "pull" as const, distance: 0 },
+                },
+              },
+            }
+          : skill,
+      ),
+    },
+  };
+  const refused = applyCommand(invalid, command);
+  expect(refused.state).toBe(invalid);
+  expect(refused.events[0]?.type).toBe("commandRefused");
   expect(entity(done.state).wounds).toBe(6);
   expect(entity(done.state).statusStacks).toMatchObject([
     { kind: "bleed", amount: 1, remaining: 3 },

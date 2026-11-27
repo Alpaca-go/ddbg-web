@@ -1400,6 +1400,8 @@ const SHUFFLE_CHOICE_TEXT = /^Push (\d+) or Pull (\d+)$/;
  * 才记成那一次目标位移。没选定、两边距离不同、或和别的图标写在同一行，都不算。
  */
 function readShuffles(skill: HeroSkillCardView, choice: "push" | "pull" | undefined): ReadShuffles {
+  if (skill.rules?.directAttack)
+    return { self: skill.rules.directAttack.selfShuffle ?? null, target: null, lineCount: 0 };
   const selves: SkillShuffle[] = [];
   const targets: SkillShuffle[] = [];
   const choices: number[] = [];

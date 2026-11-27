@@ -32,6 +32,9 @@ export const directAttackSchema = z.strictObject({
   critical: z.strictObject({ threshold: z.int().nonnegative(), damage: z.int().nonnegative() }),
   onHit: z.array(statusEffectSchema),
   damageBonus: conditionalDamageSchema.optional(),
+  selfShuffle: z
+    .strictObject({ direction: z.enum(["push", "pull"]), distance: z.int().positive() })
+    .optional(),
 });
 
 export type DirectAttack = Readonly<z.infer<typeof directAttackSchema>>;

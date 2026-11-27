@@ -15,6 +15,7 @@ const rangedStances: AttackFace["stances"] = ["ranged", "defensive"];
 const crusaderStances: AttackFace["stances"] = ["defensive", "aggressive"];
 const smite = { stances: crusaderStances, range: 0, monsterTargets: 1 };
 const zealousAccusation = { stances: crusaderStances, range: 1, monsterTargets: 2 };
+const holyLance: AttackFace = { stances: ["support", "ranged"], range: 1, monsterTargets: 1 };
 const stunningBlow = { stances: crusaderStances, range: 0, monsterTargets: 1 };
 const adjacentMelee = { stances: meleeStances, range: 1, monsterTargets: 1 };
 const sameAreaMelee = { ...adjacentMelee, range: 0 };
@@ -38,7 +39,7 @@ function frontAttack(face: AttackFace, review: ReviewedAttack): DirectAttack {
   };
 }
 
-/** 核心盒技能正面 p001–009、p031–033、p061–063、p082–084、p109–111、p124–132、p136–138。规则书 R19–21、R-018。 */
+/** 核心盒技能正面 p001–009、p016–018、p031–033、p061–063、p082–084、p109–111、p124–132、p136–138。规则书 R19–21、R-018。 */
 const DIRECT_ATTACKS: Readonly<Partial<Record<string, DirectAttack>>> = {
   "hero_skill:core:h01:p001": frontAttack(smite, {
     accuracy: 9,
@@ -102,6 +103,27 @@ const DIRECT_ATTACKS: Readonly<Partial<Record<string, DirectAttack>>> = {
     hitDamage: 6,
     critDamage: 10,
     onHit: [{ kind: "stun", duration: 1 }],
+  }),
+  "hero_skill:core:h01:p016": frontAttack(holyLance, {
+    accuracy: 9,
+    critical: 1,
+    hitDamage: 7,
+    critDamage: 13,
+    onHit: [],
+  }),
+  "hero_skill:core:h01:p017": frontAttack(holyLance, {
+    accuracy: 10,
+    critical: 1,
+    hitDamage: 9,
+    critDamage: 16,
+    onHit: [],
+  }),
+  "hero_skill:core:h01:p018": frontAttack(holyLance, {
+    accuracy: 11,
+    critical: 2,
+    hitDamage: 11,
+    critDamage: 19,
+    onHit: [],
   }),
   "hero_skill:core:h02:p031": frontAttack(adjacentMelee, {
     accuracy: 9,
@@ -300,10 +322,12 @@ export function attachDirectHeroAttack(card: NormalizedHeroSkillCard): Normalize
       (entry) => entry.anchor.type === "printed_label" && entry.anchor.label === label,
     )?.numeric;
   const effects = card.rules?.statuses ?? [];
-  const printedEffect = card.effect_lines[0]
-    ?.map((segment) => (segment.type === "text" ? segment.text : `{${segment.icon.key}}`))
-    .join("")
-    .replace(/[\s,]+/g, "");
+  const printedEffects = card.effect_lines.map((line) =>
+    line
+      .map((segment) => (segment.type === "text" ? segment.text : `{${segment.icon.key}}`))
+      .join("")
+      .replace(/[\s,]+/g, ""),
+  );
   const printedStances = (["support", "ranged", "defensive", "aggressive"] as const).map(
     (stance) => "stance_" + stance + (review.stances.includes(stance) ? "_lit" : "_unlit"),
   );
@@ -311,11 +335,19 @@ export function attachDirectHeroAttack(card: NormalizedHeroSkillCard): Normalize
     .map(({ kind, amount, duration }) => `${amount ?? ""}{${kind}}${duration}t`)
     .join("");
   const bonus = card.rules?.damage;
-  const expectedEffect = bonus
-    ? `{target_effects}{damage}+${bonus.amount}vsUnholy`
+  const shuffles = card.rules?.shuffle ?? [];
+  const [shuffle] = shuffles;
+  const move = /^(Push|Pull) ([1-9]\d*)$/.exec(shuffle?.text ?? "");
+  const selfShuffle = move
+    ? { direction: move[1] === "Pull" ? "pull" : "push", distance: Number(move[2]) }
+    : undefined;
+  const selfEffects = move ? [`{self_effects}Self{shuffle}${move[1]}${move[2]}`] : [];
+  const targetEffects = bonus
+    ? [`{target_effects}{damage}+${bonus.amount}vsUnholy`]
     : statuses === ""
-      ? undefined
-      : `{target_effects}${statuses}`;
+      ? []
+      : [`{target_effects}${statuses}`];
+  const expectedEffects = [...selfEffects, ...targetEffects];
   if (
     card.verification.unverified ||
     card.rules?.effect !== "damage" ||
@@ -333,11 +365,15 @@ export function attachDirectHeroAttack(card: NormalizedHeroSkillCard): Normalize
     card.rules.targets.hero !== 0 ||
     card.rules.targets.heroOrMonster !== 0 ||
     card.top_row_icons.map(({ key }) => key).join() !== printedStances.join() ||
-    card.effect_lines.length !== (expectedEffect === undefined ? 0 : 1) ||
-    printedEffect !== expectedEffect ||
+    printedEffects.length !== expectedEffects.length ||
+    printedEffects.some((line, index) => line !== expectedEffects[index]) ||
+    (shuffle !== undefined &&
+      (shuffles.length !== 1 || shuffle.scope !== "self" || shuffle.lineIndex !== 0 || !move)) ||
     card.rules.damageBonuses !== undefined ||
     (bonus !== undefined &&
-      (bonus.condition !== "unholy" || bonus.lineIndex !== 0 || statuses !== "")) ||
+      (bonus.condition !== "unholy" ||
+        bonus.lineIndex !== selfEffects.length ||
+        statuses !== "")) ||
     effects.length !== review.onHit.length ||
     review.onHit.some(({ kind, amount, duration }, index) => {
       const effect = effects[index];
@@ -354,6 +390,7 @@ export function attachDirectHeroAttack(card: NormalizedHeroSkillCard): Normalize
   const directAttack = directAttackSchema.parse({
     ...review,
     ...(bonus ? { damageBonus: { amount: bonus.amount, condition: bonus.condition } } : {}),
+    ...(selfShuffle ? { selfShuffle } : {}),
   });
   return { ...card, rules: { ...card.rules, directAttack } };
 }
