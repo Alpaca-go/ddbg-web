@@ -3,19 +3,20 @@ import index from "../../dictionary/print-icon-index.json";
 const labels: Readonly<Record<string, readonly (readonly (string | number)[])[]>> = index.labels;
 const sources: Readonly<Record<string, string>> = index.sources;
 
-/** R-048：只用已审定的词典定位同一印刷变体。重名时必须明确词典序号。 */
-export function printIcon(key: string, rank?: number): string {
-  const variants = Object.hasOwn(labels, key) ? labels[key] : undefined;
-  const row =
-    rank === undefined
-      ? variants?.length === 1
-        ? variants[0]
-        : undefined
-      : variants?.find(([entryRank]) => entryRank === rank);
-  const id = row?.[1];
-  if (typeof id !== "string")
-    throw new Error("印刷图标引用缺失或不唯一：" + key + (rank === undefined ? "" : " #" + rank));
+/** R-048：精确印刷核对使用固定词典序号。 */
+export function printIcon(key: string, rank: number): string {
+  const id = variantsOf(key)?.find(([entryRank]) => entryRank === rank)?.[1];
+  if (typeof id !== "string") throw new Error("印刷图标变体未登记：" + key + " #" + rank);
   return id;
+}
+
+function variantsOf(key: string) {
+  return Object.hasOwn(labels, key) ? labels[key] : undefined;
+}
+
+/** 按图标确认所属语义，允许该语义有多个印刷变体。 */
+export function hasPrintIconMeaning(iconId: string, key: string): boolean {
+  return variantsOf(key)?.some(([, variant]) => variant === iconId) ?? false;
 }
 
 /** 尚无可用词典键的印刷变体，以审定快照中的卡、面与放置位置引用。 */
@@ -29,11 +30,10 @@ export function printSourceIcon(locator: string): string {
 export function printLine(line: string): string {
   return line.replace(
     /\{print:([a-z0-9_]+)(?:@(\d+))?\}|\{extract:([^{}]+)\}/g,
-    (_, key: string | undefined, rank: string | undefined, source: string | undefined) =>
-      "{icon:" +
-      (source === undefined
-        ? printIcon(key!, rank === undefined ? undefined : Number(rank))
-        : printSourceIcon(source)) +
-      "}",
+    (_, key: string | undefined, rank: string | undefined, source: string | undefined) => {
+      if (source !== undefined) return "{icon:" + printSourceIcon(source) + "}";
+      if (rank === undefined) throw new Error("印刷行须指定图标变体：" + key);
+      return "{icon:" + printIcon(key!, Number(rank)) + "}";
+    },
   );
 }

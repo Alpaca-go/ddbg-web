@@ -14,8 +14,8 @@ const approvedRoomLines = [
   printLine("{print:start_monster_ranged@105}"),
   printLine("{print:occupancy_pips@46}"),
   printLine("{print:start_hero_aggressive@218}"),
-  printLine("{print:start_monster_aggressive@107} {print:start_any_defensive}"),
-  printLine("{print:start_hero_ranged@88} {print:start_any_defensive}"),
+  printLine("{print:start_monster_aggressive@107} {print:start_any_defensive@132}"),
+  printLine("{print:start_hero_ranged@88} {print:start_any_defensive@132}"),
   "BOSS",
 ];
 export function assertShufflingHorrorRoomSource(rooms: RawFile): void {

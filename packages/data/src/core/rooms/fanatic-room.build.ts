@@ -6,12 +6,12 @@ const approvedRoomLines = [
   printLine("{extract:corebox/raw/room.json:room:p013:front:5}"),
   printLine("{print:decor@420}"),
   printLine("{print:occupancy_pips@46}"),
-  printLine("{print:occupancy_limit} 13"),
+  printLine("{print:occupancy_limit@91} 13"),
   printLine("{print:start_hero_defensive@474}"),
   printLine("{print:start_hero_support@306}"),
   printLine("{print:occupancy_pips@155}"),
   printLine("{print:occupancy_pips@192}"),
-  printLine("{print:start_monster_aggressive@453} {print:start_any_defensive}"),
+  printLine("{print:start_monster_aggressive@453} {print:start_any_defensive@132}"),
   printLine("{print:occupancy_pips@79}"),
   printLine("{print:start_monster_any@259} {print:start_monster_support@340}"),
   printLine("{print:occupancy_pips@79}"),
@@ -41,7 +41,7 @@ const approvedTileLines = [
   printLine(
     "{extract:corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:7} {extract:corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:7} {extract:corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:5}",
   ),
-  printLine("{print:occupancy_limit} 13"),
+  printLine("{print:occupancy_limit@91} 13"),
   printLine("{extract:corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:26}"),
   printLine("{extract:corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:25}"),
   printLine(

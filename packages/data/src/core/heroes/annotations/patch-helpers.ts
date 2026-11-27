@@ -1,5 +1,5 @@
 import { HERO_PRINT_SOURCES } from "./print-sources";
-import { printIcon } from "../../../shared/print-icons";
+import { hasPrintIconMeaning, printIcon } from "../../../shared/print-icons";
 import { parseAnnotatedHeroSkillCard } from "../../../shared/schema";
 import type { NormalizedHeroSkillCard, Segment } from "../../../shared/schema";
 import type { HeroName } from "../hero-registry";
@@ -94,16 +94,20 @@ function correctionIcon(
   if ("line" in ref) {
     const line = ref.line === "stats" ? card.stats_line : card.effect_lines[ref.line];
     const segment = line?.[ref.segment];
-    const expected = "expectKey" in ref ? printIcon(ref.expectKey, ref.variantRank) : ref.iconId;
     if (
       segment?.type !== "icon" ||
-      segment.icon.iconId !== expected ||
-      ("expectKey" in ref && segment.icon.key !== ref.expectKey)
+      ("expectKey" in ref
+        ? segment.icon.key !== ref.expectKey ||
+          (ref.variantRank === undefined
+            ? !["confirmed", "confirmed_rulebook"].includes(segment.icon.naming) ||
+              !hasPrintIconMeaning(segment.icon.iconId, ref.expectKey)
+            : segment.icon.iconId !== printIcon(ref.expectKey, ref.variantRank))
+        : segment.icon.iconId !== ref.iconId)
     )
       throw new Error(
         card.id +
           " 印刷行图标漂移：" +
-          ("expectKey" in ref ? ref.expectKey : expected) +
+          ("expectKey" in ref ? ref.expectKey : ref.iconId) +
           "（R-048）",
       );
     icon = segment;

@@ -4,7 +4,7 @@ import { ROOM_FRONT } from "./room";
 const approvedRoomLines = [
   printLine("{print:location@96} 10—Necromancer Room"),
   printLine("{print:decor@420}"),
-  printLine("{print:occupancy_limit} 10"),
+  printLine("{print:occupancy_limit@91} 10"),
   printLine("{extract:corebox/raw/room.json:room:p010:front:5}"),
   printLine("{print:occupancy_pips@330}"),
   printLine("{print:occupancy_pips@192}"),

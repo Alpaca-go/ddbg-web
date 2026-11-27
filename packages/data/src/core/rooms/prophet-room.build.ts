@@ -6,7 +6,7 @@ const approvedRoomLines = [
   printLine("{print:occupancy_pips@486}"),
   printLine("{print:occupancy_pips@79}"),
   printLine("{print:occupancy_pips@79}"),
-  printLine("{print:occupancy_limit} 11"),
+  printLine("{print:occupancy_limit@91} 11"),
   printLine("{print:area_d10_marker@232} 4"),
   printLine("{print:area_d10_marker@232} 3"),
   printLine("{print:start_hero_aggressive@218}"),
@@ -23,7 +23,7 @@ const approvedRoomLines = [
   printLine("{print:occupancy_pips@343}"),
   printLine("{print:area_d10_marker@232} 10"),
   printLine("{print:area_d10_marker@232} 9"),
-  printLine("{extract:corebox/raw/room.json:room:p011:front:23} {print:start_any_defensive}"),
+  printLine("{extract:corebox/raw/room.json:room:p011:front:23} {print:start_any_defensive@132}"),
   "BOSS",
 ];
 export function assertProphetRoomSource(rooms: RawFile): void {
@@ -46,7 +46,7 @@ const approvedTileLines = [
   printLine(
     "{extract:corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:5} {extract:corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:7} {extract:corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:5}",
   ),
-  printLine("{print:occupancy_limit} 11"),
+  printLine("{print:occupancy_limit@91} 11"),
   printLine(
     "{extract:corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:7} {extract:corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:7} {extract:corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:5} {extract:corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:16}",
   ),

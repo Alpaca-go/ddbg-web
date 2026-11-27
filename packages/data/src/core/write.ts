@@ -2,7 +2,7 @@ import path from "node:path";
 import { DATA_ROOT, readDataJson, writeDataFiles } from "../shared/write-files";
 
 import { heroSourcePaths } from "./heroes/hero-sources";
-import { iconDictionarySchema } from "../shared/dictionary/schema";
+import { loadIconDictionary } from "../shared/dictionary/load";
 import {
   heroSkillFileSchema,
   monsterLargeFileSchema,
@@ -25,7 +25,7 @@ export function loadNormalizedCorebox(): NormalizedCorebox {
     curios: rawFileSchema.parse(readDataJson("extract/corebox/raw/curio.json")),
     heroStats: rawFileSchema.parse(readDataJson(heroSourcePaths("core").stat)),
     roomTiles: rawFileSchema.parse(readDataJson("extract/corebox/raw/dungeon_tile.json")),
-    dictionary: iconDictionarySchema.parse(readDataJson("dictionary/icon-dictionary-v1.8.json")),
+    dictionary: loadIconDictionary(),
     heroSkills: heroSkillFileSchema.parse(readDataJson(heroSourcePaths("core").skillParsed)),
     heroSkillRaw: rawFileSchema.parse(readDataJson(heroSourcePaths("core").skillRaw)),
     monsterMedium: monsterMediumFileSchema.parse(

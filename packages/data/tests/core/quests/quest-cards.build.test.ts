@@ -33,7 +33,7 @@ it("十九张任务卡与出征定义核对后可再生，通用Boss任务没有
   });
   expect(readQuestCard(built, "quest:p001")?.specialRuleLines).toEqual([]);
   expect(readQuestCard(built, "quest:p004")?.specialRuleLines.join(" ")).toContain(
-    printLine("{print:occupancy_limit}"),
+    printLine("{print:occupancy_limit@91}"),
   );
   expect(readQuestCard(built, "quest:p999")).toBeUndefined();
   for (const c of built.cards)

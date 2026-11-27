@@ -77,9 +77,10 @@ def review(raw, print_root, output):
         for doc in docs.values():
             doc.close()
     nav = " · ".join(f"<a href='#{cat}'>{cat}</a>" for cat in raw)
-    dictionary = json.loads((ROOT / "packages/data/dictionary/icon-dictionary-v1.8.json")
-                            .read_text(encoding="utf-8"))
-    entries = {entry["iconId"]: entry for entry in dictionary["icons"]}
+    dictionary_dir = ROOT / "packages/data/dictionary"
+    dictionary = json.loads((dictionary_dir / "icon-dictionary-v1.8.json").read_text(encoding="utf-8"))
+    additions = json.loads((dictionary_dir / "print-icon-additions.json").read_text(encoding="utf-8"))
+    entries = {entry["iconId"]: entry for entry in dictionary["icons"] + additions}
     icon_sections = ["<h2 id='icons'>图标待核对</h2><p>仅显示非 decor 聚类。"
                      "同 ID 的词典条目也须对照图像核实，不自动批准；未列出的 decor 仍须逐卡检查。</p>"]
     for iid, (filename, card_id, face_name, page_no) in sorted(icons.items()):

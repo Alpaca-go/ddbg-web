@@ -4,10 +4,10 @@ import { ROOM_FRONT } from "./room";
 const approvedRoomLines = [
   printLine("{print:location@96} 12—Collector Room"),
   printLine("{print:occupancy_pips@79}"),
-  printLine("{print:occupancy_limit} 12"),
+  printLine("{print:occupancy_limit@91} 12"),
   printLine("{extract:corebox/raw/room.json:room:p012:front:6}"),
   printLine("{print:start_monster_support@364}"),
-  printLine("{print:start_hero_ranged@88} {print:start_any_defensive}"),
+  printLine("{print:start_hero_ranged@88} {print:start_any_defensive@132}"),
   printLine("{extract:corebox/raw/room.json:room:p012:front:6}"),
   printLine("{print:occupancy_pips@100}"),
   printLine("{print:start_monster_ranged@105}"),
@@ -39,7 +39,7 @@ const approvedTileLines = [
   printLine(
     "{extract:corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:5} {extract:corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:7} {extract:corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:5}",
   ),
-  printLine("{print:occupancy_limit} 12"),
+  printLine("{print:occupancy_limit@91} 12"),
   printLine("{extract:corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:5}"),
   printLine("{extract:corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:5}"),
   printLine("{print:stance_support_monster_slot@216}"),

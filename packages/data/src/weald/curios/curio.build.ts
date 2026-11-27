@@ -28,7 +28,11 @@ const disease: Row = [
   { type: "drawDisease", count: 1 },
 ];
 const trinket: Row = [printIcon("draw_trinket", 331), "", { type: "drawTrinket", count: 1 }];
-const provision: Row = [printIcon("roll_for_provisions"), "", { type: "rollProvision", count: 1 }];
+const provision: Row = [
+  printIcon("roll_for_provisions", 296),
+  "",
+  { type: "rollProvision", count: 1 },
+];
 const gold = (amount: 5 | 10, id: string): Row => [id, String(amount), { type: "gold", amount }];
 // R-233：仅批准当前版 p1–16 的逐卡四行，不扩大全局图标词典。
 const rows: readonly (readonly Row[])[] = [

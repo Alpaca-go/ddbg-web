@@ -1,7 +1,8 @@
-import { STATUS_KINDS } from "../../../../data/src/shared/status-kinds";
+import { STATUS_DEFINITIONS, STATUS_KINDS } from "../../../../data/src/shared/status-kinds";
+import type { StatusKind } from "../../../../data/src/shared/status-kinds";
 
 export { STATUS_KINDS };
-export type StatusKind = (typeof STATUS_KINDS)[number];
+export type { StatusKind };
 /** 官方 R20–21、R-018 / R-033：各次施加分别成堆，Nt 不得缺省。 */
 export type StatusStack = {
   readonly kind: StatusKind;
@@ -14,7 +15,7 @@ const nonnegative = (value: unknown): value is number =>
   Number.isSafeInteger(value) && (value as number) >= 0;
 export function statusStackProblem(stacks: readonly StatusStack[]): string | null {
   if (!Array.isArray(stacks)) return "状态堆必须是数组";
-  for (const stack of stacks) {
+  for (const stack of stacks as readonly StatusStack[]) {
     if (
       !stack ||
       !STATUS_KINDS.includes(stack.kind) ||
@@ -22,7 +23,7 @@ export function statusStackProblem(stacks: readonly StatusStack[]): string | nul
       stack.remaining === 0
     )
       return "状态种类 / 持续时间无效，不能补默认值（R-048）";
-    const damage = stack.kind === "bleed" || stack.kind === "blight";
+    const damage = STATUS_DEFINITIONS[stack.kind].turnStart === "wounds";
     if (damage ? !nonnegative(stack.amount) : stack.amount !== undefined)
       return "Bleed / Blight 必须有明确面值，其他状态不能携带伤口面值";
   }
@@ -109,7 +110,7 @@ export function tickStatusStacks(stacks: readonly StatusStack[]):
   const problem = statusStackProblem(stacks);
   if (problem) return { status: "refused", reason: problem };
   const woundAmounts = stacks.flatMap((stack) =>
-    stack.kind === "bleed" || stack.kind === "blight" ? [stack.amount!] : [],
+    STATUS_DEFINITIONS[stack.kind].turnStart === "wounds" ? [stack.amount!] : [],
   );
   if (!nonnegative(woundAmounts.reduce((sum, amount) => sum + amount, 0)))
     return { status: "refused", reason: "回合开始合计伤口超出安全整数范围" };
@@ -119,6 +120,6 @@ export function tickStatusStacks(stacks: readonly StatusStack[]):
       .filter((stack) => stack.remaining > 1)
       .map((stack) => ({ ...stack, remaining: stack.remaining - 1 })),
     woundAmounts,
-    stunned: stacks.some((stack) => stack.kind === "stun"),
+    stunned: stacks.some((stack) => STATUS_DEFINITIONS[stack.kind].turnStart === "stunned"),
   };
 }

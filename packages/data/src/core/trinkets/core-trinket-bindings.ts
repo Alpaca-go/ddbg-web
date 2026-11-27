@@ -180,7 +180,7 @@ export const CORE_TRINKET_BINDINGS = {
     name: "Camper’s Helmet",
     level: 2,
     faces: [
-      `[["When Camping, roll 2 ","@${printIcon("provisions")}:provisions"]]`,
+      `[["When Camping, roll 2 ","@${printIcon("provisions", 326)}:provisions"]]`,
       `[["@${printIcon("stress", 268)}:stress"," +1 when Scouting"]]`,
     ],
   },

@@ -389,7 +389,7 @@ describe("图标词典 v1.8", () => {
       source: "kyries_review_2026-10-26",
       previous_status: "needs_review",
     });
-    expect(byId.get(printIcon("quirk"))).toMatchObject({
+    expect(byId.get(printIcon("quirk", 478))).toMatchObject({
       key: "quirk",
       status: "confirmed",
       proposal: null,
@@ -417,7 +417,7 @@ describe("图标词典 v1.8", () => {
     const byId = new Map(dictionary.icons.map((icon) => [icon.iconId, icon]));
     const needs = dictionary.icons.filter((icon) => icon.status === "needs_review");
     expect(needs.map((icon) => icon.rank)).toEqual([335]);
-    expect(needs[0]?.iconId).toBe(printIcon("needs_review"));
+    expect(needs[0]?.iconId).toBe(printIcon("needs_review", 335));
     expect(needs[0]?.proposal?.key).toBe("area_d10_teleport");
     expect(byId.get(printIcon("compare_lte", 726))).toMatchObject({
       key: "compare_lte",

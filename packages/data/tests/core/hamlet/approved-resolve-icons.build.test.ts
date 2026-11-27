@@ -29,13 +29,13 @@ describe("R-056 卡面限定批准", () => {
     }
     expect(
       approvedResolveLookup("virtue_affliction:p010", base).resolve(
-        printIcon("d10_result_guide_arrow"),
+        printIcon("d10_result_guide_arrow", 687),
       ),
     ).toMatchObject({ key: "result_table_arrow", kind: "marker", approval: "R-056" });
     expect(
       approvedResolveLookup("virtue_affliction:p008", base).resolve(
-        printIcon("d10_result_guide_arrow"),
+        printIcon("d10_result_guide_arrow", 687),
       ),
-    ).toEqual(base.resolve(printIcon("d10_result_guide_arrow")));
+    ).toEqual(base.resolve(printIcon("d10_result_guide_arrow", 687)));
   });
 });

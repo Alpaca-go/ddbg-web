@@ -106,7 +106,7 @@ it("获批图标退回 decor / curio_picture / 未确认或词典丢失时保留
       [
         printIcon("draw_negative_quirk", 180),
         printIcon("draw_trinket", 331),
-        printIcon("roll_for_provisions"),
+        printIcon("roll_for_provisions", 296),
         printIcon("debuff", 674),
         printIcon("draw_negative_quirk", 978),
       ].includes(i.iconId)
@@ -118,7 +118,7 @@ it("获批图标退回 decor / curio_picture / 未确认或词典丢失时保留
   for (const id of [
     printIcon("draw_negative_quirk", 180),
     printIcon("draw_trinket", 331),
-    printIcon("roll_for_provisions"),
+    printIcon("roll_for_provisions", 296),
     printIcon("debuff", 674),
     printIcon("draw_negative_quirk", 978),
   ])

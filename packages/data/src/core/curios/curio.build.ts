@@ -53,7 +53,7 @@ const approvedEffects: Record<string, CurioEffect> = {
     [printIcon("bleed", 711), printIcon("bleed", 977)].map((id) => [id, bleed[2]!]),
   ),
   [printIcon("disease", 742)]: disease[2]!,
-  [printIcon("roll_for_provisions")]: { type: "rollProvision", count: 1 },
+  [printIcon("roll_for_provisions", 296)]: { type: "rollProvision", count: 1 },
   [printIcon("debuff", 674)]: { type: "status", kind: "debuff", duration: 2 },
   [printIcon("buff", 982)]: { type: "status", kind: "buff", duration: 2 },
   [printIcon("buff", 983)]: { type: "status", kind: "buff", duration: 2 },
@@ -66,7 +66,7 @@ const approved = (iconId: string, printed = ""): Row => {
 const red = approved(printIcon("draw_negative_quirk", 180));
 const redVariant = approved(printIcon("draw_negative_quirk", 476));
 const picture = approved(printIcon("draw_trinket", 331));
-const provisions = approved(printIcon("roll_for_provisions"));
+const provisions = approved(printIcon("roll_for_provisions", 296));
 const rows: readonly (readonly Row[])[] = [
   [
     stress,

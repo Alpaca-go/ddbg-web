@@ -10,7 +10,7 @@ export function approvedResolveLookup(cardId: string, base: IconLookup): IconLoo
         cardId === "virtue_affliction:p008" &&
         [printIcon("wound", 668), printIcon("wound", 731)].includes(iconId);
       const arrow =
-        cardId === "virtue_affliction:p010" && iconId === printIcon("d10_result_guide_arrow");
+        cardId === "virtue_affliction:p010" && iconId === printIcon("d10_result_guide_arrow", 687);
       if (!wound && !arrow) return icon;
       if (!icon.in_dictionary) throw new Error(`R-056 图标在基础词典缺失：${iconId}`);
       return {

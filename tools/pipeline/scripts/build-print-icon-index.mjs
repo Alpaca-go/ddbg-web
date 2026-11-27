@@ -6,11 +6,20 @@ import prettier from "prettier";
 const root = fileURLToPath(new URL("../../../", import.meta.url));
 const data = resolve(root, "packages/data");
 const dictionaryFile = "dictionary/icon-dictionary-v1.8.json";
+const additionsFile = "dictionary/print-icon-additions.json";
 const output = resolve(data, "dictionary/print-icon-index.json");
 const readJson = (file) => JSON.parse(readFileSync(file, "utf8"));
 
 const labels = new Map();
-for (const entry of readJson(resolve(data, dictionaryFile)).icons) {
+const baseline = readJson(resolve(data, dictionaryFile)).icons;
+const additions = readJson(resolve(data, additionsFile));
+const ids = new Set(baseline.map(({ iconId }) => iconId));
+for (const [index, { iconId, rank }] of additions.entries()) {
+  if (ids.has(iconId) || rank !== baseline.length + index + 1)
+    throw new Error("补充图标指纹重复或未依次登记：" + rank);
+  ids.add(iconId);
+}
+for (const entry of [...baseline, ...additions]) {
   const label = /^(?:unknown|pending)_/.test(entry.key) ? entry.status : entry.key;
   const variants = labels.get(label) ?? [];
   variants.push([entry.rank, entry.iconId]);

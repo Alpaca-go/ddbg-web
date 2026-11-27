@@ -37,7 +37,7 @@ const rowsByPage: readonly (readonly Row[])[] = [
       pending,
     ],
     [printSourceIcon("extension/cove/raw/curio.json:curio:cove:p002:front:5"), "5", null, pending],
-    [printIcon("roll_for_provisions"), "", provision, null],
+    [printIcon("roll_for_provisions", 296), "", provision, null],
   ],
   [
     [printIcon("stress", 129), "+1", stress, null],
@@ -121,7 +121,7 @@ const rowsByPage: readonly (readonly Row[])[] = [
       pending,
     ],
     [printSourceIcon("extension/cove/raw/curio.json:curio:cove:p002:front:3"), "", null, pending],
-    [printIcon("roll_for_provisions"), "", provision, null],
+    [printIcon("roll_for_provisions", 296), "", provision, null],
   ],
   [
     [printSourceIcon("extension/cove/raw/curio.json:curio:cove:p004:front:3"), "", null, pending],
@@ -132,7 +132,7 @@ const rowsByPage: readonly (readonly Row[])[] = [
       pending,
     ],
     [printSourceIcon("extension/cove/raw/curio.json:curio:cove:p004:front:4"), "", null, pending],
-    [printIcon("roll_for_provisions"), "", provision, null],
+    [printIcon("roll_for_provisions", 296), "", provision, null],
   ],
   [
     [
@@ -160,7 +160,7 @@ const rowsByPage: readonly (readonly Row[])[] = [
     [printIcon("stress", 129), "+1", stress, null],
     [printSourceIcon("extension/cove/raw/curio.json:curio:cove:p003:front:3"), "", null, pending],
     [printSourceIcon("extension/cove/raw/curio.json:curio:cove:p001:front:4"), "2t", null, pending],
-    [printIcon("roll_for_provisions"), "", provision, null],
+    [printIcon("roll_for_provisions", 296), "", provision, null],
   ],
   [
     [printSourceIcon("extension/cove/raw/curio.json:curio:cove:p004:front:3"), "", null, pending],

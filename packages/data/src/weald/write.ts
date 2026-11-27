@@ -1,6 +1,6 @@
 import path from "node:path";
 import { DATA_ROOT, readDataJson, writeDataFiles } from "../shared/write-files";
-import { iconDictionarySchema } from "../shared/dictionary/schema";
+import { loadIconDictionary } from "../shared/dictionary/load";
 import { rawFileSchema } from "../shared/extract/raw";
 import { buildWealdLevelOneMonsters } from "./monsters/monsters.build";
 import { buildWealdCurios } from "./curios/curio.build";
@@ -45,7 +45,7 @@ export function loadNormalizedWealdLevelOneMonsters() {
     largeRaw: rawFileSchema.parse(readDataJson(`${source}/raw/monster_large.json`)),
     mediumParsed: readDataJson(`${source}/parsed/monster_medium.json`),
     largeParsed: readDataJson(`${source}/parsed/monster_large.json`),
-    dictionary: iconDictionarySchema.parse(readDataJson("dictionary/icon-dictionary-v1.8.json")),
+    dictionary: loadIconDictionary(),
   });
 }
 

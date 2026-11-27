@@ -28,6 +28,7 @@ export const HERO_PRINT_SOURCES = {
     sourceCardId: "hero_skill:core:h01:p013",
     line: "stats",
     segment: 4,
+    variantRank: 42,
   },
   debuff: {
     sourceCardId: "hero_skill:core:h03:p047",
@@ -57,6 +58,7 @@ export const HERO_PRINT_SOURCES = {
     sourceCardId: "hero_skill:core:h01:p001",
     line: "stats",
     segment: 0,
+    variantRank: 2,
   },
   shuffle: {
     sourceCardId: "hero_skill:core:h01:p016",
