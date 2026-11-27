@@ -370,24 +370,24 @@ const sameAreaMelee: DirectAttackFace = {
 const directAttackEntries: readonly DirectAttackEntry[] = [
   {
     id: "hero_skill:core:h04:p082",
+    name: "Open Vein",
     ...sameAreaMelee,
     hit: { threshold: 10, damage: 5 },
     critical: { threshold: 0, damage: 9 },
-    onHit: [{ kind: "bleed", duration: 2, amount: 2 }],
   },
   {
     id: "hero_skill:core:h04:p083",
+    name: "Open Vein",
     ...sameAreaMelee,
     hit: { threshold: 11, damage: 7 },
     critical: { threshold: 0, damage: 12 },
-    onHit: [{ kind: "bleed", duration: 3, amount: 2 }],
   },
   {
     id: "hero_skill:core:h04:p084",
+    name: "Open Vein",
     ...sameAreaMelee,
     hit: { threshold: 12, damage: 9 },
     critical: { threshold: 0, damage: 15 },
-    onHit: [{ kind: "bleed", duration: 3, amount: 3 }],
   },
 ];
 
@@ -416,9 +416,6 @@ const entries: HeroAnnotationEntries = {
     { id: "hero_skill:core:h04:p079", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:core:h04:p080", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:core:h04:p081", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:core:h04:p082", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:core:h04:p083", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:core:h04:p084", hero: 0, monster: 1, heroOrMonster: 0 },
   ],
   effectKind: [
     { id: "hero_skill:core:h04:p064", effect: "damage" },
@@ -439,9 +436,6 @@ const entries: HeroAnnotationEntries = {
     { id: "hero_skill:core:h04:p079", effect: "damage" },
     { id: "hero_skill:core:h04:p080", effect: "damage" },
     { id: "hero_skill:core:h04:p081", effect: "damage" },
-    { id: "hero_skill:core:h04:p082", effect: "damage" },
-    { id: "hero_skill:core:h04:p083", effect: "damage" },
-    { id: "hero_skill:core:h04:p084", effect: "damage" },
   ],
 };
 

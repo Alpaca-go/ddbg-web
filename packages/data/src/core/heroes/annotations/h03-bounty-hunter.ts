@@ -489,33 +489,24 @@ const caltrops: DirectAttackFace = {
 const directAttackEntries: readonly DirectAttackEntry[] = [
   {
     id: "hero_skill:core:h03:p061",
+    name: "Caltrops",
     ...caltrops,
     hit: { threshold: 9, damage: 1 },
     critical: { threshold: 1, damage: 2 },
-    onHit: [
-      { kind: "bleed", duration: 3, amount: 2 },
-      { kind: "debuff", duration: 1 },
-    ],
   },
   {
     id: "hero_skill:core:h03:p062",
+    name: "Caltrops",
     ...caltrops,
     hit: { threshold: 10, damage: 2 },
     critical: { threshold: 1, damage: 3 },
-    onHit: [
-      { kind: "bleed", duration: 2, amount: 3 },
-      { kind: "debuff", duration: 2 },
-    ],
   },
   {
     id: "hero_skill:core:h03:p063",
+    name: "Caltrops",
     ...caltrops,
     hit: { threshold: 11, damage: 2 },
     critical: { threshold: 1, damage: 3 },
-    onHit: [
-      { kind: "bleed", duration: 3, amount: 3 },
-      { kind: "debuff", duration: 3 },
-    ],
   },
 ];
 
@@ -547,9 +538,6 @@ const entries: HeroAnnotationEntries = {
     { id: "hero_skill:core:h03:p058", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:core:h03:p059", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:core:h03:p060", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:core:h03:p061", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:core:h03:p062", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:core:h03:p063", hero: 0, monster: 1, heroOrMonster: 0 },
   ],
   effectKind: [
     { id: "hero_skill:core:h03:p043", effect: "damage" },
@@ -564,9 +552,6 @@ const entries: HeroAnnotationEntries = {
     { id: "hero_skill:core:h03:p058", effect: "damage" },
     { id: "hero_skill:core:h03:p059", effect: "damage" },
     { id: "hero_skill:core:h03:p060", effect: "damage" },
-    { id: "hero_skill:core:h03:p061", effect: "damage" },
-    { id: "hero_skill:core:h03:p062", effect: "damage" },
-    { id: "hero_skill:core:h03:p063", effect: "damage" },
   ],
 };
 

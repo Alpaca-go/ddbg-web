@@ -43,7 +43,7 @@ export const hNN = defineHeroModule({ id: "hNN", hero: "...", entries, fixes });
 - 所有模块都声明 `id / hero / entries / fixes`。纯数据模块写 `fixes: null`，由构造器提供 no-op `apply`；
   有修正的模块用同名 `fixes` 函数返回以 canonical ID 为键的表。
 - `TARGET_COUNTS` / `EFFECT_KINDS` 已拆进各英雄的 `entries.targetCount` / `entries.effectKind`。
-- 逐卡手工规则集中在所属英雄模块。迁移到效果词典的直攻写在 `entries.directAttack`，由共享构建器核对卡面与注解后发布。后续新迁移直接按此结构录入。
+- 逐卡手工规则集中在所属英雄模块。已迁移直攻在 `entries.directAttack` 按 canonical ID 和技能名逐卡登记，优先在条目内写清姿态、射程和数值。构建阶段由直攻条目生成旧目录的 `targetCount` 和 `effectKind` 输入，并从已核准效果注解生成命中状态、条件伤害和自身位移。
 
 ## 数据表与 applier 的对应
 

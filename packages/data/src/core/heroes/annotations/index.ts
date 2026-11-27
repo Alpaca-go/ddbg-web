@@ -104,11 +104,30 @@ export const TARGET_STRESS = entriesOf("targetStress");
 /** 条件移除行（Battlefield Medicine、Toxin Trickery）。 */
 export const REMOVAL_ENTRIES = entriesOf("removal");
 
-/** 18 名英雄的区域目标数（A2 单元 3）。 */
-export const TARGET_COUNT_ENTRIES = entriesOf("targetCount");
+const directAttacks = entriesOf("directAttack");
+const directAttackIds = new Set(directAttacks.map(({ id }) => id));
+const reviewedTargets = entriesOf("targetCount");
+const reviewedEffects = entriesOf("effectKind");
+for (const { id } of [...reviewedTargets, ...reviewedEffects]) {
+  if (directAttackIds.has(id))
+    throw new Error(`${id} 直攻的目标数与主效果从 directAttack 生成（R-048）`);
+}
 
-/** 18 名英雄 stats 行的主效果（A2 单元 4a）。 */
-export const EFFECT_KIND_ENTRIES = entriesOf("effectKind");
+/** 已迁移直攻的旧规则字段由核准条目生成，继续走原印刷校验。 */
+export const TARGET_COUNT_ENTRIES = [
+  ...reviewedTargets,
+  ...directAttacks.map(({ id, monsterTargets }) => ({
+    id,
+    hero: 0,
+    monster: monsterTargets,
+    heroOrMonster: 0,
+  })),
+];
+
+export const EFFECT_KIND_ENTRIES = [
+  ...reviewedEffects,
+  ...directAttacks.map(({ id }) => ({ id, effect: "damage" as const })),
+];
 
 /** 已复核支援效果行（当前只有 Crusader 的 Inspiring Cry I–III）。 */
 export const SUPPORT_EFFECTS = entriesOf("support");

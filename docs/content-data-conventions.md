@@ -55,7 +55,7 @@
 
 - **文件**按提取来源将属性构建器放在 `<pack>/heroes/hero-stat.build.ts`。技能归一和注解放在 `core/heroes/`。逐英雄文件固定为 `annotations/hNN-<hero>.ts`，只导出一个 `hNN` 模块。
 - **模块**声明 `id`、`hero`、`entries`、`fixes`。普通注解放 `entries`，逐卡修正数据放 `fixes`，无修正时为 `null`。共享处理器负责签名校验、图标处理和效果行重建。
-- **技能规则按英雄维护。** 逐卡核准参数集中在所属的 `hNN-<hero>.ts`。已迁移直攻写入 `entries.directAttack`，同卡的条件伤害、自身位移等沿用该英雄模块中的核准注解。共享构建器按 canonical ID 汇总并校验卡面，生成 `rules.directAttack`。构建器内不另设跨英雄逐卡规则表。纯结构归并须以发布目录逐字节一致验收。
+- **技能规则按英雄维护。** 逐卡核准参数集中在所属的 `hNN-<hero>.ts`。已迁移直攻在 `entries.directAttack` 按 canonical ID 和技能名逐卡登记。目标数和伤害类型由直攻条目生成，命中状态、条件伤害和自身位移由同一模块的核准效果注解生成。共享构建器按 canonical ID 汇总并校验卡面，生成 `rules.directAttack`。构建器内不另设跨英雄逐卡规则表。纯结构归并须以发布目录逐字节一致验收。
 - **身份**使用 `hero_stat:<pack>:hNN:pNNN:<face>` 和 `hero_skill:<pack>:hNN:pNNN`。编号和目录页按 ID 规范固定。单卡 `source: { file, page }` 记录物理印刷来源，聚合文件 `sources` 列出对应提取输入。
 - **发布**统一写入 `normalized/corebox/hero_stat.json` 和 `hero_skill.json`。属性卡保留面、等级、生命、闪避、速度和审核信息。技能卡保留正反面、印刷栏、效果行、图标和核准 `rules`。Cove 的 h12–h13、Warrens 的 h14–h15 均在 18 名常驻选池内，英雄包段只用于归类。
 

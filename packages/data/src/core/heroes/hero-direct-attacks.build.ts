@@ -3,7 +3,7 @@ import type { NormalizedHeroSkillCard } from "../../shared/schema";
 import { HERO_ANNOTATIONS } from "./annotations";
 import type { DirectAttackEntry } from "./annotations/types";
 
-type ReviewedAttack = Omit<DirectAttackEntry, "id">;
+type ReviewedAttack = Omit<DirectAttackEntry, "id" | "name">;
 
 function attachDirectHeroAttack(
   card: NormalizedHeroSkillCard,
@@ -24,7 +24,12 @@ function attachDirectHeroAttack(
   const printedStances = (["support", "ranged", "defensive", "aggressive"] as const).map(
     (stance) => "stance_" + stance + (review.stances.includes(stance) ? "_lit" : "_unlit"),
   );
-  const statuses = review.onHit
+  const onHit = effects.map(({ kind, amount, duration }) => ({
+    kind,
+    duration,
+    ...(amount === undefined ? {} : { amount }),
+  }));
+  const statuses = onHit
     .map(({ kind, amount, duration }) => `${amount ?? ""}{${kind}}${duration}t`)
     .join("");
   const bonus = card.rules?.damage;
@@ -67,21 +72,13 @@ function attachDirectHeroAttack(
       (bonus.condition !== "unholy" ||
         bonus.lineIndex !== selfEffects.length ||
         statuses !== "")) ||
-    effects.length !== review.onHit.length ||
-    review.onHit.some(({ kind, amount, duration }, index) => {
-      const effect = effects[index];
-      return (
-        effect?.scope !== "target" ||
-        effect.kind !== kind ||
-        effect.amount !== amount ||
-        effect.duration !== duration
-      );
-    })
+    effects.some(({ scope }) => scope !== "target")
   ) {
     throw new Error(card.id + " 效果词条与已核卡面不符（R-048）");
   }
   const directAttack = directAttackSchema.parse({
     ...review,
+    onHit,
     ...(bonus ? { damageBonus: { amount: bonus.amount, condition: bonus.condition } } : {}),
     ...(selfShuffle ? { selfShuffle } : {}),
   });
@@ -92,12 +89,13 @@ function attachDirectHeroAttack(
 export function applyDirectHeroAttacks(
   cards: readonly NormalizedHeroSkillCard[],
 ): NormalizedHeroSkillCard[] {
-  const heroesByCard = new Map(cards.map((card) => [card.id, card.hero]));
-  if (heroesByCard.size !== cards.length) throw new Error("技能目录存在重复 ID（R-048）");
+  const cardsById = new Map(cards.map((card) => [card.id, card]));
+  if (cardsById.size !== cards.length) throw new Error("技能目录存在重复 ID（R-048）");
   const reviewedById = new Map<string, ReviewedAttack>();
   for (const { hero, entries } of HERO_ANNOTATIONS) {
-    for (const { id, ...review } of entries.directAttack ?? []) {
-      if (heroesByCard.get(id) !== hero || reviewedById.has(id))
+    for (const { id, name, ...review } of entries.directAttack ?? []) {
+      const card = cardsById.get(id);
+      if (card?.hero !== hero || card.name !== name || reviewedById.has(id))
         throw new Error(`${id} 直攻注解归属不符、缺卡或重复（R-048）`);
       reviewedById.set(id, review);
     }

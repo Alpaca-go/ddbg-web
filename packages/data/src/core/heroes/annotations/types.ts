@@ -11,8 +11,9 @@ export type HeroAnnotationApplier = (
   cards: readonly NormalizedHeroSkillCard[],
 ) => NormalizedHeroSkillCard[];
 
-export type DirectAttackEntry = Omit<DirectAttack, "damageBonus" | "selfShuffle"> & {
+export type DirectAttackEntry = Omit<DirectAttack, "damageBonus" | "selfShuffle" | "onHit"> & {
   readonly id: string;
+  readonly name: string;
 };
 export type DirectAttackFace = Pick<DirectAttackEntry, "stances" | "range" | "monsterTargets">;
 
