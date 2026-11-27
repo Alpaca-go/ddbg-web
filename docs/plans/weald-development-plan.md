@@ -6,6 +6,9 @@ Kyries 于 2026-11-11 确认此顺序，后续 session 以本文件作为 Weald 
 
 ## 当前进度与下一步
 
+- **2026-11-27 英雄逐卡直攻规则按英雄归并。** 将已迁移的 39 张直攻卡归入所属的六个 `hNN` 模块，在 `entries.directAttack` 维护逐卡参数。共享构建器按 canonical ID 汇总，检查卡牌归属、重复和原有印刷规则，再发布 `rules.directAttack`。写入内容数据规范及英雄注解维护说明。
+  核心盒重建 9 项通过，重建后 43 个跟踪的核心发布文件与基线逐字节一致，`extract` 和 `normalized` 零 diff。数据包、直攻、目标、空区与存档回归 109 文件、510 项通过，typecheck、lint、build 通过。无新增待裁定项，下一批按新结构接续 Finale。
+
 - **2026-11-27 Breakthrough 多目标直攻迁移。** Holy Lance 批次已快进合入本地 `main`（`e2d79c95`）。Breakthrough I–III 的攻击数值、最多三个怪物目标和自身 Pull 1 改由 `rules.directAttack` 提供。继续沿用原位移与行动结算（核心规则书 R19–22、R-020、R-025）。英雄直攻累计 39 张，归一化目录仅更新这三张卡。
   逐级对照旧规则的十种骰面、射程和目标限制。清空印刷字段后，三目标与空区域命令的位移续接、状态、事件、待选和 RNG 一致。含实际 Breakthrough 命令的旧规则存档在 Pull 待续接处严格回放，沿用原骰。
   扩展回归 153 个文件、1,120 项通过。typecheck、lint、build 和两条 Playwright 冒烟通过，本批未重跑全量 Vitest。无新增待裁定项。下一批优先核对 Finale 的自身 Push 3，双向位移与额外状态效果另批处理。其他卡面依赖见下方。

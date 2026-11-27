@@ -1,4 +1,11 @@
-import type { StatusEffectEntry, RangeEntry, DamageEntry, ShuffleEntry } from "./types";
+import type {
+  DirectAttackEntry,
+  DirectAttackFace,
+  StatusEffectEntry,
+  RangeEntry,
+  DamageEntry,
+  ShuffleEntry,
+} from "./types";
 import type { HeroAnnotationEntries } from "./types";
 import { defineHeroModule } from "./patch-helpers";
 
@@ -354,7 +361,38 @@ const shuffleEntries: readonly ShuffleEntry[] = [
   },
 ];
 
+const sameAreaMelee: DirectAttackFace = {
+  stances: ["ranged", "defensive", "aggressive"],
+  range: 0,
+  monsterTargets: 1,
+};
+
+const directAttackEntries: readonly DirectAttackEntry[] = [
+  {
+    id: "hero_skill:core:h04:p082",
+    ...sameAreaMelee,
+    hit: { threshold: 10, damage: 5 },
+    critical: { threshold: 0, damage: 9 },
+    onHit: [{ kind: "bleed", duration: 2, amount: 2 }],
+  },
+  {
+    id: "hero_skill:core:h04:p083",
+    ...sameAreaMelee,
+    hit: { threshold: 11, damage: 7 },
+    critical: { threshold: 0, damage: 12 },
+    onHit: [{ kind: "bleed", duration: 3, amount: 2 }],
+  },
+  {
+    id: "hero_skill:core:h04:p084",
+    ...sameAreaMelee,
+    hit: { threshold: 12, damage: 9 },
+    critical: { threshold: 0, damage: 15 },
+    onHit: [{ kind: "bleed", duration: 3, amount: 3 }],
+  },
+];
+
 const entries: HeroAnnotationEntries = {
+  directAttack: directAttackEntries,
   status: statusEntries,
   range: rangeEntries,
   damage: damageEntries,

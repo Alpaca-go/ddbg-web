@@ -1,4 +1,11 @@
-import type { StatusEffectEntry, RangeEntry, LayoutEntry, ShuffleEntry } from "./types";
+import type {
+  DirectAttackEntry,
+  DirectAttackFace,
+  StatusEffectEntry,
+  RangeEntry,
+  LayoutEntry,
+  ShuffleEntry,
+} from "./types";
 import type { HeroAnnotationEntries } from "./types";
 import { defineHeroModule } from "./patch-helpers";
 
@@ -291,7 +298,64 @@ const shuffleEntries: readonly ShuffleEntry[] = [
   },
 ];
 
+const adjacentMelee: DirectAttackFace = {
+  stances: ["ranged", "defensive", "aggressive"],
+  range: 1,
+  monsterTargets: 1,
+};
+const breakthrough: DirectAttackFace = {
+  stances: ["support", "ranged", "defensive"],
+  range: 1,
+  monsterTargets: 3,
+};
+
+const directAttackEntries: readonly DirectAttackEntry[] = [
+  {
+    id: "hero_skill:core:h02:p031",
+    ...adjacentMelee,
+    hit: { threshold: 9, damage: 5 },
+    critical: { threshold: 0, damage: 8 },
+    onHit: [{ kind: "bleed", duration: 2, amount: 2 }],
+  },
+  {
+    id: "hero_skill:core:h02:p032",
+    ...adjacentMelee,
+    hit: { threshold: 10, damage: 6 },
+    critical: { threshold: 0, damage: 11 },
+    onHit: [{ kind: "bleed", duration: 3, amount: 3 }],
+  },
+  {
+    id: "hero_skill:core:h02:p033",
+    ...adjacentMelee,
+    hit: { threshold: 10, damage: 8 },
+    critical: { threshold: 0, damage: 15 },
+    onHit: [{ kind: "bleed", duration: 3, amount: 4 }],
+  },
+  {
+    id: "hero_skill:core:h02:p034",
+    ...breakthrough,
+    hit: { threshold: 8, damage: 4 },
+    critical: { threshold: 0, damage: 6 },
+    onHit: [],
+  },
+  {
+    id: "hero_skill:core:h02:p035",
+    ...breakthrough,
+    hit: { threshold: 9, damage: 5 },
+    critical: { threshold: 0, damage: 8 },
+    onHit: [],
+  },
+  {
+    id: "hero_skill:core:h02:p036",
+    ...breakthrough,
+    hit: { threshold: 11, damage: 6 },
+    critical: { threshold: 0, damage: 10 },
+    onHit: [],
+  },
+];
+
 const entries: HeroAnnotationEntries = {
+  directAttack: directAttackEntries,
   status: statusEntries,
   range: rangeEntries,
   layout: layoutEntries,

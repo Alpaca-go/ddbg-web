@@ -1,4 +1,6 @@
 import type {
+  DirectAttackEntry,
+  DirectAttackFace,
   HeroAnnotationEntries,
   StatusEffectEntry,
   RangeEntry,
@@ -297,7 +299,107 @@ const shuffleEntries: readonly ShuffleEntry[] = [
   },
 ];
 
+const sameAreaMelee: DirectAttackFace = {
+  stances: ["defensive", "aggressive"],
+  range: 0,
+  monsterTargets: 1,
+};
+const zealousAccusation: DirectAttackFace = {
+  stances: ["defensive", "aggressive"],
+  range: 1,
+  monsterTargets: 2,
+};
+const holyLance: DirectAttackFace = { stances: ["support", "ranged"], range: 1, monsterTargets: 1 };
+
+const directAttackEntries: readonly DirectAttackEntry[] = [
+  {
+    id: "hero_skill:core:h01:p001",
+    ...sameAreaMelee,
+    hit: { threshold: 9, damage: 7 },
+    critical: { threshold: 0, damage: 13 },
+    onHit: [],
+  },
+  {
+    id: "hero_skill:core:h01:p002",
+    ...sameAreaMelee,
+    hit: { threshold: 10, damage: 9 },
+    critical: { threshold: 0, damage: 16 },
+    onHit: [],
+  },
+  {
+    id: "hero_skill:core:h01:p003",
+    ...sameAreaMelee,
+    hit: { threshold: 11, damage: 11 },
+    critical: { threshold: 1, damage: 19 },
+    onHit: [],
+  },
+  {
+    id: "hero_skill:core:h01:p004",
+    ...zealousAccusation,
+    hit: { threshold: 9, damage: 5 },
+    critical: { threshold: 0, damage: 9 },
+    onHit: [],
+  },
+  {
+    id: "hero_skill:core:h01:p005",
+    ...zealousAccusation,
+    hit: { threshold: 10, damage: 6 },
+    critical: { threshold: 0, damage: 11 },
+    onHit: [],
+  },
+  {
+    id: "hero_skill:core:h01:p006",
+    ...zealousAccusation,
+    hit: { threshold: 11, damage: 7 },
+    critical: { threshold: 1, damage: 12 },
+    onHit: [],
+  },
+  {
+    id: "hero_skill:core:h01:p007",
+    ...sameAreaMelee,
+    hit: { threshold: 9, damage: 4 },
+    critical: { threshold: 0, damage: 8 },
+    onHit: [{ kind: "stun", duration: 1 }],
+  },
+  {
+    id: "hero_skill:core:h01:p008",
+    ...sameAreaMelee,
+    hit: { threshold: 10, damage: 5 },
+    critical: { threshold: 0, damage: 9 },
+    onHit: [{ kind: "stun", duration: 1 }],
+  },
+  {
+    id: "hero_skill:core:h01:p009",
+    ...sameAreaMelee,
+    hit: { threshold: 11, damage: 6 },
+    critical: { threshold: 1, damage: 10 },
+    onHit: [{ kind: "stun", duration: 1 }],
+  },
+  {
+    id: "hero_skill:core:h01:p016",
+    ...holyLance,
+    hit: { threshold: 9, damage: 7 },
+    critical: { threshold: 1, damage: 13 },
+    onHit: [],
+  },
+  {
+    id: "hero_skill:core:h01:p017",
+    ...holyLance,
+    hit: { threshold: 10, damage: 9 },
+    critical: { threshold: 1, damage: 16 },
+    onHit: [],
+  },
+  {
+    id: "hero_skill:core:h01:p018",
+    ...holyLance,
+    hit: { threshold: 11, damage: 11 },
+    critical: { threshold: 2, damage: 19 },
+    onHit: [],
+  },
+];
+
 const entries: HeroAnnotationEntries = {
+  directAttack: directAttackEntries,
   status: statusEntries,
   range: rangeEntries,
   support: supportEntries,

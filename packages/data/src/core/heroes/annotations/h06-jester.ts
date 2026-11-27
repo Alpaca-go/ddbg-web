@@ -1,4 +1,6 @@
 import type {
+  DirectAttackEntry,
+  DirectAttackFace,
   CoreHigherSkillRow,
   StatusEffectEntry,
   LayoutEntry,
@@ -437,7 +439,60 @@ const ignoresEntries: readonly IgnoresEntry[] = [
   { id: "hero_skill:core:h06:p108", name: "Dirk Stab", level: 3, lineIndex: 1, kind: "guard" },
 ];
 
+const harvest: DirectAttackFace = { stances: ["ranged", "defensive"], range: 1, monsterTargets: 2 };
+const adjacentRanged: DirectAttackFace = {
+  stances: ["ranged", "defensive"],
+  range: 1,
+  monsterTargets: 1,
+};
+
+const directAttackEntries: readonly DirectAttackEntry[] = [
+  {
+    id: "hero_skill:core:h06:p109",
+    ...harvest,
+    hit: { threshold: 9, damage: 3 },
+    critical: { threshold: 0, damage: 4 },
+    onHit: [{ kind: "bleed", duration: 2, amount: 2 }],
+  },
+  {
+    id: "hero_skill:core:h06:p110",
+    ...harvest,
+    hit: { threshold: 10, damage: 4 },
+    critical: { threshold: 0, damage: 6 },
+    onHit: [{ kind: "bleed", duration: 3, amount: 2 }],
+  },
+  {
+    id: "hero_skill:core:h06:p111",
+    ...harvest,
+    hit: { threshold: 11, damage: 5 },
+    critical: { threshold: 1, damage: 8 },
+    onHit: [{ kind: "bleed", duration: 3, amount: 3 }],
+  },
+  {
+    id: "hero_skill:core:h06:p124",
+    ...adjacentRanged,
+    hit: { threshold: 10, damage: 4 },
+    critical: { threshold: 1, damage: 6 },
+    onHit: [{ kind: "bleed", duration: 1, amount: 3 }],
+  },
+  {
+    id: "hero_skill:core:h06:p125",
+    ...adjacentRanged,
+    hit: { threshold: 11, damage: 5 },
+    critical: { threshold: 1, damage: 8 },
+    onHit: [{ kind: "bleed", duration: 2, amount: 3 }],
+  },
+  {
+    id: "hero_skill:core:h06:p126",
+    ...adjacentRanged,
+    hit: { threshold: 12, damage: 6 },
+    critical: { threshold: 2, damage: 10 },
+    onHit: [{ kind: "bleed", duration: 3, amount: 3 }],
+  },
+];
+
 const entries: HeroAnnotationEntries = {
+  directAttack: directAttackEntries,
   higher: coreHigherRows,
   status: statusEntries,
   layout: layoutEntries,

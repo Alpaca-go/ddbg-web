@@ -1,4 +1,6 @@
 import type {
+  DirectAttackEntry,
+  DirectAttackFace,
   CoreHigherSkillRow,
   StatusEffectEntry,
   RangeEntry,
@@ -478,7 +480,47 @@ const shuffleEntries: readonly ShuffleEntry[] = [
   },
 ];
 
+const caltrops: DirectAttackFace = {
+  stances: ["support", "ranged", "defensive"],
+  range: 2,
+  monsterTargets: 1,
+};
+
+const directAttackEntries: readonly DirectAttackEntry[] = [
+  {
+    id: "hero_skill:core:h03:p061",
+    ...caltrops,
+    hit: { threshold: 9, damage: 1 },
+    critical: { threshold: 1, damage: 2 },
+    onHit: [
+      { kind: "bleed", duration: 3, amount: 2 },
+      { kind: "debuff", duration: 1 },
+    ],
+  },
+  {
+    id: "hero_skill:core:h03:p062",
+    ...caltrops,
+    hit: { threshold: 10, damage: 2 },
+    critical: { threshold: 1, damage: 3 },
+    onHit: [
+      { kind: "bleed", duration: 2, amount: 3 },
+      { kind: "debuff", duration: 2 },
+    ],
+  },
+  {
+    id: "hero_skill:core:h03:p063",
+    ...caltrops,
+    hit: { threshold: 11, damage: 2 },
+    critical: { threshold: 1, damage: 3 },
+    onHit: [
+      { kind: "bleed", duration: 3, amount: 3 },
+      { kind: "debuff", duration: 3 },
+    ],
+  },
+];
+
 const entries: HeroAnnotationEntries = {
+  directAttack: directAttackEntries,
   higher: coreHigherRows,
   status: statusEntries,
   range: rangeEntries,

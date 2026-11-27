@@ -1,4 +1,6 @@
 import type {
+  DirectAttackEntry,
+  DirectAttackFace,
   CoreHigherSkillRow,
   StatusEffectEntry,
   RangeEntry,
@@ -486,7 +488,99 @@ const removalEntries: readonly RemovalEntry[] = [
   },
 ];
 
+const noxiousBlast: DirectAttackFace = {
+  stances: ["support", "ranged", "defensive"],
+  range: 1,
+  monsterTargets: 1,
+};
+const plagueGrenade: DirectAttackFace = {
+  stances: ["support", "ranged"],
+  range: 2,
+  monsterTargets: 2,
+};
+const sameAreaMelee: DirectAttackFace = {
+  stances: ["ranged", "defensive", "aggressive"],
+  range: 0,
+  monsterTargets: 1,
+};
+
+const directAttackEntries: readonly DirectAttackEntry[] = [
+  {
+    id: "hero_skill:core:h07:p127",
+    ...noxiousBlast,
+    hit: { threshold: 9, damage: 2 },
+    critical: { threshold: 1, damage: 4 },
+    onHit: [
+      { kind: "blight", duration: 2, amount: 4 },
+      { kind: "debuff", duration: 1 },
+    ],
+  },
+  {
+    id: "hero_skill:core:h07:p128",
+    ...noxiousBlast,
+    hit: { threshold: 10, damage: 3 },
+    critical: { threshold: 1, damage: 6 },
+    onHit: [
+      { kind: "blight", duration: 3, amount: 4 },
+      { kind: "debuff", duration: 1 },
+    ],
+  },
+  {
+    id: "hero_skill:core:h07:p129",
+    ...noxiousBlast,
+    hit: { threshold: 12, damage: 4 },
+    critical: { threshold: 1, damage: 7 },
+    onHit: [
+      { kind: "blight", duration: 3, amount: 4 },
+      { kind: "debuff", duration: 2 },
+    ],
+  },
+  {
+    id: "hero_skill:core:h07:p130",
+    ...plagueGrenade,
+    hit: { threshold: 9, damage: 1 },
+    critical: { threshold: 0, damage: 2 },
+    onHit: [{ kind: "blight", duration: 2, amount: 3 }],
+  },
+  {
+    id: "hero_skill:core:h07:p131",
+    ...plagueGrenade,
+    hit: { threshold: 9, damage: 2 },
+    critical: { threshold: 0, damage: 4 },
+    onHit: [{ kind: "blight", duration: 3, amount: 3 }],
+  },
+  {
+    id: "hero_skill:core:h07:p132",
+    ...plagueGrenade,
+    hit: { threshold: 12, damage: 3 },
+    critical: { threshold: 1, damage: 5 },
+    onHit: [{ kind: "blight", duration: 3, amount: 3 }],
+  },
+  {
+    id: "hero_skill:core:h07:p136",
+    ...sameAreaMelee,
+    hit: { threshold: 9, damage: 5 },
+    critical: { threshold: 1, damage: 8 },
+    onHit: [{ kind: "bleed", duration: 2, amount: 2 }],
+  },
+  {
+    id: "hero_skill:core:h07:p137",
+    ...sameAreaMelee,
+    hit: { threshold: 10, damage: 7 },
+    critical: { threshold: 1, damage: 11 },
+    onHit: [{ kind: "bleed", duration: 3, amount: 2 }],
+  },
+  {
+    id: "hero_skill:core:h07:p138",
+    ...sameAreaMelee,
+    hit: { threshold: 11, damage: 8 },
+    critical: { threshold: 1, damage: 14 },
+    onHit: [{ kind: "bleed", duration: 3, amount: 3 }],
+  },
+];
+
 const entries: HeroAnnotationEntries = {
+  directAttack: directAttackEntries,
   higher: coreHigherRows,
   status: statusEntries,
   range: rangeEntries,
