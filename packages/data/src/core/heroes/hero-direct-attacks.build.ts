@@ -8,8 +8,9 @@ type ReviewedAttack = {
   critical: number;
   hitDamage: number;
   critDamage: number;
-  bleed: { amount: number; duration: number };
+  status: { amount: number; duration: number };
   debuffDuration?: number;
+  statusKind?: "blight";
 };
 const meleeStances: AttackFace["stances"] = ["ranged", "defensive", "aggressive"];
 const rangedStances: AttackFace["stances"] = ["ranged", "defensive"];
@@ -23,13 +24,16 @@ const caltrops: AttackFace = {
   monsterTargets: 1,
 };
 
+const noxiousBlast = { ...caltrops, range: 1 };
+const plagueGrenade: AttackFace = { stances: ["support", "ranged"], range: 2, monsterTargets: 2 };
+
 function frontAttack(face: AttackFace, review: ReviewedAttack): DirectAttack {
   return {
     ...face,
     hit: { threshold: review.accuracy, damage: review.hitDamage },
     critical: { threshold: review.critical, damage: review.critDamage },
     onHit: [
-      { kind: "bleed", ...review.bleed },
+      { kind: review.statusKind ?? "bleed", ...review.status },
       ...(review.debuffDuration === undefined
         ? []
         : [{ kind: "debuff" as const, duration: review.debuffDuration }]),
@@ -37,35 +41,35 @@ function frontAttack(face: AttackFace, review: ReviewedAttack): DirectAttack {
   };
 }
 
-/** 核心盒技能正面 p031–033、p061–063、p082–084、p109–111、p124–126、p136–138。规则书 R19–21、R-018。 */
+/** 核心盒技能正面 p031–033、p061–063、p082–084、p109–111、p124–132、p136–138。规则书 R19–21、R-018。 */
 const DIRECT_ATTACKS: Readonly<Partial<Record<string, DirectAttack>>> = {
   "hero_skill:core:h02:p031": frontAttack(adjacentMelee, {
     accuracy: 9,
     critical: 0,
     hitDamage: 5,
     critDamage: 8,
-    bleed: { amount: 2, duration: 2 },
+    status: { amount: 2, duration: 2 },
   }),
   "hero_skill:core:h02:p032": frontAttack(adjacentMelee, {
     accuracy: 10,
     critical: 0,
     hitDamage: 6,
     critDamage: 11,
-    bleed: { amount: 3, duration: 3 },
+    status: { amount: 3, duration: 3 },
   }),
   "hero_skill:core:h02:p033": frontAttack(adjacentMelee, {
     accuracy: 10,
     critical: 0,
     hitDamage: 8,
     critDamage: 15,
-    bleed: { amount: 4, duration: 3 },
+    status: { amount: 4, duration: 3 },
   }),
   "hero_skill:core:h03:p061": frontAttack(caltrops, {
     accuracy: 9,
     critical: 1,
     hitDamage: 1,
     critDamage: 2,
-    bleed: { amount: 2, duration: 3 },
+    status: { amount: 2, duration: 3 },
     debuffDuration: 1,
   }),
   "hero_skill:core:h03:p062": frontAttack(caltrops, {
@@ -73,7 +77,7 @@ const DIRECT_ATTACKS: Readonly<Partial<Record<string, DirectAttack>>> = {
     critical: 1,
     hitDamage: 2,
     critDamage: 3,
-    bleed: { amount: 3, duration: 2 },
+    status: { amount: 3, duration: 2 },
     debuffDuration: 2,
   }),
   "hero_skill:core:h03:p063": frontAttack(caltrops, {
@@ -81,7 +85,7 @@ const DIRECT_ATTACKS: Readonly<Partial<Record<string, DirectAttack>>> = {
     critical: 1,
     hitDamage: 2,
     critDamage: 3,
-    bleed: { amount: 3, duration: 3 },
+    status: { amount: 3, duration: 3 },
     debuffDuration: 3,
   }),
   "hero_skill:core:h04:p082": frontAttack(sameAreaMelee, {
@@ -89,84 +93,135 @@ const DIRECT_ATTACKS: Readonly<Partial<Record<string, DirectAttack>>> = {
     critical: 0,
     hitDamage: 5,
     critDamage: 9,
-    bleed: { amount: 2, duration: 2 },
+    status: { amount: 2, duration: 2 },
   }),
   "hero_skill:core:h04:p083": frontAttack(sameAreaMelee, {
     accuracy: 11,
     critical: 0,
     hitDamage: 7,
     critDamage: 12,
-    bleed: { amount: 2, duration: 3 },
+    status: { amount: 2, duration: 3 },
   }),
   "hero_skill:core:h04:p084": frontAttack(sameAreaMelee, {
     accuracy: 12,
     critical: 0,
     hitDamage: 9,
     critDamage: 15,
-    bleed: { amount: 3, duration: 3 },
+    status: { amount: 3, duration: 3 },
   }),
   "hero_skill:core:h06:p109": frontAttack(harvest, {
     accuracy: 9,
     critical: 0,
     hitDamage: 3,
     critDamage: 4,
-    bleed: { amount: 2, duration: 2 },
+    status: { amount: 2, duration: 2 },
   }),
   "hero_skill:core:h06:p110": frontAttack(harvest, {
     accuracy: 10,
     critical: 0,
     hitDamage: 4,
     critDamage: 6,
-    bleed: { amount: 2, duration: 3 },
+    status: { amount: 2, duration: 3 },
   }),
   "hero_skill:core:h06:p111": frontAttack(harvest, {
     accuracy: 11,
     critical: 1,
     hitDamage: 5,
     critDamage: 8,
-    bleed: { amount: 3, duration: 3 },
+    status: { amount: 3, duration: 3 },
   }),
   "hero_skill:core:h06:p124": frontAttack(adjacentRanged, {
     accuracy: 10,
     critical: 1,
     hitDamage: 4,
     critDamage: 6,
-    bleed: { amount: 3, duration: 1 },
+    status: { amount: 3, duration: 1 },
   }),
   "hero_skill:core:h06:p125": frontAttack(adjacentRanged, {
     accuracy: 11,
     critical: 1,
     hitDamage: 5,
     critDamage: 8,
-    bleed: { amount: 3, duration: 2 },
+    status: { amount: 3, duration: 2 },
   }),
   "hero_skill:core:h06:p126": frontAttack(adjacentRanged, {
     accuracy: 12,
     critical: 2,
     hitDamage: 6,
     critDamage: 10,
-    bleed: { amount: 3, duration: 3 },
+    status: { amount: 3, duration: 3 },
+  }),
+  "hero_skill:core:h07:p127": frontAttack(noxiousBlast, {
+    accuracy: 9,
+    critical: 1,
+    hitDamage: 2,
+    critDamage: 4,
+    statusKind: "blight",
+    status: { amount: 4, duration: 2 },
+    debuffDuration: 1,
+  }),
+  "hero_skill:core:h07:p128": frontAttack(noxiousBlast, {
+    accuracy: 10,
+    critical: 1,
+    hitDamage: 3,
+    critDamage: 6,
+    statusKind: "blight",
+    status: { amount: 4, duration: 3 },
+    debuffDuration: 1,
+  }),
+  "hero_skill:core:h07:p129": frontAttack(noxiousBlast, {
+    accuracy: 12,
+    critical: 1,
+    hitDamage: 4,
+    critDamage: 7,
+    statusKind: "blight",
+    status: { amount: 4, duration: 3 },
+    debuffDuration: 2,
+  }),
+  "hero_skill:core:h07:p130": frontAttack(plagueGrenade, {
+    accuracy: 9,
+    critical: 0,
+    hitDamage: 1,
+    critDamage: 2,
+    statusKind: "blight",
+    status: { amount: 3, duration: 2 },
+  }),
+  "hero_skill:core:h07:p131": frontAttack(plagueGrenade, {
+    accuracy: 9,
+    critical: 0,
+    hitDamage: 2,
+    critDamage: 4,
+    statusKind: "blight",
+    status: { amount: 3, duration: 3 },
+  }),
+  "hero_skill:core:h07:p132": frontAttack(plagueGrenade, {
+    accuracy: 12,
+    critical: 1,
+    hitDamage: 3,
+    critDamage: 5,
+    statusKind: "blight",
+    status: { amount: 3, duration: 3 },
   }),
   "hero_skill:core:h07:p136": frontAttack(sameAreaMelee, {
     accuracy: 9,
     critical: 1,
     hitDamage: 5,
     critDamage: 8,
-    bleed: { amount: 2, duration: 2 },
+    status: { amount: 2, duration: 2 },
   }),
   "hero_skill:core:h07:p137": frontAttack(sameAreaMelee, {
     accuracy: 10,
     critical: 1,
     hitDamage: 7,
     critDamage: 11,
-    bleed: { amount: 2, duration: 3 },
+    status: { amount: 2, duration: 3 },
   }),
   "hero_skill:core:h07:p138": frontAttack(sameAreaMelee, {
     accuracy: 11,
     critical: 1,
     hitDamage: 8,
     critDamage: 14,
-    bleed: { amount: 3, duration: 3 },
+    status: { amount: 3, duration: 3 },
   }),
 };
 

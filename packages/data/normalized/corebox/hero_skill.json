@@ -60724,6 +60724,34 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive"
+     ],
+     "range": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 9,
+      "damage": 2
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 4
+     },
+     "onHit": [
+      {
+       "kind": "blight",
+       "duration": 2,
+       "amount": 4
+      },
+      {
+       "kind": "debuff",
+       "duration": 1
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -61258,6 +61286,34 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive"
+     ],
+     "range": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 10,
+      "damage": 3
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 6
+     },
+     "onHit": [
+      {
+       "kind": "blight",
+       "duration": 3,
+       "amount": 4
+      },
+      {
+       "kind": "debuff",
+       "duration": 1
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -61792,6 +61848,34 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive"
+     ],
+     "range": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 12,
+      "damage": 4
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 7
+     },
+     "onHit": [
+      {
+       "kind": "blight",
+       "duration": 3,
+       "amount": 4
+      },
+      {
+       "kind": "debuff",
+       "duration": 2
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -62296,6 +62380,29 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 2,
+     "monsterTargets": 2,
+     "hit": {
+      "threshold": 9,
+      "damage": 1
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 2
+     },
+     "onHit": [
+      {
+       "kind": "blight",
+       "duration": 2,
+       "amount": 3
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -62804,6 +62911,29 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 2,
+     "monsterTargets": 2,
+     "hit": {
+      "threshold": 9,
+      "damage": 2
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 4
+     },
+     "onHit": [
+      {
+       "kind": "blight",
+       "duration": 3,
+       "amount": 3
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -63312,6 +63442,29 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 2,
+     "monsterTargets": 2,
+     "hit": {
+      "threshold": 12,
+      "damage": 3
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 5
+     },
+     "onHit": [
+      {
+       "kind": "blight",
+       "duration": 3,
+       "amount": 3
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,

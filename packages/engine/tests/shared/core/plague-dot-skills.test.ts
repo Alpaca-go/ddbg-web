@@ -54,7 +54,7 @@ function setup(skill: HeroSkillCardView, roll = 5, monsterId = "monster_medium:p
         monsterCardId: monster.id,
         life: monster.life!,
         dodge: 2,
-        areaId: skill.id.endsWith("127") ? "b" : "a",
+        areaId: skill.id.endsWith("127") ? "b" : skill.id.endsWith("130") ? "c" : "a",
         stance: "aggressive",
         stanceSlots: 1,
         skillIds: [],
@@ -62,7 +62,8 @@ function setup(skill: HeroSkillCardView, roll = 5, monsterId = "monster_medium:p
     ],
     areas: [
       { id: "a", elevation: "normal", adjacent: ["b"], capacity: 8 },
-      { id: "b", elevation: "normal", adjacent: ["a"], capacity: 8 },
+      { id: "b", elevation: "normal", adjacent: ["a", "c"], capacity: 8 },
+      { id: "c", elevation: "normal", adjacent: ["b"], capacity: 8 },
     ],
   });
   return {
@@ -75,6 +76,59 @@ function play(game: GameState, command: Command) {
   expect(result.events.filter((e) => e.type === "commandRefused")).toEqual([]);
   return result;
 }
+
+it.each([127, 130])("p%s 去掉印刷字段后的命令与迁移前完全一致", (page) => {
+  const card = clean<HeroSkillCardView>(data.hero_skill.cards.find((c) => c.pages[0] === page)!);
+  const { directAttack, ...legacyRules } = card.rules!;
+  const onlyRules = {
+    ...card,
+    rules: { directAttack: directAttack! },
+    printed_labels: [],
+    unlabeled_numbers: [],
+    stats_line: null,
+    effect_lines: [],
+    top_row_icons: [],
+    front_icons: [],
+  };
+  const legacy = { ...card, rules: legacyRules };
+  for (const roll of [1, 5, 10]) {
+    const { game, command } = setup(legacy, roll);
+    const battle = {
+      ...game.battle!,
+      entities: game.battle!.entities.map((entity) =>
+        page === 130 && entity.id === "h" ? { ...entity, stance: "ranged" as const } : entity,
+      ),
+    };
+    const baseline = play({ ...game, battle }, command);
+    const migrated = play({ ...game, battle: { ...battle, skills: [onlyRules] } }, command);
+    expect(migrated).toEqual({
+      ...baseline,
+      state: { ...baseline.state, battle: { ...baseline.state.battle!, skills: [onlyRules] } },
+    });
+    expect(migrated.state.battle!.rngCursor).toBe(1);
+    const [first, ...others] = directAttack!.onHit;
+    const bad = {
+      ...game,
+      battle: {
+        ...battle,
+        skills: [
+          {
+            ...onlyRules,
+            rules: {
+              directAttack: {
+                ...directAttack!,
+                onHit: [{ ...first!, amount: undefined }, ...others],
+              },
+            },
+          },
+        ],
+      },
+    };
+    const refused = applyCommand(bad, command);
+    expect(refused.state).toBe(bad);
+    expect(refused.events[0]?.type).toBe("commandRefused");
+  }
+});
 
 it.each(skills)("$id 十骰面：伤害与完整目标状态按命中施加，不把DOT当即时伤害", (skill) => {
   const blast = skill.id.endsWith("127");
