@@ -70,7 +70,7 @@ export const hNN = defineHeroModule({ id: "hNN", hero: "...", entries, fixes });
 
 - `expectedEffects` 和 `expectedStats` 保存修正前的效果行与 stats 行签名，比较时忽略空白。依赖印刷标签的记录同时声明 `expectedLabels`。
 - `effects` 和 `stats` 按输出顺序列出文字和图标。效果行里的数字引用原效果行的索引，`stats: null` 清除旧 stats 行。
-- 原行引用优先写行、段和核准语义（如 `{ line: "stats", segment: 0, expectKey: "range" }`）。共享处理器独立对照词典中的印刷图标。多个同名变体用 `variantRank` 指定词典条目。`from: "pool"` 沿用跨卡取图标；`relabelAs` 覆盖取出的图标键。
+- 原行引用优先写行、段和核准语义（如 `{ line: "stats", segment: 0, expectKey: "range" }`）。共享处理器独立对照词典中的印刷图标。多个同名变体用 `variantRank` 指定词典条目。`sourceIcon` 引用 [print-sources.ts](./print-sources.ts) 登记的来源卡和段位。`relabelAs` 覆盖取出的图标键。
 - `numbers` 声明数字锚点的增删与重标。`annotations` 声明随修正写入的状态、射程等注解。省略的字段由原卡保留。
 
 共享处理器在原逐卡修正阶段执行。修正表内每张卡只允许一条记录。

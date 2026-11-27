@@ -334,7 +334,7 @@ const rangeEntries: readonly RangeEntry[] = [
   },
 ];
 
-/** R-089：赏金猎人限定状态卡（目标框 763ad8e857 逐卡改为 debuff）。 */
+/** R-089：赏金猎人限定状态卡（目标框 buff（词典 329） 逐卡改为 debuff）。 */
 const bountyStatusRows: readonly BountyStatusRow[] = [
   {
     id: "hero_skill:core:h03:p046",

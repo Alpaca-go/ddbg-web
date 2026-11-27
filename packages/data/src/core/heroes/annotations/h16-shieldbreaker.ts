@@ -1,3 +1,4 @@
+import { printIcon } from "../../../shared/print-icons";
 import type { HeroAnnotationEntries, IgnoresEntry, ShuffleEntry, SkillCorrection } from "./types";
 import { defineHeroModule } from "./patch-helpers";
 
@@ -196,11 +197,11 @@ const fixes: readonly SkillCorrection[] = [
       [
         { icon: "self_effects" },
         " Self ",
-        { iconId: "d4329c2a97", from: "lines", relabelAs: "shuffle" },
+        { iconId: printIcon("buff", 86), from: "lines", relabelAs: "shuffle" },
         " Pull 1",
       ],
       [
-        { iconId: "20ffe98e2d", from: "lines", relabelAs: "target_effects" },
+        { iconId: printIcon("heal", 25), from: "lines", relabelAs: "target_effects" },
         " Ignores ",
         { icon: "protection" },
       ],
@@ -217,11 +218,11 @@ const fixes: readonly SkillCorrection[] = [
       [
         { icon: "self_effects" },
         " Self ",
-        { iconId: "d4329c2a97", from: "lines", relabelAs: "shuffle" },
+        { iconId: printIcon("buff", 86), from: "lines", relabelAs: "shuffle" },
         " Pull 1",
       ],
       [
-        { iconId: "20ffe98e2d", from: "lines", relabelAs: "target_effects" },
+        { iconId: printIcon("heal", 25), from: "lines", relabelAs: "target_effects" },
         " Ignores ",
         { icon: "protection" },
       ],
@@ -238,11 +239,11 @@ const fixes: readonly SkillCorrection[] = [
       [
         { icon: "self_effects" },
         " Self ",
-        { iconId: "d4329c2a97", from: "lines", relabelAs: "shuffle" },
+        { iconId: printIcon("buff", 86), from: "lines", relabelAs: "shuffle" },
         " Pull 1",
       ],
       [
-        { iconId: "20ffe98e2d", from: "lines", relabelAs: "target_effects" },
+        { iconId: printIcon("heal", 25), from: "lines", relabelAs: "target_effects" },
         " Ignores ",
         { icon: "protection" },
       ],
@@ -262,11 +263,14 @@ const fixes: readonly SkillCorrection[] = [
       [
         { icon: "self_effects" },
         " Self ",
-        { line: 0, segment: 4, iconId: "b6afaa4d7b", relabelAs: "shuffle" },
+        { line: 0, segment: 4, expectKey: "target_effects", variantRank: 7, relabelAs: "shuffle" },
         " Pull 1",
       ],
-      ["Ignores ", { line: 1, segment: 2, iconId: "b6afaa4d7b", relabelAs: "guard" }],
-      [{ icon: "target_effects", from: "pool" }, { icon: "shuffle", from: "pool" }, " Pull 1"],
+      [
+        "Ignores ",
+        { line: 1, segment: 2, expectKey: "target_effects", variantRank: 7, relabelAs: "guard" },
+      ],
+      [{ sourceIcon: "target_effects" }, { sourceIcon: "shuffle" }, " Pull 1"],
     ],
   },
   {
@@ -283,11 +287,14 @@ const fixes: readonly SkillCorrection[] = [
       [
         { icon: "self_effects" },
         " Self ",
-        { line: 0, segment: 4, iconId: "b6afaa4d7b", relabelAs: "shuffle" },
+        { line: 0, segment: 4, expectKey: "target_effects", variantRank: 7, relabelAs: "shuffle" },
         " Pull 1",
       ],
-      ["Ignores ", { line: 1, segment: 2, iconId: "b6afaa4d7b", relabelAs: "guard" }],
-      [{ icon: "target_effects", from: "pool" }, { icon: "shuffle", from: "pool" }, " Pull 1"],
+      [
+        "Ignores ",
+        { line: 1, segment: 2, expectKey: "target_effects", variantRank: 7, relabelAs: "guard" },
+      ],
+      [{ sourceIcon: "target_effects" }, { sourceIcon: "shuffle" }, " Pull 1"],
     ],
     annotations: { annotation_range: { min: 1, max: 2, source: "print_front" } },
   },
@@ -305,11 +312,14 @@ const fixes: readonly SkillCorrection[] = [
       [
         { icon: "self_effects" },
         " Self ",
-        { line: 0, segment: 4, iconId: "b6afaa4d7b", relabelAs: "shuffle" },
+        { line: 0, segment: 4, expectKey: "target_effects", variantRank: 7, relabelAs: "shuffle" },
         " Pull 1",
       ],
-      ["Ignores ", { line: 1, segment: 2, iconId: "b6afaa4d7b", relabelAs: "guard" }],
-      [{ icon: "target_effects", from: "pool" }, { icon: "shuffle", from: "pool" }, " Pull 1"],
+      [
+        "Ignores ",
+        { line: 1, segment: 2, expectKey: "target_effects", variantRank: 7, relabelAs: "guard" },
+      ],
+      [{ sourceIcon: "target_effects" }, { sourceIcon: "shuffle" }, " Pull 1"],
     ],
     annotations: { annotation_range: { min: 1, max: 2, source: "print_front" } },
   },
@@ -324,10 +334,10 @@ const fixes: readonly SkillCorrection[] = [
       [
         { icon: "self_effects" },
         " Self ",
-        { iconId: "d4329c2a97", from: "lines", relabelAs: "shuffle" },
+        { iconId: printIcon("buff", 86), from: "lines", relabelAs: "shuffle" },
         " Push 1",
       ],
-      [{ icon: "target_effects" }, " 2 ", { icon: "blight", from: "pool" }, " 2t"],
+      [{ icon: "target_effects" }, " 2 ", { sourceIcon: "blight" }, " 2t"],
     ],
     annotations: {
       annotation_status_effects: [
@@ -346,10 +356,10 @@ const fixes: readonly SkillCorrection[] = [
       [
         { icon: "self_effects" },
         " Self ",
-        { iconId: "d4329c2a97", from: "lines", relabelAs: "shuffle" },
+        { iconId: printIcon("buff", 86), from: "lines", relabelAs: "shuffle" },
         " Push 1",
       ],
-      [{ icon: "target_effects" }, " 2 ", { icon: "blight", from: "pool" }, " 3t"],
+      [{ icon: "target_effects" }, " 2 ", { sourceIcon: "blight" }, " 3t"],
     ],
     annotations: {
       annotation_status_effects: [
@@ -368,10 +378,10 @@ const fixes: readonly SkillCorrection[] = [
       [
         { icon: "self_effects" },
         " Self ",
-        { iconId: "d4329c2a97", from: "lines", relabelAs: "shuffle" },
+        { iconId: printIcon("buff", 86), from: "lines", relabelAs: "shuffle" },
         " Push 1",
       ],
-      [{ icon: "target_effects" }, " 2 ", { icon: "blight", from: "pool" }, " 3t"],
+      [{ icon: "target_effects" }, " 2 ", { sourceIcon: "blight" }, " 3t"],
     ],
     annotations: {
       annotation_status_effects: [
@@ -391,25 +401,25 @@ const fixes: readonly SkillCorrection[] = [
       [
         { icon: "self_effects" },
         " Self ",
-        { iconId: "d4329c2a97", from: "lines", relabelAs: "shuffle" },
+        { iconId: printIcon("buff", 86), from: "lines", relabelAs: "shuffle" },
         " Push 1",
       ],
       [{ icon: "target_effects" }, { icon: "debuff" }, " 1t"],
     ],
     stats: [
-      { line: "stats", segment: 0, iconId: "3ab7e7544c" },
+      { line: "stats", segment: 0, expectKey: "range" },
       " 1 ",
-      { icon: "target_monster", from: "pool" },
+      { sourceIcon: "target_monster" },
       " ",
-      { icon: "target_monster", from: "pool" },
+      { sourceIcon: "target_monster" },
       " ",
-      { icon: "target_monster", from: "pool" },
+      { sourceIcon: "target_monster" },
       " ",
-      { icon: "target_monster", from: "pool" },
+      { sourceIcon: "target_monster" },
       " Crit 0 ",
-      { line: "stats", segment: 10, iconId: "8d4bbe5e11" },
+      { line: "stats", segment: 10, expectKey: "damage", variantRank: 1 },
       " 5 Acc 9 ",
-      { line: "stats", segment: 12, iconId: "8d4bbe5e11" },
+      { line: "stats", segment: 12, expectKey: "damage", variantRank: 1 },
       " 3",
     ],
     annotations: {
@@ -430,25 +440,25 @@ const fixes: readonly SkillCorrection[] = [
       [
         { icon: "self_effects" },
         " Self ",
-        { iconId: "d4329c2a97", from: "lines", relabelAs: "shuffle" },
+        { iconId: printIcon("buff", 86), from: "lines", relabelAs: "shuffle" },
         " Push 1",
       ],
       [{ icon: "target_effects" }, { icon: "debuff" }, " 2t"],
     ],
     stats: [
-      { line: "stats", segment: 0, iconId: "3ab7e7544c" },
+      { line: "stats", segment: 0, expectKey: "range" },
       " 1 ",
-      { icon: "target_monster", from: "pool" },
+      { sourceIcon: "target_monster" },
       " ",
-      { icon: "target_monster", from: "pool" },
+      { sourceIcon: "target_monster" },
       " ",
-      { icon: "target_monster", from: "pool" },
+      { sourceIcon: "target_monster" },
       " ",
-      { icon: "target_monster", from: "pool" },
+      { sourceIcon: "target_monster" },
       " Crit 0 ",
-      { line: "stats", segment: 10, iconId: "8d4bbe5e11" },
+      { line: "stats", segment: 10, expectKey: "damage", variantRank: 1 },
       " 7 Acc 10 ",
-      { line: "stats", segment: 12, iconId: "8d4bbe5e11" },
+      { line: "stats", segment: 12, expectKey: "damage", variantRank: 1 },
       " 4",
     ],
     annotations: {
@@ -469,25 +479,25 @@ const fixes: readonly SkillCorrection[] = [
       [
         { icon: "self_effects" },
         " Self ",
-        { iconId: "d4329c2a97", from: "lines", relabelAs: "shuffle" },
+        { iconId: printIcon("buff", 86), from: "lines", relabelAs: "shuffle" },
         " Push 1",
       ],
       [{ icon: "target_effects" }, { icon: "debuff" }, " 2t"],
     ],
     stats: [
-      { line: "stats", segment: 0, iconId: "3ab7e7544c" },
+      { line: "stats", segment: 0, expectKey: "range" },
       " 1 ",
-      { icon: "target_monster", from: "pool" },
+      { sourceIcon: "target_monster" },
       " ",
-      { icon: "target_monster", from: "pool" },
+      { sourceIcon: "target_monster" },
       " ",
-      { icon: "target_monster", from: "pool" },
+      { sourceIcon: "target_monster" },
       " ",
-      { icon: "target_monster", from: "pool" },
+      { sourceIcon: "target_monster" },
       " Crit 0 ",
-      { line: "stats", segment: 10, iconId: "8d4bbe5e11" },
+      { line: "stats", segment: 10, expectKey: "damage", variantRank: 1 },
       " 9 Acc 11 ",
-      { line: "stats", segment: 12, iconId: "8d4bbe5e11" },
+      { line: "stats", segment: 12, expectKey: "damage", variantRank: 1 },
       " 6",
     ],
     annotations: {
@@ -507,7 +517,7 @@ const fixes: readonly SkillCorrection[] = [
       [
         { icon: "self_effects" },
         " Self ",
-        { iconId: "d4329c2a97", from: "lines", relabelAs: "shuffle" },
+        { iconId: printIcon("buff", 86), from: "lines", relabelAs: "shuffle" },
         " Push 1",
       ],
       [{ icon: "target_effects" }, { icon: "debuff" }, " 1t"],
@@ -529,7 +539,7 @@ const fixes: readonly SkillCorrection[] = [
       [
         { icon: "self_effects" },
         " Self ",
-        { iconId: "d4329c2a97", from: "lines", relabelAs: "shuffle" },
+        { iconId: printIcon("buff", 86), from: "lines", relabelAs: "shuffle" },
         " Push 1",
       ],
       [{ icon: "target_effects" }, { icon: "debuff" }, " 2t"],
@@ -551,7 +561,7 @@ const fixes: readonly SkillCorrection[] = [
       [
         { icon: "self_effects" },
         " Self ",
-        { iconId: "d4329c2a97", from: "lines", relabelAs: "shuffle" },
+        { iconId: printIcon("buff", 86), from: "lines", relabelAs: "shuffle" },
         " Push 1",
       ],
       [{ icon: "target_effects" }, { icon: "debuff" }, " 2t"],
@@ -570,22 +580,17 @@ const fixes: readonly SkillCorrection[] = [
     expectedEffects: ["{shuffle}{target_effects}+2vs{damage},2{bleed}2t"],
     expectedStats: "{range}1{target_monster}Crit1{target_effects}9Acc8{target_effects}6",
     effects: [
-      [
-        { icon: "target_effects", from: "pool" },
-        { icon: "damage", from: "pool" },
-        "+2vs",
-        { icon: "mark", from: "pool" },
-      ],
-      [{ icon: "target_effects", from: "pool" }, " 2 ", { icon: "blight", from: "pool" }, " 2t"],
+      [{ sourceIcon: "target_effects" }, { sourceIcon: "damage" }, "+2vs", { sourceIcon: "mark" }],
+      [{ sourceIcon: "target_effects" }, " 2 ", { sourceIcon: "blight" }, " 2t"],
     ],
     stats: [
-      { line: "stats", segment: 0, iconId: "3ab7e7544c" },
+      { line: "stats", segment: 0, expectKey: "range" },
       " 1 ",
-      { line: "stats", segment: 2, iconId: "a396e95c00" },
+      { line: "stats", segment: 2, expectKey: "target_monster", variantRank: 5 },
       " Crit 1 ",
-      { icon: "damage", from: "pool" },
+      { sourceIcon: "damage" },
       " 9 Acc 8 ",
-      { icon: "damage", from: "pool" },
+      { sourceIcon: "damage" },
       " 6",
     ],
     annotations: {
@@ -608,22 +613,17 @@ const fixes: readonly SkillCorrection[] = [
     expectedEffects: ["{shuffle}{target_effects}+4vs{damage},3{bleed}2t"],
     expectedStats: "{range}1{target_monster}Crit1{target_effects}12Acc9{target_effects}8",
     effects: [
-      [
-        { icon: "target_effects", from: "pool" },
-        { icon: "damage", from: "pool" },
-        "+4vs",
-        { icon: "mark", from: "pool" },
-      ],
-      [{ icon: "target_effects", from: "pool" }, " 3 ", { icon: "blight", from: "pool" }, " 2t"],
+      [{ sourceIcon: "target_effects" }, { sourceIcon: "damage" }, "+4vs", { sourceIcon: "mark" }],
+      [{ sourceIcon: "target_effects" }, " 3 ", { sourceIcon: "blight" }, " 2t"],
     ],
     stats: [
-      { line: "stats", segment: 0, iconId: "3ab7e7544c" },
+      { line: "stats", segment: 0, expectKey: "range" },
       " 1 ",
-      { line: "stats", segment: 2, iconId: "a396e95c00" },
+      { line: "stats", segment: 2, expectKey: "target_monster", variantRank: 5 },
       " Crit 1 ",
-      { icon: "damage", from: "pool" },
+      { sourceIcon: "damage" },
       " 12 Acc 9 ",
-      { icon: "damage", from: "pool" },
+      { sourceIcon: "damage" },
       " 8",
     ],
     annotations: {
@@ -646,22 +646,17 @@ const fixes: readonly SkillCorrection[] = [
     expectedEffects: ["{shuffle}{target_effects}+4vs{damage},3{bleed}2t"],
     expectedStats: "{range}1{target_monster}Crit1{target_effects}15Acc10{target_effects}10",
     effects: [
-      [
-        { icon: "target_effects", from: "pool" },
-        { icon: "damage", from: "pool" },
-        "+4vs",
-        { icon: "mark", from: "pool" },
-      ],
-      [{ icon: "target_effects", from: "pool" }, " 3 ", { icon: "blight", from: "pool" }, " 2t"],
+      [{ sourceIcon: "target_effects" }, { sourceIcon: "damage" }, "+4vs", { sourceIcon: "mark" }],
+      [{ sourceIcon: "target_effects" }, " 3 ", { sourceIcon: "blight" }, " 2t"],
     ],
     stats: [
-      { line: "stats", segment: 0, iconId: "3ab7e7544c" },
+      { line: "stats", segment: 0, expectKey: "range" },
       " 1 ",
-      { line: "stats", segment: 2, iconId: "a396e95c00" },
+      { line: "stats", segment: 2, expectKey: "target_monster", variantRank: 5 },
       " Crit 1 ",
-      { icon: "damage", from: "pool" },
+      { sourceIcon: "damage" },
       " 15 Acc 10 ",
-      { icon: "damage", from: "pool" },
+      { sourceIcon: "damage" },
       " 10",
     ],
     annotations: {
@@ -684,11 +679,11 @@ const fixes: readonly SkillCorrection[] = [
     expectedEffects: ["{range}{buff}Self", "{self_effects}{buff}Self{protection}2t,{mark}Pull1"],
     expectedStats: null,
     effects: [
-      [{ icon: "range", from: "pool" }, " Self"],
+      [{ sourceIcon: "range" }, " Self"],
       [{ icon: "self_effects" }, " Self ", { icon: "protection" }, " 2t"],
-      [{ icon: "self_effects" }, " Self ", { icon: "shuffle", from: "pool" }, " Pull 1"],
+      [{ icon: "self_effects" }, " Self ", { sourceIcon: "shuffle" }, " Pull 1"],
     ],
-    numbers: { prepend: [{ text: "0", numeric: 0, left: { icon: "range", from: "pool" } }] },
+    numbers: { prepend: [{ text: "0", numeric: 0, left: { sourceIcon: "range" } }] },
     annotations: {
       annotation_self_range: true,
       annotation_status_effects: [
@@ -704,11 +699,11 @@ const fixes: readonly SkillCorrection[] = [
     expectedEffects: ["{range}{buff}Self", "{self_effects}{buff}Self{protection}3t,{mark}Pull1"],
     expectedStats: null,
     effects: [
-      [{ icon: "range", from: "pool" }, " Self"],
+      [{ sourceIcon: "range" }, " Self"],
       [{ icon: "self_effects" }, " Self ", { icon: "protection" }, " 3t"],
-      [{ icon: "self_effects" }, " Self ", { icon: "shuffle", from: "pool" }, " Pull 1"],
+      [{ icon: "self_effects" }, " Self ", { sourceIcon: "shuffle" }, " Pull 1"],
     ],
-    numbers: { prepend: [{ text: "0", numeric: 0, left: { icon: "range", from: "pool" } }] },
+    numbers: { prepend: [{ text: "0", numeric: 0, left: { sourceIcon: "range" } }] },
     annotations: {
       annotation_self_range: true,
       annotation_status_effects: [
@@ -729,17 +724,17 @@ const fixes: readonly SkillCorrection[] = [
     expectedStats: null,
     effects: [
       [{ icon: "self_effects" }, " Self ", { icon: "protection" }, " 3t"],
-      [{ icon: "self_effects" }, " Self ", { icon: "shuffle", from: "pool" }, " Pull 1"],
+      [{ icon: "self_effects" }, " Self ", { sourceIcon: "shuffle" }, " Pull 1"],
       [
-        { iconId: "1e762d801a", from: "lines", relabelAs: "target_effects" },
+        { iconId: printIcon("shuffle", 123), from: "lines", relabelAs: "target_effects" },
         { icon: "protection" },
         " 2t",
       ],
     ],
     stats: [
-      { line: 0, segment: 0, iconId: "3ab7e7544c" },
+      { line: 0, segment: 0, expectKey: "range" },
       " 1 ",
-      { line: 0, segment: 2, iconId: "7616568d52" },
+      { line: 0, segment: 2, expectKey: "target_hero", variantRank: 3 },
     ],
     annotations: {
       annotation_status_effects: [

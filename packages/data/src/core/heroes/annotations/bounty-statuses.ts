@@ -1,3 +1,4 @@
+import { printIcon } from "../../../shared/print-icons";
 import { parseAnnotatedHeroSkillCard } from "../../../shared/schema";
 import type { NormalizedHeroSkillCard, Segment } from "../../../shared/schema";
 import type { BountyStatusRow } from "./types";
@@ -84,7 +85,7 @@ export function applyBountyStatuses(
       throw new Error(`赏金猎人卡名/等级/页码/统计/完整效果行漂移（R-089）：${card.id}`);
     const target = card.effect_lines[0]!;
     const indexes = target.flatMap((s, i) =>
-      s.type === "icon" && s.icon.iconId === "763ad8e857" ? [i] : [],
+      s.type === "icon" && s.icon.iconId === printIcon("buff", 329) ? [i] : [],
     );
     if (
       indexes.length !== 1 ||

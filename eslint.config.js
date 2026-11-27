@@ -65,5 +65,17 @@ export default tseslint.config(
       ],
     },
   },
+  {
+    files: ["packages/data/src/core/heroes/annotations/**/*.ts"],
+    rules: {
+      "no-restricted-syntax": [
+        "error",
+        {
+          selector: String.raw`Literal[value=/(?<![0-9a-f])[0-9a-f]{10}(?![0-9a-f])/], TemplateElement[value.raw=/(?<![0-9a-f])[0-9a-f]{10}(?![0-9a-f])/]`,
+          message: "手写修正应使用原段位、核准语义或稳定的印刷来源。",
+        },
+      ],
+    },
+  },
   prettier,
 );

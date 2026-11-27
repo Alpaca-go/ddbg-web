@@ -1,3 +1,4 @@
+import type { HERO_PRINT_SOURCES } from "./print-sources";
 import type { HeroName } from "../hero-registry";
 import type { NormalizedHeroSkillCard } from "../../../shared/schema";
 
@@ -167,7 +168,8 @@ export type CorrectionIcon =
       readonly variantRank?: number;
       readonly relabelAs?: string;
     }
-  | { readonly icon: string; readonly from?: "pool"; readonly relabelAs?: string }
+  | { readonly icon: string; readonly relabelAs?: string }
+  | { readonly sourceIcon: keyof typeof HERO_PRINT_SOURCES; readonly relabelAs?: string }
   | {
       readonly iconId: string;
       readonly from?: "lines" | "effects";

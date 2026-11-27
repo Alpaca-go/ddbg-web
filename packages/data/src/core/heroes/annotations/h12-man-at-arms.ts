@@ -1,3 +1,4 @@
+import { printIcon } from "../../../shared/print-icons";
 import type { HeroAnnotationEntries, ShuffleEntry, SkillCorrection } from "./types";
 import { defineHeroModule } from "./patch-helpers";
 
@@ -73,7 +74,7 @@ const fixes: readonly SkillCorrection[] = [
       [
         { icon: "self_effects" },
         " Self ",
-        { iconId: "d4329c2a97", relabelAs: "shuffle" },
+        { iconId: printIcon("buff", 86), relabelAs: "shuffle" },
         " Pull 1",
       ],
     ],
@@ -98,7 +99,7 @@ const fixes: readonly SkillCorrection[] = [
       [
         { icon: "self_effects" },
         " Self ",
-        { iconId: "d4329c2a97", relabelAs: "shuffle" },
+        { iconId: printIcon("buff", 86), relabelAs: "shuffle" },
         " Pull 1",
       ],
     ],
@@ -123,7 +124,7 @@ const fixes: readonly SkillCorrection[] = [
       [
         { icon: "self_effects" },
         " Self ",
-        { iconId: "d4329c2a97", relabelAs: "shuffle" },
+        { iconId: printIcon("buff", 86), relabelAs: "shuffle" },
         " Pull 1",
       ],
     ],
@@ -143,13 +144,13 @@ const fixes: readonly SkillCorrection[] = [
     stats: [
       { line: "stats", segment: 0, expectKey: "range" },
       " 1 ",
-      { icon: "target_monster", from: "pool" },
+      { sourceIcon: "target_monster" },
       " ",
-      { icon: "target_monster", from: "pool" },
+      { sourceIcon: "target_monster" },
       " ",
-      { icon: "target_monster", from: "pool" },
+      { sourceIcon: "target_monster" },
       " ",
-      { icon: "target_monster", from: "pool" },
+      { sourceIcon: "target_monster" },
       " Crit 0 Acc 9",
     ],
     annotations: {
@@ -168,13 +169,13 @@ const fixes: readonly SkillCorrection[] = [
     stats: [
       { line: "stats", segment: 0, expectKey: "range" },
       " 1 ",
-      { icon: "target_monster", from: "pool" },
+      { sourceIcon: "target_monster" },
       " ",
-      { icon: "target_monster", from: "pool" },
+      { sourceIcon: "target_monster" },
       " ",
-      { icon: "target_monster", from: "pool" },
+      { sourceIcon: "target_monster" },
       " ",
-      { icon: "target_monster", from: "pool" },
+      { sourceIcon: "target_monster" },
       " Crit 0 Acc 10",
     ],
     annotations: {
@@ -193,13 +194,13 @@ const fixes: readonly SkillCorrection[] = [
     stats: [
       { line: "stats", segment: 0, expectKey: "range" },
       " 1 ",
-      { icon: "target_monster", from: "pool" },
+      { sourceIcon: "target_monster" },
       " ",
-      { icon: "target_monster", from: "pool" },
+      { sourceIcon: "target_monster" },
       " ",
-      { icon: "target_monster", from: "pool" },
+      { sourceIcon: "target_monster" },
       " ",
-      { icon: "target_monster", from: "pool" },
+      { sourceIcon: "target_monster" },
       " Crit 1 Acc 11",
     ],
     annotations: {
@@ -215,14 +216,19 @@ const fixes: readonly SkillCorrection[] = [
     level: 1,
     expectedEffects: ["{range}{buff}Self", "{self_effects}{buff}Self{riposte}1t,{shuffle}2t"],
     expectedStats: null,
-    requireIcons: [{ icon: "protection", from: "pool" }],
+    requireIcons: [{ sourceIcon: "protection" }],
     effects: [
       [{ icon: "range" }, " Self"],
-      [{ icon: "self_effects" }, " Self ", { iconId: "a0290ad4ce", relabelAs: "guard" }, " 1t"],
       [
         { icon: "self_effects" },
         " Self ",
-        { iconId: "ac56561b87", relabelAs: "protection" },
+        { iconId: printIcon("riposte", 293), relabelAs: "guard" },
+        " 1t",
+      ],
+      [
+        { icon: "self_effects" },
+        " Self ",
+        { iconId: printIcon("shuffle", 229), relabelAs: "protection" },
         " 2t",
       ],
     ],
@@ -242,14 +248,19 @@ const fixes: readonly SkillCorrection[] = [
     level: 2,
     expectedEffects: ["{range}{buff}Self", "{self_effects}{buff}Self{riposte}2t,{shuffle}2t"],
     expectedStats: null,
-    requireIcons: [{ icon: "protection", from: "pool" }],
+    requireIcons: [{ sourceIcon: "protection" }],
     effects: [
       [{ icon: "range" }, " Self"],
-      [{ icon: "self_effects" }, " Self ", { iconId: "a0290ad4ce", relabelAs: "guard" }, " 2t"],
       [
         { icon: "self_effects" },
         " Self ",
-        { iconId: "ac56561b87", relabelAs: "protection" },
+        { iconId: printIcon("riposte", 293), relabelAs: "guard" },
+        " 2t",
+      ],
+      [
+        { icon: "self_effects" },
+        " Self ",
+        { iconId: printIcon("shuffle", 229), relabelAs: "protection" },
         " 2t",
       ],
     ],
@@ -269,14 +280,19 @@ const fixes: readonly SkillCorrection[] = [
     level: 3,
     expectedEffects: ["{range}{buff}Self", "{self_effects}{buff}Self{riposte}2t,{shuffle}3t"],
     expectedStats: null,
-    requireIcons: [{ icon: "protection", from: "pool" }],
+    requireIcons: [{ sourceIcon: "protection" }],
     effects: [
       [{ icon: "range" }, " Self"],
-      [{ icon: "self_effects" }, " Self ", { iconId: "a0290ad4ce", relabelAs: "guard" }, " 2t"],
       [
         { icon: "self_effects" },
         " Self ",
-        { iconId: "ac56561b87", relabelAs: "protection" },
+        { iconId: printIcon("riposte", 293), relabelAs: "guard" },
+        " 2t",
+      ],
+      [
+        { icon: "self_effects" },
+        " Self ",
+        { iconId: printIcon("shuffle", 229), relabelAs: "protection" },
         " 3t",
       ],
     ],
@@ -297,8 +313,18 @@ const fixes: readonly SkillCorrection[] = [
     expectedEffects: ["{self_effects}{buff}Self{stress}2t,{mark}2t"],
     expectedStats: "{range}1-2{target_monster}Crit1{damage}5Acc8{damage}3",
     effects: [
-      [{ icon: "self_effects" }, " Self ", { iconId: "9d58d3d431", relabelAs: "mark" }, " 2t"],
-      [{ icon: "self_effects" }, " Self ", { iconId: "1ce58a493c", relabelAs: "riposte" }, " 2t"],
+      [
+        { icon: "self_effects" },
+        " Self ",
+        { iconId: printIcon("stress", 29), relabelAs: "mark" },
+        " 2t",
+      ],
+      [
+        { icon: "self_effects" },
+        " Self ",
+        { iconId: printIcon("mark", 451), relabelAs: "riposte" },
+        " 2t",
+      ],
     ],
     annotations: {
       annotation_status_effects: [
@@ -316,8 +342,18 @@ const fixes: readonly SkillCorrection[] = [
     expectedEffects: ["{self_effects}{buff}Self{stress}2t,{mark}3t"],
     expectedStats: "{range}1-2{target_monster}Crit2{damage}7Acc9{damage}4",
     effects: [
-      [{ icon: "self_effects" }, " Self ", { iconId: "9d58d3d431", relabelAs: "mark" }, " 2t"],
-      [{ icon: "self_effects" }, " Self ", { iconId: "1ce58a493c", relabelAs: "riposte" }, " 3t"],
+      [
+        { icon: "self_effects" },
+        " Self ",
+        { iconId: printIcon("stress", 29), relabelAs: "mark" },
+        " 2t",
+      ],
+      [
+        { icon: "self_effects" },
+        " Self ",
+        { iconId: printIcon("mark", 451), relabelAs: "riposte" },
+        " 3t",
+      ],
     ],
     annotations: {
       annotation_status_effects: [
@@ -335,8 +371,18 @@ const fixes: readonly SkillCorrection[] = [
     expectedEffects: ["{self_effects}{buff}Self{stress}2t,{mark}3t"],
     expectedStats: "{range}1-2{target_monster}Crit2{damage}9Acc10{damage}5",
     effects: [
-      [{ icon: "self_effects" }, " Self ", { iconId: "9d58d3d431", relabelAs: "mark" }, " 2t"],
-      [{ icon: "self_effects" }, " Self ", { iconId: "1ce58a493c", relabelAs: "riposte" }, " 3t"],
+      [
+        { icon: "self_effects" },
+        " Self ",
+        { iconId: printIcon("stress", 29), relabelAs: "mark" },
+        " 2t",
+      ],
+      [
+        { icon: "self_effects" },
+        " Self ",
+        { iconId: printIcon("mark", 451), relabelAs: "riposte" },
+        " 3t",
+      ],
     ],
     annotations: {
       annotation_status_effects: [
@@ -434,18 +480,18 @@ const fixes: readonly SkillCorrection[] = [
     expectedEffects: ["{self_effects}{buff}Self{skill_art}-1", "{shuffle}{skill_art}-1"],
     expectedStats: "Crit1Acc12",
     effects: [
-      [{ icon: "self_effects" }, " Self ", { icon: "stress", from: "pool" }, " -1"],
+      [{ icon: "self_effects" }, " Self ", { sourceIcon: "stress" }, " -1"],
       [
-        { icon: "target_effects", from: "pool" },
+        { sourceIcon: "target_effects" },
         " ",
-        { iconId: "f18923574c", relabelAs: "stress" },
+        { iconId: printIcon("shuffle", 54), relabelAs: "stress" },
         " -1",
       ],
     ],
     numbers: {
       append: [
-        { text: "-1", numeric: -1, left: { icon: "stress", from: "pool" } },
-        { text: "-1", numeric: -1, left: { icon: "stress", from: "pool" } },
+        { text: "-1", numeric: -1, left: { sourceIcon: "stress" } },
+        { text: "-1", numeric: -1, left: { sourceIcon: "stress" } },
       ],
     },
     annotations: {
@@ -461,18 +507,18 @@ const fixes: readonly SkillCorrection[] = [
     expectedEffects: ["{self_effects}{buff}Self{skill_art}-1", "{shuffle}{skill_art}-1"],
     expectedStats: "Crit1Acc14",
     effects: [
-      [{ icon: "self_effects" }, " Self ", { icon: "stress", from: "pool" }, " -1"],
+      [{ icon: "self_effects" }, " Self ", { sourceIcon: "stress" }, " -1"],
       [
-        { icon: "target_effects", from: "pool" },
+        { sourceIcon: "target_effects" },
         " ",
-        { iconId: "f18923574c", relabelAs: "stress" },
+        { iconId: printIcon("shuffle", 54), relabelAs: "stress" },
         " -1",
       ],
     ],
     numbers: {
       append: [
-        { text: "-1", numeric: -1, left: { icon: "stress", from: "pool" } },
-        { text: "-1", numeric: -1, left: { icon: "stress", from: "pool" } },
+        { text: "-1", numeric: -1, left: { sourceIcon: "stress" } },
+        { text: "-1", numeric: -1, left: { sourceIcon: "stress" } },
       ],
     },
     annotations: {
@@ -488,18 +534,18 @@ const fixes: readonly SkillCorrection[] = [
     expectedEffects: ["{self_effects}{buff}Self{skill_art}-1", "{shuffle}{skill_art}-1"],
     expectedStats: "{range}1{target_hero}{target_hero}{target_hero}Crit2Acc16",
     effects: [
-      [{ icon: "self_effects" }, " Self ", { icon: "stress", from: "pool" }, " -1"],
+      [{ icon: "self_effects" }, " Self ", { sourceIcon: "stress" }, " -1"],
       [
-        { icon: "target_effects", from: "pool" },
+        { sourceIcon: "target_effects" },
         " ",
-        { iconId: "f18923574c", relabelAs: "stress" },
+        { iconId: printIcon("shuffle", 54), relabelAs: "stress" },
         " -1",
       ],
     ],
     numbers: {
       append: [
-        { text: "-1", numeric: -1, left: { icon: "stress", from: "pool" } },
-        { text: "-1", numeric: -1, left: { icon: "stress", from: "pool" } },
+        { text: "-1", numeric: -1, left: { sourceIcon: "stress" } },
+        { text: "-1", numeric: -1, left: { sourceIcon: "stress" } },
       ],
     },
     annotations: {

@@ -1,3 +1,4 @@
+import { HERO_PRINT_SOURCES } from "./print-sources";
 import { printIcon } from "../../../shared/print-icons";
 import { parseAnnotatedHeroSkillCard } from "../../../shared/schema";
 import type { NormalizedHeroSkillCard, Segment } from "../../../shared/schema";
@@ -15,25 +16,6 @@ type IconSegment = Extract<Segment, { type: "icon" }>;
 
 function cloneKey(segment: IconSegment, key: string): IconSegment {
   return { type: "icon", icon: { ...segment.icon, key } };
-}
-
-/** 从全部技能卡里借一个已确认图标（同 key，优先 stats_line / effect_lines / front_icons）。 */
-function iconFromPool(cards: readonly NormalizedHeroSkillCard[], key: string): IconSegment {
-  for (const card of cards) {
-    const pools = [
-      ...(card.stats_line ?? []),
-      ...card.effect_lines.flat(),
-      ...card.front_icons.map((icon) => ({ type: "icon" as const, icon })),
-    ];
-    const hit = pools.find(
-      (s): s is IconSegment =>
-        s.type === "icon" &&
-        s.icon.key === key &&
-        ["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
-    );
-    if (hit) return hit;
-  }
-  throw new Error(`缺少已确认图标 {${key}}（R-048）`);
 }
 
 function iconFromCard(card: NormalizedHeroSkillCard, key: string): IconSegment {
@@ -125,8 +107,13 @@ function correctionIcon(
           "（R-048）",
       );
     icon = segment;
+  } else if ("sourceIcon" in ref) {
+    const source = HERO_PRINT_SOURCES[ref.sourceIcon];
+    const matches = pool.filter((candidate) => candidate.id === source.sourceCardId);
+    if (matches.length !== 1) throw new Error(source.sourceCardId + " 图标来源必须唯一（R-048）");
+    icon = correctionIcon({ ...source, expectKey: ref.sourceIcon }, matches[0]!, pool);
   } else if ("icon" in ref) {
-    icon = ref.from === "pool" ? iconFromPool(pool, ref.icon) : iconFromCard(card, ref.icon);
+    icon = iconFromCard(card, ref.icon);
   } else if (ref.from === "effects") {
     icon = segmentOnCardInEffects(card, ref.iconId);
   } else if (ref.from === "lines") {

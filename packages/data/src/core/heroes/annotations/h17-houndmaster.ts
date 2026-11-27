@@ -1,9 +1,10 @@
+import { printIcon } from "../../../shared/print-icons";
 import type { HeroAnnotationEntries, SkillCorrection } from "./types";
 import { defineHeroModule } from "./patch-helpers";
 
 /**
  * R-200：Houndmaster II–III（p338–p357 中 14 张）+ 同技能族 L1 OCR 洗净（p337–p355 七族）。
- * Q-178～Q-180 Kyries 已真确认：Rush 1ff34c908b=自身起效；Cry Havoc 压力行（非目标减益）；Blackjack=Stun。
+ * Q-178～Q-180 Kyries 已真确认：Rush buff（词典 773）=自身起效；Cry Havoc 压力行（非目标减益）；Blackjack=Stun。
  */
 const fixes: readonly SkillCorrection[] = [
   {
@@ -15,9 +16,9 @@ const fixes: readonly SkillCorrection[] = [
     expectedStats: "{range}1{target_monster}Crit1{damage}8Acc9{damage}5",
     effects: [
       [
-        { iconId: "1ff34c908b", from: "lines", relabelAs: "self_effects" },
+        { iconId: printIcon("buff", 773), from: "lines", relabelAs: "self_effects" },
         " Self ",
-        { iconId: "d4329c2a97", from: "lines", relabelAs: "buff" },
+        { iconId: printIcon("buff", 86), from: "lines", relabelAs: "buff" },
         " 2t",
       ],
       [{ icon: "target_effects" }, " 1 ", { icon: "bleed" }, " 3t"],
@@ -38,9 +39,9 @@ const fixes: readonly SkillCorrection[] = [
     expectedStats: "{range}1{target_monster}Crit1{damage}11Acc10{damage}7",
     effects: [
       [
-        { iconId: "1ff34c908b", from: "lines", relabelAs: "self_effects" },
+        { iconId: printIcon("buff", 773), from: "lines", relabelAs: "self_effects" },
         " Self ",
-        { iconId: "d4329c2a97", from: "lines", relabelAs: "buff" },
+        { iconId: printIcon("buff", 86), from: "lines", relabelAs: "buff" },
         " 3t",
       ],
       [{ icon: "target_effects" }, " 2 ", { icon: "bleed" }, " 2t"],
@@ -61,9 +62,9 @@ const fixes: readonly SkillCorrection[] = [
     expectedStats: "{range}1{target_monster}Crit1{damage}14Acc11{damage}8",
     effects: [
       [
-        { iconId: "1ff34c908b", from: "lines", relabelAs: "self_effects" },
+        { iconId: printIcon("buff", 773), from: "lines", relabelAs: "self_effects" },
         " Self ",
-        { iconId: "d4329c2a97", from: "lines", relabelAs: "buff" },
+        { iconId: printIcon("buff", 86), from: "lines", relabelAs: "buff" },
         " 3t",
       ],
       [{ icon: "target_effects" }, " 2 ", { icon: "bleed" }, " 3t"],
@@ -85,19 +86,19 @@ const fixes: readonly SkillCorrection[] = [
       "{range}1{target_hero}{target_hero}{target_hero}{target_hero}Crit0{damage}4Acc9{damage}2",
     effects: [[{ icon: "target_effects" }, " 1 ", { icon: "bleed" }, " 3t"]],
     stats: [
-      { line: "stats", segment: 0, iconId: "3ab7e7544c" },
+      { line: "stats", segment: 0, expectKey: "range" },
       " 1 ",
-      { icon: "target_monster", from: "pool" },
+      { sourceIcon: "target_monster" },
       " ",
-      { icon: "target_monster", from: "pool" },
+      { sourceIcon: "target_monster" },
       " ",
-      { icon: "target_monster", from: "pool" },
+      { sourceIcon: "target_monster" },
       " ",
-      { icon: "target_monster", from: "pool" },
+      { sourceIcon: "target_monster" },
       " Crit 0 ",
-      { line: "stats", segment: 10, iconId: "8d4bbe5e11" },
+      { line: "stats", segment: 10, expectKey: "damage", variantRank: 1 },
       " 4 Acc 9 ",
-      { line: "stats", segment: 12, iconId: "8d4bbe5e11" },
+      { line: "stats", segment: 12, expectKey: "damage", variantRank: 1 },
       " 2",
     ],
     annotations: {
@@ -116,19 +117,19 @@ const fixes: readonly SkillCorrection[] = [
       "{range}1{target_hero}{target_hero}{target_hero}{target_hero}Crit0{damage}5Acc10{damage}3",
     effects: [[{ icon: "target_effects" }, " 2 ", { icon: "bleed" }, " 2t"]],
     stats: [
-      { line: "stats", segment: 0, iconId: "3ab7e7544c" },
+      { line: "stats", segment: 0, expectKey: "range" },
       " 1 ",
-      { icon: "target_monster", from: "pool" },
+      { sourceIcon: "target_monster" },
       " ",
-      { icon: "target_monster", from: "pool" },
+      { sourceIcon: "target_monster" },
       " ",
-      { icon: "target_monster", from: "pool" },
+      { sourceIcon: "target_monster" },
       " ",
-      { icon: "target_monster", from: "pool" },
+      { sourceIcon: "target_monster" },
       " Crit 0 ",
-      { line: "stats", segment: 10, iconId: "8d4bbe5e11" },
+      { line: "stats", segment: 10, expectKey: "damage", variantRank: 1 },
       " 5 Acc 10 ",
-      { line: "stats", segment: 12, iconId: "8d4bbe5e11" },
+      { line: "stats", segment: 12, expectKey: "damage", variantRank: 1 },
       " 3",
     ],
     annotations: {
@@ -147,19 +148,19 @@ const fixes: readonly SkillCorrection[] = [
       "{range}1{target_hero}{target_hero}{target_hero}{target_hero}Crit0{damage}6Acc11{damage}4",
     effects: [[{ icon: "target_effects" }, " 3 ", { icon: "bleed" }, " 2t"]],
     stats: [
-      { line: "stats", segment: 0, iconId: "3ab7e7544c" },
+      { line: "stats", segment: 0, expectKey: "range" },
       " 1 ",
-      { icon: "target_monster", from: "pool" },
+      { sourceIcon: "target_monster" },
       " ",
-      { icon: "target_monster", from: "pool" },
+      { sourceIcon: "target_monster" },
       " ",
-      { icon: "target_monster", from: "pool" },
+      { sourceIcon: "target_monster" },
       " ",
-      { icon: "target_monster", from: "pool" },
+      { sourceIcon: "target_monster" },
       " Crit 0 ",
-      { line: "stats", segment: 10, iconId: "8d4bbe5e11" },
+      { line: "stats", segment: 10, expectKey: "damage", variantRank: 1 },
       " 6 Acc 11 ",
-      { line: "stats", segment: 12, iconId: "8d4bbe5e11" },
+      { line: "stats", segment: 12, expectKey: "damage", variantRank: 1 },
       " 4",
     ],
     annotations: {
@@ -202,7 +203,7 @@ const fixes: readonly SkillCorrection[] = [
     expectedLabels: [{ label: "Acc", raw: "Acc 11", value: 11 }],
     effects: [
       [
-        { line: 0, segment: 0, iconId: "20ffe98e2d", relabelAs: "target_effects" },
+        { line: 0, segment: 0, expectKey: "heal", variantRank: 25, relabelAs: "target_effects" },
         " ",
         { icon: "mark" },
         " 3t, ",
@@ -233,7 +234,7 @@ const fixes: readonly SkillCorrection[] = [
     expectedLabels: [{ label: "Acc", raw: "Acc 12", value: 12 }],
     effects: [
       [
-        { line: 0, segment: 0, iconId: "20ffe98e2d", relabelAs: "target_effects" },
+        { line: 0, segment: 0, expectKey: "heal", variantRank: 25, relabelAs: "target_effects" },
         " ",
         { icon: "mark" },
         " 3t, ",
@@ -263,24 +264,27 @@ const fixes: readonly SkillCorrection[] = [
     expectedStats: "Acc9",
     expectedLabels: [{ label: "Acc", raw: "Acc 9", value: 9 }],
     effects: [
-      [{ icon: "target_effects", from: "pool" }, " ", { icon: "stress", from: "pool" }, " -1"],
-      [{ icon: "self_effects" }, " Self ", { icon: "stress", from: "pool" }, " -1"],
+      [{ sourceIcon: "target_effects" }, " ", { sourceIcon: "stress" }, " -1"],
+      [{ icon: "self_effects" }, " Self ", { sourceIcon: "stress" }, " -1"],
     ],
     stats: [
-      { icon: "range", from: "pool" },
+      { sourceIcon: "range" },
       " 1 ",
-      { icon: "target_hero", from: "pool" },
+      { sourceIcon: "target_hero" },
       " ",
-      { icon: "target_hero", from: "pool" },
+      { sourceIcon: "target_hero" },
       " Acc 9",
     ],
     numbers: {
       append: [
-        { text: "-1", numeric: -1, left: { icon: "stress", from: "pool" } },
-        { text: "-1", numeric: -1, left: { icon: "stress", from: "pool" } },
-        { text: "1", numeric: 1, left: { icon: "range", from: "pool" } },
+        { text: "-1", numeric: -1, left: { sourceIcon: "stress" } },
+        { text: "-1", numeric: -1, left: { sourceIcon: "stress" } },
+        { text: "1", numeric: 1, left: { sourceIcon: "range" } },
       ],
-      remove: [{ leftKeys: ["range", "stress"], insideId: null }, { insideId: "1ff34c908b" }],
+      remove: [
+        { leftKeys: ["range", "stress"], insideId: null },
+        { insideId: printIcon("buff", 773) },
+      ],
     },
     annotations: {
       annotation_self_stress: { lineIndex: 1, amount: -1, source: "print_front" },
@@ -296,26 +300,29 @@ const fixes: readonly SkillCorrection[] = [
     expectedStats: "Acc10",
     expectedLabels: [{ label: "Acc", raw: "Acc 10", value: 10 }],
     effects: [
-      [{ icon: "target_effects", from: "pool" }, " ", { icon: "stress", from: "pool" }, " -1"],
-      [{ icon: "self_effects" }, " Self ", { icon: "stress", from: "pool" }, " -1"],
+      [{ sourceIcon: "target_effects" }, " ", { sourceIcon: "stress" }, " -1"],
+      [{ icon: "self_effects" }, " Self ", { sourceIcon: "stress" }, " -1"],
     ],
     stats: [
-      { icon: "range", from: "pool" },
+      { sourceIcon: "range" },
       " 1 ",
-      { icon: "target_hero", from: "pool" },
+      { sourceIcon: "target_hero" },
       " ",
-      { icon: "target_hero", from: "pool" },
+      { sourceIcon: "target_hero" },
       " ",
-      { icon: "target_hero", from: "pool" },
+      { sourceIcon: "target_hero" },
       " Acc 10",
     ],
     numbers: {
       append: [
-        { text: "-1", numeric: -1, left: { icon: "stress", from: "pool" } },
-        { text: "-1", numeric: -1, left: { icon: "stress", from: "pool" } },
-        { text: "1", numeric: 1, left: { icon: "range", from: "pool" } },
+        { text: "-1", numeric: -1, left: { sourceIcon: "stress" } },
+        { text: "-1", numeric: -1, left: { sourceIcon: "stress" } },
+        { text: "1", numeric: 1, left: { sourceIcon: "range" } },
       ],
-      remove: [{ leftKeys: ["range", "stress"], insideId: null }, { insideId: "1ff34c908b" }],
+      remove: [
+        { leftKeys: ["range", "stress"], insideId: null },
+        { insideId: printIcon("buff", 773) },
+      ],
     },
     annotations: {
       annotation_self_stress: { lineIndex: 1, amount: -1, source: "print_front" },
@@ -331,26 +338,29 @@ const fixes: readonly SkillCorrection[] = [
     expectedStats: "Acc11",
     expectedLabels: [{ label: "Acc", raw: "Acc 11", value: 11 }],
     effects: [
-      [{ icon: "target_effects", from: "pool" }, " ", { icon: "stress", from: "pool" }, " -1"],
-      [{ icon: "self_effects" }, " Self ", { icon: "stress", from: "pool" }, " -2"],
+      [{ sourceIcon: "target_effects" }, " ", { sourceIcon: "stress" }, " -1"],
+      [{ icon: "self_effects" }, " Self ", { sourceIcon: "stress" }, " -2"],
     ],
     stats: [
-      { icon: "range", from: "pool" },
+      { sourceIcon: "range" },
       " 1 ",
-      { icon: "target_hero", from: "pool" },
+      { sourceIcon: "target_hero" },
       " ",
-      { icon: "target_hero", from: "pool" },
+      { sourceIcon: "target_hero" },
       " ",
-      { icon: "target_hero", from: "pool" },
+      { sourceIcon: "target_hero" },
       " Acc 11",
     ],
     numbers: {
       append: [
-        { text: "-1", numeric: -1, left: { icon: "stress", from: "pool" } },
-        { text: "-2", numeric: -2, left: { icon: "stress", from: "pool" } },
-        { text: "1", numeric: 1, left: { icon: "range", from: "pool" } },
+        { text: "-1", numeric: -1, left: { sourceIcon: "stress" } },
+        { text: "-2", numeric: -2, left: { sourceIcon: "stress" } },
+        { text: "1", numeric: 1, left: { sourceIcon: "range" } },
       ],
-      remove: [{ leftKeys: ["range", "stress"], insideId: null }, { insideId: "1ff34c908b" }],
+      remove: [
+        { leftKeys: ["range", "stress"], insideId: null },
+        { insideId: printIcon("buff", 773) },
+      ],
     },
     annotations: {
       annotation_self_stress: { lineIndex: 1, amount: -2, source: "print_front" },
@@ -491,7 +501,7 @@ const fixes: readonly SkillCorrection[] = [
       [
         { icon: "target_effects" },
         " ",
-        { iconId: "763ad8e857", from: "lines", relabelAs: "stun" },
+        { iconId: printIcon("buff", 329), from: "lines", relabelAs: "stun" },
         " 1t",
       ],
     ],
@@ -512,7 +522,7 @@ const fixes: readonly SkillCorrection[] = [
       [
         { icon: "target_effects" },
         " ",
-        { iconId: "763ad8e857", from: "lines", relabelAs: "stun" },
+        { iconId: printIcon("buff", 329), from: "lines", relabelAs: "stun" },
         " 1t",
       ],
     ],
@@ -533,7 +543,7 @@ const fixes: readonly SkillCorrection[] = [
       [
         { icon: "target_effects" },
         " ",
-        { iconId: "763ad8e857", from: "lines", relabelAs: "stun" },
+        { iconId: printIcon("buff", 329), from: "lines", relabelAs: "stun" },
         " 1t",
       ],
     ],

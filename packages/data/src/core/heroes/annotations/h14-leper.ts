@@ -1,3 +1,4 @@
+import { printIcon } from "../../../shared/print-icons";
 import type {
   HeroAnnotationEntries,
   IgnoresEntry,
@@ -42,7 +43,7 @@ const statusEntries: readonly StatusEffectEntry[] = [
       { kind: "mark", duration: 2 },
     ],
   },
-  // Q-164：签名保留提取键 {light}（9ffbd6087a）。折角箭头不表示光照。
+  // Q-164：签名保留提取键 {light}（light（词典 169））。折角箭头不表示光照。
   {
     id: "hero_skill:warrens:h14:p292",
     name: "Intimidate",
@@ -254,13 +255,13 @@ const fixes: readonly SkillCorrection[] = [
     expectedStats: "{range}0{target_monster}Crit0{heal}19Acc11{heal}12",
     effects: [[{ icon: "self_effects" }, " Self ", { icon: "buff" }, " 2t"], 1],
     stats: [
-      { line: "stats", segment: 0, iconId: "3ab7e7544c" },
+      { line: "stats", segment: 0, expectKey: "range" },
       " 0 ",
-      { line: "stats", segment: 2, iconId: "a396e95c00" },
+      { line: "stats", segment: 2, expectKey: "target_monster", variantRank: 5 },
       " Crit 0 ",
-      { line: "stats", segment: 4, iconId: "20ffe98e2d", relabelAs: "damage" },
+      { line: "stats", segment: 4, expectKey: "heal", variantRank: 25, relabelAs: "damage" },
       " 19 Acc 11 ",
-      { line: "stats", segment: 6, iconId: "20ffe98e2d", relabelAs: "damage" },
+      { line: "stats", segment: 6, expectKey: "heal", variantRank: 25, relabelAs: "damage" },
       " 12",
     ],
   },
@@ -273,11 +274,11 @@ const fixes: readonly SkillCorrection[] = [
     expectedStats: "Crit1Acc10",
     effects: [
       [
-        { line: 0, segment: 0, iconId: "20ffe98e2d", relabelAs: "target_effects" },
+        { line: 0, segment: 0, expectKey: "heal", variantRank: 25, relabelAs: "target_effects" },
         " ",
-        { line: 0, segment: 2, iconId: "b2102a1a20" },
+        { line: 0, segment: 2, expectKey: "mark", variantRank: 249 },
         " 2t, ",
-        { line: 0, segment: 4, iconId: "c3fb3612ce" },
+        { line: 0, segment: 4, expectKey: "debuff", variantRank: 89 },
         " 1t",
       ],
     ],
@@ -291,11 +292,11 @@ const fixes: readonly SkillCorrection[] = [
     expectedStats: "Crit1Acc11",
     effects: [
       [
-        { line: 0, segment: 0, iconId: "20ffe98e2d", relabelAs: "target_effects" },
+        { line: 0, segment: 0, expectKey: "heal", variantRank: 25, relabelAs: "target_effects" },
         " ",
-        { line: 0, segment: 2, iconId: "b2102a1a20" },
+        { line: 0, segment: 2, expectKey: "mark", variantRank: 249 },
         " 2t, ",
-        { line: 0, segment: 4, iconId: "c3fb3612ce" },
+        { line: 0, segment: 4, expectKey: "debuff", variantRank: 89 },
         " 2t",
       ],
     ],
@@ -309,11 +310,11 @@ const fixes: readonly SkillCorrection[] = [
     expectedStats: "Crit1Acc12",
     effects: [
       [
-        { line: 0, segment: 0, iconId: "20ffe98e2d", relabelAs: "target_effects" },
+        { line: 0, segment: 0, expectKey: "heal", variantRank: 25, relabelAs: "target_effects" },
         " ",
-        { line: 0, segment: 2, iconId: "b2102a1a20" },
+        { line: 0, segment: 2, expectKey: "mark", variantRank: 249 },
         " 3t, ",
-        { line: 0, segment: 4, iconId: "c3fb3612ce" },
+        { line: 0, segment: 4, expectKey: "debuff", variantRank: 89 },
         " 3t",
       ],
     ],
@@ -326,7 +327,7 @@ const fixes: readonly SkillCorrection[] = [
     expectedEffects: ["{self_effects}{buff}Self{protection}2t,{mark}2t"],
     expectedStats: "Crit1Acc12",
     effects: [
-      [{ icon: "range", from: "pool" }, " Self"],
+      [{ sourceIcon: "range" }, " Self"],
       [
         { icon: "self_effects" },
         " Self ",
@@ -347,7 +348,7 @@ const fixes: readonly SkillCorrection[] = [
     expectedEffects: ["{self_effects}{buff}Self{protection}2t,{mark}1t"],
     expectedStats: "Crit1Acc14",
     effects: [
-      [{ icon: "range", from: "pool" }, " Self"],
+      [{ sourceIcon: "range" }, " Self"],
       [
         { icon: "self_effects" },
         " Self ",
@@ -368,7 +369,7 @@ const fixes: readonly SkillCorrection[] = [
     expectedEffects: ["{self_effects}{buff}Self{protection}3t,{mark}1t"],
     expectedStats: "Crit1Acc16",
     effects: [
-      [{ icon: "range", from: "pool" }, " Self"],
+      [{ sourceIcon: "range" }, " Self"],
       [
         { icon: "self_effects" },
         " Self ",
@@ -388,21 +389,21 @@ const fixes: readonly SkillCorrection[] = [
     level: 1,
     expectedEffects: ["{self_effects}{buff}Self{buff}{heal}6,{shuffle}-1"],
     expectedStats: "Crit1Acc12",
-    requireIcons: [{ icon: "stress", from: "pool" }],
+    requireIcons: [{ sourceIcon: "stress" }],
     effects: [
       [
         { icon: "self_effects" },
         " Self ",
         { icon: "heal" },
         " 6",
-        { iconId: "f18923574c", from: "effects", relabelAs: "stress" },
+        { iconId: printIcon("shuffle", 54), from: "effects", relabelAs: "stress" },
         "-1",
       ],
     ],
-    stats: [{ icon: "range", from: "pool" }, " Self"],
+    stats: [{ sourceIcon: "range" }, " Self"],
     numbers: {
-      prepend: [{ text: "0", numeric: 0, left: { icon: "range", from: "pool" } }],
-      replaceLeft: { text: "-1", icon: { icon: "stress", from: "pool" } },
+      prepend: [{ text: "0", numeric: 0, left: { sourceIcon: "range" } }],
+      replaceLeft: { text: "-1", icon: { sourceIcon: "stress" } },
     },
     annotations: {
       annotation_self_heal: { lineIndex: 0, amount: 6, source: "print_front" },
@@ -416,21 +417,21 @@ const fixes: readonly SkillCorrection[] = [
     level: 2,
     expectedEffects: ["{self_effects}{buff}Self{buff}{heal}9,{shuffle}-1"],
     expectedStats: "Crit1Acc14",
-    requireIcons: [{ icon: "stress", from: "pool" }],
+    requireIcons: [{ sourceIcon: "stress" }],
     effects: [
       [
         { icon: "self_effects" },
         " Self ",
         { icon: "heal" },
         " 9",
-        { iconId: "f18923574c", from: "effects", relabelAs: "stress" },
+        { iconId: printIcon("shuffle", 54), from: "effects", relabelAs: "stress" },
         "-1",
       ],
     ],
-    stats: [{ icon: "range", from: "pool" }, " Self"],
+    stats: [{ sourceIcon: "range" }, " Self"],
     numbers: {
-      prepend: [{ text: "0", numeric: 0, left: { icon: "range", from: "pool" } }],
-      replaceLeft: { text: "-1", icon: { icon: "stress", from: "pool" } },
+      prepend: [{ text: "0", numeric: 0, left: { sourceIcon: "range" } }],
+      replaceLeft: { text: "-1", icon: { sourceIcon: "stress" } },
     },
     annotations: {
       annotation_self_heal: { lineIndex: 0, amount: 9, source: "print_front" },
@@ -444,21 +445,21 @@ const fixes: readonly SkillCorrection[] = [
     level: 3,
     expectedEffects: ["{self_effects}{buff}Self{buff}12{heal},{shuffle}-1"],
     expectedStats: "Crit1Acc16",
-    requireIcons: [{ icon: "stress", from: "pool" }],
+    requireIcons: [{ sourceIcon: "stress" }],
     effects: [
       [
         { icon: "self_effects" },
         " Self ",
         { icon: "heal" },
         " 12",
-        { iconId: "f18923574c", from: "effects", relabelAs: "stress" },
+        { iconId: printIcon("shuffle", 54), from: "effects", relabelAs: "stress" },
         "-1",
       ],
     ],
-    stats: [{ icon: "range", from: "pool" }, " Self"],
+    stats: [{ sourceIcon: "range" }, " Self"],
     numbers: {
-      prepend: [{ text: "0", numeric: 0, left: { icon: "range", from: "pool" } }],
-      replaceLeft: { text: "-1", icon: { icon: "stress", from: "pool" } },
+      prepend: [{ text: "0", numeric: 0, left: { sourceIcon: "range" } }],
+      replaceLeft: { text: "-1", icon: { sourceIcon: "stress" } },
     },
     annotations: {
       annotation_self_heal: { lineIndex: 0, amount: 12, source: "print_front" },
@@ -479,16 +480,25 @@ const fixes: readonly SkillCorrection[] = [
       [
         { icon: "self_effects" },
         " Self ",
-        { iconId: "d4329c2a97", from: "effects", relabelAs: "mark" },
+        { iconId: printIcon("buff", 86), from: "effects", relabelAs: "mark" },
         " 2t",
       ],
       [
-        { icon: "target_effects", from: "pool" },
+        { sourceIcon: "target_effects" },
         " Ignores ",
-        { line: 1, segment: 2, iconId: "b6afaa4d7b", relabelAs: "protection" },
+        {
+          line: 1,
+          segment: 2,
+          expectKey: "target_effects",
+          variantRank: 7,
+          relabelAs: "protection",
+        },
       ],
-      ["Ignores ", { line: 1, segment: 4, iconId: "b6afaa4d7b", relabelAs: "guard" }],
-      [{ icon: "target_effects", from: "pool" }, " ", { icon: "debuff", from: "pool" }, " 1t"],
+      [
+        "Ignores ",
+        { line: 1, segment: 4, expectKey: "target_effects", variantRank: 7, relabelAs: "guard" },
+      ],
+      [{ sourceIcon: "target_effects" }, " ", { sourceIcon: "debuff" }, " 1t"],
     ],
   },
   {
@@ -505,16 +515,25 @@ const fixes: readonly SkillCorrection[] = [
       [
         { icon: "self_effects" },
         " Self ",
-        { iconId: "d4329c2a97", from: "effects", relabelAs: "mark" },
+        { iconId: printIcon("buff", 86), from: "effects", relabelAs: "mark" },
         " 2t",
       ],
       [
-        { icon: "target_effects", from: "pool" },
+        { sourceIcon: "target_effects" },
         " Ignores ",
-        { line: 1, segment: 2, iconId: "b6afaa4d7b", relabelAs: "protection" },
+        {
+          line: 1,
+          segment: 2,
+          expectKey: "target_effects",
+          variantRank: 7,
+          relabelAs: "protection",
+        },
       ],
-      ["Ignores ", { line: 1, segment: 4, iconId: "b6afaa4d7b", relabelAs: "guard" }],
-      [{ icon: "target_effects", from: "pool" }, " ", { icon: "debuff", from: "pool" }, " 2t"],
+      [
+        "Ignores ",
+        { line: 1, segment: 4, expectKey: "target_effects", variantRank: 7, relabelAs: "guard" },
+      ],
+      [{ sourceIcon: "target_effects" }, " ", { sourceIcon: "debuff" }, " 2t"],
     ],
   },
   {
@@ -531,16 +550,25 @@ const fixes: readonly SkillCorrection[] = [
       [
         { icon: "self_effects" },
         " Self ",
-        { iconId: "d4329c2a97", from: "effects", relabelAs: "mark" },
+        { iconId: printIcon("buff", 86), from: "effects", relabelAs: "mark" },
         " 1t",
       ],
       [
-        { icon: "target_effects", from: "pool" },
+        { sourceIcon: "target_effects" },
         " Ignores ",
-        { line: 1, segment: 2, iconId: "b6afaa4d7b", relabelAs: "protection" },
+        {
+          line: 1,
+          segment: 2,
+          expectKey: "target_effects",
+          variantRank: 7,
+          relabelAs: "protection",
+        },
       ],
-      ["Ignores ", { line: 1, segment: 4, iconId: "b6afaa4d7b", relabelAs: "guard" }],
-      [{ icon: "target_effects", from: "pool" }, " ", { icon: "debuff", from: "pool" }, " 3t"],
+      [
+        "Ignores ",
+        { line: 1, segment: 4, expectKey: "target_effects", variantRank: 7, relabelAs: "guard" },
+      ],
+      [{ sourceIcon: "target_effects" }, " ", { sourceIcon: "debuff" }, " 3t"],
     ],
   },
 ];
