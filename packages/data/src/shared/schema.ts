@@ -11,6 +11,7 @@ import {
 import { iconStatusSchema } from "./dictionary/schema";
 import { iconIdSchema, levelSchema, pageListSchema } from "./extract/common";
 import { monsterStanceGroupsSchema } from "./monster-stance";
+import { STATUS_KINDS } from "./status-kinds";
 
 /** 可以拿来命名的只有 confirmed / confirmed_rulebook。decor 不是游戏图标。其余按 R-048 标未验证。 */
 export const NAMINGS = ["confirmed", "confirmed_rulebook", "decor", "unverified"] as const;
@@ -231,17 +232,7 @@ const skillStatFields = {
 };
 
 /** 状态种类；抗性 / 免疫规则共用同一枚举。 */
-export const statusKindSchema = z.enum([
-  "bleed",
-  "blight",
-  "stun",
-  "buff",
-  "debuff",
-  "mark",
-  "guard",
-  "riposte",
-  "protection",
-]);
+export const statusKindSchema = z.enum(STATUS_KINDS);
 export type StatusKindValue = z.infer<typeof statusKindSchema>;
 
 /** 逐卡对照完整页面后附加的 Nt；缺失不表示任何默认持续时间。 */

@@ -352,6 +352,29 @@ const dictionary = parseSchema(
 );
 
 describe("图标词典 v1.8", () => {
+  it("可追加同语义印刷映射，并继续拒绝重复或失效的引用", () => {
+    const old = dictionary.icons.find((icon) => icon.key === "range")!;
+    const iconId = "1".repeat(10);
+    const added = {
+      ...old,
+      rank: dictionary.icons.length + 1,
+      iconId,
+      placeholder: `{icon:${iconId}}`,
+      source: "kyries_review_2026-11-27",
+    };
+    const expanded = { ...dictionary, icons: [...dictionary.icons, added] };
+    expect(iconDictionarySchema.parse(expanded).icons.at(-1)).toEqual(added);
+    expect(
+      iconDictionarySchema.safeParse({ ...expanded, icons: [...expanded.icons, added] }).success,
+    ).toBe(false);
+    expect(
+      iconDictionarySchema.safeParse({
+        ...expanded,
+        inconsistencies: [{ id: "missing_rank", ranks: [added.rank + 1], issue: "missing rank" }],
+      }).success,
+    ).toBe(false);
+  });
+
   it("Q-47 batch 2026-10-26：Kyries 批准 7 个 needs_review hash", () => {
     const byId = new Map(dictionary.icons.map((icon) => [icon.iconId, icon]));
     expect(byId.get(printIcon("stance_support_monster_slot", 216))).toMatchObject({

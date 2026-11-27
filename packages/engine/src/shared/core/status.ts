@@ -1,16 +1,8 @@
-/** 官方 R20–21、R-018 / R-033：各次施加分别成堆，Nt 不得缺省。 */
-export const STATUS_KINDS = [
-  "bleed",
-  "blight",
-  "stun",
-  "buff",
-  "debuff",
-  "mark",
-  "guard",
-  "riposte",
-  "protection",
-] as const;
+import { STATUS_KINDS } from "../../../../data/src/shared/status-kinds";
+
+export { STATUS_KINDS };
 export type StatusKind = (typeof STATUS_KINDS)[number];
+/** 官方 R20–21、R-018 / R-033：各次施加分别成堆，Nt 不得缺省。 */
 export type StatusStack = {
   readonly kind: StatusKind;
   readonly remaining: number;

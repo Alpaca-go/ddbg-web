@@ -33,18 +33,11 @@ const CONFIDENCE = /^(?:high|medium-high|medium|low-medium|low)(?: .+)?$/;
 
 const confidenceSchema = z.string().regex(CONFIDENCE).nullable();
 
-const iconSourceSchema = z.enum([
-  "kyries_review_2026-10-30",
-  "kyries_review_2026-10-26",
-  "kyries_review_2026-10-24",
-  "kyries_review_2026-10-13",
-  "kyries_review_2026-10-12",
-  "kyries_review_2026-10-11",
-  "kyries_review_2026-10-06",
-  "kyries_approved_proposal_2026-10-07",
-  "kyries_approved_rulebook_2026-10-07",
-  "followup_proposal_2026-10-07",
-]);
+const iconSourceSchema = z
+  .string()
+  .regex(
+    /^(?:kyries_(?:review|approved_proposal|approved_rulebook)|followup_proposal)_\d{4}-\d{2}-\d{2}$/,
+  );
 
 const proposalSchema = z.strictObject({
   key: z.string().regex(/^[a-z0-9_]+$/),
@@ -137,7 +130,7 @@ export function iconKeyConventionIssues(icon: {
 export const iconEntrySchema = z
   .strictObject({
     iconId: iconIdSchema,
-    rank: z.int().min(1).max(983),
+    rank: z.int().positive(),
     card_occurrences: z.int().nonnegative(),
     occurrences: z.int().nonnegative(),
     status: iconStatusSchema,
@@ -239,7 +232,7 @@ const iconEntryDocSchema = z.strictObject({
   notes: iconFieldDocSchema,
 });
 
-/** `icon-dictionary-v1.8.json`。含字段说明、元数据、已知不一致和 976 条图标。 */
+/** 印刷图标映射及其沿革。新图标在现有 rank 序列末尾登记。 */
 export const iconDictionarySchema = z
   .strictObject({
     schema: z.strictObject({
@@ -302,11 +295,11 @@ export const iconDictionarySchema = z
     inconsistencies: z.array(
       z.strictObject({
         id: z.string().min(1),
-        ranks: z.array(z.int().min(1).max(976)).min(1),
+        ranks: z.array(z.int().positive()).min(1),
         issue: z.string().min(1),
       }),
     ),
-    icons: z.array(iconEntrySchema).length(983),
+    icons: z.array(iconEntrySchema).min(1),
   })
   .superRefine((file, ctx) => {
     const ids = new Set<string>();
@@ -338,6 +331,14 @@ export const iconDictionarySchema = z
         });
         break;
       }
+    }
+    for (const [index, inconsistency] of file.inconsistencies.entries()) {
+      if (inconsistency.ranks.some((rank) => !ranks.has(rank)))
+        ctx.addIssue({
+          code: "custom",
+          message: "不一致说明引用了未登记的 rank",
+          path: ["inconsistencies", index, "ranks"],
+        });
     }
   });
 
