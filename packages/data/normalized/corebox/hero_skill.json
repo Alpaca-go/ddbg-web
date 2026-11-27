@@ -53813,6 +53813,27 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 0,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 14,
+      "damage": 7
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 10
+     },
+     "onHit": [],
+     "selfShuffle": {
+      "direction": "push",
+      "distance": 3
+     }
+    },
     "shuffle": [
      {
       "lineIndex": 0,
@@ -54251,6 +54272,27 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 0,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 15,
+      "damage": 10
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 16
+     },
+     "onHit": [],
+     "selfShuffle": {
+      "direction": "push",
+      "distance": 3
+     }
+    },
     "shuffle": [
      {
       "lineIndex": 0,
@@ -54689,6 +54731,27 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 0,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 16,
+      "damage": 12
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 20
+     },
+     "onHit": [],
+     "selfShuffle": {
+      "direction": "push",
+      "distance": 3
+     }
+    },
     "shuffle": [
      {
       "lineIndex": 0,

@@ -1,3 +1,4 @@
+import { nextBattleRoll } from "../../../src/shared/dungeon/encounter";
 import { expect, it } from "vitest";
 import { loadNormalizedCorebox } from "../../../../data/src/core/write";
 import { createBattleState } from "../../../src/shared/battle/battle";
@@ -180,6 +181,84 @@ it("I 级目录：Jester/Arbalest 七张已核实；Abomination 七张（含双�
   expect(verifiedLevel1CombatSkillsForHero("JESTER", data.hero_skill.cards)).toHaveLength(7);
   expect(verifiedLevel1CombatSkillsForHero("ARBALEST", data.hero_skill.cards)).toHaveLength(7);
   expect(verifiedLevel1CombatSkillsForHero("ABOMINATION", data.hero_skill.cards)).toHaveLength(7);
+});
+
+it.each([
+  [0, "hit"],
+  [20, "miss"],
+] as const)("Finale 清空卡面后仍在 %s Dodge 时完成自身 Push 3 并得到 %s", (dodge, outcome) => {
+  const skill = card("hero_skill:core:h06:p112");
+  const { directAttack, ...legacyRules } = skill.rules!;
+  const stripped = {
+    ...skill,
+    rules: { directAttack: directAttack! },
+    printed_labels: [],
+    unlabeled_numbers: [],
+    top_row_icons: [],
+    front_icons: [],
+    stats_line: null,
+    effect_lines: [],
+  };
+  const { game, command } = setupBattle("JESTER", "hero_stat:core:h06:p011:front", skill, {
+    areaDistance: 0,
+    actor: { stance: "defensive" },
+    target: { dodge },
+  });
+  const seed = Array.from({ length: 200 }, (_, i) => i).find(
+    (seed) => nextBattleRoll(seed, 0) === 5,
+  )!;
+  const battle = {
+    ...game.battle!,
+    areas: [
+      ...game.battle!.areas.map((area) =>
+        area.id === "c" ? { ...area, adjacent: ["b", "d"] } : area,
+      ),
+      { id: "d", elevation: "normal" as const, adjacent: ["c"], capacity: 8 },
+    ],
+  };
+  const legacy = play(
+    { ...game, seed, battle: { ...battle, skills: [{ ...skill, rules: legacyRules }] } },
+    command,
+  );
+  const migrated = play({ ...game, seed, battle: { ...battle, skills: [stripped] } }, command);
+  expect(migrated.events).toEqual(legacy.events);
+  expect(migrated.pendingChoice).toEqual(legacy.pendingChoice);
+  expect(migrated.state.battle!.shuffleIntents).toEqual(legacy.state.battle!.shuffleIntents);
+  expect(migrated.state.battle!.rngCursor).toBe(1);
+  const expected = play(legacy.state, { type: "resolveShuffles" });
+  const actual = play(migrated.state, { type: "resolveShuffles" });
+  expect(actual).toEqual({
+    ...expected,
+    state: { ...expected.state, battle: { ...expected.state.battle!, skills: [stripped] } },
+  });
+  expect(actual.state.battle!.entities.find(({ id }) => id === "h")!.areaId).toBe("d");
+  expect(actual.events).toContainEqual(
+    expect.objectContaining({
+      type: "heroSkillResolved",
+      resolution: expect.objectContaining({ outcome }),
+    }),
+  );
+  expect(actual.state.battle!.rngCursor).toBe(1);
+  const invalid = {
+    ...game,
+    battle: {
+      ...battle,
+      skills: [
+        {
+          ...stripped,
+          rules: {
+            directAttack: {
+              ...directAttack!,
+              selfShuffle: { direction: "push" as const, distance: 0 },
+            },
+          },
+        },
+      ],
+    },
+  };
+  const refused = applyCommand(invalid, command);
+  expect(refused.state).toBe(invalid);
+  expect(refused.events[0]?.type).toBe("commandRefused");
 });
 
 it("Dirk Stab / Rallying Flare I 可结算；R-102 无视 Guard", () => {

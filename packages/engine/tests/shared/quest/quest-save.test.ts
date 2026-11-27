@@ -128,8 +128,9 @@ it("十字军直攻迁移前的任务日志含 Smite 和 Zealous Accusation，�
 it.each([
   ["Holy Lance", "hero_skill:core:h01:p016", "hero-0"],
   ["Breakthrough", "hero_skill:core:h02:p034", "hero-1"],
+  ["Finale", "hero_skill:core:h06:p112", "hero-0"],
 ] as const)(
-  "%s 旧存档可从自身 Pull 待续接处严格重放并使用原骰",
+  "%s 旧存档可从自身位移待续接处严格重放并使用原骰",
   (skillName, skillId, actorId) => {
     const previousSources = {
       ...coreQuestSources,
@@ -143,18 +144,20 @@ it.each([
         }),
       },
     };
-    const party =
-      skillName !== "Holy Lance"
-        ? naturalParty
-        : naturalParty.map((hero, index) => ({
-            ...hero,
-            stance:
-              index === 0
-                ? ("ranged" as const)
-                : index === 2
-                  ? ("aggressive" as const)
-                  : hero.stance,
-          }));
+    const party = naturalParty.map((hero, index) => {
+      if (skillName === "Holy Lance") {
+        if (index === 0) return { ...hero, stance: "ranged" as const };
+        if (index === 2) return { ...hero, stance: "aggressive" as const };
+      }
+      if (skillName === "Finale" && index === 0) {
+        return {
+          ...hero,
+          heroStatId: "hero_stat:core:h06:p011:front",
+          skillIds: ["hero_skill:core:h06:p106", skillId, "hero_skill:core:h06:p121"],
+        };
+      }
+      return hero;
+    });
     const questStart = { ...start, party };
     const begin = (sources: typeof coreQuestSources) =>
       createCoreDungeonQuest(start.seed, start.questId, start.mode, party, sources);

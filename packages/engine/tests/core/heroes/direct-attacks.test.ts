@@ -6,8 +6,8 @@ import { trinketBattle } from "../../helpers/trinket-battle";
 import { coreQuestSources } from "../../helpers/core-quest";
 
 const reviewed = coreQuestSources.catalog.skills.filter((card) => card.rules?.directAttack);
-it("十三组已核准的攻击各发布三个等级的独立规则", () => {
-  expect(reviewed).toHaveLength(39);
+it("十四组已核准的攻击各发布三个等级的独立规则", () => {
+  expect(reviewed).toHaveLength(42);
 });
 
 it("直接攻击在空区域仍掷骰，且保留 Accuracy Stone 的使用窗口", () => {
