@@ -43,7 +43,7 @@ type PrintedAttack = {
   readonly effect_lines: Parameters<typeof wealdEffectSignatures>[0];
 };
 
-/** R-230：对照已核准的印刷字段；构建和战斗准入共用。 */
+/** R-230：对照已核准的印刷字段；在构建阶段校验。 */
 export function matchesWealdAttackPrint(skill: PrintedAttack, entry: WealdMonsterAttack): boolean {
   const number = (label: string) =>
     skill.unlabeled_numbers.find(

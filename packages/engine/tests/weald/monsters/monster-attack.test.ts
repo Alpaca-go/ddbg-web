@@ -178,7 +178,7 @@ describe("Weald R-230 已确认技能的独立结算", () => {
     });
   });
 
-  it("拒绝篡改核准目标数、原始射程或效果行", () => {
+  it("拒绝缺失或篡改核准攻击规则", () => {
     const source = card(L);
     const altered = {
       ...source,
@@ -192,53 +192,14 @@ describe("Weald R-230 已确认技能的独立结算", () => {
       }),
     };
     expect(readMonsterAttackView(altered, 2).status).toBe("refused");
-    const original = card(A);
-    const drift = {
-      ...original,
-      skills: original.skills.map((skill) =>
-        skill.slot !== 2 ? skill : { ...skill, effect_lines: [] },
-      ),
-    };
-    expect(readMonsterAttackView(drift, 2).status).toBe("refused");
-    const rangeSource = card(A);
-    const wrongRange = {
-      ...rangeSource,
-      skills: rangeSource.skills.map((skill) =>
-        skill.slot !== 2
-          ? skill
-          : {
-              ...skill,
-              unlabeled_numbers: skill.unlabeled_numbers.map((number) =>
-                number.anchor.type !== "beside_icon"
-                  ? number
-                  : { ...number, text: "3", numeric: 3 },
-              ),
-            },
-      ),
-    };
-    expect(readMonsterAttackView(wrongRange, 2).status).toBe("refused");
-    const wrongGlyph = {
-      ...rangeSource,
-      skills: rangeSource.skills.map((skill) =>
-        skill.slot !== 2
-          ? skill
-          : {
-              ...skill,
-              unlabeled_numbers: skill.unlabeled_numbers.map((number) => {
-                const anchor = number.anchor;
-                return anchor.type === "beside_icon" && anchor.left_icon
-                  ? {
-                      ...number,
-                      anchor: {
-                        ...anchor,
-                        left_icon: { ...anchor.left_icon, iconId: "0".repeat(10) },
-                      },
-                    }
-                  : number;
-              }),
-            },
-      ),
-    };
-    expect(readMonsterAttackView(wrongGlyph, 2).status).toBe("refused");
+    for (const wealdAttack of [undefined, { ...source.skills[1]!.rules!.wealdAttack!, acc: -1 }]) {
+      const missing = {
+        ...source,
+        skills: source.skills.map((skill) =>
+          skill.slot === 2 ? { ...skill, rules: wealdAttack ? { wealdAttack } : {} } : skill,
+        ),
+      };
+      expect(readMonsterAttackView(missing, 2).status).toBe("refused");
+    }
   });
 });

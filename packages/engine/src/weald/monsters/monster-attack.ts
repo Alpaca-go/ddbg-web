@@ -1,8 +1,7 @@
 import {
-  WEALD_MONSTER_ATTACKS,
+  WEALD_MONSTER_ATTACK_RULES,
   wealdMonsterAttackSchema,
 } from "../../../../data/src/weald/monsters/monster-rulings";
-import { matchesWealdAttackPrint } from "../../../../data/src/weald/monsters/monster-print";
 import type { MonsterEffectPlan } from "../../../../data/src/core/monsters/monster-effects";
 import type { HeroSkillCardView, SkillSegment } from "../../core/heroes/hero-skill";
 import type { MonsterCardView, MonsterSkillView } from "../../shared/core/monster-skill";
@@ -58,29 +57,42 @@ export type WealdMonsterAttackReady = {
   readonly wealdSummon?: { readonly cardId: string; readonly count: 1 };
 };
 
-/** R-230：卡面签名与逐卡裁定同时匹配才投影到通用结算器；整卡审阅门不变。 */
+/** R-230：逐卡核准规则投影到通用结算器；整卡审阅门不变。 */
 export function readWealdMonsterAttack(
   monster: MonsterCardView,
   skill: MonsterSkillView,
 ): WealdMonsterAttackReady | { readonly status: "refused"; readonly reason: string } {
   const refuse = (reason: string) => ({ status: "refused" as const, reason });
   const parsed = wealdMonsterAttackSchema.safeParse(skill.rules?.wealdAttack);
-  const entry = WEALD_MONSTER_ATTACKS.find(
+  if (!parsed.success) return refuse("Weald 技能核准记录与 R-230 不符");
+  delete parsed.data.effectSignatures;
+  const entry = WEALD_MONSTER_ATTACK_RULES.find(
     (entry) => entry.cardId === monster.id && entry.slot === skill.slot,
   );
-  if (!parsed.success || !entry || JSON.stringify(parsed.data) !== JSON.stringify(entry))
+  if (!entry || JSON.stringify(parsed.data) !== JSON.stringify(entry))
     return refuse("Weald 技能核准记录与 R-230 不符");
-  if (skill.target !== entry.target || !matchesWealdAttackPrint(skill, entry))
-    return refuse("Weald 技能原始卡面与 R-230 不符");
+  if (skill.target !== entry.target) return refuse("Weald 技能目标与 R-230 不符");
 
   const rangeIcon = { key: "range", naming: "confirmed" };
   const view: HeroSkillCardView = {
     id: `${monster.id}:skill${skill.slot}`,
     hero: null,
     verification: monster.verification,
-    printed_labels: skill.printed_labels,
+    printed_labels: [
+      { label: "Crit", value: entry.crit },
+      { label: "Acc", value: entry.acc },
+    ],
     unlabeled_numbers: [
-      ...skill.unlabeled_numbers.filter((item) => item.anchor.type === "printed_label"),
+      {
+        text: String(entry.criticalDamage),
+        numeric: entry.criticalDamage,
+        anchor: { type: "printed_label", label: "Crit" },
+      },
+      {
+        text: String(entry.damage),
+        numeric: entry.damage,
+        anchor: { type: "printed_label", label: "Acc" },
+      },
       {
         text: String(entry.range),
         numeric: entry.range,

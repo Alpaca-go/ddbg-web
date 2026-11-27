@@ -1,4 +1,5 @@
-import { WEALD_MONSTER_ATTACKS } from "./monster-rulings";
+import { WEALD_ATTACK_SIGNATURES } from "./monster-attack-print.build";
+import { WEALD_MONSTER_ATTACK_RULES } from "./monster-rulings";
 import { matchesWealdAttackPrint, matchesWealdDefencePrint } from "./monster-print";
 import { WEALD_MONSTER_PROFILES } from "./monster-profiles";
 import type { NormalizedMonsterMediumCard } from "../../shared/schema";
@@ -9,7 +10,7 @@ export function attachVerifiedWealdMonster(
 ): NormalizedMonsterMediumCard {
   if (!("skills" in card)) return card;
   const profile = WEALD_MONSTER_PROFILES.find((entry) => entry.cardId === card.id);
-  const attacks = WEALD_MONSTER_ATTACKS.filter((entry) => entry.cardId === card.id);
+  const attacks = WEALD_MONSTER_ATTACK_RULES.filter((entry) => entry.cardId === card.id);
   if (
     !profile ||
     card.name !== profile.name ||
@@ -27,7 +28,9 @@ export function attachVerifiedWealdMonster(
     speed: profile.speed,
     stanceGroups: profile.stanceGroups,
     skills: card.skills.map((skill) => {
-      const entry = attacks.find((entry) => entry.slot === skill.slot);
+      const rule = attacks.find((entry) => entry.slot === skill.slot);
+      const signature = WEALD_ATTACK_SIGNATURES[card.id + ":" + skill.slot];
+      const entry = rule && { ...rule, effectSignatures: signature ? [signature] : [] };
       if (!entry || !matchesWealdAttackPrint(skill, entry))
         throw new Error(`Weald R-230 技能卡面漂移：${card.id} / ${skill.slot}`);
       return {

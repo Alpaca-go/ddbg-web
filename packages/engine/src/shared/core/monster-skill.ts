@@ -1,3 +1,4 @@
+import { WEALD_MONSTER_ATTACK_RULES } from "../../../../data/src/weald/monsters/monster-rulings";
 import {
   needsHeroSkillShuffleChoice,
   resolveMonsterAttackEffects,
@@ -181,7 +182,11 @@ export function readMonsterAttackView(
       reason: "Call the Murder：Nest 在场的飞行与治疗细则待裁定（R-261／Q-186）",
     };
   if (skill.hagIntoPot) return readHagIIntoPotAttack(monster, skill);
-  if (wealdAttack !== undefined) return readWealdMonsterAttack(monster, skill);
+  if (
+    wealdAttack !== undefined ||
+    WEALD_MONSTER_ATTACK_RULES.some(({ cardId }) => cardId === monster.id)
+  )
+    return readWealdMonsterAttack(monster, skill);
   const excluded = new Set<number>();
   for (const effectLine of skill.effect_lines) {
     const key = lineKey(effectLine);

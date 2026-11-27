@@ -4,7 +4,7 @@ import {
 } from "../../../../data/src/shared/schema";
 import { WEALD_MONSTER_PROFILES } from "../../../../data/src/weald/monsters/monster-profiles";
 import {
-  WEALD_MONSTER_ATTACKS,
+  WEALD_MONSTER_ATTACK_RULES,
   wealdMonsterProfileSchema,
 } from "../../../../data/src/weald/monsters/monster-rulings";
 import { matchesWealdDefencePrint } from "../../../../data/src/weald/monsters/monster-print";
@@ -77,7 +77,7 @@ export function buildWealdMonsterCatalog(
       !matchesWealdDefencePrint(source, profile)
     )
       throw new Error(`Weald R-232 属性或来源漂移：${source.id}`);
-    const expected = WEALD_MONSTER_ATTACKS.filter((entry) => entry.cardId === source.id);
+    const expected = WEALD_MONSTER_ATTACK_RULES.filter((entry) => entry.cardId === source.id);
     if (
       source.skills.length !== expected.length ||
       new Set(source.skills.map((s) => s.slot)).size !== expected.length

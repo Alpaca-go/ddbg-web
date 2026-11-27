@@ -138,6 +138,31 @@ function playSkill(state: GameState, skillSlot: number, targetId: string) {
 }
 
 describe("Weald R-230 召唤部署（R31、R-034）", () => {
+  it("Cytokinesis 去掉印刷字段仍结算相同的召唤、待选和 RNG", () => {
+    const state = baseState();
+    const monsters = state.battle!.monsters!.map((card) => ({
+      ...card,
+      skills: card.skills.map((skill) => {
+        const { effectSignatures: _print, ...wealdAttack } = skill.rules!.wealdAttack!;
+        void _print;
+        return {
+          ...skill,
+          rules: { wealdAttack },
+          printed_labels: [],
+          unlabeled_numbers: [],
+          effect_lines: [],
+          lines: [],
+        };
+      }),
+    }));
+    const expected = playSkill(state, 2, "h0");
+    const actual = playSkill({ ...state, battle: { ...state.battle!, monsters } }, 2, "h0");
+    expect(actual).toEqual({
+      ...expected,
+      state: { ...expected.state, battle: { ...expected.state.battle!, monsters } },
+    });
+  });
+
   it("Cytokinesis：命中后召唤 Ectoplasm 到首空姿态并洗入先攻", () => {
     const result = playSkill(baseState(), 2, "h0");
     const summoned = result.state.battle!.entities.filter(
