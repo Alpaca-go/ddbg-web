@@ -1408,7 +1408,11 @@ const SHUFFLE_CHOICE_TEXT = /^Push (\d+) or Pull (\d+)$/;
  */
 function readShuffles(skill: HeroSkillCardView, choice: "push" | "pull" | undefined): ReadShuffles {
   if (skill.rules?.directAttack)
-    return { self: skill.rules.directAttack.selfShuffle ?? null, target: null, lineCount: 0 };
+    return {
+      self: skill.rules.directAttack.selfShuffle ?? null,
+      target: skill.rules.directAttack.targetShuffle ?? null,
+      lineCount: 0,
+    };
   const selves: SkillShuffle[] = [];
   const targets: SkillShuffle[] = [];
   const choices: number[] = [];
@@ -1449,7 +1453,7 @@ export function needsHeroSkillShuffleChoice(
   face: "front" | "back" = "front",
 ): boolean {
   const selected = selectFace(skill, face);
-  if (!selected.ok) return false;
+  if (!selected.ok || selected.skill.rules?.directAttack !== undefined) return false;
   const push = readShuffles(selected.skill, "push").target;
   const pull = readShuffles(selected.skill, "pull").target;
   if (push?.direction === "push" && pull?.direction === "pull") return true;
@@ -1471,7 +1475,7 @@ export function needsHeroSkillShufflePushDistance(
   face: "front" | "back" = "front",
 ): readonly [number, number] | null {
   const selected = selectFace(skill, face);
-  if (!selected.ok) return null;
+  if (!selected.ok || selected.skill.rules?.directAttack !== undefined) return null;
   for (const line of selected.skill.effect_lines) {
     const selfLine = line.some(
       (s) => s.type === "icon" && s.icon.key === "self_effects" && NAMED.has(s.icon.naming),
@@ -1866,6 +1870,7 @@ function selectFace(
  */
 function readsAsSelfTarget(skill: HeroSkillCardView): boolean {
   const rules = rulesOf(skill);
+  if (rules.directAttack !== undefined) return false;
   const statuses = rules.statuses;
   const selfRange = rules.self?.range;
   const line = skill.stats_line;

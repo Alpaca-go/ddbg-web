@@ -2,9 +2,12 @@ import { CONDITIONAL_DAMAGE_SUFFIX, directAttackSchema } from "../../shared/effe
 import type { NormalizedHeroSkillCard } from "../../shared/schema";
 import { HERO_ANNOTATIONS } from "./annotations";
 import { ABOMINATION_PROJECTIONS } from "./annotations/abomination-projection-data";
+import { lineSignature } from "./annotations/shared";
 import type { DirectAttackEntry } from "./annotations/types";
 
 type ReviewedAttack = Omit<DirectAttackEntry, "id" | "name">;
+
+const compactEffect = (text: string) => text.replace(/[\s,]+/g, "");
 
 function attachDirectHeroAttack(
   card: NormalizedHeroSkillCard,
@@ -15,7 +18,8 @@ function attachDirectHeroAttack(
     card.unlabeled_numbers.find(
       (entry) => entry.anchor.type === "printed_label" && entry.anchor.label === label,
     )?.numeric;
-  const form = ABOMINATION_PROJECTIONS.find(({ id }) => id === card.id)?.front;
+  const projection = ABOMINATION_PROJECTIONS.find(({ id }) => id === card.id);
+  const form = projection?.front;
   const effects = form?.statuses ?? card.rules?.statuses ?? [];
   const heal = card.rules?.self?.heal;
   const stress = form?.selfStress ?? card.rules?.self?.stress;
@@ -35,13 +39,9 @@ function attachDirectHeroAttack(
         interval.max === review.range &&
         range?.numeric === null &&
         range.text === `${review.rangeMinimum}-${review.range}`);
-  const printedEffects = card.effect_lines.map((line) =>
-    line
-      .map((segment) => (segment.type === "text" ? segment.text : `{${segment.icon.key}}`))
-      .join("")
-      .replaceAll(String.fromCharCode(7), "")
-      .replace(/[\s,]+/g, ""),
-  );
+  const printedEffects = card.effect_lines.map(lineSignature);
+  const approvedPrint = projection?.printedLines;
+  const effectLines = (approvedPrint ? (form?.lines ?? []) : printedEffects).map(compactEffect);
   const printedStances = (["support", "ranged", "defensive", "aggressive"] as const).map(
     (stance) => "stance_" + stance + (review.stances.includes(stance) ? "_lit" : "_unlit"),
   );
@@ -68,14 +68,27 @@ function attachDirectHeroAttack(
   const damageBonuses = card.rules?.damageBonuses ?? (singleDamage ? [singleDamage] : []);
   const actorBonus = card.rules?.actorDamage;
   const ignores = card.rules?.ignores ?? [];
-  const shuffles = card.rules?.shuffle ?? [];
-  const [shuffle] = shuffles;
-  const move = /^(Push|Pull) ([1-9]\d*)$/.exec(shuffle?.text ?? "");
-  const selfShuffle = move
-    ? { direction: move[1] === "Pull" ? "pull" : "push", distance: Number(move[2]) }
-    : undefined;
+  const shuffles = form?.shuffles ?? card.rules?.shuffle ?? [];
+  const moves = new Map<"self" | "target", { direction: "push" | "pull"; distance: number }>();
   const expectedEffects = new Map(statusesAt);
-  if (move) expectedEffects.set(0, `{self_effects}Self{shuffle}${move[1]}${move[2]}`);
+  for (const { scope, lineIndex, text } of shuffles) {
+    const move = /^(Push|Pull) ([1-9]\d*)$/.exec(text);
+    if (
+      !move ||
+      moves.has(scope) ||
+      effects.some((e) => e.lineIndex === lineIndex && e.scope !== scope)
+    )
+      throw new Error(card.id + " 位移效果与已核作用范围不符（R-048）");
+    moves.set(scope, {
+      direction: move[1] === "Pull" ? "pull" : "push",
+      distance: Number(move[2]),
+    });
+    const prefix = scope === "self" ? "{self_effects}Self" : "{target_effects}";
+    expectedEffects.set(
+      lineIndex,
+      (statusesAt.get(lineIndex) ?? prefix) + `{shuffle}${move[1]}${move[2]}`,
+    );
+  }
   for (const { lineIndex, amount, condition } of damageBonuses)
     expectedEffects.set(
       lineIndex,
@@ -119,7 +132,7 @@ function attachDirectHeroAttack(
   }
   const effectLineCount =
     statusesAt.size +
-    Number(Boolean(move)) +
+    shuffles.filter(({ lineIndex }) => !statusesAt.has(lineIndex)).length +
     damageBonuses.length +
     Number(Boolean(actorBonus)) +
     ignores.length +
@@ -128,6 +141,7 @@ function attachDirectHeroAttack(
     Number(Boolean(stress) && !combinedStress);
   if (
     card.verification.unverified ||
+    (projection && (projection.name !== card.name || projection.level !== card.level)) ||
     card.rules?.effect !== "damage" ||
     labels.get("Crit") !== review.critical.threshold ||
     labels.get("Acc") !== review.hit.threshold ||
@@ -147,9 +161,12 @@ function attachDirectHeroAttack(
           part.icon.naming !== "confirmed_rulebook",
       ),
     ) ||
-    printedEffects.length !== expectedEffects.size ||
+    (approvedPrint &&
+      (printedEffects.length !== approvedPrint.length ||
+        printedEffects.some((line, index) => line !== approvedPrint[index]))) ||
+    effectLines.length !== expectedEffects.size ||
     expectedEffects.size !== effectLineCount ||
-    printedEffects.some((line, index) => line !== expectedEffects.get(index)) ||
+    effectLines.some((line, index) => line !== expectedEffects.get(index)) ||
     (review.selfWound !== undefined &&
       !card.unlabeled_numbers.some(
         ({ numeric, anchor }) =>
@@ -158,13 +175,13 @@ function attachDirectHeroAttack(
           anchor.left_icon === null &&
           anchor.inside_icon === null,
       )) ||
-    (shuffle !== undefined &&
-      (shuffles.length !== 1 || shuffle.scope !== "self" || shuffle.lineIndex !== 0 || !move)) ||
     (singleDamage !== undefined && card.rules.damageBonuses !== undefined)
   ) {
     throw new Error(card.id + " 效果词条与已核卡面不符（R-048）");
   }
   const bonuses = damageBonuses.map(({ condition, amount }) => ({ condition, amount }));
+  const selfShuffle = moves.get("self");
+  const targetShuffle = moves.get("target");
   const directAttack = directAttackSchema.parse({
     ...review,
     onHit,
@@ -178,6 +195,7 @@ function attachDirectHeroAttack(
     ...(ignores.some(({ kind }) => kind === "protection") ? { ignoresProtection: true } : {}),
     ...(ignores.some(({ kind }) => kind === "guard") ? { ignoresGuard: true } : {}),
     ...(selfShuffle ? { selfShuffle } : {}),
+    ...(targetShuffle ? { targetShuffle } : {}),
   });
   return { ...card, rules: { ...card.rules, directAttack } };
 }

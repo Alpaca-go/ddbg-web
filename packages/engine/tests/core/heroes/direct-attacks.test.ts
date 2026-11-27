@@ -21,9 +21,7 @@ it("七组基础直攻各发布三个等级的独立规则", () => {
   }
 });
 
-const attacksWithoutMovement = reviewed.filter(({ rules }) => !rules!.directAttack!.selfShuffle);
-
-it.each(attacksWithoutMovement)("$id 的公开命令只需核准规则，非法规则原子拒绝", (card) => {
+it.each(reviewed)("$id 的公开命令只需核准规则，非法规则原子拒绝", (card) => {
   const { directAttack: attack, ...legacyRules } = card.rules!;
   const { state, command } = trinketBattle(
     ["trinket:p001"],
@@ -76,8 +74,9 @@ it.each(attacksWithoutMovement)("$id 的公开命令只需核准规则，非法�
       };
     return entity;
   });
+  const moves = attack!.selfShuffle || attack!.targetShuffle;
   const areas =
-    attack!.range === 2
+    attack!.range === 2 || moves
       ? [
           ...battle.areas.map((area) =>
             area.id === "b" ? { ...area, adjacent: [...area.adjacent, "c"] } : area,
@@ -123,31 +122,76 @@ it.each(attacksWithoutMovement)("$id 的公开命令只需核准规则，非法�
   const migrated = applyCommand(fixture(stripped), play);
   expect(legacy.events.filter(({ type }) => type === "commandRefused")).toEqual([]);
   expect(legacy.pendingChoice?.options.map(({ id }) => id)).toContain("trinket:p001");
-  const compare = (oldResult: typeof legacy, newResult: typeof migrated) =>
+  const migratedCatalog = fixture(stripped).battle.skills;
+  const compare = (oldResult: typeof legacy, newResult: typeof migrated) => {
+    const oldBattle = oldResult.state.battle!;
+    const prefix = oldBattle.skillPrefix;
     expect(newResult).toEqual({
       ...oldResult,
       state: {
         ...oldResult.state,
-        battle: { ...oldResult.state.battle!, skills: fixture(stripped).battle.skills },
+        battle: {
+          ...oldBattle,
+          skills: migratedCatalog,
+          ...(prefix
+            ? {
+                skillPrefix: {
+                  ...prefix,
+                  original: { ...prefix.original, skills: migratedCatalog },
+                },
+              }
+            : {}),
+        },
       },
     });
+  };
   compare(legacy, migrated);
   const choice = {
     type: "resolveChoice",
     choiceId: legacy.pendingChoice!.id,
     optionId: "trinket:p001",
   } as const;
-  const resolved = applyCommand(migrated.state, choice);
-  compare(applyCommand(legacy.state, choice), resolved);
+  let oldResolved = applyCommand(legacy.state, choice);
+  let resolved = applyCommand(migrated.state, choice);
+  compare(oldResolved, resolved);
   expect(resolved.events.some(({ type }) => type === "commandRefused")).toBe(false);
   expect(resolved.state.battle!.rngCursor).toBe(battle.rngCursor + 1);
+  for (let step = 0; step < 8; step += 1) {
+    const pendingBattle = oldResolved.state.battle;
+    if (
+      !pendingBattle?.shuffleContinuation &&
+      !pendingBattle?.shuffleIntents.length &&
+      !pendingBattle?.skillPrefix
+    )
+      break;
+    const pending = oldResolved.pendingChoice;
+    const next = pending
+      ? ({
+          type: "resolveChoice",
+          choiceId: pending.id,
+          optionId: pending.options[0]!.id,
+        } as const)
+      : ({ type: "resolveShuffles" } as const);
+    oldResolved = applyCommand(oldResolved.state, next);
+    resolved = applyCommand(resolved.state, next);
+    expect(resolved.events.some(({ type }) => type === "commandRefused")).toBe(false);
+    compare(oldResolved, resolved);
+    expect(resolved.state.battle!.rngCursor).toBe(battle.rngCursor + 1);
+  }
+  expect(resolved.state.battle?.shuffleContinuation).toBeFalsy();
+  expect(resolved.state.battle?.skillPrefix).toBeFalsy();
+  expect(resolved.state.battle?.shuffleIntents).toHaveLength(0);
   const { hit: _hit, ...missingHit } = attack!;
+  const { onHit: _onHit, ...missingOnHit } = attack!;
   void _hit;
+  void _onHit;
   for (const directAttack of [
     missingHit as typeof attack,
+    missingOnHit as typeof attack,
     { ...attack!, range: -1 },
     { ...attack!, rangeMinimum: attack!.range + 1 },
     { ...attack!, onUse: [{ kind: "bleed" as const, duration: 2 }] },
+    { ...attack!, targetShuffle: { direction: "push" as const, distance: 0 } },
   ]) {
     const invalid = fixture({ ...stripped, rules: { directAttack: directAttack! } });
     const refused = applyCommand(invalid, play);

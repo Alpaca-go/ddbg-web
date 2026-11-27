@@ -167,19 +167,30 @@ it("Uppercut分岔冻结其他命令，过期选择拒绝，完成后只位移�
 
 it.each(skills)("$id 未完整核实的同行内容和缺防御在掷骰前原子拒绝", (skill) => {
   const { game, command } = setup(skill);
+  const { directAttack, ...legacyRules } = skill.rules!;
+  const legacy = { ...skill, rules: legacyRules };
   const badSkills = [
     {
-      ...skill,
+      ...legacy,
       effect_lines: skill.effect_lines.map((l) => [...l, { type: "text" as const, text: "extra" }]),
     },
     {
-      ...skill,
+      ...legacy,
       rules: {
-        ...skill.rules,
-        statuses: skill.rules!.statuses!.map((e) => ({ ...e, duration: 9 })),
+        ...legacyRules,
+        statuses: legacyRules.statuses!.map((e) => ({ ...e, duration: 9 })),
       },
     },
-    { ...skill, effect_lines: [...skill.effect_lines, skill.effect_lines[0]!] },
+    { ...legacy, effect_lines: [...skill.effect_lines, skill.effect_lines[0]!] },
+    {
+      ...skill,
+      rules: {
+        directAttack: {
+          ...directAttack!,
+          targetShuffle: { ...directAttack!.targetShuffle!, distance: 0 },
+        },
+      },
+    },
   ];
   for (const badSkill of badSkills) {
     const bad = { ...game, battle: { ...game.battle!, skills: [badSkill] } };

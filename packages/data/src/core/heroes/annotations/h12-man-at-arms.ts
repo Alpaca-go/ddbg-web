@@ -558,6 +558,33 @@ const fixes: readonly SkillCorrection[] = [
 
 const directAttackEntries: readonly DirectAttackEntry[] = [
   {
+    id: "hero_skill:cove:h12:p235",
+    name: "Rampart",
+    stances: ["ranged", "defensive", "aggressive"],
+    range: 1,
+    monsterTargets: 1,
+    hit: { threshold: 9, damage: 4 },
+    critical: { threshold: 1, damage: 7 },
+  },
+  {
+    id: "hero_skill:cove:h12:p236",
+    name: "Rampart",
+    stances: ["ranged", "defensive", "aggressive"],
+    range: 1,
+    monsterTargets: 1,
+    hit: { threshold: 10, damage: 5 },
+    critical: { threshold: 1, damage: 9 },
+  },
+  {
+    id: "hero_skill:cove:h12:p237",
+    name: "Rampart",
+    stances: ["ranged", "defensive", "aggressive"],
+    range: 1,
+    monsterTargets: 1,
+    hit: { threshold: 11, damage: 6 },
+    critical: { threshold: 1, damage: 10 },
+  },
+  {
     id: "hero_skill:cove:h12:p244",
     name: "Retribution",
     stances: ["ranged", "defensive", "aggressive"],
@@ -620,9 +647,6 @@ const entries: HeroAnnotationEntries = {
   directAttack: directAttackEntries,
   shuffle: shuffleEntries,
   targetCount: [
-    { id: "hero_skill:cove:h12:p235", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h12:p236", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h12:p237", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:cove:h12:p238", hero: 0, monster: 4, heroOrMonster: 0 },
     { id: "hero_skill:cove:h12:p239", hero: 0, monster: 4, heroOrMonster: 0 },
     { id: "hero_skill:cove:h12:p240", hero: 0, monster: 4, heroOrMonster: 0 },
@@ -633,11 +657,7 @@ const entries: HeroAnnotationEntries = {
     { id: "hero_skill:cove:h12:p251", hero: 2, monster: 0, heroOrMonster: 0 },
     { id: "hero_skill:cove:h12:p252", hero: 3, monster: 0, heroOrMonster: 0 },
   ],
-  effectKind: [
-    { id: "hero_skill:cove:h12:p235", effect: "damage" },
-    { id: "hero_skill:cove:h12:p236", effect: "damage" },
-    { id: "hero_skill:cove:h12:p237", effect: "damage" },
-  ],
+  effectKind: [],
 };
 
 export const h12 = defineHeroModule({

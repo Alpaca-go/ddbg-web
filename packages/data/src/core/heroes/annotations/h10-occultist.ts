@@ -373,6 +373,33 @@ const shuffleEntries: readonly ShuffleEntry[] = [
 
 const directAttackEntries: readonly DirectAttackEntry[] = [
   {
+    id: "hero_skill:core:h10:p208",
+    name: "Daemon’s Pull",
+    stances: ["support", "ranged", "defensive"],
+    range: 2,
+    monsterTargets: 1,
+    hit: { threshold: 9, damage: 3 },
+    critical: { threshold: 1, damage: 4 },
+  },
+  {
+    id: "hero_skill:core:h10:p209",
+    name: "Daemon’s Pull",
+    stances: ["support", "ranged", "defensive"],
+    range: 2,
+    monsterTargets: 1,
+    hit: { threshold: 10, damage: 4 },
+    critical: { threshold: 1, damage: 6 },
+  },
+  {
+    id: "hero_skill:core:h10:p210",
+    name: "Daemon’s Pull",
+    stances: ["support", "ranged", "defensive"],
+    range: 2,
+    monsterTargets: 1,
+    hit: { threshold: 11, damage: 5 },
+    critical: { threshold: 1, damage: 8 },
+  },
+  {
     id: "hero_skill:core:h10:p190",
     name: "Sacrificial Stab",
     stances: ["ranged", "defensive", "aggressive"],
@@ -529,17 +556,11 @@ const entries: HeroAnnotationEntries = {
     { id: "hero_skill:core:h10:p199", hero: 1, monster: 0, heroOrMonster: 0 },
     { id: "hero_skill:core:h10:p200", hero: 1, monster: 0, heroOrMonster: 0 },
     { id: "hero_skill:core:h10:p201", hero: 1, monster: 0, heroOrMonster: 0 },
-    { id: "hero_skill:core:h10:p208", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:core:h10:p209", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:core:h10:p210", hero: 0, monster: 1, heroOrMonster: 0 },
   ],
   effectKind: [
     { id: "hero_skill:core:h10:p199", effect: "heal" },
     { id: "hero_skill:core:h10:p200", effect: "heal" },
     { id: "hero_skill:core:h10:p201", effect: "heal" },
-    { id: "hero_skill:core:h10:p208", effect: "damage" },
-    { id: "hero_skill:core:h10:p209", effect: "damage" },
-    { id: "hero_skill:core:h10:p210", effect: "damage" },
   ],
 };
 

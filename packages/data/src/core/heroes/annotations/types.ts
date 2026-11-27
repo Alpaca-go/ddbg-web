@@ -19,6 +19,7 @@ export type DirectAttackEntry = Omit<
   | "ignoresProtection"
   | "ignoresGuard"
   | "selfShuffle"
+  | "targetShuffle"
   | "onHit"
   | "onUse"
   | "selfHeal"
@@ -333,6 +334,7 @@ export type AbominationProjectionFace = {
   }[];
   readonly selfStress?: { readonly lineIndex: number; readonly amount: number };
   readonly selfHeal?: { readonly lineIndex: number; readonly amount: number };
+  readonly shuffles?: readonly Pick<ShuffleEntry, "lineIndex" | "scope" | "text">[];
   readonly selfRange?: true;
   readonly alliesStress?: number;
   readonly requiredForm?: "human" | "beast";
@@ -342,6 +344,7 @@ export type AbominationProjectionRow = {
   readonly id: string;
   readonly name: string;
   readonly level: number;
+  readonly printedLines?: readonly string[];
   readonly front: AbominationProjectionFace;
   readonly back?: AbominationProjectionFace;
 };

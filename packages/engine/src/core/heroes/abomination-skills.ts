@@ -17,16 +17,6 @@ const signatures: Record<number, string[]> = {
   226: ["{self_effects} Self {stress} +1"],
   227: ["{self_effects} Self {stress} +1"],
   228: ["{self_effects} Self {stress} +1"],
-  229: [
-    "{self_effects} Self {shuffle} Pull 1, {stress} +1",
-    "{target_effects} {shuffle} Push 2, {debuff} 1t",
-  ],
-  230: [
-    "{self_effects} Self {shuffle} Pull 1, {stress} +1 {target_effects} {shuffle} Push 2, {debuff} 2t",
-  ],
-  231: [
-    "{self_effects} Self {shuffle} Pull 1, {stress} +1 {target_effects} {shuffle} Push 2, {debuff} 2t",
-  ],
   220: [
     "{range} All Allies",
     "{self_effects} Self Change: Beast",
@@ -86,9 +76,10 @@ export function projectAbominationSkill(
   face: "front" | "back",
 ): HeroSkillCardView | null {
   const page = Number(skill.id.slice(-3));
-  const expected = signatures[page];
-  if (!expected || skill.id !== `hero_skill:core:h11:p${String(page).padStart(3, "0")}`)
-    return null;
+  if (page < 211 || page > 231 || skill.id !== `hero_skill:core:h11:p${page}`) return null;
+  const row = ABOMINATION_PROJECTIONS.find((entry) => entry.id === skill.id);
+  const expected = row?.printedLines ?? signatures[page];
+  if (!expected) return null;
   const level = ((page - 211) % 3) + 1;
   const transform = page >= 220 && page <= 222;
   const identity = skill as HeroSkillCardView & { name?: string; level?: number };
@@ -130,7 +121,6 @@ export function projectAbominationSkill(
     )
       throw new Error("Abomination reverse effects changed (R-048)");
   }
-  const row = ABOMINATION_PROJECTIONS.find((entry) => entry.id === skill.id);
   if (!row || row.name !== identity.name || row.level !== level)
     throw new Error("Abomination projection data changed (R-048)");
   const faceRow = face === "front" ? row.front : row.back;

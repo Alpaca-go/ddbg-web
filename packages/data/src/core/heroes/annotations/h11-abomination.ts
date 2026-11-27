@@ -253,6 +253,33 @@ const shuffleEntries: readonly ShuffleEntry[] = [
 
 const directAttackEntries: readonly DirectAttackEntry[] = [
   {
+    id: "hero_skill:core:h11:p229",
+    name: "Slam",
+    stances: ["ranged", "defensive", "aggressive"],
+    range: 1,
+    monsterTargets: 1,
+    hit: { threshold: 8, damage: 7 },
+    critical: { threshold: 0, damage: 10 },
+  },
+  {
+    id: "hero_skill:core:h11:p230",
+    name: "Slam",
+    stances: ["ranged", "defensive", "aggressive"],
+    range: 1,
+    monsterTargets: 1,
+    hit: { threshold: 10, damage: 9 },
+    critical: { threshold: 0, damage: 14 },
+  },
+  {
+    id: "hero_skill:core:h11:p231",
+    name: "Slam",
+    stances: ["ranged", "defensive", "aggressive"],
+    range: 1,
+    monsterTargets: 1,
+    hit: { threshold: 11, damage: 12 },
+    critical: { threshold: 0, damage: 17 },
+  },
+  {
     id: "hero_skill:core:h11:p211",
     name: "Manacles",
     stances: ["ranged", "defensive"],
@@ -379,17 +406,11 @@ const entries: HeroAnnotationEntries = {
     { id: "hero_skill:core:h11:p220", hero: 0, monster: 0, heroOrMonster: 0 },
     { id: "hero_skill:core:h11:p221", hero: 0, monster: 0, heroOrMonster: 0 },
     { id: "hero_skill:core:h11:p222", hero: 0, monster: 0, heroOrMonster: 0 },
-    { id: "hero_skill:core:h11:p229", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:core:h11:p230", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:core:h11:p231", hero: 0, monster: 1, heroOrMonster: 0 },
   ],
   effectKind: [
     { id: "hero_skill:core:h11:p217", effect: "heal" },
     { id: "hero_skill:core:h11:p218", effect: "heal" },
     { id: "hero_skill:core:h11:p219", effect: "heal" },
-    { id: "hero_skill:core:h11:p229", effect: "damage" },
-    { id: "hero_skill:core:h11:p230", effect: "damage" },
-    { id: "hero_skill:core:h11:p231", effect: "damage" },
   ],
 };
 

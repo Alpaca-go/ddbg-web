@@ -33,6 +33,11 @@ export const CONDITIONAL_DAMAGE_SUFFIX = {
   unholy: "Unholy",
 } as const satisfies Readonly<Record<ConditionalDamage["condition"], string>>;
 
+const attackShuffleSchema = z.strictObject({
+  direction: z.enum(["push", "pull"]),
+  distance: z.int().positive(),
+});
+
 export const directAttackSchema = z
   .strictObject({
     stances: z.array(z.enum(["support", "ranged", "defensive", "aggressive"])).min(1),
@@ -54,9 +59,8 @@ export const directAttackSchema = z
     damageWithOwnBleedOrBlight: z.int().positive().optional(),
     ignoresProtection: z.literal(true).optional(),
     ignoresGuard: z.literal(true).optional(),
-    selfShuffle: z
-      .strictObject({ direction: z.enum(["push", "pull"]), distance: z.int().positive() })
-      .optional(),
+    selfShuffle: attackShuffleSchema.optional(),
+    targetShuffle: attackShuffleSchema.optional(),
   })
   .refine(({ range, rangeMinimum }) => rangeMinimum === undefined || rangeMinimum <= range, {
     path: ["rangeMinimum"],

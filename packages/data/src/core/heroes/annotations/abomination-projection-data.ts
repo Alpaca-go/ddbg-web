@@ -443,11 +443,19 @@ export const ABOMINATION_PROJECTIONS: readonly AbominationProjectionRow[] = [
     id: "hero_skill:core:h11:p229",
     name: "Slam",
     level: 1,
+    printedLines: [
+      "{self_effects} Self {shuffle} Pull 1, {stress} +1",
+      "{target_effects} {shuffle} Push 2, {debuff} 1t",
+    ],
     front: {
       lines: [
         "{self_effects} Self {shuffle} Pull 1",
         "{self_effects} Self {stress} +1",
         "{target_effects} {debuff} 1t, {shuffle} Push 2",
+      ],
+      shuffles: [
+        { lineIndex: 0, scope: "self", text: "Pull 1" },
+        { lineIndex: 2, scope: "target", text: "Push 2" },
       ],
       statuses: [
         {
@@ -469,11 +477,18 @@ export const ABOMINATION_PROJECTIONS: readonly AbominationProjectionRow[] = [
     id: "hero_skill:core:h11:p230",
     name: "Slam",
     level: 2,
+    printedLines: [
+      "{self_effects} Self {shuffle} Pull 1, {stress} +1 {target_effects} {shuffle} Push 2, {debuff} 2t",
+    ],
     front: {
       lines: [
         "{self_effects} Self {shuffle} Pull 1",
         "{self_effects} Self {stress} +1",
         "{target_effects} {debuff} 2t, {shuffle} Push 2",
+      ],
+      shuffles: [
+        { lineIndex: 0, scope: "self", text: "Pull 1" },
+        { lineIndex: 2, scope: "target", text: "Push 2" },
       ],
       statuses: [
         {
@@ -495,11 +510,18 @@ export const ABOMINATION_PROJECTIONS: readonly AbominationProjectionRow[] = [
     id: "hero_skill:core:h11:p231",
     name: "Slam",
     level: 3,
+    printedLines: [
+      "{self_effects} Self {shuffle} Pull 1, {stress} +1 {target_effects} {shuffle} Push 2, {debuff} 2t",
+    ],
     front: {
       lines: [
         "{self_effects} Self {shuffle} Pull 1",
         "{self_effects} Self {stress} +1",
         "{target_effects} {debuff} 2t, {shuffle} Push 2",
+      ],
+      shuffles: [
+        { lineIndex: 0, scope: "self", text: "Pull 1" },
+        { lineIndex: 2, scope: "target", text: "Push 2" },
       ],
       statuses: [
         {

@@ -208,6 +208,7 @@ it.each([
   ["Holy Lance", "hero_skill:core:h01:p016", "hero-0"],
   ["Breakthrough", "hero_skill:core:h02:p034", "hero-1"],
   ["Finale", "hero_skill:core:h06:p112", "hero-0"],
+  ["Point Blank Shot", "hero_skill:core:h04:p070", "hero-2"],
 ] as const)(
   "%s 旧存档可从自身位移待续接处严格重放并使用原骰",
   (skillName, skillId, actorId) => {
@@ -227,6 +228,15 @@ it.each([
       if (skillName === "Holy Lance") {
         if (index === 0) return { ...hero, stance: "ranged" as const };
         if (index === 2) return { ...hero, stance: "aggressive" as const };
+      }
+      if (skillName === "Point Blank Shot") {
+        if (index === 0) return { ...hero, stance: "ranged" as const };
+        if (index === 2)
+          return {
+            ...hero,
+            stance: "aggressive" as const,
+            skillIds: [skillId, ...hero.skillIds.slice(1)],
+          };
       }
       if (skillName === "Finale" && index === 0) {
         return {

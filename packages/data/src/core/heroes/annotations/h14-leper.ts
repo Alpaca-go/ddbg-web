@@ -576,6 +576,33 @@ const fixes: readonly SkillCorrection[] = [
 
 const directAttackEntries: readonly DirectAttackEntry[] = [
   {
+    id: "hero_skill:warrens:h14:p280",
+    name: "Purge",
+    stances: ["aggressive"],
+    range: 0,
+    monsterTargets: 1,
+    hit: { threshold: 9, damage: 7 },
+    critical: { threshold: 0, damage: 11 },
+  },
+  {
+    id: "hero_skill:warrens:h14:p281",
+    name: "Purge",
+    stances: ["aggressive"],
+    range: 0,
+    monsterTargets: 1,
+    hit: { threshold: 10, damage: 10 },
+    critical: { threshold: 0, damage: 14 },
+  },
+  {
+    id: "hero_skill:warrens:h14:p282",
+    name: "Purge",
+    stances: ["aggressive"],
+    range: 0,
+    monsterTargets: 1,
+    hit: { threshold: 11, damage: 12 },
+    critical: { threshold: 0, damage: 19 },
+  },
+  {
     id: "hero_skill:warrens:h14:p292",
     name: "Intimidate",
     stances: ["aggressive"],
@@ -664,9 +691,6 @@ const entries: HeroAnnotationEntries = {
   shuffle: shuffleEntries,
   ignores: ignoresEntries,
   targetCount: [
-    { id: "hero_skill:warrens:h14:p280", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:warrens:h14:p281", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:warrens:h14:p282", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:warrens:h14:p283", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:warrens:h14:p284", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:warrens:h14:p285", hero: 0, monster: 1, heroOrMonster: 0 },
@@ -677,11 +701,7 @@ const entries: HeroAnnotationEntries = {
     { id: "hero_skill:warrens:h14:p290", hero: 1, monster: 0, heroOrMonster: 0 },
     { id: "hero_skill:warrens:h14:p291", hero: 1, monster: 0, heroOrMonster: 0 },
   ],
-  effectKind: [
-    { id: "hero_skill:warrens:h14:p280", effect: "damage" },
-    { id: "hero_skill:warrens:h14:p281", effect: "damage" },
-    { id: "hero_skill:warrens:h14:p282", effect: "damage" },
-  ],
+  effectKind: [],
 };
 
 export const h14 = defineHeroModule({

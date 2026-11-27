@@ -510,6 +510,33 @@ const removalEntries: readonly RemovalEntry[] = [
 
 const directAttackEntries: readonly DirectAttackEntry[] = [
   {
+    id: "hero_skill:core:h09:p172",
+    name: "Lunge",
+    stances: ["support", "ranged"],
+    range: 2,
+    monsterTargets: 1,
+    hit: { threshold: 10, damage: 7 },
+    critical: { threshold: 1, damage: 11 },
+  },
+  {
+    id: "hero_skill:core:h09:p173",
+    name: "Lunge",
+    stances: ["support", "ranged"],
+    range: 2,
+    monsterTargets: 1,
+    hit: { threshold: 11, damage: 10 },
+    critical: { threshold: 1, damage: 15 },
+  },
+  {
+    id: "hero_skill:core:h09:p174",
+    name: "Lunge",
+    stances: ["support", "ranged"],
+    range: 2,
+    monsterTargets: 1,
+    hit: { threshold: 12, damage: 11 },
+    critical: { threshold: 2, damage: 19 },
+  },
+  {
     id: "hero_skill:core:h09:p169",
     name: "Pick to the Face",
     stances: ["ranged", "defensive", "aggressive"],
@@ -636,19 +663,12 @@ const entries: HeroAnnotationEntries = {
   ignores: ignoresEntries,
   removal: removalEntries,
   targetCount: [
-    { id: "hero_skill:core:h09:p172", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:core:h09:p173", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:core:h09:p174", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:core:h09:p178", hero: 0, monster: 0, heroOrMonster: 0 },
     { id: "hero_skill:core:h09:p179", hero: 0, monster: 0, heroOrMonster: 0 },
     { id: "hero_skill:core:h09:p180", hero: 0, monster: 0, heroOrMonster: 0 },
     { id: "hero_skill:core:h09:p187", hero: 0, monster: 0, heroOrMonster: 0 },
   ],
-  effectKind: [
-    { id: "hero_skill:core:h09:p172", effect: "damage" },
-    { id: "hero_skill:core:h09:p173", effect: "damage" },
-    { id: "hero_skill:core:h09:p174", effect: "damage" },
-  ],
+  effectKind: [],
 };
 
 export const h09 = defineHeroModule({

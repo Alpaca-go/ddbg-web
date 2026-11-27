@@ -448,6 +448,33 @@ const adjacentRanged: DirectAttackFace = {
 
 const directAttackEntries: readonly DirectAttackEntry[] = [
   {
+    id: "hero_skill:core:h06:p106",
+    name: "Dirk Stab",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    monsterTargets: 1,
+    hit: { threshold: 9, damage: 5 },
+    critical: { threshold: 1, damage: 7 },
+  },
+  {
+    id: "hero_skill:core:h06:p107",
+    name: "Dirk Stab",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    monsterTargets: 1,
+    hit: { threshold: 10, damage: 7 },
+    critical: { threshold: 1, damage: 11 },
+  },
+  {
+    id: "hero_skill:core:h06:p108",
+    name: "Dirk Stab",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    monsterTargets: 1,
+    hit: { threshold: 11, damage: 8 },
+    critical: { threshold: 1, damage: 14 },
+  },
+  {
     id: "hero_skill:core:h06:p109",
     name: "Harvest",
     ...harvest,
@@ -528,9 +555,6 @@ const entries: HeroAnnotationEntries = {
   shuffle: shuffleEntries,
   ignores: ignoresEntries,
   targetCount: [
-    { id: "hero_skill:core:h06:p106", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:core:h06:p107", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:core:h06:p108", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:core:h06:p115", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:core:h06:p116", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:core:h06:p117", hero: 0, monster: 1, heroOrMonster: 0 },
@@ -538,11 +562,7 @@ const entries: HeroAnnotationEntries = {
     { id: "hero_skill:core:h06:p122", hero: 3, monster: 0, heroOrMonster: 0 },
     { id: "hero_skill:core:h06:p123", hero: 3, monster: 0, heroOrMonster: 0 },
   ],
-  effectKind: [
-    { id: "hero_skill:core:h06:p106", effect: "damage" },
-    { id: "hero_skill:core:h06:p107", effect: "damage" },
-    { id: "hero_skill:core:h06:p108", effect: "damage" },
-  ],
+  effectKind: [],
 };
 
 export const h06 = defineHeroModule({
