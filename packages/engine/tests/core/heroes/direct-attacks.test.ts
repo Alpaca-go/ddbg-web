@@ -6,8 +6,8 @@ import { trinketBattle } from "../../helpers/trinket-battle";
 import { coreQuestSources } from "../../helpers/core-quest";
 
 const reviewed = coreQuestSources.catalog.skills.filter((card) => card.rules?.directAttack);
-it("八组已核准的攻击各发布三个等级的独立规则", () => {
-  expect(reviewed).toHaveLength(24);
+it("十组已核准的攻击各发布三个等级的独立规则", () => {
+  expect(reviewed).toHaveLength(30);
 });
 
 it("直接攻击在空区域仍掷骰，且保留 Accuracy Stone 的使用窗口", () => {
@@ -56,6 +56,73 @@ it("直接攻击在空区域仍掷骰，且保留 Accuracy Stone 的使用窗口
   });
   expect(resolved.events.some(({ type }) => type === "commandRefused")).toBe(false);
   expect(resolved.state.battle?.rngCursor).toBe(battle.rngCursor + 1);
+});
+
+it.each([
+  ["hero_skill:core:h01:p004", ["m", "m2"]],
+  ["hero_skill:core:h01:p007", ["m"]],
+] as const)("%s 脱离卡面后沿用旧命令的饰品待选、结算和 RNG", (skillId, targetIds) => {
+  const { state, command } = trinketBattle(
+    ["trinket:p001"],
+    "aggressive",
+    skillId,
+    "upright",
+    7,
+    "monster_medium:p024",
+  );
+  const battle = state.battle!;
+  const card = battle.skills.find((entry) => entry.id === skillId)!;
+  const { directAttack, ...legacyRules } = card.rules!;
+  const stripped = {
+    ...card,
+    rules: { directAttack: directAttack! },
+    top_row_icons: [],
+    front_icons: [],
+    printed_labels: [],
+    unlabeled_numbers: [],
+    stats_line: null,
+    effect_lines: [],
+  };
+  const entities = battle.entities.map((entity) =>
+    entity.id === "m" && targetIds.length === 1 ? { ...entity, areaId: "a" } : entity,
+  );
+  const oldSkills = battle.skills.map((entry) =>
+    entry.id === skillId ? { ...entry, rules: legacyRules } : entry,
+  );
+  const newSkills = battle.skills.map((entry) => (entry.id === skillId ? stripped : entry));
+  const attack =
+    targetIds.length === 1
+      ? command
+      : {
+          type: "playHeroSkillTargets" as const,
+          actorId: command.actorId,
+          trinketWindow: command.trinketWindow!,
+          skillId,
+          targetIds,
+        };
+  const original = applyCommand(
+    { ...state, battle: { ...battle, entities, skills: oldSkills } },
+    attack,
+  );
+  const migrated = applyCommand(
+    { ...state, battle: { ...battle, entities, skills: newSkills } },
+    attack,
+  );
+  expect(original.pendingChoice?.options.map(({ id }) => id)).toContain("trinket:p001");
+  expect(migrated.pendingChoice).toEqual(original.pendingChoice);
+  const choice = {
+    type: "resolveChoice",
+    choiceId: original.pendingChoice!.id,
+    optionId: "trinket:p001",
+  } as const;
+  const expected = applyCommand(original.state, choice);
+  const resolved = applyCommand(migrated.state, choice);
+  expect(expected.events.some(({ type }) => type === "commandRefused")).toBe(false);
+  expect(resolved).toEqual({
+    ...expected,
+    state: { ...expected.state, battle: { ...expected.state.battle!, skills: newSkills } },
+  });
+  expect(resolved.state.battle!.rngCursor).toBe(battle.rngCursor + 1);
 });
 
 it.each(reviewed)("$id 十种骰面和目标限制沿用旧效果", (card) => {

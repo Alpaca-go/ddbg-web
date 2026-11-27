@@ -96,6 +96,32 @@ it("效果词条迁移前的存档按当前规则恢复，其他快照字段仍�
   );
 });
 
+it("十字军直攻迁移前的任务日志含 Zealous Accusation，读档重放保持实际命令结果", () => {
+  const previousSources = {
+    ...coreQuestSources,
+    catalog: {
+      ...coreQuestSources.catalog,
+      skills: coreQuestSources.catalog.skills.map((card) => {
+        if (card.hero !== "CRUSADER" || !card.rules?.directAttack) return card;
+        const { directAttack: _attack, ...rules } = card.rules;
+        void _attack;
+        return { ...card, rules };
+      }),
+    },
+  };
+  const questStart = { ...start, party: naturalParty };
+  const previous = naturalQuest(start.seed, start.questId, false, previousSources);
+  expect(previous.commands).toContainEqual(
+    expect.objectContaining({ skillId: "hero_skill:core:h01:p004" }),
+  );
+  const save = createQuestSave(questStart, previous.commands, previous.state, previousSources);
+  const restored = roundTrip(save);
+  const current = naturalQuest(start.seed, start.questId);
+  expect(restored.commands).toEqual(current.commands);
+  expect(restored.game).toEqual(current.state);
+  expect(previous.events).toEqual(current.events);
+}, 120000);
+
 it("Face the Threat 旧快照可缺布局说明，已有说明和其他布局字段须匹配", () => {
   const bossStart = { ...start, seed: 23, questId: "quest:p019", bossEdgeRooms: true } as const;
   const game = createCoreDungeonQuest(

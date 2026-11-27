@@ -1626,6 +1626,23 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "monsterTargets": 2,
+     "hit": {
+      "threshold": 9,
+      "damage": 5
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 9
+     },
+     "onHit": []
+    },
     "targets": {
      "hero": 0,
      "monster": 2,
@@ -2025,6 +2042,23 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "monsterTargets": 2,
+     "hit": {
+      "threshold": 10,
+      "damage": 6
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 11
+     },
+     "onHit": []
+    },
     "targets": {
      "hero": 0,
      "monster": 2,
@@ -2424,6 +2458,23 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "monsterTargets": 2,
+     "hit": {
+      "threshold": 11,
+      "damage": 7
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 12
+     },
+     "onHit": []
+    },
     "targets": {
      "hero": 0,
      "monster": 2,
@@ -2842,6 +2893,28 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 0,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 9,
+      "damage": 4
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 8
+     },
+     "onHit": [
+      {
+       "kind": "stun",
+       "duration": 1
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -3291,6 +3364,28 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 0,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 10,
+      "damage": 5
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 9
+     },
+     "onHit": [
+      {
+       "kind": "stun",
+       "duration": 1
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -3740,6 +3835,28 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 0,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 11,
+      "damage": 6
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 10
+     },
+     "onHit": [
+      {
+       "kind": "stun",
+       "duration": 1
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,

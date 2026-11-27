@@ -169,11 +169,7 @@ describe("完整 Nt 注解的技能状态接线（R19–21 / R-048）", () => {
     const stun = card("p007");
     const two = {
       ...stun,
-      rules: { ...stun.rules, targets: { hero: 0, monster: 2, heroOrMonster: 0 } },
-      stats_line: [
-        ...stun.stats_line!,
-        { type: "icon" as const, icon: { key: "target_monster", naming: "confirmed" } },
-      ],
+      rules: { ...stun.rules, directAttack: { ...stun.rules!.directAttack!, monsterTargets: 2 } },
     };
     const result = applyCommand(setup(two, 0, soldier, 2), {
       type: "playHeroSkillTargets",
@@ -214,8 +210,10 @@ describe("完整 Nt 注解的技能状态接线（R19–21 / R-048）", () => {
   });
 
   it("缺或漂移 Nt 注解不补默认值，混合同行未完整支持时整次拒绝", () => {
-    const stun = card("p007");
-    const drifted = { ...stun.rules!.statuses![0]!, duration: 2 };
+    const current = card("p007");
+    const { directAttack, ...legacyRules } = current.rules!;
+    const stun = { ...current, rules: legacyRules };
+    const drifted = { ...legacyRules.statuses![0]!, duration: 2 };
     const invalid = {
       ...stun,
       rules: { ...stun.rules, statuses: [drifted] },
@@ -241,6 +239,15 @@ describe("完整 Nt 注解的技能状态接线（R19–21 / R-048）", () => {
     const refusal = applyCommand(mixed, command(unknown));
     expect(refusal.state).toBe(mixed);
     expect(refusal.events[0]?.type).toBe("commandRefused");
+    const invalidEffect = setup({
+      ...current,
+      rules: {
+        directAttack: { ...directAttack!, onHit: [{ kind: "stun", duration: 0 }] },
+      },
+    });
+    const refused = applyCommand(invalidEffect, command(current));
+    expect(refused.state).toBe(invalidEffect);
+    expect(refused.events[0]?.type).toBe("commandRefused");
   });
 
   it("Bulwark 自身 Protection / Mark / Light 全行生效，不掷骰也不能作用于别人", () => {
