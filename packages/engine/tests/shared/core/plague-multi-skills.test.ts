@@ -200,6 +200,7 @@ it.each(skills)("$id一目标可用，成功锁技能；全落空可重用并正
 
 it.each(skills)("$id姿态/射程/目标/未知防御/不完整注解原子拒绝，不消费RNG或行动", (skill) => {
   const { game, command } = setup(skill);
+  const { directAttack, ...legacyRules } = skill.rules!;
   const badStates = [
     change(game, "h", { stance: "defensive" }),
     change(game, "m1", { areaId: "b" }),
@@ -221,10 +222,24 @@ it.each(skills)("$id姿态/射程/目标/未知防御/不完整注解原子拒�
       ...game,
       battle: {
         ...game.battle!,
-        skills: [{ ...skill, rules: { ...skill.rules, statuses } }],
+        skills: [{ ...skill, rules: { ...legacyRules, statuses } }],
       },
     })),
   ] as GameState[];
+  if (directAttack) {
+    badStates.push({
+      ...game,
+      battle: {
+        ...game.battle!,
+        skills: [
+          {
+            ...skill,
+            rules: { directAttack: { ...directAttack, onHit: [{ kind: "blight", duration: 2 }] } },
+          },
+        ],
+      },
+    });
+  }
   for (const bad of badStates) expect(applyCommand(bad, command).state).toBe(bad);
   for (const targetIds of [["m1", "m1"], ["m1", "m2", "h"], ["h"], ["missing"]])
     expect(applyCommand(game, { ...command, targetIds }).state).toBe(game);
