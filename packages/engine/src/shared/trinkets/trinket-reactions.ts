@@ -7,6 +7,10 @@ import {
   STATUS_CHARM_RULES,
   isStatusCharm,
 } from "../../../../data/src/core/trinkets/trinket-rules";
+import {
+  ATTACK_TRINKET_RULES,
+  readAttackTrinketRule,
+} from "../../../../data/src/core/trinkets/attack-trinket-rules";
 import { EFFECTS } from "../../../../data/src/shared/effects";
 import type { ApplyResult, Command, GameState, PendingChoice, GameEvent } from "../core/command";
 import type { BattleState } from "../battle/battle";
@@ -108,7 +112,9 @@ export function availableTrinket(
     (isStatusCharm(id)
       ? card.name !== CORE_TRINKET_BINDINGS[id].name ||
         card.level !== CORE_TRINKET_BINDINGS[id].level
-      : !matchesCoreTrinketPrint(card, id))
+      : id === "trinket:p007"
+        ? !readAttackTrinketRule(card, id)
+        : !matchesCoreTrinketPrint(card, id))
   )
     throw new InvalidTrinket("饰品卡面变化（R-048）：" + CORE_TRINKET_BINDINGS[id].name);
   return true;
@@ -406,7 +412,7 @@ export function damageTrinketReaction(
       options.push({ id: "trinket:p007", label: "Damage Stone：额外承受2伤口并翻回正面" });
     const chosen = trinketChoice(b, heroId, "damage", "正伤害尚未结算：选择适用饰品", options);
     if (chosen === "continue") return value;
-    if (chosen === "trinket:p007") value.push(2);
+    if (chosen === "trinket:p007") value.push(ATTACK_TRINKET_RULES["trinket:p007"].woundOnDamage!);
     else value = [Math.ceil(value[0]! / 2), ...value.slice(1)];
     spendTrinket(b, heroId, chosen as CoreTrinketId);
   }

@@ -1,3 +1,7 @@
+import {
+  ATTACK_TRINKET_RULES,
+  readAttackTrinketRule,
+} from "../../../../data/src/core/trinkets/attack-trinket-rules";
 import { battleTrinketHolders } from "./battle-hero-card-holders";
 import { playHeroSkill, rejectBattleCommand } from "./battle";
 import type { PlayHeroSkillCommand } from "./battle";
@@ -29,19 +33,8 @@ function stone(state: GameState, actorId: string) {
   if (!held) return null;
   const card = b.trinkets!.cards.find((c) => c.id === CRITICAL_STONE);
   const problem = trinketPoolProblem(b.trinkets!, battleTrinketHolders(b));
-  // R26 整页明确给出这一张卡的正反面；不推广其它饰品的印刷方向。
-  if (
-    problem ||
-    !card ||
-    card.verification.unverified ||
-    card.name !== "Critical Stone" ||
-    card.level !== 1 ||
-    JSON.stringify(card.upright_half.effect_lines) !==
-      JSON.stringify([[{ type: "text", text: "Crit+2" }]]) ||
-    JSON.stringify(card.inverted_half.effect_lines) !==
-      JSON.stringify([[{ type: "text", text: "Acc-2" }]])
-  )
-    return { problem: problem ?? "Critical Stone 卡面与 R26 已核实效果不符（R-048）" };
+  if (problem || !readAttackTrinketRule(card, CRITICAL_STONE))
+    return { problem: problem ?? "Critical Stone 缺少 R26 核准效果（R-048）" };
   return { held };
 }
 
@@ -111,8 +104,9 @@ export function chooseHeroTrinket(state: GameState, optionId: string): ApplyResu
   const attack: HeroTrinketAttack = {
     roll: pending.roll,
     modifiers: {
-      crit: used && pending.face === "upright" ? 2 : 0,
-      accuracy: used && pending.face === "inverted" ? -2 : 0,
+      crit: used && pending.face === "upright" ? ATTACK_TRINKET_RULES[CRITICAL_STONE].crit : 0,
+      accuracy:
+        used && pending.face === "inverted" ? ATTACK_TRINKET_RULES[CRITICAL_STONE].penalty : 0,
     },
   };
   const next = {

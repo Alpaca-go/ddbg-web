@@ -1,3 +1,7 @@
+import {
+  matchesBracerFrontStance,
+  matchesCoreTrinketPrint,
+} from "../../../../data/src/core/trinkets/core-trinket-bindings";
 import { printIcon } from "../../../../data/src/shared/print-icons";
 import { matchesFortunateArmletPrint } from "../../../../data/src/core/trinkets/core-trinket-bindings";
 import type { CoreTrinketId } from "../../../../data/src/core/trinkets/core-trinket-bindings";
@@ -623,6 +627,57 @@ it("三件饰品逐件选择并一次提交，停点JSON续接不重掷，顺序
   expect(stopEarly.state.battle!.usedTrinketIds).toEqual([ids[0]]);
 });
 
+it.each([true, ["trinket:p006"]] as const)(
+  "Critical Stone 的新旧窗口脱离印刷字段后仍完全等价：%j",
+  (trinketWindow) => {
+    const { state, command } = fixture(
+      ["trinket:p006"],
+      "aggressive",
+      "hero_skill:core:h01:p001",
+      "upright",
+      7,
+    );
+    const pool = state.battle.trinkets!;
+    const cards = pool.cards.map((card) =>
+      card.id === "trinket:p006"
+        ? {
+            ...card,
+            front_icons: [],
+            back_icons: [],
+            upright_half: { ...card.upright_half, effect_lines: [] },
+            inverted_half: { ...card.inverted_half, effect_lines: [] },
+          }
+        : card,
+    );
+    const stripped = { ...state, battle: { ...state.battle, trinkets: { ...pool, cards } } };
+    const cmd = { ...command, trinketWindow };
+    const original = ok(applyCommand(state, cmd));
+    const migrated = ok(applyCommand(stripped, cmd));
+    const compare = (actual: typeof migrated, expected: typeof original) => {
+      expect(actual).toEqual({
+        ...expected,
+        state: {
+          ...expected.state,
+          battle: {
+            ...expected.state.battle!,
+            trinkets: { ...expected.state.battle!.trinkets!, cards },
+          },
+        },
+      });
+    };
+    compare(migrated, original);
+    const chooseStone = (result: typeof original) =>
+      ok(
+        applyCommand(result.state, {
+          type: "resolveChoice",
+          choiceId: result.pendingChoice!.id,
+          optionId: "trinket:p006",
+        }),
+      );
+    compare(chooseStone(migrated), chooseStone(original));
+  },
+);
+
 it("能力名单固定日志行为；未知、重复、空名单与卡面漂移拒绝", () => {
   const { state, command } = fixture(["trinket:p001"]);
   const legacy = ok(applyCommand(state, { ...command, trinketWindow: true }));
@@ -653,7 +708,12 @@ it("能力名单固定日志行为；未知、重复、空名单与卡面漂移�
       },
     },
   };
-  expect(applyCommand(broken, command).state).toBe(broken);
+  expect(
+    matchesCoreTrinketPrint(
+      broken.battle!.trinkets!.cards.find((c) => c.id === "trinket:p001")!,
+      "trinket:p001",
+    ),
+  ).toBe(false);
   const window = ok(applyCommand(state, command));
   if (window.state.battle!.pending?.type !== "heroAttackTrinkets") throw new Error("缺少使用计划");
   const forged: GameState = {
@@ -694,8 +754,8 @@ it.each(["trinket:p001", "trinket:p013"] as const)(
   },
 );
 
-it("Warrior’s Bracer需要p013的已确认正面图标，缺失、改名、未核实或冲突均拒绝", () => {
-  const { state, command } = fixture(["trinket:p013"]);
+it("Warrior’s Bracer 录入核对 p013 正面图标，缺失、改名、未核实或冲突均拒绝", () => {
+  const { state } = fixture(["trinket:p013"]);
   const bracer = state.battle.trinkets!.cards.find((c) => c.id === "trinket:p013")!;
   const glyph = bracer.front_icons.find(
     (i) => i.iconId === printIcon("stance_aggressive_lit", 752),
@@ -720,7 +780,11 @@ it("Warrior’s Bracer需要p013的已确认正面图标，缺失、改名、未
         },
       },
     };
-    expect(applyCommand(broken, command).state).toBe(broken);
+    expect(
+      matchesBracerFrontStance(
+        broken.battle!.trinkets!.cards.find((card) => card.id === bracer.id)!,
+      ),
+    ).toBe(false);
   }
 });
 
@@ -899,7 +963,7 @@ it("姿态戒指多目标共骰，只翻一次且暴击压力不按目标重复"
   expect(used.state.battle!.rngCursor).toBe(1);
 });
 
-it("戒指反面图标漂移与未核实卡面在掷骰和翻面前拒绝", () => {
+it("戒指反面图标漂移在录入时拒绝，未核实状态在掷骰前拒绝", () => {
   const { state, command } = fixture(["trinket:p032"]);
   const ring = state.battle.trinkets!.cards.find((c) => c.id === "trinket:p032")!;
   const glyph = ring.inverted_half.effect_lines[0]![1]!;
@@ -929,7 +993,8 @@ it("戒指反面图标漂移与未核实卡面在掷骰和翻面前拒绝", () =
         },
       },
     };
-    expect(applyCommand(broken, command).state).toBe(broken);
+    expect(matchesCoreTrinketPrint(changed, "trinket:p032")).toBe(false);
+    if (changed.verification.unverified) expect(applyCommand(broken, command).state).toBe(broken);
   }
 });
 
@@ -1277,7 +1342,7 @@ it("多目标中先落空的目标不掩盖后面的命中；按当前共骰结�
   expect(used.state.battle!.rngCursor).toBe(1);
 });
 
-it("旧九张能力名单不启用护腕；比较符漂移、光照篡改的待选原子拒绝", () => {
+it("旧九张能力名单与光照待选沿用旧规则，比较符漂移在录入时拒绝", () => {
   const { state, command } = fixture(
     ["trinket:p021"],
     "aggressive",
@@ -1328,7 +1393,12 @@ it("旧九张能力名单不启用护腕；比较符漂移、光照篡改的待�
       },
     },
   };
-  expect(applyCommand(broken, command).state).toBe(broken);
+  expect(
+    matchesCoreTrinketPrint(
+      broken.battle!.trinkets!.cards.find((card) => card.id === "trinket:p021")!,
+      "trinket:p021",
+    ),
+  ).toBe(false);
   const window = ok(applyCommand(state, command));
   const forged: GameState = { ...window.state, battle: { ...window.state.battle!, light: 2 } };
   expect(

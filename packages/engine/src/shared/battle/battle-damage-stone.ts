@@ -8,7 +8,10 @@ import type { SkillPrefix } from "./battle-own-effects";
 import type { SkillHealthEffect } from "../../core/heroes/hero-skill";
 import type { HeroTrinketAttack } from "./battle-trinket-ability";
 import { trinketPoolProblem } from "../trinkets/trinket-acquisition";
-import { damageStoneFacesMatch } from "./battle-attack-trinkets";
+import {
+  ATTACK_TRINKET_RULES,
+  readAttackTrinketRule,
+} from "../../../../data/src/core/trinkets/attack-trinket-rules";
 
 export const DAMAGE_STONE_ID = "trinket:p007";
 /** R26 / R-026：正伤害才触发，不把DoT或已有伤口差当成伤害。 */
@@ -31,7 +34,13 @@ export function damageStoneHealthEffects(
       return e;
     applied = true;
     // 与同一时刻的Fragile等追加伤口一起结算；追加2是Wound，不再减伤或递归触发。
-    return { ...e, effect: { ...e.effect, amounts: [...e.effect.amounts, 2] } };
+    return {
+      ...e,
+      effect: {
+        ...e.effect,
+        amounts: [...e.effect.amounts, ATTACK_TRINKET_RULES[DAMAGE_STONE_ID].woundOnDamage!],
+      },
+    };
   });
 }
 function eligible(state: GameState, effects: readonly SkillHealthEffect[]): string | null {
@@ -61,19 +70,9 @@ function poolProblem(state: GameState): string | null {
   const problem = trinketPoolProblem(pool, battleTrinketHolders(b));
   if (problem) return problem;
   const card = pool.cards.find((c) => c.id === DAMAGE_STONE_ID);
-  return !card ||
-    card.verification.unverified ||
-    card.name !== "Damage Stone" ||
-    card.level !== 1 ||
-    card.upright_half.name !== card.name ||
-    card.inverted_half.name !== card.name ||
-    card.upright_half.level !== 1 ||
-    card.inverted_half.level !== 1 ||
-    card.upright_half.printed_rotation !== 0 ||
-    card.inverted_half.printed_rotation !== 180 ||
-    !damageStoneFacesMatch(card)
-    ? "Damage Stone卡面变化，保留停点（R-048）"
-    : null;
+  return readAttackTrinketRule(card, DAMAGE_STONE_ID)
+    ? null
+    : "Damage Stone 缺少已核准伤口规则，保留停点（R-048）";
 }
 export function beginDamageStoneWindow(
   state: GameState,

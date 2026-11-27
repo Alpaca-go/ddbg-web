@@ -1,9 +1,14 @@
+import { HERO_SKILL_TRINKET_IDS } from "../heroes/hero-skill-trinkets";
 import type { TrinketCard, TrinketFile } from "../../shared/extract/parsed";
 import type { RawFile } from "../../shared/extract/raw";
 import { finishVerification, resolveLines } from "../../shared/icons";
 import type { IconLookup } from "../../shared/icons";
 import { FORTUNATE_ARMLET_RULE, TRINKET_RULES, isStatusCharm } from "./trinket-rules";
-import { matchesCoreTrinketPrint, matchesFortunateArmletPrint } from "./core-trinket-bindings";
+import {
+  matchesBracerFrontStance,
+  matchesCoreTrinketPrint,
+  matchesFortunateArmletPrint,
+} from "./core-trinket-bindings";
 import type { NormalizedTrinketFile } from "../../shared/schema";
 import { normalizedTrinketFileSchema } from "../../shared/schema";
 import {
@@ -51,6 +56,13 @@ export function buildTrinkets(
       throw new Error(normalized.id + " 状态饰品效果词条与已核卡面不符（R-048）");
     if (normalized.id === FORTUNATE_ARMLET_RULE.id && !matchesFortunateArmletPrint(normalized))
       throw new Error(normalized.id + " 饰品独立效果词条与已核卡面不符（R-048）");
+    const attackId = HERO_SKILL_TRINKET_IDS.find((id) => id === card.id);
+    if (
+      attackId &&
+      (!matchesCoreTrinketPrint(normalized, attackId) ||
+        (attackId === "trinket:p013" && !matchesBracerFrontStance(normalized)))
+    )
+      throw new Error(attackId + " 攻击饰品效果规则与已核卡面不符（R-048）");
     return normalized;
   });
   return normalizedTrinketFileSchema.parse({

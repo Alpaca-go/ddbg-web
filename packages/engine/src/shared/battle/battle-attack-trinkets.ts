@@ -1,192 +1,22 @@
-import { matchesBracerFrontStance } from "../../../../data/src/core/trinkets/core-trinket-bindings";
-import { FORTUNATE_ARMLET_RULE } from "../../../../data/src/core/trinkets/trinket-rules";
+import {
+  ATTACK_TRINKET_RULES,
+  readAttackTrinketRule,
+} from "../../../../data/src/core/trinkets/attack-trinket-rules";
 import { battleTrinketHolders } from "./battle-hero-card-holders";
 import { HERO_SKILL_TRINKET_IDS } from "../../../../data/src/core/heroes/hero-skill-trinkets";
 import type { HeroSkillTrinketId } from "../../../../data/src/core/heroes/hero-skill-trinkets";
-import type { NormalizedTrinketCard } from "../../../../data/src/shared/schema";
 import { playHeroSkill, rejectBattleCommand } from "./battle";
 import type { PlayHeroSkillCommand } from "./battle";
 import { playHeroSkillTargets } from "./battle-hero-targets";
 import type { PlayHeroSkillTargetsCommand } from "./battle-hero-targets";
 import type { ApplyResult, GameState } from "../core/command";
-import type { HeroSkillResolution, SkillStance } from "../../core/heroes/hero-skill";
+import type { HeroSkillResolution } from "../../core/heroes/hero-skill";
 import { hasHeroSkillRoll } from "../../core/heroes/hero-skill";
 import type { HeroTrinketAttack } from "./battle-trinket-ability";
 import { nextBattleRoll } from "./battle-roll";
 import { trinketPoolProblem } from "../trinkets/trinket-acquisition";
-import { isFortunateArmlet } from "./battle-fortunate-armlet";
 
 type Attack = PlayHeroSkillCommand | PlayHeroSkillTargetsCommand;
-type Definition = {
-  name: string;
-  level: 1 | 2 | 3;
-  positive: string;
-  negative: string;
-  crit: number;
-  accuracy: number;
-  penalty: number;
-  stance?: SkillStance;
-  invertedNotInStance?: SkillStance;
-  icon?: string;
-  /** p013 姿态图标在 raw 行的 rot 误归，仍须完整卡面与已确认 front_icons 对应。 */
-  frontStanceIcon?: true;
-  light?: "dark" | "solar";
-  freeInverted?: true;
-  damage?: number;
-};
-const definitions: Record<HeroSkillTrinketId, Definition> = {
-  "trinket:p007": {
-    name: "Damage Stone",
-    level: 1,
-    positive: "",
-    negative: "",
-    crit: 0,
-    accuracy: 0,
-    penalty: 0,
-    damage: 3,
-  },
-  "trinket:p025": {
-    name: FORTUNATE_ARMLET_RULE.name,
-    level: FORTUNATE_ARMLET_RULE.level,
-    positive: "",
-    negative: "",
-    crit: FORTUNATE_ARMLET_RULE.crit,
-    accuracy: FORTUNATE_ARMLET_RULE.accuracy,
-    penalty: 0,
-    freeInverted: true,
-  },
-  "trinket:p006": {
-    name: "Critical Stone",
-    level: 1,
-    positive: "Crit+2",
-    negative: "Acc-2",
-    crit: 2,
-    accuracy: 0,
-    penalty: -2,
-  },
-  "trinket:p001": {
-    name: "Accuracy Stone",
-    level: 1,
-    positive: "Acc+1",
-    negative: "Acc-1",
-    crit: 0,
-    accuracy: 1,
-    penalty: -1,
-  },
-  "trinket:p002": {
-    name: "Archer’s Ring",
-    level: 1,
-    positive: "Acc+2 when in ",
-    negative: "Acc-1",
-    crit: 0,
-    accuracy: 2,
-    penalty: -1,
-    stance: "ranged",
-    icon: "stance_ranged_lit",
-  },
-  "trinket:p009": {
-    name: "Sage’s Book",
-    level: 1,
-    positive: "Acc+2 when in ",
-    negative: "Acc-1",
-    crit: 0,
-    accuracy: 2,
-    penalty: -1,
-    stance: "support",
-    icon: "stance_support_lit",
-  },
-  "trinket:p014": {
-    name: "Warrior’s Cap",
-    level: 1,
-    positive: "Acc+2 when in ",
-    negative: "Acc-1",
-    crit: 0,
-    accuracy: 2,
-    penalty: -1,
-    stance: "defensive",
-    icon: "stance_defensive_lit",
-  },
-  "trinket:p013": {
-    name: "Warrior’s Bracer",
-    level: 1,
-    positive: "Acc+2 Acc when in",
-    negative: "Acc-1",
-    crit: 0,
-    accuracy: 2,
-    penalty: -1,
-    stance: "aggressive",
-    icon: "stance_aggressive_lit",
-    frontStanceIcon: true,
-  },
-  "trinket:p031": {
-    name: "Sniper’s Ring",
-    level: 3,
-    positive: "Crit+4 if in ",
-    negative: "Acc-2 if not in ",
-    crit: 4,
-    accuracy: 0,
-    penalty: -2,
-    stance: "ranged",
-    invertedNotInStance: "ranged",
-    icon: "stance_ranged_lit",
-  },
-  "trinket:p032": {
-    name: "Warrior’s Ring",
-    level: 3,
-    positive: "Crit+4 if in ",
-    negative: "Acc-2 if not in ",
-    crit: 4,
-    accuracy: 0,
-    penalty: -2,
-    stance: "aggressive",
-    invertedNotInStance: "aggressive",
-    icon: "stance_aggressive_lit",
-  },
-  "trinket:p033": {
-    name: "Defender’s Ring",
-    level: 3,
-    positive: "Crit+4 if in ",
-    negative: "Acc-2 if not in ",
-    crit: 4,
-    accuracy: 0,
-    penalty: -2,
-    stance: "defensive",
-    invertedNotInStance: "defensive",
-    icon: "stance_defensive_lit",
-  },
-  "trinket:p034": {
-    name: "Scholar’s Ring",
-    level: 3,
-    positive: "Crit+4 if in ",
-    negative: "Acc-2 if not in ",
-    crit: 4,
-    accuracy: 0,
-    penalty: -2,
-    stance: "support",
-    invertedNotInStance: "support",
-    icon: "stance_support_lit",
-  },
-  "trinket:p021": {
-    name: "Dark Bracer",
-    level: 2,
-    positive: "Crit+2",
-    negative: "Deal no Damage",
-    crit: 2,
-    accuracy: 0,
-    penalty: 0,
-    light: "dark",
-  },
-  "trinket:p026": {
-    name: "Solar Bracer",
-    level: 2,
-    positive: "Crit+2",
-    negative: "Deal no Damage",
-    crit: 2,
-    accuracy: 0,
-    penalty: 0,
-    light: "solar",
-  },
-};
 type Offer = {
   cardId: HeroSkillTrinketId;
   face: "upright" | "inverted";
@@ -196,60 +26,6 @@ type Offer = {
   noDamage?: true;
   damage?: number;
 };
-// 分行和比较符半笔按规范化原样核对；完整印刷 p021/p026 决定各面 ≤/≥ 方向。
-function lightFacesMatch(card: NormalizedTrinketCard, light: "dark" | "solar") {
-  const halves = [card.upright_half, card.inverted_half];
-  if (
-    halves.some((h) =>
-      h.effect_lines
-        .flat()
-        .some(
-          (s) => s.type === "icon" && !["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
-        ),
-    )
-  )
-    return false;
-  const tokens = halves.map((h) =>
-    h.effect_lines.map((l) => l.map((s) => (s.type === "text" ? s.text : `@${s.icon.key}`))),
-  );
-  const expected =
-    light === "dark"
-      ? [
-          [["Crit+2 if ", "@light", " ", "@compare_lte", " < 3"]],
-          [
-            ["@compare_gte", " <"],
-            ["When a Skill Hits the Target:"],
-            ["if ", "@light", " 3 Deal no ", "@damage", " ."],
-          ],
-        ]
-      : [
-          [
-            ["Crit+2 if ", "@light", " 3"],
-            ["@compare_lte", " <"],
-          ],
-          [
-            ["When a Skill Hits the Target:"],
-            ["if ", "@light", " ", "@compare_gte", " < 3 Deal no ", "@damage", " ."],
-          ],
-        ];
-  return JSON.stringify(tokens) === JSON.stringify(expected);
-}
-export function damageStoneFacesMatch(card: NormalizedTrinketCard) {
-  return (
-    [card.upright_half, card.inverted_half].every((h) =>
-      h.effect_lines
-        .flat()
-        .every(
-          (s) => s.type === "text" || ["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
-        ),
-    ) &&
-    JSON.stringify(
-      [card.upright_half, card.inverted_half].map((h) =>
-        h.effect_lines.map((l) => l.map((s) => (s.type === "text" ? s.text : "@" + s.icon.key))),
-      ),
-    ) === '[[["@damage"," +3"]],[["When you take Damage:"],["suffer 2 ","@wound"]]]'
-  );
-}
 function modifiersFor(
   offers: readonly Offer[],
   selected: readonly HeroSkillTrinketId[],
@@ -263,24 +39,6 @@ function modifiersFor(
       : {}),
     ...(used.some((o) => o.noDamage) ? { dealNoDamage: true } : {}),
   };
-}
-function exactLine(
-  lines: NormalizedTrinketCard["upright_half"]["effect_lines"],
-  text: string,
-  icon?: string,
-) {
-  const line = lines[0],
-    glyph = line?.[1];
-  return (
-    lines.length === 1 &&
-    line?.length === (icon ? 2 : 1) &&
-    line[0]?.type === "text" &&
-    line[0].text === text &&
-    (!icon ||
-      (glyph?.type === "icon" &&
-        glyph.icon.key === icon &&
-        ["confirmed", "confirmed_rulebook"].includes(glyph.icon.naming)))
-  );
 }
 function readOffers(
   state: GameState,
@@ -315,34 +73,10 @@ function readOffers(
   for (const id of requested) {
     const item = held.find((h) => h.cardId === id);
     if (!item) continue;
-    const card = b.trinkets!.cards.find((c) => c.id === id)!,
-      rule = definitions[id];
-    if (
-      card.name !== rule.name ||
-      card.level !== rule.level ||
-      card.upright_half.name !== rule.name ||
-      card.inverted_half.name !== rule.name ||
-      card.upright_half.printed_rotation !== 0 ||
-      card.inverted_half.printed_rotation !== 180 ||
-      !(rule.damage
-        ? damageStoneFacesMatch(card)
-        : rule.freeInverted
-          ? isFortunateArmlet(card)
-          : rule.light
-            ? lightFacesMatch(card, rule.light)
-            : exactLine(
-                card.upright_half.effect_lines,
-                rule.positive,
-                rule.frontStanceIcon ? undefined : rule.icon,
-              ) &&
-              (!rule.frontStanceIcon || matchesBracerFrontStance(card)) &&
-              exactLine(
-                card.inverted_half.effect_lines,
-                rule.negative,
-                rule.invertedNotInStance ? rule.icon : undefined,
-              ))
-    )
-      return { problem: `${rule.name} 的已核实卡面发生变化，保留停点（R-048）` };
+    const card = b.trinkets!.cards.find((c) => c.id === id);
+    const rule = readAttackTrinketRule(card, id);
+    if (!rule)
+      return { problem: `${ATTACK_TRINKET_RULES[id].name} 缺少已核准攻击效果规则（R-048）` };
     if (
       b.usedTrinketIds?.includes(id) ||
       (item.face === "inverted" && (rule.freeInverted || rule.damage)) ||
@@ -420,7 +154,7 @@ function present(
   const choice = {
     id: `hero-attack-trinkets:${b.choiceCursor}`,
     actorId: command.actorId,
-    prompt: `技能骰 d10=${roll}，尚未结算。${selected.length ? `已选：${selected.map((id) => definitions[id].name).join("、")}。` : ""}可依次选择适用饰品。`,
+    prompt: `技能骰 d10=${roll}，尚未结算。${selected.length ? `已选：${selected.map((id) => ATTACK_TRINKET_RULES[id].name).join("、")}。` : ""}可依次选择适用饰品。`,
     options: [
       { id: "continue", label: "结算技能，不再使用饰品" },
       ...offers
