@@ -336,6 +336,21 @@ export const CORE_TRINKET_BINDINGS = {
 export type CoreTrinketId = keyof typeof CORE_TRINKET_BINDINGS;
 export const CORE_TRINKET_IDS = Object.keys(CORE_TRINKET_BINDINGS) as CoreTrinketId[];
 
+export function hasReviewedCoreTrinketIdentity(
+  card: NormalizedTrinketCard | undefined,
+  id: CoreTrinketId,
+): boolean {
+  const binding = CORE_TRINKET_BINDINGS[id];
+  return (
+    !!card &&
+    card.id === id &&
+    !!binding &&
+    card.name === binding.name &&
+    card.level === binding.level &&
+    !card.verification.unverified
+  );
+}
+
 const confirmed = (naming: string) => naming === "confirmed" || naming === "confirmed_rulebook";
 
 /** R-127／R-048：校验印刷面与逐卡核准内容。 */

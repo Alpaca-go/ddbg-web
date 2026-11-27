@@ -294,7 +294,36 @@ it("Book of Relaxation 反面 Dodge-2 在防御窗生效", () => {
     "hit",
   );
 });
-it.each(FREE_TRINKET_IDS)("%s 卡面漂移拒绝", (id) => {
+it.each(FREE_TRINKET_IDS)("%s 去掉印刷行和图标，独立使用与原目录一致", (id) => {
+  const state = ready(id);
+  const pool = state.battle.trinkets!;
+  const cards = pool.cards.map((card) =>
+    card.id === id
+      ? {
+          ...card,
+          front_icons: [],
+          back_icons: [],
+          upright_half: { ...card.upright_half, effect_lines: [] },
+          inverted_half: { ...card.inverted_half, effect_lines: [] },
+        }
+      : card,
+  );
+  const expected = ok(use(state, id));
+  const actual = ok(
+    use({ ...state, battle: { ...state.battle, trinkets: { ...pool, cards } } }, id),
+  );
+  expect(actual).toEqual({
+    ...expected,
+    state: {
+      ...expected.state,
+      battle: {
+        ...expected.state.battle!,
+        trinkets: { ...expected.state.battle!.trinkets!, cards },
+      },
+    },
+  });
+});
+it.each(FREE_TRINKET_IDS)("%s 卡牌身份漂移拒绝", (id) => {
   const s = ready(id);
   const card = s.battle.trinkets!.cards.find((c) => c.id === id)!;
   const bad = {

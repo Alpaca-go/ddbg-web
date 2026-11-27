@@ -1,16 +1,13 @@
 import {
   CORE_TRINKET_BINDINGS,
-  matchesCoreTrinketPrint,
+  hasReviewedCoreTrinketIdentity,
 } from "../../../../data/src/core/trinkets/core-trinket-bindings";
 import type { CoreTrinketId } from "../../../../data/src/core/trinkets/core-trinket-bindings";
 import {
   STATUS_CHARM_RULES,
   isStatusCharm,
 } from "../../../../data/src/core/trinkets/trinket-rules";
-import {
-  ATTACK_TRINKET_RULES,
-  readAttackTrinketRule,
-} from "../../../../data/src/core/trinkets/attack-trinket-rules";
+import { ATTACK_TRINKET_RULES } from "../../../../data/src/core/trinkets/attack-trinket-rules";
 import { EFFECTS } from "../../../../data/src/shared/effects";
 import type { ApplyResult, Command, GameState, PendingChoice, GameEvent } from "../core/command";
 import type { BattleState } from "../battle/battle";
@@ -107,15 +104,7 @@ export function availableTrinket(
   );
   if (problem) throw new InvalidTrinket(problem);
   const card = pool.cards.find((card) => card.id === id);
-  if (
-    !card ||
-    (isStatusCharm(id)
-      ? card.name !== CORE_TRINKET_BINDINGS[id].name ||
-        card.level !== CORE_TRINKET_BINDINGS[id].level
-      : id === "trinket:p007"
-        ? !readAttackTrinketRule(card, id)
-        : !matchesCoreTrinketPrint(card, id))
-  )
+  if (!hasReviewedCoreTrinketIdentity(card, id))
     throw new InvalidTrinket("饰品卡面变化（R-048）：" + CORE_TRINKET_BINDINGS[id].name);
   return true;
 }

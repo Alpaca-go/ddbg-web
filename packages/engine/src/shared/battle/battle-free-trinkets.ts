@@ -1,6 +1,9 @@
+import {
+  CORE_TRINKET_BINDINGS,
+  hasReviewedCoreTrinketIdentity,
+} from "../../../../data/src/core/trinkets/core-trinket-bindings";
 import { battleTrinketHolders } from "./battle-hero-card-holders";
 import type { GameState, ApplyResult, GameEvent } from "../core/command";
-import type { NormalizedTrinketCard } from "../../../../data/src/shared/schema";
 import { rejectBattleCommand } from "./battle";
 import { triggerBattlePassive } from "./battle-passive";
 import { trinketPoolProblem } from "../trinkets/trinket-acquisition";
@@ -14,100 +17,19 @@ import { resolveAttackDamage } from "../core/attack-damage";
 import { damageTrinketReaction } from "../trinkets/trinket-reactions";
 import { useCoreTrinket } from "../trinkets/core-trinket-free";
 
-// R26 / §11.2 / R-028；完整印刷 p015/017/018/027/028/030/035–038 逐面绑定。
-const definitions = {
-  "trinket:p015": {
-    name: "Bloodthirst Ring",
-    level: 2,
-    faces: [
-      [["Consume one ", "@food", " and ", "@heal", " 10 ", "@heal"]],
-      [["When hit: Suffer 3 ", "@bleed", " 2t"]],
-    ],
-  },
-  "trinket:p017": {
-    name: "Book of Holiness",
-    level: 2,
-    faces: [[["@stress", " -3"]], [["Turn a hit against you into a Crit."]]],
-  },
-  "trinket:p018": {
-    name: "Book of Relaxation",
-    level: 2,
-    faces: [[["@stress", " -2"]], [["@dodge", " -2"]]],
-  },
-  "trinket:p027": {
-    name: "Berserk Charm",
-    level: 3,
-    faces: [[["Gain +1 Action"]], [["@stress", " +1"]]],
-  },
-  "trinket:p028": {
-    name: "Dark Crown",
-    level: 3,
-    faces: [
-      [["@stress", " -9 if ", "@light", " ", "@compare_lte", " < 3"]],
-      [
-        ["When the result is determined,"],
-        ["-2 Virtue Chance if ", "@light", " ", "@compare_gte", " < 3"],
-      ],
-    ],
-  },
-  "trinket:p030": {
-    name: "Recovery Charm",
-    level: 3,
-    faces: [[["@heal", " ", "@heal", " 9"]], [["@stress", " +2"]]],
-  },
-  "trinket:p035": {
-    name: "Solar Crown",
-    level: 3,
-    faces: [
-      [
-        ["@stress", " -3 if 3"],
-        ["@compare_lte", " < ", "@light"],
-      ],
-      [
-        ["@compare_gte", " < ", "@light"],
-        ["When the result is determined,"],
-        ["-2 Virtue Chance if 3"],
-      ],
-    ],
-  },
-  "trinket:p036": {
-    name: "Book of Sanity",
-    level: 3,
-    faces: [[["@stress", " -4"]], [["Suffer ", "@damage", " 6"]]],
-  },
-  "trinket:p037": {
-    name: "Candle of Life",
-    level: 3,
-    faces: [
-      [["You and every Hero in"], ["the same Area ", "@heal", " ", "@heal", " 6"]],
-      [["@light", " -2"]],
-    ],
-  },
-  "trinket:p038": {
-    name: "Cleansing Crystal",
-    level: 3,
-    faces: [
-      [
-        [
-          "Remove all ",
-          "@bleed",
-          " , ",
-          "@blight",
-          " , ",
-          "@debuff",
-          " , ",
-          "@stun",
-          " , ",
-          "@mark",
-        ],
-        ["from all Heroes"],
-      ],
-      [["Gain a ", "@draw_negative_quirk"]],
-    ],
-  },
-} as const;
-export type FreeTrinketId = keyof typeof definitions;
-export const FREE_TRINKET_IDS = Object.keys(definitions) as FreeTrinketId[];
+export const FREE_TRINKET_IDS = [
+  "trinket:p015",
+  "trinket:p017",
+  "trinket:p018",
+  "trinket:p027",
+  "trinket:p028",
+  "trinket:p030",
+  "trinket:p035",
+  "trinket:p036",
+  "trinket:p037",
+  "trinket:p038",
+] as const;
+export type FreeTrinketId = (typeof FREE_TRINKET_IDS)[number];
 /** 反面在角色回合间隙可 `useTrinket`；与 core-trinket-free `freeFaces` 主动面一致。 */
 export const FREE_TRINKET_INVERTED_ACTIVE_USE = [
   "trinket:p027",
@@ -123,29 +45,7 @@ export const FREE_TRINKET_INVERTED_DEFENCE_REACTION = [
   "trinket:p018",
 ] as const satisfies readonly FreeTrinketId[];
 export function isFreeTrinketId(id: string): id is FreeTrinketId {
-  return Object.hasOwn(definitions, id);
-}
-function matches(card: NormalizedTrinketCard, id: FreeTrinketId) {
-  const d = definitions[id];
-  return (
-    card.name === d.name &&
-    card.level === d.level &&
-    !card.verification.unverified &&
-    [card.upright_half, card.inverted_half].every(
-      (h, i) =>
-        h.name === d.name &&
-        h.level === d.level &&
-        h.printed_rotation === (i ? 180 : 0) &&
-        h.effect_lines
-          .flat()
-          .every(
-            (s) => s.type === "text" || ["confirmed", "confirmed_rulebook"].includes(s.icon.naming),
-          ) &&
-        JSON.stringify(
-          h.effect_lines.map((l) => l.map((s) => (s.type === "text" ? s.text : "@" + s.icon.key))),
-        ) === JSON.stringify(d.faces[i]),
-    )
-  );
+  return (FREE_TRINKET_IDS as readonly string[]).includes(id);
 }
 export function freeTrinketUseProblem(
   state: GameState,
@@ -175,7 +75,7 @@ export function freeTrinketUseProblem(
   if (problem) return problem;
   const card = pool.cards.find((c) => c.id === id),
     held = pool.held.find((h) => h.cardId === id && h.heroId === actorId);
-  if (!card || !matches(card, id)) return "饰品卡面发生变化（R-048）";
+  if (!hasReviewedCoreTrinketIdentity(card, id)) return "饰品卡面发生变化（R-048）";
   if (!held || b.usedTrinketIds?.includes(id)) return "未持有或本角色回合已使用（R26、R-028）";
   if (held.face === "inverted") {
     if (id === "trinket:p028" || id === "trinket:p035")
@@ -342,7 +242,7 @@ export function useFreeTrinket(
     actorId,
     cardId,
     face: held.face,
-    message: definitions[cardId].name + "：结算并翻面（R26）",
+    message: CORE_TRINKET_BINDINGS[cardId].name + "：结算并翻面（R26）",
   });
   const result = resolveBattlePressure({ state: { ...state, battle: b }, events });
   if (result.events.some((e) => e.type === "commandRefused"))
