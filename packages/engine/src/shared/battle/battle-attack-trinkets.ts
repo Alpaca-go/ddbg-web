@@ -79,7 +79,7 @@ function readOffers(
       return { problem: `${ATTACK_TRINKET_RULES[id].name} 缺少已核准攻击效果规则（R-048）` };
     if (
       b.usedTrinketIds?.includes(id) ||
-      (item.face === "inverted" && (rule.freeInverted || rule.damage)) ||
+      (item.face === "inverted" && (rule.useStress !== undefined || rule.damage)) ||
       (item.face === "upright" && rule.stance && actor.stance !== rule.stance) ||
       (item.face === "inverted" && actor.stance === rule.invertedNotInStance)
     )
@@ -92,7 +92,7 @@ function readOffers(
 
     if (
       !rule.damage &&
-      !(rule.freeInverted
+      !(rule.useStress !== undefined
         ? hasHeroSkillRoll(skill, "Crit") || hasHeroSkillRoll(skill, "Acc")
         : hasHeroSkillRoll(skill, item.face === "upright" && rule.crit ? "Crit" : "Acc"))
     )

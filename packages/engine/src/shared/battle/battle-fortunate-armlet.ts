@@ -1,8 +1,11 @@
-import { FORTUNATE_ARMLET_RULE } from "../../../../data/src/core/trinkets/trinket-rules";
+import {
+  ATTACK_TRINKET_RULES,
+  FORTUNATE_ARMLET_ID,
+  readAttackTrinketRule,
+} from "../../../../data/src/core/trinkets/attack-trinket-rules";
 import { battleTrinketHolders } from "./battle-hero-card-holders";
 import { isFreeTrinketId, useFreeTrinket } from "./battle-free-trinkets";
 import type { FreeTrinketId } from "./battle-free-trinkets";
-import type { NormalizedTrinketCard } from "../../../../data/src/shared/schema";
 import { rejectBattleCommand } from "./battle";
 import { triggerBattlePassive } from "./battle-passive";
 import type { ApplyResult, GameState } from "../core/command";
@@ -10,22 +13,12 @@ import { resolveBattlePressure } from "../core/pressure";
 import { finalizeFreeTrinketDuringMonsterTurn } from "./battle-monster-retarget";
 import { trinketPoolProblem } from "../trinkets/trinket-acquisition";
 
-export const FORTUNATE_ARMLET_ID = FORTUNATE_ARMLET_RULE.id;
+export { FORTUNATE_ARMLET_ID } from "../../../../data/src/core/trinkets/attack-trinket-rules";
 export type UseTrinketCommand = {
   readonly type: "useTrinket";
   readonly actorId: string;
   readonly cardId: typeof FORTUNATE_ARMLET_ID | FreeTrinketId;
 };
-
-/** R26 / p025：按已核准饰品身份与效果条目启用。 */
-export function isFortunateArmlet(card: NormalizedTrinketCard): boolean {
-  return (
-    card.id === FORTUNATE_ARMLET_ID &&
-    card.name === FORTUNATE_ARMLET_RULE.name &&
-    card.level === FORTUNATE_ARMLET_RULE.level &&
-    card.rules?.useStress === FORTUNATE_ARMLET_RULE.useStress
-  );
-}
 
 /** 本切片开放完整效果之间的角色回合；不打断待选、回合开始、技能或位移。 */
 export function fortunateArmletUseProblem(state: GameState, actorId: string): string | null {
@@ -51,9 +44,8 @@ export function fortunateArmletUseProblem(state: GameState, actorId: string): st
   const problem = trinketPoolProblem(pool, battleTrinketHolders(b));
   if (problem) return problem;
   const card = pool.cards.find((c) => c.id === FORTUNATE_ARMLET_ID);
-  if (!card || !isFortunateArmlet(card)) return "Fortunate Armlet 缺少已核实效果词条（R-048）";
-  const useStress = card.rules?.useStress;
-  if (useStress !== 1) return "Fortunate Armlet 缺少已核实的压力使用规则（R-048）";
+  if (!card || !readAttackTrinketRule(card, FORTUNATE_ARMLET_ID))
+    return "Fortunate Armlet 缺少已核实效果词条（R-048）";
   if (
     !pool.held.some((h) => h.heroId === actorId && h.cardId === card.id && h.face === "inverted") ||
     b.usedTrinketIds?.includes(card.id)
@@ -73,10 +65,7 @@ export function useTrinket(
   const problem = fortunateArmletUseProblem(state, command.actorId);
   if (problem) return rejectBattleCommand(state, problem);
   const b = state.battle!;
-  const armlet = b.trinkets!.cards.find((card) => card.id === FORTUNATE_ARMLET_ID);
-  const useStress = armlet?.rules?.useStress;
-  if (useStress !== 1)
-    return rejectBattleCommand(state, "Fortunate Armlet 缺少已核实的压力使用规则（R-048）");
+  const { useStress } = ATTACK_TRINKET_RULES[FORTUNATE_ARMLET_ID];
   const paid = triggerBattlePassive(b, state.seed, [command.actorId], {
     type: "stress",
     amount: useStress,
@@ -103,7 +92,7 @@ export function useTrinket(
         actorId: command.actorId,
         cardId: command.cardId,
         face: "inverted",
-        message: "Fortunate Armlet：压力 +1，翻回正面（R26）",
+        message: `Fortunate Armlet：压力 +${useStress}，翻回正面（R26）`,
       },
     ],
   });

@@ -1,6 +1,5 @@
 import type { HeroSkillTrinketId } from "../heroes/hero-skill-trinkets";
 import type { NormalizedTrinketCard } from "../../shared/schema";
-import { FORTUNATE_ARMLET_RULE } from "./trinket-rules";
 
 type TrinketStance = "support" | "ranged" | "defensive" | "aggressive";
 
@@ -14,11 +13,13 @@ type Definition = {
   stance?: TrinketStance;
   invertedNotInStance?: TrinketStance;
   light?: "dark" | "solar";
-  freeInverted?: true;
+  useStress?: number;
   damage?: number;
   woundOnDamage?: number;
 };
-export const ATTACK_TRINKET_RULES: Record<HeroSkillTrinketId, Definition> = {
+export const FORTUNATE_ARMLET_ID = "trinket:p025";
+
+export const ATTACK_TRINKET_RULES = {
   "trinket:p007": {
     name: "Damage Stone",
     level: 1,
@@ -28,13 +29,13 @@ export const ATTACK_TRINKET_RULES: Record<HeroSkillTrinketId, Definition> = {
     damage: 3,
     woundOnDamage: 2,
   },
-  "trinket:p025": {
-    name: FORTUNATE_ARMLET_RULE.name,
-    level: FORTUNATE_ARMLET_RULE.level,
-    crit: FORTUNATE_ARMLET_RULE.crit,
-    accuracy: FORTUNATE_ARMLET_RULE.accuracy,
+  [FORTUNATE_ARMLET_ID]: {
+    name: "Fortunate Armlet",
+    level: 2,
+    crit: 1,
+    accuracy: 1,
     penalty: 0,
-    freeInverted: true,
+    useStress: 1,
   },
   "trinket:p006": {
     name: "Critical Stone",
@@ -134,13 +135,13 @@ export const ATTACK_TRINKET_RULES: Record<HeroSkillTrinketId, Definition> = {
     penalty: 0,
     light: "solar",
   },
-};
+} as const satisfies Record<HeroSkillTrinketId, Definition>;
 
 export function readAttackTrinketRule(
   card: NormalizedTrinketCard | undefined,
   id: HeroSkillTrinketId,
 ) {
-  const rule = ATTACK_TRINKET_RULES[id];
+  const rule: Definition = ATTACK_TRINKET_RULES[id];
   if (
     !card ||
     card.id !== id ||
@@ -148,7 +149,7 @@ export function readAttackTrinketRule(
     card.name !== rule.name ||
     card.level !== rule.level ||
     card.verification.unverified ||
-    (id === FORTUNATE_ARMLET_RULE.id && card.rules?.useStress !== FORTUNATE_ARMLET_RULE.useStress)
+    (rule.useStress !== undefined && card.rules?.useStress !== rule.useStress)
   )
     return null;
   return rule;
