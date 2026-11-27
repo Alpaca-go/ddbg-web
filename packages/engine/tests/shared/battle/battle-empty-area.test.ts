@@ -328,14 +328,30 @@ describe("空区域英雄技能（R19–20、R-025、R-048）", () => {
     const valid = applyCommand(inRange, command(inRange));
     expect(valid.events[0]?.type).toBe("heroSkillEmptyAreaResolved");
     expect(valid.state.battle!.entities).toEqual(inRange.battle!.entities);
+    const { directAttack, ...legacyRules } = stun.rules!;
     const missingDuration = {
       ...inRange,
       battle: {
         ...inRange.battle!,
-        skills: [{ ...stun, rules: { ...stun.rules, statuses: [] } }],
+        skills: [{ ...stun, rules: { ...legacyRules, statuses: [] } }],
       },
     };
     expect(refused(missingDuration).events[0]?.message).toContain("未完整支持");
+    const invalidDuration = {
+      ...inRange,
+      battle: {
+        ...inRange.battle!,
+        skills: [
+          {
+            ...stun,
+            rules: {
+              directAttack: { ...directAttack!, onHit: [{ kind: "stun" as const, duration: 0 }] },
+            },
+          },
+        ],
+      },
+    };
+    expect(refused(invalidDuration).events[0]?.message).toContain("参数无效");
     const badStance = setup();
     refused({
       ...badStance,
