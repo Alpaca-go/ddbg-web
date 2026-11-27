@@ -735,6 +735,33 @@ const fixes: readonly SkillCorrection[] = [
 
 const directAttackEntries: readonly DirectAttackEntry[] = [
   {
+    id: "hero_skill:musketeer:h18:p358",
+    name: "Aimed Shot",
+    stances: ["support", "ranged"],
+    range: 2,
+    monsterTargets: 1,
+    hit: { threshold: 9, damage: 6 },
+    critical: { threshold: 1, damage: 9 },
+  },
+  {
+    id: "hero_skill:musketeer:h18:p359",
+    name: "Aimed Shot",
+    stances: ["support", "ranged"],
+    range: 2,
+    monsterTargets: 1,
+    hit: { threshold: 10, damage: 8 },
+    critical: { threshold: 1, damage: 12 },
+  },
+  {
+    id: "hero_skill:musketeer:h18:p360",
+    name: "Aimed Shot",
+    stances: ["support", "ranged"],
+    range: 2,
+    monsterTargets: 1,
+    hit: { threshold: 11, damage: 10 },
+    critical: { threshold: 1, damage: 16 },
+  },
+  {
     id: "hero_skill:musketeer:h18:p361",
     name: "Smokescreen",
     stances: ["support", "ranged"],
@@ -774,9 +801,6 @@ const entries: HeroAnnotationEntries = {
   damage: damageEntries,
   shuffle: shuffleEntries,
   targetCount: [
-    { id: "hero_skill:musketeer:h18:p358", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:musketeer:h18:p359", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:musketeer:h18:p360", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:musketeer:h18:p364", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:musketeer:h18:p365", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:musketeer:h18:p366", hero: 0, monster: 1, heroOrMonster: 0 },
@@ -791,9 +815,6 @@ const entries: HeroAnnotationEntries = {
     { id: "hero_skill:musketeer:h18:p375", hero: 1, monster: 0, heroOrMonster: 0 },
   ],
   effectKind: [
-    { id: "hero_skill:musketeer:h18:p358", effect: "damage" },
-    { id: "hero_skill:musketeer:h18:p359", effect: "damage" },
-    { id: "hero_skill:musketeer:h18:p360", effect: "damage" },
     { id: "hero_skill:musketeer:h18:p367", effect: "damage" },
     { id: "hero_skill:musketeer:h18:p368", effect: "damage" },
     { id: "hero_skill:musketeer:h18:p369", effect: "damage" },

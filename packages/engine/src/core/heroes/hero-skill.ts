@@ -1,5 +1,5 @@
 import { defenceTrinketReaction } from "../../shared/trinkets/trinket-reactions";
-import { directAttackSchema } from "../../../../data/src/shared/effects";
+import { CONDITIONAL_DAMAGE_SUFFIX, directAttackSchema } from "../../../../data/src/shared/effects";
 import type { ConditionalDamage, DirectAttack } from "../../../../data/src/shared/effects";
 import { projectAbominationSkill } from "./abomination-skills";
 import { ABOMINATION_DOUBLE_FACED_SKILL_IDS } from "../../shared/core/formal-roster-catalog";
@@ -1589,6 +1589,8 @@ type IgnoresProtection = {
  * 不读回合数，也不把这行理解成移除防护。
  */
 function readIgnoresProtection(skill: HeroSkillCardView): IgnoresProtection {
+  if (skill.rules?.directAttack)
+    return { targetLines: Number(skill.rules.directAttack.ignoresProtection === true) };
   const ruleCount = (skill.rules?.ignores ?? []).filter(
     (rule) => rule.kind === "protection",
   ).length;
@@ -1635,6 +1637,8 @@ type IgnoresGuard = {
 
 /** 只接受「Ignores + guard」整行（R-102）。 */
 function readIgnoresGuard(skill: HeroSkillCardView): IgnoresGuard {
+  if (skill.rules?.directAttack)
+    return { targetLines: Number(skill.rules.directAttack.ignoresGuard === true) };
   const ruleCount = (skill.rules?.ignores ?? []).filter((rule) => rule.kind === "guard").length;
   if (ruleCount > 0) return { targetLines: ruleCount };
   let targetLines = 0;
@@ -2703,6 +2707,8 @@ function resolveSkill(
   const target = combat.target;
   let effectLineReceiptCount = 0;
   const actorBonus = activeRules.actorDamage;
+  const actorBonusAmount =
+    activeRules.directAttack?.damageWithOwnBleedOrBlight ?? actorBonus?.amount;
   if (actorBonus) {
     const line = active.effect_lines[actorBonus.lineIndex];
     const text = line
@@ -2849,25 +2855,15 @@ function resolveSkill(
       new Set(damageBonusesAnn.map((b) => b.lineIndex)).size !== damageBonusesAnn.length)
   )
     return refuse(skill, combat, "多条条件伤害注解重复、缺失或与单条注解冲突（R-048）");
-  const printedBonuses = damageBonusesAnn ?? (damageBonusAnn ? [damageBonusAnn] : []);
+  const printedBonuses: readonly NonNullable<SkillRules["damage"]>[] =
+    damageBonusesAnn ?? (damageBonusAnn ? [damageBonusAnn] : []);
   for (const bonus of printedBonuses) {
     const line = active.effect_lines[bonus.lineIndex];
     const text = line
       ?.map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
       .join("")
       .replace(/\s+/g, "");
-    const conditionSuffix =
-      bonus.condition === "marked"
-        ? "{mark}"
-        : bonus.condition === "stunned"
-          ? "{stun}"
-          : bonus.condition === "blighted"
-            ? "{blight}"
-            : bonus.condition === "human"
-              ? "Humans"
-              : bonus.condition === "eldritch"
-                ? "Eldritch"
-                : "Unholy";
+    const conditionSuffix = CONDITIONAL_DAMAGE_SUFFIX[bonus.condition];
     if (
       !Number.isSafeInteger(bonus.lineIndex) ||
       bonus.lineIndex < 0 ||
@@ -2882,8 +2878,9 @@ function resolveSkill(
     )
       return refuse(skill, combat, "条件伤害注解与已确认卡面不符（R-048）");
   }
-  const directBonus = activeRules.directAttack?.damageBonus;
-  const bonuses = directBonus ? [directBonus] : printedBonuses;
+  const direct = activeRules.directAttack;
+  const bonuses =
+    direct?.damageBonuses ?? (direct?.damageBonus ? [direct.damageBonus] : printedBonuses);
   for (const bonus of bonuses) {
     if (
       !emptyArea &&
@@ -3389,12 +3386,12 @@ function resolveSkill(
       let baseDamage =
         amount +
         (combat.trinketModifiers?.damage ?? 0) +
-        (actorBonus &&
+        (actorBonusAmount !== undefined &&
         combat.actor &&
         Array.isArray(combat.actor.statusStacks) &&
         !statusStackProblem(combat.actor.statusStacks) &&
         combat.actor.statusStacks.some((stack) => stack.kind === "bleed" || stack.kind === "blight")
-          ? actorBonus.amount
+          ? actorBonusAmount
           : 0) +
         bonuses.reduce((total, bonus) => {
           if (target.side === sourceSide) return total;

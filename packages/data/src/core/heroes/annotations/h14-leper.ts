@@ -576,6 +576,33 @@ const fixes: readonly SkillCorrection[] = [
 
 const directAttackEntries: readonly DirectAttackEntry[] = [
   {
+    id: "hero_skill:warrens:h14:p292",
+    name: "Intimidate",
+    stances: ["aggressive"],
+    range: 2,
+    monsterTargets: 1,
+    hit: { threshold: 9, damage: 4 },
+    critical: { threshold: 0, damage: 7 },
+  },
+  {
+    id: "hero_skill:warrens:h14:p293",
+    name: "Intimidate",
+    stances: ["aggressive"],
+    range: 2,
+    monsterTargets: 1,
+    hit: { threshold: 10, damage: 6 },
+    critical: { threshold: 1, damage: 10 },
+  },
+  {
+    id: "hero_skill:warrens:h14:p294",
+    name: "Intimidate",
+    stances: ["aggressive"],
+    range: 2,
+    monsterTargets: 1,
+    hit: { threshold: 11, damage: 8 },
+    critical: { threshold: 1, damage: 12 },
+  },
+  {
     id: "hero_skill:warrens:h14:p274",
     name: "Chop",
     stances: ["defensive", "aggressive"],
@@ -649,17 +676,11 @@ const entries: HeroAnnotationEntries = {
     { id: "hero_skill:warrens:h14:p289", hero: 1, monster: 0, heroOrMonster: 0 },
     { id: "hero_skill:warrens:h14:p290", hero: 1, monster: 0, heroOrMonster: 0 },
     { id: "hero_skill:warrens:h14:p291", hero: 1, monster: 0, heroOrMonster: 0 },
-    { id: "hero_skill:warrens:h14:p292", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:warrens:h14:p293", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:warrens:h14:p294", hero: 0, monster: 1, heroOrMonster: 0 },
   ],
   effectKind: [
     { id: "hero_skill:warrens:h14:p280", effect: "damage" },
     { id: "hero_skill:warrens:h14:p281", effect: "damage" },
     { id: "hero_skill:warrens:h14:p282", effect: "damage" },
-    { id: "hero_skill:warrens:h14:p292", effect: "damage" },
-    { id: "hero_skill:warrens:h14:p293", effect: "damage" },
-    { id: "hero_skill:warrens:h14:p294", effect: "damage" },
   ],
 };
 

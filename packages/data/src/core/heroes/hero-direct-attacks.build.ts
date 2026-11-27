@@ -1,4 +1,4 @@
-import { directAttackSchema } from "../../shared/effects";
+import { CONDITIONAL_DAMAGE_SUFFIX, directAttackSchema } from "../../shared/effects";
 import type { NormalizedHeroSkillCard } from "../../shared/schema";
 import { HERO_ANNOTATIONS } from "./annotations";
 import { ABOMINATION_PROJECTIONS } from "./annotations/abomination-projection-data";
@@ -64,7 +64,10 @@ function attachDirectHeroAttack(
   const onHit = statusRules("target");
   const onUse = statusRules("self");
   const combinedStress = form?.lines?.length === 2 && onUse.length > 0;
-  const bonus = card.rules?.damage;
+  const singleDamage = card.rules?.damage;
+  const damageBonuses = card.rules?.damageBonuses ?? (singleDamage ? [singleDamage] : []);
+  const actorBonus = card.rules?.actorDamage;
+  const ignores = card.rules?.ignores ?? [];
   const shuffles = card.rules?.shuffle ?? [];
   const [shuffle] = shuffles;
   const move = /^(Push|Pull) ([1-9]\d*)$/.exec(shuffle?.text ?? "");
@@ -73,8 +76,20 @@ function attachDirectHeroAttack(
     : undefined;
   const expectedEffects = new Map(statusesAt);
   if (move) expectedEffects.set(0, `{self_effects}Self{shuffle}${move[1]}${move[2]}`);
-  if (bonus)
-    expectedEffects.set(bonus.lineIndex, `{target_effects}{damage}+${bonus.amount}vsUnholy`);
+  for (const { lineIndex, amount, condition } of damageBonuses)
+    expectedEffects.set(
+      lineIndex,
+      `{target_effects}{damage}+${amount}vs${CONDITIONAL_DAMAGE_SUFFIX[condition]}`,
+    );
+  if (actorBonus)
+    expectedEffects.set(
+      actorBonus.lineIndex,
+      `{damage}+${actorBonus.amount}ifFlagellanthas{bleed}{blight}`,
+    );
+  for (const { lineIndex, kind } of ignores) {
+    const prefix = kind === "protection" ? "{target_effects}" : "";
+    expectedEffects.set(lineIndex, `${prefix}Ignores{${kind}}`);
+  }
   if (heal)
     expectedEffects.set(
       heal.lineIndex,
@@ -105,7 +120,9 @@ function attachDirectHeroAttack(
   const effectLineCount =
     statusesAt.size +
     Number(Boolean(move)) +
-    Number(Boolean(bonus)) +
+    damageBonuses.length +
+    Number(Boolean(actorBonus)) +
+    ignores.length +
     Number(Boolean(heal)) +
     Number(review.selfWound !== undefined) +
     Number(Boolean(stress) && !combinedStress);
@@ -143,14 +160,11 @@ function attachDirectHeroAttack(
       )) ||
     (shuffle !== undefined &&
       (shuffles.length !== 1 || shuffle.scope !== "self" || shuffle.lineIndex !== 0 || !move)) ||
-    card.rules.damageBonuses !== undefined ||
-    (bonus !== undefined &&
-      (bonus.condition !== "unholy" ||
-        bonus.lineIndex !== Number(Boolean(move)) ||
-        effects.length !== 0))
+    (singleDamage !== undefined && card.rules.damageBonuses !== undefined)
   ) {
     throw new Error(card.id + " 效果词条与已核卡面不符（R-048）");
   }
+  const bonuses = damageBonuses.map(({ condition, amount }) => ({ condition, amount }));
   const directAttack = directAttackSchema.parse({
     ...review,
     onHit,
@@ -158,7 +172,11 @@ function attachDirectHeroAttack(
     ...(heal ? { selfHeal: heal.amount, combinedHealMarker: true } : {}),
     ...(stress ? { selfStress: stress.amount } : {}),
     ...(form?.requiredForm ? { requiredForm: form.requiredForm } : {}),
-    ...(bonus ? { damageBonus: { amount: bonus.amount, condition: bonus.condition } } : {}),
+    ...(bonuses.length === 1 ? { damageBonus: bonuses[0] } : {}),
+    ...(bonuses.length > 1 ? { damageBonuses: bonuses } : {}),
+    ...(actorBonus ? { damageWithOwnBleedOrBlight: actorBonus.amount } : {}),
+    ...(ignores.some(({ kind }) => kind === "protection") ? { ignoresProtection: true } : {}),
+    ...(ignores.some(({ kind }) => kind === "guard") ? { ignoresGuard: true } : {}),
     ...(selfShuffle ? { selfShuffle } : {}),
   });
   return { ...card, rules: { ...card.rules, directAttack } };

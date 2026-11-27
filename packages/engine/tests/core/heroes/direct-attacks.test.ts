@@ -21,11 +21,9 @@ it("七组基础直攻各发布三个等级的独立规则", () => {
   }
 });
 
-const attacksWithoutMovementOrBonus = reviewed.filter(
-  ({ rules }) => !rules!.directAttack!.selfShuffle && !rules!.directAttack!.damageBonus,
-);
+const attacksWithoutMovement = reviewed.filter(({ rules }) => !rules!.directAttack!.selfShuffle);
 
-it.each(attacksWithoutMovementOrBonus)("$id 的公开命令只需核准规则，非法规则原子拒绝", (card) => {
+it.each(attacksWithoutMovement)("$id 的公开命令只需核准规则，非法规则原子拒绝", (card) => {
   const { directAttack: attack, ...legacyRules } = card.rules!;
   const { state, command } = trinketBattle(
     ["trinket:p001"],
@@ -36,6 +34,10 @@ it.each(attacksWithoutMovementOrBonus)("$id 的公开命令只需核准规则，
     "monster_medium:p024",
   );
   const battle = state.battle!;
+  const conditions = new Set([
+    attack!.damageBonus?.condition,
+    ...(attack!.damageBonuses ?? []).map(({ condition }) => condition),
+  ]);
   const stat = coreQuestSources.catalog.heroStats.find(
     (entry) => entry.name === card.hero && entry.level === card.level,
   )!;
@@ -54,10 +56,24 @@ it.each(attacksWithoutMovementOrBonus)("$id 的公开命令只需核准规则，
         heroLevel: stat.level,
         life: stat.life,
         wounds: 5,
+        ...(attack!.damageWithOwnBleedOrBlight
+          ? { statusStacks: [{ kind: "bleed" as const, remaining: 1, amount: 1 }] }
+          : {}),
         ...(attack!.requiredForm ? { form: attack!.requiredForm } : {}),
       };
-    if (entity.side === "monster" && attack!.range === 0) return { ...entity, areaId: "a" };
-    if (entity.side === "monster" && attack!.range === 2) return { ...entity, areaId: "c" };
+    if (entity.side === "monster")
+      return {
+        ...entity,
+        areaId: attack!.range === 0 ? "a" : attack!.range === 2 ? "c" : entity.areaId,
+        statusStacks: [
+          ...(conditions.has("stunned") ? [{ kind: "stun" as const, remaining: 1 }] : []),
+          ...(conditions.has("blighted")
+            ? [{ kind: "blight" as const, remaining: 1, amount: 1 }]
+            : []),
+          ...(conditions.has("marked") ? [{ kind: "mark" as const, remaining: 1 }] : []),
+          ...(attack!.ignoresProtection ? [{ kind: "protection" as const, remaining: 1 }] : []),
+        ],
+      };
     return entity;
   });
   const areas =
@@ -297,7 +313,14 @@ it.each(reviewed)("$id 十种骰面和目标限制沿用旧效果", (card) => {
       stress: 4,
       ...(attack.requiredForm ? { form: attack.requiredForm } : {}),
     },
-    target: { id: "monster", side: "monster", wounds: 0, dodge: 2, monsterTypeTags: ["Unholy"] },
+    target: {
+      id: "monster",
+      side: "monster",
+      wounds: 0,
+      dodge: 2,
+      monsterTypeTags: ["Unholy"],
+      statusStacks: [],
+    },
     areaDistance: attack.range,
     targetsInArea: attack.monsterTargets,
     light: 4,
@@ -323,7 +346,7 @@ it.each(reviewed)("$id 十种骰面和目标限制沿用旧效果", (card) => {
   }
 });
 
-it.each(reviewed.filter((card) => card.rules!.directAttack!.damageBonus))(
+it.each(reviewed.filter((card) => card.rules!.directAttack!.damageBonus?.condition === "unholy"))(
   "$id 条件伤害沿用目标分类、防护和缺类型拒绝",
   (card) => {
     const { directAttack, ...legacyRules } = card.rules!;
@@ -365,3 +388,72 @@ it.each(reviewed.filter((card) => card.rules!.directAttack!.damageBonus))(
     expect(resolveHeroSkill(invalid, combat, 1).reason).toContain("参数无效");
   },
 );
+
+it.each(
+  reviewed.filter(({ rules }) => {
+    const attack = rules!.directAttack!;
+    return (
+      attack.damageBonus ||
+      attack.damageBonuses ||
+      attack.damageWithOwnBleedOrBlight ||
+      attack.ignoresProtection
+    );
+  }),
+)("$id 按原有状态、怪物分类和防护顺序计算伤害", (card) => {
+  const { directAttack, ...legacyRules } = card.rules!;
+  const attack = directAttack!;
+  const legacy = { ...card, rules: legacyRules };
+  const stripped = {
+    ...card,
+    rules: { directAttack: attack },
+    printed_labels: [],
+    unlabeled_numbers: [],
+    stats_line: null,
+    effect_lines: [],
+    top_row_icons: [],
+    front_icons: [],
+  };
+  for (const active of [false, true]) {
+    const combat: SkillCombatState = {
+      actor: {
+        id: "hero",
+        stance: attack.stances[0]!,
+        wounds: 2,
+        stress: 4,
+        statusStacks: active ? [{ kind: "bleed", remaining: 1, amount: 1 }] : [],
+      },
+      target: {
+        id: "monster",
+        side: "monster",
+        wounds: 0,
+        dodge: 0,
+        markStacks: Number(active),
+        protection: true,
+        monsterTypeTags: active ? ["Unholy", "Human", "Eldritch"] : ["Beast"],
+        statusStacks: active
+          ? [
+              { kind: "stun", remaining: 1 },
+              { kind: "blight", remaining: 1, amount: 1 },
+            ]
+          : [],
+      },
+      areaDistance: attack.range,
+      light: 4,
+    };
+    const original = resolveHeroSkill(legacy, combat, 1);
+    expect(original.status).toBe("resolved");
+    expect(resolveHeroSkill(stripped, combat, 1)).toEqual(original);
+    const invalid = {
+      ...stripped,
+      rules: {
+        directAttack: {
+          ...attack,
+          ...(attack.damageBonuses
+            ? { damageBonuses: attack.damageBonuses.slice(0, 1) }
+            : { damageWithOwnBleedOrBlight: 0 }),
+        },
+      },
+    };
+    expect(resolveHeroSkill(invalid, combat, 1).reason).toContain("参数无效");
+  }
+});

@@ -177,13 +177,15 @@ describe("逐页复核的英雄区间射程 / G-08", () => {
           distance >= 1 && distance <= (lower ? 3 : 2) ? "resolved" : "refused",
         );
       }
+    const { directAttack: _attack, ...legacyRules } = pistol.rules!;
+    void _attack;
     expect(
       readPrintedRange({
         ...pistol,
-        rules: { ...pistol.rules!, range: { min: 0, max: 3, source: "print_front" } },
+        rules: { ...legacyRules, range: { min: 0, max: 3, source: "print_front" } },
       }),
     ).toEqual({ kind: "null_numeric" });
-    const { range: _range, ...rules } = pistol.rules!;
+    const { range: _range, ...rules } = legacyRules;
     void _range;
     expect(readPrintedRange({ ...pistol, rules })).toEqual({ kind: "null_numeric" });
   });

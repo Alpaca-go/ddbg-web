@@ -24,6 +24,15 @@ export const conditionalDamageSchema = z.strictObject({
 });
 export type ConditionalDamage = Readonly<z.infer<typeof conditionalDamageSchema>>;
 
+export const CONDITIONAL_DAMAGE_SUFFIX = {
+  marked: "{mark}",
+  stunned: "{stun}",
+  blighted: "{blight}",
+  human: "Humans",
+  eldritch: "Eldritch",
+  unholy: "Unholy",
+} as const satisfies Readonly<Record<ConditionalDamage["condition"], string>>;
+
 export const directAttackSchema = z
   .strictObject({
     stances: z.array(z.enum(["support", "ranged", "defensive", "aggressive"])).min(1),
@@ -41,6 +50,10 @@ export const directAttackSchema = z
     selfStress: z.int().optional(),
     requiredForm: z.enum(["human", "beast"]).optional(),
     damageBonus: conditionalDamageSchema.optional(),
+    damageBonuses: z.array(conditionalDamageSchema).min(2).optional(),
+    damageWithOwnBleedOrBlight: z.int().positive().optional(),
+    ignoresProtection: z.literal(true).optional(),
+    ignoresGuard: z.literal(true).optional(),
     selfShuffle: z
       .strictObject({ direction: z.enum(["push", "pull"]), distance: z.int().positive() })
       .optional(),
@@ -48,6 +61,10 @@ export const directAttackSchema = z
   .refine(({ range, rangeMinimum }) => rangeMinimum === undefined || rangeMinimum <= range, {
     path: ["rangeMinimum"],
     message: "最小射程不能超过最大射程",
+  })
+  .refine(({ damageBonus, damageBonuses }) => !damageBonus || !damageBonuses, {
+    path: ["damageBonuses"],
+    message: "单条和多条条件伤害不能同时登记",
   });
 
 export type DirectAttack = Readonly<z.infer<typeof directAttackSchema>>;

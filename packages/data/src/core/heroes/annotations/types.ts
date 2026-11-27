@@ -14,6 +14,10 @@ export type HeroAnnotationApplier = (
 export type DirectAttackEntry = Omit<
   DirectAttack,
   | "damageBonus"
+  | "damageBonuses"
+  | "damageWithOwnBleedOrBlight"
+  | "ignoresProtection"
+  | "ignoresGuard"
   | "selfShuffle"
   | "onHit"
   | "onUse"

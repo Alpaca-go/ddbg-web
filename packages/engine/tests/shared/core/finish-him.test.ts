@@ -199,7 +199,8 @@ it("目标Buff/Mark不冒充Stun；无注解保留旧效果边界，缺失或非
     },
   };
   expect(resolveHeroSkill(skill, combat, 5)).toMatchObject({ status: "resolved", damageDealt: 6 });
-  const { damage: _bonus, ...rules } = skill.rules!;
+  const { directAttack: _attack, damage: _bonus, ...rules } = skill.rules!;
+  void _attack;
   void _bonus;
   const legacy = { ...skill, rules };
   expect(

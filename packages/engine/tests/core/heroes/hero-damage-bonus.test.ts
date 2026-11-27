@@ -119,7 +119,9 @@ describe("已复核 Pistol I 对 Mark +2（R19–21、R-017、R-019、R-048）",
     const combat = {
       target: { id: "m", side: "monster" as const, wounds: 0, dodge: 0, markStacks: 1 },
     };
-    const { damage: _bonus, ...rules } = pistol.rules!;
+    const { directAttack: _attack, ...legacyRules } = pistol.rules!;
+    void _attack;
+    const { damage: _bonus, ...rules } = legacyRules;
     void _bonus;
     const legacy = { ...pistol, rules };
     expect(pistol.rules?.damage).toBeDefined();
@@ -130,11 +132,13 @@ describe("已复核 Pistol I 对 Mark +2（R19–21、R-017、R-019、R-048）",
     for (const amount of [0, 3, NaN])
       expect(
         resolveHeroSkill(
-          { ...pistol, rules: { ...pistol.rules, damage: { ...pistol.rules!.damage!, amount } } },
+          { ...pistol, rules: { ...legacyRules, damage: { ...legacyRules.damage!, amount } } },
           combat,
           4,
         ).status,
       ).toBe("refused");
-    expect(resolveHeroSkill({ ...pistol, effect_lines: [] }, combat, 4).status).toBe("refused");
+    expect(
+      resolveHeroSkill({ ...pistol, rules: legacyRules, effect_lines: [] }, combat, 4).status,
+    ).toBe("refused");
   });
 });

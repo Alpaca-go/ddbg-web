@@ -1,3 +1,4 @@
+import type { DirectAttackEntry } from "./types";
 import { printIcon } from "../../../shared/print-icons";
 import type { HeroAnnotationEntries, IgnoresEntry, ShuffleEntry, SkillCorrection } from "./types";
 import { defineHeroModule } from "./patch-helpers";
@@ -745,7 +746,38 @@ const fixes: readonly SkillCorrection[] = [
   },
 ];
 
+const directAttackEntries: readonly DirectAttackEntry[] = [
+  {
+    id: "hero_skill:weald:h16:p331",
+    name: "Captivate",
+    stances: ["ranged", "defensive"],
+    range: 1,
+    monsterTargets: 1,
+    hit: { threshold: 8, damage: 6 },
+    critical: { threshold: 1, damage: 9 },
+  },
+  {
+    id: "hero_skill:weald:h16:p332",
+    name: "Captivate",
+    stances: ["ranged", "defensive"],
+    range: 1,
+    monsterTargets: 1,
+    hit: { threshold: 9, damage: 8 },
+    critical: { threshold: 1, damage: 12 },
+  },
+  {
+    id: "hero_skill:weald:h16:p333",
+    name: "Captivate",
+    stances: ["ranged", "defensive"],
+    range: 1,
+    monsterTargets: 1,
+    hit: { threshold: 10, damage: 10 },
+    critical: { threshold: 1, damage: 15 },
+  },
+];
+
 const entries: HeroAnnotationEntries = {
+  directAttack: directAttackEntries,
   shuffle: shuffleEntries,
   ignores: ignoresEntries,
   targetCount: [
@@ -764,9 +796,6 @@ const entries: HeroAnnotationEntries = {
     { id: "hero_skill:weald:h16:p328", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:weald:h16:p329", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:weald:h16:p330", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:weald:h16:p331", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:weald:h16:p332", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:weald:h16:p333", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:weald:h16:p334", hero: 1, monster: 0, heroOrMonster: 0 },
     { id: "hero_skill:weald:h16:p335", hero: 1, monster: 0, heroOrMonster: 0 },
     { id: "hero_skill:weald:h16:p336", hero: 1, monster: 0, heroOrMonster: 0 },
@@ -787,9 +816,6 @@ const entries: HeroAnnotationEntries = {
     { id: "hero_skill:weald:h16:p328", effect: "damage" },
     { id: "hero_skill:weald:h16:p329", effect: "damage" },
     { id: "hero_skill:weald:h16:p330", effect: "damage" },
-    { id: "hero_skill:weald:h16:p331", effect: "damage" },
-    { id: "hero_skill:weald:h16:p332", effect: "damage" },
-    { id: "hero_skill:weald:h16:p333", effect: "damage" },
   ],
 };
 

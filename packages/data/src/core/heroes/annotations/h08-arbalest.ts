@@ -481,6 +481,33 @@ const shuffleEntries: readonly ShuffleEntry[] = [
 
 const directAttackEntries: readonly DirectAttackEntry[] = [
   {
+    id: "hero_skill:core:h08:p148",
+    name: "Sniper Shot",
+    stances: ["support", "ranged"],
+    range: 2,
+    monsterTargets: 1,
+    hit: { threshold: 9, damage: 6 },
+    critical: { threshold: 1, damage: 9 },
+  },
+  {
+    id: "hero_skill:core:h08:p149",
+    name: "Sniper Shot",
+    stances: ["support", "ranged"],
+    range: 2,
+    monsterTargets: 1,
+    hit: { threshold: 10, damage: 8 },
+    critical: { threshold: 1, damage: 12 },
+  },
+  {
+    id: "hero_skill:core:h08:p150",
+    name: "Sniper Shot",
+    stances: ["support", "ranged"],
+    range: 2,
+    monsterTargets: 1,
+    hit: { threshold: 11, damage: 10 },
+    critical: { threshold: 1, damage: 16 },
+  },
+  {
     id: "hero_skill:core:h08:p151",
     name: "Suppressive Fire",
     stances: ["support", "ranged"],
@@ -521,9 +548,6 @@ const entries: HeroAnnotationEntries = {
   damage: damageEntries,
   shuffle: shuffleEntries,
   targetCount: [
-    { id: "hero_skill:core:h08:p148", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:core:h08:p149", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:core:h08:p150", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:core:h08:p154", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:core:h08:p155", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:core:h08:p156", hero: 0, monster: 1, heroOrMonster: 0 },
@@ -538,9 +562,6 @@ const entries: HeroAnnotationEntries = {
     { id: "hero_skill:core:h08:p165", hero: 1, monster: 0, heroOrMonster: 0 },
   ],
   effectKind: [
-    { id: "hero_skill:core:h08:p148", effect: "damage" },
-    { id: "hero_skill:core:h08:p149", effect: "damage" },
-    { id: "hero_skill:core:h08:p150", effect: "damage" },
     { id: "hero_skill:core:h08:p157", effect: "damage" },
     { id: "hero_skill:core:h08:p158", effect: "damage" },
     { id: "hero_skill:core:h08:p159", effect: "damage" },

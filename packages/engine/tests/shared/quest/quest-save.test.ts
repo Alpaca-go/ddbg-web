@@ -97,11 +97,12 @@ it("效果词条迁移前的存档按当前规则恢复，其他快照字段仍�
 });
 
 it.each([
-  ["十字军前序直攻", ["hero_skill:core:h01:p001", "hero_skill:core:h01:p004"]],
-  ["第 2 组直攻", ["hero_skill:core:h05:p088"]],
+  ["十字军前序直攻", ["hero_skill:core:h01:p001", "hero_skill:core:h01:p004"], 3],
+  ["第 2 组直攻", ["hero_skill:core:h05:p088"], 3],
+  ["第 3 组直攻", ["hero_skill:core:h04:p067"], 1],
 ] as const)(
   "%s 迁移前的实战日志严格重放原命令和事件",
-  (_name, playedIds) => {
+  (_name, playedIds, seed) => {
     const previousSources = {
       ...coreQuestSources,
       catalog: {
@@ -115,7 +116,7 @@ it.each([
         }),
       },
     };
-    const questStart = { ...start, seed: 3, party: naturalParty };
+    const questStart = { ...start, seed, party: naturalParty };
     const previous = naturalQuest(questStart.seed, questStart.questId, true, previousSources);
     for (const skillId of playedIds)
       expect(previous.commands).toContainEqual(expect.objectContaining({ skillId }));

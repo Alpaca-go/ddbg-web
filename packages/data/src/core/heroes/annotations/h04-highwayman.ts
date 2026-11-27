@@ -369,6 +369,36 @@ const sameAreaMelee: DirectAttackFace = {
 
 const directAttackEntries: readonly DirectAttackEntry[] = [
   {
+    id: "hero_skill:core:h04:p067",
+    name: "Pistol Shot",
+    stances: ["support", "ranged", "defensive"],
+    range: 2,
+    rangeMinimum: 1,
+    monsterTargets: 1,
+    hit: { threshold: 9, damage: 5 },
+    critical: { threshold: 1, damage: 9 },
+  },
+  {
+    id: "hero_skill:core:h04:p068",
+    name: "Pistol Shot",
+    stances: ["support", "ranged", "defensive"],
+    range: 2,
+    rangeMinimum: 1,
+    monsterTargets: 1,
+    hit: { threshold: 10, damage: 7 },
+    critical: { threshold: 1, damage: 12 },
+  },
+  {
+    id: "hero_skill:core:h04:p069",
+    name: "Pistol Shot",
+    stances: ["support", "ranged", "defensive"],
+    range: 2,
+    rangeMinimum: 1,
+    monsterTargets: 1,
+    hit: { threshold: 11, damage: 9 },
+    critical: { threshold: 1, damage: 15 },
+  },
+  {
     id: "hero_skill:core:h04:p073",
     name: "Grapeshot Blast",
     stances: ["ranged", "defensive"],
@@ -485,9 +515,6 @@ const entries: HeroAnnotationEntries = {
   damage: damageEntries,
   shuffle: shuffleEntries,
   targetCount: [
-    { id: "hero_skill:core:h04:p067", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:core:h04:p068", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:core:h04:p069", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:core:h04:p070", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:core:h04:p071", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:core:h04:p072", hero: 0, monster: 1, heroOrMonster: 0 },
@@ -496,9 +523,6 @@ const entries: HeroAnnotationEntries = {
     { id: "hero_skill:core:h04:p081", hero: 0, monster: 1, heroOrMonster: 0 },
   ],
   effectKind: [
-    { id: "hero_skill:core:h04:p067", effect: "damage" },
-    { id: "hero_skill:core:h04:p068", effect: "damage" },
-    { id: "hero_skill:core:h04:p069", effect: "damage" },
     { id: "hero_skill:core:h04:p070", effect: "damage" },
     { id: "hero_skill:core:h04:p071", effect: "damage" },
     { id: "hero_skill:core:h04:p072", effect: "damage" },

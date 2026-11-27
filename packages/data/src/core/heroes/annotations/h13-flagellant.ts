@@ -1,3 +1,4 @@
+import type { DirectAttackEntry } from "./types";
 import { printIcon } from "../../../shared/print-icons";
 import type {
   HeroAnnotationEntries,
@@ -898,16 +899,68 @@ const fixes: readonly SkillCorrection[] = [
   },
 ];
 
+const directAttackEntries: readonly DirectAttackEntry[] = [
+  {
+    id: "hero_skill:cove:h13:p253",
+    name: "Punish",
+    stances: ["defensive", "aggressive"],
+    range: 1,
+    monsterTargets: 1,
+    hit: { threshold: 10, damage: 4 },
+    critical: { threshold: 1, damage: 7 },
+  },
+  {
+    id: "hero_skill:cove:h13:p254",
+    name: "Punish",
+    stances: ["defensive", "aggressive"],
+    range: 1,
+    monsterTargets: 1,
+    hit: { threshold: 11, damage: 6 },
+    critical: { threshold: 1, damage: 9 },
+  },
+  {
+    id: "hero_skill:cove:h13:p255",
+    name: "Punish",
+    stances: ["defensive", "aggressive"],
+    range: 1,
+    monsterTargets: 1,
+    hit: { threshold: 12, damage: 8 },
+    critical: { threshold: 1, damage: 12 },
+  },
+  {
+    id: "hero_skill:cove:h13:p256",
+    name: "Rain of Sorrows",
+    stances: ["defensive", "aggressive"],
+    range: 2,
+    monsterTargets: 2,
+    hit: { threshold: 10, damage: 2 },
+    critical: { threshold: 1, damage: 5 },
+  },
+  {
+    id: "hero_skill:cove:h13:p257",
+    name: "Rain of Sorrows",
+    stances: ["defensive", "aggressive"],
+    range: 2,
+    monsterTargets: 2,
+    hit: { threshold: 11, damage: 3 },
+    critical: { threshold: 1, damage: 6 },
+  },
+  {
+    id: "hero_skill:cove:h13:p258",
+    name: "Rain of Sorrows",
+    stances: ["defensive", "aggressive"],
+    range: 2,
+    monsterTargets: 2,
+    hit: { threshold: 12, damage: 4 },
+    critical: { threshold: 1, damage: 8 },
+  },
+];
+
 const entries: HeroAnnotationEntries = {
+  directAttack: directAttackEntries,
   status: statusEntries,
   range: rangeEntries,
   targetCount: [
-    { id: "hero_skill:cove:h13:p253", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h13:p254", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h13:p255", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h13:p256", hero: 0, monster: 2, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h13:p257", hero: 0, monster: 2, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h13:p258", hero: 0, monster: 2, heroOrMonster: 0 },
     { id: "hero_skill:cove:h13:p259", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:cove:h13:p260", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:cove:h13:p261", hero: 0, monster: 1, heroOrMonster: 0 },
@@ -919,12 +972,6 @@ const entries: HeroAnnotationEntries = {
     { id: "hero_skill:cove:h13:p270", hero: 1, monster: 0, heroOrMonster: 0 },
   ],
   effectKind: [
-    { id: "hero_skill:cove:h13:p253", effect: "damage" },
-    { id: "hero_skill:cove:h13:p254", effect: "damage" },
-    { id: "hero_skill:cove:h13:p255", effect: "damage" },
-    { id: "hero_skill:cove:h13:p256", effect: "damage" },
-    { id: "hero_skill:cove:h13:p257", effect: "damage" },
-    { id: "hero_skill:cove:h13:p258", effect: "damage" },
     { id: "hero_skill:cove:h13:p259", effect: "damage" },
     { id: "hero_skill:cove:h13:p260", effect: "damage" },
     { id: "hero_skill:cove:h13:p261", effect: "damage" },

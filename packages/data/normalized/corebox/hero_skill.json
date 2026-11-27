@@ -20196,6 +20196,34 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 0,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 9,
+      "damage": 6
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 10
+     },
+     "onHit": [],
+     "damageBonuses": [
+      {
+       "amount": 1,
+       "condition": "human"
+      },
+      {
+       "amount": 2,
+       "condition": "marked"
+      }
+     ]
+    },
     "damageBonuses": [
      {
       "lineIndex": 0,
@@ -20773,6 +20801,34 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 0,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 10,
+      "damage": 8
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 14
+     },
+     "onHit": [],
+     "damageBonuses": [
+      {
+       "amount": 2,
+       "condition": "human"
+      },
+      {
+       "amount": 3,
+       "condition": "marked"
+      }
+     ]
+    },
     "damageBonuses": [
      {
       "lineIndex": 0,
@@ -21352,6 +21408,34 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 0,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 11,
+      "damage": 9
+     },
+     "critical": {
+      "threshold": 2,
+      "damage": 16
+     },
+     "onHit": [],
+     "damageBonuses": [
+      {
+       "amount": 2,
+       "condition": "human"
+      },
+      {
+       "amount": 3,
+       "condition": "marked"
+      }
+     ]
+    },
     "damageBonuses": [
      {
       "lineIndex": 0,
@@ -27372,6 +27456,29 @@
      "condition": "stunned",
      "source": "print_front"
     },
+    "directAttack": {
+     "stances": [
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "rangeMinimum": 0,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 9,
+      "damage": 6
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 10
+     },
+     "onHit": [],
+     "damageBonus": {
+      "amount": 2,
+      "condition": "stunned"
+     }
+    },
     "range": {
      "min": 0,
      "max": 1,
@@ -27868,6 +27975,29 @@
      "condition": "stunned",
      "source": "print_front"
     },
+    "directAttack": {
+     "stances": [
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "rangeMinimum": 0,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 10,
+      "damage": 8
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 14
+     },
+     "onHit": [],
+     "damageBonus": {
+      "amount": 3,
+      "condition": "stunned"
+     }
+    },
     "range": {
      "min": 0,
      "max": 1,
@@ -28363,6 +28493,29 @@
      "amount": 4,
      "condition": "stunned",
      "source": "print_front"
+    },
+    "directAttack": {
+     "stances": [
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "rangeMinimum": 0,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 11,
+      "damage": 9
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 16
+     },
+     "onHit": [],
+     "damageBonus": {
+      "amount": 4,
+      "condition": "stunned"
+     }
     },
     "range": {
      "min": 0,
@@ -31677,6 +31830,29 @@
      "condition": "marked",
      "source": "print_front"
     },
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive"
+     ],
+     "range": 2,
+     "rangeMinimum": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 9,
+      "damage": 5
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 9
+     },
+     "onHit": [],
+     "damageBonus": {
+      "amount": 2,
+      "condition": "marked"
+     }
+    },
     "range": {
      "min": 1,
      "max": 2,
@@ -32173,6 +32349,29 @@
      "condition": "marked",
      "source": "print_front"
     },
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive"
+     ],
+     "range": 2,
+     "rangeMinimum": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 10,
+      "damage": 7
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 12
+     },
+     "onHit": [],
+     "damageBonus": {
+      "amount": 3,
+      "condition": "marked"
+     }
+    },
     "range": {
      "min": 1,
      "max": 2,
@@ -32668,6 +32867,29 @@
      "amount": 4,
      "condition": "marked",
      "source": "print_front"
+    },
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive"
+     ],
+     "range": 2,
+     "rangeMinimum": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 11,
+      "damage": 9
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 15
+     },
+     "onHit": [],
+     "damageBonus": {
+      "amount": 4,
+      "condition": "marked"
+     }
     },
     "range": {
      "min": 1,
@@ -40693,6 +40915,27 @@
      "condition": "unholy",
      "source": "print_front"
     },
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 9,
+      "damage": 5
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 9
+     },
+     "onHit": [],
+     "damageBonus": {
+      "amount": 1,
+      "condition": "unholy"
+     }
+    },
     "targets": {
      "hero": 0,
      "monster": 1,
@@ -41159,6 +41402,27 @@
      "condition": "unholy",
      "source": "print_front"
     },
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 10,
+      "damage": 7
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 11
+     },
+     "onHit": [],
+     "damageBonus": {
+      "amount": 2,
+      "condition": "unholy"
+     }
+    },
     "targets": {
      "hero": 0,
      "monster": 1,
@@ -41624,6 +41888,27 @@
      "amount": 3,
      "condition": "unholy",
      "source": "print_front"
+    },
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 11,
+      "damage": 8
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 14
+     },
+     "onHit": [],
+     "damageBonus": {
+      "amount": 3,
+      "condition": "unholy"
+     }
     },
     "targets": {
      "hero": 0,
@@ -49834,6 +50119,33 @@
      "condition": "unholy",
      "source": "print_front"
     },
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 9,
+      "damage": 3
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 6
+     },
+     "onHit": [],
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 3
+      }
+     ],
+     "damageBonus": {
+      "amount": 1,
+      "condition": "unholy"
+     }
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -50388,6 +50700,33 @@
      "condition": "unholy",
      "source": "print_front"
     },
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 10,
+      "damage": 4
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 7
+     },
+     "onHit": [],
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 3
+      }
+     ],
+     "damageBonus": {
+      "amount": 2,
+      "condition": "unholy"
+     }
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -50941,6 +51280,33 @@
      "amount": 3,
      "condition": "unholy",
      "source": "print_front"
+    },
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 11,
+      "damage": 5
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 9
+     },
+     "onHit": [],
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 3
+      }
+     ],
+     "damageBonus": {
+      "amount": 3,
+      "condition": "unholy"
+     }
     },
     "statuses": [
      {
@@ -71789,6 +72155,27 @@
      "condition": "marked",
      "source": "print_front"
     },
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 2,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 9,
+      "damage": 6
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 9
+     },
+     "onHit": [],
+     "damageBonus": {
+      "amount": 3,
+      "condition": "marked"
+     }
+    },
     "targets": {
      "hero": 0,
      "monster": 1,
@@ -72280,6 +72667,27 @@
      "condition": "marked",
      "source": "print_front"
     },
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 2,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 10,
+      "damage": 8
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 12
+     },
+     "onHit": [],
+     "damageBonus": {
+      "amount": 5,
+      "condition": "marked"
+     }
+    },
     "targets": {
      "hero": 0,
      "monster": 1,
@@ -72770,6 +73178,27 @@
      "amount": 9,
      "condition": "marked",
      "source": "print_front"
+    },
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 2,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 11,
+      "damage": 10
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 16
+     },
+     "onHit": [],
+     "damageBonus": {
+      "amount": 9,
+      "condition": "marked"
+     }
     },
     "targets": {
      "hero": 0,
@@ -81931,6 +82360,25 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 0,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 9,
+      "damage": 4
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 7
+     },
+     "onHit": [],
+     "ignoresProtection": true
+    },
     "ignores": [
      {
       "lineIndex": 0,
@@ -82364,6 +82812,25 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 0,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 10,
+      "damage": 6
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 10
+     },
+     "onHit": [],
+     "ignoresProtection": true
+    },
     "ignores": [
      {
       "lineIndex": 0,
@@ -82797,6 +83264,25 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 0,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 11,
+      "damage": 7
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 12
+     },
+     "onHit": [],
+     "ignoresProtection": true
+    },
     "ignores": [
      {
       "lineIndex": 0,
@@ -87503,6 +87989,35 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive"
+     ],
+     "range": 2,
+     "rangeMinimum": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 9,
+      "damage": 4
+     },
+     "critical": {
+      "threshold": 2,
+      "damage": 7
+     },
+     "onHit": [],
+     "damageBonuses": [
+      {
+       "amount": 1,
+       "condition": "blighted"
+      },
+      {
+       "amount": 2,
+       "condition": "marked"
+      }
+     ]
+    },
     "damageBonuses": [
      {
       "lineIndex": 0,
@@ -88100,6 +88615,35 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive"
+     ],
+     "range": 2,
+     "rangeMinimum": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 10,
+      "damage": 6
+     },
+     "critical": {
+      "threshold": 2,
+      "damage": 10
+     },
+     "onHit": [],
+     "damageBonuses": [
+      {
+       "amount": 2,
+       "condition": "blighted"
+      },
+      {
+       "amount": 3,
+       "condition": "marked"
+      }
+     ]
+    },
     "damageBonuses": [
      {
       "lineIndex": 0,
@@ -88697,6 +89241,35 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive"
+     ],
+     "range": 2,
+     "rangeMinimum": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 11,
+      "damage": 7
+     },
+     "critical": {
+      "threshold": 2,
+      "damage": 12
+     },
+     "onHit": [],
+     "damageBonuses": [
+      {
+       "amount": 3,
+       "condition": "blighted"
+      },
+      {
+       "amount": 4,
+       "condition": "marked"
+      }
+     ]
+    },
     "damageBonuses": [
      {
       "lineIndex": 0,
@@ -92324,6 +92897,28 @@
      "condition": "eldritch",
      "source": "print_front"
     },
+    "directAttack": {
+     "stances": [
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 0,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 8,
+      "damage": 5
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 7
+     },
+     "onHit": [],
+     "damageBonus": {
+      "amount": 1,
+      "condition": "eldritch"
+     }
+    },
     "targets": {
      "hero": 0,
      "monster": 1,
@@ -92790,6 +93385,28 @@
      "condition": "eldritch",
      "source": "print_front"
     },
+    "directAttack": {
+     "stances": [
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 0,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 9,
+      "damage": 7
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 10
+     },
+     "onHit": [],
+     "damageBonus": {
+      "amount": 2,
+      "condition": "eldritch"
+     }
+    },
     "targets": {
      "hero": 0,
      "monster": 1,
@@ -93255,6 +93872,28 @@
      "amount": 3,
      "condition": "eldritch",
      "source": "print_front"
+    },
+    "directAttack": {
+     "stances": [
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 0,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 10,
+      "damage": 8
+     },
+     "critical": {
+      "threshold": 2,
+      "damage": 13
+     },
+     "onHit": [],
+     "damageBonus": {
+      "amount": 3,
+      "condition": "eldritch"
+     }
     },
     "targets": {
      "hero": 0,
@@ -93728,6 +94367,27 @@
      "amount": 1,
      "condition": "eldritch",
      "source": "print_front"
+    },
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 2,
+     "monsterTargets": 2,
+     "hit": {
+      "threshold": 9,
+      "damage": 4
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 6
+     },
+     "onHit": [],
+     "damageBonus": {
+      "amount": 1,
+      "condition": "eldritch"
+     }
     },
     "targets": {
      "hero": 0,
@@ -94224,6 +94884,27 @@
      "condition": "eldritch",
      "source": "print_front"
     },
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 2,
+     "monsterTargets": 2,
+     "hit": {
+      "threshold": 10,
+      "damage": 5
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 8
+     },
+     "onHit": [],
+     "damageBonus": {
+      "amount": 2,
+      "condition": "eldritch"
+     }
+    },
     "targets": {
      "hero": 0,
      "monster": 2,
@@ -94718,6 +95399,27 @@
      "amount": 3,
      "condition": "eldritch",
      "source": "print_front"
+    },
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 2,
+     "monsterTargets": 2,
+     "hit": {
+      "threshold": 11,
+      "damage": 6
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 10
+     },
+     "onHit": [],
+     "damageBonus": {
+      "amount": 3,
+      "condition": "eldritch"
+     }
     },
     "targets": {
      "hero": 0,
@@ -123253,6 +123955,35 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "aggressive"
+     ],
+     "range": 2,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 9,
+      "damage": 4
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 7
+     },
+     "onHit": [
+      {
+       "kind": "debuff",
+       "duration": 1
+      }
+     ],
+     "onUse": [
+      {
+       "kind": "mark",
+       "duration": 2
+      }
+     ],
+     "ignoresProtection": true,
+     "ignoresGuard": true
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -123929,6 +124660,35 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "aggressive"
+     ],
+     "range": 2,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 10,
+      "damage": 6
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 10
+     },
+     "onHit": [
+      {
+       "kind": "debuff",
+       "duration": 2
+      }
+     ],
+     "onUse": [
+      {
+       "kind": "mark",
+       "duration": 2
+      }
+     ],
+     "ignoresProtection": true,
+     "ignoresGuard": true
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -124615,6 +125375,35 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "aggressive"
+     ],
+     "range": 2,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 11,
+      "damage": 8
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 12
+     },
+     "onHit": [
+      {
+       "kind": "debuff",
+       "duration": 3
+      }
+     ],
+     "onUse": [
+      {
+       "kind": "mark",
+       "duration": 1
+      }
+     ],
+     "ignoresProtection": true,
+     "ignoresGuard": true
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -147920,6 +148709,34 @@
      "amount": 2,
      "source": "print_front"
     },
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 10,
+      "damage": 4
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 7
+     },
+     "onHit": [
+      {
+       "kind": "bleed",
+       "duration": 2,
+       "amount": 2
+      },
+      {
+       "kind": "debuff",
+       "duration": 1
+      }
+     ],
+     "damageWithOwnBleedOrBlight": 2
+    },
     "statuses": [
      {
       "lineIndex": 1,
@@ -148588,6 +149405,34 @@
      "lineIndex": 0,
      "amount": 2,
      "source": "print_front"
+    },
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 11,
+      "damage": 6
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 9
+     },
+     "onHit": [
+      {
+       "kind": "bleed",
+       "duration": 3,
+       "amount": 2
+      },
+      {
+       "kind": "debuff",
+       "duration": 1
+      }
+     ],
+     "damageWithOwnBleedOrBlight": 2
     },
     "statuses": [
      {
@@ -149258,6 +150103,34 @@
      "amount": 2,
      "source": "print_front"
     },
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 12,
+      "damage": 8
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 12
+     },
+     "onHit": [
+      {
+       "kind": "bleed",
+       "duration": 3,
+       "amount": 3
+      },
+      {
+       "kind": "debuff",
+       "duration": 1
+      }
+     ],
+     "damageWithOwnBleedOrBlight": 2
+    },
     "statuses": [
      {
       "lineIndex": 1,
@@ -149908,6 +150781,30 @@
      "amount": 2,
      "source": "print_front"
     },
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 2,
+     "monsterTargets": 2,
+     "hit": {
+      "threshold": 10,
+      "damage": 2
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 5
+     },
+     "onHit": [
+      {
+       "kind": "blight",
+       "duration": 2,
+       "amount": 3
+      }
+     ],
+     "damageWithOwnBleedOrBlight": 2
+    },
     "statuses": [
      {
       "lineIndex": 1,
@@ -150551,6 +151448,30 @@
      "amount": 3,
      "source": "print_front"
     },
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 2,
+     "monsterTargets": 2,
+     "hit": {
+      "threshold": 11,
+      "damage": 3
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 6
+     },
+     "onHit": [
+      {
+       "kind": "blight",
+       "duration": 3,
+       "amount": 3
+      }
+     ],
+     "damageWithOwnBleedOrBlight": 3
+    },
     "statuses": [
      {
       "lineIndex": 1,
@@ -151193,6 +152114,30 @@
      "lineIndex": 0,
      "amount": 4,
      "source": "print_front"
+    },
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 2,
+     "monsterTargets": 2,
+     "hit": {
+      "threshold": 12,
+      "damage": 4
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 8
+     },
+     "onHit": [
+      {
+       "kind": "blight",
+       "duration": 4,
+       "amount": 3
+      }
+     ],
+     "damageWithOwnBleedOrBlight": 4
     },
     "statuses": [
      {
@@ -169923,6 +170868,33 @@
      "condition": "marked",
      "source": "print_front"
     },
+    "directAttack": {
+     "stances": [
+      "ranged",
+      "defensive"
+     ],
+     "range": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 8,
+      "damage": 6
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 9
+     },
+     "onHit": [
+      {
+       "kind": "blight",
+       "duration": 2,
+       "amount": 2
+      }
+     ],
+     "damageBonus": {
+      "amount": 2,
+      "condition": "marked"
+     }
+    },
     "statuses": [
      {
       "lineIndex": 1,
@@ -170529,6 +171501,33 @@
      "condition": "marked",
      "source": "print_front"
     },
+    "directAttack": {
+     "stances": [
+      "ranged",
+      "defensive"
+     ],
+     "range": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 9,
+      "damage": 8
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 12
+     },
+     "onHit": [
+      {
+       "kind": "blight",
+       "duration": 2,
+       "amount": 3
+      }
+     ],
+     "damageBonus": {
+      "amount": 4,
+      "condition": "marked"
+     }
+    },
     "statuses": [
      {
       "lineIndex": 1,
@@ -171134,6 +172133,33 @@
      "amount": 4,
      "condition": "marked",
      "source": "print_front"
+    },
+    "directAttack": {
+     "stances": [
+      "ranged",
+      "defensive"
+     ],
+     "range": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 10,
+      "damage": 10
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 15
+     },
+     "onHit": [
+      {
+       "kind": "blight",
+       "duration": 2,
+       "amount": 3
+      }
+     ],
+     "damageBonus": {
+      "amount": 4,
+      "condition": "marked"
+     }
     },
     "statuses": [
      {
@@ -184280,6 +185306,27 @@
      "condition": "marked",
      "source": "print_front"
     },
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 2,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 9,
+      "damage": 6
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 9
+     },
+     "onHit": [],
+     "damageBonus": {
+      "amount": 3,
+      "condition": "marked"
+     }
+    },
     "targets": {
      "hero": 0,
      "monster": 1,
@@ -184804,6 +185851,27 @@
      "condition": "marked",
      "source": "print_front"
     },
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 2,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 10,
+      "damage": 8
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 12
+     },
+     "onHit": [],
+     "damageBonus": {
+      "amount": 5,
+      "condition": "marked"
+     }
+    },
     "targets": {
      "hero": 0,
      "monster": 1,
@@ -185327,6 +186395,27 @@
      "amount": 9,
      "condition": "marked",
      "source": "print_front"
+    },
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 2,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 11,
+      "damage": 10
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 16
+     },
+     "onHit": [],
+     "damageBonus": {
+      "amount": 9,
+      "condition": "marked"
+     }
     },
     "targets": {
      "hero": 0,

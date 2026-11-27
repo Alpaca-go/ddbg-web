@@ -162,7 +162,8 @@ it("Mark for Death→Collect Bounty真实Human+Mark合计9伤害并收尾胜利�
 
 it("缺真实种族、重复/冲突/畸变注解均原子拒绝；无注解保留旧效果边界", () => {
   const { game, command } = setup();
-  const base = skill.rules!.damageBonuses!;
+  const { directAttack, ...legacyRules } = skill.rules!;
+  const base = legacyRules.damageBonuses!;
   const combat = {
     target: {
       id: "m",
@@ -173,7 +174,7 @@ it("缺真实种族、重复/冲突/畸变注解均原子拒绝；无注解保�
       markStacks: 1,
     },
   };
-  const { damageBonuses: _bonuses, ...rules } = skill.rules!;
+  const { damageBonuses: _bonuses, ...rules } = legacyRules;
   void _bonuses;
   const legacy = { ...skill, rules };
   expect(resolveHeroSkill(legacy, combat, 5)).toMatchObject({
@@ -193,7 +194,7 @@ it("缺真实种族、重复/冲突/畸变注解均原子拒绝；无注解保�
       ...game,
       battle: {
         ...game.battle!,
-        skills: [{ ...skill, rules: { ...skill.rules, damageBonuses: bonuses } }],
+        skills: [{ ...skill, rules: { ...legacyRules, damageBonuses: bonuses } }],
       },
     });
     expect(applyCommand(bad, command).state).toBe(bad);
@@ -202,10 +203,25 @@ it("缺真实种族、重复/冲突/畸变注解均原子拒绝；无注解保�
     ...game,
     battle: {
       ...game.battle!,
-      skills: [{ ...skill, rules: { ...skill.rules, damage: base[0]! } }],
+      skills: [{ ...skill, rules: { ...legacyRules, damage: base[0]! } }],
     },
   };
   expect(applyCommand(both, command).state).toBe(both);
+  const conflict = {
+    ...game,
+    battle: {
+      ...game.battle!,
+      skills: [
+        {
+          ...skill,
+          rules: {
+            directAttack: { ...directAttack!, damageBonus: directAttack!.damageBonuses![0]! },
+          },
+        },
+      ],
+    },
+  };
+  expect(applyCommand(conflict, command).state).toBe(conflict);
   const missing = clean<GameState>({
     ...game,
     battle: {
