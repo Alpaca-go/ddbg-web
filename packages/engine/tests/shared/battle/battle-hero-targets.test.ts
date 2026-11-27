@@ -404,17 +404,25 @@ describe("英雄多目标命令（R19–20、R-024、R-025、R-031、R-048）", 
     const unverified = { ...daggers, verification: { unverified: true } };
     refused(setup(unverified), command(unverified));
     const statusSkill = card("p176");
+    const { directAttack, ...legacyRules } = statusSkill.rules!;
     // 派生缺口夹具：删掉卡面 duration 文字，不能自动变成 1 回合。
     const missingDuration = {
       ...statusSkill,
+      rules: legacyRules,
       effect_lines: statusSkill.effect_lines.map((line) =>
         line.filter((segment) => segment.type !== "text" || !segment.text.includes("1t")),
       ),
     };
-    for (const skill of [missingDuration]) {
-      const state = change(setup(skill), "actor", { stance: "ranged" });
-      expect(refused(state, command(skill)).events[0]?.message).toContain("持续时间");
-    }
+    const missing = change(setup(missingDuration), "actor", { stance: "ranged" });
+    expect(refused(missing, command(missingDuration)).events[0]?.message).toContain("持续时间");
+    const invalidDuration = {
+      ...statusSkill,
+      rules: {
+        directAttack: { ...directAttack!, onHit: [{ kind: "debuff" as const, duration: 0 }] },
+      },
+    };
+    const invalid = change(setup(invalidDuration), "actor", { stance: "ranged" });
+    expect(refused(invalid, command(invalidDuration)).events[0]?.message).toContain("参数无效");
     const available = change(setup(statusSkill), "actor", { stance: "ranged" });
     expect(
       applyCommand(available, command(statusSkill)).events.some((e) => e.type === "commandRefused"),

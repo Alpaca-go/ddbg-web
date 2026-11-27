@@ -1,3 +1,4 @@
+import type { DirectAttackEntry } from "./types";
 import type {
   CoreHigherSkillRow,
   StatusEffectEntry,
@@ -478,7 +479,41 @@ const shuffleEntries: readonly ShuffleEntry[] = [
   },
 ];
 
+const directAttackEntries: readonly DirectAttackEntry[] = [
+  {
+    id: "hero_skill:core:h08:p151",
+    name: "Suppressive Fire",
+    stances: ["support", "ranged"],
+    range: 2,
+    rangeMinimum: 1,
+    monsterTargets: 2,
+    hit: { threshold: 9, damage: 2 },
+    critical: { threshold: 0, damage: 4 },
+  },
+  {
+    id: "hero_skill:core:h08:p152",
+    name: "Suppressive Fire",
+    stances: ["support", "ranged"],
+    range: 2,
+    rangeMinimum: 1,
+    monsterTargets: 2,
+    hit: { threshold: 10, damage: 3 },
+    critical: { threshold: 0, damage: 6 },
+  },
+  {
+    id: "hero_skill:core:h08:p153",
+    name: "Suppressive Fire",
+    stances: ["support", "ranged"],
+    range: 2,
+    rangeMinimum: 1,
+    monsterTargets: 2,
+    hit: { threshold: 11, damage: 4 },
+    critical: { threshold: 0, damage: 7 },
+  },
+];
+
 const entries: HeroAnnotationEntries = {
+  directAttack: directAttackEntries,
   higher: coreHigherRows,
   status: statusEntries,
   range: rangeEntries,
@@ -489,9 +524,6 @@ const entries: HeroAnnotationEntries = {
     { id: "hero_skill:core:h08:p148", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:core:h08:p149", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:core:h08:p150", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:core:h08:p151", hero: 0, monster: 2, heroOrMonster: 0 },
-    { id: "hero_skill:core:h08:p152", hero: 0, monster: 2, heroOrMonster: 0 },
-    { id: "hero_skill:core:h08:p153", hero: 0, monster: 2, heroOrMonster: 0 },
     { id: "hero_skill:core:h08:p154", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:core:h08:p155", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:core:h08:p156", hero: 0, monster: 1, heroOrMonster: 0 },
@@ -509,9 +541,6 @@ const entries: HeroAnnotationEntries = {
     { id: "hero_skill:core:h08:p148", effect: "damage" },
     { id: "hero_skill:core:h08:p149", effect: "damage" },
     { id: "hero_skill:core:h08:p150", effect: "damage" },
-    { id: "hero_skill:core:h08:p151", effect: "damage" },
-    { id: "hero_skill:core:h08:p152", effect: "damage" },
-    { id: "hero_skill:core:h08:p153", effect: "damage" },
     { id: "hero_skill:core:h08:p157", effect: "damage" },
     { id: "hero_skill:core:h08:p158", effect: "damage" },
     { id: "hero_skill:core:h08:p159", effect: "damage" },

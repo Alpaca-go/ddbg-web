@@ -1,3 +1,4 @@
+import type { DirectAttackEntry } from "./types";
 import { printIcon } from "../../../shared/print-icons";
 import type { HeroAnnotationEntries, SkillCorrection } from "./types";
 import { defineHeroModule } from "./patch-helpers";
@@ -555,14 +556,93 @@ const fixes: readonly SkillCorrection[] = [
   },
 ];
 
+const directAttackEntries: readonly DirectAttackEntry[] = [
+  {
+    id: "hero_skill:weald:h17:p337",
+    name: "Hound’s Rush",
+    stances: ["support", "ranged", "defensive"],
+    range: 1,
+    monsterTargets: 1,
+    hit: { threshold: 9, damage: 5 },
+    critical: { threshold: 1, damage: 8 },
+  },
+  {
+    id: "hero_skill:weald:h17:p338",
+    name: "Hound’s Rush",
+    stances: ["support", "ranged", "defensive"],
+    range: 1,
+    monsterTargets: 1,
+    hit: { threshold: 10, damage: 7 },
+    critical: { threshold: 1, damage: 11 },
+  },
+  {
+    id: "hero_skill:weald:h17:p339",
+    name: "Hound’s Rush",
+    stances: ["support", "ranged", "defensive"],
+    range: 1,
+    monsterTargets: 1,
+    hit: { threshold: 11, damage: 8 },
+    critical: { threshold: 1, damage: 14 },
+  },
+  {
+    id: "hero_skill:weald:h17:p340",
+    name: "Hound’s Harry",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    monsterTargets: 4,
+    hit: { threshold: 9, damage: 2 },
+    critical: { threshold: 0, damage: 4 },
+  },
+  {
+    id: "hero_skill:weald:h17:p341",
+    name: "Hound’s Harry",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    monsterTargets: 4,
+    hit: { threshold: 10, damage: 3 },
+    critical: { threshold: 0, damage: 5 },
+  },
+  {
+    id: "hero_skill:weald:h17:p342",
+    name: "Hound’s Harry",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    monsterTargets: 4,
+    hit: { threshold: 11, damage: 4 },
+    critical: { threshold: 0, damage: 6 },
+  },
+  {
+    id: "hero_skill:weald:h17:p355",
+    name: "Blackjack",
+    stances: ["defensive", "aggressive"],
+    range: 0,
+    monsterTargets: 1,
+    hit: { threshold: 10, damage: 3 },
+    critical: { threshold: 1, damage: 5 },
+  },
+  {
+    id: "hero_skill:weald:h17:p356",
+    name: "Blackjack",
+    stances: ["defensive", "aggressive"],
+    range: 0,
+    monsterTargets: 1,
+    hit: { threshold: 11, damage: 4 },
+    critical: { threshold: 2, damage: 6 },
+  },
+  {
+    id: "hero_skill:weald:h17:p357",
+    name: "Blackjack",
+    stances: ["defensive", "aggressive"],
+    range: 0,
+    monsterTargets: 1,
+    hit: { threshold: 12, damage: 5 },
+    critical: { threshold: 3, damage: 7 },
+  },
+];
+
 const entries: HeroAnnotationEntries = {
+  directAttack: directAttackEntries,
   targetCount: [
-    { id: "hero_skill:weald:h17:p337", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:weald:h17:p338", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:weald:h17:p339", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:weald:h17:p340", hero: 0, monster: 4, heroOrMonster: 0 },
-    { id: "hero_skill:weald:h17:p341", hero: 0, monster: 4, heroOrMonster: 0 },
-    { id: "hero_skill:weald:h17:p342", hero: 0, monster: 4, heroOrMonster: 0 },
     { id: "hero_skill:weald:h17:p343", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:weald:h17:p344", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:weald:h17:p345", hero: 0, monster: 1, heroOrMonster: 0 },
@@ -575,23 +655,11 @@ const entries: HeroAnnotationEntries = {
     { id: "hero_skill:weald:h17:p352", hero: 1, monster: 0, heroOrMonster: 0 },
     { id: "hero_skill:weald:h17:p353", hero: 1, monster: 0, heroOrMonster: 0 },
     { id: "hero_skill:weald:h17:p354", hero: 1, monster: 0, heroOrMonster: 0 },
-    { id: "hero_skill:weald:h17:p355", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:weald:h17:p356", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:weald:h17:p357", hero: 0, monster: 1, heroOrMonster: 0 },
   ],
   effectKind: [
-    { id: "hero_skill:weald:h17:p337", effect: "damage" },
-    { id: "hero_skill:weald:h17:p338", effect: "damage" },
-    { id: "hero_skill:weald:h17:p339", effect: "damage" },
-    { id: "hero_skill:weald:h17:p340", effect: "damage" },
-    { id: "hero_skill:weald:h17:p341", effect: "damage" },
-    { id: "hero_skill:weald:h17:p342", effect: "damage" },
     { id: "hero_skill:weald:h17:p352", effect: "heal" },
     { id: "hero_skill:weald:h17:p353", effect: "heal" },
     { id: "hero_skill:weald:h17:p354", effect: "heal" },
-    { id: "hero_skill:weald:h17:p355", effect: "damage" },
-    { id: "hero_skill:weald:h17:p356", effect: "damage" },
-    { id: "hero_skill:weald:h17:p357", effect: "damage" },
   ],
 };
 

@@ -849,6 +849,8 @@ type ConditionRemoval = {
  */
 function readImmediateStress(skill: HeroSkillCardView): ImmediateStress {
   const none: ImmediateStress = { self: 0, target: 0, lineCount: 0 };
+  const direct = skill.rules?.directAttack;
+  if (direct) return { ...none, self: direct.selfStress ?? 0 };
   const explicit = rulesOf(skill).self?.stress;
   if (explicit) {
     const line = skill.effect_lines[explicit.lineIndex];
@@ -903,6 +905,8 @@ function readImmediateStress(skill: HeroSkillCardView): ImmediateStress {
  */
 export function readSelfHeal(skill: HeroSkillCardView): SelfHeal {
   const none: SelfHeal = { amount: 0, lineCount: 0 };
+  const direct = skill.rules?.directAttack;
+  if (direct) return { ...none, amount: direct.selfHeal ?? 0 };
   const confirmed = rulesOf(skill).self?.heal;
   if (confirmed)
     return confirmed.source === "print_front" &&
@@ -933,6 +937,9 @@ export function readSelfHeal(skill: HeroSkillCardView): SelfHeal {
 
 /** R20：已命名 Wound 与旁边整数对上整行才结算；自身创伤无视命中和防护。 */
 function readSelfWound(skill: HeroSkillCardView): SelfHeal {
+  const direct = skill.rules?.directAttack;
+  if (direct)
+    return { amount: direct.selfWound ?? 0, lineCount: Number(direct.selfWound !== undefined) };
   const lines = skill.effect_lines.filter(
     (line) =>
       line.every((s) => s.type === "text" || NAMED.has(s.icon.naming)) &&
@@ -1746,8 +1753,10 @@ function formRequirementFromLine(line: readonly SkillSegment[]): SkillForm | nul
  * 没传入当前形态时不检查。
  */
 function formRequirementProblem(skill: HeroSkillCardView, combat: SkillCombatState): string | null {
-  if (skill.requiredForm && combat.actor?.form !== skill.requiredForm)
-    return "技能需要对应的憎恶形态（R38）";
+  const direct = skill.rules?.directAttack;
+  const requiredForm = direct?.requiredForm ?? skill.requiredForm;
+  if (requiredForm && combat.actor?.form !== requiredForm) return "技能需要对应的憎恶形态（R38）";
+  if (direct) return null;
   const required: SkillForm[] = [];
   for (const line of skill.effect_lines) {
     const form = formRequirementFromLine(line);
@@ -1808,6 +1817,11 @@ function selectFace(
   skill: HeroSkillCardView,
   face: "front" | "back",
 ): { ok: true; skill: HeroSkillCardView } | { ok: false; reason: string } {
+  if (skill.rules?.directAttack) {
+    if (face === "front") return { ok: true, skill };
+    if (skill.rules.directAttack.requiredForm)
+      return { ok: false, reason: "憎恶技能身份、效果或背面与已核实卡面不符（R-048）" };
+  }
   try {
     const projected = projectAbominationSkill(skill, face);
     if (projected) return { ok: true, skill: projected };
@@ -1886,6 +1900,7 @@ function readsAsSelfTarget(skill: HeroSkillCardView): boolean {
 }
 
 function hasCombinedMarker(skill: HeroSkillCardView, keys: readonly string[]): boolean {
+  if (skill.rules?.directAttack) return skill.rules.directAttack.combinedHealMarker === true;
   if (keys.includes("damage_or_heal_combined_marker")) return true;
   for (const line of skill.effect_lines) {
     for (const segment of line) {
@@ -2099,7 +2114,10 @@ export function readPrintedRange(
   skill: Pick<HeroSkillCardView, "unlabeled_numbers" | "rules">,
 ): PrintedRange {
   const attack = skill.rules?.directAttack;
-  if (attack) return { kind: "exact", distance: attack.range };
+  if (attack)
+    return attack.rangeMinimum === undefined
+      ? { kind: "exact", distance: attack.range }
+      : { kind: "interval", min: attack.rangeMinimum, max: attack.range };
   const annotatedRange = rulesOf(skill).range;
   if (annotatedRange) {
     const range = annotatedRange;

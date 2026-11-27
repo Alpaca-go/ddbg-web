@@ -558,6 +558,36 @@ const fixes: readonly SkillCorrection[] = [
 
 const directAttackEntries: readonly DirectAttackEntry[] = [
   {
+    id: "hero_skill:cove:h12:p244",
+    name: "Retribution",
+    stances: ["ranged", "defensive", "aggressive"],
+    range: 2,
+    rangeMinimum: 1,
+    monsterTargets: 1,
+    hit: { threshold: 8, damage: 3 },
+    critical: { threshold: 1, damage: 5 },
+  },
+  {
+    id: "hero_skill:cove:h12:p245",
+    name: "Retribution",
+    stances: ["ranged", "defensive", "aggressive"],
+    range: 2,
+    rangeMinimum: 1,
+    monsterTargets: 1,
+    hit: { threshold: 9, damage: 4 },
+    critical: { threshold: 2, damage: 7 },
+  },
+  {
+    id: "hero_skill:cove:h12:p246",
+    name: "Retribution",
+    stances: ["ranged", "defensive", "aggressive"],
+    range: 2,
+    rangeMinimum: 1,
+    monsterTargets: 1,
+    hit: { threshold: 10, damage: 5 },
+    critical: { threshold: 2, damage: 9 },
+  },
+  {
     id: "hero_skill:cove:h12:p232",
     name: "Crush",
     stances: ["defensive", "aggressive"],
@@ -599,9 +629,6 @@ const entries: HeroAnnotationEntries = {
     { id: "hero_skill:cove:h12:p241", hero: 1, monster: 0, heroOrMonster: 0 },
     { id: "hero_skill:cove:h12:p242", hero: 1, monster: 0, heroOrMonster: 0 },
     { id: "hero_skill:cove:h12:p243", hero: 1, monster: 0, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h12:p244", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h12:p245", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h12:p246", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:cove:h12:p250", hero: 1, monster: 0, heroOrMonster: 0 },
     { id: "hero_skill:cove:h12:p251", hero: 2, monster: 0, heroOrMonster: 0 },
     { id: "hero_skill:cove:h12:p252", hero: 3, monster: 0, heroOrMonster: 0 },
@@ -610,9 +637,6 @@ const entries: HeroAnnotationEntries = {
     { id: "hero_skill:cove:h12:p235", effect: "damage" },
     { id: "hero_skill:cove:h12:p236", effect: "damage" },
     { id: "hero_skill:cove:h12:p237", effect: "damage" },
-    { id: "hero_skill:cove:h12:p244", effect: "damage" },
-    { id: "hero_skill:cove:h12:p245", effect: "damage" },
-    { id: "hero_skill:cove:h12:p246", effect: "damage" },
   ],
 };
 

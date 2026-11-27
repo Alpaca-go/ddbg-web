@@ -330,7 +330,8 @@ describe("空区域英雄技能（R19–20、R-025、R-048）", () => {
     );
     refused(setup(card("p010")));
     const p088 = card("p088");
-    const { range: _range, ...rules } = p088.rules!;
+    const { directAttack: _attack, range: _range, ...rules } = p088.rules!;
+    void _attack;
     void _range;
     const unreviewed = { ...p088, rules };
     expect(p088.rules?.range).toBeDefined();

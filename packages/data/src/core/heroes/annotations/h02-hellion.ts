@@ -311,6 +311,36 @@ const breakthrough: DirectAttackFace = {
 
 const directAttackEntries: readonly DirectAttackEntry[] = [
   {
+    id: "hero_skill:core:h02:p040",
+    name: "Bleed Out",
+    stances: ["aggressive"],
+    range: 0,
+    monsterTargets: 1,
+    hit: { threshold: 9, damage: 9 },
+    critical: { threshold: 1, damage: 14 },
+    selfWound: 3,
+  },
+  {
+    id: "hero_skill:core:h02:p041",
+    name: "Bleed Out",
+    stances: ["aggressive"],
+    range: 0,
+    monsterTargets: 1,
+    hit: { threshold: 10, damage: 12 },
+    critical: { threshold: 1, damage: 18 },
+    selfWound: 4,
+  },
+  {
+    id: "hero_skill:core:h02:p042",
+    name: "Bleed Out",
+    stances: ["aggressive"],
+    range: 0,
+    monsterTargets: 1,
+    hit: { threshold: 11, damage: 14 },
+    critical: { threshold: 1, damage: 24 },
+    selfWound: 5,
+  },
+  {
     id: "hero_skill:core:h02:p022",
     name: "Wicked Hack",
     stances: ["defensive", "aggressive"],
@@ -421,15 +451,8 @@ const entries: HeroAnnotationEntries = {
     { id: "hero_skill:core:h02:p037", hero: 0, monster: 0, heroOrMonster: 0 },
     { id: "hero_skill:core:h02:p038", hero: 1, monster: 0, heroOrMonster: 0 },
     { id: "hero_skill:core:h02:p039", hero: 2, monster: 0, heroOrMonster: 0 },
-    { id: "hero_skill:core:h02:p040", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:core:h02:p041", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:core:h02:p042", hero: 0, monster: 1, heroOrMonster: 0 },
   ],
-  effectKind: [
-    { id: "hero_skill:core:h02:p040", effect: "damage" },
-    { id: "hero_skill:core:h02:p041", effect: "damage" },
-    { id: "hero_skill:core:h02:p042", effect: "damage" },
-  ],
+  effectKind: [],
 };
 
 export const h02 = defineHeroModule({

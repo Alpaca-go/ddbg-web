@@ -801,6 +801,33 @@ const fixes: readonly SkillCorrection[] = [
 
 const directAttackEntries: readonly DirectAttackEntry[] = [
   {
+    id: "hero_skill:warrens:h15:p298",
+    name: "Festering Vapours",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    monsterTargets: 2,
+    hit: { threshold: 10, damage: 1 },
+    critical: { threshold: 0, damage: 2 },
+  },
+  {
+    id: "hero_skill:warrens:h15:p299",
+    name: "Festering Vapours",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    monsterTargets: 2,
+    hit: { threshold: 10, damage: 2 },
+    critical: { threshold: 0, damage: 3 },
+  },
+  {
+    id: "hero_skill:warrens:h15:p300",
+    name: "Festering Vapours",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    monsterTargets: 2,
+    hit: { threshold: 12, damage: 3 },
+    critical: { threshold: 1, damage: 5 },
+  },
+  {
     id: "hero_skill:warrens:h15:p295",
     name: "Nervous Stab",
     stances: ["support", "ranged", "defensive", "aggressive"],
@@ -834,9 +861,6 @@ const entries: HeroAnnotationEntries = {
   status: statusEntries,
   shuffle: shuffleEntries,
   targetCount: [
-    { id: "hero_skill:warrens:h15:p298", hero: 0, monster: 2, heroOrMonster: 0 },
-    { id: "hero_skill:warrens:h15:p299", hero: 0, monster: 2, heroOrMonster: 0 },
-    { id: "hero_skill:warrens:h15:p300", hero: 0, monster: 2, heroOrMonster: 0 },
     { id: "hero_skill:warrens:h15:p301", hero: 1, monster: 0, heroOrMonster: 0 },
     { id: "hero_skill:warrens:h15:p302", hero: 1, monster: 0, heroOrMonster: 0 },
     { id: "hero_skill:warrens:h15:p303", hero: 1, monster: 0, heroOrMonster: 0 },
@@ -848,9 +872,6 @@ const entries: HeroAnnotationEntries = {
     { id: "hero_skill:warrens:h15:p309", hero: 1, monster: 0, heroOrMonster: 0 },
   ],
   effectKind: [
-    { id: "hero_skill:warrens:h15:p298", effect: "damage" },
-    { id: "hero_skill:warrens:h15:p299", effect: "damage" },
-    { id: "hero_skill:warrens:h15:p300", effect: "damage" },
     { id: "hero_skill:warrens:h15:p307", effect: "heal" },
     { id: "hero_skill:warrens:h15:p308", effect: "heal" },
     { id: "hero_skill:warrens:h15:p309", effect: "heal" },

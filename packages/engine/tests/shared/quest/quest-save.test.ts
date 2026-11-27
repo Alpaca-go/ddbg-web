@@ -96,34 +96,38 @@ it("效果词条迁移前的存档按当前规则恢复，其他快照字段仍�
   );
 });
 
-it("十字军直攻迁移前的任务日志含 Smite 和 Zealous Accusation，读档重放保持实际命令结果", () => {
-  const previousSources = {
-    ...coreQuestSources,
-    catalog: {
-      ...coreQuestSources.catalog,
-      skills: coreQuestSources.catalog.skills.map((card) => {
-        if (card.hero !== "CRUSADER" || !card.rules?.directAttack) return card;
-        const { directAttack: _attack, ...rules } = card.rules;
-        void _attack;
-        return { ...card, rules };
-      }),
-    },
-  };
-  const questStart = { ...start, seed: 3, party: naturalParty };
-  const previous = naturalQuest(questStart.seed, questStart.questId, true, previousSources);
-  expect(previous.commands).toContainEqual(
-    expect.objectContaining({ skillId: "hero_skill:core:h01:p004" }),
-  );
-  expect(previous.commands).toContainEqual(
-    expect.objectContaining({ skillId: "hero_skill:core:h01:p001" }),
-  );
-  const save = createQuestSave(questStart, previous.commands, previous.state, previousSources);
-  const restored = roundTrip(save);
-  const current = naturalQuest(questStart.seed, questStart.questId, true);
-  expect(restored.commands).toEqual(current.commands);
-  expect(restored.game).toEqual(current.state);
-  expect(previous.events).toEqual(current.events);
-}, 120000);
+it.each([
+  ["十字军前序直攻", ["hero_skill:core:h01:p001", "hero_skill:core:h01:p004"]],
+  ["第 2 组直攻", ["hero_skill:core:h05:p088"]],
+] as const)(
+  "%s 迁移前的实战日志严格重放原命令和事件",
+  (_name, playedIds) => {
+    const previousSources = {
+      ...coreQuestSources,
+      catalog: {
+        ...coreQuestSources.catalog,
+        skills: coreQuestSources.catalog.skills.map((card) => {
+          if (!(playedIds as readonly string[]).includes(card.id) || !card.rules?.directAttack)
+            return card;
+          const { directAttack: _attack, ...rules } = card.rules;
+          void _attack;
+          return { ...card, rules };
+        }),
+      },
+    };
+    const questStart = { ...start, seed: 3, party: naturalParty };
+    const previous = naturalQuest(questStart.seed, questStart.questId, true, previousSources);
+    for (const skillId of playedIds)
+      expect(previous.commands).toContainEqual(expect.objectContaining({ skillId }));
+    const save = createQuestSave(questStart, previous.commands, previous.state, previousSources);
+    const restored = roundTrip(save);
+    const current = naturalQuest(questStart.seed, questStart.questId, true);
+    expect(restored.commands).toEqual(current.commands);
+    expect(restored.game).toEqual(current.state);
+    expect(previous.events).toEqual(current.events);
+  },
+  120000,
+);
 
 it("第 1 组迁移前的目录与 Iron Swan 实战日志严格重放", () => {
   const skillId = "hero_skill:core:h02:p025";
@@ -132,13 +136,17 @@ it("第 1 组迁移前的目录与 Iron Swan 实战日志严格重放", () => {
     catalog: {
       ...coreQuestSources.catalog,
       skills: coreQuestSources.catalog.skills.map((card) => {
-        const attack = card.rules?.directAttack;
         if (
-          !attack ||
-          attack.onHit.length ||
-          attack.damageBonus ||
-          attack.selfShuffle ||
-          card.name === "Zealous Accusation"
+          !card.rules?.directAttack ||
+          ![
+            "Wicked Hack",
+            "Iron Swan",
+            "Wicked Slice",
+            "Crush",
+            "Chop",
+            "Hew",
+            "Nervous Stab",
+          ].some((name) => name === card.name)
         )
           return card;
         const { directAttack: _attack, ...rules } = card.rules!;

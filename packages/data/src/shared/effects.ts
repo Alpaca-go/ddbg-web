@@ -24,17 +24,30 @@ export const conditionalDamageSchema = z.strictObject({
 });
 export type ConditionalDamage = Readonly<z.infer<typeof conditionalDamageSchema>>;
 
-export const directAttackSchema = z.strictObject({
-  stances: z.array(z.enum(["support", "ranged", "defensive", "aggressive"])).min(1),
-  range: z.int().nonnegative(),
-  monsterTargets: z.int().positive(),
-  hit: z.strictObject({ threshold: z.int().nonnegative(), damage: z.int().nonnegative() }),
-  critical: z.strictObject({ threshold: z.int().nonnegative(), damage: z.int().nonnegative() }),
-  onHit: z.array(statusEffectSchema),
-  damageBonus: conditionalDamageSchema.optional(),
-  selfShuffle: z
-    .strictObject({ direction: z.enum(["push", "pull"]), distance: z.int().positive() })
-    .optional(),
-});
+export const directAttackSchema = z
+  .strictObject({
+    stances: z.array(z.enum(["support", "ranged", "defensive", "aggressive"])).min(1),
+    range: z.int().nonnegative(),
+    rangeMinimum: z.int().nonnegative().optional(),
+    monsterTargets: z.int().positive(),
+    hit: z.strictObject({ threshold: z.int().nonnegative(), damage: z.int().nonnegative() }),
+    critical: z.strictObject({ threshold: z.int().nonnegative(), damage: z.int().nonnegative() }),
+    onHit: z.array(statusEffectSchema),
+    onUse: z.array(statusEffectSchema).optional(),
+    targetLight: z.int().min(-5).max(5).optional(),
+    selfHeal: z.int().positive().optional(),
+    combinedHealMarker: z.literal(true).optional(),
+    selfWound: z.int().positive().optional(),
+    selfStress: z.int().optional(),
+    requiredForm: z.enum(["human", "beast"]).optional(),
+    damageBonus: conditionalDamageSchema.optional(),
+    selfShuffle: z
+      .strictObject({ direction: z.enum(["push", "pull"]), distance: z.int().positive() })
+      .optional(),
+  })
+  .refine(({ range, rangeMinimum }) => rangeMinimum === undefined || rangeMinimum <= range, {
+    path: ["rangeMinimum"],
+    message: "最小射程不能超过最大射程",
+  });
 
 export type DirectAttack = Readonly<z.infer<typeof directAttackSchema>>;

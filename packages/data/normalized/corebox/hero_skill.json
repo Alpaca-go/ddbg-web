@@ -18477,6 +18477,29 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "aggressive"
+     ],
+     "range": 0,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 9,
+      "damage": 9
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 14
+     },
+     "onHit": [
+      {
+       "kind": "bleed",
+       "duration": 2,
+       "amount": 3
+      }
+     ],
+     "selfWound": 3
+    },
     "statuses": [
      {
       "lineIndex": 1,
@@ -19021,6 +19044,29 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "aggressive"
+     ],
+     "range": 0,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 10,
+      "damage": 12
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 18
+     },
+     "onHit": [
+      {
+       "kind": "bleed",
+       "duration": 3,
+       "amount": 3
+      }
+     ],
+     "selfWound": 4
+    },
     "statuses": [
      {
       "lineIndex": 1,
@@ -19565,6 +19611,29 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "aggressive"
+     ],
+     "range": 0,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 11,
+      "damage": 14
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 24
+     },
+     "onHit": [
+      {
+       "kind": "bleed",
+       "duration": 3,
+       "amount": 4
+      }
+     ],
+     "selfWound": 5
+    },
     "statuses": [
      {
       "lineIndex": 1,
@@ -34589,6 +34658,29 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "ranged",
+      "defensive"
+     ],
+     "range": 1,
+     "rangeMinimum": 0,
+     "monsterTargets": 3,
+     "hit": {
+      "threshold": 8,
+      "damage": 3
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 5
+     },
+     "onHit": [
+      {
+       "kind": "debuff",
+       "duration": 1
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -35111,6 +35203,29 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "ranged",
+      "defensive"
+     ],
+     "range": 1,
+     "rangeMinimum": 0,
+     "monsterTargets": 3,
+     "hit": {
+      "threshold": 9,
+      "damage": 4
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 7
+     },
+     "onHit": [
+      {
+       "kind": "debuff",
+       "duration": 2
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -35633,6 +35748,29 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "ranged",
+      "defensive"
+     ],
+     "range": 1,
+     "rangeMinimum": 0,
+     "monsterTargets": 3,
+     "hit": {
+      "threshold": 10,
+      "damage": 5
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 8
+     },
+     "onHit": [
+      {
+       "kind": "debuff",
+       "duration": 3
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -36108,6 +36246,32 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 2,
+     "rangeMinimum": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 10,
+      "damage": 2
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 3
+     },
+     "onHit": [],
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 3
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -36572,6 +36736,32 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 2,
+     "rangeMinimum": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 11,
+      "damage": 3
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 5
+     },
+     "onHit": [],
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 4
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -37036,6 +37226,32 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 2,
+     "rangeMinimum": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 12,
+      "damage": 4
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 7
+     },
+     "onHit": [],
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 4
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -41873,6 +42089,26 @@
       "source": "print_front"
      }
     },
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 2,
+     "rangeMinimum": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 9,
+      "damage": 4
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 8
+     },
+     "onHit": [],
+     "selfHeal": 2,
+     "combinedHealMarker": true
+    },
     "range": {
      "min": 1,
      "max": 2,
@@ -42363,6 +42599,26 @@
       "amount": 3,
       "source": "print_front"
      }
+    },
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 2,
+     "rangeMinimum": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 10,
+      "damage": 5
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 10
+     },
+     "onHit": [],
+     "selfHeal": 3,
+     "combinedHealMarker": true
     },
     "range": {
      "min": 1,
@@ -42855,6 +43111,26 @@
       "source": "print_front"
      }
     },
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 2,
+     "rangeMinimum": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 11,
+      "damage": 6
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 12
+     },
+     "onHit": [],
+     "selfHeal": 4,
+     "combinedHealMarker": true
+    },
     "range": {
      "min": 1,
      "max": 2,
@@ -43327,6 +43603,30 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive"
+     ],
+     "range": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 9,
+      "damage": 2
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 4
+     },
+     "onHit": [
+      {
+       "kind": "stun",
+       "duration": 1
+      }
+     ],
+     "targetLight": 1
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -43814,6 +44114,30 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive"
+     ],
+     "range": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 10,
+      "damage": 3
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 5
+     },
+     "onHit": [
+      {
+       "kind": "stun",
+       "duration": 1
+      }
+     ],
+     "targetLight": 1
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -44301,6 +44625,30 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive"
+     ],
+     "range": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 11,
+      "damage": 4
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 6
+     },
+     "onHit": [
+      {
+       "kind": "stun",
+       "duration": 1
+      }
+     ],
+     "targetLight": 1
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -47870,6 +48218,31 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 2,
+     "rangeMinimum": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 9,
+      "damage": 2
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 4
+     },
+     "onHit": [
+      {
+       "kind": "debuff",
+       "duration": 1
+      }
+     ],
+     "targetLight": 1
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -48372,6 +48745,31 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 2,
+     "rangeMinimum": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 10,
+      "damage": 3
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 5
+     },
+     "onHit": [
+      {
+       "kind": "debuff",
+       "duration": 2
+      }
+     ],
+     "targetLight": 1
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -48874,6 +49272,31 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 2,
+     "rangeMinimum": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 11,
+      "damage": 4
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 6
+     },
+     "onHit": [
+      {
+       "kind": "debuff",
+       "duration": 3
+      }
+     ],
+     "targetLight": 1
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -72816,6 +73239,29 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 2,
+     "rangeMinimum": 1,
+     "monsterTargets": 2,
+     "hit": {
+      "threshold": 9,
+      "damage": 2
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 4
+     },
+     "onHit": [
+      {
+       "kind": "debuff",
+       "duration": 1
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -73309,6 +73755,29 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 2,
+     "rangeMinimum": 1,
+     "monsterTargets": 2,
+     "hit": {
+      "threshold": 10,
+      "damage": 3
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 6
+     },
+     "onHit": [
+      {
+       "kind": "debuff",
+       "duration": 2
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -73802,6 +74271,29 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 2,
+     "rangeMinimum": 1,
+     "monsterTargets": 2,
+     "hit": {
+      "threshold": 11,
+      "damage": 4
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 7
+     },
+     "onHit": [
+      {
+       "kind": "debuff",
+       "duration": 3
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -84373,6 +84865,24 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive"
+     ],
+     "range": 1,
+     "monsterTargets": 2,
+     "hit": {
+      "threshold": 9,
+      "damage": 3
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 6
+     },
+     "onHit": []
+    },
     "targets": {
      "hero": 0,
      "monster": 2,
@@ -84830,6 +85340,29 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive"
+     ],
+     "range": 1,
+     "monsterTargets": 2,
+     "hit": {
+      "threshold": 10,
+      "damage": 4
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 7
+     },
+     "onHit": [
+      {
+       "kind": "debuff",
+       "duration": 1
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -85318,6 +85851,29 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive"
+     ],
+     "range": 1,
+     "monsterTargets": 2,
+     "hit": {
+      "threshold": 11,
+      "damage": 5
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 10
+     },
+     "onHit": [
+      {
+       "kind": "debuff",
+       "duration": 2
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -88651,6 +89207,31 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive"
+     ],
+     "range": 2,
+     "rangeMinimum": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 10,
+      "damage": 2
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 4
+     },
+     "onHit": [
+      {
+       "kind": "blight",
+       "duration": 3,
+       "amount": 2
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -89135,6 +89716,31 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive"
+     ],
+     "range": 2,
+     "rangeMinimum": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 11,
+      "damage": 3
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 5
+     },
+     "onHit": [
+      {
+       "kind": "blight",
+       "duration": 3,
+       "amount": 3
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -89619,6 +90225,31 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive"
+     ],
+     "range": 2,
+     "rangeMinimum": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 12,
+      "damage": 3
+     },
+     "critical": {
+      "threshold": 2,
+      "damage": 5
+     },
+     "onHit": [
+      {
+       "kind": "blight",
+       "duration": 3,
+       "amount": 4
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -94538,6 +95169,31 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 2,
+     "rangeMinimum": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 10,
+      "damage": 2
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 3
+     },
+     "onHit": [
+      {
+       "kind": "debuff",
+       "duration": 2
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -95002,6 +95658,31 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 2,
+     "rangeMinimum": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 11,
+      "damage": 3
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 5
+     },
+     "onHit": [
+      {
+       "kind": "debuff",
+       "duration": 3
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -95466,6 +96147,31 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 2,
+     "rangeMinimum": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 12,
+      "damage": 3
+     },
+     "critical": {
+      "threshold": 2,
+      "damage": 6
+     },
+     "onHit": [
+      {
+       "kind": "debuff",
+       "duration": 4
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -97524,6 +98230,31 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 2,
+     "rangeMinimum": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 10,
+      "damage": 1
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 2
+     },
+     "onHit": [
+      {
+       "kind": "mark",
+       "duration": 2
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -97978,6 +98709,31 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 2,
+     "rangeMinimum": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 11,
+      "damage": 2
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 3
+     },
+     "onHit": [
+      {
+       "kind": "mark",
+       "duration": 3
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -98432,6 +99188,31 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 2,
+     "rangeMinimum": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 12,
+      "damage": 2
+     },
+     "critical": {
+      "threshold": 2,
+      "damage": 4
+     },
+     "onHit": [
+      {
+       "kind": "mark",
+       "duration": 4
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -98902,6 +99683,29 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 9,
+      "damage": 3
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 4
+     },
+     "onHit": [
+      {
+       "kind": "stun",
+       "duration": 2
+      }
+     ],
+     "targetLight": -1
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -99407,6 +100211,29 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "monsterTargets": 2,
+     "hit": {
+      "threshold": 10,
+      "damage": 4
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 6
+     },
+     "onHit": [
+      {
+       "kind": "stun",
+       "duration": 2
+      }
+     ],
+     "targetLight": -1
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -99923,6 +100750,29 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "monsterTargets": 2,
+     "hit": {
+      "threshold": 11,
+      "damage": 5
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 8
+     },
+     "onHit": [
+      {
+       "kind": "stun",
+       "duration": 3
+      }
+     ],
+     "targetLight": -1
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -101697,6 +102547,29 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "ranged",
+      "defensive"
+     ],
+     "range": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 10,
+      "damage": 4
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 6
+     },
+     "onHit": [
+      {
+       "kind": "stun",
+       "duration": 1
+      }
+     ],
+     "requiredForm": "human"
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -102168,6 +103041,29 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "ranged",
+      "defensive"
+     ],
+     "range": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 11,
+      "damage": 5
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 8
+     },
+     "onHit": [
+      {
+       "kind": "stun",
+       "duration": 1
+      }
+     ],
+     "requiredForm": "human"
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -102639,6 +103535,29 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "ranged",
+      "defensive"
+     ],
+     "range": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 11,
+      "damage": 7
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 11
+     },
+     "onHit": [
+      {
+       "kind": "stun",
+       "duration": 1
+      }
+     ],
+     "requiredForm": "human"
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -103146,6 +104065,31 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "ranged",
+      "defensive"
+     ],
+     "range": 2,
+     "rangeMinimum": 1,
+     "monsterTargets": 2,
+     "hit": {
+      "threshold": 10,
+      "damage": 2
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 3
+     },
+     "onHit": [
+      {
+       "kind": "blight",
+       "duration": 2,
+       "amount": 2
+      }
+     ],
+     "requiredForm": "human"
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -103681,6 +104625,31 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "ranged",
+      "defensive"
+     ],
+     "range": 2,
+     "rangeMinimum": 1,
+     "monsterTargets": 2,
+     "hit": {
+      "threshold": 11,
+      "damage": 3
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 5
+     },
+     "onHit": [
+      {
+       "kind": "blight",
+       "duration": 3,
+       "amount": 2
+      }
+     ],
+     "requiredForm": "human"
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -104216,6 +105185,31 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "ranged",
+      "defensive"
+     ],
+     "range": 2,
+     "rangeMinimum": 1,
+     "monsterTargets": 2,
+     "hit": {
+      "threshold": 11,
+      "damage": 4
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 6
+     },
+     "onHit": [
+      {
+       "kind": "blight",
+       "duration": 3,
+       "amount": 3
+      }
+     ],
+     "requiredForm": "human"
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -108833,6 +109827,31 @@
       "source": "print_front"
      }
     },
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 0,
+     "monsterTargets": 2,
+     "hit": {
+      "threshold": 9,
+      "damage": 5
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 9
+     },
+     "onHit": [],
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 2
+      }
+     ],
+     "selfStress": 1,
+     "requiredForm": "beast"
+    },
     "targets": {
      "hero": 0,
      "monster": 2,
@@ -109388,6 +110407,31 @@
       "amount": 1,
       "source": "print_front"
      }
+    },
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 0,
+     "monsterTargets": 2,
+     "hit": {
+      "threshold": 10,
+      "damage": 7
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 12
+     },
+     "onHit": [],
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 2
+      }
+     ],
+     "selfStress": 1,
+     "requiredForm": "beast"
     },
     "targets": {
      "hero": 0,
@@ -109945,6 +110989,31 @@
       "source": "print_front"
      }
     },
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 0,
+     "monsterTargets": 2,
+     "hit": {
+      "threshold": 11,
+      "damage": 9
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 14
+     },
+     "onHit": [],
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 2
+      }
+     ],
+     "selfStress": 1,
+     "requiredForm": "beast"
+    },
     "targets": {
      "hero": 0,
      "monster": 2,
@@ -110435,6 +111504,25 @@
       "source": "print_front"
      }
     },
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 0,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 9,
+      "damage": 9
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 12
+     },
+     "onHit": [],
+     "selfStress": 1,
+     "requiredForm": "beast"
+    },
     "targets": {
      "hero": 0,
      "monster": 1,
@@ -110914,6 +112002,25 @@
       "source": "print_front"
      }
     },
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 0,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 10,
+      "damage": 11
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 16
+     },
+     "onHit": [],
+     "selfStress": 1,
+     "requiredForm": "beast"
+    },
     "targets": {
      "hero": 0,
      "monster": 1,
@@ -111392,6 +112499,25 @@
       "amount": 1,
       "source": "print_front"
      }
+    },
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 0,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 11,
+      "damage": 15
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 21
+     },
+     "onHit": [],
+     "selfStress": 1,
+     "requiredForm": "beast"
     },
     "targets": {
      "hero": 0,
@@ -125412,6 +126538,35 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "monsterTargets": 2,
+     "hit": {
+      "threshold": 10,
+      "damage": 1
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 2
+     },
+     "onHit": [
+      {
+       "kind": "blight",
+       "duration": 2,
+       "amount": 2
+      },
+      {
+       "kind": "debuff",
+       "duration": 1
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -126038,6 +127193,35 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "monsterTargets": 2,
+     "hit": {
+      "threshold": 10,
+      "damage": 2
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 3
+     },
+     "onHit": [
+      {
+       "kind": "blight",
+       "duration": 3,
+       "amount": 2
+      },
+      {
+       "kind": "debuff",
+       "duration": 2
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -126664,6 +127848,35 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "monsterTargets": 2,
+     "hit": {
+      "threshold": 12,
+      "damage": 3
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 5
+     },
+     "onHit": [
+      {
+       "kind": "blight",
+       "duration": 3,
+       "amount": 3
+      },
+      {
+       "kind": "debuff",
+       "duration": 2
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -141414,6 +142627,35 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 2,
+     "rangeMinimum": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 8,
+      "damage": 3
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 5
+     },
+     "onHit": [],
+     "onUse": [
+      {
+       "kind": "mark",
+       "duration": 2
+      },
+      {
+       "kind": "riposte",
+       "duration": 2
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -141976,6 +143218,35 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 2,
+     "rangeMinimum": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 9,
+      "damage": 4
+     },
+     "critical": {
+      "threshold": 2,
+      "damage": 7
+     },
+     "onHit": [],
+     "onUse": [
+      {
+       "kind": "mark",
+       "duration": 2
+      },
+      {
+       "kind": "riposte",
+       "duration": 3
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -142538,6 +143809,35 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 2,
+     "rangeMinimum": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 10,
+      "damage": 5
+     },
+     "critical": {
+      "threshold": 2,
+      "damage": 9
+     },
+     "onHit": [],
+     "onUse": [
+      {
+       "kind": "mark",
+       "duration": 2
+      },
+      {
+       "kind": "riposte",
+       "duration": 3
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -171990,6 +173290,36 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive"
+     ],
+     "range": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 9,
+      "damage": 5
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 8
+     },
+     "onHit": [
+      {
+       "kind": "bleed",
+       "duration": 3,
+       "amount": 1
+      }
+     ],
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 2
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -172640,6 +173970,36 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive"
+     ],
+     "range": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 10,
+      "damage": 7
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 11
+     },
+     "onHit": [
+      {
+       "kind": "bleed",
+       "duration": 2,
+       "amount": 2
+      }
+     ],
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 3
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -173290,6 +174650,36 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive"
+     ],
+     "range": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 11,
+      "damage": 8
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 14
+     },
+     "onHit": [
+      {
+       "kind": "bleed",
+       "duration": 3,
+       "amount": 2
+      }
+     ],
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 3
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -173927,6 +175317,31 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "monsterTargets": 4,
+     "hit": {
+      "threshold": 9,
+      "damage": 2
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 4
+     },
+     "onHit": [
+      {
+       "kind": "bleed",
+       "duration": 3,
+       "amount": 1
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -174546,6 +175961,31 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "monsterTargets": 4,
+     "hit": {
+      "threshold": 10,
+      "damage": 3
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 5
+     },
+     "onHit": [
+      {
+       "kind": "bleed",
+       "duration": 2,
+       "amount": 2
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -175165,6 +176605,31 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "monsterTargets": 4,
+     "hit": {
+      "threshold": 11,
+      "damage": 4
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 6
+     },
+     "onHit": [
+      {
+       "kind": "bleed",
+       "duration": 2,
+       "amount": 3
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -181243,6 +182708,28 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 0,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 10,
+      "damage": 3
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 5
+     },
+     "onHit": [
+      {
+       "kind": "stun",
+       "duration": 1
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -181735,6 +183222,28 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 0,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 11,
+      "damage": 4
+     },
+     "critical": {
+      "threshold": 2,
+      "damage": 6
+     },
+     "onHit": [
+      {
+       "kind": "stun",
+       "duration": 1
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -182227,6 +183736,28 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 0,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 12,
+      "damage": 5
+     },
+     "critical": {
+      "threshold": 3,
+      "damage": 7
+     },
+     "onHit": [
+      {
+       "kind": "stun",
+       "duration": 1
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -184319,6 +185850,29 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 2,
+     "rangeMinimum": 1,
+     "monsterTargets": 2,
+     "hit": {
+      "threshold": 9,
+      "damage": 2
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 4
+     },
+     "onHit": [
+      {
+       "kind": "debuff",
+       "duration": 1
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -184855,6 +186409,29 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 2,
+     "rangeMinimum": 1,
+     "monsterTargets": 2,
+     "hit": {
+      "threshold": 10,
+      "damage": 3
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 6
+     },
+     "onHit": [
+      {
+       "kind": "debuff",
+       "duration": 2
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -185391,6 +186968,29 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 2,
+     "rangeMinimum": 1,
+     "monsterTargets": 2,
+     "hit": {
+      "threshold": 11,
+      "damage": 4
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 7
+     },
+     "onHit": [
+      {
+       "kind": "debuff",
+       "duration": 3
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,

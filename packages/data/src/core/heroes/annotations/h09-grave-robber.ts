@@ -1,3 +1,4 @@
+import type { DirectAttackEntry } from "./types";
 import type {
   CoreHigherSkillRow,
   StatusEffectEntry,
@@ -507,7 +508,68 @@ const removalEntries: readonly RemovalEntry[] = [
   },
 ];
 
+const directAttackEntries: readonly DirectAttackEntry[] = [
+  {
+    id: "hero_skill:core:h09:p175",
+    name: "Flashing Daggers",
+    stances: ["support", "ranged", "defensive"],
+    range: 1,
+    monsterTargets: 2,
+    hit: { threshold: 9, damage: 3 },
+    critical: { threshold: 0, damage: 6 },
+  },
+  {
+    id: "hero_skill:core:h09:p176",
+    name: "Flashing Daggers",
+    stances: ["support", "ranged", "defensive"],
+    range: 1,
+    monsterTargets: 2,
+    hit: { threshold: 10, damage: 4 },
+    critical: { threshold: 0, damage: 7 },
+  },
+  {
+    id: "hero_skill:core:h09:p177",
+    name: "Flashing Daggers",
+    stances: ["support", "ranged", "defensive"],
+    range: 1,
+    monsterTargets: 2,
+    hit: { threshold: 11, damage: 5 },
+    critical: { threshold: 0, damage: 10 },
+  },
+  {
+    id: "hero_skill:core:h09:p184",
+    name: "Poison Dart",
+    stances: ["support", "ranged", "defensive"],
+    range: 2,
+    rangeMinimum: 1,
+    monsterTargets: 1,
+    hit: { threshold: 10, damage: 2 },
+    critical: { threshold: 1, damage: 4 },
+  },
+  {
+    id: "hero_skill:core:h09:p185",
+    name: "Poison Dart",
+    stances: ["support", "ranged", "defensive"],
+    range: 2,
+    rangeMinimum: 1,
+    monsterTargets: 1,
+    hit: { threshold: 11, damage: 3 },
+    critical: { threshold: 1, damage: 5 },
+  },
+  {
+    id: "hero_skill:core:h09:p186",
+    name: "Poison Dart",
+    stances: ["support", "ranged", "defensive"],
+    range: 2,
+    rangeMinimum: 1,
+    monsterTargets: 1,
+    hit: { threshold: 12, damage: 3 },
+    critical: { threshold: 2, damage: 5 },
+  },
+];
+
 const entries: HeroAnnotationEntries = {
+  directAttack: directAttackEntries,
   higher: coreHigherRows,
   status: statusEntries,
   range: rangeEntries,
@@ -523,18 +585,12 @@ const entries: HeroAnnotationEntries = {
     { id: "hero_skill:core:h09:p172", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:core:h09:p173", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:core:h09:p174", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:core:h09:p175", hero: 0, monster: 2, heroOrMonster: 0 },
-    { id: "hero_skill:core:h09:p176", hero: 0, monster: 2, heroOrMonster: 0 },
-    { id: "hero_skill:core:h09:p177", hero: 0, monster: 2, heroOrMonster: 0 },
     { id: "hero_skill:core:h09:p178", hero: 0, monster: 0, heroOrMonster: 0 },
     { id: "hero_skill:core:h09:p179", hero: 0, monster: 0, heroOrMonster: 0 },
     { id: "hero_skill:core:h09:p180", hero: 0, monster: 0, heroOrMonster: 0 },
     { id: "hero_skill:core:h09:p181", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:core:h09:p182", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:core:h09:p183", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:core:h09:p184", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:core:h09:p185", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:core:h09:p186", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:core:h09:p187", hero: 0, monster: 0, heroOrMonster: 0 },
   ],
   effectKind: [
@@ -544,15 +600,9 @@ const entries: HeroAnnotationEntries = {
     { id: "hero_skill:core:h09:p172", effect: "damage" },
     { id: "hero_skill:core:h09:p173", effect: "damage" },
     { id: "hero_skill:core:h09:p174", effect: "damage" },
-    { id: "hero_skill:core:h09:p175", effect: "damage" },
-    { id: "hero_skill:core:h09:p176", effect: "damage" },
-    { id: "hero_skill:core:h09:p177", effect: "damage" },
     { id: "hero_skill:core:h09:p181", effect: "damage" },
     { id: "hero_skill:core:h09:p182", effect: "damage" },
     { id: "hero_skill:core:h09:p183", effect: "damage" },
-    { id: "hero_skill:core:h09:p184", effect: "damage" },
-    { id: "hero_skill:core:h09:p185", effect: "damage" },
-    { id: "hero_skill:core:h09:p186", effect: "damage" },
   ],
 };
 

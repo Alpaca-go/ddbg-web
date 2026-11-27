@@ -21,7 +21,11 @@ it("七组基础直攻各发布三个等级的独立规则", () => {
   }
 });
 
-it.each(basicAttacks)("$id 的公开命令只需核准规则，非法规则原子拒绝", (card) => {
+const attacksWithoutMovementOrBonus = reviewed.filter(
+  ({ rules }) => !rules!.directAttack!.selfShuffle && !rules!.directAttack!.damageBonus,
+);
+
+it.each(attacksWithoutMovementOrBonus)("$id 的公开命令只需核准规则，非法规则原子拒绝", (card) => {
   const { directAttack: attack, ...legacyRules } = card.rules!;
   const { state, command } = trinketBattle(
     ["trinket:p001"],
@@ -35,9 +39,23 @@ it.each(basicAttacks)("$id 的公开命令只需核准规则，非法规则原�
   const stat = coreQuestSources.catalog.heroStats.find(
     (entry) => entry.name === card.hero && entry.level === card.level,
   )!;
-  const entities = battle.entities.map((entity) => {
+  const extraTargets = (["support", "ranged"] as const)
+    .slice(0, Math.max(0, attack!.monsterTargets - 2))
+    .map((stance, index) => ({
+      ...battle.entities.find((entry) => entry.id === "m")!,
+      id: `m${index + 3}`,
+      stance,
+    }));
+  const entities = [...battle.entities, ...extraTargets].map((entity) => {
     if (entity.id === command.actorId)
-      return { ...entity, heroStatId: stat.id, heroLevel: stat.level, life: stat.life };
+      return {
+        ...entity,
+        heroStatId: stat.id,
+        heroLevel: stat.level,
+        life: stat.life,
+        wounds: 5,
+        ...(attack!.requiredForm ? { form: attack!.requiredForm } : {}),
+      };
     if (entity.side === "monster" && attack!.range === 0) return { ...entity, areaId: "a" };
     if (entity.side === "monster" && attack!.range === 2) return { ...entity, areaId: "c" };
     return entity;
@@ -80,7 +98,10 @@ it.each(basicAttacks)("$id 的公开命令只需核准规则，非法规则原�
           actorId: command.actorId,
           trinketWindow: command.trinketWindow!,
           skillId: card.id,
-          targetIds: ["m", "m2"],
+          targetIds: ["m", "m2", ...extraTargets.map(({ id }) => id)].slice(
+            0,
+            attack!.monsterTargets,
+          ),
         };
   const legacy = applyCommand(fixture({ ...card, rules: legacyRules }), play);
   const migrated = applyCommand(fixture(stripped), play);
@@ -106,12 +127,35 @@ it.each(basicAttacks)("$id 的公开命令只需核准规则，非法规则原�
   expect(resolved.state.battle!.rngCursor).toBe(battle.rngCursor + 1);
   const { hit: _hit, ...missingHit } = attack!;
   void _hit;
-  for (const directAttack of [missingHit as typeof attack, { ...attack!, range: -1 }]) {
+  for (const directAttack of [
+    missingHit as typeof attack,
+    { ...attack!, range: -1 },
+    { ...attack!, rangeMinimum: attack!.range + 1 },
+    { ...attack!, onUse: [{ kind: "bleed" as const, duration: 2 }] },
+  ]) {
     const invalid = fixture({ ...stripped, rules: { directAttack: directAttack! } });
     const refused = applyCommand(invalid, play);
     expect(refused.events.some(({ type }) => type === "commandRefused")).toBe(true);
     expect(refused.state).toEqual(invalid);
     expect(refused.pendingChoice).toBeUndefined();
+  }
+  if (attack!.requiredForm) {
+    const wrongForm = attack!.requiredForm === "human" ? "beast" : "human";
+    const wrong = fixture(stripped);
+    const invalid = {
+      ...wrong,
+      battle: {
+        ...wrong.battle,
+        entities: wrong.battle.entities.map((entity) =>
+          entity.id === command.actorId
+            ? { ...entity, form: wrongForm as "human" | "beast" }
+            : entity,
+        ),
+      },
+    };
+    const refused = applyCommand(invalid, play);
+    expect(refused.events.some(({ type }) => type === "commandRefused")).toBe(true);
+    expect(refused.state).toEqual(invalid);
   }
 });
 
@@ -246,7 +290,13 @@ it.each(reviewed)("$id 十种骰面和目标限制沿用旧效果", (card) => {
     front_icons: [],
   };
   const combat: SkillCombatState = {
-    actor: { id: "hero", stance: attack.stances[0]!, wounds: 0, stress: 4 },
+    actor: {
+      id: "hero",
+      stance: attack.stances[0]!,
+      wounds: 4,
+      stress: 4,
+      ...(attack.requiredForm ? { form: attack.requiredForm } : {}),
+    },
     target: { id: "monster", side: "monster", wounds: 0, dodge: 2, monsterTypeTags: ["Unholy"] },
     areaDistance: attack.range,
     targetsInArea: attack.monsterTargets,

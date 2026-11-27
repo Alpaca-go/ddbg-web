@@ -68,9 +68,11 @@ const legacyIcons = createIconLookup(
 const cards = new Map<string, FixtureCard>();
 for (const entry of file.cards) {
   if (!isFixtureCard(entry)) throw new Error("英雄技能卡形状对不上");
-  // R3 后只走 rules；Rage I/II 是已核实卡，保留完整 rules 供压力断言使用。
+  // 保留 Rage I/II 的旧压力注解，继续核对迁移前的解析路径。
   if (["hero_skill:core:h11:p226", "hero_skill:core:h11:p227"].includes(entry.id)) {
-    cards.set(entry.id, entry);
+    const { directAttack: _attack, ...rules } = entry.rules!;
+    void _attack;
+    cards.set(entry.id, { ...entry, rules });
     continue;
   }
   const legacy = { ...entry };

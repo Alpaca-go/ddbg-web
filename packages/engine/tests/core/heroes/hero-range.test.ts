@@ -95,7 +95,8 @@ describe("逐页复核的英雄区间射程 / G-08", () => {
           distance >= 1 && distance <= (lower ? 3 : 2) ? "resolved" : "refused",
         );
       }
-    const { range: _range, ...rules } = judgement.rules!;
+    const { directAttack: _attack, range: _range, ...rules } = judgement.rules!;
+    void _attack;
     void _range;
     expect(readPrintedRange({ ...judgement, rules })).toEqual({ kind: "null_numeric" });
   });
@@ -149,7 +150,8 @@ describe("逐页复核的英雄区间射程 / G-08", () => {
         expect(repeated.state.battle!.rngCursor).toBe(2);
         expect(repeated.state.battle!.entities[0]!.wounds).toBe(1);
       }
-      const { range: _range, ...rules } = judgement.rules!;
+      const { directAttack: _attack, range: _range, ...rules } = judgement.rules!;
+      void _attack;
       void _range;
       const unreviewed = { ...judgement, rules };
       const blocked = { ...state, battle: { ...state.battle!, skills: [unreviewed] } };
