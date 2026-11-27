@@ -1,3 +1,4 @@
+import { printIcon } from "../../../../data/src/shared/print-icons";
 import { expect, it } from "vitest";
 import { applyCommand } from "../../../src/shared/core/command";
 import type { Command, GameState } from "../../../src/shared/core/command";
@@ -72,9 +73,9 @@ it("In Good Spirits效果图标d10已确认，运行时已接通", () => {
     name: "In Good Spirits",
     days: 3,
     runtime: "inGoodSpirits",
-    effectIconIds: ["94bfa4dde4"],
+    effectIconIds: [printIcon("d10", 387)],
   });
-  expect(dictionary.icons.find((i) => i.iconId === "94bfa4dde4")).toMatchObject({
+  expect(dictionary.icons.find((i) => i.iconId === printIcon("d10", 387))).toMatchObject({
     key: "d10",
     status: "confirmed",
   });

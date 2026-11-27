@@ -1,3 +1,4 @@
+import { printIcon } from "../../../../../data/src/shared/print-icons";
 import { describe, expect, it, beforeEach } from "vitest";
 import {
   FANATIC_I_COMBAT_ABILITY_CARD_ID,
@@ -46,7 +47,7 @@ describe("Fanatic I Boss 脚本", () => {
     );
   });
 
-  it("地牢侧威胁：Marked for Death 开战 d10 最低者 Mark 2t（图标 192ea1fea9）", () => {
+  it(`地牢侧威胁：Marked for Death 开战 d10 最低者 Mark 2t（图标 ${printIcon("mark", 358)}）`, () => {
     const script = getBossScript(FANATIC_I_SCRIPT_ID)!;
     const passive = runBossHook(script, "threatPassiveDungeon", {
       scriptId: FANATIC_I_SCRIPT_ID,

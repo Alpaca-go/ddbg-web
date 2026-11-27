@@ -1,3 +1,4 @@
+import { printSourceIcon } from "../../../src/shared/print-icons";
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { rawFileSchema } from "../../../src/shared/extract/raw";
@@ -106,7 +107,9 @@ describe("Weald 16 张 Curio 转录与审阅边界（W1/W3、R14、R-048、R-233
         first.faces.front.spans = first.faces.front.spans.filter((span) => span.t.trim() !== "10");
       if (mutation === "icon")
         first.faces.front.icons = first.faces.front.icons.filter(
-          (icon) => icon.iconId !== "f8686db45a",
+          (icon) =>
+            icon.iconId !==
+            printSourceIcon("extension/weald/raw/curio.json:curio:weald:p001:front:3"),
         );
       if (mutation === "name") first.faces.front.lines[0]!.text = "Other";
       expect(() => buildWealdCurios(source.raw)).toThrow();

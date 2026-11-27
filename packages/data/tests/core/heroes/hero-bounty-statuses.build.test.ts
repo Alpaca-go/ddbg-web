@@ -1,3 +1,4 @@
+import { printIcon } from "../../../src/shared/print-icons";
 import { readFileSync } from "node:fs";
 import { expect, it } from "vitest";
 import { loadNormalizedCorebox } from "../../../src/core/write";
@@ -61,18 +62,18 @@ it("仅目标效果段修正语义，图标ID/原清单/未命名数字/全局�
       ),
     ),
   );
-  expect(dictionary.icons.find((i) => i.iconId === "763ad8e857")!.key).toBe("buff");
+  expect(dictionary.icons.find((i) => i.iconId === printIcon("buff", 329))!.key).toBe("buff");
   for (const c of [mark, caltrops]) {
-    expect(c.front_icons.find((i) => i.iconId === "763ad8e857")!.key).toBe("buff");
+    expect(c.front_icons.find((i) => i.iconId === printIcon("buff", 329))!.key).toBe("buff");
     expect(
-      c.effect_lines[0]!.find((s) => s.type === "icon" && s.icon.iconId === "763ad8e857"),
-    ).toMatchObject({ type: "icon", icon: { key: "debuff", iconId: "763ad8e857" } });
+      c.effect_lines[0]!.find((s) => s.type === "icon" && s.icon.iconId === printIcon("buff", 329)),
+    ).toMatchObject({ type: "icon", icon: { key: "debuff", iconId: printIcon("buff", 329) } });
     expect(
       c.unlabeled_numbers.filter((n) => /t$/.test(n.text)).every((n) => n.numeric === null),
     ).toBe(true);
   }
   expect(
-    mark.effect_lines[1]!.find((s) => s.type === "icon" && s.icon.iconId === "d4329c2a97"),
+    mark.effect_lines[1]!.find((s) => s.type === "icon" && s.icon.iconId === printIcon("buff", 86)),
   ).toMatchObject({ type: "icon", icon: { key: "buff" } });
 });
 it("生成可重复且不突变、不触碰其余五张I技能或其他卡", () => {
@@ -123,9 +124,9 @@ it("限定身份、印刷数值、整行、图标与射程漂移原子拒绝，�
       },
       (c: typeof mark) => {
         const s = c.effect_lines[0]!.find(
-          (s) => s.type === "icon" && s.icon.iconId === "763ad8e857",
+          (s) => s.type === "icon" && s.icon.iconId === printIcon("buff", 329),
         )!;
-        if (s.type === "icon") s.icon.iconId = "0000000000";
+        if (s.type === "icon") s.icon.iconId = "0".repeat(10);
       },
       (c: typeof mark) => {
         const s = c.effect_lines[0]!.find((s) => s.type === "icon")!;

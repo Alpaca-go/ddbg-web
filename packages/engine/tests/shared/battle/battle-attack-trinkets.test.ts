@@ -1,3 +1,4 @@
+import { printIcon } from "../../../../data/src/shared/print-icons";
 import type { CoreTrinketId } from "../../../../data/src/core/trinkets/core-trinket-bindings";
 import { nextBattleRoll } from "../../../src/shared/battle/battle-roll";
 import type { PlayMonsterSkillCommand } from "../../../src/shared/battle/battle-monster";
@@ -450,7 +451,7 @@ it("Fortunate Armlet正反面卡面漂移均拒绝，不消费骰、翻面或压
           ...card.inverted_half,
           effect_lines: [
             [
-              { ...glyph, icon: { ...glyph.icon, iconId: "0000000000" } },
+              { ...glyph, icon: { ...glyph.icon, iconId: "0".repeat(10) } },
               { type: "text" as const, text: " +1" },
             ],
           ],
@@ -680,12 +681,14 @@ it.each(["trinket:p001", "trinket:p013"] as const)(
 it("Warrior’s Bracer需要p013的已确认正面图标，缺失、改名、未核实或冲突均拒绝", () => {
   const { state, command } = fixture(["trinket:p013"]);
   const bracer = state.battle.trinkets!.cards.find((c) => c.id === "trinket:p013")!;
-  const glyph = bracer.front_icons.find((i) => i.iconId === "fe18ec5b80")!;
+  const glyph = bracer.front_icons.find(
+    (i) => i.iconId === printIcon("stance_aggressive_lit", 752),
+  )!;
   const others = bracer.front_icons.filter((i) => i.iconId !== glyph.iconId);
   for (const front_icons of [
     others,
     [...others, { ...glyph, key: "stance_defensive_lit" }],
-    [...others, { ...glyph, iconId: "0000000000" }],
+    [...others, { ...glyph, iconId: "0".repeat(10) }],
     [...others, { ...glyph, status: "needs_review" as const, naming: "unverified" as const }],
     [...bracer.front_icons, glyph],
   ]) {

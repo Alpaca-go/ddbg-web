@@ -1,3 +1,4 @@
+import { printIcon } from "../../src/shared/print-icons";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -213,7 +214,10 @@ describe("规范化核心盒", () => {
     const dirk = built.hero_skill.cards.find((card) => card.id === "hero_skill:core:h06:p106");
     expect(dirk?.verification.unverified).toBe(false);
 
-    const merged = iconsNamed(built.virtue_affliction, (icon) => icon.iconId === "5d95c49a05");
+    const merged = iconsNamed(
+      built.virtue_affliction,
+      (icon) => icon.iconId === printIcon("target_hero", 182),
+    );
     expect(merged.length).toBeGreaterThan(0);
     for (const icon of merged) {
       expect(icon.naming).toBe("confirmed");
@@ -285,13 +289,16 @@ describe("规范化核心盒", () => {
     }
   });
 
-  it("monster_large icon 8707d5d8cf 为 summon/confirmed，p017/p019 卡级 verified", () => {
+  it(`monster_large icon ${printIcon("summon", 702)} 为 summon/confirmed，p017/p019 卡级 verified`, () => {
     expect(built.monster_large.stats).toEqual({ cards: 20, verified: 20, unverified: 0 });
     for (const id of ["monster_large:p017", "monster_large:p019"] as const) {
       const card = built.monster_large.cards.find((entry) => entry.id === id);
       expect(card?.verification).toEqual({ unverified: false, reasons: [] });
     }
-    const summonIcons = iconsNamed(built.monster_large, (icon) => icon.iconId === "8707d5d8cf");
+    const summonIcons = iconsNamed(
+      built.monster_large,
+      (icon) => icon.iconId === printIcon("summon", 702),
+    );
     expect(summonIcons.length).toBeGreaterThan(0);
     for (const icon of summonIcons) {
       expect(icon.naming).toBe("confirmed");

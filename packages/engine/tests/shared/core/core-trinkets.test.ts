@@ -1,3 +1,4 @@
+import { printIcon } from "../../../../data/src/shared/print-icons";
 import { createCoreDungeonQuest } from "../../../src/shared/dungeon/dungeon-quest-entry";
 import { createQuestSave, loadQuestSave } from "../../../src/shared/quest/quest-save";
 import { coreParty } from "../../helpers/core-quest";
@@ -565,7 +566,7 @@ it("R-127旧存档仅升级明确批准的卡面元数据，伪造规则状态�
     if (Array.isArray(v)) return v.forEach(visit);
     if (v && typeof v === "object") {
       const o = v as Record<string, unknown>;
-      if (o.iconId === "22c0a26f50") {
+      if (o.iconId === printIcon("dodge", 458)) {
         o.key = "trinket_stat_glyph";
         o.meaning_en = "Trinket stat glyph (Speed Stone) – possibly Speed";
         o.meaning_zh = "饰品属性图标（速度石）– 可能为速度";

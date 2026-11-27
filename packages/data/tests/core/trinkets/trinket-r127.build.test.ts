@@ -1,3 +1,4 @@
+import { printIcon } from "../../../src/shared/print-icons";
 import { readFileSync, writeFileSync } from "node:fs";
 import { it, expect } from "vitest";
 import { loadNormalizedCorebox } from "../../../src/core/write";
@@ -18,7 +19,12 @@ it("R-127：仅饰品重建一致，疾病缺失行、Dodge与负面怪癖使用
       built.cards
         .find((c) => c.id === id)!
         .upright_half.effect_lines.flat()
-        .some((s) => s.type === "icon" && s.icon.iconId === "22c0a26f50" && s.icon.key === "dodge"),
+        .some(
+          (s) =>
+            s.type === "icon" &&
+            s.icon.iconId === printIcon("dodge", 458) &&
+            s.icon.key === "dodge",
+        ),
     ).toBe(true);
   expect(
     built.cards

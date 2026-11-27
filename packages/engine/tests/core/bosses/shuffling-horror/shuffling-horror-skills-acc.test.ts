@@ -1,3 +1,4 @@
+import { printIcon } from "../../../../../data/src/shared/print-icons";
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { createCoreDungeonQuest } from "../../../../src/shared/dungeon/dungeon-quest-entry";
@@ -117,7 +118,7 @@ function withHeroAreas(state: GameState, patch: Readonly<Record<string, string>>
   };
 }
 
-it("monster_large:p017 三招印刷 Acc；卡级 verified（icon 8707d5d8cf→summon）", () => {
+it(`monster_large:p017 三招印刷 Acc；卡级 verified（icon ${printIcon("summon", 702)}→summon）`, () => {
   const card = shufflingHorrorCard();
   expect(card.verification).toEqual({ unverified: false, reasons: [] });
   const accSkills = card.skills.filter((skill) =>

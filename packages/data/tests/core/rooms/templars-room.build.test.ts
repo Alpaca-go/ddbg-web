@@ -1,3 +1,4 @@
+import { printIcon, printSourceIcon } from "../../../src/shared/print-icons";
 import { readFileSync } from "node:fs";
 import { expect, it } from "vitest";
 import geometry from "../../../normalized/corebox/room_tile_geometry.json";
@@ -102,10 +103,10 @@ it("Room p22来源、卡文及关键图标缺失拒绝", () => {
     "page",
     "file",
     "text",
-    "62d166a84f",
-    "8c4c3c2ec2",
-    "0453c84dbc",
-    "784ec4fe7a",
+    printIcon("area_marker", 223),
+    printIcon("shuffle", 548),
+    printIcon("damage", 434),
+    printIcon("bleed", 48),
   ]) {
     const source = raw("room");
     const face = source.cards.find((c) => c.id === "room:p022")!.faces.front;
@@ -126,10 +127,17 @@ it("Tile p13来源、编号、五星数量与八姿态图标缺失拒绝", () =>
     if (kind === "number") face.spans = face.spans.filter((s) => s.t !== "9");
     if (kind === "star")
       face.icons.splice(
-        face.icons.findIndex((i) => i.iconId === "6e67687564"),
+        face.icons.findIndex(
+          (i) =>
+            i.iconId ===
+            printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p013:front:14"),
+        ),
         1,
       );
-    if (kind === "deployment") face.icons = face.icons.filter((i) => i.iconId !== "643d396fef");
+    if (kind === "deployment")
+      face.icons = face.icons.filter(
+        (i) => i.iconId !== printIcon("stance_ranged_monster_slot", 808),
+      );
     expect(() => buildRoomTileGeometry(source)).toThrow();
   }
 });

@@ -1,3 +1,4 @@
+import { printSourceIcon, printIcon, printLine } from "../../../src/shared/print-icons";
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { iconDictionarySchema } from "../../../src/shared/dictionary/schema";
@@ -99,16 +100,22 @@ describe("八名英雄24面获批属性（R10/19/29；R-006/007/048/088/094/095�
       { ...built.cards[1], annotation_condition_defence: annotation },
     ])
       expect(normalizedHeroStatCardSchema.safeParse(withLegacyId(card)).success).toBe(false);
-    const originalIcon = createIconLookup(dictionary).resolve("d29a868ed8");
-    expect(hellion.icons.find((i) => i.iconId === "d29a868ed8")).toEqual(originalIcon);
+    const originalIcon = createIconLookup(dictionary).resolve(
+      printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p003:front:9"),
+    );
+    expect(
+      hellion.icons.find(
+        (i) => i.iconId === printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p003:front:9"),
+      ),
+    ).toEqual(originalIcon);
     expect(originalIcon.naming).toBe("unverified");
   });
   it("免疫栏增加图标或抗性图标移到右栏时拒绝，不能只靠文字行通过", () => {
     for (const mutate of [
       (face: (typeof raw.cards)[number]["faces"]["front"]) =>
-        face.icons.push({ iconId: "8db71542d2", bbox: [46, 135, 55, 145] }),
+        face.icons.push({ iconId: printIcon("stun", 114), bbox: [46, 135, 55, 145] }),
       (face: (typeof raw.cards)[number]["faces"]["front"]) => {
-        face.icons.find((i) => i.iconId === "8db71542d2")!.bbox = [46, 135, 55, 145];
+        face.icons.find((i) => i.iconId === printIcon("stun", 114))!.bbox = [46, 135, 55, 145];
       },
     ]) {
       const changed = structuredClone(raw);
@@ -132,11 +139,17 @@ describe("八名英雄24面获批属性（R10/19/29；R-006/007/048/088/094/095�
     ]);
     expect(built.cards.find((c) => c.id === "hero_stat:core:h02:p003:front")).toMatchObject({
       rules: { buffDefence: { resistant: false, immune: false, source: "print_front" } },
-      verification: { unverified: true, reasons: expect.arrayContaining(["icon:d29a868ed8"]) },
+      verification: {
+        unverified: true,
+        reasons: expect.arrayContaining([
+          `icon:${printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p003:front:9")}`,
+        ]),
+      },
     });
     const changed = structuredClone(raw);
     const face = changed.cards.find((c) => c.id === "hero_stat:p001")!.faces.front!;
-    face.lines.find((l) => l.text === "{icon:8db71542d2}")!.text += " {icon:ef29ccfbe0}";
+    face.lines.find((l) => l.text === printLine("{print:stun@114}"))!.text +=
+      printLine(" {print:buff@252}");
     expect(() => buildHeroStats(changed, dictionary)).toThrow(/Buff.*漂移/);
   });
   it("独立预期锁定 raw id + face、英雄、等级及原四英雄获批值", () => {
@@ -202,7 +215,10 @@ describe("八名英雄24面获批属性（R10/19/29；R-006/007/048/088/094/095�
       }
     }
     const unverified = built.cards[1]!;
-    expect(unverified.verification.reasons).toEqual(["icon:7034784ee1", "icon:b284fea953"]);
+    expect(unverified.verification.reasons).toEqual([
+      `icon:${printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p001:back:9")}`,
+      `icon:${printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p001:back:10")}`,
+    ]);
     expect(
       normalizedHeroStatCardSchema.safeParse(
         withLegacyId({
@@ -215,16 +231,16 @@ describe("八名英雄24面获批属性（R10/19/29；R-006/007/048/088/094/095�
 
   it("词典未收的新增图标原样保留 ID / null，不给它命名", () => {
     const changed = structuredClone(raw);
-    changed.cards[0]!.faces.front.icons.push({ iconId: "0000000000", bbox: [1, 1, 2, 2] });
+    changed.cards[0]!.faces.front.icons.push({ iconId: "0".repeat(10), bbox: [1, 1, 2, 2] });
     const card = buildHeroStats(changed, dictionary, [first]).cards[0]!;
     expect(card.icons.at(-1)).toMatchObject({
-      iconId: "0000000000",
+      iconId: "0".repeat(10),
       in_dictionary: false,
       key: null,
       value: null,
       naming: "unverified",
     });
-    expect(card.verification).toEqual({ unverified: true, reasons: ["icon:0000000000"] });
+    expect(card.verification).toEqual({ unverified: true, reasons: [`icon:${"0".repeat(10)}`] });
   });
 
   it("拒绝缺失 / 重复 raw、重复面、身份 / 文件 / 页码漂移与面交换", () => {
@@ -267,7 +283,7 @@ describe("八名英雄24面获批属性（R10/19/29；R-006/007/048/088/094/095�
     changed.cards[0]!.faces.front.spans.find((span) => span.t === "17")!.t = "18";
     expect(() => buildHeroStats(changed, dictionary)).toThrow("冲突");
     const withdrawn = structuredClone(dictionary);
-    withdrawn.icons.find((icon) => icon.iconId === "9534ad5184")!.status = "needs_review";
+    withdrawn.icons.find((icon) => icon.iconId === printIcon("life", 34))!.status = "needs_review";
     expect(() => buildHeroStats(raw, withdrawn)).toThrow("已确认图标");
   });
 

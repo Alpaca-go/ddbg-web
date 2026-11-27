@@ -414,9 +414,11 @@ describe("C-013 · Prophet Room d10 绑定与正式几何停点", () => {
         "utf8",
       ),
     ).cards.find((c: { id: string }) => c.id === "room:ruins:11");
+    const markerPrefix = printLine("{print:area_d10_marker@232} ");
     const printed = room.printedLines.flatMap((line: string) => {
-      const marker = /^\{icon:096ea91bb9\} (.+)$/.exec(line);
-      return marker ? [marker[1]] : [];
+      if (!line.startsWith(markerPrefix)) return [];
+      const marker = line.slice(markerPrefix.length);
+      return marker ? [marker] : [];
     });
     expect(printed).toEqual(PROPHET_ROOM_D10_MARKERS);
     for (let roll = 1; roll <= 10; roll++) {
@@ -941,3 +943,4 @@ describe("C-014 · Rubble 区域多目标与伴战先攻", () => {
     expect(state.battle!.encounter!.actedIds).toEqual([]);
   });
 });
+import { printLine } from "../../../../../data/src/shared/print-icons";

@@ -1,3 +1,4 @@
+import { printSourceIcon } from "../../../../data/src/shared/print-icons";
 import { expect, it } from "vitest";
 import { loadNormalizedCorebox } from "../../../../data/src/core/write";
 import { createBattleState } from "../../../src/shared/battle/battle";
@@ -356,9 +357,15 @@ it("Pilfer：R-096 限定命名；词典仍 unreviewed；命令 schema 接受 pi
   const face = data.hero_stat.cards.find((c) => c.id === "hero_stat:core:h09:p017:front")!;
   expect(face.lines.some((line) => line.includes("Hamlet Skill: Pilfer"))).toBe(true);
   expect(
-    face.icons.some((icon) => icon.iconId === "79084a2922" && icon.naming === "unverified"),
+    face.icons.some(
+      (icon) =>
+        icon.iconId === printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p017:front:11") &&
+        icon.naming === "unverified",
+    ),
   ).toBe(true);
-  expect(face.verification.reasons).toContain("icon:79084a2922");
+  expect(face.verification.reasons).toContain(
+    `icon:${printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p017:front:11")}`,
+  );
   expect(FORMAL_HEROES_WITH_UNWIRED_COMBAT_SKILLS).not.toContain("GRAVE ROBBER");
   expect(
     savedCommandSchema.safeParse({

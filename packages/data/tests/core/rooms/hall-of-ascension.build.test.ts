@@ -1,3 +1,4 @@
+import { printIcon } from "../../../src/shared/print-icons";
 import { readFileSync } from "node:fs";
 import { expect, it } from "vitest";
 import geometry from "../../../normalized/corebox/room_tile_geometry.json";
@@ -69,7 +70,8 @@ it("B区效果绑定Room p15截图对应卡文；来源、压力图标或文字�
     const face = changed.cards.find((c) => c.id === "room:p015")!.faces.front;
     if (kind === "page") face.page = 14;
     if (kind === "text") face.lines.at(-1)!.text += " changed";
-    if (kind === "icon") face.icons = face.icons.filter((i) => i.iconId !== "9b00e692ba");
+    if (kind === "icon")
+      face.icons = face.icons.filter((i) => i.iconId !== printIcon("stress", 145));
     expect(() => assertHallOfAscensionEffectSource(changed)).toThrow();
   }
 });

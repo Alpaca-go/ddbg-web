@@ -1,3 +1,4 @@
+import { printSourceIcon } from "../../../src/shared/print-icons";
 import { readFileSync } from "node:fs";
 import { expect, it } from "vitest";
 import { rawFileSchema } from "../../../src/shared/extract/raw";
@@ -64,11 +65,13 @@ it("R-081八卡独立黄金表：完整左右栏，不把Shuffle/Disease当作�
   ).toHaveLength(5);
   expect(
     cards.find((c) => c.id === "hero_stat:core:h01:p001:back")!.verification.reasons,
-  ).toContain("icon:7034784ee1");
+  ).toContain(`icon:${printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p001:back:9")}`);
   expect(
     cards
       .find((c) => c.id === "hero_stat:core:h02:p004:front")!
-      .icons.find((i) => i.iconId === "92d117f31a")!.naming,
+      .icons.find(
+        (i) => i.iconId === printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p004:front:11"),
+      )!.naming,
   ).toBe("unverified");
 });
 it("生成确定/不突变，图标缺失/重复/跨左右栏/标题漂移及身份漂移拒绝", () => {
@@ -78,13 +81,23 @@ it("生成确定/不突变，图标缺失/重复/跨左右栏/标题漂移及身
   const original = raw.cards.find((c) => c.id === "hero_stat:p001")!.faces.back!;
   for (const mutate of [
     (face: typeof original) => {
-      face.icons = face.icons.filter((i) => i.iconId !== "7034784ee1");
+      face.icons = face.icons.filter(
+        (i) => i.iconId !== printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p001:back:9"),
+      );
     },
     (face: typeof original) => {
-      face.icons.push(structuredClone(face.icons.find((i) => i.iconId === "7034784ee1")!));
+      face.icons.push(
+        structuredClone(
+          face.icons.find(
+            (i) => i.iconId === printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p001:back:9"),
+          )!,
+        ),
+      );
     },
     (face: typeof original) => {
-      const icon = face.icons.find((i) => i.iconId === "7034784ee1")!;
+      const icon = face.icons.find(
+        (i) => i.iconId === printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p001:back:9"),
+      )!;
       icon.bbox = [50, icon.bbox[1], 55, icon.bbox[3]];
     },
     (face: typeof original) => {

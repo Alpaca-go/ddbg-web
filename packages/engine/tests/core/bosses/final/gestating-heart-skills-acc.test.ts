@@ -1,3 +1,4 @@
+import { printIcon } from "../../../../../data/src/shared/print-icons";
 import { readFileSync } from "node:fs";
 import { expect, it } from "vitest";
 import { GESTATING_HEART_MONSTER_CARD_ID } from "../../../../src/core/bosses/final/gestating-heart-ichor";
@@ -52,7 +53,7 @@ it("monster_large:p019 仅 slot 1 Dispersion，无 Acc/Crit/伤害/目标/射程
   ).toBe(false);
 });
 
-it("p019 卡级 verified（icon 8707d5d8cf→summon）；p018/p020 仍为 verified 且各有三招 Acc 标签", () => {
+it(`p019 卡级 verified（icon ${printIcon("summon", 702)}→summon）；p018/p020 仍为 verified 且各有三招 Acc 标签`, () => {
   const cards = loadLargeCards();
   const heart = cards.find((c) => c.id === GESTATING_HEART_MONSTER_CARD_ID)!;
   expect(heart.verification).toEqual({ unverified: false, reasons: [] });

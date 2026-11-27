@@ -1,3 +1,4 @@
+import { printLine } from "../../../src/shared/print-icons";
 import { readFileSync, writeFileSync } from "node:fs";
 import { expect, it } from "vitest";
 import { rawFileSchema } from "../../../src/shared/extract/raw";
@@ -23,7 +24,7 @@ it("九张能力卡经规范化管线可再生，保留Special和原始图标而
   expect(JSON.parse(readFileSync(target, "utf8"))).toEqual(built);
   expect(readDarkestBossAbility(built, "boss_ability:p034")?.actionsPerRound).toBe("special");
   expect(readDarkestBossAbility(built, "boss_ability:p036")?.textLines.join(" ")).toContain(
-    "{icon:90558ded71}",
+    printLine("{print:blight@290}"),
   );
   expect(built.cards.every((c) => c.combatReady)).toBe(true);
   expect(readDarkestBossAbility(built, "boss_ability:p001")).toBeUndefined();

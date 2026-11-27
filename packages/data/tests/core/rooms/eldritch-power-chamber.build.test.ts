@@ -1,3 +1,4 @@
+import { printIcon, printLine, printSourceIcon } from "../../../src/shared/print-icons";
 import { readFileSync } from "node:fs";
 import { expect, it } from "vitest";
 import geometry from "../../../normalized/corebox/room_tile_geometry.json";
@@ -58,7 +59,9 @@ it("R-158：FRONT p11完整几何与八姿态部署可确定性生成", () => {
   });
   expect(tile.deployment.lootAreas).toEqual(["A", "A"]);
   expect(tile.specialRegions.map((r) => r.areaId)).toEqual(["C"]);
-  expect(tile.specialRegions[0]!.printedText).toContain("Heroes take {icon:8d4bbe5e11} 5 each.");
+  expect(tile.specialRegions[0]!.printedText).toContain(
+    printLine("Heroes take {print:damage@1} 5 each."),
+  );
 });
 
 it("R-158：完整运行时开放参战；容量、部署、边和来源漂移拒绝", () => {
@@ -104,7 +107,8 @@ it("Room p18来源、星标、卡文漂移拒绝", () => {
     if (kind === "page") face.page = 16;
     if (kind === "file") face.file = "wrong.pdf";
     if (kind === "text") face.lines.at(-1)!.text += " changed";
-    if (kind === "star") face.icons = face.icons.filter((i) => i.iconId !== "a74b9dc080");
+    if (kind === "star")
+      face.icons = face.icons.filter((i) => i.iconId !== printIcon("area_marker", 337));
     if (kind === "identity") card.id = "room:p016";
     expect(() => assertEldritchPowerChamberEffectSource(changed)).toThrow();
   }
@@ -117,8 +121,15 @@ it("Tile p11来源、编号、部署或星标缺失时拒绝生成", () => {
     if (kind === "page") face.page = 9;
     if (kind === "file") face.file = "wrong.pdf";
     if (kind === "number") face.spans = face.spans.filter((s) => s.t !== "5");
-    if (kind === "star") face.icons = face.icons.filter((i) => i.iconId !== "4591aebebd");
-    if (kind === "deployment") face.icons = face.icons.filter((i) => i.iconId !== "39d6ddf024");
+    if (kind === "star")
+      face.icons = face.icons.filter(
+        (i) => i.iconId !== printSourceIcon("corebox/raw/room.json:room:p002:front:22"),
+      );
+    if (kind === "deployment")
+      face.icons = face.icons.filter(
+        (i) =>
+          i.iconId !== printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:25"),
+      );
     expect(() => buildRoomTileGeometry(changed)).toThrow();
   }
 });

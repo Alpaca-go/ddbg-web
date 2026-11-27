@@ -1,3 +1,4 @@
+import { printIcon, printSourceIcon } from "../../../src/shared/print-icons";
 import { readFileSync } from "node:fs";
 import { expect, it } from "vitest";
 import geometry from "../../../normalized/corebox/room_tile_geometry.json";
@@ -107,7 +108,8 @@ it("Room p17来源、星标、卡文漂移拒绝", () => {
     if (kind === "page") face.page = 16;
     if (kind === "file") face.file = "wrong.pdf";
     if (kind === "text") face.lines.at(-1)!.text += " changed";
-    if (kind === "star") face.icons = face.icons.filter((i) => i.iconId !== "a74b9dc080");
+    if (kind === "star")
+      face.icons = face.icons.filter((i) => i.iconId !== printIcon("area_marker", 337));
     if (kind === "identity") card.id = "room:p016";
     expect(() => assertToxicChamberEffectSource(changed)).toThrow();
   }
@@ -120,8 +122,15 @@ it("Tile p10来源、编号、部署或星标缺失时拒绝生成", () => {
     if (kind === "page") face.page = 9;
     if (kind === "file") face.file = "wrong.pdf";
     if (kind === "number") face.spans = face.spans.filter((s) => s.t !== "4");
-    if (kind === "star") face.icons = face.icons.filter((i) => i.iconId !== "4591aebebd");
-    if (kind === "deployment") face.icons = face.icons.filter((i) => i.iconId !== "39d6ddf024");
+    if (kind === "star")
+      face.icons = face.icons.filter(
+        (i) => i.iconId !== printSourceIcon("corebox/raw/room.json:room:p002:front:22"),
+      );
+    if (kind === "deployment")
+      face.icons = face.icons.filter(
+        (i) =>
+          i.iconId !== printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:25"),
+      );
     expect(() => buildRoomTileGeometry(changed)).toThrow();
   }
 });

@@ -1,3 +1,4 @@
+import { printIcon } from "../../../src/shared/print-icons";
 import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -353,31 +354,35 @@ const dictionary = parseSchema(
 describe("图标词典 v1.8", () => {
   it("Q-47 batch 2026-10-26：Kyries 批准 7 个 needs_review hash", () => {
     const byId = new Map(dictionary.icons.map((icon) => [icon.iconId, icon]));
-    expect(byId.get("293f170eab")).toMatchObject({
+    expect(byId.get(printIcon("stance_support_monster_slot", 216))).toMatchObject({
       key: "stance_support_monster_slot",
       status: "confirmed",
       source: "kyries_review_2026-10-26",
       previous_status: "needs_review",
     });
-    expect(byId.get("73a29c830c")).toMatchObject({
+    expect(byId.get(printIcon("start_monster_any", 379))).toMatchObject({
       key: "start_monster_any",
       status: "confirmed_rulebook",
       source: "kyries_review_2026-10-26",
       previous_status: "needs_review",
     });
-    expect(byId.get("3deae1ab2a")).toMatchObject({
+    expect(byId.get(printIcon("quirk"))).toMatchObject({
       key: "quirk",
       status: "confirmed",
       proposal: null,
     });
-    for (const id of ["c80192cfcc", "032fd6cccd", "a08da49488"]) {
+    for (const id of [
+      printIcon("trinket_picture", 603),
+      printIcon("trinket_picture", 642),
+      printIcon("trinket_picture", 714),
+    ]) {
       expect(byId.get(id)).toMatchObject({
         key: "trinket_picture",
         status: "confirmed",
         kind: "other",
       });
     }
-    expect(byId.get("a64616e9c5")).toMatchObject({
+    expect(byId.get(printIcon("bleed", 715))).toMatchObject({
       key: "bleed",
       status: "confirmed",
       kind: "status",
@@ -389,17 +394,25 @@ describe("图标词典 v1.8", () => {
     const byId = new Map(dictionary.icons.map((icon) => [icon.iconId, icon]));
     const needs = dictionary.icons.filter((icon) => icon.status === "needs_review");
     expect(needs.map((icon) => icon.rank)).toEqual([335]);
-    expect(needs[0]?.iconId).toBe("9b1134d0b0");
+    expect(needs[0]?.iconId).toBe(printIcon("needs_review"));
     expect(needs[0]?.proposal?.key).toBe("area_d10_teleport");
-    expect(byId.get("c1d74de856")).toMatchObject({ key: "compare_lte", status: "confirmed" });
-    expect(byId.get("b3f370e3ec")).toMatchObject({ key: "compare_gte", status: "confirmed" });
-    expect(byId.get("ed3b7ac902")?.notes).toContain("merged_into=c1d74de856");
-    expect(byId.get("52e99dee17")).toMatchObject({
+    expect(byId.get(printIcon("compare_lte", 726))).toMatchObject({
+      key: "compare_lte",
+      status: "confirmed",
+    });
+    expect(byId.get(printIcon("compare_gte", 855))).toMatchObject({
+      key: "compare_gte",
+      status: "confirmed",
+    });
+    expect(byId.get(printIcon("compare_lte", 746))?.notes).toContain(
+      `merged_into=${printIcon("compare_lte", 726)}`,
+    );
+    expect(byId.get(printIcon("value_badge", 799))).toMatchObject({
       key: "value_badge",
       value: -2,
       value_in_glyph: true,
     });
-    expect(byId.get("adcab0541a")).toMatchObject({
+    expect(byId.get(printIcon("d10", 911))).toMatchObject({
       key: "d10",
       value: 10,
       value_in_glyph: true,
@@ -408,9 +421,9 @@ describe("图标词典 v1.8", () => {
 
   it("R-067逐项批准Shuffle/Blight/Wound三个hash，不补value或推广其他图标", () => {
     for (const [id, key] of [
-      ["8c4c3c2ec2", "shuffle"],
-      ["ce2f57ed90", "blight"],
-      ["5c9604da90", "wound"],
+      [printIcon("shuffle", 548), "shuffle"],
+      [printIcon("blight", 876), "blight"],
+      [printIcon("wound", 804), "wound"],
     ]) {
       expect(dictionary.icons.find((i) => i.iconId === id)).toMatchObject({
         key,
@@ -1005,7 +1018,7 @@ describe("图标词典 v1.8", () => {
       // R-127：原 r955 已按完整卡面更正为抽负面怪癖。
       if (rank === 955) {
         expect(byRank.get(rank)).toMatchObject({
-          iconId: "b7d0cfd524",
+          iconId: printIcon("draw_negative_quirk", 955),
           key: "draw_negative_quirk",
           status: "confirmed",
           source: "kyries_review_2026-10-30",
@@ -1094,7 +1107,7 @@ describe("图标词典 v1.8", () => {
     expect(fromUnreviewed).toBe(48);
 
     const highwayman = byRank.get(539);
-    expect(highwayman?.iconId).toBe("7e323fd8ca");
+    expect(highwayman?.iconId).toBe(printIcon("skill_art", 539));
     expect(highwayman?.iconId).not.toBe(jesterBack?.iconId);
     expect(highwayman?.meaning_en).not.toBe(jesterBack?.meaning_en);
     expect(highwayman?.notes).toContain("Not merge_into r490");

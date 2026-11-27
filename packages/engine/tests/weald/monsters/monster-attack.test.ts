@@ -231,7 +231,7 @@ describe("Weald R-230 已确认技能的独立结算", () => {
                       ...number,
                       anchor: {
                         ...anchor,
-                        left_icon: { ...anchor.left_icon, iconId: "0000000000" },
+                        left_icon: { ...anchor.left_icon, iconId: "0".repeat(10) },
                       },
                     }
                   : number;

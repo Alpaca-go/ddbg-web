@@ -66,17 +66,25 @@ export default tseslint.config(
     },
   },
   {
-    files: [
-      "packages/data/src/core/heroes/annotations/**/*.ts",
-      "packages/data/src/core/rooms/**/*.ts",
-      "packages/data/src/core/tiles/**/*.ts",
-    ],
+    files: ["packages/data/{src,tests}/**/*.ts"],
     rules: {
       "no-restricted-syntax": [
         "error",
         {
           selector: String.raw`Literal[value=/(?<![0-9a-f])[0-9a-f]{10}(?![0-9a-f])/], TemplateElement[value.raw=/(?<![0-9a-f])[0-9a-f]{10}(?![0-9a-f])/]`,
           message: "手写修正应使用原段位、核准语义或稳定的印刷来源。",
+        },
+      ],
+    },
+  },
+  {
+    files: ["packages/engine/tests/**/*.ts", "apps/web/**/*.{ts,tsx}"],
+    rules: {
+      "no-restricted-syntax": [
+        "error",
+        {
+          selector: String.raw`Literal[value=/(?<![0-9a-f])(?=[0-9a-f]{0,9}[a-f])[0-9a-f]{10}(?![0-9a-f])/], TemplateElement[value.raw=/(?<![0-9a-f])(?=[0-9a-f]{0,9}[a-f])[0-9a-f]{10}(?![0-9a-f])/], Property[key.name=iconId] > Literal.value[value=/^[0-9]{10}$/]`,
+          message: "手写图标引用应使用核准语义或稳定的印刷来源。",
         },
       ],
     },

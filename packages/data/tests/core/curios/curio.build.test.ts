@@ -1,3 +1,4 @@
+import { printIcon } from "../../../src/shared/print-icons";
 import { readFileSync } from "node:fs";
 import { expect, it } from "vitest";
 import normalized from "../../../normalized/corebox/curio.json";
@@ -102,13 +103,25 @@ it("获批图标退回 decor / curio_picture / 未确认或词典丢失时保留
   const rejected = {
     ...dictionary,
     icons: dictionary.icons.map((i) =>
-      ["3fe634e723", "85e094f269", "ae45f5bcb3", "40c4cc438c", "449d2d43ed"].includes(i.iconId)
+      [
+        printIcon("draw_negative_quirk", 180),
+        printIcon("draw_trinket", 331),
+        printIcon("roll_for_provisions"),
+        printIcon("debuff", 674),
+        printIcon("draw_negative_quirk", 978),
+      ].includes(i.iconId)
         ? { ...i, status: "unreviewed" as const }
         : i,
     ),
   };
   const file = buildCurios(raw, rejected);
-  for (const id of ["3fe634e723", "85e094f269", "ae45f5bcb3", "40c4cc438c", "449d2d43ed"])
+  for (const id of [
+    printIcon("draw_negative_quirk", 180),
+    printIcon("draw_trinket", 331),
+    printIcon("roll_for_provisions"),
+    printIcon("debuff", 674),
+    printIcon("draw_negative_quirk", 978),
+  ])
     expect(
       file.cards
         .flatMap((c) => c.rows)
@@ -126,12 +139,12 @@ it("退回词典、换来源、删效果图标或改印刷数值均不会沿用�
   expect(
     buildCurios(raw, downgraded)
       .cards.flatMap((c) => c.rows)
-      .filter((r) => r.iconId === "12438e9a49")
+      .filter((r) => r.iconId === printIcon("stress", 129))
       .every((r) => r.effect === null),
   ).toBe(true);
   const missing = structuredClone(raw);
   missing.cards[20]!.faces.front.icons = missing.cards[20]!.faces.front.icons.filter(
-    (i) => i.iconId !== "be17b4ee09",
+    (i) => i.iconId !== printIcon("bleed", 211),
   );
   expect(() => buildCurios(missing, dictionary)).toThrow("效果图标");
   const wrongSource = structuredClone(raw);

@@ -1,3 +1,4 @@
+import { printIcon, printSourceIcon } from "../../../src/shared/print-icons";
 import { readFileSync } from "node:fs";
 import { expect, it } from "vitest";
 import geometry from "../../../normalized/corebox/room_tile_geometry.json";
@@ -112,16 +113,16 @@ it("Tile BACK p7来源、编号、三宝箱与八姿态图标缺失拒绝", () =
     "page",
     "file",
     "number",
-    "f9f205b9e1",
-    "6c5de8d976",
-    "293f170eab",
-    "643d396fef",
-    "1f26dc63eb",
-    "39d6ddf024",
-    "7b8c742c86",
-    "8787ebb1b2",
-    "7ab26866fc",
-    "1a71d94723",
+    printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:20"),
+    printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:19"),
+    printIcon("stance_support_monster_slot", 216),
+    printIcon("stance_ranged_monster_slot", 808),
+    printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:38"),
+    printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:25"),
+    printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:54"),
+    printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:55"),
+    printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:53"),
+    printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:26"),
   ]) {
     const source = raw("dungeon_tile"),
       face = source.cards.find((c) => c.id === "dungeon_tile:p007")!.faces.back!;
@@ -134,7 +135,10 @@ it("Tile BACK p7来源、编号、三宝箱与八姿态图标缺失拒绝", () =
 });
 
 it("拒绝单个宝箱或叹号丢失，不能合并三个标记", () => {
-  for (const iconId of ["f9f205b9e1", "6c5de8d976"]) {
+  for (const iconId of [
+    printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:20"),
+    printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:19"),
+  ]) {
     const source = raw("dungeon_tile");
     const face = source.cards.find((c) => c.id === "dungeon_tile:p007")!.faces.back!;
     const index = face.icons.findIndex((i) => i.iconId === iconId);

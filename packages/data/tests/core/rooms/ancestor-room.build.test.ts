@@ -1,3 +1,4 @@
+import { printIcon, printSourceIcon } from "../../../src/shared/print-icons";
 import { readFileSync } from "node:fs";
 import { expect, it } from "vitest";
 import geometry from "../../../normalized/corebox/room_tile_geometry.json";
@@ -101,14 +102,14 @@ it("Tile BACK p14来源、编号与八姿态图标缺失拒绝", () => {
     "page",
     "file",
     "number",
-    "39d6ddf024",
-    "293f170eab",
-    "643d396fef",
-    "7b8c742c86",
-    "8787ebb1b2",
-    "1f26dc63eb",
-    "7ab26866fc",
-    "1a71d94723",
+    printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:25"),
+    printIcon("stance_support_monster_slot", 216),
+    printIcon("stance_ranged_monster_slot", 808),
+    printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:54"),
+    printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:55"),
+    printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:38"),
+    printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:53"),
+    printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:26"),
   ]) {
     const source = raw("dungeon_tile"),
       face = source.cards.find((c) => c.id === "dungeon_tile:p014")!.faces.back!;

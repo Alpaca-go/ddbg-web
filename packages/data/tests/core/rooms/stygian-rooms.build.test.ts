@@ -1,3 +1,4 @@
+import { printLine } from "../../../src/shared/print-icons";
 import { readFileSync, writeFileSync } from "node:fs";
 import { expect, it } from "vitest";
 import { rawFileSchema } from "../../../src/shared/extract/raw";
@@ -64,7 +65,9 @@ it("拒绝缺卡、重复、错来源/双面页码/标题及错替换目标", ()
   }
   const printed = structuredClone(raw);
   const pool = printed.cards[9]!.faces.front.lines.find((line) =>
-    line.text.includes("{icon:10365b3e0f}"),
+    line.text.includes(
+      printLine("{extract:corebox/raw/stygian_room.json:stygian_room:p004:front:45}"),
+    ),
   )!;
   pool.text = pool.text.replace("+2", "+1");
   expect(() => buildStygianRooms(printed, standard)).toThrow(/R-227/);

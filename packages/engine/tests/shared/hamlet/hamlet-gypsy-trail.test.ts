@@ -1,3 +1,4 @@
+import { printLine } from "../../../../data/src/shared/print-icons";
 import { beforeAll, expect, it } from "vitest";
 import { applyCommand } from "../../../src/shared/core/command";
 import type { Command, GameState } from "../../../src/shared/core/command";
@@ -90,7 +91,9 @@ it("Gypsy限定身份/天数/完整效果行守门，规范化只启用该事件
   for (const field of ["effect", "page", "id"] as const) {
     const changed = structuredClone(rawFileSchema.parse(raw));
     if (field === "effect")
-      changed.cards[8]!.faces.front.lines.at(-2)!.text = "Heroes gain +6 {icon:08a25c05cf} when";
+      changed.cards[8]!.faces.front.lines.at(-2)!.text = printLine(
+        "Heroes gain +6 {extract:corebox/raw/hamlet_event.json:hamlet_event:p009:front:1} when",
+      );
     if (field === "page") changed.cards[8]!.faces.front.page = 10;
     if (field === "id") changed.cards[8]!.id = "hamlet_event:p010";
     expect(() => buildHamletEvents(changed)).toThrow("Gypsy Trail身份或完整效果行漂移");

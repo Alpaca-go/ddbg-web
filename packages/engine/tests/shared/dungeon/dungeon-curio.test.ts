@@ -1,3 +1,4 @@
+import { printIcon } from "../../../../data/src/shared/print-icons";
 import { expect, it } from "vitest";
 import layout from "../../../../data/normalized/corebox/dungeon_layout_p001.json";
 import distribution from "../../../../data/normalized/corebox/scout_ahead_distribution.json";
@@ -997,7 +998,7 @@ it("完整牌池包含未核实卡：抽到实际 p1 后保留具体行，即使
       ? {
           ...c,
           rows: c.rows.map((r) =>
-            ["449d2d43ed", "40c4cc438c"].includes(r.iconId)
+            [printIcon("draw_negative_quirk", 978), printIcon("debuff", 674)].includes(r.iconId)
               ? { ...r, effect: null, reason: "测试：未获批" }
               : r,
           ),
@@ -1011,8 +1012,10 @@ it("完整牌池包含未核实卡：抽到实际 p1 后保留具体行，即使
   const drawn = choose(ordered, "use:p4").state;
   const stopped = applyCommand(drawn, { type: "resolveDungeonCurio" }).state;
   expect(stopped.dungeon!.curio!.active!.blockedReason).toContain("Q-60");
-  expect(stopped.dungeon!.curio!.active!.blockedReason).toContain("449d2d43ed");
-  expect(stopped.dungeon!.curio!.active!.blockedReason).toContain("40c4cc438c");
+  expect(stopped.dungeon!.curio!.active!.blockedReason).toContain(
+    printIcon("draw_negative_quirk", 978),
+  );
+  expect(stopped.dungeon!.curio!.active!.blockedReason).toContain(printIcon("debuff", 674));
   expect(stopped.dungeon).toMatchObject({
     position: "G",
     phase: "awaitingCurio",

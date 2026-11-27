@@ -1,3 +1,4 @@
+import { printIcon, printSourceIcon } from "../../../src/shared/print-icons";
 import { readFileSync } from "node:fs";
 import { expect, it } from "vitest";
 import geometry from "../../../normalized/corebox/room_tile_geometry.json";
@@ -93,14 +94,14 @@ it("Tile BACK p13来源、编号、高地或部署图标缺失拒绝", () => {
     "file",
     "number",
     "high",
-    "39d6ddf024",
-    "293f170eab",
-    "643d396fef",
-    "7b8c742c86",
-    "8787ebb1b2",
-    "1f26dc63eb",
-    "7ab26866fc",
-    "1a71d94723",
+    printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:25"),
+    printIcon("stance_support_monster_slot", 216),
+    printIcon("stance_ranged_monster_slot", 808),
+    printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:54"),
+    printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:55"),
+    printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:38"),
+    printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:53"),
+    printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:26"),
   ]) {
     const source = raw("dungeon_tile");
     const face = source.cards.find((c) => c.id === "dungeon_tile:p013")!.faces.back!;
@@ -109,7 +110,11 @@ it("Tile BACK p13来源、编号、高地或部署图标缺失拒绝", () => {
     else if (kind === "number") face.spans = face.spans.filter((s) => s.t !== "10");
     else if (kind === "high")
       face.icons.splice(
-        face.icons.findIndex((i) => i.iconId === "78197bdba8"),
+        face.icons.findIndex(
+          (i) =>
+            i.iconId ===
+            printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:30"),
+        ),
         1,
       );
     else face.icons = face.icons.filter((i) => i.iconId !== kind);

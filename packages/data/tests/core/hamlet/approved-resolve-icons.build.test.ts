@@ -1,3 +1,4 @@
+import { printIcon } from "../../../src/shared/print-icons";
 import { describe, expect, it } from "vitest";
 import { approvedResolveLookup } from "../../../src/core/hamlet/approved-resolve-icons.build";
 import { createIconLookup } from "../../../src/shared/icons";
@@ -12,7 +13,7 @@ const dictionary = iconDictionarySchema.parse(
 describe("R-056 卡面限定批准", () => {
   it("批准不扩散奇癖 / 其他卡，箭头不是角色标记，数值保持 null", () => {
     const base = createIconLookup(dictionary);
-    for (const id of ["2c1824ea21", "d42d7955d3"]) {
+    for (const id of [printIcon("wound", 668), printIcon("wound", 731)]) {
       expect(approvedResolveLookup("virtue_affliction:p008", base).resolve(id)).toMatchObject({
         key: "wound",
         naming: "confirmed",
@@ -27,10 +28,14 @@ describe("R-056 卡面限定批准", () => {
       });
     }
     expect(
-      approvedResolveLookup("virtue_affliction:p010", base).resolve("5a4fbf9781"),
+      approvedResolveLookup("virtue_affliction:p010", base).resolve(
+        printIcon("d10_result_guide_arrow"),
+      ),
     ).toMatchObject({ key: "result_table_arrow", kind: "marker", approval: "R-056" });
-    expect(approvedResolveLookup("virtue_affliction:p008", base).resolve("5a4fbf9781")).toEqual(
-      base.resolve("5a4fbf9781"),
-    );
+    expect(
+      approvedResolveLookup("virtue_affliction:p008", base).resolve(
+        printIcon("d10_result_guide_arrow"),
+      ),
+    ).toEqual(base.resolve(printIcon("d10_result_guide_arrow")));
   });
 });

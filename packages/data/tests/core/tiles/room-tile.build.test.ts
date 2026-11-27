@@ -1,3 +1,4 @@
+import { printSourceIcon } from "../../../src/shared/print-icons";
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { rawFileSchema } from "../../../src/shared/extract/raw";
@@ -151,7 +152,13 @@ describe("获批 Ritual Chamber 几何（R-054）", () => {
     expect(
       roomTileGeometrySchema.safeParse({
         ...tile,
-        unresolvedMarkers: [{ areaId: "C", iconId: "4591aebebd", semantic: "guessed" }],
+        unresolvedMarkers: [
+          {
+            areaId: "C",
+            iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:3"),
+            semantic: "guessed",
+          },
+        ],
       }).success,
     ).toBe(false);
   });
@@ -178,7 +185,7 @@ describe("获批 Ritual Chamber 几何（R-054）", () => {
       specialRegions: [
         {
           areaId: "H",
-          iconId: "4591aebebd",
+          iconId: printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:3"),
           effect: "unholyAura",
           status: "confirmed",
           runtimeReady: true,
@@ -207,9 +214,10 @@ describe("获批 Ritual Chamber 几何（R-054）", () => {
     expect(tile.deployment!.markers.every((m) => m.status === "confirmed")).toBe(true);
     // 同 hash 的 Ritual 星形继续是 Cornered；本面不使用这项运行时语义。
     expect(
-      file.tiles[0]!.deployment!.markers.filter((m) => m.iconId === "4591aebebd").map(
-        (m) => m.semantic,
-      ),
+      file.tiles[0]!.deployment!.markers.filter(
+        (m) =>
+          m.iconId === printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:3"),
+      ).map((m) => m.semantic),
     ).toEqual(["cornered", "cornered"]);
   });
 
@@ -251,7 +259,8 @@ describe("获批 Ritual Chamber 几何（R-054）", () => {
       },
       (copy: typeof raw) => {
         copy.cards[1]!.faces.back!.icons = copy.cards[1]!.faces.back!.icons.filter(
-          (i) => i.iconId !== "4591aebebd",
+          (i) =>
+            i.iconId !== printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:3"),
         );
       },
     ]) {

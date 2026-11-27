@@ -16,12 +16,12 @@
 - **提取和发布各有入口。** 扩展提取放 `extract/extension/<pack>/{raw,parsed}/`，发布文件放 `normalized/extension/<pack>/`。核心盒对应 `extract/corebox/` 和 `normalized/corebox/`。JSON 文件名沿用 snake_case，如 `boss_ability.json`、`quest_cards.json` 和 `room_tile_geometry.json`。英雄使用下文的共享发布目录。
 - **沿用同类目录的顶层结构。** 使用现有 `schema` 标识、`cards` 或 `tiles` 容器、来源字段、字段名和空值约定。通用卡牌目录已有 `dictionary_version`、`category`、`sources`、`stats` 的按 schema 填写。Curio 使用 `dictionaryVersion`。包级数量、页段和身份校验按对应印刷目录扩展。
 - **印刷身份、审核状态和运行时准入分别记录。** 保留原印刷文字、来源文件、页码及必要的面。未确认数据按该类 schema 记录原因或停点。已有 `usable`、`combatReady`、`runtimeReady` 或 `poolEligible` 时按对应准入条件设置。规则结算放在 `packages/engine`。
-- **图标指纹归所属内容的数据层。** 印刷核准以现有卡牌 ID、面和行定位，复用该类型的校验入口。经核准的效果用有语义的规则字段表达。运行时需要防止卡面漂移时调用数据层校验函数，引擎源码中读取 `iconId` 或写入十六进制指纹会触发 ESLint。已发布目录保留用作印刷校验和旧档回放的字段。
+- **图标指纹来自印刷提取和词典。** 印刷核准以现有卡牌 ID、面和行定位，复用该类型的校验入口。经核准的效果用有语义的规则字段表达。运行时需要防止卡面漂移时调用数据层校验函数。原始提取、词典、生成索引和发布目录提供印刷校验及旧档回放所需的精确指纹。
 - **引用只用 canonical ID。** 页码型实体使用印刷页，怪物重复印刷用首印页和 `pages`。房间族使用地点与房间号。若现有目录将来源分布在页数组、分面字段或文件级 `sources`，沿用该类 schema 的来源形状。历史 `rawId` 仅追溯提取实体。
 
-手写印刷行用 `printLine` 展开核准图标，如 `{print:range}`。同名变体加词典序号，如 `{print:stress@29}`。
-尚未核准含义的图标用原始提取文件、卡、面和图标段位定位。
-词典及来源索引由 `node tools/pipeline/scripts/build-print-icon-index.mjs` 在复核后重建，`--check` 可验证索引是否与仓库提取来源一致。
+手写核准表和测试用 `printIcon("range")` 引用词典图标。手写印刷行用 `printLine` 展开 `{print:range}`。同名变体加词典序号，如 `printIcon("stress", 29)` 或 `{print:stress@29}`。
+尚未核准含义的图标用 `printSourceIcon` 或行内 `{extract:…}` 引用原始提取文件、卡、面和从 0 开始的图标段位。优先选同一卡或同一印刷目录中的已核对位置。
+新增提取位置或更新词典后，运行 `node tools/pipeline/scripts/build-print-icon-index.mjs` 重建索引。`pnpm lint` 会检查索引是否同步，同时检查手写源码及测试中的图标指纹。
 
 完整的读写与发布边界见 [仓库布局](repo-layout.md)。当前暴露的读写入口见 [write.ts](../packages/data/src/write.ts)。
 

@@ -1,3 +1,4 @@
+import { printIcon, printLine, printSourceIcon } from "../../../src/shared/print-icons";
 import { readFileSync } from "node:fs";
 import { expect, it } from "vitest";
 import roomFile from "../../../normalized/corebox/room.json";
@@ -82,7 +83,7 @@ it("星形绑定对应Room效果行，区域与整房效果完整开放", () => 
     runtimeReady: true,
   });
   expect(approvedPoolOfRebirth.specialRegions[0]!.printedText).toContain(
-    "{icon:731f6665d0} 3 per Negative Quirk.",
+    printLine("{print:heal@225} 3 per Negative Quirk."),
   );
   expect(approvedPoolOfRebirth.specialRoomEffect.printedText).toContain("to revive a dead Hero");
   expect(approvedPoolOfRebirth.specialRoomEffect.runtimeReady).toBe(true);
@@ -138,12 +139,13 @@ it("效果必须来自相同房间卡p14，拒绝错页、文字和图标漂移"
     },
     (card: (typeof rooms.cards)[number]) => {
       card.faces.front.icons = card.faces.front.icons.filter(
-        (icon) => icon.iconId !== "731f6665d0",
+        (icon) => icon.iconId !== printIcon("heal", 225),
       );
     },
     (card: (typeof rooms.cards)[number]) => {
-      card.faces.front.lines.at(-5)!.text =
-        "{icon:9b00e692ba} +1 and {icon:8d4bbe5e11} 3 per Negative Quirk.";
+      card.faces.front.lines.at(-5)!.text = printLine(
+        "{print:stress@145} +1 and {print:damage@1} 3 per Negative Quirk.",
+      );
     },
     (card: (typeof rooms.cards)[number]) => {
       card.faces.front.lines.at(-5)!.text += " changed";
@@ -170,10 +172,15 @@ it("当前raw来源、编号或部署/星形标记缺失时拒绝生成", () => 
       card.faces.front.spans = card.faces.front.spans.filter((s) => s.t !== "1");
     },
     (card: (typeof raw.cards)[number]) => {
-      card.faces.front.icons = card.faces.front.icons.filter((i) => i.iconId !== "4591aebebd");
+      card.faces.front.icons = card.faces.front.icons.filter(
+        (i) => i.iconId !== printSourceIcon("corebox/raw/room.json:room:p002:front:22"),
+      );
     },
     (card: (typeof raw.cards)[number]) => {
-      card.faces.front.icons = card.faces.front.icons.filter((i) => i.iconId !== "7b8c742c86");
+      card.faces.front.icons = card.faces.front.icons.filter(
+        (i) =>
+          i.iconId !== printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:54"),
+      );
     },
   ]) {
     const changed = structuredClone(raw);

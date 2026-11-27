@@ -1,3 +1,4 @@
+import { printLine } from "../../../../data/src/shared/print-icons";
 import { expect, it } from "vitest";
 import { applyCommand } from "../../../src/shared/core/command";
 import type { Command, GameState } from "../../../src/shared/core/command";
@@ -43,7 +44,9 @@ it("Supply Run限定身份和完整效果行漂移拒绝；规范化可复现", 
   for (const field of ["effect", "page", "id"] as const) {
     const changed = structuredClone(rawFileSchema.parse(raw));
     if (field === "effect")
-      changed.cards[0]!.faces.front.lines.at(-2)!.text = "Party gains +3 {icon:d712688f15}";
+      changed.cards[0]!.faces.front.lines.at(-2)!.text = printLine(
+        "Party gains +3 {extract:corebox/raw/hamlet_board.json:hamlet_board:p001:front:51}",
+      );
     if (field === "page") changed.cards[0]!.faces.front.page = 2;
     if (field === "id") changed.cards[0]!.id = "hamlet_event:p003";
     expect(() => buildHamletEvents(changed)).toThrow("Supply Run身份或完整效果行漂移");

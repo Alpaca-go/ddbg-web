@@ -1,3 +1,4 @@
+import { printSourceIcon, printIcon } from "../../../src/shared/print-icons";
 import { readFileSync } from "node:fs";
 import { expect, it } from "vitest";
 import { rawFileSchema } from "../../../src/shared/extract/raw";
@@ -71,20 +72,30 @@ it("R-094三面独立黄金值；III从Blight抗性变为Blight/Disease双免疫
   });
 });
 
-it("III图标8510428636只在本卡免疫注解解释，raw/词典/整卡未验证原样保留", () => {
+it(`III图标${printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p014:front:12")}只在本卡免疫注解解释，raw/词典/整卡未验证原样保留`, () => {
   const originalRaw = structuredClone(raw),
     originalDictionary = structuredClone(dictionary);
-  expect(dictionary.icons.find((i) => i.iconId === "8510428636")).toMatchObject({
+  expect(
+    dictionary.icons.find(
+      (i) => i.iconId === printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p014:front:12"),
+    ),
+  ).toMatchObject({
     status: "unreviewed",
-    key: "unknown_8510428636",
+    key: `unknown_${printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p014:front:12")}`,
   });
-  expect(cards[2]!.icons.find((i) => i.iconId === "8510428636")).toMatchObject({
+  expect(
+    cards[2]!.icons.find(
+      (i) => i.iconId === printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p014:front:12"),
+    ),
+  ).toMatchObject({
     naming: "unverified",
     value: null,
   });
   expect(cards[2]!.verification).toMatchObject({
     unverified: true,
-    reasons: expect.arrayContaining(["icon:8510428636"]),
+    reasons: expect.arrayContaining([
+      `icon:${printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p014:front:12")}`,
+    ]),
   });
   expect(buildHeroStats(raw, dictionary)).toEqual(built);
   expect(raw).toEqual(originalRaw);
@@ -103,12 +114,16 @@ it("完整防御栏逐面拒绝缺失/重复/左右交换/新增图标；不把I
       const changed = structuredClone(raw);
       const face = changed.cards.find((c) => c.id === card.rawId)!.faces[card.face]!;
       const icon = face.icons.find(
-        (i) => i.iconId === (card.level === 3 ? "8510428636" : "40bb356305"),
+        (i) =>
+          i.iconId ===
+          (card.level === 3
+            ? printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p014:front:12")
+            : printIcon("blight", 219)),
       )!;
       if (change === "missing") face.icons = face.icons.filter((i) => i !== icon);
       if (change === "duplicate") face.icons.push(structuredClone(icon));
       if (change === "side") icon.bbox = card.level === 3 ? [22, 136, 28, 143] : [50, 136, 56, 143];
-      if (change === "extra") face.icons.push({ iconId: "0000000000", bbox: [31, 136, 36, 143] });
+      if (change === "extra") face.icons.push({ iconId: "0".repeat(10), bbox: [31, 136, 36, 143] });
       expect(() => buildHeroStats(changed, dictionary)).toThrow(/漂移/);
     }
 });
@@ -178,7 +193,8 @@ it("生成一致且只输出获批面；原始生命数字、移动数量或来�
       const changed = structuredClone(raw);
       const face = changed.cards.find((c) => c.id === card.rawId)!.faces[card.face]!;
       if (change === "number") face.spans.find((s) => s.t === String(card.life))!.t = "99";
-      if (change === "speed") face.icons = face.icons.filter((i) => i.iconId !== "4648c9e5ec");
+      if (change === "speed")
+        face.icons = face.icons.filter((i) => i.iconId !== printIcon("speed", 4));
       if (change === "page") face.page = 99;
       expect(() => buildHeroStats(changed, dictionary)).toThrow();
     }

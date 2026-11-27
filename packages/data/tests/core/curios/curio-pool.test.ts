@@ -1,3 +1,4 @@
+import { printIcon } from "../../../src/shared/print-icons";
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import {
@@ -22,7 +23,7 @@ describe("地点奇物组池（核心 R9–R10、Weald W3）", () => {
       const common = card.source.page <= 8;
       expect(curioPoolIdentity(card)).toBe(common ? "common" : "ruins");
       expect(JSON.stringify(raw.cards.find((entry) => entry.id === card.id))).toContain(
-        common ? "3825ad46df" : "27fe03d7a2",
+        common ? printIcon("location", 237) : printIcon("location", 141),
       );
     }
   });

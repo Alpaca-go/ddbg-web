@@ -1,3 +1,4 @@
+import { printIcon } from "../../../../data/src/shared/print-icons";
 import { expect, it } from "vitest";
 import events from "../../../../data/normalized/corebox/hamlet_event.json";
 import dictionary from "../../../../data/dictionary/icon-dictionary-v1.8.json";
@@ -59,7 +60,9 @@ it("完整16卡逐页原文保留；准备天数仅R-077卡面位置，occupancy
   expect(cards.filter((c) => c.runtime !== "unimplemented").map((c) => c.source.page)).toEqual([
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
   ]);
-  expect(dictionary.icons.find((c) => c.iconId === "43aaf29bbb")!.key).toBe("occupancy_pips");
+  expect(dictionary.icons.find((c) => c.iconId === printIcon("occupancy_pips", 324))!.key).toBe(
+    "occupancy_pips",
+  );
   expect(hamletEventFileSchema.safeParse({ ...events, cards: cards.slice(1) }).success).toBe(false);
 });
 it("完整牌池抽Lost Shipment：记录下次减骰、洗回并开始四天，不重复发放", () => {

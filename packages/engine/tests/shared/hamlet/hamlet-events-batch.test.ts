@@ -1,3 +1,4 @@
+import { printIcon } from "../../../../data/src/shared/print-icons";
 import { expect, it } from "vitest";
 import { applyCommand } from "../../../src/shared/core/command";
 import type { Command, GameState } from "../../../src/shared/core/command";
@@ -69,7 +70,7 @@ it("三张目标卡无未审效果图标；Unsettling Darkness光照图标已确
       expect(icon.status, iconId).toBe("confirmed");
     }
   }
-  expect(dictionary.icons.find((i) => i.iconId === "d13c8b76af")).toMatchObject({
+  expect(dictionary.icons.find((i) => i.iconId === printIcon("light", 171))).toMatchObject({
     key: "light",
     status: "confirmed",
   });

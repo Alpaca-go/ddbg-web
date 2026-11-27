@@ -1,3 +1,4 @@
+import { printLine } from "../../../src/shared/print-icons";
 import { readFileSync, writeFileSync } from "node:fs";
 import { expect, it } from "vitest";
 import { rawFileSchema } from "../../../src/shared/extract/raw";
@@ -34,7 +35,7 @@ it("四Boss三级双面可再生，能力和威胁文字保留图标与原始行
     "Already Collected",
   );
   expect(readRuinsBossAbility(built, "fanatic", 3)?.back.textLines.join(" ")).toContain(
-    "{icon:945357953a}",
+    printLine("{extract:corebox/raw/boss_ability.json:boss_ability:p024:back:5}"),
   );
   expect(readRuinsBossAbility(built, "hag", 1)).toBeUndefined();
   const copy = readRuinsBossAbility(built, "prophet", 2)!;
@@ -58,7 +59,8 @@ it("拒绝缺卡、重复、双面来源/等级/页码错误和行动数漂移",
     if (mutation === "duplicate") bad.cards.push(structuredClone(card));
     if (mutation === "back") delete card.faces.back;
     if (mutation === "file") card.faces.back!.file = "other.pdf";
-    if (mutation === "level") card.faces.back!.lines[0]!.text = "{icon:0c9e989b70} III";
+    if (mutation === "level")
+      card.faces.back!.lines[0]!.text = printLine("{print:level_badge@23} III");
     if (mutation === "page") card.faces.back!.page = 10;
     if (mutation === "actions")
       card.faces.front.lines = card.faces.front.lines.map((l) => ({

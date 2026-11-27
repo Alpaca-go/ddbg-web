@@ -1,3 +1,4 @@
+import { printIcon } from "../../../src/shared/print-icons";
 import { readFileSync } from "node:fs";
 import { expect, it } from "vitest";
 import { rawFileSchema } from "../../../src/shared/extract/raw";
@@ -11,9 +12,9 @@ const raw = rawFileSchema.parse(json("extract/corebox/raw/hero_stat.json"));
 const dictionary = iconDictionarySchema.parse(json("dictionary/icon-dictionary-v1.8.json"));
 const built = buildHeroStats(raw, dictionary);
 
-const LIFE = "9534ad5184";
-const DODGE = "7a472f5d6f";
-const SPEED = "4648c9e5ec";
+const LIFE = printIcon("life", 34);
+const DODGE = printIcon("dodge", 33);
+const SPEED = printIcon("speed", 4);
 
 const PRINT_FACES = [
   ["hero_stat:p011", "front", "JESTER", "I", 10, 2, 3],

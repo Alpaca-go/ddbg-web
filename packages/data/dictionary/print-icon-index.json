@@ -1166,6 +1166,8 @@
     ]
   },
   "sources": {
+    "corebox/raw/boss_ability.json:boss_ability:p024:back:5": "945357953a",
+    "corebox/raw/disease.json:disease:p001:front:3": "59cefe7f08",
     "corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:16": "b609dfb7d1",
     "corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:19": "6c5de8d976",
     "corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:20": "f9f205b9e1",
@@ -1199,8 +1201,10 @@
     "corebox/raw/hero_stat.json:hero_stat:p003:front:9": "d29a868ed8",
     "corebox/raw/hero_stat.json:hero_stat:p004:front:11": "92d117f31a",
     "corebox/raw/hero_stat.json:hero_stat:p006:front:11": "c07ea0c507",
+    "corebox/raw/hero_stat.json:hero_stat:p010:front:18": "4f7549c1b8",
     "corebox/raw/hero_stat.json:hero_stat:p011:front:10": "8cbe7d6703",
     "corebox/raw/hero_stat.json:hero_stat:p014:front:12": "8510428636",
+    "corebox/raw/hero_stat.json:hero_stat:p017:front:11": "79084a2922",
     "corebox/raw/hero_stat.json:hero_stat:p018:front:14": "e61ed317de",
     "corebox/raw/hero_stat.json:hero_stat:p019:back:10": "a8c4b25b4e",
     "corebox/raw/room.json:room:p001:front:16": "fef75233ed",

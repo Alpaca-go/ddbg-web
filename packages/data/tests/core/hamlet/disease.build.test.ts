@@ -1,3 +1,4 @@
+import { printSourceIcon } from "../../../src/shared/print-icons";
 import { readFileSync } from "node:fs";
 import { expect, it } from "vitest";
 import { rawFileSchema } from "../../../src/shared/extract/raw";
@@ -63,9 +64,13 @@ it("完整 11 张疾病目录匹配官方 R27–28，独立锁定触发与印刷
 it("不命名未知卡面图标、不清验证原因；可再生 JSON 与管线一致", () => {
   const before = structuredClone({ raw, dictionary });
   expect(built.cards[0]!.verification.unverified).toBe(true);
-  expect(built.cards[0]!.icons.find((i) => i.iconId === "59cefe7f08")).toMatchObject({
+  expect(
+    built.cards[0]!.icons.find(
+      (i) => i.iconId === printSourceIcon("corebox/raw/disease.json:disease:p001:front:3"),
+    ),
+  ).toMatchObject({
     naming: "unverified",
-    key: "unknown_59cefe7f08",
+    key: `unknown_${printSourceIcon("corebox/raw/disease.json:disease:p001:front:3")}`,
   });
   expect(buildDiseases(raw, dictionary)).toEqual(built);
   expect(loadNormalizedCorebox().disease).toEqual(built);

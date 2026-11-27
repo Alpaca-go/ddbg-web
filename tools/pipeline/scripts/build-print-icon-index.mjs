@@ -18,8 +18,8 @@ for (const entry of readJson(resolve(data, dictionaryFile)).icons) {
 }
 
 const locators = new Set();
-for (const directory of ["src", "tests"]) {
-  for (const entry of readdirSync(resolve(data, directory), {
+for (const directory of ["packages/data/src", "packages/data/tests", "packages/engine/tests"]) {
+  for (const entry of readdirSync(resolve(root, directory), {
     recursive: true,
     withFileTypes: true,
   })) {

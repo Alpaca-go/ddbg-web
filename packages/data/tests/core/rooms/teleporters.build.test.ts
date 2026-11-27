@@ -1,3 +1,4 @@
+import { printIcon, printLine, printSourceIcon } from "../../../src/shared/print-icons";
 import { readFileSync } from "node:fs";
 import { expect, it } from "vitest";
 import geometry from "../../../normalized/corebox/room_tile_geometry.json";
@@ -50,7 +51,7 @@ it("R-159：BACK p11独立面、四组实体连接与四个橙星可确定性生
     tile.specialRegions.every(
       (r) =>
         r.printedText.includes("Characters can move and attack") &&
-        r.printedText.includes("{icon:df38279161} +1."),
+        r.printedText.includes(printLine("{print:stress@305} +1.")),
     ),
   ).toBe(true);
 });
@@ -107,9 +108,16 @@ it("Room p19来源、星标、卡文漂移拒绝", () => {
     if (kind === "page") face.page = 16;
     if (kind === "file") face.file = "wrong.pdf";
     if (kind === "text") face.lines.at(-1)!.text += " changed";
-    if (kind === "star") face.icons = face.icons.filter((i) => i.iconId !== "f9fbe7ebd2");
-    if (kind === "secondStar") face.icons = face.icons.filter((i) => i.iconId !== "340d4a530a");
-    if (kind === "stress") face.icons = face.icons.filter((i) => i.iconId !== "df38279161");
+    if (kind === "star")
+      face.icons = face.icons.filter(
+        (i) => i.iconId !== printSourceIcon("corebox/raw/room.json:room:p019:front:27"),
+      );
+    if (kind === "secondStar")
+      face.icons = face.icons.filter(
+        (i) => i.iconId !== printSourceIcon("corebox/raw/room.json:room:p019:front:28"),
+      );
+    if (kind === "stress")
+      face.icons = face.icons.filter((i) => i.iconId !== printIcon("stress", 305));
     if (kind === "identity") card.id = "room:p016";
     expect(() => assertTeleportersEffectSource(changed)).toThrow();
   }
@@ -122,8 +130,15 @@ it("Tile p11来源、编号、部署或星标缺失时拒绝生成", () => {
     if (kind === "page") face.page = 9;
     if (kind === "file") face.file = "wrong.pdf";
     if (kind === "number") face.spans = face.spans.filter((s) => s.t !== "6");
-    if (kind === "star") face.icons = face.icons.filter((i) => i.iconId !== "4591aebebd");
-    if (kind === "deployment") face.icons = face.icons.filter((i) => i.iconId !== "39d6ddf024");
+    if (kind === "star")
+      face.icons = face.icons.filter(
+        (i) => i.iconId !== printSourceIcon("corebox/raw/room.json:room:p002:front:22"),
+      );
+    if (kind === "deployment")
+      face.icons = face.icons.filter(
+        (i) =>
+          i.iconId !== printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:25"),
+      );
     expect(() => buildRoomTileGeometry(changed)).toThrow();
   }
 });

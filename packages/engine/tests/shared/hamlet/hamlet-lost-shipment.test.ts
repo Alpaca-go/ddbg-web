@@ -1,3 +1,4 @@
+import { printLine } from "../../../../data/src/shared/print-icons";
 import { expect, it } from "vitest";
 import { applyCommand } from "../../../src/shared/core/command";
 import type { Command, GameState } from "../../../src/shared/core/command";
@@ -46,7 +47,9 @@ it("Lost Shipment完整身份/效果行守门；16张事件均启用，生成文
   for (const field of ["effect", "page", "id"] as const) {
     const changed = structuredClone(rawFileSchema.parse(raw));
     if (field === "effect")
-      changed.cards[2]!.faces.front.lines.at(-2)!.text = "Party rolls -3 {icon:d712688f15}";
+      changed.cards[2]!.faces.front.lines.at(-2)!.text = printLine(
+        "Party rolls -3 {extract:corebox/raw/hamlet_board.json:hamlet_board:p001:front:51}",
+      );
     if (field === "page") changed.cards[2]!.faces.front.page = 1;
     if (field === "id") changed.cards[2]!.id = "hamlet_event:p001";
     expect(() => buildHamletEvents(changed)).toThrow("Lost Shipment身份或完整效果行漂移");

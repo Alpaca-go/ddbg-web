@@ -1,3 +1,4 @@
+import { printSourceIcon, printIcon } from "../../../src/shared/print-icons";
 import { readFileSync } from "node:fs";
 import { expect, it } from "vitest";
 import { rawFileSchema } from "../../../src/shared/extract/raw";
@@ -10,9 +11,9 @@ const raw = rawFileSchema.parse(json("extract/corebox/raw/hero_stat.json"));
 const dictionary = iconDictionarySchema.parse(json("dictionary/icon-dictionary-v1.8.json"));
 const built = buildHeroStats(raw, dictionary);
 
-const LIFE = "9534ad5184";
-const DODGE = "7a472f5d6f";
-const SPEED = "4648c9e5ec";
+const LIFE = printIcon("life", 34);
+const DODGE = printIcon("dodge", 33);
+const SPEED = printIcon("speed", 4);
 
 /** Q-97/R-095：印刷数字与限定防御入库后仍保留词典 unreviewed（不改全局）。 */
 const PRINT_FACES = [
@@ -24,7 +25,11 @@ const PRINT_FACES = [
   ["hero_stat:p020", "front", "OCCULTIST", "III", 18, 3, 3],
 ] as const;
 
-const LIMITED_ICONS = ["e61ed317de", "8cbe7d6703", "a8c4b25b4e"] as const;
+const LIMITED_ICONS = [
+  printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p018:front:14"),
+  printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p011:front:10"),
+  printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p019:back:10"),
+] as const;
 
 function face(rawId: string, side: "front" | "back") {
   const card = raw.cards.find((c) => c.id === rawId)!;
@@ -78,14 +83,52 @@ it("三枚限定图标保持词典unreviewed；左右栏与印刷一致；Jester
       key: `unknown_${iconId}`,
     });
   }
-  expect(face("hero_stat:p011", "front").icons.some((i) => i.iconId === "8cbe7d6703")).toBe(true);
+  expect(
+    face("hero_stat:p011", "front").icons.some(
+      (i) => i.iconId === printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p011:front:10"),
+    ),
+  ).toBe(true);
   const defence: ReadonlyArray<readonly [string, "front" | "back", readonly string[]]> = [
-    ["hero_stat:p017", "front", ["40bb356305"]],
-    ["hero_stat:p017", "back", ["e61ed317de", "de6f50b39b"]],
-    ["hero_stat:p018", "front", ["b942cddccd", "e61ed317de", "de6f50b39b"]],
-    ["hero_stat:p019", "front", ["8cbe7d6703"]],
-    ["hero_stat:p019", "back", ["b942cddccd", "a8c4b25b4e"]],
-    ["hero_stat:p020", "front", ["b942cddccd", "e61ed317de", "de6f50b39b"]],
+    ["hero_stat:p017", "front", [printIcon("blight", 219)]],
+    [
+      "hero_stat:p017",
+      "back",
+      [
+        printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p018:front:14"),
+        printIcon("debuff", 344),
+      ],
+    ],
+    [
+      "hero_stat:p018",
+      "front",
+      [
+        printIcon("bleed", 299),
+        printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p018:front:14"),
+        printIcon("debuff", 344),
+      ],
+    ],
+    [
+      "hero_stat:p019",
+      "front",
+      [printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p011:front:10")],
+    ],
+    [
+      "hero_stat:p019",
+      "back",
+      [
+        printIcon("bleed", 299),
+        printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p019:back:10"),
+      ],
+    ],
+    [
+      "hero_stat:p020",
+      "front",
+      [
+        printIcon("bleed", 299),
+        printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p018:front:14"),
+        printIcon("debuff", 344),
+      ],
+    ],
   ];
   for (const [rawId, side, icons] of defence) {
     const f = face(rawId, side);

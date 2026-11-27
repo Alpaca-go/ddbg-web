@@ -1,3 +1,4 @@
+import { printSourceIcon, printLine } from "../../../../data/src/shared/print-icons";
 import { expect, it } from "vitest";
 import { loadNormalizedCorebox } from "../../../../data/src/core/write";
 import { createBattleState } from "../../../src/shared/battle/battle";
@@ -361,6 +362,12 @@ it("Occ 退出未接线名单；Dark Ritual 命令 schema 接受；III 印刷治
   ).toBe(true);
   const iii = data.hero_stat.cards.find((c) => c.id === "hero_stat:core:h10:p020:front")!;
   expect(iii.lines.join(" ")).toMatch(/Dark Ritual/);
-  expect(iii.lines.join(" ")).toMatch(/20ffe98e2d\} 5/);
-  expect(iii.lines.some((l) => l.includes("4f7549c1b8") && l.includes("3t"))).toBe(true);
+  expect(iii.lines.join(" ")).toContain(printLine("{print:heal@25} 5"));
+  expect(
+    iii.lines.some(
+      (l) =>
+        l.includes(printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p010:front:18")) &&
+        l.includes("3t"),
+    ),
+  ).toBe(true);
 });

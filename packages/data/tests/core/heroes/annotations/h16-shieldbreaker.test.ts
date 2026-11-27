@@ -1,3 +1,4 @@
+import { printIcon } from "../../../../src/shared/print-icons";
 import { expect, it } from "vitest";
 import { loadNormalizedCorebox } from "../../../../src/core/write";
 import { lineSignature } from "../../../../src/core/heroes/annotations/shared";
@@ -25,6 +26,8 @@ it("R-200：Shieldbreaker 高等级逐卡覆盖签名", () => {
     impale.stats_line?.filter((s) => s.type === "icon" && s.icon.key === "target_monster"),
   ).toHaveLength(4);
   expect(
-    impale.stats_line?.filter((s) => s.type === "icon" && s.icon.iconId === "7616568d52"),
+    impale.stats_line?.filter(
+      (s) => s.type === "icon" && s.icon.iconId === printIcon("target_hero", 3),
+    ),
   ).toHaveLength(0);
 });

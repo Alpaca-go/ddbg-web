@@ -1,3 +1,4 @@
+import { printIcon, printLine, printSourceIcon } from "../../../src/shared/print-icons";
 import { readFileSync } from "node:fs";
 import { expect, it } from "vitest";
 import geometry from "../../../normalized/corebox/room_tile_geometry.json";
@@ -62,8 +63,8 @@ it("R-160：FRONT p12九区、部署与印刷A/B星标可确定性生成", () =>
     ["I", "B", "staringEyes"],
   ]);
   expect(tile.specialRegions[0]!.printedText).toContain("Negative Quirk");
-  expect(tile.specialRegions[0]!.printedText).toContain("{icon:9d58d3d431} -5.");
-  expect(tile.specialRegions[1]!.printedText).toContain("{icon:9d58d3d431} +2.");
+  expect(tile.specialRegions[0]!.printedText).toContain(printLine("{print:stress@29} -5."));
+  expect(tile.specialRegions[1]!.printedText).toContain(printLine("{print:stress@29} +2."));
 });
 
 it("运行时开放橙星效果交互；容量、部署、边和来源漂移拒绝", () => {
@@ -127,13 +128,15 @@ it("Room p20来源、星标、卡文漂移拒绝", () => {
     if (kind === "page") face.page = 16;
     if (kind === "file") face.file = "wrong.pdf";
     if (kind === "text") face.lines.at(-1)!.text += " changed";
-    if (kind === "star") face.icons = face.icons.filter((i) => i.iconId !== "62d166a84f");
+    if (kind === "star")
+      face.icons = face.icons.filter((i) => i.iconId !== printIcon("area_marker", 223));
     if (kind === "secondStar")
       face.icons.splice(
-        face.icons.findIndex((i) => i.iconId === "62d166a84f"),
+        face.icons.findIndex((i) => i.iconId === printIcon("area_marker", 223)),
         1,
       );
-    if (kind === "stress") face.icons = face.icons.filter((i) => i.iconId !== "9d58d3d431");
+    if (kind === "stress")
+      face.icons = face.icons.filter((i) => i.iconId !== printIcon("stress", 29));
     if (kind === "identity") card.id = "room:p016";
     expect(() => assertEvilEyeEffectSource(changed)).toThrow();
   }
@@ -146,8 +149,15 @@ it("Tile p12来源、编号、部署或星标缺失时拒绝生成", () => {
     if (kind === "page") face.page = 9;
     if (kind === "file") face.file = "wrong.pdf";
     if (kind === "number") face.spans = face.spans.filter((s) => s.t !== "7");
-    if (kind === "star") face.icons = face.icons.filter((i) => i.iconId !== "4591aebebd");
-    if (kind === "deployment") face.icons = face.icons.filter((i) => i.iconId !== "39d6ddf024");
+    if (kind === "star")
+      face.icons = face.icons.filter(
+        (i) => i.iconId !== printSourceIcon("corebox/raw/room.json:room:p002:front:22"),
+      );
+    if (kind === "deployment")
+      face.icons = face.icons.filter(
+        (i) =>
+          i.iconId !== printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:25"),
+      );
     expect(() => buildRoomTileGeometry(changed)).toThrow();
   }
 });
@@ -155,7 +165,9 @@ it("Tile p12来源、编号、部署或星标缺失时拒绝生成", () => {
 it("印刷星标字母或数量漂移拒绝，定位B区不冒充印刷B效果", () => {
   const changed = raw("dungeon_tile");
   const face = changed.cards.find((c) => c.id === "dungeon_tile:p012")!.faces.front;
-  const line = face.lines.find((l) => l.text.includes("{icon:4591aebebd} A"))!;
+  const line = face.lines.find((l) =>
+    l.text.includes(printLine("{extract:corebox/raw/room.json:room:p002:front:22} A")),
+  )!;
   line.text = line.text.replace(" A", " B");
   expect(() => buildRoomTileGeometry(changed)).toThrow("星标来源漂移");
   expect(tile.specialRegions.map((r) => r.areaId)).not.toContain("B");

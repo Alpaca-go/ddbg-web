@@ -1,3 +1,4 @@
+import { printLine } from "../../../src/shared/print-icons";
 import { readFileSync, writeFileSync } from "node:fs";
 import { expect, it } from "vitest";
 import { rawFileSchema } from "../../../src/shared/extract/raw";
@@ -32,7 +33,7 @@ it("十九张任务卡与出征定义核对后可再生，通用Boss任务没有
   });
   expect(readQuestCard(built, "quest:p001")?.specialRuleLines).toEqual([]);
   expect(readQuestCard(built, "quest:p004")?.specialRuleLines.join(" ")).toContain(
-    "{icon:700c7def3e}",
+    printLine("{print:occupancy_limit}"),
   );
   expect(readQuestCard(built, "quest:p999")).toBeUndefined();
   for (const c of built.cards)
@@ -73,7 +74,8 @@ it("拒绝缺卡、重复、标题/点数/等级漂移、来源页码错误与�
     if (mutation === "duplicate") bad.cards[1] = structuredClone(card);
     if (mutation === "title") card.faces.front.lines[1]!.text = "8 Wrong Name";
     if (mutation === "points") card.faces.front.lines[1]!.text = "9 Scout Ahead";
-    if (mutation === "level") card.faces.front.lines[0]!.text = "{icon:96c024d2c6} III";
+    if (mutation === "level")
+      card.faces.front.lines[0]!.text = printLine("{print:level_badge@12} III");
     if (mutation === "page") card.faces.back!.page = 2;
     if (mutation === "file") card.faces.front.file = "other.pdf";
     if (mutation === "xp")

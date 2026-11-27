@@ -1,3 +1,4 @@
+import { printSourceIcon, printIcon } from "../../../src/shared/print-icons";
 import { readFileSync } from "node:fs";
 import { expect, it } from "vitest";
 import { rawFileSchema } from "../../../src/shared/extract/raw";
@@ -84,11 +85,26 @@ it("限定图标只在获批卡面位置解释，词典/raw/整卡未验证与Je
   const beforeRaw = structuredClone(raw),
     beforeDictionary = structuredClone(dictionary);
   for (const [id, iconId] of [
-    ["hero_stat:core:h09:p017:back", "e61ed317de"],
-    ["hero_stat:core:h09:p018:front", "e61ed317de"],
-    ["hero_stat:core:h10:p019:front", "8cbe7d6703"],
-    ["hero_stat:core:h10:p019:back", "a8c4b25b4e"],
-    ["hero_stat:core:h10:p020:front", "e61ed317de"],
+    [
+      "hero_stat:core:h09:p017:back",
+      printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p018:front:14"),
+    ],
+    [
+      "hero_stat:core:h09:p018:front",
+      printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p018:front:14"),
+    ],
+    [
+      "hero_stat:core:h10:p019:front",
+      printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p011:front:10"),
+    ],
+    [
+      "hero_stat:core:h10:p019:back",
+      printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p019:back:10"),
+    ],
+    [
+      "hero_stat:core:h10:p020:front",
+      printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p018:front:14"),
+    ],
   ] as const) {
     const card = built.cards.find((c) => c.id === id)!;
     expect(card.icons.find((i) => i.iconId === iconId)).toMatchObject({
@@ -97,7 +113,11 @@ it("限定图标只在获批卡面位置解释，词典/raw/整卡未验证与Je
     });
     expect(card.verification.reasons).toContain(`icon:${iconId}`);
   }
-  expect(dictionary.icons.find((i) => i.iconId === "8cbe7d6703")!.status).toBe("unreviewed");
+  expect(
+    dictionary.icons.find(
+      (i) => i.iconId === printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p011:front:10"),
+    )!.status,
+  ).toBe("unreviewed");
   expect(buildHeroStats(raw, dictionary)).toEqual(built);
   expect(raw).toEqual(beforeRaw);
   expect(dictionary).toEqual(beforeDictionary);
@@ -116,17 +136,17 @@ it("完整防御栏逐面拒绝缺失/重复/左右交换/新增；不外推Jest
       const face = changed.cards.find((c) => c.id === card.rawId)!.faces[card.face]!;
       const target =
         card.id === "hero_stat:core:h10:p019:front"
-          ? "8cbe7d6703"
+          ? printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p011:front:10")
           : card.id === "hero_stat:core:h10:p019:back"
-            ? "a8c4b25b4e"
+            ? printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p019:back:10")
             : card.level === 1
-              ? "40bb356305"
-              : "e61ed317de";
+              ? printIcon("blight", 219)
+              : printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p018:front:14");
       const icon = face.icons.find((i) => i.iconId === target)!;
       if (change === "missing") face.icons = face.icons.filter((i) => i !== icon);
       if (change === "duplicate") face.icons.push(structuredClone(icon));
       if (change === "side") icon.bbox = [50, 136, 56, 143];
-      if (change === "extra") face.icons.push({ iconId: "0000000000", bbox: [31, 136, 36, 143] });
+      if (change === "extra") face.icons.push({ iconId: "0".repeat(10), bbox: [31, 136, 36, 143] });
       expect(() => buildHeroStats(changed, dictionary)).toThrow(/漂移/);
     }
   for (const card of occult)

@@ -1,3 +1,4 @@
+import { printIcon, printLine, printSourceIcon } from "../../../src/shared/print-icons";
 import { readFileSync } from "node:fs";
 import { expect, it } from "vitest";
 import geometry from "../../../normalized/corebox/room_tile_geometry.json";
@@ -62,9 +63,9 @@ it("R-161：BACK p12完整几何、A高地、八姿态部署和两个独立宝�
   });
   expect(tile.deployment.lootAreas).toEqual(["E", "E"]);
   expect(tile.specialRegions.map((r) => r.areaId)).toEqual(["A"]);
-  expect(tile.specialRegions[0]!.printedText).toContain("Monsters {icon:731f6665d0} 5");
+  expect(tile.specialRegions[0]!.printedText).toContain(printLine("Monsters {print:heal@225} 5"));
   expect(tile.specialRegions[0]!.printedText).toContain(
-    "additional {icon:9b00e692ba} +1 / Negative Quirk.",
+    printLine("additional {print:stress@145} +1 / Negative Quirk."),
   );
 });
 
@@ -125,10 +126,13 @@ it("Room p21来源、星标、卡文漂移拒绝", () => {
     if (kind === "page") face.page = 16;
     if (kind === "file") face.file = "wrong.pdf";
     if (kind === "text") face.lines.at(-1)!.text += " changed";
-    if (kind === "star") face.icons = face.icons.filter((i) => i.iconId !== "62d166a84f");
-    if (kind === "heal") face.icons = face.icons.filter((i) => i.iconId !== "731f6665d0");
-    if (kind === "stress") face.icons = face.icons.filter((i) => i.iconId !== "df38279161");
-    if (kind === "extraStress") face.icons = face.icons.filter((i) => i.iconId !== "9b00e692ba");
+    if (kind === "star")
+      face.icons = face.icons.filter((i) => i.iconId !== printIcon("area_marker", 223));
+    if (kind === "heal") face.icons = face.icons.filter((i) => i.iconId !== printIcon("heal", 225));
+    if (kind === "stress")
+      face.icons = face.icons.filter((i) => i.iconId !== printIcon("stress", 305));
+    if (kind === "extraStress")
+      face.icons = face.icons.filter((i) => i.iconId !== printIcon("stress", 145));
     if (kind === "identity") card.id = "room:p016";
     expect(() => assertTempleOfTheChosenEffectSource(changed)).toThrow();
   }
@@ -141,8 +145,15 @@ it("Tile p12来源、编号、部署或星标缺失时拒绝生成", () => {
     if (kind === "page") face.page = 9;
     if (kind === "file") face.file = "wrong.pdf";
     if (kind === "number") face.spans = face.spans.filter((s) => s.t !== "8");
-    if (kind === "star") face.icons = face.icons.filter((i) => i.iconId !== "4591aebebd");
-    if (kind === "deployment") face.icons = face.icons.filter((i) => i.iconId !== "39d6ddf024");
+    if (kind === "star")
+      face.icons = face.icons.filter(
+        (i) => i.iconId !== printSourceIcon("corebox/raw/room.json:room:p002:front:22"),
+      );
+    if (kind === "deployment")
+      face.icons = face.icons.filter(
+        (i) =>
+          i.iconId !== printSourceIcon("corebox/raw/dungeon_tile.json:dungeon_tile:p001:front:25"),
+      );
     expect(() => buildRoomTileGeometry(changed)).toThrow();
   }
 });

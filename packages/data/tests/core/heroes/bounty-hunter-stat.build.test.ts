@@ -1,3 +1,4 @@
+import { printSourceIcon, printIcon } from "../../../src/shared/print-icons";
 import { readFileSync } from "node:fs";
 import { expect, it } from "vitest";
 import { rawFileSchema } from "../../../src/shared/extract/raw";
@@ -99,12 +100,23 @@ it("III限定图标只在该卡左栏解释，整卡未验证与全局词典原�
     beforeDictionary = structuredClone(dictionary);
   const third = cards[2]!;
   expect(readHigherHeroDefence(third)!.resistances).toEqual(["stun", "debuff", "bleed"]);
-  expect(third.icons.find((i) => i.iconId === "c07ea0c507")).toMatchObject({
+  expect(
+    third.icons.find(
+      (i) => i.iconId === printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p006:front:11"),
+    ),
+  ).toMatchObject({
     naming: "unverified",
     value: null,
   });
-  expect(third.verification).toEqual({ unverified: true, reasons: ["icon:c07ea0c507"] });
-  expect(dictionary.icons.find((i) => i.iconId === "c07ea0c507")!.status).toBe("unreviewed");
+  expect(third.verification).toEqual({
+    unverified: true,
+    reasons: [`icon:${printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p006:front:11")}`],
+  });
+  expect(
+    dictionary.icons.find(
+      (i) => i.iconId === printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p006:front:11"),
+    )!.status,
+  ).toBe("unreviewed");
   expect(cards.slice(0, 2).every((c) => !c.verification.unverified)).toBe(true);
   expect(buildHeroStats(raw, dictionary)).toEqual(built);
   expect(raw).toEqual(beforeRaw);
@@ -116,11 +128,11 @@ it("三张完整左右栏逐面守门：缺失、重复、移入免疫栏、未�
     for (const change of ["missing", "duplicate", "side", "extra"] as const) {
       const changed = structuredClone(raw),
         face = changed.cards.find((r) => r.id === c.rawId)!.faces[c.face]!;
-      const icon = face.icons.find((i) => i.iconId === "8db71542d2")!;
+      const icon = face.icons.find((i) => i.iconId === printIcon("stun", 114))!;
       if (change === "missing") face.icons = face.icons.filter((i) => i !== icon);
       if (change === "duplicate") face.icons.push(structuredClone(icon));
       if (change === "side") icon.bbox = [46, 135, 55, 145];
-      if (change === "extra") face.icons.push({ iconId: "0000000000", bbox: [31, 135, 36, 145] });
+      if (change === "extra") face.icons.push({ iconId: "0".repeat(10), bbox: [31, 135, 36, 145] });
       expect(() => buildHeroStats(changed, dictionary)).toThrow(/漂移/);
     }
 });
@@ -198,7 +210,8 @@ it("生成数据含获批面，不生成III背面或Jester；数字/来源漂移
         face = changed.cards.find((r) => r.id === c.rawId)!.faces[c.face]!;
       if (key === "page") face.page = 99;
       if (key === "number") face.spans.find((s) => s.t === String(c.life))!.t = "99";
-      if (key === "speed") face.icons = face.icons.filter((i) => i.iconId !== "4648c9e5ec");
+      if (key === "speed")
+        face.icons = face.icons.filter((i) => i.iconId !== printIcon("speed", 4));
       if (key === "name") face.spans.find((s) => s.t === "BOUNTY HUNTER")!.t = "JESTER";
       expect(() => buildHeroStats(changed, dictionary)).toThrow();
     }
