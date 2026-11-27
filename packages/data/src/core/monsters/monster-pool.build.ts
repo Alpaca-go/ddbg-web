@@ -1,3 +1,4 @@
+import { printIcon } from "../../shared/print-icons";
 import type { RawFile } from "../../shared/extract/raw";
 import {
   MONSTER_POOL_BACK,
@@ -39,7 +40,8 @@ export function buildMonsterPool(
         if (
           view.level !== identity.level ||
           locationIcon.length !== 1 ||
-          locationIcon[0]!.iconId !== (identity.location === "ruins" ? "2e22db7a98" : "4843c9b620")
+          locationIcon[0]!.iconId !==
+            (identity.location === "ruins" ? printIcon("location", 67) : printIcon("location", 64))
         )
           throw new Error("怪物牌池等级 / 地点与核对卡面不符");
         const edge = view.type_position_tags.filter((t) => t === "Front" || t === "Back");

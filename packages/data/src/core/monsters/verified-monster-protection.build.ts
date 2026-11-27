@@ -1,3 +1,4 @@
+import { printIcon } from "../../shared/print-icons";
 import type { NormalizedMonsterLargeCard, NormalizedMonsterMediumCard } from "../../shared/schema";
 
 /** R-083：四卡限定批准；无映射不补默认值，不从全卡图标数量推断头部能力。 */
@@ -26,9 +27,12 @@ export function attachVerifiedMonsterProtection<
       JSON.stringify(card.pages) !== JSON.stringify(entry.pages) ||
       (card.innateProtection !== undefined && card.innateProtection !== entry.value) ||
       (entry.value &&
-        !["b9896e803d", "f88793a20e", "477735fe7b", "5cc5646eec"].every((id) =>
-          card.front_icons.some((i) => i.iconId === id),
-        ))
+        ![
+          printIcon("decor", 300),
+          printIcon("decor", 308),
+          printIcon("decor", 278),
+          printIcon("decor", 282),
+        ].every((id) => card.front_icons.some((i) => i.iconId === id)))
     )
       throw new Error(`常驻Protection身份或图标不符：${entry.id}`);
   }

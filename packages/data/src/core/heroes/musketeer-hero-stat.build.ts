@@ -1,3 +1,4 @@
+import { printIcon, printSourceIcon } from "../../shared/print-icons";
 import { z } from "zod";
 import type { RawFile } from "../../shared/extract/raw";
 import { levelSchema } from "../../shared/extract/common";
@@ -15,7 +16,9 @@ const STAT_BACK =
   "DARKEST_DUNGEON_PRINT_EN_WAVE 1/MG_DD_08_EN_MUSKETEER/DD_EN_MUSKETEER_CARDS_100x180_Hero_STAT_BACK.pdf";
 
 /** 免疫栏标题装饰；不入词典，不参与 STAT 核实（R-048 / Q-107）。 */
-const STAT_IMMUNITIES_HEADER_ICON = "55a3fded25";
+const STAT_IMMUNITIES_HEADER_ICON = printSourceIcon(
+  "extension/cove/raw/hero_stat.json:hero_stat:cove:man-at-arms:p001:front:7",
+);
 
 const musketeerAttributesSchema = z.strictObject({
   rawId: z.string().regex(/^hero_stat:musketeer:musketeer:p00[12]$/),
@@ -99,8 +102,8 @@ export function buildMusketeerHeroStats(
         throw new Error("Musketeer 获批属性与原始卡面数字冲突");
       return placements[0]!.bbox;
     };
-    const lifeBox = printedNumber("9534ad5184", attributes.life);
-    printedNumber("7a472f5d6f", attributes.dodge);
+    const lifeBox = printedNumber(printIcon("life", 34), attributes.life);
+    printedNumber(printIcon("dodge", 33), attributes.dodge);
     const hamletLine = face.lines.findIndex((line) => line.text.startsWith("Hamlet Skill:"));
     const attributeLines = hamletLine < 0 ? face.lines : face.lines.slice(0, hamletLine);
     const reasons = new Set<string>();
@@ -120,22 +123,22 @@ export function buildMusketeerHeroStats(
       });
     if (attributes.speed > 0) {
       const speedCount = face.icons.filter((placement) => {
-        if (placement.decor || placement.iconId !== "4648c9e5ec") return false;
+        if (placement.decor || placement.iconId !== printIcon("speed", 4)) return false;
         const y = (placement.bbox[1] + placement.bbox[3]) / 2;
         return placement.bbox[0] >= lifeBox[2] && y >= lifeBox[1] && y <= lifeBox[3];
       }).length;
       if (speedCount !== attributes.speed) throw new Error("Musketeer Speed 与移动栏图标数量冲突");
     }
     for (const [iconId, key] of [
-      ["9534ad5184", "life"],
-      ["7a472f5d6f", "dodge"],
+      [printIcon("life", 34), "life"],
+      [printIcon("dodge", 33), "dodge"],
     ] as const) {
       const icon = icons.find((i) => i.iconId === iconId);
       if (!icon || icon.key !== key || !["confirmed", "confirmed_rulebook"].includes(icon.naming))
         throw new Error("Musketeer 获批属性缺少已确认图标（R-048）");
     }
     if (attributes.speed > 0) {
-      const speedIcon = icons.find((i) => i.iconId === "4648c9e5ec");
+      const speedIcon = icons.find((i) => i.iconId === printIcon("speed", 4));
       if (
         !speedIcon ||
         speedIcon.key !== "speed" ||

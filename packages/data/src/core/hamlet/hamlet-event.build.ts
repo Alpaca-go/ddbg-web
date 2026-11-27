@@ -1,14 +1,15 @@
+import { printSourceIcon, printIcon, printLine } from "../../shared/print-icons";
 import type { RawFile } from "../../shared/extract/raw";
 import { hamletEventFileSchema } from "./hamlet-event";
 // 完整卡面已逐页复核。阈值区分效果行/风味；未批准效果图标仅保留原ID。
 const effectY = [95, 94, 95, 101, Infinity, 91, 93, 86, 96, 94, 94, 94, 91, 86, 92, 94];
-// R-077：仅Hamlet Event正面左上角。43aaf29bbb的全局occupancy语义保持原样。
+// R-077：仅Hamlet Event正面左上角。occupancy_pips（词典 324）的全局occupancy语义保持原样。
 const badges: Record<string, string> = {
-  ef839b6878: "2",
-  "61587999f3": "4",
-  "1cdbcf4cc7": "3",
-  "43aaf29bbb": "1",
-  "9d38361e87": "?",
+  [printIcon("preparation_days", 307)]: "2",
+  [printSourceIcon("corebox/raw/hamlet_event.json:hamlet_event:p003:front:0")]: "4",
+  [printIcon("preparation_days", 315)]: "3",
+  [printIcon("occupancy_pips", 324)]: "1",
+  [printSourceIcon("corebox/raw/hamlet_event.json:hamlet_event:p016:front:0")]: "?",
 };
 export function buildHamletEvents(raw: RawFile) {
   return hamletEventFileSchema.parse({
@@ -25,18 +26,23 @@ export function buildHamletEvents(raw: RawFile) {
         i === 0 &&
         (card.id !== "hamlet_event:p001" ||
           front.page !== 1 ||
-          match[1] !== "ef839b6878" ||
+          match[1] !== printIcon("preparation_days", 307) ||
           match[2] !== "2" ||
           match[3] !== "Supply Run" ||
           JSON.stringify(effectLines) !==
-            JSON.stringify(["Party gains +2 {icon:d712688f15}", "before the next Quest."]))
+            JSON.stringify([
+              printLine(
+                "Party gains +2 {extract:corebox/raw/hamlet_board.json:hamlet_board:p001:front:51}",
+              ),
+              "before the next Quest.",
+            ]))
       )
         throw new Error("Supply Run身份或完整效果行漂移（R-048/R-085）");
       if (
         i === 15 &&
         (card.id !== "hamlet_event:p016" ||
           front.page !== 16 ||
-          match[1] !== "9d38361e87" ||
+          match[1] !== printSourceIcon("corebox/raw/hamlet_event.json:hamlet_event:p016:front:0") ||
           match[2] !== "?" ||
           match[3] !== "Militia Training" ||
           JSON.stringify(effectLines) !==
@@ -51,24 +57,31 @@ export function buildHamletEvents(raw: RawFile) {
         i === 8 &&
         (card.id !== "hamlet_event:p009" ||
           front.page !== 9 ||
-          match[1] !== "ef839b6878" ||
+          match[1] !== printIcon("preparation_days", 307) ||
           match[2] !== "2" ||
           match[3] !== "Gypsy Trail" ||
           JSON.stringify(effectLines) !==
-            JSON.stringify(["Heroes gain +5 {icon:08a25c05cf} when", "selling Trinkets."]))
+            JSON.stringify([
+              printLine(
+                "Heroes gain +5 {extract:corebox/raw/hamlet_event.json:hamlet_event:p009:front:1} when",
+              ),
+              "selling Trinkets.",
+            ]))
       )
         throw new Error("Gypsy Trail身份或完整效果行漂移（R-048/R-085）");
       if (
         i === 9 &&
         (card.id !== "hamlet_event:p010" ||
           front.page !== 10 ||
-          match[1] !== "43aaf29bbb" ||
+          match[1] !== printIcon("occupancy_pips", 324) ||
           match[2] !== "1" ||
           match[3] !== "The Feast" ||
           JSON.stringify(effectLines) !==
             JSON.stringify([
               "Each Hero can choose to",
-              "fully restore either {icon:9d58d3d431} or {icon:d9009c6f91} .",
+              printLine(
+                "fully restore either {print:stress@29} or {extract:corebox/raw/hamlet_event.json:hamlet_event:p010:front:2} .",
+              ),
             ]))
       )
         throw new Error("The Feast身份或完整效果行漂移（R-048/R-085/R-086）");
@@ -76,11 +89,16 @@ export function buildHamletEvents(raw: RawFile) {
         i === 2 &&
         (card.id !== "hamlet_event:p003" ||
           front.page !== 3 ||
-          match[1] !== "61587999f3" ||
+          match[1] !== printSourceIcon("corebox/raw/hamlet_event.json:hamlet_event:p003:front:0") ||
           match[2] !== "4" ||
           match[3] !== "Lost Shipment" ||
           JSON.stringify(effectLines) !==
-            JSON.stringify(["Party rolls -2 {icon:d712688f15}", "before the next Quest."]))
+            JSON.stringify([
+              printLine(
+                "Party rolls -2 {extract:corebox/raw/hamlet_board.json:hamlet_board:p001:front:51}",
+              ),
+              "before the next Quest.",
+            ]))
       )
         throw new Error("Lost Shipment身份或完整效果行漂移（R-048/R-085/R-087）");
       return {

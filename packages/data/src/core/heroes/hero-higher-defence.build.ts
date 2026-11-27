@@ -1,3 +1,4 @@
+import { printSourceIcon } from "../../shared/print-icons";
 import type { RawFile } from "../../shared/extract/raw";
 import { approvedHigherDefence, higherHeroDefenceApprovals } from "./hero-higher-defence";
 
@@ -19,7 +20,10 @@ export function buildHigherHeroDefence(
       (i) =>
         !i.decor &&
         // TDH 免疫栏标题装饰，不是抗性/免疫（R-104 / Q-104）。
-        i.iconId !== "55a3fded25" &&
+        i.iconId !==
+          printSourceIcon(
+            "extension/cove/raw/hero_stat.json:hero_stat:cove:man-at-arms:p001:front:7",
+          ) &&
         (i.bbox[0] + i.bbox[2]) / 2 >= left &&
         (i.bbox[0] + i.bbox[2]) / 2 <= right &&
         (i.bbox[1] + i.bbox[3]) / 2 > bottom &&

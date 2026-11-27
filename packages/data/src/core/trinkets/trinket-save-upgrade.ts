@@ -1,3 +1,4 @@
+import { printIcon } from "../../shared/print-icons";
 import raw from "../../../normalized/corebox/trinket.json";
 import { normalizedTrinketFileSchema } from "../../shared/schema";
 /** R-127只修正明确批准的卡面元数据；绝不替换持牌、牌序、选择、RNG或英雄数据。 */
@@ -23,17 +24,17 @@ const affected = new Set([
   "trinket:p038",
 ]);
 const oldIcons: Record<string, { key: string; meaning_en: string; meaning_zh: string }> = {
-  "22c0a26f50": {
+  [printIcon("dodge", 458)]: {
     key: "trinket_stat_glyph",
     meaning_en: "Trinket stat glyph (Speed Stone) – possibly Speed",
     meaning_zh: "饰品属性图标（速度石）– 可能为速度",
   },
-  b7d0cfd524: {
+  [printIcon("draw_negative_quirk", 955)]: {
     key: "trinket_picture",
     meaning_en: "Trinket picture (likely art)",
     meaning_zh: "饰品插图（疑似插画）",
   },
-  "206c655597": {
+  [printIcon("compare_gte", 775)]: {
     key: "compare_lte",
     meaning_en: "Less-than comparison (trinket light condition)",
     meaning_zh: "小于比较符（饰品光照条件）",

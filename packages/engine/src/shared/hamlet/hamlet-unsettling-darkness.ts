@@ -2,7 +2,7 @@ import type { ApplyResult, GameState } from "../core/command";
 import { rejectBattleCommand } from "../battle/battle";
 import { completeHamletEvent, hamletEventCompletionProblem } from "./hamlet-event";
 
-/** 卡面p4、R32/33、R-048：下次出征起始光照4；图标d13c8b76af已确认。 */
+/** 卡面p4、R32/33、R-048：下次出征起始光照4。 */
 export function applyUnsettlingDarkness(state: GameState): ApplyResult {
   const d = state.dungeon;
   if (

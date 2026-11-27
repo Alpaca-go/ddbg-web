@@ -1,3 +1,4 @@
+import { printIcon } from "../../shared/print-icons";
 import type { RawFile } from "../../shared/extract/raw";
 import { MONSTER_POOL_FRONT, MONSTER_POOL_BACK } from "./monster-pool";
 import { DARKEST_MONSTER_IDENTITIES, darkestMonsterPoolFileSchema } from "./darkest-monster-pool";
@@ -34,7 +35,7 @@ export function buildDarkestMonsterPool(raw: RawFile, medium: NormalizedMonsterM
           !view.front_icons.some(
             (icon) =>
               icon.key === "location" &&
-              icon.iconId === "9197a15623" &&
+              icon.iconId === printIcon("location", 68) &&
               ["confirmed", "confirmed_rulebook"].includes(icon.naming),
           )
         )

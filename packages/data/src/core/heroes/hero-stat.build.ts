@@ -1,3 +1,4 @@
+import { printSourceIcon, printIcon } from "../../shared/print-icons";
 import { z } from "zod";
 import type { RawFile } from "../../shared/extract/raw";
 import { normalizedIconSchema, verificationSchema } from "../../shared/schema";
@@ -162,12 +163,12 @@ export function buildHeroStats(
         throw new Error("获批英雄属性与原始卡面数字冲突");
       return placements[0]!.bbox;
     };
-    const lifeBox = printedNumber("9534ad5184", attributes.life);
-    printedNumber("7a472f5d6f", attributes.dodge);
+    const lifeBox = printedNumber(printIcon("life", 34), attributes.life);
+    printedNumber(printIcon("dodge", 33), attributes.dodge);
     const speedCount = face.icons.filter((icon) => {
       const y = (icon.bbox[1] + icon.bbox[3]) / 2;
       return (
-        icon.iconId === "4648c9e5ec" &&
+        icon.iconId === printIcon("speed", 4) &&
         !icon.decor &&
         icon.bbox[0] >= lifeBox[2] &&
         y >= lifeBox[1] &&
@@ -190,26 +191,26 @@ export function buildHeroStats(
       });
     // 三个字段的语义仍必须由已确认的原图标支持，不能用审批绕过词典退回待定。
     for (const [iconId, key] of [
-      ["9534ad5184", "life"],
-      ["7a472f5d6f", "dodge"],
-      ["4648c9e5ec", "speed"],
+      [printIcon("life", 34), "life"],
+      [printIcon("dodge", 33), "dodge"],
+      [printIcon("speed", 4), "speed"],
     ]) {
       const icon = icons.find((icon) => icon.iconId === iconId);
       if (!icon || icon.key !== key || !["confirmed", "confirmed_rulebook"].includes(icon.naming))
         throw new Error("获批属性缺少已确认图标（R-048）");
     }
     const reviewedBuffDefence: Record<string, string> = {
-      "hero_stat:p001": "8db71542d2",
-      "hero_stat:p003": "d29a868ed8",
-      "hero_stat:p007": "8db71542d2",
-      "hero_stat:p009": "d29a868ed8",
-      "hero_stat:p005": "8db71542d2",
-      "hero_stat:p013": "40bb356305",
-      "hero_stat:p017": "40bb356305",
-      "hero_stat:p019": "8cbe7d6703",
-      "hero_stat:p011": "8cbe7d6703",
-      "hero_stat:p015": "df4eb1ac47",
-      "hero_stat:p021": "40bb356305",
+      "hero_stat:p001": printIcon("stun", 114),
+      "hero_stat:p003": printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p003:front:9"),
+      "hero_stat:p007": printIcon("stun", 114),
+      "hero_stat:p009": printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p003:front:9"),
+      "hero_stat:p005": printIcon("stun", 114),
+      "hero_stat:p013": printIcon("blight", 219),
+      "hero_stat:p017": printIcon("blight", 219),
+      "hero_stat:p019": printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p011:front:10"),
+      "hero_stat:p011": printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p011:front:10"),
+      "hero_stat:p015": printIcon("shuffle_resist", 417),
+      "hero_stat:p021": printIcon("blight", 219),
     };
     const buffReviewed =
       attributes.level === 1 &&

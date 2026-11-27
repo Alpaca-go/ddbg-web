@@ -1,10 +1,19 @@
+import { printSourceIcon } from "../../shared/print-icons";
 import { z } from "zod";
 /** R-085：仅四张卡指定效果位置；不改全局词典，不代表运行时已接通。 */
 export const approvedHamletEffectIcons = {
-  "hamlet_event:p001": { d712688f15: "provisionDice" },
-  "hamlet_event:p003": { d712688f15: "provisionDice" },
-  "hamlet_event:p009": { "08a25c05cf": "gold" },
-  "hamlet_event:p010": { d9009c6f91: "wound" },
+  "hamlet_event:p001": {
+    [printSourceIcon("corebox/raw/hamlet_board.json:hamlet_board:p001:front:51")]: "provisionDice",
+  },
+  "hamlet_event:p003": {
+    [printSourceIcon("corebox/raw/hamlet_board.json:hamlet_board:p001:front:51")]: "provisionDice",
+  },
+  "hamlet_event:p009": {
+    [printSourceIcon("corebox/raw/hamlet_event.json:hamlet_event:p009:front:1")]: "gold",
+  },
+  "hamlet_event:p010": {
+    [printSourceIcon("corebox/raw/hamlet_event.json:hamlet_event:p010:front:2")]: "wound",
+  },
 } as const;
 export const hamletEventCardSchema = z
   .strictObject({

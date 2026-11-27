@@ -1,3 +1,4 @@
+import { printSourceIcon, printIcon } from "../../shared/print-icons";
 import { z } from "zod";
 import { levelSchema } from "../../shared/extract/common";
 import { normalizedIconSchema, verificationSchema } from "../../shared/schema";
@@ -9,17 +10,41 @@ import { heroStatSourcesSchema } from "./hero-sources";
 export const approvedHeroConditionDefences: Readonly<
   Record<string, { name: string; iconId: string; kind: "stun" | "bleed" | "blight" | "debuff" }>
 > = {
-  "hero_stat:p001:front": { name: "CRUSADER", iconId: "8db71542d2", kind: "stun" },
-  "hero_stat:p003:front": { name: "HELLION", iconId: "d29a868ed8", kind: "bleed" },
-  "hero_stat:p007:front": { name: "HIGHWAYMAN", iconId: "8db71542d2", kind: "stun" },
-  "hero_stat:p009:front": { name: "VESTAL", iconId: "d29a868ed8", kind: "bleed" },
-  "hero_stat:p005:front": { name: "BOUNTY HUNTER", iconId: "8db71542d2", kind: "stun" },
-  "hero_stat:p013:front": { name: "PLAGUE DOCTOR", iconId: "40bb356305", kind: "blight" },
-  "hero_stat:p017:front": { name: "GRAVE ROBBER", iconId: "40bb356305", kind: "blight" },
-  /** R-095 / 核心三英雄 2026-10-24：Occ I 与 Jester I 同 hash `8cbe7d6703` 分卡批准。 */
-  "hero_stat:p019:front": { name: "OCCULTIST", iconId: "8cbe7d6703", kind: "debuff" },
-  "hero_stat:p011:front": { name: "JESTER", iconId: "8cbe7d6703", kind: "debuff" },
-  "hero_stat:p021:front": { name: "ABOMINATION", iconId: "40bb356305", kind: "blight" },
+  "hero_stat:p001:front": { name: "CRUSADER", iconId: printIcon("stun", 114), kind: "stun" },
+  "hero_stat:p003:front": {
+    name: "HELLION",
+    iconId: printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p003:front:9"),
+    kind: "bleed",
+  },
+  "hero_stat:p007:front": { name: "HIGHWAYMAN", iconId: printIcon("stun", 114), kind: "stun" },
+  "hero_stat:p009:front": {
+    name: "VESTAL",
+    iconId: printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p003:front:9"),
+    kind: "bleed",
+  },
+  "hero_stat:p005:front": { name: "BOUNTY HUNTER", iconId: printIcon("stun", 114), kind: "stun" },
+  "hero_stat:p013:front": {
+    name: "PLAGUE DOCTOR",
+    iconId: printIcon("blight", 219),
+    kind: "blight",
+  },
+  "hero_stat:p017:front": {
+    name: "GRAVE ROBBER",
+    iconId: printIcon("blight", 219),
+    kind: "blight",
+  },
+  /** R-095 / 核心三英雄 2026-10-24：Occ I 与 Jester I 同 hash `unreviewed（词典 705）` 分卡批准。 */
+  "hero_stat:p019:front": {
+    name: "OCCULTIST",
+    iconId: printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p011:front:10"),
+    kind: "debuff",
+  },
+  "hero_stat:p011:front": {
+    name: "JESTER",
+    iconId: printSourceIcon("corebox/raw/hero_stat.json:hero_stat:p011:front:10"),
+    kind: "debuff",
+  },
+  "hero_stat:p021:front": { name: "ABOMINATION", iconId: printIcon("blight", 219), kind: "blight" },
 };
 export const heroConditionDefenceSchema = z.strictObject({
   resistances: z.array(z.enum(["stun", "bleed", "blight", "debuff"])).length(1),

@@ -1188,6 +1188,21 @@
     "corebox/raw/dungeon_tile.json:dungeon_tile:p007:front:0": "98ecd549c4",
     "corebox/raw/dungeon_tile.json:dungeon_tile:p013:front:14": "6e67687564",
     "corebox/raw/dungeon_tile.json:dungeon_tile:p014:front:11": "9454efcf19",
+    "corebox/raw/hamlet_board.json:hamlet_board:p001:front:51": "d712688f15",
+    "corebox/raw/hamlet_event.json:hamlet_event:p003:front:0": "61587999f3",
+    "corebox/raw/hamlet_event.json:hamlet_event:p009:front:1": "08a25c05cf",
+    "corebox/raw/hamlet_event.json:hamlet_event:p010:front:2": "d9009c6f91",
+    "corebox/raw/hamlet_event.json:hamlet_event:p016:front:0": "9d38361e87",
+    "corebox/raw/hero_stat.json:hero_stat:p001:back:10": "b284fea953",
+    "corebox/raw/hero_stat.json:hero_stat:p001:back:9": "7034784ee1",
+    "corebox/raw/hero_stat.json:hero_stat:p003:back:10": "c461b9cf7d",
+    "corebox/raw/hero_stat.json:hero_stat:p003:front:9": "d29a868ed8",
+    "corebox/raw/hero_stat.json:hero_stat:p004:front:11": "92d117f31a",
+    "corebox/raw/hero_stat.json:hero_stat:p006:front:11": "c07ea0c507",
+    "corebox/raw/hero_stat.json:hero_stat:p011:front:10": "8cbe7d6703",
+    "corebox/raw/hero_stat.json:hero_stat:p014:front:12": "8510428636",
+    "corebox/raw/hero_stat.json:hero_stat:p018:front:14": "e61ed317de",
+    "corebox/raw/hero_stat.json:hero_stat:p019:back:10": "a8c4b25b4e",
     "corebox/raw/room.json:room:p001:front:16": "fef75233ed",
     "corebox/raw/room.json:room:p002:front:22": "4591aebebd",
     "corebox/raw/room.json:room:p010:front:15": "44d632b1cc",
@@ -1205,6 +1220,7 @@
     "corebox/raw/room.json:room:p024:front:29": "71bf6c0f18",
     "corebox/raw/stygian_room.json:stygian_room:p002:front:43": "d4c2a095b5",
     "corebox/raw/stygian_room.json:stygian_room:p004:front:45": "10365b3e0f",
-    "corebox/raw/stygian_room.json:stygian_room:p016:front:34": "f50b9f6892"
+    "corebox/raw/stygian_room.json:stygian_room:p016:front:34": "f50b9f6892",
+    "extension/cove/raw/hero_stat.json:hero_stat:cove:man-at-arms:p001:front:7": "55a3fded25"
   }
 }
