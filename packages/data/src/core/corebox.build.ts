@@ -48,6 +48,7 @@ import {
 } from "./heroes/annotations";
 import { attachVerifiedResolveTriggers } from "./hamlet/verified-resolve-triggers.build";
 import { withHeroSkillRules, withVirtueRules } from "../shared/rules";
+import { attachDirectHeroAttack } from "./heroes/hero-direct-attacks.build";
 import { buildRoomTileGeometry } from "./tiles/room-tile.build";
 import { assertHallOfAscensionEffectSource } from "./rooms/hall-of-ascension.build";
 import { assertPoolOfRebirthEffectSource } from "./rooms/pool-of-rebirth.build";
@@ -270,7 +271,7 @@ export function buildNormalizedCorebox(input: NormalizedCoreboxInput): Normalize
       );
       return canonicalHeroSkillFileSchema.parse({
         ...file,
-        cards: cards.map((card) => withHeroSkillRules(card)),
+        cards: cards.map((card) => attachDirectHeroAttack(withHeroSkillRules(card))),
       });
     })(),
     room_tile_geometry: (() => {

@@ -1,4 +1,6 @@
 import { defenceTrinketReaction } from "../../shared/trinkets/trinket-reactions";
+import { directAttackSchema } from "../../../../data/src/shared/effects";
+import type { DirectAttack } from "../../../../data/src/shared/effects";
 import { projectAbominationSkill } from "./abomination-skills";
 import { ABOMINATION_DOUBLE_FACED_SKILL_IDS } from "../../shared/core/formal-roster-catalog";
 import type { HeroHealthEffect } from "./hero-health";
@@ -296,6 +298,7 @@ type StatusAnnotation = StatusEffect & {
 
 /** R1 起规则输入的唯一定义；`rulesOf(card)` 读取。 */
 export type SkillRules = {
+  readonly directAttack?: DirectAttack;
   readonly statuses?: readonly StatusAnnotation[];
   readonly damage?: DamageBonusAnnotation;
   readonly damageBonuses?: readonly DamageBonusAnnotation[];
@@ -769,6 +772,8 @@ function namedKeys(segments: readonly SkillSegment[] | null): string[] {
 }
 
 function threshold(skill: HeroSkillCardView, label: "Crit" | "Acc"): number | null {
+  const attack = skill.rules?.directAttack;
+  if (attack) return (label === "Crit" ? attack.critical : attack.hit).threshold;
   const found = skill.printed_labels.filter((item) => item.label === label);
   if (found.length !== 1) return null;
   const value = found[0]?.value;
@@ -778,6 +783,8 @@ function threshold(skill: HeroSkillCardView, label: "Crit" | "Acc"): number | nu
 
 /** 印在 Crit / Acc 标签旁边的那个整数。不是伤害字段名。 */
 function amountBesideLabel(skill: HeroSkillCardView, label: "Crit" | "Acc"): number | null {
+  const attack = skill.rules?.directAttack;
+  if (attack) return (label === "Crit" ? attack.critical : attack.hit).damage;
   const found: number[] = [];
   for (const item of skill.unlabeled_numbers) {
     if (item.anchor.type !== "printed_label" || item.anchor.label !== label) continue;
@@ -1813,10 +1820,13 @@ function selectFace(
   if (!stance.ok) {
     return { ok: false, reason: "背面的姿态行读不清，不能核对能否使用（规则书第 19、38 页）" };
   }
+  const { directAttack: _frontAttack, ...backRules } = rulesOf(skill);
+  void _frontAttack;
   return {
     ok: true,
     skill: {
       ...skill,
+      rules: backRules,
       effect_lines: back.lines,
       front_icons: [],
       top_row_icons: stance.icons ?? [],
@@ -1963,7 +1973,7 @@ function isSkillStance(value: unknown): value is SkillStance {
  * 同一姿态出现两次，或有认不出的图标，整行都不采用。
  */
 export function readHeroSkillStanceMarks(
-  skill: Pick<HeroSkillCardView, "top_row_icons">,
+  skill: Pick<HeroSkillCardView, "top_row_icons" | "rules">,
 ): Record<SkillStance, HeroSkillStanceMark> | null {
   const read = readStanceMarks(skill);
   return read.ok ? read.marks : null;
@@ -1971,7 +1981,7 @@ export function readHeroSkillStanceMarks(
 
 /** 已选技能里，每个姿态被多少张卡面标为「点亮可用」。 */
 export function aggregateLitHeroSkillStanceCounts(
-  skills: readonly Pick<HeroSkillCardView, "top_row_icons">[],
+  skills: readonly Pick<HeroSkillCardView, "top_row_icons" | "rules">[],
 ): Record<SkillStance, number> {
   const counts: Record<SkillStance, number> = {
     support: 0,
@@ -1990,8 +2000,21 @@ export function aggregateLitHeroSkillStanceCounts(
 }
 
 function readStanceMarks(
-  skill: Pick<HeroSkillCardView, "top_row_icons">,
+  skill: Pick<HeroSkillCardView, "top_row_icons" | "rules">,
 ): { ok: true; marks: Record<SkillStance, StanceMark> } | { ok: false } {
+  const attack = skill.rules?.directAttack;
+  if (attack) {
+    const mark = (stance: SkillStance) => (attack.stances.includes(stance) ? "lit" : "unlit");
+    return {
+      ok: true,
+      marks: {
+        support: mark("support"),
+        ranged: mark("ranged"),
+        defensive: mark("defensive"),
+        aggressive: mark("aggressive"),
+      },
+    };
+  }
   const icons = skill.top_row_icons;
   if (!Array.isArray(icons)) return { ok: false };
   const marks: Record<SkillStance, StanceMark | "absent"> = {
@@ -2067,6 +2090,8 @@ type PrintedRange =
 export function readPrintedRange(
   skill: Pick<HeroSkillCardView, "unlabeled_numbers" | "rules">,
 ): PrintedRange {
+  const attack = skill.rules?.directAttack;
+  if (attack) return { kind: "exact", distance: attack.range };
   const annotatedRange = rulesOf(skill).range;
   if (annotatedRange) {
     const range = annotatedRange;
@@ -2213,6 +2238,8 @@ function readTargetIconCounts(skill: HeroSkillCardView): {
   // 已逐卡核实的无Acc卡：提取器将射程0/单英雄目标行放入effect_lines[0]。
   // 明确注解才读取；不从其他效果行或未核实卡推断目标。
   const rules = rulesOf(skill);
+  if (rules.directAttack)
+    return { hero: 0, monster: rules.directAttack.monsterTargets, heroOrMonster: 0 };
   const headerAnn = rules.target?.header;
   const targetHealAnn = rules.target?.heal;
   const statusesAnn = rules.statuses;
@@ -2613,7 +2640,21 @@ function resolveSkill(
         : "front"),
   );
   if (!selected.ok) return refuse(skill, combat, selected.reason);
-  const active = selected.skill;
+  let active = selected.skill;
+  if (active.rules?.directAttack !== undefined) {
+    const attack = directAttackSchema.safeParse(active.rules.directAttack);
+    if (!attack.success) return refuse(skill, combat, "技能效果词条或参数无效");
+    active = {
+      ...active,
+      rules: { effect: "damage", directAttack: attack.data },
+      printed_labels: [],
+      unlabeled_numbers: [],
+      stats_line: null,
+      effect_lines: [],
+      top_row_icons: [],
+      front_icons: [],
+    };
+  }
   const activeRules = rulesOf(active);
   const alliesStressAnn = activeRules.alliesStress;
   const allies = alliesStressAnn === undefined ? null : readAreaHeroes(combat.allies, "所有队友");

@@ -36,6 +36,7 @@ export function upgradeLegacyCatalogRules(
   snapshot: unknown,
   replay: unknown,
   equal: (old: unknown, current: unknown) => boolean,
+  legacyIds: boolean,
 ): unknown {
   const upgradeRows = (old: unknown, current: unknown): unknown => {
     if (!Array.isArray(old) || !Array.isArray(current) || old.length !== current.length) return old;
@@ -47,6 +48,14 @@ export function upgradeLegacyCatalogRules(
     const after = record(current);
     if (!before || !after || before.id !== after.id || before.name !== after.name) return old;
     const supplied = record(before.rules);
+    if (!legacyIds) {
+      const verified = record(after.rules);
+      if (!supplied || !verified || "directAttack" in supplied || !("directAttack" in verified))
+        return old;
+      const { directAttack: _attack, ...previousRules } = verified;
+      void _attack;
+      return equal(supplied, previousRules) ? { ...before, rules: verified } : old;
+    }
     if (
       "rules" in before &&
       (!supplied ||
@@ -86,10 +95,21 @@ export function upgradeLegacyCatalogRules(
       skills: upgradeRows,
       monsters: upgradeRows,
     });
-  return upgradeFields(snapshot, replay, {
-    dungeon: (old, current) =>
-      upgradeFields(old, current, { battleCatalog: catalog, resolveCards: upgradeRows }),
-    battle: (old, current) =>
-      upgradeFields(catalog(old, current), current, { resolveCards: upgradeRows }),
-  });
+  const upgradeBattle = (old: unknown, current: unknown): unknown =>
+    upgradeFields(catalog(old, current), current, {
+      resolveCards: upgradeRows,
+      skillPrefix: (old, current) => upgradeFields(old, current, { original: upgradeBattle }),
+      pending: (old, current) =>
+        upgradeFields(old, current, {
+          prefix: (old, current) => upgradeFields(old, current, { original: upgradeBattle }),
+        }),
+    });
+  const upgradeGame = (old: unknown, current: unknown): unknown =>
+    upgradeFields(old, current, {
+      dungeon: (old, current) =>
+        upgradeFields(old, current, { battleCatalog: catalog, resolveCards: upgradeRows }),
+      battle: upgradeBattle,
+      trinketChoice: (old, current) => upgradeFields(old, current, { original: upgradeGame }),
+    });
+  return upgradeGame(snapshot, replay);
 }

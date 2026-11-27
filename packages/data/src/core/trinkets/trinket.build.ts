@@ -2,7 +2,8 @@ import type { TrinketCard, TrinketFile } from "../../shared/extract/parsed";
 import type { RawFile } from "../../shared/extract/raw";
 import { finishVerification, resolveLines } from "../../shared/icons";
 import type { IconLookup } from "../../shared/icons";
-import { TRINKET_RULES } from "./trinket-rules";
+import { TRINKET_RULES, isStatusCharm } from "./trinket-rules";
+import { matchesCoreTrinketPrint } from "./core-trinket-bindings";
 import type { NormalizedTrinketFile } from "../../shared/schema";
 import { normalizedTrinketFileSchema } from "../../shared/schema";
 import {
@@ -31,7 +32,7 @@ export function buildTrinkets(
       printed_rotation: source.printed_rotation,
     });
     const rules = TRINKET_RULES.find((entry) => entry.id === card.id);
-    return {
+    const normalized = {
       id: card.id,
       pages: card.pages,
       copies: card.copies,
@@ -46,6 +47,9 @@ export function buildTrinkets(
       issues: card.issues,
       verification: finishVerification(reasons),
     };
+    if (isStatusCharm(normalized.id) && !matchesCoreTrinketPrint(normalized, normalized.id))
+      throw new Error(normalized.id + " 状态饰品效果词条与已核卡面不符（R-048）");
+    return normalized;
   });
   return normalizedTrinketFileSchema.parse({
     schema: "ddbg-normalized-v0",

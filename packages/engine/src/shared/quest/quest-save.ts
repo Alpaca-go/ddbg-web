@@ -292,13 +292,12 @@ export function loadQuestSave(
     throw new Error("存档声明的战役等级与回放不一致；未替换当前进度");
   const restoredKey = canonicalReplay(restored.game, legacySave);
   const snapshot = upgradeFundraiserPrompt(
-    oldIds
-      ? upgradeLegacyCatalogRules(
-          save.snapshot,
-          restored.game,
-          (a, b) => canonical(a) === canonical(b),
-        )
-      : save.snapshot,
+    upgradeLegacyCatalogRules(
+      save.snapshot,
+      restored.game,
+      (a, b) => canonical(a) === canonical(b),
+      oldIds,
+    ),
   );
   let snapshotKey = canonical(
     upgradeFallenHeroSnapshot(upgradeNomadPrompt(snapshot, restored.game), restored.game),

@@ -1738,6 +1738,79 @@ it("流血护符反面：选择缩短正在施加的一个条件，不缩短所�
   expect(bleed(paid.state)).toBe(bleed(skip.state) - 1);
   expect(paid.state.battle!.trinkets!.held[0]!.face).toBe("upright");
 });
+
+it("If It Bleeds 与 Bleed Charm 移除录入字段后，重放同一命令得到相同的流血", () => {
+  const skillId = "hero_skill:core:h02:p031";
+  const cardId = "trinket:p003";
+  const { state, command } = fixture(
+    [cardId],
+    "aggressive",
+    skillId,
+    "upright",
+    7,
+    "monster_medium:p024",
+  );
+  const battle = state.battle!;
+  const skill = battle.skills.find((entry) => entry.id === skillId)!;
+  const { directAttack, ...legacyRules } = skill.rules!;
+  expect(directAttack).toBeDefined();
+  const metadataFreeSkill = {
+    ...skill,
+    rules: { directAttack: directAttack! },
+    stats_line: null,
+    printed_labels: [],
+    unlabeled_numbers: [],
+    effect_lines: [],
+    front_icons: [],
+    top_row_icons: [],
+  };
+  const cleanPool = {
+    ...battle.trinkets!,
+    cards: battle.trinkets!.cards.map((card) =>
+      card.id === cardId
+        ? {
+            ...card,
+            front_icons: [],
+            back_icons: [],
+            upright_half: { ...card.upright_half, effect_lines: [] },
+            inverted_half: { ...card.inverted_half, effect_lines: [] },
+          }
+        : card,
+    ),
+  };
+  const run = (starting: GameState) => {
+    const result = choose(ok(applyCommand(starting, { ...command, allTrinkets: true })), cardId);
+    return {
+      entities: result.state.battle!.entities,
+      held: result.state.battle!.trinkets!.held,
+      rng: result.state.battle!.rngCursor,
+      events: result.events,
+    };
+  };
+  const legacy = run({
+    ...state,
+    battle: {
+      ...battle,
+      skills: battle.skills.map((entry) =>
+        entry.id === skillId ? { ...skill, rules: legacyRules } : entry,
+      ),
+    },
+  });
+  const noPrint = {
+    ...state,
+    battle: {
+      ...battle,
+      skills: battle.skills.map((entry) => (entry.id === skillId ? metadataFreeSkill : entry)),
+      trinkets: cleanPool,
+    },
+  };
+  expect(run(noPrint)).toEqual(legacy);
+  expect(run(JSON.parse(JSON.stringify(noPrint)))).toEqual(legacy);
+  expect(legacy.entities.find((entry) => entry.id === "m")!.statusStacks).toEqual([
+    { kind: "bleed", amount: 2, remaining: 2 },
+    { kind: "bleed", amount: 2, remaining: 2 },
+  ]);
+});
 it.each([
   ["trinket:p015", "bleed"],
   ["trinket:p019", "stun"],

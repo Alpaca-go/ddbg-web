@@ -3,6 +3,11 @@ import {
   matchesCoreTrinketPrint,
 } from "../../../../data/src/core/trinkets/core-trinket-bindings";
 import type { CoreTrinketId } from "../../../../data/src/core/trinkets/core-trinket-bindings";
+import {
+  STATUS_CHARM_RULES,
+  isStatusCharm,
+} from "../../../../data/src/core/trinkets/trinket-rules";
+import { EFFECTS } from "../../../../data/src/shared/effects";
 import type { ApplyResult, Command, GameState, PendingChoice, GameEvent } from "../core/command";
 import type { BattleState } from "../battle/battle";
 import type { DungeonState } from "../dungeon/dungeon";
@@ -98,7 +103,13 @@ export function availableTrinket(
   );
   if (problem) throw new InvalidTrinket(problem);
   const card = pool.cards.find((card) => card.id === id);
-  if (!card || !matchesCoreTrinketPrint(card, id))
+  if (
+    !card ||
+    (isStatusCharm(id)
+      ? card.name !== CORE_TRINKET_BINDINGS[id].name ||
+        card.level !== CORE_TRINKET_BINDINGS[id].level
+      : !matchesCoreTrinketPrint(card, id))
+  )
     throw new InvalidTrinket("饰品卡面变化（R-048）：" + CORE_TRINKET_BINDINGS[id].name);
   return true;
 }
@@ -126,15 +137,10 @@ export function statusCharmReaction(
 ): readonly StatusEffect[] {
   if (!b.trinketRuntime) return effects;
   let next = [...effects];
-  const fronts = [
-    ["trinket:p003", { kind: "bleed", amount: 2, duration: 2 }],
-    ["trinket:p004", { kind: "blight", amount: 2, duration: 2 }],
-    ["trinket:p008", { kind: "debuff", duration: 2 }],
-    ["trinket:p011", { kind: "stun", duration: 1 }],
-  ] as const;
+  const fronts = Object.keys(STATUS_CHARM_RULES).filter(isStatusCharm);
   while (true) {
     const options: Offer[] = [];
-    for (const [id] of fronts) {
+    for (const id of fronts) {
       if (scope === "target" && hit && availableTrinket(b, actorId, id, "upright"))
         options.push({ id, label: CORE_TRINKET_BINDINGS[id].name + "：追加状态到 " + targetId });
       if (availableTrinket(b, actorId, id, "inverted"))
@@ -155,13 +161,14 @@ export function statusCharmReaction(
       options,
     );
     if (chosen === "continue") return next;
-    const entry = fronts.find(([id]) => chosen === id || chosen.startsWith(id + ":"))!;
-    const id = entry[0];
-    if (chosen === id) next.push({ ...entry[1] });
+    const id = fronts.find((id) => chosen === id || chosen.startsWith(id + ":"))!;
+    if (chosen === id) next.push({ ...STATUS_CHARM_RULES[id] });
     else {
       const i = Number(chosen.slice(id.length + 1));
       next = next
-        .map((e, n) => (n === i ? { ...e, duration: e.duration - 1 } : e))
+        .map((e, n) =>
+          n === i ? { ...e, duration: e.duration - EFFECTS.shortenCondition.turns } : e,
+        )
         .filter((e) => e.duration > 0);
     }
     spendTrinket(b, actorId, id);

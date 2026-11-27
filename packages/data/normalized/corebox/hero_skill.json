@@ -13485,6 +13485,30 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 9,
+      "damage": 5
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 8
+     },
+     "onHit": [
+      {
+       "kind": "bleed",
+       "duration": 2,
+       "amount": 2
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -13964,6 +13988,30 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 10,
+      "damage": 6
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 11
+     },
+     "onHit": [
+      {
+       "kind": "bleed",
+       "duration": 3,
+       "amount": 3
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -14443,6 +14491,30 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 10,
+      "damage": 8
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 15
+     },
+     "onHit": [
+      {
+       "kind": "bleed",
+       "duration": 3,
+       "amount": 4
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,

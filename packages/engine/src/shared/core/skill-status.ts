@@ -22,6 +22,24 @@ export function readVerifiedStatusEffects(
       readonly selfShuffle: SkillShuffle | null;
       readonly targetShuffle: SkillShuffle | null;
     } {
+  const direct = skill.rules?.directAttack;
+  if (direct)
+    return {
+      status: "resolved",
+      self: [],
+      target: direct.onHit.map(({ kind, duration, amount }) => ({
+        kind,
+        duration,
+        ...(amount === undefined ? {} : { amount }),
+      })),
+      lineCount: Number(direct.onHit.length > 0),
+      selfLight: 0,
+      targetLight: 0,
+      selfRemove: false,
+      targetRemove: false,
+      selfShuffle: null,
+      targetShuffle: null,
+    };
   const self: StatusEffect[] = [];
   const target: StatusEffect[] = [];
   const groups = new Map<number, NonNullable<SkillRules["statuses"]>[number][]>();

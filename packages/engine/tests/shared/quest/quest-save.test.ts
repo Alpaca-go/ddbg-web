@@ -67,6 +67,39 @@ it("旧房间族与英雄卡 ID 在严格回放前升级，重存只写 canonica
   expect(() => roundTrip(legacy)).toThrow(/快照与回放不一致/);
 });
 
+it("效果词条迁移前的存档按当前规则恢复，其他快照字段仍需完全一致", () => {
+  const previousSources = {
+    ...coreQuestSources,
+    catalog: {
+      ...coreQuestSources.catalog,
+      skills: coreQuestSources.catalog.skills.map((card) => {
+        if (!card.rules?.directAttack) return card;
+        const { directAttack: _attack, ...rules } = card.rules;
+        void _attack;
+        return { ...card, rules };
+      }),
+    },
+  };
+  const command = { type: "rollDungeonProvisions" } as const;
+  const previous = createCoreDungeonQuest(
+    start.seed,
+    start.questId,
+    start.mode,
+    start.party,
+    previousSources,
+  );
+  const old = createQuestSave(
+    start,
+    [command],
+    applyCommand(previous, command).state,
+    previousSources,
+  );
+  expect(roundTrip(old).game).toEqual(applyCommand(initial(), command).state);
+  expect(() =>
+    roundTrip({ ...old, snapshot: { ...(old.snapshot as GameState), seed: 999 } }),
+  ).toThrow(/快照与回放不一致/);
+});
+
 it("技能光照顺序保留新旧起点，旧快照严格回放", () => {
   const fresh = initial();
   const { skillLightBeforeCrit: _newOrder, ...old } = fresh;
