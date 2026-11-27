@@ -1,3 +1,4 @@
+import type { DirectAttackEntry } from "./types";
 import { printIcon } from "../../../shared/print-icons";
 import type {
   HeroAnnotationEntries,
@@ -798,13 +799,41 @@ const fixes: readonly SkillCorrection[] = [
   },
 ];
 
+const directAttackEntries: readonly DirectAttackEntry[] = [
+  {
+    id: "hero_skill:warrens:h15:p295",
+    name: "Nervous Stab",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    monsterTargets: 1,
+    hit: { threshold: 9, damage: 4 },
+    critical: { threshold: 1, damage: 6 },
+  },
+  {
+    id: "hero_skill:warrens:h15:p296",
+    name: "Nervous Stab",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    monsterTargets: 1,
+    hit: { threshold: 10, damage: 6 },
+    critical: { threshold: 1, damage: 9 },
+  },
+  {
+    id: "hero_skill:warrens:h15:p297",
+    name: "Nervous Stab",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    monsterTargets: 1,
+    hit: { threshold: 11, damage: 7 },
+    critical: { threshold: 1, damage: 10 },
+  },
+];
+
 const entries: HeroAnnotationEntries = {
+  directAttack: directAttackEntries,
   status: statusEntries,
   shuffle: shuffleEntries,
   targetCount: [
-    { id: "hero_skill:warrens:h15:p295", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:warrens:h15:p296", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:warrens:h15:p297", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:warrens:h15:p298", hero: 0, monster: 2, heroOrMonster: 0 },
     { id: "hero_skill:warrens:h15:p299", hero: 0, monster: 2, heroOrMonster: 0 },
     { id: "hero_skill:warrens:h15:p300", hero: 0, monster: 2, heroOrMonster: 0 },
@@ -819,9 +848,6 @@ const entries: HeroAnnotationEntries = {
     { id: "hero_skill:warrens:h15:p309", hero: 1, monster: 0, heroOrMonster: 0 },
   ],
   effectKind: [
-    { id: "hero_skill:warrens:h15:p295", effect: "damage" },
-    { id: "hero_skill:warrens:h15:p296", effect: "damage" },
-    { id: "hero_skill:warrens:h15:p297", effect: "damage" },
     { id: "hero_skill:warrens:h15:p298", effect: "damage" },
     { id: "hero_skill:warrens:h15:p299", effect: "damage" },
     { id: "hero_skill:warrens:h15:p300", effect: "damage" },

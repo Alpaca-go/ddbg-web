@@ -6,8 +6,113 @@ import { trinketBattle } from "../../helpers/trinket-battle";
 import { coreQuestSources } from "../../helpers/core-quest";
 
 const reviewed = coreQuestSources.catalog.skills.filter((card) => card.rules?.directAttack);
-it("十四组已核准的攻击各发布三个等级的独立规则", () => {
-  expect(reviewed).toHaveLength(42);
+const basicAttacks = reviewed.filter(({ name }) =>
+  ["Wicked Hack", "Iron Swan", "Wicked Slice", "Crush", "Chop", "Hew", "Nervous Stab"].includes(
+    name!,
+  ),
+);
+
+it("七组基础直攻各发布三个等级的独立规则", () => {
+  expect(basicAttacks).toHaveLength(21);
+  for (const name of new Set(basicAttacks.map((card) => card.name))) {
+    expect(basicAttacks.filter((card) => card.name === name).map((card) => card.level)).toEqual([
+      1, 2, 3,
+    ]);
+  }
+});
+
+it.each(basicAttacks)("$id 的公开命令只需核准规则，非法规则原子拒绝", (card) => {
+  const { directAttack: attack, ...legacyRules } = card.rules!;
+  const { state, command } = trinketBattle(
+    ["trinket:p001"],
+    attack!.stances.at(-1),
+    card.id,
+    "upright",
+    7,
+    "monster_medium:p024",
+  );
+  const battle = state.battle!;
+  const stat = coreQuestSources.catalog.heroStats.find(
+    (entry) => entry.name === card.hero && entry.level === card.level,
+  )!;
+  const entities = battle.entities.map((entity) => {
+    if (entity.id === command.actorId)
+      return { ...entity, heroStatId: stat.id, heroLevel: stat.level, life: stat.life };
+    if (entity.side === "monster" && attack!.range === 0) return { ...entity, areaId: "a" };
+    if (entity.side === "monster" && attack!.range === 2) return { ...entity, areaId: "c" };
+    return entity;
+  });
+  const areas =
+    attack!.range === 2
+      ? [
+          ...battle.areas.map((area) =>
+            area.id === "b" ? { ...area, adjacent: [...area.adjacent, "c"] } : area,
+          ),
+          { id: "c", adjacent: ["b"], elevation: "normal" as const, capacity: 8 },
+        ]
+      : battle.areas;
+  const fixture = (skill: typeof card) => ({
+    ...state,
+    battle: {
+      ...battle,
+      areas,
+      entities,
+      skills: battle.skills.map((entry) => (entry.id === card.id ? skill : entry)),
+    },
+  });
+  const stripped = {
+    ...card,
+    rules: { directAttack: attack! },
+    printed_labels: [],
+    unlabeled_numbers: [],
+    stats_line: null,
+    effect_lines: [],
+    top_row_icons: [],
+    name_row_icons: [],
+    front_icons: [],
+    back_icons: [],
+  };
+  const play =
+    attack!.monsterTargets === 1
+      ? command
+      : {
+          type: "playHeroSkillTargets" as const,
+          actorId: command.actorId,
+          trinketWindow: command.trinketWindow!,
+          skillId: card.id,
+          targetIds: ["m", "m2"],
+        };
+  const legacy = applyCommand(fixture({ ...card, rules: legacyRules }), play);
+  const migrated = applyCommand(fixture(stripped), play);
+  expect(legacy.events.filter(({ type }) => type === "commandRefused")).toEqual([]);
+  expect(legacy.pendingChoice?.options.map(({ id }) => id)).toContain("trinket:p001");
+  const compare = (oldResult: typeof legacy, newResult: typeof migrated) =>
+    expect(newResult).toEqual({
+      ...oldResult,
+      state: {
+        ...oldResult.state,
+        battle: { ...oldResult.state.battle!, skills: fixture(stripped).battle.skills },
+      },
+    });
+  compare(legacy, migrated);
+  const choice = {
+    type: "resolveChoice",
+    choiceId: legacy.pendingChoice!.id,
+    optionId: "trinket:p001",
+  } as const;
+  const resolved = applyCommand(migrated.state, choice);
+  compare(applyCommand(legacy.state, choice), resolved);
+  expect(resolved.events.some(({ type }) => type === "commandRefused")).toBe(false);
+  expect(resolved.state.battle!.rngCursor).toBe(battle.rngCursor + 1);
+  const { hit: _hit, ...missingHit } = attack!;
+  void _hit;
+  for (const directAttack of [missingHit as typeof attack, { ...attack!, range: -1 }]) {
+    const invalid = fixture({ ...stripped, rules: { directAttack: directAttack! } });
+    const refused = applyCommand(invalid, play);
+    expect(refused.events.some(({ type }) => type === "commandRefused")).toBe(true);
+    expect(refused.state).toEqual(invalid);
+    expect(refused.pendingChoice).toBeUndefined();
+  }
 });
 
 it("直接攻击在空区域仍掷骰，且保留 Accuracy Stone 的使用窗口", () => {

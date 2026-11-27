@@ -10432,6 +10432,23 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 0,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 9,
+      "damage": 7
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 12
+     },
+     "onHit": []
+    },
     "targets": {
      "hero": 0,
      "monster": 1,
@@ -10802,6 +10819,23 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 0,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 10,
+      "damage": 9
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 17
+     },
+     "onHit": []
+    },
     "targets": {
      "hero": 0,
      "monster": 1,
@@ -11172,6 +11206,23 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 0,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 11,
+      "damage": 11
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 20
+     },
+     "onHit": []
+    },
     "targets": {
      "hero": 0,
      "monster": 1,
@@ -11531,6 +11582,22 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "aggressive"
+     ],
+     "range": 2,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 9,
+      "damage": 7
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 12
+     },
+     "onHit": []
+    },
     "targets": {
      "hero": 0,
      "monster": 1,
@@ -11901,6 +11968,22 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "aggressive"
+     ],
+     "range": 2,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 10,
+      "damage": 9
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 17
+     },
+     "onHit": []
+    },
     "targets": {
      "hero": 0,
      "monster": 1,
@@ -12271,6 +12354,22 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "aggressive"
+     ],
+     "range": 2,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 11,
+      "damage": 11
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 21
+     },
+     "onHit": []
+    },
     "targets": {
      "hero": 0,
      "monster": 1,
@@ -30268,6 +30367,24 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 0,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 9,
+      "damage": 7
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 11
+     },
+     "onHit": []
+    },
     "targets": {
      "hero": 0,
      "monster": 1,
@@ -30638,6 +30755,24 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 0,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 10,
+      "damage": 9
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 14
+     },
+     "onHit": []
+    },
     "targets": {
      "hero": 0,
      "monster": 1,
@@ -31008,6 +31143,24 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 0,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 11,
+      "damage": 11
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 17
+     },
+     "onHit": []
+    },
     "targets": {
      "hero": 0,
      "monster": 1,
@@ -113447,6 +113600,23 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 7,
+      "damage": 12
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 17
+     },
+     "onHit": []
+    },
     "targets": {
      "hero": 0,
      "monster": 1,
@@ -113839,6 +114009,23 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 8,
+      "damage": 15
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 22
+     },
+     "onHit": []
+    },
     "targets": {
      "hero": 0,
      "monster": 1,
@@ -114231,6 +114418,23 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 9,
+      "damage": 18
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 27
+     },
+     "onHit": []
+    },
     "targets": {
      "hero": 0,
      "monster": 1,
@@ -114641,6 +114845,23 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "monsterTargets": 2,
+     "hit": {
+      "threshold": 7,
+      "damage": 6
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 9
+     },
+     "onHit": []
+    },
     "targets": {
      "hero": 0,
      "monster": 2,
@@ -115062,6 +115283,23 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "monsterTargets": 2,
+     "hit": {
+      "threshold": 8,
+      "damage": 8
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 12
+     },
+     "onHit": []
+    },
     "targets": {
      "hero": 0,
      "monster": 2,
@@ -115483,6 +115721,23 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "monsterTargets": 2,
+     "hit": {
+      "threshold": 9,
+      "damage": 10
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 16
+     },
+     "onHit": []
+    },
     "targets": {
      "hero": 0,
      "monster": 2,
@@ -123762,6 +124017,25 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 9,
+      "damage": 4
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 6
+     },
+     "onHit": []
+    },
     "targets": {
      "hero": 0,
      "monster": 1,
@@ -124154,6 +124428,25 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 10,
+      "damage": 6
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 9
+     },
+     "onHit": []
+    },
     "targets": {
      "hero": 0,
      "monster": 1,
@@ -124546,6 +124839,25 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 11,
+      "damage": 7
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 10
+     },
+     "onHit": []
+    },
     "targets": {
      "hero": 0,
      "monster": 1,
@@ -135012,6 +135324,23 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 8,
+      "damage": 7
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 10
+     },
+     "onHit": []
+    },
     "targets": {
      "hero": 0,
      "monster": 1,
@@ -135404,6 +135733,23 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 9,
+      "damage": 9
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 14
+     },
+     "onHit": []
+    },
     "targets": {
      "hero": 0,
      "monster": 1,
@@ -135796,6 +136142,23 @@
     }
    ],
    "rules": {
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 10,
+      "damage": 11
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 16
+     },
+     "onHit": []
+    },
     "targets": {
      "hero": 0,
      "monster": 1,

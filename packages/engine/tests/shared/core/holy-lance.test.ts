@@ -15,6 +15,8 @@ const skills = JSON.parse(
   ),
 ).cards as HeroSkillCardView[];
 const lance = skills.find((c) => c.id === "hero_skill:core:h01:p016")!;
+const { directAttack: _directAttack, ...legacyLanceRules } = lance.rules!;
+void _directAttack;
 const monsters = JSON.parse(
   readFileSync(
     new URL("../../../../data/normalized/corebox/monster_medium.json", import.meta.url),
@@ -221,7 +223,7 @@ describe("Holy Lance I 完整效果（SKILLS_FRONT p16、R20–21、R-017 / R-02
       },
     };
     expect(applyCommand(human, play).events[0]).toMatchObject({ resolution: { damageDealt: 7 } });
-    const { damage: _bonus, ...rules } = lance.rules!;
+    const { damage: _bonus, ...rules } = legacyLanceRules;
     void _bonus;
     const legacy = { ...lance, rules };
     expect(lance.rules?.damage).toBeDefined();
@@ -279,7 +281,7 @@ describe("Holy Lance I 完整效果（SKILLS_FRONT p16、R20–21、R-017 / R-02
         resolveHeroSkill(
           {
             ...lance,
-            rules: { ...lance.rules, damage: { ...lance.rules!.damage!, amount } },
+            rules: { ...legacyLanceRules, damage: { ...legacyLanceRules.damage!, amount } },
           },
           { ...combat, target: { ...combat.target, monsterTypeTags: ["Unholy"] } },
           2,

@@ -1,3 +1,4 @@
+import type { DirectAttackEntry } from "./types";
 import { printIcon } from "../../../shared/print-icons";
 import type { HeroAnnotationEntries, ShuffleEntry, SkillCorrection } from "./types";
 import { defineHeroModule } from "./patch-helpers";
@@ -555,12 +556,40 @@ const fixes: readonly SkillCorrection[] = [
   },
 ];
 
+const directAttackEntries: readonly DirectAttackEntry[] = [
+  {
+    id: "hero_skill:cove:h12:p232",
+    name: "Crush",
+    stances: ["defensive", "aggressive"],
+    range: 1,
+    monsterTargets: 1,
+    hit: { threshold: 8, damage: 7 },
+    critical: { threshold: 1, damage: 10 },
+  },
+  {
+    id: "hero_skill:cove:h12:p233",
+    name: "Crush",
+    stances: ["defensive", "aggressive"],
+    range: 1,
+    monsterTargets: 1,
+    hit: { threshold: 9, damage: 9 },
+    critical: { threshold: 1, damage: 14 },
+  },
+  {
+    id: "hero_skill:cove:h12:p234",
+    name: "Crush",
+    stances: ["defensive", "aggressive"],
+    range: 1,
+    monsterTargets: 1,
+    hit: { threshold: 10, damage: 11 },
+    critical: { threshold: 1, damage: 16 },
+  },
+];
+
 const entries: HeroAnnotationEntries = {
+  directAttack: directAttackEntries,
   shuffle: shuffleEntries,
   targetCount: [
-    { id: "hero_skill:cove:h12:p232", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h12:p233", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:cove:h12:p234", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:cove:h12:p235", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:cove:h12:p236", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:cove:h12:p237", hero: 0, monster: 1, heroOrMonster: 0 },
@@ -578,9 +607,6 @@ const entries: HeroAnnotationEntries = {
     { id: "hero_skill:cove:h12:p252", hero: 3, monster: 0, heroOrMonster: 0 },
   ],
   effectKind: [
-    { id: "hero_skill:cove:h12:p232", effect: "damage" },
-    { id: "hero_skill:cove:h12:p233", effect: "damage" },
-    { id: "hero_skill:cove:h12:p234", effect: "damage" },
     { id: "hero_skill:cove:h12:p235", effect: "damage" },
     { id: "hero_skill:cove:h12:p236", effect: "damage" },
     { id: "hero_skill:cove:h12:p237", effect: "damage" },

@@ -125,6 +125,76 @@ it("十字军直攻迁移前的任务日志含 Smite 和 Zealous Accusation，�
   expect(previous.events).toEqual(current.events);
 }, 120000);
 
+it("第 1 组迁移前的目录与 Iron Swan 实战日志严格重放", () => {
+  const skillId = "hero_skill:core:h02:p025";
+  const previousSources = {
+    ...coreQuestSources,
+    catalog: {
+      ...coreQuestSources.catalog,
+      skills: coreQuestSources.catalog.skills.map((card) => {
+        const attack = card.rules?.directAttack;
+        if (
+          !attack ||
+          attack.onHit.length ||
+          attack.damageBonus ||
+          attack.selfShuffle ||
+          card.name === "Zealous Accusation"
+        )
+          return card;
+        const { directAttack: _attack, ...rules } = card.rules!;
+        void _attack;
+        return { ...card, rules };
+      }),
+    },
+  };
+  const party = naturalParty.map((hero, index) => {
+    if (index === 0) return { ...hero, stance: "defensive" as const };
+    if (index === 1)
+      return {
+        ...hero,
+        stance: "aggressive" as const,
+        skillIds: [skillId, ...hero.skillIds.slice(1)],
+      };
+    return hero;
+  });
+  const questStart = { ...start, seed: 3, party };
+  const run = (sources: typeof coreQuestSources) =>
+    naturalQuest(questStart.seed, questStart.questId, true, sources, 2, {
+      continueFrom: createCoreDungeonQuest(
+        questStart.seed,
+        questStart.questId,
+        questStart.mode,
+        party,
+        sources,
+      ),
+      heroAction(game) {
+        const turn = game.battle?.encounter?.turn;
+        if (turn?.type !== "hero" || turn.actorId !== "hero-1") return;
+        for (const target of game.battle!.entities.filter(
+          (entry) => entry.side === "monster" && !entry.dead,
+        )) {
+          const play = {
+            type: "playHeroSkill",
+            actorId: turn.actorId,
+            skillId,
+            targetId: target.id,
+          } as const;
+          if (applyCommand(game, play).events.every(({ type }) => type !== "commandRefused"))
+            return play;
+        }
+      },
+    });
+  const old = run(previousSources);
+  expect(
+    old.commands.some((command) => command.type === "playHeroSkill" && command.skillId === skillId),
+  ).toBe(true);
+  const restored = roundTrip(createQuestSave(questStart, old.commands, old.state, previousSources));
+  const current = run(coreQuestSources);
+  expect(restored.commands).toEqual(current.commands);
+  expect(restored.game).toEqual(current.state);
+  expect(old.events).toEqual(current.events);
+}, 120000);
+
 it.each([
   ["Holy Lance", "hero_skill:core:h01:p016", "hero-0"],
   ["Breakthrough", "hero_skill:core:h02:p034", "hero-1"],

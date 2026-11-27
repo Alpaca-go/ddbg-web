@@ -1,3 +1,4 @@
+import type { DirectAttackEntry } from "./types";
 import { printIcon } from "../../../shared/print-icons";
 import type {
   HeroAnnotationEntries,
@@ -573,17 +574,69 @@ const fixes: readonly SkillCorrection[] = [
   },
 ];
 
+const directAttackEntries: readonly DirectAttackEntry[] = [
+  {
+    id: "hero_skill:warrens:h14:p274",
+    name: "Chop",
+    stances: ["defensive", "aggressive"],
+    range: 1,
+    monsterTargets: 1,
+    hit: { threshold: 7, damage: 12 },
+    critical: { threshold: 1, damage: 17 },
+  },
+  {
+    id: "hero_skill:warrens:h14:p275",
+    name: "Chop",
+    stances: ["defensive", "aggressive"],
+    range: 1,
+    monsterTargets: 1,
+    hit: { threshold: 8, damage: 15 },
+    critical: { threshold: 1, damage: 22 },
+  },
+  {
+    id: "hero_skill:warrens:h14:p276",
+    name: "Chop",
+    stances: ["defensive", "aggressive"],
+    range: 1,
+    monsterTargets: 1,
+    hit: { threshold: 9, damage: 18 },
+    critical: { threshold: 1, damage: 27 },
+  },
+  {
+    id: "hero_skill:warrens:h14:p277",
+    name: "Hew",
+    stances: ["defensive", "aggressive"],
+    range: 1,
+    monsterTargets: 2,
+    hit: { threshold: 7, damage: 6 },
+    critical: { threshold: 0, damage: 9 },
+  },
+  {
+    id: "hero_skill:warrens:h14:p278",
+    name: "Hew",
+    stances: ["defensive", "aggressive"],
+    range: 1,
+    monsterTargets: 2,
+    hit: { threshold: 8, damage: 8 },
+    critical: { threshold: 0, damage: 12 },
+  },
+  {
+    id: "hero_skill:warrens:h14:p279",
+    name: "Hew",
+    stances: ["defensive", "aggressive"],
+    range: 1,
+    monsterTargets: 2,
+    hit: { threshold: 9, damage: 10 },
+    critical: { threshold: 0, damage: 16 },
+  },
+];
+
 const entries: HeroAnnotationEntries = {
+  directAttack: directAttackEntries,
   status: statusEntries,
   shuffle: shuffleEntries,
   ignores: ignoresEntries,
   targetCount: [
-    { id: "hero_skill:warrens:h14:p274", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:warrens:h14:p275", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:warrens:h14:p276", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:warrens:h14:p277", hero: 0, monster: 2, heroOrMonster: 0 },
-    { id: "hero_skill:warrens:h14:p278", hero: 0, monster: 2, heroOrMonster: 0 },
-    { id: "hero_skill:warrens:h14:p279", hero: 0, monster: 2, heroOrMonster: 0 },
     { id: "hero_skill:warrens:h14:p280", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:warrens:h14:p281", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:warrens:h14:p282", hero: 0, monster: 1, heroOrMonster: 0 },
@@ -601,12 +654,6 @@ const entries: HeroAnnotationEntries = {
     { id: "hero_skill:warrens:h14:p294", hero: 0, monster: 1, heroOrMonster: 0 },
   ],
   effectKind: [
-    { id: "hero_skill:warrens:h14:p274", effect: "damage" },
-    { id: "hero_skill:warrens:h14:p275", effect: "damage" },
-    { id: "hero_skill:warrens:h14:p276", effect: "damage" },
-    { id: "hero_skill:warrens:h14:p277", effect: "damage" },
-    { id: "hero_skill:warrens:h14:p278", effect: "damage" },
-    { id: "hero_skill:warrens:h14:p279", effect: "damage" },
     { id: "hero_skill:warrens:h14:p280", effect: "damage" },
     { id: "hero_skill:warrens:h14:p281", effect: "damage" },
     { id: "hero_skill:warrens:h14:p282", effect: "damage" },

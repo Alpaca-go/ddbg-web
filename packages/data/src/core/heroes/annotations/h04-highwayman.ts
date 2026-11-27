@@ -369,6 +369,33 @@ const sameAreaMelee: DirectAttackFace = {
 
 const directAttackEntries: readonly DirectAttackEntry[] = [
   {
+    id: "hero_skill:core:h04:p064",
+    name: "Wicked Slice",
+    stances: ["ranged", "defensive", "aggressive"],
+    range: 0,
+    monsterTargets: 1,
+    hit: { threshold: 9, damage: 7 },
+    critical: { threshold: 1, damage: 11 },
+  },
+  {
+    id: "hero_skill:core:h04:p065",
+    name: "Wicked Slice",
+    stances: ["ranged", "defensive", "aggressive"],
+    range: 0,
+    monsterTargets: 1,
+    hit: { threshold: 10, damage: 9 },
+    critical: { threshold: 1, damage: 14 },
+  },
+  {
+    id: "hero_skill:core:h04:p066",
+    name: "Wicked Slice",
+    stances: ["ranged", "defensive", "aggressive"],
+    range: 0,
+    monsterTargets: 1,
+    hit: { threshold: 11, damage: 11 },
+    critical: { threshold: 1, damage: 17 },
+  },
+  {
     id: "hero_skill:core:h04:p082",
     name: "Open Vein",
     ...sameAreaMelee,
@@ -398,9 +425,6 @@ const entries: HeroAnnotationEntries = {
   damage: damageEntries,
   shuffle: shuffleEntries,
   targetCount: [
-    { id: "hero_skill:core:h04:p064", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:core:h04:p065", hero: 0, monster: 1, heroOrMonster: 0 },
-    { id: "hero_skill:core:h04:p066", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:core:h04:p067", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:core:h04:p068", hero: 0, monster: 1, heroOrMonster: 0 },
     { id: "hero_skill:core:h04:p069", hero: 0, monster: 1, heroOrMonster: 0 },
@@ -418,9 +442,6 @@ const entries: HeroAnnotationEntries = {
     { id: "hero_skill:core:h04:p081", hero: 0, monster: 1, heroOrMonster: 0 },
   ],
   effectKind: [
-    { id: "hero_skill:core:h04:p064", effect: "damage" },
-    { id: "hero_skill:core:h04:p065", effect: "damage" },
-    { id: "hero_skill:core:h04:p066", effect: "damage" },
     { id: "hero_skill:core:h04:p067", effect: "damage" },
     { id: "hero_skill:core:h04:p068", effect: "damage" },
     { id: "hero_skill:core:h04:p069", effect: "damage" },
