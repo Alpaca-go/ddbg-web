@@ -9,6 +9,7 @@ import { playHeroSkillTargets } from "./battle-hero-targets";
 import type { PlayHeroSkillTargetsCommand } from "./battle-hero-targets";
 import type { ApplyResult, GameState } from "../core/command";
 import type { HeroSkillResolution, SkillStance } from "../../core/heroes/hero-skill";
+import { hasHeroSkillRoll } from "../../core/heroes/hero-skill";
 import type { HeroTrinketAttack } from "./battle-trinket-ability";
 import { nextBattleRoll } from "./battle-roll";
 import { trinketPoolProblem } from "../trinkets/trinket-acquisition";
@@ -356,11 +357,9 @@ function readOffers(
 
     if (
       !rule.damage &&
-      !skill.printed_labels.some((l) =>
-        rule.freeInverted
-          ? l.label === "Crit" || l.label === "Acc"
-          : l.label === (item.face === "upright" && rule.crit ? "Crit" : "Acc"),
-      )
+      !(rule.freeInverted
+        ? hasHeroSkillRoll(skill, "Crit") || hasHeroSkillRoll(skill, "Acc")
+        : hasHeroSkillRoll(skill, item.face === "upright" && rule.crit ? "Crit" : "Acc"))
     )
       continue;
     offers.push({

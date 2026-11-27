@@ -9,6 +9,7 @@ import type {
   HeroSkillResolution,
   SkillCombatState,
 } from "../../core/heroes/hero-skill";
+import { hasHeroSkillRoll } from "../../core/heroes/hero-skill";
 import { trinketPoolProblem } from "../trinkets/trinket-acquisition";
 import { nextBattleRoll } from "./battle-roll";
 import { beginAttackTrinketWindow } from "./battle-attack-trinkets";
@@ -65,9 +66,7 @@ export function beginHeroTrinketWindow(
   if (!available) return null;
   if ("problem" in available) return rejectBattleCommand(state, available.problem);
   if (
-    !skill.printed_labels.some(
-      (label) => label.label === (available.held.face === "upright" ? "Crit" : "Acc"),
-    ) ||
+    !hasHeroSkillRoll(skill, available.held.face === "upright" ? "Crit" : "Acc") ||
     resolution.outcome === null
   )
     return null;

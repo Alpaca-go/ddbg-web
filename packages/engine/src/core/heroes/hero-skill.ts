@@ -781,6 +781,14 @@ function threshold(skill: HeroSkillCardView, label: "Crit" | "Acc"): number | nu
   return value;
 }
 
+/** 判断技能是否声明该骰面判定，旧技能仍支持从卡面标签读取。 */
+export function hasHeroSkillRoll(skill: HeroSkillCardView, label: "Crit" | "Acc"): boolean {
+  return (
+    skill.rules?.directAttack !== undefined ||
+    skill.printed_labels.some((entry) => entry.label === label)
+  );
+}
+
 /** 印在 Crit / Acc 标签旁边的那个整数。不是伤害字段名。 */
 function amountBesideLabel(skill: HeroSkillCardView, label: "Crit" | "Acc"): number | null {
   const attack = skill.rules?.directAttack;

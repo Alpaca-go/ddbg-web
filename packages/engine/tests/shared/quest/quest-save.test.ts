@@ -88,16 +88,12 @@ it("效果词条迁移前的存档按当前规则恢复，其他快照字段仍�
     start.party,
     previousSources,
   );
-  const old = createQuestSave(
-    start,
-    [command],
-    applyCommand(previous, command).state,
-    previousSources,
-  );
+  const previousGame = applyCommand(previous, command).state;
+  const old = createQuestSave(start, [command], previousGame, previousSources);
   expect(roundTrip(old).game).toEqual(applyCommand(initial(), command).state);
-  expect(() =>
-    roundTrip({ ...old, snapshot: { ...(old.snapshot as GameState), seed: 999 } }),
-  ).toThrow(/快照与回放不一致/);
+  expect(() => roundTrip({ ...old, snapshot: { ...previousGame, seed: 999 } })).toThrow(
+    /快照与回放不一致/,
+  );
 });
 
 it("技能光照顺序保留新旧起点，旧快照严格回放", () => {

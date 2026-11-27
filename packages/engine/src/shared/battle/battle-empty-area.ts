@@ -8,7 +8,7 @@ import {
   newlyDefeatedIds,
   recordEncounterSkill,
 } from "../dungeon/encounter";
-import { resolveHeroSkillEmptyAreaEffects } from "../../core/heroes/hero-skill";
+import { hasHeroSkillRoll, resolveHeroSkillEmptyAreaEffects } from "../../core/heroes/hero-skill";
 import { resolveShuffle } from "../core/shuffle";
 import type { ShuffleIntent } from "../core/shuffle";
 import type { ApplyResult, GameState, HeroSkillEmptyAreaResolvedEvent } from "../core/command";
@@ -77,9 +77,7 @@ export function playHeroSkillEmptyArea(
     if (shuffle.status === "refused") return rejectBattleCommand(state, shuffle.reason);
   }
   // R19：卡面有 Acc 才掷骰；没有目标时不把骰面判成命中 / 暴击。
-  const roll = skill.printed_labels.some((label) => label.label === "Acc")
-    ? nextBattleRoll(state.seed, battle.rngCursor)
-    : null;
+  const roll = hasHeroSkillRoll(skill, "Acc") ? nextBattleRoll(state.seed, battle.rngCursor) : null;
   const effects = roll === null ? probe : resolveHeroSkillEmptyAreaEffects(skill, combat, roll);
   const entities = battle.entities.map((e) =>
     writeResolution(e, actor.id, "", effects.resolution, false),
