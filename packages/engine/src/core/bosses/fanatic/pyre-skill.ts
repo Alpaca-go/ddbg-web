@@ -1,3 +1,5 @@
+import { BURN_THE_HERETIC, isPyreCard } from "../../../../../data/src/core/bosses/fanatic/pyre";
+export { isPyreCard } from "../../../../../data/src/core/bosses/fanatic/pyre";
 import type { ApplyResult, GameState } from "../../../shared/core/command";
 import { distance, rejectBattleCommand, skillTargetView } from "../../../shared/battle/battle";
 import { fixedDamageResolution } from "../../../shared/battle/battle-fixed-damage";
@@ -14,10 +16,6 @@ import {
 } from "../../../shared/dungeon/encounter";
 import { resolveBattlePressure } from "../../../shared/core/pressure";
 
-export function isPyreCard(id: string | undefined): boolean {
-  return ["monster_large:p011", "monster_large:p012", "monster_large:p013"].includes(id ?? "");
-}
-
 /** R-136：自动命中、不掷攻击骰；99 Damage 仍经防护、被动和死门（R-048 卡面字段）。 */
 export function playPyreSkill(
   state: GameState,
@@ -29,13 +27,8 @@ export function playPyreSkill(
   const actor = b.entities.find((e) => e.id === actorId),
     target = b.entities.find((e) => e.id === targetId);
   const card = b.monsters?.find((c) => c.id === actor?.monsterCardId);
-  const skill = card?.skills[0];
-  const signature = skill?.effect_lines.map((l) =>
-    l
-      .map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
-      .join("")
-      .replace(/\s/g, ""),
-  );
+  const rule = BURN_THE_HERETIC;
+  const skill = card?.skills.find(({ slot }) => slot === rule.slot);
   if (
     !actor ||
     actor.dead ||
@@ -46,12 +39,9 @@ export function playPyreSkill(
     !isPyreCard(card.id) ||
     card.verification.unverified ||
     actor.life !== card.life ||
-    slot !== 1 ||
-    skill?.target !== "Closest" ||
-    signature?.length !== 1 ||
-    signature[0] !== "{damage}99" ||
-    skill.printed_labels.length ||
-    distance(b.areas, actor.areaId, target.areaId) !== 0 ||
+    slot !== rule.slot ||
+    skill?.target !== rule.target ||
+    distance(b.areas, actor.areaId, target.areaId) !== rule.range ||
     b.encounter?.turn.type !== "monster" ||
     b.encounter.turn.actorId !== actorId
   )
@@ -67,12 +57,18 @@ export function playPyreSkill(
     ? defenceTrinketReaction(b, targetId, null, null, "hit")
     : { halve: false, statuses: [] };
   const view = skillTargetView(target, b);
-  const damage = resolveAttackDamage(view, 99, false, target.protection === true, defence.halve);
+  const damage = resolveAttackDamage(
+    view,
+    rule.damage,
+    false,
+    target.protection === true,
+    defence.halve,
+  );
   const riposte = target.riposte ? Math.ceil(damage.beforeProtection / 2) : 0;
   const resolution = {
     ...fixedDamageResolution(target, `${card.id}:skill1`),
     outcome: "hit" as const,
-    printedAmount: 99,
+    printedAmount: rule.damage,
     damageDealt: damage.damageDealt,
     riposteDamage: riposte,
     targetTrinketStatusEffects: defence.statuses,
@@ -118,7 +114,7 @@ export function playPyreSkill(
     events: [
       {
         type: "dungeonUpdated",
-        message: `${actorId} Burn the Heretic：同区自动命中，99 Damage，无攻击骰`,
+        message: `${actorId} Burn the Heretic：同区自动命中，${rule.damage} Damage，无攻击骰`,
       },
       ...health.events,
       ...status.events,

@@ -155,6 +155,42 @@ describe("Fanatic · Pyre Burn the Heretic（R-136、R-048）", () => {
     ).toBe(true);
   });
 
+  it("去掉印刷字段后，准备与自动命中的状态、事件、待选和 RNG 一致", () => {
+    const { state, pyreId } = pyreTurn(fanaticBattleWithPyre({ heroesInPyreArea: ["h0", "h2"] }));
+    const actor = state.battle!.entities.find(({ id }) => id === pyreId)!;
+    const monsters = state.battle!.monsters!.map((card) =>
+      card.id === actor.monsterCardId
+        ? {
+            ...card,
+            skills: card.skills.map((skill) => ({
+              ...skill,
+              printed_labels: [],
+              unlabeled_numbers: [],
+              effect_lines: [],
+              lines: [],
+            })),
+          }
+        : card,
+    );
+    const prepare = { type: "prepareMonsterAction", actorId: pyreId } as const;
+    const baseline = ok(state, prepare);
+    const migrated = ok({ ...state, battle: { ...state.battle!, monsters } }, prepare);
+    const withStrippedCatalog = (result: typeof baseline) => ({
+      ...result,
+      state: { ...result.state, battle: { ...result.state.battle!, monsters } },
+    });
+    expect(migrated).toEqual(withStrippedCatalog(baseline));
+    const command = {
+      type: "playMonsterSkill",
+      actorId: pyreId,
+      targetId: "h0",
+      skillSlot: 1,
+    } as const;
+    expect(ok(migrated.state, command)).toEqual(withStrippedCatalog(ok(baseline.state, command)));
+    const invalid = { ...command, skillSlot: 2 };
+    expect(applyCommand(migrated.state, invalid).state).toBe(migrated.state);
+  });
+
   it("Protection 仍减半；死门沿普通生命路径另耗 RNG", () => {
     const { state, pyreId } = pyreTurn(fanaticBattleWithPyre({ heroesInPyreArea: ["h0", "h2"] }));
     const protectedHero = {

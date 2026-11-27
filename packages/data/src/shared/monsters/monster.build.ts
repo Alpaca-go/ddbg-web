@@ -1,3 +1,4 @@
+import { verifyPyrePrint } from "../../core/bosses/fanatic/pyre.build";
 import { attachVerifiedCollectedLife } from "../../core/bosses/verified-collected-life.build";
 import type {
   MonsterMediumCard,
@@ -193,7 +194,10 @@ export function buildMonsterLarge(
       (sourceRoot === "extract/corebox"
         ? attachVerifiedMonsterEffects(
             attachVerifiedHeartOfDarknessSkillRanges(
-              attachVerifiedMonsterProtection(attachVerifiedLargeMonsterFields(cards), true),
+              attachVerifiedMonsterProtection(
+                attachVerifiedLargeMonsterFields(cards.map(verifyPyrePrint)),
+                true,
+              ),
             ),
             true,
           )

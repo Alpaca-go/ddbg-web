@@ -1,3 +1,4 @@
+import { BURN_THE_HERETIC, isPyreCard } from "../../../../data/src/core/bosses/fanatic/pyre";
 import { WEALD_MONSTER_ATTACK_RULES } from "../../../../data/src/weald/monsters/monster-rulings";
 import {
   needsHeroSkillShuffleChoice,
@@ -129,6 +130,7 @@ export type MonsterSkillResolution = {
 /** 与技能结算共享已命名的位移行解析器，不从 null 数字创建选择。 */
 export function needsMonsterSkillShuffleChoice(monster: MonsterCardView, slot: number): boolean {
   const skill = monster.skills.find((entry) => entry.slot === slot);
+  if (isPyreCard(monster.id)) return false;
   const wealdAttack = skill?.rules?.wealdAttack;
   if (wealdAttack) {
     const attack = readWealdMonsterAttack(monster, skill!);
@@ -174,6 +176,36 @@ export function readMonsterAttackView(
   const matches = monster.skills.filter((skill) => skill.slot === skillSlot);
   if (matches.length !== 1) return { status: "refused", reason: "怪物卡没有唯一对应的技能编号" };
   const skill = matches[0]!;
+  if (isPyreCard(monster.id)) {
+    const rule = BURN_THE_HERETIC;
+    if (monster.verification.unverified || skill.slot !== rule.slot || skill.target !== rule.target)
+      return { status: "refused", reason: "Pyre 缺少 R-136 核准攻击规则" };
+    return {
+      status: "ready",
+      view: {
+        id: `${monster.id}:skill${rule.slot}`,
+        hero: null,
+        verification: monster.verification,
+        printed_labels: [],
+        unlabeled_numbers: [
+          {
+            text: String(rule.range),
+            numeric: rule.range,
+            anchor: {
+              type: "beside_icon",
+              left_icon: { key: "range", naming: "confirmed" },
+              inside_icon: null,
+            },
+          },
+        ],
+        stats_line: Array.from({ length: rule.heroTargets }, () => ({
+          type: "icon",
+          icon: { key: "target_hero", naming: "confirmed" },
+        })),
+        effect_lines: [],
+      },
+    };
+  }
   const wealdAttack = skill.rules?.wealdAttack;
   const effectsPlan = skill.rules?.effects;
   if (skill.shriekerNestFlight)
