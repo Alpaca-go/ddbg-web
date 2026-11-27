@@ -1,4 +1,5 @@
 import { printIcon } from "../../../../data/src/shared/print-icons";
+import { matchesFortunateArmletPrint } from "../../../../data/src/core/trinkets/core-trinket-bindings";
 import type { CoreTrinketId } from "../../../../data/src/core/trinkets/core-trinket-bindings";
 import { nextBattleRoll } from "../../../src/shared/battle/battle-roll";
 import type { PlayMonsterSkillCommand } from "../../../src/shared/battle/battle-monster";
@@ -419,12 +420,14 @@ it("Fortunate Armlet反面可在他人及已定位怪物回合使用，不能插
   expect(ok(applyCommand(state, command)).pendingChoice).toBeUndefined();
 });
 
-it("Fortunate Armlet正反面卡面漂移均拒绝，不消费骰、翻面或压力", () => {
+it("Fortunate Armlet 录入拒绝卡面漂移，已核准效果脱离印刷字段后仍可结算", () => {
   for (const face of ["upright", "inverted"] as const) {
     const { state, command } = fixture([armlet], "aggressive", "hero_skill:core:h01:p001", face);
     const card = state.battle.trinkets!.cards.find((c) => c.id === armlet)!;
     const glyph = card.inverted_half.effect_lines[0]![0]!;
     if (glyph.type !== "icon") throw new Error("缺压力图标");
+    const action = face === "upright" ? command : useArmlet;
+    const expected = ok(applyCommand(state, action));
     for (const changed of [
       {
         ...card,
@@ -470,18 +473,31 @@ it("Fortunate Armlet正反面卡面漂移均拒绝，不消费骰、翻面或压
         },
       },
     ]) {
-      const broken: GameState = {
-        ...state,
-        battle: {
-          ...state.battle,
-          trinkets: {
-            ...state.battle.trinkets!,
-            cards: state.battle.trinkets!.cards.map((c) => (c.id === armlet ? changed : c)),
-          },
-        },
-      };
-      expect(applyCommand(broken, face === "upright" ? command : useArmlet).state).toBe(broken);
+      expect(matchesFortunateArmletPrint(changed)).toBe(false);
     }
+    const recorded = {
+      ...card,
+      front_icons: [],
+      back_icons: [],
+      upright_half: { ...card.upright_half, effect_lines: [] },
+      inverted_half: { ...card.inverted_half, effect_lines: [] },
+    };
+    const independent: GameState = {
+      ...state,
+      battle: {
+        ...state.battle,
+        trinkets: {
+          ...state.battle.trinkets!,
+          cards: state.battle.trinkets!.cards.map((c) => (c.id === armlet ? recorded : c)),
+        },
+      },
+    };
+    const direct = ok(applyCommand(independent, action));
+    expect(direct.pendingChoice).toEqual(expected.pendingChoice);
+    expect(direct.events).toEqual(expected.events);
+    expect(direct.state.battle!.entities).toEqual(expected.state.battle!.entities);
+    expect(direct.state.battle!.trinkets!.held).toEqual(expected.state.battle!.trinkets!.held);
+    expect(direct.state.battle!.rngCursor).toBe(expected.state.battle!.rngCursor);
   }
 });
 

@@ -1,4 +1,4 @@
-import { matchesCoreTrinketPrint } from "../../../../data/src/core/trinkets/core-trinket-bindings";
+import { FORTUNATE_ARMLET_RULE } from "../../../../data/src/core/trinkets/trinket-rules";
 import { battleTrinketHolders } from "./battle-hero-card-holders";
 import { isFreeTrinketId, useFreeTrinket } from "./battle-free-trinkets";
 import type { FreeTrinketId } from "./battle-free-trinkets";
@@ -10,21 +10,20 @@ import { resolveBattlePressure } from "../core/pressure";
 import { finalizeFreeTrinketDuringMonsterTurn } from "./battle-monster-retarget";
 import { trinketPoolProblem } from "../trinkets/trinket-acquisition";
 
-export const FORTUNATE_ARMLET_ID = "trinket:p025";
+export const FORTUNATE_ARMLET_ID = FORTUNATE_ARMLET_RULE.id;
 export type UseTrinketCommand = {
   readonly type: "useTrinket";
   readonly actorId: string;
   readonly cardId: typeof FORTUNATE_ARMLET_ID | FreeTrinketId;
 };
 
-/** R26 / 印刷 p025：逐半面绑定，不由 verification 推断能力。 */
+/** R26 / p025：按已核准饰品身份与效果条目启用。 */
 export function isFortunateArmlet(card: NormalizedTrinketCard): boolean {
-  const glyph = card.inverted_half.effect_lines[0]?.[0];
   return (
-    card.rules?.useStress === 1 &&
-    matchesCoreTrinketPrint(card, FORTUNATE_ARMLET_ID) &&
-    glyph?.type === "icon" &&
-    glyph.icon.status === "confirmed"
+    card.id === FORTUNATE_ARMLET_ID &&
+    card.name === FORTUNATE_ARMLET_RULE.name &&
+    card.level === FORTUNATE_ARMLET_RULE.level &&
+    card.rules?.useStress === FORTUNATE_ARMLET_RULE.useStress
   );
 }
 
@@ -52,7 +51,7 @@ export function fortunateArmletUseProblem(state: GameState, actorId: string): st
   const problem = trinketPoolProblem(pool, battleTrinketHolders(b));
   if (problem) return problem;
   const card = pool.cards.find((c) => c.id === FORTUNATE_ARMLET_ID);
-  if (!card || !isFortunateArmlet(card)) return "Fortunate Armlet 卡面与已核实效果不符（R-048）";
+  if (!card || !isFortunateArmlet(card)) return "Fortunate Armlet 缺少已核实效果词条（R-048）";
   const useStress = card.rules?.useStress;
   if (useStress !== 1) return "Fortunate Armlet 缺少已核实的压力使用规则（R-048）";
   if (

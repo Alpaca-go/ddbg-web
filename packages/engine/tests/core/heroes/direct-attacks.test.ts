@@ -80,6 +80,13 @@ it.each(reviewed)("$id 十种骰面和目标限制沿用旧效果", (card) => {
     light: 4,
   };
   expect(resolveHeroSkill(legacy, combat, 1).status).toBe("resolved");
+  const missingAmount = {
+    ...onlyRules,
+    rules: {
+      directAttack: { ...attack, onHit: [{ kind: "bleed" as const, duration: 2 }] },
+    },
+  };
+  expect(resolveHeroSkill(missingAmount, combat, 1).status).toBe("refused");
   for (let roll = 1; roll <= 10; roll += 1)
     expect(resolveHeroSkill(onlyRules, combat, roll)).toEqual(
       resolveHeroSkill(legacy, combat, roll),

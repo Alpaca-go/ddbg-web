@@ -1,5 +1,13 @@
-/** 已核实的饰品独立使用效果；当前只有 Fortunate Armlet（p025）。 */
-export const TRINKET_RULES = [{ id: "trinket:p025", useStress: 1 as const }] as const;
+/** Fortunate Armlet，核心盒饰品 p025，规则书 R26。 */
+export const FORTUNATE_ARMLET_RULE = {
+  id: "trinket:p025",
+  name: "Fortunate Armlet",
+  level: 2,
+  accuracy: 1,
+  crit: 1,
+  useStress: 1,
+} as const;
+export const TRINKET_RULES = [FORTUNATE_ARMLET_RULE] as const;
 
 /** 核心盒饰品卡 p003／004／008／011，规则书 R21、R26。 */
 export const STATUS_CHARM_RULES = {

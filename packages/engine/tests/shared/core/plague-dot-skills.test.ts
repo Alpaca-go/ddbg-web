@@ -181,9 +181,11 @@ it.each(skills)("$id 两次真实回合开始消费DOT并死亡，不把伤口�
 it.each(skills)("$id 缺值、重复或不完整注解、坏射程/姿态和未知防御均原子拒绝", (skill) => {
   const { game, command } = setup(skill);
   const annotations = skill.rules!.statuses!;
+  const { directAttack: _reviewed, ...legacyRules } = skill.rules!;
+  void _reviewed;
   const withStatuses = (statuses: unknown) => ({
     ...skill,
-    rules: { ...skill.rules, statuses: statuses as typeof annotations },
+    rules: { ...legacyRules, statuses: statuses as typeof annotations },
   });
   for (const changed of [
     withStatuses([{ ...annotations[0]!, duration: undefined }]),

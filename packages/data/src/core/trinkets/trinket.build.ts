@@ -2,8 +2,8 @@ import type { TrinketCard, TrinketFile } from "../../shared/extract/parsed";
 import type { RawFile } from "../../shared/extract/raw";
 import { finishVerification, resolveLines } from "../../shared/icons";
 import type { IconLookup } from "../../shared/icons";
-import { TRINKET_RULES, isStatusCharm } from "./trinket-rules";
-import { matchesCoreTrinketPrint } from "./core-trinket-bindings";
+import { FORTUNATE_ARMLET_RULE, TRINKET_RULES, isStatusCharm } from "./trinket-rules";
+import { matchesCoreTrinketPrint, matchesFortunateArmletPrint } from "./core-trinket-bindings";
 import type { NormalizedTrinketFile } from "../../shared/schema";
 import { normalizedTrinketFileSchema } from "../../shared/schema";
 import {
@@ -49,6 +49,8 @@ export function buildTrinkets(
     };
     if (isStatusCharm(normalized.id) && !matchesCoreTrinketPrint(normalized, normalized.id))
       throw new Error(normalized.id + " 状态饰品效果词条与已核卡面不符（R-048）");
+    if (normalized.id === FORTUNATE_ARMLET_RULE.id && !matchesFortunateArmletPrint(normalized))
+      throw new Error(normalized.id + " 饰品独立效果词条与已核卡面不符（R-048）");
     return normalized;
   });
   return normalizedTrinketFileSchema.parse({

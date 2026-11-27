@@ -1,4 +1,5 @@
 import { matchesBracerFrontStance } from "../../../../data/src/core/trinkets/core-trinket-bindings";
+import { FORTUNATE_ARMLET_RULE } from "../../../../data/src/core/trinkets/trinket-rules";
 import { battleTrinketHolders } from "./battle-hero-card-holders";
 import { HERO_SKILL_TRINKET_IDS } from "../../../../data/src/core/heroes/hero-skill-trinkets";
 import type { HeroSkillTrinketId } from "../../../../data/src/core/heroes/hero-skill-trinkets";
@@ -45,12 +46,12 @@ const definitions: Record<HeroSkillTrinketId, Definition> = {
     damage: 3,
   },
   "trinket:p025": {
-    name: "Fortunate Armlet",
-    level: 2,
-    positive: "Acc+1 and Crit+1",
+    name: FORTUNATE_ARMLET_RULE.name,
+    level: FORTUNATE_ARMLET_RULE.level,
+    positive: "",
     negative: "",
-    crit: 1,
-    accuracy: 1,
+    crit: FORTUNATE_ARMLET_RULE.crit,
+    accuracy: FORTUNATE_ARMLET_RULE.accuracy,
     penalty: 0,
     freeInverted: true,
   },

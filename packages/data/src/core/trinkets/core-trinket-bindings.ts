@@ -368,6 +368,16 @@ export function matchesCoreTrinketPrint(card: NormalizedTrinketCard, id: CoreTri
   );
 }
 
+/** p025 反面压力图标的核准状态须与整面签名同时匹配。 */
+export function matchesFortunateArmletPrint(card: NormalizedTrinketCard): boolean {
+  const glyph = card.inverted_half.effect_lines[0]?.[0];
+  return (
+    matchesCoreTrinketPrint(card, "trinket:p025") &&
+    glyph?.type === "icon" &&
+    glyph.icon.status === "confirmed"
+  );
+}
+
 /** p013 的姿态图标没有进入印刷效果行，需单独核对正面图标。 */
 export function matchesBracerFrontStance(card: NormalizedTrinketCard): boolean {
   const { iconId, key } = CORE_TRINKET_BINDINGS["trinket:p013"].frontStance();
