@@ -96,6 +96,33 @@ it("效果词条迁移前的存档按当前规则恢复，其他快照字段仍�
   );
 });
 
+it("Face the Threat 旧快照可缺布局说明，已有说明和其他布局字段须匹配", () => {
+  const bossStart = { ...start, seed: 23, questId: "quest:p019", bossEdgeRooms: true } as const;
+  const game = createCoreDungeonQuest(
+    bossStart.seed,
+    bossStart.questId,
+    bossStart.mode,
+    bossStart.party,
+    coreQuestSources,
+    true,
+  );
+  const command = { type: "establishImminentThreat" } as const;
+  const after = applyCommand(game, command).state;
+  expect(after.dungeon!.faceTheThreatEmbarkPlan?.layoutWiringHold).toBeTruthy();
+  const save = createQuestSave(bossStart, [command], after, coreQuestSources);
+  const snapshot = save.snapshot as {
+    dungeon: { faceTheThreatEmbarkPlan: { layoutWiringHold?: string; resolvedScriptId: string } };
+  };
+  const plan = snapshot.dungeon.faceTheThreatEmbarkPlan;
+  delete plan.layoutWiringHold;
+  expect(roundTrip(save).game).toEqual(after);
+  plan.layoutWiringHold = "篡改的说明";
+  expect(() => roundTrip(save)).toThrow(/不一致/);
+  delete plan.layoutWiringHold;
+  plan.resolvedScriptId = "boss:ruins:collector:1";
+  expect(() => roundTrip(save)).toThrow(/不一致/);
+});
+
 it("技能光照顺序保留新旧起点，旧快照严格回放", () => {
   const fresh = initial();
   const { skillLightBeforeCrit: _newOrder, ...old } = fresh;

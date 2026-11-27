@@ -255,6 +255,25 @@ export function createQuestSave(
     throw new Error("当前状态与任务入口及命令日志不一致，未保存");
   return save;
 }
+/** 旧出征存档的可选布局说明可能没有序列化。仅补入与回放完全匹配的说明。 */
+function upgradeMissingFaceTheThreatLayoutNote(snapshot: unknown, replayed: GameState): unknown {
+  const old = snapshot as GameState | null;
+  const before = old?.dungeon?.faceTheThreatEmbarkPlan;
+  const after = replayed.dungeon?.faceTheThreatEmbarkPlan;
+  if (
+    !old?.dungeon ||
+    !before ||
+    typeof before !== "object" ||
+    !after?.layoutWiringHold ||
+    Object.hasOwn(before, "layoutWiringHold")
+  )
+    return snapshot;
+  const plan = { ...before, layoutWiringHold: after.layoutWiringHold };
+  return canonical(plan) === canonical(after)
+    ? { ...old, dungeon: { ...old.dungeon, faceTheThreatEmbarkPlan: plan } }
+    : snapshot;
+}
+
 export function loadQuestSave(
   input: unknown,
   sources: CoreQuestSources,
@@ -300,12 +319,18 @@ export function loadQuestSave(
     ),
   );
   let snapshotKey = canonical(
-    upgradeFallenHeroSnapshot(upgradeNomadPrompt(snapshot, restored.game), restored.game),
+    upgradeMissingFaceTheThreatLayoutNote(
+      upgradeFallenHeroSnapshot(upgradeNomadPrompt(snapshot, restored.game), restored.game),
+      restored.game,
+    ),
   );
   if (restoredKey !== snapshotKey)
     snapshotKey = canonical(
-      upgradeFallenHeroSnapshot(
-        upgradeNomadPrompt(upgradeTrinketR127Metadata(snapshot), restored.game),
+      upgradeMissingFaceTheThreatLayoutNote(
+        upgradeFallenHeroSnapshot(
+          upgradeNomadPrompt(upgradeTrinketR127Metadata(snapshot), restored.game),
+          restored.game,
+        ),
         restored.game,
       ),
     );
