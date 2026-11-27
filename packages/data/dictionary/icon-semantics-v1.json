@@ -1,0 +1,3408 @@
+{
+  "schema": "ddbg-icon-semantics-v1",
+  "source": "dictionary/icon-dictionary-v1.8.json",
+  "additions": "dictionary/print-icon-additions.json",
+  "keyCount": 116,
+  "aliasCount": 844,
+  "keys": [
+    {
+      "key": "area_d10_marker",
+      "nameEn": "Area d10-roll marker",
+      "nameZh": "十面骰区域标记",
+      "kind": "other",
+      "status": "confirmed_rulebook",
+      "statuses": ["confirmed_rulebook"],
+      "valueInGlyph": false,
+      "aliases": ["096ea91bb9", "41dee17ee1"],
+      "aliasCount": 2,
+      "cardOccurrences": 13,
+      "occurrences": 13,
+      "rulebookRefs": ["Core p.38", "Core p.39"],
+      "variants": [
+        {
+          "iconId": "096ea91bb9",
+          "nameEn": "Area d10-roll marker (Prophet Room Wooden Pews; number printed inside)",
+          "nameZh": "十面骰区域标记（先知房间木长椅；数字印在图标内）"
+        },
+        {
+          "iconId": "41dee17ee1",
+          "nameEn": "Area d10-roll marker (Templars Room Spiked Pits; range printed inside)",
+          "nameZh": "十面骰区域标记（圣殿骑士房间尖刺坑；范围印在图标内）"
+        }
+      ]
+    },
+    {
+      "key": "area_marker",
+      "nameEn": "Area marker",
+      "nameZh": "区域标记",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": [
+        "9e1f2c572e",
+        "62d166a84f",
+        "0fd119772a",
+        "337897984c",
+        "a74b9dc080",
+        "0d13b745be"
+      ],
+      "aliasCount": 6,
+      "cardOccurrences": 44,
+      "occurrences": 48,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "9e1f2c572e",
+          "nameEn": "Area marker (red) – precedes named room effect",
+          "nameZh": "区域标记（红）– 房间效果前"
+        },
+        { "iconId": "0fd119772a", "nameEn": "Area marker (green)", "nameZh": "区域标记（绿）" },
+        {
+          "iconId": "337897984c",
+          "nameEn": "Area marker (green, letter follows)",
+          "nameZh": "区域标记（绿，后接字母）"
+        },
+        { "iconId": "a74b9dc080", "nameEn": "Area marker (red)", "nameZh": "区域标记（红）" },
+        {
+          "iconId": "0d13b745be",
+          "nameEn": "Area marker (green, small)",
+          "nameZh": "区域标记（绿，小）"
+        }
+      ]
+    },
+    {
+      "key": "bandages",
+      "nameEn": "Bandages",
+      "nameZh": "绷带",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["f537bc17c3"],
+      "aliasCount": 1,
+      "cardOccurrences": 4,
+      "occurrences": 4,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "f537bc17c3",
+          "nameEn": "Bandages (provision, player aid heading)",
+          "nameZh": "绷带（补给，玩家辅助卡标题）"
+        }
+      ]
+    },
+    {
+      "key": "banner_ornament",
+      "nameEn": "Skill name banner ornament",
+      "nameZh": "技能名横幅装饰",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["6e265a35fe", "f6fb6f4a67", "03d25db7f9", "8e9d85fd43"],
+      "aliasCount": 4,
+      "cardOccurrences": 519,
+      "occurrences": 519,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "6e265a35fe",
+          "nameEn": "Skill name banner ornament (not a game icon)",
+          "nameZh": "技能名横幅装饰（非游戏图标）"
+        },
+        {
+          "iconId": "03d25db7f9",
+          "nameEn": "Skill name banner ornament (PvP, not a game icon)",
+          "nameZh": "技能名横幅装饰（PvP，非游戏图标）"
+        },
+        {
+          "iconId": "8e9d85fd43",
+          "nameEn": "Skill name banner ornament (PvP, not a game icon)",
+          "nameZh": "技能名横幅装饰（PvP）"
+        }
+      ]
+    },
+    {
+      "key": "bleed",
+      "nameEn": "Bleed",
+      "nameZh": "流血",
+      "kind": "status",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": [
+        "784ec4fe7a",
+        "c22f085b95",
+        "450f0fcc1d",
+        "ab1a04a131",
+        "be17b4ee09",
+        "d07276858c",
+        "9d0ef9dd87",
+        "b942cddccd",
+        "c43c46e6de",
+        "256b350543",
+        "3bd2c65366",
+        "64702f548e",
+        "c4fb0a1961",
+        "cdfeec62c5",
+        "6d7ce0f38a",
+        "9b6a2b779d",
+        "a64616e9c5",
+        "d9c36480ed",
+        "12b6af97f2"
+      ],
+      "aliasCount": 19,
+      "cardOccurrences": 177,
+      "occurrences": 177,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "c22f085b95",
+          "nameEn": "Bleed (amount, duration follows)",
+          "nameZh": "流血（后接数值/回合）"
+        },
+        {
+          "iconId": "ab1a04a131",
+          "nameEn": "Bleed (as removed condition)",
+          "nameZh": "流血（被移除）"
+        },
+        { "iconId": "be17b4ee09", "nameEn": "Bleed (curio)", "nameZh": "流血（奇物）" },
+        {
+          "iconId": "b942cddccd",
+          "nameEn": "Bleed (hero stat card)",
+          "nameZh": "流血（英雄属性卡）"
+        },
+        { "iconId": "a64616e9c5", "nameEn": "Bleed (inverted glyph)", "nameZh": "流血（逆位图形）" }
+      ]
+    },
+    {
+      "key": "bleed_blight",
+      "nameEn": "Bleed + Blight",
+      "nameZh": "流血+腐蚀",
+      "kind": "status",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["5781549905", "c89dd8dbf1"],
+      "aliasCount": 2,
+      "cardOccurrences": 11,
+      "occurrences": 11,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "5781549905",
+          "nameEn": "Bleed + Blight (combined)",
+          "nameZh": "流血+腐蚀（组合）"
+        }
+      ]
+    },
+    {
+      "key": "bleed_resist",
+      "nameEn": "Bleed (PvP resistances)",
+      "nameZh": "流血（PvP抗性）",
+      "kind": "resist",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": [
+        "cffded5ab0",
+        "fb98452c16",
+        "263ea62e52",
+        "93f5ccf8ea",
+        "e154e5cdbb",
+        "6b42b1059d",
+        "eafe0cccaf"
+      ],
+      "aliasCount": 7,
+      "cardOccurrences": 28,
+      "occurrences": 28,
+      "rulebookRefs": [],
+      "variants": []
+    },
+    {
+      "key": "blight",
+      "nameEn": "Blight",
+      "nameZh": "腐蚀",
+      "kind": "status",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": [
+        "f73032e12e",
+        "98edfaca0a",
+        "c7faf2bc86",
+        "d9a647ec08",
+        "40bb356305",
+        "90558ded71",
+        "a637867634",
+        "1e762e1c58",
+        "b75805594c",
+        "4afe5a1a69",
+        "ce2f57ed90"
+      ],
+      "aliasCount": 11,
+      "cardOccurrences": 129,
+      "occurrences": 129,
+      "rulebookRefs": [],
+      "variants": [
+        { "iconId": "f73032e12e", "nameEn": "Blight", "nameZh": "腐蚀（中毒）" },
+        {
+          "iconId": "98edfaca0a",
+          "nameEn": "Blight (amount, duration follows)",
+          "nameZh": "腐蚀（后接数值/回合）"
+        },
+        {
+          "iconId": "40bb356305",
+          "nameEn": "Blight (hero stat card, large)",
+          "nameZh": "腐蚀（英雄属性卡，大）"
+        },
+        { "iconId": "a637867634", "nameEn": "Blight (curio)", "nameZh": "腐蚀（奇物）" },
+        {
+          "iconId": "b75805594c",
+          "nameEn": "Blight (as removed condition)",
+          "nameZh": "腐蚀（被移除）"
+        }
+      ]
+    },
+    {
+      "key": "blight_resist",
+      "nameEn": "Blight (PvP resistances)",
+      "nameZh": "腐蚀（PvP抗性）",
+      "kind": "resist",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": [
+        "303efb0a59",
+        "131a5c351f",
+        "1f826647f6",
+        "f6c9535897",
+        "9051eb737b",
+        "b5895b9a67"
+      ],
+      "aliasCount": 6,
+      "cardOccurrences": 31,
+      "occurrences": 31,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "303efb0a59",
+          "nameEn": "Blight (large monster resistances)",
+          "nameZh": "腐蚀（大型怪抗性）"
+        },
+        {
+          "iconId": "1f826647f6",
+          "nameEn": "Blight (resistances/immunities)",
+          "nameZh": "腐蚀（抗性/免疫）"
+        }
+      ]
+    },
+    {
+      "key": "buff",
+      "nameEn": "Buff",
+      "nameZh": "增益",
+      "kind": "status",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": [
+        "d4329c2a97",
+        "2a8d0a5420",
+        "e1682d1d42",
+        "a98f214d42",
+        "2af41c1ca4",
+        "ef29ccfbe0",
+        "0d5461924f",
+        "763ad8e857",
+        "a364cbc7f3",
+        "b415f8c175",
+        "db48a5e588",
+        "1ff34c908b",
+        "39f19572d5",
+        "69ab8837e5",
+        "b145dba436",
+        "73ea0990dd",
+        "3cd8b97ff0"
+      ],
+      "aliasCount": 17,
+      "cardOccurrences": 115,
+      "occurrences": 115,
+      "rulebookRefs": [],
+      "variants": []
+    },
+    {
+      "key": "card_back_marker_red_down_arrow",
+      "nameEn": "Card back marker: red down-arrow",
+      "nameZh": "卡背标记：红色下箭头",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["09f92af544"],
+      "aliasCount": 1,
+      "cardOccurrences": 22,
+      "occurrences": 22,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "09f92af544",
+          "nameEn": "Card back marker: red down-arrow (quirk/virtue-affliction backs)",
+          "nameZh": "卡背标记：红色下箭头"
+        }
+      ]
+    },
+    {
+      "key": "card_back_marker_yellow_down_arrow",
+      "nameEn": "Card back marker: yellow down-arrow",
+      "nameZh": "卡背标记：黄色下箭头",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["e847e28998", "6a2fd9f572"],
+      "aliasCount": 2,
+      "cardOccurrences": 22,
+      "occurrences": 22,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "e847e28998",
+          "nameEn": "Card back marker: yellow down-arrow (quirk backs)",
+          "nameZh": "卡背标记：黄色下箭头（怪癖卡背）"
+        },
+        {
+          "iconId": "6a2fd9f572",
+          "nameEn": "Card back marker: yellow down-arrow (virtue/affliction backs)",
+          "nameZh": "卡背标记：黄色下箭头"
+        }
+      ]
+    },
+    {
+      "key": "compare_gte",
+      "nameEn": "Greater-than comparison",
+      "nameZh": "大于比较符",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["206c655597", "599b5b0881", "8c829e3754", "b3f370e3ec", "be2e32545a"],
+      "aliasCount": 5,
+      "cardOccurrences": 5,
+      "occurrences": 5,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "206c655597",
+          "nameEn": "Greater-than-or-equal comparison (Camouflage Cloak light condition)",
+          "nameZh": "大于等于比较符（Camouflage Cloak 光照条件）"
+        },
+        {
+          "iconId": "599b5b0881",
+          "nameEn": "Greater-than comparison (trinket light condition)",
+          "nameZh": "大于比较符（饰品光照条件）"
+        }
+      ]
+    },
+    {
+      "key": "compare_lte",
+      "nameEn": "Less-than comparison",
+      "nameZh": "小于比较符",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["c1d74de856", "ed3b7ac902"],
+      "aliasCount": 2,
+      "cardOccurrences": 4,
+      "occurrences": 4,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "c1d74de856",
+          "nameEn": "Less-than comparison (trinket light condition)",
+          "nameZh": "小于比较符（饰品光照条件）"
+        }
+      ]
+    },
+    {
+      "key": "crit",
+      "nameEn": "Critical hit marker",
+      "nameZh": "暴击标记",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["19034463df"],
+      "aliasCount": 1,
+      "cardOccurrences": 8,
+      "occurrences": 8,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "19034463df",
+          "nameEn": "Critical hit marker ('X Crit!')",
+          "nameZh": "暴击标记（“X Crit!”）"
+        }
+      ]
+    },
+    {
+      "key": "crit_damage",
+      "nameEn": "Critical Damage",
+      "nameZh": "暴击伤害",
+      "kind": "damage_type",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["d60e426011"],
+      "aliasCount": 1,
+      "cardOccurrences": 2,
+      "occurrences": 2,
+      "rulebookRefs": [],
+      "variants": []
+    },
+    {
+      "key": "curio",
+      "nameEn": "Curio",
+      "nameZh": "奇物",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["6112b7010c", "269d523c85"],
+      "aliasCount": 2,
+      "cardOccurrences": 6,
+      "occurrences": 6,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "6112b7010c",
+          "nameEn": "Curio (player aid heading)",
+          "nameZh": "奇物（玩家辅助卡标题）"
+        },
+        {
+          "iconId": "269d523c85",
+          "nameEn": "Curio (exploration marker)",
+          "nameZh": "奇物（探索标记）"
+        }
+      ]
+    },
+    {
+      "key": "d10",
+      "nameEn": "Ten-sided die",
+      "nameZh": "十面骰",
+      "kind": "dice_face",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": true,
+      "aliases": [
+        "5824725929",
+        "b5d7889153",
+        "436f0d4254",
+        "d91e56a591",
+        "376806cc5a",
+        "7e404a95c6",
+        "7e526edbfb",
+        "c52055721d",
+        "94bfa4dde4",
+        "0e607c548a",
+        "492b592535",
+        "edb10691e1",
+        "f143a824e2",
+        "72efe52ca5",
+        "adcab0541a"
+      ],
+      "aliasCount": 15,
+      "cardOccurrences": 278,
+      "occurrences": 278,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "b5d7889153",
+          "nameEn": "Monster stance-row d10 / roll marker (variant)",
+          "nameZh": "怪物站位栏骰子标记（变体）"
+        },
+        {
+          "iconId": "436f0d4254",
+          "nameEn": "Ten-sided die (monster card)",
+          "nameZh": "十面骰（怪物卡）"
+        },
+        { "iconId": "d91e56a591", "nameEn": "Ten-sided die (d10)", "nameZh": "十面骰" },
+        {
+          "iconId": "376806cc5a",
+          "nameEn": "Ten-sided die roll (range follows)",
+          "nameZh": "十面骰判定（后接范围）"
+        },
+        {
+          "iconId": "7e404a95c6",
+          "nameEn": "Ten-sided die roll range plate",
+          "nameZh": "十面骰判定范围底板"
+        },
+        { "iconId": "72efe52ca5", "nameEn": "d10 die face result 1", "nameZh": "十面骰面结果 1" },
+        { "iconId": "adcab0541a", "nameEn": "d10 die face result 10", "nameZh": "十面骰面结果 10" }
+      ]
+    },
+    {
+      "key": "d10_result_guide_arrow",
+      "nameEn": "d10 result guide arrow",
+      "nameZh": "十面骰结果表引导箭头",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["5a4fbf9781"],
+      "aliasCount": 1,
+      "cardOccurrences": 2,
+      "occurrences": 2,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "5a4fbf9781",
+          "nameEn": "d10 result guide arrow (virtue/affliction table)",
+          "nameZh": "十面骰结果表引导箭头"
+        }
+      ]
+    },
+    {
+      "key": "damage",
+      "nameEn": "Damage",
+      "nameZh": "伤害",
+      "kind": "damage_type",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": [
+        "8d4bbe5e11",
+        "a0ff30c692",
+        "c09318dfea",
+        "ade0d9ecad",
+        "0453c84dbc",
+        "18ee6577d6",
+        "ad20127dd4"
+      ],
+      "aliasCount": 7,
+      "cardOccurrences": 1138,
+      "occurrences": 1138,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "8d4bbe5e11",
+          "nameEn": "Damage (value printed inside)",
+          "nameZh": "伤害（图标内数字为伤害值）"
+        },
+        { "iconId": "c09318dfea", "nameEn": "Damage +3", "nameZh": "伤害 +3" },
+        {
+          "iconId": "18ee6577d6",
+          "nameEn": "Damage (bonus vs condition)",
+          "nameZh": "伤害（对特定状态加成）"
+        }
+      ]
+    },
+    {
+      "key": "damage_or_heal_combined_marker",
+      "nameEn": "Damage-or-Heal combined marker",
+      "nameZh": "伤害/治疗组合标记",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["e8a4b7eebf"],
+      "aliasCount": 1,
+      "cardOccurrences": 70,
+      "occurrences": 70,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "e8a4b7eebf",
+          "nameEn": "Damage-or-Heal combined marker (red burst + green cross) – confirm",
+          "nameZh": "伤害/治疗组合标记（红色爆发+绿十字）待确认"
+        }
+      ]
+    },
+    {
+      "key": "debuff",
+      "nameEn": "Debuff",
+      "nameZh": "减益",
+      "kind": "status",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": [
+        "c3fb3612ce",
+        "58cd5040a4",
+        "91ca3fa960",
+        "f70a42e51f",
+        "6cfc2f3a0b",
+        "3a60c92c83",
+        "de6f50b39b",
+        "3daf86fcef",
+        "75f7f3eb72",
+        "2bc58148bf",
+        "40c4cc438c",
+        "aa731a7f72",
+        "b30ebecacd"
+      ],
+      "aliasCount": 13,
+      "cardOccurrences": 134,
+      "occurrences": 134,
+      "rulebookRefs": [],
+      "variants": [
+        { "iconId": "58cd5040a4", "nameEn": "Debuff (large)", "nameZh": "减益（大）" },
+        { "iconId": "91ca3fa960", "nameEn": "Debuff (variant)", "nameZh": "减益（变体）" }
+      ]
+    },
+    {
+      "key": "debuff_resist",
+      "nameEn": "Debuff (PvP resistances)",
+      "nameZh": "减益（PvP抗性）",
+      "kind": "resist",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["d164267de0", "e0d1958d7c", "b9c743ccea", "0fa12b226d"],
+      "aliasCount": 4,
+      "cardOccurrences": 12,
+      "occurrences": 12,
+      "rulebookRefs": [],
+      "variants": []
+    },
+    {
+      "key": "decor",
+      "nameEn": "Decor / not an icon",
+      "nameZh": "装饰 / 非图标",
+      "kind": "decor",
+      "status": "decor",
+      "statuses": ["decor"],
+      "valueInGlyph": false,
+      "aliases": [
+        "7f4ed77130",
+        "39b6880840",
+        "199ca2857f",
+        "ff1b2876c1",
+        "a2e3d7235f",
+        "ea576f3383",
+        "f7400b538c",
+        "e0c8d4381a",
+        "9723c561c8",
+        "c71ddd3685",
+        "813eadf38f",
+        "ee1e8eadcd",
+        "feea73ac43",
+        "25bc58381e",
+        "6e6012866a",
+        "a36e3446f7",
+        "0210ec5892",
+        "6f701b5f5f",
+        "23cc2e3363",
+        "d07a10730a",
+        "0cac901379",
+        "3a1b11097c",
+        "cc8a86d28d",
+        "7d43c83ef2",
+        "c736bcb48e",
+        "61b5b2809b",
+        "a2e7f1dd7b",
+        "477735fe7b",
+        "5c1377083e",
+        "5cc5646eec",
+        "b0dbc022a5",
+        "b9896e803d",
+        "d85db127a6",
+        "f88793a20e",
+        "2827200b84",
+        "8cfc34be27",
+        "aef3871c4f",
+        "f698b6fd6c",
+        "08c8371fda",
+        "43e02a8a9d",
+        "4688e456ab",
+        "64b67a91e3",
+        "708ff41893",
+        "83a0911f5f",
+        "b9fa0f2b8a",
+        "d3854361b8",
+        "deb273fcea",
+        "e5687383fd",
+        "2562804ceb",
+        "357e296021",
+        "54fc4ade4e",
+        "5790845c5c",
+        "7d361d5859",
+        "7d4f72667e",
+        "8a5fcb1405",
+        "a11d67845d",
+        "aa2a4c2b8a",
+        "d2e5898367",
+        "dbe7e40350",
+        "f36a00623a",
+        "0d36fb2a61",
+        "220f091707",
+        "45374c6b75",
+        "58d98cda2c",
+        "5c221a93db",
+        "5f52ba5cee",
+        "69d11758ad",
+        "700b4f59f9",
+        "883e50be3d",
+        "95441c8f27",
+        "999538a901",
+        "e3ed26efd8",
+        "fecb71daa7",
+        "00cc5778d7",
+        "1374424034",
+        "13e9063c75",
+        "173db2538d",
+        "1804a97769",
+        "2811033676",
+        "287ce8c585",
+        "2ba68f06e2",
+        "2c964b8efd",
+        "3eb29fc6cb",
+        "48d137844b",
+        "5151e45bfe",
+        "63506ccc70",
+        "640fbb40d9",
+        "6c7f5657a7",
+        "6d72c109ca",
+        "762a776546",
+        "7a4d052687",
+        "7b0f7c44f6",
+        "93a5ef3193",
+        "93c6ba300b",
+        "98734e646a",
+        "9914155306",
+        "9b5a930869",
+        "af689bdec5",
+        "b703e833bd",
+        "bcf6a49d40",
+        "bdf677806a",
+        "d162a68594",
+        "de2969d295",
+        "df282108f7",
+        "e06aa231cb",
+        "eba92424bf",
+        "f1b57be7c8",
+        "f1d1c251e0",
+        "f699a41b7f",
+        "fa06b39c42"
+      ],
+      "aliasCount": 110,
+      "cardOccurrences": 772,
+      "occurrences": 844,
+      "rulebookRefs": [],
+      "variants": []
+    },
+    {
+      "key": "disease",
+      "nameEn": "disease",
+      "nameZh": "疾病",
+      "kind": "disease",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["d745b188ce", "b4627031be", "28b10f3fb7", "e546d025cd", "96dfcd2af2"],
+      "aliasCount": 5,
+      "cardOccurrences": 20,
+      "occurrences": 20,
+      "rulebookRefs": [],
+      "variants": [{ "iconId": "96dfcd2af2", "nameEn": "Disease", "nameZh": "疾病" }]
+    },
+    {
+      "key": "dodge",
+      "nameEn": "Dodge",
+      "nameZh": "闪避",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": [
+        "c13f61abd5",
+        "7a472f5d6f",
+        "b2ea38715d",
+        "22c0a26f50",
+        "003b470410",
+        "c3727c7056"
+      ],
+      "aliasCount": 6,
+      "cardOccurrences": 223,
+      "occurrences": 223,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "c13f61abd5",
+          "nameEn": "Dodge (monster, value printed inside)",
+          "nameZh": "闪避（怪物，图标内数值）"
+        },
+        {
+          "iconId": "7a472f5d6f",
+          "nameEn": "Dodge (value printed next)",
+          "nameZh": "闪避（后接数值）"
+        },
+        { "iconId": "003b470410", "nameEn": "Dodge (inverted glyph)", "nameZh": "闪避（逆位图形）" }
+      ]
+    },
+    {
+      "key": "draw_negative_quirk",
+      "nameEn": "Draw a Negative Quirk",
+      "nameZh": "抽负面怪癖",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["3fe634e723", "382acc9dc4", "7b1a554877", "b7d0cfd524", "449d2d43ed"],
+      "aliasCount": 5,
+      "cardOccurrences": 19,
+      "occurrences": 19,
+      "rulebookRefs": [],
+      "variants": []
+    },
+    {
+      "key": "draw_positive_quirk",
+      "nameEn": "Draw a Positive Quirk",
+      "nameZh": "抽正面怪癖",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["3a7dfcb577", "3ae4312868", "3e2792bc5b", "8b7f872f77"],
+      "aliasCount": 4,
+      "cardOccurrences": 6,
+      "occurrences": 6,
+      "rulebookRefs": [],
+      "variants": []
+    },
+    {
+      "key": "draw_trinket",
+      "nameEn": "Draw a Trinket",
+      "nameZh": "抽饰品卡",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["85e094f269", "1d9ad90d4a"],
+      "aliasCount": 2,
+      "cardOccurrences": 6,
+      "occurrences": 6,
+      "rulebookRefs": [],
+      "variants": []
+    },
+    {
+      "key": "food",
+      "nameEn": "Food",
+      "nameZh": "食物",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["6e68b2add8", "030d73b0ba", "8fc1e0c2e9"],
+      "aliasCount": 3,
+      "cardOccurrences": 14,
+      "occurrences": 14,
+      "rulebookRefs": [],
+      "variants": [
+        { "iconId": "6e68b2add8", "nameEn": "Food (provision)", "nameZh": "食物（补给）" },
+        {
+          "iconId": "030d73b0ba",
+          "nameEn": "Food (player aid heading picture)",
+          "nameZh": "食物（玩家辅助卡标题图）"
+        }
+      ]
+    },
+    {
+      "key": "gold",
+      "nameEn": "Gold",
+      "nameZh": "金币",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["aa81338d06", "4bcefdb4d9", "989d655ff2"],
+      "aliasCount": 3,
+      "cardOccurrences": 16,
+      "occurrences": 16,
+      "rulebookRefs": [],
+      "variants": []
+    },
+    {
+      "key": "guard",
+      "nameEn": "Guard",
+      "nameZh": "守护",
+      "kind": "status",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["6bc7093e01", "1d1884bc2a", "a2e7252e06"],
+      "aliasCount": 3,
+      "cardOccurrences": 14,
+      "occurrences": 14,
+      "rulebookRefs": [],
+      "variants": []
+    },
+    {
+      "key": "heal",
+      "nameEn": "Heal",
+      "nameZh": "治疗",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": [
+        "20ffe98e2d",
+        "4f849b8ded",
+        "3ee34939e2",
+        "910a0c12fe",
+        "7f0a59a7a0",
+        "731f6665d0",
+        "8404726857",
+        "9824e0b432",
+        "9939df0801",
+        "c80e839741",
+        "c890c74db0"
+      ],
+      "aliasCount": 11,
+      "cardOccurrences": 217,
+      "occurrences": 217,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "20ffe98e2d",
+          "nameEn": "Heal (amount printed inside)",
+          "nameZh": "治疗（图标内数字）"
+        },
+        { "iconId": "4f849b8ded", "nameEn": "Heal (small)", "nameZh": "治疗（小）" }
+      ]
+    },
+    {
+      "key": "hero_emblem",
+      "nameEn": "Hero class emblem",
+      "nameZh": "英雄职业徽记",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["61fd969d50"],
+      "aliasCount": 1,
+      "cardOccurrences": 60,
+      "occurrences": 60,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "61fd969d50",
+          "nameEn": "Hero class emblem (hero card)",
+          "nameZh": "英雄职业徽记（英雄卡）"
+        }
+      ]
+    },
+    {
+      "key": "hero_portrait",
+      "nameEn": "Hero portrait: Jester",
+      "nameZh": "英雄头像：小丑",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": [
+        "6288c792db",
+        "648ab0db98",
+        "a9bdbb06ac",
+        "ab012928d3",
+        "c33b40604b",
+        "ccf3510c3f",
+        "da5bde4d4b",
+        "e3cdbdd188",
+        "0d1a61c983",
+        "328738bf46",
+        "920d9341f5",
+        "a7f7664fed",
+        "4a376473c3",
+        "a504fd194f",
+        "c46e9ad543",
+        "918f94ea06",
+        "10af87855e",
+        "374c97c68e",
+        "3b06230ac2",
+        "5289ec3ae6",
+        "926388824d",
+        "a341cdba60",
+        "b3ed68ce7a",
+        "c5f4e9c298",
+        "e6de7d8327",
+        "fece56ce1d",
+        "164f6dde5a",
+        "166eae2abd",
+        "1a3164a34f",
+        "27c28d0324",
+        "5e10f3c627",
+        "605ef84c59",
+        "7144178576",
+        "bb21119dee",
+        "be780e3d42",
+        "f9b2a22c96"
+      ],
+      "aliasCount": 36,
+      "cardOccurrences": 312,
+      "occurrences": 312,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "6288c792db",
+          "nameEn": "Hero portrait: Bounty Hunter (skill card back)",
+          "nameZh": "英雄头像：赏金猎人（技能卡背）"
+        },
+        {
+          "iconId": "648ab0db98",
+          "nameEn": "Hero portrait: Arbalest (skill card back)",
+          "nameZh": "英雄头像：弩手（技能卡背）"
+        },
+        {
+          "iconId": "a9bdbb06ac",
+          "nameEn": "Hero portrait: Jester (skill card back)",
+          "nameZh": "英雄头像：小丑（技能卡背）"
+        },
+        {
+          "iconId": "ab012928d3",
+          "nameEn": "Hero portrait: Plague Doctor (skill card back)",
+          "nameZh": "英雄头像：瘟疫医生（技能卡背）"
+        },
+        {
+          "iconId": "c33b40604b",
+          "nameEn": "Hero portrait: Hellion (skill card back)",
+          "nameZh": "英雄头像：蛮族女战士（技能卡背）"
+        },
+        {
+          "iconId": "ccf3510c3f",
+          "nameEn": "Hero portrait: Crusader (skill card back)",
+          "nameZh": "英雄头像：十字军（技能卡背）"
+        },
+        {
+          "iconId": "da5bde4d4b",
+          "nameEn": "Hero portrait: Grave Robber (skill card back)",
+          "nameZh": "英雄头像：盗墓者（技能卡背）"
+        },
+        {
+          "iconId": "e3cdbdd188",
+          "nameEn": "Hero portrait: Abomination (skill card back)",
+          "nameZh": "英雄头像：憎恶（技能卡背）"
+        },
+        {
+          "iconId": "0d1a61c983",
+          "nameEn": "Hero portrait: Vestal (skill card back)",
+          "nameZh": "英雄头像：修女（技能卡背）"
+        },
+        {
+          "iconId": "328738bf46",
+          "nameEn": "Hero portrait: Highwayman (skill card back)",
+          "nameZh": "英雄头像：强盗（技能卡背）"
+        },
+        {
+          "iconId": "920d9341f5",
+          "nameEn": "Hero portrait: Occultist (skill card back)",
+          "nameZh": "英雄头像：神秘学者（技能卡背）"
+        },
+        {
+          "iconId": "a7f7664fed",
+          "nameEn": "Hero portrait: Crusader (PvP card)",
+          "nameZh": "英雄头像：十字军（PvP卡）"
+        },
+        {
+          "iconId": "918f94ea06",
+          "nameEn": "Hero portrait: Abomination (hero stat card)",
+          "nameZh": "英雄头像：憎恶（英雄属性卡）"
+        },
+        {
+          "iconId": "10af87855e",
+          "nameEn": "Hero portrait: Jester (PvP card)",
+          "nameZh": "英雄头像：小丑（PvP卡）"
+        },
+        {
+          "iconId": "374c97c68e",
+          "nameEn": "Hero portrait: Vestal (PvP card)",
+          "nameZh": "英雄头像：修女（PvP卡）"
+        },
+        {
+          "iconId": "3b06230ac2",
+          "nameEn": "Hero portrait: Grave Robber (PvP card)",
+          "nameZh": "英雄头像：盗墓者（PvP卡）"
+        },
+        {
+          "iconId": "5289ec3ae6",
+          "nameEn": "Hero portrait: Occultist (PvP card)",
+          "nameZh": "英雄头像：神秘学者（PvP卡）"
+        },
+        {
+          "iconId": "926388824d",
+          "nameEn": "Hero portrait: Abomination (PvP card)",
+          "nameZh": "英雄头像：憎恶（PvP卡）"
+        },
+        {
+          "iconId": "a341cdba60",
+          "nameEn": "Hero portrait: Plague Doctor (PvP card)",
+          "nameZh": "英雄头像：瘟疫医生（PvP卡）"
+        },
+        {
+          "iconId": "b3ed68ce7a",
+          "nameEn": "Hero portrait: Arbalest (PvP card)",
+          "nameZh": "英雄头像：弩手（PvP卡）"
+        },
+        {
+          "iconId": "c5f4e9c298",
+          "nameEn": "Hero portrait: Bounty Hunter (PvP card)",
+          "nameZh": "英雄头像：赏金猎人（PvP卡）"
+        },
+        {
+          "iconId": "e6de7d8327",
+          "nameEn": "Hero portrait: Highwayman (PvP card)",
+          "nameZh": "英雄头像：强盗（PvP卡）"
+        },
+        {
+          "iconId": "fece56ce1d",
+          "nameEn": "Hero portrait: Hellion (PvP card)",
+          "nameZh": "英雄头像：蛮族女战士（PvP卡）"
+        },
+        {
+          "iconId": "164f6dde5a",
+          "nameEn": "Hero portrait: Occultist (hero stat card)",
+          "nameZh": "英雄头像：神秘学者（英雄属性卡）"
+        },
+        {
+          "iconId": "166eae2abd",
+          "nameEn": "Hero portrait: Hellion (hero stat card)",
+          "nameZh": "英雄头像：蛮族女战士（英雄属性卡）"
+        },
+        {
+          "iconId": "1a3164a34f",
+          "nameEn": "Hero portrait: Arbalest (hero stat card)",
+          "nameZh": "英雄头像：弩手（英雄属性卡）"
+        },
+        {
+          "iconId": "27c28d0324",
+          "nameEn": "Hero portrait: Plague Doctor (hero stat card)",
+          "nameZh": "英雄头像：瘟疫医生（英雄属性卡）"
+        },
+        {
+          "iconId": "5e10f3c627",
+          "nameEn": "Hero portrait: Jester (hero stat card)",
+          "nameZh": "英雄头像：小丑（英雄属性卡）"
+        },
+        {
+          "iconId": "605ef84c59",
+          "nameEn": "Hero portrait: Bounty Hunter (hero stat card)",
+          "nameZh": "英雄头像：赏金猎人（英雄属性卡）"
+        },
+        {
+          "iconId": "7144178576",
+          "nameEn": "Hero portrait: Vestal (hero stat card)",
+          "nameZh": "英雄头像：修女（英雄属性卡）"
+        },
+        {
+          "iconId": "bb21119dee",
+          "nameEn": "Hero portrait: Crusader (hero stat card)",
+          "nameZh": "英雄头像：十字军（英雄属性卡）"
+        },
+        {
+          "iconId": "be780e3d42",
+          "nameEn": "Hero portrait: Highwayman (hero stat card)",
+          "nameZh": "英雄头像：强盗（英雄属性卡）"
+        },
+        {
+          "iconId": "f9b2a22c96",
+          "nameEn": "Hero portrait: Grave Robber (hero stat card)",
+          "nameZh": "英雄头像：盗墓者（英雄属性卡）"
+        }
+      ]
+    },
+    {
+      "key": "hunger",
+      "nameEn": "Hunger",
+      "nameZh": "饥饿",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["0269e8e744", "66254314c8"],
+      "aliasCount": 2,
+      "cardOccurrences": 5,
+      "occurrences": 5,
+      "rulebookRefs": [],
+      "variants": []
+    },
+    {
+      "key": "level_badge",
+      "nameEn": "Trinket level badge",
+      "nameZh": "饰品等级徽章",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": [
+        "96c024d2c6",
+        "0c9e989b70",
+        "3f3ab3a88f",
+        "9ce5cbc01d",
+        "e39caa936e",
+        "f35c34b85b",
+        "a54d817382",
+        "b5ab209baa",
+        "da7dc436c3"
+      ],
+      "aliasCount": 9,
+      "cardOccurrences": 399,
+      "occurrences": 399,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "96c024d2c6",
+          "nameEn": "Monster level badge (roman numeral)",
+          "nameZh": "怪物等级徽章（罗马数字）"
+        },
+        {
+          "iconId": "0c9e989b70",
+          "nameEn": "Level badge (trinkets/boss/quest)",
+          "nameZh": "等级徽章（饰品/Boss/任务）"
+        },
+        {
+          "iconId": "f35c34b85b",
+          "nameEn": "Level badge (boss ability)",
+          "nameZh": "等级徽章（首领能力）"
+        }
+      ]
+    },
+    {
+      "key": "life",
+      "nameEn": "Life",
+      "nameZh": "生命值",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["6c0295c4e8", "9534ad5184", "799fbb848f"],
+      "aliasCount": 3,
+      "cardOccurrences": 215,
+      "occurrences": 215,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "6c0295c4e8",
+          "nameEn": "Life (HP) – number inside",
+          "nameZh": "生命值（图标内数字）"
+        },
+        { "iconId": "9534ad5184", "nameEn": "Hero Life (max HP)", "nameZh": "英雄生命值" }
+      ]
+    },
+    {
+      "key": "light",
+      "nameEn": "Light",
+      "nameZh": "光照",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": [
+        "9ffbd6087a",
+        "d13c8b76af",
+        "0c6d7ed396",
+        "78d1cc55d3",
+        "edc2ad45fb",
+        "9f080685f9",
+        "49cd46c0d4",
+        "c4fa19b296",
+        "d6b68d575f"
+      ],
+      "aliasCount": 9,
+      "cardOccurrences": 57,
+      "occurrences": 57,
+      "rulebookRefs": [],
+      "variants": [
+        { "iconId": "9ffbd6087a", "nameEn": "Light (torch)", "nameZh": "光照（火把）" },
+        {
+          "iconId": "edc2ad45fb",
+          "nameEn": "Flame with down-arrow (trinket) – possibly Light decrease",
+          "nameZh": "火焰+下箭头（饰品）– 可能为光照降低"
+        }
+      ]
+    },
+    {
+      "key": "location",
+      "nameEn": "Location banner",
+      "nameZh": "地点旗帜",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": [
+        "4843c9b620",
+        "2e22db7a98",
+        "9197a15623",
+        "f2d3273b1d",
+        "51a56b9bb3",
+        "27fe03d7a2",
+        "449dcc9abb",
+        "85a84fd9af",
+        "3825ad46df",
+        "a1e9e5ab21",
+        "552a741a9a",
+        "21bef16313"
+      ],
+      "aliasCount": 12,
+      "cardOccurrences": 247,
+      "occurrences": 247,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "4843c9b620",
+          "nameEn": "Location banner (monster card)",
+          "nameZh": "地点旗帜（怪物卡）"
+        },
+        {
+          "iconId": "2e22db7a98",
+          "nameEn": "Location banner (variant)",
+          "nameZh": "地点旗帜（变体）"
+        },
+        {
+          "iconId": "f2d3273b1d",
+          "nameEn": "Location banner (quest/room)",
+          "nameZh": "地点旗帜（任务/房间）"
+        },
+        {
+          "iconId": "51a56b9bb3",
+          "nameEn": "Location banner (boss room)",
+          "nameZh": "地点旗帜（首领房间）"
+        },
+        {
+          "iconId": "27fe03d7a2",
+          "nameEn": "Location banner (curio)",
+          "nameZh": "地点旗帜（奇物）"
+        },
+        {
+          "iconId": "449dcc9abb",
+          "nameEn": "Location banner (room)",
+          "nameZh": "地点旗帜（房间）"
+        },
+        {
+          "iconId": "a1e9e5ab21",
+          "nameEn": "Location banner (stygian room)",
+          "nameZh": "地点旗帜（冥河房间）"
+        },
+        {
+          "iconId": "552a741a9a",
+          "nameEn": "Location banner (stygian room, fire)",
+          "nameZh": "地点旗帜（冥河房间，火）"
+        },
+        {
+          "iconId": "21bef16313",
+          "nameEn": "Location banner (quest)",
+          "nameZh": "地点旗帜（任务）"
+        }
+      ]
+    },
+    {
+      "key": "loot_token_placement",
+      "nameEn": "Loot Token placement",
+      "nameZh": "战利品标记放置",
+      "kind": "other",
+      "status": "confirmed_rulebook",
+      "statuses": ["confirmed_rulebook"],
+      "valueInGlyph": false,
+      "aliases": ["7e288c22e5", "efb68defdc"],
+      "aliasCount": 2,
+      "cardOccurrences": 51,
+      "occurrences": 51,
+      "rulebookRefs": [
+        "Core p.16 step 7 \"Place Loot Token(s)\": the arrow points to the Area holding the chest box (same box on the figure Room Card, rulebook icon match to r65: pHash distance 10)",
+        "Core p.18 \"Special lootable items and interaction with them are usually indicated on the Room Card\"; Loot Chest interaction rules"
+      ],
+      "variants": [
+        {
+          "iconId": "7e288c22e5",
+          "nameEn": "Loot Token placement (chest box; \"!\" printed)",
+          "nameZh": "战利品标记放置（宝箱框，印有\"!\"）"
+        }
+      ]
+    },
+    {
+      "key": "mark",
+      "nameEn": "Mark",
+      "nameZh": "标记",
+      "kind": "status",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": [
+        "d41f8f865f",
+        "79d7aeb08b",
+        "b2e9d87127",
+        "66b4ce40ed",
+        "5652b480d4",
+        "9be6383955",
+        "b2102a1a20",
+        "839d76424c",
+        "d3d16004a0",
+        "17423f15a8",
+        "192ea1fea9",
+        "1ce58a493c"
+      ],
+      "aliasCount": 12,
+      "cardOccurrences": 98,
+      "occurrences": 98,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "d41f8f865f",
+          "nameEn": "Mark (Marked target)",
+          "nameZh": "标记（被标记目标）"
+        },
+        { "iconId": "5652b480d4", "nameEn": "Mark (PvP)", "nameZh": "标记（PvP）" }
+      ]
+    },
+    {
+      "key": "monster_stance_row_marker",
+      "nameEn": "Monster stance-row marker",
+      "nameZh": "怪物站位栏标记",
+      "kind": "dice_face",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["f7e08a02e7"],
+      "aliasCount": 1,
+      "cardOccurrences": 68,
+      "occurrences": 68,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "f7e08a02e7",
+          "nameEn": "Monster stance-row marker (variant)",
+          "nameZh": "怪物站位栏标记（变体）"
+        }
+      ]
+    },
+    {
+      "key": "monster_stance_slot_frame",
+      "nameEn": "Monster stance slot frame",
+      "nameZh": "怪物站位栏小框",
+      "kind": "position",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["d311f5fad9"],
+      "aliasCount": 1,
+      "cardOccurrences": 56,
+      "occurrences": 56,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "d311f5fad9",
+          "nameEn": "Monster stance slot frame (small)",
+          "nameZh": "怪物站位栏小框"
+        }
+      ]
+    },
+    {
+      "key": "monster_stance_slot_ranged_support",
+      "nameEn": "Monster stance slot: Ranged/Support",
+      "nameZh": "怪物站位栏",
+      "kind": "position",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["802ad6ada3"],
+      "aliasCount": 1,
+      "cardOccurrences": 59,
+      "occurrences": 59,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "802ad6ada3",
+          "nameEn": "Monster stance slot: Ranged/Support (dark variant) – confirm",
+          "nameZh": "怪物站位栏（暗色变体）待确认"
+        }
+      ]
+    },
+    {
+      "key": "monster_stance_slot_with_skill_numbers",
+      "nameEn": "Monster stance slot with skill numbers",
+      "nameZh": "怪物站位栏",
+      "kind": "position",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": [
+        "6023d48212",
+        "bac4b293b0",
+        "f588f5fe21",
+        "dd27139285",
+        "1560457709",
+        "9156a1fd04",
+        "71f198286a"
+      ],
+      "aliasCount": 7,
+      "cardOccurrences": 85,
+      "occurrences": 85,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "6023d48212",
+          "nameEn": "Monster stance slot with skill numbers (red) – confirm stance",
+          "nameZh": "怪物站位栏（红，含技能编号）待确认"
+        },
+        {
+          "iconId": "bac4b293b0",
+          "nameEn": "Monster stance slot with skill numbers – confirm",
+          "nameZh": "怪物站位栏（含技能编号）待确认"
+        }
+      ]
+    },
+    {
+      "key": "occupancy_limit",
+      "nameEn": "Area occupancy limit",
+      "nameZh": "区域容纳上限",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["700c7def3e"],
+      "aliasCount": 1,
+      "cardOccurrences": 28,
+      "occurrences": 41,
+      "rulebookRefs": [],
+      "variants": []
+    },
+    {
+      "key": "occupancy_pips",
+      "nameEn": "Area occupancy pips",
+      "nameZh": "区域容纳标记",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed", "confirmed_rulebook"],
+      "valueInGlyph": true,
+      "aliases": [
+        "812394dcdd",
+        "d18c59a65d",
+        "6cc69f00ff",
+        "255187b044",
+        "92c5f40988",
+        "089f2d63e3",
+        "274c1a8204",
+        "9a6a3eaf3c",
+        "3b95c5fc7a",
+        "fd28ab75ce",
+        "43aaf29bbb",
+        "7fb9964d4f",
+        "d176185d66",
+        "03f929fe29",
+        "0b980b3132",
+        "27e9380df6",
+        "a35a25150c",
+        "464b07fec1"
+      ],
+      "aliasCount": 18,
+      "cardOccurrences": 244,
+      "occurrences": 309,
+      "rulebookRefs": [
+        "Core p.18 Move rules + figure label \"Occupancy number/icon\" (white pips on the Area = how many miniatures it holds; \"Fully Occupied Area\")"
+      ],
+      "variants": [
+        {
+          "iconId": "812394dcdd",
+          "nameEn": "Area occupancy pips (3)",
+          "nameZh": "区域容纳标记（3点）"
+        },
+        {
+          "iconId": "6cc69f00ff",
+          "nameEn": "Area occupancy pips (variant)",
+          "nameZh": "区域容纳标记（变体）"
+        },
+        {
+          "iconId": "255187b044",
+          "nameEn": "Area occupancy pips (2)",
+          "nameZh": "区域容纳标记（2点）"
+        },
+        {
+          "iconId": "089f2d63e3",
+          "nameEn": "Area occupancy pips (4)",
+          "nameZh": "区域容纳标记（4点）"
+        },
+        {
+          "iconId": "7fb9964d4f",
+          "nameEn": "Area occupancy pips (4, large)",
+          "nameZh": "区域容纳标记（4点，大）"
+        }
+      ]
+    },
+    {
+      "key": "occupancy_pips_with_area_marker",
+      "nameEn": "Area occupancy pips",
+      "nameZh": "区域容纳标记",
+      "kind": "other",
+      "status": "confirmed_rulebook",
+      "statuses": ["confirmed_rulebook"],
+      "valueInGlyph": true,
+      "aliases": [
+        "77f7d57f8d",
+        "666392745d",
+        "1f623cfca0",
+        "37a120f76f",
+        "8bbbde748d",
+        "a0ed98587f"
+      ],
+      "aliasCount": 6,
+      "cardOccurrences": 42,
+      "occurrences": 42,
+      "rulebookRefs": [
+        "Core p.16 \"Set up a Battle\" figure: Room Card areas carry lettered markers (A/B) next to the pips; the card text \"A Loot the Chest…\", \"B Hide and Heal…\" refers to them (rulebook icon match to r363: pHash distance 4)",
+        "Core p.18 Move rules + figure label \"Occupancy number/icon\" (white pips on the Area = how many miniatures it holds; \"Fully Occupied Area\")",
+        "Core p.5 component overview: Room Card \"1—Ritual Chamber\" shows a red marker before the named effect \"Cornered: Heroes ending their turn here suffer…\""
+      ],
+      "variants": [
+        {
+          "iconId": "77f7d57f8d",
+          "nameEn": "Area occupancy pips + area marker (red; refers to the Room Card effect text, letter if any is printed)",
+          "nameZh": "区域容纳标记 + 区域标记（红色，对应房间卡效果文字）"
+        },
+        {
+          "iconId": "666392745d",
+          "nameEn": "Area occupancy pips (2) + area marker (red; refers to the Room Card effect text, letter if any is printed)",
+          "nameZh": "区域容纳标记（2点） + 区域标记（红色，对应房间卡效果文字）"
+        },
+        {
+          "iconId": "1f623cfca0",
+          "nameEn": "Area occupancy pips (3) + area marker (red; refers to the Room Card effect text, letter if any is printed)",
+          "nameZh": "区域容纳标记（3点） + 区域标记（红色，对应房间卡效果文字）"
+        },
+        {
+          "iconId": "37a120f76f",
+          "nameEn": "Area occupancy pips (2) + area marker (green; refers to the Room Card effect text, letter if any is printed)",
+          "nameZh": "区域容纳标记（2点） + 区域标记（绿色，对应房间卡效果文字）"
+        },
+        {
+          "iconId": "8bbbde748d",
+          "nameEn": "Area occupancy pips (4) + area marker (green; refers to the Room Card effect text, letter if any is printed)",
+          "nameZh": "区域容纳标记（4点） + 区域标记（绿色，对应房间卡效果文字）"
+        }
+      ]
+    },
+    {
+      "key": "pa_heading",
+      "nameEn": "Player aid heading picture",
+      "nameZh": "探索",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["9bc725d484", "7f3f641dd0", "c68132c82e"],
+      "aliasCount": 3,
+      "cardOccurrences": 16,
+      "occurrences": 16,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "9bc725d484",
+          "nameEn": "Player aid heading picture: Stressful Darkness (cluster may also cover the Hunger heading)",
+          "nameZh": "玩家辅助卡标题图：黑暗压力（该簇可能也含饥饿标题）"
+        },
+        {
+          "iconId": "7f3f641dd0",
+          "nameEn": "Exploration (player aid heading picture)",
+          "nameZh": "探索（玩家辅助卡标题图）"
+        },
+        {
+          "iconId": "c68132c82e",
+          "nameEn": "Player aid heading picture ('Rooms')",
+          "nameZh": "玩家辅助卡标题图（“房间”）"
+        }
+      ]
+    },
+    {
+      "key": "potion",
+      "nameEn": "Potion",
+      "nameZh": "药水",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["7c568783f1"],
+      "aliasCount": 1,
+      "cardOccurrences": 4,
+      "occurrences": 4,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "7c568783f1",
+          "nameEn": "Potion (provision, player aid heading)",
+          "nameZh": "药水（补给，玩家辅助卡标题）"
+        }
+      ]
+    },
+    {
+      "key": "preparation_days",
+      "nameEn": "Preparation days",
+      "nameZh": "准备天数",
+      "kind": "other",
+      "status": "confirmed_rulebook",
+      "statuses": ["confirmed_rulebook"],
+      "valueInGlyph": false,
+      "aliases": ["ef839b6878", "1cdbcf4cc7"],
+      "aliasCount": 2,
+      "cardOccurrences": 11,
+      "occurrences": 11,
+      "rulebookRefs": ["Core p.33"],
+      "variants": [
+        {
+          "iconId": "ef839b6878",
+          "nameEn": "Preparation days (number printed inside)",
+          "nameZh": "准备天数（数字印在图标内）"
+        }
+      ]
+    },
+    {
+      "key": "protection",
+      "nameEn": "Protection",
+      "nameZh": "防护",
+      "kind": "status",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["4fcb32ac31", "d018286d13"],
+      "aliasCount": 2,
+      "cardOccurrences": 16,
+      "occurrences": 16,
+      "rulebookRefs": [],
+      "variants": []
+    },
+    {
+      "key": "provisions",
+      "nameEn": "Provisions",
+      "nameZh": "补给",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["686ca3dd0a"],
+      "aliasCount": 1,
+      "cardOccurrences": 5,
+      "occurrences": 5,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "686ca3dd0a",
+          "nameEn": "Provisions (player aid heading picture: die with Wild 'DD' face)",
+          "nameZh": "补给（玩家辅助卡标题图：含万能“DD”面的骰子）"
+        }
+      ]
+    },
+    {
+      "key": "quirk",
+      "nameEn": "Positive or negative Quirk",
+      "nameZh": "正面或负面怪癖",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["3deae1ab2a"],
+      "aliasCount": 1,
+      "cardOccurrences": 3,
+      "occurrences": 3,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "3deae1ab2a",
+          "nameEn": "Positive or negative Quirk (quirk card glyph)",
+          "nameZh": "正面或负面怪癖（怪癖卡图形）"
+        }
+      ]
+    },
+    {
+      "key": "quirk_disease_card_emblem",
+      "nameEn": "Quirk/disease card emblem",
+      "nameZh": "怪癖/疾病卡徽记",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["02fb736f34"],
+      "aliasCount": 1,
+      "cardOccurrences": 19,
+      "occurrences": 19,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "02fb736f34",
+          "nameEn": "Quirk/disease card emblem (helmet silhouette) – confirm",
+          "nameZh": "怪癖/疾病卡徽记（头盔剪影）待确认"
+        }
+      ]
+    },
+    {
+      "key": "range",
+      "nameEn": "Range",
+      "nameZh": "射程",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["3ab7e7544c"],
+      "aliasCount": 1,
+      "cardOccurrences": 660,
+      "occurrences": 660,
+      "rulebookRefs": [],
+      "variants": []
+    },
+    {
+      "key": "res_panel",
+      "nameEn": "Resistances/Immunities panel frame",
+      "nameZh": "抗性/免疫栏边框",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["7553310516", "f7b237b643"],
+      "aliasCount": 2,
+      "cardOccurrences": 262,
+      "occurrences": 262,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "7553310516",
+          "nameEn": "Resistances/Immunities panel frame (right part)",
+          "nameZh": "抗性/免疫栏边框"
+        },
+        {
+          "iconId": "f7b237b643",
+          "nameEn": "Resistances/Immunities panel frame (left part)",
+          "nameZh": "抗性/免疫栏边框"
+        }
+      ]
+    },
+    {
+      "key": "riposte",
+      "nameEn": "Riposte",
+      "nameZh": "反击",
+      "kind": "status",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["a0290ad4ce", "f9991d2b32"],
+      "aliasCount": 2,
+      "cardOccurrences": 10,
+      "occurrences": 10,
+      "rulebookRefs": [],
+      "variants": []
+    },
+    {
+      "key": "roll_for_provisions",
+      "nameEn": "Roll for Provisions",
+      "nameZh": "掷补给骰",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["ae45f5bcb3"],
+      "aliasCount": 1,
+      "cardOccurrences": 6,
+      "occurrences": 6,
+      "rulebookRefs": ["Core p.18"],
+      "variants": []
+    },
+    {
+      "key": "room_type",
+      "nameEn": "Dark Room",
+      "nameZh": "空房间",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": [
+        "6373c1a98f",
+        "9664a6209e",
+        "973c3b8f2f",
+        "b5e946ca1e",
+        "d85cb831e4",
+        "e6bfc7f0e2"
+      ],
+      "aliasCount": 6,
+      "cardOccurrences": 24,
+      "occurrences": 24,
+      "rulebookRefs": [],
+      "variants": [
+        { "iconId": "6373c1a98f", "nameEn": "Treasure Room", "nameZh": "宝藏房间" },
+        { "iconId": "9664a6209e", "nameEn": "Dark Room", "nameZh": "黑暗房间" },
+        { "iconId": "973c3b8f2f", "nameEn": "Trap Room", "nameZh": "陷阱房间" },
+        { "iconId": "b5e946ca1e", "nameEn": "Objective Room", "nameZh": "目标房间" },
+        { "iconId": "d85cb831e4", "nameEn": "Empty Room", "nameZh": "空房间" },
+        { "iconId": "e6bfc7f0e2", "nameEn": "Curio Room", "nameZh": "奇物房间" }
+      ]
+    },
+    {
+      "key": "rubble",
+      "nameEn": "Rubble",
+      "nameZh": "瓦砾",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["b90f83490a", "bd191b4b19"],
+      "aliasCount": 2,
+      "cardOccurrences": 8,
+      "occurrences": 8,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "bd191b4b19",
+          "nameEn": "Rubble (player aid heading)",
+          "nameZh": "瓦砾（玩家辅助卡标题）"
+        }
+      ]
+    },
+    {
+      "key": "self_effects",
+      "nameEn": "Self Effects marker",
+      "nameZh": "自身效果标记",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["8fc8635162", "7885c978df", "8c17caf335", "33466be235"],
+      "aliasCount": 4,
+      "cardOccurrences": 220,
+      "occurrences": 220,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "7885c978df",
+          "nameEn": "Self Effects marker (PvP card)",
+          "nameZh": "自身效果标记（PvP卡）"
+        },
+        {
+          "iconId": "8c17caf335",
+          "nameEn": "Self Effects marker (monster cards)",
+          "nameZh": "自身效果标记（怪物卡）"
+        }
+      ]
+    },
+    {
+      "key": "self_plate",
+      "nameEn": "'Self' label plate",
+      "nameZh": "“Self”文字底板",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["c386328053"],
+      "aliasCount": 1,
+      "cardOccurrences": 56,
+      "occurrences": 56,
+      "rulebookRefs": [],
+      "variants": []
+    },
+    {
+      "key": "shuffle",
+      "nameEn": "Shuffle",
+      "nameZh": "位移",
+      "kind": "status",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": [
+        "f18923574c",
+        "b034e44cb1",
+        "1e762d801a",
+        "adfd4d1300",
+        "92104a3c6b",
+        "ac56561b87",
+        "8c4c3c2ec2",
+        "e3c4380264",
+        "31f483557e"
+      ],
+      "aliasCount": 9,
+      "cardOccurrences": 168,
+      "occurrences": 168,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "f18923574c",
+          "nameEn": "Shuffle: Push/Pull (forward)",
+          "nameZh": "位移：推/拉"
+        },
+        {
+          "iconId": "b034e44cb1",
+          "nameEn": "Shuffle: Push/Pull (variant)",
+          "nameZh": "位移：推/拉（变体）"
+        },
+        { "iconId": "1e762d801a", "nameEn": "Shuffle (push/pull)", "nameZh": "位移（推/拉）" },
+        { "iconId": "adfd4d1300", "nameEn": "Shuffle (pull)", "nameZh": "位移（拉）" },
+        { "iconId": "92104a3c6b", "nameEn": "Shuffle (push)", "nameZh": "位移（推）" },
+        { "iconId": "8c4c3c2ec2", "nameEn": "Shuffle", "nameZh": "位移（Push/Pull）" }
+      ]
+    },
+    {
+      "key": "shuffle_resist",
+      "nameEn": "Shuffle (large monster resistances)",
+      "nameZh": "位移（大型怪抗性）",
+      "kind": "resist",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": [
+        "1202a8c5f4",
+        "1688133ef7",
+        "ed2299539e",
+        "30727be2ab",
+        "df4eb1ac47",
+        "e6f082eb96",
+        "56130a631f",
+        "fd4e85ea9d",
+        "b2ac0f25e8"
+      ],
+      "aliasCount": 9,
+      "cardOccurrences": 83,
+      "occurrences": 83,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "1202a8c5f4",
+          "nameEn": "Shuffle (push/pull) – as resistance",
+          "nameZh": "位移（推/拉）抗性"
+        },
+        {
+          "iconId": "1688133ef7",
+          "nameEn": "Shuffle (as resistance, PvP)",
+          "nameZh": "位移抗性（PvP）"
+        },
+        {
+          "iconId": "ed2299539e",
+          "nameEn": "Shuffle (immunity/resistance)",
+          "nameZh": "位移（免疫/抗性）"
+        },
+        {
+          "iconId": "df4eb1ac47",
+          "nameEn": "Shuffle (hero stat card)",
+          "nameZh": "位移（英雄属性卡）"
+        }
+      ]
+    },
+    {
+      "key": "skill_art",
+      "nameEn": "Skill picture",
+      "nameZh": "技能插画",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": [
+        "01c85cf78b",
+        "22bd95e15b",
+        "42c2115860",
+        "6892fb18a1",
+        "76a5e27577",
+        "a81cd48aa9",
+        "d9aedaf152",
+        "003e71f8d0",
+        "017d7aadaf",
+        "01a21aa8ba",
+        "041a6f174f",
+        "0eee3a879e",
+        "0fa747a534",
+        "10866bca9a",
+        "10f4962265",
+        "116de16eea",
+        "11d84e01da",
+        "11e082593c",
+        "186cc81e8e",
+        "1a3c1e80f8",
+        "1d2131c2e8",
+        "1f22d5b7c0",
+        "20a1c47474",
+        "227dc3342f",
+        "241828b3b1",
+        "246623ec54",
+        "25cb59e42a",
+        "26b83dc957",
+        "276de6cce0",
+        "291c5a6bbe",
+        "2a3b1c6b1a",
+        "2d30a81543",
+        "2f754d541a",
+        "2f9d8a5283",
+        "3014545941",
+        "3f268bb561",
+        "40c5f0549f",
+        "431b68575d",
+        "432b929058",
+        "447277c8de",
+        "45d27bbb0a",
+        "462bd48a91",
+        "496e7d6764",
+        "49a18bc513",
+        "4e037a0f7d",
+        "4f5b9f4aee",
+        "4fbf71e439",
+        "5026f543d1",
+        "51af301abc",
+        "562f7b1813",
+        "56b18de78a",
+        "591783c032",
+        "5ce7322024",
+        "5d1972d3b3",
+        "5d2b56e1d6",
+        "5d5997e680",
+        "5d764b51a8",
+        "5ee540c4be",
+        "6066519568",
+        "61d2ef36c2",
+        "64153cdf98",
+        "6a03b013e1",
+        "6b30952874",
+        "719c94ded5",
+        "739e27efb9",
+        "73db545594",
+        "73f696059d",
+        "75dc7e4bb6",
+        "76d6c779d0",
+        "76f31cae82",
+        "7908a8bf68",
+        "7a3d67e92f",
+        "7bc345cf2d",
+        "7cc589b82e",
+        "7d61c712f0",
+        "7db3849592",
+        "7e202cec98",
+        "7e323fd8ca",
+        "7fe24f8773",
+        "80e25938f0",
+        "83707238c9",
+        "83c139c917",
+        "87fa5a9083",
+        "8b40c92658",
+        "91b6ebfa9d",
+        "91c3480071",
+        "9425e3ab05",
+        "9549079d98",
+        "95550a00bf",
+        "96a38b3137",
+        "96ab73ad83",
+        "97b397b628",
+        "9988a4e1de",
+        "9a43e448d2",
+        "9b1c9ceceb",
+        "9ccc5f38ce",
+        "9e94361eed",
+        "9f65da9838",
+        "a190c1b554",
+        "a26ae16daf",
+        "a374015f67",
+        "a3de2bb204",
+        "a4e2c0e58e",
+        "a4e4430911",
+        "a5be58b31f",
+        "a8fc96f5c7",
+        "ab5b96b97c",
+        "ac7dc355c7",
+        "ac7e34b09d",
+        "b21c6ec6a9",
+        "b6d68534bf",
+        "b70679457d",
+        "b7a85dc063",
+        "b8d40e201d",
+        "ba1e6e3337",
+        "bcc36fb90b",
+        "bd09734d1a",
+        "bd6f39a268",
+        "be09b9a6ff",
+        "be739c4cd2",
+        "c1324fb49d",
+        "c2a7b05acc",
+        "c2cd1b99ba",
+        "c4c35d755b",
+        "c6fe5073ac",
+        "c7cb1c8add",
+        "c8a5888c03",
+        "d047462606",
+        "d5088e0579",
+        "d7181ca8ff",
+        "d72421d0c6",
+        "dcdd14dc84",
+        "dda008fc6c",
+        "e052c053b1",
+        "e1209d59d0",
+        "e1c93c4fb4",
+        "e2e32e952c",
+        "e53c873ec0",
+        "e6ed21fb6b",
+        "e8b528e387",
+        "e8f651e5f8",
+        "e943608c3b",
+        "e9a9b54074",
+        "eae880a984",
+        "f11b41ae75",
+        "f90d1acdf5",
+        "fd5a71c6d1"
+      ],
+      "aliasCount": 147,
+      "cardOccurrences": 462,
+      "occurrences": 462,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "01c85cf78b",
+          "nameEn": "Skill icon art (skill card name row)",
+          "nameZh": "技能图标插画（技能名行）"
+        },
+        {
+          "iconId": "22bd95e15b",
+          "nameEn": "Skill icon art (skill card back, after hero name)",
+          "nameZh": "技能图标插画（技能卡背面，英雄名后）"
+        },
+        {
+          "iconId": "017d7aadaf",
+          "nameEn": "Skill icon art (skill card front, unique per skill)",
+          "nameZh": "技能图标插画（技能卡正面，每技能唯一）"
+        }
+      ]
+    },
+    {
+      "key": "skill_level_frame",
+      "nameEn": "Skill level frame I",
+      "nameZh": "技能等级框 I",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["4a17acd159", "7fd9b8f208"],
+      "aliasCount": 2,
+      "cardOccurrences": 152,
+      "occurrences": 152,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "4a17acd159",
+          "nameEn": "Skill level frame I (card back)",
+          "nameZh": "技能等级框 I（卡背）"
+        },
+        {
+          "iconId": "7fd9b8f208",
+          "nameEn": "Skill level frame II (card back)",
+          "nameZh": "技能等级框 II（卡背）"
+        }
+      ]
+    },
+    {
+      "key": "skill_number",
+      "nameEn": "Skill ID",
+      "nameZh": "技能编号",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": [
+        "6eb2ab6c16",
+        "986406076a",
+        "e23c5f7bb8",
+        "7c7de22bc1",
+        "ef63419250",
+        "01d6f8c930",
+        "81250916ec",
+        "be11b8ced8",
+        "9614979938",
+        "ad876fdcc1",
+        "6cee7f5b3b",
+        "9446490c37",
+        "26f23ab2ef",
+        "995efc58a1",
+        "ddaf80f706",
+        "1348d729eb",
+        "8de7d6d4d7",
+        "3563dddbbc",
+        "87c1cfdf96",
+        "8f5b9368a9",
+        "903a585468",
+        "11e491c203",
+        "4e14460439",
+        "9e4bb98b5c",
+        "23c84b422a",
+        "6a08bec9e4",
+        "4065698895",
+        "8162b8dc76",
+        "8c86066948",
+        "926308c455",
+        "9c7c873a20",
+        "ae6fa33200",
+        "dcecbb1734"
+      ],
+      "aliasCount": 33,
+      "cardOccurrences": 1007,
+      "occurrences": 1007,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "6eb2ab6c16",
+          "nameEn": "Monster skill number badge (1/2/3)",
+          "nameZh": "怪物技能编号牌（1/2/3）"
+        },
+        {
+          "iconId": "e23c5f7bb8",
+          "nameEn": "Skill number badge (PvP card)",
+          "nameZh": "技能编号牌（PvP卡）"
+        }
+      ]
+    },
+    {
+      "key": "speed",
+      "nameEn": "Speed",
+      "nameZh": "速度",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["4648c9e5ec", "b0f4ca8612"],
+      "aliasCount": 2,
+      "cardOccurrences": 425,
+      "occurrences": 425,
+      "rulebookRefs": [],
+      "variants": [
+        { "iconId": "4648c9e5ec", "nameEn": "Speed (movement)", "nameZh": "速度（移动）" }
+      ]
+    },
+    {
+      "key": "stance_aggressive_lit",
+      "nameEn": "Stance: Aggressive (sword) – lit (PvP card top row)",
+      "nameZh": "站位：进攻（点亮，PvP卡顶行）",
+      "kind": "position",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["208e98c5d6", "9abedd9ef8", "fe18ec5b80", "bb21fa4f0f"],
+      "aliasCount": 4,
+      "cardOccurrences": 217,
+      "occurrences": 217,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "208e98c5d6",
+          "nameEn": "Stance: Aggressive (sword) – active/eligible",
+          "nameZh": "站位：进攻（剑，点亮=可用）"
+        }
+      ]
+    },
+    {
+      "key": "stance_aggressive_monster_slot",
+      "nameEn": "Monster stance slot: Aggressive (sword, variant)",
+      "nameZh": "怪物站位栏：进攻（变体）",
+      "kind": "position",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["2ce1cd4d1b", "9e89b8399f", "c959195d7a"],
+      "aliasCount": 3,
+      "cardOccurrences": 131,
+      "occurrences": 131,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "2ce1cd4d1b",
+          "nameEn": "Monster stance slot: Aggressive (sword)",
+          "nameZh": "怪物站位栏：进攻（剑）"
+        }
+      ]
+    },
+    {
+      "key": "stance_aggressive_unlit",
+      "nameEn": "Stance: Aggressive (sword) – inactive",
+      "nameZh": "站位：进攻（未点亮=不可用）",
+      "kind": "position",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["e3ee686e8a", "008b352b2d", "7fe8e19eb9"],
+      "aliasCount": 3,
+      "cardOccurrences": 188,
+      "occurrences": 188,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "008b352b2d",
+          "nameEn": "Stance: Aggressive (sword) – unlit (PvP card top row) / large-monster row",
+          "nameZh": "站位：进攻（未点亮，PvP卡顶行/大型怪物行）"
+        },
+        {
+          "iconId": "7fe8e19eb9",
+          "nameEn": "Stance: Aggressive (sword) – unlit (PvP card top row)",
+          "nameZh": "站位：进攻（未点亮，PvP卡顶行）"
+        }
+      ]
+    },
+    {
+      "key": "stance_defensive_inline",
+      "nameEn": "Defensive Stance",
+      "nameZh": "防御站位",
+      "kind": "position",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["ba58ec175e"],
+      "aliasCount": 1,
+      "cardOccurrences": 4,
+      "occurrences": 4,
+      "rulebookRefs": [],
+      "variants": []
+    },
+    {
+      "key": "stance_defensive_large_monster",
+      "nameEn": "Stance: Defensive (shield) – large monster",
+      "nameZh": "站位：防御（大型怪）",
+      "kind": "position",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["cc43dc238b"],
+      "aliasCount": 1,
+      "cardOccurrences": 24,
+      "occurrences": 24,
+      "rulebookRefs": [],
+      "variants": []
+    },
+    {
+      "key": "stance_defensive_lit",
+      "nameEn": "Stance: Defensive (shield) – lit (PvP card top row)",
+      "nameZh": "站位：防御（点亮，PvP卡顶行）",
+      "kind": "position",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["8bc055471a", "c6e6594386", "f7bd151d17", "8b801d29d7"],
+      "aliasCount": 4,
+      "cardOccurrences": 290,
+      "occurrences": 290,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "8bc055471a",
+          "nameEn": "Stance: Defensive (shield) – active/eligible",
+          "nameZh": "站位：防御（盾，点亮=可用）"
+        }
+      ]
+    },
+    {
+      "key": "stance_defensive_monster_slot",
+      "nameEn": "Monster stance slot: Defensive (shield) with skill numbers",
+      "nameZh": "怪物站位栏：防御（盾）",
+      "kind": "position",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["7eeaf1ad74", "8bd94417b0", "538ebeb34d", "bade862391"],
+      "aliasCount": 4,
+      "cardOccurrences": 126,
+      "occurrences": 126,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "8bd94417b0",
+          "nameEn": "Monster stance slot: Defensive (shield, red)",
+          "nameZh": "怪物站位栏：防御（盾，红）"
+        },
+        {
+          "iconId": "538ebeb34d",
+          "nameEn": "Monster stance slot with skill numbers – confirm",
+          "nameZh": "怪物站位栏（含技能编号）待确认"
+        }
+      ]
+    },
+    {
+      "key": "stance_defensive_unlit",
+      "nameEn": "Stance: Defensive (shield) – inactive",
+      "nameZh": "站位：防御（未点亮）",
+      "kind": "position",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["071976e5cb", "ad3f9feee0"],
+      "aliasCount": 2,
+      "cardOccurrences": 91,
+      "occurrences": 91,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "ad3f9feee0",
+          "nameEn": "Stance: Defensive (shield) – unlit (PvP card top row)",
+          "nameZh": "站位：防御（未点亮，PvP卡顶行）"
+        }
+      ]
+    },
+    {
+      "key": "stance_ranged_abomination_row",
+      "nameEn": "Stance: Ranged (Abomination top row) – confirm lit/unlit",
+      "nameZh": "站位：远程（憎恶顶行）",
+      "kind": "position",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["895cbc2e41"],
+      "aliasCount": 1,
+      "cardOccurrences": 15,
+      "occurrences": 15,
+      "rulebookRefs": [],
+      "variants": []
+    },
+    {
+      "key": "stance_ranged_inline",
+      "nameEn": "Ranged Stance (boss placement text)",
+      "nameZh": "远程站位（首领放置文字）",
+      "kind": "position",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["f53b3fb732"],
+      "aliasCount": 1,
+      "cardOccurrences": 4,
+      "occurrences": 4,
+      "rulebookRefs": [],
+      "variants": []
+    },
+    {
+      "key": "stance_ranged_large_monster",
+      "nameEn": "Stance: Ranged (arrows) – large monster",
+      "nameZh": "站位：远程（大型怪）",
+      "kind": "position",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["42c2d59e59"],
+      "aliasCount": 1,
+      "cardOccurrences": 24,
+      "occurrences": 24,
+      "rulebookRefs": [],
+      "variants": []
+    },
+    {
+      "key": "stance_ranged_lit",
+      "nameEn": "Stance: Ranged (arrows) – lit (PvP card top row)",
+      "nameZh": "站位：远程（点亮，PvP卡顶行）",
+      "kind": "position",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["d9551e4669", "6d3ed51daf", "d8557730a4", "3e15d1efba"],
+      "aliasCount": 4,
+      "cardOccurrences": 279,
+      "occurrences": 279,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "d9551e4669",
+          "nameEn": "Stance: Ranged (arrows) – active/eligible",
+          "nameZh": "站位：远程（箭，点亮=可用）"
+        }
+      ]
+    },
+    {
+      "key": "stance_ranged_monster_slot",
+      "nameEn": "Monster stance slot: Ranged (arrows)",
+      "nameZh": "怪物站位栏：远程（箭）",
+      "kind": "position",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["010cc97a8a", "643d396fef"],
+      "aliasCount": 2,
+      "cardOccurrences": 62,
+      "occurrences": 86,
+      "rulebookRefs": [],
+      "variants": []
+    },
+    {
+      "key": "stance_ranged_unlit",
+      "nameEn": "Stance: Ranged (arrows) – inactive",
+      "nameZh": "站位：远程（未点亮）",
+      "kind": "position",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["cd12362298", "4628698e2d"],
+      "aliasCount": 2,
+      "cardOccurrences": 87,
+      "occurrences": 87,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "4628698e2d",
+          "nameEn": "Stance: Ranged (arrows) – unlit (PvP card top row)",
+          "nameZh": "站位：远程（未点亮，PvP卡顶行）"
+        }
+      ]
+    },
+    {
+      "key": "stance_support_inline",
+      "nameEn": "Support Stance (boss placement text)",
+      "nameZh": "支援站位（首领放置文字）",
+      "kind": "position",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["3af899ff70"],
+      "aliasCount": 1,
+      "cardOccurrences": 4,
+      "occurrences": 4,
+      "rulebookRefs": [],
+      "variants": []
+    },
+    {
+      "key": "stance_support_lit",
+      "nameEn": "Stance: Support (pillars) – lit (PvP card top row)",
+      "nameZh": "站位：支援（点亮，PvP卡顶行）",
+      "kind": "position",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["9e4a5bb3a3", "6614fddb3c", "f184b9a6fb", "f4539842c2", "7faa97dbde"],
+      "aliasCount": 5,
+      "cardOccurrences": 222,
+      "occurrences": 222,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "9e4a5bb3a3",
+          "nameEn": "Stance: Support (pillars) – active/eligible",
+          "nameZh": "站位：支援（点亮=可用）"
+        }
+      ]
+    },
+    {
+      "key": "stance_support_monster_slot",
+      "nameEn": "Monster stance slot: Support (pillars)",
+      "nameZh": "怪物站位栏：支援（柱）",
+      "kind": "position",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["0ba73142d3", "293f170eab"],
+      "aliasCount": 2,
+      "cardOccurrences": 68,
+      "occurrences": 92,
+      "rulebookRefs": ["Core p.16", "Core p.24", "Core p.33"],
+      "variants": []
+    },
+    {
+      "key": "stance_support_unlit",
+      "nameEn": "Stance: Support (pillars) – inactive",
+      "nameZh": "站位：支援（未点亮）",
+      "kind": "position",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["978f861dea", "0a289df640"],
+      "aliasCount": 2,
+      "cardOccurrences": 183,
+      "occurrences": 183,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "0a289df640",
+          "nameEn": "Stance: Support (pillars) – unlit (PvP card top row) / large-monster row",
+          "nameZh": "站位：支援（未点亮，PvP卡顶行/大型怪物行）"
+        }
+      ]
+    },
+    {
+      "key": "start_any_defensive",
+      "nameEn": "Starting location: Hero or Monster",
+      "nameZh": "起始位置：英雄或怪物，防御",
+      "kind": "position",
+      "status": "confirmed_rulebook",
+      "statuses": ["confirmed_rulebook"],
+      "valueInGlyph": false,
+      "aliases": ["71cd10f39d"],
+      "aliasCount": 1,
+      "cardOccurrences": 18,
+      "occurrences": 18,
+      "rulebookRefs": [
+        "Core p.16 \"Deploy Heroes, Spawn Monsters and Ready the Initiative Deck\": \"On each Room Tile you can find the starting location for both Heroes and Monsters. Place each Hero's miniature on the Area indicated, according to the Hero's Stance.\" Legend: \"Example: 2 Starting Locations of Heroes\" (gold frames) / \"Example: 2 Starting Locations of Monsters\" (red frames); steps 4/5 \"Place Hero/Monster Miniatures according to their Stances\""
+      ],
+      "variants": [
+        {
+          "iconId": "71cd10f39d",
+          "nameEn": "Starting location: Hero or Monster (frame colour varies), Defensive",
+          "nameZh": "起始位置：英雄或怪物，防御"
+        }
+      ]
+    },
+    {
+      "key": "start_hero_aggressive",
+      "nameEn": "Starting location: Hero, Aggressive",
+      "nameZh": "起始位置：英雄，进攻",
+      "kind": "position",
+      "status": "confirmed_rulebook",
+      "statuses": ["confirmed_rulebook"],
+      "valueInGlyph": false,
+      "aliases": ["90da148d08", "3b32f5de34", "09c6df8d2e", "e128e21432", "87b236a78e"],
+      "aliasCount": 5,
+      "cardOccurrences": 38,
+      "occurrences": 38,
+      "rulebookRefs": [
+        "Core p.16 \"Deploy Heroes, Spawn Monsters and Ready the Initiative Deck\": \"On each Room Tile you can find the starting location for both Heroes and Monsters. Place each Hero's miniature on the Area indicated, according to the Hero's Stance.\" Legend: \"Example: 2 Starting Locations of Heroes\" (gold frames) / \"Example: 2 Starting Locations of Monsters\" (red frames); steps 4/5 \"Place Hero/Monster Miniatures according to their Stances\""
+      ],
+      "variants": []
+    },
+    {
+      "key": "start_hero_any",
+      "nameEn": "Starting location: Hero, stance varies",
+      "nameZh": "起始位置：英雄，站位不一",
+      "kind": "position",
+      "status": "confirmed_rulebook",
+      "statuses": ["confirmed_rulebook"],
+      "valueInGlyph": false,
+      "aliases": ["d4d6e375b6", "86ee78e9f6"],
+      "aliasCount": 2,
+      "cardOccurrences": 26,
+      "occurrences": 26,
+      "rulebookRefs": [
+        "Core p.16 \"Deploy Heroes, Spawn Monsters and Ready the Initiative Deck\": \"On each Room Tile you can find the starting location for both Heroes and Monsters. Place each Hero's miniature on the Area indicated, according to the Hero's Stance.\" Legend: \"Example: 2 Starting Locations of Heroes\" (gold frames) / \"Example: 2 Starting Locations of Monsters\" (red frames); steps 4/5 \"Place Hero/Monster Miniatures according to their Stances\""
+      ],
+      "variants": [
+        {
+          "iconId": "d4d6e375b6",
+          "nameEn": "Starting location: Hero, stance varies (see notes)",
+          "nameZh": "起始位置：英雄，站位不一（见备注）"
+        }
+      ]
+    },
+    {
+      "key": "start_hero_defensive",
+      "nameEn": "Starting location: Hero, Defensive",
+      "nameZh": "起始位置：英雄，防御",
+      "kind": "position",
+      "status": "confirmed_rulebook",
+      "statuses": ["confirmed_rulebook"],
+      "valueInGlyph": false,
+      "aliases": ["544755f56d", "5867540e37", "b66a13ec73", "324b070464"],
+      "aliasCount": 4,
+      "cardOccurrences": 27,
+      "occurrences": 27,
+      "rulebookRefs": [
+        "Core p.16 \"Deploy Heroes, Spawn Monsters and Ready the Initiative Deck\": \"On each Room Tile you can find the starting location for both Heroes and Monsters. Place each Hero's miniature on the Area indicated, according to the Hero's Stance.\" Legend: \"Example: 2 Starting Locations of Heroes\" (gold frames) / \"Example: 2 Starting Locations of Monsters\" (red frames); steps 4/5 \"Place Hero/Monster Miniatures according to their Stances\""
+      ],
+      "variants": []
+    },
+    {
+      "key": "start_hero_ranged",
+      "nameEn": "Starting location: Hero, Ranged",
+      "nameZh": "起始位置：英雄，远程",
+      "kind": "position",
+      "status": "confirmed_rulebook",
+      "statuses": ["confirmed_rulebook"],
+      "valueInGlyph": false,
+      "aliases": ["67c08f463c", "70bc0b2351"],
+      "aliasCount": 2,
+      "cardOccurrences": 36,
+      "occurrences": 36,
+      "rulebookRefs": [
+        "Core p.16 \"Deploy Heroes, Spawn Monsters and Ready the Initiative Deck\": \"On each Room Tile you can find the starting location for both Heroes and Monsters. Place each Hero's miniature on the Area indicated, according to the Hero's Stance.\" Legend: \"Example: 2 Starting Locations of Heroes\" (gold frames) / \"Example: 2 Starting Locations of Monsters\" (red frames); steps 4/5 \"Place Hero/Monster Miniatures according to their Stances\""
+      ],
+      "variants": []
+    },
+    {
+      "key": "start_hero_support",
+      "nameEn": "Starting location: Hero, Support",
+      "nameZh": "起始位置：英雄，支援",
+      "kind": "position",
+      "status": "confirmed_rulebook",
+      "statuses": ["confirmed_rulebook"],
+      "valueInGlyph": false,
+      "aliases": ["ec5b6362c8", "1bdc97b07d", "e791ca9665"],
+      "aliasCount": 3,
+      "cardOccurrences": 15,
+      "occurrences": 15,
+      "rulebookRefs": [
+        "Core p.16 \"Deploy Heroes, Spawn Monsters and Ready the Initiative Deck\": \"On each Room Tile you can find the starting location for both Heroes and Monsters. Place each Hero's miniature on the Area indicated, according to the Hero's Stance.\" Legend: \"Example: 2 Starting Locations of Heroes\" (gold frames) / \"Example: 2 Starting Locations of Monsters\" (red frames); steps 4/5 \"Place Hero/Monster Miniatures according to their Stances\""
+      ],
+      "variants": []
+    },
+    {
+      "key": "start_monster_aggressive",
+      "nameEn": "Starting location: Monster, Aggressive",
+      "nameZh": "起始位置：怪物，进攻",
+      "kind": "position",
+      "status": "confirmed_rulebook",
+      "statuses": ["confirmed_rulebook"],
+      "valueInGlyph": false,
+      "aliases": ["0591dde355", "0e2b0006bf", "1dbb20856f"],
+      "aliasCount": 3,
+      "cardOccurrences": 34,
+      "occurrences": 34,
+      "rulebookRefs": [
+        "Core p.16 \"Deploy Heroes, Spawn Monsters and Ready the Initiative Deck\": \"On each Room Tile you can find the starting location for both Heroes and Monsters. Place each Hero's miniature on the Area indicated, according to the Hero's Stance.\" Legend: \"Example: 2 Starting Locations of Heroes\" (gold frames) / \"Example: 2 Starting Locations of Monsters\" (red frames); steps 4/5 \"Place Hero/Monster Miniatures according to their Stances\""
+      ],
+      "variants": []
+    },
+    {
+      "key": "start_monster_any",
+      "nameEn": "Starting location: Monster, stance varies",
+      "nameZh": "起始位置：怪物，站位不一",
+      "kind": "position",
+      "status": "confirmed_rulebook",
+      "statuses": ["confirmed_rulebook"],
+      "valueInGlyph": false,
+      "aliases": ["9990256f37", "73a29c830c"],
+      "aliasCount": 2,
+      "cardOccurrences": 11,
+      "occurrences": 11,
+      "rulebookRefs": [
+        "Core p.16 \"Deploy Heroes, Spawn Monsters and Ready the Initiative Deck\": \"On each Room Tile you can find the starting location for both Heroes and Monsters. Place each Hero's miniature on the Area indicated, according to the Hero's Stance.\" Legend: \"Example: 2 Starting Locations of Heroes\" (gold frames) / \"Example: 2 Starting Locations of Monsters\" (red frames); steps 4/5 \"Place Hero/Monster Miniatures according to their Stances\""
+      ],
+      "variants": [
+        {
+          "iconId": "9990256f37",
+          "nameEn": "Starting location: Monster, stance varies (see notes)",
+          "nameZh": "起始位置：怪物，站位不一（见备注）"
+        }
+      ]
+    },
+    {
+      "key": "start_monster_defensive",
+      "nameEn": "Starting location: Monster, Defensive",
+      "nameZh": "起始位置：怪物，防御",
+      "kind": "position",
+      "status": "confirmed_rulebook",
+      "statuses": ["confirmed_rulebook"],
+      "valueInGlyph": false,
+      "aliases": ["7992756c4a", "24e6be3998", "3ab2c5d940"],
+      "aliasCount": 3,
+      "cardOccurrences": 24,
+      "occurrences": 24,
+      "rulebookRefs": [
+        "Core p.16 \"Deploy Heroes, Spawn Monsters and Ready the Initiative Deck\": \"On each Room Tile you can find the starting location for both Heroes and Monsters. Place each Hero's miniature on the Area indicated, according to the Hero's Stance.\" Legend: \"Example: 2 Starting Locations of Heroes\" (gold frames) / \"Example: 2 Starting Locations of Monsters\" (red frames); steps 4/5 \"Place Hero/Monster Miniatures according to their Stances\""
+      ],
+      "variants": []
+    },
+    {
+      "key": "start_monster_ranged",
+      "nameEn": "Starting location: Monster, Ranged",
+      "nameZh": "起始位置：怪物，远程",
+      "kind": "position",
+      "status": "confirmed_rulebook",
+      "statuses": ["confirmed_rulebook"],
+      "valueInGlyph": false,
+      "aliases": ["4cd99e2a5c", "820463bba5", "68effd780d"],
+      "aliasCount": 3,
+      "cardOccurrences": 35,
+      "occurrences": 35,
+      "rulebookRefs": [
+        "Core p.16 \"Deploy Heroes, Spawn Monsters and Ready the Initiative Deck\": \"On each Room Tile you can find the starting location for both Heroes and Monsters. Place each Hero's miniature on the Area indicated, according to the Hero's Stance.\" Legend: \"Example: 2 Starting Locations of Heroes\" (gold frames) / \"Example: 2 Starting Locations of Monsters\" (red frames); steps 4/5 \"Place Hero/Monster Miniatures according to their Stances\""
+      ],
+      "variants": []
+    },
+    {
+      "key": "start_monster_support",
+      "nameEn": "Starting location: Monster, Support",
+      "nameZh": "起始位置：怪物，支援",
+      "kind": "position",
+      "status": "confirmed_rulebook",
+      "statuses": ["confirmed_rulebook"],
+      "valueInGlyph": false,
+      "aliases": [
+        "8368f94a97",
+        "5fea7f4a1d",
+        "ba026d4b74",
+        "38668d05ef",
+        "9e8ab90883",
+        "3c35c71d73",
+        "59bb98a0c2"
+      ],
+      "aliasCount": 7,
+      "cardOccurrences": 33,
+      "occurrences": 33,
+      "rulebookRefs": [
+        "Core p.16 \"Deploy Heroes, Spawn Monsters and Ready the Initiative Deck\": \"On each Room Tile you can find the starting location for both Heroes and Monsters. Place each Hero's miniature on the Area indicated, according to the Hero's Stance.\" Legend: \"Example: 2 Starting Locations of Heroes\" (gold frames) / \"Example: 2 Starting Locations of Monsters\" (red frames); steps 4/5 \"Place Hero/Monster Miniatures according to their Stances\""
+      ],
+      "variants": []
+    },
+    {
+      "key": "stress",
+      "nameEn": "Stress",
+      "nameZh": "压力",
+      "kind": "stress",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": [
+        "9d58d3d431",
+        "c91bb8e137",
+        "33b2d5bc22",
+        "c3daa80da5",
+        "5729151bda",
+        "12438e9a49",
+        "9b00e692ba",
+        "a84ac4c016",
+        "ea267d2d04",
+        "abf095b29d",
+        "dd86508746",
+        "1e36d5379b",
+        "df38279161"
+      ],
+      "aliasCount": 13,
+      "cardOccurrences": 317,
+      "occurrences": 317,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "9d58d3d431",
+          "nameEn": "Stress (amount follows)",
+          "nameZh": "压力（后接数值）"
+        },
+        {
+          "iconId": "33b2d5bc22",
+          "nameEn": "Stress (parchment cards)",
+          "nameZh": "压力（羊皮纸卡）"
+        },
+        { "iconId": "12438e9a49", "nameEn": "Stress (curio)", "nameZh": "压力（奇物）" }
+      ]
+    },
+    {
+      "key": "stun",
+      "nameEn": "Stun",
+      "nameZh": "眩晕",
+      "kind": "status",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["1fd9f6ec6d", "8db71542d2", "e05f59c39a", "f122d682f4", "ccca0ec836"],
+      "aliasCount": 5,
+      "cardOccurrences": 204,
+      "occurrences": 204,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "8db71542d2",
+          "nameEn": "Stun (hero card/player aid)",
+          "nameZh": "眩晕（英雄卡/玩家辅助卡）"
+        },
+        { "iconId": "e05f59c39a", "nameEn": "Stun (large)", "nameZh": "眩晕（大）" },
+        { "iconId": "f122d682f4", "nameEn": "Stun (large, quirk)", "nameZh": "眩晕（大，怪癖卡）" }
+      ]
+    },
+    {
+      "key": "summon",
+      "nameEn": "Summon",
+      "nameZh": "召唤",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["ab045955ed", "e98de99670", "8707d5d8cf", "bbbe3513eb"],
+      "aliasCount": 4,
+      "cardOccurrences": 23,
+      "occurrences": 23,
+      "rulebookRefs": [],
+      "variants": []
+    },
+    {
+      "key": "target_effects",
+      "nameEn": "Target Effects marker",
+      "nameZh": "目标效果标记",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["b6afaa4d7b", "a38154c523"],
+      "aliasCount": 2,
+      "cardOccurrences": 501,
+      "occurrences": 501,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "a38154c523",
+          "nameEn": "Target Effects marker (monster cards)",
+          "nameZh": "目标效果标记（怪物卡）"
+        }
+      ]
+    },
+    {
+      "key": "target_hero",
+      "nameEn": "Target: Hero",
+      "nameZh": "目标：英雄",
+      "kind": "target",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["7616568d52", "5d95c49a05"],
+      "aliasCount": 2,
+      "cardOccurrences": 570,
+      "occurrences": 578,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "7616568d52",
+          "nameEn": "Target: Hero(es) (one icon per target)",
+          "nameZh": "目标：英雄（图标数=目标数）"
+        }
+      ]
+    },
+    {
+      "key": "target_hero_or_monster",
+      "nameEn": "Target: Hero or Monster",
+      "nameZh": "目标：英雄或怪物",
+      "kind": "target",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["d93aef1e33"],
+      "aliasCount": 1,
+      "cardOccurrences": 11,
+      "occurrences": 11,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "d93aef1e33",
+          "nameEn": "Target: Hero or Monster (split skull/helmet glyph)",
+          "nameZh": "目标：英雄或怪物"
+        }
+      ]
+    },
+    {
+      "key": "target_monster",
+      "nameEn": "Target: Monster",
+      "nameZh": "目标：怪物",
+      "kind": "target",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["a396e95c00", "2a76f0dc4d"],
+      "aliasCount": 2,
+      "cardOccurrences": 391,
+      "occurrences": 391,
+      "rulebookRefs": [],
+      "variants": [
+        { "iconId": "a396e95c00", "nameEn": "Target: Monster(s)", "nameZh": "目标：怪物" }
+      ]
+    },
+    {
+      "key": "target_plate",
+      "nameEn": "Target priority plate",
+      "nameZh": "目标优先级底板",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["12114c0ffd", "e8447889a0", "c16e73c099"],
+      "aliasCount": 3,
+      "cardOccurrences": 43,
+      "occurrences": 43,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "12114c0ffd",
+          "nameEn": "Target priority plate ('Most Stressed' etc.) – text background",
+          "nameZh": "目标优先级底板（文字背景）"
+        },
+        {
+          "iconId": "e8447889a0",
+          "nameEn": "Target priority plate ('Furthest'/'Closest') – text background",
+          "nameZh": "目标优先级底板"
+        },
+        {
+          "iconId": "c16e73c099",
+          "nameEn": "Target priority plate ('Most Wounded' etc.) – text background",
+          "nameZh": "目标优先级底板"
+        }
+      ]
+    },
+    {
+      "key": "text_plate",
+      "nameEn": "Quirk name plate",
+      "nameZh": "怪癖名称底板",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["41a528a693", "0bda5a65b4", "48b482ee0b", "17e22aa213", "b78e7b8c8a"],
+      "aliasCount": 5,
+      "cardOccurrences": 35,
+      "occurrences": 35,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "41a528a693",
+          "nameEn": "'Human/Beast Form Only' label plate",
+          "nameZh": "“人形/兽形限定”文字底板"
+        },
+        {
+          "iconId": "0bda5a65b4",
+          "nameEn": "Trinket name plate (text background)",
+          "nameZh": "饰品名称底板（文字背景）"
+        },
+        {
+          "iconId": "48b482ee0b",
+          "nameEn": "Quirk name plate (text background)",
+          "nameZh": "怪癖名称底板（文字背景）"
+        }
+      ]
+    },
+    {
+      "key": "token_colour",
+      "nameEn": "Monster token colour marker",
+      "nameZh": "怪物标记颜色",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": [
+        "664fc83b90",
+        "bb8a050552",
+        "0328c674d1",
+        "8a36350c76",
+        "0997fde3ed",
+        "4b08ecf53b"
+      ],
+      "aliasCount": 6,
+      "cardOccurrences": 94,
+      "occurrences": 94,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "664fc83b90",
+          "nameEn": "Monster token colour marker (per copy)",
+          "nameZh": "怪物标记颜色（每份副本不同）"
+        }
+      ]
+    },
+    {
+      "key": "tool_provision",
+      "nameEn": "Tool / Shovel",
+      "nameZh": "工具/铲子",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["58a22b11c6", "e08aace22b"],
+      "aliasCount": 2,
+      "cardOccurrences": 13,
+      "occurrences": 13,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "58a22b11c6",
+          "nameEn": "Tool / Shovel (provision)",
+          "nameZh": "工具/铲子（补给）"
+        },
+        {
+          "iconId": "e08aace22b",
+          "nameEn": "Tool / Shovel (player aid heading)",
+          "nameZh": "工具/铲子（玩家辅助卡标题）"
+        }
+      ]
+    },
+    {
+      "key": "torch_provision",
+      "nameEn": "Torch",
+      "nameZh": "火把",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["edd5bed33f", "6b53e3e6fc"],
+      "aliasCount": 2,
+      "cardOccurrences": 15,
+      "occurrences": 15,
+      "rulebookRefs": [],
+      "variants": [
+        { "iconId": "edd5bed33f", "nameEn": "Torch (provision)", "nameZh": "火把（补给）" },
+        {
+          "iconId": "6b53e3e6fc",
+          "nameEn": "Torch (provision, player aid heading)",
+          "nameZh": "火把（补给，玩家辅助卡标题）"
+        }
+      ]
+    },
+    {
+      "key": "trap",
+      "nameEn": "Trap",
+      "nameZh": "陷阱",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["097c181e73", "101bcf4948", "1edc13cad2", "3ad2f03a28", "07a4208ff9"],
+      "aliasCount": 5,
+      "cardOccurrences": 13,
+      "occurrences": 13,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "101bcf4948",
+          "nameEn": "Trap (player aid heading)",
+          "nameZh": "陷阱（玩家辅助卡标题）"
+        }
+      ]
+    },
+    {
+      "key": "trinket_picture",
+      "nameEn": "Trinket picture",
+      "nameZh": "饰品插图",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": [
+        "2a24f84417",
+        "6549384f13",
+        "c80192cfcc",
+        "032fd6cccd",
+        "a08da49488",
+        "10061b9d0d",
+        "134545d87a",
+        "184487eb61",
+        "1b4fcbe0ae",
+        "1fdbb57836",
+        "2005cb4c49",
+        "2527d01768",
+        "2895426437",
+        "28f0232002",
+        "2c64de3af7",
+        "3273bc5781",
+        "3c1b5623f6",
+        "3dd52e05c6",
+        "4225deba9e",
+        "46e70cf52a",
+        "48dc3d37f2",
+        "514145709a",
+        "52779b6cc8",
+        "54868f605f",
+        "57b98e6bb8",
+        "595a8ad50f",
+        "5b76b6044f",
+        "5ba2b54c10",
+        "5eb228c3fb",
+        "5f535810c0",
+        "624a476888",
+        "6398aa2440",
+        "721833cbfb",
+        "73f552cf40",
+        "7685db4856",
+        "7ac91ac027",
+        "7c928f9b47",
+        "7e05c9a61f",
+        "7f666ef205",
+        "803c6d0f09",
+        "837c317b01",
+        "857f920639",
+        "92ee4154b9",
+        "966135ff4e",
+        "a7f9d5bd10",
+        "ad4858a9f9",
+        "afb3fe2d69",
+        "b93f44b5d8",
+        "bc084f9ee3",
+        "bf43d23b79",
+        "c2a399f571",
+        "c4673f6f5c",
+        "c72009d6f9",
+        "ca9cb6ff63",
+        "cb0bebf0b6",
+        "ccf64b2935",
+        "d876d6e8c3",
+        "e479e31fcd",
+        "e528def849",
+        "e78188c405",
+        "e8277b12e9",
+        "e9208ef6e9",
+        "ecfbc6800c",
+        "ee6aa010a5",
+        "f12310ec0f",
+        "f93cec8923",
+        "fc00a39cf5",
+        "fc3594bb8c"
+      ],
+      "aliasCount": 68,
+      "cardOccurrences": 76,
+      "occurrences": 76,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "2a24f84417",
+          "nameEn": "Trinket picture (likely art)",
+          "nameZh": "饰品插图（疑似插画）"
+        },
+        {
+          "iconId": "c80192cfcc",
+          "nameEn": "Trinket picture (Sage's Book)",
+          "nameZh": "饰品插图（Sage's Book）"
+        },
+        {
+          "iconId": "032fd6cccd",
+          "nameEn": "Trinket picture (Sage's Book, inverted)",
+          "nameZh": "饰品插图（Sage's Book，逆位）"
+        },
+        {
+          "iconId": "a08da49488",
+          "nameEn": "Trinket picture (Survival Guide)",
+          "nameZh": "饰品插图（Survival Guide）"
+        }
+      ]
+    },
+    {
+      "key": "value_badge",
+      "nameEn": "Value badge +2",
+      "nameZh": "数值徽章 +2",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": true,
+      "aliases": ["52e99dee17", "9ce4169551"],
+      "aliasCount": 2,
+      "cardOccurrences": 2,
+      "occurrences": 2,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "52e99dee17",
+          "nameEn": "Value badge −2 (on dodge icon)",
+          "nameZh": "数值徽章 −2（叠在闪避图标上）"
+        },
+        {
+          "iconId": "9ce4169551",
+          "nameEn": "Value badge +2 (on dodge icon)",
+          "nameZh": "数值徽章 +2（叠在闪避图标上）"
+        }
+      ]
+    },
+    {
+      "key": "wild_face",
+      "nameEn": "Wild",
+      "nameZh": "万能",
+      "kind": "dice_face",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["c7b2d1f3d3"],
+      "aliasCount": 1,
+      "cardOccurrences": 4,
+      "occurrences": 4,
+      "rulebookRefs": [],
+      "variants": [
+        { "iconId": "c7b2d1f3d3", "nameEn": "Wild (die face 'DD')", "nameZh": "万能（骰面“DD”）" }
+      ]
+    },
+    {
+      "key": "wound",
+      "nameEn": "Wound",
+      "nameZh": "创伤",
+      "kind": "damage_type",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": [
+        "163b31751a",
+        "ccade5e7ad",
+        "8466c441ea",
+        "2c1824ea21",
+        "6888d0cf12",
+        "d42d7955d3",
+        "48ca9f366e",
+        "5c9604da90"
+      ],
+      "aliasCount": 8,
+      "cardOccurrences": 27,
+      "occurrences": 27,
+      "rulebookRefs": ["Core p.27"],
+      "variants": []
+    }
+  ]
+}

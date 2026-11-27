@@ -22,7 +22,7 @@
 规则通过语义 ID 引用图标含义。例如 `bleed` 由共享状态定义解释，卡牌规则声明动作、数值、持续时间和目标。仅核对语义时按实际图标查所属语义，同一语义可以关联多个指纹。
 精确印刷核对使用固定词典序号，如 `printIcon("stress", 29)` 或 `printLine("{print:stress@29}")`。
 尚未核准含义的图标用 `printSourceIcon` 或行内 `{extract:…}` 引用原始提取文件、卡、面和从 0 开始的图标段位。优先选同一卡或同一印刷目录中的已核对位置。
-新增提取位置或更新词典后，运行 `node tools/pipeline/scripts/build-print-icon-index.mjs` 重建索引。`pnpm lint` 会检查索引是否同步，同时检查手写源码及测试中的图标指纹。
+新增提取位置后运行 `node tools/pipeline/scripts/build-print-icon-index.mjs` 重建索引。更新词典时也运行 `node tools/pipeline/scripts/build-icon-semantics.mjs` 重建审阅目录。`pnpm lint` 检查这两份生成文件，以及手写源码及测试中的图标指纹。
 
 完整的读写与发布边界见 [仓库布局](repo-layout.md)。当前暴露的读写入口见 [write.ts](../packages/data/src/write.ts)。
 

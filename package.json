@@ -12,7 +12,7 @@
     "build": "pnpm --filter @ddbg/web build",
     "package:web": "pnpm build && node tools/pipeline/scripts/package-web.mjs",
     "typecheck": "tsc -p packages/engine && tsc -p packages/data && tsc -p tools/pipeline && tsc -p apps/web",
-    "lint": "eslint . && prettier --check . && node tools/pipeline/scripts/build-print-icon-index.mjs --check",
+    "lint": "eslint . && prettier --check . && node tools/pipeline/scripts/build-print-icon-index.mjs --check && node tools/pipeline/scripts/build-icon-semantics.mjs --check",
     "format": "prettier --write .",
     "test": "vitest run",
     "test:changed": "vitest run --changed",
