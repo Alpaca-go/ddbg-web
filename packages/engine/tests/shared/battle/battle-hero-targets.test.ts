@@ -141,14 +141,40 @@ function refused(state: GameState, cmd = command()) {
 
 describe("英雄多目标命令（R19–20、R-024、R-025、R-031、R-048）", () => {
   it("真实 Breakthrough 自身 Pull 只一次，位移完成才扣一次行动", () => {
-    const skill = card("p034");
+    const original = card("p034");
+    const { directAttack, ...legacyRules } = original.rules!;
+    const skill = {
+      ...original,
+      rules: { directAttack: directAttack! },
+      printed_labels: [],
+      unlabeled_numbers: [],
+      top_row_icons: [],
+      front_icons: [],
+      stats_line: null,
+      effect_lines: [],
+    };
     let state = change(setup(skill), "actor", { stance: "ranged" });
     state = change(state, "h2", { stance: "defensive" });
-    const played = applyCommand(state, command(skill, ["m1", "m2", "m3"]));
+    const battle = state.battle!;
+    const attack = command(skill, ["m1", "m2", "m3"]);
+    const previous = applyCommand(
+      { ...state, battle: { ...battle, skills: [{ ...original, rules: legacyRules }] } },
+      attack,
+    );
+    const played = applyCommand(state, attack);
+    expect(played.events).toEqual(previous.events);
+    expect(played.pendingChoice).toEqual(previous.pendingChoice);
+    expect(played.state.battle!.shuffleIntents).toEqual(previous.state.battle!.shuffleIntents);
+    expect(played.state.battle!.rngCursor).toBe(previous.state.battle!.rngCursor);
     expect(played.state.battle!.shuffleIntents).toHaveLength(1);
     expect(played.state.battle!.encounter!.turn).toMatchObject({ actions: 2 });
     expect(applyCommand(played.state, command(skill)).state).toBe(played.state);
     const moved = applyCommand(played.state, { type: "resolveShuffles" });
+    const legacyMoved = applyCommand(previous.state, { type: "resolveShuffles" });
+    expect(moved).toEqual({
+      ...legacyMoved,
+      state: { ...legacyMoved.state, battle: { ...legacyMoved.state.battle!, skills: [skill] } },
+    });
     expect(moved.events.filter((e) => e.type === "shuffleResolved")).toHaveLength(1);
     expect(entity(moved.state, "actor")).toMatchObject({ areaId: "b", stance: "defensive" });
     expect(moved.state.battle!.encounter!.turn).toMatchObject({

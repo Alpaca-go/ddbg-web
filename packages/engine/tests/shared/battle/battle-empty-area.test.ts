@@ -106,7 +106,19 @@ describe("空区域英雄技能（R19–20、R-025、R-048）", () => {
     expect(applyCommand(state, command(state))).toEqual(used);
   });
   it("真实 Breakthrough 自身 Pull 参照空区，位移完成才扣行动，目标效果不施加", () => {
-    const initial = setup(card("p034"));
+    const original = card("p034");
+    const { directAttack, ...legacyRules } = original.rules!;
+    const skill = {
+      ...original,
+      rules: { directAttack: directAttack! },
+      printed_labels: [],
+      unlabeled_numbers: [],
+      top_row_icons: [],
+      front_icons: [],
+      stats_line: null,
+      effect_lines: [],
+    };
+    const initial = setup(skill);
     const state = {
       ...initial,
       battle: {
@@ -116,7 +128,14 @@ describe("空区域英雄技能（R19–20、R-025、R-048）", () => {
         ),
       },
     };
+    const previous = applyCommand(
+      { ...state, battle: { ...state.battle!, skills: [{ ...original, rules: legacyRules }] } },
+      command(state),
+    );
     const used = applyCommand(state, command(state));
+    expect(used.events).toEqual(previous.events);
+    expect(used.pendingChoice).toEqual(previous.pendingChoice);
+    expect(used.state.battle!.rngCursor).toBe(previous.state.battle!.rngCursor);
     expect(used.state.battle!.shuffleIntents).toEqual([
       { entityId: "vestal", relativeToAreaId: "b", move: { direction: "pull", distance: 1 } },
     ]);
@@ -124,6 +143,11 @@ describe("空区域英雄技能（R19–20、R-025、R-048）", () => {
     expect(used.state.battle!.encounter!.turn).toMatchObject({ actions: 2, usedSkillIds: [] });
     refused(used.state);
     const done = applyCommand(used.state, { type: "resolveShuffles" });
+    const legacyDone = applyCommand(previous.state, { type: "resolveShuffles" });
+    expect(done).toEqual({
+      ...legacyDone,
+      state: { ...legacyDone.state, battle: { ...legacyDone.state.battle!, skills: [skill] } },
+    });
     expect(done.state.battle!.entities[0]).toMatchObject({ areaId: "b", stance: "ranged" });
     expect(done.state.battle!.entities[1]).toMatchObject({ areaId: "a", stance: "support" });
     expect(done.state.battle!.entities[2]).toEqual(state.battle!.entities[2]);

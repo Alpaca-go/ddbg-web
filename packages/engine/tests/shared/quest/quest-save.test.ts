@@ -125,72 +125,88 @@ it("十字军直攻迁移前的任务日志含 Smite 和 Zealous Accusation，�
   expect(previous.events).toEqual(current.events);
 }, 120000);
 
-it("Holy Lance 旧存档可从自身 Pull 待续接处严格重放并使用原骰", () => {
-  const skillId = "hero_skill:core:h01:p016";
-  const previousSources = {
-    ...coreQuestSources,
-    catalog: {
-      ...coreQuestSources.catalog,
-      skills: coreQuestSources.catalog.skills.map((card) => {
-        if (card.name !== "Holy Lance" || !card.rules?.directAttack) return card;
-        const { directAttack: _attack, ...rules } = card.rules;
-        void _attack;
-        return { ...card, rules };
-      }),
-    },
-  };
-  const party = naturalParty.map((hero, index) => ({
-    ...hero,
-    stance: index === 0 ? ("ranged" as const) : index === 2 ? ("aggressive" as const) : hero.stance,
-  }));
-  const questStart = { ...start, party };
-  const begin = (sources: typeof coreQuestSources) =>
-    createCoreDungeonQuest(start.seed, start.questId, start.mode, party, sources);
-  const checkpoints: GameState[] = [];
-  const oldRun = naturalQuest(start.seed, start.questId, true, previousSources, 2, {
-    continueFrom: begin(previousSources),
-    heroAction(game) {
-      const turn = game.battle?.encounter?.turn;
-      if (turn?.type !== "hero" || turn.actorId !== "hero-0") return;
-      for (const target of game.battle!.entities.filter((e) => e.side === "monster" && !e.dead)) {
-        const command = {
-          type: "playHeroSkill",
-          actorId: turn.actorId,
-          skillId,
-          targetId: target.id,
-        } as const;
-        if (applyCommand(game, command).state.battle?.skillPrefix?.command.type === "playHeroSkill")
-          return command;
-      }
-    },
-    observe(game, command) {
-      if (command.type === "playHeroSkill" && command.skillId === skillId) checkpoints.push(game);
-    },
-  });
-  const index = oldRun.commands.findIndex(
-    (command) => command.type === "playHeroSkill" && command.skillId === skillId,
-  );
-  expect(index).toBeGreaterThanOrEqual(0);
-  const checkpoint = checkpoints[0]!;
-  expect(checkpoint.battle?.skillPrefix?.roll).toBeTypeOf("number");
-  const cursor = checkpoint.battle!.rngCursor;
-  const prefix = oldRun.commands.slice(0, index + 1);
-  const oldSave = createQuestSave(questStart, prefix, checkpoint, previousSources);
-  const restored = roundTrip(oldSave);
-  const currentCheckpoint = prefix.reduce(
-    (game, command) => applyCommand(game, command).state,
-    begin(coreQuestSources),
-  );
-  expect(restored.game).toEqual(currentCheckpoint);
-  expect(restored.game.battle!.rngCursor).toBe(cursor);
-  const next = oldRun.commands[index + 1]!;
-  expect(next.type).toBe("resolveShuffles");
-  const before = applyCommand(checkpoint, next);
-  const after = applyCommand(restored.game, next);
-  expect(after.events).toEqual(before.events);
-  expect(after.pendingChoice).toEqual(before.pendingChoice);
-  expect(after.state.battle!.rngCursor).toBe(before.state.battle!.rngCursor);
-}, 120000);
+it.each([
+  ["Holy Lance", "hero_skill:core:h01:p016", "hero-0"],
+  ["Breakthrough", "hero_skill:core:h02:p034", "hero-1"],
+] as const)(
+  "%s 旧存档可从自身 Pull 待续接处严格重放并使用原骰",
+  (skillName, skillId, actorId) => {
+    const previousSources = {
+      ...coreQuestSources,
+      catalog: {
+        ...coreQuestSources.catalog,
+        skills: coreQuestSources.catalog.skills.map((card) => {
+          if (card.name !== skillName || !card.rules?.directAttack) return card;
+          const { directAttack: _attack, ...rules } = card.rules;
+          void _attack;
+          return { ...card, rules };
+        }),
+      },
+    };
+    const party =
+      skillName !== "Holy Lance"
+        ? naturalParty
+        : naturalParty.map((hero, index) => ({
+            ...hero,
+            stance:
+              index === 0
+                ? ("ranged" as const)
+                : index === 2
+                  ? ("aggressive" as const)
+                  : hero.stance,
+          }));
+    const questStart = { ...start, party };
+    const begin = (sources: typeof coreQuestSources) =>
+      createCoreDungeonQuest(start.seed, start.questId, start.mode, party, sources);
+    const checkpoints: GameState[] = [];
+    const oldRun = naturalQuest(start.seed, start.questId, true, previousSources, 2, {
+      continueFrom: begin(previousSources),
+      heroAction(game) {
+        const turn = game.battle?.encounter?.turn;
+        if (turn?.type !== "hero" || turn.actorId !== actorId) return;
+        for (const target of game.battle!.entities.filter((e) => e.side === "monster" && !e.dead)) {
+          const command = {
+            type: "playHeroSkill",
+            actorId: turn.actorId,
+            skillId,
+            targetId: target.id,
+          } as const;
+          if (
+            applyCommand(game, command).state.battle?.skillPrefix?.command.type === "playHeroSkill"
+          )
+            return command;
+        }
+      },
+      observe(game, command) {
+        if (command.type === "playHeroSkill" && command.skillId === skillId) checkpoints.push(game);
+      },
+    });
+    const index = oldRun.commands.findIndex(
+      (command) => command.type === "playHeroSkill" && command.skillId === skillId,
+    );
+    expect(index).toBeGreaterThanOrEqual(0);
+    const checkpoint = checkpoints[0]!;
+    expect(checkpoint.battle?.skillPrefix?.roll).toBeTypeOf("number");
+    const cursor = checkpoint.battle!.rngCursor;
+    const prefix = oldRun.commands.slice(0, index + 1);
+    const oldSave = createQuestSave(questStart, prefix, checkpoint, previousSources);
+    const restored = roundTrip(oldSave);
+    const currentCheckpoint = prefix.reduce(
+      (game, command) => applyCommand(game, command).state,
+      begin(coreQuestSources),
+    );
+    expect(restored.game).toEqual(currentCheckpoint);
+    expect(restored.game.battle!.rngCursor).toBe(cursor);
+    const next = oldRun.commands[index + 1]!;
+    expect(next.type).toBe("resolveShuffles");
+    const before = applyCommand(checkpoint, next);
+    const after = applyCommand(restored.game, next);
+    expect(after.events).toEqual(before.events);
+    expect(after.pendingChoice).toEqual(before.pendingChoice);
+    expect(after.state.battle!.rngCursor).toBe(before.state.battle!.rngCursor);
+  },
+  120000,
+);
 
 it("Face the Threat 旧快照可缺布局说明，已有说明和其他布局字段须匹配", () => {
   const bossStart = { ...start, seed: 23, questId: "quest:p019", bossEdgeRooms: true } as const;

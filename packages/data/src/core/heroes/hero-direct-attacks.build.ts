@@ -28,6 +28,11 @@ const caltrops: AttackFace = {
 };
 
 const noxiousBlast = { ...caltrops, range: 1 };
+const breakthrough: AttackFace = {
+  stances: ["support", ...rangedStances],
+  range: 1,
+  monsterTargets: 3,
+};
 const plagueGrenade: AttackFace = { stances: ["support", "ranged"], range: 2, monsterTargets: 2 };
 
 function frontAttack(face: AttackFace, review: ReviewedAttack): DirectAttack {
@@ -39,7 +44,7 @@ function frontAttack(face: AttackFace, review: ReviewedAttack): DirectAttack {
   };
 }
 
-/** 核心盒技能正面 p001–009、p016–018、p031–033、p061–063、p082–084、p109–111、p124–132、p136–138。规则书 R19–21、R-018。 */
+/** 核心盒技能正面 p001–009、p016–018、p031–036、p061–063、p082–084、p109–111、p124–132、p136–138。规则书 R19–21、R-018。 */
 const DIRECT_ATTACKS: Readonly<Partial<Record<string, DirectAttack>>> = {
   "hero_skill:core:h01:p001": frontAttack(smite, {
     accuracy: 9,
@@ -145,6 +150,27 @@ const DIRECT_ATTACKS: Readonly<Partial<Record<string, DirectAttack>>> = {
     hitDamage: 8,
     critDamage: 15,
     onHit: [{ kind: "bleed", amount: 4, duration: 3 }],
+  }),
+  "hero_skill:core:h02:p034": frontAttack(breakthrough, {
+    accuracy: 8,
+    critical: 0,
+    hitDamage: 4,
+    critDamage: 6,
+    onHit: [],
+  }),
+  "hero_skill:core:h02:p035": frontAttack(breakthrough, {
+    accuracy: 9,
+    critical: 0,
+    hitDamage: 5,
+    critDamage: 8,
+    onHit: [],
+  }),
+  "hero_skill:core:h02:p036": frontAttack(breakthrough, {
+    accuracy: 11,
+    critical: 0,
+    hitDamage: 6,
+    critDamage: 10,
+    onHit: [],
   }),
   "hero_skill:core:h03:p061": frontAttack(caltrops, {
     accuracy: 9,
