@@ -160,6 +160,13 @@ export type LayoutEntry =
       readonly output: readonly [string, string];
     };
 export type CorrectionIcon =
+  | {
+      readonly line: number | "stats";
+      readonly segment: number;
+      readonly expectKey: string;
+      readonly variantRank?: number;
+      readonly relabelAs?: string;
+    }
   | { readonly icon: string; readonly from?: "pool"; readonly relabelAs?: string }
   | {
       readonly iconId: string;

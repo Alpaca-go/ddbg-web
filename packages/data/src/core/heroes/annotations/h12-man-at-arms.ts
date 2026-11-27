@@ -141,7 +141,7 @@ const fixes: readonly SkillCorrection[] = [
     expectedEffects: ["{target_effects}{debuff}1t"],
     expectedStats: "{range}1{target_hero}{target_hero}{target_hero}{target_hero}Crit0Acc9",
     stats: [
-      { line: "stats", segment: 0, iconId: "3ab7e7544c" },
+      { line: "stats", segment: 0, expectKey: "range" },
       " 1 ",
       { icon: "target_monster", from: "pool" },
       " ",
@@ -166,7 +166,7 @@ const fixes: readonly SkillCorrection[] = [
     expectedEffects: ["{target_effects}{debuff}2t"],
     expectedStats: "{range}1{target_hero}{target_hero}{target_hero}{target_hero}Crit0Acc10",
     stats: [
-      { line: "stats", segment: 0, iconId: "3ab7e7544c" },
+      { line: "stats", segment: 0, expectKey: "range" },
       " 1 ",
       { icon: "target_monster", from: "pool" },
       " ",
@@ -191,7 +191,7 @@ const fixes: readonly SkillCorrection[] = [
     expectedEffects: ["{target_effects}{debuff}3t"],
     expectedStats: "{range}1{target_hero}{target_hero}{target_hero}{target_hero}Crit1Acc11",
     stats: [
-      { line: "stats", segment: 0, iconId: "3ab7e7544c" },
+      { line: "stats", segment: 0, expectKey: "range" },
       " 1 ",
       { icon: "target_monster", from: "pool" },
       " ",

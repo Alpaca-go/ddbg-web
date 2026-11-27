@@ -1,3 +1,4 @@
+import { printIcon } from "../../../shared/print-icons";
 import { parseAnnotatedHeroSkillCard } from "../../../shared/schema";
 import type { NormalizedHeroSkillCard, Segment } from "../../../shared/schema";
 import type { HeroName } from "../hero-registry";
@@ -111,8 +112,18 @@ function correctionIcon(
   if ("line" in ref) {
     const line = ref.line === "stats" ? card.stats_line : card.effect_lines[ref.line];
     const segment = line?.[ref.segment];
-    if (segment?.type !== "icon" || segment.icon.iconId !== ref.iconId)
-      throw new Error(`${card.id} 印刷行图标漂移：${ref.iconId}（R-048）`);
+    const expected = "expectKey" in ref ? printIcon(ref.expectKey, ref.variantRank) : ref.iconId;
+    if (
+      segment?.type !== "icon" ||
+      segment.icon.iconId !== expected ||
+      ("expectKey" in ref && segment.icon.key !== ref.expectKey)
+    )
+      throw new Error(
+        card.id +
+          " 印刷行图标漂移：" +
+          ("expectKey" in ref ? ref.expectKey : expected) +
+          "（R-048）",
+      );
     icon = segment;
   } else if ("icon" in ref) {
     icon = ref.from === "pool" ? iconFromPool(pool, ref.icon) : iconFromCard(card, ref.icon);
