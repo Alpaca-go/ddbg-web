@@ -6,8 +6,8 @@ import { trinketBattle } from "../../helpers/trinket-battle";
 import { coreQuestSources } from "../../helpers/core-quest";
 
 const reviewed = coreQuestSources.catalog.skills.filter((card) => card.rules?.directAttack);
-it("十组已核准的攻击各发布三个等级的独立规则", () => {
-  expect(reviewed).toHaveLength(30);
+it("十一组已核准的攻击各发布三个等级的独立规则", () => {
+  expect(reviewed).toHaveLength(33);
 });
 
 it("直接攻击在空区域仍掷骰，且保留 Accuracy Stone 的使用窗口", () => {
@@ -59,6 +59,7 @@ it("直接攻击在空区域仍掷骰，且保留 Accuracy Stone 的使用窗口
 });
 
 it.each([
+  ["hero_skill:core:h01:p001", ["m"]],
   ["hero_skill:core:h01:p004", ["m", "m2"]],
   ["hero_skill:core:h01:p007", ["m"]],
 ] as const)("%s 脱离卡面后沿用旧命令的饰品待选、结算和 RNG", (skillId, targetIds) => {
@@ -141,7 +142,7 @@ it.each(reviewed)("$id 十种骰面和目标限制沿用旧效果", (card) => {
   };
   const combat: SkillCombatState = {
     actor: { id: "hero", stance: attack.stances[0]!, wounds: 0, stress: 4 },
-    target: { id: "monster", side: "monster", wounds: 0, dodge: 2 },
+    target: { id: "monster", side: "monster", wounds: 0, dodge: 2, monsterTypeTags: ["Unholy"] },
     areaDistance: attack.range,
     targetsInArea: attack.monsterTargets,
     light: 4,
@@ -166,3 +167,46 @@ it.each(reviewed)("$id 十种骰面和目标限制沿用旧效果", (card) => {
     expect(resolveHeroSkill(onlyRules, rejected, 1).status).toBe("refused");
   }
 });
+
+it.each(reviewed.filter((card) => card.rules!.directAttack!.damageBonus))(
+  "$id 条件伤害沿用目标分类、防护和缺类型拒绝",
+  (card) => {
+    const { directAttack, ...legacyRules } = card.rules!;
+    const attack = directAttack!;
+    const legacy = { ...card, rules: legacyRules };
+    const stripped = {
+      ...card,
+      rules: { directAttack: attack },
+      printed_labels: [],
+      unlabeled_numbers: [],
+      stats_line: null,
+      effect_lines: [],
+      top_row_icons: [],
+    };
+    const combat: SkillCombatState = {
+      actor: { id: "hero", stance: "aggressive", wounds: 0, stress: 4 },
+      target: { id: "monster", side: "monster", wounds: 0, dodge: 0, protection: true },
+      areaDistance: 0,
+      light: 4,
+    };
+    const resolveAs = (tags: readonly string[]) => {
+      const target = { ...combat.target!, monsterTypeTags: tags };
+      const context = { ...combat, target };
+      const resolved = resolveHeroSkill(stripped, context, 1);
+      expect(resolved).toEqual(resolveHeroSkill(legacy, context, 1));
+      return resolved;
+    };
+    expect(resolveAs(["Unholy"]).damageDealt).toBe(
+      Math.ceil((attack.critical.damage + attack.damageBonus!.amount) / 2),
+    );
+    expect(resolveAs(["Human"]).damageDealt).toBe(Math.ceil(attack.critical.damage / 2));
+    expect(resolveAs([]).status).toBe("refused");
+    const invalid = {
+      ...stripped,
+      rules: {
+        directAttack: { ...attack, damageBonus: { condition: "unholy" as const, amount: 0 } },
+      },
+    };
+    expect(resolveHeroSkill(invalid, combat, 1).reason).toContain("参数无效");
+  },
+);

@@ -12,7 +12,7 @@ import { iconStatusSchema } from "./dictionary/schema";
 import { iconIdSchema, levelSchema, pageListSchema } from "./extract/common";
 import { monsterStanceGroupsSchema } from "./monster-stance";
 import { STATUS_KINDS } from "./status-kinds";
-import { directAttackSchema } from "./effects";
+import { conditionalDamageSchema, directAttackSchema } from "./effects";
 
 /** 可以拿来命名的只有 confirmed / confirmed_rulebook。decor 不是游戏图标。其余按 R-048 标未验证。 */
 export const NAMINGS = ["confirmed", "confirmed_rulebook", "decor", "unverified"] as const;
@@ -149,8 +149,7 @@ const lineListSchema = z.array(z.array(segmentSchema));
 
 const damageBonusRuleSchema = z.strictObject({
   lineIndex: z.int().nonnegative(),
-  amount: z.int().positive(),
-  condition: z.enum(["marked", "unholy", "stunned", "human", "blighted", "eldritch"]),
+  ...conditionalDamageSchema.shape,
   source: z.literal("print_front"),
 });
 

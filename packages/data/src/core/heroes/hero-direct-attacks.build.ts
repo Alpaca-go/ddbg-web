@@ -13,6 +13,7 @@ type ReviewedAttack = {
 const meleeStances: AttackFace["stances"] = ["ranged", "defensive", "aggressive"];
 const rangedStances: AttackFace["stances"] = ["ranged", "defensive"];
 const crusaderStances: AttackFace["stances"] = ["defensive", "aggressive"];
+const smite = { stances: crusaderStances, range: 0, monsterTargets: 1 };
 const zealousAccusation = { stances: crusaderStances, range: 1, monsterTargets: 2 };
 const stunningBlow = { stances: crusaderStances, range: 0, monsterTargets: 1 };
 const adjacentMelee = { stances: meleeStances, range: 1, monsterTargets: 1 };
@@ -37,8 +38,29 @@ function frontAttack(face: AttackFace, review: ReviewedAttack): DirectAttack {
   };
 }
 
-/** 核心盒技能正面 p004–009、p031–033、p061–063、p082–084、p109–111、p124–132、p136–138。规则书 R19–21、R-018。 */
+/** 核心盒技能正面 p001–009、p031–033、p061–063、p082–084、p109–111、p124–132、p136–138。规则书 R19–21、R-018。 */
 const DIRECT_ATTACKS: Readonly<Partial<Record<string, DirectAttack>>> = {
+  "hero_skill:core:h01:p001": frontAttack(smite, {
+    accuracy: 9,
+    critical: 0,
+    hitDamage: 7,
+    critDamage: 13,
+    onHit: [],
+  }),
+  "hero_skill:core:h01:p002": frontAttack(smite, {
+    accuracy: 10,
+    critical: 0,
+    hitDamage: 9,
+    critDamage: 16,
+    onHit: [],
+  }),
+  "hero_skill:core:h01:p003": frontAttack(smite, {
+    accuracy: 11,
+    critical: 1,
+    hitDamage: 11,
+    critDamage: 19,
+    onHit: [],
+  }),
   "hero_skill:core:h01:p004": frontAttack(zealousAccusation, {
     accuracy: 9,
     critical: 0,
@@ -288,7 +310,12 @@ export function attachDirectHeroAttack(card: NormalizedHeroSkillCard): Normalize
   const statuses = review.onHit
     .map(({ kind, amount, duration }) => `${amount ?? ""}{${kind}}${duration}t`)
     .join("");
-  const expectedEffect = statuses === "" ? undefined : `{target_effects}${statuses}`;
+  const bonus = card.rules?.damage;
+  const expectedEffect = bonus
+    ? `{target_effects}{damage}+${bonus.amount}vsUnholy`
+    : statuses === ""
+      ? undefined
+      : `{target_effects}${statuses}`;
   if (
     card.verification.unverified ||
     card.rules?.effect !== "damage" ||
@@ -308,6 +335,9 @@ export function attachDirectHeroAttack(card: NormalizedHeroSkillCard): Normalize
     card.top_row_icons.map(({ key }) => key).join() !== printedStances.join() ||
     card.effect_lines.length !== (expectedEffect === undefined ? 0 : 1) ||
     printedEffect !== expectedEffect ||
+    card.rules.damageBonuses !== undefined ||
+    (bonus !== undefined &&
+      (bonus.condition !== "unholy" || bonus.lineIndex !== 0 || statuses !== "")) ||
     effects.length !== review.onHit.length ||
     review.onHit.some(({ kind, amount, duration }, index) => {
       const effect = effects[index];
@@ -321,6 +351,9 @@ export function attachDirectHeroAttack(card: NormalizedHeroSkillCard): Normalize
   ) {
     throw new Error(card.id + " 效果词条与已核卡面不符（R-048）");
   }
-  const directAttack = directAttackSchema.parse(review);
+  const directAttack = directAttackSchema.parse({
+    ...review,
+    ...(bonus ? { damageBonus: { amount: bonus.amount, condition: bonus.condition } } : {}),
+  });
   return { ...card, rules: { ...card.rules, directAttack } };
 }

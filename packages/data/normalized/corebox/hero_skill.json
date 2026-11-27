@@ -295,6 +295,27 @@
      "condition": "unholy",
      "source": "print_front"
     },
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 0,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 9,
+      "damage": 7
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 13
+     },
+     "onHit": [],
+     "damageBonus": {
+      "amount": 1,
+      "condition": "unholy"
+     }
+    },
     "targets": {
      "hero": 0,
      "monster": 1,
@@ -761,6 +782,27 @@
      "condition": "unholy",
      "source": "print_front"
     },
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 0,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 10,
+      "damage": 9
+     },
+     "critical": {
+      "threshold": 0,
+      "damage": 16
+     },
+     "onHit": [],
+     "damageBonus": {
+      "amount": 2,
+      "condition": "unholy"
+     }
+    },
     "targets": {
      "hero": 0,
      "monster": 1,
@@ -1226,6 +1268,27 @@
      "amount": 3,
      "condition": "unholy",
      "source": "print_front"
+    },
+    "directAttack": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "range": 0,
+     "monsterTargets": 1,
+     "hit": {
+      "threshold": 11,
+      "damage": 11
+     },
+     "critical": {
+      "threshold": 1,
+      "damage": 19
+     },
+     "onHit": [],
+     "damageBonus": {
+      "amount": 3,
+      "condition": "unholy"
+     }
     },
     "targets": {
      "hero": 0,

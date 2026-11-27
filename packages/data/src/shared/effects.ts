@@ -18,6 +18,12 @@ export const statusEffectSchema = z
     { path: ["amount"], message: "持续伤害需要面值，其他状态不接受面值" },
   );
 
+export const conditionalDamageSchema = z.strictObject({
+  amount: z.int().positive(),
+  condition: z.enum(["marked", "unholy", "stunned", "human", "blighted", "eldritch"]),
+});
+export type ConditionalDamage = Readonly<z.infer<typeof conditionalDamageSchema>>;
+
 export const directAttackSchema = z.strictObject({
   stances: z.array(z.enum(["support", "ranged", "defensive", "aggressive"])).min(1),
   range: z.int().nonnegative(),
@@ -25,6 +31,7 @@ export const directAttackSchema = z.strictObject({
   hit: z.strictObject({ threshold: z.int().nonnegative(), damage: z.int().nonnegative() }),
   critical: z.strictObject({ threshold: z.int().nonnegative(), damage: z.int().nonnegative() }),
   onHit: z.array(statusEffectSchema),
+  damageBonus: conditionalDamageSchema.optional(),
 });
 
 export type DirectAttack = Readonly<z.infer<typeof directAttackSchema>>;

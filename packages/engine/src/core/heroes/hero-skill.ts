@@ -1,6 +1,6 @@
 import { defenceTrinketReaction } from "../../shared/trinkets/trinket-reactions";
 import { directAttackSchema } from "../../../../data/src/shared/effects";
-import type { DirectAttack } from "../../../../data/src/shared/effects";
+import type { ConditionalDamage, DirectAttack } from "../../../../data/src/shared/effects";
 import { projectAbominationSkill } from "./abomination-skills";
 import { ABOMINATION_DOUBLE_FACED_SKILL_IDS } from "../../shared/core/formal-roster-catalog";
 import type { HeroHealthEffect } from "./hero-health";
@@ -275,10 +275,8 @@ type ReceiptAnnotation = {
   readonly signature: string;
   readonly source: "print_front";
 };
-type DamageBonusAnnotation = {
+type DamageBonusAnnotation = ConditionalDamage & {
   readonly lineIndex: number;
-  readonly amount: number;
-  readonly condition: "marked" | "unholy" | "stunned" | "human" | "blighted" | "eldritch";
   readonly source: "print_front";
 };
 type RallyingFlareAnnotation = {
@@ -2831,8 +2829,8 @@ function resolveSkill(
       new Set(damageBonusesAnn.map((b) => b.lineIndex)).size !== damageBonusesAnn.length)
   )
     return refuse(skill, combat, "多条条件伤害注解重复、缺失或与单条注解冲突（R-048）");
-  const bonuses = damageBonusesAnn ?? (damageBonusAnn ? [damageBonusAnn] : []);
-  for (const bonus of bonuses) {
+  const printedBonuses = damageBonusesAnn ?? (damageBonusAnn ? [damageBonusAnn] : []);
+  for (const bonus of printedBonuses) {
     const line = active.effect_lines[bonus.lineIndex];
     const text = line
       ?.map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
@@ -2863,6 +2861,10 @@ function resolveSkill(
       )
     )
       return refuse(skill, combat, "条件伤害注解与已确认卡面不符（R-048）");
+  }
+  const directBonus = activeRules.directAttack?.damageBonus;
+  const bonuses = directBonus ? [directBonus] : printedBonuses;
+  for (const bonus of bonuses) {
     if (
       !emptyArea &&
       (bonus.condition === "unholy" ||
@@ -3583,7 +3585,7 @@ function resolveSkill(
         ignoresGuard.targetLines +
         formChange.lineCount +
         statuses.lineCount +
-        bonuses.length +
+        printedBonuses.length +
         (actorBonus ? 1 : 0) +
         (statusTransfer ? 1 : 0) +
         (rallyingFlare ? 1 : 0) +

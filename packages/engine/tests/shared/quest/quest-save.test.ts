@@ -96,7 +96,7 @@ it("效果词条迁移前的存档按当前规则恢复，其他快照字段仍�
   );
 });
 
-it("十字军直攻迁移前的任务日志含 Zealous Accusation，读档重放保持实际命令结果", () => {
+it("十字军直攻迁移前的任务日志含 Smite 和 Zealous Accusation，读档重放保持实际命令结果", () => {
   const previousSources = {
     ...coreQuestSources,
     catalog: {
@@ -109,14 +109,17 @@ it("十字军直攻迁移前的任务日志含 Zealous Accusation，读档重放
       }),
     },
   };
-  const questStart = { ...start, party: naturalParty };
-  const previous = naturalQuest(start.seed, start.questId, false, previousSources);
+  const questStart = { ...start, seed: 3, party: naturalParty };
+  const previous = naturalQuest(questStart.seed, questStart.questId, true, previousSources);
   expect(previous.commands).toContainEqual(
     expect.objectContaining({ skillId: "hero_skill:core:h01:p004" }),
   );
+  expect(previous.commands).toContainEqual(
+    expect.objectContaining({ skillId: "hero_skill:core:h01:p001" }),
+  );
   const save = createQuestSave(questStart, previous.commands, previous.state, previousSources);
   const restored = roundTrip(save);
-  const current = naturalQuest(start.seed, start.questId);
+  const current = naturalQuest(questStart.seed, questStart.questId, true);
   expect(restored.commands).toEqual(current.commands);
   expect(restored.game).toEqual(current.state);
   expect(previous.events).toEqual(current.events);
