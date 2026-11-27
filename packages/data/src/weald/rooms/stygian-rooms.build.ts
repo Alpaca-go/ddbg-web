@@ -1,3 +1,4 @@
+import { printLine } from "../../shared/print-icons";
 import type { RawFile } from "../../shared/extract/raw";
 import {
   WEALD_STYGIAN_ROOM_BACK,
@@ -28,7 +29,9 @@ function assertPrintedDrift(page: number, printed: string, cardId: string) {
       printed.includes("Ours!") &&
       printed.includes("3t.") &&
       !printed.includes("1t,") &&
-      !printed.includes("{icon:e66649ddb5}"),
+      !printed.includes(
+        printLine("{extract:extension/weald/raw/room.json:room:weald:p009:front:37}"),
+      ),
   };
   const check = checks[page];
   if (check && !check()) throw new Error(`Weald Stygian 房间核准效果的来源文字漂移：${cardId}`);

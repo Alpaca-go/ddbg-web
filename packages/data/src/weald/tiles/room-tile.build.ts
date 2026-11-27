@@ -1,3 +1,4 @@
+import { printIcon, printSourceIcon } from "../../shared/print-icons";
 import {
   WEALD_TILES_FRONT,
   WEALD_TILES_BACK,
@@ -7,19 +8,35 @@ import {
 } from "./room-tile";
 
 const MARKER = {
-  hero_aggressive_start: "7b8c742c86",
-  hero_defensive_start: "1a71d94723",
-  hero_ranged_start: "7ab26866fc",
-  hero_support_start: "39d6ddf024",
-  monster_aggressive_start: "8787ebb1b2",
-  monster_defensive_start: "1f26dc63eb",
-  monster_ranged_start: "643d396fef",
-  monster_support_start: "293f170eab",
-  loot_chest: "f9f205b9e1",
+  hero_aggressive_start: printSourceIcon(
+    "extension/weald/raw/dungeon_tile.json:dungeon_tile:weald:p001:front:46",
+  ),
+  hero_defensive_start: printSourceIcon(
+    "extension/weald/raw/dungeon_tile.json:dungeon_tile:weald:p001:front:47",
+  ),
+  hero_ranged_start: printSourceIcon(
+    "extension/weald/raw/dungeon_tile.json:dungeon_tile:weald:p001:front:48",
+  ),
+  hero_support_start: printSourceIcon(
+    "extension/weald/raw/dungeon_tile.json:dungeon_tile:weald:p001:front:49",
+  ),
+  monster_aggressive_start: printSourceIcon(
+    "extension/weald/raw/dungeon_tile.json:dungeon_tile:weald:p001:front:54",
+  ),
+  monster_defensive_start: printSourceIcon(
+    "extension/weald/raw/dungeon_tile.json:dungeon_tile:weald:p001:front:15",
+  ),
+  monster_ranged_start: printIcon("stance_ranged_monster_slot", 808),
+  monster_support_start: printIcon("stance_support_monster_slot", 216),
+  loot_chest: printSourceIcon(
+    "extension/weald/raw/dungeon_tile.json:dungeon_tile:weald:p001:front:38",
+  ),
 } as const;
 
-const ORANGE_STAR = "ea307609d9";
-const GREEN_STAR = "41c31d63d8";
+const ORANGE_STAR = printSourceIcon("extension/weald/raw/room.json:room:weald:p004:front:30");
+const GREEN_STAR = printSourceIcon(
+  "extension/weald/raw/monster_medium.json:monster_medium:weald:p012:front:26",
+);
 type Stance = WealdRoomTile["deployment"]["heroes"];
 type Monsters = WealdRoomTile["deployment"]["monsters"];
 

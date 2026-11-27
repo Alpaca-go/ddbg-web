@@ -1,3 +1,4 @@
+import { printSourceIcon } from "../../shared/print-icons";
 import { wealdMonsterProfileSchema } from "./monster-rulings";
 import type { NormalizedMonsterLargeCard } from "../../shared/schema";
 
@@ -19,7 +20,9 @@ const profiles: Record<string, Profile> = {
     life: 6,
     pages: [1, 2, 3],
     resistance: "blight",
-    resistanceIcon: "8e690fc7b2",
+    resistanceIcon: printSourceIcon(
+      "extension/weald/raw/monster_medium.json:monster_medium:weald:p001:front:9",
+    ),
     stanceSlots: 1,
     dodge: 0,
     speed: 1,
@@ -39,7 +42,9 @@ const profiles: Record<string, Profile> = {
     life: 7,
     pages: [6, 7, 8],
     resistance: "stun",
-    resistanceIcon: "86bf0146dc",
+    resistanceIcon: printSourceIcon(
+      "extension/weald/raw/monster_large.json:monster_large:weald:p001:front:7",
+    ),
     stanceSlots: 1,
     dodge: 2,
     speed: 3,
@@ -50,7 +55,9 @@ const profiles: Record<string, Profile> = {
     life: 14,
     pages: [9, 10, 11],
     resistance: "blight",
-    resistanceIcon: "8e690fc7b2",
+    resistanceIcon: printSourceIcon(
+      "extension/weald/raw/monster_medium.json:monster_medium:weald:p001:front:9",
+    ),
     stanceSlots: 1,
     dodge: 0,
     speed: 1,
@@ -70,7 +77,9 @@ const profiles: Record<string, Profile> = {
     life: 9,
     pages: [12, 13, 14],
     resistance: "blight",
-    resistanceIcon: "8e690fc7b2",
+    resistanceIcon: printSourceIcon(
+      "extension/weald/raw/monster_medium.json:monster_medium:weald:p001:front:9",
+    ),
     stanceSlots: 1,
     dodge: 1,
     speed: 1,
@@ -90,7 +99,9 @@ const profiles: Record<string, Profile> = {
     life: 22,
     pages: [1, 2],
     resistance: "stun",
-    resistanceIcon: "86bf0146dc",
+    resistanceIcon: printSourceIcon(
+      "extension/weald/raw/monster_large.json:monster_large:weald:p001:front:7",
+    ),
     stanceSlots: 2,
     dodge: 0,
     speed: 1,

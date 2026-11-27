@@ -143,16 +143,25 @@ def load_corebox_icon_map() -> list[tuple[tuple[float, float], str]]:
     return out
 
 
-def replace_icon_id(raw_obj: dict, old: str, new: str) -> None:
-    for card in raw_obj["cards"]:
-        for face in card["faces"].values():
-            if not face:
-                continue
-            for ic in face.get("icons", []):
-                if ic.get("iconId") == old:
-                    ic["iconId"] = new
-            for line in face.get("lines", []):
-                line["text"] = line["text"].replace(f"{{icon:{old}}}", f"{{icon:{new}}}")
+def align_sidearm_art(skill_cards: list[dict]) -> None:
+    # R-107 / Q-107：Sidearm 背面行尾与核心盒 Emboldening Vapours 背面英雄行尾同角色。
+    source = ROOT / "packages/data/extract/corebox/raw/hero_skill.json"
+    core_cards = json.loads(source.read_text(encoding="utf-8"))["cards"]
+    core_back = next(c for c in core_cards if c["id"] == "hero_skill:p142")["faces"]["back"]
+    new = core_back["icons"][2]["iconId"]
+    if not any(line["text"] == f"PLAGUE DOCTOR {{icon:{new}}}" for line in core_back["lines"]):
+        raise ValueError("Emboldening Vapours back art position changed")
+
+    cards_by_page = {card["faces"]["back"]["page"]: card for card in skill_cards}
+    for page in (13, 14, 15):
+        back = cards_by_page[page]["faces"]["back"]
+        icon = back["icons"][4]
+        old_token = f"{{icon:{icon['iconId']}}}"
+        rows = [line for line in back["lines"] if line["text"].endswith(f" Sidearm {old_token}")]
+        if len(rows) != 1:
+            raise ValueError(f"Sidearm back art position changed on page {page}")
+        rows[0]["text"] = rows[0]["text"].removesuffix(old_token) + f"{{icon:{new}}}"
+        icon["iconId"] = new
 
 
 def remap_icon_ids(raw_obj: dict, ref: list[tuple[tuple[float, float], str]]) -> None:
@@ -226,8 +235,7 @@ def main():
         cards=skill_cards,
     )
     remap_icon_ids(skill_raw, ref_icons)
-    # Sidearm 卡背英雄行尾簇与核心盒 skill_art（462bd48a91）同几何角色；R-107 / Q-107。
-    replace_icon_id(skill_raw, "c82f2a44d9", "462bd48a91")
+    align_sidearm_art(skill_cards)
     stat_raw = dict(
         schema="ddbg-raw-v1",
         extractor_version=K.EXTRACTOR_VERSION,

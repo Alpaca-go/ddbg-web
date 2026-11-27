@@ -1,6 +1,9 @@
+import { printSourceIcon } from "../../shared/print-icons";
 import type { WealdMonsterAttack } from "./monster-rulings";
 
-const rangeIconId = "73863d0313";
+const rangeIconId = printSourceIcon(
+  "extension/weald/raw/monster_large.json:monster_large:weald:p001:front:12",
+);
 
 /** 原始图标 ID 与文本的签名，独立于词典更新，保留顺序和标点。 */
 function wealdEffectSignatures(

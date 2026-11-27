@@ -1,3 +1,4 @@
+import { printSourceIcon } from "../../shared/print-icons";
 import type { z } from "zod";
 import type { RawFile } from "../../shared/extract/raw";
 import { WEALD_QUEST_FRONT, WEALD_QUEST_BACK } from "./quest-cards";
@@ -121,7 +122,9 @@ export function buildWealdHigherQuests(raw: RawFile) {
       front.page !== page ||
       back.page !== page ||
       !printedLines.includes(`${restPoints} ${name}`) ||
-      !printedLines.includes(`{icon:56ea9289ab} ${numeral}`) ||
+      !printedLines.includes(
+        `{icon:${printSourceIcon("extension/weald/raw/quest.json:quest:weald:p001:front:1")}} ${numeral}`,
+      ) ||
       !back.lines.some((line) => line.text.endsWith(` ${numeral}`))
     )
       throw new Error(`任务来源、等级或标题漂移：${id}`);

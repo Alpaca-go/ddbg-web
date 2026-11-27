@@ -1,3 +1,4 @@
+import { printLine } from "../../shared/print-icons";
 import type { RawFile } from "../../shared/extract/raw";
 import { basicQuests, matchesQuestCounts } from "../../core/quests/basic-quests";
 import {
@@ -8,8 +9,18 @@ import {
   type WealdQuestCards,
 } from "./quest-cards";
 
-const BACK_LEVEL_I = /\{icon:0c9e989b70\}\s*I\b/;
-const FRONT_LEVEL_I = /\{icon:56ea9289ab\}\s*I\b/;
+function printTokenPattern(token: string) {
+  return printLine(token).replace(/[{}]/g, "\\$&");
+}
+
+const BACK_LEVEL_I = new RegExp(printTokenPattern("{print:level_badge@23}") + String.raw`\s*I\b`);
+const FRONT_LEVEL_I = new RegExp(
+  printTokenPattern("{extract:extension/weald/raw/quest.json:quest:weald:p001:front:1}") +
+    String.raw`\s*I\b`,
+);
+const DISTRIBUTION_SUFFIX = new RegExp(
+  String.raw`^\s*` + printTokenPattern("{print:decor@262}") + String.raw`\s*`,
+);
 const DIST_LINE = /\{icon:[a-f0-9]+\}/;
 
 function parseTitle(lines: readonly string[]) {
@@ -23,7 +34,7 @@ function parseTitle(lines: readonly string[]) {
 
 function countAfterDistributionIcon(line: string, hash: string, index: number) {
   let rest = line.slice(index + `{icon:${hash}}`.length);
-  rest = rest.replace(/^\s*\{icon:a2e7f1dd7b\}\s*/, "");
+  rest = rest.replace(DISTRIBUTION_SUFFIX, "");
   const direct = rest.match(/^(\d+)/);
   if (direct) return Number(direct[1]);
   const beforeNext = rest.split(/\{icon:[a-f0-9]+\}/)[0] ?? "";
@@ -31,7 +42,7 @@ function countAfterDistributionIcon(line: string, hash: string, index: number) {
   return embedded ? Number(embedded[1]) : 1;
 }
 
-/** 自底栏行抽取 hash→count；灰色角标 a2e7f1dd7b 只作数量后缀（R-249）。 */
+/** 自底栏行抽取各图标数量。灰色角标只作数量后缀（R-249）。 */
 export function parseWealdQuestDistributionLines(lines: readonly string[]) {
   const counts = new Map<string, number>();
   for (const line of lines.filter((l) => DIST_LINE.test(l))) {

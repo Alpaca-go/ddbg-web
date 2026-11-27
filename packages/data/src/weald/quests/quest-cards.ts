@@ -1,3 +1,4 @@
+import { printIcon, printSourceIcon } from "../../shared/print-icons";
 import { z } from "zod";
 import {
   roomDistributionSchema,
@@ -12,15 +13,15 @@ export const WEALD_QUEST_BACK =
 
 /** R-240、R-249：Weald 任务底栏分布图标 → 房间代币 kind；重叠检出 hash 映射到已裁定 kind。 */
 export const WEALD_QUEST_TOKEN_HASH: Readonly<Record<string, RoomTokenKind>> = {
-  d3a3e38ee9: "objective",
-  "6f701b5f5f": "empty",
-  af3ce426ec: "dark",
-  adcdfc394a: "dark",
-  "67dc216fc3": "curio",
-  "509c4a958c": "curio",
-  e7b30e2005: "trap",
-  a488fd5ff1: "treasure",
-  "1154a8a4d4": "lair",
+  [printSourceIcon("extension/weald/raw/quest.json:quest:weald:p001:front:5")]: "objective",
+  [printIcon("decor", 167)]: "empty",
+  [printSourceIcon("extension/weald/raw/quest.json:quest:weald:p001:front:7")]: "dark",
+  [printSourceIcon("extension/weald/raw/quest.json:quest:weald:p002:front:6")]: "dark",
+  [printSourceIcon("extension/weald/raw/quest.json:quest:weald:p001:front:8")]: "curio",
+  [printSourceIcon("extension/weald/raw/quest.json:quest:weald:p005:front:6")]: "curio",
+  [printSourceIcon("extension/weald/raw/quest.json:quest:weald:p001:front:9")]: "trap",
+  [printSourceIcon("extension/weald/raw/quest.json:quest:weald:p002:front:9")]: "treasure",
+  [printSourceIcon("extension/weald/raw/quest.json:quest:weald:p003:front:10")]: "lair",
 };
 
 export const wealdQuestCardSchema = z

@@ -1,50 +1,101 @@
+import { printIcon, printSourceIcon } from "../../shared/print-icons";
 import { formatCurioPrintedRow } from "../../shared/curios/printed-row";
 import type { RawFile } from "../../shared/extract/raw";
 import { WEALD_CURIO_FRONT, WEALD_CURIO_BACK, wealdCurioFileSchema } from "../../core/curios/curio";
 import type { CurioEffect } from "../../core/curios/curio";
 
 type Row = readonly [iconId: string, printed: string, effect: CurioEffect];
-const stress: Row = ["12438e9a49", "+1", { type: "stress", amount: 1 }];
-const negative = (id = "f8686db45a"): Row => [
-  id,
-  "",
-  { type: "drawQuirk", polarity: "negative", count: 1 },
-];
-const positive = (id = "ca20d29507"): Row => [
-  id,
-  "",
-  { type: "drawQuirk", polarity: "positive", count: 1 },
-];
+const stress: Row = [printIcon("stress", 129), "+1", { type: "stress", amount: 1 }];
+const negative = (
+  id = printSourceIcon("extension/weald/raw/curio.json:curio:weald:p001:front:3"),
+): Row => [id, "", { type: "drawQuirk", polarity: "negative", count: 1 }];
+const positive = (
+  id = printSourceIcon("extension/weald/raw/curio.json:curio:weald:p004:front:4"),
+): Row => [id, "", { type: "drawQuirk", polarity: "positive", count: 1 }];
 const blight: Row = [
-  "a637867634",
+  printIcon("blight", 294),
   "1 · 3t",
   { type: "status", kind: "blight", amount: 1, duration: 3 },
 ];
 const bleed: Row = [
-  "aea2713cb8",
+  printSourceIcon("extension/weald/raw/curio.json:curio:weald:p002:front:3"),
   "1 · 3t",
   { type: "status", kind: "bleed", amount: 1, duration: 3 },
 ];
-const disease: Row = ["6a83eb27d3", "", { type: "drawDisease", count: 1 }];
-const trinket: Row = ["85e094f269", "", { type: "drawTrinket", count: 1 }];
-const provision: Row = ["ae45f5bcb3", "", { type: "rollProvision", count: 1 }];
+const disease: Row = [
+  printSourceIcon("extension/weald/raw/curio.json:curio:weald:p003:front:5"),
+  "",
+  { type: "drawDisease", count: 1 },
+];
+const trinket: Row = [printIcon("draw_trinket", 331), "", { type: "drawTrinket", count: 1 }];
+const provision: Row = [printIcon("roll_for_provisions"), "", { type: "rollProvision", count: 1 }];
 const gold = (amount: 5 | 10, id: string): Row => [id, String(amount), { type: "gold", amount }];
 // R-233：仅批准当前版 p1–16 的逐卡四行，不扩大全局图标词典。
 const rows: readonly (readonly Row[])[] = [
-  [stress, negative(), blight, gold(10, "c870a39e26")],
-  [negative("74fa6b5e99"), bleed, blight, gold(5, "c870a39e26")],
+  [
+    stress,
+    negative(),
+    blight,
+    gold(10, printSourceIcon("extension/weald/raw/curio.json:curio:weald:p001:front:6")),
+  ],
+  [
+    negative(printSourceIcon("extension/weald/raw/curio.json:curio:weald:p002:front:2")),
+    bleed,
+    blight,
+    gold(5, printSourceIcon("extension/weald/raw/curio.json:curio:weald:p001:front:6")),
+  ],
   [stress, negative(), blight, disease],
-  [stress, negative("1ed8fca157"), positive(), trinket],
-  [stress, negative(), blight, gold(10, "7317463edc")],
-  [bleed, positive("b5c225c14d"), gold(5, "7317463edc"), trinket],
+  [
+    stress,
+    negative(printSourceIcon("extension/weald/raw/curio.json:curio:weald:p004:front:3")),
+    positive(),
+    trinket,
+  ],
+  [
+    stress,
+    negative(),
+    blight,
+    gold(10, printSourceIcon("extension/weald/raw/curio.json:curio:weald:p005:front:6")),
+  ],
+  [
+    bleed,
+    positive(printSourceIcon("extension/weald/raw/curio.json:curio:weald:p006:front:3")),
+    gold(5, printSourceIcon("extension/weald/raw/curio.json:curio:weald:p005:front:6")),
+    trinket,
+  ],
   [stress, negative(), blight, disease],
   [stress, blight, positive(), trinket],
-  [negative(), blight, gold(5, "7317463edc"), trinket],
-  [stress, negative(), blight, gold(10, "c870a39e26")],
-  [negative(), blight, gold(5, "7317463edc"), positive("ce7303bafb")],
-  [stress, bleed, disease, gold(10, "c870a39e26")],
+  [
+    negative(),
+    blight,
+    gold(5, printSourceIcon("extension/weald/raw/curio.json:curio:weald:p005:front:6")),
+    trinket,
+  ],
+  [
+    stress,
+    negative(),
+    blight,
+    gold(10, printSourceIcon("extension/weald/raw/curio.json:curio:weald:p001:front:6")),
+  ],
+  [
+    negative(),
+    blight,
+    gold(5, printSourceIcon("extension/weald/raw/curio.json:curio:weald:p005:front:6")),
+    positive(printSourceIcon("extension/weald/raw/curio.json:curio:weald:p011:front:6")),
+  ],
+  [
+    stress,
+    bleed,
+    disease,
+    gold(10, printSourceIcon("extension/weald/raw/curio.json:curio:weald:p001:front:6")),
+  ],
   [stress, negative(), blight, provision],
-  [stress, negative("74fa6b5e99"), disease, provision],
+  [
+    stress,
+    negative(printSourceIcon("extension/weald/raw/curio.json:curio:weald:p002:front:2")),
+    disease,
+    provision,
+  ],
   [stress, negative(), blight, provision],
   [stress, bleed, blight, provision],
 ];
