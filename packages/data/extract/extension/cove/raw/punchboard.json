@@ -1,0 +1,67 @@
+{
+  "schema": "ddbg-raw-v1",
+  "extractor_version": "1.0.4",
+  "category": "punchboard",
+  "kind": "sheet",
+  "units": {
+    "length": "mm",
+    "origin": "top-left corner of the PDF TrimBox (card face, bleed excluded)",
+    "y_axis": "down",
+    "font_size": "pt"
+  },
+  "sources": [
+    {
+      "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_PUNCHBOARD_FRONT.pdf",
+      "back": null,
+      "source_set": "extension",
+      "kind": "sheet",
+      "front_pages": 1,
+      "back_pages": null
+    }
+  ],
+  "n_pages": 1,
+  "n_unique": 1,
+  "n_copies_total": 1,
+  "cards": [
+    {
+      "id": "punchboard:cove:p001",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [1],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_PUNCHBOARD_FRONT.pdf",
+          "page": 1,
+          "trim_mm": [145.0, 95.0],
+          "face_phash": "fe898dc9c1079476",
+          "spans": [
+            {
+              "t": "MAN-AT-ARMS",
+              "bbox": [12.28, 75.41, 63.93, 88.0],
+              "font": "DwarvenAxeBB",
+              "size": 32.64,
+              "color": "#231f20",
+              "dup": 2
+            },
+            {
+              "t": "FLAGELLANT",
+              "bbox": [85.98, 75.41, 128.83, 88.0],
+              "font": "DwarvenAxeBB",
+              "size": 32.64,
+              "color": "#231f20",
+              "dup": 2
+            }
+          ],
+          "icons": [],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "MAN-AT-ARMS FLAGELLANT",
+              "bbox": [12.28, 75.41, 128.83, 88.0]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
