@@ -1,6 +1,7 @@
 import type {
   DirectAttackEntry,
   HealSupportEntry,
+  BuffGuardEntry,
   HeroAnnotationEntries,
   StatusEffectEntry,
   RangeEntry,
@@ -466,7 +467,32 @@ const healSupportEntries: readonly HealSupportEntry[] = [
   },
 ];
 
+const buffGuardEntries: readonly BuffGuardEntry[] = [
+  {
+    id: "hero_skill:core:h01:p010",
+    name: "Bulwark of Faith",
+    stances: ["defensive", "aggressive"],
+    selfRange: true,
+    heroTargets: 0,
+  },
+  {
+    id: "hero_skill:core:h01:p011",
+    name: "Bulwark of Faith",
+    stances: ["defensive", "aggressive"],
+    selfRange: true,
+    heroTargets: 0,
+  },
+  {
+    id: "hero_skill:core:h01:p012",
+    name: "Bulwark of Faith",
+    stances: ["defensive", "aggressive"],
+    selfRange: true,
+    heroTargets: 0,
+  },
+];
+
 const entries: HeroAnnotationEntries = {
+  buffGuard: buffGuardEntries,
   healSupport: healSupportEntries,
   directAttack: directAttackEntries,
   status: statusEntries,

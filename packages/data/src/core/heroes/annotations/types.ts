@@ -1,4 +1,4 @@
-import type { DirectAttack, HealSupport } from "../../../shared/effects";
+import type { BuffGuard, DirectAttack, HealSupport } from "../../../shared/effects";
 import type { HERO_PRINT_SOURCES } from "./print-sources";
 import type { HeroName } from "../hero-registry";
 import type { NormalizedHeroSkillCard } from "../../../shared/schema";
@@ -46,6 +46,20 @@ export type HealSupportEntry = Omit<
   readonly id: string;
   readonly name: string;
 };
+export type BuffGuardEntry = Omit<
+  BuffGuard,
+  | "selfLight"
+  | "targetLight"
+  | "onHit"
+  | "onUse"
+  | "removal"
+  | "selfShuffle"
+  | "targetShuffle"
+  | "selfShufflePushOptions"
+> & {
+  readonly id: string;
+  readonly name: string;
+};
 
 export type DirectAttackFace = Pick<DirectAttackEntry, "stances" | "range" | "monsterTargets">;
 
@@ -53,6 +67,7 @@ export type DirectAttackFace = Pick<DirectAttackEntry, "stances" | "range" | "mo
 export type HeroAnnotationEntries = {
   readonly directAttack?: readonly DirectAttackEntry[];
   readonly healSupport?: readonly HealSupportEntry[];
+  readonly buffGuard?: readonly BuffGuardEntry[];
 
   readonly status?: readonly StatusEffectEntry[];
   readonly range?: readonly RangeEntry[];

@@ -1,4 +1,4 @@
-import type { HealSupportEntry, DirectAttackEntry } from "./types";
+import type { BuffGuardEntry, HealSupportEntry, DirectAttackEntry } from "./types";
 import { printIcon } from "../../../shared/print-icons";
 import type {
   HeroAnnotationEntries,
@@ -889,7 +889,74 @@ const healSupportEntries: readonly HealSupportEntry[] = [
   },
 ];
 
+const buffGuardEntries: readonly BuffGuardEntry[] = [
+  {
+    id: "hero_skill:warrens:h15:p301",
+    name: "Get Down!",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    selfRange: true,
+    heroTargets: 0,
+  },
+  {
+    id: "hero_skill:warrens:h15:p302",
+    name: "Get Down!",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    selfRange: true,
+    heroTargets: 0,
+  },
+  {
+    id: "hero_skill:warrens:h15:p303",
+    name: "Get Down!",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    selfRange: true,
+    heroTargets: 0,
+  },
+  {
+    id: "hero_skill:warrens:h15:p310",
+    name: "Invigorating Vapours",
+    stances: ["support", "ranged"],
+    range: 0,
+    heroTargets: 1,
+  },
+  {
+    id: "hero_skill:warrens:h15:p311",
+    name: "Invigorating Vapours",
+    stances: ["support", "ranged"],
+    range: 0,
+    heroTargets: 2,
+  },
+  {
+    id: "hero_skill:warrens:h15:p312",
+    name: "Invigorating Vapours",
+    stances: ["support", "ranged"],
+    range: 0,
+    heroTargets: 3,
+  },
+  {
+    id: "hero_skill:warrens:h15:p313",
+    name: "Protect Me",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    heroTargets: 1,
+  },
+  {
+    id: "hero_skill:warrens:h15:p314",
+    name: "Protect Me",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    heroTargets: 1,
+  },
+  {
+    id: "hero_skill:warrens:h15:p315",
+    name: "Protect Me",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    heroTargets: 1,
+  },
+];
+
 const entries: HeroAnnotationEntries = {
+  buffGuard: buffGuardEntries,
   healSupport: healSupportEntries,
   directAttack: directAttackEntries,
   status: statusEntries,

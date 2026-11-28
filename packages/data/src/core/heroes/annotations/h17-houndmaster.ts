@@ -1,4 +1,4 @@
-import type { HealSupportEntry, DirectAttackEntry } from "./types";
+import type { BuffGuardEntry, HealSupportEntry, DirectAttackEntry } from "./types";
 import { printIcon } from "../../../shared/print-icons";
 import type { HeroAnnotationEntries, SkillCorrection } from "./types";
 import { defineHeroModule } from "./patch-helpers";
@@ -697,7 +697,32 @@ const healSupportEntries: readonly HealSupportEntry[] = [
   },
 ];
 
+const buffGuardEntries: readonly BuffGuardEntry[] = [
+  {
+    id: "hero_skill:weald:h17:p349",
+    name: "Guard Dog",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    selfRange: true,
+    heroTargets: 0,
+  },
+  {
+    id: "hero_skill:weald:h17:p350",
+    name: "Guard Dog",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    selfRange: true,
+    heroTargets: 0,
+  },
+  {
+    id: "hero_skill:weald:h17:p351",
+    name: "Guard Dog",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    selfRange: true,
+    heroTargets: 0,
+  },
+];
+
 const entries: HeroAnnotationEntries = {
+  buffGuard: buffGuardEntries,
   healSupport: healSupportEntries,
   directAttack: directAttackEntries,
   targetCount: [

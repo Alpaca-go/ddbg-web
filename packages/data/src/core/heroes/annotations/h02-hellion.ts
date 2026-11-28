@@ -1,4 +1,5 @@
 import type {
+  BuffGuardEntry,
   DirectAttackEntry,
   DirectAttackFace,
   StatusEffectEntry,
@@ -438,7 +439,34 @@ const directAttackEntries: readonly DirectAttackEntry[] = [
   },
 ];
 
+const buffGuardEntries: readonly BuffGuardEntry[] = [
+  {
+    id: "hero_skill:core:h02:p037",
+    name: "Adrenaline Rush",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    selfRange: true,
+    heroTargets: 0,
+  },
+  {
+    id: "hero_skill:core:h02:p038",
+    name: "Adrenaline Rush",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    rangeMinimum: 0,
+    heroTargets: 1,
+  },
+  {
+    id: "hero_skill:core:h02:p039",
+    name: "Adrenaline Rush",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    rangeMinimum: 0,
+    heroTargets: 2,
+  },
+];
+
 const entries: HeroAnnotationEntries = {
+  buffGuard: buffGuardEntries,
   directAttack: directAttackEntries,
   status: statusEntries,
   range: rangeEntries,

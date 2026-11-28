@@ -55,12 +55,21 @@ export function upgradeLegacyCatalogRules(
         !verified ||
         "directAttack" in supplied ||
         "healSupport" in supplied ||
-        (!("directAttack" in verified) && !("healSupport" in verified))
+        "buffGuard" in supplied ||
+        (!("directAttack" in verified) &&
+          !("healSupport" in verified) &&
+          !("buffGuard" in verified))
       )
         return old;
-      const { directAttack: _attack, healSupport: _heal, ...previousRules } = verified;
+      const {
+        directAttack: _attack,
+        healSupport: _heal,
+        buffGuard: _guard,
+        ...previousRules
+      } = verified;
       void _attack;
       void _heal;
+      void _guard;
       return equal(supplied, previousRules) ? { ...before, rules: verified } : old;
     }
     if (

@@ -12,7 +12,12 @@ import { iconStatusSchema } from "./dictionary/schema";
 import { iconIdSchema, levelSchema, pageListSchema } from "./extract/common";
 import { monsterStanceGroupsSchema } from "./monster-stance";
 import { STATUS_KINDS } from "./status-kinds";
-import { conditionalDamageSchema, directAttackSchema, healSupportSchema } from "./effects";
+import {
+  buffGuardSchema,
+  conditionalDamageSchema,
+  directAttackSchema,
+  healSupportSchema,
+} from "./effects";
 
 /** 可以拿来命名的只有 confirmed / confirmed_rulebook。decor 不是游戏图标。其余按 R-048 标未验证。 */
 export const NAMINGS = ["confirmed", "confirmed_rulebook", "decor", "unverified"] as const;
@@ -279,6 +284,7 @@ export const heroSkillRulesSchema = z.strictObject({
   ...skillRulesCoreShape,
   directAttack: directAttackSchema.optional(),
   healSupport: healSupportSchema.optional(),
+  buffGuard: buffGuardSchema.optional(),
   statuses: z.array(statusEffectRuleSchema).min(1).optional(),
   damageBonuses: z
     .array(damageBonusRuleSchema)

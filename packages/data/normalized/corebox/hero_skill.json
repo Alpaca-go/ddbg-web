@@ -4333,6 +4333,25 @@
    ],
    "stats_line": null,
    "rules": {
+    "buffGuard": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "selfRange": true,
+     "heroTargets": 0,
+     "selfLight": 2,
+     "onUse": [
+      {
+       "kind": "protection",
+       "duration": 2
+      },
+      {
+       "kind": "mark",
+       "duration": 3
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 1,
@@ -4752,6 +4771,25 @@
    ],
    "stats_line": null,
    "rules": {
+    "buffGuard": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "selfRange": true,
+     "heroTargets": 0,
+     "selfLight": 2,
+     "onUse": [
+      {
+       "kind": "protection",
+       "duration": 3
+      },
+      {
+       "kind": "mark",
+       "duration": 3
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 1,
@@ -5161,6 +5199,25 @@
    ],
    "stats_line": null,
    "rules": {
+    "buffGuard": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "selfRange": true,
+     "heroTargets": 0,
+     "selfLight": 2,
+     "onUse": [
+      {
+       "kind": "protection",
+       "duration": 3
+      },
+      {
+       "kind": "mark",
+       "duration": 2
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 1,
@@ -16910,6 +16967,31 @@
    ],
    "stats_line": null,
    "rules": {
+    "buffGuard": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "selfRange": true,
+     "heroTargets": 0,
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 3
+      }
+     ],
+     "removal": [
+      {
+       "scope": "self",
+       "kinds": [
+        "bleed",
+        "blight"
+       ]
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 1,
@@ -17419,6 +17501,45 @@
     }
    ],
    "rules": {
+    "buffGuard": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "rangeMinimum": 0,
+     "heroTargets": 1,
+     "onHit": [
+      {
+       "kind": "buff",
+       "duration": 2
+      }
+     ],
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 2
+      }
+     ],
+     "removal": [
+      {
+       "scope": "self",
+       "kinds": [
+        "bleed",
+        "blight"
+       ]
+      },
+      {
+       "scope": "target",
+       "kinds": [
+        "bleed",
+        "blight"
+       ]
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -18013,6 +18134,45 @@
     }
    ],
    "rules": {
+    "buffGuard": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "rangeMinimum": 0,
+     "heroTargets": 2,
+     "onHit": [
+      {
+       "kind": "buff",
+       "duration": 2
+      }
+     ],
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 2
+      }
+     ],
+     "removal": [
+      {
+       "scope": "self",
+       "kinds": [
+        "bleed",
+        "blight"
+       ]
+      },
+      {
+       "scope": "target",
+       "kinds": [
+        "bleed",
+        "blight"
+       ]
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -58140,6 +58300,26 @@
       "source": "print_front"
      }
     },
+    "buffGuard": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 1,
+     "heroTargets": 2,
+     "onHit": [
+      {
+       "kind": "buff",
+       "duration": 2
+      }
+     ],
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 2
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 1,
@@ -58643,6 +58823,26 @@
       "lineIndex": 0,
       "source": "print_front"
      }
+    },
+    "buffGuard": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 1,
+     "heroTargets": 3,
+     "onHit": [
+      {
+       "kind": "buff",
+       "duration": 3
+      }
+     ],
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 3
+      }
+     ]
     },
     "statuses": [
      {
@@ -59158,6 +59358,26 @@
       "lineIndex": 0,
       "source": "print_front"
      }
+    },
+    "buffGuard": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 1,
+     "heroTargets": 3,
+     "onHit": [
+      {
+       "kind": "buff",
+       "duration": 4
+      }
+     ],
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 4
+      }
+     ]
     },
     "statuses": [
      {
@@ -70427,6 +70647,22 @@
       "source": "print_front"
      }
     },
+    "buffGuard": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 0,
+     "heroTargets": 1,
+     "onHit": [
+      {
+       "kind": "buff",
+       "duration": 3
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 1,
@@ -70854,6 +71090,28 @@
       "lineIndex": 0,
       "source": "print_front"
      }
+    },
+    "buffGuard": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "heroTargets": 1,
+     "onHit": [
+      {
+       "kind": "buff",
+       "duration": 3
+      }
+     ],
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 3
+      }
+     ]
     },
     "statuses": [
      {
@@ -71311,6 +71569,28 @@
       "lineIndex": 0,
       "source": "print_front"
      }
+    },
+    "buffGuard": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "heroTargets": 1,
+     "onHit": [
+      {
+       "kind": "buff",
+       "duration": 4
+      }
+     ],
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 4
+      }
+     ]
     },
     "statuses": [
      {
@@ -87798,6 +88078,24 @@
    ],
    "stats_line": null,
    "rules": {
+    "buffGuard": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "selfRange": true,
+     "heroTargets": 0,
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 2
+      }
+     ],
+     "selfShuffle": {
+      "direction": "push",
+      "distance": 2
+     }
+    },
     "statuses": [
      {
       "lineIndex": 1,
@@ -88160,6 +88458,24 @@
    ],
    "stats_line": null,
    "rules": {
+    "buffGuard": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "selfRange": true,
+     "heroTargets": 0,
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 3
+      }
+     ],
+     "selfShuffle": {
+      "direction": "push",
+      "distance": 2
+     }
+    },
     "statuses": [
      {
       "lineIndex": 1,
@@ -88522,6 +88838,24 @@
    ],
    "stats_line": null,
    "rules": {
+    "buffGuard": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "selfRange": true,
+     "heroTargets": 0,
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 4
+      }
+     ],
+     "selfShuffle": {
+      "direction": "push",
+      "distance": 2
+     }
+    },
     "statuses": [
      {
       "lineIndex": 1,
@@ -92276,6 +92610,31 @@
    ],
    "stats_line": null,
    "rules": {
+    "buffGuard": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "selfRange": true,
+     "heroTargets": 0,
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 2
+      }
+     ],
+     "removal": [
+      {
+       "scope": "self",
+       "kinds": [
+        "bleed",
+        "blight"
+       ]
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 1,
@@ -92805,6 +93164,44 @@
       "lineIndex": 0,
       "source": "print_front"
      }
+    },
+    "buffGuard": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "heroTargets": 1,
+     "onHit": [
+      {
+       "kind": "buff",
+       "duration": 2
+      }
+     ],
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 2
+      }
+     ],
+     "removal": [
+      {
+       "scope": "self",
+       "kinds": [
+        "bleed",
+        "blight"
+       ]
+      },
+      {
+       "scope": "target",
+       "kinds": [
+        "bleed",
+        "blight"
+       ]
+      }
+     ]
     },
     "statuses": [
      {
@@ -93418,6 +93815,44 @@
       "lineIndex": 0,
       "source": "print_front"
      }
+    },
+    "buffGuard": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "heroTargets": 2,
+     "onHit": [
+      {
+       "kind": "buff",
+       "duration": 2
+      }
+     ],
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 2
+      }
+     ],
+     "removal": [
+      {
+       "scope": "self",
+       "kinds": [
+        "bleed",
+        "blight"
+       ]
+      },
+      {
+       "scope": "target",
+       "kinds": [
+        "bleed",
+        "blight"
+       ]
+      }
+     ]
     },
     "statuses": [
      {
@@ -122477,6 +122912,31 @@
     "self": {
      "range": true
     },
+    "buffGuard": {
+     "stances": [
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "selfRange": true,
+     "heroTargets": 0,
+     "hit": {
+      "threshold": 12
+     },
+     "critical": {
+      "threshold": 1
+     },
+     "onUse": [
+      {
+       "kind": "protection",
+       "duration": 2
+      },
+      {
+       "kind": "mark",
+       "duration": 2
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 1,
@@ -122928,6 +123388,31 @@
     "self": {
      "range": true
     },
+    "buffGuard": {
+     "stances": [
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "selfRange": true,
+     "heroTargets": 0,
+     "hit": {
+      "threshold": 14
+     },
+     "critical": {
+      "threshold": 1
+     },
+     "onUse": [
+      {
+       "kind": "protection",
+       "duration": 2
+      },
+      {
+       "kind": "mark",
+       "duration": 1
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 1,
@@ -123378,6 +123863,31 @@
    "rules": {
     "self": {
      "range": true
+    },
+    "buffGuard": {
+     "stances": [
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "selfRange": true,
+     "heroTargets": 0,
+     "hit": {
+      "threshold": 16
+     },
+     "critical": {
+      "threshold": 1
+     },
+     "onUse": [
+      {
+       "kind": "protection",
+       "duration": 3
+      },
+      {
+       "kind": "mark",
+       "duration": 1
+      }
+     ]
     },
     "statuses": [
      {
@@ -130630,6 +131140,26 @@
     "self": {
      "range": true
     },
+    "buffGuard": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "selfRange": true,
+     "heroTargets": 0,
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 2
+      }
+     ],
+     "selfShuffle": {
+      "direction": "push",
+      "distance": 2
+     }
+    },
     "statuses": [
      {
       "lineIndex": 1,
@@ -131058,6 +131588,26 @@
     "self": {
      "range": true
     },
+    "buffGuard": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "selfRange": true,
+     "heroTargets": 0,
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 3
+      }
+     ],
+     "selfShuffle": {
+      "direction": "push",
+      "distance": 2
+     }
+    },
     "statuses": [
      {
       "lineIndex": 1,
@@ -131485,6 +132035,26 @@
    "rules": {
     "self": {
      "range": true
+    },
+    "buffGuard": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "selfRange": true,
+     "heroTargets": 0,
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 4
+      }
+     ],
+     "selfShufflePushOptions": [
+      1,
+      2
+     ]
     },
     "statuses": [
      {
@@ -135767,6 +136337,26 @@
       "source": "print_front"
      }
     },
+    "buffGuard": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 0,
+     "heroTargets": 1,
+     "onHit": [
+      {
+       "kind": "buff",
+       "duration": 2
+      }
+     ],
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 2
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 2,
@@ -136316,6 +136906,26 @@
       "lineIndex": 0,
       "source": "print_front"
      }
+    },
+    "buffGuard": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 0,
+     "heroTargets": 2,
+     "onHit": [
+      {
+       "kind": "buff",
+       "duration": 3
+      }
+     ],
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 2
+      }
+     ]
     },
     "statuses": [
      {
@@ -136896,6 +137506,26 @@
       "source": "print_front"
      }
     },
+    "buffGuard": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 0,
+     "heroTargets": 3,
+     "onHit": [
+      {
+       "kind": "buff",
+       "duration": 4
+      }
+     ],
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 3
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 2,
@@ -137437,6 +138067,30 @@
       "source": "print_front"
      }
     },
+    "buffGuard": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "heroTargets": 1,
+     "onHit": [
+      {
+       "kind": "guard",
+       "duration": 2
+      },
+      {
+       "kind": "protection",
+       "duration": 2
+      },
+      {
+       "kind": "mark",
+       "duration": 3
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 1,
@@ -137952,6 +138606,30 @@
       "source": "print_front"
      }
     },
+    "buffGuard": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "heroTargets": 1,
+     "onHit": [
+      {
+       "kind": "guard",
+       "duration": 3
+      },
+      {
+       "kind": "protection",
+       "duration": 2
+      },
+      {
+       "kind": "mark",
+       "duration": 2
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 1,
@@ -138466,6 +139144,30 @@
       "lineIndex": 0,
       "source": "print_front"
      }
+    },
+    "buffGuard": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "heroTargets": 1,
+     "onHit": [
+      {
+       "kind": "guard",
+       "duration": 3
+      },
+      {
+       "kind": "protection",
+       "duration": 3
+      },
+      {
+       "kind": "mark",
+       "duration": 1
+      }
+     ]
     },
     "statuses": [
      {
@@ -143569,6 +144271,26 @@
     "self": {
      "range": true
     },
+    "buffGuard": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "selfRange": true,
+     "heroTargets": 0,
+     "onUse": [
+      {
+       "kind": "guard",
+       "duration": 1
+      },
+      {
+       "kind": "protection",
+       "duration": 2
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 1,
@@ -144058,6 +144780,26 @@
     "self": {
      "range": true
     },
+    "buffGuard": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "selfRange": true,
+     "heroTargets": 0,
+     "onUse": [
+      {
+       "kind": "guard",
+       "duration": 2
+      },
+      {
+       "kind": "protection",
+       "duration": 2
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 1,
@@ -144546,6 +145288,26 @@
    "rules": {
     "self": {
      "range": true
+    },
+    "buffGuard": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "selfRange": true,
+     "heroTargets": 0,
+     "onUse": [
+      {
+       "kind": "guard",
+       "duration": 2
+      },
+      {
+       "kind": "protection",
+       "duration": 3
+      }
+     ]
     },
     "statuses": [
      {
@@ -146846,6 +147608,28 @@
       "source": "print_front"
      }
     },
+    "buffGuard": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "heroTargets": 1,
+     "onHit": [
+      {
+       "kind": "buff",
+       "duration": 2
+      }
+     ],
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 2
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 1,
@@ -147395,6 +148179,28 @@
       "lineIndex": 0,
       "source": "print_front"
      }
+    },
+    "buffGuard": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "heroTargets": 2,
+     "onHit": [
+      {
+       "kind": "buff",
+       "duration": 2
+      }
+     ],
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 2
+      }
+     ]
     },
     "statuses": [
      {
@@ -147974,6 +148780,28 @@
       "lineIndex": 0,
       "source": "print_front"
      }
+    },
+    "buffGuard": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "heroTargets": 3,
+     "onHit": [
+      {
+       "kind": "buff",
+       "duration": 3
+      }
+     ],
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 3
+      }
+     ]
     },
     "statuses": [
      {
@@ -174949,6 +175777,25 @@
     "self": {
      "range": true
     },
+    "buffGuard": {
+     "stances": [
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "selfRange": true,
+     "heroTargets": 0,
+     "onUse": [
+      {
+       "kind": "protection",
+       "duration": 2
+      }
+     ],
+     "selfShuffle": {
+      "direction": "pull",
+      "distance": 1
+     }
+    },
     "statuses": [
      {
       "lineIndex": 1,
@@ -175418,6 +176265,25 @@
    "rules": {
     "self": {
      "range": true
+    },
+    "buffGuard": {
+     "stances": [
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "selfRange": true,
+     "heroTargets": 0,
+     "onUse": [
+      {
+       "kind": "protection",
+       "duration": 3
+      }
+     ],
+     "selfShuffle": {
+      "direction": "pull",
+      "distance": 1
+     }
     },
     "statuses": [
      {
@@ -175962,6 +176828,31 @@
     }
    ],
    "rules": {
+    "buffGuard": {
+     "stances": [
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "heroTargets": 1,
+     "onHit": [
+      {
+       "kind": "protection",
+       "duration": 2
+      }
+     ],
+     "onUse": [
+      {
+       "kind": "protection",
+       "duration": 3
+      }
+     ],
+     "selfShuffle": {
+      "direction": "pull",
+      "distance": 1
+     }
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -183637,6 +184528,22 @@
     "self": {
      "range": true
     },
+    "buffGuard": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "selfRange": true,
+     "heroTargets": 0,
+     "onUse": [
+      {
+       "kind": "protection",
+       "duration": 2
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 1,
@@ -184051,6 +184958,22 @@
     "self": {
      "range": true
     },
+    "buffGuard": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "selfRange": true,
+     "heroTargets": 0,
+     "onUse": [
+      {
+       "kind": "protection",
+       "duration": 3
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 1,
@@ -184464,6 +185387,22 @@
    "rules": {
     "self": {
      "range": true
+    },
+    "buffGuard": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "selfRange": true,
+     "heroTargets": 0,
+     "onUse": [
+      {
+       "kind": "protection",
+       "duration": 4
+      }
+     ]
     },
     "statuses": [
      {

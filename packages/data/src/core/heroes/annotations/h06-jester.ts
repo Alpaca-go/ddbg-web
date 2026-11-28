@@ -1,6 +1,7 @@
 import type {
   DirectAttackEntry,
   HealSupportEntry,
+  BuffGuardEntry,
   DirectAttackFace,
   CoreHigherSkillRow,
   StatusEffectEntry,
@@ -576,7 +577,32 @@ const healSupportEntries: readonly HealSupportEntry[] = [
   },
 ];
 
+const buffGuardEntries: readonly BuffGuardEntry[] = [
+  {
+    id: "hero_skill:core:h06:p118",
+    name: "Battle Ballad",
+    stances: ["support", "ranged"],
+    range: 1,
+    heroTargets: 2,
+  },
+  {
+    id: "hero_skill:core:h06:p119",
+    name: "Battle Ballad",
+    stances: ["support", "ranged"],
+    range: 1,
+    heroTargets: 3,
+  },
+  {
+    id: "hero_skill:core:h06:p120",
+    name: "Battle Ballad",
+    stances: ["support", "ranged"],
+    range: 1,
+    heroTargets: 3,
+  },
+];
+
 const entries: HeroAnnotationEntries = {
+  buffGuard: buffGuardEntries,
   healSupport: healSupportEntries,
   directAttack: directAttackEntries,
   higher: coreHigherRows,

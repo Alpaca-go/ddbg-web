@@ -1,10 +1,12 @@
 import { defenceTrinketReaction } from "../../shared/trinkets/trinket-reactions";
 import {
   CONDITIONAL_DAMAGE_SUFFIX,
+  buffGuardSchema,
   directAttackSchema,
   healSupportSchema,
 } from "../../../../data/src/shared/effects";
 import type {
+  BuffGuard,
   ConditionalDamage,
   DirectAttack,
   HealSupport,
@@ -306,6 +308,7 @@ type StatusAnnotation = StatusEffect & {
 export type SkillRules = {
   readonly directAttack?: DirectAttack;
   readonly healSupport?: HealSupport;
+  readonly buffGuard?: BuffGuard;
   readonly statuses?: readonly StatusAnnotation[];
   readonly damage?: DamageBonusAnnotation;
   readonly damageBonuses?: readonly DamageBonusAnnotation[];
@@ -786,6 +789,11 @@ function threshold(skill: HeroSkillCardView, label: "Crit" | "Acc"): number | nu
     const roll = label === "Crit" ? heal.critical : heal.hit;
     return roll?.threshold ?? null;
   }
+  const guard = skill.rules?.buffGuard;
+  if (guard) {
+    const roll = label === "Crit" ? guard.critical : guard.hit;
+    return roll?.threshold ?? null;
+  }
   const found = skill.printed_labels.filter((item) => item.label === label);
   if (found.length !== 1) return null;
   const value = found[0]?.value;
@@ -797,6 +805,8 @@ function threshold(skill: HeroSkillCardView, label: "Crit" | "Acc"): number | nu
 export function hasHeroSkillRoll(skill: HeroSkillCardView, label: "Crit" | "Acc"): boolean {
   const heal = skill.rules?.healSupport;
   if (heal) return (label === "Crit" ? heal.critical : heal.hit) !== undefined;
+  const guard = skill.rules?.buffGuard;
+  if (guard) return (label === "Crit" ? guard.critical : guard.hit) !== undefined;
   return (
     skill.rules?.directAttack !== undefined ||
     skill.printed_labels.some((entry) => entry.label === label)
@@ -812,6 +822,7 @@ function amountBesideLabel(skill: HeroSkillCardView, label: "Crit" | "Acc"): num
     const roll = label === "Crit" ? heal.critical : heal.hit;
     return roll?.heal ?? null;
   }
+  if (skill.rules?.buffGuard) return null;
   const found: number[] = [];
   for (const item of skill.unlabeled_numbers) {
     if (item.anchor.type !== "printed_label" || item.anchor.label !== label) continue;
@@ -1217,7 +1228,7 @@ const EXTRACTED_SELF_MARK = String.fromCharCode(7);
  * 未注解的卡（历史测试视图）仍走文本解析，标记可在同一行，也可和效果框的另一行配对。
  */
 function readConditionRemoval(skill: HeroSkillCardView): ConditionRemoval {
-  const approved = skill.rules?.healSupport?.removal;
+  const approved = skill.rules?.healSupport?.removal ?? skill.rules?.buffGuard?.removal;
   if (approved) {
     return {
       targetLines: approved.filter((rule) => rule.scope === "target").length,
@@ -1462,6 +1473,12 @@ function readShuffles(skill: HeroSkillCardView, choice: "push" | "pull" | undefi
       target: skill.rules.directAttack.targetShuffle ?? null,
       lineCount: 0,
     };
+  if (skill.rules?.buffGuard)
+    return {
+      self: skill.rules.buffGuard.selfShuffle ?? null,
+      target: skill.rules.buffGuard.targetShuffle ?? null,
+      lineCount: 0,
+    };
   const selves: SkillShuffle[] = [];
   const targets: SkillShuffle[] = [];
   const choices: number[] = [];
@@ -1502,7 +1519,12 @@ export function needsHeroSkillShuffleChoice(
   face: "front" | "back" = "front",
 ): boolean {
   const selected = selectFace(skill, face);
-  if (!selected.ok || selected.skill.rules?.directAttack !== undefined) return false;
+  if (
+    !selected.ok ||
+    selected.skill.rules?.directAttack !== undefined ||
+    selected.skill.rules?.buffGuard !== undefined
+  )
+    return false;
   const push = readShuffles(selected.skill, "push").target;
   const pull = readShuffles(selected.skill, "pull").target;
   if (push?.direction === "push" && pull?.direction === "pull") return true;
@@ -1525,6 +1547,8 @@ export function needsHeroSkillShufflePushDistance(
 ): readonly [number, number] | null {
   const selected = selectFace(skill, face);
   if (!selected.ok || selected.skill.rules?.directAttack !== undefined) return null;
+  const options = selected.skill.rules?.buffGuard?.selfShufflePushOptions;
+  if (options) return options;
   for (const line of selected.skill.effect_lines) {
     const selfLine = line.some(
       (s) => s.type === "icon" && s.icon.key === "self_effects" && NAMED.has(s.icon.naming),
@@ -1879,7 +1903,7 @@ function selectFace(
     if (skill.rules.directAttack.requiredForm)
       return { ok: false, reason: "憎恶技能身份、效果或背面与已核实卡面不符（R-048）" };
   }
-  if (skill.rules?.healSupport) {
+  if (skill.rules?.healSupport || skill.rules?.buffGuard) {
     if (face === "front") return { ok: true, skill };
     return { ok: false, reason: "憎恶技能身份、效果或背面与已核实卡面不符（R-048）" };
   }
@@ -1925,6 +1949,7 @@ function readsAsSelfTarget(skill: HeroSkillCardView): boolean {
   const rules = rulesOf(skill);
   if (rules.directAttack !== undefined) return false;
   if (rules.healSupport) return rules.healSupport.selfRange === true;
+  if (rules.buffGuard) return rules.buffGuard.selfRange === true;
   const statuses = rules.statuses;
   const selfRange = rules.self?.range;
   const line = skill.stats_line;
@@ -2115,6 +2140,19 @@ function readStanceMarks(
       },
     };
   }
+  const guard = skill.rules?.buffGuard;
+  if (guard) {
+    const mark = (stance: SkillStance) => (guard.stances.includes(stance) ? "lit" : "unlit");
+    return {
+      ok: true,
+      marks: {
+        support: mark("support"),
+        ranged: mark("ranged"),
+        defensive: mark("defensive"),
+        aggressive: mark("aggressive"),
+      },
+    };
+  }
   const icons = skill.top_row_icons;
   if (!Array.isArray(icons)) return { ok: false };
   const marks: Record<SkillStance, StanceMark | "absent"> = {
@@ -2202,6 +2240,13 @@ export function readPrintedRange(
       ? { kind: "exact", distance: heal.range! }
       : { kind: "interval", min: heal.rangeMinimum, max: heal.range! };
   }
+  const guard = skill.rules?.buffGuard;
+  if (guard) {
+    if (guard.selfRange) return { kind: "absent" };
+    return guard.rangeMinimum === undefined
+      ? { kind: "exact", distance: guard.range! }
+      : { kind: "interval", min: guard.rangeMinimum, max: guard.range! };
+  }
   const annotatedRange = rulesOf(skill).range;
   if (annotatedRange) {
     const range = annotatedRange;
@@ -2252,8 +2297,8 @@ export function readPrintedRange(
 function rangeProblem(skill: HeroSkillCardView, combat: SkillCombatState): string | null {
   if (combat.areaDistance === undefined) return null;
   const rules = rulesOf(skill);
-  const selfRange = rules.self?.range || rules.healSupport?.selfRange;
-  const statuses = rules.healSupport?.onUse ?? rules.statuses;
+  const selfRange = rules.self?.range || rules.healSupport?.selfRange || rules.buffGuard?.selfRange;
+  const statuses = rules.healSupport?.onUse ?? rules.buffGuard?.onUse ?? rules.statuses;
   if ((skill as HeroSkillCardView & { readonly target?: string }).target === "Special") {
     return null;
   }
@@ -2357,6 +2402,13 @@ function readTargetIconCounts(skill: HeroSkillCardView): {
       heroOrMonster: 0,
     };
   }
+  if (rules.buffGuard) {
+    return {
+      hero: rules.buffGuard.selfRange ? 0 : rules.buffGuard.heroTargets,
+      monster: 0,
+      heroOrMonster: 0,
+    };
+  }
   const headerAnn = rules.target?.header;
   const targetHealAnn = rules.target?.heal;
   const statusesAnn = rules.statuses;
@@ -2448,8 +2500,8 @@ export function readPrintedTargets(skill: HeroSkillCardView): PrintedTargets {
 function targetCountProblem(skill: HeroSkillCardView, combat: SkillCombatState): string | null {
   if (combat.targetsInArea === undefined) return null;
   const rules = rulesOf(skill);
-  const selfRange = rules.self?.range || rules.healSupport?.selfRange;
-  const statuses = rules.healSupport?.onUse ?? rules.statuses;
+  const selfRange = rules.self?.range || rules.healSupport?.selfRange || rules.buffGuard?.selfRange;
+  const statuses = rules.healSupport?.onUse ?? rules.buffGuard?.onUse ?? rules.statuses;
   if ((skill as HeroSkillCardView & { readonly target?: string }).target === "Special") return null;
   if ((selfRange || statuses?.length) && readsAsSelfTarget(skill))
     return combat.targetsInArea === 1 && combat.actor?.id === combat.target.id
@@ -2780,6 +2832,19 @@ function resolveSkill(
         ...(heal.data.effect ? { effect: heal.data.effect } : {}),
         healSupport: heal.data,
       },
+      printed_labels: [],
+      unlabeled_numbers: [],
+      stats_line: null,
+      effect_lines: [],
+      top_row_icons: [],
+      front_icons: [],
+    };
+  } else if (active.rules?.buffGuard !== undefined) {
+    const guard = buffGuardSchema.safeParse(active.rules.buffGuard);
+    if (!guard.success) return refuse(skill, combat, "技能效果词条或参数无效");
+    active = {
+      ...active,
+      rules: { buffGuard: guard.data },
       printed_labels: [],
       unlabeled_numbers: [],
       stats_line: null,

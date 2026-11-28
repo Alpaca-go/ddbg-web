@@ -73,10 +73,17 @@ it("效果词条迁移前的存档按当前规则恢复，其他快照字段仍�
     catalog: {
       ...coreQuestSources.catalog,
       skills: coreQuestSources.catalog.skills.map((card) => {
-        if (!card.rules?.directAttack && !card.rules?.healSupport) return card;
-        const { directAttack: _attack, healSupport: _heal, ...rules } = card.rules!;
+        if (!card.rules?.directAttack && !card.rules?.healSupport && !card.rules?.buffGuard)
+          return card;
+        const {
+          directAttack: _attack,
+          healSupport: _heal,
+          buffGuard: _guard,
+          ...rules
+        } = card.rules!;
         void _attack;
         void _heal;
+        void _guard;
         return { ...card, rules };
       }),
     },
@@ -516,6 +523,83 @@ it.each([
             (entry) => entry.side === "hero" && !entry.dead,
           );
           for (const target of allies) {
+            const play = {
+              type: "playHeroSkill",
+              actorId: turn.actorId,
+              skillId,
+              targetId: target.id,
+            } as const;
+            if (applyCommand(game, play).events.every(({ type }) => type !== "commandRefused"))
+              return play;
+          }
+        },
+      });
+    const old = run(previousSources);
+    expect(
+      old.commands.some(
+        (command) =>
+          (command.type === "playHeroSkill" || command.type === "playHeroSkillTargets") &&
+          "skillId" in command &&
+          command.skillId === skillId,
+      ),
+    ).toBe(true);
+    const restored = roundTrip(
+      createQuestSave(questStart, old.commands, old.state, previousSources),
+    );
+    const current = run(coreQuestSources);
+    expect(restored.commands).toEqual(current.commands);
+    expect(restored.game).toEqual(current.state);
+    expect(old.events).toEqual(current.events);
+  },
+  120000,
+);
+
+it.each([
+  ["Bulwark of Faith", "hero_skill:core:h01:p010", "hero-0"],
+  ["Adrenaline Rush", "hero_skill:core:h02:p037", "hero-1"],
+] as const)(
+  "%s 迁移前的实战日志严格重放原命令和事件",
+  (_label, skillId, actorId) => {
+    const previousSources = {
+      ...coreQuestSources,
+      catalog: {
+        ...coreQuestSources.catalog,
+        skills: coreQuestSources.catalog.skills.map((card) => {
+          if (card.id !== skillId || !card.rules?.buffGuard) return card;
+          const { buffGuard: _guard, ...rules } = card.rules;
+          void _guard;
+          return { ...card, rules };
+        }),
+      },
+    };
+    const party = naturalParty.map((hero, index) => {
+      const slot = actorId === "hero-0" ? 0 : actorId === "hero-1" ? 1 : -1;
+      if (index === slot)
+        return {
+          ...hero,
+          skillIds: hero.skillIds.includes(skillId)
+            ? hero.skillIds
+            : [skillId, ...hero.skillIds.filter((id) => id !== skillId).slice(0, 2)],
+        };
+      return hero;
+    });
+    const questStart = { ...start, seed: 3, party };
+    const run = (sources: typeof coreQuestSources) =>
+      naturalQuest(questStart.seed, questStart.questId, true, sources, 2, {
+        continueFrom: createCoreDungeonQuest(
+          questStart.seed,
+          questStart.questId,
+          questStart.mode,
+          party,
+          sources,
+        ),
+        heroAction(game) {
+          const turn = game.battle?.encounter?.turn;
+          if (turn?.type !== "hero" || turn.actorId !== actorId) return;
+          const allies = game.battle!.entities.filter(
+            (entry) => entry.side === "hero" && !entry.dead,
+          );
+          for (const target of allies.filter((entry) => entry.id === actorId)) {
             const play = {
               type: "playHeroSkill",
               actorId: turn.actorId,

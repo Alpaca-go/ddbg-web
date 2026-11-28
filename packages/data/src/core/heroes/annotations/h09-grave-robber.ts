@@ -1,4 +1,4 @@
-import type { DirectAttackEntry } from "./types";
+import type { BuffGuardEntry, DirectAttackEntry } from "./types";
 import type {
   CoreHigherSkillRow,
   StatusEffectEntry,
@@ -652,7 +652,53 @@ const directAttackEntries: readonly DirectAttackEntry[] = [
   },
 ];
 
+const buffGuardEntries: readonly BuffGuardEntry[] = [
+  {
+    id: "hero_skill:core:h09:p178",
+    name: "Shadow Fade",
+    stances: ["defensive", "aggressive"],
+    selfRange: true,
+    heroTargets: 0,
+  },
+  {
+    id: "hero_skill:core:h09:p179",
+    name: "Shadow Fade",
+    stances: ["defensive", "aggressive"],
+    selfRange: true,
+    heroTargets: 0,
+  },
+  {
+    id: "hero_skill:core:h09:p180",
+    name: "Shadow Fade",
+    stances: ["defensive", "aggressive"],
+    selfRange: true,
+    heroTargets: 0,
+  },
+  {
+    id: "hero_skill:core:h09:p187",
+    name: "Toxin Trickery",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    selfRange: true,
+    heroTargets: 0,
+  },
+  {
+    id: "hero_skill:core:h09:p188",
+    name: "Toxin Trickery",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    heroTargets: 1,
+  },
+  {
+    id: "hero_skill:core:h09:p189",
+    name: "Toxin Trickery",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    heroTargets: 2,
+  },
+];
+
 const entries: HeroAnnotationEntries = {
+  buffGuard: buffGuardEntries,
   directAttack: directAttackEntries,
   higher: coreHigherRows,
   status: statusEntries,

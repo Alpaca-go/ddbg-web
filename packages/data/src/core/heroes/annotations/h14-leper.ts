@@ -1,4 +1,4 @@
-import type { HealSupportEntry, DirectAttackEntry } from "./types";
+import type { BuffGuardEntry, HealSupportEntry, DirectAttackEntry } from "./types";
 import { printIcon } from "../../../shared/print-icons";
 import type {
   HeroAnnotationEntries,
@@ -715,7 +715,38 @@ const healSupportEntries: readonly HealSupportEntry[] = [
   },
 ];
 
+const buffGuardEntries: readonly BuffGuardEntry[] = [
+  {
+    id: "hero_skill:warrens:h14:p286",
+    name: "Withstand",
+    stances: ["ranged", "defensive", "aggressive"],
+    selfRange: true,
+    heroTargets: 0,
+    hit: { threshold: 12 },
+    critical: { threshold: 1 },
+  },
+  {
+    id: "hero_skill:warrens:h14:p287",
+    name: "Withstand",
+    stances: ["ranged", "defensive", "aggressive"],
+    selfRange: true,
+    heroTargets: 0,
+    hit: { threshold: 14 },
+    critical: { threshold: 1 },
+  },
+  {
+    id: "hero_skill:warrens:h14:p288",
+    name: "Withstand",
+    stances: ["ranged", "defensive", "aggressive"],
+    selfRange: true,
+    heroTargets: 0,
+    hit: { threshold: 16 },
+    critical: { threshold: 1 },
+  },
+];
+
 const entries: HeroAnnotationEntries = {
+  buffGuard: buffGuardEntries,
   healSupport: healSupportEntries,
   directAttack: directAttackEntries,
   status: statusEntries,

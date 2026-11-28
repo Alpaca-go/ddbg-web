@@ -1,4 +1,4 @@
-import type { HealSupportEntry, DirectAttackEntry } from "./types";
+import type { BuffGuardEntry, HealSupportEntry, DirectAttackEntry } from "./types";
 import { printIcon } from "../../../shared/print-icons";
 import type { HeroAnnotationEntries, ShuffleEntry, SkillCorrection } from "./types";
 import { defineHeroModule } from "./patch-helpers";
@@ -673,7 +673,53 @@ const healSupportEntries: readonly HealSupportEntry[] = [
   },
 ];
 
+const buffGuardEntries: readonly BuffGuardEntry[] = [
+  {
+    id: "hero_skill:cove:h12:p241",
+    name: "Defender",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    selfRange: true,
+    heroTargets: 0,
+  },
+  {
+    id: "hero_skill:cove:h12:p242",
+    name: "Defender",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    selfRange: true,
+    heroTargets: 0,
+  },
+  {
+    id: "hero_skill:cove:h12:p243",
+    name: "Defender",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    selfRange: true,
+    heroTargets: 0,
+  },
+  {
+    id: "hero_skill:cove:h12:p247",
+    name: "Command",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    heroTargets: 1,
+  },
+  {
+    id: "hero_skill:cove:h12:p248",
+    name: "Command",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    heroTargets: 2,
+  },
+  {
+    id: "hero_skill:cove:h12:p249",
+    name: "Command",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    heroTargets: 3,
+  },
+];
+
 const entries: HeroAnnotationEntries = {
+  buffGuard: buffGuardEntries,
   healSupport: healSupportEntries,
   directAttack: directAttackEntries,
   shuffle: shuffleEntries,

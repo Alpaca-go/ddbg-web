@@ -1,4 +1,4 @@
-import type { DirectAttackEntry } from "./types";
+import type { BuffGuardEntry, DirectAttackEntry } from "./types";
 import { printIcon } from "../../../shared/print-icons";
 import type { HeroAnnotationEntries, IgnoresEntry, ShuffleEntry, SkillCorrection } from "./types";
 import { defineHeroModule } from "./patch-helpers";
@@ -913,7 +913,32 @@ const directAttackEntries: readonly DirectAttackEntry[] = [
   },
 ];
 
+const buffGuardEntries: readonly BuffGuardEntry[] = [
+  {
+    id: "hero_skill:weald:h16:p334",
+    name: "Serpent Sway",
+    stances: ["ranged", "defensive", "aggressive"],
+    selfRange: true,
+    heroTargets: 0,
+  },
+  {
+    id: "hero_skill:weald:h16:p335",
+    name: "Serpent Sway",
+    stances: ["ranged", "defensive", "aggressive"],
+    selfRange: true,
+    heroTargets: 0,
+  },
+  {
+    id: "hero_skill:weald:h16:p336",
+    name: "Serpent Sway",
+    stances: ["ranged", "defensive", "aggressive"],
+    range: 1,
+    heroTargets: 1,
+  },
+];
+
 const entries: HeroAnnotationEntries = {
+  buffGuard: buffGuardEntries,
   directAttack: directAttackEntries,
   shuffle: shuffleEntries,
   ignores: ignoresEntries,

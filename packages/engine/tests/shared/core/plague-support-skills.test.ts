@@ -268,7 +268,10 @@ it("Vapours缺失或篡改目标行注解、射程/目标图标或状态行均�
   ] as const) {
     const skill = structuredClone(skills[1]!);
     const changed = clean<Record<string, unknown>>(skill);
-    const changedRules = { ...(changed.rules as Record<string, unknown>) };
+    const { buffGuard: _guard, ...changedRules } = {
+      ...(changed.rules as Record<string, unknown>),
+    };
+    void _guard;
     const changedTarget = { ...(changedRules.target as Record<string, unknown>) };
     if (field === "missing") delete changedTarget.header;
     if (field === "source") changedTarget.header = { lineIndex: 0, source: "guess" };
@@ -326,6 +329,8 @@ it.each(skills.slice(0, 2))(
           }),
         },
       } as unknown as GameState);
+      const { buffGuard: _guard, ...vapourRules } = skill.rules!;
+      void _guard;
       for (const statuses of [
         undefined,
         [],
@@ -336,7 +341,7 @@ it.each(skills.slice(0, 2))(
           ...game,
           battle: {
             ...game.battle!,
-            skills: [{ ...skill, rules: { ...skill.rules, statuses } }],
+            skills: [{ ...skill, rules: { ...vapourRules, statuses } }],
           },
         } as unknown as GameState);
     }

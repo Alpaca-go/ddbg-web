@@ -66,6 +66,39 @@ export function readVerifiedStatusEffects(
       targetShuffle: null,
     };
   }
+  const guard = skill.rules?.buffGuard;
+  if (guard) {
+    const withoutUndefinedAmount = ({
+      kind,
+      duration,
+      amount,
+    }: NonNullable<typeof guard.onHit>[number]) => ({
+      kind,
+      duration,
+      ...(amount === undefined ? {} : { amount }),
+    });
+    let selfShuffle = guard.selfShuffle ?? null;
+    if (guard.selfShufflePushOptions) {
+      const [left, right] = guard.selfShufflePushOptions;
+      if (shufflePushDistance !== left && shufflePushDistance !== right)
+        return { status: "refused", reason: "自身 Push 距离须为卡面所列二选一（Q-168）" };
+      if (shufflePushDistance === undefined)
+        return { status: "refused", reason: "自身 Push 距离尚需选择（Q-168）" };
+      selfShuffle = { direction: "push", distance: shufflePushDistance };
+    }
+    return {
+      status: "resolved",
+      self: guard.onUse?.map(withoutUndefinedAmount) ?? [],
+      target: guard.onHit?.map(withoutUndefinedAmount) ?? [],
+      lineCount: Number((guard.onHit?.length ?? 0) > 0 || (guard.onUse?.length ?? 0) > 0),
+      selfLight: guard.selfLight ?? 0,
+      targetLight: guard.targetLight ?? 0,
+      selfRemove: (guard.removal ?? []).some((rule) => rule.scope === "self"),
+      targetRemove: (guard.removal ?? []).some((rule) => rule.scope === "target"),
+      selfShuffle,
+      targetShuffle: guard.targetShuffle ?? null,
+    };
+  }
   const self: StatusEffect[] = [];
   const target: StatusEffect[] = [];
   const groups = new Map<number, NonNullable<SkillRules["statuses"]>[number][]>();

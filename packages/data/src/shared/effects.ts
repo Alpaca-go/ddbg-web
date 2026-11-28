@@ -134,3 +134,56 @@ export const healSupportSchema = z
   );
 
 export type HealSupport = Readonly<z.infer<typeof healSupportSchema>>;
+
+export const buffGuardSchema = z
+  .strictObject({
+    stances: z.array(z.enum(["support", "ranged", "defensive", "aggressive"])).min(1),
+    range: z.int().nonnegative().optional(),
+    rangeMinimum: z.int().nonnegative().optional(),
+    selfRange: z.literal(true).optional(),
+    heroTargets: z.int().nonnegative(),
+    hit: z.strictObject({ threshold: z.int().nonnegative() }).optional(),
+    critical: z.strictObject({ threshold: z.int().nonnegative() }).optional(),
+    selfLight: z.int().min(-5).max(5).optional(),
+    targetLight: z.int().min(-5).max(5).optional(),
+    onHit: z.array(statusEffectSchema).optional(),
+    onUse: z.array(statusEffectSchema).optional(),
+    removal: z
+      .array(
+        z.strictObject({
+          scope: z.enum(["self", "target"]),
+          kinds: z
+            .array(z.enum(["bleed", "blight"]))
+            .length(2)
+            .refine((kinds) => new Set(kinds).size === kinds.length, "移除状态种类不得重复"),
+        }),
+      )
+      .min(1)
+      .optional(),
+    selfShuffle: attackShuffleSchema.optional(),
+    targetShuffle: attackShuffleSchema.optional(),
+    selfShufflePushOptions: z
+      .tuple([z.int().positive(), z.int().positive()])
+      .refine(([left, right]) => left !== right, {
+        message: "自身可选 Push 的两个距离必须不同",
+      })
+      .optional(),
+  })
+  .refine(
+    ({ range, rangeMinimum, selfRange }) => {
+      if (selfRange) return range === undefined && rangeMinimum === undefined;
+      if (range === undefined) return false;
+      return rangeMinimum === undefined || rangeMinimum <= range;
+    },
+    { path: ["rangeMinimum"], message: "自身射程不能再登记距离，最小射程不能超过最大射程" },
+  )
+  .refine(({ hit, critical }) => !critical || hit !== undefined, {
+    path: ["critical"],
+    message: "有暴击判定时必须同时登记命中判定",
+  })
+  .refine(({ selfShuffle, selfShufflePushOptions }) => !selfShuffle || !selfShufflePushOptions, {
+    path: ["selfShufflePushOptions"],
+    message: "固定自身位移与可选 Push 不能同时登记",
+  });
+
+export type BuffGuard = Readonly<z.infer<typeof buffGuardSchema>>;

@@ -1,6 +1,7 @@
 import type {
   DirectAttackEntry,
   HealSupportEntry,
+  BuffGuardEntry,
   DirectAttackFace,
   CoreHigherSkillRow,
   StatusEffectEntry,
@@ -604,7 +605,32 @@ const healSupportEntries: readonly HealSupportEntry[] = [
   },
 ];
 
+const buffGuardEntries: readonly BuffGuardEntry[] = [
+  {
+    id: "hero_skill:core:h07:p142",
+    name: "Emboldening Vapours",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 0,
+    heroTargets: 1,
+  },
+  {
+    id: "hero_skill:core:h07:p143",
+    name: "Emboldening Vapours",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    heroTargets: 1,
+  },
+  {
+    id: "hero_skill:core:h07:p144",
+    name: "Emboldening Vapours",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    heroTargets: 1,
+  },
+];
+
 const entries: HeroAnnotationEntries = {
+  buffGuard: buffGuardEntries,
   healSupport: healSupportEntries,
   directAttack: directAttackEntries,
   higher: coreHigherRows,
