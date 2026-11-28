@@ -27,6 +27,8 @@ pnpm --filter @ddbg/pipeline normalize
 
 `extension/cove/room.json`（`ddbg-cove-room-v0`）由 `buildCoveRooms` 生成，包含普通房 `room:cove:01`–`09` 及 Boss 房 `room:cove:10`–`12`。Boss 房保留 `boss: true`、`poolEligible: false` 及各自的印刷来源。Cove 战役出征仍待接入。见 [Cove 房间审阅](../../../docs/reviews/cove-room-review-2026-11-22.md)。
 
+`extension/cove/stygian_rooms.json`（`ddbg-cove-stygian-rooms-v1`）由 `buildCoveStygianRooms` 生成：九张 FRONT-only Stygian 替换卡（`source.back: null`），`expeditionRoomPoolEligible: false`，效果 **Q-186** 停点。见 [Cove Stygian 房间审阅](../../../docs/reviews/cove-stygian-rooms-review-2026-11-28.md)。
+
 ## Weald 普通房间与板块
 
 `extension/weald/room.json` 与 `room_tile_geometry.json` 使用独立 schema（`ddbg-weald-room-v1` / `ddbg-weald-room-tile-geometry-v0`），写入 R-234–R-239 已核准的九张普通房间与对应板块。含完整通行几何、容量、部署、真菌与星标效果区域；5 号零容量 I、7 号零容量 H／I／J；1 号 C／E／F／G 绑定 Toxic Mushrooms（R-239）。`usable` 与正式出征的独立核准选择器分别校验；由 `pnpm --filter @ddbg/data test` 中 `packages/data/tests/weald/rooms/room.build.test.ts` 校验，可用 `WRITE_NORMALIZED=1` 重写 JSON。见 [房间审阅记录](../../../docs/reviews/weald-room-review-2026-11-12.md)。
