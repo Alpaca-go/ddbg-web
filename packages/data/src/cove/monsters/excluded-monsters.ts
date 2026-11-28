@@ -1,17 +1,5 @@
-/** 未纳入 I 级普通可审目录的 Cove 怪物；仅登记身份与排除依据，不授予牌堆或战斗运行时。 */
+/** 未纳入任何 Cove 怪物可审目录的条目；仅登记身份与排除依据，不授予牌堆或战斗运行时。 */
 export const COVE_MONSTER_CATALOG_EXCLUSIONS = [
-  {
-    id: "monster_medium:cove:p018",
-    name: "Uca Major",
-    category: "monster_medium",
-    reason: "印刷等级 II 的大型怪物参考卡（card_kind=large_monster_reference），非 I 级普通",
-  },
-  {
-    id: "monster_medium:cove:p020",
-    name: "Squiffy Ghast",
-    category: "monster_medium",
-    reason: "印刷等级 III，高等级普通怪；本刀不推算 II/III 牌堆",
-  },
   {
     id: "monster_medium:cove:p023",
     name: "Shambler Tentacle",
@@ -47,18 +35,6 @@ export const COVE_MONSTER_CATALOG_EXCLUSIONS = [
     name: "Drowned Anchorman",
     category: "monster_medium",
     reason: "Drowned Crew 召唤物 III 级；Boss 专属",
-  },
-  {
-    id: "monster_large:cove:p001",
-    name: "Uca Major",
-    category: "monster_large",
-    reason: "印刷等级 II 大型战斗卡；非 I 级普通",
-  },
-  {
-    id: "monster_large:cove:p002",
-    name: "Uca Major",
-    category: "monster_large",
-    reason: "印刷等级 II 大型战斗卡副本；非 I 级普通",
   },
   {
     id: "monster_large:cove:p003",

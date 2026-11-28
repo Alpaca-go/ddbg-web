@@ -1,9 +1,11 @@
 export { loadNormalizedCorebox, writeNormalizedCorebox } from "./core/write";
 export {
   loadNormalizedCoveCurios,
+  loadNormalizedCoveHigherMonsters,
   loadNormalizedCoveLevelOneMonsters,
   loadNormalizedCoveRooms,
   writeNormalizedCoveCurios,
+  writeNormalizedCoveHigherMonsters,
   writeNormalizedCoveLevelOneMonsters,
   writeNormalizedCoveRooms,
 } from "./cove/write";

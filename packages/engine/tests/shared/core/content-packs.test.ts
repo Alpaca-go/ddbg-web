@@ -136,7 +136,7 @@ it("Cove Curio、房间与 I 级怪物目录仅在勾选 Cove 包时进入战役
   expect(
     enabled.cove?.monsters.medium.every((card) => card.id.startsWith("monster_medium:cove:")),
   ).toBe(true);
-  expect(enabled.cove?.monsters.excludedSources).toHaveLength(19);
+  expect(enabled.cove?.monsters.excludedSources).toHaveLength(15);
   expect(cardContentPack(enabled.cove!.curios[0]!)).toBe("cove");
   expect(cardContentPack(enabled.cove!.rooms[0]!)).toBe("cove");
   expect(cardContentPack(enabled.cove!.monsters.medium[0]!)).toBe("cove");

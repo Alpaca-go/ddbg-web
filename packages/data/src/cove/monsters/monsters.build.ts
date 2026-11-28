@@ -14,6 +14,13 @@ import {
 const SOURCE_ROOT = "extract/extension/cove";
 const PRINT_ROOT = "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/";
 
+type CoveMonsterCatalogIdentity = {
+  readonly id: string;
+  readonly name: string;
+  readonly pages: readonly number[];
+  readonly level: 1 | 2 | 3;
+};
+
 /** 中型 FRONT p1–17 的 I 级普通战斗卡；仅卡面身份，不授予战斗核准或牌堆。 */
 export const COVE_LEVEL_ONE_MONSTER_IDENTITIES = [
   { id: "monster_medium:cove:p001", name: "Pelagic Shaman", pages: [1, 2, 3] },
@@ -24,8 +31,19 @@ export const COVE_LEVEL_ONE_MONSTER_IDENTITIES = [
   { id: "monster_medium:cove:p016", name: "Pelagic Guardian", pages: [16, 17] },
 ] as const;
 
-/** I 级 Cove 印刷目录暂无编入目录的大型战斗卡；Boss／高等级留在 excluded-monsters。 */
+/** I 级 Cove 印刷目录暂无编入目录的大型战斗卡；Boss 留在 excluded-monsters。 */
 export const COVE_LEVEL_ONE_LARGE_IDENTITIES = [] as const;
+
+/**
+ * II／III 级普通怪物可审目录（资料层）；与 I 级分文件输出，不进入 I 级遇遇池。
+ * Uca Major 归属（普通大型 vs Boss 相关）待 Kyries 确认（Q-186 延展）。
+ */
+export const COVE_HIGHER_MONSTER_IDENTITIES = [
+  { id: "monster_medium:cove:p018", name: "Uca Major", pages: [18, 19], level: 2 },
+  { id: "monster_medium:cove:p020", name: "Squiffy Ghast", pages: [20, 21, 22], level: 3 },
+  { id: "monster_large:cove:p001", name: "Uca Major", pages: [1], level: 2 },
+  { id: "monster_large:cove:p002", name: "Uca Major", pages: [2], level: 2 },
+] as const satisfies readonly CoveMonsterCatalogIdentity[];
 
 const envelopeSchema = z
   .object({
@@ -33,7 +51,18 @@ const envelopeSchema = z
   })
   .passthrough();
 
-function selectBatch(raw: RawFile, parsed: unknown, category: "monster_medium" | "monster_large") {
+function withLevel<
+  const T extends { readonly id: string; readonly name: string; readonly pages: readonly number[] },
+>(identities: readonly T[], level: 1 | 2 | 3): CoveMonsterCatalogIdentity[] {
+  return identities.map((entry) => ({ ...entry, level }));
+}
+
+function selectBatch(
+  raw: RawFile,
+  parsed: unknown,
+  category: "monster_medium" | "monster_large",
+  identities: readonly CoveMonsterCatalogIdentity[],
+) {
   if (raw.category !== category) throw new Error("Cove 怪物类别不符");
   const stem =
     category === "monster_medium"
@@ -42,12 +71,8 @@ function selectBatch(raw: RawFile, parsed: unknown, category: "monster_medium" |
   const rows = envelopeSchema.parse(parsed);
   if (rows.source !== `raw/extension/cove/${category}.json`)
     throw new Error("Cove 怪物解析来源不符");
-  const identities = (
-    category === "monster_medium"
-      ? COVE_LEVEL_ONE_MONSTER_IDENTITIES
-      : COVE_LEVEL_ONE_LARGE_IDENTITIES
-  ).filter((entry) => entry.id.startsWith(`${category}:`));
-  const cards = identities.map((entry) => {
+  const batch = identities.filter((entry) => entry.id.startsWith(`${category}:`));
+  const cards = batch.map((entry) => {
     const matches = raw.cards.filter((card) => card.id === entry.id);
     const extracted = rows.cards.filter((card) => card.id === entry.id);
     if (matches.length !== 1 || extracted.length !== 1)
@@ -63,7 +88,7 @@ function selectBatch(raw: RawFile, parsed: unknown, category: "monster_medium" |
       card.faces.back.page !== entry.pages[0] ||
       card.faces.front.page !== entry.pages[0] ||
       row.name !== entry.name ||
-      row.level !== 1 ||
+      row.level !== entry.level ||
       JSON.stringify(row.pages) !== JSON.stringify(entry.pages) ||
       row.copies !== card.copies ||
       !Array.isArray(row.issues) ||
@@ -90,16 +115,24 @@ function selectBatch(raw: RawFile, parsed: unknown, category: "monster_medium" |
   };
 }
 
-/** R-001、R-048 / Q-186：未核准图标、站姿与效果不填默认值，不登记生产牌堆。 */
-export function buildCoveLevelOneMonsters(input: {
-  mediumRaw: RawFile;
-  largeRaw: RawFile;
-  mediumParsed: unknown;
-  largeParsed: unknown;
-  dictionary: IconDictionary;
-}) {
-  const medium = selectBatch(input.mediumRaw, input.mediumParsed, "monster_medium");
-  const large = selectBatch(input.largeRaw, input.largeParsed, "monster_large");
+function buildCoveMonsterCatalog(
+  input: {
+    mediumRaw: RawFile;
+    largeRaw: RawFile;
+    mediumParsed: unknown;
+    largeParsed: unknown;
+    dictionary: IconDictionary;
+  },
+  mediumIdentities: readonly CoveMonsterCatalogIdentity[],
+  largeIdentities: readonly CoveMonsterCatalogIdentity[],
+) {
+  const medium = selectBatch(
+    input.mediumRaw,
+    input.mediumParsed,
+    "monster_medium",
+    mediumIdentities,
+  );
+  const large = selectBatch(input.largeRaw, input.largeParsed, "monster_large", largeIdentities);
   const lookup = createIconLookup(input.dictionary);
   const built = {
     monster_medium: buildMonsterMedium(
@@ -125,4 +158,34 @@ export function buildCoveLevelOneMonsters(input: {
       cards: built.monster_large.cards.map((card) => withMonsterCardRules(card)),
     }),
   };
+}
+
+/** R-001、R-048 / Q-186：未核准图标、站姿与效果不填默认值，不登记生产牌堆。 */
+export function buildCoveLevelOneMonsters(input: {
+  mediumRaw: RawFile;
+  largeRaw: RawFile;
+  mediumParsed: unknown;
+  largeParsed: unknown;
+  dictionary: IconDictionary;
+}) {
+  return buildCoveMonsterCatalog(
+    input,
+    withLevel(COVE_LEVEL_ONE_MONSTER_IDENTITIES, 1),
+    withLevel(COVE_LEVEL_ONE_LARGE_IDENTITIES, 1),
+  );
+}
+
+/** II／III 资料目录；独立 normalized 文件，不接出征或当地牌堆。 */
+export function buildCoveHigherMonsters(input: {
+  mediumRaw: RawFile;
+  largeRaw: RawFile;
+  mediumParsed: unknown;
+  largeParsed: unknown;
+  dictionary: IconDictionary;
+}) {
+  return buildCoveMonsterCatalog(
+    input,
+    COVE_HIGHER_MONSTER_IDENTITIES.filter((entry) => entry.id.startsWith("monster_medium:")),
+    COVE_HIGHER_MONSTER_IDENTITIES.filter((entry) => entry.id.startsWith("monster_large:")),
+  );
 }
