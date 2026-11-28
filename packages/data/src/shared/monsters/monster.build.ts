@@ -112,7 +112,7 @@ export function buildMonsterMedium(
   parsed: MonsterMediumFile,
   raw: RawFile,
   lookup: IconLookup,
-  sourceRoot: "extract/corebox" | "extract/extension/weald" = "extract/corebox",
+  sourceRoot: "extract/corebox" | "extract/extension/weald" | "extract/extension/warrens" = "extract/corebox",
 ): NormalizedMonsterMediumFile {
   const rawCards = rawIndex(raw);
   const cards = parsed.cards.map((card) => {
@@ -174,7 +174,7 @@ export function buildMonsterLarge(
   parsed: MonsterLargeFile,
   raw: RawFile,
   lookup: IconLookup,
-  sourceRoot: "extract/corebox" | "extract/extension/weald" = "extract/corebox",
+  sourceRoot: "extract/corebox" | "extract/extension/weald" | "extract/extension/warrens" = "extract/corebox",
 ): NormalizedMonsterLargeFile {
   const rawCards = rawIndex(raw);
   const cards = parsed.cards.map((card) =>

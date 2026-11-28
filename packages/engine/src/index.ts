@@ -392,3 +392,4 @@ export {
   wealdZeroCapacityEndTurnRefusal,
 } from "./weald/mechanics";
 export { rebuildLocationQuestDecks } from "./shared/quest/location-quest-sources";
+export { withWarrensMonsterSources } from "./warrens/monsters/warrens-monster-sources";
