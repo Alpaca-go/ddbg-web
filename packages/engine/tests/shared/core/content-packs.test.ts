@@ -18,9 +18,17 @@ import { cardContentPack } from "../../../../data/src/shared/content-packs";
 import { resolveScriptIdForDescriptionCard } from "../../../src/core/bosses/threat-description-catalog";
 import { HAG_I_DESCRIPTION_ABILITY_CARD_ID } from "../../../src/weald/bosses/hag/hag-i";
 import coveCurio from "../../../../data/normalized/extension/cove/curio.json";
+import coveMedium from "../../../../data/normalized/extension/cove/monster_medium.json";
+import coveLarge from "../../../../data/normalized/extension/cove/monster_large.json";
 import coveRoom from "../../../../data/normalized/extension/cove/room.json";
 import { coveCurioFileSchema } from "../../../../data/src/core/curios/curio";
 import { coveRoomFileSchema } from "../../../../data/src/cove/rooms/room";
+import { COVE_LEVEL_ONE_MONSTER_IDENTITIES } from "../../../../data/src/cove/monsters/monsters.build";
+import { COVE_MONSTER_CATALOG_EXCLUSIONS } from "../../../../data/src/cove/monsters/excluded-monsters";
+import {
+  normalizedMonsterLargeFileSchema,
+  normalizedMonsterMediumFileSchema,
+} from "../../../../data/src/shared/schema";
 
 beforeEach(clearBossScriptsForTest);
 const start = {
@@ -101,11 +109,17 @@ it("核心包单独启用时，十八名英雄及全部等级技能仍可开局�
   expect(replacementHeroCandidates(game.dungeon!)).toHaveLength(14);
 });
 
-it("Cove Curio 与房间目录仅在勾选 Cove 包时进入战役来源", () => {
+it("Cove Curio、房间与 I 级怪物目录仅在勾选 Cove 包时进入战役来源", () => {
+  const monsters = {
+    medium: normalizedMonsterMediumFileSchema.parse(coveMedium).cards,
+    large: normalizedMonsterLargeFileSchema.parse(coveLarge).cards,
+    excludedSources: COVE_MONSTER_CATALOG_EXCLUSIONS,
+  };
   const cove = {
     curios: coveCurioFileSchema.parse(coveCurio).cards,
     rooms: coveRoomFileSchema.parse(coveRoom).cards.filter((card) => !card.boss),
     bossRoomSources: coveRoomFileSchema.parse(coveRoom).cards.filter((card) => card.boss),
+    monsters,
   };
   const sources = { ...coreQuestSources, cove };
   expect(sourcesForContentPacks(sources, ["core"]).cove).toBeUndefined();
@@ -117,11 +131,23 @@ it("Cove Curio 与房间目录仅在勾选 Cove 包时进入战役来源", () =>
   expect(enabled.cove?.rooms.every((card) => card.id.startsWith("room:cove:"))).toBe(true);
   expect(enabled.cove?.bossRoomSources).toHaveLength(3);
   expect(enabled.cove?.bossRoomSources.every((card) => card.poolEligible === false)).toBe(true);
+  expect(enabled.cove?.monsters.medium).toHaveLength(COVE_LEVEL_ONE_MONSTER_IDENTITIES.length);
+  expect(enabled.cove?.monsters.large).toHaveLength(0);
+  expect(
+    enabled.cove?.monsters.medium.every((card) => card.id.startsWith("monster_medium:cove:")),
+  ).toBe(true);
+  expect(enabled.cove?.monsters.excludedSources).toHaveLength(19);
   expect(cardContentPack(enabled.cove!.curios[0]!)).toBe("cove");
   expect(cardContentPack(enabled.cove!.rooms[0]!)).toBe("cove");
+  expect(cardContentPack(enabled.cove!.monsters.medium[0]!)).toBe("cove");
   expect(
     enabled.cove!.rooms.every(
       (card) => !enabled.cove!.bossRoomSources.some((boss) => boss.id === card.id),
+    ),
+  ).toBe(true);
+  expect(
+    sourcesForContentPacks(sources, ["core"]).catalog.monsters.every(
+      (card) => !card.id.startsWith("monster_medium:cove:"),
     ),
   ).toBe(true);
 });

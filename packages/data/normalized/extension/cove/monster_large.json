@@ -1,0 +1,16 @@
+{
+  "schema": "ddbg-normalized-v0",
+  "dictionary_version": "1.8",
+  "category": "monster_large",
+  "sources": {
+    "parsed": "extract/extension/cove/parsed/monster_large.json",
+    "raw": "extract/extension/cove/raw/monster_large.json",
+    "dictionary": "dictionary/icon-dictionary-v1.8.json"
+  },
+  "stats": {
+    "cards": 0,
+    "verified": 0,
+    "unverified": 0
+  },
+  "cards": []
+}

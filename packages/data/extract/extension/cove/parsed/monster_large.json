@@ -1,0 +1,982 @@
+{
+  "schema": "ddbg-parsed-v0",
+  "extractor_version": "1.0.4",
+  "category": "monster_large",
+  "source": "raw/extension/cove/monster_large.json",
+  "field_notes": "name/type_position/level/skills as printed. hp = number inside the heart icon at the right edge; the rulebook (Core rules p.24 'Anatomy of a Monster Card') labels that element 'Life'. Other header numbers are kept unlabeled. resistances_icons/immunities_icons = icon ids under the printed labels (icon meaning not named). copy_variants = per-copy differing marker icon (Core rules p.17: 'note the color of the Monster Token displayed on each Monster Card').",
+  "icon_token": "{icon:<iconId>} = unannotated icon cluster, see icons/catalog.json",
+  "stats": {
+    "cards": 11,
+    "ok": 11,
+    "failed": 0,
+    "success_rate": 1.0
+  },
+  "failures": [],
+  "cards": [
+    {
+      "id": "monster_large:cove:p001",
+      "copies": 1,
+      "pages": [1],
+      "name": "Uca Major",
+      "type_position_raw": "Eldritch - Beast - Front - Large",
+      "type_position_tags": ["Eldritch", "Beast", "Front", "Large"],
+      "level": 2,
+      "hp": 39,
+      "hp_icon": "f7e863bff1",
+      "resistances_icons": ["11005c7ecb", "ec94a38a82", "8caa75b6bb"],
+      "immunities_icons": [],
+      "skills": [
+        {
+          "slot": 1,
+          "name": "Arterial Pinch",
+          "block_bbox": [8.71, 96.53, 75.04, 122.5],
+          "target": "Closest",
+          "crit": 1,
+          "crit_value": 4,
+          "acc": 9,
+          "acc_value": 2,
+          "effect_lines_raw": ["{icon:45f3b5fdda} 3 {icon:a7453810d8} 3t , {icon:f809025a0b} 2t"],
+          "lines_raw": [
+            "{icon:4879ef90c3} 1 Arterial Pinch {icon:4eff074330} Closest 1 {icon:070f8b9747}",
+            "Crit 1 {icon:a94f653061} 4 Acc 9 {icon:a94f653061} 2",
+            "{icon:45f3b5fdda} 3 {icon:a7453810d8} 3t , {icon:f809025a0b} 2t"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "1",
+              "bbox": [62.87, 101.87, 63.91, 105.99],
+              "left_icon": "4eff074330"
+            }
+          ]
+        },
+        {
+          "slot": 2,
+          "name": "Tidal Slam",
+          "block_bbox": [75.04, 96.78, 140.0, 122.5],
+          "target": "Closest",
+          "crit": 1,
+          "crit_value": 11,
+          "acc": 9,
+          "acc_value": 7,
+          "effect_lines_raw": ["{icon:45f3b5fdda} {icon:11005c7ecb} 1t , {icon:e1224986ff} Push 3"],
+          "lines_raw": [
+            "{icon:4879ef90c3} 2 Tidal Slam {icon:4eff074330} Closest 1 {icon:070f8b9747}",
+            "Crit 1 {icon:a94f653061} 11 Acc 9 {icon:a94f653061} 7",
+            "{icon:45f3b5fdda} {icon:11005c7ecb} 1t , {icon:e1224986ff} Push 3"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "1",
+              "bbox": [130.32, 101.82, 131.36, 105.93],
+              "left_icon": "4eff074330"
+            }
+          ]
+        }
+      ],
+      "header_unlabeled_numbers": [
+        {
+          "text": "1",
+          "bbox": [23.3, 15.11, 24.7, 20.68],
+          "inside_icon": "1f5d70530d"
+        }
+      ],
+      "footer_lines_raw": [
+        "{icon:f143a824e2} {icon:ccb59f53cc} {icon:7f4ed77130} {icon:f143a824e2} {icon:547526dc01} {icon:f8f441a0ac} {icon:4e14460439} 2 1 {icon:8b5ce59f3a} {icon:8b5ce59f3a} 6-10 1-5 {icon:27b98753c0} {icon:aacd060ba5} {icon:14fdb294fb} {icon:b904edf127} 1 {icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:5a1ae218a7}"
+      ],
+      "back_texts": [],
+      "issues": []
+    },
+    {
+      "id": "monster_large:cove:p002",
+      "copies": 1,
+      "pages": [2],
+      "name": "Uca Major",
+      "type_position_raw": "Eldritch - Beast - Front - Large",
+      "type_position_tags": ["Eldritch", "Beast", "Front", "Large"],
+      "level": 2,
+      "hp": 39,
+      "hp_icon": "f7e863bff1",
+      "resistances_icons": ["11005c7ecb", "ec94a38a82", "8caa75b6bb"],
+      "immunities_icons": [],
+      "skills": [
+        {
+          "slot": 1,
+          "name": "Arterial Pinch",
+          "block_bbox": [8.71, 96.53, 75.04, 122.5],
+          "target": "Closest",
+          "crit": 1,
+          "crit_value": 4,
+          "acc": 9,
+          "acc_value": 2,
+          "effect_lines_raw": ["{icon:45f3b5fdda} 3 {icon:a7453810d8} 3t , {icon:f809025a0b} 2t"],
+          "lines_raw": [
+            "{icon:4879ef90c3} 1 Arterial Pinch {icon:4eff074330} Closest 1 {icon:070f8b9747}",
+            "Crit 1 {icon:a94f653061} 4 Acc 9 {icon:a94f653061} 2",
+            "{icon:45f3b5fdda} 3 {icon:a7453810d8} 3t , {icon:f809025a0b} 2t"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "1",
+              "bbox": [62.87, 101.87, 63.91, 105.99],
+              "left_icon": "4eff074330"
+            }
+          ]
+        },
+        {
+          "slot": 2,
+          "name": "Tidal Slam",
+          "block_bbox": [75.04, 96.78, 140.0, 122.5],
+          "target": "Closest",
+          "crit": 1,
+          "crit_value": 11,
+          "acc": 9,
+          "acc_value": 7,
+          "effect_lines_raw": ["{icon:45f3b5fdda} {icon:11005c7ecb} 1t , {icon:e1224986ff} Push 3"],
+          "lines_raw": [
+            "{icon:4879ef90c3} 2 Tidal Slam {icon:4eff074330} Closest 1 {icon:070f8b9747}",
+            "Crit 1 {icon:a94f653061} 11 Acc 9 {icon:a94f653061} 7",
+            "{icon:45f3b5fdda} {icon:11005c7ecb} 1t , {icon:e1224986ff} Push 3"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "1",
+              "bbox": [130.32, 101.82, 131.36, 105.93],
+              "left_icon": "4eff074330"
+            }
+          ]
+        }
+      ],
+      "header_unlabeled_numbers": [
+        {
+          "text": "1",
+          "bbox": [23.3, 15.11, 24.7, 20.68],
+          "inside_icon": "1f5d70530d"
+        }
+      ],
+      "footer_lines_raw": [
+        "{icon:f143a824e2} {icon:ccb59f53cc} {icon:7f4ed77130} {icon:f143a824e2} {icon:547526dc01} {icon:f8f441a0ac} {icon:4e14460439} 2 1 {icon:8b5ce59f3a} {icon:8b5ce59f3a} 6-10 1-5 {icon:27b98753c0} {icon:aacd060ba5} {icon:14fdb294fb} {icon:b904edf127} 1 {icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:5a1ae218a7}"
+      ],
+      "back_texts": [],
+      "issues": []
+    },
+    {
+      "id": "monster_large:cove:p003",
+      "copies": 1,
+      "pages": [3],
+      "name": "Shambler",
+      "type_position_raw": "Eldritch - Large",
+      "type_position_tags": ["Eldritch", "Large"],
+      "level": 1,
+      "hp": 60,
+      "hp_icon": "0f98c11a08",
+      "resistances_icons": ["2b5a6ff67f", "220ff3edb0", "730a1c073a"],
+      "immunities_icons": ["11005c7ecb", "ec94a38a82"],
+      "skills": [
+        {
+          "slot": 1,
+          "name": "Obdurous Advancement",
+          "block_bbox": [7.54, 73.55, 140.0, 96.28],
+          "target": "Crowded",
+          "crit": 0,
+          "crit_value": 2,
+          "acc": 9,
+          "acc_value": 1,
+          "effect_lines_raw": [
+            "{icon:4dcff60584} Self {icon:e99bb6aa07} Pull 1 {icon:45f3b5fdda} 2 {icon:2c09683bde} 3t , {icon:1cc634726b}"
+          ],
+          "lines_raw": [
+            "{icon:4879ef90c3} 1 Obdurous Advancement {icon:4eff074330} 1 {icon:070f8b9747} Crowded {icon:070f8b9747} {icon:070f8b9747} {icon:070f8b9747}",
+            "Crit 0 {icon:a94f653061} 2 Acc 9 {icon:a94f653061} 1",
+            "{icon:4dcff60584} Self {icon:e99bb6aa07} Pull 1 {icon:45f3b5fdda} 2 {icon:2c09683bde} 3t , {icon:1cc634726b}"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "1",
+              "bbox": [53.93, 78.7, 54.97, 82.81],
+              "left_icon": "4eff074330"
+            }
+          ]
+        },
+        {
+          "slot": 2,
+          "name": "Undulating Withdrawal",
+          "block_bbox": [7.21, 96.28, 73.25, 122.5],
+          "target": "Crowded",
+          "crit": 0,
+          "crit_value": 2,
+          "acc": 9,
+          "acc_value": 1,
+          "effect_lines_raw": [
+            "{icon:4dcff60584} Self {icon:e99bb6aa07} Push 1 {icon:45f3b5fdda} 2 {icon:3f5e88e3f6} 3t , {icon:1cc634726b}"
+          ],
+          "lines_raw": [
+            "{icon:4879ef90c3} 2 Undulating Withdrawal {icon:4eff074330} 1 {icon:070f8b9747} Crowded {icon:070f8b9747} {icon:070f8b9747} {icon:070f8b9747}",
+            "Crit 0 {icon:a94f653061} 2 Acc 9 {icon:a94f653061} 1",
+            "{icon:4dcff60584} Self {icon:e99bb6aa07} Push 1 {icon:45f3b5fdda} 2 {icon:3f5e88e3f6} 3t , {icon:1cc634726b}"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "1",
+              "bbox": [53.93, 101.19, 54.97, 105.3],
+              "left_icon": "4eff074330"
+            }
+          ]
+        },
+        {
+          "slot": 3,
+          "name": "Stentorious Lament",
+          "block_bbox": [73.25, 96.28, 140.0, 122.5],
+          "target": "Crowded",
+          "crit": 0,
+          "crit_value": 2,
+          "acc": 9,
+          "acc_value": 1,
+          "effect_lines_raw": [
+            "{icon:45f3b5fdda} {icon:11005c7ecb} 1t , {icon:34a2a004de} +1 , {icon:48dba55bf2} -1"
+          ],
+          "lines_raw": [
+            "{icon:4879ef90c3} 3 Stentorious Lament {icon:4eff074330} 1 {icon:070f8b9747} Crowded {icon:070f8b9747} {icon:070f8b9747} {icon:070f8b9747}",
+            "Crit 0 {icon:a94f653061} 2 Acc 9 {icon:a94f653061} 1",
+            "{icon:45f3b5fdda} {icon:11005c7ecb} 1t , {icon:34a2a004de} +1 , {icon:48dba55bf2} -1"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "1",
+              "bbox": [119.08, 101.19, 120.12, 105.3],
+              "left_icon": "4eff074330"
+            }
+          ]
+        }
+      ],
+      "header_unlabeled_numbers": [
+        {
+          "text": "0",
+          "bbox": [22.95, 15.11, 25.1, 20.68],
+          "inside_icon": "1f5d70530d"
+        }
+      ],
+      "footer_lines_raw": [
+        "{icon:a6bb9cc289} {icon:f4d84068a2} {icon:a6bb9cc289} {icon:f4d84068a2} {icon:e8402e9734} {icon:be477a0715} {icon:e8402e9734} {icon:cb3a891f3d} {icon:3b173828d1} {icon:f8f441a0ac} 3 1 {icon:8b5ce59f3a} {icon:8b5ce59f3a} {icon:8b5ce59f3a} 9-10 1-4 {icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:5a1ae218a7}",
+        "{icon:7f4ed77130} {icon:bcaf8600be} {icon:bf56fec65f} {icon:5abee514e8} 2 5-8"
+      ],
+      "back_texts": ["I"],
+      "issues": []
+    },
+    {
+      "id": "monster_large:cove:p004",
+      "copies": 1,
+      "pages": [4],
+      "name": "Shambler",
+      "type_position_raw": "Eldritch - Large",
+      "type_position_tags": ["Eldritch", "Large"],
+      "level": 2,
+      "hp": 90,
+      "hp_icon": "f7e863bff1",
+      "resistances_icons": ["2b5a6ff67f", "220ff3edb0", "730a1c073a"],
+      "immunities_icons": ["11005c7ecb", "ec94a38a82"],
+      "skills": [
+        {
+          "slot": 1,
+          "name": "Obdurous Advancement",
+          "block_bbox": [7.54, 73.55, 140.0, 96.28],
+          "target": "Crowded",
+          "crit": 0,
+          "crit_value": 3,
+          "acc": 10,
+          "acc_value": 2,
+          "effect_lines_raw": [
+            "{icon:4dcff60584} Self {icon:e99bb6aa07} Pull 1 {icon:45f3b5fdda} 3 {icon:2c09683bde} 3t , {icon:1cc634726b}"
+          ],
+          "lines_raw": [
+            "{icon:4879ef90c3} 1 Obdurous Advancement {icon:4eff074330} 1 {icon:070f8b9747} Crowded {icon:070f8b9747} {icon:070f8b9747} {icon:070f8b9747}",
+            "Crit 0 {icon:a94f653061} 3 Acc 10 {icon:a94f653061} 2",
+            "{icon:4dcff60584} Self {icon:e99bb6aa07} Pull 1 {icon:45f3b5fdda} 3 {icon:2c09683bde} 3t , {icon:1cc634726b}"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "1",
+              "bbox": [53.93, 78.7, 54.97, 82.81],
+              "left_icon": "4eff074330"
+            }
+          ]
+        },
+        {
+          "slot": 2,
+          "name": "Undulating Withdrawal",
+          "block_bbox": [7.21, 96.28, 73.25, 122.5],
+          "target": "Crowded",
+          "crit": 0,
+          "crit_value": 3,
+          "acc": 10,
+          "acc_value": 2,
+          "effect_lines_raw": [
+            "{icon:4dcff60584} Self {icon:e1224986ff} Push 1 {icon:45f3b5fdda} 3 {icon:3f5e88e3f6} 3t , {icon:1cc634726b}"
+          ],
+          "lines_raw": [
+            "{icon:4879ef90c3} 2 Undulating Withdrawal {icon:4eff074330} 1 {icon:070f8b9747} Crowded {icon:070f8b9747} {icon:070f8b9747} {icon:070f8b9747}",
+            "Crit 0 {icon:a94f653061} 3 Acc 10 {icon:a94f653061} 2",
+            "{icon:4dcff60584} Self {icon:e1224986ff} Push 1 {icon:45f3b5fdda} 3 {icon:3f5e88e3f6} 3t , {icon:1cc634726b}"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "1",
+              "bbox": [53.93, 101.19, 54.97, 105.3],
+              "left_icon": "4eff074330"
+            }
+          ]
+        },
+        {
+          "slot": 3,
+          "name": "Stentorious Lament",
+          "block_bbox": [73.25, 96.28, 140.0, 122.5],
+          "target": "Crowded",
+          "crit": 0,
+          "crit_value": 5,
+          "acc": 10,
+          "acc_value": 3,
+          "effect_lines_raw": [
+            "{icon:45f3b5fdda} {icon:11005c7ecb} 1t , {icon:34a2a004de} +1 , {icon:48dba55bf2} -1"
+          ],
+          "lines_raw": [
+            "{icon:4879ef90c3} 3 Stentorious Lament {icon:4eff074330} 1 {icon:070f8b9747} Crowded {icon:070f8b9747} {icon:070f8b9747} {icon:070f8b9747}",
+            "Crit 0 {icon:a94f653061} 5 Acc 10 {icon:a94f653061} 3",
+            "{icon:45f3b5fdda} {icon:11005c7ecb} 1t , {icon:34a2a004de} +1 , {icon:48dba55bf2} -1"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "1",
+              "bbox": [119.08, 101.19, 120.12, 105.3],
+              "left_icon": "4eff074330"
+            }
+          ]
+        }
+      ],
+      "header_unlabeled_numbers": [
+        {
+          "text": "1",
+          "bbox": [23.32, 15.11, 24.73, 20.68],
+          "inside_icon": "1f5d70530d"
+        }
+      ],
+      "footer_lines_raw": [
+        "{icon:a6bb9cc289} {icon:f4d84068a2} {icon:a6bb9cc289} {icon:f4d84068a2} {icon:e8402e9734} {icon:be477a0715} {icon:e8402e9734} {icon:cb3a891f3d} {icon:3b173828d1} {icon:f8f441a0ac} 3 1 {icon:8b5ce59f3a} {icon:8b5ce59f3a} {icon:8b5ce59f3a} 9-10 1-4 {icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:5a1ae218a7}",
+        "{icon:7f4ed77130} {icon:bcaf8600be} {icon:bf56fec65f} {icon:5abee514e8} 2 5-8"
+      ],
+      "back_texts": ["II"],
+      "issues": []
+    },
+    {
+      "id": "monster_large:cove:p005",
+      "copies": 1,
+      "pages": [5],
+      "name": "Shambler",
+      "type_position_raw": "Eldritch - Large",
+      "type_position_tags": ["Eldritch", "Large"],
+      "level": 3,
+      "hp": 120,
+      "hp_icon": "0f98c11a08",
+      "resistances_icons": ["2b5a6ff67f", "220ff3edb0", "730a1c073a"],
+      "immunities_icons": ["11005c7ecb", "ec94a38a82"],
+      "skills": [
+        {
+          "slot": 1,
+          "name": "Obdurous Advancement",
+          "block_bbox": [7.54, 73.55, 140.0, 96.28],
+          "target": "Crowded",
+          "crit": 0,
+          "crit_value": 4,
+          "acc": 11,
+          "acc_value": 2,
+          "effect_lines_raw": [
+            "{icon:4dcff60584} Self {icon:e99bb6aa07} Pull 1 {icon:45f3b5fdda} 4 {icon:2c09683bde} 3t , {icon:1cc634726b}"
+          ],
+          "lines_raw": [
+            "{icon:4879ef90c3} 1 Obdurous Advancement {icon:4eff074330} 1 {icon:070f8b9747} Crowded {icon:070f8b9747} {icon:070f8b9747} {icon:070f8b9747}",
+            "Crit 0 {icon:a94f653061} 4 Acc 11 {icon:a94f653061} 2",
+            "{icon:4dcff60584} Self {icon:e99bb6aa07} Pull 1 {icon:45f3b5fdda} 4 {icon:2c09683bde} 3t , {icon:1cc634726b}"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "1",
+              "bbox": [53.93, 78.7, 54.97, 82.81],
+              "left_icon": "4eff074330"
+            }
+          ]
+        },
+        {
+          "slot": 2,
+          "name": "Undulating Withdrawal",
+          "block_bbox": [7.21, 96.28, 73.25, 122.5],
+          "target": "Crowded",
+          "crit": 0,
+          "crit_value": 6,
+          "acc": 11,
+          "acc_value": 4,
+          "effect_lines_raw": [
+            "{icon:4dcff60584} Self {icon:e1224986ff} Push 1 {icon:45f3b5fdda} 4 {icon:3f5e88e3f6} 3t , {icon:1cc634726b}"
+          ],
+          "lines_raw": [
+            "{icon:4879ef90c3} 2 Undulating Withdrawal {icon:4eff074330} 1 {icon:070f8b9747} Crowded {icon:070f8b9747} {icon:070f8b9747} {icon:070f8b9747}",
+            "Crit 0 {icon:a94f653061} 6 Acc 11 {icon:a94f653061} 4",
+            "{icon:4dcff60584} Self {icon:e1224986ff} Push 1 {icon:45f3b5fdda} 4 {icon:3f5e88e3f6} 3t , {icon:1cc634726b}"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "1",
+              "bbox": [53.93, 101.19, 54.97, 105.3],
+              "left_icon": "4eff074330"
+            }
+          ]
+        },
+        {
+          "slot": 3,
+          "name": "Stentorious Lament",
+          "block_bbox": [73.25, 96.28, 140.0, 122.5],
+          "target": "Crowded",
+          "crit": 0,
+          "crit_value": 6,
+          "acc": 11,
+          "acc_value": 4,
+          "effect_lines_raw": [
+            "{icon:45f3b5fdda} {icon:11005c7ecb} 1t , {icon:34a2a004de} +1 , {icon:48dba55bf2} -1"
+          ],
+          "lines_raw": [
+            "{icon:4879ef90c3} 3 Stentorious Lament {icon:4eff074330} 1 {icon:070f8b9747} Crowded {icon:070f8b9747} {icon:070f8b9747} {icon:070f8b9747}",
+            "Crit 0 {icon:a94f653061} 6 Acc 11 {icon:a94f653061} 4",
+            "{icon:45f3b5fdda} {icon:11005c7ecb} 1t , {icon:34a2a004de} +1 , {icon:48dba55bf2} -1"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "1",
+              "bbox": [119.08, 101.19, 120.12, 105.3],
+              "left_icon": "4eff074330"
+            }
+          ]
+        }
+      ],
+      "header_unlabeled_numbers": [
+        {
+          "text": "2",
+          "bbox": [23.05, 15.11, 24.99, 20.68],
+          "inside_icon": "1f5d70530d"
+        }
+      ],
+      "footer_lines_raw": [
+        "{icon:a6bb9cc289} {icon:f4d84068a2} {icon:a6bb9cc289} {icon:f4d84068a2} {icon:e8402e9734} {icon:be477a0715} {icon:e8402e9734} {icon:cb3a891f3d} {icon:3b173828d1} {icon:f8f441a0ac} 3 1 {icon:8b5ce59f3a} {icon:8b5ce59f3a} {icon:8b5ce59f3a} 9-10 1-4 {icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:5a1ae218a7}",
+        "{icon:7f4ed77130} {icon:bcaf8600be} {icon:bf56fec65f} {icon:5abee514e8} 2 5-8"
+      ],
+      "back_texts": ["III"],
+      "issues": []
+    },
+    {
+      "id": "monster_large:cove:p006",
+      "copies": 1,
+      "pages": [6],
+      "name": "Siren",
+      "type_position_raw": "Eldritch - Large",
+      "type_position_tags": ["Eldritch", "Large"],
+      "level": 1,
+      "hp": 62,
+      "hp_icon": "f7e863bff1",
+      "resistances_icons": ["a7c056e02a"],
+      "immunities_icons": ["11005c7ecb"],
+      "skills": [
+        {
+          "slot": 1,
+          "name": "Pressure Crash",
+          "block_bbox": [8.71, 96.53, 75.04, 122.5],
+          "target": "Crowded",
+          "crit": 0,
+          "crit_value": 4,
+          "acc": 9,
+          "acc_value": 2,
+          "effect_lines_raw": ["{icon:45f3b5fdda} {icon:34a2a004de} +1 , {icon:1cc634726b}"],
+          "lines_raw": [
+            "{icon:4879ef90c3} 1 Pressure Crash {icon:4eff074330} 2 {icon:070f8b9747} {icon:070f8b9747} Crowded {icon:070f8b9747} {icon:070f8b9747}",
+            "Crit 0 {icon:a94f653061} 4 Acc 9 {icon:a94f653061} 2",
+            "{icon:45f3b5fdda} {icon:34a2a004de} +1 , {icon:1cc634726b}"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "2",
+              "bbox": [53.55, 101.87, 54.98, 105.99],
+              "left_icon": "4eff074330"
+            }
+          ]
+        },
+        {
+          "slot": 2,
+          "name": "Devour",
+          "block_bbox": [75.04, 96.78, 140.0, 122.5],
+          "target": "Crowded",
+          "crit": 0,
+          "crit_value": 2,
+          "acc": 9,
+          "acc_value": 1,
+          "effect_lines_raw": ["{icon:45f3b5fdda} 1 {icon:2c09683bde} 3t , {icon:1cc634726b}"],
+          "lines_raw": [
+            "{icon:4879ef90c3} 2 Devour {icon:4eff074330} 1 {icon:070f8b9747} Crowded {icon:070f8b9747} {icon:070f8b9747} {icon:070f8b9747}",
+            "Crit 0 {icon:a94f653061} 2 Acc 9 {icon:a94f653061} 1",
+            "{icon:45f3b5fdda} 1 {icon:2c09683bde} 3t , {icon:1cc634726b}"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "1",
+              "bbox": [121.2, 101.82, 122.24, 105.93],
+              "left_icon": "4eff074330"
+            }
+          ]
+        }
+      ],
+      "header_unlabeled_numbers": [
+        {
+          "text": "1",
+          "bbox": [23.3, 15.11, 24.7, 20.68],
+          "inside_icon": "1f5d70530d"
+        }
+      ],
+      "footer_lines_raw": [
+        "{icon:a6bb9cc289} {icon:f4d84068a2} {icon:7f4ed77130} {icon:a6bb9cc289} {icon:f4d84068a2} {icon:bcaf8600be} {icon:e8402e9734} {icon:be477a0715} {icon:bf56fec65f} {icon:e8402e9734} {icon:cb3a891f3d} {icon:d9c4a6f358} {icon:8e5bcde8ff} {icon:8b5ce59f3a} 2 1 {icon:8b5ce59f3a} 6-10 1-5 {icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:5a1ae218a7}"
+      ],
+      "back_texts": ["I"],
+      "issues": []
+    },
+    {
+      "id": "monster_large:cove:p007",
+      "copies": 1,
+      "pages": [7],
+      "name": "Siren",
+      "type_position_raw": "Eldritch - Large",
+      "type_position_tags": ["Eldritch", "Large"],
+      "level": 2,
+      "hp": 118,
+      "hp_icon": "0f98c11a08",
+      "resistances_icons": ["a7c056e02a"],
+      "immunities_icons": ["11005c7ecb"],
+      "skills": [
+        {
+          "slot": 1,
+          "name": "Pressure Crash",
+          "block_bbox": [8.71, 96.53, 75.04, 122.5],
+          "target": "Crowded",
+          "crit": 0,
+          "crit_value": 6,
+          "acc": 10,
+          "acc_value": 4,
+          "effect_lines_raw": ["{icon:45f3b5fdda} {icon:34a2a004de} +1 , {icon:1cc634726b}"],
+          "lines_raw": [
+            "{icon:4879ef90c3} 1 Pressure Crash {icon:4eff074330} 2 {icon:070f8b9747} {icon:070f8b9747} Crowded {icon:070f8b9747} {icon:070f8b9747}",
+            "Crit 0 {icon:a94f653061} 6 Acc 10 {icon:a94f653061} 4",
+            "{icon:45f3b5fdda} {icon:34a2a004de} +1 , {icon:1cc634726b}"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "2",
+              "bbox": [53.55, 101.87, 54.98, 105.99],
+              "left_icon": "4eff074330"
+            }
+          ]
+        },
+        {
+          "slot": 2,
+          "name": "Devour",
+          "block_bbox": [75.04, 96.78, 140.0, 122.5],
+          "target": "Crowded",
+          "crit": 0,
+          "crit_value": 2,
+          "acc": 10,
+          "acc_value": 1,
+          "effect_lines_raw": ["{icon:45f3b5fdda} 2 {icon:2c09683bde} 3t , {icon:1cc634726b}"],
+          "lines_raw": [
+            "{icon:4879ef90c3} 2 Devour {icon:4eff074330} 1 {icon:070f8b9747} Crowded {icon:070f8b9747} {icon:070f8b9747} {icon:070f8b9747}",
+            "Crit 0 {icon:a94f653061} 2 Acc 10 {icon:a94f653061} 1",
+            "{icon:45f3b5fdda} 2 {icon:2c09683bde} 3t , {icon:1cc634726b}"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "1",
+              "bbox": [121.2, 101.82, 122.24, 105.93],
+              "left_icon": "4eff074330"
+            }
+          ]
+        }
+      ],
+      "header_unlabeled_numbers": [
+        {
+          "text": "2",
+          "bbox": [23.03, 15.11, 24.97, 20.68],
+          "inside_icon": "1f5d70530d"
+        }
+      ],
+      "footer_lines_raw": [
+        "{icon:a6bb9cc289} {icon:f4d84068a2} {icon:7f4ed77130} {icon:a6bb9cc289} {icon:f4d84068a2} {icon:bcaf8600be} {icon:e8402e9734} {icon:be477a0715} {icon:bf56fec65f} {icon:e8402e9734} {icon:cb3a891f3d} {icon:d9c4a6f358} {icon:8e5bcde8ff} {icon:8b5ce59f3a} 2 1 {icon:8b5ce59f3a} 6-10 1-5 {icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:5a1ae218a7}"
+      ],
+      "back_texts": ["II"],
+      "issues": []
+    },
+    {
+      "id": "monster_large:cove:p008",
+      "copies": 1,
+      "pages": [8],
+      "name": "Siren",
+      "type_position_raw": "Eldritch - Large",
+      "type_position_tags": ["Eldritch", "Large"],
+      "level": 3,
+      "hp": 158,
+      "hp_icon": "0f98c11a08",
+      "resistances_icons": ["a7c056e02a"],
+      "immunities_icons": ["11005c7ecb"],
+      "skills": [
+        {
+          "slot": 1,
+          "name": "Pressure Crash",
+          "block_bbox": [8.71, 96.53, 75.04, 122.5],
+          "target": "Crowded",
+          "crit": 0,
+          "crit_value": 9,
+          "acc": 11,
+          "acc_value": 6,
+          "effect_lines_raw": ["{icon:45f3b5fdda} {icon:34a2a004de} +1 , {icon:1cc634726b}"],
+          "lines_raw": [
+            "{icon:4879ef90c3} 1 Pressure Crash {icon:4eff074330} 2 {icon:070f8b9747} {icon:070f8b9747} Crowded {icon:070f8b9747} {icon:070f8b9747}",
+            "Crit 0 {icon:a94f653061} 9 Acc 11 {icon:a94f653061} 6",
+            "{icon:45f3b5fdda} {icon:34a2a004de} +1 , {icon:1cc634726b}"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "2",
+              "bbox": [53.55, 101.87, 54.98, 105.99],
+              "left_icon": "4eff074330"
+            }
+          ]
+        },
+        {
+          "slot": 2,
+          "name": "Devour",
+          "block_bbox": [75.04, 96.78, 140.0, 122.5],
+          "target": "Crowded",
+          "crit": 0,
+          "crit_value": 2,
+          "acc": 11,
+          "acc_value": 1,
+          "effect_lines_raw": ["{icon:45f3b5fdda} 3 {icon:2c09683bde} 3t"],
+          "lines_raw": [
+            "{icon:4879ef90c3} 2 Devour {icon:4eff074330} 1 {icon:070f8b9747} Crowded {icon:070f8b9747} {icon:070f8b9747} {icon:070f8b9747}",
+            "Crit 0 {icon:a94f653061} 2 Acc 11 {icon:a94f653061} 1",
+            "{icon:45f3b5fdda} 3 {icon:2c09683bde} 3t"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "1",
+              "bbox": [121.2, 101.82, 122.24, 105.93],
+              "left_icon": "4eff074330"
+            }
+          ]
+        }
+      ],
+      "header_unlabeled_numbers": [
+        {
+          "text": "3",
+          "bbox": [22.99, 15.11, 25.01, 20.68],
+          "inside_icon": "1f5d70530d"
+        }
+      ],
+      "footer_lines_raw": [
+        "{icon:a6bb9cc289} {icon:f4d84068a2} {icon:7f4ed77130} {icon:a6bb9cc289} {icon:f4d84068a2} {icon:bcaf8600be} {icon:e8402e9734} {icon:be477a0715} {icon:bf56fec65f} {icon:e8402e9734} {icon:cb3a891f3d} {icon:d9c4a6f358} {icon:8e5bcde8ff} {icon:8b5ce59f3a} 2 1 {icon:8b5ce59f3a} 6-10 1-5 {icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:5a1ae218a7}"
+      ],
+      "back_texts": ["III"],
+      "issues": []
+    },
+    {
+      "id": "monster_large:cove:p009",
+      "copies": 1,
+      "pages": [9],
+      "name": "Drowned Crew",
+      "type_position_raw": "Unholy - Large",
+      "type_position_tags": ["Unholy", "Large"],
+      "level": 1,
+      "hp": 66,
+      "hp_icon": "f7e863bff1",
+      "resistances_icons": ["11005c7ecb", "f228d562eb"],
+      "immunities_icons": ["ec94a38a82"],
+      "skills": [
+        {
+          "slot": 1,
+          "name": "Mutiny",
+          "block_bbox": [7.54, 73.55, 140.0, 96.28],
+          "target": "Furthest",
+          "crit": 0,
+          "crit_value": 2,
+          "acc": 9,
+          "acc_value": 1,
+          "effect_lines_raw": ["{icon:45f3b5fdda} {icon:6e3eba6f1a} 4t"],
+          "lines_raw": [
+            "{icon:4879ef90c3} 1 Mutiny {icon:4eff074330} Furthest 2 {icon:070f8b9747}",
+            "Crit 0 {icon:a94f653061} 2 Acc 9 {icon:a94f653061} 1",
+            "{icon:45f3b5fdda} {icon:6e3eba6f1a} 4t"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "2",
+              "bbox": [62.84, 78.7, 64.28, 82.81],
+              "left_icon": "4eff074330"
+            }
+          ]
+        },
+        {
+          "slot": 2,
+          "name": "Drink with the Dead",
+          "block_bbox": [7.21, 96.28, 73.25, 122.5],
+          "target": "Furthest",
+          "crit": 0,
+          "crit_value": 2,
+          "acc": 9,
+          "acc_value": 1,
+          "effect_lines_raw": ["{icon:45f3b5fdda} {icon:34a2a004de} +2"],
+          "lines_raw": [
+            "{icon:4879ef90c3} 2 Drink with the Dead {icon:4eff074330} Furthest 2 {icon:070f8b9747}",
+            "Crit 0 {icon:a94f653061} 2 Acc 9 {icon:a94f653061} 1",
+            "{icon:45f3b5fdda} {icon:34a2a004de} +2"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "2",
+              "bbox": [62.74, 101.19, 64.18, 105.3],
+              "left_icon": "4eff074330"
+            }
+          ]
+        },
+        {
+          "slot": 3,
+          "name": "Boarding Clutch",
+          "block_bbox": [73.25, 96.28, 140.0, 122.5],
+          "target": "Closest",
+          "crit": 1,
+          "crit_value": 9,
+          "acc": 9,
+          "acc_value": 5,
+          "effect_lines_raw": ["{icon:45f3b5fdda} 2 {icon:2c09683bde} 2t"],
+          "lines_raw": [
+            "{icon:4879ef90c3} 3 Boarding Clutch {icon:4eff074330} Closest 1 {icon:070f8b9747}",
+            "Crit 1 {icon:a94f653061} 9 Acc 9 {icon:a94f653061} 5",
+            "{icon:45f3b5fdda} 2 {icon:2c09683bde} 2t"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "1",
+              "bbox": [127.74, 101.19, 128.78, 105.3],
+              "left_icon": "4eff074330"
+            }
+          ]
+        }
+      ],
+      "header_unlabeled_numbers": [
+        {
+          "text": "0",
+          "bbox": [22.95, 15.11, 25.1, 20.68],
+          "inside_icon": "1f5d70530d"
+        }
+      ],
+      "footer_lines_raw": [
+        "{icon:a6bb9cc289} {icon:f4d84068a2} {icon:a6bb9cc289} {icon:f4d84068a2} {icon:e8402e9734} {icon:be477a0715} {icon:e8402e9734} {icon:cb3a891f3d} {icon:3b173828d1} {icon:f8f441a0ac} {icon:8b5ce59f3a} 3 1 {icon:8b5ce59f3a} {icon:8b5ce59f3a} 5-10 3-4 1-2 {icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:5a1ae218a7}",
+        "{icon:7f4ed77130} {icon:bcaf8600be} {icon:bf56fec65f} {icon:5abee514e8} 2"
+      ],
+      "back_texts": ["I"],
+      "issues": []
+    },
+    {
+      "id": "monster_large:cove:p010",
+      "copies": 1,
+      "pages": [10],
+      "name": "Drowned Crew",
+      "type_position_raw": "Unholy - Large",
+      "type_position_tags": ["Unholy", "Large"],
+      "level": 2,
+      "hp": 100,
+      "hp_icon": "0f98c11a08",
+      "resistances_icons": ["11005c7ecb", "f228d562eb"],
+      "immunities_icons": ["ec94a38a82"],
+      "skills": [
+        {
+          "slot": 1,
+          "name": "Mutiny",
+          "block_bbox": [7.54, 73.55, 140.0, 96.28],
+          "target": "Furthest",
+          "crit": 0,
+          "crit_value": 3,
+          "acc": 10,
+          "acc_value": 2,
+          "effect_lines_raw": ["{icon:45f3b5fdda} {icon:6e3eba6f1a} 4t"],
+          "lines_raw": [
+            "{icon:4879ef90c3} 1 Mutiny {icon:4eff074330} Furthest 2 {icon:070f8b9747}",
+            "Crit 0 {icon:a94f653061} 3 Acc 10 {icon:a94f653061} 2",
+            "{icon:45f3b5fdda} {icon:6e3eba6f1a} 4t"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "2",
+              "bbox": [62.84, 78.7, 64.28, 82.81],
+              "left_icon": "4eff074330"
+            }
+          ]
+        },
+        {
+          "slot": 2,
+          "name": "Drink with the Dead",
+          "block_bbox": [7.21, 96.28, 73.25, 122.5],
+          "target": "Furthest",
+          "crit": 0,
+          "crit_value": 3,
+          "acc": 10,
+          "acc_value": 2,
+          "effect_lines_raw": ["{icon:45f3b5fdda} {icon:34a2a004de} +2"],
+          "lines_raw": [
+            "{icon:4879ef90c3} 2 Drink with the Dead {icon:4eff074330} Furthest 2 {icon:070f8b9747}",
+            "Crit 0 {icon:a94f653061} 3 Acc 10 {icon:a94f653061} 2",
+            "{icon:45f3b5fdda} {icon:34a2a004de} +2"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "2",
+              "bbox": [62.74, 101.19, 64.18, 105.3],
+              "left_icon": "4eff074330"
+            }
+          ]
+        },
+        {
+          "slot": 3,
+          "name": "Boarding Clutch",
+          "block_bbox": [73.25, 96.28, 140.0, 122.5],
+          "target": "Closest",
+          "crit": 1,
+          "crit_value": 12,
+          "acc": 10,
+          "acc_value": 7,
+          "effect_lines_raw": ["{icon:45f3b5fdda} 2 {icon:a7453810d8} 3t"],
+          "lines_raw": [
+            "{icon:4879ef90c3} 3 Boarding Clutch {icon:4eff074330} Closest 1 {icon:070f8b9747}",
+            "Crit 1 {icon:a94f653061} 12 Acc 10 {icon:a94f653061} 7",
+            "{icon:45f3b5fdda} 2 {icon:a7453810d8} 3t"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "1",
+              "bbox": [127.74, 101.19, 128.78, 105.3],
+              "left_icon": "4eff074330"
+            }
+          ]
+        }
+      ],
+      "header_unlabeled_numbers": [
+        {
+          "text": "1",
+          "bbox": [23.32, 15.11, 24.73, 20.68],
+          "inside_icon": "1f5d70530d"
+        }
+      ],
+      "footer_lines_raw": [
+        "{icon:a6bb9cc289} {icon:f4d84068a2} {icon:a6bb9cc289} {icon:f4d84068a2} {icon:e8402e9734} {icon:be477a0715} {icon:e8402e9734} {icon:cb3a891f3d} {icon:3b173828d1} {icon:f8f441a0ac} {icon:8b5ce59f3a} 3 1 {icon:8b5ce59f3a} {icon:8b5ce59f3a} 5-10 3-4 1-2 {icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:5a1ae218a7}",
+        "{icon:7f4ed77130} {icon:bcaf8600be} {icon:bf56fec65f} {icon:5abee514e8} 2"
+      ],
+      "back_texts": ["II"],
+      "issues": []
+    },
+    {
+      "id": "monster_large:cove:p011",
+      "copies": 1,
+      "pages": [11],
+      "name": "Drowned Crew",
+      "type_position_raw": "Unholy - Large",
+      "type_position_tags": ["Unholy", "Large"],
+      "level": 3,
+      "hp": 139,
+      "hp_icon": "0f98c11a08",
+      "resistances_icons": ["11005c7ecb", "f228d562eb"],
+      "immunities_icons": ["ec94a38a82"],
+      "skills": [
+        {
+          "slot": 1,
+          "name": "Mutiny",
+          "block_bbox": [7.54, 73.55, 140.0, 96.28],
+          "target": "Furthest",
+          "crit": 0,
+          "crit_value": 4,
+          "acc": 11,
+          "acc_value": 2,
+          "effect_lines_raw": ["{icon:45f3b5fdda} {icon:6e3eba6f1a} 4t"],
+          "lines_raw": [
+            "{icon:4879ef90c3} 1 Mutiny {icon:4eff074330} Furthest 2 {icon:070f8b9747}",
+            "Crit 0 {icon:a94f653061} 4 Acc 11 {icon:a94f653061} 2",
+            "{icon:45f3b5fdda} {icon:6e3eba6f1a} 4t"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "2",
+              "bbox": [62.84, 78.7, 64.28, 82.81],
+              "left_icon": "4eff074330"
+            }
+          ]
+        },
+        {
+          "slot": 2,
+          "name": "Drink with the Dead",
+          "block_bbox": [7.21, 96.28, 73.25, 122.5],
+          "target": "Furthest",
+          "crit": 0,
+          "crit_value": 4,
+          "acc": 11,
+          "acc_value": 2,
+          "effect_lines_raw": ["{icon:45f3b5fdda} {icon:34a2a004de} +2"],
+          "lines_raw": [
+            "{icon:4879ef90c3} 2 Drink with the Dead {icon:4eff074330} Furthest 2 {icon:070f8b9747}",
+            "Crit 0 {icon:a94f653061} 4 Acc 11 {icon:a94f653061} 2",
+            "{icon:45f3b5fdda} {icon:34a2a004de} +2"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "2",
+              "bbox": [62.74, 101.19, 64.18, 105.3],
+              "left_icon": "4eff074330"
+            }
+          ]
+        },
+        {
+          "slot": 3,
+          "name": "Boarding Clutch",
+          "block_bbox": [73.25, 96.28, 140.0, 122.5],
+          "target": "Closest",
+          "crit": 1,
+          "crit_value": 16,
+          "acc": 11,
+          "acc_value": 9,
+          "effect_lines_raw": ["{icon:45f3b5fdda} 3 {icon:a7453810d8} 3t"],
+          "lines_raw": [
+            "{icon:4879ef90c3} 3 Boarding Clutch {icon:4eff074330} Closest 1 {icon:070f8b9747}",
+            "Crit 1 {icon:a94f653061} 16 Acc 11 {icon:a94f653061} 9",
+            "{icon:45f3b5fdda} 3 {icon:a7453810d8} 3t"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "1",
+              "bbox": [127.74, 101.19, 128.78, 105.3],
+              "left_icon": "4eff074330"
+            }
+          ]
+        }
+      ],
+      "header_unlabeled_numbers": [
+        {
+          "text": "2",
+          "bbox": [23.05, 15.11, 24.99, 20.68],
+          "inside_icon": "1f5d70530d"
+        }
+      ],
+      "footer_lines_raw": [
+        "{icon:a6bb9cc289} {icon:f4d84068a2} {icon:a6bb9cc289} {icon:f4d84068a2} {icon:e8402e9734} {icon:be477a0715} {icon:e8402e9734} {icon:cb3a891f3d} {icon:3b173828d1} {icon:f8f441a0ac} {icon:8b5ce59f3a} 3 1 {icon:8b5ce59f3a} {icon:8b5ce59f3a} 5-10 3-4 1-2 {icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:5a1ae218a7}",
+        "{icon:7f4ed77130} {icon:bcaf8600be} {icon:bf56fec65f} {icon:5abee514e8} 2"
+      ],
+      "back_texts": ["III"],
+      "issues": []
+    }
+  ]
+}
