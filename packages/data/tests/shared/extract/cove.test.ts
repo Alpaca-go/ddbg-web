@@ -7,10 +7,10 @@ const root = new URL("../../../extract/extension/cove/", import.meta.url);
 const read = (file: string): unknown =>
   JSON.parse(readFileSync(new URL(file, root), "utf8")) as unknown;
 
-const roomComponents = { curio: 16, room: 12 } as const;
+const components = { curio: 16, room: 12, quest: 15 } as const;
 
 describe("Cove 地点印刷导入（R-001、R-048；Cove C1）", () => {
-  it.each(Object.entries(roomComponents))(
+  it.each(Object.entries(components))(
     "%s 的副本、正反面与 cove 命名空间完整",
     (category, count) => {
       const file = rawFileSchema.parse(read(`raw/${category}.json`));
@@ -23,12 +23,24 @@ describe("Cove 地点印刷导入（R-001、R-048；Cove C1）", () => {
       const stem =
         category === "curio"
           ? /DD_EN_COVE_CARDS_63x88_CURIO_(FRONT|BACK)\.pdf$/
-          : /DD_EN_COVE_CARDS_63x88_rooms_(FRONT|BACK)\.pdf$/;
+          : category === "room"
+            ? /DD_EN_COVE_CARDS_63x88_rooms_(FRONT|BACK)\.pdf$/
+            : /DD_EN_COVE_CARDS_70_120_quests_FRONT\.pdf$/;
+      const questFrontOnly = category === "quest";
+      if (questFrontOnly) {
+        expect(file.sources[0]?.back ?? null).toBeNull();
+      } else {
+        expect(typeof file.sources[0]!.back).toBe("string");
+      }
       for (const card of file.cards) {
         expect(cardContentPack(card)).toBe("cove");
         expect(card.id.includes(":cove:")).toBe(true);
         expect(card.faces.front.page).toBe(card.pages[0]);
-        expect(card.faces.back?.page).toBe(card.pages[0]);
+        if (questFrontOnly) {
+          expect(card.faces.back).toBeUndefined();
+        } else {
+          expect(card.faces.back?.page).toBe(card.pages[0]);
+        }
         for (const face of Object.values(card.faces)) {
           if (!face) continue;
           expect(face.file).toContain("MG_DD_05_EN_COVE/");
