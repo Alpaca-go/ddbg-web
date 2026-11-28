@@ -8,6 +8,7 @@ const read = (file: string): unknown =>
   JSON.parse(readFileSync(new URL(file, root), "utf8")) as unknown;
 
 const roomComponents = { curio: 16, room: 12 } as const;
+const sheetComponents = { punchboard: 1 } as const;
 
 describe("Cove 地点印刷导入（R-001、R-048；Cove C1）", () => {
   it.each(Object.entries(roomComponents))(
@@ -34,6 +35,31 @@ describe("Cove 地点印刷导入（R-001、R-048；Cove C1）", () => {
           expect(face.file).toContain("MG_DD_05_EN_COVE/");
           expect(face.file).toMatch(stem);
         }
+      }
+    },
+  );
+
+  it.each(Object.entries(sheetComponents))(
+    "%s 版面副本、FRONT-only 来源与 cove 命名空间完整",
+    (category, count) => {
+      const file = rawFileSchema.parse(read(`raw/${category}.json`));
+      expect(file.category).toBe(category);
+      expect(file.kind).toBe("sheet");
+      expect(file.n_pages).toBe(count);
+      expect(file.n_copies_total).toBe(count);
+      expect(file.cards.flatMap((card) => card.pages).sort((a, b) => a - b)).toEqual(
+        Array.from({ length: count }, (_, i) => i + 1),
+      );
+      expect(file.sources).toHaveLength(1);
+      expect(file.sources[0]?.back).toBeNull();
+      expect(file.sources[0]?.back_pages).toBeNull();
+      for (const card of file.cards) {
+        expect(cardContentPack(card)).toBe("cove");
+        expect(card.id).toMatch(/^punchboard:cove:p\d{3}$/);
+        expect(card.faces.front.page).toBe(card.pages[0]);
+        expect(card.faces.back).toBeUndefined();
+        expect(card.faces.front.file).toContain("MG_DD_05_EN_COVE/");
+        expect(card.faces.front.file).toMatch(/DD_EN_COVE_PUNCHBOARD_FRONT\.pdf$/);
       }
     },
   );
