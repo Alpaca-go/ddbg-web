@@ -4,6 +4,7 @@ import tiles from "../../normalized/corebox/room_tile_geometry.json";
 import stygian from "../../normalized/corebox/stygian_rooms.json";
 import coveCurios from "../../normalized/extension/cove/curio.json";
 import coveQuests from "../../normalized/extension/cove/quest_cards.json";
+import coveHigherQuests from "../../normalized/extension/cove/quest_cards_higher.json";
 import coveRooms from "../../normalized/extension/cove/room.json";
 import wealdMedium from "../../normalized/extension/weald/monster_medium.json";
 import wealdLarge from "../../normalized/extension/weald/monster_large.json";
@@ -60,6 +61,7 @@ it("核心和扩展正式目录的实体 ID 唯一，核心 Boss 引用解析到
     ...darkestAbilities.cards,
     ...coveCurios.cards,
     ...coveQuests.cards,
+    ...coveHigherQuests.cards,
     ...coveRooms.cards,
     ...wealdCurios.cards,
     ...wealdRooms.cards,

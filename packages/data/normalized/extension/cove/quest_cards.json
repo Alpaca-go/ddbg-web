@@ -1,18 +1,6 @@
 {
   "schema": "ddbg-cove-quest-cards-v1",
   "scope": "level_one_normal",
-  "excludedQuestIds": [
-    "quest:cove:p006",
-    "quest:cove:p007",
-    "quest:cove:p008",
-    "quest:cove:p009",
-    "quest:cove:p010",
-    "quest:cove:p011",
-    "quest:cove:p012",
-    "quest:cove:p013",
-    "quest:cove:p014",
-    "quest:cove:p015"
-  ],
   "cards": [
     {
       "id": "quest:cove:p001",
