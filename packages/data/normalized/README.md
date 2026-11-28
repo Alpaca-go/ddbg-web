@@ -29,7 +29,7 @@ pnpm --filter @ddbg/pipeline normalize
 
 ## Cove 板块印刷目录
 
-`extension/cove/room_tile_catalog.json`（`ddbg-cove-room-tile-catalog-v0`）由 `buildCoveRoomTiles` 生成，登记 `room_tile:cove:01`–`12` 与房间卡同名绑定。仅 `DD_COVE_TILES_FRONT.pdf` 六页核准了奇数号正面（1/3/5/7/9/11）；**未见** `DD_COVE_TILES_BACK.pdf`，偶数号及 10/12 号背面来源标待确认。全部 `geometryVerified=false`、`usable=false`，未写几何或部署。`packages/data/tests/cove/tiles/room-tile.build.test.ts` 校验；见 [Cove 板块审阅](../../../docs/reviews/cove-room-tile-review-2026-11-28.md)。
+`extension/cove/room_tile_catalog.json`（`ddbg-cove-room-tile-catalog-v0`）由 `buildCoveRoomTiles` 生成，登记 `room_tile:cove:01`–`12` 与房间卡同名绑定。`DD_COVE_TILES_FRONT.pdf` / `DD_COVE_TILES_BACK.pdf` 各 6 页已对照印刷房间号。全部 `geometryVerified=false`、`usable=false`，几何提案见审阅稿、未写 `room_tile_geometry.json`。`packages/data/tests/cove/tiles/room-tile.build.test.ts` 校验；见 [Cove 板块审阅](../../../docs/reviews/cove-room-tile-review-2026-11-28.md) 与 [几何提案](../../../docs/reviews/cove-room-tile-geometry-review-2026-11-28.md)。
 
 ## Weald 普通房间与板块
 

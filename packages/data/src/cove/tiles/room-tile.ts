@@ -2,10 +2,12 @@ import { z } from "zod";
 
 export const COVE_TILES_FRONT =
   "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_COVE_TILES_FRONT.pdf";
+export const COVE_TILES_BACK =
+  "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_COVE_TILES_BACK.pdf";
 
 const verifiedSourceSchema = z.strictObject({
   status: z.literal("verified"),
-  file: z.literal(COVE_TILES_FRONT),
+  file: z.union([z.literal(COVE_TILES_FRONT), z.literal(COVE_TILES_BACK)]),
   page: z.int().min(1).max(6),
   face: z.enum(["front", "back"]),
 });
@@ -53,14 +55,15 @@ const coveTileBase = z
         code: "custom",
         message: "普通板块目录默认 poolEligible=true（仅登记，未接线）",
       });
-    if (
-      tile.source.status === "verified" &&
-      tile.source.face === "back" &&
-      tile.source.file !== COVE_TILES_FRONT
-    )
-      ctx.addIssue({ code: "custom", message: "背面来源未核准时不应标 verified" });
-    if (tile.source.status === "verified" && tile.printedRoomNumber !== tile.number)
-      ctx.addIssue({ code: "custom", message: "已核准印刷面房间号必须与 number 一致" });
+    if (tile.source.status === "verified") {
+      const { face, file } = tile.source;
+      if (face === "front" && file !== COVE_TILES_FRONT)
+        ctx.addIssue({ code: "custom", message: "正面来源必须指向 DD_COVE_TILES_FRONT.pdf" });
+      if (face === "back" && file !== COVE_TILES_BACK)
+        ctx.addIssue({ code: "custom", message: "背面来源必须指向 DD_COVE_TILES_BACK.pdf" });
+      if (tile.printedRoomNumber !== tile.number)
+        ctx.addIssue({ code: "custom", message: "已核准印刷面房间号必须与 number 一致" });
+    }
     if (tile.source.status === "pending" && tile.printedRoomNumber !== null)
       ctx.addIssue({ code: "custom", message: "待确认来源不得写入已解析房间号" });
   });
@@ -89,8 +92,7 @@ export const coveRoomTileCatalogFileSchema = z
     category: z.literal("cove_room_tile_catalog"),
     sources: z.strictObject({
       front: z.literal(COVE_TILES_FRONT),
-      back: z.null(),
-      backPending: z.literal("盒内未见 DD_COVE_TILES_BACK.pdf；背面板块待 Kyries 提供印刷面后核准"),
+      back: z.literal(COVE_TILES_BACK),
     }),
     tiles: z
       .array(coveRoomTileCatalogEntrySchema)
@@ -98,19 +100,23 @@ export const coveRoomTileCatalogFileSchema = z
       .refine((tiles) => new Set(tiles.map((t) => t.id)).size === 12, "十二张板块身份不可重复"),
   })
   .superRefine((file, ctx) => {
-    const numbers = file.tiles.map((t) => t.number).sort((a, b) => a - b);
-    if (numbers.join(",") !== "1,2,3,4,5,6,7,8,9,10,11,12")
+    const sorted = file.tiles.map((t) => t.number).sort((a, b) => a - b);
+    if (sorted.join(",") !== "1,2,3,4,5,6,7,8,9,10,11,12")
       ctx.addIssue({ code: "custom", message: "必须覆盖 Cove 1–12 号板块身份" });
     if (file.tiles.filter((t) => !t.boss).length !== 9)
       ctx.addIssue({ code: "custom", message: "必须恰好九张普通板块登记" });
     if (file.tiles.filter((t) => t.boss).length !== 3)
       ctx.addIssue({ code: "custom", message: "必须恰好三张 Boss 板块登记" });
-    const verifiedFaces = file.tiles.filter((t) => t.source.status === "verified");
-    if (verifiedFaces.length !== 6)
-      ctx.addIssue({ code: "custom", message: "FRONT 六页仅核准六张正面板块" });
-    for (const tile of verifiedFaces) {
-      if (tile.source.status !== "verified" || tile.source.face !== "front")
-        ctx.addIssue({ code: "custom", message: "当前仅 FRONT 六页可 verified" });
+    const verified = file.tiles.filter((t) => t.source.status === "verified");
+    if (verified.length !== 12)
+      ctx.addIssue({ code: "custom", message: "十二张板块印刷来源须全部 verified" });
+    for (const tile of verified) {
+      if (tile.source.status !== "verified") continue;
+      const odd = tile.number % 2 === 1;
+      if (odd && tile.source.face !== "front")
+        ctx.addIssue({ code: "custom", message: "奇数号板块必须登记 FRONT 面" });
+      if (!odd && tile.source.face !== "back")
+        ctx.addIssue({ code: "custom", message: "偶数号板块必须登记 BACK 面" });
     }
   });
 

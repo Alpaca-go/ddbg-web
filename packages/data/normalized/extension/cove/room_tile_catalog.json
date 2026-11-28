@@ -3,8 +3,7 @@
   "category": "cove_room_tile_catalog",
   "sources": {
     "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_COVE_TILES_FRONT.pdf",
-    "back": null,
-    "backPending": "盒内未见 DD_COVE_TILES_BACK.pdf；背面板块待 Kyries 提供印刷面后核准"
+    "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_COVE_TILES_BACK.pdf"
   },
   "tiles": [
     {
@@ -29,7 +28,7 @@
       "runtimeReady": false,
       "pendingReview": [
         "R-048：板块几何、容量、邻接与部署标记未核准",
-        "Q-186：Cove 普通板块待 Kyries 逐面核准"
+        "Q-186：Cove 普通板块几何提案待 Kyries 逐面核准"
       ]
     },
     {
@@ -42,18 +41,19 @@
       "boss": false,
       "poolEligible": true,
       "source": {
-        "status": "pending",
-        "reason": "待确认：DD_COVE_TILES_BACK.pdf 未提供；该面印刷来源与房间号尚未对照印刷面核实"
+        "status": "verified",
+        "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_COVE_TILES_BACK.pdf",
+        "page": 1,
+        "face": "back"
       },
-      "printedRoomNumber": null,
+      "printedRoomNumber": 2,
       "geometryVerified": false,
       "geometryComplete": false,
       "usable": false,
       "runtimeReady": false,
       "pendingReview": [
-        "待确认：DD_COVE_TILES_BACK.pdf 未提供；该面印刷来源与房间号尚未对照印刷面核实",
         "R-048：板块几何、容量、邻接与部署标记未核准",
-        "Q-186：Cove 普通板块待 Kyries 逐面核准"
+        "Q-186：Cove 普通板块几何提案待 Kyries 逐面核准"
       ]
     },
     {
@@ -78,7 +78,7 @@
       "runtimeReady": false,
       "pendingReview": [
         "R-048：板块几何、容量、邻接与部署标记未核准",
-        "Q-186：Cove 普通板块待 Kyries 逐面核准"
+        "Q-186：Cove 普通板块几何提案待 Kyries 逐面核准"
       ]
     },
     {
@@ -91,18 +91,19 @@
       "boss": false,
       "poolEligible": true,
       "source": {
-        "status": "pending",
-        "reason": "待确认：DD_COVE_TILES_BACK.pdf 未提供；该面印刷来源与房间号尚未对照印刷面核实"
+        "status": "verified",
+        "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_COVE_TILES_BACK.pdf",
+        "page": 2,
+        "face": "back"
       },
-      "printedRoomNumber": null,
+      "printedRoomNumber": 4,
       "geometryVerified": false,
       "geometryComplete": false,
       "usable": false,
       "runtimeReady": false,
       "pendingReview": [
-        "待确认：DD_COVE_TILES_BACK.pdf 未提供；该面印刷来源与房间号尚未对照印刷面核实",
         "R-048：板块几何、容量、邻接与部署标记未核准",
-        "Q-186：Cove 普通板块待 Kyries 逐面核准"
+        "Q-186：Cove 普通板块几何提案待 Kyries 逐面核准"
       ]
     },
     {
@@ -127,7 +128,7 @@
       "runtimeReady": false,
       "pendingReview": [
         "R-048：板块几何、容量、邻接与部署标记未核准",
-        "Q-186：Cove 普通板块待 Kyries 逐面核准"
+        "Q-186：Cove 普通板块几何提案待 Kyries 逐面核准"
       ]
     },
     {
@@ -140,18 +141,19 @@
       "boss": false,
       "poolEligible": true,
       "source": {
-        "status": "pending",
-        "reason": "待确认：DD_COVE_TILES_BACK.pdf 未提供；该面印刷来源与房间号尚未对照印刷面核实"
+        "status": "verified",
+        "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_COVE_TILES_BACK.pdf",
+        "page": 3,
+        "face": "back"
       },
-      "printedRoomNumber": null,
+      "printedRoomNumber": 6,
       "geometryVerified": false,
       "geometryComplete": false,
       "usable": false,
       "runtimeReady": false,
       "pendingReview": [
-        "待确认：DD_COVE_TILES_BACK.pdf 未提供；该面印刷来源与房间号尚未对照印刷面核实",
         "R-048：板块几何、容量、邻接与部署标记未核准",
-        "Q-186：Cove 普通板块待 Kyries 逐面核准"
+        "Q-186：Cove 普通板块几何提案待 Kyries 逐面核准"
       ]
     },
     {
@@ -176,7 +178,7 @@
       "runtimeReady": false,
       "pendingReview": [
         "R-048：板块几何、容量、邻接与部署标记未核准",
-        "Q-186：Cove 普通板块待 Kyries 逐面核准"
+        "Q-186：Cove 普通板块几何提案待 Kyries 逐面核准"
       ]
     },
     {
@@ -189,18 +191,19 @@
       "boss": false,
       "poolEligible": true,
       "source": {
-        "status": "pending",
-        "reason": "待确认：DD_COVE_TILES_BACK.pdf 未提供；该面印刷来源与房间号尚未对照印刷面核实"
+        "status": "verified",
+        "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_COVE_TILES_BACK.pdf",
+        "page": 4,
+        "face": "back"
       },
-      "printedRoomNumber": null,
+      "printedRoomNumber": 8,
       "geometryVerified": false,
       "geometryComplete": false,
       "usable": false,
       "runtimeReady": false,
       "pendingReview": [
-        "待确认：DD_COVE_TILES_BACK.pdf 未提供；该面印刷来源与房间号尚未对照印刷面核实",
         "R-048：板块几何、容量、邻接与部署标记未核准",
-        "Q-186：Cove 普通板块待 Kyries 逐面核准"
+        "Q-186：Cove 普通板块几何提案待 Kyries 逐面核准"
       ]
     },
     {
@@ -225,7 +228,7 @@
       "runtimeReady": false,
       "pendingReview": [
         "R-048：板块几何、容量、邻接与部署标记未核准",
-        "Q-186：Cove 普通板块待 Kyries 逐面核准"
+        "Q-186：Cove 普通板块几何提案待 Kyries 逐面核准"
       ]
     },
     {
@@ -238,22 +241,23 @@
       "boss": true,
       "poolEligible": false,
       "source": {
-        "status": "pending",
-        "reason": "待确认：DD_COVE_TILES_BACK.pdf 未提供；该面印刷来源与房间号尚未对照印刷面核实"
+        "status": "verified",
+        "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_COVE_TILES_BACK.pdf",
+        "page": 5,
+        "face": "back"
       },
-      "printedRoomNumber": null,
+      "printedRoomNumber": 10,
       "geometryVerified": false,
       "geometryComplete": false,
       "usable": false,
       "runtimeReady": false,
       "pendingReview": [
-        "待确认：DD_COVE_TILES_BACK.pdf 未提供；该面印刷来源与房间号尚未对照印刷面核实",
         "R-048：板块几何、容量、邻接与部署标记未核准",
         "Cove Boss 板块留待专属 Boss 刀核准；不得进入普通板块牌堆"
       ],
       "classificationEvidence": [
-        "房间卡 room:cove:10 已按印刷 BOSS 标签登记（印刷正文含独立一行「BOSS」（FRONT p10）)",
-        "预期 BACK p5 对应 Boss 板块 10 号（待印刷面确认）"
+        "BACK p5 印刷数字 10 与板块号一致",
+        "房间卡 room:cove:10 为 Boss 房；印刷正文含 BOSS（房间目录）"
       ]
     },
     {
@@ -295,22 +299,23 @@
       "boss": true,
       "poolEligible": false,
       "source": {
-        "status": "pending",
-        "reason": "待确认：DD_COVE_TILES_BACK.pdf 未提供；该面印刷来源与房间号尚未对照印刷面核实"
+        "status": "verified",
+        "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_COVE_TILES_BACK.pdf",
+        "page": 6,
+        "face": "back"
       },
-      "printedRoomNumber": null,
+      "printedRoomNumber": 12,
       "geometryVerified": false,
       "geometryComplete": false,
       "usable": false,
       "runtimeReady": false,
       "pendingReview": [
-        "待确认：DD_COVE_TILES_BACK.pdf 未提供；该面印刷来源与房间号尚未对照印刷面核实",
         "R-048：板块几何、容量、邻接与部署标记未核准",
         "Cove Boss 板块留待专属 Boss 刀核准；不得进入普通板块牌堆"
       ],
       "classificationEvidence": [
-        "房间卡 room:cove:12 已按印刷 BOSS 标签登记（印刷正文含独立一行「BOSS」（FRONT p12）)",
-        "预期 BACK p6 对应 Boss 板块 12 号（待印刷面确认）"
+        "BACK p6 印刷数字 12 与板块号一致",
+        "房间卡 room:cove:12 为 Boss 房；印刷正文含 BOSS（房间目录）"
       ]
     }
   ]
