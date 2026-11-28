@@ -14,26 +14,26 @@
 - **邻接**：有共享边写 `从-到`；仅角接触标 `cornerOnly`；墙/柱阻断标 `blocked`，并在「墙/阻断」补一句。
 - **部署**：攻/防/远程/支援各一区域字母（红黄框印刷位置）；战利品区另列。
 - **特殊区域**：仅印刷橙星/绿星/红八星；效果文案若无房间卡依据则写「待确认」。
-- 同目录图：`tiles/FRONT-1.png`–`FRONT-6.png`、`BACK-1.png`–`BACK-6.png`。
+- 同目录图：`tiles/FRONT-1.png`–`FRONT-6.png`、`BACK-1.png`–`BACK-6.png`（本地对照用，不提交仓库）。
 
 ## 身份对照（角标数字已从印刷面读出，请勾确认）
 
 来源：`MG_DD_05_EN_COVE` 的 `DD_COVE_TILES_FRONT.pdf` / `DD_COVE_TILES_BACK.pdf`，各 6 页。
 
-| 勾选 | 板块 ID | 房间名（目录绑定，请确认） | 分类 | 印刷面 | 角标数字 |
-| --- | --- | --- | --- | --- | --- |
-| [ ] | `room_tile:cove:01` | Eldritch Augmentation | 普通 | FRONT p1 | 1 |
-| [ ] | `room_tile:cove:02` | Flooded Room | 普通 | BACK p1 | 2 |
-| [ ] | `room_tile:cove:03` | The Hoarders | 普通 | FRONT p2 | 3 |
-| [ ] | `room_tile:cove:04` | Buried Treasures | 普通 | BACK p2 | 4 |
-| [ ] | `room_tile:cove:05` | Twin Idols | 普通 | FRONT p3 | 5 |
-| [ ] | `room_tile:cove:06` | Lairs in Tunnels | 普通 | BACK p3 | 6 |
-| [ ] | `room_tile:cove:07` | Shipwreck | 普通 | FRONT p4 | 7 |
-| [ ] | `room_tile:cove:08` | Sea Rites | 普通 | BACK p4 | 8 |
-| [ ] | `room_tile:cove:09` | Temple of the Deep One | 普通 | FRONT p5 | 9 |
-| [ ] | `room_tile:cove:10` | Siren's Room | Boss | BACK p5 | 10 |
-| [ ] | `room_tile:cove:11` | Shambler's Room | Boss | FRONT p6 | 11 |
-| [ ] | `room_tile:cove:12` | Drowned Crew Room | Boss | BACK p6 | 12 |
+| 勾选 | 板块 ID             | 房间名（目录绑定，请确认） | 分类 | 印刷面   | 角标数字 |
+| ---- | ------------------- | -------------------------- | ---- | -------- | -------- |
+| [ ]  | `room_tile:cove:01` | Eldritch Augmentation      | 普通 | FRONT p1 | 1        |
+| [ ]  | `room_tile:cove:02` | Flooded Room               | 普通 | BACK p1  | 2        |
+| [ ]  | `room_tile:cove:03` | The Hoarders               | 普通 | FRONT p2 | 3        |
+| [ ]  | `room_tile:cove:04` | Buried Treasures           | 普通 | BACK p2  | 4        |
+| [ ]  | `room_tile:cove:05` | Twin Idols                 | 普通 | FRONT p3 | 5        |
+| [ ]  | `room_tile:cove:06` | Lairs in Tunnels           | 普通 | BACK p3  | 6        |
+| [ ]  | `room_tile:cove:07` | Shipwreck                  | 普通 | FRONT p4 | 7        |
+| [ ]  | `room_tile:cove:08` | Sea Rites                  | 普通 | BACK p4  | 8        |
+| [ ]  | `room_tile:cove:09` | Temple of the Deep One     | 普通 | FRONT p5 | 9        |
+| [ ]  | `room_tile:cove:10` | Siren's Room               | Boss | BACK p5  | 10       |
+| [ ]  | `room_tile:cove:11` | Shambler's Room            | Boss | FRONT p6 | 11       |
+| [ ]  | `room_tile:cove:12` | Drowned Crew Room          | Boss | BACK p6  | 12       |
 
 其他出入（若有）：
 
@@ -47,59 +47,57 @@
 
 区域：
 
-| 区域 | 容量 | 地势（high / low / normal） | 备注 |
-| --- | --- | --- | --- |
-| A | 2 | normal | 宝箱 |
-| B | 0 | normal | 零容量；中央刻纹圆坛；红八星；`monster_support` |
-| C | 2 | normal | 宝箱；锚章「1」（房间号，非容量） |
-| D | 4 | normal | |
-| E | 2 | normal | `monster_ranged` |
-| F | 4 | normal | |
-| G | 2 | normal | 绿星；`hero_aggressive` |
-| H | 2 | normal | `monster_defensive` |
-| I | 0 | normal | 零容量； debris |
-| J | 4 | normal | `hero_defensive`、`hero_ranged` |
-| K | 4 | normal | `hero_aggressive`、`hero_support` |
-| L | 0 | normal | 零容量； debris |
+| 区域 | 容量 | 地势（high / low / normal） | 备注                                      |
+| ---- | ---- | --------------------------- | ----------------------------------------- |
+| A    | 2    | normal                      | 宝箱                                      |
+| B    | 3    | normal                      | 刻纹圆坛；红八星；`monster_support`       |
+| C    | 2    | normal                      | 宝箱；锚章「1」（房间号，非容量）         |
+| D    | 4    | normal                      |                                           |
+| E    | 2    | normal                      | `monster_ranged`（红框散射/短柱）         |
+| F    | 4    | normal                      |                                           |
+| G    | 2    | normal                      | `monster_aggressive`                      |
+| H    | 2    | normal                      | `monster_defensive`                       |
+| I    | 0    | normal                      | 零容量；碎石区未见容量点                  |
+| J    | 4    | normal                      | `hero_defensive`、`hero_ranged`（黄框）   |
+| K    | 4    | normal                      | `hero_aggressive`、`hero_support`（黄框） |
 
 邻接：
 
-| 从 | 到 | cornerOnly（是/否） | blocked（是/否） |
-| --- | --- | --- | --- |
-| A | B | 否 | 否 |
-| B | C | 否 | 否 |
-| A | D | 否 | 否 |
-| B | E | 否 | 否 |
-| C | F | 否 | 否 |
-| D | G | 否 | 否 |
-| E | H | 否 | 否 |
-| F | I | 否 | 否 |
-| G | J | 否 | 否 |
-| H | K | 否 | 否 |
-| I | L | 否 | 否 |
-| J | K | 否 | 否 |
-| K | L | 否 | 否 |
-| D | E | 否 | 是 |
-| E | F | 否 | 是 |
-| G | H | 否 | 是 |
-| H | I | 否 | 是 |
+| 从  | 到  | cornerOnly（是/否） | blocked（是/否） |
+| --- | --- | ------------------- | ---------------- |
+| A   | D   | 否                  | 否               |
+| B   | E   | 否                  | 否               |
+| C   | F   | 否                  | 否               |
+| D   | G   | 否                  | 否               |
+| E   | H   | 否                  | 否               |
+| F   | I   | 待确认              | 否               |
+| G   | J   | 否                  | 否               |
+| J   | K   | 否                  | 否               |
+| A   | B   | 否                  | 是               |
+| B   | C   | 否                  | 是               |
+| D   | E   | 否                  | 是               |
+| E   | F   | 否                  | 是               |
+| G   | H   | 否                  | 是               |
+| H   | I   | 否                  | 是               |
+| H   | K   | 待确认              | 待确认           |
+| F   | K   | 待确认              | 待确认           |
 
 部署：
 
 | 角色 | 攻击 | 防御 | 远程 | 支援 |
-| --- | --- | --- | --- | --- |
-| 英雄 | G | J | J | K |
-| 怪物 | 待确认 | H | E | B |
+| ---- | ---- | ---- | ---- | ---- |
+| 英雄 | K    | J    | J    | K    |
+| 怪物 | G    | H    | E    | B    |
 
 战利品区域：A, C
 
-特殊区域（印刷文字）：B — 红八星（效果待确认）；G — 绿星（效果待确认）
+特殊区域（印刷文字）：B — 红八星（效果待确认）
 
-零容量区域：B, I, L
+零容量区域：I
 
-墙 / 阻断：中列与左右列之间黑色竖柱阻断 D↔E、E↔F、G↔H、H↔I。
+墙 / 阻断：上两排及中部左右列之间的两道黑色竖柱阻断 A↔B、B↔C 水平邻接（提案）。
 
-本面其他待确认：未见 `monster_aggressive` 印刷位（四角部署是否缺项或印在别区）。
+本面其他待确认：黑柱是否贯穿全高（上式按全高提案阻断了全部横向边）；F–I、H–K、F–K 角邻；底行是否仅 J+K 两区。
 
 ---
 
@@ -109,52 +107,52 @@
 
 区域：
 
-| 区域 | 容量 | 地势（high / low / normal） | 备注 |
-| --- | --- | --- | --- |
-| A | 3 | normal | |
-| B | 6 | normal | 双宝箱 |
-| C | 2 | normal | 锚章「2」 |
-| D | 4 | normal | 橙星 A；`hero_ranged` |
-| E | 0 | normal | 零容量；黑色 void/柱 |
-| F | 2 | high | 登台；双红框（爪/柱形，语义待确认） |
-| G | 0 | normal | 零容量；黑色 void/柱 |
-| H | 4 | normal | 橙星 A；`hero_aggressive` |
-| I | 3 | normal | `hero_defensive` |
-| J | 2 | normal | `monster_aggressive` |
-| K | 4 | normal | 橙星 A；`hero_defensive`、`hero_support` |
-| L | 2 | normal | 橙星 A；宝箱 |
+| 区域 | 容量 | 地势（high / low / normal） | 备注                                     |
+| ---- | ---- | --------------------------- | ---------------------------------------- |
+| A    | 3    | normal                      |                                          |
+| B    | 6    | normal                      | 双宝箱                                   |
+| C    | 2    | normal                      | 锚章「2」                                |
+| D    | 4    | normal                      | 橙星 A；`hero_ranged`                    |
+| E    | 0    | normal                      | 零容量；黑色 void/柱                     |
+| F    | 2    | high                        | 登台；双红框（爪/柱形，语义待确认）      |
+| G    | 0    | normal                      | 零容量；黑色 void/柱                     |
+| H    | 4    | normal                      | 橙星 A；`hero_aggressive`                |
+| I    | 3    | normal                      | `hero_defensive`                         |
+| J    | 2    | normal                      | `monster_aggressive`                     |
+| K    | 4    | normal                      | 橙星 A；`hero_defensive`、`hero_support` |
+| L    | 2    | normal                      | 橙星 A；宝箱                             |
 
 邻接：
 
-| 从 | 到 | cornerOnly（是/否） | blocked（是/否） |
-| --- | --- | --- | --- |
-| A | B | 否 | 否 |
-| B | C | 否 | 否 |
-| A | D | 否 | 否 |
-| D | H | 否 | 否 |
-| H | I | 否 | 否 |
-| I | K | 否 | 否 |
-| H | K | 否 | 否 |
-| I | J | 否 | 否 |
-| J | L | 否 | 否 |
-| K | L | 否 | 否 |
-| B | E | 否 | 是 |
-| D | E | 否 | 是 |
-| E | F | 否 | 是 |
-| E | I | 否 | 是 |
-| C | G | 否 | 是 |
-| F | G | 否 | 是 |
-| G | L | 否 | 是 |
-| B | F | 否 | 是 |
-| F | J | 否 | 是 |
-| D | I | 待确认 | 待确认 |
+| 从  | 到  | cornerOnly（是/否） | blocked（是/否） |
+| --- | --- | ------------------- | ---------------- |
+| A   | B   | 否                  | 否               |
+| B   | C   | 否                  | 否               |
+| A   | D   | 否                  | 否               |
+| D   | H   | 否                  | 否               |
+| H   | I   | 否                  | 否               |
+| I   | K   | 否                  | 否               |
+| H   | K   | 否                  | 否               |
+| I   | J   | 否                  | 否               |
+| J   | L   | 否                  | 否               |
+| K   | L   | 否                  | 否               |
+| B   | E   | 否                  | 是               |
+| D   | E   | 否                  | 是               |
+| E   | F   | 否                  | 是               |
+| E   | I   | 否                  | 是               |
+| C   | G   | 否                  | 是               |
+| F   | G   | 否                  | 是               |
+| G   | L   | 否                  | 是               |
+| B   | F   | 否                  | 是               |
+| F   | J   | 否                  | 是               |
+| D   | I   | 待确认              | 待确认           |
 
 部署：
 
-| 角色 | 攻击 | 防御 | 远程 | 支援 |
-| --- | --- | --- | --- | --- |
-| 英雄 | H | I | D | K |
-| 怪物 | J | 待确认 | 待确认 | 待确认 |
+| 角色 | 攻击 | 防御   | 远程   | 支援   |
+| ---- | ---- | ------ | ------ | ------ |
+| 英雄 | H    | I      | D      | K      |
+| 怪物 | J    | 待确认 | 待确认 | 待确认 |
 
 战利品区域：B, L
 
@@ -174,47 +172,47 @@
 
 区域：
 
-| 区域 | 容量 | 地势（high / low / normal） | 备注 |
-| --- | --- | --- | --- |
-| A | 2 | high | 向上双三角；红爪 `monster_aggressive` |
-| B | 3 | normal | |
-| C | 3 | normal | 绿星；锚章「3」；`monster_support` |
-| D | 3 | normal | 红剑（第二张 aggressive 位） |
-| E | 4 | normal | 红盾 `monster_defensive` |
-| F | 3 | normal | |
-| G | 4 | normal | |
-| H | 4 | normal | 见向下橙菱（高低地见下） |
-| I | 3 | normal | 底边四黄框（英雄四角） |
-| J | 3 | normal | |
-| K | 3 | normal | |
+| 区域 | 容量 | 地势（high / low / normal） | 备注                                  |
+| ---- | ---- | --------------------------- | ------------------------------------- |
+| A    | 2    | high                        | 向上双三角；红爪 `monster_aggressive` |
+| B    | 3    | normal                      |                                       |
+| C    | 3    | normal                      | 绿星；锚章「3」；`monster_support`    |
+| D    | 3    | normal                      | 红剑（第二张 aggressive 位）          |
+| E    | 4    | normal                      | 红盾 `monster_defensive`              |
+| F    | 3    | normal                      |                                       |
+| G    | 4    | normal                      |                                       |
+| H    | 4    | normal                      | 见向下橙菱（高低地见下）              |
+| I    | 3    | normal                      | 底边四黄框（英雄四角）                |
+| J    | 3    | normal                      |                                       |
+| K    | 3    | normal                      |                                       |
 
 邻接：
 
-| 从 | 到 | cornerOnly（是/否） | blocked（是/否） |
-| --- | --- | --- | --- |
-| A | B | 否 | 否 |
-| B | C | 否 | 否 |
-| A | D | 否 | 否 |
-| D | E | 否 | 否 |
-| E | F | 否 | 否 |
-| C | F | 待确认 | 待确认 |
-| D | G | 否 | 否 |
-| G | H | 否 | 否 |
-| F | H | 否 | 否 |
-| G | I | 否 | 否 |
-| I | J | 否 | 否 |
-| J | K | 否 | 否 |
-| H | K | 待确认 | 待确认 |
-| E | H | 否 | 是 |
-| E | J | 否 | 是 |
-| G | E | 待确认 | 是 |
+| 从  | 到  | cornerOnly（是/否） | blocked（是/否） |
+| --- | --- | ------------------- | ---------------- |
+| A   | B   | 否                  | 否               |
+| B   | C   | 否                  | 否               |
+| A   | D   | 否                  | 否               |
+| D   | E   | 否                  | 否               |
+| E   | F   | 否                  | 否               |
+| C   | F   | 待确认              | 待确认           |
+| D   | G   | 否                  | 否               |
+| G   | H   | 否                  | 否               |
+| F   | H   | 否                  | 否               |
+| G   | I   | 否                  | 否               |
+| I   | J   | 否                  | 否               |
+| J   | K   | 否                  | 否               |
+| H   | K   | 待确认              | 待确认           |
+| E   | H   | 否                  | 是               |
+| E   | J   | 否                  | 是               |
+| G   | E   | 待确认              | 是               |
 
 部署：
 
-| 角色 | 攻击 | 防御 | 远程 | 支援 |
-| --- | --- | --- | --- | --- |
-| 英雄 | I | I | I | I |
-| 怪物 | A | E | 待确认 | C |
+| 角色 | 攻击 | 防御 | 远程   | 支援 |
+| ---- | ---- | ---- | ------ | ---- |
+| 英雄 | I    | I    | I      | I    |
+| 怪物 | A    | E    | 待确认 | C    |
 
 战利品区域：待确认（C 区船骸/箱图待是否计 loot）
 
@@ -234,46 +232,46 @@
 
 区域：
 
-| 区域 | 容量 | 地势（high / low / normal） | 备注 |
-| --- | --- | --- | --- |
-| A | 2 | low | 绿星；宝箱 |
-| B | 3 | normal | |
-| C | 3 | normal | 双红怪（剑、斜线） |
-| D | 3 | normal | 红柱/竖条 `monster_support` |
-| E | 2 | low | 绿星 |
-| F | 2 | low | |
-| G | 3 | normal | 水域 |
-| H | 3 | normal | 红盾 `monster_defensive` |
-| I | 2 | low | `hero_ranged` |
-| J | 3 | normal | 黄剑/盾/旗 |
-| K | 3 | normal | |
+| 区域 | 容量 | 地势（high / low / normal） | 备注                        |
+| ---- | ---- | --------------------------- | --------------------------- |
+| A    | 2    | low                         | 绿星；宝箱                  |
+| B    | 3    | normal                      |                             |
+| C    | 3    | normal                      | 双红怪（剑、斜线）          |
+| D    | 3    | normal                      | 红柱/竖条 `monster_support` |
+| E    | 2    | low                         | 绿星                        |
+| F    | 2    | low                         |                             |
+| G    | 3    | normal                      | 水域                        |
+| H    | 3    | normal                      | 红盾 `monster_defensive`    |
+| I    | 2    | low                         | `hero_ranged`               |
+| J    | 3    | normal                      | 黄剑/盾/旗                  |
+| K    | 3    | normal                      |                             |
 
 邻接：
 
-| 从 | 到 | cornerOnly（是/否） | blocked（是/否） |
-| --- | --- | --- | --- |
-| A | B | 否 | 否 |
-| B | D | 否 | 否 |
-| C | D | 否 | 否 |
-| C | F | 否 | 否 |
-| D | G | 否 | 否 |
-| D | E | 待确认 | 待确认 |
-| E | H | 否 | 否 |
-| F | I | 否 | 否 |
-| G | J | 否 | 否 |
-| H | K | 否 | 否 |
-| I | J | 否 | 否 |
-| A | C | 否 | 是 |
-| B | 右上 void | — | 是 |
-| F,I | G,J | — | 是 |
-| D,G | E,H,K | — | 是 |
+| 从  | 到        | cornerOnly（是/否） | blocked（是/否） |
+| --- | --------- | ------------------- | ---------------- |
+| A   | B         | 否                  | 否               |
+| B   | D         | 否                  | 否               |
+| C   | D         | 否                  | 否               |
+| C   | F         | 否                  | 否               |
+| D   | G         | 否                  | 否               |
+| D   | E         | 待确认              | 待确认           |
+| E   | H         | 否                  | 否               |
+| F   | I         | 否                  | 否               |
+| G   | J         | 否                  | 否               |
+| H   | K         | 否                  | 否               |
+| I   | J         | 否                  | 否               |
+| A   | C         | 否                  | 是               |
+| B   | 右上 void | —                   | 是               |
+| F,I | G,J       | —                   | 是               |
+| D,G | E,H,K     | —                   | 是               |
 
 部署：
 
-| 角色 | 攻击 | 防御 | 远程 | 支援 |
-| --- | --- | --- | --- | --- |
-| 英雄 | J | J | I | J |
-| 怪物 | C | H | 待确认 | D |
+| 角色 | 攻击 | 防御 | 远程   | 支援 |
+| ---- | ---- | ---- | ------ | ---- |
+| 英雄 | J    | J    | I      | J    |
+| 怪物 | C    | H    | 待确认 | D    |
 
 战利品区域：A, E
 
@@ -293,52 +291,52 @@
 
 区域：
 
-| 区域 | 容量 | 地势（high / low / normal） | 备注 |
-| --- | --- | --- | --- |
-| A | 0 | normal | 零容量；章鱼刻纹 |
-| B | 2 | normal | 橙星 B；三联宝箱 |
-| C | 1 | normal | 绿星 |
-| D | 0 | normal | 零容量；锚章「5」 |
-| E | 2 | normal | `monster_aggressive` |
-| F | 3 | high | 登台；`monster_aggressive` |
-| G | 2 | normal | `monster_ranged` |
-| H | 2 | normal | 橙星 A |
-| I | 0 | normal | 零容量；水体 |
-| J | 0 | normal | 零容量；水体 |
-| K | 4 | normal | 橙星 A |
-| L | 3 | normal | 双黄框 |
-| M | 3 | normal | 红盾 `monster_defensive` |
-| N | 3 | normal | 黄剑、黄旗 |
+| 区域 | 容量 | 地势（high / low / normal） | 备注                       |
+| ---- | ---- | --------------------------- | -------------------------- |
+| A    | 0    | normal                      | 零容量；章鱼刻纹           |
+| B    | 2    | normal                      | 橙星 B；三联宝箱           |
+| C    | 1    | normal                      | 绿星                       |
+| D    | 0    | normal                      | 零容量；锚章「5」          |
+| E    | 2    | normal                      | `monster_aggressive`       |
+| F    | 3    | high                        | 登台；`monster_aggressive` |
+| G    | 2    | normal                      | `monster_ranged`           |
+| H    | 2    | normal                      | 橙星 A                     |
+| I    | 0    | normal                      | 零容量；水体               |
+| J    | 0    | normal                      | 零容量；水体               |
+| K    | 4    | normal                      | 橙星 A                     |
+| L    | 3    | normal                      | 双黄框                     |
+| M    | 3    | normal                      | 红盾 `monster_defensive`   |
+| N    | 3    | normal                      | 黄剑、黄旗                 |
 
 邻接：
 
-| 从 | 到 | cornerOnly（是/否） | blocked（是/否） |
-| --- | --- | --- | --- |
-| B | C | 否 | 是 |
-| A | B | 否 | 是 |
-| C | D | 否 | 是 |
-| E | F | 否 | 否 |
-| F | G | 否 | 否 |
-| E | H | 待确认 | 待确认 |
-| H | K | 否 | 否 |
-| H | I | 否 | 否 |
-| I | J | 否 | 否 |
-| J | K | 否 | 否 |
-| L | M | 否 | 是 |
-| M | N | 否 | 是 |
-| H | L | 否 | 是 |
-| K | N | 待确认 | 待确认 |
-| E | L | 待确认 | 待确认 |
-| F | I | 待确认 | 待确认 |
-| F | J | 待确认 | 待确认 |
-| B | 上中黑块 | — | 是 |
+| 从  | 到       | cornerOnly（是/否） | blocked（是/否） |
+| --- | -------- | ------------------- | ---------------- |
+| B   | C        | 否                  | 是               |
+| A   | B        | 否                  | 是               |
+| C   | D        | 否                  | 是               |
+| E   | F        | 否                  | 否               |
+| F   | G        | 否                  | 否               |
+| E   | H        | 待确认              | 待确认           |
+| H   | K        | 否                  | 否               |
+| H   | I        | 否                  | 否               |
+| I   | J        | 否                  | 否               |
+| J   | K        | 否                  | 否               |
+| L   | M        | 否                  | 是               |
+| M   | N        | 否                  | 是               |
+| H   | L        | 否                  | 是               |
+| K   | N        | 待确认              | 待确认           |
+| E   | L        | 待确认              | 待确认           |
+| F   | I        | 待确认              | 待确认           |
+| F   | J        | 待确认              | 待确认           |
+| B   | 上中黑块 | —                   | 是               |
 
 部署：
 
-| 角色 | 攻击 | 防御 | 远程 | 支援 |
-| --- | --- | --- | --- | --- |
-| 英雄 | N | L | 待确认 | N |
-| 怪物 | E | M | G | 待确认 |
+| 角色 | 攻击 | 防御 | 远程   | 支援   |
+| ---- | ---- | ---- | ------ | ------ |
+| 英雄 | N    | L    | 待确认 | N      |
+| 怪物 | E    | M    | G      | 待确认 |
 
 战利品区域：B
 
@@ -358,41 +356,41 @@
 
 区域：
 
-| 区域 | 容量 | 地势（high / low / normal） | 备注 |
-| --- | --- | --- | --- |
-| A | 2 | normal | 宝箱 |
-| B | 4 | normal | 三组红框（攻/远程/柱形） |
-| C | 3 | normal | 绿星；宝箱 |
-| D | 3 | normal | 红盾 `monster_defensive` |
-| E | 3 | normal | 红八星 |
-| G | 3 | normal | 绿星 |
-| H | 4 | normal | 四黄框 |
-| I | 2 | normal | 宝箱 |
-| J | 3 | normal | |
+| 区域 | 容量 | 地势（high / low / normal） | 备注                     |
+| ---- | ---- | --------------------------- | ------------------------ |
+| A    | 2    | normal                      | 宝箱                     |
+| B    | 4    | normal                      | 三组红框（攻/远程/柱形） |
+| C    | 3    | normal                      | 绿星；宝箱               |
+| D    | 3    | normal                      | 红盾 `monster_defensive` |
+| E    | 3    | normal                      | 红八星                   |
+| G    | 3    | normal                      | 绿星                     |
+| H    | 4    | normal                      | 四黄框                   |
+| I    | 2    | normal                      | 宝箱                     |
+| J    | 3    | normal                      |                          |
 
 邻接：
 
-| 从 | 到 | cornerOnly（是/否） | blocked（是/否） |
-| --- | --- | --- | --- |
-| A | B | 否 | 否 |
-| B | C | 否 | 否 |
-| B | E | 否 | 否 |
-| A | D | 否 | 是 |
-| D | E | 否 | 否 |
-| D | G | 否 | 否 |
-| E | H | 否 | 否 |
-| E | I | 待确认 | 待确认 |
-| G | H | 否 | 是 |
-| H | I | 待确认 | 待确认 |
-| I | J | 否 | 否 |
-| C | I | 否 | 是 |
+| 从  | 到  | cornerOnly（是/否） | blocked（是/否） |
+| --- | --- | ------------------- | ---------------- |
+| A   | B   | 否                  | 否               |
+| B   | C   | 否                  | 否               |
+| B   | E   | 否                  | 否               |
+| A   | D   | 否                  | 是               |
+| D   | E   | 否                  | 否               |
+| D   | G   | 否                  | 否               |
+| E   | H   | 否                  | 否               |
+| E   | I   | 待确认              | 待确认           |
+| G   | H   | 否                  | 是               |
+| H   | I   | 待确认              | 待确认           |
+| I   | J   | 否                  | 否               |
+| C   | I   | 否                  | 是               |
 
 部署：
 
-| 角色 | 攻击 | 防御 | 远程 | 支援 |
-| --- | --- | --- | --- | --- |
-| 英雄 | H | H | H | H |
-| 怪物 | B | D | B | 待确认 |
+| 角色 | 攻击 | 防御 | 远程 | 支援   |
+| ---- | ---- | ---- | ---- | ------ |
+| 英雄 | H    | H    | H    | H      |
+| 怪物 | B    | D    | B    | 待确认 |
 
 战利品区域：A, C, I
 
@@ -412,53 +410,53 @@
 
 区域：
 
-| 区域 | 容量 | 地势（high / low / normal） | 备注 |
-| --- | --- | --- | --- |
-| A | 2 | normal | 宝箱 |
-| B | 4 | normal | 绿星；`monster_support` |
-| C | 4 | normal | 锚章「7」 |
-| D | 3 | normal | 绿星；宝箱；`monster_defensive` |
-| E | 3 | normal | |
-| F | 4 | normal | 绿星；宝箱 |
-| G | 3 | normal | 宝箱；`monster_ranged` |
-| H | 4 | normal | `monster_aggressive` |
-| I | 2 | normal | |
-| J | 2 | normal | |
-| K | 2 | normal | 绿星 |
-| L | 4 | normal | 四黄框 |
-| P1 | 0 | normal | 零容量；黑柱 (~1,4) |
-| P2 | 0 | normal | 零容量；黑柱 (~2,2) |
-| P3 | 0 | normal | 零容量；黑柱 (~3,4) |
-| P4 | 0 | normal | 零容量；黑柱 (~4,3) |
+| 区域 | 容量 | 地势（high / low / normal） | 备注                            |
+| ---- | ---- | --------------------------- | ------------------------------- |
+| A    | 2    | normal                      | 宝箱                            |
+| B    | 4    | normal                      | 绿星；`monster_support`         |
+| C    | 4    | normal                      | 锚章「7」                       |
+| D    | 3    | normal                      | 绿星；宝箱；`monster_defensive` |
+| E    | 3    | normal                      |                                 |
+| F    | 4    | normal                      | 绿星；宝箱                      |
+| G    | 3    | normal                      | 宝箱；`monster_ranged`          |
+| H    | 4    | normal                      | `monster_aggressive`            |
+| I    | 2    | normal                      |                                 |
+| J    | 2    | normal                      |                                 |
+| K    | 2    | normal                      | 绿星                            |
+| L    | 4    | normal                      | 四黄框                          |
+| P1   | 0    | normal                      | 零容量；黑柱 (~1,4)             |
+| P2   | 0    | normal                      | 零容量；黑柱 (~2,2)             |
+| P3   | 0    | normal                      | 零容量；黑柱 (~3,4)             |
+| P4   | 0    | normal                      | 零容量；黑柱 (~4,3)             |
 
 邻接：
 
-| 从 | 到 | cornerOnly（是/否） | blocked（是/否） |
-| --- | --- | --- | --- |
-| A | B | 否 | 否 |
-| B | C | 否 | 否 |
-| A | D | 否 | 否 |
-| D | G | 否 | 否 |
-| G | H | 否 | 否 |
-| H | I | 否 | 否 |
-| C | E | 待确认 | 待确认 |
-| E | F | 待确认 | 待确认 |
-| F | I | 待确认 | 待确认 |
-| I | K | 待确认 | 待确认 |
-| K | L | 待确认 | 待确认 |
-| J | K | 否 | 否 |
-| I | L | 是 | 否 |
-| K | I | 是 | 否 |
-| B | E | 是 | 否 |
-| D | H | 是 | 否 |
-| * | P1–P4 | — | 是 |
+| 从  | 到    | cornerOnly（是/否） | blocked（是/否） |
+| --- | ----- | ------------------- | ---------------- |
+| A   | B     | 否                  | 否               |
+| B   | C     | 否                  | 否               |
+| A   | D     | 否                  | 否               |
+| D   | G     | 否                  | 否               |
+| G   | H     | 否                  | 否               |
+| H   | I     | 否                  | 否               |
+| C   | E     | 待确认              | 待确认           |
+| E   | F     | 待确认              | 待确认           |
+| F   | I     | 待确认              | 待确认           |
+| I   | K     | 待确认              | 待确认           |
+| K   | L     | 待确认              | 待确认           |
+| J   | K     | 否                  | 否               |
+| I   | L     | 是                  | 否               |
+| K   | I     | 是                  | 否               |
+| B   | E     | 是                  | 否               |
+| D   | H     | 是                  | 否               |
+| *   | P1–P4 | —                   | 是               |
 
 部署：
 
 | 角色 | 攻击 | 防御 | 远程 | 支援 |
-| --- | --- | --- | --- | --- |
-| 英雄 | L | L | L | L |
-| 怪物 | H | D | G | B |
+| ---- | ---- | ---- | ---- | ---- |
+| 英雄 | L    | L    | L    | L    |
+| 怪物 | H    | D    | G    | B    |
 
 战利品区域：A, D, F, G
 
@@ -478,54 +476,54 @@
 
 区域：
 
-| 区域 | 容量 | 地势（high / low / normal） | 备注 |
-| --- | --- | --- | --- |
-| A | 2 | normal | 宝箱 |
-| B | 3 | normal | 橙星 A；`monster_defensive` |
-| C | 3 | normal | 双宝箱；锚章「8」 |
-| D | 3 | high | 橙星 B；`monster_aggressive` |
-| E | 4 | normal | 橙星 A |
-| F | 3 | high | 橙星 B；红喷发 `monster_ranged` |
-| G | 3 | normal | 橙星 A |
-| H | 4 | normal | 橙星 A |
-| I | 3 | normal | 橙星 A；`monster_aggressive` |
-| J | 3 | normal | 橙星 A |
-| K | 4 | normal | 橙星 A；四黄框 |
-| L | 3 | normal | 橙星 A |
+| 区域 | 容量 | 地势（high / low / normal） | 备注                            |
+| ---- | ---- | --------------------------- | ------------------------------- |
+| A    | 2    | normal                      | 宝箱                            |
+| B    | 3    | normal                      | 橙星 A；`monster_defensive`     |
+| C    | 3    | normal                      | 双宝箱；锚章「8」               |
+| D    | 3    | high                        | 橙星 B；`monster_aggressive`    |
+| E    | 4    | normal                      | 橙星 A                          |
+| F    | 3    | high                        | 橙星 B；红喷发 `monster_ranged` |
+| G    | 3    | normal                      | 橙星 A                          |
+| H    | 4    | normal                      | 橙星 A                          |
+| I    | 3    | normal                      | 橙星 A；`monster_aggressive`    |
+| J    | 3    | normal                      | 橙星 A                          |
+| K    | 4    | normal                      | 橙星 A；四黄框                  |
+| L    | 3    | normal                      | 橙星 A                          |
 
 邻接：
 
-| 从 | 到 | cornerOnly（是/否） | blocked（是/否） |
-| --- | --- | --- | --- |
-| A | D | 否 | 否 |
-| B | C | 否 | 否 |
-| B | E | 否 | 否 |
-| C | F | 否 | 否 |
-| D | E | 否 | 否 |
-| D | G | 否 | 否 |
-| E | F | 否 | 否 |
-| E | H | 否 | 否 |
-| F | I | 否 | 否 |
-| G | H | 否 | 否 |
-| G | J | 否 | 否 |
-| H | I | 否 | 否 |
-| H | K | 否 | 否 |
-| I | H | 否 | 否 |
-| D | H | 是 | 否 |
-| E | G | 是 | 否 |
-| E | I | 是 | 否 |
-| F | H | 是 | 否 |
-| A | B | 否 | 是 |
-| J | K | 否 | 是 |
-| K | L | 否 | 是 |
-| I | L | 否 | 是 |
+| 从  | 到  | cornerOnly（是/否） | blocked（是/否） |
+| --- | --- | ------------------- | ---------------- |
+| A   | D   | 否                  | 否               |
+| B   | C   | 否                  | 否               |
+| B   | E   | 否                  | 否               |
+| C   | F   | 否                  | 否               |
+| D   | E   | 否                  | 否               |
+| D   | G   | 否                  | 否               |
+| E   | F   | 否                  | 否               |
+| E   | H   | 否                  | 否               |
+| F   | I   | 否                  | 否               |
+| G   | H   | 否                  | 否               |
+| G   | J   | 否                  | 否               |
+| H   | I   | 否                  | 否               |
+| H   | K   | 否                  | 否               |
+| I   | H   | 否                  | 否               |
+| D   | H   | 是                  | 否               |
+| E   | G   | 是                  | 否               |
+| E   | I   | 是                  | 否               |
+| F   | H   | 是                  | 否               |
+| A   | B   | 否                  | 是               |
+| J   | K   | 否                  | 是               |
+| K   | L   | 否                  | 是               |
+| I   | L   | 否                  | 是               |
 
 部署：
 
-| 角色 | 攻击 | 防御 | 远程 | 支援 |
-| --- | --- | --- | --- | --- |
-| 英雄 | K | K | K | K |
-| 怪物 | D | B | F | 待确认 |
+| 角色 | 攻击 | 防御 | 远程 | 支援   |
+| ---- | ---- | ---- | ---- | ------ |
+| 英雄 | K    | K    | K    | K      |
+| 怪物 | D    | B    | F    | 待确认 |
 
 战利品区域：A, C
 
@@ -545,45 +543,45 @@
 
 区域：
 
-| 区域 | 容量 | 地势（high / low / normal） | 备注 |
-| --- | --- | --- | --- |
-| A | 3 | normal | 黄盾 `hero_defensive` |
-| B | 4 | normal | 锚章「9」 |
-| C | 2 | high | 登台；红祭坛框 |
-| D | 6 | normal | 红八星；大宝箱 |
-| E | 0 | normal | 零容量；希腊回纹坛；三组红怪与双宝箱标 |
-| F | 3 | normal | 双黄框 |
-| G | 3 | normal | |
-| H | 4 | normal | 黄剑 `hero_aggressive` |
+| 区域 | 容量 | 地势（high / low / normal） | 备注                                   |
+| ---- | ---- | --------------------------- | -------------------------------------- |
+| A    | 3    | normal                      | 黄盾 `hero_defensive`                  |
+| B    | 4    | normal                      | 锚章「9」                              |
+| C    | 2    | high                        | 登台；红祭坛框                         |
+| D    | 6    | normal                      | 红八星；大宝箱                         |
+| E    | 0    | normal                      | 零容量；希腊回纹坛；三组红怪与双宝箱标 |
+| F    | 3    | normal                      | 双黄框                                 |
+| G    | 3    | normal                      |                                        |
+| H    | 4    | normal                      | 黄剑 `hero_aggressive`                 |
 
 邻接：
 
-| 从 | 到 | cornerOnly（是/否） | blocked（是/否） |
-| --- | --- | --- | --- |
-| A | B | 否 | 否 |
-| A | E | 待确认 | 否 |
-| B | F | 否 | 否 |
-| C | D | 否 | 否 |
-| D | E | 否 | 否 |
-| E | F | 否 | 否 |
-| E | G | 否 | 否 |
-| F | H | 否 | 否 |
-| G | H | 否 | 否 |
-| C | A | 是 | 否 |
-| C | G | 是 | 否 |
-| D | A | 是 | 否 |
-| D | G | 是 | 否 |
-| A | F | 是 | 否 |
-| E | B | 是 | 否 |
-| E | H | 是 | 否 |
-| G | F | 是 | 否 |
+| 从  | 到  | cornerOnly（是/否） | blocked（是/否） |
+| --- | --- | ------------------- | ---------------- |
+| A   | B   | 否                  | 否               |
+| A   | E   | 待确认              | 否               |
+| B   | F   | 否                  | 否               |
+| C   | D   | 否                  | 否               |
+| D   | E   | 否                  | 否               |
+| E   | F   | 否                  | 否               |
+| E   | G   | 否                  | 否               |
+| F   | H   | 否                  | 否               |
+| G   | H   | 否                  | 否               |
+| C   | A   | 是                  | 否               |
+| C   | G   | 是                  | 否               |
+| D   | A   | 是                  | 否               |
+| D   | G   | 是                  | 否               |
+| A   | F   | 是                  | 否               |
+| E   | B   | 是                  | 否               |
+| E   | H   | 是                  | 否               |
+| G   | F   | 是                  | 否               |
 
 部署：
 
-| 角色 | 攻击 | 防御 | 远程 | 支援 |
-| --- | --- | --- | --- | --- |
-| 英雄 | H | A | F | 待确认 |
-| 怪物 | E | E | E | 待确认 |
+| 角色 | 攻击 | 防御 | 远程 | 支援   |
+| ---- | ---- | ---- | ---- | ------ |
+| 英雄 | H    | A    | F    | 待确认 |
+| 怪物 | E    | E    | E    | 待确认 |
 
 战利品区域：D, E
 
@@ -603,53 +601,53 @@
 
 区域：
 
-| 区域 | 容量 | 地势（high / low / normal） | 备注 |
-| --- | --- | --- | --- |
-| A | 3 | high | 黄盾 |
-| B | 3 | high | 黄剑、黄弓 |
-| C | 3 | high | 黄杖 |
-| D | 2 | high | |
-| E | 3 | high | |
-| F | 2 | high | |
-| G | 2 | high | |
-| H | 4 | high | 红八星；石螺旋 |
-| I | 2 | high | |
-| J | 2 | high | 四红框 |
-| K | 0 | normal | 零容量；水中碎木板 |
-| L | 2 | normal | |
+| 区域 | 容量 | 地势（high / low / normal） | 备注               |
+| ---- | ---- | --------------------------- | ------------------ |
+| A    | 3    | high                        | 黄盾               |
+| B    | 3    | high                        | 黄剑、黄弓         |
+| C    | 3    | high                        | 黄杖               |
+| D    | 2    | high                        |                    |
+| E    | 3    | high                        |                    |
+| F    | 2    | high                        |                    |
+| G    | 2    | high                        |                    |
+| H    | 4    | high                        | 红八星；石螺旋     |
+| I    | 2    | high                        |                    |
+| J    | 2    | high                        | 四红框             |
+| K    | 0    | normal                      | 零容量；水中碎木板 |
+| L    | 2    | normal                      |                    |
 
 邻接：
 
-| 从 | 到 | cornerOnly（是/否） | blocked（是/否） |
-| --- | --- | --- | --- |
-| A | B | 否 | 否 |
-| B | C | 否 | 否 |
-| A | D | 否 | 否 |
-| B | E | 否 | 否 |
-| C | F | 否 | 否 |
-| D | G | 否 | 否 |
-| E | H | 否 | 否 |
-| F | I | 否 | 否 |
-| G | J | 否 | 否 |
-| H | K | 否 | 否 |
-| I | L | 否 | 否 |
-| J | K | 否 | 否 |
-| K | L | 否 | 否 |
-| D | E | 否 | 是 |
-| E | F | 否 | 是 |
-| B | D | 是 | 否 |
-| B | F | 是 | 否 |
-| D | H | 是 | 否 |
-| F | H | 是 | 否 |
-| G | K | 是 | 否 |
-| I | K | 是 | 否 |
+| 从  | 到  | cornerOnly（是/否） | blocked（是/否） |
+| --- | --- | ------------------- | ---------------- |
+| A   | B   | 否                  | 否               |
+| B   | C   | 否                  | 否               |
+| A   | D   | 否                  | 否               |
+| B   | E   | 否                  | 否               |
+| C   | F   | 否                  | 否               |
+| D   | G   | 否                  | 否               |
+| E   | H   | 否                  | 否               |
+| F   | I   | 否                  | 否               |
+| G   | J   | 否                  | 否               |
+| H   | K   | 否                  | 否               |
+| I   | L   | 否                  | 否               |
+| J   | K   | 否                  | 否               |
+| K   | L   | 否                  | 否               |
+| D   | E   | 否                  | 是               |
+| E   | F   | 否                  | 是               |
+| B   | D   | 是                  | 否               |
+| B   | F   | 是                  | 否               |
+| D   | H   | 是                  | 否               |
+| F   | H   | 是                  | 否               |
+| G   | K   | 是                  | 否               |
+| I   | K   | 是                  | 否               |
 
 部署：
 
 | 角色 | 攻击 | 防御 | 远程 | 支援 |
-| --- | --- | --- | --- | --- |
-| 英雄 | B | A | B | C |
-| 怪物 | J | J | J | J |
+| ---- | ---- | ---- | ---- | ---- |
+| 英雄 | B    | A    | B    | C    |
+| 怪物 | J    | J    | J    | J    |
 
 战利品区域：无
 
@@ -669,55 +667,55 @@
 
 区域：
 
-| 区域 | 容量 | 地势（high / low / normal） | 备注 |
-| --- | --- | --- | --- |
-| A | 4 | normal | |
-| B | 3 | normal | |
-| C | 0 | normal | 零容量；黑柱 |
-| D | 2 | normal | 绿星；锚章「11」 |
-| E | 2 | normal | 黄盾、黄弓 |
-| F | 0 | normal | 零容量；黑柱 |
-| G | 3 | normal | 红爪 `monster_aggressive` |
-| H | 3 | normal | 黄盾/旗 |
-| I | 2 | normal | 红抓痕 |
-| J | 4 | normal | 红剑；触手区 |
-| K | 3 | normal | 红盾 |
-| L | 2 | normal | 绿星 |
-| M | 3 | normal | 黄剑 |
-| N | 0 | normal | 零容量；黑柱 |
-| O | 3 | normal | 宝箱 |
+| 区域 | 容量 | 地势（high / low / normal） | 备注                      |
+| ---- | ---- | --------------------------- | ------------------------- |
+| A    | 4    | normal                      |                           |
+| B    | 3    | normal                      |                           |
+| C    | 0    | normal                      | 零容量；黑柱              |
+| D    | 2    | normal                      | 绿星；锚章「11」          |
+| E    | 2    | normal                      | 黄盾、黄弓                |
+| F    | 0    | normal                      | 零容量；黑柱              |
+| G    | 3    | normal                      | 红爪 `monster_aggressive` |
+| H    | 3    | normal                      | 黄盾/旗                   |
+| I    | 2    | normal                      | 红抓痕                    |
+| J    | 4    | normal                      | 红剑；触手区              |
+| K    | 3    | normal                      | 红盾                      |
+| L    | 2    | normal                      | 绿星                      |
+| M    | 3    | normal                      | 黄剑                      |
+| N    | 0    | normal                      | 零容量；黑柱              |
+| O    | 3    | normal                      | 宝箱                      |
 
 邻接：
 
-| 从 | 到 | cornerOnly（是/否） | blocked（是/否） |
-| --- | --- | --- | --- |
-| A | B | 否 | 否 |
-| A | E | 否 | 否 |
-| B | G | 否 | 否 |
-| D | H | 否 | 否 |
-| E | I | 否 | 否 |
-| G | H | 否 | 否 |
-| G | J | 否 | 否 |
-| H | K | 否 | 否 |
-| I | J | 否 | 否 |
-| I | L | 否 | 否 |
-| J | K | 否 | 否 |
-| J | M | 否 | 否 |
-| K | O | 否 | 否 |
-| L | M | 否 | 否 |
-| B | F | 否 | 是 |
-| G | C | 否 | 是 |
-| K | N | 否 | 是 |
-| J | E | 是 | 否 |
-| J | H | 是 | 否 |
-| J | O | 是 | 否 |
+| 从  | 到  | cornerOnly（是/否） | blocked（是/否） |
+| --- | --- | ------------------- | ---------------- |
+| A   | B   | 否                  | 否               |
+| A   | E   | 否                  | 否               |
+| B   | G   | 否                  | 否               |
+| D   | H   | 否                  | 否               |
+| E   | I   | 否                  | 否               |
+| G   | H   | 否                  | 否               |
+| G   | J   | 否                  | 否               |
+| H   | K   | 否                  | 否               |
+| I   | J   | 否                  | 否               |
+| I   | L   | 否                  | 否               |
+| J   | K   | 否                  | 否               |
+| J   | M   | 否                  | 否               |
+| K   | O   | 否                  | 否               |
+| L   | M   | 否                  | 否               |
+| B   | F   | 否                  | 是               |
+| G   | C   | 否                  | 是               |
+| K   | N   | 否                  | 是               |
+| J   | E   | 是                  | 否               |
+| J   | H   | 是                  | 否               |
+| J   | O   | 是                  | 否               |
 
 部署：
 
-| 角色 | 攻击 | 防御 | 远程 | 支援 |
-| --- | --- | --- | --- | --- |
-| 英雄 | M | E | E | H |
-| 怪物 | G | K | 待确认 | 待确认 |
+| 角色 | 攻击 | 防御 | 远程   | 支援   |
+| ---- | ---- | ---- | ------ | ------ |
+| 英雄 | M    | E    | E      | H      |
+| 怪物 | G    | K    | 待确认 | 待确认 |
 
 战利品区域：O
 
@@ -737,43 +735,43 @@
 
 区域：
 
-| 区域 | 容量 | 地势（high / low / normal） | 备注 |
-| --- | --- | --- | --- |
-| A | 3 | normal | 黄盾 |
-| B | 4 | normal | 黄剑、黄弓 |
-| C | 3 | normal | 黄杖；锚章「12」 |
-| D | 3 | normal | 红八星 |
-| E | 3 | normal | |
-| F | 3 | normal | |
-| G | 3 | normal | 红八星 |
-| H | 4 | normal | 红八星；双红怪（爪、弓） |
-| I | 2 | normal | 红剑、红盾 |
-| J | 2 | normal | 红八星；双宝箱 |
+| 区域 | 容量 | 地势（high / low / normal） | 备注                     |
+| ---- | ---- | --------------------------- | ------------------------ |
+| A    | 3    | normal                      | 黄盾                     |
+| B    | 4    | normal                      | 黄剑、黄弓               |
+| C    | 3    | normal                      | 黄杖；锚章「12」         |
+| D    | 3    | normal                      | 红八星                   |
+| E    | 3    | normal                      |                          |
+| F    | 3    | normal                      |                          |
+| G    | 3    | normal                      | 红八星                   |
+| H    | 4    | normal                      | 红八星；双红怪（爪、弓） |
+| I    | 2    | normal                      | 红剑、红盾               |
+| J    | 2    | normal                      | 红八星；双宝箱           |
 
 邻接：
 
-| 从 | 到 | cornerOnly（是/否） | blocked（是/否） |
-| --- | --- | --- | --- |
-| A | B | 否 | 否 |
-| B | C | 否 | 否 |
-| A | D | 否 | 否 |
-| B | E | 否 | 否 |
-| C | F | 否 | 否 |
-| D | G | 否 | 否 |
-| E | H | 否 | 否 |
-| F | J | 否 | 是 |
-| G | I | 否 | 否 |
-| H | I | 否 | 否 |
-| I | J | 否 | 否 |
-| D | E | 否 | 是 |
-| F | H | 是 | 否 |
+| 从  | 到  | cornerOnly（是/否） | blocked（是/否） |
+| --- | --- | ------------------- | ---------------- |
+| A   | B   | 否                  | 否               |
+| B   | C   | 否                  | 否               |
+| A   | D   | 否                  | 否               |
+| B   | E   | 否                  | 否               |
+| C   | F   | 否                  | 否               |
+| D   | G   | 否                  | 否               |
+| E   | H   | 否                  | 否               |
+| F   | J   | 否                  | 是               |
+| G   | I   | 否                  | 否               |
+| H   | I   | 否                  | 否               |
+| I   | J   | 否                  | 否               |
+| D   | E   | 否                  | 是               |
+| F   | H   | 是                  | 否               |
 
 部署：
 
-| 角色 | 攻击 | 防御 | 远程 | 支援 |
-| --- | --- | --- | --- | --- |
-| 英雄 | B | A | B | C |
-| 怪物 | H | I | H | 待确认 |
+| 角色 | 攻击 | 防御 | 远程 | 支援   |
+| ---- | ---- | ---- | ---- | ------ |
+| 英雄 | B    | A    | B    | C      |
+| 怪物 | H    | I    | H    | 待确认 |
 
 战利品区域：J
 
