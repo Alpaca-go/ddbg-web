@@ -1,8 +1,10 @@
 export { loadNormalizedCorebox, writeNormalizedCorebox } from "./core/write";
 export {
   loadNormalizedCoveCurios,
+  loadNormalizedCoveRoomTiles,
   loadNormalizedCoveRooms,
   writeNormalizedCoveCurios,
+  writeNormalizedCoveRoomTiles,
   writeNormalizedCoveRooms,
 } from "./cove/write";
 export {

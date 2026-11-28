@@ -3,6 +3,7 @@ import { DATA_ROOT, readDataJson, writeDataFiles } from "../shared/write-files";
 import { rawFileSchema } from "../shared/extract/raw";
 import { buildCoveCurios } from "./curios/curio.build";
 import { buildCoveRooms } from "./rooms/room.build";
+import { buildCoveRoomTiles } from "./tiles/room-tile.build";
 
 export function loadNormalizedCoveCurios() {
   return buildCoveCurios(
@@ -30,4 +31,19 @@ export function writeNormalizedCoveRooms(
   const rooms = loadNormalizedCoveRooms();
   writeDataFiles(outputDir, { "room.json": rooms });
   return rooms;
+}
+
+const tileRaw = () =>
+  rawFileSchema.parse(readDataJson("extract/extension/cove/raw/dungeon_tile.json"));
+
+export function loadNormalizedCoveRoomTiles() {
+  return buildCoveRoomTiles(tileRaw(), loadNormalizedCoveRooms().cards);
+}
+
+export function writeNormalizedCoveRoomTiles(
+  outputDir = path.join(DATA_ROOT, "normalized/extension/cove"),
+) {
+  const built = loadNormalizedCoveRoomTiles();
+  writeDataFiles(outputDir, { "room_tile_catalog.json": built });
+  return built;
 }

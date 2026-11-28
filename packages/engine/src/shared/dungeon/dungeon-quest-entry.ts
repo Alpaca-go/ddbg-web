@@ -43,6 +43,8 @@ export type CoveQuestSources = {
   readonly curios: readonly CurioCard[];
   readonly rooms: readonly import("../../../../data/src/cove/rooms/room").CoveRoomCard[];
   readonly bossRoomSources: readonly import("../../../../data/src/cove/rooms/room").CoveBossRoomCard[];
+  /** 印刷板块目录；仅登记身份，未接线几何或部署。 */
+  readonly roomTileCatalog?: import("../../../../data/src/cove/tiles/room-tile").CoveRoomTileCatalogEntry[];
 };
 
 export type CoreQuestSources = {
