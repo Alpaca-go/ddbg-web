@@ -5,6 +5,8 @@ import { rawFileSchema } from "../../../src/shared/extract/raw";
 import { roomCatalogSchema } from "../../../src/core/rooms/room";
 import { wealdRoomTileGeometryFileSchema } from "../../../src/weald/tiles/room-tile";
 import {
+  COVE_TILES_BACK,
+  COVE_TILES_FRONT,
   coveBossRoomTileCatalogSchema,
   coveNormalRoomTileCatalogSchema,
   coveRoomTileCatalogFileSchema,
@@ -32,25 +34,25 @@ describe("Cove 十二张板块印刷目录（R-048、包隔离）", () => {
     ).toEqual(built);
   });
 
-  it("FRONT 六页对照房间号；六张 BACK 仅登记待确认", () => {
-    expect(built.sources.back).toBeNull();
+  it("FRONT/BACK 六页十二面均对照房间号", () => {
+    expect(built.sources).toEqual({ front: COVE_TILES_FRONT, back: COVE_TILES_BACK });
     expect(built.tiles).toHaveLength(12);
     const verified = built.tiles.filter((tile) => tile.source.status === "verified");
-    const pending = built.tiles.filter((tile) => tile.source.status === "pending");
-    expect(verified).toHaveLength(6);
-    expect(pending).toHaveLength(6);
+    expect(verified).toHaveLength(12);
     expect(verified.map((tile) => [tile.number, tile.printedRoomNumber, tile.source])).toEqual([
-      [1, 1, expect.objectContaining({ page: 1, face: "front" })],
-      [3, 3, expect.objectContaining({ page: 2, face: "front" })],
-      [5, 5, expect.objectContaining({ page: 3, face: "front" })],
-      [7, 7, expect.objectContaining({ page: 4, face: "front" })],
-      [9, 9, expect.objectContaining({ page: 5, face: "front" })],
-      [11, 11, expect.objectContaining({ page: 6, face: "front" })],
+      [1, 1, expect.objectContaining({ page: 1, face: "front", file: COVE_TILES_FRONT })],
+      [2, 2, expect.objectContaining({ page: 1, face: "back", file: COVE_TILES_BACK })],
+      [3, 3, expect.objectContaining({ page: 2, face: "front", file: COVE_TILES_FRONT })],
+      [4, 4, expect.objectContaining({ page: 2, face: "back", file: COVE_TILES_BACK })],
+      [5, 5, expect.objectContaining({ page: 3, face: "front", file: COVE_TILES_FRONT })],
+      [6, 6, expect.objectContaining({ page: 3, face: "back", file: COVE_TILES_BACK })],
+      [7, 7, expect.objectContaining({ page: 4, face: "front", file: COVE_TILES_FRONT })],
+      [8, 8, expect.objectContaining({ page: 4, face: "back", file: COVE_TILES_BACK })],
+      [9, 9, expect.objectContaining({ page: 5, face: "front", file: COVE_TILES_FRONT })],
+      [10, 10, expect.objectContaining({ page: 5, face: "back", file: COVE_TILES_BACK })],
+      [11, 11, expect.objectContaining({ page: 6, face: "front", file: COVE_TILES_FRONT })],
+      [12, 12, expect.objectContaining({ page: 6, face: "back", file: COVE_TILES_BACK })],
     ]);
-    for (const tile of pending) {
-      expect(tile.printedRoomNumber).toBeNull();
-      expect(tile.pendingReview.some((line) => line.includes("DD_COVE_TILES_BACK"))).toBe(true);
-    }
   });
 
   it("九张普通板块与三张 Boss 板块与房间目录对齐", () => {
@@ -98,7 +100,7 @@ describe("Cove 十二张板块印刷目录（R-048、包隔离）", () => {
     }
   });
 
-  it("raw 漂移或伪造背面会失败", () => {
+  it("raw 漂移会失败", () => {
     const raw = rawFileSchema.parse(read("extract/extension/cove/raw/dungeon_tile.json"));
     const roomRaw = rawFileSchema.parse(read("extract/extension/cove/raw/room.json"));
     const roomsBuilt = buildCoveRooms(roomRaw).cards;
@@ -111,6 +113,7 @@ describe("Cove 十二张板块印刷目录（R-048、包隔离）", () => {
               ? {
                   ...card,
                   faces: {
+                    ...card.faces,
                     front: {
                       ...card.faces.front,
                       spans: card.faces.front.spans.filter((span) => span.t !== "1"),
@@ -127,7 +130,7 @@ describe("Cove 十二张板块印刷目录（R-048、包隔离）", () => {
       buildCoveRoomTiles(
         {
           ...raw,
-          sources: [{ ...raw.sources[0]!, back: "forged.pdf", back_pages: 6 }],
+          sources: [{ ...raw.sources[0]!, back: null, back_pages: null }],
         },
         roomsBuilt,
       ),
