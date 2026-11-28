@@ -27,6 +27,10 @@ pnpm --filter @ddbg/pipeline normalize
 
 `extension/cove/room.json`（`ddbg-cove-room-v0`）由 `buildCoveRooms` 生成，包含普通房 `room:cove:01`–`09` 及 Boss 房 `room:cove:10`–`12`。Boss 房保留 `boss: true`、`poolEligible: false` 及各自的印刷来源。Cove 战役出征仍待接入。见 [Cove 房间审阅](../../../docs/reviews/cove-room-review-2026-11-22.md)。
 
+## Cove I 级怪物与地点牌堆（数据登记）
+
+`extension/cove/monster_medium.json`（#827）登记六种 I 级普通怪；`buildCoveLevelOneMonsterInstances` 生成 17 张 `monster-deck:cove:pNNN` 实体（`combatReady: false`，Q-186 停点）。`buildCoveLevelOneLocationDecks` 组合 31 通用怪物实例 + 17 当地怪物 + 24 奇物 + 9 普通房间；仅在内容包勾选 `cove` 时可用，不接线出征或存档。见 [地点牌堆审阅](../../../docs/reviews/cove-location-deck-review-2026-11-28.md)。
+
 ## Weald 普通房间与板块
 
 `extension/weald/room.json` 与 `room_tile_geometry.json` 使用独立 schema（`ddbg-weald-room-v1` / `ddbg-weald-room-tile-geometry-v0`），写入 R-234–R-239 已核准的九张普通房间与对应板块。含完整通行几何、容量、部署、真菌与星标效果区域；5 号零容量 I、7 号零容量 H／I／J；1 号 C／E／F／G 绑定 Toxic Mushrooms（R-239）。`usable` 与正式出征的独立核准选择器分别校验；由 `pnpm --filter @ddbg/data test` 中 `packages/data/tests/weald/rooms/room.build.test.ts` 校验，可用 `WRITE_NORMALIZED=1` 重写 JSON。见 [房间审阅记录](../../../docs/reviews/weald-room-review-2026-11-12.md)。
