@@ -19,3 +19,7 @@ export {
   writeNormalizedWealdRooms,
   writeNormalizedWealdStygianRooms,
 } from "./weald/write";
+export {
+  loadNormalizedWarrensStygianRooms,
+  writeNormalizedWarrensStygianRooms,
+} from "./warrens/write";

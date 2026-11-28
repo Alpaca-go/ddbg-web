@@ -35,6 +35,10 @@ pnpm --filter @ddbg/pipeline normalize
 
 `extension/weald/stygian_rooms.json`（`ddbg-weald-stygian-rooms-v1`）由 `buildWealdStygianRooms` 生成，九张各 1 份，替换同名 `room:weald:01`–`09`；与核心 17 张 `corebox/stygian_rooms.json` 隔离。六张有效果段 `reviewedEffect.runtimeReady=true`；Boss 房 p010–p012 不在替换范围（R-036）。`WRITE_NORMALIZED=1` 可重写；`packages/data/tests/weald/rooms/stygian-rooms.build.test.ts` 校验。见 [Stygian 房间审阅记录](../../../docs/reviews/weald-stygian-room-review-2026-11-17.md)。
 
+## Warrens Stygian 九张房间（审阅入库）
+
+`extension/warrens/stygian_rooms.json`（`ddbg-warrens-stygian-rooms-v1`）由 `buildWarrensStygianRooms` 生成，九张各 1 份，替换 `room:warrens:01`–`09`（普通房 JSON 待独立 PR）。`reviewedEffect` 均为 `null`，待确认项自 Q-WARRENS-34；与核心及 Weald Stygian 目录隔离。`WRITE_NORMALIZED=1` 可重写；`packages/data/tests/warrens/rooms/stygian-rooms.build.test.ts` 校验。见 [Warrens Stygian 审阅记录](../../../docs/reviews/warrens-stygian-room-review-2026-11-28.md)。
+
 ## Weald I 级普通任务
 
 `extension/weald/quest_cards.json`（`ddbg-weald-quest-cards-v1`，仅 I 级五张）与五张 `*_distribution.json` 由 `buildWealdLevelOneQuestCards` 生成，分布 kind 按 **R-240**–**R-249**；与 `basicQuests` 中 `quest:weald:p001`–`p005` 交叉核对。`WRITE_NORMALIZED=1` 可重写；`packages/data/tests/weald/quests/quest-cards.build.test.ts` 校验。沙盒出征见 `quest:weald:p001`（**R-246** brought back + **R-252** 封顶）、`quest:weald:p004`（**R-248** 当地牌堆）、`quest:weald:p005`；正式出征使用相应的地点任务版本，详见 [Weald 开发计划](../../../docs/plans/weald-development-plan.md)。
