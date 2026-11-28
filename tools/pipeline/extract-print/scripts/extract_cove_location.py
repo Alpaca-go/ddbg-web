@@ -16,6 +16,7 @@ BOSS_COMPONENTS = {
 COMPONENTS = {
     "curio": "DD_EN_COVE_CARDS_63x88_CURIO",
     "room": "DD_EN_COVE_CARDS_63x88_rooms",
+    "stygian_room": "DD_EN_COVE_CARDS_63x88_rooms_Stygian",
 }
 
 
@@ -45,14 +46,16 @@ def main():
         ap.error("unknown category for this pack")
     selected = {kind: components[kind] for kind in categories}
     out = args.out or ROOT / "packages/data/extract/extension" / args.pack
-    K.SOURCES = [
-        (cat, (location / f"{stem}_FRONT.pdf").as_posix(),
-         (location / f"{stem}_BACK.pdf").as_posix(), "card", "extension")
-        for cat, stem in selected.items()
-    ]
+    sources = []
+    for cat, stem in selected.items():
+        front = (location / f"{stem}_FRONT.pdf").as_posix()
+        back_path = location / f"{stem}_BACK.pdf"
+        back = back_path.as_posix() if back_path.is_file() else None
+        sources.append((cat, front, back, "card", "extension"))
+    K.SOURCES = sources
     for _, front, back, _, _ in K.SOURCES:
         for rel in (front, back):
-            if not (K.PRINT_ROOT / rel).is_file():
+            if rel and not (K.PRINT_ROOT / rel).is_file():
                 raise FileNotFoundError(K.PRINT_ROOT / rel)
     stage1.CACHE = ROOT / f"node_modules/.cache/{args.pack}-extract"
     results = {}

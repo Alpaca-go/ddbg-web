@@ -168,7 +168,10 @@ export const rawFileSchema = z
           path: ["cards", index, "copies"],
         });
       }
-      if (!card.faces.back && card.copies > 0 && file.kind === "card") {
+      const frontOnlyStygian =
+        file.category === "stygian_room" &&
+        file.sources.some((source) => source.back === null && source.back_pages === null);
+      if (!card.faces.back && card.copies > 0 && file.kind === "card" && !frontOnlyStygian) {
         ctx.addIssue({
           code: "custom",
           message: "卡牌缺少背面",

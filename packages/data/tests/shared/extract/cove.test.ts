@@ -7,7 +7,7 @@ const root = new URL("../../../extract/extension/cove/", import.meta.url);
 const read = (file: string): unknown =>
   JSON.parse(readFileSync(new URL(file, root), "utf8")) as unknown;
 
-const roomComponents = { curio: 16, room: 12 } as const;
+const roomComponents = { curio: 16, room: 12, stygian_room: 9 } as const;
 
 describe("Cove 地点印刷导入（R-001、R-048；Cove C1）", () => {
   it.each(Object.entries(roomComponents))(
@@ -23,12 +23,19 @@ describe("Cove 地点印刷导入（R-001、R-048；Cove C1）", () => {
       const stem =
         category === "curio"
           ? /DD_EN_COVE_CARDS_63x88_CURIO_(FRONT|BACK)\.pdf$/
-          : /DD_EN_COVE_CARDS_63x88_rooms_(FRONT|BACK)\.pdf$/;
+          : category === "stygian_room"
+            ? /DD_EN_COVE_CARDS_63x88_rooms_Stygian_FRONT\.pdf$/
+            : /DD_EN_COVE_CARDS_63x88_rooms_(FRONT|BACK)\.pdf$/;
       for (const card of file.cards) {
         expect(cardContentPack(card)).toBe("cove");
         expect(card.id.includes(":cove:")).toBe(true);
         expect(card.faces.front.page).toBe(card.pages[0]);
-        expect(card.faces.back?.page).toBe(card.pages[0]);
+        if (category === "stygian_room") {
+          expect(card.faces.back).toBeUndefined();
+          expect(file.sources[0]?.back).toBeNull();
+        } else {
+          expect(card.faces.back?.page).toBe(card.pages[0]);
+        }
         for (const face of Object.values(card.faces)) {
           if (!face) continue;
           expect(face.file).toContain("MG_DD_05_EN_COVE/");
