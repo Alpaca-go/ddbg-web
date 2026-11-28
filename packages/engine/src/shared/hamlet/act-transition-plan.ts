@@ -46,7 +46,11 @@ export function buildRuinsActTransitionPlan(
       ...removedQuestIds,
       ...basicQuests
         .filter(
-          (q) => q.level <= fromLevel && q.id !== "quest:p019" && q.expeditionRegion !== "weald",
+          (q) =>
+            q.level <= fromLevel &&
+            q.id !== "quest:p019" &&
+            q.expeditionRegion !== "weald" &&
+            q.expeditionRegion !== "warrens",
         )
         .map((q) => q.id),
     ]),
@@ -121,7 +125,11 @@ export function buildWealdActTransitionPlan(
         ),
       ...basicQuests
         .filter(
-          (q) => q.level <= fromLevel && q.id !== "quest:p019" && q.expeditionRegion !== "weald",
+          (q) =>
+            q.level <= fromLevel &&
+            q.id !== "quest:p019" &&
+            q.expeditionRegion !== "weald" &&
+            q.expeditionRegion !== "warrens",
         )
         .map((q) => q.id),
     ]),
