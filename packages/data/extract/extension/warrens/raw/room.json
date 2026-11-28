@@ -12,12 +12,11 @@
   "sources": [
     {
       "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_rooms_FRONT.pdf",
-      "back": null,
+      "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_rooms_BACK.pdf",
       "source_set": "extension",
       "kind": "card",
       "front_pages": 12,
-      "back_pages": null,
-      "pending_back_pdf": "待确认：本机缺 Warrens rooms BACK PDF"
+      "back_pages": 12
     }
   ],
   "n_pages": 12,
@@ -145,7 +144,7 @@
               "bbox": [35.08, 10.21, 39.26, 12.89]
             },
             {
-              "iconId": "df3f26fabf",
+              "iconId": "cdbfb0c773",
               "bbox": [54.13, 10.57, 57.22, 12.11]
             },
             {
@@ -189,7 +188,8 @@
             },
             {
               "iconId": "cb6ab57f85",
-              "bbox": [46.11, 28.08, 48.37, 30.29]
+              "bbox": [46.11, 28.08, 48.37, 30.29],
+              "decor": true
             },
             {
               "iconId": "c79d161fbd",
@@ -251,7 +251,7 @@
             },
             {
               "rot": 0,
-              "text": "{icon:df3f26fabf} 1",
+              "text": "{icon:cdbfb0c773} 1",
               "bbox": [54.13, 10.51, 57.22, 12.28]
             },
             {
@@ -283,11 +283,6 @@
               "rot": 0,
               "text": "{icon:ed3199dbc3}",
               "bbox": [22.79, 28.0, 27.16, 30.37]
-            },
-            {
-              "rot": 0,
-              "text": "{icon:cb6ab57f85}",
-              "bbox": [46.11, 28.08, 48.37, 30.29]
             },
             {
               "rot": 0,
@@ -335,6 +330,15 @@
               "bbox": [6.12, 74.37, 57.08, 77.62]
             }
           ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_rooms_BACK.pdf",
+          "page": 1,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "949f0f6960a537d2",
+          "spans": [],
+          "icons": [],
+          "lines": []
         }
       }
     },
@@ -489,7 +493,7 @@
               "bbox": [5.44, 10.21, 7.7, 12.41]
             },
             {
-              "iconId": "4fb9fa8d23",
+              "iconId": "ae5489a2ff",
               "bbox": [46.74, 10.21, 48.42, 12.46]
             },
             {
@@ -499,7 +503,7 @@
               "container": true
             },
             {
-              "iconId": "df3f26fabf",
+              "iconId": "cdbfb0c773",
               "bbox": [54.13, 10.57, 57.22, 12.11]
             },
             {
@@ -559,7 +563,8 @@
             },
             {
               "iconId": "cb6ab57f85",
-              "bbox": [5.44, 22.46, 7.7, 24.67]
+              "bbox": [5.44, 22.46, 7.7, 24.67],
+              "decor": true
             },
             {
               "iconId": "18010f5a98",
@@ -680,12 +685,12 @@
             },
             {
               "rot": 0,
-              "text": "{icon:4fb9fa8d23}",
+              "text": "{icon:ae5489a2ff}",
               "bbox": [46.74, 10.21, 48.42, 12.46]
             },
             {
               "rot": 0,
-              "text": "{icon:df3f26fabf} 2",
+              "text": "{icon:cdbfb0c773} 2",
               "bbox": [54.13, 10.51, 57.22, 12.28]
             },
             {
@@ -702,11 +707,6 @@
               "rot": 0,
               "text": "{icon:e78631c439}",
               "bbox": [23.83, 18.61, 26.25, 21.03]
-            },
-            {
-              "rot": 0,
-              "text": "{icon:cb6ab57f85}",
-              "bbox": [5.44, 22.46, 7.7, 24.67]
             },
             {
               "rot": 0,
@@ -779,6 +779,15 @@
               "bbox": [23.85, 77.68, 39.35, 81.54]
             }
           ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_rooms_BACK.pdf",
+          "page": 2,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "949f0f6960a537d2",
+          "spans": [],
+          "icons": [],
+          "lines": []
         }
       }
     },
@@ -925,7 +934,7 @@
               "bbox": [23.02, 10.3, 25.28, 12.51]
             },
             {
-              "iconId": "df3f26fabf",
+              "iconId": "cdbfb0c773",
               "bbox": [54.13, 10.57, 57.22, 12.11]
             },
             {
@@ -991,7 +1000,8 @@
             },
             {
               "iconId": "cb6ab57f85",
-              "bbox": [5.54, 36.71, 7.8, 38.93]
+              "bbox": [5.54, 36.71, 7.8, 38.93],
+              "decor": true
             },
             {
               "iconId": "a30f4206b4",
@@ -1062,7 +1072,7 @@
             },
             {
               "rot": 0,
-              "text": "{icon:bb5957e05f} {icon:df3f26fabf} 3",
+              "text": "{icon:bb5957e05f} {icon:cdbfb0c773} 3",
               "bbox": [46.72, 10.15, 57.22, 12.52]
             },
             {
@@ -1099,11 +1109,6 @@
               "rot": 0,
               "text": "{icon:134712252a}",
               "bbox": [41.4, 32.7, 43.81, 35.11]
-            },
-            {
-              "rot": 0,
-              "text": "{icon:cb6ab57f85}",
-              "bbox": [5.54, 36.71, 7.8, 38.93]
             },
             {
               "rot": 0,
@@ -1156,6 +1161,15 @@
               "bbox": [27.16, 76.14, 36.04, 79.39]
             }
           ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_rooms_BACK.pdf",
+          "page": 3,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "949f0f6960a537d2",
+          "spans": [],
+          "icons": [],
+          "lines": []
         }
       }
     },
@@ -1283,7 +1297,7 @@
               "bbox": [5.49, 10.3, 7.16, 12.56]
             },
             {
-              "iconId": "021676345a",
+              "iconId": "6b21f3d094",
               "bbox": [34.66, 10.3, 36.34, 12.56]
             },
             {
@@ -1291,7 +1305,7 @@
               "bbox": [47.24, 10.3, 48.92, 12.56]
             },
             {
-              "iconId": "df3f26fabf",
+              "iconId": "cdbfb0c773",
               "bbox": [54.13, 10.57, 57.22, 12.11]
             },
             {
@@ -1329,7 +1343,7 @@
               "bbox": [5.49, 21.61, 7.16, 23.87]
             },
             {
-              "iconId": "14eeb2b269",
+              "iconId": "a30f4206b4",
               "bbox": [17.58, 21.61, 19.86, 23.87]
             },
             {
@@ -1386,7 +1400,7 @@
               "decor": true
             },
             {
-              "iconId": "3146107843",
+              "iconId": "6b21f3d094",
               "bbox": [5.49, 52.2, 7.16, 54.47]
             },
             {
@@ -1394,7 +1408,7 @@
               "bbox": [17.58, 52.2, 19.86, 54.47]
             },
             {
-              "iconId": "4fb9fa8d23",
+              "iconId": "ae5489a2ff",
               "bbox": [47.34, 52.2, 49.01, 54.47]
             },
             {
@@ -1430,12 +1444,12 @@
             },
             {
               "rot": 0,
-              "text": "{icon:4fb9fa8d23} {icon:df3f26fabf} 4",
+              "text": "{icon:4fb9fa8d23} {icon:cdbfb0c773} 4",
               "bbox": [47.24, 10.3, 57.22, 12.56]
             },
             {
               "rot": 0,
-              "text": "{icon:dada351280} {icon:f8600bdda7} {icon:021676345a}",
+              "text": "{icon:dada351280} {icon:f8600bdda7} {icon:6b21f3d094}",
               "bbox": [17.31, 9.99, 36.34, 20.99]
             },
             {
@@ -1460,7 +1474,7 @@
             },
             {
               "rot": 0,
-              "text": "{icon:14eeb2b269}",
+              "text": "{icon:a30f4206b4}",
               "bbox": [17.58, 21.61, 19.86, 23.87]
             },
             {
@@ -1490,7 +1504,7 @@
             },
             {
               "rot": 0,
-              "text": "{icon:3146107843}",
+              "text": "{icon:6b21f3d094}",
               "bbox": [5.49, 52.2, 7.16, 54.47]
             },
             {
@@ -1500,7 +1514,7 @@
             },
             {
               "rot": 0,
-              "text": "{icon:4fb9fa8d23}",
+              "text": "{icon:ae5489a2ff}",
               "bbox": [47.34, 52.2, 49.01, 54.47]
             },
             {
@@ -1539,6 +1553,15 @@
               "bbox": [25.27, 77.9, 37.93, 81.15]
             }
           ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_rooms_BACK.pdf",
+          "page": 4,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "949f0f6960a537d2",
+          "spans": [],
+          "icons": [],
+          "lines": []
         }
       }
     },
@@ -1793,7 +1816,7 @@
               "bbox": [25.28, 10.27, 32.2, 12.48]
             },
             {
-              "iconId": "df3f26fabf",
+              "iconId": "cdbfb0c773",
               "bbox": [51.18, 10.43, 53.86, 11.77]
             },
             {
@@ -1934,7 +1957,7 @@
             },
             {
               "rot": 0,
-              "text": "{icon:df3f26fabf} 5",
+              "text": "{icon:cdbfb0c773} 5",
               "bbox": [51.18, 10.38, 53.86, 11.91]
             },
             {
@@ -2033,6 +2056,15 @@
               "bbox": [7.61, 77.61, 55.59, 82.2]
             }
           ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_rooms_BACK.pdf",
+          "page": 5,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "949f0f6960a537d2",
+          "spans": [],
+          "icons": [],
+          "lines": []
         }
       }
     },
@@ -2202,7 +2234,7 @@
               "bbox": [46.62, 10.3, 48.3, 12.56]
             },
             {
-              "iconId": "df3f26fabf",
+              "iconId": "cdbfb0c773",
               "bbox": [54.13, 10.57, 57.22, 12.11]
             },
             {
@@ -2385,7 +2417,7 @@
             },
             {
               "rot": 0,
-              "text": "{icon:df3f26fabf} 6",
+              "text": "{icon:cdbfb0c773} 6",
               "bbox": [54.13, 10.51, 57.22, 12.28]
             },
             {
@@ -2474,6 +2506,15 @@
               "bbox": [16.02, 75.49, 47.18, 79.71]
             }
           ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_rooms_BACK.pdf",
+          "page": 6,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "949f0f6960a537d2",
+          "spans": [],
+          "icons": [],
+          "lines": []
         }
       }
     },
@@ -2620,7 +2661,7 @@
               "bbox": [22.94, 10.33, 25.2, 12.53]
             },
             {
-              "iconId": "df3f26fabf",
+              "iconId": "cdbfb0c773",
               "bbox": [54.13, 10.57, 57.22, 12.11]
             },
             {
@@ -2655,7 +2696,8 @@
             },
             {
               "iconId": "cb6ab57f85",
-              "bbox": [22.94, 27.92, 25.2, 30.12]
+              "bbox": [22.94, 27.92, 25.2, 30.12],
+              "decor": true
             },
             {
               "iconId": "94cabe87a2",
@@ -2713,7 +2755,8 @@
             },
             {
               "iconId": "cb6ab57f85",
-              "bbox": [22.94, 45.73, 25.2, 47.95]
+              "bbox": [22.94, 45.73, 25.2, 47.95],
+              "decor": true
             },
             {
               "iconId": "0c43f8df7c",
@@ -2782,7 +2825,7 @@
             },
             {
               "rot": 0,
-              "text": "{icon:df3f26fabf} 7",
+              "text": "{icon:cdbfb0c773} 7",
               "bbox": [54.13, 10.51, 57.22, 12.28]
             },
             {
@@ -2799,11 +2842,6 @@
               "rot": 0,
               "text": "{icon:4115e26d69}",
               "bbox": [5.46, 27.88, 9.64, 30.25]
-            },
-            {
-              "rot": 0,
-              "text": "{icon:cb6ab57f85}",
-              "bbox": [22.94, 27.92, 25.2, 30.12]
             },
             {
               "rot": 0,
@@ -2824,11 +2862,6 @@
               "rot": 0,
               "text": "{icon:e3cf46f149}",
               "bbox": [5.46, 45.73, 7.72, 47.95]
-            },
-            {
-              "rot": 0,
-              "text": "{icon:cb6ab57f85}",
-              "bbox": [22.94, 45.73, 25.2, 47.95]
             },
             {
               "rot": 0,
@@ -2861,6 +2894,15 @@
               "bbox": [10.13, 74.03, 53.07, 77.88]
             }
           ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_rooms_BACK.pdf",
+          "page": 7,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "949f0f6960a537d2",
+          "spans": [],
+          "icons": [],
+          "lines": []
         }
       }
     },
@@ -3032,7 +3074,7 @@
               "bbox": [35.01, 10.26, 37.3, 12.52]
             },
             {
-              "iconId": "df3f26fabf",
+              "iconId": "cdbfb0c773",
               "bbox": [54.13, 10.57, 57.22, 12.11]
             },
             {
@@ -3139,11 +3181,11 @@
               "decor": true
             },
             {
-              "iconId": "14eeb2b269",
+              "iconId": "a30f4206b4",
               "bbox": [5.57, 45.91, 7.86, 48.18]
             },
             {
-              "iconId": "14eeb2b269",
+              "iconId": "a30f4206b4",
               "bbox": [40.75, 45.91, 43.04, 48.18]
             },
             {
@@ -3224,7 +3266,7 @@
             },
             {
               "rot": 0,
-              "text": "{icon:df3f26fabf} 8",
+              "text": "{icon:cdbfb0c773} 8",
               "bbox": [54.13, 10.51, 57.22, 12.28]
             },
             {
@@ -3254,12 +3296,12 @@
             },
             {
               "rot": 0,
-              "text": "{icon:14eeb2b269}",
+              "text": "{icon:a30f4206b4}",
               "bbox": [5.57, 45.91, 7.86, 48.18]
             },
             {
               "rot": 0,
-              "text": "{icon:14eeb2b269}",
+              "text": "{icon:a30f4206b4}",
               "bbox": [40.75, 45.91, 43.04, 48.18]
             },
             {
@@ -3293,6 +3335,15 @@
               "bbox": [23.98, 77.55, 39.22, 81.41]
             }
           ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_rooms_BACK.pdf",
+          "page": 8,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "949f0f6960a537d2",
+          "spans": [],
+          "icons": [],
+          "lines": []
         }
       }
     },
@@ -3487,11 +3538,11 @@
               "bbox": [24.57, 10.02, 26.51, 11.95]
             },
             {
-              "iconId": "3146107843",
+              "iconId": "6b21f3d094",
               "bbox": [44.82, 10.02, 46.25, 11.95]
             },
             {
-              "iconId": "df3f26fabf",
+              "iconId": "cdbfb0c773",
               "bbox": [50.86, 10.41, 53.5, 11.73]
             },
             {
@@ -3669,7 +3720,7 @@
             },
             {
               "rot": 0,
-              "text": "{icon:3146107843} {icon:df3f26fabf} 9",
+              "text": "{icon:6b21f3d094} {icon:cdbfb0c773} 9",
               "bbox": [44.82, 10.02, 53.5, 11.95]
             },
             {
@@ -3763,6 +3814,15 @@
               "bbox": [6.98, 79.42, 56.22, 83.27]
             }
           ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_rooms_BACK.pdf",
+          "page": 9,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "949f0f6960a537d2",
+          "spans": [],
+          "icons": [],
+          "lines": []
         }
       }
     },
@@ -3890,7 +3950,7 @@
               "bbox": [40.56, 10.23, 42.74, 12.36]
             },
             {
-              "iconId": "df3f26fabf",
+              "iconId": "cdbfb0c773",
               "bbox": [53.53, 10.53, 56.52, 12.02]
             },
             {
@@ -4018,7 +4078,7 @@
             },
             {
               "rot": 0,
-              "text": "{icon:df3f26fabf} 10",
+              "text": "{icon:cdbfb0c773} 10",
               "bbox": [53.53, 10.43, 56.52, 12.14]
             },
             {
@@ -4077,6 +4137,15 @@
               "bbox": [14.61, 80.0, 48.59, 83.86]
             }
           ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_rooms_BACK.pdf",
+          "page": 10,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "900f1f606fb425de",
+          "spans": [],
+          "icons": [],
+          "lines": []
         }
       }
     },
@@ -4168,7 +4237,7 @@
               "bbox": [40.73, 10.18, 42.91, 12.31]
             },
             {
-              "iconId": "df3f26fabf",
+              "iconId": "cdbfb0c773",
               "bbox": [53.53, 10.53, 56.52, 12.02]
             },
             {
@@ -4273,7 +4342,8 @@
             },
             {
               "iconId": "cb6ab57f85",
-              "bbox": [35.63, 44.93, 37.81, 47.06]
+              "bbox": [35.63, 44.93, 37.81, 47.06],
+              "decor": true
             },
             {
               "iconId": "e3cf46f149",
@@ -4331,7 +4401,7 @@
             },
             {
               "rot": 0,
-              "text": "{icon:df3f26fabf} 11",
+              "text": "{icon:cdbfb0c773} 11",
               "bbox": [53.53, 10.43, 56.52, 12.14]
             },
             {
@@ -4386,11 +4456,6 @@
             },
             {
               "rot": 0,
-              "text": "{icon:cb6ab57f85}",
-              "bbox": [35.63, 44.93, 37.81, 47.06]
-            },
-            {
-              "rot": 0,
               "text": "{icon:e3cf46f149}",
               "bbox": [47.18, 44.93, 49.36, 47.06]
             },
@@ -4420,6 +4485,15 @@
               "bbox": [27.01, 78.46, 36.19, 85.02]
             }
           ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_rooms_BACK.pdf",
+          "page": 11,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "900f1f606fb425de",
+          "spans": [],
+          "icons": [],
+          "lines": []
         }
       }
     },
@@ -4540,7 +4614,7 @@
               "bbox": [40.72, 10.23, 42.93, 12.41]
             },
             {
-              "iconId": "df3f26fabf",
+              "iconId": "cdbfb0c773",
               "bbox": [53.53, 10.53, 56.52, 12.02]
             },
             {
@@ -4610,7 +4684,8 @@
             },
             {
               "iconId": "cb6ab57f85",
-              "bbox": [6.64, 38.76, 8.82, 40.89]
+              "bbox": [6.64, 38.76, 8.82, 40.89],
+              "decor": true
             },
             {
               "iconId": "e3cf46f149",
@@ -4698,7 +4773,7 @@
             },
             {
               "rot": 0,
-              "text": "{icon:df3f26fabf} 12",
+              "text": "{icon:cdbfb0c773} 12",
               "bbox": [53.53, 10.43, 56.52, 12.14]
             },
             {
@@ -4720,11 +4795,6 @@
               "rot": 0,
               "text": "{icon:4115e26d69}",
               "bbox": [17.51, 32.77, 21.48, 35.06]
-            },
-            {
-              "rot": 0,
-              "text": "{icon:cb6ab57f85}",
-              "bbox": [6.64, 38.76, 8.82, 40.89]
             },
             {
               "rot": 0,
@@ -4762,6 +4832,15 @@
               "bbox": [10.88, 80.03, 52.32, 83.89]
             }
           ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_rooms_BACK.pdf",
+          "page": 12,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "900f1f606fb425de",
+          "spans": [],
+          "icons": [],
+          "lines": []
         }
       }
     }

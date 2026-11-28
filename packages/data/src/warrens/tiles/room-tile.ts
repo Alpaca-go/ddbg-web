@@ -19,7 +19,7 @@ export const warrensRoomTileSchema = z
       file: z.literal(WARRENS_TILES_FRONT),
       page: z.int().min(1).max(6),
       face: z.literal("front"),
-      back: z.union([z.literal(WARRENS_TILES_BACK), z.null()]),
+      back: z.literal(WARRENS_TILES_BACK),
     }),
     geometryVerified: z.literal(false),
     usable: z.literal(false),

@@ -411,9 +411,11 @@ export function buildWarrensCurios(raw: RawFile) {
     const icons = effectIcons(card);
     const name = NAMES[page - 1]!;
     const titleText = front.lines.map((line) => line.text.replace(/\{icon:[^}]+\}/g, "")).join(" ");
-    const backFile = card.faces.back?.file === WARRENS_CURIO_BACK ? WARRENS_CURIO_BACK : null;
+    const back = card.faces.back;
     if (
       front.file !== WARRENS_CURIO_FRONT ||
+      back?.file !== WARRENS_CURIO_BACK ||
+      back.page !== front.page ||
       card.source_set !== "extension" ||
       card.copies !== 1 ||
       JSON.stringify(card.pages) !== `[${page}]` ||
@@ -437,7 +439,7 @@ export function buildWarrensCurios(raw: RawFile) {
         .join(" ")
         .replace(/\s+/g, " ")
         .trim(),
-      source: { front: WARRENS_CURIO_FRONT, back: backFile, page },
+      source: { front: WARRENS_CURIO_FRONT, back: WARRENS_CURIO_BACK, page },
       rows: expected.map(([iconId, printed, effect, reason]) => ({
         iconId,
         printed: formatCurioPrintedRow(printed, iconId),

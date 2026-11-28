@@ -14,7 +14,7 @@ const verifiedEffectSchema = z.strictObject({
 
 const sourceSchema = z.strictObject({
   front: z.literal(WARRENS_ROOM_FRONT),
-  back: z.union([z.literal(WARRENS_ROOM_BACK), z.null()]),
+  back: z.literal(WARRENS_ROOM_BACK),
   page: z.int().min(1).max(9),
 });
 

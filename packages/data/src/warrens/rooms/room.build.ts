@@ -50,15 +50,15 @@ function verifiedEffect(page: number) {
 function assertRoomFace(
   raw: RawFile,
   page: number,
-): { readonly lines: readonly string[]; readonly page: number; readonly backFile: string | null } {
+): { readonly lines: readonly string[]; readonly page: number } {
   const card = raw.cards.find((entry) => entry.faces.front.page === page);
   if (!card) throw new Error(`raw 缺少 Warrens 房间 p${page}`);
   const front = card.faces.front;
   const back = card.faces.back;
   if (
     front.file !== WARRENS_ROOM_FRONT ||
-    (back?.file && back.file !== WARRENS_ROOM_BACK) ||
-    (back && back.page !== front.page) ||
+    back?.file !== WARRENS_ROOM_BACK ||
+    back.page !== front.page ||
     card.copies !== 1 ||
     card.id !== `room:warrens:p${String(front.page).padStart(3, "0")}`
   )
@@ -69,7 +69,6 @@ function assertRoomFace(
   return {
     lines: front.lines.map((line) => line.text),
     page: front.page,
-    backFile: back?.file ?? null,
   };
 }
 
@@ -79,7 +78,7 @@ export function buildWarrensRooms(raw: RawFile) {
     throw new Error("需要完整 Warrens Room raw（至少含普通房 p1–p9）");
   const cards: WarrensNormalRoomCard[] = Array.from({ length: 9 }, (_, index) => {
     const page = index + 1;
-    const { lines, backFile } = assertRoomFace(raw, page);
+    const { lines } = assertRoomFace(raw, page);
     const name = parsePrintedName(lines, page);
     if (name !== EXPECTED_NAMES[index])
       throw new Error(
@@ -95,7 +94,7 @@ export function buildWarrensRooms(raw: RawFile) {
       printedLines: [...lines],
       source: {
         front: WARRENS_ROOM_FRONT,
-        back: backFile === WARRENS_ROOM_BACK ? WARRENS_ROOM_BACK : null,
+        back: WARRENS_ROOM_BACK,
         page,
       },
       verifiedEffect: verifiedEffect(page),

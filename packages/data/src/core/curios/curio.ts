@@ -69,7 +69,7 @@ export const curioCardSchema = z
       }),
       z.strictObject({
         front: z.literal(WARRENS_CURIO_FRONT),
-        back: z.union([z.literal(WARRENS_CURIO_BACK), z.null()]),
+        back: z.literal(WARRENS_CURIO_BACK),
         page: z.int().min(1).max(16),
       }),
     ]),

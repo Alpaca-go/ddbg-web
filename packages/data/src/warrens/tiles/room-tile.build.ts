@@ -17,7 +17,7 @@ const ROOM_NAMES = [
 ] as const;
 
 const PENDING_GEOMETRY =
-  "待确认：Warrens Tiles 仅 FRONT 入库；背面几何、房间 07–09 板块对应与部署标记待印核（R-048）";
+  "待确认：Warrens 板块背面几何、房间 07–09 对应与部署标记待印核（R-048）；正反面页序已接 BACK PDF";
 
 function printLabel(raw: RawFile, page: number): (typeof PRINT_LABELS)[number] {
   const card = raw.cards.find((c) => c.faces.front.page === page);
@@ -43,7 +43,9 @@ export function buildWarrensRoomTiles(raw: RawFile, roomNames: readonly string[]
       card.id !== `dungeon_tile:warrens:p${String(page).padStart(3, "0")}`
     )
       throw new Error(`Warrens 板块 p${page} 来源或 ID 不一致`);
-    const back = card.faces.back?.file === WARRENS_TILES_BACK ? WARRENS_TILES_BACK : null;
+    const back = card.faces.back;
+    if (back?.file !== WARRENS_TILES_BACK || back.page !== page)
+      throw new Error(`Warrens 板块 p${page} 背面来源或页码不一致`);
     const label = printLabel(raw, page);
     if (label !== PRINT_LABELS[index])
       throw new Error(
@@ -61,7 +63,7 @@ export function buildWarrensRoomTiles(raw: RawFile, roomNames: readonly string[]
         file: WARRENS_TILES_FRONT,
         page,
         face: "front" as const,
-        back,
+        back: WARRENS_TILES_BACK,
       },
       geometryVerified: false as const,
       usable: false as const,

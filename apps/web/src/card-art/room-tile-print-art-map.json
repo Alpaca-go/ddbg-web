@@ -365,6 +365,6 @@
     "Mapped: 25 geometryVerified faces from the approved room_tile_geometry catalog.",
     "Other faces remain unmapped until their individual geometry is approved (R-048).",
     "PNG binaries gitignored; local cache required for battle underlay art.",
-    "Warrens 6 板块：仅 FRONT 导出；BACK 与 room 07–09 对应待印核。"
+    "Warrens 6 板块：正反面 BACK PDF 已写入 normalized source；geometryVerified 仍为 false，room 07–09 对应待印核（R-048）。"
   ]
 }

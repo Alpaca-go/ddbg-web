@@ -57,11 +57,6 @@ def main():
     for cat, obj in raw.items():
         for card in obj["cards"]:
             card["id"] = card["id"].replace(":extension:", ":warrens:", 1)
-        if cat == "room":
-            # Boss rooms p10–p12: keep in raw for print audit, flagged in sources warning.
-            src = obj["sources"][0]
-            if src.get("back") is None:
-                src["pending_back_pdf"] = "待确认：本机缺 Warrens rooms BACK PDF"
         dump(args.out / "raw" / f"{cat}.json", obj)
         print(f"{cat}: {obj['n_pages']} pages / {obj['n_unique']} unique", flush=True)
 

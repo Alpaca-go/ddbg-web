@@ -12,11 +12,11 @@
   "sources": [
     {
       "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
-      "back": null,
+      "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
       "source_set": "extension",
       "kind": "card",
       "front_pages": 16,
-      "back_pages": null
+      "back_pages": 16
     }
   ],
   "n_pages": 16,
@@ -178,6 +178,15 @@
               "bbox": [14.29, 60.77, 26.83, 78.75]
             }
           ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+          "page": 1,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "906b6f101bce26e7",
+          "spans": [],
+          "icons": [],
+          "lines": []
         }
       }
     },
@@ -356,6 +365,15 @@
               "bbox": [15.87, 71.51, 25.05, 78.45]
             }
           ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+          "page": 2,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "906b6f101bce26e7",
+          "spans": [],
+          "icons": [],
+          "lines": []
         }
       }
     },
@@ -539,6 +557,15 @@
               "bbox": [13.37, 70.43, 26.52, 83.58]
             }
           ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+          "page": 3,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "906b6f101bce26e7",
+          "spans": [],
+          "icons": [],
+          "lines": []
         }
       }
     },
@@ -718,6 +745,15 @@
               "bbox": [13.37, 70.43, 26.52, 83.58]
             }
           ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+          "page": 4,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "906b6f101bce26e7",
+          "spans": [],
+          "icons": [],
+          "lines": []
         }
       }
     },
@@ -897,6 +933,15 @@
               "bbox": [14.08, 71.99, 26.36, 80.23]
             }
           ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+          "page": 5,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "906b6f101bce26e7",
+          "spans": [],
+          "icons": [],
+          "lines": []
         }
       }
     },
@@ -1095,6 +1140,15 @@
               "bbox": [15.66, 71.51, 25.05, 78.45]
             }
           ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+          "page": 6,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "906b6f101bce26e7",
+          "spans": [],
+          "icons": [],
+          "lines": []
         }
       }
     },
@@ -1272,6 +1326,15 @@
               "bbox": [14.09, 71.99, 26.36, 80.23]
             }
           ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+          "page": 7,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "906b6f101bce26e7",
+          "spans": [],
+          "icons": [],
+          "lines": []
         }
       }
     },
@@ -1462,6 +1525,15 @@
               "bbox": [15.66, 71.64, 25.05, 78.58]
             }
           ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+          "page": 8,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "906b6f101bce26e7",
+          "spans": [],
+          "icons": [],
+          "lines": []
         }
       }
     },
@@ -1645,6 +1717,15 @@
               "bbox": [13.83, 70.01, 26.36, 84.61]
             }
           ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+          "page": 9,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "906b6f101bce26e7",
+          "spans": [],
+          "icons": [],
+          "lines": []
         }
       }
     },
@@ -1823,6 +1904,15 @@
               "bbox": [17.37, 71.8, 22.88, 78.24]
             }
           ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+          "page": 10,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "906b6f101bce26e7",
+          "spans": [],
+          "icons": [],
+          "lines": []
         }
       }
     },
@@ -2002,6 +2092,15 @@
               "bbox": [13.37, 70.43, 26.52, 83.58]
             }
           ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+          "page": 11,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "906b6f101bce26e7",
+          "spans": [],
+          "icons": [],
+          "lines": []
         }
       }
     },
@@ -2194,6 +2293,15 @@
               "bbox": [13.74, 70.01, 26.27, 84.61]
             }
           ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+          "page": 12,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "906b6f101bce26e7",
+          "spans": [],
+          "icons": [],
+          "lines": []
         }
       }
     },
@@ -2379,6 +2487,15 @@
               "bbox": [13.37, 70.43, 26.52, 83.58]
             }
           ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+          "page": 13,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "906b6f101bce26e7",
+          "spans": [],
+          "icons": [],
+          "lines": []
         }
       }
     },
@@ -2552,6 +2669,15 @@
               "bbox": [14.1, 71.99, 26.37, 80.23]
             }
           ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+          "page": 14,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "906b6f101bce26e7",
+          "spans": [],
+          "icons": [],
+          "lines": []
         }
       }
     },
@@ -2735,6 +2861,15 @@
               "bbox": [15.66, 71.51, 25.05, 78.45]
             }
           ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+          "page": 15,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "906b6f101bce26e7",
+          "spans": [],
+          "icons": [],
+          "lines": []
         }
       }
     },
@@ -2901,6 +3036,15 @@
               "bbox": [14.49, 71.99, 26.76, 80.23]
             }
           ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+          "page": 16,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "906b6f101bce26e7",
+          "spans": [],
+          "icons": [],
+          "lines": []
         }
       }
     }
