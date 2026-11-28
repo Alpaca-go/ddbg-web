@@ -168,23 +168,23 @@
         "enragedDamage": 12,
         "threats": {
           "dungeon": {
-            "name": "Uneasy Times II",
-            "hamletEffect": "survivalistDebuff",
-            "amount": 1
+            "name": "Bestial Bloodlust",
+            "effect": "beastMonsterDamageBonus",
+            "amount": 4
           },
           "hamlet": {
-            "name": "Bestial Bloodlust",
-            "dungeonEffect": "beastMonsterDamageBonus",
-            "amount": 4
+            "name": "Uneasy Times II",
+            "effect": "survivalistDebuff",
+            "amount": 1
           }
         }
       },
       "setup": {
-        "rule": "Warrens W4",
+        "rule": "Warrens rules p3",
         "princeStance": "aggressive",
         "wilburStance": "ranged",
         "wilburEngineStanceHold": "support",
-        "monsterInitiativeCards": 2,
+        "monsterInitiativeCards": 3,
         "heroInitiativeCards": 4
       }
     },
@@ -347,23 +347,23 @@
         "enragedDamage": 18,
         "threats": {
           "dungeon": {
-            "name": "Uneasy Times III",
-            "hamletEffect": "survivalistDebuff",
-            "amount": 2
+            "name": "Bestial Frenzy",
+            "effect": "beastMonsterDamageBonus",
+            "amount": 6
           },
           "hamlet": {
-            "name": "Bestial Bloodlust III",
-            "dungeonEffect": "beastMonsterDamageBonus",
-            "amount": 6
+            "name": "Uneasy Times III",
+            "effect": "survivalistDebuff",
+            "amount": 2
           }
         }
       },
       "setup": {
-        "rule": "Warrens W4",
+        "rule": "Warrens rules p3",
         "princeStance": "aggressive",
         "wilburStance": "ranged",
         "wilburEngineStanceHold": "support",
-        "monsterInitiativeCards": 2,
+        "monsterInitiativeCards": 3,
         "heroInitiativeCards": 4
       }
     }

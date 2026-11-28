@@ -88,24 +88,24 @@ export const warrensSwinePrinceIContentSchema = z.strictObject({
     ruleSummaries: z.array(z.string()).min(1),
     threats: z.strictObject({
       dungeon: z.strictObject({
-        name: z.literal("Uneasy Times I"),
-        summary: z.string(),
-        hamletEffect: z.literal("survivalistBlocked"),
-      }),
-      hamlet: z.strictObject({
         name: z.literal("Bestial Rage"),
         summary: z.string(),
-        dungeonEffect: z.literal("beastMonsterDamageBonus"),
+        effect: z.literal("beastMonsterDamageBonus"),
         amount: z.literal(2),
+      }),
+      hamlet: z.strictObject({
+        name: z.literal("Uneasy Times I"),
+        summary: z.string(),
+        effect: z.literal("survivalistBlocked"),
       }),
     }),
   }),
   setup: z.strictObject({
-    rule: z.literal("Warrens W4"),
+    rule: z.literal("Warrens rules p3"),
     princeStance: z.literal("aggressive"),
     wilburStance: z.literal("ranged"),
     wilburEngineStanceHold: z.literal("support"),
-    monsterInitiativeCards: z.literal(2),
+    monsterInitiativeCards: z.literal(3),
     heroInitiativeCards: z.literal(4),
   }),
   tile: warrensBossTileStubSchema,
@@ -127,14 +127,14 @@ export const warrensSwinePrinceHigherContentSchema = z.strictObject({
           enragedDamage: z.union([z.literal(12), z.literal(18)]),
           threats: z.strictObject({
             dungeon: z.strictObject({
-              name: z.enum(["Uneasy Times II", "Uneasy Times III"]),
-              hamletEffect: z.literal("survivalistDebuff"),
-              amount: z.union([z.literal(1), z.literal(2)]),
+              name: z.enum(["Bestial Bloodlust", "Bestial Frenzy"]),
+              effect: z.literal("beastMonsterDamageBonus"),
+              amount: z.union([z.literal(4), z.literal(6)]),
             }),
             hamlet: z.strictObject({
-              name: z.string(),
-              dungeonEffect: z.literal("beastMonsterDamageBonus"),
-              amount: z.union([z.literal(4), z.literal(6)]),
+              name: z.enum(["Uneasy Times II", "Uneasy Times III"]),
+              effect: z.literal("survivalistDebuff"),
+              amount: z.union([z.literal(1), z.literal(2)]),
             }),
           }),
         }),

@@ -4,7 +4,8 @@
   "runtimeReady": false,
   "pendingReview": [
     "Q-WARRENS-25：印刷 Wilbur 姿态标 Range，引擎 hold 仍映射 support；数据层记录 ranged，不修改 engine",
-    "Q-WARRENS-30：Enraged Destruction / Mark 图标化效果 combatReady 待批"
+    "Q-WARRENS-30：Enraged Destruction / Mark 图标化效果 combatReady 待批",
+    "Q-WARRENS-33：规则书 Swine Prince 先攻 3 张；引擎 hold 仍登记 printedInitiativeCards: 2"
   ],
   "sources": {
     "combatFront": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_140x140_monster_large_FRONT.pdf",
@@ -173,24 +174,24 @@
     ],
     "threats": {
       "dungeon": {
-        "name": "Uneasy Times I",
-        "summary": "Survivalist blocked",
-        "hamletEffect": "survivalistBlocked"
-      },
-      "hamlet": {
         "name": "Bestial Rage",
         "summary": "Beasts deal +2 damage",
-        "dungeonEffect": "beastMonsterDamageBonus",
+        "effect": "beastMonsterDamageBonus",
         "amount": 2
+      },
+      "hamlet": {
+        "name": "Uneasy Times I",
+        "summary": "Survivalist blocked",
+        "effect": "survivalistBlocked"
       }
     }
   },
   "setup": {
-    "rule": "Warrens W4",
+    "rule": "Warrens rules p3",
     "princeStance": "aggressive",
     "wilburStance": "ranged",
     "wilburEngineStanceHold": "support",
-    "monsterInitiativeCards": 2,
+    "monsterInitiativeCards": 3,
     "heroInitiativeCards": 4
   },
   "tile": {

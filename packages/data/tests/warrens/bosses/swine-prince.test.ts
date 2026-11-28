@@ -36,6 +36,9 @@ describe("Warrens Swine Prince 数据层", () => {
     expect(wilbur.faces.front.page).toBe(20);
     expect(approvedI.setup.wilburStance).toBe("ranged");
     expect(approvedI.setup.wilburEngineStanceHold).toBe("support");
+    expect(approvedI.setup.monsterInitiativeCards).toBe(3);
+    expect(approvedI.abilities.threats.dungeon.name).toBe("Bestial Rage");
+    expect(approvedI.abilities.threats.hamlet.name).toBe("Uneasy Times I");
     expect(approvedI.pendingReview.some((q) => q.startsWith("Q-WARRENS-25"))).toBe(true);
   });
 
