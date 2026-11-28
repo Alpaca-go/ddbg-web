@@ -160,6 +160,8 @@ export const rawFileSchema = z
         });
       }
     });
+    const frontOnlySources =
+      file.sources.length > 0 && file.sources.every((source) => source.back === null);
     file.cards.forEach((card, index) => {
       if (card.copies !== card.pages.length) {
         ctx.addIssue({
@@ -168,7 +170,7 @@ export const rawFileSchema = z
           path: ["cards", index, "copies"],
         });
       }
-      if (!card.faces.back && card.copies > 0 && file.kind === "card") {
+      if (!frontOnlySources && !card.faces.back && card.copies > 0 && file.kind === "card") {
         ctx.addIssue({
           code: "custom",
           message: "卡牌缺少背面",

@@ -1,0 +1,276 @@
+{
+  "schema": "ddbg-cove-quest-cards-v1",
+  "scope": "level_one_normal",
+  "excludedQuestIds": [
+    "quest:cove:p006",
+    "quest:cove:p007",
+    "quest:cove:p008",
+    "quest:cove:p009",
+    "quest:cove:p010",
+    "quest:cove:p011",
+    "quest:cove:p012",
+    "quest:cove:p013",
+    "quest:cove:p014",
+    "quest:cove:p015"
+  ],
+  "cards": [
+    {
+      "id": "quest:cove:p001",
+      "name": "Test the Waters",
+      "level": 1,
+      "restPoints": 12,
+      "printedLines": [
+        "{icon:e1c34ea8a2} I",
+        "12 Test the Waters",
+        "Now that the waters of the cove",
+        "have receded, it’s high time you",
+        "ventured there and collected a good",
+        "deal of samples. Not barnacles and dead fish mind",
+        "you, but the clues that will shed some light onto",
+        "what lives down there, and what threats you are",
+        "about to face in the imminent future...",
+        "SPECIAL RULES",
+        "Set aside Room Cards {icon:0db3807e84} 2 , {icon:0db3807e84} 5 , and",
+        "{icon:0db3807e84} 8 , when entering an Objective Room,",
+        "draw one of those cards at random. When",
+        "a Hero is in an Area {icon:9120cba1df} A of an Objective",
+        "Room, they can spend 2 actions to gather",
+        "a sample. Keep track of the samples by",
+        "placing Wounds on the Quest Card. The",
+        "Quest Card can not have more than 6 {icon:4d5b975539} .",
+        "XP",
+        "1 Xp/ 2 samples.",
+        "{icon:2efab15a07} 2 {icon:37173ff105} 1 {icon:584507e207} {icon:a2e7f1dd7b} 1",
+        "{icon:67dc216fc3} 1 {icon:a488fd5ff1} 1 {icon:2140042d06} 2"
+      ],
+      "specialRuleLines": [
+        "Set aside Room Cards {icon:0db3807e84} 2 , {icon:0db3807e84} 5 , and",
+        "{icon:0db3807e84} 8 , when entering an Objective Room,",
+        "draw one of those cards at random. When",
+        "a Hero is in an Area {icon:9120cba1df} A of an Objective",
+        "Room, they can spend 2 actions to gather",
+        "a sample. Keep track of the samples by",
+        "placing Wounds on the Quest Card. The",
+        "Quest Card can not have more than 6 {icon:4d5b975539} ."
+      ],
+      "distribution": {
+        "questId": "quest:cove:p001",
+        "source": "DD_EN_COVE_CARDS_70_120_quests_FRONT.pdf p1; FRONT-only; 已裁定同 hash: af3ce426ec→dark, 67dc216fc3→curio, a488fd5ff1→treasure; 待确认 hash: 2140042d06, 2efab15a07, 37173ff105, 584507e207（未写入 counts）",
+        "counts": [
+          {
+            "kind": "curio",
+            "count": 1
+          },
+          {
+            "kind": "treasure",
+            "count": 1
+          }
+        ]
+      },
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_quests_FRONT.pdf",
+        "back": null,
+        "page": 1
+      }
+    },
+    {
+      "id": "quest:cove:p002",
+      "name": "Deep Waters",
+      "level": 1,
+      "restPoints": 8,
+      "printedLines": [
+        "{icon:e1c34ea8a2} I",
+        "8 Deep Waters",
+        "It’s time you mapped out more",
+        "of the underground network",
+        "deep in the coves.",
+        "Swim to the submerged grotto and there",
+        "you’ll find an entrance to the vast caverns.",
+        "Explore as much as you can and map out",
+        "the area carefully. No one knows what",
+        "lurks down there.",
+        "SPECIAL RULES",
+        "Always initiate battle in Curio Rooms.",
+        "XP",
+        "1 Xp/ 2 Rooms cleared.",
+        "{icon:37173ff105} 1 {icon:af3ce426ec} 1 {icon:7608a63135} {icon:a2e7f1dd7b} 2",
+        "{icon:a488fd5ff1} 1 {icon:be78e95113} 2 {icon:2140042d06} 1"
+      ],
+      "specialRuleLines": ["Always initiate battle in Curio Rooms."],
+      "distribution": {
+        "questId": "quest:cove:p002",
+        "source": "DD_EN_COVE_CARDS_70_120_quests_FRONT.pdf p2; FRONT-only; 已裁定同 hash: af3ce426ec→dark, 67dc216fc3→curio, a488fd5ff1→treasure; 待确认 hash: 2140042d06, 37173ff105, 7608a63135, be78e95113（未写入 counts）",
+        "counts": [
+          {
+            "kind": "dark",
+            "count": 1
+          },
+          {
+            "kind": "treasure",
+            "count": 1
+          }
+        ]
+      },
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_quests_FRONT.pdf",
+        "back": null,
+        "page": 2
+      }
+    },
+    {
+      "id": "quest:cove:p003",
+      "name": "Deep Horrors",
+      "level": 1,
+      "restPoints": 12,
+      "printedLines": [
+        "{icon:e1c34ea8a2} I",
+        "12 Deep Horrors",
+        "It all starts with a threat known",
+        "as the Uca Major. A malevolent",
+        "eldritch nightmare that ravages the depths",
+        "of the cove. Head down there and finds its",
+        "lair, and deliver us from this evil crustacean",
+        "horror’s influence.",
+        "SPECIAL RULES",
+        "Objective Rooms always spawn",
+        "1 Uca Major first and then the",
+        "rest of the Monsters from the",
+        "Monster Deck as normal.",
+        "XP",
+        "1 Xp/ Uca Major killed.",
+        "{icon:2efab15a07} 3 {icon:04e53fa5cc} {icon:3ee6243549} 3",
+        "{icon:af3ce426ec} 1 {icon:2140042d06} 1"
+      ],
+      "specialRuleLines": [
+        "Objective Rooms always spawn",
+        "1 Uca Major first and then the",
+        "rest of the Monsters from the",
+        "Monster Deck as normal."
+      ],
+      "distribution": {
+        "questId": "quest:cove:p003",
+        "source": "DD_EN_COVE_CARDS_70_120_quests_FRONT.pdf p3; FRONT-only; 已裁定同 hash: af3ce426ec→dark, 67dc216fc3→curio, a488fd5ff1→treasure; 待确认 hash: 04e53fa5cc, 2140042d06, 2efab15a07, 3ee6243549（未写入 counts）",
+        "counts": [
+          {
+            "kind": "dark",
+            "count": 1
+          }
+        ]
+      },
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_quests_FRONT.pdf",
+        "back": null,
+        "page": 3
+      }
+    },
+    {
+      "id": "quest:cove:p004",
+      "name": "Unclean Waters",
+      "level": 1,
+      "restPoints": 12,
+      "printedLines": [
+        "{icon:e1c34ea8a2} I",
+        "12 Unclean Waters",
+        "The murky waters of the cove",
+        "didn’t used to be as such. The",
+        "mere presence of its unholy denizens",
+        "threatens our very own existence. If you",
+        "don’t put an end to them, it’s going to turn",
+        "into a fetid pool of virulent sickness. Head",
+        "down there and clean the fetid lair. Halt",
+        "the contamination for good.",
+        "SPECIAL RULES",
+        "When a Hero kills a Cove",
+        "Monster they suffer 2 {icon:c491fb0b8e} 3t.",
+        "XP",
+        "1 Xp/ Lair cleared.",
+        "{icon:37173ff105} 1 {icon:af3ce426ec} 1 {icon:7608a63135} {icon:a2e7f1dd7b} 1",
+        "{icon:a488fd5ff1} 1 {icon:be78e95113} 3 {icon:2140042d06} 1"
+      ],
+      "specialRuleLines": [
+        "When a Hero kills a Cove",
+        "Monster they suffer 2 {icon:c491fb0b8e} 3t."
+      ],
+      "distribution": {
+        "questId": "quest:cove:p004",
+        "source": "DD_EN_COVE_CARDS_70_120_quests_FRONT.pdf p4; FRONT-only; 已裁定同 hash: af3ce426ec→dark, 67dc216fc3→curio, a488fd5ff1→treasure; 待确认 hash: 2140042d06, 37173ff105, 7608a63135, be78e95113（未写入 counts）",
+        "counts": [
+          {
+            "kind": "dark",
+            "count": 1
+          },
+          {
+            "kind": "treasure",
+            "count": 1
+          }
+        ]
+      },
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_quests_FRONT.pdf",
+        "back": null,
+        "page": 4
+      }
+    },
+    {
+      "id": "quest:cove:p005",
+      "name": "Purify the Eldritch Signs",
+      "level": 1,
+      "restPoints": 12,
+      "printedLines": [
+        "{icon:e1c34ea8a2} I",
+        "12 Purify the Eldritch Signs",
+        "The emerging threat from the cove",
+        "can mean only one thing, that the",
+        "eldritch signs etched to the grotto’s",
+        "walls have been corrupted. Take these potions and",
+        "imbue them once more with the arcane energy",
+        "they require. Keep them active, to protect us from",
+        "the evil that resides down there.",
+        "SPECIAL RULES",
+        "Set aside Room Cards {icon:0db3807e84} 1 and {icon:0db3807e84} 9 .",
+        "When entering an Objective Room,",
+        "draw one of those cards at random",
+        "and at the end of the encounter set it",
+        "aside again. At the start of the Quest",
+        "you can turn any Provision to {icon:dfb88662b8} . Once",
+        "per battle, when a Hero is in an Area {icon:9120cba1df}",
+        "of an Objective Room they can discard",
+        "a Potion to purify the Eldritch Sign.",
+        "XP",
+        "1 Xp/ Eldritch Sign purified.",
+        "{icon:2efab15a07} 3 {icon:37173ff105} 1",
+        "{icon:af3ce426ec} 2 {icon:a488fd5ff1} 1 {icon:2140042d06} 1"
+      ],
+      "specialRuleLines": [
+        "Set aside Room Cards {icon:0db3807e84} 1 and {icon:0db3807e84} 9 .",
+        "When entering an Objective Room,",
+        "draw one of those cards at random",
+        "and at the end of the encounter set it",
+        "aside again. At the start of the Quest",
+        "you can turn any Provision to {icon:dfb88662b8} . Once",
+        "per battle, when a Hero is in an Area {icon:9120cba1df}",
+        "of an Objective Room they can discard",
+        "a Potion to purify the Eldritch Sign."
+      ],
+      "distribution": {
+        "questId": "quest:cove:p005",
+        "source": "DD_EN_COVE_CARDS_70_120_quests_FRONT.pdf p5; FRONT-only; 已裁定同 hash: af3ce426ec→dark, 67dc216fc3→curio, a488fd5ff1→treasure; 待确认 hash: 2140042d06, 2efab15a07, 37173ff105（未写入 counts）",
+        "counts": [
+          {
+            "kind": "dark",
+            "count": 2
+          },
+          {
+            "kind": "treasure",
+            "count": 1
+          }
+        ]
+      },
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_quests_FRONT.pdf",
+        "back": null,
+        "page": 5
+      }
+    }
+  ]
+}

@@ -16,6 +16,7 @@ BOSS_COMPONENTS = {
 COMPONENTS = {
     "curio": "DD_EN_COVE_CARDS_63x88_CURIO",
     "room": "DD_EN_COVE_CARDS_63x88_rooms",
+    "quest": "DD_EN_COVE_CARDS_70_120_quests",
 }
 
 
@@ -45,19 +46,23 @@ def main():
         ap.error("unknown category for this pack")
     selected = {kind: components[kind] for kind in categories}
     out = args.out or ROOT / "packages/data/extract/extension" / args.pack
-    K.SOURCES = [
-        (cat, (location / f"{stem}_FRONT.pdf").as_posix(),
-         (location / f"{stem}_BACK.pdf").as_posix(), "card", "extension")
-        for cat, stem in selected.items()
-    ]
+    sources = []
+    for cat, stem in selected.items():
+        front = (location / f"{stem}_FRONT.pdf").as_posix()
+        back_pdf = location / f"{stem}_BACK.pdf"
+        back = back_pdf.as_posix() if (K.PRINT_ROOT / back_pdf).is_file() else None
+        sources.append((cat, front, back, "card", "extension"))
+    K.SOURCES = sources
     for _, front, back, _, _ in K.SOURCES:
         for rel in (front, back):
-            if not (K.PRINT_ROOT / rel).is_file():
+            if rel and not (K.PRINT_ROOT / rel).is_file():
                 raise FileNotFoundError(K.PRINT_ROOT / rel)
     stage1.CACHE = ROOT / f"node_modules/.cache/{args.pack}-extract"
     results = {}
     for _, front, back, _, _ in K.SOURCES:
         for rel in (front, back):
+            if not rel:
+                continue
             print(f"Extracting {Path(rel).name}", flush=True)
             results[rel] = stage1.extract_file(rel)
     raw, _, _, _ = assemble.assemble(results)
