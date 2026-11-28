@@ -1,0 +1,741 @@
+{
+  "schema": "ddbg-parsed-v0",
+  "extractor_version": "1.0.4",
+  "category": "monster_large",
+  "source": "raw/extension/warrens/monster_large.json",
+  "field_notes": "name/type_position/level/skills as printed. hp = number inside the heart icon at the right edge; the rulebook (Core rules p.24 'Anatomy of a Monster Card') labels that element 'Life'. Other header numbers are kept unlabeled. resistances_icons/immunities_icons = icon ids under the printed labels (icon meaning not named). copy_variants = per-copy differing marker icon (Core rules p.17: 'note the color of the Monster Token displayed on each Monster Card').",
+  "icon_token": "{icon:<iconId>} = unannotated icon cluster, see icons/catalog.json",
+  "stats": {
+    "cards": 8,
+    "ok": 8,
+    "failed": 0,
+    "success_rate": 1.0
+  },
+  "failures": [],
+  "cards": [
+    {
+      "id": "monster_large:warrens:p001",
+      "copies": 1,
+      "pages": [1],
+      "name": "Swinetaur",
+      "type_position_raw": "Human - Beast - Front - Large",
+      "type_position_tags": ["Human", "Beast", "Front", "Large"],
+      "level": 2,
+      "hp": 40,
+      "hp_icon": "f7e863bff1",
+      "resistances_icons": ["1fd9f6ec6d"],
+      "immunities_icons": ["e0efaa8567"],
+      "skills": [
+        {
+          "slot": 1,
+          "name": "Pig Spear",
+          "block_bbox": [7.54, 73.55, 140.0, 96.28],
+          "target": "Crowded",
+          "crit": 1,
+          "crit_value": 11,
+          "acc": 9,
+          "acc_value": 6,
+          "effect_lines_raw": ["{icon:4bed6d9e94} Self {icon:f219f6a1d5} Pull 1"],
+          "lines_raw": [
+            "{icon:c530ee1106} 1 Pig Spear {icon:4eff074330} 1 {icon:76c992b316} Crowded {icon:76c992b316} {icon:76c992b316} {icon:76c992b316}",
+            "Crit 1 {icon:a94f653061} 11 Acc 9 {icon:a94f653061} 6",
+            "{icon:4bed6d9e94} Self {icon:f219f6a1d5} Pull 1"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "1",
+              "bbox": [53.93, 78.7, 54.97, 82.81],
+              "left_icon": "4eff074330"
+            }
+          ]
+        },
+        {
+          "slot": 2,
+          "name": "Boar Rush",
+          "block_bbox": [7.21, 96.28, 73.25, 122.5],
+          "target": "Furthest",
+          "crit": 2,
+          "crit_value": 17,
+          "acc": 9,
+          "acc_value": 11,
+          "effect_lines_raw": [
+            "{icon:4bed6d9e94} Self {icon:f219f6a1d5} Pull 2 {icon:1ebe37024a} {icon:1fd9f6ec6d} 1t"
+          ],
+          "lines_raw": [
+            "{icon:c530ee1106} 2 Boar Rush {icon:4eff074330} Furthest 2 {icon:76c992b316}",
+            "Crit 2 {icon:a94f653061} 17 Acc 9 {icon:a94f653061} 11",
+            "{icon:4bed6d9e94} Self {icon:f219f6a1d5} Pull 2 {icon:1ebe37024a} {icon:1fd9f6ec6d} 1t"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "2",
+              "bbox": [62.87, 101.19, 64.3, 105.3],
+              "left_icon": "4eff074330"
+            }
+          ]
+        },
+        {
+          "slot": 3,
+          "name": "Trot Retreat",
+          "block_bbox": [73.25, 96.28, 140.0, 122.5],
+          "target": "Closest",
+          "crit": 1,
+          "crit_value": 10,
+          "acc": 8,
+          "acc_value": 7,
+          "effect_lines_raw": [
+            "{icon:4bed6d9e94} Self {icon:f219f6a1d5} Push 2 {icon:1ebe37024a} {icon:1fd9f6ec6d} 1t"
+          ],
+          "lines_raw": [
+            "{icon:c530ee1106} 3 Trot Retreat {icon:4eff074330} Closest 1 {icon:76c992b316}",
+            "Crit 1 {icon:a94f653061} 10 Acc 8 {icon:a94f653061} 7",
+            "{icon:4bed6d9e94} Self {icon:f219f6a1d5} Push 2 {icon:1ebe37024a} {icon:1fd9f6ec6d} 1t"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "1",
+              "bbox": [127.87, 101.19, 128.9, 105.3],
+              "left_icon": "4eff074330"
+            }
+          ]
+        }
+      ],
+      "header_unlabeled_numbers": [
+        {
+          "text": "1",
+          "bbox": [23.32, 15.11, 24.73, 20.68],
+          "inside_icon": "1f5d70530d"
+        }
+      ],
+      "footer_lines_raw": [
+        "{icon:6477bbec5a} {icon:2026b89bfb} {icon:28b3fb3d2a} {icon:b904edf127} 3 {icon:151bee8e44} {icon:be477a0715} {icon:ad96a72545} {icon:e8402e9734} {icon:17fcb8f0af} {icon:c99190c354} {icon:fc53d58a42} 2 1 {icon:8b5ce59f3a} {icon:8b5ce59f3a} 6-10 1-5 {icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:5a1ae218a7}"
+      ],
+      "back_texts": [],
+      "issues": []
+    },
+    {
+      "id": "monster_large:warrens:p002",
+      "copies": 1,
+      "pages": [2],
+      "name": "Brigand Vvulf",
+      "type_position_raw": "Human - Large",
+      "type_position_tags": ["Human", "Large"],
+      "level": 1,
+      "hp": 66,
+      "hp_icon": "f7e863bff1",
+      "resistances_icons": ["ef857be884", "7aa7cf85c8"],
+      "immunities_icons": ["8ef288afbd", "283d952cc9"],
+      "skills": [
+        {
+          "slot": 1,
+          "name": "Get Them!",
+          "block_bbox": [7.54, 73.55, 140.0, 96.28],
+          "target": "Crowded",
+          "crit": 1,
+          "crit_value": 2,
+          "acc": 10,
+          "acc_value": 1,
+          "effect_lines_raw": ["{icon:1ebe37024a} {icon:1fd9f6ec6d} 1t , {icon:1cc634726b}"],
+          "lines_raw": [
+            "{icon:c530ee1106} 1 Get Them! {icon:4eff074330} Crowded 1 {icon:76c992b316} {icon:76c992b316}",
+            "Crit 1 {icon:a94f653061} 2 Acc 10 {icon:a94f653061} 1",
+            "{icon:1ebe37024a} {icon:1fd9f6ec6d} 1t , {icon:1cc634726b}"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "1",
+              "bbox": [59.87, 78.7, 60.91, 82.81],
+              "left_icon": "4eff074330"
+            }
+          ]
+        },
+        {
+          "slot": 2,
+          "name": "Tower Shield",
+          "block_bbox": [7.21, 96.28, 73.25, 122.5],
+          "effect_lines_raw": [
+            "{icon:4bed6d9e94} Self {icon:dd4eb8d030} 1t {icon:1ebe37024a} {icon:634e0cfb20}"
+          ],
+          "lines_raw": [
+            "{icon:c530ee1106} 2 Tower Shield",
+            "{icon:4bed6d9e94} Self {icon:dd4eb8d030} 1t {icon:1ebe37024a} {icon:634e0cfb20}"
+          ],
+          "unlabeled_numbers": []
+        },
+        {
+          "slot": 3,
+          "name": "Warcry",
+          "block_bbox": [73.25, 96.28, 140.0, 122.5],
+          "target": "Crowded",
+          "crit": 0,
+          "crit_value": 2,
+          "acc": 10,
+          "acc_value": 1,
+          "effect_lines_raw": ["{icon:1ebe37024a} {icon:a190601640} +1"],
+          "lines_raw": [
+            "{icon:c530ee1106} 3 Warcry {icon:4eff074330} Crowded 2 {icon:76c992b316} {icon:76c992b316}",
+            "Crit 0 {icon:a94f653061} 2 Acc 10 {icon:a94f653061} 1",
+            "{icon:1ebe37024a} {icon:a190601640} +1"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "2",
+              "bbox": [124.73, 101.19, 126.17, 105.3],
+              "left_icon": "4eff074330"
+            }
+          ]
+        }
+      ],
+      "header_unlabeled_numbers": [
+        {
+          "text": "0",
+          "bbox": [23.44, 15.11, 25.59, 20.68],
+          "inside_icon": "1f5d70530d"
+        }
+      ],
+      "footer_lines_raw": [
+        "{icon:a6bb9cc289} {icon:ccb59f53cc} {icon:829f12ba2c} {icon:f4d84068a2} {icon:e8402e9734} {icon:be477a0715} {icon:e3be4c99dc} {icon:f8f441a0ac} 3 {icon:8b5ce59f3a} {icon:8b5ce59f3a} {icon:8b5ce59f3a} 1 8-10 1-5 {icon:14fdb294fb} {icon:0f3c068d11} 1 {icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:5a1ae218a7}",
+        "{icon:7f4ed77130} {icon:bcaf8600be} {icon:e3be4c99dc} 2 6-7"
+      ],
+      "back_texts": ["I"],
+      "issues": []
+    },
+    {
+      "id": "monster_large:warrens:p003",
+      "copies": 1,
+      "pages": [3],
+      "name": "Brigand Vvulf",
+      "type_position_raw": "Human - Large",
+      "type_position_tags": ["Human", "Large"],
+      "level": 2,
+      "hp": 88,
+      "hp_icon": "f7e863bff1",
+      "resistances_icons": ["ef857be884", "7aa7cf85c8"],
+      "immunities_icons": ["8ef288afbd", "283d952cc9"],
+      "skills": [
+        {
+          "slot": 1,
+          "name": "Get Them!",
+          "block_bbox": [7.54, 73.55, 140.0, 96.28],
+          "target": "Crowded",
+          "crit": 1,
+          "crit_value": 4,
+          "acc": 11,
+          "acc_value": 2,
+          "effect_lines_raw": ["{icon:1ebe37024a} {icon:1fd9f6ec6d} 1t , {icon:1cc634726b}"],
+          "lines_raw": [
+            "{icon:c530ee1106} 1 Get Them! {icon:4eff074330} Crowded 1 {icon:76c992b316} {icon:76c992b316}",
+            "Crit 1 {icon:a94f653061} 4 Acc 11 {icon:a94f653061} 2",
+            "{icon:1ebe37024a} {icon:1fd9f6ec6d} 1t , {icon:1cc634726b}"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "1",
+              "bbox": [59.87, 78.7, 60.91, 82.81],
+              "left_icon": "4eff074330"
+            }
+          ]
+        },
+        {
+          "slot": 2,
+          "name": "Tower Shield",
+          "block_bbox": [7.21, 96.28, 73.25, 122.5],
+          "effect_lines_raw": [
+            "{icon:4bed6d9e94} Self {icon:dd4eb8d030} 1t {icon:1ebe37024a} {icon:634e0cfb20}"
+          ],
+          "lines_raw": [
+            "{icon:c530ee1106} 2 Tower Shield",
+            "{icon:4bed6d9e94} Self {icon:dd4eb8d030} 1t {icon:1ebe37024a} {icon:634e0cfb20}"
+          ],
+          "unlabeled_numbers": []
+        },
+        {
+          "slot": 3,
+          "name": "Warcry",
+          "block_bbox": [73.25, 96.28, 140.0, 122.5],
+          "target": "Crowded",
+          "crit": 0,
+          "crit_value": 4,
+          "acc": 11,
+          "acc_value": 2,
+          "effect_lines_raw": ["{icon:1ebe37024a} {icon:a190601640} +1"],
+          "lines_raw": [
+            "{icon:c530ee1106} 3 Warcry {icon:4eff074330} Crowded 2 {icon:76c992b316} {icon:76c992b316}",
+            "Crit 0 {icon:a94f653061} 4 Acc 11 {icon:a94f653061} 2",
+            "{icon:1ebe37024a} {icon:a190601640} +1"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "2",
+              "bbox": [124.73, 101.19, 126.17, 105.3],
+              "left_icon": "4eff074330"
+            }
+          ]
+        }
+      ],
+      "header_unlabeled_numbers": [
+        {
+          "text": "1",
+          "bbox": [23.81, 15.11, 25.21, 20.68],
+          "inside_icon": "1f5d70530d"
+        }
+      ],
+      "footer_lines_raw": [
+        "{icon:a6bb9cc289} {icon:ccb59f53cc} {icon:829f12ba2c} {icon:f4d84068a2} {icon:e8402e9734} {icon:be477a0715} {icon:e3be4c99dc} {icon:f8f441a0ac} 3 {icon:8b5ce59f3a} {icon:8b5ce59f3a} {icon:8b5ce59f3a} 1 8-10 1-5 {icon:14fdb294fb} {icon:0f3c068d11} 1 {icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:5a1ae218a7}",
+        "{icon:7f4ed77130} {icon:bcaf8600be} {icon:e3be4c99dc} 2 6-7"
+      ],
+      "back_texts": ["II"],
+      "issues": []
+    },
+    {
+      "id": "monster_large:warrens:p004",
+      "copies": 1,
+      "pages": [4],
+      "name": "Brigand Vvulf",
+      "type_position_raw": "Human - Large",
+      "type_position_tags": ["Human", "Large"],
+      "level": 3,
+      "hp": 111,
+      "hp_icon": "f7e863bff1",
+      "resistances_icons": ["ef857be884", "7aa7cf85c8"],
+      "immunities_icons": ["8ef288afbd", "283d952cc9"],
+      "skills": [
+        {
+          "slot": 1,
+          "name": "Get Them!",
+          "block_bbox": [7.54, 73.55, 140.0, 96.28],
+          "target": "Crowded",
+          "crit": 1,
+          "crit_value": 6,
+          "acc": 12,
+          "acc_value": 3,
+          "effect_lines_raw": ["{icon:1ebe37024a} {icon:1fd9f6ec6d} 1t , {icon:1cc634726b}"],
+          "lines_raw": [
+            "{icon:c530ee1106} 1 Get Them! {icon:4eff074330} Crowded 1 {icon:76c992b316} {icon:76c992b316}",
+            "Crit 1 {icon:a94f653061} 6 Acc 12 {icon:a94f653061} 3",
+            "{icon:1ebe37024a} {icon:1fd9f6ec6d} 1t , {icon:1cc634726b}"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "1",
+              "bbox": [59.87, 78.7, 60.91, 82.81],
+              "left_icon": "4eff074330"
+            }
+          ]
+        },
+        {
+          "slot": 2,
+          "name": "Tower Shield",
+          "block_bbox": [7.21, 96.28, 73.25, 122.5],
+          "effect_lines_raw": [
+            "{icon:4bed6d9e94} Self {icon:dd4eb8d030} 1t {icon:1ebe37024a} {icon:634e0cfb20}"
+          ],
+          "lines_raw": [
+            "{icon:c530ee1106} 2 Tower Shield",
+            "{icon:4bed6d9e94} Self {icon:dd4eb8d030} 1t {icon:1ebe37024a} {icon:634e0cfb20}"
+          ],
+          "unlabeled_numbers": []
+        },
+        {
+          "slot": 3,
+          "name": "Warcry",
+          "block_bbox": [73.25, 96.28, 140.0, 122.5],
+          "target": "Crowded",
+          "crit": 0,
+          "crit_value": 6,
+          "acc": 12,
+          "acc_value": 3,
+          "effect_lines_raw": ["{icon:1ebe37024a} {icon:a190601640} +1"],
+          "lines_raw": [
+            "{icon:c530ee1106} 3 Warcry {icon:4eff074330} Crowded 2 {icon:76c992b316} {icon:76c992b316}",
+            "Crit 0 {icon:a94f653061} 6 Acc 12 {icon:a94f653061} 3",
+            "{icon:1ebe37024a} {icon:a190601640} +1"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "2",
+              "bbox": [124.73, 101.19, 126.17, 105.3],
+              "left_icon": "4eff074330"
+            }
+          ]
+        }
+      ],
+      "header_unlabeled_numbers": [
+        {
+          "text": "2",
+          "bbox": [23.54, 15.11, 25.48, 20.68],
+          "inside_icon": "1f5d70530d"
+        }
+      ],
+      "footer_lines_raw": [
+        "{icon:a6bb9cc289} {icon:ccb59f53cc} {icon:829f12ba2c} {icon:f4d84068a2} {icon:e8402e9734} {icon:be477a0715} {icon:e3be4c99dc} {icon:f8f441a0ac} 3 {icon:8b5ce59f3a} {icon:8b5ce59f3a} {icon:8b5ce59f3a} 1 8-10 1-5 {icon:14fdb294fb} {icon:0f3c068d11} 1 {icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:5a1ae218a7}",
+        "{icon:7f4ed77130} {icon:bcaf8600be} {icon:e3be4c99dc} 2 6-7"
+      ],
+      "back_texts": ["III"],
+      "issues": []
+    },
+    {
+      "id": "monster_large:warrens:p005",
+      "copies": 1,
+      "pages": [5],
+      "name": "Swine Prince",
+      "type_position_raw": "Beast - Large",
+      "type_position_tags": ["Beast", "Large"],
+      "level": 1,
+      "hp": 84,
+      "hp_icon": "f7e863bff1",
+      "resistances_icons": [],
+      "immunities_icons": ["8ef288afbd", "283d952cc9"],
+      "skills": [
+        {
+          "slot": 1,
+          "name": "Obliterate Body",
+          "block_bbox": [7.54, 73.55, 140.0, 96.28],
+          "target": "Marked- > Closest",
+          "crit": 1,
+          "crit_value": 11,
+          "acc": 10,
+          "acc_value": 7,
+          "effect_lines_raw": ["{icon:1ebe37024a} {icon:a94f653061} +7 vs {icon:1f0d3ea72b}"],
+          "lines_raw": [
+            "{icon:c530ee1106} 1 Obliterate Body Marked- > Closest {icon:4eff074330} 1 {icon:76c992b316}",
+            "Crit 1 {icon:a94f653061} 11 Acc 10 {icon:a94f653061} 7",
+            "{icon:1ebe37024a} {icon:a94f653061} +7 vs {icon:1f0d3ea72b}"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "1",
+              "bbox": [62.35, 78.7, 63.38, 82.81],
+              "left_icon": "4eff074330"
+            }
+          ]
+        },
+        {
+          "slot": 2,
+          "name": "Obliterate Masses",
+          "block_bbox": [7.21, 96.28, 73.25, 122.5],
+          "target": "Crowded",
+          "crit": 1,
+          "crit_value": 8,
+          "acc": 10,
+          "acc_value": 5,
+          "effect_lines_raw": ["{icon:1ebe37024a} {icon:a94f653061} +5 vs {icon:1f0d3ea72b}"],
+          "lines_raw": [
+            "{icon:c530ee1106} 2 Obliterate Masses {icon:4eff074330} Crowded 1 {icon:76c992b316} {icon:76c992b316}",
+            "Crit 1 {icon:a94f653061} 8 Acc 10 {icon:a94f653061} 5",
+            "{icon:1ebe37024a} {icon:a94f653061} +5 vs {icon:1f0d3ea72b}"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "1",
+              "bbox": [59.31, 101.19, 60.34, 105.3],
+              "left_icon": "4eff074330"
+            }
+          ]
+        },
+        {
+          "slot": 3,
+          "name": "Wild Flailing",
+          "block_bbox": [73.25, 96.28, 140.0, 122.5],
+          "target": "Closest",
+          "crit": 1,
+          "crit_value": 11,
+          "acc": 8,
+          "acc_value": 7,
+          "effect_lines_raw": [],
+          "lines_raw": [
+            "{icon:c530ee1106} 3 Wild Flailing {icon:4eff074330} Closest 1 {icon:76c992b316}",
+            "Crit 1 {icon:a94f653061} 11 Acc 8 {icon:a94f653061} 7"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "1",
+              "bbox": [127.87, 101.19, 128.9, 105.3],
+              "left_icon": "4eff074330"
+            }
+          ]
+        }
+      ],
+      "header_unlabeled_numbers": [
+        {
+          "text": "0",
+          "bbox": [22.95, 15.11, 25.1, 20.68],
+          "inside_icon": "1f5d70530d"
+        }
+      ],
+      "footer_lines_raw": [
+        "{icon:a6bb9cc289} {icon:f4d84068a2} {icon:a6bb9cc289} {icon:f4d84068a2} {icon:e8402e9734} {icon:be477a0715} {icon:e8402e9734} {icon:25fa697026} {icon:c99190c354} {icon:f8f441a0ac} 3 1 {icon:8b5ce59f3a} {icon:8b5ce59f3a} {icon:8b5ce59f3a} 9-10 1-4 {icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:5a1ae218a7}",
+        "{icon:7f4ed77130} {icon:bcaf8600be} {icon:bf56fec65f} {icon:5abee514e8} 2 5-8"
+      ],
+      "back_texts": ["I"],
+      "issues": []
+    },
+    {
+      "id": "monster_large:warrens:p006",
+      "copies": 1,
+      "pages": [6],
+      "name": "Swine Prince",
+      "type_position_raw": "Beast - Large",
+      "type_position_tags": ["Beast", "Large"],
+      "level": 2,
+      "hp": 121,
+      "hp_icon": "f7e863bff1",
+      "resistances_icons": [],
+      "immunities_icons": ["8ef288afbd", "283d952cc9"],
+      "skills": [
+        {
+          "slot": 1,
+          "name": "Obliterate Body",
+          "block_bbox": [7.54, 73.55, 140.0, 96.28],
+          "target": "Marked- > Closest",
+          "crit": 1,
+          "crit_value": 14,
+          "acc": 11,
+          "acc_value": 9,
+          "effect_lines_raw": ["{icon:1ebe37024a} {icon:a94f653061} +9 vs {icon:1f0d3ea72b}"],
+          "lines_raw": [
+            "{icon:c530ee1106} 1 Obliterate Body Marked- > Closest {icon:4eff074330} 1 {icon:76c992b316}",
+            "Crit 1 {icon:a94f653061} 14 Acc 11 {icon:a94f653061} 9",
+            "{icon:1ebe37024a} {icon:a94f653061} +9 vs {icon:1f0d3ea72b}"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "1",
+              "bbox": [62.59, 78.7, 63.63, 82.81],
+              "left_icon": "4eff074330"
+            }
+          ]
+        },
+        {
+          "slot": 2,
+          "name": "Obliterate Masses",
+          "block_bbox": [7.21, 96.28, 73.25, 122.5],
+          "target": "Crowded",
+          "crit": 1,
+          "crit_value": 12,
+          "acc": 11,
+          "acc_value": 7,
+          "effect_lines_raw": ["{icon:1ebe37024a} {icon:a94f653061} +7 vs {icon:1f0d3ea72b}"],
+          "lines_raw": [
+            "{icon:c530ee1106} 2 Obliterate Masses {icon:4eff074330} Crowded 1 {icon:76c992b316} {icon:76c992b316}",
+            "Crit 1 {icon:a94f653061} 12 Acc 11 {icon:a94f653061} 7",
+            "{icon:1ebe37024a} {icon:a94f653061} +7 vs {icon:1f0d3ea72b}"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "1",
+              "bbox": [59.31, 101.19, 60.34, 105.3],
+              "left_icon": "4eff074330"
+            }
+          ]
+        },
+        {
+          "slot": 3,
+          "name": "Wild Flailing",
+          "block_bbox": [73.25, 96.28, 140.0, 122.5],
+          "target": "Closest",
+          "crit": 1,
+          "crit_value": 14,
+          "acc": 9,
+          "acc_value": 9,
+          "effect_lines_raw": [],
+          "lines_raw": [
+            "{icon:c530ee1106} 3 Wild Flailing {icon:4eff074330} Closest 1 {icon:76c992b316}",
+            "Crit 1 {icon:a94f653061} 14 Acc 9 {icon:a94f653061} 9"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "1",
+              "bbox": [127.87, 101.19, 128.9, 105.3],
+              "left_icon": "4eff074330"
+            }
+          ]
+        }
+      ],
+      "header_unlabeled_numbers": [
+        {
+          "text": "1",
+          "bbox": [23.32, 15.11, 24.73, 20.68],
+          "inside_icon": "1f5d70530d"
+        }
+      ],
+      "footer_lines_raw": [
+        "{icon:a6bb9cc289} {icon:f4d84068a2} {icon:a6bb9cc289} {icon:f4d84068a2} {icon:e8402e9734} {icon:be477a0715} {icon:e8402e9734} {icon:25fa697026} {icon:c99190c354} {icon:f8f441a0ac} 3 1 {icon:8b5ce59f3a} {icon:8b5ce59f3a} {icon:8b5ce59f3a} 9-10 1-4 {icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:5a1ae218a7}",
+        "{icon:7f4ed77130} {icon:bcaf8600be} {icon:bf56fec65f} {icon:5abee514e8} 2 5-8"
+      ],
+      "back_texts": ["II"],
+      "issues": []
+    },
+    {
+      "id": "monster_large:warrens:p007",
+      "copies": 1,
+      "pages": [7],
+      "name": "Swine Prince",
+      "type_position_raw": "Beast - Large",
+      "type_position_tags": ["Beast", "Large"],
+      "level": 3,
+      "hp": 171,
+      "hp_icon": "f7e863bff1",
+      "resistances_icons": [],
+      "immunities_icons": ["8ef288afbd", "283d952cc9"],
+      "skills": [
+        {
+          "slot": 1,
+          "name": "Obliterate Body",
+          "block_bbox": [7.54, 73.55, 140.0, 96.28],
+          "target": "Marked- > Closest",
+          "crit": 1,
+          "crit_value": 20,
+          "acc": 12,
+          "acc_value": 12,
+          "effect_lines_raw": ["{icon:1ebe37024a} {icon:a94f653061} +12 vs {icon:1f0d3ea72b}"],
+          "lines_raw": [
+            "{icon:c530ee1106} 1 Obliterate Body Marked- > Closest {icon:4eff074330} 1 {icon:76c992b316}",
+            "Crit 1 {icon:a94f653061} 20 Acc 12 {icon:a94f653061} 12",
+            "{icon:1ebe37024a} {icon:a94f653061} +12 vs {icon:1f0d3ea72b}"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "1",
+              "bbox": [62.59, 78.7, 63.63, 82.81],
+              "left_icon": "4eff074330"
+            }
+          ]
+        },
+        {
+          "slot": 2,
+          "name": "Obliterate Masses",
+          "block_bbox": [7.21, 96.28, 73.25, 122.5],
+          "target": "Crowded",
+          "crit": 1,
+          "crit_value": 15,
+          "acc": 12,
+          "acc_value": 9,
+          "effect_lines_raw": ["{icon:1ebe37024a} {icon:a94f653061} +9 vs {icon:1f0d3ea72b}"],
+          "lines_raw": [
+            "{icon:c530ee1106} 2 Obliterate Masses {icon:4eff074330} Crowded 1 {icon:76c992b316} {icon:76c992b316}",
+            "Crit 1 {icon:a94f653061} 15 Acc 12 {icon:a94f653061} 9",
+            "{icon:1ebe37024a} {icon:a94f653061} +9 vs {icon:1f0d3ea72b}"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "1",
+              "bbox": [59.31, 101.19, 60.34, 105.3],
+              "left_icon": "4eff074330"
+            }
+          ]
+        },
+        {
+          "slot": 3,
+          "name": "Wild Flailing",
+          "block_bbox": [73.25, 96.28, 140.0, 122.5],
+          "target": "Closest",
+          "crit": 1,
+          "crit_value": 20,
+          "acc": 10,
+          "acc_value": 12,
+          "effect_lines_raw": [],
+          "lines_raw": [
+            "{icon:c530ee1106} 3 Wild Flailing {icon:4eff074330} Closest 1 {icon:76c992b316}",
+            "Crit 1 {icon:a94f653061} 20 Acc 10 {icon:a94f653061} 12"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "1",
+              "bbox": [127.87, 101.19, 128.9, 105.3],
+              "left_icon": "4eff074330"
+            }
+          ]
+        }
+      ],
+      "header_unlabeled_numbers": [
+        {
+          "text": "2",
+          "bbox": [23.05, 15.11, 24.99, 20.68],
+          "inside_icon": "1f5d70530d"
+        }
+      ],
+      "footer_lines_raw": [
+        "{icon:a6bb9cc289} {icon:f4d84068a2} {icon:a6bb9cc289} {icon:f4d84068a2} {icon:e8402e9734} {icon:be477a0715} {icon:e8402e9734} {icon:25fa697026} {icon:c99190c354} {icon:f8f441a0ac} 3 1 {icon:8b5ce59f3a} {icon:8b5ce59f3a} {icon:8b5ce59f3a} 9-10 1-4 {icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:5a1ae218a7}",
+        "{icon:7f4ed77130} {icon:bcaf8600be} {icon:bf56fec65f} {icon:5abee514e8} 2 5-8"
+      ],
+      "back_texts": ["III"],
+      "issues": []
+    },
+    {
+      "id": "monster_large:warrens:p008",
+      "copies": 1,
+      "pages": [8],
+      "name": "Large Carrion Eater",
+      "type_position_raw": "Beast - Front - Large",
+      "type_position_tags": ["Beast", "Front", "Large"],
+      "level": 2,
+      "hp": 33,
+      "hp_icon": "f7e863bff1",
+      "resistances_icons": ["90f31e3c26", "e0efaa8567"],
+      "immunities_icons": ["6c12667a2a"],
+      "skills": [
+        {
+          "slot": 1,
+          "name": "Weaken Prey",
+          "block_bbox": [8.71, 96.53, 75.04, 122.5],
+          "target": "Closest",
+          "crit": 1,
+          "crit_value": 6,
+          "acc": 10,
+          "acc_value": 4,
+          "effect_lines_raw": ["{icon:1ebe37024a} {icon:4eacc949a3} 2t , {icon:1f0d3ea72b} 2t"],
+          "lines_raw": [
+            "{icon:c530ee1106} 1 Weaken Prey {icon:4eff074330} Closest 1 {icon:76c992b316}",
+            "Crit 1 {icon:a94f653061} 6 Acc 10 {icon:a94f653061} 4",
+            "{icon:1ebe37024a} {icon:4eacc949a3} 2t , {icon:1f0d3ea72b} 2t"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "1",
+              "bbox": [62.87, 101.94, 63.91, 106.05],
+              "left_icon": "4eff074330"
+            }
+          ]
+        },
+        {
+          "slot": 2,
+          "name": "Tentacle Devour",
+          "block_bbox": [75.04, 96.78, 140.0, 122.5],
+          "target": "Closest",
+          "crit": 2,
+          "crit_value": 16,
+          "acc": 10,
+          "acc_value": 10,
+          "effect_lines_raw": [
+            "{icon:1ebe37024a} {icon:a94f653061} +5 vs {icon:1f0d3ea72b} , {icon:519d5e2d75} 1t"
+          ],
+          "lines_raw": [
+            "{icon:c530ee1106} 2 Tentacle Devour {icon:4eff074330} Closest 1 {icon:76c992b316}",
+            "Crit 2 {icon:a94f653061} 16 Acc 10 {icon:a94f653061} 10",
+            "{icon:1ebe37024a} {icon:a94f653061} +5 vs {icon:1f0d3ea72b} , {icon:519d5e2d75} 1t"
+          ],
+          "unlabeled_numbers": [
+            {
+              "text": "1",
+              "bbox": [127.87, 101.94, 128.9, 106.05],
+              "left_icon": "4eff074330"
+            }
+          ]
+        }
+      ],
+      "header_unlabeled_numbers": [
+        {
+          "text": "1",
+          "bbox": [23.32, 15.11, 24.73, 20.68],
+          "inside_icon": "1f5d70530d"
+        }
+      ],
+      "footer_lines_raw": [
+        "{icon:a6bb9cc289} {icon:f4d84068a2} {icon:7f4ed77130} {icon:a6bb9cc289} {icon:f4d84068a2} {icon:bcaf8600be} {icon:e8402e9734} {icon:be477a0715} {icon:bf56fec65f} {icon:e8402e9734} {icon:25fa697026} {icon:c99190c354} {icon:2777bdcc5b} {icon:8b5ce59f3a} 2 1 {icon:8b5ce59f3a} 6-10 1-5 {icon:008b352b2d} {icon:cc43dc238b} {icon:42c2d59e59} {icon:5a1ae218a7}"
+      ],
+      "back_texts": [],
+      "issues": []
+    }
+  ]
+}

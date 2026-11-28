@@ -3,6 +3,10 @@ import {
   lookupPrintMonsterFace,
   type PrintMonsterArtEntry,
 } from "./resolve-print-monster-art";
+import {
+  cachedPrintWarrensMonsterUrl,
+  lookupPrintWarrensMonsterFace,
+} from "./resolve-warrens-monster-art";
 
 export type MonsterArtPrint = {
   readonly kind: "print";
@@ -17,6 +21,14 @@ export function resolveMonsterArt(monsterCardId: string): MonsterArtResolved | u
   const print = lookupPrintMonsterFace(monsterCardId);
   if (print) {
     return { kind: "print", entry: print, imageUrl: cachedPrintMonsterUrl(print) };
+  }
+  const warrens = lookupPrintWarrensMonsterFace(monsterCardId);
+  if (warrens) {
+    return {
+      kind: "print",
+      entry: warrens as unknown as PrintMonsterArtEntry,
+      imageUrl: cachedPrintWarrensMonsterUrl(warrens),
+    };
   }
   return undefined;
 }

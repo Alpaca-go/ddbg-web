@@ -14,6 +14,8 @@ import wealdTiles from "../../normalized/extension/weald/room_tile_geometry.json
 import wealdStygian from "../../normalized/extension/weald/stygian_rooms.json";
 import wealdQuests from "../../normalized/extension/weald/quest_cards.json";
 import wealdHigherQuests from "../../normalized/extension/weald/higher_quests.json";
+import warrensMedium from "../../normalized/extension/warrens/monster_medium.json";
+import warrensLarge from "../../normalized/extension/warrens/monster_large.json";
 import heroStats from "../../normalized/corebox/hero_stat.json";
 import heroSkills from "../../normalized/corebox/hero_skill.json";
 import hamlet from "../../normalized/corebox/hamlet_event.json";
@@ -69,6 +71,8 @@ it("核心和扩展正式目录的实体 ID 唯一，核心 Boss 引用解析到
     ...wealdLarge.cards,
     ...wealdHigherMonsters.cards,
     ...wealdQuestExceptionMonsters.cards,
+    ...warrensMedium.cards,
+    ...warrensLarge.cards,
   ];
   expect(new Set(cards.map((card) => card.id)).size).toBe(cards.length);
 

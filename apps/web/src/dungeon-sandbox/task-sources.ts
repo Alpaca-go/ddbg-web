@@ -2,7 +2,7 @@ import wealdMedium from "../../../../packages/data/normalized/extension/weald/mo
 import wealdLarge from "../../../../packages/data/normalized/extension/weald/monster_large.json";
 import wealdCurios from "../../../../packages/data/normalized/extension/weald/curio.json";
 import { wealdCurioFileSchema } from "../../../../packages/data/src/core/curios/curio";
-import { createTrinketPool } from "@ddbg/engine";
+import { createTrinketPool, withWarrensMonsterSources } from "@ddbg/engine";
 import type { CoreQuestSources } from "@ddbg/engine";
 import { battleData } from "virtual:battle-data";
 import { battleData as questBattleData } from "virtual:quest-battle-data";
@@ -39,7 +39,7 @@ export const preBossTaskSources: CoreQuestSources = {
   },
 };
 
-export const taskSources: CoreQuestSources = {
+export const taskSources: CoreQuestSources = withWarrensMonsterSources({
   weald: {
     medium: wealdMedium,
     large: wealdLarge,
@@ -50,7 +50,7 @@ export const taskSources: CoreQuestSources = {
     ...preBossTaskSources.catalog,
     monsters: [...preBossQuestBattleData.monsters, ...bossMonsters],
   },
-};
+});
 
 /** R-215 之前的固定属性目录。只供旧档完整回放，绝不读取存档自带的属性作规则。 */
 export const preHeroStatReviewTaskSources: CoreQuestSources = {

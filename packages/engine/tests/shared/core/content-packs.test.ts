@@ -19,6 +19,9 @@ import { resolveScriptIdForDescriptionCard } from "../../../src/core/bosses/thre
 import { HAG_I_DESCRIPTION_ABILITY_CARD_ID } from "../../../src/weald/bosses/hag/hag-i";
 import coveCurio from "../../../../data/normalized/extension/cove/curio.json";
 import coveRoom from "../../../../data/normalized/extension/cove/room.json";
+import warrensMedium from "../../../../data/normalized/extension/warrens/monster_medium.json";
+import warrensLarge from "../../../../data/normalized/extension/warrens/monster_large.json";
+import { buildWarrensMonsterCatalogViews } from "../../../src/warrens/monsters/warrens-monster-catalog";
 import { coveCurioFileSchema } from "../../../../data/src/core/curios/curio";
 import { coveRoomFileSchema } from "../../../../data/src/cove/rooms/room";
 
@@ -99,6 +102,30 @@ it("核心包单独启用时，十八名英雄及全部等级技能仍可开局�
   }
   const game = campaign();
   expect(replacementHeroCandidates(game.dungeon!)).toHaveLength(14);
+});
+
+it("Warrens 普通怪物目录仅在勾选 Warrens 包时进入战役来源", () => {
+  const warrensViews = buildWarrensMonsterCatalogViews(warrensMedium, warrensLarge);
+  const sources = {
+    ...coreQuestSources,
+    warrens: { medium: warrensMedium, large: warrensLarge },
+    catalog: {
+      ...coreQuestSources.catalog,
+      monsters: [...coreQuestSources.catalog.monsters, ...warrensViews],
+    },
+  };
+  expect(sourcesForContentPacks(sources, ["core"]).warrens).toBeUndefined();
+  const coreWarrensIds = sourcesForContentPacks(sources, ["core"])
+    .catalog.monsters.filter((c) => c.id.startsWith("monster_"))
+    .map((c) => c.id);
+  expect(coreWarrensIds.every((id) => !id.includes(":warrens:"))).toBe(true);
+  const enabled = sourcesForContentPacks(sources, ["core", "warrens"]);
+  expect(enabled.warrens?.medium).toBe(warrensMedium);
+  const warrensIds = enabled.catalog.monsters
+    .filter((c) => c.id.includes(":warrens:"))
+    .map((c) => c.id);
+  expect(warrensIds).toHaveLength(7);
+  expect(warrensIds.every((id) => cardContentPack({ id }) === "warrens")).toBe(true);
 });
 
 it("Cove Curio 与房间目录仅在勾选 Cove 包时进入战役来源", () => {
