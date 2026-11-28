@@ -1,218 +1,58 @@
 # Cove 十二张板块几何核对提案（2026-11-28）
 
-状态：**十二面印刷来源已补全；逐区容量与部署为人工+提取提案，邻接/墙/零容量区大多仍待确认。`geometryVerified` / `geometryComplete` 保持 false，未写入 `room_tile_geometry.json`。**
+状态：**逐面几何提案已填入审阅表，待 Kyries 核对。`geometryVerified` / `geometryComplete` 保持 false，未写入 `room_tile_geometry.json`。**
 
-依据：`MG_DD_05_EN_COVE` 的 `DD_COVE_TILES_FRONT.pdf` / `DD_COVE_TILES_BACK.pdf`（各 6 页）；R-001、R-048、R-235（高低地图标语义，Cove 落点待裁）。不合并 TTS 或合并册页码。
+**完整表（身份表 + 12 面标准字段）** → [cove-room-tile-geometry-filled-2026-11-28.md](./cove-room-tile-geometry-filled-2026-11-28.md)（印刷图 `tiles/FRONT-*.png`、`BACK-*.png`，R-048，仅印刷事实）。
+
+依据：`MG_DD_05_EN_COVE` 的 `DD_COVE_TILES_FRONT.pdf` / `DD_COVE_TILES_BACK.pdf`（各 6 页）；R-001、R-048、R-235（高低地语义待 Cove 裁）。
 
 ## 来源与格式对标
 
-| 路径                                                               | 说明                                                                            |
-| ------------------------------------------------------------------ | ------------------------------------------------------------------------------- |
-| `packages/data/extract/extension/cove/raw/dungeon_tile.json`       | 本 PR 重跑提取（含 BACK 六页）                                                  |
-| `packages/data/normalized/extension/cove/room_tile_catalog.json`   | 十二面 `source=verified`；几何仍停点                                            |
-| [板块身份审阅](./cove-room-tile-review-2026-11-28.md)              | 与 #829 目录对齐                                                                |
-| `packages/data/normalized/extension/weald/room_tile_geometry.json` | 字段对标：`areas[].capacity` / `elevation`、`edges`、`deployment`（本刀未生成） |
-| `docs/reviews/ruins-room-tile-review-2026-10-10.md`                | 审阅稿写法参考                                                                  |
+| 路径                                                               | 说明                                            |
+| ------------------------------------------------------------------ | ----------------------------------------------- |
+| `packages/data/extract/extension/cove/raw/dungeon_tile.json`       | 本 PR 重跑提取（含 BACK 六页）                  |
+| `packages/data/normalized/extension/cove/room_tile_catalog.json`   | 十二面 `source=verified`；几何仍停点            |
+| [板块身份审阅](./cove-room-tile-review-2026-11-28.md)              | 与 #829 目录对齐                                |
+| `packages/data/normalized/extension/weald/room_tile_geometry.json` | 字段对标                                        |
+| **本刀填表**                                                       | [geometry-filled-2026-11-28](./cove-room-tile-geometry-filled-2026-11-28.md) |
 
-私有审阅图：`node_modules/.cache/cove-tile-geometry-review/cove-tile-{front,back}-pNN.png`（不提交）。
+## 各面「待确认」出现次数（填表内合计，非仅存疑项去重）
 
-容量点：按 R18「Occupancy」圆点人工计数；提取聚类仅作辅证，聚类合并/拆分异常处标 **待确认**。部署语义沿用核心/Weald 已登记名称（如 `monster_aggressive`、`loot_chest`），**不**在本 PR 并入 #826 新 hash。
+| `room_tile:cove:NN` | 名称                   | Boss | 待确认计数 |
+| ------------------- | ---------------------- | :--: | ---------: |
+| 01                  | Eldritch Augmentation  |      |          3 |
+| 02                  | Flooded Room           |      |          5 |
+| 03                  | The Hoarders           |      |          7 |
+| 04                  | Buried Treasures       |      |          4 |
+| 05                  | Twin Idols             |      |          9 |
+| 06                  | Lairs in Tunnels       |      |          5 |
+| 07                  | Shipwreck              |      |          7 |
+| 08                  | Sea Rites              |      |          3 |
+| 09                  | Temple of the Deep One |      |          5 |
+| 10                  | Siren's Room           |  ✓   |          2 |
+| 11                  | Shambler's Room        |  ✓   |          3 |
+| 12                  | Drowned Crew Room      |  ✓   |          4 |
 
-## 背面补核（相对 #829）
+**合计 59 处「待确认」**（含邻接 blocked 提案、部署单轴、特殊区效果、零容量/柱命名等）。**无面带「容量」单元格标待确认**（ pip 数均给出整数提案）。
 
-`DD_COVE_TILES_BACK.pdf` 已对照六页 sheet；偶数号印刷数字与 Weald 版式一致：
+## 摘要主题（详见填表）
 
-| 板块                 | 面   | PDF 页 | 印刷号 |
-| -------------------- | ---- | -----: | -----: |
-| 02 Flooded Room      | BACK |      1 |      2 |
-| 04 Buried Treasures  | BACK |      2 |      4 |
-| 06 Lairs in Tunnels  | BACK |      3 |      6 |
-| 08 Sea Rites         | BACK |      4 |      8 |
-| 10 Siren's Room      | BACK |      5 |     10 |
-| 12 Drowned Crew Room | BACK |      6 |     12 |
+| 主题 | 说明 |
+| ---- | ---- |
+| 邻接 / 墙 | 多面依赖黑柱、void、L 墙；角邻 `cornerOnly` 已提案但未核准 |
+| 部署 | 一面多红/黄框时单格只填一字母，其余列待确认或写入「本面其他待确认」 |
+| 特殊区 | 橙星 A/B、绿星、红八星均标印刷位置；房间卡效果文案统为待确认 |
+| 高低地 | 02-F、03-A、04 向下三角、05-F、08-D/F、09-C、10 上行三角等按印刷提案 |
+| Boss 10–12 | 格式同普通面；不进普通板块池 |
 
-## 十二张几何核对状态总览
+## 仍待 Kyries 裁定（填表后）
 
-| `room_tile:cove:NN` | 名称                   | Boss | 有容量提案的区数 | 邻接/墙 | 高低地                     | 部署/宝箱 | 综合                  |
-| ------------------- | ---------------------- | :--: | ---------------: | ------- | -------------------------- | --------- | --------------------- |
-| 01                  | Eldritch Augmentation  |      |                9 | 待确认  | 待确认                     | 部分      | 已提案                |
-| 02                  | Flooded Room           |      |               9+ | 待确认  | 待确认（含高地白框区）     | 部分      | 已提案/待确认         |
-| 03                  | The Hoarders           |      |                9 | 待确认  | 待确认（FRONT 见向上三角） | 部分      | 已提案                |
-| 04                  | Buried Treasures       |      |               11 | 待确认  | 待确认                     | 部分      | 已提案                |
-| 05                  | Twin Idols             |      |               8+ | 待确认  | 提案：中央高台 high        | 部分      | 已提案/待确认         |
-| 06                  | Lairs in Tunnels       |      |               7+ | 待确认  | 待确认                     | 部分      | 已提案/待确认         |
-| 07                  | Shipwreck              |      |               8+ | 待确认  | 待确认                     | 部分      | 已提案/待确认         |
-| 08                  | Sea Rites              |      |               6+ | 待确认  | 提案：两登台 high          | 部分      | 已提案/待确认         |
-| 09                  | Temple of the Deep One |      |               7+ | 待确认  | 提案：延展区 high          | 部分      | 已提案/待确认         |
-| 10                  | Siren's Room           |  ✓   |               9+ | 待确认  | 待确认                     | 部分      | 已提案（Boss 不进池） |
-| 11                  | Shambler's Room        |  ✓   |                9 | 待确认  | 待确认                     | 部分      | 已提案（Boss 不进池） |
-| 12                  | Drowned Crew Room      |  ✓   |               6+ | 待确认  | 提案：低地三角 2 区        | 部分      | 已提案（Boss 不进池） |
-
-「+」表示尚有 **未见容量点** 或 **零容量** 划分待 Kyries 划区确认。
-
----
-
-## 01 · Eldritch Augmentation · TILES FRONT p1
-
-临时标签 A–I 仅本面定位，非正式 `regionId`。下表容量为圆点人工计数（与提取九点聚类一致）。
-
-| 标签 | 原图位置（提）   | 容量（提） | 高低地（提） | 标记（提）                             | 邻接   |
-| ---- | ---------------- | ---------: | ------------ | -------------------------------------- | ------ |
-| A    | 左上小块         |          2 | normal       | 待确认                                 | 待确认 |
-| B    | 右上小块         |          2 | normal       | 宝箱（`loot_chest`）；次要 exclamation | 待确认 |
-| C    | 上中（紫圆刻纹） |          2 | normal       | 橙星形区域标记（含义待确认）           | 待确认 |
-| D    | 左中             |          4 | normal       | —                                      | 待确认 |
-| E    | 中上偏左         |          2 | normal       | `monster_support`                      | 待确认 |
-| F    | 右中             |          4 | normal       | 宝箱                                   | 待确认 |
-| G    | 中下             |          2 | normal       | `monster_ranged`                       | 待确认 |
-| H    | 左下             |          4 | normal       | `monster_aggressive`                   | 待确认 |
-| I    | 下中             |          4 | normal       | 黄框部署条（姿态待逐项对照）           | 待确认 |
-
-上排两侧 **黑色竖条空区** 与右下 **无点区**：是否单独零容量区或纯墙 — **待确认**。上中与中列 **黑色隔断** 是否阻断邻接 — **待确认**。
-
----
-
-## 02 · Flooded Room · TILES BACK p1
-
-本面水体与石台交错；中央 **白框高台** 见 **向上灰三角**（按 R-235 提案 `high`，待 Cove 核准）。
-
-| 标签 | 容量（提） | 高低地（提） | 标记（提）                    | 邻接   |
-| ---- | ---------: | ------------ | ----------------------------- | ------ |
-| A    |          3 | normal       | —                             | 待确认 |
-| B    |          6 | normal       | 双宝箱                        | 待确认 |
-| C    |          6 | normal       | 锚点章「2」（房间号，非容量） | 待确认 |
-| D    |          4 | normal       | 黄框斜线；橙星 A              | 待确认 |
-| E    |          2 | **high**     | 红框盾；登台                  | 待确认 |
-| F    |          3 | normal       | 红框爪痕；红框柱形            | 待确认 |
-| G    |          3 | normal       | 红框剑                        | 待确认 |
-| H    |          3 | normal       | —                             | 待确认 |
-| I    |          4 | normal       | 橙星 A；黄框剑/盾/柱          | 待确认 |
-| …    |       余区 | 待确认       | 水体区与黑块关系              | 待确认 |
-
-提取在左上曾将多点误聚为 5 — 上表按原图重数；**逐区仍待 Kyries 勾选**。
-
----
-
-## 03 · The Hoarders · TILES FRONT p2
-
-| 标签 | 容量（提） | 高低地（提）                 | 标记（提）                                  | 邻接   |
-| ---- | ---------: | ---------------------------- | ------------------------------------------- | ------ |
-| A    |          2 | **high**（上左白框向上三角） | 红框爪痕                                    | 待确认 |
-| B    |          3 | normal                       | —                                           | 待确认 |
-| C    |        2+1 | 待确认                       | 船骸区拆分                                  | 待确认 |
-| D    |          4 | normal                       | 中央竖条 **黑色实块**（墙/零容量 — 待确认） | 待确认 |
-| E    |          3 | normal                       | 红框剑                                      | 待确认 |
-| F    |          4 | normal                       | —                                           | 待确认 |
-| G    |          3 | normal                       | 红框盾                                      | 待确认 |
-| H    |          4 | normal                       | 低地处见 **向下橙菱**（提案 `low`，待确认） | 待确认 |
-| I    |          3 | normal                       | 绿星；橙传送门框                            | 待确认 |
-
----
-
-## 04 · Buried Treasures · TILES BACK p2
-
-不规则分布；多块 **黑色 void** 分断。11 个有点区（提取聚类）；绿星区域标记多处出现。
-
-| 标签 |  容量（提） | 标记（提）                            | 邻接       |
-| ---- | ----------: | ------------------------------------- | ---------- |
-| A–K  | 2–3（多数） | 红框/黄框姿态条分散；绿星待绑房间效果 | 全部待确认 |
-
-中心 **void 柱** 与右侧走廊：**待确认** 是否形成零容量缝。
-
----
-
-## 05 · Twin Idols · TILES FRONT p3
-
-| 标签 | 容量（提） | 高低地                              | 标记（提）                                    |
-| ---- | ---------: | ----------------------------------- | --------------------------------------------- |
-| 多处 | 2 / 3 为主 | 中央抬升圆坛 **high**（灰向上三角） | 橙星 B×2、橙星 A×2；三联宝箱；多组黄/红框部署 |
-
-部分装饰格 **未见容量点**（上右「5」锚章旁等）：零容量或同区 — **待确认**。
-
----
-
-## 06 · Lairs in Tunnels · TILES BACK p3
-
-欠则网格；水域与陆块交替。7 个主要有点区 + 若干 **无点大格**（居中水域等）。
-
-绿星、红锯齿星、锚章「6」、宝箱 — 区域效果绑定 **待确认**（Q-186）。
-
----
-
-## 07 · Shipwreck · TILES FRONT p4
-
-船木主题；左右 **黑色竖墙** 与中部横墙明显。有点区容量提案：2、2、3、4、3、2、2、4 等（8 区）；绿星、宝箱、红框遭遇图标多处。
-
-**无点格**（右下等）与 void：**待确认**。
-
----
-
-## 08 · Sea Rites · TILES BACK p4
-
-| 要点   | 提案                                                        |
-| ------ | ----------------------------------------------------------- |
-| 容量   | 多点区 3/4 为主；提取 6 簇（部分区合并待拆）                |
-| 高低地 | 左右对称 **白框登台** + 向上灰三角 → `high`（两区，待确认） |
-| 标记   | 橙星 A / B；宝箱；红/黄框姿态；锚章「8」                    |
-
-底部中央 **黑色大块** 与水域包绕：**墙/零容量待确认**。
-
----
-
-## 09 · Temple of the Deep One · TILES FRONT p5
-
-左侧 **阶梯外延区**：提案 `high`（向上三角）+ 容量 2；中段溢血区提案 6 点；中央希腊回纹圆坛 **未见点**（零容量 ritual 区？— **待确认**）；多组宝箱与黄/红框条。
-
----
-
-## 10 · Siren's Room · TILES BACK p5（Boss）
-
-`poolEligible=false`。顶行黄框姿态条；中部双 **黑色竖 void**；portal 区 4 点 + 红八星；底水域 4 点与红框条。
-
-Boss 部署几何 **不得** 并入普通牌堆；运行时见 Boss 专属刀。
-
----
-
-## 11 · Shambler's Room · TILES FRONT p6（Boss）
-
-三块 **黑色 void**（~0,2 / 1,1 / 3,2 类位）；容量提案 4,3,2,3,3,4,3,3,3 分布；绿星（畸变角落）、红/黄框、宝箱。
-
-触手覆盖格与邻接：**待确认**。
-
----
-
-## 12 · Drowned Crew Room · TILES BACK p6（Boss）
-
-| 要点   | 提案                                                                            |
-| ------ | ------------------------------------------------------------------------------- |
-| 容量   | 2–4 点区混合；提取 6 主簇                                                       |
-| 高低地 | 上排两格 **向上三角** → high；左中/右中 **向下三角** → low（R-235，待 Cove 裁） |
-| 标记   | 红八星（多水域格）；底部双宝箱                                                  |
-
-中央 **L 形黑 void**：邻接与角落接触 **待确认**。
-
----
-
-## 与 Weald / 核心格式对应
-
-| 字段               | Weald `room_tile_geometry` | 本刀                            |
-| ------------------ | -------------------------- | ------------------------------- |
-| `areas[].id`       | 核准后字母                 | 审阅稿临时标签 only             |
-| `capacity`         | 核准整数                   | 表中「（提）」                  |
-| `elevation`        | `low` / `normal` / `high`  | 仅三角确凿处提案，余 **待确认** |
-| `edges`            | `blocked` / `cornerOnly`   | **未登记**                      |
-| `deployment`       | 已核准 `markers`           | 语义名 + 待确认区               |
-| `geometryVerified` | true（核准后）             | _catalog_ 全 false              |
-
-## 仍待 Kyries 裁定
-
-1. 各面 **正式区划**（含零容量与黑色 void 是否单列为区）。
-2. 全部 **邻接、角点、墙**（不能从共边假设可通行）。
-3. 橙星 / 绿星 / 红八星与房间卡「这里」绑区（Q-186）。
-4. Cove 是否完全沿用 R-235 高低地图标 — 现按 Weald 提案抄录，未裁定为数据。
-5. 未解 `iconId`（本 PR 不扩词典）：逐区留待 #826 或后续 patch。
-6. Boss 10–12：几何可进审阅，**不**做 Boss 棋盘运行时。
+1. 各面正式区划（含零容量与黑色 void 是否单独 `areaId`）。
+2. 全部邻接、角点、墙（不以共边默认可通行）。
+3. 橙星 / 绿星 / 红八星与房间卡绑区（Q-186）。
+4. Cove 是否完全沿用 R-235 高低地图标。
+5. Boss 10–12 几何审阅与运行时分离。
 
 ## 明确未做
 
-`room_tile_geometry.json`、引擎邻接/移动、零容量运行时、出征板块选择、Stygian、`usable` / `runtimeReady` 接线、存档迁移。
+`room_tile_geometry.json`、引擎邻接/移动、出征板块选择、Stygian、`usable` / `runtimeReady` 接线。
