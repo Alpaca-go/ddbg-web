@@ -19,8 +19,10 @@ import { resolveScriptIdForDescriptionCard } from "../../../src/core/bosses/thre
 import { HAG_I_DESCRIPTION_ABILITY_CARD_ID } from "../../../src/weald/bosses/hag/hag-i";
 import coveCurio from "../../../../data/normalized/extension/cove/curio.json";
 import coveRoom from "../../../../data/normalized/extension/cove/room.json";
+import warrensBossRooms from "../../../../data/normalized/extension/warrens/boss_rooms.json";
 import { coveCurioFileSchema } from "../../../../data/src/core/curios/curio";
 import { coveRoomFileSchema } from "../../../../data/src/cove/rooms/room";
+import { warrensBossRoomFileSchema } from "../../../../data/src/warrens/rooms/room";
 
 beforeEach(clearBossScriptsForTest);
 const start = {
@@ -99,6 +101,21 @@ it("核心包单独启用时，十八名英雄及全部等级技能仍可开局�
   }
   const game = campaign();
   expect(replacementHeroCandidates(game.dungeon!)).toHaveLength(14);
+});
+
+it("Warrens Boss 房仅在勾选 Warrens 包时进入战役来源", () => {
+  const warrens = {
+    bossRoomSources: warrensBossRoomFileSchema.parse(warrensBossRooms).cards,
+  };
+  const sources = { ...coreQuestSources, warrens };
+  expect(sourcesForContentPacks(sources, ["core"]).warrens).toBeUndefined();
+  const enabled = sourcesForContentPacks(sources, ["core", "warrens"]);
+  expect(enabled.warrens?.bossRoomSources).toHaveLength(3);
+  expect(enabled.warrens?.bossRoomSources.every((c) => c.id.startsWith("room:warrens:"))).toBe(
+    true,
+  );
+  expect(enabled.warrens?.bossRoomSources.every((c) => c.poolEligible === false)).toBe(true);
+  expect(cardContentPack(enabled.warrens!.bossRoomSources[0]!)).toBe("warrens");
 });
 
 it("Cove Curio 与房间目录仅在勾选 Cove 包时进入战役来源", () => {

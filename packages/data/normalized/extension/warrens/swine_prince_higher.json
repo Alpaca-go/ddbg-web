@@ -1,0 +1,371 @@
+{
+  "schema": "ddbg-warrens-swine-prince-higher-v0",
+  "combatReady": false,
+  "runtimeReady": false,
+  "sources": {
+    "combatFront": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_140x140_monster_large_FRONT.pdf",
+    "combatBack": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_140x140_monster_large_BACK.pdf",
+    "abilityFront": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+    "abilityBack": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_BACK.pdf"
+  },
+  "cards": [
+    {
+      "level": 2,
+      "faces": [
+        {
+          "role": "prince",
+          "rawId": "monster_large:warrens:p006",
+          "face": "front",
+          "name": "Swine Prince",
+          "level": 2,
+          "types": ["beast", "large"],
+          "stanceSlots": 2,
+          "life": 121,
+          "speed": 1,
+          "dodge": 8,
+          "resistances": ["stun"],
+          "immunities": ["bleed"],
+          "skills": [
+            {
+              "slot": 1,
+              "name": "Obliterate Body",
+              "target": "closest",
+              "range": 1,
+              "maxTargets": 1,
+              "crit": 1,
+              "critDamage": 14,
+              "accuracy": 11,
+              "damage": 9,
+              "effects": [
+                {
+                  "kind": "pendingIcon",
+                  "note": "Printed +7 vs Marked"
+                }
+              ]
+            },
+            {
+              "slot": 2,
+              "name": "Obliterate Masses",
+              "target": "crowded",
+              "range": 1,
+              "maxTargets": 1,
+              "crit": 1,
+              "critDamage": 12,
+              "accuracy": 10,
+              "damage": 7,
+              "effects": []
+            },
+            {
+              "slot": 3,
+              "name": "Wild Flailing",
+              "target": "closest",
+              "range": 1,
+              "maxTargets": 1,
+              "crit": 1,
+              "critDamage": 14,
+              "accuracy": 8,
+              "damage": 9,
+              "effects": [
+                {
+                  "kind": "pendingIcon",
+                  "note": "Printed +5 vs Marked"
+                }
+              ]
+            }
+          ],
+          "selection": [
+            {
+              "min": 1,
+              "max": 4,
+              "slot": 1
+            },
+            {
+              "min": 5,
+              "max": 8,
+              "slot": 2
+            },
+            {
+              "min": 9,
+              "max": 10,
+              "slot": 3
+            }
+          ]
+        },
+        {
+          "role": "wilbur",
+          "rawId": "monster_medium:warrens:p021",
+          "face": "front",
+          "name": "Wilbur",
+          "level": 2,
+          "types": ["beast", "small"],
+          "stanceSlots": 1,
+          "life": 18,
+          "speed": 3,
+          "dodge": 8,
+          "resistances": [],
+          "immunities": [],
+          "skills": [
+            {
+              "slot": 1,
+              "name": "End This One",
+              "target": "mostWounded",
+              "range": 2,
+              "maxTargets": 1,
+              "crit": 0,
+              "critDamage": 4,
+              "accuracy": 12,
+              "damage": 2,
+              "effects": [
+                {
+                  "kind": "selfPush",
+                  "distance": 1
+                },
+                {
+                  "kind": "pendingIcon",
+                  "note": "Mark 1t"
+                }
+              ]
+            },
+            {
+              "slot": 2,
+              "name": "End These Two",
+              "target": "crowded",
+              "range": 2,
+              "maxTargets": 2,
+              "crit": 0,
+              "critDamage": 4,
+              "accuracy": 12,
+              "damage": 2,
+              "effects": [
+                {
+                  "kind": "selfPush",
+                  "distance": 1
+                },
+                {
+                  "kind": "pendingIcon",
+                  "note": "Mark 1t"
+                }
+              ]
+            }
+          ],
+          "selection": [
+            {
+              "min": 1,
+              "max": 5,
+              "slot": 1
+            },
+            {
+              "min": 6,
+              "max": 10,
+              "slot": 2
+            }
+          ]
+        }
+      ],
+      "abilities": {
+        "descriptionCardId": "boss_ability:warrens:p008",
+        "combatCardId": "boss_ability:warrens:p011",
+        "enragedDamage": 12,
+        "threats": {
+          "dungeon": {
+            "name": "Bestial Bloodlust",
+            "effect": "beastMonsterDamageBonus",
+            "amount": 4
+          },
+          "hamlet": {
+            "name": "Uneasy Times II",
+            "effect": "survivalistDebuff",
+            "amount": 1
+          }
+        }
+      },
+      "setup": {
+        "rule": "Warrens rules p3",
+        "princeStance": "aggressive",
+        "wilburStance": "ranged",
+        "wilburEngineStanceHold": "support",
+        "monsterInitiativeCards": 3,
+        "heroInitiativeCards": 4
+      }
+    },
+    {
+      "level": 3,
+      "faces": [
+        {
+          "role": "prince",
+          "rawId": "monster_large:warrens:p007",
+          "face": "front",
+          "name": "Swine Prince",
+          "level": 3,
+          "types": ["beast", "large"],
+          "stanceSlots": 2,
+          "life": 171,
+          "speed": 2,
+          "dodge": 8,
+          "resistances": ["stun"],
+          "immunities": ["bleed"],
+          "skills": [
+            {
+              "slot": 1,
+              "name": "Obliterate Body",
+              "target": "closest",
+              "range": 1,
+              "maxTargets": 1,
+              "crit": 1,
+              "critDamage": 20,
+              "accuracy": 12,
+              "damage": 12,
+              "effects": [
+                {
+                  "kind": "pendingIcon",
+                  "note": "Printed +7 vs Marked"
+                }
+              ]
+            },
+            {
+              "slot": 2,
+              "name": "Obliterate Masses",
+              "target": "crowded",
+              "range": 1,
+              "maxTargets": 1,
+              "crit": 1,
+              "critDamage": 15,
+              "accuracy": 12,
+              "damage": 9,
+              "effects": []
+            },
+            {
+              "slot": 3,
+              "name": "Wild Flailing",
+              "target": "closest",
+              "range": 1,
+              "maxTargets": 1,
+              "crit": 1,
+              "critDamage": 20,
+              "accuracy": 10,
+              "damage": 12,
+              "effects": [
+                {
+                  "kind": "pendingIcon",
+                  "note": "Printed +5 vs Marked"
+                }
+              ]
+            }
+          ],
+          "selection": [
+            {
+              "min": 1,
+              "max": 4,
+              "slot": 1
+            },
+            {
+              "min": 5,
+              "max": 8,
+              "slot": 2
+            },
+            {
+              "min": 9,
+              "max": 10,
+              "slot": 3
+            }
+          ]
+        },
+        {
+          "role": "wilbur",
+          "rawId": "monster_medium:warrens:p022",
+          "face": "front",
+          "name": "Wilbur",
+          "level": 3,
+          "types": ["beast", "small"],
+          "stanceSlots": 1,
+          "life": 23,
+          "speed": 4,
+          "dodge": 8,
+          "resistances": [],
+          "immunities": [],
+          "skills": [
+            {
+              "slot": 1,
+              "name": "End This One",
+              "target": "mostWounded",
+              "range": 2,
+              "maxTargets": 1,
+              "crit": 0,
+              "critDamage": 6,
+              "accuracy": 12,
+              "damage": 3,
+              "effects": [
+                {
+                  "kind": "selfPush",
+                  "distance": 1
+                },
+                {
+                  "kind": "pendingIcon",
+                  "note": "Mark 1t"
+                }
+              ]
+            },
+            {
+              "slot": 2,
+              "name": "End These Two",
+              "target": "crowded",
+              "range": 2,
+              "maxTargets": 2,
+              "crit": 0,
+              "critDamage": 6,
+              "accuracy": 12,
+              "damage": 3,
+              "effects": [
+                {
+                  "kind": "selfPush",
+                  "distance": 1
+                },
+                {
+                  "kind": "pendingIcon",
+                  "note": "Mark 1t"
+                }
+              ]
+            }
+          ],
+          "selection": [
+            {
+              "min": 1,
+              "max": 5,
+              "slot": 1
+            },
+            {
+              "min": 6,
+              "max": 10,
+              "slot": 2
+            }
+          ]
+        }
+      ],
+      "abilities": {
+        "descriptionCardId": "boss_ability:warrens:p009",
+        "combatCardId": "boss_ability:warrens:p012",
+        "enragedDamage": 18,
+        "threats": {
+          "dungeon": {
+            "name": "Bestial Frenzy",
+            "effect": "beastMonsterDamageBonus",
+            "amount": 6
+          },
+          "hamlet": {
+            "name": "Uneasy Times III",
+            "effect": "survivalistDebuff",
+            "amount": 2
+          }
+        }
+      },
+      "setup": {
+        "rule": "Warrens rules p3",
+        "princeStance": "aggressive",
+        "wilburStance": "ranged",
+        "wilburEngineStanceHold": "support",
+        "monsterInitiativeCards": 3,
+        "heroInitiativeCards": 4
+      }
+    }
+  ]
+}

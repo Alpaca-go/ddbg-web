@@ -1,0 +1,142 @@
+{
+  "schema": "ddbg-warrens-boss-room-v0",
+  "cards": [
+    {
+      "id": "room:warrens:10",
+      "name": "Swine Prince",
+      "copies": 1,
+      "location": "warrens",
+      "number": 10,
+      "boss": true,
+      "poolEligible": false,
+      "printedLines": [
+        "10—Swine Prince Room",
+        "{icon:e35d9df999}",
+        "{icon:8602ab5a87}",
+        "{icon:e3cf46f149}",
+        "{icon:cdbfb0c773} 10",
+        "{icon:0c43f8df7c}",
+        "{icon:4115e26d69}",
+        "{icon:c1056668d5} {icon:c9e8b74c8b}",
+        "{icon:e3cf46f149}",
+        "{icon:83b71ed61f}",
+        "{icon:18010f5a98} {icon:81719a36e8} {icon:2174a2cda3} {icon:18f605f808}",
+        "{icon:a81358cd18}",
+        "{icon:32e4299f5d} {icon:6833d3767f}",
+        "BOSS",
+        "{icon:f9e786c42f} Poisonous Waters: Heroes",
+        "entering here, suffer 1 {icon:cfff0d289b} 3t."
+      ],
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_rooms_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_rooms_BACK.pdf",
+        "page": 10
+      },
+      "verifiedEffect": {
+        "ruling": "R-001",
+        "summary": "英雄进入本房间区域时 suffer 1 + 未核实持续效果（OCR 3t）",
+        "runtimeReady": false,
+        "effectAreaBinding": "pending",
+        "pendingQuestions": ["Q-WARRENS-26"]
+      },
+      "classificationEvidence": [
+        "印刷正文含独立一行「BOSS」（FRONT p10）",
+        "标题解析为「10—Swine Prince Room」"
+      ],
+      "pendingReview": ["Warrens Boss 房留待专属 Boss 刀核准；不得进入普通房间牌堆", "Q-WARRENS-26"]
+    },
+    {
+      "id": "room:warrens:11",
+      "name": "Flesh",
+      "copies": 1,
+      "location": "warrens",
+      "number": 11,
+      "boss": true,
+      "poolEligible": false,
+      "printedLines": [
+        "11—Flesh Room",
+        "{icon:25a6144394}",
+        "{icon:aad661e90d}",
+        "{icon:e3cf46f149}",
+        "{icon:cdbfb0c773} 11",
+        "{icon:b98ddb0f77}",
+        "{icon:e3cf46f149}",
+        "{icon:bb94f94edb}",
+        "{icon:ebc4927ffd}",
+        "{icon:946873d662}",
+        "{icon:946873d662}",
+        "{icon:946873d662}",
+        "{icon:0f02aa78cf}",
+        "{icon:c11e76dc89}",
+        "{icon:a30f4206b4}",
+        "{icon:e3cf46f149}",
+        "{icon:dada351280} {icon:f8600bdda7}",
+        "{icon:bb94f94edb}",
+        "{icon:9e659d4967}",
+        "{icon:6833d3767f}",
+        "BOSS"
+      ],
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_rooms_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_rooms_BACK.pdf",
+        "page": 11
+      },
+      "verifiedEffect": {
+        "ruling": "R-001",
+        "summary": "Flesh Boss 房：印刷面无额外房间效果文案（规则书 Room+Tile 部署）",
+        "runtimeReady": false,
+        "effectAreaBinding": "pending",
+        "pendingQuestions": ["Q-WARRENS-27"]
+      },
+      "classificationEvidence": [
+        "印刷正文含独立一行「BOSS」（FRONT p11）",
+        "标题解析为「11—Flesh Room」"
+      ],
+      "pendingReview": ["Warrens Boss 房留待专属 Boss 刀核准；不得进入普通房间牌堆", "Q-WARRENS-27"]
+    },
+    {
+      "id": "room:warrens:12",
+      "name": "Brigand Vvulf",
+      "copies": 1,
+      "location": "warrens",
+      "number": 12,
+      "boss": true,
+      "poolEligible": false,
+      "printedLines": [
+        "12—Brigand Vvulf Room",
+        "{icon:db06cf034c}",
+        "{icon:8602ab5a87}",
+        "{icon:83b71ed61f}",
+        "{icon:cdbfb0c773} 12",
+        "{icon:134712252a}",
+        "{icon:c1056668d5} {icon:c9e8b74c8b}",
+        "{icon:32e4299f5d} {icon:6833d3767f}",
+        "{icon:4115e26d69}",
+        "{icon:a30f4206b4}",
+        "{icon:e3cf46f149}",
+        "{icon:18010f5a98} {icon:ae7fc7f74b}",
+        "{icon:0f02aa78cf}",
+        "BOSS",
+        "{icon:f9e786c42f} Barricades: Heroes entering this",
+        "Area suffer 2 {icon:ce7dcac2dd} /Dungeon Level."
+      ],
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_rooms_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_rooms_BACK.pdf",
+        "page": 12
+      },
+      "verifiedEffect": {
+        "ruling": "R-001",
+        "summary": "英雄进入区域时 suffer 2/Dungeon Level（图标语义待印核）",
+        "runtimeReady": false,
+        "effectAreaBinding": "pending",
+        "pendingQuestions": ["Q-WARRENS-28"]
+      },
+      "classificationEvidence": [
+        "印刷正文含独立一行「BOSS」（FRONT p12）",
+        "标题解析为「12—Brigand Vvulf Room」"
+      ],
+      "pendingReview": ["Warrens Boss 房留待专属 Boss 刀核准；不得进入普通房间牌堆", "Q-WARRENS-28"]
+    }
+  ]
+}

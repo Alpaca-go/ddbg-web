@@ -1,0 +1,233 @@
+{
+  "schema": "ddbg-warrens-vvulf-higher-v0",
+  "combatReady": false,
+  "runtimeReady": false,
+  "sources": {
+    "combatFront": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_140x140_monster_large_FRONT.pdf",
+    "combatBack": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_140x140_monster_large_BACK.pdf",
+    "abilityFront": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+    "abilityBack": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_BACK.pdf"
+  },
+  "cards": [
+    {
+      "level": 2,
+      "faces": [
+        {
+          "role": "vvulf",
+          "rawId": "monster_large:warrens:p003",
+          "face": "front",
+          "name": "Brigand Vvulf",
+          "level": 2,
+          "types": ["human", "large"],
+          "stanceSlots": 2,
+          "life": 88,
+          "speed": 1,
+          "dodge": 5,
+          "resistances": [],
+          "immunities": [],
+          "skills": [
+            {
+              "slot": 1,
+              "name": "Get Them!",
+              "target": "crowded",
+              "range": 1,
+              "maxTargets": 2,
+              "crit": 1,
+              "critDamage": 4,
+              "accuracy": 10,
+              "damage": 2,
+              "effects": [
+                {
+                  "kind": "pendingIcon",
+                  "note": "Summon Fusilier + Barrel O'Bombs"
+                }
+              ]
+            },
+            {
+              "slot": 2,
+              "name": "Tower Shield",
+              "target": "crowded",
+              "range": 2,
+              "maxTargets": 2,
+              "crit": 0,
+              "critDamage": 4,
+              "accuracy": 10,
+              "damage": 2,
+              "effects": [
+                {
+                  "kind": "pendingIcon",
+                  "note": "Summon Fusilier"
+                }
+              ]
+            },
+            {
+              "slot": 3,
+              "name": "Warcry",
+              "target": "crowded",
+              "range": 2,
+              "maxTargets": 2,
+              "crit": 0,
+              "critDamage": 4,
+              "accuracy": 10,
+              "damage": 2,
+              "effects": [
+                {
+                  "kind": "pendingIcon",
+                  "note": "Self buff"
+                }
+              ]
+            }
+          ],
+          "selection": [
+            {
+              "min": 1,
+              "max": 5,
+              "slot": 1
+            },
+            {
+              "min": 6,
+              "max": 7,
+              "slot": 2
+            },
+            {
+              "min": 8,
+              "max": 10,
+              "slot": 3
+            }
+          ]
+        }
+      ],
+      "abilities": {
+        "descriptionCardId": "boss_ability:warrens:p002",
+        "combatCardId": "boss_ability:warrens:p005",
+        "barrelOBombs": {
+          "removeAndDamage": 15
+        },
+        "reinforcements": {
+          "fusilierCard": "Brigand Cutthroat",
+          "listedInAbility": true
+        },
+        "threats": {
+          "dungeon": {
+            "name": "Brigand Assault II",
+            "summary": "debuff 2t + riposte 1t on spawn"
+          },
+          "hamlet": {
+            "name": "Stolen Material II",
+            "summary": "upgrade cost +7"
+          }
+        }
+      }
+    },
+    {
+      "level": 3,
+      "faces": [
+        {
+          "role": "vvulf",
+          "rawId": "monster_large:warrens:p004",
+          "face": "front",
+          "name": "Brigand Vvulf",
+          "level": 3,
+          "types": ["human", "large"],
+          "stanceSlots": 2,
+          "life": 111,
+          "speed": 2,
+          "dodge": 5,
+          "resistances": [],
+          "immunities": [],
+          "skills": [
+            {
+              "slot": 1,
+              "name": "Get Them!",
+              "target": "crowded",
+              "range": 1,
+              "maxTargets": 2,
+              "crit": 1,
+              "critDamage": 6,
+              "accuracy": 12,
+              "damage": 3,
+              "effects": [
+                {
+                  "kind": "pendingIcon",
+                  "note": "Summon Fusilier + Barrel O'Bombs"
+                }
+              ]
+            },
+            {
+              "slot": 2,
+              "name": "Tower Shield",
+              "target": "crowded",
+              "range": 2,
+              "maxTargets": 2,
+              "crit": 0,
+              "critDamage": 6,
+              "accuracy": 12,
+              "damage": 3,
+              "effects": [
+                {
+                  "kind": "pendingIcon",
+                  "note": "Summon Fusilier"
+                }
+              ]
+            },
+            {
+              "slot": 3,
+              "name": "Warcry",
+              "target": "crowded",
+              "range": 2,
+              "maxTargets": 2,
+              "crit": 0,
+              "critDamage": 6,
+              "accuracy": 12,
+              "damage": 3,
+              "effects": [
+                {
+                  "kind": "pendingIcon",
+                  "note": "Self buff"
+                }
+              ]
+            }
+          ],
+          "selection": [
+            {
+              "min": 1,
+              "max": 5,
+              "slot": 1
+            },
+            {
+              "min": 6,
+              "max": 7,
+              "slot": 2
+            },
+            {
+              "min": 8,
+              "max": 10,
+              "slot": 3
+            }
+          ]
+        }
+      ],
+      "abilities": {
+        "descriptionCardId": "boss_ability:warrens:p003",
+        "combatCardId": "boss_ability:warrens:p006",
+        "barrelOBombs": {
+          "removeAndDamage": 20
+        },
+        "reinforcements": {
+          "fusilierCard": "Brigand Raider",
+          "listedInAbility": true
+        },
+        "threats": {
+          "dungeon": {
+            "name": "Brigand Assault III",
+            "recordedOnly": true
+          },
+          "hamlet": {
+            "name": "Stolen Material III",
+            "recordedOnly": true
+          }
+        }
+      }
+    }
+  ]
+}

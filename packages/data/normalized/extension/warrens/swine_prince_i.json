@@ -1,0 +1,241 @@
+{
+  "schema": "ddbg-warrens-swine-prince-i-v0",
+  "combatReady": false,
+  "runtimeReady": false,
+  "pendingReview": [
+    "Q-WARRENS-25：印刷 Wilbur 姿态标 Range，引擎 hold 仍映射 support；数据层记录 ranged，不修改 engine",
+    "Q-WARRENS-30：Enraged Destruction / Mark 图标化效果 combatReady 待批",
+    "Q-WARRENS-33：规则书 Swine Prince 先攻 3 张；引擎 hold 仍登记 printedInitiativeCards: 2"
+  ],
+  "sources": {
+    "combatFront": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_140x140_monster_large_FRONT.pdf",
+    "combatBack": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_140x140_monster_large_BACK.pdf",
+    "abilityFront": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+    "abilityBack": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_BACK.pdf"
+  },
+  "faces": [
+    {
+      "role": "prince",
+      "rawId": "monster_large:warrens:p005",
+      "face": "front",
+      "name": "Swine Prince",
+      "level": 1,
+      "types": ["beast", "large"],
+      "stanceSlots": 2,
+      "life": 84,
+      "speed": 0,
+      "dodge": 8,
+      "resistances": ["stun"],
+      "immunities": ["bleed"],
+      "skills": [
+        {
+          "slot": 1,
+          "name": "Obliterate Body",
+          "target": "closest",
+          "range": 1,
+          "maxTargets": 1,
+          "crit": 1,
+          "critDamage": 11,
+          "accuracy": 10,
+          "damage": 7,
+          "effects": [
+            {
+              "kind": "pendingIcon",
+              "note": "Printed +7 vs Marked"
+            }
+          ]
+        },
+        {
+          "slot": 2,
+          "name": "Obliterate Masses",
+          "target": "crowded",
+          "range": 1,
+          "maxTargets": 1,
+          "crit": 1,
+          "critDamage": 8,
+          "accuracy": 10,
+          "damage": 5,
+          "effects": []
+        },
+        {
+          "slot": 3,
+          "name": "Wild Flailing",
+          "target": "closest",
+          "range": 1,
+          "maxTargets": 1,
+          "crit": 1,
+          "critDamage": 11,
+          "accuracy": 8,
+          "damage": 7,
+          "effects": [
+            {
+              "kind": "pendingIcon",
+              "note": "Printed +5 vs Marked"
+            }
+          ]
+        }
+      ],
+      "selection": [
+        {
+          "min": 1,
+          "max": 4,
+          "slot": 1
+        },
+        {
+          "min": 5,
+          "max": 8,
+          "slot": 2
+        },
+        {
+          "min": 9,
+          "max": 10,
+          "slot": 3
+        }
+      ]
+    },
+    {
+      "role": "wilbur",
+      "rawId": "monster_medium:warrens:p020",
+      "face": "front",
+      "name": "Wilbur",
+      "level": 1,
+      "types": ["beast", "small"],
+      "stanceSlots": 1,
+      "life": 11,
+      "speed": 2,
+      "dodge": 8,
+      "resistances": [],
+      "immunities": [],
+      "skills": [
+        {
+          "slot": 1,
+          "name": "End This One",
+          "target": "mostWounded",
+          "range": 2,
+          "maxTargets": 1,
+          "crit": 0,
+          "critDamage": 2,
+          "accuracy": 11,
+          "damage": 1,
+          "effects": [
+            {
+              "kind": "selfPush",
+              "distance": 1
+            },
+            {
+              "kind": "pendingIcon",
+              "note": "Mark 1t"
+            }
+          ]
+        },
+        {
+          "slot": 2,
+          "name": "End These Two",
+          "target": "crowded",
+          "range": 2,
+          "maxTargets": 2,
+          "crit": 0,
+          "critDamage": 2,
+          "accuracy": 11,
+          "damage": 1,
+          "effects": [
+            {
+              "kind": "selfPush",
+              "distance": 1
+            },
+            {
+              "kind": "pendingIcon",
+              "note": "Mark 1t"
+            }
+          ]
+        }
+      ],
+      "selection": [
+        {
+          "min": 1,
+          "max": 5,
+          "slot": 1
+        },
+        {
+          "min": 6,
+          "max": 10,
+          "slot": 2
+        }
+      ]
+    }
+  ],
+  "abilities": {
+    "descriptionCardId": "boss_ability:warrens:p007",
+    "combatCardId": "boss_ability:warrens:p010",
+    "actionsPerRound": 2,
+    "ruleSummaries": [
+      "ACTIONS / Round: 2",
+      "Enraged Destruction：Wilbur 受伤后 Prince 对全体英雄反噬 6（图标待核实）"
+    ],
+    "threats": {
+      "dungeon": {
+        "name": "Bestial Rage",
+        "summary": "Beasts deal +2 damage",
+        "effect": "beastMonsterDamageBonus",
+        "amount": 2
+      },
+      "hamlet": {
+        "name": "Uneasy Times I",
+        "summary": "Survivalist blocked",
+        "effect": "survivalistBlocked"
+      }
+    }
+  },
+  "setup": {
+    "rule": "Warrens rules p3",
+    "princeStance": "aggressive",
+    "wilburStance": "ranged",
+    "wilburEngineStanceHold": "support",
+    "monsterInitiativeCards": 3,
+    "heroInitiativeCards": 4
+  },
+  "tile": {
+    "id": "room_tile:warrens:10",
+    "rawId": "dungeon_tile:warrens:p010",
+    "roomId": "room:warrens:10",
+    "location": "warrens",
+    "number": 10,
+    "name": "Swine Prince",
+    "source": {
+      "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_WARRENS_TILES_FRONT.pdf",
+      "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_WARRENS_TILES_BACK.pdf",
+      "page": 1,
+      "face": "front"
+    },
+    "geometryVerified": false,
+    "geometryComplete": false,
+    "usable": false,
+    "pendingReview": [
+      "Q-WARRENS-29：Boss 板块几何与 Room+Tile 对照待印核（R-048）；本刀不授予 usable"
+    ],
+    "deployment": {
+      "printReview": "pending",
+      "lootAreas": [],
+      "markers": [],
+      "heroes": {
+        "aggressive": "?",
+        "defensive": "?",
+        "ranged": "?",
+        "support": "?"
+      },
+      "monsters": {
+        "aggressive": "?",
+        "defensive": "?",
+        "ranged": "?",
+        "support": "?"
+      }
+    },
+    "areas": [],
+    "edges": [],
+    "necroticFungusAreas": [],
+    "zeroCapacityAreas": [],
+    "specialRegions": [],
+    "wallNotes": [],
+    "unresolvedMarkers": ["dungeon_tile Boss 页序待 Kyries 对照 Warrens Tiles PDF"]
+  }
+}
