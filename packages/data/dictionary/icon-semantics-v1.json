@@ -2,8 +2,8 @@
   "schema": "ddbg-icon-semantics-v1",
   "source": "dictionary/icon-dictionary-v1.8.json",
   "additions": "dictionary/print-icon-additions.json",
-  "keyCount": 116,
-  "aliasCount": 844,
+  "keyCount": 119,
+  "aliasCount": 942,
   "keys": [
     {
       "key": "area_d10_marker",
@@ -45,11 +45,14 @@
         "0fd119772a",
         "337897984c",
         "a74b9dc080",
-        "0d13b745be"
+        "0d13b745be",
+        "15276792e1",
+        "d168f2fa79",
+        "2363e3b4f5"
       ],
-      "aliasCount": 6,
-      "cardOccurrences": 44,
-      "occurrences": 48,
+      "aliasCount": 9,
+      "cardOccurrences": 58,
+      "occurrences": 66,
       "rulebookRefs": [],
       "variants": [
         {
@@ -150,11 +153,14 @@
         "9b6a2b779d",
         "a64616e9c5",
         "d9c36480ed",
-        "12b6af97f2"
+        "12b6af97f2",
+        "eebbb64c26",
+        "fd239b3b43",
+        "200e601d87"
       ],
-      "aliasCount": 19,
-      "cardOccurrences": 177,
-      "occurrences": 177,
+      "aliasCount": 22,
+      "cardOccurrences": 186,
+      "occurrences": 186,
       "rulebookRefs": [],
       "variants": [
         {
@@ -239,11 +245,12 @@
         "1e762e1c58",
         "b75805594c",
         "4afe5a1a69",
-        "ce2f57ed90"
+        "ce2f57ed90",
+        "d05cfb9165"
       ],
-      "aliasCount": 11,
-      "cardOccurrences": 129,
-      "occurrences": 129,
+      "aliasCount": 12,
+      "cardOccurrences": 133,
+      "occurrences": 133,
       "rulebookRefs": [],
       "variants": [
         { "iconId": "f73032e12e", "nameEn": "Blight", "nameZh": "腐蚀（中毒）" },
@@ -510,11 +517,12 @@
         "edb10691e1",
         "f143a824e2",
         "72efe52ca5",
-        "adcab0541a"
+        "adcab0541a",
+        "765d55822b"
       ],
-      "aliasCount": 15,
-      "cardOccurrences": 278,
-      "occurrences": 278,
+      "aliasCount": 16,
+      "cardOccurrences": 280,
+      "occurrences": 280,
       "rulebookRefs": [],
       "variants": [
         {
@@ -578,11 +586,12 @@
         "ade0d9ecad",
         "0453c84dbc",
         "18ee6577d6",
-        "ad20127dd4"
+        "ad20127dd4",
+        "3d72d38b38"
       ],
-      "aliasCount": 7,
-      "cardOccurrences": 1138,
-      "occurrences": 1138,
+      "aliasCount": 8,
+      "cardOccurrences": 1140,
+      "occurrences": 1140,
       "rulebookRefs": [],
       "variants": [
         {
@@ -640,11 +649,13 @@
         "2bc58148bf",
         "40c4cc438c",
         "aa731a7f72",
-        "b30ebecacd"
+        "b30ebecacd",
+        "604a7d83ac",
+        "8585fa8523"
       ],
-      "aliasCount": 13,
-      "cardOccurrences": 134,
-      "occurrences": 134,
+      "aliasCount": 15,
+      "cardOccurrences": 142,
+      "occurrences": 142,
       "rulebookRefs": [],
       "variants": [
         { "iconId": "58cd5040a4", "nameEn": "Debuff (large)", "nameZh": "减益（大）" },
@@ -800,10 +811,17 @@
       "status": "confirmed",
       "statuses": ["confirmed"],
       "valueInGlyph": false,
-      "aliases": ["d745b188ce", "b4627031be", "28b10f3fb7", "e546d025cd", "96dfcd2af2"],
-      "aliasCount": 5,
-      "cardOccurrences": 20,
-      "occurrences": 20,
+      "aliases": [
+        "d745b188ce",
+        "b4627031be",
+        "28b10f3fb7",
+        "e546d025cd",
+        "96dfcd2af2",
+        "1951b03736"
+      ],
+      "aliasCount": 6,
+      "cardOccurrences": 24,
+      "occurrences": 24,
       "rulebookRefs": [],
       "variants": [{ "iconId": "96dfcd2af2", "nameEn": "Disease", "nameZh": "疾病" }]
     },
@@ -821,11 +839,12 @@
         "b2ea38715d",
         "22c0a26f50",
         "003b470410",
-        "c3727c7056"
+        "c3727c7056",
+        "919bf24e2f"
       ],
-      "aliasCount": 6,
-      "cardOccurrences": 223,
-      "occurrences": 223,
+      "aliasCount": 7,
+      "cardOccurrences": 224,
+      "occurrences": 225,
       "rulebookRefs": [],
       "variants": [
         {
@@ -849,10 +868,19 @@
       "status": "confirmed",
       "statuses": ["confirmed"],
       "valueInGlyph": false,
-      "aliases": ["3fe634e723", "382acc9dc4", "7b1a554877", "b7d0cfd524", "449d2d43ed"],
-      "aliasCount": 5,
-      "cardOccurrences": 19,
-      "occurrences": 19,
+      "aliases": [
+        "3fe634e723",
+        "382acc9dc4",
+        "7b1a554877",
+        "b7d0cfd524",
+        "449d2d43ed",
+        "188b149a77",
+        "51ee2324e3",
+        "bc4c4c71d2"
+      ],
+      "aliasCount": 8,
+      "cardOccurrences": 31,
+      "occurrences": 31,
       "rulebookRefs": [],
       "variants": []
     },
@@ -864,10 +892,17 @@
       "status": "confirmed",
       "statuses": ["confirmed"],
       "valueInGlyph": false,
-      "aliases": ["3a7dfcb577", "3ae4312868", "3e2792bc5b", "8b7f872f77"],
-      "aliasCount": 4,
-      "cardOccurrences": 6,
-      "occurrences": 6,
+      "aliases": [
+        "3a7dfcb577",
+        "3ae4312868",
+        "3e2792bc5b",
+        "8b7f872f77",
+        "4bfe02849b",
+        "4fbd5890e2"
+      ],
+      "aliasCount": 6,
+      "cardOccurrences": 10,
+      "occurrences": 10,
       "rulebookRefs": [],
       "variants": []
     },
@@ -879,10 +914,10 @@
       "status": "confirmed",
       "statuses": ["confirmed"],
       "valueInGlyph": false,
-      "aliases": ["85e094f269", "1d9ad90d4a"],
-      "aliasCount": 2,
-      "cardOccurrences": 6,
-      "occurrences": 6,
+      "aliases": ["85e094f269", "1d9ad90d4a", "780a0a8ba6"],
+      "aliasCount": 3,
+      "cardOccurrences": 10,
+      "occurrences": 10,
       "rulebookRefs": [],
       "variants": []
     },
@@ -916,10 +951,17 @@
       "status": "confirmed",
       "statuses": ["confirmed"],
       "valueInGlyph": false,
-      "aliases": ["aa81338d06", "4bcefdb4d9", "989d655ff2"],
-      "aliasCount": 3,
-      "cardOccurrences": 16,
-      "occurrences": 16,
+      "aliases": [
+        "aa81338d06",
+        "4bcefdb4d9",
+        "989d655ff2",
+        "011ae63e02",
+        "bbe8342098",
+        "742ba183d6"
+      ],
+      "aliasCount": 6,
+      "cardOccurrences": 26,
+      "occurrences": 26,
       "rulebookRefs": [],
       "variants": []
     },
@@ -957,11 +999,12 @@
         "9824e0b432",
         "9939df0801",
         "c80e839741",
-        "c890c74db0"
+        "c890c74db0",
+        "388026d6e1"
       ],
-      "aliasCount": 11,
-      "cardOccurrences": 217,
-      "occurrences": 217,
+      "aliasCount": 12,
+      "cardOccurrences": 218,
+      "occurrences": 218,
       "rulebookRefs": [],
       "variants": [
         {
@@ -1306,11 +1349,12 @@
         "9f080685f9",
         "49cd46c0d4",
         "c4fa19b296",
-        "d6b68d575f"
+        "d6b68d575f",
+        "21af232d0b"
       ],
-      "aliasCount": 9,
-      "cardOccurrences": 57,
-      "occurrences": 57,
+      "aliasCount": 10,
+      "cardOccurrences": 58,
+      "occurrences": 58,
       "rulebookRefs": [],
       "variants": [
         { "iconId": "9ffbd6087a", "nameEn": "Light (torch)", "nameZh": "光照（火把）" },
@@ -1341,11 +1385,12 @@
         "3825ad46df",
         "a1e9e5ab21",
         "552a741a9a",
-        "21bef16313"
+        "21bef16313",
+        "432714b571"
       ],
-      "aliasCount": 12,
-      "cardOccurrences": 247,
-      "occurrences": 247,
+      "aliasCount": 13,
+      "cardOccurrences": 255,
+      "occurrences": 255,
       "rulebookRefs": [],
       "variants": [
         {
@@ -1403,10 +1448,17 @@
       "status": "confirmed_rulebook",
       "statuses": ["confirmed_rulebook"],
       "valueInGlyph": false,
-      "aliases": ["7e288c22e5", "efb68defdc"],
-      "aliasCount": 2,
-      "cardOccurrences": 51,
-      "occurrences": 51,
+      "aliases": [
+        "7e288c22e5",
+        "efb68defdc",
+        "3835a8b053",
+        "20f30de8e1",
+        "35cdd82190",
+        "93164dece8"
+      ],
+      "aliasCount": 6,
+      "cardOccurrences": 62,
+      "occurrences": 67,
       "rulebookRefs": [
         "Core p.16 step 7 \"Place Loot Token(s)\": the arrow points to the Area holding the chest box (same box on the figure Room Card, rulebook icon match to r65: pHash distance 10)",
         "Core p.18 \"Special lootable items and interaction with them are usually indicated on the Room Card\"; Loot Chest interaction rules"
@@ -1592,11 +1644,29 @@
         "0b980b3132",
         "27e9380df6",
         "a35a25150c",
-        "464b07fec1"
+        "464b07fec1",
+        "08f3962158",
+        "1cfb919e80",
+        "301e60bc5d",
+        "4057909759",
+        "422c26536e",
+        "68681d687e",
+        "6be4283818",
+        "7adef71a76",
+        "8ba1ceffa6",
+        "8ba5ee69bd",
+        "91666d8351",
+        "a1e7f27cf1",
+        "a9c9a5ccb1",
+        "ba7969d104",
+        "d524e1dfba",
+        "da2b08ade6",
+        "f37ad8276d",
+        "f4233fbf6a"
       ],
-      "aliasCount": 18,
-      "cardOccurrences": 244,
-      "occurrences": 309,
+      "aliasCount": 36,
+      "cardOccurrences": 289,
+      "occurrences": 383,
       "rulebookRefs": [
         "Core p.18 Move rules + figure label \"Occupancy number/icon\" (white pips on the Area = how many miniatures it holds; \"Fully Occupied Area\")"
       ],
@@ -1642,11 +1712,21 @@
         "1f623cfca0",
         "37a120f76f",
         "8bbbde748d",
-        "a0ed98587f"
+        "a0ed98587f",
+        "03524a7ece",
+        "eee86b25fe",
+        "ab27044bdb",
+        "d0db4f8340",
+        "3325186041",
+        "8507f04bc8",
+        "a5312a8b4f",
+        "a68737946b",
+        "b0f97be42d",
+        "b86d600bf8"
       ],
-      "aliasCount": 6,
-      "cardOccurrences": 42,
-      "occurrences": 42,
+      "aliasCount": 16,
+      "cardOccurrences": 64,
+      "occurrences": 77,
       "rulebookRefs": [
         "Core p.16 \"Set up a Battle\" figure: Room Card areas carry lettered markers (A/B) next to the pips; the card text \"A Loot the Chest…\", \"B Hide and Heal…\" refers to them (rulebook icon match to r363: pHash distance 4)",
         "Core p.18 Move rules + figure label \"Occupancy number/icon\" (white pips on the Area = how many miniatures it holds; \"Fully Occupied Area\")",
@@ -1679,6 +1759,48 @@
           "nameZh": "区域容纳标记（4点） + 区域标记（绿色，对应房间卡效果文字）"
         }
       ]
+    },
+    {
+      "key": "occupancy_pips_with_high_ground",
+      "nameEn": "Area occupancy pips + high ground",
+      "nameZh": "区域容纳标记 + 高地",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["0b3b996f9c"],
+      "aliasCount": 1,
+      "cardOccurrences": 4,
+      "occurrences": 4,
+      "rulebookRefs": [
+        "Core p.18 Move rules + figure label \"Occupancy number/icon\" (white pips on the Area = how many miniatures it holds; \"Fully Occupied Area\")"
+      ],
+      "variants": [
+        {
+          "iconId": "0b3b996f9c",
+          "nameEn": "Area occupancy pips + high ground (up triangle)",
+          "nameZh": "区域容纳标记 + 高地（向上三角）"
+        }
+      ]
+    },
+    {
+      "key": "occupancy_pips_with_high_ground_and_area_marker",
+      "nameEn": "Area occupancy pips + high ground + area marker",
+      "nameZh": "区域容纳标记 + 高地 + 区域标记",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["4d23d01af2"],
+      "aliasCount": 1,
+      "cardOccurrences": 1,
+      "occurrences": 2,
+      "rulebookRefs": [
+        "Core p.16 \"Set up a Battle\" figure: Room Card areas carry lettered markers (A/B) next to the pips; the card text \"A Loot the Chest…\", \"B Hide and Heal…\" refers to them (rulebook icon match to r363: pHash distance 4)",
+        "Core p.18 Move rules + figure label \"Occupancy number/icon\" (white pips on the Area = how many miniatures it holds; \"Fully Occupied Area\")",
+        "Core p.5 component overview: Room Card \"1—Ritual Chamber\" shows a red marker before the named effect \"Cornered: Heroes ending their turn here suffer…\""
+      ],
+      "variants": []
     },
     {
       "key": "pa_heading",
@@ -1903,6 +2025,27 @@
       "variants": []
     },
     {
+      "key": "room_number",
+      "nameEn": "Room number badge",
+      "nameZh": "房间编号牌",
+      "kind": "other",
+      "status": "confirmed",
+      "statuses": ["confirmed"],
+      "valueInGlyph": false,
+      "aliases": ["be4f829eb7"],
+      "aliasCount": 1,
+      "cardOccurrences": 12,
+      "occurrences": 12,
+      "rulebookRefs": [],
+      "variants": [
+        {
+          "iconId": "be4f829eb7",
+          "nameEn": "Room number badge (printed number)",
+          "nameZh": "房间编号牌（数字印在旁）"
+        }
+      ]
+    },
+    {
       "key": "room_type",
       "nameEn": "Dark Room",
       "nameZh": "空房间",
@@ -2010,11 +2153,13 @@
         "ac56561b87",
         "8c4c3c2ec2",
         "e3c4380264",
-        "31f483557e"
+        "31f483557e",
+        "2847746df8",
+        "54380d8c59"
       ],
-      "aliasCount": 9,
-      "cardOccurrences": 168,
-      "occurrences": 168,
+      "aliasCount": 11,
+      "cardOccurrences": 170,
+      "occurrences": 170,
       "rulebookRefs": [],
       "variants": [
         {
@@ -2352,10 +2497,10 @@
       "status": "confirmed",
       "statuses": ["confirmed"],
       "valueInGlyph": false,
-      "aliases": ["4648c9e5ec", "b0f4ca8612"],
-      "aliasCount": 2,
-      "cardOccurrences": 425,
-      "occurrences": 425,
+      "aliases": ["4648c9e5ec", "b0f4ca8612", "bd5b25c15d"],
+      "aliasCount": 3,
+      "cardOccurrences": 426,
+      "occurrences": 426,
       "rulebookRefs": [],
       "variants": [
         { "iconId": "4648c9e5ec", "nameEn": "Speed (movement)", "nameZh": "速度（移动）" }
@@ -2732,10 +2877,19 @@
       "status": "confirmed_rulebook",
       "statuses": ["confirmed_rulebook"],
       "valueInGlyph": false,
-      "aliases": ["90da148d08", "3b32f5de34", "09c6df8d2e", "e128e21432", "87b236a78e"],
-      "aliasCount": 5,
-      "cardOccurrences": 38,
-      "occurrences": 38,
+      "aliases": [
+        "90da148d08",
+        "3b32f5de34",
+        "09c6df8d2e",
+        "e128e21432",
+        "87b236a78e",
+        "49d58f8be4",
+        "d48ffdf75b",
+        "ee951e3771"
+      ],
+      "aliasCount": 8,
+      "cardOccurrences": 50,
+      "occurrences": 50,
       "rulebookRefs": [
         "Core p.16 \"Deploy Heroes, Spawn Monsters and Ready the Initiative Deck\": \"On each Room Tile you can find the starting location for both Heroes and Monsters. Place each Hero's miniature on the Area indicated, according to the Hero's Stance.\" Legend: \"Example: 2 Starting Locations of Heroes\" (gold frames) / \"Example: 2 Starting Locations of Monsters\" (red frames); steps 4/5 \"Place Hero/Monster Miniatures according to their Stances\""
       ],
@@ -2772,10 +2926,20 @@
       "status": "confirmed_rulebook",
       "statuses": ["confirmed_rulebook"],
       "valueInGlyph": false,
-      "aliases": ["544755f56d", "5867540e37", "b66a13ec73", "324b070464"],
-      "aliasCount": 4,
-      "cardOccurrences": 27,
-      "occurrences": 27,
+      "aliases": [
+        "544755f56d",
+        "5867540e37",
+        "b66a13ec73",
+        "324b070464",
+        "89d8f0b8db",
+        "1773908fcf",
+        "c18c29c0ad",
+        "d097da1b47",
+        "7321f0720d"
+      ],
+      "aliasCount": 9,
+      "cardOccurrences": 37,
+      "occurrences": 37,
       "rulebookRefs": [
         "Core p.16 \"Deploy Heroes, Spawn Monsters and Ready the Initiative Deck\": \"On each Room Tile you can find the starting location for both Heroes and Monsters. Place each Hero's miniature on the Area indicated, according to the Hero's Stance.\" Legend: \"Example: 2 Starting Locations of Heroes\" (gold frames) / \"Example: 2 Starting Locations of Monsters\" (red frames); steps 4/5 \"Place Hero/Monster Miniatures according to their Stances\""
       ],
@@ -2789,10 +2953,10 @@
       "status": "confirmed_rulebook",
       "statuses": ["confirmed_rulebook"],
       "valueInGlyph": false,
-      "aliases": ["67c08f463c", "70bc0b2351"],
-      "aliasCount": 2,
-      "cardOccurrences": 36,
-      "occurrences": 36,
+      "aliases": ["67c08f463c", "70bc0b2351", "52f18e6059", "b431ee24d4", "42fd3c115f"],
+      "aliasCount": 5,
+      "cardOccurrences": 48,
+      "occurrences": 48,
       "rulebookRefs": [
         "Core p.16 \"Deploy Heroes, Spawn Monsters and Ready the Initiative Deck\": \"On each Room Tile you can find the starting location for both Heroes and Monsters. Place each Hero's miniature on the Area indicated, according to the Hero's Stance.\" Legend: \"Example: 2 Starting Locations of Heroes\" (gold frames) / \"Example: 2 Starting Locations of Monsters\" (red frames); steps 4/5 \"Place Hero/Monster Miniatures according to their Stances\""
       ],
@@ -2806,10 +2970,17 @@
       "status": "confirmed_rulebook",
       "statuses": ["confirmed_rulebook"],
       "valueInGlyph": false,
-      "aliases": ["ec5b6362c8", "1bdc97b07d", "e791ca9665"],
-      "aliasCount": 3,
-      "cardOccurrences": 15,
-      "occurrences": 15,
+      "aliases": [
+        "ec5b6362c8",
+        "1bdc97b07d",
+        "e791ca9665",
+        "427c35ebd8",
+        "6e7ac3e7ba",
+        "b0906b14f5"
+      ],
+      "aliasCount": 6,
+      "cardOccurrences": 27,
+      "occurrences": 27,
       "rulebookRefs": [
         "Core p.16 \"Deploy Heroes, Spawn Monsters and Ready the Initiative Deck\": \"On each Room Tile you can find the starting location for both Heroes and Monsters. Place each Hero's miniature on the Area indicated, according to the Hero's Stance.\" Legend: \"Example: 2 Starting Locations of Heroes\" (gold frames) / \"Example: 2 Starting Locations of Monsters\" (red frames); steps 4/5 \"Place Hero/Monster Miniatures according to their Stances\""
       ],
@@ -2823,10 +2994,18 @@
       "status": "confirmed_rulebook",
       "statuses": ["confirmed_rulebook"],
       "valueInGlyph": false,
-      "aliases": ["0591dde355", "0e2b0006bf", "1dbb20856f"],
-      "aliasCount": 3,
-      "cardOccurrences": 34,
-      "occurrences": 34,
+      "aliases": [
+        "0591dde355",
+        "0e2b0006bf",
+        "1dbb20856f",
+        "45792e6820",
+        "b3bed65cc7",
+        "130e406a91",
+        "a210285ad2"
+      ],
+      "aliasCount": 7,
+      "cardOccurrences": 47,
+      "occurrences": 47,
       "rulebookRefs": [
         "Core p.16 \"Deploy Heroes, Spawn Monsters and Ready the Initiative Deck\": \"On each Room Tile you can find the starting location for both Heroes and Monsters. Place each Hero's miniature on the Area indicated, according to the Hero's Stance.\" Legend: \"Example: 2 Starting Locations of Heroes\" (gold frames) / \"Example: 2 Starting Locations of Monsters\" (red frames); steps 4/5 \"Place Hero/Monster Miniatures according to their Stances\""
       ],
@@ -2863,10 +3042,18 @@
       "status": "confirmed_rulebook",
       "statuses": ["confirmed_rulebook"],
       "valueInGlyph": false,
-      "aliases": ["7992756c4a", "24e6be3998", "3ab2c5d940"],
-      "aliasCount": 3,
-      "cardOccurrences": 24,
-      "occurrences": 24,
+      "aliases": [
+        "7992756c4a",
+        "24e6be3998",
+        "3ab2c5d940",
+        "14ed877df8",
+        "fa03a59d48",
+        "6fb6fe3130",
+        "c3e0c15d60"
+      ],
+      "aliasCount": 7,
+      "cardOccurrences": 37,
+      "occurrences": 37,
       "rulebookRefs": [
         "Core p.16 \"Deploy Heroes, Spawn Monsters and Ready the Initiative Deck\": \"On each Room Tile you can find the starting location for both Heroes and Monsters. Place each Hero's miniature on the Area indicated, according to the Hero's Stance.\" Legend: \"Example: 2 Starting Locations of Heroes\" (gold frames) / \"Example: 2 Starting Locations of Monsters\" (red frames); steps 4/5 \"Place Hero/Monster Miniatures according to their Stances\""
       ],
@@ -2880,10 +3067,18 @@
       "status": "confirmed_rulebook",
       "statuses": ["confirmed_rulebook"],
       "valueInGlyph": false,
-      "aliases": ["4cd99e2a5c", "820463bba5", "68effd780d"],
-      "aliasCount": 3,
-      "cardOccurrences": 35,
-      "occurrences": 35,
+      "aliases": [
+        "4cd99e2a5c",
+        "820463bba5",
+        "68effd780d",
+        "04480583f0",
+        "773b5a997f",
+        "3a8dde7028",
+        "2f58e6d463"
+      ],
+      "aliasCount": 7,
+      "cardOccurrences": 46,
+      "occurrences": 46,
       "rulebookRefs": [
         "Core p.16 \"Deploy Heroes, Spawn Monsters and Ready the Initiative Deck\": \"On each Room Tile you can find the starting location for both Heroes and Monsters. Place each Hero's miniature on the Area indicated, according to the Hero's Stance.\" Legend: \"Example: 2 Starting Locations of Heroes\" (gold frames) / \"Example: 2 Starting Locations of Monsters\" (red frames); steps 4/5 \"Place Hero/Monster Miniatures according to their Stances\""
       ],
@@ -2904,11 +3099,17 @@
         "38668d05ef",
         "9e8ab90883",
         "3c35c71d73",
-        "59bb98a0c2"
+        "59bb98a0c2",
+        "e32d996389",
+        "7cb2ea5f88",
+        "9d7233188f",
+        "a70c926562",
+        "d8e742198e",
+        "5d4431c3fa"
       ],
-      "aliasCount": 7,
-      "cardOccurrences": 33,
-      "occurrences": 33,
+      "aliasCount": 13,
+      "cardOccurrences": 45,
+      "occurrences": 45,
       "rulebookRefs": [
         "Core p.16 \"Deploy Heroes, Spawn Monsters and Ready the Initiative Deck\": \"On each Room Tile you can find the starting location for both Heroes and Monsters. Place each Hero's miniature on the Area indicated, according to the Hero's Stance.\" Legend: \"Example: 2 Starting Locations of Heroes\" (gold frames) / \"Example: 2 Starting Locations of Monsters\" (red frames); steps 4/5 \"Place Hero/Monster Miniatures according to their Stances\""
       ],
@@ -2935,11 +3136,12 @@
         "abf095b29d",
         "dd86508746",
         "1e36d5379b",
-        "df38279161"
+        "df38279161",
+        "f53dfff5f0"
       ],
-      "aliasCount": 13,
-      "cardOccurrences": 317,
-      "occurrences": 317,
+      "aliasCount": 14,
+      "cardOccurrences": 318,
+      "occurrences": 318,
       "rulebookRefs": [],
       "variants": [
         {
@@ -2963,10 +3165,17 @@
       "status": "confirmed",
       "statuses": ["confirmed"],
       "valueInGlyph": false,
-      "aliases": ["1fd9f6ec6d", "8db71542d2", "e05f59c39a", "f122d682f4", "ccca0ec836"],
-      "aliasCount": 5,
-      "cardOccurrences": 204,
-      "occurrences": 204,
+      "aliases": [
+        "1fd9f6ec6d",
+        "8db71542d2",
+        "e05f59c39a",
+        "f122d682f4",
+        "ccca0ec836",
+        "a76347ce0f"
+      ],
+      "aliasCount": 6,
+      "cardOccurrences": 205,
+      "occurrences": 205,
       "rulebookRefs": [],
       "variants": [
         {
@@ -3171,10 +3380,10 @@
       "status": "confirmed",
       "statuses": ["confirmed"],
       "valueInGlyph": false,
-      "aliases": ["58a22b11c6", "e08aace22b"],
-      "aliasCount": 2,
-      "cardOccurrences": 13,
-      "occurrences": 13,
+      "aliases": ["58a22b11c6", "e08aace22b", "4ce7ef5f94"],
+      "aliasCount": 3,
+      "cardOccurrences": 14,
+      "occurrences": 14,
       "rulebookRefs": [],
       "variants": [
         {

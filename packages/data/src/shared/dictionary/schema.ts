@@ -26,7 +26,8 @@ const CONFIRMED_STANCE_KEY = new RegExp(
   `^stance_(${STANCES})_(lit|unlit|monster_slot|large_monster|inline|abomination_row)$`,
 );
 
-const OCCUPANCY_KEY = /^(?:occupancy_pips|occupancy_pips_with_area_marker|occupancy_limit)$/;
+const OCCUPANCY_KEY =
+  /^(?:occupancy_pips|occupancy_pips_with_area_marker|occupancy_pips_with_high_ground|occupancy_pips_with_high_ground_and_area_marker|occupancy_limit)$/;
 
 /** 词典对 confidence 的写法：档位，后面可以带限定语。 */
 const CONFIDENCE = /^(?:high|medium-high|medium|low-medium|low)(?: .+)?$/;
@@ -111,7 +112,7 @@ export function iconKeyConventionIssues(icon: {
   }
   if (icon.key.startsWith("occupancy_") && !OCCUPANCY_KEY.test(icon.key)) {
     issues.push(
-      "occupancy key 应为 occupancy_pips、occupancy_pips_with_area_marker 或 occupancy_limit",
+      "occupancy key 应为 occupancy_pips、occupancy_pips_with_area_marker、occupancy_pips_with_high_ground、occupancy_pips_with_high_ground_and_area_marker 或 occupancy_limit",
     );
   }
   if (icon.key === "skill_number" && icon.value !== null) {
