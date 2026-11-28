@@ -1,0 +1,125 @@
+{
+  "schema": "ddbg-warrens-room-tile-catalog-v0",
+  "tiles": [
+    {
+      "id": "room_tile:warrens:01",
+      "rawId": "dungeon_tile:warrens:p001",
+      "roomId": "room:warrens:01",
+      "location": "warrens",
+      "number": 1,
+      "name": "Putrid Cellar",
+      "printLabel": "1",
+      "source": {
+        "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_WARRENS_TILES_FRONT.pdf",
+        "page": 1,
+        "face": "front",
+        "back": null
+      },
+      "geometryVerified": false,
+      "usable": false,
+      "pendingReview": [
+        "待确认：Warrens Tiles 仅 FRONT 入库；背面几何、房间 07–09 板块对应与部署标记待印核（R-048）"
+      ]
+    },
+    {
+      "id": "room_tile:warrens:02",
+      "rawId": "dungeon_tile:warrens:p002",
+      "roomId": "room:warrens:02",
+      "location": "warrens",
+      "number": 2,
+      "name": "The Sewage",
+      "printLabel": "3",
+      "source": {
+        "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_WARRENS_TILES_FRONT.pdf",
+        "page": 2,
+        "face": "front",
+        "back": null
+      },
+      "geometryVerified": false,
+      "usable": false,
+      "pendingReview": [
+        "待确认：Warrens Tiles 仅 FRONT 入库；背面几何、房间 07–09 板块对应与部署标记待印核（R-048）"
+      ]
+    },
+    {
+      "id": "room_tile:warrens:03",
+      "rawId": "dungeon_tile:warrens:p003",
+      "roomId": "room:warrens:03",
+      "location": "warrens",
+      "number": 3,
+      "name": "Infected Storage",
+      "printLabel": "5",
+      "source": {
+        "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_WARRENS_TILES_FRONT.pdf",
+        "page": 3,
+        "face": "front",
+        "back": null
+      },
+      "geometryVerified": false,
+      "usable": false,
+      "pendingReview": [
+        "待确认：Warrens Tiles 仅 FRONT 入库；背面几何、房间 07–09 板块对应与部署标记待印核（R-048）"
+      ]
+    },
+    {
+      "id": "room_tile:warrens:04",
+      "rawId": "dungeon_tile:warrens:p004",
+      "roomId": "room:warrens:04",
+      "location": "warrens",
+      "number": 4,
+      "name": "Experiment Deposit",
+      "printLabel": "7",
+      "source": {
+        "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_WARRENS_TILES_FRONT.pdf",
+        "page": 4,
+        "face": "front",
+        "back": null
+      },
+      "geometryVerified": false,
+      "usable": false,
+      "pendingReview": [
+        "待确认：Warrens Tiles 仅 FRONT 入库；背面几何、房间 07–09 板块对应与部署标记待印核（R-048）"
+      ]
+    },
+    {
+      "id": "room_tile:warrens:05",
+      "rawId": "dungeon_tile:warrens:p005",
+      "roomId": "room:warrens:05",
+      "location": "warrens",
+      "number": 5,
+      "name": "Dumped Shinies",
+      "printLabel": "9",
+      "source": {
+        "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_WARRENS_TILES_FRONT.pdf",
+        "page": 5,
+        "face": "front",
+        "back": null
+      },
+      "geometryVerified": false,
+      "usable": false,
+      "pendingReview": [
+        "待确认：Warrens Tiles 仅 FRONT 入库；背面几何、房间 07–09 板块对应与部署标记待印核（R-048）"
+      ]
+    },
+    {
+      "id": "room_tile:warrens:06",
+      "rawId": "dungeon_tile:warrens:p006",
+      "roomId": "room:warrens:06",
+      "location": "warrens",
+      "number": 6,
+      "name": "Rusted Armory",
+      "printLabel": "11",
+      "source": {
+        "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_WARRENS_TILES_FRONT.pdf",
+        "page": 6,
+        "face": "front",
+        "back": null
+      },
+      "geometryVerified": false,
+      "usable": false,
+      "pendingReview": [
+        "待确认：Warrens Tiles 仅 FRONT 入库；背面几何、房间 07–09 板块对应与部署标记待印核（R-048）"
+      ]
+    }
+  ]
+}

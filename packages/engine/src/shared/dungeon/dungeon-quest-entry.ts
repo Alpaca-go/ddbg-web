@@ -45,9 +45,16 @@ export type CoveQuestSources = {
   readonly bossRoomSources: readonly import("../../../../data/src/cove/rooms/room").CoveBossRoomCard[];
 };
 
+export type WarrensQuestSources = {
+  readonly curios: readonly CurioCard[];
+  readonly rooms: readonly import("../../../../data/src/warrens/rooms/room").WarrensNormalRoomCard[];
+  readonly roomTiles: readonly import("../../../../data/src/warrens/tiles/room-tile").WarrensRoomTile[];
+};
+
 export type CoreQuestSources = {
   readonly weald?: import("../quest/location-quest-sources").WealdQuestSources;
   readonly cove?: CoveQuestSources;
+  readonly warrens?: WarrensQuestSources;
   readonly catalog: DungeonBattleCatalog;
   readonly resolveCards: readonly ResolveCard[];
   readonly curios: readonly CurioCard[];

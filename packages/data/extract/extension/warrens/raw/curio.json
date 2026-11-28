@@ -1,0 +1,2908 @@
+{
+  "schema": "ddbg-raw-v1",
+  "extractor_version": "1.0.4",
+  "category": "curio",
+  "kind": "card",
+  "units": {
+    "length": "mm",
+    "origin": "top-left corner of the PDF TrimBox (card face, bleed excluded)",
+    "y_axis": "down",
+    "font_size": "pt"
+  },
+  "sources": [
+    {
+      "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+      "back": null,
+      "source_set": "extension",
+      "kind": "card",
+      "front_pages": 16,
+      "back_pages": null
+    }
+  ],
+  "n_pages": 16,
+  "n_unique": 16,
+  "n_copies_total": 16,
+  "cards": [
+    {
+      "id": "curio:warrens:p001",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [1],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+          "page": 1,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "85952d2f2fc53427",
+          "spans": [
+            {
+              "t": "A dark altar with skulls prominently on",
+              "bbox": [10.64, 18.84, 52.06, 22.84],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "display. A strange power can be felt in its",
+              "bbox": [9.34, 22.65, 53.36, 26.64],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "presence. Hanging from the side are some",
+              "bbox": [9.29, 26.46, 53.4, 30.45],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "valuable ornaments, but will they bring",
+              "bbox": [10.72, 30.27, 51.97, 34.26],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "you luck or not? Only time will tell...",
+              "bbox": [12.03, 34.07, 50.67, 38.07],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "Bone Altar",
+              "bbox": [22.15, 6.92, 41.3, 13.09],
+              "font": "DwarvenAxeBB",
+              "size": 16.0,
+              "color": "#b27a4a"
+            },
+            {
+              "t": "+1",
+              "bbox": [22.03, 44.48, 25.97, 51.42],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            },
+            {
+              "t": "5",
+              "bbox": [17.04, 71.81, 19.64, 78.75],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "3f82ff8e90",
+              "bbox": [49.3, 0.0, 57.27, 13.2]
+            },
+            {
+              "iconId": "df696c2f2e",
+              "bbox": [2.02, 10.0, 9.75, 17.57],
+              "bbox_full": [1.19, 9.22, 11.73, 19.63]
+            },
+            {
+              "iconId": "12438e9a49",
+              "bbox": [15.52, 45.16, 20.81, 50.45],
+              "bbox_full": [14.1, 43.81, 27.06, 51.94]
+            },
+            {
+              "iconId": "abbab6017d",
+              "bbox": [14.56, 51.66, 27.09, 66.27]
+            },
+            {
+              "iconId": "e32277f2d6",
+              "bbox": [14.29, 60.77, 26.83, 75.37]
+            },
+            {
+              "iconId": "3589fdacfc",
+              "bbox": [15.36, 71.04, 26.15, 79.55],
+              "decor": true,
+              "container": true
+            },
+            {
+              "iconId": "c870a39e26",
+              "bbox": [20.11, 72.67, 24.69, 77.96]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Bone Altar {icon:3f82ff8e90}",
+              "bbox": [22.15, 0.0, 57.27, 13.2]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:df696c2f2e}",
+              "bbox": [2.02, 10.0, 9.75, 17.57]
+            },
+            {
+              "rot": 0,
+              "text": "A dark altar with skulls prominently on",
+              "bbox": [10.64, 18.84, 52.06, 22.84]
+            },
+            {
+              "rot": 0,
+              "text": "display. A strange power can be felt in its",
+              "bbox": [9.34, 22.65, 53.36, 26.64]
+            },
+            {
+              "rot": 0,
+              "text": "presence. Hanging from the side are some",
+              "bbox": [9.29, 26.46, 53.4, 30.45]
+            },
+            {
+              "rot": 0,
+              "text": "valuable ornaments, but will they bring",
+              "bbox": [10.72, 30.27, 51.97, 34.26]
+            },
+            {
+              "rot": 0,
+              "text": "you luck or not? Only time will tell...",
+              "bbox": [12.03, 34.07, 50.67, 38.07]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:12438e9a49} +1",
+              "bbox": [15.52, 44.48, 25.97, 51.42]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:abbab6017d}",
+              "bbox": [14.56, 51.66, 27.09, 66.27]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:e32277f2d6} 5 {icon:c870a39e26}",
+              "bbox": [14.29, 60.77, 26.83, 78.75]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "curio:warrens:p002",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [2],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+          "page": 2,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "85952d2f2d853d27",
+          "spans": [
+            {
+              "t": "A dark altar with skulls prominently on display. A",
+              "bbox": [6.77, 17.2, 55.93, 21.19],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "strange power can be felt in its presence. To the",
+              "bbox": [7.38, 20.91, 55.32, 24.9],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "side, you find a pouch filled with coins, clearly",
+              "bbox": [8.28, 24.61, 54.42, 28.6],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "as a token to the departed. Feelings of guilt and",
+              "bbox": [7.9, 28.31, 54.81, 32.3],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "disgust wash over you as you pocket the money,",
+              "bbox": [7.24, 32.01, 55.46, 36.0],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "hoping not to have angered any malignant entity.",
+              "bbox": [7.32, 35.72, 55.38, 39.71],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "Bone Altar",
+              "bbox": [22.15, 6.92, 41.3, 13.09],
+              "font": "DwarvenAxeBB",
+              "size": 16.0,
+              "color": "#b27a4a"
+            },
+            {
+              "t": "10",
+              "bbox": [15.87, 71.51, 20.3, 78.45],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            },
+            {
+              "t": "+1",
+              "bbox": [21.78, 44.48, 25.72, 51.42],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            },
+            {
+              "t": "2t",
+              "bbox": [21.37, 62.77, 25.35, 69.71],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffe6ad"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "3f82ff8e90",
+              "bbox": [49.3, 0.0, 57.27, 13.2]
+            },
+            {
+              "iconId": "df696c2f2e",
+              "bbox": [2.02, 10.0, 9.75, 17.57],
+              "bbox_full": [1.19, 9.22, 11.73, 19.63]
+            },
+            {
+              "iconId": "12438e9a49",
+              "bbox": [15.17, 45.16, 20.46, 50.45],
+              "bbox_full": [13.85, 43.81, 26.81, 51.94]
+            },
+            {
+              "iconId": "9083ca75b8",
+              "bbox": [14.31, 51.66, 26.84, 66.27]
+            },
+            {
+              "iconId": "604a7d83ac",
+              "bbox": [15.52, 63.5, 20.46, 68.79],
+              "bbox_full": [13.97, 62.11, 26.29, 70.38]
+            },
+            {
+              "iconId": "d882315f3f",
+              "bbox": [14.35, 70.73, 26.79, 79.24],
+              "decor": true,
+              "container": true
+            },
+            {
+              "iconId": "40761ae25e",
+              "bbox": [20.46, 72.32, 25.05, 77.61]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Bone Altar {icon:3f82ff8e90}",
+              "bbox": [22.15, 0.0, 57.27, 13.2]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:df696c2f2e}",
+              "bbox": [2.02, 10.0, 9.75, 17.57]
+            },
+            {
+              "rot": 0,
+              "text": "A dark altar with skulls prominently on display. A",
+              "bbox": [6.77, 17.2, 55.93, 21.19]
+            },
+            {
+              "rot": 0,
+              "text": "strange power can be felt in its presence. To the",
+              "bbox": [7.38, 20.91, 55.32, 24.9]
+            },
+            {
+              "rot": 0,
+              "text": "side, you find a pouch filled with coins, clearly",
+              "bbox": [8.28, 24.61, 54.42, 28.6]
+            },
+            {
+              "rot": 0,
+              "text": "as a token to the departed. Feelings of guilt and",
+              "bbox": [7.9, 28.31, 54.81, 32.3]
+            },
+            {
+              "rot": 0,
+              "text": "disgust wash over you as you pocket the money,",
+              "bbox": [7.24, 32.01, 55.46, 36.0]
+            },
+            {
+              "rot": 0,
+              "text": "hoping not to have angered any malignant entity.",
+              "bbox": [7.32, 35.72, 55.38, 39.71]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:12438e9a49} +1",
+              "bbox": [15.17, 44.48, 25.72, 51.42]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:9083ca75b8} {icon:604a7d83ac} 2t",
+              "bbox": [14.31, 51.66, 26.84, 69.71]
+            },
+            {
+              "rot": 0,
+              "text": "10 {icon:40761ae25e}",
+              "bbox": [15.87, 71.51, 25.05, 78.45]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "curio:warrens:p003",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [3],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+          "page": 3,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "85952f2f2fa53047",
+          "spans": [
+            {
+              "t": "A cart of human remains. It looks much like",
+              "bbox": [8.31, 16.94, 54.39, 20.93],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "a feeding trough. Disgusting. Yet it’s a great",
+              "bbox": [8.09, 20.75, 54.61, 24.74],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "reminder of your humanity. Searching it you",
+              "bbox": [7.86, 24.55, 54.84, 28.55],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "find some gold and provisions but alas, they’re",
+              "bbox": [6.6, 28.36, 56.1, 32.35],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "all contaminated. You put your gloves back on",
+              "bbox": [7.3, 32.17, 55.4, 36.16],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "but sadly the damage has already been done...",
+              "bbox": [7.08, 35.98, 55.62, 39.97],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "Dinner Cart",
+              "bbox": [21.13, 6.92, 42.32, 13.09],
+              "font": "DwarvenAxeBB",
+              "size": 16.0,
+              "color": "#b27a4a"
+            },
+            {
+              "t": "1",
+              "bbox": [14.28, 44.48, 16.03, 51.42],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            },
+            {
+              "t": "3t",
+              "bbox": [21.67, 44.48, 25.75, 51.42],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffffff"
+            },
+            {
+              "t": "5",
+              "bbox": [16.57, 53.69, 19.17, 60.63],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "3f82ff8e90",
+              "bbox": [49.3, 0.0, 57.27, 13.2]
+            },
+            {
+              "iconId": "df696c2f2e",
+              "bbox": [2.02, 10.0, 9.75, 17.57],
+              "bbox_full": [1.19, 9.22, 11.73, 19.63]
+            },
+            {
+              "iconId": "3d2d3fadd1",
+              "bbox": [17.29, 45.51, 21.17, 50.09],
+              "bbox_full": [13.55, 43.96, 26.76, 51.7]
+            },
+            {
+              "iconId": "3589fdacfc",
+              "bbox": [14.89, 52.91, 25.69, 61.42],
+              "decor": true,
+              "container": true
+            },
+            {
+              "iconId": "c870a39e26",
+              "bbox": [19.4, 54.68, 23.99, 59.62]
+            },
+            {
+              "iconId": "8983cae39d",
+              "bbox": [13.97, 60.77, 26.5, 75.37]
+            },
+            {
+              "iconId": "ae45f5bcb3",
+              "bbox": [13.37, 70.43, 26.52, 83.58],
+              "bbox_full": [12.38, 70.43, 27.36, 85.94]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Dinner Cart {icon:3f82ff8e90}",
+              "bbox": [21.13, 0.0, 57.27, 13.2]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:df696c2f2e}",
+              "bbox": [2.02, 10.0, 9.75, 17.57]
+            },
+            {
+              "rot": 0,
+              "text": "A cart of human remains. It looks much like",
+              "bbox": [8.31, 16.94, 54.39, 20.93]
+            },
+            {
+              "rot": 0,
+              "text": "a feeding trough. Disgusting. Yet it’s a great",
+              "bbox": [8.09, 20.75, 54.61, 24.74]
+            },
+            {
+              "rot": 0,
+              "text": "reminder of your humanity. Searching it you",
+              "bbox": [7.86, 24.55, 54.84, 28.55]
+            },
+            {
+              "rot": 0,
+              "text": "find some gold and provisions but alas, they’re",
+              "bbox": [6.6, 28.36, 56.1, 32.35]
+            },
+            {
+              "rot": 0,
+              "text": "all contaminated. You put your gloves back on",
+              "bbox": [7.3, 32.17, 55.4, 36.16]
+            },
+            {
+              "rot": 0,
+              "text": "but sadly the damage has already been done...",
+              "bbox": [7.08, 35.98, 55.62, 39.97]
+            },
+            {
+              "rot": 0,
+              "text": "1 {icon:3d2d3fadd1} 3t",
+              "bbox": [14.28, 44.48, 25.75, 51.42]
+            },
+            {
+              "rot": 0,
+              "text": "5 {icon:c870a39e26}",
+              "bbox": [16.57, 53.69, 23.99, 60.63]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:8983cae39d}",
+              "bbox": [13.97, 60.77, 26.5, 75.37]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:ae45f5bcb3}",
+              "bbox": [13.37, 70.43, 26.52, 83.58]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "curio:warrens:p004",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [4],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+          "page": 4,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "85942d2f2d853dc7",
+          "spans": [
+            {
+              "t": "A cart of human remains. It looks much",
+              "bbox": [11.71, 17.2, 50.99, 21.19],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "like a feeding trough. Disgusting. You",
+              "bbox": [13.04, 20.91, 49.66, 24.9],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "manage to find some provisions but you",
+              "bbox": [11.5, 24.61, 51.2, 28.6],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "accidentaly puncture yourself on a broken",
+              "bbox": [10.41, 28.31, 52.3, 32.3],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "rib. It belongs to a moldy carcass, long",
+              "bbox": [11.84, 32.01, 50.87, 36.0],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "butchered, rotting and withering away.",
+              "bbox": [11.91, 35.72, 50.8, 39.71],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "Dinner Cart",
+              "bbox": [21.13, 6.92, 42.32, 13.09],
+              "font": "DwarvenAxeBB",
+              "size": 16.0,
+              "color": "#b27a4a"
+            },
+            {
+              "t": "+1",
+              "bbox": [22.05, 44.48, 26.0, 51.42],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            },
+            {
+              "t": "1",
+              "bbox": [14.68, 53.62, 16.44, 60.62],
+              "font": "DwarvenAxeBB",
+              "size": 18.15,
+              "color": "#ee2824"
+            },
+            {
+              "t": "3t",
+              "bbox": [21.67, 53.62, 25.77, 60.62],
+              "font": "DwarvenAxeBB",
+              "size": 18.15,
+              "color": "#ffffff"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "3f82ff8e90",
+              "bbox": [49.3, 0.0, 57.27, 13.2]
+            },
+            {
+              "iconId": "df696c2f2e",
+              "bbox": [2.02, 10.0, 9.75, 17.57],
+              "bbox_full": [1.19, 9.22, 11.73, 19.63]
+            },
+            {
+              "iconId": "12438e9a49",
+              "bbox": [15.52, 45.16, 20.81, 50.45],
+              "bbox_full": [14.13, 43.81, 27.08, 51.94]
+            },
+            {
+              "iconId": "ee28e41d15",
+              "bbox": [17.29, 53.62, 21.17, 59.62],
+              "bbox_full": [13.9, 52.06, 26.73, 61.21]
+            },
+            {
+              "iconId": "b4627031be",
+              "bbox": [17.64, 62.8, 23.14, 69.23],
+              "bbox_full": [16.87, 62.03, 23.98, 70.03]
+            },
+            {
+              "iconId": "ae45f5bcb3",
+              "bbox": [13.37, 70.43, 26.52, 83.58],
+              "bbox_full": [12.38, 70.43, 27.36, 85.94]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Dinner Cart {icon:3f82ff8e90}",
+              "bbox": [21.13, 0.0, 57.27, 13.2]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:df696c2f2e}",
+              "bbox": [2.02, 10.0, 9.75, 17.57]
+            },
+            {
+              "rot": 0,
+              "text": "A cart of human remains. It looks much",
+              "bbox": [11.71, 17.2, 50.99, 21.19]
+            },
+            {
+              "rot": 0,
+              "text": "like a feeding trough. Disgusting. You",
+              "bbox": [13.04, 20.91, 49.66, 24.9]
+            },
+            {
+              "rot": 0,
+              "text": "manage to find some provisions but you",
+              "bbox": [11.5, 24.61, 51.2, 28.6]
+            },
+            {
+              "rot": 0,
+              "text": "accidentaly puncture yourself on a broken",
+              "bbox": [10.41, 28.31, 52.3, 32.3]
+            },
+            {
+              "rot": 0,
+              "text": "rib. It belongs to a moldy carcass, long",
+              "bbox": [11.84, 32.01, 50.87, 36.0]
+            },
+            {
+              "rot": 0,
+              "text": "butchered, rotting and withering away.",
+              "bbox": [11.91, 35.72, 50.8, 39.71]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:12438e9a49} +1",
+              "bbox": [15.52, 44.48, 26.0, 51.42]
+            },
+            {
+              "rot": 0,
+              "text": "1 {icon:ee28e41d15} 3t",
+              "bbox": [14.68, 53.62, 25.77, 60.62]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:b4627031be}",
+              "bbox": [17.64, 62.8, 23.14, 69.23]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:ae45f5bcb3}",
+              "bbox": [13.37, 70.43, 26.52, 83.58]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "curio:warrens:p005",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [5],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+          "page": 5,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "85952d2f3f80b565",
+          "spans": [
+            {
+              "t": "An oddly assembled dining table.",
+              "bbox": [14.35, 19.05, 48.35, 23.05],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "There might still be food scraps",
+              "bbox": [14.59, 22.76, 48.1, 26.75],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "around. Instead you find some coins",
+              "bbox": [12.28, 26.46, 50.42, 30.45],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "and a trinket among many severed",
+              "bbox": [13.22, 30.16, 49.49, 34.15],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "hands and munched body parts.",
+              "bbox": [14.74, 33.86, 47.96, 37.86],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "+1",
+              "bbox": [22.06, 44.48, 26.01, 51.42],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            },
+            {
+              "t": "1",
+              "bbox": [15.18, 53.83, 16.94, 60.83],
+              "font": "DwarvenAxeBB",
+              "size": 18.15,
+              "color": "#ee2824"
+            },
+            {
+              "t": "3t",
+              "bbox": [22.17, 53.83, 26.27, 60.83],
+              "font": "DwarvenAxeBB",
+              "size": 18.15,
+              "color": "#ffffff"
+            },
+            {
+              "t": "5",
+              "bbox": [17.04, 62.14, 19.64, 69.08],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            },
+            {
+              "t": "Makeshift Dining Table",
+              "bbox": [10.33, 7.08, 48.37, 12.87],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#b27a4a"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "3f82ff8e90",
+              "bbox": [49.3, 0.0, 57.27, 13.2]
+            },
+            {
+              "iconId": "df696c2f2e",
+              "bbox": [2.02, 10.0, 9.75, 17.57],
+              "bbox_full": [1.19, 9.22, 11.73, 19.63]
+            },
+            {
+              "iconId": "12438e9a49",
+              "bbox": [15.52, 45.16, 20.81, 50.45],
+              "bbox_full": [14.14, 43.81, 27.09, 51.94]
+            },
+            {
+              "iconId": "ee28e41d15",
+              "bbox": [17.64, 53.62, 21.52, 59.62],
+              "bbox_full": [14.4, 52.27, 27.23, 61.42]
+            },
+            {
+              "iconId": "3589fdacfc",
+              "bbox": [15.36, 61.36, 26.15, 69.87],
+              "decor": true,
+              "container": true
+            },
+            {
+              "iconId": "c870a39e26",
+              "bbox": [20.11, 63.15, 24.69, 68.09]
+            },
+            {
+              "iconId": "85e094f269",
+              "bbox": [14.08, 71.99, 26.36, 80.23],
+              "bbox_full": [13.67, 71.58, 26.87, 80.73]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Makeshift Dining Table {icon:3f82ff8e90}",
+              "bbox": [10.33, 0.0, 57.27, 13.2]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:df696c2f2e}",
+              "bbox": [2.02, 10.0, 9.75, 17.57]
+            },
+            {
+              "rot": 0,
+              "text": "An oddly assembled dining table.",
+              "bbox": [14.35, 19.05, 48.35, 23.05]
+            },
+            {
+              "rot": 0,
+              "text": "There might still be food scraps",
+              "bbox": [14.59, 22.76, 48.1, 26.75]
+            },
+            {
+              "rot": 0,
+              "text": "around. Instead you find some coins",
+              "bbox": [12.28, 26.46, 50.42, 30.45]
+            },
+            {
+              "rot": 0,
+              "text": "and a trinket among many severed",
+              "bbox": [13.22, 30.16, 49.49, 34.15]
+            },
+            {
+              "rot": 0,
+              "text": "hands and munched body parts.",
+              "bbox": [14.74, 33.86, 47.96, 37.86]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:12438e9a49} +1",
+              "bbox": [15.52, 44.48, 26.01, 51.42]
+            },
+            {
+              "rot": 0,
+              "text": "1 {icon:ee28e41d15} 3t",
+              "bbox": [15.18, 53.62, 26.27, 60.83]
+            },
+            {
+              "rot": 0,
+              "text": "5 {icon:c870a39e26}",
+              "bbox": [17.04, 62.14, 24.69, 69.08]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:85e094f269}",
+              "bbox": [14.08, 71.99, 26.36, 80.23]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "curio:warrens:p006",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [6],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+          "page": 6,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "85952d2f3d853565",
+          "spans": [
+            {
+              "t": "An oddly assembled dining table. There might still",
+              "bbox": [8.28, 15.45, 54.43, 19.22],
+              "font": "DwarvenAxeBB",
+              "size": 9.12,
+              "color": "#231f20"
+            },
+            {
+              "t": "be food scraps around. You find a gold goblet,",
+              "bbox": [9.77, 19.16, 52.93, 22.93],
+              "font": "DwarvenAxeBB",
+              "size": 9.12,
+              "color": "#231f20"
+            },
+            {
+              "t": "used but valuable. It still has some stains and",
+              "bbox": [10.1, 22.86, 52.61, 26.63],
+              "font": "DwarvenAxeBB",
+              "size": 9.12,
+              "color": "#231f20"
+            },
+            {
+              "t": "as you check the residue on the bottom, you feel",
+              "bbox": [8.7, 26.56, 54.01, 30.33],
+              "font": "DwarvenAxeBB",
+              "size": 9.12,
+              "color": "#231f20"
+            },
+            {
+              "t": "yourself growing sick to your stomach. The liquid",
+              "bbox": [7.83, 30.27, 54.87, 34.04],
+              "font": "DwarvenAxeBB",
+              "size": 9.12,
+              "color": "#231f20"
+            },
+            {
+              "t": "splashes to your lips as you feel the sickness",
+              "bbox": [10.21, 33.97, 52.5, 37.74],
+              "font": "DwarvenAxeBB",
+              "size": 9.12,
+              "color": "#231f20"
+            },
+            {
+              "t": "spreading throughout your entire body.",
+              "bbox": [12.74, 37.67, 49.96, 41.44],
+              "font": "DwarvenAxeBB",
+              "size": 9.12,
+              "color": "#231f20"
+            },
+            {
+              "t": "+1",
+              "bbox": [21.56, 44.48, 25.5, 51.42],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            },
+            {
+              "t": "1",
+              "bbox": [14.49, 53.89, 16.24, 60.83],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            },
+            {
+              "t": "3t",
+              "bbox": [21.89, 53.89, 25.95, 60.83],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffffff"
+            },
+            {
+              "t": "10",
+              "bbox": [15.66, 71.51, 20.08, 78.45],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            },
+            {
+              "t": "Makeshift Dining Table",
+              "bbox": [10.33, 7.08, 48.37, 12.87],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#b27a4a"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "3f82ff8e90",
+              "bbox": [49.3, 0.0, 57.27, 13.2]
+            },
+            {
+              "iconId": "df696c2f2e",
+              "bbox": [2.02, 10.0, 9.75, 17.57],
+              "bbox_full": [1.19, 9.22, 11.73, 19.63]
+            },
+            {
+              "iconId": "12438e9a49",
+              "bbox": [14.82, 45.16, 20.46, 50.45],
+              "bbox_full": [13.63, 43.81, 26.59, 51.94]
+            },
+            {
+              "iconId": "3d2d3fadd1",
+              "bbox": [17.29, 55.03, 21.52, 59.27],
+              "bbox_full": [13.77, 53.36, 26.98, 61.11]
+            },
+            {
+              "iconId": "b4627031be",
+              "bbox": [17.47, 62.8, 22.98, 69.23],
+              "bbox_full": [16.7, 62.03, 23.82, 70.03]
+            },
+            {
+              "iconId": "d882315f3f",
+              "bbox": [14.13, 70.73, 26.57, 79.24],
+              "decor": true,
+              "container": true
+            },
+            {
+              "iconId": "c870a39e26",
+              "bbox": [20.46, 72.32, 25.05, 77.61]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Makeshift Dining Table {icon:3f82ff8e90}",
+              "bbox": [10.33, 0.0, 57.27, 13.2]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:df696c2f2e} An oddly assembled dining table. There might still",
+              "bbox": [2.02, 10.0, 54.43, 19.22]
+            },
+            {
+              "rot": 0,
+              "text": "be food scraps around. You find a gold goblet,",
+              "bbox": [9.77, 19.16, 52.93, 22.93]
+            },
+            {
+              "rot": 0,
+              "text": "used but valuable. It still has some stains and",
+              "bbox": [10.1, 22.86, 52.61, 26.63]
+            },
+            {
+              "rot": 0,
+              "text": "as you check the residue on the bottom, you feel",
+              "bbox": [8.7, 26.56, 54.01, 30.33]
+            },
+            {
+              "rot": 0,
+              "text": "yourself growing sick to your stomach. The liquid",
+              "bbox": [7.83, 30.27, 54.87, 34.04]
+            },
+            {
+              "rot": 0,
+              "text": "splashes to your lips as you feel the sickness",
+              "bbox": [10.21, 33.97, 52.5, 37.74]
+            },
+            {
+              "rot": 0,
+              "text": "spreading throughout your entire body.",
+              "bbox": [12.74, 37.67, 49.96, 41.44]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:12438e9a49} +1",
+              "bbox": [14.82, 44.48, 25.5, 51.42]
+            },
+            {
+              "rot": 0,
+              "text": "1 {icon:3d2d3fadd1} 3t",
+              "bbox": [14.49, 53.89, 25.95, 60.83]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:b4627031be}",
+              "bbox": [17.47, 62.8, 22.98, 69.23]
+            },
+            {
+              "rot": 0,
+              "text": "10 {icon:c870a39e26}",
+              "bbox": [15.66, 71.51, 25.05, 78.45]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "curio:warrens:p007",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [7],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+          "page": 7,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "85952d2f3fc43523",
+          "spans": [
+            {
+              "t": "A barrel that reeks of powerful liquors. It’s",
+              "bbox": [8.16, 17.2, 54.54, 21.19],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "cracked on the side and you see a handful",
+              "bbox": [9.28, 20.91, 53.42, 24.9],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "of gold and a trinket to the bottom of the",
+              "bbox": [9.73, 24.61, 52.97, 28.6],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "barrel. And then in horror you realize",
+              "bbox": [11.0, 28.31, 51.7, 32.3],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "that in the barrel, the moonshine has been",
+              "bbox": [9.15, 32.01, 53.56, 36.0],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "infused with the remains of a hapless soul.",
+              "bbox": [8.72, 35.72, 53.98, 39.71],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "Moonshine Barrel",
+              "bbox": [15.56, 6.92, 47.89, 13.09],
+              "font": "DwarvenAxeBB",
+              "size": 16.0,
+              "color": "#b27a4a"
+            },
+            {
+              "t": "+1",
+              "bbox": [21.56, 44.48, 25.5, 51.42],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            },
+            {
+              "t": "5",
+              "bbox": [16.57, 62.14, 19.17, 69.08],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "3f82ff8e90",
+              "bbox": [49.3, 0.0, 57.27, 13.2]
+            },
+            {
+              "iconId": "df696c2f2e",
+              "bbox": [2.02, 10.0, 9.75, 17.57],
+              "bbox_full": [1.19, 9.22, 11.73, 19.63]
+            },
+            {
+              "iconId": "12438e9a49",
+              "bbox": [14.82, 45.16, 20.46, 50.45],
+              "bbox_full": [13.63, 43.81, 26.59, 51.94]
+            },
+            {
+              "iconId": "b4627031be",
+              "bbox": [17.47, 53.58, 22.98, 60.02],
+              "bbox_full": [16.7, 52.81, 23.82, 60.82]
+            },
+            {
+              "iconId": "3589fdacfc",
+              "bbox": [14.89, 61.36, 25.69, 69.87],
+              "decor": true,
+              "container": true
+            },
+            {
+              "iconId": "40761ae25e",
+              "bbox": [19.4, 63.15, 23.99, 68.09]
+            },
+            {
+              "iconId": "85e094f269",
+              "bbox": [14.09, 71.99, 26.36, 80.23],
+              "bbox_full": [13.67, 71.58, 26.88, 80.73]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Moonshine Barrel {icon:3f82ff8e90}",
+              "bbox": [15.56, 0.0, 57.27, 13.2]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:df696c2f2e}",
+              "bbox": [2.02, 10.0, 9.75, 17.57]
+            },
+            {
+              "rot": 0,
+              "text": "A barrel that reeks of powerful liquors. It’s",
+              "bbox": [8.16, 17.2, 54.54, 21.19]
+            },
+            {
+              "rot": 0,
+              "text": "cracked on the side and you see a handful",
+              "bbox": [9.28, 20.91, 53.42, 24.9]
+            },
+            {
+              "rot": 0,
+              "text": "of gold and a trinket to the bottom of the",
+              "bbox": [9.73, 24.61, 52.97, 28.6]
+            },
+            {
+              "rot": 0,
+              "text": "barrel. And then in horror you realize",
+              "bbox": [11.0, 28.31, 51.7, 32.3]
+            },
+            {
+              "rot": 0,
+              "text": "that in the barrel, the moonshine has been",
+              "bbox": [9.15, 32.01, 53.56, 36.0]
+            },
+            {
+              "rot": 0,
+              "text": "infused with the remains of a hapless soul.",
+              "bbox": [8.72, 35.72, 53.98, 39.71]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:12438e9a49} +1",
+              "bbox": [14.82, 44.48, 25.5, 51.42]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:b4627031be}",
+              "bbox": [17.47, 53.58, 22.98, 60.02]
+            },
+            {
+              "rot": 0,
+              "text": "5 {icon:40761ae25e}",
+              "bbox": [16.57, 62.14, 23.99, 69.08]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:85e094f269}",
+              "bbox": [14.09, 71.99, 26.36, 80.23]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "curio:warrens:p008",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [8],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+          "page": 8,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "85952f2f3dc53521",
+          "spans": [
+            {
+              "t": "A barrel that reeks of powerful liquors. You",
+              "bbox": [9.45, 15.35, 53.25, 19.34],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "topple it to the side only to realize that it’s empty,",
+              "bbox": [6.66, 19.05, 56.04, 23.04],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "yet the rancid smell still lingers. A pouch filled",
+              "bbox": [8.4, 22.75, 54.3, 26.75],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "with coins jumps from the barrel’s side and when",
+              "bbox": [6.6, 26.46, 56.1, 30.45],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "you pick it up you realize that the moonshine",
+              "bbox": [9.03, 30.16, 53.66, 34.15],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "has been infused with the gastric fluids and",
+              "bbox": [9.71, 33.86, 52.99, 37.85],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "rotting bile of a hapless soul drowned in it.",
+              "bbox": [9.82, 37.56, 52.88, 41.56],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "1",
+              "bbox": [14.49, 53.53, 16.24, 60.47],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            },
+            {
+              "t": "3t",
+              "bbox": [21.89, 53.53, 25.95, 60.47],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffffff"
+            },
+            {
+              "t": "10",
+              "bbox": [15.66, 71.64, 20.08, 78.58],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            },
+            {
+              "t": "Moonshine Barrel",
+              "bbox": [15.56, 6.92, 47.89, 13.09],
+              "font": "DwarvenAxeBB",
+              "size": 16.0,
+              "color": "#b27a4a"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "3f82ff8e90",
+              "bbox": [49.3, 0.0, 57.27, 13.2]
+            },
+            {
+              "iconId": "df696c2f2e",
+              "bbox": [2.02, 10.0, 9.75, 17.57],
+              "bbox_full": [1.19, 9.22, 11.73, 19.63]
+            },
+            {
+              "iconId": "288c9a0062",
+              "bbox": [14.09, 42.27, 26.62, 56.87]
+            },
+            {
+              "iconId": "3d2d3fadd1",
+              "bbox": [17.29, 54.33, 21.52, 58.91],
+              "bbox_full": [13.73, 53.0, 26.94, 60.75]
+            },
+            {
+              "iconId": "b4627031be",
+              "bbox": [17.47, 62.65, 22.98, 69.08],
+              "bbox_full": [16.7, 61.88, 23.82, 69.89]
+            },
+            {
+              "iconId": "d882315f3f",
+              "bbox": [14.13, 70.86, 26.57, 79.37],
+              "decor": true,
+              "container": true
+            },
+            {
+              "iconId": "c870a39e26",
+              "bbox": [20.46, 72.67, 25.05, 77.61]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Moonshine Barrel {icon:3f82ff8e90}",
+              "bbox": [15.56, 0.0, 57.27, 13.2]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:df696c2f2e} A barrel that reeks of powerful liquors. You",
+              "bbox": [2.02, 10.0, 53.25, 19.34]
+            },
+            {
+              "rot": 0,
+              "text": "topple it to the side only to realize that it’s empty,",
+              "bbox": [6.66, 19.05, 56.04, 23.04]
+            },
+            {
+              "rot": 0,
+              "text": "yet the rancid smell still lingers. A pouch filled",
+              "bbox": [8.4, 22.75, 54.3, 26.75]
+            },
+            {
+              "rot": 0,
+              "text": "with coins jumps from the barrel’s side and when",
+              "bbox": [6.6, 26.46, 56.1, 30.45]
+            },
+            {
+              "rot": 0,
+              "text": "you pick it up you realize that the moonshine",
+              "bbox": [9.03, 30.16, 53.66, 34.15]
+            },
+            {
+              "rot": 0,
+              "text": "has been infused with the gastric fluids and",
+              "bbox": [9.71, 33.86, 52.99, 37.85]
+            },
+            {
+              "rot": 0,
+              "text": "rotting bile of a hapless soul drowned in it.",
+              "bbox": [9.82, 37.56, 52.88, 41.56]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:288c9a0062} {icon:3d2d3fadd1}",
+              "bbox": [14.09, 42.27, 26.62, 58.91]
+            },
+            {
+              "rot": 0,
+              "text": "1 3t",
+              "bbox": [14.49, 53.53, 25.95, 60.47]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:b4627031be}",
+              "bbox": [17.47, 62.65, 22.98, 69.08]
+            },
+            {
+              "rot": 0,
+              "text": "10 {icon:c870a39e26}",
+              "bbox": [15.66, 71.64, 25.05, 78.58]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "curio:warrens:p009",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [9],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+          "page": 9,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "95952d2f2d85352d",
+          "spans": [
+            {
+              "t": "Scrawlings written on what looks like stretched and",
+              "bbox": [6.93, 15.98, 55.77, 19.75],
+              "font": "DwarvenAxeBB",
+              "size": 9.12,
+              "color": "#231f20"
+            },
+            {
+              "t": "tanned human flesh. You read the passage in horror",
+              "bbox": [7.01, 19.51, 55.69, 23.28],
+              "font": "DwarvenAxeBB",
+              "size": 9.12,
+              "color": "#231f20"
+            },
+            {
+              "t": "only to realize it has been written by the hand of",
+              "bbox": [8.31, 23.04, 54.39, 26.81],
+              "font": "DwarvenAxeBB",
+              "size": 9.12,
+              "color": "#231f20"
+            },
+            {
+              "t": "a human. A feeling of hope fills your heart as your",
+              "bbox": [7.6, 26.56, 55.11, 30.34],
+              "font": "DwarvenAxeBB",
+              "size": 9.12,
+              "color": "#231f20"
+            },
+            {
+              "t": "humanity still lingers on. However, the image of",
+              "bbox": [8.99, 30.09, 53.72, 33.86],
+              "font": "DwarvenAxeBB",
+              "size": 9.12,
+              "color": "#231f20"
+            },
+            {
+              "t": "the letters burns brightly in your eyes, cauterizing",
+              "bbox": [7.42, 33.62, 55.29, 37.39],
+              "font": "DwarvenAxeBB",
+              "size": 9.12,
+              "color": "#231f20"
+            },
+            {
+              "t": "them in an arcane and mysterious fashion.",
+              "bbox": [11.45, 37.15, 51.25, 40.92],
+              "font": "DwarvenAxeBB",
+              "size": 9.12,
+              "color": "#231f20"
+            },
+            {
+              "t": "Occult Scrawlings",
+              "bbox": [15.35, 6.92, 48.1, 13.09],
+              "font": "DwarvenAxeBB",
+              "size": 16.0,
+              "color": "#b27a4a"
+            },
+            {
+              "t": "+1",
+              "bbox": [21.56, 44.48, 25.5, 51.42],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            },
+            {
+              "t": "2t",
+              "bbox": [21.16, 62.77, 25.13, 69.71],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffe6ad"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "3f82ff8e90",
+              "bbox": [49.3, 0.0, 57.27, 13.2]
+            },
+            {
+              "iconId": "df696c2f2e",
+              "bbox": [2.02, 10.0, 9.75, 17.57],
+              "bbox_full": [1.19, 9.22, 11.73, 19.63]
+            },
+            {
+              "iconId": "12438e9a49",
+              "bbox": [14.82, 45.16, 20.46, 50.45],
+              "bbox_full": [13.63, 43.81, 26.59, 51.94]
+            },
+            {
+              "iconId": "b4627031be",
+              "bbox": [17.47, 53.83, 22.98, 60.27],
+              "bbox_full": [16.7, 53.06, 23.82, 61.07]
+            },
+            {
+              "iconId": "604a7d83ac",
+              "bbox": [15.52, 63.5, 20.11, 68.79],
+              "bbox_full": [13.75, 62.11, 26.07, 70.38]
+            },
+            {
+              "iconId": "4fbd5890e2",
+              "bbox": [13.83, 70.01, 26.36, 84.61]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Occult Scrawlings {icon:3f82ff8e90}",
+              "bbox": [15.35, 0.0, 57.27, 13.2]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:df696c2f2e}",
+              "bbox": [2.02, 10.0, 9.75, 17.57]
+            },
+            {
+              "rot": 0,
+              "text": "Scrawlings written on what looks like stretched and",
+              "bbox": [6.93, 15.98, 55.77, 19.75]
+            },
+            {
+              "rot": 0,
+              "text": "tanned human flesh. You read the passage in horror",
+              "bbox": [7.01, 19.51, 55.69, 23.28]
+            },
+            {
+              "rot": 0,
+              "text": "only to realize it has been written by the hand of",
+              "bbox": [8.31, 23.04, 54.39, 26.81]
+            },
+            {
+              "rot": 0,
+              "text": "a human. A feeling of hope fills your heart as your",
+              "bbox": [7.6, 26.56, 55.11, 30.34]
+            },
+            {
+              "rot": 0,
+              "text": "humanity still lingers on. However, the image of",
+              "bbox": [8.99, 30.09, 53.72, 33.86]
+            },
+            {
+              "rot": 0,
+              "text": "the letters burns brightly in your eyes, cauterizing",
+              "bbox": [7.42, 33.62, 55.29, 37.39]
+            },
+            {
+              "rot": 0,
+              "text": "them in an arcane and mysterious fashion.",
+              "bbox": [11.45, 37.15, 51.25, 40.92]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:12438e9a49} +1",
+              "bbox": [14.82, 44.48, 25.5, 51.42]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:b4627031be}",
+              "bbox": [17.47, 53.83, 22.98, 60.27]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:604a7d83ac} 2t",
+              "bbox": [15.52, 62.77, 25.13, 69.71]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:4fbd5890e2}",
+              "bbox": [13.83, 70.01, 26.36, 84.61]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "curio:warrens:p010",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [10],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+          "page": 10,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "95952d3f2d853427",
+          "spans": [
+            {
+              "t": "Pile of Bones",
+              "bbox": [19.81, 6.92, 43.64, 13.09],
+              "font": "DwarvenAxeBB",
+              "size": 16.0,
+              "color": "#b27a4a"
+            },
+            {
+              "t": "+1",
+              "bbox": [21.46, 44.48, 25.4, 51.42],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            },
+            {
+              "t": "All that’s left of a previous adventurer,",
+              "bbox": [10.74, 17.2, 51.96, 21.19],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "perhaps. You search the pile for anything",
+              "bbox": [9.79, 20.91, 52.91, 24.9],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "valuable, yet all you encounter is the",
+              "bbox": [12.06, 24.61, 50.64, 28.6],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "remnants of another human being,",
+              "bbox": [13.34, 28.31, 49.36, 32.3],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "contaminated and sharp enough for you to",
+              "bbox": [9.12, 32.01, 53.59, 36.0],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "cut and poison yourself in the process.",
+              "bbox": [10.82, 35.72, 51.88, 39.71],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "1",
+              "bbox": [14.39, 62.92, 16.14, 69.86],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            },
+            {
+              "t": "3t",
+              "bbox": [21.78, 62.92, 25.86, 69.86],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffffff"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "3f82ff8e90",
+              "bbox": [49.3, 0.0, 57.27, 13.2]
+            },
+            {
+              "iconId": "df696c2f2e",
+              "bbox": [2.02, 10.0, 9.75, 17.57],
+              "bbox_full": [1.19, 9.22, 11.73, 19.63]
+            },
+            {
+              "iconId": "12438e9a49",
+              "bbox": [14.82, 45.16, 20.46, 50.45],
+              "bbox_full": [13.54, 43.81, 26.49, 51.94]
+            },
+            {
+              "iconId": "288c9a0062",
+              "bbox": [13.99, 51.66, 26.52, 66.27]
+            },
+            {
+              "iconId": "3d2d3fadd1",
+              "bbox": [17.29, 63.85, 21.17, 68.44],
+              "bbox_full": [13.63, 62.39, 26.84, 70.14]
+            },
+            {
+              "iconId": "b4627031be",
+              "bbox": [17.37, 71.8, 22.88, 78.24],
+              "bbox_full": [16.61, 71.04, 23.72, 79.04]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Pile of Bones {icon:3f82ff8e90}",
+              "bbox": [19.81, 0.0, 57.27, 13.2]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:df696c2f2e}",
+              "bbox": [2.02, 10.0, 9.75, 17.57]
+            },
+            {
+              "rot": 0,
+              "text": "All that’s left of a previous adventurer,",
+              "bbox": [10.74, 17.2, 51.96, 21.19]
+            },
+            {
+              "rot": 0,
+              "text": "perhaps. You search the pile for anything",
+              "bbox": [9.79, 20.91, 52.91, 24.9]
+            },
+            {
+              "rot": 0,
+              "text": "valuable, yet all you encounter is the",
+              "bbox": [12.06, 24.61, 50.64, 28.6]
+            },
+            {
+              "rot": 0,
+              "text": "remnants of another human being,",
+              "bbox": [13.34, 28.31, 49.36, 32.3]
+            },
+            {
+              "rot": 0,
+              "text": "contaminated and sharp enough for you to",
+              "bbox": [9.12, 32.01, 53.59, 36.0]
+            },
+            {
+              "rot": 0,
+              "text": "cut and poison yourself in the process.",
+              "bbox": [10.82, 35.72, 51.88, 39.71]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:12438e9a49} +1",
+              "bbox": [14.82, 44.48, 25.4, 51.42]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:288c9a0062} {icon:3d2d3fadd1}",
+              "bbox": [13.99, 51.66, 26.52, 68.44]
+            },
+            {
+              "rot": 0,
+              "text": "1 3t",
+              "bbox": [14.39, 62.92, 25.86, 69.86]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:b4627031be}",
+              "bbox": [17.37, 71.8, 22.88, 78.24]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "curio:warrens:p011",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [11],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+          "page": 11,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "85942d3f2f8534c7",
+          "spans": [
+            {
+              "t": "Pile of Bones",
+              "bbox": [19.81, 6.92, 43.64, 13.09],
+              "font": "DwarvenAxeBB",
+              "size": 16.0,
+              "color": "#b27a4a"
+            },
+            {
+              "t": "+1",
+              "bbox": [21.82, 44.48, 25.76, 51.42],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            },
+            {
+              "t": "All that’s left of a previous adventurer,",
+              "bbox": [11.38, 17.2, 51.32, 21.19],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "perhaps. Underneath them, a small pack with",
+              "bbox": [8.59, 20.91, 54.11, 24.9],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "some untouched provisions. Yet you feel your",
+              "bbox": [8.07, 24.61, 54.63, 28.6],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "fever rising after coming in contact with them.",
+              "bbox": [7.38, 28.31, 55.32, 32.3],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "Praying that you didn’t catch something terminal",
+              "bbox": [6.73, 32.01, 55.97, 36.0],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "you rise to your feet and join your party.",
+              "bbox": [10.03, 35.72, 52.67, 39.71],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "1",
+              "bbox": [14.94, 53.92, 16.7, 60.92],
+              "font": "DwarvenAxeBB",
+              "size": 18.15,
+              "color": "#ee2824"
+            },
+            {
+              "t": "3t",
+              "bbox": [21.93, 53.92, 26.03, 60.92],
+              "font": "DwarvenAxeBB",
+              "size": 18.15,
+              "color": "#ffffff"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "3f82ff8e90",
+              "bbox": [49.3, 0.0, 57.27, 13.2]
+            },
+            {
+              "iconId": "df696c2f2e",
+              "bbox": [2.02, 10.0, 9.75, 17.57],
+              "bbox_full": [1.19, 9.22, 11.73, 19.63]
+            },
+            {
+              "iconId": "12438e9a49",
+              "bbox": [15.17, 45.16, 20.81, 50.45],
+              "bbox_full": [13.89, 43.81, 26.85, 51.94]
+            },
+            {
+              "iconId": "ee28e41d15",
+              "bbox": [17.29, 53.62, 21.52, 59.97],
+              "bbox_full": [14.16, 52.37, 26.98, 61.51]
+            },
+            {
+              "iconId": "b4627031be",
+              "bbox": [17.73, 62.79, 23.24, 69.22],
+              "bbox_full": [16.96, 62.02, 24.07, 70.02]
+            },
+            {
+              "iconId": "ae45f5bcb3",
+              "bbox": [13.37, 70.43, 26.52, 83.58],
+              "bbox_full": [12.38, 70.43, 27.36, 85.94]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Pile of Bones {icon:3f82ff8e90}",
+              "bbox": [19.81, 0.0, 57.27, 13.2]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:df696c2f2e}",
+              "bbox": [2.02, 10.0, 9.75, 17.57]
+            },
+            {
+              "rot": 0,
+              "text": "All that’s left of a previous adventurer,",
+              "bbox": [11.38, 17.2, 51.32, 21.19]
+            },
+            {
+              "rot": 0,
+              "text": "perhaps. Underneath them, a small pack with",
+              "bbox": [8.59, 20.91, 54.11, 24.9]
+            },
+            {
+              "rot": 0,
+              "text": "some untouched provisions. Yet you feel your",
+              "bbox": [8.07, 24.61, 54.63, 28.6]
+            },
+            {
+              "rot": 0,
+              "text": "fever rising after coming in contact with them.",
+              "bbox": [7.38, 28.31, 55.32, 32.3]
+            },
+            {
+              "rot": 0,
+              "text": "Praying that you didn’t catch something terminal",
+              "bbox": [6.73, 32.01, 55.97, 36.0]
+            },
+            {
+              "rot": 0,
+              "text": "you rise to your feet and join your party.",
+              "bbox": [10.03, 35.72, 52.67, 39.71]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:12438e9a49} +1",
+              "bbox": [15.17, 44.48, 25.76, 51.42]
+            },
+            {
+              "rot": 0,
+              "text": "1 {icon:ee28e41d15} 3t",
+              "bbox": [14.94, 53.62, 26.03, 60.92]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:b4627031be}",
+              "bbox": [17.73, 62.79, 23.24, 69.22]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:ae45f5bcb3}",
+              "bbox": [13.37, 70.43, 26.52, 83.58]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "curio:warrens:p012",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [12],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+          "page": 12,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "95c53d2f29956c91",
+          "spans": [
+            {
+              "t": "Pile of Scrolls",
+              "bbox": [18.83, 6.92, 44.62, 13.09],
+              "font": "DwarvenAxeBB",
+              "size": 16.0,
+              "color": "#b27a4a"
+            },
+            {
+              "t": "+1",
+              "bbox": [21.82, 44.48, 25.76, 51.42],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            },
+            {
+              "t": "A bunch of scrolls. The cursive is sloppy",
+              "bbox": [10.57, 15.35, 52.13, 19.34],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "and difficult to read. You touch the sticky",
+              "bbox": [10.31, 19.05, 52.39, 23.04],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "parchment and read them idly only to find",
+              "bbox": [9.95, 22.75, 52.76, 26.75],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "their historical and scientific value. Later do",
+              "bbox": [8.63, 26.46, 54.08, 30.45],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "you realize that they have been coated with",
+              "bbox": [9.09, 30.16, 53.62, 34.15],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "a contact poison, a typical way to protect a",
+              "bbox": [9.32, 33.86, 53.38, 37.85],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "scholar’s work from thieving fingers...",
+              "bbox": [11.24, 37.56, 51.47, 41.56],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "1",
+              "bbox": [14.75, 53.48, 16.5, 60.42],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            },
+            {
+              "t": "3t",
+              "bbox": [22.14, 53.48, 26.21, 60.42],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffffff"
+            },
+            {
+              "t": "2t",
+              "bbox": [21.56, 62.77, 25.53, 69.71],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffe6ad"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "3f82ff8e90",
+              "bbox": [49.3, 0.0, 57.27, 13.2]
+            },
+            {
+              "iconId": "df696c2f2e",
+              "bbox": [2.02, 10.0, 9.75, 17.57],
+              "bbox_full": [1.19, 9.22, 11.73, 19.63]
+            },
+            {
+              "iconId": "12438e9a49",
+              "bbox": [15.17, 45.16, 20.81, 50.45],
+              "bbox_full": [13.89, 43.81, 26.85, 51.94]
+            },
+            {
+              "iconId": "3d2d3fadd1",
+              "bbox": [17.64, 54.33, 21.52, 58.91],
+              "bbox_full": [14.03, 52.96, 27.24, 60.7]
+            },
+            {
+              "iconId": "604a7d83ac",
+              "bbox": [15.87, 63.5, 20.81, 68.79],
+              "bbox_full": [14.15, 62.11, 26.47, 70.38]
+            },
+            {
+              "iconId": "4fbd5890e2",
+              "bbox": [13.74, 70.01, 26.27, 84.61]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Pile of Scrolls {icon:3f82ff8e90}",
+              "bbox": [18.83, 0.0, 57.27, 13.2]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:df696c2f2e} A bunch of scrolls. The cursive is sloppy",
+              "bbox": [2.02, 10.0, 52.13, 19.34]
+            },
+            {
+              "rot": 0,
+              "text": "and difficult to read. You touch the sticky",
+              "bbox": [10.31, 19.05, 52.39, 23.04]
+            },
+            {
+              "rot": 0,
+              "text": "parchment and read them idly only to find",
+              "bbox": [9.95, 22.75, 52.76, 26.75]
+            },
+            {
+              "rot": 0,
+              "text": "their historical and scientific value. Later do",
+              "bbox": [8.63, 26.46, 54.08, 30.45]
+            },
+            {
+              "rot": 0,
+              "text": "you realize that they have been coated with",
+              "bbox": [9.09, 30.16, 53.62, 34.15]
+            },
+            {
+              "rot": 0,
+              "text": "a contact poison, a typical way to protect a",
+              "bbox": [9.32, 33.86, 53.38, 37.85]
+            },
+            {
+              "rot": 0,
+              "text": "scholar’s work from thieving fingers...",
+              "bbox": [11.24, 37.56, 51.47, 41.56]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:12438e9a49} +1",
+              "bbox": [15.17, 44.48, 25.76, 51.42]
+            },
+            {
+              "rot": 0,
+              "text": "1 {icon:3d2d3fadd1} 3t",
+              "bbox": [14.75, 53.48, 26.21, 60.42]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:604a7d83ac} 2t",
+              "bbox": [15.87, 62.77, 25.53, 69.71]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:4fbd5890e2}",
+              "bbox": [13.74, 70.01, 26.27, 84.61]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "curio:warrens:p013",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [13],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+          "page": 13,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "85942f2f3dc53c25",
+          "spans": [
+            {
+              "t": "Rack of Blades",
+              "bbox": [18.27, 6.92, 45.18, 13.09],
+              "font": "DwarvenAxeBB",
+              "size": 16.0,
+              "color": "#b27a4a"
+            },
+            {
+              "t": "A rack of sharp, rusty knives. They are",
+              "bbox": [10.5, 17.2, 52.2, 21.19],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "covered in fresh blood. A satchel is hanging",
+              "bbox": [8.28, 20.91, 54.43, 24.9],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "from one of the blades and as you unhinge",
+              "bbox": [8.94, 24.61, 53.77, 28.6],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "it, you realize it is filled with provisions.",
+              "bbox": [9.58, 28.31, 53.12, 32.3],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "However, the blade cuts you deeply as it",
+              "bbox": [10.23, 32.01, 52.48, 36.0],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "spreads its corrosive venom into your wound.",
+              "bbox": [6.84, 35.72, 55.87, 39.71],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "1",
+              "bbox": [14.94, 54.17, 16.7, 61.17],
+              "font": "DwarvenAxeBB",
+              "size": 18.15,
+              "color": "#ee2824"
+            },
+            {
+              "t": "3t",
+              "bbox": [21.93, 54.17, 26.03, 61.17],
+              "font": "DwarvenAxeBB",
+              "size": 18.15,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1",
+              "bbox": [14.75, 62.52, 16.5, 69.46],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            },
+            {
+              "t": "3t",
+              "bbox": [22.14, 62.52, 26.21, 69.46],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffffff"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "3f82ff8e90",
+              "bbox": [49.3, 0.0, 57.27, 13.2]
+            },
+            {
+              "iconId": "df696c2f2e",
+              "bbox": [2.02, 10.0, 9.75, 17.57],
+              "bbox_full": [1.19, 9.22, 11.73, 19.63]
+            },
+            {
+              "iconId": "288c9a0062",
+              "bbox": [14.35, 42.27, 26.88, 56.87]
+            },
+            {
+              "iconId": "ee28e41d15",
+              "bbox": [17.29, 53.97, 21.52, 59.97],
+              "bbox_full": [14.16, 52.62, 26.98, 61.76]
+            },
+            {
+              "iconId": "3d2d3fadd1",
+              "bbox": [17.64, 63.5, 21.52, 68.09],
+              "bbox_full": [14.02, 61.99, 27.23, 69.74]
+            },
+            {
+              "iconId": "ae45f5bcb3",
+              "bbox": [13.37, 70.43, 26.52, 83.58],
+              "bbox_full": [12.38, 70.43, 27.36, 85.94]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Rack of Blades {icon:3f82ff8e90}",
+              "bbox": [18.27, 0.0, 57.27, 13.2]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:df696c2f2e}",
+              "bbox": [2.02, 10.0, 9.75, 17.57]
+            },
+            {
+              "rot": 0,
+              "text": "A rack of sharp, rusty knives. They are",
+              "bbox": [10.5, 17.2, 52.2, 21.19]
+            },
+            {
+              "rot": 0,
+              "text": "covered in fresh blood. A satchel is hanging",
+              "bbox": [8.28, 20.91, 54.43, 24.9]
+            },
+            {
+              "rot": 0,
+              "text": "from one of the blades and as you unhinge",
+              "bbox": [8.94, 24.61, 53.77, 28.6]
+            },
+            {
+              "rot": 0,
+              "text": "it, you realize it is filled with provisions.",
+              "bbox": [9.58, 28.31, 53.12, 32.3]
+            },
+            {
+              "rot": 0,
+              "text": "However, the blade cuts you deeply as it",
+              "bbox": [10.23, 32.01, 52.48, 36.0]
+            },
+            {
+              "rot": 0,
+              "text": "spreads its corrosive venom into your wound.",
+              "bbox": [6.84, 35.72, 55.87, 39.71]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:288c9a0062}",
+              "bbox": [14.35, 42.27, 26.88, 56.87]
+            },
+            {
+              "rot": 0,
+              "text": "1 {icon:ee28e41d15} 3t",
+              "bbox": [14.94, 53.97, 26.03, 61.17]
+            },
+            {
+              "rot": 0,
+              "text": "1 {icon:3d2d3fadd1} 3t",
+              "bbox": [14.75, 62.52, 26.21, 69.46]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:ae45f5bcb3}",
+              "bbox": [13.37, 70.43, 26.52, 83.58]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "curio:warrens:p014",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [14],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+          "page": 14,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "85952d2f2f853d25",
+          "spans": [
+            {
+              "t": "Rack of Blades",
+              "bbox": [18.27, 6.92, 45.18, 13.09],
+              "font": "DwarvenAxeBB",
+              "size": 16.0,
+              "color": "#b27a4a"
+            },
+            {
+              "t": "A rack of dulled, rusty knives. They are",
+              "bbox": [10.41, 17.2, 52.29, 21.19],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "covered in fresh blood. A satchel with a",
+              "bbox": [10.33, 20.91, 52.37, 24.9],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "trinket hangs from one of them and as you",
+              "bbox": [8.8, 24.61, 53.9, 28.6],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "unhinge it you feel some sticky goo from the",
+              "bbox": [7.92, 28.31, 54.78, 32.3],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "blade seep onto your skin. Soon enough it",
+              "bbox": [9.43, 32.01, 53.27, 36.0],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "begins to itch as a spreading rash appears.",
+              "bbox": [8.53, 35.72, 54.16, 39.71],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "1",
+              "bbox": [14.5, 62.52, 16.25, 69.46],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            },
+            {
+              "t": "3t",
+              "bbox": [21.89, 62.52, 25.96, 69.46],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffffff"
+            },
+            {
+              "t": "+1",
+              "bbox": [21.57, 44.48, 25.51, 51.42],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "3f82ff8e90",
+              "bbox": [49.3, 0.0, 57.27, 13.2]
+            },
+            {
+              "iconId": "df696c2f2e",
+              "bbox": [2.02, 10.0, 9.75, 17.57],
+              "bbox_full": [1.19, 9.22, 11.73, 19.63]
+            },
+            {
+              "iconId": "12438e9a49",
+              "bbox": [14.82, 45.16, 20.46, 50.45],
+              "bbox_full": [13.64, 43.81, 26.6, 51.94]
+            },
+            {
+              "iconId": "288c9a0062",
+              "bbox": [14.1, 51.72, 26.63, 66.32]
+            },
+            {
+              "iconId": "3d2d3fadd1",
+              "bbox": [17.29, 63.5, 21.52, 68.09],
+              "bbox_full": [13.77, 61.99, 26.98, 69.74]
+            },
+            {
+              "iconId": "85e094f269",
+              "bbox": [14.1, 71.99, 26.37, 80.23],
+              "bbox_full": [13.68, 71.58, 26.89, 80.73]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Rack of Blades {icon:3f82ff8e90}",
+              "bbox": [18.27, 0.0, 57.27, 13.2]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:df696c2f2e}",
+              "bbox": [2.02, 10.0, 9.75, 17.57]
+            },
+            {
+              "rot": 0,
+              "text": "A rack of dulled, rusty knives. They are",
+              "bbox": [10.41, 17.2, 52.29, 21.19]
+            },
+            {
+              "rot": 0,
+              "text": "covered in fresh blood. A satchel with a",
+              "bbox": [10.33, 20.91, 52.37, 24.9]
+            },
+            {
+              "rot": 0,
+              "text": "trinket hangs from one of them and as you",
+              "bbox": [8.8, 24.61, 53.9, 28.6]
+            },
+            {
+              "rot": 0,
+              "text": "unhinge it you feel some sticky goo from the",
+              "bbox": [7.92, 28.31, 54.78, 32.3]
+            },
+            {
+              "rot": 0,
+              "text": "blade seep onto your skin. Soon enough it",
+              "bbox": [9.43, 32.01, 53.27, 36.0]
+            },
+            {
+              "rot": 0,
+              "text": "begins to itch as a spreading rash appears.",
+              "bbox": [8.53, 35.72, 54.16, 39.71]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:12438e9a49} +1",
+              "bbox": [14.82, 44.48, 25.51, 51.42]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:288c9a0062} 1 {icon:3d2d3fadd1} 3t",
+              "bbox": [14.1, 51.72, 26.63, 69.46]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:85e094f269}",
+              "bbox": [14.1, 71.99, 26.37, 80.23]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "curio:warrens:p015",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [15],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+          "page": 15,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "95952d2f3dc53521",
+          "spans": [
+            {
+              "t": "Sacrificial Stone",
+              "bbox": [16.79, 6.92, 46.66, 13.09],
+              "font": "DwarvenAxeBB",
+              "size": 16.0,
+              "color": "#b27a4a"
+            },
+            {
+              "t": "A stone used for ancient, barbaric rituals.",
+              "bbox": [9.15, 17.45, 53.54, 21.44],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "In its hollow base you discover a chest",
+              "bbox": [10.76, 21.16, 51.94, 25.15],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "with gold and a venomous spider that",
+              "bbox": [11.6, 24.86, 51.1, 28.85],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "rapidly injects you with its debilitating",
+              "bbox": [11.13, 28.56, 51.57, 32.55],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "poison. Your hand feels sore and your",
+              "bbox": [11.24, 32.26, 51.45, 36.25],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "head feels as if it’s about to burst.",
+              "bbox": [12.99, 35.97, 49.71, 39.96],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "1",
+              "bbox": [14.5, 53.48, 16.25, 60.42],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            },
+            {
+              "t": "3t",
+              "bbox": [21.89, 53.48, 25.96, 60.42],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffffff"
+            },
+            {
+              "t": "10",
+              "bbox": [15.66, 71.51, 20.09, 78.45],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "3f82ff8e90",
+              "bbox": [49.3, 0.0, 57.27, 13.2]
+            },
+            {
+              "iconId": "df696c2f2e",
+              "bbox": [2.02, 10.0, 9.75, 17.57],
+              "bbox_full": [1.19, 9.22, 11.73, 19.63]
+            },
+            {
+              "iconId": "288c9a0062",
+              "bbox": [14.1, 42.27, 26.63, 56.87]
+            },
+            {
+              "iconId": "3d2d3fadd1",
+              "bbox": [17.29, 54.33, 21.52, 58.91],
+              "bbox_full": [13.78, 52.96, 26.99, 60.7]
+            },
+            {
+              "iconId": "b4627031be",
+              "bbox": [17.48, 62.79, 22.99, 69.22],
+              "bbox_full": [16.71, 62.02, 23.82, 70.02]
+            },
+            {
+              "iconId": "d882315f3f",
+              "bbox": [14.14, 70.73, 26.58, 79.24],
+              "decor": true,
+              "container": true
+            },
+            {
+              "iconId": "c870a39e26",
+              "bbox": [20.46, 72.32, 25.05, 77.61]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Sacrificial Stone {icon:3f82ff8e90}",
+              "bbox": [16.79, 0.0, 57.27, 13.2]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:df696c2f2e}",
+              "bbox": [2.02, 10.0, 9.75, 17.57]
+            },
+            {
+              "rot": 0,
+              "text": "A stone used for ancient, barbaric rituals.",
+              "bbox": [9.15, 17.45, 53.54, 21.44]
+            },
+            {
+              "rot": 0,
+              "text": "In its hollow base you discover a chest",
+              "bbox": [10.76, 21.16, 51.94, 25.15]
+            },
+            {
+              "rot": 0,
+              "text": "with gold and a venomous spider that",
+              "bbox": [11.6, 24.86, 51.1, 28.85]
+            },
+            {
+              "rot": 0,
+              "text": "rapidly injects you with its debilitating",
+              "bbox": [11.13, 28.56, 51.57, 32.55]
+            },
+            {
+              "rot": 0,
+              "text": "poison. Your hand feels sore and your",
+              "bbox": [11.24, 32.26, 51.45, 36.25]
+            },
+            {
+              "rot": 0,
+              "text": "head feels as if it’s about to burst.",
+              "bbox": [12.99, 35.97, 49.71, 39.96]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:288c9a0062} {icon:3d2d3fadd1}",
+              "bbox": [14.1, 42.27, 26.63, 58.91]
+            },
+            {
+              "rot": 0,
+              "text": "1 3t",
+              "bbox": [14.5, 53.48, 25.96, 60.42]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:b4627031be}",
+              "bbox": [17.48, 62.79, 22.99, 69.22]
+            },
+            {
+              "rot": 0,
+              "text": "10 {icon:c870a39e26}",
+              "bbox": [15.66, 71.51, 25.05, 78.45]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "curio:warrens:p016",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [16],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+          "page": 16,
+          "trim_mm": [63.0, 88.0],
+          "face_phash": "95952d2f2fc53521",
+          "spans": [
+            {
+              "t": "Sacrificial Stone",
+              "bbox": [16.79, 6.92, 46.66, 13.09],
+              "font": "DwarvenAxeBB",
+              "size": 16.0,
+              "color": "#b27a4a"
+            },
+            {
+              "t": "A stone used for ancient, barbaric",
+              "bbox": [13.38, 17.45, 49.32, 21.44],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "rituals. In its hollow base you discover",
+              "bbox": [10.64, 21.16, 52.06, 25.15],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "a precious trinket, albeit cursed with",
+              "bbox": [11.79, 24.86, 50.91, 28.85],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "some dark magic. As you hold it in your",
+              "bbox": [10.24, 28.56, 52.46, 32.55],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "palms you feel your soul screaming,",
+              "bbox": [12.3, 32.26, 50.4, 36.25],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "as if seeking to escape your body.",
+              "bbox": [13.34, 35.97, 49.36, 39.96],
+              "font": "DwarvenAxeBB",
+              "size": 9.65,
+              "color": "#231f20"
+            },
+            {
+              "t": "+1",
+              "bbox": [21.96, 44.48, 25.9, 51.42],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffde8e"
+            },
+            {
+              "t": "2t",
+              "bbox": [21.56, 62.77, 25.53, 69.71],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#ffe6ad"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "3f82ff8e90",
+              "bbox": [49.3, 0.0, 57.27, 13.2]
+            },
+            {
+              "iconId": "df696c2f2e",
+              "bbox": [2.02, 10.0, 9.75, 17.57],
+              "bbox_full": [1.19, 9.22, 11.73, 19.63]
+            },
+            {
+              "iconId": "12438e9a49",
+              "bbox": [15.52, 45.16, 20.81, 50.45],
+              "bbox_full": [14.03, 43.81, 26.99, 51.94]
+            },
+            {
+              "iconId": "9083ca75b8",
+              "bbox": [14.49, 51.72, 27.02, 66.32]
+            },
+            {
+              "iconId": "604a7d83ac",
+              "bbox": [15.87, 63.5, 20.81, 68.79],
+              "bbox_full": [14.15, 62.11, 26.47, 70.38]
+            },
+            {
+              "iconId": "85e094f269",
+              "bbox": [14.49, 71.99, 26.76, 80.23],
+              "bbox_full": [14.07, 71.58, 27.28, 80.73]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Sacrificial Stone {icon:3f82ff8e90}",
+              "bbox": [16.79, 0.0, 57.27, 13.2]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:df696c2f2e}",
+              "bbox": [2.02, 10.0, 9.75, 17.57]
+            },
+            {
+              "rot": 0,
+              "text": "A stone used for ancient, barbaric",
+              "bbox": [13.38, 17.45, 49.32, 21.44]
+            },
+            {
+              "rot": 0,
+              "text": "rituals. In its hollow base you discover",
+              "bbox": [10.64, 21.16, 52.06, 25.15]
+            },
+            {
+              "rot": 0,
+              "text": "a precious trinket, albeit cursed with",
+              "bbox": [11.79, 24.86, 50.91, 28.85]
+            },
+            {
+              "rot": 0,
+              "text": "some dark magic. As you hold it in your",
+              "bbox": [10.24, 28.56, 52.46, 32.55]
+            },
+            {
+              "rot": 0,
+              "text": "palms you feel your soul screaming,",
+              "bbox": [12.3, 32.26, 50.4, 36.25]
+            },
+            {
+              "rot": 0,
+              "text": "as if seeking to escape your body.",
+              "bbox": [13.34, 35.97, 49.36, 39.96]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:12438e9a49} +1",
+              "bbox": [15.52, 44.48, 25.9, 51.42]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:9083ca75b8} {icon:604a7d83ac} 2t",
+              "bbox": [14.49, 51.72, 27.02, 69.71]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:85e094f269}",
+              "bbox": [14.49, 71.99, 26.76, 80.23]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
