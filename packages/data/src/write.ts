@@ -5,6 +5,7 @@ export {
   writeNormalizedCoveCurios,
   writeNormalizedCoveRooms,
 } from "./cove/write";
+export { loadNormalizedWarrensBossRooms, writeNormalizedWarrensBossRooms } from "./warrens/write";
 export {
   loadNormalizedWealdCurios,
   loadNormalizedWealdHigherQuests,

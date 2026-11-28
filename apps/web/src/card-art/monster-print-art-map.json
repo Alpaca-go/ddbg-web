@@ -902,8 +902,166 @@
       "matchMethod": "reuse-base:monster_medium:p109",
       "reviewVerdict": "alias",
       "reviewedAt": "2026-10-19T05:31:55.879Z"
+    },
+    {
+      "id": "monster_large:warrens:p002",
+      "name": "Brigand Vvulf",
+      "level": 1,
+      "category": "monster_large",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_140x140_monster_large_FRONT.pdf_p002.png",
+      "printPage": 2,
+      "primaryPdf": "DD_EN_WARRENS_CARDS_140x140_monster_large_FRONT",
+      "matchMethod": "page+name",
+      "reviewVerdict": "pending",
+      "reviewedAt": null
+    },
+    {
+      "id": "monster_large:warrens:p003",
+      "name": "Brigand Vvulf",
+      "level": 2,
+      "category": "monster_large",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_140x140_monster_large_FRONT.pdf_p003.png",
+      "printPage": 3,
+      "primaryPdf": "DD_EN_WARRENS_CARDS_140x140_monster_large_FRONT",
+      "matchMethod": "page+name",
+      "reviewVerdict": "pending",
+      "reviewedAt": null
+    },
+    {
+      "id": "monster_large:warrens:p004",
+      "name": "Brigand Vvulf",
+      "level": 3,
+      "category": "monster_large",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_140x140_monster_large_FRONT.pdf_p004.png",
+      "printPage": 4,
+      "primaryPdf": "DD_EN_WARRENS_CARDS_140x140_monster_large_FRONT",
+      "matchMethod": "page+name",
+      "reviewVerdict": "pending",
+      "reviewedAt": null
+    },
+    {
+      "id": "monster_large:warrens:p005",
+      "name": "Swine Prince",
+      "level": 1,
+      "category": "monster_large",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_140x140_monster_large_FRONT.pdf_p005.png",
+      "printPage": 5,
+      "primaryPdf": "DD_EN_WARRENS_CARDS_140x140_monster_large_FRONT",
+      "matchMethod": "page+name",
+      "reviewVerdict": "pending",
+      "reviewedAt": null
+    },
+    {
+      "id": "monster_large:warrens:p006",
+      "name": "Swine Prince",
+      "level": 2,
+      "category": "monster_large",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_140x140_monster_large_FRONT.pdf_p006.png",
+      "printPage": 6,
+      "primaryPdf": "DD_EN_WARRENS_CARDS_140x140_monster_large_FRONT",
+      "matchMethod": "page+name",
+      "reviewVerdict": "pending",
+      "reviewedAt": null
+    },
+    {
+      "id": "monster_large:warrens:p007",
+      "name": "Swine Prince",
+      "level": 3,
+      "category": "monster_large",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_140x140_monster_large_FRONT.pdf_p007.png",
+      "printPage": 7,
+      "primaryPdf": "DD_EN_WARRENS_CARDS_140x140_monster_large_FRONT",
+      "matchMethod": "page+name",
+      "reviewVerdict": "pending",
+      "reviewedAt": null
+    },
+    {
+      "id": "monster_medium:warrens:p020",
+      "name": "Wilbur",
+      "level": 1,
+      "category": "monster_medium",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_70_120_monsters_medium_FRONT.pdf_p020.png",
+      "printPage": 20,
+      "primaryPdf": "DD_EN_WARRENS_CARDS_70_120_monsters_medium_FRONT",
+      "matchMethod": "page+name",
+      "reviewVerdict": "pending",
+      "reviewedAt": null
+    },
+    {
+      "id": "monster_medium:warrens:p021",
+      "name": "Wilbur",
+      "level": 2,
+      "category": "monster_medium",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_70_120_monsters_medium_FRONT.pdf_p021.png",
+      "printPage": 21,
+      "primaryPdf": "DD_EN_WARRENS_CARDS_70_120_monsters_medium_FRONT",
+      "matchMethod": "page+name",
+      "reviewVerdict": "pending",
+      "reviewedAt": null
+    },
+    {
+      "id": "monster_medium:warrens:p022",
+      "name": "Wilbur",
+      "level": 3,
+      "category": "monster_medium",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_70_120_monsters_medium_FRONT.pdf_p022.png",
+      "printPage": 22,
+      "primaryPdf": "DD_EN_WARRENS_CARDS_70_120_monsters_medium_FRONT",
+      "matchMethod": "page+name",
+      "reviewVerdict": "pending",
+      "reviewedAt": null
+    },
+    {
+      "id": "monster_medium:warrens:p023",
+      "name": "Flesh Head",
+      "level": 1,
+      "category": "monster_medium",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_70_120_monsters_medium_FRONT.pdf_p023.png",
+      "printPage": 23,
+      "primaryPdf": "DD_EN_WARRENS_CARDS_70_120_monsters_medium_FRONT",
+      "matchMethod": "page+name",
+      "reviewVerdict": "pending",
+      "reviewedAt": null
+    },
+    {
+      "id": "monster_medium:warrens:p026",
+      "name": "Flesh Bone",
+      "level": 1,
+      "category": "monster_medium",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_70_120_monsters_medium_FRONT.pdf_p026.png",
+      "printPage": 26,
+      "primaryPdf": "DD_EN_WARRENS_CARDS_70_120_monsters_medium_FRONT",
+      "matchMethod": "page+name",
+      "reviewVerdict": "pending",
+      "reviewedAt": null
+    },
+    {
+      "id": "monster_medium:warrens:p029",
+      "name": "Flesh Heart",
+      "level": 1,
+      "category": "monster_medium",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_70_120_monsters_medium_FRONT.pdf_p029.png",
+      "printPage": 29,
+      "primaryPdf": "DD_EN_WARRENS_CARDS_70_120_monsters_medium_FRONT",
+      "matchMethod": "page+name",
+      "reviewVerdict": "pending",
+      "reviewedAt": null
+    },
+    {
+      "id": "monster_medium:warrens:p032",
+      "name": "Flesh Butt",
+      "level": 1,
+      "category": "monster_medium",
+      "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_70_120_monsters_medium_FRONT.pdf_p032.png",
+      "printPage": 32,
+      "primaryPdf": "DD_EN_WARRENS_CARDS_70_120_monsters_medium_FRONT",
+      "matchMethod": "page+name",
+      "reviewVerdict": "pending",
+      "reviewedAt": null
     }
   ],
   "uncoveredEngineIds": [],
-  "pendingConfirmation": []
+  "pendingConfirmation": [
+    "Warrens Boss 战斗卡（large p2–7、medium p20–34 部位）已登记 pngRel scaffold，reviewVerdict=pending，待 .cache 导出后由 Kyries 批核"
+  ]
 }

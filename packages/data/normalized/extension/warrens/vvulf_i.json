@@ -1,0 +1,175 @@
+{
+  "schema": "ddbg-warrens-vvulf-i-v0",
+  "combatReady": false,
+  "runtimeReady": false,
+  "pendingReview": [
+    "Q-WARRENS-32：Barrel O'Bombs 微缩体与 Get Them!/Tower Shield 召唤明细待 runtime"
+  ],
+  "sources": {
+    "combatFront": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_140x140_monster_large_FRONT.pdf",
+    "combatBack": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_140x140_monster_large_BACK.pdf",
+    "abilityFront": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+    "abilityBack": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_BACK.pdf"
+  },
+  "faces": [
+    {
+      "role": "vvulf",
+      "rawId": "monster_large:warrens:p002",
+      "face": "front",
+      "name": "Brigand Vvulf",
+      "level": 1,
+      "types": ["human", "large"],
+      "stanceSlots": 2,
+      "life": 66,
+      "speed": 0,
+      "dodge": 5,
+      "resistances": [],
+      "immunities": [],
+      "skills": [
+        {
+          "slot": 1,
+          "name": "Get Them!",
+          "target": "crowded",
+          "range": 1,
+          "maxTargets": 2,
+          "crit": 1,
+          "critDamage": 2,
+          "accuracy": 10,
+          "damage": 1,
+          "effects": [
+            {
+              "kind": "pendingIcon",
+              "note": "Summon Fusilier + Barrel O'Bombs"
+            }
+          ]
+        },
+        {
+          "slot": 2,
+          "name": "Tower Shield",
+          "target": "crowded",
+          "range": 2,
+          "maxTargets": 2,
+          "crit": 0,
+          "critDamage": 2,
+          "accuracy": 10,
+          "damage": 1,
+          "effects": [
+            {
+              "kind": "pendingIcon",
+              "note": "Summon Fusilier"
+            }
+          ]
+        },
+        {
+          "slot": 3,
+          "name": "Warcry",
+          "target": "crowded",
+          "range": 2,
+          "maxTargets": 2,
+          "crit": 0,
+          "critDamage": 2,
+          "accuracy": 10,
+          "damage": 1,
+          "effects": [
+            {
+              "kind": "pendingIcon",
+              "note": "Self buff"
+            }
+          ]
+        }
+      ],
+      "selection": [
+        {
+          "min": 1,
+          "max": 5,
+          "slot": 1
+        },
+        {
+          "min": 6,
+          "max": 7,
+          "slot": 2
+        },
+        {
+          "min": 8,
+          "max": 10,
+          "slot": 3
+        }
+      ]
+    }
+  ],
+  "abilities": {
+    "descriptionCardId": "boss_ability:warrens:p001",
+    "combatCardId": "boss_ability:warrens:p004",
+    "actionsPerRound": 2,
+    "ruleSummaries": [
+      "Time's Up!：Barrel O'Bombs 在场时移除并对区域内角色造成伤害 10（I）",
+      "Barrel O'Bombs 微缩体登记：不入 normalized 怪物池，仅 Boss 数据注释"
+    ],
+    "threats": {
+      "dungeon": {
+        "name": "Brigand Ambush I",
+        "summary": "Brigand spawn: heroes debuff 1t",
+        "recordedOnly": true
+      },
+      "hamlet": {
+        "name": "Stolen Material I",
+        "summary": "Building upgrades cost +4",
+        "recordedOnly": true
+      }
+    },
+    "barrelOBombs": {
+      "miniatureNote": true,
+      "removeAndDamage": 10
+    }
+  },
+  "setup": {
+    "rule": "Warrens W4",
+    "vvulfStance": "aggressive",
+    "monsterInitiativeCards": 2,
+    "heroInitiativeCards": 4
+  },
+  "tile": {
+    "id": "room_tile:warrens:12",
+    "rawId": "dungeon_tile:warrens:p012",
+    "roomId": "room:warrens:12",
+    "location": "warrens",
+    "number": 12,
+    "name": "Brigand Vvulf",
+    "source": {
+      "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_WARRENS_TILES_FRONT.pdf",
+      "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_WARRENS_TILES_BACK.pdf",
+      "page": 3,
+      "face": "front"
+    },
+    "geometryVerified": false,
+    "geometryComplete": false,
+    "usable": false,
+    "pendingReview": [
+      "Q-WARRENS-29：Boss 板块几何与 Room+Tile 对照待印核（R-048）；本刀不授予 usable"
+    ],
+    "deployment": {
+      "printReview": "pending",
+      "lootAreas": [],
+      "markers": [],
+      "heroes": {
+        "aggressive": "?",
+        "defensive": "?",
+        "ranged": "?",
+        "support": "?"
+      },
+      "monsters": {
+        "aggressive": "?",
+        "defensive": "?",
+        "ranged": "?",
+        "support": "?"
+      }
+    },
+    "areas": [],
+    "edges": [],
+    "necroticFungusAreas": [],
+    "zeroCapacityAreas": [],
+    "specialRegions": [],
+    "wallNotes": [],
+    "unresolvedMarkers": ["dungeon_tile Boss 页序待 Kyries 对照 Warrens Tiles PDF"]
+  }
+}

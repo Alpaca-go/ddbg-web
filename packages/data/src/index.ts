@@ -230,3 +230,38 @@ export type { WealdPounderHigherContent } from "./weald/bosses/pounder/pounder-h
 
 export { wealdShriekerHigherContentSchema } from "./weald/bosses/shrieker/shrieker-higher";
 export type { WealdShriekerHigherContent } from "./weald/bosses/shrieker/shrieker-higher";
+
+export { warrensBossRoomCardSchema, warrensBossRoomFileSchema } from "./warrens/rooms/room";
+export type { WarrensBossRoomCard } from "./warrens/rooms/room";
+export { warrensBossTileStubSchema } from "./warrens/tiles/boss-tile";
+export type { WarrensBossTileStub } from "./warrens/tiles/boss-tile";
+export {
+  WARRENS_BOSS_ABILITIES_BACK,
+  WARRENS_BOSS_ABILITIES_FRONT,
+  WARRENS_MONSTER_LARGE_BACK,
+  WARRENS_MONSTER_LARGE_FRONT,
+  WARRENS_MONSTER_MEDIUM_BACK,
+  WARRENS_MONSTER_MEDIUM_FRONT,
+  WARRENS_ROOM_BACK,
+  WARRENS_ROOM_FRONT,
+  WARRENS_TILES_BACK,
+  WARRENS_TILES_FRONT,
+} from "./warrens/print";
+export {
+  warrensSwinePrinceHigherContentSchema,
+  warrensSwinePrinceIContentSchema,
+} from "./warrens/bosses/swine-prince";
+export type {
+  WarrensSwinePrinceHigherContent,
+  WarrensSwinePrinceIContent,
+} from "./warrens/bosses/swine-prince";
+export {
+  warrensFleshHigherContentSchema,
+  warrensFleshIContentSchema,
+} from "./warrens/bosses/flesh";
+export type { WarrensFleshHigherContent, WarrensFleshIContent } from "./warrens/bosses/flesh";
+export {
+  warrensVvulfHigherContentSchema,
+  warrensVvulfIContentSchema,
+} from "./warrens/bosses/vvulf";
+export type { WarrensVvulfHigherContent, WarrensVvulfIContent } from "./warrens/bosses/vvulf";

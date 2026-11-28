@@ -1,0 +1,257 @@
+{
+  "schema": "ddbg-warrens-flesh-i-v0",
+  "combatReady": false,
+  "runtimeReady": false,
+  "pendingReview": ["Q-WARRENS-31：四部位 morph 表与共享 Life 运行时 hold；仅登记印刷目录"],
+  "sources": {
+    "combatFront": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_monsters_medium_FRONT.pdf",
+    "combatBack": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_monsters_medium_BACK.pdf",
+    "abilityFront": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+    "abilityBack": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_BACK.pdf"
+  },
+  "oneBodySharedLife": 93,
+  "faces": [
+    {
+      "role": "head",
+      "rawId": "monster_medium:warrens:p023",
+      "face": "front",
+      "name": "Flesh Head",
+      "level": 1,
+      "types": ["eldritch"],
+      "stanceSlots": 1,
+      "sharedLife": 93,
+      "speed": 1,
+      "dodge": 0,
+      "resistances": [],
+      "immunities": [],
+      "skills": [
+        {
+          "slot": 1,
+          "name": "Maws of Life",
+          "target": "closest",
+          "range": 0,
+          "maxTargets": 1,
+          "crit": 1,
+          "critDamage": 14,
+          "accuracy": 9,
+          "damage": 8,
+          "effects": [
+            {
+              "kind": "pendingIcon",
+              "note": "debuff 2t"
+            }
+          ]
+        }
+      ],
+      "selection": [
+        {
+          "min": 1,
+          "max": 10,
+          "slot": 1
+        }
+      ]
+    },
+    {
+      "role": "bone",
+      "rawId": "monster_medium:warrens:p026",
+      "face": "front",
+      "name": "Flesh Bone",
+      "level": 1,
+      "types": ["eldritch"],
+      "stanceSlots": 1,
+      "sharedLife": 93,
+      "speed": 1,
+      "dodge": 0,
+      "resistances": [],
+      "immunities": [],
+      "skills": [
+        {
+          "slot": 1,
+          "name": "Bone Zephyr",
+          "target": "mostStressed",
+          "range": 1,
+          "maxTargets": 1,
+          "crit": 1,
+          "critDamage": 6,
+          "accuracy": 9,
+          "damage": 3,
+          "effects": [
+            {
+              "kind": "pendingIcon",
+              "note": "debuff 1t"
+            }
+          ]
+        }
+      ],
+      "selection": [
+        {
+          "min": 1,
+          "max": 10,
+          "slot": 1
+        }
+      ]
+    },
+    {
+      "role": "heart",
+      "rawId": "monster_medium:warrens:p029",
+      "face": "front",
+      "name": "Flesh Heart",
+      "level": 1,
+      "types": ["eldritch"],
+      "stanceSlots": 1,
+      "sharedLife": 93,
+      "speed": 1,
+      "dodge": 0,
+      "resistances": [],
+      "immunities": [],
+      "skills": [
+        {
+          "slot": 1,
+          "name": "Sanguine Stroke",
+          "target": "closest",
+          "range": 2,
+          "maxTargets": 2,
+          "crit": 2,
+          "critDamage": 11,
+          "accuracy": 10,
+          "damage": 6,
+          "effects": []
+        }
+      ],
+      "selection": [
+        {
+          "min": 1,
+          "max": 10,
+          "slot": 1
+        }
+      ]
+    },
+    {
+      "role": "butt",
+      "rawId": "monster_medium:warrens:p032",
+      "face": "front",
+      "name": "Flesh Butt",
+      "level": 1,
+      "types": ["eldritch"],
+      "stanceSlots": 1,
+      "sharedLife": 93,
+      "speed": 0,
+      "dodge": 0,
+      "resistances": [],
+      "immunities": [],
+      "skills": [
+        {
+          "slot": 1,
+          "name": "Undulating Invasion",
+          "target": "furthest",
+          "range": 1,
+          "maxTargets": 1,
+          "crit": 1,
+          "critDamage": 9,
+          "accuracy": 9,
+          "damage": 6,
+          "effects": [
+            {
+              "kind": "pendingIcon",
+              "note": "blight 2t"
+            }
+          ]
+        }
+      ],
+      "selection": [
+        {
+          "min": 1,
+          "max": 10,
+          "slot": 1
+        }
+      ]
+    }
+  ],
+  "abilities": {
+    "descriptionCardId": "boss_ability:warrens:p013",
+    "combatCardId": "boss_ability:warrens:p016",
+    "actionsPerRound": 4,
+    "ruleSummaries": [
+      "One Body：四部位共享 Life；每部位每轮 1 行动；回合末其余部位向当前部位移动 1 格"
+    ],
+    "threats": {
+      "dungeon": {
+        "name": "Big Troubles I",
+        "summary": "Large monster spawn gains Guard 2t",
+        "runtimeNote": "recordedOnly"
+      },
+      "hamlet": {
+        "name": "Creeping Sickness I",
+        "summary": "Wounds on unvisited buildings",
+        "runtimeNote": "recordedOnly"
+      }
+    },
+    "dungeonThreatHigher": {
+      "II": {
+        "name": "Bigger Troubles II",
+        "drawUntilLargeMonster": true,
+        "implementDraw": false
+      },
+      "III": {
+        "name": "Bigger Troubles III",
+        "drawUntilLargeMonster": true,
+        "implementDraw": false
+      }
+    }
+  },
+  "setup": {
+    "rule": "Warrens W4",
+    "partStances": {
+      "head": "aggressive",
+      "bone": "defensive",
+      "heart": "ranged",
+      "butt": "support"
+    },
+    "monsterInitiativeCards": 4,
+    "heroInitiativeCards": 4
+  },
+  "tile": {
+    "id": "room_tile:warrens:11",
+    "rawId": "dungeon_tile:warrens:p011",
+    "roomId": "room:warrens:11",
+    "location": "warrens",
+    "number": 11,
+    "name": "The Flesh",
+    "source": {
+      "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_WARRENS_TILES_FRONT.pdf",
+      "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_WARRENS_TILES_BACK.pdf",
+      "page": 2,
+      "face": "front"
+    },
+    "geometryVerified": false,
+    "geometryComplete": false,
+    "usable": false,
+    "pendingReview": [
+      "Q-WARRENS-29：Boss 板块几何与 Room+Tile 对照待印核（R-048）；本刀不授予 usable"
+    ],
+    "deployment": {
+      "printReview": "pending",
+      "lootAreas": [],
+      "markers": [],
+      "heroes": {
+        "aggressive": "?",
+        "defensive": "?",
+        "ranged": "?",
+        "support": "?"
+      },
+      "monsters": {
+        "aggressive": "?",
+        "defensive": "?",
+        "ranged": "?",
+        "support": "?"
+      }
+    },
+    "areas": [],
+    "edges": [],
+    "necroticFungusAreas": [],
+    "zeroCapacityAreas": [],
+    "specialRegions": [],
+    "wallNotes": [],
+    "unresolvedMarkers": ["dungeon_tile Boss 页序待 Kyries 对照 Warrens Tiles PDF"]
+  }
+}

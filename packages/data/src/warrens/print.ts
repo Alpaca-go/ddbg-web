@@ -1,0 +1,19 @@
+export const WARRENS_PRINT = "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/" as const;
+export const WARRENS_BOSS_ABILITIES_FRONT =
+  `${WARRENS_PRINT}DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_FRONT.pdf` as const;
+export const WARRENS_BOSS_ABILITIES_BACK =
+  `${WARRENS_PRINT}DD_EN_WARRENS_CARDS_70_120_Boss_Abilities_BACK.pdf` as const;
+export const WARRENS_MONSTER_LARGE_FRONT =
+  `${WARRENS_PRINT}DD_EN_WARRENS_CARDS_140x140_monster_large_FRONT.pdf` as const;
+export const WARRENS_MONSTER_LARGE_BACK =
+  `${WARRENS_PRINT}DD_EN_WARRENS_CARDS_140x140_monster_large_BACK.pdf` as const;
+export const WARRENS_MONSTER_MEDIUM_FRONT =
+  `${WARRENS_PRINT}DD_EN_WARRENS_CARDS_70_120_monsters_medium_FRONT.pdf` as const;
+export const WARRENS_MONSTER_MEDIUM_BACK =
+  `${WARRENS_PRINT}DD_EN_WARRENS_CARDS_70_120_monsters_medium_BACK.pdf` as const;
+export const WARRENS_ROOM_FRONT =
+  `${WARRENS_PRINT}DD_EN_WARRENS_CARDS_63x88_rooms_FRONT.pdf` as const;
+export const WARRENS_ROOM_BACK =
+  `${WARRENS_PRINT}DD_EN_WARRENS_CARDS_63x88_rooms_BACK.pdf` as const;
+export const WARRENS_TILES_FRONT = `${WARRENS_PRINT}DD_WARRENS_TILES_FRONT.pdf` as const;
+export const WARRENS_TILES_BACK = `${WARRENS_PRINT}DD_WARRENS_TILES_BACK.pdf` as const;

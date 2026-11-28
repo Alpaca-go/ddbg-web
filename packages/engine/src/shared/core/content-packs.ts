@@ -44,6 +44,7 @@ export function sourcesForContentPacks(
     },
     ...(selected.includes("weald") && sources.weald ? { weald: sources.weald } : {}),
     ...(selected.includes("cove") && sources.cove ? { cove: sources.cove } : {}),
+    ...(selected.includes("warrens") && sources.warrens ? { warrens: sources.warrens } : {}),
     resolveCards: sources.resolveCards.filter(allowed),
     curios: sources.curios.filter(allowed),
     rooms: sources.rooms.filter(allowed),
