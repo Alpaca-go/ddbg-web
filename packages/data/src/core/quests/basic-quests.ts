@@ -1,6 +1,8 @@
 import coreQuestCards from "../../../normalized/corebox/quest_cards.json";
 import wealdQuestCards from "../../../normalized/extension/weald/quest_cards.json";
 import wealdHigherQuestCards from "../../../normalized/extension/weald/higher_quests.json";
+import warrensQuestCards from "../../../normalized/extension/warrens/quest_cards.json";
+import warrensHigherQuestCards from "../../../normalized/extension/warrens/higher_quests.json";
 import scout from "../../../normalized/corebox/scout_ahead_distribution.json";
 import wipe from "../../../normalized/corebox/wipe_em_out_distribution.json";
 import fundraiser from "../../../normalized/corebox/fundraiser_distribution.json";
@@ -25,6 +27,11 @@ import circleOfWitches from "../../../normalized/extension/weald/circle_of_witch
 import disinfection from "../../../normalized/extension/weald/disinfection_distribution.json";
 import purgeTheWoods from "../../../normalized/extension/weald/purge_the_woods_distribution.json";
 import patrolTheWoods from "../../../normalized/extension/weald/patrol_the_woods_distribution.json";
+import porkChop from "../../../normalized/extension/warrens/pork_chop_distribution.json";
+import exploreTheSewers from "../../../normalized/extension/warrens/explore_the_sewers_distribution.json";
+import familyTrinkets from "../../../normalized/extension/warrens/family_trinkets_distribution.json";
+import wormSquash from "../../../normalized/extension/warrens/worm_squash_distribution.json";
+import disarmThem from "../../../normalized/extension/warrens/disarm_them_distribution.json";
 import {
   randomNonObjectiveRoomKinds,
   roomDistributionSchema,
@@ -190,6 +197,62 @@ const questDefinitions = [
     expeditionRegion: "weald" as const,
     verifiedRuleRulings: ["R-242", "R-249"] as const,
     distribution: roomDistributionSchema.parse(patrolTheWoods),
+  },
+  {
+    id: "quest:warrens:p001",
+    name: "Pork Chop",
+    level: 1 as const,
+    xpKind: "lair" as const,
+    roomsPerXp: 1,
+    maxRooms: 3,
+    expeditionRegion: "warrens" as const,
+    verifiedRuleRulings: ["Q-WARRENS-00", "Q-WARRENS-01"] as const,
+    distribution: roomDistributionSchema.parse(porkChop),
+  },
+  {
+    id: "quest:warrens:p002",
+    name: "Explore the Sewers",
+    level: 1 as const,
+    xpKind: "all" as const,
+    roomsPerXp: 2,
+    maxRooms: 6,
+    expeditionRegion: "warrens" as const,
+    verifiedRuleRulings: ["Q-WARRENS-00", "Q-WARRENS-02"] as const,
+    distribution: roomDistributionSchema.parse(exploreTheSewers),
+  },
+  {
+    id: "quest:warrens:p003",
+    name: "Family Trinkets",
+    level: 1 as const,
+    xpKind: "flat" as const,
+    flatXp: 3 as const,
+    expeditionRegion: "warrens" as const,
+    verifiedRuleRulings: ["Q-WARRENS-00", "Q-WARRENS-03", "Q-WARRENS-04"] as const,
+    distribution: roomDistributionSchema.parse(familyTrinkets),
+  },
+  {
+    id: "quest:warrens:p004",
+    name: "Worm Squash",
+    level: 1 as const,
+    xpKind: "objective" as const,
+    roomsPerXp: 1,
+    maxRooms: 3,
+    expeditionRegion: "warrens" as const,
+    setAsideRoomCardId: "room:warrens:p008" as const,
+    verifiedRuleRulings: ["Q-WARRENS-00", "Q-WARRENS-05", "Q-WARRENS-06"] as const,
+    distribution: roomDistributionSchema.parse(wormSquash),
+  },
+  {
+    id: "quest:warrens:p005",
+    name: "Disarm Them",
+    level: 1 as const,
+    xpKind: "objective" as const,
+    roomsPerXp: 1,
+    maxRooms: 3,
+    expeditionRegion: "warrens" as const,
+    setAsideRoomCardId: "room:warrens:p006" as const,
+    verifiedRuleRulings: ["Q-WARRENS-00", "Q-WARRENS-05", "Q-WARRENS-07"] as const,
+    distribution: roomDistributionSchema.parse(disarmThem),
   },
   {
     id: "quest:p006",
@@ -547,12 +610,225 @@ const questDefinitions = [
       ],
     }),
   },
+  {
+    id: "quest:warrens:p006",
+    name: "Ringleaders",
+    level: 2 as const,
+    xpKind: "objective" as const,
+    roomsPerXp: 1,
+    maxRooms: 3,
+    expeditionRegion: "warrens" as const,
+    setAsideRoomCardId: "room:warrens:p009" as const,
+    verifiedRuleRulings: ["Q-WARRENS-00"] as const,
+    distribution: roomDistributionSchema.parse({
+      questId: "quest:warrens:p006",
+      source: "Warrens QUEST FRONT p6; Q-WARRENS-08",
+      counts: [
+        { kind: "objective", count: 3 },
+        { kind: "empty", count: 1 },
+        { kind: "dark", count: 1 },
+        { kind: "treasure", count: 2 },
+        { kind: "trap", count: 1 },
+      ],
+    }),
+  },
+  {
+    id: "quest:warrens:p007",
+    name: "Carrion Infestation",
+    level: 2 as const,
+    xpKind: "objective" as const,
+    roomsPerXp: 1,
+    maxRooms: 3,
+    expeditionRegion: "warrens" as const,
+    verifiedRuleRulings: ["Q-WARRENS-00"] as const,
+    distribution: roomDistributionSchema.parse({
+      questId: "quest:warrens:p007",
+      source: "Warrens QUEST FRONT p7; Q-WARRENS-10",
+      counts: [
+        { kind: "objective", count: 3 },
+        { kind: "curio", count: 1 },
+        { kind: "dark", count: 2 },
+        { kind: "trap", count: 2 },
+      ],
+    }),
+  },
+  {
+    id: "quest:warrens:p008",
+    name: "Bait Them Out",
+    level: 2 as const,
+    xpKind: "lair" as const,
+    roomsPerXp: 1,
+    maxRooms: 3,
+    expeditionRegion: "warrens" as const,
+    verifiedRuleRulings: ["Q-WARRENS-00"] as const,
+    distribution: roomDistributionSchema.parse({
+      questId: "quest:warrens:p008",
+      source: "Warrens QUEST FRONT p8; Q-WARRENS-12",
+      counts: [
+        { kind: "empty", count: 3 },
+        { kind: "curio", count: 1 },
+        { kind: "lair", count: 1 },
+        { kind: "treasure", count: 1 },
+        { kind: "trap", count: 2 },
+      ],
+    }),
+  },
+  {
+    id: "quest:warrens:p009",
+    name: "Mapping the Sewers",
+    level: 2 as const,
+    xpKind: "all" as const,
+    roomsPerXp: 2,
+    maxRooms: 6,
+    expeditionRegion: "warrens" as const,
+    verifiedRuleRulings: ["Q-WARRENS-00"] as const,
+    distribution: roomDistributionSchema.parse({
+      questId: "quest:warrens:p009",
+      source: "Warrens QUEST FRONT p9",
+      counts: [
+        { kind: "empty", count: 1 },
+        { kind: "dark", count: 1 },
+        { kind: "curio", count: 1 },
+        { kind: "lair", count: 2 },
+        { kind: "treasure", count: 2 },
+        { kind: "trap", count: 1 },
+      ],
+    }),
+  },
+  {
+    id: "quest:warrens:p010",
+    name: "A New Breed",
+    level: 2 as const,
+    xpKind: "lair" as const,
+    roomsPerXp: 1,
+    maxRooms: 3,
+    expeditionRegion: "warrens" as const,
+    verifiedRuleRulings: ["Q-WARRENS-00"] as const,
+    distribution: roomDistributionSchema.parse({
+      questId: "quest:warrens:p010",
+      source: "Warrens QUEST FRONT p10; Q-WARRENS-13",
+      counts: [
+        { kind: "empty", count: 1 },
+        { kind: "dark", count: 1 },
+        { kind: "curio", count: 1 },
+        { kind: "lair", count: 3 },
+        { kind: "trap", count: 2 },
+      ],
+    }),
+  },
+  {
+    id: "quest:warrens:p011",
+    name: "Deep in the Warrens",
+    level: 3 as const,
+    xpKind: "all" as const,
+    roomsPerXp: 2,
+    maxRooms: 6,
+    expeditionRegion: "warrens" as const,
+    verifiedRuleRulings: ["Q-WARRENS-00"] as const,
+    distribution: roomDistributionSchema.parse({
+      questId: "quest:warrens:p011",
+      source: "Warrens QUEST FRONT p11; Q-WARRENS-14",
+      counts: [
+        { kind: "curio", count: 2 },
+        { kind: "objective", count: 2 },
+        { kind: "lair", count: 2 },
+        { kind: "trap", count: 2 },
+      ],
+    }),
+  },
+  {
+    id: "quest:warrens:p012",
+    name: "Alpha Swine",
+    level: 3 as const,
+    xpKind: "lair" as const,
+    roomsPerXp: 1,
+    maxRooms: 3,
+    expeditionRegion: "warrens" as const,
+    verifiedRuleRulings: ["Q-WARRENS-00"] as const,
+    distribution: roomDistributionSchema.parse({
+      questId: "quest:warrens:p012",
+      source: "Warrens QUEST FRONT p12; Q-WARRENS-16",
+      counts: [
+        { kind: "dark", count: 2 },
+        { kind: "curio", count: 1 },
+        { kind: "lair", count: 3 },
+        { kind: "trap", count: 2 },
+      ],
+    }),
+  },
+  {
+    id: "quest:warrens:p013",
+    name: "Foul Arsenal",
+    level: 3 as const,
+    xpKind: "objective" as const,
+    roomsPerXp: 1,
+    maxRooms: 3,
+    expeditionRegion: "warrens" as const,
+    setAsideRoomCardId: "room:warrens:p006" as const,
+    verifiedRuleRulings: ["Q-WARRENS-00"] as const,
+    distribution: roomDistributionSchema.parse({
+      questId: "quest:warrens:p013",
+      source: "Warrens QUEST FRONT p13; Q-WARRENS-17",
+      counts: [
+        { kind: "objective", count: 3 },
+        { kind: "empty", count: 2 },
+        { kind: "dark", count: 1 },
+        { kind: "treasure", count: 1 },
+        { kind: "trap", count: 1 },
+      ],
+    }),
+  },
+  {
+    id: "quest:warrens:p014",
+    name: "Infighting",
+    level: 3 as const,
+    xpKind: "lair" as const,
+    roomsPerXp: 1,
+    maxRooms: 3,
+    expeditionRegion: "warrens" as const,
+    verifiedRuleRulings: ["Q-WARRENS-00"] as const,
+    distribution: roomDistributionSchema.parse({
+      questId: "quest:warrens:p014",
+      source: "Warrens QUEST FRONT p14; Q-WARRENS-18",
+      counts: [
+        { kind: "empty", count: 2 },
+        { kind: "objective", count: 1 },
+        { kind: "lair", count: 3 },
+        { kind: "trap", count: 2 },
+      ],
+    }),
+  },
+  {
+    id: "quest:warrens:p015",
+    name: "Drums of Doom",
+    level: 3 as const,
+    xpKind: "lair" as const,
+    roomsPerXp: 1,
+    maxRooms: 3,
+    expeditionRegion: "warrens" as const,
+    verifiedRuleRulings: ["Q-WARRENS-00"] as const,
+    distribution: roomDistributionSchema.parse({
+      questId: "quest:warrens:p015",
+      source: "Warrens QUEST FRONT p15; Q-WARRENS-20",
+      counts: [
+        { kind: "dark", count: 1 },
+        { kind: "curio", count: 1 },
+        { kind: "empty", count: 1 },
+        { kind: "lair", count: 2 },
+        { kind: "trap", count: 3 },
+      ],
+    }),
+  },
 ] as const;
 
 const printedQuestCards = new Map(
-  [...coreQuestCards.cards, ...wealdQuestCards.cards, ...wealdHigherQuestCards.cards].map(
-    (card) => [card.id, card] as const,
-  ),
+  [
+    ...coreQuestCards.cards,
+    ...wealdQuestCards.cards,
+    ...wealdHigherQuestCards.cards,
+    ...warrensQuestCards.cards,
+    ...warrensHigherQuestCards.cards,
+  ].map((card) => [card.id, card] as const),
 );
 
 export const basicQuests = questDefinitions.map((quest) => {
@@ -573,7 +849,10 @@ export type CampaignLevel = 1 | 2 | 3;
 export function questsForCampaignLevel(level: CampaignLevel) {
   return basicQuests.filter(
     (q) =>
-      q.level === level && !("bossQuest" in q && q.bossQuest) && q.expeditionRegion !== "weald",
+      q.level === level &&
+      !("bossQuest" in q && q.bossQuest) &&
+      q.expeditionRegion !== "weald" &&
+      q.expeditionRegion !== "warrens",
   );
 }
 
@@ -622,7 +901,9 @@ export const FORMAL_WEALD_HIGHER_TASK_QUEST_IDS = [
 /** 沙盒 / 调试出征：I 级普通任务 + 已接通的 Boss 任务卡（R-120）；不含未开放 Weald 地点。 */
 export function sandboxEmbarkQuests() {
   return basicQuests.filter(
-    (q) => (q.level === 1 && q.expeditionRegion !== "weald") || ("bossQuest" in q && q.bossQuest),
+    (q) =>
+      (q.level === 1 && q.expeditionRegion !== "weald" && q.expeditionRegion !== "warrens") ||
+      ("bossQuest" in q && q.bossQuest),
   );
 }
 

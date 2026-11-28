@@ -9,13 +9,15 @@ import { FORMAL_WEALD_HIGHER_TASK_QUEST_IDS, isSandboxWealdEmbarkQuest } from ".
 import type { ContentPackId } from "../../shared/content-packs";
 
 /** R-046 / R-116：8 槽遗迹 vs 16 槽最暗地牢（红边 QuestMap p11/p12，VQ-08/09）。 */
-export type QuestExpeditionRegion = "ruins" | "darkestDungeon" | "weald";
+export type QuestExpeditionRegion = "ruins" | "darkestDungeon" | "weald" | "warrens";
 
 /** 未列入生产路径的 Weald 出征仍拒绝（正式路径见 R-272／`formalWealdProductionEmbarkAllowed`）。 */
 export function expeditionLocationEmbarkBlockReason(
   expeditionRegion: QuestExpeditionRegion,
 ): string | null {
   if (expeditionRegion === "weald") return "Weald 任务未列入当前正式出征生产路径（R-272）";
+  if (expeditionRegion === "warrens")
+    return "Warrens 地点任务数据已登记，战役出征与运行时未开放（Q-WARRENS-00）";
   return null;
 }
 

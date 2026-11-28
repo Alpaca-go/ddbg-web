@@ -904,6 +904,7 @@ test("Phase 4：墓地、自然交易与公会升级、旧替补存档迁移保�
   await page.getByRole("button", { name: "保存进度", exact: true }).click();
   await page.reload();
   await page.getByRole("button", { name: "读取本机存档", exact: true }).click();
+  await page.getByRole("button", { name: "访问游商马车III：陈列与购买饰品", exact: true }).click();
   await expect(page.getByTestId("nomad-display")).toContainText(" III");
   const purchase = page.getByRole("button", { name: /^购买 / }).last();
   const price = Number((await purchase.innerText()).match(/（(\d+) 金）/)![1]);

@@ -20,7 +20,7 @@ export const CONTENT_PACKS = [
   {
     id: "warrens",
     name: "Warrens",
-    description: "Swine Prince I、The Flesh I；地点战役尚未开放",
+    description: "I–III 级地点任务数据（15 张）；Swine Prince I、The Flesh I；地点战役出征尚未开放",
   },
   { id: "cove", name: "Cove", description: "Siren I；地点战役尚未开放" },
 ] as const;

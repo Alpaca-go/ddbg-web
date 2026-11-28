@@ -68,6 +68,15 @@ describe("print quest art map", () => {
     expect(basicQuestIds.has("quest:p012")).toBe(true);
   });
 
+  it("maps Warrens extension quests as art-only", () => {
+    const pork = lookupPrintQuestFace("quest:warrens:p001");
+    expect(pork?.name).toBe("Pork Chop");
+    expect(pork?.status).toBe("art-only");
+    expect(pork?.faces.front.printPage).toBe(1);
+    expect(cachedPrintQuestUrl(pork!.faces.front)).toContain("warrens/quests/front-p001.png");
+    expect(lookupPrintQuestFace("quest:warrens:p015")).toBeDefined();
+  });
+
   it("enables Boss quests p016–p019 (R-120)", () => {
     for (const id of ["quest:p016", "quest:p017", "quest:p018", "quest:p019"] as const) {
       const card = lookupPrintQuestFace(id);

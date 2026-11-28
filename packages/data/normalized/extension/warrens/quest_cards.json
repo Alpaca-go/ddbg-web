@@ -1,0 +1,319 @@
+{
+  "schema": "ddbg-warrens-quest-cards-v1",
+  "scope": "level_one_normal",
+  "cards": [
+    {
+      "id": "quest:warrens:p001",
+      "name": "Pork Chop",
+      "level": 1,
+      "restPoints": 8,
+      "printedLines": [
+        "{icon:e1c34ea8a2} I",
+        "8",
+        "Pork Chop",
+        "These swine abominations have",
+        "festered the warrens for far",
+        "too long. Enter the warrens,",
+        "find their quarters and give them none!",
+        "Eradicate their lair, lest they eradicate us!",
+        "XP",
+        "1 Xp/ Lair cleared.",
+        "{icon:6f701b5f5f} 1 {icon:0fd90af65e} {icon:a2e7f1dd7b} 2",
+        "{icon:a488fd5ff1} 1 {icon:be78e95113} 3 {icon:e7b30e2005} 1"
+      ],
+      "specialRuleLines": [],
+      "distribution": {
+        "questId": "quest:warrens:p001",
+        "source": "DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf p1; Q-WARRENS-01（be78e95113→lair 待印核）; 0fd90af65e→dark (R-110); 共享 hash 见 Weald R-240",
+        "counts": [
+          {
+            "kind": "empty",
+            "count": 1
+          },
+          {
+            "kind": "dark",
+            "count": 2
+          },
+          {
+            "kind": "lair",
+            "count": 3
+          },
+          {
+            "kind": "treasure",
+            "count": 1
+          },
+          {
+            "kind": "trap",
+            "count": 1
+          }
+        ]
+      },
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+        "page": 1
+      },
+      "verifiedRules": ["Q-WARRENS-00", "Q-WARRENS-01"],
+      "pendingConfirmation": ["Q-WARRENS-01"]
+    },
+    {
+      "id": "quest:warrens:p002",
+      "name": "Explore the Sewers",
+      "level": 1,
+      "restPoints": 0,
+      "printedLines": [
+        "{icon:e1c34ea8a2} I",
+        "- Explore the Sewers",
+        "The vast sewer network has",
+        "lied abandoned for far too",
+        "long. Yet some sinister forces gather in its",
+        "deep shadows. Enter the sewers and map",
+        "them out. Make sure you learn part of their",
+        "layout for future expeditions.",
+        "XP",
+        "1 Xp/ 2 Rooms cleared.",
+        "{icon:6f701b5f5f} 2 {icon:7b075a3925} 1 {icon:509c4a958c} {icon:a2e7f1dd7b} 2",
+        "{icon:a488fd5ff1} 1 {icon:be78e95113} 1 {icon:e7b30e2005} 1"
+      ],
+      "specialRuleLines": [],
+      "distribution": {
+        "questId": "quest:warrens:p002",
+        "source": "DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf p2; Q-WARRENS-02（7b075a3925→dark 待印核）",
+        "counts": [
+          {
+            "kind": "empty",
+            "count": 2
+          },
+          {
+            "kind": "dark",
+            "count": 1
+          },
+          {
+            "kind": "curio",
+            "count": 2
+          },
+          {
+            "kind": "lair",
+            "count": 1
+          },
+          {
+            "kind": "treasure",
+            "count": 1
+          },
+          {
+            "kind": "trap",
+            "count": 1
+          }
+        ]
+      },
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+        "page": 2
+      },
+      "verifiedRules": ["Q-WARRENS-00", "Q-WARRENS-02"],
+      "pendingConfirmation": ["Q-WARRENS-02"]
+    },
+    {
+      "id": "quest:warrens:p003",
+      "name": "Family Trinkets",
+      "level": 1,
+      "restPoints": 0,
+      "printedLines": [
+        "{icon:e1c34ea8a2} I",
+        "- Family Trinkets",
+        "The villagers have lived in constant",
+        "fear for far too long. Some brave",
+        "souls entered the warrens to",
+        "combat the evil that resides within, never to",
+        "return. Their relatives beg of you to go there,",
+        "find their bodies and bring back the trinkets",
+        "and mementos that belonged to them. A small",
+        "consolation for their loss.",
+        "SPECIAL RULES",
+        "Spawn only Rooms with Loot",
+        "Chests in Lairs. The first chest you",
+        "Loot in each Lair contains a Level 2",
+        "Trinket. Returning to the Hamlet,",
+        "you may return any trinkets of",
+        "level 2 acquired in the dungeon",
+        "(up to a maximum of 3 trinkets).",
+        "XP",
+        "1 Xp/ LvL 2 Trinket returned.",
+        "{icon:6f701b5f5f} 1 {icon:0fd90af65e} {icon:e473d2b695} 1",
+        "{icon:365b7941a4} 2 {icon:be78e95113} 3 {icon:e7b30e2005} 1"
+      ],
+      "specialRuleLines": [
+        "Spawn only Rooms with Loot",
+        "Chests in Lairs. The first chest you",
+        "Loot in each Lair contains a Level 2",
+        "Trinket. Returning to the Hamlet,",
+        "you may return any trinkets of",
+        "level 2 acquired in the dungeon",
+        "(up to a maximum of 3 trinkets)."
+      ],
+      "distribution": {
+        "questId": "quest:warrens:p003",
+        "source": "DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf p3; Q-WARRENS-03（365b7941a4→curio）/ Q-WARRENS-04（e473d2b695→treasure）待印核",
+        "counts": [
+          {
+            "kind": "empty",
+            "count": 1
+          },
+          {
+            "kind": "dark",
+            "count": 1
+          },
+          {
+            "kind": "treasure",
+            "count": 1
+          },
+          {
+            "kind": "curio",
+            "count": 2
+          },
+          {
+            "kind": "lair",
+            "count": 3
+          },
+          {
+            "kind": "trap",
+            "count": 1
+          }
+        ]
+      },
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+        "page": 3
+      },
+      "verifiedRules": ["Q-WARRENS-00", "Q-WARRENS-03", "Q-WARRENS-04"],
+      "pendingConfirmation": ["Q-WARRENS-03", "Q-WARRENS-04"]
+    },
+    {
+      "id": "quest:warrens:p004",
+      "name": "Worm Squash",
+      "level": 1,
+      "restPoints": 12,
+      "printedLines": [
+        "{icon:e1c34ea8a2} I",
+        "12 Worm Squash",
+        "Feral beasts known as the",
+        "carrion eaters have begun to",
+        "emerge on the surface from the depths of",
+        "the warrens below. Their numbers must",
+        "have increased from the amount of corpses",
+        "littering their halls. Enter the dark murky",
+        "warrens, find them, and eradicate them.",
+        "SPECIAL RULES",
+        "Objective Room is always Room {icon:ea6ec441c3} 8 .",
+        "Spawn a Large Carrion Eater (LvL 2)",
+        "when starting a battle there.",
+        "XP",
+        "1 Xp/ Large Carrion Eater slain.",
+        "{icon:d3a3e38ee9} 3 {icon:0fd90af65e} {icon:f1011c773e} 1",
+        "{icon:a488fd5ff1} 1 {icon:e7b30e2005} 3"
+      ],
+      "specialRuleLines": [
+        "Objective Room is always Room {icon:ea6ec441c3} 8 .",
+        "Spawn a Large Carrion Eater (LvL 2)",
+        "when starting a battle there."
+      ],
+      "distribution": {
+        "questId": "quest:warrens:p004",
+        "source": "DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf p4; Q-WARRENS-05（f1011c773e→empty）/ Q-WARRENS-06（目标房 room:warrens:p008 待 #838）",
+        "counts": [
+          {
+            "kind": "objective",
+            "count": 3
+          },
+          {
+            "kind": "dark",
+            "count": 1
+          },
+          {
+            "kind": "empty",
+            "count": 1
+          },
+          {
+            "kind": "treasure",
+            "count": 1
+          },
+          {
+            "kind": "trap",
+            "count": 3
+          }
+        ]
+      },
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+        "page": 4
+      },
+      "verifiedRules": ["Q-WARRENS-00", "Q-WARRENS-05", "Q-WARRENS-06"],
+      "pendingConfirmation": ["Q-WARRENS-05", "Q-WARRENS-06"]
+    },
+    {
+      "id": "quest:warrens:p005",
+      "name": "Disarm Them",
+      "level": 1,
+      "restPoints": 12,
+      "printedLines": [
+        "{icon:e1c34ea8a2} I",
+        "12 Disarm Them",
+        "Not only have the beasts",
+        "increased their numbers,",
+        "but they are also arming themselves",
+        "with stolen armaments from the guards",
+        "they kill. They must be storing them,",
+        "somewhere beneath our feet. Venture",
+        "deep into the warrens’ bowels, find their",
+        "storage room and put it to the flames.",
+        "SPECIAL RULES",
+        "Objective Room is always Room {icon:ea6ec441c3} 6 .",
+        "Spawn only {icon:8acd50162d} Monsters there.",
+        "XP",
+        "1 Xp/ Objective Room Cleared.",
+        "{icon:d3a3e38ee9} 3 {icon:0fd90af65e} {icon:f1011c773e} 1",
+        "{icon:a488fd5ff1} 1 {icon:e7b30e2005} 3"
+      ],
+      "specialRuleLines": [
+        "Objective Room is always Room {icon:ea6ec441c3} 6 .",
+        "Spawn only {icon:8acd50162d} Monsters there."
+      ],
+      "distribution": {
+        "questId": "quest:warrens:p005",
+        "source": "DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf p5; Q-WARRENS-05 / Q-WARRENS-07（room:warrens:p006 待 #838）",
+        "counts": [
+          {
+            "kind": "objective",
+            "count": 3
+          },
+          {
+            "kind": "dark",
+            "count": 1
+          },
+          {
+            "kind": "empty",
+            "count": 1
+          },
+          {
+            "kind": "treasure",
+            "count": 1
+          },
+          {
+            "kind": "trap",
+            "count": 3
+          }
+        ]
+      },
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+        "page": 5
+      },
+      "verifiedRules": ["Q-WARRENS-00", "Q-WARRENS-05", "Q-WARRENS-07"],
+      "pendingConfirmation": ["Q-WARRENS-05", "Q-WARRENS-06", "Q-WARRENS-07"]
+    }
+  ]
+}

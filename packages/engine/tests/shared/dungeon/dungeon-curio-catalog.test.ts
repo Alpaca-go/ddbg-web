@@ -39,6 +39,10 @@ it("已登记核心任务和旧沙盒保持原核心目录，不添加快照字�
       expect(questCurioCatalogSchema(questId).parse(weald)).toEqual(weald);
       continue;
     }
+    if (quest.expeditionRegion === "warrens") {
+      expect(() => questCurioCatalogSchema(questId)).toThrow(/尚未支持的奇物地点：warrens/);
+      continue;
+    }
     expect(questCurioCatalogSchema(questId).parse(core)).toEqual(core);
     expect(questCurioCatalogSchema(questId).safeParse(weald).success).toBe(false);
   }

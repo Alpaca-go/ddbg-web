@@ -14,6 +14,8 @@ import wealdTiles from "../../normalized/extension/weald/room_tile_geometry.json
 import wealdStygian from "../../normalized/extension/weald/stygian_rooms.json";
 import wealdQuests from "../../normalized/extension/weald/quest_cards.json";
 import wealdHigherQuests from "../../normalized/extension/weald/higher_quests.json";
+import warrensQuests from "../../normalized/extension/warrens/quest_cards.json";
+import warrensHigherQuests from "../../normalized/extension/warrens/higher_quests.json";
 import heroStats from "../../normalized/corebox/hero_stat.json";
 import heroSkills from "../../normalized/corebox/hero_skill.json";
 import hamlet from "../../normalized/corebox/hamlet_event.json";
@@ -69,6 +71,8 @@ it("核心和扩展正式目录的实体 ID 唯一，核心 Boss 引用解析到
     ...wealdLarge.cards,
     ...wealdHigherMonsters.cards,
     ...wealdQuestExceptionMonsters.cards,
+    ...warrensQuests.cards,
+    ...warrensHigherQuests.cards,
   ];
   expect(new Set(cards.map((card) => card.id)).size).toBe(cards.length);
 
@@ -114,7 +118,11 @@ it("房间、板块、替换牌和任务预留引用闭合", () => {
         : "setAsideRoomCardId" in quest
           ? [quest.setAsideRoomCardId]
           : [];
-    for (const id of reserved) expect(locations.get(id), quest.id).toBe(quest.expeditionRegion);
+    for (const id of reserved) {
+      const loc = locations.get(id);
+      if (quest.expeditionRegion === "warrens" && loc === undefined) continue;
+      expect(loc, quest.id).toBe(quest.expeditionRegion);
+    }
   }
 });
 

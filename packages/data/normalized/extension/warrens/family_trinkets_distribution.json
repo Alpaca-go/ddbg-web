@@ -1,0 +1,12 @@
+{
+  "questId": "quest:warrens:p003",
+  "source": "DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf p3; Q-WARRENS-03（365b7941a4→curio）/ Q-WARRENS-04（e473d2b695→treasure）待印核",
+  "counts": [
+    { "kind": "empty", "count": 1 },
+    { "kind": "dark", "count": 1 },
+    { "kind": "treasure", "count": 1 },
+    { "kind": "curio", "count": 2 },
+    { "kind": "lair", "count": 3 },
+    { "kind": "trap", "count": 1 }
+  ]
+}

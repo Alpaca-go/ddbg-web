@@ -1,4 +1,5 @@
 import printMap from "./quest-print-art-map.json";
+import warrensPrintMap from "./warrens-quest-print-art-map.json";
 
 export type PrintQuestFaceEntry = {
   readonly pngRel: string;
@@ -22,9 +23,10 @@ export type PrintQuestArtCard = {
   readonly reviewVerdict: string;
 };
 
-const byId = new Map<string, PrintQuestArtCard>(
-  (printMap.cards as PrintQuestArtCard[]).map((card) => [card.id, card]),
-);
+const byId = new Map<string, PrintQuestArtCard>([
+  ...(printMap.cards as PrintQuestArtCard[]).map((card) => [card.id, card] as const),
+  ...(warrensPrintMap.cards as PrintQuestArtCard[]).map((card) => [card.id, card] as const),
+]);
 
 export const PRINT_CARD_ART_PUBLIC_PREFIX = "/print-card-art";
 
