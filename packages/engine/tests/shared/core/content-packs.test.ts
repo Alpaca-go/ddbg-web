@@ -25,6 +25,7 @@ import { coveCurioFileSchema } from "../../../../data/src/core/curios/curio";
 import { coveRoomFileSchema } from "../../../../data/src/cove/rooms/room";
 import { COVE_LEVEL_ONE_MONSTER_IDENTITIES } from "../../../../data/src/cove/monsters/monsters.build";
 import { COVE_MONSTER_CATALOG_EXCLUSIONS } from "../../../../data/src/cove/monsters/excluded-monsters";
+import { buildCoveLevelOneLocationDecks } from "../../../../data/src/cove/location-decks";
 import {
   normalizedMonsterLargeFileSchema,
   normalizedMonsterMediumFileSchema,
@@ -150,6 +151,37 @@ it("Cove Curio、房间与 I 级怪物目录仅在勾选 Cove 包时进入战役
       (card) => !card.id.startsWith("monster_medium:cove:"),
     ),
   ).toBe(true);
+});
+
+it("Cove I 级地点牌堆仅在选择 Cove 包时由可信来源登记，不串入 core/weald", () => {
+  const monsters = {
+    medium: normalizedMonsterMediumFileSchema.parse(coveMedium),
+    large: normalizedMonsterLargeFileSchema.parse(coveLarge).cards,
+    excludedSources: COVE_MONSTER_CATALOG_EXCLUSIONS,
+  };
+  const coveSources = {
+    medium: monsters.medium,
+    curios: coveCurioFileSchema.parse(coveCurio).cards,
+    rooms: coveRoomFileSchema.parse(coveRoom).cards.filter((card) => !card.boss),
+  };
+  const input = {
+    contentPacks: ["core", "cove"] as const,
+    coreMonsterPool: coreQuestSources.monsters,
+    coreCurios: coreQuestSources.curios,
+    cove: coveSources,
+  };
+  const decks = buildCoveLevelOneLocationDecks(input);
+  expect(decks.monsters.local).toHaveLength(17);
+  expect(decks.monsters.common).toHaveLength(31);
+  expect(decks.curios).toHaveLength(24);
+  expect(decks.rooms).toHaveLength(9);
+  expect(() =>
+    buildCoveLevelOneLocationDecks({ ...input, contentPacks: ["core", "weald"] }),
+  ).toThrow("未启用");
+  expect(() => buildCoveLevelOneLocationDecks({ ...input, contentPacks: ["core"] })).toThrow(
+    "未启用",
+  );
+  expect(sourcesForContentPacks(coreQuestSources, ["core"]).cove).toBeUndefined();
 });
 
 it("所有非英雄来源在建池前按包过滤，同包条目保序；不修改输入", () => {
