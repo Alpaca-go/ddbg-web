@@ -19,8 +19,16 @@ import { resolveScriptIdForDescriptionCard } from "../../../src/core/bosses/thre
 import { HAG_I_DESCRIPTION_ABILITY_CARD_ID } from "../../../src/weald/bosses/hag/hag-i";
 import coveCurio from "../../../../data/normalized/extension/cove/curio.json";
 import coveRoom from "../../../../data/normalized/extension/cove/room.json";
-import { coveCurioFileSchema } from "../../../../data/src/core/curios/curio";
+import warrensCurio from "../../../../data/normalized/extension/warrens/curio.json";
+import warrensRoom from "../../../../data/normalized/extension/warrens/room.json";
+import warrensTiles from "../../../../data/normalized/extension/warrens/room_tile_geometry.json";
+import {
+  coveCurioFileSchema,
+  warrensCurioFileSchema,
+} from "../../../../data/src/core/curios/curio";
 import { coveRoomFileSchema } from "../../../../data/src/cove/rooms/room";
+import { warrensRoomFileSchema } from "../../../../data/src/warrens/rooms/room";
+import { warrensRoomTileCatalogSchema } from "../../../../data/src/warrens/tiles/room-tile";
 
 beforeEach(clearBossScriptsForTest);
 const start = {
@@ -99,6 +107,23 @@ it("核心包单独启用时，十八名英雄及全部等级技能仍可开局�
   }
   const game = campaign();
   expect(replacementHeroCandidates(game.dungeon!)).toHaveLength(14);
+});
+
+it("Warrens 目录仅在勾选 Warrens 包时进入战役来源", () => {
+  const warrens = {
+    curios: warrensCurioFileSchema.parse(warrensCurio).cards,
+    rooms: warrensRoomFileSchema.parse(warrensRoom).cards,
+    roomTiles: warrensRoomTileCatalogSchema.parse(warrensTiles).tiles,
+  };
+  const sources = { ...coreQuestSources, warrens };
+  expect(sourcesForContentPacks(sources, ["core"]).warrens).toBeUndefined();
+  expect(sourcesForContentPacks(sources, ["core", "cove"]).warrens).toBeUndefined();
+  const enabled = sourcesForContentPacks(sources, ["core", "warrens"]);
+  expect(enabled.warrens?.curios).toHaveLength(16);
+  expect(enabled.warrens?.rooms).toHaveLength(9);
+  expect(enabled.warrens?.roomTiles).toHaveLength(6);
+  expect(enabled.warrens?.rooms.every((c) => c.id.startsWith("room:warrens:"))).toBe(true);
+  expect(cardContentPack(enabled.warrens!.curios[0]!)).toBe("warrens");
 });
 
 it("Cove Curio 与房间目录仅在勾选 Cove 包时进入战役来源", () => {

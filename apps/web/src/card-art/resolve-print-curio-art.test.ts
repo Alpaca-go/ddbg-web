@@ -16,12 +16,14 @@ const curioNorm = JSON.parse(
 );
 
 describe("print curio art map", () => {
-  it("maps 24 curios with TrimBox geometry and page-aligned ids", () => {
+  it("maps 24 核心 + 16 Warrens curios，TrimBox 与页码 id 对齐", () => {
     const meta = printCurioArtMapMeta();
     expect(meta.schema).toBe("ddbg.print-curio-art-map.v1");
-    expect(meta.cardCount).toBe(24);
+    expect(meta.cardCount).toBe(40);
     expect(meta.trimBoxPt).toMatchObject({ widthPt: 178.58, heightPt: 249.45, x0Pt: 21, y0Pt: 21 });
-    for (const card of printMap.cards) {
+    const coreCards = printMap.cards.filter((c) => c.id.startsWith("curio:p"));
+    expect(coreCards).toHaveLength(24);
+    for (const card of coreCards) {
       const page = Number(card.id.replace("curio:p", ""));
       expect(card.faces.front.printPage).toBe(page);
       expect(card.faces.back.printPage).toBe(page);
@@ -39,7 +41,7 @@ describe("print curio art map", () => {
     const byId = new Map<string, string>(
       (curioNorm.cards as { id: string; name: string }[]).map((c) => [c.id, c.name]),
     );
-    for (const card of printMap.cards) {
+    for (const card of printMap.cards.filter((c) => c.id.startsWith("curio:p"))) {
       const name = byId.get(card.id);
       expect(name).toBe(card.name);
       expect(card.faces.front.textSnippet.toLowerCase()).toContain(

@@ -10,6 +10,10 @@ export const COVE_CURIO_FRONT =
   "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_FRONT.pdf";
 export const COVE_CURIO_BACK =
   "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_63x88_CURIO_BACK.pdf";
+export const WARRENS_CURIO_FRONT =
+  "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf";
+export const WARRENS_CURIO_BACK =
+  "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf";
 export const curioEffectSchema = z.discriminatedUnion("type", [
   z.strictObject({ type: z.literal("stress"), amount: z.literal(1) }),
   z.strictObject({ type: z.literal("gold"), amount: z.union([z.literal(5), z.literal(10)]) }),
@@ -43,7 +47,7 @@ export const curioEffectSchema = z.discriminatedUnion("type", [
 ]);
 export const curioCardSchema = z
   .strictObject({
-    id: z.string().regex(/^curio:(?:(?:weald|cove):)?p\d{3}$/),
+    id: z.string().regex(/^curio:(?:(?:weald|cove|warrens):)?p\d{3}$/),
     name: z.string().min(1),
     text: z.string().min(1),
     copies: z.literal(1),
@@ -61,6 +65,11 @@ export const curioCardSchema = z
       z.strictObject({
         front: z.literal(COVE_CURIO_FRONT),
         back: z.literal(COVE_CURIO_BACK),
+        page: z.int().min(1).max(16),
+      }),
+      z.strictObject({
+        front: z.literal(WARRENS_CURIO_FRONT),
+        back: z.literal(WARRENS_CURIO_BACK),
         page: z.int().min(1).max(16),
       }),
     ]),
@@ -81,7 +90,9 @@ export const curioCardSchema = z
         ? "weald:"
         : c.source.front === COVE_CURIO_FRONT
           ? "cove:"
-          : "";
+          : c.source.front === WARRENS_CURIO_FRONT
+            ? "warrens:"
+            : "";
     if (c.id !== `curio:${namespace}p${String(c.source.page).padStart(3, "0")}`)
       ctx.addIssue({ code: "custom", message: "卡 ID / 印刷页不一致" });
     if (c.rows.some((r) => (r.effect === null) !== (r.reason !== null)))
@@ -123,6 +134,16 @@ export const coveCurioCatalogSchema = z
     "完整 Cove 16 张，不可混包、重复或缩减目录",
   );
 export const coveCurioFileSchema = curioFileSchema.extend({ cards: coveCurioCatalogSchema });
+export const warrensCurioCatalogSchema = z
+  .array(curioCardSchema)
+  .length(16)
+  .refine(
+    (cards) =>
+      new Set(cards.map((card) => card.id)).size === 16 &&
+      cards.every((card) => card.source.front === WARRENS_CURIO_FRONT),
+    "完整 Warrens 16 张，不可混包、重复或缩减目录",
+  );
+export const warrensCurioFileSchema = curioFileSchema.extend({ cards: warrensCurioCatalogSchema });
 
 /** R14、R-048：先检查整卡，未知行不能被 Torch 当作负面跳过；保持印刷顺序。 */
 export function planCurioEffects(

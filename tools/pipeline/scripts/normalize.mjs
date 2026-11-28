@@ -16,6 +16,9 @@ const result = spawnSync(
     "packages/data/tests/weald/rooms/stygian-rooms.build.test.ts",
     "packages/data/tests/cove/curios/curio.build.test.ts",
     "packages/data/tests/cove/rooms/room.build.test.ts",
+    "packages/data/tests/warrens/curios/curio.build.test.ts",
+    "packages/data/tests/warrens/rooms/room.build.test.ts",
+    "packages/data/tests/warrens/tiles/room-tile.build.test.ts",
   ],
   {
     cwd: fileURLToPath(root),

@@ -546,7 +546,361 @@
       },
       "matchMethod": "page_order+ocr",
       "reviewVerdict": "ok"
+    },
+    {
+      "id": "curio:warrens:p001",
+      "name": "Bone Altar",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf_p001.png",
+          "printPage": 1,
+          "primaryPdf": "DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Bone Altar"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf_p001.png",
+          "printPage": 1,
+          "primaryPdf": "DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Bone Altar"
+        }
+      },
+      "matchMethod": "warrens_location_extract",
+      "reviewVerdict": "R-048"
+    },
+    {
+      "id": "curio:warrens:p002",
+      "name": "Bone Altar",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf_p002.png",
+          "printPage": 2,
+          "primaryPdf": "DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Bone Altar"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf_p002.png",
+          "printPage": 2,
+          "primaryPdf": "DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Bone Altar"
+        }
+      },
+      "matchMethod": "warrens_location_extract",
+      "reviewVerdict": "R-048"
+    },
+    {
+      "id": "curio:warrens:p003",
+      "name": "Dinner Cart",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf_p003.png",
+          "printPage": 3,
+          "primaryPdf": "DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Dinner Cart"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf_p003.png",
+          "printPage": 3,
+          "primaryPdf": "DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Dinner Cart"
+        }
+      },
+      "matchMethod": "warrens_location_extract",
+      "reviewVerdict": "R-048"
+    },
+    {
+      "id": "curio:warrens:p004",
+      "name": "Dinner Cart",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf_p004.png",
+          "printPage": 4,
+          "primaryPdf": "DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Dinner Cart"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf_p004.png",
+          "printPage": 4,
+          "primaryPdf": "DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Dinner Cart"
+        }
+      },
+      "matchMethod": "warrens_location_extract",
+      "reviewVerdict": "R-048"
+    },
+    {
+      "id": "curio:warrens:p005",
+      "name": "Makeshift Dining Table",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf_p005.png",
+          "printPage": 5,
+          "primaryPdf": "DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Makeshift Dining Table"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf_p005.png",
+          "printPage": 5,
+          "primaryPdf": "DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Makeshift Dining Table"
+        }
+      },
+      "matchMethod": "warrens_location_extract",
+      "reviewVerdict": "R-048"
+    },
+    {
+      "id": "curio:warrens:p006",
+      "name": "Makeshift Dining Table",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf_p006.png",
+          "printPage": 6,
+          "primaryPdf": "DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Makeshift Dining Table"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf_p006.png",
+          "printPage": 6,
+          "primaryPdf": "DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Makeshift Dining Table"
+        }
+      },
+      "matchMethod": "warrens_location_extract",
+      "reviewVerdict": "R-048"
+    },
+    {
+      "id": "curio:warrens:p007",
+      "name": "Moonshine Barrel",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf_p007.png",
+          "printPage": 7,
+          "primaryPdf": "DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Moonshine Barrel"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf_p007.png",
+          "printPage": 7,
+          "primaryPdf": "DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Moonshine Barrel"
+        }
+      },
+      "matchMethod": "warrens_location_extract",
+      "reviewVerdict": "R-048"
+    },
+    {
+      "id": "curio:warrens:p008",
+      "name": "Moonshine Barrel",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf_p008.png",
+          "printPage": 8,
+          "primaryPdf": "DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Moonshine Barrel"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf_p008.png",
+          "printPage": 8,
+          "primaryPdf": "DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Moonshine Barrel"
+        }
+      },
+      "matchMethod": "warrens_location_extract",
+      "reviewVerdict": "R-048"
+    },
+    {
+      "id": "curio:warrens:p009",
+      "name": "Occult Scrawlings",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf_p009.png",
+          "printPage": 9,
+          "primaryPdf": "DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Occult Scrawlings"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf_p009.png",
+          "printPage": 9,
+          "primaryPdf": "DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Occult Scrawlings"
+        }
+      },
+      "matchMethod": "warrens_location_extract",
+      "reviewVerdict": "R-048"
+    },
+    {
+      "id": "curio:warrens:p010",
+      "name": "Pile of Bones",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf_p010.png",
+          "printPage": 10,
+          "primaryPdf": "DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Pile of Bones"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf_p010.png",
+          "printPage": 10,
+          "primaryPdf": "DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Pile of Bones"
+        }
+      },
+      "matchMethod": "warrens_location_extract",
+      "reviewVerdict": "R-048"
+    },
+    {
+      "id": "curio:warrens:p011",
+      "name": "Pile of Bones",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf_p011.png",
+          "printPage": 11,
+          "primaryPdf": "DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Pile of Bones"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf_p011.png",
+          "printPage": 11,
+          "primaryPdf": "DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Pile of Bones"
+        }
+      },
+      "matchMethod": "warrens_location_extract",
+      "reviewVerdict": "R-048"
+    },
+    {
+      "id": "curio:warrens:p012",
+      "name": "Pile of Scrolls",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf_p012.png",
+          "printPage": 12,
+          "primaryPdf": "DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Pile of Scrolls"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf_p012.png",
+          "printPage": 12,
+          "primaryPdf": "DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Pile of Scrolls"
+        }
+      },
+      "matchMethod": "warrens_location_extract",
+      "reviewVerdict": "R-048"
+    },
+    {
+      "id": "curio:warrens:p013",
+      "name": "Rack of Blades",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf_p013.png",
+          "printPage": 13,
+          "primaryPdf": "DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Rack of Blades"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf_p013.png",
+          "printPage": 13,
+          "primaryPdf": "DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Rack of Blades"
+        }
+      },
+      "matchMethod": "warrens_location_extract",
+      "reviewVerdict": "R-048"
+    },
+    {
+      "id": "curio:warrens:p014",
+      "name": "Rack of Blades",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf_p014.png",
+          "printPage": 14,
+          "primaryPdf": "DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Rack of Blades"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf_p014.png",
+          "printPage": 14,
+          "primaryPdf": "DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Rack of Blades"
+        }
+      },
+      "matchMethod": "warrens_location_extract",
+      "reviewVerdict": "R-048"
+    },
+    {
+      "id": "curio:warrens:p015",
+      "name": "Sacrificial Stone",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf_p015.png",
+          "printPage": 15,
+          "primaryPdf": "DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Sacrificial Stone"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf_p015.png",
+          "printPage": 15,
+          "primaryPdf": "DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Sacrificial Stone"
+        }
+      },
+      "matchMethod": "warrens_location_extract",
+      "reviewVerdict": "R-048"
+    },
+    {
+      "id": "curio:warrens:p016",
+      "name": "Sacrificial Stone",
+      "faces": {
+        "front": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf_p016.png",
+          "printPage": 16,
+          "primaryPdf": "DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Sacrificial Stone"
+        },
+        "back": {
+          "pngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf_p016.png",
+          "printPage": 16,
+          "primaryPdf": "DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Sacrificial Stone"
+        }
+      },
+      "matchMethod": "warrens_location_extract",
+      "reviewVerdict": "R-048"
     }
   ],
-  "pendingConfirmation": []
+  "pendingConfirmation": [
+    "Warrens 16 Curio：正反面已接 MG_DD_04 CURIO BACK PDF（TrimBox 导出）；效果行仍 Q-WARRENS-01。"
+  ]
 }

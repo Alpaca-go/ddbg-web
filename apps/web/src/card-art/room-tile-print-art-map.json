@@ -287,11 +287,84 @@
       "matchMethod": "geometry_source_trim_page",
       "reviewVerdict": "R-169",
       "areaIds": ["A", "B", "C", "D", "E", "F", "G", "H", "I"]
+    },
+    {
+      "tileId": "room_tile:warrens:01",
+      "name": "Putrid Cellar",
+      "facePngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_WARRENS_TILES_FRONT.pdf_p001.png",
+      "printPage": 1,
+      "primaryPdf": "DD_WARRENS_TILES_FRONT.pdf",
+      "face": "front",
+      "matchMethod": "warrens_tile_catalog",
+      "reviewVerdict": "R-048",
+      "areaIds": [],
+      "pendingGeometry": true
+    },
+    {
+      "tileId": "room_tile:warrens:02",
+      "name": "The Sewage",
+      "facePngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_WARRENS_TILES_FRONT.pdf_p002.png",
+      "printPage": 2,
+      "primaryPdf": "DD_WARRENS_TILES_FRONT.pdf",
+      "face": "front",
+      "matchMethod": "warrens_tile_catalog",
+      "reviewVerdict": "R-048",
+      "areaIds": [],
+      "pendingGeometry": true
+    },
+    {
+      "tileId": "room_tile:warrens:03",
+      "name": "Infected Storage",
+      "facePngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_WARRENS_TILES_FRONT.pdf_p003.png",
+      "printPage": 3,
+      "primaryPdf": "DD_WARRENS_TILES_FRONT.pdf",
+      "face": "front",
+      "matchMethod": "warrens_tile_catalog",
+      "reviewVerdict": "R-048",
+      "areaIds": [],
+      "pendingGeometry": true
+    },
+    {
+      "tileId": "room_tile:warrens:04",
+      "name": "Experiment Deposit",
+      "facePngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_WARRENS_TILES_FRONT.pdf_p004.png",
+      "printPage": 4,
+      "primaryPdf": "DD_WARRENS_TILES_FRONT.pdf",
+      "face": "front",
+      "matchMethod": "warrens_tile_catalog",
+      "reviewVerdict": "R-048",
+      "areaIds": [],
+      "pendingGeometry": true
+    },
+    {
+      "tileId": "room_tile:warrens:05",
+      "name": "Dumped Shinies",
+      "facePngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_WARRENS_TILES_FRONT.pdf_p005.png",
+      "printPage": 5,
+      "primaryPdf": "DD_WARRENS_TILES_FRONT.pdf",
+      "face": "front",
+      "matchMethod": "warrens_tile_catalog",
+      "reviewVerdict": "R-048",
+      "areaIds": [],
+      "pendingGeometry": true
+    },
+    {
+      "tileId": "room_tile:warrens:06",
+      "name": "Rusted Armory",
+      "facePngRel": "png/DARKEST_DUNGEON_PRINT_EN_WAVE_2_MG_DD_04_EN_WARRENS_DD_WARRENS_TILES_FRONT.pdf_p006.png",
+      "printPage": 6,
+      "primaryPdf": "DD_WARRENS_TILES_FRONT.pdf",
+      "face": "front",
+      "matchMethod": "warrens_tile_catalog",
+      "reviewVerdict": "R-048",
+      "areaIds": [],
+      "pendingGeometry": true
     }
   ],
   "pendingConfirmation": [
     "Mapped: 25 geometryVerified faces from the approved room_tile_geometry catalog.",
     "Other faces remain unmapped until their individual geometry is approved (R-048).",
-    "PNG binaries gitignored; local cache required for battle underlay art."
+    "PNG binaries gitignored; local cache required for battle underlay art.",
+    "Warrens 6 板块：正反面 BACK PDF 已写入 normalized source；geometryVerified 仍为 false，room 07–09 对应待印核（R-048）。"
   ]
 }

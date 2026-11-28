@@ -14,10 +14,12 @@ describe("内容包命名空间", () => {
       expect(cardContentPack({ id })).toBe("core");
   });
 
-  it("Weald/Cove 房间族归各自扩展包", () => {
+  it("Weald/Cove/Warrens 房间族归各自扩展包", () => {
     for (const id of ["room:weald:01", "room_tile:weald:01", "stygian_room:weald:01"])
       expect(cardContentPack({ id })).toBe("weald");
     for (const id of ["room:cove:01", "room_tile:cove:01", "stygian_room:cove:01"])
       expect(cardContentPack({ id })).toBe("cove");
+    for (const id of ["room:warrens:01", "room_tile:warrens:01", "curio:warrens:p001"])
+      expect(cardContentPack({ id })).toBe("warrens");
   });
 });

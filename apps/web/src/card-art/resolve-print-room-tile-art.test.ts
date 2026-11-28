@@ -15,10 +15,12 @@ describe("print room tile art map", () => {
     const meta = roomTileArtMapMeta();
     expect(meta.schema).toBe("ddbg.print-room-tile-art-map.v1");
     const verified = geometry.tiles.filter((tile) => tile.geometryVerified);
-    expect(meta.tileCount).toBe(verified.length);
+    const verifiedIds = new Set(verified.map((tile) => tile.id));
+    const coreMapped = printMap.tiles.filter((tile) => verifiedIds.has(tile.tileId));
+    expect(meta.tileCount).toBe(printMap.tiles.length);
     expect(meta.faceManualDir).toBe(ROOM_TILE_FACE_MANUAL_DIR);
     expect(
-      printMap.tiles.map((tile) => [tile.tileId, tile.primaryPdf, tile.printPage, tile.face]),
+      coreMapped.map((tile) => [tile.tileId, tile.primaryPdf, tile.printPage, tile.face]),
     ).toEqual(
       verified.map((tile) => [tile.id, tile.source.file, tile.source.page, tile.source.face]),
     );

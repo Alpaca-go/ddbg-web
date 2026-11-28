@@ -1,0 +1,634 @@
+{
+  "schema": "ddbg-curio-v1",
+  "dictionaryVersion": "1.8",
+  "cards": [
+    {
+      "id": "curio:warrens:p001",
+      "name": "Bone Altar",
+      "text": "A dark altar with skulls prominently on display. A strange power can be felt in its presence. Hanging from the side are some valuable ornaments, but will they bring you luck or not? Only time will tell...",
+      "copies": 1,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+        "page": 1
+      },
+      "rows": [
+        {
+          "printed": "{icon:12438e9a49} +1",
+          "iconId": "12438e9a49",
+          "effect": {
+            "type": "stress",
+            "amount": 1
+          },
+          "reason": null
+        },
+        {
+          "printed": "{icon:abbab6017d}",
+          "iconId": "abbab6017d",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        },
+        {
+          "printed": "{icon:e32277f2d6}",
+          "iconId": "e32277f2d6",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        },
+        {
+          "printed": "{icon:c870a39e26}",
+          "iconId": "c870a39e26",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        }
+      ]
+    },
+    {
+      "id": "curio:warrens:p002",
+      "name": "Bone Altar",
+      "text": "A dark altar with skulls prominently on display. A strange power can be felt in its presence. To the side, you find a pouch filled with coins, clearly as a token to the departed. Feelings of guilt and disgust wash over you as you pocket the money, hoping not to have angered any malignant entity.",
+      "copies": 1,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+        "page": 2
+      },
+      "rows": [
+        {
+          "printed": "{icon:12438e9a49} +1",
+          "iconId": "12438e9a49",
+          "effect": {
+            "type": "stress",
+            "amount": 1
+          },
+          "reason": null
+        },
+        {
+          "printed": "{icon:9083ca75b8}",
+          "iconId": "9083ca75b8",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        },
+        {
+          "printed": "{icon:604a7d83ac}",
+          "iconId": "604a7d83ac",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        },
+        {
+          "printed": "{icon:40761ae25e}",
+          "iconId": "40761ae25e",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        }
+      ]
+    },
+    {
+      "id": "curio:warrens:p003",
+      "name": "Dinner Cart",
+      "text": "A cart of human remains. It looks much like a feeding trough. Disgusting. Yet it’s a great reminder of your humanity. Searching it you find some gold and provisions but alas, they’re all contaminated. You put your gloves back on but sadly the damage has already been done...",
+      "copies": 1,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+        "page": 3
+      },
+      "rows": [
+        {
+          "printed": "{icon:3d2d3fadd1}",
+          "iconId": "3d2d3fadd1",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        },
+        {
+          "printed": "{icon:c870a39e26}",
+          "iconId": "c870a39e26",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        },
+        {
+          "printed": "{icon:8983cae39d}",
+          "iconId": "8983cae39d",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        },
+        {
+          "printed": "{icon:ae45f5bcb3}",
+          "iconId": "ae45f5bcb3",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        }
+      ]
+    },
+    {
+      "id": "curio:warrens:p004",
+      "name": "Dinner Cart",
+      "text": "A cart of human remains. It looks much like a feeding trough. Disgusting. You manage to find some provisions but you accidentaly puncture yourself on a broken rib. It belongs to a moldy carcass, long butchered, rotting and withering away.",
+      "copies": 1,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+        "page": 4
+      },
+      "rows": [
+        {
+          "printed": "{icon:12438e9a49} +1",
+          "iconId": "12438e9a49",
+          "effect": {
+            "type": "stress",
+            "amount": 1
+          },
+          "reason": null
+        },
+        {
+          "printed": "{icon:ee28e41d15}",
+          "iconId": "ee28e41d15",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        },
+        {
+          "printed": "{icon:b4627031be}",
+          "iconId": "b4627031be",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        },
+        {
+          "printed": "{icon:ae45f5bcb3}",
+          "iconId": "ae45f5bcb3",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        }
+      ]
+    },
+    {
+      "id": "curio:warrens:p005",
+      "name": "Makeshift Dining Table",
+      "text": "An oddly assembled dining table. There might still be food scraps around. Instead you find some coins and a trinket among many severed hands and munched body parts.",
+      "copies": 1,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+        "page": 5
+      },
+      "rows": [
+        {
+          "printed": "{icon:12438e9a49} +1",
+          "iconId": "12438e9a49",
+          "effect": {
+            "type": "stress",
+            "amount": 1
+          },
+          "reason": null
+        },
+        {
+          "printed": "{icon:ee28e41d15}",
+          "iconId": "ee28e41d15",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        },
+        {
+          "printed": "{icon:c870a39e26}",
+          "iconId": "c870a39e26",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        },
+        {
+          "printed": "{icon:85e094f269}",
+          "iconId": "85e094f269",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        }
+      ]
+    },
+    {
+      "id": "curio:warrens:p006",
+      "name": "Makeshift Dining Table",
+      "text": "be food scraps around. You find a gold goblet, used but valuable. It still has some stains and as you check the residue on the bottom, you feel yourself growing sick to your stomach. The liquid splashes to your lips as you feel the sickness spreading throughout your entire body.",
+      "copies": 1,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+        "page": 6
+      },
+      "rows": [
+        {
+          "printed": "{icon:12438e9a49} +1",
+          "iconId": "12438e9a49",
+          "effect": {
+            "type": "stress",
+            "amount": 1
+          },
+          "reason": null
+        },
+        {
+          "printed": "{icon:3d2d3fadd1}",
+          "iconId": "3d2d3fadd1",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        },
+        {
+          "printed": "{icon:b4627031be}",
+          "iconId": "b4627031be",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        },
+        {
+          "printed": "{icon:c870a39e26}",
+          "iconId": "c870a39e26",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        }
+      ]
+    },
+    {
+      "id": "curio:warrens:p007",
+      "name": "Moonshine Barrel",
+      "text": "A barrel that reeks of powerful liquors. It’s cracked on the side and you see a handful of gold and a trinket to the bottom of the barrel. And then in horror you realize that in the barrel, the moonshine has been infused with the remains of a hapless soul.",
+      "copies": 1,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+        "page": 7
+      },
+      "rows": [
+        {
+          "printed": "{icon:12438e9a49} +1",
+          "iconId": "12438e9a49",
+          "effect": {
+            "type": "stress",
+            "amount": 1
+          },
+          "reason": null
+        },
+        {
+          "printed": "{icon:b4627031be}",
+          "iconId": "b4627031be",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        },
+        {
+          "printed": "{icon:40761ae25e}",
+          "iconId": "40761ae25e",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        },
+        {
+          "printed": "{icon:85e094f269}",
+          "iconId": "85e094f269",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        }
+      ]
+    },
+    {
+      "id": "curio:warrens:p008",
+      "name": "Moonshine Barrel",
+      "text": "topple it to the side only to realize that it’s empty, yet the rancid smell still lingers. A pouch filled with coins jumps from the barrel’s side and when you pick it up you realize that the moonshine has been infused with the gastric fluids and rotting bile of a hapless soul drowned in it.",
+      "copies": 1,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+        "page": 8
+      },
+      "rows": [
+        {
+          "printed": "{icon:288c9a0062}",
+          "iconId": "288c9a0062",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        },
+        {
+          "printed": "{icon:3d2d3fadd1}",
+          "iconId": "3d2d3fadd1",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        },
+        {
+          "printed": "{icon:b4627031be}",
+          "iconId": "b4627031be",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        },
+        {
+          "printed": "{icon:c870a39e26}",
+          "iconId": "c870a39e26",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        }
+      ]
+    },
+    {
+      "id": "curio:warrens:p009",
+      "name": "Occult Scrawlings",
+      "text": "tanned human flesh. You read the passage in horror only to realize it has been written by the hand of a human. A feeling of hope fills your heart as your humanity still lingers on. However, the image of the letters burns brightly in your eyes, cauterizing them in an arcane and mysterious fashion.",
+      "copies": 1,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+        "page": 9
+      },
+      "rows": [
+        {
+          "printed": "{icon:12438e9a49} +1",
+          "iconId": "12438e9a49",
+          "effect": {
+            "type": "stress",
+            "amount": 1
+          },
+          "reason": null
+        },
+        {
+          "printed": "{icon:b4627031be}",
+          "iconId": "b4627031be",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        },
+        {
+          "printed": "{icon:604a7d83ac}",
+          "iconId": "604a7d83ac",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        },
+        {
+          "printed": "{icon:4fbd5890e2}",
+          "iconId": "4fbd5890e2",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        }
+      ]
+    },
+    {
+      "id": "curio:warrens:p010",
+      "name": "Pile of Bones",
+      "text": "All that’s left of a previous adventurer, perhaps. You search the pile for anything valuable, yet all you encounter is the remnants of another human being, contaminated and sharp enough for you to cut and poison yourself in the process.",
+      "copies": 1,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+        "page": 10
+      },
+      "rows": [
+        {
+          "printed": "{icon:12438e9a49} +1",
+          "iconId": "12438e9a49",
+          "effect": {
+            "type": "stress",
+            "amount": 1
+          },
+          "reason": null
+        },
+        {
+          "printed": "{icon:288c9a0062}",
+          "iconId": "288c9a0062",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        },
+        {
+          "printed": "{icon:3d2d3fadd1}",
+          "iconId": "3d2d3fadd1",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        },
+        {
+          "printed": "{icon:b4627031be}",
+          "iconId": "b4627031be",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        }
+      ]
+    },
+    {
+      "id": "curio:warrens:p011",
+      "name": "Pile of Bones",
+      "text": "All that’s left of a previous adventurer, perhaps. Underneath them, a small pack with some untouched provisions. Yet you feel your fever rising after coming in contact with them. Praying that you didn’t catch something terminal you rise to your feet and join your party.",
+      "copies": 1,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+        "page": 11
+      },
+      "rows": [
+        {
+          "printed": "{icon:12438e9a49} +1",
+          "iconId": "12438e9a49",
+          "effect": {
+            "type": "stress",
+            "amount": 1
+          },
+          "reason": null
+        },
+        {
+          "printed": "{icon:ee28e41d15}",
+          "iconId": "ee28e41d15",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        },
+        {
+          "printed": "{icon:b4627031be}",
+          "iconId": "b4627031be",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        },
+        {
+          "printed": "{icon:ae45f5bcb3}",
+          "iconId": "ae45f5bcb3",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        }
+      ]
+    },
+    {
+      "id": "curio:warrens:p012",
+      "name": "Pile of Scrolls",
+      "text": "and difficult to read. You touch the sticky parchment and read them idly only to find their historical and scientific value. Later do you realize that they have been coated with a contact poison, a typical way to protect a scholar’s work from thieving fingers...",
+      "copies": 1,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+        "page": 12
+      },
+      "rows": [
+        {
+          "printed": "{icon:12438e9a49} +1",
+          "iconId": "12438e9a49",
+          "effect": {
+            "type": "stress",
+            "amount": 1
+          },
+          "reason": null
+        },
+        {
+          "printed": "{icon:3d2d3fadd1}",
+          "iconId": "3d2d3fadd1",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        },
+        {
+          "printed": "{icon:604a7d83ac}",
+          "iconId": "604a7d83ac",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        },
+        {
+          "printed": "{icon:4fbd5890e2}",
+          "iconId": "4fbd5890e2",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        }
+      ]
+    },
+    {
+      "id": "curio:warrens:p013",
+      "name": "Rack of Blades",
+      "text": "A rack of sharp, rusty knives. They are covered in fresh blood. A satchel is hanging from one of the blades and as you unhinge it, you realize it is filled with provisions. However, the blade cuts you deeply as it spreads its corrosive venom into your wound.",
+      "copies": 1,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+        "page": 13
+      },
+      "rows": [
+        {
+          "printed": "{icon:288c9a0062}",
+          "iconId": "288c9a0062",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        },
+        {
+          "printed": "{icon:ee28e41d15}",
+          "iconId": "ee28e41d15",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        },
+        {
+          "printed": "{icon:3d2d3fadd1}",
+          "iconId": "3d2d3fadd1",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        },
+        {
+          "printed": "{icon:ae45f5bcb3}",
+          "iconId": "ae45f5bcb3",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        }
+      ]
+    },
+    {
+      "id": "curio:warrens:p014",
+      "name": "Rack of Blades",
+      "text": "A rack of dulled, rusty knives. They are covered in fresh blood. A satchel with a trinket hangs from one of them and as you unhinge it you feel some sticky goo from the blade seep onto your skin. Soon enough it begins to itch as a spreading rash appears.",
+      "copies": 1,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+        "page": 14
+      },
+      "rows": [
+        {
+          "printed": "{icon:12438e9a49} +1",
+          "iconId": "12438e9a49",
+          "effect": {
+            "type": "stress",
+            "amount": 1
+          },
+          "reason": null
+        },
+        {
+          "printed": "{icon:288c9a0062}",
+          "iconId": "288c9a0062",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        },
+        {
+          "printed": "{icon:3d2d3fadd1}",
+          "iconId": "3d2d3fadd1",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        },
+        {
+          "printed": "{icon:85e094f269}",
+          "iconId": "85e094f269",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        }
+      ]
+    },
+    {
+      "id": "curio:warrens:p015",
+      "name": "Sacrificial Stone",
+      "text": "A stone used for ancient, barbaric rituals. In its hollow base you discover a chest with gold and a venomous spider that rapidly injects you with its debilitating poison. Your hand feels sore and your head feels as if it’s about to burst.",
+      "copies": 1,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+        "page": 15
+      },
+      "rows": [
+        {
+          "printed": "{icon:288c9a0062}",
+          "iconId": "288c9a0062",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        },
+        {
+          "printed": "{icon:3d2d3fadd1}",
+          "iconId": "3d2d3fadd1",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        },
+        {
+          "printed": "{icon:b4627031be}",
+          "iconId": "b4627031be",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        },
+        {
+          "printed": "{icon:c870a39e26}",
+          "iconId": "c870a39e26",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        }
+      ]
+    },
+    {
+      "id": "curio:warrens:p016",
+      "name": "Sacrificial Stone",
+      "text": "A stone used for ancient, barbaric rituals. In its hollow base you discover a precious trinket, albeit cursed with some dark magic. As you hold it in your palms you feel your soul screaming, as if seeking to escape your body.",
+      "copies": 1,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_63x88_CURIO_BACK.pdf",
+        "page": 16
+      },
+      "rows": [
+        {
+          "printed": "{icon:12438e9a49} +1",
+          "iconId": "12438e9a49",
+          "effect": {
+            "type": "stress",
+            "amount": 1
+          },
+          "reason": null
+        },
+        {
+          "printed": "{icon:9083ca75b8}",
+          "iconId": "9083ca75b8",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        },
+        {
+          "printed": "{icon:604a7d83ac}",
+          "iconId": "604a7d83ac",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        },
+        {
+          "printed": "{icon:85e094f269}",
+          "iconId": "85e094f269",
+          "effect": null,
+          "reason": "Q-WARRENS-01：Warrens Curio 效果图标待印核"
+        }
+      ]
+    }
+  ]
+}

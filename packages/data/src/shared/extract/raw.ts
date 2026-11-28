@@ -78,6 +78,7 @@ const rawSourceSchema = z.strictObject({
   kind: z.enum(["card", "sheet"]),
   front_pages: z.int().positive(),
   back_pages: z.int().positive().nullable(),
+  pending_back_pdf: z.string().min(1).optional(),
 });
 
 const rawCardSchema = z.strictObject({
@@ -168,7 +169,8 @@ export const rawFileSchema = z
           path: ["cards", index, "copies"],
         });
       }
-      if (!card.faces.back && card.copies > 0 && file.kind === "card") {
+      const backSourceMissing = file.sources.every((source) => source.back === null);
+      if (!card.faces.back && card.copies > 0 && file.kind === "card" && !backSourceMissing) {
         ctx.addIssue({
           code: "custom",
           message: "卡牌缺少背面",
