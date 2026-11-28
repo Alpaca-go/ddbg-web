@@ -1,0 +1,424 @@
+{
+  "confirmed_at": "2026-11-28",
+  "source": "Kyries t16u/t17u/t18u/t20u",
+  "rules": {
+    "keep_new_iconId": true,
+    "copy_existing_key_and_meaning": true,
+    "no_empty_keys": true,
+    "ignore_hashes": ["b27479506b"],
+    "relax_area_marker_red_wording": true,
+    "low_ground_meaning_only_no_empty_key": true,
+    "low_ground_note": "单独向下三角应对 low_ground；本批无对应 hash，只记释义，不建空 key。"
+  },
+  "merge_into_existing_key": [
+    {
+      "iconId": "011ae63e02",
+      "key": "gold"
+    },
+    {
+      "iconId": "bbe8342098",
+      "key": "gold"
+    },
+    {
+      "iconId": "eebbb64c26",
+      "key": "bleed"
+    },
+    {
+      "iconId": "fd239b3b43",
+      "key": "bleed"
+    },
+    {
+      "iconId": "d05cfb9165",
+      "key": "blight"
+    },
+    {
+      "iconId": "1951b03736",
+      "key": "disease"
+    },
+    {
+      "iconId": "604a7d83ac",
+      "key": "debuff"
+    },
+    {
+      "iconId": "8585fa8523",
+      "key": "debuff"
+    },
+    {
+      "iconId": "188b149a77",
+      "key": "draw_negative_quirk"
+    },
+    {
+      "iconId": "51ee2324e3",
+      "key": "draw_negative_quirk"
+    },
+    {
+      "iconId": "bc4c4c71d2",
+      "key": "draw_negative_quirk"
+    },
+    {
+      "iconId": "4bfe02849b",
+      "key": "draw_positive_quirk"
+    },
+    {
+      "iconId": "4fbd5890e2",
+      "key": "draw_positive_quirk"
+    },
+    {
+      "iconId": "780a0a8ba6",
+      "key": "draw_trinket"
+    },
+    {
+      "iconId": "432714b571",
+      "key": "location"
+    },
+    {
+      "iconId": "15276792e1",
+      "key": "area_marker"
+    },
+    {
+      "iconId": "d168f2fa79",
+      "key": "area_marker"
+    },
+    {
+      "iconId": "2363e3b4f5",
+      "key": "area_marker"
+    },
+    {
+      "iconId": "765d55822b",
+      "key": "d10"
+    },
+    {
+      "iconId": "742ba183d6",
+      "key": "gold"
+    },
+    {
+      "iconId": "3d72d38b38",
+      "key": "damage"
+    },
+    {
+      "iconId": "919bf24e2f",
+      "key": "dodge"
+    },
+    {
+      "iconId": "388026d6e1",
+      "key": "heal"
+    },
+    {
+      "iconId": "f53dfff5f0",
+      "key": "stress"
+    },
+    {
+      "iconId": "200e601d87",
+      "key": "bleed"
+    },
+    {
+      "iconId": "a76347ce0f",
+      "key": "stun"
+    },
+    {
+      "iconId": "4ce7ef5f94",
+      "key": "tool_provision"
+    },
+    {
+      "iconId": "bd5b25c15d",
+      "key": "speed"
+    },
+    {
+      "iconId": "21af232d0b",
+      "key": "light"
+    },
+    {
+      "iconId": "2847746df8",
+      "key": "shuffle"
+    },
+    {
+      "iconId": "54380d8c59",
+      "key": "shuffle"
+    },
+    {
+      "iconId": "3835a8b053",
+      "key": "loot_token_placement"
+    },
+    {
+      "iconId": "20f30de8e1",
+      "key": "loot_token_placement"
+    },
+    {
+      "iconId": "35cdd82190",
+      "key": "loot_token_placement"
+    },
+    {
+      "iconId": "93164dece8",
+      "key": "loot_token_placement"
+    },
+    {
+      "iconId": "08f3962158",
+      "key": "occupancy_pips"
+    },
+    {
+      "iconId": "1cfb919e80",
+      "key": "occupancy_pips"
+    },
+    {
+      "iconId": "301e60bc5d",
+      "key": "occupancy_pips"
+    },
+    {
+      "iconId": "4057909759",
+      "key": "occupancy_pips"
+    },
+    {
+      "iconId": "422c26536e",
+      "key": "occupancy_pips"
+    },
+    {
+      "iconId": "68681d687e",
+      "key": "occupancy_pips"
+    },
+    {
+      "iconId": "6be4283818",
+      "key": "occupancy_pips"
+    },
+    {
+      "iconId": "7adef71a76",
+      "key": "occupancy_pips"
+    },
+    {
+      "iconId": "8ba1ceffa6",
+      "key": "occupancy_pips"
+    },
+    {
+      "iconId": "8ba5ee69bd",
+      "key": "occupancy_pips"
+    },
+    {
+      "iconId": "91666d8351",
+      "key": "occupancy_pips"
+    },
+    {
+      "iconId": "a1e7f27cf1",
+      "key": "occupancy_pips"
+    },
+    {
+      "iconId": "a9c9a5ccb1",
+      "key": "occupancy_pips"
+    },
+    {
+      "iconId": "ba7969d104",
+      "key": "occupancy_pips"
+    },
+    {
+      "iconId": "d524e1dfba",
+      "key": "occupancy_pips"
+    },
+    {
+      "iconId": "da2b08ade6",
+      "key": "occupancy_pips"
+    },
+    {
+      "iconId": "f37ad8276d",
+      "key": "occupancy_pips"
+    },
+    {
+      "iconId": "f4233fbf6a",
+      "key": "occupancy_pips"
+    },
+    {
+      "iconId": "03524a7ece",
+      "key": "occupancy_pips_with_area_marker"
+    },
+    {
+      "iconId": "eee86b25fe",
+      "key": "occupancy_pips_with_area_marker"
+    },
+    {
+      "iconId": "ab27044bdb",
+      "key": "occupancy_pips_with_area_marker"
+    },
+    {
+      "iconId": "d0db4f8340",
+      "key": "occupancy_pips_with_area_marker"
+    },
+    {
+      "iconId": "3325186041",
+      "key": "occupancy_pips_with_area_marker"
+    },
+    {
+      "iconId": "8507f04bc8",
+      "key": "occupancy_pips_with_area_marker"
+    },
+    {
+      "iconId": "a5312a8b4f",
+      "key": "occupancy_pips_with_area_marker"
+    },
+    {
+      "iconId": "a68737946b",
+      "key": "occupancy_pips_with_area_marker"
+    },
+    {
+      "iconId": "b0f97be42d",
+      "key": "occupancy_pips_with_area_marker"
+    },
+    {
+      "iconId": "b86d600bf8",
+      "key": "occupancy_pips_with_area_marker"
+    },
+    {
+      "iconId": "89d8f0b8db",
+      "key": "start_hero_defensive"
+    },
+    {
+      "iconId": "1773908fcf",
+      "key": "start_hero_defensive"
+    },
+    {
+      "iconId": "c18c29c0ad",
+      "key": "start_hero_defensive"
+    },
+    {
+      "iconId": "d097da1b47",
+      "key": "start_hero_defensive"
+    },
+    {
+      "iconId": "7321f0720d",
+      "key": "start_hero_defensive"
+    },
+    {
+      "iconId": "49d58f8be4",
+      "key": "start_hero_aggressive"
+    },
+    {
+      "iconId": "d48ffdf75b",
+      "key": "start_hero_aggressive"
+    },
+    {
+      "iconId": "ee951e3771",
+      "key": "start_hero_aggressive"
+    },
+    {
+      "iconId": "427c35ebd8",
+      "key": "start_hero_support"
+    },
+    {
+      "iconId": "6e7ac3e7ba",
+      "key": "start_hero_support"
+    },
+    {
+      "iconId": "b0906b14f5",
+      "key": "start_hero_support"
+    },
+    {
+      "iconId": "52f18e6059",
+      "key": "start_hero_ranged"
+    },
+    {
+      "iconId": "b431ee24d4",
+      "key": "start_hero_ranged"
+    },
+    {
+      "iconId": "14ed877df8",
+      "key": "start_monster_defensive"
+    },
+    {
+      "iconId": "fa03a59d48",
+      "key": "start_monster_defensive"
+    },
+    {
+      "iconId": "45792e6820",
+      "key": "start_monster_aggressive"
+    },
+    {
+      "iconId": "b3bed65cc7",
+      "key": "start_monster_aggressive"
+    },
+    {
+      "iconId": "130e406a91",
+      "key": "start_monster_aggressive"
+    },
+    {
+      "iconId": "a210285ad2",
+      "key": "start_monster_aggressive"
+    },
+    {
+      "iconId": "04480583f0",
+      "key": "start_monster_ranged"
+    },
+    {
+      "iconId": "773b5a997f",
+      "key": "start_monster_ranged"
+    },
+    {
+      "iconId": "3a8dde7028",
+      "key": "start_monster_ranged"
+    }
+  ],
+  "remap_then_merge": [
+    {
+      "iconId": "42fd3c115f",
+      "rejected_suggested_key": "start_hero_defensive",
+      "key": "start_hero_ranged"
+    },
+    {
+      "iconId": "6fb6fe3130",
+      "rejected_suggested_key": "start_hero_defensive",
+      "key": "start_monster_defensive"
+    },
+    {
+      "iconId": "c3e0c15d60",
+      "rejected_suggested_key": "start_hero_defensive",
+      "key": "start_monster_defensive"
+    },
+    {
+      "iconId": "e32d996389",
+      "rejected_suggested_key": "start_hero_aggressive",
+      "key": "start_monster_support"
+    },
+    {
+      "iconId": "2f58e6d463",
+      "rejected_suggested_key": "start_monster_aggressive",
+      "key": "start_monster_ranged"
+    },
+    {
+      "iconId": "7cb2ea5f88",
+      "rejected_suggested_key": "start_monster_aggressive",
+      "key": "start_monster_support"
+    },
+    {
+      "iconId": "9d7233188f",
+      "rejected_suggested_key": "start_monster_aggressive",
+      "key": "start_monster_support"
+    },
+    {
+      "iconId": "a70c926562",
+      "rejected_suggested_key": "start_monster_aggressive",
+      "key": "start_monster_support"
+    },
+    {
+      "iconId": "d8e742198e",
+      "rejected_suggested_key": "start_monster_aggressive",
+      "key": "start_monster_support"
+    },
+    {
+      "iconId": "5d4431c3fa",
+      "rejected_suggested_key": "start_monster_ranged",
+      "key": "start_monster_support"
+    }
+  ],
+  "new_keys": [
+    {
+      "iconId": "be4f829eb7",
+      "key": "room_number",
+      "meaning_note": "房间编号牌；对齐 skill_number；不得占用已有 room_type（宝藏房间）"
+    },
+    {
+      "iconId": "0b3b996f9c",
+      "key": "occupancy_pips_with_high_ground",
+      "meaning_note": "白点=容量，向上三角=高地；组合 A_with_B"
+    },
+    {
+      "iconId": "4d23d01af2",
+      "key": "occupancy_pips_with_high_ground_and_area_marker",
+      "meaning_note": "容量+高地+area marker"
+    }
+  ]
+}
