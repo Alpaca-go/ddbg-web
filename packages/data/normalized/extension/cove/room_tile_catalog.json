@@ -1,0 +1,317 @@
+{
+  "schema": "ddbg-cove-room-tile-catalog-v0",
+  "category": "cove_room_tile_catalog",
+  "sources": {
+    "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_COVE_TILES_FRONT.pdf",
+    "back": null,
+    "backPending": "盒内未见 DD_COVE_TILES_BACK.pdf；背面板块待 Kyries 提供印刷面后核准"
+  },
+  "tiles": [
+    {
+      "id": "room_tile:cove:01",
+      "rawId": "dungeon_tile:cove:p001",
+      "roomId": "room:cove:01",
+      "location": "cove",
+      "number": 1,
+      "name": "Eldritch Augmentation",
+      "boss": false,
+      "poolEligible": true,
+      "source": {
+        "status": "verified",
+        "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_COVE_TILES_FRONT.pdf",
+        "page": 1,
+        "face": "front"
+      },
+      "printedRoomNumber": 1,
+      "geometryVerified": false,
+      "geometryComplete": false,
+      "usable": false,
+      "runtimeReady": false,
+      "pendingReview": [
+        "R-048：板块几何、容量、邻接与部署标记未核准",
+        "Q-186：Cove 普通板块待 Kyries 逐面核准"
+      ]
+    },
+    {
+      "id": "room_tile:cove:02",
+      "rawId": "dungeon_tile:cove:p001",
+      "roomId": "room:cove:02",
+      "location": "cove",
+      "number": 2,
+      "name": "Flooded Room",
+      "boss": false,
+      "poolEligible": true,
+      "source": {
+        "status": "pending",
+        "reason": "待确认：DD_COVE_TILES_BACK.pdf 未提供；该面印刷来源与房间号尚未对照印刷面核实"
+      },
+      "printedRoomNumber": null,
+      "geometryVerified": false,
+      "geometryComplete": false,
+      "usable": false,
+      "runtimeReady": false,
+      "pendingReview": [
+        "待确认：DD_COVE_TILES_BACK.pdf 未提供；该面印刷来源与房间号尚未对照印刷面核实",
+        "R-048：板块几何、容量、邻接与部署标记未核准",
+        "Q-186：Cove 普通板块待 Kyries 逐面核准"
+      ]
+    },
+    {
+      "id": "room_tile:cove:03",
+      "rawId": "dungeon_tile:cove:p002",
+      "roomId": "room:cove:03",
+      "location": "cove",
+      "number": 3,
+      "name": "The Hoarders",
+      "boss": false,
+      "poolEligible": true,
+      "source": {
+        "status": "verified",
+        "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_COVE_TILES_FRONT.pdf",
+        "page": 2,
+        "face": "front"
+      },
+      "printedRoomNumber": 3,
+      "geometryVerified": false,
+      "geometryComplete": false,
+      "usable": false,
+      "runtimeReady": false,
+      "pendingReview": [
+        "R-048：板块几何、容量、邻接与部署标记未核准",
+        "Q-186：Cove 普通板块待 Kyries 逐面核准"
+      ]
+    },
+    {
+      "id": "room_tile:cove:04",
+      "rawId": "dungeon_tile:cove:p002",
+      "roomId": "room:cove:04",
+      "location": "cove",
+      "number": 4,
+      "name": "Buried Treasures",
+      "boss": false,
+      "poolEligible": true,
+      "source": {
+        "status": "pending",
+        "reason": "待确认：DD_COVE_TILES_BACK.pdf 未提供；该面印刷来源与房间号尚未对照印刷面核实"
+      },
+      "printedRoomNumber": null,
+      "geometryVerified": false,
+      "geometryComplete": false,
+      "usable": false,
+      "runtimeReady": false,
+      "pendingReview": [
+        "待确认：DD_COVE_TILES_BACK.pdf 未提供；该面印刷来源与房间号尚未对照印刷面核实",
+        "R-048：板块几何、容量、邻接与部署标记未核准",
+        "Q-186：Cove 普通板块待 Kyries 逐面核准"
+      ]
+    },
+    {
+      "id": "room_tile:cove:05",
+      "rawId": "dungeon_tile:cove:p003",
+      "roomId": "room:cove:05",
+      "location": "cove",
+      "number": 5,
+      "name": "Twin Idols",
+      "boss": false,
+      "poolEligible": true,
+      "source": {
+        "status": "verified",
+        "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_COVE_TILES_FRONT.pdf",
+        "page": 3,
+        "face": "front"
+      },
+      "printedRoomNumber": 5,
+      "geometryVerified": false,
+      "geometryComplete": false,
+      "usable": false,
+      "runtimeReady": false,
+      "pendingReview": [
+        "R-048：板块几何、容量、邻接与部署标记未核准",
+        "Q-186：Cove 普通板块待 Kyries 逐面核准"
+      ]
+    },
+    {
+      "id": "room_tile:cove:06",
+      "rawId": "dungeon_tile:cove:p003",
+      "roomId": "room:cove:06",
+      "location": "cove",
+      "number": 6,
+      "name": "Lairs in Tunnels",
+      "boss": false,
+      "poolEligible": true,
+      "source": {
+        "status": "pending",
+        "reason": "待确认：DD_COVE_TILES_BACK.pdf 未提供；该面印刷来源与房间号尚未对照印刷面核实"
+      },
+      "printedRoomNumber": null,
+      "geometryVerified": false,
+      "geometryComplete": false,
+      "usable": false,
+      "runtimeReady": false,
+      "pendingReview": [
+        "待确认：DD_COVE_TILES_BACK.pdf 未提供；该面印刷来源与房间号尚未对照印刷面核实",
+        "R-048：板块几何、容量、邻接与部署标记未核准",
+        "Q-186：Cove 普通板块待 Kyries 逐面核准"
+      ]
+    },
+    {
+      "id": "room_tile:cove:07",
+      "rawId": "dungeon_tile:cove:p004",
+      "roomId": "room:cove:07",
+      "location": "cove",
+      "number": 7,
+      "name": "Shipwreck",
+      "boss": false,
+      "poolEligible": true,
+      "source": {
+        "status": "verified",
+        "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_COVE_TILES_FRONT.pdf",
+        "page": 4,
+        "face": "front"
+      },
+      "printedRoomNumber": 7,
+      "geometryVerified": false,
+      "geometryComplete": false,
+      "usable": false,
+      "runtimeReady": false,
+      "pendingReview": [
+        "R-048：板块几何、容量、邻接与部署标记未核准",
+        "Q-186：Cove 普通板块待 Kyries 逐面核准"
+      ]
+    },
+    {
+      "id": "room_tile:cove:08",
+      "rawId": "dungeon_tile:cove:p004",
+      "roomId": "room:cove:08",
+      "location": "cove",
+      "number": 8,
+      "name": "Sea Rites",
+      "boss": false,
+      "poolEligible": true,
+      "source": {
+        "status": "pending",
+        "reason": "待确认：DD_COVE_TILES_BACK.pdf 未提供；该面印刷来源与房间号尚未对照印刷面核实"
+      },
+      "printedRoomNumber": null,
+      "geometryVerified": false,
+      "geometryComplete": false,
+      "usable": false,
+      "runtimeReady": false,
+      "pendingReview": [
+        "待确认：DD_COVE_TILES_BACK.pdf 未提供；该面印刷来源与房间号尚未对照印刷面核实",
+        "R-048：板块几何、容量、邻接与部署标记未核准",
+        "Q-186：Cove 普通板块待 Kyries 逐面核准"
+      ]
+    },
+    {
+      "id": "room_tile:cove:09",
+      "rawId": "dungeon_tile:cove:p005",
+      "roomId": "room:cove:09",
+      "location": "cove",
+      "number": 9,
+      "name": "Temple of the Deep One",
+      "boss": false,
+      "poolEligible": true,
+      "source": {
+        "status": "verified",
+        "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_COVE_TILES_FRONT.pdf",
+        "page": 5,
+        "face": "front"
+      },
+      "printedRoomNumber": 9,
+      "geometryVerified": false,
+      "geometryComplete": false,
+      "usable": false,
+      "runtimeReady": false,
+      "pendingReview": [
+        "R-048：板块几何、容量、邻接与部署标记未核准",
+        "Q-186：Cove 普通板块待 Kyries 逐面核准"
+      ]
+    },
+    {
+      "id": "room_tile:cove:10",
+      "rawId": "dungeon_tile:cove:p005",
+      "roomId": "room:cove:10",
+      "location": "cove",
+      "number": 10,
+      "name": "Siren’s Room",
+      "boss": true,
+      "poolEligible": false,
+      "source": {
+        "status": "pending",
+        "reason": "待确认：DD_COVE_TILES_BACK.pdf 未提供；该面印刷来源与房间号尚未对照印刷面核实"
+      },
+      "printedRoomNumber": null,
+      "geometryVerified": false,
+      "geometryComplete": false,
+      "usable": false,
+      "runtimeReady": false,
+      "pendingReview": [
+        "待确认：DD_COVE_TILES_BACK.pdf 未提供；该面印刷来源与房间号尚未对照印刷面核实",
+        "R-048：板块几何、容量、邻接与部署标记未核准",
+        "Cove Boss 板块留待专属 Boss 刀核准；不得进入普通板块牌堆"
+      ],
+      "classificationEvidence": [
+        "房间卡 room:cove:10 已按印刷 BOSS 标签登记（印刷正文含独立一行「BOSS」（FRONT p10）)",
+        "预期 BACK p5 对应 Boss 板块 10 号（待印刷面确认）"
+      ]
+    },
+    {
+      "id": "room_tile:cove:11",
+      "rawId": "dungeon_tile:cove:p006",
+      "roomId": "room:cove:11",
+      "location": "cove",
+      "number": 11,
+      "name": "Shambler’s Room",
+      "boss": true,
+      "poolEligible": false,
+      "source": {
+        "status": "verified",
+        "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_COVE_TILES_FRONT.pdf",
+        "page": 6,
+        "face": "front"
+      },
+      "printedRoomNumber": 11,
+      "geometryVerified": false,
+      "geometryComplete": false,
+      "usable": false,
+      "runtimeReady": false,
+      "pendingReview": [
+        "R-048：板块几何、容量、邻接与部署标记未核准",
+        "Cove Boss 板块留待专属 Boss 刀核准；不得进入普通板块牌堆"
+      ],
+      "classificationEvidence": [
+        "FRONT p6 印刷数字 11 与板块号一致",
+        "房间卡 room:cove:11 为 Boss 房；印刷正文含 BOSS（房间目录）"
+      ]
+    },
+    {
+      "id": "room_tile:cove:12",
+      "rawId": "dungeon_tile:cove:p006",
+      "roomId": "room:cove:12",
+      "location": "cove",
+      "number": 12,
+      "name": "Drowned Crew Room",
+      "boss": true,
+      "poolEligible": false,
+      "source": {
+        "status": "pending",
+        "reason": "待确认：DD_COVE_TILES_BACK.pdf 未提供；该面印刷来源与房间号尚未对照印刷面核实"
+      },
+      "printedRoomNumber": null,
+      "geometryVerified": false,
+      "geometryComplete": false,
+      "usable": false,
+      "runtimeReady": false,
+      "pendingReview": [
+        "待确认：DD_COVE_TILES_BACK.pdf 未提供；该面印刷来源与房间号尚未对照印刷面核实",
+        "R-048：板块几何、容量、邻接与部署标记未核准",
+        "Cove Boss 板块留待专属 Boss 刀核准；不得进入普通板块牌堆"
+      ],
+      "classificationEvidence": [
+        "房间卡 room:cove:12 已按印刷 BOSS 标签登记（印刷正文含独立一行「BOSS」（FRONT p12）)",
+        "预期 BACK p6 对应 Boss 板块 12 号（待印刷面确认）"
+      ]
+    }
+  ]
+}
