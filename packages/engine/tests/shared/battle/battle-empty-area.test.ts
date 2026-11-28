@@ -322,9 +322,12 @@ describe("空区域英雄技能（R19–20、R-025、R-048）", () => {
   it("未验证、缺 numeric / duration、错误姿态和 Self 整次拒绝", () => {
     const original = card("p097");
     refused(setup({ ...original, verification: { unverified: true } }));
+    const { healSupport: _heal, ...comfortRules } = original.rules!;
+    void _heal;
     refused(
       setup({
         ...original,
+        rules: comfortRules,
         unlabeled_numbers: original.unlabeled_numbers.map((n) => ({ ...n, numeric: null })),
       }),
     );

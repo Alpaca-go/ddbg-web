@@ -1,4 +1,4 @@
-import type { DirectAttackEntry } from "./types";
+import type { HealSupportEntry, DirectAttackEntry } from "./types";
 import { printIcon } from "../../../shared/print-icons";
 import type {
   DamageEntry,
@@ -850,7 +850,44 @@ const directAttackEntries: readonly DirectAttackEntry[] = [
   },
 ];
 
+const healSupportEntries: readonly HealSupportEntry[] = [
+  {
+    id: "hero_skill:musketeer:h18:p373",
+    name: "Patch Up",
+    stances: ["support", "ranged"],
+    range: 1,
+    rangeMinimum: 0,
+    heroTargets: 1,
+    effect: "heal",
+    hit: { threshold: 8, heal: 4 },
+    critical: { threshold: 0, heal: 6 },
+  },
+  {
+    id: "hero_skill:musketeer:h18:p374",
+    name: "Patch Up",
+    stances: ["support", "ranged"],
+    range: 1,
+    rangeMinimum: 0,
+    heroTargets: 1,
+    effect: "heal",
+    hit: { threshold: 9, heal: 5 },
+    critical: { threshold: 0, heal: 8 },
+  },
+  {
+    id: "hero_skill:musketeer:h18:p375",
+    name: "Patch Up",
+    stances: ["support", "ranged"],
+    range: 1,
+    rangeMinimum: 0,
+    heroTargets: 1,
+    effect: "heal",
+    hit: { threshold: 10, heal: 7 },
+    critical: { threshold: 0, heal: 10 },
+  },
+];
+
 const entries: HeroAnnotationEntries = {
+  healSupport: healSupportEntries,
   directAttack: directAttackEntries,
   status: statusEntries,
   range: rangeEntries,

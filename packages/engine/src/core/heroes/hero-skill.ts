@@ -1,6 +1,14 @@
 import { defenceTrinketReaction } from "../../shared/trinkets/trinket-reactions";
-import { CONDITIONAL_DAMAGE_SUFFIX, directAttackSchema } from "../../../../data/src/shared/effects";
-import type { ConditionalDamage, DirectAttack } from "../../../../data/src/shared/effects";
+import {
+  CONDITIONAL_DAMAGE_SUFFIX,
+  directAttackSchema,
+  healSupportSchema,
+} from "../../../../data/src/shared/effects";
+import type {
+  ConditionalDamage,
+  DirectAttack,
+  HealSupport,
+} from "../../../../data/src/shared/effects";
 import { projectAbominationSkill } from "./abomination-skills";
 import { ABOMINATION_DOUBLE_FACED_SKILL_IDS } from "../../shared/core/formal-roster-catalog";
 import type { HeroHealthEffect } from "./hero-health";
@@ -297,6 +305,7 @@ type StatusAnnotation = StatusEffect & {
 /** R1 起规则输入的唯一定义；`rulesOf(card)` 读取。 */
 export type SkillRules = {
   readonly directAttack?: DirectAttack;
+  readonly healSupport?: HealSupport;
   readonly statuses?: readonly StatusAnnotation[];
   readonly damage?: DamageBonusAnnotation;
   readonly damageBonuses?: readonly DamageBonusAnnotation[];
@@ -772,6 +781,11 @@ function namedKeys(segments: readonly SkillSegment[] | null): string[] {
 function threshold(skill: HeroSkillCardView, label: "Crit" | "Acc"): number | null {
   const attack = skill.rules?.directAttack;
   if (attack) return (label === "Crit" ? attack.critical : attack.hit).threshold;
+  const heal = skill.rules?.healSupport;
+  if (heal) {
+    const roll = label === "Crit" ? heal.critical : heal.hit;
+    return roll?.threshold ?? null;
+  }
   const found = skill.printed_labels.filter((item) => item.label === label);
   if (found.length !== 1) return null;
   const value = found[0]?.value;
@@ -781,6 +795,8 @@ function threshold(skill: HeroSkillCardView, label: "Crit" | "Acc"): number | nu
 
 /** 判断技能是否声明该骰面判定，旧技能仍支持从卡面标签读取。 */
 export function hasHeroSkillRoll(skill: HeroSkillCardView, label: "Crit" | "Acc"): boolean {
+  const heal = skill.rules?.healSupport;
+  if (heal) return (label === "Crit" ? heal.critical : heal.hit) !== undefined;
   return (
     skill.rules?.directAttack !== undefined ||
     skill.printed_labels.some((entry) => entry.label === label)
@@ -791,6 +807,11 @@ export function hasHeroSkillRoll(skill: HeroSkillCardView, label: "Crit" | "Acc"
 function amountBesideLabel(skill: HeroSkillCardView, label: "Crit" | "Acc"): number | null {
   const attack = skill.rules?.directAttack;
   if (attack) return (label === "Crit" ? attack.critical : attack.hit).damage;
+  const heal = skill.rules?.healSupport;
+  if (heal) {
+    const roll = label === "Crit" ? heal.critical : heal.hit;
+    return roll?.heal ?? null;
+  }
   const found: number[] = [];
   for (const item of skill.unlabeled_numbers) {
     if (item.anchor.type !== "printed_label" || item.anchor.label !== label) continue;
@@ -851,6 +872,11 @@ function readImmediateStress(skill: HeroSkillCardView): ImmediateStress {
   const none: ImmediateStress = { self: 0, target: 0, lineCount: 0 };
   const direct = skill.rules?.directAttack;
   if (direct) return { ...none, self: direct.selfStress ?? 0 };
+  const heal = skill.rules?.healSupport;
+  if (heal) {
+    const self = heal.selfStress ?? 0;
+    return { self, target: 0, lineCount: Number(self !== 0) };
+  }
   const explicit = rulesOf(skill).self?.stress;
   if (explicit) {
     const line = skill.effect_lines[explicit.lineIndex];
@@ -907,6 +933,11 @@ export function readSelfHeal(skill: HeroSkillCardView): SelfHeal {
   const none: SelfHeal = { amount: 0, lineCount: 0 };
   const direct = skill.rules?.directAttack;
   if (direct) return { ...none, amount: direct.selfHeal ?? 0 };
+  const heal = skill.rules?.healSupport;
+  if (heal)
+    return heal.selfHealStress
+      ? none
+      : { amount: heal.selfHeal ?? 0, lineCount: Number(heal.selfHeal !== undefined) };
   const confirmed = rulesOf(skill).self?.heal;
   if (confirmed)
     return confirmed.source === "print_front" &&
@@ -1048,6 +1079,15 @@ function confirmedStressAmount(skill: HeroSkillCardView, amount: number): boolea
  */
 function readSelfHealStress(skill: HeroSkillCardView): SelfHealStress {
   const none: SelfHealStress = { heal: 0, stress: 0, lineCount: 0 };
+  const approved = skill.rules?.healSupport;
+  if (approved) {
+    if (!approved.selfHealStress) return none;
+    return {
+      heal: approved.selfHealStress.heal,
+      stress: approved.selfHealStress.stress,
+      lineCount: 1,
+    };
+  }
   const heals: number[] = [];
   const stresses: number[] = [];
   for (const line of skill.effect_lines) {
@@ -1177,6 +1217,15 @@ const EXTRACTED_SELF_MARK = String.fromCharCode(7);
  * 未注解的卡（历史测试视图）仍走文本解析，标记可在同一行，也可和效果框的另一行配对。
  */
 function readConditionRemoval(skill: HeroSkillCardView): ConditionRemoval {
+  const approved = skill.rules?.healSupport?.removal;
+  if (approved) {
+    return {
+      targetLines: approved.filter((rule) => rule.scope === "target").length,
+      actorLines: approved.filter((rule) => rule.scope === "self").length,
+      pairedTargetLines: 0,
+      lineCount: approved.length,
+    };
+  }
   const rules = skill.rules?.removal;
   if (rules) return readConditionRemovalFromRules(skill, rules);
   return readConditionRemovalFromText(skill);
@@ -1830,6 +1879,10 @@ function selectFace(
     if (skill.rules.directAttack.requiredForm)
       return { ok: false, reason: "憎恶技能身份、效果或背面与已核实卡面不符（R-048）" };
   }
+  if (skill.rules?.healSupport) {
+    if (face === "front") return { ok: true, skill };
+    return { ok: false, reason: "憎恶技能身份、效果或背面与已核实卡面不符（R-048）" };
+  }
   try {
     const projected = projectAbominationSkill(skill, face);
     if (projected) return { ok: true, skill: projected };
@@ -1871,6 +1924,7 @@ function selectFace(
 function readsAsSelfTarget(skill: HeroSkillCardView): boolean {
   const rules = rulesOf(skill);
   if (rules.directAttack !== undefined) return false;
+  if (rules.healSupport) return rules.healSupport.selfRange === true;
   const statuses = rules.statuses;
   const selfRange = rules.self?.range;
   const line = skill.stats_line;
@@ -1910,6 +1964,7 @@ function readsAsSelfTarget(skill: HeroSkillCardView): boolean {
 
 function hasCombinedMarker(skill: HeroSkillCardView, keys: readonly string[]): boolean {
   if (skill.rules?.directAttack) return skill.rules.directAttack.combinedHealMarker === true;
+  if (skill.rules?.healSupport) return skill.rules.healSupport.combinedHealMarker === true;
   if (keys.includes("damage_or_heal_combined_marker")) return true;
   for (const line of skill.effect_lines) {
     for (const segment of line) {
@@ -2047,6 +2102,19 @@ function readStanceMarks(
       },
     };
   }
+  const heal = skill.rules?.healSupport;
+  if (heal) {
+    const mark = (stance: SkillStance) => (heal.stances.includes(stance) ? "lit" : "unlit");
+    return {
+      ok: true,
+      marks: {
+        support: mark("support"),
+        ranged: mark("ranged"),
+        defensive: mark("defensive"),
+        aggressive: mark("aggressive"),
+      },
+    };
+  }
   const icons = skill.top_row_icons;
   if (!Array.isArray(icons)) return { ok: false };
   const marks: Record<SkillStance, StanceMark | "absent"> = {
@@ -2127,6 +2195,13 @@ export function readPrintedRange(
     return attack.rangeMinimum === undefined
       ? { kind: "exact", distance: attack.range }
       : { kind: "interval", min: attack.rangeMinimum, max: attack.range };
+  const heal = skill.rules?.healSupport;
+  if (heal) {
+    if (heal.selfRange) return { kind: "absent" };
+    return heal.rangeMinimum === undefined
+      ? { kind: "exact", distance: heal.range! }
+      : { kind: "interval", min: heal.rangeMinimum, max: heal.range! };
+  }
   const annotatedRange = rulesOf(skill).range;
   if (annotatedRange) {
     const range = annotatedRange;
@@ -2177,8 +2252,8 @@ export function readPrintedRange(
 function rangeProblem(skill: HeroSkillCardView, combat: SkillCombatState): string | null {
   if (combat.areaDistance === undefined) return null;
   const rules = rulesOf(skill);
-  const selfRange = rules.self?.range;
-  const statuses = rules.statuses;
+  const selfRange = rules.self?.range || rules.healSupport?.selfRange;
+  const statuses = rules.healSupport?.onUse ?? rules.statuses;
   if ((skill as HeroSkillCardView & { readonly target?: string }).target === "Special") {
     return null;
   }
@@ -2275,6 +2350,13 @@ function readTargetIconCounts(skill: HeroSkillCardView): {
   const rules = rulesOf(skill);
   if (rules.directAttack)
     return { hero: 0, monster: rules.directAttack.monsterTargets, heroOrMonster: 0 };
+  if (rules.healSupport) {
+    return {
+      hero: rules.healSupport.selfRange ? 0 : rules.healSupport.heroTargets,
+      monster: 0,
+      heroOrMonster: 0,
+    };
+  }
   const headerAnn = rules.target?.header;
   const targetHealAnn = rules.target?.heal;
   const statusesAnn = rules.statuses;
@@ -2366,8 +2448,8 @@ export function readPrintedTargets(skill: HeroSkillCardView): PrintedTargets {
 function targetCountProblem(skill: HeroSkillCardView, combat: SkillCombatState): string | null {
   if (combat.targetsInArea === undefined) return null;
   const rules = rulesOf(skill);
-  const selfRange = rules.self?.range;
-  const statuses = rules.statuses;
+  const selfRange = rules.self?.range || rules.healSupport?.selfRange;
+  const statuses = rules.healSupport?.onUse ?? rules.statuses;
   if ((skill as HeroSkillCardView & { readonly target?: string }).target === "Special") return null;
   if ((selfRange || statuses?.length) && readsAsSelfTarget(skill))
     return combat.targetsInArea === 1 && combat.actor?.id === combat.target.id
@@ -2689,6 +2771,22 @@ function resolveSkill(
       top_row_icons: [],
       front_icons: [],
     };
+  } else if (active.rules?.healSupport !== undefined) {
+    const heal = healSupportSchema.safeParse(active.rules.healSupport);
+    if (!heal.success) return refuse(skill, combat, "技能效果词条或参数无效");
+    active = {
+      ...active,
+      rules: {
+        ...(heal.data.effect ? { effect: heal.data.effect } : {}),
+        healSupport: heal.data,
+      },
+      printed_labels: [],
+      unlabeled_numbers: [],
+      stats_line: null,
+      effect_lines: [],
+      top_row_icons: [],
+      front_icons: [],
+    };
   }
   const activeRules = rulesOf(active);
   const alliesStressAnn = activeRules.alliesStress;
@@ -2773,8 +2871,15 @@ function resolveSkill(
       return refuse(skill, combat, "效果行签收与已确认卡面不符（R-048）");
     effectLineReceiptCount += 1;
   }
-  const targetHealAnn = activeRules.target?.heal;
-  if (targetHealAnn) {
+  const approvedHeal = activeRules.healSupport;
+  const targetHealAnn = approvedHeal
+    ? approvedHeal.targetHeal !== undefined &&
+      approvedHeal.targetStress === undefined &&
+      approvedHeal.targetLight === undefined
+      ? { lineIndex: 0, amount: approvedHeal.targetHeal, source: "print_front" as const }
+      : undefined
+    : activeRules.target?.heal;
+  if (targetHealAnn && !approvedHeal) {
     const line = active.effect_lines[targetHealAnn.lineIndex];
     const text = line
       ?.map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
@@ -2796,8 +2901,19 @@ function resolveSkill(
       return refuse(skill, combat, "友方治疗缺少英雄伤口轨");
     }
   }
-  const support = activeRules.target?.support;
-  if (support) {
+  const support = approvedHeal
+    ? approvedHeal.targetHeal !== undefined &&
+      (approvedHeal.targetStress !== undefined || approvedHeal.targetLight !== undefined)
+      ? {
+          lineIndex: 0,
+          heal: approvedHeal.targetHeal,
+          stress: approvedHeal.targetStress ?? 0,
+          light: approvedHeal.targetLight ?? 0,
+          source: "print_front" as const,
+        }
+      : undefined
+    : activeRules.target?.support;
+  if (support && !approvedHeal) {
     const line = active.effect_lines[support.lineIndex];
     const text = line
       ?.map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))
@@ -2828,8 +2944,22 @@ function resolveSkill(
       return refuse(skill, combat, "目标支持效果缺少光照或压力轨");
   }
   const stress = support ? { self: 0, target: 0, lineCount: 0 } : readImmediateStress(active);
-  const extraStress = activeRules.target?.stress;
-  if (extraStress) {
+  if (targetHealAnn && approvedHeal) {
+    if (target.side !== "hero" || target.wounds === undefined)
+      return refuse(skill, combat, "友方治疗缺少英雄伤口轨");
+  }
+  if (support && approvedHeal) {
+    if (combat.light === undefined || (!emptyArea && target.stress === undefined))
+      return refuse(skill, combat, "目标支持效果缺少光照或压力轨");
+  }
+  const extraStress = approvedHeal
+    ? support
+      ? undefined
+      : approvedHeal.targetStress !== undefined
+        ? { lineIndex: 0, amount: approvedHeal.targetStress, source: "print_front" as const }
+        : undefined
+    : activeRules.target?.stress;
+  if (extraStress && !approvedHeal) {
     const line = active.effect_lines[extraStress.lineIndex];
     const text = line
       ?.map((s) => (s.type === "text" ? s.text : `{${s.icon.key}}`))

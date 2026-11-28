@@ -167,7 +167,8 @@ describe("战斗技能生命命令沙盒（R20、R29、R-005、R-048）", () => 
 
   it("Battle Heal 未附逐卡射程注解时仍拒绝，生命接线不绕过 R-048", () => {
     const original = skill("p013");
-    const { range: _range, ...rules } = original.rules!;
+    const { healSupport: _heal, range: _range, ...rules } = original.rules!;
+    void _heal;
     void _range;
     const card = { ...original, rules };
     expect(original.rules?.range).toBeDefined();

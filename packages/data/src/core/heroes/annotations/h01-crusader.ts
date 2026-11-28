@@ -1,5 +1,6 @@
 import type {
   DirectAttackEntry,
+  HealSupportEntry,
   HeroAnnotationEntries,
   StatusEffectEntry,
   RangeEntry,
@@ -409,7 +410,64 @@ const directAttackEntries: readonly DirectAttackEntry[] = [
   },
 ];
 
+const healSupportEntries: readonly HealSupportEntry[] = [
+  {
+    id: "hero_skill:core:h01:p013",
+    name: "Battle Heal",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    rangeMinimum: 0,
+    heroTargets: 1,
+    effect: "heal",
+    hit: { threshold: 12, heal: 2 },
+    critical: { threshold: 2, heal: 4 },
+  },
+  {
+    id: "hero_skill:core:h01:p014",
+    name: "Battle Heal",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    rangeMinimum: 0,
+    heroTargets: 1,
+    effect: "heal",
+    hit: { threshold: 14, heal: 3 },
+    critical: { threshold: 2, heal: 5 },
+  },
+  {
+    id: "hero_skill:core:h01:p015",
+    name: "Battle Heal",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    heroTargets: 1,
+    effect: "heal",
+    hit: { threshold: 16, heal: 4 },
+    critical: { threshold: 2, heal: 6 },
+  },
+  {
+    id: "hero_skill:core:h01:p019",
+    name: "Inspiring Cry",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 0,
+    heroTargets: 1,
+  },
+  {
+    id: "hero_skill:core:h01:p020",
+    name: "Inspiring Cry",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    heroTargets: 1,
+  },
+  {
+    id: "hero_skill:core:h01:p021",
+    name: "Inspiring Cry",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    heroTargets: 2,
+  },
+];
+
 const entries: HeroAnnotationEntries = {
+  healSupport: healSupportEntries,
   directAttack: directAttackEntries,
   status: statusEntries,
   range: rangeEntries,
