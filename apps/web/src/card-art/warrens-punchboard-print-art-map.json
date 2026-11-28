@@ -1,0 +1,69 @@
+{
+  "schema": "ddbg.print-warrens-punchboard-art-map.v1",
+  "source": {
+    "geometry": "PANTONE Rubine Red C Separation die-cut bbox ~178.71×237.99pt; MG_DD_04_EN_WARRENS punchboard (R-048)",
+    "exportScript": "tools/pipeline/print-card-art/export_warrens_punchboard_standees.py",
+    "geometryVerified": false,
+    "notes": [
+      "pngRel slugs from export_warrens_punchboard_standees.py; run export then build on a machine with EN_FILES PDFs.",
+      "Extension heroes LEPER / ANTIQUARIAN; not merged into formal-eight DH standee map.",
+      "Production raster omits Separation plate when export uses separation_omit patch."
+    ],
+    "reviewedAt": "2026-11-28"
+  },
+  "standees": [
+    {
+      "hero": "ANTIQUARIAN",
+      "face": "back",
+      "pngRel": "png/warrens-antiquarian-back.png",
+      "primaryPdf": "DD_EN_WARRENS_PUNCHBOARD_BACK.pdf",
+      "printPage": 1,
+      "diecutPt": [38.94, 36.65, 217.65, 274.64],
+      "diecutWhPt": [178.71, 237.99],
+      "cropMethod": "rubine_diecut_bbox_inset",
+      "matchMethod": "rubine_diecut_bbox+hero_text",
+      "reviewVerdict": "geometry_unverified_2026-11-28"
+    },
+    {
+      "hero": "ANTIQUARIAN",
+      "face": "front",
+      "pngRel": "png/warrens-antiquarian-front.png",
+      "primaryPdf": "DD_EN_WARRENS_PUNCHBOARD_FRONT.pdf",
+      "printPage": 1,
+      "diecutPt": [235.37, 36.65, 414.08, 274.64],
+      "diecutWhPt": [178.71, 237.99],
+      "cropMethod": "rubine_diecut_bbox_inset",
+      "matchMethod": "rubine_diecut_bbox+hero_text",
+      "reviewVerdict": "geometry_unverified_2026-11-28"
+    },
+    {
+      "hero": "LEPER",
+      "face": "back",
+      "pngRel": "png/warrens-leper-back.png",
+      "primaryPdf": "DD_EN_WARRENS_PUNCHBOARD_BACK.pdf",
+      "printPage": 1,
+      "diecutPt": [235.37, 36.65, 414.08, 274.64],
+      "diecutWhPt": [178.71, 237.99],
+      "cropMethod": "rubine_diecut_bbox_inset",
+      "matchMethod": "rubine_diecut_bbox+hero_text",
+      "reviewVerdict": "geometry_unverified_2026-11-28"
+    },
+    {
+      "hero": "LEPER",
+      "face": "front",
+      "pngRel": "png/warrens-leper-front.png",
+      "primaryPdf": "DD_EN_WARRENS_PUNCHBOARD_FRONT.pdf",
+      "printPage": 1,
+      "diecutPt": [38.94, 36.65, 217.65, 274.64],
+      "diecutWhPt": [178.71, 237.99],
+      "cropMethod": "rubine_diecut_bbox_inset",
+      "matchMethod": "rubine_diecut_bbox+hero_text",
+      "reviewVerdict": "geometry_unverified_2026-11-28"
+    }
+  ],
+  "pendingConfirmation": [
+    "Q-WARRENS-22：Rubine bbox 量测待印核；不得用于已核准部署坐标。",
+    "Q-WARRENS-23：FRONT/BACK 左右对调与物理正反面是否同稿待目视确认。",
+    "Q-WARRENS-24：与 TDH / 核心冲压板立牌是否共用同稿待确认。"
+  ]
+}

@@ -1,0 +1,109 @@
+{
+  "schema": "ddbg-raw-v1",
+  "extractor_version": "1.0.4",
+  "category": "punchboard",
+  "kind": "sheet",
+  "units": {
+    "length": "mm",
+    "origin": "top-left corner of the PDF TrimBox (card face, bleed excluded)",
+    "y_axis": "down",
+    "font_size": "pt"
+  },
+  "sources": [
+    {
+      "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_PUNCHBOARD_FRONT.pdf",
+      "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_PUNCHBOARD_BACK.pdf",
+      "source_set": "extension",
+      "kind": "sheet",
+      "front_pages": 1,
+      "back_pages": 1
+    }
+  ],
+  "n_pages": 1,
+  "n_unique": 1,
+  "n_copies_total": 1,
+  "cards": [
+    {
+      "id": "punchboard:warrens:p001",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [1],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_PUNCHBOARD_FRONT.pdf",
+          "page": 1,
+          "trim_mm": [145.0, 95.0],
+          "face_phash": "ebc99cdcc117c207",
+          "spans": [
+            {
+              "t": "LEPER",
+              "bbox": [27.59, 75.41, 48.62, 88.0],
+              "font": "DwarvenAxeBB",
+              "size": 32.64,
+              "color": "#231f20",
+              "dup": 2
+            },
+            {
+              "t": "ANTIQUARIAN",
+              "bbox": [84.49, 75.41, 130.31, 88.0],
+              "font": "DwarvenAxeBB",
+              "size": 32.64,
+              "color": "#231f20",
+              "dup": 2
+            }
+          ],
+          "icons": [],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "LEPER",
+              "bbox": [27.59, 75.41, 48.62, 88.0]
+            },
+            {
+              "rot": 0,
+              "text": "ANTIQUARIAN",
+              "bbox": [84.49, 75.41, 130.31, 88.0]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_PUNCHBOARD_BACK.pdf",
+          "page": 1,
+          "trim_mm": [145.0, 95.0],
+          "face_phash": "be9dc9a995429326",
+          "spans": [
+            {
+              "t": "LEPER",
+              "bbox": [96.89, 75.41, 117.92, 88.0],
+              "font": "DwarvenAxeBB",
+              "size": 32.64,
+              "color": "#231f20",
+              "dup": 2
+            },
+            {
+              "t": "ANTIQUARIAN",
+              "bbox": [15.2, 75.41, 61.02, 88.0],
+              "font": "DwarvenAxeBB",
+              "size": 32.64,
+              "color": "#231f20",
+              "dup": 2
+            }
+          ],
+          "icons": [],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "ANTIQUARIAN",
+              "bbox": [15.2, 75.41, 61.02, 88.0]
+            },
+            {
+              "rot": 0,
+              "text": "LEPER",
+              "bbox": [96.89, 75.41, 117.92, 88.0]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
