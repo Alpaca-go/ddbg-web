@@ -222,6 +222,21 @@ export {
   COVE_ROOM_FRONT,
 } from "./cove/rooms/room";
 export type { CoveBossRoomCard, CoveRoomCard } from "./cove/rooms/room";
+export {
+  coveBossAbilitiesSchema,
+  coveBossAbilityManifest,
+  readCoveBossAbility,
+  COVE_BOSS_ABILITIES_FRONT,
+  COVE_BOSS_ABILITIES_BACK,
+} from "./cove/bosses/cove-boss-abilities";
+export type { CoveBossAbilities, CoveBossId } from "./cove/bosses/cove-boss-abilities";
+export {
+  coveBossCombatCardsSchema,
+  coveBossCombatCardManifest,
+  COVE_BOSS_LARGE_FRONT,
+  COVE_BOSS_MEDIUM_FRONT,
+} from "./cove/bosses/cove-boss-combat-cards";
+export type { CoveBossCombatCards } from "./cove/bosses/cove-boss-combat-cards";
 export type { StygianRooms } from "./core/rooms/stygian-rooms";
 export { curioPoolIdentity, locationCurioPool } from "./core/curios/curio-pool";
 

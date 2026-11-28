@@ -1,0 +1,614 @@
+{
+  "schema": "ddbg-cove-boss-abilities-v1",
+  "textOnly": true,
+  "cards": [
+    {
+      "id": "boss_ability:cove:p001",
+      "bossId": "shambler",
+      "name": "Shambler",
+      "level": 1,
+      "cardRole": "description",
+      "actionsPerRound": null,
+      "sourcePage": 1,
+      "boss": true,
+      "poolEligible": false,
+      "combatReady": false,
+      "front": {
+        "sourceFile": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+        "textLines": [
+          "In the damp recesses of the cove, a",
+          "tempting glint amid the gloom. The",
+          "gem nestled in the tight grip of this",
+          "altar’s sconce promises riches beyond",
+          "worldly compare. Yet the closer you",
+          "draw, the more you feel your temples",
+          "pulse. A blinding aura shimmers",
+          "near every source of light. The altar",
+          "beckons - a lucky find or a priceless",
+          "lure, the thread of which reaches into",
+          "the malefic dark between the stars.",
+          "What angler will sense your pull?"
+        ]
+      },
+      "back": {
+        "sourceFile": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_BACK.pdf",
+        "textLines": ["{icon:56ea9289ab} I"]
+      }
+    },
+    {
+      "id": "boss_ability:cove:p002",
+      "bossId": "shambler",
+      "name": "Shambler",
+      "level": 2,
+      "cardRole": "description",
+      "actionsPerRound": null,
+      "sourcePage": 2,
+      "boss": true,
+      "poolEligible": false,
+      "combatReady": false,
+      "front": {
+        "sourceFile": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+        "textLines": [
+          "Writhing tendrils, skin that shines with",
+          "the light of black stars rising over",
+          "worlds beyond our ken - through",
+          "happenstance or confidence, you",
+          "have triggered the trap. The few who",
+          "have crossed its path have nothing to",
+          "offer, none can even say whether the",
+          "shambler hunts with preternatural",
+          "guile or whether some unknown sect",
+          "has lured it here themselves. Theory",
+          "matters not in the heat of battle. Act",
+          "quickly, slay the thing before it drowns",
+          "you in the dark void which birthed it!"
+        ]
+      },
+      "back": {
+        "sourceFile": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_BACK.pdf",
+        "textLines": ["{icon:56ea9289ab} II"]
+      }
+    },
+    {
+      "id": "boss_ability:cove:p003",
+      "bossId": "shambler",
+      "name": "Shambler",
+      "level": 3,
+      "cardRole": "description",
+      "actionsPerRound": null,
+      "sourcePage": 3,
+      "boss": true,
+      "poolEligible": false,
+      "combatReady": false,
+      "front": {
+        "sourceFile": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+        "textLines": [
+          "The chasms between the stars are",
+          "bottomless, and contained within them",
+          "is a callous cruelty humankind can",
+          "only guess at. Can a being beyond our",
+          "comprehension be said to hate? Is",
+          "it even aware of the mortal laments",
+          "caused by its rampant hunger? We",
+          "will never know the shambler’s",
+          "motivations, but we know it must be",
+          "stopped! You, confident fool who has",
+          "drawn it here, must banish this beast",
+          "to the alien couloir whence it crawled!"
+        ]
+      },
+      "back": {
+        "sourceFile": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_BACK.pdf",
+        "textLines": ["{icon:56ea9289ab} III"]
+      }
+    },
+    {
+      "id": "boss_ability:cove:p004",
+      "bossId": "shambler",
+      "name": "Shambler",
+      "level": 1,
+      "cardRole": "combat",
+      "actionsPerRound": 1,
+      "sourcePage": 4,
+      "boss": true,
+      "poolEligible": false,
+      "combatReady": false,
+      "front": {
+        "sourceFile": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+        "textLines": [
+          "Absolute Darkness: At the",
+          "start of battle, {icon:c5731a729f} drops to 0.",
+          "Summon {icon:ab045955ed} : The Shambler {icon:ab045955ed}",
+          "up to 2 Shambler Tentacles."
+        ]
+      },
+      "back": {
+        "sourceFile": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_BACK.pdf",
+        "textLines": [
+          "Thick Darkness",
+          "When entering the Dungeon,",
+          "drop the {icon:c5731a729f} by 1.",
+          "Unfortunate Events",
+          "At the start of the week,",
+          "draw 2 Hamlet Event Cards.",
+          "Win the lowest number of",
+          "days and use the effect of",
+          "the other card. If both have",
+          "the same number, choose",
+          "which effect to apply."
+        ]
+      }
+    },
+    {
+      "id": "boss_ability:cove:p005",
+      "bossId": "shambler",
+      "name": "Shambler",
+      "level": 2,
+      "cardRole": "combat",
+      "actionsPerRound": 1,
+      "sourcePage": 5,
+      "boss": true,
+      "poolEligible": false,
+      "combatReady": false,
+      "front": {
+        "sourceFile": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+        "textLines": [
+          "Absolute Darkness: At the",
+          "start of battle, {icon:c5731a729f} drops to 0.",
+          "Summon {icon:ab045955ed} : The Shambler {icon:ab045955ed}",
+          "up to 2 Shambler Tentacles."
+        ]
+      },
+      "back": {
+        "sourceFile": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_BACK.pdf",
+        "textLines": [
+          "Thick Darkness",
+          "When entering the Dungeon,",
+          "drop the {icon:c5731a729f} by 2.",
+          "Dreamlight",
+          "Ignore the effects of the",
+          "events that give 1 or 2",
+          "preperation days."
+        ]
+      }
+    },
+    {
+      "id": "boss_ability:cove:p006",
+      "bossId": "shambler",
+      "name": "Shambler",
+      "level": 3,
+      "cardRole": "combat",
+      "actionsPerRound": 1,
+      "sourcePage": 6,
+      "boss": true,
+      "poolEligible": false,
+      "combatReady": false,
+      "front": {
+        "sourceFile": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+        "textLines": [
+          "Absolute Darkness: At the",
+          "start of battle, {icon:c5731a729f} drops to 0.",
+          "Summon {icon:ab045955ed} : The Shambler {icon:ab045955ed}",
+          "up to 2 Shambler Tentacles."
+        ]
+      },
+      "back": {
+        "sourceFile": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_BACK.pdf",
+        "textLines": [
+          "Thick Darkness",
+          "When entering the Dungeon,",
+          "drop the {icon:c5731a729f} by 3.",
+          "Dark Sun",
+          "The party has -1",
+          "preperation day (min. 1)"
+        ]
+      }
+    },
+    {
+      "id": "boss_ability:cove:p007",
+      "bossId": "siren",
+      "name": "Siren",
+      "level": 1,
+      "cardRole": "description",
+      "actionsPerRound": null,
+      "sourcePage": 7,
+      "boss": true,
+      "poolEligible": false,
+      "combatReady": false,
+      "front": {
+        "sourceFile": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+        "textLines": [
+          "My lofty position wasn’t always",
+          "accompanied by the fear of office,",
+          "and there was a time I could walk the",
+          "streets or raise a glass in the tavern",
+          "without concern for molestation.",
+          "Faithful as the tide, one precocious",
+          "village waif made it her hobby to",
+          "shadow my every errand. It was",
+          "charming then, troublesome later."
+        ]
+      },
+      "back": {
+        "sourceFile": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_BACK.pdf",
+        "textLines": ["{icon:56ea9289ab} I"]
+      }
+    },
+    {
+      "id": "boss_ability:cove:p008",
+      "bossId": "siren",
+      "name": "Siren",
+      "level": 2,
+      "cardRole": "description",
+      "actionsPerRound": null,
+      "sourcePage": 8,
+      "boss": true,
+      "poolEligible": false,
+      "combatReady": false,
+      "front": {
+        "sourceFile": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+        "textLines": [
+          "In financial desperation, I struck",
+          "a bargain with the ancient things",
+          "that surfaced in search of sacrifice",
+          "when the moon was right. Their",
+          "price was the delivery of an obscure",
+          "idol and one other item of more",
+          "troubling portent. The pact struck,",
+          "my newfound accomplices slipped",
+          "silently beneath the brackish water.",
+          "A fearful stirring at the edge of the",
+          "torchlight betrayed a familiar witness,",
+          "and gifted me with malign inspiration."
+        ]
+      },
+      "back": {
+        "sourceFile": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_BACK.pdf",
+        "textLines": ["{icon:56ea9289ab} II"]
+      }
+    },
+    {
+      "id": "boss_ability:cove:p009",
+      "bossId": "siren",
+      "name": "Siren",
+      "level": 3,
+      "cardRole": "description",
+      "actionsPerRound": null,
+      "sourcePage": 9,
+      "boss": true,
+      "poolEligible": false,
+      "combatReady": false,
+      "front": {
+        "sourceFile": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+        "textLines": [
+          "Under the blood moon, I lured my",
+          "wide-eyed prey to the pier’s edge.",
+          "Before she could properly appreciate",
+          "her position, I clamped on a manacle,",
+          "chaining her to the leering idol. A",
+          "small push was sufficient to send",
+          "both into the icy waters. And when",
+          "at length the tide receded, jewels",
+          "of the most magnificent grandeur",
+          "lay scattered upon the shore."
+        ]
+      },
+      "back": {
+        "sourceFile": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_BACK.pdf",
+        "textLines": ["{icon:56ea9289ab} III"]
+      }
+    },
+    {
+      "id": "boss_ability:cove:p010",
+      "bossId": "siren",
+      "name": "Siren",
+      "level": 1,
+      "cardRole": "combat",
+      "actionsPerRound": 2,
+      "sourcePage": 10,
+      "boss": true,
+      "poolEligible": false,
+      "combatReady": false,
+      "front": {
+        "sourceFile": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+        "textLines": [
+          "Song of Desire: Before its first",
+          "action each round, Siren forces",
+          "all Heroes to move 1 towards {icon:5ff4d1af7c}",
+          "Area (following Stance order).",
+          "Summon {icon:ab045955ed} : When using",
+          "Pressure Crash, Siren {icon:ab045955ed} a Sea",
+          "Maggot. When using Devour,",
+          "she {icon:ab045955ed} a Pelagic Grouper."
+        ]
+      },
+      "back": {
+        "sourceFile": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_BACK.pdf",
+        "textLines": [
+          "Songs in the Dark I",
+          "When scouting, drop the {icon:c5731a729f} by 1.",
+          "Luring Tunes I",
+          "On the first preparation day,",
+          "one randomly chosen Hero",
+          "must roll to see which building",
+          "they visit. If the building is",
+          "blocked they will not visit",
+          "any building, though they can",
+          "still use their Hamlet Skill."
+        ]
+      }
+    },
+    {
+      "id": "boss_ability:cove:p011",
+      "bossId": "siren",
+      "name": "Siren",
+      "level": 2,
+      "cardRole": "combat",
+      "actionsPerRound": 2,
+      "sourcePage": 11,
+      "boss": true,
+      "poolEligible": false,
+      "combatReady": false,
+      "front": {
+        "sourceFile": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+        "textLines": [
+          "Song of Desire: Before its first",
+          "action each round, Siren forces",
+          "all Heroes to move 1 towards {icon:5ff4d1af7c}",
+          "Area (following Stance order).",
+          "Summon {icon:ab045955ed} : When using",
+          "Pressure Crash, Siren {icon:ab045955ed} a Pelagic",
+          "Guardian. When using Devour,",
+          "she {icon:ab045955ed} a Drowned Thrall."
+        ]
+      },
+      "back": {
+        "sourceFile": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_BACK.pdf",
+        "textLines": [
+          "Songs in the Dark II",
+          "When exploring, re-roll",
+          "any blanks on exploration",
+          "dice one time.",
+          "Luring Tunes II",
+          "During the first preparation",
+          "day, Heroes must roll to see",
+          "which building they will visit.",
+          "If the building is blocked",
+          "then they will not visit any",
+          "building, though they can",
+          "still use their Hamlet Skill."
+        ]
+      }
+    },
+    {
+      "id": "boss_ability:cove:p012",
+      "bossId": "siren",
+      "name": "Siren",
+      "level": 3,
+      "cardRole": "combat",
+      "actionsPerRound": 2,
+      "sourcePage": 12,
+      "boss": true,
+      "poolEligible": false,
+      "combatReady": false,
+      "front": {
+        "sourceFile": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+        "textLines": [
+          "Song of Desire: Before its first",
+          "action each round, Siren forces",
+          "all Heroes to move 1 towards {icon:5ff4d1af7c}",
+          "Area (following Stance order).",
+          "Summon {icon:ab045955ed} : When using",
+          "Pressure Crash, Siren {icon:ab045955ed} a Squiffy",
+          "Ghast. When using Devour,",
+          "she {icon:ab045955ed} a Pelagic Shaman."
+        ]
+      },
+      "back": {
+        "sourceFile": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_BACK.pdf",
+        "textLines": [
+          "Songs in the Dark III",
+          "When scouting, drop the {icon:c5731a729f} by 2.",
+          "Luring Tunes III",
+          "During the first two preparation",
+          "days, Heroes must roll to",
+          "see which building they will",
+          "visit. If the building is blocked",
+          "then they will not visit any",
+          "building, though they can",
+          "still use their Hamlet Skill."
+        ]
+      }
+    },
+    {
+      "id": "boss_ability:cove:p013",
+      "bossId": "drowned_crew",
+      "name": "Drowned Crew",
+      "level": 1,
+      "cardRole": "description",
+      "actionsPerRound": null,
+      "sourcePage": 13,
+      "boss": true,
+      "poolEligible": false,
+      "combatReady": false,
+      "front": {
+        "sourceFile": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+        "textLines": [
+          "Prying eyes had become a nuisance",
+          "along the Old Road, and so I undertook",
+          "to receive my most curious deliveries",
+          "by way of marine shipments. A",
+          "sheltered jetty was accessible by a",
+          "narrow stone stair off the back of",
+          "the manor, and a discreet system",
+          "of pulleys could hoist even the",
+          "heaviest prizes up the rock face",
+          "from a securely tied dinghy below."
+        ]
+      },
+      "back": {
+        "sourceFile": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_BACK.pdf",
+        "textLines": ["{icon:56ea9289ab} I"]
+      }
+    },
+    {
+      "id": "boss_ability:cove:p014",
+      "bossId": "drowned_crew",
+      "name": "Drowned Crew",
+      "level": 2,
+      "cardRole": "description",
+      "actionsPerRound": null,
+      "sourcePage": 14,
+      "boss": true,
+      "poolEligible": false,
+      "combatReady": false,
+      "front": {
+        "sourceFile": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+        "textLines": [
+          "I employed a crew of particularly",
+          "unsavory mariners, who, for a time,",
+          "sailed the four corners at my behest",
+          "- retrieving many valuable artifacts,",
+          "relics and rare texts. Predictably,",
+          "they increased their tariffs to",
+          "counter my intense stipulations of",
+          "secrecy. Such resources had long",
+          "been exhausted, of course, and so I",
+          "prepared an... alternative payment."
+        ]
+      },
+      "back": {
+        "sourceFile": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_BACK.pdf",
+        "textLines": ["{icon:56ea9289ab} II"]
+      }
+    },
+    {
+      "id": "boss_ability:cove:p015",
+      "bossId": "drowned_crew",
+      "name": "Drowned Crew",
+      "level": 3,
+      "cardRole": "description",
+      "actionsPerRound": null,
+      "sourcePage": 15,
+      "boss": true,
+      "poolEligible": false,
+      "combatReady": false,
+      "front": {
+        "sourceFile": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+        "textLines": [
+          "While the greedy dogs slept off their",
+          "revelry, I hexed their anchor with",
+          "every twisted incantation I could",
+          "muster - imbuing it with the weight",
+          "of my ambition, and my contempt",
+          "for their crude extortion. At the",
+          "witching hour, the anchor pulled with",
+          "preternatural force, dragging craft",
+          "and crew down into the depths. They",
+          "must have cried out, but no sound",
+          "escaped the swirling black waters..."
+        ]
+      },
+      "back": {
+        "sourceFile": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_BACK.pdf",
+        "textLines": ["{icon:56ea9289ab} III"]
+      }
+    },
+    {
+      "id": "boss_ability:cove:p016",
+      "bossId": "drowned_crew",
+      "name": "Drowned Crew",
+      "level": 1,
+      "cardRole": "combat",
+      "actionsPerRound": 2,
+      "sourcePage": 16,
+      "boss": true,
+      "poolEligible": false,
+      "combatReady": false,
+      "front": {
+        "sourceFile": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+        "textLines": [
+          "All Hands On Deck: At the start of",
+          "its turn, if no Drowned Anchorman",
+          "is in play, Drowned Crew will {icon:ab045955ed}",
+          "one instead of using a Skill."
+        ]
+      },
+      "back": {
+        "sourceFile": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_BACK.pdf",
+        "textLines": [
+          "Merry Shanties",
+          "When battle starts, Unholy and",
+          "Eldritch Monsters gain {icon:96cac9ddad} 2t.",
+          "Repay",
+          "Building services cost +1 {icon:b95f235082} ."
+        ]
+      }
+    },
+    {
+      "id": "boss_ability:cove:p017",
+      "bossId": "drowned_crew",
+      "name": "Drowned Crew",
+      "level": 2,
+      "cardRole": "combat",
+      "actionsPerRound": 2,
+      "sourcePage": 17,
+      "boss": true,
+      "poolEligible": false,
+      "combatReady": false,
+      "front": {
+        "sourceFile": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+        "textLines": [
+          "All Hands On Deck: At the start of",
+          "its turn, if no Drowned Anchorman",
+          "is in play, Drowned Crew will {icon:ab045955ed}",
+          "one instead of using a Skill."
+        ]
+      },
+      "back": {
+        "sourceFile": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_BACK.pdf",
+        "textLines": [
+          "Haunted Shanties",
+          "After spawning Monsters in",
+          "battle, give {icon:998c722828} 3t to the one",
+          "with the most Life among the",
+          "Eldritch and Unholy ones.",
+          "Repay More",
+          "Building services cost +2 {icon:f51668b228} ."
+        ]
+      }
+    },
+    {
+      "id": "boss_ability:cove:p018",
+      "bossId": "drowned_crew",
+      "name": "Drowned Crew",
+      "level": 3,
+      "cardRole": "combat",
+      "actionsPerRound": 2,
+      "sourcePage": 18,
+      "boss": true,
+      "poolEligible": false,
+      "combatReady": false,
+      "front": {
+        "sourceFile": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_FRONT.pdf",
+        "textLines": [
+          "All Hands On Deck: At the start of",
+          "its turn, if no Drowned Anchorman",
+          "is in play, Drowned Crew will {icon:ab045955ed}",
+          "one instead of using a Skill."
+        ]
+      },
+      "back": {
+        "sourceFile": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_Boss_Abilities_BACK.pdf",
+        "textLines": [
+          "Eldritch Shanties",
+          "When you spawn Unholy",
+          "and Eldritch Monsters",
+          "give them {icon:85f18f26f9} 2t.",
+          "Repay All",
+          "Building services cost +3 {icon:b95f235082} ."
+        ]
+      }
+    }
+  ]
+}
