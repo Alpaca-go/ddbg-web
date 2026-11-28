@@ -1,0 +1,11 @@
+{
+  "questId": "quest:warrens:p001",
+  "source": "DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf p1; Q-WARRENS-01（be78e95113→lair 待印核）; 0fd90af65e→dark (R-110); 共享 hash 见 Weald R-240",
+  "counts": [
+    { "kind": "empty", "count": 1 },
+    { "kind": "dark", "count": 2 },
+    { "kind": "lair", "count": 3 },
+    { "kind": "treasure", "count": 1 },
+    { "kind": "trap", "count": 1 }
+  ]
+}

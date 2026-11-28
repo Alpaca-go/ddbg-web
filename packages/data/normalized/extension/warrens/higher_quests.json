@@ -1,0 +1,495 @@
+{
+  "schema": "ddbg-warrens-higher-quests-v1",
+  "cards": [
+    {
+      "id": "quest:warrens:p006",
+      "name": "Ringleaders",
+      "level": 2,
+      "restPoints": 12,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+        "page": 6
+      },
+      "specialRuleLines": [
+        "Objective Room is always Room {icon:ea6ec441c3} 9 .",
+        "Spawn a Swine Skiver (LvL 3) and",
+        "a Large Carrion Eater there, plus",
+        "a random monster of normal or",
+        "small size to fill the Stances. The",
+        "Battle ends immediately once",
+        "the Swine Skiver is killed."
+      ],
+      "distribution": {
+        "counts": [
+          {
+            "kind": "objective",
+            "count": 3
+          },
+          {
+            "kind": "empty",
+            "count": 1
+          },
+          {
+            "kind": "dark",
+            "count": 1
+          },
+          {
+            "kind": "treasure",
+            "count": 2
+          },
+          {
+            "kind": "trap",
+            "count": 1
+          }
+        ],
+        "randomSlots": 0
+      },
+      "xp": {
+        "subject": "swineSkiverSlain",
+        "per": 1,
+        "cap": 3
+      },
+      "pendingConfirmation": ["Q-WARRENS-08", "Q-WARRENS-09"],
+      "verifiedRules": [],
+      "runtimeReady": false
+    },
+    {
+      "id": "quest:warrens:p007",
+      "name": "Carrion Infestation",
+      "level": 2,
+      "restPoints": 4,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+        "page": 7
+      },
+      "specialRuleLines": [
+        "In Objective Rooms, spawn one Large",
+        "Carrion Eater and two Carrion Eaters.",
+        "When a Large Carrion Eater dies, replace",
+        "it immediately with a Carrion Eater.",
+        "When a Carrion Eater dies, replace it",
+        "immediately with a Maggot. The fight",
+        "ceases and the room is secured as soon",
+        "as there are only Maggots left in play."
+      ],
+      "distribution": {
+        "counts": [
+          {
+            "kind": "objective",
+            "count": 3
+          },
+          {
+            "kind": "curio",
+            "count": 1
+          },
+          {
+            "kind": "dark",
+            "count": 2
+          },
+          {
+            "kind": "trap",
+            "count": 2
+          }
+        ],
+        "randomSlots": 0
+      },
+      "xp": {
+        "subject": "largeMonsterSlain",
+        "per": 1,
+        "cap": 3
+      },
+      "pendingConfirmation": ["Q-WARRENS-10", "Q-WARRENS-11"],
+      "verifiedRules": [],
+      "runtimeReady": false
+    },
+    {
+      "id": "quest:warrens:p008",
+      "name": "Bait Them Out",
+      "level": 2,
+      "restPoints": 12,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+        "page": 8
+      },
+      "specialRuleLines": [
+        "Before entering the Dungeon, gain",
+        "3 additional {icon:af3a72916a} . When in an empty",
+        "Room, you may spend a {icon:af3a72916a} to bait",
+        "a Swine Skiver (LvL 3). Start battle",
+        "immediately in a random Room with a",
+        "Swine Skiver, then roll a {icon:476151cc4c} : 1-4 spawn",
+        "2 additional monsters of normal or small",
+        "size, 5-8 spawn 3 additional monsters",
+        "of normal or small size, 9-10 nothing."
+      ],
+      "distribution": {
+        "counts": [
+          {
+            "kind": "empty",
+            "count": 3
+          },
+          {
+            "kind": "curio",
+            "count": 1
+          },
+          {
+            "kind": "lair",
+            "count": 1
+          },
+          {
+            "kind": "treasure",
+            "count": 1
+          },
+          {
+            "kind": "trap",
+            "count": 2
+          }
+        ],
+        "randomSlots": 0
+      },
+      "xp": {
+        "subject": "swineSkiverSlain",
+        "per": 1,
+        "cap": 3
+      },
+      "pendingConfirmation": ["Q-WARRENS-12"],
+      "verifiedRules": [],
+      "runtimeReady": false
+    },
+    {
+      "id": "quest:warrens:p009",
+      "name": "Mapping the Sewers",
+      "level": 2,
+      "restPoints": 0,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+        "page": 9
+      },
+      "specialRuleLines": [],
+      "distribution": {
+        "counts": [
+          {
+            "kind": "empty",
+            "count": 1
+          },
+          {
+            "kind": "dark",
+            "count": 1
+          },
+          {
+            "kind": "curio",
+            "count": 1
+          },
+          {
+            "kind": "lair",
+            "count": 2
+          },
+          {
+            "kind": "treasure",
+            "count": 2
+          },
+          {
+            "kind": "trap",
+            "count": 1
+          }
+        ],
+        "randomSlots": 0
+      },
+      "xp": {
+        "subject": "roomsCleared",
+        "per": 2,
+        "cap": 3
+      },
+      "pendingConfirmation": ["Q-WARRENS-02"],
+      "verifiedRules": [],
+      "runtimeReady": false
+    },
+    {
+      "id": "quest:warrens:p010",
+      "name": "A New Breed",
+      "level": 2,
+      "restPoints": 8,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+        "page": 10
+      },
+      "specialRuleLines": ["Warrens Monsters are", "immune to Conditions."],
+      "distribution": {
+        "counts": [
+          {
+            "kind": "empty",
+            "count": 1
+          },
+          {
+            "kind": "dark",
+            "count": 1
+          },
+          {
+            "kind": "curio",
+            "count": 1
+          },
+          {
+            "kind": "lair",
+            "count": 3
+          },
+          {
+            "kind": "trap",
+            "count": 2
+          }
+        ],
+        "randomSlots": 0
+      },
+      "xp": {
+        "subject": "lairCleared",
+        "per": 1,
+        "cap": 3
+      },
+      "pendingConfirmation": ["Q-WARRENS-03", "Q-WARRENS-13"],
+      "verifiedRules": [],
+      "runtimeReady": false
+    },
+    {
+      "id": "quest:warrens:p011",
+      "name": "Deep in the Warrens",
+      "level": 3,
+      "restPoints": 0,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+        "page": 11
+      },
+      "specialRuleLines": ["After you leave a Room, choose", "and discard a Provision."],
+      "distribution": {
+        "counts": [
+          {
+            "kind": "curio",
+            "count": 2
+          },
+          {
+            "kind": "objective",
+            "count": 2
+          },
+          {
+            "kind": "lair",
+            "count": 2
+          },
+          {
+            "kind": "trap",
+            "count": 2
+          }
+        ],
+        "randomSlots": 0
+      },
+      "xp": {
+        "subject": "roomsCleared",
+        "per": 2,
+        "cap": 3
+      },
+      "pendingConfirmation": ["Q-WARRENS-14", "Q-WARRENS-15"],
+      "verifiedRules": [],
+      "runtimeReady": false
+    },
+    {
+      "id": "quest:warrens:p012",
+      "name": "Alpha Swine",
+      "level": 3,
+      "restPoints": 8,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+        "page": 12
+      },
+      "specialRuleLines": [
+        "In Lairs, always spawn a Swinetaur.",
+        "{icon:00deeac1eb} Monsters in Lairs have +1 Crit."
+      ],
+      "distribution": {
+        "counts": [
+          {
+            "kind": "dark",
+            "count": 2
+          },
+          {
+            "kind": "curio",
+            "count": 1
+          },
+          {
+            "kind": "lair",
+            "count": 3
+          },
+          {
+            "kind": "trap",
+            "count": 2
+          }
+        ],
+        "randomSlots": 0
+      },
+      "xp": {
+        "subject": "lairCleared",
+        "per": 1,
+        "cap": 3
+      },
+      "pendingConfirmation": ["Q-WARRENS-16"],
+      "verifiedRules": [],
+      "runtimeReady": false
+    },
+    {
+      "id": "quest:warrens:p013",
+      "name": "Foul Arsenal",
+      "level": 3,
+      "restPoints": 12,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+        "page": 13
+      },
+      "specialRuleLines": [
+        "Objective Room is always Room {icon:ea6ec441c3} 6 .",
+        "When a Hero is dropped to",
+        "Death’s Door when fighting",
+        "there, they suffer {icon:90a3ef79ca} ."
+      ],
+      "distribution": {
+        "counts": [
+          {
+            "kind": "objective",
+            "count": 3
+          },
+          {
+            "kind": "empty",
+            "count": 2
+          },
+          {
+            "kind": "dark",
+            "count": 1
+          },
+          {
+            "kind": "treasure",
+            "count": 1
+          },
+          {
+            "kind": "trap",
+            "count": 1
+          }
+        ],
+        "randomSlots": 0
+      },
+      "xp": {
+        "subject": "objectiveCleared",
+        "per": 1,
+        "cap": 3
+      },
+      "pendingConfirmation": ["Q-WARRENS-07", "Q-WARRENS-17"],
+      "verifiedRules": [],
+      "runtimeReady": false
+    },
+    {
+      "id": "quest:warrens:p014",
+      "name": "Infighting",
+      "level": 3,
+      "restPoints": 8,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+        "page": 14
+      },
+      "specialRuleLines": [
+        "Always spawn a Swine Skiver in",
+        "Lairs. You cannot Scout in this Quest.",
+        "Instead, before advancing to a Room,",
+        "you can reveal one adjacent. If you",
+        "move towards a revealed Lair, move",
+        "there without exploring. For the First",
+        "round in each Lair, place all Hero",
+        "Initiative Cards on top of the deck."
+      ],
+      "distribution": {
+        "counts": [
+          {
+            "kind": "empty",
+            "count": 2
+          },
+          {
+            "kind": "objective",
+            "count": 1
+          },
+          {
+            "kind": "lair",
+            "count": 3
+          },
+          {
+            "kind": "trap",
+            "count": 2
+          }
+        ],
+        "randomSlots": 0
+      },
+      "xp": {
+        "subject": "lairCleared",
+        "per": 1,
+        "cap": 3
+      },
+      "pendingConfirmation": ["Q-WARRENS-18", "Q-WARRENS-19"],
+      "verifiedRules": [],
+      "runtimeReady": false
+    },
+    {
+      "id": "quest:warrens:p015",
+      "name": "Drums of Doom",
+      "level": 3,
+      "restPoints": 8,
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+        "page": 15
+      },
+      "specialRuleLines": [
+        "Always spawn a Swine Drummer in",
+        "Lairs. The first Monster you spawn",
+        "after this gains {icon:2003c5b6f7} 4t. When it dies,",
+        "the remaining {icon:d93d76a1b3} goes to the next",
+        "Monster in Stance priority order.",
+        "When a Swine Drummer is activated",
+        "in Lairs, all Monsters gain {icon:8f7e74ac34} 2t, {icon:8f7e74ac34} 2t."
+      ],
+      "distribution": {
+        "counts": [
+          {
+            "kind": "dark",
+            "count": 1
+          },
+          {
+            "kind": "curio",
+            "count": 1
+          },
+          {
+            "kind": "empty",
+            "count": 1
+          },
+          {
+            "kind": "lair",
+            "count": 2
+          },
+          {
+            "kind": "trap",
+            "count": 3
+          }
+        ],
+        "randomSlots": 0
+      },
+      "xp": {
+        "subject": "lairCleared",
+        "per": 1,
+        "cap": 3
+      },
+      "pendingConfirmation": ["Q-WARRENS-20", "Q-WARRENS-21"],
+      "verifiedRules": [],
+      "runtimeReady": false
+    }
+  ]
+}

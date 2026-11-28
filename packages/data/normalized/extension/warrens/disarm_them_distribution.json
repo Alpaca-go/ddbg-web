@@ -1,0 +1,11 @@
+{
+  "questId": "quest:warrens:p005",
+  "source": "DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf p5; Q-WARRENS-05 / Q-WARRENS-07（room:warrens:p006 待 #838）",
+  "counts": [
+    { "kind": "objective", "count": 3 },
+    { "kind": "dark", "count": 1 },
+    { "kind": "empty", "count": 1 },
+    { "kind": "treasure", "count": 1 },
+    { "kind": "trap", "count": 3 }
+  ]
+}

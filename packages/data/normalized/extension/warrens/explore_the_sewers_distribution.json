@@ -1,0 +1,12 @@
+{
+  "questId": "quest:warrens:p002",
+  "source": "DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf p2; Q-WARRENS-02（7b075a3925→dark 待印核）",
+  "counts": [
+    { "kind": "empty", "count": 2 },
+    { "kind": "dark", "count": 1 },
+    { "kind": "curio", "count": 2 },
+    { "kind": "lair", "count": 1 },
+    { "kind": "treasure", "count": 1 },
+    { "kind": "trap", "count": 1 }
+  ]
+}

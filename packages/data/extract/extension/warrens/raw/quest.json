@@ -1,0 +1,5668 @@
+{
+  "schema": "ddbg-raw-v1",
+  "extractor_version": "1.0.4",
+  "category": "quest",
+  "kind": "card",
+  "units": {
+    "length": "mm",
+    "origin": "top-left corner of the PDF TrimBox (card face, bleed excluded)",
+    "y_axis": "down",
+    "font_size": "pt"
+  },
+  "sources": [
+    {
+      "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+      "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+      "source_set": "extension",
+      "kind": "card",
+      "front_pages": 15,
+      "back_pages": 15
+    }
+  ],
+  "n_pages": 15,
+  "n_unique": 15,
+  "n_copies_total": 15,
+  "cards": [
+    {
+      "id": "quest:warrens:p001",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [1],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+          "page": 1,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "940f3fb46d708595",
+          "spans": [
+            {
+              "t": "These swine abominations have",
+              "bbox": [23.12, 22.61, 62.19, 26.48],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "festered the warrens for far",
+              "bbox": [23.12, 26.7, 57.4, 30.57],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "too long. Enter the warrens,",
+              "bbox": [23.12, 30.79, 57.63, 34.66],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "find their quarters and give them none!",
+              "bbox": [8.57, 34.88, 56.66, 38.75],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "Eradicate their lair, lest they eradicate us!",
+              "bbox": [8.57, 38.97, 59.63, 42.84],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "XP",
+              "bbox": [34.24, 44.88, 36.74, 49.0],
+              "font": "DwarvenAxeBB",
+              "size": 9.82,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1 Xp",
+              "bbox": [23.22, 48.6, 28.31, 52.84],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "/ Lair cleared.",
+              "bbox": [28.31, 48.78, 47.76, 52.43],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Pork Chop",
+              "bbox": [30.67, 15.07, 47.54, 20.85],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#b27a4a"
+            },
+            {
+              "t": "I",
+              "bbox": [34.37, 5.75, 35.83, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#94c23e"
+            },
+            {
+              "t": "8",
+              "bbox": [11.93, 14.09, 14.8, 21.42],
+              "font": "DwarvenAxeBB",
+              "size": 19.0,
+              "color": "#c98c3c"
+            },
+            {
+              "t": "1",
+              "bbox": [20.83, 109.08, 21.85, 113.16],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1",
+              "bbox": [27.36, 97.04, 28.39, 101.11],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "3",
+              "bbox": [33.29, 109.08, 34.77, 113.16],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1",
+              "bbox": [45.52, 109.08, 46.54, 113.16],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "2",
+              "bbox": [39.86, 97.04, 41.27, 101.11],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "831d753fdf",
+              "bbox": [50.62, 0.0, 58.57, 14.55],
+              "bbox_full": [50.62, 0.0, 62.71, 18.62],
+              "decor": true
+            },
+            {
+              "iconId": "e1c34ea8a2",
+              "bbox": [30.5, 4.24, 39.72, 13.78]
+            },
+            {
+              "iconId": "6f701b5f5f",
+              "bbox": [19.55, 90.84, 28.05, 99.34],
+              "bbox_full": [17.95, 89.23, 31.28, 102.57]
+            },
+            {
+              "iconId": "7b075a3925",
+              "bbox": [30.22, 89.23, 43.55, 102.57],
+              "container": true
+            },
+            {
+              "iconId": "0fd90af65e",
+              "bbox": [31.82, 90.84, 40.32, 99.34],
+              "bbox_full": [30.73, 89.75, 41.41, 100.43]
+            },
+            {
+              "iconId": "a2e7f1dd7b",
+              "bbox": [38.81, 97.21, 42.32, 100.73]
+            },
+            {
+              "iconId": "a488fd5ff1",
+              "bbox": [13.26, 102.99, 21.65, 111.38],
+              "bbox_full": [11.6, 101.33, 24.93, 114.67]
+            },
+            {
+              "iconId": "be78e95113",
+              "bbox": [25.7, 102.93, 34.21, 111.44],
+              "bbox_full": [24.1, 101.33, 37.43, 114.67]
+            },
+            {
+              "iconId": "e7b30e2005",
+              "bbox": [37.7, 102.93, 46.21, 111.44],
+              "bbox_full": [36.1, 101.33, 49.43, 114.67]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:e1c34ea8a2} I",
+              "bbox": [30.5, 4.24, 39.72, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "8",
+              "bbox": [11.93, 14.09, 14.8, 21.42]
+            },
+            {
+              "rot": 0,
+              "text": "Pork Chop",
+              "bbox": [30.67, 15.07, 47.54, 20.85]
+            },
+            {
+              "rot": 0,
+              "text": "These swine abominations have",
+              "bbox": [23.12, 22.61, 62.19, 26.48]
+            },
+            {
+              "rot": 0,
+              "text": "festered the warrens for far",
+              "bbox": [23.12, 26.7, 57.4, 30.57]
+            },
+            {
+              "rot": 0,
+              "text": "too long. Enter the warrens,",
+              "bbox": [23.12, 30.79, 57.63, 34.66]
+            },
+            {
+              "rot": 0,
+              "text": "find their quarters and give them none!",
+              "bbox": [8.57, 34.88, 56.66, 38.75]
+            },
+            {
+              "rot": 0,
+              "text": "Eradicate their lair, lest they eradicate us!",
+              "bbox": [8.57, 38.97, 59.63, 42.84]
+            },
+            {
+              "rot": 0,
+              "text": "XP",
+              "bbox": [34.24, 44.88, 36.74, 49.0]
+            },
+            {
+              "rot": 0,
+              "text": "1 Xp/ Lair cleared.",
+              "bbox": [23.22, 48.6, 47.76, 52.84]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:6f701b5f5f} 1 {icon:0fd90af65e} {icon:a2e7f1dd7b} 2",
+              "bbox": [19.55, 90.84, 42.32, 101.11]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:a488fd5ff1} 1 {icon:be78e95113} 3 {icon:e7b30e2005} 1",
+              "bbox": [13.26, 102.93, 46.54, 113.16]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+          "page": 1,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d1199db12fc666a4",
+          "spans": [
+            {
+              "t": "Quest",
+              "bbox": [22.49, 97.11, 37.53, 106.36],
+              "font": "DwarvenAxeBB",
+              "size": 24.0,
+              "color": "#493f35"
+            },
+            {
+              "t": "I",
+              "bbox": [41.4, 98.6, 42.86, 105.54],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#94c23e"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "3a61674831",
+              "bbox": [37.53, 97.09, 46.74, 106.62]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Quest {icon:3a61674831} I",
+              "bbox": [22.49, 97.09, 46.74, 106.62]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "quest:warrens:p002",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [2],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+          "page": 2,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "948f3fb46934c195",
+          "spans": [
+            {
+              "t": "The vast sewer network has",
+              "bbox": [23.12, 23.36, 57.5, 27.23],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "lied abandoned for far too",
+              "bbox": [23.12, 27.45, 55.58, 31.32],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "long. Yet some sinister forces gather in its",
+              "bbox": [9.35, 31.54, 60.48, 35.41],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "deep shadows. Enter the sewers and map",
+              "bbox": [9.35, 35.63, 60.11, 39.5],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "them out. Make sure you learn part of their",
+              "bbox": [9.35, 39.72, 62.48, 43.59],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "layout for future expeditions.",
+              "bbox": [9.35, 43.81, 45.37, 47.68],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "XP",
+              "bbox": [34.24, 49.72, 36.74, 53.85],
+              "font": "DwarvenAxeBB",
+              "size": 9.82,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1 Xp",
+              "bbox": [19.68, 53.44, 24.76, 57.68],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "/ 2 Rooms cleared.",
+              "bbox": [24.76, 53.62, 51.3, 57.27],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Explore the Sewers",
+              "bbox": [22.33, 15.07, 55.88, 20.85],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#b27a4a"
+            },
+            {
+              "t": "2",
+              "bbox": [20.51, 97.13, 21.93, 101.2],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1",
+              "bbox": [20.83, 109.18, 21.85, 113.25],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1",
+              "bbox": [33.4, 97.13, 34.42, 101.2],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1",
+              "bbox": [33.52, 109.18, 34.54, 113.25],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1",
+              "bbox": [45.52, 109.18, 46.54, 113.25],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "2",
+              "bbox": [45.89, 97.13, 47.31, 101.2],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "I",
+              "bbox": [34.37, 5.75, 35.83, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#94c23e"
+            },
+            {
+              "t": "-",
+              "bbox": [12.21, 14.09, 14.52, 21.42],
+              "font": "DwarvenAxeBB",
+              "size": 19.0,
+              "color": "#c98c3c"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "831d753fdf",
+              "bbox": [50.62, 0.0, 58.57, 14.55],
+              "bbox_full": [50.62, 0.0, 62.71, 18.62],
+              "decor": true
+            },
+            {
+              "iconId": "e1c34ea8a2",
+              "bbox": [30.5, 4.24, 39.72, 13.78]
+            },
+            {
+              "iconId": "6f701b5f5f",
+              "bbox": [13.14, 90.98, 21.53, 99.38],
+              "bbox_full": [11.48, 89.33, 24.82, 102.66]
+            },
+            {
+              "iconId": "7b075a3925",
+              "bbox": [25.59, 90.93, 34.09, 99.43],
+              "bbox_full": [23.98, 89.33, 37.32, 102.66]
+            },
+            {
+              "iconId": "365b7941a4",
+              "bbox": [36.25, 89.33, 49.59, 102.66],
+              "container": true
+            },
+            {
+              "iconId": "509c4a958c",
+              "bbox": [37.85, 90.93, 46.36, 99.43],
+              "bbox_full": [36.77, 89.84, 47.45, 100.52]
+            },
+            {
+              "iconId": "a2e7f1dd7b",
+              "bbox": [44.85, 97.31, 48.36, 100.82]
+            },
+            {
+              "iconId": "a488fd5ff1",
+              "bbox": [13.26, 103.08, 21.65, 111.47],
+              "bbox_full": [11.6, 101.42, 24.93, 114.76]
+            },
+            {
+              "iconId": "be78e95113",
+              "bbox": [25.7, 103.03, 34.21, 111.53],
+              "bbox_full": [24.1, 101.42, 37.43, 114.76]
+            },
+            {
+              "iconId": "e7b30e2005",
+              "bbox": [37.7, 103.03, 46.21, 111.53],
+              "bbox_full": [36.1, 101.42, 49.43, 114.76]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:e1c34ea8a2} I",
+              "bbox": [30.5, 4.24, 39.72, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "- Explore the Sewers",
+              "bbox": [12.21, 14.09, 55.88, 21.42]
+            },
+            {
+              "rot": 0,
+              "text": "The vast sewer network has",
+              "bbox": [23.12, 23.36, 57.5, 27.23]
+            },
+            {
+              "rot": 0,
+              "text": "lied abandoned for far too",
+              "bbox": [23.12, 27.45, 55.58, 31.32]
+            },
+            {
+              "rot": 0,
+              "text": "long. Yet some sinister forces gather in its",
+              "bbox": [9.35, 31.54, 60.48, 35.41]
+            },
+            {
+              "rot": 0,
+              "text": "deep shadows. Enter the sewers and map",
+              "bbox": [9.35, 35.63, 60.11, 39.5]
+            },
+            {
+              "rot": 0,
+              "text": "them out. Make sure you learn part of their",
+              "bbox": [9.35, 39.72, 62.48, 43.59]
+            },
+            {
+              "rot": 0,
+              "text": "layout for future expeditions.",
+              "bbox": [9.35, 43.81, 45.37, 47.68]
+            },
+            {
+              "rot": 0,
+              "text": "XP",
+              "bbox": [34.24, 49.72, 36.74, 53.85]
+            },
+            {
+              "rot": 0,
+              "text": "1 Xp/ 2 Rooms cleared.",
+              "bbox": [19.68, 53.44, 51.3, 57.68]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:6f701b5f5f} 2 {icon:7b075a3925} 1 {icon:509c4a958c} {icon:a2e7f1dd7b} 2",
+              "bbox": [13.14, 90.93, 48.36, 101.2]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:a488fd5ff1} 1 {icon:be78e95113} 1 {icon:e7b30e2005} 1",
+              "bbox": [13.26, 103.03, 46.54, 113.25]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+          "page": 2,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d1199db12fc666a4",
+          "spans": [
+            {
+              "t": "Quest",
+              "bbox": [22.49, 97.11, 37.53, 106.36],
+              "font": "DwarvenAxeBB",
+              "size": 24.0,
+              "color": "#493f35"
+            },
+            {
+              "t": "I",
+              "bbox": [41.4, 98.6, 42.86, 105.54],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#94c23e"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "3a61674831",
+              "bbox": [37.53, 97.09, 46.74, 106.62]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Quest {icon:3a61674831} I",
+              "bbox": [22.49, 97.09, 46.74, 106.62]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "quest:warrens:p003",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [3],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+          "page": 3,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "948f3eb46d7085b4",
+          "spans": [
+            {
+              "t": "The villagers have lived in constant",
+              "bbox": [23.12, 22.18, 62.51, 25.8],
+              "font": "Ubuntu-Italic",
+              "size": 8.18,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "fear for far too long. Some brave",
+              "bbox": [23.12, 25.88, 60.14, 29.5],
+              "font": "Ubuntu-Italic",
+              "size": 8.18,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "souls entered the warrens to",
+              "bbox": [23.12, 29.58, 55.43, 33.21],
+              "font": "Ubuntu-Italic",
+              "size": 8.18,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "combat the evil that resides within, never to",
+              "bbox": [9.35, 33.28, 59.02, 36.91],
+              "font": "Ubuntu-Italic",
+              "size": 8.18,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "return. Their relatives beg of you to go there,",
+              "bbox": [9.35, 36.99, 59.97, 40.61],
+              "font": "Ubuntu-Italic",
+              "size": 8.18,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "find their bodies and bring back the trinkets",
+              "bbox": [9.35, 40.69, 58.71, 44.32],
+              "font": "Ubuntu-Italic",
+              "size": 8.18,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "and mementos that belonged to them. A small",
+              "bbox": [9.35, 44.39, 61.76, 48.02],
+              "font": "Ubuntu-Italic",
+              "size": 8.18,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "consolation for their loss.",
+              "bbox": [9.35, 48.09, 37.84, 51.72],
+              "font": "Ubuntu-Italic",
+              "size": 8.18,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "SPECIAL RULES",
+              "bbox": [28.33, 53.3, 42.65, 57.43],
+              "font": "DwarvenAxeBB",
+              "size": 9.82,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Spawn only Rooms with Loot",
+              "bbox": [14.77, 57.41, 56.2, 61.07],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Chests in Lairs. The first chest you",
+              "bbox": [11.19, 60.94, 59.79, 64.6],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Loot in each Lair contains a Level 2",
+              "bbox": [10.7, 64.47, 60.28, 68.12],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Trinket. Returning to the Hamlet,",
+              "bbox": [11.69, 68.0, 59.29, 71.65],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "you may return any trinkets of",
+              "bbox": [13.85, 71.53, 57.13, 75.18],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "level 2 acquired in the dungeon",
+              "bbox": [12.94, 75.05, 58.04, 78.71],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "(up to a maximum of 3 trinkets).",
+              "bbox": [12.56, 78.58, 58.42, 82.24],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "XP",
+              "bbox": [34.24, 83.8, 36.74, 87.93],
+              "font": "DwarvenAxeBB",
+              "size": 9.82,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1 Xp",
+              "bbox": [15.73, 87.53, 20.82, 91.77],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "/ LvL 2 Trinket returned.",
+              "bbox": [20.82, 87.7, 55.24, 91.36],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Family Trinkets",
+              "bbox": [25.95, 15.07, 52.26, 20.85],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#b27a4a"
+            },
+            {
+              "t": "I",
+              "bbox": [34.37, 5.75, 35.83, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#94c23e"
+            },
+            {
+              "t": "-",
+              "bbox": [12.21, 14.09, 14.52, 21.42],
+              "font": "DwarvenAxeBB",
+              "size": 19.0,
+              "color": "#c98c3c"
+            },
+            {
+              "t": "2",
+              "bbox": [20.63, 112.13, 22.05, 116.21],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1",
+              "bbox": [27.36, 100.09, 28.39, 104.16],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "3",
+              "bbox": [33.29, 112.13, 34.77, 116.21],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1",
+              "bbox": [45.52, 112.13, 46.54, 116.21],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1",
+              "bbox": [40.05, 100.09, 41.08, 104.16],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "831d753fdf",
+              "bbox": [50.62, 0.0, 58.57, 14.55],
+              "bbox_full": [50.62, 0.0, 62.71, 18.62],
+              "decor": true
+            },
+            {
+              "iconId": "e1c34ea8a2",
+              "bbox": [30.5, 4.24, 39.72, 13.78]
+            },
+            {
+              "iconId": "6f701b5f5f",
+              "bbox": [19.55, 93.88, 28.05, 102.39],
+              "bbox_full": [17.95, 92.28, 31.28, 105.62]
+            },
+            {
+              "iconId": "7b075a3925",
+              "bbox": [30.22, 92.28, 43.55, 105.62],
+              "container": true
+            },
+            {
+              "iconId": "0fd90af65e",
+              "bbox": [31.82, 93.88, 40.32, 102.39],
+              "bbox_full": [30.73, 92.8, 41.41, 103.48]
+            },
+            {
+              "iconId": "e473d2b695",
+              "bbox": [38.81, 100.27, 42.32, 103.78]
+            },
+            {
+              "iconId": "365b7941a4",
+              "bbox": [13.26, 106.04, 21.65, 114.43],
+              "bbox_full": [11.6, 104.38, 24.93, 117.71]
+            },
+            {
+              "iconId": "be78e95113",
+              "bbox": [25.7, 105.99, 34.21, 114.49],
+              "bbox_full": [24.1, 104.38, 37.43, 117.71]
+            },
+            {
+              "iconId": "e7b30e2005",
+              "bbox": [37.7, 105.99, 46.21, 114.49],
+              "bbox_full": [36.1, 104.38, 49.43, 117.71]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:e1c34ea8a2} I",
+              "bbox": [30.5, 4.24, 39.72, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "- Family Trinkets",
+              "bbox": [12.21, 14.09, 52.26, 21.42]
+            },
+            {
+              "rot": 0,
+              "text": "The villagers have lived in constant",
+              "bbox": [23.12, 22.18, 62.51, 25.8]
+            },
+            {
+              "rot": 0,
+              "text": "fear for far too long. Some brave",
+              "bbox": [23.12, 25.88, 60.14, 29.5]
+            },
+            {
+              "rot": 0,
+              "text": "souls entered the warrens to",
+              "bbox": [23.12, 29.58, 55.43, 33.21]
+            },
+            {
+              "rot": 0,
+              "text": "combat the evil that resides within, never to",
+              "bbox": [9.35, 33.28, 59.02, 36.91]
+            },
+            {
+              "rot": 0,
+              "text": "return. Their relatives beg of you to go there,",
+              "bbox": [9.35, 36.99, 59.97, 40.61]
+            },
+            {
+              "rot": 0,
+              "text": "find their bodies and bring back the trinkets",
+              "bbox": [9.35, 40.69, 58.71, 44.32]
+            },
+            {
+              "rot": 0,
+              "text": "and mementos that belonged to them. A small",
+              "bbox": [9.35, 44.39, 61.76, 48.02]
+            },
+            {
+              "rot": 0,
+              "text": "consolation for their loss.",
+              "bbox": [9.35, 48.09, 37.84, 51.72]
+            },
+            {
+              "rot": 0,
+              "text": "SPECIAL RULES",
+              "bbox": [28.33, 53.3, 42.65, 57.43]
+            },
+            {
+              "rot": 0,
+              "text": "Spawn only Rooms with Loot",
+              "bbox": [14.77, 57.41, 56.2, 61.07]
+            },
+            {
+              "rot": 0,
+              "text": "Chests in Lairs. The first chest you",
+              "bbox": [11.19, 60.94, 59.79, 64.6]
+            },
+            {
+              "rot": 0,
+              "text": "Loot in each Lair contains a Level 2",
+              "bbox": [10.7, 64.47, 60.28, 68.12]
+            },
+            {
+              "rot": 0,
+              "text": "Trinket. Returning to the Hamlet,",
+              "bbox": [11.69, 68.0, 59.29, 71.65]
+            },
+            {
+              "rot": 0,
+              "text": "you may return any trinkets of",
+              "bbox": [13.85, 71.53, 57.13, 75.18]
+            },
+            {
+              "rot": 0,
+              "text": "level 2 acquired in the dungeon",
+              "bbox": [12.94, 75.05, 58.04, 78.71]
+            },
+            {
+              "rot": 0,
+              "text": "(up to a maximum of 3 trinkets).",
+              "bbox": [12.56, 78.58, 58.42, 82.24]
+            },
+            {
+              "rot": 0,
+              "text": "XP",
+              "bbox": [34.24, 83.8, 36.74, 87.93]
+            },
+            {
+              "rot": 0,
+              "text": "1 Xp/ LvL 2 Trinket returned.",
+              "bbox": [15.73, 87.53, 55.24, 91.77]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:6f701b5f5f} 1 {icon:0fd90af65e} {icon:e473d2b695} 1",
+              "bbox": [19.55, 93.88, 42.32, 104.16]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:365b7941a4} 2 {icon:be78e95113} 3 {icon:e7b30e2005} 1",
+              "bbox": [13.26, 105.99, 46.54, 116.21]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+          "page": 3,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d1199db12fc666a4",
+          "spans": [
+            {
+              "t": "Quest",
+              "bbox": [22.49, 97.11, 37.53, 106.36],
+              "font": "DwarvenAxeBB",
+              "size": 24.0,
+              "color": "#493f35"
+            },
+            {
+              "t": "I",
+              "bbox": [41.4, 98.6, 42.86, 105.54],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#94c23e"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "3a61674831",
+              "bbox": [37.53, 97.09, 46.74, 106.62]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Quest {icon:3a61674831} I",
+              "bbox": [22.49, 97.09, 46.74, 106.62]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "quest:warrens:p004",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [4],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+          "page": 4,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "948f3eb46db08535",
+          "spans": [
+            {
+              "t": "Feral beasts known as the",
+              "bbox": [23.12, 23.36, 55.17, 27.23],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "carrion eaters have begun to",
+              "bbox": [23.12, 27.45, 58.44, 31.32],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "emerge on the surface from the depths of",
+              "bbox": [9.35, 31.54, 60.57, 35.41],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "the warrens below. Their numbers must",
+              "bbox": [9.35, 35.63, 58.12, 39.5],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "have increased from the amount of corpses",
+              "bbox": [9.35, 39.72, 62.44, 43.59],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "littering their halls. Enter the dark murky",
+              "bbox": [9.35, 43.81, 59.79, 47.68],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "warrens, find them, and eradicate them.",
+              "bbox": [9.35, 47.9, 58.71, 51.77],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "SPECIAL RULES",
+              "bbox": [28.33, 53.81, 42.65, 57.94],
+              "font": "DwarvenAxeBB",
+              "size": 9.82,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Objective Room is always Room",
+              "bbox": [8.52, 58.71, 53.14, 62.36],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "8",
+              "bbox": [58.88, 58.46, 60.6, 62.86],
+              "font": "DwarvenAxeBB",
+              "size": 11.4,
+              "color": "#ffffff"
+            },
+            {
+              "t": ".",
+              "bbox": [61.67, 58.71, 62.45, 62.36],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Spawn a",
+              "bbox": [9.37, 62.52, 21.22, 66.17],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Large Carrion Eater",
+              "bbox": [21.96, 62.52, 51.53, 66.28],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "(LvL 2)",
+              "bbox": [52.26, 62.52, 61.61, 66.17],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "when starting a battle there.",
+              "bbox": [14.92, 66.33, 56.06, 69.98],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "XP",
+              "bbox": [34.24, 72.05, 36.74, 76.18],
+              "font": "DwarvenAxeBB",
+              "size": 9.82,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1 Xp",
+              "bbox": [13.98, 75.77, 19.06, 80.02],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "/ Large Carrion Eater slain.",
+              "bbox": [19.06, 75.95, 57.0, 79.6],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Worm Squash",
+              "bbox": [27.32, 15.07, 50.9, 20.85],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#b27a4a"
+            },
+            {
+              "t": "3",
+              "bbox": [26.24, 96.8, 27.71, 100.87],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1",
+              "bbox": [26.57, 108.85, 27.6, 112.92],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "3",
+              "bbox": [39.24, 108.85, 40.72, 112.92],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1",
+              "bbox": [40.04, 96.8, 41.07, 100.87],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "I",
+              "bbox": [34.37, 5.75, 35.83, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#94c23e"
+            },
+            {
+              "t": "12",
+              "bbox": [11.17, 14.09, 15.56, 21.42],
+              "font": "DwarvenAxeBB",
+              "size": 19.0,
+              "color": "#c98c3c"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "831d753fdf",
+              "bbox": [50.62, 0.0, 58.57, 14.55],
+              "bbox_full": [50.62, 0.0, 62.71, 18.62],
+              "decor": true
+            },
+            {
+              "iconId": "e1c34ea8a2",
+              "bbox": [30.5, 4.24, 39.72, 13.78]
+            },
+            {
+              "iconId": "ea6ec441c3",
+              "bbox": [53.74, 58.6, 61.43, 62.43]
+            },
+            {
+              "iconId": "d3a3e38ee9",
+              "bbox": [18.89, 90.65, 27.28, 99.05],
+              "bbox_full": [17.23, 89.0, 30.57, 102.33]
+            },
+            {
+              "iconId": "7b075a3925",
+              "bbox": [30.2, 89.0, 43.54, 102.33],
+              "container": true
+            },
+            {
+              "iconId": "0fd90af65e",
+              "bbox": [31.81, 90.6, 40.31, 99.1],
+              "bbox_full": [30.72, 89.51, 41.39, 100.19]
+            },
+            {
+              "iconId": "f1011c773e",
+              "bbox": [38.8, 96.98, 42.31, 100.49]
+            },
+            {
+              "iconId": "a488fd5ff1",
+              "bbox": [19.01, 102.75, 27.4, 111.14],
+              "bbox_full": [17.35, 101.09, 30.68, 114.43]
+            },
+            {
+              "iconId": "e7b30e2005",
+              "bbox": [31.65, 102.69, 40.16, 111.2],
+              "bbox_full": [30.05, 101.09, 43.39, 114.43]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:e1c34ea8a2} I",
+              "bbox": [30.5, 4.24, 39.72, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "12 Worm Squash",
+              "bbox": [11.17, 14.09, 50.9, 21.42]
+            },
+            {
+              "rot": 0,
+              "text": "Feral beasts known as the",
+              "bbox": [23.12, 23.36, 55.17, 27.23]
+            },
+            {
+              "rot": 0,
+              "text": "carrion eaters have begun to",
+              "bbox": [23.12, 27.45, 58.44, 31.32]
+            },
+            {
+              "rot": 0,
+              "text": "emerge on the surface from the depths of",
+              "bbox": [9.35, 31.54, 60.57, 35.41]
+            },
+            {
+              "rot": 0,
+              "text": "the warrens below. Their numbers must",
+              "bbox": [9.35, 35.63, 58.12, 39.5]
+            },
+            {
+              "rot": 0,
+              "text": "have increased from the amount of corpses",
+              "bbox": [9.35, 39.72, 62.44, 43.59]
+            },
+            {
+              "rot": 0,
+              "text": "littering their halls. Enter the dark murky",
+              "bbox": [9.35, 43.81, 59.79, 47.68]
+            },
+            {
+              "rot": 0,
+              "text": "warrens, find them, and eradicate them.",
+              "bbox": [9.35, 47.9, 58.71, 51.77]
+            },
+            {
+              "rot": 0,
+              "text": "SPECIAL RULES",
+              "bbox": [28.33, 53.81, 42.65, 57.94]
+            },
+            {
+              "rot": 0,
+              "text": "Objective Room is always Room {icon:ea6ec441c3} 8 .",
+              "bbox": [8.52, 58.46, 62.45, 62.86]
+            },
+            {
+              "rot": 0,
+              "text": "Spawn a Large Carrion Eater (LvL 2)",
+              "bbox": [9.37, 62.52, 61.61, 66.28]
+            },
+            {
+              "rot": 0,
+              "text": "when starting a battle there.",
+              "bbox": [14.92, 66.33, 56.06, 69.98]
+            },
+            {
+              "rot": 0,
+              "text": "XP",
+              "bbox": [34.24, 72.05, 36.74, 76.18]
+            },
+            {
+              "rot": 0,
+              "text": "1 Xp/ Large Carrion Eater slain.",
+              "bbox": [13.98, 75.77, 57.0, 80.02]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:d3a3e38ee9} 3 {icon:0fd90af65e} {icon:f1011c773e} 1",
+              "bbox": [18.89, 90.6, 42.31, 100.87]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:a488fd5ff1} 1 {icon:e7b30e2005} 3",
+              "bbox": [19.01, 102.69, 40.72, 112.92]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+          "page": 4,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d1199db12fc666a4",
+          "spans": [
+            {
+              "t": "Quest",
+              "bbox": [22.49, 97.11, 37.53, 106.36],
+              "font": "DwarvenAxeBB",
+              "size": 24.0,
+              "color": "#493f35"
+            },
+            {
+              "t": "I",
+              "bbox": [41.4, 98.6, 42.86, 105.54],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#94c23e"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "3a61674831",
+              "bbox": [37.53, 97.09, 46.74, 106.62]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Quest {icon:3a61674831} I",
+              "bbox": [22.49, 97.09, 46.74, 106.62]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "quest:warrens:p005",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [5],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+          "page": 5,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "948d3eb06fb085b5",
+          "spans": [
+            {
+              "t": "Not only have the beasts",
+              "bbox": [23.12, 23.36, 53.64, 27.23],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "increased their numbers,",
+              "bbox": [23.12, 27.45, 53.41, 31.32],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "but they are also arming themselves",
+              "bbox": [9.35, 31.54, 53.9, 35.41],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "with stolen armaments from the guards",
+              "bbox": [9.35, 35.63, 58.35, 39.5],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "they kill. They must be storing them,",
+              "bbox": [9.35, 39.72, 54.07, 43.59],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "somewhere beneath our feet. Venture",
+              "bbox": [9.35, 43.81, 56.26, 47.68],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "deep into the warrens’ bowels, find their",
+              "bbox": [9.35, 47.9, 59.14, 51.77],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "storage room and put it to the flames.",
+              "bbox": [9.35, 51.99, 56.2, 55.86],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "SPECIAL RULES",
+              "bbox": [28.33, 57.9, 42.65, 62.03],
+              "font": "DwarvenAxeBB",
+              "size": 9.82,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Objective Room is always Room",
+              "bbox": [8.52, 62.59, 53.14, 66.24],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "6",
+              "bbox": [58.89, 62.34, 60.59, 66.74],
+              "font": "DwarvenAxeBB",
+              "size": 11.4,
+              "color": "#ffffff"
+            },
+            {
+              "t": ".",
+              "bbox": [61.67, 62.59, 62.45, 66.24],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Spawn only",
+              "bbox": [13.27, 66.19, 29.33, 69.84],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Monsters there.",
+              "bbox": [35.23, 66.19, 57.7, 69.84],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "XP",
+              "bbox": [34.24, 71.91, 36.74, 76.04],
+              "font": "DwarvenAxeBB",
+              "size": 9.82,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1 Xp",
+              "bbox": [14.14, 75.63, 19.22, 79.88],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "/ Objective Room Cleared.",
+              "bbox": [19.22, 75.81, 56.84, 79.46],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Disarm Them",
+              "bbox": [27.77, 15.07, 50.44, 20.85],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#b27a4a"
+            },
+            {
+              "t": "3",
+              "bbox": [26.24, 96.8, 27.71, 100.87],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1",
+              "bbox": [26.57, 108.85, 27.6, 112.92],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "3",
+              "bbox": [39.24, 108.85, 40.72, 112.92],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1",
+              "bbox": [40.04, 96.8, 41.07, 100.87],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "I",
+              "bbox": [34.37, 5.75, 35.83, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#94c23e"
+            },
+            {
+              "t": "12",
+              "bbox": [11.17, 14.09, 15.56, 21.42],
+              "font": "DwarvenAxeBB",
+              "size": 19.0,
+              "color": "#c98c3c"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "831d753fdf",
+              "bbox": [50.62, 0.0, 58.57, 14.55],
+              "bbox_full": [50.62, 0.0, 62.71, 18.62],
+              "decor": true
+            },
+            {
+              "iconId": "e1c34ea8a2",
+              "bbox": [30.5, 4.24, 39.72, 13.78]
+            },
+            {
+              "iconId": "ea6ec441c3",
+              "bbox": [53.74, 62.48, 61.43, 66.32]
+            },
+            {
+              "iconId": "8acd50162d",
+              "bbox": [30.0, 65.73, 34.56, 70.05]
+            },
+            {
+              "iconId": "d3a3e38ee9",
+              "bbox": [18.89, 90.65, 27.28, 99.05],
+              "bbox_full": [17.23, 89.0, 30.57, 102.33]
+            },
+            {
+              "iconId": "7b075a3925",
+              "bbox": [30.2, 89.0, 43.54, 102.33],
+              "container": true
+            },
+            {
+              "iconId": "0fd90af65e",
+              "bbox": [31.81, 90.6, 40.31, 99.1],
+              "bbox_full": [30.72, 89.51, 41.39, 100.19]
+            },
+            {
+              "iconId": "f1011c773e",
+              "bbox": [38.8, 96.98, 42.31, 100.49]
+            },
+            {
+              "iconId": "a488fd5ff1",
+              "bbox": [19.01, 102.75, 27.4, 111.14],
+              "bbox_full": [17.35, 101.09, 30.68, 114.43]
+            },
+            {
+              "iconId": "e7b30e2005",
+              "bbox": [31.65, 102.69, 40.16, 111.2],
+              "bbox_full": [30.05, 101.09, 43.39, 114.43]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:e1c34ea8a2} I",
+              "bbox": [30.5, 4.24, 39.72, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "12 Disarm Them",
+              "bbox": [11.17, 14.09, 50.44, 21.42]
+            },
+            {
+              "rot": 0,
+              "text": "Not only have the beasts",
+              "bbox": [23.12, 23.36, 53.64, 27.23]
+            },
+            {
+              "rot": 0,
+              "text": "increased their numbers,",
+              "bbox": [23.12, 27.45, 53.41, 31.32]
+            },
+            {
+              "rot": 0,
+              "text": "but they are also arming themselves",
+              "bbox": [9.35, 31.54, 53.9, 35.41]
+            },
+            {
+              "rot": 0,
+              "text": "with stolen armaments from the guards",
+              "bbox": [9.35, 35.63, 58.35, 39.5]
+            },
+            {
+              "rot": 0,
+              "text": "they kill. They must be storing them,",
+              "bbox": [9.35, 39.72, 54.07, 43.59]
+            },
+            {
+              "rot": 0,
+              "text": "somewhere beneath our feet. Venture",
+              "bbox": [9.35, 43.81, 56.26, 47.68]
+            },
+            {
+              "rot": 0,
+              "text": "deep into the warrens’ bowels, find their",
+              "bbox": [9.35, 47.9, 59.14, 51.77]
+            },
+            {
+              "rot": 0,
+              "text": "storage room and put it to the flames.",
+              "bbox": [9.35, 51.99, 56.2, 55.86]
+            },
+            {
+              "rot": 0,
+              "text": "SPECIAL RULES",
+              "bbox": [28.33, 57.9, 42.65, 62.03]
+            },
+            {
+              "rot": 0,
+              "text": "Objective Room is always Room {icon:ea6ec441c3} 6 .",
+              "bbox": [8.52, 62.34, 62.45, 66.74]
+            },
+            {
+              "rot": 0,
+              "text": "Spawn only {icon:8acd50162d} Monsters there.",
+              "bbox": [13.27, 65.73, 57.7, 70.05]
+            },
+            {
+              "rot": 0,
+              "text": "XP",
+              "bbox": [34.24, 71.91, 36.74, 76.04]
+            },
+            {
+              "rot": 0,
+              "text": "1 Xp/ Objective Room Cleared.",
+              "bbox": [14.14, 75.63, 56.84, 79.88]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:d3a3e38ee9} 3 {icon:0fd90af65e} {icon:f1011c773e} 1",
+              "bbox": [18.89, 90.6, 42.31, 100.87]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:a488fd5ff1} 1 {icon:e7b30e2005} 3",
+              "bbox": [19.01, 102.69, 40.72, 112.92]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+          "page": 5,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d1199db12fc666a4",
+          "spans": [
+            {
+              "t": "Quest",
+              "bbox": [22.49, 97.11, 37.53, 106.36],
+              "font": "DwarvenAxeBB",
+              "size": 24.0,
+              "color": "#493f35"
+            },
+            {
+              "t": "I",
+              "bbox": [41.4, 98.6, 42.86, 105.54],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#94c23e"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "3a61674831",
+              "bbox": [37.53, 97.09, 46.74, 106.62]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Quest {icon:3a61674831} I",
+              "bbox": [22.49, 97.09, 46.74, 106.62]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "quest:warrens:p006",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [6],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+          "page": 6,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "948f3fb46f308594",
+          "spans": [
+            {
+              "t": "Never ever have these filthy",
+              "bbox": [23.12, 22.42, 55.37, 26.05],
+              "font": "Ubuntu-Italic",
+              "size": 8.18,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "beasts acted as disciplined as they",
+              "bbox": [23.12, 26.13, 62.51, 29.75],
+              "font": "Ubuntu-Italic",
+              "size": 8.18,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "do now. It’s apparent that one of",
+              "bbox": [23.12, 29.83, 61.04, 33.46],
+              "font": "Ubuntu-Italic",
+              "size": 8.18,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "them has won their trust. A dark leader that",
+              "bbox": [9.35, 33.53, 60.26, 37.16],
+              "font": "Ubuntu-Italic",
+              "size": 8.18,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "forms them up in regiments, and soon to be",
+              "bbox": [9.35, 37.24, 59.45, 40.86],
+              "font": "Ubuntu-Italic",
+              "size": 8.18,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "an army. Bring that beast’s reign to an end,",
+              "bbox": [9.35, 40.94, 59.08, 44.56],
+              "font": "Ubuntu-Italic",
+              "size": 8.18,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "once and for all.",
+              "bbox": [9.35, 44.64, 27.97, 48.27],
+              "font": "Ubuntu-Italic",
+              "size": 8.18,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "SPECIAL RULES",
+              "bbox": [28.33, 49.84, 42.65, 53.97],
+              "font": "DwarvenAxeBB",
+              "size": 9.82,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Objective Room is always Room",
+              "bbox": [9.51, 54.03, 52.34, 57.69],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "9",
+              "bbox": [57.96, 53.78, 59.68, 58.18],
+              "font": "DwarvenAxeBB",
+              "size": 11.4,
+              "color": "#ffffff"
+            },
+            {
+              "t": ".",
+              "bbox": [60.69, 54.03, 61.47, 57.69],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Spawn a",
+              "bbox": [13.0, 57.63, 24.29, 61.28],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Swine Skiver",
+              "bbox": [24.86, 57.63, 42.96, 61.39],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "(LvL 3) and",
+              "bbox": [43.5, 57.63, 57.98, 61.28],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "a",
+              "bbox": [12.99, 61.23, 14.64, 64.88],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Large Carrion Eater",
+              "bbox": [15.19, 61.23, 43.05, 64.98],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "there, plus",
+              "bbox": [43.59, 61.23, 57.99, 64.88],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "a random monster of normal or",
+              "bbox": [14.34, 64.82, 56.64, 68.48],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "small size to fill the Stances. The",
+              "bbox": [13.86, 68.42, 57.11, 72.08],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Battle ends immediately once",
+              "bbox": [15.39, 72.02, 55.58, 75.67],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "the",
+              "bbox": [18.2, 75.61, 22.87, 79.27],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Swine Skiver",
+              "bbox": [23.42, 75.61, 41.51, 79.37],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "is killed.",
+              "bbox": [42.06, 75.61, 52.78, 79.27],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "XP",
+              "bbox": [34.24, 80.84, 36.74, 84.97],
+              "font": "DwarvenAxeBB",
+              "size": 9.82,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1 Xp",
+              "bbox": [18.8, 84.57, 23.88, 88.81],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "/ Swine Skiver Slain.",
+              "bbox": [23.88, 84.74, 52.18, 88.4],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Ringleaders",
+              "bbox": [29.11, 15.07, 49.1, 20.85],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#b27a4a"
+            },
+            {
+              "t": "3",
+              "bbox": [27.1, 97.25, 28.57, 101.33],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1",
+              "bbox": [20.83, 109.3, 21.85, 113.37],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1",
+              "bbox": [40.02, 97.25, 41.04, 101.33],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "2",
+              "bbox": [33.32, 109.3, 34.74, 113.37],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1",
+              "bbox": [45.52, 109.3, 46.54, 113.37],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "II",
+              "bbox": [33.64, 5.75, 36.56, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#c98c3c"
+            },
+            {
+              "t": "12",
+              "bbox": [11.17, 14.09, 15.56, 21.42],
+              "font": "DwarvenAxeBB",
+              "size": 19.0,
+              "color": "#c98c3c"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "831d753fdf",
+              "bbox": [50.62, 0.0, 58.57, 14.55],
+              "bbox_full": [50.62, 0.0, 62.71, 18.62],
+              "decor": true
+            },
+            {
+              "iconId": "e1c34ea8a2",
+              "bbox": [30.5, 4.24, 39.72, 13.78]
+            },
+            {
+              "iconId": "ea6ec441c3",
+              "bbox": [52.82, 53.92, 60.5, 57.76]
+            },
+            {
+              "iconId": "d3a3e38ee9",
+              "bbox": [19.76, 91.1, 28.15, 99.5],
+              "bbox_full": [18.1, 89.45, 31.43, 102.78]
+            },
+            {
+              "iconId": "6f701b5f5f",
+              "bbox": [32.26, 91.1, 40.65, 99.5],
+              "bbox_full": [30.6, 89.45, 43.93, 102.78]
+            },
+            {
+              "iconId": "7b075a3925",
+              "bbox": [13.2, 103.15, 21.71, 111.65],
+              "bbox_full": [11.6, 101.55, 24.93, 114.88]
+            },
+            {
+              "iconId": "a488fd5ff1",
+              "bbox": [25.76, 103.21, 34.15, 111.6],
+              "bbox_full": [24.1, 101.55, 37.43, 114.88]
+            },
+            {
+              "iconId": "e7b30e2005",
+              "bbox": [37.7, 103.15, 46.21, 111.65],
+              "bbox_full": [36.1, 101.55, 49.43, 114.88]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:e1c34ea8a2} II",
+              "bbox": [30.5, 4.24, 39.72, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "12 Ringleaders",
+              "bbox": [11.17, 14.09, 49.1, 21.42]
+            },
+            {
+              "rot": 0,
+              "text": "Never ever have these filthy",
+              "bbox": [23.12, 22.42, 55.37, 26.05]
+            },
+            {
+              "rot": 0,
+              "text": "beasts acted as disciplined as they",
+              "bbox": [23.12, 26.13, 62.51, 29.75]
+            },
+            {
+              "rot": 0,
+              "text": "do now. It’s apparent that one of",
+              "bbox": [23.12, 29.83, 61.04, 33.46]
+            },
+            {
+              "rot": 0,
+              "text": "them has won their trust. A dark leader that",
+              "bbox": [9.35, 33.53, 60.26, 37.16]
+            },
+            {
+              "rot": 0,
+              "text": "forms them up in regiments, and soon to be",
+              "bbox": [9.35, 37.24, 59.45, 40.86]
+            },
+            {
+              "rot": 0,
+              "text": "an army. Bring that beast’s reign to an end,",
+              "bbox": [9.35, 40.94, 59.08, 44.56]
+            },
+            {
+              "rot": 0,
+              "text": "once and for all.",
+              "bbox": [9.35, 44.64, 27.97, 48.27]
+            },
+            {
+              "rot": 0,
+              "text": "SPECIAL RULES",
+              "bbox": [28.33, 49.84, 42.65, 53.97]
+            },
+            {
+              "rot": 0,
+              "text": "Objective Room is always Room {icon:ea6ec441c3} 9 .",
+              "bbox": [9.51, 53.78, 61.47, 58.18]
+            },
+            {
+              "rot": 0,
+              "text": "Spawn a Swine Skiver (LvL 3) and",
+              "bbox": [13.0, 57.63, 57.98, 61.39]
+            },
+            {
+              "rot": 0,
+              "text": "a Large Carrion Eater there, plus",
+              "bbox": [12.99, 61.23, 57.99, 64.98]
+            },
+            {
+              "rot": 0,
+              "text": "a random monster of normal or",
+              "bbox": [14.34, 64.82, 56.64, 68.48]
+            },
+            {
+              "rot": 0,
+              "text": "small size to fill the Stances. The",
+              "bbox": [13.86, 68.42, 57.11, 72.08]
+            },
+            {
+              "rot": 0,
+              "text": "Battle ends immediately once",
+              "bbox": [15.39, 72.02, 55.58, 75.67]
+            },
+            {
+              "rot": 0,
+              "text": "the Swine Skiver is killed.",
+              "bbox": [18.2, 75.61, 52.78, 79.37]
+            },
+            {
+              "rot": 0,
+              "text": "XP",
+              "bbox": [34.24, 80.84, 36.74, 84.97]
+            },
+            {
+              "rot": 0,
+              "text": "1 Xp/ Swine Skiver Slain.",
+              "bbox": [18.8, 84.57, 52.18, 88.81]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:d3a3e38ee9} 3 {icon:6f701b5f5f} 1",
+              "bbox": [19.76, 91.1, 41.04, 101.33]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:7b075a3925} 1 {icon:a488fd5ff1} 2 {icon:e7b30e2005} 1",
+              "bbox": [13.2, 103.15, 46.54, 113.37]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+          "page": 6,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d1199db12fc666a4",
+          "spans": [
+            {
+              "t": "Quest",
+              "bbox": [22.49, 97.11, 37.53, 106.36],
+              "font": "DwarvenAxeBB",
+              "size": 24.0,
+              "color": "#493f35"
+            },
+            {
+              "t": "II",
+              "bbox": [40.67, 98.6, 43.59, 105.54],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#c98c3c"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "3a61674831",
+              "bbox": [37.53, 97.09, 46.74, 106.62]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Quest {icon:3a61674831} II",
+              "bbox": [22.49, 97.09, 46.74, 106.62]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "quest:warrens:p007",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [7],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+          "page": 7,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "948f3fb46db08594",
+          "spans": [
+            {
+              "t": "Things have gotten out of hand, as",
+              "bbox": [23.12, 22.65, 60.44, 26.03],
+              "font": "Ubuntu-Italic",
+              "size": 7.64,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "buried corpses start to disappear.",
+              "bbox": [23.12, 26.18, 58.91, 29.56],
+              "font": "Ubuntu-Italic",
+              "size": 7.64,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "This means that the carrion beasts",
+              "bbox": [23.12, 29.7, 60.26, 33.09],
+              "font": "Ubuntu-Italic",
+              "size": 7.64,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "have grown rampant. No matter how many you",
+              "bbox": [9.35, 33.23, 60.46, 36.61],
+              "font": "Ubuntu-Italic",
+              "size": 7.64,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "put to the sword, it won’t be enough. Find their",
+              "bbox": [9.35, 36.76, 60.06, 40.14],
+              "font": "Ubuntu-Italic",
+              "size": 7.64,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "breeding grounds and smash their eggs. Make",
+              "bbox": [9.35, 40.28, 58.55, 43.67],
+              "font": "Ubuntu-Italic",
+              "size": 7.64,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "sure no single maggot stays alive…",
+              "bbox": [9.35, 43.81, 47.29, 47.19],
+              "font": "Ubuntu-Italic",
+              "size": 7.64,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "SPECIAL RULES",
+              "bbox": [28.33, 48.81, 42.65, 52.94],
+              "font": "DwarvenAxeBB",
+              "size": 9.82,
+              "color": "#ffffff"
+            },
+            {
+              "t": "In Objective Rooms, spawn one",
+              "bbox": [10.95, 53.03, 51.54, 56.48],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "Large",
+              "bbox": [52.11, 53.03, 60.02, 56.57],
+              "font": "Ubuntu-Bold",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "Carrion Eater",
+              "bbox": [10.21, 56.48, 28.55, 60.03],
+              "font": "Ubuntu-Bold",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "and two",
+              "bbox": [29.13, 56.48, 39.78, 59.93],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "Carrion Eaters",
+              "bbox": [40.35, 56.48, 60.09, 60.03],
+              "font": "Ubuntu-Bold",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": ".",
+              "bbox": [60.03, 56.48, 60.77, 59.93],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "When a",
+              "bbox": [8.41, 59.94, 18.27, 63.39],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "Large Carrion Eater",
+              "bbox": [18.84, 59.94, 45.69, 63.49],
+              "font": "Ubuntu-Bold",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "dies, replace",
+              "bbox": [46.26, 59.94, 62.57, 63.39],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "it immediately with a",
+              "bbox": [12.06, 63.4, 39.32, 66.85],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "Carrion Eater",
+              "bbox": [39.9, 63.4, 58.24, 66.95],
+              "font": "Ubuntu-Bold",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": ".",
+              "bbox": [58.18, 63.4, 58.92, 66.85],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "When a",
+              "bbox": [11.43, 66.85, 21.28, 70.31],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "Carrion Eater",
+              "bbox": [21.85, 66.85, 40.2, 70.4],
+              "font": "Ubuntu-Bold",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "dies, replace it",
+              "bbox": [40.77, 66.85, 59.55, 70.31],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "immediately with a",
+              "bbox": [10.83, 70.31, 35.62, 73.77],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "Maggot",
+              "bbox": [36.19, 70.31, 46.95, 73.86],
+              "font": "Ubuntu-Bold",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": ". The fight",
+              "bbox": [46.89, 70.31, 60.14, 73.77],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "ceases and the room is secured as soon",
+              "bbox": [10.05, 73.77, 60.92, 77.22],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "as there are only",
+              "bbox": [10.85, 77.23, 32.49, 80.68],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "Maggots",
+              "bbox": [33.07, 77.23, 45.22, 80.78],
+              "font": "Ubuntu-Bold",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "left in play.",
+              "bbox": [45.79, 77.23, 60.13, 80.68],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "XP",
+              "bbox": [34.24, 82.28, 36.74, 86.41],
+              "font": "DwarvenAxeBB",
+              "size": 9.82,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1 Xp",
+              "bbox": [14.38, 86.0, 19.47, 90.24],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "/ Objective Room cleared.",
+              "bbox": [19.47, 86.18, 56.59, 89.83],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Carrion Infestation",
+              "bbox": [22.66, 15.07, 55.56, 20.85],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#b27a4a"
+            },
+            {
+              "t": "3",
+              "bbox": [26.24, 99.13, 27.71, 103.21],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "2",
+              "bbox": [26.38, 111.18, 27.8, 115.25],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "2",
+              "bbox": [39.27, 111.18, 40.69, 115.25],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1",
+              "bbox": [40.04, 99.13, 41.07, 103.21],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "II",
+              "bbox": [33.64, 5.75, 36.56, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#c98c3c"
+            },
+            {
+              "t": "4",
+              "bbox": [11.99, 14.09, 14.74, 21.42],
+              "font": "DwarvenAxeBB",
+              "size": 19.0,
+              "color": "#c98c3c"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "831d753fdf",
+              "bbox": [50.62, 0.0, 58.57, 14.55],
+              "bbox_full": [50.62, 0.0, 62.71, 18.62],
+              "decor": true
+            },
+            {
+              "iconId": "e1c34ea8a2",
+              "bbox": [30.5, 4.24, 39.72, 13.78]
+            },
+            {
+              "iconId": "d3a3e38ee9",
+              "bbox": [18.89, 92.99, 27.28, 101.38],
+              "bbox_full": [17.23, 91.33, 30.57, 104.66]
+            },
+            {
+              "iconId": "6f701b5f5f",
+              "bbox": [30.2, 91.33, 43.54, 104.66],
+              "container": true
+            },
+            {
+              "iconId": "9ddfcb30db",
+              "bbox": [31.86, 92.99, 40.26, 101.38],
+              "bbox_full": [30.72, 91.84, 41.39, 102.52]
+            },
+            {
+              "iconId": "3ee6243549",
+              "bbox": [38.8, 99.31, 42.31, 102.82]
+            },
+            {
+              "iconId": "7b075a3925",
+              "bbox": [18.95, 105.03, 27.46, 113.53],
+              "bbox_full": [17.35, 103.42, 30.68, 116.76]
+            },
+            {
+              "iconId": "e7b30e2005",
+              "bbox": [31.65, 105.03, 40.16, 113.53],
+              "bbox_full": [30.05, 103.42, 43.39, 116.76]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:e1c34ea8a2} II",
+              "bbox": [30.5, 4.24, 39.72, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "4 Carrion Infestation",
+              "bbox": [11.99, 14.09, 55.56, 21.42]
+            },
+            {
+              "rot": 0,
+              "text": "Things have gotten out of hand, as",
+              "bbox": [23.12, 22.65, 60.44, 26.03]
+            },
+            {
+              "rot": 0,
+              "text": "buried corpses start to disappear.",
+              "bbox": [23.12, 26.18, 58.91, 29.56]
+            },
+            {
+              "rot": 0,
+              "text": "This means that the carrion beasts",
+              "bbox": [23.12, 29.7, 60.26, 33.09]
+            },
+            {
+              "rot": 0,
+              "text": "have grown rampant. No matter how many you",
+              "bbox": [9.35, 33.23, 60.46, 36.61]
+            },
+            {
+              "rot": 0,
+              "text": "put to the sword, it won’t be enough. Find their",
+              "bbox": [9.35, 36.76, 60.06, 40.14]
+            },
+            {
+              "rot": 0,
+              "text": "breeding grounds and smash their eggs. Make",
+              "bbox": [9.35, 40.28, 58.55, 43.67]
+            },
+            {
+              "rot": 0,
+              "text": "sure no single maggot stays alive…",
+              "bbox": [9.35, 43.81, 47.29, 47.19]
+            },
+            {
+              "rot": 0,
+              "text": "SPECIAL RULES",
+              "bbox": [28.33, 48.81, 42.65, 52.94]
+            },
+            {
+              "rot": 0,
+              "text": "In Objective Rooms, spawn one Large",
+              "bbox": [10.95, 53.03, 60.02, 56.57]
+            },
+            {
+              "rot": 0,
+              "text": "Carrion Eater and two Carrion Eaters.",
+              "bbox": [10.21, 56.48, 60.77, 60.03]
+            },
+            {
+              "rot": 0,
+              "text": "When a Large Carrion Eater dies, replace",
+              "bbox": [8.41, 59.94, 62.57, 63.49]
+            },
+            {
+              "rot": 0,
+              "text": "it immediately with a Carrion Eater.",
+              "bbox": [12.06, 63.4, 58.92, 66.95]
+            },
+            {
+              "rot": 0,
+              "text": "When a Carrion Eater dies, replace it",
+              "bbox": [11.43, 66.85, 59.55, 70.4]
+            },
+            {
+              "rot": 0,
+              "text": "immediately with a Maggot. The fight",
+              "bbox": [10.83, 70.31, 60.14, 73.86]
+            },
+            {
+              "rot": 0,
+              "text": "ceases and the room is secured as soon",
+              "bbox": [10.05, 73.77, 60.92, 77.22]
+            },
+            {
+              "rot": 0,
+              "text": "as there are only Maggots left in play.",
+              "bbox": [10.85, 77.23, 60.13, 80.78]
+            },
+            {
+              "rot": 0,
+              "text": "XP",
+              "bbox": [34.24, 82.28, 36.74, 86.41]
+            },
+            {
+              "rot": 0,
+              "text": "1 Xp/ Objective Room cleared.",
+              "bbox": [14.38, 86.0, 56.59, 90.24]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:d3a3e38ee9} 3 {icon:9ddfcb30db} {icon:3ee6243549} 1",
+              "bbox": [18.89, 92.99, 42.31, 103.21]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:7b075a3925} 2 {icon:e7b30e2005} 2",
+              "bbox": [18.95, 105.03, 40.69, 115.25]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+          "page": 7,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d1199db12fc666a4",
+          "spans": [
+            {
+              "t": "Quest",
+              "bbox": [22.49, 97.11, 37.53, 106.36],
+              "font": "DwarvenAxeBB",
+              "size": 24.0,
+              "color": "#493f35"
+            },
+            {
+              "t": "II",
+              "bbox": [40.67, 98.6, 43.59, 105.54],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#c98c3c"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "3a61674831",
+              "bbox": [37.53, 97.09, 46.74, 106.62]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Quest {icon:3a61674831} II",
+              "bbox": [22.49, 97.09, 46.74, 106.62]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "quest:warrens:p008",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [8],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+          "page": 8,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "948f3eb46df08594",
+          "spans": [
+            {
+              "t": "It is widely known that these",
+              "bbox": [23.12, 22.92, 56.28, 26.55],
+              "font": "Ubuntu-Italic",
+              "size": 8.18,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "gluttonous beasts crave food",
+              "bbox": [23.12, 26.63, 56.69, 30.25],
+              "font": "Ubuntu-Italic",
+              "size": 8.18,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "above all else. Take some extra",
+              "bbox": [23.12, 30.33, 58.88, 33.95],
+              "font": "Ubuntu-Italic",
+              "size": 8.18,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "bundles and head into the warrens. Lure",
+              "bbox": [9.35, 34.03, 55.64, 37.66],
+              "font": "Ubuntu-Italic",
+              "size": 8.18,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "them out from the shadows and kill them all,",
+              "bbox": [9.35, 37.73, 61.2, 41.36],
+              "font": "Ubuntu-Italic",
+              "size": 8.18,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "especially the malevolent swine skiver.",
+              "bbox": [9.35, 41.44, 53.85, 45.06],
+              "font": "Ubuntu-Italic",
+              "size": 8.18,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "SPECIAL RULES",
+              "bbox": [28.33, 46.34, 42.65, 50.47],
+              "font": "DwarvenAxeBB",
+              "size": 9.82,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Before entering the Dungeon, gain",
+              "bbox": [12.05, 50.55, 58.92, 54.0],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "3 additional",
+              "bbox": [12.28, 54.2, 28.19, 57.65],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": ". When in an empty",
+              "bbox": [33.07, 54.2, 58.7, 57.65],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "Room, you may spend a",
+              "bbox": [12.51, 57.86, 44.13, 61.31],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "to bait",
+              "bbox": [49.64, 57.85, 58.47, 61.31],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "a",
+              "bbox": [12.28, 61.51, 13.84, 64.96],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "Swine Skiver",
+              "bbox": [14.5, 61.51, 32.42, 65.05],
+              "font": "Ubuntu-Bold",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "(LvL 3). Start battle",
+              "bbox": [33.09, 61.51, 58.7, 64.96],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "immediately in a random Room with a",
+              "bbox": [10.15, 65.16, 60.83, 68.61],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "Swine Skiver",
+              "bbox": [9.1, 68.81, 27.02, 72.36],
+              "font": "Ubuntu-Bold",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": ", then roll a",
+              "bbox": [27.01, 68.81, 42.09, 72.26],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": ": 1-4 spawn",
+              "bbox": [46.94, 68.81, 61.88, 72.26],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "2 additional monsters of normal or small",
+              "bbox": [8.35, 72.46, 62.63, 75.91],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "size, 5-8 spawn 3 additional monsters",
+              "bbox": [10.54, 76.11, 60.44, 79.56],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "of normal or small size, 9-10 nothing.",
+              "bbox": [10.8, 79.76, 60.18, 83.21],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "XP",
+              "bbox": [34.24, 84.51, 36.74, 88.64],
+              "font": "DwarvenAxeBB",
+              "size": 9.82,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1 Xp",
+              "bbox": [18.3, 88.24, 23.38, 92.48],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "/ Swine Skiver killed.",
+              "bbox": [23.38, 88.41, 52.68, 92.06],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Bait Them Out",
+              "bbox": [27.17, 15.07, 51.04, 20.85],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#b27a4a"
+            },
+            {
+              "t": "1",
+              "bbox": [20.83, 112.1, 21.85, 116.17],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "3",
+              "bbox": [27.14, 100.05, 28.61, 104.12],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1",
+              "bbox": [33.52, 112.1, 34.54, 116.17],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "2",
+              "bbox": [45.32, 112.1, 46.74, 116.17],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1",
+              "bbox": [40.05, 100.05, 41.08, 104.12],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "II",
+              "bbox": [33.64, 5.75, 36.56, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#c98c3c"
+            },
+            {
+              "t": "12",
+              "bbox": [11.17, 14.09, 15.56, 21.42],
+              "font": "DwarvenAxeBB",
+              "size": 19.0,
+              "color": "#c98c3c"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "831d753fdf",
+              "bbox": [50.62, 0.0, 58.57, 14.55],
+              "bbox_full": [50.62, 0.0, 62.71, 18.62],
+              "decor": true
+            },
+            {
+              "iconId": "e1c34ea8a2",
+              "bbox": [30.5, 4.24, 39.72, 13.78]
+            },
+            {
+              "iconId": "af3a72916a",
+              "bbox": [28.89, 54.14, 33.08, 58.32]
+            },
+            {
+              "iconId": "af3a72916a",
+              "bbox": [44.79, 57.55, 48.98, 61.72]
+            },
+            {
+              "iconId": "476151cc4c",
+              "bbox": [42.75, 68.79, 46.95, 72.78]
+            },
+            {
+              "iconId": "6f701b5f5f",
+              "bbox": [19.55, 93.85, 28.05, 102.35],
+              "bbox_full": [17.95, 92.24, 31.28, 105.58]
+            },
+            {
+              "iconId": "365b7941a4",
+              "bbox": [30.22, 92.24, 43.55, 105.58],
+              "container": true
+            },
+            {
+              "iconId": "509c4a958c",
+              "bbox": [31.82, 93.85, 40.32, 102.35],
+              "bbox_full": [30.73, 92.76, 41.41, 103.43]
+            },
+            {
+              "iconId": "a2e7f1dd7b",
+              "bbox": [38.81, 100.23, 42.32, 103.74]
+            },
+            {
+              "iconId": "a488fd5ff1",
+              "bbox": [13.26, 106.0, 21.65, 114.39],
+              "bbox_full": [11.6, 104.34, 24.93, 117.68]
+            },
+            {
+              "iconId": "be78e95113",
+              "bbox": [25.7, 105.95, 34.21, 114.45],
+              "bbox_full": [24.1, 104.34, 37.43, 117.68]
+            },
+            {
+              "iconId": "e7b30e2005",
+              "bbox": [37.7, 105.95, 46.21, 114.45],
+              "bbox_full": [36.1, 104.34, 49.43, 117.68]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:e1c34ea8a2} II",
+              "bbox": [30.5, 4.24, 39.72, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "12 Bait Them Out",
+              "bbox": [11.17, 14.09, 51.04, 21.42]
+            },
+            {
+              "rot": 0,
+              "text": "It is widely known that these",
+              "bbox": [23.12, 22.92, 56.28, 26.55]
+            },
+            {
+              "rot": 0,
+              "text": "gluttonous beasts crave food",
+              "bbox": [23.12, 26.63, 56.69, 30.25]
+            },
+            {
+              "rot": 0,
+              "text": "above all else. Take some extra",
+              "bbox": [23.12, 30.33, 58.88, 33.95]
+            },
+            {
+              "rot": 0,
+              "text": "bundles and head into the warrens. Lure",
+              "bbox": [9.35, 34.03, 55.64, 37.66]
+            },
+            {
+              "rot": 0,
+              "text": "them out from the shadows and kill them all,",
+              "bbox": [9.35, 37.73, 61.2, 41.36]
+            },
+            {
+              "rot": 0,
+              "text": "especially the malevolent swine skiver.",
+              "bbox": [9.35, 41.44, 53.85, 45.06]
+            },
+            {
+              "rot": 0,
+              "text": "SPECIAL RULES",
+              "bbox": [28.33, 46.34, 42.65, 50.47]
+            },
+            {
+              "rot": 0,
+              "text": "Before entering the Dungeon, gain",
+              "bbox": [12.05, 50.55, 58.92, 54.0]
+            },
+            {
+              "rot": 0,
+              "text": "3 additional {icon:af3a72916a} . When in an empty",
+              "bbox": [12.28, 54.14, 58.7, 58.32]
+            },
+            {
+              "rot": 0,
+              "text": "Room, you may spend a {icon:af3a72916a} to bait",
+              "bbox": [12.51, 57.55, 58.47, 61.72]
+            },
+            {
+              "rot": 0,
+              "text": "a Swine Skiver (LvL 3). Start battle",
+              "bbox": [12.28, 61.51, 58.7, 65.05]
+            },
+            {
+              "rot": 0,
+              "text": "immediately in a random Room with a",
+              "bbox": [10.15, 65.16, 60.83, 68.61]
+            },
+            {
+              "rot": 0,
+              "text": "Swine Skiver, then roll a {icon:476151cc4c} : 1-4 spawn",
+              "bbox": [9.1, 68.79, 61.88, 72.78]
+            },
+            {
+              "rot": 0,
+              "text": "2 additional monsters of normal or small",
+              "bbox": [8.35, 72.46, 62.63, 75.91]
+            },
+            {
+              "rot": 0,
+              "text": "size, 5-8 spawn 3 additional monsters",
+              "bbox": [10.54, 76.11, 60.44, 79.56]
+            },
+            {
+              "rot": 0,
+              "text": "of normal or small size, 9-10 nothing.",
+              "bbox": [10.8, 79.76, 60.18, 83.21]
+            },
+            {
+              "rot": 0,
+              "text": "XP",
+              "bbox": [34.24, 84.51, 36.74, 88.64]
+            },
+            {
+              "rot": 0,
+              "text": "1 Xp/ Swine Skiver killed.",
+              "bbox": [18.3, 88.24, 52.68, 92.48]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:6f701b5f5f} 3 {icon:509c4a958c} {icon:a2e7f1dd7b} 1",
+              "bbox": [19.55, 93.85, 42.32, 104.12]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:a488fd5ff1} 1 {icon:be78e95113} 1 {icon:e7b30e2005} 2",
+              "bbox": [13.26, 105.95, 46.74, 116.17]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+          "page": 8,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d1199db12fc666a4",
+          "spans": [
+            {
+              "t": "Quest",
+              "bbox": [22.49, 97.11, 37.53, 106.36],
+              "font": "DwarvenAxeBB",
+              "size": 24.0,
+              "color": "#493f35"
+            },
+            {
+              "t": "II",
+              "bbox": [40.67, 98.6, 43.59, 105.54],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#c98c3c"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "3a61674831",
+              "bbox": [37.53, 97.09, 46.74, 106.62]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Quest {icon:3a61674831} II",
+              "bbox": [22.49, 97.09, 46.74, 106.62]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "quest:warrens:p009",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [9],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+          "page": 9,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "948f3fb46934c195",
+          "spans": [
+            {
+              "t": "We’ve mounted so many",
+              "bbox": [23.12, 23.36, 53.13, 27.23],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "expeditions to the sewers, yet",
+              "bbox": [23.12, 27.45, 59.75, 31.32],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "we haven’t mapped them adequately. You",
+              "bbox": [9.35, 31.54, 60.86, 35.41],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "still have to do this perilous task, for it is of",
+              "bbox": [9.35, 35.63, 62.22, 39.5],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "utmost importance that we know where",
+              "bbox": [9.35, 39.72, 59.0, 43.59],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "our enemies dwell and where they’re",
+              "bbox": [9.35, 43.81, 54.69, 47.68],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "coming from.",
+              "bbox": [9.35, 47.9, 25.63, 51.77],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "XP",
+              "bbox": [34.24, 53.81, 36.74, 57.94],
+              "font": "DwarvenAxeBB",
+              "size": 9.82,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1 Xp",
+              "bbox": [19.68, 57.53, 24.76, 61.77],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "/ 2 Rooms cleared.",
+              "bbox": [24.76, 57.71, 51.3, 61.36],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Mapping the Sewers",
+              "bbox": [21.64, 15.07, 56.57, 20.85],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#b27a4a"
+            },
+            {
+              "t": "1",
+              "bbox": [20.71, 97.13, 21.73, 101.2],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "2",
+              "bbox": [20.63, 109.18, 22.05, 113.25],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1",
+              "bbox": [33.4, 97.13, 34.42, 101.2],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "2",
+              "bbox": [33.32, 109.18, 34.74, 113.25],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1",
+              "bbox": [45.52, 109.18, 46.54, 113.25],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1",
+              "bbox": [46.09, 97.13, 47.11, 101.2],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "II",
+              "bbox": [33.64, 5.75, 36.56, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#c98c3c"
+            },
+            {
+              "t": "-",
+              "bbox": [12.21, 14.09, 14.52, 21.42],
+              "font": "DwarvenAxeBB",
+              "size": 19.0,
+              "color": "#c98c3c"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "831d753fdf",
+              "bbox": [50.62, 0.0, 58.57, 14.55],
+              "bbox_full": [50.62, 0.0, 62.71, 18.62],
+              "decor": true
+            },
+            {
+              "iconId": "e1c34ea8a2",
+              "bbox": [30.5, 4.24, 39.72, 13.78]
+            },
+            {
+              "iconId": "6f701b5f5f",
+              "bbox": [13.14, 90.98, 21.53, 99.38],
+              "bbox_full": [11.48, 89.33, 24.82, 102.66]
+            },
+            {
+              "iconId": "7b075a3925",
+              "bbox": [25.59, 90.93, 34.09, 99.43],
+              "bbox_full": [23.98, 89.33, 37.32, 102.66]
+            },
+            {
+              "iconId": "365b7941a4",
+              "bbox": [36.25, 89.33, 49.59, 102.66],
+              "container": true
+            },
+            {
+              "iconId": "509c4a958c",
+              "bbox": [37.85, 90.93, 46.36, 99.43],
+              "bbox_full": [36.77, 89.84, 47.45, 100.52]
+            },
+            {
+              "iconId": "a2e7f1dd7b",
+              "bbox": [44.85, 97.31, 48.36, 100.82]
+            },
+            {
+              "iconId": "a488fd5ff1",
+              "bbox": [13.26, 103.08, 21.65, 111.47],
+              "bbox_full": [11.6, 101.42, 24.93, 114.76]
+            },
+            {
+              "iconId": "be78e95113",
+              "bbox": [25.7, 103.03, 34.21, 111.53],
+              "bbox_full": [24.1, 101.42, 37.43, 114.76]
+            },
+            {
+              "iconId": "e7b30e2005",
+              "bbox": [37.7, 103.03, 46.21, 111.53],
+              "bbox_full": [36.1, 101.42, 49.43, 114.76]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:e1c34ea8a2} II",
+              "bbox": [30.5, 4.24, 39.72, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "- Mapping the Sewers",
+              "bbox": [12.21, 14.09, 56.57, 21.42]
+            },
+            {
+              "rot": 0,
+              "text": "We’ve mounted so many",
+              "bbox": [23.12, 23.36, 53.13, 27.23]
+            },
+            {
+              "rot": 0,
+              "text": "expeditions to the sewers, yet",
+              "bbox": [23.12, 27.45, 59.75, 31.32]
+            },
+            {
+              "rot": 0,
+              "text": "we haven’t mapped them adequately. You",
+              "bbox": [9.35, 31.54, 60.86, 35.41]
+            },
+            {
+              "rot": 0,
+              "text": "still have to do this perilous task, for it is of",
+              "bbox": [9.35, 35.63, 62.22, 39.5]
+            },
+            {
+              "rot": 0,
+              "text": "utmost importance that we know where",
+              "bbox": [9.35, 39.72, 59.0, 43.59]
+            },
+            {
+              "rot": 0,
+              "text": "our enemies dwell and where they’re",
+              "bbox": [9.35, 43.81, 54.69, 47.68]
+            },
+            {
+              "rot": 0,
+              "text": "coming from.",
+              "bbox": [9.35, 47.9, 25.63, 51.77]
+            },
+            {
+              "rot": 0,
+              "text": "XP",
+              "bbox": [34.24, 53.81, 36.74, 57.94]
+            },
+            {
+              "rot": 0,
+              "text": "1 Xp/ 2 Rooms cleared.",
+              "bbox": [19.68, 57.53, 51.3, 61.77]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:6f701b5f5f} 1 {icon:7b075a3925} 1 {icon:509c4a958c} {icon:a2e7f1dd7b} 1",
+              "bbox": [13.14, 90.93, 48.36, 101.2]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:a488fd5ff1} 2 {icon:be78e95113} 2 {icon:e7b30e2005} 1",
+              "bbox": [13.26, 103.03, 46.54, 113.25]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+          "page": 9,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d1199db12fc666a4",
+          "spans": [
+            {
+              "t": "Quest",
+              "bbox": [22.49, 97.11, 37.53, 106.36],
+              "font": "DwarvenAxeBB",
+              "size": 24.0,
+              "color": "#493f35"
+            },
+            {
+              "t": "II",
+              "bbox": [40.67, 98.6, 43.59, 105.54],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#c98c3c"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "3a61674831",
+              "bbox": [37.53, 97.09, 46.74, 106.62]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Quest {icon:3a61674831} II",
+              "bbox": [22.49, 97.09, 46.74, 106.62]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "quest:warrens:p010",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [10],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+          "page": 10,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "948f3eb46db08535",
+          "spans": [
+            {
+              "t": "Lately reports have mentioned",
+              "bbox": [23.12, 23.36, 60.72, 27.23],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "a new breed of swinefolk, more",
+              "bbox": [23.12, 27.45, 61.87, 31.32],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "potent, hardened and resistant to diseases.",
+              "bbox": [9.35, 31.54, 62.3, 35.41],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "If their genes are passed down through",
+              "bbox": [9.35, 35.63, 57.34, 39.5],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "their kind, we’re doomed. Search for these",
+              "bbox": [9.35, 39.72, 61.32, 43.59],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "beasts and bring an end to their kind. It’s",
+              "bbox": [9.35, 43.81, 59.44, 47.68],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "either them or us…",
+              "bbox": [9.35, 47.9, 33.24, 51.77],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "SPECIAL RULES",
+              "bbox": [28.33, 53.81, 42.65, 57.94],
+              "font": "DwarvenAxeBB",
+              "size": 9.82,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Warrens Monsters are",
+              "bbox": [19.67, 58.71, 51.31, 62.36],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "immune to Conditions.",
+              "bbox": [19.23, 62.52, 51.75, 66.17],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "XP",
+              "bbox": [34.24, 68.24, 36.74, 72.37],
+              "font": "DwarvenAxeBB",
+              "size": 9.82,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1 Xp",
+              "bbox": [23.61, 71.96, 28.7, 76.21],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "/ Lair cleared",
+              "bbox": [28.7, 72.14, 47.36, 75.79],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "A New Breed",
+              "bbox": [28.25, 15.07, 49.96, 20.85],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#b27a4a"
+            },
+            {
+              "t": "1",
+              "bbox": [20.83, 109.21, 21.85, 113.28],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1",
+              "bbox": [27.36, 97.16, 28.39, 101.24],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "3",
+              "bbox": [33.29, 109.21, 34.77, 113.28],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "2",
+              "bbox": [45.32, 109.21, 46.74, 113.28],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1",
+              "bbox": [40.05, 97.16, 41.08, 101.24],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "II",
+              "bbox": [33.64, 5.75, 36.56, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#c98c3c"
+            },
+            {
+              "t": "8",
+              "bbox": [11.93, 14.09, 14.8, 21.42],
+              "font": "DwarvenAxeBB",
+              "size": 19.0,
+              "color": "#c98c3c"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "831d753fdf",
+              "bbox": [50.62, 0.0, 58.57, 14.55],
+              "bbox_full": [50.62, 0.0, 62.71, 18.62],
+              "decor": true
+            },
+            {
+              "iconId": "e1c34ea8a2",
+              "bbox": [30.5, 4.24, 39.72, 13.78]
+            },
+            {
+              "iconId": "6f701b5f5f",
+              "bbox": [19.55, 90.96, 28.05, 99.46],
+              "bbox_full": [17.95, 89.36, 31.28, 102.69]
+            },
+            {
+              "iconId": "7b075a3925",
+              "bbox": [30.22, 89.36, 43.55, 102.69],
+              "container": true
+            },
+            {
+              "iconId": "0fd90af65e",
+              "bbox": [31.82, 90.96, 40.32, 99.46],
+              "bbox_full": [30.73, 89.87, 41.41, 100.55]
+            },
+            {
+              "iconId": "e473d2b695",
+              "bbox": [38.81, 97.34, 42.32, 100.85]
+            },
+            {
+              "iconId": "365b7941a4",
+              "bbox": [13.26, 103.11, 21.65, 111.5],
+              "bbox_full": [11.6, 101.45, 24.93, 114.79]
+            },
+            {
+              "iconId": "be78e95113",
+              "bbox": [25.7, 103.06, 34.21, 111.56],
+              "bbox_full": [24.1, 101.45, 37.43, 114.79]
+            },
+            {
+              "iconId": "e7b30e2005",
+              "bbox": [37.7, 103.06, 46.21, 111.56],
+              "bbox_full": [36.1, 101.45, 49.43, 114.79]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:e1c34ea8a2} II",
+              "bbox": [30.5, 4.24, 39.72, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "8 A New Breed",
+              "bbox": [11.93, 14.09, 49.96, 21.42]
+            },
+            {
+              "rot": 0,
+              "text": "Lately reports have mentioned",
+              "bbox": [23.12, 23.36, 60.72, 27.23]
+            },
+            {
+              "rot": 0,
+              "text": "a new breed of swinefolk, more",
+              "bbox": [23.12, 27.45, 61.87, 31.32]
+            },
+            {
+              "rot": 0,
+              "text": "potent, hardened and resistant to diseases.",
+              "bbox": [9.35, 31.54, 62.3, 35.41]
+            },
+            {
+              "rot": 0,
+              "text": "If their genes are passed down through",
+              "bbox": [9.35, 35.63, 57.34, 39.5]
+            },
+            {
+              "rot": 0,
+              "text": "their kind, we’re doomed. Search for these",
+              "bbox": [9.35, 39.72, 61.32, 43.59]
+            },
+            {
+              "rot": 0,
+              "text": "beasts and bring an end to their kind. It’s",
+              "bbox": [9.35, 43.81, 59.44, 47.68]
+            },
+            {
+              "rot": 0,
+              "text": "either them or us…",
+              "bbox": [9.35, 47.9, 33.24, 51.77]
+            },
+            {
+              "rot": 0,
+              "text": "SPECIAL RULES",
+              "bbox": [28.33, 53.81, 42.65, 57.94]
+            },
+            {
+              "rot": 0,
+              "text": "Warrens Monsters are",
+              "bbox": [19.67, 58.71, 51.31, 62.36]
+            },
+            {
+              "rot": 0,
+              "text": "immune to Conditions.",
+              "bbox": [19.23, 62.52, 51.75, 66.17]
+            },
+            {
+              "rot": 0,
+              "text": "XP",
+              "bbox": [34.24, 68.24, 36.74, 72.37]
+            },
+            {
+              "rot": 0,
+              "text": "1 Xp/ Lair cleared",
+              "bbox": [23.61, 71.96, 47.36, 76.21]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:6f701b5f5f} 1 {icon:0fd90af65e} {icon:e473d2b695} 1",
+              "bbox": [19.55, 90.96, 42.32, 101.24]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:365b7941a4} 1 {icon:be78e95113} 3 {icon:e7b30e2005} 2",
+              "bbox": [13.26, 103.06, 46.74, 113.28]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+          "page": 10,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d1199db12fc666a4",
+          "spans": [
+            {
+              "t": "Quest",
+              "bbox": [22.49, 97.11, 37.53, 106.36],
+              "font": "DwarvenAxeBB",
+              "size": 24.0,
+              "color": "#493f35"
+            },
+            {
+              "t": "II",
+              "bbox": [40.67, 98.6, 43.59, 105.54],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#c98c3c"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "3a61674831",
+              "bbox": [37.53, 97.09, 46.74, 106.62]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Quest {icon:3a61674831} II",
+              "bbox": [22.49, 97.09, 46.74, 106.62]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "quest:warrens:p011",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [11],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+          "page": 11,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "948f3eb46d30c595",
+          "spans": [
+            {
+              "t": "Filth, rot and humidity are the",
+              "bbox": [23.12, 23.33, 60.01, 27.2],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "primary enemies we have yet",
+              "bbox": [23.12, 27.42, 58.96, 31.29],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "to overcome in the warrens. Their halls",
+              "bbox": [9.1, 31.51, 56.9, 35.38],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "festering with disease such that even the",
+              "bbox": [9.1, 35.61, 59.48, 39.48],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "air is toxic. Enter these halls, and find",
+              "bbox": [9.1, 39.7, 54.94, 43.56],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "the toxic lairs from where this disease",
+              "bbox": [9.1, 43.79, 55.54, 47.66],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "emanates. Expect time to be your primary",
+              "bbox": [9.1, 47.88, 60.49, 51.75],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "enemy as your provisions will run bad,",
+              "bbox": [9.1, 51.97, 55.66, 55.84],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "faster than expected.",
+              "bbox": [9.1, 56.06, 35.34, 59.93],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "SPECIAL RULES",
+              "bbox": [28.08, 61.97, 42.4, 66.1],
+              "font": "DwarvenAxeBB",
+              "size": 9.82,
+              "color": "#ffffff"
+            },
+            {
+              "t": "After you leave a Room, choose",
+              "bbox": [12.62, 66.87, 57.86, 70.52],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "and discard a Provision.",
+              "bbox": [18.43, 70.68, 52.04, 74.33],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "XP",
+              "bbox": [33.99, 76.4, 36.49, 80.53],
+              "font": "DwarvenAxeBB",
+              "size": 9.82,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1 Xp",
+              "bbox": [19.43, 80.12, 24.52, 84.37],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "/ 2 Rooms cleared.",
+              "bbox": [24.51, 80.3, 51.05, 83.95],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Deep in the Warrens",
+              "bbox": [21.53, 15.07, 56.68, 20.85],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#b27a4a"
+            },
+            {
+              "t": "2",
+              "bbox": [26.26, 96.86, 27.68, 100.93],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "2",
+              "bbox": [26.38, 108.91, 27.8, 112.98],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "2",
+              "bbox": [39.27, 108.91, 40.69, 112.98],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "2",
+              "bbox": [39.84, 96.86, 41.26, 100.93],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "III",
+              "bbox": [32.91, 5.75, 37.29, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "-",
+              "bbox": [12.21, 14.09, 14.52, 21.42],
+              "font": "DwarvenAxeBB",
+              "size": 19.0,
+              "color": "#c98c3c"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "831d753fdf",
+              "bbox": [50.62, 0.0, 58.57, 14.55],
+              "bbox_full": [50.62, 0.0, 62.71, 18.62],
+              "decor": true
+            },
+            {
+              "iconId": "e1c34ea8a2",
+              "bbox": [30.5, 4.24, 39.72, 13.78]
+            },
+            {
+              "iconId": "365b7941a4",
+              "bbox": [18.83, 90.66, 27.34, 99.16],
+              "bbox_full": [17.23, 89.06, 30.57, 102.39]
+            },
+            {
+              "iconId": "a488fd5ff1",
+              "bbox": [30.2, 89.06, 43.54, 102.39],
+              "container": true
+            },
+            {
+              "iconId": "ecd1d4820d",
+              "bbox": [31.86, 90.71, 40.26, 99.11],
+              "bbox_full": [30.72, 89.57, 41.39, 100.25]
+            },
+            {
+              "iconId": "3ee6243549",
+              "bbox": [38.8, 97.04, 42.31, 100.55]
+            },
+            {
+              "iconId": "be78e95113",
+              "bbox": [18.95, 102.75, 27.46, 111.26],
+              "bbox_full": [17.35, 101.15, 30.68, 114.49]
+            },
+            {
+              "iconId": "e7b30e2005",
+              "bbox": [31.65, 102.75, 40.16, 111.26],
+              "bbox_full": [30.05, 101.15, 43.39, 114.49]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:e1c34ea8a2} III",
+              "bbox": [30.5, 4.24, 39.72, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "- Deep in the Warrens",
+              "bbox": [12.21, 14.09, 56.68, 21.42]
+            },
+            {
+              "rot": 0,
+              "text": "Filth, rot and humidity are the",
+              "bbox": [23.12, 23.33, 60.01, 27.2]
+            },
+            {
+              "rot": 0,
+              "text": "primary enemies we have yet",
+              "bbox": [23.12, 27.42, 58.96, 31.29]
+            },
+            {
+              "rot": 0,
+              "text": "to overcome in the warrens. Their halls",
+              "bbox": [9.1, 31.51, 56.9, 35.38]
+            },
+            {
+              "rot": 0,
+              "text": "festering with disease such that even the",
+              "bbox": [9.1, 35.61, 59.48, 39.48]
+            },
+            {
+              "rot": 0,
+              "text": "air is toxic. Enter these halls, and find",
+              "bbox": [9.1, 39.7, 54.94, 43.56]
+            },
+            {
+              "rot": 0,
+              "text": "the toxic lairs from where this disease",
+              "bbox": [9.1, 43.79, 55.54, 47.66]
+            },
+            {
+              "rot": 0,
+              "text": "emanates. Expect time to be your primary",
+              "bbox": [9.1, 47.88, 60.49, 51.75]
+            },
+            {
+              "rot": 0,
+              "text": "enemy as your provisions will run bad,",
+              "bbox": [9.1, 51.97, 55.66, 55.84]
+            },
+            {
+              "rot": 0,
+              "text": "faster than expected.",
+              "bbox": [9.1, 56.06, 35.34, 59.93]
+            },
+            {
+              "rot": 0,
+              "text": "SPECIAL RULES",
+              "bbox": [28.08, 61.97, 42.4, 66.1]
+            },
+            {
+              "rot": 0,
+              "text": "After you leave a Room, choose",
+              "bbox": [12.62, 66.87, 57.86, 70.52]
+            },
+            {
+              "rot": 0,
+              "text": "and discard a Provision.",
+              "bbox": [18.43, 70.68, 52.04, 74.33]
+            },
+            {
+              "rot": 0,
+              "text": "XP",
+              "bbox": [33.99, 76.4, 36.49, 80.53]
+            },
+            {
+              "rot": 0,
+              "text": "1 Xp/ 2 Rooms cleared.",
+              "bbox": [19.43, 80.12, 51.05, 84.37]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:365b7941a4} 2 {icon:ecd1d4820d} {icon:3ee6243549} 2",
+              "bbox": [18.83, 90.66, 42.31, 100.93]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:be78e95113} 2 {icon:e7b30e2005} 2",
+              "bbox": [18.95, 102.75, 40.69, 112.98]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+          "page": 11,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d1199db12fc666a4",
+          "spans": [
+            {
+              "t": "Quest",
+              "bbox": [22.49, 97.11, 37.53, 106.36],
+              "font": "DwarvenAxeBB",
+              "size": 24.0,
+              "color": "#493f35"
+            },
+            {
+              "t": "III",
+              "bbox": [39.94, 98.6, 44.32, 105.54],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "3a61674831",
+              "bbox": [37.53, 97.09, 46.74, 106.62]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Quest {icon:3a61674831} III",
+              "bbox": [22.49, 97.09, 46.74, 106.62]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "quest:warrens:p012",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [12],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+          "page": 12,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "948f3eb46d30c595",
+          "spans": [
+            {
+              "t": "Among their kind, there is an",
+              "bbox": [23.12, 23.33, 58.59, 27.2],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "alpha swine – a monster that",
+              "bbox": [23.12, 27.42, 58.88, 31.29],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "the swines idolize. A Swinetaur that poses",
+              "bbox": [9.1, 31.51, 60.65, 35.38],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "a threat far more dangerous than any",
+              "bbox": [9.1, 35.61, 55.48, 39.48],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "that you have overcome. Go there, find",
+              "bbox": [9.1, 39.7, 56.95, 43.56],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "it and kill it as soon as possible. Expect a",
+              "bbox": [9.1, 43.79, 58.58, 47.66],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "strong resistance though, for the swines",
+              "bbox": [9.1, 47.88, 58.35, 51.75],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "will fervently defend their new alpha like a",
+              "bbox": [9.1, 51.97, 61.79, 55.84],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "rabid pack of wolves.",
+              "bbox": [9.1, 56.06, 35.06, 59.93],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "SPECIAL RULES",
+              "bbox": [28.08, 61.97, 42.4, 66.1],
+              "font": "DwarvenAxeBB",
+              "size": 9.82,
+              "color": "#ffffff"
+            },
+            {
+              "t": "In Lairs, always spawn a",
+              "bbox": [10.6, 66.87, 43.46, 70.52],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Swinetaur",
+              "bbox": [44.13, 66.87, 59.13, 70.62],
+              "font": "Ubuntu-Bold",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": ".",
+              "bbox": [59.09, 66.87, 59.87, 70.52],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Monsters in Lairs have +1",
+              "bbox": [16.96, 70.68, 52.37, 74.33],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Crit",
+              "bbox": [53.04, 70.21, 57.98, 74.84],
+              "font": "DwarvenAxeBB",
+              "size": 12.0,
+              "color": "#f26522",
+              "dup": 2
+            },
+            {
+              "t": ".",
+              "bbox": [57.94, 70.68, 58.72, 74.33],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "XP",
+              "bbox": [33.99, 76.4, 36.49, 80.53],
+              "font": "DwarvenAxeBB",
+              "size": 9.82,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1 Xp",
+              "bbox": [22.97, 80.12, 28.06, 84.37],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "/ Lair cleared.",
+              "bbox": [28.06, 80.3, 47.51, 83.95],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Alpha Swine",
+              "bbox": [28.88, 15.07, 49.33, 20.85],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#b27a4a"
+            },
+            {
+              "t": "2",
+              "bbox": [26.26, 96.86, 27.68, 100.93],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "3",
+              "bbox": [26.35, 108.91, 27.83, 112.98],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "2",
+              "bbox": [39.27, 108.91, 40.69, 112.98],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1",
+              "bbox": [40.04, 96.86, 41.07, 100.93],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "III",
+              "bbox": [32.91, 5.75, 37.29, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "8",
+              "bbox": [11.93, 14.09, 14.8, 21.42],
+              "font": "DwarvenAxeBB",
+              "size": 19.0,
+              "color": "#c98c3c"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "831d753fdf",
+              "bbox": [50.62, 0.0, 58.57, 14.55],
+              "bbox_full": [50.62, 0.0, 62.71, 18.62],
+              "decor": true
+            },
+            {
+              "iconId": "e1c34ea8a2",
+              "bbox": [30.5, 4.24, 39.72, 13.78]
+            },
+            {
+              "iconId": "00deeac1eb",
+              "bbox": [11.76, 70.27, 16.29, 74.56]
+            },
+            {
+              "iconId": "7b075a3925",
+              "bbox": [18.83, 90.66, 27.34, 99.16],
+              "bbox_full": [17.23, 89.06, 30.57, 102.39]
+            },
+            {
+              "iconId": "365b7941a4",
+              "bbox": [30.2, 89.06, 43.54, 102.39],
+              "container": true
+            },
+            {
+              "iconId": "509c4a958c",
+              "bbox": [31.81, 90.66, 40.31, 99.16],
+              "bbox_full": [30.72, 89.57, 41.39, 100.25]
+            },
+            {
+              "iconId": "3ee6243549",
+              "bbox": [38.8, 97.04, 42.31, 100.55]
+            },
+            {
+              "iconId": "be78e95113",
+              "bbox": [18.95, 102.75, 27.46, 111.26],
+              "bbox_full": [17.35, 101.15, 30.68, 114.49]
+            },
+            {
+              "iconId": "e7b30e2005",
+              "bbox": [31.65, 102.75, 40.16, 111.26],
+              "bbox_full": [30.05, 101.15, 43.39, 114.49]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:e1c34ea8a2} III",
+              "bbox": [30.5, 4.24, 39.72, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "8 Alpha Swine",
+              "bbox": [11.93, 14.09, 49.33, 21.42]
+            },
+            {
+              "rot": 0,
+              "text": "Among their kind, there is an",
+              "bbox": [23.12, 23.33, 58.59, 27.2]
+            },
+            {
+              "rot": 0,
+              "text": "alpha swine – a monster that",
+              "bbox": [23.12, 27.42, 58.88, 31.29]
+            },
+            {
+              "rot": 0,
+              "text": "the swines idolize. A Swinetaur that poses",
+              "bbox": [9.1, 31.51, 60.65, 35.38]
+            },
+            {
+              "rot": 0,
+              "text": "a threat far more dangerous than any",
+              "bbox": [9.1, 35.61, 55.48, 39.48]
+            },
+            {
+              "rot": 0,
+              "text": "that you have overcome. Go there, find",
+              "bbox": [9.1, 39.7, 56.95, 43.56]
+            },
+            {
+              "rot": 0,
+              "text": "it and kill it as soon as possible. Expect a",
+              "bbox": [9.1, 43.79, 58.58, 47.66]
+            },
+            {
+              "rot": 0,
+              "text": "strong resistance though, for the swines",
+              "bbox": [9.1, 47.88, 58.35, 51.75]
+            },
+            {
+              "rot": 0,
+              "text": "will fervently defend their new alpha like a",
+              "bbox": [9.1, 51.97, 61.79, 55.84]
+            },
+            {
+              "rot": 0,
+              "text": "rabid pack of wolves.",
+              "bbox": [9.1, 56.06, 35.06, 59.93]
+            },
+            {
+              "rot": 0,
+              "text": "SPECIAL RULES",
+              "bbox": [28.08, 61.97, 42.4, 66.1]
+            },
+            {
+              "rot": 0,
+              "text": "In Lairs, always spawn a Swinetaur.",
+              "bbox": [10.6, 66.87, 59.87, 70.62]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:00deeac1eb} Monsters in Lairs have +1 Crit.",
+              "bbox": [11.76, 70.21, 58.72, 74.84]
+            },
+            {
+              "rot": 0,
+              "text": "XP",
+              "bbox": [33.99, 76.4, 36.49, 80.53]
+            },
+            {
+              "rot": 0,
+              "text": "1 Xp/ Lair cleared.",
+              "bbox": [22.97, 80.12, 47.51, 84.37]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:7b075a3925} 2 {icon:509c4a958c} {icon:3ee6243549} 1",
+              "bbox": [18.83, 90.66, 42.31, 100.93]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:be78e95113} 3 {icon:e7b30e2005} 2",
+              "bbox": [18.95, 102.75, 40.69, 112.98]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+          "page": 12,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d1199db12fc666a4",
+          "spans": [
+            {
+              "t": "Quest",
+              "bbox": [22.49, 97.11, 37.53, 106.36],
+              "font": "DwarvenAxeBB",
+              "size": 24.0,
+              "color": "#493f35"
+            },
+            {
+              "t": "III",
+              "bbox": [39.94, 98.6, 44.32, 105.54],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "3a61674831",
+              "bbox": [37.53, 97.09, 46.74, 106.62]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Quest {icon:3a61674831} III",
+              "bbox": [22.49, 97.09, 46.74, 106.62]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "quest:warrens:p013",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [13],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+          "page": 13,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "948f3fb46f308594",
+          "spans": [
+            {
+              "t": "You have suffered many things,",
+              "bbox": [23.12, 23.33, 61.6, 27.2],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "but the worst is yet to come.",
+              "bbox": [23.12, 27.42, 58.2, 31.29],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "In the warrens there is a foul room filled",
+              "bbox": [9.1, 31.51, 58.49, 35.38],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "with rancid smell and pestilence. A fitting",
+              "bbox": [9.1, 35.61, 60.06, 39.48],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "start for a new plague… Find this room",
+              "bbox": [9.1, 39.7, 57.53, 43.56],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "and solve this problem. Be careful, though,",
+              "bbox": [9.1, 43.79, 61.56, 47.66],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "as the new disease is far more contagious",
+              "bbox": [9.1, 47.88, 60.16, 51.75],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "than expected.",
+              "bbox": [9.1, 51.97, 27.35, 55.84],
+              "font": "Ubuntu-Italic",
+              "size": 8.73,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "SPECIAL RULES",
+              "bbox": [28.08, 57.88, 42.4, 62.01],
+              "font": "DwarvenAxeBB",
+              "size": 9.82,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Objective Room is always Room",
+              "bbox": [8.28, 62.78, 52.88, 66.43],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "6",
+              "bbox": [58.64, 62.53, 60.35, 66.92],
+              "font": "DwarvenAxeBB",
+              "size": 11.4,
+              "color": "#ffffff"
+            },
+            {
+              "t": ".",
+              "bbox": [61.42, 62.78, 62.2, 66.43],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "When a Hero is dropped to",
+              "bbox": [16.0, 66.59, 54.48, 70.24],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Death’s Door when fighting",
+              "bbox": [15.44, 70.4, 55.03, 74.05],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "there, they suffer",
+              "bbox": [19.91, 74.21, 45.17, 77.86],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": ".",
+              "bbox": [49.78, 74.21, 50.56, 77.86],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "XP",
+              "bbox": [33.99, 79.93, 36.49, 84.06],
+              "font": "DwarvenAxeBB",
+              "size": 9.82,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1 Xp",
+              "bbox": [14.13, 83.65, 19.22, 87.89],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "/ Objective Room cleared.",
+              "bbox": [19.22, 83.83, 56.34, 87.48],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Foul Arsenal",
+              "bbox": [28.49, 15.07, 49.72, 20.85],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#b27a4a"
+            },
+            {
+              "t": "3",
+              "bbox": [27.1, 97.25, 28.57, 101.33],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1",
+              "bbox": [20.83, 109.3, 21.85, 113.37],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "2",
+              "bbox": [39.82, 97.25, 41.24, 101.33],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1",
+              "bbox": [33.52, 109.3, 34.54, 113.37],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1",
+              "bbox": [45.52, 109.3, 46.54, 113.37],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "III",
+              "bbox": [32.91, 5.75, 37.29, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "12",
+              "bbox": [11.17, 14.09, 15.56, 21.42],
+              "font": "DwarvenAxeBB",
+              "size": 19.0,
+              "color": "#c98c3c"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "831d753fdf",
+              "bbox": [50.62, 0.0, 58.57, 14.55],
+              "bbox_full": [50.62, 0.0, 62.71, 18.62],
+              "decor": true
+            },
+            {
+              "iconId": "e1c34ea8a2",
+              "bbox": [30.5, 4.24, 39.72, 13.78]
+            },
+            {
+              "iconId": "ea6ec441c3",
+              "bbox": [53.5, 62.66, 61.18, 66.5]
+            },
+            {
+              "iconId": "90a3ef79ca",
+              "bbox": [45.91, 74.14, 49.78, 78.67]
+            },
+            {
+              "iconId": "d3a3e38ee9",
+              "bbox": [19.76, 91.1, 28.15, 99.5],
+              "bbox_full": [18.1, 89.45, 31.43, 102.78]
+            },
+            {
+              "iconId": "6f701b5f5f",
+              "bbox": [32.26, 91.1, 40.65, 99.5],
+              "bbox_full": [30.6, 89.45, 43.93, 102.78]
+            },
+            {
+              "iconId": "7b075a3925",
+              "bbox": [13.2, 103.15, 21.71, 111.65],
+              "bbox_full": [11.6, 101.55, 24.93, 114.88]
+            },
+            {
+              "iconId": "a488fd5ff1",
+              "bbox": [25.76, 103.21, 34.15, 111.6],
+              "bbox_full": [24.1, 101.55, 37.43, 114.88]
+            },
+            {
+              "iconId": "e7b30e2005",
+              "bbox": [37.7, 103.15, 46.21, 111.65],
+              "bbox_full": [36.1, 101.55, 49.43, 114.88]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:e1c34ea8a2} III",
+              "bbox": [30.5, 4.24, 39.72, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "12 Foul Arsenal",
+              "bbox": [11.17, 14.09, 49.72, 21.42]
+            },
+            {
+              "rot": 0,
+              "text": "You have suffered many things,",
+              "bbox": [23.12, 23.33, 61.6, 27.2]
+            },
+            {
+              "rot": 0,
+              "text": "but the worst is yet to come.",
+              "bbox": [23.12, 27.42, 58.2, 31.29]
+            },
+            {
+              "rot": 0,
+              "text": "In the warrens there is a foul room filled",
+              "bbox": [9.1, 31.51, 58.49, 35.38]
+            },
+            {
+              "rot": 0,
+              "text": "with rancid smell and pestilence. A fitting",
+              "bbox": [9.1, 35.61, 60.06, 39.48]
+            },
+            {
+              "rot": 0,
+              "text": "start for a new plague… Find this room",
+              "bbox": [9.1, 39.7, 57.53, 43.56]
+            },
+            {
+              "rot": 0,
+              "text": "and solve this problem. Be careful, though,",
+              "bbox": [9.1, 43.79, 61.56, 47.66]
+            },
+            {
+              "rot": 0,
+              "text": "as the new disease is far more contagious",
+              "bbox": [9.1, 47.88, 60.16, 51.75]
+            },
+            {
+              "rot": 0,
+              "text": "than expected.",
+              "bbox": [9.1, 51.97, 27.35, 55.84]
+            },
+            {
+              "rot": 0,
+              "text": "SPECIAL RULES",
+              "bbox": [28.08, 57.88, 42.4, 62.01]
+            },
+            {
+              "rot": 0,
+              "text": "Objective Room is always Room {icon:ea6ec441c3} 6 .",
+              "bbox": [8.28, 62.53, 62.2, 66.92]
+            },
+            {
+              "rot": 0,
+              "text": "When a Hero is dropped to",
+              "bbox": [16.0, 66.59, 54.48, 70.24]
+            },
+            {
+              "rot": 0,
+              "text": "Death’s Door when fighting",
+              "bbox": [15.44, 70.4, 55.03, 74.05]
+            },
+            {
+              "rot": 0,
+              "text": "there, they suffer {icon:90a3ef79ca} .",
+              "bbox": [19.91, 74.14, 50.56, 78.67]
+            },
+            {
+              "rot": 0,
+              "text": "XP",
+              "bbox": [33.99, 79.93, 36.49, 84.06]
+            },
+            {
+              "rot": 0,
+              "text": "1 Xp/ Objective Room cleared.",
+              "bbox": [14.13, 83.65, 56.34, 87.89]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:d3a3e38ee9} 3 {icon:6f701b5f5f} 2",
+              "bbox": [19.76, 91.1, 41.24, 101.33]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:7b075a3925} 1 {icon:a488fd5ff1} 1 {icon:e7b30e2005} 1",
+              "bbox": [13.2, 103.15, 46.54, 113.37]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+          "page": 13,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d1199db12fc666a4",
+          "spans": [
+            {
+              "t": "Quest",
+              "bbox": [22.49, 97.11, 37.53, 106.36],
+              "font": "DwarvenAxeBB",
+              "size": 24.0,
+              "color": "#493f35"
+            },
+            {
+              "t": "III",
+              "bbox": [39.94, 98.6, 44.32, 105.54],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "3a61674831",
+              "bbox": [37.53, 97.09, 46.74, 106.62]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Quest {icon:3a61674831} III",
+              "bbox": [22.49, 97.09, 46.74, 106.62]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "quest:warrens:p014",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [14],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+          "page": 14,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "948f3fb46db08594",
+          "spans": [
+            {
+              "t": "Like humans often do, the swine",
+              "bbox": [23.12, 22.46, 57.84, 25.85],
+              "font": "Ubuntu-Italic",
+              "size": 7.64,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "are fighting each other, amidst a",
+              "bbox": [23.12, 26.06, 58.22, 29.45],
+              "font": "Ubuntu-Italic",
+              "size": 7.64,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "heated leader crisis. Now is the time",
+              "bbox": [23.12, 29.66, 62.01, 33.04],
+              "font": "Ubuntu-Italic",
+              "size": 7.64,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "to brave the shadows of the warrens and move",
+              "bbox": [9.1, 33.26, 59.63, 36.64],
+              "font": "Ubuntu-Italic",
+              "size": 7.64,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "unseen. Strike fast and bring down the strongest",
+              "bbox": [9.1, 36.85, 61.38, 40.24],
+              "font": "Ubuntu-Italic",
+              "size": 7.64,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "of their kind!",
+              "bbox": [9.1, 40.45, 22.88, 43.83],
+              "font": "Ubuntu-Italic",
+              "size": 7.64,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "SPECIAL RULES",
+              "bbox": [28.08, 45.45, 42.4, 49.58],
+              "font": "DwarvenAxeBB",
+              "size": 9.82,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Always spawn a",
+              "bbox": [14.57, 50.24, 34.91, 53.69],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "Swine Skiver",
+              "bbox": [35.49, 50.24, 52.91, 53.78],
+              "font": "Ubuntu-Bold",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "in",
+              "bbox": [53.48, 50.24, 55.9, 53.69],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "Lairs. You cannot Scout in this Quest.",
+              "bbox": [11.36, 53.76, 59.11, 57.21],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "Instead, before advancing to a Room,",
+              "bbox": [11.08, 57.29, 59.4, 60.74],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "you can reveal one adjacent. If you",
+              "bbox": [12.9, 60.82, 57.58, 64.27],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "move towards a revealed Lair, move",
+              "bbox": [12.04, 64.34, 58.44, 67.79],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "there without exploring. For the First",
+              "bbox": [11.14, 67.87, 59.34, 71.32],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "round in each Lair, place all Hero",
+              "bbox": [14.29, 71.4, 56.18, 74.85],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "Initiative Cards on top of the deck.",
+              "bbox": [12.98, 74.92, 57.5, 78.37],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "XP",
+              "bbox": [33.99, 79.98, 36.49, 84.11],
+              "font": "DwarvenAxeBB",
+              "size": 9.82,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1 Xp",
+              "bbox": [22.97, 83.71, 28.06, 87.95],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "/ Lair cleared.",
+              "bbox": [28.06, 83.88, 47.51, 87.53],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Infighting",
+              "bbox": [30.89, 15.07, 47.33, 20.85],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#b27a4a"
+            },
+            {
+              "t": "2",
+              "bbox": [26.26, 97.36, 27.68, 101.43],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "3",
+              "bbox": [26.35, 109.4, 27.83, 113.48],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "2",
+              "bbox": [39.27, 109.4, 40.69, 113.48],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1",
+              "bbox": [40.04, 97.36, 41.07, 101.43],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "III",
+              "bbox": [32.91, 5.75, 37.29, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "8",
+              "bbox": [11.93, 14.09, 14.8, 21.42],
+              "font": "DwarvenAxeBB",
+              "size": 19.0,
+              "color": "#c98c3c"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "831d753fdf",
+              "bbox": [50.62, 0.0, 58.57, 14.55],
+              "bbox_full": [50.62, 0.0, 62.71, 18.62],
+              "decor": true
+            },
+            {
+              "iconId": "e1c34ea8a2",
+              "bbox": [30.5, 4.24, 39.72, 13.78]
+            },
+            {
+              "iconId": "b0b3c27c17",
+              "bbox": [28.5, 13.77, 49.58, 23.17],
+              "decor": true
+            },
+            {
+              "iconId": "6f701b5f5f",
+              "bbox": [18.83, 91.16, 27.34, 99.66],
+              "bbox_full": [17.23, 89.55, 30.57, 102.89]
+            },
+            {
+              "iconId": "a488fd5ff1",
+              "bbox": [30.2, 89.55, 43.54, 102.89],
+              "container": true
+            },
+            {
+              "iconId": "ecd1d4820d",
+              "bbox": [31.86, 91.21, 40.26, 99.6],
+              "bbox_full": [30.72, 90.07, 41.39, 100.75]
+            },
+            {
+              "iconId": "eafc8e69df",
+              "bbox": [38.8, 97.54, 42.31, 101.05]
+            },
+            {
+              "iconId": "be78e95113",
+              "bbox": [18.95, 103.25, 27.46, 111.76],
+              "bbox_full": [17.35, 101.65, 30.68, 114.99]
+            },
+            {
+              "iconId": "e7b30e2005",
+              "bbox": [31.65, 103.25, 40.16, 111.76],
+              "bbox_full": [30.05, 101.65, 43.39, 114.99]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:e1c34ea8a2} III",
+              "bbox": [30.5, 4.24, 39.72, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "8",
+              "bbox": [11.93, 14.09, 14.8, 21.42]
+            },
+            {
+              "rot": 0,
+              "text": "Infighting",
+              "bbox": [30.89, 15.07, 47.33, 20.85]
+            },
+            {
+              "rot": 0,
+              "text": "Like humans often do, the swine",
+              "bbox": [23.12, 22.46, 57.84, 25.85]
+            },
+            {
+              "rot": 0,
+              "text": "are fighting each other, amidst a",
+              "bbox": [23.12, 26.06, 58.22, 29.45]
+            },
+            {
+              "rot": 0,
+              "text": "heated leader crisis. Now is the time",
+              "bbox": [23.12, 29.66, 62.01, 33.04]
+            },
+            {
+              "rot": 0,
+              "text": "to brave the shadows of the warrens and move",
+              "bbox": [9.1, 33.26, 59.63, 36.64]
+            },
+            {
+              "rot": 0,
+              "text": "unseen. Strike fast and bring down the strongest",
+              "bbox": [9.1, 36.85, 61.38, 40.24]
+            },
+            {
+              "rot": 0,
+              "text": "of their kind!",
+              "bbox": [9.1, 40.45, 22.88, 43.83]
+            },
+            {
+              "rot": 0,
+              "text": "SPECIAL RULES",
+              "bbox": [28.08, 45.45, 42.4, 49.58]
+            },
+            {
+              "rot": 0,
+              "text": "Always spawn a Swine Skiver in",
+              "bbox": [14.57, 50.24, 55.9, 53.78]
+            },
+            {
+              "rot": 0,
+              "text": "Lairs. You cannot Scout in this Quest.",
+              "bbox": [11.36, 53.76, 59.11, 57.21]
+            },
+            {
+              "rot": 0,
+              "text": "Instead, before advancing to a Room,",
+              "bbox": [11.08, 57.29, 59.4, 60.74]
+            },
+            {
+              "rot": 0,
+              "text": "you can reveal one adjacent. If you",
+              "bbox": [12.9, 60.82, 57.58, 64.27]
+            },
+            {
+              "rot": 0,
+              "text": "move towards a revealed Lair, move",
+              "bbox": [12.04, 64.34, 58.44, 67.79]
+            },
+            {
+              "rot": 0,
+              "text": "there without exploring. For the First",
+              "bbox": [11.14, 67.87, 59.34, 71.32]
+            },
+            {
+              "rot": 0,
+              "text": "round in each Lair, place all Hero",
+              "bbox": [14.29, 71.4, 56.18, 74.85]
+            },
+            {
+              "rot": 0,
+              "text": "Initiative Cards on top of the deck.",
+              "bbox": [12.98, 74.92, 57.5, 78.37]
+            },
+            {
+              "rot": 0,
+              "text": "XP",
+              "bbox": [33.99, 79.98, 36.49, 84.11]
+            },
+            {
+              "rot": 0,
+              "text": "1 Xp/ Lair cleared.",
+              "bbox": [22.97, 83.71, 47.51, 87.95]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:6f701b5f5f} 2 {icon:ecd1d4820d} {icon:eafc8e69df} 1",
+              "bbox": [18.83, 91.16, 42.31, 101.43]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:be78e95113} 3 {icon:e7b30e2005} 2",
+              "bbox": [18.95, 103.25, 40.69, 113.48]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+          "page": 14,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d1199db12fc666a4",
+          "spans": [
+            {
+              "t": "Quest",
+              "bbox": [22.49, 97.11, 37.53, 106.36],
+              "font": "DwarvenAxeBB",
+              "size": 24.0,
+              "color": "#493f35"
+            },
+            {
+              "t": "III",
+              "bbox": [39.94, 98.6, 44.32, 105.54],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "3a61674831",
+              "bbox": [37.53, 97.09, 46.74, 106.62]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Quest {icon:3a61674831} III",
+              "bbox": [22.49, 97.09, 46.74, 106.62]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "quest:warrens:p015",
+      "source_set": "extension",
+      "copies": 1,
+      "pages": [15],
+      "faces": {
+        "front": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+          "page": 15,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "948f3eb46db0c594",
+          "spans": [
+            {
+              "t": "Do you hear them? These are their",
+              "bbox": [23.12, 22.46, 60.01, 25.85],
+              "font": "Ubuntu-Italic",
+              "size": 7.64,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "drums of doom… Coming from",
+              "bbox": [23.12, 26.06, 56.37, 29.45],
+              "font": "Ubuntu-Italic",
+              "size": 7.64,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "deep in the warrens, the swine are",
+              "bbox": [23.12, 29.66, 60.11, 33.04],
+              "font": "Ubuntu-Italic",
+              "size": 7.64,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "gathering for their dark masses. Your mission",
+              "bbox": [9.1, 33.26, 57.59, 36.64],
+              "font": "Ubuntu-Italic",
+              "size": 7.64,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "is of utmost importance, for you need to go",
+              "bbox": [9.1, 36.85, 55.64, 40.24],
+              "font": "Ubuntu-Italic",
+              "size": 7.64,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "down there and eradicate as many drummers",
+              "bbox": [9.1, 40.45, 57.74, 43.83],
+              "font": "Ubuntu-Italic",
+              "size": 7.64,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "as possible. Drag their bodies, along with their",
+              "bbox": [9.1, 44.04, 58.91, 47.43],
+              "font": "Ubuntu-Italic",
+              "size": 7.64,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "morale, to the muddy, rancid ground.",
+              "bbox": [9.1, 47.64, 48.93, 51.03],
+              "font": "Ubuntu-Italic",
+              "size": 7.64,
+              "color": "#0a0a0b"
+            },
+            {
+              "t": "SPECIAL RULES",
+              "bbox": [28.08, 52.65, 42.4, 56.78],
+              "font": "DwarvenAxeBB",
+              "size": 9.82,
+              "color": "#ffffff"
+            },
+            {
+              "t": "Always spawn a",
+              "bbox": [11.45, 57.43, 32.57, 60.88],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "Swine Drummer",
+              "bbox": [33.26, 57.43, 55.85, 60.98],
+              "font": "Ubuntu-Bold",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "in",
+              "bbox": [56.54, 57.43, 59.02, 60.88],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "Lairs. The first Monster you spawn",
+              "bbox": [12.04, 60.96, 58.44, 64.41],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "after this gains",
+              "bbox": [11.9, 64.48, 32.14, 67.94],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "4t",
+              "bbox": [37.08, 64.15, 39.63, 68.39],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": ". When it dies,",
+              "bbox": [39.63, 64.49, 58.58, 67.94],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "the remaining",
+              "bbox": [12.0, 68.02, 30.96, 71.47],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "goes to the next",
+              "bbox": [36.22, 68.02, 58.48, 71.47],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "Monster in Stance priority order.",
+              "bbox": [13.23, 71.54, 57.25, 74.99],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "When a",
+              "bbox": [10.47, 75.07, 20.62, 78.52],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "Swine Drummer",
+              "bbox": [21.32, 75.07, 43.91, 78.62],
+              "font": "Ubuntu-Bold",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "is activated",
+              "bbox": [44.6, 75.07, 60.0, 78.52],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "in Lairs, all Monsters gain",
+              "bbox": [10.24, 78.6, 44.37, 82.05],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "2t",
+              "bbox": [49.13, 78.26, 51.57, 82.5],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": ",",
+              "bbox": [51.57, 78.6, 52.3, 82.05],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "2t",
+              "bbox": [57.07, 78.26, 59.5, 82.5],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": ".",
+              "bbox": [59.5, 78.6, 60.23, 82.05],
+              "font": "Ubuntu-Regular",
+              "size": 8.5,
+              "color": "#231f20"
+            },
+            {
+              "t": "XP",
+              "bbox": [33.99, 83.65, 36.49, 87.78],
+              "font": "DwarvenAxeBB",
+              "size": 9.82,
+              "color": "#ffffff"
+            },
+            {
+              "t": "1 Xp",
+              "bbox": [22.97, 87.38, 28.06, 91.62],
+              "font": "DwarvenAxeBB",
+              "size": 11.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "/ Lair cleared.",
+              "bbox": [28.06, 87.55, 47.51, 91.2],
+              "font": "Ubuntu-Regular",
+              "size": 9.0,
+              "color": "#231f20"
+            },
+            {
+              "t": "Drums of Doom",
+              "bbox": [25.65, 15.07, 52.56, 20.85],
+              "font": "DwarvenAxeBB",
+              "size": 15.0,
+              "color": "#b27a4a"
+            },
+            {
+              "t": "1",
+              "bbox": [26.46, 99.79, 27.48, 103.86],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "3",
+              "bbox": [26.35, 111.83, 27.83, 115.91],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "2",
+              "bbox": [39.27, 111.83, 40.69, 115.91],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "2",
+              "bbox": [39.84, 99.79, 41.26, 103.86],
+              "font": "DwarvenAxeBB",
+              "size": 10.57,
+              "color": "#ffffff"
+            },
+            {
+              "t": "III",
+              "bbox": [32.91, 5.75, 37.29, 12.69],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            },
+            {
+              "t": "8",
+              "bbox": [11.93, 14.09, 14.8, 21.42],
+              "font": "DwarvenAxeBB",
+              "size": 19.0,
+              "color": "#c98c3c"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "831d753fdf",
+              "bbox": [50.62, 0.0, 58.57, 14.55],
+              "bbox_full": [50.62, 0.0, 62.71, 18.62],
+              "decor": true
+            },
+            {
+              "iconId": "e1c34ea8a2",
+              "bbox": [30.5, 4.24, 39.72, 13.78]
+            },
+            {
+              "iconId": "2003c5b6f7",
+              "bbox": [33.04, 64.44, 36.5, 68.31]
+            },
+            {
+              "iconId": "d93d76a1b3",
+              "bbox": [31.86, 67.97, 35.32, 71.84]
+            },
+            {
+              "iconId": "8f7e74ac34",
+              "bbox": [45.06, 78.56, 48.44, 81.99]
+            },
+            {
+              "iconId": "8f7e74ac34",
+              "bbox": [52.99, 78.56, 56.37, 81.99]
+            },
+            {
+              "iconId": "7b075a3925",
+              "bbox": [18.83, 93.58, 27.34, 102.09],
+              "bbox_full": [17.23, 91.98, 30.57, 105.32]
+            },
+            {
+              "iconId": "365b7941a4",
+              "bbox": [30.2, 91.98, 43.54, 105.32],
+              "container": true
+            },
+            {
+              "iconId": "509c4a958c",
+              "bbox": [31.81, 93.58, 40.31, 102.09],
+              "bbox_full": [30.72, 92.5, 41.39, 103.18]
+            },
+            {
+              "iconId": "3ee6243549",
+              "bbox": [38.8, 99.97, 42.31, 103.48]
+            },
+            {
+              "iconId": "be78e95113",
+              "bbox": [18.95, 105.69, 27.46, 114.19],
+              "bbox_full": [17.35, 104.08, 30.68, 117.42]
+            },
+            {
+              "iconId": "e7b30e2005",
+              "bbox": [31.65, 105.69, 40.16, 114.19],
+              "bbox_full": [30.05, 104.08, 43.39, 117.42]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "{icon:e1c34ea8a2} III",
+              "bbox": [30.5, 4.24, 39.72, 13.78]
+            },
+            {
+              "rot": 0,
+              "text": "8 Drums of Doom",
+              "bbox": [11.93, 14.09, 52.56, 21.42]
+            },
+            {
+              "rot": 0,
+              "text": "Do you hear them? These are their",
+              "bbox": [23.12, 22.46, 60.01, 25.85]
+            },
+            {
+              "rot": 0,
+              "text": "drums of doom… Coming from",
+              "bbox": [23.12, 26.06, 56.37, 29.45]
+            },
+            {
+              "rot": 0,
+              "text": "deep in the warrens, the swine are",
+              "bbox": [23.12, 29.66, 60.11, 33.04]
+            },
+            {
+              "rot": 0,
+              "text": "gathering for their dark masses. Your mission",
+              "bbox": [9.1, 33.26, 57.59, 36.64]
+            },
+            {
+              "rot": 0,
+              "text": "is of utmost importance, for you need to go",
+              "bbox": [9.1, 36.85, 55.64, 40.24]
+            },
+            {
+              "rot": 0,
+              "text": "down there and eradicate as many drummers",
+              "bbox": [9.1, 40.45, 57.74, 43.83]
+            },
+            {
+              "rot": 0,
+              "text": "as possible. Drag their bodies, along with their",
+              "bbox": [9.1, 44.04, 58.91, 47.43]
+            },
+            {
+              "rot": 0,
+              "text": "morale, to the muddy, rancid ground.",
+              "bbox": [9.1, 47.64, 48.93, 51.03]
+            },
+            {
+              "rot": 0,
+              "text": "SPECIAL RULES",
+              "bbox": [28.08, 52.65, 42.4, 56.78]
+            },
+            {
+              "rot": 0,
+              "text": "Always spawn a Swine Drummer in",
+              "bbox": [11.45, 57.43, 59.02, 60.98]
+            },
+            {
+              "rot": 0,
+              "text": "Lairs. The first Monster you spawn",
+              "bbox": [12.04, 60.96, 58.44, 64.41]
+            },
+            {
+              "rot": 0,
+              "text": "after this gains {icon:2003c5b6f7} 4t. When it dies,",
+              "bbox": [11.9, 64.15, 58.58, 68.39]
+            },
+            {
+              "rot": 0,
+              "text": "the remaining {icon:d93d76a1b3} goes to the next",
+              "bbox": [12.0, 67.97, 58.48, 71.84]
+            },
+            {
+              "rot": 0,
+              "text": "Monster in Stance priority order.",
+              "bbox": [13.23, 71.54, 57.25, 74.99]
+            },
+            {
+              "rot": 0,
+              "text": "When a Swine Drummer is activated",
+              "bbox": [10.47, 75.07, 60.0, 78.62]
+            },
+            {
+              "rot": 0,
+              "text": "in Lairs, all Monsters gain {icon:8f7e74ac34} 2t, {icon:8f7e74ac34} 2t.",
+              "bbox": [10.24, 78.26, 60.23, 82.5]
+            },
+            {
+              "rot": 0,
+              "text": "XP",
+              "bbox": [33.99, 83.65, 36.49, 87.78]
+            },
+            {
+              "rot": 0,
+              "text": "1 Xp/ Lair cleared.",
+              "bbox": [22.97, 87.38, 47.51, 91.62]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:7b075a3925} 1 {icon:509c4a958c} {icon:3ee6243549} 2",
+              "bbox": [18.83, 93.58, 42.31, 103.86]
+            },
+            {
+              "rot": 0,
+              "text": "{icon:be78e95113} 3 {icon:e7b30e2005} 2",
+              "bbox": [18.95, 105.69, 40.69, 115.91]
+            }
+          ]
+        },
+        "back": {
+          "file": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+          "page": 15,
+          "trim_mm": [70.0, 120.0],
+          "face_phash": "d1199db12fc666a4",
+          "spans": [
+            {
+              "t": "Quest",
+              "bbox": [22.49, 97.11, 37.53, 106.36],
+              "font": "DwarvenAxeBB",
+              "size": 24.0,
+              "color": "#493f35"
+            },
+            {
+              "t": "III",
+              "bbox": [39.94, 98.6, 44.32, 105.54],
+              "font": "DwarvenAxeBB",
+              "size": 18.0,
+              "color": "#d12529"
+            }
+          ],
+          "icons": [
+            {
+              "iconId": "3a61674831",
+              "bbox": [37.53, 97.09, 46.74, 106.62]
+            }
+          ],
+          "lines": [
+            {
+              "rot": 0,
+              "text": "Quest {icon:3a61674831} III",
+              "bbox": [22.49, 97.09, 46.74, 106.62]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

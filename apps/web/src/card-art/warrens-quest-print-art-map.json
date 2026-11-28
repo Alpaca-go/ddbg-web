@@ -1,0 +1,382 @@
+{
+  "schema": "ddbg.print-warrens-quest-art-map.v1",
+  "source": {
+    "pack": "warrens",
+    "geometry": "TrimBox 198.43×340.16pt（与核心任务卡一致，R-048）",
+    "trimBoxPt": {
+      "widthPt": 198.43,
+      "heightPt": 340.16
+    },
+    "exportScript": "tools/pipeline/extract-print/scripts/extract_warrens_quest.py",
+    "enabledQuestIds": [],
+    "artOnlyQuestIds": [
+      "quest:warrens:p001",
+      "quest:warrens:p002",
+      "quest:warrens:p003",
+      "quest:warrens:p004",
+      "quest:warrens:p005",
+      "quest:warrens:p006",
+      "quest:warrens:p007",
+      "quest:warrens:p008",
+      "quest:warrens:p009",
+      "quest:warrens:p010",
+      "quest:warrens:p011",
+      "quest:warrens:p012",
+      "quest:warrens:p013",
+      "quest:warrens:p014",
+      "quest:warrens:p015"
+    ],
+    "reviewedAt": "2026-11-28",
+    "notes": [
+      "15 页 FRONT/BACK 全映射；status art-only = 数据已登记，出征 UI 未启用（Q-WARRENS-00）。"
+    ]
+  },
+  "cards": [
+    {
+      "id": "quest:warrens:p001",
+      "name": "Pork Chop",
+      "status": "art-only",
+      "faces": {
+        "front": {
+          "pngRel": "png/extension/warrens/quests/front-p001.png",
+          "printPage": 1,
+          "primaryPdf": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Pork Chop"
+        },
+        "back": {
+          "pngRel": "png/extension/warrens/quests/back-p001.png",
+          "printPage": 1,
+          "primaryPdf": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Pork Chop"
+        }
+      },
+      "matchMethod": "print_page",
+      "reviewVerdict": "MG_DD_04_EN_WARRENS quest PDF"
+    },
+    {
+      "id": "quest:warrens:p002",
+      "name": "Explore the Sewers",
+      "status": "art-only",
+      "faces": {
+        "front": {
+          "pngRel": "png/extension/warrens/quests/front-p002.png",
+          "printPage": 2,
+          "primaryPdf": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Explore the Sewers"
+        },
+        "back": {
+          "pngRel": "png/extension/warrens/quests/back-p002.png",
+          "printPage": 2,
+          "primaryPdf": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Explore the Sewers"
+        }
+      },
+      "matchMethod": "print_page",
+      "reviewVerdict": "MG_DD_04_EN_WARRENS quest PDF"
+    },
+    {
+      "id": "quest:warrens:p003",
+      "name": "Family Trinkets",
+      "status": "art-only",
+      "faces": {
+        "front": {
+          "pngRel": "png/extension/warrens/quests/front-p003.png",
+          "printPage": 3,
+          "primaryPdf": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Family Trinkets"
+        },
+        "back": {
+          "pngRel": "png/extension/warrens/quests/back-p003.png",
+          "printPage": 3,
+          "primaryPdf": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Family Trinkets"
+        }
+      },
+      "matchMethod": "print_page",
+      "reviewVerdict": "MG_DD_04_EN_WARRENS quest PDF"
+    },
+    {
+      "id": "quest:warrens:p004",
+      "name": "Worm Squash",
+      "status": "art-only",
+      "faces": {
+        "front": {
+          "pngRel": "png/extension/warrens/quests/front-p004.png",
+          "printPage": 4,
+          "primaryPdf": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Worm Squash"
+        },
+        "back": {
+          "pngRel": "png/extension/warrens/quests/back-p004.png",
+          "printPage": 4,
+          "primaryPdf": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Worm Squash"
+        }
+      },
+      "matchMethod": "print_page",
+      "reviewVerdict": "MG_DD_04_EN_WARRENS quest PDF"
+    },
+    {
+      "id": "quest:warrens:p005",
+      "name": "Disarm Them",
+      "status": "art-only",
+      "faces": {
+        "front": {
+          "pngRel": "png/extension/warrens/quests/front-p005.png",
+          "printPage": 5,
+          "primaryPdf": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Disarm Them"
+        },
+        "back": {
+          "pngRel": "png/extension/warrens/quests/back-p005.png",
+          "printPage": 5,
+          "primaryPdf": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Disarm Them"
+        }
+      },
+      "matchMethod": "print_page",
+      "reviewVerdict": "MG_DD_04_EN_WARRENS quest PDF"
+    },
+    {
+      "id": "quest:warrens:p006",
+      "name": "Ringleaders",
+      "status": "art-only",
+      "faces": {
+        "front": {
+          "pngRel": "png/extension/warrens/quests/front-p006.png",
+          "printPage": 6,
+          "primaryPdf": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Ringleaders"
+        },
+        "back": {
+          "pngRel": "png/extension/warrens/quests/back-p006.png",
+          "printPage": 6,
+          "primaryPdf": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Ringleaders"
+        }
+      },
+      "matchMethod": "print_page",
+      "reviewVerdict": "MG_DD_04_EN_WARRENS quest PDF"
+    },
+    {
+      "id": "quest:warrens:p007",
+      "name": "Carrion Infestation",
+      "status": "art-only",
+      "faces": {
+        "front": {
+          "pngRel": "png/extension/warrens/quests/front-p007.png",
+          "printPage": 7,
+          "primaryPdf": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Carrion Infestation"
+        },
+        "back": {
+          "pngRel": "png/extension/warrens/quests/back-p007.png",
+          "printPage": 7,
+          "primaryPdf": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Carrion Infestation"
+        }
+      },
+      "matchMethod": "print_page",
+      "reviewVerdict": "MG_DD_04_EN_WARRENS quest PDF"
+    },
+    {
+      "id": "quest:warrens:p008",
+      "name": "Bait Them Out",
+      "status": "art-only",
+      "faces": {
+        "front": {
+          "pngRel": "png/extension/warrens/quests/front-p008.png",
+          "printPage": 8,
+          "primaryPdf": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Bait Them Out"
+        },
+        "back": {
+          "pngRel": "png/extension/warrens/quests/back-p008.png",
+          "printPage": 8,
+          "primaryPdf": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Bait Them Out"
+        }
+      },
+      "matchMethod": "print_page",
+      "reviewVerdict": "MG_DD_04_EN_WARRENS quest PDF"
+    },
+    {
+      "id": "quest:warrens:p009",
+      "name": "Mapping the Sewers",
+      "status": "art-only",
+      "faces": {
+        "front": {
+          "pngRel": "png/extension/warrens/quests/front-p009.png",
+          "printPage": 9,
+          "primaryPdf": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Mapping the Sewers"
+        },
+        "back": {
+          "pngRel": "png/extension/warrens/quests/back-p009.png",
+          "printPage": 9,
+          "primaryPdf": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Mapping the Sewers"
+        }
+      },
+      "matchMethod": "print_page",
+      "reviewVerdict": "MG_DD_04_EN_WARRENS quest PDF"
+    },
+    {
+      "id": "quest:warrens:p010",
+      "name": "A New Breed",
+      "status": "art-only",
+      "faces": {
+        "front": {
+          "pngRel": "png/extension/warrens/quests/front-p010.png",
+          "printPage": 10,
+          "primaryPdf": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "A New Breed"
+        },
+        "back": {
+          "pngRel": "png/extension/warrens/quests/back-p010.png",
+          "printPage": 10,
+          "primaryPdf": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "A New Breed"
+        }
+      },
+      "matchMethod": "print_page",
+      "reviewVerdict": "MG_DD_04_EN_WARRENS quest PDF"
+    },
+    {
+      "id": "quest:warrens:p011",
+      "name": "Deep in the Warrens",
+      "status": "art-only",
+      "faces": {
+        "front": {
+          "pngRel": "png/extension/warrens/quests/front-p011.png",
+          "printPage": 11,
+          "primaryPdf": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Deep in the Warrens"
+        },
+        "back": {
+          "pngRel": "png/extension/warrens/quests/back-p011.png",
+          "printPage": 11,
+          "primaryPdf": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Deep in the Warrens"
+        }
+      },
+      "matchMethod": "print_page",
+      "reviewVerdict": "MG_DD_04_EN_WARRENS quest PDF"
+    },
+    {
+      "id": "quest:warrens:p012",
+      "name": "Alpha Swine",
+      "status": "art-only",
+      "faces": {
+        "front": {
+          "pngRel": "png/extension/warrens/quests/front-p012.png",
+          "printPage": 12,
+          "primaryPdf": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Alpha Swine"
+        },
+        "back": {
+          "pngRel": "png/extension/warrens/quests/back-p012.png",
+          "printPage": 12,
+          "primaryPdf": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Alpha Swine"
+        }
+      },
+      "matchMethod": "print_page",
+      "reviewVerdict": "MG_DD_04_EN_WARRENS quest PDF"
+    },
+    {
+      "id": "quest:warrens:p013",
+      "name": "Foul Arsenal",
+      "status": "art-only",
+      "faces": {
+        "front": {
+          "pngRel": "png/extension/warrens/quests/front-p013.png",
+          "printPage": 13,
+          "primaryPdf": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Foul Arsenal"
+        },
+        "back": {
+          "pngRel": "png/extension/warrens/quests/back-p013.png",
+          "printPage": 13,
+          "primaryPdf": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Foul Arsenal"
+        }
+      },
+      "matchMethod": "print_page",
+      "reviewVerdict": "MG_DD_04_EN_WARRENS quest PDF"
+    },
+    {
+      "id": "quest:warrens:p014",
+      "name": "Infighting",
+      "status": "art-only",
+      "faces": {
+        "front": {
+          "pngRel": "png/extension/warrens/quests/front-p014.png",
+          "printPage": 14,
+          "primaryPdf": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Infighting"
+        },
+        "back": {
+          "pngRel": "png/extension/warrens/quests/back-p014.png",
+          "printPage": 14,
+          "primaryPdf": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Infighting"
+        }
+      },
+      "matchMethod": "print_page",
+      "reviewVerdict": "MG_DD_04_EN_WARRENS quest PDF"
+    },
+    {
+      "id": "quest:warrens:p015",
+      "name": "Drums of Doom",
+      "status": "art-only",
+      "faces": {
+        "front": {
+          "pngRel": "png/extension/warrens/quests/front-p015.png",
+          "printPage": 15,
+          "primaryPdf": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_FRONT.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Drums of Doom"
+        },
+        "back": {
+          "pngRel": "png/extension/warrens/quests/back-p015.png",
+          "printPage": 15,
+          "primaryPdf": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_CARDS_70_120_quests_BACK.pdf",
+          "cropMethod": "trimbox",
+          "textSnippet": "Drums of Doom"
+        }
+      },
+      "matchMethod": "print_page",
+      "reviewVerdict": "MG_DD_04_EN_WARRENS quest PDF"
+    }
+  ],
+  "pendingConfirmation": ["Q-WARRENS-00", "Q-WARRENS-01", "Q-WARRENS-02"]
+}

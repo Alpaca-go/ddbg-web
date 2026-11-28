@@ -47,7 +47,7 @@ pnpm --filter @ddbg/pipeline normalize
 - Abomination 变身卡用 `back_face_skill`。背面名字可以和正面不同。
 - 怪癖的正负都来自 `Quirks_FRONT.pdf`，对照规则书 R26–R27。美德和折磨都来自 `virtue_afflictions_FRONT.pdf`。两个 BACK 文件只有卡背，没有文字或图标。卡面没有印 Virtue / Affliction。`role` 按 R-053 写成 `virtue` 或 `affliction`（Kyries 称这一边为折磨，字段仍叫 affliction）；对不上名单的留空，原因是 `role_not_printed`。其余未确认图标仍使卡未验证。不使用卡背箭头来分组（rank 108、138、327 仍未决）。
 
-核心疾病见 `corebox/disease.json`，Weald II／III 级普通任务见 `extension/weald/higher_quests.json`。parsed 里大型怪物参考卡没有 `life`，数值在 `monster_large`。
+核心疾病见 `corebox/disease.json`，Weald II／III 级普通任务见 `extension/weald/higher_quests.json`，Warrens I 级五张与 II／III 十张见 `extension/warrens/quest_cards.json` / `higher_quests.json`（`runtimeReady` 全 false，停点 **Q-WARRENS-00**）。parsed 里大型怪物参考卡没有 `life`，数值在 `monster_large`。
 
 ## 单张获批战斗板块几何
 
