@@ -1,0 +1,83 @@
+{
+  "schema": "ddbg-warrens-punchboard-v0",
+  "sheet": {
+    "id": "punchboard:warrens:p001",
+    "trimMm": [145, 95],
+    "source": {
+      "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_PUNCHBOARD_FRONT.pdf",
+      "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_PUNCHBOARD_BACK.pdf",
+      "page": 1
+    },
+    "geometryVerified": false
+  },
+  "components": [
+    {
+      "id": "punchboard_component:warrens:p001:leper:front",
+      "sheetId": "punchboard:warrens:p001",
+      "kind": "hero_standee",
+      "hero": "LEPER",
+      "face": "front",
+      "printedLabel": "LEPER",
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_PUNCHBOARD_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_PUNCHBOARD_BACK.pdf",
+        "page": 1
+      },
+      "diecutPt": [38.94, 36.65, 217.65, 274.64],
+      "diecutWhPt": [178.71, 237.99],
+      "geometryVerified": false,
+      "pendingReview": ["Q-WARRENS-22：Warrens 立牌 Rubine bbox 待印核（量测 178.71×237.99pt）"]
+    },
+    {
+      "id": "punchboard_component:warrens:p001:leper:back",
+      "sheetId": "punchboard:warrens:p001",
+      "kind": "hero_standee",
+      "hero": "LEPER",
+      "face": "back",
+      "printedLabel": "LEPER",
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_PUNCHBOARD_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_PUNCHBOARD_BACK.pdf",
+        "page": 1
+      },
+      "diecutPt": [235.37, 36.65, 414.08, 274.64],
+      "diecutWhPt": [178.71, 237.99],
+      "geometryVerified": false,
+      "pendingReview": ["Q-WARRENS-22：Warrens 立牌 Rubine bbox 待印核（量测 178.71×237.99pt）"]
+    },
+    {
+      "id": "punchboard_component:warrens:p001:antiquarian:front",
+      "sheetId": "punchboard:warrens:p001",
+      "kind": "hero_standee",
+      "hero": "ANTIQUARIAN",
+      "face": "front",
+      "printedLabel": "ANTIQUARIAN",
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_PUNCHBOARD_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_PUNCHBOARD_BACK.pdf",
+        "page": 1
+      },
+      "diecutPt": [235.37, 36.65, 414.08, 274.64],
+      "diecutWhPt": [178.71, 237.99],
+      "geometryVerified": false,
+      "pendingReview": ["Q-WARRENS-22：Warrens 立牌 Rubine bbox 待印核（量测 178.71×237.99pt）"]
+    },
+    {
+      "id": "punchboard_component:warrens:p001:antiquarian:back",
+      "sheetId": "punchboard:warrens:p001",
+      "kind": "hero_standee",
+      "hero": "ANTIQUARIAN",
+      "face": "back",
+      "printedLabel": "ANTIQUARIAN",
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_PUNCHBOARD_FRONT.pdf",
+        "back": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_04_EN_WARRENS/DD_EN_WARRENS_PUNCHBOARD_BACK.pdf",
+        "page": 1
+      },
+      "diecutPt": [38.94, 36.65, 217.65, 274.64],
+      "diecutWhPt": [178.71, 237.99],
+      "geometryVerified": false,
+      "pendingReview": ["Q-WARRENS-22：Warrens 立牌 Rubine bbox 待印核（量测 178.71×237.99pt）"]
+    }
+  ]
+}

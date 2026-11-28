@@ -21,6 +21,8 @@ import coveCurio from "../../../../data/normalized/extension/cove/curio.json";
 import coveRoom from "../../../../data/normalized/extension/cove/room.json";
 import { coveCurioFileSchema } from "../../../../data/src/core/curios/curio";
 import { coveRoomFileSchema } from "../../../../data/src/cove/rooms/room";
+import warrensPunchboard from "../../../../data/normalized/extension/warrens/punchboard.json";
+import { warrensPunchboardFileSchema } from "../../../../data/src/warrens/punchboard/punchboard";
 
 beforeEach(clearBossScriptsForTest);
 const start = {
@@ -99,6 +101,22 @@ it("核心包单独启用时，十八名英雄及全部等级技能仍可开局�
   }
   const game = campaign();
   expect(replacementHeroCandidates(game.dungeon!)).toHaveLength(14);
+});
+
+it("Warrens 冲压板目录仅在勾选 Warrens 包时进入战役来源", () => {
+  const punchboard = warrensPunchboardFileSchema.parse(warrensPunchboard);
+  const sources = { ...coreQuestSources, warrens: { punchboard } };
+  expect(sourcesForContentPacks(sources, ["core"]).warrens).toBeUndefined();
+  expect(sourcesForContentPacks(sources, ["core", "cove"]).warrens).toBeUndefined();
+  const enabled = sourcesForContentPacks(sources, ["core", "warrens"]);
+  expect(enabled.warrens?.punchboard.components).toHaveLength(4);
+  expect(
+    enabled.warrens?.punchboard.components.every((c) =>
+      c.id.startsWith("punchboard_component:warrens:"),
+    ),
+  ).toBe(true);
+  expect(enabled.warrens?.punchboard.sheet.geometryVerified).toBe(false);
+  expect(cardContentPack(enabled.warrens!.punchboard.sheet)).toBe("warrens");
 });
 
 it("Cove Curio 与房间目录仅在勾选 Cove 包时进入战役来源", () => {
