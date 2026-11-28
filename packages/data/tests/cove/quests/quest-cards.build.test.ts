@@ -3,11 +3,8 @@ import { describe, expect, it } from "vitest";
 import { rawFileSchema } from "../../../src/shared/extract/raw";
 import { cardContentPack } from "../../../src/shared/content-packs";
 import { basicQuests, questsForContentPacks } from "../../../src/core/quests/basic-quests";
-import {
-  COVE_QUEST_EXCLUDED_IDS,
-  coveQuestCardSchema,
-  coveQuestCardsSchema,
-} from "../../../src/cove/quests/quest-cards";
+import { COVE_QUEST_HIGHER_IDS } from "../../../src/cove/quests/quest-cards-higher";
+import { coveQuestCardSchema, coveQuestCardsSchema } from "../../../src/cove/quests/quest-cards";
 import {
   buildCoveLevelOneQuestCards,
   parseCoveQuestDistributionLines,
@@ -42,16 +39,13 @@ describe("Cove I 级五张任务印刷目录（未接 basicQuests / 出征）", 
     ).toBe(false);
   });
 
-  it("五张均属 cove 命名空间，排除 II/III 清单完整", () => {
+  it("五张均属 cove 命名空间；II/III 在独立 higher 目录", () => {
     for (const card of built.cards) {
       expect(cardContentPack(card)).toBe("cove");
       expect(card.id.startsWith("quest:cove:p00")).toBe(true);
       expect(card.level).toBe(1);
     }
-    expect(built.excludedQuestIds).toEqual([...COVE_QUEST_EXCLUDED_IDS]);
-    expect(raw.cards.map((c) => c.id)).toEqual(
-      expect.arrayContaining([...COVE_QUEST_EXCLUDED_IDS]),
-    );
+    expect(raw.cards.map((c) => c.id)).toEqual(expect.arrayContaining([...COVE_QUEST_HIGHER_IDS]));
   });
 
   it("底栏已裁定 hash 与目录 distribution 一致", () => {

@@ -4,6 +4,7 @@ import { rawFileSchema } from "../shared/extract/raw";
 import { buildCoveCurios } from "./curios/curio.build";
 import { buildCoveRooms } from "./rooms/room.build";
 import { buildCoveLevelOneQuestCards } from "./quests/quest-cards.build";
+import { buildCoveHigherQuestCards } from "./quests/quest-cards-higher.build";
 
 export function loadNormalizedCoveCurios() {
   return buildCoveCurios(
@@ -44,5 +45,19 @@ export function writeNormalizedCoveLevelOneQuestCards(
 ) {
   const built = loadNormalizedCoveLevelOneQuestCards();
   writeDataFiles(outputDir, { "quest_cards.json": built });
+  return built;
+}
+
+export function loadNormalizedCoveHigherQuestCards() {
+  return buildCoveHigherQuestCards(
+    rawFileSchema.parse(readDataJson("extract/extension/cove/raw/quest.json")),
+  );
+}
+
+export function writeNormalizedCoveHigherQuestCards(
+  outputDir = path.join(DATA_ROOT, "normalized/extension/cove"),
+) {
+  const built = loadNormalizedCoveHigherQuestCards();
+  writeDataFiles(outputDir, { "quest_cards_higher.json": built });
   return built;
 }

@@ -9,20 +9,6 @@ import {
 export const COVE_QUEST_FRONT =
   "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_quests_FRONT.pdf";
 
-/** II/III 级（FRONT p6–p15）仅登记排除，不进 I 级印刷目录。 */
-export const COVE_QUEST_EXCLUDED_IDS = [
-  "quest:cove:p006",
-  "quest:cove:p007",
-  "quest:cove:p008",
-  "quest:cove:p009",
-  "quest:cove:p010",
-  "quest:cove:p011",
-  "quest:cove:p012",
-  "quest:cove:p013",
-  "quest:cove:p014",
-  "quest:cove:p015",
-] as const;
-
 /**
  * 底栏分布：仅映射与 Weald `WEALD_QUEST_TOKEN_HASH` **同 hash** 的图标（R-048）。
  * Cove 专有新 hash（objective / empty / trap / lair 等变体）待 Kyries 裁定前不写入 kind。
@@ -65,7 +51,6 @@ export const coveQuestCardsSchema = z
   .strictObject({
     schema: z.literal("ddbg-cove-quest-cards-v1"),
     scope: z.literal("level_one_normal"),
-    excludedQuestIds: z.array(z.enum(COVE_QUEST_EXCLUDED_IDS)).length(10),
     cards: z.array(coveQuestCardSchema).length(5),
   })
   .superRefine((file, ctx) => {

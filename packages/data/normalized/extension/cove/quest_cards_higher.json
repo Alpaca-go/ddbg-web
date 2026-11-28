@@ -1,0 +1,515 @@
+{
+  "schema": "ddbg-cove-quest-cards-higher-v1",
+  "scope": "level_two_three_normal",
+  "cards": [
+    {
+      "id": "quest:cove:p006",
+      "name": "Deep Waters 2",
+      "level": 2,
+      "restPoints": 8,
+      "printedLines": [
+        "{icon:e1c34ea8a2} II",
+        "8 Deep Waters 2",
+        "You have been there more than",
+        "once. Yet we know little of the",
+        "area we call the cove. Now that the tide is",
+        "low, you should venture there once more and",
+        "map out the underground caverns carefully.",
+        "We know that something sinister lives there,",
+        "yet we can’t fathom where it resides.",
+        "SPECIAL RULES",
+        "Always initiate battle in Curio Rooms.",
+        "XP",
+        "1 Xp/ 2 Rooms cleared.",
+        "{icon:af3ce426ec} 1 {icon:7608a63135} {icon:a2e7f1dd7b} 2",
+        "{icon:a488fd5ff1} 1 {icon:be78e95113} 3 {icon:2140042d06} 1"
+      ],
+      "specialRuleLines": ["Always initiate battle in Curio Rooms."],
+      "distribution": {
+        "questId": "quest:cove:p006",
+        "source": "DD_EN_COVE_CARDS_70_120_quests_FRONT.pdf p6; FRONT-only; 已裁定同 hash: af3ce426ec→dark, 67dc216fc3→curio, a488fd5ff1→treasure; 待确认 hash: 2140042d06, 7608a63135, be78e95113（未写入 counts）",
+        "counts": [
+          {
+            "kind": "dark",
+            "count": 1
+          },
+          {
+            "kind": "treasure",
+            "count": 1
+          }
+        ]
+      },
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_quests_FRONT.pdf",
+        "back": null,
+        "page": 6
+      }
+    },
+    {
+      "id": "quest:cove:p007",
+      "name": "Unclean Waters 2",
+      "level": 2,
+      "restPoints": 12,
+      "printedLines": [
+        "{icon:e1c34ea8a2} II",
+        "12 Unclean Waters 2",
+        "Rancid, fetid, and obscene.",
+        "That’s how the cove waters smell",
+        "nowadays. Yet we know that the unclean",
+        "lairs hidden in its depths are the cause of it",
+        "all. Swim down there and put an end to this,",
+        "quickly and efficiently.",
+        "SPECIAL RULES",
+        "When a Hero kills a Cove",
+        "Monster they suffer 3 {icon:6a5aaf626a} 3t.",
+        "XP",
+        "1 Xp/ Lair cleared.",
+        "{icon:af3ce426ec} 1 {icon:7608a63135} {icon:a2e7f1dd7b} 1",
+        "{icon:a488fd5ff1} 1 {icon:be78e95113} 3 {icon:2140042d06} 2"
+      ],
+      "specialRuleLines": [
+        "When a Hero kills a Cove",
+        "Monster they suffer 3 {icon:6a5aaf626a} 3t."
+      ],
+      "distribution": {
+        "questId": "quest:cove:p007",
+        "source": "DD_EN_COVE_CARDS_70_120_quests_FRONT.pdf p7; FRONT-only; 已裁定同 hash: af3ce426ec→dark, 67dc216fc3→curio, a488fd5ff1→treasure; 待确认 hash: 2140042d06, 7608a63135, be78e95113（未写入 counts）",
+        "counts": [
+          {
+            "kind": "dark",
+            "count": 1
+          },
+          {
+            "kind": "treasure",
+            "count": 1
+          }
+        ]
+      },
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_quests_FRONT.pdf",
+        "back": null,
+        "page": 7
+      }
+    },
+    {
+      "id": "quest:cove:p008",
+      "name": "Deep Horrors 2",
+      "level": 2,
+      "restPoints": 12,
+      "printedLines": [
+        "{icon:e1c34ea8a2} II",
+        "12 Deep Horrors 2",
+        "The madness has not yet ended,",
+        "for a Uca Major plagues the",
+        "tumultuous waters of the cove. No matter",
+        "how many you kill, they always come back",
+        "for more. Find out why, and end them once",
+        "and for all...",
+        "SPECIAL RULES",
+        "Objective Rooms always spawn 1",
+        "Uca Major and 1 Squiffy Ghast",
+        "first and then 1 more Monster",
+        "from the Monster Deck.",
+        "XP",
+        "1 Xp/ Uca Major killed.",
+        "{icon:2efab15a07} 3 {icon:04e53fa5cc} {icon:3ee6243549} 3",
+        "{icon:af3ce426ec} 1 {icon:2140042d06} 1"
+      ],
+      "specialRuleLines": [
+        "Objective Rooms always spawn 1",
+        "Uca Major and 1 Squiffy Ghast",
+        "first and then 1 more Monster",
+        "from the Monster Deck."
+      ],
+      "distribution": {
+        "questId": "quest:cove:p008",
+        "source": "DD_EN_COVE_CARDS_70_120_quests_FRONT.pdf p8; FRONT-only; 已裁定同 hash: af3ce426ec→dark, 67dc216fc3→curio, a488fd5ff1→treasure; 待确认 hash: 04e53fa5cc, 2140042d06, 2efab15a07, 3ee6243549（未写入 counts）",
+        "counts": [
+          {
+            "kind": "dark",
+            "count": 1
+          }
+        ]
+      },
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_quests_FRONT.pdf",
+        "back": null,
+        "page": 8
+      }
+    },
+    {
+      "id": "quest:cove:p009",
+      "name": "The Deep Ones",
+      "level": 2,
+      "restPoints": 8,
+      "printedLines": [
+        "{icon:e1c34ea8a2} II",
+        "8 The Deep Ones",
+        "These horrific fish-nightmares",
+        "reside deep in the cove’s rancid",
+        "lairs. Yet we still haven’t located them, and",
+        "that’s what you should do. Head down there",
+        "and brave the cove’s dangers. Find the place",
+        "they live in and put them to the sword!",
+        "SPECIAL RULES",
+        "Objective Rooms are Rooms {icon:0db3807e84} 2 ,",
+        "{icon:0db3807e84} 5 , {icon:0db3807e84} 6 & {icon:0db3807e84} 8 .",
+        "Set these Rooms aside at the",
+        "Dungeon start, and pick one of them",
+        "at random each time you enter an",
+        "Objective Room. Spawn only Cove",
+        "Monsters in Objective Rooms.",
+        "XP",
+        "1 Xp/ Objective Rooms cleared.",
+        "{icon:2efab15a07} 3 {icon:04e53fa5cc} {icon:3ee6243549} 2",
+        "{icon:af3ce426ec} 2 {icon:2140042d06} 1"
+      ],
+      "specialRuleLines": [
+        "Objective Rooms are Rooms {icon:0db3807e84} 2 ,",
+        "{icon:0db3807e84} 5 , {icon:0db3807e84} 6 & {icon:0db3807e84} 8 .",
+        "Set these Rooms aside at the",
+        "Dungeon start, and pick one of them",
+        "at random each time you enter an",
+        "Objective Room. Spawn only Cove",
+        "Monsters in Objective Rooms."
+      ],
+      "distribution": {
+        "questId": "quest:cove:p009",
+        "source": "DD_EN_COVE_CARDS_70_120_quests_FRONT.pdf p9; FRONT-only; 已裁定同 hash: af3ce426ec→dark, 67dc216fc3→curio, a488fd5ff1→treasure; 待确认 hash: 04e53fa5cc, 2140042d06, 2efab15a07, 3ee6243549（未写入 counts）",
+        "counts": [
+          {
+            "kind": "dark",
+            "count": 2
+          }
+        ]
+      },
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_quests_FRONT.pdf",
+        "back": null,
+        "page": 9
+      }
+    },
+    {
+      "id": "quest:cove:p010",
+      "name": "Eldritch Purging",
+      "level": 2,
+      "restPoints": 12,
+      "printedLines": [
+        "{icon:e1c34ea8a2} II",
+        "12 Eldritch Purging",
+        "You have braved many dangers,",
+        "but not the eldritch nightmares",
+        "of the cove. We have found the places of",
+        "power where they gather and perform",
+        "their sacrilegious ceremonies. Deep into",
+        "the underground grotto, you should find",
+        "them there. Do your job and make sure",
+        "they never return...",
+        "SPECIAL RULES",
+        "Always initiate battle in Curio",
+        "Rooms. After clearing a Curio",
+        "Room, suffer only the negative",
+        "effects of a Curio Card.",
+        "XP",
+        "1 Xp/ Curio Room cleared.",
+        "{icon:af3ce426ec} 1 {icon:7608a63135} {icon:e473d2b695} 3",
+        "{icon:a488fd5ff1} 2 {icon:be78e95113} 1 {icon:2140042d06} 1"
+      ],
+      "specialRuleLines": [
+        "Always initiate battle in Curio",
+        "Rooms. After clearing a Curio",
+        "Room, suffer only the negative",
+        "effects of a Curio Card."
+      ],
+      "distribution": {
+        "questId": "quest:cove:p010",
+        "source": "DD_EN_COVE_CARDS_70_120_quests_FRONT.pdf p10; FRONT-only; 已裁定同 hash: af3ce426ec→dark, 67dc216fc3→curio, a488fd5ff1→treasure; 待确认 hash: 2140042d06, 7608a63135, be78e95113, e473d2b695（未写入 counts）",
+        "counts": [
+          {
+            "kind": "dark",
+            "count": 1
+          },
+          {
+            "kind": "treasure",
+            "count": 2
+          }
+        ]
+      },
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_quests_FRONT.pdf",
+        "back": null,
+        "page": 10
+      }
+    },
+    {
+      "id": "quest:cove:p011",
+      "name": "Deep Waters 3",
+      "level": 3,
+      "restPoints": 8,
+      "printedLines": [
+        "{icon:e1c34ea8a2} III",
+        "8 Deep Waters 3",
+        "It is painful to ask, but you should",
+        "head down the cove once more.",
+        "But now the situation is much more dire.",
+        "The creatures that reside there have grown",
+        "restless. Thus you should go down there and",
+        "ransack their lairs. But try to remain unfazed",
+        "by the creeping madness that resides behind",
+        "its wet walls...",
+        "SPECIAL RULES",
+        "Always initiate battle in Curio",
+        "Rooms. After clearing a Curio",
+        "Room suffer only the negative",
+        "effects of a Curio Card.",
+        "XP",
+        "1 Xp/ 2 Rooms cleared.",
+        "{icon:af3ce426ec} 1 {icon:7608a63135} {icon:a2e7f1dd7b} 2",
+        "{icon:a488fd5ff1} 1 {icon:be78e95113} 3 {icon:2140042d06} 1"
+      ],
+      "specialRuleLines": [
+        "Always initiate battle in Curio",
+        "Rooms. After clearing a Curio",
+        "Room suffer only the negative",
+        "effects of a Curio Card."
+      ],
+      "distribution": {
+        "questId": "quest:cove:p011",
+        "source": "DD_EN_COVE_CARDS_70_120_quests_FRONT.pdf p11; FRONT-only; 已裁定同 hash: af3ce426ec→dark, 67dc216fc3→curio, a488fd5ff1→treasure; 待确认 hash: 2140042d06, 7608a63135, be78e95113（未写入 counts）",
+        "counts": [
+          {
+            "kind": "dark",
+            "count": 1
+          },
+          {
+            "kind": "treasure",
+            "count": 1
+          }
+        ]
+      },
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_quests_FRONT.pdf",
+        "back": null,
+        "page": 11
+      }
+    },
+    {
+      "id": "quest:cove:p012",
+      "name": "Unclean Waters 3",
+      "level": 3,
+      "restPoints": 12,
+      "printedLines": [
+        "{icon:e1c34ea8a2} III",
+        "12 Unclean Waters 3",
+        "The waters are still poisonous,",
+        "and even though you’ve tried",
+        "as much, you can only do one final thing",
+        "to end the spreading of its disease. Head",
+        "down to the rancid lair, ransack it, and",
+        "make sure that no unclean horror emerges",
+        "from it... ever...again.",
+        "SPECIAL RULES",
+        "When a Hero kills a Cove",
+        "Monster they suffer 3 {icon:c491fb0b8e} 4t.",
+        "XP",
+        "1 Xp/ Lair cleared.",
+        "{icon:af3ce426ec} 1 {icon:7608a63135} {icon:a2e7f1dd7b} 1",
+        "{icon:a488fd5ff1} 1 {icon:be78e95113} 3 {icon:2140042d06} 2"
+      ],
+      "specialRuleLines": [
+        "When a Hero kills a Cove",
+        "Monster they suffer 3 {icon:c491fb0b8e} 4t."
+      ],
+      "distribution": {
+        "questId": "quest:cove:p012",
+        "source": "DD_EN_COVE_CARDS_70_120_quests_FRONT.pdf p12; FRONT-only; 已裁定同 hash: af3ce426ec→dark, 67dc216fc3→curio, a488fd5ff1→treasure; 待确认 hash: 2140042d06, 7608a63135, be78e95113（未写入 counts）",
+        "counts": [
+          {
+            "kind": "dark",
+            "count": 1
+          },
+          {
+            "kind": "treasure",
+            "count": 1
+          }
+        ]
+      },
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_quests_FRONT.pdf",
+        "back": null,
+        "page": 12
+      }
+    },
+    {
+      "id": "quest:cove:p013",
+      "name": "The Deep Ones 2",
+      "level": 3,
+      "restPoints": 8,
+      "printedLines": [
+        "{icon:e1c34ea8a2} III",
+        "8 The Deep Ones 2",
+        "The most dangerous of these",
+        "fish-monsters have yet to be put",
+        "to the sword! Thus, you have one final task.",
+        "Head down, deep in their lairs, and find these",
+        "abominable deep ones. Make sure they never",
+        "swim up to the surface for vengeance...",
+        "SPECIAL RULES",
+        "Objective Rooms are Rooms {icon:0db3807e84} 2 ,",
+        "{icon:0db3807e84} 5 , {icon:0db3807e84} 6 & {icon:0db3807e84} 8 . Set these",
+        "Rooms aside at the Dungeon start,",
+        "and pick one of them at random each",
+        "time you enter an Objective Room.",
+        "Spawn 1 Squiffy Ghast and only",
+        "Cove Monsters in Objective Rooms.",
+        "XP",
+        "1 Xp/ Objective Rooms cleared.",
+        "{icon:2efab15a07} 3 {icon:04e53fa5cc} {icon:afe6664db9} 1",
+        "{icon:af3ce426ec} 2 {icon:2140042d06} 2"
+      ],
+      "specialRuleLines": [
+        "Objective Rooms are Rooms {icon:0db3807e84} 2 ,",
+        "{icon:0db3807e84} 5 , {icon:0db3807e84} 6 & {icon:0db3807e84} 8 . Set these",
+        "Rooms aside at the Dungeon start,",
+        "and pick one of them at random each",
+        "time you enter an Objective Room.",
+        "Spawn 1 Squiffy Ghast and only",
+        "Cove Monsters in Objective Rooms."
+      ],
+      "distribution": {
+        "questId": "quest:cove:p013",
+        "source": "DD_EN_COVE_CARDS_70_120_quests_FRONT.pdf p13; FRONT-only; 已裁定同 hash: af3ce426ec→dark, 67dc216fc3→curio, a488fd5ff1→treasure; 待确认 hash: 04e53fa5cc, 2140042d06, 2efab15a07, afe6664db9（未写入 counts）",
+        "counts": [
+          {
+            "kind": "dark",
+            "count": 2
+          }
+        ]
+      },
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_quests_FRONT.pdf",
+        "back": null,
+        "page": 13
+      }
+    },
+    {
+      "id": "quest:cove:p014",
+      "name": "The Shipwrecks",
+      "level": 3,
+      "restPoints": 4,
+      "printedLines": [
+        "{icon:e1c34ea8a2} III",
+        "4 The Shipwrecks",
+        "Long ago, a ship filled with",
+        "idols was lost ashore. Its",
+        "wreckage was never found, yet",
+        "the lingering influence of the idols remains",
+        "up to this day. The monsters are aware of",
+        "their corrupting influence. Thus, you must",
+        "go down to the cove’s depths and find",
+        "them... and destroy them...",
+        "SPECIAL RULES",
+        "Room {icon:0db3807e84} 7 is the Objective Room.",
+        "When searching in {icon:d5d738b619} Areas, rolling",
+        "4-8 will give you an idol in place of",
+        "the provision of your choice. Only",
+        "one idol can be found per shipwreck.",
+        "XP",
+        "1 Xp/ Per Idol found.",
+        "{icon:2efab15a07} 3 {icon:04e53fa5cc} {icon:3ee6243549} 2",
+        "{icon:67dc216fc3} 2 {icon:a488fd5ff1} 1"
+      ],
+      "specialRuleLines": [
+        "Room {icon:0db3807e84} 7 is the Objective Room.",
+        "When searching in {icon:d5d738b619} Areas, rolling",
+        "4-8 will give you an idol in place of",
+        "the provision of your choice. Only",
+        "one idol can be found per shipwreck."
+      ],
+      "distribution": {
+        "questId": "quest:cove:p014",
+        "source": "DD_EN_COVE_CARDS_70_120_quests_FRONT.pdf p14; FRONT-only; 已裁定同 hash: af3ce426ec→dark, 67dc216fc3→curio, a488fd5ff1→treasure; 待确认 hash: 04e53fa5cc, 2efab15a07, 3ee6243549（未写入 counts）",
+        "counts": [
+          {
+            "kind": "curio",
+            "count": 2
+          },
+          {
+            "kind": "treasure",
+            "count": 1
+          }
+        ]
+      },
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_quests_FRONT.pdf",
+        "back": null,
+        "page": 14
+      }
+    },
+    {
+      "id": "quest:cove:p015",
+      "name": "Tainted Trinkets",
+      "level": 3,
+      "restPoints": null,
+      "printedLines": [
+        "{icon:e1c34ea8a2} III",
+        "- Tainted Trinkets",
+        "All that glitters is not gold, some",
+        "treasures bear a curse untold. These",
+        "tainted trinkets are waiting for you",
+        "to be purified, lest we risk getting corrupted by",
+        "their demonic influence. You know how...",
+        "SPECIAL RULES",
+        "Objective Rooms are: {icon:0db3807e84} 1 , {icon:0db3807e84} 5 , {icon:0db3807e84} 9 .",
+        "Each Hero gets 1 level 3 Trinket at random,",
+        "those Trinkets are considered tainted. If a",
+        "Hero can’t get a Trinket, they choose one",
+        "of theirs to become tainted. When in an",
+        "Objective Room, a Hero can spend one action",
+        "in Area {icon:9120cba1df} (this can be done only once per",
+        "Room) to cleanse the Trinket and score one",
+        "objective. Upon returning to Hamlet, each",
+        "Hero with a tainted Trinket can suffer 2",
+        "negative Quirks and cleanse it, or remove it",
+        "and shuffle it back into its respective deck.",
+        "XP",
+        "1 Xp/ Cleansed Trinket.",
+        "{icon:2efab15a07} 3 {icon:37173ff105} 1",
+        "{icon:af3ce426ec} 2 {icon:67dc216fc3} 1 {icon:2140042d06} 1"
+      ],
+      "specialRuleLines": [
+        "Objective Rooms are: {icon:0db3807e84} 1 , {icon:0db3807e84} 5 , {icon:0db3807e84} 9 .",
+        "Each Hero gets 1 level 3 Trinket at random,",
+        "those Trinkets are considered tainted. If a",
+        "Hero can’t get a Trinket, they choose one",
+        "of theirs to become tainted. When in an",
+        "Objective Room, a Hero can spend one action",
+        "in Area {icon:9120cba1df} (this can be done only once per",
+        "Room) to cleanse the Trinket and score one",
+        "objective. Upon returning to Hamlet, each",
+        "Hero with a tainted Trinket can suffer 2",
+        "negative Quirks and cleanse it, or remove it",
+        "and shuffle it back into its respective deck."
+      ],
+      "distribution": {
+        "questId": "quest:cove:p015",
+        "source": "DD_EN_COVE_CARDS_70_120_quests_FRONT.pdf p15; FRONT-only; 已裁定同 hash: af3ce426ec→dark, 67dc216fc3→curio, a488fd5ff1→treasure; 待确认 hash: 2140042d06, 2efab15a07, 37173ff105（未写入 counts）",
+        "counts": [
+          {
+            "kind": "dark",
+            "count": 2
+          },
+          {
+            "kind": "curio",
+            "count": 1
+          }
+        ]
+      },
+      "source": {
+        "front": "DARKEST_DUNGEON_PRINT_EN_WAVE 2/MG_DD_05_EN_COVE/DD_EN_COVE_CARDS_70_120_quests_FRONT.pdf",
+        "back": null,
+        "page": 15
+      }
+    }
+  ]
+}
