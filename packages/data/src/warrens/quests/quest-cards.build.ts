@@ -1,4 +1,4 @@
-import { printLine } from "../../shared/print-icons";
+import { printLine, printSourceIcon } from "../../shared/print-icons";
 import type { RawFile } from "../../shared/extract/raw";
 import porkChop from "../../../normalized/extension/warrens/pork_chop_distribution.json";
 import exploreTheSewers from "../../../normalized/extension/warrens/explore_the_sewers_distribution.json";
@@ -27,8 +27,16 @@ function printTokenPattern(token: string) {
   return printLine(token).replace(/[{}]/g, "\\$&");
 }
 
-const BACK_LEVEL_I = /Quest\s+\{icon:3a61674831\}\s*I\b/;
-const FRONT_LEVEL_I = /\{icon:e1c34ea8a2\}\s*I\b/;
+const BACK_LEVEL_I = new RegExp(
+  "Quest\\s+\\{icon:" +
+    printSourceIcon("extension/warrens/raw/quest.json:quest:warrens:p001:back:0") +
+    String.raw`\}\s*I\b`,
+);
+const FRONT_LEVEL_I = new RegExp(
+  String.raw`\{icon:` +
+    printSourceIcon("extension/warrens/raw/quest.json:quest:warrens:p001:front:1") +
+    String.raw`\}\s*I\b`,
+);
 const DISTRIBUTION_SUFFIX = new RegExp(
   String.raw`^\s*` + printTokenPattern("{print:decor@262}") + String.raw`\s*`,
 );

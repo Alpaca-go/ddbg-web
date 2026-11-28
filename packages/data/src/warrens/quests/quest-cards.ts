@@ -1,4 +1,4 @@
-import { printIcon } from "../../shared/print-icons";
+import { printIcon, printSourceIcon } from "../../shared/print-icons";
 import { z } from "zod";
 import {
   roomDistributionSchema,
@@ -14,21 +14,17 @@ export const WARRENS_QUEST_BACK =
 /** 与核心／Weald 同几何的分布 kind；Warrens 专属 hash 见 Q-WARRENS-01–05（待印核）。 */
 export const WARRENS_QUEST_TOKEN_HASH: Readonly<Record<string, RoomTokenKind>> = {
   [printIcon("decor", 167)]: "empty",
-  // 跨包已裁定 hash
-  "6f701b5f5f": "empty",
-  d3a3e38ee9: "objective",
-  a488fd5ff1: "treasure",
-  e7b30e2005: "trap",
-  "509c4a958c": "curio",
-  "0fd90af65e": "dark",
-  // Q-WARRENS-01：Warrens 巢穴行图标（待 Kyries 印核；语义暂定 lair）
-  be78e95113: "lair",
-  // Q-WARRENS-02：与 R-110 dark 同槽位几何的另一 hash（待印核）
-  "7b075a3925": "dark",
-  // Q-WARRENS-03–05：待印核
-  "365b7941a4": "curio",
-  e473d2b695: "treasure",
-  f1011c773e: "empty",
+  [printSourceIcon("extension/warrens/raw/quest.json:quest:warrens:p001:front:2")]: "empty",
+  [printSourceIcon("extension/warrens/raw/quest.json:quest:warrens:p004:front:3")]: "objective",
+  [printSourceIcon("extension/warrens/raw/quest.json:quest:warrens:p001:front:6")]: "treasure",
+  [printSourceIcon("extension/warrens/raw/quest.json:quest:warrens:p001:front:8")]: "trap",
+  [printSourceIcon("extension/warrens/raw/quest.json:quest:warrens:p002:front:5")]: "curio",
+  [printSourceIcon("extension/warrens/raw/quest.json:quest:warrens:p001:front:4")]: "dark",
+  [printSourceIcon("extension/warrens/raw/quest.json:quest:warrens:p001:front:7")]: "lair",
+  [printSourceIcon("extension/warrens/raw/quest.json:quest:warrens:p001:front:3")]: "dark",
+  [printSourceIcon("extension/warrens/raw/quest.json:quest:warrens:p002:front:4")]: "curio",
+  [printSourceIcon("extension/warrens/raw/quest.json:quest:warrens:p003:front:5")]: "treasure",
+  [printSourceIcon("extension/warrens/raw/quest.json:quest:warrens:p004:front:6")]: "empty",
 };
 
 export const warrensQuestCardSchema = z

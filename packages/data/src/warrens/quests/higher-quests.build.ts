@@ -1,3 +1,4 @@
+import { printSourceIcon } from "../../shared/print-icons";
 import type { RawFile } from "../../shared/extract/raw";
 import { WARRENS_QUEST_FRONT, WARRENS_QUEST_BACK } from "./quest-cards";
 import { warrensHigherQuestsSchema } from "./higher-quests";
@@ -126,7 +127,10 @@ export function buildWarrensHigherQuests(raw: RawFile) {
       front.page !== page ||
       back.page !== page ||
       !printedLines.some(
-        (line) => line.includes("{icon:e1c34ea8a2}") && line.endsWith(` ${numeral}`),
+        (line) =>
+          line.includes(
+            `{icon:${printSourceIcon("extension/warrens/raw/quest.json:quest:warrens:p001:front:1")}}`,
+          ) && line.endsWith(` ${numeral}`),
       ) ||
       !back.lines.some((line) => line.text.endsWith(` ${numeral}`))
     )
