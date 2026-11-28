@@ -10,58 +10,55 @@ it.each(
   basicQuests.filter(
     (q) => q.level === 1 && q.expeditionRegion !== "weald" && q.expeditionRegion !== "warrens",
   ),
-)(
-  "$name：真实完整入口、开局八颗、起点禁侦察与相同命令回放",
-  (quest) => {
-    for (const mode of ["standard", "radiant"] as const) {
-      const before = structuredClone(coreQuestSources);
-      const initial = createCoreDungeonQuest(31, quest.id, mode, coreParty, coreQuestSources),
-        d = initial.dungeon!;
-      expect(d.position).toBe("S");
-      expect(d.visited).toEqual(["S"]);
-      expect(d.phase).toBe("awaitingProvisions");
-      expect(d.gold).toBe(mode === "standard" ? 10 : 20);
-      expect(d.rooms.every((r) => !r.revealed && !r.cleared)).toBe(true);
-      expect(
-        d.heroes.every(
-          (h) => h.wounds === 0 && h.stress === 0 && h.level === 1 && h.skillIds!.length === 3,
-        ),
-      ).toBe(true);
-      expect(d.questDistribution).toEqual(quest.distribution);
-      expect(d.layout.review).toBe("confirmed");
-      expect(d.roomCards!.cards.filter((c) => c.location === "ruins" && !c.boss)).toHaveLength(9);
-      expect(ruinsMonsterPool(d.monsterPool!.cards, 1)).toHaveLength(42);
-      expect(d.curio!.cards).toHaveLength(24);
-      expect(d.conditions!.quirks).toHaveLength(35);
-      expect(d.conditions!.diseases).toHaveLength(11);
-      expect(d.resolveCards).toHaveLength(10);
-      expect(d.trinkets!.cards).toHaveLength(14);
-      expect(d.explorationSetup!.provisions).toEqual([]);
-      const log: Command[] = [{ type: "rollDungeonProvisions" }];
-      let r = applyCommand(initial, log[0]!);
-      while (r.pendingChoice) {
-        const c: Command = {
-          type: "resolveChoice",
-          choiceId: r.pendingChoice.id,
-          optionId: "torch",
-        };
-        log.push(c);
-        r = applyCommand(r.state, c);
-      }
-      expect(r.state.dungeon!.phase).toBe("ready");
-      expect(r.state.dungeon!.explorationSetup!.provisions).toHaveLength(8);
-      expect(applyCommand(r.state, { type: "scoutDungeon" }).state).toBe(r.state);
-      expect(applyCommand(r.state, { type: "rollDungeonProvisions" }).state).toBe(r.state);
-      expect(
-        log.reduce(
-          (s, c) => applyCommand(s, c).state,
-          createCoreDungeonQuest(31, quest.id, mode, coreParty, coreQuestSources),
-        ),
-      ).toEqual(r.state);
-      expect(coreQuestSources).toEqual(before);
+)("$name：真实完整入口、开局八颗、起点禁侦察与相同命令回放", (quest) => {
+  for (const mode of ["standard", "radiant"] as const) {
+    const before = structuredClone(coreQuestSources);
+    const initial = createCoreDungeonQuest(31, quest.id, mode, coreParty, coreQuestSources),
+      d = initial.dungeon!;
+    expect(d.position).toBe("S");
+    expect(d.visited).toEqual(["S"]);
+    expect(d.phase).toBe("awaitingProvisions");
+    expect(d.gold).toBe(mode === "standard" ? 10 : 20);
+    expect(d.rooms.every((r) => !r.revealed && !r.cleared)).toBe(true);
+    expect(
+      d.heroes.every(
+        (h) => h.wounds === 0 && h.stress === 0 && h.level === 1 && h.skillIds!.length === 3,
+      ),
+    ).toBe(true);
+    expect(d.questDistribution).toEqual(quest.distribution);
+    expect(d.layout.review).toBe("confirmed");
+    expect(d.roomCards!.cards.filter((c) => c.location === "ruins" && !c.boss)).toHaveLength(9);
+    expect(ruinsMonsterPool(d.monsterPool!.cards, 1)).toHaveLength(42);
+    expect(d.curio!.cards).toHaveLength(24);
+    expect(d.conditions!.quirks).toHaveLength(35);
+    expect(d.conditions!.diseases).toHaveLength(11);
+    expect(d.resolveCards).toHaveLength(10);
+    expect(d.trinkets!.cards).toHaveLength(14);
+    expect(d.explorationSetup!.provisions).toEqual([]);
+    const log: Command[] = [{ type: "rollDungeonProvisions" }];
+    let r = applyCommand(initial, log[0]!);
+    while (r.pendingChoice) {
+      const c: Command = {
+        type: "resolveChoice",
+        choiceId: r.pendingChoice.id,
+        optionId: "torch",
+      };
+      log.push(c);
+      r = applyCommand(r.state, c);
     }
-  },
-);
+    expect(r.state.dungeon!.phase).toBe("ready");
+    expect(r.state.dungeon!.explorationSetup!.provisions).toHaveLength(8);
+    expect(applyCommand(r.state, { type: "scoutDungeon" }).state).toBe(r.state);
+    expect(applyCommand(r.state, { type: "rollDungeonProvisions" }).state).toBe(r.state);
+    expect(
+      log.reduce(
+        (s, c) => applyCommand(s, c).state,
+        createCoreDungeonQuest(31, quest.id, mode, coreParty, coreQuestSources),
+      ),
+    ).toEqual(r.state);
+    expect(coreQuestSources).toEqual(before);
+  }
+});
 
 it.each([
   ["standard", 10],
