@@ -1,4 +1,4 @@
-import type { DirectAttackEntry } from "./types";
+import type { HealSupportEntry, DirectAttackEntry } from "./types";
 import { printIcon } from "../../../shared/print-icons";
 import type { HeroAnnotationEntries, ShuffleEntry, SkillCorrection } from "./types";
 import { defineHeroModule } from "./patch-helpers";
@@ -643,7 +643,38 @@ const directAttackEntries: readonly DirectAttackEntry[] = [
   },
 ];
 
+const healSupportEntries: readonly HealSupportEntry[] = [
+  {
+    id: "hero_skill:cove:h12:p250",
+    name: "Bolster",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    heroTargets: 1,
+    hit: { threshold: 12 },
+    critical: { threshold: 1 },
+  },
+  {
+    id: "hero_skill:cove:h12:p251",
+    name: "Bolster",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    heroTargets: 2,
+    hit: { threshold: 14 },
+    critical: { threshold: 1 },
+  },
+  {
+    id: "hero_skill:cove:h12:p252",
+    name: "Bolster",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    heroTargets: 3,
+    hit: { threshold: 16 },
+    critical: { threshold: 2 },
+  },
+];
+
 const entries: HeroAnnotationEntries = {
+  healSupport: healSupportEntries,
   directAttack: directAttackEntries,
   shuffle: shuffleEntries,
   targetCount: [

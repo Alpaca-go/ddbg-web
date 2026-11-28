@@ -115,6 +115,8 @@
 
 ## 5 组 治疗与减压（54 张）
 
+54 张均已录入 `entries.healSupport`。Reclaim III `hero_skill:cove:h13:p264` 不打包与流血同行的自身治疗 5，保留原伤口。无新增待裁定项。Exsanguinate I–III 的 Q-174 自疗兼容停点仍在第 2 组。
+
 | 技能                 | I                               | II                              | III                             |
 | -------------------- | ------------------------------- | ------------------------------- | ------------------------------- |
 | Battle Heal          | `hero_skill:core:h01:p013`      | `hero_skill:core:h01:p014`      | `hero_skill:core:h01:p015`      |

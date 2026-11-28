@@ -1,5 +1,6 @@
 import type {
   DirectAttackEntry,
+  HealSupportEntry,
   DirectAttackFace,
   CoreHigherSkillRow,
   StatusEffectEntry,
@@ -570,7 +571,41 @@ const directAttackEntries: readonly DirectAttackEntry[] = [
   },
 ];
 
+const healSupportEntries: readonly HealSupportEntry[] = [
+  {
+    id: "hero_skill:core:h07:p139",
+    name: "Battlefield Medicine",
+    stances: ["support", "ranged"],
+    range: 0,
+    heroTargets: 1,
+    effect: "heal",
+    hit: { threshold: 20, heal: 1 },
+    critical: { threshold: 1, heal: 2 },
+  },
+  {
+    id: "hero_skill:core:h07:p140",
+    name: "Battlefield Medicine",
+    stances: ["support", "ranged"],
+    range: 1,
+    heroTargets: 1,
+    effect: "heal",
+    hit: { threshold: 20, heal: 2 },
+    critical: { threshold: 1, heal: 4 },
+  },
+  {
+    id: "hero_skill:core:h07:p141",
+    name: "Battlefield Medicine",
+    stances: ["support", "ranged"],
+    range: 1,
+    heroTargets: 1,
+    effect: "heal",
+    hit: { threshold: 20, heal: 3 },
+    critical: { threshold: 1, heal: 5 },
+  },
+];
+
 const entries: HeroAnnotationEntries = {
+  healSupport: healSupportEntries,
   directAttack: directAttackEntries,
   higher: coreHigherRows,
   status: statusEntries,

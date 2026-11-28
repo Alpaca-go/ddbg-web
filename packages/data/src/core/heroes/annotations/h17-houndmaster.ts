@@ -1,4 +1,4 @@
-import type { DirectAttackEntry } from "./types";
+import type { HealSupportEntry, DirectAttackEntry } from "./types";
 import { printIcon } from "../../../shared/print-icons";
 import type { HeroAnnotationEntries, SkillCorrection } from "./types";
 import { defineHeroModule } from "./patch-helpers";
@@ -640,7 +640,65 @@ const directAttackEntries: readonly DirectAttackEntry[] = [
   },
 ];
 
+const healSupportEntries: readonly HealSupportEntry[] = [
+  {
+    id: "hero_skill:weald:h17:p346",
+    name: "Cry Havoc",
+    stances: ["support", "ranged"],
+    range: 1,
+    heroTargets: 2,
+    hit: { threshold: 9 },
+  },
+  {
+    id: "hero_skill:weald:h17:p347",
+    name: "Cry Havoc",
+    stances: ["support", "ranged"],
+    range: 1,
+    heroTargets: 3,
+    hit: { threshold: 10 },
+  },
+  {
+    id: "hero_skill:weald:h17:p348",
+    name: "Cry Havoc",
+    stances: ["support", "ranged"],
+    range: 1,
+    heroTargets: 3,
+    hit: { threshold: 11 },
+  },
+  {
+    id: "hero_skill:weald:h17:p352",
+    name: "Lick Wounds",
+    stances: ["support", "ranged", "defensive"],
+    selfRange: true,
+    heroTargets: 1,
+    effect: "heal",
+    hit: { threshold: 20, heal: 3 },
+    critical: { threshold: 2, heal: 5 },
+  },
+  {
+    id: "hero_skill:weald:h17:p353",
+    name: "Lick Wounds",
+    stances: ["support", "ranged", "defensive"],
+    selfRange: true,
+    heroTargets: 1,
+    effect: "heal",
+    hit: { threshold: 20, heal: 4 },
+    critical: { threshold: 2, heal: 6 },
+  },
+  {
+    id: "hero_skill:weald:h17:p354",
+    name: "Lick Wounds",
+    stances: ["support", "ranged", "defensive"],
+    selfRange: true,
+    heroTargets: 1,
+    effect: "heal",
+    hit: { threshold: 20, heal: 6 },
+    critical: { threshold: 2, heal: 8 },
+  },
+];
+
 const entries: HeroAnnotationEntries = {
+  healSupport: healSupportEntries,
   directAttack: directAttackEntries,
   targetCount: [
     { id: "hero_skill:weald:h17:p343", hero: 0, monster: 1, heroOrMonster: 0 },

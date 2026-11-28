@@ -139,8 +139,10 @@ describe("Inspiring Cry I（印刷 p19、规则书 R19–21、R-025 / R-048）",
   });
   it("没有注解、缺轨、错配、敌方与超射程均拒绝", () => {
     const { support: _support, ...targetRule } = cry.rules!.target!;
+    const { healSupport: _heal, ...rules } = cry.rules!;
     void _support;
-    const unknown = { ...cry, rules: { ...cry.rules, target: targetRule } };
+    void _heal;
+    const unknown = { ...cry, rules: { ...rules, target: targetRule } };
     expect(resolveHeroSkill(unknown, context, 1).status).toBe("refused");
     const target = { id: "h", side: "hero" as const, wounds: 5, dodge: 0 };
     const { light: ignoredLight, ...dark } = context;
@@ -155,7 +157,7 @@ describe("Inspiring Cry I（印刷 p19、规则书 R19–21、R-025 / R-048）",
     const forged: HeroSkillCardView = {
       ...cry,
       rules: {
-        ...cry.rules,
+        ...rules,
         target: { ...cry.rules!.target!, support: { ...cry.rules!.target!.support!, light: 2 } },
       },
     };

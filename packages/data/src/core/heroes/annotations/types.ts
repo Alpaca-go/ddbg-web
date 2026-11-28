@@ -1,4 +1,4 @@
-import type { DirectAttack } from "../../../shared/effects";
+import type { DirectAttack, HealSupport } from "../../../shared/effects";
 import type { HERO_PRINT_SOURCES } from "./print-sources";
 import type { HeroName } from "../hero-registry";
 import type { NormalizedHeroSkillCard } from "../../../shared/schema";
@@ -30,11 +30,30 @@ export type DirectAttackEntry = Omit<
   readonly id: string;
   readonly name: string;
 };
+export type HealSupportEntry = Omit<
+  HealSupport,
+  | "selfHeal"
+  | "selfStress"
+  | "selfHealStress"
+  | "combinedHealMarker"
+  | "targetHeal"
+  | "targetStress"
+  | "targetLight"
+  | "onHit"
+  | "onUse"
+  | "removal"
+> & {
+  readonly id: string;
+  readonly name: string;
+};
+
 export type DirectAttackFace = Pick<DirectAttackEntry, "stances" | "range" | "monsterTargets">;
 
 /** 一个英雄的全部逐卡注解数据。只写该英雄实际有的表，没有就不写。 */
 export type HeroAnnotationEntries = {
   readonly directAttack?: readonly DirectAttackEntry[];
+  readonly healSupport?: readonly HealSupportEntry[];
+
   readonly status?: readonly StatusEffectEntry[];
   readonly range?: readonly RangeEntry[];
   readonly support?: readonly SupportEffectEntry[];

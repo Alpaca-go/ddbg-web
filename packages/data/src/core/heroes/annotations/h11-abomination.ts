@@ -1,4 +1,4 @@
-import type { DirectAttackEntry } from "./types";
+import type { HealSupportEntry, DirectAttackEntry } from "./types";
 import type {
   CoreHigherSkillRow,
   StatusEffectEntry,
@@ -392,7 +392,41 @@ const directAttackEntries: readonly DirectAttackEntry[] = [
   },
 ];
 
+const healSupportEntries: readonly HealSupportEntry[] = [
+  {
+    id: "hero_skill:core:h11:p217",
+    name: "Absolution",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    selfRange: true,
+    heroTargets: 0,
+    effect: "heal",
+    hit: { threshold: 12, heal: 2 },
+    critical: { threshold: 1, heal: 4 },
+  },
+  {
+    id: "hero_skill:core:h11:p218",
+    name: "Absolution",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    selfRange: true,
+    heroTargets: 0,
+    effect: "heal",
+    hit: { threshold: 14, heal: 3 },
+    critical: { threshold: 1, heal: 6 },
+  },
+  {
+    id: "hero_skill:core:h11:p219",
+    name: "Absolution",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    selfRange: true,
+    heroTargets: 0,
+    effect: "heal",
+    hit: { threshold: 16, heal: 4 },
+    critical: { threshold: 1, heal: 8 },
+  },
+];
+
 const entries: HeroAnnotationEntries = {
+  healSupport: healSupportEntries,
   directAttack: directAttackEntries,
   higher: coreHigherRows,
   status: statusEntries,

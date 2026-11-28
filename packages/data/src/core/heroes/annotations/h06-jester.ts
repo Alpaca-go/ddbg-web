@@ -1,5 +1,6 @@
 import type {
   DirectAttackEntry,
+  HealSupportEntry,
   DirectAttackFace,
   CoreHigherSkillRow,
   StatusEffectEntry,
@@ -545,7 +546,38 @@ const directAttackEntries: readonly DirectAttackEntry[] = [
   },
 ];
 
+const healSupportEntries: readonly HealSupportEntry[] = [
+  {
+    id: "hero_skill:core:h06:p121",
+    name: "Inspiring Tune",
+    stances: ["support", "ranged"],
+    range: 0,
+    heroTargets: 2,
+    hit: { threshold: 20 },
+    critical: { threshold: 2 },
+  },
+  {
+    id: "hero_skill:core:h06:p122",
+    name: "Inspiring Tune",
+    stances: ["support", "ranged"],
+    range: 0,
+    heroTargets: 3,
+    hit: { threshold: 20 },
+    critical: { threshold: 2 },
+  },
+  {
+    id: "hero_skill:core:h06:p123",
+    name: "Inspiring Tune",
+    stances: ["support", "ranged"],
+    range: 0,
+    heroTargets: 3,
+    hit: { threshold: 20 },
+    critical: { threshold: 3 },
+  },
+];
+
 const entries: HeroAnnotationEntries = {
+  healSupport: healSupportEntries,
   directAttack: directAttackEntries,
   higher: coreHigherRows,
   status: statusEntries,

@@ -73,9 +73,10 @@ it("效果词条迁移前的存档按当前规则恢复，其他快照字段仍�
     catalog: {
       ...coreQuestSources.catalog,
       skills: coreQuestSources.catalog.skills.map((card) => {
-        if (!card.rules?.directAttack) return card;
-        const { directAttack: _attack, ...rules } = card.rules;
+        if (!card.rules?.directAttack && !card.rules?.healSupport) return card;
+        const { directAttack: _attack, healSupport: _heal, ...rules } = card.rules!;
         void _attack;
+        void _heal;
         return { ...card, rules };
       }),
     },
@@ -469,6 +470,82 @@ it("自然任务含真实战斗的日志可恢复到摘要，牌池、金币、X
   }
   expect(game.battle?.pending).toBeDefined();
 }, 60000);
+it.each([
+  ["Battle Heal", "hero_skill:core:h01:p013", "hero-0"],
+  ["Inspiring Cry", "hero_skill:core:h01:p019", "hero-0"],
+  ["Divine Grace", "hero_skill:core:h05:p094", "hero-3"],
+] as const)(
+  "%s 迁移前的实战日志严格重放原命令和事件",
+  (skillName, skillId, actorId) => {
+    const previousSources = {
+      ...coreQuestSources,
+      catalog: {
+        ...coreQuestSources.catalog,
+        skills: coreQuestSources.catalog.skills.map((card) => {
+          if (card.name !== skillName || !card.rules?.healSupport) return card;
+          const { healSupport: _heal, ...rules } = card.rules;
+          void _heal;
+          return { ...card, rules };
+        }),
+      },
+    };
+    const party = naturalParty.map((hero, index) => {
+      if ((actorId === "hero-0" && index === 0) || (actorId === "hero-3" && index === 3))
+        return {
+          ...hero,
+          skillIds: hero.skillIds.includes(skillId)
+            ? hero.skillIds
+            : [skillId, ...hero.skillIds.filter((id) => id !== skillId).slice(0, 2)],
+        };
+      return hero;
+    });
+    const questStart = { ...start, seed: 3, party };
+    const run = (sources: typeof coreQuestSources) =>
+      naturalQuest(questStart.seed, questStart.questId, true, sources, 2, {
+        continueFrom: createCoreDungeonQuest(
+          questStart.seed,
+          questStart.questId,
+          questStart.mode,
+          party,
+          sources,
+        ),
+        heroAction(game) {
+          const turn = game.battle?.encounter?.turn;
+          if (turn?.type !== "hero" || turn.actorId !== actorId) return;
+          const allies = game.battle!.entities.filter(
+            (entry) => entry.side === "hero" && !entry.dead,
+          );
+          for (const target of allies) {
+            const play = {
+              type: "playHeroSkill",
+              actorId: turn.actorId,
+              skillId,
+              targetId: target.id,
+            } as const;
+            if (applyCommand(game, play).events.every(({ type }) => type !== "commandRefused"))
+              return play;
+          }
+        },
+      });
+    const old = run(previousSources);
+    expect(
+      old.commands.some(
+        (command) =>
+          (command.type === "playHeroSkill" || command.type === "playHeroSkillTargets") &&
+          "skillId" in command &&
+          command.skillId === skillId,
+      ),
+    ).toBe(true);
+    const restored = roundTrip(
+      createQuestSave(questStart, old.commands, old.state, previousSources),
+    );
+    const current = run(coreQuestSources);
+    expect(restored.commands).toEqual(current.commands);
+    expect(restored.game).toEqual(current.state);
+    expect(old.events).toEqual(current.events);
+  },
+  120000,
+);
 it("未知版本、非法命令、伪造快照／种子、截断日志和错误来源拒绝", () => {
   const game = initial(),
     saved = createQuestSave(start, [], game, coreQuestSources);

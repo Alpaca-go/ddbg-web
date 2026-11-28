@@ -42,6 +42,30 @@ export function readVerifiedStatusEffects(
       targetShuffle: null,
     };
   }
+  const heal = skill.rules?.healSupport;
+  if (heal) {
+    const withoutUndefinedAmount = ({
+      kind,
+      duration,
+      amount,
+    }: NonNullable<typeof heal.onHit>[number]) => ({
+      kind,
+      duration,
+      ...(amount === undefined ? {} : { amount }),
+    });
+    return {
+      status: "resolved",
+      self: heal.onUse?.map(withoutUndefinedAmount) ?? [],
+      target: heal.onHit?.map(withoutUndefinedAmount) ?? [],
+      lineCount: Number((heal.onHit?.length ?? 0) > 0 || (heal.onUse?.length ?? 0) > 0),
+      selfLight: 0,
+      targetLight: 0,
+      selfRemove: (heal.removal ?? []).some((rule) => rule.scope === "self"),
+      targetRemove: (heal.removal ?? []).some((rule) => rule.scope === "target"),
+      selfShuffle: null,
+      targetShuffle: null,
+    };
+  }
   const self: StatusEffect[] = [];
   const target: StatusEffect[] = [];
   const groups = new Map<number, NonNullable<SkillRules["statuses"]>[number][]>();

@@ -1,4 +1,4 @@
-import type { DirectAttackEntry } from "./types";
+import type { HealSupportEntry, DirectAttackEntry } from "./types";
 import type {
   CoreHigherSkillRow,
   StatusEffectEntry,
@@ -545,7 +545,44 @@ const directAttackEntries: readonly DirectAttackEntry[] = [
   },
 ];
 
+const healSupportEntries: readonly HealSupportEntry[] = [
+  {
+    id: "hero_skill:core:h10:p199",
+    name: "Wyrd Reconstruction",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    rangeMinimum: 0,
+    heroTargets: 1,
+    effect: "heal",
+    hit: { threshold: 9, heal: 4 },
+    critical: { threshold: 3, heal: 8 },
+  },
+  {
+    id: "hero_skill:core:h10:p200",
+    name: "Wyrd Reconstruction",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    rangeMinimum: 0,
+    heroTargets: 1,
+    effect: "heal",
+    hit: { threshold: 10, heal: 5 },
+    critical: { threshold: 3, heal: 10 },
+  },
+  {
+    id: "hero_skill:core:h10:p201",
+    name: "Wyrd Reconstruction",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    rangeMinimum: 0,
+    heroTargets: 1,
+    effect: "heal",
+    hit: { threshold: 11, heal: 6 },
+    critical: { threshold: 3, heal: 12 },
+  },
+];
+
 const entries: HeroAnnotationEntries = {
+  healSupport: healSupportEntries,
   directAttack: directAttackEntries,
   higher: coreHigherRows,
   status: statusEntries,

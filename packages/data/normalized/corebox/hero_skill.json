@@ -5582,6 +5582,27 @@
     }
    ],
    "rules": {
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "rangeMinimum": 0,
+     "heroTargets": 1,
+     "effect": "heal",
+     "hit": {
+      "threshold": 12,
+      "heal": 2
+     },
+     "critical": {
+      "threshold": 2,
+      "heal": 4
+     },
+     "combinedHealMarker": true
+    },
     "range": {
      "min": 0,
      "max": 1,
@@ -6015,6 +6036,26 @@
     }
    ],
    "rules": {
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "rangeMinimum": 0,
+     "heroTargets": 1,
+     "effect": "heal",
+     "hit": {
+      "threshold": 14,
+      "heal": 3
+     },
+     "critical": {
+      "threshold": 2,
+      "heal": 5
+     }
+    },
     "range": {
      "min": 0,
      "max": 1,
@@ -6530,6 +6571,27 @@
       "amount": 5,
       "source": "print_front"
      }
+    },
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "heroTargets": 1,
+     "effect": "heal",
+     "hit": {
+      "threshold": 16,
+      "heal": 4
+     },
+     "critical": {
+      "threshold": 2,
+      "heal": 6
+     },
+     "selfHeal": 5,
+     "combinedHealMarker": true
     },
     "targets": {
      "hero": 1,
@@ -8700,6 +8762,20 @@
       "light": 1,
       "source": "print_front"
      }
+    },
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 0,
+     "heroTargets": 1,
+     "combinedHealMarker": true,
+     "targetHeal": 1,
+     "targetStress": -1,
+     "targetLight": 1
     }
    },
    "front_icons": [
@@ -9314,6 +9390,24 @@
       "light": 1,
       "source": "print_front"
      }
+    },
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "heroTargets": 1,
+     "selfHealStress": {
+      "heal": 1,
+      "stress": -1
+     },
+     "combinedHealMarker": true,
+     "targetHeal": 1,
+     "targetStress": -1,
+     "targetLight": 1
     }
    },
    "front_icons": [
@@ -9990,6 +10084,24 @@
       "light": 1,
       "source": "print_front"
      }
+    },
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "heroTargets": 2,
+     "selfHealStress": {
+      "heal": 1,
+      "stress": -1
+     },
+     "combinedHealMarker": true,
+     "targetHeal": 1,
+     "targetStress": -1,
+     "targetLight": 1
     }
    },
    "front_icons": [
@@ -45689,6 +45801,25 @@
     }
    ],
    "rules": {
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 1,
+     "rangeMinimum": 0,
+     "heroTargets": 1,
+     "effect": "heal",
+     "hit": {
+      "threshold": 12,
+      "heal": 3
+     },
+     "critical": {
+      "threshold": 3,
+      "heal": 5
+     },
+     "combinedHealMarker": true
+    },
     "range": {
      "min": 0,
      "max": 1,
@@ -46122,6 +46253,25 @@
     }
    ],
    "rules": {
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 1,
+     "rangeMinimum": 0,
+     "heroTargets": 1,
+     "effect": "heal",
+     "hit": {
+      "threshold": 14,
+      "heal": 5
+     },
+     "critical": {
+      "threshold": 3,
+      "heal": 7
+     },
+     "combinedHealMarker": true
+    },
     "range": {
      "min": 0,
      "max": 1,
@@ -46555,6 +46705,25 @@
     }
    ],
    "rules": {
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 1,
+     "rangeMinimum": 0,
+     "heroTargets": 1,
+     "effect": "heal",
+     "hit": {
+      "threshold": 16,
+      "heal": 7
+     },
+     "critical": {
+      "threshold": 3,
+      "heal": 9
+     },
+     "combinedHealMarker": true
+    },
     "range": {
      "min": 0,
      "max": 1,
@@ -47095,6 +47264,26 @@
       "amount": 2,
       "source": "print_front"
      }
+    },
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive"
+     ],
+     "range": 1,
+     "heroTargets": 3,
+     "effect": "heal",
+     "hit": {
+      "threshold": 12,
+      "heal": 2
+     },
+     "critical": {
+      "threshold": 3,
+      "heal": 3
+     },
+     "selfHeal": 2,
+     "combinedHealMarker": true
     },
     "targets": {
      "hero": 3,
@@ -47698,6 +47887,26 @@
       "source": "print_front"
      }
     },
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive"
+     ],
+     "range": 1,
+     "heroTargets": 3,
+     "effect": "heal",
+     "hit": {
+      "threshold": 14,
+      "heal": 3
+     },
+     "critical": {
+      "threshold": 3,
+      "heal": 4
+     },
+     "selfHeal": 3,
+     "combinedHealMarker": true
+    },
     "targets": {
      "hero": 3,
      "monster": 0,
@@ -48299,6 +48508,26 @@
       "amount": 4,
       "source": "print_front"
      }
+    },
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive"
+     ],
+     "range": 1,
+     "heroTargets": 3,
+     "effect": "heal",
+     "hit": {
+      "threshold": 16,
+      "heal": 4
+     },
+     "critical": {
+      "threshold": 3,
+      "heal": 5
+     },
+     "selfHeal": 4,
+     "combinedHealMarker": true
     },
     "targets": {
      "hero": 3,
@@ -59388,6 +59617,22 @@
       "source": "print_front"
      }
     },
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 0,
+     "heroTargets": 2,
+     "hit": {
+      "threshold": 20
+     },
+     "critical": {
+      "threshold": 2
+     },
+     "selfStress": -1,
+     "targetStress": -1
+    },
     "targets": {
      "hero": 2,
      "monster": 0,
@@ -59902,6 +60147,22 @@
       "amount": -1,
       "source": "print_front"
      }
+    },
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 0,
+     "heroTargets": 3,
+     "hit": {
+      "threshold": 20
+     },
+     "critical": {
+      "threshold": 2
+     },
+     "selfStress": -1,
+     "targetStress": -1
     },
     "targets": {
      "hero": 3,
@@ -60428,6 +60689,22 @@
       "amount": -1,
       "source": "print_front"
      }
+    },
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 0,
+     "heroTargets": 3,
+     "hit": {
+      "threshold": 20
+     },
+     "critical": {
+      "threshold": 3
+     },
+     "selfStress": -1,
+     "targetStress": -1
     },
     "targets": {
      "hero": 3,
@@ -68218,6 +68495,32 @@
     }
    ],
    "rules": {
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 0,
+     "heroTargets": 1,
+     "effect": "heal",
+     "hit": {
+      "threshold": 20,
+      "heal": 1
+     },
+     "critical": {
+      "threshold": 1,
+      "heal": 2
+     },
+     "removal": [
+      {
+       "scope": "target",
+       "kinds": [
+        "bleed",
+        "blight"
+       ]
+      }
+     ]
+    },
     "removal": [
      {
       "lineIndex": 0,
@@ -68861,6 +69164,41 @@
       "amount": 3,
       "source": "print_front"
      }
+    },
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 1,
+     "heroTargets": 1,
+     "effect": "heal",
+     "hit": {
+      "threshold": 20,
+      "heal": 2
+     },
+     "critical": {
+      "threshold": 1,
+      "heal": 4
+     },
+     "selfHeal": 3,
+     "combinedHealMarker": true,
+     "removal": [
+      {
+       "scope": "target",
+       "kinds": [
+        "bleed",
+        "blight"
+       ]
+      },
+      {
+       "scope": "self",
+       "kinds": [
+        "bleed",
+        "blight"
+       ]
+      }
+     ]
     },
     "removal": [
      {
@@ -69568,6 +69906,41 @@
       "amount": 4,
       "source": "print_front"
      }
+    },
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 1,
+     "heroTargets": 1,
+     "effect": "heal",
+     "hit": {
+      "threshold": 20,
+      "heal": 3
+     },
+     "critical": {
+      "threshold": 1,
+      "heal": 5
+     },
+     "selfHeal": 4,
+     "combinedHealMarker": true,
+     "removal": [
+      {
+       "scope": "target",
+       "kinds": [
+        "bleed",
+        "blight"
+       ]
+      },
+      {
+       "scope": "self",
+       "kinds": [
+        "bleed",
+        "blight"
+       ]
+      }
+     ]
     },
     "removal": [
      {
@@ -79678,6 +80051,31 @@
     }
    ],
    "rules": {
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 1,
+     "rangeMinimum": 0,
+     "heroTargets": 1,
+     "effect": "heal",
+     "hit": {
+      "threshold": 8,
+      "heal": 4
+     },
+     "critical": {
+      "threshold": 0,
+      "heal": 6
+     },
+     "combinedHealMarker": true,
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 2
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -80200,6 +80598,31 @@
     }
    ],
    "rules": {
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 1,
+     "rangeMinimum": 0,
+     "heroTargets": 1,
+     "effect": "heal",
+     "hit": {
+      "threshold": 9,
+      "heal": 5
+     },
+     "critical": {
+      "threshold": 0,
+      "heal": 8
+     },
+     "combinedHealMarker": true,
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 2
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -80722,6 +81145,31 @@
     }
    ],
    "rules": {
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 1,
+     "rangeMinimum": 0,
+     "heroTargets": 1,
+     "effect": "heal",
+     "hit": {
+      "threshold": 10,
+      "heal": 7
+     },
+     "critical": {
+      "threshold": 0,
+      "heal": 10
+     },
+     "combinedHealMarker": true,
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 2
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -97994,6 +98442,33 @@
     }
    ],
    "rules": {
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "rangeMinimum": 0,
+     "heroTargets": 1,
+     "effect": "heal",
+     "hit": {
+      "threshold": 9,
+      "heal": 4
+     },
+     "critical": {
+      "threshold": 3,
+      "heal": 8
+     },
+     "onHit": [
+      {
+       "kind": "bleed",
+       "duration": 2,
+       "amount": 1
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -98536,6 +99011,34 @@
     }
    ],
    "rules": {
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "rangeMinimum": 0,
+     "heroTargets": 1,
+     "effect": "heal",
+     "hit": {
+      "threshold": 10,
+      "heal": 5
+     },
+     "critical": {
+      "threshold": 3,
+      "heal": 10
+     },
+     "combinedHealMarker": true,
+     "onHit": [
+      {
+       "kind": "bleed",
+       "duration": 3,
+       "amount": 1
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -99078,6 +99581,33 @@
     }
    ],
    "rules": {
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "rangeMinimum": 0,
+     "heroTargets": 1,
+     "effect": "heal",
+     "hit": {
+      "threshold": 11,
+      "heal": 6
+     },
+     "critical": {
+      "threshold": 3,
+      "heal": 12
+     },
+     "onHit": [
+      {
+       "kind": "bleed",
+       "duration": 2,
+       "amount": 2
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -107083,6 +107613,26 @@
       "source": "print_front"
      }
     },
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "selfRange": true,
+     "heroTargets": 0,
+     "effect": "heal",
+     "hit": {
+      "threshold": 12,
+      "heal": 2
+     },
+     "critical": {
+      "threshold": 1,
+      "heal": 4
+     },
+     "selfStress": -1
+    },
     "targets": {
      "hero": 0,
      "monster": 0,
@@ -107572,6 +108122,27 @@
       "source": "print_front"
      }
     },
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "selfRange": true,
+     "heroTargets": 0,
+     "effect": "heal",
+     "hit": {
+      "threshold": 14,
+      "heal": 3
+     },
+     "critical": {
+      "threshold": 1,
+      "heal": 6
+     },
+     "selfStress": -1,
+     "combinedHealMarker": true
+    },
     "targets": {
      "hero": 0,
      "monster": 0,
@@ -108060,6 +108631,27 @@
       "amount": -1,
       "source": "print_front"
      }
+    },
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "selfRange": true,
+     "heroTargets": 0,
+     "effect": "heal",
+     "hit": {
+      "threshold": 16,
+      "heal": 4
+     },
+     "critical": {
+      "threshold": 1,
+      "heal": 8
+     },
+     "selfStress": -1,
+     "combinedHealMarker": true
     },
     "targets": {
      "hero": 0,
@@ -123285,6 +123877,24 @@
       "source": "print_front"
      }
     },
+    "healSupport": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "selfRange": true,
+     "heroTargets": 1,
+     "hit": {
+      "threshold": 12
+     },
+     "critical": {
+      "threshold": 1
+     },
+     "selfHealStress": {
+      "heal": 6,
+      "stress": -1
+     }
+    },
     "targets": {
      "hero": 1,
      "monster": 0,
@@ -123756,6 +124366,24 @@
       "source": "print_front"
      }
     },
+    "healSupport": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "selfRange": true,
+     "heroTargets": 1,
+     "hit": {
+      "threshold": 14
+     },
+     "critical": {
+      "threshold": 1
+     },
+     "selfHealStress": {
+      "heal": 9,
+      "stress": -1
+     }
+    },
     "targets": {
      "hero": 1,
      "monster": 0,
@@ -124225,6 +124853,24 @@
       "lineIndex": 0,
       "amount": -1,
       "source": "print_front"
+     }
+    },
+    "healSupport": {
+     "stances": [
+      "defensive",
+      "aggressive"
+     ],
+     "selfRange": true,
+     "heroTargets": 1,
+     "hit": {
+      "threshold": 16
+     },
+     "critical": {
+      "threshold": 1
+     },
+     "selfHealStress": {
+      "heal": 12,
+      "stress": -1
      }
     },
     "targets": {
@@ -132891,6 +133537,37 @@
       "source": "print_front"
      }
     },
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 1,
+     "heroTargets": 1,
+     "effect": "heal",
+     "hit": {
+      "threshold": 12,
+      "heal": 1
+     },
+     "critical": {
+      "threshold": 0,
+      "heal": 2
+     },
+     "selfHeal": 1,
+     "combinedHealMarker": true,
+     "onHit": [
+      {
+       "kind": "buff",
+       "duration": 2
+      }
+     ],
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 2
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 2,
@@ -133663,6 +134340,37 @@
       "source": "print_front"
      }
     },
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 1,
+     "heroTargets": 1,
+     "effect": "heal",
+     "hit": {
+      "threshold": 14,
+      "heal": 2
+     },
+     "critical": {
+      "threshold": 0,
+      "heal": 3
+     },
+     "selfHeal": 2,
+     "combinedHealMarker": true,
+     "onHit": [
+      {
+       "kind": "buff",
+       "duration": 3
+      }
+     ],
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 3
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 2,
@@ -134434,6 +135142,37 @@
       "amount": 4,
       "source": "print_front"
      }
+    },
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 1,
+     "heroTargets": 1,
+     "effect": "heal",
+     "hit": {
+      "threshold": 16,
+      "heal": 3
+     },
+     "critical": {
+      "threshold": 1,
+      "heal": 5
+     },
+     "selfHeal": 4,
+     "combinedHealMarker": true,
+     "onHit": [
+      {
+       "kind": "buff",
+       "duration": 3
+      }
+     ],
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 3
+      }
+     ]
     },
     "statuses": [
      {
@@ -147818,6 +148557,24 @@
       "source": "print_front"
      }
     },
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "heroTargets": 1,
+     "hit": {
+      "threshold": 12
+     },
+     "critical": {
+      "threshold": 1
+     },
+     "selfStress": -1,
+     "targetStress": -1
+    },
     "targets": {
      "hero": 1,
      "monster": 0,
@@ -148366,6 +149123,24 @@
       "amount": -1,
       "source": "print_front"
      }
+    },
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "heroTargets": 2,
+     "hit": {
+      "threshold": 14
+     },
+     "critical": {
+      "threshold": 1
+     },
+     "selfStress": -1,
+     "targetStress": -1
     },
     "targets": {
      "hero": 2,
@@ -148994,6 +149769,24 @@
       "amount": -1,
       "source": "print_front"
      }
+    },
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "heroTargets": 3,
+     "hit": {
+      "threshold": 16
+     },
+     "critical": {
+      "threshold": 2
+     },
+     "selfStress": -1,
+     "targetStress": -1
     },
     "targets": {
      "hero": 3,
@@ -155803,6 +156596,34 @@
     }
    ],
    "rules": {
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "rangeMinimum": 0,
+     "heroTargets": 1,
+     "effect": "heal",
+     "hit": {
+      "threshold": 12,
+      "heal": 2
+     },
+     "critical": {
+      "threshold": 2,
+      "heal": 4
+     },
+     "combinedHealMarker": true,
+     "onUse": [
+      {
+       "kind": "bleed",
+       "duration": 3,
+       "amount": 1
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -156409,6 +157230,33 @@
     }
    ],
    "rules": {
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "rangeMinimum": 0,
+     "heroTargets": 1,
+     "effect": "heal",
+     "hit": {
+      "threshold": 14,
+      "heal": 3
+     },
+     "critical": {
+      "threshold": 2,
+      "heal": 6
+     },
+     "onUse": [
+      {
+       "kind": "bleed",
+       "duration": 3,
+       "amount": 1
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -157049,6 +157897,34 @@
       "source": "print_front"
      }
     },
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "rangeMinimum": 0,
+     "heroTargets": 1,
+     "effect": "heal",
+     "hit": {
+      "threshold": 16,
+      "heal": 4
+     },
+     "critical": {
+      "threshold": 2,
+      "heal": 8
+     },
+     "combinedHealMarker": true,
+     "onUse": [
+      {
+       "kind": "bleed",
+       "duration": 3,
+       "amount": 1
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -157673,6 +158549,24 @@
       "source": "print_front"
      }
     },
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "heroTargets": 1,
+     "selfHeal": 3,
+     "targetHeal": 3,
+     "onUse": [
+      {
+       "kind": "debuff",
+       "duration": 1
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 3,
@@ -158284,6 +159178,24 @@
       "amount": 5,
       "source": "print_front"
      }
+    },
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "heroTargets": 1,
+     "selfHeal": 5,
+     "targetHeal": 5,
+     "onUse": [
+      {
+       "kind": "debuff",
+       "duration": 1
+      }
+     ]
     },
     "statuses": [
      {
@@ -158897,6 +159809,24 @@
       "source": "print_front"
      }
     },
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "heroTargets": 1,
+     "selfHeal": 7,
+     "targetHeal": 7,
+     "onUse": [
+      {
+       "kind": "debuff",
+       "duration": 1
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 3,
@@ -159466,6 +160396,24 @@
       "source": "print_front"
      }
     },
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 1,
+     "heroTargets": 1,
+     "hit": {
+      "threshold": 12
+     },
+     "critical": {
+      "threshold": 0
+     },
+     "selfStress": -1,
+     "targetStress": -1
+    },
     "targets": {
      "hero": 1,
      "monster": 0,
@@ -160008,6 +160956,25 @@
       "amount": -1,
       "source": "print_front"
      }
+    },
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 2,
+     "rangeMinimum": 1,
+     "heroTargets": 1,
+     "hit": {
+      "threshold": 14
+     },
+     "critical": {
+      "threshold": 0
+     },
+     "selfStress": -1,
+     "targetStress": -1
     },
     "range": {
      "min": 1,
@@ -160556,6 +161523,25 @@
       "amount": -1,
       "source": "print_front"
      }
+    },
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive",
+      "aggressive"
+     ],
+     "range": 2,
+     "rangeMinimum": 1,
+     "heroTargets": 1,
+     "hit": {
+      "threshold": 16
+     },
+     "critical": {
+      "threshold": 1
+     },
+     "selfStress": -1,
+     "targetStress": -1
     },
     "range": {
      "min": 1,
@@ -180964,6 +181950,19 @@
       "source": "print_front"
      }
     },
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 1,
+     "heroTargets": 2,
+     "hit": {
+      "threshold": 9
+     },
+     "selfStress": -1,
+     "targetStress": -1
+    },
     "targets": {
      "hero": 2,
      "monster": 0,
@@ -181557,6 +182556,19 @@
       "amount": -1,
       "source": "print_front"
      }
+    },
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 1,
+     "heroTargets": 3,
+     "hit": {
+      "threshold": 10
+     },
+     "selfStress": -1,
+     "targetStress": -1
     },
     "targets": {
      "hero": 3,
@@ -182162,6 +183174,19 @@
       "amount": -1,
       "source": "print_front"
      }
+    },
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 1,
+     "heroTargets": 3,
+     "hit": {
+      "threshold": 11
+     },
+     "selfStress": -2,
+     "targetStress": -1
     },
     "targets": {
      "hero": 3,
@@ -183839,6 +184864,24 @@
     "self": {
      "range": true
     },
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive"
+     ],
+     "selfRange": true,
+     "heroTargets": 1,
+     "effect": "heal",
+     "hit": {
+      "threshold": 20,
+      "heal": 3
+     },
+     "critical": {
+      "threshold": 2,
+      "heal": 5
+     }
+    },
     "targets": {
      "hero": 1,
      "monster": 0,
@@ -184219,6 +185262,24 @@
     "self": {
      "range": true
     },
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive"
+     ],
+     "selfRange": true,
+     "heroTargets": 1,
+     "effect": "heal",
+     "hit": {
+      "threshold": 20,
+      "heal": 4
+     },
+     "critical": {
+      "threshold": 2,
+      "heal": 6
+     }
+    },
     "targets": {
      "hero": 1,
      "monster": 0,
@@ -184598,6 +185659,24 @@
    "rules": {
     "self": {
      "range": true
+    },
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged",
+      "defensive"
+     ],
+     "selfRange": true,
+     "heroTargets": 1,
+     "effect": "heal",
+     "hit": {
+      "threshold": 20,
+      "heal": 6
+     },
+     "critical": {
+      "threshold": 2,
+      "heal": 8
+     }
     },
     "targets": {
      "hero": 1,
@@ -194429,6 +195508,30 @@
     }
    ],
    "rules": {
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 1,
+     "rangeMinimum": 0,
+     "heroTargets": 1,
+     "effect": "heal",
+     "hit": {
+      "threshold": 8,
+      "heal": 4
+     },
+     "critical": {
+      "threshold": 0,
+      "heal": 6
+     },
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 2
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -195005,6 +196108,30 @@
     }
    ],
    "rules": {
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 1,
+     "rangeMinimum": 0,
+     "heroTargets": 1,
+     "effect": "heal",
+     "hit": {
+      "threshold": 9,
+      "heal": 5
+     },
+     "critical": {
+      "threshold": 0,
+      "heal": 8
+     },
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 2
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,
@@ -195581,6 +196708,30 @@
     }
    ],
    "rules": {
+    "healSupport": {
+     "stances": [
+      "support",
+      "ranged"
+     ],
+     "range": 1,
+     "rangeMinimum": 0,
+     "heroTargets": 1,
+     "effect": "heal",
+     "hit": {
+      "threshold": 10,
+      "heal": 7
+     },
+     "critical": {
+      "threshold": 0,
+      "heal": 10
+     },
+     "onUse": [
+      {
+       "kind": "buff",
+       "duration": 2
+      }
+     ]
+    },
     "statuses": [
      {
       "lineIndex": 0,

@@ -1,4 +1,4 @@
-import type { DirectAttackEntry } from "./types";
+import type { HealSupportEntry, DirectAttackEntry } from "./types";
 import { printIcon } from "../../../shared/print-icons";
 import type {
   HeroAnnotationEntries,
@@ -856,7 +856,41 @@ const directAttackEntries: readonly DirectAttackEntry[] = [
   },
 ];
 
+const healSupportEntries: readonly HealSupportEntry[] = [
+  {
+    id: "hero_skill:warrens:h15:p307",
+    name: "Fortifying Vapours",
+    stances: ["support", "ranged"],
+    range: 1,
+    heroTargets: 1,
+    effect: "heal",
+    hit: { threshold: 12, heal: 1 },
+    critical: { threshold: 0, heal: 2 },
+  },
+  {
+    id: "hero_skill:warrens:h15:p308",
+    name: "Fortifying Vapours",
+    stances: ["support", "ranged"],
+    range: 1,
+    heroTargets: 1,
+    effect: "heal",
+    hit: { threshold: 14, heal: 2 },
+    critical: { threshold: 0, heal: 3 },
+  },
+  {
+    id: "hero_skill:warrens:h15:p309",
+    name: "Fortifying Vapours",
+    stances: ["support", "ranged"],
+    range: 1,
+    heroTargets: 1,
+    effect: "heal",
+    hit: { threshold: 16, heal: 3 },
+    critical: { threshold: 1, heal: 5 },
+  },
+];
+
 const entries: HeroAnnotationEntries = {
+  healSupport: healSupportEntries,
   directAttack: directAttackEntries,
   status: statusEntries,
   shuffle: shuffleEntries,

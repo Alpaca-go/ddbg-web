@@ -72,3 +72,65 @@ export const directAttackSchema = z
   });
 
 export type DirectAttack = Readonly<z.infer<typeof directAttackSchema>>;
+
+export const healSupportSchema = z
+  .strictObject({
+    stances: z.array(z.enum(["support", "ranged", "defensive", "aggressive"])).min(1),
+    range: z.int().nonnegative().optional(),
+    rangeMinimum: z.int().nonnegative().optional(),
+    selfRange: z.literal(true).optional(),
+    heroTargets: z.int().nonnegative(),
+    effect: z.literal("heal").optional(),
+    hit: z
+      .strictObject({
+        threshold: z.int().nonnegative(),
+        heal: z.int().nonnegative().optional(),
+      })
+      .optional(),
+    critical: z
+      .strictObject({
+        threshold: z.int().nonnegative(),
+        heal: z.int().nonnegative().optional(),
+      })
+      .optional(),
+    selfHeal: z.int().nonnegative().optional(),
+    selfStress: z.int().optional(),
+    selfHealStress: z.strictObject({ heal: z.int().nonnegative(), stress: z.int() }).optional(),
+    combinedHealMarker: z.literal(true).optional(),
+    targetHeal: z.int().nonnegative().optional(),
+    targetStress: z.int().optional(),
+    targetLight: z.int().min(-5).max(5).optional(),
+    onHit: z.array(statusEffectSchema).optional(),
+    onUse: z.array(statusEffectSchema).optional(),
+    removal: z
+      .array(
+        z.strictObject({
+          scope: z.enum(["self", "target"]),
+          kinds: z
+            .array(z.enum(["bleed", "blight"]))
+            .length(2)
+            .refine((kinds) => new Set(kinds).size === kinds.length, "移除状态种类不得重复"),
+        }),
+      )
+      .min(1)
+      .optional(),
+  })
+  .refine(
+    ({ range, rangeMinimum, selfRange }) => {
+      if (selfRange) return range === undefined && rangeMinimum === undefined;
+      if (range === undefined) return false;
+      return rangeMinimum === undefined || rangeMinimum <= range;
+    },
+    { path: ["rangeMinimum"], message: "自身射程不能再登记距离，最小射程不能超过最大射程" },
+  )
+  .refine(({ hit, critical }) => !critical || hit !== undefined, {
+    path: ["critical"],
+    message: "有暴击判定时必须同时登记命中判定",
+  })
+  .refine(
+    ({ selfHeal, selfStress, selfHealStress }) =>
+      !selfHealStress || (selfHeal === undefined && selfStress === undefined),
+    { path: ["selfHealStress"], message: "成对自身治疗减压不能与单独自身治疗或压力同时登记" },
+  );
+
+export type HealSupport = Readonly<z.infer<typeof healSupportSchema>>;

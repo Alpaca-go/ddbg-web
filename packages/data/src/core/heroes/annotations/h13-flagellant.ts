@@ -1,4 +1,4 @@
-import type { DirectAttackEntry } from "./types";
+import type { HealSupportEntry, DirectAttackEntry } from "./types";
 import { printIcon } from "../../../shared/print-icons";
 import type {
   HeroAnnotationEntries,
@@ -956,7 +956,94 @@ const directAttackEntries: readonly DirectAttackEntry[] = [
   },
 ];
 
+const healSupportEntries: readonly HealSupportEntry[] = [
+  {
+    id: "hero_skill:cove:h13:p262",
+    name: "Reclaim",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    rangeMinimum: 0,
+    heroTargets: 1,
+    effect: "heal",
+    hit: { threshold: 12, heal: 2 },
+    critical: { threshold: 2, heal: 4 },
+  },
+  {
+    id: "hero_skill:cove:h13:p263",
+    name: "Reclaim",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    rangeMinimum: 0,
+    heroTargets: 1,
+    effect: "heal",
+    hit: { threshold: 14, heal: 3 },
+    critical: { threshold: 2, heal: 6 },
+  },
+  {
+    id: "hero_skill:cove:h13:p264",
+    name: "Reclaim",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    rangeMinimum: 0,
+    heroTargets: 1,
+    effect: "heal",
+    hit: { threshold: 16, heal: 4 },
+    critical: { threshold: 2, heal: 8 },
+  },
+  {
+    id: "hero_skill:cove:h13:p265",
+    name: "Redeem",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    heroTargets: 1,
+  },
+  {
+    id: "hero_skill:cove:h13:p266",
+    name: "Redeem",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    heroTargets: 1,
+  },
+  {
+    id: "hero_skill:cove:h13:p267",
+    name: "Redeem",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    heroTargets: 1,
+  },
+  {
+    id: "hero_skill:cove:h13:p268",
+    name: "Endure",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 1,
+    heroTargets: 1,
+    hit: { threshold: 12 },
+    critical: { threshold: 0 },
+  },
+  {
+    id: "hero_skill:cove:h13:p269",
+    name: "Endure",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 2,
+    rangeMinimum: 1,
+    heroTargets: 1,
+    hit: { threshold: 14 },
+    critical: { threshold: 0 },
+  },
+  {
+    id: "hero_skill:cove:h13:p270",
+    name: "Endure",
+    stances: ["support", "ranged", "defensive", "aggressive"],
+    range: 2,
+    rangeMinimum: 1,
+    heroTargets: 1,
+    hit: { threshold: 16 },
+    critical: { threshold: 1 },
+  },
+];
+
 const entries: HeroAnnotationEntries = {
+  healSupport: healSupportEntries,
   directAttack: directAttackEntries,
   status: statusEntries,
   range: rangeEntries,

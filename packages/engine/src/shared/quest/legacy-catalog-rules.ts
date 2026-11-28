@@ -50,10 +50,17 @@ export function upgradeLegacyCatalogRules(
     const supplied = record(before.rules);
     if (!legacyIds) {
       const verified = record(after.rules);
-      if (!supplied || !verified || "directAttack" in supplied || !("directAttack" in verified))
+      if (
+        !supplied ||
+        !verified ||
+        "directAttack" in supplied ||
+        "healSupport" in supplied ||
+        (!("directAttack" in verified) && !("healSupport" in verified))
+      )
         return old;
-      const { directAttack: _attack, ...previousRules } = verified;
+      const { directAttack: _attack, healSupport: _heal, ...previousRules } = verified;
       void _attack;
+      void _heal;
       return equal(supplied, previousRules) ? { ...before, rules: verified } : old;
     }
     if (

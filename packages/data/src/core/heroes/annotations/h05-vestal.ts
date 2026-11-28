@@ -1,4 +1,4 @@
-import type { DirectAttackEntry } from "./types";
+import type { HealSupportEntry, DirectAttackEntry } from "./types";
 import type { StatusEffectEntry, RangeEntry, DamageEntry, SelfEffectEntry } from "./types";
 import type { HeroAnnotationEntries } from "./types";
 import { defineHeroModule } from "./patch-helpers";
@@ -466,7 +466,74 @@ const directAttackEntries: readonly DirectAttackEntry[] = [
   },
 ];
 
+const healSupportEntries: readonly HealSupportEntry[] = [
+  {
+    id: "hero_skill:core:h05:p094",
+    name: "Divine Grace",
+    stances: ["support", "ranged"],
+    range: 1,
+    rangeMinimum: 0,
+    heroTargets: 1,
+    effect: "heal",
+    hit: { threshold: 12, heal: 3 },
+    critical: { threshold: 3, heal: 5 },
+  },
+  {
+    id: "hero_skill:core:h05:p095",
+    name: "Divine Grace",
+    stances: ["support", "ranged"],
+    range: 1,
+    rangeMinimum: 0,
+    heroTargets: 1,
+    effect: "heal",
+    hit: { threshold: 14, heal: 5 },
+    critical: { threshold: 3, heal: 7 },
+  },
+  {
+    id: "hero_skill:core:h05:p096",
+    name: "Divine Grace",
+    stances: ["support", "ranged"],
+    range: 1,
+    rangeMinimum: 0,
+    heroTargets: 1,
+    effect: "heal",
+    hit: { threshold: 16, heal: 7 },
+    critical: { threshold: 3, heal: 9 },
+  },
+  {
+    id: "hero_skill:core:h05:p097",
+    name: "Divine Comfort",
+    stances: ["support", "ranged", "defensive"],
+    range: 1,
+    heroTargets: 3,
+    effect: "heal",
+    hit: { threshold: 12, heal: 2 },
+    critical: { threshold: 3, heal: 3 },
+  },
+  {
+    id: "hero_skill:core:h05:p098",
+    name: "Divine Comfort",
+    stances: ["support", "ranged", "defensive"],
+    range: 1,
+    heroTargets: 3,
+    effect: "heal",
+    hit: { threshold: 14, heal: 3 },
+    critical: { threshold: 3, heal: 4 },
+  },
+  {
+    id: "hero_skill:core:h05:p099",
+    name: "Divine Comfort",
+    stances: ["support", "ranged", "defensive"],
+    range: 1,
+    heroTargets: 3,
+    effect: "heal",
+    hit: { threshold: 16, heal: 4 },
+    critical: { threshold: 3, heal: 5 },
+  },
+];
+
 const entries: HeroAnnotationEntries = {
+  healSupport: healSupportEntries,
   directAttack: directAttackEntries,
   status: statusEntries,
   range: rangeEntries,
