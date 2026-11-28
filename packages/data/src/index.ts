@@ -213,6 +213,11 @@ export {
   readWealdStygianRoomReplacement,
 } from "./weald/rooms/stygian-rooms";
 export {
+  warrensStygianRoomsSchema,
+  readWarrensStygianRoomReplacement,
+} from "./warrens/rooms/stygian-rooms";
+export type { WarrensStygianRooms } from "./warrens/rooms/stygian-rooms";
+export {
   coveBossRoomCardSchema,
   coveNormalRoomCardSchema,
   coveRoomCardSchema,
